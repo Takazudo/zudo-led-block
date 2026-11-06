@@ -1,0 +1,96 @@
+---
+title: "CI とホスティング"
+description: "Cloudflare Workers Static Assets での本番公開の構成と、まだ有効化していない公開を始めるための手順。"
+sidebar_position: 6
+---
+
+:::note[本番公開は無効です]
+`https://zudo-led-block.zudolab.dev/` への公開はまだ有効化していません。Cloudflare のリソース・DNS・証明書・リポジトリ変数・シークレットは作成していません。
+リポジトリ変数 `CLOUDFLARE_DEPLOY_ENABLED` が **ちょうど `true`** になるまで、`main` にマージしても公開されません。
+:::
+
+## 構成
+
+| 項目 | 内容 |
+|---|---|
+| 方式 | Cloudflare Workers Static Assets (サーバーコードなし) |
+| Worker 名 | `zudo-led-block` |
+| カスタムドメイン | `zudo-led-block.zudolab.dev` (ホスト名。ワイルドカードのルートではない) |
+| `workers.dev` / プレビュー URL | 無効 |
+| HTML | `auto-trailing-slash` (`/docs/project/` が `docs/project/index.html`) |
+| 存在しないパス | `404-page` (`404.html` を HTTP 404 で返す。SPA フォールバックなし) |
+| CLI | `cf` 1.0.0-beta.28 (固定)、ビルドの橋渡しに `wrangler` 4.158.0 |
+| 設定ファイル | `doc/cloudflare.config.ts` (Worker の設定)、`doc/wrangler.config.ts` (`assetsDirectory: "dist"`) |
+
+`cf` は `package.json` のビルドスクリプトを実行しません。順番は次のとおりです。
+
+```sh
+pnpm build            # A5 の公開ファイルを同期し、zfb で doc/dist を作る
+pnpm check:site       # 公開範囲・リンク・25 MiB/ファイル・ファイル数を確認
+pnpm cf:build         # doc/.cloudflare/output/v0/ を作る (認証情報不要)
+pnpm cf:check-output  # Worker 設定と、アセットが doc/dist と同一であることを確認
+pnpm cf:dry-run       # cf deploy --prebuilt --dry-run (アップロードしない)
+```
+
+ビルド出力の `config.json` には現在 `buildContext.mode` が記録されません。そのため本番の `cf deploy --prebuilt` には `--mode` を付けません (`scripts/check_cf_output.py --print-mode` で確認できます)。
+
+## GitHub Actions の動作
+
+- `CI` ワークフローは各 PR、`main` への push、手動実行で動き、Cloudflare の認証情報を使いません。
+- `Production deploy` ジョブは、次のすべてを満たすときだけ動きます。
+  - リポジトリが `Takazudo/zudo-led-block`
+  - ref が `refs/heads/main`、イベントが `push` または `workflow_dispatch`
+  - リポジトリ変数 `CLOUDFLARE_DEPLOY_ENABLED` が `true`
+  - 同じリビジョンの検証ジョブがすべて成功
+- 条件を満たさないときは、`Deploy gate` ジョブが「DISABLED / SKIPPED」と表示します。「デプロイした」とは表示しません。
+- シークレットは有効な公開ジョブの手順にだけ渡します。足りなければ値を出力せずに失敗します。本番の公開は同時に 1 つだけ実行します。
+
+## 有効化の手順 (ユーザーが行う作業)
+
+### 1. Cloudflare 側の確認
+
+1. `zudolab.dev` のゾーンが有効で、使うアカウントにあることを確認します。
+2. `zudo-led-block.zudolab.dev` に既存の DNS レコード・Worker のカスタムドメイン・ルートがないことを確認します。あれば先に整理します (カスタムドメインは既存のレコードと衝突します)。
+3. 最初の公開では Worker の作成とカスタムドメインの割当て (DNS レコードと証明書の作成) が起きます。これには既存 Worker への公開より強い権限が必要です。
+
+### 2. API トークン
+
+Cloudflare ダッシュボードで API トークンを作ります。少なくとも次の権限が必要です。
+
+| 範囲 | 権限 | 理由 |
+|---|---|---|
+| アカウント | Workers Scripts: Edit | Worker とアセットのアップロード |
+| ゾーン `zudolab.dev` | Workers Routes: Edit | カスタムドメインの割当て |
+| ゾーン `zudolab.dev` | DNS: Edit | 最初のカスタムドメイン作成時の DNS レコード |
+| ゾーン `zudolab.dev` | Zone: Read | ゾーンの特定 |
+
+正確な権限名はダッシュボードの表示に従ってください。最初の公開が終わった後は、権限を絞ったトークンに差し替えられます。
+
+### 3. GitHub の設定
+
+| 名前 | 種類 | 値 |
+|---|---|---|
+| `CLOUDFLARE_API_TOKEN` | シークレット (リポジトリ、または `production` 環境) | 上の API トークン |
+| `CLOUDFLARE_ACCOUNT_ID` | シークレット (リポジトリ、または `production` 環境) | `zudolab.dev` を持つアカウントの ID |
+| `CLOUDFLARE_DEPLOY_ENABLED` | **変数** (リポジトリ) | 公開を始めるときに `true`。未設定や `false` は無効 |
+
+公開ジョブは GitHub の `production` 環境を使います。保護ルール (承認者など) を付けたい場合は、その環境に設定してください。
+
+### 4. 最初の公開
+
+1. シークレットを登録してから、変数 `CLOUDFLARE_DEPLOY_ENABLED` を `true` にします。
+2. Actions の `CI` ワークフローを `main` で手動実行 (または `main` に push) します。
+3. 検証ジョブがすべて成功すると `Production deploy` が `cf deploy --prebuilt` を実行します。
+
+### 5. 公開後の確認
+
+```sh
+curl -sI https://zudo-led-block.zudolab.dev/                     # 200、有効な証明書
+curl -sI https://zudo-led-block.zudolab.dev/docs/architecture/bom/ # 200 (深いリンク)
+curl -sI https://zudo-led-block.zudolab.dev/docs/project          # 307 → /docs/project/
+curl -sI https://zudo-led-block.zudolab.dev/no-such-page/         # 404
+curl -sI https://zudo-led-block.zudolab.dev/a5/deliverables/light_block_A5_engineering_update.pdf  # 200
+```
+
+ブラウザで日本語のナビゲーション・検索・画像・ダウンロードを確認し、`workers.dev` の URL が無効であることも確認します。
+公開を止めるときは変数を `false` にします (公開済みの Worker は残るので、削除はダッシュボードで行います)。

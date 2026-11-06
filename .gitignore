@@ -39,3 +39,33 @@ doc/.wrangler/
 playwright-report/
 test-results/
 /tmp-check/
+
+# --- zudo-circuit-doc scaffold (create-zudo-circuit-doc@0.2.0) ---
+# Dependencies and build output
+node_modules
+doc/dist
+doc/.zfb
+doc/.zfb-build/
+
+# Runtime caches (never committed; generated MDX and preflight ARE committed)
+.zudo-doc/
+.circuit-cache/
+
+# zudo-doc's own generated Claude Code resource docs (regenerated on every
+# build/check/dev from .claude/ — same convention zudo-doc itself uses)
+doc/src/content/docs/claude/
+doc/src/content/docs/claude-md/
+doc/src/content/docs/claude-commands/
+doc/src/content/docs/claude-skills/
+doc/src/content/docs/claude-agents/
+
+# macOS
+.DS_Store
+
+# Logs
+*.log
+npm-debug.log*
+pnpm-debug.log*
+
+# A5 public selection copied at build time by scripts/a5_site.py sync-assets
+doc/public/a5/

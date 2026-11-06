@@ -1,0 +1,67 @@
+---
+title: "How we work"
+description: "The agent workflow this project follows, its templates and task examples, and where component evidence lives."
+sidebar_position: 3
+---
+
+This project is developed together with AI agents. Short requests such as "download this datasheet", "get the 3D model" or "check this spec" should leave durable, honest project knowledge behind: an exact identity, retained evidence, regenerated pages and a clear statement of what is still unknown.
+
+## The canonical workflow
+
+Every agent follows one file: `circuit/WORKFLOW.md`. The tool-specific entry files `CLAUDE.md` and `AGENTS.md` only point to it. It defines:
+
+- **Shared entry:** read the [project brief](./index.mdx) and [next actions](./next-actions.mdx), run `pnpm circuit:check` before editing, and route every request by exact manufacturer, complete part number, order code and project role.
+- **Seven workflows:** A, start a circuit; B, add or replace an exact component; C, find or download a datasheet or source; D, obtain a symbol, footprint and 3D model; E, verify a specification; F, record a bench result; G, handle a source or design change. Each ends with a stated "Done" criterion.
+- **Integration rules and publication policy:** cross-component rules are added only when a real interaction exists, and publishing a record is an explicit, reviewable selection change.
+- **A four-part completion report:** what was obtained or checked, the exact identity involved, what changed, and what remains with its reason.
+
+## Where things live
+
+| Kind of knowledge | Location | Edited by |
+|---|---|---|
+| Intent, rationale, decisions, plans, handoff | This site's Project, Architecture, Research, Decisions and Verification sections (`doc/src/content/docs/`) | People and agents |
+| Exact component evidence: sources, facts, verdicts, coverage, pin maps | One owner bundle per component under `.claude/skills/component-*/` | Agents, following the evidence contract |
+| Orderable identities and placements | `.claude/skills/component-spec-audit/references/inventory.json` | Agents |
+| Cross-component rules | `.claude/skills/circuit-spec-integration/references/rules.json` | Agents |
+| What is published | `circuit/publication/selection.json` and `circuit/publication/assets.json` | Agents, as a reviewed diff |
+| Component catalog and record pages | The Components section, generated from the evidence | The generator only |
+| Downloaded working copies of sources | `.circuit-cache/sources/` (not committed) | Agents |
+
+The evidence records are authoritative. When a page in this site and an evidence record disagree, the record is correct and the page needs updating. Generated component pages are never edited by hand.
+
+## Verdicts are explicit
+
+Component facts carry one of six verdicts: `PASS - primary-source confirmed`, `CONFIRMED - distributor identity only`, `BLOCKER - deterministic spec violation`, `NEEDS BENCH`, `UNSOURCED` and `NOT APPLICABLE`. There is no single pass/fail badge. A clean validation or a covered domain is not hardware sign-off; physical checks are recorded as verification reports.
+
+## Templates
+
+Authoring templates live in `circuit/templates/` and are not published. Copy one into this site when its activity happens:
+
+| Template | Use it for |
+|---|---|
+| `project-docs/project/task-request.mdx` | Delegating one bounded task to an agent |
+| `project-docs/project/change-impact.mdx` | A change with downstream effects |
+| `project-docs/architecture/interfaces.mdx` | Interface contracts, once blocks or connectors are proposed |
+| `project-docs/research/component-candidate.mdx` | One component research question |
+| `project-docs/decisions/decision.mdx` | One consequential choice |
+| `project-docs/decisions/sourcing.mdx` | Population and procurement choices |
+| `project-docs/verification/bring-up.mdx` | One verification plan or run |
+| `cad-asset-receipt.json` | Recording where a CAD asset came from and how faithful it is |
+
+The brief, next actions and architecture overview templates are already instantiated as live pages in this site. `circuit/templates/README.md` explains each template in detail.
+
+## Task examples
+
+`circuit/agent-task-examples.md` gives nine short requests in English and Japanese: download a datasheet, find and check a 3D model, verify a claimed specification, check an interaction, compare a replacement, implement a selected change, prepare a bring-up plan, turn bench observations into evidence, and continue the project from the handoff. Each names the workflow and commands it leads to.
+
+## Commands
+
+| Command | What it does |
+|---|---|
+| `pnpm dev` | Dev server, regenerating component pages as evidence changes |
+| `pnpm build` | Publish selected models, generate component pages, build the site |
+| `pnpm check` | Validate evidence and check that generated output is current |
+| `pnpm check:site` | Post-build reference, publication and link checks |
+| `pnpm circuit:check` | Validate the component evidence (offline) |
+| `pnpm circuit:generate` | Regenerate the component pages |
+| `pnpm circuit:doctor` | Report required and optional tools |
