@@ -1,0 +1,316 @@
+# Credential-free validation for every PR and main push, plus a default-off
+# production deploy gated on the repository variable CLOUDFLARE_DEPLOY_ENABLED.
+#
+# No path filters: engineering, procurement, firmware and docs inputs all feed
+# the published site and checks. Validation jobs never receive Cloudflare
+# secrets. A green run is not an electronics or manufacturing approval.
+name: CI
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+# Explicit `shell: bash` runs steps with `bash --noprofile --norc -eo pipefail`,
+# so a failing command piped into `tee` fails the step (the implicit default
+# is `bash -e` without pipefail).
+defaults:
+  run:
+    shell: bash
+
+concurrency:
+  group: ci-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: ${{ github.event_name == 'pull_request' }}
+
+env:
+  PYTHON_VERSION: "3.12"
+  NODE_VERSION: "24"
+  # Exact Ubuntu 24.04 (noble) package used for the recorded A5 build:
+  # "arm-none-eabi-gcc (15:13.2.rel1-2) 13.2.1 20231009". apt verifies it
+  # against the signed Ubuntu archive.
+  ARM_GCC_DEB_VERSION: "15:13.2.rel1-2"
+  # Binutils that link the HEX/BIN; pinned so the image comparison is meaningful.
+  ARM_BINUTILS_DEB_VERSION: "2.42-1ubuntu1+23"
+
+jobs:
+  a5-data:
+    name: A5 data and record integrity
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - uses: actions/setup-python@6d4fd22b20465ccc0f7354476588e8df7c9ca0e0 # v7.1.0
+        with:
+          python-version: ${{ env.PYTHON_VERSION }}
+      - name: Verify 786 imported seed files (size + SHA-256)
+        run: python3 scripts/verify_seed.py --manifest provenance/seed-manifest.json --repo . --output "$RUNNER_TEMP/seed-verification.json"
+      - name: Recalculate procurement rows (frozen observations, --check)
+        run: python3 engineering/a5/build_procurement_rows.py --check
+      - name: Re-run netlist interface check (temporary output)
+        run: >-
+          python3 engineering/a5/integration/check_schematic_interfaces.py
+          engineering/a5/integration/native_schematic/controller/netlist.xml
+          engineering/a5/integration/native_schematic/led_leaf/netlist.xml
+          engineering/a5/integration/native_schematic/power_adapter/netlist.xml
+          --output "$RUNNER_TEMP/a5-interface-check.json"
+      - name: BOM reconciliation, historical ERC/DRC input identities, firmware source manifest
+        run: python3 scripts/check_a5_records.py --output "$RUNNER_TEMP/a5-record-checks.json"
+      - name: Generated A5 pages and publication assets are current
+        run: python3 scripts/a5_site.py generate --check
+      - name: Checkpoint left unmodified
+        run: |
+          python3 scripts/verify_seed.py --manifest provenance/seed-manifest.json --repo . > /dev/null
+          git status --porcelain -- engineering/a5 | tee "$RUNNER_TEMP/a5-status.txt"
+          test ! -s "$RUNNER_TEMP/a5-status.txt"
+      - name: Summary
+        if: always()
+        run: |
+          {
+            echo "### A5 data checks (fresh, this run)"
+            echo "- Historical KiCad 10.0.8 ERC/DRC were **not** re-run; only their input identities were checked."
+            echo "- Controller PCB remains UNROUTED (130 unconnected, 2 courtyard overlaps)."
+          } >> "$GITHUB_STEP_SUMMARY"
+      - uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
+        if: always()
+        with:
+          name: a5-data-reports
+          path: |
+            ${{ runner.temp }}/seed-verification.json
+            ${{ runner.temp }}/a5-interface-check.json
+            ${{ runner.temp }}/a5-record-checks.json
+          retention-days: 3
+          if-no-files-found: warn
+
+  firmware-host:
+    name: Firmware host tests
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - name: Toolchain
+        run: cc --version | head -1; make --version | head -1
+      - name: make test
+        run: make -C engineering/a5/firmware test
+      - name: make test-sanitize (ASan + UBSan + LeakSanitizer, no exclusions)
+        run: make -C engineering/a5/firmware test-sanitize
+      - name: make timing
+        run: make -C engineering/a5/firmware timing
+      - name: Checkpoint left unmodified (build/ is ignored)
+        run: test -z "$(git status --porcelain -- engineering/a5)"
+
+  firmware-arm:
+    name: Firmware ARM build (temporary copy)
+    runs-on: ubuntu-24.04
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - uses: actions/setup-python@6d4fd22b20465ccc0f7354476588e8df7c9ca0e0 # v7.1.0
+        with:
+          python-version: ${{ env.PYTHON_VERSION }}
+      - name: Install pinned arm-none-eabi-gcc from the signed Ubuntu archive
+        run: |
+          sudo apt-get update -qq
+          sudo apt-get install -y --no-install-recommends "gcc-arm-none-eabi=${ARM_GCC_DEB_VERSION}" "binutils-arm-none-eabi=${ARM_BINUTILS_DEB_VERSION}"
+          test "$(dpkg-query -W -f='${Version}' gcc-arm-none-eabi)" = "$ARM_GCC_DEB_VERSION"
+          test "$(dpkg-query -W -f='${Version}' binutils-arm-none-eabi)" = "$ARM_BINUTILS_DEB_VERSION"
+          arm-none-eabi-gcc --version | head -1 | tee "$RUNNER_TEMP/arm-gcc-version.txt"
+          grep -F "13.2.1 20231009" "$RUNNER_TEMP/arm-gcc-version.txt"
+      - name: make arm (in tree; output to ignored build/)
+        run: make -C engineering/a5/firmware arm
+      - name: make_release.py in a temporary copy, compare with recorded dist/
+        run: |
+          work="$RUNNER_TEMP/fw"
+          rm -rf "$work" && mkdir -p "$work"
+          cp -a engineering/a5/firmware "$work/firmware"
+          rm -rf "$work/firmware/build"
+          python3 "$work/firmware/tools/make_release.py" --arm-prefix arm-none-eabi- | tee "$RUNNER_TEMP/make-release.txt"
+          python3 - "$work/firmware/dist" engineering/a5/firmware/dist <<'PY' | tee "$RUNNER_TEMP/fw-compare.json"
+          import hashlib, json, sys
+          from pathlib import Path
+          fresh, recorded = Path(sys.argv[1]), Path(sys.argv[2])
+          v = json.loads((fresh / "verification.json").read_text())
+          t = v["tests"]
+          ok = (t["host"] == "PASS" and t["arm_compile_link"] == "PASS" and t["undefined_symbols"] == 0
+                and all(x["strong_definition"] for x in t["interrupt_vectors"].values()))
+          sha = lambda p: hashlib.sha256(p.read_bytes()).hexdigest()
+          images = {n: sha(fresh / n) == sha(recorded / n) for n in ("light_block_A5.hex", "light_block_A5.bin")}
+          m = v["memory"]
+          report = {"compiler": v["compiler"], "flash_payload_bytes": m["flash_payload_bytes"],
+                    "static_plus_stack_bytes": m["static_plus_stack_bytes"],
+                    "leak_sanitizer": t["leak_sanitizer"], "vectors": sorted(t["interrupt_vectors"]),
+                    "undefined_symbols": t["undefined_symbols"], "release_checks_ok": ok,
+                    "image_identical_to_recorded_dist": images,
+                    "note": "ELF/MAP embed build paths and are not compared; HEX/BIN are the flashable images."}
+          print(json.dumps(report, indent=2))
+          sys.exit(0 if ok and all(images.values()) else 1)
+          PY
+      - name: Original dist/ and seed identities unchanged
+        run: |
+          python3 scripts/verify_seed.py --manifest provenance/seed-manifest.json --repo . > /dev/null
+          test -z "$(git status --porcelain -- engineering/a5)"
+      - name: Summary
+        if: always()
+        run: |
+          {
+            echo "### Firmware ARM build (fresh, this run)"
+            echo '```'; cat "$RUNNER_TEMP/arm-gcc-version.txt" 2>/dev/null; cat "$RUNNER_TEMP/fw-compare.json" 2>/dev/null; echo '```'
+            echo "No flashing or hardware test is performed."
+          } >> "$GITHUB_STEP_SUMMARY"
+
+  docs:
+    name: Docs build, site checks, browser, Cloudflare dry run
+    runs-on: ubuntu-24.04
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - uses: actions/setup-python@6d4fd22b20465ccc0f7354476588e8df7c9ca0e0 # v7.1.0
+        with:
+          python-version: ${{ env.PYTHON_VERSION }}
+      - uses: pnpm/action-setup@73e46992e05b19abd31f2f3c20e0e7370d762115 # v6.1.1
+      - uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: pnpm
+      - name: Install (frozen lockfile)
+        run: pnpm install --frozen-lockfile
+      - name: circuit:doctor
+        run: pnpm circuit:doctor
+      - name: circuit:check
+        run: pnpm circuit:check
+      - name: circuit:generate + A5 generation leave no tracked changes
+        run: |
+          pnpm circuit:generate
+          python3 scripts/a5_site.py generate
+          git status --porcelain --untracked-files=all -- . ':!doc/public/a5' | tee "$RUNNER_TEMP/drift.txt"
+          test ! -s "$RUNNER_TEMP/drift.txt"
+      - name: build
+        run: pnpm build
+      - name: check (evidence, generated output current, tsc)
+        run: pnpm check
+      - name: check:site (built references, publication scope, links, size/count limits)
+        run: pnpm check:site
+      - name: Second build introduces no tracked changes
+        run: |
+          pnpm build
+          git status --porcelain --untracked-files=all | tee "$RUNNER_TEMP/drift2.txt"
+          test ! -s "$RUNNER_TEMP/drift2.txt"
+      - name: Install Chromium for Playwright
+        run: pnpm exec playwright install --with-deps chromium
+      - name: Authored-site browser checks (desktop + mobile)
+        run: pnpm test:browser
+      - name: Cloudflare Build Output (no credentials)
+        env:
+          CLOUDFLARE_API_TOKEN: ""
+          CLOUDFLARE_ACCOUNT_ID: ""
+        run: |
+          pnpm --dir doc exec cf --version
+          pnpm cf:build
+          pnpm cf:check-output
+          pnpm cf:dry-run
+      - uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
+        if: always()
+        with:
+          name: browser-screenshots
+          path: test-results/screenshots/
+          retention-days: 3
+          if-no-files-found: warn
+
+  deploy-gate:
+    name: Deploy gate
+    needs: [a5-data, firmware-host, firmware-arm, docs]
+    # Always report, including when a validation job failed (then deploy is skipped).
+    if: always()
+    runs-on: ubuntu-24.04
+    timeout-minutes: 5
+    steps:
+      - name: Report production deployment state
+        env:
+          VALIDATION: ${{ join(needs.*.result, ' ') }}
+          ENABLED: ${{ vars.CLOUDFLARE_DEPLOY_ENABLED }}
+          EVENT: ${{ github.event_name }}
+          REF: ${{ github.ref }}
+          REPO: ${{ github.repository }}
+        run: |
+          valid=true
+          for r in $VALIDATION; do [ "$r" = "success" ] || valid=false; done
+          if [ "$valid" != true ]; then
+            msg="Production deploy SKIPPED: validation did not succeed (results: $VALIDATION). Nothing was deployed."
+          elif [ "$REPO" = "Takazudo/zudo-led-block" ] && [ "$REF" = "refs/heads/main" ] \
+             && { [ "$EVENT" = "push" ] || [ "$EVENT" = "workflow_dispatch" ]; } && [ "$ENABLED" = "true" ]; then
+            msg="Production deploy ENABLED for this revision; see the Production deploy job for the outcome (CLOUDFLARE_DEPLOY_ENABLED=true)."
+          else
+            msg="Production deploy DISABLED / SKIPPED (requires Takazudo/zudo-led-block, refs/heads/main, push or workflow_dispatch, and CLOUDFLARE_DEPLOY_ENABLED == 'true'; event=$EVENT ref=$REF). Nothing was deployed."
+          fi
+          echo "$msg"
+          echo "### $msg" >> "$GITHUB_STEP_SUMMARY"
+
+  production-deploy:
+    name: Production deploy
+    needs: [a5-data, firmware-host, firmware-arm, docs]
+    if: >-
+      github.repository == 'Takazudo/zudo-led-block' &&
+      github.ref == 'refs/heads/main' &&
+      (github.event_name == 'push' || github.event_name == 'workflow_dispatch') &&
+      vars.CLOUDFLARE_DEPLOY_ENABLED == 'true'
+    runs-on: ubuntu-24.04
+    timeout-minutes: 20
+    environment:
+      name: production
+      url: https://zudo-led-block.zudolab.dev/
+    concurrency:
+      group: production-deploy
+      cancel-in-progress: false
+    steps:
+      - name: Require Cloudflare credentials (values are never printed)
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+        run: |
+          missing=""
+          [ -n "$CLOUDFLARE_API_TOKEN" ] || missing="$missing CLOUDFLARE_API_TOKEN"
+          [ -n "$CLOUDFLARE_ACCOUNT_ID" ] || missing="$missing CLOUDFLARE_ACCOUNT_ID"
+          if [ -n "$missing" ]; then
+            echo "::error::CLOUDFLARE_DEPLOY_ENABLED is 'true' but these secrets are missing:$missing. See doc/src/content/docs/project/hosting.mdx."
+            exit 1
+          fi
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - uses: actions/setup-python@6d4fd22b20465ccc0f7354476588e8df7c9ca0e0 # v7.1.0
+        with:
+          python-version: ${{ env.PYTHON_VERSION }}
+      - uses: pnpm/action-setup@73e46992e05b19abd31f2f3c20e0e7370d762115 # v6.1.1
+      - uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+      - name: Install (frozen lockfile)
+        run: pnpm install --frozen-lockfile
+      - name: Build docs and Cloudflare Build Output for this revision
+        run: |
+          pnpm build
+          pnpm check:site
+          pnpm cf:build
+          pnpm cf:check-output
+      - name: cf deploy --prebuilt (mode exactly as recorded in Build Output)
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+        run: |
+          mode="$(python3 scripts/check_cf_output.py doc/.cloudflare/output/v0 --print-mode)"
+          if [ -n "$mode" ]; then
+            pnpm --dir doc exec cf deploy --prebuilt --mode "$mode" --message "${GITHUB_SHA}"
+          else
+            pnpm --dir doc exec cf deploy --prebuilt --message "${GITHUB_SHA}"
+          fi

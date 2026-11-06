@@ -1,0 +1,2290 @@
+{
+  "project": "Light Block",
+  "revision": "A4 recovery audit",
+  "audit_completed_jst": "2026-11-06T11:49:54.755022+09:00",
+  "source_package": "audits/electronics/inputs/a4_history",
+  "scope": "Official C-code/MPN/assembly recheck, independent consistency/calculation audit, and parent rendered-page live quantity/price refresh. Additive evidence, not an electrical or manufacturing release.",
+  "inventory_freshness": "2026-11-06 11:30:39 to 11:33:52 JST",
+  "quantity_basis": "Recovered A4 reference design and procurement allocation. This package does not contain a completed native schematic/netlist that independently proves the final fitted BOM.",
+  "summary": {
+    "whole_BOM_unique_parts": 29,
+    "whole_BOM_fitted_pieces": 76,
+    "electronic_subset_unique_parts": 24,
+    "electronic_subset_fitted_pieces": 66,
+    "snapshot_consistency": "PASS: all 29 rows, five field groups each",
+    "catalog_recheck_opened": 19,
+    "catalog_recheck_indexed_only": 4,
+    "catalog_recheck_unavailable": 1,
+    "live_quantity_and_price_rows": 29,
+    "all_current_stock_counts_cover_100_fitted_modules": true,
+    "all_current_available_order_counts_cover_100_fitted_modules": true,
+    "refreshed_A4_baseline_available_order_bottleneck": {
+      "c_code": "C2651179",
+      "mpn": "74437324047",
+      "pieces": 431,
+      "fitted_module_equivalent_before_attrition": 431
+    },
+    "selected_A4_1_available_order_bottleneck": {
+      "c_code": "C694586",
+      "pieces": 719
+    }
+  },
+  "historical_cost_recalculation": [
+    {
+      "planning_modules": 1,
+      "all_29_type_BOM_usd_per_module": 10.9733,
+      "electronic_24_type_subset_usd_per_module": 7.8014,
+      "basis": "Recovered observed tier schedule applied to fitted quantities; no new quote, attrition, MOQ, PCBA or exterior costs."
+    },
+    {
+      "planning_modules": 10,
+      "all_29_type_BOM_usd_per_module": 9.8095,
+      "electronic_24_type_subset_usd_per_module": 6.8763,
+      "basis": "Recovered observed tier schedule applied to fitted quantities; no new quote, attrition, MOQ, PCBA or exterior costs."
+    },
+    {
+      "planning_modules": 100,
+      "all_29_type_BOM_usd_per_module": 7.52,
+      "electronic_24_type_subset_usd_per_module": 5.3725,
+      "basis": "Recovered observed tier schedule applied to fitted quantities; no new quote, attrition, MOQ, PCBA or exterior costs."
+    }
+  ],
+  "live_A4_baseline_cost_recalculation": [
+    {
+      "planning_modules": 1,
+      "all_29_type_BOM_usd_per_module": 10.9847,
+      "electronic_24_type_subset_usd_per_module": 7.8098,
+      "basis": "Rendered public-page tier schedule observed at 2026-11-06 11:30:39 to 11:33:52 JST applied to fitted quantities. No reservation, order, attrition, MOQ, PCBA or exterior costs."
+    },
+    {
+      "planning_modules": 10,
+      "all_29_type_BOM_usd_per_module": 9.82,
+      "electronic_24_type_subset_usd_per_module": 6.8841,
+      "basis": "Rendered public-page tier schedule observed at 2026-11-06 11:30:39 to 11:33:52 JST applied to fitted quantities. No reservation, order, attrition, MOQ, PCBA or exterior costs."
+    },
+    {
+      "planning_modules": 100,
+      "all_29_type_BOM_usd_per_module": 7.5283,
+      "electronic_24_type_subset_usd_per_module": 5.3784,
+      "basis": "Rendered public-page tier schedule observed at 2026-11-06 11:30:39 to 11:33:52 JST applied to fitted quantities. No reservation, order, attrition, MOQ, PCBA or exterior costs."
+    }
+  ],
+  "selected_A4_1": {
+    "source": "procurement_rows.json",
+    "only_part_selection_delta": {
+      "replaced": "C2651179 / 74437324047",
+      "selected": "C694586 / SPM4020T-4R7M-LR"
+    },
+    "unique_parts": 29,
+    "fitted_pieces": 76,
+    "cost_recalculation": [
+      {
+        "planning_modules": 1,
+        "all_29_type_BOM_usd_per_module": 9.6312
+      },
+      {
+        "planning_modules": 10,
+        "all_29_type_BOM_usd_per_module": 8.6171
+      },
+      {
+        "planning_modules": 100,
+        "all_29_type_BOM_usd_per_module": 6.4997
+      }
+    ],
+    "all_available_order_counts_cover_100_fitted_modules": true,
+    "available_order_bottleneck": {
+      "c_code": "C694586",
+      "pieces": 719
+    },
+    "detailed_inductor_audit": "TDK_SPM4020T_4R7M_LR_evaluation.json",
+    "inductor_manufacturing_release": false
+  },
+  "ILIM_recalculation_mA": {
+    "minimum": 343.3188739738179,
+    "nominal": 388.1005963188809,
+    "maximum": 439.43491799592994,
+    "scope": "TI equations with 68 kOhm +/-1%; not an enclosure thermal limit."
+  },
+  "cv_independent_corner_check": [
+    {
+      "CV_V": -12,
+      "independent_ADC_V_bounds": [
+        0.07068000000000031,
+        0.22967999999999972
+      ],
+      "max_difference_from_recovered_calculation_V": 2.7755575615628914e-17,
+      "status": "PASS"
+    },
+    {
+      "CV_V": -5,
+      "independent_ADC_V_bounds": [
+        0.9632675,
+        1.0872675
+      ],
+      "max_difference_from_recovered_calculation_V": 2.220446049250313e-16,
+      "status": "PASS"
+    },
+    {
+      "CV_V": 0,
+      "independent_ADC_V_bounds": [
+        1.60083,
+        1.6998300000000002
+      ],
+      "max_difference_from_recovered_calculation_V": 2.220446049250313e-16,
+      "status": "PASS"
+    },
+    {
+      "CV_V": 5,
+      "independent_ADC_V_bounds": [
+        2.224515075376884,
+        2.32576368159204
+      ],
+      "max_difference_from_recovered_calculation_V": 0.0,
+      "status": "PASS"
+    },
+    {
+      "CV_V": 12,
+      "independent_ADC_V_bounds": [
+        3.0864120603015075,
+        3.213910447761194
+      ],
+      "max_difference_from_recovered_calculation_V": 0.0,
+      "status": "PASS"
+    }
+  ],
+  "ledger": [
+    {
+      "c_code": "C5270180",
+      "mpn": "STM32G031G8U6TR",
+      "role": "MCU / U1",
+      "qty_per_module": 1,
+      "library": "Extended",
+      "quantity_basis": "Recovered A4 reference-circuit allocation in role and procurement notes; not a native EDA netlist export.",
+      "procurement_notes": "4×4 mm UFQFPN28。SWDパッドで書込み。基板の実配線は未完。",
+      "pcba_type": "Economic and Standard",
+      "assembly_type": "SMT Assembly",
+      "package": "UFQFPN-28(4x4)",
+      "url": "https://jlcpcb.com/partdetail/STMicroelectronics-STM32G031G8U6TR/C5270180",
+      "historical_quantity_observation": {
+        "observed_jst": "2026-11-06T05:15:49.918702+09:00",
+        "in_stock": 4522,
+        "available_order_qty": 3751,
+        "snapshot": "ic_led_evidence/C5270180.snapshot.json",
+        "in_stock_covers_100_fitted_modules": true,
+        "available_order_qty_covers_100_fitted_modules": true
+      },
+      "catalog_recheck": {
+        "status": "opened",
+        "tool_ref": "turn9view0",
+        "retrieval_crawl_label": "today",
+        "identity_and_assembly_match": true,
+        "note": "This field records the child web-text identity/assembly check. The separate live observation records the parent public-page rendered-DOM refresh, including C23138."
+      },
+      "live_quantity_and_price_observation": {
+        "method": "Read-only public JLCPCB product pages; visible rendered DOM. Prices are USD. Available Order Qty is the pre-purchase field, not a promise of total PCBA allocation.",
+        "observer": "parent task /root",
+        "evidence_file": "live_jlc_refresh_source.json",
+        "observed_utc": "2026-11-06T02:30:54.741Z",
+        "observed_jst": "2026-11-06T11:30:54.741000+09:00",
+        "in_stock": 4522,
+        "available_order_qty": 3751,
+        "tiers": [
+          {
+            "min_qty": 1,
+            "max_qty": 9,
+            "unit_price_usd": 1.7468
+          },
+          {
+            "min_qty": 10,
+            "max_qty": 29,
+            "unit_price_usd": 1.4718
+          },
+          {
+            "min_qty": 30,
+            "max_qty": 99,
+            "unit_price_usd": 1.3195
+          },
+          {
+            "min_qty": 100,
+            "max_qty": 499,
+            "unit_price_usd": 1.1476
+          },
+          {
+            "min_qty": 500,
+            "max_qty": 999,
+            "unit_price_usd": 1.0707
+          },
+          {
+            "min_qty": 1000,
+            "max_qty": null,
+            "unit_price_usd": 1.0379
+          }
+        ],
+        "in_stock_covers_100_fitted_modules": true,
+        "available_order_qty_covers_100_fitted_modules": true,
+        "delta_in_stock_from_history": 0,
+        "delta_available_order_qty_from_history": 0
+      }
+    },
+    {
+      "c_code": "C52917434",
+      "mpn": "WS2812B-2020-V6",
+      "role": "RGB LED / LED1〜8",
+      "qty_per_module": 8,
+      "library": "Extended",
+      "quantity_basis": "Recovered A4 reference-circuit allocation in role and procurement notes; not a native EDA netlist export.",
+      "procurement_notes": "4個/片面LED基板×2枚。Standard Only・High difficulty・MSL5。通常FR-4に変更してもEconomicにはならない。",
+      "pcba_type": "Standard Only",
+      "assembly_type": "SMT Assembly",
+      "package": "SMD2020-4P",
+      "url": "https://jlcpcb.com/partdetail/Worldsemi-LED/C52917434",
+      "historical_quantity_observation": {
+        "observed_jst": "2026-11-06T05:15:49.718553+09:00",
+        "in_stock": 771294,
+        "available_order_qty": 749286,
+        "snapshot": "ic_led_evidence/C52917434.snapshot.json",
+        "in_stock_covers_100_fitted_modules": true,
+        "available_order_qty_covers_100_fitted_modules": true
+      },
+      "catalog_recheck": {
+        "status": "opened",
+        "tool_ref": "turn4view1",
+        "retrieval_crawl_label": "today",
+        "identity_and_assembly_match": true,
+        "note": "This field records the child web-text identity/assembly check. The separate live observation records the parent public-page rendered-DOM refresh, including C23138."
+      },
+      "live_quantity_and_price_observation": {
+        "method": "Read-only public JLCPCB product pages; visible rendered DOM. Prices are USD. Available Order Qty is the pre-purchase field, not a promise of total PCBA allocation.",
+        "observer": "parent task /root",
+        "evidence_file": "live_jlc_refresh_source.json",
+        "observed_utc": "2026-11-06T02:30:39.521Z",
+        "observed_jst": "2026-11-06T11:30:39.521000+09:00",
+        "in_stock": 768169,
+        "available_order_qty": 747432,
+        "tiers": [
+          {
+            "min_qty": 1,
+            "max_qty": 49,
+            "unit_price_usd": 0.0916
+          },
+          {
+            "min_qty": 50,
+            "max_qty": 149,
+            "unit_price_usd": 0.0737
+          },
+          {
+            "min_qty": 150,
+            "max_qty": 499,
+            "unit_price_usd": 0.0644
+          },
+          {
+            "min_qty": 500,
+            "max_qty": 2499,
+            "unit_price_usd": 0.0569
+          },
+          {
+            "min_qty": 2500,
+            "max_qty": 4499,
+            "unit_price_usd": 0.0542
+          },
+          {
+            "min_qty": 4500,
+            "max_qty": null,
+            "unit_price_usd": 0.0524
+          }
+        ],
+        "in_stock_covers_100_fitted_modules": true,
+        "available_order_qty_covers_100_fitted_modules": true,
+        "delta_in_stock_from_history": -3125,
+        "delta_available_order_qty_from_history": -1854
+      }
+    },
+    {
+      "c_code": "C2071056",
+      "mpn": "AP63205WU-7",
+      "role": "5 V降圧 / U2",
+      "qty_per_module": 1,
+      "library": "Extended",
+      "quantity_basis": "Recovered A4 reference-circuit allocation in role and procurement notes; not a native EDA netlist export.",
+      "procurement_notes": "5 V用4.7 µHを主案として維持。実効容量と電流ループを最終基板で確認。",
+      "pcba_type": "Economic and Standard",
+      "assembly_type": "SMT Assembly",
+      "package": "TSOT-23-6",
+      "url": "https://jlcpcb.com/partdetail/AP63205WU-7/C2071056",
+      "historical_quantity_observation": {
+        "observed_jst": "2026-11-06T05:15:49.716982+09:00",
+        "in_stock": 20691,
+        "available_order_qty": 17987,
+        "snapshot": "ic_led_evidence/C2071056.snapshot.json",
+        "in_stock_covers_100_fitted_modules": true,
+        "available_order_qty_covers_100_fitted_modules": true
+      },
+      "catalog_recheck": {
+        "status": "opened",
+        "tool_ref": "turn4view2",
+        "retrieval_crawl_label": "today",
+        "identity_and_assembly_match": true,
+        "note": "This field records the child web-text identity/assembly check. The separate live observation records the parent public-page rendered-DOM refresh, including C23138."
+      },
+      "live_quantity_and_price_observation": {
+        "method": "Read-only public JLCPCB product pages; visible rendered DOM. Prices are USD. Available Order Qty is the pre-purchase field, not a promise of total PCBA allocation.",
+        "observer": "parent task /root",
+        "evidence_file": "live_jlc_refresh_source.json",
+        "observed_utc": "2026-11-06T02:30:54.741Z",
+        "observed_jst": "2026-11-06T11:30:54.741000+09:00",
+        "in_stock": 20569,
+        "available_order_qty": 17967,
+        "tiers": [
+          {
+            "min_qty": 1,
+            "max_qty": 9,
+            "unit_price_usd": 0.4617
+          },
+          {
+            "min_qty": 10,
+            "max_qty": 29,
+            "unit_price_usd": 0.3651
+          },
+          {
+            "min_qty": 30,
+            "max_qty": 99,
+            "unit_price_usd": 0.3176
+          },
+          {
+            "min_qty": 100,
+            "max_qty": 499,
+            "unit_price_usd": 0.2751
+          },
+          {
+            "min_qty": 500,
+            "max_qty": 999,
+            "unit_price_usd": 0.2522
+          },
+          {
+            "min_qty": 1000,
+            "max_qty": null,
+            "unit_price_usd": 0.2456
+          }
+        ],
+        "in_stock_covers_100_fitted_modules": true,
+        "available_order_qty_covers_100_fitted_modules": true,
+        "delta_in_stock_from_history": -122,
+        "delta_available_order_qty_from_history": -20
+      }
+    },
+    {
+      "c_code": "C404027",
+      "mpn": "TLV75533PDBVR",
+      "role": "3.3 V LDO / U3",
+      "qty_per_module": 1,
+      "library": "Extended",
+      "quantity_basis": "Recovered A4 reference-circuit allocation in role and procurement notes; not a native EDA netlist export.",
+      "procurement_notes": "入力/出力を4.7 µFへ統一する設計変更。出力1 µF以上の実効容量確認は未完。",
+      "pcba_type": "Economic and Standard",
+      "assembly_type": "SMT Assembly",
+      "package": "SOT-23-5",
+      "url": "https://jlcpcb.com/partdetail/TexasInstruments-TLV75533PDBVR/C404027",
+      "historical_quantity_observation": {
+        "observed_jst": "2026-11-06T05:15:49.785944+09:00",
+        "in_stock": 95151,
+        "available_order_qty": 93956,
+        "snapshot": "ic_led_evidence/C404027.snapshot.json",
+        "in_stock_covers_100_fitted_modules": true,
+        "available_order_qty_covers_100_fitted_modules": true
+      },
+      "catalog_recheck": {
+        "status": "opened",
+        "tool_ref": "turn9view1",
+        "retrieval_crawl_label": "today",
+        "identity_and_assembly_match": true,
+        "note": "This field records the child web-text identity/assembly check. The separate live observation records the parent public-page rendered-DOM refresh, including C23138."
+      },
+      "live_quantity_and_price_observation": {
+        "method": "Read-only public JLCPCB product pages; visible rendered DOM. Prices are USD. Available Order Qty is the pre-purchase field, not a promise of total PCBA allocation.",
+        "observer": "parent task /root",
+        "evidence_file": "live_jlc_refresh_source.json",
+        "observed_utc": "2026-11-06T02:30:54.740Z",
+        "observed_jst": "2026-11-06T11:30:54.740000+09:00",
+        "in_stock": 95119,
+        "available_order_qty": 93929,
+        "tiers": [
+          {
+            "min_qty": 1,
+            "max_qty": 49,
+            "unit_price_usd": 0.1217
+          },
+          {
+            "min_qty": 50,
+            "max_qty": 149,
+            "unit_price_usd": 0.096
+          },
+          {
+            "min_qty": 150,
+            "max_qty": 499,
+            "unit_price_usd": 0.0827
+          },
+          {
+            "min_qty": 500,
+            "max_qty": 2999,
+            "unit_price_usd": 0.0719
+          },
+          {
+            "min_qty": 3000,
+            "max_qty": 5999,
+            "unit_price_usd": 0.068
+          },
+          {
+            "min_qty": 6000,
+            "max_qty": null,
+            "unit_price_usd": 0.0655
+          }
+        ],
+        "in_stock_covers_100_fitted_modules": true,
+        "available_order_qty_covers_100_fitted_modules": true,
+        "delta_in_stock_from_history": -32,
+        "delta_available_order_qty_from_history": -27
+      }
+    },
+    {
+      "c_code": "C140331",
+      "mpn": "TPS2552DBVR-1",
+      "role": "LED電源ラッチ / U4",
+      "qty_per_module": 1,
+      "library": "Extended",
+      "quantity_basis": "Recovered A4 reference-circuit allocation in role and procurement notes; not a native EDA netlist export.",
+      "procurement_notes": "旧TPS2553DBVR-1は21個/先買い0。active-low TPS2552-1へ変更し、Q1と10k/100kを追加。ラッチオフ型の-1を維持。",
+      "pcba_type": "Economic and Standard",
+      "assembly_type": "SMT Assembly",
+      "package": "SOT-23-6",
+      "url": "https://jlcpcb.com/partdetail/TexasInstruments-TPS2552DBVR1/C140331",
+      "historical_quantity_observation": {
+        "observed_jst": "2026-11-06T05:22:42.781417+09:00",
+        "in_stock": 2336,
+        "available_order_qty": 2329,
+        "snapshot": "ic_led_evidence/C140331.snapshot.json",
+        "in_stock_covers_100_fitted_modules": true,
+        "available_order_qty_covers_100_fitted_modules": true
+      },
+      "catalog_recheck": {
+        "status": "opened",
+        "tool_ref": "turn9view2",
+        "retrieval_crawl_label": "4 days ago",
+        "identity_and_assembly_match": true,
+        "note": "This field records the child web-text identity/assembly check. The separate live observation records the parent public-page rendered-DOM refresh, including C23138."
+      },
+      "live_quantity_and_price_observation": {
+        "method": "Read-only public JLCPCB product pages; visible rendered DOM. Prices are USD. Available Order Qty is the pre-purchase field, not a promise of total PCBA allocation.",
+        "observer": "parent task /root",
+        "evidence_file": "live_jlc_refresh_source.json",
+        "observed_utc": "2026-11-06T02:31:06.384Z",
+        "observed_jst": "2026-11-06T11:31:06.384000+09:00",
+        "in_stock": 2336,
+        "available_order_qty": 2329,
+        "tiers": [
+          {
+            "min_qty": 1,
+            "max_qty": 9,
+            "unit_price_usd": 0.5747
+          },
+          {
+            "min_qty": 10,
+            "max_qty": 29,
+            "unit_price_usd": 0.4584
+          },
+          {
+            "min_qty": 30,
+            "max_qty": 99,
+            "unit_price_usd": 0.3995
+          },
+          {
+            "min_qty": 100,
+            "max_qty": 499,
+            "unit_price_usd": 0.3406
+          },
+          {
+            "min_qty": 500,
+            "max_qty": 999,
+            "unit_price_usd": 0.3062
+          },
+          {
+            "min_qty": 1000,
+            "max_qty": null,
+            "unit_price_usd": 0.2882
+          }
+        ],
+        "in_stock_covers_100_fitted_modules": true,
+        "available_order_qty_covers_100_fitted_modules": true,
+        "delta_in_stock_from_history": 0,
+        "delta_available_order_qty_from_history": 0
+      }
+    },
+    {
+      "c_code": "C20526",
+      "mpn": "MMBT3904(RANGE:100-300)",
+      "role": "EN反転NPN / Q1",
+      "qty_per_module": 1,
+      "library": "Basic",
+      "quantity_basis": "Recovered A4 reference-circuit allocation in role and procurement notes; not a native EDA netlist export.",
+      "procurement_notes": "PA5→10k→B、B→100k→GND、E→GND、C→EN、EN→100k→常時5V。GPIO HighでLED有効。",
+      "pcba_type": "Economic and Standard",
+      "assembly_type": "SMT Assembly",
+      "package": "SOT-23",
+      "url": "https://jlcpcb.com/partdetail/21237-MMBT3904/C20526",
+      "historical_quantity_observation": {
+        "observed_jst": "2026-11-06T05:33:13.101022+09:00",
+        "in_stock": 2740706,
+        "available_order_qty": 2620840,
+        "snapshot": "ic_led_evidence/C20526.snapshot.json",
+        "in_stock_covers_100_fitted_modules": true,
+        "available_order_qty_covers_100_fitted_modules": true
+      },
+      "catalog_recheck": {
+        "status": "opened",
+        "tool_ref": "turn9view3",
+        "retrieval_crawl_label": "today",
+        "identity_and_assembly_match": true,
+        "note": "This field records the child web-text identity/assembly check. The separate live observation records the parent public-page rendered-DOM refresh, including C23138."
+      },
+      "live_quantity_and_price_observation": {
+        "method": "Read-only public JLCPCB product pages; visible rendered DOM. Prices are USD. Available Order Qty is the pre-purchase field, not a promise of total PCBA allocation.",
+        "observer": "parent task /root",
+        "evidence_file": "live_jlc_refresh_source.json",
+        "observed_utc": "2026-11-06T02:31:06.383Z",
+        "observed_jst": "2026-11-06T11:31:06.383000+09:00",
+        "in_stock": 2739252,
+        "available_order_qty": 2620516,
+        "tiers": [
+          {
+            "min_qty": 1,
+            "max_qty": 499,
+            "unit_price_usd": 0.0117
+          },
+          {
+            "min_qty": 500,
+            "max_qty": 2999,
+            "unit_price_usd": 0.0093
+          },
+          {
+            "min_qty": 3000,
+            "max_qty": 5999,
+            "unit_price_usd": 0.0082
+          },
+          {
+            "min_qty": 6000,
+            "max_qty": 23999,
+            "unit_price_usd": 0.0074
+          },
+          {
+            "min_qty": 24000,
+            "max_qty": 50999,
+            "unit_price_usd": 0.0071
+          },
+          {
+            "min_qty": 51000,
+            "max_qty": null,
+            "unit_price_usd": 0.0069
+          }
+        ],
+        "in_stock_covers_100_fitted_modules": true,
+        "available_order_qty_covers_100_fitted_modules": true,
+        "delta_in_stock_from_history": -1454,
+        "delta_available_order_qty_from_history": -324
+      }
+    },
+    {
+      "c_code": "C15741",
+      "mpn": "SN74LVC2T45DCUR",
+      "role": "LED用2chレベル変換 / U5",
+      "qty_per_module": 1,
+      "library": "Extended",
+      "quantity_basis": "Recovered A4 reference-circuit allocation in role and procurement notes; not a native EDA netlist export.",
+      "procurement_notes": "VCCA=3V3、VCCB=VLED。左/右DATA各1ch、電源OFF時Ioffを使用。",
+      "pcba_type": "Economic and Standard",
+      "assembly_type": "SMT Assembly",
+      "package": "VSSOP-8",
+      "url": "https://jlcpcb.com/partdetail/TexasInstruments-SN74LVC2T45DCUR/C15741",
+      "historical_quantity_observation": {
+        "observed_jst": "2026-11-06T05:18:05.476768+09:00",
+        "in_stock": 91323,
+        "available_order_qty": 90009,
+        "snapshot": "ic_led_evidence/C15741.snapshot.json",
+        "in_stock_covers_100_fitted_modules": true,
+        "available_order_qty_covers_100_fitted_modules": true
+      },
+      "catalog_recheck": {
+        "status": "opened",
+        "tool_ref": "turn10view0",
+        "retrieval_crawl_label": "today",
+        "identity_and_assembly_match": true,
+        "note": "This field records the child web-text identity/assembly check. The separate live observation records the parent public-page rendered-DOM refresh, including C23138."
+      },
+      "live_quantity_and_price_observation": {
+        "method": "Read-only public JLCPCB product pages; visible rendered DOM. Prices are USD. Available Order Qty is the pre-purchase field, not a promise of total PCBA allocation.",
+        "observer": "parent task /root",
+        "evidence_file": "live_jlc_refresh_source.json",
+        "observed_utc": "2026-11-06T02:31:06.383Z",
+        "observed_jst": "2026-11-06T11:31:06.383000+09:00",
+        "in_stock": 91268,
+        "available_order_qty": 90049,
+        "tiers": [
+          {
+            "min_qty": 1,
+            "max_qty": 49,
+            "unit_price_usd": 0.2081
+          },
+          {
+            "min_qty": 50,
+            "max_qty": 149,
+            "unit_price_usd": 0.1638
+          },
+          {
+            "min_qty": 150,
+            "max_qty": 499,
+            "unit_price_usd": 0.142
+          },
+          {
+            "min_qty": 500,
+            "max_qty": 2999,
+            "unit_price_usd": 0.1092
+          },
+          {
+            "min_qty": 3000,
+            "max_qty": 5999,
+            "unit_price_usd": 0.1038
+          },
+          {
+            "min_qty": 6000,
+            "max_qty": null,
+            "unit_price_usd": 0.1007
+          }
+        ],
+        "in_stock_covers_100_fitted_modules": true,
+        "available_order_qty_covers_100_fitted_modules": true,
+        "delta_in_stock_from_history": -55,
+        "delta_available_order_qty_from_history": 40
+      }
+    },
+    {
+      "c_code": "C221351",
+      "mpn": "OPA197IDBVR",
+      "role": "CVバッファ / U6",
+      "qty_per_module": 1,
+      "library": "Extended",
+      "quantity_basis": "Recovered A4 reference-circuit allocation in role and procurement notes; not a native EDA netlist export.",
+      "procurement_notes": "CVの20 MΩ検出枝をバッファ。THRUは受動直結。±12 V保護電源。",
+      "pcba_type": "Economic and Standard",
+      "assembly_type": "SMT Assembly",
+      "package": "SOT-23-5",
+      "url": "https://jlcpcb.com/partdetail/TexasInstruments-OPA197IDBVR/C221351",
+      "historical_quantity_observation": {
+        "observed_jst": "2026-11-06T05:18:04.816720+09:00",
+        "in_stock": 80652,
+        "available_order_qty": 80360,
+        "snapshot": "ic_led_evidence/C221351.snapshot.json",
+        "in_stock_covers_100_fitted_modules": true,
+        "available_order_qty_covers_100_fitted_modules": true
+      },
+      "catalog_recheck": {
+        "status": "opened",
+        "tool_ref": "turn10view1",
+        "retrieval_crawl_label": "today",
+        "identity_and_assembly_match": true,
+        "note": "This field records the child web-text identity/assembly check. The separate live observation records the parent public-page rendered-DOM refresh, including C23138."
+      },
+      "live_quantity_and_price_observation": {
+        "method": "Read-only public JLCPCB product pages; visible rendered DOM. Prices are USD. Available Order Qty is the pre-purchase field, not a promise of total PCBA allocation.",
+        "observer": "parent task /root",
+        "evidence_file": "live_jlc_refresh_source.json",
+        "observed_utc": "2026-11-06T02:31:30.580Z",
+        "observed_jst": "2026-11-06T11:31:30.580000+09:00",
+        "in_stock": 80652,
+        "available_order_qty": 80363,
+        "tiers": [
+          {
+            "min_qty": 1,
+            "max_qty": 9,
+            "unit_price_usd": 0.8431
+          },
+          {
+            "min_qty": 10,
+            "max_qty": 29,
+            "unit_price_usd": 0.6991
+          },
+          {
+            "min_qty": 30,
+            "max_qty": 99,
+            "unit_price_usd": 0.5976
+          },
+          {
+            "min_qty": 100,
+            "max_qty": 499,
+            "unit_price_usd": 0.5141
+          },
+          {
+            "min_qty": 500,
+            "max_qty": 999,
+            "unit_price_usd": 0.4879
+          },
+          {
+            "min_qty": 1000,
+            "max_qty": null,
+            "unit_price_usd": 0.4715
+          }
+        ],
+        "in_stock_covers_100_fitted_modules": true,
+        "available_order_qty_covers_100_fitted_modules": true,
+        "delta_in_stock_from_history": 0,
+        "delta_available_order_qty_from_history": 3
+      }
+    },
+    {
+      "c_code": "C50704",
+      "mpn": "PMEG4010CEJ,115",
+      "role": "±12 V逆接保護用 / D1,D2",
+      "qty_per_module": 2,
+      "library": "Extended",
+      "quantity_basis": "Recovered A4 reference-circuit allocation in role and procurement notes; not a native EDA netlist export.",
+      "procurement_notes": "2個を逆向きに±電源へ配置する主案。安価なB5819Wは漏れと形状が変わるため未採用。逆接時の全回路審査は未完。",
+      "pcba_type": "Economic and Standard",
+      "assembly_type": "SMT Assembly",
+      "package": "SOD-323F",
+      "url": "https://jlcpcb.com/partdetail/PMEG4010CEJ%2C115/C50704",
+      "historical_quantity_observation": {
+        "observed_jst": "2026-11-06T05:18:05.304634+09:00",
+        "in_stock": 14151,
+        "available_order_qty": 14038,
+        "snapshot": "ic_led_evidence/C50704.snapshot.json",
+        "in_stock_covers_100_fitted_modules": true,
+        "available_order_qty_covers_100_fitted_modules": true
+      },
+      "catalog_recheck": {
+        "status": "opened",
+        "tool_ref": "turn10view2",
+        "retrieval_crawl_label": "today",
+        "identity_and_assembly_match": true,
+        "note": "This field records the child web-text identity/assembly check. The separate live observation records the parent public-page rendered-DOM refresh, including C23138."
+      },
+      "live_quantity_and_price_observation": {
+        "method": "Read-only public JLCPCB product pages; visible rendered DOM. Prices are USD. Available Order Qty is the pre-purchase field, not a promise of total PCBA allocation.",
+        "observer": "parent task /root",
+        "evidence_file": "live_jlc_refresh_source.json",
+        "observed_utc": "2026-11-06T02:31:30.578Z",
+        "observed_jst": "2026-11-06T11:31:30.578000+09:00",
+        "in_stock": 14151,
+        "available_order_qty": 14044,
+        "tiers": [
+          {
+            "min_qty": 1,
+            "max_qty": 49,
+            "unit_price_usd": 0.3682
+          },
+          {
+            "min_qty": 50,
+            "max_qty": 149,
+            "unit_price_usd": 0.2937
+          },
+          {
+            "min_qty": 150,
+            "max_qty": 499,
+            "unit_price_usd": 0.2618
+          },
+          {
+            "min_qty": 500,
+            "max_qty": 2999,
+            "unit_price_usd": 0.222
+          },
+          {
+            "min_qty": 3000,
+            "max_qty": 5999,
+            "unit_price_usd": 0.2017
+          },
+          {
+            "min_qty": 6000,
+            "max_qty": null,
+            "unit_price_usd": 0.1911
+          }
+        ],
+        "in_stock_covers_100_fitted_modules": true,
+        "available_order_qty_covers_100_fitted_modules": true,
+        "delta_in_stock_from_history": 0,
+        "delta_available_order_qty_from_history": 6
+      }
+    },
+    {
+      "c_code": "C134375",
+      "mpn": "BAS70-04-7-F",
+      "role": "ADCクランプ候補 / D3",
+      "qty_per_module": 1,
+      "library": "Extended",
+      "quantity_basis": "Recovered A4 reference-circuit allocation in role and procurement notes; not a native EDA netlist export.",
+      "procurement_notes": "在庫とメーカー型番は確認。低温の負側クランプ、電源OFF時の注入電流は回路審査を要する。",
+      "pcba_type": "Economic and Standard",
+      "assembly_type": "SMT Assembly",
+      "package": "SOT-23",
+      "url": "https://jlcpcb.com/partdetail/DiodesIncorporated-BAS70_04_7F/C134375",
+      "historical_quantity_observation": {
+        "observed_jst": "2026-11-06T05:24:18.184716+09:00",
+        "in_stock": 6783,
+        "available_order_qty": 6654,
+        "snapshot": "ic_led_evidence/C134375.snapshot.json",
+        "in_stock_covers_100_fitted_modules": true,
+        "available_order_qty_covers_100_fitted_modules": true
+      },
+      "catalog_recheck": {
+        "status": "opened",
+        "tool_ref": "turn10view3",
+        "retrieval_crawl_label": "today",
+        "identity_and_assembly_match": true,
+        "note": "This field records the child web-text identity/assembly check. The separate live observation records the parent public-page rendered-DOM refresh, including C23138."
+      },
+      "live_quantity_and_price_observation": {
+        "method": "Read-only public JLCPCB product pages; visible rendered DOM. Prices are USD. Available Order Qty is the pre-purchase field, not a promise of total PCBA allocation.",
+        "observer": "parent task /root",
+        "evidence_file": "live_jlc_refresh_source.json",
+        "observed_utc": "2026-11-06T02:31:30.580Z",
+        "observed_jst": "2026-11-06T11:31:30.580000+09:00",
+        "in_stock": 6783,
+        "available_order_qty": 6654,
+        "tiers": [
+          {
+            "min_qty": 1,
+            "max_qty": 99,
+            "unit_price_usd": 0.0724
+          },
+          {
+            "min_qty": 100,
+            "max_qty": 299,
+            "unit_price_usd": 0.0606
+          },
+          {
+            "min_qty": 300,
+            "max_qty": 2999,
+            "unit_price_usd": 0.0547
+          },
+          {
+            "min_qty": 3000,
+            "max_qty": 5999,
+            "unit_price_usd": 0.0503
+          },
+          {
+            "min_qty": 6000,
+            "max_qty": 8999,
+            "unit_price_usd": 0.0467
+          },
+          {
+            "min_qty": 9000,
+            "max_qty": null,
+            "unit_price_usd": 0.0449
+          }
+        ],
+        "in_stock_covers_100_fitted_modules": true,
+        "available_order_qty_covers_100_fitted_modules": true,
+        "delta_in_stock_from_history": 0,
+        "delta_available_order_qty_from_history": 0
+      }
+    },
+    {
+      "c_code": "C2651179",
+      "mpn": "74437324047",
+      "role": "降圧インダクタ4.7 µH / L1",
+      "qty_per_module": 1,
+      "library": "Extended",
+      "quantity_basis": "Recovered A4 reference-circuit allocation in role and procurement notes; not a native EDA netlist export.",
+      "procurement_notes": "在庫が最も少ない主案部品。高さ2 mmを維持。安価なSunlord2.2 µHは高さ3 mm/リップル変更を伴う別案。",
+      "pcba_type": "Economic and Standard",
+      "assembly_type": "SMT Assembly",
+      "package": "SMD,4.4x4.1mm",
+      "url": "https://jlcpcb.com/partdetail/WurthElektronik-74437324047/C2651179",
+      "historical_quantity_observation": {
+        "observed_jst": "2026-11-06T05:26:22.544629+09:00",
+        "in_stock": 438,
+        "available_order_qty": 431,
+        "snapshot": "ic_led_evidence/C2651179.snapshot.json",
+        "in_stock_covers_100_fitted_modules": true,
+        "available_order_qty_covers_100_fitted_modules": true
+      },
+      "catalog_recheck": {
+        "status": "opened",
+        "tool_ref": "turn10view4",
+        "retrieval_crawl_label": "today",
+        "identity_and_assembly_match": true,
+        "note": "This field records the child web-text identity/assembly check. The separate live observation records the parent public-page rendered-DOM refresh, including C23138."
+      },
+      "live_quantity_and_price_observation": {
+        "method": "Read-only public JLCPCB product pages; visible rendered DOM. Prices are USD. Available Order Qty is the pre-purchase field, not a promise of total PCBA allocation.",
+        "observer": "parent task /root",
+        "evidence_file": "live_jlc_refresh_source.json",
+        "observed_utc": "2026-11-06T02:30:39.520Z",
+        "observed_jst": "2026-11-06T11:30:39.520000+09:00",
+        "in_stock": 438,
+        "available_order_qty": 431,
+        "tiers": [
+          {
+            "min_qty": 1,
+            "max_qty": 9,
+            "unit_price_usd": 1.7337
+          },
+          {
+            "min_qty": 10,
+            "max_qty": 29,
+            "unit_price_usd": 1.5831
+          },
+          {
+            "min_qty": 30,
+            "max_qty": 99,
+            "unit_price_usd": 1.4898
+          },
+          {
+            "min_qty": 100,
+            "max_qty": 499,
+            "unit_price_usd": 1.331
+          },
+          {
+            "min_qty": 500,
+            "max_qty": 999,
+            "unit_price_usd": 1.2884
+          },
+          {
+            "min_qty": 1000,
+            "max_qty": null,
+            "unit_price_usd": 1.2688
+          }
+        ],
+        "in_stock_covers_100_fitted_modules": true,
+        "available_order_qty_covers_100_fitted_modules": true,
+        "delta_in_stock_from_history": 0,
+        "delta_available_order_qty_from_history": 0
+      }
+    },
+    {
+      "c_code": "C7250",
+      "mpn": "0603WAF1005T5E",
+      "role": "10 MΩ 1% / R1,R2",
+      "qty_per_module": 2,
+      "library": "Basic",
+      "quantity_basis": "Recovered A4 reference-circuit allocation in role and procurement notes; not a native EDA netlist export.",
+      "procurement_notes": "CV検出枝20 MΩ。定格電圧、基板汚れ・漏れに注意。",
+      "pcba_type": "Economic and Standard",
+      "assembly_type": "SMT Assembly",
+      "package": "0603",
+      "url": "https://jlcpcb.com/partdetail/C7250",
+      "historical_quantity_observation": {
+        "observed_jst": "2026-11-06T05:20:29.568530+09:00",
+        "in_stock": 855593,
+        "available_order_qty": 730032,
+        "snapshot": "passive_evidence/C7250.snapshot.json",
+        "in_stock_covers_100_fitted_modules": true,
+        "available_order_qty_covers_100_fitted_modules": true
+      },
+      "catalog_recheck": {
+        "status": "opened",
+        "tool_ref": "turn11view0",
+        "retrieval_crawl_label": "yesterday",
+        "identity_and_assembly_match": true,
+        "note": "This field records the child web-text identity/assembly check. The separate live observation records the parent public-page rendered-DOM refresh, including C23138."
+      },
+      "live_quantity_and_price_observation": {
+        "method": "Read-only public JLCPCB product pages; visible rendered DOM. Prices are USD. Available Order Qty is the pre-purchase field, not a promise of total PCBA allocation.",
+        "observer": "parent task /root",
+        "evidence_file": "live_jlc_refresh_source.json",
+        "observed_utc": "2026-11-06T02:31:54.455Z",
+        "observed_jst": "2026-11-06T11:31:54.455000+09:00",
+        "in_stock": 843422,
+        "available_order_qty": 717593,
+        "tiers": [
+          {
+            "min_qty": 1,
+            "max_qty": 999,
+            "unit_price_usd": 0.0024
+          },
+          {
+            "min_qty": 1000,
+            "max_qty": 4999,
+            "unit_price_usd": 0.0018
+          },
+          {
+            "min_qty": 5000,
+            "max_qty": 9999,
+            "unit_price_usd": 0.0015
+          },
+          {
+            "min_qty": 10000,
+            "max_qty": 49999,
+            "unit_price_usd": 0.0012
+          },
+          {
+            "min_qty": 50000,
+            "max_qty": null,
+            "unit_price_usd": 0.001
+          }
+        ],
+        "in_stock_covers_100_fitted_modules": true,
+        "available_order_qty_covers_100_fitted_modules": true,
+        "delta_in_stock_from_history": -12171,
+        "delta_available_order_qty_from_history": -12439
+      }
+    },
+    {
+      "c_code": "C23254",
+      "mpn": "0603WAF8202T5E",
+      "role": "82 kΩ 1% / R3〜R6",
+      "qty_per_module": 4,
+      "library": "Basic",
+      "quantity_basis": "Recovered A4 reference-circuit allocation in role and procurement notes; not a native EDA netlist export.",
+      "procurement_notes": "A3の0.1%推奨からBasic1%へ変更。抵抗誤差だけで±5 V範囲の最大換算誤差は約0.233 V。照明用・FW校正あり。",
+      "pcba_type": "Economic and Standard",
+      "assembly_type": "SMT Assembly",
+      "package": "0603",
+      "url": "https://jlcpcb.com/partdetail/C23254",
+      "historical_quantity_observation": {
+        "observed_jst": "2026-11-06T05:20:29.768811+09:00",
+        "in_stock": 1045319,
+        "available_order_qty": 979326,
+        "snapshot": "passive_evidence/C23254.snapshot.json",
+        "in_stock_covers_100_fitted_modules": true,
+        "available_order_qty_covers_100_fitted_modules": true
+      },
+      "catalog_recheck": {
+        "status": "indexed_primary_listing",
+        "tool_ref": "turn12search0",
+        "retrieval_crawl_label": "last month",
+        "identity_and_assembly_match": true,
+        "note": "This field records the child web-text identity/assembly check. The separate live observation records the parent public-page rendered-DOM refresh, including C23138."
+      },
+      "live_quantity_and_price_observation": {
+        "method": "Read-only public JLCPCB product pages; visible rendered DOM. Prices are USD. Available Order Qty is the pre-purchase field, not a promise of total PCBA allocation.",
+        "observer": "parent task /root",
+        "evidence_file": "live_jlc_refresh_source.json",
+        "observed_utc": "2026-11-06T02:31:54.454Z",
+        "observed_jst": "2026-11-06T11:31:54.454000+09:00",
+        "in_stock": 1037430,
+        "available_order_qty": 971010,
+        "tiers": [
+          {
+            "min_qty": 1,
+            "max_qty": 999,
+            "unit_price_usd": 0.0027
+          },
+          {
+            "min_qty": 1000,
+            "max_qty": 4999,
+            "unit_price_usd": 0.0021
+          },
+          {
+            "min_qty": 5000,
+            "max_qty": 9999,
+            "unit_price_usd": 0.0017
+          },
+          {
+            "min_qty": 10000,
+            "max_qty": 49999,
+            "unit_price_usd": 0.0015
+          },
+          {
+            "min_qty": 50000,
+            "max_qty": null,
+            "unit_price_usd": 0.0013
+          }
+        ],
+        "in_stock_covers_100_fitted_modules": true,
+        "available_order_qty_covers_100_fitted_modules": true,
+        "delta_in_stock_from_history": -7889,
+        "delta_available_order_qty_from_history": -8316
+      }
+    },
+    {
+      "c_code": "C21190",
+      "mpn": "0603WAF1001T5E",
+      "role": "1 kΩ 1% / R7,R8",
+      "qty_per_module": 2,
+      "library": "Basic",
+      "quantity_basis": "Recovered A4 reference-circuit allocation in role and procurement notes; not a native EDA netlist export.",
+      "procurement_notes": "ADC直列1個、3V3放電1個。後者は公称3.3 mA。",
+      "pcba_type": "Economic and Standard",
+      "assembly_type": "SMT Assembly",
+      "package": "0603",
+      "url": "https://jlcpcb.com/partdetail/C21190",
+      "historical_quantity_observation": {
+        "observed_jst": "2026-11-06T05:20:29.368750+09:00",
+        "in_stock": 27942687,
+        "available_order_qty": 21331951,
+        "snapshot": "passive_evidence/C21190.snapshot.json",
+        "in_stock_covers_100_fitted_modules": true,
+        "available_order_qty_covers_100_fitted_modules": true
+      },
+      "catalog_recheck": {
+        "status": "opened",
+        "tool_ref": "turn11view2",
+        "retrieval_crawl_label": "today",
+        "identity_and_assembly_match": true,
+        "note": "This field records the child web-text identity/assembly check. The separate live observation records the parent public-page rendered-DOM refresh, including C23138."
+      },
+      "live_quantity_and_price_observation": {
+        "method": "Read-only public JLCPCB product pages; visible rendered DOM. Prices are USD. Available Order Qty is the pre-purchase field, not a promise of total PCBA allocation.",
+        "observer": "parent task /root",
+        "evidence_file": "live_jlc_refresh_source.json",
+        "observed_utc": "2026-11-06T02:32:12.169Z",
+        "observed_jst": "2026-11-06T11:32:12.169000+09:00",
+        "in_stock": 27741384,
+        "available_order_qty": 21173585,
+        "tiers": [
+          {
+            "min_qty": 1,
+            "max_qty": 999,
+            "unit_price_usd": 0.0017
+          },
+          {
+            "min_qty": 1000,
+            "max_qty": 4999,
+            "unit_price_usd": 0.0014
+          },
+          {
+            "min_qty": 5000,
+            "max_qty": 9999,
+            "unit_price_usd": 0.0012
+          },
+          {
+            "min_qty": 10000,
+            "max_qty": 49999,
+            "unit_price_usd": 0.001
+          },
+          {
+            "min_qty": 50000,
+            "max_qty": null,
+            "unit_price_usd": 0.0009
+          }
+        ],
+        "in_stock_covers_100_fitted_modules": true,
+        "available_order_qty_covers_100_fitted_modules": true,
+        "delta_in_stock_from_history": -201303,
+        "delta_available_order_qty_from_history": -158366
+      }
+    },
+    {
+      "c_code": "C25804",
+      "mpn": "0603WAF1002T5E",
+      "role": "10 kΩ 1% / R9,R10,R13,R21,R22",
+      "qty_per_module": 5,
+      "library": "Basic",
+      "quantity_basis": "Recovered A4 reference-circuit allocation in role and procurement notes; not a native EDA netlist export.",
+      "procurement_notes": "MODE2、FAULT、NRST、NPNベース直列。A3から1個追加。",
+      "pcba_type": "Economic and Standard",
+      "assembly_type": "SMT Assembly",
+      "package": "0603",
+      "url": "https://jlcpcb.com/partdetail/C25804",
+      "historical_quantity_observation": {
+        "observed_jst": "2026-11-06T05:20:35.980418+09:00",
+        "in_stock": 43743203,
+        "available_order_qty": 33448426,
+        "snapshot": "passive_evidence/C25804.snapshot.json",
+        "in_stock_covers_100_fitted_modules": true,
+        "available_order_qty_covers_100_fitted_modules": true
+      },
+      "catalog_recheck": {
+        "status": "opened",
+        "tool_ref": "turn11view3",
+        "retrieval_crawl_label": "today",
+        "identity_and_assembly_match": true,
+        "note": "This field records the child web-text identity/assembly check. The separate live observation records the parent public-page rendered-DOM refresh, including C23138."
+      },
+      "live_quantity_and_price_observation": {
+        "method": "Read-only public JLCPCB product pages; visible rendered DOM. Prices are USD. Available Order Qty is the pre-purchase field, not a promise of total PCBA allocation.",
+        "observer": "parent task /root",
+        "evidence_file": "live_jlc_refresh_source.json",
+        "observed_utc": "2026-11-06T02:32:12.167Z",
+        "observed_jst": "2026-11-06T11:32:12.167000+09:00",
+        "in_stock": 43335083,
+        "available_order_qty": 33073561,
+        "tiers": [
+          {
+            "min_qty": 1,
+            "max_qty": 999,
+            "unit_price_usd": 0.0024
+          },
+          {
+            "min_qty": 1000,
+            "max_qty": 4999,
+            "unit_price_usd": 0.0019
+          },
+          {
+            "min_qty": 5000,
+            "max_qty": 9999,
+            "unit_price_usd": 0.0017
+          },
+          {
+            "min_qty": 10000,
+            "max_qty": 49999,
+            "unit_price_usd": 0.0016
+          },
+          {
+            "min_qty": 50000,
+            "max_qty": null,
+            "unit_price_usd": 0.0015
+          }
+        ],
+        "in_stock_covers_100_fitted_modules": true,
+        "available_order_qty_covers_100_fitted_modules": true,
+        "delta_in_stock_from_history": -408120,
+        "delta_available_order_qty_from_history": -374865
+      }
+    },
+    {
+      "c_code": "C23231",
+      "mpn": "0603WAF6802T5E",
+      "role": "68 kΩ 1% / R11",
+      "qty_per_module": 1,
+      "library": "Basic",
+      "quantity_basis": "Recovered A4 reference-circuit allocation in role and procurement notes; not a native EDA netlist export.",
+      "procurement_notes": "68.1kからBasic68k。ILIM計算343.3〜439.4 mA、公称388.1 mA。筐体の許容発熱を表す値ではない。",
+      "pcba_type": "Economic and Standard",
+      "assembly_type": "SMT Assembly",
+      "package": "0603",
+      "url": "https://jlcpcb.com/partdetail/C23231",
+      "historical_quantity_observation": {
+        "observed_jst": "2026-11-06T05:20:42.452356+09:00",
+        "in_stock": 908528,
+        "available_order_qty": 807783,
+        "snapshot": "passive_evidence/C23231.snapshot.json",
+        "in_stock_covers_100_fitted_modules": true,
+        "available_order_qty_covers_100_fitted_modules": true
+      },
+      "catalog_recheck": {
+        "status": "opened",
+        "tool_ref": "turn11view4",
+        "retrieval_crawl_label": "today",
+        "identity_and_assembly_match": true,
+        "note": "This field records the child web-text identity/assembly check. The separate live observation records the parent public-page rendered-DOM refresh, including C23138."
+      },
+      "live_quantity_and_price_observation": {
+        "method": "Read-only public JLCPCB product pages; visible rendered DOM. Prices are USD. Available Order Qty is the pre-purchase field, not a promise of total PCBA allocation.",
+        "observer": "parent task /root",
+        "evidence_file": "live_jlc_refresh_source.json",
+        "observed_utc": "2026-11-06T02:32:12.169Z",
+        "observed_jst": "2026-11-06T11:32:12.169000+09:00",
+        "in_stock": 907020,
+        "available_order_qty": 806741,
+        "tiers": [
+          {
+            "min_qty": 1,
+            "max_qty": 999,
+            "unit_price_usd": 0.0016
+          },
+          {
+            "min_qty": 1000,
+            "max_qty": 4999,
+            "unit_price_usd": 0.0012
+          },
+          {
+            "min_qty": 5000,
+            "max_qty": 49999,
+            "unit_price_usd": 0.001
+          },
+          {
+            "min_qty": 50000,
+            "max_qty": null,
+            "unit_price_usd": 0.0008
+          }
+        ],
+        "in_stock_covers_100_fitted_modules": true,
+        "available_order_qty_covers_100_fitted_modules": true,
+        "delta_in_stock_from_history": -1508,
+        "delta_available_order_qty_from_history": -1042
+      }
+    },
+    {
+      "c_code": "C25803",
+      "mpn": "0603WAF1003T5E",
+      "role": "100 kΩ 1% / R12,R16〜R19,R23",
+      "qty_per_module": 6,
+      "library": "Basic",
+      "quantity_basis": "Recovered A4 reference-circuit allocation in role and procurement notes; not a native EDA netlist export.",
+      "procurement_notes": "R12をNPNベースプルダウンに流用。R23をEN→常時5Vに追加。",
+      "pcba_type": "Economic and Standard",
+      "assembly_type": "SMT Assembly",
+      "package": "0603",
+      "url": "https://jlcpcb.com/partdetail/C25803",
+      "historical_quantity_observation": {
+        "observed_jst": "2026-11-06T05:20:35.913280+09:00",
+        "in_stock": 16435933,
+        "available_order_qty": 14094386,
+        "snapshot": "passive_evidence/C25803.snapshot.json",
+        "in_stock_covers_100_fitted_modules": true,
+        "available_order_qty_covers_100_fitted_modules": true
+      },
+      "catalog_recheck": {
+        "status": "opened",
+        "tool_ref": "turn12view0",
+        "retrieval_crawl_label": "today",
+        "identity_and_assembly_match": true,
+        "note": "This field records the child web-text identity/assembly check. The separate live observation records the parent public-page rendered-DOM refresh, including C23138."
+      },
+      "live_quantity_and_price_observation": {
+        "method": "Read-only public JLCPCB product pages; visible rendered DOM. Prices are USD. Available Order Qty is the pre-purchase field, not a promise of total PCBA allocation.",
+        "observer": "parent task /root",
+        "evidence_file": "live_jlc_refresh_source.json",
+        "observed_utc": "2026-11-06T02:33:03.633Z",
+        "observed_jst": "2026-11-06T11:33:03.633000+09:00",
+        "in_stock": 16339561,
+        "available_order_qty": 14014178,
+        "tiers": [
+          {
+            "min_qty": 1,
+            "max_qty": 999,
+            "unit_price_usd": 0.0029
+          },
+          {
+            "min_qty": 1000,
+            "max_qty": 4999,
+            "unit_price_usd": 0.0023
+          },
+          {
+            "min_qty": 5000,
+            "max_qty": 9999,
+            "unit_price_usd": 0.002
+          },
+          {
+            "min_qty": 10000,
+            "max_qty": 49999,
+            "unit_price_usd": 0.0016
+          },
+          {
+            "min_qty": 50000,
+            "max_qty": null,
+            "unit_price_usd": 0.0015
+          }
+        ],
+        "in_stock_covers_100_fitted_modules": true,
+        "available_order_qty_covers_100_fitted_modules": true,
+        "delta_in_stock_from_history": -96372,
+        "delta_available_order_qty_from_history": -80208
+      }
+    },
+    {
+      "c_code": "C23138",
+      "mpn": "0603WAF3300T5E",
+      "role": "330 Ω 1% / R14,R15",
+      "qty_per_module": 2,
+      "library": "Basic",
+      "quantity_basis": "Recovered A4 reference-circuit allocation in role and procurement notes; not a native EDA netlist export.",
+      "procurement_notes": "左右DATAの直列ダンピング。遠端の波形を試作機で確認。",
+      "pcba_type": "Economic and Standard",
+      "assembly_type": "SMT Assembly",
+      "package": "0603",
+      "url": "https://jlcpcb.com/partdetail/C23138",
+      "historical_quantity_observation": {
+        "observed_jst": "2026-11-06T05:20:36.048303+09:00",
+        "in_stock": 2957871,
+        "available_order_qty": 2346065,
+        "snapshot": "passive_evidence/C23138.snapshot.json",
+        "in_stock_covers_100_fitted_modules": true,
+        "available_order_qty_covers_100_fitted_modules": true
+      },
+      "catalog_recheck": {
+        "status": "unavailable_on_recheck",
+        "tool_ref": null,
+        "retrieval_crawl_label": null,
+        "identity_and_assembly_match": null,
+        "note": "This field records the child web-text identity/assembly check. The separate live observation records the parent public-page rendered-DOM refresh, including C23138."
+      },
+      "live_quantity_and_price_observation": {
+        "method": "Read-only public JLCPCB product pages; visible rendered DOM. Prices are USD. Available Order Qty is the pre-purchase field, not a promise of total PCBA allocation.",
+        "observer": "parent task /root",
+        "evidence_file": "live_jlc_refresh_source.json",
+        "observed_utc": "2026-11-06T02:33:03.632Z",
+        "observed_jst": "2026-11-06T11:33:03.632000+09:00",
+        "in_stock": 2930596,
+        "available_order_qty": 2321081,
+        "tiers": [
+          {
+            "min_qty": 1,
+            "max_qty": 999,
+            "unit_price_usd": 0.002
+          },
+          {
+            "min_qty": 1000,
+            "max_qty": 4999,
+            "unit_price_usd": 0.0016
+          },
+          {
+            "min_qty": 5000,
+            "max_qty": 9999,
+            "unit_price_usd": 0.0013
+          },
+          {
+            "min_qty": 10000,
+            "max_qty": 49999,
+            "unit_price_usd": 0.0011
+          },
+          {
+            "min_qty": 50000,
+            "max_qty": null,
+            "unit_price_usd": 0.001
+          }
+        ],
+        "in_stock_covers_100_fitted_modules": true,
+        "available_order_qty_covers_100_fitted_modules": true,
+        "delta_in_stock_from_history": -27275,
+        "delta_available_order_qty_from_history": -24984
+      }
+    },
+    {
+      "c_code": "C23162",
+      "mpn": "0603WAF4701T5E",
+      "role": "4.7 kΩ 1% / R20",
+      "qty_per_module": 1,
+      "library": "Basic",
+      "quantity_basis": "Recovered A4 reference-circuit allocation in role and procurement notes; not a native EDA netlist export.",
+      "procurement_notes": "VLED放電。5 V時公称1.06 mA。",
+      "pcba_type": "Economic and Standard",
+      "assembly_type": "SMT Assembly",
+      "package": "0603",
+      "url": "https://jlcpcb.com/partdetail/C23162",
+      "historical_quantity_observation": {
+        "observed_jst": "2026-11-06T05:20:36.088390+09:00",
+        "in_stock": 16338872,
+        "available_order_qty": 13131171,
+        "snapshot": "passive_evidence/C23162.snapshot.json",
+        "in_stock_covers_100_fitted_modules": true,
+        "available_order_qty_covers_100_fitted_modules": true
+      },
+      "catalog_recheck": {
+        "status": "opened",
+        "tool_ref": "turn12view2",
+        "retrieval_crawl_label": "today",
+        "identity_and_assembly_match": true,
+        "note": "This field records the child web-text identity/assembly check. The separate live observation records the parent public-page rendered-DOM refresh, including C23138."
+      },
+      "live_quantity_and_price_observation": {
+        "method": "Read-only public JLCPCB product pages; visible rendered DOM. Prices are USD. Available Order Qty is the pre-purchase field, not a promise of total PCBA allocation.",
+        "observer": "parent task /root",
+        "evidence_file": "live_jlc_refresh_source.json",
+        "observed_utc": "2026-11-06T02:33:03.632Z",
+        "observed_jst": "2026-11-06T11:33:03.632000+09:00",
+        "in_stock": 16257259,
+        "available_order_qty": 13049457,
+        "tiers": [
+          {
+            "min_qty": 1,
+            "max_qty": 999,
+            "unit_price_usd": 0.0028
+          },
+          {
+            "min_qty": 1000,
+            "max_qty": 4999,
+            "unit_price_usd": 0.0022
+          },
+          {
+            "min_qty": 5000,
+            "max_qty": 9999,
+            "unit_price_usd": 0.0019
+          },
+          {
+            "min_qty": 10000,
+            "max_qty": 49999,
+            "unit_price_usd": 0.0016
+          },
+          {
+            "min_qty": 50000,
+            "max_qty": null,
+            "unit_price_usd": 0.0015
+          }
+        ],
+        "in_stock_covers_100_fitted_modules": true,
+        "available_order_qty_covers_100_fitted_modules": true,
+        "delta_in_stock_from_history": -81613,
+        "delta_available_order_qty_from_history": -81714
+      }
+    },
+    {
+      "c_code": "C14663",
+      "mpn": "CC0603KRX7R9BB104",
+      "role": "100 nF 50 V X7R / 制御7＋LED8",
+      "qty_per_module": 15,
+      "library": "Basic",
+      "quantity_basis": "Recovered A4 reference-circuit allocation in role and procurement notes; not a native EDA netlist export.",
+      "procurement_notes": "Basic YAGEOへ統一。BST–SW1、制御デカップリング5、NRST1、LED局所8。LED用最大0.9 mm本体。",
+      "pcba_type": "Economic and Standard",
+      "assembly_type": "SMT Assembly",
+      "package": "0603",
+      "url": "https://jlcpcb.com/partdetail/C14663",
+      "historical_quantity_observation": {
+        "observed_jst": "2026-11-06T05:18:21.685026+09:00",
+        "in_stock": 36133363,
+        "available_order_qty": 18334756,
+        "snapshot": "passive_evidence/C14663.snapshot.json",
+        "in_stock_covers_100_fitted_modules": true,
+        "available_order_qty_covers_100_fitted_modules": true
+      },
+      "catalog_recheck": {
+        "status": "opened",
+        "tool_ref": "turn12view3",
+        "retrieval_crawl_label": "today",
+        "identity_and_assembly_match": true,
+        "note": "This field records the child web-text identity/assembly check. The separate live observation records the parent public-page rendered-DOM refresh, including C23138."
+      },
+      "live_quantity_and_price_observation": {
+        "method": "Read-only public JLCPCB product pages; visible rendered DOM. Prices are USD. Available Order Qty is the pre-purchase field, not a promise of total PCBA allocation.",
+        "observer": "parent task /root",
+        "evidence_file": "live_jlc_refresh_source.json",
+        "observed_utc": "2026-11-06T02:33:41.309Z",
+        "observed_jst": "2026-11-06T11:33:41.309000+09:00",
+        "in_stock": 35680175,
+        "available_order_qty": 25289911,
+        "tiers": [
+          {
+            "min_qty": 1,
+            "max_qty": 999,
+            "unit_price_usd": 0.0067
+          },
+          {
+            "min_qty": 1000,
+            "max_qty": 3999,
+            "unit_price_usd": 0.0052
+          },
+          {
+            "min_qty": 4000,
+            "max_qty": 7999,
+            "unit_price_usd": 0.0044
+          },
+          {
+            "min_qty": 8000,
+            "max_qty": 47999,
+            "unit_price_usd": 0.0039
+          },
+          {
+            "min_qty": 48000,
+            "max_qty": 99999,
+            "unit_price_usd": 0.0035
+          },
+          {
+            "min_qty": 100000,
+            "max_qty": null,
+            "unit_price_usd": 0.0033
+          }
+        ],
+        "in_stock_covers_100_fitted_modules": true,
+        "available_order_qty_covers_100_fitted_modules": true,
+        "delta_in_stock_from_history": -453188,
+        "delta_available_order_qty_from_history": 6955155
+      }
+    },
+    {
+      "c_code": "C57112",
+      "mpn": "0603B103K500NT",
+      "role": "10 nF 50 V X7R / C13",
+      "qty_per_module": 1,
+      "library": "Basic",
+      "quantity_basis": "Recovered A4 reference-circuit allocation in role and procurement notes; not a native EDA netlist export.",
+      "procurement_notes": "ADC入力フィルタ。最大ADC取得時間とサンプリング条件をFWで反映。",
+      "pcba_type": "Economic and Standard",
+      "assembly_type": "SMT Assembly",
+      "package": "0603",
+      "url": "https://jlcpcb.com/partdetail/C57112",
+      "historical_quantity_observation": {
+        "observed_jst": "2026-11-06T05:20:42.588357+09:00",
+        "in_stock": 5190036,
+        "available_order_qty": 3620078,
+        "snapshot": "passive_evidence/C57112.snapshot.json",
+        "in_stock_covers_100_fitted_modules": true,
+        "available_order_qty_covers_100_fitted_modules": true
+      },
+      "catalog_recheck": {
+        "status": "indexed_primary_listing",
+        "tool_ref": "turn13search0",
+        "retrieval_crawl_label": "2 months ago",
+        "identity_and_assembly_match": true,
+        "note": "This field records the child web-text identity/assembly check. The separate live observation records the parent public-page rendered-DOM refresh, including C23138."
+      },
+      "live_quantity_and_price_observation": {
+        "method": "Read-only public JLCPCB product pages; visible rendered DOM. Prices are USD. Available Order Qty is the pre-purchase field, not a promise of total PCBA allocation.",
+        "observer": "parent task /root",
+        "evidence_file": "live_jlc_refresh_source.json",
+        "observed_utc": "2026-11-06T02:33:41.316Z",
+        "observed_jst": "2026-11-06T11:33:41.316000+09:00",
+        "in_stock": 5106962,
+        "available_order_qty": 3751599,
+        "tiers": [
+          {
+            "min_qty": 1,
+            "max_qty": 999,
+            "unit_price_usd": 0.0097
+          },
+          {
+            "min_qty": 1000,
+            "max_qty": 2999,
+            "unit_price_usd": 0.0075
+          },
+          {
+            "min_qty": 3000,
+            "max_qty": 7999,
+            "unit_price_usd": 0.0065
+          },
+          {
+            "min_qty": 8000,
+            "max_qty": 47999,
+            "unit_price_usd": 0.0058
+          },
+          {
+            "min_qty": 48000,
+            "max_qty": 95999,
+            "unit_price_usd": 0.0055
+          },
+          {
+            "min_qty": 96000,
+            "max_qty": null,
+            "unit_price_usd": 0.0054
+          }
+        ],
+        "in_stock_covers_100_fitted_modules": true,
+        "available_order_qty_covers_100_fitted_modules": true,
+        "delta_in_stock_from_history": -83074,
+        "delta_available_order_qty_from_history": 131521
+      }
+    },
+    {
+      "c_code": "C15850",
+      "mpn": "CL21A106KAYNNNE",
+      "role": "10 µF 25 V X5R / C1,C15,C16",
+      "qty_per_module": 3,
+      "library": "Basic",
+      "quantity_basis": "Recovered A4 reference-circuit allocation in role and procurement notes; not a native EDA netlist export.",
+      "procurement_notes": "0805。12 V入力と5 V局所用。DCバイアス下の実効容量の確認が必要。X5Rへ変更。",
+      "pcba_type": "Economic and Standard",
+      "assembly_type": "SMT Assembly",
+      "package": "0805",
+      "url": "https://jlcpcb.com/partdetail/C15850",
+      "historical_quantity_observation": {
+        "observed_jst": "2026-11-06T05:20:48.594748+09:00",
+        "in_stock": 7424691,
+        "available_order_qty": 5651518,
+        "snapshot": "passive_evidence/C15850.snapshot.json",
+        "in_stock_covers_100_fitted_modules": true,
+        "available_order_qty_covers_100_fitted_modules": true
+      },
+      "catalog_recheck": {
+        "status": "opened",
+        "tool_ref": "turn13view0",
+        "retrieval_crawl_label": "today",
+        "identity_and_assembly_match": true,
+        "note": "This field records the child web-text identity/assembly check. The separate live observation records the parent public-page rendered-DOM refresh, including C23138."
+      },
+      "live_quantity_and_price_observation": {
+        "method": "Read-only public JLCPCB product pages; visible rendered DOM. Prices are USD. Available Order Qty is the pre-purchase field, not a promise of total PCBA allocation.",
+        "observer": "parent task /root",
+        "evidence_file": "live_jlc_refresh_source.json",
+        "observed_utc": "2026-11-06T02:33:41.311Z",
+        "observed_jst": "2026-11-06T11:33:41.311000+09:00",
+        "in_stock": 7369336,
+        "available_order_qty": 5608056,
+        "tiers": [
+          {
+            "min_qty": 1,
+            "max_qty": 199,
+            "unit_price_usd": 0.0397
+          },
+          {
+            "min_qty": 200,
+            "max_qty": 599,
+            "unit_price_usd": 0.0313
+          },
+          {
+            "min_qty": 600,
+            "max_qty": 1999,
+            "unit_price_usd": 0.0271
+          },
+          {
+            "min_qty": 2000,
+            "max_qty": 9999,
+            "unit_price_usd": 0.0235
+          },
+          {
+            "min_qty": 10000,
+            "max_qty": 19999,
+            "unit_price_usd": 0.0222
+          },
+          {
+            "min_qty": 20000,
+            "max_qty": null,
+            "unit_price_usd": 0.0213
+          }
+        ],
+        "in_stock_covers_100_fitted_modules": true,
+        "available_order_qty_covers_100_fitted_modules": true,
+        "delta_in_stock_from_history": -55355,
+        "delta_available_order_qty_from_history": -43462
+      }
+    },
+    {
+      "c_code": "C12891",
+      "mpn": "CL31A226KAHNNNE",
+      "role": "22 µF 25 V X5R / C2,C3",
+      "qty_per_module": 2,
+      "library": "Basic",
+      "quantity_basis": "Recovered A4 reference-circuit allocation in role and procurement notes; not a native EDA netlist export.",
+      "procurement_notes": "1206。AP63205評価基板と同じ公称容量/定格の選択。実効容量・温度・実配置は別途確認。",
+      "pcba_type": "Economic and Standard",
+      "assembly_type": "SMT Assembly",
+      "package": "1206",
+      "url": "https://jlcpcb.com/partdetail/C12891",
+      "historical_quantity_observation": {
+        "observed_jst": "2026-11-06T05:20:57.036370+09:00",
+        "in_stock": 1613122,
+        "available_order_qty": 1195698,
+        "snapshot": "passive_evidence/C12891.snapshot.json",
+        "in_stock_covers_100_fitted_modules": true,
+        "available_order_qty_covers_100_fitted_modules": true
+      },
+      "catalog_recheck": {
+        "status": "indexed_primary_listing",
+        "tool_ref": "turn14search1",
+        "retrieval_crawl_label": "2 months ago",
+        "identity_and_assembly_match": true,
+        "note": "This field records the child web-text identity/assembly check. The separate live observation records the parent public-page rendered-DOM refresh, including C23138."
+      },
+      "live_quantity_and_price_observation": {
+        "method": "Read-only public JLCPCB product pages; visible rendered DOM. Prices are USD. Available Order Qty is the pre-purchase field, not a promise of total PCBA allocation.",
+        "observer": "parent task /root",
+        "evidence_file": "live_jlc_refresh_source.json",
+        "observed_utc": "2026-11-06T02:33:52.631Z",
+        "observed_jst": "2026-11-06T11:33:52.631000+09:00",
+        "in_stock": 1606302,
+        "available_order_qty": 1192099,
+        "tiers": [
+          {
+            "min_qty": 1,
+            "max_qty": 199,
+            "unit_price_usd": 0.1178
+          },
+          {
+            "min_qty": 200,
+            "max_qty": 599,
+            "unit_price_usd": 0.0961
+          },
+          {
+            "min_qty": 600,
+            "max_qty": 1999,
+            "unit_price_usd": 0.085
+          },
+          {
+            "min_qty": 2000,
+            "max_qty": 9999,
+            "unit_price_usd": 0.0758
+          },
+          {
+            "min_qty": 10000,
+            "max_qty": 19999,
+            "unit_price_usd": 0.0726
+          },
+          {
+            "min_qty": 20000,
+            "max_qty": null,
+            "unit_price_usd": 0.0704
+          }
+        ],
+        "in_stock_covers_100_fitted_modules": true,
+        "available_order_qty_covers_100_fitted_modules": true,
+        "delta_in_stock_from_history": -6820,
+        "delta_available_order_qty_from_history": -3599
+      }
+    },
+    {
+      "c_code": "C19666",
+      "mpn": "CL10A475KO8NNNC",
+      "role": "4.7 µF 16 V X5R / C5,C6,C7",
+      "qty_per_module": 3,
+      "library": "Basic",
+      "quantity_basis": "Recovered A4 reference-circuit allocation in role and procurement notes; not a native EDA netlist export.",
+      "procurement_notes": "0603。LDO入出力C5/C6を1 µFから増量しMCUバルクと統一。LDOの1 µF以上実効容量を要確認。",
+      "pcba_type": "Economic and Standard",
+      "assembly_type": "SMT Assembly",
+      "package": "0603",
+      "url": "https://jlcpcb.com/partdetail/C19666",
+      "historical_quantity_observation": {
+        "observed_jst": "2026-11-06T05:20:48.632895+09:00",
+        "in_stock": 4047769,
+        "available_order_qty": 3278673,
+        "snapshot": "passive_evidence/C19666.snapshot.json",
+        "in_stock_covers_100_fitted_modules": true,
+        "available_order_qty_covers_100_fitted_modules": true
+      },
+      "catalog_recheck": {
+        "status": "indexed_primary_listing",
+        "tool_ref": "turn14search0",
+        "retrieval_crawl_label": "2 months ago",
+        "identity_and_assembly_match": true,
+        "note": "This field records the child web-text identity/assembly check. The separate live observation records the parent public-page rendered-DOM refresh, including C23138."
+      },
+      "live_quantity_and_price_observation": {
+        "method": "Read-only public JLCPCB product pages; visible rendered DOM. Prices are USD. Available Order Qty is the pre-purchase field, not a promise of total PCBA allocation.",
+        "observer": "parent task /root",
+        "evidence_file": "live_jlc_refresh_source.json",
+        "observed_utc": "2026-11-06T02:33:52.629Z",
+        "observed_jst": "2026-11-06T11:33:52.629000+09:00",
+        "in_stock": 4032683,
+        "available_order_qty": 3272015,
+        "tiers": [
+          {
+            "min_qty": 1,
+            "max_qty": 99,
+            "unit_price_usd": 0.015
+          },
+          {
+            "min_qty": 100,
+            "max_qty": 299,
+            "unit_price_usd": 0.0112
+          },
+          {
+            "min_qty": 300,
+            "max_qty": 999,
+            "unit_price_usd": 0.0095
+          },
+          {
+            "min_qty": 1000,
+            "max_qty": 3999,
+            "unit_price_usd": 0.0083
+          },
+          {
+            "min_qty": 4000,
+            "max_qty": 7999,
+            "unit_price_usd": 0.0078
+          },
+          {
+            "min_qty": 8000,
+            "max_qty": null,
+            "unit_price_usd": 0.0074
+          }
+        ],
+        "in_stock_covers_100_fitted_modules": true,
+        "available_order_qty_covers_100_fitted_modules": true,
+        "delta_in_stock_from_history": -15086,
+        "delta_available_order_qty_from_history": -6658
+      }
+    }
+  ],
+  "findings": [
+    {
+      "id": "A4-E01",
+      "severity": "CONFIRMED_SELECTION",
+      "title": "Latch-off survives the availability substitution",
+      "detail": "TPS2552DBVR-1 is the active-low latch-off part. The NPN inverter and 100 kOhm pull-up to unswitched 5 V give a dark reset state without a 5 V pull-up on the MCU pin. The suffix -1 must be preserved.",
+      "sources": [
+        "TI-TPS255X",
+        "turn9view2",
+        "turn9view3"
+      ]
+    },
+    {
+      "id": "A4-E02",
+      "severity": "FIRMWARE_REQUIREMENT_TO_CLOSE",
+      "title": "Reset also resets the current-limit latch",
+      "detail": "The manufacturer states that toggling EN or cycling switch power clears the latch. Here MCU reset switches the NPN off and deasserts EN. A boot routine that always re-enables LEDs can therefore retry a previous fault. Specify no automatic retry within a running session, and keep watchdog/software-reset startup dark until the chosen deliberate recovery condition. A stronger cross-reset fault policy requires explicit retained state or a revised circuit; it is not established by selecting -1 alone.",
+      "sources": [
+        "TI-TPS255X"
+      ],
+      "already_implemented": false
+    },
+    {
+      "id": "A4-E03",
+      "severity": "RELEASE_GATE",
+      "title": "ADC fault clamp remains unqualified",
+      "detail": "Diodes BAS70-04-7-F is the correct procured dual-series candidate. Its 0.41 V maximum drop at 1 mA/25 C does not prove the ADC pin stays above -0.3 V in all faults or at low temperature. Pin voltage, injection current, power-off backfeed and rail absorption need a completed schematic review. The independently reproduced normal DC corners do not close that gate.",
+      "sources": [
+        "DIODES-BAS70",
+        "ST-G031"
+      ]
+    },
+    {
+      "id": "A4-E04",
+      "severity": "RELEASE_GATE",
+      "title": "Nominal capacitance is not effective capacitance",
+      "detail": "The selected Basic 4.7 uF/16 V X5R capacitors provide nominal margin for the LDO, but DC bias, temperature, tolerance and ageing remain unqualified. The 10 uF/25 V 0805 input and 2x22 uF/25 V 1206 output likewise need operating-point capacitance and layout verification before manufacturing.",
+      "sources": [
+        "TI-TLV755",
+        "DIODES-AP63205"
+      ]
+    },
+    {
+      "id": "A4-E05",
+      "severity": "CONFIRMED_SELECTION",
+      "title": "LED remains Standard Only on rigid boards",
+      "detail": "C52917434 is listed as Standard Only, High assembly difficulty and MSL5. Changing transparent PET leaves to FR-4 does not make this LED an Economic assembly part. Confirm actual assembler charges on the final jobs.",
+      "sources": [
+        "turn4view1"
+      ]
+    },
+    {
+      "id": "A4-E06",
+      "severity": "DESIGN_SELECTION_UPDATED_FOR_A4_1",
+      "title": "Active TDK LR inductor selected; Wurth retained as fallback",
+      "detail": "Recovered A4 used Wurth74437324047. A4.1 selects active TDK SPM4020T-4R7M-LR/C694586: same4.7uH±20% and2mm maximum height, with lower price and726stock/719AvailableOrderQty observed2026-11-06 11:37:37JST. Normal0.4–0.5A design load has ample calculated current margin; exact lands and hot startup/upstream-short qualification remain open. Typical3.5A saturation is not a guaranteed hot minimum above the buck3.1A maximum peak limit. See TDK_SPM4020T_4R7M_LR_evaluation.json/md. The obsolete non-LR part is rejected.",
+      "sources": [
+        "DIODES-AP63205",
+        "turn10view4"
+      ]
+    },
+    {
+      "id": "A4-E07",
+      "severity": "CONFIRMED_PROCUREMENT_OBSERVATION",
+      "title": "All 29 quantity and price fields were refreshed separately from history",
+      "detail": "All 29 recovered MPN/code/quantity/price rows match their saved snapshots. The parent then read all 29 rendered official JLC product pages at 2026-11-06 11:30:39–11:33:52 JST; every stock, Available Order Qty and price tier is retained separately. All cover 100 fitted modules before attrition. The smallest Available Order Qty is 431 Würth inductors. These are point-in-time displays, not reserved parts or an assembly quote.",
+      "sources": []
+    }
+  ],
+  "manufacturer_sources": [
+    {
+      "id": "TI-TPS255X",
+      "url": "https://www.ti.com/lit/ds/symlink/tps2553.pdf",
+      "tool_refs": [
+        "turn4view3",
+        "turn16view0",
+        "turn7view3"
+      ],
+      "supports": "Active-low TPS2552-1 latch-off function, EN limits, EN/power reset of fault latch, ILIM equations."
+    },
+    {
+      "id": "TI-LVC2T45",
+      "url": "https://www.ti.com/lit/ds/symlink/sn74lvc2t45.pdf",
+      "tool_refs": [
+        "turn15view1"
+      ],
+      "supports": "Dual-rail supply range, VCCA-referenced DIR, Ioff and isolation when a supply is grounded."
+    },
+    {
+      "id": "TI-TLV755",
+      "url": "https://www.ti.com/lit/ds/symlink/tlv755p.pdf",
+      "tool_refs": [
+        "turn15view0"
+      ],
+      "supports": "3.3 V regulator choice and need to qualify output capacitance."
+    },
+    {
+      "id": "DIODES-AP63205",
+      "url": "https://www.diodes.com/assets/Datasheets/AP63200-AP63201-AP63203-AP63205.pdf",
+      "tool_refs": [
+        "turn15view4",
+        "turn16view4",
+        "turn17view0"
+      ],
+      "supports": "5 V/1.1 MHz buck; recommended 4.7 uH, 10 uF input, 2x22 uF output, 100 nF bootstrap; 3.1 A maximum high-side peak limit."
+    },
+    {
+      "id": "DIODES-BAS70",
+      "url": "https://www.diodes.com/_files/datasheets/ds11007.pdf",
+      "tool_refs": [
+        "turn15view3"
+      ],
+      "supports": "Exact BAS70-04-7-F order code; 0.41 V maximum at 1 mA/25 C is not a guaranteed -0.3 V clamp."
+    },
+    {
+      "id": "ST-G031",
+      "url": "https://www.st.com/resource/en/datasheet/stm32g031f8.pdf",
+      "tool_refs": [
+        "turn15view2",
+        "turn16view2",
+        "turn17view4"
+      ],
+      "supports": "G031 architecture, separate pin voltage and current injection constraints, UFQFPN28 package."
+    }
+  ],
+  "snapshot_consistency_checks": [
+    {
+      "c_code": "C5270180",
+      "checks": {
+        "C-code": true,
+        "MPN": true,
+        "historical_stock": true,
+        "historical_prepurchase": true,
+        "tiers": true
+      }
+    },
+    {
+      "c_code": "C52917434",
+      "checks": {
+        "C-code": true,
+        "MPN": true,
+        "historical_stock": true,
+        "historical_prepurchase": true,
+        "tiers": true
+      }
+    },
+    {
+      "c_code": "C2071056",
+      "checks": {
+        "C-code": true,
+        "MPN": true,
+        "historical_stock": true,
+        "historical_prepurchase": true,
+        "tiers": true
+      }
+    },
+    {
+      "c_code": "C404027",
+      "checks": {
+        "C-code": true,
+        "MPN": true,
+        "historical_stock": true,
+        "historical_prepurchase": true,
+        "tiers": true
+      }
+    },
+    {
+      "c_code": "C140331",
+      "checks": {
+        "C-code": true,
+        "MPN": true,
+        "historical_stock": true,
+        "historical_prepurchase": true,
+        "tiers": true
+      }
+    },
+    {
+      "c_code": "C20526",
+      "checks": {
+        "C-code": true,
+        "MPN": true,
+        "historical_stock": true,
+        "historical_prepurchase": true,
+        "tiers": true
+      }
+    },
+    {
+      "c_code": "C15741",
+      "checks": {
+        "C-code": true,
+        "MPN": true,
+        "historical_stock": true,
+        "historical_prepurchase": true,
+        "tiers": true
+      }
+    },
+    {
+      "c_code": "C221351",
+      "checks": {
+        "C-code": true,
+        "MPN": true,
+        "historical_stock": true,
+        "historical_prepurchase": true,
+        "tiers": true
+      }
+    },
+    {
+      "c_code": "C50704",
+      "checks": {
+        "C-code": true,
+        "MPN": true,
+        "historical_stock": true,
+        "historical_prepurchase": true,
+        "tiers": true
+      }
+    },
+    {
+      "c_code": "C134375",
+      "checks": {
+        "C-code": true,
+        "MPN": true,
+        "historical_stock": true,
+        "historical_prepurchase": true,
+        "tiers": true
+      }
+    },
+    {
+      "c_code": "C2651179",
+      "checks": {
+        "C-code": true,
+        "MPN": true,
+        "historical_stock": true,
+        "historical_prepurchase": true,
+        "tiers": true
+      }
+    },
+    {
+      "c_code": "C500090",
+      "checks": {
+        "C-code": true,
+        "MPN": true,
+        "historical_stock": true,
+        "historical_prepurchase": true,
+        "tiers": true
+      }
+    },
+    {
+      "c_code": "C908270",
+      "checks": {
+        "C-code": true,
+        "MPN": true,
+        "historical_stock": true,
+        "historical_prepurchase": true,
+        "tiers": true
+      }
+    },
+    {
+      "c_code": "C160404",
+      "checks": {
+        "C-code": true,
+        "MPN": true,
+        "historical_stock": true,
+        "historical_prepurchase": true,
+        "tiers": true
+      }
+    },
+    {
+      "c_code": "C122442",
+      "checks": {
+        "C-code": true,
+        "MPN": true,
+        "historical_stock": true,
+        "historical_prepurchase": true,
+        "tiers": true
+      }
+    },
+    {
+      "c_code": "C5665",
+      "checks": {
+        "C-code": true,
+        "MPN": true,
+        "historical_stock": true,
+        "historical_prepurchase": true,
+        "tiers": true
+      }
+    },
+    {
+      "c_code": "C7250",
+      "checks": {
+        "C-code": true,
+        "MPN": true,
+        "historical_stock": true,
+        "historical_prepurchase": true,
+        "tiers": true
+      }
+    },
+    {
+      "c_code": "C23254",
+      "checks": {
+        "C-code": true,
+        "MPN": true,
+        "historical_stock": true,
+        "historical_prepurchase": true,
+        "tiers": true
+      }
+    },
+    {
+      "c_code": "C21190",
+      "checks": {
+        "C-code": true,
+        "MPN": true,
+        "historical_stock": true,
+        "historical_prepurchase": true,
+        "tiers": true
+      }
+    },
+    {
+      "c_code": "C25804",
+      "checks": {
+        "C-code": true,
+        "MPN": true,
+        "historical_stock": true,
+        "historical_prepurchase": true,
+        "tiers": true
+      }
+    },
+    {
+      "c_code": "C23231",
+      "checks": {
+        "C-code": true,
+        "MPN": true,
+        "historical_stock": true,
+        "historical_prepurchase": true,
+        "tiers": true
+      }
+    },
+    {
+      "c_code": "C25803",
+      "checks": {
+        "C-code": true,
+        "MPN": true,
+        "historical_stock": true,
+        "historical_prepurchase": true,
+        "tiers": true
+      }
+    },
+    {
+      "c_code": "C23138",
+      "checks": {
+        "C-code": true,
+        "MPN": true,
+        "historical_stock": true,
+        "historical_prepurchase": true,
+        "tiers": true
+      }
+    },
+    {
+      "c_code": "C23162",
+      "checks": {
+        "C-code": true,
+        "MPN": true,
+        "historical_stock": true,
+        "historical_prepurchase": true,
+        "tiers": true
+      }
+    },
+    {
+      "c_code": "C14663",
+      "checks": {
+        "C-code": true,
+        "MPN": true,
+        "historical_stock": true,
+        "historical_prepurchase": true,
+        "tiers": true
+      }
+    },
+    {
+      "c_code": "C57112",
+      "checks": {
+        "C-code": true,
+        "MPN": true,
+        "historical_stock": true,
+        "historical_prepurchase": true,
+        "tiers": true
+      }
+    },
+    {
+      "c_code": "C15850",
+      "checks": {
+        "C-code": true,
+        "MPN": true,
+        "historical_stock": true,
+        "historical_prepurchase": true,
+        "tiers": true
+      }
+    },
+    {
+      "c_code": "C12891",
+      "checks": {
+        "C-code": true,
+        "MPN": true,
+        "historical_stock": true,
+        "historical_prepurchase": true,
+        "tiers": true
+      }
+    },
+    {
+      "c_code": "C19666",
+      "checks": {
+        "C-code": true,
+        "MPN": true,
+        "historical_stock": true,
+        "historical_prepurchase": true,
+        "tiers": true
+      }
+    }
+  ],
+  "unperformed": [
+    "Native schematic ERC",
+    "PCB layout DRC",
+    "Firmware execution",
+    "Manufacturing quote/order",
+    "Physical fit",
+    "Powered/unpowered measurements",
+    "Temperature test"
+  ]
+}

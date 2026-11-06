@@ -1,0 +1,2701 @@
+{
+  "project": "Light Block",
+  "revision": "A4 electronics stock and cost audit",
+  "as_of_jst_date": "2026-11-06",
+  "observed_window_jst": [
+    "2026-11-06T05:15:49.716982+09:00",
+    "2026-11-06T05:33:28.533898+09:00"
+  ],
+  "status": "Read-only procurement/design audit. No order, reservation, native schematic, routed PCB, ERC/DRC, Gerber or assembly CPL release.",
+  "A3_input": "/workspace/scratch/99f340bc567f/light_block_A3_design/research_integrated_prototype.json",
+  "A3_input_sha256": "762006b263c02b08cb4d4fea3efa04ab2f85c1932fe6f1aa9369c1fee2279b8e",
+  "A3_modified": false,
+  "method": {
+    "stock": "Anonymous GET of public official JLCPCB product HTML. Counts are from embedded product props, not LCSC or Global Sourcing.",
+    "field_mapping": {
+      "overseasStockCount": "UI In Stock",
+      "canPresaleNumber": "UI Available Order Qty for pre-purchase"
+    },
+    "interpretation": "JLC reserves some inventory for SMT orders. Zero pre-purchase availability does not establish zero assembly stock. Positive stock does not reserve parts or certify an actual BOM upload.",
+    "snapshot_policy": "Each part retains acquisition timestamp, original URL, raw HTML SHA256 and sanitized snapshot. Dynamic stock must be checked again at release.",
+    "pricing": "USD public component tiers, fitted quantities only. No attrition, feeder/setup/handling, assembly, boards, panels, connectors, shipping or tax included.",
+    "quantity_policy": "100 complete modules is a supply screening scenario; 10 modules is a pricing example. Neither is an authorized purchase quantity.",
+    "cache_conflict": "Some search snippets reported older stocks or a fixture requirement. Fresh saved public HTML governs this snapshot. No inference that assembly fees are zero from metadata specialComponentFee=0."
+  },
+  "parts_audited": [
+    {
+      "code": "C5270180",
+      "mpn": "STM32G031G8U6TR",
+      "manufacturer": "STMicroelectronics",
+      "role": "MCU",
+      "qty_per_module": 1,
+      "disposition": "keep",
+      "package_as_listed": "UFQFPN-28(4x4)",
+      "jlc_in_stock": 4522,
+      "prepurchase_available_order_qty": 3751,
+      "library": "Extended",
+      "pcba_type": "Economic and Standard",
+      "assembly_type": "SMT Assembly",
+      "assembly_difficulty": null,
+      "moisture_sensitivity_as_listed": "MSL 3",
+      "source_as_listed": "JLCPCB",
+      "price_tiers_usd": [
+        {
+          "min_qty": 1,
+          "max_qty": 9,
+          "unit_price_usd": 1.745
+        },
+        {
+          "min_qty": 10,
+          "max_qty": 29,
+          "unit_price_usd": 1.4702
+        },
+        {
+          "min_qty": 30,
+          "max_qty": 99,
+          "unit_price_usd": 1.3181
+        },
+        {
+          "min_qty": 100,
+          "max_qty": 499,
+          "unit_price_usd": 1.1464
+        },
+        {
+          "min_qty": 500,
+          "max_qty": 999,
+          "unit_price_usd": 1.0696
+        },
+        {
+          "min_qty": 1000,
+          "max_qty": null,
+          "unit_price_usd": 1.0369
+        }
+      ],
+      "first_tier_usd": 1.745,
+      "example_10_modules": {
+        "fitted_qty_excluding_attrition": 10,
+        "unit_price_usd": 1.4702,
+        "component_cost_per_module_usd": 1.4702
+      },
+      "supply_screen_100_modules": {
+        "fitted_qty_excluding_attrition": 100,
+        "stock_covers_fitted_qty": true,
+        "prepurchase_qty_covers_fitted_qty": true,
+        "stock_coverage_multiple": 45.22
+      },
+      "observed_utc": "2026-11-05T20:15:49.918702+00:00",
+      "observed_jst": "2026-11-06T05:15:49.918702+09:00",
+      "url": "https://jlcpcb.com/partdetail/STMicroelectronics-STM32G031G8U6TR/C5270180",
+      "web_refs": [
+        "turn155view0"
+      ],
+      "snapshot": "ic_led_evidence/C5270180.snapshot.json",
+      "html_sha256": "fc190d3cce7e82aec393e4bb35114d57e4916c35488470d1a3a38a6040fcdc15",
+      "listed_datasheet_url": null
+    },
+    {
+      "code": "C52917434",
+      "mpn": "WS2812B-2020-V6",
+      "manufacturer": "Worldsemi",
+      "role": "RGB LED",
+      "qty_per_module": 8,
+      "disposition": "keep",
+      "package_as_listed": "SMD2020-4P",
+      "jlc_in_stock": 771294,
+      "prepurchase_available_order_qty": 749286,
+      "library": "Extended",
+      "pcba_type": "Standard Only",
+      "assembly_type": "SMT Assembly",
+      "assembly_difficulty": "High",
+      "moisture_sensitivity_as_listed": "MSL 5",
+      "source_as_listed": "JLCPCB",
+      "price_tiers_usd": [
+        {
+          "min_qty": 1,
+          "max_qty": 49,
+          "unit_price_usd": 0.0915
+        },
+        {
+          "min_qty": 50,
+          "max_qty": 149,
+          "unit_price_usd": 0.0736
+        },
+        {
+          "min_qty": 150,
+          "max_qty": 499,
+          "unit_price_usd": 0.0643
+        },
+        {
+          "min_qty": 500,
+          "max_qty": 2499,
+          "unit_price_usd": 0.0568
+        },
+        {
+          "min_qty": 2500,
+          "max_qty": 4499,
+          "unit_price_usd": 0.0542
+        },
+        {
+          "min_qty": 4500,
+          "max_qty": null,
+          "unit_price_usd": 0.0524
+        }
+      ],
+      "first_tier_usd": 0.0915,
+      "example_10_modules": {
+        "fitted_qty_excluding_attrition": 80,
+        "unit_price_usd": 0.0736,
+        "component_cost_per_module_usd": 0.5888
+      },
+      "supply_screen_100_modules": {
+        "fitted_qty_excluding_attrition": 800,
+        "stock_covers_fitted_qty": true,
+        "prepurchase_qty_covers_fitted_qty": true,
+        "stock_coverage_multiple": 964.117
+      },
+      "observed_utc": "2026-11-05T20:15:49.718553+00:00",
+      "observed_jst": "2026-11-06T05:15:49.718553+09:00",
+      "url": "https://jlcpcb.com/partdetail/Worldsemi-LED/C52917434",
+      "web_refs": [
+        "turn155view1"
+      ],
+      "snapshot": "ic_led_evidence/C52917434.snapshot.json",
+      "html_sha256": "da1317253538cb4a4b23647d01f38995c6955b3f7eac7550cde7a016d4dabe77",
+      "listed_datasheet_url": null
+    },
+    {
+      "code": "C2071056",
+      "mpn": "AP63205WU-7",
+      "manufacturer": "Diodes Incorporated",
+      "role": "5 V buck",
+      "qty_per_module": 1,
+      "disposition": "keep",
+      "package_as_listed": "TSOT-23-6",
+      "jlc_in_stock": 20691,
+      "prepurchase_available_order_qty": 17987,
+      "library": "Extended",
+      "pcba_type": "Economic and Standard",
+      "assembly_type": "SMT Assembly",
+      "assembly_difficulty": null,
+      "moisture_sensitivity_as_listed": "MSL 1",
+      "source_as_listed": "JLCPCB",
+      "price_tiers_usd": [
+        {
+          "min_qty": 1,
+          "max_qty": 9,
+          "unit_price_usd": 0.4612
+        },
+        {
+          "min_qty": 10,
+          "max_qty": 29,
+          "unit_price_usd": 0.3647
+        },
+        {
+          "min_qty": 30,
+          "max_qty": 99,
+          "unit_price_usd": 0.3173
+        },
+        {
+          "min_qty": 100,
+          "max_qty": 499,
+          "unit_price_usd": 0.2748
+        },
+        {
+          "min_qty": 500,
+          "max_qty": 999,
+          "unit_price_usd": 0.2519
+        },
+        {
+          "min_qty": 1000,
+          "max_qty": null,
+          "unit_price_usd": 0.2454
+        }
+      ],
+      "first_tier_usd": 0.4612,
+      "example_10_modules": {
+        "fitted_qty_excluding_attrition": 10,
+        "unit_price_usd": 0.3647,
+        "component_cost_per_module_usd": 0.3647
+      },
+      "supply_screen_100_modules": {
+        "fitted_qty_excluding_attrition": 100,
+        "stock_covers_fitted_qty": true,
+        "prepurchase_qty_covers_fitted_qty": true,
+        "stock_coverage_multiple": 206.91
+      },
+      "observed_utc": "2026-11-05T20:15:49.716982+00:00",
+      "observed_jst": "2026-11-06T05:15:49.716982+09:00",
+      "url": "https://jlcpcb.com/partdetail/AP63205WU-7/C2071056",
+      "web_refs": [
+        "turn155view2"
+      ],
+      "snapshot": "ic_led_evidence/C2071056.snapshot.json",
+      "html_sha256": "3391d68858bdcd93b584ed71d53fe64304b833c53c1e48ff8358e9b1b7bc34a5",
+      "listed_datasheet_url": "https://www.lcsc.com/datasheet/lcsc_datasheet_2210280930_Diodes-Incorporated-AP63205WU-7_C2071056.pdf"
+    },
+    {
+      "code": "C404027",
+      "mpn": "TLV75533PDBVR",
+      "manufacturer": "Texas Instruments",
+      "role": "3.3 V LDO",
+      "qty_per_module": 1,
+      "disposition": "keep",
+      "package_as_listed": "SOT-23-5",
+      "jlc_in_stock": 95151,
+      "prepurchase_available_order_qty": 93956,
+      "library": "Extended",
+      "pcba_type": "Economic and Standard",
+      "assembly_type": "SMT Assembly",
+      "assembly_difficulty": null,
+      "moisture_sensitivity_as_listed": "MSL 1",
+      "source_as_listed": "JLCPCB",
+      "price_tiers_usd": [
+        {
+          "min_qty": 1,
+          "max_qty": 49,
+          "unit_price_usd": 0.1216
+        },
+        {
+          "min_qty": 50,
+          "max_qty": 149,
+          "unit_price_usd": 0.0959
+        },
+        {
+          "min_qty": 150,
+          "max_qty": 499,
+          "unit_price_usd": 0.0826
+        },
+        {
+          "min_qty": 500,
+          "max_qty": 2999,
+          "unit_price_usd": 0.0718
+        },
+        {
+          "min_qty": 3000,
+          "max_qty": 5999,
+          "unit_price_usd": 0.0679
+        },
+        {
+          "min_qty": 6000,
+          "max_qty": null,
+          "unit_price_usd": 0.0655
+        }
+      ],
+      "first_tier_usd": 0.1216,
+      "example_10_modules": {
+        "fitted_qty_excluding_attrition": 10,
+        "unit_price_usd": 0.1216,
+        "component_cost_per_module_usd": 0.1216
+      },
+      "supply_screen_100_modules": {
+        "fitted_qty_excluding_attrition": 100,
+        "stock_covers_fitted_qty": true,
+        "prepurchase_qty_covers_fitted_qty": true,
+        "stock_coverage_multiple": 951.51
+      },
+      "observed_utc": "2026-11-05T20:15:49.785944+00:00",
+      "observed_jst": "2026-11-06T05:15:49.785944+09:00",
+      "url": "https://jlcpcb.com/partdetail/TexasInstruments-TLV75533PDBVR/C404027",
+      "web_refs": [
+        "turn155view3"
+      ],
+      "snapshot": "ic_led_evidence/C404027.snapshot.json",
+      "html_sha256": "25cd5e69d79b93aa79ad43727fe9c63b57aff4d8e9de281c0c1f89431a16a8d8",
+      "listed_datasheet_url": "https://www.lcsc.com/datasheet/lcsc_datasheet_1912111437_Texas-Instruments-TLV75533PDBVR_C404027.pdf"
+    },
+    {
+      "code": "C15741",
+      "mpn": "SN74LVC2T45DCUR",
+      "manufacturer": "Texas Instruments",
+      "role": "Two-channel LED level translator",
+      "qty_per_module": 1,
+      "disposition": "keep",
+      "package_as_listed": "VSSOP-8",
+      "jlc_in_stock": 91323,
+      "prepurchase_available_order_qty": 90009,
+      "library": "Extended",
+      "pcba_type": "Economic and Standard",
+      "assembly_type": "SMT Assembly",
+      "assembly_difficulty": null,
+      "moisture_sensitivity_as_listed": "MSL 1",
+      "source_as_listed": "JLCPCB",
+      "price_tiers_usd": [
+        {
+          "min_qty": 1,
+          "max_qty": 49,
+          "unit_price_usd": 0.2079
+        },
+        {
+          "min_qty": 50,
+          "max_qty": 149,
+          "unit_price_usd": 0.1636
+        },
+        {
+          "min_qty": 150,
+          "max_qty": 499,
+          "unit_price_usd": 0.1418
+        },
+        {
+          "min_qty": 500,
+          "max_qty": 2999,
+          "unit_price_usd": 0.1091
+        },
+        {
+          "min_qty": 3000,
+          "max_qty": 5999,
+          "unit_price_usd": 0.1037
+        },
+        {
+          "min_qty": 6000,
+          "max_qty": null,
+          "unit_price_usd": 0.1006
+        }
+      ],
+      "first_tier_usd": 0.2079,
+      "example_10_modules": {
+        "fitted_qty_excluding_attrition": 10,
+        "unit_price_usd": 0.2079,
+        "component_cost_per_module_usd": 0.2079
+      },
+      "supply_screen_100_modules": {
+        "fitted_qty_excluding_attrition": 100,
+        "stock_covers_fitted_qty": true,
+        "prepurchase_qty_covers_fitted_qty": true,
+        "stock_coverage_multiple": 913.23
+      },
+      "observed_utc": "2026-11-05T20:18:05.476768+00:00",
+      "observed_jst": "2026-11-06T05:18:05.476768+09:00",
+      "url": "https://jlcpcb.com/partdetail/TexasInstruments-SN74LVC2T45DCUR/C15741",
+      "web_refs": [
+        "turn170view0"
+      ],
+      "snapshot": "ic_led_evidence/C15741.snapshot.json",
+      "html_sha256": "85ba306ad2763bedce46bd9eac0778425fa93b9f9e9807fe53d056f00a127fb3",
+      "listed_datasheet_url": null
+    },
+    {
+      "code": "C111738",
+      "mpn": "TPS2553DBVR-1",
+      "manufacturer": "Texas Instruments",
+      "role": "A3 active-high LED latch",
+      "qty_per_module": 1,
+      "disposition": "replace for stock margin",
+      "package_as_listed": "SOT-23-6",
+      "jlc_in_stock": 21,
+      "prepurchase_available_order_qty": 0,
+      "library": "Extended",
+      "pcba_type": "Economic and Standard",
+      "assembly_type": "SMT Assembly",
+      "assembly_difficulty": null,
+      "moisture_sensitivity_as_listed": "MSL 1",
+      "source_as_listed": "JLCPCB",
+      "price_tiers_usd": [
+        {
+          "min_qty": 1,
+          "max_qty": 49,
+          "unit_price_usd": 0.3049
+        },
+        {
+          "min_qty": 50,
+          "max_qty": 149,
+          "unit_price_usd": 0.2434
+        },
+        {
+          "min_qty": 150,
+          "max_qty": 499,
+          "unit_price_usd": 0.2169
+        },
+        {
+          "min_qty": 500,
+          "max_qty": 2999,
+          "unit_price_usd": 0.184
+        },
+        {
+          "min_qty": 3000,
+          "max_qty": 5999,
+          "unit_price_usd": 0.1445
+        },
+        {
+          "min_qty": 6000,
+          "max_qty": null,
+          "unit_price_usd": 0.1358
+        }
+      ],
+      "first_tier_usd": 0.3049,
+      "example_10_modules": {
+        "fitted_qty_excluding_attrition": 10,
+        "unit_price_usd": 0.3049,
+        "component_cost_per_module_usd": 0.3049
+      },
+      "supply_screen_100_modules": {
+        "fitted_qty_excluding_attrition": 100,
+        "stock_covers_fitted_qty": false,
+        "prepurchase_qty_covers_fitted_qty": false,
+        "stock_coverage_multiple": 0.21
+      },
+      "observed_utc": "2026-11-05T20:18:04.704762+00:00",
+      "observed_jst": "2026-11-06T05:18:04.704762+09:00",
+      "url": "https://jlcpcb.com/partdetail/TexasInstruments-TPS2553DBVR1/C111738",
+      "web_refs": [
+        "turn170view1"
+      ],
+      "snapshot": "ic_led_evidence/C111738.snapshot.json",
+      "html_sha256": "a0e2e719d4203af27333b577f0c58428234e710be7ff22bb3f45293eb6c8845c",
+      "listed_datasheet_url": null
+    },
+    {
+      "code": "C140331",
+      "mpn": "TPS2552DBVR-1",
+      "manufacturer": "Texas Instruments",
+      "role": "Active-low LED latch",
+      "qty_per_module": 1,
+      "disposition": "select with NPN inverter",
+      "package_as_listed": "SOT-23-6",
+      "jlc_in_stock": 2336,
+      "prepurchase_available_order_qty": 2329,
+      "library": "Extended",
+      "pcba_type": "Economic and Standard",
+      "assembly_type": "SMT Assembly",
+      "assembly_difficulty": null,
+      "moisture_sensitivity_as_listed": "MSL 1",
+      "source_as_listed": "JLCPCB",
+      "price_tiers_usd": [
+        {
+          "min_qty": 1,
+          "max_qty": 9,
+          "unit_price_usd": 0.5741
+        },
+        {
+          "min_qty": 10,
+          "max_qty": 29,
+          "unit_price_usd": 0.4579
+        },
+        {
+          "min_qty": 30,
+          "max_qty": 99,
+          "unit_price_usd": 0.3991
+        },
+        {
+          "min_qty": 100,
+          "max_qty": 499,
+          "unit_price_usd": 0.3402
+        },
+        {
+          "min_qty": 500,
+          "max_qty": 999,
+          "unit_price_usd": 0.3059
+        },
+        {
+          "min_qty": 1000,
+          "max_qty": null,
+          "unit_price_usd": 0.2879
+        }
+      ],
+      "first_tier_usd": 0.5741,
+      "example_10_modules": {
+        "fitted_qty_excluding_attrition": 10,
+        "unit_price_usd": 0.4579,
+        "component_cost_per_module_usd": 0.4579
+      },
+      "supply_screen_100_modules": {
+        "fitted_qty_excluding_attrition": 100,
+        "stock_covers_fitted_qty": true,
+        "prepurchase_qty_covers_fitted_qty": true,
+        "stock_coverage_multiple": 23.36
+      },
+      "observed_utc": "2026-11-05T20:22:42.781417+00:00",
+      "observed_jst": "2026-11-06T05:22:42.781417+09:00",
+      "url": "https://jlcpcb.com/partdetail/TexasInstruments-TPS2552DBVR1/C140331",
+      "web_refs": [
+        "turn173search0"
+      ],
+      "snapshot": "ic_led_evidence/C140331.snapshot.json",
+      "html_sha256": "29a4348153087055194d1d4e3465b333326e216e32a072bdf383c97889f2473b",
+      "listed_datasheet_url": "https://www.lcsc.com/datasheet/lcsc_datasheet_1810310423_Texas-Instruments-TPS2552DBVR-1_C140331.pdf"
+    },
+    {
+      "code": "C20526",
+      "mpn": "MMBT3904(RANGE:100-300)",
+      "manufacturer": "Jiangsu Changjing Electronics Technology Co., Ltd.",
+      "role": "Reset-safe latch enable inverter",
+      "qty_per_module": 1,
+      "disposition": "select",
+      "package_as_listed": "SOT-23",
+      "jlc_in_stock": 2740706,
+      "prepurchase_available_order_qty": 2620840,
+      "library": "Basic",
+      "pcba_type": "Economic and Standard",
+      "assembly_type": "SMT Assembly",
+      "assembly_difficulty": null,
+      "moisture_sensitivity_as_listed": "MSL 1",
+      "source_as_listed": "JLCPCB",
+      "price_tiers_usd": [
+        {
+          "min_qty": 1,
+          "max_qty": 499,
+          "unit_price_usd": 0.0116
+        },
+        {
+          "min_qty": 500,
+          "max_qty": 2999,
+          "unit_price_usd": 0.0093
+        },
+        {
+          "min_qty": 3000,
+          "max_qty": 5999,
+          "unit_price_usd": 0.0082
+        },
+        {
+          "min_qty": 6000,
+          "max_qty": 23999,
+          "unit_price_usd": 0.0074
+        },
+        {
+          "min_qty": 24000,
+          "max_qty": 50999,
+          "unit_price_usd": 0.0071
+        },
+        {
+          "min_qty": 51000,
+          "max_qty": null,
+          "unit_price_usd": 0.0069
+        }
+      ],
+      "first_tier_usd": 0.0116,
+      "example_10_modules": {
+        "fitted_qty_excluding_attrition": 10,
+        "unit_price_usd": 0.0116,
+        "component_cost_per_module_usd": 0.0116
+      },
+      "supply_screen_100_modules": {
+        "fitted_qty_excluding_attrition": 100,
+        "stock_covers_fitted_qty": true,
+        "prepurchase_qty_covers_fitted_qty": true,
+        "stock_coverage_multiple": 27407.06
+      },
+      "observed_utc": "2026-11-05T20:33:13.101022+00:00",
+      "observed_jst": "2026-11-06T05:33:13.101022+09:00",
+      "url": "https://jlcpcb.com/partdetail/21237-MMBT3904/C20526",
+      "web_refs": [
+        "turn208search0",
+        "turn208search1"
+      ],
+      "snapshot": "ic_led_evidence/C20526.snapshot.json",
+      "html_sha256": "f8459b04e5d50cec34ff5fe47811a2d063b322f5b672a2e8f5b218824d695c72",
+      "listed_datasheet_url": "https://www.lcsc.com/datasheet/lcsc_datasheet_2207041900_Jiangsu-Changjing-Electronics-Technology-Co---Ltd--MMBT3904-RANGE-100-300_C20526.pdf"
+    },
+    {
+      "code": "C221351",
+      "mpn": "OPA197IDBVR",
+      "manufacturer": "Texas Instruments",
+      "role": "CV input amplifier",
+      "qty_per_module": 1,
+      "disposition": "keep",
+      "package_as_listed": "SOT-23-5",
+      "jlc_in_stock": 80652,
+      "prepurchase_available_order_qty": 80360,
+      "library": "Extended",
+      "pcba_type": "Economic and Standard",
+      "assembly_type": "SMT Assembly",
+      "assembly_difficulty": null,
+      "moisture_sensitivity_as_listed": "",
+      "source_as_listed": "JLCPCB",
+      "price_tiers_usd": [
+        {
+          "min_qty": 1,
+          "max_qty": 9,
+          "unit_price_usd": 0.8422
+        },
+        {
+          "min_qty": 10,
+          "max_qty": 29,
+          "unit_price_usd": 0.6983
+        },
+        {
+          "min_qty": 30,
+          "max_qty": 99,
+          "unit_price_usd": 0.5969
+        },
+        {
+          "min_qty": 100,
+          "max_qty": 499,
+          "unit_price_usd": 0.5135
+        },
+        {
+          "min_qty": 500,
+          "max_qty": 999,
+          "unit_price_usd": 0.4874
+        },
+        {
+          "min_qty": 1000,
+          "max_qty": null,
+          "unit_price_usd": 0.471
+        }
+      ],
+      "first_tier_usd": 0.8422,
+      "example_10_modules": {
+        "fitted_qty_excluding_attrition": 10,
+        "unit_price_usd": 0.6983,
+        "component_cost_per_module_usd": 0.6983
+      },
+      "supply_screen_100_modules": {
+        "fitted_qty_excluding_attrition": 100,
+        "stock_covers_fitted_qty": true,
+        "prepurchase_qty_covers_fitted_qty": true,
+        "stock_coverage_multiple": 806.52
+      },
+      "observed_utc": "2026-11-05T20:18:04.816720+00:00",
+      "observed_jst": "2026-11-06T05:18:04.816720+09:00",
+      "url": "https://jlcpcb.com/partdetail/TexasInstruments-OPA197IDBVR/C221351",
+      "web_refs": [
+        "turn170view2"
+      ],
+      "snapshot": "ic_led_evidence/C221351.snapshot.json",
+      "html_sha256": "bac806b3a1121fffd49c55578cb8e5904424ce29047b72b220c3823f30166f3b",
+      "listed_datasheet_url": null
+    },
+    {
+      "code": "C50704",
+      "mpn": "PMEG4010CEJ,115",
+      "manufacturer": "Nexperia",
+      "role": "Reverse-polarity rail diode",
+      "qty_per_module": 2,
+      "disposition": "keep conservative engineering baseline",
+      "package_as_listed": "SOD-323F",
+      "jlc_in_stock": 14151,
+      "prepurchase_available_order_qty": 14038,
+      "library": "Extended",
+      "pcba_type": "Economic and Standard",
+      "assembly_type": "SMT Assembly",
+      "assembly_difficulty": null,
+      "moisture_sensitivity_as_listed": "MSL 1",
+      "source_as_listed": "JLCPCB",
+      "price_tiers_usd": [
+        {
+          "min_qty": 1,
+          "max_qty": 49,
+          "unit_price_usd": 0.3678
+        },
+        {
+          "min_qty": 50,
+          "max_qty": 149,
+          "unit_price_usd": 0.2934
+        },
+        {
+          "min_qty": 150,
+          "max_qty": 499,
+          "unit_price_usd": 0.2615
+        },
+        {
+          "min_qty": 500,
+          "max_qty": 2999,
+          "unit_price_usd": 0.2218
+        },
+        {
+          "min_qty": 3000,
+          "max_qty": 5999,
+          "unit_price_usd": 0.2015
+        },
+        {
+          "min_qty": 6000,
+          "max_qty": null,
+          "unit_price_usd": 0.1909
+        }
+      ],
+      "first_tier_usd": 0.3678,
+      "example_10_modules": {
+        "fitted_qty_excluding_attrition": 20,
+        "unit_price_usd": 0.3678,
+        "component_cost_per_module_usd": 0.7356
+      },
+      "supply_screen_100_modules": {
+        "fitted_qty_excluding_attrition": 200,
+        "stock_covers_fitted_qty": true,
+        "prepurchase_qty_covers_fitted_qty": true,
+        "stock_coverage_multiple": 70.755
+      },
+      "observed_utc": "2026-11-05T20:18:05.304634+00:00",
+      "observed_jst": "2026-11-06T05:18:05.304634+09:00",
+      "url": "https://jlcpcb.com/partdetail/PMEG4010CEJ%2C115/C50704",
+      "web_refs": [
+        "turn170view3"
+      ],
+      "snapshot": "ic_led_evidence/C50704.snapshot.json",
+      "html_sha256": "c3436bb174e34ac9f5cc7a42ecca4043c83ea1e743f40855ae3dad85733fa413",
+      "listed_datasheet_url": null
+    },
+    {
+      "code": "C134375",
+      "mpn": "BAS70-04-7-F",
+      "manufacturer": "Diodes Incorporated",
+      "role": "ADC clamp, exact manufacturer choice",
+      "qty_per_module": 1,
+      "disposition": "select candidate; circuit qualification open",
+      "package_as_listed": "SOT-23",
+      "jlc_in_stock": 6783,
+      "prepurchase_available_order_qty": 6654,
+      "library": "Extended",
+      "pcba_type": "Economic and Standard",
+      "assembly_type": "SMT Assembly",
+      "assembly_difficulty": null,
+      "moisture_sensitivity_as_listed": "MSL 1",
+      "source_as_listed": "JLCPCB",
+      "price_tiers_usd": [
+        {
+          "min_qty": 1,
+          "max_qty": 99,
+          "unit_price_usd": 0.0723
+        },
+        {
+          "min_qty": 100,
+          "max_qty": 299,
+          "unit_price_usd": 0.0606
+        },
+        {
+          "min_qty": 300,
+          "max_qty": 2999,
+          "unit_price_usd": 0.0547
+        },
+        {
+          "min_qty": 3000,
+          "max_qty": 5999,
+          "unit_price_usd": 0.0503
+        },
+        {
+          "min_qty": 6000,
+          "max_qty": 8999,
+          "unit_price_usd": 0.0467
+        },
+        {
+          "min_qty": 9000,
+          "max_qty": null,
+          "unit_price_usd": 0.0449
+        }
+      ],
+      "first_tier_usd": 0.0723,
+      "example_10_modules": {
+        "fitted_qty_excluding_attrition": 10,
+        "unit_price_usd": 0.0723,
+        "component_cost_per_module_usd": 0.0723
+      },
+      "supply_screen_100_modules": {
+        "fitted_qty_excluding_attrition": 100,
+        "stock_covers_fitted_qty": true,
+        "prepurchase_qty_covers_fitted_qty": true,
+        "stock_coverage_multiple": 67.83
+      },
+      "observed_utc": "2026-11-05T20:24:18.184716+00:00",
+      "observed_jst": "2026-11-06T05:24:18.184716+09:00",
+      "url": "https://jlcpcb.com/partdetail/DiodesIncorporated-BAS70_04_7F/C134375",
+      "web_refs": [
+        "turn197view3"
+      ],
+      "snapshot": "ic_led_evidence/C134375.snapshot.json",
+      "html_sha256": "27d722dcfc7e96e0647f9fb29261b0312bc4d4d48231fb3557062ff3ae0bdf3d",
+      "listed_datasheet_url": "https://www.lcsc.com/datasheet/lcsc_datasheet_2304140030_Diodes-Incorporated-BAS70-04-7-F_C134375.pdf"
+    },
+    {
+      "code": "C2651179",
+      "mpn": "74437324047",
+      "manufacturer": "Wurth Elektronik",
+      "role": "4.7 uH low-profile buck inductor",
+      "qty_per_module": 1,
+      "disposition": "keep geometry-compatible baseline",
+      "package_as_listed": "SMD,4.4x4.1mm",
+      "jlc_in_stock": 438,
+      "prepurchase_available_order_qty": 431,
+      "library": "Extended",
+      "pcba_type": "Economic and Standard",
+      "assembly_type": "SMT Assembly",
+      "assembly_difficulty": null,
+      "moisture_sensitivity_as_listed": "MSL 1",
+      "source_as_listed": "JLCPCB",
+      "price_tiers_usd": [
+        {
+          "min_qty": 1,
+          "max_qty": 9,
+          "unit_price_usd": 1.7319
+        },
+        {
+          "min_qty": 10,
+          "max_qty": 29,
+          "unit_price_usd": 1.5814
+        },
+        {
+          "min_qty": 30,
+          "max_qty": 99,
+          "unit_price_usd": 1.4882
+        },
+        {
+          "min_qty": 100,
+          "max_qty": 499,
+          "unit_price_usd": 1.3296
+        },
+        {
+          "min_qty": 500,
+          "max_qty": 999,
+          "unit_price_usd": 1.2871
+        },
+        {
+          "min_qty": 1000,
+          "max_qty": null,
+          "unit_price_usd": 1.2674
+        }
+      ],
+      "first_tier_usd": 1.7319,
+      "example_10_modules": {
+        "fitted_qty_excluding_attrition": 10,
+        "unit_price_usd": 1.5814,
+        "component_cost_per_module_usd": 1.5814
+      },
+      "supply_screen_100_modules": {
+        "fitted_qty_excluding_attrition": 100,
+        "stock_covers_fitted_qty": true,
+        "prepurchase_qty_covers_fitted_qty": true,
+        "stock_coverage_multiple": 4.38
+      },
+      "observed_utc": "2026-11-05T20:26:22.544629+00:00",
+      "observed_jst": "2026-11-06T05:26:22.544629+09:00",
+      "url": "https://jlcpcb.com/partdetail/WurthElektronik-74437324047/C2651179",
+      "web_refs": [
+        "turn197view1"
+      ],
+      "snapshot": "ic_led_evidence/C2651179.snapshot.json",
+      "html_sha256": "ed6a8169b2930df5e446988374f2e2aa07a9cdcfdefd6e179e70e2c1c80ae565",
+      "listed_datasheet_url": "https://wmsc.lcsc.com/wmsc/upload/file/pdf/v2/lcsc/2106080334_Wurth-Elektronik-74437324047_C2651179.pdf"
+    },
+    {
+      "code": "C7324966",
+      "mpn": "STM32C031G6U6TR",
+      "manufacturer": "STMicroelectronics",
+      "role": "Cheaper MCU alternative",
+      "qty_per_module": 1,
+      "disposition": "optional redesign, not selected",
+      "package_as_listed": "UFQFPN-28(4x4)",
+      "jlc_in_stock": 847,
+      "prepurchase_available_order_qty": 729,
+      "library": "Extended",
+      "pcba_type": "Economic and Standard",
+      "assembly_type": "SMT Assembly",
+      "assembly_difficulty": null,
+      "moisture_sensitivity_as_listed": "MSL 3",
+      "source_as_listed": "JLCPCB",
+      "price_tiers_usd": [
+        {
+          "min_qty": 1,
+          "max_qty": 9,
+          "unit_price_usd": 1.1628
+        },
+        {
+          "min_qty": 10,
+          "max_qty": 29,
+          "unit_price_usd": 0.9567
+        },
+        {
+          "min_qty": 30,
+          "max_qty": 99,
+          "unit_price_usd": 0.8439
+        },
+        {
+          "min_qty": 100,
+          "max_qty": 499,
+          "unit_price_usd": 0.7147
+        },
+        {
+          "min_qty": 500,
+          "max_qty": 999,
+          "unit_price_usd": 0.6591
+        },
+        {
+          "min_qty": 1000,
+          "max_qty": null,
+          "unit_price_usd": 0.6329
+        }
+      ],
+      "first_tier_usd": 1.1628,
+      "example_10_modules": {
+        "fitted_qty_excluding_attrition": 10,
+        "unit_price_usd": 0.9567,
+        "component_cost_per_module_usd": 0.9567
+      },
+      "supply_screen_100_modules": {
+        "fitted_qty_excluding_attrition": 100,
+        "stock_covers_fitted_qty": true,
+        "prepurchase_qty_covers_fitted_qty": true,
+        "stock_coverage_multiple": 8.47
+      },
+      "observed_utc": "2026-11-05T20:22:43.076573+00:00",
+      "observed_jst": "2026-11-06T05:22:43.076573+09:00",
+      "url": "https://jlcpcb.com/partdetail/STMicroelectronics-STM32C031G6U6TR/C7324966",
+      "web_refs": [
+        "turn184view1"
+      ],
+      "snapshot": "ic_led_evidence/C7324966.snapshot.json",
+      "html_sha256": "5c3984a2728af7a41d51aaa512bd45d0664696a9057e62d94c9826f5def3a51a",
+      "listed_datasheet_url": ""
+    },
+    {
+      "code": "C52941386",
+      "mpn": "WS2812B-MINI-V6",
+      "manufacturer": "Worldsemi",
+      "role": "Larger RGB LED alternative",
+      "qty_per_module": 8,
+      "disposition": "reject for current narrow geometry",
+      "package_as_listed": "SMD3535-4P",
+      "jlc_in_stock": 4962,
+      "prepurchase_available_order_qty": 3844,
+      "library": "Extended",
+      "pcba_type": "Standard Only",
+      "assembly_type": "SMT Assembly",
+      "assembly_difficulty": null,
+      "moisture_sensitivity_as_listed": "MSL 5a",
+      "source_as_listed": "JLCPCB",
+      "price_tiers_usd": [
+        {
+          "min_qty": 1,
+          "max_qty": 49,
+          "unit_price_usd": 0.1067
+        },
+        {
+          "min_qty": 50,
+          "max_qty": 149,
+          "unit_price_usd": 0.0854
+        },
+        {
+          "min_qty": 150,
+          "max_qty": 499,
+          "unit_price_usd": 0.0748
+        },
+        {
+          "min_qty": 500,
+          "max_qty": 2999,
+          "unit_price_usd": 0.0669
+        },
+        {
+          "min_qty": 3000,
+          "max_qty": 5999,
+          "unit_price_usd": 0.0606
+        },
+        {
+          "min_qty": 6000,
+          "max_qty": null,
+          "unit_price_usd": 0.0573
+        }
+      ],
+      "first_tier_usd": 0.1067,
+      "example_10_modules": {
+        "fitted_qty_excluding_attrition": 80,
+        "unit_price_usd": 0.0854,
+        "component_cost_per_module_usd": 0.6832
+      },
+      "supply_screen_100_modules": {
+        "fitted_qty_excluding_attrition": 800,
+        "stock_covers_fitted_qty": true,
+        "prepurchase_qty_covers_fitted_qty": true,
+        "stock_coverage_multiple": 6.202
+      },
+      "observed_utc": "2026-11-05T20:24:31.476597+00:00",
+      "observed_jst": "2026-11-06T05:24:31.476597+09:00",
+      "url": "https://jlcpcb.com/partdetail/Worldsemi-LED/C52941386",
+      "web_refs": [
+        "turn191view0"
+      ],
+      "snapshot": "ic_led_evidence/C52941386.snapshot.json",
+      "html_sha256": "ffc6e0d978da8a208d125abbed4a51b489f2dfa6a6feeb32c2041ffebcd6cf23",
+      "listed_datasheet_url": null
+    },
+    {
+      "code": "C527089",
+      "mpn": "WS2812B-MINI-V3/W",
+      "manufacturer": "Worldsemi",
+      "role": "Older larger RGB LED alternative",
+      "qty_per_module": 8,
+      "disposition": "reject; contradictory stock fields",
+      "package_as_listed": "SMD3535-4P",
+      "jlc_in_stock": 0,
+      "prepurchase_available_order_qty": 12,
+      "library": "Extended",
+      "pcba_type": "Standard Only",
+      "assembly_type": "SMT Assembly",
+      "assembly_difficulty": null,
+      "moisture_sensitivity_as_listed": "MSL 5",
+      "source_as_listed": "JLCPCB",
+      "price_tiers_usd": [
+        {
+          "min_qty": 1,
+          "max_qty": 49,
+          "unit_price_usd": 0.1242
+        },
+        {
+          "min_qty": 50,
+          "max_qty": 149,
+          "unit_price_usd": 0.1
+        },
+        {
+          "min_qty": 150,
+          "max_qty": 499,
+          "unit_price_usd": 0.0879
+        },
+        {
+          "min_qty": 500,
+          "max_qty": 2999,
+          "unit_price_usd": 0.0787
+        },
+        {
+          "min_qty": 3000,
+          "max_qty": 5999,
+          "unit_price_usd": 0.063
+        },
+        {
+          "min_qty": 6000,
+          "max_qty": null,
+          "unit_price_usd": 0.0594
+        }
+      ],
+      "first_tier_usd": 0.1242,
+      "example_10_modules": {
+        "fitted_qty_excluding_attrition": 80,
+        "unit_price_usd": 0.1,
+        "component_cost_per_module_usd": 0.8
+      },
+      "supply_screen_100_modules": {
+        "fitted_qty_excluding_attrition": 800,
+        "stock_covers_fitted_qty": false,
+        "prepurchase_qty_covers_fitted_qty": false,
+        "stock_coverage_multiple": 0.0
+      },
+      "observed_utc": "2026-11-05T20:22:42.664482+00:00",
+      "observed_jst": "2026-11-06T05:22:42.664482+09:00",
+      "url": "https://jlcpcb.com/partdetail/Worldsemi-WS2812B_MINI_V3W/C527089",
+      "web_refs": [],
+      "snapshot": "ic_led_evidence/C527089.snapshot.json",
+      "html_sha256": "cc2f8be5291098fa65dd9338229e1eda8d0c223a543977149f010cb591db2201",
+      "listed_datasheet_url": "https://www.lcsc.com/datasheet/lcsc_datasheet_2412051755_Worldsemi-WS2812B-MINI-V3-W_C527089.pdf"
+    },
+    {
+      "code": "C408337",
+      "mpn": "MWSA0402S-4R7MT",
+      "manufacturer": "Sunlord",
+      "role": "2 mm high 4.7 uH inductor alternative",
+      "qty_per_module": 1,
+      "disposition": "conditional; fault margin not qualified",
+      "package_as_listed": "SMD,4.4x4.2mm",
+      "jlc_in_stock": 39714,
+      "prepurchase_available_order_qty": 38019,
+      "library": "Extended",
+      "pcba_type": "Economic and Standard",
+      "assembly_type": "SMT Assembly",
+      "assembly_difficulty": null,
+      "moisture_sensitivity_as_listed": "MSL 1",
+      "source_as_listed": "JLCPCB",
+      "price_tiers_usd": [
+        {
+          "min_qty": 1,
+          "max_qty": 49,
+          "unit_price_usd": 0.1498
+        },
+        {
+          "min_qty": 50,
+          "max_qty": 149,
+          "unit_price_usd": 0.1242
+        },
+        {
+          "min_qty": 150,
+          "max_qty": 499,
+          "unit_price_usd": 0.1113
+        },
+        {
+          "min_qty": 500,
+          "max_qty": 2999,
+          "unit_price_usd": 0.1016
+        },
+        {
+          "min_qty": 3000,
+          "max_qty": 5999,
+          "unit_price_usd": 0.0844
+        },
+        {
+          "min_qty": 6000,
+          "max_qty": null,
+          "unit_price_usd": 0.0805
+        }
+      ],
+      "first_tier_usd": 0.1498,
+      "example_10_modules": {
+        "fitted_qty_excluding_attrition": 10,
+        "unit_price_usd": 0.1498,
+        "component_cost_per_module_usd": 0.1498
+      },
+      "supply_screen_100_modules": {
+        "fitted_qty_excluding_attrition": 100,
+        "stock_covers_fitted_qty": true,
+        "prepurchase_qty_covers_fitted_qty": true,
+        "stock_coverage_multiple": 397.14
+      },
+      "observed_utc": "2026-11-05T20:24:24.772558+00:00",
+      "observed_jst": "2026-11-06T05:24:24.772558+09:00",
+      "url": "https://jlcpcb.com/partdetail/Sunlord-MWSA0402S_4R7MT/C408337",
+      "web_refs": [],
+      "snapshot": "ic_led_evidence/C408337.snapshot.json",
+      "html_sha256": "944c44fddfc8d15ea2a3f6addfbbb800cc64dcd26f79bab3b059d52b2fc8d584",
+      "listed_datasheet_url": "https://www.lcsc.com/datasheet/lcsc_datasheet_2310251550_Sunlord-MWSA0402S-4R7MT_C408337.pdf"
+    },
+    {
+      "code": "C57269",
+      "mpn": "SWPA4030S4R7MT",
+      "manufacturer": "Sunlord",
+      "role": "3 mm high 4.7 uH inductor alternative",
+      "qty_per_module": 1,
+      "disposition": "conditional; needs geometry and fault review",
+      "package_as_listed": "SMD,4x4mm",
+      "jlc_in_stock": 33947,
+      "prepurchase_available_order_qty": 33101,
+      "library": "Extended",
+      "pcba_type": "Economic and Standard",
+      "assembly_type": "SMT Assembly",
+      "assembly_difficulty": null,
+      "moisture_sensitivity_as_listed": "MSL 1",
+      "source_as_listed": "JLCPCB",
+      "price_tiers_usd": [
+        {
+          "min_qty": 1,
+          "max_qty": 99,
+          "unit_price_usd": 0.057
+        },
+        {
+          "min_qty": 100,
+          "max_qty": 299,
+          "unit_price_usd": 0.0467
+        },
+        {
+          "min_qty": 300,
+          "max_qty": 1999,
+          "unit_price_usd": 0.0414
+        },
+        {
+          "min_qty": 2000,
+          "max_qty": 3999,
+          "unit_price_usd": 0.0339
+        },
+        {
+          "min_qty": 4000,
+          "max_qty": 9999,
+          "unit_price_usd": 0.0308
+        },
+        {
+          "min_qty": 10000,
+          "max_qty": null,
+          "unit_price_usd": 0.0292
+        }
+      ],
+      "first_tier_usd": 0.057,
+      "example_10_modules": {
+        "fitted_qty_excluding_attrition": 10,
+        "unit_price_usd": 0.057,
+        "component_cost_per_module_usd": 0.057
+      },
+      "supply_screen_100_modules": {
+        "fitted_qty_excluding_attrition": 100,
+        "stock_covers_fitted_qty": true,
+        "prepurchase_qty_covers_fitted_qty": true,
+        "stock_coverage_multiple": 339.47
+      },
+      "observed_utc": "2026-11-05T20:26:37.104676+00:00",
+      "observed_jst": "2026-11-06T05:26:37.104676+09:00",
+      "url": "https://jlcpcb.com/partdetail/Sunlord-SWPA4030S4R7MT/C57269",
+      "web_refs": [
+        "turn177search3"
+      ],
+      "snapshot": "ic_led_evidence/C57269.snapshot.json",
+      "html_sha256": "dd7b7afc7af22e6f8c6a6c5499ac54123aaffe5d5a505b0ede48328f22067375",
+      "listed_datasheet_url": "https://www.lcsc.com/datasheet/lcsc_datasheet_2310251551_Sunlord-SWPA4030S4R7MT_C57269.pdf"
+    },
+    {
+      "code": "C279948",
+      "mpn": "SWPA4030S2R2NT",
+      "manufacturer": "Sunlord",
+      "role": "3 mm high 2.2 uH inductor alternative",
+      "qty_per_module": 1,
+      "disposition": "conditional; deliberate value and geometry redesign",
+      "package_as_listed": "SMD,4x4mm",
+      "jlc_in_stock": 12069,
+      "prepurchase_available_order_qty": 11920,
+      "library": "Extended",
+      "pcba_type": "Economic and Standard",
+      "assembly_type": "SMT Assembly",
+      "assembly_difficulty": null,
+      "moisture_sensitivity_as_listed": "MSL 1",
+      "source_as_listed": "JLCPCB",
+      "price_tiers_usd": [
+        {
+          "min_qty": 1,
+          "max_qty": 99,
+          "unit_price_usd": 0.0589
+        },
+        {
+          "min_qty": 100,
+          "max_qty": 299,
+          "unit_price_usd": 0.0483
+        },
+        {
+          "min_qty": 300,
+          "max_qty": 1999,
+          "unit_price_usd": 0.0429
+        },
+        {
+          "min_qty": 2000,
+          "max_qty": 3999,
+          "unit_price_usd": 0.0378
+        },
+        {
+          "min_qty": 4000,
+          "max_qty": 9999,
+          "unit_price_usd": 0.0347
+        },
+        {
+          "min_qty": 10000,
+          "max_qty": null,
+          "unit_price_usd": 0.0331
+        }
+      ],
+      "first_tier_usd": 0.0589,
+      "example_10_modules": {
+        "fitted_qty_excluding_attrition": 10,
+        "unit_price_usd": 0.0589,
+        "component_cost_per_module_usd": 0.0589
+      },
+      "supply_screen_100_modules": {
+        "fitted_qty_excluding_attrition": 100,
+        "stock_covers_fitted_qty": true,
+        "prepurchase_qty_covers_fitted_qty": true,
+        "stock_coverage_multiple": 120.69
+      },
+      "observed_utc": "2026-11-05T20:33:28.533898+00:00",
+      "observed_jst": "2026-11-06T05:33:28.533898+09:00",
+      "url": "https://jlcpcb.com/partdetail/Sunlord-SWPA4030S2R2NT/C279948",
+      "web_refs": [
+        "turn209search0"
+      ],
+      "snapshot": "ic_led_evidence/C279948.snapshot.json",
+      "html_sha256": "551afe6816c58aefb6d39f5618378811e5c667e91e861f02bafe6e590882d4d0",
+      "listed_datasheet_url": "https://www.lcsc.com/datasheet/lcsc_datasheet_2310251551_Sunlord-SWPA4030S2R2NT_C279948.pdf"
+    },
+    {
+      "code": "C8598",
+      "mpn": "B5819W SL",
+      "manufacturer": "Jiangsu Changjing Electronics Technology Co., Ltd.",
+      "role": "Low-cost reverse diode alternative",
+      "qty_per_module": 2,
+      "disposition": "conditional; leakage and footprint change",
+      "package_as_listed": "SOD-123",
+      "jlc_in_stock": 792668,
+      "prepurchase_available_order_qty": 664296,
+      "library": "Basic",
+      "pcba_type": "Economic and Standard",
+      "assembly_type": "SMT Assembly",
+      "assembly_difficulty": null,
+      "moisture_sensitivity_as_listed": "MSL 1",
+      "source_as_listed": "JLCPCB",
+      "price_tiers_usd": [
+        {
+          "min_qty": 1,
+          "max_qty": 199,
+          "unit_price_usd": 0.0262
+        },
+        {
+          "min_qty": 200,
+          "max_qty": 599,
+          "unit_price_usd": 0.0202
+        },
+        {
+          "min_qty": 600,
+          "max_qty": 2999,
+          "unit_price_usd": 0.0174
+        },
+        {
+          "min_qty": 3000,
+          "max_qty": 8999,
+          "unit_price_usd": 0.0154
+        },
+        {
+          "min_qty": 9000,
+          "max_qty": 20999,
+          "unit_price_usd": 0.0146
+        },
+        {
+          "min_qty": 21000,
+          "max_qty": null,
+          "unit_price_usd": 0.014
+        }
+      ],
+      "first_tier_usd": 0.0262,
+      "example_10_modules": {
+        "fitted_qty_excluding_attrition": 20,
+        "unit_price_usd": 0.0262,
+        "component_cost_per_module_usd": 0.0524
+      },
+      "supply_screen_100_modules": {
+        "fitted_qty_excluding_attrition": 200,
+        "stock_covers_fitted_qty": true,
+        "prepurchase_qty_covers_fitted_qty": true,
+        "stock_coverage_multiple": 3963.34
+      },
+      "observed_utc": "2026-11-05T20:26:30.328539+00:00",
+      "observed_jst": "2026-11-06T05:26:30.328539+09:00",
+      "url": "https://jlcpcb.com/partdetail/9093-B5819WSL/C8598",
+      "web_refs": [
+        "turn174search0"
+      ],
+      "snapshot": "ic_led_evidence/C8598.snapshot.json",
+      "html_sha256": "3c242126b83aa9a0a36cadedb6f4d47ad591e1fb1731af75b5066b39c1219d06",
+      "listed_datasheet_url": "https://www.lcsc.com/datasheet/lcsc_datasheet_2304140030_Jiangsu-Changjing-Electronics-Technology-Co---Ltd--B5819W-SL_C8598.pdf"
+    },
+    {
+      "code": "C8545",
+      "mpn": "2N7002",
+      "manufacturer": "Jiangsu Changjing Electronics Technology Co., Ltd.",
+      "role": "MOS enable inverter alternative",
+      "qty_per_module": 1,
+      "disposition": "not selected; use NPN for simpler drive margin",
+      "package_as_listed": "SOT-23",
+      "jlc_in_stock": 3858749,
+      "prepurchase_available_order_qty": 3699849,
+      "library": "Basic",
+      "pcba_type": "Economic and Standard",
+      "assembly_type": "SMT Assembly",
+      "assembly_difficulty": null,
+      "moisture_sensitivity_as_listed": "MSL 1",
+      "source_as_listed": "JLCPCB",
+      "price_tiers_usd": [
+        {
+          "min_qty": 1,
+          "max_qty": 499,
+          "unit_price_usd": 0.0172
+        },
+        {
+          "min_qty": 500,
+          "max_qty": 2999,
+          "unit_price_usd": 0.0134
+        },
+        {
+          "min_qty": 3000,
+          "max_qty": 5999,
+          "unit_price_usd": 0.0117
+        },
+        {
+          "min_qty": 6000,
+          "max_qty": 23999,
+          "unit_price_usd": 0.0104
+        },
+        {
+          "min_qty": 24000,
+          "max_qty": 50999,
+          "unit_price_usd": 0.0099
+        },
+        {
+          "min_qty": 51000,
+          "max_qty": null,
+          "unit_price_usd": 0.0096
+        }
+      ],
+      "first_tier_usd": 0.0172,
+      "example_10_modules": {
+        "fitted_qty_excluding_attrition": 10,
+        "unit_price_usd": 0.0172,
+        "component_cost_per_module_usd": 0.0172
+      },
+      "supply_screen_100_modules": {
+        "fitted_qty_excluding_attrition": 100,
+        "stock_covers_fitted_qty": true,
+        "prepurchase_qty_covers_fitted_qty": true,
+        "stock_coverage_multiple": 38587.49
+      },
+      "observed_utc": "2026-11-05T20:31:01.080860+00:00",
+      "observed_jst": "2026-11-06T05:31:01.080860+09:00",
+      "url": "https://jlcpcb.com/partdetail/2N7002/C8545",
+      "web_refs": [
+        "turn195search0"
+      ],
+      "snapshot": "ic_led_evidence/C8545.snapshot.json",
+      "html_sha256": "85c5c536f97d03db2ad1889325b0162de72cdc616bc1ce7275f8863edf348cd3",
+      "listed_datasheet_url": "https://www.lcsc.com/datasheet/lcsc_datasheet_2304140030_Jiangsu-Changjing-Electronics-Technology-Co---Ltd--2N7002_C8545.pdf"
+    },
+    {
+      "code": "C7507542",
+      "mpn": "BAS70-04-QR",
+      "manufacturer": "Nexperia",
+      "role": "Nexperia automotive clamp alternative",
+      "qty_per_module": 1,
+      "disposition": "reject; no stock",
+      "package_as_listed": "SOT-23",
+      "jlc_in_stock": 0,
+      "prepurchase_available_order_qty": 0,
+      "library": "Extended",
+      "pcba_type": "Economic and Standard",
+      "assembly_type": "SMT Assembly",
+      "assembly_difficulty": null,
+      "moisture_sensitivity_as_listed": "MSL 1",
+      "source_as_listed": "JLCPCB",
+      "price_tiers_usd": [
+        {
+          "min_qty": 1,
+          "max_qty": 49,
+          "unit_price_usd": 0.125
+        },
+        {
+          "min_qty": 50,
+          "max_qty": 149,
+          "unit_price_usd": 0.124
+        },
+        {
+          "min_qty": 150,
+          "max_qty": 499,
+          "unit_price_usd": 0.1232
+        },
+        {
+          "min_qty": 500,
+          "max_qty": 509,
+          "unit_price_usd": 0.1225
+        },
+        {
+          "min_qty": 510,
+          "max_qty": 519,
+          "unit_price_usd": 0.1225
+        },
+        {
+          "min_qty": 520,
+          "max_qty": null,
+          "unit_price_usd": 0.1225
+        }
+      ],
+      "first_tier_usd": 0.125,
+      "example_10_modules": {
+        "fitted_qty_excluding_attrition": 10,
+        "unit_price_usd": 0.125,
+        "component_cost_per_module_usd": 0.125
+      },
+      "supply_screen_100_modules": {
+        "fitted_qty_excluding_attrition": 100,
+        "stock_covers_fitted_qty": false,
+        "prepurchase_qty_covers_fitted_qty": false,
+        "stock_coverage_multiple": 0.0
+      },
+      "observed_utc": "2026-11-05T20:22:42.673831+00:00",
+      "observed_jst": "2026-11-06T05:22:42.673831+09:00",
+      "url": "https://jlcpcb.com/partdetail/Nexperia-BAS70_04QR/C7507542",
+      "web_refs": [
+        "turn170search1"
+      ],
+      "snapshot": "ic_led_evidence/C7507542.snapshot.json",
+      "html_sha256": "2e218b0ac7dc409c3d5c5b1023d09cd238fdc6674c38daedcf8b513f03641cd4",
+      "listed_datasheet_url": "https://www.lcsc.com/datasheet/lcsc_datasheet_2401290710_Nexperia-BAS70-04-QR_C7507542.pdf"
+    },
+    {
+      "code": "C2864299",
+      "mpn": "TLV171IDBVR",
+      "manufacturer": "Texas Instruments",
+      "role": "Lower-power CV amplifier alternative",
+      "qty_per_module": 1,
+      "disposition": "reject; costs more and less stock",
+      "package_as_listed": "SOT-23-5",
+      "jlc_in_stock": 303,
+      "prepurchase_available_order_qty": 249,
+      "library": "Extended",
+      "pcba_type": "Economic and Standard",
+      "assembly_type": "SMT Assembly",
+      "assembly_difficulty": null,
+      "moisture_sensitivity_as_listed": "",
+      "source_as_listed": "JLCPCB",
+      "price_tiers_usd": [
+        {
+          "min_qty": 1,
+          "max_qty": 9,
+          "unit_price_usd": 1.2315
+        },
+        {
+          "min_qty": 10,
+          "max_qty": 29,
+          "unit_price_usd": 1.0238
+        },
+        {
+          "min_qty": 30,
+          "max_qty": 99,
+          "unit_price_usd": 0.9109
+        },
+        {
+          "min_qty": 100,
+          "max_qty": 499,
+          "unit_price_usd": 0.7817
+        },
+        {
+          "min_qty": 500,
+          "max_qty": 999,
+          "unit_price_usd": 0.664
+        },
+        {
+          "min_qty": 1000,
+          "max_qty": null,
+          "unit_price_usd": 0.6378
+        }
+      ],
+      "first_tier_usd": 1.2315,
+      "example_10_modules": {
+        "fitted_qty_excluding_attrition": 10,
+        "unit_price_usd": 1.0238,
+        "component_cost_per_module_usd": 1.0238
+      },
+      "supply_screen_100_modules": {
+        "fitted_qty_excluding_attrition": 100,
+        "stock_covers_fitted_qty": true,
+        "prepurchase_qty_covers_fitted_qty": true,
+        "stock_coverage_multiple": 3.03
+      },
+      "observed_utc": "2026-11-05T20:26:43.820455+00:00",
+      "observed_jst": "2026-11-06T05:26:43.820455+09:00",
+      "url": "https://jlcpcb.com/partdetail/TexasInstruments-TLV171IDBVR/C2864299",
+      "web_refs": [
+        "turn179view1"
+      ],
+      "snapshot": "ic_led_evidence/C2864299.snapshot.json",
+      "html_sha256": "b3c0a0e8f197697a8b1d0eade763357789764f27253963af8302bf1724d826a2",
+      "listed_datasheet_url": "https://wmsc.lcsc.com/wmsc/upload/file/pdf/v2/lcsc/2302212330_Texas-Instruments-TLV171IDBVR_C2864299.pdf"
+    }
+  ],
+  "selected_bom_inputs": [
+    {
+      "code": "C5270180",
+      "mpn": "STM32G031G8U6TR",
+      "manufacturer": "STMicroelectronics",
+      "role": "MCU",
+      "qty_per_module": 1,
+      "disposition": "keep",
+      "package_as_listed": "UFQFPN-28(4x4)",
+      "jlc_in_stock": 4522,
+      "prepurchase_available_order_qty": 3751,
+      "library": "Extended",
+      "pcba_type": "Economic and Standard",
+      "assembly_type": "SMT Assembly",
+      "assembly_difficulty": null,
+      "moisture_sensitivity_as_listed": "MSL 3",
+      "source_as_listed": "JLCPCB",
+      "price_tiers_usd": [
+        {
+          "min_qty": 1,
+          "max_qty": 9,
+          "unit_price_usd": 1.745
+        },
+        {
+          "min_qty": 10,
+          "max_qty": 29,
+          "unit_price_usd": 1.4702
+        },
+        {
+          "min_qty": 30,
+          "max_qty": 99,
+          "unit_price_usd": 1.3181
+        },
+        {
+          "min_qty": 100,
+          "max_qty": 499,
+          "unit_price_usd": 1.1464
+        },
+        {
+          "min_qty": 500,
+          "max_qty": 999,
+          "unit_price_usd": 1.0696
+        },
+        {
+          "min_qty": 1000,
+          "max_qty": null,
+          "unit_price_usd": 1.0369
+        }
+      ],
+      "first_tier_usd": 1.745,
+      "example_10_modules": {
+        "fitted_qty_excluding_attrition": 10,
+        "unit_price_usd": 1.4702,
+        "component_cost_per_module_usd": 1.4702
+      },
+      "supply_screen_100_modules": {
+        "fitted_qty_excluding_attrition": 100,
+        "stock_covers_fitted_qty": true,
+        "prepurchase_qty_covers_fitted_qty": true,
+        "stock_coverage_multiple": 45.22
+      },
+      "observed_utc": "2026-11-05T20:15:49.918702+00:00",
+      "observed_jst": "2026-11-06T05:15:49.918702+09:00",
+      "url": "https://jlcpcb.com/partdetail/STMicroelectronics-STM32G031G8U6TR/C5270180",
+      "web_refs": [
+        "turn155view0"
+      ],
+      "snapshot": "ic_led_evidence/C5270180.snapshot.json",
+      "html_sha256": "fc190d3cce7e82aec393e4bb35114d57e4916c35488470d1a3a38a6040fcdc15",
+      "listed_datasheet_url": null
+    },
+    {
+      "code": "C52917434",
+      "mpn": "WS2812B-2020-V6",
+      "manufacturer": "Worldsemi",
+      "role": "RGB LED",
+      "qty_per_module": 8,
+      "disposition": "keep",
+      "package_as_listed": "SMD2020-4P",
+      "jlc_in_stock": 771294,
+      "prepurchase_available_order_qty": 749286,
+      "library": "Extended",
+      "pcba_type": "Standard Only",
+      "assembly_type": "SMT Assembly",
+      "assembly_difficulty": "High",
+      "moisture_sensitivity_as_listed": "MSL 5",
+      "source_as_listed": "JLCPCB",
+      "price_tiers_usd": [
+        {
+          "min_qty": 1,
+          "max_qty": 49,
+          "unit_price_usd": 0.0915
+        },
+        {
+          "min_qty": 50,
+          "max_qty": 149,
+          "unit_price_usd": 0.0736
+        },
+        {
+          "min_qty": 150,
+          "max_qty": 499,
+          "unit_price_usd": 0.0643
+        },
+        {
+          "min_qty": 500,
+          "max_qty": 2499,
+          "unit_price_usd": 0.0568
+        },
+        {
+          "min_qty": 2500,
+          "max_qty": 4499,
+          "unit_price_usd": 0.0542
+        },
+        {
+          "min_qty": 4500,
+          "max_qty": null,
+          "unit_price_usd": 0.0524
+        }
+      ],
+      "first_tier_usd": 0.0915,
+      "example_10_modules": {
+        "fitted_qty_excluding_attrition": 80,
+        "unit_price_usd": 0.0736,
+        "component_cost_per_module_usd": 0.5888
+      },
+      "supply_screen_100_modules": {
+        "fitted_qty_excluding_attrition": 800,
+        "stock_covers_fitted_qty": true,
+        "prepurchase_qty_covers_fitted_qty": true,
+        "stock_coverage_multiple": 964.117
+      },
+      "observed_utc": "2026-11-05T20:15:49.718553+00:00",
+      "observed_jst": "2026-11-06T05:15:49.718553+09:00",
+      "url": "https://jlcpcb.com/partdetail/Worldsemi-LED/C52917434",
+      "web_refs": [
+        "turn155view1"
+      ],
+      "snapshot": "ic_led_evidence/C52917434.snapshot.json",
+      "html_sha256": "da1317253538cb4a4b23647d01f38995c6955b3f7eac7550cde7a016d4dabe77",
+      "listed_datasheet_url": null
+    },
+    {
+      "code": "C2071056",
+      "mpn": "AP63205WU-7",
+      "manufacturer": "Diodes Incorporated",
+      "role": "5 V buck",
+      "qty_per_module": 1,
+      "disposition": "keep",
+      "package_as_listed": "TSOT-23-6",
+      "jlc_in_stock": 20691,
+      "prepurchase_available_order_qty": 17987,
+      "library": "Extended",
+      "pcba_type": "Economic and Standard",
+      "assembly_type": "SMT Assembly",
+      "assembly_difficulty": null,
+      "moisture_sensitivity_as_listed": "MSL 1",
+      "source_as_listed": "JLCPCB",
+      "price_tiers_usd": [
+        {
+          "min_qty": 1,
+          "max_qty": 9,
+          "unit_price_usd": 0.4612
+        },
+        {
+          "min_qty": 10,
+          "max_qty": 29,
+          "unit_price_usd": 0.3647
+        },
+        {
+          "min_qty": 30,
+          "max_qty": 99,
+          "unit_price_usd": 0.3173
+        },
+        {
+          "min_qty": 100,
+          "max_qty": 499,
+          "unit_price_usd": 0.2748
+        },
+        {
+          "min_qty": 500,
+          "max_qty": 999,
+          "unit_price_usd": 0.2519
+        },
+        {
+          "min_qty": 1000,
+          "max_qty": null,
+          "unit_price_usd": 0.2454
+        }
+      ],
+      "first_tier_usd": 0.4612,
+      "example_10_modules": {
+        "fitted_qty_excluding_attrition": 10,
+        "unit_price_usd": 0.3647,
+        "component_cost_per_module_usd": 0.3647
+      },
+      "supply_screen_100_modules": {
+        "fitted_qty_excluding_attrition": 100,
+        "stock_covers_fitted_qty": true,
+        "prepurchase_qty_covers_fitted_qty": true,
+        "stock_coverage_multiple": 206.91
+      },
+      "observed_utc": "2026-11-05T20:15:49.716982+00:00",
+      "observed_jst": "2026-11-06T05:15:49.716982+09:00",
+      "url": "https://jlcpcb.com/partdetail/AP63205WU-7/C2071056",
+      "web_refs": [
+        "turn155view2"
+      ],
+      "snapshot": "ic_led_evidence/C2071056.snapshot.json",
+      "html_sha256": "3391d68858bdcd93b584ed71d53fe64304b833c53c1e48ff8358e9b1b7bc34a5",
+      "listed_datasheet_url": "https://www.lcsc.com/datasheet/lcsc_datasheet_2210280930_Diodes-Incorporated-AP63205WU-7_C2071056.pdf"
+    },
+    {
+      "code": "C404027",
+      "mpn": "TLV75533PDBVR",
+      "manufacturer": "Texas Instruments",
+      "role": "3.3 V LDO",
+      "qty_per_module": 1,
+      "disposition": "keep",
+      "package_as_listed": "SOT-23-5",
+      "jlc_in_stock": 95151,
+      "prepurchase_available_order_qty": 93956,
+      "library": "Extended",
+      "pcba_type": "Economic and Standard",
+      "assembly_type": "SMT Assembly",
+      "assembly_difficulty": null,
+      "moisture_sensitivity_as_listed": "MSL 1",
+      "source_as_listed": "JLCPCB",
+      "price_tiers_usd": [
+        {
+          "min_qty": 1,
+          "max_qty": 49,
+          "unit_price_usd": 0.1216
+        },
+        {
+          "min_qty": 50,
+          "max_qty": 149,
+          "unit_price_usd": 0.0959
+        },
+        {
+          "min_qty": 150,
+          "max_qty": 499,
+          "unit_price_usd": 0.0826
+        },
+        {
+          "min_qty": 500,
+          "max_qty": 2999,
+          "unit_price_usd": 0.0718
+        },
+        {
+          "min_qty": 3000,
+          "max_qty": 5999,
+          "unit_price_usd": 0.0679
+        },
+        {
+          "min_qty": 6000,
+          "max_qty": null,
+          "unit_price_usd": 0.0655
+        }
+      ],
+      "first_tier_usd": 0.1216,
+      "example_10_modules": {
+        "fitted_qty_excluding_attrition": 10,
+        "unit_price_usd": 0.1216,
+        "component_cost_per_module_usd": 0.1216
+      },
+      "supply_screen_100_modules": {
+        "fitted_qty_excluding_attrition": 100,
+        "stock_covers_fitted_qty": true,
+        "prepurchase_qty_covers_fitted_qty": true,
+        "stock_coverage_multiple": 951.51
+      },
+      "observed_utc": "2026-11-05T20:15:49.785944+00:00",
+      "observed_jst": "2026-11-06T05:15:49.785944+09:00",
+      "url": "https://jlcpcb.com/partdetail/TexasInstruments-TLV75533PDBVR/C404027",
+      "web_refs": [
+        "turn155view3"
+      ],
+      "snapshot": "ic_led_evidence/C404027.snapshot.json",
+      "html_sha256": "25cd5e69d79b93aa79ad43727fe9c63b57aff4d8e9de281c0c1f89431a16a8d8",
+      "listed_datasheet_url": "https://www.lcsc.com/datasheet/lcsc_datasheet_1912111437_Texas-Instruments-TLV75533PDBVR_C404027.pdf"
+    },
+    {
+      "code": "C140331",
+      "mpn": "TPS2552DBVR-1",
+      "manufacturer": "Texas Instruments",
+      "role": "Active-low LED latch",
+      "qty_per_module": 1,
+      "disposition": "select with NPN inverter",
+      "package_as_listed": "SOT-23-6",
+      "jlc_in_stock": 2336,
+      "prepurchase_available_order_qty": 2329,
+      "library": "Extended",
+      "pcba_type": "Economic and Standard",
+      "assembly_type": "SMT Assembly",
+      "assembly_difficulty": null,
+      "moisture_sensitivity_as_listed": "MSL 1",
+      "source_as_listed": "JLCPCB",
+      "price_tiers_usd": [
+        {
+          "min_qty": 1,
+          "max_qty": 9,
+          "unit_price_usd": 0.5741
+        },
+        {
+          "min_qty": 10,
+          "max_qty": 29,
+          "unit_price_usd": 0.4579
+        },
+        {
+          "min_qty": 30,
+          "max_qty": 99,
+          "unit_price_usd": 0.3991
+        },
+        {
+          "min_qty": 100,
+          "max_qty": 499,
+          "unit_price_usd": 0.3402
+        },
+        {
+          "min_qty": 500,
+          "max_qty": 999,
+          "unit_price_usd": 0.3059
+        },
+        {
+          "min_qty": 1000,
+          "max_qty": null,
+          "unit_price_usd": 0.2879
+        }
+      ],
+      "first_tier_usd": 0.5741,
+      "example_10_modules": {
+        "fitted_qty_excluding_attrition": 10,
+        "unit_price_usd": 0.4579,
+        "component_cost_per_module_usd": 0.4579
+      },
+      "supply_screen_100_modules": {
+        "fitted_qty_excluding_attrition": 100,
+        "stock_covers_fitted_qty": true,
+        "prepurchase_qty_covers_fitted_qty": true,
+        "stock_coverage_multiple": 23.36
+      },
+      "observed_utc": "2026-11-05T20:22:42.781417+00:00",
+      "observed_jst": "2026-11-06T05:22:42.781417+09:00",
+      "url": "https://jlcpcb.com/partdetail/TexasInstruments-TPS2552DBVR1/C140331",
+      "web_refs": [
+        "turn173search0"
+      ],
+      "snapshot": "ic_led_evidence/C140331.snapshot.json",
+      "html_sha256": "29a4348153087055194d1d4e3465b333326e216e32a072bdf383c97889f2473b",
+      "listed_datasheet_url": "https://www.lcsc.com/datasheet/lcsc_datasheet_1810310423_Texas-Instruments-TPS2552DBVR-1_C140331.pdf"
+    },
+    {
+      "code": "C20526",
+      "mpn": "MMBT3904(RANGE:100-300)",
+      "manufacturer": "Jiangsu Changjing Electronics Technology Co., Ltd.",
+      "role": "Reset-safe latch enable inverter",
+      "qty_per_module": 1,
+      "disposition": "select",
+      "package_as_listed": "SOT-23",
+      "jlc_in_stock": 2740706,
+      "prepurchase_available_order_qty": 2620840,
+      "library": "Basic",
+      "pcba_type": "Economic and Standard",
+      "assembly_type": "SMT Assembly",
+      "assembly_difficulty": null,
+      "moisture_sensitivity_as_listed": "MSL 1",
+      "source_as_listed": "JLCPCB",
+      "price_tiers_usd": [
+        {
+          "min_qty": 1,
+          "max_qty": 499,
+          "unit_price_usd": 0.0116
+        },
+        {
+          "min_qty": 500,
+          "max_qty": 2999,
+          "unit_price_usd": 0.0093
+        },
+        {
+          "min_qty": 3000,
+          "max_qty": 5999,
+          "unit_price_usd": 0.0082
+        },
+        {
+          "min_qty": 6000,
+          "max_qty": 23999,
+          "unit_price_usd": 0.0074
+        },
+        {
+          "min_qty": 24000,
+          "max_qty": 50999,
+          "unit_price_usd": 0.0071
+        },
+        {
+          "min_qty": 51000,
+          "max_qty": null,
+          "unit_price_usd": 0.0069
+        }
+      ],
+      "first_tier_usd": 0.0116,
+      "example_10_modules": {
+        "fitted_qty_excluding_attrition": 10,
+        "unit_price_usd": 0.0116,
+        "component_cost_per_module_usd": 0.0116
+      },
+      "supply_screen_100_modules": {
+        "fitted_qty_excluding_attrition": 100,
+        "stock_covers_fitted_qty": true,
+        "prepurchase_qty_covers_fitted_qty": true,
+        "stock_coverage_multiple": 27407.06
+      },
+      "observed_utc": "2026-11-05T20:33:13.101022+00:00",
+      "observed_jst": "2026-11-06T05:33:13.101022+09:00",
+      "url": "https://jlcpcb.com/partdetail/21237-MMBT3904/C20526",
+      "web_refs": [
+        "turn208search0",
+        "turn208search1"
+      ],
+      "snapshot": "ic_led_evidence/C20526.snapshot.json",
+      "html_sha256": "f8459b04e5d50cec34ff5fe47811a2d063b322f5b672a2e8f5b218824d695c72",
+      "listed_datasheet_url": "https://www.lcsc.com/datasheet/lcsc_datasheet_2207041900_Jiangsu-Changjing-Electronics-Technology-Co---Ltd--MMBT3904-RANGE-100-300_C20526.pdf"
+    },
+    {
+      "code": "C15741",
+      "mpn": "SN74LVC2T45DCUR",
+      "manufacturer": "Texas Instruments",
+      "role": "Two-channel LED level translator",
+      "qty_per_module": 1,
+      "disposition": "keep",
+      "package_as_listed": "VSSOP-8",
+      "jlc_in_stock": 91323,
+      "prepurchase_available_order_qty": 90009,
+      "library": "Extended",
+      "pcba_type": "Economic and Standard",
+      "assembly_type": "SMT Assembly",
+      "assembly_difficulty": null,
+      "moisture_sensitivity_as_listed": "MSL 1",
+      "source_as_listed": "JLCPCB",
+      "price_tiers_usd": [
+        {
+          "min_qty": 1,
+          "max_qty": 49,
+          "unit_price_usd": 0.2079
+        },
+        {
+          "min_qty": 50,
+          "max_qty": 149,
+          "unit_price_usd": 0.1636
+        },
+        {
+          "min_qty": 150,
+          "max_qty": 499,
+          "unit_price_usd": 0.1418
+        },
+        {
+          "min_qty": 500,
+          "max_qty": 2999,
+          "unit_price_usd": 0.1091
+        },
+        {
+          "min_qty": 3000,
+          "max_qty": 5999,
+          "unit_price_usd": 0.1037
+        },
+        {
+          "min_qty": 6000,
+          "max_qty": null,
+          "unit_price_usd": 0.1006
+        }
+      ],
+      "first_tier_usd": 0.2079,
+      "example_10_modules": {
+        "fitted_qty_excluding_attrition": 10,
+        "unit_price_usd": 0.2079,
+        "component_cost_per_module_usd": 0.2079
+      },
+      "supply_screen_100_modules": {
+        "fitted_qty_excluding_attrition": 100,
+        "stock_covers_fitted_qty": true,
+        "prepurchase_qty_covers_fitted_qty": true,
+        "stock_coverage_multiple": 913.23
+      },
+      "observed_utc": "2026-11-05T20:18:05.476768+00:00",
+      "observed_jst": "2026-11-06T05:18:05.476768+09:00",
+      "url": "https://jlcpcb.com/partdetail/TexasInstruments-SN74LVC2T45DCUR/C15741",
+      "web_refs": [
+        "turn170view0"
+      ],
+      "snapshot": "ic_led_evidence/C15741.snapshot.json",
+      "html_sha256": "85ba306ad2763bedce46bd9eac0778425fa93b9f9e9807fe53d056f00a127fb3",
+      "listed_datasheet_url": null
+    },
+    {
+      "code": "C221351",
+      "mpn": "OPA197IDBVR",
+      "manufacturer": "Texas Instruments",
+      "role": "CV input amplifier",
+      "qty_per_module": 1,
+      "disposition": "keep",
+      "package_as_listed": "SOT-23-5",
+      "jlc_in_stock": 80652,
+      "prepurchase_available_order_qty": 80360,
+      "library": "Extended",
+      "pcba_type": "Economic and Standard",
+      "assembly_type": "SMT Assembly",
+      "assembly_difficulty": null,
+      "moisture_sensitivity_as_listed": "",
+      "source_as_listed": "JLCPCB",
+      "price_tiers_usd": [
+        {
+          "min_qty": 1,
+          "max_qty": 9,
+          "unit_price_usd": 0.8422
+        },
+        {
+          "min_qty": 10,
+          "max_qty": 29,
+          "unit_price_usd": 0.6983
+        },
+        {
+          "min_qty": 30,
+          "max_qty": 99,
+          "unit_price_usd": 0.5969
+        },
+        {
+          "min_qty": 100,
+          "max_qty": 499,
+          "unit_price_usd": 0.5135
+        },
+        {
+          "min_qty": 500,
+          "max_qty": 999,
+          "unit_price_usd": 0.4874
+        },
+        {
+          "min_qty": 1000,
+          "max_qty": null,
+          "unit_price_usd": 0.471
+        }
+      ],
+      "first_tier_usd": 0.8422,
+      "example_10_modules": {
+        "fitted_qty_excluding_attrition": 10,
+        "unit_price_usd": 0.6983,
+        "component_cost_per_module_usd": 0.6983
+      },
+      "supply_screen_100_modules": {
+        "fitted_qty_excluding_attrition": 100,
+        "stock_covers_fitted_qty": true,
+        "prepurchase_qty_covers_fitted_qty": true,
+        "stock_coverage_multiple": 806.52
+      },
+      "observed_utc": "2026-11-05T20:18:04.816720+00:00",
+      "observed_jst": "2026-11-06T05:18:04.816720+09:00",
+      "url": "https://jlcpcb.com/partdetail/TexasInstruments-OPA197IDBVR/C221351",
+      "web_refs": [
+        "turn170view2"
+      ],
+      "snapshot": "ic_led_evidence/C221351.snapshot.json",
+      "html_sha256": "bac806b3a1121fffd49c55578cb8e5904424ce29047b72b220c3823f30166f3b",
+      "listed_datasheet_url": null
+    },
+    {
+      "code": "C50704",
+      "mpn": "PMEG4010CEJ,115",
+      "manufacturer": "Nexperia",
+      "role": "Reverse-polarity rail diode",
+      "qty_per_module": 2,
+      "disposition": "keep conservative engineering baseline",
+      "package_as_listed": "SOD-323F",
+      "jlc_in_stock": 14151,
+      "prepurchase_available_order_qty": 14038,
+      "library": "Extended",
+      "pcba_type": "Economic and Standard",
+      "assembly_type": "SMT Assembly",
+      "assembly_difficulty": null,
+      "moisture_sensitivity_as_listed": "MSL 1",
+      "source_as_listed": "JLCPCB",
+      "price_tiers_usd": [
+        {
+          "min_qty": 1,
+          "max_qty": 49,
+          "unit_price_usd": 0.3678
+        },
+        {
+          "min_qty": 50,
+          "max_qty": 149,
+          "unit_price_usd": 0.2934
+        },
+        {
+          "min_qty": 150,
+          "max_qty": 499,
+          "unit_price_usd": 0.2615
+        },
+        {
+          "min_qty": 500,
+          "max_qty": 2999,
+          "unit_price_usd": 0.2218
+        },
+        {
+          "min_qty": 3000,
+          "max_qty": 5999,
+          "unit_price_usd": 0.2015
+        },
+        {
+          "min_qty": 6000,
+          "max_qty": null,
+          "unit_price_usd": 0.1909
+        }
+      ],
+      "first_tier_usd": 0.3678,
+      "example_10_modules": {
+        "fitted_qty_excluding_attrition": 20,
+        "unit_price_usd": 0.3678,
+        "component_cost_per_module_usd": 0.7356
+      },
+      "supply_screen_100_modules": {
+        "fitted_qty_excluding_attrition": 200,
+        "stock_covers_fitted_qty": true,
+        "prepurchase_qty_covers_fitted_qty": true,
+        "stock_coverage_multiple": 70.755
+      },
+      "observed_utc": "2026-11-05T20:18:05.304634+00:00",
+      "observed_jst": "2026-11-06T05:18:05.304634+09:00",
+      "url": "https://jlcpcb.com/partdetail/PMEG4010CEJ%2C115/C50704",
+      "web_refs": [
+        "turn170view3"
+      ],
+      "snapshot": "ic_led_evidence/C50704.snapshot.json",
+      "html_sha256": "c3436bb174e34ac9f5cc7a42ecca4043c83ea1e743f40855ae3dad85733fa413",
+      "listed_datasheet_url": null
+    },
+    {
+      "code": "C134375",
+      "mpn": "BAS70-04-7-F",
+      "manufacturer": "Diodes Incorporated",
+      "role": "ADC clamp, exact manufacturer choice",
+      "qty_per_module": 1,
+      "disposition": "select candidate; circuit qualification open",
+      "package_as_listed": "SOT-23",
+      "jlc_in_stock": 6783,
+      "prepurchase_available_order_qty": 6654,
+      "library": "Extended",
+      "pcba_type": "Economic and Standard",
+      "assembly_type": "SMT Assembly",
+      "assembly_difficulty": null,
+      "moisture_sensitivity_as_listed": "MSL 1",
+      "source_as_listed": "JLCPCB",
+      "price_tiers_usd": [
+        {
+          "min_qty": 1,
+          "max_qty": 99,
+          "unit_price_usd": 0.0723
+        },
+        {
+          "min_qty": 100,
+          "max_qty": 299,
+          "unit_price_usd": 0.0606
+        },
+        {
+          "min_qty": 300,
+          "max_qty": 2999,
+          "unit_price_usd": 0.0547
+        },
+        {
+          "min_qty": 3000,
+          "max_qty": 5999,
+          "unit_price_usd": 0.0503
+        },
+        {
+          "min_qty": 6000,
+          "max_qty": 8999,
+          "unit_price_usd": 0.0467
+        },
+        {
+          "min_qty": 9000,
+          "max_qty": null,
+          "unit_price_usd": 0.0449
+        }
+      ],
+      "first_tier_usd": 0.0723,
+      "example_10_modules": {
+        "fitted_qty_excluding_attrition": 10,
+        "unit_price_usd": 0.0723,
+        "component_cost_per_module_usd": 0.0723
+      },
+      "supply_screen_100_modules": {
+        "fitted_qty_excluding_attrition": 100,
+        "stock_covers_fitted_qty": true,
+        "prepurchase_qty_covers_fitted_qty": true,
+        "stock_coverage_multiple": 67.83
+      },
+      "observed_utc": "2026-11-05T20:24:18.184716+00:00",
+      "observed_jst": "2026-11-06T05:24:18.184716+09:00",
+      "url": "https://jlcpcb.com/partdetail/DiodesIncorporated-BAS70_04_7F/C134375",
+      "web_refs": [
+        "turn197view3"
+      ],
+      "snapshot": "ic_led_evidence/C134375.snapshot.json",
+      "html_sha256": "27d722dcfc7e96e0647f9fb29261b0312bc4d4d48231fb3557062ff3ae0bdf3d",
+      "listed_datasheet_url": "https://www.lcsc.com/datasheet/lcsc_datasheet_2304140030_Diodes-Incorporated-BAS70-04-7-F_C134375.pdf"
+    },
+    {
+      "code": "C2651179",
+      "mpn": "74437324047",
+      "manufacturer": "Wurth Elektronik",
+      "role": "4.7 uH low-profile buck inductor",
+      "qty_per_module": 1,
+      "disposition": "keep geometry-compatible baseline",
+      "package_as_listed": "SMD,4.4x4.1mm",
+      "jlc_in_stock": 438,
+      "prepurchase_available_order_qty": 431,
+      "library": "Extended",
+      "pcba_type": "Economic and Standard",
+      "assembly_type": "SMT Assembly",
+      "assembly_difficulty": null,
+      "moisture_sensitivity_as_listed": "MSL 1",
+      "source_as_listed": "JLCPCB",
+      "price_tiers_usd": [
+        {
+          "min_qty": 1,
+          "max_qty": 9,
+          "unit_price_usd": 1.7319
+        },
+        {
+          "min_qty": 10,
+          "max_qty": 29,
+          "unit_price_usd": 1.5814
+        },
+        {
+          "min_qty": 30,
+          "max_qty": 99,
+          "unit_price_usd": 1.4882
+        },
+        {
+          "min_qty": 100,
+          "max_qty": 499,
+          "unit_price_usd": 1.3296
+        },
+        {
+          "min_qty": 500,
+          "max_qty": 999,
+          "unit_price_usd": 1.2871
+        },
+        {
+          "min_qty": 1000,
+          "max_qty": null,
+          "unit_price_usd": 1.2674
+        }
+      ],
+      "first_tier_usd": 1.7319,
+      "example_10_modules": {
+        "fitted_qty_excluding_attrition": 10,
+        "unit_price_usd": 1.5814,
+        "component_cost_per_module_usd": 1.5814
+      },
+      "supply_screen_100_modules": {
+        "fitted_qty_excluding_attrition": 100,
+        "stock_covers_fitted_qty": true,
+        "prepurchase_qty_covers_fitted_qty": true,
+        "stock_coverage_multiple": 4.38
+      },
+      "observed_utc": "2026-11-05T20:26:22.544629+00:00",
+      "observed_jst": "2026-11-06T05:26:22.544629+09:00",
+      "url": "https://jlcpcb.com/partdetail/WurthElektronik-74437324047/C2651179",
+      "web_refs": [
+        "turn197view1"
+      ],
+      "snapshot": "ic_led_evidence/C2651179.snapshot.json",
+      "html_sha256": "ed6a8169b2930df5e446988374f2e2aa07a9cdcfdefd6e179e70e2c1c80ae565",
+      "listed_datasheet_url": "https://wmsc.lcsc.com/wmsc/upload/file/pdf/v2/lcsc/2106080334_Wurth-Elektronik-74437324047_C2651179.pdf"
+    }
+  ],
+  "selected_core_component_subtotals_usd": {
+    "one_module_at_fitted_qty_tiers": 7.2354,
+    "per_module_for_10_module_example": 6.3103,
+    "total_for_10_module_example": 63.103,
+    "per_module_for_100_module_example": 4.9136,
+    "scope": "Only the selected ICs, 8 LEDs, 2 reverse diodes, clamp, NPN and Würth inductor. All resistors/capacitors, I/O, harness and manufacturing excluded."
+  },
+  "latch_enable_revision": {
+    "selected_power_switch": {
+      "mpn": "TPS2552DBVR-1",
+      "code": "C140331",
+      "qty": 1,
+      "pinout_DBV": {
+        "1": "IN=5V",
+        "2": "GND",
+        "3": "active-low EN",
+        "4": "active-low open-drain FAULT",
+        "5": "ILIM",
+        "6": "OUT=VLED"
+      }
+    },
+    "selected_inverter": {
+      "mpn": "MMBT3904(RANGE:100-300)",
+      "code": "C20526",
+      "qty": 1,
+      "pinout": {
+        "1": "base",
+        "2": "emitter=GND",
+        "3": "collector=TPS_EN_N"
+      }
+    },
+    "connections": [
+      "MCU PA5 LED_ENABLE -> 10k -> Q1 base",
+      "Q1 base -> 100k -> GND",
+      "Q1 emitter -> GND",
+      "Q1 collector -> TPS2552 pin3 EN",
+      "TPS2552 EN -> 100k -> unswitched5V"
+    ],
+    "passives_total_for_enable": [
+      {
+        "value": "10k 1%",
+        "code": "C25804",
+        "qty": 1,
+        "nets": "MCU PA5 to Q1 base"
+      },
+      {
+        "value": "100k 1%",
+        "code": "C25803",
+        "qty": 2,
+        "nets": "one base-to-GND, one EN-to-5V"
+      }
+    ],
+    "passive_delta_vs_A3": {
+      "additional_10k": 1,
+      "additional_100k": 1,
+      "reused_A3_R12_100k": 1
+    },
+    "logic": "MCU high enables LEDs through NPN pulling EN low. Reset/MCU unpowered => Q1 off, 5V pull-up disables LEDs. No direct5V pull-up on a MCU pin.",
+    "calculations": "At3.3V, assumeVBE0.7V: base series current260uA, minus7uA in100k base resistor =>253uA. Collector pull-up current<=50uA at5V, plus EN input leakage max0.5uA. This heavily overdrives the NPN; VCEsat spec0.3V at50mA/5mA is below TI minimum EN transition0.66V. Exact low-current/cold behavior remains a normal circuit review item, not a claim of measured behavior.",
+    "rejected_MOS_reason": "JSCJ2N7002 C8545 is Basic and plentiful, but RDSon is only specified at5V/10V. Using threshold alone to assert3.3V drive margin is unnecessary here.",
+    "current_limit": {
+      "resistor_ohms": 68000,
+      "tolerance": 0.01,
+      "code": "C23231",
+      "min_mA": 343.318874,
+      "nominal_mA": 388.100596,
+      "max_mA": 439.434918,
+      "basis": "TI TPS255xx equations with resistor corners; calculated, not measured"
+    },
+    "fault_behavior": "Keep -1 latch-off suffix; latch after overcurrent deglitch, report FAULT, do not repeatedly auto-retry. Hardware rail-current limit is not a PETG temperature limit."
+  },
+  "retained_decisions": {
+    "MCU": "KeepG03164KB/8KB64MHz with existing pin plan and SWD. C03132KB/12KB48MHz costs less but needs explicit firmware clock/ADC/pin review and has lower stock. No automatic footprint/pin-equivalence claim.",
+    "translator": "KeepSN74LVC2T45 with VCCA=3V3,VCCB=switchedVLED,DIR=AtoB. Its Ioff/rail isolation makes it useful for either two4-pixel channels or one8-pixel chain. Do not replace with a single-supply buffer merely on nominal VIH; the checked SN74LV1T34 did not provide a clear Ioff guarantee.",
+    "opamp": "KeepOPA197. TLV171 has lower idle current but costs more and has only303stock in this snapshot.",
+    "LED": "Keep2020V6: thin package, extensive stock, lower unit cost than3535MINI. Its explicit StandardOnly/High assembly difficulty flag applies even if FR4 board dimensions meet Economic geometry limits.",
+    "geometry": "Current audit does not freeze one double-sided rigid strip versus two identical single-sided rigid leaves. Both retain8pixels; two data channels already supported. The same electronic designs should serve2HP and3HP, subject to final mechanical placement.",
+    "prototype": "Complete integrated prototype first. No separate optical coupon PCB order is a prerequisite."
+  },
+  "inductor_comparison": {
+    "baseline": {
+      "code": "C2651179",
+      "mpn": "74437324047",
+      "value_uH": 4.7,
+      "body_height_mm": 2.0,
+      "existing_A3_solder_reservation_mm": 2.1,
+      "comment": "Keep existing low-profile geometry. Manufacturer Rev003.000 overrides old JLC table values;10%L-drop current2.45A,30%L-drop current5.4A are different criteria."
+    },
+    "candidate_4p7_3mm": {
+      "code": "C57269",
+      "mpn": "SWPA4030S4R7MT",
+      "nominal_uH": 4.7,
+      "tolerance": 0.2,
+      "dimensions_max_mm": [
+        4.2,
+        4.2,
+        3.0
+      ],
+      "DCR_max_ohms": 0.078,
+      "Isat_min_A": 2.9,
+      "Isat_typ_A": 3.2,
+      "Irms_min_A": 2.0,
+      "comment": "Sunlord specifies30%L-drop at20C.2.9Aminimum is belowAP63205peaklimit3.1Amax. Cannot treat3.2Atyp as guaranteed fault margin."
+    },
+    "candidate_2p2_3mm": {
+      "code": "C279948",
+      "mpn": "SWPA4030S2R2NT",
+      "nominal_uH": 2.2,
+      "tolerance": 0.3,
+      "dimensions_max_mm": [
+        4.2,
+        4.2,
+        3.0
+      ],
+      "DCR_max_ohms": 0.039,
+      "Isat_min_A": 4.9,
+      "Isat_typ_A": 5.8,
+      "Irms_min_A": 2.95,
+      "comment": "Substantially better saturation margin; deliberate inductance change. AP63205 permits nominal2.2–10uH; recalculate ripple/current/EMI, use actual capacitor DC-bias and final layout. Not a drop-in."
+    },
+    "candidate_4p7_2mm": {
+      "code": "C408337",
+      "mpn": "MWSA0402S-4R7MT",
+      "listed_dimensions_mm": [
+        4.4,
+        4.2,
+        2.0
+      ],
+      "listed_Isat_A": 3.0,
+      "listed_Irms_A": 2.8,
+      "listed_DCR_ohms": 0.105,
+      "comment": "Stock/price verified. Technical values here remain supplier-listed; exact manufacturer limits not fully retrieved. Fault margin vs3.1Amax buck limit and actual land pattern unresolved."
+    },
+    "electrical_calculation": {
+      "Vin_V": 12,
+      "Vout_V": 5,
+      "f_Hz": 1100000,
+      "Iout_A": 0.5,
+      "ripple_4p7_nom_A": 0.564152,
+      "peak_4p7_nom_A": 0.782076,
+      "ripple_2p2_nom_A": 1.205234,
+      "peak_2p2_nom_A": 1.102617,
+      "comment": "Ideal CCM estimates; at lower load converter behavior differs. Not simulated/measured. Evaluate minimumL, minimumfrequency, input/output tolerances and DCM separately."
+    },
+    "mechanical_correction": "A3 contains2.0mm inductor body +0.1mm solder, not a3.4mm free-height allowance. ProposedA4 controllerfrontZ12.3 plus1.6mmPCB puts its rear atZ13.9. The retainedWurth2.1mm mounted envelope reachesZ16.0: root proposes moving LEDboard fromZ16..26 toZ17..27 for1mmnominal separation. A3 component dimensions are retained, butA4 fullCAD is unverified. A3.1mm mounted SWPA reachesZ17.0 and would need LEDboardZ18..28 or another relocation; this is a distinct mechanical and electrical option.",
+    "decision": "KeepWurthbaseline; recordSWPA2.2uH as cost alternative only if revised placement and converter review accept it."
+  },
+  "protection_comparison": {
+    "rail_diodes": "FinalA4baseline retains2xPMEG4010CEJ,115C50704:14,151stock/14,038pre-purchase atobserved2026-11-06T05:18:05JST, sufficientfor200fitteddiodesin100modulesbeforeattrition. ManufacturerIRmax50uA@40V25C; VFmax570mV@1A25C. BasicB5819W SLC8598 is only a cost-review candidate: SOD123 replacesSOD323F; maxbody/lead3.85x1.70x1.25mm andIRmax1mA@40V25C are material differences.40V/1A nominal ratings alone do not prove reverse-connection protection for a dual-rail opamp.",
+    "clamp": "ChooseDiodesBAS70-04-7-F C134375 as the exact candidate replacing an unspecifiedNexperiafamily. ManufacturerIRmax100nA@50V25C andVFmax410mV@1mA25C are confirmed. These do not guarantee ADCpin>-0.3V at cold/fault; final clamp/poweroff/injection/rail-backfeed review remains open.",
+    "unchanged_cv": "KeepdirectpassiveTHRU and20Mnominalpickup. A3VADC=V3V3/2+CV/8, not the earlierA2CV/4. Basic1%82knetwork and calibration are root passive audit decisions."
+  },
+  "LED_comparison": {
+    "2020_V6": {
+      "code": "C52917434",
+      "body_nominal_mm": [
+        2.2,
+        2.0,
+        0.84
+      ],
+      "general_tolerance_max_mm": [
+        2.35,
+        2.15,
+        0.99
+      ],
+      "mounted_outward_reservation_mm": 1.1,
+      "notes": "12mA/channel reference;8pixels full-white reference288mA/1.44W at5V, not a guaranteed current maximum.20%firmware limit≈57.6mA LEDreference, but faults can exceed that.8bit20%ceiling gives codes0..51, so low fade smoothness must be assessed."
+    },
+    "MINI_V6": {
+      "code": "C52941386",
+      "source_page": 2,
+      "drawing_body_callout_mm": "3.46±0.5",
+      "drawing_height_mm": "1.9(+0/−0.1)",
+      "land_pattern_span_mm": 3.5,
+      "notes": "OfficialV1.3drawing inspected. Larger/thicker and slightly more expensive. Does not make Economic assembly available."
+    },
+    "FPC": "TransparentPET bare fabrication and domestic low-temperature process references do not by themselves establish international JLCPCB PCBA support for this exact substrate/LED combination. RigidFR4 removes that substrate qualification uncertainty, not part-specific assembly flags."
+  },
+  "remaining_release_gates": [
+    "Choose rigid lighting-board construction and routable controller placement with the newly selected jack/toggle/harness, using actual footprints.",
+    "Create native schematic and layout; runERC/DRC and verify BOM/CPL orientation. This audit is not a manufacturing package.",
+    "Close ADCnegative clamp/injection, poweroff/backfeed, reverse-rail and fuse/surge behavior; no blanket protection claim yet.",
+    "Review buck effective capacitance, hot-loop layout, startup/inrush and LED latch behavior; any cheaper inductor requires the listed electrical and mechanical redesign.",
+    "Recheck JLC BOM matched MPNs/stock, StandardOnly LED processing, panel rails/fiducials, moisture handling, attrition and final quote before ordering.",
+    "Test the complete integrated module after assembly, including all-white thermal fault case, low-brightness fade, CV range, passiveTHRU, startup/reset and cable polarity."
+  ],
+  "mechanical_agent_electrical_note": {
+    "toggle": "Dailywell1MS3T1B1M2QES-5 C908270 selected by mechanical audit; Q indicates silver contacts. No minimum dry-circuit load guarantee has been established for existing10k MCU pull-up current. Keep chosen stocked part; check contact-state reliability/debounce on integrated prototype and review manufacturer minimum load before final reliability claim. Factory trim long solder tails per actual LED-board clearance; this audit does not specify a new trim dimension."
+  },
+  "sources": [
+    {
+      "id": "E01",
+      "title": "Worldsemi WS2812B-2020-V6, V1.4, 2026-07-28",
+      "url": "https://www.world-semi.com/downloads/datasheets/en/ws2812b-2020-v6-1.0.pdf",
+      "web_refs": [
+        "turn84view2",
+        "turn111view0"
+      ]
+    },
+    {
+      "id": "E08",
+      "title": "ST STM32G031 family DS12992 Rev 4, June 2025",
+      "url": "https://www.st.com/resource/en/datasheet/stm32g031f8.pdf",
+      "web_refs": [
+        "turn122view0",
+        "turn122view1",
+        "turn106view6"
+      ]
+    },
+    {
+      "id": "E09",
+      "title": "Diodes AP63205 DS41326 Rev 3-2, November 2024",
+      "url": "https://www.diodes.com/assets/Datasheets/AP63200-AP63201-AP63203-AP63205.pdf",
+      "web_refs": [
+        "turn101view3"
+      ]
+    },
+    {
+      "id": "E10",
+      "title": "TI TLV755P datasheet Rev D",
+      "url": "https://www.ti.com/lit/ds/symlink/tlv755p.pdf",
+      "web_refs": [
+        "turn102view0",
+        "turn123view2"
+      ]
+    },
+    {
+      "id": "E11",
+      "title": "TI TPS255xx datasheet Rev G, October 2026",
+      "url": "https://www.ti.com/lit/ds/symlink/tps2553.pdf",
+      "web_refs": [
+        "turn102view2",
+        "turn106view3",
+        "turn123view1"
+      ]
+    },
+    {
+      "id": "E12",
+      "title": "TI SN74LVC2T45 Rev N, June 2024",
+      "url": "https://www.ti.com/lit/ds/symlink/sn74lvc2t45.pdf",
+      "web_refs": [
+        "turn101view0",
+        "turn106view2",
+        "turn123view0"
+      ]
+    },
+    {
+      "id": "E13",
+      "title": "TI OPA197 Rev C, March 2018",
+      "url": "https://www.ti.com/lit/ds/symlink/opa197.pdf",
+      "web_refs": [
+        "turn116view0",
+        "turn125view0"
+      ]
+    },
+    {
+      "id": "E14",
+      "title": "Wurth 74437324047 Rev 003.000, 2024-12-27",
+      "url": "https://www.we-online.com/components/products/datasheet/74437324047.pdf",
+      "web_refs": [
+        "turn111view1"
+      ]
+    },
+    {
+      "id": "E16",
+      "title": "Nexperia PMEG4010CEJ product page",
+      "url": "https://www.nexperia.com/product/PMEG4010CEJ",
+      "web_refs": [
+        "turn111view2"
+      ]
+    },
+    {
+      "id": "A4-S01",
+      "title": "JLCPCB public product UI field mapping",
+      "url": "https://assets.jlcpcb.com/web-resources/component-platform-static/CanaryLane/latest/_next/static/chunks/app/%5Blocale%5D/partdetail/%5B...urlSuffix%5D/page-5d49ca895ef509da.js",
+      "local_file": "ic_led_evidence/ui_field_mapping/page-5d49ca895ef509da.js"
+    },
+    {
+      "id": "A4-S02",
+      "title": "Diodes BAS70 family DS11007 Rev27-2, November2023",
+      "url": "https://www.diodes.com/_files/datasheets/ds11007.pdf",
+      "web_refs": [
+        "turn205view2"
+      ]
+    },
+    {
+      "id": "A4-S03",
+      "title": "Sunlord SWPA series, revised2022-05-15",
+      "url": "https://www.sunlordinc.com/uploads/files/20221122/SWPA%20series%20of%20SMD%20Power%20Inductor.pdf",
+      "web_refs": [
+        "turn206view0"
+      ],
+      "local_file": "manufacturer_evidence/SWPA-series.pdf"
+    },
+    {
+      "id": "A4-S04",
+      "title": "JSCJ B5817W–B5819W Rev2.0",
+      "url": "https://www.jscj-elec.com/gallery/file/B5819W%20SOD-123%20V2.0.pdf",
+      "web_refs": [
+        "turn207view0"
+      ],
+      "local_file": "manufacturer_evidence/JSCJ-B5819W.pdf"
+    },
+    {
+      "id": "A4-S05",
+      "title": "JSCJ MMBT3904 Rev2.0",
+      "url": "https://www.jscj-elec.com/gallery/file/MMBT3904%20SOT-23V2.pdf",
+      "web_refs": [
+        "turn209view0"
+      ],
+      "local_file": "manufacturer_evidence/JSCJ-MMBT3904.pdf"
+    },
+    {
+      "id": "A4-S06",
+      "title": "JSCJ2N7002 Rev1.0",
+      "url": "https://www.jscj-elec.com/gallery/file/2N7002%20SOT-23%20J.pdf",
+      "web_refs": [
+        "turn206view1"
+      ],
+      "local_file": "manufacturer_evidence/JSCJ-2N7002.pdf"
+    },
+    {
+      "id": "A4-S07",
+      "title": "Worldsemi WS2812B-Mini-V6 V1.3",
+      "url": "https://www.world-semi.com/downloads/datasheets/en/ws2812b-mini-v6-1.0.pdf",
+      "web_refs": [
+        "turn195view0"
+      ],
+      "local_file": "manufacturer_evidence/WS2812B-MINI-V6.pdf"
+    },
+    {
+      "id": "A4-S08",
+      "title": "ST STM32C031 DS13867 Rev4, January2024",
+      "url": "https://www.st.com/resource/en/datasheet/stm32c031g6.pdf",
+      "web_refs": [
+        "turn199view1"
+      ],
+      "local_file": "manufacturer_evidence/STM32C031.pdf"
+    },
+    {
+      "id": "A4-S09",
+      "title": "TI TLV171",
+      "url": "https://www.ti.com/lit/ds/symlink/tlv171.pdf",
+      "web_refs": [
+        "turn184view5"
+      ]
+    },
+    {
+      "id": "A4-S10",
+      "title": "TI SN74LV1T34",
+      "url": "https://www.ti.com/lit/ds/symlink/sn74lv1t34.pdf",
+      "web_refs": [
+        "turn199view0"
+      ]
+    },
+    {
+      "id": "A4-S11",
+      "title": "Nexperia PMEG4010CEJ, 2022-10-01",
+      "url": "https://assets.nexperia.com/documents/data-sheet/PMEG4010CEJ.pdf",
+      "web_refs": [
+        "turn218search24"
+      ]
+    }
+  ]
+}

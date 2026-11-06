@@ -1,0 +1,38 @@
+{
+  "id": "C25803",
+  "mpn": "0603WAF1003T5E",
+  "url": "https://jlcpcb.com/partdetail/C25803",
+  "stock": 16339561,
+  "prepurchase_qty": 14014178,
+  "tiers": [
+    {
+      "min_qty": 1,
+      "max_qty": 999,
+      "unit_price_usd": 0.0029
+    },
+    {
+      "min_qty": 1000,
+      "max_qty": 4999,
+      "unit_price_usd": 0.0023
+    },
+    {
+      "min_qty": 5000,
+      "max_qty": 9999,
+      "unit_price_usd": 0.002
+    },
+    {
+      "min_qty": 10000,
+      "max_qty": 49999,
+      "unit_price_usd": 0.0016
+    },
+    {
+      "min_qty": 50000,
+      "max_qty": null,
+      "unit_price_usd": 0.0015
+    }
+  ],
+  "observed_jst": "2026-11-06T11:33:03.633000+09:00",
+  "observation_method": "Public JLCPCB product page, visible rendered DOM; stock/prices refreshed, no order or reservation.",
+  "purchase_constraints_note": "Attrition, minimum PCBA placement quantity and pre-purchase MOQ have not been re-verified in this refresh; inspect final order.",
+  "catalog_attributes_source": "A4 preserved evidence, independently rechecked against current official product listings; stock/prices in this snapshot from visible DOM."
+}

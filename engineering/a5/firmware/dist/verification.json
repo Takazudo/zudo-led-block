@@ -1,0 +1,228 @@
+{
+  "revision": "A5",
+  "created_utc": "2026-11-06T05:52:26.127263+00:00",
+  "status": "ARM build and host verification passed; no flashing or hardware validation",
+  "mcu": "STM32G031G8U6TR / UFQFPN28 / Cortex-M0+ / 64KiB flash / 8KiB SRAM",
+  "board_adc_revision": "A5 U7 follower, R24=330ohm, R25=1kohm; incompatible with A4.1 ADC",
+  "compiler": "arm-none-eabi-gcc (15:13.2.rel1-2) 13.2.1 20231009",
+  "sdk": {
+    "sdk": {
+      "repository": "https://github.com/STMicroelectronics/STM32CubeG0.git",
+      "tag": "v1.6.3",
+      "commit": "878a6fd8ad440c70ee32bc6d7ad526babb6e04f4",
+      "paths_included": [
+        "Drivers/CMSIS/Include",
+        "Drivers/CMSIS/Device/ST/STM32G0xx",
+        "Drivers/STM32G0xx_HAL_Driver"
+      ],
+      "vendor_modified": false
+    },
+    "device": {
+      "repository": "https://github.com/STMicroelectronics/cmsis_device_g0.git",
+      "commit": "f576c24e123edf3332988ecd49512c0f35f85186",
+      "license": "Apache-2.0",
+      "license_file": "STM32CubeG0/Drivers/CMSIS/Device/ST/STM32G0xx/LICENSE.md"
+    },
+    "hal": {
+      "repository": "https://github.com/STMicroelectronics/stm32g0xx_hal_driver.git",
+      "commit": "a0cf8a8b96183fdcc2e3b1cf0bcf0825f27bd0c9",
+      "license": "BSD-3-Clause",
+      "license_file": "STM32CubeG0/Drivers/STM32G0xx_HAL_Driver/LICENSE.md"
+    },
+    "cmsis_core": {
+      "repository": "https://github.com/STMicroelectronics/STM32CubeG0.git",
+      "commit": "878a6fd8ad440c70ee32bc6d7ad526babb6e04f4",
+      "license": "Apache-2.0",
+      "license_file": "STM32CubeG0/Drivers/CMSIS/LICENSE.txt"
+    },
+    "runtime": {
+      "component": "libgcc integer arithmetic support",
+      "license": "GPL-3.0-or-later WITH GCC-exception-3.1",
+      "note": "Linked from ARM GCC13.2.1. GPL3 and GCC Runtime Library Exception3.1 copied into dist/licenses with provenance. Debian compiler-package copyright is identified separately; it is not the runtime license. Compiler executables are not included."
+    }
+  },
+  "tests": {
+    "host": "PASS",
+    "assertions": 987189,
+    "suites": 7,
+    "address_sanitizer": "PASS",
+    "undefined_behavior_sanitizer": "PASS",
+    "leak_sanitizer": "NOT RUN: explicit container/process-inspection limitation",
+    "timing_sweep_ppm": [
+      -30000,
+      30000
+    ],
+    "timing_sweep_points": 60001,
+    "random_sequences_start_active": 250,
+    "arm_compile_link": "PASS",
+    "undefined_symbols": 0,
+    "interrupt_vectors": {
+      "NMI_Handler": {
+        "vector_index": 2,
+        "address": "0x08000ee5",
+        "strong_definition": true
+      },
+      "HardFault_Handler": {
+        "vector_index": 3,
+        "address": "0x08000edd",
+        "strong_definition": true
+      },
+      "SysTick_Handler": {
+        "vector_index": 15,
+        "address": "0x08000e8d",
+        "strong_definition": true
+      },
+      "EXTI4_15_IRQHandler": {
+        "vector_index": 23,
+        "address": "0x08000e35",
+        "strong_definition": true
+      },
+      "DMA1_Channel1_IRQHandler": {
+        "vector_index": 25,
+        "address": "0x08000e7d",
+        "strong_definition": true
+      }
+    },
+    "hardware_tested": false,
+    "flashed": false
+  },
+  "memory": {
+    "flash_payload_bytes": 10712,
+    "flash_limit_bytes": 65536,
+    "static_ram_and_alignment_bytes": 1800,
+    "reserved_stack_bytes": 2048,
+    "static_plus_stack_bytes": 3848,
+    "ram_limit_bytes": 8192,
+    "initial_stack_pointer": "0x20002000",
+    "reset_vector": "0x080024c9",
+    "note": "Linker reservation only; runtime stack high-water not measured."
+  },
+  "io": {
+    "mode_A": "PA2",
+    "mode_B": "PA3",
+    "switch_bits": {
+      "01": "ON",
+      "11": "PROGRAM",
+      "10": "CV",
+      "00": "invalid/black"
+    },
+    "cv_adc": "PA0/ADC_IN0",
+    "fault": "PA4 active-low, EXTI4_15 priority0",
+    "enable": "PA5 HIGH enables NPN/active-low TPS2552-1 EN",
+    "left": "PA6/AF1/TIM3_CH1",
+    "right": "PA7/AF1/TIM3_CH2",
+    "dma": "DMA1_Channel1, TIM3_UP,2-halfword burst CCR1/CCR2",
+    "pixel_order": "GRB, MSB first,4 pixels per independent chain",
+    "max_channel_code": 51
+  },
+  "timing": {
+    "timer_hz": 60000000,
+    "period_ticks": 78,
+    "zero_high_ticks": 21,
+    "one_high_ticks": 57,
+    "nominal_bit_ns": 1300.0,
+    "nominal_T0H_ns": 350.0,
+    "nominal_T1H_ns": 950.0,
+    "dma_halfwords": 708,
+    "buffer_bytes": 1416,
+    "complete_reset_low_cells_min": 254,
+    "minimum_reset_us_at_fast_envelope": 320.582524,
+    "channel_cap": 51,
+    "adc_board_revision": 5,
+    "adc_divider_num": 100,
+    "adc_divider_den": 133,
+    "adc_inverse_gain_num": 266,
+    "adc_inverse_gain_den": 25,
+    "actual_report": "timing.md",
+    "measured_on_hardware": false
+  },
+  "adc": {
+    "transfer": "VADC=(100/133)*(VDD/2+CV/8)",
+    "inverse": "CV=10.64*VADC-4*VDD",
+    "factory_vref_cal_vdda_mv": 3000,
+    "sample_clock_hz_nominal": 15000000,
+    "acquisition_cycles": 160.5,
+    "pairs_per_second_target": 1000,
+    "zero_gain_calibration": "nominal only; measured values not yet supplied"
+  },
+  "reset_policy": {
+    "ordinary_startup": "selected mode after stabilization, only reset backup pair plus nonconflicting power-reset cause",
+    "retained_armed_fault_or_partial_record": "inhibits all automatic enable",
+    "warm_or_retained_domain_brownout": "stays off",
+    "deep_supply_collapse": "backup loss can authorize a new attempt; indistinguishable from unplugging",
+    "manual_switch_gesture": false,
+    "automatic_retry_timer": false,
+    "option_bytes_modified": false,
+    "service_clear_command": false
+  },
+  "artistic_defaults": "provisional; not user-approved colors, animation, CV curve or deadband",
+  "source_manifest": {
+    "file": "source_files.sha256",
+    "files": 305,
+    "sha256": "61155c23cc8f9c05f8d5712ecd8f009673c1929a34b8437b9869c202deb85c46"
+  },
+  "artifacts": [
+    {
+      "file": "light_block_A5.elf",
+      "bytes": 808408,
+      "sha256": "1585c4e5698221afb9ba1e604b2dc82066805b3bf5d56173b61bed934249913f"
+    },
+    {
+      "file": "light_block_A5.hex",
+      "bytes": 30198,
+      "sha256": "a54a1ccc1ef0cb98f50d130098c811c0b4e36c8165e16e8dbb9e39f0cca00f9e"
+    },
+    {
+      "file": "light_block_A5.bin",
+      "bytes": 10712,
+      "sha256": "0446cb0acfa7efe86a5f6c02beb7afa482daa419ecfce204fe9169487599765e"
+    },
+    {
+      "file": "light_block_A5.map",
+      "bytes": 254227,
+      "sha256": "e03d1ad567e5b68d465803772b7394687839013df6bf3054c1322065e9e12db8"
+    }
+  ],
+  "licenses": [
+    {
+      "file": "licenses/STM32CubeG0-component-licenses.md",
+      "sha256": "215e88d8abeac5a713ae42fb413f00534f371ed9e0270515836437fabbf2e956"
+    },
+    {
+      "file": "licenses/CMSIS-Core-Apache-2.0.txt",
+      "sha256": "b40930bbcf80744c86c46a12bc9da056641d722716c378f5659b9e555ef833e1"
+    },
+    {
+      "file": "licenses/CMSIS-Device-Apache-2.0.txt",
+      "sha256": "c71d239df91726fc519c6eb72d318ec65820627232b2f796219e87dcf35d0ab4"
+    },
+    {
+      "file": "licenses/STM32-HAL-BSD-3-Clause.txt",
+      "sha256": "3564c849dfd5e628732afb7933ccb1c983b53f7ac6bb237b6177691339082671"
+    },
+    {
+      "file": "licenses/ARM-GCC-package-copyright.txt",
+      "sha256": "ba40708beab7133c5b5bc25f28b4fc677617aabdb1368c1889b859b335edf0a1"
+    },
+    {
+      "file": "licenses/GCC-GPL-3.0.txt",
+      "sha256": "8ceb4b9ee5adedde47b31e975c1d90c73ad27b6b165a1dcd80c7c545eb65b903"
+    },
+    {
+      "file": "licenses/GCC-Runtime-Library-Exception-3.1.txt",
+      "sha256": "9d6b43ce4d8de0c878bf16b54d8e7a10d9bd42b75178153e3af6a815bdc90f74"
+    },
+    {
+      "file": "licenses/GCC-license-provenance.md",
+      "sha256": "40853c45ae039932a4af332be0128e9c60c5b6efb4434c865589d89771e2325c"
+    }
+  ],
+  "sources_file": "../sources.json",
+  "remaining_hardware_gates": [
+    "Pin/switch polarity and SWD reset",
+    "Both LED chain waveforms and incoming lot",
+    "Fault/BOR/full-collapse recovery",
+    "A5 CV transfer/calibration/off-state cases",
+    "Power-up current/temperature and stack/watchdog"
+  ]
+}

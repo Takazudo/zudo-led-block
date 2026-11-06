@@ -1,0 +1,136 @@
+{
+  "revision": "A5",
+  "reviewed_utc": "2026-11-06T06:45:59.466104+00:00",
+  "pdf": "deliverables/light_block_A5_engineering_update.pdf",
+  "pdf_sha256": "3dadfd52573ceb8f016a4d7a10add94bab09dc9447f62efa033639638cd48ed1",
+  "bytes": 1653353,
+  "page_count": 7,
+  "source": "build_brief.py",
+  "source_sha256": "4b2ccd2604f7414dfb3c39515a5a4d3d518e9bf48e981ba50b7846a64839c001",
+  "procurement_data_sha256": "bf6fa12ed940967c8587178d0c83be8d687ffce5e8107483ee873a0fed322b0f",
+  "status_data_sha256": "82ad1beb5e00e1d4700a39806eb894ea7b16dd545f962abeb76a298ecff77c6a",
+  "render": {
+    "tool": "PyMuPDF",
+    "version": "1.26.6",
+    "scale": 1.65,
+    "dpi_equivalent": 118.8,
+    "temporary_render_location": "outside the packaged project"
+  },
+  "visual_review": {
+    "pages_reviewed": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7
+    ],
+    "all_passed": true,
+    "checks": [
+      "All seven rendered final pages individually inspected",
+      "Japanese glyphs legible",
+      "No clipped or overlapping text",
+      "Tables contained and readable",
+      "Front illustration retains aspect ratio",
+      "Three upright CAD views retain complete model geometry",
+      "Consistent A5 headers, footer and date",
+      "Open routing, cable, print and hardware gates stated explicitly"
+    ]
+  },
+  "page_metrics": [
+    {
+      "page": 1,
+      "text_characters": 766,
+      "body_bottom_pt": 642.46,
+      "out_of_page_text": []
+    },
+    {
+      "page": 2,
+      "text_characters": 951,
+      "body_bottom_pt": 719.96,
+      "out_of_page_text": []
+    },
+    {
+      "page": 3,
+      "text_characters": 1363,
+      "body_bottom_pt": 598.66,
+      "out_of_page_text": []
+    },
+    {
+      "page": 4,
+      "text_characters": 1274,
+      "body_bottom_pt": 560.4,
+      "out_of_page_text": []
+    },
+    {
+      "page": 5,
+      "text_characters": 1160,
+      "body_bottom_pt": 634.06,
+      "out_of_page_text": []
+    },
+    {
+      "page": 6,
+      "text_characters": 967,
+      "body_bottom_pt": 500.66,
+      "out_of_page_text": []
+    },
+    {
+      "page": 7,
+      "text_characters": 1188,
+      "body_bottom_pt": 597.56,
+      "out_of_page_text": []
+    }
+  ],
+  "source_link_count": 13,
+  "content_verification": {
+    "fitted_types": 30,
+    "fitted_pieces": 81,
+    "fitted_usd_per_module": {
+      "1": "9.9396",
+      "10": "8.7205",
+      "100": "6.6386"
+    },
+    "parts_and_three_cables_usd_per_module": {
+      "1": "15.3496",
+      "10": "13.6055",
+      "100": "11.0751"
+    },
+    "native_erc": {
+      "boards": 3,
+      "errors": 0,
+      "warnings": 0
+    },
+    "netlist_checks": 42,
+    "controller": {
+      "fitted": 59,
+      "courtyard_violations": 2,
+      "unconnected_items": 130,
+      "copper_routed": false
+    },
+    "leaf": {
+      "fitted_each": 10,
+      "copies": 2,
+      "drc_violations": 0,
+      "unconnected_items": 0
+    },
+    "adapter": {
+      "fitted": 2,
+      "drc_violations": 0,
+      "unconnected_items": 0
+    },
+    "firmware_host_suites": 7,
+    "firmware_host_assertions": 987189,
+    "fixed_cad_solids_each_variant": 129,
+    "conditional_harness_findings_each_variant": 16,
+    "saved_cable_routes_rejected": true,
+    "installed_fit_qualified": false,
+    "print_projects_unsliced_PLA": true,
+    "front_artwork_changed": false,
+    "manufacturing_released": false
+  },
+  "notes": [
+    "Report cross-checked against the frozen A5 ledger and status JSON; PDF metadata may change on regeneration.",
+    "Visual PASS is document presentation approval only."
+  ]
+}

@@ -1,0 +1,233 @@
+{
+  "panel": {
+    "height": 128.5,
+    "thickness": 2.0,
+    "mount_slot_width": 3.2,
+    "material_candidate": "2mm clear PMMA acrylic; request cast Clear000 stock, confirm with fabricator",
+    "outer_corner_radius": 0.5
+  },
+  "variants": {
+    "2hp": {
+      "width": 9.8,
+      "slot_length": 4.6,
+      "mounts": [
+        [
+          4.9,
+          3.0
+        ],
+        [
+          4.9,
+          125.5
+        ]
+      ],
+      "source_A2_mounts": [
+        [
+          3.505,
+          3
+        ],
+        [
+          6.295,
+          125.5
+        ]
+      ],
+      "source_A2_slot_length": 5.2
+    },
+    "3hp": {
+      "width": 14.9,
+      "slot_length": 4.6,
+      "mounts": [
+        [
+          7.45,
+          3.0
+        ],
+        [
+          7.45,
+          125.5
+        ]
+      ],
+      "source_A2_mounts": [
+        [
+          6.045,
+          3
+        ],
+        [
+          8.855,
+          125.5
+        ]
+      ],
+      "source_A2_slot_length": 10.28
+    }
+  },
+  "controls": {
+    "switch_y": 74.0,
+    "switch_body_xyz": [
+      5.2,
+      8.7,
+      8.7
+    ],
+    "switch_front_z": 0.6,
+    "switch_hole": 4.95,
+    "switch_flat_span": 4.55,
+    "switch_thread_length": 5.59,
+    "switch_lever_length": 9.4,
+    "switch_pin_pitch": 2.54,
+    "switch_pin_drill": 1.09,
+    "switch_source": "https://www.ckswitches.com/media/1391/ttoggle.pdf",
+    "switch_note": "C&K T103SHCBE nominal case5.08x8.13x8.57; proxy5.2x8.7x8.7 is design allowance, not certified maximum.0.6mm panel-seat/spacer is hypothesis;0.51mm shoulder and washer/nut stack require exact purchased-component stack review and integrated-prototype fit assessment. Center lever only.",
+    "jack_y": [
+      90.0,
+      104.0
+    ],
+    "jack_width": 9.0,
+    "jack_y_limits": [
+      -4.5,
+      6.0
+    ],
+    "jack_front_z": 1.0,
+    "jack_hole": 6.2,
+    "jack_barrel_front_z": -4.5,
+    "jack_pin_end_z": 14.3,
+    "jack_pins": [
+      {
+        "name": "S",
+        "y": -6.48,
+        "drill": 1.22
+      },
+      {
+        "name": "TN",
+        "y": -3.38,
+        "drill": 1.42
+      },
+      {
+        "name": "T",
+        "y": 4.92,
+        "drill": 1.43
+      }
+    ],
+    "jack_source": "https://github.com/Takazudo/zudo-osc-hole-field/blob/4c60ab74c5752e9f0b1e8ed7964d2d97db5af960/footprints/kicad/zudo-osc-hole-field.pretty/Jack_3.5mm_QingPu_WQP518MA.kicad_mod",
+    "switch_corner_blend_radius": 0.25
+  },
+  "carrier": {
+    "top_y": [
+      17.5,
+      22.2
+    ],
+    "middle_y": [
+      58.8,
+      62.8
+    ],
+    "rear_spine_width": 3.6,
+    "rear_spine_z": [
+      28.2,
+      29.4
+    ],
+    "front_screws_y": [
+      20.5,
+      60.8
+    ],
+    "bottom_cap_y": [
+      106.0,
+      109.5
+    ],
+    "cap_screw_z": 27.5,
+    "cap_screw_head_height": 1.6,
+    "material_candidate": "clear PC, machined concept; local0.4mm lips require fitting and strength test"
+  },
+  "pcb": {
+    "width": 8.8,
+    "y0": 63.0,
+    "y1": 111.4,
+    "front_z": 10.0,
+    "thickness": 1.6,
+    "top_mount_y": 65.0,
+    "max_rear_component_z": 15.0,
+    "note": "Four-layer lower rigid PCB, unrouted; parallel to panel. No actual land patterns or electrical checks implied."
+  },
+  "front_washers": {
+    "m2": {
+      "od": 4.0,
+      "id": 2.2,
+      "thickness": 0.3
+    },
+    "jack": {
+      "od": 8.5,
+      "id": 6.3,
+      "thickness": 0.3
+    },
+    "toggle": {
+      "od": 8.0,
+      "id": 5.1,
+      "thickness": 0.3
+    },
+    "rack": {
+      "od": 6.0,
+      "id": 3.2,
+      "thickness": 0.5
+    },
+    "note": "Flat smooth load-spreading washer envelopes; exact stock/material and thread engagement require parts review. No serrated/conical washer contact with PMMA."
+  },
+  "revision": "A4-FULL-REAR-FROST-CLEAR-LETTERS",
+  "source_revision": "A3-PMMA-FRONT",
+  "units": "mm",
+  "status": "APPEARANCE_MASK_ON_A3_HOLE_GEOMETRY_MECHANICAL_RELEASE_PENDING",
+  "date": "2026-11-06",
+  "date_timezone": "Asia/Tokyo",
+  "engraving": {
+    "finish": "Frost the full visible rear surface, leave letter strokes and mode icons clear. Front stays smooth/glossy.",
+    "clear_outer_border_mm": 0.0,
+    "fixed_seat_inset_from_washer_radius_mm": 0.15,
+    "rack_seat_inset_from_washer_radius_mm": 0.05,
+    "rack_nominal_center_travel_mm": 0.7,
+    "mask_boolean_thickness_mm": 0.02,
+    "mask_boolean_thickness_note": "Computational aid only, NOT an engraving depth.",
+    "curve_sampling_deflection_mm": 0.001,
+    "labels": [
+      {
+        "text": "MODE",
+        "y": 80.6,
+        "cap_height": 1.6,
+        "x_offset": 0.0
+      },
+      {
+        "text": "IN",
+        "y": 84.0,
+        "cap_height": 1.8,
+        "x_offset": 0.0
+      },
+      {
+        "text": "OUT",
+        "y": 97.0,
+        "cap_height": 1.8,
+        "x_offset": 0.0
+      },
+      {
+        "text": "ON",
+        "y": 113.0,
+        "cap_height": 1.6,
+        "x_offset": 0.9
+      },
+      {
+        "text": "PGM",
+        "y": 116.0,
+        "cap_height": 1.6,
+        "x_offset": 0.9
+      },
+      {
+        "text": "CV",
+        "y": 119.0,
+        "cap_height": 1.6,
+        "x_offset": 0.9
+      }
+    ],
+    "production_mirror": "x_rear=W-x_front; keep TOP at TOP. Files are already mirrored. Do not mirror or invert again.",
+    "material": "Clear cast PMMA requested; supplier confirms stock and nominal2mm thickness. Pre-matte P422 cannot produce untouched clear letters merely by skipping engraving.",
+    "mechanical_pending": "Current switch/jack procurement may change apertures. A4 is a finish/mask revision on A3 geometry, not an order-ready mechanical release."
+  },
+  "limitations": [
+    "A3 and earlier folders remain unchanged.",
+    "No whole-module CAD is regenerated here.",
+    "No engraving depth, laser power, speed, pass count, haze percentage or guaranteed contrast is assigned.",
+    "Current hardware holes and seating masks must be revised if the stocked switch/jack selection changes.",
+    "Full-visible-surface frosting does not imply uniformly illuminated front; current LED light-path design is separate."
+  ]
+}

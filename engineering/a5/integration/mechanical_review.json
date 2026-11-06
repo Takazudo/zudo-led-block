@@ -1,0 +1,371 @@
+{
+  "revision": "A5",
+  "reviewed_utc": "2026-11-06T06:45:59.466104+00:00",
+  "scope": "Integration review of final declared CAD results, exact input/output identity, print-project structure and visual presentation. Does not replace physical qualification.",
+  "method": "Reconciled existing native CAD/STEP verification records and 3MF source manifests. No additional CAD kernel run or physical test in this final integration review.",
+  "variants": {
+    "2hp": {
+      "valid_modeled_solids": 129,
+      "connected_single_solid_print_parts": 7,
+      "unresolved_retained_part_intersections": 0,
+      "conditional_harness_findings": 16,
+      "conditional_finding_groups": {
+        "wire_wire": 12,
+        "wire_diffuser": 3,
+        "reference_IDC_ribbon": 1
+      },
+      "retained_rear_bound_mm": 29.8,
+      "nominal_depth_margin_mm": 0.2,
+      "step_roundtrip": {
+        "valid": true,
+        "source_solids": 129,
+        "imported_solids": 129,
+        "volume_difference_mm3": 0.0043395462598709855,
+        "source_bbox_mm": {
+          "min": [
+            -1.110223024625e-16,
+            -1.110223024625e-16,
+            -17.09
+          ],
+          "max": [
+            11.8,
+            128.5,
+            29.8
+          ],
+          "size": [
+            11.8,
+            128.5,
+            46.89
+          ]
+        },
+        "imported_bbox_mm": {
+          "min": [
+            -1.110223024625e-16,
+            -1.110223024625e-16,
+            -17.09
+          ],
+          "max": [
+            11.80000000000041,
+            128.5,
+            29.8
+          ],
+          "size": [
+            11.80000000000041,
+            128.5,
+            46.89
+          ]
+        }
+      },
+      "ribbon_scenario_max_x_mm": 11.8,
+      "ribbon_extra_neighbor_clearance_mm": 2.0,
+      "cable_routes": [
+        {
+          "name": "controller_to_left_pin_1",
+          "length_mm": 50.02159496067128,
+          "sampled_minimum_radius_mm": 1.5249999999982842,
+          "qualified": false
+        },
+        {
+          "name": "leaf_link_pin_1",
+          "length_mm": 50.07325476307129,
+          "sampled_minimum_radius_mm": 0.2284740713204033,
+          "qualified": false
+        },
+        {
+          "name": "controller_to_left_pin_2",
+          "length_mm": 50.13440173653444,
+          "sampled_minimum_radius_mm": 1.5249999999982902,
+          "qualified": false
+        },
+        {
+          "name": "leaf_link_pin_2",
+          "length_mm": 50.022060246417894,
+          "sampled_minimum_radius_mm": 0.27609951980412484,
+          "qualified": false
+        },
+        {
+          "name": "controller_to_left_pin_3",
+          "length_mm": 50.35674430511328,
+          "sampled_minimum_radius_mm": 1.5249999999975636,
+          "qualified": false
+        },
+        {
+          "name": "leaf_link_pin_3",
+          "length_mm": 50.06489366597289,
+          "sampled_minimum_radius_mm": 0.20184601190662158,
+          "qualified": false
+        },
+        {
+          "name": "controller_to_left_pin_4",
+          "length_mm": 50.702302022197856,
+          "sampled_minimum_radius_mm": 1.0689988030347484,
+          "qualified": false
+        },
+        {
+          "name": "leaf_link_pin_4",
+          "length_mm": 50.02233732734322,
+          "sampled_minimum_radius_mm": 0.24228113755009026,
+          "qualified": false
+        },
+        {
+          "name": "power_50mm_wire_1",
+          "length_mm": 50.000651800900016,
+          "sampled_minimum_radius_mm": 1.0466403707248015,
+          "qualified": false
+        },
+        {
+          "name": "power_50mm_wire_2",
+          "length_mm": 50.000651800900016,
+          "sampled_minimum_radius_mm": 1.0466403707248015,
+          "qualified": false
+        },
+        {
+          "name": "power_50mm_wire_3",
+          "length_mm": 50.000651800900016,
+          "sampled_minimum_radius_mm": 1.0466403707248015,
+          "qualified": false
+        }
+      ],
+      "saved_cable_paths_status": "REJECTED_AS_FINAL_PHYSICAL_ROUTING",
+      "installed_fit_qualified": false,
+      "manufacturing_released": false,
+      "print_project": {
+        "path": "mechanical/exports/2hp/light_block_A5_2hp_PLA_fit_check_r01.3mf",
+        "sha256": "98c5e440a41666c20bb180e57c22e592c31ce217acbcbf22e8bc9c695be45bad",
+        "status": "UNSLICED_PLA_FIT_CHECK_STRUCTURAL_CHECKS_PASSED",
+        "validation": "mechanical/exports/2hp/light_block_A5_2hp_PLA_fit_check_r01.validation.json",
+        "saved_material": "PLA",
+        "intended_material": "PETG",
+        "sliced": false,
+        "saved_settings_byte_preserved": true,
+        "physical_loaded_material_verified": false
+      }
+    },
+    "3hp": {
+      "valid_modeled_solids": 129,
+      "connected_single_solid_print_parts": 7,
+      "unresolved_retained_part_intersections": 0,
+      "conditional_harness_findings": 16,
+      "conditional_finding_groups": {
+        "wire_wire": 12,
+        "wire_diffuser": 3,
+        "reference_IDC_ribbon": 1
+      },
+      "retained_rear_bound_mm": 29.8,
+      "nominal_depth_margin_mm": 0.2,
+      "step_roundtrip": {
+        "valid": true,
+        "source_solids": 129,
+        "imported_solids": 129,
+        "volume_difference_mm3": 0.004123316062759841,
+        "source_bbox_mm": {
+          "min": [
+            -1.110223024625e-16,
+            -1.110223024625e-16,
+            -17.09
+          ],
+          "max": [
+            14.9,
+            128.5,
+            29.8
+          ],
+          "size": [
+            14.9,
+            128.5,
+            46.89
+          ]
+        },
+        "imported_bbox_mm": {
+          "min": [
+            -1.110223024625e-16,
+            -1.110223024625e-16,
+            -17.09
+          ],
+          "max": [
+            14.9,
+            128.5,
+            29.8
+          ],
+          "size": [
+            14.9,
+            128.5,
+            46.89
+          ]
+        }
+      },
+      "ribbon_scenario_max_x_mm": 14.350000000000001,
+      "ribbon_extra_neighbor_clearance_mm": 0,
+      "cable_routes": [
+        {
+          "name": "controller_to_left_pin_1",
+          "length_mm": 50.02159496067128,
+          "sampled_minimum_radius_mm": 1.5249999999982842,
+          "qualified": false
+        },
+        {
+          "name": "leaf_link_pin_1",
+          "length_mm": 50.07325476307128,
+          "sampled_minimum_radius_mm": 0.22847407132037856,
+          "qualified": false
+        },
+        {
+          "name": "controller_to_left_pin_2",
+          "length_mm": 50.13440173653444,
+          "sampled_minimum_radius_mm": 1.5249999999982902,
+          "qualified": false
+        },
+        {
+          "name": "leaf_link_pin_2",
+          "length_mm": 50.02206024641788,
+          "sampled_minimum_radius_mm": 0.27609951980408703,
+          "qualified": false
+        },
+        {
+          "name": "controller_to_left_pin_3",
+          "length_mm": 50.35674430511327,
+          "sampled_minimum_radius_mm": 1.5249999999972845,
+          "qualified": false
+        },
+        {
+          "name": "leaf_link_pin_3",
+          "length_mm": 50.064893665972875,
+          "sampled_minimum_radius_mm": 0.2018460119066184,
+          "qualified": false
+        },
+        {
+          "name": "controller_to_left_pin_4",
+          "length_mm": 50.70230202219787,
+          "sampled_minimum_radius_mm": 1.0689988030349227,
+          "qualified": false
+        },
+        {
+          "name": "leaf_link_pin_4",
+          "length_mm": 50.02233732734322,
+          "sampled_minimum_radius_mm": 0.24228113754997094,
+          "qualified": false
+        },
+        {
+          "name": "power_50mm_wire_1",
+          "length_mm": 50.000651800900016,
+          "sampled_minimum_radius_mm": 1.0466403707248015,
+          "qualified": false
+        },
+        {
+          "name": "power_50mm_wire_2",
+          "length_mm": 50.000651800900016,
+          "sampled_minimum_radius_mm": 1.0466403707248015,
+          "qualified": false
+        },
+        {
+          "name": "power_50mm_wire_3",
+          "length_mm": 50.000651800900016,
+          "sampled_minimum_radius_mm": 1.0466403707248015,
+          "qualified": false
+        }
+      ],
+      "saved_cable_paths_status": "REJECTED_AS_FINAL_PHYSICAL_ROUTING",
+      "installed_fit_qualified": false,
+      "manufacturing_released": false,
+      "print_project": {
+        "path": "mechanical/exports/3hp/light_block_A5_3hp_PLA_fit_check_r01.3mf",
+        "sha256": "c712bd26615d80d7742ee6a97b11223807b69795e8325c9643ba6aea4dfe7e81",
+        "status": "UNSLICED_PLA_FIT_CHECK_STRUCTURAL_CHECKS_PASSED",
+        "validation": "mechanical/exports/3hp/light_block_A5_3hp_PLA_fit_check_r01.validation.json",
+        "saved_material": "PLA",
+        "intended_material": "PETG",
+        "sliced": false,
+        "saved_settings_byte_preserved": true,
+        "physical_loaded_material_verified": false
+      }
+    }
+  },
+  "visual_review": {
+    "all_passed_for_presentation": true,
+    "views": [
+      "2hp assembled",
+      "2hp exploded",
+      "3hp assembled",
+      "3hp exploded"
+    ],
+    "checks": [
+      "Upright world-Y orientation",
+      "Entire model remains visible",
+      "Assembled and exploded views distinguish their intended purpose",
+      "Conditional ribbon and unresolved installed fit are labelled"
+    ],
+    "root_review": "First three CAD views inspected in the final report; 3HP exploded inspected separately at full preview resolution. All four full previews also inspected by the mechanical author."
+  },
+  "limitations": [
+    "Full-length wire paths have unresolved collisions and unacceptably small local curvature radii; valid STEP solids do not establish cable feasibility.",
+    "Finished IDC socket/strain relief, assumed mating overlap, actual cable bend limits and the Molex flag-label storage envelope need real dimensions.",
+    "29.8 mm is a nominal modeled bound from the rear PMMA surface, not an installed-depth qualification.",
+    "No Bambu Studio load/slicing check or physical printing; saved H2D 0.6 PLA settings do not qualify PETG.",
+    "Mechanical tolerance, insertion loads, acrylic tightening, optical performance and thermal suitability remain untested."
+  ],
+  "review_input_sha256": {
+    "electronics/placement_and_connectivity.json": "086443644c29d210cdde0c712d639584c0ee52079395c7ef5f2dca1c1876c71f",
+    "mechanical/build_mechanical.py": "68624f312e6e1045e7fb41804c281ae19da6e2f8542d48a484c8b34140a921cb",
+    "mechanical/exports/2hp/assembly_manifest.json": "ee7d9d266729659d75e0243f145c934e7fc2b81bc86bc29003a055d51ec8a453",
+    "mechanical/exports/2hp/light_block_A5_2hp_PLA_fit_check_r01.3mf": "98c5e440a41666c20bb180e57c22e592c31ce217acbcbf22e8bc9c695be45bad",
+    "mechanical/exports/2hp/light_block_A5_2hp_PLA_fit_check_r01.validation.json": "93c42da04c1fe1eddb050384b31f6c70e9c42bb6792bab6ea79c904bbb159de2",
+    "mechanical/exports/2hp/printable/bottom_leaf_cap.step": "de39d525bc3c99dd73969a4f5c5f1411eefa1c942c8f9ae49f82b1634dbacabb",
+    "mechanical/exports/2hp/printable/bottom_leaf_cap.stl": "12a43980385d39200004dcc47aa7c9e40917e224f076b15e7198c58c23f055bb",
+    "mechanical/exports/2hp/printable/controller_lower_clamp.step": "41f7e11fbf99a6798db7373b7916655441498220828899be054f9b9e315f4de2",
+    "mechanical/exports/2hp/printable/controller_lower_clamp.stl": "de9bd1519877f6b2060029d08983ac8c1f0062663506020b005c6ec9067ce71a",
+    "mechanical/exports/2hp/printable/controller_upper_clamp.step": "93349fe7867d83f426268b43ae1eba53f11427dbb4704f7e39402a9242b0d86b",
+    "mechanical/exports/2hp/printable/controller_upper_clamp.stl": "5504403c57edc94961c33a332ec738f077efdc47a2c92510207f8e3c1be65562",
+    "mechanical/exports/2hp/printable/front_cradle.step": "06f8b57239976446cef66e0a873981b4b9c78be56eca30afca5b02c4671480dd",
+    "mechanical/exports/2hp/printable/front_cradle.stl": "3a966f391cd87006ebcd848da755156f2f0908e192158c51cdcf9eb2f6b9e1d2",
+    "mechanical/exports/2hp/printable/left_diffuser.step": "13e8ca2dfc3d984066ea37523b379f500ff64591cce6c474fe0132153e364f85",
+    "mechanical/exports/2hp/printable/left_diffuser.stl": "50d1f7a2e155490b4fec6cd40c762b2f474f3405afca535b35a8c05e4773c6e2",
+    "mechanical/exports/2hp/printable/print_manifest.json": "f865cd569f8c6bff16dbc30b40bb85e45bf07f18f8e100ce55144d1036fa7d03",
+    "mechanical/exports/2hp/printable/right_diffuser.step": "7dd6fc703a4a54a5753229eb1cf8e540f795509856f98339f445e7aa0c9467c3",
+    "mechanical/exports/2hp/printable/right_diffuser.stl": "54ee39d3daed8a0cfcc94147ee14d58f0b72fb428e94fca013f3b0a9030deac5",
+    "mechanical/exports/2hp/printable/top_leaf_adapter_cap.step": "4d479d3bfe8aa5c5e8faa42b70d8cc23661239158edcef2b68d2cffb84fafa95",
+    "mechanical/exports/2hp/printable/top_leaf_adapter_cap.stl": "722d92e6f895851a9c18d259271196df1eb042b34a0c860ce7ccb141ec8183cb",
+    "mechanical/exports/2hp/verification.json": "69de090fb6f10924a56ec56c5fa3ff3d950955e46b49f6ef12f03708c55f6f0f",
+    "mechanical/exports/3hp/assembly_manifest.json": "2b26b8b57da6103585fae230db718760dacd6ccdf0ce35d1ee8a6357d30b03d7",
+    "mechanical/exports/3hp/light_block_A5_3hp_PLA_fit_check_r01.3mf": "c712bd26615d80d7742ee6a97b11223807b69795e8325c9643ba6aea4dfe7e81",
+    "mechanical/exports/3hp/light_block_A5_3hp_PLA_fit_check_r01.validation.json": "9a5c5f80fcd822b082c2172957d17e34d36ad44f388809375954dad6111c6f9f",
+    "mechanical/exports/3hp/printable/bottom_leaf_cap.step": "031dd4a1e3cbc80cd9f8a4d4260f211729356373452941e342ea6f271e4eadf6",
+    "mechanical/exports/3hp/printable/bottom_leaf_cap.stl": "8ad1070cee2f1f5729be659f8ca8f440e84d383fcea7e711462e52dca6376964",
+    "mechanical/exports/3hp/printable/controller_lower_clamp.step": "1a894c7a39eb2ce48c720226d9b2db9f21cffb2497b031106f508cb2bc5bf17d",
+    "mechanical/exports/3hp/printable/controller_lower_clamp.stl": "de9bd1519877f6b2060029d08983ac8c1f0062663506020b005c6ec9067ce71a",
+    "mechanical/exports/3hp/printable/controller_upper_clamp.step": "b1c3eb979667093aa89d478d1225885e4de36fd04b8fef423c7b451651a68c9c",
+    "mechanical/exports/3hp/printable/controller_upper_clamp.stl": "b26593fc52bb50f5a06a1e89fb0e04a2293f5e40a229d820ce949f633f5f428a",
+    "mechanical/exports/3hp/printable/front_cradle.step": "f88f0795b88d43de76b1de9af39b1925e0a319c0b7e71a6bbb46415da56f0821",
+    "mechanical/exports/3hp/printable/front_cradle.stl": "dc30cb32026f55049608f0383e45d36646a3132c369a7e0231b2031a28a3ecd9",
+    "mechanical/exports/3hp/printable/left_diffuser.step": "52c8e7e89b934a2e9774f6534bf2dc6e87140491e2671f27adc9c6e810d08f67",
+    "mechanical/exports/3hp/printable/left_diffuser.stl": "e91ced4aad9aaf225c9c03a8bcde5b5c9e7ab821a1510b4b6e8288e216151435",
+    "mechanical/exports/3hp/printable/print_manifest.json": "d52750e7925ee68a0264462b26e791ae2486840bf78d626652d3b963c62ba338",
+    "mechanical/exports/3hp/printable/right_diffuser.step": "b48a73d4600a44a8872433fdbeb1a7fcc171723a0912def95465a055008af6f9",
+    "mechanical/exports/3hp/printable/right_diffuser.stl": "1743a8b55455eec0900268ec60258a1a156576d9f652e44018fef0120dcf6fed",
+    "mechanical/exports/3hp/printable/top_leaf_adapter_cap.step": "4c077fc7ddbb8c4bb83ac08d723e91430064e04519184c8bd3a4cb9b61f66b6e",
+    "mechanical/exports/3hp/printable/top_leaf_adapter_cap.stl": "cbc4709ddaa8faa0c692623080dc32bf22304f8ec8632a8f9d9455004eb9ac6e",
+    "mechanical/exports/3hp/verification.json": "997bc719c6f757dddd1ceb6f086a9ae44952acc64e64c0abb4670a6ff048c3fb",
+    "mechanical/print_packaging/2hp/r01/bottom_leaf_cap.mesh.json": "0ab5ae99d97d7a2e826a3e090155afdb60b2f3e521b3534a78fbab17d82dc647",
+    "mechanical/print_packaging/2hp/r01/controller_lower_clamp.mesh.json": "38229ab29e8771f574abdaf5f7cf563ff410f6272f5eabdb22ae49f8832cfe10",
+    "mechanical/print_packaging/2hp/r01/controller_upper_clamp.mesh.json": "02cd5f9b910d83205cc67355f8810fc467d18b215e2cb7bb5a0ab1ee62cba937",
+    "mechanical/print_packaging/2hp/r01/front_cradle.mesh.json": "f8a52bd8e6dfbb50d14f6e6be24b506131e54297fcf1cf147035e8076c8e13d7",
+    "mechanical/print_packaging/2hp/r01/left_diffuser.mesh.json": "1112b7fd07324b7a121d4ef960e34c227407c85c14aa9624d5326a9e8a494687",
+    "mechanical/print_packaging/2hp/r01/parts.manifest.json": "a63015aa3e67a74ea245e6f6c2afcab999292451fa0377a5a0d4f9d4eca75a13",
+    "mechanical/print_packaging/2hp/r01/right_diffuser.mesh.json": "4f9e088f543c38f3befd7b0563fa736ddd92881c8af2f8231e203ec5efc37b62",
+    "mechanical/print_packaging/2hp/r01/source_manifest.json": "0d4db26064ed7eb0267898511d7bdacf8d49181c72098916185cf9d52ea503f8",
+    "mechanical/print_packaging/2hp/r01/top_leaf_adapter_cap.mesh.json": "022b79d7ea2431d5abf6d37ffaec0871f0366305846ad9b9807fdc7503df0899",
+    "mechanical/print_packaging/3hp/r01/bottom_leaf_cap.mesh.json": "1628e534ef15047258f136a8368db0ac2788a1c21216fb9fbbca0f8add4ff131",
+    "mechanical/print_packaging/3hp/r01/controller_lower_clamp.mesh.json": "38229ab29e8771f574abdaf5f7cf563ff410f6272f5eabdb22ae49f8832cfe10",
+    "mechanical/print_packaging/3hp/r01/controller_upper_clamp.mesh.json": "02cd5f9b910d83205cc67355f8810fc467d18b215e2cb7bb5a0ab1ee62cba937",
+    "mechanical/print_packaging/3hp/r01/front_cradle.mesh.json": "bf2cd598db56ec6d02163ac11431cb1dc02c97eb29c2be3fa958928cf5defef1",
+    "mechanical/print_packaging/3hp/r01/left_diffuser.mesh.json": "a4e051631efc149095bb0fd1aa7a06e6b9e257c8d5e3bba8e98373777fa7c1e9",
+    "mechanical/print_packaging/3hp/r01/parts.manifest.json": "543ce54d991e7ac7b47978b8d4dccba323aec377f9e6ce30451d4a6e69d979a6",
+    "mechanical/print_packaging/3hp/r01/right_diffuser.mesh.json": "aca36eeeda804ca166cad8ba1cc256b03f715f712ce08557006e87f82eab8e38",
+    "mechanical/print_packaging/3hp/r01/source_manifest.json": "b2ed7cf3789f8161ea6e27d0671d061b2bb33e3b3798b7da55cc5d4f76b5dfbf",
+    "mechanical/print_packaging/3hp/r01/top_leaf_adapter_cap.mesh.json": "4c82cebbb8cdae66c0be74a51ddf310cc8f1b60c8ee8a03cc087c8c6c7c5de12",
+    "mechanical/print_packaging/assets/h2d-empty.3mf": "0349a5f3759e8d42b8f9f0fd47b25c9110f90294e21104369e8d4d58bb8a2b59",
+    "mechanical/print_packaging/build_fit_check_projects.py": "dedaf1b7c8ce11edf07f74d13249d060b8c232e6e894b117a5f714b3f3bd0a6d",
+    "mechanical/print_packaging/helpers/bambu_3mf.py": "dc0eca08cd1b2a0b6f60a774c77d6e0c04fbd81780ecdf23237e1ea18531db7b",
+    "mechanical/print_packaging/validation_index.json": "ebc0275d61a19e81a8d729f96a30f7b07f9384e548e98cfa5ef2c79f1ec8f48b",
+    "mechanical/verification_summary.json": "5a48b103bf4eb15b385fb1be37c421f7ac3302209ff5cada3eeaf7fb07c92bf4"
+  },
+  "manufacturing_released": false
+}

@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<export version="E">
+  <design>
+    <source>/workspace/scratch/213e46744889/light_block_A5/electronics/native/power_adapter/power_adapter.kicad_sch</source>
+    <date>2026-11-06T15:26:45</date>
+    <tool>Eeschema 10.0.8-10.0.8~ubuntu24.04.1</tool>
+    <sheet number="1" name="/" tstamps="/">
+      <title_block>
+        <title>Light Block A5 passive power adapter</title>
+        <company>Light Block</company>
+        <rev>A5</rev>
+        <date>2026-11-06</date>
+        <source>power_adapter.kicad_sch</source>
+        <comment number="1" value="Engineering draft. Controller is not routed. No hardware qualification claimed."/>
+        <comment number="2" value=""/>
+        <comment number="3" value=""/>
+        <comment number="4" value=""/>
+        <comment number="5" value=""/>
+        <comment number="6" value=""/>
+        <comment number="7" value=""/>
+        <comment number="8" value=""/>
+        <comment number="9" value=""/>
+      </title_block>
+    </sheet>
+  </design>
+  <components>
+    <comp ref="J1">
+      <value>EURORACK 10pin</value>
+      <footprint>LightBlock:IDC10</footprint>
+      <fields>
+        <field name="MPN">2.54-2*5P</field>
+        <field name="LCSC">C5665</field>
+        <field name="Footprint">LightBlock:IDC10</field>
+        <field name="Datasheet"/>
+        <field name="Description"/>
+      </fields>
+      <libsource lib="LightBlock" part="IDC" description=""/>
+      <property name="MPN" value="2.54-2*5P"/>
+      <property name="LCSC" value="C5665"/>
+      <property name="Sheetname" value="power_adapter"/>
+      <property name="Sheetfile" value="power_adapter.kicad_sch"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamps>6b1789c1-292f-5d07-815d-66e5509a38b6</tstamps>
+      <units>
+        <unit name="A">
+          <pins>
+            <pin num="1"/>
+            <pin num="2"/>
+            <pin num="3"/>
+            <pin num="4"/>
+            <pin num="5"/>
+            <pin num="6"/>
+            <pin num="7"/>
+            <pin num="8"/>
+            <pin num="9"/>
+            <pin num="10"/>
+          </pins>
+        </unit>
+      </units>
+    </comp>
+    <comp ref="J2">
+      <value>PWR CABLE - / G / +</value>
+      <footprint>LightBlock:PICO3</footprint>
+      <fields>
+        <field name="MPN">530470310</field>
+        <field name="LCSC">C122442</field>
+        <field name="Footprint">LightBlock:PICO3</field>
+        <field name="Datasheet"/>
+        <field name="Description"/>
+      </fields>
+      <libsource lib="LightBlock" part="PWR3" description=""/>
+      <property name="MPN" value="530470310"/>
+      <property name="LCSC" value="C122442"/>
+      <property name="Sheetname" value="power_adapter"/>
+      <property name="Sheetfile" value="power_adapter.kicad_sch"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamps>00e852e7-1f7c-5ec7-8699-2ba78a441778</tstamps>
+      <units>
+        <unit name="A">
+          <pins>
+            <pin num="1"/>
+            <pin num="2"/>
+            <pin num="3"/>
+          </pins>
+        </unit>
+      </units>
+    </comp>
+  </components>
+  <libparts>
+    <libpart lib="LightBlock" part="IDC">
+      <fields>
+        <field name="Reference">I</field>
+        <field name="Value">IDC</field>
+        <field name="Footprint"/>
+        <field name="Datasheet"/>
+        <field name="Description"/>
+      </fields>
+      <pins>
+        <pin num="1" name="1" type="passive"/>
+        <pin num="2" name="2" type="passive"/>
+        <pin num="3" name="3" type="passive"/>
+        <pin num="4" name="4" type="passive"/>
+        <pin num="5" name="5" type="passive"/>
+        <pin num="6" name="6" type="passive"/>
+        <pin num="7" name="7" type="passive"/>
+        <pin num="8" name="8" type="passive"/>
+        <pin num="9" name="9" type="passive"/>
+        <pin num="10" name="10" type="passive"/>
+      </pins>
+    </libpart>
+    <libpart lib="LightBlock" part="PWR3">
+      <fields>
+        <field name="Reference">P</field>
+        <field name="Value">PWR3</field>
+        <field name="Footprint"/>
+        <field name="Datasheet"/>
+        <field name="Description"/>
+      </fields>
+      <pins>
+        <pin num="1" name="1" type="passive"/>
+        <pin num="2" name="2" type="passive"/>
+        <pin num="3" name="3" type="passive"/>
+      </pins>
+    </libpart>
+  </libparts>
+  <libraries>
+    <library logical="LightBlock">
+      <uri>${KIPRJMOD}/LightBlock.kicad_sym</uri>
+    </library>
+  </libraries>
+  <nets>
+    <net code="1" name="/+12V_RAW" class="Default">
+      <node ref="J1" pin="10" pinfunction="10_10" pintype="passive"/>
+      <node ref="J1" pin="9" pinfunction="9_9" pintype="passive"/>
+      <node ref="J2" pin="3" pinfunction="3_3" pintype="passive"/>
+    </net>
+    <net code="2" name="/-12V_RAW" class="Default">
+      <node ref="J1" pin="1" pinfunction="1_1" pintype="passive"/>
+      <node ref="J1" pin="2" pinfunction="2_2" pintype="passive"/>
+      <node ref="J2" pin="1" pinfunction="1_1" pintype="passive"/>
+    </net>
+    <net code="3" name="/GND" class="Default">
+      <node ref="J1" pin="3" pinfunction="3_3" pintype="passive"/>
+      <node ref="J1" pin="4" pinfunction="4_4" pintype="passive"/>
+      <node ref="J1" pin="5" pinfunction="5_5" pintype="passive"/>
+      <node ref="J1" pin="6" pinfunction="6_6" pintype="passive"/>
+      <node ref="J1" pin="7" pinfunction="7_7" pintype="passive"/>
+      <node ref="J1" pin="8" pinfunction="8_8" pintype="passive"/>
+      <node ref="J2" pin="2" pinfunction="2_2" pintype="passive"/>
+    </net>
+  </nets>
+</export>

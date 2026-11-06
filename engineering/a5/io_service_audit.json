@@ -1,0 +1,1366 @@
+{
+  "document": "A4 electromechanical parts and international PCBA service audit",
+  "schema_version": 1,
+  "observation_date_utc": "2026-11-05",
+  "status": "Procurement and design audit; not a manufacturing release or quotation",
+  "user_assembly_goal": "Screws, intact plug-in cables and covers; no home soldering",
+  "vendor_contact_or_order": false,
+  "prior_revisions_modified": false,
+  "inventory_method": {
+    "source": "Anonymous public jlcpcb.com product HTML and public product props",
+    "in_stock_field": "overseasStockCount",
+    "available_order_qty_field": "canPresaleNumber",
+    "available_order_qty_meaning": "Pre-purchase parts-library availability; not a separate guarantee of PCBA allocation",
+    "manualWeld_visible_ui_label": "Wave Soldering",
+    "preMinPurchaseNum_meaning": "Pre-purchase minimum; do not reinterpret as universal PCBA minimum quantity",
+    "stock_vs_lcsc": "Selected quantities are JLCPCB shelf observations, not LCSC or global-sourcing quantities",
+    "delivery_artifact_policy": "This JSON includes selected public fields and file hashes. Omit raw HTML and public_payload_objects from the user deliverable; raw pages contain unnecessary data and expiring signed URLs."
+  },
+  "architecture": {
+    "primary_hp": 2,
+    "fallback_hp": 3,
+    "front": "Separate 2 mm laser-cut PMMA; internal FR-4 is permitted",
+    "controller": {
+      "prior_outline_mm": [
+        8.8,
+        48.4
+      ],
+      "thickness_mm": 1.6,
+      "front_plane_z_mm_provisional": 12.3,
+      "layout_complete": false,
+      "panel": "Combine with the passive power adapter in a Standard panel, subject to different-design fee and engineering review"
+    },
+    "lighting": {
+      "identical_leaf_count": 2,
+      "outline_each_mm": [
+        82.5,
+        10.0
+      ],
+      "substrate": "FR-4",
+      "thickness_each_mm": 0.6,
+      "copper_layers_proposed": 2,
+      "populated_sides_each": 1,
+      "orientation": "Back-to-back with components facing left and right",
+      "rgb_leds_per_leaf": 4,
+      "local_capacitors_per_leaf": 4,
+      "selected_led_jlc_code": "C52917434",
+      "selected_led_pcba_service": "Standard Only",
+      "separate_data_channels": 2,
+      "central_clear_support": false,
+      "bondline_mm_provisional": 0.1,
+      "laminate_stack_mm_nominal": 1.3,
+      "outward_component_reservation_each_mm": 1.1,
+      "total_transverse_component_envelope_mm_nominal": 3.5,
+      "two_hp_side_sheet_inner_spacing_mm_nominal": 6.4,
+      "two_hp_led_gap_each_side_mm_nominal": 1.45,
+      "three_hp_side_sheet_inner_spacing_mm_nominal": 11.5,
+      "three_hp_led_gap_each_side_mm_nominal": 4.0,
+      "gap_caveat": "Nominal arithmetic only; PCB, solder, bondline, sheet and placement tolerances remain to be stacked",
+      "connector_strategy": "One C160404 per leaf, two C160404 on controller; connector placement near lower ends with local PETG relief remains to be designed",
+      "leaf_pin_assignment_intent": {
+        "1": "GND",
+        "2": "VLED",
+        "3": "DATA",
+        "4": "NC"
+      },
+      "pin_assignment_release_gate": "Reconcile housing mating-view numbering to native JST footprint; verify continuity on actual intact cables"
+    },
+    "power": {
+      "adapter": "Passive keyed 2x5 IDC to three-pin PicoBlade, remote from narrow controller",
+      "adapter_header_jlc_codes": [
+        "C5665",
+        "C122442"
+      ],
+      "controller_power_header_jlc_code": "C122442",
+      "premade_cable": "Molex 151340300",
+      "required_rails": [
+        "+12V",
+        "GND",
+        "-12V"
+      ],
+      "bus_connection": "Unmodified standard Eurorack 16-to-10 ribbon",
+      "adapter_location_and_depth_qualified": false
+    },
+    "pcba_job_count_proposed": 2,
+    "pcba_jobs": [
+      "1.6 mm controller plus passive power-adapter panel",
+      "0.6 mm identical single-sided LED-leaf panel"
+    ],
+    "complete_module_supplied_by_jlc": false
+  },
+  "selected_jlc_parts": [
+    {
+      "jlc_code": "C500090",
+      "source_url": "https://jlcpcb.com/partdetail/XKBConnection-PJ_3582B/C500090",
+      "observed_utc": "2026-11-05T20:18:12.289704+00:00",
+      "observed_jst": "2026-11-06T05:18:12.289704+09:00",
+      "html_sha256": "8971561c875f2de872fa3684f7323d48d53ef03dca869571050e89cd97242cae",
+      "method": "Anonymous GET of public JLCPCB product page; React product props and visible metadata only, no private API.",
+      "in_stock": 2891,
+      "available_order_qty": 2862,
+      "part": {
+        "componentModelEn": "PJ-3582-B",
+        "componentBrandEn": "XKB Connection",
+        "componentCode": "C500090",
+        "componentSpecificationEn": "Plugin",
+        "componentLibraryType": "expand",
+        "pcba_type_visible": "Economic and Standard",
+        "assembly_type_visible": "Wave Soldering",
+        "source_visible": "JLCPCB",
+        "assemblyMode": "manualWeld",
+        "fixtureFlag": false,
+        "specialComponentFee": 0,
+        "needAuditFlag": false,
+        "encapsulationNumber": 500,
+        "lossNumber": 0,
+        "leastPatchNumber": 2,
+        "noBuyReason": null
+      },
+      "usd_tiers": [
+        {
+          "min_qty": 1,
+          "max_qty": 49,
+          "unit_price_usd": 0.266
+        },
+        {
+          "min_qty": 50,
+          "max_qty": 149,
+          "unit_price_usd": 0.2115
+        },
+        {
+          "min_qty": 150,
+          "max_qty": 499,
+          "unit_price_usd": 0.1883
+        },
+        {
+          "min_qty": 500,
+          "max_qty": 2499,
+          "unit_price_usd": 0.1592
+        },
+        {
+          "min_qty": 2500,
+          "max_qty": 4999,
+          "unit_price_usd": 0.1462
+        },
+        {
+          "min_qty": 5000,
+          "max_qty": null,
+          "unit_price_usd": 0.1384
+        }
+      ],
+      "role": "CV IN and passive THRU jack",
+      "quantity_per_module": 2,
+      "web_reference": "turn168view2",
+      "evaluation_100_modules": {
+        "component_quantity_excluding_attrition": 200,
+        "unit_price_usd": 0.1883,
+        "line_total_usd": 37.66,
+        "observed_shelf_stock_covers_quantity": true,
+        "inventory_reserved": false
+      }
+    },
+    {
+      "jlc_code": "C908270",
+      "source_url": "https://jlcpcb.com/partdetail/Dailywell-1MS3T1B1M2QES5/C908270",
+      "observed_utc": "2026-11-05T20:24:44.489258+00:00",
+      "observed_jst": "2026-11-06T05:24:44.489258+09:00",
+      "html_sha256": "3a07e4240a658cdcc0fe4ccc27b9a62d3e4a641e38e2af5c9f7c10abdac91c30",
+      "method": "Anonymous GET of public JLCPCB product page; React product props and visible metadata only, no private API.",
+      "in_stock": 1134,
+      "available_order_qty": 1058,
+      "part": {
+        "componentModelEn": "1MS3T1B1M2QES-5",
+        "componentBrandEn": "Dailywell",
+        "componentCode": "C908270",
+        "componentSpecificationEn": "Plugin",
+        "componentLibraryType": "expand",
+        "pcba_type_visible": "Economic and Standard",
+        "assembly_type_visible": "Wave Soldering",
+        "source_visible": "JLCPCB",
+        "assemblyMode": "manualWeld",
+        "fixtureFlag": false,
+        "specialComponentFee": 0,
+        "needAuditFlag": false,
+        "isBuyComponent": "1",
+        "preMinPurchaseNum": 7,
+        "encapsulationNumber": 50,
+        "lossNumber": 0,
+        "leastPatchNumber": 0,
+        "noBuyReason": null
+      },
+      "usd_tiers": [
+        {
+          "min_qty": 1,
+          "max_qty": 9,
+          "unit_price_usd": 1.4146
+        },
+        {
+          "min_qty": 10,
+          "max_qty": 49,
+          "unit_price_usd": 1.1759
+        },
+        {
+          "min_qty": 50,
+          "max_qty": 99,
+          "unit_price_usd": 1.0434
+        },
+        {
+          "min_qty": 100,
+          "max_qty": 499,
+          "unit_price_usd": 0.8946
+        },
+        {
+          "min_qty": 500,
+          "max_qty": 999,
+          "unit_price_usd": 0.8292
+        },
+        {
+          "min_qty": 1000,
+          "max_qty": null,
+          "unit_price_usd": 0.7997
+        }
+      ],
+      "role": "Maintained three-position mode toggle",
+      "quantity_per_module": 1,
+      "web_reference": "turn190view0",
+      "evaluation_100_modules": {
+        "component_quantity_excluding_attrition": 100,
+        "unit_price_usd": 0.8946,
+        "line_total_usd": 89.46,
+        "observed_shelf_stock_covers_quantity": true,
+        "inventory_reserved": false
+      }
+    },
+    {
+      "jlc_code": "C160404",
+      "source_url": "https://jlcpcb.com/partdetail/Jst-SM04B_SRSS_TB_LF_SN/C160404",
+      "observed_utc": "2026-11-05T20:26:12.021553+00:00",
+      "observed_jst": "2026-11-06T05:26:12.021553+09:00",
+      "html_sha256": "ddba96cbd88e64fff36fb0fc37776051893def04b79ae74fca1f072f9dbc1b06",
+      "method": "Anonymous GET of public JLCPCB product page; React product props and visible metadata only, no private API.",
+      "in_stock": 57558,
+      "available_order_qty": 50828,
+      "part": {
+        "componentModelEn": "SM04B-SRSS-TB(LF)(SN)",
+        "componentBrandEn": "JST",
+        "componentCode": "C160404",
+        "componentSpecificationEn": "SMD,P=1mm,Surface Mount，Right Angle",
+        "componentLibraryType": "expand",
+        "pcba_type_visible": "Economic and Standard",
+        "assembly_type_visible": "SMT Assembly",
+        "source_visible": "JLCPCB",
+        "assemblyMode": "smtWeld",
+        "fixtureFlag": false,
+        "specialComponentFee": 0,
+        "needAuditFlag": false,
+        "isBuyComponent": "1",
+        "preMinPurchaseNum": 43,
+        "encapsulationNumber": 3000,
+        "lossNumber": 0,
+        "leastPatchNumber": 5,
+        "noBuyReason": null
+      },
+      "usd_tiers": [
+        {
+          "min_qty": 1,
+          "max_qty": 49,
+          "unit_price_usd": 0.2146
+        },
+        {
+          "min_qty": 50,
+          "max_qty": 149,
+          "unit_price_usd": 0.1736
+        },
+        {
+          "min_qty": 150,
+          "max_qty": 499,
+          "unit_price_usd": 0.1536
+        },
+        {
+          "min_qty": 500,
+          "max_qty": 2999,
+          "unit_price_usd": 0.1358
+        },
+        {
+          "min_qty": 3000,
+          "max_qty": 5999,
+          "unit_price_usd": 0.1273
+        },
+        {
+          "min_qty": 6000,
+          "max_qty": null,
+          "unit_price_usd": 0.1243
+        }
+      ],
+      "role": "Two controller and two LED-leaf SH4 headers",
+      "quantity_per_module": 4,
+      "web_reference": "turn185view1",
+      "evaluation_100_modules": {
+        "component_quantity_excluding_attrition": 400,
+        "unit_price_usd": 0.1536,
+        "line_total_usd": 61.44,
+        "observed_shelf_stock_covers_quantity": true,
+        "inventory_reserved": false
+      }
+    },
+    {
+      "jlc_code": "C122442",
+      "source_url": "https://jlcpcb.com/partdetail/MOLEX-530470310/C122442",
+      "observed_utc": "2026-11-05T20:28:17.248871+00:00",
+      "observed_jst": "2026-11-06T05:28:17.248871+09:00",
+      "html_sha256": "32b0b6db1acdc33c0897392dc58fb68caf84f6daee4ef9bd5f5ed84073b54453",
+      "method": "Anonymous GET of public JLCPCB product page; React product props and visible metadata only, no private API.",
+      "in_stock": 22499,
+      "available_order_qty": 21852,
+      "part": {
+        "componentModelEn": "530470310",
+        "componentBrandEn": "MOLEX",
+        "componentCode": "C122442",
+        "componentSpecificationEn": "Plugin,P=1.25mm",
+        "componentLibraryType": "expand",
+        "pcba_type_visible": "Economic and Standard",
+        "assembly_type_visible": "Wave Soldering",
+        "source_visible": "JLCPCB",
+        "assemblyMode": "manualWeld",
+        "fixtureFlag": false,
+        "specialComponentFee": 0,
+        "needAuditFlag": false,
+        "isBuyComponent": "1",
+        "preMinPurchaseNum": 89,
+        "encapsulationNumber": 2500,
+        "lossNumber": 2,
+        "leastPatchNumber": 2,
+        "noBuyReason": null
+      },
+      "usd_tiers": [
+        {
+          "min_qty": 1,
+          "max_qty": 49,
+          "unit_price_usd": 0.1314
+        },
+        {
+          "min_qty": 50,
+          "max_qty": 149,
+          "unit_price_usd": 0.1024
+        },
+        {
+          "min_qty": 150,
+          "max_qty": 499,
+          "unit_price_usd": 0.088
+        },
+        {
+          "min_qty": 500,
+          "max_qty": 2499,
+          "unit_price_usd": 0.0771
+        },
+        {
+          "min_qty": 2500,
+          "max_qty": 4999,
+          "unit_price_usd": 0.0684
+        },
+        {
+          "min_qty": 5000,
+          "max_qty": null,
+          "unit_price_usd": 0.064
+        }
+      ],
+      "role": "Controller and remote-adapter power headers",
+      "quantity_per_module": 2,
+      "web_reference": "turn192search3",
+      "evaluation_100_modules": {
+        "component_quantity_excluding_attrition": 200,
+        "unit_price_usd": 0.088,
+        "line_total_usd": 17.6,
+        "observed_shelf_stock_covers_quantity": true,
+        "inventory_reserved": false
+      }
+    },
+    {
+      "jlc_code": "C5665",
+      "source_url": "https://jlcpcb.com/partdetail/BOOMELE_Boom_Precision_Elec-2_54_2_5P/C5665",
+      "observed_utc": "2026-11-05T20:29:01.148968+00:00",
+      "observed_jst": "2026-11-06T05:29:01.148968+09:00",
+      "html_sha256": "cc85fa7d8c51a6ed501764267ba16603926a6223b4653d261699969d17e2a3d4",
+      "method": "Anonymous GET of public JLCPCB product page; React product props and visible metadata only, no private API.",
+      "in_stock": 143581,
+      "available_order_qty": 137022,
+      "part": {
+        "componentModelEn": "2.54-2*5P2.54 mm pitch 2×5 pin IDC box header",
+        "componentBrandEn": "BOOMELE(Boom Precision Elec)",
+        "componentCode": "C5665",
+        "componentSpecificationEn": "Plugin,P=2.54mm",
+        "componentLibraryType": "expand",
+        "pcba_type_visible": "Economic and Standard",
+        "assembly_type_visible": "Wave Soldering",
+        "source_visible": "JLCPCB",
+        "assemblyMode": "manualWeld",
+        "fixtureFlag": false,
+        "specialComponentFee": 0,
+        "needAuditFlag": false,
+        "isBuyComponent": "1",
+        "preMinPurchaseNum": 106,
+        "encapsulationNumber": 280,
+        "lossNumber": 0,
+        "leastPatchNumber": 2,
+        "noBuyReason": null
+      },
+      "usd_tiers": [
+        {
+          "min_qty": 1,
+          "max_qty": 49,
+          "unit_price_usd": 0.1041
+        },
+        {
+          "min_qty": 50,
+          "max_qty": 279,
+          "unit_price_usd": 0.0859
+        },
+        {
+          "min_qty": 280,
+          "max_qty": 559,
+          "unit_price_usd": 0.0696
+        },
+        {
+          "min_qty": 560,
+          "max_qty": 2519,
+          "unit_price_usd": 0.0619
+        },
+        {
+          "min_qty": 2520,
+          "max_qty": 5039,
+          "unit_price_usd": 0.0592
+        },
+        {
+          "min_qty": 5040,
+          "max_qty": null,
+          "unit_price_usd": 0.0575
+        }
+      ],
+      "role": "Remote-adapter keyed Eurorack 10-pin IDC",
+      "quantity_per_module": 1,
+      "web_reference": "turn200search2",
+      "evaluation_100_modules": {
+        "component_quantity_excluding_attrition": 100,
+        "unit_price_usd": 0.0859,
+        "line_total_usd": 8.59,
+        "observed_shelf_stock_covers_quantity": true,
+        "inventory_reserved": false
+      }
+    }
+  ],
+  "alternatives": [
+    {
+      "jlc_code": "C9900079089",
+      "source_url": "https://jlcpcb.com/partdetail/JLCPCBAssembly-WQPWQP518MA/C9900079089",
+      "observed_utc": "2026-11-05T20:18:19.024435+00:00",
+      "observed_jst": "2026-11-06T05:18:19.024435+09:00",
+      "html_sha256": "31252ea8ce051e5ded0adf6d8fc643b99f517ceb91920438b989df59d153384d",
+      "method": "Anonymous GET of public JLCPCB product page; React product props and visible metadata only, no private API.",
+      "in_stock": 0,
+      "available_order_qty": 0,
+      "part": {
+        "componentModelEn": "WQP-WQP518MA",
+        "componentBrandEn": "JLCPCB Assembly",
+        "componentCode": "C9900079089",
+        "componentSpecificationEn": "Plugin",
+        "componentLibraryType": "expand",
+        "pcba_type_visible": "Economic and Standard",
+        "assembly_type_visible": "Wave Soldering",
+        "source_visible": "JLCPCB",
+        "assemblyMode": "manualWeld",
+        "fixtureFlag": false,
+        "specialComponentFee": 0,
+        "needAuditFlag": false,
+        "encapsulationNumber": 1000,
+        "lossNumber": 0,
+        "leastPatchNumber": 2,
+        "noBuyReason": "This product is no longer manufactured."
+      },
+      "usd_tiers": [
+        {
+          "min_qty": 1,
+          "max_qty": 99,
+          "unit_price_usd": 0.0398
+        },
+        {
+          "min_qty": 100,
+          "max_qty": null,
+          "unit_price_usd": 0.0205
+        }
+      ],
+      "reason_not_primary": "Original WQP placeholder has zero stock. The JLC entry says no longer manufactured; this does not establish global manufacturer end-of-life."
+    },
+    {
+      "jlc_code": "C2799370",
+      "source_url": "https://jlcpcb.com/partdetail/CK-T103MH9AVBE/C2799370",
+      "observed_utc": "2026-11-05T20:18:19.640729+00:00",
+      "observed_jst": "2026-11-06T05:18:19.640729+09:00",
+      "html_sha256": "6ee6b3fc7b506b91464a1d126183f078a92be5a2047135d1d69b59d31f1dbe39",
+      "method": "Anonymous GET of public JLCPCB product page; React product props and visible metadata only, no private API.",
+      "in_stock": 5,
+      "available_order_qty": 5,
+      "part": {
+        "componentModelEn": "T103MH9AVBE",
+        "componentBrandEn": "C&K",
+        "componentCode": "C2799370",
+        "componentSpecificationEn": "Plugin",
+        "componentLibraryType": "expand",
+        "pcba_type_visible": "Economic and Standard",
+        "assembly_type_visible": "SMT Assembly",
+        "source_visible": "JLCPCB",
+        "assemblyMode": "smtWeld",
+        "fixtureFlag": false,
+        "specialComponentFee": 0,
+        "needAuditFlag": false,
+        "encapsulationNumber": 40,
+        "lossNumber": 0,
+        "leastPatchNumber": 0,
+        "noBuyReason": null
+      },
+      "usd_tiers": [
+        {
+          "min_qty": 1,
+          "max_qty": 9,
+          "unit_price_usd": 23.0959
+        },
+        {
+          "min_qty": 10,
+          "max_qty": 29,
+          "unit_price_usd": 22.0264
+        },
+        {
+          "min_qty": 30,
+          "max_qty": 99,
+          "unit_price_usd": 20.1752
+        },
+        {
+          "min_qty": 100,
+          "max_qty": 101,
+          "unit_price_usd": 18.5595
+        },
+        {
+          "min_qty": 102,
+          "max_qty": 103,
+          "unit_price_usd": 18.5595
+        },
+        {
+          "min_qty": 104,
+          "max_qty": null,
+          "unit_price_usd": 18.5595
+        }
+      ],
+      "reason_not_primary": "Only five observed, high price, and the H9/AV variant differs from the previous T103SHCBE geometry."
+    },
+    {
+      "jlc_code": "C381126",
+      "source_url": "https://jlcpcb.com/partdetail/XKBConnection-PJ_301M_2B/C381126",
+      "observed_utc": "2026-11-05T20:18:12.177180+00:00",
+      "observed_jst": "2026-11-06T05:18:12.177180+09:00",
+      "html_sha256": "e290e66c5e2467d7c7ca38957e343dbc71a770756fac4ef4c173fbfb446616d4",
+      "method": "Anonymous GET of public JLCPCB product page; React product props and visible metadata only, no private API.",
+      "in_stock": 779,
+      "available_order_qty": 777,
+      "part": {
+        "componentModelEn": "PJ-301M-2-B",
+        "componentBrandEn": "XKB Connection",
+        "componentCode": "C381126",
+        "componentSpecificationEn": "Plugin",
+        "componentLibraryType": "expand",
+        "pcba_type_visible": "Economic and Standard",
+        "assembly_type_visible": "Wave Soldering",
+        "source_visible": "JLCPCB",
+        "assemblyMode": "manualWeld",
+        "fixtureFlag": false,
+        "specialComponentFee": 0,
+        "needAuditFlag": false,
+        "encapsulationNumber": 500,
+        "lossNumber": 2,
+        "leastPatchNumber": 2,
+        "noBuyReason": null
+      },
+      "usd_tiers": [
+        {
+          "min_qty": 1,
+          "max_qty": 49,
+          "unit_price_usd": 0.2218
+        },
+        {
+          "min_qty": 50,
+          "max_qty": 149,
+          "unit_price_usd": 0.1765
+        },
+        {
+          "min_qty": 150,
+          "max_qty": 499,
+          "unit_price_usd": 0.157
+        },
+        {
+          "min_qty": 500,
+          "max_qty": 2499,
+          "unit_price_usd": 0.1245
+        },
+        {
+          "min_qty": 2500,
+          "max_qty": 4999,
+          "unit_price_usd": 0.1137
+        },
+        {
+          "min_qty": 5000,
+          "max_qty": null,
+          "unit_price_usd": 0.1073
+        }
+      ],
+      "reason_not_primary": "Manufacturer drawing has a front sleeve solder eyelet plus two rear terminals; not a drop-in all-terminals-to-parallel-PCB replacement."
+    },
+    {
+      "jlc_code": "C692433",
+      "source_url": "https://jlcpcb.com/partdetail/XKBConnection-PJ301C/C692433",
+      "observed_utc": "2026-11-05T20:18:12.724505+00:00",
+      "observed_jst": "2026-11-06T05:18:12.724505+09:00",
+      "html_sha256": "92243a71af8eeda22f65d70e90cbdee3ed114585f88610e636a820384349f90c",
+      "method": "Anonymous GET of public JLCPCB product page; React product props and visible metadata only, no private API.",
+      "in_stock": 226,
+      "available_order_qty": 176,
+      "part": {
+        "componentModelEn": "PJ-301C",
+        "componentBrandEn": "XKB Connection",
+        "componentCode": "C692433",
+        "componentSpecificationEn": "Plugin",
+        "componentLibraryType": "expand",
+        "pcba_type_visible": "Economic and Standard",
+        "assembly_type_visible": "Wave Soldering",
+        "source_visible": "JLCPCB",
+        "assemblyMode": "manualWeld",
+        "fixtureFlag": false,
+        "specialComponentFee": 0,
+        "needAuditFlag": false,
+        "encapsulationNumber": 500,
+        "lossNumber": 1,
+        "leastPatchNumber": 2,
+        "noBuyReason": null
+      },
+      "usd_tiers": [
+        {
+          "min_qty": 1,
+          "max_qty": 49,
+          "unit_price_usd": 0.2635
+        },
+        {
+          "min_qty": 50,
+          "max_qty": 149,
+          "unit_price_usd": 0.2092
+        },
+        {
+          "min_qty": 150,
+          "max_qty": 499,
+          "unit_price_usd": 0.1858
+        },
+        {
+          "min_qty": 500,
+          "max_qty": 2499,
+          "unit_price_usd": 0.1466
+        },
+        {
+          "min_qty": 2500,
+          "max_qty": 4999,
+          "unit_price_usd": 0.1337
+        },
+        {
+          "min_qty": 5000,
+          "max_qty": null,
+          "unit_price_usd": 0.1258
+        }
+      ],
+      "reason_not_primary": "Lower observed stock, wider 8.47 mm body and smooth barrel without demonstrated threaded retention."
+    },
+    {
+      "jlc_code": "C2681578",
+      "source_url": "https://jlcpcb.com/partdetail/SHOUHAN-SS13D07VG4/C2681578",
+      "observed_utc": "2026-11-05T20:18:12.848770+00:00",
+      "observed_jst": "2026-11-06T05:18:12.848770+09:00",
+      "html_sha256": "eaef937090a1832523cf7f33578564e47e73655b16c609a51d393dec6305b4f2",
+      "method": "Anonymous GET of public JLCPCB product page; React product props and visible metadata only, no private API.",
+      "in_stock": 22576,
+      "available_order_qty": 22388,
+      "part": {
+        "componentModelEn": "SS13D07VG4",
+        "componentBrandEn": "SHOU HAN",
+        "componentCode": "C2681578",
+        "componentSpecificationEn": "插件,12.8x4.4mm",
+        "componentLibraryType": "expand",
+        "pcba_type_visible": "Economic and Standard",
+        "assembly_type_visible": "Wave Soldering",
+        "source_visible": "JLCPCB",
+        "assemblyMode": "manualWeld",
+        "fixtureFlag": false,
+        "specialComponentFee": 0,
+        "needAuditFlag": false,
+        "encapsulationNumber": 1000,
+        "lossNumber": 0,
+        "leastPatchNumber": 2,
+        "noBuyReason": null
+      },
+      "usd_tiers": [
+        {
+          "min_qty": 1,
+          "max_qty": 199,
+          "unit_price_usd": 0.037
+        },
+        {
+          "min_qty": 200,
+          "max_qty": 999,
+          "unit_price_usd": 0.0288
+        },
+        {
+          "min_qty": 1000,
+          "max_qty": 1999,
+          "unit_price_usd": 0.0243
+        },
+        {
+          "min_qty": 2000,
+          "max_qty": 9999,
+          "unit_price_usd": 0.0216
+        },
+        {
+          "min_qty": 10000,
+          "max_qty": 19999,
+          "unit_price_usd": 0.0192
+        },
+        {
+          "min_qty": 20000,
+          "max_qty": null,
+          "unit_price_usd": 0.0179
+        }
+      ],
+      "reason_not_primary": "Cheap maintained SP3T, but a guided actuator extension is necessary from the proposed deeper controller plane."
+    },
+    {
+      "jlc_code": "C160403",
+      "source_url": "https://jlcpcb.com/partdetail/Jst-SM03B_SRSS_TB_LF_SN/C160403",
+      "observed_utc": "2026-11-05T20:22:54.564745+00:00",
+      "observed_jst": "2026-11-06T05:22:54.564745+09:00",
+      "html_sha256": "025d0855251eb2b68ff942a932b71a93a16b620eaee5cfc7b372e7cab033eb31",
+      "method": "Anonymous GET of public JLCPCB product page; React product props and visible metadata only, no private API.",
+      "in_stock": 0,
+      "available_order_qty": 0,
+      "part": {
+        "componentModelEn": "SM03B-SRSS-TB(LF)(SN)",
+        "componentBrandEn": "JST",
+        "componentCode": "C160403",
+        "componentSpecificationEn": "SMD,P=1mm,Surface Mount，Right Angle",
+        "componentLibraryType": "expand",
+        "pcba_type_visible": "Economic and Standard",
+        "assembly_type_visible": "SMT Assembly",
+        "source_visible": "JLCPCB",
+        "assemblyMode": "smtWeld",
+        "fixtureFlag": false,
+        "specialComponentFee": 0,
+        "needAuditFlag": false,
+        "isBuyComponent": "1",
+        "preMinPurchaseNum": 49,
+        "encapsulationNumber": 3000,
+        "lossNumber": 0,
+        "leastPatchNumber": 5,
+        "noBuyReason": null
+      },
+      "usd_tiers": [
+        {
+          "min_qty": 1,
+          "max_qty": 49,
+          "unit_price_usd": 0.186
+        },
+        {
+          "min_qty": 50,
+          "max_qty": 149,
+          "unit_price_usd": 0.15
+        },
+        {
+          "min_qty": 150,
+          "max_qty": 499,
+          "unit_price_usd": 0.1323
+        },
+        {
+          "min_qty": 500,
+          "max_qty": 2999,
+          "unit_price_usd": 0.1166
+        },
+        {
+          "min_qty": 3000,
+          "max_qty": 5999,
+          "unit_price_usd": 0.1122
+        },
+        {
+          "min_qty": 6000,
+          "max_qty": null,
+          "unit_price_usd": 0.1096
+        }
+      ],
+      "reason_not_primary": "Fresh zero stock overrides the older cached search snippet claiming 11,580."
+    },
+    {
+      "jlc_code": "C393944",
+      "source_url": "https://jlcpcb.com/partdetail/1.25-3P/C393944",
+      "observed_utc": "2026-11-05T20:22:54.368964+00:00",
+      "observed_jst": "2026-11-06T05:22:54.368964+09:00",
+      "html_sha256": "c281aa4f7c3b337d303f0e05869977ebee27beaeefe501c983b38a1433d39b5b",
+      "method": "Anonymous GET of public JLCPCB product page; React product props and visible metadata only, no private API.",
+      "in_stock": 29867,
+      "available_order_qty": 28807,
+      "part": {
+        "componentModelEn": "1.25-3P",
+        "componentBrandEn": "SHOU HAN",
+        "componentCode": "C393944",
+        "componentSpecificationEn": "SMD,P=1.25mm,Surface Mount，Right Angle",
+        "componentLibraryType": "expand",
+        "pcba_type_visible": "Economic and Standard",
+        "assembly_type_visible": "SMT Assembly",
+        "source_visible": "JLCPCB",
+        "assemblyMode": "smtWeld",
+        "fixtureFlag": false,
+        "specialComponentFee": 0,
+        "needAuditFlag": false,
+        "isBuyComponent": "1",
+        "preMinPurchaseNum": 279,
+        "encapsulationNumber": 2000,
+        "lossNumber": 0,
+        "leastPatchNumber": 2,
+        "noBuyReason": null
+      },
+      "usd_tiers": [
+        {
+          "min_qty": 1,
+          "max_qty": 199,
+          "unit_price_usd": 0.0411
+        },
+        {
+          "min_qty": 200,
+          "max_qty": 599,
+          "unit_price_usd": 0.0324
+        },
+        {
+          "min_qty": 600,
+          "max_qty": 1999,
+          "unit_price_usd": 0.0277
+        },
+        {
+          "min_qty": 2000,
+          "max_qty": 9999,
+          "unit_price_usd": 0.0247
+        },
+        {
+          "min_qty": 10000,
+          "max_qty": 19999,
+          "unit_price_usd": 0.0223
+        },
+        {
+          "min_qty": 20000,
+          "max_qty": null,
+          "unit_price_usd": 0.021
+        }
+      ],
+      "reason_not_primary": "Generic PicoBlade-style header not selected because exact mating compatibility with the specified premade cable is not qualified."
+    }
+  ],
+  "cost_arithmetic": {
+    "currency": "USD",
+    "selected_io_first_displayed_tiers_per_module": 3.1719,
+    "selected_io_100_modules_total": 214.75,
+    "selected_io_100_modules_per_module": 2.1475,
+    "primary_led_cables_per_module_first_tier": 1.9,
+    "primary_led_cables_100_modules_total": 152.0,
+    "alternative_sparkfun_cables_100_modules_total": 270.0,
+    "power_cable_price_verified": false,
+    "eurorack_ribbon_price_verified": false,
+    "exclusions": [
+      "Remaining electronic BOM",
+      "PCBs",
+      "Assembly",
+      "Attrition",
+      "Pre-purchase minima",
+      "Fixtures",
+      "Hardware",
+      "Power cable",
+      "Eurorack ribbon",
+      "Tax",
+      "Shipping"
+    ],
+    "quotation": false
+  },
+  "external_cables": [
+    {
+      "selection": "Primary low-cost LED harness",
+      "vendor_sku": "Adafruit 4399",
+      "manufacturer_drawing_part": "Kaweei CBH-100-04-050-A",
+      "url": "https://www.adafruit.com/product/4399",
+      "web_reference": "turn213view2",
+      "observed_utc": "2026-11-05T20:34:42.288987+00:00",
+      "availability_display": "In Stock",
+      "numeric_available_quantity": null,
+      "quantity_per_module": 2,
+      "quantity_for_100_modules": 200,
+      "stock_sufficient_for_200_verified": false,
+      "usd_tiers": [
+        {
+          "min_qty": 1,
+          "max_qty": 9,
+          "unit_price_usd": 0.95
+        },
+        {
+          "min_qty": 10,
+          "max_qty": 99,
+          "unit_price_usd": 0.86
+        },
+        {
+          "min_qty": 100,
+          "max_qty": null,
+          "unit_price_usd": 0.76
+        }
+      ],
+      "length_mm": 50,
+      "length_tolerance_mm": 5,
+      "conductors": 4,
+      "pitch_mm": 1,
+      "wire": "UL1571 28AWG, 7/0.127 tinned strands, 0.8 mm OD",
+      "drawing_pin_map": [
+        {
+          "end_a": 1,
+          "end_b": 1,
+          "color": "black"
+        },
+        {
+          "end_a": 2,
+          "end_b": 2,
+          "color": "red"
+        },
+        {
+          "end_a": 3,
+          "end_b": 3,
+          "color": "blue"
+        },
+        {
+          "end_a": 4,
+          "end_b": 4,
+          "color": "yellow"
+        }
+      ],
+      "drawing_evidence": {
+        "path": "mechanical_evidence/adafruit_4399_drawing.pdf",
+        "exists": true,
+        "sha256": "debc89cea4e502990a068b3039f770d4471c7184bad64cfb7ecc34306fec8c23",
+        "url": "https://cdn-shop.adafruit.com/product-files/4399/C14172-001_Kaweei_CBH-100-04-050-A.pdf",
+        "web_reference": "turn214view0"
+      },
+      "purchase_channel": "External purchase, separate from JLC PCBA"
+    },
+    {
+      "selection": "Flexible-insulation LED cable alternative",
+      "vendor_sku": "SparkFun PRT-17260",
+      "url": "https://www.sparkfun.com/flexible-qwiic-cable-50mm.html",
+      "web_reference": "turn185view2",
+      "observed_utc": "2026-11-05T20:34:18.267219+00:00",
+      "availability_display": "In stock",
+      "numeric_available_quantity": null,
+      "quantity_per_module": 2,
+      "quantity_for_100_modules": 200,
+      "stock_sufficient_for_200_verified": false,
+      "usd_tiers": [
+        {
+          "min_qty": 1,
+          "max_qty": 24,
+          "unit_price_usd": 1.5
+        },
+        {
+          "min_qty": 25,
+          "max_qty": 99,
+          "unit_price_usd": 1.43
+        },
+        {
+          "min_qty": 100,
+          "max_qty": null,
+          "unit_price_usd": 1.35
+        }
+      ],
+      "length_mm": 50,
+      "drawing_pin_map": "1->1, 2->2, 3->3, 4->4; linked drawing labels colors 1 yellow, 2 blue, 3 red, 4 black",
+      "drawing_version_caveat": "2017 linked drawing says PVC insulation while the current product advertises flexible insulation; do not qualify current wire OD from the old PDF",
+      "drawing_evidence": {
+        "path": "mechanical_evidence/sparkfun_PRT17260_drawing.pdf",
+        "exists": true,
+        "sha256": "bf5a91ad8ebdafa23f7971e2e0bf35abc1e2ea0d9eba1963ae43ea82f438daef",
+        "url": "https://cdn.sparkfun.com/assets/b/8/b/8/d/ACCA-1571_Model.pdf"
+      },
+      "purchase_channel": "External purchase, separate from JLC PCBA"
+    },
+    {
+      "selection": "Power harness",
+      "manufacturer_part": "Molex 151340300",
+      "url": "https://www.molex.com/en-us/products/part-detail/151340300",
+      "web_reference": "turn201view2",
+      "quantity_per_module": 1,
+      "retail_price_usd": null,
+      "retail_available_quantity": null,
+      "length_mm": 50,
+      "length_tolerance_mm": 6,
+      "conductors": 3,
+      "wire": "UL1061 28AWG",
+      "housing": "Molex 510210300 at both ends",
+      "terminals": "Molex 500588000",
+      "rating_a_per_contact": 1,
+      "drawing_pin_map": [
+        {
+          "end_a": 1,
+          "end_b": 3
+        },
+        {
+          "end_a": 2,
+          "end_b": 2
+        },
+        {
+          "end_a": 3,
+          "end_b": 1
+        }
+      ],
+      "polarity_note": "All black wires; adapter copper must deliberately compensate endpoint reversal for +12/GND/-12",
+      "drawing_evidence": {
+        "path": "mechanical_evidence/molex_151340300.pdf",
+        "exists": true,
+        "sha256": "a0b07c4776b8e71c9838316658442cb080e0a3f1b0ab0ac0e9bc673ddc3817d5",
+        "url": "https://www.molex.com/content/dam/molex/molex-dot-com/products/automated/en-us/salesdrawingpdf/151/15134/151340303_sd.pdf",
+        "web_reference": "turn202view1"
+      },
+      "purchase_channel": "External purchase, separate from JLC PCBA"
+    }
+  ],
+  "mechanical": {
+    "datum": "x across HP width, y down panel, z rearward from front-panel rear face; 2 mm panel front is z=-2",
+    "jack_C500090": {
+      "manufacturer_body_mm": {
+        "x_after_rotation": 6.1,
+        "y_after_rotation": 10.0,
+        "depth": 12.0
+      },
+      "barrel_mm": {
+        "diameter": 6.0,
+        "length": 3.0
+      },
+      "barrel_threaded": false,
+      "general_drawing_tolerance_mm": 0.1,
+      "drawing_operating_force_N": [
+        3,
+        30
+      ],
+      "rear_pth_contacts": 5,
+      "proposed_panel_hole_diameter_mm": 6.2,
+      "panel_hole_is_manufacturer_specification": false,
+      "assumed_body_front_z_mm": 0.3,
+      "assumed_pcb_front_z_mm": 12.3,
+      "assumed_barrel_front_z_mm": -2.7,
+      "assumed_y_centers_mm": [
+        90,
+        104
+      ],
+      "qualification": "Exact rotated PTH/locating footprint, TRS contact mapping, PCB seating and bilateral axial body capture remain unfinished",
+      "drawing_evidence": {
+        "path": "mechanical_evidence/C500090.pdf",
+        "exists": true,
+        "sha256": "3ea4946f78ed6c50128ed4abf0276d4837f24782ba8782a0e1f3c1787d546527",
+        "url": "https://jlcpcb.com/partdetail/XKBConnection-PJ_3582B/C500090",
+        "web_reference": "turn168view2"
+      }
+    },
+    "toggle_C908270": {
+      "function": "Maintained ON-OFF-ON: common 2 -> 3, open, 2 -> 1",
+      "center_ui_mode": "PROGRAM",
+      "body_mm": {
+        "x": 6.86,
+        "y": 12.7,
+        "depth": 8.89
+      },
+      "bushing_length_mm": 8.89,
+      "bushing_thread": "1/4-40 UNS-2A",
+      "lever_T1_length_mm": 10.41,
+      "M2_terminal_from_base_reference_mm": 6.6,
+      "M2_terminal_beyond_epoxy_seat_mm": 5.1,
+      "terminal_cross_section_mm": [
+        1.27,
+        0.76
+      ],
+      "manufacturer_panel_cut": {
+        "diameter_mm": 6.35,
+        "inward_key_tab_width_mm": 0.55,
+        "inward_key_tab_depth_mm": 0.85
+      },
+      "proposed_panel_cut": {
+        "diameter_mm": 6.5,
+        "key_tab": false,
+        "antirotation": "Rear carrier"
+      },
+      "standard_hex_nut": {
+        "part": "MNU-1M01A",
+        "across_flats_mm": 7.92,
+        "across_corners_mm": 9.19,
+        "thickness_mm": 1.57
+      },
+      "standard_lockwasher": {
+        "part": "MNU-1M03",
+        "diameter_mm": 10.8,
+        "thickness_mm": 0.46,
+        "fits_2hp": false
+      },
+      "standard_locking_ring_diameter_mm": 11.99,
+      "optional_dress_nut": {
+        "part": "MNU-1M29",
+        "diameter_mm": 9.45,
+        "thickness_mm": 3.0,
+        "selected": false
+      },
+      "rear_engraving_exclusion_diameter_mm": 7.7,
+      "assumed_y_center_mm": 74,
+      "axial_seating_stack_qualified": false,
+      "contact_finish": "Q = silver",
+      "minimum_dry_circuit_load_guaranteed_by_catalog": false,
+      "release_gates": [
+        "Epoxy-seat/standoff datum",
+        "Factory lead trimming and finished tail envelope",
+        "Actual supplied hardware and -5 suffix",
+        "Low-current contact reliability",
+        "Nut torque and antirotation load path"
+      ],
+      "drawing_evidence": {
+        "path": "mechanical_evidence/C908270.pdf",
+        "exists": true,
+        "sha256": "2cf95e7fd41ab5de2fb8e1fd93f6cb08a25c4772c5eaeba38e1a45774b6dc274",
+        "url": "https://www.lcsc.com/datasheet/lcsc_datasheet_2304140030_Dailywell-1MS3T1B1M2QES-5_C908270.pdf",
+        "web_reference": "turn190view0"
+      }
+    },
+    "SH4_C160404": {
+      "body_width_mm": 6.0,
+      "body_depth_mm": 4.25,
+      "additional_terminal_projection_mm": 0.7,
+      "bare_height_mm": 2.9,
+      "mated_depth_mm_approx": 6.25,
+      "mated_height_mm_approx": 2.95,
+      "contact_pitch_mm": 1.0,
+      "rating_a_with_28awg": 1,
+      "opposed_bare_headers_plus_1_3mm_center_envelope_mm": 7.1,
+      "opposed_headers_fit_existing_6_4mm_skin_cavity": false,
+      "required_layout_change": "Move/stagger at lower leaf ends and provide local PETG opening, or increase width to 3HP; model full mated housing and wire bend",
+      "drawing_evidence": {
+        "path": "mechanical_evidence/C160404.pdf",
+        "exists": true,
+        "sha256": "27aaa74dc8ee840dff5e50ea387ed777e097f2b23182036c7368604da7e73a6e",
+        "url": "https://jlcpcb.com/partdetail/Jst-SM04B_SRSS_TB_LF_SN/C160404",
+        "web_reference": "turn185view1"
+      }
+    },
+    "PicoBlade_C122442": {
+      "body_plan_mm": [
+        5.5,
+        3.2
+      ],
+      "height_above_pcb_mm": 4.2,
+      "mated_height_mm_approx": 5.2,
+      "tail_length_mm": 2.3,
+      "tail_length_tolerance_mm": 0.5,
+      "recommended_hole_diameter_mm": 0.5,
+      "recommended_hole_tolerance_mm": 0.05,
+      "recommended_hole_pitch_mm": 1.25,
+      "drawing_reference_board_thickness_mm": 0.8,
+      "proposed_1_6mm_board_tail_fit_qualified": false,
+      "drawing_evidence": {
+        "path": "mechanical_evidence/C122442_official.pdf",
+        "exists": true,
+        "sha256": "76d2a5817a01b47f4b35c0b4078d874834f1f9c233bde42d9a819ead173929c7",
+        "url": "https://www.molex.com/content/dam/molex/molex-dot-com/products/automated/en-us/salesdrawingpdf/530/53047/530470310_sd.pdf",
+        "web_reference": "turn202view0"
+      }
+    },
+    "IDC_C5665": {
+      "circuits": 10,
+      "rows": 2,
+      "pitch_mm": 2.54,
+      "body_dimensions_not_claimed_in_this_audit": true,
+      "drawing_evidence": {
+        "path": "mechanical_evidence/C5665.pdf",
+        "exists": true,
+        "sha256": "257e4a246b117a4af732b8dde8ed567105d14046ad2a1058e58a205cdcfec9c2",
+        "url": "https://www.lcsc.com/datasheet/lcsc_datasheet_1810281612_BOOMELE-Boom-Precision-Elec-2-54-2-5P_C5665.pdf",
+        "web_reference": "turn200search2"
+      }
+    },
+    "total_installed_depth_30mm_qualified": false,
+    "prior_rear_cad_valid_as_A4_release": false
+  },
+  "international_service": {
+    "capabilities_url": "https://jlcpcb.com/capabilities/pcb-assembly-capabilities",
+    "capabilities_web_reference": "turn154view0",
+    "Economic": {
+      "assembly_sides": 1,
+      "copper_layers": [
+        2,
+        4,
+        6
+      ],
+      "thickness_mm": [
+        0.8,
+        1.6
+      ],
+      "minimum_single_or_panel_mm": [
+        10,
+        10
+      ],
+      "order_quantity_range": [
+        2,
+        50
+      ],
+      "mixed_smt_tht": true,
+      "reflow_C": [
+        250,
+        260
+      ]
+    },
+    "Standard": {
+      "assembly_sides": [
+        1,
+        2
+      ],
+      "copper_layers_range": [
+        1,
+        32
+      ],
+      "published_thickness_limit": "No limit",
+      "minimum_single_or_panel_mm": [
+        70,
+        70
+      ],
+      "maximum_panel_mm": [
+        250,
+        250
+      ],
+      "rails_and_fiducials_required": true,
+      "mixed_smt_tht": true,
+      "reflow_C": [
+        235,
+        245
+      ]
+    },
+    "THT_default_process": "Usually wave soldering; per-order engineering review determines process",
+    "factory_wire_soldering": "Explicitly offered for library wire with engineering review and extra labor; this does not imply automatic custom interboard harness/chassis assembly",
+    "FPC_assembly": "Explicitly supported in current international capability FAQ; dedicated fixtures normally required",
+    "transparent_PET": {
+      "single_layer_thickness_mm": 0.14,
+      "launch_says_smt_compatible": true,
+      "launch_url": "https://jlcpcb.com/news/launch-transparent-fpc",
+      "launch_web_reference": "turn152search2",
+      "capability_url": "https://jlcpcb.com/capabilities/flex-pcb-capabilities",
+      "quote_page_url": "https://cart.jlcpcb.com/quote?plateType=7",
+      "cached_quote_page_disallow_sentence_found_in_fresh_HTML": false,
+      "blanket_international_incompatibility_claim_supported": false,
+      "exact_selected_material_and_LED_process_qualified": false,
+      "thermal_note": "Marketing material 200 C and Standard nominal 240 C reflow require process-specific acceptance; these figures alone neither prove compatibility nor prove incompatibility"
+    },
+    "panel_proposals": {
+      "LED_leaf_six_up": {
+        "outline_each_mm": [
+          10,
+          82.5
+        ],
+        "count": 6,
+        "routing_gap_mm": 2,
+        "rails_mm": 5,
+        "panel_envelope_mm": [
+          80,
+          92.5
+        ],
+        "engineering_approved": false
+      },
+      "controller_plus_adapter": "Both 1.6 mm in a panel at least 70x70 mm; exact layout pending, extra design fee applies",
+      "depanelization": "Request supplier depanelization/edge finish appropriate to thin assembled leaves; tab geometry and component clearance still need review",
+      "FPC_future_rules": {
+        "rails_all_sides_mm": 5,
+        "board_separation_mm": 2,
+        "with_metal_stiffener_separation_mm": 3,
+        "support_tab_width_mm": [
+          0.7,
+          1.0
+        ],
+        "fiducial_diameter_mm": 1,
+        "tooling_hole_diameter_mm": 2,
+        "rigid_Vcut_mouse_bite_assumed_allowed": false
+      }
+    }
+  },
+  "service_price_planning": {
+    "url": "https://jlcpcb.com/help/article/pcb-assembly-price",
+    "web_reference": "turn203view0",
+    "page_updated": "2026-10-22",
+    "currency": "USD",
+    "Standard_setup": {
+      "single_sided": 25.56,
+      "double_sided": 51.12
+    },
+    "Standard_stencil": {
+      "single_sided": 8.21,
+      "double_sided": 16.42
+    },
+    "Standard_setup_plus_stencil": {
+      "single_sided": 33.77,
+      "double_sided": 67.54
+    },
+    "Standard_multi_design_fee_per_additional_design": {
+      "single_sided": 25.56,
+      "double_sided": 51.12
+    },
+    "Standard_feeder_per_loaded_part_type_Basic_or_Extended": 1.53,
+    "rigid_fixture_each": 8.21,
+    "rigid_fixture_1_to_29_single_sided_published_total": 16.42,
+    "FPC_fixture_each": 24.63,
+    "FPC_fixture_1_to_29_single_sided_published_total": 49.25,
+    "FPC_total_rounding_note": "Published total is 49.25 although 24.63 times two is 49.26; retain the published total and use actual quote",
+    "hand_solder_labor_per_order": 3.58,
+    "rigid_fixture_fee_assumed_zero": false,
+    "older_conflicting_capability_FAQ_FPC_each": 23.57,
+    "preferred_source": "Newer dated price guide for planning; vendor quote controls payment",
+    "total_quote_calculated": false
+  },
+  "release_gates": [
+    "Native exact symbols and rotated footprints, including TS plug behavior and passive THRU contact routing",
+    "Completed controller, passive adapter and identical LED-leaf PCB layouts",
+    "Actual panel tab, rail and fiducial design with supplier acceptance",
+    "Positive jack body capture in both axial directions and toggle antirotation/nut torque load path",
+    "Qualified front-panel hole dimensions after laser kerf compensation",
+    "Toggle epoxy-seat datum, factory lead trimming and all finished solder-tail envelopes",
+    "Mated connector bodies, cable bends, lower-leaf PETG relief and remote-adapter insulation/location",
+    "Low-current performance of the selected silver-contact toggle",
+    "Exact harness cavity numbering and rail polarity, with factory/receiving continuity verification",
+    "Supplier BOM/CPL/assembly-process acceptance and live stock recheck at upload",
+    "Full installed depth including remote adapter and cables at or below 30 mm"
+  ],
+  "service_html_evidence_hashes": [
+    {
+      "path": "service_evidence/assembly_capabilities.html",
+      "exists": true,
+      "sha256": "c9146bd662edb440040115f0b958f21f8622fb9e16753fc4337b725980207f4d",
+      "url": "https://jlcpcb.com/capabilities/pcb-assembly-capabilities"
+    },
+    {
+      "path": "service_evidence/transparent_launch.html",
+      "exists": true,
+      "sha256": "555280c44c28d8245407c454feb30c2ccb71e5da6d87805a81cc32acf91324c8",
+      "url": "https://jlcpcb.com/news/launch-transparent-fpc"
+    },
+    {
+      "path": "service_evidence/quote_flex.html",
+      "exists": true,
+      "sha256": "c559a0058f3e433836c479bff5af44530a6680a32633aa7fdabd187233bb4b46",
+      "url": "https://cart.jlcpcb.com/quote?plateType=7"
+    },
+    {
+      "path": "service_evidence/assembly_fixtures.html",
+      "exists": true,
+      "sha256": "0b33db2c1fcde0afe551fe1f4ffd01c0bdaad09df6383a9ae6ec2b74b011da73",
+      "url": "https://jlcpcb.com/help/article/pcb-assembly-fixtures"
+    }
+  ]
+}

@@ -1,0 +1,61 @@
+{
+  "revision": "A4.1",
+  "pdf": "/workspace/scratch/213e46744889/outputs/light_block_A4_1/light_block_A4_front_and_procurement.pdf",
+  "pdf_sha256": "5fbafefc77e50aba586de06c0c91db3be57ad3506c487f176285bd94caec9d9e",
+  "bytes": 853970,
+  "page_count": 7,
+  "source": "/workspace/scratch/213e46744889/light_block_A4_1/build_brief.py",
+  "procurement_data_sha256": "c44c195d11e1805a12ab18df92be836d8953c3232613518f2172922ecaa434d1",
+  "render": {
+    "tool": "pdftoppm",
+    "dpi": 130,
+    "directory": "/workspace/scratch/213e46744889/tmp/pdfs/A4_1"
+  },
+  "visual_review": {
+    "pages_reviewed": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7
+    ],
+    "all_passed": true,
+    "checks": [
+      "Japanese glyphs legible",
+      "No clipping or overlapping text",
+      "All tables readable and contained within page",
+      "Unchanged front illustration placed at original aspect ratio",
+      "Consistent A4.1 header and footer",
+      "Source links present"
+    ]
+  },
+  "source_link_count": 15,
+  "content_verification": {
+    "fitted_usd_per_module": {
+      "1": "9.6312",
+      "10": "8.6171",
+      "100": "6.4997"
+    },
+    "primary_inductor": "TDK SPM4020T-4R7M-LR / C694586",
+    "primary_l1_inventory": 726,
+    "primary_l1_available_order_qty": 719,
+    "cable_stock": [
+      12943,
+      17783
+    ],
+    "stock_observation_main_jst": "2026-11-06 11:30-11:33",
+    "replacement_and_cables_observation_jst": "2026-11-06 11:37",
+    "en_reset_fault_recovery_gate": true,
+    "module_not_released": true,
+    "thirty_mm_integration_pending": true,
+    "no_separate_optical_test_pcb": true
+  },
+  "front_artwork_changed": false,
+  "notes": [
+    "Prices calculated from current procurement_rows.json and cross-checked against its stored fitted totals.",
+    "All seven final rendered pages individually inspected.",
+    "Only build_brief.py edited within shared A4.1 source ownership; procurement and front artwork were not edited."
+  ]
+}

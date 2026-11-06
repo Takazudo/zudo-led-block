@@ -1,0 +1,603 @@
+{
+  "revision": "A5",
+  "scope": "Assembly study; fixed-part CAD checked, flexible harness routes unresolved. No installed-fit approval.",
+  "method": "CAD Boolean volumes for fixed solids; exact CAD centerline distance versus round wire radius for cable pairs. Analytic non-triangulated BRep bounding boxes.",
+  "variants": {
+    "2hp": {
+      "panel_width_mm": 9.8,
+      "panel_height_mm": 128.5,
+      "panel_thickness_mm": 2,
+      "retained_rear_max_mm": 29.8,
+      "nominal_margin_to_30mm": 0.2,
+      "modeled_parts": 129,
+      "valid_shapes": true,
+      "retained_part_intersections": [],
+      "connected_print_parts": 7,
+      "print_parts_all_single_valid_solids": true,
+      "step_roundtrip": {
+        "valid": true,
+        "source_solids": 129,
+        "imported_solids": 129,
+        "volume_difference_mm3": 0.0043395462598709855,
+        "source_bbox_mm": {
+          "min": [
+            -1.110223024625e-16,
+            -1.110223024625e-16,
+            -17.09
+          ],
+          "max": [
+            11.8,
+            128.5,
+            29.8
+          ],
+          "size": [
+            11.8,
+            128.5,
+            46.89
+          ]
+        },
+        "imported_bbox_mm": {
+          "min": [
+            -1.110223024625e-16,
+            -1.110223024625e-16,
+            -17.09
+          ],
+          "max": [
+            11.80000000000041,
+            128.5,
+            29.8
+          ],
+          "size": [
+            11.80000000000041,
+            128.5,
+            46.89
+          ]
+        }
+      },
+      "conditional_findings": [
+        {
+          "a": "adapter_C5665_keyed_header_trimmed",
+          "b": "IDC_ribbon_R3_side_exit_SCENARIO",
+          "volume_mm3": 0.23339766713857732,
+          "a_scope": "retained_module",
+          "b_scope": "conditional_ribbon"
+        },
+        {
+          "a": "left_diffuser",
+          "b": "controller_to_left_pin_4",
+          "centerline_minimum_distance_mm": 0.1999999999999993,
+          "required_radius_sum_mm": 0.4,
+          "clearance_mm": -0.20000000000000073,
+          "method": "exact CAD centerline-to-solid/centerline distance; round tube radius0.4",
+          "a_scope": "retained_module",
+          "b_scope": "conditional_harness"
+        },
+        {
+          "a": "left_diffuser",
+          "b": "leaf_link_pin_4",
+          "centerline_minimum_distance_mm": 0.20403875640875782,
+          "required_radius_sum_mm": 0.4,
+          "clearance_mm": -0.1959612435912422,
+          "method": "exact CAD centerline-to-solid/centerline distance; round tube radius0.4",
+          "a_scope": "retained_module",
+          "b_scope": "conditional_harness"
+        },
+        {
+          "a": "right_diffuser",
+          "b": "leaf_link_pin_4",
+          "centerline_minimum_distance_mm": 0.20000000000000284,
+          "required_radius_sum_mm": 0.4,
+          "clearance_mm": -0.19999999999999718,
+          "method": "exact CAD centerline-to-solid/centerline distance; round tube radius0.4",
+          "a_scope": "retained_module",
+          "b_scope": "conditional_harness"
+        },
+        {
+          "a": "controller_to_left_pin_1",
+          "b": "controller_to_left_pin_2",
+          "centerline_minimum_distance_mm": 0.0,
+          "required_radius_sum_mm": 0.8,
+          "clearance_mm": -0.8,
+          "method": "exact CAD centerline-to-solid/centerline distance; round tube radius0.4",
+          "a_scope": "conditional_harness",
+          "b_scope": "conditional_harness"
+        },
+        {
+          "a": "controller_to_left_pin_1",
+          "b": "controller_to_left_pin_3",
+          "centerline_minimum_distance_mm": 0.0,
+          "required_radius_sum_mm": 0.8,
+          "clearance_mm": -0.8,
+          "method": "exact CAD centerline-to-solid/centerline distance; round tube radius0.4",
+          "a_scope": "conditional_harness",
+          "b_scope": "conditional_harness"
+        },
+        {
+          "a": "controller_to_left_pin_1",
+          "b": "controller_to_left_pin_4",
+          "centerline_minimum_distance_mm": 0.0,
+          "required_radius_sum_mm": 0.8,
+          "clearance_mm": -0.8,
+          "method": "exact CAD centerline-to-solid/centerline distance; round tube radius0.4",
+          "a_scope": "conditional_harness",
+          "b_scope": "conditional_harness"
+        },
+        {
+          "a": "leaf_link_pin_1",
+          "b": "leaf_link_pin_2",
+          "centerline_minimum_distance_mm": 0.05746239068936407,
+          "required_radius_sum_mm": 0.8,
+          "clearance_mm": -0.742537609310636,
+          "method": "exact CAD centerline-to-solid/centerline distance; round tube radius0.4",
+          "a_scope": "conditional_harness",
+          "b_scope": "conditional_harness"
+        },
+        {
+          "a": "leaf_link_pin_1",
+          "b": "leaf_link_pin_3",
+          "centerline_minimum_distance_mm": 0.25243414351661114,
+          "required_radius_sum_mm": 0.8,
+          "clearance_mm": -0.547565856483389,
+          "method": "exact CAD centerline-to-solid/centerline distance; round tube radius0.4",
+          "a_scope": "conditional_harness",
+          "b_scope": "conditional_harness"
+        },
+        {
+          "a": "leaf_link_pin_1",
+          "b": "leaf_link_pin_4",
+          "centerline_minimum_distance_mm": 0.13684576556433128,
+          "required_radius_sum_mm": 0.8,
+          "clearance_mm": -0.6631542344356688,
+          "method": "exact CAD centerline-to-solid/centerline distance; round tube radius0.4",
+          "a_scope": "conditional_harness",
+          "b_scope": "conditional_harness"
+        },
+        {
+          "a": "controller_to_left_pin_2",
+          "b": "controller_to_left_pin_3",
+          "centerline_minimum_distance_mm": 0.0,
+          "required_radius_sum_mm": 0.8,
+          "clearance_mm": -0.8,
+          "method": "exact CAD centerline-to-solid/centerline distance; round tube radius0.4",
+          "a_scope": "conditional_harness",
+          "b_scope": "conditional_harness"
+        },
+        {
+          "a": "controller_to_left_pin_2",
+          "b": "controller_to_left_pin_4",
+          "centerline_minimum_distance_mm": 0.0,
+          "required_radius_sum_mm": 0.8,
+          "clearance_mm": -0.8,
+          "method": "exact CAD centerline-to-solid/centerline distance; round tube radius0.4",
+          "a_scope": "conditional_harness",
+          "b_scope": "conditional_harness"
+        },
+        {
+          "a": "leaf_link_pin_2",
+          "b": "leaf_link_pin_3",
+          "centerline_minimum_distance_mm": 0.33547392018586036,
+          "required_radius_sum_mm": 0.8,
+          "clearance_mm": -0.4645260798141397,
+          "method": "exact CAD centerline-to-solid/centerline distance; round tube radius0.4",
+          "a_scope": "conditional_harness",
+          "b_scope": "conditional_harness"
+        },
+        {
+          "a": "leaf_link_pin_2",
+          "b": "leaf_link_pin_4",
+          "centerline_minimum_distance_mm": 0.09319388209305544,
+          "required_radius_sum_mm": 0.8,
+          "clearance_mm": -0.7068061179069446,
+          "method": "exact CAD centerline-to-solid/centerline distance; round tube radius0.4",
+          "a_scope": "conditional_harness",
+          "b_scope": "conditional_harness"
+        },
+        {
+          "a": "controller_to_left_pin_3",
+          "b": "controller_to_left_pin_4",
+          "centerline_minimum_distance_mm": 0.0,
+          "required_radius_sum_mm": 0.8,
+          "clearance_mm": -0.8,
+          "method": "exact CAD centerline-to-solid/centerline distance; round tube radius0.4",
+          "a_scope": "conditional_harness",
+          "b_scope": "conditional_harness"
+        },
+        {
+          "a": "leaf_link_pin_3",
+          "b": "leaf_link_pin_4",
+          "centerline_minimum_distance_mm": 0.04836243647574932,
+          "required_radius_sum_mm": 0.8,
+          "clearance_mm": -0.7516375635242507,
+          "method": "exact CAD centerline-to-solid/centerline distance; round tube radius0.4",
+          "a_scope": "conditional_harness",
+          "b_scope": "conditional_harness"
+        }
+      ],
+      "modeled_envelope_failures": [
+        {
+          "part": "IDC_ribbon_R3_side_exit_SCENARIO",
+          "scope": "conditional_ribbon",
+          "checks": [
+            "width"
+          ],
+          "bbox_mm": {
+            "min": [
+              8.527575953251286,
+              27.05,
+              10.50313181386655
+            ],
+            "max": [
+              11.8,
+              39.75,
+              29.8
+            ],
+            "size": [
+              3.2724240467487142,
+              12.7,
+              19.29686818613345
+            ]
+          }
+        }
+      ],
+      "ribbon_scenario_max_x_mm": 11.8,
+      "ribbon_extra_neighbor_clearance_mm": 2.0,
+      "cable_routes": [
+        {
+          "name": "controller_to_left_pin_1",
+          "length_mm": 50.02159496067128,
+          "sampled_minimum_radius_mm": 1.5249999999982842,
+          "qualified": false
+        },
+        {
+          "name": "leaf_link_pin_1",
+          "length_mm": 50.07325476307129,
+          "sampled_minimum_radius_mm": 0.2284740713204033,
+          "qualified": false
+        },
+        {
+          "name": "controller_to_left_pin_2",
+          "length_mm": 50.13440173653444,
+          "sampled_minimum_radius_mm": 1.5249999999982902,
+          "qualified": false
+        },
+        {
+          "name": "leaf_link_pin_2",
+          "length_mm": 50.022060246417894,
+          "sampled_minimum_radius_mm": 0.27609951980412484,
+          "qualified": false
+        },
+        {
+          "name": "controller_to_left_pin_3",
+          "length_mm": 50.35674430511328,
+          "sampled_minimum_radius_mm": 1.5249999999975636,
+          "qualified": false
+        },
+        {
+          "name": "leaf_link_pin_3",
+          "length_mm": 50.06489366597289,
+          "sampled_minimum_radius_mm": 0.20184601190662158,
+          "qualified": false
+        },
+        {
+          "name": "controller_to_left_pin_4",
+          "length_mm": 50.702302022197856,
+          "sampled_minimum_radius_mm": 1.0689988030347484,
+          "qualified": false
+        },
+        {
+          "name": "leaf_link_pin_4",
+          "length_mm": 50.02233732734322,
+          "sampled_minimum_radius_mm": 0.24228113755009026,
+          "qualified": false
+        },
+        {
+          "name": "power_50mm_wire_1",
+          "length_mm": 50.000651800900016,
+          "sampled_minimum_radius_mm": 1.0466403707248015,
+          "qualified": false
+        },
+        {
+          "name": "power_50mm_wire_2",
+          "length_mm": 50.000651800900016,
+          "sampled_minimum_radius_mm": 1.0466403707248015,
+          "qualified": false
+        },
+        {
+          "name": "power_50mm_wire_3",
+          "length_mm": 50.000651800900016,
+          "sampled_minimum_radius_mm": 1.0466403707248015,
+          "qualified": false
+        }
+      ],
+      "installed_fit_qualified": false,
+      "manufacturing_release": false,
+      "native_manifest_sha256": "086443644c29d210cdde0c712d639584c0ee52079395c7ef5f2dca1c1876c71f"
+    },
+    "3hp": {
+      "panel_width_mm": 14.9,
+      "panel_height_mm": 128.5,
+      "panel_thickness_mm": 2,
+      "retained_rear_max_mm": 29.8,
+      "nominal_margin_to_30mm": 0.2,
+      "modeled_parts": 129,
+      "valid_shapes": true,
+      "retained_part_intersections": [],
+      "connected_print_parts": 7,
+      "print_parts_all_single_valid_solids": true,
+      "step_roundtrip": {
+        "valid": true,
+        "source_solids": 129,
+        "imported_solids": 129,
+        "volume_difference_mm3": 0.004123316062759841,
+        "source_bbox_mm": {
+          "min": [
+            -1.110223024625e-16,
+            -1.110223024625e-16,
+            -17.09
+          ],
+          "max": [
+            14.9,
+            128.5,
+            29.8
+          ],
+          "size": [
+            14.9,
+            128.5,
+            46.89
+          ]
+        },
+        "imported_bbox_mm": {
+          "min": [
+            -1.110223024625e-16,
+            -1.110223024625e-16,
+            -17.09
+          ],
+          "max": [
+            14.9,
+            128.5,
+            29.8
+          ],
+          "size": [
+            14.9,
+            128.5,
+            46.89
+          ]
+        }
+      },
+      "conditional_findings": [
+        {
+          "a": "adapter_C5665_keyed_header_trimmed",
+          "b": "IDC_ribbon_R3_side_exit_SCENARIO",
+          "volume_mm3": 0.23339766713857238,
+          "a_scope": "retained_module",
+          "b_scope": "conditional_ribbon"
+        },
+        {
+          "a": "left_diffuser",
+          "b": "controller_to_left_pin_4",
+          "centerline_minimum_distance_mm": 0.1999999999999993,
+          "required_radius_sum_mm": 0.4,
+          "clearance_mm": -0.20000000000000073,
+          "method": "exact CAD centerline-to-solid/centerline distance; round tube radius0.4",
+          "a_scope": "retained_module",
+          "b_scope": "conditional_harness"
+        },
+        {
+          "a": "left_diffuser",
+          "b": "leaf_link_pin_4",
+          "centerline_minimum_distance_mm": 0.20403875640875782,
+          "required_radius_sum_mm": 0.4,
+          "clearance_mm": -0.1959612435912422,
+          "method": "exact CAD centerline-to-solid/centerline distance; round tube radius0.4",
+          "a_scope": "retained_module",
+          "b_scope": "conditional_harness"
+        },
+        {
+          "a": "right_diffuser",
+          "b": "leaf_link_pin_4",
+          "centerline_minimum_distance_mm": 0.20000000000000284,
+          "required_radius_sum_mm": 0.4,
+          "clearance_mm": -0.19999999999999718,
+          "method": "exact CAD centerline-to-solid/centerline distance; round tube radius0.4",
+          "a_scope": "retained_module",
+          "b_scope": "conditional_harness"
+        },
+        {
+          "a": "controller_to_left_pin_1",
+          "b": "controller_to_left_pin_2",
+          "centerline_minimum_distance_mm": 0.0,
+          "required_radius_sum_mm": 0.8,
+          "clearance_mm": -0.8,
+          "method": "exact CAD centerline-to-solid/centerline distance; round tube radius0.4",
+          "a_scope": "conditional_harness",
+          "b_scope": "conditional_harness"
+        },
+        {
+          "a": "controller_to_left_pin_1",
+          "b": "controller_to_left_pin_3",
+          "centerline_minimum_distance_mm": 0.0,
+          "required_radius_sum_mm": 0.8,
+          "clearance_mm": -0.8,
+          "method": "exact CAD centerline-to-solid/centerline distance; round tube radius0.4",
+          "a_scope": "conditional_harness",
+          "b_scope": "conditional_harness"
+        },
+        {
+          "a": "controller_to_left_pin_1",
+          "b": "controller_to_left_pin_4",
+          "centerline_minimum_distance_mm": 0.0,
+          "required_radius_sum_mm": 0.8,
+          "clearance_mm": -0.8,
+          "method": "exact CAD centerline-to-solid/centerline distance; round tube radius0.4",
+          "a_scope": "conditional_harness",
+          "b_scope": "conditional_harness"
+        },
+        {
+          "a": "leaf_link_pin_1",
+          "b": "leaf_link_pin_2",
+          "centerline_minimum_distance_mm": 0.05746239068936495,
+          "required_radius_sum_mm": 0.8,
+          "clearance_mm": -0.7425376093106351,
+          "method": "exact CAD centerline-to-solid/centerline distance; round tube radius0.4",
+          "a_scope": "conditional_harness",
+          "b_scope": "conditional_harness"
+        },
+        {
+          "a": "leaf_link_pin_1",
+          "b": "leaf_link_pin_3",
+          "centerline_minimum_distance_mm": 0.25243414351661175,
+          "required_radius_sum_mm": 0.8,
+          "clearance_mm": -0.5475658564833883,
+          "method": "exact CAD centerline-to-solid/centerline distance; round tube radius0.4",
+          "a_scope": "conditional_harness",
+          "b_scope": "conditional_harness"
+        },
+        {
+          "a": "leaf_link_pin_1",
+          "b": "leaf_link_pin_4",
+          "centerline_minimum_distance_mm": 0.13684576556433128,
+          "required_radius_sum_mm": 0.8,
+          "clearance_mm": -0.6631542344356688,
+          "method": "exact CAD centerline-to-solid/centerline distance; round tube radius0.4",
+          "a_scope": "conditional_harness",
+          "b_scope": "conditional_harness"
+        },
+        {
+          "a": "controller_to_left_pin_2",
+          "b": "controller_to_left_pin_3",
+          "centerline_minimum_distance_mm": 0.0,
+          "required_radius_sum_mm": 0.8,
+          "clearance_mm": -0.8,
+          "method": "exact CAD centerline-to-solid/centerline distance; round tube radius0.4",
+          "a_scope": "conditional_harness",
+          "b_scope": "conditional_harness"
+        },
+        {
+          "a": "controller_to_left_pin_2",
+          "b": "controller_to_left_pin_4",
+          "centerline_minimum_distance_mm": 0.0,
+          "required_radius_sum_mm": 0.8,
+          "clearance_mm": -0.8,
+          "method": "exact CAD centerline-to-solid/centerline distance; round tube radius0.4",
+          "a_scope": "conditional_harness",
+          "b_scope": "conditional_harness"
+        },
+        {
+          "a": "leaf_link_pin_2",
+          "b": "leaf_link_pin_3",
+          "centerline_minimum_distance_mm": 0.335473920185865,
+          "required_radius_sum_mm": 0.8,
+          "clearance_mm": -0.464526079814135,
+          "method": "exact CAD centerline-to-solid/centerline distance; round tube radius0.4",
+          "a_scope": "conditional_harness",
+          "b_scope": "conditional_harness"
+        },
+        {
+          "a": "leaf_link_pin_2",
+          "b": "leaf_link_pin_4",
+          "centerline_minimum_distance_mm": 0.09319388209305456,
+          "required_radius_sum_mm": 0.8,
+          "clearance_mm": -0.7068061179069455,
+          "method": "exact CAD centerline-to-solid/centerline distance; round tube radius0.4",
+          "a_scope": "conditional_harness",
+          "b_scope": "conditional_harness"
+        },
+        {
+          "a": "controller_to_left_pin_3",
+          "b": "controller_to_left_pin_4",
+          "centerline_minimum_distance_mm": 0.0,
+          "required_radius_sum_mm": 0.8,
+          "clearance_mm": -0.8,
+          "method": "exact CAD centerline-to-solid/centerline distance; round tube radius0.4",
+          "a_scope": "conditional_harness",
+          "b_scope": "conditional_harness"
+        },
+        {
+          "a": "leaf_link_pin_3",
+          "b": "leaf_link_pin_4",
+          "centerline_minimum_distance_mm": 0.04836243647574843,
+          "required_radius_sum_mm": 0.8,
+          "clearance_mm": -0.7516375635242516,
+          "method": "exact CAD centerline-to-solid/centerline distance; round tube radius0.4",
+          "a_scope": "conditional_harness",
+          "b_scope": "conditional_harness"
+        }
+      ],
+      "modeled_envelope_failures": [],
+      "ribbon_scenario_max_x_mm": 14.350000000000001,
+      "ribbon_extra_neighbor_clearance_mm": 0,
+      "cable_routes": [
+        {
+          "name": "controller_to_left_pin_1",
+          "length_mm": 50.02159496067128,
+          "sampled_minimum_radius_mm": 1.5249999999982842,
+          "qualified": false
+        },
+        {
+          "name": "leaf_link_pin_1",
+          "length_mm": 50.07325476307128,
+          "sampled_minimum_radius_mm": 0.22847407132037856,
+          "qualified": false
+        },
+        {
+          "name": "controller_to_left_pin_2",
+          "length_mm": 50.13440173653444,
+          "sampled_minimum_radius_mm": 1.5249999999982902,
+          "qualified": false
+        },
+        {
+          "name": "leaf_link_pin_2",
+          "length_mm": 50.02206024641788,
+          "sampled_minimum_radius_mm": 0.27609951980408703,
+          "qualified": false
+        },
+        {
+          "name": "controller_to_left_pin_3",
+          "length_mm": 50.35674430511327,
+          "sampled_minimum_radius_mm": 1.5249999999972845,
+          "qualified": false
+        },
+        {
+          "name": "leaf_link_pin_3",
+          "length_mm": 50.064893665972875,
+          "sampled_minimum_radius_mm": 0.2018460119066184,
+          "qualified": false
+        },
+        {
+          "name": "controller_to_left_pin_4",
+          "length_mm": 50.70230202219787,
+          "sampled_minimum_radius_mm": 1.0689988030349227,
+          "qualified": false
+        },
+        {
+          "name": "leaf_link_pin_4",
+          "length_mm": 50.02233732734322,
+          "sampled_minimum_radius_mm": 0.24228113754997094,
+          "qualified": false
+        },
+        {
+          "name": "power_50mm_wire_1",
+          "length_mm": 50.000651800900016,
+          "sampled_minimum_radius_mm": 1.0466403707248015,
+          "qualified": false
+        },
+        {
+          "name": "power_50mm_wire_2",
+          "length_mm": 50.000651800900016,
+          "sampled_minimum_radius_mm": 1.0466403707248015,
+          "qualified": false
+        },
+        {
+          "name": "power_50mm_wire_3",
+          "length_mm": 50.000651800900016,
+          "sampled_minimum_radius_mm": 1.0466403707248015,
+          "qualified": false
+        }
+      ],
+      "installed_fit_qualified": false,
+      "manufacturing_release": false,
+      "native_manifest_sha256": "086443644c29d210cdde0c712d639584c0ee52079395c7ef5f2dca1c1876c71f"
+    }
+  },
+  "print_settings": "Saved H2D0.6 PLA, byte-preserved; unsliced fit-check only, not PETG-qualified. See print_packaging/validation_index.json."
+}

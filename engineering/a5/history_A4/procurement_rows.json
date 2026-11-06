@@ -1,0 +1,1841 @@
+{
+  "revision": "A4",
+  "document_type": "Engineering selection and availability audit; not a released manufacturing BOM",
+  "as_of_jst": "JLC: 2026-11-06 05:15–05:33 JST / external cables:05:45–05:47 JST; individual timestamps retained",
+  "prototype_modules": 10,
+  "inventory_modules": 100,
+  "quantity_assumptions": "10 and 100 are editable planning comparisons, not user-confirmed order quantities. Fitted quantities only; inventory is not reserved.",
+  "stock_fields": "stock is JLC international public In Stock; prepurchase_qty is Available Order Qty in the pre-purchase library. Neither is a reservation or final order acceptance.",
+  "cost_method": "Public price tier at the fitted quantity across modules. Real PCBA jobs may split quantities. No attrition, MOQ, assembly or external unpriced items included.",
+  "standard_price_source": "https://jlcpcb.com/help/article/pcb-assembly-price",
+  "standard_price_note": "Observed live article updated2026-10-22: Standard feeder$1.53 for Basic and Extended. Setup/stencil/multi-design/panel fixtures/manual solder/programming are extra. Current LED C52917434 is Standard Only.",
+  "components": [
+    {
+      "id": "C5270180",
+      "category": "IC・LED・電源",
+      "role_ja": "MCU / U1",
+      "mpn": "STM32G031G8U6TR",
+      "manufacturer": "STMicroelectronics",
+      "c_code": "C5270180",
+      "qty_per_module": 1,
+      "stock": 4522,
+      "prepurchase_qty": 3751,
+      "library": "Extended",
+      "pcba_type": "Economic and Standard",
+      "assembly_type": "SMT Assembly",
+      "package": "UFQFPN-28(4x4)",
+      "tiers": [
+        {
+          "min_qty": 1,
+          "max_qty": 9,
+          "unit_price_usd": 1.745
+        },
+        {
+          "min_qty": 10,
+          "max_qty": 29,
+          "unit_price_usd": 1.4702
+        },
+        {
+          "min_qty": 30,
+          "max_qty": 99,
+          "unit_price_usd": 1.3181
+        },
+        {
+          "min_qty": 100,
+          "max_qty": 499,
+          "unit_price_usd": 1.1464
+        },
+        {
+          "min_qty": 500,
+          "max_qty": 999,
+          "unit_price_usd": 1.0696
+        },
+        {
+          "min_qty": 1000,
+          "max_qty": null,
+          "unit_price_usd": 1.0369
+        }
+      ],
+      "url": "https://jlcpcb.com/partdetail/STMicroelectronics-STM32G031G8U6TR/C5270180",
+      "observed_jst": "2026-11-06T05:15:49.918702+09:00",
+      "status_ja": "調達確認／回路・実装未リリース",
+      "notes_ja": "4×4 mm UFQFPN28。SWDパッドで書込み。基板の実配線は未完。",
+      "snapshot": "ic_led_evidence/C5270180.snapshot.json",
+      "html_sha256": "fc190d3cce7e82aec393e4bb35114d57e4916c35488470d1a3a38a6040fcdc15",
+      "attrition_hint": 0,
+      "least_patch_hint": 0,
+      "prepurchase_min_hint": 6
+    },
+    {
+      "id": "C52917434",
+      "category": "IC・LED・電源",
+      "role_ja": "RGB LED / LED1〜8",
+      "mpn": "WS2812B-2020-V6",
+      "manufacturer": "Worldsemi",
+      "c_code": "C52917434",
+      "qty_per_module": 8,
+      "stock": 771294,
+      "prepurchase_qty": 749286,
+      "library": "Extended",
+      "pcba_type": "Standard Only",
+      "assembly_type": "SMT Assembly",
+      "package": "SMD2020-4P",
+      "tiers": [
+        {
+          "min_qty": 1,
+          "max_qty": 49,
+          "unit_price_usd": 0.0915
+        },
+        {
+          "min_qty": 50,
+          "max_qty": 149,
+          "unit_price_usd": 0.0736
+        },
+        {
+          "min_qty": 150,
+          "max_qty": 499,
+          "unit_price_usd": 0.0643
+        },
+        {
+          "min_qty": 500,
+          "max_qty": 2499,
+          "unit_price_usd": 0.0568
+        },
+        {
+          "min_qty": 2500,
+          "max_qty": 4499,
+          "unit_price_usd": 0.0542
+        },
+        {
+          "min_qty": 4500,
+          "max_qty": null,
+          "unit_price_usd": 0.0524
+        }
+      ],
+      "url": "https://jlcpcb.com/partdetail/Worldsemi-LED/C52917434",
+      "observed_jst": "2026-11-06T05:15:49.718553+09:00",
+      "status_ja": "調達確認／回路・実装未リリース",
+      "notes_ja": "4個/片面LED基板×2枚。Standard Only・High difficulty・MSL5。通常FR-4に変更してもEconomicにはならない。",
+      "snapshot": "ic_led_evidence/C52917434.snapshot.json",
+      "html_sha256": "da1317253538cb4a4b23647d01f38995c6955b3f7eac7550cde7a016d4dabe77",
+      "attrition_hint": 2,
+      "least_patch_hint": 5,
+      "prepurchase_min_hint": 123
+    },
+    {
+      "id": "C2071056",
+      "category": "IC・LED・電源",
+      "role_ja": "5 V降圧 / U2",
+      "mpn": "AP63205WU-7",
+      "manufacturer": "Diodes Incorporated",
+      "c_code": "C2071056",
+      "qty_per_module": 1,
+      "stock": 20691,
+      "prepurchase_qty": 17987,
+      "library": "Extended",
+      "pcba_type": "Economic and Standard",
+      "assembly_type": "SMT Assembly",
+      "package": "TSOT-23-6",
+      "tiers": [
+        {
+          "min_qty": 1,
+          "max_qty": 9,
+          "unit_price_usd": 0.4612
+        },
+        {
+          "min_qty": 10,
+          "max_qty": 29,
+          "unit_price_usd": 0.3647
+        },
+        {
+          "min_qty": 30,
+          "max_qty": 99,
+          "unit_price_usd": 0.3173
+        },
+        {
+          "min_qty": 100,
+          "max_qty": 499,
+          "unit_price_usd": 0.2748
+        },
+        {
+          "min_qty": 500,
+          "max_qty": 999,
+          "unit_price_usd": 0.2519
+        },
+        {
+          "min_qty": 1000,
+          "max_qty": null,
+          "unit_price_usd": 0.2454
+        }
+      ],
+      "url": "https://jlcpcb.com/partdetail/AP63205WU-7/C2071056",
+      "observed_jst": "2026-11-06T05:15:49.716982+09:00",
+      "status_ja": "調達確認／回路・実装未リリース",
+      "notes_ja": "5 V用4.7 µHを主案として維持。実効容量と電流ループを最終基板で確認。",
+      "snapshot": "ic_led_evidence/C2071056.snapshot.json",
+      "html_sha256": "3391d68858bdcd93b584ed71d53fe64304b833c53c1e48ff8358e9b1b7bc34a5",
+      "attrition_hint": 0,
+      "least_patch_hint": 2,
+      "prepurchase_min_hint": 25
+    },
+    {
+      "id": "C404027",
+      "category": "IC・LED・電源",
+      "role_ja": "3.3 V LDO / U3",
+      "mpn": "TLV75533PDBVR",
+      "manufacturer": "Texas Instruments",
+      "c_code": "C404027",
+      "qty_per_module": 1,
+      "stock": 95151,
+      "prepurchase_qty": 93956,
+      "library": "Extended",
+      "pcba_type": "Economic and Standard",
+      "assembly_type": "SMT Assembly",
+      "package": "SOT-23-5",
+      "tiers": [
+        {
+          "min_qty": 1,
+          "max_qty": 49,
+          "unit_price_usd": 0.1216
+        },
+        {
+          "min_qty": 50,
+          "max_qty": 149,
+          "unit_price_usd": 0.0959
+        },
+        {
+          "min_qty": 150,
+          "max_qty": 499,
+          "unit_price_usd": 0.0826
+        },
+        {
+          "min_qty": 500,
+          "max_qty": 2999,
+          "unit_price_usd": 0.0718
+        },
+        {
+          "min_qty": 3000,
+          "max_qty": 5999,
+          "unit_price_usd": 0.0679
+        },
+        {
+          "min_qty": 6000,
+          "max_qty": null,
+          "unit_price_usd": 0.0655
+        }
+      ],
+      "url": "https://jlcpcb.com/partdetail/TexasInstruments-TLV75533PDBVR/C404027",
+      "observed_jst": "2026-11-06T05:15:49.785944+09:00",
+      "status_ja": "調達確認／回路・実装未リリース",
+      "notes_ja": "入力/出力を4.7 µFへ統一する設計変更。出力1 µF以上の実効容量確認は未完。",
+      "snapshot": "ic_led_evidence/C404027.snapshot.json",
+      "html_sha256": "25cd5e69d79b93aa79ad43727fe9c63b57aff4d8e9de281c0c1f89431a16a8d8",
+      "attrition_hint": 1,
+      "least_patch_hint": 5,
+      "prepurchase_min_hint": 95
+    },
+    {
+      "id": "C140331",
+      "category": "IC・LED・電源",
+      "role_ja": "LED電源ラッチ / U4",
+      "mpn": "TPS2552DBVR-1",
+      "manufacturer": "Texas Instruments",
+      "c_code": "C140331",
+      "qty_per_module": 1,
+      "stock": 2336,
+      "prepurchase_qty": 2329,
+      "library": "Extended",
+      "pcba_type": "Economic and Standard",
+      "assembly_type": "SMT Assembly",
+      "package": "SOT-23-6",
+      "tiers": [
+        {
+          "min_qty": 1,
+          "max_qty": 9,
+          "unit_price_usd": 0.5741
+        },
+        {
+          "min_qty": 10,
+          "max_qty": 29,
+          "unit_price_usd": 0.4579
+        },
+        {
+          "min_qty": 30,
+          "max_qty": 99,
+          "unit_price_usd": 0.3991
+        },
+        {
+          "min_qty": 100,
+          "max_qty": 499,
+          "unit_price_usd": 0.3402
+        },
+        {
+          "min_qty": 500,
+          "max_qty": 999,
+          "unit_price_usd": 0.3059
+        },
+        {
+          "min_qty": 1000,
+          "max_qty": null,
+          "unit_price_usd": 0.2879
+        }
+      ],
+      "url": "https://jlcpcb.com/partdetail/TexasInstruments-TPS2552DBVR1/C140331",
+      "observed_jst": "2026-11-06T05:22:42.781417+09:00",
+      "status_ja": "調達確認／回路・実装未リリース",
+      "notes_ja": "旧TPS2553DBVR-1は21個/先買い0。active-low TPS2552-1へ変更し、Q1と10k/100kを追加。ラッチオフ型の-1を維持。",
+      "snapshot": "ic_led_evidence/C140331.snapshot.json",
+      "html_sha256": "29a4348153087055194d1d4e3465b333326e216e32a072bdf383c97889f2473b",
+      "attrition_hint": 0,
+      "least_patch_hint": 2,
+      "prepurchase_min_hint": 20
+    },
+    {
+      "id": "C20526",
+      "category": "IC・LED・電源",
+      "role_ja": "EN反転NPN / Q1",
+      "mpn": "MMBT3904(RANGE:100-300)",
+      "manufacturer": "Jiangsu Changjing Electronics Technology Co., Ltd.",
+      "c_code": "C20526",
+      "qty_per_module": 1,
+      "stock": 2740706,
+      "prepurchase_qty": 2620840,
+      "library": "Basic",
+      "pcba_type": "Economic and Standard",
+      "assembly_type": "SMT Assembly",
+      "package": "SOT-23",
+      "tiers": [
+        {
+          "min_qty": 1,
+          "max_qty": 499,
+          "unit_price_usd": 0.0116
+        },
+        {
+          "min_qty": 500,
+          "max_qty": 2999,
+          "unit_price_usd": 0.0093
+        },
+        {
+          "min_qty": 3000,
+          "max_qty": 5999,
+          "unit_price_usd": 0.0082
+        },
+        {
+          "min_qty": 6000,
+          "max_qty": 23999,
+          "unit_price_usd": 0.0074
+        },
+        {
+          "min_qty": 24000,
+          "max_qty": 50999,
+          "unit_price_usd": 0.0071
+        },
+        {
+          "min_qty": 51000,
+          "max_qty": null,
+          "unit_price_usd": 0.0069
+        }
+      ],
+      "url": "https://jlcpcb.com/partdetail/21237-MMBT3904/C20526",
+      "observed_jst": "2026-11-06T05:33:13.101022+09:00",
+      "status_ja": "調達確認／回路・実装未リリース",
+      "notes_ja": "PA5→10k→B、B→100k→GND、E→GND、C→EN、EN→100k→常時5V。GPIO HighでLED有効。",
+      "snapshot": "ic_led_evidence/C20526.snapshot.json",
+      "html_sha256": "f8459b04e5d50cec34ff5fe47811a2d063b322f5b672a2e8f5b218824d695c72",
+      "attrition_hint": 5,
+      "least_patch_hint": 10,
+      "prepurchase_min_hint": 971
+    },
+    {
+      "id": "C15741",
+      "category": "IC・LED・電源",
+      "role_ja": "LED用2chレベル変換 / U5",
+      "mpn": "SN74LVC2T45DCUR",
+      "manufacturer": "Texas Instruments",
+      "c_code": "C15741",
+      "qty_per_module": 1,
+      "stock": 91323,
+      "prepurchase_qty": 90009,
+      "library": "Extended",
+      "pcba_type": "Economic and Standard",
+      "assembly_type": "SMT Assembly",
+      "package": "VSSOP-8",
+      "tiers": [
+        {
+          "min_qty": 1,
+          "max_qty": 49,
+          "unit_price_usd": 0.2079
+        },
+        {
+          "min_qty": 50,
+          "max_qty": 149,
+          "unit_price_usd": 0.1636
+        },
+        {
+          "min_qty": 150,
+          "max_qty": 499,
+          "unit_price_usd": 0.1418
+        },
+        {
+          "min_qty": 500,
+          "max_qty": 2999,
+          "unit_price_usd": 0.1091
+        },
+        {
+          "min_qty": 3000,
+          "max_qty": 5999,
+          "unit_price_usd": 0.1037
+        },
+        {
+          "min_qty": 6000,
+          "max_qty": null,
+          "unit_price_usd": 0.1006
+        }
+      ],
+      "url": "https://jlcpcb.com/partdetail/TexasInstruments-SN74LVC2T45DCUR/C15741",
+      "observed_jst": "2026-11-06T05:18:05.476768+09:00",
+      "status_ja": "調達確認／回路・実装未リリース",
+      "notes_ja": "VCCA=3V3、VCCB=VLED。左/右DATA各1ch、電源OFF時Ioffを使用。",
+      "snapshot": "ic_led_evidence/C15741.snapshot.json",
+      "html_sha256": "85ba306ad2763bedce46bd9eac0778425fa93b9f9e9807fe53d056f00a127fb3",
+      "attrition_hint": 1,
+      "least_patch_hint": 5,
+      "prepurchase_min_hint": null
+    },
+    {
+      "id": "C221351",
+      "category": "IC・LED・電源",
+      "role_ja": "CVバッファ / U6",
+      "mpn": "OPA197IDBVR",
+      "manufacturer": "Texas Instruments",
+      "c_code": "C221351",
+      "qty_per_module": 1,
+      "stock": 80652,
+      "prepurchase_qty": 80360,
+      "library": "Extended",
+      "pcba_type": "Economic and Standard",
+      "assembly_type": "SMT Assembly",
+      "package": "SOT-23-5",
+      "tiers": [
+        {
+          "min_qty": 1,
+          "max_qty": 9,
+          "unit_price_usd": 0.8422
+        },
+        {
+          "min_qty": 10,
+          "max_qty": 29,
+          "unit_price_usd": 0.6983
+        },
+        {
+          "min_qty": 30,
+          "max_qty": 99,
+          "unit_price_usd": 0.5969
+        },
+        {
+          "min_qty": 100,
+          "max_qty": 499,
+          "unit_price_usd": 0.5135
+        },
+        {
+          "min_qty": 500,
+          "max_qty": 999,
+          "unit_price_usd": 0.4874
+        },
+        {
+          "min_qty": 1000,
+          "max_qty": null,
+          "unit_price_usd": 0.471
+        }
+      ],
+      "url": "https://jlcpcb.com/partdetail/TexasInstruments-OPA197IDBVR/C221351",
+      "observed_jst": "2026-11-06T05:18:04.816720+09:00",
+      "status_ja": "調達確認／回路・実装未リリース",
+      "notes_ja": "CVの20 MΩ検出枝をバッファ。THRUは受動直結。±12 V保護電源。",
+      "snapshot": "ic_led_evidence/C221351.snapshot.json",
+      "html_sha256": "bac806b3a1121fffd49c55578cb8e5904424ce29047b72b220c3823f30166f3b",
+      "attrition_hint": 0,
+      "least_patch_hint": 0,
+      "prepurchase_min_hint": null
+    },
+    {
+      "id": "C50704",
+      "category": "IC・LED・電源",
+      "role_ja": "±12 V逆接保護用 / D1,D2",
+      "mpn": "PMEG4010CEJ,115",
+      "manufacturer": "Nexperia",
+      "c_code": "C50704",
+      "qty_per_module": 2,
+      "stock": 14151,
+      "prepurchase_qty": 14038,
+      "library": "Extended",
+      "pcba_type": "Economic and Standard",
+      "assembly_type": "SMT Assembly",
+      "package": "SOD-323F",
+      "tiers": [
+        {
+          "min_qty": 1,
+          "max_qty": 49,
+          "unit_price_usd": 0.3678
+        },
+        {
+          "min_qty": 50,
+          "max_qty": 149,
+          "unit_price_usd": 0.2934
+        },
+        {
+          "min_qty": 150,
+          "max_qty": 499,
+          "unit_price_usd": 0.2615
+        },
+        {
+          "min_qty": 500,
+          "max_qty": 2999,
+          "unit_price_usd": 0.2218
+        },
+        {
+          "min_qty": 3000,
+          "max_qty": 5999,
+          "unit_price_usd": 0.2015
+        },
+        {
+          "min_qty": 6000,
+          "max_qty": null,
+          "unit_price_usd": 0.1909
+        }
+      ],
+      "url": "https://jlcpcb.com/partdetail/PMEG4010CEJ%2C115/C50704",
+      "observed_jst": "2026-11-06T05:18:05.304634+09:00",
+      "status_ja": "調達確認／回路・実装未リリース",
+      "notes_ja": "2個を逆向きに±電源へ配置する主案。安価なB5819Wは漏れと形状が変わるため未採用。逆接時の全回路審査は未完。",
+      "snapshot": "ic_led_evidence/C50704.snapshot.json",
+      "html_sha256": "c3436bb174e34ac9f5cc7a42ecca4043c83ea1e743f40855ae3dad85733fa413",
+      "attrition_hint": 2,
+      "least_patch_hint": 5,
+      "prepurchase_min_hint": null
+    },
+    {
+      "id": "C134375",
+      "category": "IC・LED・電源",
+      "role_ja": "ADCクランプ候補 / D3",
+      "mpn": "BAS70-04-7-F",
+      "manufacturer": "Diodes Incorporated",
+      "c_code": "C134375",
+      "qty_per_module": 1,
+      "stock": 6783,
+      "prepurchase_qty": 6654,
+      "library": "Extended",
+      "pcba_type": "Economic and Standard",
+      "assembly_type": "SMT Assembly",
+      "package": "SOT-23",
+      "tiers": [
+        {
+          "min_qty": 1,
+          "max_qty": 99,
+          "unit_price_usd": 0.0723
+        },
+        {
+          "min_qty": 100,
+          "max_qty": 299,
+          "unit_price_usd": 0.0606
+        },
+        {
+          "min_qty": 300,
+          "max_qty": 2999,
+          "unit_price_usd": 0.0547
+        },
+        {
+          "min_qty": 3000,
+          "max_qty": 5999,
+          "unit_price_usd": 0.0503
+        },
+        {
+          "min_qty": 6000,
+          "max_qty": 8999,
+          "unit_price_usd": 0.0467
+        },
+        {
+          "min_qty": 9000,
+          "max_qty": null,
+          "unit_price_usd": 0.0449
+        }
+      ],
+      "url": "https://jlcpcb.com/partdetail/DiodesIncorporated-BAS70_04_7F/C134375",
+      "observed_jst": "2026-11-06T05:24:18.184716+09:00",
+      "status_ja": "調達確認／回路・実装未リリース",
+      "notes_ja": "在庫とメーカー型番は確認。低温の負側クランプ、電源OFF時の注入電流は回路審査を要する。",
+      "snapshot": "ic_led_evidence/C134375.snapshot.json",
+      "html_sha256": "27d722dcfc7e96e0647f9fb29261b0312bc4d4d48231fb3557062ff3ae0bdf3d",
+      "attrition_hint": 5,
+      "least_patch_hint": 5,
+      "prepurchase_min_hint": 149
+    },
+    {
+      "id": "C2651179",
+      "category": "IC・LED・電源",
+      "role_ja": "降圧インダクタ4.7 µH / L1",
+      "mpn": "74437324047",
+      "manufacturer": "Wurth Elektronik",
+      "c_code": "C2651179",
+      "qty_per_module": 1,
+      "stock": 438,
+      "prepurchase_qty": 431,
+      "library": "Extended",
+      "pcba_type": "Economic and Standard",
+      "assembly_type": "SMT Assembly",
+      "package": "SMD,4.4x4.1mm",
+      "tiers": [
+        {
+          "min_qty": 1,
+          "max_qty": 9,
+          "unit_price_usd": 1.7319
+        },
+        {
+          "min_qty": 10,
+          "max_qty": 29,
+          "unit_price_usd": 1.5814
+        },
+        {
+          "min_qty": 30,
+          "max_qty": 99,
+          "unit_price_usd": 1.4882
+        },
+        {
+          "min_qty": 100,
+          "max_qty": 499,
+          "unit_price_usd": 1.3296
+        },
+        {
+          "min_qty": 500,
+          "max_qty": 999,
+          "unit_price_usd": 1.2871
+        },
+        {
+          "min_qty": 1000,
+          "max_qty": null,
+          "unit_price_usd": 1.2674
+        }
+      ],
+      "url": "https://jlcpcb.com/partdetail/WurthElektronik-74437324047/C2651179",
+      "observed_jst": "2026-11-06T05:26:22.544629+09:00",
+      "status_ja": "調達確認／回路・実装未リリース",
+      "notes_ja": "在庫が最も少ない主案部品。高さ2 mmを維持。安価なSunlord2.2 µHは高さ3 mm/リップル変更を伴う別案。",
+      "snapshot": "ic_led_evidence/C2651179.snapshot.json",
+      "html_sha256": "ed6a8169b2930df5e446988374f2e2aa07a9cdcfdefd6e179e70e2c1c80ae565",
+      "attrition_hint": 0,
+      "least_patch_hint": 0,
+      "prepurchase_min_hint": 6
+    },
+    {
+      "id": "C500090",
+      "category": "I/O・コネクタ",
+      "role_ja": "CV IN・THRUジャック / J1,J2",
+      "mpn": "PJ-3582-B",
+      "manufacturer": "XKB Connection",
+      "c_code": "C500090",
+      "qty_per_module": 2,
+      "stock": 2891,
+      "prepurchase_qty": 2862,
+      "library": "Extended",
+      "pcba_type": "Economic and Standard",
+      "assembly_type": "Wave Soldering",
+      "package": "Plugin",
+      "tiers": [
+        {
+          "min_qty": 1,
+          "max_qty": 49,
+          "unit_price_usd": 0.266
+        },
+        {
+          "min_qty": 50,
+          "max_qty": 149,
+          "unit_price_usd": 0.2115
+        },
+        {
+          "min_qty": 150,
+          "max_qty": 499,
+          "unit_price_usd": 0.1883
+        },
+        {
+          "min_qty": 500,
+          "max_qty": 2499,
+          "unit_price_usd": 0.1592
+        },
+        {
+          "min_qty": 2500,
+          "max_qty": 4999,
+          "unit_price_usd": 0.1462
+        },
+        {
+          "min_qty": 5000,
+          "max_qty": null,
+          "unit_price_usd": 0.1384
+        }
+      ],
+      "url": "https://jlcpcb.com/partdetail/XKBConnection-PJ_3582B/C500090",
+      "observed_jst": "2026-11-06T05:18:12.289704+09:00",
+      "status_ja": "調達確認／機構・実装未リリース",
+      "notes_ja": "6.1 mmをHP方向に配置。無ねじバレルにつきPETG受けで挿抜荷重を支える。旧ジャックの置換だけでは不可。",
+      "snapshot": "mechanical_evidence/C500090.snapshot.json",
+      "html_sha256": "8971561c875f2de872fa3684f7323d48d53ef03dca869571050e89cd97242cae",
+      "attrition_hint": 0,
+      "least_patch_hint": 2,
+      "prepurchase_min_hint": null
+    },
+    {
+      "id": "C908270",
+      "category": "I/O・コネクタ",
+      "role_ja": "ON–OFF–ONトグル / SW1",
+      "mpn": "1MS3T1B1M2QES-5",
+      "manufacturer": "Dailywell",
+      "c_code": "C908270",
+      "qty_per_module": 1,
+      "stock": 1134,
+      "prepurchase_qty": 1058,
+      "library": "Extended",
+      "pcba_type": "Economic and Standard",
+      "assembly_type": "Wave Soldering",
+      "package": "Plugin",
+      "tiers": [
+        {
+          "min_qty": 1,
+          "max_qty": 9,
+          "unit_price_usd": 1.4146
+        },
+        {
+          "min_qty": 10,
+          "max_qty": 49,
+          "unit_price_usd": 1.1759
+        },
+        {
+          "min_qty": 50,
+          "max_qty": 99,
+          "unit_price_usd": 1.0434
+        },
+        {
+          "min_qty": 100,
+          "max_qty": 499,
+          "unit_price_usd": 0.8946
+        },
+        {
+          "min_qty": 500,
+          "max_qty": 999,
+          "unit_price_usd": 0.8292
+        },
+        {
+          "min_qty": 1000,
+          "max_qty": null,
+          "unit_price_usd": 0.7997
+        }
+      ],
+      "url": "https://jlcpcb.com/partdetail/Dailywell-1MS3T1B1M2QES5/C908270",
+      "observed_jst": "2026-11-06T05:24:44.489258+09:00",
+      "status_ja": "調達確認／機構・実装未リリース",
+      "notes_ja": "中央PROGRAM。前面穴Ø6.50、標準ナット7.92 AF/9.19 AC。大径付属座金を使わず後部で回り止め。工場ピントリムと微小電流接点を要確認。",
+      "snapshot": "mechanical_evidence/C908270.snapshot.json",
+      "html_sha256": "3a07e4240a658cdcc0fe4ccc27b9a62d3e4a641e38e2af5c9f7c10abdac91c30",
+      "attrition_hint": 0,
+      "least_patch_hint": 0,
+      "prepurchase_min_hint": 7
+    },
+    {
+      "id": "C160404",
+      "category": "I/O・コネクタ",
+      "role_ja": "LED用SH4ヘッダ / 制御2＋LED2",
+      "mpn": "SM04B-SRSS-TB(LF)(SN)",
+      "manufacturer": "JST",
+      "c_code": "C160404",
+      "qty_per_module": 4,
+      "stock": 57558,
+      "prepurchase_qty": 50828,
+      "library": "Extended",
+      "pcba_type": "Economic and Standard",
+      "assembly_type": "SMT Assembly",
+      "package": "SMD,P=1mm,Surface Mount，Right Angle",
+      "tiers": [
+        {
+          "min_qty": 1,
+          "max_qty": 49,
+          "unit_price_usd": 0.2146
+        },
+        {
+          "min_qty": 50,
+          "max_qty": 149,
+          "unit_price_usd": 0.1736
+        },
+        {
+          "min_qty": 150,
+          "max_qty": 499,
+          "unit_price_usd": 0.1536
+        },
+        {
+          "min_qty": 500,
+          "max_qty": 2999,
+          "unit_price_usd": 0.1358
+        },
+        {
+          "min_qty": 3000,
+          "max_qty": 5999,
+          "unit_price_usd": 0.1273
+        },
+        {
+          "min_qty": 6000,
+          "max_qty": null,
+          "unit_price_usd": 0.1243
+        }
+      ],
+      "url": "https://jlcpcb.com/partdetail/Jst-SM04B_SRSS_TB_LF_SN/C160404",
+      "observed_jst": "2026-11-06T05:26:12.021553+09:00",
+      "status_ja": "調達確認／機構・実装未リリース",
+      "notes_ja": "同一型番4個。1GND/2VLED/3DATA/4NC案、ケーブル相手側の番号と照合。下端に移動/局所PETG逃げが必要。",
+      "snapshot": "mechanical_evidence/C160404.snapshot.json",
+      "html_sha256": "ddba96cbd88e64fff36fb0fc37776051893def04b79ae74fca1f072f9dbc1b06",
+      "attrition_hint": 0,
+      "least_patch_hint": 5,
+      "prepurchase_min_hint": 43
+    },
+    {
+      "id": "C122442",
+      "category": "I/O・コネクタ",
+      "role_ja": "電源用3pinヘッダ / 制御1＋変換1",
+      "mpn": "530470310",
+      "manufacturer": "MOLEX",
+      "c_code": "C122442",
+      "qty_per_module": 2,
+      "stock": 22499,
+      "prepurchase_qty": 21852,
+      "library": "Extended",
+      "pcba_type": "Economic and Standard",
+      "assembly_type": "Wave Soldering",
+      "package": "Plugin,P=1.25mm",
+      "tiers": [
+        {
+          "min_qty": 1,
+          "max_qty": 49,
+          "unit_price_usd": 0.1314
+        },
+        {
+          "min_qty": 50,
+          "max_qty": 149,
+          "unit_price_usd": 0.1024
+        },
+        {
+          "min_qty": 150,
+          "max_qty": 499,
+          "unit_price_usd": 0.088
+        },
+        {
+          "min_qty": 500,
+          "max_qty": 2499,
+          "unit_price_usd": 0.0771
+        },
+        {
+          "min_qty": 2500,
+          "max_qty": 4999,
+          "unit_price_usd": 0.0684
+        },
+        {
+          "min_qty": 5000,
+          "max_qty": null,
+          "unit_price_usd": 0.064
+        }
+      ],
+      "url": "https://jlcpcb.com/partdetail/MOLEX-530470310/C122442",
+      "observed_jst": "2026-11-06T05:28:17.248871+09:00",
+      "status_ja": "調達確認／機構・実装未リリース",
+      "notes_ja": "純正Molex151340300ケーブルの相手。1.6 mm PCBのテール突出/挿入深さを要確認。JLCのWave Soldering表記は工場手はんだ。",
+      "snapshot": "mechanical_evidence/C122442.snapshot.json",
+      "html_sha256": "32b0b6db1acdc33c0897392dc58fb68caf84f6daee4ef9bd5f5ed84073b54453",
+      "attrition_hint": 2,
+      "least_patch_hint": 2,
+      "prepurchase_min_hint": 89
+    },
+    {
+      "id": "C5665",
+      "category": "I/O・コネクタ",
+      "role_ja": "Eurorack IDC10 / 変換基板1",
+      "mpn": "2.54-2*5P2.54 mm pitch 2×5 pin IDC box header",
+      "manufacturer": "BOOMELE(Boom Precision Elec)",
+      "c_code": "C5665",
+      "qty_per_module": 1,
+      "stock": 143581,
+      "prepurchase_qty": 137022,
+      "library": "Extended",
+      "pcba_type": "Economic and Standard",
+      "assembly_type": "Wave Soldering",
+      "package": "Plugin,P=2.54mm",
+      "tiers": [
+        {
+          "min_qty": 1,
+          "max_qty": 49,
+          "unit_price_usd": 0.1041
+        },
+        {
+          "min_qty": 50,
+          "max_qty": 279,
+          "unit_price_usd": 0.0859
+        },
+        {
+          "min_qty": 280,
+          "max_qty": 559,
+          "unit_price_usd": 0.0696
+        },
+        {
+          "min_qty": 560,
+          "max_qty": 2519,
+          "unit_price_usd": 0.0619
+        },
+        {
+          "min_qty": 2520,
+          "max_qty": 5039,
+          "unit_price_usd": 0.0592
+        },
+        {
+          "min_qty": 5040,
+          "max_qty": null,
+          "unit_price_usd": 0.0575
+        }
+      ],
+      "url": "https://jlcpcb.com/partdetail/BOOMELE_Boom_Precision_Elec-2_54_2_5P/C5665",
+      "observed_jst": "2026-11-06T05:29:01.148968+09:00",
+      "status_ja": "調達確認／機構・実装未リリース",
+      "notes_ja": "受動電源変換PCB上。コントローラとの異種面付けは追加料金あり。完成ハーネス配置は未検証。",
+      "snapshot": "mechanical_evidence/C5665.snapshot.json",
+      "html_sha256": "cc85fa7d8c51a6ed501764267ba16603926a6223b4653d261699969d17e2a3d4",
+      "attrition_hint": 0,
+      "least_patch_hint": 2,
+      "prepurchase_min_hint": 106
+    },
+    {
+      "id": "C7250",
+      "category": "抵抗",
+      "role_ja": "10 MΩ 1% / R1,R2",
+      "mpn": "0603WAF1005T5E",
+      "manufacturer": "UNI-ROYAL(Uniroyal Elec)",
+      "c_code": "C7250",
+      "qty_per_module": 2,
+      "stock": 855593,
+      "prepurchase_qty": 730032,
+      "library": "Basic",
+      "pcba_type": "Economic and Standard",
+      "assembly_type": "SMT Assembly",
+      "package": "0603",
+      "tiers": [
+        {
+          "min_qty": 1,
+          "max_qty": 999,
+          "unit_price_usd": 0.0024
+        },
+        {
+          "min_qty": 1000,
+          "max_qty": 4999,
+          "unit_price_usd": 0.0018
+        },
+        {
+          "min_qty": 5000,
+          "max_qty": 9999,
+          "unit_price_usd": 0.0015
+        },
+        {
+          "min_qty": 10000,
+          "max_qty": 49999,
+          "unit_price_usd": 0.0012
+        },
+        {
+          "min_qty": 50000,
+          "max_qty": 50199,
+          "unit_price_usd": 0.001
+        },
+        {
+          "min_qty": 50200,
+          "max_qty": null,
+          "unit_price_usd": 0.001
+        }
+      ],
+      "url": "https://jlcpcb.com/partdetail/C7250",
+      "observed_jst": "2026-11-06T05:20:29.568530+09:00",
+      "status_ja": "調達確認／回路・実装未リリース",
+      "notes_ja": "CV検出枝20 MΩ。定格電圧、基板汚れ・漏れに注意。",
+      "snapshot": "passive_evidence/C7250.snapshot.json",
+      "html_sha256": "2db4c6cd1a9803c291146db76b938cf1bbbe4d61c414c7b7afb6cbb5ad3356b1",
+      "attrition_hint": 10,
+      "least_patch_hint": 20,
+      "prepurchase_min_hint": null
+    },
+    {
+      "id": "C23254",
+      "category": "抵抗",
+      "role_ja": "82 kΩ 1% / R3〜R6",
+      "mpn": "0603WAF8202T5E",
+      "manufacturer": "UNI-ROYAL(Uniroyal Elec)",
+      "c_code": "C23254",
+      "qty_per_module": 4,
+      "stock": 1045319,
+      "prepurchase_qty": 979326,
+      "library": "Basic",
+      "pcba_type": "Economic and Standard",
+      "assembly_type": "SMT Assembly",
+      "package": "0603",
+      "tiers": [
+        {
+          "min_qty": 1,
+          "max_qty": 999,
+          "unit_price_usd": 0.0027
+        },
+        {
+          "min_qty": 1000,
+          "max_qty": 4999,
+          "unit_price_usd": 0.0021
+        },
+        {
+          "min_qty": 5000,
+          "max_qty": 9999,
+          "unit_price_usd": 0.0017
+        },
+        {
+          "min_qty": 10000,
+          "max_qty": 49999,
+          "unit_price_usd": 0.0015
+        },
+        {
+          "min_qty": 50000,
+          "max_qty": 50199,
+          "unit_price_usd": 0.0013
+        },
+        {
+          "min_qty": 50200,
+          "max_qty": null,
+          "unit_price_usd": 0.0013
+        }
+      ],
+      "url": "https://jlcpcb.com/partdetail/C23254",
+      "observed_jst": "2026-11-06T05:20:29.768811+09:00",
+      "status_ja": "調達確認／回路・実装未リリース",
+      "notes_ja": "A3の0.1%推奨からBasic1%へ変更。抵抗誤差だけで±5 V範囲の最大換算誤差は約0.233 V。照明用・FW校正あり。",
+      "snapshot": "passive_evidence/C23254.snapshot.json",
+      "html_sha256": "7eef18a837e2c654840b3f01d40fa13ae5c45c4dc57299967f46ddfd9ee1b195",
+      "attrition_hint": 10,
+      "least_patch_hint": 20,
+      "prepurchase_min_hint": null
+    },
+    {
+      "id": "C21190",
+      "category": "抵抗",
+      "role_ja": "1 kΩ 1% / R7,R8",
+      "mpn": "0603WAF1001T5E",
+      "manufacturer": "UNI-ROYAL(Uniroyal Elec)",
+      "c_code": "C21190",
+      "qty_per_module": 2,
+      "stock": 27942687,
+      "prepurchase_qty": 21331951,
+      "library": "Basic",
+      "pcba_type": "Economic and Standard",
+      "assembly_type": "SMT Assembly",
+      "package": "0603",
+      "tiers": [
+        {
+          "min_qty": 1,
+          "max_qty": 999,
+          "unit_price_usd": 0.0017
+        },
+        {
+          "min_qty": 1000,
+          "max_qty": 4999,
+          "unit_price_usd": 0.0014
+        },
+        {
+          "min_qty": 5000,
+          "max_qty": 9999,
+          "unit_price_usd": 0.0012
+        },
+        {
+          "min_qty": 10000,
+          "max_qty": 49999,
+          "unit_price_usd": 0.001
+        },
+        {
+          "min_qty": 50000,
+          "max_qty": 50199,
+          "unit_price_usd": 0.0009
+        },
+        {
+          "min_qty": 50200,
+          "max_qty": null,
+          "unit_price_usd": 0.0009
+        }
+      ],
+      "url": "https://jlcpcb.com/partdetail/C21190",
+      "observed_jst": "2026-11-06T05:20:29.368750+09:00",
+      "status_ja": "調達確認／回路・実装未リリース",
+      "notes_ja": "ADC直列1個、3V3放電1個。後者は公称3.3 mA。",
+      "snapshot": "passive_evidence/C21190.snapshot.json",
+      "html_sha256": "4b58069e7a8d6bbc5070bac31cb2648c1b765ada1631f582394321b1ed96cb45",
+      "attrition_hint": 10,
+      "least_patch_hint": 20,
+      "prepurchase_min_hint": null
+    },
+    {
+      "id": "C25804",
+      "category": "抵抗",
+      "role_ja": "10 kΩ 1% / R9,R10,R13,R21,R22",
+      "mpn": "0603WAF1002T5E",
+      "manufacturer": "UNI-ROYAL(Uniroyal Elec)",
+      "c_code": "C25804",
+      "qty_per_module": 5,
+      "stock": 43743203,
+      "prepurchase_qty": 33448426,
+      "library": "Basic",
+      "pcba_type": "Economic and Standard",
+      "assembly_type": "SMT Assembly",
+      "package": "0603",
+      "tiers": [
+        {
+          "min_qty": 1,
+          "max_qty": 999,
+          "unit_price_usd": 0.0024
+        },
+        {
+          "min_qty": 1000,
+          "max_qty": 4999,
+          "unit_price_usd": 0.0019
+        },
+        {
+          "min_qty": 5000,
+          "max_qty": 9999,
+          "unit_price_usd": 0.0017
+        },
+        {
+          "min_qty": 10000,
+          "max_qty": 49999,
+          "unit_price_usd": 0.0016
+        },
+        {
+          "min_qty": 50000,
+          "max_qty": 50199,
+          "unit_price_usd": 0.0015
+        },
+        {
+          "min_qty": 50200,
+          "max_qty": null,
+          "unit_price_usd": 0.0015
+        }
+      ],
+      "url": "https://jlcpcb.com/partdetail/C25804",
+      "observed_jst": "2026-11-06T05:20:35.980418+09:00",
+      "status_ja": "調達確認／回路・実装未リリース",
+      "notes_ja": "MODE2、FAULT、NRST、NPNベース直列。A3から1個追加。",
+      "snapshot": "passive_evidence/C25804.snapshot.json",
+      "html_sha256": "edc978bc854b3ade74bcaf183c01eb8a2dff756391f2df85b75c6ad08d3b5439",
+      "attrition_hint": 10,
+      "least_patch_hint": 20,
+      "prepurchase_min_hint": null
+    },
+    {
+      "id": "C23231",
+      "category": "抵抗",
+      "role_ja": "68 kΩ 1% / R11",
+      "mpn": "0603WAF6802T5E",
+      "manufacturer": "UNI-ROYAL(Uniroyal Elec)",
+      "c_code": "C23231",
+      "qty_per_module": 1,
+      "stock": 908528,
+      "prepurchase_qty": 807783,
+      "library": "Basic",
+      "pcba_type": "Economic and Standard",
+      "assembly_type": "SMT Assembly",
+      "package": "0603",
+      "tiers": [
+        {
+          "min_qty": 1,
+          "max_qty": 999,
+          "unit_price_usd": 0.0016
+        },
+        {
+          "min_qty": 1000,
+          "max_qty": 4999,
+          "unit_price_usd": 0.0012
+        },
+        {
+          "min_qty": 5000,
+          "max_qty": 9999,
+          "unit_price_usd": 0.001
+        },
+        {
+          "min_qty": 10000,
+          "max_qty": 49999,
+          "unit_price_usd": 0.001
+        },
+        {
+          "min_qty": 50000,
+          "max_qty": 50199,
+          "unit_price_usd": 0.0008
+        },
+        {
+          "min_qty": 50200,
+          "max_qty": null,
+          "unit_price_usd": 0.0008
+        }
+      ],
+      "url": "https://jlcpcb.com/partdetail/C23231",
+      "observed_jst": "2026-11-06T05:20:42.452356+09:00",
+      "status_ja": "調達確認／回路・実装未リリース",
+      "notes_ja": "68.1kからBasic68k。ILIM計算343.3〜439.4 mA、公称388.1 mA。筐体の許容発熱を表す値ではない。",
+      "snapshot": "passive_evidence/C23231.snapshot.json",
+      "html_sha256": "f2d2aec74e26068842b59dceeb9dfbafc28246b4923df8152b75e90a843a1530",
+      "attrition_hint": 10,
+      "least_patch_hint": 20,
+      "prepurchase_min_hint": null
+    },
+    {
+      "id": "C25803",
+      "category": "抵抗",
+      "role_ja": "100 kΩ 1% / R12,R16〜R19,R23",
+      "mpn": "0603WAF1003T5E",
+      "manufacturer": "UNI-ROYAL(Uniroyal Elec)",
+      "c_code": "C25803",
+      "qty_per_module": 6,
+      "stock": 16435933,
+      "prepurchase_qty": 14094386,
+      "library": "Basic",
+      "pcba_type": "Economic and Standard",
+      "assembly_type": "SMT Assembly",
+      "package": "0603",
+      "tiers": [
+        {
+          "min_qty": 1,
+          "max_qty": 999,
+          "unit_price_usd": 0.0029
+        },
+        {
+          "min_qty": 1000,
+          "max_qty": 4999,
+          "unit_price_usd": 0.0023
+        },
+        {
+          "min_qty": 5000,
+          "max_qty": 9999,
+          "unit_price_usd": 0.002
+        },
+        {
+          "min_qty": 10000,
+          "max_qty": 49999,
+          "unit_price_usd": 0.0016
+        },
+        {
+          "min_qty": 50000,
+          "max_qty": 50199,
+          "unit_price_usd": 0.0015
+        },
+        {
+          "min_qty": 50200,
+          "max_qty": null,
+          "unit_price_usd": 0.0015
+        }
+      ],
+      "url": "https://jlcpcb.com/partdetail/C25803",
+      "observed_jst": "2026-11-06T05:20:35.913280+09:00",
+      "status_ja": "調達確認／回路・実装未リリース",
+      "notes_ja": "R12をNPNベースプルダウンに流用。R23をEN→常時5Vに追加。",
+      "snapshot": "passive_evidence/C25803.snapshot.json",
+      "html_sha256": "abf76039badc60886250ff668d6ddbc4318ac52e87d7745ed890c46bdaeaa690",
+      "attrition_hint": 10,
+      "least_patch_hint": 20,
+      "prepurchase_min_hint": null
+    },
+    {
+      "id": "C23138",
+      "category": "抵抗",
+      "role_ja": "330 Ω 1% / R14,R15",
+      "mpn": "0603WAF3300T5E",
+      "manufacturer": "UNI-ROYAL(Uniroyal Elec)",
+      "c_code": "C23138",
+      "qty_per_module": 2,
+      "stock": 2957871,
+      "prepurchase_qty": 2346065,
+      "library": "Basic",
+      "pcba_type": "Economic and Standard",
+      "assembly_type": "SMT Assembly",
+      "package": "0603",
+      "tiers": [
+        {
+          "min_qty": 1,
+          "max_qty": 999,
+          "unit_price_usd": 0.002
+        },
+        {
+          "min_qty": 1000,
+          "max_qty": 4999,
+          "unit_price_usd": 0.0016
+        },
+        {
+          "min_qty": 5000,
+          "max_qty": 9999,
+          "unit_price_usd": 0.0013
+        },
+        {
+          "min_qty": 10000,
+          "max_qty": 49999,
+          "unit_price_usd": 0.0011
+        },
+        {
+          "min_qty": 50000,
+          "max_qty": 50199,
+          "unit_price_usd": 0.001
+        },
+        {
+          "min_qty": 50200,
+          "max_qty": null,
+          "unit_price_usd": 0.001
+        }
+      ],
+      "url": "https://jlcpcb.com/partdetail/C23138",
+      "observed_jst": "2026-11-06T05:20:36.048303+09:00",
+      "status_ja": "調達確認／回路・実装未リリース",
+      "notes_ja": "左右DATAの直列ダンピング。遠端の波形を試作機で確認。",
+      "snapshot": "passive_evidence/C23138.snapshot.json",
+      "html_sha256": "1016c4309011931b6f55429e768e89c124b981e28b01b892fa5f28288955db74",
+      "attrition_hint": 10,
+      "least_patch_hint": 20,
+      "prepurchase_min_hint": null
+    },
+    {
+      "id": "C23162",
+      "category": "抵抗",
+      "role_ja": "4.7 kΩ 1% / R20",
+      "mpn": "0603WAF4701T5E",
+      "manufacturer": "UNI-ROYAL(Uniroyal Elec)",
+      "c_code": "C23162",
+      "qty_per_module": 1,
+      "stock": 16338872,
+      "prepurchase_qty": 13131171,
+      "library": "Basic",
+      "pcba_type": "Economic and Standard",
+      "assembly_type": "SMT Assembly",
+      "package": "0603",
+      "tiers": [
+        {
+          "min_qty": 1,
+          "max_qty": 999,
+          "unit_price_usd": 0.0028
+        },
+        {
+          "min_qty": 1000,
+          "max_qty": 4999,
+          "unit_price_usd": 0.0022
+        },
+        {
+          "min_qty": 5000,
+          "max_qty": 9999,
+          "unit_price_usd": 0.0019
+        },
+        {
+          "min_qty": 10000,
+          "max_qty": 49999,
+          "unit_price_usd": 0.0016
+        },
+        {
+          "min_qty": 50000,
+          "max_qty": 50199,
+          "unit_price_usd": 0.0015
+        },
+        {
+          "min_qty": 50200,
+          "max_qty": null,
+          "unit_price_usd": 0.0015
+        }
+      ],
+      "url": "https://jlcpcb.com/partdetail/C23162",
+      "observed_jst": "2026-11-06T05:20:36.088390+09:00",
+      "status_ja": "調達確認／回路・実装未リリース",
+      "notes_ja": "VLED放電。5 V時公称1.06 mA。",
+      "snapshot": "passive_evidence/C23162.snapshot.json",
+      "html_sha256": "6be7523428f98b396ed08adb883b78767a97b4cc51872c4f52719c898cbf9b9e",
+      "attrition_hint": 10,
+      "least_patch_hint": 20,
+      "prepurchase_min_hint": null
+    },
+    {
+      "id": "C14663",
+      "category": "コンデンサ",
+      "role_ja": "100 nF 50 V X7R / 制御7＋LED8",
+      "mpn": "CC0603KRX7R9BB104",
+      "manufacturer": "YAGEO",
+      "c_code": "C14663",
+      "qty_per_module": 15,
+      "stock": 36133363,
+      "prepurchase_qty": 18334756,
+      "library": "Basic",
+      "pcba_type": "Economic and Standard",
+      "assembly_type": "SMT Assembly",
+      "package": "0603",
+      "tiers": [
+        {
+          "min_qty": 1,
+          "max_qty": 999,
+          "unit_price_usd": 0.0067
+        },
+        {
+          "min_qty": 1000,
+          "max_qty": 3999,
+          "unit_price_usd": 0.0052
+        },
+        {
+          "min_qty": 4000,
+          "max_qty": 7999,
+          "unit_price_usd": 0.0044
+        },
+        {
+          "min_qty": 8000,
+          "max_qty": 47999,
+          "unit_price_usd": 0.0039
+        },
+        {
+          "min_qty": 48000,
+          "max_qty": 99999,
+          "unit_price_usd": 0.0035
+        },
+        {
+          "min_qty": 100000,
+          "max_qty": null,
+          "unit_price_usd": 0.0033
+        }
+      ],
+      "url": "https://jlcpcb.com/partdetail/C14663",
+      "observed_jst": "2026-11-06T05:18:21.685026+09:00",
+      "status_ja": "調達確認／回路・実装未リリース",
+      "notes_ja": "Basic YAGEOへ統一。BST–SW1、制御デカップリング5、NRST1、LED局所8。LED用最大0.9 mm本体。",
+      "snapshot": "passive_evidence/C14663.snapshot.json",
+      "html_sha256": "a97218885bb61f7f360c3a83ecc99546532ab1e695fffeb0e47ae892a0e2328c",
+      "attrition_hint": 10,
+      "least_patch_hint": 20,
+      "prepurchase_min_hint": null
+    },
+    {
+      "id": "C57112",
+      "category": "コンデンサ",
+      "role_ja": "10 nF 50 V X7R / C13",
+      "mpn": "0603B103K500NT",
+      "manufacturer": "FH (Guangdong Fenghua Advanced Tech)",
+      "c_code": "C57112",
+      "qty_per_module": 1,
+      "stock": 5190036,
+      "prepurchase_qty": 3620078,
+      "library": "Basic",
+      "pcba_type": "Economic and Standard",
+      "assembly_type": "SMT Assembly",
+      "package": "0603",
+      "tiers": [
+        {
+          "min_qty": 1,
+          "max_qty": 999,
+          "unit_price_usd": 0.0097
+        },
+        {
+          "min_qty": 1000,
+          "max_qty": 2999,
+          "unit_price_usd": 0.0075
+        },
+        {
+          "min_qty": 3000,
+          "max_qty": 7999,
+          "unit_price_usd": 0.0065
+        },
+        {
+          "min_qty": 8000,
+          "max_qty": 47999,
+          "unit_price_usd": 0.0058
+        },
+        {
+          "min_qty": 48000,
+          "max_qty": 95999,
+          "unit_price_usd": 0.0055
+        },
+        {
+          "min_qty": 96000,
+          "max_qty": null,
+          "unit_price_usd": 0.0053
+        }
+      ],
+      "url": "https://jlcpcb.com/partdetail/C57112",
+      "observed_jst": "2026-11-06T05:20:42.588357+09:00",
+      "status_ja": "調達確認／回路・実装未リリース",
+      "notes_ja": "ADC入力フィルタ。最大ADC取得時間とサンプリング条件をFWで反映。",
+      "snapshot": "passive_evidence/C57112.snapshot.json",
+      "html_sha256": "4e5064cc797bdff1b86f7f3cdc9a2a55bf937d867eff8cb7c64c092123a61895",
+      "attrition_hint": 10,
+      "least_patch_hint": 20,
+      "prepurchase_min_hint": null
+    },
+    {
+      "id": "C15850",
+      "category": "コンデンサ",
+      "role_ja": "10 µF 25 V X5R / C1,C15,C16",
+      "mpn": "CL21A106KAYNNNE",
+      "manufacturer": "Samsung Electro-Mechanics",
+      "c_code": "C15850",
+      "qty_per_module": 3,
+      "stock": 7424691,
+      "prepurchase_qty": 5651518,
+      "library": "Basic",
+      "pcba_type": "Economic and Standard",
+      "assembly_type": "SMT Assembly",
+      "package": "0805",
+      "tiers": [
+        {
+          "min_qty": 1,
+          "max_qty": 199,
+          "unit_price_usd": 0.0396
+        },
+        {
+          "min_qty": 200,
+          "max_qty": 599,
+          "unit_price_usd": 0.0313
+        },
+        {
+          "min_qty": 600,
+          "max_qty": 1999,
+          "unit_price_usd": 0.027
+        },
+        {
+          "min_qty": 2000,
+          "max_qty": 9999,
+          "unit_price_usd": 0.0234
+        },
+        {
+          "min_qty": 10000,
+          "max_qty": 19999,
+          "unit_price_usd": 0.0221
+        },
+        {
+          "min_qty": 20000,
+          "max_qty": null,
+          "unit_price_usd": 0.0213
+        }
+      ],
+      "url": "https://jlcpcb.com/partdetail/C15850",
+      "observed_jst": "2026-11-06T05:20:48.594748+09:00",
+      "status_ja": "調達確認／回路・実装未リリース",
+      "notes_ja": "0805。12 V入力と5 V局所用。DCバイアス下の実効容量の確認が必要。X5Rへ変更。",
+      "snapshot": "passive_evidence/C15850.snapshot.json",
+      "html_sha256": "d314f902b228df16b24b95246f7489ff2c8246fa731541c78982e235dbdf5e18",
+      "attrition_hint": 10,
+      "least_patch_hint": 20,
+      "prepurchase_min_hint": null
+    },
+    {
+      "id": "C12891",
+      "category": "コンデンサ",
+      "role_ja": "22 µF 25 V X5R / C2,C3",
+      "mpn": "CL31A226KAHNNNE",
+      "manufacturer": "Samsung Electro-Mechanics",
+      "c_code": "C12891",
+      "qty_per_module": 2,
+      "stock": 1613122,
+      "prepurchase_qty": 1195698,
+      "library": "Basic",
+      "pcba_type": "Economic and Standard",
+      "assembly_type": "SMT Assembly",
+      "package": "1206",
+      "tiers": [
+        {
+          "min_qty": 1,
+          "max_qty": 199,
+          "unit_price_usd": 0.1176
+        },
+        {
+          "min_qty": 200,
+          "max_qty": 599,
+          "unit_price_usd": 0.096
+        },
+        {
+          "min_qty": 600,
+          "max_qty": 1999,
+          "unit_price_usd": 0.0849
+        },
+        {
+          "min_qty": 2000,
+          "max_qty": 9999,
+          "unit_price_usd": 0.0758
+        },
+        {
+          "min_qty": 10000,
+          "max_qty": 19999,
+          "unit_price_usd": 0.0725
+        },
+        {
+          "min_qty": 20000,
+          "max_qty": null,
+          "unit_price_usd": 0.0704
+        }
+      ],
+      "url": "https://jlcpcb.com/partdetail/C12891",
+      "observed_jst": "2026-11-06T05:20:57.036370+09:00",
+      "status_ja": "調達確認／回路・実装未リリース",
+      "notes_ja": "1206。AP63205評価基板と同じ公称容量/定格の選択。実効容量・温度・実配置は別途確認。",
+      "snapshot": "passive_evidence/C12891.snapshot.json",
+      "html_sha256": "a49504404b4c6356313117a10fcd719012d81c29d54c5a203e03a658242af46c",
+      "attrition_hint": 4,
+      "least_patch_hint": 5,
+      "prepurchase_min_hint": null
+    },
+    {
+      "id": "C19666",
+      "category": "コンデンサ",
+      "role_ja": "4.7 µF 16 V X5R / C5,C6,C7",
+      "mpn": "CL10A475KO8NNNC",
+      "manufacturer": "Samsung Electro-Mechanics",
+      "c_code": "C19666",
+      "qty_per_module": 3,
+      "stock": 4047769,
+      "prepurchase_qty": 3278673,
+      "library": "Basic",
+      "pcba_type": "Economic and Standard",
+      "assembly_type": "SMT Assembly",
+      "package": "0603",
+      "tiers": [
+        {
+          "min_qty": 1,
+          "max_qty": 99,
+          "unit_price_usd": 0.015
+        },
+        {
+          "min_qty": 100,
+          "max_qty": 299,
+          "unit_price_usd": 0.0112
+        },
+        {
+          "min_qty": 300,
+          "max_qty": 999,
+          "unit_price_usd": 0.0095
+        },
+        {
+          "min_qty": 1000,
+          "max_qty": 3999,
+          "unit_price_usd": 0.0083
+        },
+        {
+          "min_qty": 4000,
+          "max_qty": 7999,
+          "unit_price_usd": 0.0078
+        },
+        {
+          "min_qty": 8000,
+          "max_qty": null,
+          "unit_price_usd": 0.0074
+        }
+      ],
+      "url": "https://jlcpcb.com/partdetail/C19666",
+      "observed_jst": "2026-11-06T05:20:48.632895+09:00",
+      "status_ja": "調達確認／回路・実装未リリース",
+      "notes_ja": "0603。LDO入出力C5/C6を1 µFから増量しMCUバルクと統一。LDOの1 µF以上実効容量を要確認。",
+      "snapshot": "passive_evidence/C19666.snapshot.json",
+      "html_sha256": "fb14a1911b7bea4a0a0f3b33398dfaeb2406a3be98bef226f6eddbba73d3c293",
+      "attrition_hint": 10,
+      "least_patch_hint": 20,
+      "prepurchase_min_hint": null
+    }
+  ],
+  "external_items": [
+    {
+      "id": "EXT-01",
+      "category": "外部ケーブル",
+      "role_ja": "LED基板用4線ケーブル×2",
+      "mpn": "Adafruit 4399 / Kaweei CBH-100-04-050-A",
+      "qty_per_module": 2,
+      "stock": 12957,
+      "prepurchase_qty": null,
+      "library": "外部購入 / DigiKey",
+      "pcba_type": "JLC部品供給の対象外",
+      "assembly_type": "完成ケーブル",
+      "tiers": [
+        {
+          "min_qty": 1,
+          "max_qty": null,
+          "unit_price_usd": 0.95
+        }
+      ],
+      "url": "https://www.digikey.com/en/products/detail/adafruit-industries-llc/4399/10824268",
+      "observed_jst": "2026-11-06T05:47:54.201245+09:00",
+      "status_ja": "DigiKey12,957本／100台分200本の数量を確認",
+      "notes_ja": "DigiKey1528-4399-ND。50±5 mm、SH4両端、1:1結線。直販Adafruitは100+で$0.76と安いが数量非公開。主価格は数値在庫のあるDigiKey$0.95を使用。"
+    },
+    {
+      "id": "EXT-02",
+      "category": "外部ケーブル",
+      "role_ja": "電源3線ケーブル×1",
+      "mpn": "Molex 151340300",
+      "qty_per_module": 1,
+      "stock": 17783,
+      "prepurchase_qty": null,
+      "library": "外部購入 / DigiKey",
+      "pcba_type": "JLC部品供給の対象外",
+      "assembly_type": "完成ケーブル",
+      "tiers": [
+        {
+          "min_qty": 1,
+          "max_qty": 9,
+          "unit_price_usd": 3.51
+        },
+        {
+          "min_qty": 10,
+          "max_qty": 24,
+          "unit_price_usd": 2.985
+        },
+        {
+          "min_qty": 25,
+          "max_qty": 49,
+          "unit_price_usd": 2.7976
+        },
+        {
+          "min_qty": 50,
+          "max_qty": 99,
+          "unit_price_usd": 2.6638
+        },
+        {
+          "min_qty": 100,
+          "max_qty": 249,
+          "unit_price_usd": 2.5365
+        },
+        {
+          "min_qty": 250,
+          "max_qty": 499,
+          "unit_price_usd": 2.37768
+        },
+        {
+          "min_qty": 500,
+          "max_qty": 999,
+          "unit_price_usd": 2.2642
+        },
+        {
+          "min_qty": 1000,
+          "max_qty": 2499,
+          "unit_price_usd": 2.15618
+        },
+        {
+          "min_qty": 2500,
+          "max_qty": null,
+          "unit_price_usd": 2.02131
+        }
+      ],
+      "url": "https://www.digikey.com/en/products/detail/molex/0151340300/6198142",
+      "observed_jst": "2026-11-06T05:45:47.712906+09:00",
+      "status_ja": "DigiKey17,783個／100台分の数量を確認",
+      "notes_ja": "DigiKey WM15252-ND、表記0151340300はMolex151340300と同一。50±6 mm、1 A/接点。A1→B3/A2→B2/A3→B1。JLC在庫ではなく外部購入。"
+    },
+    {
+      "id": "EXT-03",
+      "category": "外部ケーブル",
+      "role_ja": "Eurorack電源リボン×1",
+      "mpn": "既製16→10 pin IDC、長さ未確定",
+      "qty_per_module": 1,
+      "stock": null,
+      "prepurchase_qty": null,
+      "library": "外部購入",
+      "pcba_type": "JLC部品供給の対象外",
+      "assembly_type": "完成ケーブル",
+      "tiers": [],
+      "url": null,
+      "observed_jst": null,
+      "status_ja": "未選定",
+      "notes_ja": "切断・家庭ではんだ付けしない。リモート変換基板と曲げを30 mmケース制約に含める。"
+    },
+    {
+      "id": "EXT-04",
+      "category": "前面",
+      "role_ja": "透明キャストPMMA前面×1",
+      "mpn": "Elecrow、2 mm、2HPまたは3HP、文字抜き全面裏彫刻",
+      "qty_per_module": 1,
+      "stock": null,
+      "prepurchase_qty": null,
+      "library": "外注加工",
+      "pcba_type": "JLC PCBA以外",
+      "assembly_type": "切断＋裏面ラスター彫刻",
+      "tiers": [],
+      "url": "https://www.elecrow.com/acrylic-cutting.html",
+      "observed_jst": null,
+      "status_ja": "図面作成済／加工見積り未依頼",
+      "notes_ja": "透明材000系を希望。透明文字を残すため既製マット材を選ばない。切断許容差と彫刻仕上げは工場確認。"
+    },
+    {
+      "id": "EXT-05",
+      "category": "後部",
+      "role_ja": "PETG拡散板・支持体一式",
+      "mpn": "自宅プリント用、後部設計改版中",
+      "qty_per_module": 1,
+      "stock": null,
+      "prepurchase_qty": null,
+      "library": "自宅造形",
+      "pcba_type": "JLC PCBA以外",
+      "assembly_type": "印刷とネジ組立",
+      "tiers": [],
+      "url": null,
+      "observed_jst": null,
+      "status_ja": "A4後部のSTL/3MF未完成",
+      "notes_ja": "ジャック受け、スイッチ回り止め、ケーブル逃げが必要。A3支持体をそのまま使用できる確認はない。"
+    },
+    {
+      "id": "EXT-06",
+      "category": "機構小物",
+      "role_ja": "締結部品・接着層一式",
+      "mpn": "M2/M3等、完成機構で確定",
+      "qty_per_module": 1,
+      "stock": null,
+      "prepurchase_qty": null,
+      "library": "外部購入",
+      "pcba_type": "JLC PCBA以外",
+      "assembly_type": "機械組立",
+      "tiers": [],
+      "url": null,
+      "observed_jst": null,
+      "status_ja": "正確な長さ・数量未確定",
+      "notes_ja": "前面2 mmPMMA、LED背中合わせの0.1 mm接着層を想定。推奨締付トルクは未確定。"
+    }
+  ],
+  "cost_checks": {
+    "1": {
+      "fitted_component_cost_per_module_usd": 10.9733,
+      "categories_per_module_usd": {
+        "IC・LED・電源": 7.2354,
+        "I/O・コネクタ": 3.1719,
+        "抵抗": 0.0568,
+        "コンデンサ": 0.5092
+      },
+      "LED_external_cables_per_module_usd": 1.9,
+      "power_external_cable_per_module_usd": 3.51,
+      "excludes": "Attrition, pre-purchase minimums, board-job splitting, PCBs, assembly, fixtures, X-ray, programming, other cables, mechanical parts, shipping and taxes."
+    },
+    "10": {
+      "fitted_component_cost_per_module_usd": 9.8095,
+      "categories_per_module_usd": {
+        "IC・LED・電源": 6.3103,
+        "I/O・コネクタ": 2.9332,
+        "抵抗": 0.0568,
+        "コンデンサ": 0.5092
+      },
+      "LED_external_cables_per_module_usd": 1.9,
+      "power_external_cable_per_module_usd": 2.985,
+      "excludes": "Attrition, pre-purchase minimums, board-job splitting, PCBs, assembly, fixtures, X-ray, programming, other cables, mechanical parts, shipping and taxes."
+    },
+    "100": {
+      "fitted_component_cost_per_module_usd": 7.52,
+      "categories_per_module_usd": {
+        "IC・LED・電源": 4.9136,
+        "I/O・コネクタ": 2.1475,
+        "抵抗": 0.0568,
+        "コンデンサ": 0.4021
+      },
+      "LED_external_cables_per_module_usd": 1.9,
+      "power_external_cable_per_module_usd": 2.5365,
+      "excludes": "Attrition, pre-purchase minimums, board-job splitting, PCBs, assembly, fixtures, X-ray, programming, other cables, mechanical parts, shipping and taxes."
+    }
+  },
+  "summary": {
+    "unique_jlc_mpn_count": 29,
+    "fitted_parts_per_module": 76,
+    "all_stock_cover_100_fitted_modules": true,
+    "all_prepurchase_cover_100_fitted_modules": true,
+    "least_stock_coverage_code": "C2651179",
+    "all_quantities_before_attrition": true,
+    "release_status": "Native KiCad schematic/routing, ERC/DRC, final BOM/CPL, complete A4 rear CAD, cable fit and working firmware remain unfinished."
+  }
+}

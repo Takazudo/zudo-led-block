@@ -1,0 +1,167 @@
+{
+  "as_of_jst": "JLC baseline: 2026-11-06 11:30-11:37 JST; U7:14:37 JST / IDC10:14:39 JST; external cables:11:37 JST. Individual timestamps retained.",
+  "component_rows": 30,
+  "external_rows": 6,
+  "prototype_modules": 10,
+  "comparison_modules": 100,
+  "prototype_parts_usd": 87.20500000000003,
+  "comparison_parts_usd": 663.8600000000002,
+  "prototype_usd_per_module": 8.720500000000003,
+  "comparison_usd_per_module": 6.638600000000002,
+  "known_external_prototype_usd_per_module": 4.885,
+  "known_external_comparison_usd_per_module": 4.4365000000000006,
+  "external_inputs": [
+    {
+      "id": "EXT-01",
+      "qty_per_module": 2,
+      "unit_price_usd": null,
+      "stock_numeric": 12943,
+      "stock_text": ""
+    },
+    {
+      "id": "EXT-02",
+      "qty_per_module": 1,
+      "unit_price_usd": null,
+      "stock_numeric": 17783,
+      "stock_text": ""
+    },
+    {
+      "id": "EXT-03",
+      "qty_per_module": 1,
+      "unit_price_usd": null,
+      "stock_numeric": null,
+      "stock_text": ""
+    },
+    {
+      "id": "EXT-04",
+      "qty_per_module": 1,
+      "unit_price_usd": null,
+      "stock_numeric": null,
+      "stock_text": ""
+    },
+    {
+      "id": "EXT-05",
+      "qty_per_module": 1,
+      "unit_price_usd": null,
+      "stock_numeric": null,
+      "stock_text": ""
+    },
+    {
+      "id": "EXT-06",
+      "qty_per_module": 1,
+      "unit_price_usd": null,
+      "stock_numeric": null,
+      "stock_text": ""
+    }
+  ],
+  "dynamic_checks": [
+    {
+      "test": "requested prototype quantity",
+      "module_count": 10,
+      "expected_total_usd": 87.20500000000003,
+      "actual_total_usd": 87.20500000000003
+    },
+    {
+      "test": "comparison quantity through active input",
+      "module_count": 100,
+      "expected_total_usd": 663.8600000000002,
+      "actual_total_usd": 663.8600000000002
+    },
+    {
+      "test": "single module",
+      "module_count": 1,
+      "expected_total_usd": 9.939600000000002,
+      "actual_total_usd": 9.939600000000002
+    },
+    {
+      "test": "zero modules",
+      "module_count": 0,
+      "expected_total_usd": 0,
+      "actual_total_usd": 0
+    },
+    {
+      "test": "blank quantity",
+      "result": "dependent quantities and totals remain blank"
+    },
+    {
+      "test": "VLOOKUP tier boundary",
+      "component": "C5270180",
+      "required_units": 1,
+      "unit_price_usd": 1.7468
+    },
+    {
+      "test": "VLOOKUP tier boundary",
+      "component": "C5270180",
+      "required_units": 1,
+      "unit_price_usd": 1.7468
+    },
+    {
+      "test": "VLOOKUP tier boundary",
+      "component": "C5270180",
+      "required_units": 9,
+      "unit_price_usd": 1.7468
+    },
+    {
+      "test": "VLOOKUP tier boundary",
+      "component": "C5270180",
+      "required_units": 10,
+      "unit_price_usd": 1.4718
+    },
+    {
+      "test": "VLOOKUP tier boundary",
+      "component": "C5270180",
+      "required_units": 29,
+      "unit_price_usd": 1.4718
+    },
+    {
+      "test": "VLOOKUP tier boundary",
+      "component": "C5270180",
+      "required_units": 30,
+      "unit_price_usd": 1.3195
+    },
+    {
+      "test": "quantity per module edit",
+      "component": "C5270180",
+      "temporary_qty_per_module": 2,
+      "result": "both required quantities recalculate"
+    },
+    {
+      "test": "supplied cost control reconciliation",
+      "modules": 10,
+      "per_module_usd": 8.7205,
+      "categories_match": true
+    },
+    {
+      "test": "supplied cost control reconciliation",
+      "modules": 100,
+      "per_module_usd": 6.6386,
+      "categories_match": true
+    }
+  ],
+  "calculation_engine": "Artifact Tool. Native Excel application execution was not performed.",
+  "source_rows_path": "/workspace/scratch/213e46744889/light_block_A5/procurement_rows.json",
+  "output_path": "/workspace/scratch/213e46744889/outputs/light_block_A5/light_block_A5_parts.xlsx",
+  "sourceSha256": "f87d6aa74b3d6baa7907ccc4450da74d1d8425a7a636b37f19a064c58ff2b7b1",
+  "sourceWorkbook": "/workspace/scratch/213e46744889/outputs/light_block_A5/light_block_A5_parts.xlsx",
+  "issues": [],
+  "engine": "Artifact Tool calculation and visual rendering; OOXML exported-feature inspection; native Excel execution not performed",
+  "visual_review": {
+    "all_passed": true,
+    "reviewed_changed_views": [
+      "parts_overview.png",
+      "parts_last_rows.png",
+      "source_details.png"
+    ],
+    "unchanged_external_views": "Preserved source and existing layout; no external item edits",
+    "final_note_views": [
+      "r7_note.png",
+      "c13_note.png"
+    ],
+    "final_note_result": "Reimported final exported XLSX; both amended source notes fit their cells without clipping.",
+    "bridge_views": [
+      "bridge_header_row.png",
+      "bridge_header_note.png"
+    ],
+    "bridge_result": "Reimported final XLSX. SH4 quantity5, price tiers50/500 and updated wiring notes are complete and fit; unchanged native features verified."
+  }
+}

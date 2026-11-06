@@ -1,0 +1,49 @@
+{
+  "sourceWorkbook": "/workspace/scratch/213e46744889/outputs/light_block_A4_1/light_block_A4_1_parts.xlsx",
+  "sourceSha256": "c37e40c32a22e74ae937e8337b314da427227a0176772b7162d53822108d9b67",
+  "originalUnchanged": true,
+  "checks": [
+    {
+      "name": "component source reconciliation",
+      "rows": 29,
+      "units": 76
+    },
+    {
+      "name": "price-tier source reconciliation",
+      "components": 29
+    }
+  ],
+  "scenarios": [
+    {
+      "modules": 1,
+      "componentTotal": 9.6312,
+      "componentPerModule": 9.6312,
+      "knownExternalTotal": 5.41,
+      "knownExternalPerModule": 5.41
+    },
+    {
+      "modules": 10,
+      "componentTotal": 86.17100000000002,
+      "componentPerModule": 8.617100000000002,
+      "knownExternalTotal": 48.849999999999994,
+      "knownExternalPerModule": 4.885
+    },
+    {
+      "modules": 100,
+      "componentTotal": 649.97,
+      "componentPerModule": 6.499700000000001,
+      "knownExternalTotal": 443.65000000000003,
+      "knownExternalPerModule": 4.4365000000000006
+    },
+    {
+      "modules": 0,
+      "componentTotal": 0,
+      "componentPerModule": "n.a.",
+      "knownExternalTotal": 0,
+      "knownExternalPerModule": "n.a."
+    }
+  ],
+  "issues": [],
+  "formulaErrors": "{\"kind\":\"notice\",\"message\":\"Cell search matched 0 entries.\"}",
+  "engine": "Artifact Tool import and in-memory recalculation; no Excel/LibreOffice execution; no XLSX export"
+}

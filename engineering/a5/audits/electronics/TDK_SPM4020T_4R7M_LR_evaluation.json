@@ -1,0 +1,218 @@
+{
+  "project": "Light Block",
+  "revision": "A4.1 focused inductor cost-down recommendation",
+  "frozen_observation_source": "audits/electronics/inputs/tdk_jlc_observation.json",
+  "selected_procurement_source": "procurement_rows.json",
+  "created_jst": "2026-11-06T11:49:54.782755+09:00",
+  "decision": "SELECT_FOR_INTEGRATED_PROTOTYPE_DESIGN_PENDING_LAYOUT_AND_HOT_FAULT_VALIDATION",
+  "manufacturing_release": false,
+  "drop_in_approved": false,
+  "recommendation": "Select the active LR successor for the A4.1 cost/availability target. Preserve the original Wurth as fallback. Do not use obsolete non-LR as a new baseline.",
+  "selected_candidate": {
+    "manufacturer": "TDK",
+    "mpn": "SPM4020T-4R7M-LR",
+    "c_code": "C694586",
+    "qty_per_module": 1,
+    "manufacturer_product_status": "Production",
+    "library": "Extended",
+    "pcba_type": "Economic and Standard",
+    "assembly_type": "SMT Assembly",
+    "stock": 726,
+    "available_order_qty": 719,
+    "observed_utc": "2026-11-06T02:37:37.160Z",
+    "observed_jst": "2026-11-06T11:37:37.160+09:00",
+    "stock_covers_100_fitted_modules": true,
+    "available_order_qty_covers_100_fitted_modules": true,
+    "tiers": [
+      {
+        "min_qty": 1,
+        "unit_price_usd": 0.3802
+      },
+      {
+        "min_qty": 50,
+        "unit_price_usd": 0.3024
+      },
+      {
+        "min_qty": 150,
+        "unit_price_usd": 0.269
+      },
+      {
+        "min_qty": 500,
+        "unit_price_usd": 0.2197
+      },
+      {
+        "min_qty": 2500,
+        "unit_price_usd": 0.2011
+      },
+      {
+        "min_qty": 5000,
+        "unit_price_usd": 0.1901
+      }
+    ],
+    "inductance_uH": 4.7,
+    "inductance_tolerance_pct": 20,
+    "body_dimensions_mm": {
+      "L_nominal": 4.4,
+      "L_tolerance": 0.2,
+      "W_nominal": 4.1,
+      "W_tolerance": 0.2,
+      "H_max": 2.0
+    },
+    "DCR_typ_ohm": 0.128,
+    "DCR_max_ohm": 0.1472,
+    "saturation_current_A": {
+      "typical": 3.5,
+      "criterion": "30% inductance reduction",
+      "guaranteed_hot_minimum": null
+    },
+    "thermal_current_A": {
+      "typical": 2.5,
+      "criterion": "40 C rise",
+      "guaranteed_hot_minimum": null
+    },
+    "operating_temperature_C": [
+      -40,
+      125
+    ],
+    "temperature_includes_self_rise": true
+  },
+  "rejected_related_part": {
+    "mpn": "SPM4020T-4R7M",
+    "manufacturer_status": "Obsolete",
+    "discontinue_issue_date": "2022-06-03",
+    "last_purchase_order_date": "2023-09-30",
+    "last_shipment_date": "2024-03-31",
+    "reason": "The exact non-LR related-product suggestion has ended production. Its price is not applied to the LR part."
+  },
+  "normal_load_calculation": {
+    "input_V": 12,
+    "output_V": 5,
+    "frequency_Hz_typical": 1100000.0,
+    "inductance_H_nominal": 4.7e-06,
+    "model": "Ideal continuous conduction buck; reference-temperature copper loss only. The 0.5A case adds planning headroom for logic to the approximate0.4A output regime; it is not a final verified total-current bound.",
+    "scenarios": [
+      {
+        "load_current_A": 0.4,
+        "inductor_ripple_peak_to_peak_A": 0.5641521598968406,
+        "inductor_peak_A": 0.6820760799484203,
+        "inductor_RMS_A": 0.43188228136807055,
+        "TDK_copper_loss_at_max_DCR_reference_temperature_W": 0.027456083290066255,
+        "Wurth_copper_loss_at_max_DCR_20C_W": 0.01958484202076737,
+        "extra_reference_temperature_copper_loss_W": 0.007871241269298886
+      },
+      {
+        "load_current_A": 0.5,
+        "inductor_ripple_peak_to_peak_A": 0.5641521598968406,
+        "inductor_peak_A": 0.7820760799484203,
+        "inductor_RMS_A": 0.5258538817577457,
+        "TDK_copper_loss_at_max_DCR_reference_temperature_W": 0.04070408329006625,
+        "Wurth_copper_loss_at_max_DCR_20C_W": 0.029034842020767365,
+        "extra_reference_temperature_copper_loss_W": 0.011669241269298886
+      }
+    ],
+    "excluded": "Frequency tolerance/FSS corners, core loss, DCR temperature rise, inductance bias, efficiency, startup/transients and hot-short waveform."
+  },
+  "fault_qualification": {
+    "status": "OPEN",
+    "buck_HS_current_limit_min_typ_max_A": [
+      2.5,
+      2.8,
+      3.1
+    ],
+    "finding": "Typical TDK Isat3.5A is above buck3.1A maximum, but a typical number is not a guaranteed minimum over temperature and lot. The paper review does not prove no significant saturation during upstream short/startup.",
+    "protection_scope": "The downstream TPS2552-1 LED latch does not bound a fault on the unswitched buck rail. AP63205 cycle current limiting and hiccup reduce fault energy but do not independently validate this inductor and PCB.",
+    "close_with": "Final power-loop/land-pattern review, startup and upstream/downstream short measurements at the selected input/ambient extremes, with current waveform and inductor/regulator temperature. Retain Wurth fallback if margin is inadequate."
+  },
+  "layout_qualification": {
+    "status": "OPEN",
+    "height_result": "2.0mm max body preserves the existing body-height target; solder height and placement clearance still apply.",
+    "footprint_result": "Use the exact TDK recommended land pattern. Similar body size does not establish compatibility with the original Wurth footprint; the native layout has not been generated or compared.",
+    "assembly_process_note": "TDK specifies no cleaning agents; the final PCBA process must comply."
+  },
+  "cost_comparison_usd_per_module": [
+    {
+      "planned_modules": 1,
+      "fresh_A4_baseline": 10.9847,
+      "A4_1_with_TDK": 9.6312,
+      "savings": 1.3535
+    },
+    {
+      "planned_modules": 10,
+      "fresh_A4_baseline": 9.82,
+      "A4_1_with_TDK": 8.6171,
+      "savings": 1.2029
+    },
+    {
+      "planned_modules": 100,
+      "fresh_A4_baseline": 7.5283,
+      "A4_1_with_TDK": 6.4997,
+      "savings": 1.0286
+    }
+  ],
+  "cost_scope": "Fitted components at displayed tiers only. Excludes attrition, MOQ/pre-purchase minimums, PCB, assembly/setup/extra processing, harness, enclosure, freight and taxes.",
+  "sources": [
+    {
+      "id": "TDK-ACTIVE",
+      "url": "https://product.tdk.com/en/search/inductor/inductor/smd/info?part_no=SPM4020T-4R7M-LR",
+      "tool_refs": [
+        "turn21view0",
+        "turn22view0"
+      ],
+      "supports": "Production status; dimensions and typical electrical parameters."
+    },
+    {
+      "id": "TDK-DATASHEET",
+      "url": "https://product.tdk.com/ja/system/files/dam/doc/product/inductor/inductor/smd/catalog/inductor_commercial_power_spm4020-lr_ja.pdf",
+      "revision_date": "2026-04-23",
+      "tool_refs": [
+        "turn21view2",
+        "turn26view0"
+      ],
+      "supports": "4.7 uH ±20%; max DCR147.2mOhm; Isat3.5A typical at30% drop; Itemp2.5A typical at40C rise; height2mm max; recommended land pattern."
+    },
+    {
+      "id": "TDK-OBSOLETE",
+      "url": "https://product.tdk.com/en/search/inductor/inductor/smd/info?part_no=SPM4020T-4R7M",
+      "tool_refs": [
+        "turn21view1",
+        "turn22view1"
+      ],
+      "supports": "Old non-LR part obsolete; last shipment2024-03-31; LR recommended without guaranteed interchangeability."
+    },
+    {
+      "id": "JLC-LIVE",
+      "url": "https://jlcpcb.com/partdetail/C694586",
+      "observer": "Parent task /root, rendered public browser DOM",
+      "observed_utc": "2026-11-06T02:37:37.160Z",
+      "supports": "Exact MPN and C-code, assembly/library classification, fresh stock/Available Order Qty and USD price tiers."
+    },
+    {
+      "id": "LCSC-ID",
+      "url": "https://www.lcsc.com/product-detail/power-inductors_tdk-spm4020t-4r7m-lr_C694586.html",
+      "tool_refs": [
+        "turn20search0"
+      ],
+      "supports": "Independent distributor identity mapping only; its inventory is not used as JLC PCBA inventory."
+    },
+    {
+      "id": "DIODES-BUCK",
+      "url": "https://www.diodes.com/assets/Datasheets/AP63200-AP63201-AP63203-AP63205.pdf",
+      "revision": "DS41326 Rev3-2, November2024",
+      "tool_refs": [
+        "turn27view1",
+        "turn28view1"
+      ],
+      "supports": "AP63205 recommends4.7uH; 1100kHz typical; ±6% FSS; 2.5/2.8/3.1A min/typ/max HS peak limit; cycle protection and hiccup; DCR<100mOhm for highest efficiency is a recommendation."
+    },
+    {
+      "id": "WURTH-BASELINE",
+      "url": "https://www.we-online.com/components/products/datasheet/74437324047.pdf",
+      "revision": "003.000, 2024-12-27",
+      "tool_refs": [
+        "turn25view0",
+        "turn26view1"
+      ],
+      "supports": "Original 4.7uH±20%,2mm max body,95mOhm typical/105mOhm maximum DCR,5.4A typical30% saturation and recommended land pattern."
+    }
+  ]
+}

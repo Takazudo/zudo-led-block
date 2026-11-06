@@ -1,0 +1,196 @@
+{
+  "panel": {
+    "height": 128.5,
+    "thickness": 2.0,
+    "mount_slot_width": 3.2,
+    "material_candidate": "2mm clear PMMA acrylic; request cast Clear000 stock, confirm with fabricator",
+    "outer_corner_radius": 0.5
+  },
+  "variants": {
+    "2hp": {
+      "width": 9.8,
+      "slot_length": 4.6,
+      "mounts": [
+        [
+          4.9,
+          3.0
+        ],
+        [
+          4.9,
+          125.5
+        ]
+      ],
+      "source_A2_mounts": [
+        [
+          3.505,
+          3
+        ],
+        [
+          6.295,
+          125.5
+        ]
+      ],
+      "source_A2_slot_length": 5.2
+    },
+    "3hp": {
+      "width": 14.9,
+      "slot_length": 4.6,
+      "mounts": [
+        [
+          7.45,
+          3.0
+        ],
+        [
+          7.45,
+          125.5
+        ]
+      ],
+      "source_A2_mounts": [
+        [
+          6.045,
+          3
+        ],
+        [
+          8.855,
+          125.5
+        ]
+      ],
+      "source_A2_slot_length": 10.28
+    }
+  },
+  "controls": {
+    "switch_y": 74.0,
+    "switch_body_xyz": [
+      6.86,
+      12.7,
+      8.89
+    ],
+    "switch_hole": 6.5,
+    "switch_thread_length": 8.89,
+    "switch_lever_length": 10.41,
+    "switch_source": "https://www.lcsc.com/datasheet/lcsc_datasheet_2304140030_Dailywell-1MS3T1B1M2QES-5_C908270.pdf",
+    "switch_note": "Dailywell B1 uses a nominal 6.35 mm, 1/4-40 bushing and a keyed panel profile. A4 plain 6.50 mm finished hole is a design clearance choice. The small acrylic key tab is omitted; rear PETG cradle body anti-rotation is required. Standard nut: 7.92 mm AF, 9.19 mm AC, thickness 1.57 mm. Oversized 10.80 mm lockwasher and 11.99 mm locking ring are omitted for 2HP. Nut contact, thread engagement and carrier integration remain pending.",
+    "jack_y": [
+      90.0,
+      104.0
+    ],
+    "jack_width": 6.1,
+    "jack_hole": 6.2,
+    "jack_source": "https://jlcpcb.com/partdetail/XKBConnection-PJ_3582B/C500090",
+    "switch_part": "Dailywell 1MS3T1B1M2QES-5, LCSC C908270",
+    "switch_aperture_shape": "plain_round",
+    "jack_part": "XKB PJ-3582-B, LCSC C500090",
+    "jack_front_retention": "Unthreaded nominal 6 mm barrel; no front nut or washer. A rear cradle must positively capture the body against insertion and withdrawal.",
+    "jack_body_y": 10.0,
+    "jack_body_depth": 12.0,
+    "jack_barrel_length": 3.0,
+    "stock_selection_note": "Stock was checked by the parent/mechanical research agent; availability is not guaranteed. These are front interfaces only; the A3 assembly has not been regenerated."
+  },
+  "carrier": {
+    "front_screws_y": [
+      20.5,
+      60.8
+    ],
+    "note": "Front hole locations retained. Rear PETG carrier integration must be redesigned for selected parts; no A4 rear assembly claim."
+  },
+  "pcb": {
+    "top_mount_y": 65,
+    "note": "Front support hole retained. Lower PCB and selected-part axial stack require integration; the A3 PCB depth is not assumed."
+  },
+  "front_washers": {
+    "m2": {
+      "od": 4.0,
+      "id": 2.2,
+      "thickness": 0.3
+    },
+    "jack": {
+      "od": 6.0,
+      "id": 3.5,
+      "thickness": 0.0,
+      "render_kind": "barrel_only",
+      "note": "No jack washer or nut. OD6 is an unthreaded barrel appearance marker."
+    },
+    "toggle": {
+      "across_flats": 7.92,
+      "across_corners": 9.19,
+      "od": 9.19,
+      "id": 6.35,
+      "thickness": 1.57,
+      "render_kind": "hex_nut",
+      "note": "Dailywell standard MNU-1M01A nut. Front appearance uses the 9.19 mm corner envelope; exact face shape is schematic."
+    },
+    "rack": {
+      "od": 6.0,
+      "id": 3.2,
+      "thickness": 0.5
+    },
+    "note": "Flat smooth load-spreading washer envelopes; exact stock/material and thread engagement require parts review. No serrated/conical washer contact with PMMA."
+  },
+  "revision": "A4-FULL-REAR-FROST-SELECTED-INTERFACES",
+  "source_revision": "A3-PMMA-FRONT",
+  "units": "mm",
+  "status": "SELECTED_COMPONENT_FRONT_INTERFACE_PROPOSAL_CARRIER_INTEGRATION_PENDING",
+  "date": "2026-11-06",
+  "date_timezone": "Asia/Tokyo",
+  "engraving": {
+    "finish": "Frost the full visible rear surface, leave letter strokes and mode icons clear. Front stays smooth/glossy.",
+    "clear_outer_border_mm": 0.0,
+    "fixed_seat_inset_from_washer_radius_mm": 0.15,
+    "rack_seat_inset_from_washer_radius_mm": 0.05,
+    "rack_nominal_center_travel_mm": 0.7,
+    "mask_boolean_thickness_mm": 0.02,
+    "mask_boolean_thickness_note": "Computational aid only, NOT an engraving depth.",
+    "curve_sampling_deflection_mm": 0.001,
+    "labels": [
+      {
+        "text": "MODE",
+        "y": 80.6,
+        "cap_height": 1.6,
+        "x_offset": 0.0
+      },
+      {
+        "text": "IN",
+        "y": 84.0,
+        "cap_height": 1.8,
+        "x_offset": 0.0
+      },
+      {
+        "text": "OUT",
+        "y": 97.0,
+        "cap_height": 1.8,
+        "x_offset": 0.0
+      },
+      {
+        "text": "ON",
+        "y": 113.0,
+        "cap_height": 1.6,
+        "x_offset": 0.9
+      },
+      {
+        "text": "PGM",
+        "y": 116.0,
+        "cap_height": 1.6,
+        "x_offset": 0.9
+      },
+      {
+        "text": "CV",
+        "y": 119.0,
+        "cap_height": 1.6,
+        "x_offset": 0.9
+      }
+    ],
+    "production_mirror": "x_rear=W-x_front; keep TOP at TOP. Files are already mirrored. Do not mirror or invert again.",
+    "material": "Clear cast PMMA requested; supplier must confirm stock and nominal2mm thickness. Pre-matte P422 cannot produce untouched clear letters merely by skipping engraving.",
+    "mechanical_pending": "Primary cut adopts the selected Dailywell plain 6.50 mm hole and XKB 6.20 mm jack holes. Carrier anti-rotation, jack capture and stack integration remain pending. No whole-module CAD release.",
+    "toggle_seat_diameter_mm": 7.7,
+    "exclude_jack_seats": false
+  },
+  "limitations": [
+    "A3 and earlier folders remain unchanged. The prior A4 mask on A3 holes is saved in comparison_A3_holes.",
+    "No whole-module CAD is regenerated. The new toggle and jacks require carrier and PCB-stack integration.",
+    "The 6.50 mm toggle hole is a design clearance choice; the manufacturer key tab is omitted in favor of rear body anti-rotation.",
+    "No engraving depth, laser settings, haze percentage or guaranteed contrast is assigned.",
+    "No jack seating exclusions remain because the unthreaded jacks have no broad front washers.",
+    "Full visible frosting does not establish uniform front illumination."
+  ]
+}

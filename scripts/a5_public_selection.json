@@ -1,0 +1,32 @@
+{
+  "schema_version": 1,
+  "comment": "Human-reviewed list of A5 files copied into doc/public/a5/ at build time by scripts/a5_site.py sync-assets. Every entry is copied byte-for-byte from engineering/a5/ and must match provenance/seed-manifest.json. Nothing outside this list is published. Edit this file (not doc/public/) to change the public set.",
+  "max_file_bytes": 26214400,
+  "max_site_files": 20000,
+  "files": [
+    {"path": "deliverables/light_block_A5_engineering_update.pdf", "kind": "download", "group": "documents", "title_ja": "A5 技術更新レポート (PDF)", "note_ja": "A5 チェックポイント時点の実装・検証範囲・制約。製造リリース文書ではありません。"},
+    {"path": "deliverables/light_block_A5_parts.xlsx", "kind": "download", "group": "documents", "title_ja": "A5 部品表ワークブック (XLSX)", "note_ja": "2026-11-06 観測の価格帯・在庫で計算した比較表。在庫予約ではありません。"},
+    {"path": "mechanical/exports/2hp/light_block_A5_2hp_assembled.step", "kind": "download", "group": "mechanical", "title_ja": "2HP 組立検討モデル (STEP)", "note_ja": "干渉確認用の検討モデル。保存済みの配線経路は最終配線として不採用。装着適合は未確認。"},
+    {"path": "mechanical/exports/3hp/light_block_A5_3hp_assembled.step", "kind": "download", "group": "mechanical", "title_ja": "3HP 組立検討モデル (STEP)", "note_ja": "2HP と同じ電子回路。装着適合・配線は未確定。"},
+    {"path": "front_panel/exports/front_A4_2hp_2mm.step", "kind": "download", "group": "front", "title_ja": "前面 2HP 2 mm PMMA (STEP)", "note_ja": "A4 の前面意匠を A5 でも維持。"},
+    {"path": "front_panel/exports/front_A4_3hp_2mm.step", "kind": "download", "group": "front", "title_ja": "前面 3HP 2 mm PMMA (STEP)", "note_ja": "A4 の前面意匠を A5 でも維持。"},
+    {"path": "front_panel/exports/front_A4_2hp_CUT.dxf", "kind": "download", "group": "front", "title_ja": "前面 2HP 外形・穴 (DXF)", "note_ja": "切断データ。"},
+    {"path": "front_panel/exports/front_A4_3hp_CUT.dxf", "kind": "download", "group": "front", "title_ja": "前面 3HP 外形・穴 (DXF)", "note_ja": "切断データ。"},
+    {"path": "front_panel/exports/rear_A4_2hp_REAR_FULL_FROST_CLEAR_LETTERS.dxf", "kind": "download", "group": "front", "title_ja": "裏面彫刻 2HP (DXF, 鏡像済み)", "note_ja": "既に鏡像化済み。再ミラーしないこと。"},
+    {"path": "front_panel/exports/rear_A4_3hp_REAR_FULL_FROST_CLEAR_LETTERS.dxf", "kind": "download", "group": "front", "title_ja": "裏面彫刻 3HP (DXF, 鏡像済み)", "note_ja": "既に鏡像化済み。再ミラーしないこと。"},
+    {"path": "front_panel/exports/rear_A4_2hp_REAR_FULL_FROST_CLEAR_LETTERS.svg", "kind": "download", "group": "front", "title_ja": "裏面彫刻 2HP (SVG, 鏡像済み)", "note_ja": "既に鏡像化済み。"},
+    {"path": "front_panel/exports/rear_A4_3hp_REAR_FULL_FROST_CLEAR_LETTERS.svg", "kind": "download", "group": "front", "title_ja": "裏面彫刻 3HP (SVG, 鏡像済み)", "note_ja": "既に鏡像化済み。"},
+    {"path": "mechanical/exports/2hp/light_block_A5_2hp_assembled.png", "kind": "image", "group": "mechanical", "title_ja": "2HP 組立検討モデル"},
+    {"path": "mechanical/exports/2hp/light_block_A5_2hp_exploded.png", "kind": "image", "group": "mechanical", "title_ja": "2HP 分解表示"},
+    {"path": "mechanical/exports/3hp/light_block_A5_3hp_assembled.png", "kind": "image", "group": "mechanical", "title_ja": "3HP 組立検討モデル"},
+    {"path": "mechanical/exports/3hp/light_block_A5_3hp_exploded.png", "kind": "image", "group": "mechanical", "title_ja": "3HP 分解表示"},
+    {"path": "electronics/reports/controller_pcb_review.png", "kind": "image", "group": "electronics", "title_ja": "制御基板 (未配線) レビュー画像"},
+    {"path": "electronics/reports/led_leaf_pcb_review.png", "kind": "image", "group": "electronics", "title_ja": "LED 基板レビュー画像"},
+    {"path": "electronics/reports/power_adapter_pcb_review.png", "kind": "image", "group": "electronics", "title_ja": "電源変換基板レビュー画像"},
+    {"path": "deliverables/light_block_A4_front_preview.png", "kind": "image", "group": "front", "title_ja": "前面アートワーク (A4 意匠) プレビュー"},
+    {"path": "front_panel/exports/appearance_A4_front_2hp.png", "kind": "image", "group": "front", "title_ja": "2HP 前面の見え方"},
+    {"path": "front_panel/exports/appearance_A4_front_3hp.png", "kind": "image", "group": "front", "title_ja": "3HP 前面の見え方"},
+    {"path": "front_panel/exports/appearance_A4_rear_2hp.png", "kind": "image", "group": "front", "title_ja": "2HP 裏面 (彫刻領域)"},
+    {"path": "front_panel/exports/appearance_A4_rear_3hp.png", "kind": "image", "group": "front", "title_ja": "3HP 裏面 (彫刻領域)"}
+  ]
+}

@@ -1,0 +1,483 @@
+{
+  "official_sources": [
+    "https://www.kicad.org/download/details/ubuntu/",
+    "https://ppa.launchpadcontent.net/kicad/kicad-10.0-releases/ubuntu/",
+    "https://archive.ubuntu.com/ubuntu/"
+  ],
+  "method": "Official binary packages extracted to user workspace; no package installation, system privilege change, or apt sandbox disabling",
+  "kicad_version_result": "",
+  "kicad_exit": 127,
+  "missing_packages": [],
+  "downloaded_packages": [
+    {
+      "Package": "kicad",
+      "Version": "10.0.8~ubuntu24.04.1",
+      "Filename": "pool/main/k/kicad/kicad_10.0.8~ubuntu24.04.1_amd64.deb",
+      "SHA256": "38721bf8c584e9191e4f2738a4a7204f0062e4cc2c47e17c7614384d55b87e48"
+    },
+    {
+      "Package": "gcc-arm-none-eabi",
+      "Version": "15:13.2.rel1-2",
+      "Filename": "pool/universe/g/gcc-arm-none-eabi/gcc-arm-none-eabi_13.2.rel1-2_amd64.deb",
+      "SHA256": "519a5d0e5292a4b4861f69ae96e8918149bfd1646072ca53451ccfb8c5a91948"
+    },
+    {
+      "Package": "binutils-arm-none-eabi",
+      "Version": "2.42-1ubuntu1+23",
+      "Filename": "pool/universe/b/binutils-arm-none-eabi/binutils-arm-none-eabi_2.42-1ubuntu1+23_amd64.deb",
+      "SHA256": "2aab2d6a7e4c21ce33462f8b52b972e2a8e4597e79b5add5502e2d1f3e543472"
+    },
+    {
+      "Package": "libgit2-1.7",
+      "Version": "1.7.2+ds-1ubuntu3",
+      "Filename": "pool/main/libg/libgit2/libgit2-1.7_1.7.2+ds-1ubuntu3_amd64.deb",
+      "SHA256": "58147f4f56174bb22772b12f7df2ebcbd614597965de9d0557916cd772dbef1b"
+    },
+    {
+      "Package": "libhttp-parser2.9",
+      "Version": "2.9.4-6build1",
+      "Filename": "pool/main/h/http-parser/libhttp-parser2.9_2.9.4-6build1_amd64.deb",
+      "SHA256": "e2e970c931277795609d6163f94cba38cd30945f1035195a00b934bb042e90aa"
+    },
+    {
+      "Package": "libnng1",
+      "Version": "1.7.2-1build2",
+      "Filename": "pool/universe/n/nng/libnng1_1.7.2-1build2_amd64.deb",
+      "SHA256": "92b7f377f7874bec3b9c8eae9be1ae37baa5616a58438462cb18b7af3a9baee6"
+    },
+    {
+      "Package": "libmbedtls14t64",
+      "Version": "2.28.8-1",
+      "Filename": "pool/universe/m/mbedtls/libmbedtls14t64_2.28.8-1_amd64.deb",
+      "SHA256": "64a732580a3b58ddc574a819505cf0e2de150da3d2fbf37b7e60e305de7b50bd"
+    },
+    {
+      "Package": "libmbedx509-1t64",
+      "Version": "2.28.8-1",
+      "Filename": "pool/universe/m/mbedtls/libmbedx509-1t64_2.28.8-1_amd64.deb",
+      "SHA256": "12362c7ac8693dadbb9e0aa1e0a5a5eaba1d5d47034c1624725e82c2a486813e"
+    },
+    {
+      "Package": "libocct-data-exchange-7.6t64",
+      "Version": "7.6.3+dfsg1-7.1build1",
+      "Filename": "pool/universe/o/opencascade/libocct-data-exchange-7.6t64_7.6.3+dfsg1-7.1build1_amd64.deb",
+      "SHA256": "21c17adb272fcc7add7b8bdc39e62f23374f0c8e382b9a1087363ebdb40c534c"
+    },
+    {
+      "Package": "libocct-foundation-7.6t64",
+      "Version": "7.6.3+dfsg1-7.1build1",
+      "Filename": "pool/universe/o/opencascade/libocct-foundation-7.6t64_7.6.3+dfsg1-7.1build1_amd64.deb",
+      "SHA256": "46312fb4f4fb40212062f52133862f2e6735a327c2c9f2f3713ac73e7dbfeb95"
+    },
+    {
+      "Package": "libtbb12",
+      "Version": "2021.11.0-2ubuntu2",
+      "Filename": "pool/universe/o/onetbb/libtbb12_2021.11.0-2ubuntu2_amd64.deb",
+      "SHA256": "78e2c79f5749fc5c55b32f9745e07d5c3480be574fd4d64bb0325cbec4206b06"
+    },
+    {
+      "Package": "libtbbmalloc2",
+      "Version": "2021.11.0-2ubuntu2",
+      "Filename": "pool/universe/o/onetbb/libtbbmalloc2_2021.11.0-2ubuntu2_amd64.deb",
+      "SHA256": "3de9b639d4abe5d8f0e0adbb7e26e32bf9de9473b19155d76a3a24c88b62cfea"
+    },
+    {
+      "Package": "libtbbbind-2-5",
+      "Version": "2021.11.0-2ubuntu2",
+      "Filename": "pool/universe/o/onetbb/libtbbbind-2-5_2021.11.0-2ubuntu2_amd64.deb",
+      "SHA256": "09c4fa1f12983554b345c9c4d462c8cf14d707c3406a4bb35f81522edd492562"
+    },
+    {
+      "Package": "libhwloc15",
+      "Version": "2.10.0-1build1",
+      "Filename": "pool/universe/h/hwloc/libhwloc15_2.10.0-1build1_amd64.deb",
+      "SHA256": "45acb4e6676f968d0f32ff1c5115cad0b61165931afa1a59282bda6f00d13c3b"
+    },
+    {
+      "Package": "libocct-modeling-algorithms-7.6t64",
+      "Version": "7.6.3+dfsg1-7.1build1",
+      "Filename": "pool/universe/o/opencascade/libocct-modeling-algorithms-7.6t64_7.6.3+dfsg1-7.1build1_amd64.deb",
+      "SHA256": "81e62a1d403e88dbd3ec169f25d92f5d3aca150757930d1912820c6cbf047dae"
+    },
+    {
+      "Package": "libocct-modeling-data-7.6t64",
+      "Version": "7.6.3+dfsg1-7.1build1",
+      "Filename": "pool/universe/o/opencascade/libocct-modeling-data-7.6t64_7.6.3+dfsg1-7.1build1_amd64.deb",
+      "SHA256": "700e7b8fd6d362282c9f096d0059c3d25cc7c105b7e069b959c779754024bc90"
+    },
+    {
+      "Package": "libocct-ocaf-7.6t64",
+      "Version": "7.6.3+dfsg1-7.1build1",
+      "Filename": "pool/universe/o/opencascade/libocct-ocaf-7.6t64_7.6.3+dfsg1-7.1build1_amd64.deb",
+      "SHA256": "251fa15cb8bebfc761460bb49779ca04d8c402057a3bae7e5499d91a4113c1fa"
+    },
+    {
+      "Package": "libocct-visualization-7.6t64",
+      "Version": "7.6.3+dfsg1-7.1build1",
+      "Filename": "pool/universe/o/opencascade/libocct-visualization-7.6t64_7.6.3+dfsg1-7.1build1_amd64.deb",
+      "SHA256": "a36721dbed06ca720877579f5ec2915492caca4c4db0976a7cd487a7f6cb19c5"
+    },
+    {
+      "Package": "libfreeimage3",
+      "Version": "3.18.0+ds2-10build4",
+      "Filename": "pool/universe/f/freeimage/libfreeimage3_3.18.0+ds2-10build4_amd64.deb",
+      "SHA256": "c33fcf63a027ac6acca76d2e3ba969d0d9540a7a600cdd47e570026194339d44"
+    },
+    {
+      "Package": "libimath-3-1-29t64",
+      "Version": "3.1.9-3.1ubuntu2",
+      "Filename": "pool/universe/i/imath/libimath-3-1-29t64_3.1.9-3.1ubuntu2_amd64.deb",
+      "SHA256": "7b62292db74bab20ccea4db0039b5c7e720aec36aeed4a405d8da4c2c60b29c8"
+    },
+    {
+      "Package": "libopenexr-3-1-30",
+      "Version": "3.1.5-5.1build3",
+      "Filename": "pool/universe/o/openexr/libopenexr-3-1-30_3.1.5-5.1build3_amd64.deb",
+      "SHA256": "646d78a860e71d02414df08644f70125e670fb90e8f5d834a7cefd732a9eadfe"
+    },
+    {
+      "Package": "libocct-draw-7.6t64",
+      "Version": "7.6.3+dfsg1-7.1build1",
+      "Filename": "pool/universe/o/opencascade/libocct-draw-7.6t64_7.6.3+dfsg1-7.1build1_amd64.deb",
+      "SHA256": "f2d66e29b275b98daec38120fc3402c55f477c123964cb8ff5b3b2ef6dfdd2bc"
+    },
+    {
+      "Package": "libtcl8.6",
+      "Version": "8.6.14+dfsg-1build1",
+      "Filename": "pool/main/t/tcl8.6/libtcl8.6_8.6.14+dfsg-1build1_amd64.deb",
+      "SHA256": "7534eb825f6317514d747ce53b4d6c23bf24df1dc1785f9599610ece5515e685"
+    },
+    {
+      "Package": "libtk8.6",
+      "Version": "8.6.14-1build1",
+      "Filename": "pool/main/t/tk8.6/libtk8.6_8.6.14-1build1_amd64.deb",
+      "SHA256": "c5edb6c79c91a9f4c25cf0ad68c3341467a6604cb97789b2ac36c6d3de352725"
+    },
+    {
+      "Package": "libxft2",
+      "Version": "2.3.6-1build1",
+      "Filename": "pool/main/x/xft/libxft2_2.3.6-1build1_amd64.deb",
+      "SHA256": "b4f4f3255c0b8773b260c61cbe20ee7c63799cfc0e4e389fa58375dd480b093a"
+    },
+    {
+      "Package": "occt-misc",
+      "Version": "7.6.3+dfsg1-7.1build1",
+      "Filename": "pool/universe/o/opencascade/occt-misc_7.6.3+dfsg1-7.1build1_all.deb",
+      "SHA256": "ccaf2c68b318c262c956379b86f2dc1cec73f9bdd64cc711003fb22fdd32e62f"
+    },
+    {
+      "Package": "libodbc2",
+      "Version": "2.3.12-1build2",
+      "Filename": "pool/main/u/unixodbc/libodbc2_2.3.12-1build2_amd64.deb",
+      "SHA256": "5c68b96e3848dd09d3cbca5a86854533b8439c9d020eb145f8089599ac144738"
+    },
+    {
+      "Package": "libprotobuf32t64",
+      "Version": "3.21.12-8.2build1",
+      "Filename": "pool/main/p/protobuf/libprotobuf32t64_3.21.12-8.2build1_amd64.deb",
+      "SHA256": "2e6875c5467e4d4e823886c91caccfa972ad7b4166531a3a48ebf0561850391a"
+    },
+    {
+      "Package": "libpython3.12t64",
+      "Version": "3.12.3-1",
+      "Filename": "pool/main/p/python3.12/libpython3.12t64_3.12.3-1_amd64.deb",
+      "SHA256": "31df8af8521fb3fdf198d7507765d4ebf435c7165a50013b39d2761fd6c0d98c"
+    },
+    {
+      "Package": "libpython3.12-stdlib",
+      "Version": "3.12.3-1",
+      "Filename": "pool/main/p/python3.12/libpython3.12-stdlib_3.12.3-1_amd64.deb",
+      "SHA256": "d5428fb7fc16f2b930d6df489bdb69a94f72adb7ed21541c9e76f2d5c2a444e1"
+    },
+    {
+      "Package": "libpython3.12-minimal",
+      "Version": "3.12.3-1",
+      "Filename": "pool/main/p/python3.12/libpython3.12-minimal_3.12.3-1_amd64.deb",
+      "SHA256": "28ddd9458eee6592895865de205ee8bd173fc4107e3efd9be214ecb4dbb2b151"
+    },
+    {
+      "Package": "libsecret-1-0",
+      "Version": "0.21.4-1build3",
+      "Filename": "pool/main/libs/libsecret/libsecret-1-0_0.21.4-1build3_amd64.deb",
+      "SHA256": "7d7263ffc92c33042328f99c93433a846e8d9e549876dab18ba18606e6541ecd"
+    },
+    {
+      "Package": "libsecret-common",
+      "Version": "0.21.4-1build3",
+      "Filename": "pool/main/libs/libsecret/libsecret-common_0.21.4-1build3_all.deb",
+      "SHA256": "41866e9026e451fd25a4cbe887fa56c43219f9f3eda88d1831452ba6d6b8bb5b"
+    },
+    {
+      "Package": "libwxbase3.2-1t64",
+      "Version": "3.2.4+dfsg-4build1",
+      "Filename": "pool/universe/w/wxwidgets3.2/libwxbase3.2-1t64_3.2.4+dfsg-4build1_amd64.deb",
+      "SHA256": "8471b3d93c74fa46fe6144ecbb4adfd5743134116dad8457c622ed72e2b99399"
+    },
+    {
+      "Package": "libwxgtk-gl3.2-1t64",
+      "Version": "3.2.4+dfsg-4build1",
+      "Filename": "pool/universe/w/wxwidgets3.2/libwxgtk-gl3.2-1t64_3.2.4+dfsg-4build1_amd64.deb",
+      "SHA256": "4d0f9bc9e361d26f53aaa51ff222aa77606fb7a63dc49732aca6065ddb049c3f"
+    },
+    {
+      "Package": "libwxgtk3.2-1t64",
+      "Version": "3.2.4+dfsg-4build1",
+      "Filename": "pool/universe/w/wxwidgets3.2/libwxgtk3.2-1t64_3.2.4+dfsg-4build1_amd64.deb",
+      "SHA256": "2376d3d3bc4c41f5cf10a75492f4e88d5e97b3448504da790d7ce6e6e05487c8"
+    },
+    {
+      "Package": "libnotify4",
+      "Version": "0.8.3-1build2",
+      "Filename": "pool/main/libn/libnotify/libnotify4_0.8.3-1build2_amd64.deb",
+      "SHA256": "4d856e960ac0ec137e9908b6df0fa295e04c175b0be239450de2243be49524df"
+    },
+    {
+      "Package": "libxtst6",
+      "Version": "2:1.2.3-1.1build1",
+      "Filename": "pool/main/libx/libxtst/libxtst6_1.2.3-1.1build1_amd64.deb",
+      "SHA256": "632d74c760f0a4e844c499e7bc1eca4c709aa096fde783a7a6807604aef77545"
+    },
+    {
+      "Package": "libwxgtk-webview3.2-1t64",
+      "Version": "3.2.4+dfsg-4build1",
+      "Filename": "pool/universe/w/wxwidgets3.2/libwxgtk-webview3.2-1t64_3.2.4+dfsg-4build1_amd64.deb",
+      "SHA256": "d9bc437888476d75c14ead4b4c5fe14de8f28cde38f0c80c6d5300c2ecca5456"
+    },
+    {
+      "Package": "libjavascriptcoregtk-4.1-0",
+      "Version": "2.44.0-2",
+      "Filename": "pool/main/w/webkit2gtk/libjavascriptcoregtk-4.1-0_2.44.0-2_amd64.deb",
+      "SHA256": "ec67d8f867af0201bf94fe3b5588f7cc76a05337003a38b4fa449ff606a7987d"
+    },
+    {
+      "Package": "libwebkit2gtk-4.1-0",
+      "Version": "2.44.0-2",
+      "Filename": "pool/main/w/webkit2gtk/libwebkit2gtk-4.1-0_2.44.0-2_amd64.deb",
+      "SHA256": "ee364c13d5f53348941aa9a485d89fa4d8573b55476f750b88ed521d9860a57f"
+    },
+    {
+      "Package": "gstreamer1.0-plugins-base",
+      "Version": "1.24.2-1",
+      "Filename": "pool/main/g/gst-plugins-base1.0/gstreamer1.0-plugins-base_1.24.2-1_amd64.deb",
+      "SHA256": "d69e0d248d072a988581fd9db1af9eddf32c5701df7d84d04b69fd94c9a57a46"
+    },
+    {
+      "Package": "libcdparanoia0",
+      "Version": "3.10.2+debian-14build3",
+      "Filename": "pool/main/c/cdparanoia/libcdparanoia0_3.10.2+debian-14build3_amd64.deb",
+      "SHA256": "b49131a4784d7a4b4f955071d36ea6caff73229c9821977b3f895e8ea16b820a"
+    },
+    {
+      "Package": "libgstreamer-plugins-base1.0-0",
+      "Version": "1.24.2-1",
+      "Filename": "pool/main/g/gst-plugins-base1.0/libgstreamer-plugins-base1.0-0_1.24.2-1_amd64.deb",
+      "SHA256": "e265685c7506306c59982b6289f9088b21084485b1a64d9a26a90a3b6b94cf64"
+    },
+    {
+      "Package": "libgstreamer1.0-0",
+      "Version": "1.24.2-1",
+      "Filename": "pool/main/g/gstreamer1.0/libgstreamer1.0-0_1.24.2-1_amd64.deb",
+      "SHA256": "90252639430f75720aa5d7e1d961053212130b1df6835a2eec54387fc8e12b75"
+    },
+    {
+      "Package": "libdw1t64",
+      "Version": "0.190-1.1build4",
+      "Filename": "pool/main/e/elfutils/libdw1t64_0.190-1.1build4_amd64.deb",
+      "SHA256": "cdf86260db73ae9f61915fdb898d74a74654ff4b84deeac1c9fe9e5ab2ad83c6"
+    },
+    {
+      "Package": "libelf1t64",
+      "Version": "0.190-1.1build4",
+      "Filename": "pool/main/e/elfutils/libelf1t64_0.190-1.1build4_amd64.deb",
+      "SHA256": "b277e52769302778bd052376ac6687b52954b6605dd5f781bff8631e3504d58f"
+    },
+    {
+      "Package": "liborc-0.4-0t64",
+      "Version": "1:0.4.38-1build1",
+      "Filename": "pool/main/o/orc/liborc-0.4-0t64_0.4.38-1build1_amd64.deb",
+      "SHA256": "facde0deeeae78041d4b5ad9cea5d076ce6264a26d1ef927c6befe2d9eb3d6fb"
+    },
+    {
+      "Package": "iso-codes",
+      "Version": "4.16.0-1",
+      "Filename": "pool/main/i/iso-codes/iso-codes_4.16.0-1_all.deb",
+      "SHA256": "cafca0a3a1f07b44fbba53ab7a1f1d9755e6b80cc041173afe2b52e53bed97a7"
+    },
+    {
+      "Package": "libvisual-0.4-0",
+      "Version": "0.4.2-2build1",
+      "Filename": "pool/main/libv/libvisual/libvisual-0.4-0_0.4.2-2build1_amd64.deb",
+      "SHA256": "2d64a0df6994e18d4fa21af12acce6f09db69c437ac972c622c7801fe858419f"
+    },
+    {
+      "Package": "gstreamer1.0-plugins-good",
+      "Version": "1.24.2-1ubuntu1",
+      "Filename": "pool/main/g/gst-plugins-good1.0/gstreamer1.0-plugins-good_1.24.2-1ubuntu1_amd64.deb",
+      "SHA256": "a181570b326418b3ffa136239f86bc6298457a90115f90450d04a2124c2bd485"
+    },
+    {
+      "Package": "libaa1",
+      "Version": "1.4p5-51.1",
+      "Filename": "pool/main/a/aalib/libaa1_1.4p5-51.1_amd64.deb",
+      "SHA256": "2648b362b9338770ba73382575859c38f49c35b5d23bd08a517b5cccfc226f57"
+    },
+    {
+      "Package": "libgpm2",
+      "Version": "1.20.7-11",
+      "Filename": "pool/main/g/gpm/libgpm2_1.20.7-11_amd64.deb",
+      "SHA256": "158b9073bf5177286474dacb87cb60aac9ceb08613fdb5a1e1643ca5d07be7cf"
+    },
+    {
+      "Package": "libncurses6",
+      "Version": "6.4+20240113-1ubuntu2",
+      "Filename": "pool/main/n/ncurses/libncurses6_6.4+20240113-1ubuntu2_amd64.deb",
+      "SHA256": "f2b8efe3a3e2f622c5266d5a1301048306441885d2bbebc02685cb8c2d097537"
+    },
+    {
+      "Package": "libdv4t64",
+      "Version": "1.0.0-17.1build1",
+      "Filename": "pool/main/libd/libdv/libdv4t64_1.0.0-17.1build1_amd64.deb",
+      "SHA256": "7799a45a5e8a2139bb940c5db3f0b85e781a08210bf50ef148b28d8d3240a57c"
+    },
+    {
+      "Package": "libgstreamer-plugins-good1.0-0",
+      "Version": "1.24.2-1ubuntu1",
+      "Filename": "pool/main/g/gst-plugins-good1.0/libgstreamer-plugins-good1.0-0_1.24.2-1ubuntu1_amd64.deb",
+      "SHA256": "2e5c880b88148380365b69ed761c97842308bd55587f5eb673128d8faddb396d"
+    },
+    {
+      "Package": "libshout3",
+      "Version": "2.4.6-1build2",
+      "Filename": "pool/main/libs/libshout/libshout3_2.4.6-1build2_amd64.deb",
+      "SHA256": "b99146a88b414c828285435e10cb39e6ab10b299182b42c85727e2e8ec0eb156"
+    },
+    {
+      "Package": "libtag1v5",
+      "Version": "1.13.1-1build1",
+      "Filename": "pool/main/t/taglib/libtag1v5_1.13.1-1build1_amd64.deb",
+      "SHA256": "dfafc78203c6aa87d852acceca7a2a8fe98c5d3fe961e09692e3578a911ba7e5"
+    },
+    {
+      "Package": "libtag1v5-vanilla",
+      "Version": "1.13.1-1build1",
+      "Filename": "pool/main/t/taglib/libtag1v5-vanilla_1.13.1-1build1_amd64.deb",
+      "SHA256": "36efe5ed6005253c7790f5f572ac7ef52727d4ed8530c9c9a64c5589b5eaf1b2"
+    },
+    {
+      "Package": "libv4l-0t64",
+      "Version": "1.26.1-4build3",
+      "Filename": "pool/main/v/v4l-utils/libv4l-0t64_1.26.1-4build3_amd64.deb",
+      "SHA256": "0cafac8bb1fca1ae042cd11d40e06412a8958e1a6faf268df421f4762989a6d9"
+    },
+    {
+      "Package": "libv4lconvert0t64",
+      "Version": "1.26.1-4build3",
+      "Filename": "pool/main/v/v4l-utils/libv4lconvert0t64_1.26.1-4build3_amd64.deb",
+      "SHA256": "67811cffddbf1e601f5630d733455a26c1cadb6bc28795e5b673be82b55113b4"
+    },
+    {
+      "Package": "libwavpack1",
+      "Version": "5.6.0-1build1",
+      "Filename": "pool/main/w/wavpack/libwavpack1_5.6.0-1build1_amd64.deb",
+      "SHA256": "20b3bf66bdeac236db7255139d8fd2460bca90ddb9155fa30411fb05b6dfd4ec"
+    },
+    {
+      "Package": "libsoup-3.0-0",
+      "Version": "3.4.4-5build2",
+      "Filename": "pool/main/libs/libsoup3/libsoup-3.0-0_3.4.4-5build2_amd64.deb",
+      "SHA256": "6380ee6d82fb06f9d60c53411cc350c38f6613615ecde7d5740eb87b24622d6d"
+    },
+    {
+      "Package": "libsoup-3.0-common",
+      "Version": "3.4.4-5build2",
+      "Filename": "pool/main/libs/libsoup3/libsoup-3.0-common_3.4.4-5build2_all.deb",
+      "SHA256": "c446ff98dd3e13470fcd918c012643af323ff632c684dfd0407ba97a6813ef36"
+    },
+    {
+      "Package": "libgles2",
+      "Version": "1.7.0-1build1",
+      "Filename": "pool/main/libg/libglvnd/libgles2_1.7.0-1build1_amd64.deb",
+      "SHA256": "9dec2d79a2eebb80522f7cce77995f7a8ded22f0e3916f13353d066c62f97fac"
+    },
+    {
+      "Package": "xdg-dbus-proxy",
+      "Version": "0.1.5-1build2",
+      "Filename": "pool/main/x/xdg-dbus-proxy/xdg-dbus-proxy_0.1.5-1build2_amd64.deb",
+      "SHA256": "22ddb9c078743be91c2d064e3f50e0aef52adb492daad6646f861cb2d948fef1"
+    },
+    {
+      "Package": "libgstreamer-gl1.0-0",
+      "Version": "1.24.2-1",
+      "Filename": "pool/main/g/gst-plugins-base1.0/libgstreamer-gl1.0-0_1.24.2-1_amd64.deb",
+      "SHA256": "f63c53c578aff2504da2c81a430047215ed8e73e3a2ca812b1fe84ec48b6b9ff"
+    },
+    {
+      "Package": "libharfbuzz-icu0",
+      "Version": "8.3.0-2build2",
+      "Filename": "pool/main/h/harfbuzz/libharfbuzz-icu0_8.3.0-2build2_amd64.deb",
+      "SHA256": "9098670758e60b190d7edf367ad57e954bfc1b2a616def3f4e281062e036a843"
+    },
+    {
+      "Package": "libhyphen0",
+      "Version": "2.8.8-7build3",
+      "Filename": "pool/main/h/hyphen/libhyphen0_2.8.8-7build3_amd64.deb",
+      "SHA256": "b508d3a5da168ddb2ae6e79ea0521ba64cd121285db0ece438d0bd56ba628556"
+    },
+    {
+      "Package": "libmanette-0.2-0",
+      "Version": "0.2.7-1build2",
+      "Filename": "pool/main/libm/libmanette/libmanette-0.2-0_0.2.7-1build2_amd64.deb",
+      "SHA256": "8fbb67e94abf563c01398ad7458df1a6824f19a0b4337f67d61c0889771805db"
+    },
+    {
+      "Package": "libwayland-server0",
+      "Version": "1.22.0-2.1build1",
+      "Filename": "pool/main/w/wayland/libwayland-server0_1.22.0-2.1build1_amd64.deb",
+      "SHA256": "edbfa4b6857691ae922cc768a753fab230eee9e956aa2ce4f2eaa8d9ad777dca"
+    },
+    {
+      "Package": "libwoff1",
+      "Version": "1.0.2-2build1",
+      "Filename": "pool/main/w/woff2/libwoff1_1.0.2-2build1_amd64.deb",
+      "SHA256": "e23a6287ff611ff60a5a598de21f8f60f6236b6ad9443376318e6cc7914219c1"
+    },
+    {
+      "Package": "libngspice0",
+      "Version": "42+ds-3build1",
+      "Filename": "pool/universe/n/ngspice/libngspice0_42+ds-3build1_amd64.deb",
+      "SHA256": "967d5c0c83ab264f344504fa40d8475b7bc4e80abac4395e43ac04fec1b0de98"
+    },
+    {
+      "Package": "python3-wxgtk4.0",
+      "Version": "4.2.1+dfsg-3build2",
+      "Filename": "pool/universe/w/wxpython4.0/python3-wxgtk4.0_4.2.1+dfsg-3build2_amd64.deb",
+      "SHA256": "5bcb6f59634ce9dfcea164d806301b13b20d7e08d06a07fdeb62e20d4b8cc586"
+    },
+    {
+      "Package": "python3-numpy",
+      "Version": "1:1.26.4+ds-6ubuntu1",
+      "Filename": "pool/main/n/numpy/python3-numpy_1.26.4+ds-6ubuntu1_amd64.deb",
+      "SHA256": "480e35b664e381dc6bb9627b728e138ae13acd3ebb9dffd220fb8806709e69f1"
+    }
+  ],
+  "final_version_check": {
+    "returncode": 0,
+    "stdout": "10.0.8",
+    "stderr": "",
+    "native_python_pcbnew": "10.0.8-10.0.8~ubuntu24.04.1"
+  },
+  "extra_t64_dependency": {
+    "Package": "libssh2-1t64",
+    "Version": "1.11.0-4.1build2",
+    "Filename": "pool/main/libs/libssh2/libssh2-1t64_1.11.0-4.1build2_amd64.deb",
+    "SHA256": "79d66dc67390c4531d28921ee62884e59dc3a32c64b405635d65fbfb65fd4964"
+  },
+  "working_environment": {
+    "LD_LIBRARY_PATH": "<prefix>/usr/lib/x86_64-linux-gnu:<prefix>/usr/lib/kicad",
+    "KICAD_STOCK_DATA_HOME": "<prefix>/usr/share/kicad",
+    "PYTHONPATH": "<prefix>/usr/lib/python3/dist-packages",
+    "python": "/usr/bin/python3 (3.12.3)"
+  },
+  "installation_scope": "Official binary Debian packages extracted into an isolated user-writable workspace. No root package installation or sandbox configuration changes.",
+  "included_toolchain_binaries": false
+}

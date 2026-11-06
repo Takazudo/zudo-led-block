@@ -1,0 +1,73 @@
+{
+  "board": "controller",
+  "schematic_sha256_before": "ba171cb764159ebedcae9491ac06fd824de3e5dc448b10958a82c25e7c4d9d1c",
+  "schematic_sha256_after": "ba171cb764159ebedcae9491ac06fd824de3e5dc448b10958a82c25e7c4d9d1c",
+  "kicad_version": "10.0.8",
+  "operations": [
+    {
+      "args": [
+        "sch",
+        "erc",
+        "--format",
+        "json",
+        "--severity-all",
+        "--exit-code-violations",
+        "-o",
+        "$PROJECT/integration/native_schematic/controller/erc.json",
+        "$PROJECT/electronics/native/controller/controller.kicad_sch"
+      ],
+      "returncode": 0,
+      "stdout": "Found 0 violations\nSaved ERC Report to $PROJECT/integration/native_schematic/controller/erc.json\n",
+      "stderr": ""
+    },
+    {
+      "args": [
+        "sch",
+        "export",
+        "netlist",
+        "--format",
+        "kicadxml",
+        "-o",
+        "$PROJECT/integration/native_schematic/controller/netlist.xml",
+        "$PROJECT/electronics/native/controller/controller.kicad_sch"
+      ],
+      "returncode": 0,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "args": [
+        "sch",
+        "export",
+        "pdf",
+        "-o",
+        "$PROJECT/integration/native_schematic/controller/controller.pdf",
+        "$PROJECT/electronics/native/controller/controller.kicad_sch"
+      ],
+      "returncode": 0,
+      "stdout": "Plotted to '$PROJECT/integration/native_schematic/controller/controller.pdf'.\nDone.\n",
+      "stderr": ""
+    }
+  ],
+  "erc_errors": 0,
+  "erc_warnings": 0,
+  "ignored_checks": [
+    {
+      "description": "Global label only appears once in the schematic",
+      "key": "single_global_label"
+    },
+    {
+      "description": "Four connection points are joined together",
+      "key": "four_way_junction"
+    },
+    {
+      "description": "SPICE model issue",
+      "key": "simulation_model_issue"
+    },
+    {
+      "description": "Assigned footprint doesn't match footprint filters",
+      "key": "footprint_filter"
+    }
+  ],
+  "all_passed": true
+}

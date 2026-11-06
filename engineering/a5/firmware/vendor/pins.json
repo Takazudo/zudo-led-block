@@ -1,0 +1,32 @@
+{
+  "sdk": {
+    "repository": "https://github.com/STMicroelectronics/STM32CubeG0.git",
+    "tag": "v1.6.3",
+    "commit": "878a6fd8ad440c70ee32bc6d7ad526babb6e04f4",
+    "paths_included": ["Drivers/CMSIS/Include", "Drivers/CMSIS/Device/ST/STM32G0xx", "Drivers/STM32G0xx_HAL_Driver"],
+    "vendor_modified": false
+  },
+  "device": {
+    "repository": "https://github.com/STMicroelectronics/cmsis_device_g0.git",
+    "commit": "f576c24e123edf3332988ecd49512c0f35f85186",
+    "license": "Apache-2.0",
+    "license_file": "STM32CubeG0/Drivers/CMSIS/Device/ST/STM32G0xx/LICENSE.md"
+  },
+  "hal": {
+    "repository": "https://github.com/STMicroelectronics/stm32g0xx_hal_driver.git",
+    "commit": "a0cf8a8b96183fdcc2e3b1cf0bcf0825f27bd0c9",
+    "license": "BSD-3-Clause",
+    "license_file": "STM32CubeG0/Drivers/STM32G0xx_HAL_Driver/LICENSE.md"
+  },
+  "cmsis_core": {
+    "repository": "https://github.com/STMicroelectronics/STM32CubeG0.git",
+    "commit": "878a6fd8ad440c70ee32bc6d7ad526babb6e04f4",
+    "license": "Apache-2.0",
+    "license_file": "STM32CubeG0/Drivers/CMSIS/LICENSE.txt"
+  },
+  "runtime": {
+    "component": "libgcc integer arithmetic support",
+    "license": "GPL-3.0-or-later WITH GCC-exception-3.1",
+    "note": "Linked from ARM GCC13.2.1. GPL3 and GCC Runtime Library Exception3.1 copied into dist/licenses with provenance. Debian compiler-package copyright is identified separately; it is not the runtime license. Compiler executables are not included."
+  }
+}

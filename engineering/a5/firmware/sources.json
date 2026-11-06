@@ -1,0 +1,54 @@
+{
+  "retrieved_utc_date": "2026-11-06",
+  "sources": [
+    {
+      "title": "STM32G031x4/x6/x8 datasheet DS12992 Rev4",
+      "date": "2025-06",
+      "url": "https://www.st.com/resource/en/datasheet/stm32g031g8.pdf",
+      "sha256": "0e25cbbf2cd173845545b61b91a9a7011724b4e5bd7b00498176129d48684e99",
+      "used_sections": ["UFQFPN28 pinout and GPIO AF table", "Table6 VREFINT calibration:3.0V,0x1FFF75AA", "Table41 HSI16 spread", "Table43 PLL limits/jitter", "3.7.1 VBAT bonding"]
+    },
+    {
+      "title": "STM32G0x1 reference manual RM0444 Rev6",
+      "date": "2024-12",
+      "url": "https://www.st.com/resource/en/reference_manual/rm0444-stm32g0x1-advanced-armbased-32bit-mcus-stmicroelectronics.pdf",
+      "used_sections": ["5.1.3 RTC domain reset, p157", "RCC_CSR reset causes and RMVF, p211-212", "4.1.2 RTC domain access", "22.3.20 TIM2/TIM3 DMA burst, p660-661", "ADC regular sequencer and sample timing"]
+    },
+    {
+      "title": "Worldsemi WS2812B-2020-V6, actual PDF footer V1.4",
+      "url": "https://www.world-semi.com/downloads/datasheets/en/ws2812b-2020-v6-1.0.pdf",
+      "sha256": "b09737faa695f6acca16612d3da658da6692fbf4366047083dad84809d452bca",
+      "bytes": 1264070,
+      "pages": 10,
+      "pdf_metadata_creation_date": "2026-08-07T10:21:09+09:00",
+      "publication_date": null,
+      "metadata_note": "PDF metadata date is not asserted as a manufacturer publication date. URL filename1.0 differs from actual footerV1.4.",
+      "used_sections": ["page4 timing table", "GRB MSB-first24-bit data and reset interval"],
+      "bounds_ns": {"T0H": [220,380], "T0L": [580,1000], "T1H": [580,1000], "T1L": [220,420], "cell_min":1250},
+      "reset_min_us": 280,
+      "note": "This exact manufacturer table governs the compiled timing. Earlier draft20/40ticks at64MHz does not meet this T1L bound; an exact1.25us nominal cell also has no positive-clock-error margin. The LED purchasing lot still requires waveform validation."
+    },
+    {
+      "title": "Texas Instruments TPS2552-1/TPS2553-1 power-distribution switches",
+      "url": "https://www.ti.com/lit/ds/symlink/tps2552-1.pdf",
+      "used_sections": ["Active-low TPS2552-1 EN and open-drain FAULT", "Latch-off reset by enable/power cycling"],
+      "board_note": "NPN between PA5 and /EN makes firmware enable active high."
+    },
+    {
+      "title": "STM32CubeG0 v1.6.3 pinned official source",
+      "url": "https://github.com/STMicroelectronics/STM32CubeG0/tree/878a6fd8ad440c70ee32bc6d7ad526babb6e04f4",
+      "details": "vendor/pins.json holds exact submodule commits and license paths."
+    }
+  ],
+  "clock_envelope": {
+    "method": "Conservative symmetric3% frequency envelope covers the datasheet HSI factory error plus full temperature and supply drift. PLL multiplication preserves fractional frequency error.",
+    "factory_hsi_min_mhz": 15.88,
+    "factory_hsi_max_mhz": 16.08,
+    "temperature_drift_percent_full_range": [-2,1.5],
+    "supply_drift_percent": [-0.1,0.05],
+    "modeled_frequency_error_percent": [-3,3],
+    "nominal_system_clock_hz": 60000000,
+    "scope": "Calculation only; PLL jitter, GPIO/translator edges, actual DMA arbitration and incoming LED lot remain physical validation."
+  },
+  "hardware_validation_performed": false
+}

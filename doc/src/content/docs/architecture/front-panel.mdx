@@ -1,0 +1,40 @@
+---
+title: "前面アートワーク"
+description: "A4 の前面意匠を維持した 2 mm 透明 PMMA の加工意図。裏面彫刻は鏡像化済み。"
+sidebar_position: 7
+---
+
+A5 は **A4 の前面意匠をそのまま維持** しています。既存の独立監査 (29 ファイル) を引き継ぎ、パッケージ作成時に対象のハッシュを照合しています。
+編集元は `engineering/a5/front_panel/` (`build_front_artwork.py`、`geometry.json`、`exports/`) です。
+
+![前面アートワーク (A4 意匠) のプレビュー](/a5/deliverables/light_block_A4_front_preview.png)
+
+## 加工の意図
+
+| 項目 | 内容 |
+|---|---|
+| 材料 | 透明キャスト PMMA、厚さ 2 mm、高さ 128.5 mm、幅 9.8 mm (2HP) / 14.9 mm (3HP) |
+| 正面 | 平滑のまま |
+| 見える裏面 | 全面フロスト。**文字線とモード記号だけを透明に残す** |
+| 文字の内側 | O / P / D のカウンターもフロスト |
+| 透明の座面 | 締結部品の下に隠れる小さな座面だけ透明 |
+| 彫刻データ | **既に鏡像化済み**。再ミラーしないこと。黒い領域を彫り、文字線を透明に残す |
+
+説明画像は加工する領域を示すもので、光の均一性の予測ではありません。
+
+## 2HP
+
+![2HP 前面の見え方](/a5/front_panel/exports/appearance_A4_front_2hp.png)
+
+![2HP 裏面の彫刻領域](/a5/front_panel/exports/appearance_A4_rear_2hp.png)
+
+## 3HP
+
+![3HP 前面の見え方](/a5/front_panel/exports/appearance_A4_front_3hp.png)
+
+![3HP 裏面の彫刻領域](/a5/front_panel/exports/appearance_A4_rear_3hp.png)
+
+## 製造について
+
+製造リリースはしていません。光学専用の PCB や前面だけの先行発注は行わず、配線・適合・リリースのゲートを通過した後に統合試作で評価します。
+切断用 DXF / SVG と STEP は [ダウンロード](/docs/project/downloads/) にあります。データを変更して再生成した場合は、寸法・位置合わせ・鏡像方向・カウンター・外観を再確認してください。新しいハッシュは幾何学的な同等性を証明しません。

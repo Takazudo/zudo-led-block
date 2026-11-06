@@ -1,0 +1,347 @@
+{
+  "document": "A4 harness supply follow-up",
+  "status": "Read-only procurement follow-up; not a quotation or manufacturing release",
+  "frozen_io_audit_modified": false,
+  "vendor_contact_or_order": false,
+  "observation": {
+    "method": "Fresh anonymous public HTML and refreshed public product pages; no login, private API, vendor contact or purchase",
+    "date_utc": "2026-11-05"
+  },
+  "recommendation": {
+    "lighting": "Retain exact Adafruit 4399; DigiKey 1528-4399-ND provides the verified numeric-stock route",
+    "power": "Retain exact Molex 151340300; use the verified DigiKey offer as the planning source",
+    "jlc_complete_equivalent_harness_verified": false,
+    "jlc_absence_proven": false,
+    "all_selected_cables_have_verified_numeric_stock_for_100_modules_via_DigiKey": true
+  },
+  "power_cable": {
+    "manufacturer": "Molex",
+    "mpn": "151340300",
+    "aliases": [
+      "15134-0300",
+      "0151340300"
+    ],
+    "complete_crimped_double_ended_assembly": true,
+    "quantity_per_module": 1,
+    "quantity_for_100_modules": 100,
+    "length_mm": 50,
+    "length_tolerance_mm": 6,
+    "circuits": 3,
+    "pitch_mm": 1.25,
+    "wire": "28AWG UL1061",
+    "rating_A_per_contact": 1,
+    "housing": "510210300",
+    "pin_map": {
+      "A1": "B3",
+      "A2": "B2",
+      "A3": "B1"
+    },
+    "manufacturer_url": "https://www.molex.com/en-us/products/part-detail/151340300",
+    "manufacturer_web_reference": "turn221view2",
+    "drawing_url": "https://www.molex.com/content/dam/molex/molex-dot-com/products/automated/en-us/salesdrawingpdf/151/15134/151340303_sd.pdf",
+    "drawing_sha256": "a0b07c4776b8e71c9838316658442cb080e0a3f1b0ab0ac0e9bc673ddc3817d5",
+    "authorized_distributor_basis": {
+      "url": "https://www.molex.com/ja-jp/contact-us/molex-japan-distributors",
+      "web_reference": "turn231view0",
+      "finding": "Molex explicitly lists DigiKey as an e-commerce partner in its Japan authorized-distributor page"
+    },
+    "distributor_offers": [
+      {
+        "supplier": "DigiKey",
+        "order_code": "WM15252-ND",
+        "mpn_as_listed": "0151340300",
+        "url": "https://www.digikey.com/en/products/detail/molex/0151340300/6198142",
+        "web_reference": "turn230view0",
+        "observed_utc": "2026-11-05T20:45:47.712906+00:00",
+        "html_sha256": "e57d003e8cd8a06dc106420f92200763afe50b52d8081558392c793a7aabca7a",
+        "capture_method": "Anonymous GET of exact public product page, HTTP200; visible stock/price text",
+        "stock": 17783,
+        "numeric_stock_covers_100": true,
+        "reserved": false,
+        "currency": "USD",
+        "tiers": [
+          {
+            "min_qty": 1,
+            "unit_price": 3.51
+          },
+          {
+            "min_qty": 10,
+            "unit_price": 2.985
+          },
+          {
+            "min_qty": 25,
+            "unit_price": 2.7976
+          },
+          {
+            "min_qty": 50,
+            "unit_price": 2.6638
+          },
+          {
+            "min_qty": 100,
+            "unit_price": 2.5365
+          },
+          {
+            "min_qty": 250,
+            "unit_price": 2.37768
+          },
+          {
+            "min_qty": 500,
+            "unit_price": 2.2642
+          },
+          {
+            "min_qty": 1000,
+            "unit_price": 2.15618
+          },
+          {
+            "min_qty": 2500,
+            "unit_price": 2.02131
+          }
+        ],
+        "total_at_100": 253.65,
+        "excludes": [
+          "Tax",
+          "Shipping",
+          "Any applicable destination-specific charges"
+        ]
+      },
+      {
+        "supplier": "DigiKey Japan",
+        "order_code": "WM15252-ND",
+        "url": "https://www.digikey.jp/en/products/detail/molex/0151340300/6198142",
+        "web_reference": "turn230view1",
+        "observed_date_utc": "2026-11-05",
+        "capture_method": "Refreshed public product page; tool marked crawled today",
+        "stock": 17783,
+        "stock_is_shared_with_US_offer": true,
+        "currency": "JPY",
+        "tax_status": "Before JCT",
+        "unit_price_at_1": 579.0,
+        "unit_price_at_100": 418.1,
+        "total_at_100": 41810.0,
+        "numeric_stock_covers_100": true,
+        "reserved": false
+      },
+      {
+        "supplier": "Farnell Japan",
+        "order_code": "2671454",
+        "mpn_as_listed": "15134-0300",
+        "url": "https://jp.farnell.com/molex/15134-0300/-3-50mm/dp/2671454",
+        "web_reference": "turn222view0",
+        "observed_utc": "2026-11-05T20:45:00.614422+00:00",
+        "html_sha256": "2618c6913c1eaa0902971f424f9ee21c553afb80f16e5b547df1ce01dc2b392a",
+        "capture_method": "Anonymous GET of exact public product page, HTTP200; visible text and JSON-LD inventoryLevel agree",
+        "stock": 5224,
+        "stock_location_as_displayed": "UK",
+        "numeric_stock_covers_100": true,
+        "reserved": false,
+        "currency": "JPY",
+        "tax_status": "Prices below are before tax; page also displays tax-inclusive amounts",
+        "tiers": [
+          {
+            "min_qty": 1,
+            "unit_price": 793.62
+          },
+          {
+            "min_qty": 10,
+            "unit_price": 714.26
+          },
+          {
+            "min_qty": 100,
+            "unit_price": 671.93
+          },
+          {
+            "min_qty": 250,
+            "unit_price": 624.31
+          },
+          {
+            "min_qty": 500,
+            "unit_price": 581.99
+          },
+          {
+            "min_qty": 1000,
+            "unit_price": 560.82
+          }
+        ],
+        "total_at_100": 67193.0
+      }
+    ],
+    "primary_procurement_channel": "DigiKey",
+    "primary_order_code": "WM15252-ND",
+    "primary_unit_price_usd_at_10": 2.985
+  },
+  "lighting_cable": {
+    "part": "Adafruit 4399",
+    "quantity_per_module": 2,
+    "quantity_for_100_modules": 200,
+    "observation_source": "Direct Adafruit offer remains from unchanged frozen audit; new DigiKey exact-part offer below closes numeric-stock gap",
+    "complete_double_ended_assembly": true,
+    "length_mm": 50,
+    "length_tolerance_mm": 5,
+    "pin_map": "1->1, 2->2, 3->3, 4->4; reconcile cavity view with JST native footprint",
+    "DigiKey_offer": {
+      "supplier": "DigiKey",
+      "order_code": "1528-4399-ND",
+      "mpn": "4399",
+      "url": "https://www.digikey.com/en/products/detail/adafruit-industries-llc/4399/10824268",
+      "web_reference": "turn234view0",
+      "observed_utc": "2026-11-05T20:47:54.201245+00:00",
+      "html_sha256": "c3729c7ee07354b9fc14ac491d393586ec38350326c361c230315cdde25b07c8",
+      "capture_method": "Fresh anonymous GET of exact public product page, HTTP200; stock and price visible in HTML",
+      "stock_direct_capture": 12957,
+      "stock_independently_refreshed_web_page": 12963,
+      "stock_discrepancy_note": "Six-unit difference between separate live observations; both exceed 200. Counts are not additive.",
+      "numeric_stock_covers_200": true,
+      "reserved": false,
+      "currency": "USD",
+      "displayed_tiers": [
+        {
+          "min_qty": 1,
+          "unit_price": 0.95
+        }
+      ],
+      "volume_discount_beyond_displayed_tier_assumed": false,
+      "price_arithmetic_200": 190.0,
+      "selection": "Primary procurement channel; unchanged Adafruit 4399 MPN"
+    },
+    "primary_procurement_channel": "DigiKey",
+    "primary_order_code": "1528-4399-ND",
+    "primary_unit_price_usd": 0.95,
+    "primary_price_arithmetic_200_usd": 190.0,
+    "primary_numeric_stock": 12957,
+    "primary_observed_utc": "2026-11-05T20:47:54.201245+00:00",
+    "primary_source_url": "https://www.digikey.com/en/products/detail/adafruit-industries-llc/4399/10824268",
+    "direct_Adafruit_offer": {
+      "url": "https://www.adafruit.com/product/4399",
+      "observed_utc": "2026-11-05T20:34:42.288987+00:00",
+      "stock_display": "In Stock",
+      "direct_Adafruit_numeric_stock": null,
+      "direct_Adafruit_availability_of_200_verified": false,
+      "currency": "USD",
+      "tiers": [
+        {
+          "min_qty": 1,
+          "unit_price": 0.95
+        },
+        {
+          "min_qty": 10,
+          "unit_price": 0.86
+        },
+        {
+          "min_qty": 100,
+          "unit_price": 0.76
+        }
+      ],
+      "price_arithmetic_200": 152.0,
+      "selection": "Optional cheaper channel; numeric 200-cable availability unknown"
+    }
+  },
+  "cable_only_cost_arithmetic": {
+    "currency": "USD",
+    "one_module_2_adafruit_plus_1_digikey_molex": 5.41,
+    "not_a_total_project_quote": true,
+    "exclusions": [
+      "Eurorack ribbon",
+      "Headers",
+      "Tax",
+      "Shipping",
+      "Additional harness items"
+    ],
+    "100_modules_200_adafruit_plus_100_digikey_molex_direct_Adafruit_channel": 405.65,
+    "direct_Adafruit_channel_200_quantity_unverified": true,
+    "all_DigiKey_route_10_modules_20_SH4_plus_10_Molex": 48.85,
+    "all_DigiKey_route_100_modules_200_SH4_plus_100_Molex": 443.65,
+    "all_DigiKey_route_numeric_stock_covers_quantities": true,
+    "stock_reserved": false
+  },
+  "jlc_harness_search": {
+    "exact_power_cable_C_number_verified": null,
+    "exact_50mm_double_ended_SH4_C_number_verified": null,
+    "bounded_search_queries": [
+      "site:jlcpcb.com/partdetail 151340300",
+      "site:jlcpcb.com/partdetail 15134-0300",
+      "site:jlcpcb.com/partdetail 0151340300",
+      "site:jlcpcb.com/partdetail SH1.0-4P",
+      "site:jlcpcb.com/partdetail SH 50mm cable"
+    ],
+    "candidate_pigtail": {
+      "code": "C54529089",
+      "mpn": "SH1.0-4P-1-100(3)-28A-UL1571",
+      "manufacturer": "HanElectricity",
+      "url": "https://jlcpcb.com/partdetail/C54529089",
+      "web_reference": "turn227view0",
+      "observed_utc": "2026-11-05T20:45:16.596871+00:00",
+      "html_sha256": "5be11d79ddb8b43ec351f831e441ed927e26692bde3c05c837f241df63eea9bb",
+      "stock": 150,
+      "available_order_qty": 150,
+      "source": "JLCPCB",
+      "pcba_type": "Economic and Standard",
+      "assembly_ui_label": "Wave Soldering",
+      "currency": "USD",
+      "tiers": [
+        {
+          "min_qty": 1,
+          "max_qty": 49,
+          "unit_price_usd": 0.0826
+        },
+        {
+          "min_qty": 50,
+          "max_qty": 149,
+          "unit_price_usd": 0.0807
+        },
+        {
+          "min_qty": 150,
+          "max_qty": 499,
+          "unit_price_usd": 0.0795
+        },
+        {
+          "min_qty": 500,
+          "max_qty": 509,
+          "unit_price_usd": 0.0784
+        },
+        {
+          "min_qty": 510,
+          "max_qty": 519,
+          "unit_price_usd": 0.0784
+        },
+        {
+          "min_qty": 520,
+          "max_qty": null,
+          "unit_price_usd": 0.0784
+        }
+      ],
+      "complete_double_ended_cable": false,
+      "observed_termination": "Inspected current product photograph shows one four-position crimp housing and four stripped/tinned free ends",
+      "image_evidence_path": "harness_evidence/C54529089_product.jpg",
+      "image_sha256": "593a919677647e9cd10454e737891b9ebaa4bf34903d7e1d36d698a806be5a6d",
+      "dimensioned_datasheet_available_in_capture": false,
+      "nominal_length_implication": "Model name contains 100; actual dimensions and tolerance are not independently qualified",
+      "exact_JST_mating_qualified": false,
+      "maximum_modules_at_two_leads_each_excluding_attrition": 75,
+      "stock_covers_200": false,
+      "potential_use": "Factory-solder bare ends to LED leaf, plug crimped end into controller",
+      "not_selected_because": [
+        "Not double-ended 50 mm harness",
+        "Only 150 observed versus 200 for 100 modules",
+        "Exact mating and wire dimensions unqualified",
+        "Factory soldering labor, strain relief, pin map and routing need engineering acceptance"
+      ],
+      "release_status": "Cost-down option only; frozen four-header/two-cable design retained"
+    },
+    "other_results": [
+      {
+        "code": "C18118584",
+        "mpn": "15134-0505",
+        "url": "https://jlcpcb.com/partdetail/MOLEX-151340505/C18118584",
+        "reason_not_equivalent": "Different circuit-count/length variant; not the exact specified 151340300. No current stock claim taken from the old cached page."
+      },
+      {
+        "category": "SH-family SMT headers and connector housings",
+        "reason_not_equivalent": "These are not populated crimped cable assemblies"
+      }
+    ],
+    "service_limit": "JLC library parts are for assembly and cannot be shipped separately according to product-page notice. A cable listing alone does not prove loose harness delivery or custom interboard assembly.",
+    "factory_wire_service_url": "https://jlcpcb.com/capabilities/pcb-assembly-capabilities",
+    "factory_wire_service_scope": "Library-wire soldering requires engineering review and added labor; no vendor acceptance obtained for the proposed pigtail."
+  },
+  "evidence_policy": "Raw public HTML is scratch evidence, not required in the delivery ZIP. The follow-up JSON contains compact values and hashes."
+}

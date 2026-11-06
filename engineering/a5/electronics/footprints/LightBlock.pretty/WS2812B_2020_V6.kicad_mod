@@ -1,0 +1,107 @@
+(footprint "WS2812B_2020_V6"
+	(version 20260206)
+	(generator "pcbnew")
+	(generator_version "10.0")
+	(layer "F.Cu")
+	(property "Reference" "REF**"
+		(at 0 0 0)
+		(layer "F.Fab")
+		(hide yes)
+		(uuid "e7057785-bc3a-46ae-a65f-52a8da248ae6")
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+		)
+	)
+	(property "Value" "WS2812B_2020_V6"
+		(at 0 0 0)
+		(layer "F.Fab")
+		(hide yes)
+		(uuid "467f1be3-64d4-4b9f-b23d-1b6e2d175de9")
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+		)
+	)
+	(property "Datasheet" ""
+		(at 0 0 0)
+		(layer "F.Fab")
+		(hide yes)
+		(uuid "85e2edbb-025f-4eb6-8421-2f2a0d2a476a")
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+		)
+	)
+	(property "Description" ""
+		(at 0 0 0)
+		(layer "F.Fab")
+		(hide yes)
+		(uuid "d9ee0c16-2865-481c-9d06-c25b5c411363")
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+		)
+	)
+	(attr smd)
+	(duplicate_pad_numbers_are_jumpers no)
+	(fp_rect
+		(start -1.515 -1.325)
+		(end 1.515 1.325)
+		(stroke
+			(width 0.05)
+			(type default)
+		)
+		(fill no)
+		(layer "F.CrtYd")
+		(uuid "d7b48a05-10ee-4628-ba1c-c1ef45ea2e55")
+	)
+	(fp_rect
+		(start -1.175 -1.075)
+		(end 1.175 1.075)
+		(stroke
+			(width 0.1)
+			(type default)
+		)
+		(fill no)
+		(layer "F.Fab")
+		(uuid "f4a9fced-a5b7-4913-b833-8cde1f88af49")
+	)
+	(pad "1" smd roundrect
+		(at 0.915 0.55)
+		(size 0.7 0.7)
+		(layers "F.Cu" "F.Mask" "F.Paste")
+		(roundrect_rratio 0.1)
+		(thermal_bridge_angle 45)
+		(uuid "922d83b6-7225-4ea3-b11c-6b59bf14bddf")
+	)
+	(pad "2" smd roundrect
+		(at 0.915 -0.55)
+		(size 0.7 0.7)
+		(layers "F.Cu" "F.Mask" "F.Paste")
+		(roundrect_rratio 0.1)
+		(thermal_bridge_angle 45)
+		(uuid "d2561958-0525-450a-962d-b77c3c0235f9")
+	)
+	(pad "3" smd roundrect
+		(at -0.915 -0.55)
+		(size 0.7 0.7)
+		(layers "F.Cu" "F.Mask" "F.Paste")
+		(roundrect_rratio 0.1)
+		(thermal_bridge_angle 45)
+		(uuid "a961076d-d020-4769-8a95-7dd3aaeeb64f")
+	)
+	(pad "4" smd roundrect
+		(at -0.915 0.55)
+		(size 0.7 0.7)
+		(layers "F.Cu" "F.Mask" "F.Paste")
+		(roundrect_rratio 0.1)
+		(thermal_bridge_angle 45)
+		(uuid "ec99e31c-9561-440c-a6de-19e9513bda46")
+	)
+	(embedded_fonts no)
+)

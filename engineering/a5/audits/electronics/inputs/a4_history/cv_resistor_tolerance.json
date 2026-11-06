@@ -1,0 +1,92 @@
+{
+  "network": "10M/10M pickup, unity buffer,82k from buffer,2x82k to3V3,82k toGND",
+  "tolerance": {
+    "all_six_resistors": 0.01,
+    "supply_assumption": 0.02
+  },
+  "cases": [
+    {
+      "CV_V": -12,
+      "nominal_ADC_V": 0.1499999999999999,
+      "ADC_V_with_resistor_1pct_and_supply_2pct": [
+        0.07068000000000031,
+        0.2296799999999997
+      ],
+      "ADC_fraction_of_its_supply": [
+        0.02185528756957338,
+        0.06823529411764698
+      ],
+      "input_equivalent_resistor_error_at_3V3": [
+        -0.3731999999999971,
+        0.37079999999999913
+      ]
+    },
+    {
+      "CV_V": -5,
+      "nominal_ADC_V": 1.025,
+      "ADC_V_with_resistor_1pct_and_supply_2pct": [
+        0.9632675,
+        1.0872674999999998
+      ],
+      "ADC_fraction_of_its_supply": [
+        0.29785636982065555,
+        0.3230147058823529
+      ],
+      "input_equivalent_resistor_error_at_3V3": [
+        -0.23249999999999904,
+        0.23150000000000048
+      ]
+    },
+    {
+      "CV_V": 0,
+      "nominal_ADC_V": 1.65,
+      "ADC_V_with_resistor_1pct_and_supply_2pct": [
+        1.60083,
+        1.69983
+      ],
+      "ADC_fraction_of_its_supply": [
+        0.495,
+        0.505
+      ],
+      "input_equivalent_resistor_error_at_3V3": [
+        -0.13199999999999967,
+        0.13199999999999967
+      ]
+    },
+    {
+      "CV_V": 5,
+      "nominal_ADC_V": 2.275,
+      "ADC_V_with_resistor_1pct_and_supply_2pct": [
+        2.224515075376884,
+        2.32576368159204
+      ],
+      "ADC_fraction_of_its_supply": [
+        0.6803872302689921,
+        0.698650378287905
+      ],
+      "input_equivalent_resistor_error_at_3V3": [
+        -0.14120603015075517,
+        0.14079601990049895
+      ]
+    },
+    {
+      "CV_V": 12,
+      "nominal_ADC_V": 3.15,
+      "ADC_V_with_resistor_1pct_and_supply_2pct": [
+        3.0864120603015075,
+        3.213910447761194
+      ],
+      "ADC_fraction_of_its_supply": [
+        0.9364469405852794,
+        0.9732783208262951
+      ],
+      "input_equivalent_resistor_error_at_3V3": [
+        -0.24603015075376788,
+        0.24597014925373273
+      ]
+    }
+  ],
+  "scope": "Independent exact extreme corners of nominal DC resistor network. Excludes ADC, reference, buffer offset/bias, clamp leakage, PCB contamination, temperature drift and transient behavior.",
+  "decision": "1% Basic resistors acceptable as an engineering choice for artistic intensity/color CV; not a calibrated precision CV measurement. Keep calibration coefficients in firmware.",
+  "rail_margin_statement": "Compare ADC fractions to0 and1 only for this ideal network. This does not replace input protection or power-off checks."
+}

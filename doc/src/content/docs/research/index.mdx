@@ -1,0 +1,20 @@
+---
+title: "調査"
+description: "部品・調達・サービスの調査記録。日付付きの記録で、A5 の現行値を上書きしない。"
+sidebar_position: 1
+---
+
+A5 チェックポイントに含まれる調査記録です。どれも日付付きの記録で、価格・在庫・状態は観測時点のものです。
+
+| 記録 | 内容 | 扱い |
+|---|---|---|
+| `engineering/a5/procurement_inputs_A5.json` / `procurement_rows.json` | A5 の選定と、2026-11-06 JST の価格帯・在庫の観測 | **現行**。[部品表](/docs/architecture/bom/) の出典 |
+| `engineering/a5/evidence_refresh/`、`ic_led_evidence/`、`passive_evidence/` | 製品ページのスナップショットとハッシュ | 現行の観測の証跡 |
+| `engineering/a5/research_jlc_electronics.*` | JLC の電子部品調査 | 古い調査。現行値を上書きしない |
+| `engineering/a5/io_service_audit.*` | 入出力・サービスの監査 | 古い調査 |
+| `engineering/a5/harness_supply_followup.*` | ハーネス調達の追跡 | 古い調査 |
+| `engineering/a5/mechanical/manufacturer_source_metadata.json` | コネクタ等の一次資料の URL とハッシュ | 機構モデルの寸法根拠 |
+
+`python3 engineering/a5/build_procurement_rows.py --check` は凍結した観測値から再計算し、証跡のハッシュを確認します。在庫は更新しません。
+
+新しい部品を調べるときは、[How we work](/docs/project/how-we-work/) と `circuit/WORKFLOW.md` の手順で部品証跡バンドルとして記録します。

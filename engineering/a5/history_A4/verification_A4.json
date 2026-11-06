@@ -1,0 +1,676 @@
+{
+  "project": "Light Block",
+  "revision": "A4",
+  "manufacturing_released": false,
+  "front_panel_geometry": {
+    "revision": "A4-FULL-REAR-FROST-SELECTED-INTERFACES",
+    "status": "SELECTED_COMPONENT_FRONT_INTERFACE_PROPOSAL_CARRIER_INTEGRATION_PENDING",
+    "units": "mm",
+    "variants": [
+      {
+        "variant": "2hp",
+        "width_mm": 9.8,
+        "height_mm": 128.5,
+        "panel_thickness_mm": 2.0,
+        "status": "SELECTED_COMPONENT_FRONT_INTERFACE_PROPOSAL_CARRIER_INTEGRATION_PENDING",
+        "material_area_mm2": 1129.0719792389484,
+        "engraved_area_mm2": 1056.885169870862,
+        "clear_letter_and_icon_area_mm2": 24.525694094020672,
+        "hidden_clear_seat_area_mm2": 47.6611152740648,
+        "engraved_fraction_of_material": 0.9360653610261908,
+        "engraved_connected_regions": 6,
+        "label_counter_islands": 5,
+        "all_BReps_valid": true,
+        "through_profile_loops": 9,
+        "panel_difference_from_A3_mm3": 29.344020342611845,
+        "expected_only_toggle_hole_change_difference_mm3": 0.0,
+        "cut_and_step_export": {
+          "svg_sha256": "85584bb37e71dfe3a5b1f9a159c595a4c31de2ada58da00c1ed013b1e7b81204",
+          "dxf_sha256": "5ed6525039028e59e518f9ae171f81238ad9e905bdae7ece5c98ab2af3531f5e",
+          "step_sha256": "7e2c16d553be253e09299dc29373bb7b408b9805f9450843e08c0c24a388cc34",
+          "step_roundtrip_valid": true,
+          "step_roundtrip_difference_mm3": 0.0,
+          "dxf_units_code": 4,
+          "step_full_thickness_mm": 2.0
+        },
+        "toggle_hole_diameter_mm": 6.5,
+        "toggle_side_ligament_mm": 1.6500000000000004,
+        "jack_side_ligament_mm": 1.8000000000000003,
+        "no_assigned_engraving_depth": true,
+        "temporary_boolean_extrusion_mm": 0.02,
+        "mask_intersection_through_holes_mm2": 0.0,
+        "mask_intersection_clear_letters_mm2": 0.0,
+        "mask_intersection_clear_seats_mm2": 0.0,
+        "partition_residual_mm2": 9.825473767932635e-13,
+        "mirror_area_delta_mm2": 0.0,
+        "double_mirror_difference_mm2": 0.0,
+        "polygon_area_delta_mm2": 0.0732953120698312,
+        "dxf_hatch_area_delta_mm2": 4.547473508864641e-13,
+        "dxf_units_code": 4,
+        "dxf_hatch_count": 6,
+        "dxf_all_elevation_zero": true,
+        "svg_contains_font_text": false,
+        "counter_checks": [
+          {
+            "index": 0,
+            "area_mm2": 0.6397906011880152,
+            "unengraved_area_mm2": 0.0
+          },
+          {
+            "index": 1,
+            "area_mm2": 0.5219695206556322,
+            "unengraved_area_mm2": 0.0
+          },
+          {
+            "index": 2,
+            "area_mm2": 0.8097349796285798,
+            "unengraved_area_mm2": 0.0
+          },
+          {
+            "index": 3,
+            "area_mm2": 0.6397906011880152,
+            "unengraved_area_mm2": 0.0
+          },
+          {
+            "index": 4,
+            "area_mm2": 0.17900942088127958,
+            "unengraved_area_mm2": 0.0
+          }
+        ],
+        "labels": [
+          {
+            "text": "MODE",
+            "y": 80.6,
+            "cap_height": 1.6,
+            "x_offset": 0.0,
+            "center_x": 4.9,
+            "stroke_regions": 4,
+            "counters": 2
+          },
+          {
+            "text": "IN",
+            "y": 84.0,
+            "cap_height": 1.8,
+            "x_offset": 0.0,
+            "center_x": 4.9,
+            "stroke_regions": 2,
+            "counters": 0
+          },
+          {
+            "text": "OUT",
+            "y": 97.0,
+            "cap_height": 1.8,
+            "x_offset": 0.0,
+            "center_x": 4.9,
+            "stroke_regions": 3,
+            "counters": 1
+          },
+          {
+            "text": "ON",
+            "y": 113.0,
+            "cap_height": 1.6,
+            "x_offset": 0.9,
+            "center_x": 5.800000000000001,
+            "stroke_regions": 2,
+            "counters": 1
+          },
+          {
+            "text": "PGM",
+            "y": 116.0,
+            "cap_height": 1.6,
+            "x_offset": 0.9,
+            "center_x": 5.800000000000001,
+            "stroke_regions": 3,
+            "counters": 1
+          },
+          {
+            "text": "CV",
+            "y": 119.0,
+            "cap_height": 1.6,
+            "x_offset": 0.9,
+            "center_x": 5.800000000000001,
+            "stroke_regions": 2,
+            "counters": 0
+          }
+        ],
+        "clear_seating_exclusions": [
+          {
+            "kind": "m2",
+            "center": [
+              4.9,
+              20.5
+            ],
+            "shape": "circle",
+            "radius_mm": 1.85,
+            "hidden_inside_nominal_washer_silhouette": true
+          },
+          {
+            "kind": "m2",
+            "center": [
+              4.9,
+              60.8
+            ],
+            "shape": "circle",
+            "radius_mm": 1.85,
+            "hidden_inside_nominal_washer_silhouette": true
+          },
+          {
+            "kind": "m2",
+            "center": [
+              4.9,
+              65
+            ],
+            "shape": "circle",
+            "radius_mm": 1.85,
+            "hidden_inside_nominal_washer_silhouette": true
+          },
+          {
+            "kind": "toggle",
+            "center": [
+              4.9,
+              74.0
+            ],
+            "shape": "circle",
+            "radius_mm": 3.85,
+            "hidden_inside_nominal_washer_silhouette": true
+          },
+          {
+            "kind": "rack",
+            "center": [
+              4.9,
+              3.0
+            ],
+            "shape": "intersection of endpoint washer circles",
+            "circle_radius_mm": 2.95,
+            "circle_center_offset_mm": 0.7,
+            "hidden_across_nominal_slot_travel": true
+          },
+          {
+            "kind": "rack",
+            "center": [
+              4.9,
+              125.5
+            ],
+            "shape": "intersection of endpoint washer circles",
+            "circle_radius_mm": 2.95,
+            "circle_center_offset_mm": 0.7,
+            "hidden_across_nominal_slot_travel": true
+          }
+        ],
+        "clear_perimeter_border_mm": 0.0,
+        "mirror_rule": "x_rear=W-x_front; TOP stays TOP; do not mirror or invert again",
+        "passed": true
+      },
+      {
+        "variant": "3hp",
+        "width_mm": 14.9,
+        "height_mm": 128.5,
+        "panel_thickness_mm": 2.0,
+        "status": "SELECTED_COMPONENT_FRONT_INTERFACE_PROPOSAL_CARRIER_INTEGRATION_PENDING",
+        "material_area_mm2": 1784.4219792389483,
+        "engraved_area_mm2": 1712.235169870862,
+        "clear_letter_and_icon_area_mm2": 24.525694094020665,
+        "hidden_clear_seat_area_mm2": 47.66111527406481,
+        "engraved_fraction_of_material": 0.9595461106128753,
+        "engraved_connected_regions": 6,
+        "label_counter_islands": 5,
+        "all_BReps_valid": true,
+        "through_profile_loops": 9,
+        "panel_difference_from_A3_mm3": 29.34402034261182,
+        "expected_only_toggle_hole_change_difference_mm3": 0.0,
+        "cut_and_step_export": {
+          "svg_sha256": "d2375b237c1296d5ceb19d56f0bb6555223cf31fa89339cf7e49b3e314715500",
+          "dxf_sha256": "e97af8885ff7f83d5ad27040a48fc13ca594a317c9eb575c1dd5e39971a75a06",
+          "step_sha256": "efd08a40e91b2d9b7aeb5863cb6cc926f626512a1708fb7b77ce2ffd40b2d09e",
+          "step_roundtrip_valid": true,
+          "step_roundtrip_difference_mm3": 0.0,
+          "dxf_units_code": 4,
+          "step_full_thickness_mm": 2.0
+        },
+        "toggle_hole_diameter_mm": 6.5,
+        "toggle_side_ligament_mm": 4.2,
+        "jack_side_ligament_mm": 4.35,
+        "no_assigned_engraving_depth": true,
+        "temporary_boolean_extrusion_mm": 0.02,
+        "mask_intersection_through_holes_mm2": 0.0,
+        "mask_intersection_clear_letters_mm2": 0.0,
+        "mask_intersection_clear_seats_mm2": 0.0,
+        "partition_residual_mm2": 9.769962616701378e-13,
+        "mirror_area_delta_mm2": 0.0,
+        "double_mirror_difference_mm2": 0.0,
+        "polygon_area_delta_mm2": 0.07329531207051332,
+        "dxf_hatch_area_delta_mm2": 0.0,
+        "dxf_units_code": 4,
+        "dxf_hatch_count": 6,
+        "dxf_all_elevation_zero": true,
+        "svg_contains_font_text": false,
+        "counter_checks": [
+          {
+            "index": 0,
+            "area_mm2": 0.6397906011880151,
+            "unengraved_area_mm2": 0.0
+          },
+          {
+            "index": 1,
+            "area_mm2": 0.5219695206556323,
+            "unengraved_area_mm2": 0.0
+          },
+          {
+            "index": 2,
+            "area_mm2": 0.8097349796285797,
+            "unengraved_area_mm2": 0.0
+          },
+          {
+            "index": 3,
+            "area_mm2": 0.6397906011880151,
+            "unengraved_area_mm2": 0.0
+          },
+          {
+            "index": 4,
+            "area_mm2": 0.17900942088127958,
+            "unengraved_area_mm2": 0.0
+          }
+        ],
+        "labels": [
+          {
+            "text": "MODE",
+            "y": 80.6,
+            "cap_height": 1.6,
+            "x_offset": 0.0,
+            "center_x": 7.45,
+            "stroke_regions": 4,
+            "counters": 2
+          },
+          {
+            "text": "IN",
+            "y": 84.0,
+            "cap_height": 1.8,
+            "x_offset": 0.0,
+            "center_x": 7.45,
+            "stroke_regions": 2,
+            "counters": 0
+          },
+          {
+            "text": "OUT",
+            "y": 97.0,
+            "cap_height": 1.8,
+            "x_offset": 0.0,
+            "center_x": 7.45,
+            "stroke_regions": 3,
+            "counters": 1
+          },
+          {
+            "text": "ON",
+            "y": 113.0,
+            "cap_height": 1.6,
+            "x_offset": 0.9,
+            "center_x": 8.35,
+            "stroke_regions": 2,
+            "counters": 1
+          },
+          {
+            "text": "PGM",
+            "y": 116.0,
+            "cap_height": 1.6,
+            "x_offset": 0.9,
+            "center_x": 8.35,
+            "stroke_regions": 3,
+            "counters": 1
+          },
+          {
+            "text": "CV",
+            "y": 119.0,
+            "cap_height": 1.6,
+            "x_offset": 0.9,
+            "center_x": 8.35,
+            "stroke_regions": 2,
+            "counters": 0
+          }
+        ],
+        "clear_seating_exclusions": [
+          {
+            "kind": "m2",
+            "center": [
+              7.45,
+              20.5
+            ],
+            "shape": "circle",
+            "radius_mm": 1.85,
+            "hidden_inside_nominal_washer_silhouette": true
+          },
+          {
+            "kind": "m2",
+            "center": [
+              7.45,
+              60.8
+            ],
+            "shape": "circle",
+            "radius_mm": 1.85,
+            "hidden_inside_nominal_washer_silhouette": true
+          },
+          {
+            "kind": "m2",
+            "center": [
+              7.45,
+              65
+            ],
+            "shape": "circle",
+            "radius_mm": 1.85,
+            "hidden_inside_nominal_washer_silhouette": true
+          },
+          {
+            "kind": "toggle",
+            "center": [
+              7.45,
+              74.0
+            ],
+            "shape": "circle",
+            "radius_mm": 3.85,
+            "hidden_inside_nominal_washer_silhouette": true
+          },
+          {
+            "kind": "rack",
+            "center": [
+              7.45,
+              3.0
+            ],
+            "shape": "intersection of endpoint washer circles",
+            "circle_radius_mm": 2.95,
+            "circle_center_offset_mm": 0.7,
+            "hidden_across_nominal_slot_travel": true
+          },
+          {
+            "kind": "rack",
+            "center": [
+              7.45,
+              125.5
+            ],
+            "shape": "intersection of endpoint washer circles",
+            "circle_radius_mm": 2.95,
+            "circle_center_offset_mm": 0.7,
+            "hidden_across_nominal_slot_travel": true
+          }
+        ],
+        "clear_perimeter_border_mm": 0.0,
+        "mirror_rule": "x_rear=W-x_front; TOP stays TOP; do not mirror or invert again",
+        "passed": true
+      }
+    ],
+    "AO_counter_demo": {
+      "demo_text": "AO",
+      "counter_islands": 2,
+      "engraved_connected_regions": 3,
+      "mask_valid": true,
+      "letter_intersection_volume_mm3": 0.0
+    },
+    "all_passed": true
+  },
+  "procurement": {
+    "unique_jlc_mpn_count": 29,
+    "fitted_parts_per_module": 76,
+    "all_stock_cover_100_fitted_modules": true,
+    "all_prepurchase_cover_100_fitted_modules": true,
+    "least_stock_coverage_code": "C2651179",
+    "all_quantities_before_attrition": true,
+    "release_status": "Native KiCad schematic/routing, ERC/DRC, final BOM/CPL, complete A4 rear CAD, cable fit and working firmware remain unfinished."
+  },
+  "cost_checks": {
+    "1": {
+      "fitted_component_cost_per_module_usd": 10.9733,
+      "categories_per_module_usd": {
+        "IC・LED・電源": 7.2354,
+        "I/O・コネクタ": 3.1719,
+        "抵抗": 0.0568,
+        "コンデンサ": 0.5092
+      },
+      "LED_external_cables_per_module_usd": 1.9,
+      "power_external_cable_per_module_usd": 3.51,
+      "excludes": "Attrition, pre-purchase minimums, board-job splitting, PCBs, assembly, fixtures, X-ray, programming, other cables, mechanical parts, shipping and taxes."
+    },
+    "10": {
+      "fitted_component_cost_per_module_usd": 9.8095,
+      "categories_per_module_usd": {
+        "IC・LED・電源": 6.3103,
+        "I/O・コネクタ": 2.9332,
+        "抵抗": 0.0568,
+        "コンデンサ": 0.5092
+      },
+      "LED_external_cables_per_module_usd": 1.9,
+      "power_external_cable_per_module_usd": 2.985,
+      "excludes": "Attrition, pre-purchase minimums, board-job splitting, PCBs, assembly, fixtures, X-ray, programming, other cables, mechanical parts, shipping and taxes."
+    },
+    "100": {
+      "fitted_component_cost_per_module_usd": 7.52,
+      "categories_per_module_usd": {
+        "IC・LED・電源": 4.9136,
+        "I/O・コネクタ": 2.1475,
+        "抵抗": 0.0568,
+        "コンデンサ": 0.4021
+      },
+      "LED_external_cables_per_module_usd": 1.9,
+      "power_external_cable_per_module_usd": 2.5365,
+      "excludes": "Attrition, pre-purchase minimums, board-job splitting, PCBs, assembly, fixtures, X-ray, programming, other cables, mechanical parts, shipping and taxes."
+    }
+  },
+  "workbook": {
+    "as_of_jst": "JLC: 2026-11-06 05:15–05:33 JST / external cables:05:45–05:47 JST; individual timestamps retained",
+    "component_rows": 29,
+    "external_rows": 6,
+    "prototype_modules": 10,
+    "comparison_modules": 100,
+    "prototype_parts_usd": 98.09500000000004,
+    "comparison_parts_usd": 752.0000000000002,
+    "prototype_usd_per_module": 9.809500000000003,
+    "comparison_usd_per_module": 7.520000000000002,
+    "known_external_prototype_usd_per_module": 4.885,
+    "known_external_comparison_usd_per_module": 4.4365000000000006,
+    "external_inputs": [
+      {
+        "id": "EXT-01",
+        "qty_per_module": 2,
+        "unit_price_usd": null,
+        "stock_numeric": 12957,
+        "stock_text": ""
+      },
+      {
+        "id": "EXT-02",
+        "qty_per_module": 1,
+        "unit_price_usd": null,
+        "stock_numeric": 17783,
+        "stock_text": ""
+      },
+      {
+        "id": "EXT-03",
+        "qty_per_module": 1,
+        "unit_price_usd": null,
+        "stock_numeric": null,
+        "stock_text": ""
+      },
+      {
+        "id": "EXT-04",
+        "qty_per_module": 1,
+        "unit_price_usd": null,
+        "stock_numeric": null,
+        "stock_text": ""
+      },
+      {
+        "id": "EXT-05",
+        "qty_per_module": 1,
+        "unit_price_usd": null,
+        "stock_numeric": null,
+        "stock_text": ""
+      },
+      {
+        "id": "EXT-06",
+        "qty_per_module": 1,
+        "unit_price_usd": null,
+        "stock_numeric": null,
+        "stock_text": ""
+      }
+    ],
+    "dynamic_checks": [
+      {
+        "test": "requested prototype quantity",
+        "module_count": 10,
+        "expected_total_usd": 98.09500000000004,
+        "actual_total_usd": 98.09500000000004
+      },
+      {
+        "test": "comparison quantity through active input",
+        "module_count": 100,
+        "expected_total_usd": 752.0000000000002,
+        "actual_total_usd": 752.0000000000002
+      },
+      {
+        "test": "single module",
+        "module_count": 1,
+        "expected_total_usd": 10.973300000000002,
+        "actual_total_usd": 10.973300000000002
+      },
+      {
+        "test": "zero modules",
+        "module_count": 0,
+        "expected_total_usd": 0,
+        "actual_total_usd": 0
+      },
+      {
+        "test": "blank quantity",
+        "result": "dependent quantities and totals remain blank"
+      },
+      {
+        "test": "VLOOKUP tier boundary",
+        "component": "C5270180",
+        "required_units": 1,
+        "unit_price_usd": 1.745
+      },
+      {
+        "test": "VLOOKUP tier boundary",
+        "component": "C5270180",
+        "required_units": 1,
+        "unit_price_usd": 1.745
+      },
+      {
+        "test": "VLOOKUP tier boundary",
+        "component": "C5270180",
+        "required_units": 9,
+        "unit_price_usd": 1.745
+      },
+      {
+        "test": "VLOOKUP tier boundary",
+        "component": "C5270180",
+        "required_units": 10,
+        "unit_price_usd": 1.4702
+      },
+      {
+        "test": "VLOOKUP tier boundary",
+        "component": "C5270180",
+        "required_units": 29,
+        "unit_price_usd": 1.4702
+      },
+      {
+        "test": "VLOOKUP tier boundary",
+        "component": "C5270180",
+        "required_units": 30,
+        "unit_price_usd": 1.3181
+      },
+      {
+        "test": "quantity per module edit",
+        "component": "C5270180",
+        "temporary_qty_per_module": 2,
+        "result": "both required quantities recalculate"
+      },
+      {
+        "test": "supplied cost control reconciliation",
+        "modules": 10,
+        "per_module_usd": 9.8095,
+        "categories_match": true
+      },
+      {
+        "test": "supplied cost control reconciliation",
+        "modules": 100,
+        "per_module_usd": 7.52,
+        "categories_match": true
+      }
+    ],
+    "calculation_engine": "Artifact Tool. Native Excel application execution was not performed.",
+    "source_rows_path": "/workspace/scratch/99f340bc567f/light_block_A4_design/procurement_rows.json",
+    "output_path": "/workspace/scratch/99f340bc567f/outputs/light_block_A4/light_block_A4_parts.xlsx"
+  },
+  "workbook_XML": {
+    "file": "/workspace/scratch/99f340bc567f/outputs/light_block_A4/light_block_A4_parts.xlsx",
+    "size_bytes": 37612,
+    "sha256": "506a9d02bc08134f26d2d0f90d4af2e544b9fa0aeefbfc0c436ad441e711858a",
+    "sheets": [
+      "部品表",
+      "価格帯",
+      "外部品"
+    ],
+    "formula_counts": [
+      352,
+      0,
+      32
+    ],
+    "freeze_panes": [
+      {
+        "xSplit": "5",
+        "ySplit": "14",
+        "topLeftCell": "F15",
+        "activePane": "bottomRight",
+        "state": "frozen"
+      },
+      {
+        "xSplit": "1",
+        "ySplit": "6",
+        "topLeftCell": "B7",
+        "activePane": "bottomRight",
+        "state": "frozen"
+      },
+      {
+        "xSplit": "3",
+        "ySplit": "8",
+        "topLeftCell": "D9",
+        "activePane": "bottomRight",
+        "state": "frozen"
+      }
+    ],
+    "cached_formula_errors": [],
+    "JLC_rows": 29,
+    "fitted_parts_per_module": 76,
+    "external_rows": 6,
+    "prototype_JLC_total_usd": 98.09500000000004,
+    "comparison_JLC_total_usd": 752.0000000000002,
+    "prototype_known_external_total_usd": 48.849999999999994,
+    "comparison_known_external_total_usd": 443.65000000000003,
+    "raw_numeric_stock_and_zero_values_preserved": true,
+    "date_checks": [
+      {
+        "sheet": "価格帯",
+        "cell": "O7",
+        "wall_clock_JST": "2026-11-06T05:15:49.918000",
+        "raw_numeric_value": 46332.21932775463
+      },
+      {
+        "sheet": "外部品",
+        "cell": "N9",
+        "wall_clock_JST": "2026-11-06T05:47:54.201000",
+        "raw_numeric_value": 46332.24159954861
+      },
+      {
+        "sheet": "外部品",
+        "cell": "N10",
+        "wall_clock_JST": "2026-11-06T05:45:47.712000",
+        "raw_numeric_value": 46332.240135555556
+      }
+    ],
+    "unknown_external_prices_remain_unconfirmed": true
+  },
+  "PDF_visual_review": "7 pages rendered and inspected after final update; tables, Japanese text, image and source links reviewed.",
+  "not_verified": [
+    "Complete A4 rear CAD and installed 30mm depth",
+    "Native schematic/routing and ERC/DRC",
+    "Production BOM/CPL and factory placement acceptance",
+    "Input protection and supply sequencing",
+    "Working firmware",
+    "Assembled hardware, thermal and optical behavior"
+  ]
+}

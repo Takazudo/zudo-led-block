@@ -1,0 +1,102 @@
+(footprint "DAILYWELL_M2_SP"
+	(version 20260206)
+	(generator "pcbnew")
+	(generator_version "10.0")
+	(layer "F.Cu")
+	(property "Reference" "REF**"
+		(at 0 0 0)
+		(layer "F.Fab")
+		(hide yes)
+		(uuid "b2b14119-5863-4d53-930e-3011584ef570")
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+		)
+	)
+	(property "Value" "DAILYWELL_M2_SP"
+		(at 0 0 0)
+		(layer "F.Fab")
+		(hide yes)
+		(uuid "207c7c3a-81db-43b6-b4c2-e81c145d15e9")
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+		)
+	)
+	(property "Datasheet" ""
+		(at 0 0 0)
+		(layer "F.Fab")
+		(hide yes)
+		(uuid "69cbbce6-e19b-4e29-9f86-90145429c97c")
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+		)
+	)
+	(property "Description" ""
+		(at 0 0 0)
+		(layer "F.Fab")
+		(hide yes)
+		(uuid "ddad877f-2b08-4f8e-b1c4-d12263dbd357")
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+		)
+	)
+	(attr through_hole)
+	(duplicate_pad_numbers_are_jumpers no)
+	(fp_rect
+		(start -3.68 -6.6)
+		(end 3.68 6.6)
+		(stroke
+			(width 0.05)
+			(type default)
+		)
+		(fill no)
+		(layer "F.CrtYd")
+		(uuid "24ca5027-5966-4b18-9adc-5ac39e3258a1")
+	)
+	(fp_rect
+		(start -3.43 -6.35)
+		(end 3.43 6.35)
+		(stroke
+			(width 0.1)
+			(type default)
+		)
+		(fill no)
+		(layer "F.Fab")
+		(uuid "80369e4c-0363-448e-93a1-28739573db0b")
+	)
+	(pad "1" thru_hole oval
+		(at 0 -4.7)
+		(size 2.3 1.7)
+		(drill oval 1.8 1.2)
+		(layers "*.Cu" "*.Mask")
+		(remove_unused_layers no)
+		(thermal_bridge_angle 45)
+		(uuid "90d6114a-abd5-4af0-b937-cd0be1d6142e")
+	)
+	(pad "2" thru_hole oval
+		(at 0 0)
+		(size 2.3 1.7)
+		(drill oval 1.8 1.2)
+		(layers "*.Cu" "*.Mask")
+		(remove_unused_layers no)
+		(thermal_bridge_angle 45)
+		(uuid "2879dfd9-465e-4fb2-8525-aba08e0709c0")
+	)
+	(pad "3" thru_hole oval
+		(at 0 4.7)
+		(size 2.3 1.7)
+		(drill oval 1.8 1.2)
+		(layers "*.Cu" "*.Mask")
+		(remove_unused_layers no)
+		(thermal_bridge_angle 45)
+		(uuid "91b40a62-4397-43ab-b6be-59458fcffbfa")
+	)
+	(embedded_fonts no)
+)

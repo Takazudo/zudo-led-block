@@ -1,0 +1,123 @@
+{
+  "revision": "A5",
+  "scope": "Ideal resistor/steady-DC calculations, not simulation of semiconductor fault states or a hardware qualification",
+  "cv_transfer": {
+    "formula": "VADC=(100/133)*(VDD/2+CV/8)",
+    "inverse": "CV=10.64*VADC-4*VDD",
+    "input_impedance_ohm_nominal": 20000000.0,
+    "resistor_corners": 256,
+    "supply_cases_V": [
+      3.0,
+      3.6
+    ],
+    "corners_per_CV": 512,
+    "results": {
+      "-5": {
+        "ADC_V_min": 0.6339931421446384,
+        "ADC_V_max": 0.9108190880526671,
+        "C13_precharge_V_min": 0.8474375,
+        "C13_precharge_V_max": 1.2054375000000002,
+        "nominal_ADC_V_at_3V3": 0.7706766917293232
+      },
+      "0": {
+        "ADC_V_min": 1.1109725685785536,
+        "ADC_V_max": 1.3736664921074289,
+        "C13_precharge_V_min": 1.4849999999999999,
+        "C13_precharge_V_max": 1.8180000000000003,
+        "nominal_ADC_V_at_3V3": 1.2406015037593985
+      },
+      "5": {
+        "ADC_V_min": 1.5771344252434243,
+        "ADC_V_max": 1.846172835232828,
+        "C13_precharge_V_min": 2.108103015075377,
+        "C13_precharge_V_max": 2.4433457711442785,
+        "nominal_ADC_V_at_3V3": 1.7105263157894737
+      }
+    },
+    "excluded": "Op-amp offset/bias/gain error, ADC/reference error, PCB leakage, temperature coefficient and ageing"
+  },
+  "C13_upstream_of_R7": {
+    "C13_net": "CV_AFFINE",
+    "R7_from": "CV_AFFINE",
+    "R7_to": "CV_FILTER",
+    "U7_IN_plus_net": "CV_FILTER",
+    "nominal_filter_Rth_ohm": 20500.0,
+    "nominal_pole_Hz": 776.365576058026,
+    "normal_precharge_max_V": 2.4433457711442785,
+    "R7_min_ohm": 990.0,
+    "conditional_peak_input_path_current_A": 0.0029730765365093724,
+    "condition": "CV within +/-5V, VDD initially3.0..3.6V, resistor corners above; receiving node no lower than-0.5V; no other stored/transient source. This is not a proof of U7 differential input limits or all collapse states."
+  },
+  "conditional_fully_off_DC": {
+    "assumed_CV_BUF_abs_limit_V": 20,
+    "R3_min_ohm": 81180.0,
+    "R7_min_ohm": 990.0,
+    "R25_max_ohm": 1010.0,
+    "only_feed_current_A_conservative": 0.0002463661000246366,
+    "ADC_abs_bound_V_conservative": 0.24882976102488297,
+    "with_R7_included_ADC_abs_bound_V": 0.24583181209687233,
+    "scope": "Steady DC with no other energy feeding ADC/3V3, all input current pessimistically assigned to R25 or the1k3V3bleeder. Does not assume an unpowered U7 output specification. No proof for partial rails, differential-input absolute maximum, capacitor energy, supply reverse current, ESD, overshoot or damaged components."
+  },
+  "TPS2552_1_RILIM_68k_1percent": {
+    "min_mA": 343.3188739738179,
+    "nominal_mA": 388.1005963188809,
+    "max_mA": 439.43491799592994
+  },
+  "dual_stream_leaf_bridge": {
+    "controller_pinout": {
+      "1": "GND",
+      "2": "VLED",
+      "3": "DATA_L",
+      "4": "DATA_R"
+    },
+    "leaf_J1_pinout": {
+      "1": "GND",
+      "2": "VLED",
+      "3": "DATA_IN",
+      "4": "DATA_OTHER"
+    },
+    "leaf_J2_pinout": {
+      "1": "GND",
+      "2": "VLED",
+      "3": "DATA_OTHER",
+      "4": "DATA_IN"
+    },
+    "cables": "Two completed straight1:1 Adafruit4399 cables; controllerJ3\u2192leftJ1, leftJ2\u2192rightJ1. RightJ2 unconnected externally.",
+    "JST_SH_rating_A_with_AWG28": 1.0,
+    "TPS_max_A": 0.43943491799592993,
+    "current_rating_ratio": 2.275649838116101,
+    "assumed_copper_thickness_m": 3.5e-05,
+    "assumed_copper_resistivity_ohm_m": 1.724e-08,
+    "PCB_bridge_loop_R_ohm_at_reference_temperature": 0.13450827826866624,
+    "PCB_bridge_loop_drop_V_at_TPS_max": 0.05910763423076507,
+    "PCB_bridge_loop_loss_W_at_TPS_max": 0.02597395840112967,
+    "scope": "Conservative full current through both first-leaf rails including connector branches,0.5mm rails/0.35mm branches,ideal35um copper. Excludes contact/cable resistance, plating variation, temperature rise and dynamic droop. The first cable carries both leaves. The linked Adafruit drawing specifiesAWG28; actual delivered wire/contact construction remains an incoming-lot gate."
+  },
+  "buck_4p7uH": {
+    "cases": [
+      {
+        "case": "nominal",
+        "Vin_V": 12,
+        "Vout_V": 5,
+        "L_H": 4.7e-06,
+        "switching_Hz": 1100000.0,
+        "CCM_ripple_A": 0.5641521598968408,
+        "peak_A_at_0p4A_load": 0.6820760799484205,
+        "RMS_A_at_0p4A_load": 0.43188228136807055
+      },
+      {
+        "case": "specified_component_corner",
+        "Vin_V": 13.2,
+        "Vout_V": 5.05,
+        "L_H": 3.76e-06,
+        "switching_Hz": 1033999.9999999999,
+        "CCM_ripple_A": 0.8019857875433207,
+        "peak_A_at_0p4A_load": 0.8009928937716604,
+        "RMS_A_at_0p4A_load": 0.46216710572958
+      }
+    ],
+    "limitations": "CCM estimates. Low-load PFM, startup, current-limit/hot-short, core bias/loss, DC-bias capacitance, layout and actual temperature are not validated. TDK3.5AIsat and2.5Athermal are typical; AP63205 peak limit3.1Amaximum is not a guaranteed hot-core design margin."
+  },
+  "switch_underbody_nominal_gap_mm": 0.95,
+  "hardware_tests": "NOT_RUN"
+}
