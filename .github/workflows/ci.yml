@@ -15,6 +15,13 @@ on:
 permissions:
   contents: read
 
+# Explicit `shell: bash` runs steps with `bash --noprofile --norc -eo pipefail`,
+# so a failing command piped into `tee` fails the step (the implicit default
+# is `bash -e` without pipefail).
+defaults:
+  run:
+    shell: bash
+
 concurrency:
   group: ci-${{ github.event.pull_request.number || github.ref }}
   cancel-in-progress: ${{ github.event_name == 'pull_request' }}
@@ -26,6 +33,8 @@ env:
   # "arm-none-eabi-gcc (15:13.2.rel1-2) 13.2.1 20231009". apt verifies it
   # against the signed Ubuntu archive.
   ARM_GCC_DEB_VERSION: "15:13.2.rel1-2"
+  # Binutils that link the HEX/BIN; pinned so the image comparison is meaningful.
+  ARM_BINUTILS_DEB_VERSION: "2.42-1ubuntu1+23"
 
 jobs:
   a5-data:
@@ -111,8 +120,9 @@ jobs:
       - name: Install pinned arm-none-eabi-gcc from the signed Ubuntu archive
         run: |
           sudo apt-get update -qq
-          sudo apt-get install -y --no-install-recommends "gcc-arm-none-eabi=${ARM_GCC_DEB_VERSION}"
-          dpkg-query -W gcc-arm-none-eabi binutils-arm-none-eabi
+          sudo apt-get install -y --no-install-recommends "gcc-arm-none-eabi=${ARM_GCC_DEB_VERSION}" "binutils-arm-none-eabi=${ARM_BINUTILS_DEB_VERSION}"
+          test "$(dpkg-query -W -f='${Version}' gcc-arm-none-eabi)" = "$ARM_GCC_DEB_VERSION"
+          test "$(dpkg-query -W -f='${Version}' binutils-arm-none-eabi)" = "$ARM_BINUTILS_DEB_VERSION"
           arm-none-eabi-gcc --version | head -1 | tee "$RUNNER_TEMP/arm-gcc-version.txt"
           grep -F "13.2.1 20231009" "$RUNNER_TEMP/arm-gcc-version.txt"
       - name: make arm (in tree; output to ignored build/)
@@ -134,8 +144,9 @@ jobs:
                 and all(x["strong_definition"] for x in t["interrupt_vectors"].values()))
           sha = lambda p: hashlib.sha256(p.read_bytes()).hexdigest()
           images = {n: sha(fresh / n) == sha(recorded / n) for n in ("light_block_A5.hex", "light_block_A5.bin")}
-          report = {"compiler": v["compiler"], "flash_bytes": v["flash_bytes"],
-                    "static_ram_plus_stack_bytes": v["static_ram_plus_stack_bytes"],
+          m = v["memory"]
+          report = {"compiler": v["compiler"], "flash_payload_bytes": m["flash_payload_bytes"],
+                    "static_plus_stack_bytes": m["static_plus_stack_bytes"],
                     "leak_sanitizer": t["leak_sanitizer"], "vectors": sorted(t["interrupt_vectors"]),
                     "undefined_symbols": t["undefined_symbols"], "release_checks_ok": ok,
                     "image_identical_to_recorded_dist": images,
@@ -219,19 +230,26 @@ jobs:
   deploy-gate:
     name: Deploy gate
     needs: [a5-data, firmware-host, firmware-arm, docs]
+    # Always report, including when a validation job failed (then deploy is skipped).
+    if: always()
     runs-on: ubuntu-24.04
     timeout-minutes: 5
     steps:
       - name: Report production deployment state
         env:
+          VALIDATION: ${{ join(needs.*.result, ' ') }}
           ENABLED: ${{ vars.CLOUDFLARE_DEPLOY_ENABLED }}
           EVENT: ${{ github.event_name }}
           REF: ${{ github.ref }}
           REPO: ${{ github.repository }}
         run: |
-          if [ "$REPO" = "Takazudo/zudo-led-block" ] && [ "$REF" = "refs/heads/main" ] \
+          valid=true
+          for r in $VALIDATION; do [ "$r" = "success" ] || valid=false; done
+          if [ "$valid" != true ]; then
+            msg="Production deploy SKIPPED: validation did not succeed (results: $VALIDATION). Nothing was deployed."
+          elif [ "$REPO" = "Takazudo/zudo-led-block" ] && [ "$REF" = "refs/heads/main" ] \
              && { [ "$EVENT" = "push" ] || [ "$EVENT" = "workflow_dispatch" ]; } && [ "$ENABLED" = "true" ]; then
-            msg="Production deploy ENABLED for this revision (CLOUDFLARE_DEPLOY_ENABLED=true)."
+            msg="Production deploy ENABLED for this revision; see the Production deploy job for the outcome (CLOUDFLARE_DEPLOY_ENABLED=true)."
           else
             msg="Production deploy DISABLED / SKIPPED (requires Takazudo/zudo-led-block, refs/heads/main, push or workflow_dispatch, and CLOUDFLARE_DEPLOY_ENABLED == 'true'; event=$EVENT ref=$REF). Nothing was deployed."
           fi

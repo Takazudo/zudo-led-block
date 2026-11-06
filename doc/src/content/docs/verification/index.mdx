@@ -24,7 +24,7 @@ CI は KiCad・CadQuery を **再実行しません**。ネイティブ回路・
 |---|---|
 | A5 data | 786 ファイルの同一性 (`scripts/verify_seed.py`)、`build_procurement_rows.py --check`、BOM の照合 (30 型番 / 81 点 = 59 + 10 × 2 + 2)、ネットリスト照合の再実行 (一時出力) と履歴記録との一致、ERC / DRC 記録の入力同一性、FW ソースマニフェスト、生成ページの差分確認 |
 | Firmware (host) | `make test`、`make test-sanitize` (ASan / UBSan / LeakSanitizer)、`make timing` をホスト C コンパイラで実行 |
-| Firmware (ARM) | Ubuntu 24.04 の署名付きパッケージ `gcc-arm-none-eabi=15:13.2.rel1-2` (A5 の記録と同じコンパイラ) で `make arm`。`tools/make_release.py` は **一時コピーの中だけ** で実行し、未解決シンボル・割込みベクタ・容量を確認。新しい HEX / BIN が `dist/` の記録と一致するか比較し、最後に 786 ファイルを再確認 |
+| Firmware (ARM) | Ubuntu 24.04 の署名付きパッケージ `gcc-arm-none-eabi=15:13.2.rel1-2` (A5 の記録と同じコンパイラ) と `binutils-arm-none-eabi=2.42-1ubuntu1+23` で `make arm`。`tools/make_release.py` は **一時コピーの中だけ** で実行し、未解決シンボル・割込みベクタ・容量を確認。新しい HEX / BIN が `dist/` の記録と一致するか比較し、最後に 786 ファイルを再確認 |
 | Docs | `circuit:doctor`、`circuit:check`、`circuit:generate` と差分確認、`pnpm check` (型検査)、`pnpm build`、`pnpm check:site` (公開範囲・リンク・25 MiB / ファイル数の上限)、ブラウザ確認 (デスクトップ / モバイル)、Cloudflare Build Output と認証情報なしの dry run |
 
 フレームワークの `check-browser` は部品証跡が 0 件のとき何もせずに成功するため、著者が書いたページの確認には使いません。代わりに `scripts/browser-check.mjs` が主要ページ・ナビゲーション・検索・テーマ・画像・ダウンロード・canonical URL・404 を確認します。

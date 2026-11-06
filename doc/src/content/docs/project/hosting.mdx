@@ -43,6 +43,8 @@ pnpm cf:dry-run       # cf deploy --prebuilt --dry-run (アップロードしな
   - リポジトリ変数 `CLOUDFLARE_DEPLOY_ENABLED` が `true`
   - 同じリビジョンの検証ジョブがすべて成功
 - 条件を満たさないときは、`Deploy gate` ジョブが「DISABLED / SKIPPED」と表示します。「デプロイした」とは表示しません。
+- 検証ジョブが失敗したときも `Deploy gate` は実行され、「SKIPPED: validation did not succeed」と表示します。
+- `vars.CLOUDFLARE_DEPLOY_ENABLED` は組織 (Organization) 変数も参照します。同名の組織変数を `true` にしないでください。リポジトリ変数だけで管理します。
 - シークレットは有効な公開ジョブの手順にだけ渡します。足りなければ値を出力せずに失敗します。本番の公開は同時に 1 つだけ実行します。
 
 ## 有効化の手順 (ユーザーが行う作業)

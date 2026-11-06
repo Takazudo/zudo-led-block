@@ -126,8 +126,9 @@ async function main() {
     // Missing route: real HTTP 404 with the site's 404 page (no SPA fallback).
     const tab = await desktop.newPage();
     const missing = await tab.goto(`${base}/docs/no-such-page/`);
-    if (missing?.status() !== 404) fail(`missing route returned HTTP ${missing?.status()}`);
-    else pass("missing route returns HTTP 404");
+    const missingTitle = await tab.title();
+    if (missing?.status() !== 404 || !missingTitle.includes("Page Not Found")) fail(`missing route: HTTP ${missing?.status()}, title "${missingTitle}"`);
+    else pass("missing route returns HTTP 404 with the site's 404 page");
     // Trailing-slash redirect, like Cloudflare htmlHandling auto-trailing-slash.
     const redirect = await fetch(`${base}/docs/project`, { redirect: "manual" });
     if (redirect.status !== 307 || redirect.headers.get("location") !== "/docs/project/") fail(`no-slash route: ${redirect.status}`);
@@ -145,7 +146,8 @@ async function main() {
     await input.waitFor({ state: "visible" });
     await input.fill("TLV9001");
     await tab.waitForTimeout(800);
-    const hits = await tab.locator("dialog a[href*='/docs/'], [data-search-results] a, [role='dialog'] a[href*='/docs/']").count();
+    // Count only links inside the results container, not static dialog links.
+    const hits = await tab.locator("[data-search-results] a[href*='/docs/']:visible").count();
     if (hits === 0) fail("search for TLV9001 returned no result links");
     else pass(`search returns ${hits} result link(s)`);
     await tab.keyboard.press("Escape");
@@ -154,12 +156,14 @@ async function main() {
     const theme = tab.locator("header button[aria-haspopup='menu']:visible").first();
     await theme.click();
     await tab.waitForTimeout(300);
-    const items = await tab.locator("[role='menuitemradio'], [role='menuitem']").count();
-    if ((await theme.getAttribute("aria-expanded")) !== "true" && items === 0) fail("theme menu did not open");
+    const items = await tab.locator("[role='menuitemradio']:visible, [role='menuitem']:visible").count();
+    if ((await theme.getAttribute("aria-expanded")) !== "true" || items === 0) fail(`theme menu did not open (${items} visible items)`);
     else pass(`theme menu opens (${items} items)`);
     await tab.close();
 
-    // Every download/image link on the downloads page serves the exact bytes.
+    // Every download/image link on the downloads page is served (HTTP 200, same
+    // bytes as doc/dist). Seed identity of doc/dist itself is enforced by
+    // `a5_site.py check-dist`; this only checks the links resolve.
     const dl = await desktop.newPage();
     await dl.goto(`${base}/docs/project/downloads/`, { waitUntil: "networkidle" });
     const links = [...new Set(await dl.$$eval("a[href^='/a5/']", (as) => as.map((a) => a.getAttribute("href"))))];
