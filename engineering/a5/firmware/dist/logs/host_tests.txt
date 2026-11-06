@@ -1,0 +1,10 @@
+cc -std=c11 -O2 -g -Wall -Wextra -Werror -Wpedantic -Iinclude src/light_block.c tests/test_firmware.c -o build/test_firmware
+./build/test_firmware
+PASS switch truth table, bounce, invalid state, time wrap
+PASS A5 ADC inverse, VREFINT compensation, calibration and invalid samples
+PASS provisional modes, CV polarity/deadband, caps and independent PROGRAM phases
+PASS two-channel GRB wire data, bounded DMA buffer, preload model and +/-3% timing sweep
+PASS cold-domain startup, warm/BOR retention, partial markers and full-loss limitation
+PASS fault races before/during/after enable, DMA abort and no automatic retry
+PASS black-first startup, invalid-mode blanking, stale ADC, stuck DMA and randomized fault invariants
+PASS total assertions: 987189

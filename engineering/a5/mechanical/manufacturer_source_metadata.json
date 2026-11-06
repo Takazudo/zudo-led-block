@@ -1,0 +1,96 @@
+{
+  "purpose": "Authored source index. Raw manufacturer PDFs are omitted from deliverable archive; retrieve from official/manufacturer-uploaded URLs. Dimensions are mm.",
+  "sources": [
+    {
+      "id": "XKB_PJ_3582_B",
+      "manufacturer_source_url": "https://datasheet.lcsc.com/datasheet/pdf/72f7de7902310f96520199c5d4e56c29.pdf?productCode=C500090",
+      "retrieved_date_utc": "2026-11-06",
+      "sha256": "64b258ff58fd929e1324d2fe50d81b987af162d086a513d6b5fd70758f922ad6",
+      "source_cache_path": "evidence/XKB_PJ_3582_B.pdf",
+      "facts": [
+        "Body6.10 x10.00 x12.00; barrelD6 x3",
+        "Pin slot centers rotated into global pose; no threaded retention",
+        "Manufacturer A1 2025-06-26; two-decimal general tolerance+/-0.20"
+      ]
+    },
+    {
+      "id": "Dailywell_1M_C908270_new",
+      "manufacturer_source_url": "https://datasheet.lcsc.com/datasheet/pdf/5ad91fd2f37ff94d0c59ecc6c8369663.pdf?productCode=C908270",
+      "retrieved_date_utc": "2026-11-06",
+      "sha256": "2cf95e7fd41ab5de2fb8e1fd93f6cb08a25c4772c5eaeba38e1a45774b6dc274",
+      "source_cache_path": "evidence/Dailywell_1M_C908270_new.pdf",
+      "facts": [
+        "SP body6.86 x12.70 x8.89",
+        "B1 bushingD6.35 x8.89; T1lever10.41",
+        "M2terminalpitch4.70; projection6.60; shoulder1.50; factorytrimrequired"
+      ]
+    },
+    {
+      "id": "JST_SH",
+      "manufacturer_source_url": "https://www.jst-mfg.com/product/pdf/eng/eSH.pdf",
+      "retrieved_date_utc": "2026-11-06",
+      "sha256": "ea3071ca5ee5a6069eba534fa39a10f34c9fb742ee42135a69ab4156bfa0f5de",
+      "source_cache_path": "evidence/JST_SH.pdf",
+      "facts": [
+        "SM04body6.0 x4.25; mountedheight2.95",
+        "Matedoveralllength6.25; conservativehandlewidth7.0",
+        "AllowedinsulationD0.4..0.8; bendradiusnotprovided"
+      ]
+    },
+    {
+      "id": "Molex_530470310",
+      "manufacturer_source_url": "https://www.molex.com/content/dam/molex/molex-dot-com/products/automated/en-us/salesdrawingpdf/530/53047/530470310_sd.pdf",
+      "retrieved_date_utc": "2026-11-06",
+      "sha256": "76d2a5817a01b47f4b35c0b4078d874834f1f9c233bde42d9a819ead173929c7",
+      "source_cache_path": "evidence/Molex_530470310.pdf",
+      "facts": [
+        "3pinbody5.5 x3.2 x4.2; matedheight5.2reference",
+        "PTHtail2.3+/-0.5; recommendedPCB0.8 vsdesign1.6requiresassemblyreview"
+      ]
+    },
+    {
+      "id": "Molex_151340300",
+      "manufacturer_source_url": "https://www.molex.com/content/dam/molex/molex-dot-com/products/automated/en-us/salesdrawingpdf/151/15134/151340300_sd.pdf",
+      "retrieved_date_utc": "2026-11-06",
+      "sha256": "a0b07c4776b8e71c9838316658442cb080e0a3f1b0ab0ac0e9bc673ddc3817d5",
+      "source_cache_path": "evidence/Molex_151340300.pdf",
+      "facts": [
+        "L1freewire50+/-6 betweenwire-exitshoulders",
+        "PinmapA1-B3,A2-B2,A3-B1",
+        "Flaglabelblank12.7 x35.5; finalfold/storageenvelopeundimensioned"
+      ]
+    },
+    {
+      "id": "Molex_510210300",
+      "manufacturer_source_url": "https://www.molex.com/content/dam/molex/molex-dot-com/products/automated/en-us/salesdrawingpdf/510/51021/510210300_sd.pdf",
+      "retrieved_date_utc": "2026-11-06",
+      "sha256": "6fd18b546f22ab765497e8500a5b5cfae9461268933bfda3007edbd0964da14b",
+      "source_cache_path": "evidence/Molex_510210300.pdf",
+      "facts": [
+        "510210300exactmatinghousing; 3pinpitch1.25"
+      ]
+    },
+    {
+      "id": "C5665_header",
+      "manufacturer_source_url": "https://www.lcsc.com/datasheet/lcsc_datasheet_1810281612_BOOMELE-Boom-Precision-Elec-2-54-2-5P_C5665.pdf",
+      "retrieved_date_utc": "2026-11-06",
+      "sha256": "257e4a246b117a4af732b8dde8ed567105d14046ad2a1058e58a205cdcfec9c2",
+      "source_cache_path": "../integration/evidence/C5665_header.pdf",
+      "facts": [
+        "Shroudedkeyed2x5; maxlength20.8,maxwidth9.1,height8.9",
+        "Tailviews3.3+/-0.1 and3.5+/-0.1 conflict; designfactorytrim<=1.0behindPCB"
+      ]
+    },
+    {
+      "id": "Wurth_61201023021",
+      "manufacturer_source_url": "https://www.we-online.com/components/products/datasheet/61201023021.pdf",
+      "retrieved_date_utc": "2026-11-06",
+      "sha256": "259dc513fa09e9114529f274e15f532adb71c43fed911ee871a8821c7d318bf7",
+      "source_cache_path": "../integration/evidence/Wurth_61201023021.pdf",
+      "facts": [
+        "Reference socket17.38+/-0.15 x7 x6.9 mainbody",
+        "Not identified maker of finished Doepfer cable; assembledstrainreliefheightunresolved"
+      ]
+    }
+  ]
+}

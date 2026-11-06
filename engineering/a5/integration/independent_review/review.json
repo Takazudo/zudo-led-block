@@ -1,0 +1,447 @@
+{
+  "reviewed_utc": "2026-11-06T06:26:17.914531+00:00",
+  "scope": "Independent electrical reasoning from exported XML and primary cached datasheets; no firmware test rerun and no generator checks repeated.",
+  "status": "Final bridge electrical topology verified; current mechanical cable routes rejected; harness routing and hardware qualification remain open",
+  "review_input_sha256": {
+    "integration/native_schematic/controller/netlist.xml": "fa2d267acc4081156649ee15e014fbaeae4303bc96374fe19f4bae7b3a72553f",
+    "electronics/design/design_data.py": "8dfc170d014f020deba132a33a22d4d0deb180b377607670c1eda527952483fd",
+    "procurement_rows.json": "bf6fa12ed940967c8587178d0c83be8d687ffce5e8107483ee873a0fed322b0f",
+    "firmware/include/lb_config.h": "195092c88e1b9270bae22d27f4a08f4a606f9be77008f3011f06d7a975b0f6a7",
+    "firmware/platform/stm32g031/board.c": "3dc5edbb0caa69a0b03f01701e5c9ff39bca464d5655f51db50bb4ba3f37a803",
+    "firmware/src/light_block.c": "3d34759a446ff9d7ef3e896daa2c9d8c2e9dde305898d4cf093fdfc747a40f3e",
+    "firmware/docs/reset_policy.md": "a210646a9dafeec1ba339c528cb3b95709db2affe14daf014d1ce735fc9974a0",
+    "integration/native_schematic/led_leaf/netlist.xml": "1857eeb3e3faa65977f2e2cfff30083411db9af728b5529e53065da0c9028670",
+    "integration/native_schematic/power_adapter/netlist.xml": "d995064a9945ca0516a0a2844b197fcde3a19c8e1873230def0a3899ff514d04",
+    "electronics/design/controller_placement_override.json": "dc699a1697f64e253064abf2e7cac9b5fc42da8b177e0bf21e7786eab54dddd2",
+    "integration/leaf_layout_equivalence.json": "44e393a59e6c55ecd9a0c26977ae748f41e5c76561d1062be22d5f1a1ff35cc4"
+  },
+  "normal_transfer": {
+    "derived_from_XML": "R1/R2=10M divider; U6 follower; R3..R6=82k weighted node; U7 follower; R24=330/R25=1k divider",
+    "VADC": "(100/133)*(VDD/2+CV/8)",
+    "firmware_match": true,
+    "pin_mapping_match": true,
+    "resistor_only_corners": [
+      {
+        "CV_V": -5,
+        "VDD_V": 3.3,
+        "nominal_ADC_V": 0.7706766917293232,
+        "min_ADC_V": 0.7450903990024937,
+        "max_ADC_V": 0.7963468803770479,
+        "maximum_input_equivalent_error_V": 0.2731308072117913
+      },
+      {
+        "CV_V": 0,
+        "VDD_V": 3.3,
+        "nominal_ADC_V": 1.2406015037593985,
+        "min_ADC_V": 1.2220698254364089,
+        "max_ADC_V": 1.2591942844318096,
+        "maximum_input_equivalent_error_V": 0.19782718635445415
+      },
+      {
+        "CV_V": 5,
+        "VDD_V": 3.3,
+        "nominal_ADC_V": 1.7105263157894737,
+        "min_ADC_V": 1.688789959773932,
+        "max_ADC_V": 1.7322701410282322,
+        "maximum_input_equivalent_error_V": 0.23135430054039052
+      }
+    ],
+    "corner_limits": "All8resistors independently±1%; ideal followers; fixed VDD=3.3V; excludes opamp offset/bias,ADC/reference error, temperature and dynamic effects."
+  },
+  "findings": [
+    {
+      "id": "CV-01",
+      "severity": "concrete_current_limiting_gap",
+      "status": "resolved_in_reviewed_XML",
+      "finding": "Original C13=10nF connected directly to U7IN+ atCV_FILTER. R7 was upstream and could not limit initial C13 discharge into U7 during a fast3V3 collapse.",
+      "agreed_fix": "Move C13pin1 toCV_AFFINE, leaving R7 between C13/CV_AFFINE and D3/U7IN+ atCV_FILTER; noR26 or firmware coefficient change.",
+      "verified_in_XML": true,
+      "nominal_filter_pole_Hz_after_move": 776.365576058026,
+      "prior_nominal_filter_pole_Hz": 740.2555492646295,
+      "conditional_capacitor_bound": {
+        "normal_precharge_conditions": "CV±5V, VDD3.0..3.6V, R1..R6±1%, idealU6, no other external impulse",
+        "C13_voltage_min_V": 0.8474375,
+        "C13_voltage_max_V": 2.4433457711442785,
+        "R7_min_ohm": 990,
+        "assumed_filter_node_min_V": -0.5,
+        "R7_current_bound_mA": 2.9730765365093723,
+        "conclusion": "Below10mA for this explicitly bounded charge-discharge path; not a proof of arbitrary transient pin voltages."
+      }
+    },
+    {
+      "id": "CV-02",
+      "severity": "claim_scope_and_qualification",
+      "status": "open_hardware_gate",
+      "finding": "The approximately0.25V powered-off result is a conditional passive steady-DC current-budget screen, not a datasheet guarantee of U7 unpowered output behavior or all partial-power states.",
+      "conditional_DC_assumptions": [
+        "CV_BUF disturbance bounded to±20V",
+        "R3>=81.18kohm, R8/R25<=1010ohm",
+        "Other supply sources inactive, capacitors discharged, stableGND, no SWD/probe backpower",
+        "All relevant injected current paths included; no claim of valid opamp operation below1.8V"
+      ],
+      "DC_calculation": {
+        "I_R3_max_uA": 246.3661000246366,
+        "V_each_1k_shunt_max_V": 0.24882976102488297,
+        "additional_conservative_CV_input_budget_uA": 2.0202020202020203,
+        "with_extra_budget_V": 0.25087016506528703
+      },
+      "interpretation": "The R1 contribution is upstream of R3 in the ordinary signal path and is not normally independent; adding it is a conservative allowance, not a predicted off-state current. A fully unpowered device does not imply every protected/floating rail is held at0V.",
+      "remaining": "Check U7 individual/differential input terminal limits below1.8V, negative ADC excursions, rail absorption, and actual off-state current; do not assume an unpowered follower tracks or stays atGND."
+    },
+    {
+      "id": "POWER-01",
+      "severity": "partial_power_qualification",
+      "status": "open_hardware_gate",
+      "finding": "TLV755P output capacitors can remain charged while+5V input collapses. Exported netlist has no explicit reverse-current bypass/protector between3V3 and5V.",
+      "basis": "TI TLV755P§7.1.4 identifies VOUT>VIN+0.3V as an absolute-maximum violation and discusses output-capacitor/input-collapse reverse current.",
+      "required_scope": "Measure/resolve fast5V collapse and partial-power sequencing independently of the small CV steady-DC budget; the resistor current budget does not cover energy stored on supply capacitors."
+    },
+    {
+      "id": "RESET-01",
+      "severity": "reset_guarantee_scope",
+      "status": "open_hardware_gate",
+      "finding": "Retained marker correctly blocks MCU warm/BOR reset while the backup domain survives. It cannot alone block a TPS2552-1 supply-only restart before FAULT is observed.",
+      "basis": "TPS2552-1 overcurrent FAULT is deglitched (7.5ms typical); cycling its supply clears its latch. A5 has no separate5V-valid monitor;3V3 and MCU may persist across a short5V event.",
+      "required_wording": "Guaranteed software behavior applies after an observed fault or classified MCU reset under the documented input/ISR contract. Test5V-only sag/recovery, retained-domain BOR and complete-domain loss separately. Do not claim no retry for every partial-power transient."
+    },
+    {
+      "id": "FW-01",
+      "severity": "verified_alignment",
+      "status": "no_mismatch_found",
+      "finding": "Actual XML aligns with firmware PA0ADC,PA2/3ordered mode bits,PA4FAULTlow,PA5highenable viaNPN,PA6/7TIM3 outputs, externalpullups and reset-safe pulldowns. The A5 inversegain10.64 and ratio100/133 match.",
+      "remaining": "Factory programming must verify main-flash boot/SWD/NRST and record BOR option-byte configuration; firmware does not silently change option bytes."
+    },
+    {
+      "id": "FW-02",
+      "severity": "orientation_note",
+      "status": "no_current_behavior_mismatch",
+      "finding": "Electronics integration reports that the right identical leaf is mounted end-for-end: wire indexD1..D4 runs opposite the left leaf physical vertical direction. Current firmware uses uniform pixels within each chain, so its defaults are unaffected. A future pattern that aligns vertical positions must map right index=3-left index. This is an assembly-coordinate note, not a GPIO or chain-order error."
+    },
+    {
+      "id": "BRIDGE-01",
+      "severity": "verified_alignment",
+      "status": "no_wiring_mismatch_found",
+      "finding": "The two DIN roots differ. Each D4 DOUT is unconnected; the inter-leaf bridge carries the independent right stream, not the left D4 output.",
+      "actual_paths": {
+        "left": "PA6/TIM3_CH1 → U5.A1/B1 → R14 → controller.J3.3 → left.J1.3 → D1,D2,D3,D4",
+        "right": "PA7/TIM3_CH2 → U5.A2/B2 → R15 → controller.J3.4 → left.J1.4 → left.J2.3 → right.J1.3 → D1,D2,D3,D4"
+      },
+      "returned_branch": "Cable2 pin4 carries the left stream from left.J2.4 to right.J1.4 and right.J2.3. It is an unloaded branch, not a connection to right D1 DIN. Right.J2 remains unconnected externally; its pin4 is a short local branch of the right stream."
+    },
+    {
+      "id": "BRIDGE-02",
+      "severity": "shared_harness_qualification",
+      "status": "open_hardware_gate",
+      "finding": "Cable1 and the controller/left input contacts carry both leaves. Cable2 carries the right leaf. Neither chain has a separate power limiter; a detected shared-bus fault blanks both.",
+      "required_scope": "Validate the actual shared cable/connector load, voltage drop, DIN edges and physical pin map. The 20% code cap, configured current-limit threshold, and 1A AWG28 connector rating are not a hardware qualification.",
+      "mechanical_routing_status": "Current saved cable/ribbon routes are rejected: 16 conditional interferences per variant; controller-to-leaf sampled bend minima about1.07–1.53mm, leaf-link about0.20–0.28mm, power about1.05mm. Complete harness routing remains unresolved; only rigid-part geometry cleared the modeled interference checks."
+    }
+  ],
+  "primary_sources": [
+    {
+      "file": "electronics/references/TLV9001.pdf",
+      "title": "TI TLV9001, SBOS833R",
+      "url": "https://www.ti.com/lit/ds/symlink/tlv9001.pdf",
+      "sections": [
+        "7.1 absolute maximum input limits",
+        "10.1 input/ESD protection:current limited to10mA",
+        "10 supply range1.8..5.5V"
+      ],
+      "sha256": "01a8a8c85d59bf49e80986f30c70b550b5056138737edabbf9775c86db868fbb"
+    },
+    {
+      "file": "electronics/references/TLV755P.pdf",
+      "title": "TI TLV755P, SBVS320D",
+      "url": "https://www.ti.com/lit/ds/symlink/tlv755p.pdf",
+      "sections": [
+        "7.1.4 reverse current; VOUT>VIN+0.3V"
+      ],
+      "sha256": "96e2706d4b13656d2d550fdbb5be9861c56b058822109bb39a906d4ad1beb019"
+    },
+    {
+      "file": "electronics/references/TPS255x.pdf",
+      "title": "TI TPS255x, SLVS841G",
+      "url": "https://www.ti.com/lit/ds/symlink/tps2552-1.pdf",
+      "sections": [
+        "8.3.1 overcurrent/latch",
+        "8.3.3 FAULT deglitch and latch clearing",
+        "8.3.4 UVLO",
+        "8.5.1 current-limit threshold equations (1)-(3)",
+        "9.2.1.2.3 resistor tolerance"
+      ],
+      "sha256": "edd76d150b073ae8d4addbf85f6845b8c722fbd0b35ef025ac3c9e704a6a3385"
+    },
+    {
+      "file": "electronics/references/STM32G031_DS12992.pdf",
+      "title": "ST DS12992 Rev4",
+      "url": "https://www.st.com/resource/en/datasheet/stm32g031g8.pdf",
+      "sections": [
+        "Table18 input minimum-0.3V",
+        "Table19 injection current",
+        "3.7.1 VBAT bonding",
+        "pin/AF table"
+      ],
+      "sha256": "0e25cbbf2cd173845545b61b91a9a7011724b4e5bd7b00498176129d48684e99"
+    },
+    {
+      "file": "electronics/references/SN74LVC2T45.pdf",
+      "title": "TI SN74LVC2T45, SCES516N",
+      "url": "https://www.ti.com/lit/ds/symlink/sn74lvc2t45.pdf",
+      "sections": [
+        "7.3.5 glitch-free sequencing",
+        "7.3.6 isolation when either supply isGND"
+      ],
+      "sha256": "f0dc4a7a46a5b2020117e8bec614aec33f4f15784a82ab73dc3fa5f91d5c86bc"
+    },
+    {
+      "file": "mechanical/evidence/JST_SH.pdf",
+      "title": "JST SH connector product specification",
+      "url": "https://www.jst-mfg.com/product/pdf/eng/eSH.pdf",
+      "sections": [
+        "Specifications: current rating 1.0 A with AWG28; contact resistance and applicable wire range"
+      ],
+      "sha256": "ea3071ca5ee5a6069eba534fa39a10f34c9fb742ee42135a69ab4156bfa0f5de"
+    }
+  ],
+  "not_performed": [
+    "Hardware measurement",
+    "SPICE device-model simulation",
+    "Firmware test rerun",
+    "PCB routing/DRC review",
+    "Protection certification"
+  ],
+  "resolved_capacitor_connection_evidence": {
+    "D3.2": "+3V3",
+    "U7.5": "+3V3",
+    "C13.1": "CV_AFFINE",
+    "R7.1": "CV_AFFINE",
+    "U7.1": "CV_DRIVE",
+    "U7.4": "CV_DRIVE",
+    "D3.3": "CV_FILTER",
+    "R7.2": "CV_FILTER",
+    "U7.3": "CV_FILTER",
+    "C13.2": "GND",
+    "D3.1": "GND",
+    "U7.2": "GND"
+  },
+  "placement_followup": {
+    "checked_at_utc": "2026-11-06T06:12:28.309262+00:00",
+    "status": "PASS: placement-only source change; reviewed electrical and firmware inputs unchanged",
+    "component": "controller/J3",
+    "before_mm": [
+      4.4,
+      10.5
+    ],
+    "after_mm": [
+      4.4,
+      12.0
+    ],
+    "side": "B",
+    "angle_degrees": 0,
+    "source_before_sha256": "3830a4968f725121f1615d71684f6fbc0aca2f57ab0bb2aba58a9eaabcd7f8ca",
+    "source_after_sha256": "d413a55f1ec31b09c6d79f11ab7cd79923a962221f89b063db300b2ec2878fb2",
+    "proof": "Replacing only the J3 XY literal (4.4,12.0) with (4.4,10.5) reproduces the exact previously reviewed source SHA-256. No other source bytes changed.",
+    "override_file": "electronics/design/controller_placement_override.json",
+    "override_sha256": "fd7a129e88e986d5cd39e192114fa2b71ef4df0a389c571909eaef3cd152a9b6",
+    "override_scope": "All overrides contain only at/side/angle/placement_note; no electrical or component-identity fields. J3 effective position agrees with source; J4 remains 4.4,34.0 mm.",
+    "unchanged_review_inputs": {
+      "integration/native_schematic/controller/netlist.xml": "44804c29949a726c8c6b082909d1ae0cd7694a20e2a947d6da51d84d1ce8fb99",
+      "procurement_rows.json": "fa02cb1c0de951c7fcb937e61f21df0db8e8c72493a10e09dbd5bcef6feaa645",
+      "firmware/include/lb_config.h": "195092c88e1b9270bae22d27f4a08f4a606f9be77008f3011f06d7a975b0f6a7",
+      "firmware/platform/stm32g031/board.c": "3dc5edbb0caa69a0b03f01701e5c9ff39bca464d5655f51db50bb4ba3f37a803",
+      "firmware/src/light_block.c": "3d34759a446ff9d7ef3e896daa2c9d8c2e9dde305898d4cf093fdfc747a40f3e",
+      "firmware/docs/reset_policy.md": "a210646a9dafeec1ba339c528cb3b95709db2affe14daf014d1ce735fc9974a0"
+    },
+    "limits": "This followup verifies change scope and input identity. It does not qualify placement clearance, copper routing, or hardware behavior and reruns no firmware tests.",
+    "historical_scope_note": "Superseded by the bridge architecture followup; its placement-only proof applies only to the earlier J3 shift, not to subsequent connector changes."
+  },
+  "bridge_followup": {
+    "checked_at_utc": "2026-11-06T06:26:17.914531+00:00",
+    "status": "PASS: independent streams and common switched power trace correctly through final exported XML",
+    "method": "Parsed actual exported net nodes, instantiated the identical leaf twice with separate namespaces, and joined only the specified cable pin pairs; followed LED DIN/DOUT and the switched supply endpoints. This is schematic connectivity review, not physical cable or PCB qualification.",
+    "supersedes_scope": "The preceding placement-only followup is historical. This later revision intentionally changes the connector architecture, fitted count, and SWD-pad placement; firmware interfaces and binaries remain unchanged.",
+    "cables": [
+      {
+        "from": "controller.J3",
+        "to": "left.J1",
+        "pin_map": {
+          "1": "1",
+          "2": "2",
+          "3": "3",
+          "4": "4"
+        }
+      },
+      {
+        "from": "left.J2",
+        "to": "right.J1",
+        "pin_map": {
+          "1": "1",
+          "2": "2",
+          "3": "3",
+          "4": "4"
+        }
+      },
+      {
+        "from": "adapter.J2",
+        "to": "controller.J5",
+        "pin_map": {
+          "1": "3",
+          "2": "2",
+          "3": "1"
+        },
+        "purpose": "Existing Molex power-cable polarity, unchanged"
+      }
+    ],
+    "controller_header": {
+      "J3.1": "GND",
+      "J3.2": "VLED",
+      "J3.3": "DATA_L",
+      "J3.4": "DATA_R",
+      "J4": "removed"
+    },
+    "left_stream_endpoints_after_R14": [
+      "controller.J3.3",
+      "controller.R14.2",
+      "controller.R18.1",
+      "left.D1.3",
+      "left.J1.3",
+      "left.J2.4",
+      "right.J1.4",
+      "right.J2.3"
+    ],
+    "right_stream_endpoints_after_R15": [
+      "controller.J3.4",
+      "controller.R15.2",
+      "controller.R19.1",
+      "left.J1.4",
+      "left.J2.3",
+      "right.D1.3",
+      "right.J1.3",
+      "right.J2.4"
+    ],
+    "chains": {
+      "left": "PA6/TIM3_CH1 → U5.A1/B1 → R14 → controller.J3.3 → left.J1.3 → D1,D2,D3,D4",
+      "right": "PA7/TIM3_CH2 → U5.A2/B2 → R15 → controller.J3.4 → left.J1.4 → left.J2.3 → right.J1.3 → D1,D2,D3,D4"
+    },
+    "stream_separation": "The two DIN roots differ. Each D4 DOUT is unconnected; the inter-leaf bridge carries the independent right stream, not the left D4 output.",
+    "returned_branch": "Cable2 pin4 carries the left stream from left.J2.4 to right.J1.4 and right.J2.3. It is an unloaded branch, not a connection to right D1 DIN. Right.J2 remains unconnected externally; its pin4 is a short local branch of the right stream.",
+    "power_path": "U4.OUT/VLED → controller.J3.2 → cable1 → left.J1.2; left.J2.2 → cable2 → right.J1.2. Pin1 carries common GND. All eight LED VDD and GND nodes trace correctly; +5V before U4 is a separate net.",
+    "aggregate_current_note": "Cable1 and the controller/left input contacts carry both leaves. Cable2 carries the right leaf. Neither chain has a separate power limiter; a detected shared-bus fault blanks both.",
+    "current_limit_screen": {
+      "R11_nominal_kohm": 68,
+      "R11_tolerance_percent": 1,
+      "calculated_IOS_min_mA": 343.3188739738179,
+      "calculated_IOS_max_mA": 439.43491799592994,
+      "source": "TI TPS255x §8.5.1 equations (1)-(3), with resistor tolerance per §9.2.1.2.3",
+      "interpretation": "This is the configured DC current-limit threshold range, not an instantaneous-current bound or a full cable/PCB thermal qualification. Stored VLED capacitance and short-circuit response can create transients outside it."
+    },
+    "connector_rating_context": "JST SH specifies 1.0A with AWG28. That source rating does not establish the exact purchased third-party harness gauge, crimps, bend life, or voltage drop; qualify the actual cable assembly and populated board.",
+    "fitted_counts": {
+      "controller": 59,
+      "led_leaf_each": 10,
+      "led_leaf_quantity": 2,
+      "power_adapter": 2,
+      "module_total": 81,
+      "distinct_procurement_types": 30,
+      "SH4_headers_total": 5
+    },
+    "firmware_alignment": "PA6/7 still feed the intended independent four-pixel chains. PA0 CV, ordered PA2/3 mode bits, PA4 low fault, PA5 high NPN enable, and TP1..5 nets +3V3/GND/SWDIO/SWCLK/NRST remain aligned. The firmware documents contain no stale J4/pin4-NC connector claim.",
+    "ADC_and_reset_scope": "C13 remains upstream of R7 at CV_AFFINE. U7 and the 330ohm/1kohm divider are unchanged; the A5 ADC transfer remains (100/133)*(VDD/2+CV/8). Earlier partial-power, LDO reverse-current, and fault/reset limitation findings remain open.",
+    "unchanged_firmware_artifact_sha256": {
+      "firmware/dist/light_block_A5.elf": "1585c4e5698221afb9ba1e604b2dc82066805b3bf5d56173b61bed934249913f",
+      "firmware/dist/light_block_A5.hex": "a54a1ccc1ef0cb98f50d130098c811c0b4e36c8165e16e8dbb9e39f0cca00f9e",
+      "firmware/dist/light_block_A5.bin": "0446cb0acfa7efe86a5f6c02beb7afa482daa419ecfce204fe9169487599765e",
+      "firmware/dist/light_block_A5.map": "e03d1ad567e5b68d465803772b7394687839013df6bf3054c1322065e9e12db8"
+    },
+    "unchanged_firmware_source_manifest_sha256": "61155c23cc8f9c05f8d5712ecd8f009673c1929a34b8437b9869c202deb85c46",
+    "previous_review_input_sha256": {
+      "integration/native_schematic/controller/netlist.xml": "44804c29949a726c8c6b082909d1ae0cd7694a20e2a947d6da51d84d1ce8fb99",
+      "electronics/design/design_data.py": "d413a55f1ec31b09c6d79f11ab7cd79923a962221f89b063db300b2ec2878fb2",
+      "procurement_rows.json": "fa02cb1c0de951c7fcb937e61f21df0db8e8c72493a10e09dbd5bcef6feaa645",
+      "firmware/include/lb_config.h": "195092c88e1b9270bae22d27f4a08f4a606f9be77008f3011f06d7a975b0f6a7",
+      "firmware/platform/stm32g031/board.c": "3dc5edbb0caa69a0b03f01701e5c9ff39bca464d5655f51db50bb4ba3f37a803",
+      "firmware/src/light_block.c": "3d34759a446ff9d7ef3e896daa2c9d8c2e9dde305898d4cf093fdfc747a40f3e",
+      "firmware/docs/reset_policy.md": "a210646a9dafeec1ba339c528cb3b95709db2affe14daf014d1ce735fc9974a0"
+    },
+    "hardware_gates": [
+      "Confirm both SH4 cables are pin1-to-pin1 with the specified INPUT/BRIDGE port assignment; leave right J2 unused.",
+      "Measure both first-DIN waveforms, especially the longer right path and the intentional left-data stub, with the actual harness and assembly.",
+      "Measure both-leaf current, right-leaf voltage drop, and shared-bus startup/short-circuit behavior; code-value cap is not a measured current limit.",
+      "Redesign the rejected current cable/ribbon routing scenarios, then validate bend/retention/insulation and assembly clearance; XML connectivity does not establish physical routing feasibility."
+    ],
+    "not_performed": [
+      "No firmware test suite rerun",
+      "No firmware source or binary change",
+      "No PCB routing/DRC rerun",
+      "No physical cable continuity, waveform, current, or hardware validation"
+    ],
+    "schematic_presentation_followup": {
+      "checked_at_utc": "2026-11-06T06:28:13.755132+00:00",
+      "change": "Leaf power flags moved y220 to240 to avoid new J2 label overlap. Component identities and all exported pin-to-net memberships compared to captured pre-layout XML. No PCB or circuit edit.",
+      "equivalence_evidence": "integration/leaf_layout_equivalence.json",
+      "equivalence_evidence_sha256": "44e393a59e6c55ecd9a0c26977ae748f41e5c76561d1062be22d5f1a1ff35cc4",
+      "equivalence_provenance": "Root integration compared all component ref/value/footprint identities and pin-to-net memberships against its captured pre-layout graphs. This followup verifies that the resulting XML bytes match that report and all other reviewed inputs remain unchanged.",
+      "before_xml_sha256": {
+        "integration/native_schematic/controller/netlist.xml": "7c2e27dc797186787d7f8e63b90fb458186cfb37b4f499d62b89b1a4a2d51f3e",
+        "integration/native_schematic/led_leaf/netlist.xml": "817ec620336b898716bec071d41a8a4856ba723cc0cf02cc05a713584a1f9944",
+        "integration/native_schematic/power_adapter/netlist.xml": "03b1f83433abc32c4e36510d7098c6fd09bcf4bf9f9665feaa5106bb8ea79ef9"
+      },
+      "after_xml_sha256": {
+        "integration/native_schematic/controller/netlist.xml": "fa2d267acc4081156649ee15e014fbaeae4303bc96374fe19f4bae7b3a72553f",
+        "integration/native_schematic/led_leaf/netlist.xml": "1857eeb3e3faa65977f2e2cfff30083411db9af728b5529e53065da0c9028670",
+        "integration/native_schematic/power_adapter/netlist.xml": "d995064a9945ca0516a0a2844b197fcde3a19c8e1873230def0a3899ff514d04"
+      },
+      "all_boards_equivalent": true
+    }
+  },
+  "mechanical_routing_followup": {
+    "updated_utc": "2026-11-06T06:38:29.724941+00:00",
+    "authoritative_source": "mechanical/verification_summary.json",
+    "source_sha256": "5a48b103bf4eb15b385fb1be37c421f7ac3302209ff5cada3eeaf7fb07c92bf4",
+    "status": "REJECTED_CURRENT_ROUTING_SCENARIOS_HARNESS_ROUTING_OPEN",
+    "scope": "Fixed rigid-part geometry is checked. These saved flexible-harness/ribbon scenarios are rejected; complete installed fit is not approved.",
+    "variants": {
+      "2hp": {
+        "conditional_interferences": 16,
+        "retained_rigid_part_intersections": 0,
+        "sampled_minimum_radius_ranges_mm": {
+          "controller_to_left": [
+            1.0689988030347484,
+            1.5249999999982902
+          ],
+          "leaf_link": [
+            0.20184601190662158,
+            0.27609951980412484
+          ],
+          "power_50mm": [
+            1.0466403707248015,
+            1.0466403707248015
+          ]
+        },
+        "installed_fit_qualified": false,
+        "manufacturing_release": false
+      },
+      "3hp": {
+        "conditional_interferences": 16,
+        "retained_rigid_part_intersections": 0,
+        "sampled_minimum_radius_ranges_mm": {
+          "controller_to_left": [
+            1.0689988030349227,
+            1.5249999999982902
+          ],
+          "leaf_link": [
+            0.2018460119066184,
+            0.27609951980408703
+          ],
+          "power_50mm": [
+            1.0466403707248015,
+            1.0466403707248015
+          ]
+        },
+        "installed_fit_qualified": false,
+        "manufacturing_release": false
+      }
+    },
+    "frozen_artifacts_modified": false
+  }
+}

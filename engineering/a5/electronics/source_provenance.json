@@ -1,0 +1,324 @@
+{
+  "revision": "A5",
+  "observed_date_UTC": "2026-11-06",
+  "status": "Sourcefactsanddesigninterpretations; nohardwarequalification",
+  "sources": [
+    {
+      "id": "ST_DS12992",
+      "url": "https://www.st.com/resource/en/datasheet/stm32g031f8.pdf",
+      "observed_document_filename": "STM32G031_DS12992.pdf",
+      "sha256": "0e25cbbf2cd173845545b61b91a9a7011724b4e5bd7b00498176129d48684e99",
+      "pages_1based": [
+        33,
+        36,
+        37,
+        38,
+        39,
+        40,
+        104,
+        105
+      ],
+      "facts_used": [
+        "UFQFPN28 physicalpinout and noexposedpad",
+        "PA6/PA7 AF1 TIM3CH1/CH2",
+        "ADCvoltageandcurrentlimits"
+      ],
+      "retrieval_refs": [
+        "turn38view0",
+        "turn41view2",
+        "turn47view0"
+      ]
+    },
+    {
+      "id": "TI_TLV9001",
+      "url": "https://www.ti.com/lit/ds/symlink/tlv9001.pdf",
+      "observed_document_filename": "TLV9001.pdf",
+      "sha256": "01a8a8c85d59bf49e80986f30c70b550b5056138737edabbf9775c86db868fbb",
+      "pages_1based": [
+        2,
+        14,
+        17,
+        29
+      ],
+      "facts_used": [
+        "DBV5pins1OUT2V-3IN+4IN-5V+",
+        "10mAoverrailinputcondition andseparatedifferentialinputlimit",
+        "1MHzRRIOunitybuffer"
+      ],
+      "retrieval_refs": [
+        "turn59view0"
+      ]
+    },
+    {
+      "id": "TI_TLV755P",
+      "url": "https://www.ti.com/lit/ds/symlink/tlv755p.pdf",
+      "observed_document_filename": "TLV755P.pdf",
+      "sha256": "96e2706d4b13656d2d550fdbb5be9861c56b058822109bb39a906d4ad1beb019",
+      "pages_1based": [
+        3,
+        38
+      ],
+      "facts_used": [
+        "DBV5pins1IN2GND3EN4NC5OUT",
+        "1.1x0.6mmpads atX+/-1.3,0.95pitch"
+      ],
+      "retrieval_refs": []
+    },
+    {
+      "id": "TI_TPS255x",
+      "url": "https://www.ti.com/lit/ds/symlink/tps2552.pdf",
+      "observed_document_filename": "TPS255x.pdf",
+      "sha256": "edd76d150b073ae8d4addbf85f6845b8c722fbd0b35ef025ac3c9e704a6a3385",
+      "pages_1based": [
+        4,
+        16,
+        17,
+        44
+      ],
+      "facts_used": [
+        "Active-lowTPS2552-1overcurrentlatch variant",
+        "EN/powercycleclearlatch; thermalbehaviorseparate",
+        "ILIMformulasusedwith68k1%"
+      ],
+      "retrieval_refs": []
+    },
+    {
+      "id": "TI_XLAT",
+      "url": "https://www.ti.com/lit/ds/symlink/sn74lvc2t45.pdf",
+      "observed_document_filename": "SN74LVC2T45.pdf",
+      "sha256": "f0dc4a7a46a5b2020117e8bec614aec33f4f15784a82ab73dc3fa5f91d5c86bc",
+      "pages_1based": [
+        3,
+        32
+      ],
+      "facts_used": [
+        "VCCA-referencedDIR",
+        "Ioff/isolationwhenanyVCCatground",
+        "DCU8pads0.85x0.3,rows3.1mm,pitch0.5"
+      ],
+      "retrieval_refs": [
+        "turn38view1",
+        "turn41view3"
+      ]
+    },
+    {
+      "id": "TI_OPA197",
+      "url": "https://www.ti.com/lit/ds/symlink/opa197.pdf",
+      "observed_document_filename": "OPA197.pdf",
+      "sha256": "27653a7d5e965cbb2d23f7998919ebd774efd5cd3e126b8f0881469ae91166fd",
+      "pages_1based": [
+        4
+      ],
+      "facts_used": [
+        "OPA197DBVpinmap",
+        "Highimpedanceunitybufferonprotectedbipolarrails"
+      ],
+      "retrieval_refs": [
+        "turn38view2",
+        "turn47view1"
+      ]
+    },
+    {
+      "id": "TDK_LR",
+      "url": "https://product.tdk.com/system/files/dam/doc/product/inductor/inductor/smd/catalog/inductor_commercial_power_spm4020-lr_en.pdf",
+      "observed_document_filename": "TDK_SPM4020_LR.pdf",
+      "sha256": "17d657a765bbd1135b1619d8386dca0fadac3ee8115cbbbcef0134fa6a7f5451",
+      "pages_1based": [
+        2,
+        3
+      ],
+      "facts_used": [
+        "ActiveLRvariant4.7uH",
+        "Bodymax4.6x4.3x2.0mm",
+        "Pads1.65x2.3mmcenters+/-1.65",
+        "Isat3.5Atyp; thermal2.5Atyp; notguaranteedhotfaultmargin"
+      ],
+      "retrieval_refs": []
+    },
+    {
+      "id": "WORLDSEMI",
+      "url": "https://www.world-semi.com/downloads/datasheets/en/ws2812b-2020-v6-1.0.pdf",
+      "observed_document_filename": "WS2812B_2020_V6.pdf",
+      "sha256": "b09737faa695f6acca16612d3da658da6692fbf4366047083dad84809d452bca",
+      "pages_1based": [
+        2,
+        4
+      ],
+      "facts_used": [
+        "RetrievedfooterV1.4despiteURLv1.0",
+        "Pins1DOUT2GND3DIN4VDD",
+        "Pads0.7x0.7 atX+/-0.915,Y+/-0.55",
+        "TimingT1L220..420ns; total>=1.25us; reset>=280us"
+      ],
+      "retrieval_refs": []
+    },
+    {
+      "id": "XKB_PJ",
+      "url": "https://datasheet.lcsc.com/datasheet/pdf/72f7de7902310f96520199c5d4e56c29.pdf?productCode=C500090",
+      "observed_document_filename": "XKB_PJ_3582_B.pdf",
+      "sha256": "64b258ff58fd929e1324d2fe50d81b987af162d086a513d6b5fd70758f922ad6",
+      "facts_used": [
+        "ExactPJ-3582-Bdrawing",
+        "Tip6,ring3,sleeve2; contacts4/5isolatedinsertiondetect",
+        "TopviewrotatedX=manufacturerY,Y=-manufacturerX;1.5x.6slots and1.2locator"
+      ],
+      "distribution_note": "SourcePDFnotrequiredinpackage;manufacturerorlinkedvendorprimarydrawing"
+    },
+    {
+      "id": "DAILYWELL",
+      "url": "https://datasheet.lcsc.com/datasheet/pdf/5ad91fd2f37ff94d0c59ecc6c8369663.pdf?productCode=C908270",
+      "observed_document_filename": "Dailywell_1M_C908270_new.pdf",
+      "sha256": "2cf95e7fd41ab5de2fb8e1fd93f6cb08a25c4772c5eaeba38e1a45774b6dc274",
+      "facts_used": [
+        "SPbody6.86x12.70frontplane,8.89axialdepth",
+        "M2terminals4.70pitch;1.27x.76blade;1.5shoulder",
+        "Finished oval1.8x1.2mm and pad2.3x1.7mm are engineering choices with0.25mm nominal annulus; prior1.6x1.0mm oval failed rectangular-corner/tolerance containment. ControllerJ4 is removed in the final bridge revision."
+      ],
+      "distribution_note": "SourcePDFnotrequiredinpackage;manufacturerorlinkedvendorprimarydrawing"
+    },
+    {
+      "id": "JST_SH",
+      "url": "https://www.jst-mfg.com/product/pdf/eng/eSH.pdf",
+      "observed_document_filename": "JST_SH.pdf",
+      "sha256": "ea3071ca5ee5a6069eba534fa39a10f34c9fb742ee42135a69ab4156bfa0f5de",
+      "facts_used": [
+        "ExactSHhorizontal4pin;officialKiCadfootprintchecked",
+        "Body6.0x4.25;maxheight2.95; matedenvelopehandledbymechanical",
+        "Current rating1.0A withAWG28;50V; initialcontactresistance20mOhm maximum,40mOhm after environmental tests. First completed cable now carries both leaves, limited to439.435mA maximum byTPS design."
+      ],
+      "distribution_note": "SourcePDFnotrequiredinpackage;manufacturerorlinkedvendorprimarydrawing"
+    },
+    {
+      "id": "MOLEX_530470310",
+      "url": "https://www.molex.com/content/dam/molex/molex-dot-com/products/automated/en-us/salesdrawingpdf/530/53047/530470310_sd.pdf",
+      "observed_document_filename": "Molex_530470310.pdf",
+      "sha256": "76d2a5817a01b47f4b35c0b4078d874834f1f9c233bde42d9a819ead173929c7",
+      "facts_used": [
+        "3pin1.25pitch;recommended0.5drills",
+        "OfficialKiCadfootprintpin1origin,rowcenter+1.25X"
+      ],
+      "distribution_note": "SourcePDFnotrequiredinpackage;manufacturerorlinkedvendorprimarydrawing"
+    },
+    {
+      "id": "IDC_C5665",
+      "url": "https://jlcpcb.com/partdetail/C5665",
+      "observed_document_filename": "C5665_header.pdf",
+      "sha256": "257e4a246b117a4af732b8dde8ed567105d14046ad2a1058e58a205cdcfec9c2",
+      "facts_used": [
+        "Exactlistedkeyedboxheader",
+        "n=5:20.3+/-.5length,8.8+/-.1bodywidth,9.0+/-.1bumps,8.8+/-.1height",
+        "2.54pitch;1.0finishedholes;taildrawingconflictrequiresfactorytrim/qualification"
+      ],
+      "distribution_note": "SourcePDFnotrequiredinpackage;manufacturerorlinkedvendorprimarydrawing"
+    },
+    {
+      "id": "AP63205",
+      "url": "https://www.diodes.com/assets/Datasheets/AP63200-AP63201-AP63203-AP63205.pdf",
+      "retrieval_refs": [
+        "turn67view0",
+        "turn68view0",
+        "turn68view1",
+        "turn68view2"
+      ],
+      "facts_used": [
+        "Fixed5VAP63205;4.7uH,10uFin,2x22uFout,100nbootstrapreference",
+        "TSOT26pads.7x1.0,rows2.2mm,pitch.95",
+        "3.1Amaximumpeaklimit;FSS+/-6%;compactVIN/GND/SW/BST/FBlooprequirements"
+      ]
+    },
+    {
+      "id": "PMEG4010",
+      "url": "https://assets.nexperia.com/documents/data-sheet/PMEG4010CEJ.pdf",
+      "retrieval_refs": [
+        "turn50view2"
+      ],
+      "facts_used": [
+        "1K2A;oppositepositive/negative-railseriespolarity",
+        "SOD323F40V1A"
+      ]
+    },
+    {
+      "id": "BAS70_04",
+      "url": "https://www.diodes.com/_files/datasheets/ds11007.pdf",
+      "retrieval_refs": [
+        "turn50view1"
+      ],
+      "facts_used": [
+        "1A1,2K2,3K1/A2seriesdiodes",
+        "Do notassertaSchottkyguaranteesSTM32-0.3Vovertemperature"
+      ]
+    },
+    {
+      "id": "MMBT3904",
+      "url": "https://www.jscj-elec.com/gallery/file/MMBT3904%20SOT-23V2.pdf",
+      "retrieval_refs": [
+        "turn50view0"
+      ],
+      "facts_used": [
+        "SOT23pins1B2E3C;active-highMCUthroughNPNpullsactive-lowEN"
+      ]
+    },
+    {
+      "id": "KICAD_FORMAT",
+      "url": "https://dev-docs.kicad.org/en/file-formats/sexpr-pcb/",
+      "retrieval_refs": [
+        "turn44view1"
+      ],
+      "facts_used": [
+        "Nativegenerated/validatedwithKiCad10.0.8;standaloneproject-localfootprints"
+      ]
+    },
+    {
+      "id": "ADAFRUIT_4399_DRAWING",
+      "url": "https://cdn-shop.adafruit.com/product-files/4399/C14172-001_Kaweei_CBH-100-04-050-A.pdf",
+      "facts_used": [
+        "Completed50mm SH4 cable with straight1:1 mapping; linked drawing specifiesAWG28. The current cable construction differs in insulation description, so delivered gauge/contact/body and bend qualification remain."
+      ],
+      "historical_record": "A4.1 io_service_audit.json, Adafruit4399 source drawing observation"
+    }
+  ],
+  "licensed_upstream_footprints": [
+    {
+      "path": "footprints/upstream/IDC-Header_2x05_P2.54mm_Vertical.kicad_mod",
+      "sha256": "8203eeead7654ea20d7d4d73511eba52f0fcffee1c5de81b2f18503e70afd6db",
+      "origin": "https://github.com/KiCad/kicad-footprints",
+      "license_file": "footprints/upstream/LICENSE.md"
+    },
+    {
+      "path": "footprints/upstream/JST_SH_SM04B-SRSS-TB_1x04-1MP_P1.00mm_Horizontal.kicad_mod",
+      "sha256": "d0c40d57efc7f2fb939ae0fe707f89cd8aa0083801ce8177c5c978703562cd66",
+      "origin": "https://github.com/KiCad/kicad-footprints",
+      "license_file": "footprints/upstream/LICENSE.md"
+    },
+    {
+      "path": "footprints/upstream/LICENSE.md",
+      "sha256": "285b027a721577d0bc0198f36e948c6c282ddaa4b58fef8ed826749576eb0aef",
+      "origin": "https://github.com/KiCad/kicad-footprints",
+      "license_file": "footprints/upstream/LICENSE.md"
+    },
+    {
+      "path": "footprints/upstream/Molex_PicoBlade_53047-0310_1x03_P1.25mm_Vertical.kicad_mod",
+      "sha256": "547a57516c0408cb76c5e7d2037950787ce7a16d0d924c312ce30015b85104a6",
+      "origin": "https://github.com/KiCad/kicad-footprints",
+      "license_file": "footprints/upstream/LICENSE.md"
+    },
+    {
+      "path": "footprints/upstream/QFN-28_4x4mm_P0.5mm.kicad_mod",
+      "sha256": "ad6c10f95a9785966d923a139cb4bbea27eb364cfeafd83533062db010e03dac",
+      "origin": "https://github.com/KiCad/kicad-footprints",
+      "license_file": "footprints/upstream/LICENSE.md"
+    }
+  ],
+  "limitations": [
+    "SourceURLandretrievalhashareprovenance,notpermissiontoredistributemanufacturerPDFs",
+    "ExactcapacitorDCbiascurveswerenotqualified;nominalvalueisnotassertedeffectivevalue",
+    "PCBcourtyardandbodyboundsdonotrepresentfullmatedconnectorsorwirebends",
+    "Projectfootprintswithgenericpassivelandsrequirefactorylandpatternandassemblyreview"
+  ],
+  "bridge_design": {
+    "change": "ControllerJ4 removed; controllerJ3 carries DATA_L/DATA_R onpins3/4. Identical leaves have J1/J2 with pins3/4 swapped atJ2. Two straight1:1 cables retained.",
+    "fitted_SH4_count": 5,
+    "fitted_total": 81,
+    "firmware_gpio_unchanged": true
+  }
+}

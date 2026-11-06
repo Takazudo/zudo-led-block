@@ -1,0 +1,292 @@
+{
+  "revision": "A5",
+  "recorded_utc": "2026-11-06T06:26:16.068862+00:00",
+  "native_tool": "KiCad10.0.8-10.0.8~ubuntu24.04.1",
+  "hardware_tests": "NOT_RUN",
+  "manufacturing_release": false,
+  "boards": [
+    {
+      "name": "controller",
+      "pcb": "native/controller/controller.kicad_pcb",
+      "pcb_sha256": "b5fff82b709cdc6d7462bad8ab15e4f371681f255ede4f4f9a7f15e7e331d409",
+      "project": "native/controller/controller.kicad_pro",
+      "project_sha256": "c0c000578334aa6197fe564ed9c0a33ee66bd53b13d5d7efe642b5f3870ef984",
+      "drc_report": "reports/controller_drc.json",
+      "drc_report_sha256": "39d85c1af9bff15fa1142a2fc2fb7f76f970c28d274d189433528ab006eea941",
+      "drc_report_written_utc": "2026-11-06T06:21:20.150606+00:00",
+      "violation_count": 2,
+      "violations_by_type": {
+        "courtyards_overlap": 2
+      },
+      "unconnected_count": 130,
+      "rules": {
+        "rules": {
+          "min_clearance": 0.15,
+          "min_copper_edge_clearance": 0.2,
+          "min_hole_clearance": 0.2,
+          "min_through_hole_diameter": 0.3,
+          "min_track_width": 0.15,
+          "min_via_annular_width": 0.15,
+          "min_via_diameter": 0.6
+        }
+      },
+      "net_settings": {
+        "classes": [
+          {
+            "name": "Default",
+            "clearance": 0.15,
+            "track_width": 0.25,
+            "via_diameter": 0.6,
+            "via_drill": 0.3,
+            "microvia_diameter": 0.3,
+            "microvia_drill": 0.1,
+            "diff_pair_width": 0.2,
+            "diff_pair_gap": 0.25,
+            "diff_pair_via_gap": 0.25
+          }
+        ],
+        "meta": {
+          "version": 3
+        }
+      },
+      "release_status": "CONTROLLER_UNROUTED",
+      "specific_limits": [
+        "130 unconnected items; no copper routes or planes; power/bypass/layout not qualified",
+        "Two retained courtyard-projection conflicts: J3 versus raised/insulated H1 screw head, and J3 versus C7. Actual mated plug, solder height, clamp relief and manufacturing tolerance remain qualification gates.",
+        "Controller J4 removed. A single controller header carries independent DATA_L/DATA_R; two-port identical leaves pass the streams through with a pin3/4 swap. Two straight1:1 completed cables remain. First cable and first-leaf rails carry both leaves.",
+        "SWD row relocated to rear globalY80.7 with four resistors in the freed J4 area. Fixture and optical-removal access still require qualification."
+      ]
+    },
+    {
+      "name": "led_leaf",
+      "pcb": "native/led_leaf/led_leaf.kicad_pcb",
+      "pcb_sha256": "6244280cec3efe00ca31d9c5c8878f3ed6eb59a1c6bd4e933beffedd49511df3",
+      "project": "native/led_leaf/led_leaf.kicad_pro",
+      "project_sha256": "373a91f9e767d62419fff57486ee1c8b82944a72e9515c2efb12d24212d6b0e3",
+      "drc_report": "reports/led_leaf_drc.json",
+      "drc_report_sha256": "2a9e4185f87827600c848bff5b25a0891b66e313b2edb0368be4c3a1c93e8451",
+      "drc_report_written_utc": "2026-11-06T06:21:20.314610+00:00",
+      "violation_count": 0,
+      "violations_by_type": {},
+      "unconnected_count": 0,
+      "rules": {
+        "rules": {
+          "min_clearance": 0.15,
+          "min_copper_edge_clearance": 0.2,
+          "min_hole_clearance": 0.2,
+          "min_through_hole_diameter": 0.3,
+          "min_track_width": 0.15,
+          "min_via_annular_width": 0.15,
+          "min_via_diameter": 0.6
+        }
+      },
+      "net_settings": {
+        "classes": [
+          {
+            "name": "Default",
+            "clearance": 0.15,
+            "track_width": 0.25,
+            "via_diameter": 0.6,
+            "via_drill": 0.3,
+            "microvia_diameter": 0.3,
+            "microvia_drill": 0.1,
+            "diff_pair_width": 0.2,
+            "diff_pair_gap": 0.25,
+            "diff_pair_via_gap": 0.25
+          }
+        ],
+        "meta": {
+          "version": 3
+        }
+      },
+      "release_status": "ROUTED_DRC_CLEAN_ENGINEERING_PROTOTYPE",
+      "specific_limits": [
+        "Mechanical/mating/terminal-trim/tolerance and factory review remain; electrical DRC does not establish complete module fit."
+      ]
+    },
+    {
+      "name": "power_adapter",
+      "pcb": "native/power_adapter/power_adapter.kicad_pcb",
+      "pcb_sha256": "b0f071f2730afdfd3d29de2176b1cce5f90b0c0726d14fd15501e27f90d95187",
+      "project": "native/power_adapter/power_adapter.kicad_pro",
+      "project_sha256": "c8cdc6cd4f829aa59e6a523131c2d72fff54726fbc237094be431153a8127d81",
+      "drc_report": "reports/power_adapter_drc.json",
+      "drc_report_sha256": "c2b32595c66b989df4ecbfa626a4202b17ad2deda3e22377e32829d1d181c41e",
+      "drc_report_written_utc": "2026-11-06T06:21:20.258608+00:00",
+      "violation_count": 0,
+      "violations_by_type": {},
+      "unconnected_count": 0,
+      "rules": {
+        "rules": {
+          "min_clearance": 0.15,
+          "min_copper_edge_clearance": 0.2,
+          "min_hole_clearance": 0.2,
+          "min_through_hole_diameter": 0.3,
+          "min_track_width": 0.15,
+          "min_via_annular_width": 0.15,
+          "min_via_diameter": 0.6
+        }
+      },
+      "net_settings": {
+        "classes": [
+          {
+            "name": "Default",
+            "clearance": 0.15,
+            "track_width": 0.25,
+            "via_diameter": 0.6,
+            "via_drill": 0.3,
+            "microvia_diameter": 0.3,
+            "microvia_drill": 0.1,
+            "diff_pair_width": 0.2,
+            "diff_pair_gap": 0.25,
+            "diff_pair_via_gap": 0.25
+          }
+        ],
+        "meta": {
+          "version": 3
+        }
+      },
+      "release_status": "ROUTED_DRC_CLEAN_ENGINEERING_PROTOTYPE",
+      "specific_limits": [
+        "Mechanical/mating/terminal-trim/tolerance and factory review remain; electrical DRC does not establish complete module fit."
+      ]
+    }
+  ],
+  "custom_drc_exclusions": [],
+  "exclusion_note": "No DRC exclusion entries or custom rule suppression added. Project files contain stated clearances; native default severities otherwise apply. Unconnected items are counted separately from violation list. Native ERC and independent exported-netlist checks are recorded by the package integration reports.",
+  "footprint_library": [
+    {
+      "path": "footprints/LightBlock.pretty/C0603.kicad_mod",
+      "sha256": "3f3938ce99098a5b7e9c93eb0f87db1587f80da01b3179a2e41a799f0f599950"
+    },
+    {
+      "path": "footprints/LightBlock.pretty/C0805.kicad_mod",
+      "sha256": "2c98755263e6bc977ba76cae7c71316be43ef7d876a5cba322ef382ae2864503"
+    },
+    {
+      "path": "footprints/LightBlock.pretty/C1206.kicad_mod",
+      "sha256": "5308dc9e787578c5569bc20944c2680c56b701bcaef46b715b4dba46fd2bb16a"
+    },
+    {
+      "path": "footprints/LightBlock.pretty/DAILYWELL_M2_SP.kicad_mod",
+      "sha256": "018757651aed6d51dc85acc51cd8cc3a38f9bd9055aca01f0dd87e5789abc131"
+    },
+    {
+      "path": "footprints/LightBlock.pretty/DBV5.kicad_mod",
+      "sha256": "a87016f232824040f51a025e894fab1d0eceae5b5d8d8e53744a4057927b58ac"
+    },
+    {
+      "path": "footprints/LightBlock.pretty/DBV6.kicad_mod",
+      "sha256": "dbbc0e57cb1aa60837d60007e290dd74de0594444c4b9331b28d3ec4f96ff7c0"
+    },
+    {
+      "path": "footprints/LightBlock.pretty/DCU8.kicad_mod",
+      "sha256": "e20c623f3424f62570a86eb0cb49b58c3222960fd283f3e5912a2d775604c3ef"
+    },
+    {
+      "path": "footprints/LightBlock.pretty/IDC10.kicad_mod",
+      "sha256": "2a98dd78e83c5afbc2e79f4cc777ada787eceed44186f41e4e8fb71dd866710f"
+    },
+    {
+      "path": "footprints/LightBlock.pretty/JST_SH4.kicad_mod",
+      "sha256": "a458d2ce5275c268a119665abade7623467f11f37bc0439f5b21fbdb293965c3"
+    },
+    {
+      "path": "footprints/LightBlock.pretty/PICO3.kicad_mod",
+      "sha256": "dfe022de4bad3f63b217421321b5367481a74fc8eb040d3894e86fba7c90e4f9"
+    },
+    {
+      "path": "footprints/LightBlock.pretty/PJ3582_ROT90.kicad_mod",
+      "sha256": "d33e10b256cdc9e1e4010bb6601d24f552f99a3609d82d02f211b1d8fcfabc7b"
+    },
+    {
+      "path": "footprints/LightBlock.pretty/QFN28.kicad_mod",
+      "sha256": "25c816321b8f672cab44c3890dd81143711407187dabd61f037ea4f599cff090"
+    },
+    {
+      "path": "footprints/LightBlock.pretty/R0603.kicad_mod",
+      "sha256": "dbdf7d22844e7586e12aec9b97c17591046b8dd0a4a6916661760488c608cef1"
+    },
+    {
+      "path": "footprints/LightBlock.pretty/SOD323F.kicad_mod",
+      "sha256": "2d7b0d81c11740fd64f0d0ae5b5668ca73360b2a3c327e4a05b0bf91f9362250"
+    },
+    {
+      "path": "footprints/LightBlock.pretty/SOT23.kicad_mod",
+      "sha256": "94102488a850d773fd815c2141fb76a53bade7a5f7bf3cf321474736746a0e26"
+    },
+    {
+      "path": "footprints/LightBlock.pretty/SPM4020_LR.kicad_mod",
+      "sha256": "2bd73c09cb7571b5088850b892547106bdab5b36ba8419d261eaaa755b495e34"
+    },
+    {
+      "path": "footprints/LightBlock.pretty/TESTPAD.kicad_mod",
+      "sha256": "fafb284456e6bfa1d6304506250401f5d303890022399214b19018a93bf81168"
+    },
+    {
+      "path": "footprints/LightBlock.pretty/TSOT26.kicad_mod",
+      "sha256": "4551c5304cac9db9f04b721adf37107546eaaea4b800db59645eb39ebd4b7824"
+    },
+    {
+      "path": "footprints/LightBlock.pretty/WS2812B_2020_V6.kicad_mod",
+      "sha256": "8ce0385661e4ddf3f0395f215a5165b30f7ef47e6ebf92dcbd8661be88f84ec3"
+    },
+    {
+      "path": "footprints/footprint_geometry.json",
+      "sha256": "a58c361be8d135ec5ebd107dbdb5a0c19fbe50c39ce24937ddcffb1e6a3a9187"
+    },
+    {
+      "path": "footprints/upstream/IDC-Header_2x05_P2.54mm_Vertical.kicad_mod",
+      "sha256": "8203eeead7654ea20d7d4d73511eba52f0fcffee1c5de81b2f18503e70afd6db"
+    },
+    {
+      "path": "footprints/upstream/JST_SH_SM04B-SRSS-TB_1x04-1MP_P1.00mm_Horizontal.kicad_mod",
+      "sha256": "d0c40d57efc7f2fb939ae0fe707f89cd8aa0083801ce8177c5c978703562cd66"
+    },
+    {
+      "path": "footprints/upstream/LICENSE.md",
+      "sha256": "285b027a721577d0bc0198f36e948c6c282ddaa4b58fef8ed826749576eb0aef"
+    },
+    {
+      "path": "footprints/upstream/Molex_PicoBlade_53047-0310_1x03_P1.25mm_Vertical.kicad_mod",
+      "sha256": "547a57516c0408cb76c5e7d2037950787ce7a16d0d924c312ce30015b85104a6"
+    },
+    {
+      "path": "footprints/upstream/QFN-28_4x4mm_P0.5mm.kicad_mod",
+      "sha256": "ad6c10f95a9785966d923a139cb4bbea27eb364cfeafd83533062db010e03dac"
+    }
+  ],
+  "authoritative_inputs": [
+    {
+      "path": "design/design_data.py",
+      "sha256": "8dfc170d014f020deba132a33a22d4d0deb180b377607670c1eda527952483fd"
+    },
+    {
+      "path": "design/generate_electronics.py",
+      "sha256": "1b61d93d948b94442f95164e2b1a304f6cad7d788da1992b155c61da7791200b"
+    },
+    {
+      "path": "design/controller_placement_override.json",
+      "sha256": "dc699a1697f64e253064abf2e7cac9b5fc42da8b177e0bf21e7786eab54dddd2"
+    },
+    {
+      "path": "fitted_component_ledger.json",
+      "sha256": "7ea3494e6e3ebcf52c040ca6c242b3c76c5ec3e97911a71ecfd4e7083cb7eabf"
+    },
+    {
+      "path": "placement_and_connectivity.json",
+      "sha256": "086443644c29d210cdde0c712d639584c0ee52079395c7ef5f2dca1c1876c71f"
+    }
+  ],
+  "qualification_gates": [
+    "Complete controller routing and power/ground return paths; short buckVIN/SW/BST/FB/ground loops and device-local bypasses; rerunDRC with zero unconnected",
+    "Native schematic/PCB roundtrip and complete factoryBOM/CPL/panelization review",
+    "Samsung/Yageo MLCC operating capacitance versus bias/tolerance/temperature/ageing; no minimum effectiveC proof yet",
+    "TPS2552-1 fault/reset/thermal behavior and firmware reset retention on real rails",
+    "U7 partial-supply/differential-input/transient/LDOreverse-current bounds; full power sequencing remains unqualified",
+    "AP63205/TDK hot-short/startup/current-limit/overshoot waveforms and enclosure heating",
+    "Exact incoming WS2812B-2020-V6 revision and measured pulse timings; StandardPCBA/MSL5 handling",
+    "Incoming jack contact continuity, switch throw direction, harness continuity and polarity",
+    "Physical controller support, bridge-cable bend/sample fit, rear SWD access, mated envelopes, tail trimming and depth"
+  ]
+}

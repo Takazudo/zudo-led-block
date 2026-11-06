@@ -1,0 +1,63 @@
+{
+  "retrieval_date_utc": "2026-11-05",
+  "review_date": "2026-11-06",
+  "date_timezone": "Asia/Tokyo",
+  "sources": [
+    {
+      "id": "trotec_acrylic",
+      "publisher": "Trotec",
+      "url": "https://www.troteclaser.com/en-us/helpcenter/materials/material-usage-hints/material-handling-acrylic",
+      "supports": [
+        "Cast acrylic for white engraving",
+        "Light rear surface engraving",
+        "Mirror rear artwork"
+      ],
+      "retrieval_refs": [
+        "turn180search0",
+        "turn193view1"
+      ]
+    },
+    {
+      "id": "epilog_raster",
+      "publisher": "Epilog",
+      "url": "https://www.epiloglaser.com/downloads/pdf/ext_4.22.10.pdf",
+      "printed_pages": [
+        108,
+        109
+      ],
+      "supports": [
+        "Black-filled regions in Basic black-and-white raster mode are processed"
+      ],
+      "retrieval_refs": [
+        "turn181view1"
+      ]
+    },
+    {
+      "id": "gravotech_negative",
+      "publisher": "Gravotech",
+      "url": "https://www.gravotech.us/articles/master-art-photo-engraving",
+      "supports": [
+        "Acrylic lightens under engraving",
+        "Negative artwork principle, in photo context"
+      ],
+      "retrieval_refs": [
+        "turn181view0",
+        "turn193view0"
+      ]
+    },
+    {
+      "id": "C908270",
+      "url": "https://www.lcsc.com/datasheet/lcsc_datasheet_2304140030_Dailywell-1MS3T1B1M2QES-5_C908270.pdf",
+      "local_evidence_relative_to_A4_root": "mechanical_evidence/C908270.pdf",
+      "sha256": "2cf95e7fd41ab5de2fb8e1fd93f6cb08a25c4772c5eaeba38e1a45774b6dc274",
+      "note": "Manufacturer Dailywell1M family drawing, pages7/10 inspected. Plain6.50hole is our clearance choice, not catalog keyway profile."
+    },
+    {
+      "id": "C500090",
+      "url": "https://jlcpcb.com/partdetail/XKBConnection-PJ_3582B/C500090",
+      "local_evidence_relative_to_A4_root": "mechanical_evidence/C500090.pdf",
+      "sha256": "3ea4946f78ed6c50128ed4abf0276d4837f24782ba8782a0e1f3c1787d546527",
+      "note": "Manufacturer XKB drawing from public product-page Datasheet link. Stable downloaded evidence is included in enclosing A4 package; no expiring URL in deliverable."
+    }
+  ]
+}

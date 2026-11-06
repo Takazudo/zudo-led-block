@@ -1,0 +1,2345 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<export version="E">
+  <design>
+    <source>/workspace/scratch/213e46744889/light_block_A5/electronics/native/controller/controller.kicad_sch</source>
+    <date>2026-11-06T15:26:45</date>
+    <tool>Eeschema 10.0.8-10.0.8~ubuntu24.04.1</tool>
+    <sheet number="1" name="/" tstamps="/">
+      <title_block>
+        <title>Light Block A5 controller</title>
+        <company>Light Block</company>
+        <rev>A5</rev>
+        <date>2026-11-06</date>
+        <source>controller.kicad_sch</source>
+        <comment number="1" value="Engineering draft. Controller is not routed. No hardware qualification claimed."/>
+        <comment number="2" value=""/>
+        <comment number="3" value=""/>
+        <comment number="4" value=""/>
+        <comment number="5" value=""/>
+        <comment number="6" value=""/>
+        <comment number="7" value=""/>
+        <comment number="8" value=""/>
+        <comment number="9" value=""/>
+      </title_block>
+    </sheet>
+  </design>
+  <components>
+    <comp ref="C1">
+      <value>10u</value>
+      <footprint>LightBlock:C0805</footprint>
+      <fields>
+        <field name="MPN">CL21A106KAYNNNE</field>
+        <field name="LCSC">C15850</field>
+        <field name="Footprint">LightBlock:C0805</field>
+        <field name="Datasheet"/>
+        <field name="Description"/>
+      </fields>
+      <libsource lib="LightBlock" part="C" description=""/>
+      <property name="MPN" value="CL21A106KAYNNNE"/>
+      <property name="LCSC" value="C15850"/>
+      <property name="Sheetname" value="controller"/>
+      <property name="Sheetfile" value="controller.kicad_sch"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamps>4162d90d-c4a7-5f9a-9002-05a0aea4e1bf</tstamps>
+      <units>
+        <unit name="A">
+          <pins>
+            <pin num="1"/>
+            <pin num="2"/>
+          </pins>
+        </unit>
+      </units>
+    </comp>
+    <comp ref="C2">
+      <value>22u</value>
+      <footprint>LightBlock:C1206</footprint>
+      <fields>
+        <field name="MPN">CL31A226KAHNNNE</field>
+        <field name="LCSC">C12891</field>
+        <field name="Footprint">LightBlock:C1206</field>
+        <field name="Datasheet"/>
+        <field name="Description"/>
+      </fields>
+      <libsource lib="LightBlock" part="C" description=""/>
+      <property name="MPN" value="CL31A226KAHNNNE"/>
+      <property name="LCSC" value="C12891"/>
+      <property name="Sheetname" value="controller"/>
+      <property name="Sheetfile" value="controller.kicad_sch"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamps>d304816b-57ef-5486-9639-a2b30f9e5369</tstamps>
+      <units>
+        <unit name="A">
+          <pins>
+            <pin num="1"/>
+            <pin num="2"/>
+          </pins>
+        </unit>
+      </units>
+    </comp>
+    <comp ref="C3">
+      <value>22u</value>
+      <footprint>LightBlock:C1206</footprint>
+      <fields>
+        <field name="MPN">CL31A226KAHNNNE</field>
+        <field name="LCSC">C12891</field>
+        <field name="Footprint">LightBlock:C1206</field>
+        <field name="Datasheet"/>
+        <field name="Description"/>
+      </fields>
+      <libsource lib="LightBlock" part="C" description=""/>
+      <property name="MPN" value="CL31A226KAHNNNE"/>
+      <property name="LCSC" value="C12891"/>
+      <property name="Sheetname" value="controller"/>
+      <property name="Sheetfile" value="controller.kicad_sch"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamps>94898f4b-8a3c-5a4c-8d14-0b926934f98d</tstamps>
+      <units>
+        <unit name="A">
+          <pins>
+            <pin num="1"/>
+            <pin num="2"/>
+          </pins>
+        </unit>
+      </units>
+    </comp>
+    <comp ref="C4">
+      <value>100n</value>
+      <footprint>LightBlock:C0603</footprint>
+      <fields>
+        <field name="MPN">CC0603KRX7R9BB104</field>
+        <field name="LCSC">C14663</field>
+        <field name="Footprint">LightBlock:C0603</field>
+        <field name="Datasheet"/>
+        <field name="Description"/>
+      </fields>
+      <libsource lib="LightBlock" part="C" description=""/>
+      <property name="MPN" value="CC0603KRX7R9BB104"/>
+      <property name="LCSC" value="C14663"/>
+      <property name="Sheetname" value="controller"/>
+      <property name="Sheetfile" value="controller.kicad_sch"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamps>90b9b38c-9740-5339-ba0d-7a02b962ba47</tstamps>
+      <units>
+        <unit name="A">
+          <pins>
+            <pin num="1"/>
+            <pin num="2"/>
+          </pins>
+        </unit>
+      </units>
+    </comp>
+    <comp ref="C5">
+      <value>4.7u</value>
+      <footprint>LightBlock:C0603</footprint>
+      <fields>
+        <field name="MPN">CL10A475KO8NNNC</field>
+        <field name="LCSC">C19666</field>
+        <field name="Footprint">LightBlock:C0603</field>
+        <field name="Datasheet"/>
+        <field name="Description"/>
+      </fields>
+      <libsource lib="LightBlock" part="C" description=""/>
+      <property name="MPN" value="CL10A475KO8NNNC"/>
+      <property name="LCSC" value="C19666"/>
+      <property name="Sheetname" value="controller"/>
+      <property name="Sheetfile" value="controller.kicad_sch"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamps>63648683-c976-580b-85d9-2ba5f12311e7</tstamps>
+      <units>
+        <unit name="A">
+          <pins>
+            <pin num="1"/>
+            <pin num="2"/>
+          </pins>
+        </unit>
+      </units>
+    </comp>
+    <comp ref="C6">
+      <value>4.7u</value>
+      <footprint>LightBlock:C0603</footprint>
+      <fields>
+        <field name="MPN">CL10A475KO8NNNC</field>
+        <field name="LCSC">C19666</field>
+        <field name="Footprint">LightBlock:C0603</field>
+        <field name="Datasheet"/>
+        <field name="Description"/>
+      </fields>
+      <libsource lib="LightBlock" part="C" description=""/>
+      <property name="MPN" value="CL10A475KO8NNNC"/>
+      <property name="LCSC" value="C19666"/>
+      <property name="Sheetname" value="controller"/>
+      <property name="Sheetfile" value="controller.kicad_sch"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamps>01474476-2951-5d94-9bfb-0fb5db3e57c1</tstamps>
+      <units>
+        <unit name="A">
+          <pins>
+            <pin num="1"/>
+            <pin num="2"/>
+          </pins>
+        </unit>
+      </units>
+    </comp>
+    <comp ref="C7">
+      <value>4.7u</value>
+      <footprint>LightBlock:C0603</footprint>
+      <fields>
+        <field name="MPN">CL10A475KO8NNNC</field>
+        <field name="LCSC">C19666</field>
+        <field name="Footprint">LightBlock:C0603</field>
+        <field name="Datasheet"/>
+        <field name="Description"/>
+      </fields>
+      <libsource lib="LightBlock" part="C" description=""/>
+      <property name="MPN" value="CL10A475KO8NNNC"/>
+      <property name="LCSC" value="C19666"/>
+      <property name="Sheetname" value="controller"/>
+      <property name="Sheetfile" value="controller.kicad_sch"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamps>bd548f38-552e-57e2-90b7-2c88b69506ab</tstamps>
+      <units>
+        <unit name="A">
+          <pins>
+            <pin num="1"/>
+            <pin num="2"/>
+          </pins>
+        </unit>
+      </units>
+    </comp>
+    <comp ref="C8">
+      <value>100n</value>
+      <footprint>LightBlock:C0603</footprint>
+      <fields>
+        <field name="MPN">CC0603KRX7R9BB104</field>
+        <field name="LCSC">C14663</field>
+        <field name="Footprint">LightBlock:C0603</field>
+        <field name="Datasheet"/>
+        <field name="Description"/>
+      </fields>
+      <libsource lib="LightBlock" part="C" description=""/>
+      <property name="MPN" value="CC0603KRX7R9BB104"/>
+      <property name="LCSC" value="C14663"/>
+      <property name="Sheetname" value="controller"/>
+      <property name="Sheetfile" value="controller.kicad_sch"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamps>e13df227-8932-55c0-bb66-add06fb29843</tstamps>
+      <units>
+        <unit name="A">
+          <pins>
+            <pin num="1"/>
+            <pin num="2"/>
+          </pins>
+        </unit>
+      </units>
+    </comp>
+    <comp ref="C9">
+      <value>100n</value>
+      <footprint>LightBlock:C0603</footprint>
+      <fields>
+        <field name="MPN">CC0603KRX7R9BB104</field>
+        <field name="LCSC">C14663</field>
+        <field name="Footprint">LightBlock:C0603</field>
+        <field name="Datasheet"/>
+        <field name="Description"/>
+      </fields>
+      <libsource lib="LightBlock" part="C" description=""/>
+      <property name="MPN" value="CC0603KRX7R9BB104"/>
+      <property name="LCSC" value="C14663"/>
+      <property name="Sheetname" value="controller"/>
+      <property name="Sheetfile" value="controller.kicad_sch"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamps>f29ee479-e42c-5b29-a473-5bd3a23e9d9c</tstamps>
+      <units>
+        <unit name="A">
+          <pins>
+            <pin num="1"/>
+            <pin num="2"/>
+          </pins>
+        </unit>
+      </units>
+    </comp>
+    <comp ref="C10">
+      <value>100n</value>
+      <footprint>LightBlock:C0603</footprint>
+      <fields>
+        <field name="MPN">CC0603KRX7R9BB104</field>
+        <field name="LCSC">C14663</field>
+        <field name="Footprint">LightBlock:C0603</field>
+        <field name="Datasheet"/>
+        <field name="Description"/>
+      </fields>
+      <libsource lib="LightBlock" part="C" description=""/>
+      <property name="MPN" value="CC0603KRX7R9BB104"/>
+      <property name="LCSC" value="C14663"/>
+      <property name="Sheetname" value="controller"/>
+      <property name="Sheetfile" value="controller.kicad_sch"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamps>b698ed83-8cdf-5db7-ad84-9248196501d5</tstamps>
+      <units>
+        <unit name="A">
+          <pins>
+            <pin num="1"/>
+            <pin num="2"/>
+          </pins>
+        </unit>
+      </units>
+    </comp>
+    <comp ref="C11">
+      <value>100n</value>
+      <footprint>LightBlock:C0603</footprint>
+      <fields>
+        <field name="MPN">CC0603KRX7R9BB104</field>
+        <field name="LCSC">C14663</field>
+        <field name="Footprint">LightBlock:C0603</field>
+        <field name="Datasheet"/>
+        <field name="Description"/>
+      </fields>
+      <libsource lib="LightBlock" part="C" description=""/>
+      <property name="MPN" value="CC0603KRX7R9BB104"/>
+      <property name="LCSC" value="C14663"/>
+      <property name="Sheetname" value="controller"/>
+      <property name="Sheetfile" value="controller.kicad_sch"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamps>49cca2fb-b072-5d52-b512-9c790e5ba1ef</tstamps>
+      <units>
+        <unit name="A">
+          <pins>
+            <pin num="1"/>
+            <pin num="2"/>
+          </pins>
+        </unit>
+      </units>
+    </comp>
+    <comp ref="C12">
+      <value>100n</value>
+      <footprint>LightBlock:C0603</footprint>
+      <fields>
+        <field name="MPN">CC0603KRX7R9BB104</field>
+        <field name="LCSC">C14663</field>
+        <field name="Footprint">LightBlock:C0603</field>
+        <field name="Datasheet"/>
+        <field name="Description"/>
+      </fields>
+      <libsource lib="LightBlock" part="C" description=""/>
+      <property name="MPN" value="CC0603KRX7R9BB104"/>
+      <property name="LCSC" value="C14663"/>
+      <property name="Sheetname" value="controller"/>
+      <property name="Sheetfile" value="controller.kicad_sch"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamps>90a2aa5a-f78e-5cfe-b4b5-b521876a4025</tstamps>
+      <units>
+        <unit name="A">
+          <pins>
+            <pin num="1"/>
+            <pin num="2"/>
+          </pins>
+        </unit>
+      </units>
+    </comp>
+    <comp ref="C13">
+      <value>10n</value>
+      <footprint>LightBlock:C0603</footprint>
+      <fields>
+        <field name="MPN">0603B103K500NT</field>
+        <field name="LCSC">C57112</field>
+        <field name="Footprint">LightBlock:C0603</field>
+        <field name="Datasheet"/>
+        <field name="Description"/>
+      </fields>
+      <libsource lib="LightBlock" part="C" description=""/>
+      <property name="MPN" value="0603B103K500NT"/>
+      <property name="LCSC" value="C57112"/>
+      <property name="Sheetname" value="controller"/>
+      <property name="Sheetfile" value="controller.kicad_sch"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamps>774f3894-4846-5a78-8d09-986f5dc50685</tstamps>
+      <units>
+        <unit name="A">
+          <pins>
+            <pin num="1"/>
+            <pin num="2"/>
+          </pins>
+        </unit>
+      </units>
+    </comp>
+    <comp ref="C14">
+      <value>100n</value>
+      <footprint>LightBlock:C0603</footprint>
+      <fields>
+        <field name="MPN">CC0603KRX7R9BB104</field>
+        <field name="LCSC">C14663</field>
+        <field name="Footprint">LightBlock:C0603</field>
+        <field name="Datasheet"/>
+        <field name="Description"/>
+      </fields>
+      <libsource lib="LightBlock" part="C" description=""/>
+      <property name="MPN" value="CC0603KRX7R9BB104"/>
+      <property name="LCSC" value="C14663"/>
+      <property name="Sheetname" value="controller"/>
+      <property name="Sheetfile" value="controller.kicad_sch"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamps>6cfa0b3d-e621-57dd-b644-5e8843311e25</tstamps>
+      <units>
+        <unit name="A">
+          <pins>
+            <pin num="1"/>
+            <pin num="2"/>
+          </pins>
+        </unit>
+      </units>
+    </comp>
+    <comp ref="C15">
+      <value>10u</value>
+      <footprint>LightBlock:C0805</footprint>
+      <fields>
+        <field name="MPN">CL21A106KAYNNNE</field>
+        <field name="LCSC">C15850</field>
+        <field name="Footprint">LightBlock:C0805</field>
+        <field name="Datasheet"/>
+        <field name="Description"/>
+      </fields>
+      <libsource lib="LightBlock" part="C" description=""/>
+      <property name="MPN" value="CL21A106KAYNNNE"/>
+      <property name="LCSC" value="C15850"/>
+      <property name="Sheetname" value="controller"/>
+      <property name="Sheetfile" value="controller.kicad_sch"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamps>97807250-fffb-5bbc-984d-c87d586ffa8b</tstamps>
+      <units>
+        <unit name="A">
+          <pins>
+            <pin num="1"/>
+            <pin num="2"/>
+          </pins>
+        </unit>
+      </units>
+    </comp>
+    <comp ref="C16">
+      <value>10u</value>
+      <footprint>LightBlock:C0805</footprint>
+      <fields>
+        <field name="MPN">CL21A106KAYNNNE</field>
+        <field name="LCSC">C15850</field>
+        <field name="Footprint">LightBlock:C0805</field>
+        <field name="Datasheet"/>
+        <field name="Description"/>
+      </fields>
+      <libsource lib="LightBlock" part="C" description=""/>
+      <property name="MPN" value="CL21A106KAYNNNE"/>
+      <property name="LCSC" value="C15850"/>
+      <property name="Sheetname" value="controller"/>
+      <property name="Sheetfile" value="controller.kicad_sch"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamps>a268643f-dd66-5a3a-85e9-02d29a2e961c</tstamps>
+      <units>
+        <unit name="A">
+          <pins>
+            <pin num="1"/>
+            <pin num="2"/>
+          </pins>
+        </unit>
+      </units>
+    </comp>
+    <comp ref="C17">
+      <value>100n</value>
+      <footprint>LightBlock:C0603</footprint>
+      <fields>
+        <field name="MPN">CC0603KRX7R9BB104</field>
+        <field name="LCSC">C14663</field>
+        <field name="Footprint">LightBlock:C0603</field>
+        <field name="Datasheet"/>
+        <field name="Description"/>
+      </fields>
+      <libsource lib="LightBlock" part="C" description=""/>
+      <property name="MPN" value="CC0603KRX7R9BB104"/>
+      <property name="LCSC" value="C14663"/>
+      <property name="Sheetname" value="controller"/>
+      <property name="Sheetfile" value="controller.kicad_sch"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamps>c4b52696-fe2d-5d6e-82e5-3dbbec6ed2e0</tstamps>
+      <units>
+        <unit name="A">
+          <pins>
+            <pin num="1"/>
+            <pin num="2"/>
+          </pins>
+        </unit>
+      </units>
+    </comp>
+    <comp ref="D1">
+      <value>PMEG4010 +rail</value>
+      <footprint>LightBlock:SOD323F</footprint>
+      <fields>
+        <field name="MPN">PMEG4010CEJ,115</field>
+        <field name="LCSC">C50704</field>
+        <field name="Footprint">LightBlock:SOD323F</field>
+        <field name="Datasheet"/>
+        <field name="Description"/>
+      </fields>
+      <libsource lib="LightBlock" part="RECT" description=""/>
+      <property name="MPN" value="PMEG4010CEJ,115"/>
+      <property name="LCSC" value="C50704"/>
+      <property name="Sheetname" value="controller"/>
+      <property name="Sheetfile" value="controller.kicad_sch"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamps>68e2db5a-5044-5fba-9ef4-164f36e3df81</tstamps>
+      <units>
+        <unit name="A">
+          <pins>
+            <pin num="1"/>
+            <pin num="2"/>
+          </pins>
+        </unit>
+      </units>
+    </comp>
+    <comp ref="D2">
+      <value>PMEG4010 -rail</value>
+      <footprint>LightBlock:SOD323F</footprint>
+      <fields>
+        <field name="MPN">PMEG4010CEJ,115</field>
+        <field name="LCSC">C50704</field>
+        <field name="Footprint">LightBlock:SOD323F</field>
+        <field name="Datasheet"/>
+        <field name="Description"/>
+      </fields>
+      <libsource lib="LightBlock" part="RECT" description=""/>
+      <property name="MPN" value="PMEG4010CEJ,115"/>
+      <property name="LCSC" value="C50704"/>
+      <property name="Sheetname" value="controller"/>
+      <property name="Sheetfile" value="controller.kicad_sch"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamps>5faf7ac3-39e0-5641-b9a7-134657b0c705</tstamps>
+      <units>
+        <unit name="A">
+          <pins>
+            <pin num="1"/>
+            <pin num="2"/>
+          </pins>
+        </unit>
+      </units>
+    </comp>
+    <comp ref="D3">
+      <value>BAS70-04</value>
+      <footprint>LightBlock:SOT23</footprint>
+      <fields>
+        <field name="MPN">BAS70-04-7-F</field>
+        <field name="LCSC">C134375</field>
+        <field name="Footprint">LightBlock:SOT23</field>
+        <field name="Datasheet"/>
+        <field name="Description"/>
+      </fields>
+      <libsource lib="LightBlock" part="CLAMP" description=""/>
+      <property name="MPN" value="BAS70-04-7-F"/>
+      <property name="LCSC" value="C134375"/>
+      <property name="Sheetname" value="controller"/>
+      <property name="Sheetfile" value="controller.kicad_sch"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamps>88372caf-8137-5b9e-a63d-e1d425f266cc</tstamps>
+      <units>
+        <unit name="A">
+          <pins>
+            <pin num="1"/>
+            <pin num="2"/>
+            <pin num="3"/>
+          </pins>
+        </unit>
+      </units>
+    </comp>
+    <comp ref="J1">
+      <value>CV IN</value>
+      <footprint>LightBlock:PJ3582_ROT90</footprint>
+      <fields>
+        <field name="MPN">PJ-3582-B</field>
+        <field name="LCSC">C500090</field>
+        <field name="Footprint">LightBlock:PJ3582_ROT90</field>
+        <field name="Datasheet"/>
+        <field name="Description"/>
+      </fields>
+      <libsource lib="LightBlock" part="JACK" description=""/>
+      <property name="MPN" value="PJ-3582-B"/>
+      <property name="LCSC" value="C500090"/>
+      <property name="Sheetname" value="controller"/>
+      <property name="Sheetfile" value="controller.kicad_sch"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamps>8f5cd13a-707d-57f6-bcd1-2fbeb986d57e</tstamps>
+      <units>
+        <unit name="A">
+          <pins>
+            <pin num="2"/>
+            <pin num="3"/>
+            <pin num="4"/>
+            <pin num="5"/>
+            <pin num="6"/>
+          </pins>
+        </unit>
+      </units>
+    </comp>
+    <comp ref="J2">
+      <value>CV THRU</value>
+      <footprint>LightBlock:PJ3582_ROT90</footprint>
+      <fields>
+        <field name="MPN">PJ-3582-B</field>
+        <field name="LCSC">C500090</field>
+        <field name="Footprint">LightBlock:PJ3582_ROT90</field>
+        <field name="Datasheet"/>
+        <field name="Description"/>
+      </fields>
+      <libsource lib="LightBlock" part="JACK" description=""/>
+      <property name="MPN" value="PJ-3582-B"/>
+      <property name="LCSC" value="C500090"/>
+      <property name="Sheetname" value="controller"/>
+      <property name="Sheetfile" value="controller.kicad_sch"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamps>dfa08bd8-3b4d-50ba-ad91-c47849ff8c10</tstamps>
+      <units>
+        <unit name="A">
+          <pins>
+            <pin num="2"/>
+            <pin num="3"/>
+            <pin num="4"/>
+            <pin num="5"/>
+            <pin num="6"/>
+          </pins>
+        </unit>
+      </units>
+    </comp>
+    <comp ref="J3">
+      <value>DUAL LED G / 5 / L / R</value>
+      <footprint>LightBlock:JST_SH4</footprint>
+      <fields>
+        <field name="MPN">SM04B-SRSS-TB(LF)(SN)</field>
+        <field name="LCSC">C160404</field>
+        <field name="Footprint">LightBlock:JST_SH4</field>
+        <field name="Datasheet"/>
+        <field name="Description"/>
+      </fields>
+      <libsource lib="LightBlock" part="SH4" description=""/>
+      <property name="MPN" value="SM04B-SRSS-TB(LF)(SN)"/>
+      <property name="LCSC" value="C160404"/>
+      <property name="Sheetname" value="controller"/>
+      <property name="Sheetfile" value="controller.kicad_sch"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamps>6ced4af4-c0df-5df3-bf8a-d05944c92699</tstamps>
+      <units>
+        <unit name="A">
+          <pins>
+            <pin num="1"/>
+            <pin num="2"/>
+            <pin num="3"/>
+            <pin num="4"/>
+          </pins>
+        </unit>
+      </units>
+    </comp>
+    <comp ref="J5">
+      <value>POWER + / G / -</value>
+      <footprint>LightBlock:PICO3</footprint>
+      <fields>
+        <field name="MPN">530470310</field>
+        <field name="LCSC">C122442</field>
+        <field name="Footprint">LightBlock:PICO3</field>
+        <field name="Datasheet"/>
+        <field name="Description"/>
+      </fields>
+      <libsource lib="LightBlock" part="PWR3" description=""/>
+      <property name="MPN" value="530470310"/>
+      <property name="LCSC" value="C122442"/>
+      <property name="Sheetname" value="controller"/>
+      <property name="Sheetfile" value="controller.kicad_sch"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamps>c39109d9-a911-531f-bafe-8561750d6ab6</tstamps>
+      <units>
+        <unit name="A">
+          <pins>
+            <pin num="1"/>
+            <pin num="2"/>
+            <pin num="3"/>
+          </pins>
+        </unit>
+      </units>
+    </comp>
+    <comp ref="L1">
+      <value>4.7uH SPM4020-LR</value>
+      <footprint>LightBlock:SPM4020_LR</footprint>
+      <fields>
+        <field name="MPN">SPM4020T-4R7M-LR</field>
+        <field name="LCSC">C694586</field>
+        <field name="Footprint">LightBlock:SPM4020_LR</field>
+        <field name="Datasheet"/>
+        <field name="Description"/>
+      </fields>
+      <libsource lib="LightBlock" part="L" description=""/>
+      <property name="MPN" value="SPM4020T-4R7M-LR"/>
+      <property name="LCSC" value="C694586"/>
+      <property name="Sheetname" value="controller"/>
+      <property name="Sheetfile" value="controller.kicad_sch"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamps>18292e4e-d2f0-559b-a36a-75ba16fdd5ab</tstamps>
+      <units>
+        <unit name="A">
+          <pins>
+            <pin num="1"/>
+            <pin num="2"/>
+          </pins>
+        </unit>
+      </units>
+    </comp>
+    <comp ref="Q1">
+      <value>MMBT3904</value>
+      <footprint>LightBlock:SOT23</footprint>
+      <fields>
+        <field name="MPN">MMBT3904(RANGE:100-300)</field>
+        <field name="LCSC">C20526</field>
+        <field name="Footprint">LightBlock:SOT23</field>
+        <field name="Datasheet"/>
+        <field name="Description"/>
+      </fields>
+      <libsource lib="LightBlock" part="NPN" description=""/>
+      <property name="MPN" value="MMBT3904(RANGE:100-300)"/>
+      <property name="LCSC" value="C20526"/>
+      <property name="Sheetname" value="controller"/>
+      <property name="Sheetfile" value="controller.kicad_sch"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamps>aea989a9-2796-54a1-8e73-f6c7de04d0c5</tstamps>
+      <units>
+        <unit name="A">
+          <pins>
+            <pin num="1"/>
+            <pin num="2"/>
+            <pin num="3"/>
+          </pins>
+        </unit>
+      </units>
+    </comp>
+    <comp ref="R1">
+      <value>10M 1%</value>
+      <footprint>LightBlock:R0603</footprint>
+      <fields>
+        <field name="MPN">0603WAF1005T5E</field>
+        <field name="LCSC">C7250</field>
+        <field name="Footprint">LightBlock:R0603</field>
+        <field name="Datasheet"/>
+        <field name="Description"/>
+      </fields>
+      <libsource lib="LightBlock" part="R" description=""/>
+      <property name="MPN" value="0603WAF1005T5E"/>
+      <property name="LCSC" value="C7250"/>
+      <property name="Sheetname" value="controller"/>
+      <property name="Sheetfile" value="controller.kicad_sch"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamps>e2552828-78b0-5cc6-8138-7c3a4e190cfe</tstamps>
+      <units>
+        <unit name="A">
+          <pins>
+            <pin num="1"/>
+            <pin num="2"/>
+          </pins>
+        </unit>
+      </units>
+    </comp>
+    <comp ref="R2">
+      <value>10M 1%</value>
+      <footprint>LightBlock:R0603</footprint>
+      <fields>
+        <field name="MPN">0603WAF1005T5E</field>
+        <field name="LCSC">C7250</field>
+        <field name="Footprint">LightBlock:R0603</field>
+        <field name="Datasheet"/>
+        <field name="Description"/>
+      </fields>
+      <libsource lib="LightBlock" part="R" description=""/>
+      <property name="MPN" value="0603WAF1005T5E"/>
+      <property name="LCSC" value="C7250"/>
+      <property name="Sheetname" value="controller"/>
+      <property name="Sheetfile" value="controller.kicad_sch"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamps>9f85b29e-2bc6-53e6-8751-217b06a29566</tstamps>
+      <units>
+        <unit name="A">
+          <pins>
+            <pin num="1"/>
+            <pin num="2"/>
+          </pins>
+        </unit>
+      </units>
+    </comp>
+    <comp ref="R3">
+      <value>82k 1%</value>
+      <footprint>LightBlock:R0603</footprint>
+      <fields>
+        <field name="MPN">0603WAF8202T5E</field>
+        <field name="LCSC">C23254</field>
+        <field name="Footprint">LightBlock:R0603</field>
+        <field name="Datasheet"/>
+        <field name="Description"/>
+      </fields>
+      <libsource lib="LightBlock" part="R" description=""/>
+      <property name="MPN" value="0603WAF8202T5E"/>
+      <property name="LCSC" value="C23254"/>
+      <property name="Sheetname" value="controller"/>
+      <property name="Sheetfile" value="controller.kicad_sch"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamps>d1b38e20-ee79-5639-8961-6a137ac8ec1e</tstamps>
+      <units>
+        <unit name="A">
+          <pins>
+            <pin num="1"/>
+            <pin num="2"/>
+          </pins>
+        </unit>
+      </units>
+    </comp>
+    <comp ref="R4">
+      <value>82k 1%</value>
+      <footprint>LightBlock:R0603</footprint>
+      <fields>
+        <field name="MPN">0603WAF8202T5E</field>
+        <field name="LCSC">C23254</field>
+        <field name="Footprint">LightBlock:R0603</field>
+        <field name="Datasheet"/>
+        <field name="Description"/>
+      </fields>
+      <libsource lib="LightBlock" part="R" description=""/>
+      <property name="MPN" value="0603WAF8202T5E"/>
+      <property name="LCSC" value="C23254"/>
+      <property name="Sheetname" value="controller"/>
+      <property name="Sheetfile" value="controller.kicad_sch"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamps>ece911f4-9323-5cab-9edc-e8b356f6a7c7</tstamps>
+      <units>
+        <unit name="A">
+          <pins>
+            <pin num="1"/>
+            <pin num="2"/>
+          </pins>
+        </unit>
+      </units>
+    </comp>
+    <comp ref="R5">
+      <value>82k 1%</value>
+      <footprint>LightBlock:R0603</footprint>
+      <fields>
+        <field name="MPN">0603WAF8202T5E</field>
+        <field name="LCSC">C23254</field>
+        <field name="Footprint">LightBlock:R0603</field>
+        <field name="Datasheet"/>
+        <field name="Description"/>
+      </fields>
+      <libsource lib="LightBlock" part="R" description=""/>
+      <property name="MPN" value="0603WAF8202T5E"/>
+      <property name="LCSC" value="C23254"/>
+      <property name="Sheetname" value="controller"/>
+      <property name="Sheetfile" value="controller.kicad_sch"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamps>b01bbb3e-1fe8-5679-82bf-1b0e56dc62e4</tstamps>
+      <units>
+        <unit name="A">
+          <pins>
+            <pin num="1"/>
+            <pin num="2"/>
+          </pins>
+        </unit>
+      </units>
+    </comp>
+    <comp ref="R6">
+      <value>82k 1%</value>
+      <footprint>LightBlock:R0603</footprint>
+      <fields>
+        <field name="MPN">0603WAF8202T5E</field>
+        <field name="LCSC">C23254</field>
+        <field name="Footprint">LightBlock:R0603</field>
+        <field name="Datasheet"/>
+        <field name="Description"/>
+      </fields>
+      <libsource lib="LightBlock" part="R" description=""/>
+      <property name="MPN" value="0603WAF8202T5E"/>
+      <property name="LCSC" value="C23254"/>
+      <property name="Sheetname" value="controller"/>
+      <property name="Sheetfile" value="controller.kicad_sch"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamps>b46a31b5-189a-5672-b056-7aed9adf98bc</tstamps>
+      <units>
+        <unit name="A">
+          <pins>
+            <pin num="1"/>
+            <pin num="2"/>
+          </pins>
+        </unit>
+      </units>
+    </comp>
+    <comp ref="R7">
+      <value>1k 1%</value>
+      <footprint>LightBlock:R0603</footprint>
+      <fields>
+        <field name="MPN">0603WAF1001T5E</field>
+        <field name="LCSC">C21190</field>
+        <field name="Footprint">LightBlock:R0603</field>
+        <field name="Datasheet"/>
+        <field name="Description"/>
+      </fields>
+      <libsource lib="LightBlock" part="R" description=""/>
+      <property name="MPN" value="0603WAF1001T5E"/>
+      <property name="LCSC" value="C21190"/>
+      <property name="Sheetname" value="controller"/>
+      <property name="Sheetfile" value="controller.kicad_sch"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamps>cf333183-7d63-5717-91b4-4b2d0cbeb891</tstamps>
+      <units>
+        <unit name="A">
+          <pins>
+            <pin num="1"/>
+            <pin num="2"/>
+          </pins>
+        </unit>
+      </units>
+    </comp>
+    <comp ref="R8">
+      <value>1k 1%</value>
+      <footprint>LightBlock:R0603</footprint>
+      <fields>
+        <field name="MPN">0603WAF1001T5E</field>
+        <field name="LCSC">C21190</field>
+        <field name="Footprint">LightBlock:R0603</field>
+        <field name="Datasheet"/>
+        <field name="Description"/>
+      </fields>
+      <libsource lib="LightBlock" part="R" description=""/>
+      <property name="MPN" value="0603WAF1001T5E"/>
+      <property name="LCSC" value="C21190"/>
+      <property name="Sheetname" value="controller"/>
+      <property name="Sheetfile" value="controller.kicad_sch"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamps>1db73ebd-c1ef-50cd-a0be-39833a289e49</tstamps>
+      <units>
+        <unit name="A">
+          <pins>
+            <pin num="1"/>
+            <pin num="2"/>
+          </pins>
+        </unit>
+      </units>
+    </comp>
+    <comp ref="R9">
+      <value>10k 1%</value>
+      <footprint>LightBlock:R0603</footprint>
+      <fields>
+        <field name="MPN">0603WAF1002T5E</field>
+        <field name="LCSC">C25804</field>
+        <field name="Footprint">LightBlock:R0603</field>
+        <field name="Datasheet"/>
+        <field name="Description"/>
+      </fields>
+      <libsource lib="LightBlock" part="R" description=""/>
+      <property name="MPN" value="0603WAF1002T5E"/>
+      <property name="LCSC" value="C25804"/>
+      <property name="Sheetname" value="controller"/>
+      <property name="Sheetfile" value="controller.kicad_sch"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamps>b952a1aa-df6e-5156-997d-db93ea949b00</tstamps>
+      <units>
+        <unit name="A">
+          <pins>
+            <pin num="1"/>
+            <pin num="2"/>
+          </pins>
+        </unit>
+      </units>
+    </comp>
+    <comp ref="R10">
+      <value>10k 1%</value>
+      <footprint>LightBlock:R0603</footprint>
+      <fields>
+        <field name="MPN">0603WAF1002T5E</field>
+        <field name="LCSC">C25804</field>
+        <field name="Footprint">LightBlock:R0603</field>
+        <field name="Datasheet"/>
+        <field name="Description"/>
+      </fields>
+      <libsource lib="LightBlock" part="R" description=""/>
+      <property name="MPN" value="0603WAF1002T5E"/>
+      <property name="LCSC" value="C25804"/>
+      <property name="Sheetname" value="controller"/>
+      <property name="Sheetfile" value="controller.kicad_sch"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamps>1216e9f7-8f3f-5c57-aa03-27602618882f</tstamps>
+      <units>
+        <unit name="A">
+          <pins>
+            <pin num="1"/>
+            <pin num="2"/>
+          </pins>
+        </unit>
+      </units>
+    </comp>
+    <comp ref="R11">
+      <value>68k 1%</value>
+      <footprint>LightBlock:R0603</footprint>
+      <fields>
+        <field name="MPN">0603WAF6802T5E</field>
+        <field name="LCSC">C23231</field>
+        <field name="Footprint">LightBlock:R0603</field>
+        <field name="Datasheet"/>
+        <field name="Description"/>
+      </fields>
+      <libsource lib="LightBlock" part="R" description=""/>
+      <property name="MPN" value="0603WAF6802T5E"/>
+      <property name="LCSC" value="C23231"/>
+      <property name="Sheetname" value="controller"/>
+      <property name="Sheetfile" value="controller.kicad_sch"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamps>addf90d6-729a-5c25-8aa3-89d1f732d28b</tstamps>
+      <units>
+        <unit name="A">
+          <pins>
+            <pin num="1"/>
+            <pin num="2"/>
+          </pins>
+        </unit>
+      </units>
+    </comp>
+    <comp ref="R12">
+      <value>100k 1%</value>
+      <footprint>LightBlock:R0603</footprint>
+      <fields>
+        <field name="MPN">0603WAF1003T5E</field>
+        <field name="LCSC">C25803</field>
+        <field name="Footprint">LightBlock:R0603</field>
+        <field name="Datasheet"/>
+        <field name="Description"/>
+      </fields>
+      <libsource lib="LightBlock" part="R" description=""/>
+      <property name="MPN" value="0603WAF1003T5E"/>
+      <property name="LCSC" value="C25803"/>
+      <property name="Sheetname" value="controller"/>
+      <property name="Sheetfile" value="controller.kicad_sch"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamps>c4c47e48-cbe4-5e4c-98b6-d70c91e53668</tstamps>
+      <units>
+        <unit name="A">
+          <pins>
+            <pin num="1"/>
+            <pin num="2"/>
+          </pins>
+        </unit>
+      </units>
+    </comp>
+    <comp ref="R13">
+      <value>10k 1%</value>
+      <footprint>LightBlock:R0603</footprint>
+      <fields>
+        <field name="MPN">0603WAF1002T5E</field>
+        <field name="LCSC">C25804</field>
+        <field name="Footprint">LightBlock:R0603</field>
+        <field name="Datasheet"/>
+        <field name="Description"/>
+      </fields>
+      <libsource lib="LightBlock" part="R" description=""/>
+      <property name="MPN" value="0603WAF1002T5E"/>
+      <property name="LCSC" value="C25804"/>
+      <property name="Sheetname" value="controller"/>
+      <property name="Sheetfile" value="controller.kicad_sch"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamps>9290f409-169c-5b04-a669-25e09ba472a5</tstamps>
+      <units>
+        <unit name="A">
+          <pins>
+            <pin num="1"/>
+            <pin num="2"/>
+          </pins>
+        </unit>
+      </units>
+    </comp>
+    <comp ref="R14">
+      <value>330 1%</value>
+      <footprint>LightBlock:R0603</footprint>
+      <fields>
+        <field name="MPN">0603WAF3300T5E</field>
+        <field name="LCSC">C23138</field>
+        <field name="Footprint">LightBlock:R0603</field>
+        <field name="Datasheet"/>
+        <field name="Description"/>
+      </fields>
+      <libsource lib="LightBlock" part="R" description=""/>
+      <property name="MPN" value="0603WAF3300T5E"/>
+      <property name="LCSC" value="C23138"/>
+      <property name="Sheetname" value="controller"/>
+      <property name="Sheetfile" value="controller.kicad_sch"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamps>52a775f0-26b3-54d2-a1c4-20e73284f4d9</tstamps>
+      <units>
+        <unit name="A">
+          <pins>
+            <pin num="1"/>
+            <pin num="2"/>
+          </pins>
+        </unit>
+      </units>
+    </comp>
+    <comp ref="R15">
+      <value>330 1%</value>
+      <footprint>LightBlock:R0603</footprint>
+      <fields>
+        <field name="MPN">0603WAF3300T5E</field>
+        <field name="LCSC">C23138</field>
+        <field name="Footprint">LightBlock:R0603</field>
+        <field name="Datasheet"/>
+        <field name="Description"/>
+      </fields>
+      <libsource lib="LightBlock" part="R" description=""/>
+      <property name="MPN" value="0603WAF3300T5E"/>
+      <property name="LCSC" value="C23138"/>
+      <property name="Sheetname" value="controller"/>
+      <property name="Sheetfile" value="controller.kicad_sch"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamps>3e5b9435-cc95-5454-a537-6fc1c09f3a00</tstamps>
+      <units>
+        <unit name="A">
+          <pins>
+            <pin num="1"/>
+            <pin num="2"/>
+          </pins>
+        </unit>
+      </units>
+    </comp>
+    <comp ref="R16">
+      <value>100k 1%</value>
+      <footprint>LightBlock:R0603</footprint>
+      <fields>
+        <field name="MPN">0603WAF1003T5E</field>
+        <field name="LCSC">C25803</field>
+        <field name="Footprint">LightBlock:R0603</field>
+        <field name="Datasheet"/>
+        <field name="Description"/>
+      </fields>
+      <libsource lib="LightBlock" part="R" description=""/>
+      <property name="MPN" value="0603WAF1003T5E"/>
+      <property name="LCSC" value="C25803"/>
+      <property name="Sheetname" value="controller"/>
+      <property name="Sheetfile" value="controller.kicad_sch"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamps>be09ebaa-33e2-59b2-a120-b0eafe3b1893</tstamps>
+      <units>
+        <unit name="A">
+          <pins>
+            <pin num="1"/>
+            <pin num="2"/>
+          </pins>
+        </unit>
+      </units>
+    </comp>
+    <comp ref="R17">
+      <value>100k 1%</value>
+      <footprint>LightBlock:R0603</footprint>
+      <fields>
+        <field name="MPN">0603WAF1003T5E</field>
+        <field name="LCSC">C25803</field>
+        <field name="Footprint">LightBlock:R0603</field>
+        <field name="Datasheet"/>
+        <field name="Description"/>
+      </fields>
+      <libsource lib="LightBlock" part="R" description=""/>
+      <property name="MPN" value="0603WAF1003T5E"/>
+      <property name="LCSC" value="C25803"/>
+      <property name="Sheetname" value="controller"/>
+      <property name="Sheetfile" value="controller.kicad_sch"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamps>06d7e888-a022-5ff3-85fe-39a2c57cadce</tstamps>
+      <units>
+        <unit name="A">
+          <pins>
+            <pin num="1"/>
+            <pin num="2"/>
+          </pins>
+        </unit>
+      </units>
+    </comp>
+    <comp ref="R18">
+      <value>100k 1%</value>
+      <footprint>LightBlock:R0603</footprint>
+      <fields>
+        <field name="MPN">0603WAF1003T5E</field>
+        <field name="LCSC">C25803</field>
+        <field name="Footprint">LightBlock:R0603</field>
+        <field name="Datasheet"/>
+        <field name="Description"/>
+      </fields>
+      <libsource lib="LightBlock" part="R" description=""/>
+      <property name="MPN" value="0603WAF1003T5E"/>
+      <property name="LCSC" value="C25803"/>
+      <property name="Sheetname" value="controller"/>
+      <property name="Sheetfile" value="controller.kicad_sch"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamps>5feb9f11-f430-506c-b331-ad43b9c39dbc</tstamps>
+      <units>
+        <unit name="A">
+          <pins>
+            <pin num="1"/>
+            <pin num="2"/>
+          </pins>
+        </unit>
+      </units>
+    </comp>
+    <comp ref="R19">
+      <value>100k 1%</value>
+      <footprint>LightBlock:R0603</footprint>
+      <fields>
+        <field name="MPN">0603WAF1003T5E</field>
+        <field name="LCSC">C25803</field>
+        <field name="Footprint">LightBlock:R0603</field>
+        <field name="Datasheet"/>
+        <field name="Description"/>
+      </fields>
+      <libsource lib="LightBlock" part="R" description=""/>
+      <property name="MPN" value="0603WAF1003T5E"/>
+      <property name="LCSC" value="C25803"/>
+      <property name="Sheetname" value="controller"/>
+      <property name="Sheetfile" value="controller.kicad_sch"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamps>ef60b08f-c0c3-50c1-8ff7-e3b2d7074794</tstamps>
+      <units>
+        <unit name="A">
+          <pins>
+            <pin num="1"/>
+            <pin num="2"/>
+          </pins>
+        </unit>
+      </units>
+    </comp>
+    <comp ref="R20">
+      <value>4.7k 1%</value>
+      <footprint>LightBlock:R0603</footprint>
+      <fields>
+        <field name="MPN">0603WAF4701T5E</field>
+        <field name="LCSC">C23162</field>
+        <field name="Footprint">LightBlock:R0603</field>
+        <field name="Datasheet"/>
+        <field name="Description"/>
+      </fields>
+      <libsource lib="LightBlock" part="R" description=""/>
+      <property name="MPN" value="0603WAF4701T5E"/>
+      <property name="LCSC" value="C23162"/>
+      <property name="Sheetname" value="controller"/>
+      <property name="Sheetfile" value="controller.kicad_sch"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamps>a5fd5cac-522f-5254-bcc2-1a377e986835</tstamps>
+      <units>
+        <unit name="A">
+          <pins>
+            <pin num="1"/>
+            <pin num="2"/>
+          </pins>
+        </unit>
+      </units>
+    </comp>
+    <comp ref="R21">
+      <value>10k 1%</value>
+      <footprint>LightBlock:R0603</footprint>
+      <fields>
+        <field name="MPN">0603WAF1002T5E</field>
+        <field name="LCSC">C25804</field>
+        <field name="Footprint">LightBlock:R0603</field>
+        <field name="Datasheet"/>
+        <field name="Description"/>
+      </fields>
+      <libsource lib="LightBlock" part="R" description=""/>
+      <property name="MPN" value="0603WAF1002T5E"/>
+      <property name="LCSC" value="C25804"/>
+      <property name="Sheetname" value="controller"/>
+      <property name="Sheetfile" value="controller.kicad_sch"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamps>6774d1dd-6c96-5431-bc6f-176e79363587</tstamps>
+      <units>
+        <unit name="A">
+          <pins>
+            <pin num="1"/>
+            <pin num="2"/>
+          </pins>
+        </unit>
+      </units>
+    </comp>
+    <comp ref="R22">
+      <value>10k 1%</value>
+      <footprint>LightBlock:R0603</footprint>
+      <fields>
+        <field name="MPN">0603WAF1002T5E</field>
+        <field name="LCSC">C25804</field>
+        <field name="Footprint">LightBlock:R0603</field>
+        <field name="Datasheet"/>
+        <field name="Description"/>
+      </fields>
+      <libsource lib="LightBlock" part="R" description=""/>
+      <property name="MPN" value="0603WAF1002T5E"/>
+      <property name="LCSC" value="C25804"/>
+      <property name="Sheetname" value="controller"/>
+      <property name="Sheetfile" value="controller.kicad_sch"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamps>29dedb99-c607-5f22-a80e-d93e5a2bd77f</tstamps>
+      <units>
+        <unit name="A">
+          <pins>
+            <pin num="1"/>
+            <pin num="2"/>
+          </pins>
+        </unit>
+      </units>
+    </comp>
+    <comp ref="R23">
+      <value>100k 1%</value>
+      <footprint>LightBlock:R0603</footprint>
+      <fields>
+        <field name="MPN">0603WAF1003T5E</field>
+        <field name="LCSC">C25803</field>
+        <field name="Footprint">LightBlock:R0603</field>
+        <field name="Datasheet"/>
+        <field name="Description"/>
+      </fields>
+      <libsource lib="LightBlock" part="R" description=""/>
+      <property name="MPN" value="0603WAF1003T5E"/>
+      <property name="LCSC" value="C25803"/>
+      <property name="Sheetname" value="controller"/>
+      <property name="Sheetfile" value="controller.kicad_sch"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamps>bd71b893-e489-54e9-951b-baacc86cd1d5</tstamps>
+      <units>
+        <unit name="A">
+          <pins>
+            <pin num="1"/>
+            <pin num="2"/>
+          </pins>
+        </unit>
+      </units>
+    </comp>
+    <comp ref="R24">
+      <value>330 1%</value>
+      <footprint>LightBlock:R0603</footprint>
+      <fields>
+        <field name="MPN">0603WAF3300T5E</field>
+        <field name="LCSC">C23138</field>
+        <field name="Footprint">LightBlock:R0603</field>
+        <field name="Datasheet"/>
+        <field name="Description"/>
+      </fields>
+      <libsource lib="LightBlock" part="R" description=""/>
+      <property name="MPN" value="0603WAF3300T5E"/>
+      <property name="LCSC" value="C23138"/>
+      <property name="Sheetname" value="controller"/>
+      <property name="Sheetfile" value="controller.kicad_sch"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamps>b42dbf9a-a08b-5cb7-b1ee-d166d221f9ca</tstamps>
+      <units>
+        <unit name="A">
+          <pins>
+            <pin num="1"/>
+            <pin num="2"/>
+          </pins>
+        </unit>
+      </units>
+    </comp>
+    <comp ref="R25">
+      <value>1k 1%</value>
+      <footprint>LightBlock:R0603</footprint>
+      <fields>
+        <field name="MPN">0603WAF1001T5E</field>
+        <field name="LCSC">C21190</field>
+        <field name="Footprint">LightBlock:R0603</field>
+        <field name="Datasheet"/>
+        <field name="Description"/>
+      </fields>
+      <libsource lib="LightBlock" part="R" description=""/>
+      <property name="MPN" value="0603WAF1001T5E"/>
+      <property name="LCSC" value="C21190"/>
+      <property name="Sheetname" value="controller"/>
+      <property name="Sheetfile" value="controller.kicad_sch"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamps>4649c73a-f0d6-5f05-8cf5-c707242127c0</tstamps>
+      <units>
+        <unit name="A">
+          <pins>
+            <pin num="1"/>
+            <pin num="2"/>
+          </pins>
+        </unit>
+      </units>
+    </comp>
+    <comp ref="SW1">
+      <value>ON / PROGRAM / CV</value>
+      <footprint>LightBlock:DAILYWELL_M2_SP</footprint>
+      <fields>
+        <field name="MPN">1MS3T1B1M2QES-5</field>
+        <field name="LCSC">C908270</field>
+        <field name="Footprint">LightBlock:DAILYWELL_M2_SP</field>
+        <field name="Datasheet"/>
+        <field name="Description"/>
+      </fields>
+      <libsource lib="LightBlock" part="SW" description=""/>
+      <property name="MPN" value="1MS3T1B1M2QES-5"/>
+      <property name="LCSC" value="C908270"/>
+      <property name="Sheetname" value="controller"/>
+      <property name="Sheetfile" value="controller.kicad_sch"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamps>924dec1d-5949-561b-9e36-1047c1873ce6</tstamps>
+      <units>
+        <unit name="A">
+          <pins>
+            <pin num="1"/>
+            <pin num="2"/>
+            <pin num="3"/>
+          </pins>
+        </unit>
+      </units>
+    </comp>
+    <comp ref="TP1">
+      <value>+3V3</value>
+      <footprint>LightBlock:TESTPAD</footprint>
+      <fields>
+        <field name="MPN"/>
+        <field name="LCSC"/>
+        <field name="Footprint">LightBlock:TESTPAD</field>
+        <field name="Datasheet"/>
+        <field name="Description"/>
+      </fields>
+      <libsource lib="LightBlock" part="TP" description=""/>
+      <property name="MPN" value=""/>
+      <property name="LCSC" value=""/>
+      <property name="Sheetname" value="controller"/>
+      <property name="Sheetfile" value="controller.kicad_sch"/>
+      <property name="exclude_from_bom"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamps>29600fe4-4656-5faa-9282-e9f16e425e92</tstamps>
+      <units>
+        <unit name="A">
+          <pins>
+            <pin num="1"/>
+          </pins>
+        </unit>
+      </units>
+    </comp>
+    <comp ref="TP2">
+      <value>GND</value>
+      <footprint>LightBlock:TESTPAD</footprint>
+      <fields>
+        <field name="MPN"/>
+        <field name="LCSC"/>
+        <field name="Footprint">LightBlock:TESTPAD</field>
+        <field name="Datasheet"/>
+        <field name="Description"/>
+      </fields>
+      <libsource lib="LightBlock" part="TP" description=""/>
+      <property name="MPN" value=""/>
+      <property name="LCSC" value=""/>
+      <property name="Sheetname" value="controller"/>
+      <property name="Sheetfile" value="controller.kicad_sch"/>
+      <property name="exclude_from_bom"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamps>bd1aeb34-d5e1-5cfa-91a4-9adc21d53dba</tstamps>
+      <units>
+        <unit name="A">
+          <pins>
+            <pin num="1"/>
+          </pins>
+        </unit>
+      </units>
+    </comp>
+    <comp ref="TP3">
+      <value>SWDIO</value>
+      <footprint>LightBlock:TESTPAD</footprint>
+      <fields>
+        <field name="MPN"/>
+        <field name="LCSC"/>
+        <field name="Footprint">LightBlock:TESTPAD</field>
+        <field name="Datasheet"/>
+        <field name="Description"/>
+      </fields>
+      <libsource lib="LightBlock" part="TP" description=""/>
+      <property name="MPN" value=""/>
+      <property name="LCSC" value=""/>
+      <property name="Sheetname" value="controller"/>
+      <property name="Sheetfile" value="controller.kicad_sch"/>
+      <property name="exclude_from_bom"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamps>7e4acf4e-3c8f-5bbe-b8ff-061557bee10f</tstamps>
+      <units>
+        <unit name="A">
+          <pins>
+            <pin num="1"/>
+          </pins>
+        </unit>
+      </units>
+    </comp>
+    <comp ref="TP4">
+      <value>SWCLK</value>
+      <footprint>LightBlock:TESTPAD</footprint>
+      <fields>
+        <field name="MPN"/>
+        <field name="LCSC"/>
+        <field name="Footprint">LightBlock:TESTPAD</field>
+        <field name="Datasheet"/>
+        <field name="Description"/>
+      </fields>
+      <libsource lib="LightBlock" part="TP" description=""/>
+      <property name="MPN" value=""/>
+      <property name="LCSC" value=""/>
+      <property name="Sheetname" value="controller"/>
+      <property name="Sheetfile" value="controller.kicad_sch"/>
+      <property name="exclude_from_bom"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamps>299dc463-be30-53d2-8655-41b7df18e43b</tstamps>
+      <units>
+        <unit name="A">
+          <pins>
+            <pin num="1"/>
+          </pins>
+        </unit>
+      </units>
+    </comp>
+    <comp ref="TP5">
+      <value>NRST</value>
+      <footprint>LightBlock:TESTPAD</footprint>
+      <fields>
+        <field name="MPN"/>
+        <field name="LCSC"/>
+        <field name="Footprint">LightBlock:TESTPAD</field>
+        <field name="Datasheet"/>
+        <field name="Description"/>
+      </fields>
+      <libsource lib="LightBlock" part="TP" description=""/>
+      <property name="MPN" value=""/>
+      <property name="LCSC" value=""/>
+      <property name="Sheetname" value="controller"/>
+      <property name="Sheetfile" value="controller.kicad_sch"/>
+      <property name="exclude_from_bom"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamps>3b1f9f0f-0535-5117-ab27-7f7be86146f7</tstamps>
+      <units>
+        <unit name="A">
+          <pins>
+            <pin num="1"/>
+          </pins>
+        </unit>
+      </units>
+    </comp>
+    <comp ref="U1">
+      <value>STM32G031G8U6TR</value>
+      <footprint>LightBlock:QFN28</footprint>
+      <fields>
+        <field name="MPN">STM32G031G8U6TR</field>
+        <field name="LCSC">C5270180</field>
+        <field name="Footprint">LightBlock:QFN28</field>
+        <field name="Datasheet"/>
+        <field name="Description"/>
+      </fields>
+      <libsource lib="LightBlock" part="MCU" description=""/>
+      <property name="MPN" value="STM32G031G8U6TR"/>
+      <property name="LCSC" value="C5270180"/>
+      <property name="Sheetname" value="controller"/>
+      <property name="Sheetfile" value="controller.kicad_sch"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamps>a1380bf4-934f-53e7-a81d-20b4e3d73bd7</tstamps>
+      <units>
+        <unit name="A">
+          <pins>
+            <pin num="1"/>
+            <pin num="2"/>
+            <pin num="3"/>
+            <pin num="4"/>
+            <pin num="5"/>
+            <pin num="6"/>
+            <pin num="7"/>
+            <pin num="8"/>
+            <pin num="9"/>
+            <pin num="10"/>
+            <pin num="11"/>
+            <pin num="12"/>
+            <pin num="13"/>
+            <pin num="14"/>
+            <pin num="15"/>
+            <pin num="16"/>
+            <pin num="17"/>
+            <pin num="18"/>
+            <pin num="19"/>
+            <pin num="20"/>
+            <pin num="21"/>
+            <pin num="22"/>
+            <pin num="23"/>
+            <pin num="24"/>
+            <pin num="25"/>
+            <pin num="26"/>
+            <pin num="27"/>
+            <pin num="28"/>
+          </pins>
+        </unit>
+      </units>
+    </comp>
+    <comp ref="U2">
+      <value>AP63205 fixed 5V</value>
+      <footprint>LightBlock:TSOT26</footprint>
+      <fields>
+        <field name="MPN">AP63205WU-7</field>
+        <field name="LCSC">C2071056</field>
+        <field name="Footprint">LightBlock:TSOT26</field>
+        <field name="Datasheet"/>
+        <field name="Description"/>
+      </fields>
+      <libsource lib="LightBlock" part="BUCK" description=""/>
+      <property name="MPN" value="AP63205WU-7"/>
+      <property name="LCSC" value="C2071056"/>
+      <property name="Sheetname" value="controller"/>
+      <property name="Sheetfile" value="controller.kicad_sch"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamps>159f075f-e68d-5922-bf72-431503e8e6e8</tstamps>
+      <units>
+        <unit name="A">
+          <pins>
+            <pin num="1"/>
+            <pin num="2"/>
+            <pin num="3"/>
+            <pin num="4"/>
+            <pin num="5"/>
+            <pin num="6"/>
+          </pins>
+        </unit>
+      </units>
+    </comp>
+    <comp ref="U3">
+      <value>TLV75533</value>
+      <footprint>LightBlock:DBV5</footprint>
+      <fields>
+        <field name="MPN">TLV75533PDBVR</field>
+        <field name="LCSC">C404027</field>
+        <field name="Footprint">LightBlock:DBV5</field>
+        <field name="Datasheet"/>
+        <field name="Description"/>
+      </fields>
+      <libsource lib="LightBlock" part="LDO" description=""/>
+      <property name="MPN" value="TLV75533PDBVR"/>
+      <property name="LCSC" value="C404027"/>
+      <property name="Sheetname" value="controller"/>
+      <property name="Sheetfile" value="controller.kicad_sch"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamps>b2470265-691f-5d5a-91f9-6a89aa5f45f9</tstamps>
+      <units>
+        <unit name="A">
+          <pins>
+            <pin num="1"/>
+            <pin num="2"/>
+            <pin num="3"/>
+            <pin num="4"/>
+            <pin num="5"/>
+          </pins>
+        </unit>
+      </units>
+    </comp>
+    <comp ref="U4">
+      <value>TPS2552DBVR-1</value>
+      <footprint>LightBlock:DBV6</footprint>
+      <fields>
+        <field name="MPN">TPS2552DBVR-1</field>
+        <field name="LCSC">C140331</field>
+        <field name="Footprint">LightBlock:DBV6</field>
+        <field name="Datasheet"/>
+        <field name="Description"/>
+      </fields>
+      <libsource lib="LightBlock" part="LIMIT" description=""/>
+      <property name="MPN" value="TPS2552DBVR-1"/>
+      <property name="LCSC" value="C140331"/>
+      <property name="Sheetname" value="controller"/>
+      <property name="Sheetfile" value="controller.kicad_sch"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamps>ab7ac075-e3af-5763-8c1b-1d400ca66e34</tstamps>
+      <units>
+        <unit name="A">
+          <pins>
+            <pin num="1"/>
+            <pin num="2"/>
+            <pin num="3"/>
+            <pin num="4"/>
+            <pin num="5"/>
+            <pin num="6"/>
+          </pins>
+        </unit>
+      </units>
+    </comp>
+    <comp ref="U5">
+      <value>SN74LVC2T45</value>
+      <footprint>LightBlock:DCU8</footprint>
+      <fields>
+        <field name="MPN">SN74LVC2T45DCUR</field>
+        <field name="LCSC">C15741</field>
+        <field name="Footprint">LightBlock:DCU8</field>
+        <field name="Datasheet"/>
+        <field name="Description"/>
+      </fields>
+      <libsource lib="LightBlock" part="XLAT" description=""/>
+      <property name="MPN" value="SN74LVC2T45DCUR"/>
+      <property name="LCSC" value="C15741"/>
+      <property name="Sheetname" value="controller"/>
+      <property name="Sheetfile" value="controller.kicad_sch"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamps>01fedcd9-8369-5958-8548-d1c9eb9a2dcd</tstamps>
+      <units>
+        <unit name="A">
+          <pins>
+            <pin num="1"/>
+            <pin num="2"/>
+            <pin num="3"/>
+            <pin num="4"/>
+            <pin num="5"/>
+            <pin num="6"/>
+            <pin num="7"/>
+            <pin num="8"/>
+          </pins>
+        </unit>
+      </units>
+    </comp>
+    <comp ref="U6">
+      <value>OPA197 unity</value>
+      <footprint>LightBlock:DBV5</footprint>
+      <fields>
+        <field name="MPN">OPA197IDBVR</field>
+        <field name="LCSC">C221351</field>
+        <field name="Footprint">LightBlock:DBV5</field>
+        <field name="Datasheet"/>
+        <field name="Description"/>
+      </fields>
+      <libsource lib="LightBlock" part="OPA" description=""/>
+      <property name="MPN" value="OPA197IDBVR"/>
+      <property name="LCSC" value="C221351"/>
+      <property name="Sheetname" value="controller"/>
+      <property name="Sheetfile" value="controller.kicad_sch"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamps>52277f36-4d57-5424-a686-79f7b2df7be2</tstamps>
+      <units>
+        <unit name="A">
+          <pins>
+            <pin num="1"/>
+            <pin num="2"/>
+            <pin num="3"/>
+            <pin num="4"/>
+            <pin num="5"/>
+          </pins>
+        </unit>
+      </units>
+    </comp>
+    <comp ref="U7">
+      <value>TLV9001 unity</value>
+      <footprint>LightBlock:DBV5</footprint>
+      <fields>
+        <field name="MPN">TLV9001IDBVR</field>
+        <field name="LCSC">C398363</field>
+        <field name="Footprint">LightBlock:DBV5</field>
+        <field name="Datasheet"/>
+        <field name="Description"/>
+      </fields>
+      <libsource lib="LightBlock" part="ADC_BUF" description=""/>
+      <property name="MPN" value="TLV9001IDBVR"/>
+      <property name="LCSC" value="C398363"/>
+      <property name="Sheetname" value="controller"/>
+      <property name="Sheetfile" value="controller.kicad_sch"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamps>00f03964-d7f0-5057-a74e-393f4e15036f</tstamps>
+      <units>
+        <unit name="A">
+          <pins>
+            <pin num="1"/>
+            <pin num="2"/>
+            <pin num="3"/>
+            <pin num="4"/>
+            <pin num="5"/>
+          </pins>
+        </unit>
+      </units>
+    </comp>
+  </components>
+  <libparts>
+    <libpart lib="LightBlock" part="ADC_BUF">
+      <fields>
+        <field name="Reference">A</field>
+        <field name="Value">ADC_BUF</field>
+        <field name="Footprint"/>
+        <field name="Datasheet"/>
+        <field name="Description"/>
+      </fields>
+      <pins>
+        <pin num="1" name="OUT" type="output"/>
+        <pin num="2" name="V-" type="power_in"/>
+        <pin num="3" name="IN+" type="input"/>
+        <pin num="4" name="IN-" type="input"/>
+        <pin num="5" name="V+" type="power_in"/>
+      </pins>
+    </libpart>
+    <libpart lib="LightBlock" part="BUCK">
+      <fields>
+        <field name="Reference">B</field>
+        <field name="Value">BUCK</field>
+        <field name="Footprint"/>
+        <field name="Datasheet"/>
+        <field name="Description"/>
+      </fields>
+      <pins>
+        <pin num="1" name="FB" type="input"/>
+        <pin num="2" name="EN" type="input"/>
+        <pin num="3" name="VIN" type="power_in"/>
+        <pin num="4" name="GND" type="power_in"/>
+        <pin num="5" name="SW" type="power_out"/>
+        <pin num="6" name="BST" type="passive"/>
+      </pins>
+    </libpart>
+    <libpart lib="LightBlock" part="C">
+      <fields>
+        <field name="Reference">C</field>
+        <field name="Value">C</field>
+        <field name="Footprint"/>
+        <field name="Datasheet"/>
+        <field name="Description"/>
+      </fields>
+      <pins>
+        <pin num="1" name="1" type="passive"/>
+        <pin num="2" name="2" type="passive"/>
+      </pins>
+    </libpart>
+    <libpart lib="LightBlock" part="CLAMP">
+      <fields>
+        <field name="Reference">C</field>
+        <field name="Value">CLAMP</field>
+        <field name="Footprint"/>
+        <field name="Datasheet"/>
+        <field name="Description"/>
+      </fields>
+      <pins>
+        <pin num="1" name="A1" type="passive"/>
+        <pin num="2" name="K2" type="passive"/>
+        <pin num="3" name="K1/A2" type="passive"/>
+      </pins>
+    </libpart>
+    <libpart lib="LightBlock" part="JACK">
+      <fields>
+        <field name="Reference">J</field>
+        <field name="Value">JACK</field>
+        <field name="Footprint"/>
+        <field name="Datasheet"/>
+        <field name="Description"/>
+      </fields>
+      <pins>
+        <pin num="2" name="SLEEVE" type="passive"/>
+        <pin num="3" name="RING" type="passive"/>
+        <pin num="4" name="DETECT_A" type="passive"/>
+        <pin num="5" name="DETECT_B" type="passive"/>
+        <pin num="6" name="TIP" type="passive"/>
+      </pins>
+    </libpart>
+    <libpart lib="LightBlock" part="L">
+      <fields>
+        <field name="Reference">L</field>
+        <field name="Value">L</field>
+        <field name="Footprint"/>
+        <field name="Datasheet"/>
+        <field name="Description"/>
+      </fields>
+      <pins>
+        <pin num="1" name="1" type="passive"/>
+        <pin num="2" name="2" type="passive"/>
+      </pins>
+    </libpart>
+    <libpart lib="LightBlock" part="LDO">
+      <fields>
+        <field name="Reference">L</field>
+        <field name="Value">LDO</field>
+        <field name="Footprint"/>
+        <field name="Datasheet"/>
+        <field name="Description"/>
+      </fields>
+      <pins>
+        <pin num="1" name="IN" type="power_in"/>
+        <pin num="2" name="GND" type="power_in"/>
+        <pin num="3" name="EN" type="input"/>
+        <pin num="4" name="NC" type="no_connect"/>
+        <pin num="5" name="OUT" type="power_out"/>
+      </pins>
+    </libpart>
+    <libpart lib="LightBlock" part="LIMIT">
+      <fields>
+        <field name="Reference">L</field>
+        <field name="Value">LIMIT</field>
+        <field name="Footprint"/>
+        <field name="Datasheet"/>
+        <field name="Description"/>
+      </fields>
+      <pins>
+        <pin num="1" name="IN" type="power_in"/>
+        <pin num="2" name="GND" type="power_in"/>
+        <pin num="3" name="~{EN}" type="input"/>
+        <pin num="4" name="~{FAULT}" type="open_collector"/>
+        <pin num="5" name="ILIM" type="passive"/>
+        <pin num="6" name="OUT" type="power_out"/>
+      </pins>
+    </libpart>
+    <libpart lib="LightBlock" part="MCU">
+      <fields>
+        <field name="Reference">M</field>
+        <field name="Value">MCU</field>
+        <field name="Footprint"/>
+        <field name="Datasheet"/>
+        <field name="Description"/>
+      </fields>
+      <pins>
+        <pin num="1" name="PC14" type="bidirectional"/>
+        <pin num="2" name="PC15" type="bidirectional"/>
+        <pin num="3" name="VDD/VDDA" type="power_in"/>
+        <pin num="4" name="VSS/VSSA" type="power_in"/>
+        <pin num="5" name="PF2/NRST" type="bidirectional"/>
+        <pin num="6" name="PA0/ADC0" type="bidirectional"/>
+        <pin num="7" name="PA1" type="bidirectional"/>
+        <pin num="8" name="PA2" type="bidirectional"/>
+        <pin num="9" name="PA3" type="bidirectional"/>
+        <pin num="10" name="PA4" type="bidirectional"/>
+        <pin num="11" name="PA5" type="bidirectional"/>
+        <pin num="12" name="PA6/TIM3_CH1" type="bidirectional"/>
+        <pin num="13" name="PA7/TIM3_CH2" type="bidirectional"/>
+        <pin num="14" name="PB0" type="bidirectional"/>
+        <pin num="15" name="PB1" type="bidirectional"/>
+        <pin num="16" name="PA8" type="bidirectional"/>
+        <pin num="17" name="PC6" type="bidirectional"/>
+        <pin num="18" name="PA11" type="bidirectional"/>
+        <pin num="19" name="PA12" type="bidirectional"/>
+        <pin num="20" name="PA13/SWDIO" type="bidirectional"/>
+        <pin num="21" name="PA14/SWCLK" type="bidirectional"/>
+        <pin num="22" name="PA15" type="bidirectional"/>
+        <pin num="23" name="PB3" type="bidirectional"/>
+        <pin num="24" name="PB4" type="bidirectional"/>
+        <pin num="25" name="PB5" type="bidirectional"/>
+        <pin num="26" name="PB6" type="bidirectional"/>
+        <pin num="27" name="PB7" type="bidirectional"/>
+        <pin num="28" name="PB8" type="bidirectional"/>
+      </pins>
+    </libpart>
+    <libpart lib="LightBlock" part="NPN">
+      <fields>
+        <field name="Reference">N</field>
+        <field name="Value">NPN</field>
+        <field name="Footprint"/>
+        <field name="Datasheet"/>
+        <field name="Description"/>
+      </fields>
+      <pins>
+        <pin num="1" name="B" type="passive"/>
+        <pin num="2" name="E" type="passive"/>
+        <pin num="3" name="C" type="passive"/>
+      </pins>
+    </libpart>
+    <libpart lib="LightBlock" part="OPA">
+      <fields>
+        <field name="Reference">O</field>
+        <field name="Value">OPA</field>
+        <field name="Footprint"/>
+        <field name="Datasheet"/>
+        <field name="Description"/>
+      </fields>
+      <pins>
+        <pin num="1" name="OUT" type="output"/>
+        <pin num="2" name="V-" type="power_in"/>
+        <pin num="3" name="IN+" type="input"/>
+        <pin num="4" name="IN-" type="input"/>
+        <pin num="5" name="V+" type="power_in"/>
+      </pins>
+    </libpart>
+    <libpart lib="LightBlock" part="PWR3">
+      <fields>
+        <field name="Reference">P</field>
+        <field name="Value">PWR3</field>
+        <field name="Footprint"/>
+        <field name="Datasheet"/>
+        <field name="Description"/>
+      </fields>
+      <pins>
+        <pin num="1" name="1" type="passive"/>
+        <pin num="2" name="2" type="passive"/>
+        <pin num="3" name="3" type="passive"/>
+      </pins>
+    </libpart>
+    <libpart lib="LightBlock" part="R">
+      <fields>
+        <field name="Reference">R</field>
+        <field name="Value">R</field>
+        <field name="Footprint"/>
+        <field name="Datasheet"/>
+        <field name="Description"/>
+      </fields>
+      <pins>
+        <pin num="1" name="1" type="passive"/>
+        <pin num="2" name="2" type="passive"/>
+      </pins>
+    </libpart>
+    <libpart lib="LightBlock" part="RECT">
+      <fields>
+        <field name="Reference">R</field>
+        <field name="Value">RECT</field>
+        <field name="Footprint"/>
+        <field name="Datasheet"/>
+        <field name="Description"/>
+      </fields>
+      <pins>
+        <pin num="1" name="K" type="passive"/>
+        <pin num="2" name="A" type="passive"/>
+      </pins>
+    </libpart>
+    <libpart lib="LightBlock" part="SH4">
+      <fields>
+        <field name="Reference">S</field>
+        <field name="Value">SH4</field>
+        <field name="Footprint"/>
+        <field name="Datasheet"/>
+        <field name="Description"/>
+      </fields>
+      <pins>
+        <pin num="1" name="GND" type="passive"/>
+        <pin num="2" name="VLED" type="passive"/>
+        <pin num="3" name="DATA_A" type="passive"/>
+        <pin num="4" name="DATA_B" type="passive"/>
+      </pins>
+    </libpart>
+    <libpart lib="LightBlock" part="SW">
+      <fields>
+        <field name="Reference">S</field>
+        <field name="Value">SW</field>
+        <field name="Footprint"/>
+        <field name="Datasheet"/>
+        <field name="Description"/>
+      </fields>
+      <pins>
+        <pin num="1" name="THROW_A" type="passive"/>
+        <pin num="2" name="COMMON" type="passive"/>
+        <pin num="3" name="THROW_B" type="passive"/>
+      </pins>
+    </libpart>
+    <libpart lib="LightBlock" part="TP">
+      <fields>
+        <field name="Reference">T</field>
+        <field name="Value">TP</field>
+        <field name="Footprint"/>
+        <field name="Datasheet"/>
+        <field name="Description"/>
+      </fields>
+      <pins>
+        <pin num="1" name="PAD" type="passive"/>
+      </pins>
+    </libpart>
+    <libpart lib="LightBlock" part="XLAT">
+      <fields>
+        <field name="Reference">X</field>
+        <field name="Value">XLAT</field>
+        <field name="Footprint"/>
+        <field name="Datasheet"/>
+        <field name="Description"/>
+      </fields>
+      <pins>
+        <pin num="1" name="VCCA" type="power_in"/>
+        <pin num="2" name="A1" type="bidirectional"/>
+        <pin num="3" name="A2" type="bidirectional"/>
+        <pin num="4" name="GND" type="power_in"/>
+        <pin num="5" name="DIR" type="input"/>
+        <pin num="6" name="B2" type="bidirectional"/>
+        <pin num="7" name="B1" type="bidirectional"/>
+        <pin num="8" name="VCCB" type="power_in"/>
+      </pins>
+    </libpart>
+  </libparts>
+  <libraries>
+    <library logical="LightBlock">
+      <uri>${KIPRJMOD}/LightBlock.kicad_sym</uri>
+    </library>
+  </libraries>
+  <nets>
+    <net code="1" name="/+3V3" class="Default">
+      <node ref="C17" pin="1" pinfunction="1_1" pintype="passive"/>
+      <node ref="C6" pin="1" pinfunction="1_1" pintype="passive"/>
+      <node ref="C7" pin="1" pinfunction="1_1" pintype="passive"/>
+      <node ref="C8" pin="1" pinfunction="1_1" pintype="passive"/>
+      <node ref="C9" pin="1" pinfunction="1_1" pintype="passive"/>
+      <node ref="D3" pin="2" pinfunction="K2_2" pintype="passive"/>
+      <node ref="R10" pin="1" pinfunction="1_1" pintype="passive"/>
+      <node ref="R13" pin="1" pinfunction="1_1" pintype="passive"/>
+      <node ref="R21" pin="1" pinfunction="1_1" pintype="passive"/>
+      <node ref="R4" pin="1" pinfunction="1_1" pintype="passive"/>
+      <node ref="R5" pin="1" pinfunction="1_1" pintype="passive"/>
+      <node ref="R8" pin="1" pinfunction="1_1" pintype="passive"/>
+      <node ref="R9" pin="1" pinfunction="1_1" pintype="passive"/>
+      <node ref="TP1" pin="1" pinfunction="PAD_1" pintype="passive"/>
+      <node ref="U1" pin="3" pinfunction="VDD/VDDA_3" pintype="power_in"/>
+      <node ref="U3" pin="5" pinfunction="OUT_5" pintype="power_out"/>
+      <node ref="U5" pin="1" pinfunction="VCCA_1" pintype="power_in"/>
+      <node ref="U5" pin="5" pinfunction="DIR_5" pintype="input"/>
+      <node ref="U7" pin="5" pinfunction="V+_5" pintype="power_in"/>
+    </net>
+    <net code="2" name="/+5V" class="Default">
+      <node ref="C15" pin="1" pinfunction="1_1" pintype="passive"/>
+      <node ref="C2" pin="1" pinfunction="1_1" pintype="passive"/>
+      <node ref="C3" pin="1" pinfunction="1_1" pintype="passive"/>
+      <node ref="C5" pin="1" pinfunction="1_1" pintype="passive"/>
+      <node ref="L1" pin="2" pinfunction="2_2" pintype="passive"/>
+      <node ref="R23" pin="1" pinfunction="1_1" pintype="passive"/>
+      <node ref="U2" pin="1" pinfunction="FB_1" pintype="input"/>
+      <node ref="U3" pin="1" pinfunction="IN_1" pintype="power_in"/>
+      <node ref="U3" pin="3" pinfunction="EN_3" pintype="input"/>
+      <node ref="U4" pin="1" pinfunction="IN_1" pintype="power_in"/>
+    </net>
+    <net code="3" name="/+12V_PROT" class="Default">
+      <node ref="C1" pin="1" pinfunction="1_1" pintype="passive"/>
+      <node ref="C11" pin="1" pinfunction="1_1" pintype="passive"/>
+      <node ref="D1" pin="1" pinfunction="K_1" pintype="passive"/>
+      <node ref="U2" pin="2" pinfunction="EN_2" pintype="input"/>
+      <node ref="U2" pin="3" pinfunction="VIN_3" pintype="power_in"/>
+      <node ref="U6" pin="5" pinfunction="V+_5" pintype="power_in"/>
+    </net>
+    <net code="4" name="/+12V_RAW" class="Default">
+      <node ref="D1" pin="2" pinfunction="A_2" pintype="passive"/>
+      <node ref="J5" pin="1" pinfunction="1_1" pintype="passive"/>
+    </net>
+    <net code="5" name="/-12V_PROT" class="Default">
+      <node ref="C12" pin="2" pinfunction="2_2" pintype="passive"/>
+      <node ref="D2" pin="2" pinfunction="A_2" pintype="passive"/>
+      <node ref="U6" pin="2" pinfunction="V-_2" pintype="power_in"/>
+    </net>
+    <net code="6" name="/-12V_RAW" class="Default">
+      <node ref="D2" pin="1" pinfunction="K_1" pintype="passive"/>
+      <node ref="J5" pin="3" pinfunction="3_3" pintype="passive"/>
+    </net>
+    <net code="7" name="/BUCK_BST" class="Default">
+      <node ref="C4" pin="1" pinfunction="1_1" pintype="passive"/>
+      <node ref="U2" pin="6" pinfunction="BST_6" pintype="passive"/>
+    </net>
+    <net code="8" name="/BUCK_SW" class="Default">
+      <node ref="C4" pin="2" pinfunction="2_2" pintype="passive"/>
+      <node ref="L1" pin="1" pinfunction="1_1" pintype="passive"/>
+      <node ref="U2" pin="5" pinfunction="SW_5" pintype="power_out"/>
+    </net>
+    <net code="9" name="/CV_ADC" class="Default">
+      <node ref="R24" pin="2" pinfunction="2_2" pintype="passive"/>
+      <node ref="R25" pin="1" pinfunction="1_1" pintype="passive"/>
+      <node ref="U1" pin="6" pinfunction="PA0/ADC0_6" pintype="bidirectional"/>
+    </net>
+    <net code="10" name="/CV_AFFINE" class="Default">
+      <node ref="C13" pin="1" pinfunction="1_1" pintype="passive"/>
+      <node ref="R3" pin="2" pinfunction="2_2" pintype="passive"/>
+      <node ref="R4" pin="2" pinfunction="2_2" pintype="passive"/>
+      <node ref="R5" pin="2" pinfunction="2_2" pintype="passive"/>
+      <node ref="R6" pin="1" pinfunction="1_1" pintype="passive"/>
+      <node ref="R7" pin="1" pinfunction="1_1" pintype="passive"/>
+    </net>
+    <net code="11" name="/CV_BUF" class="Default">
+      <node ref="R3" pin="1" pinfunction="1_1" pintype="passive"/>
+      <node ref="U6" pin="1" pinfunction="OUT_1" pintype="output"/>
+      <node ref="U6" pin="4" pinfunction="IN-_4" pintype="input"/>
+    </net>
+    <net code="12" name="/CV_DRIVE" class="Default">
+      <node ref="R24" pin="1" pinfunction="1_1" pintype="passive"/>
+      <node ref="U7" pin="1" pinfunction="OUT_1" pintype="output"/>
+      <node ref="U7" pin="4" pinfunction="IN-_4" pintype="input"/>
+    </net>
+    <net code="13" name="/CV_FILTER" class="Default">
+      <node ref="D3" pin="3" pinfunction="K1/A2_3" pintype="passive"/>
+      <node ref="R7" pin="2" pinfunction="2_2" pintype="passive"/>
+      <node ref="U7" pin="3" pinfunction="IN+_3" pintype="input"/>
+    </net>
+    <net code="14" name="/CV_SENSE" class="Default">
+      <node ref="R1" pin="2" pinfunction="2_2" pintype="passive"/>
+      <node ref="R2" pin="1" pinfunction="1_1" pintype="passive"/>
+      <node ref="U6" pin="3" pinfunction="IN+_3" pintype="input"/>
+    </net>
+    <net code="15" name="/CV_THRU" class="Default">
+      <node ref="J1" pin="6" pinfunction="TIP_6" pintype="passive"/>
+      <node ref="J2" pin="6" pinfunction="TIP_6" pintype="passive"/>
+      <node ref="R1" pin="1" pinfunction="1_1" pintype="passive"/>
+    </net>
+    <net code="16" name="/DATA_L" class="Default">
+      <node ref="J3" pin="3" pinfunction="DATA_A_3" pintype="passive"/>
+      <node ref="R14" pin="2" pinfunction="2_2" pintype="passive"/>
+      <node ref="R18" pin="1" pinfunction="1_1" pintype="passive"/>
+    </net>
+    <net code="17" name="/DATA_L_3V3" class="Default">
+      <node ref="R16" pin="1" pinfunction="1_1" pintype="passive"/>
+      <node ref="U1" pin="12" pinfunction="PA6/TIM3_CH1_12" pintype="bidirectional"/>
+      <node ref="U5" pin="2" pinfunction="A1_2" pintype="bidirectional"/>
+    </net>
+    <net code="18" name="/DATA_L_5V" class="Default">
+      <node ref="R14" pin="1" pinfunction="1_1" pintype="passive"/>
+      <node ref="U5" pin="7" pinfunction="B1_7" pintype="bidirectional"/>
+    </net>
+    <net code="19" name="/DATA_R" class="Default">
+      <node ref="J3" pin="4" pinfunction="DATA_B_4" pintype="passive"/>
+      <node ref="R15" pin="2" pinfunction="2_2" pintype="passive"/>
+      <node ref="R19" pin="1" pinfunction="1_1" pintype="passive"/>
+    </net>
+    <net code="20" name="/DATA_R_3V3" class="Default">
+      <node ref="R17" pin="1" pinfunction="1_1" pintype="passive"/>
+      <node ref="U1" pin="13" pinfunction="PA7/TIM3_CH2_13" pintype="bidirectional"/>
+      <node ref="U5" pin="3" pinfunction="A2_3" pintype="bidirectional"/>
+    </net>
+    <net code="21" name="/DATA_R_5V" class="Default">
+      <node ref="R15" pin="1" pinfunction="1_1" pintype="passive"/>
+      <node ref="U5" pin="6" pinfunction="B2_6" pintype="bidirectional"/>
+    </net>
+    <net code="22" name="/GND" class="Default">
+      <node ref="C1" pin="2" pinfunction="2_2" pintype="passive"/>
+      <node ref="C10" pin="2" pinfunction="2_2" pintype="passive"/>
+      <node ref="C11" pin="2" pinfunction="2_2" pintype="passive"/>
+      <node ref="C12" pin="1" pinfunction="1_1" pintype="passive"/>
+      <node ref="C13" pin="2" pinfunction="2_2" pintype="passive"/>
+      <node ref="C14" pin="2" pinfunction="2_2" pintype="passive"/>
+      <node ref="C15" pin="2" pinfunction="2_2" pintype="passive"/>
+      <node ref="C16" pin="2" pinfunction="2_2" pintype="passive"/>
+      <node ref="C17" pin="2" pinfunction="2_2" pintype="passive"/>
+      <node ref="C2" pin="2" pinfunction="2_2" pintype="passive"/>
+      <node ref="C3" pin="2" pinfunction="2_2" pintype="passive"/>
+      <node ref="C5" pin="2" pinfunction="2_2" pintype="passive"/>
+      <node ref="C6" pin="2" pinfunction="2_2" pintype="passive"/>
+      <node ref="C7" pin="2" pinfunction="2_2" pintype="passive"/>
+      <node ref="C8" pin="2" pinfunction="2_2" pintype="passive"/>
+      <node ref="C9" pin="2" pinfunction="2_2" pintype="passive"/>
+      <node ref="D3" pin="1" pinfunction="A1_1" pintype="passive"/>
+      <node ref="J1" pin="2" pinfunction="SLEEVE_2" pintype="passive"/>
+      <node ref="J1" pin="3" pinfunction="RING_3" pintype="passive"/>
+      <node ref="J2" pin="2" pinfunction="SLEEVE_2" pintype="passive"/>
+      <node ref="J2" pin="3" pinfunction="RING_3" pintype="passive"/>
+      <node ref="J3" pin="1" pinfunction="GND_1" pintype="passive"/>
+      <node ref="J5" pin="2" pinfunction="2_2" pintype="passive"/>
+      <node ref="Q1" pin="2" pinfunction="E_2" pintype="passive"/>
+      <node ref="R11" pin="2" pinfunction="2_2" pintype="passive"/>
+      <node ref="R12" pin="2" pinfunction="2_2" pintype="passive"/>
+      <node ref="R16" pin="2" pinfunction="2_2" pintype="passive"/>
+      <node ref="R17" pin="2" pinfunction="2_2" pintype="passive"/>
+      <node ref="R18" pin="2" pinfunction="2_2" pintype="passive"/>
+      <node ref="R19" pin="2" pinfunction="2_2" pintype="passive"/>
+      <node ref="R2" pin="2" pinfunction="2_2" pintype="passive"/>
+      <node ref="R20" pin="2" pinfunction="2_2" pintype="passive"/>
+      <node ref="R25" pin="2" pinfunction="2_2" pintype="passive"/>
+      <node ref="R6" pin="2" pinfunction="2_2" pintype="passive"/>
+      <node ref="R8" pin="2" pinfunction="2_2" pintype="passive"/>
+      <node ref="SW1" pin="2" pinfunction="COMMON_2" pintype="passive"/>
+      <node ref="TP2" pin="1" pinfunction="PAD_1" pintype="passive"/>
+      <node ref="U1" pin="4" pinfunction="VSS/VSSA_4" pintype="power_in"/>
+      <node ref="U2" pin="4" pinfunction="GND_4" pintype="power_in"/>
+      <node ref="U3" pin="2" pinfunction="GND_2" pintype="power_in"/>
+      <node ref="U4" pin="2" pinfunction="GND_2" pintype="power_in"/>
+      <node ref="U5" pin="4" pinfunction="GND_4" pintype="power_in"/>
+      <node ref="U7" pin="2" pinfunction="V-_2" pintype="power_in"/>
+    </net>
+    <net code="23" name="/LED_BASE" class="Default">
+      <node ref="Q1" pin="1" pinfunction="B_1" pintype="passive"/>
+      <node ref="R12" pin="1" pinfunction="1_1" pintype="passive"/>
+      <node ref="R22" pin="2" pinfunction="2_2" pintype="passive"/>
+    </net>
+    <net code="24" name="/LED_ENABLE" class="Default">
+      <node ref="R22" pin="1" pinfunction="1_1" pintype="passive"/>
+      <node ref="U1" pin="11" pinfunction="PA5_11" pintype="bidirectional"/>
+    </net>
+    <net code="25" name="/LED_EN_N" class="Default">
+      <node ref="Q1" pin="3" pinfunction="C_3" pintype="passive"/>
+      <node ref="R23" pin="2" pinfunction="2_2" pintype="passive"/>
+      <node ref="U4" pin="3" pinfunction="~{EN}_3" pintype="input"/>
+    </net>
+    <net code="26" name="/LED_FAULT_N" class="Default">
+      <node ref="R13" pin="2" pinfunction="2_2" pintype="passive"/>
+      <node ref="U1" pin="10" pinfunction="PA4_10" pintype="bidirectional"/>
+      <node ref="U4" pin="4" pinfunction="~{FAULT}_4" pintype="open_collector"/>
+    </net>
+    <net code="27" name="/LED_ILIM" class="Default">
+      <node ref="R11" pin="1" pinfunction="1_1" pintype="passive"/>
+      <node ref="U4" pin="5" pinfunction="ILIM_5" pintype="passive"/>
+    </net>
+    <net code="28" name="/MODE_A" class="Default">
+      <node ref="R9" pin="2" pinfunction="2_2" pintype="passive"/>
+      <node ref="SW1" pin="1" pinfunction="THROW_A_1" pintype="passive"/>
+      <node ref="U1" pin="8" pinfunction="PA2_8" pintype="bidirectional"/>
+    </net>
+    <net code="29" name="/MODE_B" class="Default">
+      <node ref="R10" pin="2" pinfunction="2_2" pintype="passive"/>
+      <node ref="SW1" pin="3" pinfunction="THROW_B_3" pintype="passive"/>
+      <node ref="U1" pin="9" pinfunction="PA3_9" pintype="bidirectional"/>
+    </net>
+    <net code="30" name="/NRST" class="Default">
+      <node ref="C14" pin="1" pinfunction="1_1" pintype="passive"/>
+      <node ref="R21" pin="2" pinfunction="2_2" pintype="passive"/>
+      <node ref="TP5" pin="1" pinfunction="PAD_1" pintype="passive"/>
+      <node ref="U1" pin="5" pinfunction="PF2/NRST_5" pintype="bidirectional"/>
+    </net>
+    <net code="31" name="/SWCLK" class="Default">
+      <node ref="TP4" pin="1" pinfunction="PAD_1" pintype="passive"/>
+      <node ref="U1" pin="21" pinfunction="PA14/SWCLK_21" pintype="bidirectional"/>
+    </net>
+    <net code="32" name="/SWDIO" class="Default">
+      <node ref="TP3" pin="1" pinfunction="PAD_1" pintype="passive"/>
+      <node ref="U1" pin="20" pinfunction="PA13/SWDIO_20" pintype="bidirectional"/>
+    </net>
+    <net code="33" name="/VLED" class="Default">
+      <node ref="C10" pin="1" pinfunction="1_1" pintype="passive"/>
+      <node ref="C16" pin="1" pinfunction="1_1" pintype="passive"/>
+      <node ref="J3" pin="2" pinfunction="VLED_2" pintype="passive"/>
+      <node ref="R20" pin="1" pinfunction="1_1" pintype="passive"/>
+      <node ref="U4" pin="6" pinfunction="OUT_6" pintype="power_out"/>
+      <node ref="U5" pin="8" pinfunction="VCCB_8" pintype="power_in"/>
+    </net>
+    <net code="34" name="unconnected-(J1-DETECT_A-Pad4)" class="Default">
+      <node ref="J1" pin="4" pinfunction="DETECT_A_4" pintype="passive+no_connect"/>
+    </net>
+    <net code="35" name="unconnected-(J1-DETECT_B-Pad5)" class="Default">
+      <node ref="J1" pin="5" pinfunction="DETECT_B_5" pintype="passive+no_connect"/>
+    </net>
+    <net code="36" name="unconnected-(J2-DETECT_A-Pad4)" class="Default">
+      <node ref="J2" pin="4" pinfunction="DETECT_A_4" pintype="passive+no_connect"/>
+    </net>
+    <net code="37" name="unconnected-(J2-DETECT_B-Pad5)" class="Default">
+      <node ref="J2" pin="5" pinfunction="DETECT_B_5" pintype="passive+no_connect"/>
+    </net>
+    <net code="38" name="unconnected-(U1-PA1-Pad7)" class="Default">
+      <node ref="U1" pin="7" pinfunction="PA1_7" pintype="bidirectional+no_connect"/>
+    </net>
+    <net code="39" name="unconnected-(U1-PA8-Pad16)" class="Default">
+      <node ref="U1" pin="16" pinfunction="PA8_16" pintype="bidirectional+no_connect"/>
+    </net>
+    <net code="40" name="unconnected-(U1-PA11-Pad18)" class="Default">
+      <node ref="U1" pin="18" pinfunction="PA11_18" pintype="bidirectional+no_connect"/>
+    </net>
+    <net code="41" name="unconnected-(U1-PA12-Pad19)" class="Default">
+      <node ref="U1" pin="19" pinfunction="PA12_19" pintype="bidirectional+no_connect"/>
+    </net>
+    <net code="42" name="unconnected-(U1-PA15-Pad22)" class="Default">
+      <node ref="U1" pin="22" pinfunction="PA15_22" pintype="bidirectional+no_connect"/>
+    </net>
+    <net code="43" name="unconnected-(U1-PB0-Pad14)" class="Default">
+      <node ref="U1" pin="14" pinfunction="PB0_14" pintype="bidirectional+no_connect"/>
+    </net>
+    <net code="44" name="unconnected-(U1-PB1-Pad15)" class="Default">
+      <node ref="U1" pin="15" pinfunction="PB1_15" pintype="bidirectional+no_connect"/>
+    </net>
+    <net code="45" name="unconnected-(U1-PB3-Pad23)" class="Default">
+      <node ref="U1" pin="23" pinfunction="PB3_23" pintype="bidirectional+no_connect"/>
+    </net>
+    <net code="46" name="unconnected-(U1-PB4-Pad24)" class="Default">
+      <node ref="U1" pin="24" pinfunction="PB4_24" pintype="bidirectional+no_connect"/>
+    </net>
+    <net code="47" name="unconnected-(U1-PB5-Pad25)" class="Default">
+      <node ref="U1" pin="25" pinfunction="PB5_25" pintype="bidirectional+no_connect"/>
+    </net>
+    <net code="48" name="unconnected-(U1-PB6-Pad26)" class="Default">
+      <node ref="U1" pin="26" pinfunction="PB6_26" pintype="bidirectional+no_connect"/>
+    </net>
+    <net code="49" name="unconnected-(U1-PB7-Pad27)" class="Default">
+      <node ref="U1" pin="27" pinfunction="PB7_27" pintype="bidirectional+no_connect"/>
+    </net>
+    <net code="50" name="unconnected-(U1-PB8-Pad28)" class="Default">
+      <node ref="U1" pin="28" pinfunction="PB8_28" pintype="bidirectional+no_connect"/>
+    </net>
+    <net code="51" name="unconnected-(U1-PC6-Pad17)" class="Default">
+      <node ref="U1" pin="17" pinfunction="PC6_17" pintype="bidirectional+no_connect"/>
+    </net>
+    <net code="52" name="unconnected-(U1-PC14-Pad1)" class="Default">
+      <node ref="U1" pin="1" pinfunction="PC14_1" pintype="bidirectional+no_connect"/>
+    </net>
+    <net code="53" name="unconnected-(U1-PC15-Pad2)" class="Default">
+      <node ref="U1" pin="2" pinfunction="PC15_2" pintype="bidirectional+no_connect"/>
+    </net>
+    <net code="54" name="unconnected-(U3-NC-Pad4)" class="Default">
+      <node ref="U3" pin="4" pinfunction="NC_4" pintype="no_connect"/>
+    </net>
+  </nets>
+</export>

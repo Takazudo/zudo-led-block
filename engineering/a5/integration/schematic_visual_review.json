@@ -1,0 +1,37 @@
+{
+  "revision": "A5",
+  "visual_review": "PASS",
+  "reviewed": [
+    "controller",
+    "led_leaf",
+    "power_adapter"
+  ],
+  "scope": "Native KiCad PDF renders inspected for labels, containment and title blocks. Final leaf J2/power-flag overlap corrected and its final render reviewed. Controller and adapter source/appearance unchanged by that leaf-only correction; normalized exported connectivity and component identity preserved.",
+  "files": [
+    {
+      "path": "electronics/native/controller/controller.kicad_sch",
+      "sha256": "ba171cb764159ebedcae9491ac06fd824de3e5dc448b10958a82c25e7c4d9d1c"
+    },
+    {
+      "path": "integration/native_schematic/controller/controller.pdf",
+      "sha256": "5f8b00b0cf551bd93423c746aeb7a21092d06b41b56eea8fe2cd51437323dd49"
+    },
+    {
+      "path": "electronics/native/led_leaf/led_leaf.kicad_sch",
+      "sha256": "b3eaaf84ab1bc3a13c1dd1600cb6f5dca5ea61c403d0af4ea7c5b664b40c6599"
+    },
+    {
+      "path": "integration/native_schematic/led_leaf/led_leaf.pdf",
+      "sha256": "ef91f30c1270c0e2353185705a9946e6c3a3a7a1da4e69085670c18d2532be86"
+    },
+    {
+      "path": "electronics/native/power_adapter/power_adapter.kicad_sch",
+      "sha256": "22ba7e4a3c0fc13960133facd7bab034ee724905d4cc59f8ca3c44eadbf0ab50"
+    },
+    {
+      "path": "integration/native_schematic/power_adapter/power_adapter.pdf",
+      "sha256": "5083fc84169ff99e44a6faf71337faddbad65ca0b4f4aa0212fe06c3daa1bdf0"
+    }
+  ],
+  "leaf_layout_equivalence": "integration/leaf_layout_equivalence.json"
+}

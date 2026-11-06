@@ -1,0 +1,73 @@
+{
+  "board": "power_adapter",
+  "schematic_sha256_before": "22ba7e4a3c0fc13960133facd7bab034ee724905d4cc59f8ca3c44eadbf0ab50",
+  "schematic_sha256_after": "22ba7e4a3c0fc13960133facd7bab034ee724905d4cc59f8ca3c44eadbf0ab50",
+  "kicad_version": "10.0.8",
+  "operations": [
+    {
+      "args": [
+        "sch",
+        "erc",
+        "--format",
+        "json",
+        "--severity-all",
+        "--exit-code-violations",
+        "-o",
+        "$PROJECT/integration/native_schematic/power_adapter/erc.json",
+        "$PROJECT/electronics/native/power_adapter/power_adapter.kicad_sch"
+      ],
+      "returncode": 0,
+      "stdout": "Found 0 violations\nSaved ERC Report to $PROJECT/integration/native_schematic/power_adapter/erc.json\n",
+      "stderr": ""
+    },
+    {
+      "args": [
+        "sch",
+        "export",
+        "netlist",
+        "--format",
+        "kicadxml",
+        "-o",
+        "$PROJECT/integration/native_schematic/power_adapter/netlist.xml",
+        "$PROJECT/electronics/native/power_adapter/power_adapter.kicad_sch"
+      ],
+      "returncode": 0,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "args": [
+        "sch",
+        "export",
+        "pdf",
+        "-o",
+        "$PROJECT/integration/native_schematic/power_adapter/power_adapter.pdf",
+        "$PROJECT/electronics/native/power_adapter/power_adapter.kicad_sch"
+      ],
+      "returncode": 0,
+      "stdout": "Plotted to '$PROJECT/integration/native_schematic/power_adapter/power_adapter.pdf'.\nDone.\n",
+      "stderr": ""
+    }
+  ],
+  "erc_errors": 0,
+  "erc_warnings": 0,
+  "ignored_checks": [
+    {
+      "description": "Global label only appears once in the schematic",
+      "key": "single_global_label"
+    },
+    {
+      "description": "Four connection points are joined together",
+      "key": "four_way_junction"
+    },
+    {
+      "description": "SPICE model issue",
+      "key": "simulation_model_issue"
+    },
+    {
+      "description": "Assigned footprint doesn't match footprint filters",
+      "key": "footprint_filter"
+    }
+  ],
+  "all_passed": true
+}

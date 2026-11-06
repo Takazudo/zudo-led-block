@@ -1,0 +1,41 @@
+# --- Handoff / transfer material (never commit) ---
+*handoff*.zip
+zudo-led-block-claude-cloud-*.zip
+light_block_A5_design_package.zip
+/staging/
+/handoff/
+.DS_Store
+Thumbs.db
+
+# --- A5 bulky derived tessellation (omitted from the seed; regenerate locally) ---
+engineering/a5/mechanical/exports/2hp/light_block_A5_2hp_assembled.json
+engineering/a5/mechanical/exports/2hp/light_block_A5_2hp_exploded.json
+engineering/a5/mechanical/exports/3hp/light_block_A5_3hp_assembled.json
+engineering/a5/mechanical/exports/3hp/light_block_A5_3hp_exploded.json
+engineering/a5/references/light_block_A3_design_package.zip
+
+# --- Firmware build products (make test / test-sanitize / timing / arm) ---
+engineering/a5/firmware/build/
+
+# --- Toolchains and local caches ---
+/.toolchains/
+/toolchains/
+arm-gnu-toolchain-*/
+*.tar.xz
+__pycache__/
+*.pyc
+.venv/
+.cache/
+
+# --- Node / docs ---
+node_modules/
+.pnpm-store/
+doc/dist/
+doc/.zfb/
+.cloudflare/
+doc/.cloudflare/
+doc/.wrangler/
+.wrangler/
+playwright-report/
+test-results/
+/tmp-check/

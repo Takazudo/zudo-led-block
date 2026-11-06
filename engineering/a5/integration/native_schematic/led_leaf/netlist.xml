@@ -1,0 +1,400 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<export version="E">
+  <design>
+    <source>/workspace/scratch/213e46744889/light_block_A5/electronics/native/led_leaf/led_leaf.kicad_sch</source>
+    <date>2026-11-06T15:26:45</date>
+    <tool>Eeschema 10.0.8-10.0.8~ubuntu24.04.1</tool>
+    <sheet number="1" name="/" tstamps="/">
+      <title_block>
+        <title>Light Block A5 identical LED leaf (fit twice)</title>
+        <company>Light Block</company>
+        <rev>A5</rev>
+        <date>2026-11-06</date>
+        <source>led_leaf.kicad_sch</source>
+        <comment number="1" value="Engineering draft. Controller is not routed. No hardware qualification claimed."/>
+        <comment number="2" value=""/>
+        <comment number="3" value=""/>
+        <comment number="4" value=""/>
+        <comment number="5" value=""/>
+        <comment number="6" value=""/>
+        <comment number="7" value=""/>
+        <comment number="8" value=""/>
+        <comment number="9" value=""/>
+      </title_block>
+    </sheet>
+  </design>
+  <components>
+    <comp ref="C1">
+      <value>100n 50V X7R</value>
+      <footprint>LightBlock:C0603</footprint>
+      <fields>
+        <field name="MPN">CC0603KRX7R9BB104</field>
+        <field name="LCSC">C14663</field>
+        <field name="Footprint">LightBlock:C0603</field>
+        <field name="Datasheet"/>
+        <field name="Description"/>
+      </fields>
+      <libsource lib="LightBlock" part="C" description=""/>
+      <property name="MPN" value="CC0603KRX7R9BB104"/>
+      <property name="LCSC" value="C14663"/>
+      <property name="Sheetname" value="led_leaf"/>
+      <property name="Sheetfile" value="led_leaf.kicad_sch"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamps>64381d3c-34fe-52e6-baa2-84cce32ac03c</tstamps>
+      <units>
+        <unit name="A">
+          <pins>
+            <pin num="1"/>
+            <pin num="2"/>
+          </pins>
+        </unit>
+      </units>
+    </comp>
+    <comp ref="C2">
+      <value>100n 50V X7R</value>
+      <footprint>LightBlock:C0603</footprint>
+      <fields>
+        <field name="MPN">CC0603KRX7R9BB104</field>
+        <field name="LCSC">C14663</field>
+        <field name="Footprint">LightBlock:C0603</field>
+        <field name="Datasheet"/>
+        <field name="Description"/>
+      </fields>
+      <libsource lib="LightBlock" part="C" description=""/>
+      <property name="MPN" value="CC0603KRX7R9BB104"/>
+      <property name="LCSC" value="C14663"/>
+      <property name="Sheetname" value="led_leaf"/>
+      <property name="Sheetfile" value="led_leaf.kicad_sch"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamps>b508ca46-ef3d-5ccd-9662-4402452329e1</tstamps>
+      <units>
+        <unit name="A">
+          <pins>
+            <pin num="1"/>
+            <pin num="2"/>
+          </pins>
+        </unit>
+      </units>
+    </comp>
+    <comp ref="C3">
+      <value>100n 50V X7R</value>
+      <footprint>LightBlock:C0603</footprint>
+      <fields>
+        <field name="MPN">CC0603KRX7R9BB104</field>
+        <field name="LCSC">C14663</field>
+        <field name="Footprint">LightBlock:C0603</field>
+        <field name="Datasheet"/>
+        <field name="Description"/>
+      </fields>
+      <libsource lib="LightBlock" part="C" description=""/>
+      <property name="MPN" value="CC0603KRX7R9BB104"/>
+      <property name="LCSC" value="C14663"/>
+      <property name="Sheetname" value="led_leaf"/>
+      <property name="Sheetfile" value="led_leaf.kicad_sch"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamps>ff8ea176-3e71-5382-bcf4-e2902a679604</tstamps>
+      <units>
+        <unit name="A">
+          <pins>
+            <pin num="1"/>
+            <pin num="2"/>
+          </pins>
+        </unit>
+      </units>
+    </comp>
+    <comp ref="C4">
+      <value>100n 50V X7R</value>
+      <footprint>LightBlock:C0603</footprint>
+      <fields>
+        <field name="MPN">CC0603KRX7R9BB104</field>
+        <field name="LCSC">C14663</field>
+        <field name="Footprint">LightBlock:C0603</field>
+        <field name="Datasheet"/>
+        <field name="Description"/>
+      </fields>
+      <libsource lib="LightBlock" part="C" description=""/>
+      <property name="MPN" value="CC0603KRX7R9BB104"/>
+      <property name="LCSC" value="C14663"/>
+      <property name="Sheetname" value="led_leaf"/>
+      <property name="Sheetfile" value="led_leaf.kicad_sch"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamps>155426c8-8182-5ad8-9122-8db25f8bc13a</tstamps>
+      <units>
+        <unit name="A">
+          <pins>
+            <pin num="1"/>
+            <pin num="2"/>
+          </pins>
+        </unit>
+      </units>
+    </comp>
+    <comp ref="D1">
+      <value>WS2812B-2020-V6</value>
+      <footprint>LightBlock:WS2812B_2020_V6</footprint>
+      <fields>
+        <field name="MPN">WS2812B-2020-V6</field>
+        <field name="LCSC">C52917434</field>
+        <field name="Footprint">LightBlock:WS2812B_2020_V6</field>
+        <field name="Datasheet"/>
+        <field name="Description"/>
+      </fields>
+      <libsource lib="LightBlock" part="LED" description=""/>
+      <property name="MPN" value="WS2812B-2020-V6"/>
+      <property name="LCSC" value="C52917434"/>
+      <property name="Sheetname" value="led_leaf"/>
+      <property name="Sheetfile" value="led_leaf.kicad_sch"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamps>439165c0-ecef-54cc-ac02-5979a6963f78</tstamps>
+      <units>
+        <unit name="A">
+          <pins>
+            <pin num="1"/>
+            <pin num="2"/>
+            <pin num="3"/>
+            <pin num="4"/>
+          </pins>
+        </unit>
+      </units>
+    </comp>
+    <comp ref="D2">
+      <value>WS2812B-2020-V6</value>
+      <footprint>LightBlock:WS2812B_2020_V6</footprint>
+      <fields>
+        <field name="MPN">WS2812B-2020-V6</field>
+        <field name="LCSC">C52917434</field>
+        <field name="Footprint">LightBlock:WS2812B_2020_V6</field>
+        <field name="Datasheet"/>
+        <field name="Description"/>
+      </fields>
+      <libsource lib="LightBlock" part="LED" description=""/>
+      <property name="MPN" value="WS2812B-2020-V6"/>
+      <property name="LCSC" value="C52917434"/>
+      <property name="Sheetname" value="led_leaf"/>
+      <property name="Sheetfile" value="led_leaf.kicad_sch"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamps>5025a934-92b0-53e5-b2a7-9efd86535df3</tstamps>
+      <units>
+        <unit name="A">
+          <pins>
+            <pin num="1"/>
+            <pin num="2"/>
+            <pin num="3"/>
+            <pin num="4"/>
+          </pins>
+        </unit>
+      </units>
+    </comp>
+    <comp ref="D3">
+      <value>WS2812B-2020-V6</value>
+      <footprint>LightBlock:WS2812B_2020_V6</footprint>
+      <fields>
+        <field name="MPN">WS2812B-2020-V6</field>
+        <field name="LCSC">C52917434</field>
+        <field name="Footprint">LightBlock:WS2812B_2020_V6</field>
+        <field name="Datasheet"/>
+        <field name="Description"/>
+      </fields>
+      <libsource lib="LightBlock" part="LED" description=""/>
+      <property name="MPN" value="WS2812B-2020-V6"/>
+      <property name="LCSC" value="C52917434"/>
+      <property name="Sheetname" value="led_leaf"/>
+      <property name="Sheetfile" value="led_leaf.kicad_sch"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamps>4a6e8096-fb48-5793-85ce-93ae95934fa2</tstamps>
+      <units>
+        <unit name="A">
+          <pins>
+            <pin num="1"/>
+            <pin num="2"/>
+            <pin num="3"/>
+            <pin num="4"/>
+          </pins>
+        </unit>
+      </units>
+    </comp>
+    <comp ref="D4">
+      <value>WS2812B-2020-V6</value>
+      <footprint>LightBlock:WS2812B_2020_V6</footprint>
+      <fields>
+        <field name="MPN">WS2812B-2020-V6</field>
+        <field name="LCSC">C52917434</field>
+        <field name="Footprint">LightBlock:WS2812B_2020_V6</field>
+        <field name="Datasheet"/>
+        <field name="Description"/>
+      </fields>
+      <libsource lib="LightBlock" part="LED" description=""/>
+      <property name="MPN" value="WS2812B-2020-V6"/>
+      <property name="LCSC" value="C52917434"/>
+      <property name="Sheetname" value="led_leaf"/>
+      <property name="Sheetfile" value="led_leaf.kicad_sch"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamps>e3b8972a-7fb3-55c8-b350-0c5e216cbf8b</tstamps>
+      <units>
+        <unit name="A">
+          <pins>
+            <pin num="1"/>
+            <pin num="2"/>
+            <pin num="3"/>
+            <pin num="4"/>
+          </pins>
+        </unit>
+      </units>
+    </comp>
+    <comp ref="J1">
+      <value>INPUT G / 5 / THIS / OTHER</value>
+      <footprint>LightBlock:JST_SH4</footprint>
+      <fields>
+        <field name="MPN">SM04B-SRSS-TB(LF)(SN)</field>
+        <field name="LCSC">C160404</field>
+        <field name="Footprint">LightBlock:JST_SH4</field>
+        <field name="Datasheet"/>
+        <field name="Description"/>
+      </fields>
+      <libsource lib="LightBlock" part="SH4" description=""/>
+      <property name="MPN" value="SM04B-SRSS-TB(LF)(SN)"/>
+      <property name="LCSC" value="C160404"/>
+      <property name="Sheetname" value="led_leaf"/>
+      <property name="Sheetfile" value="led_leaf.kicad_sch"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamps>c8b86091-58d3-5927-ad79-a875f88ebd6e</tstamps>
+      <units>
+        <unit name="A">
+          <pins>
+            <pin num="1"/>
+            <pin num="2"/>
+            <pin num="3"/>
+            <pin num="4"/>
+          </pins>
+        </unit>
+      </units>
+    </comp>
+    <comp ref="J2">
+      <value>BRIDGE G / 5 / OTHER / THIS</value>
+      <footprint>LightBlock:JST_SH4</footprint>
+      <fields>
+        <field name="MPN">SM04B-SRSS-TB(LF)(SN)</field>
+        <field name="LCSC">C160404</field>
+        <field name="Footprint">LightBlock:JST_SH4</field>
+        <field name="Datasheet"/>
+        <field name="Description"/>
+      </fields>
+      <libsource lib="LightBlock" part="SH4" description=""/>
+      <property name="MPN" value="SM04B-SRSS-TB(LF)(SN)"/>
+      <property name="LCSC" value="C160404"/>
+      <property name="Sheetname" value="led_leaf"/>
+      <property name="Sheetfile" value="led_leaf.kicad_sch"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamps>027a5820-f189-57ef-8afd-708f41ff8dba</tstamps>
+      <units>
+        <unit name="A">
+          <pins>
+            <pin num="1"/>
+            <pin num="2"/>
+            <pin num="3"/>
+            <pin num="4"/>
+          </pins>
+        </unit>
+      </units>
+    </comp>
+  </components>
+  <libparts>
+    <libpart lib="LightBlock" part="C">
+      <fields>
+        <field name="Reference">C</field>
+        <field name="Value">C</field>
+        <field name="Footprint"/>
+        <field name="Datasheet"/>
+        <field name="Description"/>
+      </fields>
+      <pins>
+        <pin num="1" name="1" type="passive"/>
+        <pin num="2" name="2" type="passive"/>
+      </pins>
+    </libpart>
+    <libpart lib="LightBlock" part="LED">
+      <fields>
+        <field name="Reference">L</field>
+        <field name="Value">LED</field>
+        <field name="Footprint"/>
+        <field name="Datasheet"/>
+        <field name="Description"/>
+      </fields>
+      <pins>
+        <pin num="1" name="DOUT" type="output"/>
+        <pin num="2" name="GND" type="power_in"/>
+        <pin num="3" name="DIN" type="input"/>
+        <pin num="4" name="VDD" type="power_in"/>
+      </pins>
+    </libpart>
+    <libpart lib="LightBlock" part="SH4">
+      <fields>
+        <field name="Reference">S</field>
+        <field name="Value">SH4</field>
+        <field name="Footprint"/>
+        <field name="Datasheet"/>
+        <field name="Description"/>
+      </fields>
+      <pins>
+        <pin num="1" name="GND" type="passive"/>
+        <pin num="2" name="VLED" type="passive"/>
+        <pin num="3" name="DATA_A" type="passive"/>
+        <pin num="4" name="DATA_B" type="passive"/>
+      </pins>
+    </libpart>
+  </libparts>
+  <libraries>
+    <library logical="LightBlock">
+      <uri>${KIPRJMOD}/LightBlock.kicad_sym</uri>
+    </library>
+  </libraries>
+  <nets>
+    <net code="1" name="/DATA_1_2" class="Default">
+      <node ref="D1" pin="1" pinfunction="DOUT_1" pintype="output"/>
+      <node ref="D2" pin="3" pinfunction="DIN_3" pintype="input"/>
+    </net>
+    <net code="2" name="/DATA_2_3" class="Default">
+      <node ref="D2" pin="1" pinfunction="DOUT_1" pintype="output"/>
+      <node ref="D3" pin="3" pinfunction="DIN_3" pintype="input"/>
+    </net>
+    <net code="3" name="/DATA_3_4" class="Default">
+      <node ref="D3" pin="1" pinfunction="DOUT_1" pintype="output"/>
+      <node ref="D4" pin="3" pinfunction="DIN_3" pintype="input"/>
+    </net>
+    <net code="4" name="/DATA_IN" class="Default">
+      <node ref="D1" pin="3" pinfunction="DIN_3" pintype="input"/>
+      <node ref="J1" pin="3" pinfunction="DATA_A_3" pintype="passive"/>
+      <node ref="J2" pin="4" pinfunction="DATA_B_4" pintype="passive"/>
+    </net>
+    <net code="5" name="/DATA_OTHER" class="Default">
+      <node ref="J1" pin="4" pinfunction="DATA_B_4" pintype="passive"/>
+      <node ref="J2" pin="3" pinfunction="DATA_A_3" pintype="passive"/>
+    </net>
+    <net code="6" name="/GND" class="Default">
+      <node ref="C1" pin="2" pinfunction="2_2" pintype="passive"/>
+      <node ref="C2" pin="2" pinfunction="2_2" pintype="passive"/>
+      <node ref="C3" pin="2" pinfunction="2_2" pintype="passive"/>
+      <node ref="C4" pin="2" pinfunction="2_2" pintype="passive"/>
+      <node ref="D1" pin="2" pinfunction="GND_2" pintype="power_in"/>
+      <node ref="D2" pin="2" pinfunction="GND_2" pintype="power_in"/>
+      <node ref="D3" pin="2" pinfunction="GND_2" pintype="power_in"/>
+      <node ref="D4" pin="2" pinfunction="GND_2" pintype="power_in"/>
+      <node ref="J1" pin="1" pinfunction="GND_1" pintype="passive"/>
+      <node ref="J2" pin="1" pinfunction="GND_1" pintype="passive"/>
+    </net>
+    <net code="7" name="/VLED" class="Default">
+      <node ref="C1" pin="1" pinfunction="1_1" pintype="passive"/>
+      <node ref="C2" pin="1" pinfunction="1_1" pintype="passive"/>
+      <node ref="C3" pin="1" pinfunction="1_1" pintype="passive"/>
+      <node ref="C4" pin="1" pinfunction="1_1" pintype="passive"/>
+      <node ref="D1" pin="4" pinfunction="VDD_4" pintype="power_in"/>
+      <node ref="D2" pin="4" pinfunction="VDD_4" pintype="power_in"/>
+      <node ref="D3" pin="4" pinfunction="VDD_4" pintype="power_in"/>
+      <node ref="D4" pin="4" pinfunction="VDD_4" pintype="power_in"/>
+      <node ref="J1" pin="2" pinfunction="VLED_2" pintype="passive"/>
+      <node ref="J2" pin="2" pinfunction="VLED_2" pintype="passive"/>
+    </net>
+    <net code="8" name="unconnected-(D4-DOUT-Pad1)" class="Default">
+      <node ref="D4" pin="1" pinfunction="DOUT_1" pintype="output+no_connect"/>
+    </net>
+  </nets>
+</export>

@@ -1,0 +1,451 @@
+{
+  "revision": "A4-FULL-REAR-FROST-CLEAR-LETTERS",
+  "status": "APPEARANCE_MASK_ON_A3_HOLE_GEOMETRY_MECHANICAL_RELEASE_PENDING",
+  "units": "mm",
+  "variants": [
+    {
+      "variant": "2hp",
+      "width_mm": 9.8,
+      "height_mm": 128.5,
+      "panel_thickness_mm": 2.0,
+      "status": "APPEARANCE_MASK_ON_A3_HOLE_GEOMETRY_MECHANICAL_RELEASE_PENDING",
+      "material_area_mm2": 1143.7439894102542,
+      "engraved_area_mm2": 1011.6462356591704,
+      "clear_letter_and_icon_area_mm2": 24.525694094020672,
+      "hidden_clear_seat_area_mm2": 107.5720596570638,
+      "engraved_fraction_of_material": 0.8845040892243752,
+      "engraved_connected_regions": 6,
+      "label_counter_islands": 5,
+      "all_BReps_valid": true,
+      "through_profile_loops": 9,
+      "panel_difference_from_A3_mm3": 0.0,
+      "unchanged_cut_and_step_files": {
+        "dxf": {
+          "reference_sha256": "aaeb259a19aada212d5b83f56ca7ca05910aff2ecd69026e6e55278121df0ece",
+          "output_sha256": "aaeb259a19aada212d5b83f56ca7ca05910aff2ecd69026e6e55278121df0ece",
+          "byte_identical_to_A3": true
+        },
+        "svg": {
+          "reference_sha256": "fe6ad257e34a39fba054a42f20f3e59a7a9400e6bb86cac3e50281a3c4c674a1",
+          "output_sha256": "fe6ad257e34a39fba054a42f20f3e59a7a9400e6bb86cac3e50281a3c4c674a1",
+          "byte_identical_to_A3": true
+        },
+        "step": {
+          "reference_sha256": "9f38a6e6dd506f979859b52d52f608323d32f2b51012f81b0dcf2f17459c224c",
+          "output_sha256": "9f38a6e6dd506f979859b52d52f608323d32f2b51012f81b0dcf2f17459c224c",
+          "byte_identical_to_A3": true
+        }
+      },
+      "no_assigned_engraving_depth": true,
+      "temporary_boolean_extrusion_mm": 0.02,
+      "mask_intersection_through_holes_mm2": 0.0,
+      "mask_intersection_clear_letters_mm2": 0.0,
+      "mask_intersection_clear_seats_mm2": 0.0,
+      "partition_residual_mm2": 6.217248937900877e-13,
+      "mirror_area_delta_mm2": 8.881784197001252e-13,
+      "double_mirror_difference_mm2": 0.0,
+      "polygon_area_delta_mm2": 0.08144152792181103,
+      "dxf_hatch_area_delta_mm2": 4.547473508864641e-13,
+      "dxf_units_code": 4,
+      "dxf_hatch_count": 6,
+      "dxf_all_elevation_zero": true,
+      "svg_contains_font_text": false,
+      "counter_checks": [
+        {
+          "index": 0,
+          "area_mm2": 0.6397906011880152,
+          "unengraved_area_mm2": 0.0
+        },
+        {
+          "index": 1,
+          "area_mm2": 0.5219695206556322,
+          "unengraved_area_mm2": 0.0
+        },
+        {
+          "index": 2,
+          "area_mm2": 0.8097349796285798,
+          "unengraved_area_mm2": 0.0
+        },
+        {
+          "index": 3,
+          "area_mm2": 0.6397906011880152,
+          "unengraved_area_mm2": 0.0
+        },
+        {
+          "index": 4,
+          "area_mm2": 0.17900942088127958,
+          "unengraved_area_mm2": 0.0
+        }
+      ],
+      "labels": [
+        {
+          "text": "MODE",
+          "y": 80.6,
+          "cap_height": 1.6,
+          "x_offset": 0.0,
+          "center_x": 4.9,
+          "stroke_regions": 4,
+          "counters": 2
+        },
+        {
+          "text": "IN",
+          "y": 84.0,
+          "cap_height": 1.8,
+          "x_offset": 0.0,
+          "center_x": 4.9,
+          "stroke_regions": 2,
+          "counters": 0
+        },
+        {
+          "text": "OUT",
+          "y": 97.0,
+          "cap_height": 1.8,
+          "x_offset": 0.0,
+          "center_x": 4.9,
+          "stroke_regions": 3,
+          "counters": 1
+        },
+        {
+          "text": "ON",
+          "y": 113.0,
+          "cap_height": 1.6,
+          "x_offset": 0.9,
+          "center_x": 5.800000000000001,
+          "stroke_regions": 2,
+          "counters": 1
+        },
+        {
+          "text": "PGM",
+          "y": 116.0,
+          "cap_height": 1.6,
+          "x_offset": 0.9,
+          "center_x": 5.800000000000001,
+          "stroke_regions": 3,
+          "counters": 1
+        },
+        {
+          "text": "CV",
+          "y": 119.0,
+          "cap_height": 1.6,
+          "x_offset": 0.9,
+          "center_x": 5.800000000000001,
+          "stroke_regions": 2,
+          "counters": 0
+        }
+      ],
+      "clear_seating_exclusions": [
+        {
+          "kind": "m2",
+          "center": [
+            4.9,
+            20.5
+          ],
+          "shape": "circle",
+          "radius_mm": 1.85,
+          "hidden_inside_nominal_washer_silhouette": true
+        },
+        {
+          "kind": "m2",
+          "center": [
+            4.9,
+            60.8
+          ],
+          "shape": "circle",
+          "radius_mm": 1.85,
+          "hidden_inside_nominal_washer_silhouette": true
+        },
+        {
+          "kind": "m2",
+          "center": [
+            4.9,
+            65.0
+          ],
+          "shape": "circle",
+          "radius_mm": 1.85,
+          "hidden_inside_nominal_washer_silhouette": true
+        },
+        {
+          "kind": "toggle",
+          "center": [
+            4.9,
+            74.0
+          ],
+          "shape": "circle",
+          "radius_mm": 3.85,
+          "hidden_inside_nominal_washer_silhouette": true
+        },
+        {
+          "kind": "jack",
+          "center": [
+            4.9,
+            90.0
+          ],
+          "shape": "circle",
+          "radius_mm": 4.1,
+          "hidden_inside_nominal_washer_silhouette": true
+        },
+        {
+          "kind": "jack",
+          "center": [
+            4.9,
+            104.0
+          ],
+          "shape": "circle",
+          "radius_mm": 4.1,
+          "hidden_inside_nominal_washer_silhouette": true
+        },
+        {
+          "kind": "rack",
+          "center": [
+            4.9,
+            3.0
+          ],
+          "shape": "intersection of endpoint washer circles",
+          "circle_radius_mm": 2.95,
+          "circle_center_offset_mm": 0.7,
+          "hidden_across_nominal_slot_travel": true
+        },
+        {
+          "kind": "rack",
+          "center": [
+            4.9,
+            125.5
+          ],
+          "shape": "intersection of endpoint washer circles",
+          "circle_radius_mm": 2.95,
+          "circle_center_offset_mm": 0.7,
+          "hidden_across_nominal_slot_travel": true
+        }
+      ],
+      "clear_perimeter_border_mm": 0.0,
+      "mirror_rule": "x_rear=W-x_front; TOP stays TOP; do not mirror or invert again",
+      "passed": true
+    },
+    {
+      "variant": "3hp",
+      "width_mm": 14.9,
+      "height_mm": 128.5,
+      "panel_thickness_mm": 2.0,
+      "status": "APPEARANCE_MASK_ON_A3_HOLE_GEOMETRY_MECHANICAL_RELEASE_PENDING",
+      "material_area_mm2": 1799.0939894102542,
+      "engraved_area_mm2": 1666.9962356591657,
+      "clear_letter_and_icon_area_mm2": 24.525694094020665,
+      "hidden_clear_seat_area_mm2": 107.57205965706373,
+      "engraved_fraction_of_material": 0.9265754015473142,
+      "engraved_connected_regions": 6,
+      "label_counter_islands": 5,
+      "all_BReps_valid": true,
+      "through_profile_loops": 9,
+      "panel_difference_from_A3_mm3": 0.0,
+      "unchanged_cut_and_step_files": {
+        "dxf": {
+          "reference_sha256": "aafbd035fef5c011328b64e1700e18696bfb9a97bfefb335a15eb7946ec79095",
+          "output_sha256": "aafbd035fef5c011328b64e1700e18696bfb9a97bfefb335a15eb7946ec79095",
+          "byte_identical_to_A3": true
+        },
+        "svg": {
+          "reference_sha256": "025272c058c7cc915176f18758b6881cde2dabd0d8d529858d7f47ded4b901a3",
+          "output_sha256": "025272c058c7cc915176f18758b6881cde2dabd0d8d529858d7f47ded4b901a3",
+          "byte_identical_to_A3": true
+        },
+        "step": {
+          "reference_sha256": "92db5900280a0713b833e9122d831c852d99b869fe7cc9804d12cdc6429be5ce",
+          "output_sha256": "92db5900280a0713b833e9122d831c852d99b869fe7cc9804d12cdc6429be5ce",
+          "byte_identical_to_A3": true
+        }
+      },
+      "no_assigned_engraving_depth": true,
+      "temporary_boolean_extrusion_mm": 0.02,
+      "mask_intersection_through_holes_mm2": 0.0,
+      "mask_intersection_clear_letters_mm2": 0.0,
+      "mask_intersection_clear_seats_mm2": 0.0,
+      "partition_residual_mm2": 4.085620730620576e-12,
+      "mirror_area_delta_mm2": 3.552713678800501e-13,
+      "double_mirror_difference_mm2": 0.0,
+      "polygon_area_delta_mm2": 0.08144152792669956,
+      "dxf_hatch_area_delta_mm2": 4.547473508864641e-13,
+      "dxf_units_code": 4,
+      "dxf_hatch_count": 6,
+      "dxf_all_elevation_zero": true,
+      "svg_contains_font_text": false,
+      "counter_checks": [
+        {
+          "index": 0,
+          "area_mm2": 0.6397906011880151,
+          "unengraved_area_mm2": 0.0
+        },
+        {
+          "index": 1,
+          "area_mm2": 0.5219695206556323,
+          "unengraved_area_mm2": 0.0
+        },
+        {
+          "index": 2,
+          "area_mm2": 0.8097349796285797,
+          "unengraved_area_mm2": 0.0
+        },
+        {
+          "index": 3,
+          "area_mm2": 0.6397906011880151,
+          "unengraved_area_mm2": 0.0
+        },
+        {
+          "index": 4,
+          "area_mm2": 0.17900942088127958,
+          "unengraved_area_mm2": 0.0
+        }
+      ],
+      "labels": [
+        {
+          "text": "MODE",
+          "y": 80.6,
+          "cap_height": 1.6,
+          "x_offset": 0.0,
+          "center_x": 7.45,
+          "stroke_regions": 4,
+          "counters": 2
+        },
+        {
+          "text": "IN",
+          "y": 84.0,
+          "cap_height": 1.8,
+          "x_offset": 0.0,
+          "center_x": 7.45,
+          "stroke_regions": 2,
+          "counters": 0
+        },
+        {
+          "text": "OUT",
+          "y": 97.0,
+          "cap_height": 1.8,
+          "x_offset": 0.0,
+          "center_x": 7.45,
+          "stroke_regions": 3,
+          "counters": 1
+        },
+        {
+          "text": "ON",
+          "y": 113.0,
+          "cap_height": 1.6,
+          "x_offset": 0.9,
+          "center_x": 8.35,
+          "stroke_regions": 2,
+          "counters": 1
+        },
+        {
+          "text": "PGM",
+          "y": 116.0,
+          "cap_height": 1.6,
+          "x_offset": 0.9,
+          "center_x": 8.35,
+          "stroke_regions": 3,
+          "counters": 1
+        },
+        {
+          "text": "CV",
+          "y": 119.0,
+          "cap_height": 1.6,
+          "x_offset": 0.9,
+          "center_x": 8.35,
+          "stroke_regions": 2,
+          "counters": 0
+        }
+      ],
+      "clear_seating_exclusions": [
+        {
+          "kind": "m2",
+          "center": [
+            7.45,
+            20.5
+          ],
+          "shape": "circle",
+          "radius_mm": 1.85,
+          "hidden_inside_nominal_washer_silhouette": true
+        },
+        {
+          "kind": "m2",
+          "center": [
+            7.45,
+            60.8
+          ],
+          "shape": "circle",
+          "radius_mm": 1.85,
+          "hidden_inside_nominal_washer_silhouette": true
+        },
+        {
+          "kind": "m2",
+          "center": [
+            7.45,
+            65.0
+          ],
+          "shape": "circle",
+          "radius_mm": 1.85,
+          "hidden_inside_nominal_washer_silhouette": true
+        },
+        {
+          "kind": "toggle",
+          "center": [
+            7.45,
+            74.0
+          ],
+          "shape": "circle",
+          "radius_mm": 3.85,
+          "hidden_inside_nominal_washer_silhouette": true
+        },
+        {
+          "kind": "jack",
+          "center": [
+            7.45,
+            90.0
+          ],
+          "shape": "circle",
+          "radius_mm": 4.1,
+          "hidden_inside_nominal_washer_silhouette": true
+        },
+        {
+          "kind": "jack",
+          "center": [
+            7.45,
+            104.0
+          ],
+          "shape": "circle",
+          "radius_mm": 4.1,
+          "hidden_inside_nominal_washer_silhouette": true
+        },
+        {
+          "kind": "rack",
+          "center": [
+            7.45,
+            3.0
+          ],
+          "shape": "intersection of endpoint washer circles",
+          "circle_radius_mm": 2.95,
+          "circle_center_offset_mm": 0.7,
+          "hidden_across_nominal_slot_travel": true
+        },
+        {
+          "kind": "rack",
+          "center": [
+            7.45,
+            125.5
+          ],
+          "shape": "intersection of endpoint washer circles",
+          "circle_radius_mm": 2.95,
+          "circle_center_offset_mm": 0.7,
+          "hidden_across_nominal_slot_travel": true
+        }
+      ],
+      "clear_perimeter_border_mm": 0.0,
+      "mirror_rule": "x_rear=W-x_front; TOP stays TOP; do not mirror or invert again",
+      "passed": true
+    }
+  ],
+  "AO_counter_demo": {
+    "demo_text": "AO",
+    "counter_islands": 2,
+    "engraved_connected_regions": 3,
+    "mask_valid": true,
+    "letter_intersection_volume_mm3": 0.0
+  },
+  "all_passed": true
+}

@@ -1,0 +1,362 @@
+{
+  "checked_at_utc": "2026-11-06T02:50:11.324094+00:00",
+  "scope": "Independent read-back of recovered A4 front exports; original files unchanged; no whole-module CAD or supplier qualification.",
+  "source": "/workspace/scratch/213e46744889/light_block_A4_1/front_panel",
+  "source_revision": "A4-FULL-REAR-FROST-SELECTED-INTERFACES",
+  "manifest_files_checked": 29,
+  "file_integrity": [
+    {
+      "path": "exports/A4_full_frost_clear_letters_summary.png",
+      "passed": true
+    },
+    {
+      "path": "exports/A4_full_frost_clear_letters_summary.svg",
+      "passed": true
+    },
+    {
+      "path": "exports/appearance_A4_front_2hp.png",
+      "passed": true
+    },
+    {
+      "path": "exports/appearance_A4_front_2hp.svg",
+      "passed": true
+    },
+    {
+      "path": "exports/appearance_A4_front_3hp.png",
+      "passed": true
+    },
+    {
+      "path": "exports/appearance_A4_front_3hp.svg",
+      "passed": true
+    },
+    {
+      "path": "exports/appearance_A4_rear_2hp.png",
+      "passed": true
+    },
+    {
+      "path": "exports/appearance_A4_rear_2hp.svg",
+      "passed": true
+    },
+    {
+      "path": "exports/appearance_A4_rear_3hp.png",
+      "passed": true
+    },
+    {
+      "path": "exports/appearance_A4_rear_3hp.svg",
+      "passed": true
+    },
+    {
+      "path": "exports/front_A4_2hp_2mm.step",
+      "passed": true
+    },
+    {
+      "path": "exports/front_A4_2hp_CUT.dxf",
+      "passed": true
+    },
+    {
+      "path": "exports/front_A4_2hp_CUT.svg",
+      "passed": true
+    },
+    {
+      "path": "exports/front_A4_3hp_2mm.step",
+      "passed": true
+    },
+    {
+      "path": "exports/front_A4_3hp_CUT.dxf",
+      "passed": true
+    },
+    {
+      "path": "exports/front_A4_3hp_CUT.svg",
+      "passed": true
+    },
+    {
+      "path": "exports/manifest_A4.json",
+      "passed": true
+    },
+    {
+      "path": "exports/mask_regions_A4_2hp.json",
+      "passed": true
+    },
+    {
+      "path": "exports/mask_regions_A4_3hp.json",
+      "passed": true
+    },
+    {
+      "path": "exports/rear_A4_2hp_REAR_FULL_FROST_CLEAR_LETTERS.dxf",
+      "passed": true
+    },
+    {
+      "path": "exports/rear_A4_2hp_REAR_FULL_FROST_CLEAR_LETTERS.svg",
+      "passed": true
+    },
+    {
+      "path": "exports/rear_A4_3hp_REAR_FULL_FROST_CLEAR_LETTERS.dxf",
+      "passed": true
+    },
+    {
+      "path": "exports/rear_A4_3hp_REAR_FULL_FROST_CLEAR_LETTERS.svg",
+      "passed": true
+    },
+    {
+      "path": "exports/validation_A4.json",
+      "passed": true
+    },
+    {
+      "path": "sources/review.md",
+      "passed": true
+    },
+    {
+      "path": "sources/sources.json",
+      "passed": true
+    },
+    {
+      "path": "build_front_artwork.py",
+      "passed": true
+    },
+    {
+      "path": "geometry.json",
+      "passed": true
+    },
+    {
+      "path": "README.md",
+      "passed": true
+    }
+  ],
+  "variants": [
+    {
+      "variant": "2hp",
+      "source_svg_sha256": "cac28e07934e0f7cb4df6c3198616f5c8c5e76842cd91146aef122afe50e749e",
+      "source_step_sha256": "7e2c16d553be253e09299dc29373bb7b408b9805f9450843e08c0c24a388cc34",
+      "svg_artboard": {
+        "width": "9.8mm",
+        "height": "128.5mm",
+        "viewBox": "0 0 9.8 128.5"
+      },
+      "svg_path_count": 6,
+      "svg_all_filled_evenodd": true,
+      "svg_contains_font_text": false,
+      "svg_vs_front_snapshot_mirror_max_vertex_error_mm": 6.858516477778326e-07,
+      "dxf_hatch_count": 6,
+      "dxf_units": 4,
+      "dxf_vs_front_snapshot_mirror_max_vertex_error_mm": 0.0,
+      "dxf_hatches_zero_elevation": true,
+      "dxf_closed_polyline_boundaries": true,
+      "clear_stroke_regions": 19,
+      "clear_stroke_sample_count": 3434,
+      "sampling_boundary_exclusion_mm": 5e-06,
+      "clear_stroke_samples_accidentally_engraved": 0,
+      "counter_checks": [
+        {
+          "area_mm2": 0.6397906011880536,
+          "sample_count": 257,
+          "missed_engraved_samples": 0
+        },
+        {
+          "area_mm2": 0.5219695206556025,
+          "sample_count": 261,
+          "missed_engraved_samples": 0
+        },
+        {
+          "area_mm2": 0.8097349796285442,
+          "sample_count": 257,
+          "missed_engraved_samples": 0
+        },
+        {
+          "area_mm2": 0.6397906011881105,
+          "sample_count": 257,
+          "missed_engraved_samples": 0
+        },
+        {
+          "area_mm2": 0.1790094208812434,
+          "sample_count": 273,
+          "missed_engraved_samples": 0
+        }
+      ],
+      "perimeter_samples": 20,
+      "unfrosted_perimeter_samples": [],
+      "step_valid": true,
+      "step_solid_count": 1,
+      "step_box_mm": [
+        9.8,
+        128.5,
+        2.0
+      ],
+      "step_holes": [
+        {
+          "cx_mm": 4.8999999999999995,
+          "cy_mm": 3.0,
+          "width_mm": 4.6,
+          "height_mm": 3.1999999999999997
+        },
+        {
+          "cx_mm": 4.9,
+          "cy_mm": 20.5,
+          "width_mm": 2.1999999999999997,
+          "height_mm": 2.200000000000003
+        },
+        {
+          "cx_mm": 4.9,
+          "cy_mm": 60.8,
+          "width_mm": 2.1999999999999997,
+          "height_mm": 2.200000000000003
+        },
+        {
+          "cx_mm": 4.9,
+          "cy_mm": 65.0,
+          "width_mm": 2.1999999999999997,
+          "height_mm": 2.1999999999999957
+        },
+        {
+          "cx_mm": 4.9,
+          "cy_mm": 74.0,
+          "width_mm": 6.5,
+          "height_mm": 6.5
+        },
+        {
+          "cx_mm": 4.9,
+          "cy_mm": 90.0,
+          "width_mm": 6.199999999999999,
+          "height_mm": 6.199999999999989
+        },
+        {
+          "cx_mm": 4.9,
+          "cy_mm": 104.0,
+          "width_mm": 6.199999999999999,
+          "height_mm": 6.199999999999989
+        },
+        {
+          "cx_mm": 4.8999999999999995,
+          "cy_mm": 125.5,
+          "width_mm": 4.6,
+          "height_mm": 3.1999999999999886
+        }
+      ],
+      "max_hole_geometry_error_mm": 1.1546319456101628e-14,
+      "step_and_cut_size_error_mm": 1.1102230246251565e-16,
+      "cut_dxf_units": 4,
+      "cut_layers": [
+        "CUT_THROUGH"
+      ],
+      "passed": true
+    },
+    {
+      "variant": "3hp",
+      "source_svg_sha256": "1011c8bebda09fa2bf1389c0ff412aba6e8bfe3bba66a675fc7ac1bd835b228e",
+      "source_step_sha256": "efd08a40e91b2d9b7aeb5863cb6cc926f626512a1708fb7b77ce2ffd40b2d09e",
+      "svg_artboard": {
+        "width": "14.9mm",
+        "height": "128.5mm",
+        "viewBox": "0 0 14.9 128.5"
+      },
+      "svg_path_count": 6,
+      "svg_all_filled_evenodd": true,
+      "svg_contains_font_text": false,
+      "svg_vs_front_snapshot_mirror_max_vertex_error_mm": 6.85851647134211e-07,
+      "dxf_hatch_count": 6,
+      "dxf_units": 4,
+      "dxf_vs_front_snapshot_mirror_max_vertex_error_mm": 0.0,
+      "dxf_hatches_zero_elevation": true,
+      "dxf_closed_polyline_boundaries": true,
+      "clear_stroke_regions": 19,
+      "clear_stroke_sample_count": 3434,
+      "sampling_boundary_exclusion_mm": 5e-06,
+      "clear_stroke_samples_accidentally_engraved": 0,
+      "counter_checks": [
+        {
+          "area_mm2": 0.6397906011881105,
+          "sample_count": 257,
+          "missed_engraved_samples": 0
+        },
+        {
+          "area_mm2": 0.5219695206557162,
+          "sample_count": 261,
+          "missed_engraved_samples": 0
+        },
+        {
+          "area_mm2": 0.8097349796286153,
+          "sample_count": 257,
+          "missed_engraved_samples": 0
+        },
+        {
+          "area_mm2": 0.6397906011878831,
+          "sample_count": 257,
+          "missed_engraved_samples": 0
+        },
+        {
+          "area_mm2": 0.17900942088130023,
+          "sample_count": 273,
+          "missed_engraved_samples": 0
+        }
+      ],
+      "perimeter_samples": 20,
+      "unfrosted_perimeter_samples": [],
+      "step_valid": true,
+      "step_solid_count": 1,
+      "step_box_mm": [
+        14.9,
+        128.5,
+        2.0
+      ],
+      "step_holes": [
+        {
+          "cx_mm": 7.45,
+          "cy_mm": 3.0,
+          "width_mm": 4.6,
+          "height_mm": 3.1999999999999997
+        },
+        {
+          "cx_mm": 7.45,
+          "cy_mm": 20.5,
+          "width_mm": 2.200000000000001,
+          "height_mm": 2.200000000000003
+        },
+        {
+          "cx_mm": 7.45,
+          "cy_mm": 60.8,
+          "width_mm": 2.200000000000001,
+          "height_mm": 2.200000000000003
+        },
+        {
+          "cx_mm": 7.45,
+          "cy_mm": 65.0,
+          "width_mm": 2.200000000000001,
+          "height_mm": 2.1999999999999957
+        },
+        {
+          "cx_mm": 7.449999999999999,
+          "cy_mm": 74.0,
+          "width_mm": 6.499999999999999,
+          "height_mm": 6.5
+        },
+        {
+          "cx_mm": 7.45,
+          "cy_mm": 90.0,
+          "width_mm": 6.200000000000001,
+          "height_mm": 6.199999999999989
+        },
+        {
+          "cx_mm": 7.45,
+          "cy_mm": 104.0,
+          "width_mm": 6.200000000000001,
+          "height_mm": 6.199999999999989
+        },
+        {
+          "cx_mm": 7.45,
+          "cy_mm": 125.5,
+          "width_mm": 4.6,
+          "height_mm": 3.1999999999999886
+        }
+      ],
+      "max_hole_geometry_error_mm": 1.1546319456101628e-14,
+      "step_and_cut_size_error_mm": 1.1102230246251565e-16,
+      "cut_dxf_units": 4,
+      "cut_layers": [
+        "CUT_THROUGH"
+      ],
+      "passed": true
+    }
+  ],
+  "all_passed": true,
+  "visual_inspection": "A4 summary PNG and 2HP rear PNG inspected; front readable, rear mirrored, counters frosted, no clipping observed.",
+  "mechanical_status": "Front interface only. Rear PETG cradle, assembly stack, connector clearance, insertion/withdrawal load path and final 30mm depth require integrated CAD."
+}

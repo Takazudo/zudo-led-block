@@ -1,0 +1,144 @@
+{
+  "as_of_jst": "JLC: 2026-11-06 11:30–11:37 JST / external cables:11:37 JST; individual timestamps retained",
+  "component_rows": 29,
+  "external_rows": 6,
+  "prototype_modules": 10,
+  "comparison_modules": 100,
+  "prototype_parts_usd": 86.17100000000002,
+  "comparison_parts_usd": 649.97,
+  "prototype_usd_per_module": 8.617100000000002,
+  "comparison_usd_per_module": 6.499700000000001,
+  "known_external_prototype_usd_per_module": 4.885,
+  "known_external_comparison_usd_per_module": 4.4365000000000006,
+  "external_inputs": [
+    {
+      "id": "EXT-01",
+      "qty_per_module": 2,
+      "unit_price_usd": null,
+      "stock_numeric": 12943,
+      "stock_text": ""
+    },
+    {
+      "id": "EXT-02",
+      "qty_per_module": 1,
+      "unit_price_usd": null,
+      "stock_numeric": 17783,
+      "stock_text": ""
+    },
+    {
+      "id": "EXT-03",
+      "qty_per_module": 1,
+      "unit_price_usd": null,
+      "stock_numeric": null,
+      "stock_text": ""
+    },
+    {
+      "id": "EXT-04",
+      "qty_per_module": 1,
+      "unit_price_usd": null,
+      "stock_numeric": null,
+      "stock_text": ""
+    },
+    {
+      "id": "EXT-05",
+      "qty_per_module": 1,
+      "unit_price_usd": null,
+      "stock_numeric": null,
+      "stock_text": ""
+    },
+    {
+      "id": "EXT-06",
+      "qty_per_module": 1,
+      "unit_price_usd": null,
+      "stock_numeric": null,
+      "stock_text": ""
+    }
+  ],
+  "dynamic_checks": [
+    {
+      "test": "requested prototype quantity",
+      "module_count": 10,
+      "expected_total_usd": 86.17100000000002,
+      "actual_total_usd": 86.17100000000002
+    },
+    {
+      "test": "comparison quantity through active input",
+      "module_count": 100,
+      "expected_total_usd": 649.97,
+      "actual_total_usd": 649.97
+    },
+    {
+      "test": "single module",
+      "module_count": 1,
+      "expected_total_usd": 9.6312,
+      "actual_total_usd": 9.6312
+    },
+    {
+      "test": "zero modules",
+      "module_count": 0,
+      "expected_total_usd": 0,
+      "actual_total_usd": 0
+    },
+    {
+      "test": "blank quantity",
+      "result": "dependent quantities and totals remain blank"
+    },
+    {
+      "test": "VLOOKUP tier boundary",
+      "component": "C5270180",
+      "required_units": 1,
+      "unit_price_usd": 1.7468
+    },
+    {
+      "test": "VLOOKUP tier boundary",
+      "component": "C5270180",
+      "required_units": 1,
+      "unit_price_usd": 1.7468
+    },
+    {
+      "test": "VLOOKUP tier boundary",
+      "component": "C5270180",
+      "required_units": 9,
+      "unit_price_usd": 1.7468
+    },
+    {
+      "test": "VLOOKUP tier boundary",
+      "component": "C5270180",
+      "required_units": 10,
+      "unit_price_usd": 1.4718
+    },
+    {
+      "test": "VLOOKUP tier boundary",
+      "component": "C5270180",
+      "required_units": 29,
+      "unit_price_usd": 1.4718
+    },
+    {
+      "test": "VLOOKUP tier boundary",
+      "component": "C5270180",
+      "required_units": 30,
+      "unit_price_usd": 1.3195
+    },
+    {
+      "test": "quantity per module edit",
+      "component": "C5270180",
+      "temporary_qty_per_module": 2,
+      "result": "both required quantities recalculate"
+    },
+    {
+      "test": "supplied cost control reconciliation",
+      "modules": 10,
+      "per_module_usd": 8.6171,
+      "categories_match": true
+    },
+    {
+      "test": "supplied cost control reconciliation",
+      "modules": 100,
+      "per_module_usd": 6.4997,
+      "categories_match": true
+    }
+  ],
+  "calculation_engine": "Artifact Tool. Native Excel application execution was not performed.",
+  "source_rows_path": "/workspace/scratch/213e46744889/light_block_A4_1/procurement_rows.json",
+  "output_path": "/workspace/scratch/213e46744889/outputs/light_block_A4_1/light_block_A4_1_parts.xlsx"
+}

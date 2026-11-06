@@ -1,0 +1,281 @@
+{
+  "revision": "A5",
+  "status": "ASSEMBLY_STUDY_FIXED_PARTS_REVIEWED_FLEXIBLE_HARNESS_NOT_CLEARANCE_QUALIFIED",
+  "units": "mm",
+  "datum": "X right, Y down, Z into rack; front acrylic rear surface Z=0",
+  "front_artwork": "Unchanged A4 source in ../front_panel",
+  "variants": {
+    "2hp": {
+      "width": 9.8
+    },
+    "3hp": {
+      "width": 14.9
+    }
+  },
+  "rear_limit": 30.0,
+  "rail_body_y": [
+    17.1,
+    111.4
+  ],
+  "controller": {
+    "width": 8.8,
+    "y": [
+      48.5,
+      111.4
+    ],
+    "front_z": 12.6,
+    "thickness": 1.6,
+    "mounts_y": [
+      65.0,
+      97.0
+    ],
+    "rear_header_origins_y": [
+      60.5
+    ],
+    "rear_header_opening": "-Y",
+    "power_pinrow_y": 54.0,
+    "power_side": "front (-Z)",
+    "clamp_solder_relief": {
+      "y": [
+        63.2,
+        63.5
+      ],
+      "z": [
+        14.2,
+        14.6
+      ],
+      "purpose": "clear J3 solder tails under 1.2mm insulating upper clamp"
+    },
+    "bridge_data_pinout": {
+      "1": "GND",
+      "2": "VLED",
+      "3": "DATA_L",
+      "4": "DATA_R"
+    }
+  },
+  "adapter": {
+    "width": 8.8,
+    "y": [
+      18.0,
+      48.0
+    ],
+    "front_z": 17.4,
+    "thickness": 1.6,
+    "mount_y": 20.5,
+    "idc_array_center_y": 33.4,
+    "power_pinrow_y": 46.7,
+    "connectors_side": "front (-Z)",
+    "idc_tail_max_behind_pcb": 1.0
+  },
+  "leaf": {
+    "length": 82.5,
+    "depth": 9.0,
+    "thickness": 0.6,
+    "bond_line": 0.1,
+    "y": [
+      22.5,
+      105.0
+    ],
+    "z": [
+      19.4,
+      28.4
+    ],
+    "led_centers_y": [
+      26.25,
+      51.25,
+      76.25,
+      101.25
+    ],
+    "led_center_z": 23.9,
+    "header_y_left": 39.0,
+    "header_y_right": 88.5,
+    "header_opening_left": "+Y",
+    "header_opening_right": "-Y",
+    "identical_board_transform": "Left local u->+Z,v->+Y,n->-X; right local u->+Z,v->-Y,n->+X",
+    "front_edge_notches_local": [
+      {
+        "u": [
+          0.0,
+          1.0
+        ],
+        "v": [
+          23.2,
+          25.2
+        ]
+      },
+      {
+        "u": [
+          0.0,
+          1.0
+        ],
+        "v": [
+          57.3,
+          59.3
+        ]
+      }
+    ],
+    "header_origins_local_v": [
+      16.5,
+      66.0
+    ],
+    "header_opening_local": "+v",
+    "link_pinout": "J1: GND,VLED,DATA_IN,DATA_OTHER; J2: GND,VLED,DATA_OTHER,DATA_IN"
+  },
+  "jack": {
+    "mpn": "PJ-3582-B",
+    "c_code": "C500090",
+    "y": [
+      90.0,
+      104.0
+    ],
+    "body_width_x": 6.1,
+    "body_length_y": 10.0,
+    "body_depth": 12.0,
+    "front_seat_z": 0.6,
+    "barrel_diameter": 6.0,
+    "barrel_length": 3.0,
+    "pin_length": 3.0,
+    "general_two_decimal_tolerance": 0.2,
+    "locator": [
+      -2.5,
+      0.0,
+      1.2
+    ],
+    "world_relative_pads": [
+      {
+        "number": "2",
+        "xy": [
+          2.5,
+          0.0
+        ],
+        "slot": [
+          0.6,
+          1.5
+        ]
+      },
+      {
+        "number": "3",
+        "xy": [
+          1.75,
+          -3.9
+        ],
+        "slot": [
+          1.5,
+          0.6
+        ]
+      },
+      {
+        "number": "4",
+        "xy": [
+          -1.75,
+          -2.5
+        ],
+        "slot": [
+          1.5,
+          0.6
+        ]
+      },
+      {
+        "number": "5",
+        "xy": [
+          -1.75,
+          2.5
+        ],
+        "slot": [
+          1.5,
+          0.6
+        ]
+      },
+      {
+        "number": "6",
+        "xy": [
+          1.75,
+          3.9
+        ],
+        "slot": [
+          1.5,
+          0.6
+        ]
+      }
+    ],
+    "load_path": "Body front bears on backed PETG collar; body rear seats on mechanically retained PCB; substrate supported by frame and clamp. Solder fillets are not the sole restraint.",
+    "fit_gate": "Confirm actual body/barrel and panel thickness; adjust seat shims and axial grip without bowing PCB or preloading PMMA."
+  },
+  "toggle": {
+    "mpn": "1MS3T1B1M2QES-5",
+    "c_code": "C908270",
+    "y": 74.0,
+    "body_xyz": [
+      6.86,
+      12.7,
+      8.89
+    ],
+    "body_front_z": 2.21,
+    "bushing_diameter": 6.35,
+    "bushing_length": 8.89,
+    "lever_length": 10.41,
+    "lever_diameter": 2.92,
+    "pin_pitch": 4.7,
+    "pin_width": 1.27,
+    "pin_thickness": 0.76,
+    "pin_total_projection": 6.6,
+    "terminal_shoulder": 1.5,
+    "trimmed_pin_rear_z": 15.2,
+    "nut_af": 7.92,
+    "nut_thickness": 1.57,
+    "load_path": "Front nut and PETG body cradle locate the switch; rear body pocket supplies anti-rotation instead of a small acrylic key tab."
+  },
+  "optical": {
+    "skin_y": [
+      22.0,
+      107.0
+    ],
+    "skin_z": [
+      17.4,
+      28.0
+    ],
+    "skin_outer_inset": 0.3,
+    "skin_thickness": 1.2,
+    "rear_flange_z": [
+      25.6,
+      26.8
+    ],
+    "flange_inner_gap_from_center": 0.9,
+    "mount_y": [
+      23.5,
+      105.5
+    ],
+    "mount_x_offset": 2.4,
+    "bolt": "M1.6x4",
+    "nut_af": 3.2,
+    "nut_thickness": 1.3,
+    "rear_max": 29.8,
+    "local_2hp_header_pocket_remaining_wall": 0.6,
+    "minimum_general_structural_web": 1.2,
+    "exceptions": "0.6mm backed jack collar and local 2HP optical pocket skin; optical parts are not plug-load structure.",
+    "adapter_relief_front_z": 19.2,
+    "mid_guide": "Removed; top/bottom end caps and L-section diffuser flanges retain bonded leaves. Separate controller clamps retain jack loads.",
+    "right_3hp_idc_window": "keeps continuous inward flange bridge; 2HP scenario exits outside panel before skin"
+  },
+  "ribbon_reference": {
+    "socket": "Wurth 61201023021 drawing reference; not the identified maker of the finished Doepfer cable",
+    "socket_body_length": 17.38,
+    "socket_body_width": 7.0,
+    "socket_body_height": 6.9,
+    "mating_overlap_assumption": 6.0,
+    "wire_exit": "+X (normal short-side ribbon exit)",
+    "ribbon_width_y": 12.7,
+    "ribbon_thickness": 0.8,
+    "design_bend_radius": 3.0,
+    "qualification": "Socket full mated/strain-relief height, actual finished cable dimensions, and allowed bend radius are unresolved. R3 is a visible design scenario, not a manufacturer limit."
+  },
+  "manufacturing_gates": [
+    "Final native controller placement and its actual component envelopes",
+    "Physical jack/toggle axial stack, no assembly preload or solder-joint load path",
+    "Full fitted IDC strain relief and ribbon minimum bend radius",
+    "Finished cable free length, tolerance, connector variant, and strain-relief clearance",
+    "PETG shrinkage, hole/slot fit, retention strength and LED temperature",
+    "Factory terminal trim, final PCB outlines, solder/assembly access, and complete BOM/CPL",
+    "Bambu Studio slice/preview with a matching PETG material profile; no toolpaths generated here"
+  ]
+}

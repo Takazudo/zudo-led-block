@@ -1,0 +1,44 @@
+{
+  "schema_version": 1,
+  "title": "Light Block A5 2hp PLA fit-check only",
+  "description": "PETG-intended geometry. Preserved H2D 0.6 mm PLA settings. Unsliced dimensional/assembly fit-check; PETG process, optical performance and final module fit are not qualified.",
+  "margin_mm": 10,
+  "gap_mm": 8,
+  "objects": [
+    {
+      "name": "2hp_front_cradle",
+      "mesh": "front_cradle.mesh.json",
+      "filament": 1
+    },
+    {
+      "name": "2hp_controller_upper_clamp",
+      "mesh": "controller_upper_clamp.mesh.json",
+      "filament": 1
+    },
+    {
+      "name": "2hp_controller_lower_clamp",
+      "mesh": "controller_lower_clamp.mesh.json",
+      "filament": 1
+    },
+    {
+      "name": "2hp_top_leaf_adapter_cap",
+      "mesh": "top_leaf_adapter_cap.mesh.json",
+      "filament": 1
+    },
+    {
+      "name": "2hp_bottom_leaf_cap",
+      "mesh": "bottom_leaf_cap.mesh.json",
+      "filament": 1
+    },
+    {
+      "name": "2hp_left_diffuser",
+      "mesh": "left_diffuser.mesh.json",
+      "filament": 1
+    },
+    {
+      "name": "2hp_right_diffuser",
+      "mesh": "right_diffuser.mesh.json",
+      "filament": 1
+    }
+  ]
+}

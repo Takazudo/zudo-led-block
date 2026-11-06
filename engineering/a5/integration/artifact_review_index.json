@@ -1,0 +1,468 @@
+{
+  "revision": "A5",
+  "created_utc": "2026-11-06T06:45:59.466104+00:00",
+  "scope": "Exact identity of the final mechanical deliverables, source, review records and electronics qualification/provenance. Hash inclusion is not an assertion that each file was individually visually inspected.",
+  "files": [
+    {
+      "path": "electronics/reports/pcb_qualification.json",
+      "size_bytes": 12089,
+      "sha256": "85c4d8f11471e90a60293000984f703772e1737c57c94262ad92dfba5f21ff76"
+    },
+    {
+      "path": "electronics/source_provenance.json",
+      "size_bytes": 11942,
+      "sha256": "5590b57527dff1b12223adcf22d79a4fd797e4f6dd4e4bbfb13acb507b86671a"
+    },
+    {
+      "path": "integration/mechanical_review.json",
+      "size_bytes": 18499,
+      "sha256": "a89f5fa06772f327386e44c5e28af002bb62aab49c6a17260e8f10aca19edd60"
+    },
+    {
+      "path": "mechanical/README.md",
+      "size_bytes": 10768,
+      "sha256": "fd904ec32fb5c0ac41cbee51c903e8e944e2dd8811013977f8d183fad2530ffe"
+    },
+    {
+      "path": "mechanical/build_mechanical.py",
+      "size_bytes": 26304,
+      "sha256": "68624f312e6e1045e7fb41804c281ae19da6e2f8542d48a484c8b34140a921cb"
+    },
+    {
+      "path": "mechanical/cad_kernel.py",
+      "size_bytes": 8591,
+      "sha256": "323321144759ffb661bbecf3be0cbc59cfc67b679f1f54749c1ef9d2ea5617c1"
+    },
+    {
+      "path": "mechanical/evidence/downloads_initial.json",
+      "size_bytes": 638,
+      "sha256": "387ae3b82dfc44fe6ba9c5def1581dee1ab79b2e4edc5aa01232eb67cfc76c72"
+    },
+    {
+      "path": "mechanical/evidence/downloads_molex_cable.json",
+      "size_bytes": 601,
+      "sha256": "45c70df1596af3d02298d846ebf954351845f780cc298fff2026350e0b6a8bde"
+    },
+    {
+      "path": "mechanical/evidence/downloads_switch_jack.json",
+      "size_bytes": 1144,
+      "sha256": "05a8c7ba9625feba9b939d3dbedf5f5796dc502b5835b3cf6b89814a06013b8a"
+    },
+    {
+      "path": "mechanical/exports/2hp/assembly_manifest.json",
+      "size_bytes": 25465,
+      "sha256": "ee7d9d266729659d75e0243f145c934e7fc2b81bc86bc29003a055d51ec8a453"
+    },
+    {
+      "path": "mechanical/exports/2hp/light_block_A5_2hp_PLA_fit_check_r01.3mf",
+      "size_bytes": 209448,
+      "sha256": "98c5e440a41666c20bb180e57c22e592c31ce217acbcbf22e8bc9c695be45bad"
+    },
+    {
+      "path": "mechanical/exports/2hp/light_block_A5_2hp_PLA_fit_check_r01.validation.json",
+      "size_bytes": 16184,
+      "sha256": "93c42da04c1fe1eddb050384b31f6c70e9c42bb6792bab6ea79c904bbb159de2"
+    },
+    {
+      "path": "mechanical/exports/2hp/light_block_A5_2hp_assembled.json",
+      "size_bytes": 28277450,
+      "sha256": "1560ade364dd990d00b975e52946507804533e1af09afe5f97044ed8ca51daa0"
+    },
+    {
+      "path": "mechanical/exports/2hp/light_block_A5_2hp_assembled.png",
+      "size_bytes": 245294,
+      "sha256": "19640c4347b1aa08ebdfde5687a5c6716e985b66a8fdd7c66a21176fb41a1ddd"
+    },
+    {
+      "path": "mechanical/exports/2hp/light_block_A5_2hp_assembled.step",
+      "size_bytes": 8855972,
+      "sha256": "b42a172a85e8ca3a3dcda956f084efd08382da905c39ac10d7998c5185352ffa"
+    },
+    {
+      "path": "mechanical/exports/2hp/light_block_A5_2hp_exploded.json",
+      "size_bytes": 28269761,
+      "sha256": "a8a36f01e023ff9fb2fd8edb9cb9724c38c2dfc8314a0a4badd0bc4194e9a0be"
+    },
+    {
+      "path": "mechanical/exports/2hp/light_block_A5_2hp_exploded.png",
+      "size_bytes": 277653,
+      "sha256": "e7f0f7806c9d0a34dd11e3f37dcd1da6b226367fb4b239f07d31d335bf99b293"
+    },
+    {
+      "path": "mechanical/exports/2hp/light_block_A5_2hp_exploded.step",
+      "size_bytes": 8757043,
+      "sha256": "78ad82c180624649e4c5244244faf4d5a58de1469d53c30586e8ba343773f7c6"
+    },
+    {
+      "path": "mechanical/exports/2hp/printable/bottom_leaf_cap.step",
+      "size_bytes": 264421,
+      "sha256": "de39d525bc3c99dd73969a4f5c5f1411eefa1c942c8f9ae49f82b1634dbacabb"
+    },
+    {
+      "path": "mechanical/exports/2hp/printable/bottom_leaf_cap.stl",
+      "size_bytes": 119484,
+      "sha256": "12a43980385d39200004dcc47aa7c9e40917e224f076b15e7198c58c23f055bb"
+    },
+    {
+      "path": "mechanical/exports/2hp/printable/controller_lower_clamp.step",
+      "size_bytes": 19047,
+      "sha256": "41f7e11fbf99a6798db7373b7916655441498220828899be054f9b9e315f4de2"
+    },
+    {
+      "path": "mechanical/exports/2hp/printable/controller_lower_clamp.stl",
+      "size_bytes": 26084,
+      "sha256": "de9bd1519877f6b2060029d08983ac8c1f0062663506020b005c6ec9067ce71a"
+    },
+    {
+      "path": "mechanical/exports/2hp/printable/controller_upper_clamp.step",
+      "size_bytes": 26006,
+      "sha256": "93349fe7867d83f426268b43ae1eba53f11427dbb4704f7e39402a9242b0d86b"
+    },
+    {
+      "path": "mechanical/exports/2hp/printable/controller_upper_clamp.stl",
+      "size_bytes": 26484,
+      "sha256": "5504403c57edc94961c33a332ec738f077efdc47a2c92510207f8e3c1be65562"
+    },
+    {
+      "path": "mechanical/exports/2hp/printable/front_cradle.step",
+      "size_bytes": 536070,
+      "sha256": "06f8b57239976446cef66e0a873981b4b9c78be56eca30afca5b02c4671480dd"
+    },
+    {
+      "path": "mechanical/exports/2hp/printable/front_cradle.stl",
+      "size_bytes": 416384,
+      "sha256": "3a966f391cd87006ebcd848da755156f2f0908e192158c51cdcf9eb2f6b9e1d2"
+    },
+    {
+      "path": "mechanical/exports/2hp/printable/left_diffuser.step",
+      "size_bytes": 123829,
+      "sha256": "13e8ca2dfc3d984066ea37523b379f500ff64591cce6c474fe0132153e364f85"
+    },
+    {
+      "path": "mechanical/exports/2hp/printable/left_diffuser.stl",
+      "size_bytes": 71084,
+      "sha256": "50d1f7a2e155490b4fec6cd40c762b2f474f3405afca535b35a8c05e4773c6e2"
+    },
+    {
+      "path": "mechanical/exports/2hp/printable/print_manifest.json",
+      "size_bytes": 4158,
+      "sha256": "f865cd569f8c6bff16dbc30b40bb85e45bf07f18f8e100ce55144d1036fa7d03"
+    },
+    {
+      "path": "mechanical/exports/2hp/printable/right_diffuser.step",
+      "size_bytes": 126077,
+      "sha256": "7dd6fc703a4a54a5753229eb1cf8e540f795509856f98339f445e7aa0c9467c3"
+    },
+    {
+      "path": "mechanical/exports/2hp/printable/right_diffuser.stl",
+      "size_bytes": 71084,
+      "sha256": "54ee39d3daed8a0cfcc94147ee14d58f0b72fb428e94fca013f3b0a9030deac5"
+    },
+    {
+      "path": "mechanical/exports/2hp/printable/top_leaf_adapter_cap.step",
+      "size_bytes": 282604,
+      "sha256": "4d479d3bfe8aa5c5e8faa42b70d8cc23661239158edcef2b68d2cffb84fafa95"
+    },
+    {
+      "path": "mechanical/exports/2hp/printable/top_leaf_adapter_cap.stl",
+      "size_bytes": 145184,
+      "sha256": "722d92e6f895851a9c18d259271196df1eb042b34a0c860ce7ccb141ec8183cb"
+    },
+    {
+      "path": "mechanical/exports/2hp/verification.json",
+      "size_bytes": 76538,
+      "sha256": "69de090fb6f10924a56ec56c5fa3ff3d950955e46b49f6ef12f03708c55f6f0f"
+    },
+    {
+      "path": "mechanical/exports/3hp/assembly_manifest.json",
+      "size_bytes": 24295,
+      "sha256": "2b26b8b57da6103585fae230db718760dacd6ccdf0ce35d1ee8a6357d30b03d7"
+    },
+    {
+      "path": "mechanical/exports/3hp/light_block_A5_3hp_PLA_fit_check_r01.3mf",
+      "size_bytes": 216158,
+      "sha256": "c712bd26615d80d7742ee6a97b11223807b69795e8325c9643ba6aea4dfe7e81"
+    },
+    {
+      "path": "mechanical/exports/3hp/light_block_A5_3hp_PLA_fit_check_r01.validation.json",
+      "size_bytes": 16105,
+      "sha256": "9a5c5f80fcd822b082c2172957d17e34d36ad44f388809375954dad6111c6f9f"
+    },
+    {
+      "path": "mechanical/exports/3hp/light_block_A5_3hp_assembled.json",
+      "size_bytes": 28149402,
+      "sha256": "22f79d37b4c10fddc77ae421c72d964ec4e40b4edcb21d07e4f228359f11c4bb"
+    },
+    {
+      "path": "mechanical/exports/3hp/light_block_A5_3hp_assembled.png",
+      "size_bytes": 252607,
+      "sha256": "7002a206881af580200a8b24c0982e2312d69edd6b0aec4eaa4dd5924e7f018f"
+    },
+    {
+      "path": "mechanical/exports/3hp/light_block_A5_3hp_assembled.step",
+      "size_bytes": 8971090,
+      "sha256": "15026f389acca0d29c1e75a6024e8729be8398584fa1d6ce3544d87a2b387ade"
+    },
+    {
+      "path": "mechanical/exports/3hp/light_block_A5_3hp_exploded.json",
+      "size_bytes": 28146094,
+      "sha256": "26792a85bf4e51bbef929fba231d8c63daf8e88578c4e6cf1167bf9ae108ea9a"
+    },
+    {
+      "path": "mechanical/exports/3hp/light_block_A5_3hp_exploded.png",
+      "size_bytes": 279750,
+      "sha256": "07669566d651b6e7c945d8a02c4fb6c927d4119b8f311e8da2aa3d0bb635c848"
+    },
+    {
+      "path": "mechanical/exports/3hp/light_block_A5_3hp_exploded.step",
+      "size_bytes": 8872231,
+      "sha256": "8239a2885d4bd4c31f65cabc5f2e6677f3e0f4176808f70af1cb600d075ef354"
+    },
+    {
+      "path": "mechanical/exports/3hp/printable/bottom_leaf_cap.step",
+      "size_bytes": 247190,
+      "sha256": "031dd4a1e3cbc80cd9f8a4d4260f211729356373452941e342ea6f271e4eadf6"
+    },
+    {
+      "path": "mechanical/exports/3hp/printable/bottom_leaf_cap.stl",
+      "size_bytes": 151284,
+      "sha256": "8ad1070cee2f1f5729be659f8ca8f440e84d383fcea7e711462e52dca6376964"
+    },
+    {
+      "path": "mechanical/exports/3hp/printable/controller_lower_clamp.step",
+      "size_bytes": 19047,
+      "sha256": "1a894c7a39eb2ce48c720226d9b2db9f21cffb2497b031106f508cb2bc5bf17d"
+    },
+    {
+      "path": "mechanical/exports/3hp/printable/controller_lower_clamp.stl",
+      "size_bytes": 26084,
+      "sha256": "de9bd1519877f6b2060029d08983ac8c1f0062663506020b005c6ec9067ce71a"
+    },
+    {
+      "path": "mechanical/exports/3hp/printable/controller_upper_clamp.step",
+      "size_bytes": 26006,
+      "sha256": "b1c3eb979667093aa89d478d1225885e4de36fd04b8fef423c7b451651a68c9c"
+    },
+    {
+      "path": "mechanical/exports/3hp/printable/controller_upper_clamp.stl",
+      "size_bytes": 26484,
+      "sha256": "b26593fc52bb50f5a06a1e89fb0e04a2293f5e40a229d820ce949f633f5f428a"
+    },
+    {
+      "path": "mechanical/exports/3hp/printable/front_cradle.step",
+      "size_bytes": 742737,
+      "sha256": "f88f0795b88d43de76b1de9af39b1925e0a319c0b7e71a6bbb46415da56f0821"
+    },
+    {
+      "path": "mechanical/exports/3hp/printable/front_cradle.stl",
+      "size_bytes": 428984,
+      "sha256": "dc30cb32026f55049608f0383e45d36646a3132c369a7e0231b2031a28a3ecd9"
+    },
+    {
+      "path": "mechanical/exports/3hp/printable/left_diffuser.step",
+      "size_bytes": 80188,
+      "sha256": "52c8e7e89b934a2e9774f6534bf2dc6e87140491e2671f27adc9c6e810d08f67"
+    },
+    {
+      "path": "mechanical/exports/3hp/printable/left_diffuser.stl",
+      "size_bytes": 54684,
+      "sha256": "e91ced4aad9aaf225c9c03a8bcde5b5c9e7ab821a1510b4b6e8288e216151435"
+    },
+    {
+      "path": "mechanical/exports/3hp/printable/print_manifest.json",
+      "size_bytes": 4131,
+      "sha256": "d52750e7925ee68a0264462b26e791ae2486840bf78d626652d3b963c62ba338"
+    },
+    {
+      "path": "mechanical/exports/3hp/printable/right_diffuser.step",
+      "size_bytes": 108627,
+      "sha256": "b48a73d4600a44a8872433fdbeb1a7fcc171723a0912def95465a055008af6f9"
+    },
+    {
+      "path": "mechanical/exports/3hp/printable/right_diffuser.stl",
+      "size_bytes": 56284,
+      "sha256": "1743a8b55455eec0900268ec60258a1a156576d9f652e44018fef0120dcf6fed"
+    },
+    {
+      "path": "mechanical/exports/3hp/printable/top_leaf_adapter_cap.step",
+      "size_bytes": 268137,
+      "sha256": "4c077fc7ddbb8c4bb83ac08d723e91430064e04519184c8bd3a4cb9b61f66b6e"
+    },
+    {
+      "path": "mechanical/exports/3hp/printable/top_leaf_adapter_cap.stl",
+      "size_bytes": 167184,
+      "sha256": "cbc4709ddaa8faa0c692623080dc32bf22304f8ec8632a8f9d9455004eb9ac6e"
+    },
+    {
+      "path": "mechanical/exports/3hp/verification.json",
+      "size_bytes": 75594,
+      "sha256": "997bc719c6f757dddd1ceb6f086a9ae44952acc64e64c0abb4670a6ff048c3fb"
+    },
+    {
+      "path": "mechanical/geometry.json",
+      "size_bytes": 6677,
+      "sha256": "11cf15d3ddd90f321b4c1016d118d13710fff52cb00820398814acf0dd9f1de4"
+    },
+    {
+      "path": "mechanical/manufacturer_source_metadata.json",
+      "size_bytes": 4510,
+      "sha256": "4bbf2610807381041323a8909d17c8f002df59f4d29b585c1152fa3e7d2b4238"
+    },
+    {
+      "path": "mechanical/print_packaging/2hp/r01/bottom_leaf_cap.mesh.json",
+      "size_bytes": 211457,
+      "sha256": "0ab5ae99d97d7a2e826a3e090155afdb60b2f3e521b3534a78fbab17d82dc647"
+    },
+    {
+      "path": "mechanical/print_packaging/2hp/r01/controller_lower_clamp.mesh.json",
+      "size_bytes": 43537,
+      "sha256": "38229ab29e8771f574abdaf5f7cf563ff410f6272f5eabdb22ae49f8832cfe10"
+    },
+    {
+      "path": "mechanical/print_packaging/2hp/r01/controller_upper_clamp.mesh.json",
+      "size_bytes": 44324,
+      "sha256": "02cd5f9b910d83205cc67355f8810fc467d18b215e2cb7bb5a0ab1ee62cba937"
+    },
+    {
+      "path": "mechanical/print_packaging/2hp/r01/front_cradle.mesh.json",
+      "size_bytes": 727136,
+      "sha256": "f8a52bd8e6dfbb50d14f6e6be24b506131e54297fcf1cf147035e8076c8e13d7"
+    },
+    {
+      "path": "mechanical/print_packaging/2hp/r01/left_diffuser.mesh.json",
+      "size_bytes": 125179,
+      "sha256": "1112b7fd07324b7a121d4ef960e34c227407c85c14aa9624d5326a9e8a494687"
+    },
+    {
+      "path": "mechanical/print_packaging/2hp/r01/parts.manifest.json",
+      "size_bytes": 1142,
+      "sha256": "a63015aa3e67a74ea245e6f6c2afcab999292451fa0377a5a0d4f9d4eca75a13"
+    },
+    {
+      "path": "mechanical/print_packaging/2hp/r01/right_diffuser.mesh.json",
+      "size_bytes": 124621,
+      "sha256": "4f9e088f543c38f3befd7b0563fa736ddd92881c8af2f8231e203ec5efc37b62"
+    },
+    {
+      "path": "mechanical/print_packaging/2hp/r01/source_manifest.json",
+      "size_bytes": 3988,
+      "sha256": "0d4db26064ed7eb0267898511d7bdacf8d49181c72098916185cf9d52ea503f8"
+    },
+    {
+      "path": "mechanical/print_packaging/2hp/r01/top_leaf_adapter_cap.mesh.json",
+      "size_bytes": 254341,
+      "sha256": "022b79d7ea2431d5abf6d37ffaec0871f0366305846ad9b9807fdc7503df0899"
+    },
+    {
+      "path": "mechanical/print_packaging/3hp/r01/bottom_leaf_cap.mesh.json",
+      "size_bytes": 269164,
+      "sha256": "1628e534ef15047258f136a8368db0ac2788a1c21216fb9fbbca0f8add4ff131"
+    },
+    {
+      "path": "mechanical/print_packaging/3hp/r01/controller_lower_clamp.mesh.json",
+      "size_bytes": 43537,
+      "sha256": "38229ab29e8771f574abdaf5f7cf563ff410f6272f5eabdb22ae49f8832cfe10"
+    },
+    {
+      "path": "mechanical/print_packaging/3hp/r01/controller_upper_clamp.mesh.json",
+      "size_bytes": 44324,
+      "sha256": "02cd5f9b910d83205cc67355f8810fc467d18b215e2cb7bb5a0ab1ee62cba937"
+    },
+    {
+      "path": "mechanical/print_packaging/3hp/r01/front_cradle.mesh.json",
+      "size_bytes": 746821,
+      "sha256": "bf2cd598db56ec6d02163ac11431cb1dc02c97eb29c2be3fa958928cf5defef1"
+    },
+    {
+      "path": "mechanical/print_packaging/3hp/r01/left_diffuser.mesh.json",
+      "size_bytes": 95770,
+      "sha256": "a4e051631efc149095bb0fd1aa7a06e6b9e257c8d5e3bba8e98373777fa7c1e9"
+    },
+    {
+      "path": "mechanical/print_packaging/3hp/r01/parts.manifest.json",
+      "size_bytes": 1142,
+      "sha256": "543ce54d991e7ac7b47978b8d4dccba323aec377f9e6ce30451d4a6e69d979a6"
+    },
+    {
+      "path": "mechanical/print_packaging/3hp/r01/right_diffuser.mesh.json",
+      "size_bytes": 98093,
+      "sha256": "aca36eeeda804ca166cad8ba1cc256b03f715f712ce08557006e87f82eab8e38"
+    },
+    {
+      "path": "mechanical/print_packaging/3hp/r01/source_manifest.json",
+      "size_bytes": 3988,
+      "sha256": "b2ed7cf3789f8161ea6e27d0671d061b2bb33e3b3798b7da55cc5d4f76b5dfbf"
+    },
+    {
+      "path": "mechanical/print_packaging/3hp/r01/top_leaf_adapter_cap.mesh.json",
+      "size_bytes": 294482,
+      "sha256": "4c82cebbb8cdae66c0be74a51ddf310cc8f1b60c8ee8a03cc087c8c6c7c5de12"
+    },
+    {
+      "path": "mechanical/print_packaging/README.md",
+      "size_bytes": 3444,
+      "sha256": "3bea6fce538975d05bc8401df6e2d5c8dcf4fe56a86436c3335d8bcc8e97ecbe"
+    },
+    {
+      "path": "mechanical/print_packaging/assets/h2d-empty.3mf",
+      "size_bytes": 20419,
+      "sha256": "0349a5f3759e8d42b8f9f0fd47b25c9110f90294e21104369e8d4d58bb8a2b59"
+    },
+    {
+      "path": "mechanical/print_packaging/build_fit_check_projects.py",
+      "size_bytes": 13572,
+      "sha256": "dedaf1b7c8ce11edf07f74d13249d060b8c232e6e894b117a5f714b3f3bd0a6d"
+    },
+    {
+      "path": "mechanical/print_packaging/helpers/bambu_3mf.py",
+      "size_bytes": 37687,
+      "sha256": "dc0eca08cd1b2a0b6f60a774c77d6e0c04fbd81780ecdf23237e1ea18531db7b"
+    },
+    {
+      "path": "mechanical/print_packaging/helpers/studio_cli.py",
+      "size_bytes": 2512,
+      "sha256": "94aa590576a52dae2db58e3cf0497311c01f9a32342d3a5e8d5cc438889b16c0"
+    },
+    {
+      "path": "mechanical/print_packaging/tool_provenance.json",
+      "size_bytes": 956,
+      "sha256": "52e8fde666149887c2d82e00b0134cbe379a58a436cee36529601f740f3aed46"
+    },
+    {
+      "path": "mechanical/print_packaging/validation_index.json",
+      "size_bytes": 1083,
+      "sha256": "ebc0275d61a19e81a8d729f96a30f7b07f9384e548e98cfa5ef2c79f1ec8f48b"
+    },
+    {
+      "path": "mechanical/render.log",
+      "size_bytes": 205,
+      "sha256": "8da39573f6407eec230ef8a7b60759201ae68f593cb447866fbc81328a9d4bc3"
+    },
+    {
+      "path": "mechanical/render_2hp_final.log",
+      "size_bytes": 205,
+      "sha256": "8da39573f6407eec230ef8a7b60759201ae68f593cb447866fbc81328a9d4bc3"
+    },
+    {
+      "path": "mechanical/render_3hp_final.log",
+      "size_bytes": 205,
+      "sha256": "e3ee7d28b52fa341eee736c674b6efb9aed73cdf02b824d879dfa1a209c3a90c"
+    },
+    {
+      "path": "mechanical/render_final.log",
+      "size_bytes": 308,
+      "sha256": "c2616b39b779aacbb6cf5cdaa1e6670ed02bc1299402098eebe9d6f3504ca2e5"
+    },
+    {
+      "path": "mechanical/render_previews.py",
+      "size_bytes": 3184,
+      "sha256": "e6a58f0bc5bc84f44e2e87a8ff013d13190270539ebeb14aa884b8b9d5883ccb"
+    },
+    {
+      "path": "mechanical/verification_summary.json",
+      "size_bytes": 21508,
+      "sha256": "5a48b103bf4eb15b385fb1be37c421f7ac3302209ff5cada3eeaf7fb07c92bf4"
+    }
+  ],
+  "manufacturing_released": false
+}

@@ -1,0 +1,659 @@
+{
+  "revision": "A5",
+  "method": "Independent pin-interface assertions on KiCad XML exports",
+  "all_passed": true,
+  "checks": [
+    {
+      "check": "Passive CV IN to THRU",
+      "pins": [
+        "J1.6",
+        "J2.6",
+        "R1.1"
+      ],
+      "exported_nets": [
+        "/CV_THRU",
+        "/CV_THRU",
+        "/CV_THRU"
+      ],
+      "passed": true
+    },
+    {
+      "check": "Jack grounds and MCU VSS",
+      "pins": [
+        "J1.2",
+        "J1.3",
+        "J2.2",
+        "J2.3",
+        "U1.4"
+      ],
+      "exported_nets": [
+        "/GND",
+        "/GND",
+        "/GND",
+        "/GND",
+        "/GND"
+      ],
+      "passed": true
+    },
+    {
+      "check": "20 Mohm pickup midpoint",
+      "pins": [
+        "R1.2",
+        "R2.1",
+        "U6.3"
+      ],
+      "exported_nets": [
+        "/CV_SENSE",
+        "/CV_SENSE",
+        "/CV_SENSE"
+      ],
+      "passed": true
+    },
+    {
+      "check": "OPA197 voltage follower",
+      "pins": [
+        "U6.1",
+        "U6.4",
+        "R3.1"
+      ],
+      "exported_nets": [
+        "/CV_BUF",
+        "/CV_BUF",
+        "/CV_BUF"
+      ],
+      "passed": true
+    },
+    {
+      "check": "Four-resistor affine node with C13 upstream of R7",
+      "pins": [
+        "R3.2",
+        "R4.2",
+        "R5.2",
+        "R6.1",
+        "R7.1",
+        "C13.1"
+      ],
+      "exported_nets": [
+        "/CV_AFFINE",
+        "/CV_AFFINE",
+        "/CV_AFFINE",
+        "/CV_AFFINE",
+        "/CV_AFFINE",
+        "/CV_AFFINE"
+      ],
+      "passed": true
+    },
+    {
+      "check": "Affine 3V3 feeds",
+      "pins": [
+        "R4.1",
+        "R5.1",
+        "U1.3",
+        "U7.5"
+      ],
+      "exported_nets": [
+        "/+3V3",
+        "/+3V3",
+        "/+3V3",
+        "/+3V3"
+      ],
+      "passed": true
+    },
+    {
+      "check": "A5 protected buffer input after R7",
+      "pins": [
+        "R7.2",
+        "U7.3",
+        "D3.3"
+      ],
+      "exported_nets": [
+        "/CV_FILTER",
+        "/CV_FILTER",
+        "/CV_FILTER"
+      ],
+      "passed": true
+    },
+    {
+      "check": "C13 stored charge must pass through R7 before reaching U7 input",
+      "passed": true
+    },
+    {
+      "check": "A5 output follower and series resistor",
+      "pins": [
+        "U7.1",
+        "U7.4",
+        "R24.1"
+      ],
+      "exported_nets": [
+        "/CV_DRIVE",
+        "/CV_DRIVE",
+        "/CV_DRIVE"
+      ],
+      "passed": true
+    },
+    {
+      "check": "A5 ADC PA0 after output divider",
+      "pins": [
+        "R24.2",
+        "R25.1",
+        "U1.6"
+      ],
+      "exported_nets": [
+        "/CV_ADC",
+        "/CV_ADC",
+        "/CV_ADC"
+      ],
+      "passed": true
+    },
+    {
+      "check": "A5 divider and buffer grounds",
+      "pins": [
+        "R25.2",
+        "U7.2",
+        "U1.4",
+        "R6.2",
+        "R2.2"
+      ],
+      "exported_nets": [
+        "/GND",
+        "/GND",
+        "/GND",
+        "/GND",
+        "/GND"
+      ],
+      "passed": true
+    },
+    {
+      "check": "LED enable PA5 to NPN base resistor",
+      "pins": [
+        "U1.11",
+        "R22.1"
+      ],
+      "exported_nets": [
+        "/LED_ENABLE",
+        "/LED_ENABLE"
+      ],
+      "passed": true
+    },
+    {
+      "check": "NPN default-off base pull-down",
+      "pins": [
+        "R22.2",
+        "Q1.1",
+        "R12.1"
+      ],
+      "exported_nets": [
+        "/LED_BASE",
+        "/LED_BASE",
+        "/LED_BASE"
+      ],
+      "passed": true
+    },
+    {
+      "check": "Active-low power switch enable",
+      "pins": [
+        "Q1.3",
+        "U4.3",
+        "R23.2"
+      ],
+      "exported_nets": [
+        "/LED_EN_N",
+        "/LED_EN_N",
+        "/LED_EN_N"
+      ],
+      "passed": true
+    },
+    {
+      "check": "FAULT PA4 and pull-up",
+      "pins": [
+        "U4.4",
+        "U1.10",
+        "R13.2"
+      ],
+      "exported_nets": [
+        "/LED_FAULT_N",
+        "/LED_FAULT_N",
+        "/LED_FAULT_N"
+      ],
+      "passed": true
+    },
+    {
+      "check": "Mode A PA2",
+      "pins": [
+        "U1.8",
+        "SW1.1",
+        "R9.2"
+      ],
+      "exported_nets": [
+        "/MODE_A",
+        "/MODE_A",
+        "/MODE_A"
+      ],
+      "passed": true
+    },
+    {
+      "check": "Mode B PA3",
+      "pins": [
+        "U1.9",
+        "SW1.3",
+        "R10.2"
+      ],
+      "exported_nets": [
+        "/MODE_B",
+        "/MODE_B",
+        "/MODE_B"
+      ],
+      "passed": true
+    },
+    {
+      "check": "Mode center common to GND",
+      "pins": [
+        "SW1.2",
+        "U1.4"
+      ],
+      "exported_nets": [
+        "/GND",
+        "/GND"
+      ],
+      "passed": true
+    },
+    {
+      "check": "Left TIM3 CH1 PA6",
+      "pins": [
+        "U1.12",
+        "U5.2"
+      ],
+      "exported_nets": [
+        "/DATA_L_3V3",
+        "/DATA_L_3V3"
+      ],
+      "passed": true
+    },
+    {
+      "check": "Right TIM3 CH2 PA7",
+      "pins": [
+        "U1.13",
+        "U5.3"
+      ],
+      "exported_nets": [
+        "/DATA_R_3V3",
+        "/DATA_R_3V3"
+      ],
+      "passed": true
+    },
+    {
+      "check": "Translator direction A to B",
+      "pins": [
+        "U5.5",
+        "U5.1",
+        "U1.3"
+      ],
+      "exported_nets": [
+        "/+3V3",
+        "/+3V3",
+        "/+3V3"
+      ],
+      "passed": true
+    },
+    {
+      "check": "Translator and combined LED harness supply",
+      "pins": [
+        "U5.8",
+        "U4.6",
+        "J3.2"
+      ],
+      "exported_nets": [
+        "/VLED",
+        "/VLED",
+        "/VLED"
+      ],
+      "passed": true
+    },
+    {
+      "check": "Left data to cable",
+      "pins": [
+        "U5.7",
+        "R14.1"
+      ],
+      "exported_nets": [
+        "/DATA_L_5V",
+        "/DATA_L_5V"
+      ],
+      "passed": true
+    },
+    {
+      "check": "Left damped data",
+      "pins": [
+        "R14.2",
+        "J3.3"
+      ],
+      "exported_nets": [
+        "/DATA_L",
+        "/DATA_L"
+      ],
+      "passed": true
+    },
+    {
+      "check": "Right data to cable",
+      "pins": [
+        "U5.6",
+        "R15.1"
+      ],
+      "exported_nets": [
+        "/DATA_R_5V",
+        "/DATA_R_5V"
+      ],
+      "passed": true
+    },
+    {
+      "check": "Right damped data shares controller connector pin4",
+      "pins": [
+        "R15.2",
+        "J3.4"
+      ],
+      "exported_nets": [
+        "/DATA_R",
+        "/DATA_R"
+      ],
+      "passed": true
+    },
+    {
+      "check": "Leaf THIS stream to first pixel and crosslink pin4",
+      "pins": [
+        "J1.3",
+        "D1.3",
+        "J2.4"
+      ],
+      "exported_nets": [
+        "/DATA_IN",
+        "/DATA_IN",
+        "/DATA_IN"
+      ],
+      "passed": true
+    },
+    {
+      "check": "Leaf OTHER stream passes directly to crosslink pin3",
+      "pins": [
+        "J1.4",
+        "J2.3"
+      ],
+      "exported_nets": [
+        "/DATA_OTHER",
+        "/DATA_OTHER"
+      ],
+      "passed": true
+    },
+    {
+      "check": "Leaf two input streams remain electrically separate",
+      "passed": true
+    },
+    {
+      "check": "Pixel chain 1 to 2",
+      "pins": [
+        "D1.1",
+        "D2.3"
+      ],
+      "exported_nets": [
+        "/DATA_1_2",
+        "/DATA_1_2"
+      ],
+      "passed": true
+    },
+    {
+      "check": "Pixel chain 2 to 3",
+      "pins": [
+        "D2.1",
+        "D3.3"
+      ],
+      "exported_nets": [
+        "/DATA_2_3",
+        "/DATA_2_3"
+      ],
+      "passed": true
+    },
+    {
+      "check": "Pixel chain 3 to 4",
+      "pins": [
+        "D3.1",
+        "D4.3"
+      ],
+      "exported_nets": [
+        "/DATA_3_4",
+        "/DATA_3_4"
+      ],
+      "passed": true
+    },
+    {
+      "check": "Leaf and crosslink power distribution",
+      "pins": [
+        "J1.2",
+        "J2.2",
+        "D1.4",
+        "D2.4",
+        "D3.4",
+        "D4.4",
+        "C1.1",
+        "C2.1",
+        "C3.1",
+        "C4.1"
+      ],
+      "exported_nets": [
+        "/VLED",
+        "/VLED",
+        "/VLED",
+        "/VLED",
+        "/VLED",
+        "/VLED",
+        "/VLED",
+        "/VLED",
+        "/VLED",
+        "/VLED"
+      ],
+      "passed": true
+    },
+    {
+      "check": "Leaf and crosslink ground distribution",
+      "pins": [
+        "J1.1",
+        "J2.1",
+        "D1.2",
+        "D2.2",
+        "D3.2",
+        "D4.2",
+        "C1.2",
+        "C2.2",
+        "C3.2",
+        "C4.2"
+      ],
+      "exported_nets": [
+        "/GND",
+        "/GND",
+        "/GND",
+        "/GND",
+        "/GND",
+        "/GND",
+        "/GND",
+        "/GND",
+        "/GND",
+        "/GND"
+      ],
+      "passed": true
+    },
+    {
+      "check": "Two 1:1 harnesses deliver independent PA6 and PA7 streams to four-pixel chains",
+      "passed": true,
+      "left_first_pixel_net": "/DATA_L",
+      "right_first_pixel_net": "/DATA_R"
+    },
+    {
+      "check": "Both 1:1 harnesses preserve VLED and GND to the second leaf",
+      "passed": true
+    },
+    {
+      "check": "IDC negative rail to reversed cable pin1",
+      "pins": [
+        "J1.1",
+        "J1.2",
+        "J2.1"
+      ],
+      "exported_nets": [
+        "/-12V_RAW",
+        "/-12V_RAW",
+        "/-12V_RAW"
+      ],
+      "passed": true
+    },
+    {
+      "check": "IDC ground",
+      "pins": [
+        "J1.3",
+        "J1.4",
+        "J1.5",
+        "J1.6",
+        "J1.7",
+        "J1.8",
+        "J2.2"
+      ],
+      "exported_nets": [
+        "/GND",
+        "/GND",
+        "/GND",
+        "/GND",
+        "/GND",
+        "/GND",
+        "/GND"
+      ],
+      "passed": true
+    },
+    {
+      "check": "IDC positive rail to reversed cable pin3",
+      "pins": [
+        "J1.9",
+        "J1.10",
+        "J2.3"
+      ],
+      "exported_nets": [
+        "/+12V_RAW",
+        "/+12V_RAW",
+        "/+12V_RAW"
+      ],
+      "passed": true
+    },
+    {
+      "check": "Controller positive cable pin1",
+      "pins": [
+        "J5.1",
+        "D1.2"
+      ],
+      "exported_nets": [
+        "/+12V_RAW",
+        "/+12V_RAW"
+      ],
+      "passed": true
+    },
+    {
+      "check": "Controller negative cable pin3",
+      "pins": [
+        "J5.3",
+        "D2.1"
+      ],
+      "exported_nets": [
+        "/-12V_RAW",
+        "/-12V_RAW"
+      ],
+      "passed": true
+    },
+    {
+      "check": "Exported schematic fitted quantities match current procurement ledger",
+      "passed": true,
+      "expected": {
+        "C5270180": 1,
+        "C52917434": 8,
+        "C2071056": 1,
+        "C404027": 1,
+        "C140331": 1,
+        "C20526": 1,
+        "C15741": 1,
+        "C221351": 1,
+        "C398363": 1,
+        "C50704": 2,
+        "C134375": 1,
+        "C694586": 1,
+        "C500090": 2,
+        "C908270": 1,
+        "C160404": 5,
+        "C122442": 2,
+        "C5665": 1,
+        "C7250": 2,
+        "C23254": 4,
+        "C21190": 3,
+        "C25804": 5,
+        "C23231": 1,
+        "C25803": 6,
+        "C23138": 3,
+        "C23162": 1,
+        "C14663": 16,
+        "C57112": 1,
+        "C15850": 3,
+        "C12891": 2,
+        "C19666": 3
+      },
+      "actual": {
+        "C15850": 3,
+        "C12891": 2,
+        "C14663": 16,
+        "C19666": 3,
+        "C57112": 1,
+        "C50704": 2,
+        "C134375": 1,
+        "C500090": 2,
+        "C160404": 5,
+        "C122442": 2,
+        "C694586": 1,
+        "C20526": 1,
+        "C7250": 2,
+        "C23254": 4,
+        "C21190": 3,
+        "C25804": 5,
+        "C23231": 1,
+        "C25803": 6,
+        "C23138": 3,
+        "C23162": 1,
+        "C908270": 1,
+        "C5270180": 1,
+        "C2071056": 1,
+        "C404027": 1,
+        "C140331": 1,
+        "C15741": 1,
+        "C221351": 1,
+        "C398363": 1,
+        "C52917434": 8,
+        "C5665": 1
+      },
+      "per_board": {
+        "controller": 59,
+        "led_leaf": 10,
+        "power_adapter": 2
+      }
+    }
+  ],
+  "source_files": [
+    {
+      "path": "integration/native_schematic/controller/netlist.xml",
+      "sha256": "fa2d267acc4081156649ee15e014fbaeae4303bc96374fe19f4bae7b3a72553f"
+    },
+    {
+      "path": "integration/native_schematic/led_leaf/netlist.xml",
+      "sha256": "1857eeb3e3faa65977f2e2cfff30083411db9af728b5529e53065da0c9028670"
+    },
+    {
+      "path": "integration/native_schematic/power_adapter/netlist.xml",
+      "sha256": "d995064a9945ca0516a0a2844b197fcde3a19c8e1873230def0a3899ff514d04"
+    }
+  ],
+  "limits": [
+    "No hardware test",
+    "Does not prove analog behavior or PCB routing",
+    "Harness pin maps assume intact manufacturer cable assemblies"
+  ]
+}

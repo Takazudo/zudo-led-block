@@ -1,0 +1,555 @@
+{
+  "status": "UNSLICED_PLA_FIT_CHECK_STRUCTURAL_CHECKS_PASSED",
+  "created_utc": "2026-11-06T06:33:16.127696+00:00",
+  "python": "3.12.14",
+  "variant": "2hp",
+  "revision": "r01",
+  "output": "mechanical/exports/2hp/light_block_A5_2hp_PLA_fit_check_r01.3mf",
+  "output_bytes": 209448,
+  "output_sha256": "98c5e440a41666c20bb180e57c22e592c31ce217acbcbf22e8bc9c695be45bad",
+  "part_count": 7,
+  "printer": "Bambu Lab H2D",
+  "nozzle_diameter_mm": [
+    0.6,
+    0.6
+  ],
+  "saved_material": "PLA",
+  "intended_part_material": "PETG",
+  "filament_slot": 1,
+  "saved_slot_1_profile": "Bambu PLA Basic @BBL H2D 0.6 nozzle",
+  "saved_slot_1_color": "#161616",
+  "physical_loaded_material_verified": false,
+  "template_sha256": "0349a5f3759e8d42b8f9f0fd47b25c9110f90294e21104369e8d4d58bb8a2b59",
+  "settings_sha256": "99b34023dcf3d8142abb119f426ca54d499a4d07026c7e406e2b062147c7a356",
+  "all_saved_global_settings_bytes_unchanged": true,
+  "object_process_overrides": {},
+  "input_geometry_modified": false,
+  "contains_toolpaths": false,
+  "source_manifest": "mechanical/print_packaging/2hp/r01/source_manifest.json",
+  "source_manifest_sha256": "0d4db26064ed7eb0267898511d7bdacf8d49181c72098916185cf9d52ea503f8",
+  "meshes": [
+    {
+      "name": "front_cradle",
+      "source_stl": "mechanical/exports/2hp/printable/front_cradle.stl",
+      "source_stl_sha256": "3a966f391cd87006ebcd848da755156f2f0908e192158c51cdcf9eb2f6b9e1d2",
+      "mesh_sha256": "f8a52bd8e6dfbb50d14f6e6be24b506131e54297fcf1cf147035e8076c8e13d7",
+      "weld": {
+        "tolerance_mm": 1e-05,
+        "method": "Nearest existing vertex within Euclidean tolerance; retains original representative coordinates",
+        "input_triangle_vertices": 24978,
+        "input_exact_unique_vertices": 4135,
+        "output_vertices": 4135,
+        "merged_unique_vertices": 0,
+        "maximum_vertex_displacement_mm": 0.0,
+        "triangles_removed": 0,
+        "triangles_reversed": 0
+      },
+      "edge_manifold_and_winding": "PASS",
+      "closed_vertex_links_checked": 4135,
+      "point_only_nonmanifold_vertices": 0,
+      "vertices": 4135,
+      "triangles": 8326,
+      "signed_volume_mm3": 2674.719828,
+      "source_bounds_mm": [
+        [
+          0.0,
+          -4.440892098500626e-16,
+          0.0
+        ],
+        [
+          9.600000381469727,
+          93.4000015258789,
+          20.399999618530273
+        ]
+      ],
+      "dimensions_mm": [
+        9.600000381469727,
+        93.4000015258789,
+        20.399999618530273
+      ],
+      "CAD_export_rotation_already_applied": null,
+      "packager_rotation": "none; helper translates minima to X=Y=Z=0 before bed placement"
+    },
+    {
+      "name": "controller_upper_clamp",
+      "source_stl": "mechanical/exports/2hp/printable/controller_upper_clamp.stl",
+      "source_stl_sha256": "5504403c57edc94961c33a332ec738f077efdc47a2c92510207f8e3c1be65562",
+      "mesh_sha256": "02cd5f9b910d83205cc67355f8810fc467d18b215e2cb7bb5a0ab1ee62cba937",
+      "weld": {
+        "tolerance_mm": 1e-05,
+        "method": "Nearest existing vertex within Euclidean tolerance; retains original representative coordinates",
+        "input_triangle_vertices": 1584,
+        "input_exact_unique_vertices": 264,
+        "output_vertices": 264,
+        "merged_unique_vertices": 0,
+        "maximum_vertex_displacement_mm": 0.0,
+        "triangles_removed": 0,
+        "triangles_reversed": 0
+      },
+      "edge_manifold_and_winding": "PASS",
+      "closed_vertex_links_checked": 264,
+      "point_only_nonmanifold_vertices": 0,
+      "vertices": 264,
+      "triangles": 528,
+      "signed_volume_mm3": 14.760297,
+      "source_bounds_mm": [
+        [
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          4.599999904632568,
+          3.5999999046325684,
+          1.2000000476837158
+        ]
+      ],
+      "dimensions_mm": [
+        4.599999904632568,
+        3.5999999046325684,
+        1.2000000476837158
+      ],
+      "CAD_export_rotation_already_applied": null,
+      "packager_rotation": "none; helper translates minima to X=Y=Z=0 before bed placement"
+    },
+    {
+      "name": "controller_lower_clamp",
+      "source_stl": "mechanical/exports/2hp/printable/controller_lower_clamp.stl",
+      "source_stl_sha256": "de9bd1519877f6b2060029d08983ac8c1f0062663506020b005c6ec9067ce71a",
+      "mesh_sha256": "38229ab29e8771f574abdaf5f7cf563ff410f6272f5eabdb22ae49f8832cfe10",
+      "weld": {
+        "tolerance_mm": 1e-05,
+        "method": "Nearest existing vertex within Euclidean tolerance; retains original representative coordinates",
+        "input_triangle_vertices": 1560,
+        "input_exact_unique_vertices": 260,
+        "output_vertices": 260,
+        "merged_unique_vertices": 0,
+        "maximum_vertex_displacement_mm": 0.0,
+        "triangles_removed": 0,
+        "triangles_reversed": 0
+      },
+      "edge_manifold_and_winding": "PASS",
+      "closed_vertex_links_checked": 260,
+      "point_only_nonmanifold_vertices": 0,
+      "vertices": 260,
+      "triangles": 520,
+      "signed_volume_mm3": 15.312297,
+      "source_bounds_mm": [
+        [
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          4.599999904632568,
+          3.5999999046325684,
+          1.2000000476837158
+        ]
+      ],
+      "dimensions_mm": [
+        4.599999904632568,
+        3.5999999046325684,
+        1.2000000476837158
+      ],
+      "CAD_export_rotation_already_applied": null,
+      "packager_rotation": "none; helper translates minima to X=Y=Z=0 before bed placement"
+    },
+    {
+      "name": "top_leaf_adapter_cap",
+      "source_stl": "mechanical/exports/2hp/printable/top_leaf_adapter_cap.stl",
+      "source_stl_sha256": "722d92e6f895851a9c18d259271196df1eb042b34a0c860ce7ccb141ec8183cb",
+      "mesh_sha256": "022b79d7ea2431d5abf6d37ffaec0871f0366305846ad9b9807fdc7503df0899",
+      "weld": {
+        "tolerance_mm": 1e-05,
+        "method": "Nearest existing vertex within Euclidean tolerance; retains original representative coordinates",
+        "input_triangle_vertices": 8706,
+        "input_exact_unique_vertices": 1441,
+        "output_vertices": 1441,
+        "merged_unique_vertices": 0,
+        "maximum_vertex_displacement_mm": 0.0,
+        "triangles_removed": 0,
+        "triangles_reversed": 0
+      },
+      "edge_manifold_and_winding": "PASS",
+      "closed_vertex_links_checked": 1441,
+      "point_only_nonmanifold_vertices": 0,
+      "vertices": 1441,
+      "triangles": 2902,
+      "signed_volume_mm3": 437.772724,
+      "source_bounds_mm": [
+        [
+          0.0,
+          -2.330888822358229e-16,
+          0.0
+        ],
+        [
+          9.600000381469727,
+          10.800000190734863,
+          8.0
+        ]
+      ],
+      "dimensions_mm": [
+        9.600000381469727,
+        10.800000190734863,
+        8.0
+      ],
+      "CAD_export_rotation_already_applied": [
+        [
+          1,
+          0,
+          0
+        ],
+        90
+      ],
+      "packager_rotation": "none; helper translates minima to X=Y=Z=0 before bed placement"
+    },
+    {
+      "name": "bottom_leaf_cap",
+      "source_stl": "mechanical/exports/2hp/printable/bottom_leaf_cap.stl",
+      "source_stl_sha256": "12a43980385d39200004dcc47aa7c9e40917e224f076b15e7198c58c23f055bb",
+      "mesh_sha256": "0ab5ae99d97d7a2e826a3e090155afdb60b2f3e521b3534a78fbab17d82dc647",
+      "weld": {
+        "tolerance_mm": 1e-05,
+        "method": "Nearest existing vertex within Euclidean tolerance; retains original representative coordinates",
+        "input_triangle_vertices": 7164,
+        "input_exact_unique_vertices": 1188,
+        "output_vertices": 1188,
+        "merged_unique_vertices": 0,
+        "maximum_vertex_displacement_mm": 0.0,
+        "triangles_removed": 0,
+        "triangles_reversed": 0
+      },
+      "edge_manifold_and_winding": "PASS",
+      "closed_vertex_links_checked": 1188,
+      "point_only_nonmanifold_vertices": 0,
+      "vertices": 1188,
+      "triangles": 2388,
+      "signed_volume_mm3": 158.647759,
+      "source_bounds_mm": [
+        [
+          0.0,
+          0.0,
+          1.2789769243681803e-13
+        ],
+        [
+          9.600000381469727,
+          11.800000190734863,
+          3.200000047683716
+        ]
+      ],
+      "dimensions_mm": [
+        9.600000381469727,
+        11.800000190734863,
+        3.200000047683588
+      ],
+      "CAD_export_rotation_already_applied": [
+        [
+          1,
+          0,
+          0
+        ],
+        90
+      ],
+      "packager_rotation": "none; helper translates minima to X=Y=Z=0 before bed placement"
+    },
+    {
+      "name": "left_diffuser",
+      "source_stl": "mechanical/exports/2hp/printable/left_diffuser.stl",
+      "source_stl_sha256": "50d1f7a2e155490b4fec6cd40c762b2f474f3405afca535b35a8c05e4773c6e2",
+      "mesh_sha256": "1112b7fd07324b7a121d4ef960e34c227407c85c14aa9624d5326a9e8a494687",
+      "weld": {
+        "tolerance_mm": 1e-05,
+        "method": "Nearest existing vertex within Euclidean tolerance; retains original representative coordinates",
+        "input_triangle_vertices": 4260,
+        "input_exact_unique_vertices": 708,
+        "output_vertices": 708,
+        "merged_unique_vertices": 0,
+        "maximum_vertex_displacement_mm": 0.0,
+        "triangles_removed": 0,
+        "triangles_reversed": 0
+      },
+      "edge_manifold_and_winding": "PASS",
+      "closed_vertex_links_checked": 708,
+      "point_only_nonmanifold_vertices": 0,
+      "vertices": 708,
+      "triangles": 1420,
+      "signed_volume_mm3": 1164.671066,
+      "source_bounds_mm": [
+        [
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          10.600000381469727,
+          85.0,
+          3.700000047683716
+        ]
+      ],
+      "dimensions_mm": [
+        10.600000381469727,
+        85.0,
+        3.700000047683716
+      ],
+      "CAD_export_rotation_already_applied": [
+        [
+          0,
+          1,
+          0
+        ],
+        -90
+      ],
+      "packager_rotation": "none; helper translates minima to X=Y=Z=0 before bed placement"
+    },
+    {
+      "name": "right_diffuser",
+      "source_stl": "mechanical/exports/2hp/printable/right_diffuser.stl",
+      "source_stl_sha256": "54ee39d3daed8a0cfcc94147ee14d58f0b72fb428e94fca013f3b0a9030deac5",
+      "mesh_sha256": "4f9e088f543c38f3befd7b0563fa736ddd92881c8af2f8231e203ec5efc37b62",
+      "weld": {
+        "tolerance_mm": 1e-05,
+        "method": "Nearest existing vertex within Euclidean tolerance; retains original representative coordinates",
+        "input_triangle_vertices": 4260,
+        "input_exact_unique_vertices": 708,
+        "output_vertices": 708,
+        "merged_unique_vertices": 0,
+        "maximum_vertex_displacement_mm": 0.0,
+        "triangles_removed": 0,
+        "triangles_reversed": 0
+      },
+      "edge_manifold_and_winding": "PASS",
+      "closed_vertex_links_checked": 708,
+      "point_only_nonmanifold_vertices": 0,
+      "vertices": 708,
+      "triangles": 1420,
+      "signed_volume_mm3": 1182.341035,
+      "source_bounds_mm": [
+        [
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          10.600000381469727,
+          85.0,
+          3.700000047683716
+        ]
+      ],
+      "dimensions_mm": [
+        10.600000381469727,
+        85.0,
+        3.700000047683716
+      ],
+      "CAD_export_rotation_already_applied": [
+        [
+          0,
+          1,
+          0
+        ],
+        90
+      ],
+      "packager_rotation": "none; helper translates minima to X=Y=Z=0 before bed placement"
+    }
+  ],
+  "project_validation": {
+    "status": "structural_checks_passed",
+    "build_items": [
+      {
+        "object_id": "2",
+        "instance_id": 0,
+        "bounds_mm": [
+          [
+            35.0,
+            10.0,
+            0.0
+          ],
+          [
+            44.60000038147,
+            103.4000015259,
+            20.3999996185
+          ]
+        ]
+      },
+      {
+        "object_id": "4",
+        "instance_id": 0,
+        "bounds_mm": [
+          [
+            52.6000003815,
+            10.0,
+            0.0
+          ],
+          [
+            57.200000286130006,
+            13.59999990463,
+            1.20000004768
+          ]
+        ]
+      },
+      {
+        "object_id": "6",
+        "instance_id": 0,
+        "bounds_mm": [
+          [
+            65.2000002861,
+            10.0,
+            0.0
+          ],
+          [
+            69.80000019073,
+            13.59999990463,
+            1.20000004768
+          ]
+        ]
+      },
+      {
+        "object_id": "8",
+        "instance_id": 0,
+        "bounds_mm": [
+          [
+            77.8000001907,
+            10.0,
+            0.0
+          ],
+          [
+            87.40000057217,
+            20.8000001907,
+            8.0
+          ]
+        ]
+      },
+      {
+        "object_id": "10",
+        "instance_id": 0,
+        "bounds_mm": [
+          [
+            95.4000005722,
+            10.0,
+            0.0
+          ],
+          [
+            105.00000095367,
+            21.8000001907,
+            3.20000004768
+          ]
+        ]
+      },
+      {
+        "object_id": "12",
+        "instance_id": 0,
+        "bounds_mm": [
+          [
+            113.000000954,
+            10.0,
+            0.0
+          ],
+          [
+            123.6000013355,
+            95.0,
+            3.70000004768
+          ]
+        ]
+      },
+      {
+        "object_id": "14",
+        "instance_id": 0,
+        "bounds_mm": [
+          [
+            131.600001335,
+            10.0,
+            0.0
+          ],
+          [
+            142.2000017165,
+            95.0,
+            3.70000004768
+          ]
+        ]
+      }
+    ],
+    "meshes": [
+      {
+        "model": "3D/3dmodel.model",
+        "object_id": "1",
+        "vertices": 4135,
+        "triangles": 8326,
+        "signed_volume_mm3": 2674.719828
+      },
+      {
+        "model": "3D/3dmodel.model",
+        "object_id": "3",
+        "vertices": 264,
+        "triangles": 528,
+        "signed_volume_mm3": 14.760297
+      },
+      {
+        "model": "3D/3dmodel.model",
+        "object_id": "5",
+        "vertices": 260,
+        "triangles": 520,
+        "signed_volume_mm3": 15.312297
+      },
+      {
+        "model": "3D/3dmodel.model",
+        "object_id": "7",
+        "vertices": 1441,
+        "triangles": 2902,
+        "signed_volume_mm3": 437.772724
+      },
+      {
+        "model": "3D/3dmodel.model",
+        "object_id": "9",
+        "vertices": 1188,
+        "triangles": 2388,
+        "signed_volume_mm3": 158.647759
+      },
+      {
+        "model": "3D/3dmodel.model",
+        "object_id": "11",
+        "vertices": 708,
+        "triangles": 1420,
+        "signed_volume_mm3": 1164.671066
+      },
+      {
+        "model": "3D/3dmodel.model",
+        "object_id": "13",
+        "vertices": 708,
+        "triangles": 1420,
+        "signed_volume_mm3": 1182.341035
+      }
+    ],
+    "layout_checked": true,
+    "contains_toolpaths": false,
+    "not_checked": [
+      "Bambu Studio load/slicing",
+      "self-intersections",
+      "wall thickness and fit",
+      "support/brim/prime tower clearance",
+      "sequential-print toolhead clearance"
+    ],
+    "settings_changes": {},
+    "settings_bytes_unchanged": true
+  },
+  "removed_stale_template_cache_members": [
+    "Metadata/filament_sequence.json",
+    "Metadata/pick_1.png",
+    "Metadata/plate_1.png",
+    "Metadata/plate_1_small.png",
+    "Metadata/plate_no_light_1.png",
+    "Metadata/slice_info.config",
+    "Metadata/top_1.png"
+  ],
+  "studio_discovery": {
+    "found": false,
+    "checked": [],
+    "note": "Creating and structurally checking unsliced 3MF projects still works. For local Studio validation, set BAMBU_STUDIO_BIN to the application executable."
+  },
+  "studio_load_or_slice_performed": false,
+  "limitations": [
+    "No Bambu Studio load/slice check; no toolpaths or printer job",
+    "No PETG preset qualification; saved PLA settings preserved",
+    "No self-intersection, minimum-wall, support/brim or optical-performance qualification",
+    "CAD orientation retained; seven objects normalized to Z=0",
+    "Physical dimensional fit, thermal behavior and material suitability remain untested"
+  ]
+}

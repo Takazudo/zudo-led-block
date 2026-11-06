@@ -1,0 +1,202 @@
+{
+  "revision": "A5",
+  "manufacturing_released": false,
+  "overview_rows": [
+    [
+      "前面",
+      "A4の全面フロスト・透明文字を維持。確認済みSTEP/SVG/DXFを同梱。"
+    ],
+    [
+      "回路",
+      "3種類のネイティブ回路でERC 0件。LED基板・電源変換は配線/DRC完了。"
+    ],
+    [
+      "制御基板",
+      "59部品を配置。未配線130項目、コートヤードの投影重なり2件。サービスパッドを移設。"
+    ],
+    [
+      "機構",
+      "2HP/3HPの固体CADと印刷形状。全長ケーブルの交差・接触が一部残り、装着適合は未完。"
+    ],
+    [
+      "FW",
+      "STM32G031のARMビルドと7スイートのホスト試験を実行。書込み・実測は未実施。"
+    ],
+    [
+      "調達",
+      "30型番・81点。10台比較の部品代$8.7205/台。ケーブル等は別枠。"
+    ]
+  ],
+  "mechanical_preview": "mechanical/exports/2hp/light_block_A5_2hp_assembled.png",
+  "mechanical_rows": [
+    [
+      "基準と前面",
+      "PMMA裏面z=0。2 mm板。幅9.8 / 14.9 mm、高さ128.5 mm。"
+    ],
+    [
+      "制御基板",
+      "8.8 × 62.9 × 1.6 mm。y=48.5〜111.4、前面z=12.6。"
+    ],
+    [
+      "電源変換",
+      "8.8 × 30 × 1.6 mm。前面z=17.4。ヘッダの相手と端子も考慮。"
+    ],
+    [
+      "同一LED板×2",
+      "82.5 × 9 × 0.6 mm。z=19.4〜28.4。右側は上下反転。"
+    ],
+    [
+      "保持体と光学側板",
+      "各幅7個の連結した印刷部品。一般壁1.2 mm、局所0.6 mmを別記。解析後端29.8 mm。"
+    ]
+  ],
+  "cable_fit_ja": "各幅129固体を確認し、未解決の固定部品同士の干渉は0件。一方、配線は16件（電線同士12、電線と側板3、参照IDCとリボン1）が残ります。葉間線の局所曲率半径は約0.20〜0.28 mmと小さく、現在の経路は完成配線に使えません。R3リボンは2HP外へ2.0 mm、3HPでは端まで0.55 mm。実物の曲げ・線長・相手高さ・旗ラベルを含めて再配置します。[S12]",
+  "print_settings_ja": "Bambu H2D / 0.6 mmの保存済みテンプレートを保持した未スライスの形状確認用3MFです。元設定はPLAであり、PETG用に検証済みの材料設定やG-codeではありません。PETGの一致するプロファイルでスライス・造形確認が必要です。",
+  "board_rows": [
+    [
+      "controller",
+      "59点、4層案。配置済み・未配線。",
+      "ERC 0件。未接続130、コートヤード2。短絡・銅箔間隔・端の違反0。"
+    ],
+    [
+      "led_leaf ×2",
+      "各10点。同一0.6 mm FR-4。",
+      "ERC 0件。DRC違反0、未接続0。J1/J2で他側データを渡す。"
+    ],
+    [
+      "power_adapter",
+      "2点。IDC10とPicoBlade。",
+      "ERC 0件。DRC違反0、未接続0。電源線の1↔3反転を補償。"
+    ]
+  ],
+  "cv_protection_ja": "C13をCV_AFFINEへ移し、U7入力への放電経路に既存R7を入れました。CV±5 V、VDD 3.0〜3.6 V、抵抗±1%など明示した充電条件では、この経路を2.974 mA以下と計算できます。電源OFF時の約0.25 Vという結果は、他電源停止・放電済みのDC電流予算に限ります。任意の部分電源・過渡動作の保証ではありません。抵抗のみの公差は入力換算最大約0.273 Vで、実測校正は未実施です。5 V急降下時のTLV755P逆電流も別の確認条件です。[S1,S13]",
+  "firmware_build_ja": "STM32G031G8U6TR向けCソース、STM32CubeG0 v1.6.3の固定SDK、Makefile、ELF/HEX/BIN/MAPを同梱。ARM GCC 13.2.1でコンパイル・リンクしました。A5のADC式専用で、A4.1の回路へそのまま書き込むバイナリではありません。",
+  "firmware_check_rows": [
+    [
+      "ホスト試験",
+      "7スイート、987,189アサーション。故障・モード・ADC・タイミング等。"
+    ],
+    [
+      "サニタイザ",
+      "ASan / UBSan PASS。LeakSanitizerは実行環境制約により未実行。"
+    ],
+    [
+      "ARM / 割込み",
+      "実ファイルのコンパイル・リンク、未解決シンボル0、主要割込みベクタ確認。"
+    ],
+    [
+      "容量",
+      "Flash 10,712 / 65,536 B。静的RAM＋予約スタック3,848 / 8,192 B。"
+    ],
+    [
+      "実機との境界",
+      "クロック±3%を60,001点で計算。Flash書込み・波形・実動作は未確認。"
+    ]
+  ],
+  "remaining_rows": [
+    [
+      "制御基板",
+      "配線とDRCを完了。降圧ループ、部品公差、工場組立と検査アクセスを確認。"
+    ],
+    [
+      "完成ケーブル",
+      "モデルに残る電線の交差・側板接触を解消。IDC横出口、実際の曲げ・線長・ラベルを確認。"
+    ],
+    [
+      "機構とPETG",
+      "ジャック/スイッチ荷重、薄肉、端子トリム、PMMA締付、スライスと実物の保持力。"
+    ],
+    [
+      "電源とCV",
+      "部分電源、急な電源断、LDO逆電流、CV注入、起動/短絡、高温を測定。"
+    ],
+    [
+      "故障復帰",
+      "5 Vだけの低下、保持したBOR、バックアップ喪失を別々に評価。"
+    ],
+    [
+      "工場資料",
+      "最終Gerber/穴/BOM/CPL、ケーブル図、書込み・校正手順、数量別見積り。"
+    ],
+    [
+      "統合試作",
+      "CV/THRU、LED波形、光、Kumikoへの照射、温度、挿抜強度をまとめて評価。"
+    ]
+  ],
+  "check_rows": [
+    [
+      "前面・復元",
+      "既存247ファイルを復元照合。前面29ファイルの独立監査を継続、対象ハッシュ確認。"
+    ],
+    [
+      "ネイティブ回路",
+      "KiCad 10.0.8で3回路のERC/XML/PDF出力。ERC 0件。既定の除外カテゴリを記録。"
+    ],
+    [
+      "ピンと数量",
+      "XMLネットリスト42項目PASS。2本の線を通る独立データ、電源、C13、81点のBOMを照合。"
+    ],
+    [
+      "基板・機構",
+      "LED/変換DRC 0件。各幅129固体とSTEP往復を確認。未解決の固定干渉0、条件付き配線16件。"
+    ],
+    [
+      "FW",
+      "ホスト・ARMの実行記録。305ソースと4ビルド成果物のハッシュを独立照合。"
+    ],
+    [
+      "XLSX / PDF",
+      "台数・価格帯・合計・ゼロ/空欄を検算。既存機能を保持。変更箇所と全PDF頁を目視確認。"
+    ]
+  ],
+  "led_datasheet_url": "https://www.world-semi.com/downloads/datasheets/en/ws2812b-2020-v6-1.0.pdf",
+  "pcb_checkpoint": {
+    "controller": {
+      "pcb_sha256": "b5fff82b709cdc6d7462bad8ab15e4f371681f255ede4f4f9a7f15e7e331d409",
+      "drc_sha256": "39d85c1af9bff15fa1142a2fc2fb7f76f970c28d274d189433528ab006eea941",
+      "counts": {
+        "violations": 2,
+        "unconnected_items": 130,
+        "schematic_parity": 0
+      }
+    },
+    "led_leaf": {
+      "pcb_sha256": "6244280cec3efe00ca31d9c5c8878f3ed6eb59a1c6bd4e933beffedd49511df3",
+      "drc_sha256": "2a9e4185f87827600c848bff5b25a0891b66e313b2edb0368be4c3a1c93e8451",
+      "counts": {
+        "violations": 0,
+        "unconnected_items": 0,
+        "schematic_parity": 0
+      }
+    },
+    "power_adapter": {
+      "pcb_sha256": "b0f071f2730afdfd3d29de2176b1cce5f90b0c0726d14fd15501e27f90d95187",
+      "drc_sha256": "c2b32595c66b989df4ecbfa626a4202b17ad2deda3e22377e32829d1d181c41e",
+      "counts": {
+        "violations": 0,
+        "unconnected_items": 0,
+        "schematic_parity": 0
+      }
+    }
+  },
+  "mechanical_status": "129 valid modeled solids and seven connected printable parts per width; assembled/exploded STEP readback passed. No unresolved retained-part collisions. Each variant has16 declared conditional cable findings and no installed-fit PASS. Rear29.8mm is a modeled bound; 2HP IDC R3 scenario extends2.0mm beyond width; 3HP width margin0.55mm.",
+  "supporting_records": {
+    "mechanical": "integration/mechanical_review.json",
+    "electronics": "electronics/reports/pcb_qualification.json",
+    "print_projects": "mechanical/print_packaging/validation_index.json"
+  },
+  "mechanical_views": [
+    {
+      "path": "mechanical/exports/2hp/light_block_A5_2hp_assembled.png",
+      "caption": "2HP：組立検討モデル"
+    },
+    {
+      "path": "mechanical/exports/2hp/light_block_A5_2hp_exploded.png",
+      "caption": "2HP：分解表示"
+    },
+    {
+      "path": "mechanical/exports/3hp/light_block_A5_3hp_assembled.png",
+      "caption": "3HP：同じ電子回路を使用"
+    }
+  ]
+}
