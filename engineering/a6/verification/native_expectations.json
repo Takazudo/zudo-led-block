@@ -1,0 +1,64 @@
+{
+ "schema": 1,
+ "note": "Reviewed expectations for scripts/a6_native_verify.py. Raw KiCad reports are never edited; every tolerated item is listed here with its reason. Anything not listed fails the gate.",
+ "kicad_version": "10.0.8",
+ "included_severities": ["error", "warning", "exclusion"],
+ "ignored_checks": [
+  {"description": "Footprint has no courtyard defined", "key": "missing_courtyard"},
+  {"description": "Track endpoint not centered on via", "key": "track_not_centered_on_via"},
+  {"description": "Tuning profile track geometries", "key": "tuning_profile_track_geometries"},
+  {"description": "Footprint doesn't match symbol's footprint filters", "key": "footprint_filters_mismatch"},
+  {"description": "Footprint component type doesn't match footprint pads", "key": "footprint_type_mismatch"}
+ ],
+ "ignored_checks_note": "KiCad 10.0.8 default ignore set; the project files define no exclusions and no custom rules. A change to this set fails the gate.",
+ "limits": {"native_deadline_s": 600, "cleanup_reserve_s": 60, "design_deadline_s": 240},
+ "designs": {
+  "controller": {
+   "role": "A6 routed candidate",
+   "erc_violations_max": 0,
+   "board_only": ["H1", "H2"],
+   "refill_check": true,
+   "parity_dispositions": {},
+   "parity_counts": {},
+   "drc_residuals": [
+    {"id": "A6-R1", "type": "courtyards_overlap", "refs": ["H1", "J3"],
+     "reason": "Fixed interfaces: J3 anchor (Y60.5 world) and the upper M2 mount (Y65 world) are both frozen contracts. The overlap is between the J3 B-side courtyard and the H1 B-side screw-head courtyard; copper, holes and clearances are DRC-clean.",
+     "evidence": "engineering/a6/verification/residuals.md#a6-r1",
+     "review": "engineering/a6/verification/residuals.md#a6-r1-review"}
+   ]
+  },
+  "led_leaf": {
+   "role": "frozen A5 board, positive control, freshly checked",
+   "erc_violations_max": 0,
+   "board_only": [],
+   "parity_dispositions": {"net_prefix_only": true, "no_connect_unnamed": true, "missing_fields": ["MPN"]},
+   "parity_counts": {"net_prefix_only": 31, "no_connect_unnamed": 1, "missing_field": 10},
+   "drc_residuals": []
+  },
+  "power_adapter": {
+   "role": "frozen A5 board, positive control, freshly checked",
+   "erc_violations_max": 0,
+   "board_only": [],
+   "parity_dispositions": {"net_prefix_only": true, "missing_fields": ["MPN"], "extra_footprints": ["H1"]},
+   "parity_counts": {"net_prefix_only": 13, "missing_field": 2, "extra_footprint": 1},
+   "drc_residuals": []
+  }
+ },
+ "parity_disposition_note": "Frozen A5 leaf/adapter boards name nets without the schematic's '/' sheet prefix, leave the no-connect pin D4.1 (DOUT of the last LED) without the schematic's generated 'unconnected-(...)' net name, omit the MPN field and (adapter) carry the mechanical hole H1 without a symbol. These are naming/metadata classes only: the gate separately proves pad-by-pad net equality after stripping the prefix (independent parity). The A6 controller board uses schematic net names, carries the fields and marks H1/H2 board-only, so it tolerates no parity item.",
+ "controls": {
+  "expected_failure": {
+   "a5_controller_expected_failure": {
+    "dir": "engineering/a5/electronics/native/controller", "schematic": "controller.kicad_sch", "board": "controller.kicad_pcb",
+    "violations": [{"type": "courtyards_overlap", "refs": ["C7", "J3"]}, {"type": "courtyards_overlap", "refs": ["H1", "J3"]}],
+    "unconnected": 130
+   }
+  },
+  "timeout": {"design": "controller", "deadline_s": 0.01},
+  "mutations": {
+   "control_route_break": {"design": "controller", "kind": "route_break", "must_report": ["unconnected"]},
+   "control_wrong_connection": {"design": "controller", "kind": "wrong_connection", "must_report": ["R14"]}
+  },
+  "synthetic_design": "controller"
+ },
+ "evidence": {"allowed_names": ["erc.json", "drc.json", "netlist.xml", "board_facts.json", "board_geometry.json", "refill.json", "inner_record.json", "interface_check.json"]}
+}

@@ -227,9 +227,85 @@ jobs:
           retention-days: 3
           if-no-files-found: warn
 
+  a6-native:
+    name: A6 native KiCad 10.0.8 gate
+    runs-on: ubuntu-24.04
+    # One hosted runner. Explicit step budgets sum to 23 min inside the 25 min job limit.
+    timeout-minutes: 25
+    env:
+      # Digest-pinned KiCad 10.0.8 (amd64). The same reference is recorded in engineering/a6/manifest.json
+      # and the gate refuses to run if the two differ.
+      KICAD_IMAGE: kicad/kicad:10.0.8@sha256:3f4a01786dfbe803a65f345c3342b765db9add913f5e9448f8356793714ddc34
+      PYTHONDONTWRITEBYTECODE: "1"
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - uses: actions/setup-python@6d4fd22b20465ccc0f7354476588e8df7c9ca0e0 # v7.1.0
+        with:
+          python-version: ${{ env.PYTHON_VERSION }}
+      - name: Failure receipt (written before any long work) and image reference check
+        timeout-minutes: 1
+        run: |
+          mkdir -p "$RUNNER_TEMP/a6-receipt"
+          printf '{"status":"STARTED_INCOMPLETE","sha":"%s"}\n' "$GITHUB_SHA" > "$RUNNER_TEMP/a6-receipt/receipt.json"
+          test "$(python3 -c 'import json;print(json.load(open("engineering/a6/manifest.json"))["image"])')" = "$KICAD_IMAGE"
+      - name: Evaluator guard tests (normal and python -O)
+        timeout-minutes: 2
+        run: |
+          python3 -m unittest discover -s scripts/tests -p 'test_a6_*.py'
+          python3 -O -m unittest discover -s scripts/tests -p 'test_a6_*.py'
+      - name: Pull digest-pinned KiCad image
+        timeout-minutes: 4
+        run: |
+          docker pull "$KICAD_IMAGE"
+          docker image inspect "$KICAD_IMAGE" --format '{{json .RepoDigests}} {{.Architecture}}' | tee "$RUNNER_TEMP/a6-receipt/image.txt"
+      - name: Native gate (ERC, netlists, interface assertions, parity, DRC, refill, controls)
+        timeout-minutes: 12
+        run: python3 scripts/a6_native_verify.py --repo . --out "$RUNNER_TEMP/a6-native" --deadline-s 660
+      - name: Checkpoint and routed board left unmodified
+        if: always()
+        timeout-minutes: 1
+        run: |
+          python3 scripts/verify_seed.py --manifest provenance/seed-manifest.json --repo . > /dev/null
+          git status --porcelain --untracked-files=all | tee "$RUNNER_TEMP/a6-receipt/status.txt"
+          test ! -s "$RUNNER_TEMP/a6-receipt/status.txt"
+          test -z "$(docker ps -aq --filter label=zudo-led-block.a6-native)"
+      - name: Summary
+        if: always()
+        timeout-minutes: 1
+        run: |
+          python3 - "$RUNNER_TEMP/a6-native/summary.json" >> "$GITHUB_STEP_SUMMARY" <<'PY'
+          import json, sys
+          try:
+              s = json.load(open(sys.argv[1]))
+          except (OSError, ValueError) as e:
+              print(f"### A6 native gate: NO SUMMARY ({e}) - treated as failure"); sys.exit(0)
+          print(f"### A6 native gate (fresh, this run): {s.get('status')}")
+          print(f"- Tested board SHA-256: `{s.get('tested_board_sha256')}`")
+          print(f"- Image: `{s.get('image')}`")
+          for n, r in (s.get('results', {}).get('designs') or {}).items():
+              print(f"- `{n}`: {'PASS' if r.get('ok') else 'FAIL'} {json.dumps(r.get('facts', {}).get('parity_classes', {}))}")
+          for f in s.get('failures', [])[:30]:
+              print(f"  - FAIL: {f}")
+          print("A green gate is not an electronics or manufacturing approval.")
+          PY
+      - uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
+        if: always()
+        timeout-minutes: 2
+        with:
+          name: a6-native-evidence
+          path: |
+            ${{ runner.temp }}/a6-receipt/
+            ${{ runner.temp }}/a6-native/summary.json
+            ${{ runner.temp }}/a6-native/plan.json
+            ${{ runner.temp }}/a6-native/evidence/
+          retention-days: 7
+          if-no-files-found: warn
+
   deploy-gate:
     name: Deploy gate
-    needs: [a5-data, firmware-host, firmware-arm, docs]
+    needs: [a5-data, firmware-host, firmware-arm, docs, a6-native]
     # Always report, including when a validation job failed (then deploy is skipped).
     if: always()
     runs-on: ubuntu-24.04
@@ -258,7 +334,7 @@ jobs:
 
   production-deploy:
     name: Production deploy
-    needs: [a5-data, firmware-host, firmware-arm, docs]
+    needs: [a5-data, firmware-host, firmware-arm, docs, a6-native]
     if: >-
       github.repository == 'Takazudo/zudo-led-block' &&
       github.ref == 'refs/heads/main' &&
