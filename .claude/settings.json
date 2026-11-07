@@ -1,0 +1,7 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(docker run --rm --network none --cpus 2 --memory 3g * eclipse-temurin:21-jre java -jar /w/freerouting.jar *)"
+    ]
+  }
+}
