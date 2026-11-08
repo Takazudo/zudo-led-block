@@ -32,8 +32,8 @@ REPORT = MECH / "layout.md"
 ENVELOPES = MECH / "placement-envelopes.json"
 R4_PLACEMENT = MECH / "inputs" / "r4-board-placement-routed.json"
 R4_CHECK = MECH / "r4-placement-check.json"
-# Vendored unchanged from R4 (#19) PR #30, branch claude/project-thread-rhjln2, head 493155e: routed-board export (authority.py export-placement).
-R4_PLACEMENT_SOURCE = {"pr": 30, "branch": "claude/project-thread-rhjln2", "head": "493155e33067b0cf082045ef4fa6ee3f3a84a864",
+# Vendored unchanged from R4 (#19) PR #30, branch claude/project-thread-rhjln2, head e2a2219: routed-board export after layout review (authority.py export-placement).
+R4_PLACEMENT_SOURCE = {"pr": 30, "branch": "claude/project-thread-rhjln2", "head": "e2a221936bc39321f4054ac3a44b3176a1bb2705",
                        "path": "engineering/a7/electronics/controller/board_placement.json", "status": "ROUTED, PR #30 not merged"}
 SKILLS = REPO / ".claude" / "skills"
 SWITCH_FACTS = SKILLS / "component-a7-pcm13smtr" / "facts.json"
