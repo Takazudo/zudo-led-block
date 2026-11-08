@@ -34,7 +34,7 @@ Accepted direction from the owner (2026-11-08):
 |---|---|---|---|
 | A5 | `engineering/a5/` | Immutable byte-for-byte checkpoint (2026-11-06 JST). Controller placed, unrouted. All ERC/DRC/test results are historical records | the reference netlist, pin assignments, firmware, BOM and evidence A7 builds on |
 | A6 | branch `claude/project-thread-391rx3` @ `7e96380`, draft PR [#14](https://github.com/Takazudo/zudo-led-block/pull/14), issue [#7](https://github.com/Takazudo/zudo-led-block/issues/7) | **Held, not merged.** Fixed 8.8 mm controller, placed but unrouted (125 unconnected); automated routing never reached zero | routing-attempt records only. A7 does not complete A6, and A6 work is not counted as A7 progress |
-| A7 | `engineering/a7/` | Study, verification foundation and reviewed controller schematic merged; mechanical model in draft PR #25; board placement and routing not started | everything new |
+| A7 | `engineering/a7/` | Study, verification foundation and reviewed controller schematic merged; mechanical model in draft PR #25; board placement done locally, autorouting in progress, no PR yet | everything new |
 
 ## Task map (epic #15)
 
@@ -74,7 +74,7 @@ retrieved.
 
 | Blocker | Blocks | Needs | Tracked in |
 |---|---|---|---|
-| No A7 board (not placed or routed) | A7 gate, A7 BOM, placement export | R2 outline, then R4 placement and routing | #19 |
+| No A7 board on `main` (placement local only, not routed) | A7 gate, A7 BOM, placement export | R2 merge, then the R4 routing PR | #19 |
 | Mechanical model not on `main` | board outline, jack/switch positions, depth check | PR #25 corrections and merge | #17 |
 | PJ-324M axis height only inferred (≈3.0, band 2.6–3.4) | 2HP lead-side margin | dimensioned drawing, 3D model or measured part | Q1 |
 | PJ-324M pin functions inferred | CV_THRU vs GND mapping | bench continuity test with TS and TRS plugs | Q2, #10 |

@@ -20,7 +20,7 @@ A7 は [#15](https://github.com/Takazudo/zudo-led-block/issues/15) で追跡し�
 |---|---|---|
 | A5 | `engineering/a5/` | 不変のチェックポイント (2026-11-06 JST)。制御基板は配置のみ・未配線。ERC / DRC / 試験の結果はすべて **履歴上の記録**。A7 の基準として使う |
 | A6 | ブランチ `claude/project-thread-391rx3` (`7e96380`)、ドラフト PR [#14](https://github.com/Takazudo/zudo-led-block/pull/14)、[#7](https://github.com/Takazudo/zudo-led-block/issues/7) | **保留。`main` には入っていません**。幅 8.8 mm 固定の制御基板は配置のみで、自動配線では未接続を 0 にできませんでした (未接続 125)。A7 は A6 の配線を完了させるものではなく、A6 の作業は A7 の進捗に数えません |
-| A7 | `engineering/a7/` | 部品・寸法の検討、検証の基盤、制御基板の回路図が `main` に入りました。機構はドラフト PR、基板 (配置・配線) は未着手 |
+| A7 | `engineering/a7/` | 部品・寸法の検討、検証の基盤、制御基板の回路図が `main` に入りました。機構はドラフト PR、基板は作業中 (配置はローカルで完了、自動配線中、PR はまだ無い) |
 
 ## A7 の方針 (2026-11-08 に採用)
 
@@ -44,7 +44,7 @@ A7 は [#15](https://github.com/Takazudo/zudo-led-block/issues/15) で追跡し�
 | R1 部品と寸法の検討 | [#16](https://github.com/Takazudo/zudo-led-block/issues/16) | **完了** (PR #23)。[A7 部品と寸法の検討](/docs/research/a7-parts-and-dimensions/) |
 | R2 機構モデルと前面アートワーク | [#17](https://github.com/Takazudo/zudo-led-block/issues/17) | **未完了**。ドラフト PR [#25](https://github.com/Takazudo/zudo-led-block/pull/25) (ジャック本体の向きとスイッチ–ジャック間の隙間の修正を含む)。`main` には未反映 |
 | R3 ネイティブ検証の基盤 | [#18](https://github.com/Takazudo/zudo-led-block/issues/18) | **完了** (PR #22)。A7 の基板がまだ無いため、A7 のゲートは `NO_CANDIDATE` で止まる。フィクスチャでの合格は検証機構の確認で、A7 基板の合格ではない |
-| R4 回路図・配置・配線 | [#19](https://github.com/Takazudo/zudo-led-block/issues/19) | **回路図だけ完了** (PR [#24](https://github.com/Takazudo/zudo-led-block/pull/24)、独立した電気レビュー済み、状態 `SCHEMATIC_REVIEWED`)。基板は未配置・未配線で、A7 のゲートは `NO_CANDIDATE` のまま。配置・配線は **未着手** (R2 の外形待ち) |
+| R4 回路図・配置・配線 | [#19](https://github.com/Takazudo/zudo-led-block/issues/19) | **回路図だけ完了** (PR [#24](https://github.com/Takazudo/zudo-led-block/pull/24)、独立した電気レビュー済み、状態 `SCHEMATIC_REVIEWED`)。`main` に A7 の基板は無く、A7 のゲートは `NO_CANDIDATE` のまま。配置・配線は **作業中** (配置はローカルで完了、自動配線中、PR はまだ無い) |
 | R5 ドキュメントと引継ぎ | [#20](https://github.com/Takazudo/zudo-led-block/issues/20) | このページ。R2 / R4 が入るたびに更新 |
 
 A5 の部品証跡カタログ (30 型番) は PR #21 で入りました。メーカー資料を取得できなかった項目のため [#9](https://github.com/Takazudo/zudo-led-block/issues/9) は開いたままです。
@@ -66,7 +66,7 @@ A7 の部品は `line-a7-` の行として部品カタログに登録してい�
 
 | 未解決 | 影響するもの | 必要なもの | 追跡 |
 |---|---|---|---|
-| 基板が無い (未配置・未配線) | A7 のゲート、A7 の BOM、配置のエクスポート | R2 の外形と R4 の配置・配線 | #19 |
+| `main` に基板が無い (配置はローカルのみ、未配線) | A7 のゲート、A7 の BOM、配置のエクスポート | R2 のマージと R4 の配線 PR | #19 |
 | 機構モデルが `main` に無い | 基板の外形、ジャック・スイッチの位置、奥行き | PR #25 の修正 | #17 |
 | PJ-324M の軸高さが推定 (約 3.0、2.6〜3.4) | 2HP の端子側の余裕 | 寸法入りの図面、3D モデル、実測 | Q1 |
 | PJ-324M のピン機能が推定 | CV_THRU と GND の割り当て | TS / TRS プラグでの導通確認 | Q2、#10 |

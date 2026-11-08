@@ -51,7 +51,7 @@ re-run KiCad or CadQuery for these records.
 
 ### In flight (not on main)
 
-A7 board placement and routing (R4) has not started; it waits for the R2 outline.
+A7 board placement and routing (R4): placement of all 64 parts done locally against the R2 envelopes, autorouting in progress, no PR yet. Nothing of it is on `main`.
 
 | Evidence | PR | State when last checked |
 |---|---|---|
