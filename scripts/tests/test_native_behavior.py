@@ -76,10 +76,10 @@ class InterfaceTests(unittest.TestCase):
         self.assertTrue(r['all_passed'], self.failed(r))
         self.assertGreaterEqual(len(r['checks']), 40)
 
-    def test_a7_draft_roles_cannot_pass(self):
+    def test_a7_roles_cannot_pass_on_a5_netlists(self):
         r = itf.check(netlists(), ROLES / 'a7_controller.json')
         self.assertFalse(r['all_passed'])
-        for cid in ('cv.passive_thru', 'mode.common_gnd', 'roles.reviewed'):
+        for cid in ('cv.passive_thru', 'mode.common_gnd', 'cv.jack_in_pins_covered'):
             self.assertIn(cid, self.failed(r))
 
     def test_thru_tip_moved_off_cv_net(self):
@@ -198,9 +198,11 @@ class DeltaTests(unittest.TestCase):
         rec = copy.deepcopy(self.rec); rec['entries'] = [{'kind': 'pin_moved', 'pin': 'R9.1'}]
         self.assertFalse(self.run_check(rec, REPO / self.BASE)['ok'])
 
-    def test_a7_record_cannot_pass_yet(self):
+    def test_a7_record_does_not_authorize_the_a5_netlist(self):
+        # the replacements are stale against A5 itself, so they cannot exempt J1/J2/SW1 pins there
         r = dl.check(REPO / 'engineering/a7/verification/authorized_delta.json', REPO / self.BASE, REPO)
         self.assertFalse(r['ok'])
+        self.assertTrue(any('stale authorization' in f and 'component_replaced' in f for f in r['failures']))
 
 
 class AuthorityTests(unittest.TestCase):

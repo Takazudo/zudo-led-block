@@ -1,12 +1,10 @@
 {
- "ok": false,
- "failures": [
-  "authorized-delta record has no review entry; an unreviewed record cannot authorize anything"
- ],
+ "ok": true,
+ "failures": [],
  "baseline": "engineering/a5/integration/native_schematic/controller/netlist.xml",
  "baseline_sha256": "fa2d267acc4081156649ee15e014fbaeae4303bc96374fe19f4bae7b3a72553f",
- "candidate_sha256": "26756a4edcd1f15de8c0b501b4ce7a70f6827c4bd95a9b2216ae144b231b2618",
- "record_sha256": "766699d415111dcd78ee87571241db46b23eff36e75437f08747f8335c971697",
+ "candidate_sha256": "a944cec8877d272637a85afae9f980d4d5e54888453f0f9652a2dd41e575b7cc",
+ "record_sha256": "245960f65219a62d9119ea94efd577d8ac7c59d1b94c1196c3507bd230112bf0",
  "observed_delta": [
   {
    "kind": "field_changed",

@@ -6,7 +6,22 @@
   "sha256": "fa2d267acc4081156649ee15e014fbaeae4303bc96374fe19f4bae7b3a72553f",
   "label": "A5 controller XML netlist; the native infrastructure run shows a fresh KiCad 10.0.8 export of the A5 schematic equals it with no delta"
  },
- "review": null,
+ "review": {
+  "by": "independent electrical reviewer (separate Claude thread, not the author of this change)",
+  "scope": "schematic/netlist delta: role map pin identities, authorized-delta connectivity, PCM13SMTR and PJ-324M footprints against the drawings",
+  "head": "1a2f31a5b599a2a9c92515bc94a440bb9482dd7e",
+  "record": "https://github.com/Takazudo/zudo-led-block/pull/24#pullrequestreview-5818088400 (first pass: review 5818084195 series; findings fixed in 1a2f31a)",
+  "date": "2026-11-08",
+  "verdict": "approved for the schematic phase; not an approval of the board, routing or physical gates",
+  "open_physical_gates": [
+   "PJ-324M pin functions (tip/ring/sleeve/normals) by TS/TRS continuity test of incoming parts",
+   "PJ-324M across-axis sign (drawing view direction) against the component side",
+   "PJ-324M hole/slot sizes (Q3)",
+   "PJ-324M axis height (INFERRED ~3.0, Q1)",
+   "PCM13SMTR body centring on the peg line (ASSUMED)",
+   "PCM13SMTR sourcing, JLC stock 0 (Q10)"
+  ]
+ },
  "entries": [
   {
    "kind": "component_replaced",
@@ -105,6 +120,5 @@
  "candidate": {
   "schematic": "engineering/a7/electronics/controller/controller.kicad_sch",
   "generator": "scripts/a7_electronics.py generate"
- },
- "review_note": "Not yet independently reviewed. Until a review entry is recorded here this record cannot authorize anything and the delta check fails by design (R4 #19)."
+ }
 }

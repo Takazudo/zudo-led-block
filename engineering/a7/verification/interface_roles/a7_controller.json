@@ -1,8 +1,23 @@
 {
  "schema": 1,
- "status": "draft_inferred",
- "what": "A7 controller role map. Behavior is fixed in scripts/native_gate/interface.py; only pin identities live here. Jack and switch roles are filled from R1 evidence (#16) and are INFERRED/MIRROR, so this map is not reviewed: the roles.reviewed assertion fails until an independent review is recorded and the status changes.",
- "review": null,
+ "status": "reviewed",
+ "what": "A7 controller role map. Behavior is fixed in scripts/native_gate/interface.py; only pin identities live here. Jack and switch roles come from R1 evidence (#16); the identities are reviewed as the intended connectivity, while the PJ-324M pin functions remain INFERRED until the incoming-part continuity test (see review.open_physical_gates).",
+ "review": {
+  "by": "independent electrical reviewer (separate Claude thread, not the author of this change)",
+  "scope": "schematic/netlist delta: role map pin identities, authorized-delta connectivity, PCM13SMTR and PJ-324M footprints against the drawings",
+  "head": "1a2f31a5b599a2a9c92515bc94a440bb9482dd7e",
+  "record": "https://github.com/Takazudo/zudo-led-block/pull/24#pullrequestreview-5818088400 (first pass: review 5818084195 series; findings fixed in 1a2f31a)",
+  "date": "2026-11-08",
+  "verdict": "approved for the schematic phase; not an approval of the board, routing or physical gates",
+  "open_physical_gates": [
+   "PJ-324M pin functions (tip/ring/sleeve/normals) by TS/TRS continuity test of incoming parts",
+   "PJ-324M across-axis sign (drawing view direction) against the component side",
+   "PJ-324M hole/slot sizes (Q3)",
+   "PJ-324M axis height (INFERRED ~3.0, Q1)",
+   "PCM13SMTR body centring on the peg line (ASSUMED)",
+   "PCM13SMTR sourcing, JLC stock 0 (Q10)"
+  ]
+ },
  "carried_from_a5": "MCU pins, CV chain, LED power and stream roles are carried from a5_reference.json; the A7 schematic keeps them (scripts/a7_electronics.py changes only J1, J2 and SW1, and the delta check shows no other connectivity change).",
  "controller": {
   "mcu.vdd": "U1.3",

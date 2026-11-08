@@ -1,5 +1,5 @@
 {
- "status": "SCHEMATIC_UNREVIEWED",
+ "status": "SCHEMATIC_REVIEWED",
  "board_result": "NONE (schematic phase; A7 revision gate stays NO_CANDIDATE)",
  "image": "kicad/kicad:10.0.8@sha256:3f4a01786dfbe803a65f345c3342b765db9add913f5e9448f8356793714ddc34",
  "kicad_version": "10.0.8",
@@ -16,24 +16,17 @@
   "stderr_tail": ""
  },
  "failures": [],
- "review_pending": [
-  "interface: roles.reviewed",
-  "delta: authorized-delta record has no review entry; an unreviewed record cannot authorize anything"
- ],
+ "review_pending": [],
  "erc_violations": 0,
  "parity_issues": 0,
  "staging_board_note": "unrouted staging board at A5 placements; its DRC and unconnected counts are not a board result and are not evaluated",
  "interface": {
-  "checks": 52,
-  "failed": [
-   "roles.reviewed"
-  ],
+  "checks": 51,
+  "failed": [],
   "errors": []
  },
  "delta": {
-  "failures": [
-   "authorized-delta record has no review entry; an unreviewed record cannot authorize anything"
-  ],
+  "failures": [],
   "observed": 12,
   "replaced_refs": [
    "J1",

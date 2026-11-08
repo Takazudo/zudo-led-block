@@ -1,12 +1,12 @@
 {
  "method": "Behavioral interface assertions on KiCad XML netlists via a reviewed role map",
  "roles": "/home/user/zudo-led-block/engineering/a7/verification/interface_roles/a7_controller.json",
- "roles_sha256": "b444e5e47eb5cf309dc4332c56704a0af074c29335ced843bfd87615ad35ec10",
- "role_map_status": "draft_inferred",
+ "roles_sha256": "e20ac9978740196cf71bf0fcb4ba0f36c1a019f6da930541d6f8b3d7a9389b28",
+ "role_map_status": "reviewed",
  "netlists": {
   "controller": {
-   "path": "/tmp/claude-0/-home-user-zudo-led-block/05509268-86ba-5de7-8086-a9c696616ce9/scratchpad/r4check5/netlist.xml",
-   "sha256": "26756a4edcd1f15de8c0b501b4ce7a70f6827c4bd95a9b2216ae144b231b2618"
+   "path": "/tmp/claude-0/-home-user-zudo-led-block/05509268-86ba-5de7-8086-a9c696616ce9/scratchpad/r4check6/netlist.xml",
+   "sha256": "a944cec8877d272637a85afae9f980d4d5e54888453f0f9652a2dd41e575b7cc"
   },
   "led_leaf": {
    "path": "/home/user/zudo-led-block/engineering/a5/integration/native_schematic/led_leaf/netlist.xml",
@@ -582,16 +582,9 @@
     "power_adapter:J1.10": "/+12V_RAW",
     "power_adapter:J2.3": "/+12V_RAW"
    }
-  },
-  {
-   "id": "roles.reviewed",
-   "check": "Role map is reviewed (status and review record)",
-   "passed": false,
-   "status": "draft_inferred",
-   "review": null
   }
  ],
- "all_passed": false,
+ "all_passed": true,
  "limits": [
   "No hardware test",
   "Does not prove analog behaviour, routing or switch lever direction",

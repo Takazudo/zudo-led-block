@@ -101,15 +101,21 @@ class ReviewGateTests(unittest.TestCase):
     def tearDown(self):
         self.td.cleanup()
 
-    def test_a7_behavior_passes_but_unreviewed_roles_fail(self):
+    def test_a7_reviewed_roles_pass_and_unreviewed_copy_fails(self):
         r = itf.check(netlists(), EV / 'interface_roles/a7_controller.json')
-        self.assertEqual(failed(r), ['roles.reviewed'])
+        self.assertEqual(failed(r), [])
+        self.assertTrue(r['all_passed'])
+        u = json.loads((EV / 'interface_roles/a7_controller.json').read_text())
+        u['review'] = None
+        p = self.d / 'unreviewed.json'
+        p.write_text(json.dumps(u))
+        self.assertEqual(failed(itf.check(netlists(), p)), ['roles.reviewed'])
         truth = [c for c in r['checks'] if c['id'] == 'mode.truth_table'][0]
         self.assertEqual(truth['derived'], {'ON': [0, 1], 'PGM': [1, 1], 'CV': [1, 0]})
 
     def test_a7_roles_fail_on_a5_netlist(self):
         r = itf.check(netlists(A5_NL / 'controller/netlist.xml'), EV / 'interface_roles/a7_controller.json')
-        for cid in ('cv.passive_thru', 'mode.common_gnd', 'mode.b_input', 'roles.reviewed'):
+        for cid in ('cv.passive_thru', 'mode.common_gnd', 'mode.b_input'):
             self.assertIn(cid, failed(r))
 
     def test_spare_switch_contact_connected_is_caught(self):
@@ -143,10 +149,15 @@ class ReviewGateTests(unittest.TestCase):
         r = itf.check(netlists(), self.roles_with(**{'sw.unused': []}))
         self.assertIn('mode.switch_pins_covered', failed(r))
 
-    def test_delta_fails_only_on_missing_review(self):
+    def test_delta_passes_reviewed_and_fails_without_review(self):
         r = dl.check(EV / 'authorized_delta.json', A7_NL, REPO)
-        self.assertEqual(r['failures'], [REVIEW_FAIL])
+        self.assertTrue(r['ok'], r['failures'])
         self.assertEqual(r['replaced_refs'], ['J1', 'J2', 'SW1'])
+        rec = json.loads((EV / 'authorized_delta.json').read_text())
+        rec['review'] = None
+        p = self.d / 'rec.json'
+        p.write_text(json.dumps(rec))
+        self.assertEqual(dl.check(p, A7_NL, REPO)['failures'], [REVIEW_FAIL])
 
     def test_delta_with_review_passes_and_rejects_other_moves(self):
         rec = json.loads((EV / 'authorized_delta.json').read_text())
