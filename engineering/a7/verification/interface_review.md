@@ -26,8 +26,9 @@ centring is ASSUMED, until the physical gates listed in the map's `review.open_p
 
 Measured on the committed board (revision 2, sha256 `4453f818…628e`) with `scripts/a7_route.py`'s proposal
 (`routing/route_proposal_seed0.json`). The native gate result is the authority for connectivity. Revision 2 applies
-the four non-blocking polish items from the PR #30 re-review. It was re-reviewed on PR #37 (reviews 5818789798 and
-5818812844, approving comment 6724516695, head `ae5aa3c`) and merged to main as `edf98c2`.
+the four non-blocking polish items from the PR #30 re-review. It passed independent re-review on PR #37: review
+5818812844 on head `ae5aa3c` (go, no blocking findings; it cleared the changes-requested review 5818789798 on
+`eb5d833`). It merged to main as `edf98c2`.
 
 | Item | Disposition |
 |---|---|

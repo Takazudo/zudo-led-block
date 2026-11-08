@@ -55,6 +55,8 @@
   "copper_to_edge_mm": 0.3,
   "coverlay_expansion_mm": 0.1,
   "min_coverlay_bridge_mm": 0.5,
+  "coverlay_opening_to_trace_mm": {"value": 0.15, "implied_pad_to_track_mm": 0.25, "note": "With the 0.1 mm coverlay expansion an exposed pad needs >= 0.25 mm to any other track. Measured on the A5 leaf by native DRC with a pad-to-track rule: no hit at 0.25 mm; the minimum is 0.30 mm (J1/J2 MP pads to the nearest track). Met; recorded here, not encoded as a verdict."},
+  "pth_annular_ring_mm": {"recommended": 0.25, "absolute_min": 0.18, "applies_to_vias": "NOT_STATED", "note": "The A5 leaf vias (0.6/0.3) have a 0.15 mm ring and fail this row if JLC applies it to vias as well as component holes. Recorded under Q11e, not encoded as a verdict."},
   "smt_only": true,
   "smt_only_source": "engineering/a7/pet-fpc.md (THT and wave soldering on PET not stated; leaf must stay SMT-only)"
  },
@@ -81,7 +83,7 @@
  },
  "open_questions_ref": "engineering/a7/open-questions.md Q11d (1-layer cannot carry the A5 copper), Q11e (plated vias on 2-layer transparent PET), Q11f (0.2 mm coverlay bridges vs the 0.5 mm minimum); blocking for the PET variant only, not for the FR-4 default",
  "open": [
-  "JLC: are plated vias offered on 2-layer transparent PET (the A5 leaf routes all data on B.Cu through 11 vias)?",
+  "JLC: are plated vias offered on 2-layer transparent PET (the A5 leaf routes all data on B.Cu through 11 vias), and does the PTH annular ring row (>= 0.18 mm absolute) apply to vias (the A5 vias have 0.15 mm)?",
   "JLC: coverlay bridges under 0.5 mm are removed, so the WS2812B-2020 and SH4 pads share coverlay openings; is that acceptable for assembly, or is a LPI/transparent solder mask offered on PET?",
   "JLC Q11 items 1-7 in engineering/a7/pet-fpc.md (reflow profile, operating temperature, stiffeners, part classes, OCA clarity, transparent coverlay transmittance, separate FR-4 order).",
   "SH4 header retention on film over a PC carrier: only the two SMD MP pads hold it; the SH mating force is unsourced (R2) and needs the #10 physical test.",
@@ -98,7 +100,7 @@
    "authority_class": "MANUFACTURER_PRIMARY",
    "refresh_policy": "VOLATILE-HTML",
    "retained_bytes": "not committed",
-   "evidence_extract": "Minimum Trace Width/Spacing: 12 um copper 3/3 mil (absolute limit 2/2 mil), 18 um 3.5/3.5 mil, 35 um 4/4 mil. Min. via hole size/diameter regular 0.3 mm/0.55 mm; via diameter at least 0.2 mm larger than the hole. Pad-to-trace: via ring to trace >= 0.1 mm, exposed pad to trace >= 0.15 mm. Copper to board edge >= 0.3 mm. Coverlay expansion (one-sided) 0.1 mm; coverlay opening to trace >= 0.15 mm. Minimum solder bridge width 0.5 mm: a bridge narrower than 0.5 mm will be removed. Outer copper: single-sided 18/35 um; double-sided 12/18/35 um. Coverlay colours include Transparent.",
+   "evidence_extract": "Minimum Trace Width/Spacing: 12 um copper 3/3 mil (absolute limit 2/2 mil), 18 um 3.5/3.5 mil, 35 um 4/4 mil. Min. via hole size/diameter regular 0.3 mm/0.55 mm; via diameter at least 0.2 mm larger than the hole. Pad-to-trace: via ring to trace >= 0.1 mm, exposed pad to trace >= 0.15 mm. Copper to board edge >= 0.3 mm. Coverlay expansion (one-sided) 0.1 mm; coverlay opening to trace >= 0.15 mm. Minimum solder bridge width 0.5 mm: a bridge narrower than 0.5 mm will be removed. Outer copper: single-sided 18/35 um; double-sided 12/18/35 um. Coverlay colours include Transparent. Annular Ring for PTH >= 0.25 mm recommended, absolute limit 0.18 mm.",
    "note": "Same page as src-a7-jlc-flex-capabilities (R1), retrieved again for the design-rule rows R1 did not extract; the live page hash differs from R1's capture."
   }
  ]

@@ -18,7 +18,7 @@
    "path": "engineering/a7/electronics/controller/controller.kicad_pcb",
    "class": "authoritative",
    "present": true,
-   "rule": "Authoritative routed A7 controller board (R4, #19). Source of truth; no generator writes it. Revision 1 passed independent layout/electrical review on PR #30 (head e2a2219). Revision 2 (the PR #30 polish items) passed re-review on PR #37 (head ae5aa3c) and merged as edf98c2. Seeded by scripts/a7_board.py build + scripts/a7_route.py + a7_board.py apply in an empty staging dir outside the repo, then copied here once native DRC (0 violations, 0 unconnected) and parity passed. Enforced by native_gate.json with candidate a7_controller."
+   "rule": "Authoritative routed A7 controller board (R4, #19). Source of truth; no generator writes it. Revision 1 passed independent layout/electrical review on PR #30 (head e2a2219). Revision 2 (the PR #30 polish items) passed independent re-review on PR #37 (review 5818812844, head ae5aa3c) and merged as edf98c2. Seeded by scripts/a7_board.py build + scripts/a7_route.py + a7_board.py apply in an empty staging dir outside the repo, then copied here once native DRC (0 violations, 0 unconnected) and parity passed. Enforced by native_gate.json with candidate a7_controller."
   },
   {
    "path": "engineering/a7/electronics/controller/controller.kicad_sch",
