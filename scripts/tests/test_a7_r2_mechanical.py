@@ -174,6 +174,22 @@ class Stack(unittest.TestCase):
             self.assertLessEqual(k["z"][1], c["outline_z"][1] + 1e-9, k["id"])
 
 
+class Harness(unittest.TestCase):
+    def test_adapter_gap_takes_the_sh_bundle(self):
+        ad = L["supports"]["adapter"]
+        br = L["variants"]["3hp"]["routes"]["controller_to_left_leaf_sh4"]["bundle_radius"]
+        zg = json.loads((MECH / "design-inputs.json").read_text())["cables"]["led_route"]["gap_run_z"]
+        self.assertAlmostEqual(ad["front_z"], ad["a5_front_z"] + ad["z_shift"], places=6)
+        self.assertGreaterEqual(zg - br, ad["rear_z"] + 0.2 - 1e-9)
+        self.assertLessEqual(zg + br, L["z_stack"]["a5_leaf_z"][0] - 0.2 + 1e-9)
+        self.assertGreater(zg - br, L["z_stack"]["controller_pcb_z"][1])
+        for v in L["variants"].values():
+            sh = v["routes"]["controller_to_left_leaf_sh4"]
+            self.assertLess(sh["descent_y"], ad["y"][1], "the step down happens over the adapter, away from LED D2")
+            self.assertGreaterEqual(sh["min_radius"], 2.0)
+        self.assertAlmostEqual(L["controller"]["led_header"]["z_centre"], 12.8)
+
+
 class Envelopes(unittest.TestCase):
     E = json.loads((MECH / "placement-envelopes.json").read_text())
 
@@ -215,9 +231,16 @@ class Routes(unittest.TestCase):
             self.assertAlmostEqual(sh["length"], 50.0, delta=0.01)
             pw = v["routes"]["adapter_to_controller_power"]
             self.assertAlmostEqual(LAY.fillet_path(pw["points"], pw["radius"])[1], pw["length"], places=2)
-            # the shortest power route is longer than the A5 nominal cable; this stays an open item (R2-C5)
-            self.assertFalse(pw["nominal_cable_reaches"], name)
-            self.assertIn("R2-C5", {u["id"] for u in L["unresolved"]})
+            # the route is solved for the derived A7 cable and both band ends still fit the S-fold stowage
+            req = L["power_cable_requirement"]
+            self.assertAlmostEqual(pw["length"], req["finished_free_span_nominal"], delta=0.01)
+            for got, want in zip(pw["cable_band_lengths"], req["band"]):
+                self.assertAlmostEqual(got, want, delta=0.01)
+            lo, hi = pw["length_range_of_this_stowage"]
+            self.assertGreaterEqual(req["band"][0], lo + req["short_side_margin"] - 1e-9)
+            self.assertLessEqual(req["band"][1], hi + 1e-9)
+            self.assertFalse(req["a5_cable"]["fits"])
+            self.assertIn("MISSING", req["physical_measurement"])
             self.assertEqual(v["checks"]["power_route_bend_at_least_preferred"], pw["min_radius"] >= 2.0 - 1e-9)
         self.assertTrue(L["variants"]["3hp"]["checks"]["power_route_bend_at_least_preferred"])
 
@@ -240,13 +263,16 @@ class Exports(unittest.TestCase):
             for s_, o in v["optical_obstruction"].items():
                 self.assertEqual(o["a7_controller_or_support_obstructions"], 0, (name, s_))
                 for h in o["a7_harness_obstructions"]:
-                    # the SH4 harness squeezes past D2 (open item R2-C6); it must not touch an emitter
-                    self.assertGreater(h["min_distance_to_emitter_mm"], 0.0, (name, s_, h))
-                    self.assertIn("R2-C6", {u["id"] for u in L["unresolved"]})
+                    self.assertGreaterEqual(h["min_distance_to_emitter_mm"], 1.0, (name, s_, h))
                 origins = {x["part"]: x["origin"] for x in o["obstructions"]}
                 for part, org in origins.items():
-                    if part.startswith(("controller_", "adapter_to_controller", "bottom_cap_fork_A7", "spine", "M2_front", "M2_nut")):
+                    if part.startswith(("controller_", "adapter_to_controller", "bottom_cap_fork_A7", "top_cap_spacer_A7", "spine", "M2_front", "M2_nut")):
                         self.assertTrue(org.startswith("a7"), (part, org))
+            for s_, rows in v["optical_shading_estimate"]["per_side"].items():
+                self.assertEqual(len(rows), 4)
+                for row in rows:
+                    self.assertLessEqual(row["blocked_by_a7_harness"], 0.05, (name, row))
+            self.assertIn("top_cap_spacer_A7", {p["part"] for p in v["parts"]})
             self.assertTrue(v["switch_tool_access"]["clear"])
             self.assertTrue(v["export"]["valid"])
             self.assertEqual(v["export"]["source_solids"], v["export"]["imported_solids"])

@@ -118,9 +118,10 @@
       "part": "JST SM04B-SRSS-TB side-entry SH4 (A5 J3)",
       "opening": "+Y",
       "y": 60.0,
-      "z_centre": 13.4,
+      "z_centre": 12.8,
       "confidence": "PROJECT-CHOICE",
-      "note": "row along Z near the rear edge; the cable leaves along +Y and folds back once in the gap in front of the optical volume, so the 50 mm finished length is used without a free loop"
+      "note": "row along Z near the rear edge; the cable leaves along +Y and folds back once in the gap in front of the optical volume, so the 50 mm finished length is used without a free loop",
+      "z_note": "R4 (#19) moved J3 0.6 mm toward the front edge so the footprint's MP retention pads (x+3.4) keep the 0.2 mm copper-to-edge rule"
     },
     "solder_face_low_profile_zone": {
       "max_height": 0.6,
@@ -264,12 +265,13 @@
       "note": "design target only; no manufacturer bend radius is retained"
     },
     "led_route": {
-      "descent_y": 49.09,
-      "gap_run_z": 17.9,
-      "return_z": 13.4,
+      "gap_run_z": 18.2,
+      "return_z": 12.8,
       "confidence": "PROJECT-CHOICE",
-      "note": "descent just below the A5 adapter PCB (Y<=48) and above leaf LED D2 (Y>=50.08); run between the controller rear edge and the leaf front",
-      "descent_note": "the descent has to pass between the A5 adapter PCB (Y<=48.0) and leaf LED D2 (Y>=50.175); with the 1.0 mm bundle radius that window is 0.175 mm wide, so the bundle is centred in it (open item R2-C6)"
+      "note": "S-step at the leaf SH4 plug mouth down into the gap between the moved adapter PCB rear (Z 17.0) and the leaf front edge (Z 19.4), run +Y in that gap and in front of the leaves, fold once and return to the controller SH4 (R2-C6 route B)",
+      "exit_straight": 0.5,
+      "step_radius": 2.5,
+      "step_radius_note": "bundle centreline bend radius 2.5 (inner radius 1.5 for the r=1.0 bundle model); no manufacturer bend radius is retained"
     },
     "power_route": {
       "layers_z": [
@@ -282,10 +284,36 @@
       "fold_end_y": 72.0,
       "confidence": "PROJECT-CHOICE",
       "note": "drop in front of the adapter, lane above the controller component reserve, one S-fold (layers Z 5/9/13, above the spine block Z<=4); the fold span is solved for the finished length"
+    },
+    "power_cable_requirement": {
+      "harness_tolerance": {
+        "nominal": 3.0,
+        "confidence": "ASSUMED",
+        "note": "typical crimped-harness length tolerance; not sourced"
+      },
+      "short_side_margin": {
+        "nominal": 2.0,
+        "confidence": "PROJECT-CHOICE",
+        "note": "cable never pulled to the shortest S-fold"
+      }
     }
   },
   "optical": {
     "retain_a5_stack": true,
     "note": "Leaves, bond line, caps, L-section diffusers and M1.6 hardware follow A5 geometry; PET FPC leaves are not modelled (R1 pet-fpc.md, Q11); the FR-4 leaf is the reference/fallback."
+  },
+  "adapter_relocation": {
+    "z_shift": {
+      "nominal": -2.0,
+      "confidence": "PROJECT-CHOICE"
+    },
+    "reason": "moves the unchanged A5 power adapter 2.0 mm toward the PMMA so a 2.4 mm gap opens between its rear face and the leaf front edge; the controller-to-leaf SH4 harness leaves the emission corridor at the leaf plug mouth and runs in that gap instead of descending beside LED D2 (R2-C6)",
+    "cap_spacer": {
+      "height": 2.0,
+      "radius": 2.0,
+      "confidence": "PROJECT-CHOICE",
+      "note": "printed boss on the top cap around the Y20.5 screw fills the new 2.0 mm gap between the adapter and the cap; the M2x16 screw and the post nut keep their engagement (nut 2.0 mm lower in the post)"
+    },
+    "a5_adapter_unchanged": true
   }
 }

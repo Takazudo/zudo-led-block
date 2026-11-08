@@ -53,9 +53,11 @@ Run the front build before the mechanical build (the assembly imports the panel)
   skin-to-leaf 2.0 = 12.4 mm, so the optical volume is Z 17.4–29.8 within the 30 mm target. The controller ends
   at Z 16.4, 1.0 mm in front of it. The jacks need Z ≥ 14.0, leaving 2.4 mm slack. No A7 controller or support
   part (including the bottom-cap fork and the M2 hardware) enters either leaf emission corridor. The A7 LED
-  harness does: after the leaf SH4 plug it turns down through a 0.175 mm window between the A5 adapter PCB and
-  LED D2 (open item R2-C6). The other corridor items are A5 carry-overs (leaf connectors and capacitors, caps,
-  hardware, the leaf link).
+  harness does, but only at the leaf SH4 plug mouth: it steps down there (R 2.5) into the gap behind the
+  adapter and is 2.8 mm from LED D2. A ray-sampled estimate (`optical_shading_estimate` in
+  `verification.json`) puts the share of D2's rays meeting the harness at about 2 % (3HP 0.019, 2HP 0.016),
+  against about 20 % for the earlier descent beside D2 (same method, scratch run). The other corridor items are
+  A5 carry-overs (leaf connectors and capacitors, caps, hardware, the leaf link).
 - **Jacks:** SOFNG PJ-324M, IN at Y 84.3 and THRU at Y 99.3, 15.0 mm pitch. Every Y clearance uses the body
   tolerance envelope about the axis (near 5.4 ± 0.2 MIRROR, far 6.1 ± 0.4 DERIVED-MIRROR). The A5 pitch was
   14.0; it grows so each label sits between the jack envelopes, because a label printed in front of an opaque
@@ -79,12 +81,17 @@ Run the front build before the mechanical build (the assembly imports the panel)
   trimmed jack lead tips, so the binding 2HP lead-side margin is unchanged; the zone itself clears the side
   plane by +0.07 (2HP) and +1.14 (3HP) at the worst corner. The CAD build carries it as an envelope solid.
   ON / PGM / CV goes on the controller silkscreen (R4).
-- **Power:** the A5 separate power adapter (keyed IDC10) is kept. A vertical IDC10 header needs 8.9 mm of X,
-  but the 2HP component face offers 7.0 mm. A 50 mm PicoBlade harness runs to a header on the controller
-  component face. The A5 IDC ribbon side-exit scenario still extends past the 2HP outline (carried over).
+- **Power:** the A5 separate power adapter (keyed IDC10) is kept unchanged. A vertical IDC10 header needs 8.9 mm
+  of X, but the 2HP component face offers 7.0 mm. A PicoBlade harness runs to a header on the controller
+  component face. **The adapter sits 2.0 mm further forward than in A5** (front Z 15.4, rear 17.0), which
+  opens a 2.4 mm gap to the leaf front edge for the SH4 harness (R2-C6). A printed 2.0 mm boss on the top cap
+  fills the gap at the Y 20.5 screw, and the post nut sits 2.0 mm lower; the M2x16 screw is unchanged. The A5 IDC ribbon side-exit scenario still extends past the 2HP outline (carried over).
 - **Harness routes (bundle model):** the controller-to-leaf SH4 route uses exactly the 50 mm finished length
-  with R ≥ 2.0. The shortest power route is 51.7 mm in 2HP and 52.7 mm in 3HP, so the A5 50 ± 6 cable does
-  not reach at nominal and an A7 power-cable length has to be set (R2-C5). In 2HP the last bend is 0.9 mm
+  with R ≥ 2.5. It runs in the adapter/leaf gap, folds once at Y ≈ 75 and returns to J3, now at Z 12.8 (R4).
+  The stowage takes 38–120 mm. **A7 power cable (R2-C5, for #8):** the S-fold stowage takes 50.7–77.7 mm
+  across both widths. The digital requirement is a 56 ± 3 mm free span (the ±3 is ASSUMED), so 53–59 mm,
+  with 2 mm kept off the shortest fold. The A5 50 ± 6 cable does not fit. The cable has not been routed or
+  measured. In 2HP the last bend is 0.9 mm
   (below the preferred 2.0), the PicoBlade wires have only 0.9 mm of bend room above the mated plug, and the
   2.3 mm tails must be cut like the jack leads (R2-C1).
 

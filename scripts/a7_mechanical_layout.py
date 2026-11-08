@@ -146,19 +146,24 @@ def solve(fn, lo, hi, target, n=80):
     return (lo + hi) / 2
 
 
-def led_route(xc, x1, cfg, leaf_exit_y, leaf_exit_z, yp_end, target, radius):
+def led_route(xc, x1, cfg, leaf_exit_y, leaf_exit_z, yp_end, target):
+    """Leaf J1 plug mouth -> S-step down into the adapter/leaf gap -> run +Y -> one fold -> back to the controller SH4."""
     xl = r(xc - 2.35)
     xp = r(x1 + 1.475)
     ro = cfg["led_route"]
-    yd, zg, zr = ro["descent_y"], ro["gap_run_z"], ro["return_z"]
+    radius = ro["step_radius"]
+    zg, zr = ro["gap_run_z"], ro["return_z"]
+    yd = r(leaf_exit_y + ro["exit_straight"] + radius)
 
     def pts(yf):
-        return [[xl, leaf_exit_y, leaf_exit_z], [xl, yd, leaf_exit_z], [xl, yd, zg], [xp, yd + 4.0, zg],
+        return [[xl, leaf_exit_y, leaf_exit_z], [xl, yd, leaf_exit_z], [xl, yd, zg], [xp, r(yd + 2 * radius + 1.0), zg],
                 [xp, yf, zg], [xp, yf, zr], [xp, yp_end, zr]]
-    yf = solve(lambda v: fillet_path(pts(v), radius)[1], yp_end + 5.0, 110.0, target)
+    lo, hi = yp_end + 2 * radius + 0.5, 110.0
+    yf = solve(lambda v: fillet_path(pts(v), radius)[1], lo, hi, target)
     P = pts(r(yf))
     segs, length, rmin = fillet_path(P, radius)
-    return {"points": P, "radius": radius, "length": r(length), "min_radius": r(rmin), "fold_y": r(yf)}
+    return {"points": P, "radius": radius, "length": r(length), "min_radius": r(rmin), "fold_y": r(yf), "descent_y": yd,
+            "length_range_of_this_stowage": [r(fillet_path(pts(lo), radius)[1]), r(fillet_path(pts(hi), radius)[1])]}
 
 
 def power_route(xc, x1, w, side, cfg, start, yp, zc, target, radius, bundle_r):
@@ -187,7 +192,7 @@ def power_route(xc, x1, w, side, cfg, start, yp, zc, target, radius, bundle_r):
     P = pts(r(span))
     segs, length, rmin = fillet_path(P, radius)
     return {"points": P, "radius": radius, "length": r(length), "min_radius": r(rmin), "fold_span": r(span), "status": status,
-            "end_bend_room": r(xl - (x1 + 5.2))}
+            "end_bend_room": r(xl - (x1 + 5.2)), "length_range_of_this_stowage": [r(fillet_path(pts(lo), radius)[1]), r(fillet_path(pts(hi), radius)[1])]}
 
 
 HARD = ["lead_side", "body_side", "nut_front"]
@@ -427,6 +432,14 @@ def build():
 
     # ---- per-variant X placement ---------------------------------------------------------
     side = P["side_clearance_required"]["nominal"]
+    ar = d["adapter_relocation"]
+    dz = ar["z_shift"]["nominal"]
+    adapter = {"y": g5["adapter"]["y"], "width": g5["adapter"]["width"], "thickness": g5["adapter"]["thickness"], "power_pinrow_y": g5["adapter"]["power_pinrow_y"],
+               "a5_front_z": g5["adapter"]["front_z"], "z_shift": dz, "front_z": r(g5["adapter"]["front_z"] + dz),
+               "rear_z": r(g5["adapter"]["front_z"] + dz + g5["adapter"]["thickness"]),
+               "gap_rear_to_leaf_front": r(l5["z"][0] - (g5["adapter"]["front_z"] + dz + g5["adapter"]["thickness"])),
+               "cap_spacer_z": [r(g5["adapter"]["front_z"] + dz + g5["adapter"]["thickness"]), r(g5["adapter"]["front_z"] + g5["adapter"]["thickness"])],
+               "cap_spacer_radius": ar["cap_spacer"]["radius"], "reason": ar["reason"], "confidence": ar["z_shift"]["confidence"]}
     h_nom = P["jack_axis_height"]["nominal"]
     m2 = sup["m2"]
     variants = {}
@@ -471,25 +484,24 @@ def build():
         checks["solder_face_zone_below_lead_tips"] = all(zone[k] >= lead[k] - 1e-9 for k in zone)
         cab = d["cables"]
         lh, ph = c["led_header"], c["power_header"]
+        power_args = (w / 2, x_pcb[1], w, side, cab, [r(w / 2), g5["adapter"]["power_pinrow_y"], r(adapter["front_z"] - 5.2)], ph["y"], ph["z_centre"])
         routes = {
             "controller_to_left_leaf_sh4": led_route(w / 2, x_pcb[1], cab, r(l5["y"][0] + l5["header_origins_local_v"][0] + 4.575), r(l5["z"][0] + 4.5),
-                                                     r(lh["y"] + 1.675 + 2.0), cab["sh_finished_length"]["nominal"], cab["preferred_bend_radius"]["nominal"]),
-            "adapter_to_controller_power": power_route(w / 2, x_pcb[1], w, side, cab, [r(w / 2), g5["adapter"]["power_pinrow_y"], r(g5["adapter"]["front_z"] - 5.2)],
+                                                     r(lh["y"] + 1.675 + 2.0), cab["sh_finished_length"]["nominal"]),
+            "adapter_to_controller_power": power_route(w / 2, x_pcb[1], w, side, cab, [r(w / 2), g5["adapter"]["power_pinrow_y"], r(adapter["front_z"] - 5.2)],
                                                        ph["y"], ph["z_centre"], cab["power_finished_free_span"]["nominal"], cab["preferred_bend_radius"]["nominal"], cab["power_bundle_radius"]["nominal"]),
         }
         routes["controller_to_left_leaf_sh4"]["bundle_radius"] = cab["sh_bundle_radius"]["nominal"]
         routes["adapter_to_controller_power"]["bundle_radius"] = cab["power_bundle_radius"]["nominal"]
         pw = routes["adapter_to_controller_power"]
         fl = cab["power_finished_free_span"]
-        pw["shortest_route_length"] = pw["length"]
-        pw["nominal_cable_reaches"] = pw["length"] <= fl["nominal"] + 1e-9
-        pw["shortest_cable_in_band_reaches"] = pw["length"] <= fl["nominal"] - fl["tol"] + 1e-9
-        pw["finished_length_needed_min"] = pw["length"]
+        pw["a5_cable_nominal_reaches"] = pw["length_range_of_this_stowage"][0] <= fl["nominal"] + 1e-9
+        pw["a5_cable_band_fits"] = pw["length_range_of_this_stowage"][0] <= fl["nominal"] - fl["tol"] + 1e-9 and fl["nominal"] + fl["tol"] <= pw["length_range_of_this_stowage"][1]
         routes["controller_to_left_leaf_sh4"]["status"] = "solved for the nominal finished length"
         checks["power_route_end_bend_room"] = routes["adapter_to_controller_power"]["end_bend_room"]
         checks["power_route_min_radius"] = routes["adapter_to_controller_power"]["min_radius"]
         checks["power_route_bend_at_least_preferred"] = routes["adapter_to_controller_power"]["min_radius"] >= cab["preferred_bend_radius"]["nominal"] - 1e-9
-        checks["power_route_nominal_cable_reaches"] = routes["adapter_to_controller_power"]["nominal_cable_reaches"]
+        checks["power_route_a5_cable_nominal_reaches"] = routes["adapter_to_controller_power"]["a5_cable_nominal_reaches"]
         checks["led_route_min_radius"] = routes["controller_to_left_leaf_sh4"]["min_radius"]
         # rear pocket across X must take the body over the INFERRED axis band and the overall-height tolerance
         pclr = d["axial_option"]["pocket_clearance_around_body"]
@@ -497,6 +509,7 @@ def build():
         pocket_x = [r(x_axis - a_["max"] - pclr), r(x_axis - a_["min"] + P["jack_overall_height"]["nominal"] + P["jack_overall_height"]["tol"] + pclr)]
         checks["rear_pocket_wall_to_panel_edge"] = r(min(pocket_x[0], w - pocket_x[1]))
         variants[name] = {
+            "_power_args": power_args,
             "rear_pocket_x": pocket_x,
             "rear_pocket_x_basis": f"axis band {a_['min']}-{a_['max']} (INFERRED) and overall height {P['jack_overall_height']['nominal']} +/- {P['jack_overall_height']['tol']}, plus {pclr} clearance",
             "routes": routes,
@@ -506,6 +519,34 @@ def build():
             "inner_envelope_x": inner, "front_screw_x": {"20.5": r(w / 2), "60.8": screw_x},
             "checks": checks,
         }
+
+    # ---- A7 power-cable length requirement (R2-C5, for #8) --------------------------------
+    pcr = d["cables"]["power_cable_requirement"]
+    tol, margin = pcr["harness_tolerance"]["nominal"], pcr["short_side_margin"]["nominal"]
+    lo_all = max(v["routes"]["adapter_to_controller_power"]["length_range_of_this_stowage"][0] for v in variants.values())
+    hi_all = min(v["routes"]["adapter_to_controller_power"]["length_range_of_this_stowage"][1] for v in variants.values())
+    n_req = float(math.ceil(lo_all + margin + tol))
+    power_cable = {
+        "finished_free_span_nominal": n_req, "tolerance": tol, "tolerance_confidence": pcr["harness_tolerance"]["confidence"],
+        "band": [r(n_req - tol), r(n_req + tol)], "stowage": "one S-fold above the spine block, fold span solved per width",
+        "stowage_length_range_both_widths": [lo_all, hi_all], "short_side_margin": margin,
+        "fits_both_widths": n_req - tol >= lo_all + margin - 1e-9 and n_req + tol <= hi_all + 1e-9,
+        "a5_cable": {"nominal": cab["power_finished_free_span"]["nominal"], "tol": cab["power_finished_free_span"]["tol"],
+                     "fits": cab["power_finished_free_span"]["nominal"] - cab["power_finished_free_span"]["tol"] >= lo_all},
+        "taut_reference": "shortest S-fold the route allows (fold span = two bend radii); the cable is never pulled tighter",
+        "physical_measurement": "MISSING: no cable has been routed or measured; plug strain relief, wire stiffness and the real fold shape are not known (#8)",
+    }
+    for v in variants.values():
+        args = v.pop("_power_args")
+        rt = power_route(*args, n_req, cab["preferred_bend_radius"]["nominal"], cab["power_bundle_radius"]["nominal"])
+        old = v["routes"]["adapter_to_controller_power"]
+        for k in ("bundle_radius", "a5_cable_nominal_reaches", "a5_cable_band_fits"):
+            rt[k] = old[k]
+        rt["cable_band_lengths"] = [r(fillet_path(power_route(*args, n_req + s_ * tol, cab["preferred_bend_radius"]["nominal"], cab["power_bundle_radius"]["nominal"])["points"], cab["preferred_bend_radius"]["nominal"])[1]) for s_ in (-1, 1)]
+        v["routes"]["adapter_to_controller_power"] = rt
+        v["checks"]["power_route_end_bend_room"] = rt["end_bend_room"]
+        v["checks"]["power_route_min_radius"] = rt["min_radius"]
+        v["checks"]["power_route_bend_at_least_preferred"] = rt["min_radius"] >= cab["preferred_bend_radius"]["nominal"] - 1e-9
 
     # ---- keep-outs on the controller (handoff to R4) ------------------------------------
     sv = sup["controller_slot_y"]["values"]
@@ -596,13 +637,14 @@ def build():
             "sweep_2hp": rows, "r1_verdicts": r1_rows,
             "break_even_2hp": break_even(p, sel2),
         },
-        "z_stack": z_stack, "y_layout": y_layout, "switch": switch, "controller": controller,
+        "z_stack": z_stack, "y_layout": y_layout, "switch": switch, "controller": controller, "power_cable_requirement": power_cable,
         "variants": variants,
         "supports": {
             "front_screw_y": sup["front_screw_y"]["values"], "m2": m2,
             "spine": {"rib_width": sup["spine_rib_width"]["nominal"], "rib_height": sup["spine_rib_height"]["nominal"],
                       "slot_y": sv, "slot_height": sup["controller_slot_height"]["nominal"], "slot_clearance": sup["slot_clearance"]["nominal"],
-                      "post_radius": sup["adapter_post_radius"]["nominal"], "post_top_z": g5["adapter"]["front_z"]},
+                      "post_radius": sup["adapter_post_radius"]["nominal"], "post_top_z": adapter["front_z"], "post_nut_z": [r(adapter["front_z"] - 3.4), r(adapter["front_z"] - 1.8)]},
+            "adapter": adapter,
             "bottom_fork": {"y": fy, "z": [fork_z0, r(o5["skin_z"][0] + 0.6)], "wall": sup["fork_wall"]["nominal"], "engagement": sup["fork_engagement"]["nominal"]},
             "load_path": [
                 "Plug insertion (+Z, R1 5-10 N): barrel -> front nut -> PMMA front face -> rack screws.",
@@ -624,8 +666,8 @@ def build():
             {"id": "Q9", "item": "PMMA clamp load / nut torque", "decides": "jack load path"},
             {"id": "Q10", "item": "PCM13SMTR sourcing", "decides": "setting switch part"},
             {"id": "R2-C1", "item": "PicoBlade on the perpendicular board in 2HP: wires leave the mated plug along +X with only the end-bend room shown per variant, and the 2.3 mm tails must be cut like the jack leads", "decides": "power connector choice (R4) and 2HP power route"},
-            {"id": "R2-C5", "item": "power cable length: the shortest A7 power route is " + " / ".join(f"{n} {v['routes']['adapter_to_controller_power']['length']} mm" for n, v in variants.items()) + ", longer than the A5 50 +/- 6 finished cable, so that cable does not reach at nominal; an A7 power-cable length with its tolerance has to be set", "decides": "power harness (#8)"},
-            {"id": "R2-C6", "item": "controller-to-leaf SH4 harness descent passes between the A5 adapter PCB and leaf LED D2 inside the left emission corridor: the descent window is 0.175 mm wide for the r=1.0 bundle model (ASSUMED), and the CAD reports its distance to D2 under optical_obstruction in verification.json; its optical effect is not simulated", "decides": "LED harness exit direction or leaf connector position (#8, optics)"},
+            {"id": "R2-C5", "item": f"A7 power cable: digital requirement {power_cable['finished_free_span_nominal']} +/- {power_cable['tolerance']} mm free span (tolerance ASSUMED) for the S-fold stowage ({power_cable['stowage_length_range_both_widths'][0]}-{power_cable['stowage_length_range_both_widths'][1]} mm across both widths); the A5 50 +/- 6 cable does not fit. No cable has been routed or measured", "decides": "power harness part and its length (#8)"},
+            {"id": "R2-C6", "item": f"controller-to-leaf SH4 harness: route B moves the unchanged A5 adapter {adapter['z_shift']} mm in Z so the harness S-steps at the leaf plug mouth into a {adapter['gap_rear_to_leaf_front']} mm gap behind the adapter; ray-sampled shading per LED is in verification.json (optical_shading_estimate). Real bend radius, insulation diameter and the lit appearance are not checked", "decides": "harness and adapter mounting (#8), optics"},
             {"id": "R2-C2", "item": "finished SH/PicoBlade cable bend radius, insulation, slack storage and label", "decides": "harness route scenarios (#8)"},
             {"id": "R2-C3", "item": "IDC ribbon side exit beyond the 2HP outline (carried over from A5)", "decides": "2HP neighbour clearance"},
             {"id": "R2-C4", "item": "switch actuation force and tool access with real parts", "decides": "setting switch support"},
