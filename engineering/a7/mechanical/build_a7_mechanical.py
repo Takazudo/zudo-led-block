@@ -60,6 +60,18 @@ COL = {"frame": (.20, .23, .28, 1), "diffuser": (.78, .89, .94, .58), "pcb": (.0
 CABLE_KINDS = ("cable_route_scenario", "conditional_cable_scenario")
 # Scopes allowed outside the panel width / rail-body envelope only as reported conditions.
 CONDITIONAL = ("conditional_harness", "conditional_socket", "conditional_ribbon")
+STALE_INPUTS = ("engineering/a7/mechanical/layout.json", "engineering/a7/mechanical/build_a7_mechanical.py", "engineering/a7/front_panel/build_a7_front.py")
+CABLE_ENTRY_LIMIT_MM = 4.0  # tube length allowed inside its own mated connector envelope
+# Expected rigid contacts and the most overlap each may have (mm3); any other value is a collision.
+CONTACT_LIMITS_MM3 = {frozenset(k): v for k, v in {
+    ("jack_in_PJ-324M", "jack_in_solder_fillets"): 1.5, ("jack_thru_PJ-324M", "jack_thru_solder_fillets"): 1.5,
+    ("nut_in_M6x0.5", "jack_in_PJ-324M"): 0.0, ("nut_thru_M6x0.5", "jack_thru_PJ-324M"): 0.0,
+    ("setting_switch_PCM13SMTR", "controller_pcb_A7"): 0.0,
+    ("controller_PicoBlade_mated", "controller_pcb_A7"): 0.7,  # three THT tails through the board (no holes cut)
+    ("adapter_C5665_keyed_header", "power_adapter_pcb_A5"): 7.0, ("adapter_PicoBlade_mated", "power_adapter_pcb_A5"): 0.7,
+    ("adapter_C5665_keyed_header", "IDC_socket_REFERENCE_overlap6"): None, ("IDC_socket_REFERENCE_overlap6", "IDC_ribbon_R3_side_exit_SCENARIO"): None,
+    ("bottom_cap_fork_A7", "bottom_leaf_cap"): 0.0,
+}.items()}
 
 
 def r3(v):
@@ -299,9 +311,10 @@ def build(name, out):
     fork = union(box(x0 - clr - fk["wall"], x0 - clr, fk["y"][0], fk["y"][1], fz0, fz1),
                  box(x1 + clr, x1 + clr + fk["wall"], fk["y"][0], fk["y"][1], fz0, 18.2),
                  box(x0 - clr - fk["wall"], x1 + clr + fk["wall"], fk["y"][0], fk["y"][1], cz1 + clr, fz1))
-    supports["bottom_leaf_cap"] = union(supports["bottom_leaf_cap"], fork)
     for nm, shp in supports.items():
-        add(nm, shp, "frame", "printable_design", "PETG optical support (A5 topology)" + ("; A7 fork straddles the controller rear edge" if nm.startswith("bottom") else ""), printed=True, group="carrier")
+        add(nm, shp.cut(fork).clean() if nm.startswith("bottom") else shp, "frame", "printable_design", "PETG optical support (A5 topology)", printed=True, group="carrier")
+    add("bottom_cap_fork_A7", fork.clean(), "frame", "printable_design", "A7 fork on the bottom cap; straddles the controller rear edge (printed as one part with the cap)", printed=True, group="carrier")
+    contacts.append(("bottom_cap_fork_A7", "bottom_leaf_cap"))
     for s_ in ("left", "right"):
         if s_ == "left":
             a_, b_, f0, f1 = .3, 1.5, .3, xc - .9
@@ -411,6 +424,16 @@ def validate(parts, contacts, name):
             if any(v <= 1e-5 - g for v in (min(ba.xmax, bb.xmax) - max(ba.xmin, bb.xmin), min(ba.ymax, bb.ymax) - max(ba.ymin, bb.ymin), min(ba.zmax, bb.zmax) - max(ba.zmin, bb.zmin))):
                 continue
             pair = frozenset((a.name, b.name))
+            carried = origin(a) == "a5" and origin(b) == "a5"
+            if pair in expected and (hasattr(a, "cable_path") or hasattr(b, "cable_path")):
+                # a cable may enter its own end connector, but only by a short plug-length of tube
+                tube = a if hasattr(a, "cable_path") else b
+                other = b if tube is a else a
+                vol = tube.shape.intersect(other.shape).Volume()
+                lim = math.pi * tube.cable_radius ** 2 * CABLE_ENTRY_LIMIT_MM
+                row = {"a": a.name, "b": b.name, "volume_mm3": r3(vol), "limit_mm3": r3(lim)}
+                (permitted if vol <= lim else collisions).append(row)
+                continue
             if hasattr(a, "cable_path") or hasattr(b, "cable_path"):
                 ca = getattr(a, "cable_path", a.shape)
                 cb = getattr(b, "cable_path", b.shape)
@@ -420,7 +443,7 @@ def validate(parts, contacts, name):
                     row = {"a": a.name, "b": b.name, "centreline_distance_mm": r3(dist), "required_mm": r3(need), "clearance_mm": r3(dist - need)}
                     if pair in expected:
                         permitted.append(row)
-                    elif a.name.startswith("leaf_link") or b.name.startswith("leaf_link"):
+                    elif (a.name.startswith("leaf_link") or b.name.startswith("leaf_link")) and carried:
                         cable_findings.append(dict(row, note="A5 leaf-link wires: carried-over scenario"))
                     else:
                         cable_findings.append(row)
@@ -428,13 +451,29 @@ def validate(parts, contacts, name):
             vol = a.shape.intersect(b.shape).Volume()
             if vol > 1e-4:
                 row = {"a": a.name, "b": b.name, "volume_mm3": r3(vol)}
-                if pair in expected:
-                    permitted.append(row)
-                elif a.scope in CONDITIONAL or b.scope in CONDITIONAL:
+                lim = CONTACT_LIMITS_MM3.get(pair)
+                if pair in expected and lim is None and carried:
+                    cable_findings.append(dict(row, note="conditional A5 reference envelopes overlap by construction; carried over"))
+                elif pair in expected and lim is not None and vol <= lim:
+                    permitted.append(dict(row, limit_mm3=lim))
+                elif pair in expected:
+                    collisions.append(dict(row, limit_mm3=lim, note="expected contact exceeds its stated limit"))
+                elif (a.scope in CONDITIONAL or b.scope in CONDITIONAL) and carried:
                     cable_findings.append(dict(row, note="conditional A5 scenario part (reference socket / ribbon); carried over"))
                 else:
                     collisions.append(row)
     return rows, collisions, permitted, cable_findings, env
+
+
+A5_GROUPS = ("left_leaf", "right_leaf", "leaves", "power_adapter", "optics")
+A5_NAMES = ("top_leaf_adapter_cap", "bottom_leaf_cap", "M2x16_top_cap", "M2_post_nut_top", "IDC_ribbon_R3_side_exit_SCENARIO")
+
+
+def origin(p):
+    """'a5' for parts carried over from the A5 build, 'a7' for parts this model adds or moves."""
+    if p.group in A5_GROUPS or p.name in A5_NAMES or p.name.startswith(("leaf_link", "M1_6")):
+        return "a5"
+    return "a7"
 
 
 def optical(parts, name):
@@ -445,6 +484,7 @@ def optical(parts, name):
     corridors = {"left": box(1.5, xc - 1.25, leaf_y[0], leaf_y[1], leaf_z[0], leaf_z[1]),
                  "right": box(xc + 1.25, V["panel_width"] - 1.5, leaf_y[0], leaf_y[1], leaf_z[0], leaf_z[1])}
     area = (leaf_y[1] - leaf_y[0]) * (leaf_z[1] - leaf_z[0])
+    emitters = {s_: [p for p in parts if p.name.startswith(s_ + "_D")] for s_ in corridors}
     out = {}
     for s_, cor in corridors.items():
         rows = []
@@ -456,14 +496,20 @@ def optical(parts, name):
             v = p.shape.intersect(cor)
             if v.Volume() > 1e-4:
                 b = v.BoundingBox()
-                origin = ("a5_leaf_mounted" if p.group.endswith("_leaf") else "a5_power_adapter" if p.group == "power_adapter" else "a5_optical_support" if p.name.endswith("_cap") else
-                          "a5_leaf_link_harness" if p.name.startswith("leaf_link") else "a7_harness_at_leaf_connector" if p.group == "cables" else
-                          "a5_hardware" if p.group == "hardware" else "a7_controller_or_support")
-                rows.append({"part": p.name, "origin": origin, "volume_mm3": r3(v.Volume()), "projected_yz_bbox_mm2": r3(b.ylen * b.zlen),
-                             "y": [r3(b.ymin), r3(b.ymax)], "z": [r3(b.zmin), r3(b.zmax)]})
+                if origin(p) == "a5":
+                    org = ("a5_leaf_mounted" if p.group.endswith("_leaf") else "a5_power_adapter" if p.group == "power_adapter" else
+                           "a5_leaf_link_harness" if p.name.startswith("leaf_link") else "a5_hardware" if p.group == "hardware" else "a5_optical_support")
+                else:
+                    org = "a7_harness" if p.group == "cables" else "a7_controller_or_support"
+                row = {"part": p.name, "origin": org, "volume_mm3": r3(v.Volume()), "projected_yz_bbox_mm2": r3(b.ylen * b.zlen),
+                       "y": [r3(b.ymin), r3(b.ymax)], "z": [r3(b.zmin), r3(b.zmax)]}
+                if org.startswith("a7"):
+                    row["min_distance_to_emitter_mm"] = r3(min(p.shape.distance(e.shape) for e in emitters[s_]))
+                rows.append(row)
         a7 = [x for x in rows if x["origin"] == "a7_controller_or_support"]
         out[s_] = {"corridor_x": [r3(cor.BoundingBox().xmin), r3(cor.BoundingBox().xmax)], "corridor_area_yz_mm2": r3(area), "obstructions": rows,
                    "a7_controller_or_support_obstructions": len(a7),
+                   "a7_harness_obstructions": [x for x in rows if x["origin"] == "a7_harness"],
                    "projected_bbox_upper_bound_fraction": r3(sum(x["projected_yz_bbox_mm2"] for x in rows) / area)}
     return out
 
@@ -473,13 +519,15 @@ def tool_access(parts, name):
     SW = L["switch"]
     x1 = V["controller_pcb_x"][1]
     z = SW["actuator_positions_z"]
-    corridor = box(x1, x1 + SW["height_above_pcb"] + 0.5, SW["actuator_y"][1], 140.0, z[0] - SW["actuator_width_z"] / 2 - 1.0, z[2] + SW["actuator_width_z"] / 2 + 1.0)
+    corridor = box(x1, x1 + SW["height_above_pcb"] + 0.5, SW["actuator_y"][0], 140.0, z[0] - SW["actuator_width_z"] / 2 - 1.0, z[2] + SW["actuator_width_z"] / 2 + 1.0)
     hits = []
     for p in parts:
+        if p.name == "setting_switch_PCM13SMTR":
+            continue
         v = p.shape.intersect(corridor).Volume()
         if v > 1e-4:
             hits.append({"part": p.name, "volume_mm3": r3(v)})
-    return {"corridor": "probe space below the actuator tip, Y 111.4 to 140, across all three positions plus 1.0 mm",
+    return {"corridor": f"actuator travel from its root (Y {SW['actuator_y'][0]}) to the board edge and the probe space below it to Y 140, across all three positions plus 1.0 mm; every modelled part except the switch is tested. Rails, case and neighbouring modules are not modelled",
             "x": [r3(x1), r3(x1 + SW["height_above_pcb"] + 0.5)], "z": [r3(z[0] - SW["actuator_width_z"] / 2 - 1.0), r3(z[2] + SW["actuator_width_z"] / 2 + 1.0)],
             "blocking_parts": hits, "clear": not hits}
 
@@ -635,6 +683,7 @@ def main():
             "selection": L["variants"][name]["selection"]["verdict"],
             "default_variant": name == default,
             "layout_sha256": hashlib.sha256((HERE / "layout.json").read_bytes()).hexdigest(),
+            "input_sha256": {f: hashlib.sha256((REPO / f).read_bytes()).hexdigest() for f in STALE_INPUTS},
             "part_count": len(parts), "all_shapes_valid": all(x["valid"] for x in rows),
             "unexpected_rigid_intersections": collisions, "explicitly_expected_contacts": permitted,
             "cable_findings": cable_findings, "cables": cables,

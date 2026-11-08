@@ -14,7 +14,7 @@ unsourced. Tracked in [#17](https://github.com/Takazudo/zudo-led-block/issues/17
 | `build_a7_mechanical.py` | CadQuery 2.7.0 assembly from `layout.json`. |
 | `exports/<width>/zudo_led_block_A7_<width>_assembled.step` / `.glb` | Inspectable assembly (STEP for CAD, GLB for a browser viewer). |
 | `exports/<width>/view_A7_<width>_{front,transverse,side}.png` | Dimensioned views generated from the solids. |
-| `exports/<width>/verification.json` | Pairwise rigid intersections, cable centreline clearances, envelope checks, optical-obstruction check, switch tool access, STEP round trip. |
+| `exports/<width>/verification.json` | Pairwise rigid intersections (expected contacts carry a volume limit), cable centreline clearances, envelope checks, optical-obstruction check by origin (A5 / A7), switch tool access, STEP round trip, and the hashes of its inputs. |
 
 ## Commands
 
@@ -51,10 +51,11 @@ Run the front build before the mechanical build (the assembly imports the panel)
 
 - **Frontward controller volume / rear optical volume.** The A5 optical stack is kept: cap 1.4 + leaf 9.0 +
   skin-to-leaf 2.0 = 12.4 mm, so the optical volume is Z 17.4–29.8 within the 30 mm target. The controller ends
-  at Z 16.4, 1.0 mm in front of it. The jacks need Z ≥ 14.0, leaving 2.4 mm slack. No controller, support or
-  A7 harness part enters either leaf emission corridor. The remaining corridor items are the A5 leaf-mounted
-  connectors and capacitors, the A5 caps and hardware, the A5 leaf link, and the A7 LED harness where it
-  leaves the leaf connector.
+  at Z 16.4, 1.0 mm in front of it. The jacks need Z ≥ 14.0, leaving 2.4 mm slack. No A7 controller or support
+  part (including the bottom-cap fork and the M2 hardware) enters either leaf emission corridor. The A7 LED
+  harness does: after the leaf SH4 plug it turns down through a 0.175 mm window between the A5 adapter PCB and
+  LED D2 (open item R2-C6). The other corridor items are A5 carry-overs (leaf connectors and capacitors, caps,
+  hardware, the leaf link).
 - **Jacks:** SOFNG PJ-324M, IN at Y 84.3 and THRU at Y 99.3, 15.0 mm pitch. Every Y clearance uses the body
   tolerance envelope about the axis (near 5.4 ± 0.2 MIRROR, far 6.1 ± 0.4 DERIVED-MIRROR). The A5 pitch was
   14.0; it grows so each label sits between the jack envelopes, because a label printed in front of an opaque
@@ -62,12 +63,15 @@ Run the front build before the mechanical build (the assembly imports the panel)
   per the #24 review reading); the drawing view's sign is still to be re-checked (R1 fact note), and the pin
   functions are INFERRED (Q2). Both jacks seat in 0.5 mm rear pockets, the only R1 option meeting the 1.0 mm
   thread-engagement criterion (1.25 worst case). The rectangular pocket also keys the body against nut
-  torque. Same Sky 3.5mm-nut-e is the dimension reference, and its fit is UNVERIFIED.
+  torque. The pockets are sized across X for the whole INFERRED axis band and the overall-height tolerance
+  (2HP X 1.9–9.6, a 0.2 mm wall to the panel edge). Same Sky 3.5mm-nut-e is the dimension reference, and its
+  fit is UNVERIFIED.
 - **Load path:** insertion goes through the nut to the PMMA front, withdrawal through the body to the pocket
   floor, and torque into the pocket walls. The controller hangs on the two clamped jacks and a printed spine
   slot (Y 50–72). The solder joints carry no primary load.
 - **Setting switch:** C&K PCM13SMTR at the bottom PCB edge. The actuator reaches Y 111.4 and slides along Z.
-  It is reached from below with the module out of the rack, and the tool corridor is clear in both widths.
+  It is reached from below with the module out of the rack. The tool corridor (actuator root to the board
+  edge and below) is clear of every modelled part in both widths; rails, case and neighbours are not modelled.
   The switch body clears the lower jack envelope by 1.5 mm worst case (1.9 nominal); with the corrected R4
   footprint (signal pads 2.5 from the peg line, retention pads Z 1.35–12.65) the pads clear it by 0.3.
 - **Solder-face low-profile zone:** parts up to 0.6 mm (0603 resistors, R4) may sit on the −X face outside the
@@ -79,9 +83,10 @@ Run the front build before the mechanical build (the assembly imports the panel)
   but the 2HP component face offers 7.0 mm. A 50 mm PicoBlade harness runs to a header on the controller
   component face. The A5 IDC ribbon side-exit scenario still extends past the 2HP outline (carried over).
 - **Harness routes (bundle model):** the controller-to-leaf SH4 route uses exactly the 50 mm finished length
-  with R ≥ 2.0. The power route is 51.7 mm in 2HP and 52.7 mm in 3HP, inside the 50 ± 6 band. In 2HP the
-  PicoBlade wires have only 0.9 mm of bend room above the mated plug, and the 2.3 mm tails must be cut like
-  the jack leads (R2-C1).
+  with R ≥ 2.0. The shortest power route is 51.7 mm in 2HP and 52.7 mm in 3HP, so the A5 50 ± 6 cable does
+  not reach at nominal and an A7 power-cable length has to be set (R2-C5). In 2HP the last bend is 0.9 mm
+  (below the preferred 2.0), the PicoBlade wires have only 0.9 mm of bend room above the mated plug, and the
+  2.3 mm tails must be cut like the jack leads (R2-C1).
 
 ## Not modelled / still physical
 

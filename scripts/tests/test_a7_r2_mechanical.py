@@ -215,7 +215,11 @@ class Routes(unittest.TestCase):
             self.assertAlmostEqual(sh["length"], 50.0, delta=0.01)
             pw = v["routes"]["adapter_to_controller_power"]
             self.assertAlmostEqual(LAY.fillet_path(pw["points"], pw["radius"])[1], pw["length"], places=2)
-            self.assertTrue(pw["within_finished_tolerance"], name)
+            # the shortest power route is longer than the A5 nominal cable; this stays an open item (R2-C5)
+            self.assertFalse(pw["nominal_cable_reaches"], name)
+            self.assertIn("R2-C5", {u["id"] for u in L["unresolved"]})
+            self.assertEqual(v["checks"]["power_route_bend_at_least_preferred"], pw["min_radius"] >= 2.0 - 1e-9)
+        self.assertTrue(L["variants"]["3hp"]["checks"]["power_route_bend_at_least_preferred"])
 
 
 class Exports(unittest.TestCase):
@@ -224,11 +228,25 @@ class Exports(unittest.TestCase):
         for name in ("2hp", "3hp"):
             v = json.loads((MECH / "exports" / name / "verification.json").read_text())
             self.assertEqual(v["layout_sha256"], sha, f"{name}: CAD export is stale; run build_a7_mechanical.py")
+            for f, h in v["input_sha256"].items():
+                self.assertEqual(hashlib.sha256((REPO / f).read_bytes()).hexdigest(), h, f"{name}: {f} changed; rerun the front and CAD builds")
+            self.assertEqual(set(v["input_sha256"]), {"engineering/a7/mechanical/layout.json", "engineering/a7/mechanical/build_a7_mechanical.py", "engineering/a7/front_panel/build_a7_front.py"})
+            for row in v["explicitly_expected_contacts"]:
+                self.assertLessEqual(row["volume_mm3"], row["limit_mm3"] + 1e-9, row)
+            self.assertIn("bottom_cap_fork_A7", {p["part"] for p in v["parts"]})
             self.assertTrue(v["all_shapes_valid"])
             self.assertEqual(v["unexpected_rigid_intersections"], [])
             self.assertEqual(v["retained_envelope_findings"], [])
             for s_, o in v["optical_obstruction"].items():
                 self.assertEqual(o["a7_controller_or_support_obstructions"], 0, (name, s_))
+                for h in o["a7_harness_obstructions"]:
+                    # the SH4 harness squeezes past D2 (open item R2-C6); it must not touch an emitter
+                    self.assertGreater(h["min_distance_to_emitter_mm"], 0.0, (name, s_, h))
+                    self.assertIn("R2-C6", {u["id"] for u in L["unresolved"]})
+                origins = {x["part"]: x["origin"] for x in o["obstructions"]}
+                for part, org in origins.items():
+                    if part.startswith(("controller_", "adapter_to_controller", "bottom_cap_fork_A7", "spine", "M2_front", "M2_nut")):
+                        self.assertTrue(org.startswith("a7"), (part, org))
             self.assertTrue(v["switch_tool_access"]["clear"])
             self.assertTrue(v["export"]["valid"])
             self.assertEqual(v["export"]["source_solids"], v["export"]["imported_solids"])
@@ -246,6 +264,13 @@ class Exports(unittest.TestCase):
         g = json.loads((A7 / "front_panel" / "geometry.json").read_text())
         val = json.loads((A7 / "front_panel" / "exports" / "validation_A7.json").read_text())
         self.assertTrue(val["all_passed"])
+        for f, h in val["input_sha256"].items():
+            self.assertEqual(hashlib.sha256((REPO / f).read_bytes()).hexdigest(), h, f"{f} changed; rerun build_a7_front.py")
+        for name, fv in g["variants"].items():
+            for pk in fv["rear_pockets"]:
+                self.assertEqual(pk["x"], L["variants"][name]["rear_pocket_x"])
+                self.assertIn("INFERRED", pk["x_basis"])
+            self.assertGreater(L["variants"][name]["checks"]["rear_pocket_wall_to_panel_edge"], 0)
         self.assertEqual(g["default_variant"], L["decision"]["default_variant"])
         self.assertEqual(next(iter(g["variants"])), g["default_variant"])
         for name, fv in g["variants"].items():

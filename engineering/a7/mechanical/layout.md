@@ -77,7 +77,7 @@ Provisional digital study. Jack-axis height INFERRED; tolerances marked ASSUMED 
 
 ## Controller (Y-Z board, common to both widths)
 
-- Outline Y 48.5..111.4 x Z 0.2..16.4 = 1018.98 mm2 (A5 board 553.52 mm2; A5 small-part body area 144.182 mm2). Free component-face area after keep-outs about 446.225 mm2.
+- Outline Y 48.5..111.4 x Z 0.2..16.4 = 1018.98 mm2 (A5 board 553.52 mm2; A5 small-part body area 144.182 mm2). Free component-face area after keep-outs about 414.25 mm2.
 - a vertical keyed IDC10 header body is 8.9 mm tall (A5 C5665 maximum envelope); on the perpendicular board it would need 8.9 mm of X but the 2HP component face offers 7.0 mm.
 
 | Keep-out | Faces | Y | Z | Reason |
@@ -86,6 +86,8 @@ Provisional digital study. Jack-axis height INFERRED; tolerances marked ASSUMED 
 | optical-fork | +X, -X | 104.0..107.0 | 14.6..16.4 | bottom optical cap tongue straddles the rear edge |
 | setting-switch | +X | 106.1..111.4 | 1.35..12.65 | PCM13SMTR body, actuator and its signal/retention pads at the bottom edge |
 | switch-access | +X | 109.9..111.4 | 4.35..9.65 | actuator travel plus tool clearance; nothing taller than the switch between actuator and board edge |
+| sh4-header | +X | 57.425..63.675 | 9.9..16.4 | SH4 side-entry housing and its mated plug handle |
+| picoblade-header | +X | 73.95..77.15 | 6.5..12.0 | PicoBlade vertical header and mated plug |
 | picoblade-tails | -X | 73.95..77.15 | 6.5..12.0 | PicoBlade THT tails and fillets on the solder face (cut to the jack trim rule in 2HP) |
 | led-cable-lane | +X | 57.425..78.05 | 12.2..16.4 | SH4 header and the returning LED harness lie over the component face |
 | jack-in | +X | 78.7..90.8 | 0.2..13.9 | PJ-324M body footprint |
@@ -122,7 +124,10 @@ Provisional digital study. Jack-axis height INFERRED; tolerances marked ASSUMED 
 | solder_face_zone_below_lead_tips | True | True |
 | power_route_end_bend_room | +0.90 | +2.00 |
 | power_route_min_radius | +0.90 | +2.00 |
+| power_route_bend_at_least_preferred | False | True |
+| power_route_nominal_cable_reaches | False | False |
 | led_route_min_radius | +2.00 | +2.00 |
+| rear_pocket_wall_to_panel_edge | +0.20 | +3.35 |
 | x_axis | 5.5 | 7.45 |
 | jack_seat_x | 2.5 | 4.45 |
 | controller_pcb_x | [1.7, 2.5] | [2.85, 4.45] |
@@ -151,6 +156,8 @@ Provisional digital study. Jack-axis height INFERRED; tolerances marked ASSUMED 
 | Q9 | PMMA clamp load / nut torque | jack load path |
 | Q10 | PCM13SMTR sourcing | setting switch part |
 | R2-C1 | PicoBlade on the perpendicular board in 2HP: wires leave the mated plug along +X with only the end-bend room shown per variant, and the 2.3 mm tails must be cut like the jack leads | power connector choice (R4) and 2HP power route |
+| R2-C5 | power cable length: the shortest A7 power route is 2hp 51.68 mm / 3hp 52.664 mm, longer than the A5 50 +/- 6 finished cable, so that cable does not reach at nominal; an A7 power-cable length with its tolerance has to be set | power harness (#8) |
+| R2-C6 | controller-to-leaf SH4 harness descent passes between the A5 adapter PCB and leaf LED D2 inside the left emission corridor: the descent window is 0.175 mm wide for the r=1.0 bundle model (ASSUMED), and the CAD reports its distance to D2 under optical_obstruction in verification.json; its optical effect is not simulated | LED harness exit direction or leaf connector position (#8, optics) |
 | R2-C2 | finished SH/PicoBlade cable bend radius, insulation, slack storage and label | harness route scenarios (#8) |
 | R2-C3 | IDC ribbon side exit beyond the 2HP outline (carried over from A5) | 2HP neighbour clearance |
 | R2-C4 | switch actuation force and tool access with real parts | setting switch support |

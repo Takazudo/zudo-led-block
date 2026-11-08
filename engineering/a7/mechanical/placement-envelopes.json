@@ -157,6 +157,52 @@
       "reason": "actuator travel plus tool clearance; nothing taller than the switch between actuator and board edge"
     },
     {
+      "id": "sh4-header",
+      "faces": [
+        "component face (KiCad F)"
+      ],
+      "assembly_y": [
+        57.425,
+        63.675
+      ],
+      "assembly_z": [
+        9.9,
+        16.4
+      ],
+      "board_x": [
+        9.7,
+        16.2
+      ],
+      "board_y": [
+        8.925,
+        15.175
+      ],
+      "reason": "SH4 side-entry housing and its mated plug handle"
+    },
+    {
+      "id": "picoblade-header",
+      "faces": [
+        "component face (KiCad F)"
+      ],
+      "assembly_y": [
+        73.95,
+        77.15
+      ],
+      "assembly_z": [
+        6.5,
+        12.0
+      ],
+      "board_x": [
+        6.3,
+        11.8
+      ],
+      "board_y": [
+        25.45,
+        28.65
+      ],
+      "reason": "PicoBlade vertical header and mated plug"
+    },
+    {
       "id": "picoblade-tails",
       "faces": [
         "solder face (KiCad B)"

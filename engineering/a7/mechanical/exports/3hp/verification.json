@@ -4,119 +4,117 @@
   "status": "PROVISIONAL_DIGITAL_STUDY_NOT_FIT_APPROVAL",
   "selection": "FEASIBLE ON PAPER",
   "default_variant": true,
-  "layout_sha256": "5a4b14a06cd227b72a55ccae9e8e13e06fdaeab4cc997e38ce409d4db110d29b",
-  "part_count": 67,
+  "layout_sha256": "c5d7fa948a1c06515e0fc0f941577d22295e500e78f7c357282a1b6b18a879ff",
+  "input_sha256": {
+    "engineering/a7/mechanical/layout.json": "c5d7fa948a1c06515e0fc0f941577d22295e500e78f7c357282a1b6b18a879ff",
+    "engineering/a7/mechanical/build_a7_mechanical.py": "fd6bb0a140a5bbff539c65c34d7d6e9e5ec10776f26db0bb37f9db18df9256fc",
+    "engineering/a7/front_panel/build_a7_front.py": "248a7704eca8dabbcfbf2ad7d7bf541b5099ea706e3eff1932cdf8cd0d4bf67e"
+  },
+  "part_count": 68,
   "all_shapes_valid": true,
   "unexpected_rigid_intersections": [],
   "explicitly_expected_contacts": [
     {
       "a": "jack_in_PJ-324M",
       "b": "jack_in_solder_fillets",
-      "volume_mm3": 1.2
+      "volume_mm3": 1.2,
+      "limit_mm3": 1.5
     },
     {
       "a": "jack_thru_PJ-324M",
       "b": "jack_thru_solder_fillets",
-      "volume_mm3": 1.2
+      "volume_mm3": 1.2,
+      "limit_mm3": 1.5
     },
     {
       "a": "controller_pcb_A7",
       "b": "controller_PicoBlade_mated",
-      "volume_mm3": 0.603
+      "volume_mm3": 0.603,
+      "limit_mm3": 0.7
     },
     {
       "a": "controller_PicoBlade_mated",
       "b": "adapter_to_controller_power",
-      "centreline_distance_mm": 0.0,
-      "required_mm": 0.9,
-      "clearance_mm": -0.9
+      "volume_mm3": 0.0,
+      "limit_mm3": 10.179
     },
     {
       "a": "controller_SH4_mated",
       "b": "controller_to_left_leaf_sh4",
-      "centreline_distance_mm": 0.0,
-      "required_mm": 1.0,
-      "clearance_mm": -1.0
+      "volume_mm3": 0.0,
+      "limit_mm3": 12.566
     },
     {
       "a": "power_adapter_pcb_A5",
       "b": "adapter_C5665_keyed_header",
-      "volume_mm3": 6.554
+      "volume_mm3": 6.554,
+      "limit_mm3": 7.0
     },
     {
       "a": "power_adapter_pcb_A5",
       "b": "adapter_PicoBlade_mated",
-      "volume_mm3": 0.603
+      "volume_mm3": 0.603,
+      "limit_mm3": 0.7
     },
     {
       "a": "adapter_PicoBlade_mated",
       "b": "adapter_to_controller_power",
-      "centreline_distance_mm": 0.0,
-      "required_mm": 0.9,
-      "clearance_mm": -0.9
+      "volume_mm3": 0.0,
+      "limit_mm3": 10.179
     },
     {
       "a": "left_J1_SH4_mated",
       "b": "controller_to_left_leaf_sh4",
-      "centreline_distance_mm": 0.0,
-      "required_mm": 1.0,
-      "clearance_mm": -1.0
+      "volume_mm3": 0.0,
+      "limit_mm3": 12.566
     },
     {
       "a": "left_J2_SH4_mated",
       "b": "leaf_link_pin_1_A5",
-      "centreline_distance_mm": 0.0,
-      "required_mm": 0.4,
-      "clearance_mm": -0.4
+      "volume_mm3": 0.0,
+      "limit_mm3": 2.011
     },
     {
       "a": "left_J2_SH4_mated",
       "b": "leaf_link_pin_2_A5",
-      "centreline_distance_mm": 0.0,
-      "required_mm": 0.4,
-      "clearance_mm": -0.4
+      "volume_mm3": 0.0,
+      "limit_mm3": 2.011
     },
     {
       "a": "left_J2_SH4_mated",
       "b": "leaf_link_pin_3_A5",
-      "centreline_distance_mm": 0.0,
-      "required_mm": 0.4,
-      "clearance_mm": -0.4
+      "volume_mm3": 0.0,
+      "limit_mm3": 2.011
     },
     {
       "a": "left_J2_SH4_mated",
       "b": "leaf_link_pin_4_A5",
-      "centreline_distance_mm": 0.0,
-      "required_mm": 0.4,
-      "clearance_mm": -0.4
+      "volume_mm3": 0.0,
+      "limit_mm3": 2.011
     },
     {
       "a": "right_J1_SH4_mated",
       "b": "leaf_link_pin_1_A5",
-      "centreline_distance_mm": 0.0,
-      "required_mm": 0.4,
-      "clearance_mm": -0.4
+      "volume_mm3": 0.0,
+      "limit_mm3": 2.011
     },
     {
       "a": "right_J1_SH4_mated",
       "b": "leaf_link_pin_2_A5",
-      "centreline_distance_mm": 0.0,
-      "required_mm": 0.4,
-      "clearance_mm": -0.4
+      "volume_mm3": 0.0,
+      "limit_mm3": 2.011
     },
     {
       "a": "right_J1_SH4_mated",
       "b": "leaf_link_pin_3_A5",
-      "centreline_distance_mm": 0.0,
-      "required_mm": 0.4,
-      "clearance_mm": -0.4
+      "volume_mm3": 0.0,
+      "limit_mm3": 2.011
     },
     {
       "a": "right_J1_SH4_mated",
       "b": "leaf_link_pin_4_A5",
-      "centreline_distance_mm": 0.0,
-      "required_mm": 0.4,
-      "clearance_mm": -0.4
+      "volume_mm3": 0.0,
+      "limit_mm3": 2.011
     }
   ],
   "cable_findings": [
@@ -460,17 +458,18 @@
         },
         {
           "part": "controller_to_left_leaf_sh4",
-          "origin": "a7_harness_at_leaf_connector",
-          "volume_mm3": 28.662,
-          "projected_yz_bbox_mm2": 36.319,
+          "origin": "a7_harness",
+          "volume_mm3": 28.788,
+          "projected_yz_bbox_mm2": 36.539,
           "y": [
             43.575,
-            50.179
+            50.219
           ],
           "z": [
             19.4,
             24.9
-          ]
+          ],
+          "min_distance_to_emitter_mm": 0.389
         },
         {
           "part": "leaf_link_pin_1_A5",
@@ -530,6 +529,23 @@
         }
       ],
       "a7_controller_or_support_obstructions": 0,
+      "a7_harness_obstructions": [
+        {
+          "part": "controller_to_left_leaf_sh4",
+          "origin": "a7_harness",
+          "volume_mm3": 28.788,
+          "projected_yz_bbox_mm2": 36.539,
+          "y": [
+            43.575,
+            50.219
+          ],
+          "z": [
+            19.4,
+            24.9
+          ],
+          "min_distance_to_emitter_mm": 0.389
+        }
+      ],
       "projected_bbox_upper_bound_fraction": 0.363
     },
     "right": {
@@ -779,11 +795,12 @@
         }
       ],
       "a7_controller_or_support_obstructions": 0,
+      "a7_harness_obstructions": [],
       "projected_bbox_upper_bound_fraction": 0.439
     }
   },
   "switch_tool_access": {
-    "corridor": "probe space below the actuator tip, Y 111.4 to 140, across all three positions plus 1.0 mm",
+    "corridor": "actuator travel from its root (Y 109.9) to the board edge and the probe space below it to Y 140, across all three positions plus 1.0 mm; every modelled part except the switch is tested. Rails, case and neighbouring modules are not modelled",
     "x": [
       4.45,
       6.35
@@ -800,7 +817,7 @@
       "part": "front_pmma_A7",
       "valid": true,
       "solids": 1,
-      "volume_mm3": 3589.253,
+      "volume_mm3": 3576.753,
       "bbox_min": [
         -0.0,
         -0.0,
@@ -1700,16 +1717,34 @@
       "part": "bottom_leaf_cap",
       "valid": true,
       "solids": 1,
-      "volume_mm3": 343.534,
+      "volume_mm3": 317.389,
       "bbox_min": [
         0.3,
         103.8,
-        14.6
+        18.0
       ],
       "bbox_max": [
         14.6,
         107.0,
         29.8
+      ],
+      "scope": "retained_module",
+      "kind": "printable_design"
+    },
+    {
+      "part": "bottom_cap_fork_A7",
+      "valid": true,
+      "solids": 1,
+      "volume_mm3": 26.145,
+      "bbox_min": [
+        1.6,
+        104.0,
+        14.6
+      ],
+      "bbox_max": [
+        5.7,
+        107.0,
+        18.2
       ],
       "scope": "retained_module",
       "kind": "printable_design"
@@ -2008,8 +2043,8 @@
     "step": "zudo_led_block_A7_3hp_assembled.step",
     "glb": "zudo_led_block_A7_3hp_assembled.glb",
     "valid": true,
-    "source_solids": 75,
-    "imported_solids": 75,
+    "source_solids": 76,
+    "imported_solids": 76,
     "volume_difference_mm3": 0.0
   },
   "views": {

@@ -53,12 +53,12 @@ def front_geometry(L, f5):
     for name, v in ((n, L["variants"][n]) for n in order):
         w = v["panel_width"]
         xa = v["x_axis"]
-        seat = v["jack_seat_x"]
-        clr = 0.2
+        clr = L["z_stack"]["rear_pocket_clearance"]
         pockets = []
         if L["z_stack"]["rear_pocket_depth"] > 0:
             for (y0, y1) in L["y_layout"]["jack_body_y"]:
-                pockets.append({"x": [round(seat - clr, 3), round(seat + 6.3 + clr, 3)], "y": [round(y0 - clr, 3), round(y1 + clr, 3)], "depth": L["z_stack"]["rear_pocket_depth"]})
+                pockets.append({"x": v["rear_pocket_x"], "x_basis": v["rear_pocket_x_basis"], "y": [round(y0 - clr, 3), round(y1 + clr, 3)],
+                                "y_basis": L["y_layout"]["jack_body_y_basis"] + f", plus {clr} clearance", "depth": L["z_stack"]["rear_pocket_depth"]})
         out["variants"][name] = {
             "width": w, "slot_length": f5["variants"][name]["slot_length"], "mounts": f5["variants"][name]["mounts"],
             "m2_holes": [[v["front_screw_x"][str(y)], y] for y in L["supports"]["front_screw_y"]],
@@ -287,7 +287,8 @@ def main():
     rows = [build_variant(fg, f5, name, OUT) for name in fg["variants"]]
     for m in rows:
         print(json.dumps({"variant": m["variant"], "passed": m["passed"], "loops": m["through_profile_loops"], "regions": m["engraved_connected_regions"]}))
-    (OUT / "validation_A7.json").write_text(json.dumps({"revision": "A7", "status": STATUS, "variants": rows, "all_passed": all(m["passed"] for m in rows)}, indent=2) + "\n")
+    inputs = {f: hashlib.sha256((REPO / f).read_bytes()).hexdigest() for f in ("engineering/a7/mechanical/layout.json", "engineering/a7/front_panel/build_a7_front.py")}
+    (OUT / "validation_A7.json").write_text(json.dumps({"revision": "A7", "status": STATUS, "input_sha256": inputs, "variants": rows, "all_passed": all(m["passed"] for m in rows)}, indent=2) + "\n")
     if not all(m["passed"] for m in rows):
         raise SystemExit("A7 front validation failed; see exports/validation_A7.json")
 

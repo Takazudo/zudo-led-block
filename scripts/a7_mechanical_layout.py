@@ -55,6 +55,26 @@ def fact(path, fact_id):
     raise KeyError(fact_id)
 
 
+def union_area(rects, step=0.05):
+    """Area of the union of axis-aligned (y, z) rectangles, by exact sweep over the distinct y breaks."""
+    ys = sorted({v for (y, _) in rects for v in y})
+    total = 0.0
+    for y0, y1 in zip(ys, ys[1:]):
+        spans = sorted((z[0], z[1]) for (y, z) in rects if y[0] <= y0 and y[1] >= y1)
+        cover, cur = 0.0, None
+        for a, b in spans:
+            if cur is None or a > cur[1]:
+                if cur:
+                    cover += cur[1] - cur[0]
+                cur = [a, b]
+            else:
+                cur[1] = max(cur[1], b)
+        if cur:
+            cover += cur[1] - cur[0]
+        total += cover * (y1 - y0)
+    return total
+
+
 def frange(a, b, step):
     n = int(round((b - a) / step))
     return [r(a + i * step) for i in range(n + 1)]
@@ -197,7 +217,10 @@ def sweep_2hp(p, d):
 
 def select_2hp(p, rows):
     pref = p["parameters"]["nut_edge_margin_required"]["preferred"]
-    ok = [x for x in rows if x["nominal_min"] >= -1e-9 and x["nominal"]["nut_front"] >= pref - 1e-9 and x["lead_long_enough_for_trim"]]
+    req = p["parameters"]["nut_edge_margin_required"]["nominal"]
+    ok = [x for x in rows if x["nominal_min"] >= -1e-9 and x["nominal"]["nut_front"] + req >= pref - 1e-9 and x["lead_long_enough_for_trim"]]
+    for x in ok:
+        x["nut_preference_met_at_worst"] = x["worst"]["nut_front"] + req >= pref - 1e-9
     ok.sort(key=lambda x: (x["worst_min"], x["nominal_min"], x["pcb_thickness"]), reverse=True)
     return ok[0], len(ok)
 
@@ -318,7 +341,7 @@ def build():
     pcb_z1 = r(optical_front - c["rear_gap_to_optical_volume"]["nominal"])
     z_stack = {
         "pmma_front_z": -P["panel_thickness"]["nominal"], "pmma_rear_z": 0.0,
-        "axial_option": ax_opt, "rear_pocket_depth": pocket, "jack_body_front_z": r(body_front_z),
+        "axial_option": ax_opt, "rear_pocket_depth": pocket, "rear_pocket_clearance": d["axial_option"]["pocket_clearance_around_body"], "jack_body_front_z": r(body_front_z),
         "jack_body_rear_z_nominal": r(body_rear_nom), "jack_body_rear_z_max": r(body_rear_max),
         "barrel_tip_z_nominal": r(body_front_z - P["jack_barrel_projection"]["nominal"]),
         "nut_z": [r(-P["panel_thickness"]["nominal"] - p["nuts"][nut_id]["thickness"]), -P["panel_thickness"]["nominal"]],
@@ -457,12 +480,25 @@ def build():
         routes["controller_to_left_leaf_sh4"]["bundle_radius"] = cab["sh_bundle_radius"]["nominal"]
         routes["adapter_to_controller_power"]["bundle_radius"] = cab["power_bundle_radius"]["nominal"]
         pw = routes["adapter_to_controller_power"]
-        pw["within_finished_tolerance"] = abs(pw["length"] - cab["power_finished_free_span"]["nominal"]) <= cab["power_finished_free_span"]["tol"]
+        fl = cab["power_finished_free_span"]
+        pw["shortest_route_length"] = pw["length"]
+        pw["nominal_cable_reaches"] = pw["length"] <= fl["nominal"] + 1e-9
+        pw["shortest_cable_in_band_reaches"] = pw["length"] <= fl["nominal"] - fl["tol"] + 1e-9
+        pw["finished_length_needed_min"] = pw["length"]
         routes["controller_to_left_leaf_sh4"]["status"] = "solved for the nominal finished length"
         checks["power_route_end_bend_room"] = routes["adapter_to_controller_power"]["end_bend_room"]
         checks["power_route_min_radius"] = routes["adapter_to_controller_power"]["min_radius"]
+        checks["power_route_bend_at_least_preferred"] = routes["adapter_to_controller_power"]["min_radius"] >= cab["preferred_bend_radius"]["nominal"] - 1e-9
+        checks["power_route_nominal_cable_reaches"] = routes["adapter_to_controller_power"]["nominal_cable_reaches"]
         checks["led_route_min_radius"] = routes["controller_to_left_leaf_sh4"]["min_radius"]
+        # rear pocket across X must take the body over the INFERRED axis band and the overall-height tolerance
+        pclr = d["axial_option"]["pocket_clearance_around_body"]
+        a_ = P["jack_axis_height"]
+        pocket_x = [r(x_axis - a_["max"] - pclr), r(x_axis - a_["min"] + P["jack_overall_height"]["nominal"] + P["jack_overall_height"]["tol"] + pclr)]
+        checks["rear_pocket_wall_to_panel_edge"] = r(min(pocket_x[0], w - pocket_x[1]))
         variants[name] = {
+            "rear_pocket_x": pocket_x,
+            "rear_pocket_x_basis": f"axis band {a_['min']}-{a_['max']} (INFERRED) and overall height {P['jack_overall_height']['nominal']} +/- {P['jack_overall_height']['tol']}, plus {pclr} clearance",
             "routes": routes,
             "panel_width": w, "selection": row, "x_axis": x_axis,
             "jack_axis_height_used": {"value": h_nom, "confidence": "INFERRED", "band": [P["jack_axis_height"]["min"], P["jack_axis_height"]["max"]]},
@@ -481,7 +517,12 @@ def build():
         {"id": "setting-switch", "faces": ["+X"], "y": switch["footprint_y"], "z": switch["footprint_z"], "reason": "PCM13SMTR body, actuator and its signal/retention pads at the bottom edge"},
         {"id": "switch-access", "faces": ["+X"], "y": [sw_body_y[1], y_bottom], "z": [r(switch["actuator_positions_z"][0] - sw["actuator_width"] / 2 - 0.5), r(switch["actuator_positions_z"][2] + sw["actuator_width"] / 2 + 0.5)], "reason": "actuator travel plus tool clearance; nothing taller than the switch between actuator and board edge"},
     ]
+    lhd = c["led_header"]
+    keepouts.append({"id": "sh4-header", "faces": ["+X"], "y": [r(lhd["y"] - 2.575), r(lhd["y"] + 1.675 + 2.0)], "z": [r(lhd["z_centre"] - 3.0 - 0.5), pcb_z1],
+                     "reason": "SH4 side-entry housing and its mated plug handle"})
     ph = c["power_header"]
+    keepouts.append({"id": "picoblade-header", "faces": ["+X"], "y": [r(ph["y"] - 2.05), r(ph["y"] + 1.15)], "z": [r(ph["z_centre"] - 2.75), r(ph["z_centre"] + 2.75)],
+                     "reason": "PicoBlade vertical header and mated plug"})
     keepouts.append({"id": "picoblade-tails", "faces": ["-X"], "y": [r(ph["y"] - 2.05), r(ph["y"] + 1.15)], "z": [r(ph["z_centre"] - 2.75), r(ph["z_centre"] + 2.75)],
                      "reason": "PicoBlade THT tails and fillets on the solder face (cut to the jack trim rule in 2HP)"})
     lh = c["led_header"]
@@ -495,7 +536,7 @@ def build():
         keepouts.append({"id": f"jack-{j['functions'][i].split()[-1].lower()}-leads", "faces": ["-X"], "y": [r(y + min(pin_y_rel.values()) - fr), r(y + max(pin_y_rel.values()) + fr)],
                          "z": [pcb_z0, r(max(pin_z.values()) + fr)], "reason": "terminal fillets only on the solder face (2HP lead-side margin)"})
     area_total = (y_bottom - y_top) * (pcb_z1 - pcb_z0)
-    area_keep = sum((k["y"][1] - k["y"][0]) * (k["z"][1] - k["z"][0]) for k in keepouts if "+X" in k["faces"] and k["id"] != "switch-access")
+    area_keep = union_area([(k["y"], k["z"]) for k in keepouts if "+X" in k["faces"]])
     controller = {
         "outline_y": [y_top, y_bottom], "outline_z": [pcb_z0, pcb_z1],
         "outline_area_mm2": r(area_total), "component_face_free_area_mm2_approx": r(area_total - area_keep),
@@ -583,6 +624,8 @@ def build():
             {"id": "Q9", "item": "PMMA clamp load / nut torque", "decides": "jack load path"},
             {"id": "Q10", "item": "PCM13SMTR sourcing", "decides": "setting switch part"},
             {"id": "R2-C1", "item": "PicoBlade on the perpendicular board in 2HP: wires leave the mated plug along +X with only the end-bend room shown per variant, and the 2.3 mm tails must be cut like the jack leads", "decides": "power connector choice (R4) and 2HP power route"},
+            {"id": "R2-C5", "item": "power cable length: the shortest A7 power route is " + " / ".join(f"{n} {v['routes']['adapter_to_controller_power']['length']} mm" for n, v in variants.items()) + ", longer than the A5 50 +/- 6 finished cable, so that cable does not reach at nominal; an A7 power-cable length with its tolerance has to be set", "decides": "power harness (#8)"},
+            {"id": "R2-C6", "item": "controller-to-leaf SH4 harness descent passes between the A5 adapter PCB and leaf LED D2 inside the left emission corridor: the descent window is 0.175 mm wide for the r=1.0 bundle model (ASSUMED), and the CAD reports its distance to D2 under optical_obstruction in verification.json; its optical effect is not simulated", "decides": "LED harness exit direction or leaf connector position (#8, optics)"},
             {"id": "R2-C2", "item": "finished SH/PicoBlade cable bend radius, insulation, slack storage and label", "decides": "harness route scenarios (#8)"},
             {"id": "R2-C3", "item": "IDC ribbon side exit beyond the 2HP outline (carried over from A5)", "decides": "2HP neighbour clearance"},
             {"id": "R2-C4", "item": "switch actuation force and tool access with real parts", "decides": "setting switch support"},
