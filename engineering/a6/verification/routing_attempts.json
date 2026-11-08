@@ -37,6 +37,18 @@
   "nets_unrouted_in_at_least_3_of_4_imported_results": ["+12V_PROT", "+12V_RAW", "+3V3", "+5V", "-12V_PROT", "CV_ADC", "CV_AFFINE", "DATA_L", "DATA_L_3V3", "DATA_R", "DATA_R_5V", "GND", "LED_ENABLE", "LED_EN_N", "NRST", "SWCLK", "SWDIO", "VLED"]
  },
  "placement_finding": "Five parts that serve the upper section sit in the lower analog section because no legal 0603 spot exists near their pins: R9 (MODE_A pull-up, y 61.7), R20 (VLED bleeder, y 61.7), R16/R17 (DATA_L/R_3V3 pull-downs, y 48.5) and R12 (LED_BASE pull-down, y 39.6). A free-spot search over courtyards, board edge, through-hole pads, the J3 plug keep-out, the H1/H2 clamp keep-outs and the M2 posts found no closer spot for any of them, so their nets add five full-length runs through the jam.",
+ "second_round_8p8mm": {
+  "recorded_utc": "2026-11-08",
+  "trigger": "owner asked to keep trying automatic routing on the 8.8 mm board",
+  "freerouting": [
+   {"id": "vE", "settings": "via_costs 25, In1 routable, 60 min", "best_unrouted": 13, "final_unconnected_after_import": 25},
+   {"id": "vF", "settings": "via_costs 80, start_ripup_costs 400, In1 routable, 60 min", "best_unrouted": 10, "final_unconnected_after_import": 34}
+  ],
+  "freerouting_best_state": "Freerouting 2.1.0 writes only its current state at the job timeout, never its best pass; save_intermediate_stages produced no files in CLI mode.",
+  "closer": "Scripted negotiated closer on top of the vC result (KiCad DRC as the connectivity oracle each round): it diverged, 32 -> 57 -> 92 -> 128 unconnected over three rounds, because every forced crossing in the y 12-35 mm section opens new gaps in other nets.",
+  "in_house_router_4_layers": "PathFinder on all four layers at minimum widths: still 22 nets overlapping after 31 iterations.",
+  "capacity_check": "Every horizontal cross-section has roughly 60-100 track slots at 0.3 mm pitch for at most 20 crossing non-GND nets, so the failure is local pin escape and via spacing (vias block all four layers) around U1, SW1, U4/U5/Q1 and the TP row, not raw width."
+ },
  "widened_outline_scratch_test": {
   "recorded_utc": "2026-11-08",
   "committed": false,
