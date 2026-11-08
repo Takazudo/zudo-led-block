@@ -212,6 +212,8 @@ PJ324M = {
     'pins': {'1': (0.0, 1.6), '5': (4.5, 5.6), '3': (-2.5, 8.6), '2': (-5.2, 9.6), '4': (4.0, 13.0)},
     # Slot orientation from the drawing: 1 and 4 run across the axis, 2, 3 and 5 along it.
     'slot_across': ('1', '4'), 'drill': (1.6, 0.8), 'pad': (2.3, 1.5),
+    # Pin 1 sits 0.9 mm from the board front edge at R2's jack position: 1.3 along the axis keeps 0.25 mm edge clearance.
+    'pad_overrides': {'1': (2.3, 1.3)},
     # 5.4 mm axis-to-edge on the pin-4/5 side, 6.1 on the pin-2/3 side (drawing; electrical review on #24).
     # Barrel projection 3.5 (fact-a7-pj-324m-barrel-projection; 14.2 + 3.5 = L17.7); 3.2 is the terminal projection.
     'body': (-6.1, 0.0, 5.4, 14.2), 'barrel': (-3.0, -3.5, 3.0, 0.0), 'height': 6.3,
@@ -229,7 +231,7 @@ FOOTPRINT_SOURCES = {
     'PJ324M': {
         'part': 'SOFNG PJ-324M, LCSC C22355739',
         'terminal_positions': 'MIRROR: SOFNG drawing CIRCUIT BOARD SIZE via LCSC (R1 fact-a7-pj-324m-footprint-positions); across sign follows the drawing view and is UNVERIFIED against the component side',
-        'holes': 'ASSUMED: oval plated slots 1.6 x 0.8 mm drill, 2.3 x 1.5 mm pads, oriented as drawn (1 and 4 across the axis, 2, 3 and 5 along it), about 0.2 mm per side around a 1.2 x 0.40 mm blade; the drawing gives no hole/slot size (open question Q3)',
+        'holes': 'ASSUMED: oval plated slots 1.6 x 0.8 mm drill, 2.3 x 1.5 mm pads (pin 1: 2.3 x 1.3, 0.25 mm annular ring along the axis, for board-edge clearance at the R2 front-edge position), oriented as drawn (1 and 4 across the axis, 2, 3 and 5 along it), about 0.2 mm per side around a 1.2 x 0.40 mm blade; the drawing gives no hole/slot size (open question Q3)',
         'body_outline': 'MIRROR: 11.5 wide, axis 5.4 from the pin-4/5 edge and 6.1 from the pin-2/3 edge, 14.2 deep, barrel 3.5 projecting, 6.3 overall height; the across sign (view direction of the drawing) is UNVERIFIED',
         'pin_functions': 'INFERRED (R1 pinmap-a7-pj-324m): 1 sleeve, 2 ring, 3 ring normal, 4 tip, 5 tip normal; continuity test of incoming parts still required',
     },
@@ -279,7 +281,8 @@ def footprint_pj324m() -> str:
     items.append(_rect('PJ324M', bx1 - .25, d['barrel'][1] - .25, bx2 + .25, by2 + .25, 'F.CrtYd', 0.05))
     for num in sorted(d['pins']):
         x, y = d['pins'][num]
-        (px, py), (dx, dy) = (d['pad'], d['drill']) if num in d['slot_across'] else (d['pad'][::-1], d['drill'][::-1])
+        pad = d['pad_overrides'].get(num, d['pad'])
+        (px, py), (dx, dy) = (pad, d['drill']) if num in d['slot_across'] else (pad[::-1], d['drill'][::-1])
         items.append(f'\t(pad "{num}" thru_hole oval (at {_f(x)} {_f(y)}) (size {_f(px)} {_f(py)}) (drill oval {_f(dx)} {_f(dy)}) '
                      f'(layers "*.Cu" "*.Mask") (remove_unused_layers no) (uuid "{_uid("PJ324M", "pad", num)}"))')
     return _footprint('PJ324M', 'through_hole',

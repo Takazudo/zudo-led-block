@@ -158,7 +158,10 @@ def mutate(src: Path, dst: Path, kind: str, spec: dict | None = None) -> dict:
     info = {'kind': kind}
     spec = spec or {}
     if kind == 'route_break':
-        cands = [t for t in b.GetTracks() if t.GetClass() == 'PCB_TRACK' and t.GetNetname() not in ('GND', '')]
+        # zone nets are excluded: a pour can bridge a removed GND track, so the break would not show
+        zone_nets = {z.GetNetname() for z in b.Zones()}
+        cands = [t for t in b.GetTracks() if t.GetClass() == 'PCB_TRACK' and t.GetNetname().lstrip('/') not in ('GND', '')
+                 and t.GetNetname() not in zone_nets]
         if not cands:
             raise ValueError('route_break control needs routed copper; the board has no signal tracks')
         cands.sort(key=lambda t: (t.GetNetname(), t.GetStart().x, t.GetStart().y))

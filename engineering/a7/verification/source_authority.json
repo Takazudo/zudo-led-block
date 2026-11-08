@@ -53,6 +53,12 @@
    "rule": "PJ324M and PCM13SMTR only; every dimension tagged MIRROR/ASSUMED/INFERRED in footprint_sources.json. A5 footprints are referenced read-only from engineering/a5."
   },
   {
+   "path": "engineering/a7/electronics/controller/placement.json",
+   "class": "derived",
+   "generator": "python3 scripts/a7_board.py place",
+   "rule": "Placement input for the R4 staging board, checked against R2's placement-envelopes.json keep-outs (courtyard, side and keep-out rules). The routed board, once it lands, is the authority for positions; this file only records how it was seeded."
+  },
+  {
    "path": "engineering/a7/electronics/README.md",
    "class": "authored"
   },
