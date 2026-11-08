@@ -1,15 +1,25 @@
 {
-  "status": "PRE-ROUTING: R4's agreed placement before routing; re-run on the routed export (authority.py export-placement, with the board SHA-256)",
+  "status": "ROUTED EXPORT: R4's routed board (PR #30, not merged; may change after independent review, then a new export and SHA)",
   "source": {
     "pr": 30,
     "branch": "claude/project-thread-rhjln2",
-    "head": "0ce69b016db3dbec0cd3a92a96862146d8ce99c6",
-    "path": "engineering/a7/electronics/controller/placement.json",
-    "status": "PRE-ROUTING",
-    "sha256": "a6e9be1ca2f7c3ef805e4f99db292fcf887b5683927178cfdad65a9819314bd8"
+    "head": "493155e33067b0cf082045ef4fa6ee3f3a84a864",
+    "path": "engineering/a7/electronics/controller/board_placement.json",
+    "status": "ROUTED, PR #30 not merged",
+    "sha256": "374aa1cf12a31e6884cf918ed23cc098d6cdb5ae6af03893beba3e7bc1f1eba6",
+    "board_sha256": "b8cab9a617243c20bf7a7790b0b5c924972b03a15d7804a69de16fd4c083babb",
+    "board_thickness": 1.6,
+    "unconnected": 0
   },
-  "frame_matches": true,
+  "board_outline": [
+    0.0,
+    16.2,
+    0.0,
+    62.9
+  ],
+  "outline_matches": true,
   "parts": 64,
+  "pad_centres_inside_foreign_keepouts": [],
   "fixed_parts": [
     {
       "ref": "J1",
@@ -20,10 +30,170 @@
       "ok": true
     },
     {
+      "ref": "J1",
+      "what": "pin 1 board_x",
+      "r4": 0.9,
+      "r2": 0.9,
+      "delta": 0.0,
+      "ok": true
+    },
+    {
+      "ref": "J1",
+      "what": "pin 1 board_y",
+      "r4": 35.8,
+      "r2": 35.8,
+      "delta": 0.0,
+      "ok": true
+    },
+    {
+      "ref": "J1",
+      "what": "pin 2 board_x",
+      "r4": 8.9,
+      "r2": 8.9,
+      "delta": 0.0,
+      "ok": true
+    },
+    {
+      "ref": "J1",
+      "what": "pin 2 board_y",
+      "r4": 41.0,
+      "r2": 41.0,
+      "delta": 0.0,
+      "ok": true
+    },
+    {
+      "ref": "J1",
+      "what": "pin 3 board_x",
+      "r4": 7.9,
+      "r2": 7.9,
+      "delta": 0.0,
+      "ok": true
+    },
+    {
+      "ref": "J1",
+      "what": "pin 3 board_y",
+      "r4": 38.3,
+      "r2": 38.3,
+      "delta": 0.0,
+      "ok": true
+    },
+    {
+      "ref": "J1",
+      "what": "pin 4 board_x",
+      "r4": 12.3,
+      "r2": 12.3,
+      "delta": 0.0,
+      "ok": true
+    },
+    {
+      "ref": "J1",
+      "what": "pin 4 board_y",
+      "r4": 31.8,
+      "r2": 31.8,
+      "delta": 0.0,
+      "ok": true
+    },
+    {
+      "ref": "J1",
+      "what": "pin 5 board_x",
+      "r4": 4.9,
+      "r2": 4.9,
+      "delta": 0.0,
+      "ok": true
+    },
+    {
+      "ref": "J1",
+      "what": "pin 5 board_y",
+      "r4": 31.3,
+      "r2": 31.3,
+      "delta": 0.0,
+      "ok": true
+    },
+    {
       "ref": "J2",
       "what": "jack axis board_y",
       "r4": 50.8,
       "r2": 50.8,
+      "delta": 0.0,
+      "ok": true
+    },
+    {
+      "ref": "J2",
+      "what": "pin 1 board_x",
+      "r4": 0.9,
+      "r2": 0.9,
+      "delta": 0.0,
+      "ok": true
+    },
+    {
+      "ref": "J2",
+      "what": "pin 1 board_y",
+      "r4": 50.8,
+      "r2": 50.8,
+      "delta": 0.0,
+      "ok": true
+    },
+    {
+      "ref": "J2",
+      "what": "pin 2 board_x",
+      "r4": 8.9,
+      "r2": 8.9,
+      "delta": 0.0,
+      "ok": true
+    },
+    {
+      "ref": "J2",
+      "what": "pin 2 board_y",
+      "r4": 56.0,
+      "r2": 56.0,
+      "delta": 0.0,
+      "ok": true
+    },
+    {
+      "ref": "J2",
+      "what": "pin 3 board_x",
+      "r4": 7.9,
+      "r2": 7.9,
+      "delta": 0.0,
+      "ok": true
+    },
+    {
+      "ref": "J2",
+      "what": "pin 3 board_y",
+      "r4": 53.3,
+      "r2": 53.3,
+      "delta": 0.0,
+      "ok": true
+    },
+    {
+      "ref": "J2",
+      "what": "pin 4 board_x",
+      "r4": 12.3,
+      "r2": 12.3,
+      "delta": 0.0,
+      "ok": true
+    },
+    {
+      "ref": "J2",
+      "what": "pin 4 board_y",
+      "r4": 46.8,
+      "r2": 46.8,
+      "delta": 0.0,
+      "ok": true
+    },
+    {
+      "ref": "J2",
+      "what": "pin 5 board_x",
+      "r4": 4.9,
+      "r2": 4.9,
+      "delta": 0.0,
+      "ok": true
+    },
+    {
+      "ref": "J2",
+      "what": "pin 5 board_y",
+      "r4": 46.3,
+      "r2": 46.3,
       "delta": 0.0,
       "ok": true
     },
@@ -37,7 +207,7 @@
     },
     {
       "ref": "J5",
-      "what": "PicoBlade housing centre board_x",
+      "what": "PicoBlade housing centre (pin 2) board_x",
       "r4": 8.49,
       "r2": 8.49,
       "delta": 0.0,
@@ -104,5 +274,5 @@
   ],
   "solder_face_parts_are_resistors_or_test_pads": true,
   "solder_face_max_height": 0.6,
-  "not_checked": "footprint courtyards and part heights (placement gives origin, rotation and side only); copper and routing (#19)"
+  "not_checked": "footprint courtyards, pad extents and part heights (the export gives origins and pad centres); copper, tracks and vias (#19 DRC)"
 }
