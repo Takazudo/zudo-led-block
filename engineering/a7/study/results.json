@@ -1,0 +1,4182 @@
+{
+  "schema_version": 1,
+  "generator": "scripts/a7_dimension_study.py",
+  "inputs": "engineering/a7/study/parameters.json",
+  "status": "Paper study. Jack-axis height is INFERRED; jack dimensions marked MIRROR come from the LCSC-hosted copy of the SOFNG drawing and are not primary-source confirmed; tolerances marked ASSUMED are unsourced. Not a fit approval or part approval.",
+  "verdict_meaning": {
+    "FEASIBLE ON PAPER": "every hard margin is non-negative at the worst corner of the stated input ranges",
+    "UNRESOLVED": "passes at the best corner, fails at the worst; needs stronger evidence for the named inputs",
+    "INFEASIBLE WITHIN STATED RANGES": "fails even at the best corner of the stated input ranges"
+  },
+  "transverse_summary": {
+    "2hp-centred": {
+      "verdict": "UNRESOLVED",
+      "feasible_variants": [],
+      "unresolved_variants": [
+        "0.8 mm trimmed",
+        "1.0 mm trimmed",
+        "1.2 mm trimmed",
+        "1.6 mm trimmed"
+      ],
+      "nut_preferred_margin_met": true
+    },
+    "2hp-offset-0.3": {
+      "verdict": "UNRESOLVED",
+      "feasible_variants": [],
+      "unresolved_variants": [
+        "0.8 mm trimmed",
+        "1.0 mm trimmed",
+        "1.2 mm trimmed",
+        "1.6 mm trimmed"
+      ],
+      "nut_preferred_margin_met": true
+    },
+    "2hp-offset-0.6": {
+      "verdict": "UNRESOLVED",
+      "feasible_variants": [],
+      "unresolved_variants": [
+        "0.8 mm trimmed",
+        "1.0 mm trimmed",
+        "1.2 mm trimmed",
+        "1.6 mm trimmed"
+      ],
+      "nut_preferred_margin_met": false
+    },
+    "2hp-offset-0.9": {
+      "verdict": "UNRESOLVED",
+      "feasible_variants": [],
+      "unresolved_variants": [
+        "0.8 mm untrimmed",
+        "0.8 mm trimmed",
+        "1.0 mm untrimmed",
+        "1.0 mm trimmed",
+        "1.2 mm untrimmed",
+        "1.2 mm trimmed",
+        "1.6 mm untrimmed",
+        "1.6 mm trimmed"
+      ],
+      "nut_preferred_margin_met": false
+    },
+    "3hp-centred": {
+      "verdict": "FEASIBLE ON PAPER",
+      "feasible_variants": [
+        "0.8 mm untrimmed",
+        "0.8 mm trimmed",
+        "1.0 mm untrimmed",
+        "1.0 mm trimmed",
+        "1.2 mm untrimmed",
+        "1.2 mm trimmed",
+        "1.6 mm untrimmed",
+        "1.6 mm trimmed"
+      ],
+      "unresolved_variants": [],
+      "nut_preferred_margin_met": true
+    },
+    "3hp-offset-1.5": {
+      "verdict": "FEASIBLE ON PAPER",
+      "feasible_variants": [
+        "0.8 mm untrimmed",
+        "0.8 mm trimmed",
+        "1.0 mm untrimmed",
+        "1.0 mm trimmed",
+        "1.2 mm untrimmed",
+        "1.2 mm trimmed",
+        "1.6 mm untrimmed",
+        "1.6 mm trimmed"
+      ],
+      "unresolved_variants": [],
+      "nut_preferred_margin_met": true
+    }
+  },
+  "transverse": [
+    {
+      "arrangement": "2hp-centred",
+      "panel_width": 9.8,
+      "offset": 0.0,
+      "pcb_thickness": 0.8,
+      "leads": "untrimmed",
+      "verdict": "INFEASIBLE WITHIN STATED RANGES",
+      "reasons": [
+        "fails even at the best corner on: lead_side"
+      ],
+      "nut_preferred_margin_met": true,
+      "worst": {
+        "x_axis": 4.9,
+        "axis_height_used": {
+          "lead_side": 3.4,
+          "body_side": 2.6
+        },
+        "pcb_thickness_used": 0.88,
+        "lead_tip_x": -2.1,
+        "body_top_x": 9.0,
+        "nut_edge_margin": 0.6,
+        "lead_long_enough_for_trim": true,
+        "margins": {
+          "lead_side": -2.45,
+          "body_side": 0.45,
+          "nut_front": 0.6,
+          "panel_hole_web": 1.65
+        }
+      },
+      "nominal": {
+        "x_axis": 4.9,
+        "axis_height_used": {
+          "lead_side": 3.0,
+          "body_side": 3.0
+        },
+        "pcb_thickness_used": 0.8,
+        "lead_tip_x": -1.3,
+        "body_top_x": 8.2,
+        "nut_edge_margin": 0.9,
+        "lead_long_enough_for_trim": true,
+        "margins": {
+          "lead_side": -1.6,
+          "body_side": 1.3,
+          "nut_front": 0.9,
+          "panel_hole_web": 1.8
+        }
+      },
+      "best": {
+        "x_axis": 4.9,
+        "axis_height_used": {
+          "lead_side": 2.6,
+          "body_side": 3.4
+        },
+        "pcb_thickness_used": 0.72,
+        "lead_tip_x": -0.5,
+        "body_top_x": 7.4,
+        "nut_edge_margin": 1.175,
+        "lead_long_enough_for_trim": true,
+        "margins": {
+          "lead_side": -0.75,
+          "body_side": 2.15,
+          "nut_front": 1.175,
+          "panel_hole_web": 1.95
+        }
+      }
+    },
+    {
+      "arrangement": "2hp-centred",
+      "panel_width": 9.8,
+      "offset": 0.0,
+      "pcb_thickness": 0.8,
+      "leads": "trimmed",
+      "verdict": "UNRESOLVED",
+      "reasons": [
+        "passes at the best corner but fails at the worst corner on: lead_side",
+        "lead side depends on the INFERRED axis height (2.6-3.4) and the ASSUMED lead trim/PCB tolerance"
+      ],
+      "nut_preferred_margin_met": true,
+      "worst": {
+        "x_axis": 4.9,
+        "axis_height_used": {
+          "lead_side": 3.4,
+          "body_side": 2.6
+        },
+        "pcb_thickness_used": 0.88,
+        "lead_tip_x": -0.58,
+        "body_top_x": 9.0,
+        "nut_edge_margin": 0.6,
+        "lead_long_enough_for_trim": true,
+        "margins": {
+          "lead_side": -0.93,
+          "body_side": 0.45,
+          "nut_front": 0.6,
+          "panel_hole_web": 1.65
+        }
+      },
+      "nominal": {
+        "x_axis": 4.9,
+        "axis_height_used": {
+          "lead_side": 3.0,
+          "body_side": 3.0
+        },
+        "pcb_thickness_used": 0.8,
+        "lead_tip_x": 0.4,
+        "body_top_x": 8.2,
+        "nut_edge_margin": 0.9,
+        "lead_long_enough_for_trim": true,
+        "margins": {
+          "lead_side": 0.1,
+          "body_side": 1.3,
+          "nut_front": 0.9,
+          "panel_hole_web": 1.8
+        }
+      },
+      "best": {
+        "x_axis": 4.9,
+        "axis_height_used": {
+          "lead_side": 2.6,
+          "body_side": 3.4
+        },
+        "pcb_thickness_used": 0.72,
+        "lead_tip_x": 1.28,
+        "body_top_x": 7.4,
+        "nut_edge_margin": 1.175,
+        "lead_long_enough_for_trim": true,
+        "margins": {
+          "lead_side": 1.03,
+          "body_side": 2.15,
+          "nut_front": 1.175,
+          "panel_hole_web": 1.95
+        }
+      }
+    },
+    {
+      "arrangement": "2hp-centred",
+      "panel_width": 9.8,
+      "offset": 0.0,
+      "pcb_thickness": 1.0,
+      "leads": "untrimmed",
+      "verdict": "INFEASIBLE WITHIN STATED RANGES",
+      "reasons": [
+        "fails even at the best corner on: lead_side"
+      ],
+      "nut_preferred_margin_met": true,
+      "worst": {
+        "x_axis": 4.9,
+        "axis_height_used": {
+          "lead_side": 3.4,
+          "body_side": 2.6
+        },
+        "pcb_thickness_used": 1.1,
+        "lead_tip_x": -2.1,
+        "body_top_x": 9.0,
+        "nut_edge_margin": 0.6,
+        "lead_long_enough_for_trim": true,
+        "margins": {
+          "lead_side": -2.45,
+          "body_side": 0.45,
+          "nut_front": 0.6,
+          "panel_hole_web": 1.65
+        }
+      },
+      "nominal": {
+        "x_axis": 4.9,
+        "axis_height_used": {
+          "lead_side": 3.0,
+          "body_side": 3.0
+        },
+        "pcb_thickness_used": 1.0,
+        "lead_tip_x": -1.3,
+        "body_top_x": 8.2,
+        "nut_edge_margin": 0.9,
+        "lead_long_enough_for_trim": true,
+        "margins": {
+          "lead_side": -1.6,
+          "body_side": 1.3,
+          "nut_front": 0.9,
+          "panel_hole_web": 1.8
+        }
+      },
+      "best": {
+        "x_axis": 4.9,
+        "axis_height_used": {
+          "lead_side": 2.6,
+          "body_side": 3.4
+        },
+        "pcb_thickness_used": 0.9,
+        "lead_tip_x": -0.5,
+        "body_top_x": 7.4,
+        "nut_edge_margin": 1.175,
+        "lead_long_enough_for_trim": true,
+        "margins": {
+          "lead_side": -0.75,
+          "body_side": 2.15,
+          "nut_front": 1.175,
+          "panel_hole_web": 1.95
+        }
+      }
+    },
+    {
+      "arrangement": "2hp-centred",
+      "panel_width": 9.8,
+      "offset": 0.0,
+      "pcb_thickness": 1.0,
+      "leads": "trimmed",
+      "verdict": "UNRESOLVED",
+      "reasons": [
+        "passes at the best corner but fails at the worst corner on: lead_side",
+        "lead side depends on the INFERRED axis height (2.6-3.4) and the ASSUMED lead trim/PCB tolerance"
+      ],
+      "nut_preferred_margin_met": true,
+      "worst": {
+        "x_axis": 4.9,
+        "axis_height_used": {
+          "lead_side": 3.4,
+          "body_side": 2.6
+        },
+        "pcb_thickness_used": 1.1,
+        "lead_tip_x": -0.8,
+        "body_top_x": 9.0,
+        "nut_edge_margin": 0.6,
+        "lead_long_enough_for_trim": true,
+        "margins": {
+          "lead_side": -1.15,
+          "body_side": 0.45,
+          "nut_front": 0.6,
+          "panel_hole_web": 1.65
+        }
+      },
+      "nominal": {
+        "x_axis": 4.9,
+        "axis_height_used": {
+          "lead_side": 3.0,
+          "body_side": 3.0
+        },
+        "pcb_thickness_used": 1.0,
+        "lead_tip_x": 0.2,
+        "body_top_x": 8.2,
+        "nut_edge_margin": 0.9,
+        "lead_long_enough_for_trim": true,
+        "margins": {
+          "lead_side": -0.1,
+          "body_side": 1.3,
+          "nut_front": 0.9,
+          "panel_hole_web": 1.8
+        }
+      },
+      "best": {
+        "x_axis": 4.9,
+        "axis_height_used": {
+          "lead_side": 2.6,
+          "body_side": 3.4
+        },
+        "pcb_thickness_used": 0.9,
+        "lead_tip_x": 1.1,
+        "body_top_x": 7.4,
+        "nut_edge_margin": 1.175,
+        "lead_long_enough_for_trim": true,
+        "margins": {
+          "lead_side": 0.85,
+          "body_side": 2.15,
+          "nut_front": 1.175,
+          "panel_hole_web": 1.95
+        }
+      }
+    },
+    {
+      "arrangement": "2hp-centred",
+      "panel_width": 9.8,
+      "offset": 0.0,
+      "pcb_thickness": 1.2,
+      "leads": "untrimmed",
+      "verdict": "INFEASIBLE WITHIN STATED RANGES",
+      "reasons": [
+        "fails even at the best corner on: lead_side"
+      ],
+      "nut_preferred_margin_met": true,
+      "worst": {
+        "x_axis": 4.9,
+        "axis_height_used": {
+          "lead_side": 3.4,
+          "body_side": 2.6
+        },
+        "pcb_thickness_used": 1.32,
+        "lead_tip_x": -2.1,
+        "body_top_x": 9.0,
+        "nut_edge_margin": 0.6,
+        "lead_long_enough_for_trim": true,
+        "margins": {
+          "lead_side": -2.45,
+          "body_side": 0.45,
+          "nut_front": 0.6,
+          "panel_hole_web": 1.65
+        }
+      },
+      "nominal": {
+        "x_axis": 4.9,
+        "axis_height_used": {
+          "lead_side": 3.0,
+          "body_side": 3.0
+        },
+        "pcb_thickness_used": 1.2,
+        "lead_tip_x": -1.3,
+        "body_top_x": 8.2,
+        "nut_edge_margin": 0.9,
+        "lead_long_enough_for_trim": true,
+        "margins": {
+          "lead_side": -1.6,
+          "body_side": 1.3,
+          "nut_front": 0.9,
+          "panel_hole_web": 1.8
+        }
+      },
+      "best": {
+        "x_axis": 4.9,
+        "axis_height_used": {
+          "lead_side": 2.6,
+          "body_side": 3.4
+        },
+        "pcb_thickness_used": 1.08,
+        "lead_tip_x": -0.5,
+        "body_top_x": 7.4,
+        "nut_edge_margin": 1.175,
+        "lead_long_enough_for_trim": true,
+        "margins": {
+          "lead_side": -0.75,
+          "body_side": 2.15,
+          "nut_front": 1.175,
+          "panel_hole_web": 1.95
+        }
+      }
+    },
+    {
+      "arrangement": "2hp-centred",
+      "panel_width": 9.8,
+      "offset": 0.0,
+      "pcb_thickness": 1.2,
+      "leads": "trimmed",
+      "verdict": "UNRESOLVED",
+      "reasons": [
+        "passes at the best corner but fails at the worst corner on: lead_side",
+        "lead side depends on the INFERRED axis height (2.6-3.4) and the ASSUMED lead trim/PCB tolerance"
+      ],
+      "nut_preferred_margin_met": true,
+      "worst": {
+        "x_axis": 4.9,
+        "axis_height_used": {
+          "lead_side": 3.4,
+          "body_side": 2.6
+        },
+        "pcb_thickness_used": 1.32,
+        "lead_tip_x": -1.02,
+        "body_top_x": 9.0,
+        "nut_edge_margin": 0.6,
+        "lead_long_enough_for_trim": true,
+        "margins": {
+          "lead_side": -1.37,
+          "body_side": 0.45,
+          "nut_front": 0.6,
+          "panel_hole_web": 1.65
+        }
+      },
+      "nominal": {
+        "x_axis": 4.9,
+        "axis_height_used": {
+          "lead_side": 3.0,
+          "body_side": 3.0
+        },
+        "pcb_thickness_used": 1.2,
+        "lead_tip_x": 0.0,
+        "body_top_x": 8.2,
+        "nut_edge_margin": 0.9,
+        "lead_long_enough_for_trim": true,
+        "margins": {
+          "lead_side": -0.3,
+          "body_side": 1.3,
+          "nut_front": 0.9,
+          "panel_hole_web": 1.8
+        }
+      },
+      "best": {
+        "x_axis": 4.9,
+        "axis_height_used": {
+          "lead_side": 2.6,
+          "body_side": 3.4
+        },
+        "pcb_thickness_used": 1.08,
+        "lead_tip_x": 0.92,
+        "body_top_x": 7.4,
+        "nut_edge_margin": 1.175,
+        "lead_long_enough_for_trim": true,
+        "margins": {
+          "lead_side": 0.67,
+          "body_side": 2.15,
+          "nut_front": 1.175,
+          "panel_hole_web": 1.95
+        }
+      }
+    },
+    {
+      "arrangement": "2hp-centred",
+      "panel_width": 9.8,
+      "offset": 0.0,
+      "pcb_thickness": 1.6,
+      "leads": "untrimmed",
+      "verdict": "INFEASIBLE WITHIN STATED RANGES",
+      "reasons": [
+        "fails even at the best corner on: lead_side"
+      ],
+      "nut_preferred_margin_met": true,
+      "worst": {
+        "x_axis": 4.9,
+        "axis_height_used": {
+          "lead_side": 3.4,
+          "body_side": 2.6
+        },
+        "pcb_thickness_used": 1.76,
+        "lead_tip_x": -2.1,
+        "body_top_x": 9.0,
+        "nut_edge_margin": 0.6,
+        "lead_long_enough_for_trim": true,
+        "margins": {
+          "lead_side": -2.45,
+          "body_side": 0.45,
+          "nut_front": 0.6,
+          "panel_hole_web": 1.65
+        }
+      },
+      "nominal": {
+        "x_axis": 4.9,
+        "axis_height_used": {
+          "lead_side": 3.0,
+          "body_side": 3.0
+        },
+        "pcb_thickness_used": 1.6,
+        "lead_tip_x": -1.3,
+        "body_top_x": 8.2,
+        "nut_edge_margin": 0.9,
+        "lead_long_enough_for_trim": true,
+        "margins": {
+          "lead_side": -1.6,
+          "body_side": 1.3,
+          "nut_front": 0.9,
+          "panel_hole_web": 1.8
+        }
+      },
+      "best": {
+        "x_axis": 4.9,
+        "axis_height_used": {
+          "lead_side": 2.6,
+          "body_side": 3.4
+        },
+        "pcb_thickness_used": 1.44,
+        "lead_tip_x": -0.5,
+        "body_top_x": 7.4,
+        "nut_edge_margin": 1.175,
+        "lead_long_enough_for_trim": true,
+        "margins": {
+          "lead_side": -0.75,
+          "body_side": 2.15,
+          "nut_front": 1.175,
+          "panel_hole_web": 1.95
+        }
+      }
+    },
+    {
+      "arrangement": "2hp-centred",
+      "panel_width": 9.8,
+      "offset": 0.0,
+      "pcb_thickness": 1.6,
+      "leads": "trimmed",
+      "verdict": "UNRESOLVED",
+      "reasons": [
+        "passes at the best corner but fails at the worst corner on: lead_side",
+        "lead side depends on the INFERRED axis height (2.6-3.4) and the ASSUMED lead trim/PCB tolerance"
+      ],
+      "nut_preferred_margin_met": true,
+      "worst": {
+        "x_axis": 4.9,
+        "axis_height_used": {
+          "lead_side": 3.4,
+          "body_side": 2.6
+        },
+        "pcb_thickness_used": 1.76,
+        "lead_tip_x": -1.46,
+        "body_top_x": 9.0,
+        "nut_edge_margin": 0.6,
+        "lead_long_enough_for_trim": true,
+        "margins": {
+          "lead_side": -1.81,
+          "body_side": 0.45,
+          "nut_front": 0.6,
+          "panel_hole_web": 1.65
+        }
+      },
+      "nominal": {
+        "x_axis": 4.9,
+        "axis_height_used": {
+          "lead_side": 3.0,
+          "body_side": 3.0
+        },
+        "pcb_thickness_used": 1.6,
+        "lead_tip_x": -0.4,
+        "body_top_x": 8.2,
+        "nut_edge_margin": 0.9,
+        "lead_long_enough_for_trim": true,
+        "margins": {
+          "lead_side": -0.7,
+          "body_side": 1.3,
+          "nut_front": 0.9,
+          "panel_hole_web": 1.8
+        }
+      },
+      "best": {
+        "x_axis": 4.9,
+        "axis_height_used": {
+          "lead_side": 2.6,
+          "body_side": 3.4
+        },
+        "pcb_thickness_used": 1.44,
+        "lead_tip_x": 0.56,
+        "body_top_x": 7.4,
+        "nut_edge_margin": 1.175,
+        "lead_long_enough_for_trim": true,
+        "margins": {
+          "lead_side": 0.31,
+          "body_side": 2.15,
+          "nut_front": 1.175,
+          "panel_hole_web": 1.95
+        }
+      }
+    },
+    {
+      "arrangement": "2hp-offset-0.3",
+      "panel_width": 9.8,
+      "offset": 0.3,
+      "pcb_thickness": 0.8,
+      "leads": "untrimmed",
+      "verdict": "INFEASIBLE WITHIN STATED RANGES",
+      "reasons": [
+        "fails even at the best corner on: lead_side"
+      ],
+      "nut_preferred_margin_met": true,
+      "worst": {
+        "x_axis": 5.2,
+        "axis_height_used": {
+          "lead_side": 3.4,
+          "body_side": 2.6
+        },
+        "pcb_thickness_used": 0.88,
+        "lead_tip_x": -1.8,
+        "body_top_x": 9.3,
+        "nut_edge_margin": 0.3,
+        "lead_long_enough_for_trim": true,
+        "margins": {
+          "lead_side": -2.15,
+          "body_side": 0.15,
+          "nut_front": 0.3,
+          "panel_hole_web": 1.35
+        }
+      },
+      "nominal": {
+        "x_axis": 5.2,
+        "axis_height_used": {
+          "lead_side": 3.0,
+          "body_side": 3.0
+        },
+        "pcb_thickness_used": 0.8,
+        "lead_tip_x": -1.0,
+        "body_top_x": 8.5,
+        "nut_edge_margin": 0.6,
+        "lead_long_enough_for_trim": true,
+        "margins": {
+          "lead_side": -1.3,
+          "body_side": 1.0,
+          "nut_front": 0.6,
+          "panel_hole_web": 1.5
+        }
+      },
+      "best": {
+        "x_axis": 5.2,
+        "axis_height_used": {
+          "lead_side": 2.6,
+          "body_side": 3.4
+        },
+        "pcb_thickness_used": 0.72,
+        "lead_tip_x": -0.2,
+        "body_top_x": 7.7,
+        "nut_edge_margin": 0.875,
+        "lead_long_enough_for_trim": true,
+        "margins": {
+          "lead_side": -0.45,
+          "body_side": 1.85,
+          "nut_front": 0.875,
+          "panel_hole_web": 1.65
+        }
+      }
+    },
+    {
+      "arrangement": "2hp-offset-0.3",
+      "panel_width": 9.8,
+      "offset": 0.3,
+      "pcb_thickness": 0.8,
+      "leads": "trimmed",
+      "verdict": "UNRESOLVED",
+      "reasons": [
+        "passes at the best corner but fails at the worst corner on: lead_side",
+        "lead side depends on the INFERRED axis height (2.6-3.4) and the ASSUMED lead trim/PCB tolerance"
+      ],
+      "nut_preferred_margin_met": true,
+      "worst": {
+        "x_axis": 5.2,
+        "axis_height_used": {
+          "lead_side": 3.4,
+          "body_side": 2.6
+        },
+        "pcb_thickness_used": 0.88,
+        "lead_tip_x": -0.28,
+        "body_top_x": 9.3,
+        "nut_edge_margin": 0.3,
+        "lead_long_enough_for_trim": true,
+        "margins": {
+          "lead_side": -0.63,
+          "body_side": 0.15,
+          "nut_front": 0.3,
+          "panel_hole_web": 1.35
+        }
+      },
+      "nominal": {
+        "x_axis": 5.2,
+        "axis_height_used": {
+          "lead_side": 3.0,
+          "body_side": 3.0
+        },
+        "pcb_thickness_used": 0.8,
+        "lead_tip_x": 0.7,
+        "body_top_x": 8.5,
+        "nut_edge_margin": 0.6,
+        "lead_long_enough_for_trim": true,
+        "margins": {
+          "lead_side": 0.4,
+          "body_side": 1.0,
+          "nut_front": 0.6,
+          "panel_hole_web": 1.5
+        }
+      },
+      "best": {
+        "x_axis": 5.2,
+        "axis_height_used": {
+          "lead_side": 2.6,
+          "body_side": 3.4
+        },
+        "pcb_thickness_used": 0.72,
+        "lead_tip_x": 1.58,
+        "body_top_x": 7.7,
+        "nut_edge_margin": 0.875,
+        "lead_long_enough_for_trim": true,
+        "margins": {
+          "lead_side": 1.33,
+          "body_side": 1.85,
+          "nut_front": 0.875,
+          "panel_hole_web": 1.65
+        }
+      }
+    },
+    {
+      "arrangement": "2hp-offset-0.3",
+      "panel_width": 9.8,
+      "offset": 0.3,
+      "pcb_thickness": 1.0,
+      "leads": "untrimmed",
+      "verdict": "INFEASIBLE WITHIN STATED RANGES",
+      "reasons": [
+        "fails even at the best corner on: lead_side"
+      ],
+      "nut_preferred_margin_met": true,
+      "worst": {
+        "x_axis": 5.2,
+        "axis_height_used": {
+          "lead_side": 3.4,
+          "body_side": 2.6
+        },
+        "pcb_thickness_used": 1.1,
+        "lead_tip_x": -1.8,
+        "body_top_x": 9.3,
+        "nut_edge_margin": 0.3,
+        "lead_long_enough_for_trim": true,
+        "margins": {
+          "lead_side": -2.15,
+          "body_side": 0.15,
+          "nut_front": 0.3,
+          "panel_hole_web": 1.35
+        }
+      },
+      "nominal": {
+        "x_axis": 5.2,
+        "axis_height_used": {
+          "lead_side": 3.0,
+          "body_side": 3.0
+        },
+        "pcb_thickness_used": 1.0,
+        "lead_tip_x": -1.0,
+        "body_top_x": 8.5,
+        "nut_edge_margin": 0.6,
+        "lead_long_enough_for_trim": true,
+        "margins": {
+          "lead_side": -1.3,
+          "body_side": 1.0,
+          "nut_front": 0.6,
+          "panel_hole_web": 1.5
+        }
+      },
+      "best": {
+        "x_axis": 5.2,
+        "axis_height_used": {
+          "lead_side": 2.6,
+          "body_side": 3.4
+        },
+        "pcb_thickness_used": 0.9,
+        "lead_tip_x": -0.2,
+        "body_top_x": 7.7,
+        "nut_edge_margin": 0.875,
+        "lead_long_enough_for_trim": true,
+        "margins": {
+          "lead_side": -0.45,
+          "body_side": 1.85,
+          "nut_front": 0.875,
+          "panel_hole_web": 1.65
+        }
+      }
+    },
+    {
+      "arrangement": "2hp-offset-0.3",
+      "panel_width": 9.8,
+      "offset": 0.3,
+      "pcb_thickness": 1.0,
+      "leads": "trimmed",
+      "verdict": "UNRESOLVED",
+      "reasons": [
+        "passes at the best corner but fails at the worst corner on: lead_side",
+        "lead side depends on the INFERRED axis height (2.6-3.4) and the ASSUMED lead trim/PCB tolerance"
+      ],
+      "nut_preferred_margin_met": true,
+      "worst": {
+        "x_axis": 5.2,
+        "axis_height_used": {
+          "lead_side": 3.4,
+          "body_side": 2.6
+        },
+        "pcb_thickness_used": 1.1,
+        "lead_tip_x": -0.5,
+        "body_top_x": 9.3,
+        "nut_edge_margin": 0.3,
+        "lead_long_enough_for_trim": true,
+        "margins": {
+          "lead_side": -0.85,
+          "body_side": 0.15,
+          "nut_front": 0.3,
+          "panel_hole_web": 1.35
+        }
+      },
+      "nominal": {
+        "x_axis": 5.2,
+        "axis_height_used": {
+          "lead_side": 3.0,
+          "body_side": 3.0
+        },
+        "pcb_thickness_used": 1.0,
+        "lead_tip_x": 0.5,
+        "body_top_x": 8.5,
+        "nut_edge_margin": 0.6,
+        "lead_long_enough_for_trim": true,
+        "margins": {
+          "lead_side": 0.2,
+          "body_side": 1.0,
+          "nut_front": 0.6,
+          "panel_hole_web": 1.5
+        }
+      },
+      "best": {
+        "x_axis": 5.2,
+        "axis_height_used": {
+          "lead_side": 2.6,
+          "body_side": 3.4
+        },
+        "pcb_thickness_used": 0.9,
+        "lead_tip_x": 1.4,
+        "body_top_x": 7.7,
+        "nut_edge_margin": 0.875,
+        "lead_long_enough_for_trim": true,
+        "margins": {
+          "lead_side": 1.15,
+          "body_side": 1.85,
+          "nut_front": 0.875,
+          "panel_hole_web": 1.65
+        }
+      }
+    },
+    {
+      "arrangement": "2hp-offset-0.3",
+      "panel_width": 9.8,
+      "offset": 0.3,
+      "pcb_thickness": 1.2,
+      "leads": "untrimmed",
+      "verdict": "INFEASIBLE WITHIN STATED RANGES",
+      "reasons": [
+        "fails even at the best corner on: lead_side"
+      ],
+      "nut_preferred_margin_met": true,
+      "worst": {
+        "x_axis": 5.2,
+        "axis_height_used": {
+          "lead_side": 3.4,
+          "body_side": 2.6
+        },
+        "pcb_thickness_used": 1.32,
+        "lead_tip_x": -1.8,
+        "body_top_x": 9.3,
+        "nut_edge_margin": 0.3,
+        "lead_long_enough_for_trim": true,
+        "margins": {
+          "lead_side": -2.15,
+          "body_side": 0.15,
+          "nut_front": 0.3,
+          "panel_hole_web": 1.35
+        }
+      },
+      "nominal": {
+        "x_axis": 5.2,
+        "axis_height_used": {
+          "lead_side": 3.0,
+          "body_side": 3.0
+        },
+        "pcb_thickness_used": 1.2,
+        "lead_tip_x": -1.0,
+        "body_top_x": 8.5,
+        "nut_edge_margin": 0.6,
+        "lead_long_enough_for_trim": true,
+        "margins": {
+          "lead_side": -1.3,
+          "body_side": 1.0,
+          "nut_front": 0.6,
+          "panel_hole_web": 1.5
+        }
+      },
+      "best": {
+        "x_axis": 5.2,
+        "axis_height_used": {
+          "lead_side": 2.6,
+          "body_side": 3.4
+        },
+        "pcb_thickness_used": 1.08,
+        "lead_tip_x": -0.2,
+        "body_top_x": 7.7,
+        "nut_edge_margin": 0.875,
+        "lead_long_enough_for_trim": true,
+        "margins": {
+          "lead_side": -0.45,
+          "body_side": 1.85,
+          "nut_front": 0.875,
+          "panel_hole_web": 1.65
+        }
+      }
+    },
+    {
+      "arrangement": "2hp-offset-0.3",
+      "panel_width": 9.8,
+      "offset": 0.3,
+      "pcb_thickness": 1.2,
+      "leads": "trimmed",
+      "verdict": "UNRESOLVED",
+      "reasons": [
+        "passes at the best corner but fails at the worst corner on: lead_side",
+        "lead side depends on the INFERRED axis height (2.6-3.4) and the ASSUMED lead trim/PCB tolerance"
+      ],
+      "nut_preferred_margin_met": true,
+      "worst": {
+        "x_axis": 5.2,
+        "axis_height_used": {
+          "lead_side": 3.4,
+          "body_side": 2.6
+        },
+        "pcb_thickness_used": 1.32,
+        "lead_tip_x": -0.72,
+        "body_top_x": 9.3,
+        "nut_edge_margin": 0.3,
+        "lead_long_enough_for_trim": true,
+        "margins": {
+          "lead_side": -1.07,
+          "body_side": 0.15,
+          "nut_front": 0.3,
+          "panel_hole_web": 1.35
+        }
+      },
+      "nominal": {
+        "x_axis": 5.2,
+        "axis_height_used": {
+          "lead_side": 3.0,
+          "body_side": 3.0
+        },
+        "pcb_thickness_used": 1.2,
+        "lead_tip_x": 0.3,
+        "body_top_x": 8.5,
+        "nut_edge_margin": 0.6,
+        "lead_long_enough_for_trim": true,
+        "margins": {
+          "lead_side": 0.0,
+          "body_side": 1.0,
+          "nut_front": 0.6,
+          "panel_hole_web": 1.5
+        }
+      },
+      "best": {
+        "x_axis": 5.2,
+        "axis_height_used": {
+          "lead_side": 2.6,
+          "body_side": 3.4
+        },
+        "pcb_thickness_used": 1.08,
+        "lead_tip_x": 1.22,
+        "body_top_x": 7.7,
+        "nut_edge_margin": 0.875,
+        "lead_long_enough_for_trim": true,
+        "margins": {
+          "lead_side": 0.97,
+          "body_side": 1.85,
+          "nut_front": 0.875,
+          "panel_hole_web": 1.65
+        }
+      }
+    },
+    {
+      "arrangement": "2hp-offset-0.3",
+      "panel_width": 9.8,
+      "offset": 0.3,
+      "pcb_thickness": 1.6,
+      "leads": "untrimmed",
+      "verdict": "INFEASIBLE WITHIN STATED RANGES",
+      "reasons": [
+        "fails even at the best corner on: lead_side"
+      ],
+      "nut_preferred_margin_met": true,
+      "worst": {
+        "x_axis": 5.2,
+        "axis_height_used": {
+          "lead_side": 3.4,
+          "body_side": 2.6
+        },
+        "pcb_thickness_used": 1.76,
+        "lead_tip_x": -1.8,
+        "body_top_x": 9.3,
+        "nut_edge_margin": 0.3,
+        "lead_long_enough_for_trim": true,
+        "margins": {
+          "lead_side": -2.15,
+          "body_side": 0.15,
+          "nut_front": 0.3,
+          "panel_hole_web": 1.35
+        }
+      },
+      "nominal": {
+        "x_axis": 5.2,
+        "axis_height_used": {
+          "lead_side": 3.0,
+          "body_side": 3.0
+        },
+        "pcb_thickness_used": 1.6,
+        "lead_tip_x": -1.0,
+        "body_top_x": 8.5,
+        "nut_edge_margin": 0.6,
+        "lead_long_enough_for_trim": true,
+        "margins": {
+          "lead_side": -1.3,
+          "body_side": 1.0,
+          "nut_front": 0.6,
+          "panel_hole_web": 1.5
+        }
+      },
+      "best": {
+        "x_axis": 5.2,
+        "axis_height_used": {
+          "lead_side": 2.6,
+          "body_side": 3.4
+        },
+        "pcb_thickness_used": 1.44,
+        "lead_tip_x": -0.2,
+        "body_top_x": 7.7,
+        "nut_edge_margin": 0.875,
+        "lead_long_enough_for_trim": true,
+        "margins": {
+          "lead_side": -0.45,
+          "body_side": 1.85,
+          "nut_front": 0.875,
+          "panel_hole_web": 1.65
+        }
+      }
+    },
+    {
+      "arrangement": "2hp-offset-0.3",
+      "panel_width": 9.8,
+      "offset": 0.3,
+      "pcb_thickness": 1.6,
+      "leads": "trimmed",
+      "verdict": "UNRESOLVED",
+      "reasons": [
+        "passes at the best corner but fails at the worst corner on: lead_side",
+        "lead side depends on the INFERRED axis height (2.6-3.4) and the ASSUMED lead trim/PCB tolerance"
+      ],
+      "nut_preferred_margin_met": true,
+      "worst": {
+        "x_axis": 5.2,
+        "axis_height_used": {
+          "lead_side": 3.4,
+          "body_side": 2.6
+        },
+        "pcb_thickness_used": 1.76,
+        "lead_tip_x": -1.16,
+        "body_top_x": 9.3,
+        "nut_edge_margin": 0.3,
+        "lead_long_enough_for_trim": true,
+        "margins": {
+          "lead_side": -1.51,
+          "body_side": 0.15,
+          "nut_front": 0.3,
+          "panel_hole_web": 1.35
+        }
+      },
+      "nominal": {
+        "x_axis": 5.2,
+        "axis_height_used": {
+          "lead_side": 3.0,
+          "body_side": 3.0
+        },
+        "pcb_thickness_used": 1.6,
+        "lead_tip_x": -0.1,
+        "body_top_x": 8.5,
+        "nut_edge_margin": 0.6,
+        "lead_long_enough_for_trim": true,
+        "margins": {
+          "lead_side": -0.4,
+          "body_side": 1.0,
+          "nut_front": 0.6,
+          "panel_hole_web": 1.5
+        }
+      },
+      "best": {
+        "x_axis": 5.2,
+        "axis_height_used": {
+          "lead_side": 2.6,
+          "body_side": 3.4
+        },
+        "pcb_thickness_used": 1.44,
+        "lead_tip_x": 0.86,
+        "body_top_x": 7.7,
+        "nut_edge_margin": 0.875,
+        "lead_long_enough_for_trim": true,
+        "margins": {
+          "lead_side": 0.61,
+          "body_side": 1.85,
+          "nut_front": 0.875,
+          "panel_hole_web": 1.65
+        }
+      }
+    },
+    {
+      "arrangement": "2hp-offset-0.6",
+      "panel_width": 9.8,
+      "offset": 0.6,
+      "pcb_thickness": 0.8,
+      "leads": "untrimmed",
+      "verdict": "INFEASIBLE WITHIN STATED RANGES",
+      "reasons": [
+        "fails even at the best corner on: lead_side"
+      ],
+      "nut_preferred_margin_met": false,
+      "worst": {
+        "x_axis": 5.5,
+        "axis_height_used": {
+          "lead_side": 3.4,
+          "body_side": 2.6
+        },
+        "pcb_thickness_used": 0.88,
+        "lead_tip_x": -1.5,
+        "body_top_x": 9.6,
+        "nut_edge_margin": 0.0,
+        "lead_long_enough_for_trim": true,
+        "margins": {
+          "lead_side": -1.85,
+          "body_side": -0.15,
+          "nut_front": 0.0,
+          "panel_hole_web": 1.05
+        }
+      },
+      "nominal": {
+        "x_axis": 5.5,
+        "axis_height_used": {
+          "lead_side": 3.0,
+          "body_side": 3.0
+        },
+        "pcb_thickness_used": 0.8,
+        "lead_tip_x": -0.7,
+        "body_top_x": 8.8,
+        "nut_edge_margin": 0.3,
+        "lead_long_enough_for_trim": true,
+        "margins": {
+          "lead_side": -1.0,
+          "body_side": 0.7,
+          "nut_front": 0.3,
+          "panel_hole_web": 1.2
+        }
+      },
+      "best": {
+        "x_axis": 5.5,
+        "axis_height_used": {
+          "lead_side": 2.6,
+          "body_side": 3.4
+        },
+        "pcb_thickness_used": 0.72,
+        "lead_tip_x": 0.1,
+        "body_top_x": 8.0,
+        "nut_edge_margin": 0.575,
+        "lead_long_enough_for_trim": true,
+        "margins": {
+          "lead_side": -0.15,
+          "body_side": 1.55,
+          "nut_front": 0.575,
+          "panel_hole_web": 1.35
+        }
+      }
+    },
+    {
+      "arrangement": "2hp-offset-0.6",
+      "panel_width": 9.8,
+      "offset": 0.6,
+      "pcb_thickness": 0.8,
+      "leads": "trimmed",
+      "verdict": "UNRESOLVED",
+      "reasons": [
+        "passes at the best corner but fails at the worst corner on: lead_side, body_side",
+        "lead side depends on the INFERRED axis height (2.6-3.4) and the ASSUMED lead trim/PCB tolerance",
+        "body side depends on the INFERRED axis height and the overall-height tolerance"
+      ],
+      "nut_preferred_margin_met": false,
+      "worst": {
+        "x_axis": 5.5,
+        "axis_height_used": {
+          "lead_side": 3.4,
+          "body_side": 2.6
+        },
+        "pcb_thickness_used": 0.88,
+        "lead_tip_x": 0.02,
+        "body_top_x": 9.6,
+        "nut_edge_margin": 0.0,
+        "lead_long_enough_for_trim": true,
+        "margins": {
+          "lead_side": -0.33,
+          "body_side": -0.15,
+          "nut_front": 0.0,
+          "panel_hole_web": 1.05
+        }
+      },
+      "nominal": {
+        "x_axis": 5.5,
+        "axis_height_used": {
+          "lead_side": 3.0,
+          "body_side": 3.0
+        },
+        "pcb_thickness_used": 0.8,
+        "lead_tip_x": 1.0,
+        "body_top_x": 8.8,
+        "nut_edge_margin": 0.3,
+        "lead_long_enough_for_trim": true,
+        "margins": {
+          "lead_side": 0.7,
+          "body_side": 0.7,
+          "nut_front": 0.3,
+          "panel_hole_web": 1.2
+        }
+      },
+      "best": {
+        "x_axis": 5.5,
+        "axis_height_used": {
+          "lead_side": 2.6,
+          "body_side": 3.4
+        },
+        "pcb_thickness_used": 0.72,
+        "lead_tip_x": 1.88,
+        "body_top_x": 8.0,
+        "nut_edge_margin": 0.575,
+        "lead_long_enough_for_trim": true,
+        "margins": {
+          "lead_side": 1.63,
+          "body_side": 1.55,
+          "nut_front": 0.575,
+          "panel_hole_web": 1.35
+        }
+      }
+    },
+    {
+      "arrangement": "2hp-offset-0.6",
+      "panel_width": 9.8,
+      "offset": 0.6,
+      "pcb_thickness": 1.0,
+      "leads": "untrimmed",
+      "verdict": "INFEASIBLE WITHIN STATED RANGES",
+      "reasons": [
+        "fails even at the best corner on: lead_side"
+      ],
+      "nut_preferred_margin_met": false,
+      "worst": {
+        "x_axis": 5.5,
+        "axis_height_used": {
+          "lead_side": 3.4,
+          "body_side": 2.6
+        },
+        "pcb_thickness_used": 1.1,
+        "lead_tip_x": -1.5,
+        "body_top_x": 9.6,
+        "nut_edge_margin": 0.0,
+        "lead_long_enough_for_trim": true,
+        "margins": {
+          "lead_side": -1.85,
+          "body_side": -0.15,
+          "nut_front": 0.0,
+          "panel_hole_web": 1.05
+        }
+      },
+      "nominal": {
+        "x_axis": 5.5,
+        "axis_height_used": {
+          "lead_side": 3.0,
+          "body_side": 3.0
+        },
+        "pcb_thickness_used": 1.0,
+        "lead_tip_x": -0.7,
+        "body_top_x": 8.8,
+        "nut_edge_margin": 0.3,
+        "lead_long_enough_for_trim": true,
+        "margins": {
+          "lead_side": -1.0,
+          "body_side": 0.7,
+          "nut_front": 0.3,
+          "panel_hole_web": 1.2
+        }
+      },
+      "best": {
+        "x_axis": 5.5,
+        "axis_height_used": {
+          "lead_side": 2.6,
+          "body_side": 3.4
+        },
+        "pcb_thickness_used": 0.9,
+        "lead_tip_x": 0.1,
+        "body_top_x": 8.0,
+        "nut_edge_margin": 0.575,
+        "lead_long_enough_for_trim": true,
+        "margins": {
+          "lead_side": -0.15,
+          "body_side": 1.55,
+          "nut_front": 0.575,
+          "panel_hole_web": 1.35
+        }
+      }
+    },
+    {
+      "arrangement": "2hp-offset-0.6",
+      "panel_width": 9.8,
+      "offset": 0.6,
+      "pcb_thickness": 1.0,
+      "leads": "trimmed",
+      "verdict": "UNRESOLVED",
+      "reasons": [
+        "passes at the best corner but fails at the worst corner on: lead_side, body_side",
+        "lead side depends on the INFERRED axis height (2.6-3.4) and the ASSUMED lead trim/PCB tolerance",
+        "body side depends on the INFERRED axis height and the overall-height tolerance"
+      ],
+      "nut_preferred_margin_met": false,
+      "worst": {
+        "x_axis": 5.5,
+        "axis_height_used": {
+          "lead_side": 3.4,
+          "body_side": 2.6
+        },
+        "pcb_thickness_used": 1.1,
+        "lead_tip_x": -0.2,
+        "body_top_x": 9.6,
+        "nut_edge_margin": 0.0,
+        "lead_long_enough_for_trim": true,
+        "margins": {
+          "lead_side": -0.55,
+          "body_side": -0.15,
+          "nut_front": 0.0,
+          "panel_hole_web": 1.05
+        }
+      },
+      "nominal": {
+        "x_axis": 5.5,
+        "axis_height_used": {
+          "lead_side": 3.0,
+          "body_side": 3.0
+        },
+        "pcb_thickness_used": 1.0,
+        "lead_tip_x": 0.8,
+        "body_top_x": 8.8,
+        "nut_edge_margin": 0.3,
+        "lead_long_enough_for_trim": true,
+        "margins": {
+          "lead_side": 0.5,
+          "body_side": 0.7,
+          "nut_front": 0.3,
+          "panel_hole_web": 1.2
+        }
+      },
+      "best": {
+        "x_axis": 5.5,
+        "axis_height_used": {
+          "lead_side": 2.6,
+          "body_side": 3.4
+        },
+        "pcb_thickness_used": 0.9,
+        "lead_tip_x": 1.7,
+        "body_top_x": 8.0,
+        "nut_edge_margin": 0.575,
+        "lead_long_enough_for_trim": true,
+        "margins": {
+          "lead_side": 1.45,
+          "body_side": 1.55,
+          "nut_front": 0.575,
+          "panel_hole_web": 1.35
+        }
+      }
+    },
+    {
+      "arrangement": "2hp-offset-0.6",
+      "panel_width": 9.8,
+      "offset": 0.6,
+      "pcb_thickness": 1.2,
+      "leads": "untrimmed",
+      "verdict": "INFEASIBLE WITHIN STATED RANGES",
+      "reasons": [
+        "fails even at the best corner on: lead_side"
+      ],
+      "nut_preferred_margin_met": false,
+      "worst": {
+        "x_axis": 5.5,
+        "axis_height_used": {
+          "lead_side": 3.4,
+          "body_side": 2.6
+        },
+        "pcb_thickness_used": 1.32,
+        "lead_tip_x": -1.5,
+        "body_top_x": 9.6,
+        "nut_edge_margin": 0.0,
+        "lead_long_enough_for_trim": true,
+        "margins": {
+          "lead_side": -1.85,
+          "body_side": -0.15,
+          "nut_front": 0.0,
+          "panel_hole_web": 1.05
+        }
+      },
+      "nominal": {
+        "x_axis": 5.5,
+        "axis_height_used": {
+          "lead_side": 3.0,
+          "body_side": 3.0
+        },
+        "pcb_thickness_used": 1.2,
+        "lead_tip_x": -0.7,
+        "body_top_x": 8.8,
+        "nut_edge_margin": 0.3,
+        "lead_long_enough_for_trim": true,
+        "margins": {
+          "lead_side": -1.0,
+          "body_side": 0.7,
+          "nut_front": 0.3,
+          "panel_hole_web": 1.2
+        }
+      },
+      "best": {
+        "x_axis": 5.5,
+        "axis_height_used": {
+          "lead_side": 2.6,
+          "body_side": 3.4
+        },
+        "pcb_thickness_used": 1.08,
+        "lead_tip_x": 0.1,
+        "body_top_x": 8.0,
+        "nut_edge_margin": 0.575,
+        "lead_long_enough_for_trim": true,
+        "margins": {
+          "lead_side": -0.15,
+          "body_side": 1.55,
+          "nut_front": 0.575,
+          "panel_hole_web": 1.35
+        }
+      }
+    },
+    {
+      "arrangement": "2hp-offset-0.6",
+      "panel_width": 9.8,
+      "offset": 0.6,
+      "pcb_thickness": 1.2,
+      "leads": "trimmed",
+      "verdict": "UNRESOLVED",
+      "reasons": [
+        "passes at the best corner but fails at the worst corner on: lead_side, body_side",
+        "lead side depends on the INFERRED axis height (2.6-3.4) and the ASSUMED lead trim/PCB tolerance",
+        "body side depends on the INFERRED axis height and the overall-height tolerance"
+      ],
+      "nut_preferred_margin_met": false,
+      "worst": {
+        "x_axis": 5.5,
+        "axis_height_used": {
+          "lead_side": 3.4,
+          "body_side": 2.6
+        },
+        "pcb_thickness_used": 1.32,
+        "lead_tip_x": -0.42,
+        "body_top_x": 9.6,
+        "nut_edge_margin": 0.0,
+        "lead_long_enough_for_trim": true,
+        "margins": {
+          "lead_side": -0.77,
+          "body_side": -0.15,
+          "nut_front": 0.0,
+          "panel_hole_web": 1.05
+        }
+      },
+      "nominal": {
+        "x_axis": 5.5,
+        "axis_height_used": {
+          "lead_side": 3.0,
+          "body_side": 3.0
+        },
+        "pcb_thickness_used": 1.2,
+        "lead_tip_x": 0.6,
+        "body_top_x": 8.8,
+        "nut_edge_margin": 0.3,
+        "lead_long_enough_for_trim": true,
+        "margins": {
+          "lead_side": 0.3,
+          "body_side": 0.7,
+          "nut_front": 0.3,
+          "panel_hole_web": 1.2
+        }
+      },
+      "best": {
+        "x_axis": 5.5,
+        "axis_height_used": {
+          "lead_side": 2.6,
+          "body_side": 3.4
+        },
+        "pcb_thickness_used": 1.08,
+        "lead_tip_x": 1.52,
+        "body_top_x": 8.0,
+        "nut_edge_margin": 0.575,
+        "lead_long_enough_for_trim": true,
+        "margins": {
+          "lead_side": 1.27,
+          "body_side": 1.55,
+          "nut_front": 0.575,
+          "panel_hole_web": 1.35
+        }
+      }
+    },
+    {
+      "arrangement": "2hp-offset-0.6",
+      "panel_width": 9.8,
+      "offset": 0.6,
+      "pcb_thickness": 1.6,
+      "leads": "untrimmed",
+      "verdict": "INFEASIBLE WITHIN STATED RANGES",
+      "reasons": [
+        "fails even at the best corner on: lead_side"
+      ],
+      "nut_preferred_margin_met": false,
+      "worst": {
+        "x_axis": 5.5,
+        "axis_height_used": {
+          "lead_side": 3.4,
+          "body_side": 2.6
+        },
+        "pcb_thickness_used": 1.76,
+        "lead_tip_x": -1.5,
+        "body_top_x": 9.6,
+        "nut_edge_margin": 0.0,
+        "lead_long_enough_for_trim": true,
+        "margins": {
+          "lead_side": -1.85,
+          "body_side": -0.15,
+          "nut_front": 0.0,
+          "panel_hole_web": 1.05
+        }
+      },
+      "nominal": {
+        "x_axis": 5.5,
+        "axis_height_used": {
+          "lead_side": 3.0,
+          "body_side": 3.0
+        },
+        "pcb_thickness_used": 1.6,
+        "lead_tip_x": -0.7,
+        "body_top_x": 8.8,
+        "nut_edge_margin": 0.3,
+        "lead_long_enough_for_trim": true,
+        "margins": {
+          "lead_side": -1.0,
+          "body_side": 0.7,
+          "nut_front": 0.3,
+          "panel_hole_web": 1.2
+        }
+      },
+      "best": {
+        "x_axis": 5.5,
+        "axis_height_used": {
+          "lead_side": 2.6,
+          "body_side": 3.4
+        },
+        "pcb_thickness_used": 1.44,
+        "lead_tip_x": 0.1,
+        "body_top_x": 8.0,
+        "nut_edge_margin": 0.575,
+        "lead_long_enough_for_trim": true,
+        "margins": {
+          "lead_side": -0.15,
+          "body_side": 1.55,
+          "nut_front": 0.575,
+          "panel_hole_web": 1.35
+        }
+      }
+    },
+    {
+      "arrangement": "2hp-offset-0.6",
+      "panel_width": 9.8,
+      "offset": 0.6,
+      "pcb_thickness": 1.6,
+      "leads": "trimmed",
+      "verdict": "UNRESOLVED",
+      "reasons": [
+        "passes at the best corner but fails at the worst corner on: lead_side, body_side",
+        "lead side depends on the INFERRED axis height (2.6-3.4) and the ASSUMED lead trim/PCB tolerance",
+        "body side depends on the INFERRED axis height and the overall-height tolerance"
+      ],
+      "nut_preferred_margin_met": false,
+      "worst": {
+        "x_axis": 5.5,
+        "axis_height_used": {
+          "lead_side": 3.4,
+          "body_side": 2.6
+        },
+        "pcb_thickness_used": 1.76,
+        "lead_tip_x": -0.86,
+        "body_top_x": 9.6,
+        "nut_edge_margin": 0.0,
+        "lead_long_enough_for_trim": true,
+        "margins": {
+          "lead_side": -1.21,
+          "body_side": -0.15,
+          "nut_front": 0.0,
+          "panel_hole_web": 1.05
+        }
+      },
+      "nominal": {
+        "x_axis": 5.5,
+        "axis_height_used": {
+          "lead_side": 3.0,
+          "body_side": 3.0
+        },
+        "pcb_thickness_used": 1.6,
+        "lead_tip_x": 0.2,
+        "body_top_x": 8.8,
+        "nut_edge_margin": 0.3,
+        "lead_long_enough_for_trim": true,
+        "margins": {
+          "lead_side": -0.1,
+          "body_side": 0.7,
+          "nut_front": 0.3,
+          "panel_hole_web": 1.2
+        }
+      },
+      "best": {
+        "x_axis": 5.5,
+        "axis_height_used": {
+          "lead_side": 2.6,
+          "body_side": 3.4
+        },
+        "pcb_thickness_used": 1.44,
+        "lead_tip_x": 1.16,
+        "body_top_x": 8.0,
+        "nut_edge_margin": 0.575,
+        "lead_long_enough_for_trim": true,
+        "margins": {
+          "lead_side": 0.91,
+          "body_side": 1.55,
+          "nut_front": 0.575,
+          "panel_hole_web": 1.35
+        }
+      }
+    },
+    {
+      "arrangement": "2hp-offset-0.9",
+      "panel_width": 9.8,
+      "offset": 0.9,
+      "pcb_thickness": 0.8,
+      "leads": "untrimmed",
+      "verdict": "UNRESOLVED",
+      "reasons": [
+        "passes at the best corner but fails at the worst corner on: lead_side, body_side, nut_front",
+        "lead side depends on the INFERRED axis height (2.6-3.4) and the ASSUMED lead trim/PCB tolerance",
+        "body side depends on the INFERRED axis height and the overall-height tolerance",
+        "nut edge depends on the ASSUMED hole position tolerance and nut OD tolerance"
+      ],
+      "nut_preferred_margin_met": false,
+      "worst": {
+        "x_axis": 5.8,
+        "axis_height_used": {
+          "lead_side": 3.4,
+          "body_side": 2.6
+        },
+        "pcb_thickness_used": 0.88,
+        "lead_tip_x": -1.2,
+        "body_top_x": 9.9,
+        "nut_edge_margin": -0.3,
+        "lead_long_enough_for_trim": true,
+        "margins": {
+          "lead_side": -1.55,
+          "body_side": -0.45,
+          "nut_front": -0.3,
+          "panel_hole_web": 0.75
+        }
+      },
+      "nominal": {
+        "x_axis": 5.8,
+        "axis_height_used": {
+          "lead_side": 3.0,
+          "body_side": 3.0
+        },
+        "pcb_thickness_used": 0.8,
+        "lead_tip_x": -0.4,
+        "body_top_x": 9.1,
+        "nut_edge_margin": 0.0,
+        "lead_long_enough_for_trim": true,
+        "margins": {
+          "lead_side": -0.7,
+          "body_side": 0.4,
+          "nut_front": 0.0,
+          "panel_hole_web": 0.9
+        }
+      },
+      "best": {
+        "x_axis": 5.8,
+        "axis_height_used": {
+          "lead_side": 2.6,
+          "body_side": 3.4
+        },
+        "pcb_thickness_used": 0.72,
+        "lead_tip_x": 0.4,
+        "body_top_x": 8.3,
+        "nut_edge_margin": 0.275,
+        "lead_long_enough_for_trim": true,
+        "margins": {
+          "lead_side": 0.15,
+          "body_side": 1.25,
+          "nut_front": 0.275,
+          "panel_hole_web": 1.05
+        }
+      }
+    },
+    {
+      "arrangement": "2hp-offset-0.9",
+      "panel_width": 9.8,
+      "offset": 0.9,
+      "pcb_thickness": 0.8,
+      "leads": "trimmed",
+      "verdict": "UNRESOLVED",
+      "reasons": [
+        "passes at the best corner but fails at the worst corner on: lead_side, body_side, nut_front",
+        "lead side depends on the INFERRED axis height (2.6-3.4) and the ASSUMED lead trim/PCB tolerance",
+        "body side depends on the INFERRED axis height and the overall-height tolerance",
+        "nut edge depends on the ASSUMED hole position tolerance and nut OD tolerance"
+      ],
+      "nut_preferred_margin_met": false,
+      "worst": {
+        "x_axis": 5.8,
+        "axis_height_used": {
+          "lead_side": 3.4,
+          "body_side": 2.6
+        },
+        "pcb_thickness_used": 0.88,
+        "lead_tip_x": 0.32,
+        "body_top_x": 9.9,
+        "nut_edge_margin": -0.3,
+        "lead_long_enough_for_trim": true,
+        "margins": {
+          "lead_side": -0.03,
+          "body_side": -0.45,
+          "nut_front": -0.3,
+          "panel_hole_web": 0.75
+        }
+      },
+      "nominal": {
+        "x_axis": 5.8,
+        "axis_height_used": {
+          "lead_side": 3.0,
+          "body_side": 3.0
+        },
+        "pcb_thickness_used": 0.8,
+        "lead_tip_x": 1.3,
+        "body_top_x": 9.1,
+        "nut_edge_margin": 0.0,
+        "lead_long_enough_for_trim": true,
+        "margins": {
+          "lead_side": 1.0,
+          "body_side": 0.4,
+          "nut_front": 0.0,
+          "panel_hole_web": 0.9
+        }
+      },
+      "best": {
+        "x_axis": 5.8,
+        "axis_height_used": {
+          "lead_side": 2.6,
+          "body_side": 3.4
+        },
+        "pcb_thickness_used": 0.72,
+        "lead_tip_x": 2.18,
+        "body_top_x": 8.3,
+        "nut_edge_margin": 0.275,
+        "lead_long_enough_for_trim": true,
+        "margins": {
+          "lead_side": 1.93,
+          "body_side": 1.25,
+          "nut_front": 0.275,
+          "panel_hole_web": 1.05
+        }
+      }
+    },
+    {
+      "arrangement": "2hp-offset-0.9",
+      "panel_width": 9.8,
+      "offset": 0.9,
+      "pcb_thickness": 1.0,
+      "leads": "untrimmed",
+      "verdict": "UNRESOLVED",
+      "reasons": [
+        "passes at the best corner but fails at the worst corner on: lead_side, body_side, nut_front",
+        "lead side depends on the INFERRED axis height (2.6-3.4) and the ASSUMED lead trim/PCB tolerance",
+        "body side depends on the INFERRED axis height and the overall-height tolerance",
+        "nut edge depends on the ASSUMED hole position tolerance and nut OD tolerance"
+      ],
+      "nut_preferred_margin_met": false,
+      "worst": {
+        "x_axis": 5.8,
+        "axis_height_used": {
+          "lead_side": 3.4,
+          "body_side": 2.6
+        },
+        "pcb_thickness_used": 1.1,
+        "lead_tip_x": -1.2,
+        "body_top_x": 9.9,
+        "nut_edge_margin": -0.3,
+        "lead_long_enough_for_trim": true,
+        "margins": {
+          "lead_side": -1.55,
+          "body_side": -0.45,
+          "nut_front": -0.3,
+          "panel_hole_web": 0.75
+        }
+      },
+      "nominal": {
+        "x_axis": 5.8,
+        "axis_height_used": {
+          "lead_side": 3.0,
+          "body_side": 3.0
+        },
+        "pcb_thickness_used": 1.0,
+        "lead_tip_x": -0.4,
+        "body_top_x": 9.1,
+        "nut_edge_margin": 0.0,
+        "lead_long_enough_for_trim": true,
+        "margins": {
+          "lead_side": -0.7,
+          "body_side": 0.4,
+          "nut_front": 0.0,
+          "panel_hole_web": 0.9
+        }
+      },
+      "best": {
+        "x_axis": 5.8,
+        "axis_height_used": {
+          "lead_side": 2.6,
+          "body_side": 3.4
+        },
+        "pcb_thickness_used": 0.9,
+        "lead_tip_x": 0.4,
+        "body_top_x": 8.3,
+        "nut_edge_margin": 0.275,
+        "lead_long_enough_for_trim": true,
+        "margins": {
+          "lead_side": 0.15,
+          "body_side": 1.25,
+          "nut_front": 0.275,
+          "panel_hole_web": 1.05
+        }
+      }
+    },
+    {
+      "arrangement": "2hp-offset-0.9",
+      "panel_width": 9.8,
+      "offset": 0.9,
+      "pcb_thickness": 1.0,
+      "leads": "trimmed",
+      "verdict": "UNRESOLVED",
+      "reasons": [
+        "passes at the best corner but fails at the worst corner on: lead_side, body_side, nut_front",
+        "lead side depends on the INFERRED axis height (2.6-3.4) and the ASSUMED lead trim/PCB tolerance",
+        "body side depends on the INFERRED axis height and the overall-height tolerance",
+        "nut edge depends on the ASSUMED hole position tolerance and nut OD tolerance"
+      ],
+      "nut_preferred_margin_met": false,
+      "worst": {
+        "x_axis": 5.8,
+        "axis_height_used": {
+          "lead_side": 3.4,
+          "body_side": 2.6
+        },
+        "pcb_thickness_used": 1.1,
+        "lead_tip_x": 0.1,
+        "body_top_x": 9.9,
+        "nut_edge_margin": -0.3,
+        "lead_long_enough_for_trim": true,
+        "margins": {
+          "lead_side": -0.25,
+          "body_side": -0.45,
+          "nut_front": -0.3,
+          "panel_hole_web": 0.75
+        }
+      },
+      "nominal": {
+        "x_axis": 5.8,
+        "axis_height_used": {
+          "lead_side": 3.0,
+          "body_side": 3.0
+        },
+        "pcb_thickness_used": 1.0,
+        "lead_tip_x": 1.1,
+        "body_top_x": 9.1,
+        "nut_edge_margin": 0.0,
+        "lead_long_enough_for_trim": true,
+        "margins": {
+          "lead_side": 0.8,
+          "body_side": 0.4,
+          "nut_front": 0.0,
+          "panel_hole_web": 0.9
+        }
+      },
+      "best": {
+        "x_axis": 5.8,
+        "axis_height_used": {
+          "lead_side": 2.6,
+          "body_side": 3.4
+        },
+        "pcb_thickness_used": 0.9,
+        "lead_tip_x": 2.0,
+        "body_top_x": 8.3,
+        "nut_edge_margin": 0.275,
+        "lead_long_enough_for_trim": true,
+        "margins": {
+          "lead_side": 1.75,
+          "body_side": 1.25,
+          "nut_front": 0.275,
+          "panel_hole_web": 1.05
+        }
+      }
+    },
+    {
+      "arrangement": "2hp-offset-0.9",
+      "panel_width": 9.8,
+      "offset": 0.9,
+      "pcb_thickness": 1.2,
+      "leads": "untrimmed",
+      "verdict": "UNRESOLVED",
+      "reasons": [
+        "passes at the best corner but fails at the worst corner on: lead_side, body_side, nut_front",
+        "lead side depends on the INFERRED axis height (2.6-3.4) and the ASSUMED lead trim/PCB tolerance",
+        "body side depends on the INFERRED axis height and the overall-height tolerance",
+        "nut edge depends on the ASSUMED hole position tolerance and nut OD tolerance"
+      ],
+      "nut_preferred_margin_met": false,
+      "worst": {
+        "x_axis": 5.8,
+        "axis_height_used": {
+          "lead_side": 3.4,
+          "body_side": 2.6
+        },
+        "pcb_thickness_used": 1.32,
+        "lead_tip_x": -1.2,
+        "body_top_x": 9.9,
+        "nut_edge_margin": -0.3,
+        "lead_long_enough_for_trim": true,
+        "margins": {
+          "lead_side": -1.55,
+          "body_side": -0.45,
+          "nut_front": -0.3,
+          "panel_hole_web": 0.75
+        }
+      },
+      "nominal": {
+        "x_axis": 5.8,
+        "axis_height_used": {
+          "lead_side": 3.0,
+          "body_side": 3.0
+        },
+        "pcb_thickness_used": 1.2,
+        "lead_tip_x": -0.4,
+        "body_top_x": 9.1,
+        "nut_edge_margin": 0.0,
+        "lead_long_enough_for_trim": true,
+        "margins": {
+          "lead_side": -0.7,
+          "body_side": 0.4,
+          "nut_front": 0.0,
+          "panel_hole_web": 0.9
+        }
+      },
+      "best": {
+        "x_axis": 5.8,
+        "axis_height_used": {
+          "lead_side": 2.6,
+          "body_side": 3.4
+        },
+        "pcb_thickness_used": 1.08,
+        "lead_tip_x": 0.4,
+        "body_top_x": 8.3,
+        "nut_edge_margin": 0.275,
+        "lead_long_enough_for_trim": true,
+        "margins": {
+          "lead_side": 0.15,
+          "body_side": 1.25,
+          "nut_front": 0.275,
+          "panel_hole_web": 1.05
+        }
+      }
+    },
+    {
+      "arrangement": "2hp-offset-0.9",
+      "panel_width": 9.8,
+      "offset": 0.9,
+      "pcb_thickness": 1.2,
+      "leads": "trimmed",
+      "verdict": "UNRESOLVED",
+      "reasons": [
+        "passes at the best corner but fails at the worst corner on: lead_side, body_side, nut_front",
+        "lead side depends on the INFERRED axis height (2.6-3.4) and the ASSUMED lead trim/PCB tolerance",
+        "body side depends on the INFERRED axis height and the overall-height tolerance",
+        "nut edge depends on the ASSUMED hole position tolerance and nut OD tolerance"
+      ],
+      "nut_preferred_margin_met": false,
+      "worst": {
+        "x_axis": 5.8,
+        "axis_height_used": {
+          "lead_side": 3.4,
+          "body_side": 2.6
+        },
+        "pcb_thickness_used": 1.32,
+        "lead_tip_x": -0.12,
+        "body_top_x": 9.9,
+        "nut_edge_margin": -0.3,
+        "lead_long_enough_for_trim": true,
+        "margins": {
+          "lead_side": -0.47,
+          "body_side": -0.45,
+          "nut_front": -0.3,
+          "panel_hole_web": 0.75
+        }
+      },
+      "nominal": {
+        "x_axis": 5.8,
+        "axis_height_used": {
+          "lead_side": 3.0,
+          "body_side": 3.0
+        },
+        "pcb_thickness_used": 1.2,
+        "lead_tip_x": 0.9,
+        "body_top_x": 9.1,
+        "nut_edge_margin": 0.0,
+        "lead_long_enough_for_trim": true,
+        "margins": {
+          "lead_side": 0.6,
+          "body_side": 0.4,
+          "nut_front": 0.0,
+          "panel_hole_web": 0.9
+        }
+      },
+      "best": {
+        "x_axis": 5.8,
+        "axis_height_used": {
+          "lead_side": 2.6,
+          "body_side": 3.4
+        },
+        "pcb_thickness_used": 1.08,
+        "lead_tip_x": 1.82,
+        "body_top_x": 8.3,
+        "nut_edge_margin": 0.275,
+        "lead_long_enough_for_trim": true,
+        "margins": {
+          "lead_side": 1.57,
+          "body_side": 1.25,
+          "nut_front": 0.275,
+          "panel_hole_web": 1.05
+        }
+      }
+    },
+    {
+      "arrangement": "2hp-offset-0.9",
+      "panel_width": 9.8,
+      "offset": 0.9,
+      "pcb_thickness": 1.6,
+      "leads": "untrimmed",
+      "verdict": "UNRESOLVED",
+      "reasons": [
+        "passes at the best corner but fails at the worst corner on: lead_side, body_side, nut_front",
+        "lead side depends on the INFERRED axis height (2.6-3.4) and the ASSUMED lead trim/PCB tolerance",
+        "body side depends on the INFERRED axis height and the overall-height tolerance",
+        "nut edge depends on the ASSUMED hole position tolerance and nut OD tolerance"
+      ],
+      "nut_preferred_margin_met": false,
+      "worst": {
+        "x_axis": 5.8,
+        "axis_height_used": {
+          "lead_side": 3.4,
+          "body_side": 2.6
+        },
+        "pcb_thickness_used": 1.76,
+        "lead_tip_x": -1.2,
+        "body_top_x": 9.9,
+        "nut_edge_margin": -0.3,
+        "lead_long_enough_for_trim": true,
+        "margins": {
+          "lead_side": -1.55,
+          "body_side": -0.45,
+          "nut_front": -0.3,
+          "panel_hole_web": 0.75
+        }
+      },
+      "nominal": {
+        "x_axis": 5.8,
+        "axis_height_used": {
+          "lead_side": 3.0,
+          "body_side": 3.0
+        },
+        "pcb_thickness_used": 1.6,
+        "lead_tip_x": -0.4,
+        "body_top_x": 9.1,
+        "nut_edge_margin": 0.0,
+        "lead_long_enough_for_trim": true,
+        "margins": {
+          "lead_side": -0.7,
+          "body_side": 0.4,
+          "nut_front": 0.0,
+          "panel_hole_web": 0.9
+        }
+      },
+      "best": {
+        "x_axis": 5.8,
+        "axis_height_used": {
+          "lead_side": 2.6,
+          "body_side": 3.4
+        },
+        "pcb_thickness_used": 1.44,
+        "lead_tip_x": 0.4,
+        "body_top_x": 8.3,
+        "nut_edge_margin": 0.275,
+        "lead_long_enough_for_trim": true,
+        "margins": {
+          "lead_side": 0.15,
+          "body_side": 1.25,
+          "nut_front": 0.275,
+          "panel_hole_web": 1.05
+        }
+      }
+    },
+    {
+      "arrangement": "2hp-offset-0.9",
+      "panel_width": 9.8,
+      "offset": 0.9,
+      "pcb_thickness": 1.6,
+      "leads": "trimmed",
+      "verdict": "UNRESOLVED",
+      "reasons": [
+        "passes at the best corner but fails at the worst corner on: lead_side, body_side, nut_front",
+        "lead side depends on the INFERRED axis height (2.6-3.4) and the ASSUMED lead trim/PCB tolerance",
+        "body side depends on the INFERRED axis height and the overall-height tolerance",
+        "nut edge depends on the ASSUMED hole position tolerance and nut OD tolerance"
+      ],
+      "nut_preferred_margin_met": false,
+      "worst": {
+        "x_axis": 5.8,
+        "axis_height_used": {
+          "lead_side": 3.4,
+          "body_side": 2.6
+        },
+        "pcb_thickness_used": 1.76,
+        "lead_tip_x": -0.56,
+        "body_top_x": 9.9,
+        "nut_edge_margin": -0.3,
+        "lead_long_enough_for_trim": true,
+        "margins": {
+          "lead_side": -0.91,
+          "body_side": -0.45,
+          "nut_front": -0.3,
+          "panel_hole_web": 0.75
+        }
+      },
+      "nominal": {
+        "x_axis": 5.8,
+        "axis_height_used": {
+          "lead_side": 3.0,
+          "body_side": 3.0
+        },
+        "pcb_thickness_used": 1.6,
+        "lead_tip_x": 0.5,
+        "body_top_x": 9.1,
+        "nut_edge_margin": 0.0,
+        "lead_long_enough_for_trim": true,
+        "margins": {
+          "lead_side": 0.2,
+          "body_side": 0.4,
+          "nut_front": 0.0,
+          "panel_hole_web": 0.9
+        }
+      },
+      "best": {
+        "x_axis": 5.8,
+        "axis_height_used": {
+          "lead_side": 2.6,
+          "body_side": 3.4
+        },
+        "pcb_thickness_used": 1.44,
+        "lead_tip_x": 1.46,
+        "body_top_x": 8.3,
+        "nut_edge_margin": 0.275,
+        "lead_long_enough_for_trim": true,
+        "margins": {
+          "lead_side": 1.21,
+          "body_side": 1.25,
+          "nut_front": 0.275,
+          "panel_hole_web": 1.05
+        }
+      }
+    },
+    {
+      "arrangement": "3hp-centred",
+      "panel_width": 14.9,
+      "offset": 0.0,
+      "pcb_thickness": 0.8,
+      "leads": "untrimmed",
+      "verdict": "FEASIBLE ON PAPER",
+      "reasons": [],
+      "nut_preferred_margin_met": true,
+      "worst": {
+        "x_axis": 7.45,
+        "axis_height_used": {
+          "lead_side": 3.4,
+          "body_side": 2.6
+        },
+        "pcb_thickness_used": 0.88,
+        "lead_tip_x": 0.45,
+        "body_top_x": 11.55,
+        "nut_edge_margin": 3.15,
+        "lead_long_enough_for_trim": true,
+        "margins": {
+          "lead_side": 0.1,
+          "body_side": 3.0,
+          "nut_front": 3.15,
+          "panel_hole_web": 4.2
+        }
+      },
+      "nominal": {
+        "x_axis": 7.45,
+        "axis_height_used": {
+          "lead_side": 3.0,
+          "body_side": 3.0
+        },
+        "pcb_thickness_used": 0.8,
+        "lead_tip_x": 1.25,
+        "body_top_x": 10.75,
+        "nut_edge_margin": 3.45,
+        "lead_long_enough_for_trim": true,
+        "margins": {
+          "lead_side": 0.95,
+          "body_side": 3.85,
+          "nut_front": 3.45,
+          "panel_hole_web": 4.35
+        }
+      },
+      "best": {
+        "x_axis": 7.45,
+        "axis_height_used": {
+          "lead_side": 2.6,
+          "body_side": 3.4
+        },
+        "pcb_thickness_used": 0.72,
+        "lead_tip_x": 2.05,
+        "body_top_x": 9.95,
+        "nut_edge_margin": 3.725,
+        "lead_long_enough_for_trim": true,
+        "margins": {
+          "lead_side": 1.8,
+          "body_side": 4.7,
+          "nut_front": 3.725,
+          "panel_hole_web": 4.5
+        }
+      }
+    },
+    {
+      "arrangement": "3hp-centred",
+      "panel_width": 14.9,
+      "offset": 0.0,
+      "pcb_thickness": 0.8,
+      "leads": "trimmed",
+      "verdict": "FEASIBLE ON PAPER",
+      "reasons": [],
+      "nut_preferred_margin_met": true,
+      "worst": {
+        "x_axis": 7.45,
+        "axis_height_used": {
+          "lead_side": 3.4,
+          "body_side": 2.6
+        },
+        "pcb_thickness_used": 0.88,
+        "lead_tip_x": 1.97,
+        "body_top_x": 11.55,
+        "nut_edge_margin": 3.15,
+        "lead_long_enough_for_trim": true,
+        "margins": {
+          "lead_side": 1.62,
+          "body_side": 3.0,
+          "nut_front": 3.15,
+          "panel_hole_web": 4.2
+        }
+      },
+      "nominal": {
+        "x_axis": 7.45,
+        "axis_height_used": {
+          "lead_side": 3.0,
+          "body_side": 3.0
+        },
+        "pcb_thickness_used": 0.8,
+        "lead_tip_x": 2.95,
+        "body_top_x": 10.75,
+        "nut_edge_margin": 3.45,
+        "lead_long_enough_for_trim": true,
+        "margins": {
+          "lead_side": 2.65,
+          "body_side": 3.85,
+          "nut_front": 3.45,
+          "panel_hole_web": 4.35
+        }
+      },
+      "best": {
+        "x_axis": 7.45,
+        "axis_height_used": {
+          "lead_side": 2.6,
+          "body_side": 3.4
+        },
+        "pcb_thickness_used": 0.72,
+        "lead_tip_x": 3.83,
+        "body_top_x": 9.95,
+        "nut_edge_margin": 3.725,
+        "lead_long_enough_for_trim": true,
+        "margins": {
+          "lead_side": 3.58,
+          "body_side": 4.7,
+          "nut_front": 3.725,
+          "panel_hole_web": 4.5
+        }
+      }
+    },
+    {
+      "arrangement": "3hp-centred",
+      "panel_width": 14.9,
+      "offset": 0.0,
+      "pcb_thickness": 1.0,
+      "leads": "untrimmed",
+      "verdict": "FEASIBLE ON PAPER",
+      "reasons": [],
+      "nut_preferred_margin_met": true,
+      "worst": {
+        "x_axis": 7.45,
+        "axis_height_used": {
+          "lead_side": 3.4,
+          "body_side": 2.6
+        },
+        "pcb_thickness_used": 1.1,
+        "lead_tip_x": 0.45,
+        "body_top_x": 11.55,
+        "nut_edge_margin": 3.15,
+        "lead_long_enough_for_trim": true,
+        "margins": {
+          "lead_side": 0.1,
+          "body_side": 3.0,
+          "nut_front": 3.15,
+          "panel_hole_web": 4.2
+        }
+      },
+      "nominal": {
+        "x_axis": 7.45,
+        "axis_height_used": {
+          "lead_side": 3.0,
+          "body_side": 3.0
+        },
+        "pcb_thickness_used": 1.0,
+        "lead_tip_x": 1.25,
+        "body_top_x": 10.75,
+        "nut_edge_margin": 3.45,
+        "lead_long_enough_for_trim": true,
+        "margins": {
+          "lead_side": 0.95,
+          "body_side": 3.85,
+          "nut_front": 3.45,
+          "panel_hole_web": 4.35
+        }
+      },
+      "best": {
+        "x_axis": 7.45,
+        "axis_height_used": {
+          "lead_side": 2.6,
+          "body_side": 3.4
+        },
+        "pcb_thickness_used": 0.9,
+        "lead_tip_x": 2.05,
+        "body_top_x": 9.95,
+        "nut_edge_margin": 3.725,
+        "lead_long_enough_for_trim": true,
+        "margins": {
+          "lead_side": 1.8,
+          "body_side": 4.7,
+          "nut_front": 3.725,
+          "panel_hole_web": 4.5
+        }
+      }
+    },
+    {
+      "arrangement": "3hp-centred",
+      "panel_width": 14.9,
+      "offset": 0.0,
+      "pcb_thickness": 1.0,
+      "leads": "trimmed",
+      "verdict": "FEASIBLE ON PAPER",
+      "reasons": [],
+      "nut_preferred_margin_met": true,
+      "worst": {
+        "x_axis": 7.45,
+        "axis_height_used": {
+          "lead_side": 3.4,
+          "body_side": 2.6
+        },
+        "pcb_thickness_used": 1.1,
+        "lead_tip_x": 1.75,
+        "body_top_x": 11.55,
+        "nut_edge_margin": 3.15,
+        "lead_long_enough_for_trim": true,
+        "margins": {
+          "lead_side": 1.4,
+          "body_side": 3.0,
+          "nut_front": 3.15,
+          "panel_hole_web": 4.2
+        }
+      },
+      "nominal": {
+        "x_axis": 7.45,
+        "axis_height_used": {
+          "lead_side": 3.0,
+          "body_side": 3.0
+        },
+        "pcb_thickness_used": 1.0,
+        "lead_tip_x": 2.75,
+        "body_top_x": 10.75,
+        "nut_edge_margin": 3.45,
+        "lead_long_enough_for_trim": true,
+        "margins": {
+          "lead_side": 2.45,
+          "body_side": 3.85,
+          "nut_front": 3.45,
+          "panel_hole_web": 4.35
+        }
+      },
+      "best": {
+        "x_axis": 7.45,
+        "axis_height_used": {
+          "lead_side": 2.6,
+          "body_side": 3.4
+        },
+        "pcb_thickness_used": 0.9,
+        "lead_tip_x": 3.65,
+        "body_top_x": 9.95,
+        "nut_edge_margin": 3.725,
+        "lead_long_enough_for_trim": true,
+        "margins": {
+          "lead_side": 3.4,
+          "body_side": 4.7,
+          "nut_front": 3.725,
+          "panel_hole_web": 4.5
+        }
+      }
+    },
+    {
+      "arrangement": "3hp-centred",
+      "panel_width": 14.9,
+      "offset": 0.0,
+      "pcb_thickness": 1.2,
+      "leads": "untrimmed",
+      "verdict": "FEASIBLE ON PAPER",
+      "reasons": [],
+      "nut_preferred_margin_met": true,
+      "worst": {
+        "x_axis": 7.45,
+        "axis_height_used": {
+          "lead_side": 3.4,
+          "body_side": 2.6
+        },
+        "pcb_thickness_used": 1.32,
+        "lead_tip_x": 0.45,
+        "body_top_x": 11.55,
+        "nut_edge_margin": 3.15,
+        "lead_long_enough_for_trim": true,
+        "margins": {
+          "lead_side": 0.1,
+          "body_side": 3.0,
+          "nut_front": 3.15,
+          "panel_hole_web": 4.2
+        }
+      },
+      "nominal": {
+        "x_axis": 7.45,
+        "axis_height_used": {
+          "lead_side": 3.0,
+          "body_side": 3.0
+        },
+        "pcb_thickness_used": 1.2,
+        "lead_tip_x": 1.25,
+        "body_top_x": 10.75,
+        "nut_edge_margin": 3.45,
+        "lead_long_enough_for_trim": true,
+        "margins": {
+          "lead_side": 0.95,
+          "body_side": 3.85,
+          "nut_front": 3.45,
+          "panel_hole_web": 4.35
+        }
+      },
+      "best": {
+        "x_axis": 7.45,
+        "axis_height_used": {
+          "lead_side": 2.6,
+          "body_side": 3.4
+        },
+        "pcb_thickness_used": 1.08,
+        "lead_tip_x": 2.05,
+        "body_top_x": 9.95,
+        "nut_edge_margin": 3.725,
+        "lead_long_enough_for_trim": true,
+        "margins": {
+          "lead_side": 1.8,
+          "body_side": 4.7,
+          "nut_front": 3.725,
+          "panel_hole_web": 4.5
+        }
+      }
+    },
+    {
+      "arrangement": "3hp-centred",
+      "panel_width": 14.9,
+      "offset": 0.0,
+      "pcb_thickness": 1.2,
+      "leads": "trimmed",
+      "verdict": "FEASIBLE ON PAPER",
+      "reasons": [],
+      "nut_preferred_margin_met": true,
+      "worst": {
+        "x_axis": 7.45,
+        "axis_height_used": {
+          "lead_side": 3.4,
+          "body_side": 2.6
+        },
+        "pcb_thickness_used": 1.32,
+        "lead_tip_x": 1.53,
+        "body_top_x": 11.55,
+        "nut_edge_margin": 3.15,
+        "lead_long_enough_for_trim": true,
+        "margins": {
+          "lead_side": 1.18,
+          "body_side": 3.0,
+          "nut_front": 3.15,
+          "panel_hole_web": 4.2
+        }
+      },
+      "nominal": {
+        "x_axis": 7.45,
+        "axis_height_used": {
+          "lead_side": 3.0,
+          "body_side": 3.0
+        },
+        "pcb_thickness_used": 1.2,
+        "lead_tip_x": 2.55,
+        "body_top_x": 10.75,
+        "nut_edge_margin": 3.45,
+        "lead_long_enough_for_trim": true,
+        "margins": {
+          "lead_side": 2.25,
+          "body_side": 3.85,
+          "nut_front": 3.45,
+          "panel_hole_web": 4.35
+        }
+      },
+      "best": {
+        "x_axis": 7.45,
+        "axis_height_used": {
+          "lead_side": 2.6,
+          "body_side": 3.4
+        },
+        "pcb_thickness_used": 1.08,
+        "lead_tip_x": 3.47,
+        "body_top_x": 9.95,
+        "nut_edge_margin": 3.725,
+        "lead_long_enough_for_trim": true,
+        "margins": {
+          "lead_side": 3.22,
+          "body_side": 4.7,
+          "nut_front": 3.725,
+          "panel_hole_web": 4.5
+        }
+      }
+    },
+    {
+      "arrangement": "3hp-centred",
+      "panel_width": 14.9,
+      "offset": 0.0,
+      "pcb_thickness": 1.6,
+      "leads": "untrimmed",
+      "verdict": "FEASIBLE ON PAPER",
+      "reasons": [],
+      "nut_preferred_margin_met": true,
+      "worst": {
+        "x_axis": 7.45,
+        "axis_height_used": {
+          "lead_side": 3.4,
+          "body_side": 2.6
+        },
+        "pcb_thickness_used": 1.76,
+        "lead_tip_x": 0.45,
+        "body_top_x": 11.55,
+        "nut_edge_margin": 3.15,
+        "lead_long_enough_for_trim": true,
+        "margins": {
+          "lead_side": 0.1,
+          "body_side": 3.0,
+          "nut_front": 3.15,
+          "panel_hole_web": 4.2
+        }
+      },
+      "nominal": {
+        "x_axis": 7.45,
+        "axis_height_used": {
+          "lead_side": 3.0,
+          "body_side": 3.0
+        },
+        "pcb_thickness_used": 1.6,
+        "lead_tip_x": 1.25,
+        "body_top_x": 10.75,
+        "nut_edge_margin": 3.45,
+        "lead_long_enough_for_trim": true,
+        "margins": {
+          "lead_side": 0.95,
+          "body_side": 3.85,
+          "nut_front": 3.45,
+          "panel_hole_web": 4.35
+        }
+      },
+      "best": {
+        "x_axis": 7.45,
+        "axis_height_used": {
+          "lead_side": 2.6,
+          "body_side": 3.4
+        },
+        "pcb_thickness_used": 1.44,
+        "lead_tip_x": 2.05,
+        "body_top_x": 9.95,
+        "nut_edge_margin": 3.725,
+        "lead_long_enough_for_trim": true,
+        "margins": {
+          "lead_side": 1.8,
+          "body_side": 4.7,
+          "nut_front": 3.725,
+          "panel_hole_web": 4.5
+        }
+      }
+    },
+    {
+      "arrangement": "3hp-centred",
+      "panel_width": 14.9,
+      "offset": 0.0,
+      "pcb_thickness": 1.6,
+      "leads": "trimmed",
+      "verdict": "FEASIBLE ON PAPER",
+      "reasons": [],
+      "nut_preferred_margin_met": true,
+      "worst": {
+        "x_axis": 7.45,
+        "axis_height_used": {
+          "lead_side": 3.4,
+          "body_side": 2.6
+        },
+        "pcb_thickness_used": 1.76,
+        "lead_tip_x": 1.09,
+        "body_top_x": 11.55,
+        "nut_edge_margin": 3.15,
+        "lead_long_enough_for_trim": true,
+        "margins": {
+          "lead_side": 0.74,
+          "body_side": 3.0,
+          "nut_front": 3.15,
+          "panel_hole_web": 4.2
+        }
+      },
+      "nominal": {
+        "x_axis": 7.45,
+        "axis_height_used": {
+          "lead_side": 3.0,
+          "body_side": 3.0
+        },
+        "pcb_thickness_used": 1.6,
+        "lead_tip_x": 2.15,
+        "body_top_x": 10.75,
+        "nut_edge_margin": 3.45,
+        "lead_long_enough_for_trim": true,
+        "margins": {
+          "lead_side": 1.85,
+          "body_side": 3.85,
+          "nut_front": 3.45,
+          "panel_hole_web": 4.35
+        }
+      },
+      "best": {
+        "x_axis": 7.45,
+        "axis_height_used": {
+          "lead_side": 2.6,
+          "body_side": 3.4
+        },
+        "pcb_thickness_used": 1.44,
+        "lead_tip_x": 3.11,
+        "body_top_x": 9.95,
+        "nut_edge_margin": 3.725,
+        "lead_long_enough_for_trim": true,
+        "margins": {
+          "lead_side": 2.86,
+          "body_side": 4.7,
+          "nut_front": 3.725,
+          "panel_hole_web": 4.5
+        }
+      }
+    },
+    {
+      "arrangement": "3hp-offset-1.5",
+      "panel_width": 14.9,
+      "offset": 1.5,
+      "pcb_thickness": 0.8,
+      "leads": "untrimmed",
+      "verdict": "FEASIBLE ON PAPER",
+      "reasons": [],
+      "nut_preferred_margin_met": true,
+      "worst": {
+        "x_axis": 8.95,
+        "axis_height_used": {
+          "lead_side": 3.4,
+          "body_side": 2.6
+        },
+        "pcb_thickness_used": 0.88,
+        "lead_tip_x": 1.95,
+        "body_top_x": 13.05,
+        "nut_edge_margin": 1.65,
+        "lead_long_enough_for_trim": true,
+        "margins": {
+          "lead_side": 1.6,
+          "body_side": 1.5,
+          "nut_front": 1.65,
+          "panel_hole_web": 2.7
+        }
+      },
+      "nominal": {
+        "x_axis": 8.95,
+        "axis_height_used": {
+          "lead_side": 3.0,
+          "body_side": 3.0
+        },
+        "pcb_thickness_used": 0.8,
+        "lead_tip_x": 2.75,
+        "body_top_x": 12.25,
+        "nut_edge_margin": 1.95,
+        "lead_long_enough_for_trim": true,
+        "margins": {
+          "lead_side": 2.45,
+          "body_side": 2.35,
+          "nut_front": 1.95,
+          "panel_hole_web": 2.85
+        }
+      },
+      "best": {
+        "x_axis": 8.95,
+        "axis_height_used": {
+          "lead_side": 2.6,
+          "body_side": 3.4
+        },
+        "pcb_thickness_used": 0.72,
+        "lead_tip_x": 3.55,
+        "body_top_x": 11.45,
+        "nut_edge_margin": 2.225,
+        "lead_long_enough_for_trim": true,
+        "margins": {
+          "lead_side": 3.3,
+          "body_side": 3.2,
+          "nut_front": 2.225,
+          "panel_hole_web": 3.0
+        }
+      }
+    },
+    {
+      "arrangement": "3hp-offset-1.5",
+      "panel_width": 14.9,
+      "offset": 1.5,
+      "pcb_thickness": 0.8,
+      "leads": "trimmed",
+      "verdict": "FEASIBLE ON PAPER",
+      "reasons": [],
+      "nut_preferred_margin_met": true,
+      "worst": {
+        "x_axis": 8.95,
+        "axis_height_used": {
+          "lead_side": 3.4,
+          "body_side": 2.6
+        },
+        "pcb_thickness_used": 0.88,
+        "lead_tip_x": 3.47,
+        "body_top_x": 13.05,
+        "nut_edge_margin": 1.65,
+        "lead_long_enough_for_trim": true,
+        "margins": {
+          "lead_side": 3.12,
+          "body_side": 1.5,
+          "nut_front": 1.65,
+          "panel_hole_web": 2.7
+        }
+      },
+      "nominal": {
+        "x_axis": 8.95,
+        "axis_height_used": {
+          "lead_side": 3.0,
+          "body_side": 3.0
+        },
+        "pcb_thickness_used": 0.8,
+        "lead_tip_x": 4.45,
+        "body_top_x": 12.25,
+        "nut_edge_margin": 1.95,
+        "lead_long_enough_for_trim": true,
+        "margins": {
+          "lead_side": 4.15,
+          "body_side": 2.35,
+          "nut_front": 1.95,
+          "panel_hole_web": 2.85
+        }
+      },
+      "best": {
+        "x_axis": 8.95,
+        "axis_height_used": {
+          "lead_side": 2.6,
+          "body_side": 3.4
+        },
+        "pcb_thickness_used": 0.72,
+        "lead_tip_x": 5.33,
+        "body_top_x": 11.45,
+        "nut_edge_margin": 2.225,
+        "lead_long_enough_for_trim": true,
+        "margins": {
+          "lead_side": 5.08,
+          "body_side": 3.2,
+          "nut_front": 2.225,
+          "panel_hole_web": 3.0
+        }
+      }
+    },
+    {
+      "arrangement": "3hp-offset-1.5",
+      "panel_width": 14.9,
+      "offset": 1.5,
+      "pcb_thickness": 1.0,
+      "leads": "untrimmed",
+      "verdict": "FEASIBLE ON PAPER",
+      "reasons": [],
+      "nut_preferred_margin_met": true,
+      "worst": {
+        "x_axis": 8.95,
+        "axis_height_used": {
+          "lead_side": 3.4,
+          "body_side": 2.6
+        },
+        "pcb_thickness_used": 1.1,
+        "lead_tip_x": 1.95,
+        "body_top_x": 13.05,
+        "nut_edge_margin": 1.65,
+        "lead_long_enough_for_trim": true,
+        "margins": {
+          "lead_side": 1.6,
+          "body_side": 1.5,
+          "nut_front": 1.65,
+          "panel_hole_web": 2.7
+        }
+      },
+      "nominal": {
+        "x_axis": 8.95,
+        "axis_height_used": {
+          "lead_side": 3.0,
+          "body_side": 3.0
+        },
+        "pcb_thickness_used": 1.0,
+        "lead_tip_x": 2.75,
+        "body_top_x": 12.25,
+        "nut_edge_margin": 1.95,
+        "lead_long_enough_for_trim": true,
+        "margins": {
+          "lead_side": 2.45,
+          "body_side": 2.35,
+          "nut_front": 1.95,
+          "panel_hole_web": 2.85
+        }
+      },
+      "best": {
+        "x_axis": 8.95,
+        "axis_height_used": {
+          "lead_side": 2.6,
+          "body_side": 3.4
+        },
+        "pcb_thickness_used": 0.9,
+        "lead_tip_x": 3.55,
+        "body_top_x": 11.45,
+        "nut_edge_margin": 2.225,
+        "lead_long_enough_for_trim": true,
+        "margins": {
+          "lead_side": 3.3,
+          "body_side": 3.2,
+          "nut_front": 2.225,
+          "panel_hole_web": 3.0
+        }
+      }
+    },
+    {
+      "arrangement": "3hp-offset-1.5",
+      "panel_width": 14.9,
+      "offset": 1.5,
+      "pcb_thickness": 1.0,
+      "leads": "trimmed",
+      "verdict": "FEASIBLE ON PAPER",
+      "reasons": [],
+      "nut_preferred_margin_met": true,
+      "worst": {
+        "x_axis": 8.95,
+        "axis_height_used": {
+          "lead_side": 3.4,
+          "body_side": 2.6
+        },
+        "pcb_thickness_used": 1.1,
+        "lead_tip_x": 3.25,
+        "body_top_x": 13.05,
+        "nut_edge_margin": 1.65,
+        "lead_long_enough_for_trim": true,
+        "margins": {
+          "lead_side": 2.9,
+          "body_side": 1.5,
+          "nut_front": 1.65,
+          "panel_hole_web": 2.7
+        }
+      },
+      "nominal": {
+        "x_axis": 8.95,
+        "axis_height_used": {
+          "lead_side": 3.0,
+          "body_side": 3.0
+        },
+        "pcb_thickness_used": 1.0,
+        "lead_tip_x": 4.25,
+        "body_top_x": 12.25,
+        "nut_edge_margin": 1.95,
+        "lead_long_enough_for_trim": true,
+        "margins": {
+          "lead_side": 3.95,
+          "body_side": 2.35,
+          "nut_front": 1.95,
+          "panel_hole_web": 2.85
+        }
+      },
+      "best": {
+        "x_axis": 8.95,
+        "axis_height_used": {
+          "lead_side": 2.6,
+          "body_side": 3.4
+        },
+        "pcb_thickness_used": 0.9,
+        "lead_tip_x": 5.15,
+        "body_top_x": 11.45,
+        "nut_edge_margin": 2.225,
+        "lead_long_enough_for_trim": true,
+        "margins": {
+          "lead_side": 4.9,
+          "body_side": 3.2,
+          "nut_front": 2.225,
+          "panel_hole_web": 3.0
+        }
+      }
+    },
+    {
+      "arrangement": "3hp-offset-1.5",
+      "panel_width": 14.9,
+      "offset": 1.5,
+      "pcb_thickness": 1.2,
+      "leads": "untrimmed",
+      "verdict": "FEASIBLE ON PAPER",
+      "reasons": [],
+      "nut_preferred_margin_met": true,
+      "worst": {
+        "x_axis": 8.95,
+        "axis_height_used": {
+          "lead_side": 3.4,
+          "body_side": 2.6
+        },
+        "pcb_thickness_used": 1.32,
+        "lead_tip_x": 1.95,
+        "body_top_x": 13.05,
+        "nut_edge_margin": 1.65,
+        "lead_long_enough_for_trim": true,
+        "margins": {
+          "lead_side": 1.6,
+          "body_side": 1.5,
+          "nut_front": 1.65,
+          "panel_hole_web": 2.7
+        }
+      },
+      "nominal": {
+        "x_axis": 8.95,
+        "axis_height_used": {
+          "lead_side": 3.0,
+          "body_side": 3.0
+        },
+        "pcb_thickness_used": 1.2,
+        "lead_tip_x": 2.75,
+        "body_top_x": 12.25,
+        "nut_edge_margin": 1.95,
+        "lead_long_enough_for_trim": true,
+        "margins": {
+          "lead_side": 2.45,
+          "body_side": 2.35,
+          "nut_front": 1.95,
+          "panel_hole_web": 2.85
+        }
+      },
+      "best": {
+        "x_axis": 8.95,
+        "axis_height_used": {
+          "lead_side": 2.6,
+          "body_side": 3.4
+        },
+        "pcb_thickness_used": 1.08,
+        "lead_tip_x": 3.55,
+        "body_top_x": 11.45,
+        "nut_edge_margin": 2.225,
+        "lead_long_enough_for_trim": true,
+        "margins": {
+          "lead_side": 3.3,
+          "body_side": 3.2,
+          "nut_front": 2.225,
+          "panel_hole_web": 3.0
+        }
+      }
+    },
+    {
+      "arrangement": "3hp-offset-1.5",
+      "panel_width": 14.9,
+      "offset": 1.5,
+      "pcb_thickness": 1.2,
+      "leads": "trimmed",
+      "verdict": "FEASIBLE ON PAPER",
+      "reasons": [],
+      "nut_preferred_margin_met": true,
+      "worst": {
+        "x_axis": 8.95,
+        "axis_height_used": {
+          "lead_side": 3.4,
+          "body_side": 2.6
+        },
+        "pcb_thickness_used": 1.32,
+        "lead_tip_x": 3.03,
+        "body_top_x": 13.05,
+        "nut_edge_margin": 1.65,
+        "lead_long_enough_for_trim": true,
+        "margins": {
+          "lead_side": 2.68,
+          "body_side": 1.5,
+          "nut_front": 1.65,
+          "panel_hole_web": 2.7
+        }
+      },
+      "nominal": {
+        "x_axis": 8.95,
+        "axis_height_used": {
+          "lead_side": 3.0,
+          "body_side": 3.0
+        },
+        "pcb_thickness_used": 1.2,
+        "lead_tip_x": 4.05,
+        "body_top_x": 12.25,
+        "nut_edge_margin": 1.95,
+        "lead_long_enough_for_trim": true,
+        "margins": {
+          "lead_side": 3.75,
+          "body_side": 2.35,
+          "nut_front": 1.95,
+          "panel_hole_web": 2.85
+        }
+      },
+      "best": {
+        "x_axis": 8.95,
+        "axis_height_used": {
+          "lead_side": 2.6,
+          "body_side": 3.4
+        },
+        "pcb_thickness_used": 1.08,
+        "lead_tip_x": 4.97,
+        "body_top_x": 11.45,
+        "nut_edge_margin": 2.225,
+        "lead_long_enough_for_trim": true,
+        "margins": {
+          "lead_side": 4.72,
+          "body_side": 3.2,
+          "nut_front": 2.225,
+          "panel_hole_web": 3.0
+        }
+      }
+    },
+    {
+      "arrangement": "3hp-offset-1.5",
+      "panel_width": 14.9,
+      "offset": 1.5,
+      "pcb_thickness": 1.6,
+      "leads": "untrimmed",
+      "verdict": "FEASIBLE ON PAPER",
+      "reasons": [],
+      "nut_preferred_margin_met": true,
+      "worst": {
+        "x_axis": 8.95,
+        "axis_height_used": {
+          "lead_side": 3.4,
+          "body_side": 2.6
+        },
+        "pcb_thickness_used": 1.76,
+        "lead_tip_x": 1.95,
+        "body_top_x": 13.05,
+        "nut_edge_margin": 1.65,
+        "lead_long_enough_for_trim": true,
+        "margins": {
+          "lead_side": 1.6,
+          "body_side": 1.5,
+          "nut_front": 1.65,
+          "panel_hole_web": 2.7
+        }
+      },
+      "nominal": {
+        "x_axis": 8.95,
+        "axis_height_used": {
+          "lead_side": 3.0,
+          "body_side": 3.0
+        },
+        "pcb_thickness_used": 1.6,
+        "lead_tip_x": 2.75,
+        "body_top_x": 12.25,
+        "nut_edge_margin": 1.95,
+        "lead_long_enough_for_trim": true,
+        "margins": {
+          "lead_side": 2.45,
+          "body_side": 2.35,
+          "nut_front": 1.95,
+          "panel_hole_web": 2.85
+        }
+      },
+      "best": {
+        "x_axis": 8.95,
+        "axis_height_used": {
+          "lead_side": 2.6,
+          "body_side": 3.4
+        },
+        "pcb_thickness_used": 1.44,
+        "lead_tip_x": 3.55,
+        "body_top_x": 11.45,
+        "nut_edge_margin": 2.225,
+        "lead_long_enough_for_trim": true,
+        "margins": {
+          "lead_side": 3.3,
+          "body_side": 3.2,
+          "nut_front": 2.225,
+          "panel_hole_web": 3.0
+        }
+      }
+    },
+    {
+      "arrangement": "3hp-offset-1.5",
+      "panel_width": 14.9,
+      "offset": 1.5,
+      "pcb_thickness": 1.6,
+      "leads": "trimmed",
+      "verdict": "FEASIBLE ON PAPER",
+      "reasons": [],
+      "nut_preferred_margin_met": true,
+      "worst": {
+        "x_axis": 8.95,
+        "axis_height_used": {
+          "lead_side": 3.4,
+          "body_side": 2.6
+        },
+        "pcb_thickness_used": 1.76,
+        "lead_tip_x": 2.59,
+        "body_top_x": 13.05,
+        "nut_edge_margin": 1.65,
+        "lead_long_enough_for_trim": true,
+        "margins": {
+          "lead_side": 2.24,
+          "body_side": 1.5,
+          "nut_front": 1.65,
+          "panel_hole_web": 2.7
+        }
+      },
+      "nominal": {
+        "x_axis": 8.95,
+        "axis_height_used": {
+          "lead_side": 3.0,
+          "body_side": 3.0
+        },
+        "pcb_thickness_used": 1.6,
+        "lead_tip_x": 3.65,
+        "body_top_x": 12.25,
+        "nut_edge_margin": 1.95,
+        "lead_long_enough_for_trim": true,
+        "margins": {
+          "lead_side": 3.35,
+          "body_side": 2.35,
+          "nut_front": 1.95,
+          "panel_hole_web": 2.85
+        }
+      },
+      "best": {
+        "x_axis": 8.95,
+        "axis_height_used": {
+          "lead_side": 2.6,
+          "body_side": 3.4
+        },
+        "pcb_thickness_used": 1.44,
+        "lead_tip_x": 4.61,
+        "body_top_x": 11.45,
+        "nut_edge_margin": 2.225,
+        "lead_long_enough_for_trim": true,
+        "margins": {
+          "lead_side": 4.36,
+          "body_side": 3.2,
+          "nut_front": 2.225,
+          "panel_hole_web": 3.0
+        }
+      }
+    }
+  ],
+  "what_if_axis_height_confirmed": [
+    {
+      "arrangement": "2hp-centred",
+      "pcb_thickness": 0.8,
+      "leads": "trimmed",
+      "assumed_axis_band": [
+        2.9,
+        3.0,
+        3.1
+      ],
+      "verdict": "UNRESOLVED",
+      "failing_at_worst": [
+        "lead_side"
+      ],
+      "worst_margins": {
+        "lead_side": -0.63,
+        "body_side": 0.75,
+        "nut_front": 0.6,
+        "panel_hole_web": 1.65
+      }
+    },
+    {
+      "arrangement": "2hp-centred",
+      "pcb_thickness": 1.0,
+      "leads": "trimmed",
+      "assumed_axis_band": [
+        2.9,
+        3.0,
+        3.1
+      ],
+      "verdict": "UNRESOLVED",
+      "failing_at_worst": [
+        "lead_side"
+      ],
+      "worst_margins": {
+        "lead_side": -0.85,
+        "body_side": 0.75,
+        "nut_front": 0.6,
+        "panel_hole_web": 1.65
+      }
+    },
+    {
+      "arrangement": "2hp-centred",
+      "pcb_thickness": 1.2,
+      "leads": "trimmed",
+      "assumed_axis_band": [
+        2.9,
+        3.0,
+        3.1
+      ],
+      "verdict": "UNRESOLVED",
+      "failing_at_worst": [
+        "lead_side"
+      ],
+      "worst_margins": {
+        "lead_side": -1.07,
+        "body_side": 0.75,
+        "nut_front": 0.6,
+        "panel_hole_web": 1.65
+      }
+    },
+    {
+      "arrangement": "2hp-centred",
+      "pcb_thickness": 1.6,
+      "leads": "trimmed",
+      "assumed_axis_band": [
+        2.9,
+        3.0,
+        3.1
+      ],
+      "verdict": "UNRESOLVED",
+      "failing_at_worst": [
+        "lead_side"
+      ],
+      "worst_margins": {
+        "lead_side": -1.51,
+        "body_side": 0.75,
+        "nut_front": 0.6,
+        "panel_hole_web": 1.65
+      }
+    },
+    {
+      "arrangement": "2hp-offset-0.3",
+      "pcb_thickness": 0.8,
+      "leads": "trimmed",
+      "assumed_axis_band": [
+        2.9,
+        3.0,
+        3.1
+      ],
+      "verdict": "UNRESOLVED",
+      "failing_at_worst": [
+        "lead_side"
+      ],
+      "worst_margins": {
+        "lead_side": -0.33,
+        "body_side": 0.45,
+        "nut_front": 0.3,
+        "panel_hole_web": 1.35
+      }
+    },
+    {
+      "arrangement": "2hp-offset-0.3",
+      "pcb_thickness": 1.0,
+      "leads": "trimmed",
+      "assumed_axis_band": [
+        2.9,
+        3.0,
+        3.1
+      ],
+      "verdict": "UNRESOLVED",
+      "failing_at_worst": [
+        "lead_side"
+      ],
+      "worst_margins": {
+        "lead_side": -0.55,
+        "body_side": 0.45,
+        "nut_front": 0.3,
+        "panel_hole_web": 1.35
+      }
+    },
+    {
+      "arrangement": "2hp-offset-0.3",
+      "pcb_thickness": 1.2,
+      "leads": "trimmed",
+      "assumed_axis_band": [
+        2.9,
+        3.0,
+        3.1
+      ],
+      "verdict": "UNRESOLVED",
+      "failing_at_worst": [
+        "lead_side"
+      ],
+      "worst_margins": {
+        "lead_side": -0.77,
+        "body_side": 0.45,
+        "nut_front": 0.3,
+        "panel_hole_web": 1.35
+      }
+    },
+    {
+      "arrangement": "2hp-offset-0.3",
+      "pcb_thickness": 1.6,
+      "leads": "trimmed",
+      "assumed_axis_band": [
+        2.9,
+        3.0,
+        3.1
+      ],
+      "verdict": "UNRESOLVED",
+      "failing_at_worst": [
+        "lead_side"
+      ],
+      "worst_margins": {
+        "lead_side": -1.21,
+        "body_side": 0.45,
+        "nut_front": 0.3,
+        "panel_hole_web": 1.35
+      }
+    },
+    {
+      "arrangement": "2hp-offset-0.6",
+      "pcb_thickness": 0.8,
+      "leads": "trimmed",
+      "assumed_axis_band": [
+        2.9,
+        3.0,
+        3.1
+      ],
+      "verdict": "UNRESOLVED",
+      "failing_at_worst": [
+        "lead_side"
+      ],
+      "worst_margins": {
+        "lead_side": -0.03,
+        "body_side": 0.15,
+        "nut_front": 0.0,
+        "panel_hole_web": 1.05
+      }
+    },
+    {
+      "arrangement": "2hp-offset-0.6",
+      "pcb_thickness": 1.0,
+      "leads": "trimmed",
+      "assumed_axis_band": [
+        2.9,
+        3.0,
+        3.1
+      ],
+      "verdict": "UNRESOLVED",
+      "failing_at_worst": [
+        "lead_side"
+      ],
+      "worst_margins": {
+        "lead_side": -0.25,
+        "body_side": 0.15,
+        "nut_front": 0.0,
+        "panel_hole_web": 1.05
+      }
+    },
+    {
+      "arrangement": "2hp-offset-0.6",
+      "pcb_thickness": 1.2,
+      "leads": "trimmed",
+      "assumed_axis_band": [
+        2.9,
+        3.0,
+        3.1
+      ],
+      "verdict": "UNRESOLVED",
+      "failing_at_worst": [
+        "lead_side"
+      ],
+      "worst_margins": {
+        "lead_side": -0.47,
+        "body_side": 0.15,
+        "nut_front": 0.0,
+        "panel_hole_web": 1.05
+      }
+    },
+    {
+      "arrangement": "2hp-offset-0.6",
+      "pcb_thickness": 1.6,
+      "leads": "trimmed",
+      "assumed_axis_band": [
+        2.9,
+        3.0,
+        3.1
+      ],
+      "verdict": "UNRESOLVED",
+      "failing_at_worst": [
+        "lead_side"
+      ],
+      "worst_margins": {
+        "lead_side": -0.91,
+        "body_side": 0.15,
+        "nut_front": 0.0,
+        "panel_hole_web": 1.05
+      }
+    },
+    {
+      "arrangement": "2hp-offset-0.9",
+      "pcb_thickness": 0.8,
+      "leads": "trimmed",
+      "assumed_axis_band": [
+        2.9,
+        3.0,
+        3.1
+      ],
+      "verdict": "UNRESOLVED",
+      "failing_at_worst": [
+        "body_side",
+        "nut_front"
+      ],
+      "worst_margins": {
+        "lead_side": 0.27,
+        "body_side": -0.15,
+        "nut_front": -0.3,
+        "panel_hole_web": 0.75
+      }
+    },
+    {
+      "arrangement": "2hp-offset-0.9",
+      "pcb_thickness": 1.0,
+      "leads": "trimmed",
+      "assumed_axis_band": [
+        2.9,
+        3.0,
+        3.1
+      ],
+      "verdict": "UNRESOLVED",
+      "failing_at_worst": [
+        "body_side",
+        "nut_front"
+      ],
+      "worst_margins": {
+        "lead_side": 0.05,
+        "body_side": -0.15,
+        "nut_front": -0.3,
+        "panel_hole_web": 0.75
+      }
+    },
+    {
+      "arrangement": "2hp-offset-0.9",
+      "pcb_thickness": 1.2,
+      "leads": "trimmed",
+      "assumed_axis_band": [
+        2.9,
+        3.0,
+        3.1
+      ],
+      "verdict": "UNRESOLVED",
+      "failing_at_worst": [
+        "lead_side",
+        "body_side",
+        "nut_front"
+      ],
+      "worst_margins": {
+        "lead_side": -0.17,
+        "body_side": -0.15,
+        "nut_front": -0.3,
+        "panel_hole_web": 0.75
+      }
+    },
+    {
+      "arrangement": "2hp-offset-0.9",
+      "pcb_thickness": 1.6,
+      "leads": "trimmed",
+      "assumed_axis_band": [
+        2.9,
+        3.0,
+        3.1
+      ],
+      "verdict": "UNRESOLVED",
+      "failing_at_worst": [
+        "lead_side",
+        "body_side",
+        "nut_front"
+      ],
+      "worst_margins": {
+        "lead_side": -0.61,
+        "body_side": -0.15,
+        "nut_front": -0.3,
+        "panel_hole_web": 0.75
+      }
+    }
+  ],
+  "axial": [
+    {
+      "option": "plain",
+      "description": "body front face on the PMMA rear; nut directly on the PMMA front",
+      "nut": "same-sky-3.5mm-nut-e",
+      "verdict": "UNRESOLVED",
+      "full_nut_engaged_worst_case": false,
+      "cases": {
+        "worst": {
+          "barrel": 3.3,
+          "clamped_pmma": 2.2,
+          "exposed_thread": 1.1,
+          "usable_thread": 0.85,
+          "nut_thickness": 1.4,
+          "engaged": 0.85,
+          "full_nut_engaged": false
+        },
+        "nominal": {
+          "barrel": 3.5,
+          "clamped_pmma": 2.0,
+          "exposed_thread": 1.5,
+          "usable_thread": 1.25,
+          "nut_thickness": 1.5,
+          "engaged": 1.25,
+          "full_nut_engaged": false
+        },
+        "best": {
+          "barrel": 3.7,
+          "clamped_pmma": 1.8,
+          "exposed_thread": 1.9,
+          "usable_thread": 1.65,
+          "nut_thickness": 1.6,
+          "engaged": 1.6,
+          "full_nut_engaged": true
+        }
+      }
+    },
+    {
+      "option": "plain",
+      "description": "body front face on the PMMA rear; nut directly on the PMMA front",
+      "nut": "same-sky-mj-3502-nut",
+      "verdict": "UNRESOLVED",
+      "full_nut_engaged_worst_case": false,
+      "cases": {
+        "worst": {
+          "barrel": 3.3,
+          "clamped_pmma": 2.2,
+          "exposed_thread": 1.1,
+          "usable_thread": 0.85,
+          "nut_thickness": 1.7,
+          "engaged": 0.85,
+          "full_nut_engaged": false
+        },
+        "nominal": {
+          "barrel": 3.5,
+          "clamped_pmma": 2.0,
+          "exposed_thread": 1.5,
+          "usable_thread": 1.25,
+          "nut_thickness": 1.8,
+          "engaged": 1.25,
+          "full_nut_engaged": false
+        },
+        "best": {
+          "barrel": 3.7,
+          "clamped_pmma": 1.8,
+          "exposed_thread": 1.9,
+          "usable_thread": 1.65,
+          "nut_thickness": 1.9,
+          "engaged": 1.65,
+          "full_nut_engaged": false
+        }
+      }
+    },
+    {
+      "option": "front-washer",
+      "description": "as plain with a thin flat washer under the nut",
+      "nut": "same-sky-3.5mm-nut-e",
+      "verdict": "UNRESOLVED",
+      "full_nut_engaged_worst_case": false,
+      "cases": {
+        "worst": {
+          "barrel": 3.3,
+          "clamped_pmma": 2.2,
+          "exposed_thread": 0.8,
+          "usable_thread": 0.55,
+          "nut_thickness": 1.4,
+          "engaged": 0.55,
+          "full_nut_engaged": false
+        },
+        "nominal": {
+          "barrel": 3.5,
+          "clamped_pmma": 2.0,
+          "exposed_thread": 1.2,
+          "usable_thread": 0.95,
+          "nut_thickness": 1.5,
+          "engaged": 0.95,
+          "full_nut_engaged": false
+        },
+        "best": {
+          "barrel": 3.7,
+          "clamped_pmma": 1.8,
+          "exposed_thread": 1.6,
+          "usable_thread": 1.35,
+          "nut_thickness": 1.6,
+          "engaged": 1.35,
+          "full_nut_engaged": false
+        }
+      }
+    },
+    {
+      "option": "front-washer",
+      "description": "as plain with a thin flat washer under the nut",
+      "nut": "same-sky-mj-3502-nut",
+      "verdict": "UNRESOLVED",
+      "full_nut_engaged_worst_case": false,
+      "cases": {
+        "worst": {
+          "barrel": 3.3,
+          "clamped_pmma": 2.2,
+          "exposed_thread": 0.8,
+          "usable_thread": 0.55,
+          "nut_thickness": 1.7,
+          "engaged": 0.55,
+          "full_nut_engaged": false
+        },
+        "nominal": {
+          "barrel": 3.5,
+          "clamped_pmma": 2.0,
+          "exposed_thread": 1.2,
+          "usable_thread": 0.95,
+          "nut_thickness": 1.8,
+          "engaged": 0.95,
+          "full_nut_engaged": false
+        },
+        "best": {
+          "barrel": 3.7,
+          "clamped_pmma": 1.8,
+          "exposed_thread": 1.6,
+          "usable_thread": 1.35,
+          "nut_thickness": 1.9,
+          "engaged": 1.35,
+          "full_nut_engaged": false
+        }
+      }
+    },
+    {
+      "option": "a5-collar",
+      "description": "A5-style 0.6 mm backed collar kept between body and PMMA",
+      "nut": "same-sky-3.5mm-nut-e",
+      "verdict": "UNRESOLVED",
+      "full_nut_engaged_worst_case": false,
+      "cases": {
+        "worst": {
+          "barrel": 3.3,
+          "clamped_pmma": 2.2,
+          "exposed_thread": 0.5,
+          "usable_thread": 0.25,
+          "nut_thickness": 1.4,
+          "engaged": 0.25,
+          "full_nut_engaged": false
+        },
+        "nominal": {
+          "barrel": 3.5,
+          "clamped_pmma": 2.0,
+          "exposed_thread": 0.9,
+          "usable_thread": 0.65,
+          "nut_thickness": 1.5,
+          "engaged": 0.65,
+          "full_nut_engaged": false
+        },
+        "best": {
+          "barrel": 3.7,
+          "clamped_pmma": 1.8,
+          "exposed_thread": 1.3,
+          "usable_thread": 1.05,
+          "nut_thickness": 1.6,
+          "engaged": 1.05,
+          "full_nut_engaged": false
+        }
+      }
+    },
+    {
+      "option": "a5-collar",
+      "description": "A5-style 0.6 mm backed collar kept between body and PMMA",
+      "nut": "same-sky-mj-3502-nut",
+      "verdict": "UNRESOLVED",
+      "full_nut_engaged_worst_case": false,
+      "cases": {
+        "worst": {
+          "barrel": 3.3,
+          "clamped_pmma": 2.2,
+          "exposed_thread": 0.5,
+          "usable_thread": 0.25,
+          "nut_thickness": 1.7,
+          "engaged": 0.25,
+          "full_nut_engaged": false
+        },
+        "nominal": {
+          "barrel": 3.5,
+          "clamped_pmma": 2.0,
+          "exposed_thread": 0.9,
+          "usable_thread": 0.65,
+          "nut_thickness": 1.8,
+          "engaged": 0.65,
+          "full_nut_engaged": false
+        },
+        "best": {
+          "barrel": 3.7,
+          "clamped_pmma": 1.8,
+          "exposed_thread": 1.3,
+          "usable_thread": 1.05,
+          "nut_thickness": 1.9,
+          "engaged": 1.05,
+          "full_nut_engaged": false
+        }
+      }
+    },
+    {
+      "option": "rear-pocket",
+      "description": "local 0.5 mm rear pocket in the PMMA at the jack, body seated in the pocket",
+      "nut": "same-sky-3.5mm-nut-e",
+      "verdict": "FEASIBLE ON PAPER",
+      "full_nut_engaged_worst_case": false,
+      "cases": {
+        "worst": {
+          "barrel": 3.3,
+          "clamped_pmma": 1.8,
+          "exposed_thread": 1.5,
+          "usable_thread": 1.25,
+          "nut_thickness": 1.4,
+          "engaged": 1.25,
+          "full_nut_engaged": false
+        },
+        "nominal": {
+          "barrel": 3.5,
+          "clamped_pmma": 1.5,
+          "exposed_thread": 2.0,
+          "usable_thread": 1.75,
+          "nut_thickness": 1.5,
+          "engaged": 1.5,
+          "full_nut_engaged": true
+        },
+        "best": {
+          "barrel": 3.7,
+          "clamped_pmma": 1.2,
+          "exposed_thread": 2.5,
+          "usable_thread": 2.25,
+          "nut_thickness": 1.6,
+          "engaged": 1.6,
+          "full_nut_engaged": true
+        }
+      }
+    },
+    {
+      "option": "rear-pocket",
+      "description": "local 0.5 mm rear pocket in the PMMA at the jack, body seated in the pocket",
+      "nut": "same-sky-mj-3502-nut",
+      "verdict": "FEASIBLE ON PAPER",
+      "full_nut_engaged_worst_case": false,
+      "cases": {
+        "worst": {
+          "barrel": 3.3,
+          "clamped_pmma": 1.8,
+          "exposed_thread": 1.5,
+          "usable_thread": 1.25,
+          "nut_thickness": 1.7,
+          "engaged": 1.25,
+          "full_nut_engaged": false
+        },
+        "nominal": {
+          "barrel": 3.5,
+          "clamped_pmma": 1.5,
+          "exposed_thread": 2.0,
+          "usable_thread": 1.75,
+          "nut_thickness": 1.8,
+          "engaged": 1.75,
+          "full_nut_engaged": false
+        },
+        "best": {
+          "barrel": 3.7,
+          "clamped_pmma": 1.2,
+          "exposed_thread": 2.5,
+          "usable_thread": 2.25,
+          "nut_thickness": 1.9,
+          "engaged": 1.9,
+          "full_nut_engaged": true
+        }
+      }
+    },
+    {
+      "option": "rear-pocket-washer",
+      "description": "rear pocket plus thin front washer",
+      "nut": "same-sky-3.5mm-nut-e",
+      "verdict": "UNRESOLVED",
+      "full_nut_engaged_worst_case": false,
+      "cases": {
+        "worst": {
+          "barrel": 3.3,
+          "clamped_pmma": 1.8,
+          "exposed_thread": 1.2,
+          "usable_thread": 0.95,
+          "nut_thickness": 1.4,
+          "engaged": 0.95,
+          "full_nut_engaged": false
+        },
+        "nominal": {
+          "barrel": 3.5,
+          "clamped_pmma": 1.5,
+          "exposed_thread": 1.7,
+          "usable_thread": 1.45,
+          "nut_thickness": 1.5,
+          "engaged": 1.45,
+          "full_nut_engaged": false
+        },
+        "best": {
+          "barrel": 3.7,
+          "clamped_pmma": 1.2,
+          "exposed_thread": 2.2,
+          "usable_thread": 1.95,
+          "nut_thickness": 1.6,
+          "engaged": 1.6,
+          "full_nut_engaged": true
+        }
+      }
+    },
+    {
+      "option": "rear-pocket-washer",
+      "description": "rear pocket plus thin front washer",
+      "nut": "same-sky-mj-3502-nut",
+      "verdict": "UNRESOLVED",
+      "full_nut_engaged_worst_case": false,
+      "cases": {
+        "worst": {
+          "barrel": 3.3,
+          "clamped_pmma": 1.8,
+          "exposed_thread": 1.2,
+          "usable_thread": 0.95,
+          "nut_thickness": 1.7,
+          "engaged": 0.95,
+          "full_nut_engaged": false
+        },
+        "nominal": {
+          "barrel": 3.5,
+          "clamped_pmma": 1.5,
+          "exposed_thread": 1.7,
+          "usable_thread": 1.45,
+          "nut_thickness": 1.8,
+          "engaged": 1.45,
+          "full_nut_engaged": false
+        },
+        "best": {
+          "barrel": 3.7,
+          "clamped_pmma": 1.2,
+          "exposed_thread": 2.2,
+          "usable_thread": 1.95,
+          "nut_thickness": 1.9,
+          "engaged": 1.9,
+          "full_nut_engaged": true
+        }
+      }
+    }
+  ],
+  "depth_and_y": {
+    "axial_depth": {
+      "seated-on-pmma-rear": {
+        "jack_body_rear_z_max": 14.4,
+        "margin_to_a5_optical_skin_front": 3.0,
+        "margin_to_a5_leaf_front": 5.0
+      },
+      "seated-in-rear-pocket": {
+        "jack_body_rear_z_max": 14.0,
+        "margin_to_a5_optical_skin_front": 3.4,
+        "margin_to_a5_leaf_front": 5.4
+      },
+      "on-a5-collar": {
+        "jack_body_rear_z_max": 15.0,
+        "margin_to_a5_optical_skin_front": 2.4,
+        "margin_to_a5_leaf_front": 4.4
+      }
+    },
+    "y_layout_at_a5_positions": {
+      "jack_pitch": 14.0,
+      "body_gap_same_orientation_worst": 1.5,
+      "nut_gap_worst": 5.5,
+      "lower_body_edge_y_worst": 110.7,
+      "margin_to_rail_body_limit_worst": 0.7,
+      "upper_body_edge_y_worst": 83.3,
+      "margin_to_rail_body_start_worst": 66.2
+    }
+  },
+  "input_confidence": {
+    "panel_width_2hp": {
+      "nominal": 9.8,
+      "tol": 0.1,
+      "confidence": "SOURCED",
+      "tol_confidence": "ASSUMED",
+      "source": "src-a7-a5-front-panel-geometry variants.2hp.width; laser-cut width tolerance not sourced"
+    },
+    "panel_width_3hp": {
+      "nominal": 14.9,
+      "tol": 0.1,
+      "confidence": "SOURCED",
+      "tol_confidence": "ASSUMED",
+      "source": "src-a7-a5-front-panel-geometry variants.3hp.width; tolerance not sourced"
+    },
+    "panel_thickness": {
+      "nominal": 2.0,
+      "tol": 0.2,
+      "confidence": "SOURCED",
+      "tol_confidence": "ASSUMED",
+      "source": "src-a7-a5-front-panel-geometry panel.thickness 2.0; cast-PMMA sheet tolerance not sourced ('confirm with fabricator')"
+    },
+    "panel_hole_radial_float": {
+      "nominal": 0.1,
+      "confidence": "PROJECT-CHOICE",
+      "source": "radial clearance of the panel hole around the thread major diameter: 6.2 mm hole for a 6.0 mm thread major diameter, as A5 used for its 6.0 mm barrel"
+    },
+    "panel_hole_position_tol": {
+      "nominal": 0.1,
+      "confidence": "ASSUMED",
+      "source": "laser-cut hole position; not sourced"
+    },
+    "jack_axis_height": {
+      "nominal": 3.0,
+      "min": 2.6,
+      "max": 3.4,
+      "confidence": "INFERRED",
+      "source": "fact-a7-pj-324m-axis-height: scaled 2.9-3.0 from the SOFNG front view; not dimensioned. Band +/-0.4 covers scaling error. Not a confirmed dimension."
+    },
+    "jack_overall_height": {
+      "nominal": 6.3,
+      "tol": 0.2,
+      "confidence": "MIRROR",
+      "tol_confidence": "ASSUMED",
+      "source": "fact-a7-pj-324m-overall-height (title H6.30); tolerance taken from the .X +/-0.20 block"
+    },
+    "jack_body_height": {
+      "nominal": 6.0,
+      "tol": 0.2,
+      "confidence": "MIRROR",
+      "tol_confidence": "ASSUMED",
+      "source": "fact-a7-pj-324m-body-height"
+    },
+    "jack_terminal_projection": {
+      "nominal": 3.2,
+      "tol": 0.2,
+      "confidence": "MIRROR",
+      "tol_confidence": "MIRROR",
+      "source": "fact-a7-pj-324m-terminal-projection; measured from the body seating plane, not added to the PCB thickness"
+    },
+    "jack_barrel_projection": {
+      "nominal": 3.5,
+      "tol": 0.2,
+      "confidence": "MIRROR",
+      "tol_confidence": "MIRROR",
+      "source": "fact-a7-pj-324m-barrel-projection; .X +/-0.20"
+    },
+    "jack_body_depth": {
+      "nominal": 14.2,
+      "tol": 0.2,
+      "confidence": "MIRROR",
+      "tol_confidence": "MIRROR",
+      "source": "fact-a7-pj-324m-body-depth; .X +/-0.20"
+    },
+    "jack_rear_terminal_from_front": {
+      "nominal": 13.0,
+      "confidence": "MIRROR",
+      "source": "fact-a7-pj-324m-footprint-positions pin_4_along"
+    },
+    "jack_body_width": {
+      "nominal": 11.5,
+      "confidence": "MIRROR",
+      "source": "fact-a7-pj-324m-body-width"
+    },
+    "jack_axis_to_edge_near": {
+      "nominal": 5.4,
+      "tol": 0.2,
+      "confidence": "MIRROR",
+      "tol_confidence": "MIRROR",
+      "source": "fact-a7-pj-324m-axis-to-edge; .X +/-0.20"
+    },
+    "jack_axis_to_edge_far": {
+      "nominal": 6.1,
+      "tol": 0.4,
+      "confidence": "DERIVED-MIRROR",
+      "tol_confidence": "DERIVED-MIRROR",
+      "source": "fact-a7-pj-324m-axis-to-far-edge: calculated 11.5 - 5.4, not printed; tolerance is the sum of the two .X +/-0.20 values"
+    },
+    "thread_pitch": {
+      "nominal": 0.5,
+      "confidence": "MIRROR",
+      "source": "fact-a7-pj-324m-thread M6x0.5"
+    },
+    "thread_major_diameter": {
+      "nominal": 6.0,
+      "confidence": "MIRROR",
+      "source": "fact-a7-pj-324m-thread M6x0.5 (nominal major diameter of an M6 thread)"
+    },
+    "thread_lead_in_loss": {
+      "nominal": 0.25,
+      "confidence": "ASSUMED",
+      "source": "half a pitch lost to the thread start/chamfer at the barrel tip; not sourced"
+    },
+    "front_body_gap": {
+      "nominal": 0.0,
+      "confidence": "PROJECT-CHOICE",
+      "source": "jack body front face seated on the PMMA rear (or on a rear spacer, modelled as a separate option)"
+    },
+    "pcb_thickness_options": {
+      "values": [
+        0.8,
+        1.0,
+        1.2,
+        1.6
+      ],
+      "rel_tol": 0.1,
+      "confidence": "ASSUMED",
+      "source": "common rigid FR-4 thicknesses; +/-10% thickness tolerance assumed, supplier tolerance not retained"
+    },
+    "lead_protrusion_trimmed": {
+      "nominal": 0.7,
+      "min": 0.5,
+      "max": 1.0,
+      "confidence": "ASSUMED",
+      "source": "lead length beyond the solder side after factory trimming (min used at the best corner, max at the worst); the assembler's trim capability is not sourced (Q6)"
+    },
+    "side_clearance_required": {
+      "nominal": 0.3,
+      "confidence": "PROJECT-CHOICE",
+      "source": "minimum gap from any behind-panel part to the panel-outline plane (adjacent module, insulation)"
+    },
+    "nut_edge_margin_required": {
+      "nominal": 0.0,
+      "confidence": "PROJECT-CHOICE",
+      "source": "nut must stay inside the panel outline on the front face; 0.3 preferred so it does not reach a neighbouring module"
+    },
+    "min_engagement_required": {
+      "nominal": 1.0,
+      "confidence": "PROJECT-CHOICE",
+      "source": "at least two full M6x0.5 pitches engaged in the worst case; full nut-thickness engagement preferred"
+    },
+    "rear_pocket_depth": {
+      "nominal": 0.5,
+      "tol": 0.1,
+      "confidence": "PROJECT-CHOICE",
+      "tol_confidence": "ASSUMED",
+      "source": "optional local rear pocket in the PMMA at each jack (concealed hardware seat); depth tolerance assumed"
+    },
+    "front_washer_thickness": {
+      "nominal": 0.3,
+      "confidence": "ASSUMED",
+      "source": "thin flat washer option; no exact washer selected"
+    },
+    "old_collar_thickness": {
+      "nominal": 0.6,
+      "confidence": "SOURCED",
+      "source": "src-a7-a5-mechanical-geometry jack.front_seat_z 0.6 (A5 backed collar)"
+    },
+    "a5_optical_skin_front_z": {
+      "nominal": 17.4,
+      "confidence": "SOURCED",
+      "source": "src-a7-a5-mechanical-geometry optical.skin_z[0]; A5 reference only, R2 may change it"
+    },
+    "a5_leaf_front_z": {
+      "nominal": 19.4,
+      "confidence": "SOURCED",
+      "source": "src-a7-a5-mechanical-geometry leaf.z[0]"
+    },
+    "a5_jack_y": {
+      "values": [
+        90.0,
+        104.0
+      ],
+      "confidence": "SOURCED",
+      "source": "src-a7-a5-front-panel-geometry controls.jack_y (A5 positions; A7 may move them)"
+    },
+    "rail_body_y": {
+      "values": [
+        17.1,
+        111.4
+      ],
+      "confidence": "SOURCED",
+      "source": "src-a7-a5-mechanical-geometry rail_body_y"
+    }
+  }
+}

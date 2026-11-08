@@ -1,0 +1,55 @@
+{
+  "schema_version": 1,
+  "skill": "component-a7-pj-324m",
+  "records": [
+    {
+      "record_id": "rec-a7-pj-324m",
+      "line_id": "line-a7-pj-324m",
+      "kind": "standalone",
+      "parent_record_id": null,
+      "mpn": "PJ-324M",
+      "manufacturer": "SOFNG",
+      "lcsc": "C22355739",
+      "package": "Plugin",
+      "source_ids": [
+        "src-a7-pj-324m-sofng-drawing",
+        "src-a7-pj-324m-sofng-site",
+        "src-a7-pj-324m-jlc-listing"
+      ],
+      "fact_ids": [
+        "fact-a7-pj-324m-distributor-identity",
+        "fact-a7-pj-324m-manufacturer",
+        "fact-a7-pj-324m-thread",
+        "fact-a7-pj-324m-body-height",
+        "fact-a7-pj-324m-overall-height",
+        "fact-a7-pj-324m-body-width",
+        "fact-a7-pj-324m-axis-to-edge",
+        "fact-a7-pj-324m-axis-to-far-edge",
+        "fact-a7-pj-324m-body-depth",
+        "fact-a7-pj-324m-barrel-projection",
+        "fact-a7-pj-324m-terminal-projection",
+        "fact-a7-pj-324m-axis-height",
+        "fact-a7-pj-324m-bore",
+        "fact-a7-pj-324m-footprint-positions",
+        "fact-a7-pj-324m-hole-sizes",
+        "fact-a7-pj-324m-pin-function",
+        "fact-a7-pj-324m-pin-function-inference",
+        "fact-a7-pj-324m-contact-rating",
+        "fact-a7-pj-324m-operating-temperature",
+        "fact-a7-pj-324m-soldering",
+        "fact-a7-pj-324m-plug-force",
+        "fact-a7-pj-324m-nut-supplied",
+        "fact-a7-pj-324m-a7-placements"
+      ],
+      "interaction_ids": [],
+      "open_domains": [
+        "identity",
+        "mechanical",
+        "pinout",
+        "electrical-ratings",
+        "assembly",
+        "placement"
+      ]
+    }
+  ]
+}

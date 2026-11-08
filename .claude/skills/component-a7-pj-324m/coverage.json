@@ -1,0 +1,116 @@
+{
+  "schema_version": 1,
+  "coverage": [
+    {
+      "coverage_id": "cov-a7-pj-324m-identity",
+      "record_id": "rec-a7-pj-324m",
+      "domain": "identity",
+      "status": "OPEN",
+      "reason": "the only manufacturer document is a lower-authority LCSC-hosted mirror and the manufacturer-hosted copy was SOURCE UNAVAILABLE; manufacturer drawing and distributor identity both retained",
+      "fact_ids": [
+        "fact-a7-pj-324m-manufacturer",
+        "fact-a7-pj-324m-distributor-identity"
+      ],
+      "blocking_fact_ids": [
+        "fact-a7-pj-324m-manufacturer"
+      ]
+    },
+    {
+      "coverage_id": "cov-a7-pj-324m-mechanical",
+      "record_id": "rec-a7-pj-324m",
+      "domain": "mechanical",
+      "status": "OPEN",
+      "reason": "axis height above the seating plane is not dimensioned and hole sizes are not given",
+      "fact_ids": [
+        "fact-a7-pj-324m-thread",
+        "fact-a7-pj-324m-body-height",
+        "fact-a7-pj-324m-overall-height",
+        "fact-a7-pj-324m-body-width",
+        "fact-a7-pj-324m-axis-to-edge",
+        "fact-a7-pj-324m-axis-to-far-edge",
+        "fact-a7-pj-324m-body-depth",
+        "fact-a7-pj-324m-barrel-projection",
+        "fact-a7-pj-324m-terminal-projection",
+        "fact-a7-pj-324m-axis-height",
+        "fact-a7-pj-324m-bore",
+        "fact-a7-pj-324m-footprint-positions",
+        "fact-a7-pj-324m-hole-sizes",
+        "fact-a7-pj-324m-plug-force"
+      ],
+      "blocking_fact_ids": [
+        "fact-a7-pj-324m-thread",
+        "fact-a7-pj-324m-body-height",
+        "fact-a7-pj-324m-overall-height",
+        "fact-a7-pj-324m-body-width",
+        "fact-a7-pj-324m-axis-to-edge",
+        "fact-a7-pj-324m-axis-to-far-edge",
+        "fact-a7-pj-324m-body-depth",
+        "fact-a7-pj-324m-barrel-projection",
+        "fact-a7-pj-324m-terminal-projection",
+        "fact-a7-pj-324m-axis-height",
+        "fact-a7-pj-324m-bore",
+        "fact-a7-pj-324m-footprint-positions",
+        "fact-a7-pj-324m-hole-sizes",
+        "fact-a7-pj-324m-plug-force"
+      ]
+    },
+    {
+      "coverage_id": "cov-a7-pj-324m-pinout",
+      "record_id": "rec-a7-pj-324m",
+      "domain": "pinout",
+      "status": "OPEN",
+      "reason": "no manufacturer pin-function table; the A7 mapping is inferred and needs a continuity test",
+      "fact_ids": [
+        "fact-a7-pj-324m-pin-function",
+        "fact-a7-pj-324m-pin-function-inference"
+      ],
+      "blocking_fact_ids": [
+        "fact-a7-pj-324m-pin-function",
+        "fact-a7-pj-324m-pin-function-inference"
+      ]
+    },
+    {
+      "coverage_id": "cov-a7-pj-324m-ratings",
+      "record_id": "rec-a7-pj-324m",
+      "domain": "electrical-ratings",
+      "status": "OPEN",
+      "reason": "contact rating is sourced; operating temperature field is blank on the drawing",
+      "fact_ids": [
+        "fact-a7-pj-324m-contact-rating",
+        "fact-a7-pj-324m-operating-temperature"
+      ],
+      "blocking_fact_ids": [
+        "fact-a7-pj-324m-contact-rating",
+        "fact-a7-pj-324m-operating-temperature"
+      ]
+    },
+    {
+      "coverage_id": "cov-a7-pj-324m-assembly",
+      "record_id": "rec-a7-pj-324m",
+      "domain": "assembly",
+      "status": "OPEN",
+      "reason": "only a manual-solder limit is given; nut supply is unknown",
+      "fact_ids": [
+        "fact-a7-pj-324m-soldering",
+        "fact-a7-pj-324m-nut-supplied"
+      ],
+      "blocking_fact_ids": [
+        "fact-a7-pj-324m-soldering",
+        "fact-a7-pj-324m-nut-supplied"
+      ]
+    },
+    {
+      "coverage_id": "cov-a7-pj-324m-placement",
+      "record_id": "rec-a7-pj-324m",
+      "domain": "placement",
+      "status": "OPEN",
+      "reason": "no A7 schematic or board yet",
+      "fact_ids": [
+        "fact-a7-pj-324m-a7-placements"
+      ],
+      "blocking_fact_ids": [
+        "fact-a7-pj-324m-a7-placements"
+      ]
+    }
+  ]
+}

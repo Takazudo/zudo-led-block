@@ -1,0 +1,44 @@
+{
+  "schema_version": 1,
+  "skill": "component-a7-pcm13smtr",
+  "records": [
+    {
+      "record_id": "rec-a7-pcm13smtr",
+      "line_id": "line-a7-pcm13smtr",
+      "kind": "standalone",
+      "parent_record_id": null,
+      "mpn": "PCM13SMTR",
+      "manufacturer": "C&K",
+      "lcsc": "C221842",
+      "package": "SMD",
+      "source_ids": [
+        "src-a7-pcm13smtr-ck-datasheet",
+        "src-a7-pcm13smtr-ck-site",
+        "src-a7-pcm13smtr-lcsc-listing",
+        "src-a7-jlc-parts-api-2026-11-08"
+      ],
+      "fact_ids": [
+        "fact-a7-pcm13smtr-distributor-identity",
+        "fact-a7-pcm13smtr-manufacturer",
+        "fact-a7-pcm13smtr-function",
+        "fact-a7-pcm13smtr-contact-rating",
+        "fact-a7-pcm13smtr-life",
+        "fact-a7-pcm13smtr-operating-temperature",
+        "fact-a7-pcm13smtr-solder",
+        "fact-a7-pcm13smtr-outline",
+        "fact-a7-pcm13smtr-orientation-discrepancy",
+        "fact-a7-pcm13smtr-sourcing",
+        "fact-a7-pcm13smtr-a7-placements"
+      ],
+      "interaction_ids": [],
+      "open_domains": [
+        "identity",
+        "pinout",
+        "electrical-ratings",
+        "mechanical",
+        "sourcing",
+        "placement"
+      ]
+    }
+  ]
+}

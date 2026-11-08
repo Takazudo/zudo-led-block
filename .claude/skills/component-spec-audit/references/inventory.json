@@ -2,10 +2,10 @@
   "schema_version": 1,
   "generator_specs": [],
   "assertions": {
-    "orderable_lines": 30,
-    "fitted_lines": 30,
+    "orderable_lines": 32,
+    "fitted_lines": 32,
     "dnp_or_hand_fit_lines": 0,
-    "fitted_placements": 71,
+    "fitted_placements": 74,
     "dnp_placements": 0
   },
   "exclusions": [
@@ -1036,6 +1036,66 @@
       "placements": [
         {
           "board": "controller",
+          "refdes": "SW1"
+        }
+      ]
+    },
+    {
+      "line_id": "line-a7-pj-324m",
+      "mpn": "PJ-324M",
+      "manufacturer": "SOFNG",
+      "lcsc": "C22355739",
+      "package": "Plugin",
+      "dnp": false,
+      "owner_skill": "component-a7-pj-324m",
+      "identity_state": "UNRESOLVED",
+      "source_state": "SOURCE UNAVAILABLE",
+      "function": "A7 right-angle threaded CV jack",
+      "suppliers": [
+        {
+          "supplier": "JLCPCB",
+          "order_code": "C22355739"
+        },
+        {
+          "supplier": "LCSC",
+          "order_code": "C22355739"
+        }
+      ],
+      "placements": [
+        {
+          "board": "a7-controller",
+          "refdes": "J1"
+        },
+        {
+          "board": "a7-controller",
+          "refdes": "J2"
+        }
+      ]
+    },
+    {
+      "line_id": "line-a7-pcm13smtr",
+      "mpn": "PCM13SMTR",
+      "manufacturer": "C&K",
+      "lcsc": "C221842",
+      "package": "SMD",
+      "dnp": false,
+      "owner_skill": "component-a7-pcm13smtr",
+      "identity_state": "UNRESOLVED",
+      "source_state": "SOURCE UNAVAILABLE",
+      "function": "A7 side mode setting switch",
+      "suppliers": [
+        {
+          "supplier": "JLCPCB",
+          "order_code": "C221842"
+        },
+        {
+          "supplier": "LCSC",
+          "order_code": "C221842"
+        }
+      ],
+      "placements": [
+        {
+          "board": "a7-controller",
           "refdes": "SW1"
         }
       ]

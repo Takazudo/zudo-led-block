@@ -1,0 +1,31 @@
+{
+  "schema_version": 1,
+  "routes": [
+    {
+      "route_id": "route-a7-pj-324m",
+      "record_id": "rec-a7-pj-324m",
+      "aliases": {
+        "mpn": [
+          "PJ-324M"
+        ],
+        "lcsc": [
+          "C22355739"
+        ],
+        "manufacturer": [
+          "SOFNG"
+        ],
+        "function": [
+          "A7 right-angle threaded CV jack"
+        ]
+      },
+      "positive": [
+        "check PJ-324M pinout",
+        "audit C22355739"
+      ],
+      "negative": [
+        "check PJ-3582-B pinout",
+        "check MJ-3502 jack"
+      ]
+    }
+  ]
+}
