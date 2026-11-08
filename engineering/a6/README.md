@@ -4,7 +4,8 @@ A6 は A5 チェックポイントの上に作る **最小限の改訂** です�
 回路 (ネットリスト)・固定インターフェース・LED 基板・電源変換基板・機構・ファームウェアは A5 のままです。
 
 > **現状: 制御基板はまだ未配線です。** コミットされている `controller.kicad_pcb` は A6 の配置のみの基板で、4 層配線は作業中です。
-> 配線が完了しネイティブ検証が通るまで、下記の「配線済み」という記述は目標を表します。
+> 配線が完了しネイティブ検証が通るまで、下記の「配線済み」という記述は目標を表します。試行結果と詰まっている箇所は
+> [`verification/routing_status.md`](verification/routing_status.md) にあります。
 >
 > **製造リリースではありません。** 配線後も A6 の制御基板は候補で、実機・試作・物理評価は一切ありません。
 > ネイティブ検証 (ERC / DRC / 回路との照合) が通っても、電子回路や製造の承認にはなりません。
@@ -22,6 +23,7 @@ A6 は A5 チェックポイントの上に作る **最小限の改訂** です�
 | 作成 (authored) | `electronics/routing_constraints.json` | 配線の根拠監査 (データシートのハッシュと該当箇所、適用内容、未解決事項) |
 | 作成 | `verification/native_expectations.json` | ネイティブ検証の期待値と、許容する項目の理由 (生レポートは編集しない) |
 | 作成 | `verification/residuals.md`, `verification/layout_rationale.md`, `verification/mechanical_impact.md` | 残る項目、配置変更の理由、機構への影響 |
+| 作成 | `verification/routing_status.md`, `verification/routing_attempts.json` | 自動配線の試行結果と、未配線のまま残っている箇所の記録 |
 
 A5 のファイルは `engineering/a5/` に置いたまま、パスとハッシュで参照します (コピーも編集もしません)。
 
