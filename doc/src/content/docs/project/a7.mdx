@@ -12,7 +12,7 @@ A7 は **製造用にリリースしていません**。`main` には A7 の回�
 A7 は [#15](https://github.com/Takazudo/zudo-led-block/issues/15) で追跡している構造変更です。
 作業を引き継ぐときは、リポジトリの [`engineering/a7/docs/continuation/continue-here.md`](https://github.com/Takazudo/zudo-led-block/blob/main/engineering/a7/docs/continuation/continue-here.md) と
 [証跡の一覧 (`evidence-index.md`)](https://github.com/Takazudo/zudo-led-block/blob/main/engineering/a7/docs/continuation/evidence-index.md) を読んでください。
-このページの内容は 2026-11-08 (UTC) 時点の `main` (`a9709b3`) に合わせています。
+このページの内容は 2026-11-08 (UTC) 時点の `main` (`8bd064b`) に合わせています。
 
 ## 版の位置づけ
 
@@ -42,33 +42,59 @@ A7 は [#15](https://github.com/Takazudo/zudo-led-block/issues/15) で追跡し�
 | 作業 | Issue | `main` での状態 |
 |---|---|---|
 | R1 部品と寸法の検討 | [#16](https://github.com/Takazudo/zudo-led-block/issues/16) | **完了** (PR #23)。[A7 部品と寸法の検討](/docs/research/a7-parts-and-dimensions/) |
-| R2 機構モデルと前面アートワーク | [#17](https://github.com/Takazudo/zudo-led-block/issues/17) | **デジタルモデルが `main` に入った** (PR [#25](https://github.com/Takazudo/zudo-led-block/pull/25)、ハーネス経路の修正は PR [#27](https://github.com/Takazudo/zudo-led-block/pull/27))。暫定のデジタル検討で、実測の適合ではない。#17 は開いたまま |
+| R2 機構モデルと前面アートワーク | [#17](https://github.com/Takazudo/zudo-led-block/issues/17) | **デジタルモデルが `main` に入った** (PR [#25](https://github.com/Takazudo/zudo-led-block/pull/25)、ハーネス経路の修正は PR [#27](https://github.com/Takazudo/zudo-led-block/pull/27)、基板との照合は PR #33 と #38、PET と FR-4 のリーフの比較は PR [#35](https://github.com/Takazudo/zudo-led-block/pull/35))。暫定のデジタル検討で、実測の適合ではない。#17 は開いたまま |
 | R3 ネイティブ検証の基盤 | [#18](https://github.com/Takazudo/zudo-led-block/issues/18) | **完了** (PR #22)。A7 の基板が無い間、A7 のゲートは `NO_CANDIDATE` で止まっていた。フィクスチャでの合格は検証機構の確認で、A7 基板の合格ではない |
-| R4 回路図・配置・配線 | [#19](https://github.com/Takazudo/zudo-led-block/issues/19) | **回路図と配線済み基板が `main` に入った** (回路図 PR [#24](https://github.com/Takazudo/zudo-led-block/pull/24)、基板 PR [#30](https://github.com/Takazudo/zudo-led-block/pull/30) `eb8adeb`)。A7 のゲートは権威基板を `candidate` として `PASS`。独立したレイアウト・電気レビューは 1 回目で修正を求め、修正後の 2 回目でデジタル基板として承認。デジタル検証だけの結果で、物理評価・製造リリースではない。#19 は開いたまま |
+| R4 回路図・配置・配線 | [#19](https://github.com/Takazudo/zudo-led-block/issues/19) | **回路図と配線済み基板が `main` に入った** (回路図 PR [#24](https://github.com/Takazudo/zudo-led-block/pull/24)、基板リビジョン 1 は PR [#30](https://github.com/Takazudo/zudo-led-block/pull/30) `eb8adeb`、リビジョン 2 は PR [#37](https://github.com/Takazudo/zudo-led-block/pull/37) `edf98c2`)。A7 のゲートは権威基板を `candidate` として `PASS`。独立したレイアウト・電気レビューはどちらのリビジョンも、1 回目で修正を求め、2 回目でブロッキングの指摘なし。デジタル検証だけの結果で、物理評価・製造リリースではない。#19 は開いたまま |
 | R5 ドキュメントと引継ぎ | [#20](https://github.com/Takazudo/zudo-led-block/issues/20) | このページ。統合したデジタル結果を反映 |
 
 A5 の部品証跡カタログ (30 型番) は PR #21 で入りました。メーカー資料を取得できなかった項目のため [#9](https://github.com/Takazudo/zudo-led-block/issues/9) は開いたままです。
 
 ## 制御基板 (配線済み、デジタル検証)
 
-出典は `engineering/a7/electronics/README.md`、`engineering/a7/verification/native_gate.json`、PR [#30](https://github.com/Takazudo/zudo-led-block/pull/30) のレビューです。
+出典は `engineering/a7/electronics/README.md`、`engineering/a7/verification/native_gate.json`、`engineering/a7/verification/interface_review.md`、PR [#30](https://github.com/Takazudo/zudo-led-block/pull/30) と PR [#37](https://github.com/Takazudo/zudo-led-block/pull/37) のレビューです。
+
+### 基板のリビジョン
+
+| リビジョン | 基板 (SHA-256) | `main` へのマージ | 内容 |
+|---|---|---|---|
+| 1 | `ec810aec…74f2` | PR #30 (`eb8adeb`) | 最初の配置・配線。独立レビューで承認。非ブロッキングの改善 4 項目が残った |
+| 2 (現在) | `4453f818…628e` | PR #37 (`edf98c2`、head `ae5aa3c`) | 改善 4 項目を反映し、PTH–配線間 0.35 mm の規則を追加。独立した再レビューでブロッキングの指摘なし |
+
+### 現在の基板 (リビジョン 2)
 
 | 項目 | 内容 |
 |---|---|
-| 基板 | `engineering/a7/electronics/controller/controller.kicad_pcb` (SHA-256 `ec810aec…74f2`)。外形 16.2 × 62.9 mm、4 層 1.6 mm。In1 は GND のベタ、F・In2・B にも GND の塗りつぶし。B 面は 0603 抵抗とテストパッドだけ |
-| ゲート | ピン留めの KiCad 10.0.8 で新規実行して **`PASS`**: ERC 0、回路図–基板パリティ 0 (独立したパッド単位の照合も 0)、DRC 0、未接続 0、ゾーン再充填が一致、再生成で基板が変わらない、振る舞いアサーション 51 件と差分チェックに失敗なし、負の対照 (経路の切断・誤接続・塗りつぶしのずれ・タイムアウトなど) をすべて検出。CI の実行: [PR の head `e2a2219`](https://github.com/Takazudo/zudo-led-block/actions/runs/42499745759)、[`main`](https://github.com/Takazudo/zudo-led-block/actions/runs/42500103564) |
+| 基板 | `engineering/a7/electronics/controller/controller.kicad_pcb` (SHA-256 `4453f818…628e`)。外形 16.2 × 62.9 mm、4 層 1.6 mm。In1 は GND のベタ、F・In2・B にも GND の塗りつぶし。B 面は 0603 抵抗とテストパッドだけ |
+| ゲート | ピン留めの KiCad 10.0.8 で新規実行して **`PASS`**: ERC 0、回路図–基板パリティ 0、DRC 0、未接続 0、ゾーン再充填が一致、再生成で基板が変わらない、振る舞いアサーションと差分チェックに失敗なし、負の対照 (経路の切断・誤接続・塗りつぶしのずれ・PTH–配線・タイムアウトなど) をすべて検出。CI の実行: [PR #37 の head `ae5aa3c`](https://github.com/Takazudo/zudo-led-block/actions/runs/42503602665) (試験した基板のハッシュがコミットした基板と一致)、[`main` の `edf98c2`](https://github.com/Takazudo/zudo-led-block/actions/runs/42503992506)、[`main` の `8bd064b`](https://github.com/Takazudo/zudo-led-block/actions/runs/42504705390) |
 | 設計ルールの差分 | ビアを 0.6 / 0.3 mm から 0.5 / 0.2 mm に変更し、それに合わせて基板全体の最小スルーホール径も 0.3 mm から 0.2 mm に下げた (MCU U1 の QFN28 と U5 の VSSOP-8 の引き出しのため)。根拠は JLCPCB の公開能力 (多層で最小 0.15 mm 穴 / 0.25 mm 径、推奨最小穴 0.2 mm) で、`engineering/a7/verification/fab/jlcpcb_capabilities.json` に URL・取得時のハッシュ・引用した行を記録。`native_gate.json` の `design_rule_delta` に理由と証拠を記録。配線幅・クリアランス・アニュラーリング 0.15 mm・層数は A5 のまま |
-| 独立レビュー | 1 回目 ([`493155e`](https://github.com/Takazudo/zudo-led-block/pull/30#pullrequestreview-5818547003)): 降圧のホットループ (B1) と CV アナログ部の配置 (B2) で **修正を求めた**。2 回目 ([`e2a2219`](https://github.com/Takazudo/zudo-led-block/pull/30#pullrequestreview-5818654886)): B1・B2 は修正済み (処置は `engineering/a7/verification/interface_review.md` に記録)、S1・S2 も修正または処置を記録し、**デジタル基板として承認**。物理・適合・製造の承認ではない |
-| 残りの改善 (非ブロッキング) | C11 (U6 の +12 V バイパス) が U6.5 から 5.8 mm。C17 / U7 の近くに GND ビアを 1 本足したい。U4.1 (TPS2552 IN) に最も近い +5 V のコンデンサ C2 が 4.1 mm。CV_FILTER が VLED と約 0.9 mm 並走 |
-| 機構との照合 | R2 が配線済み基板の配置エクスポートを外形・キープアウトと照合 (PR #33、`engineering/a7/mechanical/r4-placement-check.json`): 外形一致、64 部品、固定部品 (J1 / J2 の軸と全ピン、J3、J5、SW1) の位置一致、他部品の原点・パッド中心が他のキープアウトに入らない、B 面は抵抗とテストパッドだけ (高さ 0.6 mm 以下)。コートヤード・パッドの広がり・部品の高さ・銅箔はこの照合の対象外 (基板の DRC 側) |
+| PTH–配線の規則 (リビジョン 2 で追加) | 厳しくする方向だけのカスタム規則 `a7_pth_to_track` (`controller.kicad_dru`): スルーホールの穴から他ネットの配線まで **0.35 mm** 以上 (JLCPCB の推奨値。最小は 0.28 mm)。負の対照 `control_pth_to_track` が穴から 0.32 mm の配線を足し、この規則名で検出されることを毎回確かめる。現在の基板の最小値は 0.386 mm |
+| コートヤードの比較 | KiCad の内部単位 (1 nm) に丸めて比較。必要な隙間は 0 mm のままで、緩めていない |
+| 独立レビュー | リビジョン 1: 1 回目 ([`493155e`](https://github.com/Takazudo/zudo-led-block/pull/30#pullrequestreview-5818547003)) で降圧のホットループと CV アナログ部の配置の **修正を求め**、2 回目 ([`e2a2219`](https://github.com/Takazudo/zudo-led-block/pull/30#pullrequestreview-5818654886)) で **デジタル基板として承認**。リビジョン 2: 1 回目 ([`eb5d833`](https://github.com/Takazudo/zudo-led-block/pull/37#pullrequestreview-5818789798)) はこの head でゲートが実行されていないため **修正を求め**、2 回目 ([`ae5aa3c`](https://github.com/Takazudo/zudo-led-block/pull/37#pullrequestreview-5818812844)) で **ブロッキングの指摘なし**。どちらも物理・適合・製造の承認ではない |
+| 改善 4 項目 (リビジョン 2 で反映) | C11 は U6.5 から 1.53 mm (以前 5.8 mm)。U7.2 と C17.2 の GND ビアは 0.52 / 0.66 mm (以前 1.5〜2 mm)。U4.1 に最も近い +5 V のコンデンサは C15 で 1.8 mm (以前は C2 の 4.1 mm)。CV_FILTER は全長が F.Cu で、同じ層の VLED まで 3.65 mm (以前 約 0.9 mm) |
+| 再レビューで指摘された小さな結合 (非ブロッキング、[`eb5d833` のレビュー](https://github.com/Takazudo/zudo-led-block/pull/37#pullrequestreview-5818789798)) | CV_ADC が SWCLK と同じ層で 0.6 mm 以内を 1.0 mm 並走 (SWCLK は動作中は使わない)。CV_THRU が In2 で DATA_L_3V3 と SWDIO の横を通る。実機の CV ノイズ試験で DATA_L の結合を見る |
+| 機構との照合 | R2 が配線済み基板の配置エクスポートを外形・キープアウトと照合 (`engineering/a7/mechanical/r4-placement-check.json`)。外形一致、固定部品 (J1 / J2 の軸と全ピン、J3、J5、SW1) の位置一致、他部品の原点・パッド中心が他のキープアウトに入らない、B 面は抵抗とテストパッドだけ (高さ 0.6 mm 以下)。リビジョン 1 は PR #33、リビジョン 2 は PR #38。コートヤード・パッドの広がり・部品の高さ・銅箔はこの照合の対象外 (基板の DRC 側) |
+| 配線の再現性 (PR [#39](https://github.com/Takazudo/zudo-led-block/pull/39)) | CI の native ジョブで毎回、コミット済みの配置から `a7_route.py --seed 0` を新しく実行し、記録した配線案 (`engineering/a7/verification/routing/route_proposal_seed0.json`) とバイト単位で一致すること、権威基板の配線とビアがその配線案と 1 nm 単位で一致することを確かめる。同じ PR で、`rule_squeeze` の負の対照は規則名とパッドが報告に出ることも要求するようになった。[`main` の `8bd064b` で `PASS`](https://github.com/Takazudo/zudo-led-block/actions/runs/42504705390)。CI が出すレビュー補助 (Gerber・ドリル・部品位置) は **リリース出力ではなく、発注には使わない** |
 | 幅との関係 | この基板は 1.6 mm 厚で、**3HP の作業候補** 向け。2HP を選ぶ場合は 0.8 mm 基板が必要で、配線をやり直すことになる |
 
 ## 進行中の作業 (結果なし)
 
-次の作業は始まっていますが、`main` には結果がありません。ここに書くのは作業があることだけで、結果ではありません。
+次の作業は始まっていますが、`main` には結果がありません。ここに書くのは作業があることと途中の見通しだけで、結果ではありません。
 
-- **基板リビジョン 2**: 上の非ブロッキングの 4 項目と、より厳しい PTH–配線間の規則。基板が変わるので、ゲートの再実行・独立レビュー・R2 の照合をやり直します。
-- **PET FPC リーフの評価**: LED リーフに透明 PET の FPC を使えるかの評価 (`engineering/a7/pet-fpc.md`)。A5 の FR-4 リーフが基準で、代替でもあります。JLC への質問は下書きのままで、未送信です。
+- **配線の再現性チェックの強化 (R4、PR [#40](https://github.com/Takazudo/zudo-led-block/pull/40))**: PR #39 で入れたチェックを強化する作業。
+- **PET リーフの電気的な確認 (R4)**: PET リーフ用の電気のプロファイルとインターフェースの確認。途中の見通しとして、1 層の透明フィルムでは A5 の LED の銅箔を通せないこと、透明フィルムの 2 層・めっきビアに JLC が対応するかは未確認であること、カバーレイのブリッジが 0.2 mm で JLC の最小 0.5 mm に足りないことが挙がっています。どれも確定した結果ではありません。FR-4 が標準のままです。
+
+## LED リーフ: FR-4 が標準、透明 PET は透明な支持板に貼る場合だけ成立 (デジタル)
+
+出典は `engineering/a7/mechanical/README.md`、生成された `layout.md` と `layout.json` の `leaf_comparison`、`exports/3hp_pet/` (PR [#35](https://github.com/Takazudo/zudo-led-block/pull/35) `1b9d02d`) です。机上の比較で、試作や実測ではありません。FR-4 のリーフは置き換えません。
+
+| 項目 | 結果 |
+|---|---|
+| 構成 | JLC の 1 層透明 FPC (0.14 mm) 2 枚を、透明な接着層 OCA (0.1 mm、推定) で厚さ 0.8 mm の透明 PC 支持板 (推定) の両面に貼る。合計 1.28 mm (FR-4 は 1.30 mm) で A5 のキャップの溝に入る |
+| 位置 | LED・コネクタ・光の通り道・ハーネスの出口は 0.01 mm しか動かない。リーフの Z 範囲は変わらないので、0.5 mm のジャックのポケットと奥行き 30 mm は影響を受けない |
+| 剛性 | FR-4 より 8〜37 倍柔らかい (材料の典型値、推定)。SH コネクタを挿す力に対する座屈荷重は最悪で約 8 N (FR-4 は約 300 N)。フィルムだけでは約 0.07 N で座屈するので、支持板なしでは立たない。挿す力そのものは出典が無い |
+| 3HP の再確認 | 想定外の干渉なし、光の通り道に A7 の部品なし、ハーネスは D2 から 2.8 mm。D2 の遮光の推定は 2.0 % (FR-4 は 1.9 %)。透明なリーフを通る光は計算に入っていない |
+| 結論 | **FR-4 を標準・予備のまま**。PET は、JLC の回答 (リフロー・ペースト、PET に使える補強板、OCA の透明度、Q11)、SH の挿抜力と点灯時の見え方の実物試験 (#10)、R4 の PET リーフの電気的な確認がそろってから検討する |
+| 新しい未解決事項 | 抜く力 (Q11b)、支持板の貼り合わせの供給元 (Q11a)、2HP での PET (Q11c)。下の未解決事項の表を参照 |
 
 ## 機構モデルの結果 (デジタル、暫定)
 
@@ -99,7 +125,7 @@ A7 の回路図 (PR #24) は A5 の制御基板の回路から **J1・J2・SW1 �
 | モード切替 | Dailywell 1MS3T1B1M2QES-5 (C908270)、前面のトグル | C&K PCM13SMTR (C221842)、基板側の側面スライド。[記録](/docs/components/records/a7-pcm13smtr/) | 位置ごとの端子表 (ミラー) で選定。**JLC の在庫は 0** (2026-11-08)。代替候補は端子表が無い |
 | 上キャップのねじ | M2x16 (A5 の機構モデル。A5 の BOM ではねじ類は一括の EXT-06) | M2x18 (A7 の機構モデル) | 締め付け荷重は未評価 |
 | 電源ケーブル (PicoBlade) | 50 ± 6 mm | 自由長 57 ± 3 mm の要求 (±3 は仮定) | 未調達・未実測 (#8) |
-| LED 基板 | 0.6 mm FR-4 ×2 | 透明 PET FPC を検討、FR-4 を予備 | JLC への質問は未送信 |
+| LED 基板 | 0.6 mm FR-4 ×2 | FR-4 が標準。透明 PET FPC は 0.8 mm の透明 PC 支持板に貼る場合だけ机上で成立 | JLC への質問は未送信。貼り合わせの供給元は未特定 |
 
 A7 の部品は `line-a7-` の行として部品カタログに登録しています。A5 の 30 型番 / 71 配置 / 81 点の集計には含めません。
 
@@ -118,10 +144,13 @@ A7 の部品は `line-a7-` の行として部品カタログに登録してい�
 | PCM13SMTR の在庫 0 と適合 | 設定スイッチの調達、ランドと本体位置 (本体の位置は仮定) | 在庫、または代替部品の端子表・導通確認、実物での適合確認 | Q10 |
 | メーカーのサイトから資料を取得できない | 図面の値を確認済みにできない | SOFNG / C&K の資料 | Q0 |
 | 透明 PET FPC の工程 | 透明 LED 基板 | JLC の回答 (質問は未送信) | Q11 |
+| PC 支持板と PET の貼り合わせ | PET リーフを作れるか | リフロー後に OCA で貼り合わせる供給元と工程 (未特定) | Q11a |
+| SH プラグを抜く力とはがれ強度 | PET リーフのコネクタ保持 | 抜く力、パッド–フィルム・フィルム–OCA のはがれ強度 (出典なし)、実物試験 | Q11b、#10 |
+| 2HP での PET リーフ | 2HP と PET の組み合わせ | PET は 3HP だけで作成。X 方向の差は 0.02 mm で 3HP の結果は流用できるが、2HP は保留 | Q11c |
 | ジャックのポケット | ジャックの固定と見た目 | 0.5 mm ポケットの深さ公差・見え方・強度、ナットの締め付け荷重 | Q8、Q9 |
 | エージェント向けページの公開 | サイトの公開範囲 | オーナーの判断 | #12 |
 
-Q0〜Q12 の一覧は `engineering/a7/open-questions.md` にあります。2HP は **未確定で、不成立ではありません**。
+Q0〜Q12 (Q11a〜Q11c を含む) の一覧は `engineering/a7/open-questions.md` にあります。2HP は **未確定で、不成立ではありません**。
 
 ## 物理評価は未実施
 
