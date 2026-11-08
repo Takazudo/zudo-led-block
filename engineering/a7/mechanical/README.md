@@ -92,9 +92,10 @@ Run the front build before the mechanical build (the assembly imports the panel)
 - **Harness routes (bundle model):** the controller-to-leaf SH4 route uses exactly the 50 mm finished length
   with R ≥ 2.5. It runs in the adapter/leaf gap, folds once at Y ≈ 75 and returns to J3, now at Z 12.8 (R4). The
   controller PicoBlade (J5) sits at Z centre 8.6 so the fold clears its housing.
-  The stowage takes 38–120 mm. **A7 power cable (R2-C5, for #8):** the S-fold stowage takes 50.7–77.7 mm
-  across both widths. The digital requirement is a 56 ± 3 mm free span (the ±3 is ASSUMED), so 53–59 mm,
-  with 2 mm kept off the shortest fold. The A5 50 ± 6 cable does not fit. The cable has not been routed or
+  The stowage takes 38–120 mm. **A7 power cable (R2-C5, for #8):** the S-fold stowage takes 51.1–78.1 mm
+  across both widths. The digital requirement is a 57 ± 3 mm free span (the ±3 is ASSUMED), so 54–60 mm,
+  with 2 mm kept off the shortest fold. These figures are copied from `layout.json` →
+  `power_cable_requirement` (a test fails if they drift); the value moves with the J5 position. The A5 50 ± 6 cable does not fit. The cable has not been routed or
   measured. In 2HP the last bend is 0.9 mm
   (below the preferred 2.0), the PicoBlade wires have only 0.9 mm of bend room above the mated plug, and the
   2.3 mm tails must be cut like the jack leads (R2-C1).
