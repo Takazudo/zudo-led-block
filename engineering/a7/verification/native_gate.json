@@ -1,0 +1,86 @@
+{
+ "schema": 1,
+ "profile": "a7-controller",
+ "kind": "revision",
+ "what": "A7 revision gate. Enforced on the authoritative A7 controller board once it exists (R4, #19). Until then candidate is null and the gate stops with NO_CANDIDATE; it can never report a pass without a board.",
+ "candidate": null,
+ "candidate_note": "No authoritative A7 board yet. The board and this profile's designs/controls land together in the R4 routing PR; an unrouted initial board stays on a draft branch with this gate failing.",
+ "image": "kicad/kicad:10.0.8@sha256:3f4a01786dfbe803a65f345c3342b765db9add913f5e9448f8356793714ddc34",
+ "kicad_version": "10.0.8",
+ "lock": "engineering/a7/verification/native_gate.lock.json",
+ "limits": {
+  "native_deadline_s": 600,
+  "cleanup_reserve_s": 60,
+  "design_deadline_s": 240
+ },
+ "drc": {
+  "included_severities": [
+   "error",
+   "warning",
+   "exclusion"
+  ],
+  "ignored_checks": [
+   {
+    "description": "Footprint has no courtyard defined",
+    "key": "missing_courtyard"
+   },
+   {
+    "description": "Track endpoint not centered on via",
+    "key": "track_not_centered_on_via"
+   },
+   {
+    "description": "Tuning profile track geometries",
+    "key": "tuning_profile_track_geometries"
+   },
+   {
+    "description": "Footprint doesn't match symbol's footprint filters",
+    "key": "footprint_filters_mismatch"
+   },
+   {
+    "description": "Footprint component type doesn't match footprint pads",
+    "key": "footprint_type_mismatch"
+   }
+  ],
+  "ignored_checks_note": "KiCad 10.0.8 default ignore set. A7-specific residuals or dispositions are added only with fresh justification; nothing is inherited from A6 (e.g. its H1/J3 courtyard residual)."
+ },
+ "designs": {},
+ "controls_required_when_candidate_lands": [
+  "expected_failure: immutable A5 controller (2 courtyard overlaps, 130 unconnected)",
+  "timeout control on the candidate",
+  "route_break, wrong_connection and fill_shift mutations on the candidate's routed copper",
+  "synthetic evaluator controls on the candidate record"
+ ],
+ "interface": {
+  "roles": "engineering/a7/verification/interface_roles/a7_controller.json",
+  "netlists": {
+   "controller": "a7_controller",
+   "led_leaf": "TBD (A5 FR-4 leaf reference or PET leaf)",
+   "power_adapter": "TBD"
+  },
+  "min_checks": 40
+ },
+ "delta": {
+  "record": "engineering/a7/verification/authorized_delta.json",
+  "candidate_design": "a7_controller"
+ },
+ "regeneration": {
+  "check_command": [],
+  "protected": [
+   "engineering/a7/electronics/controller/controller.kicad_pcb"
+  ],
+  "note": "R4 supplies the A7 generator --check command; placement export uses scripts/native_gate/authority.py export-placement."
+ },
+ "evidence": {
+  "allowed_names": [
+   "erc.json",
+   "drc.json",
+   "netlist.xml",
+   "board_facts.json",
+   "board_geometry.json",
+   "refill.json",
+   "inner_record.json",
+   "interface_check.json",
+   "delta_check.json"
+  ]
+ }
+}

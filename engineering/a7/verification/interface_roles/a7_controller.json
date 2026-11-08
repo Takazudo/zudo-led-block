@@ -1,0 +1,237 @@
+{
+ "schema": 1,
+ "status": "unresolved_draft",
+ "what": "A7 controller role map. Behavior is fixed in scripts/native_gate/interface.py; only pin identities live here. Unresolved roles make the assertions that use them fail, so this map cannot pass until R1/R4 evidence fills them and review records it.",
+ "review": null,
+ "carried_from_a5": "MCU pins, CV chain, LED power and stream roles are carried from a5_reference.json because the brief keeps them; R4 must confirm each against the actual A7 schematic.",
+ "controller": {
+  "mcu.vdd": "U1.3",
+  "mcu.vss": "U1.4",
+  "mcu.adc": "U1.6",
+  "mcu.mode_a": "U1.8",
+  "mcu.mode_b": "U1.9",
+  "mcu.fault": "U1.10",
+  "mcu.led_enable": "U1.11",
+  "mcu.data_l": "U1.12",
+  "mcu.data_r": "U1.13",
+  "jack_in.tip": {
+   "unresolved": "R1 #16: exact SOFNG PJ-324M (C22355739) tip/sleeve/ring/normal pin identities not yet source-confirmed; do not borrow PJ-3582 numbers"
+  },
+  "jack_in.returns": {
+   "unresolved": "R1 #16: exact SOFNG PJ-324M (C22355739) tip/sleeve/ring/normal pin identities not yet source-confirmed; do not borrow PJ-3582 numbers"
+  },
+  "jack_in.normals": {
+   "unresolved": "R1 #16: exact SOFNG PJ-324M (C22355739) tip/sleeve/ring/normal pin identities not yet source-confirmed; do not borrow PJ-3582 numbers"
+  },
+  "jack_thru.tip": {
+   "unresolved": "R1 #16: exact SOFNG PJ-324M (C22355739) tip/sleeve/ring/normal pin identities not yet source-confirmed; do not borrow PJ-3582 numbers"
+  },
+  "jack_thru.returns": {
+   "unresolved": "R1 #16: exact SOFNG PJ-324M (C22355739) tip/sleeve/ring/normal pin identities not yet source-confirmed; do not borrow PJ-3582 numbers"
+  },
+  "jack_thru.normals": {
+   "unresolved": "R1 #16: exact SOFNG PJ-324M (C22355739) tip/sleeve/ring/normal pin identities not yet source-confirmed; do not borrow PJ-3582 numbers"
+  },
+  "cv.pickup_in": "R1.1",
+  "cv.pickup_mid": [
+   "R1.2",
+   "R2.1",
+   "U6.3"
+  ],
+  "cv.follower": [
+   "U6.1",
+   "U6.4",
+   "R3.1"
+  ],
+  "cv.affine_node": [
+   "R3.2",
+   "R4.2",
+   "R5.2",
+   "R6.1",
+   "R7.1",
+   "C13.1"
+  ],
+  "cv.affine_feeds": [
+   "R4.1",
+   "R5.1",
+   "U7.5"
+  ],
+  "cv.filter_node": [
+   "R7.2",
+   "U7.3",
+   "D3.3"
+  ],
+  "cv.c13": "C13.1",
+  "cv.r7_in": "R7.1",
+  "cv.filter_in": "U7.3",
+  "cv.output_follower": [
+   "U7.1",
+   "U7.4",
+   "R24.1"
+  ],
+  "cv.adc_node": [
+   "R24.2",
+   "R25.1"
+  ],
+  "cv.grounds": [
+   "R25.2",
+   "U7.2",
+   "R6.2",
+   "R2.2"
+  ],
+  "sw.common": {
+   "unresolved": "R1 #16: exact PCB-side ON-OFF-ON setting switch not yet selected; common/throw pins and contact table come from its evidence"
+  },
+  "sw.throw_a": {
+   "unresolved": "R1 #16: exact PCB-side ON-OFF-ON setting switch not yet selected; common/throw pins and contact table come from its evidence"
+  },
+  "sw.throw_b": {
+   "unresolved": "R1 #16: exact PCB-side ON-OFF-ON setting switch not yet selected; common/throw pins and contact table come from its evidence"
+  },
+  "switch_positions": {
+   "unresolved": "R1 #16: exact PCB-side ON-OFF-ON setting switch not yet selected; common/throw pins and contact table come from its evidence"
+  },
+  "mode.a_pullup_node": "R9.2",
+  "mode.b_pullup_node": "R10.2",
+  "mode.a_pullup_rail": "R9.1",
+  "mode.b_pullup_rail": "R10.1",
+  "power.enable_base_r": "R22.1",
+  "power.base_node": [
+   "R22.2",
+   "Q1.1",
+   "R12.1"
+  ],
+  "power.switch_en": [
+   "Q1.3",
+   "U4.3",
+   "R23.2"
+  ],
+  "power.fault": [
+   "U4.4",
+   "R13.2"
+  ],
+  "led.vled_nodes": [
+   "U5.8",
+   "U4.6",
+   "J3.2"
+  ],
+  "led.vled": "U4.6",
+  "power.cable_pos": [
+   "J5.1",
+   "D1.2"
+  ],
+  "power.cable_neg": [
+   "J5.3",
+   "D2.1"
+  ],
+  "led.translator_in_l": "U5.2",
+  "led.translator_in_r": "U5.3",
+  "led.translator_dir": [
+   "U5.5",
+   "U5.1"
+  ],
+  "led.left_out": [
+   "U5.7",
+   "R14.1"
+  ],
+  "led.right_out": [
+   "U5.6",
+   "R15.1"
+  ],
+  "led.data_l_cable": "R14.2",
+  "led.data_r_cable": "R15.2",
+  "led.data_l_cable_pin": "J3.3",
+  "led.data_r_cable_pin": "J3.4",
+  "harness.connector": [
+   "J3.1",
+   "J3.2",
+   "J3.3",
+   "J3.4"
+  ]
+ },
+ "led_leaf": {
+  "harness.input": [
+   "J1.1",
+   "J1.2",
+   "J1.3",
+   "J1.4"
+  ],
+  "harness.bridge": [
+   "J2.1",
+   "J2.2",
+   "J2.3",
+   "J2.4"
+  ],
+  "pixel.first_din": "D1.3",
+  "pixel.first_vdd": "D1.4",
+  "pixel.first_gnd": "D1.2",
+  "leaf.this_stream": [
+   "J1.3",
+   "D1.3",
+   "J2.4"
+  ],
+  "leaf.other_stream": [
+   "J1.4",
+   "J2.3"
+  ],
+  "leaf.this_in": "J1.3",
+  "leaf.other_in": "J1.4",
+  "pixel.chain_1": [
+   "D1.1",
+   "D2.3"
+  ],
+  "pixel.chain_2": [
+   "D2.1",
+   "D3.3"
+  ],
+  "pixel.chain_3": [
+   "D3.1",
+   "D4.3"
+  ],
+  "leaf.power": [
+   "J1.2",
+   "J2.2",
+   "D1.4",
+   "D2.4",
+   "D3.4",
+   "D4.4",
+   "C1.1",
+   "C2.1",
+   "C3.1",
+   "C4.1"
+  ],
+  "leaf.ground": [
+   "J1.1",
+   "J2.1",
+   "D1.2",
+   "D2.2",
+   "D3.2",
+   "D4.2",
+   "C1.2",
+   "C2.2",
+   "C3.2",
+   "C4.2"
+  ]
+ },
+ "power_adapter": {
+  "adapter.neg": [
+   "J1.1",
+   "J1.2",
+   "J2.1"
+  ],
+  "adapter.gnd": [
+   "J1.3",
+   "J1.4",
+   "J1.5",
+   "J1.6",
+   "J1.7",
+   "J1.8",
+   "J2.2"
+  ],
+  "adapter.pos": [
+   "J1.9",
+   "J1.10",
+   "J2.3"
+  ]
+ }
+}
