@@ -1,0 +1,39 @@
+{
+  "schema_version": 1,
+  "pin_maps": [
+    {
+      "pin_map_id": "pinmap-a7-pcm13smtr",
+      "record_id": "rec-a7-pcm13smtr",
+      "symbol": "not yet drawn (R4)",
+      "footprint": "not yet drawn (R4)",
+      "pins": [
+        {
+          "symbol_pin": "1",
+          "name": "THROW_1",
+          "footprint_pad": "1",
+          "function": "proposed A7 net MODE_A (POS.1 connects 1-3: MODE_A=0, MODE_B=1 -> ON)"
+        },
+        {
+          "symbol_pin": "2",
+          "name": "THROW_2",
+          "footprint_pad": "2",
+          "function": "proposed unconnected (POS.2 connects 2-3: both inputs pulled up -> PROGRAM, physical centre)"
+        },
+        {
+          "symbol_pin": "3",
+          "name": "COMMON",
+          "footprint_pad": "3",
+          "function": "proposed A7 net GND"
+        },
+        {
+          "symbol_pin": "4",
+          "name": "THROW_3",
+          "footprint_pad": "4",
+          "function": "proposed A7 net MODE_B (POS.3 connects 3-4: MODE_A=1, MODE_B=0 -> CV)"
+        }
+      ],
+      "reviewed_by": "not independently reviewed",
+      "project_state_source": "A5 SW1 contract (pin1 THROW_A=MODE_A, pin2 COMMON=GND, pin3 THROW_B=MODE_B; R9/R10 10k pull-ups to +3V3) from engineering/a5/integration/native_schematic/controller/netlist.xml and electronics/design/design_data.py"
+    }
+  ]
+}

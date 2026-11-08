@@ -1,0 +1,31 @@
+{
+  "schema_version": 1,
+  "routes": [
+    {
+      "route_id": "route-a7-pcm13smtr",
+      "record_id": "rec-a7-pcm13smtr",
+      "aliases": {
+        "mpn": [
+          "PCM13SMTR"
+        ],
+        "lcsc": [
+          "C221842"
+        ],
+        "manufacturer": [
+          "C&K"
+        ],
+        "function": [
+          "A7 side mode setting switch"
+        ]
+      },
+      "positive": [
+        "check PCM13SMTR switch function",
+        "audit C221842"
+      ],
+      "negative": [
+        "check 1MS3T1B1M2QES-5 toggle",
+        "check CSS-1310TB"
+      ]
+    }
+  ]
+}

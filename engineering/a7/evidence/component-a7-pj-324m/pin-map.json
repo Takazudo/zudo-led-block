@@ -1,0 +1,45 @@
+{
+  "schema_version": 1,
+  "pin_maps": [
+    {
+      "pin_map_id": "pinmap-a7-pj-324m",
+      "record_id": "rec-a7-pj-324m",
+      "symbol": "not yet drawn (R4)",
+      "footprint": "not yet drawn (R4)",
+      "pins": [
+        {
+          "symbol_pin": "1",
+          "name": "SLEEVE (inferred)",
+          "footprint_pad": "1",
+          "function": "proposed A7 net GND"
+        },
+        {
+          "symbol_pin": "2",
+          "name": "RING (inferred)",
+          "footprint_pad": "2",
+          "function": "proposed A7 net GND (mono CV: ring grounded so a TS plug sleeve and a TRS ring both see ground)"
+        },
+        {
+          "symbol_pin": "3",
+          "name": "RING normal (inferred)",
+          "footprint_pad": "3",
+          "function": "proposed unconnected"
+        },
+        {
+          "symbol_pin": "4",
+          "name": "TIP (inferred)",
+          "footprint_pad": "4",
+          "function": "proposed A7 net CV_THRU (both J1 and J2)"
+        },
+        {
+          "symbol_pin": "5",
+          "name": "TIP normal (inferred)",
+          "footprint_pad": "5",
+          "function": "proposed unconnected"
+        }
+      ],
+      "reviewed_by": "not independently reviewed: names inferred from the SOFNG symbol and terminal depth; no manufacturer pin-function table",
+      "project_state_source": "A5 mono-CV contract (TIP=CV_THRU, RING=GND, SLEEVE=GND, normals unused) carried to A7 per the brief; pin numbers are SOFNG's, not PJ-3582-B's"
+    }
+  ]
+}
