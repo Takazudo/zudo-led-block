@@ -1,0 +1,33 @@
+{
+  "schema_version": 1,
+  "pin_maps": [
+    {
+      "pin_map_id": "pinmap-mmbt3904-range-100-300",
+      "record_id": "rec-mmbt3904-range-100-300",
+      "symbol": "LightBlock:NPN",
+      "footprint": "LightBlock:SOT23",
+      "pins": [
+        {
+          "symbol_pin": "1",
+          "name": "B",
+          "footprint_pad": "1",
+          "function": "passive; A5 nets: controller/Q1=/LED_BASE"
+        },
+        {
+          "symbol_pin": "2",
+          "name": "E",
+          "footprint_pad": "2",
+          "function": "passive; A5 nets: controller/Q1=/GND"
+        },
+        {
+          "symbol_pin": "3",
+          "name": "C",
+          "footprint_pad": "3",
+          "function": "passive; A5 nets: controller/Q1=/LED_EN_N"
+        }
+      ],
+      "reviewed_by": "not independently reviewed: projected from the A5 native netlist by scripts/a5_catalog.py scaffold",
+      "project_state_source": "historical A5 native netlists (src-mmbt3904-range-100-300-a5-netlist-controller); pad numbers equal KiCad symbol pin numbers in that export"
+    }
+  ]
+}

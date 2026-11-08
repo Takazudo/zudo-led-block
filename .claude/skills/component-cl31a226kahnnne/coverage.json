@@ -1,0 +1,82 @@
+{
+  "schema_version": 1,
+  "coverage": [
+    {
+      "coverage_id": "cov-cl31a226kahnnne-identity",
+      "record_id": "rec-cl31a226kahnnne",
+      "domain": "identity",
+      "status": "COVERED",
+      "reason": "manufacturer and exact orderable confirmed from the manufacturer-hosted document (MANUFACTURER_PRIMARY, bytes inspected 2026-11-08); distributor identity retained as order-code evidence",
+      "fact_ids": [
+        "fact-cl31a226kahnnne-manufacturer",
+        "fact-cl31a226kahnnne-distributor-identity",
+        "fact-cl31a226kahnnne-orderable"
+      ],
+      "blocking_fact_ids": []
+    },
+    {
+      "coverage_id": "cov-cl31a226kahnnne-pinout",
+      "record_id": "rec-cl31a226kahnnne",
+      "domain": "pinout",
+      "status": "COVERED",
+      "reason": "non-polarised two-terminal part: the manufacturer document defines two identical end terminations and no terminal numbering, so pin identity is NOT APPLICABLE; project pin map pads 1/2 do not contradict it",
+      "fact_ids": [
+        "fact-cl31a226kahnnne-pinout"
+      ],
+      "blocking_fact_ids": []
+    },
+    {
+      "coverage_id": "cov-cl31a226kahnnne-ratings",
+      "record_id": "rec-cl31a226kahnnne",
+      "domain": "electrical-ratings",
+      "status": "COVERED",
+      "reason": "rated and characteristic values recorded from the manufacturer-hosted document; manufacturer data only, not a design-margin or safety verdict",
+      "fact_ids": [
+        "fact-cl31a226kahnnne-ratings",
+        "fact-cl31a226kahnnne-capacitance",
+        "fact-cl31a226kahnnne-tolerance",
+        "fact-cl31a226kahnnne-dielectric"
+      ],
+      "blocking_fact_ids": []
+    },
+    {
+      "coverage_id": "cov-cl31a226kahnnne-dc-bias-capacitance",
+      "record_id": "rec-cl31a226kahnnne",
+      "domain": "dc-bias-capacitance",
+      "status": "OPEN",
+      "reason": "fact-cl31a226kahnnne-dc-bias NEEDS BENCH: effective MLCC capacitance under the A5 DC bias, temperature and ageing is not established; the manufacturer document gives no part-specific DC-bias curve and A5 never qualified it",
+      "fact_ids": [
+        "fact-cl31a226kahnnne-dc-bias"
+      ],
+      "blocking_fact_ids": [
+        "fact-cl31a226kahnnne-dc-bias"
+      ]
+    },
+    {
+      "coverage_id": "cov-cl31a226kahnnne-placement",
+      "record_id": "rec-cl31a226kahnnne",
+      "domain": "placement",
+      "status": "OPEN",
+      "reason": "fact-cl31a226kahnnne-a5-placements NEEDS BENCH: placements are declared from the historical A5 netlist only; the manual provider performs no schematic binding and no as-built check exists",
+      "fact_ids": [
+        "fact-cl31a226kahnnne-a5-placements"
+      ],
+      "blocking_fact_ids": [
+        "fact-cl31a226kahnnne-a5-placements"
+      ]
+    },
+    {
+      "coverage_id": "cov-cl31a226kahnnne-cad",
+      "record_id": "rec-cl31a226kahnnne",
+      "domain": "cad-assets",
+      "status": "OPEN",
+      "reason": "fact-cl31a226kahnnne-cad-state remains UNSOURCED: catalog CAD is disabled, so no symbol, footprint or model was reviewed or validated",
+      "fact_ids": [
+        "fact-cl31a226kahnnne-cad-state"
+      ],
+      "blocking_fact_ids": [
+        "fact-cl31a226kahnnne-cad-state"
+      ]
+    }
+  ]
+}

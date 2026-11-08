@@ -1,0 +1,27 @@
+---
+name: component-cl31a226kahnnne
+description: Resolve exact Samsung Electro-Mechanics CL31A226KAHNNNE (C12891, 1206) evidence for the Zudo LED Block A5 22 uf 25 v x5r 1206 capacitor. Use whenever CL31A226KAHNNNE, C12891, its pins, package, placements (controller/C2 x1, controller/C3 x1), limits, substitution or bring-up are relevant.
+---
+
+# Exact component record: CL31A226KAHNNNE
+
+Run `pnpm circuit:check`, read every JSON file in this bundle, and cite fact and source IDs
+with their conditions and locators. Preserve `SOURCE UNAVAILABLE`, `UNSOURCED`, `NEEDS BENCH`
+and every `OPEN` domain; never replace exact-orderable evidence with memory, a family
+datasheet of another variant or same-name vendor data.
+
+- Identity was reconciled by `scripts/a5_catalog.py reconcile`
+  (`provenance/a5-catalog/reconciliation.json`). Distributor listings are identity evidence only.
+- The pin map and placements are projected from the immutable historical A5 native netlists
+  (`engineering/a5/integration/native_schematic/`). They are not fresh A6 design state, are not
+  bound by the manual inventory provider, and are not as-built verification.
+- Primary document: Samsung Electro-Mechanics SPECIFICATION (Reference Sheet) for CL31A226KAHNNNE, issued MAY.09.2024, product.samsungsem.com, sha256 494f80f330a8...
+- Catalog CAD is disabled (`cad.enabled = false`); the pin-asset check is SKIPPED.
+- A5 is not released for manufacture. Nothing here is hardware or manufacturing sign-off.
+
+## Human component reference
+
+Human projection of this bundle: [rec-cl31a226kahnnne](/docs/components/records/cl31a226kahnnne/).
+See also the [component catalog](/docs/components/catalog/) and
+[cross-component rules](/docs/components/integration/). These pages are generated from this
+bundle's JSON files and add nothing to them.

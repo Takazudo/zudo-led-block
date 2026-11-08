@@ -1,0 +1,30 @@
+{
+  "schema_version": 1,
+  "routes": [
+    {
+      "route_id": "route-cl10a475ko8nnnc",
+      "record_id": "rec-cl10a475ko8nnnc",
+      "aliases": {
+        "mpn": [
+          "CL10A475KO8NNNC"
+        ],
+        "lcsc": [
+          "C19666"
+        ],
+        "manufacturer": [
+          "Samsung Electro-Mechanics"
+        ],
+        "function": [
+          "4.7 uf 16 v x5r 0603 capacitor"
+        ]
+      },
+      "positive": [
+        "check CL10A475KO8NNNC pinout",
+        "audit C19666"
+      ],
+      "negative": [
+        "check 4.7 uf 16 v x5r 0603 capacitor from an unnamed vendor"
+      ]
+    }
+  ]
+}

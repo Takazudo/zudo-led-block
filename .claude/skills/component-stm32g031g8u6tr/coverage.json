@@ -1,0 +1,73 @@
+{
+  "schema_version": 1,
+  "coverage": [
+    {
+      "coverage_id": "cov-stm32g031g8u6tr-identity",
+      "record_id": "rec-stm32g031g8u6tr",
+      "domain": "identity",
+      "status": "OPEN",
+      "reason": "manufacturer and exact-orderable facts remain UNSOURCED: manufacturer datasheet DS12992 is SOURCE UNAVAILABLE (st.com refused connections on 2026-11-08); only distributor identity is retained",
+      "fact_ids": [
+        "fact-stm32g031g8u6tr-manufacturer",
+        "fact-stm32g031g8u6tr-orderable",
+        "fact-stm32g031g8u6tr-distributor-identity"
+      ],
+      "blocking_fact_ids": [
+        "fact-stm32g031g8u6tr-manufacturer",
+        "fact-stm32g031g8u6tr-orderable"
+      ]
+    },
+    {
+      "coverage_id": "cov-stm32g031g8u6tr-pinout",
+      "record_id": "rec-stm32g031g8u6tr",
+      "domain": "pinout",
+      "status": "OPEN",
+      "reason": "fact-stm32g031g8u6tr-pinout remains UNSOURCED: DS12992 is SOURCE UNAVAILABLE, so the UFQFPN28 pin map projected from the A5 netlist is not checked against the manufacturer",
+      "fact_ids": [
+        "fact-stm32g031g8u6tr-pinout"
+      ],
+      "blocking_fact_ids": [
+        "fact-stm32g031g8u6tr-pinout"
+      ]
+    },
+    {
+      "coverage_id": "cov-stm32g031g8u6tr-ratings",
+      "record_id": "rec-stm32g031g8u6tr",
+      "domain": "electrical-ratings",
+      "status": "OPEN",
+      "reason": "fact-stm32g031g8u6tr-ratings remains UNSOURCED: DS12992 is SOURCE UNAVAILABLE, no manufacturer VDD, I/O or ADC limits recorded",
+      "fact_ids": [
+        "fact-stm32g031g8u6tr-ratings"
+      ],
+      "blocking_fact_ids": [
+        "fact-stm32g031g8u6tr-ratings"
+      ]
+    },
+    {
+      "coverage_id": "cov-stm32g031g8u6tr-placement",
+      "record_id": "rec-stm32g031g8u6tr",
+      "domain": "placement",
+      "status": "OPEN",
+      "reason": "fact-stm32g031g8u6tr-a5-placements NEEDS BENCH: placements are declared from the historical A5 netlist only; the manual provider performs no schematic binding and no as-built check exists",
+      "fact_ids": [
+        "fact-stm32g031g8u6tr-a5-placements"
+      ],
+      "blocking_fact_ids": [
+        "fact-stm32g031g8u6tr-a5-placements"
+      ]
+    },
+    {
+      "coverage_id": "cov-stm32g031g8u6tr-cad",
+      "record_id": "rec-stm32g031g8u6tr",
+      "domain": "cad-assets",
+      "status": "OPEN",
+      "reason": "fact-stm32g031g8u6tr-cad-state remains UNSOURCED: catalog CAD is disabled, so no symbol, footprint or model was reviewed or validated",
+      "fact_ids": [
+        "fact-stm32g031g8u6tr-cad-state"
+      ],
+      "blocking_fact_ids": [
+        "fact-stm32g031g8u6tr-cad-state"
+      ]
+    }
+  ]
+}

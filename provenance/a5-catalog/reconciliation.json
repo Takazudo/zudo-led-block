@@ -1,0 +1,3681 @@
+{
+  "schema_version": 1,
+  "generated_by": "scripts/a5_catalog.py reconcile",
+  "scope": "Historical A5 design evidence only. Placements, nets and pin assignments are read from the immutable A5 native netlists (KiCad 10.0.8 export, 2026-11-06) listed under inputs with their hashes. This is not fresh A6 design state, not a placement binding performed by the inventory provider, and not physical verification.",
+  "inputs": [
+    {
+      "path": "engineering/a5/electronics/fitted_component_ledger.json",
+      "sha256": "7ea3494e6e3ebcf52c040ca6c242b3c76c5ec3e97911a71ecfd4e7083cb7eabf"
+    },
+    {
+      "path": "engineering/a5/evidence_refresh/C122442.json",
+      "sha256": "dcd5d688701bd007bc5998d62275e27e120e9475afefc45a4fd974c7cc9bd803"
+    },
+    {
+      "path": "engineering/a5/evidence_refresh/C12891.json",
+      "sha256": "d5d7f2647daa116b720ea2c47304aaf7ee8e2ce9b59456e046b208cde3c7faa8"
+    },
+    {
+      "path": "engineering/a5/evidence_refresh/C134375.json",
+      "sha256": "b4e26ccd8bfe2071d1be56ff7e15b1802ce5d4d237881223d3095b4aeb70aa51"
+    },
+    {
+      "path": "engineering/a5/evidence_refresh/C140331.json",
+      "sha256": "3e66bb430e2e982c9d1842aee0012d561f76d6d99e8314d45d0fbb607b7d8e70"
+    },
+    {
+      "path": "engineering/a5/evidence_refresh/C14663.json",
+      "sha256": "2fc0248f3c16ed01ac7a12f01ed9fa95cd9479bfbdb92b8af0d2c6371b873d62"
+    },
+    {
+      "path": "engineering/a5/evidence_refresh/C15741.json",
+      "sha256": "68e9aecff8e94dc750439dde6ef36be93085407115f4a58f8a987972301d997d"
+    },
+    {
+      "path": "engineering/a5/evidence_refresh/C15850.json",
+      "sha256": "250ce20d509f853d39df9a47ea55b977a38f00f124d84b803a51050e8ea05571"
+    },
+    {
+      "path": "engineering/a5/evidence_refresh/C160404.json",
+      "sha256": "2ebd5f43d7b5ad758f8189e518c355c0a99a6866462201159a33de7d740f8c4c"
+    },
+    {
+      "path": "engineering/a5/evidence_refresh/C19666.json",
+      "sha256": "9151a88468e4737195edc6613c716a9610ff200ffc3ffac410acc564100b5c1d"
+    },
+    {
+      "path": "engineering/a5/evidence_refresh/C20526.json",
+      "sha256": "f941299a558a3dedc3a6375f3f635d1fd6b6f6925a34a17c3427869b19060763"
+    },
+    {
+      "path": "engineering/a5/evidence_refresh/C2071056.json",
+      "sha256": "707592135fc488cdf224cc4f8ed8633ebd190dadb5328108fc616ebe5bc5ec9c"
+    },
+    {
+      "path": "engineering/a5/evidence_refresh/C21190.json",
+      "sha256": "61c830657e954db93bfb5850e246be23abd2e95a86b7103b477d80c4a04559c9"
+    },
+    {
+      "path": "engineering/a5/evidence_refresh/C221351.json",
+      "sha256": "e3faa2045e166a0bbf4589ce858e5add6e719d88395a53142777b355625210c5"
+    },
+    {
+      "path": "engineering/a5/evidence_refresh/C23138.json",
+      "sha256": "40c8fad0dcafb2a52e55413119fcd44f18e22c01cfa3c8f7d7d52d29cb403c2b"
+    },
+    {
+      "path": "engineering/a5/evidence_refresh/C23162.json",
+      "sha256": "00a75620a1e27e4e9a6431b1e249fe60584f2d3bee7cb206b9ce44e0c8768f3f"
+    },
+    {
+      "path": "engineering/a5/evidence_refresh/C23231.json",
+      "sha256": "19577935aeecc4a56f7d94a5017f2064710317365ba64e513080eee291e4c99e"
+    },
+    {
+      "path": "engineering/a5/evidence_refresh/C23254.json",
+      "sha256": "66f0790816b752d4615e7c42cc10d84066e26b89531e7744ed7bbf25108efd56"
+    },
+    {
+      "path": "engineering/a5/evidence_refresh/C25803.json",
+      "sha256": "8eb405cc8d93611ba6448d78fd9f733e4e98abd3c396ac665d87c37e3d87f44b"
+    },
+    {
+      "path": "engineering/a5/evidence_refresh/C25804.json",
+      "sha256": "bc9115ceff2adf0c3aa015408f550a391a15628e475756a80f63c89209414739"
+    },
+    {
+      "path": "engineering/a5/evidence_refresh/C404027.json",
+      "sha256": "5eaf7db30efc0c2e5a4de0b7da128f73139c9e0be2e24ba0b70834231d6ccbe3"
+    },
+    {
+      "path": "engineering/a5/evidence_refresh/C500090.json",
+      "sha256": "75e4af569514d00a21ba31aeaa6c654ae1d465255a4de727c8726fd2c1ed50d3"
+    },
+    {
+      "path": "engineering/a5/evidence_refresh/C50704.json",
+      "sha256": "67ec06258cc85be762bf40d58176514341e37da3047dc4e00a5526649251f8c9"
+    },
+    {
+      "path": "engineering/a5/evidence_refresh/C5270180.json",
+      "sha256": "798d801042094b0f94ac986a689f1d228a92359698922d2878ec288db1b24110"
+    },
+    {
+      "path": "engineering/a5/evidence_refresh/C52917434.json",
+      "sha256": "add5dc1f8a010db63576bc365e2fb3dd89d14050fa69274eeaededc0fd229f56"
+    },
+    {
+      "path": "engineering/a5/evidence_refresh/C5665.json",
+      "sha256": "fb7d74403d5e279a50783303cbe461be7c3a64fa8e729f660b50c17d5ac05dfc"
+    },
+    {
+      "path": "engineering/a5/evidence_refresh/C57112.json",
+      "sha256": "f7e5b0a9d2f50d6c5973174b90e87efb555b6b99de2cca027bd2905e8df0b936"
+    },
+    {
+      "path": "engineering/a5/evidence_refresh/C694586.json",
+      "sha256": "f99de73cf2c8008485adb7c62293ab76bb2bdde3a7028920db87e73f064d3c19"
+    },
+    {
+      "path": "engineering/a5/evidence_refresh/C7250.json",
+      "sha256": "7174fa9f1579f266726f6de6c6d012f19150f6dbfdec2aa91df5810d26af47fe"
+    },
+    {
+      "path": "engineering/a5/evidence_refresh/C908270.json",
+      "sha256": "91111d991fe0de633080d84c7fcfe61363398d62e63bfe0a58210f95707831ab"
+    },
+    {
+      "path": "engineering/a5/ic_led_evidence/C134375.snapshot.json",
+      "sha256": "a66a183ed182bdcffbd879abd3b7fe5f6ee6bf52e9d1f33b8a1186ae0f47f869"
+    },
+    {
+      "path": "engineering/a5/ic_led_evidence/C140331.snapshot.json",
+      "sha256": "aafd6b693699359d21e3f15092e4ca5fe3f041e9381ea537b13710fb69ac3d07"
+    },
+    {
+      "path": "engineering/a5/ic_led_evidence/C15741.snapshot.json",
+      "sha256": "2d1429984232f8d4535184f0393e758a9f83224a813ffa0f1a61c561044c2afc"
+    },
+    {
+      "path": "engineering/a5/ic_led_evidence/C20526.snapshot.json",
+      "sha256": "2accf5866d5a69f40d9abc56c5922d414e1a20c41c265d062f2440d54c23d3b8"
+    },
+    {
+      "path": "engineering/a5/ic_led_evidence/C2071056.snapshot.json",
+      "sha256": "1ac7170bb73b19de963e93805d9aac963ab07407f89bb0a05f66e11d96903fec"
+    },
+    {
+      "path": "engineering/a5/ic_led_evidence/C221351.snapshot.json",
+      "sha256": "3b2ad612e0d8e8336ec05e2bbef7fc85b2167695d97b9b4a9edff2d993b940d5"
+    },
+    {
+      "path": "engineering/a5/ic_led_evidence/C404027.snapshot.json",
+      "sha256": "5293b227f8bc288ec7d0b07346027c25c69177b7a1dbe4ab4b0734bc6d4a6d60"
+    },
+    {
+      "path": "engineering/a5/ic_led_evidence/C50704.snapshot.json",
+      "sha256": "ecdac4f4fcf8b81eab84df3ec106e5f14943f62bc16addf0d69674e0f302251f"
+    },
+    {
+      "path": "engineering/a5/ic_led_evidence/C5270180.snapshot.json",
+      "sha256": "a23f1b02d217251737557251643d8ad145e252af7d1118fdc819d09ae8b59076"
+    },
+    {
+      "path": "engineering/a5/ic_led_evidence/C52917434.snapshot.json",
+      "sha256": "909615a8355ecd45f8bce91951c119e994826f0ec58406c4ad1d936d68f26729"
+    },
+    {
+      "path": "engineering/a5/integration/evidence/C398363.snapshot.json",
+      "sha256": "cfdd6b654195e7b21cbca08bdc64522ea25824fc6a14594ee2beece7f1a91579"
+    },
+    {
+      "path": "engineering/a5/integration/evidence/C5665.snapshot.json",
+      "sha256": "c5eb08a769cc1c5c741ff82a066469f827d43ea26d82751f61e90ae1cf99198b"
+    },
+    {
+      "path": "engineering/a5/integration/native_schematic/controller/netlist.xml",
+      "sha256": "fa2d267acc4081156649ee15e014fbaeae4303bc96374fe19f4bae7b3a72553f"
+    },
+    {
+      "path": "engineering/a5/integration/native_schematic/led_leaf/netlist.xml",
+      "sha256": "1857eeb3e3faa65977f2e2cfff30083411db9af728b5529e53065da0c9028670"
+    },
+    {
+      "path": "engineering/a5/integration/native_schematic/power_adapter/netlist.xml",
+      "sha256": "d995064a9945ca0516a0a2844b197fcde3a19c8e1873230def0a3899ff514d04"
+    },
+    {
+      "path": "engineering/a5/mechanical_evidence/C122442.snapshot.json",
+      "sha256": "6c01aa6af7a877d72d232cf24bd9f5cea07d8b92371a08ec53d3d76d6cb0d399"
+    },
+    {
+      "path": "engineering/a5/mechanical_evidence/C160404.snapshot.json",
+      "sha256": "93809e0f7b62e1e9f1af1b4453585d1eba2c36eeb91ea24e48d1531dff841cbc"
+    },
+    {
+      "path": "engineering/a5/mechanical_evidence/C500090.snapshot.json",
+      "sha256": "83b6894cfef00922677c5c1c807731ffec0c6aee2548649ba87ca933da6a581c"
+    },
+    {
+      "path": "engineering/a5/mechanical_evidence/C5665.snapshot.json",
+      "sha256": "7f9aa3e8a3914eb9c9d7b539af26805f45673dac01bf2a53dce0781c9be7fb1b"
+    },
+    {
+      "path": "engineering/a5/mechanical_evidence/C908270.snapshot.json",
+      "sha256": "7cf113d68d02d5495d247ffa458ce184e11322fb600fe5d85979476ec810f891"
+    },
+    {
+      "path": "engineering/a5/passive_evidence/C12891.snapshot.json",
+      "sha256": "8ac96a220cea2fed5bd78365f4cd70b094db3680dd3fd56c2e6ef22e069b2bab"
+    },
+    {
+      "path": "engineering/a5/passive_evidence/C14663.snapshot.json",
+      "sha256": "b7a22882d30bc82576e7e4c2cc52bead852c27f19e05bd36795dc23536d2c1c0"
+    },
+    {
+      "path": "engineering/a5/passive_evidence/C15850.snapshot.json",
+      "sha256": "1432c99b49570584f25d3ef8b2563d617243d445b63b6e3802eb72a15a7a78b9"
+    },
+    {
+      "path": "engineering/a5/passive_evidence/C19666.snapshot.json",
+      "sha256": "d59d7c1e6831b6d1e7ca6f02f8457bfedf17ba7e7b499bb84fa24d955b118ac6"
+    },
+    {
+      "path": "engineering/a5/passive_evidence/C21190.snapshot.json",
+      "sha256": "df1313b592c428f3812292ac3658230beb4d7c8a4f094e10d7062d917f6d17ad"
+    },
+    {
+      "path": "engineering/a5/passive_evidence/C23138.snapshot.json",
+      "sha256": "6d8e17437e6dc1c0d94c07826dbd83fc3b16cc9950b2a0bfab8601a8a099f9f6"
+    },
+    {
+      "path": "engineering/a5/passive_evidence/C23162.snapshot.json",
+      "sha256": "ad0e00738af82d2d5cbff31c303cbc0384462e483e5eb68c5b61bbba32b8e5bf"
+    },
+    {
+      "path": "engineering/a5/passive_evidence/C23231.snapshot.json",
+      "sha256": "38d767f974ee07230b184a8a7fd1e971971d657c873927db58953158d018e3b3"
+    },
+    {
+      "path": "engineering/a5/passive_evidence/C23254.snapshot.json",
+      "sha256": "413ae55261c70cb8813a500f7a740c3d08ea9eec1f18402400fe017b539327a0"
+    },
+    {
+      "path": "engineering/a5/passive_evidence/C25803.snapshot.json",
+      "sha256": "8718ea778e98be3cbc1f0f751cd3eaf11157d731c6ac7ba99a1b2a5a7617eba4"
+    },
+    {
+      "path": "engineering/a5/passive_evidence/C25804.snapshot.json",
+      "sha256": "0b6f3bb5eca98b95abc368c1ff2bf80ee907330de5d772d16b4e60634ad3b1d6"
+    },
+    {
+      "path": "engineering/a5/passive_evidence/C57112.snapshot.json",
+      "sha256": "6b5d7acad9c256a7d2e2d4ae70c1678b9fbd61f73fbf41f6cd92cace37b395fc"
+    },
+    {
+      "path": "engineering/a5/passive_evidence/C7250.snapshot.json",
+      "sha256": "b677c116c6583c620e9e5434cfaf461ccb06476e1d8a3c2c547701b07d7eb2b8"
+    },
+    {
+      "path": "engineering/a5/procurement_rows.json",
+      "sha256": "bf6fa12ed940967c8587178d0c83be8d687ffce5e8107483ee873a0fed322b0f"
+    },
+    {
+      "path": "provenance/a5-catalog/identity-crosswalk.json",
+      "sha256": "9915b9200d7ce3eef4af46213f3f4ff5b434f5e17756a8f91b9bd05e87e02f3e"
+    },
+    {
+      "path": "provenance/a5-catalog/lcsc-listings-2026-11-08.json",
+      "sha256": "91f0d959b74267acd07594b5a4322b67fc92f72233f214cb48c632cbf843a718"
+    }
+  ],
+  "totals": {
+    "identities": 30,
+    "unique_placements": 71,
+    "unique_placements_by_board": {
+      "controller": 59,
+      "led_leaf": 10,
+      "power_adapter": 2
+    },
+    "physical_pieces": 81,
+    "board_copies": {
+      "controller": 1,
+      "led_leaf": 2,
+      "power_adapter": 1
+    }
+  },
+  "excluded_from_counts": {
+    "netlist_items_without_identity": [
+      {
+        "board": "controller",
+        "refdes": "TP1",
+        "footprint": "LightBlock:TESTPAD",
+        "reason": "bare-copper test pad: no orderable identity (MPN/LCSC fields empty); not a fitted piece"
+      },
+      {
+        "board": "controller",
+        "refdes": "TP2",
+        "footprint": "LightBlock:TESTPAD",
+        "reason": "bare-copper test pad: no orderable identity (MPN/LCSC fields empty); not a fitted piece"
+      },
+      {
+        "board": "controller",
+        "refdes": "TP3",
+        "footprint": "LightBlock:TESTPAD",
+        "reason": "bare-copper test pad: no orderable identity (MPN/LCSC fields empty); not a fitted piece"
+      },
+      {
+        "board": "controller",
+        "refdes": "TP4",
+        "footprint": "LightBlock:TESTPAD",
+        "reason": "bare-copper test pad: no orderable identity (MPN/LCSC fields empty); not a fitted piece"
+      },
+      {
+        "board": "controller",
+        "refdes": "TP5",
+        "footprint": "LightBlock:TESTPAD",
+        "reason": "bare-copper test pad: no orderable identity (MPN/LCSC fields empty); not a fitted piece"
+      }
+    ],
+    "external_items_not_on_pcb": [
+      "EXT-01",
+      "EXT-02",
+      "EXT-03",
+      "EXT-04",
+      "EXT-05",
+      "EXT-06"
+    ],
+    "procurement_alternatives_not_fitted": [
+      "C2651179"
+    ],
+    "evidence_snapshot_codes_not_fitted": [
+      "C111738",
+      "C15849",
+      "C1591",
+      "C160403",
+      "C1779",
+      "C25976",
+      "C2651179",
+      "C2681577",
+      "C2681578",
+      "C2799370",
+      "C279948",
+      "C2864299",
+      "C3039694",
+      "C381126",
+      "C393944",
+      "C398358",
+      "C408337",
+      "C45783",
+      "C527089",
+      "C52941386",
+      "C5449358",
+      "C57269",
+      "C668610",
+      "C692433",
+      "C7324966",
+      "C7507542",
+      "C8545",
+      "C8598",
+      "C9900079089"
+    ],
+    "note": "Mounting holes, test pads, external cables/panels/enclosure items, historical alternatives and rejected candidates are not fitted orderable identities and are never counted."
+  },
+  "identities": [
+    {
+      "lcsc": "C122442",
+      "manufacturer": "MOLEX",
+      "mpn": "530470310",
+      "package": "Plugin,P=1.25mm",
+      "role_ja": "電源用3pinヘッダ / 制御1＋変換1",
+      "function": "three-pin power cable header",
+      "owner_skill": "component-530470310",
+      "line_id": "line-530470310",
+      "record_id": "rec-molex-530470310",
+      "supplier_url": "https://jlcpcb.com/partdetail/MOLEX-530470310/C122442",
+      "identity_snapshots": [
+        {
+          "path": "engineering/a5/mechanical_evidence/C122442.snapshot.json",
+          "sha256": "6c01aa6af7a877d72d232cf24bd9f5cea07d8b92371a08ec53d3d76d6cb0d399",
+          "componentCode": "C122442",
+          "componentModelEn": "530470310",
+          "componentBrandEn": "MOLEX",
+          "componentSpecificationEn": "Plugin,P=1.25mm",
+          "observed_utc": "2026-11-05T20:28:17.248871+00:00",
+          "url": "https://jlcpcb.com/partdetail/MOLEX-530470310/C122442",
+          "recorded_html_sha256": "32b0b6db1acdc33c0897392dc58fb68caf84f6daee4ef9bd5f5ed84073b54453"
+        }
+      ],
+      "lcsc_listing": {
+        "sku": "C122442",
+        "mpn": "530470310",
+        "brand": "MOLEX",
+        "html_sha256": "f681ec686a189cf393af01e260fe9c64f67fa8dcb6bce808c9a399a2d5bbeb97"
+      },
+      "spelling_discrepancies": [],
+      "footprints": [
+        "LightBlock:PICO3"
+      ],
+      "symbol": "LightBlock:PWR3",
+      "unique_placements": 2,
+      "physical_pieces": 2,
+      "placements": [
+        {
+          "board": "controller",
+          "refdes": "J5",
+          "board_copies": 1,
+          "value": "POWER + / G / -",
+          "footprint": "LightBlock:PICO3",
+          "symbol": "LightBlock:PWR3",
+          "pins": [
+            {
+              "num": "1",
+              "name": "1",
+              "type": "passive",
+              "net": "/+12V_RAW"
+            },
+            {
+              "num": "2",
+              "name": "2",
+              "type": "passive",
+              "net": "/GND"
+            },
+            {
+              "num": "3",
+              "name": "3",
+              "type": "passive",
+              "net": "/-12V_RAW"
+            }
+          ]
+        },
+        {
+          "board": "power_adapter",
+          "refdes": "J2",
+          "board_copies": 1,
+          "value": "PWR CABLE - / G / +",
+          "footprint": "LightBlock:PICO3",
+          "symbol": "LightBlock:PWR3",
+          "pins": [
+            {
+              "num": "1",
+              "name": "1",
+              "type": "passive",
+              "net": "/-12V_RAW"
+            },
+            {
+              "num": "2",
+              "name": "2",
+              "type": "passive",
+              "net": "/GND"
+            },
+            {
+              "num": "3",
+              "name": "3",
+              "type": "passive",
+              "net": "/+12V_RAW"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "lcsc": "C12891",
+      "manufacturer": "Samsung Electro-Mechanics",
+      "mpn": "CL31A226KAHNNNE",
+      "package": "1206",
+      "role_ja": "22 µF 25 V X5R / C2,C3",
+      "function": "22 uf 25 v x5r 1206 capacitor",
+      "owner_skill": "component-cl31a226kahnnne",
+      "line_id": "line-cl31a226kahnnne",
+      "record_id": "rec-cl31a226kahnnne",
+      "supplier_url": "https://jlcpcb.com/partdetail/C12891",
+      "identity_snapshots": [
+        {
+          "path": "engineering/a5/passive_evidence/C12891.snapshot.json",
+          "sha256": "8ac96a220cea2fed5bd78365f4cd70b094db3680dd3fd56c2e6ef22e069b2bab",
+          "componentCode": "C12891",
+          "componentModelEn": "CL31A226KAHNNNE",
+          "componentBrandEn": "Samsung Electro-Mechanics",
+          "componentSpecificationEn": "1206",
+          "observed_utc": "2026-11-05T20:20:57.036370+00:00",
+          "url": "https://jlcpcb.com/partdetail/C12891",
+          "recorded_html_sha256": "a49504404b4c6356313117a10fcd719012d81c29d54c5a203e03a658242af46c"
+        }
+      ],
+      "lcsc_listing": {
+        "sku": "C12891",
+        "mpn": "CL31A226KAHNNNE",
+        "brand": "Samsung Electro-Mechanics",
+        "html_sha256": "f41c455ed6c7ea4238084564d749a835712870e3ffb9ccfb968e3314c589a942"
+      },
+      "spelling_discrepancies": [],
+      "footprints": [
+        "LightBlock:C1206"
+      ],
+      "symbol": "LightBlock:C",
+      "unique_placements": 2,
+      "physical_pieces": 2,
+      "placements": [
+        {
+          "board": "controller",
+          "refdes": "C2",
+          "board_copies": 1,
+          "value": "22u",
+          "footprint": "LightBlock:C1206",
+          "symbol": "LightBlock:C",
+          "pins": [
+            {
+              "num": "1",
+              "name": "1",
+              "type": "passive",
+              "net": "/+5V"
+            },
+            {
+              "num": "2",
+              "name": "2",
+              "type": "passive",
+              "net": "/GND"
+            }
+          ]
+        },
+        {
+          "board": "controller",
+          "refdes": "C3",
+          "board_copies": 1,
+          "value": "22u",
+          "footprint": "LightBlock:C1206",
+          "symbol": "LightBlock:C",
+          "pins": [
+            {
+              "num": "1",
+              "name": "1",
+              "type": "passive",
+              "net": "/+5V"
+            },
+            {
+              "num": "2",
+              "name": "2",
+              "type": "passive",
+              "net": "/GND"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "lcsc": "C134375",
+      "manufacturer": "Diodes Incorporated",
+      "mpn": "BAS70-04-7-F",
+      "package": "SOT-23",
+      "role_ja": "ADCクランプ候補 / D3",
+      "function": "adc clamp dual schottky diode",
+      "owner_skill": "component-bas70-04-7-f",
+      "line_id": "line-bas70-04-7-f",
+      "record_id": "rec-bas70-04-7-f",
+      "supplier_url": "https://jlcpcb.com/partdetail/DiodesIncorporated-BAS70_04_7F/C134375",
+      "identity_snapshots": [
+        {
+          "path": "engineering/a5/ic_led_evidence/C134375.snapshot.json",
+          "sha256": "a66a183ed182bdcffbd879abd3b7fe5f6ee6bf52e9d1f33b8a1186ae0f47f869",
+          "componentCode": "C134375",
+          "componentModelEn": "BAS70-04-7-F",
+          "componentBrandEn": "Diodes Incorporated",
+          "componentSpecificationEn": "SOT-23",
+          "observed_utc": "2026-11-05T20:24:18.184716+00:00",
+          "url": "https://jlcpcb.com/partdetail/DiodesIncorporated-BAS70_04_7F/C134375",
+          "recorded_html_sha256": "27d722dcfc7e96e0647f9fb29261b0312bc4d4d48231fb3557062ff3ae0bdf3d"
+        }
+      ],
+      "lcsc_listing": {
+        "sku": "C134375",
+        "mpn": "BAS70-04-7-F",
+        "brand": "DIODES",
+        "html_sha256": "17376c0f31ebd6473a6d400257933d1d5c1f8d74b534fac44b45a35783189575"
+      },
+      "spelling_discrepancies": [],
+      "footprints": [
+        "LightBlock:SOT23"
+      ],
+      "symbol": "LightBlock:CLAMP",
+      "unique_placements": 1,
+      "physical_pieces": 1,
+      "placements": [
+        {
+          "board": "controller",
+          "refdes": "D3",
+          "board_copies": 1,
+          "value": "BAS70-04",
+          "footprint": "LightBlock:SOT23",
+          "symbol": "LightBlock:CLAMP",
+          "pins": [
+            {
+              "num": "1",
+              "name": "A1",
+              "type": "passive",
+              "net": "/GND"
+            },
+            {
+              "num": "2",
+              "name": "K2",
+              "type": "passive",
+              "net": "/+3V3"
+            },
+            {
+              "num": "3",
+              "name": "K1/A2",
+              "type": "passive",
+              "net": "/CV_FILTER"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "lcsc": "C140331",
+      "manufacturer": "Texas Instruments",
+      "mpn": "TPS2552DBVR-1",
+      "package": "SOT-23-6",
+      "role_ja": "LED電源ラッチ / U4",
+      "function": "led supply current-limit latch switch",
+      "owner_skill": "component-tps2552dbvr-1",
+      "line_id": "line-tps2552dbvr-1",
+      "record_id": "rec-tps2552dbvr-1",
+      "supplier_url": "https://jlcpcb.com/partdetail/TexasInstruments-TPS2552DBVR1/C140331",
+      "identity_snapshots": [
+        {
+          "path": "engineering/a5/ic_led_evidence/C140331.snapshot.json",
+          "sha256": "aafd6b693699359d21e3f15092e4ca5fe3f041e9381ea537b13710fb69ac3d07",
+          "componentCode": "C140331",
+          "componentModelEn": "TPS2552DBVR-1",
+          "componentBrandEn": "Texas Instruments",
+          "componentSpecificationEn": "SOT-23-6",
+          "observed_utc": "2026-11-05T20:22:42.781417+00:00",
+          "url": "https://jlcpcb.com/partdetail/TexasInstruments-TPS2552DBVR1/C140331",
+          "recorded_html_sha256": "29a4348153087055194d1d4e3465b333326e216e32a072bdf383c97889f2473b"
+        }
+      ],
+      "lcsc_listing": {
+        "sku": "C140331",
+        "mpn": "TPS2552DBVR-1",
+        "brand": "TI",
+        "html_sha256": "716e1455b8cc5c2205c85f8413c0614f9964245b6c3770074c7aacd8d657efbe"
+      },
+      "spelling_discrepancies": [],
+      "footprints": [
+        "LightBlock:DBV6"
+      ],
+      "symbol": "LightBlock:LIMIT",
+      "unique_placements": 1,
+      "physical_pieces": 1,
+      "placements": [
+        {
+          "board": "controller",
+          "refdes": "U4",
+          "board_copies": 1,
+          "value": "TPS2552DBVR-1",
+          "footprint": "LightBlock:DBV6",
+          "symbol": "LightBlock:LIMIT",
+          "pins": [
+            {
+              "num": "1",
+              "name": "IN",
+              "type": "power_in",
+              "net": "/+5V"
+            },
+            {
+              "num": "2",
+              "name": "GND",
+              "type": "power_in",
+              "net": "/GND"
+            },
+            {
+              "num": "3",
+              "name": "~{EN}",
+              "type": "input",
+              "net": "/LED_EN_N"
+            },
+            {
+              "num": "4",
+              "name": "~{FAULT}",
+              "type": "open_collector",
+              "net": "/LED_FAULT_N"
+            },
+            {
+              "num": "5",
+              "name": "ILIM",
+              "type": "passive",
+              "net": "/LED_ILIM"
+            },
+            {
+              "num": "6",
+              "name": "OUT",
+              "type": "power_out",
+              "net": "/VLED"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "lcsc": "C14663",
+      "manufacturer": "YAGEO",
+      "mpn": "CC0603KRX7R9BB104",
+      "package": "0603",
+      "role_ja": "100 nF 50 V X7R / 制御8＋LED8",
+      "function": "100 nf 50 v x7r 0603 capacitor",
+      "owner_skill": "component-cc0603krx7r9bb104",
+      "line_id": "line-cc0603krx7r9bb104",
+      "record_id": "rec-cc0603krx7r9bb104",
+      "supplier_url": "https://jlcpcb.com/partdetail/C14663",
+      "identity_snapshots": [
+        {
+          "path": "engineering/a5/passive_evidence/C14663.snapshot.json",
+          "sha256": "b7a22882d30bc82576e7e4c2cc52bead852c27f19e05bd36795dc23536d2c1c0",
+          "componentCode": "C14663",
+          "componentModelEn": "CC0603KRX7R9BB104",
+          "componentBrandEn": "YAGEO",
+          "componentSpecificationEn": "0603",
+          "observed_utc": "2026-11-05T20:18:21.685026+00:00",
+          "url": "https://jlcpcb.com/partdetail/C14663",
+          "recorded_html_sha256": "a97218885bb61f7f360c3a83ecc99546532ab1e695fffeb0e47ae892a0e2328c"
+        }
+      ],
+      "lcsc_listing": {
+        "sku": "C14663",
+        "mpn": "CC0603KRX7R9BB104",
+        "brand": "YAGEO",
+        "html_sha256": "722bef1e8bcdce6889dc9eb872e235951ee884975740f6b9770a6161a6d0a509"
+      },
+      "spelling_discrepancies": [],
+      "footprints": [
+        "LightBlock:C0603"
+      ],
+      "symbol": "LightBlock:C",
+      "unique_placements": 12,
+      "physical_pieces": 16,
+      "placements": [
+        {
+          "board": "controller",
+          "refdes": "C4",
+          "board_copies": 1,
+          "value": "100n",
+          "footprint": "LightBlock:C0603",
+          "symbol": "LightBlock:C",
+          "pins": [
+            {
+              "num": "1",
+              "name": "1",
+              "type": "passive",
+              "net": "/BUCK_BST"
+            },
+            {
+              "num": "2",
+              "name": "2",
+              "type": "passive",
+              "net": "/BUCK_SW"
+            }
+          ]
+        },
+        {
+          "board": "controller",
+          "refdes": "C8",
+          "board_copies": 1,
+          "value": "100n",
+          "footprint": "LightBlock:C0603",
+          "symbol": "LightBlock:C",
+          "pins": [
+            {
+              "num": "1",
+              "name": "1",
+              "type": "passive",
+              "net": "/+3V3"
+            },
+            {
+              "num": "2",
+              "name": "2",
+              "type": "passive",
+              "net": "/GND"
+            }
+          ]
+        },
+        {
+          "board": "controller",
+          "refdes": "C9",
+          "board_copies": 1,
+          "value": "100n",
+          "footprint": "LightBlock:C0603",
+          "symbol": "LightBlock:C",
+          "pins": [
+            {
+              "num": "1",
+              "name": "1",
+              "type": "passive",
+              "net": "/+3V3"
+            },
+            {
+              "num": "2",
+              "name": "2",
+              "type": "passive",
+              "net": "/GND"
+            }
+          ]
+        },
+        {
+          "board": "controller",
+          "refdes": "C10",
+          "board_copies": 1,
+          "value": "100n",
+          "footprint": "LightBlock:C0603",
+          "symbol": "LightBlock:C",
+          "pins": [
+            {
+              "num": "1",
+              "name": "1",
+              "type": "passive",
+              "net": "/VLED"
+            },
+            {
+              "num": "2",
+              "name": "2",
+              "type": "passive",
+              "net": "/GND"
+            }
+          ]
+        },
+        {
+          "board": "controller",
+          "refdes": "C11",
+          "board_copies": 1,
+          "value": "100n",
+          "footprint": "LightBlock:C0603",
+          "symbol": "LightBlock:C",
+          "pins": [
+            {
+              "num": "1",
+              "name": "1",
+              "type": "passive",
+              "net": "/+12V_PROT"
+            },
+            {
+              "num": "2",
+              "name": "2",
+              "type": "passive",
+              "net": "/GND"
+            }
+          ]
+        },
+        {
+          "board": "controller",
+          "refdes": "C12",
+          "board_copies": 1,
+          "value": "100n",
+          "footprint": "LightBlock:C0603",
+          "symbol": "LightBlock:C",
+          "pins": [
+            {
+              "num": "1",
+              "name": "1",
+              "type": "passive",
+              "net": "/GND"
+            },
+            {
+              "num": "2",
+              "name": "2",
+              "type": "passive",
+              "net": "/-12V_PROT"
+            }
+          ]
+        },
+        {
+          "board": "controller",
+          "refdes": "C14",
+          "board_copies": 1,
+          "value": "100n",
+          "footprint": "LightBlock:C0603",
+          "symbol": "LightBlock:C",
+          "pins": [
+            {
+              "num": "1",
+              "name": "1",
+              "type": "passive",
+              "net": "/NRST"
+            },
+            {
+              "num": "2",
+              "name": "2",
+              "type": "passive",
+              "net": "/GND"
+            }
+          ]
+        },
+        {
+          "board": "controller",
+          "refdes": "C17",
+          "board_copies": 1,
+          "value": "100n",
+          "footprint": "LightBlock:C0603",
+          "symbol": "LightBlock:C",
+          "pins": [
+            {
+              "num": "1",
+              "name": "1",
+              "type": "passive",
+              "net": "/+3V3"
+            },
+            {
+              "num": "2",
+              "name": "2",
+              "type": "passive",
+              "net": "/GND"
+            }
+          ]
+        },
+        {
+          "board": "led_leaf",
+          "refdes": "C1",
+          "board_copies": 2,
+          "value": "100n 50V X7R",
+          "footprint": "LightBlock:C0603",
+          "symbol": "LightBlock:C",
+          "pins": [
+            {
+              "num": "1",
+              "name": "1",
+              "type": "passive",
+              "net": "/VLED"
+            },
+            {
+              "num": "2",
+              "name": "2",
+              "type": "passive",
+              "net": "/GND"
+            }
+          ]
+        },
+        {
+          "board": "led_leaf",
+          "refdes": "C2",
+          "board_copies": 2,
+          "value": "100n 50V X7R",
+          "footprint": "LightBlock:C0603",
+          "symbol": "LightBlock:C",
+          "pins": [
+            {
+              "num": "1",
+              "name": "1",
+              "type": "passive",
+              "net": "/VLED"
+            },
+            {
+              "num": "2",
+              "name": "2",
+              "type": "passive",
+              "net": "/GND"
+            }
+          ]
+        },
+        {
+          "board": "led_leaf",
+          "refdes": "C3",
+          "board_copies": 2,
+          "value": "100n 50V X7R",
+          "footprint": "LightBlock:C0603",
+          "symbol": "LightBlock:C",
+          "pins": [
+            {
+              "num": "1",
+              "name": "1",
+              "type": "passive",
+              "net": "/VLED"
+            },
+            {
+              "num": "2",
+              "name": "2",
+              "type": "passive",
+              "net": "/GND"
+            }
+          ]
+        },
+        {
+          "board": "led_leaf",
+          "refdes": "C4",
+          "board_copies": 2,
+          "value": "100n 50V X7R",
+          "footprint": "LightBlock:C0603",
+          "symbol": "LightBlock:C",
+          "pins": [
+            {
+              "num": "1",
+              "name": "1",
+              "type": "passive",
+              "net": "/VLED"
+            },
+            {
+              "num": "2",
+              "name": "2",
+              "type": "passive",
+              "net": "/GND"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "lcsc": "C15741",
+      "manufacturer": "Texas Instruments",
+      "mpn": "SN74LVC2T45DCUR",
+      "package": "VSSOP-8",
+      "role_ja": "LED用2chレベル変換 / U5",
+      "function": "two-channel led data level translator",
+      "owner_skill": "component-sn74lvc2t45dcur",
+      "line_id": "line-sn74lvc2t45dcur",
+      "record_id": "rec-sn74lvc2t45dcur",
+      "supplier_url": "https://jlcpcb.com/partdetail/TexasInstruments-SN74LVC2T45DCUR/C15741",
+      "identity_snapshots": [
+        {
+          "path": "engineering/a5/ic_led_evidence/C15741.snapshot.json",
+          "sha256": "2d1429984232f8d4535184f0393e758a9f83224a813ffa0f1a61c561044c2afc",
+          "componentCode": "C15741",
+          "componentModelEn": "SN74LVC2T45DCUR",
+          "componentBrandEn": "Texas Instruments",
+          "componentSpecificationEn": "VSSOP-8",
+          "observed_utc": "2026-11-05T20:18:05.476768+00:00",
+          "url": "https://jlcpcb.com/partdetail/TexasInstruments-SN74LVC2T45DCUR/C15741",
+          "recorded_html_sha256": "85ba306ad2763bedce46bd9eac0778425fa93b9f9e9807fe53d056f00a127fb3"
+        }
+      ],
+      "lcsc_listing": {
+        "sku": "C15741",
+        "mpn": "SN74LVC2T45DCUR",
+        "brand": "TI",
+        "html_sha256": "56277cba52a00a7466ac4d056404ac8dbf56fc26304baba8164e0781960c9ae9"
+      },
+      "spelling_discrepancies": [],
+      "footprints": [
+        "LightBlock:DCU8"
+      ],
+      "symbol": "LightBlock:XLAT",
+      "unique_placements": 1,
+      "physical_pieces": 1,
+      "placements": [
+        {
+          "board": "controller",
+          "refdes": "U5",
+          "board_copies": 1,
+          "value": "SN74LVC2T45",
+          "footprint": "LightBlock:DCU8",
+          "symbol": "LightBlock:XLAT",
+          "pins": [
+            {
+              "num": "1",
+              "name": "VCCA",
+              "type": "power_in",
+              "net": "/+3V3"
+            },
+            {
+              "num": "2",
+              "name": "A1",
+              "type": "bidirectional",
+              "net": "/DATA_L_3V3"
+            },
+            {
+              "num": "3",
+              "name": "A2",
+              "type": "bidirectional",
+              "net": "/DATA_R_3V3"
+            },
+            {
+              "num": "4",
+              "name": "GND",
+              "type": "power_in",
+              "net": "/GND"
+            },
+            {
+              "num": "5",
+              "name": "DIR",
+              "type": "input",
+              "net": "/+3V3"
+            },
+            {
+              "num": "6",
+              "name": "B2",
+              "type": "bidirectional",
+              "net": "/DATA_R_5V"
+            },
+            {
+              "num": "7",
+              "name": "B1",
+              "type": "bidirectional",
+              "net": "/DATA_L_5V"
+            },
+            {
+              "num": "8",
+              "name": "VCCB",
+              "type": "power_in",
+              "net": "/VLED"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "lcsc": "C15850",
+      "manufacturer": "Samsung Electro-Mechanics",
+      "mpn": "CL21A106KAYNNNE",
+      "package": "0805",
+      "role_ja": "10 µF 25 V X5R / C1,C15,C16",
+      "function": "10 uf 25 v x5r 0805 capacitor",
+      "owner_skill": "component-cl21a106kaynnne",
+      "line_id": "line-cl21a106kaynnne",
+      "record_id": "rec-cl21a106kaynnne",
+      "supplier_url": "https://jlcpcb.com/partdetail/C15850",
+      "identity_snapshots": [
+        {
+          "path": "engineering/a5/passive_evidence/C15850.snapshot.json",
+          "sha256": "1432c99b49570584f25d3ef8b2563d617243d445b63b6e3802eb72a15a7a78b9",
+          "componentCode": "C15850",
+          "componentModelEn": "CL21A106KAYNNNE",
+          "componentBrandEn": "Samsung Electro-Mechanics",
+          "componentSpecificationEn": "0805",
+          "observed_utc": "2026-11-05T20:20:48.594748+00:00",
+          "url": "https://jlcpcb.com/partdetail/C15850",
+          "recorded_html_sha256": "d314f902b228df16b24b95246f7489ff2c8246fa731541c78982e235dbdf5e18"
+        }
+      ],
+      "lcsc_listing": {
+        "sku": "C15850",
+        "mpn": "CL21A106KAYNNNE",
+        "brand": "Samsung Electro-Mechanics",
+        "html_sha256": "c24d8ce934d30a1a27d66b751911758623d778701b8656f11df43f7dcb082701"
+      },
+      "spelling_discrepancies": [],
+      "footprints": [
+        "LightBlock:C0805"
+      ],
+      "symbol": "LightBlock:C",
+      "unique_placements": 3,
+      "physical_pieces": 3,
+      "placements": [
+        {
+          "board": "controller",
+          "refdes": "C1",
+          "board_copies": 1,
+          "value": "10u",
+          "footprint": "LightBlock:C0805",
+          "symbol": "LightBlock:C",
+          "pins": [
+            {
+              "num": "1",
+              "name": "1",
+              "type": "passive",
+              "net": "/+12V_PROT"
+            },
+            {
+              "num": "2",
+              "name": "2",
+              "type": "passive",
+              "net": "/GND"
+            }
+          ]
+        },
+        {
+          "board": "controller",
+          "refdes": "C15",
+          "board_copies": 1,
+          "value": "10u",
+          "footprint": "LightBlock:C0805",
+          "symbol": "LightBlock:C",
+          "pins": [
+            {
+              "num": "1",
+              "name": "1",
+              "type": "passive",
+              "net": "/+5V"
+            },
+            {
+              "num": "2",
+              "name": "2",
+              "type": "passive",
+              "net": "/GND"
+            }
+          ]
+        },
+        {
+          "board": "controller",
+          "refdes": "C16",
+          "board_copies": 1,
+          "value": "10u",
+          "footprint": "LightBlock:C0805",
+          "symbol": "LightBlock:C",
+          "pins": [
+            {
+              "num": "1",
+              "name": "1",
+              "type": "passive",
+              "net": "/VLED"
+            },
+            {
+              "num": "2",
+              "name": "2",
+              "type": "passive",
+              "net": "/GND"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "lcsc": "C160404",
+      "manufacturer": "JST",
+      "mpn": "SM04B-SRSS-TB(LF)(SN)",
+      "package": "SMD,P=1mm,Surface Mount，Right Angle",
+      "role_ja": "LED用SH4ヘッダ / 制御1＋LED4",
+      "function": "four-pin led harness header",
+      "owner_skill": "component-sm04b-srss-tb-lf-sn",
+      "line_id": "line-sm04b-srss-tb-lf-sn",
+      "record_id": "rec-sm04b-srss-tb-lf-sn",
+      "supplier_url": "https://jlcpcb.com/partdetail/Jst-SM04B_SRSS_TB_LF_SN/C160404",
+      "identity_snapshots": [
+        {
+          "path": "engineering/a5/mechanical_evidence/C160404.snapshot.json",
+          "sha256": "93809e0f7b62e1e9f1af1b4453585d1eba2c36eeb91ea24e48d1531dff841cbc",
+          "componentCode": "C160404",
+          "componentModelEn": "SM04B-SRSS-TB(LF)(SN)",
+          "componentBrandEn": "JST",
+          "componentSpecificationEn": "SMD,P=1mm,Surface Mount，Right Angle",
+          "observed_utc": "2026-11-05T20:26:12.021553+00:00",
+          "url": "https://jlcpcb.com/partdetail/Jst-SM04B_SRSS_TB_LF_SN/C160404",
+          "recorded_html_sha256": "ddba96cbd88e64fff36fb0fc37776051893def04b79ae74fca1f072f9dbc1b06"
+        }
+      ],
+      "lcsc_listing": {
+        "sku": "C160404",
+        "mpn": "SM04B-SRSS-TB(LF)(SN)",
+        "brand": "JST",
+        "html_sha256": "9c9a69c174eef1f441803d9c3d290064f607460288eaf622b59e85f1d4df5165"
+      },
+      "spelling_discrepancies": [],
+      "footprints": [
+        "LightBlock:JST_SH4"
+      ],
+      "symbol": "LightBlock:SH4",
+      "unique_placements": 3,
+      "physical_pieces": 5,
+      "placements": [
+        {
+          "board": "controller",
+          "refdes": "J3",
+          "board_copies": 1,
+          "value": "DUAL LED G / 5 / L / R",
+          "footprint": "LightBlock:JST_SH4",
+          "symbol": "LightBlock:SH4",
+          "pins": [
+            {
+              "num": "1",
+              "name": "GND",
+              "type": "passive",
+              "net": "/GND"
+            },
+            {
+              "num": "2",
+              "name": "VLED",
+              "type": "passive",
+              "net": "/VLED"
+            },
+            {
+              "num": "3",
+              "name": "DATA_A",
+              "type": "passive",
+              "net": "/DATA_L"
+            },
+            {
+              "num": "4",
+              "name": "DATA_B",
+              "type": "passive",
+              "net": "/DATA_R"
+            }
+          ]
+        },
+        {
+          "board": "led_leaf",
+          "refdes": "J1",
+          "board_copies": 2,
+          "value": "INPUT G / 5 / THIS / OTHER",
+          "footprint": "LightBlock:JST_SH4",
+          "symbol": "LightBlock:SH4",
+          "pins": [
+            {
+              "num": "1",
+              "name": "GND",
+              "type": "passive",
+              "net": "/GND"
+            },
+            {
+              "num": "2",
+              "name": "VLED",
+              "type": "passive",
+              "net": "/VLED"
+            },
+            {
+              "num": "3",
+              "name": "DATA_A",
+              "type": "passive",
+              "net": "/DATA_IN"
+            },
+            {
+              "num": "4",
+              "name": "DATA_B",
+              "type": "passive",
+              "net": "/DATA_OTHER"
+            }
+          ]
+        },
+        {
+          "board": "led_leaf",
+          "refdes": "J2",
+          "board_copies": 2,
+          "value": "BRIDGE G / 5 / OTHER / THIS",
+          "footprint": "LightBlock:JST_SH4",
+          "symbol": "LightBlock:SH4",
+          "pins": [
+            {
+              "num": "1",
+              "name": "GND",
+              "type": "passive",
+              "net": "/GND"
+            },
+            {
+              "num": "2",
+              "name": "VLED",
+              "type": "passive",
+              "net": "/VLED"
+            },
+            {
+              "num": "3",
+              "name": "DATA_A",
+              "type": "passive",
+              "net": "/DATA_OTHER"
+            },
+            {
+              "num": "4",
+              "name": "DATA_B",
+              "type": "passive",
+              "net": "/DATA_IN"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "lcsc": "C19666",
+      "manufacturer": "Samsung Electro-Mechanics",
+      "mpn": "CL10A475KO8NNNC",
+      "package": "0603",
+      "role_ja": "4.7 µF 16 V X5R / C5,C6,C7",
+      "function": "4.7 uf 16 v x5r 0603 capacitor",
+      "owner_skill": "component-cl10a475ko8nnnc",
+      "line_id": "line-cl10a475ko8nnnc",
+      "record_id": "rec-cl10a475ko8nnnc",
+      "supplier_url": "https://jlcpcb.com/partdetail/C19666",
+      "identity_snapshots": [
+        {
+          "path": "engineering/a5/passive_evidence/C19666.snapshot.json",
+          "sha256": "d59d7c1e6831b6d1e7ca6f02f8457bfedf17ba7e7b499bb84fa24d955b118ac6",
+          "componentCode": "C19666",
+          "componentModelEn": "CL10A475KO8NNNC",
+          "componentBrandEn": "Samsung Electro-Mechanics",
+          "componentSpecificationEn": "0603",
+          "observed_utc": "2026-11-05T20:20:48.632895+00:00",
+          "url": "https://jlcpcb.com/partdetail/C19666",
+          "recorded_html_sha256": "fb14a1911b7bea4a0a0f3b33398dfaeb2406a3be98bef226f6eddbba73d3c293"
+        }
+      ],
+      "lcsc_listing": {
+        "sku": "C19666",
+        "mpn": "CL10A475KO8NNNC",
+        "brand": "Samsung Electro-Mechanics",
+        "html_sha256": "4efc5d71150f424ed8cd0320f7963c58cc806b7f808e29bcfd46fb4f27cbf511"
+      },
+      "spelling_discrepancies": [],
+      "footprints": [
+        "LightBlock:C0603"
+      ],
+      "symbol": "LightBlock:C",
+      "unique_placements": 3,
+      "physical_pieces": 3,
+      "placements": [
+        {
+          "board": "controller",
+          "refdes": "C5",
+          "board_copies": 1,
+          "value": "4.7u",
+          "footprint": "LightBlock:C0603",
+          "symbol": "LightBlock:C",
+          "pins": [
+            {
+              "num": "1",
+              "name": "1",
+              "type": "passive",
+              "net": "/+5V"
+            },
+            {
+              "num": "2",
+              "name": "2",
+              "type": "passive",
+              "net": "/GND"
+            }
+          ]
+        },
+        {
+          "board": "controller",
+          "refdes": "C6",
+          "board_copies": 1,
+          "value": "4.7u",
+          "footprint": "LightBlock:C0603",
+          "symbol": "LightBlock:C",
+          "pins": [
+            {
+              "num": "1",
+              "name": "1",
+              "type": "passive",
+              "net": "/+3V3"
+            },
+            {
+              "num": "2",
+              "name": "2",
+              "type": "passive",
+              "net": "/GND"
+            }
+          ]
+        },
+        {
+          "board": "controller",
+          "refdes": "C7",
+          "board_copies": 1,
+          "value": "4.7u",
+          "footprint": "LightBlock:C0603",
+          "symbol": "LightBlock:C",
+          "pins": [
+            {
+              "num": "1",
+              "name": "1",
+              "type": "passive",
+              "net": "/+3V3"
+            },
+            {
+              "num": "2",
+              "name": "2",
+              "type": "passive",
+              "net": "/GND"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "lcsc": "C20526",
+      "manufacturer": "Jiangsu Changjing Electronics Technology Co., Ltd.",
+      "mpn": "MMBT3904(RANGE:100-300)",
+      "package": "SOT-23",
+      "role_ja": "EN反転NPN / Q1",
+      "function": "enable inverter npn transistor",
+      "owner_skill": "component-mmbt3904-range-100-300",
+      "line_id": "line-mmbt3904-range-100-300",
+      "record_id": "rec-mmbt3904-range-100-300",
+      "supplier_url": "https://jlcpcb.com/partdetail/21237-MMBT3904/C20526",
+      "identity_snapshots": [
+        {
+          "path": "engineering/a5/ic_led_evidence/C20526.snapshot.json",
+          "sha256": "2accf5866d5a69f40d9abc56c5922d414e1a20c41c265d062f2440d54c23d3b8",
+          "componentCode": "C20526",
+          "componentModelEn": "MMBT3904(RANGE:100-300)",
+          "componentBrandEn": "Jiangsu Changjing Electronics Technology Co., Ltd.",
+          "componentSpecificationEn": "SOT-23",
+          "observed_utc": "2026-11-05T20:33:13.101022+00:00",
+          "url": "https://jlcpcb.com/partdetail/21237-MMBT3904/C20526",
+          "recorded_html_sha256": "f8459b04e5d50cec34ff5fe47811a2d063b322f5b672a2e8f5b218824d695c72"
+        }
+      ],
+      "lcsc_listing": {
+        "sku": "C20526",
+        "mpn": "MMBT3904(RANGE:100-300)",
+        "brand": "JSCJ",
+        "html_sha256": "25a9ef6ea9125d9b5473cda0bdb592bf3193a17ef7eca543a43095af64ebfedd"
+      },
+      "spelling_discrepancies": [],
+      "footprints": [
+        "LightBlock:SOT23"
+      ],
+      "symbol": "LightBlock:NPN",
+      "unique_placements": 1,
+      "physical_pieces": 1,
+      "placements": [
+        {
+          "board": "controller",
+          "refdes": "Q1",
+          "board_copies": 1,
+          "value": "MMBT3904",
+          "footprint": "LightBlock:SOT23",
+          "symbol": "LightBlock:NPN",
+          "pins": [
+            {
+              "num": "1",
+              "name": "B",
+              "type": "passive",
+              "net": "/LED_BASE"
+            },
+            {
+              "num": "2",
+              "name": "E",
+              "type": "passive",
+              "net": "/GND"
+            },
+            {
+              "num": "3",
+              "name": "C",
+              "type": "passive",
+              "net": "/LED_EN_N"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "lcsc": "C2071056",
+      "manufacturer": "Diodes Incorporated",
+      "mpn": "AP63205WU-7",
+      "package": "TSOT-23-6",
+      "role_ja": "5 V降圧 / U2",
+      "function": "fixed 5 v buck converter",
+      "owner_skill": "component-ap63205wu-7",
+      "line_id": "line-ap63205wu-7",
+      "record_id": "rec-ap63205wu-7",
+      "supplier_url": "https://jlcpcb.com/partdetail/AP63205WU-7/C2071056",
+      "identity_snapshots": [
+        {
+          "path": "engineering/a5/ic_led_evidence/C2071056.snapshot.json",
+          "sha256": "1ac7170bb73b19de963e93805d9aac963ab07407f89bb0a05f66e11d96903fec",
+          "componentCode": "C2071056",
+          "componentModelEn": "AP63205WU-7",
+          "componentBrandEn": "Diodes Incorporated",
+          "componentSpecificationEn": "TSOT-23-6",
+          "observed_utc": "2026-11-05T20:15:49.716982+00:00",
+          "url": "https://jlcpcb.com/partdetail/AP63205WU-7/C2071056",
+          "recorded_html_sha256": "3391d68858bdcd93b584ed71d53fe64304b833c53c1e48ff8358e9b1b7bc34a5"
+        }
+      ],
+      "lcsc_listing": {
+        "sku": "C2071056",
+        "mpn": "AP63205WU-7",
+        "brand": "DIODES",
+        "html_sha256": "895f12b1afc413c6562514eaf5e67060efc61bd3a614b23a689948d71f8503c4"
+      },
+      "spelling_discrepancies": [],
+      "footprints": [
+        "LightBlock:TSOT26"
+      ],
+      "symbol": "LightBlock:BUCK",
+      "unique_placements": 1,
+      "physical_pieces": 1,
+      "placements": [
+        {
+          "board": "controller",
+          "refdes": "U2",
+          "board_copies": 1,
+          "value": "AP63205 fixed 5V",
+          "footprint": "LightBlock:TSOT26",
+          "symbol": "LightBlock:BUCK",
+          "pins": [
+            {
+              "num": "1",
+              "name": "FB",
+              "type": "input",
+              "net": "/+5V"
+            },
+            {
+              "num": "2",
+              "name": "EN",
+              "type": "input",
+              "net": "/+12V_PROT"
+            },
+            {
+              "num": "3",
+              "name": "VIN",
+              "type": "power_in",
+              "net": "/+12V_PROT"
+            },
+            {
+              "num": "4",
+              "name": "GND",
+              "type": "power_in",
+              "net": "/GND"
+            },
+            {
+              "num": "5",
+              "name": "SW",
+              "type": "power_out",
+              "net": "/BUCK_SW"
+            },
+            {
+              "num": "6",
+              "name": "BST",
+              "type": "passive",
+              "net": "/BUCK_BST"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "lcsc": "C21190",
+      "manufacturer": "UNI-ROYAL(Uniroyal Elec)",
+      "mpn": "0603WAF1001T5E",
+      "package": "0603",
+      "role_ja": "1 kΩ 1% / R7,R8,R25",
+      "function": "1 kilohm 0603 resistor",
+      "owner_skill": "component-0603waf1001t5e",
+      "line_id": "line-0603waf1001t5e",
+      "record_id": "rec-uniroyal-0603waf1001t5e",
+      "supplier_url": "https://jlcpcb.com/partdetail/C21190",
+      "identity_snapshots": [
+        {
+          "path": "engineering/a5/passive_evidence/C21190.snapshot.json",
+          "sha256": "df1313b592c428f3812292ac3658230beb4d7c8a4f094e10d7062d917f6d17ad",
+          "componentCode": "C21190",
+          "componentModelEn": "0603WAF1001T5E",
+          "componentBrandEn": "UNI-ROYAL(Uniroyal Elec)",
+          "componentSpecificationEn": "0603",
+          "observed_utc": "2026-11-05T20:20:29.368750+00:00",
+          "url": "https://jlcpcb.com/partdetail/C21190",
+          "recorded_html_sha256": "4b58069e7a8d6bbc5070bac31cb2648c1b765ada1631f582394321b1ed96cb45"
+        }
+      ],
+      "lcsc_listing": {
+        "sku": "C21190",
+        "mpn": "0603WAF1001T5E",
+        "brand": "UNI-ROYAL",
+        "html_sha256": "8a85a3414f8c7a8b2b2f50a35dbf519c4954815d195a001d16754f40355db6b5"
+      },
+      "spelling_discrepancies": [],
+      "footprints": [
+        "LightBlock:R0603"
+      ],
+      "symbol": "LightBlock:R",
+      "unique_placements": 3,
+      "physical_pieces": 3,
+      "placements": [
+        {
+          "board": "controller",
+          "refdes": "R7",
+          "board_copies": 1,
+          "value": "1k 1%",
+          "footprint": "LightBlock:R0603",
+          "symbol": "LightBlock:R",
+          "pins": [
+            {
+              "num": "1",
+              "name": "1",
+              "type": "passive",
+              "net": "/CV_AFFINE"
+            },
+            {
+              "num": "2",
+              "name": "2",
+              "type": "passive",
+              "net": "/CV_FILTER"
+            }
+          ]
+        },
+        {
+          "board": "controller",
+          "refdes": "R8",
+          "board_copies": 1,
+          "value": "1k 1%",
+          "footprint": "LightBlock:R0603",
+          "symbol": "LightBlock:R",
+          "pins": [
+            {
+              "num": "1",
+              "name": "1",
+              "type": "passive",
+              "net": "/+3V3"
+            },
+            {
+              "num": "2",
+              "name": "2",
+              "type": "passive",
+              "net": "/GND"
+            }
+          ]
+        },
+        {
+          "board": "controller",
+          "refdes": "R25",
+          "board_copies": 1,
+          "value": "1k 1%",
+          "footprint": "LightBlock:R0603",
+          "symbol": "LightBlock:R",
+          "pins": [
+            {
+              "num": "1",
+              "name": "1",
+              "type": "passive",
+              "net": "/CV_ADC"
+            },
+            {
+              "num": "2",
+              "name": "2",
+              "type": "passive",
+              "net": "/GND"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "lcsc": "C221351",
+      "manufacturer": "Texas Instruments",
+      "mpn": "OPA197IDBVR",
+      "package": "SOT-23-5",
+      "role_ja": "CVバッファ / U6",
+      "function": "cv input buffer amplifier",
+      "owner_skill": "component-opa197idbvr",
+      "line_id": "line-opa197idbvr",
+      "record_id": "rec-opa197idbvr",
+      "supplier_url": "https://jlcpcb.com/partdetail/TexasInstruments-OPA197IDBVR/C221351",
+      "identity_snapshots": [
+        {
+          "path": "engineering/a5/ic_led_evidence/C221351.snapshot.json",
+          "sha256": "3b2ad612e0d8e8336ec05e2bbef7fc85b2167695d97b9b4a9edff2d993b940d5",
+          "componentCode": "C221351",
+          "componentModelEn": "OPA197IDBVR",
+          "componentBrandEn": "Texas Instruments",
+          "componentSpecificationEn": "SOT-23-5",
+          "observed_utc": "2026-11-05T20:18:04.816720+00:00",
+          "url": "https://jlcpcb.com/partdetail/TexasInstruments-OPA197IDBVR/C221351",
+          "recorded_html_sha256": "bac806b3a1121fffd49c55578cb8e5904424ce29047b72b220c3823f30166f3b"
+        }
+      ],
+      "lcsc_listing": {
+        "sku": "C221351",
+        "mpn": "OPA197IDBVR",
+        "brand": "TI",
+        "html_sha256": "1bf60742ea5d0a2a8f287b9a04a7a5d1dab79a7c7957bdb31c5816839e9c8761"
+      },
+      "spelling_discrepancies": [],
+      "footprints": [
+        "LightBlock:DBV5"
+      ],
+      "symbol": "LightBlock:OPA",
+      "unique_placements": 1,
+      "physical_pieces": 1,
+      "placements": [
+        {
+          "board": "controller",
+          "refdes": "U6",
+          "board_copies": 1,
+          "value": "OPA197 unity",
+          "footprint": "LightBlock:DBV5",
+          "symbol": "LightBlock:OPA",
+          "pins": [
+            {
+              "num": "1",
+              "name": "OUT",
+              "type": "output",
+              "net": "/CV_BUF"
+            },
+            {
+              "num": "2",
+              "name": "V-",
+              "type": "power_in",
+              "net": "/-12V_PROT"
+            },
+            {
+              "num": "3",
+              "name": "IN+",
+              "type": "input",
+              "net": "/CV_SENSE"
+            },
+            {
+              "num": "4",
+              "name": "IN-",
+              "type": "input",
+              "net": "/CV_BUF"
+            },
+            {
+              "num": "5",
+              "name": "V+",
+              "type": "power_in",
+              "net": "/+12V_PROT"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "lcsc": "C23138",
+      "manufacturer": "UNI-ROYAL(Uniroyal Elec)",
+      "mpn": "0603WAF3300T5E",
+      "package": "0603",
+      "role_ja": "330 Ω 1% / R14,R15,R24",
+      "function": "330 ohm 0603 resistor",
+      "owner_skill": "component-0603waf3300t5e",
+      "line_id": "line-0603waf3300t5e",
+      "record_id": "rec-uniroyal-0603waf3300t5e",
+      "supplier_url": "https://jlcpcb.com/partdetail/C23138",
+      "identity_snapshots": [
+        {
+          "path": "engineering/a5/passive_evidence/C23138.snapshot.json",
+          "sha256": "6d8e17437e6dc1c0d94c07826dbd83fc3b16cc9950b2a0bfab8601a8a099f9f6",
+          "componentCode": "C23138",
+          "componentModelEn": "0603WAF3300T5E",
+          "componentBrandEn": "UNI-ROYAL(Uniroyal Elec)",
+          "componentSpecificationEn": "0603",
+          "observed_utc": "2026-11-05T20:20:36.048303+00:00",
+          "url": "https://jlcpcb.com/partdetail/C23138",
+          "recorded_html_sha256": "1016c4309011931b6f55429e768e89c124b981e28b01b892fa5f28288955db74"
+        }
+      ],
+      "lcsc_listing": {
+        "sku": "C23138",
+        "mpn": "0603WAF3300T5E",
+        "brand": "UNI-ROYAL",
+        "html_sha256": "66b2fa8549a14e578a01050ef83edddf3fc8fb00294a707314487286e489bf0c"
+      },
+      "spelling_discrepancies": [],
+      "footprints": [
+        "LightBlock:R0603"
+      ],
+      "symbol": "LightBlock:R",
+      "unique_placements": 3,
+      "physical_pieces": 3,
+      "placements": [
+        {
+          "board": "controller",
+          "refdes": "R14",
+          "board_copies": 1,
+          "value": "330 1%",
+          "footprint": "LightBlock:R0603",
+          "symbol": "LightBlock:R",
+          "pins": [
+            {
+              "num": "1",
+              "name": "1",
+              "type": "passive",
+              "net": "/DATA_L_5V"
+            },
+            {
+              "num": "2",
+              "name": "2",
+              "type": "passive",
+              "net": "/DATA_L"
+            }
+          ]
+        },
+        {
+          "board": "controller",
+          "refdes": "R15",
+          "board_copies": 1,
+          "value": "330 1%",
+          "footprint": "LightBlock:R0603",
+          "symbol": "LightBlock:R",
+          "pins": [
+            {
+              "num": "1",
+              "name": "1",
+              "type": "passive",
+              "net": "/DATA_R_5V"
+            },
+            {
+              "num": "2",
+              "name": "2",
+              "type": "passive",
+              "net": "/DATA_R"
+            }
+          ]
+        },
+        {
+          "board": "controller",
+          "refdes": "R24",
+          "board_copies": 1,
+          "value": "330 1%",
+          "footprint": "LightBlock:R0603",
+          "symbol": "LightBlock:R",
+          "pins": [
+            {
+              "num": "1",
+              "name": "1",
+              "type": "passive",
+              "net": "/CV_DRIVE"
+            },
+            {
+              "num": "2",
+              "name": "2",
+              "type": "passive",
+              "net": "/CV_ADC"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "lcsc": "C23162",
+      "manufacturer": "UNI-ROYAL(Uniroyal Elec)",
+      "mpn": "0603WAF4701T5E",
+      "package": "0603",
+      "role_ja": "4.7 kΩ 1% / R20",
+      "function": "4.7 kilohm 0603 resistor",
+      "owner_skill": "component-0603waf4701t5e",
+      "line_id": "line-0603waf4701t5e",
+      "record_id": "rec-uniroyal-0603waf4701t5e",
+      "supplier_url": "https://jlcpcb.com/partdetail/C23162",
+      "identity_snapshots": [
+        {
+          "path": "engineering/a5/passive_evidence/C23162.snapshot.json",
+          "sha256": "ad0e00738af82d2d5cbff31c303cbc0384462e483e5eb68c5b61bbba32b8e5bf",
+          "componentCode": "C23162",
+          "componentModelEn": "0603WAF4701T5E",
+          "componentBrandEn": "UNI-ROYAL(Uniroyal Elec)",
+          "componentSpecificationEn": "0603",
+          "observed_utc": "2026-11-05T20:20:36.088390+00:00",
+          "url": "https://jlcpcb.com/partdetail/C23162",
+          "recorded_html_sha256": "6be7523428f98b396ed08adb883b78767a97b4cc51872c4f52719c898cbf9b9e"
+        }
+      ],
+      "lcsc_listing": {
+        "sku": "C23162",
+        "mpn": "0603WAF4701T5E",
+        "brand": "UNI-ROYAL",
+        "html_sha256": "1b84658f16d728cd075aff362ab7626d3a7be03bb85644488fd3ccfb811c9aae"
+      },
+      "spelling_discrepancies": [],
+      "footprints": [
+        "LightBlock:R0603"
+      ],
+      "symbol": "LightBlock:R",
+      "unique_placements": 1,
+      "physical_pieces": 1,
+      "placements": [
+        {
+          "board": "controller",
+          "refdes": "R20",
+          "board_copies": 1,
+          "value": "4.7k 1%",
+          "footprint": "LightBlock:R0603",
+          "symbol": "LightBlock:R",
+          "pins": [
+            {
+              "num": "1",
+              "name": "1",
+              "type": "passive",
+              "net": "/VLED"
+            },
+            {
+              "num": "2",
+              "name": "2",
+              "type": "passive",
+              "net": "/GND"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "lcsc": "C23231",
+      "manufacturer": "UNI-ROYAL(Uniroyal Elec)",
+      "mpn": "0603WAF6802T5E",
+      "package": "0603",
+      "role_ja": "68 kΩ 1% / R11",
+      "function": "68 kilohm 0603 resistor",
+      "owner_skill": "component-0603waf6802t5e",
+      "line_id": "line-0603waf6802t5e",
+      "record_id": "rec-uniroyal-0603waf6802t5e",
+      "supplier_url": "https://jlcpcb.com/partdetail/C23231",
+      "identity_snapshots": [
+        {
+          "path": "engineering/a5/passive_evidence/C23231.snapshot.json",
+          "sha256": "38d767f974ee07230b184a8a7fd1e971971d657c873927db58953158d018e3b3",
+          "componentCode": "C23231",
+          "componentModelEn": "0603WAF6802T5E",
+          "componentBrandEn": "UNI-ROYAL(Uniroyal Elec)",
+          "componentSpecificationEn": "0603",
+          "observed_utc": "2026-11-05T20:20:42.452356+00:00",
+          "url": "https://jlcpcb.com/partdetail/C23231",
+          "recorded_html_sha256": "f2d2aec74e26068842b59dceeb9dfbafc28246b4923df8152b75e90a843a1530"
+        }
+      ],
+      "lcsc_listing": {
+        "sku": "C23231",
+        "mpn": "0603WAF6802T5E",
+        "brand": "UNI-ROYAL",
+        "html_sha256": "de6881e805ac787efc4716295a924815098c44acd1d68e4ab7e34f8a5cad1f57"
+      },
+      "spelling_discrepancies": [],
+      "footprints": [
+        "LightBlock:R0603"
+      ],
+      "symbol": "LightBlock:R",
+      "unique_placements": 1,
+      "physical_pieces": 1,
+      "placements": [
+        {
+          "board": "controller",
+          "refdes": "R11",
+          "board_copies": 1,
+          "value": "68k 1%",
+          "footprint": "LightBlock:R0603",
+          "symbol": "LightBlock:R",
+          "pins": [
+            {
+              "num": "1",
+              "name": "1",
+              "type": "passive",
+              "net": "/LED_ILIM"
+            },
+            {
+              "num": "2",
+              "name": "2",
+              "type": "passive",
+              "net": "/GND"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "lcsc": "C23254",
+      "manufacturer": "UNI-ROYAL(Uniroyal Elec)",
+      "mpn": "0603WAF8202T5E",
+      "package": "0603",
+      "role_ja": "82 kΩ 1% / R3〜R6",
+      "function": "82 kilohm 0603 resistor",
+      "owner_skill": "component-0603waf8202t5e",
+      "line_id": "line-0603waf8202t5e",
+      "record_id": "rec-uniroyal-0603waf8202t5e",
+      "supplier_url": "https://jlcpcb.com/partdetail/C23254",
+      "identity_snapshots": [
+        {
+          "path": "engineering/a5/passive_evidence/C23254.snapshot.json",
+          "sha256": "413ae55261c70cb8813a500f7a740c3d08ea9eec1f18402400fe017b539327a0",
+          "componentCode": "C23254",
+          "componentModelEn": "0603WAF8202T5E",
+          "componentBrandEn": "UNI-ROYAL(Uniroyal Elec)",
+          "componentSpecificationEn": "0603",
+          "observed_utc": "2026-11-05T20:20:29.768811+00:00",
+          "url": "https://jlcpcb.com/partdetail/C23254",
+          "recorded_html_sha256": "7eef18a837e2c654840b3f01d40fa13ae5c45c4dc57299967f46ddfd9ee1b195"
+        }
+      ],
+      "lcsc_listing": {
+        "sku": "C23254",
+        "mpn": "0603WAF8202T5E",
+        "brand": "UNI-ROYAL",
+        "html_sha256": "b3e4cde2eea119a3487b48881cb75d588a907a6baccfe7d979dbfacf3244c503"
+      },
+      "spelling_discrepancies": [],
+      "footprints": [
+        "LightBlock:R0603"
+      ],
+      "symbol": "LightBlock:R",
+      "unique_placements": 4,
+      "physical_pieces": 4,
+      "placements": [
+        {
+          "board": "controller",
+          "refdes": "R3",
+          "board_copies": 1,
+          "value": "82k 1%",
+          "footprint": "LightBlock:R0603",
+          "symbol": "LightBlock:R",
+          "pins": [
+            {
+              "num": "1",
+              "name": "1",
+              "type": "passive",
+              "net": "/CV_BUF"
+            },
+            {
+              "num": "2",
+              "name": "2",
+              "type": "passive",
+              "net": "/CV_AFFINE"
+            }
+          ]
+        },
+        {
+          "board": "controller",
+          "refdes": "R4",
+          "board_copies": 1,
+          "value": "82k 1%",
+          "footprint": "LightBlock:R0603",
+          "symbol": "LightBlock:R",
+          "pins": [
+            {
+              "num": "1",
+              "name": "1",
+              "type": "passive",
+              "net": "/+3V3"
+            },
+            {
+              "num": "2",
+              "name": "2",
+              "type": "passive",
+              "net": "/CV_AFFINE"
+            }
+          ]
+        },
+        {
+          "board": "controller",
+          "refdes": "R5",
+          "board_copies": 1,
+          "value": "82k 1%",
+          "footprint": "LightBlock:R0603",
+          "symbol": "LightBlock:R",
+          "pins": [
+            {
+              "num": "1",
+              "name": "1",
+              "type": "passive",
+              "net": "/+3V3"
+            },
+            {
+              "num": "2",
+              "name": "2",
+              "type": "passive",
+              "net": "/CV_AFFINE"
+            }
+          ]
+        },
+        {
+          "board": "controller",
+          "refdes": "R6",
+          "board_copies": 1,
+          "value": "82k 1%",
+          "footprint": "LightBlock:R0603",
+          "symbol": "LightBlock:R",
+          "pins": [
+            {
+              "num": "1",
+              "name": "1",
+              "type": "passive",
+              "net": "/CV_AFFINE"
+            },
+            {
+              "num": "2",
+              "name": "2",
+              "type": "passive",
+              "net": "/GND"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "lcsc": "C25803",
+      "manufacturer": "UNI-ROYAL(Uniroyal Elec)",
+      "mpn": "0603WAF1003T5E",
+      "package": "0603",
+      "role_ja": "100 kΩ 1% / R12,R16〜R19,R23",
+      "function": "100 kilohm 0603 resistor",
+      "owner_skill": "component-0603waf1003t5e",
+      "line_id": "line-0603waf1003t5e",
+      "record_id": "rec-uniroyal-0603waf1003t5e",
+      "supplier_url": "https://jlcpcb.com/partdetail/C25803",
+      "identity_snapshots": [
+        {
+          "path": "engineering/a5/passive_evidence/C25803.snapshot.json",
+          "sha256": "8718ea778e98be3cbc1f0f751cd3eaf11157d731c6ac7ba99a1b2a5a7617eba4",
+          "componentCode": "C25803",
+          "componentModelEn": "0603WAF1003T5E",
+          "componentBrandEn": "UNI-ROYAL(Uniroyal Elec)",
+          "componentSpecificationEn": "0603",
+          "observed_utc": "2026-11-05T20:20:35.913280+00:00",
+          "url": "https://jlcpcb.com/partdetail/C25803",
+          "recorded_html_sha256": "abf76039badc60886250ff668d6ddbc4318ac52e87d7745ed890c46bdaeaa690"
+        }
+      ],
+      "lcsc_listing": {
+        "sku": "C25803",
+        "mpn": "0603WAF1003T5E",
+        "brand": "UNI-ROYAL",
+        "html_sha256": "597c7e43974fb6a8390251e28cced8a5db8eae9142dc1c2efcfb25459bb9edf0"
+      },
+      "spelling_discrepancies": [],
+      "footprints": [
+        "LightBlock:R0603"
+      ],
+      "symbol": "LightBlock:R",
+      "unique_placements": 6,
+      "physical_pieces": 6,
+      "placements": [
+        {
+          "board": "controller",
+          "refdes": "R12",
+          "board_copies": 1,
+          "value": "100k 1%",
+          "footprint": "LightBlock:R0603",
+          "symbol": "LightBlock:R",
+          "pins": [
+            {
+              "num": "1",
+              "name": "1",
+              "type": "passive",
+              "net": "/LED_BASE"
+            },
+            {
+              "num": "2",
+              "name": "2",
+              "type": "passive",
+              "net": "/GND"
+            }
+          ]
+        },
+        {
+          "board": "controller",
+          "refdes": "R16",
+          "board_copies": 1,
+          "value": "100k 1%",
+          "footprint": "LightBlock:R0603",
+          "symbol": "LightBlock:R",
+          "pins": [
+            {
+              "num": "1",
+              "name": "1",
+              "type": "passive",
+              "net": "/DATA_L_3V3"
+            },
+            {
+              "num": "2",
+              "name": "2",
+              "type": "passive",
+              "net": "/GND"
+            }
+          ]
+        },
+        {
+          "board": "controller",
+          "refdes": "R17",
+          "board_copies": 1,
+          "value": "100k 1%",
+          "footprint": "LightBlock:R0603",
+          "symbol": "LightBlock:R",
+          "pins": [
+            {
+              "num": "1",
+              "name": "1",
+              "type": "passive",
+              "net": "/DATA_R_3V3"
+            },
+            {
+              "num": "2",
+              "name": "2",
+              "type": "passive",
+              "net": "/GND"
+            }
+          ]
+        },
+        {
+          "board": "controller",
+          "refdes": "R18",
+          "board_copies": 1,
+          "value": "100k 1%",
+          "footprint": "LightBlock:R0603",
+          "symbol": "LightBlock:R",
+          "pins": [
+            {
+              "num": "1",
+              "name": "1",
+              "type": "passive",
+              "net": "/DATA_L"
+            },
+            {
+              "num": "2",
+              "name": "2",
+              "type": "passive",
+              "net": "/GND"
+            }
+          ]
+        },
+        {
+          "board": "controller",
+          "refdes": "R19",
+          "board_copies": 1,
+          "value": "100k 1%",
+          "footprint": "LightBlock:R0603",
+          "symbol": "LightBlock:R",
+          "pins": [
+            {
+              "num": "1",
+              "name": "1",
+              "type": "passive",
+              "net": "/DATA_R"
+            },
+            {
+              "num": "2",
+              "name": "2",
+              "type": "passive",
+              "net": "/GND"
+            }
+          ]
+        },
+        {
+          "board": "controller",
+          "refdes": "R23",
+          "board_copies": 1,
+          "value": "100k 1%",
+          "footprint": "LightBlock:R0603",
+          "symbol": "LightBlock:R",
+          "pins": [
+            {
+              "num": "1",
+              "name": "1",
+              "type": "passive",
+              "net": "/+5V"
+            },
+            {
+              "num": "2",
+              "name": "2",
+              "type": "passive",
+              "net": "/LED_EN_N"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "lcsc": "C25804",
+      "manufacturer": "UNI-ROYAL(Uniroyal Elec)",
+      "mpn": "0603WAF1002T5E",
+      "package": "0603",
+      "role_ja": "10 kΩ 1% / R9,R10,R13,R21,R22",
+      "function": "10 kilohm 0603 resistor",
+      "owner_skill": "component-0603waf1002t5e",
+      "line_id": "line-0603waf1002t5e",
+      "record_id": "rec-uniroyal-0603waf1002t5e",
+      "supplier_url": "https://jlcpcb.com/partdetail/C25804",
+      "identity_snapshots": [
+        {
+          "path": "engineering/a5/passive_evidence/C25804.snapshot.json",
+          "sha256": "0b6f3bb5eca98b95abc368c1ff2bf80ee907330de5d772d16b4e60634ad3b1d6",
+          "componentCode": "C25804",
+          "componentModelEn": "0603WAF1002T5E",
+          "componentBrandEn": "UNI-ROYAL(Uniroyal Elec)",
+          "componentSpecificationEn": "0603",
+          "observed_utc": "2026-11-05T20:20:35.980418+00:00",
+          "url": "https://jlcpcb.com/partdetail/C25804",
+          "recorded_html_sha256": "edc978bc854b3ade74bcaf183c01eb8a2dff756391f2df85b75c6ad08d3b5439"
+        }
+      ],
+      "lcsc_listing": {
+        "sku": "C25804",
+        "mpn": "0603WAF1002T5E",
+        "brand": "UNI-ROYAL",
+        "html_sha256": "646383ce350dfd294f440d97f1aa5304d2ddce3785d1b695483c49f32b672d48"
+      },
+      "spelling_discrepancies": [],
+      "footprints": [
+        "LightBlock:R0603"
+      ],
+      "symbol": "LightBlock:R",
+      "unique_placements": 5,
+      "physical_pieces": 5,
+      "placements": [
+        {
+          "board": "controller",
+          "refdes": "R9",
+          "board_copies": 1,
+          "value": "10k 1%",
+          "footprint": "LightBlock:R0603",
+          "symbol": "LightBlock:R",
+          "pins": [
+            {
+              "num": "1",
+              "name": "1",
+              "type": "passive",
+              "net": "/+3V3"
+            },
+            {
+              "num": "2",
+              "name": "2",
+              "type": "passive",
+              "net": "/MODE_A"
+            }
+          ]
+        },
+        {
+          "board": "controller",
+          "refdes": "R10",
+          "board_copies": 1,
+          "value": "10k 1%",
+          "footprint": "LightBlock:R0603",
+          "symbol": "LightBlock:R",
+          "pins": [
+            {
+              "num": "1",
+              "name": "1",
+              "type": "passive",
+              "net": "/+3V3"
+            },
+            {
+              "num": "2",
+              "name": "2",
+              "type": "passive",
+              "net": "/MODE_B"
+            }
+          ]
+        },
+        {
+          "board": "controller",
+          "refdes": "R13",
+          "board_copies": 1,
+          "value": "10k 1%",
+          "footprint": "LightBlock:R0603",
+          "symbol": "LightBlock:R",
+          "pins": [
+            {
+              "num": "1",
+              "name": "1",
+              "type": "passive",
+              "net": "/+3V3"
+            },
+            {
+              "num": "2",
+              "name": "2",
+              "type": "passive",
+              "net": "/LED_FAULT_N"
+            }
+          ]
+        },
+        {
+          "board": "controller",
+          "refdes": "R21",
+          "board_copies": 1,
+          "value": "10k 1%",
+          "footprint": "LightBlock:R0603",
+          "symbol": "LightBlock:R",
+          "pins": [
+            {
+              "num": "1",
+              "name": "1",
+              "type": "passive",
+              "net": "/+3V3"
+            },
+            {
+              "num": "2",
+              "name": "2",
+              "type": "passive",
+              "net": "/NRST"
+            }
+          ]
+        },
+        {
+          "board": "controller",
+          "refdes": "R22",
+          "board_copies": 1,
+          "value": "10k 1%",
+          "footprint": "LightBlock:R0603",
+          "symbol": "LightBlock:R",
+          "pins": [
+            {
+              "num": "1",
+              "name": "1",
+              "type": "passive",
+              "net": "/LED_ENABLE"
+            },
+            {
+              "num": "2",
+              "name": "2",
+              "type": "passive",
+              "net": "/LED_BASE"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "lcsc": "C398363",
+      "manufacturer": "Texas Instruments",
+      "mpn": "TLV9001IDBVR",
+      "package": "SOT-23-5",
+      "role_ja": "ADC保護用3V3バッファ / U7",
+      "function": "adc protection buffer amplifier",
+      "owner_skill": "component-tlv9001idbvr",
+      "line_id": "line-tlv9001idbvr",
+      "record_id": "rec-tlv9001idbvr",
+      "supplier_url": "https://jlcpcb.com/partdetail/C398363",
+      "identity_snapshots": [
+        {
+          "path": "engineering/a5/integration/evidence/C398363.snapshot.json",
+          "sha256": "cfdd6b654195e7b21cbca08bdc64522ea25824fc6a14594ee2beece7f1a91579",
+          "componentCode": "C398363",
+          "componentModelEn": "TLV9001IDBVR",
+          "componentBrandEn": "Texas Instruments",
+          "componentSpecificationEn": "SOT-23-5",
+          "observed_utc": "2026-11-06T14:37:39+09:00",
+          "url": "https://jlcpcb.com/partdetail/C398363",
+          "recorded_html_sha256": "f33e049921ace5decd934be83fa1e9eb05ff53bb2f0c7976bff92f1b28e82f32"
+        }
+      ],
+      "lcsc_listing": {
+        "sku": "C398363",
+        "mpn": "TLV9001IDBVR",
+        "brand": "TI",
+        "html_sha256": "90b0de3e59e493a4a66b0c5baa3a8ffa181c680282c332c99d454c31d24f59ab"
+      },
+      "spelling_discrepancies": [],
+      "footprints": [
+        "LightBlock:DBV5"
+      ],
+      "symbol": "LightBlock:ADC_BUF",
+      "unique_placements": 1,
+      "physical_pieces": 1,
+      "placements": [
+        {
+          "board": "controller",
+          "refdes": "U7",
+          "board_copies": 1,
+          "value": "TLV9001 unity",
+          "footprint": "LightBlock:DBV5",
+          "symbol": "LightBlock:ADC_BUF",
+          "pins": [
+            {
+              "num": "1",
+              "name": "OUT",
+              "type": "output",
+              "net": "/CV_DRIVE"
+            },
+            {
+              "num": "2",
+              "name": "V-",
+              "type": "power_in",
+              "net": "/GND"
+            },
+            {
+              "num": "3",
+              "name": "IN+",
+              "type": "input",
+              "net": "/CV_FILTER"
+            },
+            {
+              "num": "4",
+              "name": "IN-",
+              "type": "input",
+              "net": "/CV_DRIVE"
+            },
+            {
+              "num": "5",
+              "name": "V+",
+              "type": "power_in",
+              "net": "/+3V3"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "lcsc": "C404027",
+      "manufacturer": "Texas Instruments",
+      "mpn": "TLV75533PDBVR",
+      "package": "SOT-23-5",
+      "role_ja": "3.3 V LDO / U3",
+      "function": "3.3 v ldo regulator",
+      "owner_skill": "component-tlv75533pdbvr",
+      "line_id": "line-tlv75533pdbvr",
+      "record_id": "rec-tlv75533pdbvr",
+      "supplier_url": "https://jlcpcb.com/partdetail/TexasInstruments-TLV75533PDBVR/C404027",
+      "identity_snapshots": [
+        {
+          "path": "engineering/a5/ic_led_evidence/C404027.snapshot.json",
+          "sha256": "5293b227f8bc288ec7d0b07346027c25c69177b7a1dbe4ab4b0734bc6d4a6d60",
+          "componentCode": "C404027",
+          "componentModelEn": "TLV75533PDBVR",
+          "componentBrandEn": "Texas Instruments",
+          "componentSpecificationEn": "SOT-23-5",
+          "observed_utc": "2026-11-05T20:15:49.785944+00:00",
+          "url": "https://jlcpcb.com/partdetail/TexasInstruments-TLV75533PDBVR/C404027",
+          "recorded_html_sha256": "25cd5e69d79b93aa79ad43727fe9c63b57aff4d8e9de281c0c1f89431a16a8d8"
+        }
+      ],
+      "lcsc_listing": {
+        "sku": "C404027",
+        "mpn": "TLV75533PDBVR",
+        "brand": "TI",
+        "html_sha256": "11608dda5c1a2fc3c7b75cbe4df2ac147959543332926b8946b43d2bf6e7b98b"
+      },
+      "spelling_discrepancies": [],
+      "footprints": [
+        "LightBlock:DBV5"
+      ],
+      "symbol": "LightBlock:LDO",
+      "unique_placements": 1,
+      "physical_pieces": 1,
+      "placements": [
+        {
+          "board": "controller",
+          "refdes": "U3",
+          "board_copies": 1,
+          "value": "TLV75533",
+          "footprint": "LightBlock:DBV5",
+          "symbol": "LightBlock:LDO",
+          "pins": [
+            {
+              "num": "1",
+              "name": "IN",
+              "type": "power_in",
+              "net": "/+5V"
+            },
+            {
+              "num": "2",
+              "name": "GND",
+              "type": "power_in",
+              "net": "/GND"
+            },
+            {
+              "num": "3",
+              "name": "EN",
+              "type": "input",
+              "net": "/+5V"
+            },
+            {
+              "num": "4",
+              "name": "NC",
+              "type": "no_connect",
+              "net": "unconnected-(U3-NC-Pad4)"
+            },
+            {
+              "num": "5",
+              "name": "OUT",
+              "type": "power_out",
+              "net": "/+3V3"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "lcsc": "C500090",
+      "manufacturer": "XKB Connection",
+      "mpn": "PJ-3582-B",
+      "package": "Plugin",
+      "role_ja": "CV IN・THRUジャック / J1,J2",
+      "function": "cv input and thru jack",
+      "owner_skill": "component-pj-3582-b",
+      "line_id": "line-pj-3582-b",
+      "record_id": "rec-pj-3582-b",
+      "supplier_url": "https://jlcpcb.com/partdetail/XKBConnection-PJ_3582B/C500090",
+      "identity_snapshots": [
+        {
+          "path": "engineering/a5/mechanical_evidence/C500090.snapshot.json",
+          "sha256": "83b6894cfef00922677c5c1c807731ffec0c6aee2548649ba87ca933da6a581c",
+          "componentCode": "C500090",
+          "componentModelEn": "PJ-3582-B",
+          "componentBrandEn": "XKB Connection",
+          "componentSpecificationEn": "Plugin",
+          "observed_utc": "2026-11-05T20:18:12.289704+00:00",
+          "url": "https://jlcpcb.com/partdetail/XKBConnection-PJ_3582B/C500090",
+          "recorded_html_sha256": "8971561c875f2de872fa3684f7323d48d53ef03dca869571050e89cd97242cae"
+        }
+      ],
+      "lcsc_listing": {
+        "sku": "C500090",
+        "mpn": "PJ-3582-B",
+        "brand": "XKB Connection",
+        "html_sha256": "2e748ef80b2cb67c6a65dc4d7aa773d8b6636f258f5cb1524f283c7723d92e42"
+      },
+      "spelling_discrepancies": [],
+      "footprints": [
+        "LightBlock:PJ3582_ROT90"
+      ],
+      "symbol": "LightBlock:JACK",
+      "unique_placements": 2,
+      "physical_pieces": 2,
+      "placements": [
+        {
+          "board": "controller",
+          "refdes": "J1",
+          "board_copies": 1,
+          "value": "CV IN",
+          "footprint": "LightBlock:PJ3582_ROT90",
+          "symbol": "LightBlock:JACK",
+          "pins": [
+            {
+              "num": "2",
+              "name": "SLEEVE",
+              "type": "passive",
+              "net": "/GND"
+            },
+            {
+              "num": "3",
+              "name": "RING",
+              "type": "passive",
+              "net": "/GND"
+            },
+            {
+              "num": "4",
+              "name": "DETECT_A",
+              "type": "passive",
+              "net": "unconnected-(J1-DETECT_A-Pad4)"
+            },
+            {
+              "num": "5",
+              "name": "DETECT_B",
+              "type": "passive",
+              "net": "unconnected-(J1-DETECT_B-Pad5)"
+            },
+            {
+              "num": "6",
+              "name": "TIP",
+              "type": "passive",
+              "net": "/CV_THRU"
+            }
+          ]
+        },
+        {
+          "board": "controller",
+          "refdes": "J2",
+          "board_copies": 1,
+          "value": "CV THRU",
+          "footprint": "LightBlock:PJ3582_ROT90",
+          "symbol": "LightBlock:JACK",
+          "pins": [
+            {
+              "num": "2",
+              "name": "SLEEVE",
+              "type": "passive",
+              "net": "/GND"
+            },
+            {
+              "num": "3",
+              "name": "RING",
+              "type": "passive",
+              "net": "/GND"
+            },
+            {
+              "num": "4",
+              "name": "DETECT_A",
+              "type": "passive",
+              "net": "unconnected-(J2-DETECT_A-Pad4)"
+            },
+            {
+              "num": "5",
+              "name": "DETECT_B",
+              "type": "passive",
+              "net": "unconnected-(J2-DETECT_B-Pad5)"
+            },
+            {
+              "num": "6",
+              "name": "TIP",
+              "type": "passive",
+              "net": "/CV_THRU"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "lcsc": "C50704",
+      "manufacturer": "Nexperia",
+      "mpn": "PMEG4010CEJ,115",
+      "package": "SOD-323F",
+      "role_ja": "±12 V逆接保護用 / D1,D2",
+      "function": "eurorack rail reverse-polarity schottky diode",
+      "owner_skill": "component-pmeg4010cej-115",
+      "line_id": "line-pmeg4010cej-115",
+      "record_id": "rec-pmeg4010cej-115",
+      "supplier_url": "https://jlcpcb.com/partdetail/PMEG4010CEJ%2C115/C50704",
+      "identity_snapshots": [
+        {
+          "path": "engineering/a5/ic_led_evidence/C50704.snapshot.json",
+          "sha256": "ecdac4f4fcf8b81eab84df3ec106e5f14943f62bc16addf0d69674e0f302251f",
+          "componentCode": "C50704",
+          "componentModelEn": "PMEG4010CEJ,115",
+          "componentBrandEn": "Nexperia",
+          "componentSpecificationEn": "SOD-323F",
+          "observed_utc": "2026-11-05T20:18:05.304634+00:00",
+          "url": "https://jlcpcb.com/partdetail/PMEG4010CEJ%2C115/C50704",
+          "recorded_html_sha256": "c3436bb174e34ac9f5cc7a42ecca4043c83ea1e743f40855ae3dad85733fa413"
+        }
+      ],
+      "lcsc_listing": {
+        "sku": "C50704",
+        "mpn": "PMEG4010CEJ,115",
+        "brand": "Nexperia",
+        "html_sha256": "4c65a8b630882776d5574544abeb4e9ea9c3edd1a2c48446ff8abe7064d67be2"
+      },
+      "spelling_discrepancies": [],
+      "footprints": [
+        "LightBlock:SOD323F"
+      ],
+      "symbol": "LightBlock:RECT",
+      "unique_placements": 2,
+      "physical_pieces": 2,
+      "placements": [
+        {
+          "board": "controller",
+          "refdes": "D1",
+          "board_copies": 1,
+          "value": "PMEG4010 +rail",
+          "footprint": "LightBlock:SOD323F",
+          "symbol": "LightBlock:RECT",
+          "pins": [
+            {
+              "num": "1",
+              "name": "K",
+              "type": "passive",
+              "net": "/+12V_PROT"
+            },
+            {
+              "num": "2",
+              "name": "A",
+              "type": "passive",
+              "net": "/+12V_RAW"
+            }
+          ]
+        },
+        {
+          "board": "controller",
+          "refdes": "D2",
+          "board_copies": 1,
+          "value": "PMEG4010 -rail",
+          "footprint": "LightBlock:SOD323F",
+          "symbol": "LightBlock:RECT",
+          "pins": [
+            {
+              "num": "1",
+              "name": "K",
+              "type": "passive",
+              "net": "/-12V_RAW"
+            },
+            {
+              "num": "2",
+              "name": "A",
+              "type": "passive",
+              "net": "/-12V_PROT"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "lcsc": "C5270180",
+      "manufacturer": "STMicroelectronics",
+      "mpn": "STM32G031G8U6TR",
+      "package": "UFQFPN-28(4x4)",
+      "role_ja": "MCU / U1",
+      "function": "main microcontroller",
+      "owner_skill": "component-stm32g031g8u6tr",
+      "line_id": "line-stm32g031g8u6tr",
+      "record_id": "rec-stm32g031g8u6tr",
+      "supplier_url": "https://jlcpcb.com/partdetail/STMicroelectronics-STM32G031G8U6TR/C5270180",
+      "identity_snapshots": [
+        {
+          "path": "engineering/a5/ic_led_evidence/C5270180.snapshot.json",
+          "sha256": "a23f1b02d217251737557251643d8ad145e252af7d1118fdc819d09ae8b59076",
+          "componentCode": "C5270180",
+          "componentModelEn": "STM32G031G8U6TR",
+          "componentBrandEn": "STMicroelectronics",
+          "componentSpecificationEn": "UFQFPN-28(4x4)",
+          "observed_utc": "2026-11-05T20:15:49.918702+00:00",
+          "url": "https://jlcpcb.com/partdetail/STMicroelectronics-STM32G031G8U6TR/C5270180",
+          "recorded_html_sha256": "fc190d3cce7e82aec393e4bb35114d57e4916c35488470d1a3a38a6040fcdc15"
+        }
+      ],
+      "lcsc_listing": {
+        "sku": "C5270180",
+        "mpn": "STM32G031G8U6TR",
+        "brand": "ST",
+        "html_sha256": "d12e4381f7323a52136e09a74c9028be3f79309362874982e7d0f02fa78c4544"
+      },
+      "spelling_discrepancies": [],
+      "footprints": [
+        "LightBlock:QFN28"
+      ],
+      "symbol": "LightBlock:MCU",
+      "unique_placements": 1,
+      "physical_pieces": 1,
+      "placements": [
+        {
+          "board": "controller",
+          "refdes": "U1",
+          "board_copies": 1,
+          "value": "STM32G031G8U6TR",
+          "footprint": "LightBlock:QFN28",
+          "symbol": "LightBlock:MCU",
+          "pins": [
+            {
+              "num": "1",
+              "name": "PC14",
+              "type": "bidirectional",
+              "net": "unconnected-(U1-PC14-Pad1)"
+            },
+            {
+              "num": "2",
+              "name": "PC15",
+              "type": "bidirectional",
+              "net": "unconnected-(U1-PC15-Pad2)"
+            },
+            {
+              "num": "3",
+              "name": "VDD/VDDA",
+              "type": "power_in",
+              "net": "/+3V3"
+            },
+            {
+              "num": "4",
+              "name": "VSS/VSSA",
+              "type": "power_in",
+              "net": "/GND"
+            },
+            {
+              "num": "5",
+              "name": "PF2/NRST",
+              "type": "bidirectional",
+              "net": "/NRST"
+            },
+            {
+              "num": "6",
+              "name": "PA0/ADC0",
+              "type": "bidirectional",
+              "net": "/CV_ADC"
+            },
+            {
+              "num": "7",
+              "name": "PA1",
+              "type": "bidirectional",
+              "net": "unconnected-(U1-PA1-Pad7)"
+            },
+            {
+              "num": "8",
+              "name": "PA2",
+              "type": "bidirectional",
+              "net": "/MODE_A"
+            },
+            {
+              "num": "9",
+              "name": "PA3",
+              "type": "bidirectional",
+              "net": "/MODE_B"
+            },
+            {
+              "num": "10",
+              "name": "PA4",
+              "type": "bidirectional",
+              "net": "/LED_FAULT_N"
+            },
+            {
+              "num": "11",
+              "name": "PA5",
+              "type": "bidirectional",
+              "net": "/LED_ENABLE"
+            },
+            {
+              "num": "12",
+              "name": "PA6/TIM3_CH1",
+              "type": "bidirectional",
+              "net": "/DATA_L_3V3"
+            },
+            {
+              "num": "13",
+              "name": "PA7/TIM3_CH2",
+              "type": "bidirectional",
+              "net": "/DATA_R_3V3"
+            },
+            {
+              "num": "14",
+              "name": "PB0",
+              "type": "bidirectional",
+              "net": "unconnected-(U1-PB0-Pad14)"
+            },
+            {
+              "num": "15",
+              "name": "PB1",
+              "type": "bidirectional",
+              "net": "unconnected-(U1-PB1-Pad15)"
+            },
+            {
+              "num": "16",
+              "name": "PA8",
+              "type": "bidirectional",
+              "net": "unconnected-(U1-PA8-Pad16)"
+            },
+            {
+              "num": "17",
+              "name": "PC6",
+              "type": "bidirectional",
+              "net": "unconnected-(U1-PC6-Pad17)"
+            },
+            {
+              "num": "18",
+              "name": "PA11",
+              "type": "bidirectional",
+              "net": "unconnected-(U1-PA11-Pad18)"
+            },
+            {
+              "num": "19",
+              "name": "PA12",
+              "type": "bidirectional",
+              "net": "unconnected-(U1-PA12-Pad19)"
+            },
+            {
+              "num": "20",
+              "name": "PA13/SWDIO",
+              "type": "bidirectional",
+              "net": "/SWDIO"
+            },
+            {
+              "num": "21",
+              "name": "PA14/SWCLK",
+              "type": "bidirectional",
+              "net": "/SWCLK"
+            },
+            {
+              "num": "22",
+              "name": "PA15",
+              "type": "bidirectional",
+              "net": "unconnected-(U1-PA15-Pad22)"
+            },
+            {
+              "num": "23",
+              "name": "PB3",
+              "type": "bidirectional",
+              "net": "unconnected-(U1-PB3-Pad23)"
+            },
+            {
+              "num": "24",
+              "name": "PB4",
+              "type": "bidirectional",
+              "net": "unconnected-(U1-PB4-Pad24)"
+            },
+            {
+              "num": "25",
+              "name": "PB5",
+              "type": "bidirectional",
+              "net": "unconnected-(U1-PB5-Pad25)"
+            },
+            {
+              "num": "26",
+              "name": "PB6",
+              "type": "bidirectional",
+              "net": "unconnected-(U1-PB6-Pad26)"
+            },
+            {
+              "num": "27",
+              "name": "PB7",
+              "type": "bidirectional",
+              "net": "unconnected-(U1-PB7-Pad27)"
+            },
+            {
+              "num": "28",
+              "name": "PB8",
+              "type": "bidirectional",
+              "net": "unconnected-(U1-PB8-Pad28)"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "lcsc": "C52917434",
+      "manufacturer": "Worldsemi",
+      "mpn": "WS2812B-2020-V6",
+      "package": "SMD2020-4P",
+      "role_ja": "RGB LED / LED1〜8",
+      "function": "addressable rgb led",
+      "owner_skill": "component-ws2812b-2020-v6",
+      "line_id": "line-ws2812b-2020-v6",
+      "record_id": "rec-ws2812b-2020-v6",
+      "supplier_url": "https://jlcpcb.com/partdetail/Worldsemi-LED/C52917434",
+      "identity_snapshots": [
+        {
+          "path": "engineering/a5/ic_led_evidence/C52917434.snapshot.json",
+          "sha256": "909615a8355ecd45f8bce91951c119e994826f0ec58406c4ad1d936d68f26729",
+          "componentCode": "C52917434",
+          "componentModelEn": "WS2812B-2020-V6",
+          "componentBrandEn": "Worldsemi",
+          "componentSpecificationEn": "SMD2020-4P",
+          "observed_utc": "2026-11-05T20:15:49.718553+00:00",
+          "url": "https://jlcpcb.com/partdetail/Worldsemi-LED/C52917434",
+          "recorded_html_sha256": "da1317253538cb4a4b23647d01f38995c6955b3f7eac7550cde7a016d4dabe77"
+        }
+      ],
+      "lcsc_listing": {
+        "sku": "C52917434",
+        "mpn": "WS2812B-2020-V6",
+        "brand": "Worldsemi",
+        "html_sha256": "dd68c69e9fd22b00c89f129eff3b045c9f06adb722fe613f0f874837732e49a0"
+      },
+      "spelling_discrepancies": [],
+      "footprints": [
+        "LightBlock:WS2812B_2020_V6"
+      ],
+      "symbol": "LightBlock:LED",
+      "unique_placements": 4,
+      "physical_pieces": 8,
+      "placements": [
+        {
+          "board": "led_leaf",
+          "refdes": "D1",
+          "board_copies": 2,
+          "value": "WS2812B-2020-V6",
+          "footprint": "LightBlock:WS2812B_2020_V6",
+          "symbol": "LightBlock:LED",
+          "pins": [
+            {
+              "num": "1",
+              "name": "DOUT",
+              "type": "output",
+              "net": "/DATA_1_2"
+            },
+            {
+              "num": "2",
+              "name": "GND",
+              "type": "power_in",
+              "net": "/GND"
+            },
+            {
+              "num": "3",
+              "name": "DIN",
+              "type": "input",
+              "net": "/DATA_IN"
+            },
+            {
+              "num": "4",
+              "name": "VDD",
+              "type": "power_in",
+              "net": "/VLED"
+            }
+          ]
+        },
+        {
+          "board": "led_leaf",
+          "refdes": "D2",
+          "board_copies": 2,
+          "value": "WS2812B-2020-V6",
+          "footprint": "LightBlock:WS2812B_2020_V6",
+          "symbol": "LightBlock:LED",
+          "pins": [
+            {
+              "num": "1",
+              "name": "DOUT",
+              "type": "output",
+              "net": "/DATA_2_3"
+            },
+            {
+              "num": "2",
+              "name": "GND",
+              "type": "power_in",
+              "net": "/GND"
+            },
+            {
+              "num": "3",
+              "name": "DIN",
+              "type": "input",
+              "net": "/DATA_1_2"
+            },
+            {
+              "num": "4",
+              "name": "VDD",
+              "type": "power_in",
+              "net": "/VLED"
+            }
+          ]
+        },
+        {
+          "board": "led_leaf",
+          "refdes": "D3",
+          "board_copies": 2,
+          "value": "WS2812B-2020-V6",
+          "footprint": "LightBlock:WS2812B_2020_V6",
+          "symbol": "LightBlock:LED",
+          "pins": [
+            {
+              "num": "1",
+              "name": "DOUT",
+              "type": "output",
+              "net": "/DATA_3_4"
+            },
+            {
+              "num": "2",
+              "name": "GND",
+              "type": "power_in",
+              "net": "/GND"
+            },
+            {
+              "num": "3",
+              "name": "DIN",
+              "type": "input",
+              "net": "/DATA_2_3"
+            },
+            {
+              "num": "4",
+              "name": "VDD",
+              "type": "power_in",
+              "net": "/VLED"
+            }
+          ]
+        },
+        {
+          "board": "led_leaf",
+          "refdes": "D4",
+          "board_copies": 2,
+          "value": "WS2812B-2020-V6",
+          "footprint": "LightBlock:WS2812B_2020_V6",
+          "symbol": "LightBlock:LED",
+          "pins": [
+            {
+              "num": "1",
+              "name": "DOUT",
+              "type": "output",
+              "net": "unconnected-(D4-DOUT-Pad1)"
+            },
+            {
+              "num": "2",
+              "name": "GND",
+              "type": "power_in",
+              "net": "/GND"
+            },
+            {
+              "num": "3",
+              "name": "DIN",
+              "type": "input",
+              "net": "/DATA_3_4"
+            },
+            {
+              "num": "4",
+              "name": "VDD",
+              "type": "power_in",
+              "net": "/VLED"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "lcsc": "C5665",
+      "manufacturer": "BOOMELE(Boom Precision Elec)",
+      "mpn": "2.54-2*5P",
+      "package": "Plugin,P=2.54mm",
+      "role_ja": "Eurorack IDC10 / 変換基板1",
+      "function": "eurorack ten-pin power box header",
+      "owner_skill": "component-boomele-2-54-2x5p",
+      "line_id": "line-boomele-2-54-2x5p",
+      "record_id": "rec-boomele-2-54-2x5p",
+      "supplier_url": "https://jlcpcb.com/partdetail/BOOMELE_Boom_Precision_Elec-2_54_2_5P/C5665",
+      "identity_snapshots": [
+        {
+          "path": "engineering/a5/mechanical_evidence/C5665.snapshot.json",
+          "sha256": "7f9aa3e8a3914eb9c9d7b539af26805f45673dac01bf2a53dce0781c9be7fb1b",
+          "componentCode": "C5665",
+          "componentModelEn": "2.54-2*5P2.54 mm pitch 2×5 pin IDC box header",
+          "componentBrandEn": "BOOMELE(Boom Precision Elec)",
+          "componentSpecificationEn": "Plugin,P=2.54mm",
+          "observed_utc": "2026-11-05T20:29:01.148968+00:00",
+          "url": "https://jlcpcb.com/partdetail/BOOMELE_Boom_Precision_Elec-2_54_2_5P/C5665",
+          "recorded_html_sha256": "cc85fa7d8c51a6ed501764267ba16603926a6223b4653d261699969d17e2a3d4"
+        },
+        {
+          "path": "engineering/a5/integration/evidence/C5665.snapshot.json",
+          "sha256": "c5eb08a769cc1c5c741ff82a066469f827d43ea26d82751f61e90ae1cf99198b",
+          "componentCode": "C5665",
+          "componentModelEn": "2.54-2*5P2.54 mm pitch 2×5 pin IDC box header",
+          "componentBrandEn": "BOOMELE(Boom Precision Elec)",
+          "componentSpecificationEn": "Plugin,P=2.54mm",
+          "observed_utc": "2026-11-06T14:39:01+09:00",
+          "url": "https://jlcpcb.com/partdetail/C5665",
+          "recorded_html_sha256": "00d0b43fbde3afd2c826d708f35a5331d20ee1f8634b012ec9327bccd0a4b904"
+        }
+      ],
+      "lcsc_listing": {
+        "sku": "C5665",
+        "mpn": "2.54-2*5P",
+        "brand": "BOOMELE(Boom Precision Elec)",
+        "html_sha256": "c986cf4ff8b732703e844e3279780d3ec8f16581eaf77c39fedfe87b7f41cd85"
+      },
+      "spelling_discrepancies": [
+        {
+          "field": "procurement mpn",
+          "source": "engineering/a5/procurement_rows.json",
+          "observed": "2.54-2*5P2.54 mm pitch 2×5 pin IDC box header",
+          "canonical": "2.54-2*5P",
+          "resolution": "reviewed crosswalk (provenance/a5-catalog/identity-crosswalk.json)"
+        },
+        {
+          "field": "A5 JLCPCB snapshot componentModelEn",
+          "source": "engineering/a5/mechanical_evidence/C5665.snapshot.json",
+          "observed": "2.54-2*5P2.54 mm pitch 2×5 pin IDC box header",
+          "canonical": "2.54-2*5P",
+          "resolution": "reviewed crosswalk (provenance/a5-catalog/identity-crosswalk.json)"
+        },
+        {
+          "field": "A5 JLCPCB snapshot componentModelEn",
+          "source": "engineering/a5/integration/evidence/C5665.snapshot.json",
+          "observed": "2.54-2*5P2.54 mm pitch 2×5 pin IDC box header",
+          "canonical": "2.54-2*5P",
+          "resolution": "reviewed crosswalk (provenance/a5-catalog/identity-crosswalk.json)"
+        },
+        {
+          "field": "A5 evidence_refresh mpn",
+          "source": "engineering/a5/evidence_refresh/C5665.json",
+          "observed": "2.54-2*5P2.54 mm pitch 2×5 pin IDC box header",
+          "canonical": "2.54-2*5P",
+          "resolution": "reviewed crosswalk (provenance/a5-catalog/identity-crosswalk.json)"
+        }
+      ],
+      "footprints": [
+        "LightBlock:IDC10"
+      ],
+      "symbol": "LightBlock:IDC",
+      "unique_placements": 1,
+      "physical_pieces": 1,
+      "placements": [
+        {
+          "board": "power_adapter",
+          "refdes": "J1",
+          "board_copies": 1,
+          "value": "EURORACK 10pin",
+          "footprint": "LightBlock:IDC10",
+          "symbol": "LightBlock:IDC",
+          "pins": [
+            {
+              "num": "1",
+              "name": "1",
+              "type": "passive",
+              "net": "/-12V_RAW"
+            },
+            {
+              "num": "2",
+              "name": "2",
+              "type": "passive",
+              "net": "/-12V_RAW"
+            },
+            {
+              "num": "3",
+              "name": "3",
+              "type": "passive",
+              "net": "/GND"
+            },
+            {
+              "num": "4",
+              "name": "4",
+              "type": "passive",
+              "net": "/GND"
+            },
+            {
+              "num": "5",
+              "name": "5",
+              "type": "passive",
+              "net": "/GND"
+            },
+            {
+              "num": "6",
+              "name": "6",
+              "type": "passive",
+              "net": "/GND"
+            },
+            {
+              "num": "7",
+              "name": "7",
+              "type": "passive",
+              "net": "/GND"
+            },
+            {
+              "num": "8",
+              "name": "8",
+              "type": "passive",
+              "net": "/GND"
+            },
+            {
+              "num": "9",
+              "name": "9",
+              "type": "passive",
+              "net": "/+12V_RAW"
+            },
+            {
+              "num": "10",
+              "name": "10",
+              "type": "passive",
+              "net": "/+12V_RAW"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "lcsc": "C57112",
+      "manufacturer": "FH (Guangdong Fenghua Advanced Tech)",
+      "mpn": "0603B103K500NT",
+      "package": "0603",
+      "role_ja": "10 nF 50 V X7R / C13",
+      "function": "10 nf 50 v x7r 0603 capacitor",
+      "owner_skill": "component-0603b103k500nt",
+      "line_id": "line-0603b103k500nt",
+      "record_id": "rec-fh-0603b103k500nt",
+      "supplier_url": "https://jlcpcb.com/partdetail/C57112",
+      "identity_snapshots": [
+        {
+          "path": "engineering/a5/passive_evidence/C57112.snapshot.json",
+          "sha256": "6b5d7acad9c256a7d2e2d4ae70c1678b9fbd61f73fbf41f6cd92cace37b395fc",
+          "componentCode": "C57112",
+          "componentModelEn": "0603B103K500NT",
+          "componentBrandEn": "FH (Guangdong Fenghua Advanced Tech)",
+          "componentSpecificationEn": "0603",
+          "observed_utc": "2026-11-05T20:20:42.588357+00:00",
+          "url": "https://jlcpcb.com/partdetail/C57112",
+          "recorded_html_sha256": "4e5064cc797bdff1b86f7f3cdc9a2a55bf937d867eff8cb7c64c092123a61895"
+        }
+      ],
+      "lcsc_listing": {
+        "sku": "C57112",
+        "mpn": "0603B103K500NT",
+        "brand": "FH",
+        "html_sha256": "32b607be9309a4eac920fb35fb14e9e021a35f9a219f88a87d92125d3c3e48c2"
+      },
+      "spelling_discrepancies": [],
+      "footprints": [
+        "LightBlock:C0603"
+      ],
+      "symbol": "LightBlock:C",
+      "unique_placements": 1,
+      "physical_pieces": 1,
+      "placements": [
+        {
+          "board": "controller",
+          "refdes": "C13",
+          "board_copies": 1,
+          "value": "10n",
+          "footprint": "LightBlock:C0603",
+          "symbol": "LightBlock:C",
+          "pins": [
+            {
+              "num": "1",
+              "name": "1",
+              "type": "passive",
+              "net": "/CV_AFFINE"
+            },
+            {
+              "num": "2",
+              "name": "2",
+              "type": "passive",
+              "net": "/GND"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "lcsc": "C694586",
+      "manufacturer": "TDK",
+      "mpn": "SPM4020T-4R7M-LR",
+      "package": "SMD,4.4x4.1mm nominal; 4.6x4.3x2.0mm maximum envelope",
+      "role_ja": "降圧インダクタ4.7 µH / L1",
+      "function": "buck converter power inductor",
+      "owner_skill": "component-spm4020t-4r7m-lr",
+      "line_id": "line-spm4020t-4r7m-lr",
+      "record_id": "rec-spm4020t-4r7m-lr",
+      "supplier_url": "https://jlcpcb.com/partdetail/C694586",
+      "identity_snapshots": [],
+      "lcsc_listing": {
+        "sku": "C694586",
+        "mpn": "SPM4020T-4R7M-LR",
+        "brand": "TDK",
+        "html_sha256": "760eaa8e4a6d2b8ff8a65799a501687bb5c58a68860d4fd79c35fb5a80990ffe"
+      },
+      "spelling_discrepancies": [],
+      "footprints": [
+        "LightBlock:SPM4020_LR"
+      ],
+      "symbol": "LightBlock:L",
+      "unique_placements": 1,
+      "physical_pieces": 1,
+      "placements": [
+        {
+          "board": "controller",
+          "refdes": "L1",
+          "board_copies": 1,
+          "value": "4.7uH SPM4020-LR",
+          "footprint": "LightBlock:SPM4020_LR",
+          "symbol": "LightBlock:L",
+          "pins": [
+            {
+              "num": "1",
+              "name": "1",
+              "type": "passive",
+              "net": "/BUCK_SW"
+            },
+            {
+              "num": "2",
+              "name": "2",
+              "type": "passive",
+              "net": "/+5V"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "lcsc": "C7250",
+      "manufacturer": "UNI-ROYAL(Uniroyal Elec)",
+      "mpn": "0603WAF1005T5E",
+      "package": "0603",
+      "role_ja": "10 MΩ 1% / R1,R2",
+      "function": "10 megohm 0603 resistor",
+      "owner_skill": "component-0603waf1005t5e",
+      "line_id": "line-0603waf1005t5e",
+      "record_id": "rec-uniroyal-0603waf1005t5e",
+      "supplier_url": "https://jlcpcb.com/partdetail/C7250",
+      "identity_snapshots": [
+        {
+          "path": "engineering/a5/passive_evidence/C7250.snapshot.json",
+          "sha256": "b677c116c6583c620e9e5434cfaf461ccb06476e1d8a3c2c547701b07d7eb2b8",
+          "componentCode": "C7250",
+          "componentModelEn": "0603WAF1005T5E",
+          "componentBrandEn": "UNI-ROYAL(Uniroyal Elec)",
+          "componentSpecificationEn": "0603",
+          "observed_utc": "2026-11-05T20:20:29.568530+00:00",
+          "url": "https://jlcpcb.com/partdetail/C7250",
+          "recorded_html_sha256": "2db4c6cd1a9803c291146db76b938cf1bbbe4d61c414c7b7afb6cbb5ad3356b1"
+        }
+      ],
+      "lcsc_listing": {
+        "sku": "C7250",
+        "mpn": "0603WAF1005T5E",
+        "brand": "UNI-ROYAL",
+        "html_sha256": "0f021d459e2a9edc0624d2030c52c5cceae27223aba6a34f1a040b777df897f5"
+      },
+      "spelling_discrepancies": [],
+      "footprints": [
+        "LightBlock:R0603"
+      ],
+      "symbol": "LightBlock:R",
+      "unique_placements": 2,
+      "physical_pieces": 2,
+      "placements": [
+        {
+          "board": "controller",
+          "refdes": "R1",
+          "board_copies": 1,
+          "value": "10M 1%",
+          "footprint": "LightBlock:R0603",
+          "symbol": "LightBlock:R",
+          "pins": [
+            {
+              "num": "1",
+              "name": "1",
+              "type": "passive",
+              "net": "/CV_THRU"
+            },
+            {
+              "num": "2",
+              "name": "2",
+              "type": "passive",
+              "net": "/CV_SENSE"
+            }
+          ]
+        },
+        {
+          "board": "controller",
+          "refdes": "R2",
+          "board_copies": 1,
+          "value": "10M 1%",
+          "footprint": "LightBlock:R0603",
+          "symbol": "LightBlock:R",
+          "pins": [
+            {
+              "num": "1",
+              "name": "1",
+              "type": "passive",
+              "net": "/CV_SENSE"
+            },
+            {
+              "num": "2",
+              "name": "2",
+              "type": "passive",
+              "net": "/GND"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "lcsc": "C908270",
+      "manufacturer": "Dailywell",
+      "mpn": "1MS3T1B1M2QES-5",
+      "package": "Plugin",
+      "role_ja": "ON–OFF–ONトグル / SW1",
+      "function": "on off on mode toggle switch",
+      "owner_skill": "component-1ms3t1b1m2qes-5",
+      "line_id": "line-1ms3t1b1m2qes-5",
+      "record_id": "rec-dailywell-1ms3t1b1m2qes-5",
+      "supplier_url": "https://jlcpcb.com/partdetail/Dailywell-1MS3T1B1M2QES5/C908270",
+      "identity_snapshots": [
+        {
+          "path": "engineering/a5/mechanical_evidence/C908270.snapshot.json",
+          "sha256": "7cf113d68d02d5495d247ffa458ce184e11322fb600fe5d85979476ec810f891",
+          "componentCode": "C908270",
+          "componentModelEn": "1MS3T1B1M2QES-5",
+          "componentBrandEn": "Dailywell",
+          "componentSpecificationEn": "Plugin",
+          "observed_utc": "2026-11-05T20:24:44.489258+00:00",
+          "url": "https://jlcpcb.com/partdetail/Dailywell-1MS3T1B1M2QES5/C908270",
+          "recorded_html_sha256": "3a07e4240a658cdcc0fe4ccc27b9a62d3e4a641e38e2af5c9f7c10abdac91c30"
+        }
+      ],
+      "lcsc_listing": {
+        "sku": "C908270",
+        "mpn": "1MS3T1B1M2QES-5",
+        "brand": "Dailywell",
+        "html_sha256": "98135dc61e585180d297b200a43457e0afe85b4d65b5f04eeb68dc22d45f50fd"
+      },
+      "spelling_discrepancies": [],
+      "footprints": [
+        "LightBlock:DAILYWELL_M2_SP"
+      ],
+      "symbol": "LightBlock:SW",
+      "unique_placements": 1,
+      "physical_pieces": 1,
+      "placements": [
+        {
+          "board": "controller",
+          "refdes": "SW1",
+          "board_copies": 1,
+          "value": "ON / PROGRAM / CV",
+          "footprint": "LightBlock:DAILYWELL_M2_SP",
+          "symbol": "LightBlock:SW",
+          "pins": [
+            {
+              "num": "1",
+              "name": "THROW_A",
+              "type": "passive",
+              "net": "/MODE_A"
+            },
+            {
+              "num": "2",
+              "name": "COMMON",
+              "type": "passive",
+              "net": "/GND"
+            },
+            {
+              "num": "3",
+              "name": "THROW_B",
+              "type": "passive",
+              "net": "/MODE_B"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "spelling_crosswalk_applied": [
+    {
+      "lcsc": "C5665",
+      "field": "procurement mpn",
+      "source": "engineering/a5/procurement_rows.json",
+      "observed": "2.54-2*5P2.54 mm pitch 2×5 pin IDC box header",
+      "canonical": "2.54-2*5P",
+      "resolution": "reviewed crosswalk (provenance/a5-catalog/identity-crosswalk.json)"
+    },
+    {
+      "lcsc": "C5665",
+      "field": "A5 JLCPCB snapshot componentModelEn",
+      "source": "engineering/a5/mechanical_evidence/C5665.snapshot.json",
+      "observed": "2.54-2*5P2.54 mm pitch 2×5 pin IDC box header",
+      "canonical": "2.54-2*5P",
+      "resolution": "reviewed crosswalk (provenance/a5-catalog/identity-crosswalk.json)"
+    },
+    {
+      "lcsc": "C5665",
+      "field": "A5 JLCPCB snapshot componentModelEn",
+      "source": "engineering/a5/integration/evidence/C5665.snapshot.json",
+      "observed": "2.54-2*5P2.54 mm pitch 2×5 pin IDC box header",
+      "canonical": "2.54-2*5P",
+      "resolution": "reviewed crosswalk (provenance/a5-catalog/identity-crosswalk.json)"
+    },
+    {
+      "lcsc": "C5665",
+      "field": "A5 evidence_refresh mpn",
+      "source": "engineering/a5/evidence_refresh/C5665.json",
+      "observed": "2.54-2*5P2.54 mm pitch 2×5 pin IDC box header",
+      "canonical": "2.54-2*5P",
+      "resolution": "reviewed crosswalk (provenance/a5-catalog/identity-crosswalk.json)"
+    }
+  ]
+}

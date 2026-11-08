@@ -18,8 +18,11 @@
     "previews:generate": "zudo-circuit-doc footprints generate",
     "a5:verify-seed": "python3 scripts/verify_seed.py --manifest provenance/seed-manifest.json --repo .",
     "a5:generate": "python3 scripts/a5_site.py generate",
-    "a5:check": "python3 scripts/verify_seed.py --manifest provenance/seed-manifest.json --repo . && python3 scripts/check_a5_records.py && python3 scripts/a5_site.py generate --check",
+    "a5:check": "python3 scripts/verify_seed.py --manifest provenance/seed-manifest.json --repo . && python3 scripts/check_a5_records.py && python3 scripts/a5_site.py generate --check && python3 scripts/a5_catalog.py check",
+    "catalog:reconcile": "python3 scripts/a5_catalog.py reconcile",
+    "catalog:check": "python3 scripts/a5_catalog.py check && python3 -m unittest scripts/test_a5_catalog.py",
     "test:browser": "node scripts/browser-check.mjs",
+    "test:browser:framework": "zudo-circuit-doc check-browser",
     "cf:build": "pnpm --dir doc exec cf build",
     "cf:dry-run": "pnpm --dir doc exec cf deploy --prebuilt --dry-run",
     "cf:check-output": "python3 scripts/check_cf_output.py doc/.cloudflare/output/v0"

@@ -1,0 +1,30 @@
+{
+  "schema_version": 1,
+  "routes": [
+    {
+      "route_id": "route-tlv75533pdbvr",
+      "record_id": "rec-tlv75533pdbvr",
+      "aliases": {
+        "mpn": [
+          "TLV75533PDBVR"
+        ],
+        "lcsc": [
+          "C404027"
+        ],
+        "manufacturer": [
+          "Texas Instruments"
+        ],
+        "function": [
+          "3.3 v ldo regulator"
+        ]
+      },
+      "positive": [
+        "check TLV75533PDBVR pinout",
+        "audit C404027"
+      ],
+      "negative": [
+        "check 3.3 v ldo regulator from an unnamed vendor"
+      ]
+    }
+  ]
+}

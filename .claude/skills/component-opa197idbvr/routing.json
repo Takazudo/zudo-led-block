@@ -1,0 +1,30 @@
+{
+  "schema_version": 1,
+  "routes": [
+    {
+      "route_id": "route-opa197idbvr",
+      "record_id": "rec-opa197idbvr",
+      "aliases": {
+        "mpn": [
+          "OPA197IDBVR"
+        ],
+        "lcsc": [
+          "C221351"
+        ],
+        "manufacturer": [
+          "Texas Instruments"
+        ],
+        "function": [
+          "cv input buffer amplifier"
+        ]
+      },
+      "positive": [
+        "check OPA197IDBVR pinout",
+        "audit C221351"
+      ],
+      "negative": [
+        "check cv input buffer amplifier from an unnamed vendor"
+      ]
+    }
+  ]
+}

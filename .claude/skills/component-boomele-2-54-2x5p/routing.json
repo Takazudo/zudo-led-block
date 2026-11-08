@@ -1,0 +1,30 @@
+{
+  "schema_version": 1,
+  "routes": [
+    {
+      "route_id": "route-boomele-2-54-2x5p",
+      "record_id": "rec-boomele-2-54-2x5p",
+      "aliases": {
+        "mpn": [
+          "2.54-2*5P"
+        ],
+        "lcsc": [
+          "C5665"
+        ],
+        "manufacturer": [
+          "BOOMELE(Boom Precision Elec)"
+        ],
+        "function": [
+          "eurorack ten-pin power box header"
+        ]
+      },
+      "positive": [
+        "check 2.54-2*5P pinout",
+        "audit C5665"
+      ],
+      "negative": [
+        "check eurorack ten-pin power box header from an unnamed vendor"
+      ]
+    }
+  ]
+}

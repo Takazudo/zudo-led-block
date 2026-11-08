@@ -1,0 +1,71 @@
+{
+  "schema_version": 1,
+  "coverage": [
+    {
+      "coverage_id": "cov-boomele-2-54-2x5p-identity",
+      "record_id": "rec-boomele-2-54-2x5p",
+      "domain": "identity",
+      "status": "OPEN",
+      "reason": "fact-boomele-2-54-2x5p-manufacturer remains UNSOURCED: no manufacturer-hosted document is known and the lower-authority distributor-hosted drawing returned HTML on 2026-11-08",
+      "fact_ids": [
+        "fact-boomele-2-54-2x5p-manufacturer",
+        "fact-boomele-2-54-2x5p-distributor-identity"
+      ],
+      "blocking_fact_ids": [
+        "fact-boomele-2-54-2x5p-manufacturer"
+      ]
+    },
+    {
+      "coverage_id": "cov-boomele-2-54-2x5p-pinout",
+      "record_id": "rec-boomele-2-54-2x5p",
+      "domain": "pinout",
+      "status": "OPEN",
+      "reason": "fact-boomele-2-54-2x5p-pinout remains UNSOURCED: no manufacturer document inspected, so the 2x5 numbering and key orientation are not checked",
+      "fact_ids": [
+        "fact-boomele-2-54-2x5p-pinout"
+      ],
+      "blocking_fact_ids": [
+        "fact-boomele-2-54-2x5p-pinout"
+      ]
+    },
+    {
+      "coverage_id": "cov-boomele-2-54-2x5p-ratings",
+      "record_id": "rec-boomele-2-54-2x5p",
+      "domain": "electrical-ratings",
+      "status": "OPEN",
+      "reason": "fact-boomele-2-54-2x5p-ratings remains UNSOURCED: no manufacturer document inspected",
+      "fact_ids": [
+        "fact-boomele-2-54-2x5p-ratings"
+      ],
+      "blocking_fact_ids": [
+        "fact-boomele-2-54-2x5p-ratings"
+      ]
+    },
+    {
+      "coverage_id": "cov-boomele-2-54-2x5p-placement",
+      "record_id": "rec-boomele-2-54-2x5p",
+      "domain": "placement",
+      "status": "OPEN",
+      "reason": "fact-boomele-2-54-2x5p-a5-placements NEEDS BENCH: placements are declared from the historical A5 netlist only; the manual provider performs no schematic binding and no as-built check exists",
+      "fact_ids": [
+        "fact-boomele-2-54-2x5p-a5-placements"
+      ],
+      "blocking_fact_ids": [
+        "fact-boomele-2-54-2x5p-a5-placements"
+      ]
+    },
+    {
+      "coverage_id": "cov-boomele-2-54-2x5p-cad",
+      "record_id": "rec-boomele-2-54-2x5p",
+      "domain": "cad-assets",
+      "status": "OPEN",
+      "reason": "fact-boomele-2-54-2x5p-cad-state remains UNSOURCED: catalog CAD is disabled, so no symbol, footprint or model was reviewed or validated",
+      "fact_ids": [
+        "fact-boomele-2-54-2x5p-cad-state"
+      ],
+      "blocking_fact_ids": [
+        "fact-boomele-2-54-2x5p-cad-state"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,30 @@
+{
+  "schema_version": 1,
+  "routes": [
+    {
+      "route_id": "route-pj-3582-b",
+      "record_id": "rec-pj-3582-b",
+      "aliases": {
+        "mpn": [
+          "PJ-3582-B"
+        ],
+        "lcsc": [
+          "C500090"
+        ],
+        "manufacturer": [
+          "XKB Connection"
+        ],
+        "function": [
+          "cv input and thru jack"
+        ]
+      },
+      "positive": [
+        "check PJ-3582-B pinout",
+        "audit C500090"
+      ],
+      "negative": [
+        "check cv input and thru jack from an unnamed vendor"
+      ]
+    }
+  ]
+}
