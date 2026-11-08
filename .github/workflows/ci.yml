@@ -316,6 +316,19 @@ jobs:
         run: |
           python3 scripts/native_gate/runner.py run --profile engineering/a7/verification/native_gate.json --out "$RUNNER_TEMP/a7-gate" --deadline-s 660
           test "$(python3 -c 'import json,sys;print(json.load(open(sys.argv[1]))["status"])' "$RUNNER_TEMP/a7-gate/summary.json")" = PASS
+      - name: A7 router reproducibility (seed 0 equals the recorded route, board carries it) and review-aid export
+        timeout-minutes: 10
+        run: |
+          python3 -m pip install --quiet --require-hashes --only-binary=:all: --no-deps -r scripts/requirements-router.txt
+          python3 scripts/a7_route_check.py --out "$RUNNER_TEMP/a7-route-check" --review-aid
+      - name: Upload review aid (Gerber, drill, positions; NOT a release output, not for ordering)
+        if: success()
+        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
+        with:
+          name: a7-controller-review-aid-NOT-A-RELEASE
+          path: ${{ runner.temp }}/a7-route-check/review-aid/
+          retention-days: 7
+          if-no-files-found: error
       - name: Checkpoint and fixtures left unmodified, no owned container left
         if: always()
         timeout-minutes: 1
@@ -324,6 +337,7 @@ jobs:
           git status --porcelain --untracked-files=all | tee "$RUNNER_TEMP/native-receipt/status.txt"
           test ! -s "$RUNNER_TEMP/native-receipt/status.txt"
           test -z "$(docker ps -aq --filter label=zudo-led-block.native-gate)"
+          test -z "$(docker ps -aq --filter label=zudo-led-block.a7-route-check)"
       - name: Summary
         if: always()
         timeout-minutes: 1
@@ -357,6 +371,20 @@ jobs:
           for f in s.get('failures', [])[:30]:
               print(f"  - FAIL: {f}")
           print("A passing A7 board gate is a digital check only: no physical fit, bench or manufacturing release.")
+          PY
+          python3 - "$RUNNER_TEMP/a7-route-check/summary.json" >> "$GITHUB_STEP_SUMMARY" <<'PY'
+          import json, sys
+          try:
+              s = json.load(open(sys.argv[1]))
+          except (OSError, ValueError) as e:
+              print(f"### A7 router reproducibility: NO SUMMARY ({e}) - treated as failure"); sys.exit(0)
+          print(f"### A7 router reproducibility (seed 0, fresh): {s.get('status')}")
+          print(f"- recorded route reproduced byte for byte: {s.get('proposal_reproduced')}")
+          for k, v in (s.get('board_copper_vs_proposal') or {}).items():
+              print(f"- board {k} equal to the recorded route: {v.get('equal')} ({v.get('board')} vs {v.get('proposal')})")
+          for f in s.get('failures', [])[:20]:
+              print(f"  - FAIL: {f}")
+          print("The review-aid artifact (Gerber, drill, positions) is not a release output and must not be ordered from.")
           PY
       - name: Final receipt (replaces STARTED_INCOMPLETE with the gate's own final status)
         if: always()
