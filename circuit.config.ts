@@ -33,4 +33,13 @@ export default {
   },
   cad: { enabled: false, libraryName: "LightBlock" },
   validation: {},
+  // Explicit representatives: with CAD disabled no record publishes a footprint, so the
+  // framework cannot derive representatives (it would exit 4). These pages are still
+  // navigated at every viewport/theme; their component-reference inspections are SKIP.
+  browserSmoke: {
+    representatives: [
+      { kind: "primary-document", path: "/docs/components/records/tps2552dbvr-1/", slug: "tps2552dbvr-1", identity: "TPS2552DBVR-1" },
+      { kind: "document-exception", path: "/docs/components/records/boomele-2-54-2x5p/", slug: "boomele-2-54-2x5p", identity: "2.54-2*5P" },
+    ],
+  },
 } satisfies CircuitConfig;
