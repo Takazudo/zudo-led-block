@@ -10,7 +10,7 @@ re-review with no blocking findings), and a provisional digital mechanical model
 prototype and no physical measurement. Nothing in A7 is a measured fit, part approval, fit approval, electrical result or
 manufacturing approval, and a green CI is none of those either.
 
-Last synchronised with `main` at `8bd064b` (2026-11-08 UTC).
+Last synchronised with `main` at `355999a` (2026-11-08 UTC).
 
 ## What A7 is
 
@@ -82,7 +82,9 @@ retrieved.
   `scripts/requirements-router.txt`), requires a byte-identical `verification/routing/route_proposal_seed0.json`,
   and requires the authoritative board's tracks and vias to equal the proposal at 1 nm. The same PR makes the
   `rule_squeeze` control require its rule name and pad in the native report. The `--review-aid` Gerber / drill /
-  position artifact is **not a release output** and must not be ordered from. First passed on main in run 42504705390 (`8bd064b`).
+  position artifact is **not a release output** and must not be ordered from. First passed on main in run 42504705390 (`8bd064b`). PR #40 (`4b00448`) hardens it: a proposal with failed nets,
+  or a board or proposal with no tracks or vias, now fails (no empty-equals-empty pass); the summary is kept in the
+  `native-infrastructure-evidence` artifact; the review aid drops the Gerber job file so it cannot be bulk-uploaded.
 - **R2 fit checks:** `mechanical/r4-placement-check.json` compares R4's routed export with the envelopes (revision 1
   in PR #33, revision 2 in PR #38): outline matches, fixed parts (J1 / J2 axis and all pins, J3, J5, SW1) in
   position, no origin or pad centre in a foreign keep-out, solder face only resistors and test pads (≤ 0.6 mm).
@@ -93,18 +95,19 @@ retrieved.
   0.01 mm). It is 8–37× less stiff (worst-case buckling about 8 N under the SH push, FR-4 about 300 N); the film alone
   buckles at about 0.07 N. New open items Q11a (carrier lamination supplier), Q11b (unmating pull and peel), Q11c
   (2HP with PET). `mechanical/README.md`, `layout.md`, `layout.json` → `leaf_comparison`, `exports/3hp_pet/`.
+- **PET leaf electrical profile and check (PR #42, `355999a`):** `verification/pet_leaf/` (`profile.json`, README) and
+  `scripts/a7_pet_leaf_check.py`, run in every native CI job against a copy of the A5 leaf board (`6244280c…`).
+  PASS: interface (J3 and both SH4 harnesses reach both four-pixel chains), mechanical (R2's PET export), all pads
+  SMD on F.Cu, and on 2-layer film rules the tracks, clearances, 0.6/0.3 vias and 0.3 mm copper-to-edge. NOT_MET:
+  1-layer copper (all five data nets use B.Cu and 11 vias, Q11d) and coverlay bridges (0.2 mm against JLC's 0.5 mm
+  minimum, Q11f). Whether JLC plates vias on 2-layer clear PET is not stated (Q11e); a 2-layer stack is 1.48 mm with
+  about 0.06 mm per side in the cap slot (R2 to re-check). The VLED + GND drop is an upper bound only (about 335 /
+  224 / 115 mV at 12 / 18 / 35 µm copper with the TPS2552 worst-case 0.435 A in series through every segment).
+  Q11d–Q11f block the PET variant only. `CHECKED` is not a PET approval; FR-4 stays the default.
 - **R2 mechanical (PR #25, #27, #29):** 3HP FEASIBLE ON PAPER and the default; 2HP open (worst corner −0.33 / −0.15 mm).
   Jacks at Y 84.3 / 99.3 in 0.5 mm rear pockets; A5 adapter 2.0 mm forward with an M2x18 top-cap screw; power cable
   requirement from `mechanical/layout.json` → `power_cable_requirement` (currently 57 ± 3 mm, ±3 ASSUMED).
 - **R4 schematic (PR #24):** J1, J2 and SW1 replaced; every other part and net unchanged from A5.
-
-## In progress (no result on `main`)
-
-- **Route-check hardening (R4, PR [#40](https://github.com/Takazudo/zudo-led-block/pull/40)):** follow-up to the
-  PR #39 check.
-- **PET leaf electrical profile and interface check (R4):** preliminary findings only. A 1-layer transparent film
-  cannot carry the A5 LED copper; 2-layer plated-via support on transparent film is unconfirmed at JLC; the coverlay
-  bridges are 0.2 mm against JLC's 0.5 mm minimum. None of this is a merged result. FR-4 stays the default.
 
 ## Next actions, in order
 
@@ -114,8 +117,8 @@ later board change re-runs the gate, independent review and R2 fit check.
 1. **Physical and owner gates:** PJ-324M pin functions by TS / TRS continuity test (Q2), slot sizes (Q3, the board
    still uses ASSUMED 1.6 × 0.8 mm slots), axis height (Q1, INFERRED), PCM13SMTR stock and fit (Q10, body centring
    ASSUMED), and the owner's 2HP decision.
-2. **External evidence** listed in `../../open-questions.md` (Q0–Q11 and Q11a–Q11c; Q12 is decided). Only the JLC PET questions are
-   drafted (`../../pet-fpc.md`), and they are **not sent**; the others are not drafted. Sending supplier messages is
+2. **External evidence** listed in `../../open-questions.md` (Q0–Q11 and Q11a–Q11f; Q12 is decided). Only the JLC PET questions 1–7 are
+   drafted (`../../pet-fpc.md`), and they are **not sent**; they do not cover Q11e or Q11f, and the others are not drafted. Sending supplier messages is
    outside the current authorisation.
 3. **Physical qualification** with [#8](https://github.com/Takazudo/zudo-led-block/issues/8) (harness, power cable,
    fit, PETG), [#10](https://github.com/Takazudo/zudo-led-block/issues/10) (power / CV / firmware / optical / thermal /
@@ -141,6 +144,9 @@ later board change re-runs the gate, independent review and R2 fit check.
 | PET FPC process answers missing | transparent LED leaf | JLC written answers (questions not sent) | Q11 |
 | No supplier for laminating the PC carrier with OCA after reflow | building a PET leaf at all | supplier and process | Q11a |
 | SH unmating pull and pad / OCA peel strength unsourced | PET leaf connector retention | force data and a physical test | Q11b, #10 |
+| 1-layer PET film cannot carry the A5 leaf copper | PET variant only | a new single-layer leaf layout or the 2-layer film | Q11d |
+| 2-layer clear PET plated vias not stated by JLC; PTH ring 0.18 mm may apply to vias (A5 vias have 0.15 mm) | PET variant only | JLC answer (not sent) | Q11e |
+| Coverlay bridges 0.2 mm, JLC minimum 0.5 mm | PET variant only (SMT bridging risk) | JLC answer on bridge-less openings or a clear solder mask | Q11f |
 | PET leaf built for 3HP only | 2HP with PET | 2HP decision first (X stack differs by 0.02 mm, so 3HP carries over) | Q11c |
 | No physical prototype | every fit, electrical, optical, thermal result | owner-approved build | #8, #10 |
 | Agent-instruction pages on the site | publication scope | owner decision | #12 |
@@ -171,3 +177,10 @@ python3 scripts/a7_schematic_check.py --out <empty dir outside the repo>   # nee
 python3 -m unittest discover -s scripts/tests -p 'test_native_*.py'
 pnpm build && pnpm check && pnpm check:site && pnpm test:browser
 ```
+
+**Known intermittent CI failure (owner decision pending).** The docs job's "Framework check-browser" step sometimes
+fails about 0.4 s in with `Error: Chrome page target was not available`, in `@takazudo/zudo-circuit-doc@0.3.0`
+`lib/browser-smoke/chrome.js:76` (launchChrome). The cause is outside this repository. It failed on attempt 1 of runs
+42505006029 and 42505981975 and passed on their re-runs and on other runs of the same code. Treat it as this
+intermittent only when the same step also passes on `main`; no retry wrapper or `continue-on-error` was added.
+Whether to report it upstream is the owner's call. Details: [#19 comment](https://github.com/Takazudo/zudo-led-block/issues/19#issuecomment-6724919062).
