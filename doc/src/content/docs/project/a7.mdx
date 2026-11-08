@@ -5,14 +5,14 @@ sidebar_position: 2
 ---
 
 :::danger[A7 は設計検討の段階です]
-A7 は **製造用にリリースしていません**。`main` には A7 の回路図・基板・機構モデル・アートワークがまだありません。
+A7 は **製造用にリリースしていません**。`main` には A7 の回路図 (レビュー済み) がありますが、基板・機構モデル・アートワークはまだありません。
 ここに書いた結果は机上の検討と部品資料の記録で、部品の承認・組み付けの承認・電気的な結果ではありません。CI が通っても承認にはなりません。
 :::
 
 A7 は [#15](https://github.com/Takazudo/zudo-led-block/issues/15) で追跡している構造変更です。
 作業を引き継ぐときは、リポジトリの [`engineering/a7/docs/continuation/continue-here.md`](https://github.com/Takazudo/zudo-led-block/blob/main/engineering/a7/docs/continuation/continue-here.md) と
 [証跡の一覧 (`evidence-index.md`)](https://github.com/Takazudo/zudo-led-block/blob/main/engineering/a7/docs/continuation/evidence-index.md) を読んでください。
-このページの内容は 2026-11-08 時点の `main` (`54bda11`) に合わせています。
+このページの内容は 2026-11-08 時点の `main` (`5f6865b`) に合わせています。
 
 ## 版の位置づけ
 
@@ -20,7 +20,7 @@ A7 は [#15](https://github.com/Takazudo/zudo-led-block/issues/15) で追跡し�
 |---|---|---|
 | A5 | `engineering/a5/` | 不変のチェックポイント (2026-11-06 JST)。制御基板は配置のみ・未配線。ERC / DRC / 試験の結果はすべて **履歴上の記録**。A7 の基準として使う |
 | A6 | ブランチ `claude/project-thread-391rx3` (`7e96380`)、ドラフト PR [#14](https://github.com/Takazudo/zudo-led-block/pull/14)、[#7](https://github.com/Takazudo/zudo-led-block/issues/7) | **保留。`main` には入っていません**。幅 8.8 mm 固定の制御基板は配置のみで、自動配線では未接続を 0 にできませんでした (未接続 125)。A7 は A6 の配線を完了させるものではなく、A6 の作業は A7 の進捗に数えません |
-| A7 | `engineering/a7/` | 部品・寸法の検討と検証の基盤が `main` に入りました。回路図・機構・基板は作業中 |
+| A7 | `engineering/a7/` | 部品・寸法の検討、検証の基盤、制御基板の回路図が `main` に入りました。機構と基板 (配置・配線) は作業中 |
 
 ## A7 の方針 (2026-11-08 に採用)
 
@@ -44,14 +44,14 @@ A7 は [#15](https://github.com/Takazudo/zudo-led-block/issues/15) で追跡し�
 | R1 部品と寸法の検討 | [#16](https://github.com/Takazudo/zudo-led-block/issues/16) | **完了** (PR #23)。[A7 部品と寸法の検討](/docs/research/a7-parts-and-dimensions/) |
 | R2 機構モデルと前面アートワーク | [#17](https://github.com/Takazudo/zudo-led-block/issues/17) | **未完了**。ドラフト PR [#25](https://github.com/Takazudo/zudo-led-block/pull/25) でジャック本体の向きとスイッチ–ジャック間の隙間を修正中 |
 | R3 ネイティブ検証の基盤 | [#18](https://github.com/Takazudo/zudo-led-block/issues/18) | **完了** (PR #22)。A7 の基板がまだ無いため、A7 のゲートは `NO_CANDIDATE` で止まる。フィクスチャでの合格は検証機構の確認で、A7 基板の合格ではない |
-| R4 回路図・配置・配線 | [#19](https://github.com/Takazudo/zudo-led-block/issues/19) | **未完了**。回路図はドラフト PR [#24](https://github.com/Takazudo/zudo-led-block/pull/24)、配置・配線はその後 |
+| R4 回路図・配置・配線 | [#19](https://github.com/Takazudo/zudo-led-block/issues/19) | **回路図だけ完了** (PR [#24](https://github.com/Takazudo/zudo-led-block/pull/24)、独立した電気レビュー済み、状態 `SCHEMATIC_REVIEWED`)。基板は未配置・未配線で、A7 のゲートは `NO_CANDIDATE` のまま。配置・配線は作業中 |
 | R5 ドキュメントと引継ぎ | [#20](https://github.com/Takazudo/zudo-led-block/issues/20) | このページ。R2 / R4 が入るたびに更新 |
 
 A5 の部品証跡カタログ (30 型番) は PR #21 で入りました。メーカー資料を取得できなかった項目のため [#9](https://github.com/Takazudo/zudo-led-block/issues/9) は開いたままです。
 
 ## 部品の変更案 (A5 の BOM との差分)
 
-A7 の回路図はまだ `main` に入っていないので、**A7 の BOM は確定していません**。下の表は R1 で選んだ候補で、[部品表 (A5 BOM)](/docs/architecture/bom/) は A5 の記録のまま変えていません。
+A7 の回路図 (PR #24) は A5 の制御基板の回路から **J1・J2・SW1 の 3 部品だけ** を差し替え、ほかの部品と接続は A5 のままです (差分チェックで他の接続変化は 0)。基板がまだ無く、ナット・LED 基板も未決定なので、**A7 の BOM は確定していません**。[部品表 (A5 BOM)](/docs/architecture/bom/) は A5 の記録のまま変えていません。
 
 | 役割 | A5 | A7 の候補 | 状態 |
 |---|---|---|---|
@@ -66,11 +66,11 @@ A7 の部品は `line-a7-` の行として部品カタログに登録してい�
 
 | 未解決 | 影響するもの | 必要なもの | 追跡 |
 |---|---|---|---|
-| 回路図が `main` に無い | 配置、A7 の BOM、インターフェースの役割 | PR #24 | #19 |
+| 基板が無い (未配置・未配線) | A7 のゲート、A7 の BOM、配置のエクスポート | R2 の外形と R4 の配置・配線 | #19 |
 | 機構モデルが `main` に無い | 基板の外形、ジャック・スイッチの位置、奥行き | PR #25 の修正 | #17 |
 | PJ-324M の軸高さが推定 (約 3.0、2.6〜3.4) | 2HP の端子側の余裕 | 寸法入りの図面、3D モデル、実測 | Q1 |
 | PJ-324M のピン機能が推定 | CV_THRU と GND の割り当て | TS / TRS プラグでの導通確認 | Q2、#10 |
-| PJ-324M の穴径が無い | フットプリント | JLC / EasyEDA のフットプリント確認 | Q3 |
+| PJ-324M の穴径が無い | フットプリント (回路図フェーズでは仮定値の長穴) | JLC / EasyEDA のフットプリント確認、実物 | Q3 |
 | ナットの供給と適合 | 前面の固定 | 供給元の回答、部品 | Q4 |
 | PCM13SMTR の在庫 0 | 設定スイッチの調達 | 在庫、または代替部品の端子表・導通確認 | Q10 |
 | メーカーのサイトから資料を取得できない | 図面の値を確認済みにできない | SOFNG / C&K の資料 | Q0 |

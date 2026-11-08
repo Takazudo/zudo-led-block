@@ -4,11 +4,11 @@ Durable hand-off for the A7 structural redesign ([#15](https://github.com/Takazu
 Read this first, then [`evidence-index.md`](evidence-index.md). The Japanese status pages on the docs site
 (`doc/src/content/docs/project/a7.mdx`, `next-actions.mdx`) say the same thing for readers.
 
-**A7 is a design study. It is not released for manufacture.** There is no A7 schematic, board, mechanical
-model or artwork on `main` yet. Nothing in A7 is a part approval, fit approval, electrical result or
+**A7 is a design study. It is not released for manufacture.** The A7 controller schematic is on `main`
+(reviewed, schematic phase only). There is no A7 board, mechanical model or artwork on `main` yet. Nothing in A7 is a part approval, fit approval, electrical result or
 manufacturing approval, and a green CI is none of those either.
 
-Last synchronised with `main` at `54bda11` (2026-11-08).
+Last synchronised with `main` at `5f6865b` (2026-11-08).
 
 ## What A7 is
 
@@ -34,7 +34,7 @@ Accepted direction from the owner (2026-11-08):
 |---|---|---|---|
 | A5 | `engineering/a5/` | Immutable byte-for-byte checkpoint (2026-11-06 JST). Controller placed, unrouted. All ERC/DRC/test results are historical records | the reference netlist, pin assignments, firmware, BOM and evidence A7 builds on |
 | A6 | branch `claude/project-thread-391rx3` @ `7e96380`, draft PR [#14](https://github.com/Takazudo/zudo-led-block/pull/14), issue [#7](https://github.com/Takazudo/zudo-led-block/issues/7) | **Held, not merged.** Fixed 8.8 mm controller, placed but unrouted (125 unconnected); automated routing never reached zero | routing-attempt records only. A7 does not complete A6, and A6 work is not counted as A7 progress |
-| A7 | `engineering/a7/` | Study and verification foundation merged; schematic, mechanical model and board in flight | everything new |
+| A7 | `engineering/a7/` | Study, verification foundation and reviewed controller schematic merged; mechanical model and board in flight | everything new |
 
 ## Task map (epic #15)
 
@@ -43,7 +43,7 @@ Accepted direction from the owner (2026-11-08):
 | R1 parts and dimension study | [#16](https://github.com/Takazudo/zudo-led-block/issues/16) | merged in PR #23 (`54bda11`), issue closed | `study/`, `evidence/`, `pet-fpc.md`, `open-questions.md`, `.claude/skills/component-a7-*` |
 | R2 mechanical model and artwork | [#17](https://github.com/Takazudo/zudo-led-block/issues/17) | **not merged**; draft PR [#25](https://github.com/Takazudo/zudo-led-block/pull/25) | will add `mechanical/`, `front_panel/` |
 | R3 native verification foundation | [#18](https://github.com/Takazudo/zudo-led-block/issues/18) | merged in PR #22 (`02992fa`), issue closed | `verification/`, `scripts/native_gate/` |
-| R4 schematic, placement, routing | [#19](https://github.com/Takazudo/zudo-led-block/issues/19) | **not merged**; schematic phase in PR [#24](https://github.com/Takazudo/zudo-led-block/pull/24), routing to follow | will add `electronics/` |
+| R4 schematic, placement, routing | [#19](https://github.com/Takazudo/zudo-led-block/issues/19) | schematic phase merged in PR [#24](https://github.com/Takazudo/zudo-led-block/pull/24) (`5f6865b`, `SCHEMATIC_REVIEWED`); **board not placed or routed**, issue open | `electronics/`, `verification/schematic/`, `scripts/a7_electronics.py`, `scripts/a7_schematic_check.py` |
 | R5 docs, status, continuation | [#20](https://github.com/Takazudo/zudo-led-block/issues/20) | this document; updated as R2 / R4 merge | `docs/continuation/`, Japanese site pages |
 
 The A5 component catalog (30 identities) merged in PR #21 (`20b2f8f`); issue
@@ -52,8 +52,9 @@ retrieved.
 
 ## Next actions, in order
 
-1. **R4 schematic (PR #24).** Land the A7 controller schematic as its own milestone. The native gate profile
-   stays `candidate: null` until a board lands with it.
+1. **R4 schematic (PR #24): done.** J1, J2 and SW1 replaced, every other part and net unchanged from A5;
+   ERC 0, parity 0, 51 behavioural assertions pass, authorised delta covers all 12 observed deltas. The native
+   gate profile stays `candidate: null` until a board lands with it.
 2. **R2 mechanical (PR #25).** Correct the jack body orientation and the switch-to-jack gap, build the 3HP
    model, keep 2HP 0.6 mm offset parameterised. Decide the rear PMMA pocket (Q8) for thread engagement.
 3. **R4 placement and routing.** Place on the perpendicular outline from R2, route, and make the board the
@@ -72,7 +73,7 @@ retrieved.
 
 | Blocker | Blocks | Needs | Tracked in |
 |---|---|---|---|
-| Controller schematic not on `main` | R4 placement, A7 BOM, interface roles | PR #24 merge | #19 |
+| No A7 board (not placed or routed) | A7 gate, A7 BOM, placement export | R2 outline, then R4 placement and routing | #19 |
 | Mechanical model not on `main` | board outline, jack/switch positions, depth check | PR #25 corrections and merge | #17 |
 | PJ-324M axis height only inferred (≈3.0, band 2.6–3.4) | 2HP lead-side margin | dimensioned drawing, 3D model or measured part | Q1 |
 | PJ-324M pin functions inferred | CV_THRU vs GND mapping | bench continuity test with TS and TRS plugs | Q2, #10 |

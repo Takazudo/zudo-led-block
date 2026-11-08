@@ -4,7 +4,7 @@ Every evidence set the A7 work relies on, sorted by what kind of evidence it is.
 apart on purpose: an A5 historical record is not an A7 result, held A6 work is not A7 progress, and no
 digital result stands in for physical qualification.
 
-Last synchronised with `main` at `54bda11` (2026-11-08). Rows marked *not on main* describe open PRs and are
+Last synchronised with `main` at `5f6865b` (2026-11-08). Rows marked *not on main* describe open PRs and are
 not integrated results.
 
 ## 1. A5 historical evidence (immutable)
@@ -42,16 +42,17 @@ re-run KiCad or CadQuery for these records.
 | Dimension study | `engineering/a7/study/parameters.json` (authored), `results.json`, `report.md` (generated) | R1 | paper study: 3HP feasible on paper across X; 2HP unresolved, not infeasible; thread engagement unresolved without a rear pocket. `python3 scripts/a7_dimension_study.py --check` |
 | PET FPC capture | `engineering/a7/pet-fpc.md` | R1 | JLC public capability statements only; questions not sent |
 | Open questions | `engineering/a7/open-questions.md` | R1 | Q0–Q12 |
+| Controller schematic | `engineering/a7/electronics/` (derived by `scripts/a7_electronics.py generate`; `--check` keeps it current) | R4 #19 (PR #24) | `SCHEMATIC_REVIEWED`: J1 / J2 PJ-324M and SW1 PCM13SMTR replaced, nothing else changed. PJ-324M pin functions INFERRED, terminal positions MIRROR, hole sizes ASSUMED; PCM13SMTR land pattern MIRROR, body centring ASSUMED (`footprints/footprint_sources.json`) |
+| Schematic verification | `engineering/a7/verification/schematic/` (`scripts/a7_schematic_check.py`) | R4 | fresh KiCad 10.0.8: ERC 0, schematic-to-PCB parity 0 against an unrouted staging board outside the repo, 51 behavioural assertions pass, delta 12 observed / 12 authorised. Staging-board DRC is not a board result |
 | Native gate profile | `engineering/a7/verification/native_gate.json`, `.lock.json` | R3 #18 | `candidate: null`, gate stops `NO_CANDIDATE`; no A7 board result exists |
 | Gate fixtures | `scripts/tests/fixtures/native/` | R3 | routed fixtures prove the gate detects faults (`INFRASTRUCTURE_PASS` at best); not an A7 board result |
-| Interface roles | `engineering/a7/verification/interface_roles/` | R3 | A5 reference roles; A7 jack / switch roles `unresolved` until R4 |
-| Authorized delta | `engineering/a7/verification/authorized_delta.json` | R3 | empty, unreviewed |
+| Interface roles | `engineering/a7/verification/interface_roles/` | R3, filled by R4 | A5 reference roles; A7 jack / switch roles reviewed for the schematic phase |
+| Authorized delta | `engineering/a7/verification/authorized_delta.json` | R3, filled by R4 | reviewed `component_replaced` entries for J1 / J2 / SW1; lists the open physical gates |
 
 ### In flight (not on main)
 
 | Evidence | PR | State when last checked |
 |---|---|---|
-| A7 controller schematic | [#24](https://github.com/Takazudo/zudo-led-block/pull/24) (R4 schematic phase) | draft; independent electrical review approved |
 | A7 mechanical model and artwork, 2HP / 3HP evaluation | [#25](https://github.com/Takazudo/zudo-led-block/pull/25) (R2) | draft; being corrected for jack body orientation and switch-to-jack gap |
 | A7 board placement and routing | R4, not opened | not started on `main` |
 
