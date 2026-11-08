@@ -241,8 +241,9 @@ def main() -> int:
             'current_bound_a': round(current, 4), 'nets': list(power),
             'mv_by_copper_um': {str(c): round(drop_bound(probe['tracks'], power, current, c, rho) * 1000, 1)
                                 for c in (12, 18, 35)},
-            'note': 'series sum of every VLED and GND segment on the leaf at the TPS2552 IOSmax bound: an upper bound, '
-                    'not a layout result; connector contact and harness resistance not included'}
+            'note': 'BOUND, not a layout result: TPS2552 IOSmax short-circuit limit (not expected draw) through every '
+                    'VLED and GND segment of the A5 leaf summed in series (branches overcounted), A5 track widths, '
+                    'copper at 1.72e-8 ohm m and 20 C, no ENIG or temperature rise, connector and harness excluded'}
         val = rilim_value(nl['controller'], cb['rilim_ref'])
         s['vled_drop_bound']['rilim_value'] = val
         if not (val or '').startswith(f"{cb['rilim_kohm']}k"):

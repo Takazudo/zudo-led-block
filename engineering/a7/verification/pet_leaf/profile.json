@@ -79,6 +79,7 @@
   "coverlay_bridges": "NOT_MET",
   "note": "Recorded verdicts of the current A5 copper against this profile. The check fails when a fresh verdict differs, so a change to the profile, the rules or the reference cannot pass silently. NOT_MET is a finding, not a gate failure."
  },
+ "open_questions_ref": "engineering/a7/open-questions.md Q11d (1-layer cannot carry the A5 copper), Q11e (plated vias on 2-layer transparent PET), Q11f (0.2 mm coverlay bridges vs the 0.5 mm minimum); blocking for the PET variant only, not for the FR-4 default",
  "open": [
   "JLC: are plated vias offered on 2-layer transparent PET (the A5 leaf routes all data on B.Cu through 11 vias)?",
   "JLC: coverlay bridges under 0.5 mm are removed, so the WS2812B-2020 and SH4 pads share coverlay openings; is that acceptable for assembly, or is a LPI/transparent solder mask offered on PET?",
