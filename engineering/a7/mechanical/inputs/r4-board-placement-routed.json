@@ -1,27 +1,27 @@
 {
  "board": "engineering/a7/electronics/controller/controller.kicad_pcb",
- "board_sha256": "b8cab9a617243c20bf7a7790b0b5c924972b03a15d7804a69de16fd4c083babb",
+ "board_sha256": "ec810aecd9e67e2806f8886e43f3944bf35c1051dcc4a52f23332216025e74f2",
  "components": [
   {
-   "angle_deg": 90.0,
+   "angle_deg": -90.0,
    "at_mm": [
-    9.05,
-    16.9
+    4.75,
+    1.9
    ],
    "board_only": false,
    "fpid": "LightBlock:C0805",
    "pads": {
     "1": {
      "at_mm": [
-      9.05,
-      17.9
+      4.75,
+      0.9
      ],
      "net": "/+12V_PROT"
     },
     "2": {
      "at_mm": [
-      9.05,
-      15.9
+      4.75,
+      2.9
      ],
      "net": "/GND"
     }
@@ -59,23 +59,23 @@
   {
    "angle_deg": 90.0,
    "at_mm": [
-    11.2,
-    1.6
+    9.84,
+    1.5
    ],
    "board_only": false,
    "fpid": "LightBlock:C0603",
    "pads": {
     "1": {
      "at_mm": [
-      11.2,
-      2.4
+      9.84,
+      2.3
      ],
      "net": "/+12V_PROT"
     },
     "2": {
      "at_mm": [
-      11.2,
-      0.8
+      9.84,
+      0.7
      ],
      "net": "/GND"
     }
@@ -86,23 +86,23 @@
   {
    "angle_deg": 90.0,
    "at_mm": [
-    11.2,
-    4.65
+    11.38,
+    1.5
    ],
    "board_only": false,
    "fpid": "LightBlock:C0603",
    "pads": {
     "1": {
      "at_mm": [
-      11.2,
-      5.45
+      11.38,
+      2.3
      ],
      "net": "/GND"
     },
     "2": {
      "at_mm": [
-      11.2,
-      3.85
+      11.38,
+      0.7
      ],
      "net": "/-12V_PROT"
     }
@@ -111,25 +111,25 @@
    "side": "F"
   },
   {
-   "angle_deg": 90.0,
+   "angle_deg": 0.0,
    "at_mm": [
-    14.95,
-    42.75
+    9.53,
+    17.73
    ],
    "board_only": false,
    "fpid": "LightBlock:C0603",
    "pads": {
     "1": {
      "at_mm": [
-      14.95,
-      43.55
+      8.73,
+      17.73
      ],
      "net": "/CV_AFFINE"
     },
     "2": {
      "at_mm": [
-      14.95,
-      41.95
+      10.33,
+      17.73
      ],
      "net": "/GND"
     }
@@ -140,23 +140,23 @@
   {
    "angle_deg": 0.0,
    "at_mm": [
-    5.35,
-    22.365
+    9.43,
+    24.24
    ],
    "board_only": false,
    "fpid": "LightBlock:C0603",
    "pads": {
     "1": {
      "at_mm": [
-      4.55,
-      22.365
+      8.63,
+      24.24
      ],
      "net": "/NRST"
     },
     "2": {
      "at_mm": [
-      6.15,
-      22.365
+      10.23,
+      24.24
      ],
      "net": "/GND"
     }
@@ -192,25 +192,25 @@
    "side": "F"
   },
   {
-   "angle_deg": 90.0,
+   "angle_deg": 0.0,
    "at_mm": [
-    9.05,
-    20.32
+    9.68,
+    16.1
    ],
    "board_only": false,
    "fpid": "LightBlock:C0805",
    "pads": {
     "1": {
      "at_mm": [
-      9.05,
-      21.32
+      8.68,
+      16.1
      ],
      "net": "/VLED"
     },
     "2": {
      "at_mm": [
-      9.05,
-      19.32
+      10.68,
+      16.1
      ],
      "net": "/GND"
     }
@@ -219,25 +219,25 @@
    "side": "F"
   },
   {
-   "angle_deg": 90.0,
+   "angle_deg": 0.0,
    "at_mm": [
-    14.95,
-    45.75
+    5.3,
+    22.78
    ],
    "board_only": false,
    "fpid": "LightBlock:C0603",
    "pads": {
     "1": {
      "at_mm": [
-      14.95,
-      46.55
+      4.5,
+      22.78
      ],
      "net": "/+3V3"
     },
     "2": {
      "at_mm": [
-      14.95,
-      44.95
+      6.1,
+      22.78
      ],
      "net": "/GND"
     }
@@ -248,23 +248,23 @@
   {
    "angle_deg": 0.0,
    "at_mm": [
-    6.1,
-    6.2
+    6.3,
+    11.9
    ],
    "board_only": false,
    "fpid": "LightBlock:C1206",
    "pads": {
     "1": {
      "at_mm": [
-      4.65,
-      6.2
+      4.85,
+      11.9
      ],
      "net": "/+5V"
     },
     "2": {
      "at_mm": [
-      7.55,
-      6.2
+      7.75,
+      11.9
      ],
      "net": "/GND"
     }
@@ -300,25 +300,25 @@
    "side": "F"
   },
   {
-   "angle_deg": 90.0,
+   "angle_deg": 180.0,
    "at_mm": [
-    10.675,
-    16.65
+    7.7,
+    4.45
    ],
    "board_only": false,
    "fpid": "LightBlock:C0603",
    "pads": {
     "1": {
      "at_mm": [
-      10.675,
-      17.45
+      8.5,
+      4.45
      ],
      "net": "/BUCK_BST"
     },
     "2": {
      "at_mm": [
-      10.675,
-      15.85
+      6.9,
+      4.45
      ],
      "net": "/BUCK_SW"
     }
@@ -327,25 +327,25 @@
    "side": "F"
   },
   {
-   "angle_deg": 90.0,
+   "angle_deg": -90.0,
    "at_mm": [
-    10.675,
-    20.07
+    9.84,
+    4.45
    ],
    "board_only": false,
    "fpid": "LightBlock:C0603",
    "pads": {
     "1": {
      "at_mm": [
-      10.675,
-      20.87
+      9.84,
+      3.65
      ],
      "net": "/+5V"
     },
     "2": {
      "at_mm": [
-      10.675,
-      19.27
+      9.84,
+      5.25
      ],
      "net": "/GND"
     }
@@ -354,25 +354,25 @@
    "side": "F"
   },
   {
-   "angle_deg": 0.0,
+   "angle_deg": -90.0,
    "at_mm": [
-    9.6,
-    22.715
+    11.38,
+    4.45
    ],
    "board_only": false,
    "fpid": "LightBlock:C0603",
    "pads": {
     "1": {
      "at_mm": [
-      8.8,
-      22.715
+      11.38,
+      3.65
      ],
      "net": "/+3V3"
     },
     "2": {
      "at_mm": [
-      10.4,
-      22.715
+      11.38,
+      5.25
      ],
      "net": "/GND"
     }
@@ -383,23 +383,23 @@
   {
    "angle_deg": 0.0,
    "at_mm": [
-    6.98,
-    24.2
+    9.43,
+    22.84
    ],
    "board_only": false,
    "fpid": "LightBlock:C0603",
    "pads": {
     "1": {
      "at_mm": [
-      6.18,
-      24.2
+      8.63,
+      22.84
      ],
      "net": "/+3V3"
     },
     "2": {
      "at_mm": [
-      7.78,
-      24.2
+      10.23,
+      22.84
      ],
      "net": "/GND"
     }
@@ -408,25 +408,25 @@
    "side": "F"
   },
   {
-   "angle_deg": 0.0,
+   "angle_deg": 180.0,
    "at_mm": [
-    9.91,
-    24.2
+    1.5,
+    29.46
    ],
    "board_only": false,
    "fpid": "LightBlock:C0603",
    "pads": {
     "1": {
      "at_mm": [
-      9.11,
-      24.2
+      2.3,
+      29.46
      ],
      "net": "/+3V3"
     },
     "2": {
      "at_mm": [
-      10.71,
-      24.2
+      0.7,
+      29.46
      ],
      "net": "/GND"
     }
@@ -516,32 +516,32 @@
    "side": "F"
   },
   {
-   "angle_deg": 0.0,
+   "angle_deg": 180.0,
    "at_mm": [
-    14.45,
-    60.7
+    9.68,
+    20.4
    ],
    "board_only": false,
    "fpid": "LightBlock:SOT23",
    "pads": {
     "1": {
      "at_mm": [
-      13.45,
-      59.75
+      10.68,
+      21.35
      ],
      "net": "/GND"
     },
     "2": {
      "at_mm": [
-      13.45,
-      61.65
+      10.68,
+      19.45
      ],
      "net": "/+3V3"
     },
     "3": {
      "at_mm": [
-      15.45,
-      60.7
+      8.68,
+      20.4
      ],
      "net": "/CV_FILTER"
     }
@@ -728,25 +728,25 @@
    "side": "F"
   },
   {
-   "angle_deg": 0.0,
+   "angle_deg": -90.0,
    "at_mm": [
-    6.6,
-    2.55
+    6.3,
+    7.93
    ],
    "board_only": false,
    "fpid": "LightBlock:SPM4020_LR",
    "pads": {
     "1": {
      "at_mm": [
-      4.95,
-      2.55
+      6.3,
+      6.28
      ],
      "net": "/BUCK_SW"
     },
     "2": {
      "at_mm": [
-      8.25,
-      2.55
+      6.3,
+      9.58
      ],
      "net": "/+5V"
     }
@@ -757,30 +757,30 @@
   {
    "angle_deg": 0.0,
    "at_mm": [
-    5.6,
-    9.17
+    14.45,
+    60.7
    ],
    "board_only": false,
    "fpid": "LightBlock:SOT23",
    "pads": {
     "1": {
      "at_mm": [
-      4.6,
-      8.22
+      13.45,
+      59.75
      ],
      "net": "/LED_BASE"
     },
     "2": {
      "at_mm": [
-      4.6,
-      10.12
+      13.45,
+      61.65
      ],
      "net": "/GND"
     },
     "3": {
      "at_mm": [
-      6.6,
-      9.17
+      15.45,
+      60.7
      ],
      "net": "/LED_EN_N"
     }
@@ -791,23 +791,23 @@
   {
    "angle_deg": 0.0,
    "at_mm": [
-    14.0,
-    9.0
+    13.0,
+    4.0
    ],
    "board_only": false,
    "fpid": "LightBlock:R0603",
    "pads": {
     "1": {
      "at_mm": [
-      13.2,
-      9.0
+      12.2,
+      4.0
      ],
      "net": "/CV_THRU"
     },
     "2": {
      "at_mm": [
-      14.8,
-      9.0
+      13.8,
+      4.0
      ],
      "net": "/CV_SENSE"
     }
@@ -819,7 +819,7 @@
    "angle_deg": 0.0,
    "at_mm": [
     5.3,
-    22.7
+    22.5
    ],
    "board_only": false,
    "fpid": "LightBlock:R0603",
@@ -827,14 +827,14 @@
     "1": {
      "at_mm": [
       4.5,
-      22.7
+      22.5
      ],
      "net": "/+3V3"
     },
     "2": {
      "at_mm": [
       6.1,
-      22.7
+      22.5
      ],
      "net": "/MODE_B"
     }
@@ -845,23 +845,23 @@
   {
    "angle_deg": 0.0,
    "at_mm": [
-    6.0,
-    20.0
+    6.5,
+    17.0
    ],
    "board_only": false,
    "fpid": "LightBlock:R0603",
    "pads": {
     "1": {
      "at_mm": [
-      5.2,
-      20.0
+      5.7,
+      17.0
      ],
      "net": "/LED_ILIM"
     },
     "2": {
      "at_mm": [
-      6.8,
-      20.0
+      7.3,
+      17.0
      ],
      "net": "/GND"
     }
@@ -872,23 +872,23 @@
   {
    "angle_deg": 0.0,
    "at_mm": [
-    6.0,
-    12.0
+    14.0,
+    60.5
    ],
    "board_only": false,
    "fpid": "LightBlock:R0603",
    "pads": {
     "1": {
      "at_mm": [
-      5.2,
-      12.0
+      13.2,
+      60.5
      ],
      "net": "/LED_BASE"
     },
     "2": {
      "at_mm": [
-      6.8,
-      12.0
+      14.8,
+      60.5
      ],
      "net": "/GND"
     }
@@ -899,7 +899,7 @@
   {
    "angle_deg": 0.0,
    "at_mm": [
-    6.0,
+    6.5,
     18.5
    ],
    "board_only": false,
@@ -907,14 +907,14 @@
    "pads": {
     "1": {
      "at_mm": [
-      5.2,
+      5.7,
       18.5
      ],
      "net": "/+3V3"
     },
     "2": {
      "at_mm": [
-      6.8,
+      7.3,
       18.5
      ],
      "net": "/LED_FAULT_N"
@@ -1088,23 +1088,23 @@
   {
    "angle_deg": 0.0,
    "at_mm": [
-    14.0,
-    7.4
+    13.0,
+    2.5
    ],
    "board_only": false,
    "fpid": "LightBlock:R0603",
    "pads": {
     "1": {
      "at_mm": [
-      13.2,
-      7.4
+      12.2,
+      2.5
      ],
      "net": "/CV_SENSE"
     },
     "2": {
      "at_mm": [
-      14.8,
-      7.4
+      13.8,
+      2.5
      ],
      "net": "/GND"
     }
@@ -1115,23 +1115,23 @@
   {
    "angle_deg": 90.0,
    "at_mm": [
-    8.3,
-    20.0
+    9.0,
+    16.0
    ],
    "board_only": false,
    "fpid": "LightBlock:R0603",
    "pads": {
     "1": {
      "at_mm": [
-      8.3,
-      20.8
+      9.0,
+      16.8
      ],
      "net": "/VLED"
     },
     "2": {
      "at_mm": [
-      8.3,
-      19.2
+      9.0,
+      15.2
      ],
      "net": "/GND"
     }
@@ -1140,25 +1140,25 @@
    "side": "B"
   },
   {
-   "angle_deg": 90.0,
+   "angle_deg": 0.0,
    "at_mm": [
-    7.6,
-    23.3
+    7.0,
+    24.1
    ],
    "board_only": false,
    "fpid": "LightBlock:R0603",
    "pads": {
     "1": {
      "at_mm": [
-      7.6,
+      6.2,
       24.1
      ],
      "net": "/+3V3"
     },
     "2": {
      "at_mm": [
-      7.6,
-      22.5
+      7.8,
+      24.1
      ],
      "net": "/NRST"
     }
@@ -1169,23 +1169,23 @@
   {
    "angle_deg": 0.0,
    "at_mm": [
-    6.0,
-    10.4
+    14.0,
+    62.0
    ],
    "board_only": false,
    "fpid": "LightBlock:R0603",
    "pads": {
     "1": {
      "at_mm": [
-      5.2,
-      10.4
+      13.2,
+      62.0
      ],
      "net": "/LED_ENABLE"
     },
     "2": {
      "at_mm": [
-      6.8,
-      10.4
+      14.8,
+      62.0
      ],
      "net": "/LED_BASE"
     }
@@ -1196,23 +1196,23 @@
   {
    "angle_deg": 0.0,
    "at_mm": [
-    6.0,
-    17.0
+    5.3,
+    20.0
    ],
    "board_only": false,
    "fpid": "LightBlock:R0603",
    "pads": {
     "1": {
      "at_mm": [
-      5.2,
-      17.0
+      4.5,
+      20.0
      ],
      "net": "/+5V"
     },
     "2": {
      "at_mm": [
-      6.8,
-      17.0
+      6.1,
+      20.0
      ],
      "net": "/LED_EN_N"
     }
@@ -1221,25 +1221,25 @@
    "side": "B"
   },
   {
-   "angle_deg": 0.0,
+   "angle_deg": 90.0,
    "at_mm": [
-    12.0,
-    5.9
+    7.6,
+    21.8
    ],
    "board_only": false,
    "fpid": "LightBlock:R0603",
    "pads": {
     "1": {
      "at_mm": [
-      11.2,
-      5.9
+      7.6,
+      22.6
      ],
      "net": "/CV_DRIVE"
     },
     "2": {
      "at_mm": [
-      12.8,
-      5.9
+      7.6,
+      21.0
      ],
      "net": "/CV_ADC"
     }
@@ -1248,25 +1248,25 @@
    "side": "B"
   },
   {
-   "angle_deg": 0.0,
+   "angle_deg": 90.0,
    "at_mm": [
-    12.0,
-    4.4
+    9.2,
+    21.8
    ],
    "board_only": false,
    "fpid": "LightBlock:R0603",
    "pads": {
     "1": {
      "at_mm": [
-      11.2,
-      4.4
+      9.2,
+      22.6
      ],
      "net": "/CV_ADC"
     },
     "2": {
      "at_mm": [
-      12.8,
-      4.4
+      9.2,
+      21.0
      ],
      "net": "/GND"
     }
@@ -1275,25 +1275,25 @@
    "side": "B"
   },
   {
-   "angle_deg": 90.0,
+   "angle_deg": 0.0,
    "at_mm": [
-    14.3,
-    4.0
+    9.6,
+    19.0
    ],
    "board_only": false,
    "fpid": "LightBlock:R0603",
    "pads": {
     "1": {
      "at_mm": [
-      14.3,
-      4.8
+      8.8,
+      19.0
      ],
      "net": "/CV_BUF"
     },
     "2": {
      "at_mm": [
-      14.3,
-      3.2
+      10.4,
+      19.0
      ],
      "net": "/CV_AFFINE"
     }
@@ -1302,25 +1302,25 @@
    "side": "B"
   },
   {
-   "angle_deg": 0.0,
+   "angle_deg": 90.0,
    "at_mm": [
-    12.0,
-    2.9
+    10.6,
+    16.7
    ],
    "board_only": false,
    "fpid": "LightBlock:R0603",
    "pads": {
     "1": {
      "at_mm": [
-      11.2,
-      2.9
+      10.6,
+      17.5
      ],
      "net": "/+3V3"
     },
     "2": {
      "at_mm": [
-      12.8,
-      2.9
+      10.6,
+      15.9
      ],
      "net": "/CV_AFFINE"
     }
@@ -1329,25 +1329,25 @@
    "side": "B"
   },
   {
-   "angle_deg": 0.0,
+   "angle_deg": 90.0,
    "at_mm": [
-    14.0,
-    1.3
+    12.2,
+    18.0
    ],
    "board_only": false,
    "fpid": "LightBlock:R0603",
    "pads": {
     "1": {
      "at_mm": [
-      13.2,
-      1.3
+      12.2,
+      18.8
      ],
      "net": "/+3V3"
     },
     "2": {
      "at_mm": [
-      14.8,
-      1.3
+      12.2,
+      17.2
      ],
      "net": "/CV_AFFINE"
     }
@@ -1358,23 +1358,23 @@
   {
    "angle_deg": 0.0,
    "at_mm": [
-    10.9,
-    1.3
+    6.7,
+    15.5
    ],
    "board_only": false,
    "fpid": "LightBlock:R0603",
    "pads": {
     "1": {
      "at_mm": [
-      10.1,
-      1.3
+      5.9,
+      15.5
      ],
      "net": "/CV_AFFINE"
     },
     "2": {
      "at_mm": [
-      11.7,
-      1.3
+      7.5,
+      15.5
      ],
      "net": "/GND"
     }
@@ -1383,25 +1383,25 @@
    "side": "B"
   },
   {
-   "angle_deg": 0.0,
+   "angle_deg": 90.0,
    "at_mm": [
-    10.9,
-    7.4
+    10.8,
+    21.3
    ],
    "board_only": false,
    "fpid": "LightBlock:R0603",
    "pads": {
     "1": {
      "at_mm": [
-      10.1,
-      7.4
+      10.8,
+      22.1
      ],
      "net": "/CV_AFFINE"
     },
     "2": {
      "at_mm": [
-      11.7,
-      7.4
+      10.8,
+      20.5
      ],
      "net": "/CV_FILTER"
     }
@@ -1412,23 +1412,23 @@
   {
    "angle_deg": 90.0,
    "at_mm": [
-    9.7,
-    5.1
+    10.0,
+    3.0
    ],
    "board_only": false,
    "fpid": "LightBlock:R0603",
    "pads": {
     "1": {
      "at_mm": [
-      9.7,
-      5.9
+      10.0,
+      3.8
      ],
      "net": "/+3V3"
     },
     "2": {
      "at_mm": [
-      9.7,
-      4.3
+      10.0,
+      2.2
      ],
      "net": "/GND"
     }
@@ -1437,25 +1437,25 @@
    "side": "B"
   },
   {
-   "angle_deg": 90.0,
+   "angle_deg": 0.0,
    "at_mm": [
-    9.2,
-    23.3
+    10.1,
+    24.1
    ],
    "board_only": false,
    "fpid": "LightBlock:R0603",
    "pads": {
     "1": {
      "at_mm": [
-      9.2,
+      9.3,
       24.1
      ],
      "net": "/+3V3"
     },
     "2": {
      "at_mm": [
-      9.2,
-      22.5
+      10.9,
+      24.1
      ],
      "net": "/MODE_A"
     }
@@ -1507,7 +1507,7 @@
   {
    "angle_deg": 0.0,
    "at_mm": [
-    10.7,
+    12.3,
     24.2
    ],
    "board_only": false,
@@ -1515,7 +1515,7 @@
    "pads": {
     "1": {
      "at_mm": [
-      10.7,
+      12.3,
       24.2
      ],
      "net": "/+3V3"
@@ -1527,16 +1527,16 @@
   {
    "angle_deg": 0.0,
    "at_mm": [
-    10.7,
-    22.8
+    12.5,
+    26.0
    ],
    "board_only": false,
    "fpid": "LightBlock:TESTPAD",
    "pads": {
     "1": {
      "at_mm": [
-      10.7,
-      22.8
+      12.5,
+      26.0
      ],
      "net": "/GND"
     }
@@ -1547,16 +1547,16 @@
   {
    "angle_deg": 0.0,
    "at_mm": [
-    9.8,
-    21.1
+    12.5,
+    27.4
    ],
    "board_only": false,
    "fpid": "LightBlock:TESTPAD",
    "pads": {
     "1": {
      "at_mm": [
-      9.8,
-      21.1
+      12.5,
+      27.4
      ],
      "net": "/SWDIO"
     }
@@ -1567,16 +1567,16 @@
   {
    "angle_deg": 0.0,
    "at_mm": [
-    9.8,
-    19.7
+    12.3,
+    22.8
    ],
    "board_only": false,
    "fpid": "LightBlock:TESTPAD",
    "pads": {
     "1": {
      "at_mm": [
-      9.8,
-      19.7
+      12.3,
+      22.8
      ],
      "net": "/SWCLK"
     }
@@ -1587,16 +1587,16 @@
   {
    "angle_deg": 0.0,
    "at_mm": [
-    12.1,
-    24.2
+    12.5,
+    28.8
    ],
    "board_only": false,
    "fpid": "LightBlock:TESTPAD",
    "pads": {
     "1": {
      "at_mm": [
-      12.1,
-      24.2
+      12.5,
+      28.8
      ],
      "net": "/NRST"
     }
@@ -1608,7 +1608,7 @@
    "angle_deg": 90.0,
    "at_mm": [
     2.62,
-    26.3
+    26.13
    ],
    "board_only": false,
    "fpid": "LightBlock:QFN28",
@@ -1616,196 +1616,196 @@
     "1": {
      "at_mm": [
       1.12,
-      28.2975
+      28.1275
      ],
      "net": "unconnected-(U1-PC14-Pad1)"
     },
     "10": {
      "at_mm": [
       4.5575,
-      26.8
+      26.63
      ],
      "net": "/LED_FAULT_N"
     },
     "11": {
      "at_mm": [
       4.5575,
-      26.3
+      26.13
      ],
      "net": "/LED_ENABLE"
     },
     "12": {
      "at_mm": [
       4.5575,
-      25.8
+      25.63
      ],
      "net": "/DATA_L_3V3"
     },
     "13": {
      "at_mm": [
       4.5575,
-      25.3
+      25.13
      ],
      "net": "/DATA_R_3V3"
     },
     "14": {
      "at_mm": [
       4.6175,
-      24.8
+      24.63
      ],
      "net": "unconnected-(U1-PB0-Pad14)"
     },
     "15": {
      "at_mm": [
       4.12,
-      24.3025
+      24.1325
      ],
      "net": "unconnected-(U1-PB1-Pad15)"
     },
     "16": {
      "at_mm": [
       3.62,
-      24.3625
+      24.1925
      ],
      "net": "unconnected-(U1-PA8-Pad16)"
     },
     "17": {
      "at_mm": [
       3.12,
-      24.3625
+      24.1925
      ],
      "net": "unconnected-(U1-PC6-Pad17)"
     },
     "18": {
      "at_mm": [
       2.62,
-      24.3625
+      24.1925
      ],
      "net": "unconnected-(U1-PA11-Pad18)"
     },
     "19": {
      "at_mm": [
       2.12,
-      24.3625
+      24.1925
      ],
      "net": "unconnected-(U1-PA12-Pad19)"
     },
     "2": {
      "at_mm": [
       1.62,
-      28.2375
+      28.0675
      ],
      "net": "unconnected-(U1-PC15-Pad2)"
     },
     "20": {
      "at_mm": [
       1.62,
-      24.3625
+      24.1925
      ],
      "net": "/SWDIO"
     },
     "21": {
      "at_mm": [
       1.12,
-      24.3025
+      24.1325
      ],
      "net": "/SWCLK"
     },
     "22": {
      "at_mm": [
       0.6225,
-      24.8
+      24.63
      ],
      "net": "unconnected-(U1-PA15-Pad22)"
     },
     "23": {
      "at_mm": [
       0.6825,
-      25.3
+      25.13
      ],
      "net": "unconnected-(U1-PB3-Pad23)"
     },
     "24": {
      "at_mm": [
       0.6825,
-      25.8
+      25.63
      ],
      "net": "unconnected-(U1-PB4-Pad24)"
     },
     "25": {
      "at_mm": [
       0.6825,
-      26.3
+      26.13
      ],
      "net": "unconnected-(U1-PB5-Pad25)"
     },
     "26": {
      "at_mm": [
       0.6825,
-      26.8
+      26.63
      ],
      "net": "unconnected-(U1-PB6-Pad26)"
     },
     "27": {
      "at_mm": [
       0.6825,
-      27.3
+      27.13
      ],
      "net": "unconnected-(U1-PB7-Pad27)"
     },
     "28": {
      "at_mm": [
       0.6225,
-      27.8
+      27.63
      ],
      "net": "unconnected-(U1-PB8-Pad28)"
     },
     "3": {
      "at_mm": [
       2.12,
-      28.2375
+      28.0675
      ],
      "net": "/+3V3"
     },
     "4": {
      "at_mm": [
       2.62,
-      28.2375
+      28.0675
      ],
      "net": "/GND"
     },
     "5": {
      "at_mm": [
       3.12,
-      28.2375
+      28.0675
      ],
      "net": "/NRST"
     },
     "6": {
      "at_mm": [
       3.62,
-      28.2375
+      28.0675
      ],
      "net": "/CV_ADC"
     },
     "7": {
      "at_mm": [
       4.12,
-      28.2975
+      28.1275
      ],
      "net": "unconnected-(U1-PA1-Pad7)"
     },
     "8": {
      "at_mm": [
       4.6175,
-      27.8
+      27.63
      ],
      "net": "/MODE_A"
     },
     "9": {
      "at_mm": [
       4.5575,
-      27.3
+      27.13
      ],
      "net": "/MODE_B"
     }
@@ -1814,53 +1814,53 @@
    "side": "F"
   },
   {
-   "angle_deg": 0.0,
+   "angle_deg": -90.0,
    "at_mm": [
-    5.65,
-    12.74
+    7.4,
+    1.9
    ],
    "board_only": false,
    "fpid": "LightBlock:TSOT26",
    "pads": {
     "1": {
      "at_mm": [
-      4.55,
-      11.79
+      8.35,
+      0.8
      ],
      "net": "/+5V"
     },
     "2": {
      "at_mm": [
-      4.55,
-      12.74
+      7.4,
+      0.8
      ],
      "net": "/+12V_PROT"
     },
     "3": {
      "at_mm": [
-      4.55,
-      13.69
+      6.45,
+      0.8
      ],
      "net": "/+12V_PROT"
     },
     "4": {
      "at_mm": [
-      6.75,
-      13.69
+      6.45,
+      3.0
      ],
      "net": "/GND"
     },
     "5": {
      "at_mm": [
-      6.75,
-      12.74
+      7.4,
+      3.0
      ],
      "net": "/BUCK_SW"
     },
     "6": {
      "at_mm": [
-      6.75,
-      11.79
+      8.35,
+      3.0
      ],
      "net": "/BUCK_BST"
     }
@@ -1869,46 +1869,46 @@
    "side": "F"
   },
   {
-   "angle_deg": 0.0,
+   "angle_deg": 180.0,
    "at_mm": [
-    5.95,
-    16.29
+    14.15,
+    5.2
    ],
    "board_only": false,
    "fpid": "LightBlock:DBV5",
    "pads": {
     "1": {
      "at_mm": [
-      4.65,
-      15.34
+      15.45,
+      6.15
      ],
      "net": "/+5V"
     },
     "2": {
      "at_mm": [
-      4.65,
-      16.29
+      15.45,
+      5.2
      ],
      "net": "/GND"
     },
     "3": {
      "at_mm": [
-      4.65,
-      17.24
+      15.45,
+      4.25
      ],
      "net": "/+5V"
     },
     "4": {
      "at_mm": [
-      7.25,
-      17.24
+      12.85,
+      4.25
      ],
      "net": "unconnected-(U3-NC-Pad4)"
     },
     "5": {
      "at_mm": [
-      7.25,
-      15.34
+      12.85,
+      6.15
      ],
      "net": "/+3V3"
     }
@@ -1919,51 +1919,51 @@
   {
    "angle_deg": 0.0,
    "at_mm": [
-    5.95,
-    19.84
+    5.9,
+    16.9
    ],
    "board_only": false,
    "fpid": "LightBlock:DBV6",
    "pads": {
     "1": {
      "at_mm": [
-      4.65,
-      18.89
+      4.6,
+      15.95
      ],
      "net": "/+5V"
     },
     "2": {
      "at_mm": [
-      4.65,
-      19.84
+      4.6,
+      16.9
      ],
      "net": "/GND"
     },
     "3": {
      "at_mm": [
-      4.65,
-      20.79
+      4.6,
+      17.85
      ],
      "net": "/LED_EN_N"
     },
     "4": {
      "at_mm": [
-      7.25,
-      20.79
+      7.2,
+      17.85
      ],
      "net": "/LED_FAULT_N"
     },
     "5": {
      "at_mm": [
-      7.25,
-      19.84
+      7.2,
+      16.9
      ],
      "net": "/LED_ILIM"
     },
     "6": {
      "at_mm": [
-      7.25,
-      18.89
+      7.2,
+      15.95
      ],
      "net": "/VLED"
     }
@@ -2043,44 +2043,44 @@
   {
    "angle_deg": 0.0,
    "at_mm": [
-    14.1,
-    1.85
+    14.15,
+    1.75
    ],
    "board_only": false,
    "fpid": "LightBlock:DBV5",
    "pads": {
     "1": {
      "at_mm": [
-      12.8,
-      0.9
+      12.85,
+      0.8
      ],
      "net": "/CV_BUF"
     },
     "2": {
      "at_mm": [
-      12.8,
-      1.85
+      12.85,
+      1.75
      ],
      "net": "/-12V_PROT"
     },
     "3": {
      "at_mm": [
-      12.8,
-      2.8
+      12.85,
+      2.7
      ],
      "net": "/CV_SENSE"
     },
     "4": {
      "at_mm": [
-      15.4,
-      2.8
+      15.45,
+      2.7
      ],
      "net": "/CV_BUF"
     },
     "5": {
      "at_mm": [
-      15.4,
-      0.9
+      15.45,
+      0.8
      ],
      "net": "/+12V_PROT"
     }
@@ -2089,46 +2089,46 @@
    "side": "F"
   },
   {
-   "angle_deg": 0.0,
+   "angle_deg": 180.0,
    "at_mm": [
-    14.1,
-    5.35
+    5.9,
+    20.35
    ],
    "board_only": false,
    "fpid": "LightBlock:DBV5",
    "pads": {
     "1": {
      "at_mm": [
-      12.8,
-      4.4
+      7.2,
+      21.3
      ],
      "net": "/CV_DRIVE"
     },
     "2": {
      "at_mm": [
-      12.8,
-      5.35
+      7.2,
+      20.35
      ],
      "net": "/GND"
     },
     "3": {
      "at_mm": [
-      12.8,
-      6.3
+      7.2,
+      19.4
      ],
      "net": "/CV_FILTER"
     },
     "4": {
      "at_mm": [
-      15.4,
-      6.3
+      4.6,
+      19.4
      ],
      "net": "/CV_DRIVE"
     },
     "5": {
      "at_mm": [
-      15.4,
-      4.4
+      4.6,
+      21.3
      ],
      "net": "/+3V3"
     }
@@ -2165,11 +2165,11 @@
   ]
  ],
  "generator": "scripts/native_gate/authority.py export-placement (from fresh native board facts)",
- "geometry_sha256": "d26be7fe4ad3ba425edd4f3f32ad0a48e7fad16c0c5cedfd77dc5e34d95bc054",
+ "geometry_sha256": "e891e541470d70527cf3e3feb7df656049ee3c194329d5d328c7e12937e67d34",
  "thickness_mm": 1.6,
- "track_count": 1616,
+ "track_count": 1496,
  "unconnected_pcbnew": 0,
- "via_count": 131,
+ "via_count": 133,
  "zone_count": 4,
- "zone_fill_sha256": "c9cf82448724a77560516424d16e6ec86f7359104b9796ea45b6dc148c6832e1"
+ "zone_fill_sha256": "38e749eac7e317d171bd79a0fe6c3375a9f5f9a808bffd0fde2a4b618eaf86b9"
 }
