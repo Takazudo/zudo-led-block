@@ -32,7 +32,8 @@ import numpy as np
 
 PITCH = 0.1
 CLEAR = 0.15
-HOLE_CLEAR = 0.2
+# board hole clearance is 0.2; tracks keep the stricter custom rule a7_pth_to_track (controller.kicad_dru) from plated holes
+HOLE_CLEAR = 0.35
 EDGE_CLEAR = 0.2
 ROUTER_MARGIN = 0.03
 # A7 authorized rule delta: 0.5/0.2 mm vias (native_gate.json design_rule_delta)
@@ -56,6 +57,13 @@ NO_VIA_UNDER = {'U1': 1.6}
 KEEP_OUT_OF = {'/CV_ADC': ('U1', -0.2)}
 # Buck hot-loop GND pads get more than one via into the In1 plane.
 GND_VIAS = {('U2', '4'): 2, ('C1', '2'): 2, ('C2', '2'): 2}
+# Revision 2 review: these GND pads stitch to the plane within this radius (pad centre to via centre, mm).
+GND_VIA_NEAR = {('U7', '2'): 0.9, ('C17', '2'): 0.9}
+# Revision 2 review: routed copper of these net pairs keeps this edge-to-edge distance (mm) in plan view wherever the
+# layers couple, so the filtered ADC input does not run beside the switched LED supply. F.Cu is shielded from In2/B by
+# the In1 GND plane; In2 and B have no plane between them. Vias span every layer.
+SEPARATE = {('/CV_FILTER', '/VLED'): 1.2}
+COUPLED = {'F.Cu': {'F.Cu'}, 'In2.Cu': {'In2.Cu', 'B.Cu'}, 'B.Cu': {'In2.Cu', 'B.Cu'}}
 PRES0, PRES_MULT, HIST_INC = 0.5, 1.6, 1.0
 MAX_ITER = 60
 MAX_POPS = 2000000
@@ -275,12 +283,34 @@ class Router:
                 out += [(ROUTE_LAYERS.index(l), int(j + sj.start), int(i + si.start)) for j, i in zip(jj, ii)]
         return out
 
-    def search(self, net, sources, targets, cls, fac, want_via_target=False, reuse_vias=True):
+    def separation_block(self, net, cls, layer=None):
+        """Cells closer than the SEPARATE distance to partner-net copper that couples to this layer (None: any layer)."""
+        X, Y = np.meshgrid(self.g.xs, self.g.ys)
+        blk = np.zeros((self.g.ny, self.g.nx), bool)
+        h = self.g.classes[cls]
+        for pair, d in SEPARATE.items():
+            if net not in pair:
+                continue
+            other = pair[1] if pair[0] == net else pair[0]
+            for t in self.tracks.get(other, []):
+                if layer is not None and t['layer'] not in COUPLED[layer]:
+                    continue
+                (ax, ay), (bx, by) = t['start'], t['end']
+                blk |= seg_dist(X, Y, ax, ay, bx, by) < d + t['width'] / 2 + h
+            for v in self.vias.get(other, []):
+                blk |= np.hypot(X - v['at'][0], Y - v['at'][1]) < d + v['size'] / 2 + h
+        return blk
+
+    def search(self, net, sources, targets, cls, fac, want_via_target=False, reuse_vias=True, via_target=None):
         """A* over (layer, j, i); step cost = length * congestion factor (>= 1, so the heuristic is admissible)."""
         nid = self.net_ids[net]
         nx, ny = self.g.nx, self.g.ny
         pas = [self.passable(cls, l, nid) for l in ROUTE_LAYERS]
+        if any(net in pair for pair in SEPARATE):
+            pas = [a & ~self.separation_block(net, cls, l) for a, l in zip(pas, ROUTE_LAYERS)]
         via = self.via_ok(nid) & ~self.own_hole_block(net)
+        if any(net in pair for pair in SEPARATE):
+            via &= ~self.separation_block(net, 'v')
         reuse = {(round(v['at'][0], 4), round(v['at'][1], 4)) for v in self.vias[net]} if reuse_vias else set()
         for x, y in reuse:
             i, j = self.g.cell(x, y)
@@ -318,7 +348,7 @@ class Router:
             if node in tset:
                 found = node
                 break
-            if want_via_target and via[j, i] and node not in srcset:
+            if want_via_target and via[j, i] and node not in srcset and (via_target is None or via_target[j, i]):
                 g2 = gcost + VIA_COST * float(fv[j, i])
                 gn = (-1,) + node
                 if g2 < best.get(gn, math.inf):
@@ -413,10 +443,16 @@ class Router:
             for p in self.pads:
                 if p['net'] != GND or p['drill']:
                     continue
+                near = GND_VIA_NEAR.get((p['ref'], p['pad']))
+                vt = None
+                if near is not None:
+                    X, Y = np.meshgrid(self.g.xs, self.g.ys)
+                    vt = np.hypot(X - p['at'][0], Y - p['at'][1]) <= near
                 for k in range(GND_VIAS.get((p['ref'], p['pad']), 1)):
                     for cls, w in classes:
                         src = self.pad_cells(p, cls, nid)
-                        path = self.search(GND, src, [], cls, fac(cls), want_via_target=True, reuse_vias=k == 0) if src else None
+                        path = self.search(GND, src, [], cls, fac(cls), want_via_target=True, reuse_vias=k == 0,
+                                           via_target=vt) if src else None
                         if path is not None:
                             self.commit(GND, path, w, cls, end_via=True)
                             break

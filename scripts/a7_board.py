@@ -78,20 +78,23 @@ GAP = 0.15
 # Component-face placement, hand-packed by function into the regions R2's keep-outs leave free (layout review of
 # PR #30: hot loops at the IC, analog parts at the pins they serve).
 # Buck (top left): C1 across U2 VIN (pin 3) and GND (pin 4); C4 across BST/SW right under the IC; L1's SW pad
-# straight below; output cap C2 at L1's +5V pad. Top right, above the J3 courtyard: U6 with C11/C12 and LDO U3
-# with C5/C6 (C6 at the output pin). Beside the spine slot: U4 with C16 at VLED, then the ADC buffer island U7 with
+# straight below; output cap C2 at L1's +5V pad. Top right, above the J3 courtyard: U6 between its rail caps
+# (C12 at -12 V pin 2, C11 at +12 V pin 5 in the strip at the board edge; revision 2 review item) and LDO U3
+# with C5/C6 (C6 at the output pin). Beside the spine slot: C15 (+5 V bulk) right above U4.1 IN (revision 2), U4
+# with C16 at VLED, then the ADC buffer island U7 with
 # D3 at U7.3 (CV_FILTER), C13 on CV_AFFINE beside R7 and C17 at U7.5, so the long CV run is U6's low-impedance
 # output. MCU 100 n (C8) right under VDD (U1.3/U1.4), C7/C14 at the MCU's upper right. Q1 (DC enable for U4) in
 # the free corner beside the switch; 1206/SOD323 bulk parts in the strip behind the jack bodies; U5 between jacks.
+GND_STITCH_SITES = {'U7.2': (6.4, 20.35, 0.7), 'C17.2': (6.1, 22.85, 0.7)}  # board x, y, half-size (mm)
 MANUAL_F = {
     'C1': (4.75, 1.9, 270), 'U2': (7.4, 1.9, 270), 'C4': (7.7, 4.45, 180), 'L1': (6.3, 7.93, 270), 'C2': (6.3, 11.9, 0),
-    'U6': (14.15, 1.75, 0), 'U3': (14.15, 5.2, 180),
-    'C11': (9.84, 1.5, 90), 'C12': (11.38, 1.5, 90), 'C5': (9.84, 4.45, 270), 'C6': (11.38, 4.45, 270),
-    'U4': (5.9, 16.9, 0), 'C16': (9.68, 16.1, 0), 'C13': (9.53, 17.73, 0),
+    'U6': (12.67, 1.75, 0), 'U3': (14.13, 5.2, 180),
+    'C12': (9.84, 1.5, 270), 'C11': (15.5, 1.5, 270), 'C5': (9.84, 4.95, 270), 'C6': (11.38, 4.95, 270),
+    'C15': (5.6, 14.15, 0), 'U4': (5.9, 16.9, 0), 'C16': (9.68, 16.1, 0), 'C13': (9.53, 17.73, 0),
     'U7': (5.9, 20.35, 180), 'D3': (9.68, 20.4, 180), 'C17': (5.3, 22.78, 0),
     'C7': (9.43, 22.84, 0), 'C14': (9.43, 24.24, 0),
     'U1': (2.62, 26.13, 90), 'C8': (1.5, 29.46, 180),
-    'C3': (14.95, 31.95, 90), 'D1': (14.95, 36.0, 90), 'D2': (14.95, 39.5, 90), 'C15': (14.95, 49.0, 90),
+    'C3': (14.95, 31.95, 90), 'D1': (14.95, 36.0, 90), 'D2': (14.95, 39.5, 90),
     'U5': (3.6, 43.75, 0), 'C9': (7.3, 43.75, 0), 'C10': (10.25, 43.75, 0),
     'Q1': (14.45, 60.7, 0),
 }
@@ -201,6 +204,10 @@ def pack() -> dict:
     for r in VIA_FIELDS:
         x1, y1, x2, y2 = footprint_rect(comps[r], placement[r])
         blocks['B'].append((x1 - 0.3, y1 - 0.3, x2 + 0.3, y2 + 0.3))
+    # revision 2 review: keep the solder face clear where these GND pads stitch to the plane (scripts/a7_route.py
+    # GND_VIA_NEAR), so a via fits within 0.9 mm of the pad
+    for x, y, h in GND_STITCH_SITES.values():
+        blocks['B'].append((x - h, y - h, x + h, y + h))
     todo = [r for r in comps if r not in placement]
     size = {r: (lambda q: (q[2] - q[0]) * (q[3] - q[1]))(courtyard(comps[r]['footprint'], comps[r].get('fp_lib', 'LightBlock')))
             for r in todo}
