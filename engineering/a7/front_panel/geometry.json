@@ -1,0 +1,193 @@
+{
+  "revision": "A7",
+  "status": "A7 provisional front artwork for the digital study; not an order file, not a fit approval.",
+  "units": "mm",
+  "datum": "Front design coordinates: X right, Y down, upper-left corner (0,0); rear artwork X_rear = W - X_front.",
+  "source": [
+    "engineering/a7/mechanical/layout.json",
+    "engineering/a5/front_panel/geometry.json (outline, slots, finish, font, seat rules)"
+  ],
+  "panel": {
+    "height": 128.5,
+    "thickness": 2.0,
+    "mount_slot_width": 3.2,
+    "material_candidate": "2mm clear PMMA acrylic; request cast Clear000 stock, confirm with fabricator",
+    "outer_corner_radius": 0.5
+  },
+  "finish": "Frost the full visible rear surface, leave letter strokes and mode icons clear. Front stays smooth/glossy.",
+  "removed_from_a5": [
+    "switch aperture (6.50 mm, Y74)",
+    "MODE label",
+    "ON / PGM / CV legends and their arrow/dot icons",
+    "A5 controller M2 hole at Y65"
+  ],
+  "default_variant": "3hp",
+  "variants": {
+    "3hp": {
+      "width": 14.9,
+      "slot_length": 4.6,
+      "mounts": [
+        [
+          7.45,
+          3.0
+        ],
+        [
+          7.45,
+          125.5
+        ]
+      ],
+      "m2_holes": [
+        [
+          7.45,
+          20.5
+        ],
+        [
+          9.55,
+          60.8
+        ]
+      ],
+      "m2_hole_diameter": 2.2,
+      "jack_holes": [
+        [
+          7.45,
+          84.3
+        ],
+        [
+          7.45,
+          99.3
+        ]
+      ],
+      "jack_hole_diameter": 6.2,
+      "jack_functions": [
+        "CV IN",
+        "CV THRU"
+      ],
+      "labels": [
+        {
+          "text": "IN",
+          "x": 7.45,
+          "y": 77.3,
+          "cap_height": 1.8
+        },
+        {
+          "text": "THRU",
+          "x": 7.45,
+          "y": 92.3,
+          "cap_height": 1.8
+        }
+      ],
+      "rear_pockets": [
+        {
+          "x": [
+            3.85,
+            11.55
+          ],
+          "x_basis": "axis band 2.6-3.4 (INFERRED) and overall height 6.3 +/- 0.2, plus 0.2 clearance",
+          "y": [
+            78.5,
+            91.0
+          ],
+          "y_basis": "tolerance envelope about the axis: far 6.5 / near 5.6 (nominal 6.1 / 5.4; MIRROR / DERIVED-MIRROR), plus 0.2 clearance",
+          "depth": 0.5
+        },
+        {
+          "x": [
+            3.85,
+            11.55
+          ],
+          "x_basis": "axis band 2.6-3.4 (INFERRED) and overall height 6.3 +/- 0.2, plus 0.2 clearance",
+          "y": [
+            93.5,
+            106.0
+          ],
+          "y_basis": "tolerance envelope about the axis: far 6.5 / near 5.6 (nominal 6.1 / 5.4; MIRROR / DERIVED-MIRROR), plus 0.2 clearance",
+          "depth": 0.5
+        }
+      ],
+      "front_nut_od": 8.0
+    },
+    "2hp": {
+      "width": 9.8,
+      "slot_length": 4.6,
+      "mounts": [
+        [
+          4.9,
+          3.0
+        ],
+        [
+          4.9,
+          125.5
+        ]
+      ],
+      "m2_holes": [
+        [
+          4.9,
+          20.5
+        ],
+        [
+          6.025,
+          60.8
+        ]
+      ],
+      "m2_hole_diameter": 2.2,
+      "jack_holes": [
+        [
+          5.5,
+          84.3
+        ],
+        [
+          5.5,
+          99.3
+        ]
+      ],
+      "jack_hole_diameter": 6.2,
+      "jack_functions": [
+        "CV IN",
+        "CV THRU"
+      ],
+      "labels": [
+        {
+          "text": "IN",
+          "x": 5.5,
+          "y": 77.3,
+          "cap_height": 1.8
+        },
+        {
+          "text": "THRU",
+          "x": 5.5,
+          "y": 92.3,
+          "cap_height": 1.8
+        }
+      ],
+      "rear_pockets": [
+        {
+          "x": [
+            1.9,
+            9.6
+          ],
+          "x_basis": "axis band 2.6-3.4 (INFERRED) and overall height 6.3 +/- 0.2, plus 0.2 clearance",
+          "y": [
+            78.5,
+            91.0
+          ],
+          "y_basis": "tolerance envelope about the axis: far 6.5 / near 5.6 (nominal 6.1 / 5.4; MIRROR / DERIVED-MIRROR), plus 0.2 clearance",
+          "depth": 0.5
+        },
+        {
+          "x": [
+            1.9,
+            9.6
+          ],
+          "x_basis": "axis band 2.6-3.4 (INFERRED) and overall height 6.3 +/- 0.2, plus 0.2 clearance",
+          "y": [
+            93.5,
+            106.0
+          ],
+          "y_basis": "tolerance envelope about the axis: far 6.5 / near 5.6 (nominal 6.1 / 5.4; MIRROR / DERIVED-MIRROR), plus 0.2 clearance",
+          "depth": 0.5
+        }
+      ],
+      "front_nut_od": 8.0
+    }
+  }
+}

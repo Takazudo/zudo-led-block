@@ -20,3 +20,11 @@ answered inside the Cloud batch; they need a stronger document, a supplier answe
 | Q12 | Classification of LCSC-hosted SOFNG and C&K documents | which facts count as PASS | decided: MANUFACTURER_MIRROR (coordinator, 2026-11-08); see Q0 |
 
 Physical measurements, printed fit, insertion loads and measured installed depth stay with #8 and #10.
+
+## Width decision (R2, 2026-11-08)
+
+3HP (14.9 mm, centred jack, 1.6 mm FR-4, untrimmed leads) is the working candidate and the default variant of
+the generated artwork, supports and CAD. 2HP (0.6 mm body-side offset, 0.8 mm FR-4, trimmed leads) stays a
+fully parameterized open candidate: its worst corner is −0.33 mm lead side and −0.15 mm body side, with the
+axis height INFERRED and the trim unconfirmed. It reopens when Q1 or Q6 evidence makes every worst-case hard
+margin positive; the break-even values are in `mechanical/layout.md`.

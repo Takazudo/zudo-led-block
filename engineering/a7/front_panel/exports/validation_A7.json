@@ -1,0 +1,149 @@
+{
+  "revision": "A7",
+  "status": "A7 provisional front artwork for the digital study; not an order file, not a fit approval.",
+  "input_sha256": {
+    "engineering/a7/mechanical/layout.json": "c5d7fa948a1c06515e0fc0f941577d22295e500e78f7c357282a1b6b18a879ff",
+    "engineering/a7/front_panel/build_a7_front.py": "248a7704eca8dabbcfbf2ad7d7bf541b5099ea706e3eff1932cdf8cd0d4bf67e"
+  },
+  "variants": [
+    {
+      "variant": "3hp",
+      "width_mm": 14.9,
+      "height_mm": 128.5,
+      "panel_thickness_mm": 2.0,
+      "labels": [
+        {
+          "text": "IN",
+          "x": 7.45,
+          "y": 77.3,
+          "cap_height": 1.8,
+          "stroke_regions": 2,
+          "counters": 0
+        },
+        {
+          "text": "THRU",
+          "x": 7.45,
+          "y": 92.3,
+          "cap_height": 1.8,
+          "stroke_regions": 4,
+          "counters": 1
+        }
+      ],
+      "labels_removed_from_a5": [
+        "MODE",
+        "OUT",
+        "ON",
+        "PGM",
+        "CV"
+      ],
+      "switch_aperture_present": false,
+      "through_profile_loops": 7,
+      "expected_through_profile_loops": 7,
+      "engraved_area_mm2": 1784.587,
+      "clear_letter_area_mm2": 9.493,
+      "engraved_fraction_of_material": 0.97978,
+      "engraved_connected_regions": 2,
+      "label_counter_islands": 1,
+      "counter_checks": [
+        {
+          "index": 0,
+          "area_mm2": 0.1881,
+          "unengraved_area_mm2": 0.0
+        }
+      ],
+      "mask_intersection_through_holes_mm2": 0.0,
+      "mask_intersection_clear_letters_mm2": 0.0,
+      "pocket_floor_frosted_mm2": 132.118589,
+      "pocket_floor_area_mm2": 132.118589,
+      "letters_inside_material": true,
+      "letters_clear_of_nut_and_holes": true,
+      "labels_clear_of_pockets": true,
+      "dxf_hatch_area_delta_mm2": 0.0,
+      "svg_contains_font_text": false,
+      "step_roundtrip_valid": true,
+      "step_roundtrip_difference_mm3": 0.0,
+      "jack_pocket_count": 2,
+      "files": {
+        "cut_svg": "front_A7_3hp_CUT.svg",
+        "cut_dxf": "front_A7_3hp_CUT.dxf",
+        "step": "front_A7_3hp_2mm.step",
+        "rear_frost_svg": "rear_A7_3hp_REAR_FULL_FROST_CLEAR_LETTERS.svg",
+        "rear_frost_dxf": "rear_A7_3hp_REAR_FULL_FROST_CLEAR_LETTERS.dxf",
+        "rear_pockets_svg": "rear_A7_3hp_JACK_POCKETS.svg",
+        "front_preview": "appearance_A7_front_3hp.png",
+        "rear_preview": "appearance_A7_rear_3hp.png"
+      },
+      "passed": true
+    },
+    {
+      "variant": "2hp",
+      "width_mm": 9.8,
+      "height_mm": 128.5,
+      "panel_thickness_mm": 2.0,
+      "labels": [
+        {
+          "text": "IN",
+          "x": 5.5,
+          "y": 77.3,
+          "cap_height": 1.8,
+          "stroke_regions": 2,
+          "counters": 0
+        },
+        {
+          "text": "THRU",
+          "x": 5.5,
+          "y": 92.3,
+          "cap_height": 1.8,
+          "stroke_regions": 4,
+          "counters": 1
+        }
+      ],
+      "labels_removed_from_a5": [
+        "MODE",
+        "OUT",
+        "ON",
+        "PGM",
+        "CV"
+      ],
+      "switch_aperture_present": false,
+      "through_profile_loops": 7,
+      "expected_through_profile_loops": 7,
+      "engraved_area_mm2": 1129.237,
+      "clear_letter_area_mm2": 9.493,
+      "engraved_fraction_of_material": 0.96842,
+      "engraved_connected_regions": 2,
+      "label_counter_islands": 1,
+      "counter_checks": [
+        {
+          "index": 0,
+          "area_mm2": 0.1881,
+          "unengraved_area_mm2": 0.0
+        }
+      ],
+      "mask_intersection_through_holes_mm2": 0.0,
+      "mask_intersection_clear_letters_mm2": 0.0,
+      "pocket_floor_frosted_mm2": 132.118589,
+      "pocket_floor_area_mm2": 132.118589,
+      "letters_inside_material": true,
+      "letters_clear_of_nut_and_holes": true,
+      "labels_clear_of_pockets": true,
+      "dxf_hatch_area_delta_mm2": 0.0,
+      "svg_contains_font_text": false,
+      "step_roundtrip_valid": true,
+      "step_roundtrip_difference_mm3": 0.0,
+      "jack_pocket_count": 2,
+      "files": {
+        "cut_svg": "front_A7_2hp_CUT.svg",
+        "cut_dxf": "front_A7_2hp_CUT.dxf",
+        "step": "front_A7_2hp_2mm.step",
+        "rear_frost_svg": "rear_A7_2hp_REAR_FULL_FROST_CLEAR_LETTERS.svg",
+        "rear_frost_dxf": "rear_A7_2hp_REAR_FULL_FROST_CLEAR_LETTERS.dxf",
+        "rear_pockets_svg": "rear_A7_2hp_JACK_POCKETS.svg",
+        "front_preview": "appearance_A7_front_2hp.png",
+        "rear_preview": "appearance_A7_rear_2hp.png"
+      },
+      "passed": true
+    }
+  ],
+  "all_passed": true
+}
