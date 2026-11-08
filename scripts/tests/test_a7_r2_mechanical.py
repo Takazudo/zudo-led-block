@@ -189,6 +189,34 @@ class Harness(unittest.TestCase):
             self.assertGreaterEqual(sh["min_radius"], json.loads((MECH / "design-inputs.json").read_text())["cables"]["led_route"]["step_radius"] - 1e-9)
         self.assertAlmostEqual(L["controller"]["led_header"]["z_centre"], 12.8)
 
+    def test_pet_leaf_comparison(self):
+        lc = L["leaf_comparison"]
+        self.assertEqual(lc["default"], "fr4")
+        self.assertEqual(lc["inputs"]["pet"]["film"]["finished_thickness"]["confidence"], "MANUFACTURER_PRIMARY")
+        for k in ("adhesive", "carrier"):
+            self.assertEqual(lc["inputs"]["pet"][k]["thickness"]["confidence"], "INFERRED")
+        self.assertIsNone(lc["inputs"]["sh_mating_force_n"]["nominal"], "SH mating force stays UNSOURCED")
+        self.assertLess(lc["pet"]["total_thickness"], lc["inputs"]["cap_slot_width"])
+        self.assertLessEqual(abs(lc["outer_face_shift_pet_minus_fr4"]), 0.05)
+        self.assertGreaterEqual(lc["pet"]["rigidity_per_mm_bonded_nmm"], lc["pet"]["rigidity_per_mm_lower_bound_nmm"])
+        self.assertLess(lc["pet_film_alone_buckling_load_fixed_free_n"], lc["pet"]["buckling_load_lower_bound_n"]["fixed_free_K2"])
+        self.assertTrue(lc["recommendation"].startswith("Keep FR-4 as the default"))
+        v = json.loads((MECH / "exports" / "3hp_pet" / "verification.json").read_text())
+        self.assertEqual(v["leaf"], "pet")
+        self.assertEqual(v["layout_sha256"], hashlib.sha256((MECH / "layout.json").read_bytes()).hexdigest(), "3hp_pet CAD export is stale")
+        for f, h in v["input_sha256"].items():
+            self.assertEqual(hashlib.sha256((REPO / f).read_bytes()).hexdigest(), h, f"3hp_pet: {f} changed")
+        self.assertEqual(v["unexpected_rigid_intersections"], [])
+        self.assertTrue(v["all_shapes_valid"])
+        self.assertIn("leaf_carrier_PC", {p["part"] for p in v["parts"]})
+        for o in v["optical_obstruction"].values():
+            self.assertEqual(o["a7_controller_or_support_obstructions"], 0)
+            for h in o["a7_harness_obstructions"]:
+                self.assertGreaterEqual(h["min_distance_to_emitter_mm"], 1.0)
+        self.assertTrue(all(f["clearance_mm"] >= 0.05 - 1e-9 for f in v["cable_findings"] if "note" not in f))
+        self.assertTrue(v["export"]["valid"])
+        self.assertEqual(v["export"]["source_solids"], v["export"]["imported_solids"])
+
     def test_r4_routed_placement_matches_envelopes(self):
         chk = json.loads((MECH / "r4-placement-check.json").read_text())
         self.assertTrue(chk["status"].startswith("ROUTED EXPORT"))

@@ -101,8 +101,30 @@ Run the front build before the mechanical build (the assembly imports the panel)
   (below the preferred 2.0), the PicoBlade wires have only 0.9 mm of bend room above the mated plug, and the
   2.3 mm tails must be cut like the jack leads (R2-C1).
 
+## LED leaf: FR-4 stays the default; clear PET is feasible only on a clear carrier
+
+`layout.md` → *LED leaf* and `layout.json` → `leaf_comparison` compare the A5 FR-4 leaf with a clear PET FPC
+leaf. `exports/3hp_pet/` is the 3HP assembly built with the PET leaf (`--leaf pet`). FR-4 is not replaced.
+
+- **Stack:** the JLC 1-layer transparent FPC is 0.14 mm (MANUFACTURER_PRIMARY, R1 `pet-fpc.md`). Two films sit on an
+  optically clear adhesive (0.1 mm, INFERRED) either side of a clear 0.8 mm PC carrier (INFERRED). The total is
+  1.28 mm against FR-4's 1.30, so the stack fits the A5 cap slots. LEDs, connectors, the emission corridors and the
+  harness start move only 0.01 mm.
+- **Stiffness:** the PET stack is 8–37× less stiff than FR-4. The range runs from fully bonded films to films
+  carried by the carrier alone, with typical moduli (INFERRED). Its worst-case buckling load under the SH
+  mating push is about 8 N, against about 300 N for FR-4. The film alone buckles at about 0.07 N, so it cannot
+  stand without the carrier. The SH mating force itself is UNSOURCED.
+- **Re-checks (3HP):** no unexpected intersections, no A7 part in either corridor, and the harness stays 2.8 mm
+  from D2. The ray-sampled D2 estimate is 2.0 % (FR-4 1.9 %), and the STEP round trip is clean. The leaf Z range is
+  unchanged, so the 0.5 mm jack pockets and the 30 mm depth budget are unaffected. The estimate does not model
+  light passing through a clear leaf.
+- **Recommendation:** keep FR-4 as the default and fallback. Pursue PET only after three things:
+  - JLC answers on reflow/paste, PET-compatible stiffeners and OCA clarity (Q11);
+  - a physical SH mating-force and lit-appearance test (#10);
+  - R4's electrical PET leaf profile.
+
 ## Not modelled / still physical
 
-PET FPC leaves (FR-4 leaf kept as reference/fallback), actual cable insulation, bend ratings and labels, nut
+PET reflow, adhesive and lit appearance (comparison above), actual cable insulation, bend ratings and labels, nut
 torque and PMMA clamp load, pocket appearance and strength, switch actuation force, printed-part shrinkage. See
 `layout.md` → *Unresolved inputs* and `../open-questions.md`.
