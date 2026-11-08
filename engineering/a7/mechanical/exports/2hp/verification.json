@@ -4,9 +4,9 @@
   "status": "PROVISIONAL_DIGITAL_STUDY_NOT_FIT_APPROVAL",
   "selection": "UNRESOLVED",
   "default_variant": false,
-  "layout_sha256": "04be25636b73729f35580f98bc811796725d6aaac9df05e6f0b01647a57ea5a8",
+  "layout_sha256": "193891a7a3ec0824532879890f89163b8964138c615a4d0fda9c682d5606c811",
   "input_sha256": {
-    "engineering/a7/mechanical/layout.json": "04be25636b73729f35580f98bc811796725d6aaac9df05e6f0b01647a57ea5a8",
+    "engineering/a7/mechanical/layout.json": "193891a7a3ec0824532879890f89163b8964138c615a4d0fda9c682d5606c811",
     "engineering/a7/mechanical/build_a7_mechanical.py": "354303f7bd650d597ea5d1b084c732acc4a7c37cd053773ec74647fb338784e9",
     "engineering/a7/front_panel/build_a7_front.py": "248a7704eca8dabbcfbf2ad7d7bf541b5099ea706e3eff1932cdf8cd0d4bf67e"
   },
@@ -215,10 +215,10 @@
       "tube_radius_mm": 1.0
     },
     {
-      "centerline_length_mm": 56.99913033315809,
-      "sampled_minimum_centerline_radius_mm": 0.8999999999996959,
+      "centerline_length_mm": 57.00082131175956,
+      "sampled_minimum_centerline_radius_mm": 0.8999999999992839,
       "minimum_radius_is_manufacturer_qualified": false,
-      "layout_length_mm": 56.999,
+      "layout_length_mm": 57.001,
       "fillet_min_radius_mm": 0.9,
       "bundle_model": true,
       "name": "adapter_to_controller_power",
@@ -1038,12 +1038,12 @@
       "bbox_min": [
         1.0,
         73.95,
-        5.85
+        5.94
       ],
       "bbox_max": [
         7.7,
         77.15,
-        11.35
+        11.44
       ],
       "scope": "retained_module",
       "kind": "manufacturer_dimensioned_envelope"
@@ -2006,7 +2006,7 @@
       "part": "adapter_to_controller_power",
       "valid": true,
       "solids": 1,
-      "volume_mm3": 145.045,
+      "volume_mm3": 145.049,
       "bbox_min": [
         4.0,
         45.8,

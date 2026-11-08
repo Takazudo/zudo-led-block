@@ -3164,9 +3164,9 @@
     "power_header": {
       "part": "Molex 530470310 vertical PicoBlade (A5 J5)",
       "y": 76.0,
-      "z_centre": 8.6,
-      "confidence": "PROJECT-CHOICE",
-      "note": "between the spine slot and the upper jack body; wires leave the mated plug along +X. Moved from 9.25 so the SH4 harness fold (Z 12.8 at Y ~75) clears the housing (R4 J5 board_x 5.65-11.15)",
+      "z_centre": 8.69,
+      "confidence": "R4-PLACEMENT (pre-routing)",
+      "note": "between the spine slot and the upper jack body; wires leave the mated plug along +X. Moved from 9.25 so the SH4 harness fold (Z 12.8 at Y ~75) clears the housing; 8.69 is R4's pre-routing J5 body board_x 5.74-11.24 (MCU courtyard abuts it), see inputs/r4-placement-prerouting.json",
       "pin_row_axis": "Z",
       "mated_height_x": 5.2,
       "y_extent": [
@@ -3174,8 +3174,8 @@
         77.15
       ],
       "z_extent": [
-        5.85,
-        11.35
+        5.94,
+        11.44
       ]
     },
     "led_header": {
@@ -3286,8 +3286,8 @@
           77.15
         ],
         "z": [
-          5.85,
-          11.35
+          5.94,
+          11.44
         ],
         "reason": "PicoBlade vertical header and mated plug"
       },
@@ -3301,8 +3301,8 @@
           77.15
         ],
         "z": [
-          5.85,
-          11.35
+          5.94,
+          11.44
         ],
         "reason": "PicoBlade THT tails and fillets on the solder face (cut to the jack trim rule in 2HP)"
       },
@@ -3430,8 +3430,8 @@
     ],
     "stowage": "one S-fold above the spine block, fold span solved per width",
     "stowage_length_range_both_widths": [
-      51.099,
-      78.115
+      51.037,
+      78.053
     ],
     "short_side_margin": 2.0,
     "fits_both_widths": true,
@@ -3521,12 +3521,12 @@
             ],
             [
               8.6,
-              59.442,
+              59.474000000000004,
               5.0
             ],
             [
               8.6,
-              59.442,
+              59.474000000000004,
               9.0
             ],
             [
@@ -3547,30 +3547,30 @@
             [
               8.6,
               76.0,
-              8.6
+              8.69
             ],
             [
               7.7,
               76.0,
-              8.6
+              8.69
             ]
           ],
           "radius": 2.0,
-          "length": 56.999,
+          "length": 57.001,
           "min_radius": 0.9,
-          "fold_span": 7.442,
+          "fold_span": 7.474,
           "status": "solved for the nominal finished length",
           "end_bend_room": 0.9,
           "length_range_of_this_stowage": [
-            50.115,
-            78.115
+            50.053,
+            78.053
           ],
           "bundle_radius": 0.9,
           "a5_cable_nominal_reaches": false,
           "a5_cable_band_fits": false,
           "cable_band_lengths": [
-            53.999,
-            59.999
+            54.001,
+            60.001
           ]
         }
       },
@@ -3735,12 +3735,12 @@
             ],
             [
               11.65,
-              58.95,
+              58.981,
               5.0
             ],
             [
               11.65,
-              58.95,
+              58.981,
               9.0
             ],
             [
@@ -3761,23 +3761,23 @@
             [
               11.65,
               76.0,
-              8.6
+              8.69
             ],
             [
               9.65,
               76.0,
-              8.6
+              8.69
             ]
           ],
           "radius": 2.0,
           "length": 56.999,
           "min_radius": 2.0,
-          "fold_span": 6.95,
+          "fold_span": 6.981,
           "status": "solved for the nominal finished length",
           "end_bend_room": 2.0,
           "length_range_of_this_stowage": [
-            51.099,
-            79.099
+            51.037,
+            79.037
           ],
           "bundle_radius": 0.9,
           "a5_cable_nominal_reaches": false,
@@ -4001,7 +4001,7 @@
     },
     {
       "id": "R2-C5",
-      "item": "A7 power cable: digital requirement 57.0 +/- 3.0 mm free span (tolerance ASSUMED) for the S-fold stowage (51.099-78.115 mm across both widths); the A5 50 +/- 6 cable does not fit. No cable has been routed or measured",
+      "item": "A7 power cable: digital requirement 57.0 +/- 3.0 mm free span (tolerance ASSUMED) for the S-fold stowage (51.037-78.053 mm across both widths); the A5 50 +/- 6 cable does not fit. No cable has been routed or measured",
       "decides": "power harness part and its length (#8)"
     },
     {
