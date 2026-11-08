@@ -11,11 +11,11 @@
 
 | ファイル | 区分 | 内容 |
 |---|---|---|
-| `native_gate.json` | authored | A7 リビジョン用ゲートプロファイル (`candidate: a7_controller`、`design_rule_delta` でビア 0.5/0.2 mm) |
+| `native_gate.json` | authored | A7 リビジョン用ゲートプロファイル (`candidate: a7_controller`、`design_rule_delta` でビア 0.5/0.2 mm と、厳しくする方向だけのカスタムルール PTH–トラック 0.35 mm、`placement` でコートヤード比較を KiCad の内部単位 1 nm で行う) |
 | `native_gate.lock.json` | derived | `python3 scripts/native_gate/runner.py lock --profile engineering/a7/verification/native_gate.json` |
-| `authorized_delta.json` | authored | A5 基準ネットリストに対する A7 の許可済み差分 (未レビュー、エントリなし) |
+| `authorized_delta.json` | authored | A5 基準ネットリストに対する A7 の許可済み差分 (J1/J2/SW1 の部品置換、同じ PR #24 レビューで承認済み) |
 | `interface_roles/a5_reference.json` | authored | A5 のピン割り当てを役割として表したもの (陽性対照) |
-| `interface_roles/a7_controller.json` | authored | A7 の役割表。ジャック/スイッチは R1 #16 の部品根拠待ちで `unresolved` |
+| `interface_roles/a7_controller.json` | authored | A7 の役割表 (`status: reviewed`)。ジャック/スイッチのピン割り当ては R1 #16 の部品根拠から記入し、独立した電気レビュー ([PR #24 review 5818088400](https://github.com/Takazudo/zudo-led-block/pull/24#pullrequestreview-5818088400)、head `1a2f31a`) で承認済み。PJ-324M のピン機能は導通試験まで INFERRED のまま |
 | `interface_review.md` | authored | A5 のインターフェース検査を A7 にどう引き継いだか |
 | `source_authority.json` | authored | 所有区分と再生成ルール |
 | `fab/jlcpcb_capabilities.json` | authored | ルール差分の根拠となる JLCPCB の公開能力 (URL・取得ハッシュ・該当行) |
