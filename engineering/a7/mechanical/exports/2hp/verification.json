@@ -1,0 +1,2021 @@
+{
+  "revision": "A7",
+  "variant": "2hp",
+  "status": "PROVISIONAL_DIGITAL_STUDY_NOT_FIT_APPROVAL",
+  "selection": "UNRESOLVED",
+  "layout_sha256": "638ba62a5fe9abc6dac155060398a908757da9f724d4f0e023835641eb94ce54",
+  "part_count": 66,
+  "all_shapes_valid": true,
+  "unexpected_rigid_intersections": [],
+  "explicitly_expected_contacts": [
+    {
+      "a": "jack_in_PJ-324M",
+      "b": "jack_in_solder_fillets",
+      "volume_mm3": 1.2
+    },
+    {
+      "a": "jack_thru_PJ-324M",
+      "b": "jack_thru_solder_fillets",
+      "volume_mm3": 1.2
+    },
+    {
+      "a": "controller_pcb_A7",
+      "b": "controller_PicoBlade_mated",
+      "volume_mm3": 0.302
+    },
+    {
+      "a": "controller_PicoBlade_mated",
+      "b": "adapter_to_controller_power",
+      "centreline_distance_mm": 0.0,
+      "required_mm": 0.9,
+      "clearance_mm": -0.9
+    },
+    {
+      "a": "controller_SH4_mated",
+      "b": "controller_to_left_leaf_sh4",
+      "centreline_distance_mm": 0.0,
+      "required_mm": 1.0,
+      "clearance_mm": -1.0
+    },
+    {
+      "a": "power_adapter_pcb_A5",
+      "b": "adapter_C5665_keyed_header",
+      "volume_mm3": 6.554
+    },
+    {
+      "a": "power_adapter_pcb_A5",
+      "b": "adapter_PicoBlade_mated",
+      "volume_mm3": 0.603
+    },
+    {
+      "a": "adapter_PicoBlade_mated",
+      "b": "adapter_to_controller_power",
+      "centreline_distance_mm": 0.0,
+      "required_mm": 0.9,
+      "clearance_mm": -0.9
+    },
+    {
+      "a": "left_J1_SH4_mated",
+      "b": "controller_to_left_leaf_sh4",
+      "centreline_distance_mm": 0.0,
+      "required_mm": 1.0,
+      "clearance_mm": -1.0
+    },
+    {
+      "a": "left_J2_SH4_mated",
+      "b": "leaf_link_pin_1_A5",
+      "centreline_distance_mm": 0.0,
+      "required_mm": 0.4,
+      "clearance_mm": -0.4
+    },
+    {
+      "a": "left_J2_SH4_mated",
+      "b": "leaf_link_pin_2_A5",
+      "centreline_distance_mm": 0.0,
+      "required_mm": 0.4,
+      "clearance_mm": -0.4
+    },
+    {
+      "a": "left_J2_SH4_mated",
+      "b": "leaf_link_pin_3_A5",
+      "centreline_distance_mm": 0.0,
+      "required_mm": 0.4,
+      "clearance_mm": -0.4
+    },
+    {
+      "a": "left_J2_SH4_mated",
+      "b": "leaf_link_pin_4_A5",
+      "centreline_distance_mm": 0.0,
+      "required_mm": 0.4,
+      "clearance_mm": -0.4
+    },
+    {
+      "a": "right_J1_SH4_mated",
+      "b": "leaf_link_pin_1_A5",
+      "centreline_distance_mm": 0.0,
+      "required_mm": 0.4,
+      "clearance_mm": -0.4
+    },
+    {
+      "a": "right_J1_SH4_mated",
+      "b": "leaf_link_pin_2_A5",
+      "centreline_distance_mm": 0.0,
+      "required_mm": 0.4,
+      "clearance_mm": -0.4
+    },
+    {
+      "a": "right_J1_SH4_mated",
+      "b": "leaf_link_pin_3_A5",
+      "centreline_distance_mm": 0.0,
+      "required_mm": 0.4,
+      "clearance_mm": -0.4
+    },
+    {
+      "a": "right_J1_SH4_mated",
+      "b": "leaf_link_pin_4_A5",
+      "centreline_distance_mm": 0.0,
+      "required_mm": 0.4,
+      "clearance_mm": -0.4
+    }
+  ],
+  "cable_findings": [
+    {
+      "a": "spine_PETG",
+      "b": "adapter_to_controller_power",
+      "centreline_distance_mm": 1.0,
+      "required_mm": 0.9,
+      "clearance_mm": 0.1
+    },
+    {
+      "a": "adapter_C5665_keyed_header",
+      "b": "IDC_ribbon_R3_side_exit_SCENARIO",
+      "volume_mm3": 0.233,
+      "note": "conditional A5 scenario part (reference socket / ribbon); carried over"
+    },
+    {
+      "a": "left_diffuser",
+      "b": "controller_to_left_leaf_sh4",
+      "centreline_distance_mm": 1.05,
+      "required_mm": 1.0,
+      "clearance_mm": 0.05
+    },
+    {
+      "a": "left_diffuser",
+      "b": "leaf_link_pin_4_A5",
+      "centreline_distance_mm": 0.204,
+      "required_mm": 0.4,
+      "clearance_mm": -0.196,
+      "note": "A5 leaf-link wires: carried-over scenario"
+    },
+    {
+      "a": "right_diffuser",
+      "b": "leaf_link_pin_4_A5",
+      "centreline_distance_mm": 0.2,
+      "required_mm": 0.4,
+      "clearance_mm": -0.2,
+      "note": "A5 leaf-link wires: carried-over scenario"
+    },
+    {
+      "a": "leaf_link_pin_1_A5",
+      "b": "leaf_link_pin_2_A5",
+      "centreline_distance_mm": 0.057,
+      "required_mm": 0.8,
+      "clearance_mm": -0.743,
+      "note": "A5 leaf-link wires: carried-over scenario"
+    },
+    {
+      "a": "leaf_link_pin_1_A5",
+      "b": "leaf_link_pin_3_A5",
+      "centreline_distance_mm": 0.252,
+      "required_mm": 0.8,
+      "clearance_mm": -0.548,
+      "note": "A5 leaf-link wires: carried-over scenario"
+    },
+    {
+      "a": "leaf_link_pin_1_A5",
+      "b": "leaf_link_pin_4_A5",
+      "centreline_distance_mm": 0.137,
+      "required_mm": 0.8,
+      "clearance_mm": -0.663,
+      "note": "A5 leaf-link wires: carried-over scenario"
+    },
+    {
+      "a": "leaf_link_pin_2_A5",
+      "b": "leaf_link_pin_3_A5",
+      "centreline_distance_mm": 0.335,
+      "required_mm": 0.8,
+      "clearance_mm": -0.465,
+      "note": "A5 leaf-link wires: carried-over scenario"
+    },
+    {
+      "a": "leaf_link_pin_2_A5",
+      "b": "leaf_link_pin_4_A5",
+      "centreline_distance_mm": 0.093,
+      "required_mm": 0.8,
+      "clearance_mm": -0.707,
+      "note": "A5 leaf-link wires: carried-over scenario"
+    },
+    {
+      "a": "leaf_link_pin_3_A5",
+      "b": "leaf_link_pin_4_A5",
+      "centreline_distance_mm": 0.048,
+      "required_mm": 0.8,
+      "clearance_mm": -0.752,
+      "note": "A5 leaf-link wires: carried-over scenario"
+    }
+  ],
+  "cables": [
+    {
+      "centerline_length_mm": 49.99985925913241,
+      "sampled_minimum_centerline_radius_mm": 1.9999999999943525,
+      "minimum_radius_is_manufacturer_qualified": false,
+      "layout_length_mm": 50.0,
+      "fillet_min_radius_mm": 2.0,
+      "bundle_model": true,
+      "name": "controller_to_left_leaf_sh4",
+      "tube_radius_mm": 1.0
+    },
+    {
+      "centerline_length_mm": 51.679660537294644,
+      "sampled_minimum_centerline_radius_mm": 0.899999999999055,
+      "minimum_radius_is_manufacturer_qualified": false,
+      "layout_length_mm": 51.68,
+      "fillet_min_radius_mm": 0.9,
+      "bundle_model": true,
+      "name": "adapter_to_controller_power",
+      "tube_radius_mm": 0.9
+    },
+    {
+      "centerline_length_mm": 50.07325476307129,
+      "sampled_minimum_centerline_radius_mm": 0.2284740713204033,
+      "minimum_radius_is_manufacturer_qualified": false,
+      "carried_over_from": "A5",
+      "name": "leaf_link_pin_1_A5",
+      "tube_radius_mm": 0.4
+    },
+    {
+      "centerline_length_mm": 50.022060246417894,
+      "sampled_minimum_centerline_radius_mm": 0.27609951980412484,
+      "minimum_radius_is_manufacturer_qualified": false,
+      "carried_over_from": "A5",
+      "name": "leaf_link_pin_2_A5",
+      "tube_radius_mm": 0.4
+    },
+    {
+      "centerline_length_mm": 50.06489366597289,
+      "sampled_minimum_centerline_radius_mm": 0.20184601190662158,
+      "minimum_radius_is_manufacturer_qualified": false,
+      "carried_over_from": "A5",
+      "name": "leaf_link_pin_3_A5",
+      "tube_radius_mm": 0.4
+    },
+    {
+      "centerline_length_mm": 50.02233732734322,
+      "sampled_minimum_centerline_radius_mm": 0.24228113755009026,
+      "minimum_radius_is_manufacturer_qualified": false,
+      "carried_over_from": "A5",
+      "name": "leaf_link_pin_4_A5",
+      "tube_radius_mm": 0.4
+    }
+  ],
+  "envelope_findings": [
+    {
+      "part": "IDC_ribbon_R3_side_exit_SCENARIO",
+      "scope": "conditional_ribbon",
+      "checks": [
+        "panel_width"
+      ],
+      "x": [
+        8.528,
+        11.8
+      ],
+      "z_max": 29.8
+    }
+  ],
+  "retained_envelope_findings": [],
+  "optical_obstruction": {
+    "left": {
+      "corridor_x": [
+        1.5,
+        3.65
+      ],
+      "corridor_area_yz_mm2": 742.5,
+      "obstructions": [
+        {
+          "part": "adapter_C5665_keyed_header",
+          "origin": "a5_power_adapter",
+          "volume_mm3": 0.653,
+          "projected_yz_bbox_mm2": 6.48,
+          "y": [
+            28.0,
+            38.8
+          ],
+          "z": [
+            19.4,
+            20.0
+          ]
+        },
+        {
+          "part": "adapter_PicoBlade_mated",
+          "origin": "a5_power_adapter",
+          "volume_mm3": 0.019,
+          "projected_yz_bbox_mm2": 0.12,
+          "y": [
+            46.5,
+            46.9
+          ],
+          "z": [
+            19.4,
+            19.7
+          ]
+        },
+        {
+          "part": "left_J1_SH4_mated",
+          "origin": "a5_leaf_mounted",
+          "volume_mm3": 84.925,
+          "projected_yz_bbox_mm2": 43.75,
+          "y": [
+            37.325,
+            43.575
+          ],
+          "z": [
+            20.4,
+            27.4
+          ]
+        },
+        {
+          "part": "left_J2_SH4_mated",
+          "origin": "a5_leaf_mounted",
+          "volume_mm3": 84.925,
+          "projected_yz_bbox_mm2": 43.75,
+          "y": [
+            86.825,
+            93.075
+          ],
+          "z": [
+            20.4,
+            27.4
+          ]
+        },
+        {
+          "part": "left_C1",
+          "origin": "a5_leaf_mounted",
+          "volume_mm3": 0.384,
+          "projected_yz_bbox_mm2": 1.28,
+          "y": [
+            28.05,
+            28.85
+          ],
+          "z": [
+            22.1,
+            23.7
+          ]
+        },
+        {
+          "part": "left_C2",
+          "origin": "a5_leaf_mounted",
+          "volume_mm3": 0.384,
+          "projected_yz_bbox_mm2": 1.28,
+          "y": [
+            53.05,
+            53.85
+          ],
+          "z": [
+            22.1,
+            23.7
+          ]
+        },
+        {
+          "part": "left_C3",
+          "origin": "a5_leaf_mounted",
+          "volume_mm3": 0.384,
+          "projected_yz_bbox_mm2": 1.28,
+          "y": [
+            78.05,
+            78.85
+          ],
+          "z": [
+            22.1,
+            23.7
+          ]
+        },
+        {
+          "part": "left_C4",
+          "origin": "a5_leaf_mounted",
+          "volume_mm3": 0.384,
+          "projected_yz_bbox_mm2": 1.28,
+          "y": [
+            103.05,
+            103.85
+          ],
+          "z": [
+            22.1,
+            23.7
+          ]
+        },
+        {
+          "part": "top_leaf_adapter_cap",
+          "origin": "a5_optical_support",
+          "volume_mm3": 16.484,
+          "projected_yz_bbox_mm2": 31.5,
+          "y": [
+            22.5,
+            26.0
+          ],
+          "z": [
+            19.4,
+            28.4
+          ]
+        },
+        {
+          "part": "bottom_leaf_cap",
+          "origin": "a5_optical_support",
+          "volume_mm3": 13.46,
+          "projected_yz_bbox_mm2": 10.8,
+          "y": [
+            103.8,
+            105.0
+          ],
+          "z": [
+            19.4,
+            28.4
+          ]
+        },
+        {
+          "part": "M1_6x4_-1_23.5",
+          "origin": "a5_hardware",
+          "volume_mm3": 12.216,
+          "projected_yz_bbox_mm2": 10.25,
+          "y": [
+            22.5,
+            25.0
+          ],
+          "z": [
+            24.3,
+            28.4
+          ]
+        },
+        {
+          "part": "M1_6_nut_-1_23.5",
+          "origin": "a5_hardware",
+          "volume_mm3": 0.688,
+          "projected_yz_bbox_mm2": 0.57,
+          "y": [
+            22.5,
+            25.348
+          ],
+          "z": [
+            28.2,
+            28.4
+          ]
+        },
+        {
+          "part": "M1_6x4_-1_105.5",
+          "origin": "a5_hardware",
+          "volume_mm3": 3.125,
+          "projected_yz_bbox_mm2": 4.1,
+          "y": [
+            104.0,
+            105.0
+          ],
+          "z": [
+            24.3,
+            28.4
+          ]
+        },
+        {
+          "part": "M1_6_nut_-1_105.5",
+          "origin": "a5_hardware",
+          "volume_mm3": 0.393,
+          "projected_yz_bbox_mm2": 0.27,
+          "y": [
+            103.652,
+            105.0
+          ],
+          "z": [
+            28.2,
+            28.4
+          ]
+        },
+        {
+          "part": "controller_to_left_leaf_sh4",
+          "origin": "a7_harness_at_leaf_connector",
+          "volume_mm3": 28.662,
+          "projected_yz_bbox_mm2": 36.268,
+          "y": [
+            43.575,
+            50.169
+          ],
+          "z": [
+            19.4,
+            24.9
+          ]
+        },
+        {
+          "part": "leaf_link_pin_1_A5",
+          "origin": "a5_leaf_link_harness",
+          "volume_mm3": 2.01,
+          "projected_yz_bbox_mm2": 7.31,
+          "y": [
+            93.075,
+            95.225
+          ],
+          "z": [
+            19.4,
+            22.8
+          ]
+        },
+        {
+          "part": "leaf_link_pin_2_A5",
+          "origin": "a5_leaf_link_harness",
+          "volume_mm3": 2.8,
+          "projected_yz_bbox_mm2": 13.86,
+          "y": [
+            93.075,
+            96.225
+          ],
+          "z": [
+            19.4,
+            23.8
+          ]
+        },
+        {
+          "part": "leaf_link_pin_3_A5",
+          "origin": "a5_leaf_link_harness",
+          "volume_mm3": 3.625,
+          "projected_yz_bbox_mm2": 22.41,
+          "y": [
+            93.075,
+            97.225
+          ],
+          "z": [
+            19.4,
+            24.8
+          ]
+        },
+        {
+          "part": "leaf_link_pin_4_A5",
+          "origin": "a5_leaf_link_harness",
+          "volume_mm3": 4.415,
+          "projected_yz_bbox_mm2": 32.96,
+          "y": [
+            93.075,
+            98.225
+          ],
+          "z": [
+            19.4,
+            25.8
+          ]
+        }
+      ],
+      "a7_controller_or_support_obstructions": 0,
+      "projected_bbox_upper_bound_fraction": 0.363
+    },
+    "right": {
+      "corridor_x": [
+        6.15,
+        8.3
+      ],
+      "corridor_area_yz_mm2": 742.5,
+      "obstructions": [
+        {
+          "part": "adapter_C5665_keyed_header",
+          "origin": "a5_power_adapter",
+          "volume_mm3": 0.653,
+          "projected_yz_bbox_mm2": 6.48,
+          "y": [
+            28.0,
+            38.8
+          ],
+          "z": [
+            19.4,
+            20.0
+          ]
+        },
+        {
+          "part": "adapter_PicoBlade_mated",
+          "origin": "a5_power_adapter",
+          "volume_mm3": 0.019,
+          "projected_yz_bbox_mm2": 0.12,
+          "y": [
+            46.5,
+            46.9
+          ],
+          "z": [
+            19.4,
+            19.7
+          ]
+        },
+        {
+          "part": "right_J1_SH4_mated",
+          "origin": "a5_leaf_mounted",
+          "volume_mm3": 84.925,
+          "projected_yz_bbox_mm2": 43.75,
+          "y": [
+            83.925,
+            90.175
+          ],
+          "z": [
+            20.4,
+            27.4
+          ]
+        },
+        {
+          "part": "right_J2_SH4_unmated",
+          "origin": "a5_leaf_mounted",
+          "volume_mm3": 54.825,
+          "projected_yz_bbox_mm2": 25.5,
+          "y": [
+            36.425,
+            40.675
+          ],
+          "z": [
+            20.9,
+            26.9
+          ]
+        },
+        {
+          "part": "right_C1",
+          "origin": "a5_leaf_mounted",
+          "volume_mm3": 0.384,
+          "projected_yz_bbox_mm2": 1.28,
+          "y": [
+            98.65,
+            99.45
+          ],
+          "z": [
+            22.1,
+            23.7
+          ]
+        },
+        {
+          "part": "right_C2",
+          "origin": "a5_leaf_mounted",
+          "volume_mm3": 0.384,
+          "projected_yz_bbox_mm2": 1.28,
+          "y": [
+            73.65,
+            74.45
+          ],
+          "z": [
+            22.1,
+            23.7
+          ]
+        },
+        {
+          "part": "right_C3",
+          "origin": "a5_leaf_mounted",
+          "volume_mm3": 0.384,
+          "projected_yz_bbox_mm2": 1.28,
+          "y": [
+            48.65,
+            49.45
+          ],
+          "z": [
+            22.1,
+            23.7
+          ]
+        },
+        {
+          "part": "right_C4",
+          "origin": "a5_leaf_mounted",
+          "volume_mm3": 0.384,
+          "projected_yz_bbox_mm2": 1.28,
+          "y": [
+            23.65,
+            24.45
+          ],
+          "z": [
+            22.1,
+            23.7
+          ]
+        },
+        {
+          "part": "top_leaf_adapter_cap",
+          "origin": "a5_optical_support",
+          "volume_mm3": 16.234,
+          "projected_yz_bbox_mm2": 31.5,
+          "y": [
+            22.5,
+            26.0
+          ],
+          "z": [
+            19.4,
+            28.4
+          ]
+        },
+        {
+          "part": "bottom_leaf_cap",
+          "origin": "a5_optical_support",
+          "volume_mm3": 13.71,
+          "projected_yz_bbox_mm2": 10.8,
+          "y": [
+            103.8,
+            105.0
+          ],
+          "z": [
+            19.4,
+            28.4
+          ]
+        },
+        {
+          "part": "M1_6x4_1_23.5",
+          "origin": "a5_hardware",
+          "volume_mm3": 12.216,
+          "projected_yz_bbox_mm2": 10.25,
+          "y": [
+            22.5,
+            25.0
+          ],
+          "z": [
+            24.3,
+            28.4
+          ]
+        },
+        {
+          "part": "M1_6_nut_1_23.5",
+          "origin": "a5_hardware",
+          "volume_mm3": 0.688,
+          "projected_yz_bbox_mm2": 0.57,
+          "y": [
+            22.5,
+            25.348
+          ],
+          "z": [
+            28.2,
+            28.4
+          ]
+        },
+        {
+          "part": "M1_6x4_1_105.5",
+          "origin": "a5_hardware",
+          "volume_mm3": 3.125,
+          "projected_yz_bbox_mm2": 4.1,
+          "y": [
+            104.0,
+            105.0
+          ],
+          "z": [
+            24.3,
+            28.4
+          ]
+        },
+        {
+          "part": "M1_6_nut_1_105.5",
+          "origin": "a5_hardware",
+          "volume_mm3": 0.393,
+          "projected_yz_bbox_mm2": 0.27,
+          "y": [
+            103.652,
+            105.0
+          ],
+          "z": [
+            28.2,
+            28.4
+          ]
+        },
+        {
+          "part": "leaf_link_pin_2_A5",
+          "origin": "a5_leaf_link_harness",
+          "volume_mm3": 7.197,
+          "projected_yz_bbox_mm2": 55.613,
+          "y": [
+            71.286,
+            83.925
+          ],
+          "z": [
+            19.4,
+            23.8
+          ]
+        },
+        {
+          "part": "leaf_link_pin_3_A5",
+          "origin": "a5_leaf_link_harness",
+          "volume_mm3": 7.888,
+          "projected_yz_bbox_mm2": 66.287,
+          "y": [
+            71.65,
+            83.925
+          ],
+          "z": [
+            19.4,
+            24.8
+          ]
+        },
+        {
+          "part": "leaf_link_pin_4_A5",
+          "origin": "a5_leaf_link_harness",
+          "volume_mm3": 6.961,
+          "projected_yz_bbox_mm2": 65.309,
+          "y": [
+            73.72,
+            83.925
+          ],
+          "z": [
+            19.4,
+            25.8
+          ]
+        }
+      ],
+      "a7_controller_or_support_obstructions": 0,
+      "projected_bbox_upper_bound_fraction": 0.439
+    }
+  },
+  "switch_tool_access": {
+    "corridor": "probe space below the actuator tip, Y 111.4 to 140, across all three positions plus 1.0 mm",
+    "x": [
+      2.5,
+      4.4
+    ],
+    "z": [
+      3.85,
+      10.15
+    ],
+    "blocking_parts": [],
+    "clear": true
+  },
+  "parts": [
+    {
+      "part": "front_pmma_A7",
+      "valid": true,
+      "solids": 1,
+      "volume_mm3": 2282.573,
+      "bbox_min": [
+        -0.0,
+        -0.0,
+        -2.0
+      ],
+      "bbox_max": [
+        9.8,
+        128.5,
+        0.0
+      ],
+      "scope": "front_panel",
+      "kind": "manufacturing_artwork"
+    },
+    {
+      "part": "jack_in_PJ-324M",
+      "valid": true,
+      "solids": 1,
+      "volume_mm3": 1095.125,
+      "bbox_min": [
+        1.0,
+        80.4,
+        -4.0
+      ],
+      "bbox_max": [
+        8.8,
+        91.95,
+        13.7
+      ],
+      "scope": "retained_module",
+      "kind": "manufacturer_dimensioned_envelope"
+    },
+    {
+      "part": "jack_in_solder_fillets",
+      "valid": true,
+      "solids": 5,
+      "volume_mm3": 5.301,
+      "bbox_min": [
+        1.1,
+        81.25,
+        0.35
+      ],
+      "bbox_max": [
+        1.7,
+        92.45,
+        13.25
+      ],
+      "scope": "retained_module",
+      "kind": "assembly_allowance"
+    },
+    {
+      "part": "nut_in_M6x0.5",
+      "valid": true,
+      "solids": 1,
+      "volume_mm3": 32.987,
+      "bbox_min": [
+        1.5,
+        82.5,
+        -3.5
+      ],
+      "bbox_max": [
+        9.5,
+        90.5,
+        -2.0
+      ],
+      "scope": "retained_module",
+      "kind": "standard_hardware_envelope"
+    },
+    {
+      "part": "jack_thru_PJ-324M",
+      "valid": true,
+      "solids": 1,
+      "volume_mm3": 1095.125,
+      "bbox_min": [
+        1.0,
+        94.9,
+        -4.0
+      ],
+      "bbox_max": [
+        8.8,
+        106.45,
+        13.7
+      ],
+      "scope": "retained_module",
+      "kind": "manufacturer_dimensioned_envelope"
+    },
+    {
+      "part": "jack_thru_solder_fillets",
+      "valid": true,
+      "solids": 5,
+      "volume_mm3": 5.301,
+      "bbox_min": [
+        1.1,
+        95.75,
+        0.35
+      ],
+      "bbox_max": [
+        1.7,
+        106.95,
+        13.25
+      ],
+      "scope": "retained_module",
+      "kind": "assembly_allowance"
+    },
+    {
+      "part": "nut_thru_M6x0.5",
+      "valid": true,
+      "solids": 1,
+      "volume_mm3": 32.987,
+      "bbox_min": [
+        1.5,
+        97.0,
+        -3.5
+      ],
+      "bbox_max": [
+        9.5,
+        105.0,
+        -2.0
+      ],
+      "scope": "retained_module",
+      "kind": "standard_hardware_envelope"
+    },
+    {
+      "part": "controller_pcb_A7",
+      "valid": true,
+      "solids": 1,
+      "volume_mm3": 804.806,
+      "bbox_min": [
+        1.7,
+        48.5,
+        0.2
+      ],
+      "bbox_max": [
+        2.5,
+        111.4,
+        16.4
+      ],
+      "scope": "retained_module",
+      "kind": "design_geometry"
+    },
+    {
+      "part": "setting_switch_PCM13SMTR",
+      "valid": true,
+      "solids": 1,
+      "volume_mm3": 38.151,
+      "bbox_min": [
+        2.0,
+        107.3,
+        2.15
+      ],
+      "bbox_max": [
+        3.9,
+        111.4,
+        11.85
+      ],
+      "scope": "retained_module",
+      "kind": "manufacturer_dimensioned_envelope"
+    },
+    {
+      "part": "controller_PicoBlade_mated",
+      "valid": true,
+      "solids": 1,
+      "volume_mm3": 92.085,
+      "bbox_min": [
+        1.0,
+        73.95,
+        6.5
+      ],
+      "bbox_max": [
+        7.7,
+        77.15,
+        12.0
+      ],
+      "scope": "retained_module",
+      "kind": "manufacturer_dimensioned_envelope"
+    },
+    {
+      "part": "controller_SH4_mated",
+      "valid": true,
+      "solids": 1,
+      "volume_mm3": 114.425,
+      "bbox_min": [
+        2.5,
+        57.425,
+        9.9
+      ],
+      "bbox_max": [
+        5.45,
+        63.675,
+        16.9
+      ],
+      "scope": "retained_module",
+      "kind": "manufacturer_dimensioned_envelope"
+    },
+    {
+      "part": "spine_PETG",
+      "valid": true,
+      "solids": 1,
+      "volume_mm3": 1130.844,
+      "bbox_min": [
+        0.3,
+        18.0,
+        0.0
+      ],
+      "bbox_max": [
+        9.5,
+        72.0,
+        17.4
+      ],
+      "scope": "retained_module",
+      "kind": "printable_design"
+    },
+    {
+      "part": "M2_front_washer_20.5",
+      "valid": true,
+      "solids": 1,
+      "volume_mm3": 2.63,
+      "bbox_min": [
+        2.9,
+        18.5,
+        -2.3
+      ],
+      "bbox_max": [
+        6.9,
+        22.5,
+        -2.0
+      ],
+      "scope": "retained_module",
+      "kind": "standard_hardware_envelope"
+    },
+    {
+      "part": "M2_front_screw_20.5",
+      "valid": true,
+      "solids": 1,
+      "volume_mm3": 38.742,
+      "bbox_min": [
+        3.0,
+        18.6,
+        -3.5
+      ],
+      "bbox_max": [
+        6.8,
+        22.4,
+        5.7
+      ],
+      "scope": "retained_module",
+      "kind": "standard_hardware_envelope"
+    },
+    {
+      "part": "M2_nut_20.5",
+      "valid": true,
+      "solids": 1,
+      "volume_mm3": 17.144,
+      "bbox_min": [
+        2.591,
+        18.5,
+        3.0
+      ],
+      "bbox_max": [
+        7.209,
+        22.5,
+        4.6
+      ],
+      "scope": "retained_module",
+      "kind": "standard_hardware_envelope"
+    },
+    {
+      "part": "M2_front_washer_60.8",
+      "valid": true,
+      "solids": 1,
+      "volume_mm3": 2.63,
+      "bbox_min": [
+        4.025,
+        58.8,
+        -2.3
+      ],
+      "bbox_max": [
+        8.025,
+        62.8,
+        -2.0
+      ],
+      "scope": "retained_module",
+      "kind": "standard_hardware_envelope"
+    },
+    {
+      "part": "M2_front_screw_60.8",
+      "valid": true,
+      "solids": 1,
+      "volume_mm3": 32.773,
+      "bbox_min": [
+        4.125,
+        58.9,
+        -3.5
+      ],
+      "bbox_max": [
+        7.925,
+        62.7,
+        3.8
+      ],
+      "scope": "retained_module",
+      "kind": "standard_hardware_envelope"
+    },
+    {
+      "part": "M2_nut_60.8",
+      "valid": true,
+      "solids": 1,
+      "volume_mm3": 17.144,
+      "bbox_min": [
+        3.716,
+        58.8,
+        1.6
+      ],
+      "bbox_max": [
+        8.334,
+        62.8,
+        3.2
+      ],
+      "scope": "retained_module",
+      "kind": "standard_hardware_envelope"
+    },
+    {
+      "part": "M2x16_top_cap",
+      "valid": true,
+      "solids": 1,
+      "volume_mm3": 65.009,
+      "bbox_min": [
+        3.0,
+        18.6,
+        11.8
+      ],
+      "bbox_max": [
+        6.8,
+        22.4,
+        29.1
+      ],
+      "scope": "retained_module",
+      "kind": "standard_hardware_envelope"
+    },
+    {
+      "part": "M2_post_nut_top",
+      "valid": true,
+      "solids": 1,
+      "volume_mm3": 17.144,
+      "bbox_min": [
+        2.591,
+        18.5,
+        14.0
+      ],
+      "bbox_max": [
+        7.209,
+        22.5,
+        15.6
+      ],
+      "scope": "retained_module",
+      "kind": "standard_hardware_envelope"
+    },
+    {
+      "part": "power_adapter_pcb_A5",
+      "valid": true,
+      "solids": 1,
+      "volume_mm3": 416.318,
+      "bbox_min": [
+        0.5,
+        18.0,
+        17.4
+      ],
+      "bbox_max": [
+        9.3,
+        48.0,
+        19.0
+      ],
+      "scope": "retained_module",
+      "kind": "native_pcb_envelope"
+    },
+    {
+      "part": "adapter_C5665_keyed_header",
+      "valid": true,
+      "solids": 1,
+      "volume_mm3": 755.682,
+      "bbox_min": [
+        0.35,
+        23.0,
+        8.5
+      ],
+      "bbox_max": [
+        9.45,
+        43.8,
+        20.0
+      ],
+      "scope": "retained_module",
+      "kind": "manufacturer_dimensioned_envelope"
+    },
+    {
+      "part": "IDC_socket_REFERENCE_overlap6",
+      "valid": true,
+      "solids": 1,
+      "volume_mm3": 691.01,
+      "bbox_min": [
+        1.4,
+        24.71,
+        7.6
+      ],
+      "bbox_max": [
+        8.4,
+        42.09,
+        14.5
+      ],
+      "scope": "conditional_socket",
+      "kind": "conditional_reference_envelope"
+    },
+    {
+      "part": "adapter_PicoBlade_mated",
+      "valid": true,
+      "solids": 1,
+      "volume_mm3": 92.387,
+      "bbox_min": [
+        2.15,
+        44.65,
+        12.2
+      ],
+      "bbox_max": [
+        7.65,
+        47.85,
+        19.7
+      ],
+      "scope": "retained_module",
+      "kind": "manufacturer_dimensioned_envelope"
+    },
+    {
+      "part": "IDC_ribbon_R3_side_exit_SCENARIO",
+      "valid": true,
+      "solids": 1,
+      "volume_mm3": 182.987,
+      "bbox_min": [
+        8.528,
+        27.05,
+        10.503
+      ],
+      "bbox_max": [
+        11.8,
+        39.75,
+        29.8
+      ],
+      "scope": "conditional_ribbon",
+      "kind": "conditional_cable_scenario"
+    },
+    {
+      "part": "left_leaf_pcb_A5",
+      "valid": true,
+      "solids": 1,
+      "volume_mm3": 443.1,
+      "bbox_min": [
+        4.25,
+        22.5,
+        19.4
+      ],
+      "bbox_max": [
+        4.85,
+        105.0,
+        28.4
+      ],
+      "scope": "retained_module",
+      "kind": "native_pcb_envelope"
+    },
+    {
+      "part": "right_leaf_pcb_A5",
+      "valid": true,
+      "solids": 1,
+      "volume_mm3": 443.1,
+      "bbox_min": [
+        4.95,
+        22.5,
+        19.4
+      ],
+      "bbox_max": [
+        5.55,
+        105.0,
+        28.4
+      ],
+      "scope": "retained_module",
+      "kind": "native_pcb_envelope"
+    },
+    {
+      "part": "leaf_bond_line_reserve",
+      "valid": true,
+      "solids": 1,
+      "volume_mm3": 73.85,
+      "bbox_min": [
+        4.85,
+        22.5,
+        19.4
+      ],
+      "bbox_max": [
+        4.95,
+        105.0,
+        28.4
+      ],
+      "scope": "retained_module",
+      "kind": "assembly_allowance"
+    },
+    {
+      "part": "left_J1_SH4_mated",
+      "valid": true,
+      "solids": 1,
+      "volume_mm3": 114.425,
+      "bbox_min": [
+        1.3,
+        37.325,
+        20.4
+      ],
+      "bbox_max": [
+        4.25,
+        43.575,
+        27.4
+      ],
+      "scope": "retained_module",
+      "kind": "manufacturer_dimensioned_envelope"
+    },
+    {
+      "part": "left_J2_SH4_mated",
+      "valid": true,
+      "solids": 1,
+      "volume_mm3": 114.425,
+      "bbox_min": [
+        1.3,
+        86.825,
+        20.4
+      ],
+      "bbox_max": [
+        4.25,
+        93.075,
+        27.4
+      ],
+      "scope": "retained_module",
+      "kind": "manufacturer_dimensioned_envelope"
+    },
+    {
+      "part": "right_J1_SH4_mated",
+      "valid": true,
+      "solids": 1,
+      "volume_mm3": 114.425,
+      "bbox_min": [
+        5.55,
+        83.925,
+        20.4
+      ],
+      "bbox_max": [
+        8.5,
+        90.175,
+        27.4
+      ],
+      "scope": "retained_module",
+      "kind": "manufacturer_dimensioned_envelope"
+    },
+    {
+      "part": "right_J2_SH4_unmated",
+      "valid": true,
+      "solids": 1,
+      "volume_mm3": 75.225,
+      "bbox_min": [
+        5.55,
+        36.425,
+        20.9
+      ],
+      "bbox_max": [
+        8.5,
+        40.675,
+        26.9
+      ],
+      "scope": "retained_module",
+      "kind": "manufacturer_dimensioned_envelope"
+    },
+    {
+      "part": "left_D1",
+      "valid": true,
+      "solids": 1,
+      "volume_mm3": 5.002,
+      "bbox_min": [
+        3.26,
+        25.175,
+        22.725
+      ],
+      "bbox_max": [
+        4.25,
+        27.325,
+        25.075
+      ],
+      "scope": "retained_module",
+      "kind": "native_component_max_envelope"
+    },
+    {
+      "part": "right_D1",
+      "valid": true,
+      "solids": 1,
+      "volume_mm3": 5.002,
+      "bbox_min": [
+        5.55,
+        100.175,
+        22.725
+      ],
+      "bbox_max": [
+        6.54,
+        102.325,
+        25.075
+      ],
+      "scope": "retained_module",
+      "kind": "native_component_max_envelope"
+    },
+    {
+      "part": "left_C1",
+      "valid": true,
+      "solids": 1,
+      "volume_mm3": 1.152,
+      "bbox_min": [
+        3.35,
+        28.05,
+        22.1
+      ],
+      "bbox_max": [
+        4.25,
+        28.85,
+        23.7
+      ],
+      "scope": "retained_module",
+      "kind": "native_component_max_envelope"
+    },
+    {
+      "part": "right_C1",
+      "valid": true,
+      "solids": 1,
+      "volume_mm3": 1.152,
+      "bbox_min": [
+        5.55,
+        98.65,
+        22.1
+      ],
+      "bbox_max": [
+        6.45,
+        99.45,
+        23.7
+      ],
+      "scope": "retained_module",
+      "kind": "native_component_max_envelope"
+    },
+    {
+      "part": "left_D2",
+      "valid": true,
+      "solids": 1,
+      "volume_mm3": 5.002,
+      "bbox_min": [
+        3.26,
+        50.175,
+        22.725
+      ],
+      "bbox_max": [
+        4.25,
+        52.325,
+        25.075
+      ],
+      "scope": "retained_module",
+      "kind": "native_component_max_envelope"
+    },
+    {
+      "part": "right_D2",
+      "valid": true,
+      "solids": 1,
+      "volume_mm3": 5.002,
+      "bbox_min": [
+        5.55,
+        75.175,
+        22.725
+      ],
+      "bbox_max": [
+        6.54,
+        77.325,
+        25.075
+      ],
+      "scope": "retained_module",
+      "kind": "native_component_max_envelope"
+    },
+    {
+      "part": "left_C2",
+      "valid": true,
+      "solids": 1,
+      "volume_mm3": 1.152,
+      "bbox_min": [
+        3.35,
+        53.05,
+        22.1
+      ],
+      "bbox_max": [
+        4.25,
+        53.85,
+        23.7
+      ],
+      "scope": "retained_module",
+      "kind": "native_component_max_envelope"
+    },
+    {
+      "part": "right_C2",
+      "valid": true,
+      "solids": 1,
+      "volume_mm3": 1.152,
+      "bbox_min": [
+        5.55,
+        73.65,
+        22.1
+      ],
+      "bbox_max": [
+        6.45,
+        74.45,
+        23.7
+      ],
+      "scope": "retained_module",
+      "kind": "native_component_max_envelope"
+    },
+    {
+      "part": "left_D3",
+      "valid": true,
+      "solids": 1,
+      "volume_mm3": 5.002,
+      "bbox_min": [
+        3.26,
+        75.175,
+        22.725
+      ],
+      "bbox_max": [
+        4.25,
+        77.325,
+        25.075
+      ],
+      "scope": "retained_module",
+      "kind": "native_component_max_envelope"
+    },
+    {
+      "part": "right_D3",
+      "valid": true,
+      "solids": 1,
+      "volume_mm3": 5.002,
+      "bbox_min": [
+        5.55,
+        50.175,
+        22.725
+      ],
+      "bbox_max": [
+        6.54,
+        52.325,
+        25.075
+      ],
+      "scope": "retained_module",
+      "kind": "native_component_max_envelope"
+    },
+    {
+      "part": "left_C3",
+      "valid": true,
+      "solids": 1,
+      "volume_mm3": 1.152,
+      "bbox_min": [
+        3.35,
+        78.05,
+        22.1
+      ],
+      "bbox_max": [
+        4.25,
+        78.85,
+        23.7
+      ],
+      "scope": "retained_module",
+      "kind": "native_component_max_envelope"
+    },
+    {
+      "part": "right_C3",
+      "valid": true,
+      "solids": 1,
+      "volume_mm3": 1.152,
+      "bbox_min": [
+        5.55,
+        48.65,
+        22.1
+      ],
+      "bbox_max": [
+        6.45,
+        49.45,
+        23.7
+      ],
+      "scope": "retained_module",
+      "kind": "native_component_max_envelope"
+    },
+    {
+      "part": "left_D4",
+      "valid": true,
+      "solids": 1,
+      "volume_mm3": 5.002,
+      "bbox_min": [
+        3.26,
+        100.175,
+        22.725
+      ],
+      "bbox_max": [
+        4.25,
+        102.325,
+        25.075
+      ],
+      "scope": "retained_module",
+      "kind": "native_component_max_envelope"
+    },
+    {
+      "part": "right_D4",
+      "valid": true,
+      "solids": 1,
+      "volume_mm3": 5.002,
+      "bbox_min": [
+        5.55,
+        25.175,
+        22.725
+      ],
+      "bbox_max": [
+        6.54,
+        27.325,
+        25.075
+      ],
+      "scope": "retained_module",
+      "kind": "native_component_max_envelope"
+    },
+    {
+      "part": "left_C4",
+      "valid": true,
+      "solids": 1,
+      "volume_mm3": 1.152,
+      "bbox_min": [
+        3.35,
+        103.05,
+        22.1
+      ],
+      "bbox_max": [
+        4.25,
+        103.85,
+        23.7
+      ],
+      "scope": "retained_module",
+      "kind": "native_component_max_envelope"
+    },
+    {
+      "part": "right_C4",
+      "valid": true,
+      "solids": 1,
+      "volume_mm3": 1.152,
+      "bbox_min": [
+        5.55,
+        23.65,
+        22.1
+      ],
+      "bbox_max": [
+        6.45,
+        24.45,
+        23.7
+      ],
+      "scope": "retained_module",
+      "kind": "native_component_max_envelope"
+    },
+    {
+      "part": "top_leaf_adapter_cap",
+      "valid": true,
+      "solids": 1,
+      "volume_mm3": 418.642,
+      "bbox_min": [
+        0.3,
+        18.0,
+        19.0
+      ],
+      "bbox_max": [
+        9.5,
+        26.0,
+        29.8
+      ],
+      "scope": "retained_module",
+      "kind": "printable_design"
+    },
+    {
+      "part": "bottom_leaf_cap",
+      "valid": true,
+      "solids": 1,
+      "volume_mm3": 180.219,
+      "bbox_min": [
+        0.3,
+        103.8,
+        14.6
+      ],
+      "bbox_max": [
+        9.5,
+        107.0,
+        29.8
+      ],
+      "scope": "retained_module",
+      "kind": "printable_design"
+    },
+    {
+      "part": "left_diffuser",
+      "valid": true,
+      "solids": 1,
+      "volume_mm3": 1164.666,
+      "bbox_min": [
+        0.3,
+        22.0,
+        17.4
+      ],
+      "bbox_max": [
+        4.0,
+        107.0,
+        28.0
+      ],
+      "scope": "retained_module",
+      "kind": "printable_design"
+    },
+    {
+      "part": "right_diffuser",
+      "valid": true,
+      "solids": 1,
+      "volume_mm3": 1182.336,
+      "bbox_min": [
+        5.8,
+        22.0,
+        17.4
+      ],
+      "bbox_max": [
+        9.5,
+        107.0,
+        28.0
+      ],
+      "scope": "retained_module",
+      "kind": "printable_design"
+    },
+    {
+      "part": "M1_6x4_-1_23.5",
+      "valid": true,
+      "solids": 1,
+      "volume_mm3": 17.232,
+      "bbox_min": [
+        1.0,
+        22.0,
+        24.3
+      ],
+      "bbox_max": [
+        4.0,
+        25.0,
+        29.6
+      ],
+      "scope": "retained_module",
+      "kind": "standard_hardware_envelope"
+    },
+    {
+      "part": "M1_6_nut_-1_23.5",
+      "valid": true,
+      "solids": 1,
+      "volume_mm3": 8.915,
+      "bbox_min": [
+        0.9,
+        21.652,
+        28.2
+      ],
+      "bbox_max": [
+        4.1,
+        25.348,
+        29.5
+      ],
+      "scope": "retained_module",
+      "kind": "standard_hardware_envelope"
+    },
+    {
+      "part": "M1_6x4_-1_105.5",
+      "valid": true,
+      "solids": 1,
+      "volume_mm3": 17.232,
+      "bbox_min": [
+        1.0,
+        104.0,
+        24.3
+      ],
+      "bbox_max": [
+        4.0,
+        107.0,
+        29.6
+      ],
+      "scope": "retained_module",
+      "kind": "standard_hardware_envelope"
+    },
+    {
+      "part": "M1_6_nut_-1_105.5",
+      "valid": true,
+      "solids": 1,
+      "volume_mm3": 8.915,
+      "bbox_min": [
+        0.9,
+        103.652,
+        28.2
+      ],
+      "bbox_max": [
+        4.1,
+        107.348,
+        29.5
+      ],
+      "scope": "retained_module",
+      "kind": "standard_hardware_envelope"
+    },
+    {
+      "part": "M1_6x4_1_23.5",
+      "valid": true,
+      "solids": 1,
+      "volume_mm3": 17.232,
+      "bbox_min": [
+        5.8,
+        22.0,
+        24.3
+      ],
+      "bbox_max": [
+        8.8,
+        25.0,
+        29.6
+      ],
+      "scope": "retained_module",
+      "kind": "standard_hardware_envelope"
+    },
+    {
+      "part": "M1_6_nut_1_23.5",
+      "valid": true,
+      "solids": 1,
+      "volume_mm3": 8.915,
+      "bbox_min": [
+        5.7,
+        21.652,
+        28.2
+      ],
+      "bbox_max": [
+        8.9,
+        25.348,
+        29.5
+      ],
+      "scope": "retained_module",
+      "kind": "standard_hardware_envelope"
+    },
+    {
+      "part": "M1_6x4_1_105.5",
+      "valid": true,
+      "solids": 1,
+      "volume_mm3": 17.232,
+      "bbox_min": [
+        5.8,
+        104.0,
+        24.3
+      ],
+      "bbox_max": [
+        8.8,
+        107.0,
+        29.6
+      ],
+      "scope": "retained_module",
+      "kind": "standard_hardware_envelope"
+    },
+    {
+      "part": "M1_6_nut_1_105.5",
+      "valid": true,
+      "solids": 1,
+      "volume_mm3": 8.915,
+      "bbox_min": [
+        5.7,
+        103.652,
+        28.2
+      ],
+      "bbox_max": [
+        8.9,
+        107.348,
+        29.5
+      ],
+      "scope": "retained_module",
+      "kind": "standard_hardware_envelope"
+    },
+    {
+      "part": "controller_to_left_leaf_sh4",
+      "valid": true,
+      "solids": 1,
+      "volume_mm3": 157.079,
+      "bbox_min": [
+        1.55,
+        43.575,
+        12.4
+      ],
+      "bbox_max": [
+        4.975,
+        75.972,
+        24.9
+      ],
+      "scope": "conditional_harness",
+      "kind": "cable_route_scenario"
+    },
+    {
+      "part": "adapter_to_controller_power",
+      "valid": true,
+      "solids": 1,
+      "volume_mm3": 131.509,
+      "bbox_min": [
+        4.0,
+        45.8,
+        4.1
+      ],
+      "bbox_max": [
+        9.5,
+        76.9,
+        13.9
+      ],
+      "scope": "conditional_harness",
+      "kind": "cable_route_scenario"
+    },
+    {
+      "part": "leaf_link_pin_1_A5",
+      "valid": true,
+      "solids": 1,
+      "volume_mm3": 25.893,
+      "bbox_min": [
+        2.3,
+        69.215,
+        17.5
+      ],
+      "bbox_max": [
+        7.501,
+        95.225,
+        22.841
+      ],
+      "scope": "conditional_harness",
+      "kind": "cable_route_scenario"
+    },
+    {
+      "part": "leaf_link_pin_2_A5",
+      "valid": true,
+      "solids": 1,
+      "volume_mm3": 23.277,
+      "bbox_min": [
+        2.3,
+        71.286,
+        17.5
+      ],
+      "bbox_max": [
+        7.8,
+        96.225,
+        23.8
+      ],
+      "scope": "conditional_harness",
+      "kind": "cable_route_scenario"
+    },
+    {
+      "part": "leaf_link_pin_3_A5",
+      "valid": true,
+      "solids": 1,
+      "volume_mm3": 16.879,
+      "bbox_min": [
+        2.3,
+        71.65,
+        18.4
+      ],
+      "bbox_max": [
+        7.5,
+        97.225,
+        24.8
+      ],
+      "scope": "conditional_harness",
+      "kind": "cable_route_scenario"
+    },
+    {
+      "part": "leaf_link_pin_4_A5",
+      "valid": true,
+      "solids": 1,
+      "volume_mm3": 24.261,
+      "bbox_min": [
+        2.3,
+        73.72,
+        18.4
+      ],
+      "bbox_max": [
+        7.8,
+        98.225,
+        25.8
+      ],
+      "scope": "conditional_harness",
+      "kind": "cable_route_scenario"
+    }
+  ],
+  "manufacturing_release": false,
+  "export": {
+    "step": "zudo_led_block_A7_2hp_assembled.step",
+    "glb": "zudo_led_block_A7_2hp_assembled.glb",
+    "valid": true,
+    "source_solids": 74,
+    "imported_solids": 74,
+    "volume_difference_mm3": 0.0
+  },
+  "views": {
+    "transverse": "view_A7_2hp_transverse.png",
+    "side": "view_A7_2hp_side.png",
+    "front": "view_A7_2hp_front.png"
+  }
+}
