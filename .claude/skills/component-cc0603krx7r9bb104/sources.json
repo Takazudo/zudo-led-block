@@ -41,6 +41,24 @@
       "evidence_extract": "C4: value=100n, footprint=LightBlock:C0603, symbol=LightBlock:C, pin 1 1=/BUCK_BST, pin 2 2=/BUCK_SW; C8: value=100n, footprint=LightBlock:C0603, symbol=LightBlock:C, pin 1 1=/+3V3, pin 2 2=/GND; C9: value=100n, footprint=LightBlock:C0603, symbol=LightBlock:C, pin 1 1=/+3V3, pin 2 2=/GND; C10: value=100n, footprint=LightBlock:C0603, symbol=LightBlock:C, pin 1 1=/VLED, pin 2 2=/GND; C11: value=100n, footprint=LightBlock:C0603, symbol=LightBlock:C, pin 1 1=/+12V_PROT, pin 2 2=/GND; C12: value=100n, footprint=LightBlock:C0603, symbol=LightBlock:C, pin 1 1=/GND, pin 2 2=/-12V_PROT; C14: value=100n, footprint=LightBlock:C0603, symbol=LightBlock:C, pin 1 1=/NRST, pin 2 2=/GND; C17: value=100n, footprint=LightBlock:C0603, symbol=LightBlock:C, pin 1 1=/+3V3, pin 2 2=/GND. Historical A5 design state only; not fresh A6 state and not as-built verification."
     },
     {
+      "source_id": "src-cc0603krx7r9bb104-a5-netlist-led-leaf",
+      "record_id": "rec-cc0603krx7r9bb104",
+      "document_title": "Light Block A5 led_leaf native netlist (KiCad 10.0.8 export, historical)",
+      "document_number": "engineering/a5/integration/native_schematic/led_leaf/netlist.xml",
+      "revision": "A5",
+      "document_date": "2026-11-06",
+      "authoritative_url": "https://github.com/Takazudo/zudo-led-block/blob/d41cbb7fc61dc954b4affaf19527aa69f07013b6/engineering/a5/integration/native_schematic/led_leaf/netlist.xml",
+      "alternate_authoritative_url": "",
+      "retrieval_date": "2026-11-06",
+      "authority_class": "PROJECT_GENERATOR",
+      "sha256": "1857eeb3e3faa65977f2e2cfff30083411db9af728b5529e53065da0c9028670",
+      "availability": "AVAILABLE",
+      "physical_pdf_page_index": 0,
+      "printed_page_label": "n/a (XML netlist)",
+      "locator": "engineering/a5/integration/native_schematic/led_leaf/netlist.xml, components section rows for C1, C2, C3, C4 and the matching nets section nodes",
+      "evidence_extract": "C1: value=100n 50V X7R, footprint=LightBlock:C0603, symbol=LightBlock:C, pin 1 1=/VLED, pin 2 2=/GND; C2: value=100n 50V X7R, footprint=LightBlock:C0603, symbol=LightBlock:C, pin 1 1=/VLED, pin 2 2=/GND; C3: value=100n 50V X7R, footprint=LightBlock:C0603, symbol=LightBlock:C, pin 1 1=/VLED, pin 2 2=/GND; C4: value=100n 50V X7R, footprint=LightBlock:C0603, symbol=LightBlock:C, pin 1 1=/VLED, pin 2 2=/GND. Historical A5 design state only; not fresh A6 state and not as-built verification."
+    },
+    {
       "source_id": "src-cc0603krx7r9bb104-ds-p2",
       "record_id": "rec-cc0603krx7r9bb104",
       "document_title": "YAGEO DATA SHEET Surface-Mount Ceramic Multilayer Capacitors, General Purpose & High Capacitance, Class 2, X7R, 6.3 V to 250 V, 100 pF to 47 uF",
