@@ -1,0 +1,30 @@
+{
+ "generator": "scripts/native_gate/make_fixture.py",
+ "generator_sha256": "2c81c5aae26f1a08e4e48c2b5679c6256fb577ff4b529f00b0dd9480e40a6c25",
+ "kicad_build_version": "10.0.8",
+ "output_sha256": {
+  "LightBlock.kicad_sym": "22ad3e9b85f8e59dfa8c83d67983879c9c45261b4408af152d413d091ddec693",
+  "fixture.kicad_pcb": "65a0928b1de77b19ca846b75e58f12eaeab6cc59ae887e052e21570f1f00d59e",
+  "fixture.kicad_pro": "373a91f9e767d62419fff57486ee1c8b82944a72e9515c2efb12d24212d6b0e3",
+  "fixture.kicad_sch": "b3eaaf84ab1bc3a13c1dd1600cb6f5dca5ea61c403d0af4ea7c5b664b40c6599",
+  "fp-lib-table": "6e6a8e7fe5956818e396bfff2ef6b2646bad52984c959f4593f2a285ea0d5820",
+  "sym-lib-table": "0d40724c57d56080d896c5d7ef8fadd28b7415d0fd34767804aa7e57c6c27da9"
+ },
+ "source_dir": "engineering/a5/electronics/native/led_leaf",
+ "source_sha256": {
+  "LightBlock.kicad_sym": "22ad3e9b85f8e59dfa8c83d67983879c9c45261b4408af152d413d091ddec693",
+  "led_leaf.kicad_pcb": "6244280cec3efe00ca31d9c5c8878f3ed6eb59a1c6bd4e933beffedd49511df3",
+  "led_leaf.kicad_pro": "373a91f9e767d62419fff57486ee1c8b82944a72e9515c2efb12d24212d6b0e3",
+  "led_leaf.kicad_sch": "b3eaaf84ab1bc3a13c1dd1600cb6f5dca5ea61c403d0af4ea7c5b664b40c6599",
+  "sym-lib-table": "0d40724c57d56080d896c5d7ef8fadd28b7415d0fd34767804aa7e57c6c27da9"
+ },
+ "what": "Native-gate infrastructure fixture: A5 LED leaf routing plus one filled GND zone. Not an A7 or A5 board result.",
+ "zone": {
+  "clearance_mm": 0.25,
+  "layer": "F.Cu",
+  "min_thickness_mm": 0.2,
+  "name": "FIXTURE_GND_F",
+  "net": "GND",
+  "outline_inset_mm": 0.5
+ }
+}
