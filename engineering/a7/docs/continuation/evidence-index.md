@@ -38,7 +38,7 @@ re-run KiCad or CadQuery for these records.
 | Source inventory with hashes | `engineering/a7/evidence/sources.json` | R1 #16 | every inspected source; SOFNG / C&K documents are `MANUFACTURER_MIRROR` (LCSC-hosted) |
 | PJ-324M owner bundle | `.claude/skills/component-a7-pj-324m/` | R1 | facts `UNVERIFIED` / `UNSOURCED` with values kept; axis height `INFERRED`; pin functions inferred |
 | PCM13SMTR owner bundle | `.claude/skills/component-a7-pcm13smtr/` | R1 | per-position table from mirror; JLC stock 0 (2026-11-08) |
-| Catalog lines | `line-a7-pj-324m`, `line-a7-pcm13smtr` | R1 | outside the A5 reconciliation; published at `/docs/components/records/a7-pj-324m/`, `/a7-pcm13smtr/` |
+| Catalog lines | `line-a7-pj-324m`, `line-a7-pcm13smtr` | R1 | outside the A5 reconciliation; published at `/docs/components/records/a7-pj-324m/` and `/docs/components/records/a7-pcm13smtr/` |
 | Dimension study | `engineering/a7/study/parameters.json` (authored), `results.json`, `report.md` (generated) | R1 | paper study: 3HP feasible on paper across X; 2HP unresolved, not infeasible; thread engagement unresolved without a rear pocket. `python3 scripts/a7_dimension_study.py --check` |
 | PET FPC capture | `engineering/a7/pet-fpc.md` | R1 | JLC public capability statements only; questions not sent |
 | Open questions | `engineering/a7/open-questions.md` | R1 | Q0–Q12 |
@@ -51,10 +51,11 @@ re-run KiCad or CadQuery for these records.
 
 ### In flight (not on main)
 
+A7 board placement and routing (R4) has not started; it waits for the R2 outline.
+
 | Evidence | PR | State when last checked |
 |---|---|---|
-| A7 mechanical model and artwork, 2HP / 3HP evaluation | [#25](https://github.com/Takazudo/zudo-led-block/pull/25) (R2) | draft; being corrected for jack body orientation and switch-to-jack gap |
-| A7 board placement and routing | R4, not opened | not started on `main` |
+| A7 mechanical model and artwork, 2HP / 3HP evaluation | [#25](https://github.com/Takazudo/zudo-led-block/pull/25) (R2) | draft; head includes the jack-orientation and switch-to-jack-gap correction; not merged |
 
 ## 4. Outstanding physical qualification
 

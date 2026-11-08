@@ -34,7 +34,7 @@ Accepted direction from the owner (2026-11-08):
 |---|---|---|---|
 | A5 | `engineering/a5/` | Immutable byte-for-byte checkpoint (2026-11-06 JST). Controller placed, unrouted. All ERC/DRC/test results are historical records | the reference netlist, pin assignments, firmware, BOM and evidence A7 builds on |
 | A6 | branch `claude/project-thread-391rx3` @ `7e96380`, draft PR [#14](https://github.com/Takazudo/zudo-led-block/pull/14), issue [#7](https://github.com/Takazudo/zudo-led-block/issues/7) | **Held, not merged.** Fixed 8.8 mm controller, placed but unrouted (125 unconnected); automated routing never reached zero | routing-attempt records only. A7 does not complete A6, and A6 work is not counted as A7 progress |
-| A7 | `engineering/a7/` | Study, verification foundation and reviewed controller schematic merged; mechanical model and board in flight | everything new |
+| A7 | `engineering/a7/` | Study, verification foundation and reviewed controller schematic merged; mechanical model in draft PR #25; board placement and routing not started | everything new |
 
 ## Task map (epic #15)
 
@@ -55,15 +55,16 @@ retrieved.
 1. **R4 schematic (PR #24): done.** J1, J2 and SW1 replaced, every other part and net unchanged from A5;
    ERC 0, parity 0, 51 behavioural assertions pass, authorised delta covers all 12 observed deltas. The native
    gate profile stays `candidate: null` until a board lands with it.
-2. **R2 mechanical (PR #25).** Correct the jack body orientation and the switch-to-jack gap, build the 3HP
+2. **R2 mechanical (PR #25, draft).** Finish review of the jack-orientation and switch-to-jack-gap correction, build the 3HP
    model, keep 2HP 0.6 mm offset parameterised. Decide the rear PMMA pocket (Q8) for thread engagement.
 3. **R4 placement and routing.** Place on the perpendicular outline from R2, route, and make the board the
    gate `candidate` in the same PR. The gate must pass with no relaxed rules, exclusions or success wrappers.
 4. **R5 re-sync** after each of those merges: this file, `evidence-index.md`, the A7 status page, the
    decision and blocker registers, and the A7 BOM delta.
-5. **External evidence** listed in `../../open-questions.md` (Q0–Q11): maker-hosted drawings, axis height,
+5. **External evidence** listed in `../../open-questions.md` (Q0–Q11; Q12 is decided): maker-hosted drawings, axis height,
    pin functions, hole sizes, nut fit, lead trim, PMMA tolerances, switch supply, JLC PET answers.
-   Supplier questions are drafted but **not sent**; sending is outside the current authorisation.
+   Only the JLC PET questions are drafted (`../../pet-fpc.md`), and they are **not sent**; the others are not
+   drafted. Sending supplier messages is outside the current authorisation.
 6. **Physical qualification** stays with [#8](https://github.com/Takazudo/zudo-led-block/issues/8)
    (harness, fit, PETG) and [#10](https://github.com/Takazudo/zudo-led-block/issues/10) (power / CV / firmware /
    optical / thermal / load), and [#13](https://github.com/Takazudo/zudo-led-block/issues/13) (WS2812B T1L timing
@@ -89,8 +90,9 @@ retrieved.
 
 - Never edit, regenerate or reformat `engineering/a5/`. Run
   `python3 scripts/verify_seed.py --manifest provenance/seed-manifest.json --repo .` before and after.
-- Never hand-edit generated pages (`doc/src/content/docs/components/`, the `scripts/a5_site.py` outputs,
-  `engineering/a7/study/results.json` / `report.md`).
+- Never hand-edit generated files: `doc/src/content/docs/components/`, the `scripts/a5_site.py` outputs,
+  `engineering/a7/study/results.json` / `report.md`, and everything under `engineering/a7/electronics/`
+  (derived by `scripts/a7_electronics.py generate`; see `verification/source_authority.json`).
 - A7 catalog lines use `line-a7-` IDs and `component-a7-` owner bundles; they never count toward the A5
   30 / 71 / 81 reconciliation.
 - Keep facts that were not verified at their real state (`UNVERIFIED`, `UNSOURCED`, `NEEDS BENCH`, `INFERRED`,
@@ -104,6 +106,9 @@ retrieved.
 python3 scripts/verify_seed.py --manifest provenance/seed-manifest.json --repo .
 pnpm circuit:check && pnpm a5:check
 python3 scripts/a7_dimension_study.py --check
+python3 scripts/a7_electronics.py generate --check
+python3 -m unittest scripts/tests/test_a7_r1_study.py
+python3 scripts/a7_schematic_check.py --out <empty dir outside the repo>   # needs Docker
 python3 -m unittest discover -s scripts/tests -p 'test_native_*.py'
 pnpm build && pnpm check && pnpm check:site && pnpm test:browser
 ```
