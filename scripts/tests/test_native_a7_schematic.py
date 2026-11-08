@@ -55,6 +55,29 @@ class GeneratorTests(unittest.TestCase):
             pads = {line.split('"')[1] for line in fp.splitlines() if line.strip().startswith('(pad "') and not line.strip().startswith('(pad ""')}
             self.assertEqual(pads, {n for n, *_ in a7.PIN_DEFS_A7[typ]}, typ)
 
+    def test_pcm13smtr_land_pattern_pins_drawing_dimensions(self):
+        # C&K PC MOUNTING I-48: chain 1.5/3.0/1.5 (span 6.0), pads 0.7 x 1.5 from 1.0 to 2.5 off the peg
+        # line, retention pads 1.0 x 0.8 with 9.3 inner span and 1.13 gap, pegs 5.0 apart.
+        d = a7.PCM13
+        xs = d['signal_x']
+        self.assertEqual([round(b - a, 3) for a, b in zip(xs, xs[1:])], [1.5, 3.0, 1.5])
+        self.assertEqual(round(xs[-1] - xs[0], 3), 6.0)
+        w, h = d['signal_size']
+        self.assertEqual((w, h), (0.7, 1.5))
+        self.assertEqual((round(-d['signal_y'] - h / 2, 3), round(-d['signal_y'] + h / 2, 3)), (1.0, 2.5))
+        mw, mh = d['mp_size']
+        mx = sorted({abs(x) for x, _ in d['mp']}); my = sorted({abs(y) for _, y in d['mp']})
+        self.assertEqual(round(2 * (mx[0] - mw / 2), 3), 9.3)
+        self.assertEqual(round(2 * (my[0] - mh / 2), 3), 1.13)
+        self.assertEqual(round(d['peg_x'][1] - d['peg_x'][0], 3), 5.0)
+
+    def test_pj324m_drawing_dimensions(self):
+        d = a7.PJ324M
+        self.assertEqual(d['pins'], {'1': (0.0, 1.6), '5': (4.5, 5.6), '3': (-2.5, 8.6), '2': (-5.2, 9.6), '4': (4.0, 13.0)})
+        x1, y1, x2, y2 = d['body']
+        self.assertEqual((x1, x2, y2), (-6.1, 5.4, 14.2))  # 5.4 on the pin-4/5 side
+        self.assertEqual(d['barrel'][1], -3.5)
+
     def test_generate_refuses_a5_and_authoritative_board(self):
         for target in (REPO / 'engineering/a5/electronics/native/controller/x.kicad_sch',
                        REPO / 'engineering/a7/electronics/controller/controller.kicad_pcb'):
@@ -100,6 +123,25 @@ class ReviewGateTests(unittest.TestCase):
         move_pin(A7_NL, m, 'J2', '4', to_net_of=('U1', '4'))
         r = itf.check(netlists(m), EV / 'interface_roles/a7_controller.json')
         self.assertIn('cv.passive_thru', failed(r))
+
+    def roles_with(self, **edits):
+        r = json.loads((EV / 'interface_roles/a7_controller.json').read_text())
+        r['controller'].update(edits)
+        p = self.d / 'roles.json'
+        p.write_text(json.dumps(r))
+        return p
+
+    def test_unused_and_coverage_do_not_pass_vacuously(self):
+        cases = {
+            'sw.unused': (['SW1.9'], {'mode.spare_contacts_unused', 'mode.switch_pins_covered'}),
+            'jack_thru.normals': ([], {'cv.jack_thru_pins_covered'}),
+            'jack_in.normals': (['J1.7', 'J1.8'], {'cv.normals_in_unused', 'cv.jack_in_pins_covered'}),
+        }
+        for role, (val, expect) in cases.items():
+            r = itf.check(netlists(), self.roles_with(**{role: val}))
+            self.assertTrue(expect <= set(failed(r)), (role, failed(r)))
+        r = itf.check(netlists(), self.roles_with(**{'sw.unused': []}))
+        self.assertIn('mode.switch_pins_covered', failed(r))
 
     def test_delta_fails_only_on_missing_review(self):
         r = dl.check(EV / 'authorized_delta.json', A7_NL, REPO)

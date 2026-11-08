@@ -210,29 +210,35 @@ PJ324M = {
     # SOFNG drawing 'CIRCUIT BOARD SIZE': (across, along) from the jack axis / body front face.
     # Footprint X = across (+ toward the pin-4/5 side as drawn), Y = along (+ into the board).
     'pins': {'1': (0.0, 1.6), '5': (4.5, 5.6), '3': (-2.5, 8.6), '2': (-5.2, 9.6), '4': (4.0, 13.0)},
-    'drill': 1.5, 'pad': 2.3,
-    'body': (-6.1, 0.0, 5.4, 14.2), 'barrel': (-3.0, -3.2, 3.0, 0.0), 'height': 6.3,
+    # Slot orientation from the drawing: 1 and 4 run across the axis, 2, 3 and 5 along it.
+    'slot_across': ('1', '4'), 'drill': (1.6, 0.8), 'pad': (2.3, 1.5),
+    # 5.4 mm axis-to-edge on the pin-4/5 side, 6.1 on the pin-2/3 side (drawing; electrical review on #24).
+    # Barrel projection 3.5 (fact-a7-pj-324m-barrel-projection; 14.2 + 3.5 = L17.7); 3.2 is the terminal projection.
+    'body': (-6.1, 0.0, 5.4, 14.2), 'barrel': (-3.0, -3.5, 3.0, 0.0), 'height': 6.3,
 }
 PCM13 = {
-    # C&K PCM13SMTR 'PC MOUNTING' page I-48: terminals 1..4 at 1.5 pitch, Ø0.8 pegs at 5.0 pitch.
-    'signal_x': [-2.25, -0.75, 0.75, 2.25], 'signal_y': -1.95, 'signal_size': (0.7, 1.13),
+    # C&K PCM13SMTR 'PC MOUNTING' page I-48, relative to the peg centre line: terminals 1-2 and 3-4 are
+    # pairs at 1.5 with a 3.0 gap (chain .059/.118/.059, span .236 = 6.0); pads 0.7 x 1.5 from 1.0 (.039)
+    # to 2.5 (.098) off the peg line; retention pads 1.0 x 0.8, 9.3 (.366) inner span, 1.13 (.045) gap.
+    'signal_x': [-3.0, -1.5, 1.5, 3.0], 'signal_y': -1.75, 'signal_size': (0.7, 1.5),
     'peg_x': [-2.5, 2.5], 'peg_y': 0.0, 'peg_hole': 0.9,
-    'mp': [(-4.15, -0.9), (4.15, -0.9), (-4.15, 0.9), (4.15, 0.9)], 'mp_size': (1.0, 0.8),
+    'mp': [(-5.15, -0.965), (5.15, -0.965), (-5.15, 0.965), (5.15, 0.965)], 'mp_size': (1.0, 0.8),
     'body': (-4.85, -1.3, 4.85, 1.3), 'actuator': (-0.65, 1.3, 0.65, 2.8), 'height': 1.4,
 }
 FOOTPRINT_SOURCES = {
     'PJ324M': {
         'part': 'SOFNG PJ-324M, LCSC C22355739',
         'terminal_positions': 'MIRROR: SOFNG drawing CIRCUIT BOARD SIZE via LCSC (R1 fact-a7-pj-324m-footprint-positions); across sign follows the drawing view and is UNVERIFIED against the component side',
-        'holes': 'ASSUMED: round Ø1.5 mm plated holes, Ø2.3 mm pads, sized to pass a 1.2 x 0.40 mm blade (diagonal 1.26 mm) in any orientation; the drawing gives no hole/slot size (open question Q3)',
-        'body_outline': 'MIRROR: 11.5 wide (axis 5.4 / 6.1 from the edges), 14.2 deep, 6.3 overall height; which side carries 5.4 is INFERRED from pin 2 lying at -5.2',
+        'holes': 'ASSUMED: oval plated slots 1.6 x 0.8 mm drill, 2.3 x 1.5 mm pads, oriented as drawn (1 and 4 across the axis, 2, 3 and 5 along it), about 0.2 mm per side around a 1.2 x 0.40 mm blade; the drawing gives no hole/slot size (open question Q3)',
+        'body_outline': 'MIRROR: 11.5 wide, axis 5.4 from the pin-4/5 edge and 6.1 from the pin-2/3 edge, 14.2 deep, barrel 3.5 projecting, 6.3 overall height; the across sign (view direction of the drawing) is UNVERIFIED',
         'pin_functions': 'INFERRED (R1 pinmap-a7-pj-324m): 1 sleeve, 2 ring, 3 ring normal, 4 tip, 5 tip normal; continuity test of incoming parts still required',
     },
     'PCM13SMTR': {
         'part': 'C&K PCM13SMTR, LCSC C221842',
-        'signal_pads': 'MIRROR, INTERPRETED: 0.7 x 1.13 mm pads at 1.5 mm pitch read from PC MOUNTING (I-48, sha256 1c2ca483...); row offset from the peg line is an unreviewed reading of the drawing',
+        'signal_pads': 'MIRROR: 0.7 x 1.5 mm pads at x -3.0/-1.5/+1.5/+3.0 (1.5/3.0/1.5 chain, 6.0 span), 1.0 to 2.5 mm off the peg line, from PC MOUNTING (I-48, sha256 1c2ca483...); corrected after the electrical review on #24',
         'pegs': 'MIRROR: Ø0.8 pegs at 5.0 mm pitch, Ø0.9 land holes (typ.)',
-        'mounting_pads': 'ASSUMED: four unnumbered 1.0 x 0.8 mm retention pads at 9.3 mm outer span; positions are an unreviewed reading of the drawing',
+        'mounting_pads': 'MIRROR: four unnumbered 1.0 x 0.8 mm retention pads, 9.3 mm inner span (centres x +/-5.15), 1.13 mm gap (centres y +/-0.965)',
+        'body_position': 'ASSUMED: body centred on the peg line; the drawing does not dimension it',
         'body_outline': 'MIRROR: 9.7 x 2.6 x 1.4 mm, actuator 1.3 wide projecting 1.5 mm from the long edge opposite the terminals',
         'function': 'MIRROR: POS.1 1-3, POS.2 2-3, POS.3 3-4 (common 3)',
     },
@@ -273,7 +279,8 @@ def footprint_pj324m() -> str:
     items.append(_rect('PJ324M', bx1 - .25, d['barrel'][1] - .25, bx2 + .25, by2 + .25, 'F.CrtYd', 0.05))
     for num in sorted(d['pins']):
         x, y = d['pins'][num]
-        items.append(f'\t(pad "{num}" thru_hole circle (at {_f(x)} {_f(y)}) (size {d["pad"]} {d["pad"]}) (drill {d["drill"]}) '
+        (px, py), (dx, dy) = (d['pad'], d['drill']) if num in d['slot_across'] else (d['pad'][::-1], d['drill'][::-1])
+        items.append(f'\t(pad "{num}" thru_hole oval (at {_f(x)} {_f(y)}) (size {_f(px)} {_f(py)}) (drill oval {_f(dx)} {_f(dy)}) '
                      f'(layers "*.Cu" "*.Mask") (remove_unused_layers no) (uuid "{_uid("PJ324M", "pad", num)}"))')
     return _footprint('PJ324M', 'through_hole',
                       'SOFNG PJ-324M right-angle 3.5 mm jack; terminal positions MIRROR, holes ASSUMED, pin functions INFERRED', items)
@@ -282,7 +289,8 @@ def footprint_pj324m() -> str:
 def footprint_pcm13() -> str:
     d = PCM13
     items = [_rect('PCM13SMTR', *d['body'], 'F.Fab', 0.1), _rect('PCM13SMTR', *d['actuator'], 'F.Fab', 0.1)]
-    items.append(_rect('PCM13SMTR', -4.85 - .25, d['signal_y'] - d['signal_size'][1] / 2 - .25, 4.85 + .25, d['actuator'][3] + .25,
+    mpx = max(abs(x) for x, _ in d['mp']) + d['mp_size'][0] / 2
+    items.append(_rect('PCM13SMTR', -mpx - .25, d['signal_y'] - d['signal_size'][1] / 2 - .25, mpx + .25, d['actuator'][3] + .25,
                        'F.CrtYd', 0.05))
     sx, sy = d['signal_size']
     for i, x in enumerate(d['signal_x'], 1):

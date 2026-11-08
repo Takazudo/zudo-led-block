@@ -5,8 +5,8 @@
  "role_map_status": "draft_inferred",
  "netlists": {
   "controller": {
-   "path": "/tmp/claude-0/-home-user-zudo-led-block/05509268-86ba-5de7-8086-a9c696616ce9/scratchpad/r4check3/netlist.xml",
-   "sha256": "880212cb3c1836694b27a8130f52f37ab260a77ed0bd6b810da835c3f1d21617"
+   "path": "/tmp/claude-0/-home-user-zudo-led-block/05509268-86ba-5de7-8086-a9c696616ce9/scratchpad/r4check5/netlist.xml",
+   "sha256": "26756a4edcd1f15de8c0b501b4ce7a70f6827c4bd95a9b2216ae144b231b2618"
   },
   "led_leaf": {
    "path": "/home/user/zudo-led-block/engineering/a5/integration/native_schematic/led_leaf/netlist.xml",
@@ -45,13 +45,59 @@
    "id": "cv.normals_in_unused",
    "check": "CV IN normal/switch contacts unused",
    "passed": true,
-   "connected": {}
+   "connected": {},
+   "missing_from_netlist": []
   },
   {
    "id": "cv.normals_thru_unused",
    "check": "CV THRU normal/switch contacts unused",
    "passed": true,
-   "connected": {}
+   "connected": {},
+   "missing_from_netlist": []
+  },
+  {
+   "id": "cv.jack_in_pins_covered",
+   "check": "CV IN jack: tip, returns and normals name every pin of the part",
+   "passed": true,
+   "netlist_pins": [
+    "J1.1",
+    "J1.2",
+    "J1.3",
+    "J1.4",
+    "J1.5"
+   ],
+   "role_pins": [
+    "J1.1",
+    "J1.2",
+    "J1.3",
+    "J1.4",
+    "J1.5"
+   ],
+   "unnamed": [],
+   "not_in_netlist": [],
+   "named_twice": []
+  },
+  {
+   "id": "cv.jack_thru_pins_covered",
+   "check": "CV THRU jack: tip, returns and normals name every pin of the part",
+   "passed": true,
+   "netlist_pins": [
+    "J2.1",
+    "J2.2",
+    "J2.3",
+    "J2.4",
+    "J2.5"
+   ],
+   "role_pins": [
+    "J2.1",
+    "J2.2",
+    "J2.3",
+    "J2.4",
+    "J2.5"
+   ],
+   "unnamed": [],
+   "not_in_netlist": [],
+   "named_twice": []
   },
   {
    "id": "cv.pickup_mid",
@@ -197,10 +243,31 @@
    }
   },
   {
+   "id": "mode.switch_pins_covered",
+   "check": "Mode switch: common, throws and spare contacts name every pin of the part",
+   "passed": true,
+   "netlist_pins": [
+    "SW1.1",
+    "SW1.2",
+    "SW1.3",
+    "SW1.4"
+   ],
+   "role_pins": [
+    "SW1.1",
+    "SW1.2",
+    "SW1.3",
+    "SW1.4"
+   ],
+   "unnamed": [],
+   "not_in_netlist": [],
+   "named_twice": []
+  },
+  {
    "id": "mode.spare_contacts_unused",
    "check": "Switch contacts outside the mode encoding are unconnected",
    "passed": true,
-   "connected": {}
+   "connected": {},
+   "missing_from_netlist": []
   },
   {
    "id": "mode.inputs_distinct",
