@@ -345,7 +345,7 @@ jobs:
 
   deploy-gate:
     name: Deploy gate
-    needs: [a5-data, firmware-host, firmware-arm, docs]
+    needs: [a5-data, firmware-host, firmware-arm, docs, native-infrastructure]
     # Always report, including when a validation job failed (then deploy is skipped).
     if: always()
     runs-on: ubuntu-24.04
@@ -374,7 +374,7 @@ jobs:
 
   production-deploy:
     name: Production deploy
-    needs: [a5-data, firmware-host, firmware-arm, docs]
+    needs: [a5-data, firmware-host, firmware-arm, docs, native-infrastructure]
     if: >-
       github.repository == 'Takazudo/zudo-led-block' &&
       github.ref == 'refs/heads/main' &&
