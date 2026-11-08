@@ -60,7 +60,7 @@ retrieved.
 2. **R2 mechanical (PR #25, #27): merged as a provisional digital study; #17 open.** 3HP FEASIBLE ON PAPER and the default; 2HP open.
    Jacks at Y 84.3 / 99.3 in 0.5 mm rear pockets (1.25 mm worst-case thread engagement); controller outline
    Y 48.5–111.4 × Z 0.2–16.4 common to both widths; A5 adapter moved 2.0 mm forward with an M2x18 top-cap screw;
-   A7 power cable requirement 57.0 ± 3.0 mm free span (54–60 mm, ±3 ASSUMED; generated `layout.json`; the hand-written `mechanical/README.md` says 56 ± 3, being checked) handed to #8. Placement envelopes for R4 are in
+   A7 power cable requirement 57.0 ± 3.0 mm free span (54–60 mm, ±3 ASSUMED; source of truth is `mechanical/layout.json` → `power_cable_requirement`, which moves when R4's J5 position is adopted) handed to #8. Placement envelopes for R4 are in
    `mechanical/placement-envelopes.json`.
 3. **R4 placement and routing** (placement done locally, autorouting in progress, no PR yet). Place against the
    R2 envelopes, route, and make the board the
