@@ -189,14 +189,16 @@ class Harness(unittest.TestCase):
             self.assertGreaterEqual(sh["min_radius"], json.loads((MECH / "design-inputs.json").read_text())["cables"]["led_route"]["step_radius"] - 1e-9)
         self.assertAlmostEqual(L["controller"]["led_header"]["z_centre"], 12.8)
 
-    def test_r4_prerouting_placement_matches_envelopes(self):
+    def test_r4_routed_placement_matches_envelopes(self):
         chk = json.loads((MECH / "r4-placement-check.json").read_text())
-        self.assertTrue(chk["status"].startswith("PRE-ROUTING"))
-        self.assertTrue(chk["frame_matches"])
-        self.assertTrue(chk["fixed_parts_ok"], chk["fixed_parts"])
+        self.assertTrue(chk["status"].startswith("ROUTED EXPORT"))
+        self.assertTrue(chk["outline_matches"], chk["board_outline"])
+        self.assertTrue(chk["fixed_parts_ok"], [f for f in chk["fixed_parts"] if not f["ok"]])
         self.assertEqual(chk["origins_inside_foreign_keepouts"], [])
+        self.assertEqual(chk["pad_centres_inside_foreign_keepouts"], [])
         self.assertTrue(chk["solder_face_parts_are_resistors_or_test_pads"])
-        self.assertEqual(chk["source"]["sha256"], hashlib.sha256((MECH / "inputs" / "r4-placement-prerouting.json").read_bytes()).hexdigest())
+        self.assertEqual(chk["source"]["board_thickness"], L["variants"][L["decision"]["default_variant"]]["pcb_thickness"])
+        self.assertEqual(chk["source"]["sha256"], hashlib.sha256((MECH / "inputs" / "r4-board-placement-routed.json").read_bytes()).hexdigest())
 
     def test_hand_written_cable_figures_match_layout(self):
         req = L["power_cable_requirement"]
