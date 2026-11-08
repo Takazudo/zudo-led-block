@@ -3,6 +3,7 @@
  "revision": "A6",
  "purpose": "Focused routing-source audit for the A6 controller layout. Each item records the source document identity, where the claim is, the layout rule taken from it and how the A6 board applies it. 'unresolved' items stay visible; nothing here is a hardware qualification.",
  "observed_utc": "2026-11-07",
+ "routing_state": "NOT ROUTED. The committed controller board is the placed, unrouted A6 candidate. Every item below is a routing plan derived from its source; none is a claim about committed copper until the native gate passes on a routed board and this file is re-audited against it.",
  "authority_note": "Where historical A4/A4.1 wording conflicts with the final A5 independent review (engineering/a5/integration/independent_review/review.md), the A5 review wins. The A4.1 resistor-error estimate is not carried as an A5/A6 bound, and the TPS2552 DC current-limit threshold is not treated as an instantaneous-current guarantee.",
  "board_rules": {
   "source": "engineering/a5/electronics/native/controller/controller.kicad_pro (inherited byte-for-byte as engineering/a6/electronics/controller/controller.kicad_pro)",
@@ -26,7 +27,7 @@
               "locator": "p.15 'PCB Layout' items 3-6 and Figure 25; p.2 pin table (1 FB, 2 EN, 3 VIN, 4 GND, 5 SW, 6 BST)"},
    "rule": "Place VIN capacitors as close to the device as possible; GND layer under the device; vias for capacitor GND side.",
    "applied": "U2 on B at the board top; C1 on F directly behind U2 VIN/GND with its +12V_PROT and GND ends tied through one via each (+12V_PROT at 2.1,0.52 and GND at 2.55,2.4) so the input loop closes through the board thickness (~1.6 mm) instead of a long same-side loop. In1 GND plane is continuous under U2.",
-   "status": "applied with documented deviation: no same-side placement exists inside courtyard/edge rules on the 8.8 mm board, so the loop is a through-board loop"
+   "status": "PLANNED, NOT YET ON COPPER (controller board is unrouted). Intended: applied with documented deviation: no same-side placement exists inside courtyard/edge rules on the 8.8 mm board, so the loop is a through-board loop"
   },
   {
    "id": "buck-switch-node",
@@ -38,7 +39,7 @@
               "locator": "AP63205 Figure 25 (SW short to L1, BST capacitor across BST/SW); TDK catalog SPM4020 dimensions table"},
    "rule": "Keep SW copper short and compact; bootstrap capacitor directly across BST and SW.",
    "applied": "BUCK_SW is a fixed 0.4 mm pre-route of about 3.3 mm from U2 pin 5 to L1 on B.Cu; C4 sits beside U2 with BST and SW ends on short fixed 0.3 mm pre-routes. SW copper is not routed near the analog section (more than 20 mm away).",
-   "status": "applied; TDK document identity unresolved (re-fetch blocked)"
+   "status": "PLANNED, NOT YET ON COPPER (controller board is unrouted). Intended: applied; TDK document identity unresolved (re-fetch blocked)"
   },
   {
    "id": "buck-feedback-output",
@@ -47,7 +48,7 @@
               "locator": "p.15 item 5 'Place the feedback components as close to FB as possible'; fixed-output AP63205 senses VOUT on FB"},
    "rule": "Short FB connection; output capacitor return close to device GND.",
    "applied": "FB (U2.1) joins +5V at L1/C2 through the shortest available route; C2 on F above L1 with its GND end on a via into In1 next to U2 GND.",
-   "status": "applied"
+   "status": "PLANNED, NOT YET ON COPPER (controller board is unrouted). Intended: applied"
   },
   {
    "id": "ldo",
@@ -57,7 +58,7 @@
               "locator": "section 7.4.1 Layout Guidelines (p.21): 'Place input and output capacitors as close as possible to the device'"},
    "rule": "Input and output capacitors adjacent to the LDO pins.",
    "applied": "C5 (input) and C6 (output) on F immediately left/right of U3 at the same height; GND ends via into In1.",
-   "status": "applied"
+   "status": "PLANNED, NOT YET ON COPPER (controller board is unrouted). Intended: applied"
   },
   {
    "id": "cv-buffer",
@@ -68,7 +69,7 @@
    "rule": "Bypass at the supply pin, short high-impedance input, divider at the ADC end.",
    "applied": "U7 on B with C17 (+3V3 bypass) turned so its supply end faces U7 pin 5 on a direct 0.25 mm track and its GND end returns to the J2 sleeve/GND pad; C13 stays upstream of R7 (C13 at the affine node, R7 into U7 input with D3 clamp), R24/R25 divider beside U7 output, CV_ADC runs on inner/bottom layers over the In1 plane to the MCU.",
    "contract_check": "Topology is fixed by the schematic and asserted on every fresh netlist by engineering/a5/integration/check_schematic_interfaces.py (C13 upstream of R7, U7 buffer, R24/R25 divider).",
-   "status": "applied; analog performance (noise, offset, settling) is not measured"
+   "status": "PLANNED, NOT YET ON COPPER (controller board is unrouted). Intended: applied; analog performance (noise, offset, settling) is not measured"
   },
   {
    "id": "led-power-switch",
@@ -79,7 +80,7 @@
    "rule": "Bypass at IN, short ILIM loop, output capacitor at OUT.",
    "applied": "U4 on B; C15 at IN, C16 at OUT, R11 (ILIM) directly at pin 5 with its GND end on a via into In1. EN polarity is unchanged: MCU LED_ENABLE drives Q1 base through R22, Q1 pulls the active-low EN (R23 pull-up keeps the switch off while the MCU is in reset).",
    "limit_note": "The TPS2552 ILIM resistor sets a DC current-limit threshold; it is not an instantaneous-current guarantee (A5 independent review).",
-   "status": "applied"
+   "status": "PLANNED, NOT YET ON COPPER (controller board is unrouted). Intended: applied"
   },
   {
    "id": "level-shifter",
@@ -89,7 +90,7 @@
               "locator": "section 8.4.1 Layout Guidelines (p.19) and power-supply recommendations (p.19): bypass capacitor on each VCC as close to the power pin as possible"},
    "rule": "Bypass each supply pin; keep the two data paths separate.",
    "applied": "U5 on B with C9 at VCCA and C10 at VCCB. DATA_L and DATA_R are routed as two independent streams from U1 pins 12/13 through U5 A1/A2 -> B1/B2 and R14/R15 to J3 pins 3/4; they share only the current-limited VLED supply and GND. R16/R17 pull-downs moved next to the data paths.",
-   "status": "applied; signal integrity on the 50 mm SH4 cable is not measured"
+   "status": "PLANNED, NOT YET ON COPPER (controller board is unrouted). Intended: applied; signal integrity on the 50 mm SH4 cable is not measured"
   },
   {
    "id": "mlcc",
@@ -97,7 +98,7 @@
    "source": {"document": "A5 procurement evidence (engineering/a5/passive_evidence/)", "locator": "A5 source_provenance limitations: exact DC-bias curves not qualified"},
    "rule": "Decoupling capacitors adjacent to the pin they serve with a short return to In1.",
    "applied": "Every decoupling capacitor sits beside its pin; GND ends use a dedicated via to In1 within 2.4 mm unless a direct pad-to-pad GND connection exists.",
-   "status": "unresolved: effective capacitance under DC bias is not qualified (inherited A5 limitation)"
+   "status": "PLANNED, NOT YET ON COPPER (controller board is unrouted). Intended: unresolved: effective capacitance under DC bias is not qualified (inherited A5 limitation)"
   },
   {
    "id": "connectors-fasteners",
@@ -105,7 +106,7 @@
    "source": {"document": "A5 mechanical geometry and connector drawings", "locator": "engineering/a5/mechanical/geometry.json; engineering/a5/electronics/source_provenance.json entries XKB_PJ, DAILYWELL, JST_SH, MOLEX_530470310"},
    "rule": "Fixed interfaces are contracts: outline, origin, thickness, layer count, mounting holes, front controls, connector anchors and service access do not move.",
    "applied": "J1, J2, SW1, J3, J5, H1, H2, TP1-TP5 keep their A5 positions; only interior parts moved. J3-C7 courtyard overlap removed by moving C7 to F beside U1. J3-H1 remains (A6-R1 residual, see verification/residuals.md).",
-   "status": "applied; J3-H1 residual kept visible"
+   "status": "PLANNED, NOT YET ON COPPER (controller board is unrouted). Intended: applied; J3-H1 residual kept visible"
   }
  ],
  "unresolved": [

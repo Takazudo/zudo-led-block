@@ -94,20 +94,48 @@ def board_facts(pcb: Path) -> dict:
     digest = hashlib.sha256(json.dumps(geom, sort_keys=True).encode()).hexdigest()
     b.BuildConnectivity()
     conn = b.GetConnectivity()
-    fill_digest = None
-    fills = []
-    for z in b.Zones():
-        for l in z.GetLayerSet().Seq():
-            if z.HasFilledPolysForLayer(l):
-                fp_ = z.GetFilledPolysList(l)
-                fills.append([z.GetZoneName(), b.GetLayerName(l), round(T(fp_.Area() ** 0.5) if hasattr(fp_, 'Area') else 0, 4), fp_.TotalVertices()])
-    fills.sort()
-    fill_digest = hashlib.sha256(json.dumps(fills).encode()).hexdigest()
+    fills, fill_canon = fill_fingerprint(b)
+    fill_digest = hashlib.sha256(json.dumps(fill_canon, sort_keys=True).encode()).hexdigest()
     return {'geometry_sha256': digest, 'zone_fill_summary': fills, 'zone_fill_sha256': fill_digest,
             'unconnected_pcbnew': conn.GetUnconnectedCount(True), 'track_count': len(tracks), 'via_count': len(vias),
             'zone_count': len(zones), 'footprint_count': len(fps),
             'pad_nets': {f['ref']: {pd[0]: pd[1] for pd in f['pads'] if pd[0]} for f in fps},
             'board_only': sorted(f['ref'] for f in fps if f['board_only']), 'geometry': geom}
+
+
+def canonical_ring(chain) -> list:
+    """Integer-nm ring, rotated to its smallest point and oriented one way, so equal shapes hash equally."""
+    pts = [(chain.CPoint(i).x, chain.CPoint(i).y) for i in range(chain.PointCount())]
+    if len(pts) > 1 and pts[0] == pts[-1]:
+        pts = pts[:-1]
+    if not pts:
+        return []
+    area2 = sum(pts[i][0] * pts[(i + 1) % len(pts)][1] - pts[(i + 1) % len(pts)][0] * pts[i][1] for i in range(len(pts)))
+    if area2 < 0:
+        pts.reverse()
+    k = pts.index(min(pts))
+    return [list(q) for q in pts[k:] + pts[:k]]
+
+
+def fill_fingerprint(b) -> tuple[list, list]:
+    """Summary (area, vertex count) for humans plus the canonical filled-polygon topology and coordinates that are hashed."""
+    import pcbnew as p
+    summary, canon = [], []
+    for z in b.Zones():
+        for l in z.GetLayerSet().Seq():
+            if not z.HasFilledPolysForLayer(l):
+                continue
+            s = z.GetFilledPolysList(l)
+            summary.append([z.GetZoneName(), z.GetNetname(), b.GetLayerName(l), round(s.Area() / 1e12, 6), s.TotalVertices()])
+            polys = []
+            for i in range(s.OutlineCount()):
+                holes = sorted(canonical_ring(s.CHole(i, j)) for j in range(s.HoleCount(i)))
+                polys.append({'outline': canonical_ring(s.COutline(i)), 'holes': holes})
+            polys.sort(key=lambda q: json.dumps(q))
+            canon.append({'zone': z.GetZoneName(), 'net': z.GetNetname(), 'layer': b.GetLayerName(l), 'polygons': polys})
+    summary.sort()
+    canon.sort(key=lambda q: (q['zone'], q['net'], q['layer'], json.dumps(q['polygons'])))
+    return summary, canon
 
 
 def refill_copy(src: Path, dst: Path) -> dict:
@@ -120,7 +148,7 @@ def refill_copy(src: Path, dst: Path) -> dict:
 
 
 def mutate(src: Path, dst: Path, kind: str) -> dict:
-    """Negative controls on a staged copy: break one route or reassign one pad net."""
+    """Negative controls on a staged copy: break one route, reassign one pad net or shift one fill."""
     import pcbnew as p
     b = p.LoadBoard(str(src))
     info = {'kind': kind}
@@ -137,6 +165,17 @@ def mutate(src: Path, dst: Path, kind: str) -> dict:
         target = [n for n in b.GetNetsByName().keys() if str(n).lstrip('/') == 'DATA_R'][0]
         pad.SetNet(b.FindNet(str(target)))
         info['to_net'] = str(target)
+    elif kind == 'fill_shift':
+        # moves one committed fill by 0.05 mm: same area and vertex count, different shape
+        before, _ = fill_fingerprint(b)
+        z = sorted((z for z in b.Zones() if any(z.HasFilledPolysForLayer(l) for l in z.GetLayerSet().Seq())),
+                   key=lambda z: (z.GetZoneName(), z.GetNetname()))[0]
+        l = [l for l in z.GetLayerSet().Seq() if z.HasFilledPolysForLayer(l)][0]
+        moved = p.SHAPE_POLY_SET(z.GetFilledPolysList(l))
+        moved.Move(p.VECTOR2I(p.FromMM(0.05), 0))
+        z.SetFilledPolysList(l, moved)
+        after, _ = fill_fingerprint(b)
+        info.update({'zone': z.GetZoneName(), 'layer': b.GetLayerName(l), 'summary_unchanged': before == after})
     p.SaveBoard(str(dst), b)
     return info
 
@@ -217,6 +256,19 @@ def main() -> int:
             except Exception as e:
                 mf = {'error': repr(e)}
             (out / 'board_facts.json').write_text(json.dumps(mf, indent=1, sort_keys=True) + '\n')
+            if c.get('refill_check'):
+                tmp = proj / ('refill_' + c['board'])
+                try:
+                    rinfo = refill_copy(mut, tmp)
+                    rf = board_facts(tmp); rf.pop('geometry', None)
+                    rinfo.update({'geometry_sha256': rf['geometry_sha256'], 'zone_fill_sha256': rf['zone_fill_sha256'],
+                                  'unconnected_pcbnew': rf['unconnected_pcbnew']})
+                except Exception as e:
+                    rinfo = {'error': repr(e)}
+                finally:
+                    for extra in proj.glob('refill_*'):
+                        extra.unlink()
+                (out / 'refill.json').write_text(json.dumps(rinfo, indent=1) + '\n')
             mut.unlink()
             for extra in proj.glob(Path(c['board']).stem + '*'):
                 extra.unlink()

@@ -156,15 +156,55 @@ def docker(*a: str, timeout: float = 60) -> subprocess.CompletedProcess:
     return subprocess.run(['docker', *a], capture_output=True, text=True, timeout=timeout)
 
 
-def owned_containers(run_label: str) -> list[str]:
-    p = docker('ps', '-aq', '--filter', f'label={LABEL}={run_label}')
+def _left(deadline: float) -> float:
+    t = deadline - time.monotonic()
+    if t <= 0:
+        raise ev.Fail('cleanup reserve exhausted')
+    return t
+
+
+def owned_containers(run_label: str, deadline: float, dk=docker) -> list[str]:
+    p = dk('ps', '-aq', '--filter', f'label={LABEL}={run_label}', timeout=_left(deadline))
     if p.returncode != 0:
         raise ev.Fail(f'docker ps failed: {p.stderr.strip()[:300]}')
     return [x for x in p.stdout.split() if x]
 
 
-def run_container(g: Gate, image: str, stage_dir: Path, raw: Path, plan: Path, budget: float, cleanup_reserve: float) -> dict:
-    run_label = uuid.uuid4().hex
+def cleanup_owned(run_label: str, deadline: float, dk=docker) -> dict:
+    """Remove only containers whose label carries this run's id, inside the fixed reserve, and prove none remain.
+
+    Every outcome, including a docker error or timeout, ends in a receipt with verified False rather than an exception."""
+    rec: dict = {'removed': [], 'refused': [], 'errors': [], 'verified': False}
+    try:
+        for cid in owned_containers(run_label, deadline, dk):
+            p = dk('inspect', '--format', '{{json .Config.Labels}}', cid, timeout=_left(deadline))
+            try:
+                labels = json.loads(p.stdout) if p.returncode == 0 else None
+            except ValueError:
+                labels = None
+            if not isinstance(labels, dict) or labels.get(LABEL) != run_label:
+                rec['refused'].append(cid)
+                continue
+            r = dk('rm', '-f', cid, timeout=_left(deadline))
+            (rec['removed'] if r.returncode == 0 else rec['errors']).append(cid if r.returncode == 0 else f'rm {cid}: {r.stderr.strip()[:200]}')
+        remaining = owned_containers(run_label, deadline, dk)
+        rec['remaining'] = remaining
+        rec['verified'] = not remaining and not rec['refused'] and not rec['errors']
+    except (ev.Fail, subprocess.SubprocessError, OSError) as e:
+        rec['errors'].append(f'{type(e).__name__}: {e}')
+    return rec
+
+
+def cleanup_failures(info: dict) -> list[str]:
+    c = info.get('cleanup')
+    if not isinstance(c, dict) or c.get('verified') is not True:
+        return [f"container cleanup not verified: {(c or {}).get('errors') or (c or {}).get('refused') or (c or {}).get('remaining')}"]
+    return []
+
+
+def run_container(g: Gate, image: str, stage_dir: Path, raw: Path, plan: Path, budget: float, cleanup_reserve: float,
+                  dk=docker, run_label: str | None = None) -> dict:
+    run_label = run_label or uuid.uuid4().hex
     name = f'a6-native-{run_label[:12]}'
     g.container = name
     uid = f'{os.getuid()}:{os.getgid()}'
@@ -174,30 +214,33 @@ def run_container(g: Gate, image: str, stage_dir: Path, raw: Path, plan: Path, b
             '-v', f'{stage_dir}:/stage', '-v', f'{raw}:/out', '-v', f'{plan.parent}:/plan:ro',
             '-w', '/stage', image, 'python3', '/plan/a6_native_inner.py', '--stage', '/stage', '--out', '/out',
             '--plan', f'/plan/{plan.name}']
-    info: dict = {'container_name': name, 'label': f'{LABEL}={run_label}', 'docker_args': args, 'budget_s': budget}
+    info: dict = {'container_name': name, 'label': f'{LABEL}={run_label}', 'docker_args': args, 'budget_s': budget,
+                  'cleanup_reserve_s': cleanup_reserve, 'exit_code': None, 'timed_out': False}
     t = time.monotonic()
+    run_deadline = t + max(0.0, budget)
+    cleanup_deadline = run_deadline + cleanup_reserve  # fixed now; nothing below extends it
     try:
-        p = subprocess.run(['docker', *args], capture_output=True, text=True, timeout=budget)
+        if budget <= 0:
+            raise ev.Fail('no native budget left before the run')
+        p = dk(*args, timeout=budget)
         info['exit_code'] = p.returncode
-        info['timed_out'] = False
         info['stderr_tail'] = '\n'.join(l for l in p.stderr.splitlines() if 'Debug:' not in l)[-4000:]
     except subprocess.TimeoutExpired:
-        info['exit_code'] = None
         info['timed_out'] = True
-        docker('kill', name, timeout=30)
-    info['seconds'] = round(time.monotonic() - t, 2)
-    # cleanup: only the container this run created, then prove removal
-    cleanup_ok = True
-    try:
-        ids = owned_containers(run_label)
-        if ids:
-            r = docker('rm', '-f', *ids, timeout=cleanup_reserve)
-            cleanup_ok = r.returncode == 0
-        cleanup_ok = cleanup_ok and owned_containers(run_label) == []
-    except (ev.Fail, subprocess.SubprocessError) as e:
-        info['cleanup_error'] = str(e)
-        cleanup_ok = False
-    info['cleanup_verified'] = cleanup_ok
+    except (ev.Fail, subprocess.SubprocessError, OSError) as e:
+        info['run_error'] = f'{type(e).__name__}: {e}'
+    finally:
+        info['seconds'] = round(time.monotonic() - t, 2)
+        if info['timed_out'] or info.get('run_error'):
+            try:
+                k = dk('kill', name, timeout=_left(cleanup_deadline))
+                info['kill'] = {'exit_code': k.returncode}
+            except (ev.Fail, subprocess.SubprocessError, OSError) as e:
+                info['kill'] = {'error': f'{type(e).__name__}: {e}'}
+        info['cleanup'] = cleanup_owned(run_label, cleanup_deadline, dk)
+        info['cleanup_verified'] = info['cleanup']['verified']
+        g.summary['container'] = {k: v for k, v in info.items()}
+        g.receipt('CLEANED_INCOMPLETE' if info['cleanup_verified'] else 'CLEANUP_FAILED_INCOMPLETE')
     return info
 
 
@@ -217,7 +260,8 @@ def build_plan(m: dict, x: dict) -> dict:
     for name, c in x['controls']['mutations'].items():
         d = m['designs'][c['design']]
         muts.append({'name': name, 'stage_dir': d['dir'], 'source_board': d['board'],
-                     'board': c['kind'] + '_mut.kicad_pcb', 'kind': c['kind'], 'deadline_s': x['limits']['design_deadline_s']})
+                     'board': c['kind'] + '_mut.kicad_pcb', 'kind': c['kind'], 'deadline_s': x['limits']['design_deadline_s'],
+                     'refill_check': bool(c.get('refill_check'))})
     return {'designs': designs, 'mutations': muts}
 
 
@@ -278,8 +322,7 @@ def evaluate_all(g: Gate, m: dict, x: dict, raw: Path, info: dict) -> dict:
     res: dict = {'designs': {}, 'controls': {}}
     if info.get('timed_out') or info.get('exit_code') != 0:
         g.fail(f"inner run exit {info.get('exit_code')} timed_out={info.get('timed_out')}")
-    if not info.get('cleanup_verified'):
-        g.fail('container cleanup not verified')
+    g.failures += cleanup_failures(info)
     try:
         inner = ev.load_json(raw / 'inner_record.json')
     except ev.Fail as e:
@@ -306,7 +349,7 @@ def evaluate_all(g: Gate, m: dict, x: dict, raw: Path, info: dict) -> dict:
     for name, c in cand.items():
         mr = inner.get('controls', {}).get(name, {})
         e = dict(x['designs'][c['design']]); e.update({k: x[k] for k in ('kicad_version', 'included_severities', 'ignored_checks')})
-        e['refill_check'] = False
+        e['refill_check'] = bool(c.get('refill_check'))
         out = raw / name
         # a mutated board shares the candidate's schematic: reuse its fresh netlist and ERC
         for k in ('erc.json', 'netlist.xml'):
@@ -318,6 +361,8 @@ def evaluate_all(g: Gate, m: dict, x: dict, raw: Path, info: dict) -> dict:
         r = ev.evaluate_design(name, e, fake, out, {})
         hit = [f for f in r['failures'] if any(s in f for s in c['must_report'])]
         ok = (not r['ok']) and bool(hit) and 'error' not in mr.get('mutation', {})
+        if c['kind'] == 'fill_shift' and mr.get('mutation', {}).get('summary_unchanged') is not True:
+            ok = False  # the control only proves something if area and vertex count stayed equal
         ctl[name] = {'ok': ok, 'mutation': mr.get('mutation'), 'detected_by': hit[:5]}
         if not ok:
             g.fail(f'negative control {name} was not detected as required ({c["must_report"]})')
@@ -328,6 +373,42 @@ def evaluate_all(g: Gate, m: dict, x: dict, raw: Path, info: dict) -> dict:
         if k.startswith('synthetic_') and not v['ok']:
             g.fail(f'negative control {k} not detected')
     return res
+
+
+class FakeDocker:
+    """Stand-in docker CLI for exercising the production cleanup path without a daemon."""
+
+    def __init__(self, label: str, rm_fails=False, run_timeout=False, kill_timeout=False, foreign=False, ps_fails=False):
+        self.label, self.rm_fails, self.run_timeout, self.kill_timeout = label, rm_fails, run_timeout, kill_timeout
+        self.foreign, self.ps_fails = foreign, ps_fails
+        self.alive = {'c1'}
+        self.calls: list[str] = []
+        self.rm_calls = 0
+
+    def __call__(self, *a: str, timeout: float = 60) -> subprocess.CompletedProcess:
+        self.calls.append(a[0])
+        ok = lambda out='': subprocess.CompletedProcess(a, 0, out, '')
+        if a[0] == 'run':
+            if self.run_timeout:
+                raise subprocess.TimeoutExpired(a, timeout)
+            return ok()
+        if a[0] == 'kill':
+            if self.kill_timeout:
+                raise subprocess.TimeoutExpired(a, timeout)
+            return ok()
+        if a[0] == 'ps':
+            if self.ps_fails:
+                return subprocess.CompletedProcess(a, 1, '', 'daemon gone')
+            return ok('\n'.join(sorted(self.alive)))
+        if a[0] == 'inspect':
+            return ok(json.dumps({LABEL: 'someone-else' if self.foreign else self.label}))
+        if a[0] == 'rm':
+            self.rm_calls += 1
+            if self.rm_fails:
+                return subprocess.CompletedProcess(a, 1, '', 'rm failed')
+            self.alive.discard(a[-1])
+            return ok()
+        raise AssertionError(a)
 
 
 def synthetic_controls(m: dict, x: dict, inner: dict, raw: Path, name: str) -> dict:
@@ -375,10 +456,12 @@ def synthetic_controls(m: dict, x: dict, inner: dict, raw: Path, name: str) -> d
     run_case('zero_exit_overridden_by_violation', r, zero_exit_with_violation)
     v = ev.check_versions(dict(inner, pcbnew_version='9.0.7'), m['kicad_version'])
     out['synthetic_tool_version_mismatch'] = {'ok': bool(v), 'failures': v}
-    # cleanup failure: the gate must refuse a run whose container removal was not verified
-    g2 = Gate.__new__(Gate); g2.failures = []
-    evaluate_cleanup = (lambda info: [] if info.get('cleanup_verified') else ['container cleanup not verified'])
-    out['synthetic_cleanup_failure'] = {'ok': bool(evaluate_cleanup({'cleanup_verified': False})) and not evaluate_cleanup({'cleanup_verified': True})}
+    # cleanup failure: drive the production cleanup with a docker whose removal fails; the gate must refuse it
+    lbl = 'synthetic-' + uuid.uuid4().hex
+    fake = FakeDocker(lbl, rm_fails=True)
+    c = cleanup_owned(lbl, time.monotonic() + 5, fake)
+    out['synthetic_cleanup_failure'] = {'ok': bool(cleanup_failures({'cleanup': c})) and fake.rm_calls == 1,
+                                        'failures': cleanup_failures({'cleanup': c})}
     return out
 
 

@@ -56,7 +56,9 @@
   "timeout": {"design": "controller", "deadline_s": 0.01},
   "mutations": {
    "control_route_break": {"design": "controller", "kind": "route_break", "must_report": ["unconnected"]},
-   "control_wrong_connection": {"design": "controller", "kind": "wrong_connection", "must_report": ["R14"]}
+   "control_wrong_connection": {"design": "controller", "kind": "wrong_connection", "must_report": ["R14"]},
+   "control_fill_shift": {"design": "controller", "kind": "fill_shift", "refill_check": true, "must_report": ["committed zone fills are stale"],
+    "purpose": "one committed fill moved 0.05 mm with unchanged area and vertex count; the canonical polygon fingerprint must still differ from a fresh refill"}
   },
   "synthetic_design": "controller"
  },
