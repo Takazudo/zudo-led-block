@@ -1,6 +1,6 @@
 ---
 title: "調査"
-description: "部品・調達・サービスの調査記録。日付付きの記録で、A5 の現行値を上書きしない。"
+description: "部品・調達・サービスの調査記録。日付付きの記録で、A5 の値を上書きしない。"
 sidebar_position: 1
 ---
 
@@ -16,5 +16,7 @@ A5 チェックポイントに含まれる調査記録です。どれも日付�
 | `engineering/a5/mechanical/manufacturer_source_metadata.json` | コネクタ等の一次資料の URL とハッシュ | 機構モデルの寸法根拠 |
 
 `python3 engineering/a5/build_procurement_rows.py --check` は凍結した観測値から再計算し、証跡のハッシュを確認します。在庫は更新しません。
+
+A7 構造変更の調査は [A7 部品と寸法の検討 (R1)](./a7-parts-and-dimensions.mdx) にあります (2026-11-08)。
 
 新しい部品を調べるときは、[How we work](/docs/project/how-we-work/) と `circuit/WORKFLOW.md` の手順で部品証跡バンドルとして記録します。

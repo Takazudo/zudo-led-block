@@ -7,6 +7,9 @@ setting switch instead of the front toggle, and a feasibility study of transpare
 **Status: design study. Not released for manufacture.** Nothing here is part approval, fit approval or an
 electrical result. `engineering/a5/` stays the immutable A5 checkpoint; A7 never edits it.
 
+Start with [`docs/continuation/continue-here.md`](docs/continuation/continue-here.md) for the current state,
+next actions and blockers, and [`docs/continuation/evidence-index.md`](docs/continuation/evidence-index.md) for every evidence set.
+
 ## Ownership
 
 | Path | Owner | Notes |
@@ -17,7 +20,8 @@ electrical result. `engineering/a5/` stays the immutable A5 checkpoint; A7 never
 | `pet-fpc.md`, `open-questions.md` | R1 | capability capture and the external evidence still needed |
 | `verification/` | R3 ([#18](https://github.com/Takazudo/zudo-led-block/issues/18)) | native verification foundation; R1 does not write there |
 | mechanical/artwork (to come) | R2 ([#17](https://github.com/Takazudo/zudo-led-block/issues/17)) | |
-| schematic/board (to come) | R4 ([#19](https://github.com/Takazudo/zudo-led-block/issues/19)) | |
+| `electronics/`, `verification/schematic/` | R4 ([#19](https://github.com/Takazudo/zudo-led-block/issues/19)) | controller schematic (derived, `scripts/a7_electronics.py`), schematic-phase check results; board to come |
+| `docs/continuation/` | R5 ([#20](https://github.com/Takazudo/zudo-led-block/issues/20)) | `continue-here.md` (hand-off, next actions, blockers) and `evidence-index.md` (A5 historical / A6 held / A7 digital / physical, kept apart) |
 
 The two A7 lines sit in the shared catalog beside the 30 A5 identities. `python3 scripts/a5_catalog.py check`
 accepts them as later-revision lines and keeps them out of the A5 counts; `pnpm circuit:check` validates
