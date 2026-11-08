@@ -189,6 +189,17 @@ class Harness(unittest.TestCase):
             self.assertGreaterEqual(sh["min_radius"], json.loads((MECH / "design-inputs.json").read_text())["cables"]["led_route"]["step_radius"] - 1e-9)
         self.assertAlmostEqual(L["controller"]["led_header"]["z_centre"], 12.8)
 
+    def test_hand_written_cable_figures_match_layout(self):
+        req = L["power_cable_requirement"]
+        n, t = req["finished_free_span_nominal"], req["tolerance"]
+        lo, hi = req["stowage_length_range_both_widths"]
+        readme = " ".join((MECH / "README.md").read_text().split())
+        self.assertIn(f"{n:g} ± {t:g} mm free span", readme)
+        self.assertIn(f"{n - t:g}–{n + t:g} mm", readme)
+        self.assertIn(f"{lo:.1f}–{hi:.1f} mm", readme)
+        decisions = (REPO / "doc/src/content/docs/decisions/index.mdx").read_text()
+        self.assertIn(f"自由長 {n:g} ± {t:g} mm ({n - t:g}–{n + t:g} mm", decisions)
+
     def test_moved_adapter_keeps_screw_and_boss(self):
         sp, ad, scr = L["supports"]["spine"], L["supports"]["adapter"], L["supports"]["top_cap_screw"]
         self.assertAlmostEqual(ad["cap_spacer_z"][1] - ad["cap_spacer_z"][0], -ad["z_shift"], places=6)
