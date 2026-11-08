@@ -122,6 +122,13 @@ leaf. `exports/3hp_pet/` is the 3HP assembly built with the PET leaf (`--leaf pe
   - JLC answers on reflow/paste, PET-compatible stiffeners and OCA clarity (Q11);
   - a physical SH mating-force and lit-appearance test (#10);
   - R4's electrical PET leaf profile.
+- **Open items from the evidence review:**
+  - *Unmating pull:* buckling covers only the mating push. Pulling the SH plug loads the pad-to-film bond and the
+    film-to-OCA peel, which the carrier does not help. That force is UNSOURCED and joins the physical test in #10.
+  - *Carrier lamination:* no supplier or process is identified for laminating the PC carrier with OCA after reflow,
+    as factory assembly needs. It is listed beside Q11.
+  - *2HP:* the PET variant is built only for 3HP. The X stack differs from FR-4 by 0.02 mm (faces move 0.01 mm),
+    the same margin the 3HP checks cleared, so the 2HP picture carries over; 2HP stays parked.
 
 ## Not modelled / still physical
 
