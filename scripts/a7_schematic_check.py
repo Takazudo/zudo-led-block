@@ -25,6 +25,7 @@ from __future__ import annotations
 import argparse
 import hashlib
 import json
+import os
 import shutil
 import subprocess
 import sys
@@ -61,7 +62,7 @@ def native(out: Path, image: str) -> dict:
         f'kicad-cli pcb drc --schematic-parity --format json --severity-all -o /out/parity_drc.json /out/{STAGE_PCB}; echo $? > /out/drc.code',
     ])
     cmd = ['docker', 'run', '--rm', '--network', 'none', '--cpus', '2', '--memory', '4g', '--cap-drop', 'ALL',
-           '--security-opt', 'no-new-privileges', '--label', LABEL, '-u', '0:0', '-e', 'HOME=/tmp',
+           '--security-opt', 'no-new-privileges', '--label', LABEL, '-u', f'{os.getuid()}:{os.getgid()}', '-e', 'HOME=/tmp',
            '-e', 'PYTHONDONTWRITEBYTECODE=1', '-v', f'{REPO}:/repo:ro', '-v', f'{out}:/out', image, 'bash', '-c', script]
     p = subprocess.run(cmd, capture_output=True, text=True, timeout=600)
     codes = {k: (out / f'{k}.code').read_text().strip() if (out / f'{k}.code').is_file() else None
@@ -139,7 +140,7 @@ def main() -> int:
         ev['failures'].insert(0, f'derived A7 electronics stale: {gen.stderr.strip()}')
         ev['status'] = 'FAIL'
     if any(c != '0' for k, c in run['codes'].items() if k != 'drc') or run['codes'].get('drc') not in ('0', '5'):
-        ev['failures'].insert(0, f'native step exit codes {run["codes"]}')
+        ev['failures'].insert(0, f'native step exit codes {run["codes"]}, docker exit {run["docker_exit"]}: {run["stderr_tail"][-500:]}')
         ev['status'] = 'FAIL'
     summary = {'status': ev.pop('status'), 'board_result': 'NONE (schematic phase; A7 revision gate stays NO_CANDIDATE)',
                'image': prof['image'], 'kicad_version': (out / 'kicad_version.txt').read_text().strip()
