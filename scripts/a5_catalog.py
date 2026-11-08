@@ -13,7 +13,9 @@ Subcommands (paths resolve from the repository root):
                        inventory lines and declared placements, owner bundles, pin maps
                        against the A5 netlists, distributor identity facts, direct routing,
                        publication selection and expected counts, and that no alternative
-                       or rejected identity appears anywhere in the catalog.
+                       or rejected identity appears anywhere in the catalog. Lines of a later
+                       revision (line-a<N>-, owner component-a<N>-) are allowed beside the A5
+                       identities, keep the same identity guards and never change A5 counts.
   scaffold CODE...     Create owner bundles for the named LCSC codes from the reconciliation
                        (identity, retained distributor snapshot, project-state pin map).
                        Refuses to overwrite an existing bundle; evidence is then hand-edited.
@@ -59,7 +61,7 @@ REQUIRED_FITTED = {"C52917434": "WS2812B-2020-V6", "C140331": "TPS2552DBVR-1"}
 FORBIDDEN_FITTED_MPNS = ("WS2812B-MINI-V6", "TPS2553DBVR-1")
 ZERO = "0" * 64
 # Lines of a later revision (e.g. A7) share the catalog but are not part of the A5 reconciliation.
-REVISION_LINE = re.compile(r"^line-(a\d+)-")
+REVISION_LINE = re.compile(r"^line-(a[1-9]\d*)-")
 
 
 def line_revision(line) -> str:
@@ -778,6 +780,11 @@ def catalog_problems():
             problems.append(f"inventory {line['line_id']}: {line_revision(line).upper()} line owner {line['owner_skill']} must start with {prefix}")
         if not (SKILLS / line["owner_skill"]).is_dir():
             problems.append(f"inventory {line['line_id']}: owner bundle {line['owner_skill']} missing")
+        # Later-revision lines keep every A5 identity guard: no A5 alternative, rejected or already-fitted identity.
+        if line["lcsc"] in alternatives or line["mpn"] in FORBIDDEN_FITTED_MPNS:
+            problems.append(f"inventory {line['line_id']}: alternative/non-fitted identity {line['lcsc']} {line['mpn']} present")
+        if line["lcsc"] in identities or line["mpn"] in {i["mpn"] for i in identities.values()}:
+            problems.append(f"inventory {line['line_id']}: duplicates A5 fitted identity {line['lcsc']} {line['mpn']}")
     codes = [line["lcsc"] for line in lines]
     for code, count in Counter(codes).items():
         if count > 1:
@@ -938,6 +945,7 @@ def cmd_check(args) -> int:
           "pin maps equal the historical A5 netlist projection; selection equals the evidence-derived selection")
     others = other_revision_lines(load_json(INVENTORY))
     if others:
+        print(f"PASS: {len(others)} later-revision line(s) keep the A5 alternative, rejected and duplicate guards")
         print(f"SCOPE: {len(others)} later-revision line(s) ({', '.join(sorted({line_revision(x).upper() for x in others}))}) are catalogued outside the A5 reconciliation and are not checked against it")
     print("SCOPE: placements and pin maps are historical A5 netlist projections (manual provider, no schematic binding; CAD disabled)")
     return 0

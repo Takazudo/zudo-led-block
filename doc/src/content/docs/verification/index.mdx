@@ -27,7 +27,7 @@ CI は KiCad・CadQuery を **再実行しません**。ネイティブ回路・
 | Firmware (ARM) | Ubuntu 24.04 の署名付きパッケージ `gcc-arm-none-eabi=15:13.2.rel1-2` (A5 の記録と同じコンパイラ) と `binutils-arm-none-eabi=2.42-1ubuntu1+23` で `make arm`。`tools/make_release.py` は **一時コピーの中だけ** で実行し、未解決シンボル・割込みベクタ・容量を確認。新しい HEX / BIN が `dist/` の記録と一致するか比較し、最後に 786 ファイルを再確認 |
 | Docs | `circuit:doctor`、`circuit:check`、カタログ整合 (`scripts/a5_catalog.py check`)、`circuit:generate` と差分確認、`pnpm check` (型検査)、`pnpm build`、`pnpm check:site` (公開範囲・リンク・25 MiB / ファイル数の上限)、ブラウザ確認 (デスクトップ / モバイル)、フレームワークの `check-browser` (明示した代表ページ)、Cloudflare Build Output と認証情報なしの dry run |
 
-`scripts/browser-check.mjs` が主要ページ・ナビゲーション・検索・テーマ・画像・ダウンロード・canonical URL・404 に加え、部品証跡カタログ (全 30 記録ページ、資料の選択・例外、ページ内リンク、BOM との対応) をデスクトップとモバイルで確認します。
+`scripts/browser-check.mjs` が主要ページ・ナビゲーション・検索・テーマ・画像・ダウンロード・canonical URL・404 に加え、部品証跡カタログ (全 30 記録ページ、資料の選択・例外、ページ内リンク、BOM との対応) をデスクトップで確認します。モバイルではカタログの一覧と代表の記録ページ 2 件を確認します。
 
 フレームワークの `check-browser` は `circuit.config.ts` の `browserSmoke.representatives` で明示した記録ページを、4 つの画面幅 × ライト / ダークで巡回します。ただし CAD が無効でフットプリントが公開されないため、部品参照セクションの検査・3D ビューアの検査は **実行されません (SKIP / NOT RUN)**。これは合格ではなく、未実施の項目です。詳細は [部品証跡カタログの照合](./component-catalog.mdx) を参照してください。
 

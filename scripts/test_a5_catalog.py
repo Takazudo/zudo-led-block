@@ -187,30 +187,57 @@ class CatalogMutations(unittest.TestCase):
         shutil.copytree(cat.SKILLS / "component-tps2552dbvr-1", cat.SKILLS / "component-tps2553dbvr-1")
         self.assertIn("component-tps2553dbvr-1: not a reconciled fitted identity", self.problems())
 
-    def add_later_revision_line(self, owner):
-        shutil.copytree(cat.SKILLS / "component-tps2552dbvr-1", cat.SKILLS / owner)
+    def add_later_revision_line(self, owner, line_id="line-a7-test-part", lcsc="C9999999", mpn="A7TESTPART"):
+        """A realistic later-revision bundle: the TPS2552 bundle with every identity rewritten."""
+        src = cat.SKILLS / "component-tps2552dbvr-1"
+        dst = cat.SKILLS / owner
+        dst.mkdir()
+        slug = owner[len("component-"):]
+        for f in src.iterdir():
+            text = f.read_text(encoding="utf-8")
+            text = text.replace("line-tps2552dbvr-1", line_id).replace("component-tps2552dbvr-1", owner)
+            text = text.replace("tps2552dbvr-1", slug).replace("TPS2552DBVR-1", mpn).replace("C140331", lcsc)
+            (dst / f.name).write_text(text, encoding="utf-8")
         def add(d):
-            line = dict(d["lines"][0], line_id="line-a7-tps2552dbvr-1", owner_skill=owner, placements=[{"board": "a7_controller", "refdes": "U4"}])
-            d["lines"].append(line)
+            base = next(x for x in d["lines"] if x["line_id"] == "line-tps2552dbvr-1")
+            d["lines"].append(dict(base, line_id=line_id, owner_skill=owner, lcsc=lcsc, mpn=mpn,
+                                   suppliers=[{"supplier": "JLCPCB", "order_code": lcsc}, {"supplier": "LCSC", "order_code": lcsc}],
+                                   placements=[{"board": "a7_controller", "refdes": "U4"}]))
             d["assertions"]["orderable_lines"] += 1
             d["assertions"]["fitted_lines"] += 1
             d["assertions"]["fitted_placements"] += 1
         self.edit(cat.INVENTORY, add)
-        self.edit(cat.DIRECT_ROUTING, lambda d: d["cases"].append(dict(d["cases"][0], line_id="line-a7-tps2552dbvr-1")))
+        self.edit(cat.DIRECT_ROUTING, lambda d: d["cases"].append(dict(d["cases"][0], line_id=line_id)))
         cat.SELECTION.write_text(cat.dump(cat.propose_selection(cat.load_json(cat.RECONCILIATION))), encoding="utf-8")
 
     def test_later_revision_line_is_accepted(self):
-        self.add_later_revision_line("component-a7-tps2552dbvr-1")
+        self.add_later_revision_line("component-a7-test-part")
         self.assertEqual(cat.catalog_problems()[0], [])
 
     def test_later_revision_line_needs_revision_owner(self):
-        self.add_later_revision_line("component-tps2552dbvr-1-a7")
+        self.add_later_revision_line("component-test-part-a7")
         self.assertIn("must start with component-a7-", self.problems())
 
     def test_later_revision_line_does_not_relax_a5_counts(self):
-        self.add_later_revision_line("component-a7-tps2552dbvr-1")
+        self.add_later_revision_line("component-a7-test-part")
         self.edit(cat.INVENTORY, lambda d: d.update(lines=[x for x in d["lines"] if x["line_id"] != "line-tps2552dbvr-1"]))
         self.assertIn("inventory: missing fitted identity C140331", self.problems())
+
+    def test_later_revision_alternative_fails(self):
+        self.add_later_revision_line("component-a7-alt", line_id="line-a7-alt", lcsc="C2651179", mpn="74437324047")
+        self.assertIn("line-a7-alt: alternative/non-fitted identity C2651179", self.problems())
+
+    def test_later_revision_forbidden_mpn_fails(self):
+        self.add_later_revision_line("component-a7-mini", line_id="line-a7-mini", mpn="WS2812B-MINI-V6")
+        self.assertIn("line-a7-mini: alternative/non-fitted identity", self.problems())
+
+    def test_later_revision_duplicate_of_a5_fails(self):
+        self.add_later_revision_line("component-a7-dup", line_id="line-a7-dup", lcsc="C140331", mpn="TPS2553DBVR-1")
+        self.assertIn("line-a7-dup: duplicates A5 fitted identity C140331", self.problems())
+
+    def test_mistyped_a5_revision_stays_in_a5_scope(self):
+        self.assertEqual(cat.line_revision({"line_id": "line-a05-x"}), "a5")
+        self.assertEqual(cat.line_revision({"line_id": "line-a7-x"}), "a7")
 
     def test_selection_drift_fails(self):
         self.edit(cat.SELECTION, lambda d: d.update(recordIds=d["recordIds"][1:]))
