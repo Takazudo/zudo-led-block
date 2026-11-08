@@ -30,7 +30,9 @@
     "rec-fh-0603b103k500nt",
     "rec-spm4020t-4r7m-lr",
     "rec-uniroyal-0603waf1005t5e",
-    "rec-dailywell-1ms3t1b1m2qes-5"
+    "rec-dailywell-1ms3t1b1m2qes-5",
+    "rec-a7-pcm13smtr",
+    "rec-a7-pj-324m"
   ],
   "sourceIds": [
     "src-530470310-a5-jlcpcb-snapshot",
@@ -202,7 +204,14 @@
     "src-1ms3t1b1m2qes-5-a5-netlist-controller",
     "src-1ms3t1b1m2qes-5-cat-p0",
     "src-1ms3t1b1m2qes-5-cat-p1",
-    "src-1ms3t1b1m2qes-5-cat-p10"
+    "src-1ms3t1b1m2qes-5-cat-p10",
+    "src-a7-pcm13smtr-ck-datasheet",
+    "src-a7-pcm13smtr-ck-site",
+    "src-a7-pcm13smtr-lcsc-listing",
+    "src-a7-jlc-parts-api-2026-11-08",
+    "src-a7-pj-324m-sofng-drawing",
+    "src-a7-pj-324m-sofng-site",
+    "src-a7-pj-324m-jlc-listing"
   ],
   "linkableSourceIds": [
     "src-530470310-a5-netlist-controller",
@@ -478,11 +487,19 @@
     {
       "recordId": "rec-dailywell-1ms3t1b1m2qes-5",
       "reason": "No manufacturer-primary document for this exact orderable is retained in the evidence. Reviewed: JLCPCB public product listing C908270 (A5 retained product-props snapshot) (DISTRIBUTOR_IDENTITY, AVAILABLE); Dailywell 1M Series Miniature Toggle Switches (distributor-hosted copy) (MANUFACTURER_MIRROR, AVAILABLE). Distributor listings establish order identity only, and a distributor-hosted mirror is lower authority, so neither is published as a manufacturer document."
+    },
+    {
+      "recordId": "rec-a7-pcm13smtr",
+      "reason": "No manufacturer-primary document for this exact orderable is retained in the evidence. Reviewed: C&K PCM Series Ultraminiature Surface Mount Slide Switches (PCM12SMTR / PCM13SMTR), pages I-46..I-48 (MANUFACTURER_MIRROR, AVAILABLE); C&K-hosted PCM Series datasheet; not acquired (MANUFACTURER_PRIMARY, SOURCE UNAVAILABLE); LCSC product page C221842 (HTML) (DISTRIBUTOR_IDENTITY, AVAILABLE); JLCPCB parts search API responses (selectSmtComponentList) for C22355739, C221842, C2921714 (DISTRIBUTOR_IDENTITY, AVAILABLE). Distributor listings establish order identity only, and a distributor-hosted mirror is lower authority, so neither is published as a manufacturer document."
+    },
+    {
+      "recordId": "rec-a7-pj-324m",
+      "reason": "No manufacturer-primary document for this exact orderable is retained in the evidence. Reviewed: SOFNG PJ-324M product drawing (3.5 mm 5-pin right-angle phone jack, L17.70 x W11.50 x H6.30 mm) (MANUFACTURER_MIRROR, AVAILABLE); SOFNG-hosted PJ-324M drawing; not acquired (MANUFACTURER_PRIMARY, SOURCE UNAVAILABLE); JLCPCB parts library listing C22355739 (HTML) (DISTRIBUTOR_IDENTITY, AVAILABLE). Distributor listings establish order identity only, and a distributor-hosted mirror is lower authority, so neither is published as a manufacturer document."
     }
   ],
   "expect": {
-    "records": 30,
-    "sources": 170,
+    "records": 32,
+    "sources": 177,
     "integrationRules": 0,
     "packages": 0
   }

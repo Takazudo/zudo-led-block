@@ -1,7 +1,6 @@
 {
   "schema_version": 1,
   "skill": "component-a7-pj-324m",
-  "status": "A7 staging bundle; not registered in the shared inventory until the #9 catalog PR lands",
   "records": [
     {
       "record_id": "rec-a7-pj-324m",
@@ -14,6 +13,7 @@
       "package": "Plugin",
       "source_ids": [
         "src-a7-pj-324m-sofng-drawing",
+        "src-a7-pj-324m-sofng-site",
         "src-a7-pj-324m-jlc-listing"
       ],
       "fact_ids": [
@@ -43,6 +43,7 @@
       ],
       "interaction_ids": [],
       "open_domains": [
+        "identity",
         "mechanical",
         "pinout",
         "electrical-ratings",

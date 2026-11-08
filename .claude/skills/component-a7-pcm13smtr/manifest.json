@@ -1,7 +1,6 @@
 {
   "schema_version": 1,
   "skill": "component-a7-pcm13smtr",
-  "status": "A7 staging bundle; not registered in the shared inventory until the #9 catalog PR lands",
   "records": [
     {
       "record_id": "rec-a7-pcm13smtr",
@@ -14,6 +13,7 @@
       "package": "SMD",
       "source_ids": [
         "src-a7-pcm13smtr-ck-datasheet",
+        "src-a7-pcm13smtr-ck-site",
         "src-a7-pcm13smtr-lcsc-listing",
         "src-a7-jlc-parts-api-2026-11-08"
       ],
@@ -32,6 +32,10 @@
       ],
       "interaction_ids": [],
       "open_domains": [
+        "identity",
+        "pinout",
+        "electrical-ratings",
+        "mechanical",
         "sourcing",
         "placement"
       ]
