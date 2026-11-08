@@ -18,7 +18,7 @@
    "path": "engineering/a7/electronics/controller/controller.kicad_pcb",
    "class": "authoritative",
    "present": true,
-   "rule": "Authoritative routed A7 controller board (R4, #19). Source of truth (independent layout/electrical review pending); no generator writes it. Seeded by scripts/a7_board.py build + scripts/a7_route.py + a7_board.py apply in an empty staging dir outside the repo, then copied here once native DRC (0 violations, 0 unconnected) and parity passed. Enforced by native_gate.json with candidate a7_controller."
+   "rule": "Authoritative routed A7 controller board (R4, #19). Source of truth (independent layout/electrical review on PR #30, head e2a2219); no generator writes it. Seeded by scripts/a7_board.py build + scripts/a7_route.py + a7_board.py apply in an empty staging dir outside the repo, then copied here once native DRC (0 violations, 0 unconnected) and parity passed. Enforced by native_gate.json with candidate a7_controller."
   },
   {
    "path": "engineering/a7/electronics/controller/controller.kicad_sch",

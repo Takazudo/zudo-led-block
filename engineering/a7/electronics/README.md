@@ -1,6 +1,6 @@
 # A7 コントローラー電子設計（R4, #19）
 
-**状態: 回路図は独立電気レビュー済み（#24、head `1a2f31a`）。基板は配置・配線済みで、独立したレイアウト・電気レビュー待ち。** 権威ある A7 基板 `controller/controller.kicad_pcb` を `candidate` とする A7 リビジョンゲート（`engineering/a7/verification/native_gate.json`）は新規実行で `PASS` です。これはデジタル検証だけの結果で、物理評価・製造リリースではありません。
+**状態: 回路図は独立電気レビュー済み（#24、head `1a2f31a`）。基板は配置・配線済みで、独立したレイアウト・電気レビュー済み（PR #30、head `e2a2219`、main へのマージ `eb8adeb`、基板 sha256 `ec810aec…74f2`）。** 権威ある A7 基板 `controller/controller.kicad_pcb` を `candidate` とする A7 リビジョンゲート（`engineering/a7/verification/native_gate.json`）は新規実行で `PASS` です。これはデジタル検証だけの結果で、物理評価・製造リリースではありません。
 
 ## 何が A5 から変わったか
 
@@ -50,5 +50,5 @@
 
 ## 残っている作業
 
-1. 配線済み基板の独立したレイアウト・電気レビュー（PR #30 はそれまでドラフト）。
+1. レビューで挙がった軽微な改善（C11 と U6.5 の距離、C17/U7.2 付近の GND ビア追加、U4.1 近くの +5 V コンデンサ、CV_FILTER と VLED の並走 約 0.9 mm）。
 2. 物理ゲート: PJ-324M のピン導通・穴寸法・軸高さの実測、PCM13SMTR の位置ごとの導通とランド適合、在庫（Q10）。
