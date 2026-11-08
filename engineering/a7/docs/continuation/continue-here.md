@@ -117,8 +117,8 @@ later board change re-runs the gate, independent review and R2 fit check.
 1. **Physical and owner gates:** PJ-324M pin functions by TS / TRS continuity test (Q2), slot sizes (Q3, the board
    still uses ASSUMED 1.6 × 0.8 mm slots), axis height (Q1, INFERRED), PCM13SMTR stock and fit (Q10, body centring
    ASSUMED), and the owner's 2HP decision.
-2. **External evidence** listed in `../../open-questions.md` (Q0–Q11 and Q11a–Q11f; Q12 is decided). Only the JLC PET questions 1–7 are
-   drafted (`../../pet-fpc.md`), and they are **not sent**; they do not cover Q11e or Q11f, and the others are not drafted. Sending supplier messages is
+2. **External evidence** listed in `../../open-questions.md` (Q0–Q11 and Q11a–Q11f; Q12 is decided). Only the JLC PET questions 1–9 are
+   drafted (`../../pet-fpc.md`; 8 and 9 are Q11e and Q11f), and they are **not sent**; the others are not drafted. Sending supplier messages is
    outside the current authorisation.
 3. **Physical qualification** with [#8](https://github.com/Takazudo/zudo-led-block/issues/8) (harness, power cable,
    fit, PETG), [#10](https://github.com/Takazudo/zudo-led-block/issues/10) (power / CV / firmware / optical / thermal /

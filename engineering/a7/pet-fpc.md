@@ -43,10 +43,12 @@ different functions and are not interchangeable.
 These use the A5 leaf contract (four WS2812B-2020-V6 per side, one SH 4-pin link per end, shared limited VLED).
 They are ranges for planning, not a design.
 
-- **Supply drop.** 18 µm copper is about 0.98 mΩ/□ (ρ_Cu 1.72e-8 Ω·m / 17.5 µm). An 82.5 mm trace at 1.0 mm width
-  is about 81 mΩ each way. Four pixels at full white would draw on the order of 0.15 A. That is about 12 mV each
-  way, which is small. A 0.3 mm trace raises it to about 40 mV each way. R2/R4 must recheck it with the real
-  current cap and layout.
+- **Supply drop (superseded).** The earlier paper estimate here (about 12–40 mV each way at about 0.15 A) is
+  superseded. Use the upper bound from R4's PET leaf check (PR #42, `../verification/pet_leaf/README.md`): VLED +
+  GND together about 224 mV on 18 µm copper (about 335 mV at 12 µm, about 115 mV at 35 µm). That bound assumes the
+  TPS2552 worst-case short-circuit limit of 0.435 A (R11 = 68 kΩ) flowing in series through every VLED and GND
+  segment of the A5 leaf, A5 trace widths, copper at 20 °C, and no connector or harness resistance. It is an upper
+  bound, not a measured or layout result.
 - **Return path.** On a 1-layer film, VLED, GND and two data lines share one layer. A 2-layer film allows a ground
   return under the data line but doubles the finished thickness to 0.24 mm and adds copper area.
 - **Heat.** PET is a poor heat spreader. The A5 51/255 brightness cap is not a thermal qualification on FR-4,
@@ -67,6 +69,12 @@ They are ranges for planning, not a design.
 5. Is the adhesive in the 25 µm PET + 25 µm adhesive coverlay optically clear after reflow, and does it yellow?
 6. Is a transparent (or no) solder mask/coverlay colour available that keeps the 85% figure over traces?
 7. Can JLC quote a transparent leaf panel without a rigid-flex joint, with the controller on a separate FR-4 order?
+8. Does JLC offer plated through vias on 2-layer transparent PET FPC? Does the "Annular Ring for PTH: >= 0.25 mm
+   recommended, absolute limit 0.18 mm" row also apply to vias (the A5 leaf vias are 0.6 / 0.3 mm, a 0.15 mm ring)?
+   (Q11e)
+9. The WS2812B-2020 and JST SH pads are 0.4 mm apart, so after the 0.1 mm coverlay expansion the bridge would be
+   0.2 mm, below the 0.5 mm minimum and removed. Is SMT assembly acceptable with adjacent pads sharing one coverlay
+   opening, or is a clear solder mask offered on transparent PET? (Q11f)
 
 ## Decision held for the owner
 
