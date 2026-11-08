@@ -1,31 +1,31 @@
-# A7 ネイティブ検証の基盤 (R3, #18)
+# A7 ネイティブ検証 (R3 #18, R4 #19)
 
-A7 の制御基板はまだありません。このディレクトリは、A7 基板が入ったときに適用する検証の **定義** と、
-検証機構そのものを確かめる仕組みを置く場所です。
+このディレクトリは A7 制御基板に適用する検証の **定義** と、検証機構そのものを確かめる仕組みを置く場所です。
 
-> **ここにある結果は A7 基板の合格ではありません。** CI の `native-infrastructure` ジョブは
-> `scripts/tests/fixtures/native/` の配線済みフィクスチャで検証機構を動かし、最良でも
-> `INFRASTRUCTURE_PASS` (検出すべきものを検出できた) しか出しません。A7 プロファイル `native_gate.json` は
-> `candidate: null` のため、実行すると `NO_CANDIDATE` で失敗します。電子回路・製造の承認でもありません。
+> A7 プロファイル `native_gate.json` は権威基板 `a7_controller` を `candidate` とし、CI で毎回新規に実行して
+> `PASS` を要求します (ERC・パリティ・DRC・未接続 0・ゾーン再充填・再生成保存・負の対照)。CI の
+> フィクスチャ実行は最良でも `INFRASTRUCTURE_PASS` で、A7 基板の結果ではありません。どちらもデジタル検証で、
+> 電子回路の物理評価・製造の承認ではありません。
 
 ## ファイル
 
 | ファイル | 区分 | 内容 |
 |---|---|---|
-| `native_gate.json` | authored | A7 リビジョン用ゲートプロファイル (候補基板なし) |
+| `native_gate.json` | authored | A7 リビジョン用ゲートプロファイル (`candidate: a7_controller`、`design_rule_delta` でビア 0.5/0.2 mm) |
 | `native_gate.lock.json` | derived | `python3 scripts/native_gate/runner.py lock --profile engineering/a7/verification/native_gate.json` |
 | `authorized_delta.json` | authored | A5 基準ネットリストに対する A7 の許可済み差分 (未レビュー、エントリなし) |
 | `interface_roles/a5_reference.json` | authored | A5 のピン割り当てを役割として表したもの (陽性対照) |
 | `interface_roles/a7_controller.json` | authored | A7 の役割表。ジャック/スイッチは R1 #16 の部品根拠待ちで `unresolved` |
 | `interface_review.md` | authored | A5 のインターフェース検査を A7 にどう引き継いだか |
 | `source_authority.json` | authored | 所有区分と再生成ルール |
+| `fab/jlcpcb_capabilities.json` | authored | ルール差分の根拠となる JLCPCB の公開能力 (URL・取得ハッシュ・該当行) |
+| `routing/route_proposal_seed0.json` | authored | 権威基板の配線を作ったルーター出力の記録 (基板が正、これから基板は再生成しない) |
 
 ## ルール
 
 - `engineering/a5/` は不変。ゲートは実行前後に `scripts/verify_seed.py` とツリーハッシュで確認します。
-- 権威 (authoritative) 基板 `engineering/a7/electronics/controller/controller.kicad_pcb` は予約のみ。基板と、
-  それを `candidate` とする完全なゲートは同じ PR で入れます (R4 #19)。未配線の初期基板はドラフトブランチに留め、
-  ゲートは失敗のままにします。
+- 権威 (authoritative) 基板 `engineering/a7/electronics/controller/controller.kicad_pcb` と、それを `candidate` と
+  する完全なゲートは同じ PR (R4 #19) で入れました。
 - 通常の再生成は権威基板を書きません (`scripts/native_gate/authority.py` が拒否し、ゲートが前後のハッシュを比較)。
 - 初期基板の生成は、リポジトリ外の空ディレクトリにのみ書きます (`authority.py init-board`, `make_fixture.py`)。
 - 配置・接続のエクスポートは、権威基板の新しいネイティブ結果からのみ作ります (`authority.py export-placement`)。
@@ -40,4 +40,5 @@ python3 -m unittest discover -s scripts/tests -p 'test_native_*.py'      # 通�
 python3 -O -m unittest discover -s scripts/tests -p 'test_native_*.py'   # -O
 python3 scripts/native_gate/runner.py lock --profile scripts/tests/fixtures/native/profile.json --check
 python3 scripts/native_gate/runner.py run  --profile scripts/tests/fixtures/native/profile.json --out /tmp/native   # Docker が必要
+python3 scripts/native_gate/runner.py run  --profile engineering/a7/verification/native_gate.json --out /tmp/a7-gate  # A7 基板、PASS を要求
 ```

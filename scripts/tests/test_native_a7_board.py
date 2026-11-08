@@ -62,5 +62,29 @@ class PlacementTests(unittest.TestCase):
         self.assertTrue(any(v.startswith('unplaced') for v in ab.violations(pl)))
 
 
+class RuleDeltaTests(unittest.TestCase):
+    def test_project_rules_are_a5_plus_recorded_delta(self):
+        a5 = json.loads((REPO / 'engineering/a5/electronics/native/controller/controller.kicad_pro').read_text())
+        a7 = json.loads((ab.a7.A7_CTRL / 'controller.kicad_pro').read_text())
+        delta = json.loads((REPO / 'engineering/a7/verification/native_gate.json').read_text())['design_rule_delta']
+        rules = dict(a5['board']['design_settings']['rules'])
+        for k, v in delta['rules'].items():
+            self.assertEqual(rules[k], v['from'], k)
+            rules[k] = v['to']
+        self.assertEqual(a7['board']['design_settings']['rules'], rules)
+        cls = dict(a5['net_settings']['classes'][0])
+        for k, v in delta['netclass'].items():
+            self.assertEqual(cls[k], v['from'], k)
+            cls[k] = v['to']
+        self.assertEqual(a7['net_settings']['classes'][0], cls)
+
+    def test_delta_is_backed_by_fabricator_evidence(self):
+        delta = json.loads((REPO / 'engineering/a7/verification/native_gate.json').read_text())['design_rule_delta']
+        ev = json.loads((REPO / delta['evidence']).read_text())
+        self.assertRegex(ev['source']['retrieved_sha256'], '^[0-9a-f]{64}$')
+        r = delta['rules']
+        self.assertGreaterEqual((r['min_via_diameter']['to'] - r['min_through_hole_diameter']['to']) / 2, 0.15)
+
+
 if __name__ == '__main__':
     unittest.main()

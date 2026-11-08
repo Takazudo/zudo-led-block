@@ -164,8 +164,9 @@ def mutate(src: Path, dst: Path, kind: str, spec: dict | None = None) -> dict:
                  and t.GetNetname() not in zone_nets]
         if not cands:
             raise ValueError('route_break control needs routed copper; the board has no signal tracks')
-        cands.sort(key=lambda t: (t.GetNetname(), t.GetStart().x, t.GetStart().y))
-        victim = cands[len(cands) // 2]
+        # the longest segment: removing a short jog can leave the neighbours' round ends still touching
+        cands.sort(key=lambda t: (-t.GetLength(), t.GetNetname(), t.GetStart().x, t.GetStart().y))
+        victim = cands[0]
         info['removed_track_net'] = victim.GetNetname()
         b.Delete(victim)
     elif kind == 'wrong_connection':

@@ -17,8 +17,8 @@
   {
    "path": "engineering/a7/electronics/controller/controller.kicad_pcb",
    "class": "authoritative",
-   "present": false,
-   "rule": "Reserved. Lands only together with a revision gate profile whose candidate names it and whose full enforcement passes (R4, #19). An unrouted initial board stays on a draft branch."
+   "present": true,
+   "rule": "Authoritative routed A7 controller board (R4, #19). Source of truth (independent layout/electrical review pending); no generator writes it. Seeded by scripts/a7_board.py build + scripts/a7_route.py + a7_board.py apply in an empty staging dir outside the repo, then copied here once native DRC (0 violations, 0 unconnected) and parity passed. Enforced by native_gate.json with candidate a7_controller."
   },
   {
    "path": "engineering/a7/electronics/controller/controller.kicad_sch",
@@ -59,6 +59,12 @@
    "rule": "Placement input for the R4 staging board, checked against R2's placement-envelopes.json keep-outs (courtyard, side and keep-out rules). The routed board, once it lands, is the authority for positions; this file only records how it was seeded."
   },
   {
+   "path": "engineering/a7/electronics/controller/board_placement.json",
+   "class": "derived",
+   "generator": "python3 scripts/native_gate/authority.py export-placement (from fresh native facts of the authoritative board)",
+   "rule": "Placement/connectivity export for the mechanical model (R2); records the board SHA-256. The gate's regeneration step re-checks it."
+  },
+  {
    "path": "engineering/a7/electronics/README.md",
    "class": "authored"
   },
@@ -71,7 +77,7 @@
   {
    "path": "engineering/a7/verification/native_gate.json",
    "class": "authored",
-   "rule": "A7 revision gate profile; candidate is null until R4"
+   "rule": "A7 revision gate profile; candidate a7_controller (the authoritative routed board). Any rule delta is recorded in design_rule_delta with fabricator evidence."
   },
   {
    "path": "engineering/a7/verification/native_gate.lock.json",
@@ -96,6 +102,16 @@
    "path": "scripts/tests/fixtures/native",
    "class": "fixture",
    "rule": "fixture boards are regenerated only with scripts/native_gate/make_fixture.py into an empty directory, then reviewed and committed"
+  },
+  {
+   "path": "engineering/a7/verification/fab",
+   "class": "authored",
+   "rule": "fabricator capability rows quoted with URL and retrieval hash; backs native_gate.json design_rule_delta"
+  },
+  {
+   "path": "engineering/a7/verification/routing",
+   "class": "authored",
+   "rule": "Router proposal (python3 -I scripts/a7_route.py --seed 0 --geometry <a7_board.py build geometry.json>) that seeded the authoritative board; reproduces byte-identically from the current placement. A record only: the board, not this file, is the source of truth, and nothing regenerates the board from it."
   }
  ],
  "regeneration_rules": [

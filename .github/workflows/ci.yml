@@ -265,8 +265,8 @@ jobs:
   native-infrastructure:
     name: Native gate infrastructure (fixtures, KiCad 10.0.8)
     # Exercises scripts/native_gate on routed fixtures with negative controls and the immutable
-    # A5 controller as an expected-failure control. INFRASTRUCTURE_PASS is never an A7 board result:
-    # the A7 revision profile has no candidate board yet and is only checked to stop with NO_CANDIDATE.
+    # A5 controller as an expected-failure control. INFRASTRUCTURE_PASS is never an A7 board result;
+    # the A7 board result comes only from the A7 revision profile run on the committed candidate.
     runs-on: ubuntu-24.04
     timeout-minutes: 25
     env:
@@ -295,15 +295,6 @@ jobs:
         run: |
           python3 -m unittest discover -s scripts/tests -p 'test_native_*.py'
           python3 -O -m unittest discover -s scripts/tests -p 'test_native_*.py'
-      - name: A7 revision profile stops with NO_CANDIDATE (no authoritative A7 board yet)
-        timeout-minutes: 1
-        run: |
-          set +e
-          python3 scripts/native_gate/runner.py run --profile engineering/a7/verification/native_gate.json --out "$RUNNER_TEMP/a7-gate"
-          code=$?
-          set -e
-          test "$code" = 1
-          test "$(python3 -c 'import json,sys;print(json.load(open(sys.argv[1]))["status"])' "$RUNNER_TEMP/a7-gate/summary.json")" = NO_CANDIDATE
       - name: Pull digest-pinned KiCad image
         timeout-minutes: 4
         run: |
@@ -315,11 +306,16 @@ jobs:
           python3 scripts/a7_electronics.py generate --check
           python3 scripts/a7_schematic_check.py --out "$RUNNER_TEMP/a7-schematic"
           s="$(python3 -c 'import json,sys;print(json.load(open(sys.argv[1]))["status"])' "$RUNNER_TEMP/a7-schematic/summary.json")"
-          echo "### A7 schematic phase: $s (schematic only; A7 revision gate stays NO_CANDIDATE)" >> "$GITHUB_STEP_SUMMARY"
+          echo "### A7 schematic phase: $s (schematic only, not a board result)" >> "$GITHUB_STEP_SUMMARY"
           test -z "$(docker ps -aq --filter label=zudo-led-block.a7-schematic)"
       - name: Native infrastructure run (ERC, netlists, parity, DRC, refill, interface, delta, controls)
         timeout-minutes: 12
         run: python3 scripts/native_gate/runner.py run --profile "$PROFILE" --out "$RUNNER_TEMP/native" --deadline-s 660
+      - name: A7 controller board gate on the committed candidate (ERC, parity, DRC, unconnected, refill, regeneration, controls)
+        timeout-minutes: 12
+        run: |
+          python3 scripts/native_gate/runner.py run --profile engineering/a7/verification/native_gate.json --out "$RUNNER_TEMP/a7-gate" --deadline-s 660
+          test "$(python3 -c 'import json,sys;print(json.load(open(sys.argv[1]))["status"])' "$RUNNER_TEMP/a7-gate/summary.json")" = PASS
       - name: Checkpoint and fixtures left unmodified, no owned container left
         if: always()
         timeout-minutes: 1
@@ -348,6 +344,19 @@ jobs:
           for f in s.get('failures', [])[:30]:
               print(f"  - FAIL: {f}")
           print("A green infrastructure run is not an A7 board result, nor an electronics or manufacturing approval.")
+          PY
+          python3 - "$RUNNER_TEMP/a7-gate/summary.json" >> "$GITHUB_STEP_SUMMARY" <<'PY'
+          import json, sys
+          try:
+              s = json.load(open(sys.argv[1]))
+          except (OSError, ValueError) as e:
+              print(f"### A7 controller board gate: NO SUMMARY ({e}) - treated as failure"); sys.exit(0)
+          print(f"### A7 controller board gate (fresh, this run): {s.get('status')} ({s.get('board_result')})")
+          for n, r in (s.get('results', {}).get('controls') or {}).items():
+              print(f"- control `{n}`: {'detected/as expected' if r.get('ok') else 'NOT DEMONSTRATED'}")
+          for f in s.get('failures', [])[:30]:
+              print(f"  - FAIL: {f}")
+          print("A passing A7 board gate is a digital check only: no physical fit, bench or manufacturing release.")
           PY
       - name: Final receipt (replaces STARTED_INCOMPLETE with the gate's own final status)
         if: always()

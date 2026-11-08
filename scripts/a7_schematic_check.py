@@ -15,8 +15,8 @@ Status words:
                           record have no independent review yet); exit 0
   SCHEMATIC_REVIEWED      everything passes including review records; exit 0
 
-None of these is a board result: the A7 revision gate (native_gate.json) stays
-NO_CANDIDATE until the routed authoritative board lands with it.
+None of these is a board result: the board result comes only from the A7 revision
+gate (native_gate.json) run on the committed candidate board.
 
 Usage: python3 scripts/a7_schematic_check.py --out DIR [--evidence-dir engineering/a7/verification/schematic]
 """
@@ -142,7 +142,7 @@ def main() -> int:
     if any(c != '0' for k, c in run['codes'].items() if k != 'drc') or run['codes'].get('drc') not in ('0', '5'):
         ev['failures'].insert(0, f'native step exit codes {run["codes"]}, docker exit {run["docker_exit"]}: {run["stderr_tail"][-500:]}')
         ev['status'] = 'FAIL'
-    summary = {'status': ev.pop('status'), 'board_result': 'NONE (schematic phase; A7 revision gate stays NO_CANDIDATE)',
+    summary = {'status': ev.pop('status'), 'board_result': 'NONE (schematic phase; the board result comes from the A7 revision gate)',
                'image': prof['image'], 'kicad_version': (out / 'kicad_version.txt').read_text().strip()
                if (out / 'kicad_version.txt').is_file() else None,
                'schematic': SCH, 'schematic_sha256': sha(REPO / SCH), 'native': run, **ev}

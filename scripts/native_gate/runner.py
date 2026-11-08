@@ -142,9 +142,10 @@ def lock_entries(repo: Path, p: dict, profile_rel: str) -> list[dict]:
         for f in sorted((repo / d).iterdir()):
             if f.is_file() and not f.is_symlink() and (f.suffix in STAGE_SUFFIX or f.name in STAGE_NAMES):
                 files.append({'path': str(f.relative_to(repo)), 'stage': True})
-    for f in sorted((repo / FOOTPRINT_DIR).iterdir()):
-        if f.is_file() and not f.is_symlink() and f.suffix == '.kicad_mod':
-            files.append({'path': str(f.relative_to(repo)), 'stage': True})
+    for fd in [FOOTPRINT_DIR, *p.get('footprint_dirs', [])]:
+        for f in sorted((repo / fd).iterdir()):
+            if f.is_file() and not f.is_symlink() and f.suffix == '.kicad_mod':
+                files.append({'path': str(f.relative_to(repo)), 'stage': True})
     reads = [profile_rel, *TOOLS, *p.get('read_inputs', [])]
     if p.get('interface'):
         reads.append(p['interface']['roles'])

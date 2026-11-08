@@ -1,0 +1,54 @@
+{
+ "what": "Fabricator capability evidence for the A7 design-rule delta (0.5/0.2 mm vias). Quoted rows only; the page itself is not redistributed.",
+ "source": {
+  "url": "https://jlcpcb.com/capabilities/pcb-capabilities",
+  "retrieved_utc": "2026-11-08T14:56Z",
+  "retrieved_sha256": "cf170cc441dabaa3c84f7cab45395fc258ce1356c449ed78a4d77df1c60bf6c1",
+  "note": "sha256 of the HTML as served to an anonymous client at retrieval; the live page changes, the quoted rows are what was read"
+ },
+ "board": {
+  "layers": 4,
+  "thickness_mm": 1.6,
+  "outer_copper": "1 oz (multilayer default)",
+  "inner_copper": "0.5 oz (default)"
+ },
+ "rows": [
+  {
+   "row": "Min. Via hole size/diameter",
+   "quote": "Multilayer: 0.15 mm hole size / 0.25 mm via diameter"
+  },
+  {
+   "row": "Min. Via hole size/diameter, note 1",
+   "quote": "Via diameter should be 0.1mm(0.15mm preferred) larger than Via hole size."
+  },
+  {
+   "row": "Min. Via hole size/diameter, note 2",
+   "quote": "Preferred Min. Via hole size: 0.2mm"
+  },
+  {
+   "row": "Min. Via hole size/diameter, note 3",
+   "quote": "0.1mm or 0.15mm hole size with any size via diameter, and 0.2mm or 0.25mm hole size with via diameter less than 0.45mm, will cost more."
+  },
+  {
+   "row": "Via Hole-to-Hole Spacing",
+   "quote": "0.2mm"
+  },
+  {
+   "row": "Via hole to Track",
+   "quote": "0.2mm"
+  },
+  {
+   "row": "Inner layer via hole to copper clearance",
+   "quote": "0.2mm"
+  },
+  {
+   "row": "Finished Outer Layer Copper",
+   "quote": "Multi-layer: 1 oz / 2 oz"
+  },
+  {
+   "row": "Finished Inner Layer Copper",
+   "quote": "Finished copper weight of inner layer is 0.5oz by default."
+  }
+ ],
+ "reading": "0.5 mm pad / 0.2 mm drill: drill equals the preferred minimum, pad exceeds drill by 0.3 (>= 0.15 preferred), and the diameter is >= 0.45 so the hole is outside the extra-cost class. Annular ring 0.15 keeps the A5 min_via_annular_width. Rule hole-to-track (0.2) matches A5 min_hole_clearance."
+}

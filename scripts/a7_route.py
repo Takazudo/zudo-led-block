@@ -9,7 +9,13 @@ Model: 0.1 mm grid; routing layers F.Cu, In2.Cu and B.Cu (In1.Cu is the solid GN
 moves; vias only where the via disk clears every other net on every layer. Clearances are the board
 rules (0.15 copper, 0.2 hole and edge) plus ROUTER_MARGIN for grid discretisation. GND SMD pads each get
 a short stub to a via into the In1 plane; every other net is routed as a tree by repeated A* from the
-connected part to the nearest unconnected pad, with rip-up and reroute when a connection is blocked.
+connected part to the nearest unconnected pad.
+
+Congestion is resolved by negotiation (PathFinder): pads, holes and the board edge are hard, but another
+net's routed copper only costs (1 + history) * (1 + present * users). After each pass, cells where a net's
+centre line or via lies inside another net's clearance region gain history cost and the conflicting nets
+are rerouted with a higher present factor, until no conflict remains. A result is written only as a
+proposal; native DRC decides.
 
 Usage: python3 scripts/a7_route.py --geometry G --out routes.json
 """
@@ -29,7 +35,8 @@ CLEAR = 0.15
 HOLE_CLEAR = 0.2
 EDGE_CLEAR = 0.2
 ROUTER_MARGIN = 0.03
-VIA_D, VIA_DRILL = 0.6, 0.3
+# A7 authorized rule delta: 0.5/0.2 mm vias (native_gate.json design_rule_delta)
+VIA_D, VIA_DRILL = 0.5, 0.2
 W_SIGNAL, W_POWER = 0.2, 0.3
 POWER = {'/+5V', '/VLED', '/+12V_RAW', '/+12V_PROT', '/-12V_RAW', '/-12V_PROT', '/BUCK_SW', '/+3V3', '/GND'}
 GND = '/GND'
@@ -38,9 +45,14 @@ ROUTE_LAYERS = ['F.Cu', 'In2.Cu', 'B.Cu']
 VIA_COST = 6.0
 INNER_COST = 1.0
 HARD = -1
-SOFT_PENALTY = 8.0
-MAX_POPS = 1500000
-MAX_RIPS = 20
+# Fan-out reserves: around the fine-pitch parts, foreign nets pay ESCAPE_COST per cell, and the parts' own
+# nets are routed first, so their escapes are not taken by through-traffic.
+ESCAPE_PARTS = {'U1': 1.2, 'U5': 0.8}
+ESCAPE_COST = 3.0
+PRES0, PRES_MULT, HIST_INC = 0.5, 1.6, 1.0
+MAX_ITER = 60
+MAX_POPS = 2000000
+HOLE_TO_HOLE = 0.25  # KiCad default board rule, also between holes of one net
 
 
 def seg_dist(px, py, ax, ay, bx, by):
@@ -123,6 +135,10 @@ def bbox_of(pts, r=0.0):
     return (a[:, 0].min() - r, a[:, 1].min() - r, a[:, 0].max() + r, a[:, 1].max() + r)
 
 
+MOVES = [(1, 0, 1.0), (-1, 0, 1.0), (0, 1, 1.0), (0, -1, 1.0),
+         (1, 1, math.sqrt(2)), (1, -1, math.sqrt(2)), (-1, 1, math.sqrt(2)), (-1, -1, math.sqrt(2))]
+
+
 class Router:
     def __init__(self, geo):
         self.geo = geo
@@ -151,67 +167,76 @@ class Router:
                 bb = (min(ax, bx) - rad, min(ay, by) - rad, max(ax, bx) + rad, max(ay, by) + rad)
                 # hole clearance applies to every other net; NPTH holes block everything
                 self.g.mark(self.g.layers, bb, fn, 0.0, nid if d['plated'] else HARD, clear=HOLE_CLEAR)
-        self.base = {k: v.copy() for k, v in self.g.own.items()}
-        self.tracks, self.vias = [], []
-        self.item = None
-        self.soft = None
-        self._pas = {}
+        self.base = self.g.own
+        shape = (self.g.ny, self.g.nx)
+        self.keys = list(self.base)
+        self.cnt = {k: np.zeros(shape, np.int16) for k in self.keys}
+        self.hist = {l: np.zeros(shape, np.float32) for l in ROUTE_LAYERS}
+        self.hist_via = np.zeros(shape, np.float32)
+        self.pres = PRES0
+        self.mask = {}            # net -> {key: bool array} union of its clearance regions
+        self.tracks, self.vias, self.cells = {}, {}, {}
+        self.reserve = np.zeros(shape, bool)
+        self.reserve_nets = set()
+        X, Y = np.meshgrid(self.g.xs, self.g.ys)
+        for ref, m in ESCAPE_PARTS.items():
+            x1, y1, x2, y2 = geo['courtyards'][ref]
+            self.reserve |= (X > x1 - m) & (X < x2 + m) & (Y > y1 - m) & (Y < y2 + m)
+            self.reserve_nets |= {p['net'] for p in self.pads if p['ref'] == ref and p['net']}
+
+    # -- base (hard) passability: pads, holes, edge
+    def passable(self, cls, layer, nid):
+        g = self.base[(cls, layer)]
+        return (g == 0) | (g == nid)
+
+    def via_ok(self, nid):
+        ok = np.ones((self.g.ny, self.g.nx), bool)
+        for l in self.g.layers:
+            ok &= self.passable('v', l, nid)
+        return ok
 
     # -- occupancy of routed copper
-    def mark_track(self, t):
-        a, b = t['start'], t['end']
-        fn = lambda X, Y: seg_dist(X, Y, a[0], a[1], b[0], b[1])
-        self.g.mark([t['layer']], (min(a[0], b[0]), min(a[1], b[1]), max(a[0], b[0]), max(a[1], b[1])), fn, t['width'] / 2,
-                    self.net_ids[t['net']])
+    def region(self, m, layers, bbox, distfn, extra):
+        for c, h in self.g.classes.items():
+            r = extra + CLEAR + h + ROUTER_MARGIN
+            sj, si = self.g.window(bbox, r)
+            X, Y = np.meshgrid(self.g.xs[si], self.g.ys[sj])
+            hit = distfn(X, Y) < r
+            for l in layers:
+                m[(c, l)][sj, si] |= hit
 
-    def mark_via(self, v):
-        at = v['at']
-        fn = lambda X, Y: np.hypot(X - at[0], Y - at[1])
-        self.g.mark(self.g.layers, (at[0], at[1], at[0], at[1]), fn, VIA_D / 2, self.net_ids[v['net']])
+    def rip(self, net):
+        if net in self.mask:
+            for k in self.keys:
+                self.cnt[k] -= self.mask[net][k]
+            del self.mask[net]
+        self.tracks[net], self.vias[net], self.cells[net] = [], [], []
 
-    def add_track(self, net, layer, a, b, w):
-        t = {'net': net, 'layer': layer, 'start': list(a), 'end': list(b), 'width': w, 'item': self.item}
-        if self.soft is not None:
-            self.soft.append(t)
-            return
-        self.mark_track(t)
-        self.tracks.append(t)
-        self._pas.clear()
+    def place(self, net):
+        shape = (self.g.ny, self.g.nx)
+        m = {k: np.zeros(shape, bool) for k in self.keys}
+        for t in self.tracks[net]:
+            a, b = t['start'], t['end']
+            self.region(m, [t['layer']], (min(a[0], b[0]), min(a[1], b[1]), max(a[0], b[0]), max(a[1], b[1])),
+                        lambda X, Y: seg_dist(X, Y, a[0], a[1], b[0], b[1]), t['width'] / 2)
+        for v in self.vias[net]:
+            at = v['at']
+            self.region(m, self.g.layers, (at[0], at[1], at[0], at[1]), lambda X, Y: np.hypot(X - at[0], Y - at[1]), VIA_D / 2)
+        self.mask[net] = m
+        for k in self.keys:
+            self.cnt[k] += m[k]
 
-    def add_via(self, net, at):
-        v = {'net': net, 'at': list(at), 'size': VIA_D, 'drill': VIA_DRILL, 'item': self.item}
-        if self.soft is not None:
-            self.soft.append(v)
-            return
-        self.mark_via(v)
-        self.vias.append(v)
-        self._pas.clear()
-
-    def remove(self, items):
-        self.tracks = [t for t in self.tracks if t['item'] not in items]
-        self.vias = [v for v in self.vias if v['item'] not in items]
-        self.g.own = {k: v.copy() for k, v in self.base.items()}
-        for t in self.tracks:
-            self.mark_track(t)
-        for v in self.vias:
-            self.mark_via(v)
-        self._pas.clear()
-
-    def passable(self, cls, layer, nid, base=False):
-        key = (cls, layer, nid, base)
-        if key not in self._pas:
-            g = (self.base if base else self.g.own)[(cls, layer)]
-            self._pas[key] = (g == 0) | (g == nid)
-        return self._pas[key]
-
-    def via_ok(self, nid, base=False):
-        key = ('via', nid, base)
-        if key not in self._pas:
-            ok = np.ones((self.g.ny, self.g.nx), bool)
-            for l in self.g.layers:
-                ok &= self.passable('v', l, nid, base)
-            self._pas[key] = ok
-        return self._pas[key]
+    def factors(self, net, cls):
+        foreign = net not in self.reserve_nets
+        f = []
+        for l in ROUTE_LAYERS:
+            a = (1.0 + self.hist[l]) * (1.0 + self.pres * self.cnt[(cls, l)])
+            if foreign:
+                a = np.where(self.reserve, a * ESCAPE_COST, a)
+            f.append(a.astype(np.float32))
+        busy = sum(self.cnt[('v', l)].astype(np.float32) for l in self.g.layers)
+        fv = (1.0 + self.hist_via) * (1.0 + self.pres * busy)
+        return f, fv
 
     def pad_cells(self, pad, cls, nid):
         """Grid cells inside the pad copper, per routing layer, that a track of this net can occupy."""
@@ -219,7 +244,7 @@ class Router:
         for l, polys in pad['polys'].items():
             if l not in ROUTE_LAYERS:
                 continue
-            pas = self.passable(cls, l, nid, base=self.soft is not None)
+            pas = self.passable(cls, l, nid)
             for poly in polys:
                 sj, si = self.g.window(bbox_of(poly), 0)
                 X, Y = np.meshgrid(self.g.xs[si], self.g.ys[sj])
@@ -228,63 +253,64 @@ class Router:
                 out += [(ROUTE_LAYERS.index(l), int(j + sj.start), int(i + si.start)) for j, i in zip(jj, ii)]
         return out
 
-    def search(self, net, sources, targets, cls, want_via_target=False):
-        """A* over (layer, j, i) from source cells to any target cell (or any via-legal cell).
-
-        In soft mode (rip-up probing) only pads, holes and the edge are hard; cells occupied by other nets'
-        routed copper cost SOFT_PENALTY each, so the path shows which nets block the connection."""
+    def search(self, net, sources, targets, cls, fac, want_via_target=False):
+        """A* over (layer, j, i); step cost = length * congestion factor (>= 1, so the heuristic is admissible)."""
         nid = self.net_ids[net]
         nx, ny = self.g.nx, self.g.ny
-        soft = self.soft is not None
-        pas = [self.passable(cls, l, nid, base=soft) for l in ROUTE_LAYERS]
-        via = self.via_ok(nid, base=soft)
-        if soft:
-            busy = [~self.passable(cls, l, nid) for l in ROUTE_LAYERS]
-            vbusy = ~self.via_ok(nid)
+        pas = [self.passable(cls, l, nid) for l in ROUTE_LAYERS]
+        via = self.via_ok(nid) & ~self.own_hole_block(net)
+        reuse = {(round(v['at'][0], 4), round(v['at'][1], 4)) for v in self.vias[net]}
+        for x, y in reuse:
+            i, j = self.g.cell(x, y)
+            via[j, i] = True
+        f, fv = fac
         tset = set(targets)
         if want_via_target:
-            tx = ty = None
+            tx = None
         else:
             tc = np.array([(i, j) for _, j, i in targets], float)
             tx, ty = tc[:, 0], tc[:, 1]
 
         def h(j, i):
-            if tx is None:
-                return 0.0
-            return float(np.min(np.hypot(tx - i, ty - j))) * 0.999
+            return 0.0 if tx is None else float(np.min(np.hypot(tx - i, ty - j))) * 0.999
 
-        best = {}
-        prev = {}
-        heap = []
+        best, prev, heap = {}, {}, []
         srcset = set(sources)
         for s_ in sources:
             best[s_] = 0.0
             prev[s_] = None
             heapq.heappush(heap, (h(s_[1], s_[2]), 0.0, s_))
-        moves = [(1, 0, 1.0), (-1, 0, 1.0), (0, 1, 1.0), (0, -1, 1.0),
-                 (1, 1, math.sqrt(2)), (1, -1, math.sqrt(2)), (-1, 1, math.sqrt(2)), (-1, -1, math.sqrt(2))]
-        lc = [1.0, INNER_COST, 1.0]
         found = None
         pops = 0
         while heap:
-            f, gcost, node = heapq.heappop(heap)
+            _, gcost, node = heapq.heappop(heap)
             if gcost > best.get(node, math.inf) + 1e-9:
                 continue
             pops += 1
             if pops > MAX_POPS:
                 break
+            if node[0] == -1:
+                found = node[1:]
+                break
             l, j, i = node
-            if (want_via_target and via[j, i] and node not in srcset and not (soft and vbusy[j, i])) or node in tset:
+            if node in tset:
                 found = node
                 break
-            for di, dj, c in moves:
+            if want_via_target and via[j, i] and node not in srcset:
+                g2 = gcost + VIA_COST * float(fv[j, i])
+                gn = (-1,) + node
+                if g2 < best.get(gn, math.inf):
+                    best[gn] = g2
+                    heapq.heappush(heap, (g2, g2, gn))
+            fl = f[l]
+            for di, dj, c in MOVES:
                 i2, j2 = i + di, j + dj
                 if not (0 <= i2 < nx and 0 <= j2 < ny) or not pas[l][j2, i2]:
                     continue
                 if di and dj and not (pas[l][j, i2] or pas[l][j2, i]):
                     continue
                 n2 = (l, j2, i2)
-                g2 = gcost + c * lc[l] + (SOFT_PENALTY if soft and busy[l][j2, i2] else 0.0)
+                g2 = gcost + c * INNER_COST ** (l == 1) * float(fl[j2, i2])
                 if g2 < best.get(n2, math.inf) - 1e-9:
                     best[n2] = g2
                     prev[n2] = node
@@ -293,7 +319,7 @@ class Router:
                 for l2 in range(len(ROUTE_LAYERS)):
                     if l2 != l and pas[l2][j, i]:
                         n2 = (l2, j, i)
-                        g2 = gcost + VIA_COST + (SOFT_PENALTY if soft and vbusy[j, i] else 0.0)
+                        g2 = gcost + VIA_COST * float(fv[j, i])
                         if g2 < best.get(n2, math.inf) - 1e-9:
                             best[n2] = g2
                             prev[n2] = node
@@ -305,16 +331,27 @@ class Router:
             path.append(prev[path[-1]])
         return path[::-1]
 
-    def commit(self, net, path, w, end_via=False):
-        """Turn a cell path into straight segments and vias; mark them as occupied."""
+    def own_hole_block(self, net):
+        """Cells where a new via would come within HOLE_TO_HOLE of a hole of the same net."""
+        X, Y = np.meshgrid(self.g.xs, self.g.ys)
+        blk = np.zeros((self.g.ny, self.g.nx), bool)
+        holes = [(v['at'], VIA_DRILL / 2) for v in self.vias[net]]
+        holes += [(p['drill']['at'], max(p['drill']['size']) / 2) for p in self.pads if p['net'] == net and p['drill']]
+        for (x, y), r in holes:
+            blk |= np.hypot(X - x, Y - y) < r + VIA_DRILL / 2 + HOLE_TO_HOLE + ROUTER_MARGIN
+        return blk
+
+    def commit(self, net, path, w, cls, end_via=False):
+        """Turn a cell path into straight segments and vias (recorded, not yet counted)."""
         segs = []
         start = path[0]
+        vias = []
         for k in range(1, len(path)):
             a, b = path[k - 1], path[k]
             if a[0] != b[0]:
                 if (a[1], a[2]) != (start[1], start[2]):
                     segs.append((start, a))
-                self.add_via(net, self.g.xy(a[2], a[1]))
+                vias.append((a[1], a[2]))
                 start = b
                 continue
             if k + 1 < len(path):
@@ -323,173 +360,144 @@ class Router:
                     continue
             segs.append((start, b))
             start = b
+        if end_via:
+            vias.append((path[-1][1], path[-1][2]))
         for a, b in segs:
             if (a[1], a[2]) != (b[1], b[2]):
-                self.add_track(net, ROUTE_LAYERS[a[0]], self.g.xy(a[2], a[1]), self.g.xy(b[2], b[1]), w)
-        if end_via:
-            e = path[-1]
-            self.add_via(net, self.g.xy(e[2], e[1]))
+                self.tracks[net].append({'net': net, 'layer': ROUTE_LAYERS[a[0]], 'start': list(self.g.xy(a[2], a[1])),
+                                         'end': list(self.g.xy(b[2], b[1])), 'width': w})
+        have = {tuple(v['at']) for v in self.vias[net]}
+        for j, i in vias:
+            at = self.g.xy(i, j)
+            if tuple(at) not in have:
+                have.add(tuple(at))
+                self.vias[net].append({'net': net, 'at': list(at), 'size': VIA_D, 'drill': VIA_DRILL})
+        self.cells[net] += [(cls, n[0], n[1], n[2]) for n in path]
+        self.cells[net] += [('v', None, j, i) for j, i in vias]
 
-    def route_stub(self, p):
-        """GND SMD pad -> nearest legal via into the In1 plane (power width, signal width if that is blocked)."""
-        nid = self.net_ids[GND]
-        for cls, w in (('p', W_POWER), ('s', W_SIGNAL)):
-            src = self.pad_cells(p, cls, nid)
-            path = self.search(GND, src, [], cls, want_via_target=True) if src else None
-            if path is not None:
-                self.commit(GND, path, w, end_via=True)
-                return []
-        return [f"{GND}: {p['ref']}.{p['pad']} has no via site"]
-
-    def route_net(self, net):
+    def route(self, net):
+        """Rip up and reroute one net under the current congestion costs."""
+        self.rip(net)
         nid = self.net_ids[net]
-        pads = [p for p in self.pads if p['net'] == net]
-        pads.sort(key=lambda p: (p['at'][1], p['at'][0], p['ref'], p['pad']))
-        cells = {c: [self.pad_cells(p, c, nid) for p in pads] for c in ('p', 's')}
-        tree = set(cells['s'][0])
-        todo = list(range(1, len(pads)))
         fails = []
-        while todo:
-            path = None
-            for cls, w in ((('p', W_POWER), ('s', W_SIGNAL)) if net in POWER else (('s', W_SIGNAL),)):
-                targets = [c for k in todo for c in cells[cls][k]]
-                pas = [self.passable(cls, l, nid, base=self.soft is not None) for l in ROUTE_LAYERS]
-                src = sorted(c for c in tree if pas[c[0]][c[1], c[2]])
-                if targets and src:
-                    path = self.search(net, src, targets, cls)
-                if path is not None:
+        facs = {}
+
+        def fac(cls):
+            if cls not in facs:
+                facs[cls] = self.factors(net, cls)
+            return facs[cls]
+        classes = (('p', W_POWER), ('s', W_SIGNAL)) if net in POWER else (('s', W_SIGNAL),)
+        if net == GND:
+            for p in self.pads:
+                if p['net'] != GND or p['drill']:
+                    continue
+                for cls, w in classes:
+                    src = self.pad_cells(p, cls, nid)
+                    path = self.search(GND, src, [], cls, fac(cls), want_via_target=True) if src else None
+                    if path is not None:
+                        self.commit(GND, path, w, cls, end_via=True)
+                        break
+                else:
+                    fails.append(f"{GND}: {p['ref']}.{p['pad']} has no via site")
+        else:
+            pads = sorted((p for p in self.pads if p['net'] == net), key=lambda p: (p['at'][1], p['at'][0], p['ref'], p['pad']))
+            cells = {c: [self.pad_cells(p, c, nid) for p in pads] for c in ('p', 's')}
+            tree = set(cells['s'][0]) | set(cells['p'][0])
+            todo = list(range(1, len(pads)))
+            while todo:
+                path = None
+                for cls, w in classes:
+                    targets = [c for k in todo for c in cells[cls][k]]
+                    pas = [self.passable(cls, l, nid) for l in ROUTE_LAYERS]
+                    src = sorted(c for c in tree if pas[c[0]][c[1], c[2]])
+                    if targets and src:
+                        path = self.search(net, src, targets, cls, fac(cls))
+                    if path is not None:
+                        break
+                if path is None:
+                    fails.append(f"{net}: cannot reach {[pads[k]['ref'] + '.' + pads[k]['pad'] for k in todo]}")
                     break
-            if path is None:
-                fails.append(f"{net}: cannot reach {[pads[k]['ref'] + '.' + pads[k]['pad'] for k in todo]}")
-                break
-            self.commit(net, path, w)
-            end = path[-1]
-            hit = [k for k in todo if end in set(cells['s'][k]) or end in set(cells['p'][k])]
-            for k in hit:
-                todo.remove(k)
-                tree |= set(cells['s'][k])
-            tree |= set(path)
+                self.commit(net, path, w, cls)
+                end = path[-1]
+                for k in [k for k in todo if end in set(cells['s'][k]) or end in set(cells['p'][k])]:
+                    todo.remove(k)
+                    tree |= set(cells['s'][k]) | set(cells['p'][k])
+                tree |= set(path)
+        self.place(net)
         return fails
 
-    def route(self, item):
-        self.item = item
-        if item.startswith('stub:'):
-            ref, pad = item[5:].split('.')
-            return self.route_stub(next(p for p in self.pads if p['ref'] == ref and p['pad'] == pad))
-        return self.route_net(item)
-
-    def blockers(self, item):
-        """Probe the item with other nets' copper made soft; return the items whose copper the probe crosses."""
-        self.soft = []
-        try:
-            f = self.route(item)
-            probe = self.soft
-        finally:
-            self.soft = None
-        if f:
-            return None
-        net = item if not item.startswith('stub:') else GND
-        hit = set()
-        for t in self.tracks + self.vias:
-            if t['net'] == net:
+    def conflicts(self):
+        """Cells where a net's centre line or via sits inside another net's clearance region."""
+        bad = {}
+        for net, cells in self.cells.items():
+            own = self.mask.get(net)
+            if own is None:
                 continue
-            for q in probe:
-                if conflict(q, t):
-                    hit.add(t['item'])
-                    break
-        return hit
-
-
-def seg_seg(a, b, c, d):
-    def pd(p, a, b):
-        dx, dy = b[0] - a[0], b[1] - a[1]
-        L = dx * dx + dy * dy
-        t = 0.0 if L == 0 else max(0.0, min(1.0, ((p[0] - a[0]) * dx + (p[1] - a[1]) * dy) / L))
-        return math.hypot(p[0] - a[0] - t * dx, p[1] - a[1] - t * dy)
-
-    def ccw(p, q, r):
-        return (r[1] - p[1]) * (q[0] - p[0]) - (q[1] - p[1]) * (r[0] - p[0])
-    if (ccw(a, c, d) > 0) != (ccw(b, c, d) > 0) and (ccw(a, b, c) > 0) != (ccw(a, b, d) > 0):
-        return 0.0
-    return min(pd(a, c, d), pd(b, c, d), pd(c, a, b), pd(d, a, b))
-
-
-def shape(o):
-    if 'layer' in o:
-        return o['start'], o['end'], o['width'] / 2, {o['layer']}
-    return o['at'], o['at'], o['size'] / 2, None
-
-
-def conflict(p, q):
-    a, b, rp, lp = shape(p)
-    c, d, rq, lq = shape(q)
-    if lp is not None and lq is not None and not (lp & lq):
-        return False
-    return seg_seg(a, b, c, d) < rp + rq + CLEAR + ROUTER_MARGIN
+            for cls, l, j, i in cells:
+                if cls == 'v':
+                    if any(self.cnt[('v', L)][j, i] - own[('v', L)][j, i] > 0 for L in self.g.layers):
+                        bad.setdefault(net, []).append(('v', j, i))
+                else:
+                    L = ROUTE_LAYERS[l]
+                    if self.cnt[(cls, L)][j, i] - own[(cls, L)][j, i] > 0:
+                        bad.setdefault(net, []).append((L, j, i))
+        return bad
 
 
 def main() -> int:
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     ap.add_argument('--geometry', type=Path, required=True)
     ap.add_argument('--out', type=Path, required=True)
-    ap.add_argument('--seed', type=int, default=0, help='0: nets by span; otherwise a seeded shuffle of the net order')
+    ap.add_argument('--seed', type=int, default=0, help='0: nets by span; otherwise a seeded shuffle of the first-pass order')
     a = ap.parse_args()
     geo = json.loads(a.geometry.read_text())
     counts = {}
     for p in geo['pads']:
         if p['net']:
             counts[p['net']] = counts.get(p['net'], 0) + 1
-    stubs = [f"stub:{p['ref']}.{p['pad']}" for p in geo['pads'] if p['net'] == GND and not p['drill']]
 
     def span(n):
         pts = np.array([p['at'] for p in geo['pads'] if p['net'] == n])
         return float(np.ptp(pts[:, 0]) + np.ptp(pts[:, 1]))
     nets = sorted((n for n, c in counts.items() if c > 1 and n != GND), key=lambda n: (span(n), n))
-    order = stubs + nets
     if a.seed:
         import random
-        rnd = random.Random(a.seed)
-        rnd.shuffle(nets)
-        order = stubs + nets
-    from collections import Counter, deque
+        random.Random(a.seed).shuffle(nets)
+    esc = {p['net'] for p in geo['pads'] if p['ref'] in ESCAPE_PARTS}
+    order = [n for n in nets if n in esc] + [GND] + [n for n in nets if n not in esc]
     r = Router(geo)
-    queue = deque(order)
-    rips = Counter()
-    log = []
+    history = []
+    todo = list(order)
     fails = []
-    while queue:
-        item = queue.popleft()
-        f = r.route(item)
-        if not f:
-            continue
-        r.remove({item})
-        victims = r.blockers(item)
-        if not victims or any(rips[v] >= MAX_RIPS for v in victims):
-            fails += f
-            log.append({'item': item, 'result': 'failed', 'blockers': sorted(victims or [])})
-            print(f'FAIL {item}: {f} blockers {sorted(victims or [])}', file=sys.stderr)
-            continue
-        r.remove(victims)
-        for v in sorted(victims):
-            rips[v] += 1
-        f = r.route(item)
-        log.append({'item': item, 'result': 'ripped', 'victims': sorted(victims), 'rerouted': not f})
-        print(f'rip {sorted(victims)} for {item}: {"ok" if not f else f}', file=sys.stderr)
-        if f:
-            r.remove({item})
-            queue.append(item)
-            rips[item] += 1
-            if rips[item] > MAX_RIPS:
-                fails += f
-                queue.remove(item)
-        queue.extend(sorted(victims))
-    history = log
+    for it in range(MAX_ITER):
+        fails = []
+        for n in todo:
+            fails += r.route(n)
+        bad = r.conflicts()
+        ncells = sum(len(v) for v in bad.values())
+        history.append({'iteration': it, 'present': round(r.pres, 3), 'conflict_cells': ncells,
+                        'conflict_nets': sorted(bad), 'unroutable': fails})
+        print(f'iter {it}: pres {r.pres:.2f} conflicts {ncells} in {sorted(bad)} fails {fails}', file=sys.stderr, flush=True)
+        if not bad and not fails:
+            break
+        for net, cells in bad.items():
+            for L, j, i in cells:
+                if L == 'v':
+                    r.hist_via[j, i] += HIST_INC
+                else:
+                    r.hist[L][j, i] += HIST_INC
+        r.pres *= PRES_MULT
+        todo = [n for n in order if n in bad] or list(order)
+    bad = r.conflicts()
+    tracks = [t for n in order for t in r.tracks.get(n, [])]
+    vias = [v for n in order for v in r.vias.get(n, [])]
+    failures = fails + [f'{n}: {len(c)} cells in conflict' for n, c in sorted(bad.items())]
     out = {'generator': 'scripts/a7_route.py', 'seed': a.seed, 'pitch_mm': PITCH, 'router_margin_mm': ROUTER_MARGIN,
            'widths_mm': {'signal': W_SIGNAL, 'power': W_POWER}, 'via': {'size': VIA_D, 'drill': VIA_DRILL},
-           'order': order, 'rip_log': history, 'tracks': r.tracks, 'vias': r.vias, 'failures': fails}
+           'order': order, 'history': history, 'tracks': tracks, 'vias': vias, 'failures': failures}
     a.out.write_text(json.dumps(out, indent=0) + '\n')
-    print(json.dumps({'tracks': len(r.tracks), 'vias': len(r.vias), 'failures': fails}, indent=1))
-    return 1 if fails else 0
+    print(json.dumps({'tracks': len(tracks), 'vias': len(vias), 'failures': failures}, indent=1))
+    return 1 if failures else 0
 
 
 if __name__ == '__main__':

@@ -43,8 +43,8 @@ A7 は [#15](https://github.com/Takazudo/zudo-led-block/issues/15) で追跡し�
 |---|---|---|
 | R1 部品と寸法の検討 | [#16](https://github.com/Takazudo/zudo-led-block/issues/16) | **完了** (PR #23)。[A7 部品と寸法の検討](/docs/research/a7-parts-and-dimensions/) |
 | R2 機構モデルと前面アートワーク | [#17](https://github.com/Takazudo/zudo-led-block/issues/17) | **デジタルモデルが `main` に入った** (PR [#25](https://github.com/Takazudo/zudo-led-block/pull/25)、ハーネス経路の修正は PR [#27](https://github.com/Takazudo/zudo-led-block/pull/27))。暫定のデジタル検討で、実測の適合ではない。#17 は開いたまま |
-| R3 ネイティブ検証の基盤 | [#18](https://github.com/Takazudo/zudo-led-block/issues/18) | **完了** (PR #22)。A7 の基板がまだ無いため、A7 のゲートは `NO_CANDIDATE` で止まる。フィクスチャでの合格は検証機構の確認で、A7 基板の合格ではない |
-| R4 回路図・配置・配線 | [#19](https://github.com/Takazudo/zudo-led-block/issues/19) | **回路図だけ完了** (PR [#24](https://github.com/Takazudo/zudo-led-block/pull/24)、独立した電気レビュー済み、状態 `SCHEMATIC_REVIEWED`)。`main` に A7 の基板は無く、A7 のゲートは `NO_CANDIDATE` のまま。配置・配線は **作業中** (配置はローカルで完了、自動配線中、PR はまだ無い) |
+| R3 ネイティブ検証の基盤 | [#18](https://github.com/Takazudo/zudo-led-block/issues/18) | **完了** (PR #22)。A7 の基板が無い間、A7 のゲートは `NO_CANDIDATE` で止まっていた。フィクスチャでの合格は検証機構の確認で、A7 基板の合格ではない |
+| R4 回路図・配置・配線 | [#19](https://github.com/Takazudo/zudo-led-block/issues/19) | **回路図だけ完了** (PR [#24](https://github.com/Takazudo/zudo-led-block/pull/24)、独立した電気レビュー済み、状態 `SCHEMATIC_REVIEWED`)。配置・配線は **ドラフト PR [#30](https://github.com/Takazudo/zudo-led-block/pull/30) で配線済み・独立レビュー待ち**。そのブランチでは A7 のゲートが配線済みの基板を `candidate` として `PASS` (DRC 0・未接続 0・パリティ 0・ゾーン再充填一致・再生成保存・負の対照すべて検出)。ビア 0.5/0.2 mm は JLCPCB の公開能力に基づく A7 の設計ルール差分。`main` にはまだ A7 の基板は無く、`main` のゲートは `NO_CANDIDATE` |
 | R5 ドキュメントと引継ぎ | [#20](https://github.com/Takazudo/zudo-led-block/issues/20) | このページ。R4 の配線が入ったら再更新 |
 
 A5 の部品証跡カタログ (30 型番) は PR #21 で入りました。メーカー資料を取得できなかった項目のため [#9](https://github.com/Takazudo/zudo-led-block/issues/9) は開いたままです。

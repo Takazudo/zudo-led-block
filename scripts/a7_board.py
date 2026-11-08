@@ -10,7 +10,12 @@ Commands:
   place [--check]                 deterministic courtyard packer -> engineering/a7/electronics/controller/placement.json
   check                           courtyard overlap, keep-out and side rules for the committed placement
   build --out DIR --netlist N     (pinned KiCad image) unrouted staging board + Specctra DSN, in an empty DIR outside the repo
-  import-ses --board B --ses S    (pinned KiCad image) apply a Freerouting session to a staging board, refill zones
+  apply --board B --routes R      (pinned KiCad image) add a7_route.py tracks/vias and GND pours to a staging board, refill
+  regen-check --raw RAW           normal regeneration --check (schematic, footprints, seed placement) plus the
+                                  board placement export --check against fresh native facts in RAW/a7_controller
+
+Board flow (all outside the repository until the result passes DRC): build -> scripts/a7_route.py -> apply,
+then the reviewed staging board is copied to the authoritative controller.kicad_pcb.
 """
 from __future__ import annotations
 
@@ -28,6 +33,8 @@ import a7_electronics as a7  # noqa: E402
 sys.path.pop(0)
 
 PLACEMENT = a7.A7_CTRL / 'placement.json'
+BOARD = a7.A7_CTRL / 'controller.kicad_pcb'
+BOARD_EXPORT = a7.A7_CTRL / 'board_placement.json'
 W, H = 16.2, 62.9
 ENVELOPES = 'engineering/a7/mechanical/placement-envelopes.json (R2, merged in #27)'
 
@@ -64,7 +71,7 @@ CONNECTOR_REFS = set(FIXED)
 
 # Solder face: only 0603 resistors (0.55 mm) and flat test pads, inside R2's 0.6 mm low-profile zone.
 B_ALLOWED = {'R0603', 'TESTPAD'}
-VIA_FIELDS = ('U1',)
+VIA_FIELDS = ('U1', 'U5')
 GAP = 0.15
 
 # Component-face placement, hand-packed by function into the regions R2's keep-outs leave free:
@@ -169,7 +176,7 @@ def pack() -> dict:
     # THT pads of the jacks and J5 pass through: block a small square on the back around each
     for r in ('J1', 'J2', 'J5'):
         occupied['B'].append(footprint_rect(comps[r], placement[r]))
-    # keep the solder face under the MCU free: its fan-out vias need that area
+    # keep the solder face under the fine-pitch parts free: their fan-out vias need that area
     for r in VIA_FIELDS:
         x1, y1, x2, y2 = footprint_rect(comps[r], placement[r])
         blocks['B'].append((x1 - 0.3, y1 - 0.3, x2 + 0.3, y2 + 0.3))
@@ -397,9 +404,31 @@ def cmd_apply(pcb: Path, routes: Path) -> int:
     p.ZONE_FILLER(board).Fill(board.Zones())
     board.BuildConnectivity()
     p.SaveBoard(str(pcb), board)
+    # a fill computed before the first save differs from a load-then-refill by a few vertices; settle it
+    board = p.LoadBoard(str(pcb))
+    p.ZONE_FILLER(board).Fill(board.Zones())
+    board.BuildConnectivity()
+    p.SaveBoard(str(pcb), board)
     print(json.dumps({'board': str(pcb), 'tracks': len(r['tracks']), 'vias': len(r['vias']),
                       'unconnected_pcbnew': board.GetConnectivity().GetUnconnectedCount(True)}))
     return 0
+
+
+def cmd_regen_check(raw: Path) -> int:
+    import subprocess
+    py = sys.executable
+    facts = raw / 'a7_controller'
+    steps = [[py, 'scripts/a7_electronics.py', 'generate', '--check'],
+             [py, 'scripts/a7_board.py', 'place', '--check'],
+             [py, 'scripts/native_gate/authority.py', 'export-placement', '--check', '--board', str(BOARD.relative_to(REPO)),
+              '--facts', str(facts / 'board_facts.json'), '--geometry', str(facts / 'board_geometry.json'),
+              '--out', str(BOARD_EXPORT.relative_to(REPO))]]
+    code = 0
+    for c in steps:
+        r = subprocess.run(c, cwd=REPO, capture_output=True, text=True)
+        print(f"{' '.join(c[1:3])}: exit {r.returncode} {(r.stdout + r.stderr).strip()[-300:]}")
+        code = code or r.returncode
+    return code
 
 
 def main() -> int:
@@ -413,7 +442,10 @@ def main() -> int:
     ac = sp.add_parser('apply')
     ac.add_argument('--board', type=Path, required=True)
     ac.add_argument('--routes', type=Path, required=True)
+    sp.add_parser('regen-check').add_argument('--raw', type=Path, required=True)
     a = ap.parse_args()
+    if a.cmd == 'regen-check':
+        return cmd_regen_check(a.raw)
     if a.cmd in ('build', 'apply'):
         try:
             return cmd_build(a.out, a.netlist) if a.cmd == 'build' else cmd_apply(a.board, a.routes)
