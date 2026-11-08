@@ -57,6 +57,24 @@
       "printed_page_label": "n/a (XML netlist)",
       "locator": "engineering/a5/integration/native_schematic/power_adapter/netlist.xml, components section rows for J2 and the matching nets section nodes",
       "evidence_extract": "J2: value=PWR CABLE - / G / +, footprint=LightBlock:PICO3, symbol=LightBlock:PWR3, pin 1 1=/-12V_RAW, pin 2 2=/GND, pin 3 3=/+12V_RAW. Historical A5 design state only; not fresh A6 state and not as-built verification."
+    },
+    {
+      "source_id": "src-530470310-sd",
+      "record_id": "rec-molex-530470310",
+      "document_title": "Molex 530470310 sales drawing (title as recorded by A5); not acquired",
+      "document_number": "SD-53047-*",
+      "revision": "unknown (not acquired)",
+      "document_date": "unknown (not acquired)",
+      "authoritative_url": "https://www.molex.com/content/dam/molex/molex-dot-com/products/automated/en-us/salesdrawingpdf/530/53047/530470310_sd.pdf",
+      "alternate_authoritative_url": "",
+      "retrieval_date": "2026-11-08",
+      "authority_class": "MANUFACTURER_PRIMARY",
+      "sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+      "availability": "SOURCE UNAVAILABLE",
+      "physical_pdf_page_index": 0,
+      "printed_page_label": "n/a (not acquired)",
+      "locator": "intended: sales drawing title block (part number 530470310), circuit numbering figure and specification notes section; not inspected",
+      "evidence_extract": "SOURCE UNAVAILABLE on 2026-11-08. Attempted: https://www.molex.com/content/dam/molex/molex-dot-com/products/automated/en-us/salesdrawingpdf/530/53047/530470310_sd.pdf over HTTP/2 (curl error 92, stream INTERNAL_ERROR) and over HTTP/1.1 (curl error 52, empty reply); no PDF bytes received. A5 recorded sha256 76d2a5817a01b47f4b35c0b4078d874834f1f9c233bde42d9a819ead173929c7 (2026-11-06) for https://www.molex.com/content/dam/molex/molex-dot-com/products/automated/en-us/salesdrawingpdf/530/53047/530470310_sd.pdf; no bytes inspected now, so no comparison is possible and no value is taken from A5 notes or memory."
     }
   ]
 }

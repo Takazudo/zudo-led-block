@@ -13,7 +13,8 @@
       "package": "SOT-23",
       "source_ids": [
         "src-mmbt3904-range-100-300-a5-jlcpcb-snapshot",
-        "src-mmbt3904-range-100-300-a5-netlist-controller"
+        "src-mmbt3904-range-100-300-a5-netlist-controller",
+        "src-mmbt3904-range-100-300-ds-p0"
       ],
       "fact_ids": [
         "fact-mmbt3904-range-100-300-manufacturer",
@@ -21,13 +22,17 @@
         "fact-mmbt3904-range-100-300-a5-placements",
         "fact-mmbt3904-range-100-300-pinout",
         "fact-mmbt3904-range-100-300-ratings",
-        "fact-mmbt3904-range-100-300-cad-state"
+        "fact-mmbt3904-range-100-300-cad-state",
+        "fact-mmbt3904-range-100-300-orderable",
+        "fact-mmbt3904-range-100-300-collector-current",
+        "fact-mmbt3904-range-100-300-emitter-base-voltage",
+        "fact-mmbt3904-range-100-300-hfe",
+        "fact-mmbt3904-range-100-300-vce-sat",
+        "fact-mmbt3904-range-100-300-junction-temperature"
       ],
       "interaction_ids": [],
       "open_domains": [
         "identity",
-        "pinout",
-        "electrical-ratings",
         "placement",
         "cad-assets"
       ]

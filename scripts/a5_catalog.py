@@ -58,6 +58,17 @@ EXPECTED = {
 REQUIRED_FITTED = {"C52917434": "WS2812B-2020-V6", "C140331": "TPS2552DBVR-1"}
 FORBIDDEN_FITTED_MPNS = ("WS2812B-MINI-V6", "TPS2553DBVR-1")
 ZERO = "0" * 64
+# Lines of a later revision (e.g. A7) share the catalog but are not part of the A5 reconciliation.
+REVISION_LINE = re.compile(r"^line-(a\d+)-")
+
+
+def line_revision(line) -> str:
+    match = REVISION_LINE.match(line["line_id"])
+    return match.group(1) if match and match.group(1) != "a5" else "a5"
+
+
+def other_revision_lines(inventory):
+    return [line for line in inventory["lines"] if line_revision(line) != "a5"]
 
 
 def sha256_bytes(data: bytes) -> str:
@@ -683,8 +694,9 @@ def document_exception_reason(sources) -> str:
 
 def propose_selection(report):
     record_ids, source_ids, linkable, selections, exceptions = [], [], [], [], []
-    for identity in report["identities"]:
-        bundle = load_bundle(identity["owner_skill"])
+
+    def add_record(owner):
+        bundle = load_bundle(owner)
         record = bundle["manifest"]["records"][0]
         sources = bundle["sources"]["sources"]
         record_ids.append(record["record_id"])
@@ -699,6 +711,11 @@ def propose_selection(report):
             selections.append({"recordId": record["record_id"], "sourceId": chosen["source_id"], "documentKind": kind})
         else:
             exceptions.append({"recordId": record["record_id"], "reason": document_exception_reason(sources)})
+
+    for identity in report["identities"]:
+        add_record(identity["owner_skill"])
+    for line in sorted(other_revision_lines(load_json(INVENTORY)), key=lambda x: x["line_id"]):
+        add_record(line["owner_skill"])
     rules = load_json(SKILLS / "circuit-spec-integration" / "references" / "rules.json")["rules"]
     return {
         "schema_version": 1,
@@ -752,7 +769,15 @@ def catalog_problems():
     inputs_by_path = {item["path"]: item["sha256"] for item in report["inputs"]}
 
     inventory = load_json(INVENTORY)
-    lines = inventory["lines"]
+    others = other_revision_lines(inventory)
+    other_ids = {line["line_id"] for line in others}
+    lines = [line for line in inventory["lines"] if line["line_id"] not in other_ids]
+    for line in others:
+        prefix = f"component-{line_revision(line)}-"
+        if not line["owner_skill"].startswith(prefix):
+            problems.append(f"inventory {line['line_id']}: {line_revision(line).upper()} line owner {line['owner_skill']} must start with {prefix}")
+        if not (SKILLS / line["owner_skill"]).is_dir():
+            problems.append(f"inventory {line['line_id']}: owner bundle {line['owner_skill']} missing")
     codes = [line["lcsc"] for line in lines]
     for code, count in Counter(codes).items():
         if count > 1:
@@ -781,15 +806,19 @@ def catalog_problems():
         if suppliers != {("JLCPCB", code), ("LCSC", code)}:
             problems.append(f"inventory {code}: supplier order codes {sorted(suppliers)}")
     totals = report["totals"]
-    expected_assertions = {"orderable_lines": totals["identities"], "fitted_lines": totals["identities"], "dnp_or_hand_fit_lines": 0,
-                           "fitted_placements": totals["unique_placements"], "dnp_placements": 0}
+    fitted_others = [line for line in others if not line["dnp"]]
+    expected_assertions = {"orderable_lines": totals["identities"] + len(others),
+                           "fitted_lines": totals["identities"] + len(fitted_others),
+                           "dnp_or_hand_fit_lines": len(others) - len(fitted_others),
+                           "fitted_placements": totals["unique_placements"] + sum(len(x["placements"]) for x in fitted_others),
+                           "dnp_placements": sum(len(x["placements"]) for x in others if x["dnp"])}
     if inventory["assertions"] != expected_assertions:
         problems.append(f"inventory assertions {inventory['assertions']} != {expected_assertions}")
     excluded = {(x["board"], x["refdes"]) for x in report["excluded_from_counts"]["netlist_items_without_identity"]}
     if {(x["board"], x["refdes"]) for x in inventory["exclusions"]} != excluded:
         problems.append("inventory exclusions differ from the reconciled test-pad exclusions")
 
-    owners = {i["owner_skill"] for i in identities.values()}
+    owners = {i["owner_skill"] for i in identities.values()} | {line["owner_skill"] for line in others}
     for directory in sorted(SKILLS.glob("component-*")):
         if directory.name not in owners and directory.name != "component-spec-audit":
             problems.append(f"bundle {directory.name}: not a reconciled fitted identity")
@@ -845,15 +874,15 @@ def catalog_problems():
                     problems.append(f"{owner}: {fact['fact_id']} PASS without an available manufacturer-primary source")
 
     routing = load_json(DIRECT_ROUTING)
-    if sorted(case["line_id"] for case in routing["cases"]) != sorted(i["line_id"] for i in identities.values()):
+    if sorted(case["line_id"] for case in routing["cases"] if case["line_id"] not in other_ids) != sorted(i["line_id"] for i in identities.values()):
         problems.append("direct routing: cases differ from the reconciled lines")
 
     selection = load_json(SELECTION)
     proposed = propose_selection(report)
     if dump(selection) != dump(proposed):
         problems.append("circuit/publication/selection.json differs from the evidence-derived selection (run `python3 scripts/a5_catalog.py selection`)")
-    if selection["expect"]["records"] != totals["identities"]:
-        problems.append("selection: expect.records must equal the reconciled identity count")
+    if selection["expect"]["records"] != totals["identities"] + len(others):
+        problems.append("selection: expect.records must equal the reconciled A5 identity count plus later-revision lines")
 
     bom = (ROOT / "doc" / "src" / "content" / "docs" / "architecture" / "bom.mdx").read_text(encoding="utf-8")
     for code in identities:
@@ -885,6 +914,8 @@ def cmd_sync_states(args) -> int:
     inventory = load_json(INVENTORY)
     changed = []
     for line in inventory["lines"]:
+        if not (SKILLS / line["owner_skill"]).is_dir():
+            continue
         identity_state, source_state = evidence_states(line["owner_skill"])
         if (line["identity_state"], line["source_state"]) != (identity_state, source_state):
             changed.append(f"{line['line_id']}: {line['identity_state']}/{line['source_state']} -> {identity_state}/{source_state}")
@@ -905,6 +936,9 @@ def cmd_check(args) -> int:
     print(f"PASS: A5 catalog consistency: {t['identities']} fitted identities = inventory lines = owner bundles = published records; "
           f"{t['unique_placements']} declared placements (59/10/2), {t['physical_pieces']} fitted pieces with the LED-leaf x2 multiplier; "
           "pin maps equal the historical A5 netlist projection; selection equals the evidence-derived selection")
+    others = other_revision_lines(load_json(INVENTORY))
+    if others:
+        print(f"SCOPE: {len(others)} later-revision line(s) ({', '.join(sorted({line_revision(x).upper() for x in others}))}) are catalogued outside the A5 reconciliation and are not checked against it")
     print("SCOPE: placements and pin maps are historical A5 netlist projections (manual provider, no schematic binding; CAD disabled)")
     return 0
 

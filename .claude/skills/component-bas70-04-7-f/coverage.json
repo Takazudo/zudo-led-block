@@ -5,22 +5,21 @@
       "coverage_id": "cov-bas70-04-7-f-identity",
       "record_id": "rec-bas70-04-7-f",
       "domain": "identity",
-      "status": "OPEN",
-      "reason": "fact-bas70-04-7-f-manufacturer remains UNSOURCED: only distributor identity is retained; no manufacturer-primary document inspected",
+      "status": "COVERED",
+      "reason": "manufacturer and the exact orderable BAS70-04-7-F are confirmed by Diodes DS11007 Rev. 27 - 2 (title block, Ordering Information table); distributor identity agrees",
       "fact_ids": [
         "fact-bas70-04-7-f-manufacturer",
+        "fact-bas70-04-7-f-orderable",
         "fact-bas70-04-7-f-distributor-identity"
       ],
-      "blocking_fact_ids": [
-        "fact-bas70-04-7-f-manufacturer"
-      ]
+      "blocking_fact_ids": []
     },
     {
       "coverage_id": "cov-bas70-04-7-f-pinout",
       "record_id": "rec-bas70-04-7-f",
       "domain": "pinout",
       "status": "OPEN",
-      "reason": "fact-bas70-04-7-f-pinout remains UNSOURCED: the pin map is projected from the historical A5 netlist and has not been checked against a manufacturer document",
+      "reason": "fact-bas70-04-7-f-pinout remains UNSOURCED: DS11007 shows the BAS70-04 series topology but prints no pin numbers, so the pin-number mapping of the project pin map is not confirmed by a manufacturer document",
       "fact_ids": [
         "fact-bas70-04-7-f-pinout"
       ],
@@ -32,14 +31,16 @@
       "coverage_id": "cov-bas70-04-7-f-ratings",
       "record_id": "rec-bas70-04-7-f",
       "domain": "electrical-ratings",
-      "status": "OPEN",
-      "reason": "fact-bas70-04-7-f-ratings remains UNSOURCED: no manufacturer limits retained",
+      "status": "COVERED",
+      "reason": "reverse voltage, forward current, forward voltage, reverse current and junction temperature limits are read from DS11007 Rev. 27 - 2 page 2 tables",
       "fact_ids": [
-        "fact-bas70-04-7-f-ratings"
+        "fact-bas70-04-7-f-ratings",
+        "fact-bas70-04-7-f-forward-current",
+        "fact-bas70-04-7-f-forward-voltage",
+        "fact-bas70-04-7-f-reverse-current",
+        "fact-bas70-04-7-f-junction-temperature"
       ],
-      "blocking_fact_ids": [
-        "fact-bas70-04-7-f-ratings"
-      ]
+      "blocking_fact_ids": []
     },
     {
       "coverage_id": "cov-bas70-04-7-f-placement",

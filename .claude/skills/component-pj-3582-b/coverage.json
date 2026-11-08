@@ -6,13 +6,15 @@
       "record_id": "rec-pj-3582-b",
       "domain": "identity",
       "status": "OPEN",
-      "reason": "fact-pj-3582-b-manufacturer remains UNSOURCED: only distributor identity is retained; no manufacturer-primary document inspected",
+      "reason": "manufacturer and orderable facts remain UNSOURCED: the only drawing is a lower-authority distributor-hosted mirror (datasheet.lcsc.com), and its title block names XKB INDUSTRIAL PRECISION CO.,LIMITED",
       "fact_ids": [
         "fact-pj-3582-b-manufacturer",
+        "fact-pj-3582-b-orderable",
         "fact-pj-3582-b-distributor-identity"
       ],
       "blocking_fact_ids": [
-        "fact-pj-3582-b-manufacturer"
+        "fact-pj-3582-b-manufacturer",
+        "fact-pj-3582-b-orderable"
       ]
     },
     {
@@ -20,7 +22,7 @@
       "record_id": "rec-pj-3582-b",
       "domain": "pinout",
       "status": "OPEN",
-      "reason": "fact-pj-3582-b-pinout remains UNSOURCED: the pin map is projected from the historical A5 netlist and has not been checked against a manufacturer document",
+      "reason": "fact-pj-3582-b-pinout remains UNSOURCED: terminal roles come only from the schematic graphic of a lower-authority mirror",
       "fact_ids": [
         "fact-pj-3582-b-pinout"
       ],
@@ -33,13 +35,26 @@
       "record_id": "rec-pj-3582-b",
       "domain": "electrical-ratings",
       "status": "OPEN",
-      "reason": "fact-pj-3582-b-ratings remains UNSOURCED: no manufacturer limits retained",
+      "reason": "fact-pj-3582-b-ratings remains UNSOURCED: the lower-authority mirror drawing prints no electrical rating",
       "fact_ids": [
         "fact-pj-3582-b-ratings"
       ],
       "blocking_fact_ids": [
         "fact-pj-3582-b-ratings"
       ]
+    },
+    {
+      "coverage_id": "cov-pj-3582-b-mechanical",
+      "record_id": "rec-pj-3582-b",
+      "domain": "mechanical-envelope",
+      "fact_ids": [
+        "fact-pj-3582-b-envelope"
+      ],
+      "blocking_fact_ids": [
+        "fact-pj-3582-b-envelope"
+      ],
+      "status": "OPEN",
+      "reason": "fact-pj-3582-b-envelope remains UNSOURCED: dimensions are read from a lower-authority distributor-hosted mirror of the XKB drawing"
     },
     {
       "coverage_id": "cov-pj-3582-b-placement",

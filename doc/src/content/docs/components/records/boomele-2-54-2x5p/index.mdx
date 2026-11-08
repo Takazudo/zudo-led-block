@@ -31,7 +31,7 @@ This record in the catalog: [2.54-2\*5P](/docs/components/catalog/#rec-boomele-2
 
 **Identity state:** UNRESOLVED
 
-**Source state:** AVAILABLE
+**Source state:** SOURCE UNAVAILABLE
 
 **Coverage:** 5 open of 5 published
 
@@ -43,7 +43,7 @@ This record in the catalog: [2.54-2\*5P](/docs/components/catalog/#rec-boomele-2
 
 **Selected document:** Document unavailable
 
-**Reason:** No manufacturer-primary document for this exact orderable is retained in the evidence. Reviewed: LCSC public product listing C5665 (DISTRIBUTOR\_IDENTITY, AVAILABLE); JLCPCB public product listing C5665 (A5 retained product-props snapshot, listing-title spelling) (DISTRIBUTOR\_IDENTITY, AVAILABLE). Distributor listings establish order identity only, and a distributor-hosted mirror is lower authority, so neither is published as a manufacturer document.
+**Reason:** No manufacturer-primary document for this exact orderable is retained in the evidence. Reviewed: LCSC public product listing C5665 (DISTRIBUTOR\_IDENTITY, AVAILABLE); JLCPCB public product listing C5665 (A5 retained product-props snapshot, listing-title spelling) (DISTRIBUTOR\_IDENTITY, AVAILABLE); BOOMELE 2.54-2\*5P box header drawing (distributor-hosted copy recorded by A5); not acquired (MANUFACTURER\_MIRROR, SOURCE UNAVAILABLE). Distributor listings establish order identity only, and a distributor-hosted mirror is lower authority, so neither is published as a manufacturer document.
 
 No footprint or 3D model is published for this record: CAD is not enabled for this project.
 
@@ -65,7 +65,7 @@ Coverage is stated one domain at a time and is never rolled up. A domain marked 
 
 **Coverage ID:** `cov-boomele-2-54-2x5p-identity` · **Status:** OPEN
 
-**Reason:** fact-boomele-2-54-2x5p-manufacturer remains UNSOURCED: only distributor identity is retained; no manufacturer-primary document inspected
+**Reason:** fact-boomele-2-54-2x5p-manufacturer remains UNSOURCED: no manufacturer-hosted document is known and the lower-authority distributor-hosted drawing returned HTML on 2026-11-08
 
 **Facts in this domain:**
 
@@ -82,7 +82,7 @@ Coverage is stated one domain at a time and is never rolled up. A domain marked 
 
 **Coverage ID:** `cov-boomele-2-54-2x5p-pinout` · **Status:** OPEN
 
-**Reason:** fact-boomele-2-54-2x5p-pinout remains UNSOURCED: the pin map is projected from the historical A5 netlist and has not been checked against a manufacturer document
+**Reason:** fact-boomele-2-54-2x5p-pinout remains UNSOURCED: no manufacturer document inspected, so the 2x5 numbering and key orientation are not checked
 
 **Facts in this domain:**
 
@@ -98,7 +98,7 @@ Coverage is stated one domain at a time and is never rolled up. A domain marked 
 
 **Coverage ID:** `cov-boomele-2-54-2x5p-ratings` · **Status:** OPEN
 
-**Reason:** fact-boomele-2-54-2x5p-ratings remains UNSOURCED: no manufacturer limits retained
+**Reason:** fact-boomele-2-54-2x5p-ratings remains UNSOURCED: no manufacturer document inspected
 
 **Facts in this domain:**
 
@@ -153,13 +153,13 @@ A never-exceed limit. Reaching it may damage the part; it is not an operating ta
 
   **Fact:** `fact-boomele-2-54-2x5p-ratings`
 
-  **Value:** manufacturer absolute-maximum and recommended operating limits · **Unit:** `NONE`
+  **Value:** manufacturer current and voltage rating · **Unit:** `NONE`
 
-  **Conditions:** no manufacturer document inspected yet; distributor listing is identity evidence only
+  **Conditions:** not read: no manufacturer document inspected; no value taken from A5 notes or memory
 
   **Verdict:** UNSOURCED · **Provenance:** UNVERIFIED
 
-  **Evidence:** [src-boomele-2-54-2x5p-lcsc-listing: product table row specification (identity only)](#src-boomele-2-54-2x5p-lcsc-listing)
+  **Evidence:** [src-boomele-2-54-2x5p-lcsc-drawing: intended specification table](#src-boomele-2-54-2x5p-lcsc-drawing)
 </EvidenceFact>
 
 ### PROJECT\_STATE
@@ -173,11 +173,11 @@ A value this project recorded about how the part is used here — a chosen opera
 
   **Value:** BOOMELE(Boom Precision Elec) · **Unit:** `NONE`
 
-  **Conditions:** exact orderable identity; distributor listing only, no manufacturer-primary document inspected yet
+  **Conditions:** no manufacturer-hosted document is known and the distributor-hosted drawing returned HTML on 2026-11-08; only distributor identity is retained
 
   **Verdict:** UNSOURCED · **Provenance:** UNVERIFIED
 
-  **Evidence:** [src-boomele-2-54-2x5p-lcsc-listing: product table row brand](#src-boomele-2-54-2x5p-lcsc-listing)
+  **Evidence:** [src-boomele-2-54-2x5p-lcsc-drawing: intended drawing title block](#src-boomele-2-54-2x5p-lcsc-drawing)
 </EvidenceFact>
 
 <EvidenceFact>
@@ -213,13 +213,13 @@ A value this project recorded about how the part is used here — a chosen opera
 
   **Fact:** `fact-boomele-2-54-2x5p-pinout`
 
-  **Value:** manufacturer pin numbering and pin functions for package Plugin,P=2.54mm · **Unit:** `NONE`
+  **Value:** manufacturer pin numbering for the 2x5 2.54 mm box header · **Unit:** `NONE`
 
-  **Conditions:** datasheet pin identity behind the project pin map; no manufacturer document inspected yet
+  **Conditions:** not checked: no manufacturer document inspected; the project pin map is a historical A5 netlist projection
 
   **Verdict:** UNSOURCED · **Provenance:** UNVERIFIED
 
-  **Evidence:** [src-boomele-2-54-2x5p-a5-netlist-power-adapter: libparts section pin rows for LightBlock:IDC](#src-boomele-2-54-2x5p-a5-netlist-power-adapter)
+  **Evidence:** [src-boomele-2-54-2x5p-lcsc-drawing: intended pin numbering figure](#src-boomele-2-54-2x5p-lcsc-drawing)
 </EvidenceFact>
 
 <EvidenceFact>
@@ -361,6 +361,26 @@ Every document cited above, with its identification, when it was retrieved, and 
 
 **Document URL:** [https://github.com/Takazudo/zudo-led-block/blob/d41cbb7fc61dc954b4affaf19527aa69f07013b6/engineering/a5/integration/native\_schematic/power\_adapter/netlist.xml](https://github.com/Takazudo/zudo-led-block/blob/d41cbb7fc61dc954b4affaf19527aa69f07013b6/engineering/a5/integration/native_schematic/power_adapter/netlist.xml)
 
+### BOOMELE 2.54-2\*5P box header drawing (distributor-hosted copy recorded by A5); not acquired
+
+<EvidenceAnchor id="src-boomele-2-54-2x5p-lcsc-drawing" />
+
+**Source ID:** `src-boomele-2-54-2x5p-lcsc-drawing` · **Authority:** MANUFACTURER\_MIRROR
+
+| Field           | Recorded value         |
+| --------------- | ---------------------- |
+| Document number | C5665 drawing          |
+| Revision        | unknown (not acquired) |
+| Document date   | unknown (not acquired) |
+| Retrieved       | 2026-11-08             |
+| Printed page    | n/a (not acquired)     |
+
+**Locator:** intended: drawing title block, 2x5 pin numbering figure and dimension table; not inspected
+
+**Availability:** SOURCE UNAVAILABLE
+
+**Document URL:** no link is published for this source
+
 ## Legend
 
 What the recorded terms on this page mean, in ordinary words. The exact terms above are the ones that count; these descriptions explain them and never replace them.
@@ -396,16 +416,18 @@ What the recorded terms on this page mean, in ordinary words. The exact terms ab
 
 ### Source availability
 
-| Recorded term | What it means                                |
-| ------------- | -------------------------------------------- |
-| `AVAILABLE`   | The document was retrieved and is on record. |
+| Recorded term        | What it means                                                                                                         |
+| -------------------- | --------------------------------------------------------------------------------------------------------------------- |
+| `AVAILABLE`          | The document was retrieved and is on record.                                                                          |
+| `SOURCE UNAVAILABLE` | The document could not be retrieved. It stays listed so the gap is visible; anything resting on it remains unsourced. |
 
 ### Source authority
 
-| Recorded term          | What it means                                                             |
-| ---------------------- | ------------------------------------------------------------------------- |
-| `DISTRIBUTOR_IDENTITY` | A distributor listing. Establishes which part this is, nothing more.      |
-| `PROJECT_GENERATOR`    | A document this project generated, such as a schematic or netlist export. |
+| Recorded term          | What it means                                                                                            |
+| ---------------------- | -------------------------------------------------------------------------------------------------------- |
+| `DISTRIBUTOR_IDENTITY` | A distributor listing. Establishes which part this is, nothing more.                                     |
+| `MANUFACTURER_MIRROR`  | A copy of a manufacturer document hosted elsewhere. Usable, but weaker than the manufacturer's own copy. |
+| `PROJECT_GENERATOR`    | A document this project generated, such as a schematic or netlist export.                                |
 
 ### Identity state
 
@@ -415,9 +437,9 @@ What the recorded terms on this page mean, in ordinary words. The exact terms ab
 
 ### Source state
 
-| Recorded term | What it means                                          |
-| ------------- | ------------------------------------------------------ |
-| `AVAILABLE`   | At least one document backing this line was retrieved. |
+| Recorded term        | What it means                                     |
+| -------------------- | ------------------------------------------------- |
+| `SOURCE UNAVAILABLE` | No document backing this line could be retrieved. |
 
 ### Unit
 

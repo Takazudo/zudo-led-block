@@ -57,6 +57,24 @@
       "printed_page_label": "n/a (XML netlist)",
       "locator": "engineering/a5/integration/native_schematic/led_leaf/netlist.xml, components section rows for J1, J2 and the matching nets section nodes",
       "evidence_extract": "J1: value=INPUT G / 5 / THIS / OTHER, footprint=LightBlock:JST_SH4, symbol=LightBlock:SH4, pin 1 GND=/GND, pin 2 VLED=/VLED, pin 3 DATA_A=/DATA_IN, pin 4 DATA_B=/DATA_OTHER; J2: value=BRIDGE G / 5 / OTHER / THIS, footprint=LightBlock:JST_SH4, symbol=LightBlock:SH4, pin 1 GND=/GND, pin 2 VLED=/VLED, pin 3 DATA_A=/DATA_OTHER, pin 4 DATA_B=/DATA_IN. Historical A5 design state only; not fresh A6 state and not as-built verification."
+    },
+    {
+      "source_id": "src-sm04b-srss-tb-lf-sn-sh-catalog",
+      "record_id": "rec-sm04b-srss-tb-lf-sn",
+      "document_title": "JST SH connector catalog (eSH.pdf, title as recorded by A5); not acquired",
+      "document_number": "eSH",
+      "revision": "unknown (not acquired)",
+      "document_date": "unknown (not acquired)",
+      "authoritative_url": "https://www.jst-mfg.com/product/pdf/eng/eSH.pdf",
+      "alternate_authoritative_url": "",
+      "retrieval_date": "2026-11-08",
+      "authority_class": "MANUFACTURER_PRIMARY",
+      "sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+      "availability": "SOURCE UNAVAILABLE",
+      "physical_pdf_page_index": 0,
+      "printed_page_label": "n/a (not acquired)",
+      "locator": "intended: SH catalog specifications table, SM04B-SRSS-TB part-number row and side-entry header figure; not inspected",
+      "evidence_extract": "SOURCE UNAVAILABLE on 2026-11-08. Attempted: https://www.jst-mfg.com/product/pdf/eng/eSH.pdf (HTTP 403, Content-Type text/html; no PDF bytes received). A5 recorded sha256 ea3071ca5ee5a6069eba534fa39a10f34c9fb742ee42135a69ab4156bfa0f5de (2026-11-06) for https://www.jst-mfg.com/product/pdf/eng/eSH.pdf; no bytes inspected now, so no comparison is possible and no value is taken from A5 notes or memory."
     }
   ]
 }

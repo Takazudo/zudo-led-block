@@ -39,6 +39,24 @@
       "printed_page_label": "n/a (XML netlist)",
       "locator": "engineering/a5/integration/native_schematic/controller/netlist.xml, components section rows for D1, D2 and the matching nets section nodes",
       "evidence_extract": "D1: value=PMEG4010 +rail, footprint=LightBlock:SOD323F, symbol=LightBlock:RECT, pin 1 K=/+12V_PROT, pin 2 A=/+12V_RAW; D2: value=PMEG4010 -rail, footprint=LightBlock:SOD323F, symbol=LightBlock:RECT, pin 1 K=/-12V_RAW, pin 2 A=/-12V_PROT. Historical A5 design state only; not fresh A6 state and not as-built verification."
+    },
+    {
+      "source_id": "src-pmeg4010cej-115-ds",
+      "record_id": "rec-pmeg4010cej-115",
+      "document_title": "Nexperia PMEG4010CEJ datasheet (title as implied by the A5 URL); not acquired",
+      "document_number": "PMEG4010CEJ",
+      "revision": "unknown (not acquired)",
+      "document_date": "unknown (not acquired)",
+      "authoritative_url": "https://assets.nexperia.com/documents/data-sheet/PMEG4010CEJ.pdf",
+      "alternate_authoritative_url": "",
+      "retrieval_date": "2026-11-08",
+      "authority_class": "MANUFACTURER_PRIMARY",
+      "sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+      "availability": "SOURCE UNAVAILABLE",
+      "physical_pdf_page_index": 0,
+      "printed_page_label": "n/a (not acquired)",
+      "locator": "intended: Ordering information table row PMEG4010CEJ,115, Pinning information table (SOD323F) and Limiting values table; not inspected",
+      "evidence_extract": "SOURCE UNAVAILABLE on 2026-11-08. Attempted: https://assets.nexperia.com/documents/data-sheet/PMEG4010CEJ.pdf (HTTP 403 with a text/html body; no PDF bytes received). A5 recorded no sha256 for this URL (engineering/a5/electronics/source_provenance.json id PMEG4010 lists the URL and retrieval refs only, 2026-11-05/06); no bytes inspected now, so no comparison is possible and no value is taken from A5 notes or memory."
     }
   ]
 }

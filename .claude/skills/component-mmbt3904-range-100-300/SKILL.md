@@ -15,6 +15,7 @@ datasheet of another variant or same-name vendor data.
 - The pin map and placements are projected from the immutable historical A5 native netlists
   (`engineering/a5/integration/native_schematic/`). They are not fresh A6 design state, are not
   bound by the manual inventory provider, and are not as-built verification.
+- Primary document: JSCJ MMBT3904 SOT-23 datasheet Rev. 2.0, inspected 2026-11-08 from jscj-elec.com.
 - Catalog CAD is disabled (`cad.enabled = false`); the pin-asset check is SKIPPED.
 - A5 is not released for manufacture. Nothing here is hardware or manufacturing sign-off.
 

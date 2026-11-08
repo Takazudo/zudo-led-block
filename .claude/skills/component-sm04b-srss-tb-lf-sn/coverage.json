@@ -6,7 +6,7 @@
       "record_id": "rec-sm04b-srss-tb-lf-sn",
       "domain": "identity",
       "status": "OPEN",
-      "reason": "fact-sm04b-srss-tb-lf-sn-manufacturer remains UNSOURCED: only distributor identity is retained; no manufacturer-primary document inspected",
+      "reason": "fact-sm04b-srss-tb-lf-sn-manufacturer remains UNSOURCED: the JST SH catalog is SOURCE UNAVAILABLE (HTTP 403 on 2026-11-08); only distributor identity is retained",
       "fact_ids": [
         "fact-sm04b-srss-tb-lf-sn-manufacturer",
         "fact-sm04b-srss-tb-lf-sn-distributor-identity"
@@ -20,7 +20,7 @@
       "record_id": "rec-sm04b-srss-tb-lf-sn",
       "domain": "pinout",
       "status": "OPEN",
-      "reason": "fact-sm04b-srss-tb-lf-sn-pinout remains UNSOURCED: the pin map is projected from the historical A5 netlist and has not been checked against a manufacturer document",
+      "reason": "fact-sm04b-srss-tb-lf-sn-pinout remains UNSOURCED: the JST SH catalog is SOURCE UNAVAILABLE, so circuit numbering is not checked",
       "fact_ids": [
         "fact-sm04b-srss-tb-lf-sn-pinout"
       ],
@@ -33,7 +33,7 @@
       "record_id": "rec-sm04b-srss-tb-lf-sn",
       "domain": "electrical-ratings",
       "status": "OPEN",
-      "reason": "fact-sm04b-srss-tb-lf-sn-ratings remains UNSOURCED: no manufacturer limits retained",
+      "reason": "fact-sm04b-srss-tb-lf-sn-ratings remains UNSOURCED: the JST SH catalog is SOURCE UNAVAILABLE, so the current and voltage ratings are not recorded",
       "fact_ids": [
         "fact-sm04b-srss-tb-lf-sn-ratings"
       ],

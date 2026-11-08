@@ -29,11 +29,11 @@ This record in the catalog: [MMBT3904(RANGE:100-300)](/docs/components/catalog/#
 
 **Fit:** Fitted
 
-**Identity state:** UNRESOLVED
+**Identity state:** VERIFIED
 
 **Source state:** AVAILABLE
 
-**Coverage:** 5 open of 5 published
+**Coverage:** 3 open of 5 published
 
 ## Documents and package
 
@@ -41,9 +41,13 @@ This record in the catalog: [MMBT3904(RANGE:100-300)](/docs/components/catalog/#
 
 <EvidenceAnchor id="component-references" />
 
-**Selected document:** Document unavailable
+[Datasheet PDF](https://www.jscj-elec.com/gallery/file/MMBT3904%20SOT-23V2.pdf) — MMBT3904 SOT-23 Plastic-Encapsulate Transistors, TRANSISTOR (NPN)
 
-**Reason:** No manufacturer-primary document for this exact orderable is retained in the evidence. Reviewed: JLCPCB public product listing C20526 (A5 retained product-props snapshot) (DISTRIBUTOR\_IDENTITY, AVAILABLE). Distributor listings establish order identity only, and a distributor-hosted mirror is lower authority, so neither is published as a manufacturer document.
+**Selected source ID:** `src-mmbt3904-range-100-300-ds-p0`
+
+**Authority:** MANUFACTURER\_PRIMARY
+
+**Availability:** AVAILABLE
 
 No footprint or 3D model is published for this record: CAD is not enabled for this project.
 
@@ -65,30 +69,27 @@ Coverage is stated one domain at a time and is never rolled up. A domain marked 
 
 **Coverage ID:** `cov-mmbt3904-range-100-300-identity` · **Status:** OPEN
 
-**Reason:** fact-mmbt3904-range-100-300-manufacturer remains UNSOURCED: only distributor identity is retained; no manufacturer-primary document inspected
+**Reason:** fact-mmbt3904-range-100-300-orderable remains UNSOURCED: the JSCJ datasheet confirms the manufacturer and the MMBT3904 hFE 100-300 classification but has no ordering table naming MMBT3904(RANGE:100-300)
 
 **Facts in this domain:**
 
 - [`fact-mmbt3904-range-100-300-manufacturer`](#fact-mmbt3904-range-100-300-manufacturer)
+- [`fact-mmbt3904-range-100-300-orderable`](#fact-mmbt3904-range-100-300-orderable)
 - [`fact-mmbt3904-range-100-300-distributor-identity`](#fact-mmbt3904-range-100-300-distributor-identity)
 
 **Blocked by:** these facts must be resolved before the domain can close. Each is listed in full under Facts.
 
-- [`fact-mmbt3904-range-100-300-manufacturer`](#fact-mmbt3904-range-100-300-manufacturer)
+- [`fact-mmbt3904-range-100-300-orderable`](#fact-mmbt3904-range-100-300-orderable)
 
 ### pinout
 
 <EvidenceAnchor id="cov-mmbt3904-range-100-300-pinout" />
 
-**Coverage ID:** `cov-mmbt3904-range-100-300-pinout` · **Status:** OPEN
+**Coverage ID:** `cov-mmbt3904-range-100-300-pinout` · **Status:** COVERED
 
-**Reason:** fact-mmbt3904-range-100-300-pinout remains UNSOURCED: the pin map is projected from the historical A5 netlist and has not been checked against a manufacturer document
+**Reason:** pin legend 1 BASE, 2 EMITTER, 3 COLLECTOR from the JSCJ datasheet matches the project pin map
 
 **Facts in this domain:**
-
-- [`fact-mmbt3904-range-100-300-pinout`](#fact-mmbt3904-range-100-300-pinout)
-
-**Blocked by:** these facts must be resolved before the domain can close. Each is listed in full under Facts.
 
 - [`fact-mmbt3904-range-100-300-pinout`](#fact-mmbt3904-range-100-300-pinout)
 
@@ -96,17 +97,18 @@ Coverage is stated one domain at a time and is never rolled up. A domain marked 
 
 <EvidenceAnchor id="cov-mmbt3904-range-100-300-ratings" />
 
-**Coverage ID:** `cov-mmbt3904-range-100-300-ratings` · **Status:** OPEN
+**Coverage ID:** `cov-mmbt3904-range-100-300-ratings` · **Status:** COVERED
 
-**Reason:** fact-mmbt3904-range-100-300-ratings remains UNSOURCED: no manufacturer limits retained
+**Reason:** VCEO, VEBO, IC, hFE, VCE(sat) and temperature limits are read from the JSCJ MMBT3904 datasheet Rev. 2.0 page 1 tables
 
 **Facts in this domain:**
 
 - [`fact-mmbt3904-range-100-300-ratings`](#fact-mmbt3904-range-100-300-ratings)
-
-**Blocked by:** these facts must be resolved before the domain can close. Each is listed in full under Facts.
-
-- [`fact-mmbt3904-range-100-300-ratings`](#fact-mmbt3904-range-100-300-ratings)
+- [`fact-mmbt3904-range-100-300-collector-current`](#fact-mmbt3904-range-100-300-collector-current)
+- [`fact-mmbt3904-range-100-300-emitter-base-voltage`](#fact-mmbt3904-range-100-300-emitter-base-voltage)
+- [`fact-mmbt3904-range-100-300-hfe`](#fact-mmbt3904-range-100-300-hfe)
+- [`fact-mmbt3904-range-100-300-vce-sat`](#fact-mmbt3904-range-100-300-vce-sat)
+- [`fact-mmbt3904-range-100-300-junction-temperature`](#fact-mmbt3904-range-100-300-junction-temperature)
 
 ### placement
 
@@ -153,13 +155,87 @@ A never-exceed limit. Reaching it may damage the part; it is not an operating ta
 
   **Fact:** `fact-mmbt3904-range-100-300-ratings`
 
-  **Value:** manufacturer absolute-maximum and recommended operating limits · **Unit:** `NONE`
+  **Value:** 40 · **Unit:** `V`
 
-  **Conditions:** no manufacturer document inspected yet; distributor listing is identity evidence only
+  **Conditions:** VCEO collector-emitter voltage 40 V at Ta=25C; VCBO 60 V, VEBO 6 V
 
-  **Verdict:** UNSOURCED · **Provenance:** UNVERIFIED
+  **Verdict:** PASS - primary-source confirmed · **Provenance:** PRIMARY-SPEC
 
-  **Evidence:** [src-mmbt3904-range-100-300-a5-jlcpcb-snapshot: product table row specification (identity only)](#src-mmbt3904-range-100-300-a5-jlcpcb-snapshot)
+  **Evidence:** [src-mmbt3904-range-100-300-ds-p0: MAXIMUM RATINGS table row VCEO](#src-mmbt3904-range-100-300-ds-p0)
+</EvidenceFact>
+
+<EvidenceFact>
+  <EvidenceAnchor id="fact-mmbt3904-range-100-300-collector-current" />
+
+  **Fact:** `fact-mmbt3904-range-100-300-collector-current`
+
+  **Value:** 200 · **Unit:** `mA`
+
+  **Conditions:** IC collector current 200 mA at Ta=25C; PC 200 mW, RthJA 625 C/W
+
+  **Verdict:** PASS - primary-source confirmed · **Provenance:** PRIMARY-SPEC
+
+  **Evidence:** [src-mmbt3904-range-100-300-ds-p0: MAXIMUM RATINGS table row IC](#src-mmbt3904-range-100-300-ds-p0)
+</EvidenceFact>
+
+<EvidenceFact>
+  <EvidenceAnchor id="fact-mmbt3904-range-100-300-emitter-base-voltage" />
+
+  **Fact:** `fact-mmbt3904-range-100-300-emitter-base-voltage`
+
+  **Value:** 6 · **Unit:** `V`
+
+  **Conditions:** VEBO emitter-base voltage 6 V at Ta=25C
+
+  **Verdict:** PASS - primary-source confirmed · **Provenance:** PRIMARY-SPEC
+
+  **Evidence:** [src-mmbt3904-range-100-300-ds-p0: MAXIMUM RATINGS table row VEBO](#src-mmbt3904-range-100-300-ds-p0)
+</EvidenceFact>
+
+<EvidenceFact>
+  <EvidenceAnchor id="fact-mmbt3904-range-100-300-junction-temperature" />
+
+  **Fact:** `fact-mmbt3904-range-100-300-junction-temperature`
+
+  **Value:** -55 to +150 · **Unit:** `degC`
+
+  **Conditions:** TJ, Tstg operation junction and storage temperature range
+
+  **Verdict:** PASS - primary-source confirmed · **Provenance:** PRIMARY-SPEC
+
+  **Evidence:** [src-mmbt3904-range-100-300-ds-p0: MAXIMUM RATINGS table row TJ,Tstg](#src-mmbt3904-range-100-300-ds-p0)
+</EvidenceFact>
+
+### GUARANTEED\_ELECTRICAL
+
+A parameter the manufacturer guarantees over the stated conditions, usually with minimum, typical and maximum values.
+
+<EvidenceFact>
+  <EvidenceAnchor id="fact-mmbt3904-range-100-300-hfe" />
+
+  **Fact:** `fact-mmbt3904-range-100-300-hfe`
+
+  **Value:** 100 to 300 · **Unit:** `NONE`
+
+  **Conditions:** hFE(1) DC current gain min 100, max 300 at VCE=1V, IC=10mA, Ta=25C; hFE(2) min 60 at IC=50mA
+
+  **Verdict:** PASS - primary-source confirmed · **Provenance:** PRIMARY-SPEC
+
+  **Evidence:** [src-mmbt3904-range-100-300-ds-p0: ELECTRICAL CHARACTERISTICS table row hFE(1)](#src-mmbt3904-range-100-300-ds-p0)
+</EvidenceFact>
+
+<EvidenceFact>
+  <EvidenceAnchor id="fact-mmbt3904-range-100-300-vce-sat" />
+
+  **Fact:** `fact-mmbt3904-range-100-300-vce-sat`
+
+  **Value:** 0.3 · **Unit:** `V`
+
+  **Conditions:** VCE(sat) maximum 0.3 V at IC=50mA, IB=5mA, Ta=25C
+
+  **Verdict:** PASS - primary-source confirmed · **Provenance:** PRIMARY-SPEC
+
+  **Evidence:** [src-mmbt3904-range-100-300-ds-p0: ELECTRICAL CHARACTERISTICS table row VCE(sat)](#src-mmbt3904-range-100-300-ds-p0)
 </EvidenceFact>
 
 ### PROJECT\_STATE
@@ -173,11 +249,11 @@ A value this project recorded about how the part is used here — a chosen opera
 
   **Value:** Jiangsu Changjing Electronics Technology Co., Ltd. · **Unit:** `NONE`
 
-  **Conditions:** exact orderable identity; distributor listing only, no manufacturer-primary document inspected yet
+  **Conditions:** manufacturer-primary datasheet served from jscj-elec.com; printed form "JIANGSU CHANGJING ELECTRONICS TECHNOLOGY CO., LTD" in the title block
 
-  **Verdict:** UNSOURCED · **Provenance:** UNVERIFIED
+  **Verdict:** PASS - primary-source confirmed · **Provenance:** PRIMARY-SPEC
 
-  **Evidence:** [src-mmbt3904-range-100-300-a5-jlcpcb-snapshot: product table row brand](#src-mmbt3904-range-100-300-a5-jlcpcb-snapshot)
+  **Evidence:** [src-mmbt3904-range-100-300-ds-p0: page 1 title block](#src-mmbt3904-range-100-300-ds-p0)
 </EvidenceFact>
 
 <EvidenceFact>
@@ -213,13 +289,13 @@ A value this project recorded about how the part is used here — a chosen opera
 
   **Fact:** `fact-mmbt3904-range-100-300-pinout`
 
-  **Value:** manufacturer pin numbering and pin functions for package SOT-23 · **Unit:** `NONE`
+  **Value:** 1 BASE; 2 EMITTER; 3 COLLECTOR · **Unit:** `NONE`
 
-  **Conditions:** datasheet pin identity behind the project pin map; no manufacturer document inspected yet
+  **Conditions:** SOT-23 pin legend; matches project pin map by number and function (pin map: 1 B, 2 E, 3 C)
 
-  **Verdict:** UNSOURCED · **Provenance:** UNVERIFIED
+  **Verdict:** PASS - primary-source confirmed · **Provenance:** PRIMARY-SPEC
 
-  **Evidence:** [src-mmbt3904-range-100-300-a5-netlist-controller: libparts section pin rows for LightBlock:NPN](#src-mmbt3904-range-100-300-a5-netlist-controller)
+  **Evidence:** [src-mmbt3904-range-100-300-ds-p0: SOT-23 pin legend rows 1 to 3](#src-mmbt3904-range-100-300-ds-p0)
 </EvidenceFact>
 
 <EvidenceFact>
@@ -234,6 +310,20 @@ A value this project recorded about how the part is used here — a chosen opera
   **Verdict:** UNSOURCED · **Provenance:** PROJECT-CHOICE
 
   **Evidence:** [src-mmbt3904-range-100-300-a5-netlist-controller: components section footprint field](#src-mmbt3904-range-100-300-a5-netlist-controller)
+</EvidenceFact>
+
+<EvidenceFact>
+  <EvidenceAnchor id="fact-mmbt3904-range-100-300-orderable" />
+
+  **Fact:** `fact-mmbt3904-range-100-300-orderable`
+
+  **Value:** MMBT3904 SOT-23 with hFE(1) classification 100-300 (rank L 100-200, rank H 200-300) · **Unit:** `NONE`
+
+  **Conditions:** the document has no ordering table; the distributor orderable string MMBT3904(RANGE:100-300) is not printed as a part number, so the exact orderable is not established by this document
+
+  **Verdict:** UNSOURCED · **Provenance:** UNVERIFIED
+
+  **Evidence:** [src-mmbt3904-range-100-300-ds-p0: title block and CLASSIFICATION OF hFE(1) table](#src-mmbt3904-range-100-300-ds-p0)
 </EvidenceFact>
 
 ## Pin maps
@@ -314,6 +404,26 @@ Every document cited above, with its identification, when it was retrieved, and 
 
 **Document URL:** [https://github.com/Takazudo/zudo-led-block/blob/d41cbb7fc61dc954b4affaf19527aa69f07013b6/engineering/a5/integration/native\_schematic/controller/netlist.xml](https://github.com/Takazudo/zudo-led-block/blob/d41cbb7fc61dc954b4affaf19527aa69f07013b6/engineering/a5/integration/native_schematic/controller/netlist.xml)
 
+### MMBT3904 SOT-23 Plastic-Encapsulate Transistors, TRANSISTOR (NPN)
+
+<EvidenceAnchor id="src-mmbt3904-range-100-300-ds-p0" />
+
+**Source ID:** `src-mmbt3904-range-100-300-ds-p0` · **Authority:** MANUFACTURER\_PRIMARY
+
+| Field           | Recorded value                                   |
+| --------------- | ------------------------------------------------ |
+| Document number | MMBT3904 SOT-23                                  |
+| Revision        | Rev. - 2.0                                       |
+| Document date   | 2012-03 (PDF creation metadata; no printed date) |
+| Retrieved       | 2026-11-08                                       |
+| Printed page    | 1                                                |
+
+**Locator:** Page 1: title block, MAXIMUM RATINGS table, SOT-23 pin legend, ELECTRICAL CHARACTERISTICS table and CLASSIFICATION OF hFE(1) table
+
+**Availability:** AVAILABLE
+
+**Document URL:** [https://www.jscj-elec.com/gallery/file/MMBT3904%20SOT-23V2.pdf](https://www.jscj-elec.com/gallery/file/MMBT3904%20SOT-23V2.pdf)
+
 ## Legend
 
 What the recorded terms on this page mean, in ordinary words. The exact terms above are the ones that count; these descriptions explain them and never replace them.
@@ -324,6 +434,7 @@ What the recorded terms on this page mean, in ordinary words. The exact terms ab
 | --------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------- |
 | `CONFIRMED - distributor identity only` | A distributor listing confirms which part this is, and nothing more. It carries no electrical, thermal or lifetime authority. |
 | `NEEDS BENCH`                           | Cannot be settled from documents. It needs measurement on real hardware before it can be relied on.                           |
+| `PASS - primary-source confirmed`       | Confirmed against the manufacturer's own document for this exact part.                                                        |
 | `UNSOURCED`                             | No accepted source backs this value yet. Treat it as a claim, not a fact.                                                     |
 
 ### Provenance
@@ -331,20 +442,23 @@ What the recorded terms on this page mean, in ordinary words. The exact terms ab
 | Recorded term          | What it means                                                |
 | ---------------------- | ------------------------------------------------------------ |
 | `DISTRIBUTOR-IDENTITY` | Taken from a distributor listing. Identity information only. |
+| `PRIMARY-SPEC`         | Taken from the manufacturer's own specification document.    |
 | `PROJECT-CHOICE`       | A decision made by this project. No vendor asserts it.       |
 | `UNVERIFIED`           | Recorded, but not yet backed by an accepted source.          |
 
 ### Fact class
 
-| Recorded term      | What it means                                                                                                                                                      |
-| ------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| `ABSOLUTE_MAXIMUM` | A never-exceed limit. Reaching it may damage the part; it is not an operating target and there is no margin implied by it.                                         |
-| `PROJECT_STATE`    | A value this project recorded about how the part is used here — a chosen operating point, a net assignment, or a derived figure. Not a manufacturer specification. |
+| Recorded term           | What it means                                                                                                                                                      |
+| ----------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| `ABSOLUTE_MAXIMUM`      | A never-exceed limit. Reaching it may damage the part; it is not an operating target and there is no margin implied by it.                                         |
+| `GUARANTEED_ELECTRICAL` | A parameter the manufacturer guarantees over the stated conditions, usually with minimum, typical and maximum values.                                              |
+| `PROJECT_STATE`         | A value this project recorded about how the part is used here — a chosen operating point, a net assignment, or a derived figure. Not a manufacturer specification. |
 
 ### Coverage status
 
 | Recorded term | What it means                                                                                                               |
 | ------------- | --------------------------------------------------------------------------------------------------------------------------- |
+| `COVERED`     | Every question this domain asks is answered by the facts listed against it.                                                 |
 | `OPEN`        | Unresolved. Open means the question has not been answered, not that the part is unsafe — the reason states what is missing. |
 
 ### Source availability
@@ -358,13 +472,14 @@ What the recorded terms on this page mean, in ordinary words. The exact terms ab
 | Recorded term          | What it means                                                             |
 | ---------------------- | ------------------------------------------------------------------------- |
 | `DISTRIBUTOR_IDENTITY` | A distributor listing. Establishes which part this is, nothing more.      |
+| `MANUFACTURER_PRIMARY` | The manufacturer's own document for this exact part.                      |
 | `PROJECT_GENERATOR`    | A document this project generated, such as a schematic or netlist export. |
 
 ### Identity state
 
-| Recorded term | What it means                                                                                                                    |
-| ------------- | -------------------------------------------------------------------------------------------------------------------------------- |
-| `UNRESOLVED`  | The exact orderable part is not yet confirmed. Substituting a same-name part from another vendor is not permitted on that basis. |
+| Recorded term | What it means                                                 |
+| ------------- | ------------------------------------------------------------- |
+| `VERIFIED`    | The exact orderable part has been confirmed against a source. |
 
 ### Source state
 

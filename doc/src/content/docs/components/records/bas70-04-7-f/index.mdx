@@ -29,11 +29,11 @@ This record in the catalog: [BAS70-04-7-F](/docs/components/catalog/#rec-bas70-0
 
 **Fit:** Fitted
 
-**Identity state:** UNRESOLVED
+**Identity state:** VERIFIED
 
 **Source state:** AVAILABLE
 
-**Coverage:** 5 open of 5 published
+**Coverage:** 3 open of 5 published
 
 ## Documents and package
 
@@ -41,9 +41,13 @@ This record in the catalog: [BAS70-04-7-F](/docs/components/catalog/#rec-bas70-0
 
 <EvidenceAnchor id="component-references" />
 
-**Selected document:** Document unavailable
+[Datasheet PDF](https://www.diodes.com/_files/datasheets/ds11007.pdf) — BAS70/-04/-05/-06 Surface-mount Schottky barrier diode
 
-**Reason:** No manufacturer-primary document for this exact orderable is retained in the evidence. Reviewed: JLCPCB public product listing C134375 (A5 retained product-props snapshot) (DISTRIBUTOR\_IDENTITY, AVAILABLE). Distributor listings establish order identity only, and a distributor-hosted mirror is lower authority, so neither is published as a manufacturer document.
+**Selected source ID:** `src-bas70-04-7-f-ds-p0`
+
+**Authority:** MANUFACTURER\_PRIMARY
+
+**Availability:** AVAILABLE
 
 No footprint or 3D model is published for this record: CAD is not enabled for this project.
 
@@ -63,18 +67,15 @@ Coverage is stated one domain at a time and is never rolled up. A domain marked 
 
 <EvidenceAnchor id="cov-bas70-04-7-f-identity" />
 
-**Coverage ID:** `cov-bas70-04-7-f-identity` · **Status:** OPEN
+**Coverage ID:** `cov-bas70-04-7-f-identity` · **Status:** COVERED
 
-**Reason:** fact-bas70-04-7-f-manufacturer remains UNSOURCED: only distributor identity is retained; no manufacturer-primary document inspected
+**Reason:** manufacturer and the exact orderable BAS70-04-7-F are confirmed by Diodes DS11007 Rev. 27 - 2 (title block, Ordering Information table); distributor identity agrees
 
 **Facts in this domain:**
 
 - [`fact-bas70-04-7-f-manufacturer`](#fact-bas70-04-7-f-manufacturer)
+- [`fact-bas70-04-7-f-orderable`](#fact-bas70-04-7-f-orderable)
 - [`fact-bas70-04-7-f-distributor-identity`](#fact-bas70-04-7-f-distributor-identity)
-
-**Blocked by:** these facts must be resolved before the domain can close. Each is listed in full under Facts.
-
-- [`fact-bas70-04-7-f-manufacturer`](#fact-bas70-04-7-f-manufacturer)
 
 ### pinout
 
@@ -82,7 +83,7 @@ Coverage is stated one domain at a time and is never rolled up. A domain marked 
 
 **Coverage ID:** `cov-bas70-04-7-f-pinout` · **Status:** OPEN
 
-**Reason:** fact-bas70-04-7-f-pinout remains UNSOURCED: the pin map is projected from the historical A5 netlist and has not been checked against a manufacturer document
+**Reason:** fact-bas70-04-7-f-pinout remains UNSOURCED: DS11007 shows the BAS70-04 series topology but prints no pin numbers, so the pin-number mapping of the project pin map is not confirmed by a manufacturer document
 
 **Facts in this domain:**
 
@@ -96,17 +97,17 @@ Coverage is stated one domain at a time and is never rolled up. A domain marked 
 
 <EvidenceAnchor id="cov-bas70-04-7-f-ratings" />
 
-**Coverage ID:** `cov-bas70-04-7-f-ratings` · **Status:** OPEN
+**Coverage ID:** `cov-bas70-04-7-f-ratings` · **Status:** COVERED
 
-**Reason:** fact-bas70-04-7-f-ratings remains UNSOURCED: no manufacturer limits retained
+**Reason:** reverse voltage, forward current, forward voltage, reverse current and junction temperature limits are read from DS11007 Rev. 27 - 2 page 2 tables
 
 **Facts in this domain:**
 
 - [`fact-bas70-04-7-f-ratings`](#fact-bas70-04-7-f-ratings)
-
-**Blocked by:** these facts must be resolved before the domain can close. Each is listed in full under Facts.
-
-- [`fact-bas70-04-7-f-ratings`](#fact-bas70-04-7-f-ratings)
+- [`fact-bas70-04-7-f-forward-current`](#fact-bas70-04-7-f-forward-current)
+- [`fact-bas70-04-7-f-forward-voltage`](#fact-bas70-04-7-f-forward-voltage)
+- [`fact-bas70-04-7-f-reverse-current`](#fact-bas70-04-7-f-reverse-current)
+- [`fact-bas70-04-7-f-junction-temperature`](#fact-bas70-04-7-f-junction-temperature)
 
 ### placement
 
@@ -153,13 +154,73 @@ A never-exceed limit. Reaching it may damage the part; it is not an operating ta
 
   **Fact:** `fact-bas70-04-7-f-ratings`
 
-  **Value:** manufacturer absolute-maximum and recommended operating limits · **Unit:** `NONE`
+  **Value:** 70 · **Unit:** `V`
 
-  **Conditions:** no manufacturer document inspected yet; distributor listing is identity evidence only
+  **Conditions:** VRRM / VRWM / VR peak repetitive, working peak and DC blocking reverse voltage 70 V at TA=+25C
 
-  **Verdict:** UNSOURCED · **Provenance:** UNVERIFIED
+  **Verdict:** PASS - primary-source confirmed · **Provenance:** PRIMARY-SPEC
 
-  **Evidence:** [src-bas70-04-7-f-a5-jlcpcb-snapshot: product table row specification (identity only)](#src-bas70-04-7-f-a5-jlcpcb-snapshot)
+  **Evidence:** [src-bas70-04-7-f-ds-p1: Maximum Ratings table rows VRRM, VRWM, VR](#src-bas70-04-7-f-ds-p1)
+</EvidenceFact>
+
+<EvidenceFact>
+  <EvidenceAnchor id="fact-bas70-04-7-f-forward-current" />
+
+  **Fact:** `fact-bas70-04-7-f-forward-current`
+
+  **Value:** 70 · **Unit:** `mA`
+
+  **Conditions:** IFM maximum forward continuous current 70 mA at TA=+25C, part on FR-4 with recommended pad layout (Note 6); IFSM 100 mA non-repetitive for t\<=1.0s
+
+  **Verdict:** PASS - primary-source confirmed · **Provenance:** PRIMARY-SPEC
+
+  **Evidence:** [src-bas70-04-7-f-ds-p1: Maximum Ratings table row IFM](#src-bas70-04-7-f-ds-p1)
+</EvidenceFact>
+
+<EvidenceFact>
+  <EvidenceAnchor id="fact-bas70-04-7-f-junction-temperature" />
+
+  **Fact:** `fact-bas70-04-7-f-junction-temperature`
+
+  **Value:** -55 to +125 · **Unit:** `degC`
+
+  **Conditions:** TJ operating junction temperature range; PD 200 mW and RthJA 625 C/W on FR-4 per Note 6
+
+  **Verdict:** PASS - primary-source confirmed · **Provenance:** PRIMARY-SPEC
+
+  **Evidence:** [src-bas70-04-7-f-ds-p1: Thermal Characteristics table row TJ](#src-bas70-04-7-f-ds-p1)
+</EvidenceFact>
+
+### GUARANTEED\_ELECTRICAL
+
+A parameter the manufacturer guarantees over the stated conditions, usually with minimum, typical and maximum values.
+
+<EvidenceFact>
+  <EvidenceAnchor id="fact-bas70-04-7-f-forward-voltage" />
+
+  **Fact:** `fact-bas70-04-7-f-forward-voltage`
+
+  **Value:** 410 max at IF=1.0mA; 1000 max at IF=15mA · **Unit:** `mV`
+
+  **Conditions:** VF maximum at TA=+25C, pulse test tP\<300us; per diode
+
+  **Verdict:** PASS - primary-source confirmed · **Provenance:** PRIMARY-SPEC
+
+  **Evidence:** [src-bas70-04-7-f-ds-p1: Electrical Characteristics table row VF](#src-bas70-04-7-f-ds-p1)
+</EvidenceFact>
+
+<EvidenceFact>
+  <EvidenceAnchor id="fact-bas70-04-7-f-reverse-current" />
+
+  **Fact:** `fact-bas70-04-7-f-reverse-current`
+
+  **Value:** 100 · **Unit:** `nA`
+
+  **Conditions:** IR maximum 100 nA at VR=50V, TA=+25C, pulse test (Note 7); no maximum over temperature is printed
+
+  **Verdict:** PASS - primary-source confirmed · **Provenance:** PRIMARY-SPEC
+
+  **Evidence:** [src-bas70-04-7-f-ds-p1: Electrical Characteristics table row IR](#src-bas70-04-7-f-ds-p1)
 </EvidenceFact>
 
 ### PROJECT\_STATE
@@ -173,11 +234,11 @@ A value this project recorded about how the part is used here — a chosen opera
 
   **Value:** Diodes Incorporated · **Unit:** `NONE`
 
-  **Conditions:** exact orderable identity; distributor listing only, no manufacturer-primary document inspected yet
+  **Conditions:** manufacturer-primary datasheet DS11007 Rev. 27 - 2 served from diodes.com; printed form "(c) 2023 Copyright Diodes Incorporated" in the page footer
 
-  **Verdict:** UNSOURCED · **Provenance:** UNVERIFIED
+  **Verdict:** PASS - primary-source confirmed · **Provenance:** PRIMARY-SPEC
 
-  **Evidence:** [src-bas70-04-7-f-a5-jlcpcb-snapshot: product table row brand](#src-bas70-04-7-f-a5-jlcpcb-snapshot)
+  **Evidence:** [src-bas70-04-7-f-ds-p0: page 1 title block and footer copyright row](#src-bas70-04-7-f-ds-p0)
 </EvidenceFact>
 
 <EvidenceFact>
@@ -213,13 +274,13 @@ A value this project recorded about how the part is used here — a chosen opera
 
   **Fact:** `fact-bas70-04-7-f-pinout`
 
-  **Value:** manufacturer pin numbering and pin functions for package SOT-23 · **Unit:** `NONE`
+  **Value:** BAS70-04 series pair: one lead anode of diode 1, one lead cathode of diode 2, the single opposite lead the common node (K1/A2) · **Unit:** `NONE`
 
-  **Conditions:** datasheet pin identity behind the project pin map; no manufacturer document inspected yet
+  **Conditions:** the topology matches the project pin map (1 A1, 2 K2, 3 K1/A2) only under the conventional SOT23 numbering; DS11007 prints no pin numbers in the polarity figure or package outline, so the number-to-function mapping is not established by this document
 
   **Verdict:** UNSOURCED · **Provenance:** UNVERIFIED
 
-  **Evidence:** [src-bas70-04-7-f-a5-netlist-controller: libparts section pin rows for LightBlock:CLAMP](#src-bas70-04-7-f-a5-netlist-controller)
+  **Evidence:** [src-bas70-04-7-f-ds-p0: polarity diagrams figure, BAS70-04 panel](#src-bas70-04-7-f-ds-p0)
 </EvidenceFact>
 
 <EvidenceFact>
@@ -234,6 +295,20 @@ A value this project recorded about how the part is used here — a chosen opera
   **Verdict:** UNSOURCED · **Provenance:** PROJECT-CHOICE
 
   **Evidence:** [src-bas70-04-7-f-a5-netlist-controller: components section footprint field](#src-bas70-04-7-f-a5-netlist-controller)
+</EvidenceFact>
+
+<EvidenceFact>
+  <EvidenceAnchor id="fact-bas70-04-7-f-orderable" />
+
+  **Fact:** `fact-bas70-04-7-f-orderable`
+
+  **Value:** BAS70-04-7-F · **Unit:** `NONE`
+
+  **Conditions:** exact orderable listed in the Ordering Information table: BAS70-04-7-F, package SOT23, 3000 per tape and reel
+
+  **Verdict:** PASS - primary-source confirmed · **Provenance:** PRIMARY-SPEC
+
+  **Evidence:** [src-bas70-04-7-f-ds-p0: Ordering Information table row BAS70-04-7-F](#src-bas70-04-7-f-ds-p0)
 </EvidenceFact>
 
 ## Pin maps
@@ -314,6 +389,46 @@ Every document cited above, with its identification, when it was retrieved, and 
 
 **Document URL:** [https://github.com/Takazudo/zudo-led-block/blob/d41cbb7fc61dc954b4affaf19527aa69f07013b6/engineering/a5/integration/native\_schematic/controller/netlist.xml](https://github.com/Takazudo/zudo-led-block/blob/d41cbb7fc61dc954b4affaf19527aa69f07013b6/engineering/a5/integration/native_schematic/controller/netlist.xml)
 
+### BAS70/-04/-05/-06 Surface-mount Schottky barrier diode
+
+<EvidenceAnchor id="src-bas70-04-7-f-ds-p0" />
+
+**Source ID:** `src-bas70-04-7-f-ds-p0` · **Authority:** MANUFACTURER\_PRIMARY
+
+| Field           | Recorded value |
+| --------------- | -------------- |
+| Document number | DS11007        |
+| Revision        | Rev. 27 - 2    |
+| Document date   | 2023-11        |
+| Retrieved       | 2026-11-08     |
+| Printed page    | 1 of 5         |
+
+**Locator:** Page 1: title block, Ordering Information table row BAS70-04-7-F, polarity diagrams figure (BAS70-04) and footer
+
+**Availability:** AVAILABLE
+
+**Document URL:** [https://www.diodes.com/\_files/datasheets/ds11007.pdf](https://www.diodes.com/_files/datasheets/ds11007.pdf)
+
+### BAS70/-04/-05/-06 Surface-mount Schottky barrier diode
+
+<EvidenceAnchor id="src-bas70-04-7-f-ds-p1" />
+
+**Source ID:** `src-bas70-04-7-f-ds-p1` · **Authority:** MANUFACTURER\_PRIMARY
+
+| Field           | Recorded value |
+| --------------- | -------------- |
+| Document number | DS11007        |
+| Revision        | Rev. 27 - 2    |
+| Document date   | 2023-11        |
+| Retrieved       | 2026-11-08     |
+| Printed page    | 2 of 5         |
+
+**Locator:** Page 2: Maximum Ratings table, Thermal Characteristics table and Electrical Characteristics table
+
+**Availability:** AVAILABLE
+
+**Document URL:** [https://www.diodes.com/\_files/datasheets/ds11007.pdf](https://www.diodes.com/_files/datasheets/ds11007.pdf)
+
 ## Legend
 
 What the recorded terms on this page mean, in ordinary words. The exact terms above are the ones that count; these descriptions explain them and never replace them.
@@ -324,6 +439,7 @@ What the recorded terms on this page mean, in ordinary words. The exact terms ab
 | --------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------- |
 | `CONFIRMED - distributor identity only` | A distributor listing confirms which part this is, and nothing more. It carries no electrical, thermal or lifetime authority. |
 | `NEEDS BENCH`                           | Cannot be settled from documents. It needs measurement on real hardware before it can be relied on.                           |
+| `PASS - primary-source confirmed`       | Confirmed against the manufacturer's own document for this exact part.                                                        |
 | `UNSOURCED`                             | No accepted source backs this value yet. Treat it as a claim, not a fact.                                                     |
 
 ### Provenance
@@ -331,20 +447,23 @@ What the recorded terms on this page mean, in ordinary words. The exact terms ab
 | Recorded term          | What it means                                                |
 | ---------------------- | ------------------------------------------------------------ |
 | `DISTRIBUTOR-IDENTITY` | Taken from a distributor listing. Identity information only. |
+| `PRIMARY-SPEC`         | Taken from the manufacturer's own specification document.    |
 | `PROJECT-CHOICE`       | A decision made by this project. No vendor asserts it.       |
 | `UNVERIFIED`           | Recorded, but not yet backed by an accepted source.          |
 
 ### Fact class
 
-| Recorded term      | What it means                                                                                                                                                      |
-| ------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| `ABSOLUTE_MAXIMUM` | A never-exceed limit. Reaching it may damage the part; it is not an operating target and there is no margin implied by it.                                         |
-| `PROJECT_STATE`    | A value this project recorded about how the part is used here — a chosen operating point, a net assignment, or a derived figure. Not a manufacturer specification. |
+| Recorded term           | What it means                                                                                                                                                      |
+| ----------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| `ABSOLUTE_MAXIMUM`      | A never-exceed limit. Reaching it may damage the part; it is not an operating target and there is no margin implied by it.                                         |
+| `GUARANTEED_ELECTRICAL` | A parameter the manufacturer guarantees over the stated conditions, usually with minimum, typical and maximum values.                                              |
+| `PROJECT_STATE`         | A value this project recorded about how the part is used here — a chosen operating point, a net assignment, or a derived figure. Not a manufacturer specification. |
 
 ### Coverage status
 
 | Recorded term | What it means                                                                                                               |
 | ------------- | --------------------------------------------------------------------------------------------------------------------------- |
+| `COVERED`     | Every question this domain asks is answered by the facts listed against it.                                                 |
 | `OPEN`        | Unresolved. Open means the question has not been answered, not that the part is unsafe — the reason states what is missing. |
 
 ### Source availability
@@ -358,13 +477,14 @@ What the recorded terms on this page mean, in ordinary words. The exact terms ab
 | Recorded term          | What it means                                                             |
 | ---------------------- | ------------------------------------------------------------------------- |
 | `DISTRIBUTOR_IDENTITY` | A distributor listing. Establishes which part this is, nothing more.      |
+| `MANUFACTURER_PRIMARY` | The manufacturer's own document for this exact part.                      |
 | `PROJECT_GENERATOR`    | A document this project generated, such as a schematic or netlist export. |
 
 ### Identity state
 
-| Recorded term | What it means                                                                                                                    |
-| ------------- | -------------------------------------------------------------------------------------------------------------------------------- |
-| `UNRESOLVED`  | The exact orderable part is not yet confirmed. Substituting a same-name part from another vendor is not permitted on that basis. |
+| Recorded term | What it means                                                 |
+| ------------- | ------------------------------------------------------------- |
+| `VERIFIED`    | The exact orderable part has been confirmed against a source. |
 
 ### Source state
 

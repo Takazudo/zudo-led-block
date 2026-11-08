@@ -187,6 +187,31 @@ class CatalogMutations(unittest.TestCase):
         shutil.copytree(cat.SKILLS / "component-tps2552dbvr-1", cat.SKILLS / "component-tps2553dbvr-1")
         self.assertIn("component-tps2553dbvr-1: not a reconciled fitted identity", self.problems())
 
+    def add_later_revision_line(self, owner):
+        shutil.copytree(cat.SKILLS / "component-tps2552dbvr-1", cat.SKILLS / owner)
+        def add(d):
+            line = dict(d["lines"][0], line_id="line-a7-tps2552dbvr-1", owner_skill=owner, placements=[{"board": "a7_controller", "refdes": "U4"}])
+            d["lines"].append(line)
+            d["assertions"]["orderable_lines"] += 1
+            d["assertions"]["fitted_lines"] += 1
+            d["assertions"]["fitted_placements"] += 1
+        self.edit(cat.INVENTORY, add)
+        self.edit(cat.DIRECT_ROUTING, lambda d: d["cases"].append(dict(d["cases"][0], line_id="line-a7-tps2552dbvr-1")))
+        cat.SELECTION.write_text(cat.dump(cat.propose_selection(cat.load_json(cat.RECONCILIATION))), encoding="utf-8")
+
+    def test_later_revision_line_is_accepted(self):
+        self.add_later_revision_line("component-a7-tps2552dbvr-1")
+        self.assertEqual(cat.catalog_problems()[0], [])
+
+    def test_later_revision_line_needs_revision_owner(self):
+        self.add_later_revision_line("component-tps2552dbvr-1-a7")
+        self.assertIn("must start with component-a7-", self.problems())
+
+    def test_later_revision_line_does_not_relax_a5_counts(self):
+        self.add_later_revision_line("component-a7-tps2552dbvr-1")
+        self.edit(cat.INVENTORY, lambda d: d.update(lines=[x for x in d["lines"] if x["line_id"] != "line-tps2552dbvr-1"]))
+        self.assertIn("inventory: missing fitted identity C140331", self.problems())
+
     def test_selection_drift_fails(self):
         self.edit(cat.SELECTION, lambda d: d.update(recordIds=d["recordIds"][1:]))
         self.assertIn("differs from the evidence-derived selection", self.problems())

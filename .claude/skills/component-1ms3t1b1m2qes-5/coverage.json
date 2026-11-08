@@ -6,13 +6,15 @@
       "record_id": "rec-dailywell-1ms3t1b1m2qes-5",
       "domain": "identity",
       "status": "OPEN",
-      "reason": "fact-1ms3t1b1m2qes-5-manufacturer remains UNSOURCED: only distributor identity is retained; no manufacturer-primary document inspected",
+      "reason": "manufacturer and orderable facts remain UNSOURCED: the 1M Series catalog is a lower-authority distributor-hosted mirror and the -5 suffix is not decoded",
       "fact_ids": [
         "fact-1ms3t1b1m2qes-5-manufacturer",
+        "fact-1ms3t1b1m2qes-5-orderable",
         "fact-1ms3t1b1m2qes-5-distributor-identity"
       ],
       "blocking_fact_ids": [
-        "fact-1ms3t1b1m2qes-5-manufacturer"
+        "fact-1ms3t1b1m2qes-5-manufacturer",
+        "fact-1ms3t1b1m2qes-5-orderable"
       ]
     },
     {
@@ -20,7 +22,7 @@
       "record_id": "rec-dailywell-1ms3t1b1m2qes-5",
       "domain": "pinout",
       "status": "OPEN",
-      "reason": "fact-1ms3t1b1m2qes-5-pinout remains UNSOURCED: the pin map is projected from the historical A5 netlist and has not been checked against a manufacturer document",
+      "reason": "fact-1ms3t1b1m2qes-5-pinout remains UNSOURCED: the terminal table is read from a lower-authority distributor-hosted mirror",
       "fact_ids": [
         "fact-1ms3t1b1m2qes-5-pinout"
       ],
@@ -33,12 +35,14 @@
       "record_id": "rec-dailywell-1ms3t1b1m2qes-5",
       "domain": "electrical-ratings",
       "status": "OPEN",
-      "reason": "fact-1ms3t1b1m2qes-5-ratings remains UNSOURCED: no manufacturer limits retained",
+      "reason": "rating facts remain UNSOURCED: they are read from a lower-authority distributor-hosted mirror of the 1M Series catalog",
       "fact_ids": [
-        "fact-1ms3t1b1m2qes-5-ratings"
+        "fact-1ms3t1b1m2qes-5-ratings",
+        "fact-1ms3t1b1m2qes-5-operating-temperature"
       ],
       "blocking_fact_ids": [
-        "fact-1ms3t1b1m2qes-5-ratings"
+        "fact-1ms3t1b1m2qes-5-ratings",
+        "fact-1ms3t1b1m2qes-5-operating-temperature"
       ]
     },
     {

@@ -13,7 +13,8 @@
       "package": "Plugin",
       "source_ids": [
         "src-pj-3582-b-a5-jlcpcb-snapshot",
-        "src-pj-3582-b-a5-netlist-controller"
+        "src-pj-3582-b-a5-netlist-controller",
+        "src-pj-3582-b-drawing-p0"
       ],
       "fact_ids": [
         "fact-pj-3582-b-manufacturer",
@@ -21,13 +22,16 @@
         "fact-pj-3582-b-a5-placements",
         "fact-pj-3582-b-pinout",
         "fact-pj-3582-b-ratings",
-        "fact-pj-3582-b-cad-state"
+        "fact-pj-3582-b-cad-state",
+        "fact-pj-3582-b-orderable",
+        "fact-pj-3582-b-envelope"
       ],
       "interaction_ids": [],
       "open_domains": [
         "identity",
         "pinout",
         "electrical-ratings",
+        "mechanical-envelope",
         "placement",
         "cad-assets"
       ]

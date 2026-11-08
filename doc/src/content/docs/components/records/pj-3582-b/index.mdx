@@ -33,7 +33,7 @@ This record in the catalog: [PJ-3582-B](/docs/components/catalog/#rec-pj-3582-b)
 
 **Source state:** AVAILABLE
 
-**Coverage:** 5 open of 5 published
+**Coverage:** 6 open of 6 published
 
 ## Documents and package
 
@@ -43,7 +43,7 @@ This record in the catalog: [PJ-3582-B](/docs/components/catalog/#rec-pj-3582-b)
 
 **Selected document:** Document unavailable
 
-**Reason:** No manufacturer-primary document for this exact orderable is retained in the evidence. Reviewed: JLCPCB public product listing C500090 (A5 retained product-props snapshot) (DISTRIBUTOR\_IDENTITY, AVAILABLE). Distributor listings establish order identity only, and a distributor-hosted mirror is lower authority, so neither is published as a manufacturer document.
+**Reason:** No manufacturer-primary document for this exact orderable is retained in the evidence. Reviewed: JLCPCB public product listing C500090 (A5 retained product-props snapshot) (DISTRIBUTOR\_IDENTITY, AVAILABLE); XKB PJ-3582-B 3.5 phone jack drawing (distributor-hosted copy) (MANUFACTURER\_MIRROR, AVAILABLE). Distributor listings establish order identity only, and a distributor-hosted mirror is lower authority, so neither is published as a manufacturer document.
 
 No footprint or 3D model is published for this record: CAD is not enabled for this project.
 
@@ -66,16 +66,18 @@ Coverage is stated one domain at a time and is never rolled up. A domain marked 
 
 **Coverage ID:** `cov-pj-3582-b-identity` · **Status:** OPEN
 
-**Reason:** fact-pj-3582-b-manufacturer remains UNSOURCED: only distributor identity is retained; no manufacturer-primary document inspected
+**Reason:** manufacturer and orderable facts remain UNSOURCED: the only drawing is a lower-authority distributor-hosted mirror (datasheet.lcsc.com), and its title block names XKB INDUSTRIAL PRECISION CO.,LIMITED
 
 **Facts in this domain:**
 
 - [`fact-pj-3582-b-manufacturer`](#fact-pj-3582-b-manufacturer)
+- [`fact-pj-3582-b-orderable`](#fact-pj-3582-b-orderable)
 - [`fact-pj-3582-b-distributor-identity`](#fact-pj-3582-b-distributor-identity)
 
 **Blocked by:** these facts must be resolved before the domain can close. Each is listed in full under Facts.
 
 - [`fact-pj-3582-b-manufacturer`](#fact-pj-3582-b-manufacturer)
+- [`fact-pj-3582-b-orderable`](#fact-pj-3582-b-orderable)
 
 ### pinout
 
@@ -83,7 +85,7 @@ Coverage is stated one domain at a time and is never rolled up. A domain marked 
 
 **Coverage ID:** `cov-pj-3582-b-pinout` · **Status:** OPEN
 
-**Reason:** fact-pj-3582-b-pinout remains UNSOURCED: the pin map is projected from the historical A5 netlist and has not been checked against a manufacturer document
+**Reason:** fact-pj-3582-b-pinout remains UNSOURCED: terminal roles come only from the schematic graphic of a lower-authority mirror
 
 **Facts in this domain:**
 
@@ -99,7 +101,7 @@ Coverage is stated one domain at a time and is never rolled up. A domain marked 
 
 **Coverage ID:** `cov-pj-3582-b-ratings` · **Status:** OPEN
 
-**Reason:** fact-pj-3582-b-ratings remains UNSOURCED: no manufacturer limits retained
+**Reason:** fact-pj-3582-b-ratings remains UNSOURCED: the lower-authority mirror drawing prints no electrical rating
 
 **Facts in this domain:**
 
@@ -108,6 +110,22 @@ Coverage is stated one domain at a time and is never rolled up. A domain marked 
 **Blocked by:** these facts must be resolved before the domain can close. Each is listed in full under Facts.
 
 - [`fact-pj-3582-b-ratings`](#fact-pj-3582-b-ratings)
+
+### mechanical-envelope
+
+<EvidenceAnchor id="cov-pj-3582-b-mechanical" />
+
+**Coverage ID:** `cov-pj-3582-b-mechanical` · **Status:** OPEN
+
+**Reason:** fact-pj-3582-b-envelope remains UNSOURCED: dimensions are read from a lower-authority distributor-hosted mirror of the XKB drawing
+
+**Facts in this domain:**
+
+- [`fact-pj-3582-b-envelope`](#fact-pj-3582-b-envelope)
+
+**Blocked by:** these facts must be resolved before the domain can close. Each is listed in full under Facts.
+
+- [`fact-pj-3582-b-envelope`](#fact-pj-3582-b-envelope)
 
 ### placement
 
@@ -154,13 +172,13 @@ A never-exceed limit. Reaching it may damage the part; it is not an operating ta
 
   **Fact:** `fact-pj-3582-b-ratings`
 
-  **Value:** manufacturer absolute-maximum and recommended operating limits · **Unit:** `NONE`
+  **Value:** no electrical rating printed on the drawing · **Unit:** `NONE`
 
-  **Conditions:** no manufacturer document inspected yet; distributor listing is identity evidence only
+  **Conditions:** read from a distributor-hosted mirror; not primary-trusted; the drawing gives dimensions and materials only, no current or voltage rating
 
   **Verdict:** UNSOURCED · **Provenance:** UNVERIFIED
 
-  **Evidence:** [src-pj-3582-b-a5-jlcpcb-snapshot: product table row specification (identity only)](#src-pj-3582-b-a5-jlcpcb-snapshot)
+  **Evidence:** [src-pj-3582-b-drawing-p0: drawing title block and materials table](#src-pj-3582-b-drawing-p0)
 </EvidenceFact>
 
 ### PROJECT\_STATE
@@ -174,11 +192,11 @@ A value this project recorded about how the part is used here — a chosen opera
 
   **Value:** XKB Connection · **Unit:** `NONE`
 
-  **Conditions:** exact orderable identity; distributor listing only, no manufacturer-primary document inspected yet
+  **Conditions:** read from a distributor-hosted mirror; not primary-trusted; the title block prints "XKB INDUSTRIAL PRECISION CO.,LIMITED" with the XKB Connection logo, so the legal-entity naming differs from the record string
 
   **Verdict:** UNSOURCED · **Provenance:** UNVERIFIED
 
-  **Evidence:** [src-pj-3582-b-a5-jlcpcb-snapshot: product table row brand](#src-pj-3582-b-a5-jlcpcb-snapshot)
+  **Evidence:** [src-pj-3582-b-drawing-p0: drawing title block](#src-pj-3582-b-drawing-p0)
 </EvidenceFact>
 
 <EvidenceFact>
@@ -214,13 +232,13 @@ A value this project recorded about how the part is used here — a chosen opera
 
   **Fact:** `fact-pj-3582-b-pinout`
 
-  **Value:** manufacturer pin numbering and pin functions for package Plugin · **Unit:** `NONE`
+  **Value:** terminals 2, 3, 4, 5, 6 (schematic graphic only; terminal functions not labelled in text) · **Unit:** `NONE`
 
-  **Conditions:** datasheet pin identity behind the project pin map; no manufacturer document inspected yet
+  **Conditions:** read from a distributor-hosted mirror; not primary-trusted; the terminal set 2-6 matches the project pin map pads 2-6, but TIP/RING/SLEEVE/switch roles are read only from the schematic graphic and are not confirmed
 
   **Verdict:** UNSOURCED · **Provenance:** UNVERIFIED
 
-  **Evidence:** [src-pj-3582-b-a5-netlist-controller: libparts section pin rows for LightBlock:JACK](#src-pj-3582-b-a5-netlist-controller)
+  **Evidence:** [src-pj-3582-b-drawing-p0: Schematic table row PJ-3582-X and PCB holes figure](#src-pj-3582-b-drawing-p0)
 </EvidenceFact>
 
 <EvidenceFact>
@@ -235,6 +253,34 @@ A value this project recorded about how the part is used here — a chosen opera
   **Verdict:** UNSOURCED · **Provenance:** PROJECT-CHOICE
 
   **Evidence:** [src-pj-3582-b-a5-netlist-controller: components section footprint field](#src-pj-3582-b-a5-netlist-controller)
+</EvidenceFact>
+
+<EvidenceFact>
+  <EvidenceAnchor id="fact-pj-3582-b-orderable" />
+
+  **Fact:** `fact-pj-3582-b-orderable`
+
+  **Value:** PJ-3582-B · **Unit:** `NONE`
+
+  **Conditions:** read from a distributor-hosted mirror; not primary-trusted; PART NO. PJ-3582-B in the title block; color code B = Black per the Color row
+
+  **Verdict:** UNSOURCED · **Provenance:** UNVERIFIED
+
+  **Evidence:** [src-pj-3582-b-drawing-p0: drawing title block row PART NO.](#src-pj-3582-b-drawing-p0)
+</EvidenceFact>
+
+<EvidenceFact>
+  <EvidenceAnchor id="fact-pj-3582-b-envelope" />
+
+  **Fact:** `fact-pj-3582-b-envelope`
+
+  **Value:** front 10.00 x 6.10; barrel D6.00 x 3.00; body length 12.00 · **Unit:** `mm`
+
+  **Conditions:** read from a distributor-hosted mirror; not primary-trusted; unthreaded barrel (no nut retention shown); general tolerance per title block table
+
+  **Verdict:** UNSOURCED · **Provenance:** UNVERIFIED
+
+  **Evidence:** [src-pj-3582-b-drawing-p0: front view and side view dimension figures](#src-pj-3582-b-drawing-p0)
 </EvidenceFact>
 
 ## Pin maps
@@ -317,6 +363,26 @@ Every document cited above, with its identification, when it was retrieved, and 
 
 **Document URL:** [https://github.com/Takazudo/zudo-led-block/blob/d41cbb7fc61dc954b4affaf19527aa69f07013b6/engineering/a5/integration/native\_schematic/controller/netlist.xml](https://github.com/Takazudo/zudo-led-block/blob/d41cbb7fc61dc954b4affaf19527aa69f07013b6/engineering/a5/integration/native_schematic/controller/netlist.xml)
 
+### XKB PJ-3582-B 3.5 phone jack drawing (distributor-hosted copy)
+
+<EvidenceAnchor id="src-pj-3582-b-drawing-p0" />
+
+**Source ID:** `src-pj-3582-b-drawing-p0` · **Authority:** MANUFACTURER\_MIRROR
+
+| Field           | Recorded value |
+| --------------- | -------------- |
+| Document number | X-PJ-3582-B    |
+| Revision        | A1             |
+| Document date   | 2025-06-26     |
+| Retrieved       | 2026-11-08     |
+| Printed page    | 1/1            |
+
+**Locator:** Page 1: drawing title block, revisions table, Schematic table (PJ-3582-X), materials table and dimension figures
+
+**Availability:** AVAILABLE
+
+**Document URL:** no link is published for this source
+
 ## Legend
 
 What the recorded terms on this page mean, in ordinary words. The exact terms above are the ones that count; these descriptions explain them and never replace them.
@@ -358,10 +424,11 @@ What the recorded terms on this page mean, in ordinary words. The exact terms ab
 
 ### Source authority
 
-| Recorded term          | What it means                                                             |
-| ---------------------- | ------------------------------------------------------------------------- |
-| `DISTRIBUTOR_IDENTITY` | A distributor listing. Establishes which part this is, nothing more.      |
-| `PROJECT_GENERATOR`    | A document this project generated, such as a schematic or netlist export. |
+| Recorded term          | What it means                                                                                            |
+| ---------------------- | -------------------------------------------------------------------------------------------------------- |
+| `DISTRIBUTOR_IDENTITY` | A distributor listing. Establishes which part this is, nothing more.                                     |
+| `MANUFACTURER_MIRROR`  | A copy of a manufacturer document hosted elsewhere. Usable, but weaker than the manufacturer's own copy. |
+| `PROJECT_GENERATOR`    | A document this project generated, such as a schematic or netlist export.                                |
 
 ### Identity state
 
