@@ -99,7 +99,35 @@ def load_profile(repo: Path, rel: str) -> dict:
         raise ev.Fail('revision profile must state candidate (a design name or null)')
     if p['kind'] == 'infrastructure' and p.get('candidate'):
         raise ev.Fail('an infrastructure profile cannot name a candidate board')
+    if p['kind'] == 'revision' and p.get('candidate'):
+        errs = candidate_binding(p)
+        if errs:
+            raise ev.Fail('candidate binding: ' + '; '.join(errs))
     return p
+
+
+def candidate_binding(p: dict) -> list[str]:
+    """A named candidate must be the board every revision check is actually computed on."""
+    c = p['candidate']
+    d = p['designs'].get(c)
+    if not isinstance(d, dict):
+        return [f'candidate {c!r} is not a design in the profile']
+    errs = []
+    board = f"{d['dir']}/{d['board']}"
+    if board not in (p.get('regeneration') or {}).get('protected', []):
+        errs.append(f'candidate board {board} is not the protected authoritative board in regeneration.protected')
+    if (p.get('delta') or {}).get('candidate_design') != c:
+        errs.append(f'delta.candidate_design must be the candidate {c!r}')
+    if ((p.get('interface') or {}).get('netlists') or {}).get('controller') != c:
+        errs.append(f'interface.netlists.controller must be the candidate {c!r}')
+    muts = (p.get('controls') or {}).get('mutations') or {}
+    if {m.get('kind') for m in muts.values() if m.get('design') == c} != {'route_break', 'wrong_connection', 'fill_shift'}:
+        errs.append('route_break, wrong_connection and fill_shift controls must run on the candidate')
+    if (p.get('controls') or {}).get('synthetic_design') != c:
+        errs.append('synthetic controls must run on the candidate')
+    if not p.get('expected_failure'):
+        errs.append('the immutable A5 controller expected-failure control is required')
+    return errs
 
 
 def design_dirs(p: dict) -> list[str]:
@@ -580,6 +608,9 @@ def regeneration(g: Gate, p: dict) -> dict:
     if not spec:
         g.fail('profile defines no regeneration-preservation step')
         return {}
+    if not spec.get('check_command') or not spec.get('protected'):
+        g.fail('profile regeneration step has no check_command or no protected board')
+        return {'spec': spec}
     protected = [g.repo / q for q in spec['protected']]
     before = {str(q.relative_to(g.repo)): sha(q) for q in protected}
     raw = g.out / 'raw'
@@ -660,7 +691,7 @@ def cmd_run(a: argparse.Namespace) -> int:
             return 1
         g.summary['identity'] = identities(repo, a.profile, p)
         g.summary['a5_before'] = a5_integrity(repo)
-        if g.summary['a5_before']['verify_seed_exit'] != 0 or g.summary['a5_before']['git_status']:
+        if g.summary['a5_before']['verify_seed_exit'] != 0 or g.summary['a5_before']['git_status'] != '':
             g.fail('A5 checkpoint not intact before the run')
         g.summary['image'] = p['image']
         lk, errs = verify_lock(repo, p, a.profile)
@@ -700,7 +731,7 @@ def cmd_run(a: argparse.Namespace) -> int:
         g.summary['a5_after'] = a5_integrity(repo)
         b = g.summary.get('a5_before', {})
         if g.summary['a5_after']['tree_sha256'] != b.get('tree_sha256') or g.summary['a5_after']['verify_seed_exit'] != 0 \
-                or g.summary['a5_after']['git_status']:
+                or g.summary['a5_after']['git_status'] != '':
             g.fail('A5 checkpoint changed during the run')
     except (OSError, subprocess.SubprocessError) as e:
         g.fail(f'A5 after-check failed: {e}')

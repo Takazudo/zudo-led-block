@@ -292,3 +292,113 @@ class ProfileTests(unittest.TestCase):
 
 if __name__ == '__main__':
     unittest.main()
+
+
+class ReviewFindingTests(unittest.TestCase):
+    """Regression tests for the independent review of PR #22."""
+
+    BASE = DeltaTests.BASE
+
+    def setUp(self):
+        self.td = tempfile.TemporaryDirectory()
+        self.d = Path(self.td.name)
+        self.rec = json.loads((REPO / 'scripts/tests/fixtures/native/a5_identity_delta.json').read_text())
+
+    def tearDown(self):
+        self.td.cleanup()
+
+    def write(self, name, obj):
+        p = self.d / name
+        p.write_text(json.dumps(obj))
+        return p
+
+    def test_named_candidate_must_be_bound_to_every_check(self):
+        p = json.loads((REPO / FX).read_text())
+        p.update(kind='revision', candidate='TODO')
+        self.write('p.json', p)
+        with self.assertRaises(nv.ev.Fail):
+            nv.load_profile(self.d, 'p.json')
+        p['candidate'] = 'fixture_leaf'  # a real design, but not the protected board of every check
+        p['delta']['candidate_design'] = 'a5_controller'
+        self.write('p.json', p)
+        with self.assertRaises(nv.ev.Fail):
+            nv.load_profile(self.d, 'p.json')
+        p['delta']['candidate_design'] = 'fixture_leaf'
+        p['interface']['netlists']['controller'] = 'fixture_leaf'
+        self.write('p.json', p)
+        self.assertEqual(nv.load_profile(self.d, 'p.json')['candidate'], 'fixture_leaf')
+
+    def test_empty_regeneration_command_fails_explicitly(self):
+        g = nv.Gate(self.d, self.d, 10)
+        nv.regeneration(g, {'regeneration': {'check_command': [], 'protected': ['x']}})
+        self.assertTrue(any('no check_command' in f for f in g.failures))
+
+    def test_harness_missing_nets_do_not_compare_equal(self):
+        r = json.loads((ROLES / 'a5_reference.json').read_text())
+        r['controller']['led.vled'] = 'U99.1'
+        res = itf.check(netlists(), self.write('roles.json', r))
+        failed = {c['id'] for c in res['checks'] if not c['passed']}
+        self.assertIn('led.two_streams', failed)
+
+    def test_unreviewed_role_map_cannot_pass(self):
+        r = json.loads((ROLES / 'a5_reference.json').read_text())
+        r['status'] = 'unresolved_draft'
+        res = itf.check(netlists(), self.write('roles.json', r))
+        self.assertFalse(res['all_passed'])
+        self.assertEqual([c['id'] for c in res['checks'] if not c['passed']], ['roles.reviewed'])
+        r['status'] = 'reviewed'; r['review'] = None
+        self.assertFalse(itf.check(netlists(), self.write('roles.json', r))['all_passed'])
+
+    def test_every_symbol_field_is_compared(self):
+        root = ET.parse(REPO / self.BASE).getroot()
+        comp = next(c for c in root.iter('comp') if c.get('ref') == 'R9')
+        fields = comp.find('fields')
+        ET.SubElement(fields, 'field', {'name': 'Rating'}).text = '1/16W'
+        m = self.d / 'c.xml'; ET.ElementTree(root).write(m)
+        r = dl.check(self.write('rec.json', self.rec), m, REPO)
+        self.assertFalse(r['ok'])
+        self.assertTrue(any(d.get('field') == 'field:Rating' for d in r['observed_delta']))
+
+    def add_r99(self, joins: tuple[str, str]) -> Path:
+        root = ET.parse(REPO / self.BASE).getroot()
+        comps = root.find('components')
+        c = ET.SubElement(comps, 'comp', {'ref': 'R99'})
+        ET.SubElement(c, 'value').text = '1k'
+        for pin, target in zip(('1', '2'), joins):
+            for n in root.findall('./nets/net'):
+                if any(f"{nd.get('ref')}.{nd.get('pin')}" == target for nd in n.findall('node')):
+                    ET.SubElement(n, 'node', {'ref': 'R99', 'pin': pin})
+        m = self.d / 'c.xml'; ET.ElementTree(root).write(m)
+        return m
+
+    def test_added_component_must_declare_its_connections(self):
+        m = self.add_r99(('R9.1', 'U1.8'))  # +3V3 to MODE_A
+        rec = copy.deepcopy(self.rec)
+        rec['entries'] = [{'kind': 'component_added', 'ref': 'R99', 'reason': 't', 'issue': '#18'}]
+        self.assertFalse(dl.check(self.write('rec.json', rec), m, REPO)['ok'])
+        rec['entries'][0]['connections'] = {'1': 'R9.1', '2': 'R10.2'}  # wrong: pin 2 is on MODE_A, not MODE_B
+        self.assertFalse(dl.check(self.write('rec.json', rec), m, REPO)['ok'])
+        rec['entries'][0]['connections'] = {'1': 'R9.1', '2': 'U1.8'}
+        r = dl.check(self.write('rec.json', rec), m, REPO)
+        self.assertTrue(r['ok'], r['failures'])
+
+    def test_duplicate_exported_pin_is_rejected_by_every_check(self):
+        root = ET.parse(REPO / self.BASE).getroot()
+        nets = root.findall('./nets/net')
+        ET.SubElement(nets[1], 'node', {'ref': nets[0].find('node').get('ref'), 'pin': nets[0].find('node').get('pin')})
+        m = self.d / 'c.xml'; ET.ElementTree(root).write(m)
+        self.assertFalse(dl.check(self.write('rec.json', self.rec), m, REPO)['ok'])
+        self.assertFalse(itf.check(netlists(controller=m), ROLES / 'a5_reference.json')['all_passed'])
+        with self.assertRaises(nv.ev.Fail):
+            nv.ev.parse_netlist(m)
+
+    def test_expected_failure_control_checks_netlist_and_erc_ops(self):
+        op = {'exit_code': 0, 'timed_out': False, 'stdout_truncated': False, 'stderr_truncated': False}
+        drc = {'violations': [], 'unconnected_items': []}
+        (self.d / 'drc.json').write_text(json.dumps(drc))
+        exp = {'violations': [], 'unconnected': 0}
+        rec = {'ops': {'erc': dict(op), 'netlist': dict(op, exit_code=1), 'drc': dict(op, exit_code=5)}}
+        r = nv.ev.evaluate_expected_failure(exp, rec, self.d)
+        self.assertTrue(any(f.startswith('netlist:') for f in r['failures']), r['failures'])
+        rec['ops']['netlist'] = dict(op, timed_out=True)
+        self.assertFalse(nv.ev.evaluate_expected_failure(exp, rec, self.d)['ok'])

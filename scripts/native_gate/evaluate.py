@@ -98,7 +98,10 @@ def parse_netlist(p: Path) -> tuple[dict, dict]:
     pins = {}
     for n in root.iter('net'):
         for node in n.iter('node'):
-            pins[(node.get('ref'), node.get('pin'))] = n.get('name')
+            key = (node.get('ref'), node.get('pin'))
+            if key in pins:
+                raise Fail(f'netlist.xml: pin {key[0]}.{key[1]} exported on more than one net')
+            pins[key] = n.get('name')
     if not comps or not pins:
         raise Fail('netlist.xml: no components or nets')
     return comps, pins
@@ -296,7 +299,9 @@ def evaluate_expected_failure(exp: dict, rec: dict | None, out: Path) -> dict:
     fails = []
     if not isinstance(rec, dict):
         return {'ok': False, 'failures': ['no inner record']}
-    check_op('drc', rec.get('ops', {}).get('drc'), fails)
+    # ERC/netlist ops are checked too: this design's fresh netlist feeds the interface and delta checks
+    for op in ('erc', 'netlist', 'drc'):
+        check_op(op, rec.get('ops', {}).get(op), fails)
     try:
         drc = load_json(out / 'drc.json')
         got = sorted([v.get('type'), item_refs(v)] for v in drc.get('violations', []))

@@ -31,8 +31,12 @@ import sys
 import xml.etree.ElementTree as ET
 from pathlib import Path
 
+sys.path.insert(0, str(Path(__file__).resolve().parent))
+import evaluate as ev  # noqa: E402
+
 MODE_TRUTH = {'ON': (0, 1), 'PGM': (1, 1), 'CV': (1, 0)}  # (MODE_A, MODE_B); 0 = pulled to GND by the switch
 DESIGNS = ('controller', 'led_leaf', 'power_adapter')
+REVIEWED_STATUS = {'reviewed', 'reviewed_reference'}
 
 
 class RoleError(Exception):
@@ -40,17 +44,9 @@ class RoleError(Exception):
 
 
 def load_netlist(path: Path) -> dict:
-    root = ET.parse(path).getroot()
-    pins: dict = {}
-    for net in root.findall('./nets/net'):
-        for node in net.findall('node'):
-            key = f"{node.attrib['ref']}.{node.attrib['pin']}"
-            if key in pins:
-                raise ValueError(f'duplicate exported pin {key}')
-            pins[key] = net.attrib['name']
-    if not pins:
-        raise ValueError(f'{path}: no nets')
-    return pins
+    """{'REF.PIN': net} via the evaluator's single netlist parser (one duplicate-pin rule for all checks)."""
+    _, pins = ev.parse_netlist(path)
+    return {f'{r}.{p}': n for (r, p), n in pins.items()}
 
 
 class Ctx:
@@ -153,6 +149,10 @@ def harness(ctx: Ctx) -> tuple[bool, dict]:
     gnd = leaf.get(ctx.pins('led_leaf:pixel.first_gnd')[0])
     dl, dr = ctx.net('controller:led.data_l_cable'), ctx.net('controller:led.data_r_cable')
     vled, cgnd = ctx.net('controller:led.vled'), ctx.net('controller:mcu.vss')
+    need = {'din': din, 'vdd': vdd, 'gnd': gnd, 'data_l': dl, 'data_r': dr, 'vled': vled, 'gnd_controller': cgnd}
+    missing = sorted(k for k, v in need.items() if v is None)
+    if missing:
+        return False, {'missing_nets': missing}
     det = {'left_first_pixel_net': left_in.get(din), 'right_first_pixel_net': right_in.get(din),
            'right_vdd_net': right_in.get(vdd), 'right_gnd_net': right_in.get(gnd)}
     ok = (dl is not None and dr is not None and dl != dr and left_in.get(din) == dl and right_in.get(din) == dr
@@ -228,9 +228,12 @@ def check(netlists: dict[str, Path], roles_path: Path) -> dict:
     for d, p in netlists.items():
         try:
             nets[d] = load_netlist(p)
-        except (OSError, ValueError, ET.ParseError) as e:
+        except (OSError, ValueError, ET.ParseError, ev.Fail) as e:
             errors.append(f'{d}: {e}')
     checks = run(nets, roles) if not errors else []
+    if roles.get('status') not in REVIEWED_STATUS or (roles.get('status') == 'reviewed' and not roles.get('review')):
+        checks.append({'id': 'roles.reviewed', 'check': 'Role map is reviewed (status and review record)', 'passed': False,
+                       'status': roles.get('status'), 'review': roles.get('review')})
     return {'method': 'Behavioral interface assertions on KiCad XML netlists via a reviewed role map',
             'roles': str(roles_path), 'roles_sha256': hashlib.sha256(roles_path.read_bytes()).hexdigest(),
             'role_map_status': roles.get('status'),

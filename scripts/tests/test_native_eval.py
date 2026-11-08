@@ -208,10 +208,10 @@ class EvalTests(unittest.TestCase):
                  {'type': 'courtyards_overlap', 'items': [{'description': 'Footprint J3'}, {'description': 'Footprint H1'}]}]
         exp = {'violations': [{'type': 'courtyards_overlap', 'refs': ['J3', 'C7']}, {'type': 'courtyards_overlap', 'refs': ['J3', 'H1']}], 'unconnected': 2}
         self.edit('drc.json', lambda j: (j['violations'].extend(viols), j['unconnected_items'].extend([{}, {}])))
-        rec = {'ops': {'drc': op(5)}}
+        rec = {'ops': {'erc': op(), 'netlist': op(), 'drc': op(5)}}  # ERC/netlist ops are now checked too
         self.assertTrue(ev.evaluate_expected_failure(exp, rec, self.d)['ok'])
         self.assertFalse(ev.evaluate_expected_failure(dict(exp, unconnected=3), rec, self.d)['ok'])
-        self.assertFalse(ev.evaluate_expected_failure(exp, {'ops': {'drc': op(0)}}, self.d)['ok'])
+        self.assertFalse(ev.evaluate_expected_failure(exp, {'ops': {'erc': op(), 'netlist': op(), 'drc': op(0)}}, self.d)['ok'])
         good_dir(self.d)
         self.assertFalse(ev.evaluate_expected_failure(exp, rec, self.d)['ok'])
 

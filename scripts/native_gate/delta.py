@@ -9,8 +9,10 @@ authorized-delta record says so:
       J1's value/footprint/fields and all of its pins may change. Its pins are left
       out of the connectivity comparison; the behavioral interface assertions
       (scripts/native_gate/interface.py) carry the obligation for its connections.
-  {"kind": "component_added" | "component_removed", "ref": ...}
-  {"kind": "field_changed", "ref": ..., "field": "value" | "footprint" | <field name>}
+  {"kind": "component_added", "ref": ..., "connections": {"<pin>": "<baseline REF.PIN whose net it joins>" | "NC"}}
+      every pin of the added part must be declared and is checked against the candidate netlist.
+  {"kind": "component_removed", "ref": ...}
+  {"kind": "field_changed", "ref": ..., "field": "value" | "footprint" | "field:<symbol field name>"}
   {"kind": "pin_moved", "pin": "R9.2"}
       that pin's connectivity group may differ.
 
@@ -32,24 +34,18 @@ import sys
 import xml.etree.ElementTree as ET
 from pathlib import Path
 
+sys.path.insert(0, str(Path(__file__).resolve().parent))
+import evaluate as ev  # noqa: E402
+
 KINDS = {'component_replaced', 'component_added', 'component_removed', 'field_changed', 'pin_moved'}
-COMPARED_FIELDS = ('MPN', 'LCSC', 'Manufacturer')
 
 
 def parse(path: Path) -> tuple[dict, dict]:
-    root = ET.parse(path).getroot()
-    comps = {}
-    for c in root.findall('./components/comp'):
-        fields = {f.get('name'): (f.text or '') for f in c.findall('./fields/field')}
-        comps[c.get('ref')] = {'value': c.findtext('value') or '', 'footprint': c.findtext('footprint') or '',
-                               **{k: fields.get(k) for k in COMPARED_FIELDS}}
-    pins = {}
-    for n in root.findall('./nets/net'):
-        for node in n.findall('node'):
-            pins[f"{node.get('ref')}.{node.get('pin')}"] = n.get('name')
-    if not comps or not pins:
-        raise ValueError(f'{path}: no components or nets')
-    return comps, pins
+    """Components with value, footprint and EVERY symbol field; pins as 'REF.PIN' (shared evaluator parser)."""
+    comps0, pins0 = ev.parse_netlist(path)
+    comps = {r: {'value': c['value'], 'footprint': c['footprint'], **{f'field:{k}': v for k, v in c['fields'].items()}}
+             for r, c in comps0.items()}
+    return comps, {f'{r}.{p}': n for (r, p), n in pins0.items()}
 
 
 def groups(pins: dict, skip_refs: set[str]) -> dict:
@@ -69,9 +65,10 @@ def observed_delta(base: tuple, cand: tuple, replaced: set[str]) -> list[dict]:
     for r in sorted(set(cc) - set(bc)):
         out.append({'kind': 'component_added', 'ref': r})
     for r in sorted(set(bc) & set(cc)):
-        for k in bc[r]:
-            if bc[r][k] != cc[r][k]:
-                out.append({'kind': 'field_changed', 'ref': r, 'field': k, 'from': bc[r][k], 'to': cc[r][k]})
+        for k in sorted(set(bc[r]) | set(cc[r])):
+            if bc[r].get(k) != cc[r].get(k):
+                out.append({'kind': 'field_changed', 'ref': r, 'field': k, 'from': bc[r].get(k), 'to': cc[r].get(k)})
+    # removed parts leave the comparison; added parts leave it only after added_connections() proved each pin
     skip = replaced | (set(bc) ^ set(cc))
     gb, gc = groups(bp, skip), groups(cp, skip)
     for p in sorted(set(gb) | set(gc)):
@@ -80,6 +77,32 @@ def observed_delta(base: tuple, cand: tuple, replaced: set[str]) -> list[dict]:
                         'from': sorted(gb[p]) if p in gb else None, 'to': sorted(gc[p]) if p in gc else None,
                         'net_from': bp.get(p), 'net_to': cp.get(p)})
     return out
+
+
+def added_connections(entries: list, base: tuple, cand: tuple) -> list[str]:
+    """Every pin of an added component must be declared: joined to a named baseline pin's net, or 'NC'."""
+    fails = []
+    bc, _ = base
+    cc, cp = cand
+    for e in entries:
+        if e.get('kind') != 'component_added':
+            continue
+        ref = e.get('ref')
+        if ref in bc or ref not in cc:
+            continue  # reported as stale / unauthorized by the delta itself
+        conns = e.get('connections')
+        pins = sorted(p.split('.', 1)[1] for p in cp if p.split('.')[0] == ref)
+        if not isinstance(conns, dict) or sorted(conns) != pins:
+            fails.append(f'component_added {ref}: connections must declare exactly pins {pins}, got {sorted(conns or {})}')
+            continue
+        for pin, target in sorted(conns.items()):
+            net = cp.get(f'{ref}.{pin}')
+            if target == 'NC':
+                if sum(1 for v in cp.values() if v == net) != 1:
+                    fails.append(f'component_added {ref}.{pin}: declared NC but shares net {net!r}')
+            elif cp.get(target) is None or cp.get(target) != net:
+                fails.append(f'component_added {ref}.{pin}: on net {net!r}, not on the net of {target}')
+    return fails
 
 
 def authorizes(e: dict, d: dict) -> bool:
@@ -118,12 +141,13 @@ def check(record_path: Path, candidate: Path, root: Path) -> dict:
             fails.append(f'entry {i}: reason and issue are required')
     try:
         b, c = parse(base), parse(candidate)
-    except (OSError, ValueError, ET.ParseError) as e:
+    except (OSError, ValueError, ET.ParseError, ev.Fail) as e:
         return {'ok': False, 'failures': fails + [str(e)]}
     replaced = {e['ref'] for e in entries if e.get('kind') == 'component_replaced' and e.get('ref') in b[0] and e.get('ref') in c[0]}
     for e in entries:
         if e.get('kind') == 'component_replaced' and e.get('ref') not in replaced:
             fails.append(f"component_replaced {e.get('ref')}: not present in both baseline and candidate")
+    fails += added_connections(entries, b, c)
     delta = observed_delta(b, c, replaced)
     used = set()
     unauthorized = []
