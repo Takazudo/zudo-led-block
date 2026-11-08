@@ -64,7 +64,7 @@ const PAGES = [
   { path: "/", name: "home", expect: ["Zudo LED Block"] },
   { path: "/docs/project/", name: "project", expect: ["製造リリースではありません", "部品証跡カタログ", "30 型番・81 点"] },
   { path: "/docs/project/status/", name: "status", expect: ["未配線", "130"] },
-  { path: "/docs/project/a7/", name: "a7-status", expect: ["設計検討の段階", "PJ-324M", "PCM13SMTR", "NO_CANDIDATE", "保留"] },
+  { path: "/docs/project/a7/", name: "a7-status", expect: ["設計検討の段階", "PJ-324M", "PCM13SMTR", "NO_CANDIDATE", "保留", "機構モデルの結果", "56 ± 3"] },
   { path: "/docs/project/next-actions/", name: "next-actions", expect: ["A5 の作業がどう引き継がれるか", "自動配線中", "PR #25", "未送信"] },
   { path: "/docs/decisions/", name: "decisions", expect: ["A7 の判断", "MANUFACTURER_MIRROR"] },
   { path: "/docs/architecture/electronics/", name: "electronics", expect: ["J3", "Qwiic", "TLV9001"] },
