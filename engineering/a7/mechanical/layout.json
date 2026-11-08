@@ -3158,15 +3158,15 @@
       16.4
     ],
     "outline_area_mm2": 1018.98,
-    "component_face_free_area_mm2_approx": 402.469,
+    "component_face_free_area_mm2_approx": 401.189,
     "a5_controller_board_area_mm2": 553.52,
     "a5_small_component_body_area_mm2": 144.182,
     "power_header": {
       "part": "Molex 530470310 vertical PicoBlade (A5 J5)",
       "y": 76.0,
-      "z_centre": 9.25,
+      "z_centre": 8.6,
       "confidence": "PROJECT-CHOICE",
-      "note": "between the spine slot and the upper jack body; wires leave the mated plug along +X",
+      "note": "between the spine slot and the upper jack body; wires leave the mated plug along +X. Moved from 9.25 so the SH4 harness fold (Z 12.8 at Y ~75) clears the housing (R4 J5 board_x 5.65-11.15)",
       "pin_row_axis": "Z",
       "mated_height_x": 5.2,
       "y_extent": [
@@ -3174,8 +3174,8 @@
         77.15
       ],
       "z_extent": [
-        6.5,
-        12.0
+        5.85,
+        11.35
       ]
     },
     "led_header": {
@@ -3286,8 +3286,8 @@
           77.15
         ],
         "z": [
-          6.5,
-          12.0
+          5.85,
+          11.35
         ],
         "reason": "PicoBlade vertical header and mated plug"
       },
@@ -3301,8 +3301,8 @@
           77.15
         ],
         "z": [
-          6.5,
-          12.0
+          5.85,
+          11.35
         ],
         "reason": "PicoBlade THT tails and fillets on the solder face (cut to the jack trim rule in 2HP)"
       },
@@ -3421,24 +3421,25 @@
     "why_separate_adapter": "a vertical keyed IDC10 header body is 8.9 mm tall (A5 C5665 maximum envelope); on the perpendicular board it would need 8.9 mm of X but the 2HP component face offers 7.0 mm"
   },
   "power_cable_requirement": {
-    "finished_free_span_nominal": 56.0,
+    "finished_free_span_nominal": 57.0,
     "tolerance": 3.0,
     "tolerance_confidence": "ASSUMED",
     "band": [
-      53.0,
-      59.0
+      54.0,
+      60.0
     ],
     "stowage": "one S-fold above the spine block, fold span solved per width",
     "stowage_length_range_both_widths": [
-      50.664,
-      77.68
+      51.099,
+      78.115
     ],
     "short_side_margin": 2.0,
     "fits_both_widths": true,
     "a5_cable": {
       "nominal": 50.0,
       "tol": 6.0,
-      "fits": false
+      "fits": false,
+      "rule": "same as fits_both_widths: band low end >= shortest stowage + short_side_margin, band high end <= longest stowage"
     },
     "taut_reference": "shortest S-fold the route allows (fold span = two bend radii); the cable is never pulled tighter",
     "physical_measurement": "MISSING: no cable has been routed or measured; plug strain relief, wire stiffness and the real fold shape are not known (#8)"
@@ -3520,12 +3521,12 @@
             ],
             [
               8.6,
-              59.16,
+              59.442,
               5.0
             ],
             [
               8.6,
-              59.16,
+              59.442,
               9.0
             ],
             [
@@ -3546,30 +3547,30 @@
             [
               8.6,
               76.0,
-              9.25
+              8.6
             ],
             [
               7.7,
               76.0,
-              9.25
+              8.6
             ]
           ],
           "radius": 2.0,
-          "length": 56.0,
+          "length": 56.999,
           "min_radius": 0.9,
-          "fold_span": 7.16,
+          "fold_span": 7.442,
           "status": "solved for the nominal finished length",
           "end_bend_room": 0.9,
           "length_range_of_this_stowage": [
-            49.68,
-            77.68
+            50.115,
+            78.115
           ],
           "bundle_radius": 0.9,
-          "a5_cable_nominal_reaches": true,
+          "a5_cable_nominal_reaches": false,
           "a5_cable_band_fits": false,
           "cable_band_lengths": [
-            53.0,
-            59.0
+            53.999,
+            59.999
           ]
         }
       },
@@ -3653,7 +3654,7 @@
         "power_route_end_bend_room": 0.9,
         "power_route_min_radius": 0.9,
         "power_route_bend_at_least_preferred": false,
-        "power_route_a5_cable_nominal_reaches": true,
+        "power_route_a5_cable_nominal_reaches": false,
         "led_route_min_radius": 2.5,
         "rear_pocket_wall_to_panel_edge": 0.2
       }
@@ -3734,12 +3735,12 @@
             ],
             [
               11.65,
-              58.668,
+              58.95,
               5.0
             ],
             [
               11.65,
-              58.668,
+              58.95,
               9.0
             ],
             [
@@ -3760,30 +3761,30 @@
             [
               11.65,
               76.0,
-              9.25
+              8.6
             ],
             [
               9.65,
               76.0,
-              9.25
+              8.6
             ]
           ],
           "radius": 2.0,
-          "length": 56.0,
+          "length": 56.999,
           "min_radius": 2.0,
-          "fold_span": 6.668,
+          "fold_span": 6.95,
           "status": "solved for the nominal finished length",
           "end_bend_room": 2.0,
           "length_range_of_this_stowage": [
-            50.664,
-            78.664
+            51.099,
+            79.099
           ],
           "bundle_radius": 0.9,
           "a5_cable_nominal_reaches": false,
           "a5_cable_band_fits": false,
           "cable_band_lengths": [
-            53.0,
-            59.0
+            53.999,
+            59.999
           ]
         }
       },
@@ -3901,6 +3902,14 @@
         13.6
       ]
     },
+    "top_cap_screw": {
+      "head_seat_z": 27.8,
+      "tip_z": 9.8,
+      "length": 18.0,
+      "designation": "M2x18",
+      "protrusion_past_nut": 2.2,
+      "note": "A5 used M2x16 with the nut at Z 14.0; the nut moves with the adapter, so the screw grows by -z_shift"
+    },
     "adapter": {
       "y": [
         18.0,
@@ -3918,7 +3927,7 @@
         17.0,
         19.0
       ],
-      "cap_spacer_radius": 2.0,
+      "cap_spacer_radius": 2.75,
       "reason": "moves the unchanged A5 power adapter 2.0 mm toward the PMMA so a 2.4 mm gap opens between its rear face and the leaf front edge; the controller-to-leaf SH4 harness leaves the emission corridor at the leaf plug mouth and runs in that gap instead of descending beside LED D2 (R2-C6)",
       "confidence": "PROJECT-CHOICE"
     },
@@ -3992,7 +4001,7 @@
     },
     {
       "id": "R2-C5",
-      "item": "A7 power cable: digital requirement 56.0 +/- 3.0 mm free span (tolerance ASSUMED) for the S-fold stowage (50.664-77.68 mm across both widths); the A5 50 +/- 6 cable does not fit. No cable has been routed or measured",
+      "item": "A7 power cable: digital requirement 57.0 +/- 3.0 mm free span (tolerance ASSUMED) for the S-fold stowage (51.099-78.115 mm across both widths); the A5 50 +/- 6 cable does not fit. No cable has been routed or measured",
       "decides": "power harness part and its length (#8)"
     },
     {

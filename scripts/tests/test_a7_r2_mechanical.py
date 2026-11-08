@@ -186,8 +186,16 @@ class Harness(unittest.TestCase):
         for v in L["variants"].values():
             sh = v["routes"]["controller_to_left_leaf_sh4"]
             self.assertLess(sh["descent_y"], ad["y"][1], "the step down happens over the adapter, away from LED D2")
-            self.assertGreaterEqual(sh["min_radius"], 2.0)
+            self.assertGreaterEqual(sh["min_radius"], json.loads((MECH / "design-inputs.json").read_text())["cables"]["led_route"]["step_radius"] - 1e-9)
         self.assertAlmostEqual(L["controller"]["led_header"]["z_centre"], 12.8)
+
+    def test_moved_adapter_keeps_screw_and_boss(self):
+        sp, ad, scr = L["supports"]["spine"], L["supports"]["adapter"], L["supports"]["top_cap_screw"]
+        self.assertAlmostEqual(ad["cap_spacer_z"][1] - ad["cap_spacer_z"][0], -ad["z_shift"], places=6)
+        self.assertAlmostEqual(ad["cap_spacer_z"][0], ad["rear_z"], places=6)
+        self.assertAlmostEqual(sp["post_nut_z"][0] - scr["tip_z"], 2.2, places=6, msg="A5 thread protrusion past the post nut")
+        self.assertEqual(scr["designation"], "M2x18")
+        self.assertGreaterEqual(ad["cap_spacer_radius"] - 1.1, 1.5, "printed boss wall")
 
 
 class Envelopes(unittest.TestCase):
@@ -271,6 +279,7 @@ class Exports(unittest.TestCase):
             for s_, rows in v["optical_shading_estimate"]["per_side"].items():
                 self.assertEqual(len(rows), 4)
                 for row in rows:
+                    # regression guard on a ray-sampled estimate (about 0.02 today), not an optical acceptance limit
                     self.assertLessEqual(row["blocked_by_a7_harness"], 0.05, (name, row))
             self.assertIn("top_cap_spacer_A7", {p["part"] for p in v["parts"]})
             self.assertTrue(v["switch_tool_access"]["clear"])
@@ -279,7 +288,9 @@ class Exports(unittest.TestCase):
             for f in v["views"].values():
                 self.assertTrue((MECH / "exports" / name / f).exists(), f)
             new_findings = [f for f in v["cable_findings"] if "note" not in f]
-            self.assertTrue(all(f["clearance_mm"] >= 0 for f in new_findings), new_findings)
+            self.assertTrue(all(f["clearance_mm"] >= 0.05 - 1e-9 for f in new_findings), new_findings)
+            self.assertFalse(any("PicoBlade" in f["a"] + f["b"] and "sh4" in f["a"] + f["b"] for f in v["cable_findings"]), "SH4 fold must clear the controller PicoBlade by >= 0.1")
+            self.assertIn("top_cap_screw_A7", {p["part"] for p in v["parts"]})
             for c in v["cables"]:
                 if "layout_length_mm" in c:
                     self.assertAlmostEqual(c["centerline_length_mm"], c["layout_length_mm"], delta=0.01)

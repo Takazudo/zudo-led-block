@@ -110,9 +110,9 @@
     "power_header": {
       "part": "Molex 530470310 vertical PicoBlade (A5 J5)",
       "y": 76.0,
-      "z_centre": 9.25,
+      "z_centre": 8.6,
       "confidence": "PROJECT-CHOICE",
-      "note": "between the spine slot and the upper jack body; wires leave the mated plug along +X"
+      "note": "between the spine slot and the upper jack body; wires leave the mated plug along +X. Moved from 9.25 so the SH4 harness fold (Z 12.8 at Y ~75) clears the housing (R4 J5 board_x 5.65-11.15)"
     },
     "led_header": {
       "part": "JST SM04B-SRSS-TB side-entry SH4 (A5 J3)",
@@ -310,9 +310,9 @@
     "reason": "moves the unchanged A5 power adapter 2.0 mm toward the PMMA so a 2.4 mm gap opens between its rear face and the leaf front edge; the controller-to-leaf SH4 harness leaves the emission corridor at the leaf plug mouth and runs in that gap instead of descending beside LED D2 (R2-C6)",
     "cap_spacer": {
       "height": 2.0,
-      "radius": 2.0,
+      "radius": 2.75,
       "confidence": "PROJECT-CHOICE",
-      "note": "printed boss on the top cap around the Y20.5 screw fills the new 2.0 mm gap between the adapter and the cap; the M2x16 screw and the post nut keep their engagement (nut 2.0 mm lower in the post)"
+      "note": "printed boss on the top cap around the Y20.5 screw fills the new 2.0 mm gap between the adapter and the cap (height must equal -z_shift; the layout asserts it). Wall 1.65 mm around the 2.2 mm hole. The post nut sits 2.0 mm lower, so the top-cap screw grows from M2x16 to M2x18 to keep the A5 2.2 mm protrusion past the nut. Clamp load and boss strength are not analysed"
     },
     "a5_adapter_unchanged": true
   }

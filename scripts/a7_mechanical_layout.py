@@ -434,6 +434,7 @@ def build():
     side = P["side_clearance_required"]["nominal"]
     ar = d["adapter_relocation"]
     dz = ar["z_shift"]["nominal"]
+    assert abs(ar["cap_spacer"]["height"] + dz) < 1e-9, "cap_spacer.height must equal -adapter_relocation.z_shift (the boss fills exactly the gap the move opens)"
     adapter = {"y": g5["adapter"]["y"], "width": g5["adapter"]["width"], "thickness": g5["adapter"]["thickness"], "power_pinrow_y": g5["adapter"]["power_pinrow_y"],
                "a5_front_z": g5["adapter"]["front_z"], "z_shift": dz, "front_z": r(g5["adapter"]["front_z"] + dz),
                "rear_z": r(g5["adapter"]["front_z"] + dz + g5["adapter"]["thickness"]),
@@ -532,7 +533,9 @@ def build():
         "stowage_length_range_both_widths": [lo_all, hi_all], "short_side_margin": margin,
         "fits_both_widths": n_req - tol >= lo_all + margin - 1e-9 and n_req + tol <= hi_all + 1e-9,
         "a5_cable": {"nominal": cab["power_finished_free_span"]["nominal"], "tol": cab["power_finished_free_span"]["tol"],
-                     "fits": cab["power_finished_free_span"]["nominal"] - cab["power_finished_free_span"]["tol"] >= lo_all},
+                     "fits": (cab["power_finished_free_span"]["nominal"] - cab["power_finished_free_span"]["tol"] >= lo_all + margin - 1e-9
+                              and cab["power_finished_free_span"]["nominal"] + cab["power_finished_free_span"]["tol"] <= hi_all + 1e-9),
+                     "rule": "same as fits_both_widths: band low end >= shortest stowage + short_side_margin, band high end <= longest stowage"},
         "taut_reference": "shortest S-fold the route allows (fold span = two bend radii); the cable is never pulled tighter",
         "physical_measurement": "MISSING: no cable has been routed or measured; plug strain relief, wire stiffness and the real fold shape are not known (#8)",
     }
@@ -644,6 +647,10 @@ def build():
             "spine": {"rib_width": sup["spine_rib_width"]["nominal"], "rib_height": sup["spine_rib_height"]["nominal"],
                       "slot_y": sv, "slot_height": sup["controller_slot_height"]["nominal"], "slot_clearance": sup["slot_clearance"]["nominal"],
                       "post_radius": sup["adapter_post_radius"]["nominal"], "post_top_z": adapter["front_z"], "post_nut_z": [r(adapter["front_z"] - 3.4), r(adapter["front_z"] - 1.8)]},
+            # A5 seats the top-cap screw head at Z 27.8 and leaves 2.2 mm of thread past the post nut; A7 keeps both.
+            "top_cap_screw": {"head_seat_z": 27.8, "tip_z": r(adapter["front_z"] - 3.4 - 2.2), "length": r(27.8 - (adapter["front_z"] - 3.4 - 2.2)),
+                              "designation": f"M2x{27.8 - (adapter['front_z'] - 3.4 - 2.2):.0f}", "protrusion_past_nut": 2.2,
+                              "note": "A5 used M2x16 with the nut at Z 14.0; the nut moves with the adapter, so the screw grows by -z_shift"},
             "adapter": adapter,
             "bottom_fork": {"y": fy, "z": [fork_z0, r(o5["skin_z"][0] + 0.6)], "wall": sup["fork_wall"]["nominal"], "engagement": sup["fork_engagement"]["nominal"]},
             "load_path": [
@@ -666,7 +673,7 @@ def build():
             {"id": "Q9", "item": "PMMA clamp load / nut torque", "decides": "jack load path"},
             {"id": "Q10", "item": "PCM13SMTR sourcing", "decides": "setting switch part"},
             {"id": "R2-C1", "item": "PicoBlade on the perpendicular board in 2HP: wires leave the mated plug along +X with only the end-bend room shown per variant, and the 2.3 mm tails must be cut like the jack leads", "decides": "power connector choice (R4) and 2HP power route"},
-            {"id": "R2-C5", "item": f"A7 power cable: digital requirement {power_cable['finished_free_span_nominal']} +/- {power_cable['tolerance']} mm free span (tolerance ASSUMED) for the S-fold stowage ({power_cable['stowage_length_range_both_widths'][0]}-{power_cable['stowage_length_range_both_widths'][1]} mm across both widths); the A5 50 +/- 6 cable does not fit. No cable has been routed or measured", "decides": "power harness part and its length (#8)"},
+            {"id": "R2-C5", "item": f"A7 power cable: digital requirement {power_cable['finished_free_span_nominal']} +/- {power_cable['tolerance']} mm free span (tolerance {power_cable['tolerance_confidence']}) for the S-fold stowage ({power_cable['stowage_length_range_both_widths'][0]}-{power_cable['stowage_length_range_both_widths'][1]} mm across both widths); the A5 {power_cable['a5_cable']['nominal']:g} +/- {power_cable['a5_cable']['tol']:g} cable {'fits' if power_cable['a5_cable']['fits'] else 'does not fit'}. No cable has been routed or measured", "decides": "power harness part and its length (#8)"},
             {"id": "R2-C6", "item": f"controller-to-leaf SH4 harness: route B moves the unchanged A5 adapter {adapter['z_shift']} mm in Z so the harness S-steps at the leaf plug mouth into a {adapter['gap_rear_to_leaf_front']} mm gap behind the adapter; ray-sampled shading per LED is in verification.json (optical_shading_estimate). Real bend radius, insulation diameter and the lit appearance are not checked", "decides": "harness and adapter mounting (#8), optics"},
             {"id": "R2-C2", "item": "finished SH/PicoBlade cable bend radius, insulation, slack storage and label", "decides": "harness route scenarios (#8)"},
             {"id": "R2-C3", "item": "IDC ribbon side exit beyond the 2HP outline (carried over from A5)", "decides": "2HP neighbour clearance"},

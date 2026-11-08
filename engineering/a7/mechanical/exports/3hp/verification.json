@@ -4,10 +4,10 @@
   "status": "PROVISIONAL_DIGITAL_STUDY_NOT_FIT_APPROVAL",
   "selection": "FEASIBLE ON PAPER",
   "default_variant": true,
-  "layout_sha256": "c2d26be8475611726906690225c9f57cba252341f54e35fdb5c9d216dd0ad6bd",
+  "layout_sha256": "04be25636b73729f35580f98bc811796725d6aaac9df05e6f0b01647a57ea5a8",
   "input_sha256": {
-    "engineering/a7/mechanical/layout.json": "c2d26be8475611726906690225c9f57cba252341f54e35fdb5c9d216dd0ad6bd",
-    "engineering/a7/mechanical/build_a7_mechanical.py": "4f1da631abbd6b10e778b4f95b289bca32dbe049ad037100de75c24b43d04a12",
+    "engineering/a7/mechanical/layout.json": "04be25636b73729f35580f98bc811796725d6aaac9df05e6f0b01647a57ea5a8",
+    "engineering/a7/mechanical/build_a7_mechanical.py": "354303f7bd650d597ea5d1b084c732acc4a7c37cd053773ec74647fb338784e9",
     "engineering/a7/front_panel/build_a7_front.py": "248a7704eca8dabbcfbf2ad7d7bf541b5099ea706e3eff1932cdf8cd0d4bf67e"
   },
   "part_count": 69,
@@ -55,6 +55,12 @@
       "b": "adapter_PicoBlade_mated",
       "volume_mm3": 0.603,
       "limit_mm3": 0.7
+    },
+    {
+      "a": "adapter_C5665_keyed_header",
+      "b": "IDC_ribbon_R3_side_exit_SCENARIO",
+      "volume_mm3": 0.233,
+      "limit_mm3": 0.3
     },
     {
       "a": "adapter_PicoBlade_mated",
@@ -119,24 +125,11 @@
   ],
   "cable_findings": [
     {
-      "a": "controller_PicoBlade_mated",
-      "b": "controller_to_left_leaf_sh4",
-      "centreline_distance_mm": 1.031,
-      "required_mm": 1.0,
-      "clearance_mm": 0.031
-    },
-    {
       "a": "spine_PETG",
       "b": "adapter_to_controller_power",
       "centreline_distance_mm": 1.0,
       "required_mm": 0.9,
       "clearance_mm": 0.1
-    },
-    {
-      "a": "adapter_C5665_keyed_header",
-      "b": "IDC_ribbon_R3_side_exit_SCENARIO",
-      "volume_mm3": 0.233,
-      "note": "conditional A5 scenario part (reference socket / ribbon); carried over"
     },
     {
       "a": "left_diffuser",
@@ -215,10 +208,10 @@
       "tube_radius_mm": 1.0
     },
     {
-      "centerline_length_mm": 55.999857846800325,
-      "sampled_minimum_centerline_radius_mm": 1.9999999999971498,
+      "centerline_length_mm": 56.99932764266377,
+      "sampled_minimum_centerline_radius_mm": 1.9999999999956473,
       "minimum_radius_is_manufacturer_qualified": false,
-      "layout_length_mm": 56.0,
+      "layout_length_mm": 56.999,
       "fillet_min_radius_mm": 2.0,
       "bundle_model": true,
       "name": "adapter_to_controller_power",
@@ -1025,12 +1018,12 @@
       "bbox_min": [
         2.15,
         73.95,
-        6.5
+        5.85
       ],
       "bbox_max": [
         9.65,
         77.15,
-        12.0
+        11.35
       ],
       "scope": "retained_module",
       "kind": "manufacturer_dimensioned_envelope"
@@ -1180,14 +1173,14 @@
       "kind": "standard_hardware_envelope"
     },
     {
-      "part": "M2x16_top_cap",
+      "part": "top_cap_screw_A7",
       "valid": true,
       "solids": 1,
-      "volume_mm3": 65.009,
+      "volume_mm3": 71.292,
       "bbox_min": [
         5.55,
         18.6,
-        11.8
+        9.8
       ],
       "bbox_max": [
         9.35,
@@ -1723,15 +1716,15 @@
       "part": "top_cap_spacer_A7",
       "valid": true,
       "solids": 1,
-      "volume_mm3": 17.53,
+      "volume_mm3": 39.914,
       "bbox_min": [
-        5.45,
-        18.5,
+        4.7,
+        17.75,
         17.0
       ],
       "bbox_max": [
-        9.45,
-        22.5,
+        10.2,
+        23.25,
         19.0
       ],
       "scope": "retained_module",
@@ -1993,7 +1986,7 @@
       "part": "adapter_to_controller_power",
       "valid": true,
       "solids": 1,
-      "volume_mm3": 142.502,
+      "volume_mm3": 145.046,
       "bbox_min": [
         6.55,
         45.8,
