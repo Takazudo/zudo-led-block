@@ -1,0 +1,80 @@
+{
+  "schema_version": 1,
+  "coverage": [
+    {
+      "coverage_id": "cov-a7-pcm13smtr-identity",
+      "record_id": "rec-a7-pcm13smtr",
+      "domain": "identity",
+      "status": "COVERED",
+      "reason": "manufacturer datasheet and distributor identity retained",
+      "fact_ids": [
+        "fact-a7-pcm13smtr-manufacturer",
+        "fact-a7-pcm13smtr-distributor-identity"
+      ],
+      "blocking_fact_ids": []
+    },
+    {
+      "coverage_id": "cov-a7-pcm13smtr-function",
+      "record_id": "rec-a7-pcm13smtr",
+      "domain": "pinout",
+      "status": "COVERED",
+      "reason": "per-position terminal table is printed by the manufacturer",
+      "fact_ids": [
+        "fact-a7-pcm13smtr-function"
+      ],
+      "blocking_fact_ids": []
+    },
+    {
+      "coverage_id": "cov-a7-pcm13smtr-ratings",
+      "record_id": "rec-a7-pcm13smtr",
+      "domain": "electrical-ratings",
+      "status": "COVERED",
+      "reason": "contact rating, life and temperature are printed",
+      "fact_ids": [
+        "fact-a7-pcm13smtr-contact-rating",
+        "fact-a7-pcm13smtr-life",
+        "fact-a7-pcm13smtr-operating-temperature",
+        "fact-a7-pcm13smtr-solder"
+      ],
+      "blocking_fact_ids": []
+    },
+    {
+      "coverage_id": "cov-a7-pcm13smtr-mechanical",
+      "record_id": "rec-a7-pcm13smtr",
+      "domain": "mechanical",
+      "status": "COVERED",
+      "reason": "outline and land pattern printed; actuator access is an R2 design task",
+      "fact_ids": [
+        "fact-a7-pcm13smtr-outline",
+        "fact-a7-pcm13smtr-orientation-discrepancy"
+      ],
+      "blocking_fact_ids": []
+    },
+    {
+      "coverage_id": "cov-a7-pcm13smtr-sourcing",
+      "record_id": "rec-a7-pcm13smtr",
+      "domain": "sourcing",
+      "status": "OPEN",
+      "reason": "JLC stock 0 on 2026-11-08",
+      "fact_ids": [
+        "fact-a7-pcm13smtr-sourcing"
+      ],
+      "blocking_fact_ids": [
+        "fact-a7-pcm13smtr-sourcing"
+      ]
+    },
+    {
+      "coverage_id": "cov-a7-pcm13smtr-placement",
+      "record_id": "rec-a7-pcm13smtr",
+      "domain": "placement",
+      "status": "OPEN",
+      "reason": "no A7 schematic or board yet",
+      "fact_ids": [
+        "fact-a7-pcm13smtr-a7-placements"
+      ],
+      "blocking_fact_ids": [
+        "fact-a7-pcm13smtr-a7-placements"
+      ]
+    }
+  ]
+}

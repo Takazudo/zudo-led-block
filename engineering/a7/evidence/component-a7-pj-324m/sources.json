@@ -1,0 +1,56 @@
+{
+  "schema_version": 1,
+  "sources": [
+    {
+      "source_id": "src-a7-pj-324m-sofng-drawing",
+      "record_id": "rec-a7-pj-324m",
+      "document_title": "SOFNG PJ-324M product drawing (3.5 mm 5-pin right-angle phone jack, L17.70 x W11.50 x H6.30 mm)",
+      "document_number": "PJ-324M",
+      "revision": "no revision block printed on the drawing",
+      "document_date": "not printed",
+      "authoritative_url": "https://datasheet.lcsc.com/datasheet/pdf/d5d817d1fd33d59366d06959fdf0c6cc.pdf?productCode=C22355739",
+      "alternate_authoritative_url": "",
+      "retrieval_date": "2026-11-08",
+      "authority_class": "MANUFACTURER_PRIMARY",
+      "sha256": "c5f2f104e73244a32ed024f7a6577d260678a9b3f3cc3d496531fb930b3c7049",
+      "availability": "AVAILABLE",
+      "physical_pdf_page_index": 0,
+      "printed_page_label": "none printed (2-page PDF)",
+      "locator": "page index 0: title block 'LTEM NO.:PJ-324M (L17.70xW11.50xH6.30mm 3.5-PHONE-JACK)', Technical parameter table, top/front/side views, 5/3POLE PLUG symbol, DECIMALS/ANGLES tolerance block; page index 1: Operating Force, Solder-ability, CIRCUIT BOARD SIZE (Vertical view), empty 'Pin Definition' heading, Material declaration table",
+      "evidence_extract": "SOFNG-branded drawing (www.Sofng.com; SOFNG ELECTRONIC TECHNOLOGY Co., LTD). Dimensions in mm: front view body width 11.5, axis-to-edge 5.4, body height 6, terminal projection 3.2, bore 3.6 dia; side view body 14.2, barrel 3.5, thread M6x0.5, rear terminal row 13 from body front, front terminal 1.6; footprint 13 / 5.6 / 1.6 / 8.6 / 9.6 along axis and 4 / 2.5 / 5.2 / 4.5 across. Tolerance block .X +/-0.20, .XX +/-0.10, .XXX +/-0.05. Contact rating 50mA 24V DC; storage temp -25..+75 C with the operating-temperature field left blank; manual soldering 350 C 3 s; operating force inward/exiting 5.0-10.0 N.",
+      "refresh_policy": "HASH-LOCKED",
+      "retrieved_at": "2026-11-08T12:33:27Z",
+      "retained_bytes": "not committed (drawing marked 'Leaked and reproduced prohibited'); re-download from the URL and compare sha256",
+      "authority_note": "SOFNG-branded manufacturer drawing served from the LCSC datasheet host (the URL the brief designates). sofng.com reset the connection from this environment, so no copy from the manufacturer's own host was obtained. Classed MANUFACTURER_PRIMARY for the drawing's origin; reviewers may reclassify to MANUFACTURER_MIRROR, which would turn its PASS facts into open items."
+    },
+    {
+      "source_id": "src-a7-pj-324m-jlc-listing",
+      "record_id": "rec-a7-pj-324m",
+      "document_title": "JLCPCB parts library listing C22355739 (HTML)",
+      "document_number": "C22355739",
+      "revision": "live page",
+      "document_date": "2026-11-08",
+      "authoritative_url": "https://jlcpcb.com/partdetail/SOFNG-PJ324M/C22355739",
+      "alternate_authoritative_url": "",
+      "retrieval_date": "2026-11-08",
+      "authority_class": "DISTRIBUTOR_IDENTITY",
+      "sha256": "c5e6f4739e771db5e831f1087056bdf689507369a58e9b0dd19bbaf49f5adc63",
+      "availability": "AVAILABLE",
+      "physical_pdf_page_index": 0,
+      "printed_page_label": "n/a (HTML)",
+      "locator": "Attributes table: Manufacturer, MFR.Part #, JLCPCB Part #, Package, Assembly Type; Specifications table",
+      "evidence_extract": "Manufacturer SOFNG; MFR.Part # PJ-324M; JLCPCB Part # C22355739; Package Plugin; JLCPCB Assembly Type Wave Soldering; PCBA Type Economic and Standard; Mounting Style Right-Angle; Rank Number TRS; Operating Temperature -25~+75 C; Body Height 6mm; Width 11.5mm; Length 17.7mm. Identity only; the page states purchased parts are kept for PCBA and cannot be shipped separately.",
+      "refresh_policy": "VOLATILE-HTML",
+      "retrieved_at": "2026-11-08T12:34:34Z",
+      "retained_bytes": "not committed (live HTML)",
+      "refresh_note": "Live distributor page/API; its bytes are not deterministic, so an online refresh cannot reproduce the recorded hash. The identity extract hash covers the canonical identity fields only.",
+      "identity_extract": {
+        "lcsc": "C22355739",
+        "manufacturer": "SOFNG",
+        "mpn": "PJ-324M",
+        "variant": "Plugin"
+      },
+      "identity_extract_sha256": "b619d0e2106762db609dbb3c56902cd9b0533ce30f0e802facaf35557e94a367"
+    }
+  ]
+}
