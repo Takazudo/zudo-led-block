@@ -34,6 +34,22 @@ class CopperDiffTests(unittest.TestCase):
         self.assertFalse(rc.copper_diff({'tracks': [other_net], 'vias': [V]}, {'tracks': [T], 'vias': [V]})['tracks']['equal'])
 
 
+class NonEmptyTests(unittest.TestCase):
+    def test_empty_board_and_proposal_fail(self):
+        empty = {'tracks': [], 'vias': []}
+        f = rc.nonempty_failures({'failures': []}, {'board': empty, 'proposal': empty})
+        self.assertEqual(len(f), 4)
+
+    def test_router_failures_fail(self):
+        full = {'tracks': [T], 'vias': [V]}
+        self.assertTrue(rc.nonempty_failures({'failures': ['/VLED']}, {'board': full, 'proposal': full}))
+        self.assertTrue(rc.nonempty_failures({}, {'board': full, 'proposal': full}))
+
+    def test_routed_copper_passes(self):
+        full = {'tracks': [T], 'vias': [V]}
+        self.assertEqual(rc.nonempty_failures({'failures': []}, {'board': full, 'proposal': full}), [])
+
+
 class GuardTests(unittest.TestCase):
     def test_output_inside_repo_is_refused(self):
         p = subprocess.run([sys.executable, str(REPO / 'scripts/a7_route_check.py'), '--out', str(REPO / 'tmp-route-check')],
@@ -53,6 +69,11 @@ class GuardTests(unittest.TestCase):
         self.assertIn('NOT A RELEASE OUTPUT', rc.REVIEW_AID_NOTE)
         ci = (REPO / '.github/workflows/ci.yml').read_text()
         self.assertIn('a7-controller-review-aid-NOT-A-RELEASE', ci)
+        self.assertIn('.gbrjob', rc.REVIEW_AID_NOTE)
+
+    def test_route_check_summary_is_kept_as_evidence(self):
+        ci = (REPO / '.github/workflows/ci.yml').read_text()
+        self.assertIn('${{ runner.temp }}/a7-route-check/summary.json', ci)
 
 
 if __name__ == '__main__':
