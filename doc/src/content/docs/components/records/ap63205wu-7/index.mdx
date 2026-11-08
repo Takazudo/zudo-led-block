@@ -29,11 +29,11 @@ This record in the catalog: [AP63205WU-7](/docs/components/catalog/#rec-ap63205w
 
 **Fit:** Fitted
 
-**Identity state:** UNRESOLVED
+**Identity state:** VERIFIED
 
 **Source state:** AVAILABLE
 
-**Coverage:** 5 open of 5 published
+**Coverage:** 2 open of 5 published
 
 ## Documents and package
 
@@ -41,9 +41,13 @@ This record in the catalog: [AP63205WU-7](/docs/components/catalog/#rec-ap63205w
 
 <EvidenceAnchor id="component-references" />
 
-**Selected document:** Document unavailable
+[Datasheet PDF](https://www.diodes.com/assets/Datasheets/AP63200-AP63201-AP63203-AP63205.pdf) — AP63200/AP63201/AP63203/AP63205 3.8V to 32V input, 2A low IQ synchronous buck with enhanced EMI reduction
 
-**Reason:** No manufacturer-primary document for this exact orderable is retained in the evidence. Reviewed: JLCPCB public product listing C2071056 (A5 retained product-props snapshot) (DISTRIBUTOR\_IDENTITY, AVAILABLE). Distributor listings establish order identity only, and a distributor-hosted mirror is lower authority, so neither is published as a manufacturer document.
+**Selected source ID:** `src-ap63205wu-7-ds-p0`
+
+**Authority:** MANUFACTURER\_PRIMARY
+
+**Availability:** AVAILABLE
 
 No footprint or 3D model is published for this record: CAD is not enabled for this project.
 
@@ -63,32 +67,25 @@ Coverage is stated one domain at a time and is never rolled up. A domain marked 
 
 <EvidenceAnchor id="cov-ap63205wu-7-identity" />
 
-**Coverage ID:** `cov-ap63205wu-7-identity` · **Status:** OPEN
+**Coverage ID:** `cov-ap63205wu-7-identity` · **Status:** COVERED
 
-**Reason:** fact-ap63205wu-7-manufacturer remains UNSOURCED: only distributor identity is retained; no manufacturer-primary document inspected
+**Reason:** manufacturer and exact orderable AP63205WU-7 confirmed in the Diodes DS41326 Rev. 3 - 2 title block and Ordering Information table; distributor listing retained for order-code identity
 
 **Facts in this domain:**
 
 - [`fact-ap63205wu-7-manufacturer`](#fact-ap63205wu-7-manufacturer)
+- [`fact-ap63205wu-7-orderable`](#fact-ap63205wu-7-orderable)
 - [`fact-ap63205wu-7-distributor-identity`](#fact-ap63205wu-7-distributor-identity)
-
-**Blocked by:** these facts must be resolved before the domain can close. Each is listed in full under Facts.
-
-- [`fact-ap63205wu-7-manufacturer`](#fact-ap63205wu-7-manufacturer)
 
 ### pinout
 
 <EvidenceAnchor id="cov-ap63205wu-7-pinout" />
 
-**Coverage ID:** `cov-ap63205wu-7-pinout` · **Status:** OPEN
+**Coverage ID:** `cov-ap63205wu-7-pinout` · **Status:** COVERED
 
-**Reason:** fact-ap63205wu-7-pinout remains UNSOURCED: the pin map is projected from the historical A5 netlist and has not been checked against a manufacturer document
+**Reason:** TSOT26 pin functions read from the DS41326 Pin Descriptions table and matched to the project pin map by number and function
 
 **Facts in this domain:**
-
-- [`fact-ap63205wu-7-pinout`](#fact-ap63205wu-7-pinout)
-
-**Blocked by:** these facts must be resolved before the domain can close. Each is listed in full under Facts.
 
 - [`fact-ap63205wu-7-pinout`](#fact-ap63205wu-7-pinout)
 
@@ -96,17 +93,19 @@ Coverage is stated one domain at a time and is never rolled up. A domain marked 
 
 <EvidenceAnchor id="cov-ap63205wu-7-ratings" />
 
-**Coverage ID:** `cov-ap63205wu-7-ratings` · **Status:** OPEN
+**Coverage ID:** `cov-ap63205wu-7-ratings` · **Status:** COVERED
 
-**Reason:** fact-ap63205wu-7-ratings remains UNSOURCED: no manufacturer limits retained
+**Reason:** absolute-maximum VIN/VEN/VFB, recommended VIN range, AP63205 output regulation, peak current limit and switching frequency read from DS41326 pages 4 and 5
 
 **Facts in this domain:**
 
 - [`fact-ap63205wu-7-ratings`](#fact-ap63205wu-7-ratings)
-
-**Blocked by:** these facts must be resolved before the domain can close. Each is listed in full under Facts.
-
-- [`fact-ap63205wu-7-ratings`](#fact-ap63205wu-7-ratings)
+- [`fact-ap63205wu-7-en-abs-max`](#fact-ap63205wu-7-en-abs-max)
+- [`fact-ap63205wu-7-fb-abs-max`](#fact-ap63205wu-7-fb-abs-max)
+- [`fact-ap63205wu-7-vin-recommended`](#fact-ap63205wu-7-vin-recommended)
+- [`fact-ap63205wu-7-vout`](#fact-ap63205wu-7-vout)
+- [`fact-ap63205wu-7-peak-current-limit`](#fact-ap63205wu-7-peak-current-limit)
+- [`fact-ap63205wu-7-switching-frequency`](#fact-ap63205wu-7-switching-frequency)
 
 ### placement
 
@@ -153,13 +152,109 @@ A never-exceed limit. Reaching it may damage the part; it is not an operating ta
 
   **Fact:** `fact-ap63205wu-7-ratings`
 
-  **Value:** manufacturer absolute-maximum and recommended operating limits · **Unit:** `NONE`
+  **Value:** 35 · **Unit:** `V`
 
-  **Conditions:** no manufacturer document inspected yet; distributor listing is identity evidence only
+  **Conditions:** VIN supply voltage absolute maximum -0.3 to +35.0 V DC (-0.3 to +40.0 V for 400 ms); TA=+25C; stress rating only, not an operating condition
 
-  **Verdict:** UNSOURCED · **Provenance:** UNVERIFIED
+  **Verdict:** PASS - primary-source confirmed · **Provenance:** PRIMARY-SPEC
 
-  **Evidence:** [src-ap63205wu-7-a5-jlcpcb-snapshot: product table row specification (identity only)](#src-ap63205wu-7-a5-jlcpcb-snapshot)
+  **Evidence:** [src-ap63205wu-7-ds-p3: Absolute Maximum Ratings table row VIN](#src-ap63205wu-7-ds-p3)
+</EvidenceFact>
+
+<EvidenceFact>
+  <EvidenceAnchor id="fact-ap63205wu-7-en-abs-max" />
+
+  **Fact:** `fact-ap63205wu-7-en-abs-max`
+
+  **Value:** 35 · **Unit:** `V`
+
+  **Conditions:** VEN enable/UVLO voltage absolute maximum -0.3 to +35.0 V; TA=+25C
+
+  **Verdict:** PASS - primary-source confirmed · **Provenance:** PRIMARY-SPEC
+
+  **Evidence:** [src-ap63205wu-7-ds-p3: Absolute Maximum Ratings table row VEN](#src-ap63205wu-7-ds-p3)
+</EvidenceFact>
+
+<EvidenceFact>
+  <EvidenceAnchor id="fact-ap63205wu-7-fb-abs-max" />
+
+  **Fact:** `fact-ap63205wu-7-fb-abs-max`
+
+  **Value:** 6 · **Unit:** `V`
+
+  **Conditions:** VFB feedback voltage absolute maximum -0.3 to +6.0 V; TA=+25C
+
+  **Verdict:** PASS - primary-source confirmed · **Provenance:** PRIMARY-SPEC
+
+  **Evidence:** [src-ap63205wu-7-ds-p3: Absolute Maximum Ratings table row VFB](#src-ap63205wu-7-ds-p3)
+</EvidenceFact>
+
+### RECOMMENDED\_OPERATION
+
+The range the manufacturer intends the part to be used in. Always narrower than the absolute maximum.
+
+<EvidenceFact>
+  <EvidenceAnchor id="fact-ap63205wu-7-vin-recommended" />
+
+  **Fact:** `fact-ap63205wu-7-vin-recommended`
+
+  **Value:** 3.8 to 32 · **Unit:** `V`
+
+  **Conditions:** VIN supply voltage recommended operating range, min 3.8 V, max 32 V; TA -40C to +85C; function not guaranteed outside this range
+
+  **Verdict:** PASS - primary-source confirmed · **Provenance:** PRIMARY-SPEC
+
+  **Evidence:** [src-ap63205wu-7-ds-p3: Recommended Operating Conditions table row VIN](#src-ap63205wu-7-ds-p3)
+</EvidenceFact>
+
+### GUARANTEED\_ELECTRICAL
+
+A parameter the manufacturer guarantees over the stated conditions, usually with minimum, typical and maximum values.
+
+<EvidenceFact>
+  <EvidenceAnchor id="fact-ap63205wu-7-vout" />
+
+  **Fact:** `fact-ap63205wu-7-vout`
+
+  **Value:** 4.95 to 5.05 (typ 5.00) · **Unit:** `V`
+
+  **Conditions:** VFB regulation for AP63205 in CCM: min 4.95 V, typ 5.00 V, max 5.05 V; min/max over TA -40C to +85C and VIN 3.8 V to 32 V
+
+  **Verdict:** PASS - primary-source confirmed · **Provenance:** PRIMARY-SPEC
+
+  **Evidence:** [src-ap63205wu-7-ds-p4: Electrical Characteristics table row VFB, condition CCM AP63205](#src-ap63205wu-7-ds-p4)
+</EvidenceFact>
+
+<EvidenceFact>
+  <EvidenceAnchor id="fact-ap63205wu-7-peak-current-limit" />
+
+  **Fact:** `fact-ap63205wu-7-peak-current-limit`
+
+  **Value:** 2.5 to 3.1 (typ 2.8) · **Unit:** `A`
+
+  **Conditions:** IPEAK\_LIMIT high-side peak current limit min 2.5 A, typ 2.8 A, max 3.1 A (Note 8: production test, characterization and/or design); 2A continuous output current is the page-1 feature rating
+
+  **Verdict:** PASS - primary-source confirmed · **Provenance:** PRIMARY-SPEC
+
+  **Evidence:** [src-ap63205wu-7-ds-p4: Electrical Characteristics table row IPEAK\_LIMIT](#src-ap63205wu-7-ds-p4)
+</EvidenceFact>
+
+### TYPICAL\_CURVE
+
+A representative figure read from a characteristic curve. Typical values are not guaranteed and vary part to part.
+
+<EvidenceFact>
+  <EvidenceAnchor id="fact-ap63205wu-7-switching-frequency" />
+
+  **Fact:** `fact-ap63205wu-7-switching-frequency`
+
+  **Value:** 1.1 · **Unit:** `MHz`
+
+  **Conditions:** fSW oscillator frequency AP63203/AP63205 typ 1100 kHz with frequency spread spectrum typ +/-6 %; typical only, no min/max printed
+
+  **Verdict:** PASS - primary-source confirmed · **Provenance:** PRIMARY-SPEC
+
+  **Evidence:** [src-ap63205wu-7-ds-p4: Electrical Characteristics table rows fSW and FSS](#src-ap63205wu-7-ds-p4)
 </EvidenceFact>
 
 ### PROJECT\_STATE
@@ -173,11 +268,11 @@ A value this project recorded about how the part is used here — a chosen opera
 
   **Value:** Diodes Incorporated · **Unit:** `NONE`
 
-  **Conditions:** exact orderable identity; distributor listing only, no manufacturer-primary document inspected yet
+  **Conditions:** manufacturer-primary datasheet DS41326 Rev. 3 - 2 served from diodes.com; printed form "(c) 2024 Copyright Diodes Incorporated" in the page footer; PDF Author metadata "Diodes Incorporated"
 
-  **Verdict:** UNSOURCED · **Provenance:** UNVERIFIED
+  **Verdict:** PASS - primary-source confirmed · **Provenance:** PRIMARY-SPEC
 
-  **Evidence:** [src-ap63205wu-7-a5-jlcpcb-snapshot: product table row brand](#src-ap63205wu-7-a5-jlcpcb-snapshot)
+  **Evidence:** [src-ap63205wu-7-ds-p0: page 1 title block and footer copyright row](#src-ap63205wu-7-ds-p0)
 </EvidenceFact>
 
 <EvidenceFact>
@@ -213,13 +308,13 @@ A value this project recorded about how the part is used here — a chosen opera
 
   **Fact:** `fact-ap63205wu-7-pinout`
 
-  **Value:** manufacturer pin numbering and pin functions for package TSOT-23-6 · **Unit:** `NONE`
+  **Value:** 1 FB; 2 EN; 3 VIN; 4 GND; 5 SW; 6 BST · **Unit:** `NONE`
 
-  **Conditions:** datasheet pin identity behind the project pin map; no manufacturer document inspected yet
+  **Conditions:** TSOT26 package; Pin Descriptions table agrees with the page-1 Pin Assignments figure; matches project pin map by number and function (pin map: 1 FB, 2 EN, 3 VIN, 4 GND, 5 SW, 6 BST)
 
-  **Verdict:** UNSOURCED · **Provenance:** UNVERIFIED
+  **Verdict:** PASS - primary-source confirmed · **Provenance:** PRIMARY-SPEC
 
-  **Evidence:** [src-ap63205wu-7-a5-netlist-controller: libparts section pin rows for LightBlock:BUCK](#src-ap63205wu-7-a5-netlist-controller)
+  **Evidence:** [src-ap63205wu-7-ds-p1: Pin Descriptions table rows pin 1 to pin 6](#src-ap63205wu-7-ds-p1)
 </EvidenceFact>
 
 <EvidenceFact>
@@ -234,6 +329,20 @@ A value this project recorded about how the part is used here — a chosen opera
   **Verdict:** UNSOURCED · **Provenance:** PROJECT-CHOICE
 
   **Evidence:** [src-ap63205wu-7-a5-netlist-controller: components section footprint field](#src-ap63205wu-7-a5-netlist-controller)
+</EvidenceFact>
+
+<EvidenceFact>
+  <EvidenceAnchor id="fact-ap63205wu-7-orderable" />
+
+  **Fact:** `fact-ap63205wu-7-orderable`
+
+  **Value:** AP63205WU-7 listed: TSOT26, PWM/PFM, 1100 kHz, fixed 5V output, package code WU, 3000 per 7-inch tape and reel · **Unit:** `NONE`
+
+  **Conditions:** exact orderable MPN appears in the manufacturer ordering table; Diodes names the package TSOT26, the record package string TSOT-23-6 is the distributor description
+
+  **Verdict:** PASS - primary-source confirmed · **Provenance:** PRIMARY-SPEC
+
+  **Evidence:** [src-ap63205wu-7-ds-p15: Ordering Information table row AP63205WU-7](#src-ap63205wu-7-ds-p15)
 </EvidenceFact>
 
 ## Pin maps
@@ -317,6 +426,106 @@ Every document cited above, with its identification, when it was retrieved, and 
 
 **Document URL:** [https://github.com/Takazudo/zudo-led-block/blob/d41cbb7fc61dc954b4affaf19527aa69f07013b6/engineering/a5/integration/native\_schematic/controller/netlist.xml](https://github.com/Takazudo/zudo-led-block/blob/d41cbb7fc61dc954b4affaf19527aa69f07013b6/engineering/a5/integration/native_schematic/controller/netlist.xml)
 
+### AP63200/AP63201/AP63203/AP63205 3.8V to 32V input, 2A low IQ synchronous buck with enhanced EMI reduction
+
+<EvidenceAnchor id="src-ap63205wu-7-ds-p0" />
+
+**Source ID:** `src-ap63205wu-7-ds-p0` · **Authority:** MANUFACTURER\_PRIMARY
+
+| Field           | Recorded value |
+| --------------- | -------------- |
+| Document number | DS41326        |
+| Revision        | Rev. 3 - 2     |
+| Document date   | 2024-11        |
+| Retrieved       | 2026-11-08     |
+| Printed page    | 1 of 18        |
+
+**Locator:** Page 1: title block, Features section, Pin Assignments figure (TSOT26 top view) and footer
+
+**Availability:** AVAILABLE
+
+**Document URL:** [https://www.diodes.com/assets/Datasheets/AP63200-AP63201-AP63203-AP63205.pdf](https://www.diodes.com/assets/Datasheets/AP63200-AP63201-AP63203-AP63205.pdf)
+
+### AP63200/AP63201/AP63203/AP63205 3.8V to 32V input, 2A low IQ synchronous buck with enhanced EMI reduction
+
+<EvidenceAnchor id="src-ap63205wu-7-ds-p1" />
+
+**Source ID:** `src-ap63205wu-7-ds-p1` · **Authority:** MANUFACTURER\_PRIMARY
+
+| Field           | Recorded value |
+| --------------- | -------------- |
+| Document number | DS41326        |
+| Revision        | Rev. 3 - 2     |
+| Document date   | 2024-11        |
+| Retrieved       | 2026-11-08     |
+| Printed page    | 2 of 18        |
+
+**Locator:** Page 2: Pin Descriptions table, rows pin 1 to pin 6
+
+**Availability:** AVAILABLE
+
+**Document URL:** [https://www.diodes.com/assets/Datasheets/AP63200-AP63201-AP63203-AP63205.pdf](https://www.diodes.com/assets/Datasheets/AP63200-AP63201-AP63203-AP63205.pdf)
+
+### AP63200/AP63201/AP63203/AP63205 3.8V to 32V input, 2A low IQ synchronous buck with enhanced EMI reduction
+
+<EvidenceAnchor id="src-ap63205wu-7-ds-p3" />
+
+**Source ID:** `src-ap63205wu-7-ds-p3` · **Authority:** MANUFACTURER\_PRIMARY
+
+| Field           | Recorded value |
+| --------------- | -------------- |
+| Document number | DS41326        |
+| Revision        | Rev. 3 - 2     |
+| Document date   | 2024-11        |
+| Retrieved       | 2026-11-08     |
+| Printed page    | 4 of 18        |
+
+**Locator:** Page 4: Absolute Maximum Ratings table (rows VIN, VSW, VBST, VFB, VEN, TJ) and Recommended Operating Conditions table (rows VIN, TA)
+
+**Availability:** AVAILABLE
+
+**Document URL:** [https://www.diodes.com/assets/Datasheets/AP63200-AP63201-AP63203-AP63205.pdf](https://www.diodes.com/assets/Datasheets/AP63200-AP63201-AP63203-AP63205.pdf)
+
+### AP63200/AP63201/AP63203/AP63205 3.8V to 32V input, 2A low IQ synchronous buck with enhanced EMI reduction
+
+<EvidenceAnchor id="src-ap63205wu-7-ds-p4" />
+
+**Source ID:** `src-ap63205wu-7-ds-p4` · **Authority:** MANUFACTURER\_PRIMARY
+
+| Field           | Recorded value |
+| --------------- | -------------- |
+| Document number | DS41326        |
+| Revision        | Rev. 3 - 2     |
+| Document date   | 2024-11        |
+| Retrieved       | 2026-11-08     |
+| Printed page    | 5 of 18        |
+
+**Locator:** Page 5: Electrical Characteristics table, rows IPEAK\_LIMIT, fSW, FSS, VFB (CCM, AP63205)
+
+**Availability:** AVAILABLE
+
+**Document URL:** [https://www.diodes.com/assets/Datasheets/AP63200-AP63201-AP63203-AP63205.pdf](https://www.diodes.com/assets/Datasheets/AP63200-AP63201-AP63203-AP63205.pdf)
+
+### AP63200/AP63201/AP63203/AP63205 3.8V to 32V input, 2A low IQ synchronous buck with enhanced EMI reduction
+
+<EvidenceAnchor id="src-ap63205wu-7-ds-p15" />
+
+**Source ID:** `src-ap63205wu-7-ds-p15` · **Authority:** MANUFACTURER\_PRIMARY
+
+| Field           | Recorded value |
+| --------------- | -------------- |
+| Document number | DS41326        |
+| Revision        | Rev. 3 - 2     |
+| Document date   | 2024-11        |
+| Retrieved       | 2026-11-08     |
+| Printed page    | 16 of 18       |
+
+**Locator:** Page 16: Ordering Information table, row AP63205WU-7
+
+**Availability:** AVAILABLE
+
+**Document URL:** [https://www.diodes.com/assets/Datasheets/AP63200-AP63201-AP63203-AP63205.pdf](https://www.diodes.com/assets/Datasheets/AP63200-AP63201-AP63203-AP63205.pdf)
+
 ## Legend
 
 What the recorded terms on this page mean, in ordinary words. The exact terms above are the ones that count; these descriptions explain them and never replace them.
@@ -327,6 +536,7 @@ What the recorded terms on this page mean, in ordinary words. The exact terms ab
 | --------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------- |
 | `CONFIRMED - distributor identity only` | A distributor listing confirms which part this is, and nothing more. It carries no electrical, thermal or lifetime authority. |
 | `NEEDS BENCH`                           | Cannot be settled from documents. It needs measurement on real hardware before it can be relied on.                           |
+| `PASS - primary-source confirmed`       | Confirmed against the manufacturer's own document for this exact part.                                                        |
 | `UNSOURCED`                             | No accepted source backs this value yet. Treat it as a claim, not a fact.                                                     |
 
 ### Provenance
@@ -334,20 +544,24 @@ What the recorded terms on this page mean, in ordinary words. The exact terms ab
 | Recorded term          | What it means                                                |
 | ---------------------- | ------------------------------------------------------------ |
 | `DISTRIBUTOR-IDENTITY` | Taken from a distributor listing. Identity information only. |
+| `PRIMARY-SPEC`         | Taken from the manufacturer's own specification document.    |
 | `PROJECT-CHOICE`       | A decision made by this project. No vendor asserts it.       |
-| `UNVERIFIED`           | Recorded, but not yet backed by an accepted source.          |
 
 ### Fact class
 
-| Recorded term      | What it means                                                                                                                                                      |
-| ------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| `ABSOLUTE_MAXIMUM` | A never-exceed limit. Reaching it may damage the part; it is not an operating target and there is no margin implied by it.                                         |
-| `PROJECT_STATE`    | A value this project recorded about how the part is used here — a chosen operating point, a net assignment, or a derived figure. Not a manufacturer specification. |
+| Recorded term           | What it means                                                                                                                                                      |
+| ----------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| `ABSOLUTE_MAXIMUM`      | A never-exceed limit. Reaching it may damage the part; it is not an operating target and there is no margin implied by it.                                         |
+| `GUARANTEED_ELECTRICAL` | A parameter the manufacturer guarantees over the stated conditions, usually with minimum, typical and maximum values.                                              |
+| `PROJECT_STATE`         | A value this project recorded about how the part is used here — a chosen operating point, a net assignment, or a derived figure. Not a manufacturer specification. |
+| `RECOMMENDED_OPERATION` | The range the manufacturer intends the part to be used in. Always narrower than the absolute maximum.                                                              |
+| `TYPICAL_CURVE`         | A representative figure read from a characteristic curve. Typical values are not guaranteed and vary part to part.                                                 |
 
 ### Coverage status
 
 | Recorded term | What it means                                                                                                               |
 | ------------- | --------------------------------------------------------------------------------------------------------------------------- |
+| `COVERED`     | Every question this domain asks is answered by the facts listed against it.                                                 |
 | `OPEN`        | Unresolved. Open means the question has not been answered, not that the part is unsafe — the reason states what is missing. |
 
 ### Source availability
@@ -361,13 +575,14 @@ What the recorded terms on this page mean, in ordinary words. The exact terms ab
 | Recorded term          | What it means                                                             |
 | ---------------------- | ------------------------------------------------------------------------- |
 | `DISTRIBUTOR_IDENTITY` | A distributor listing. Establishes which part this is, nothing more.      |
+| `MANUFACTURER_PRIMARY` | The manufacturer's own document for this exact part.                      |
 | `PROJECT_GENERATOR`    | A document this project generated, such as a schematic or netlist export. |
 
 ### Identity state
 
-| Recorded term | What it means                                                                                                                    |
-| ------------- | -------------------------------------------------------------------------------------------------------------------------------- |
-| `UNRESOLVED`  | The exact orderable part is not yet confirmed. Substituting a same-name part from another vendor is not permitted on that basis. |
+| Recorded term | What it means                                                 |
+| ------------- | ------------------------------------------------------------- |
+| `VERIFIED`    | The exact orderable part has been confirmed against a source. |
 
 ### Source state
 

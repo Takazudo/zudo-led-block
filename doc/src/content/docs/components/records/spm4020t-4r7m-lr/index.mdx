@@ -31,7 +31,7 @@ This record in the catalog: [SPM4020T-4R7M-LR](/docs/components/catalog/#rec-spm
 
 **Identity state:** UNRESOLVED
 
-**Source state:** AVAILABLE
+**Source state:** SOURCE UNAVAILABLE
 
 **Coverage:** 5 open of 5 published
 
@@ -43,7 +43,7 @@ This record in the catalog: [SPM4020T-4R7M-LR](/docs/components/catalog/#rec-spm
 
 **Selected document:** Document unavailable
 
-**Reason:** No manufacturer-primary document for this exact orderable is retained in the evidence. Reviewed: LCSC public product listing C694586 (DISTRIBUTOR\_IDENTITY, AVAILABLE). Distributor listings establish order identity only, and a distributor-hosted mirror is lower authority, so neither is published as a manufacturer document.
+**Reason:** No manufacturer-primary document for this exact orderable is retained in the evidence. Reviewed: LCSC public product listing C694586 (DISTRIBUTOR\_IDENTITY, AVAILABLE); TDK SPM4020-LR series commercial power inductor catalog (inductor\_commercial\_power\_spm4020-lr\_en), title as recorded by A5; not acquired (MANUFACTURER\_PRIMARY, SOURCE UNAVAILABLE). Distributor listings establish order identity only, and a distributor-hosted mirror is lower authority, so neither is published as a manufacturer document.
 
 No footprint or 3D model is published for this record: CAD is not enabled for this project.
 
@@ -65,16 +65,18 @@ Coverage is stated one domain at a time and is never rolled up. A domain marked 
 
 **Coverage ID:** `cov-spm4020t-4r7m-lr-identity` · **Status:** OPEN
 
-**Reason:** fact-spm4020t-4r7m-lr-manufacturer remains UNSOURCED: only distributor identity is retained; no manufacturer-primary document inspected
+**Reason:** manufacturer and exact-orderable facts remain UNSOURCED: the TDK SPM4020-LR catalog is SOURCE UNAVAILABLE (product.tdk.com 403 on 2026-11-08); only distributor identity is retained
 
 **Facts in this domain:**
 
 - [`fact-spm4020t-4r7m-lr-manufacturer`](#fact-spm4020t-4r7m-lr-manufacturer)
+- [`fact-spm4020t-4r7m-lr-orderable`](#fact-spm4020t-4r7m-lr-orderable)
 - [`fact-spm4020t-4r7m-lr-distributor-identity`](#fact-spm4020t-4r7m-lr-distributor-identity)
 
 **Blocked by:** these facts must be resolved before the domain can close. Each is listed in full under Facts.
 
 - [`fact-spm4020t-4r7m-lr-manufacturer`](#fact-spm4020t-4r7m-lr-manufacturer)
+- [`fact-spm4020t-4r7m-lr-orderable`](#fact-spm4020t-4r7m-lr-orderable)
 
 ### pinout
 
@@ -82,7 +84,7 @@ Coverage is stated one domain at a time and is never rolled up. A domain marked 
 
 **Coverage ID:** `cov-spm4020t-4r7m-lr-pinout` · **Status:** OPEN
 
-**Reason:** fact-spm4020t-4r7m-lr-pinout remains UNSOURCED: the pin map is projected from the historical A5 netlist and has not been checked against a manufacturer document
+**Reason:** fact-spm4020t-4r7m-lr-pinout remains UNSOURCED: the TDK catalog is SOURCE UNAVAILABLE, so the terminal convention is not checked
 
 **Facts in this domain:**
 
@@ -98,7 +100,7 @@ Coverage is stated one domain at a time and is never rolled up. A domain marked 
 
 **Coverage ID:** `cov-spm4020t-4r7m-lr-ratings` · **Status:** OPEN
 
-**Reason:** fact-spm4020t-4r7m-lr-ratings remains UNSOURCED: no manufacturer limits retained
+**Reason:** fact-spm4020t-4r7m-lr-ratings remains UNSOURCED: the TDK catalog is SOURCE UNAVAILABLE, no inductance, DCR or current rating recorded
 
 **Facts in this domain:**
 
@@ -144,22 +146,22 @@ Coverage is stated one domain at a time and is never rolled up. A domain marked 
 
 Each fact keeps its value, its unit, the conditions it holds under, where it came from and how far it has been confirmed as separate fields, because they are separate claims. A value without its conditions is not the same fact, and a verdict is about the evidence for the value, not about the part.
 
-### ABSOLUTE\_MAXIMUM
+### GUARANTEED\_ELECTRICAL
 
-A never-exceed limit. Reaching it may damage the part; it is not an operating target and there is no margin implied by it.
+A parameter the manufacturer guarantees over the stated conditions, usually with minimum, typical and maximum values.
 
 <EvidenceFact>
   <EvidenceAnchor id="fact-spm4020t-4r7m-lr-ratings" />
 
   **Fact:** `fact-spm4020t-4r7m-lr-ratings`
 
-  **Value:** manufacturer absolute-maximum and recommended operating limits · **Unit:** `NONE`
+  **Value:** inductance and tolerance, DC resistance, saturation (Isat) and temperature-rise (Itemp) current for SPM4020T-4R7M-LR · **Unit:** `NONE`
 
-  **Conditions:** no manufacturer document inspected yet; distributor listing is identity evidence only
+  **Conditions:** TDK catalog characteristics table not inspected; no value recorded
 
   **Verdict:** UNSOURCED · **Provenance:** UNVERIFIED
 
-  **Evidence:** [src-spm4020t-4r7m-lr-lcsc-listing: product table row specification (identity only)](#src-spm4020t-4r7m-lr-lcsc-listing)
+  **Evidence:** [src-spm4020t-4r7m-lr-catalog: characteristics table row SPM4020T-4R7M-LR (not inspected, SOURCE UNAVAILABLE)](#src-spm4020t-4r7m-lr-catalog)
 </EvidenceFact>
 
 ### PROJECT\_STATE
@@ -173,11 +175,11 @@ A value this project recorded about how the part is used here — a chosen opera
 
   **Value:** TDK · **Unit:** `NONE`
 
-  **Conditions:** exact orderable identity; distributor listing only, no manufacturer-primary document inspected yet
+  **Conditions:** manufacturer-primary catalog could not be acquired; distributor listing names TDK (identity only)
 
   **Verdict:** UNSOURCED · **Provenance:** UNVERIFIED
 
-  **Evidence:** [src-spm4020t-4r7m-lr-lcsc-listing: product table row brand](#src-spm4020t-4r7m-lr-lcsc-listing)
+  **Evidence:** [src-spm4020t-4r7m-lr-catalog: title block (not inspected, SOURCE UNAVAILABLE)](#src-spm4020t-4r7m-lr-catalog)
 </EvidenceFact>
 
 <EvidenceFact>
@@ -213,13 +215,13 @@ A value this project recorded about how the part is used here — a chosen opera
 
   **Fact:** `fact-spm4020t-4r7m-lr-pinout`
 
-  **Value:** manufacturer pin numbering and pin functions for package SMD,4.4x4.1mm nominal; 4.6x4.3x2.0mm maximum envelope · **Unit:** `NONE`
+  **Value:** terminal convention for the two-terminal SPM4020-LR inductor · **Unit:** `NONE`
 
-  **Conditions:** datasheet pin identity behind the project pin map; no manufacturer document inspected yet
+  **Conditions:** catalog not inspected; whether TDK defines a terminal/winding-start convention is unknown
 
   **Verdict:** UNSOURCED · **Provenance:** UNVERIFIED
 
-  **Evidence:** [src-spm4020t-4r7m-lr-a5-netlist-controller: libparts section pin rows for LightBlock:L](#src-spm4020t-4r7m-lr-a5-netlist-controller)
+  **Evidence:** [src-spm4020t-4r7m-lr-catalog: shapes and dimensions figure terminal row (not inspected, SOURCE UNAVAILABLE)](#src-spm4020t-4r7m-lr-catalog)
 </EvidenceFact>
 
 <EvidenceFact>
@@ -234,6 +236,20 @@ A value this project recorded about how the part is used here — a chosen opera
   **Verdict:** UNSOURCED · **Provenance:** PROJECT-CHOICE
 
   **Evidence:** [src-spm4020t-4r7m-lr-a5-netlist-controller: components section footprint field](#src-spm4020t-4r7m-lr-a5-netlist-controller)
+</EvidenceFact>
+
+<EvidenceFact>
+  <EvidenceAnchor id="fact-spm4020t-4r7m-lr-orderable" />
+
+  **Fact:** `fact-spm4020t-4r7m-lr-orderable`
+
+  **Value:** SPM4020T-4R7M-LR in the TDK SPM4020-LR characteristics table · **Unit:** `NONE`
+
+  **Conditions:** not established: the catalog part list could not be acquired; the -LR variant is the fitted A5 part
+
+  **Verdict:** UNSOURCED · **Provenance:** UNVERIFIED
+
+  **Evidence:** [src-spm4020t-4r7m-lr-catalog: characteristics table row SPM4020T-4R7M-LR (not inspected, SOURCE UNAVAILABLE)](#src-spm4020t-4r7m-lr-catalog)
 </EvidenceFact>
 
 ## Pin maps
@@ -313,6 +329,26 @@ Every document cited above, with its identification, when it was retrieved, and 
 
 **Document URL:** [https://github.com/Takazudo/zudo-led-block/blob/d41cbb7fc61dc954b4affaf19527aa69f07013b6/engineering/a5/integration/native\_schematic/controller/netlist.xml](https://github.com/Takazudo/zudo-led-block/blob/d41cbb7fc61dc954b4affaf19527aa69f07013b6/engineering/a5/integration/native_schematic/controller/netlist.xml)
 
+### TDK SPM4020-LR series commercial power inductor catalog (inductor\_commercial\_power\_spm4020-lr\_en), title as recorded by A5; not acquired
+
+<EvidenceAnchor id="src-spm4020t-4r7m-lr-catalog" />
+
+**Source ID:** `src-spm4020t-4r7m-lr-catalog` · **Authority:** MANUFACTURER\_PRIMARY
+
+| Field           | Recorded value                              |
+| --------------- | ------------------------------------------- |
+| Document number | inductor\_commercial\_power\_spm4020-lr\_en |
+| Revision        | unknown (not acquired)                      |
+| Document date   | unknown (not acquired)                      |
+| Retrieved       | 2026-11-08                                  |
+| Printed page    | n/a (not acquired)                          |
+
+**Locator:** intended: SPM4020-LR catalog characteristics table row SPM4020T-4R7M-LR and shapes and dimensions figure; not inspected
+
+**Availability:** SOURCE UNAVAILABLE
+
+**Document URL:** no link is published for this source
+
 ## Legend
 
 What the recorded terms on this page mean, in ordinary words. The exact terms above are the ones that count; these descriptions explain them and never replace them.
@@ -335,10 +371,10 @@ What the recorded terms on this page mean, in ordinary words. The exact terms ab
 
 ### Fact class
 
-| Recorded term      | What it means                                                                                                                                                      |
-| ------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| `ABSOLUTE_MAXIMUM` | A never-exceed limit. Reaching it may damage the part; it is not an operating target and there is no margin implied by it.                                         |
-| `PROJECT_STATE`    | A value this project recorded about how the part is used here — a chosen operating point, a net assignment, or a derived figure. Not a manufacturer specification. |
+| Recorded term           | What it means                                                                                                                                                      |
+| ----------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| `GUARANTEED_ELECTRICAL` | A parameter the manufacturer guarantees over the stated conditions, usually with minimum, typical and maximum values.                                              |
+| `PROJECT_STATE`         | A value this project recorded about how the part is used here — a chosen operating point, a net assignment, or a derived figure. Not a manufacturer specification. |
 
 ### Coverage status
 
@@ -348,15 +384,17 @@ What the recorded terms on this page mean, in ordinary words. The exact terms ab
 
 ### Source availability
 
-| Recorded term | What it means                                |
-| ------------- | -------------------------------------------- |
-| `AVAILABLE`   | The document was retrieved and is on record. |
+| Recorded term        | What it means                                                                                                         |
+| -------------------- | --------------------------------------------------------------------------------------------------------------------- |
+| `AVAILABLE`          | The document was retrieved and is on record.                                                                          |
+| `SOURCE UNAVAILABLE` | The document could not be retrieved. It stays listed so the gap is visible; anything resting on it remains unsourced. |
 
 ### Source authority
 
 | Recorded term          | What it means                                                             |
 | ---------------------- | ------------------------------------------------------------------------- |
 | `DISTRIBUTOR_IDENTITY` | A distributor listing. Establishes which part this is, nothing more.      |
+| `MANUFACTURER_PRIMARY` | The manufacturer's own document for this exact part.                      |
 | `PROJECT_GENERATOR`    | A document this project generated, such as a schematic or netlist export. |
 
 ### Identity state
@@ -367,9 +405,9 @@ What the recorded terms on this page mean, in ordinary words. The exact terms ab
 
 ### Source state
 
-| Recorded term | What it means                                          |
-| ------------- | ------------------------------------------------------ |
-| `AVAILABLE`   | At least one document backing this line was retrieved. |
+| Recorded term        | What it means                                     |
+| -------------------- | ------------------------------------------------- |
+| `SOURCE UNAVAILABLE` | No document backing this line could be retrieved. |
 
 ### Unit
 

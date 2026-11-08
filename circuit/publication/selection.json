@@ -70,6 +70,11 @@
     "src-mmbt3904-range-100-300-a5-netlist-controller",
     "src-ap63205wu-7-a5-jlcpcb-snapshot",
     "src-ap63205wu-7-a5-netlist-controller",
+    "src-ap63205wu-7-ds-p0",
+    "src-ap63205wu-7-ds-p1",
+    "src-ap63205wu-7-ds-p3",
+    "src-ap63205wu-7-ds-p4",
+    "src-ap63205wu-7-ds-p15",
     "src-0603waf1001t5e-a5-jlcpcb-snapshot",
     "src-0603waf1001t5e-a5-netlist-controller",
     "src-opa197idbvr-a5-jlcpcb-snapshot",
@@ -109,8 +114,14 @@
     "src-pmeg4010cej-115-a5-netlist-controller",
     "src-stm32g031g8u6tr-a5-jlcpcb-snapshot",
     "src-stm32g031g8u6tr-a5-netlist-controller",
+    "src-stm32g031g8u6tr-ds",
     "src-ws2812b-2020-v6-a5-jlcpcb-snapshot",
     "src-ws2812b-2020-v6-a5-netlist-led-leaf",
+    "src-ws2812b-2020-v6-ds-p0",
+    "src-ws2812b-2020-v6-ds-p1",
+    "src-ws2812b-2020-v6-ds-p2",
+    "src-ws2812b-2020-v6-ds-p3",
+    "src-ws2812b-2020-v6-ds-p9",
     "src-boomele-2-54-2x5p-lcsc-listing",
     "src-boomele-2-54-2x5p-a5-jlcpcb-snapshot-mechanical-evidence",
     "src-boomele-2-54-2x5p-a5-jlcpcb-snapshot-integration",
@@ -119,6 +130,7 @@
     "src-0603b103k500nt-a5-netlist-controller",
     "src-spm4020t-4r7m-lr-lcsc-listing",
     "src-spm4020t-4r7m-lr-a5-netlist-controller",
+    "src-spm4020t-4r7m-lr-catalog",
     "src-0603waf1005t5e-a5-jlcpcb-snapshot",
     "src-0603waf1005t5e-a5-netlist-controller",
     "src-1ms3t1b1m2qes-5-a5-jlcpcb-snapshot",
@@ -151,6 +163,11 @@
     "src-cl10a475ko8nnnc-a5-netlist-controller",
     "src-mmbt3904-range-100-300-a5-netlist-controller",
     "src-ap63205wu-7-a5-netlist-controller",
+    "src-ap63205wu-7-ds-p0",
+    "src-ap63205wu-7-ds-p1",
+    "src-ap63205wu-7-ds-p3",
+    "src-ap63205wu-7-ds-p4",
+    "src-ap63205wu-7-ds-p15",
     "src-0603waf1001t5e-a5-netlist-controller",
     "src-opa197idbvr-a5-netlist-controller",
     "src-opa197idbvr-ds-p4",
@@ -178,6 +195,11 @@
     "src-pmeg4010cej-115-a5-netlist-controller",
     "src-stm32g031g8u6tr-a5-netlist-controller",
     "src-ws2812b-2020-v6-a5-netlist-led-leaf",
+    "src-ws2812b-2020-v6-ds-p0",
+    "src-ws2812b-2020-v6-ds-p1",
+    "src-ws2812b-2020-v6-ds-p2",
+    "src-ws2812b-2020-v6-ds-p3",
+    "src-ws2812b-2020-v6-ds-p9",
     "src-boomele-2-54-2x5p-a5-netlist-power-adapter",
     "src-0603b103k500nt-a5-netlist-controller",
     "src-spm4020t-4r7m-lr-a5-netlist-controller",
@@ -196,6 +218,11 @@
       "documentKind": "datasheet"
     },
     {
+      "recordId": "rec-ap63205wu-7",
+      "sourceId": "src-ap63205wu-7-ds-p0",
+      "documentKind": "datasheet"
+    },
+    {
       "recordId": "rec-opa197idbvr",
       "sourceId": "src-opa197idbvr-ds-p4",
       "documentKind": "datasheet"
@@ -208,6 +235,11 @@
     {
       "recordId": "rec-tlv75533pdbvr",
       "sourceId": "src-tlv75533pdbvr-ds-p3",
+      "documentKind": "datasheet"
+    },
+    {
+      "recordId": "rec-ws2812b-2020-v6",
+      "sourceId": "src-ws2812b-2020-v6-ds-p0",
       "documentKind": "datasheet"
     }
   ],
@@ -243,10 +275,6 @@
     {
       "recordId": "rec-mmbt3904-range-100-300",
       "reason": "No manufacturer-primary document for this exact orderable is retained in the evidence. Reviewed: JLCPCB public product listing C20526 (A5 retained product-props snapshot) (DISTRIBUTOR_IDENTITY, AVAILABLE). Distributor listings establish order identity only, and a distributor-hosted mirror is lower authority, so neither is published as a manufacturer document."
-    },
-    {
-      "recordId": "rec-ap63205wu-7",
-      "reason": "No manufacturer-primary document for this exact orderable is retained in the evidence. Reviewed: JLCPCB public product listing C2071056 (A5 retained product-props snapshot) (DISTRIBUTOR_IDENTITY, AVAILABLE). Distributor listings establish order identity only, and a distributor-hosted mirror is lower authority, so neither is published as a manufacturer document."
     },
     {
       "recordId": "rec-uniroyal-0603waf1001t5e",
@@ -286,11 +314,7 @@
     },
     {
       "recordId": "rec-stm32g031g8u6tr",
-      "reason": "No manufacturer-primary document for this exact orderable is retained in the evidence. Reviewed: JLCPCB public product listing C5270180 (A5 retained product-props snapshot) (DISTRIBUTOR_IDENTITY, AVAILABLE). Distributor listings establish order identity only, and a distributor-hosted mirror is lower authority, so neither is published as a manufacturer document."
-    },
-    {
-      "recordId": "rec-ws2812b-2020-v6",
-      "reason": "No manufacturer-primary document for this exact orderable is retained in the evidence. Reviewed: JLCPCB public product listing C52917434 (A5 retained product-props snapshot) (DISTRIBUTOR_IDENTITY, AVAILABLE). Distributor listings establish order identity only, and a distributor-hosted mirror is lower authority, so neither is published as a manufacturer document."
+      "reason": "No manufacturer-primary document for this exact orderable is retained in the evidence. Reviewed: JLCPCB public product listing C5270180 (A5 retained product-props snapshot) (DISTRIBUTOR_IDENTITY, AVAILABLE); STMicroelectronics STM32G031x4/x6/x8 datasheet (DS12992), title as recorded by A5; not acquired (MANUFACTURER_PRIMARY, SOURCE UNAVAILABLE). Distributor listings establish order identity only, and a distributor-hosted mirror is lower authority, so neither is published as a manufacturer document."
     },
     {
       "recordId": "rec-boomele-2-54-2x5p",
@@ -302,7 +326,7 @@
     },
     {
       "recordId": "rec-spm4020t-4r7m-lr",
-      "reason": "No manufacturer-primary document for this exact orderable is retained in the evidence. Reviewed: LCSC public product listing C694586 (DISTRIBUTOR_IDENTITY, AVAILABLE). Distributor listings establish order identity only, and a distributor-hosted mirror is lower authority, so neither is published as a manufacturer document."
+      "reason": "No manufacturer-primary document for this exact orderable is retained in the evidence. Reviewed: LCSC public product listing C694586 (DISTRIBUTOR_IDENTITY, AVAILABLE); TDK SPM4020-LR series commercial power inductor catalog (inductor_commercial_power_spm4020-lr_en), title as recorded by A5; not acquired (MANUFACTURER_PRIMARY, SOURCE UNAVAILABLE). Distributor listings establish order identity only, and a distributor-hosted mirror is lower authority, so neither is published as a manufacturer document."
     },
     {
       "recordId": "rec-uniroyal-0603waf1005t5e",
@@ -315,7 +339,7 @@
   ],
   "expect": {
     "records": 30,
-    "sources": 90,
+    "sources": 102,
     "integrationRules": 0,
     "packages": 0
   }

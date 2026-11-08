@@ -39,6 +39,24 @@
       "printed_page_label": "n/a (XML netlist)",
       "locator": "engineering/a5/integration/native_schematic/controller/netlist.xml, components section rows for U1 and the matching nets section nodes",
       "evidence_extract": "U1: value=STM32G031G8U6TR, footprint=LightBlock:QFN28, symbol=LightBlock:MCU, pin 1 PC14=unconnected-(U1-PC14-Pad1), pin 2 PC15=unconnected-(U1-PC15-Pad2), pin 3 VDD/VDDA=/+3V3, pin 4 VSS/VSSA=/GND, pin 5 PF2/NRST=/NRST, pin 6 PA0/ADC0=/CV_ADC, pin 7 PA1=unconnected-(U1-PA1-Pad7), pin 8 PA2=/MODE_A, pin 9 PA3=/MODE_B, pin 10 PA4=/LED_FAULT_N, pin 11 PA5=/LED_ENABLE, pin 12 PA6/TIM3_CH1=/DATA_L_3V3, pin 13 PA7/TIM3_CH2=/DATA_R_3V3, pin 14 PB0=unconnected-(U1-PB0-Pad14), pin 15 PB1=unconnected-(U1-PB1-Pad15), pin 16 PA8=unconnected-(U1-PA8-Pad16), pin 17 PC6=unconnected-(U1-PC6-Pad17), pin 18 PA11=unconnected-(U1-PA11-Pad18), pin 19 PA12=unconnected-(U1-PA12-Pad19), pin 20 PA13/SWDIO=/SWDIO, pin 21 PA14/SWCLK=/SWCLK, pin 22 PA15=unconnected-(U1-PA15-Pad22), pin 23 PB3=unconnected-(U1-PB3-Pad23), pin 24 PB4=unconnected-(U1-PB4-Pad24), pin 25 PB5=unconnected-(U1-PB5-Pad25), pin 26 PB6=unconnected-(U1-PB6-Pad26), pin 27 PB7=unconnected-(U1-PB7-Pad27), pin 28 PB8=unconnected-(U1-PB8-Pad28). Historical A5 design state only; not fresh A6 state and not as-built verification."
+    },
+    {
+      "source_id": "src-stm32g031g8u6tr-ds",
+      "record_id": "rec-stm32g031g8u6tr",
+      "document_title": "STMicroelectronics STM32G031x4/x6/x8 datasheet (DS12992), title as recorded by A5; not acquired",
+      "document_number": "DS12992",
+      "revision": "unknown (not acquired)",
+      "document_date": "unknown (not acquired)",
+      "authoritative_url": "https://www.st.com/resource/en/datasheet/stm32g031f8.pdf",
+      "alternate_authoritative_url": "",
+      "retrieval_date": "2026-11-08",
+      "authority_class": "MANUFACTURER_PRIMARY",
+      "sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+      "availability": "SOURCE UNAVAILABLE",
+      "physical_pdf_page_index": 0,
+      "printed_page_label": "n/a (not acquired)",
+      "locator": "intended: UFQFPN28 pinout table rows, absolute maximum ratings section and ordering information section; not inspected",
+      "evidence_extract": "SOURCE UNAVAILABLE on 2026-11-08. Attempted: https://www.st.com/resource/en/datasheet/stm32g031f8.pdf, .../stm32g031g8.pdf and .../stm32g031c8.pdf with --http1.1 (curl 52 empty reply from server) and HTTP/2 (curl 92 stream INTERNAL_ERROR); the st.com product page https://www.st.com/en/microcontrollers-microprocessors/stm32g031g8.html failed the same way. Reason: st.com closes every connection from this environment without a response (bot/edge wall); no alternate manufacturer host found; no distributor mirror URL is recorded in the A5 snapshot (dataManualOfficialLink empty). A5 recorded sha256 0e25cbbf2cd173845545b61b91a9a7011724b4e5bd7b00498176129d48684e99 (2026-11-05/06) for https://www.st.com/resource/en/datasheet/stm32g031f8.pdf; no bytes inspected now, so no comparison is possible and no value is taken from A5 notes or memory."
     }
   ]
 }

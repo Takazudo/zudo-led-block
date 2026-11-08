@@ -13,7 +13,12 @@
       "package": "TSOT-23-6",
       "source_ids": [
         "src-ap63205wu-7-a5-jlcpcb-snapshot",
-        "src-ap63205wu-7-a5-netlist-controller"
+        "src-ap63205wu-7-a5-netlist-controller",
+        "src-ap63205wu-7-ds-p0",
+        "src-ap63205wu-7-ds-p1",
+        "src-ap63205wu-7-ds-p3",
+        "src-ap63205wu-7-ds-p4",
+        "src-ap63205wu-7-ds-p15"
       ],
       "fact_ids": [
         "fact-ap63205wu-7-manufacturer",
@@ -21,13 +26,17 @@
         "fact-ap63205wu-7-a5-placements",
         "fact-ap63205wu-7-pinout",
         "fact-ap63205wu-7-ratings",
-        "fact-ap63205wu-7-cad-state"
+        "fact-ap63205wu-7-cad-state",
+        "fact-ap63205wu-7-orderable",
+        "fact-ap63205wu-7-en-abs-max",
+        "fact-ap63205wu-7-fb-abs-max",
+        "fact-ap63205wu-7-vin-recommended",
+        "fact-ap63205wu-7-vout",
+        "fact-ap63205wu-7-peak-current-limit",
+        "fact-ap63205wu-7-switching-frequency"
       ],
       "interaction_ids": [],
       "open_domains": [
-        "identity",
-        "pinout",
-        "electrical-ratings",
         "placement",
         "cad-assets"
       ]

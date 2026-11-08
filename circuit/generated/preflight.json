@@ -41,9 +41,9 @@
     ]
   },
   "sources": {
-    "available": 90,
-    "selected": 90,
-    "linkable": 58,
+    "available": 102,
+    "selected": 102,
+    "linkable": 68,
     "ids": [
       "src-0603b103k500nt-a5-jlcpcb-snapshot",
       "src-0603b103k500nt-a5-netlist-controller",
@@ -70,6 +70,11 @@
       "src-530470310-a5-netlist-power-adapter",
       "src-ap63205wu-7-a5-jlcpcb-snapshot",
       "src-ap63205wu-7-a5-netlist-controller",
+      "src-ap63205wu-7-ds-p0",
+      "src-ap63205wu-7-ds-p1",
+      "src-ap63205wu-7-ds-p15",
+      "src-ap63205wu-7-ds-p3",
+      "src-ap63205wu-7-ds-p4",
       "src-bas70-04-7-f-a5-jlcpcb-snapshot",
       "src-bas70-04-7-f-a5-netlist-controller",
       "src-boomele-2-54-2x5p-a5-jlcpcb-snapshot-integration",
@@ -108,9 +113,11 @@
       "src-sn74lvc2t45dcur-ds-p4",
       "src-sn74lvc2t45dcur-ds-p6",
       "src-spm4020t-4r7m-lr-a5-netlist-controller",
+      "src-spm4020t-4r7m-lr-catalog",
       "src-spm4020t-4r7m-lr-lcsc-listing",
       "src-stm32g031g8u6tr-a5-jlcpcb-snapshot",
       "src-stm32g031g8u6tr-a5-netlist-controller",
+      "src-stm32g031g8u6tr-ds",
       "src-tlv75533pdbvr-a5-jlcpcb-snapshot",
       "src-tlv75533pdbvr-a5-netlist-controller",
       "src-tlv75533pdbvr-ds-p23",
@@ -134,7 +141,12 @@
       "src-tps2552dbvr-1-ds-p4",
       "src-tps2552dbvr-1-ds-p5",
       "src-ws2812b-2020-v6-a5-jlcpcb-snapshot",
-      "src-ws2812b-2020-v6-a5-netlist-led-leaf"
+      "src-ws2812b-2020-v6-a5-netlist-led-leaf",
+      "src-ws2812b-2020-v6-ds-p0",
+      "src-ws2812b-2020-v6-ds-p1",
+      "src-ws2812b-2020-v6-ds-p2",
+      "src-ws2812b-2020-v6-ds-p3",
+      "src-ws2812b-2020-v6-ds-p9"
     ]
   },
   "fields": [
@@ -267,187 +279,187 @@
     {
       "key": "source.sourceId",
       "decision": "PUBLISH",
-      "emitted": 90,
+      "emitted": 102,
       "withheld": 0
     },
     {
       "key": "source.documentTitle",
       "decision": "PUBLISH",
-      "emitted": 90,
+      "emitted": 102,
       "withheld": 0
     },
     {
       "key": "source.documentNumber",
       "decision": "PUBLISH",
-      "emitted": 90,
+      "emitted": 102,
       "withheld": 0
     },
     {
       "key": "source.revision",
       "decision": "PUBLISH",
-      "emitted": 90,
+      "emitted": 102,
       "withheld": 0
     },
     {
       "key": "source.documentDate",
       "decision": "PUBLISH",
-      "emitted": 90,
+      "emitted": 102,
       "withheld": 0
     },
     {
       "key": "source.retrievalDate",
       "decision": "PUBLISH",
-      "emitted": 90,
+      "emitted": 102,
       "withheld": 0
     },
     {
       "key": "source.authorityClass",
       "decision": "PUBLISH",
-      "emitted": 90,
+      "emitted": 102,
       "withheld": 0
     },
     {
       "key": "source.availability",
       "decision": "PUBLISH",
-      "emitted": 90,
+      "emitted": 102,
       "withheld": 0
     },
     {
       "key": "source.locator",
       "decision": "PUBLISH",
-      "emitted": 90,
+      "emitted": 102,
       "withheld": 0
     },
     {
       "key": "source.printedPageLabel",
       "decision": "PUBLISH",
-      "emitted": 90,
+      "emitted": 102,
       "withheld": 0
     },
     {
       "key": "source.physicalPdfPageIndex",
       "decision": "DENY",
       "emitted": 0,
-      "withheld": 90
+      "withheld": 102
     },
     {
       "key": "source.authoritativeUrl",
       "decision": "PUBLISH",
-      "emitted": 58,
+      "emitted": 68,
       "withheld": 0
     },
     {
       "key": "source.alternateAuthoritativeUrl",
       "decision": "DENY",
       "emitted": 0,
-      "withheld": 90
+      "withheld": 102
     },
     {
       "key": "source.sha256",
       "decision": "DENY",
       "emitted": 0,
-      "withheld": 90
+      "withheld": 102
     },
     {
       "key": "source.evidenceExtract",
       "decision": "DENY",
       "emitted": 0,
-      "withheld": 90
+      "withheld": 102
     },
     {
       "key": "fact.factId",
       "decision": "PUBLISH",
-      "emitted": 211,
+      "emitted": 225,
       "withheld": 0
     },
     {
       "key": "fact.class",
       "decision": "PUBLISH",
-      "emitted": 211,
+      "emitted": 225,
       "withheld": 0
     },
     {
       "key": "fact.value",
       "decision": "PUBLISH",
-      "emitted": 211,
+      "emitted": 225,
       "withheld": 0
     },
     {
       "key": "fact.unit",
       "decision": "PUBLISH",
-      "emitted": 211,
+      "emitted": 225,
       "withheld": 0
     },
     {
       "key": "fact.conditions",
       "decision": "PUBLISH",
-      "emitted": 211,
+      "emitted": 225,
       "withheld": 0
     },
     {
       "key": "fact.locator",
       "decision": "PUBLISH",
-      "emitted": 211,
+      "emitted": 225,
       "withheld": 0
     },
     {
       "key": "fact.provenance",
       "decision": "PUBLISH",
-      "emitted": 211,
+      "emitted": 225,
       "withheld": 0
     },
     {
       "key": "fact.verdict",
       "decision": "PUBLISH",
-      "emitted": 211,
+      "emitted": 225,
       "withheld": 0
     },
     {
       "key": "fact.dependsOn",
       "decision": "PUBLISH",
-      "emitted": 211,
+      "emitted": 225,
       "withheld": 0
     },
     {
       "key": "fact.expression",
       "decision": "PUBLISH",
-      "emitted": 211,
+      "emitted": 225,
       "withheld": 0
     },
     {
       "key": "coverage.coverageId",
       "decision": "PUBLISH",
-      "emitted": 150,
+      "emitted": 151,
       "withheld": 0
     },
     {
       "key": "coverage.domain",
       "decision": "PUBLISH",
-      "emitted": 150,
+      "emitted": 151,
       "withheld": 0
     },
     {
       "key": "coverage.status",
       "decision": "PUBLISH",
-      "emitted": 150,
+      "emitted": 151,
       "withheld": 0
     },
     {
       "key": "coverage.reason",
       "decision": "PUBLISH",
-      "emitted": 150,
+      "emitted": 151,
       "withheld": 0
     },
     {
       "key": "coverage.factIds",
       "decision": "PUBLISH",
-      "emitted": 150,
+      "emitted": 151,
       "withheld": 0
     },
     {
       "key": "coverage.blockingFactIds",
       "decision": "PUBLISH",
-      "emitted": 150,
+      "emitted": 151,
       "withheld": 0
     },
     {
@@ -615,31 +627,31 @@
     {
       "key": "reference.document.sourceId",
       "decision": "PUBLISH",
-      "emitted": 5,
+      "emitted": 7,
       "withheld": 0
     },
     {
       "key": "reference.document.documentTitle",
       "decision": "PUBLISH",
-      "emitted": 5,
+      "emitted": 7,
       "withheld": 0
     },
     {
       "key": "reference.document.label",
       "decision": "PUBLISH",
-      "emitted": 5,
+      "emitted": 7,
       "withheld": 0
     },
     {
       "key": "reference.document.authorityClass",
       "decision": "PUBLISH",
-      "emitted": 5,
+      "emitted": 7,
       "withheld": 0
     },
     {
       "key": "reference.document.url",
       "decision": "PUBLISH",
-      "emitted": 5,
+      "emitted": 7,
       "withheld": 0
     },
     {
@@ -651,7 +663,7 @@
     {
       "key": "reference.document.documentKind",
       "decision": "PUBLISH",
-      "emitted": 5,
+      "emitted": 7,
       "withheld": 0
     },
     {
@@ -711,7 +723,7 @@
     {
       "key": "asset.datasheetPdf",
       "decision": "PUBLISH",
-      "emitted": 5,
+      "emitted": 7,
       "withheld": 0
     },
     {
@@ -881,6 +893,36 @@
     {
       "sourceId": "src-ap63205wu-7-a5-netlist-controller",
       "url": "https://github.com/Takazudo/zudo-led-block/blob/d41cbb7fc61dc954b4affaf19527aa69f07013b6/engineering/a5/integration/native_schematic/controller/netlist.xml",
+      "decision": "ALLOW",
+      "reason": "ABSOLUTE_HTTP_URL"
+    },
+    {
+      "sourceId": "src-ap63205wu-7-ds-p0",
+      "url": "https://www.diodes.com/assets/Datasheets/AP63200-AP63201-AP63203-AP63205.pdf",
+      "decision": "ALLOW",
+      "reason": "ABSOLUTE_HTTP_URL"
+    },
+    {
+      "sourceId": "src-ap63205wu-7-ds-p1",
+      "url": "https://www.diodes.com/assets/Datasheets/AP63200-AP63201-AP63203-AP63205.pdf",
+      "decision": "ALLOW",
+      "reason": "ABSOLUTE_HTTP_URL"
+    },
+    {
+      "sourceId": "src-ap63205wu-7-ds-p15",
+      "url": "https://www.diodes.com/assets/Datasheets/AP63200-AP63201-AP63203-AP63205.pdf",
+      "decision": "ALLOW",
+      "reason": "ABSOLUTE_HTTP_URL"
+    },
+    {
+      "sourceId": "src-ap63205wu-7-ds-p3",
+      "url": "https://www.diodes.com/assets/Datasheets/AP63200-AP63201-AP63203-AP63205.pdf",
+      "decision": "ALLOW",
+      "reason": "ABSOLUTE_HTTP_URL"
+    },
+    {
+      "sourceId": "src-ap63205wu-7-ds-p4",
+      "url": "https://www.diodes.com/assets/Datasheets/AP63200-AP63201-AP63203-AP63205.pdf",
       "decision": "ALLOW",
       "reason": "ABSOLUTE_HTTP_URL"
     },
@@ -1113,6 +1155,12 @@
       "reason": "ABSOLUTE_HTTP_URL"
     },
     {
+      "sourceId": "src-spm4020t-4r7m-lr-catalog",
+      "url": "",
+      "decision": "DENY",
+      "reason": "SOURCE_NOT_LINKABLE"
+    },
+    {
       "sourceId": "src-spm4020t-4r7m-lr-lcsc-listing",
       "url": "",
       "decision": "DENY",
@@ -1129,6 +1177,12 @@
       "url": "https://github.com/Takazudo/zudo-led-block/blob/d41cbb7fc61dc954b4affaf19527aa69f07013b6/engineering/a5/integration/native_schematic/controller/netlist.xml",
       "decision": "ALLOW",
       "reason": "ABSOLUTE_HTTP_URL"
+    },
+    {
+      "sourceId": "src-stm32g031g8u6tr-ds",
+      "url": "",
+      "decision": "DENY",
+      "reason": "SOURCE_NOT_LINKABLE"
     },
     {
       "sourceId": "src-tlv75533pdbvr-a5-jlcpcb-snapshot",
@@ -1273,16 +1327,46 @@
       "url": "https://github.com/Takazudo/zudo-led-block/blob/d41cbb7fc61dc954b4affaf19527aa69f07013b6/engineering/a5/integration/native_schematic/led_leaf/netlist.xml",
       "decision": "ALLOW",
       "reason": "ABSOLUTE_HTTP_URL"
+    },
+    {
+      "sourceId": "src-ws2812b-2020-v6-ds-p0",
+      "url": "https://www.world-semi.com/downloads/datasheets/en/ws2812b-2020-v6-1.0.pdf",
+      "decision": "ALLOW",
+      "reason": "ABSOLUTE_HTTP_URL"
+    },
+    {
+      "sourceId": "src-ws2812b-2020-v6-ds-p1",
+      "url": "https://www.world-semi.com/downloads/datasheets/en/ws2812b-2020-v6-1.0.pdf",
+      "decision": "ALLOW",
+      "reason": "ABSOLUTE_HTTP_URL"
+    },
+    {
+      "sourceId": "src-ws2812b-2020-v6-ds-p2",
+      "url": "https://www.world-semi.com/downloads/datasheets/en/ws2812b-2020-v6-1.0.pdf",
+      "decision": "ALLOW",
+      "reason": "ABSOLUTE_HTTP_URL"
+    },
+    {
+      "sourceId": "src-ws2812b-2020-v6-ds-p3",
+      "url": "https://www.world-semi.com/downloads/datasheets/en/ws2812b-2020-v6-1.0.pdf",
+      "decision": "ALLOW",
+      "reason": "ABSOLUTE_HTTP_URL"
+    },
+    {
+      "sourceId": "src-ws2812b-2020-v6-ds-p9",
+      "url": "https://www.world-semi.com/downloads/datasheets/en/ws2812b-2020-v6-1.0.pdf",
+      "decision": "ALLOW",
+      "reason": "ABSOLUTE_HTTP_URL"
     }
   ],
   "counts": {
     "generatedPages": 34,
-    "publishedCoverageDomains": 150,
-    "publishedFacts": 211,
+    "publishedCoverageDomains": 151,
+    "publishedFacts": 225,
     "publishedIntegrationRules": 0,
     "publishedInteractions": 0,
     "publishedPinMaps": 30,
     "publishedRecords": 30,
-    "publishedSources": 90
+    "publishedSources": 102
   }
 }

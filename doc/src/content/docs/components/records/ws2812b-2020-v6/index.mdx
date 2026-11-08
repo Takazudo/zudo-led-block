@@ -29,11 +29,11 @@ This record in the catalog: [WS2812B-2020-V6](/docs/components/catalog/#rec-ws28
 
 **Fit:** Fitted
 
-**Identity state:** UNRESOLVED
+**Identity state:** VERIFIED
 
 **Source state:** AVAILABLE
 
-**Coverage:** 5 open of 5 published
+**Coverage:** 2 open of 6 published
 
 ## Documents and package
 
@@ -41,9 +41,13 @@ This record in the catalog: [WS2812B-2020-V6](/docs/components/catalog/#rec-ws28
 
 <EvidenceAnchor id="component-references" />
 
-**Selected document:** Document unavailable
+[Datasheet PDF](https://www.world-semi.com/downloads/datasheets/en/ws2812b-2020-v6-1.0.pdf) — WS2812B-2020-V6 Intelligent control LED integrated light source
 
-**Reason:** No manufacturer-primary document for this exact orderable is retained in the evidence. Reviewed: JLCPCB public product listing C52917434 (A5 retained product-props snapshot) (DISTRIBUTOR\_IDENTITY, AVAILABLE). Distributor listings establish order identity only, and a distributor-hosted mirror is lower authority, so neither is published as a manufacturer document.
+**Selected source ID:** `src-ws2812b-2020-v6-ds-p0`
+
+**Authority:** MANUFACTURER\_PRIMARY
+
+**Availability:** AVAILABLE
 
 No footprint or 3D model is published for this record: CAD is not enabled for this project.
 
@@ -66,32 +70,25 @@ Coverage is stated one domain at a time and is never rolled up. A domain marked 
 
 <EvidenceAnchor id="cov-ws2812b-2020-v6-identity" />
 
-**Coverage ID:** `cov-ws2812b-2020-v6-identity` · **Status:** OPEN
+**Coverage ID:** `cov-ws2812b-2020-v6-identity` · **Status:** COVERED
 
-**Reason:** fact-ws2812b-2020-v6-manufacturer remains UNSOURCED: only distributor identity is retained; no manufacturer-primary document inspected
+**Reason:** Worldsemi WS2812B-2020-V6 datasheet V1.4 from world-semi.com names the exact part in its title block; distributor listing retained for order-code identity
 
 **Facts in this domain:**
 
 - [`fact-ws2812b-2020-v6-manufacturer`](#fact-ws2812b-2020-v6-manufacturer)
+- [`fact-ws2812b-2020-v6-orderable`](#fact-ws2812b-2020-v6-orderable)
 - [`fact-ws2812b-2020-v6-distributor-identity`](#fact-ws2812b-2020-v6-distributor-identity)
-
-**Blocked by:** these facts must be resolved before the domain can close. Each is listed in full under Facts.
-
-- [`fact-ws2812b-2020-v6-manufacturer`](#fact-ws2812b-2020-v6-manufacturer)
 
 ### pinout
 
 <EvidenceAnchor id="cov-ws2812b-2020-v6-pinout" />
 
-**Coverage ID:** `cov-ws2812b-2020-v6-pinout` · **Status:** OPEN
+**Coverage ID:** `cov-ws2812b-2020-v6-pinout` · **Status:** COVERED
 
-**Reason:** fact-ws2812b-2020-v6-pinout remains UNSOURCED: the pin map is projected from the historical A5 netlist and has not been checked against a manufacturer document
+**Reason:** pin functions read from the V1.4 PIN Function table and matched to the project pin map by number and function
 
 **Facts in this domain:**
-
-- [`fact-ws2812b-2020-v6-pinout`](#fact-ws2812b-2020-v6-pinout)
-
-**Blocked by:** these facts must be resolved before the domain can close. Each is listed in full under Facts.
 
 - [`fact-ws2812b-2020-v6-pinout`](#fact-ws2812b-2020-v6-pinout)
 
@@ -99,17 +96,28 @@ Coverage is stated one domain at a time and is never rolled up. A domain marked 
 
 <EvidenceAnchor id="cov-ws2812b-2020-v6-ratings" />
 
-**Coverage ID:** `cov-ws2812b-2020-v6-ratings` · **Status:** OPEN
+**Coverage ID:** `cov-ws2812b-2020-v6-ratings` · **Status:** COVERED
 
-**Reason:** fact-ws2812b-2020-v6-ratings remains UNSOURCED: no manufacturer limits retained
+**Reason:** VDD and input-voltage absolute maximum and VIH threshold read from the V1.4 page-3 tables
 
 **Facts in this domain:**
 
 - [`fact-ws2812b-2020-v6-ratings`](#fact-ws2812b-2020-v6-ratings)
+- [`fact-ws2812b-2020-v6-input-abs-max`](#fact-ws2812b-2020-v6-input-abs-max)
+- [`fact-ws2812b-2020-v6-vih`](#fact-ws2812b-2020-v6-vih)
 
-**Blocked by:** these facts must be resolved before the domain can close. Each is listed in full under Facts.
+### signal-timing
 
-- [`fact-ws2812b-2020-v6-ratings`](#fact-ws2812b-2020-v6-ratings)
+<EvidenceAnchor id="cov-ws2812b-2020-v6-signal-timing" />
+
+**Coverage ID:** `cov-ws2812b-2020-v6-signal-timing` · **Status:** COVERED
+
+**Reason:** data bit and reset timing read from the V1.4 Data Transfer Time table
+
+**Facts in this domain:**
+
+- [`fact-ws2812b-2020-v6-bit-timing`](#fact-ws2812b-2020-v6-bit-timing)
+- [`fact-ws2812b-2020-v6-reset-time`](#fact-ws2812b-2020-v6-reset-time)
 
 ### placement
 
@@ -156,13 +164,73 @@ A never-exceed limit. Reaching it may damage the part; it is not an operating ta
 
   **Fact:** `fact-ws2812b-2020-v6-ratings`
 
-  **Value:** manufacturer absolute-maximum and recommended operating limits · **Unit:** `NONE`
+  **Value:** 3.3 to 5.3 · **Unit:** `V`
 
-  **Conditions:** no manufacturer document inspected yet; distributor listing is identity evidence only
+  **Conditions:** power supply voltage VDD printed as "+3.3~+5.3" in the Absolute Maximum Ratings table (TA=25C, VSS=0V); the document gives no separate recommended operating VDD table; page 1 states 3.3 V supply is supported
 
-  **Verdict:** UNSOURCED · **Provenance:** UNVERIFIED
+  **Verdict:** PASS - primary-source confirmed · **Provenance:** PRIMARY-SPEC
 
-  **Evidence:** [src-ws2812b-2020-v6-a5-jlcpcb-snapshot: product table row specification (identity only)](#src-ws2812b-2020-v6-a5-jlcpcb-snapshot)
+  **Evidence:** [src-ws2812b-2020-v6-ds-p2: Absolute Maximum Ratings table row power supply voltage VDD](#src-ws2812b-2020-v6-ds-p2)
+</EvidenceFact>
+
+<EvidenceFact>
+  <EvidenceAnchor id="fact-ws2812b-2020-v6-input-abs-max" />
+
+  **Fact:** `fact-ws2812b-2020-v6-input-abs-max`
+
+  **Value:** -0.3 to VDD+0.7 · **Unit:** `V`
+
+  **Conditions:** logical input voltage VI absolute maximum, TA=25C, VSS=0V; upper bound tracks VDD
+
+  **Verdict:** PASS - primary-source confirmed · **Provenance:** PRIMARY-SPEC
+
+  **Evidence:** [src-ws2812b-2020-v6-ds-p2: Absolute Maximum Ratings table row logical input voltage VI](#src-ws2812b-2020-v6-ds-p2)
+</EvidenceFact>
+
+### GUARANTEED\_ELECTRICAL
+
+A parameter the manufacturer guarantees over the stated conditions, usually with minimum, typical and maximum values.
+
+<EvidenceFact>
+  <EvidenceAnchor id="fact-ws2812b-2020-v6-vih" />
+
+  **Fact:** `fact-ws2812b-2020-v6-vih`
+
+  **Value:** 0.55 · **Unit:** `fraction of VDD`
+
+  **Conditions:** high-level input voltage VIH min 0.55\*VDD (max VDD+0.7 V) at DIN, SET; TA=25C, VDD=5V; VIL max 0.7 V
+
+  **Verdict:** PASS - primary-source confirmed · **Provenance:** PRIMARY-SPEC
+
+  **Evidence:** [src-ws2812b-2020-v6-ds-p2: Electrical Characteristics table row VIH](#src-ws2812b-2020-v6-ds-p2)
+</EvidenceFact>
+
+<EvidenceFact>
+  <EvidenceAnchor id="fact-ws2812b-2020-v6-bit-timing" />
+
+  **Fact:** `fact-ws2812b-2020-v6-bit-timing`
+
+  **Value:** T0H 220-380; T1H 580-1000; T0L 580-1000; T1L 580-1000 · **Unit:** `ns`
+
+  **Conditions:** Data Transfer Time table as printed in V1.4; data cycle T0H+T0L and T1H+T1L >= 1.25 us; no temperature or supply condition printed for this table. Note: A5 facts\_used for the same bytes recorded "T1L 220..420ns", which does not match this table
+
+  **Verdict:** PASS - primary-source confirmed · **Provenance:** PRIMARY-SPEC
+
+  **Evidence:** [src-ws2812b-2020-v6-ds-p3: Data Transfer Time table rows T0H, T1H, T0L, T1L, TDATA](#src-ws2812b-2020-v6-ds-p3)
+</EvidenceFact>
+
+<EvidenceFact>
+  <EvidenceAnchor id="fact-ws2812b-2020-v6-reset-time" />
+
+  **Fact:** `fact-ws2812b-2020-v6-reset-time`
+
+  **Value:** 280 · **Unit:** `us`
+
+  **Conditions:** RES frame unit low voltage time printed as ">280us" (strictly greater than 280 us)
+
+  **Verdict:** PASS - primary-source confirmed · **Provenance:** PRIMARY-SPEC
+
+  **Evidence:** [src-ws2812b-2020-v6-ds-p3: Data Transfer Time table row RES](#src-ws2812b-2020-v6-ds-p3)
 </EvidenceFact>
 
 ### PROJECT\_STATE
@@ -176,11 +244,11 @@ A value this project recorded about how the part is used here — a chosen opera
 
   **Value:** Worldsemi · **Unit:** `NONE`
 
-  **Conditions:** exact orderable identity; distributor listing only, no manufacturer-primary document inspected yet
+  **Conditions:** manufacturer datasheet served from world-semi.com; printed form is the "WORLDSEMI" logo in every page title block plus footer http://www.world-semi.com; no legal entity name is printed
 
-  **Verdict:** UNSOURCED · **Provenance:** UNVERIFIED
+  **Verdict:** PASS - primary-source confirmed · **Provenance:** PRIMARY-SPEC
 
-  **Evidence:** [src-ws2812b-2020-v6-a5-jlcpcb-snapshot: product table row brand](#src-ws2812b-2020-v6-a5-jlcpcb-snapshot)
+  **Evidence:** [src-ws2812b-2020-v6-ds-p0: page 1 title block logo and footer row](#src-ws2812b-2020-v6-ds-p0)
 </EvidenceFact>
 
 <EvidenceFact>
@@ -216,13 +284,13 @@ A value this project recorded about how the part is used here — a chosen opera
 
   **Fact:** `fact-ws2812b-2020-v6-pinout`
 
-  **Value:** manufacturer pin numbering and pin functions for package SMD2020-4P · **Unit:** `NONE`
+  **Value:** 1 DO (data out); 2 GND; 3 DI (data in); 4 VDD · **Unit:** `NONE`
 
-  **Conditions:** datasheet pin identity behind the project pin map; no manufacturer document inspected yet
+  **Conditions:** SMD2020 4-pad package; PIN Function table agrees with the page-2 PIN Configuration figure; matches project pin map by number and function (pin map names pin 1 DOUT, pin 3 DIN)
 
-  **Verdict:** UNSOURCED · **Provenance:** UNVERIFIED
+  **Verdict:** PASS - primary-source confirmed · **Provenance:** PRIMARY-SPEC
 
-  **Evidence:** [src-ws2812b-2020-v6-a5-netlist-led-leaf: libparts section pin rows for LightBlock:LED](#src-ws2812b-2020-v6-a5-netlist-led-leaf)
+  **Evidence:** [src-ws2812b-2020-v6-ds-p2: PIN Function table rows 1 to 4](#src-ws2812b-2020-v6-ds-p2)
 </EvidenceFact>
 
 <EvidenceFact>
@@ -237,6 +305,20 @@ A value this project recorded about how the part is used here — a chosen opera
   **Verdict:** UNSOURCED · **Provenance:** PROJECT-CHOICE
 
   **Evidence:** [src-ws2812b-2020-v6-a5-netlist-led-leaf: components section footprint field](#src-ws2812b-2020-v6-a5-netlist-led-leaf)
+</EvidenceFact>
+
+<EvidenceFact>
+  <EvidenceAnchor id="fact-ws2812b-2020-v6-orderable" />
+
+  **Fact:** `fact-ws2812b-2020-v6-orderable`
+
+  **Value:** WS2812B-2020-V6 named as the document part in every title block; 2020 package per the page-2 Mechanical Dimensions figure; no ordering table · **Unit:** `NONE`
+
+  **Conditions:** single-part datasheet for the exact MPN, not a family document; Remarks state no version number is attached to the part number; not the WS2812B-MINI-V6 alternative
+
+  **Verdict:** PASS - primary-source confirmed · **Provenance:** PRIMARY-SPEC
+
+  **Evidence:** [src-ws2812b-2020-v6-ds-p0: page 1 title block part name row](#src-ws2812b-2020-v6-ds-p0)
 </EvidenceFact>
 
 ## Pin maps
@@ -318,6 +400,106 @@ Every document cited above, with its identification, when it was retrieved, and 
 
 **Document URL:** [https://github.com/Takazudo/zudo-led-block/blob/d41cbb7fc61dc954b4affaf19527aa69f07013b6/engineering/a5/integration/native\_schematic/led\_leaf/netlist.xml](https://github.com/Takazudo/zudo-led-block/blob/d41cbb7fc61dc954b4affaf19527aa69f07013b6/engineering/a5/integration/native_schematic/led_leaf/netlist.xml)
 
+### WS2812B-2020-V6 Intelligent control LED integrated light source
+
+<EvidenceAnchor id="src-ws2812b-2020-v6-ds-p0" />
+
+**Source ID:** `src-ws2812b-2020-v6-ds-p0` · **Authority:** MANUFACTURER\_PRIMARY
+
+| Field           | Recorded value                                         |
+| --------------- | ------------------------------------------------------ |
+| Document number | WS2812B-2020-V6 datasheet (no document number printed) |
+| Revision        | V1.4                                                   |
+| Document date   | 2026-07-28                                             |
+| Retrieved       | 2026-11-08                                             |
+| Printed page    | 1 / 10                                                 |
+
+**Locator:** Page 1: title block (WORLDSEMI logo, part name WS2812B-2020-V6), Features and Benefits section, footer
+
+**Availability:** AVAILABLE
+
+**Document URL:** [https://www.world-semi.com/downloads/datasheets/en/ws2812b-2020-v6-1.0.pdf](https://www.world-semi.com/downloads/datasheets/en/ws2812b-2020-v6-1.0.pdf)
+
+### WS2812B-2020-V6 Intelligent control LED integrated light source
+
+<EvidenceAnchor id="src-ws2812b-2020-v6-ds-p1" />
+
+**Source ID:** `src-ws2812b-2020-v6-ds-p1` · **Authority:** MANUFACTURER\_PRIMARY
+
+| Field           | Recorded value                                         |
+| --------------- | ------------------------------------------------------ |
+| Document number | WS2812B-2020-V6 datasheet (no document number printed) |
+| Revision        | V1.4                                                   |
+| Document date   | 2026-07-28                                             |
+| Retrieved       | 2026-11-08                                             |
+| Printed page    | 2 / 10                                                 |
+
+**Locator:** Page 2: Mechanical Dimensions figure and PIN Configuration figure
+
+**Availability:** AVAILABLE
+
+**Document URL:** [https://www.world-semi.com/downloads/datasheets/en/ws2812b-2020-v6-1.0.pdf](https://www.world-semi.com/downloads/datasheets/en/ws2812b-2020-v6-1.0.pdf)
+
+### WS2812B-2020-V6 Intelligent control LED integrated light source
+
+<EvidenceAnchor id="src-ws2812b-2020-v6-ds-p2" />
+
+**Source ID:** `src-ws2812b-2020-v6-ds-p2` · **Authority:** MANUFACTURER\_PRIMARY
+
+| Field           | Recorded value                                         |
+| --------------- | ------------------------------------------------------ |
+| Document number | WS2812B-2020-V6 datasheet (no document number printed) |
+| Revision        | V1.4                                                   |
+| Document date   | 2026-07-28                                             |
+| Retrieved       | 2026-11-08                                             |
+| Printed page    | 3 / 10                                                 |
+
+**Locator:** Page 3: PIN Function table (rows 1 to 4), Absolute Maximum Ratings table (rows VDD, VI, Topt) and Electrical Characteristics table (rows VIH, VIL)
+
+**Availability:** AVAILABLE
+
+**Document URL:** [https://www.world-semi.com/downloads/datasheets/en/ws2812b-2020-v6-1.0.pdf](https://www.world-semi.com/downloads/datasheets/en/ws2812b-2020-v6-1.0.pdf)
+
+### WS2812B-2020-V6 Intelligent control LED integrated light source
+
+<EvidenceAnchor id="src-ws2812b-2020-v6-ds-p3" />
+
+**Source ID:** `src-ws2812b-2020-v6-ds-p3` · **Authority:** MANUFACTURER\_PRIMARY
+
+| Field           | Recorded value                                         |
+| --------------- | ------------------------------------------------------ |
+| Document number | WS2812B-2020-V6 datasheet (no document number printed) |
+| Revision        | V1.4                                                   |
+| Document date   | 2026-07-28                                             |
+| Retrieved       | 2026-11-08                                             |
+| Printed page    | 4 / 10                                                 |
+
+**Locator:** Page 4: Data Transfer Time table, rows T0H, T1H, T0L, T1L, RES, TDATA
+
+**Availability:** AVAILABLE
+
+**Document URL:** [https://www.world-semi.com/downloads/datasheets/en/ws2812b-2020-v6-1.0.pdf](https://www.world-semi.com/downloads/datasheets/en/ws2812b-2020-v6-1.0.pdf)
+
+### WS2812B-2020-V6 Intelligent control LED integrated light source
+
+<EvidenceAnchor id="src-ws2812b-2020-v6-ds-p9" />
+
+**Source ID:** `src-ws2812b-2020-v6-ds-p9` · **Authority:** MANUFACTURER\_PRIMARY
+
+| Field           | Recorded value                                         |
+| --------------- | ------------------------------------------------------ |
+| Document number | WS2812B-2020-V6 datasheet (no document number printed) |
+| Revision        | V1.4                                                   |
+| Document date   | 2026-07-28                                             |
+| Retrieved       | 2026-11-08                                             |
+| Printed page    | 10 / 10                                                |
+
+**Locator:** Page 10: Modify Record table (rows V1.0 to V1.4) and Remarks
+
+**Availability:** AVAILABLE
+
+**Document URL:** [https://www.world-semi.com/downloads/datasheets/en/ws2812b-2020-v6-1.0.pdf](https://www.world-semi.com/downloads/datasheets/en/ws2812b-2020-v6-1.0.pdf)
+
 ## Legend
 
 What the recorded terms on this page mean, in ordinary words. The exact terms above are the ones that count; these descriptions explain them and never replace them.
@@ -328,6 +510,7 @@ What the recorded terms on this page mean, in ordinary words. The exact terms ab
 | --------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------- |
 | `CONFIRMED - distributor identity only` | A distributor listing confirms which part this is, and nothing more. It carries no electrical, thermal or lifetime authority. |
 | `NEEDS BENCH`                           | Cannot be settled from documents. It needs measurement on real hardware before it can be relied on.                           |
+| `PASS - primary-source confirmed`       | Confirmed against the manufacturer's own document for this exact part.                                                        |
 | `UNSOURCED`                             | No accepted source backs this value yet. Treat it as a claim, not a fact.                                                     |
 
 ### Provenance
@@ -335,20 +518,22 @@ What the recorded terms on this page mean, in ordinary words. The exact terms ab
 | Recorded term          | What it means                                                |
 | ---------------------- | ------------------------------------------------------------ |
 | `DISTRIBUTOR-IDENTITY` | Taken from a distributor listing. Identity information only. |
+| `PRIMARY-SPEC`         | Taken from the manufacturer's own specification document.    |
 | `PROJECT-CHOICE`       | A decision made by this project. No vendor asserts it.       |
-| `UNVERIFIED`           | Recorded, but not yet backed by an accepted source.          |
 
 ### Fact class
 
-| Recorded term      | What it means                                                                                                                                                      |
-| ------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| `ABSOLUTE_MAXIMUM` | A never-exceed limit. Reaching it may damage the part; it is not an operating target and there is no margin implied by it.                                         |
-| `PROJECT_STATE`    | A value this project recorded about how the part is used here — a chosen operating point, a net assignment, or a derived figure. Not a manufacturer specification. |
+| Recorded term           | What it means                                                                                                                                                      |
+| ----------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| `ABSOLUTE_MAXIMUM`      | A never-exceed limit. Reaching it may damage the part; it is not an operating target and there is no margin implied by it.                                         |
+| `GUARANTEED_ELECTRICAL` | A parameter the manufacturer guarantees over the stated conditions, usually with minimum, typical and maximum values.                                              |
+| `PROJECT_STATE`         | A value this project recorded about how the part is used here — a chosen operating point, a net assignment, or a derived figure. Not a manufacturer specification. |
 
 ### Coverage status
 
 | Recorded term | What it means                                                                                                               |
 | ------------- | --------------------------------------------------------------------------------------------------------------------------- |
+| `COVERED`     | Every question this domain asks is answered by the facts listed against it.                                                 |
 | `OPEN`        | Unresolved. Open means the question has not been answered, not that the part is unsafe — the reason states what is missing. |
 
 ### Source availability
@@ -362,13 +547,14 @@ What the recorded terms on this page mean, in ordinary words. The exact terms ab
 | Recorded term          | What it means                                                             |
 | ---------------------- | ------------------------------------------------------------------------- |
 | `DISTRIBUTOR_IDENTITY` | A distributor listing. Establishes which part this is, nothing more.      |
+| `MANUFACTURER_PRIMARY` | The manufacturer's own document for this exact part.                      |
 | `PROJECT_GENERATOR`    | A document this project generated, such as a schematic or netlist export. |
 
 ### Identity state
 
-| Recorded term | What it means                                                                                                                    |
-| ------------- | -------------------------------------------------------------------------------------------------------------------------------- |
-| `UNRESOLVED`  | The exact orderable part is not yet confirmed. Substituting a same-name part from another vendor is not permitted on that basis. |
+| Recorded term | What it means                                                 |
+| ------------- | ------------------------------------------------------------- |
+| `VERIFIED`    | The exact orderable part has been confirmed against a source. |
 
 ### Source state
 

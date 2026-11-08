@@ -6,13 +6,15 @@
       "record_id": "rec-spm4020t-4r7m-lr",
       "domain": "identity",
       "status": "OPEN",
-      "reason": "fact-spm4020t-4r7m-lr-manufacturer remains UNSOURCED: only distributor identity is retained; no manufacturer-primary document inspected",
+      "reason": "manufacturer and exact-orderable facts remain UNSOURCED: the TDK SPM4020-LR catalog is SOURCE UNAVAILABLE (product.tdk.com 403 on 2026-11-08); only distributor identity is retained",
       "fact_ids": [
         "fact-spm4020t-4r7m-lr-manufacturer",
+        "fact-spm4020t-4r7m-lr-orderable",
         "fact-spm4020t-4r7m-lr-distributor-identity"
       ],
       "blocking_fact_ids": [
-        "fact-spm4020t-4r7m-lr-manufacturer"
+        "fact-spm4020t-4r7m-lr-manufacturer",
+        "fact-spm4020t-4r7m-lr-orderable"
       ]
     },
     {
@@ -20,7 +22,7 @@
       "record_id": "rec-spm4020t-4r7m-lr",
       "domain": "pinout",
       "status": "OPEN",
-      "reason": "fact-spm4020t-4r7m-lr-pinout remains UNSOURCED: the pin map is projected from the historical A5 netlist and has not been checked against a manufacturer document",
+      "reason": "fact-spm4020t-4r7m-lr-pinout remains UNSOURCED: the TDK catalog is SOURCE UNAVAILABLE, so the terminal convention is not checked",
       "fact_ids": [
         "fact-spm4020t-4r7m-lr-pinout"
       ],
@@ -33,7 +35,7 @@
       "record_id": "rec-spm4020t-4r7m-lr",
       "domain": "electrical-ratings",
       "status": "OPEN",
-      "reason": "fact-spm4020t-4r7m-lr-ratings remains UNSOURCED: no manufacturer limits retained",
+      "reason": "fact-spm4020t-4r7m-lr-ratings remains UNSOURCED: the TDK catalog is SOURCE UNAVAILABLE, no inductance, DCR or current rating recorded",
       "fact_ids": [
         "fact-spm4020t-4r7m-lr-ratings"
       ],

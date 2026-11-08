@@ -31,7 +31,7 @@ This record in the catalog: [STM32G031G8U6TR](/docs/components/catalog/#rec-stm3
 
 **Identity state:** UNRESOLVED
 
-**Source state:** AVAILABLE
+**Source state:** SOURCE UNAVAILABLE
 
 **Coverage:** 5 open of 5 published
 
@@ -43,7 +43,7 @@ This record in the catalog: [STM32G031G8U6TR](/docs/components/catalog/#rec-stm3
 
 **Selected document:** Document unavailable
 
-**Reason:** No manufacturer-primary document for this exact orderable is retained in the evidence. Reviewed: JLCPCB public product listing C5270180 (A5 retained product-props snapshot) (DISTRIBUTOR\_IDENTITY, AVAILABLE). Distributor listings establish order identity only, and a distributor-hosted mirror is lower authority, so neither is published as a manufacturer document.
+**Reason:** No manufacturer-primary document for this exact orderable is retained in the evidence. Reviewed: JLCPCB public product listing C5270180 (A5 retained product-props snapshot) (DISTRIBUTOR\_IDENTITY, AVAILABLE); STMicroelectronics STM32G031x4/x6/x8 datasheet (DS12992), title as recorded by A5; not acquired (MANUFACTURER\_PRIMARY, SOURCE UNAVAILABLE). Distributor listings establish order identity only, and a distributor-hosted mirror is lower authority, so neither is published as a manufacturer document.
 
 No footprint or 3D model is published for this record: CAD is not enabled for this project.
 
@@ -65,16 +65,18 @@ Coverage is stated one domain at a time and is never rolled up. A domain marked 
 
 **Coverage ID:** `cov-stm32g031g8u6tr-identity` · **Status:** OPEN
 
-**Reason:** fact-stm32g031g8u6tr-manufacturer remains UNSOURCED: only distributor identity is retained; no manufacturer-primary document inspected
+**Reason:** manufacturer and exact-orderable facts remain UNSOURCED: manufacturer datasheet DS12992 is SOURCE UNAVAILABLE (st.com refused connections on 2026-11-08); only distributor identity is retained
 
 **Facts in this domain:**
 
 - [`fact-stm32g031g8u6tr-manufacturer`](#fact-stm32g031g8u6tr-manufacturer)
+- [`fact-stm32g031g8u6tr-orderable`](#fact-stm32g031g8u6tr-orderable)
 - [`fact-stm32g031g8u6tr-distributor-identity`](#fact-stm32g031g8u6tr-distributor-identity)
 
 **Blocked by:** these facts must be resolved before the domain can close. Each is listed in full under Facts.
 
 - [`fact-stm32g031g8u6tr-manufacturer`](#fact-stm32g031g8u6tr-manufacturer)
+- [`fact-stm32g031g8u6tr-orderable`](#fact-stm32g031g8u6tr-orderable)
 
 ### pinout
 
@@ -82,7 +84,7 @@ Coverage is stated one domain at a time and is never rolled up. A domain marked 
 
 **Coverage ID:** `cov-stm32g031g8u6tr-pinout` · **Status:** OPEN
 
-**Reason:** fact-stm32g031g8u6tr-pinout remains UNSOURCED: the pin map is projected from the historical A5 netlist and has not been checked against a manufacturer document
+**Reason:** fact-stm32g031g8u6tr-pinout remains UNSOURCED: DS12992 is SOURCE UNAVAILABLE, so the UFQFPN28 pin map projected from the A5 netlist is not checked against the manufacturer
 
 **Facts in this domain:**
 
@@ -98,7 +100,7 @@ Coverage is stated one domain at a time and is never rolled up. A domain marked 
 
 **Coverage ID:** `cov-stm32g031g8u6tr-ratings` · **Status:** OPEN
 
-**Reason:** fact-stm32g031g8u6tr-ratings remains UNSOURCED: no manufacturer limits retained
+**Reason:** fact-stm32g031g8u6tr-ratings remains UNSOURCED: DS12992 is SOURCE UNAVAILABLE, no manufacturer VDD, I/O or ADC limits recorded
 
 **Facts in this domain:**
 
@@ -153,13 +155,13 @@ A never-exceed limit. Reaching it may damage the part; it is not an operating ta
 
   **Fact:** `fact-stm32g031g8u6tr-ratings`
 
-  **Value:** manufacturer absolute-maximum and recommended operating limits · **Unit:** `NONE`
+  **Value:** manufacturer absolute-maximum and recommended operating limits (VDD, I/O injection, ADC input range) · **Unit:** `NONE`
 
-  **Conditions:** no manufacturer document inspected yet; distributor listing is identity evidence only
+  **Conditions:** DS12992 absolute maximum ratings and general operating conditions not inspected; no value recorded
 
   **Verdict:** UNSOURCED · **Provenance:** UNVERIFIED
 
-  **Evidence:** [src-stm32g031g8u6tr-a5-jlcpcb-snapshot: product table row specification (identity only)](#src-stm32g031g8u6tr-a5-jlcpcb-snapshot)
+  **Evidence:** [src-stm32g031g8u6tr-ds: absolute maximum ratings section tables (not inspected, SOURCE UNAVAILABLE)](#src-stm32g031g8u6tr-ds)
 </EvidenceFact>
 
 ### PROJECT\_STATE
@@ -173,11 +175,11 @@ A value this project recorded about how the part is used here — a chosen opera
 
   **Value:** STMicroelectronics · **Unit:** `NONE`
 
-  **Conditions:** exact orderable identity; distributor listing only, no manufacturer-primary document inspected yet
+  **Conditions:** manufacturer-primary datasheet DS12992 could not be acquired; distributor listing names STMicroelectronics (identity only)
 
   **Verdict:** UNSOURCED · **Provenance:** UNVERIFIED
 
-  **Evidence:** [src-stm32g031g8u6tr-a5-jlcpcb-snapshot: product table row brand](#src-stm32g031g8u6tr-a5-jlcpcb-snapshot)
+  **Evidence:** [src-stm32g031g8u6tr-ds: title block (not inspected, SOURCE UNAVAILABLE)](#src-stm32g031g8u6tr-ds)
 </EvidenceFact>
 
 <EvidenceFact>
@@ -213,13 +215,13 @@ A value this project recorded about how the part is used here — a chosen opera
 
   **Fact:** `fact-stm32g031g8u6tr-pinout`
 
-  **Value:** manufacturer pin numbering and pin functions for package UFQFPN-28(4x4) · **Unit:** `NONE`
+  **Value:** manufacturer pin numbering and pin functions for package UFQFPN-28 (4x4) · **Unit:** `NONE`
 
-  **Conditions:** datasheet pin identity behind the project pin map; no manufacturer document inspected yet
+  **Conditions:** DS12992 UFQFPN28 pin table not inspected; the 28-pin project pin map (incl. pin 3 VDD/VDDA, pin 4 VSS/VSSA, pin 5 PF2/NRST, exposed-pad question) remains unchecked against the manufacturer
 
   **Verdict:** UNSOURCED · **Provenance:** UNVERIFIED
 
-  **Evidence:** [src-stm32g031g8u6tr-a5-netlist-controller: libparts section pin rows for LightBlock:MCU](#src-stm32g031g8u6tr-a5-netlist-controller)
+  **Evidence:** [src-stm32g031g8u6tr-ds: pinout table rows for UFQFPN28 (not inspected, SOURCE UNAVAILABLE)](#src-stm32g031g8u6tr-ds)
 </EvidenceFact>
 
 <EvidenceFact>
@@ -234,6 +236,20 @@ A value this project recorded about how the part is used here — a chosen opera
   **Verdict:** UNSOURCED · **Provenance:** PROJECT-CHOICE
 
   **Evidence:** [src-stm32g031g8u6tr-a5-netlist-controller: components section footprint field](#src-stm32g031g8u6tr-a5-netlist-controller)
+</EvidenceFact>
+
+<EvidenceFact>
+  <EvidenceAnchor id="fact-stm32g031g8u6tr-orderable" />
+
+  **Fact:** `fact-stm32g031g8u6tr-orderable`
+
+  **Value:** STM32G031G8U6TR in the DS12992 ordering information scheme · **Unit:** `NONE`
+
+  **Conditions:** not established: the ordering information section of DS12992 could not be acquired
+
+  **Verdict:** UNSOURCED · **Provenance:** UNVERIFIED
+
+  **Evidence:** [src-stm32g031g8u6tr-ds: ordering information section (not inspected, SOURCE UNAVAILABLE)](#src-stm32g031g8u6tr-ds)
 </EvidenceFact>
 
 ## Pin maps
@@ -339,6 +355,26 @@ Every document cited above, with its identification, when it was retrieved, and 
 
 **Document URL:** [https://github.com/Takazudo/zudo-led-block/blob/d41cbb7fc61dc954b4affaf19527aa69f07013b6/engineering/a5/integration/native\_schematic/controller/netlist.xml](https://github.com/Takazudo/zudo-led-block/blob/d41cbb7fc61dc954b4affaf19527aa69f07013b6/engineering/a5/integration/native_schematic/controller/netlist.xml)
 
+### STMicroelectronics STM32G031x4/x6/x8 datasheet (DS12992), title as recorded by A5; not acquired
+
+<EvidenceAnchor id="src-stm32g031g8u6tr-ds" />
+
+**Source ID:** `src-stm32g031g8u6tr-ds` · **Authority:** MANUFACTURER\_PRIMARY
+
+| Field           | Recorded value         |
+| --------------- | ---------------------- |
+| Document number | DS12992                |
+| Revision        | unknown (not acquired) |
+| Document date   | unknown (not acquired) |
+| Retrieved       | 2026-11-08             |
+| Printed page    | n/a (not acquired)     |
+
+**Locator:** intended: UFQFPN28 pinout table rows, absolute maximum ratings section and ordering information section; not inspected
+
+**Availability:** SOURCE UNAVAILABLE
+
+**Document URL:** no link is published for this source
+
 ## Legend
 
 What the recorded terms on this page mean, in ordinary words. The exact terms above are the ones that count; these descriptions explain them and never replace them.
@@ -374,15 +410,17 @@ What the recorded terms on this page mean, in ordinary words. The exact terms ab
 
 ### Source availability
 
-| Recorded term | What it means                                |
-| ------------- | -------------------------------------------- |
-| `AVAILABLE`   | The document was retrieved and is on record. |
+| Recorded term        | What it means                                                                                                         |
+| -------------------- | --------------------------------------------------------------------------------------------------------------------- |
+| `AVAILABLE`          | The document was retrieved and is on record.                                                                          |
+| `SOURCE UNAVAILABLE` | The document could not be retrieved. It stays listed so the gap is visible; anything resting on it remains unsourced. |
 
 ### Source authority
 
 | Recorded term          | What it means                                                             |
 | ---------------------- | ------------------------------------------------------------------------- |
 | `DISTRIBUTOR_IDENTITY` | A distributor listing. Establishes which part this is, nothing more.      |
+| `MANUFACTURER_PRIMARY` | The manufacturer's own document for this exact part.                      |
 | `PROJECT_GENERATOR`    | A document this project generated, such as a schematic or netlist export. |
 
 ### Identity state
@@ -393,9 +431,9 @@ What the recorded terms on this page mean, in ordinary words. The exact terms ab
 
 ### Source state
 
-| Recorded term | What it means                                          |
-| ------------- | ------------------------------------------------------ |
-| `AVAILABLE`   | At least one document backing this line was retrieved. |
+| Recorded term        | What it means                                     |
+| -------------------- | ------------------------------------------------- |
+| `SOURCE UNAVAILABLE` | No document backing this line could be retrieved. |
 
 ### Unit
 

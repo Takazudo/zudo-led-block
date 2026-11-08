@@ -6,13 +6,15 @@
       "record_id": "rec-stm32g031g8u6tr",
       "domain": "identity",
       "status": "OPEN",
-      "reason": "fact-stm32g031g8u6tr-manufacturer remains UNSOURCED: only distributor identity is retained; no manufacturer-primary document inspected",
+      "reason": "manufacturer and exact-orderable facts remain UNSOURCED: manufacturer datasheet DS12992 is SOURCE UNAVAILABLE (st.com refused connections on 2026-11-08); only distributor identity is retained",
       "fact_ids": [
         "fact-stm32g031g8u6tr-manufacturer",
+        "fact-stm32g031g8u6tr-orderable",
         "fact-stm32g031g8u6tr-distributor-identity"
       ],
       "blocking_fact_ids": [
-        "fact-stm32g031g8u6tr-manufacturer"
+        "fact-stm32g031g8u6tr-manufacturer",
+        "fact-stm32g031g8u6tr-orderable"
       ]
     },
     {
@@ -20,7 +22,7 @@
       "record_id": "rec-stm32g031g8u6tr",
       "domain": "pinout",
       "status": "OPEN",
-      "reason": "fact-stm32g031g8u6tr-pinout remains UNSOURCED: the pin map is projected from the historical A5 netlist and has not been checked against a manufacturer document",
+      "reason": "fact-stm32g031g8u6tr-pinout remains UNSOURCED: DS12992 is SOURCE UNAVAILABLE, so the UFQFPN28 pin map projected from the A5 netlist is not checked against the manufacturer",
       "fact_ids": [
         "fact-stm32g031g8u6tr-pinout"
       ],
@@ -33,7 +35,7 @@
       "record_id": "rec-stm32g031g8u6tr",
       "domain": "electrical-ratings",
       "status": "OPEN",
-      "reason": "fact-stm32g031g8u6tr-ratings remains UNSOURCED: no manufacturer limits retained",
+      "reason": "fact-stm32g031g8u6tr-ratings remains UNSOURCED: DS12992 is SOURCE UNAVAILABLE, no manufacturer VDD, I/O or ADC limits recorded",
       "fact_ids": [
         "fact-stm32g031g8u6tr-ratings"
       ],

@@ -5,41 +5,42 @@
       "coverage_id": "cov-ap63205wu-7-identity",
       "record_id": "rec-ap63205wu-7",
       "domain": "identity",
-      "status": "OPEN",
-      "reason": "fact-ap63205wu-7-manufacturer remains UNSOURCED: only distributor identity is retained; no manufacturer-primary document inspected",
+      "status": "COVERED",
+      "reason": "manufacturer and exact orderable AP63205WU-7 confirmed in the Diodes DS41326 Rev. 3 - 2 title block and Ordering Information table; distributor listing retained for order-code identity",
       "fact_ids": [
         "fact-ap63205wu-7-manufacturer",
+        "fact-ap63205wu-7-orderable",
         "fact-ap63205wu-7-distributor-identity"
       ],
-      "blocking_fact_ids": [
-        "fact-ap63205wu-7-manufacturer"
-      ]
+      "blocking_fact_ids": []
     },
     {
       "coverage_id": "cov-ap63205wu-7-pinout",
       "record_id": "rec-ap63205wu-7",
       "domain": "pinout",
-      "status": "OPEN",
-      "reason": "fact-ap63205wu-7-pinout remains UNSOURCED: the pin map is projected from the historical A5 netlist and has not been checked against a manufacturer document",
+      "status": "COVERED",
+      "reason": "TSOT26 pin functions read from the DS41326 Pin Descriptions table and matched to the project pin map by number and function",
       "fact_ids": [
         "fact-ap63205wu-7-pinout"
       ],
-      "blocking_fact_ids": [
-        "fact-ap63205wu-7-pinout"
-      ]
+      "blocking_fact_ids": []
     },
     {
       "coverage_id": "cov-ap63205wu-7-ratings",
       "record_id": "rec-ap63205wu-7",
       "domain": "electrical-ratings",
-      "status": "OPEN",
-      "reason": "fact-ap63205wu-7-ratings remains UNSOURCED: no manufacturer limits retained",
+      "status": "COVERED",
+      "reason": "absolute-maximum VIN/VEN/VFB, recommended VIN range, AP63205 output regulation, peak current limit and switching frequency read from DS41326 pages 4 and 5",
       "fact_ids": [
-        "fact-ap63205wu-7-ratings"
+        "fact-ap63205wu-7-ratings",
+        "fact-ap63205wu-7-en-abs-max",
+        "fact-ap63205wu-7-fb-abs-max",
+        "fact-ap63205wu-7-vin-recommended",
+        "fact-ap63205wu-7-vout",
+        "fact-ap63205wu-7-peak-current-limit",
+        "fact-ap63205wu-7-switching-frequency"
       ],
-      "blocking_fact_ids": [
-        "fact-ap63205wu-7-ratings"
-      ]
+      "blocking_fact_ids": []
     },
     {
       "coverage_id": "cov-ap63205wu-7-placement",
