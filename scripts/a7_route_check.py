@@ -45,6 +45,7 @@ Exported by scripts/a7_route_check.py --review-aid from the committed A7 control
   slots and axis height, PCM13SMTR fit, stock, pogo-jig).
 - These files were not checked against any fabricator's DFM, and no fabrication notes, stackup
   drawing or panelization are included.
+- The Gerber job file (.gbrjob) is removed on purpose, so the set cannot be imported for ordering in one step.
 - They are regenerated on every CI run and are not tracked in the repository.
 """
 
@@ -95,6 +96,18 @@ def copper_diff(board: dict, proposal: dict) -> dict:
                      'only_in_proposal': [list(map(str, k)) for k in sorted((pc - bc).elements())][:10]}
         out[name]['equal'] = bc == pc
     return out
+
+
+def nonempty_failures(proposal: dict, copper: dict) -> list[str]:
+    """An empty or failed route must not pass as 'board equals proposal' (empty equals empty)."""
+    fails = []
+    if proposal.get('failures') != []:
+        fails.append(f"recorded proposal has router failures: {proposal.get('failures')!r}")
+    for side in ('board', 'proposal'):
+        for name in ('tracks', 'vias'):
+            if not copper.get(side, {}).get(name):
+                fails.append(f'{side} has no {name}')
+    return fails
 
 
 def main() -> int:
@@ -153,8 +166,11 @@ def main() -> int:
                 fails.append(f'seed-0 route differs from {PROPOSAL} ({sha(routes)} != {s["proposal_sha256"]})')
     else:
         fails.append('no staging geometry from a7_board.py build')
-    if (out / 'copper_nm.json').is_file():
+    if not (out / 'copper_nm.json').is_file():
+        fails.append('no copper_nm.json from the in-image copper export')
+    else:
         c = json.loads((out / 'copper_nm.json').read_text())
+        fails += nonempty_failures(json.loads((REPO / PROPOSAL).read_text()), c)
         d = copper_diff(c['board'], c['proposal'])
         s['board_copper_vs_proposal'] = d
         for k, v in d.items():
@@ -164,6 +180,9 @@ def main() -> int:
         if codes['review_aid'] != '0':
             fails.append(f'review-aid export failed (code {codes["review_aid"]})')
         else:
+            # a Gerber job file lets a fabricator's site import the set in one click; this aid is not for ordering
+            for job in (out / 'review-aid').rglob('*.gbrjob'):
+                job.unlink()
             (out / 'review-aid/README-REVIEW-AID-ONLY.txt').write_text(REVIEW_AID_NOTE.format(sha=s['board_sha256']))
             s['review_aid'] = sorted(str(q.relative_to(out / 'review-aid')) for q in (out / 'review-aid').rglob('*') if q.is_file())
     s['failures'] = fails

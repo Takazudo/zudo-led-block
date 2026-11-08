@@ -411,6 +411,7 @@ jobs:
             ${{ runner.temp }}/native/evidence/
             ${{ runner.temp }}/a7-gate/summary.json
             ${{ runner.temp }}/a7-schematic/summary.json
+            ${{ runner.temp }}/a7-route-check/summary.json
           retention-days: 7
           if-no-files-found: warn
 
