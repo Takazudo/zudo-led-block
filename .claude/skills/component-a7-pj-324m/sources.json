@@ -11,7 +11,7 @@
       "authoritative_url": "https://datasheet.lcsc.com/datasheet/pdf/d5d817d1fd33d59366d06959fdf0c6cc.pdf?productCode=C22355739",
       "alternate_authoritative_url": "",
       "retrieval_date": "2026-11-08",
-      "authority_class": "MANUFACTURER_PRIMARY",
+      "authority_class": "MANUFACTURER_MIRROR",
       "sha256": "c5f2f104e73244a32ed024f7a6577d260678a9b3f3cc3d496531fb930b3c7049",
       "availability": "AVAILABLE",
       "physical_pdf_page_index": 0,
@@ -21,7 +21,28 @@
       "refresh_policy": "HASH-LOCKED",
       "retrieved_at": "2026-11-08T12:33:27Z",
       "retained_bytes": "not committed (drawing marked 'Leaked and reproduced prohibited'); re-download from the URL and compare sha256",
-      "authority_note": "SOFNG-branded manufacturer drawing served from the LCSC datasheet host (the URL the brief designates). sofng.com reset the connection from this environment, so no copy from the manufacturer's own host was obtained. Classed MANUFACTURER_PRIMARY for the drawing's origin; reviewers may reclassify to MANUFACTURER_MIRROR, which would turn its PASS facts into open items."
+      "authority_note": "SOFNG-branded drawing served by the LCSC datasheet host (datasheet.lcsc.com), so it is a distributor-hosted mirror of the manufacturer document and lower-authority than a manufacturer-hosted copy. No SOFNG-hosted copy was obtained (see src-a7-pj-324m-sofng-site). Facts read from it stay UNVERIFIED / UNSOURCED with their values retained."
+    },
+    {
+      "source_id": "src-a7-pj-324m-sofng-site",
+      "record_id": "rec-a7-pj-324m",
+      "document_title": "SOFNG-hosted PJ-324M drawing; not acquired",
+      "document_number": "PJ-324M",
+      "revision": "unknown (not acquired)",
+      "document_date": "unknown (not acquired)",
+      "authoritative_url": "https://www.sofng.com/",
+      "alternate_authoritative_url": "http://sofng.com/",
+      "retrieval_date": "2026-11-08",
+      "authority_class": "MANUFACTURER_PRIMARY",
+      "sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+      "availability": "SOURCE UNAVAILABLE",
+      "physical_pdf_page_index": 0,
+      "printed_page_label": "n/a (not acquired)",
+      "locator": "intended: product drawing title block 'PJ-324M' and front view dimensions; not inspected",
+      "evidence_extract": "SOURCE UNAVAILABLE on 2026-11-08. Attempted at about 12:40Z: the sofng.com product list loaded page 1 without a PJ-324M entry, and its paged lists on www.sofng.com reset the connection. Retried later the same day: https://www.sofng.com/ and http://sofng.com/ (redirected to https://sofng.com/) both answered HTTP 502 through the environment proxy. No SOFNG-hosted copy of the drawing was received, so no comparison with the LCSC-hosted mirror is possible.",
+      "refresh_policy": "HASH-LOCKED",
+      "retrieved_at": "2026-11-08",
+      "retained_bytes": "none (not acquired)"
     },
     {
       "source_id": "src-a7-pj-324m-jlc-listing",

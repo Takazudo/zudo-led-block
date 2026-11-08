@@ -11,7 +11,7 @@
       "authoritative_url": "https://datasheet.lcsc.com/datasheet/pdf/0ec9d586862a861c799650a706e40d0a.pdf?productCode=C221842",
       "alternate_authoritative_url": "https://www.ckswitches.com/products/switches/product-details/Slide/PCM/PCM13SMTR",
       "retrieval_date": "2026-11-08",
-      "authority_class": "MANUFACTURER_PRIMARY",
+      "authority_class": "MANUFACTURER_MIRROR",
       "sha256": "1c2ca483dd7a2399181d55c75a0352ecf0e76f002516d1d6ecd5e5bdaa26ed69",
       "availability": "AVAILABLE",
       "physical_pdf_page_index": 2,
@@ -21,7 +21,28 @@
       "refresh_policy": "HASH-LOCKED",
       "retrieved_at": "2026-11-08T12:37:46Z",
       "retained_bytes": "not committed",
-      "authority_note": "C&K-branded datasheet served from the LCSC datasheet host; ckswitches.com returned HTTP 403 to this environment. Classed MANUFACTURER_PRIMARY for the document's origin; reviewers may reclassify to MANUFACTURER_MIRROR."
+      "authority_note": "C&K-branded datasheet served by the LCSC datasheet host (datasheet.lcsc.com), so it is a distributor-hosted mirror, lower-authority than a C&K-hosted copy. The C&K/Littelfuse-hosted PDF returned HTTP 403 (see src-a7-pcm13smtr-ck-site). Facts read from it stay UNVERIFIED / UNSOURCED with their values retained."
+    },
+    {
+      "source_id": "src-a7-pcm13smtr-ck-site",
+      "record_id": "rec-a7-pcm13smtr",
+      "document_title": "C&K-hosted PCM Series datasheet; not acquired",
+      "document_number": "PCM Series",
+      "revision": "unknown (not acquired)",
+      "document_date": "unknown (not acquired)",
+      "authoritative_url": "https://www.ckswitches.com/media/1424/pcm.pdf",
+      "alternate_authoritative_url": "https://www.littelfuse.com/assetdocs/littelfuse-ck-slide-pcm-series-datasheet?assetguid=d2f6a96c-7a9a-4c4e-a5aa-4fe3075dffe5",
+      "retrieval_date": "2026-11-08",
+      "authority_class": "MANUFACTURER_PRIMARY",
+      "sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+      "availability": "SOURCE UNAVAILABLE",
+      "physical_pdf_page_index": 0,
+      "printed_page_label": "n/a (not acquired)",
+      "locator": "intended: SWITCH FUNCTION table and specifications section for PCM13SMTR; not inspected",
+      "evidence_extract": "SOURCE UNAVAILABLE on 2026-11-08. Attempted: https://www.ckswitches.com/media/1424/pcm.pdf redirects to https://www.littelfuse.com/assetdocs/littelfuse-ck-slide-pcm-series-datasheet?assetguid=d2f6a96c-7a9a-4c4e-a5aa-4fe3075dffe5, which answered HTTP 403 (bot protection). The protection was not circumvented. No C&K/Littelfuse-hosted bytes were received, so no comparison with the LCSC-hosted mirror is possible.",
+      "refresh_policy": "HASH-LOCKED",
+      "retrieved_at": "2026-11-08",
+      "retained_bytes": "none (not acquired)"
     },
     {
       "source_id": "src-a7-pcm13smtr-lcsc-listing",

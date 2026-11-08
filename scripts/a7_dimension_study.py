@@ -225,7 +225,7 @@ def build():
         "schema_version": 1,
         "generator": "scripts/a7_dimension_study.py",
         "inputs": "engineering/a7/study/parameters.json",
-        "status": "Paper study. Jack-axis height is INFERRED; tolerances marked ASSUMED are unsourced. Not a fit approval or part approval.",
+        "status": "Paper study. Jack-axis height is INFERRED; jack dimensions marked MIRROR come from the LCSC-hosted copy of the SOFNG drawing and are not primary-source confirmed; tolerances marked ASSUMED are unsourced. Not a fit approval or part approval.",
         "verdict_meaning": {FEASIBLE: "every hard margin is non-negative at the worst corner of the stated input ranges",
                             UNRESOLVED: "passes at the best corner, fails at the worst; needs stronger evidence for the named inputs",
                             INFEASIBLE: "fails even at the best corner of the stated input ranges"},
@@ -234,6 +234,8 @@ def build():
         "what_if_axis_height_confirmed_3.0_pm_0.1": what_if_axis_confirmed(p),
         "axial": ax,
         "depth_and_y": depth_and_y(p),
+        "input_confidence": {k: {f: v[f] for f in ("nominal", "values", "min", "max", "tol", "rel_tol", "confidence", "tol_confidence", "source") if f in v}
+                             for k, v in p["parameters"].items()},
     }
 
 
@@ -282,6 +284,17 @@ def report(res):
         L.append(f"| {k} | {fmt(v['jack_body_rear_z_max'])} | {fmt(v['margin_to_a5_optical_skin_front'])} | {fmt(v['margin_to_a5_leaf_front'])} |")
     y = d["y_layout_at_a5_positions"]
     L += ["", f"At the A5 jack positions (Y 90 / 104): body gap {y['body_gap_same_orientation']} mm, nut gap {y['nut_gap']} mm, lower body edge Y {y['lower_body_edge_y_worst_orientation']} (rail-body limit 111.4, margin {y['margin_to_rail_body_limit']}).", ""]
+    L += ["## Inputs", "", "| Parameter | Nominal | Range or tol | Confidence | Source |", "|---|---|---|---|---|"]
+    for key, v in res["input_confidence"].items():
+        if "tol" in v:
+            span = f"+/-{v['tol']} ({v.get('tol_confidence', v['confidence'])})"
+        elif "rel_tol" in v:
+            span = f"+/-{v['rel_tol'] * 100:.0f}%"
+        else:
+            span = f"{v.get('min', v.get('nominal'))}..{v['max']}" if "max" in v else "-"
+        nominal = v["nominal"] if "nominal" in v else " / ".join(str(x) for x in v["values"])
+        L.append(f"| {key} | {nominal} | {span} | {v['confidence']} | {v['source']} |")
+    L.append("")
     return "\n".join(L)
 
 

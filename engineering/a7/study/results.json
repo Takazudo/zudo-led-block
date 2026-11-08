@@ -2,7 +2,7 @@
   "schema_version": 1,
   "generator": "scripts/a7_dimension_study.py",
   "inputs": "engineering/a7/study/parameters.json",
-  "status": "Paper study. Jack-axis height is INFERRED; tolerances marked ASSUMED are unsourced. Not a fit approval or part approval.",
+  "status": "Paper study. Jack-axis height is INFERRED; jack dimensions marked MIRROR come from the LCSC-hosted copy of the SOFNG drawing and are not primary-source confirmed; tolerances marked ASSUMED are unsourced. Not a fit approval or part approval.",
   "verdict_meaning": {
     "FEASIBLE ON PAPER": "every hard margin is non-negative at the worst corner of the stated input ranges",
     "UNRESOLVED": "passes at the best corner, fails at the worst; needs stronger evidence for the named inputs",
@@ -3963,6 +3963,187 @@
       "lower_body_edge_y_worst_orientation": 110.1,
       "margin_to_rail_body_limit": 1.3,
       "upper_body_edge_y_worst_orientation": 83.9
+    }
+  },
+  "input_confidence": {
+    "panel_width_2hp": {
+      "nominal": 9.8,
+      "tol": 0.1,
+      "confidence": "SOURCED",
+      "tol_confidence": "ASSUMED",
+      "source": "src-a7-a5-front-panel-geometry variants.2hp.width; laser-cut width tolerance not sourced"
+    },
+    "panel_width_3hp": {
+      "nominal": 14.9,
+      "tol": 0.1,
+      "confidence": "SOURCED",
+      "tol_confidence": "ASSUMED",
+      "source": "src-a7-a5-front-panel-geometry variants.3hp.width; tolerance not sourced"
+    },
+    "panel_thickness": {
+      "nominal": 2.0,
+      "tol": 0.2,
+      "confidence": "SOURCED",
+      "tol_confidence": "ASSUMED",
+      "source": "src-a7-a5-front-panel-geometry panel.thickness 2.0; cast-PMMA sheet tolerance not sourced ('confirm with fabricator')"
+    },
+    "panel_hole_radial_float": {
+      "nominal": 0.1,
+      "confidence": "PROJECT-CHOICE",
+      "source": "6.2 mm hole for a 6.0 mm thread major diameter, as A5 used for its 6.0 mm barrel"
+    },
+    "panel_hole_position_tol": {
+      "nominal": 0.1,
+      "confidence": "ASSUMED",
+      "source": "laser-cut hole position; not sourced"
+    },
+    "jack_axis_height": {
+      "nominal": 3.0,
+      "min": 2.6,
+      "max": 3.4,
+      "confidence": "INFERRED",
+      "source": "fact-a7-pj-324m-axis-height: scaled 2.9-3.0 from the SOFNG front view; not dimensioned. Band +/-0.4 covers scaling error. Not a confirmed dimension."
+    },
+    "jack_overall_height": {
+      "nominal": 6.3,
+      "tol": 0.2,
+      "confidence": "MIRROR",
+      "tol_confidence": "ASSUMED",
+      "source": "fact-a7-pj-324m-overall-height (title H6.30); tolerance taken from the .X +/-0.20 block"
+    },
+    "jack_body_height": {
+      "nominal": 6.0,
+      "tol": 0.2,
+      "confidence": "MIRROR",
+      "tol_confidence": "ASSUMED",
+      "source": "fact-a7-pj-324m-body-height"
+    },
+    "jack_terminal_projection": {
+      "nominal": 3.2,
+      "tol": 0.2,
+      "confidence": "MIRROR",
+      "source": "fact-a7-pj-324m-terminal-projection; measured from the body seating plane, not added to the PCB thickness"
+    },
+    "jack_barrel_projection": {
+      "nominal": 3.5,
+      "tol": 0.2,
+      "confidence": "MIRROR",
+      "source": "fact-a7-pj-324m-barrel-projection; .X +/-0.20"
+    },
+    "jack_body_depth": {
+      "nominal": 14.2,
+      "tol": 0.2,
+      "confidence": "MIRROR",
+      "source": "fact-a7-pj-324m-body-depth"
+    },
+    "jack_rear_terminal_from_front": {
+      "nominal": 13.0,
+      "confidence": "MIRROR",
+      "source": "fact-a7-pj-324m-footprint-positions pin_4_along"
+    },
+    "jack_body_width": {
+      "nominal": 11.5,
+      "confidence": "MIRROR",
+      "source": "fact-a7-pj-324m-body-width"
+    },
+    "jack_axis_to_edge_near": {
+      "nominal": 5.4,
+      "confidence": "MIRROR",
+      "source": "fact-a7-pj-324m-axis-to-edge"
+    },
+    "jack_axis_to_edge_far": {
+      "nominal": 6.1,
+      "confidence": "MIRROR",
+      "source": "fact-a7-pj-324m-axis-to-far-edge (11.5 - 5.4)"
+    },
+    "thread_pitch": {
+      "nominal": 0.5,
+      "confidence": "MIRROR",
+      "source": "fact-a7-pj-324m-thread M6x0.5"
+    },
+    "thread_lead_in_loss": {
+      "nominal": 0.25,
+      "confidence": "ASSUMED",
+      "source": "half a pitch lost to the thread start/chamfer at the barrel tip; not sourced"
+    },
+    "front_body_gap": {
+      "nominal": 0.0,
+      "confidence": "PROJECT-CHOICE",
+      "source": "jack body front face seated on the PMMA rear (or on a rear spacer, modelled as a separate option)"
+    },
+    "pcb_thickness_options": {
+      "values": [
+        0.8,
+        1.0,
+        1.2,
+        1.6
+      ],
+      "rel_tol": 0.1,
+      "confidence": "ASSUMED",
+      "source": "common rigid FR-4 thicknesses; +/-10% thickness tolerance assumed, supplier tolerance not retained"
+    },
+    "lead_protrusion_trimmed": {
+      "nominal": 0.7,
+      "max": 1.0,
+      "confidence": "ASSUMED",
+      "source": "lead length beyond the solder side after factory trimming; the assembler's trim capability is not sourced"
+    },
+    "side_clearance_required": {
+      "nominal": 0.3,
+      "confidence": "PROJECT-CHOICE",
+      "source": "minimum gap from any behind-panel part to the panel-outline plane (adjacent module, insulation)"
+    },
+    "nut_edge_margin_required": {
+      "nominal": 0.0,
+      "confidence": "PROJECT-CHOICE",
+      "source": "nut must stay inside the panel outline on the front face; 0.3 preferred so it does not reach a neighbouring module"
+    },
+    "min_engagement_required": {
+      "nominal": 1.0,
+      "confidence": "PROJECT-CHOICE",
+      "source": "at least two full M6x0.5 pitches engaged in the worst case; full nut-thickness engagement preferred"
+    },
+    "rear_pocket_depth": {
+      "nominal": 0.5,
+      "tol": 0.1,
+      "confidence": "PROJECT-CHOICE",
+      "source": "optional local rear pocket in the PMMA at each jack (concealed hardware seat); depth tolerance assumed"
+    },
+    "front_washer_thickness": {
+      "nominal": 0.3,
+      "confidence": "ASSUMED",
+      "source": "thin flat washer option; no exact washer selected"
+    },
+    "old_collar_thickness": {
+      "nominal": 0.6,
+      "confidence": "SOURCED",
+      "source": "src-a7-a5-mechanical-geometry jack.front_seat_z 0.6 (A5 backed collar)"
+    },
+    "a5_optical_skin_front_z": {
+      "nominal": 17.4,
+      "confidence": "SOURCED",
+      "source": "src-a7-a5-mechanical-geometry optical.skin_z[0]; A5 reference only, R2 may change it"
+    },
+    "a5_leaf_front_z": {
+      "nominal": 19.4,
+      "confidence": "SOURCED",
+      "source": "src-a7-a5-mechanical-geometry leaf.z[0]"
+    },
+    "a5_jack_y": {
+      "values": [
+        90.0,
+        104.0
+      ],
+      "confidence": "SOURCED",
+      "source": "src-a7-a5-front-panel-geometry controls.jack_y (A5 positions; A7 may move them)"
+    },
+    "rail_body_y": {
+      "values": [
+        17.1,
+        111.4
+      ],
+      "confidence": "SOURCED",
+      "source": "src-a7-a5-mechanical-geometry rail_body_y"
     }
   }
 }

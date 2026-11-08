@@ -5,6 +5,7 @@ answered inside the Cloud batch; they need a stronger document, a supplier answe
 
 | # | Missing evidence | Decides | Current handling |
 |---|---|---|---|
+| Q0 | A SOFNG-hosted PJ-324M drawing and a C&K-hosted PCM13SMTR datasheet to compare with the LCSC-hosted copies | whether any drawing value can count as PASS | both maker hosts SOURCE UNAVAILABLE on 2026-11-08; all drawing facts UNVERIFIED / UNSOURCED, values retained, study inputs labelled MIRROR |
 | Q1 | PJ-324M jack-axis height above the seating plane (dimensioned drawing, 3D model, or a measured part) | 2HP lead-side and body-side margins | INFERRED 3.0, band 2.6–3.4 (`fact-a7-pj-324m-axis-height`, `parameters.json`) |
 | Q2 | PJ-324M pin functions (tip / ring / sleeve / normals) | CV_THRU vs GND mapping; a swap shorts CV to a TS plug sleeve | INFERRED 4=tip, 2=ring, 1=sleeve; NEEDS BENCH continuity test with TS and TRS plugs |
 | Q3 | PJ-324M recommended PCB hole/slot sizes | footprint (R4) | not on the drawing; JLC/EasyEDA footprint not yet inspected |
@@ -14,8 +15,8 @@ answered inside the Cloud batch; they need a stronger document, a supplier answe
 | Q7 | Cast-PMMA sheet thickness tolerance and laser hole position tolerance from the fabricator | thread engagement, nut edge margin | ASSUMED ±0.2 and ±0.1 |
 | Q8 | Rear pocket in cast PMMA: achievable depth tolerance, appearance through the clear front, strength beside a 6.2 mm hole | thread engagement option `rear-pocket` | PROJECT-CHOICE 0.5 ± 0.1 |
 | Q9 | Clamp load the PMMA may take between nut and jack body without crazing, and the tightening torque | complete jack load path (R2) | not analysed; A5 rule "do not preload the acrylic" still applies |
-| Q10 | PCM13SMTR supply (JLC stock 0 on 2026-11-08) or a confirmed position-to-terminal table for Nidec CSS-1310TB | side switch sourcing | PCM13SMTR selected on function evidence; sourcing OPEN |
+| Q10 | PCM13SMTR supply (JLC stock 0 on 2026-11-08), or a per-position terminal table (or a bench continuity check) for an in-stock alternate: Alps Alpine SSSS812201 C160878, SHOU HAN MSK13C02 C2681567, Hroparts K3-1310S-E1 C145851, Nidec CSS-1310TB C2921714 | side switch sourcing | PCM13SMTR stays selected on its printed table; none of the alternates prints one; sourcing OPEN |
 | Q11 | JLC answers on transparent PET FPC (see `pet-fpc.md`) | PET leaf feasibility | FR-4 leaf remains reference/fallback |
-| Q12 | Classification of LCSC-hosted SOFNG and C&K documents (MANUFACTURER_PRIMARY vs MANUFACTURER_MIRROR) | which facts count as PASS | classed primary with an `authority_note`; reviewer decision |
+| Q12 | Classification of LCSC-hosted SOFNG and C&K documents | which facts count as PASS | decided: MANUFACTURER_MIRROR (coordinator, 2026-11-08); see Q0 |
 
 Physical measurements, printed fit, insertion loads and measured installed depth stay with #8 and #10.
