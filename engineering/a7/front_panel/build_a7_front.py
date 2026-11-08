@@ -48,8 +48,9 @@ def front_geometry(L, f5):
            "source": ["engineering/a7/mechanical/layout.json", "engineering/a5/front_panel/geometry.json (outline, slots, finish, font, seat rules)"],
            "panel": f5["panel"], "finish": f5["engraving"]["finish"],
            "removed_from_a5": ["switch aperture (6.50 mm, Y74)", "MODE label", "ON / PGM / CV legends and their arrow/dot icons", "A5 controller M2 hole at Y65"],
-           "variants": {}}
-    for name, v in L["variants"].items():
+           "default_variant": L["decision"]["default_variant"], "variants": {}}
+    order = [L["decision"]["default_variant"]] + [n for n in L["variants"] if n != L["decision"]["default_variant"]]
+    for name, v in ((n, L["variants"][n]) for n in order):
         w = v["panel_width"]
         xa = v["x_axis"]
         seat = v["jack_seat_x"]

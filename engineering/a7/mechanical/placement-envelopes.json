@@ -1,0 +1,508 @@
+{
+  "schema_version": 1,
+  "generator": "scripts/a7_mechanical_layout.py",
+  "derived_from": "engineering/a7/mechanical/layout.json",
+  "status": "Provisional digital study. Jack-axis height INFERRED; tolerances marked ASSUMED are unsourced. Not a fit approval, part approval or manufacturing release. Placement envelopes for routing (R4, #19); hole and pad sizes are not given here.",
+  "frames": {
+    "assembly": "Same as engineering/a7/study/parameters.json: X across the panel (0 = left panel edge), Y down the panel (0 = top edge), Z into the rack with the PMMA rear surface at Z=0. The controller PCB lies in a Y-Z plane; jack bodies and SMD parts sit on its +X (component) face; THT terminals pass to its -X (solder) face.",
+    "board": "KiCad top view of the controller seen from its component face (+X): board_x = assembly Z - 0.2 (0 = front edge at the PMMA, + toward the rear), board_y = assembly Y - 48.5 (0 = top edge, + toward the bottom edge). Solder-face (B) items use the same coordinates."
+  },
+  "default_variant": "3hp",
+  "width_decision": {
+    "working_candidate": "3hp centred, 1.6 mm FR-4, untrimmed leads",
+    "working_verdict": "FEASIBLE ON PAPER",
+    "open_candidate": "2hp offset 0.6 mm toward the body side, 0.8 mm FR-4, trimmed leads",
+    "open_verdict": "UNRESOLVED",
+    "confidence": "PROJECT-DECISION"
+  },
+  "outline": {
+    "assembly_y": [
+      48.5,
+      111.4
+    ],
+    "assembly_z": [
+      0.2,
+      16.4
+    ],
+    "board_x": [
+      0.0,
+      16.2
+    ],
+    "board_y": [
+      0.0,
+      62.9
+    ],
+    "area_mm2": 1018.98,
+    "common_to_both_widths": true
+  },
+  "variants": {
+    "2hp": {
+      "panel_width": 9.8,
+      "pcb_thickness": 0.8,
+      "leads": "trimmed",
+      "pcb_assembly_x": [
+        1.7,
+        2.5
+      ],
+      "component_face_height_budget": 7.0,
+      "lead_side_nominal_margin": 0.7,
+      "verdict": "UNRESOLVED"
+    },
+    "3hp": {
+      "panel_width": 14.9,
+      "pcb_thickness": 1.6,
+      "leads": "untrimmed",
+      "pcb_assembly_x": [
+        2.85,
+        4.45
+      ],
+      "component_face_height_budget": 10.15,
+      "lead_side_nominal_margin": 0.95,
+      "verdict": "FEASIBLE ON PAPER"
+    }
+  },
+  "keepouts": [
+    {
+      "id": "spine-slot",
+      "faces": [
+        "component face (KiCad F)",
+        "solder face (KiCad B)"
+      ],
+      "assembly_y": [
+        50.0,
+        72.0
+      ],
+      "assembly_z": [
+        0.2,
+        4.0
+      ],
+      "board_x": [
+        0.0,
+        3.8
+      ],
+      "board_y": [
+        1.5,
+        23.5
+      ],
+      "reason": "printed spine slot captures the PCB front edge"
+    },
+    {
+      "id": "optical-fork",
+      "faces": [
+        "component face (KiCad F)",
+        "solder face (KiCad B)"
+      ],
+      "assembly_y": [
+        104.0,
+        107.0
+      ],
+      "assembly_z": [
+        14.6,
+        16.4
+      ],
+      "board_x": [
+        14.4,
+        16.2
+      ],
+      "board_y": [
+        55.5,
+        58.5
+      ],
+      "reason": "bottom optical cap tongue straddles the rear edge"
+    },
+    {
+      "id": "setting-switch",
+      "faces": [
+        "component face (KiCad F)"
+      ],
+      "assembly_y": [
+        107.3,
+        111.4
+      ],
+      "assembly_z": [
+        2.15,
+        11.85
+      ],
+      "board_x": [
+        1.95,
+        11.65
+      ],
+      "board_y": [
+        58.8,
+        62.9
+      ],
+      "reason": "PCM13SMTR body and actuator at the bottom edge"
+    },
+    {
+      "id": "switch-access",
+      "faces": [
+        "component face (KiCad F)"
+      ],
+      "assembly_y": [
+        109.9,
+        111.4
+      ],
+      "assembly_z": [
+        4.35,
+        9.65
+      ],
+      "board_x": [
+        4.15,
+        9.45
+      ],
+      "board_y": [
+        61.4,
+        62.9
+      ],
+      "reason": "actuator travel plus tool clearance; nothing taller than the switch between actuator and board edge"
+    },
+    {
+      "id": "led-cable-lane",
+      "faces": [
+        "component face (KiCad F)"
+      ],
+      "assembly_y": [
+        57.425,
+        78.05
+      ],
+      "assembly_z": [
+        12.2,
+        16.4
+      ],
+      "board_x": [
+        12.0,
+        16.2
+      ],
+      "board_y": [
+        8.925,
+        29.55
+      ],
+      "reason": "SH4 header and the returning LED harness lie over the component face"
+    },
+    {
+      "id": "jack-in",
+      "faces": [
+        "component face (KiCad F)"
+      ],
+      "assembly_y": [
+        80.4,
+        91.9
+      ],
+      "assembly_z": [
+        0.2,
+        13.9
+      ],
+      "board_x": [
+        0.0,
+        13.7
+      ],
+      "board_y": [
+        31.9,
+        43.4
+      ],
+      "reason": "PJ-324M body footprint"
+    },
+    {
+      "id": "jack-in-leads",
+      "faces": [
+        "solder face (KiCad B)"
+      ],
+      "assembly_y": [
+        81.5,
+        92.2
+      ],
+      "assembly_z": [
+        0.2,
+        13.5
+      ],
+      "board_x": [
+        0.0,
+        13.3
+      ],
+      "board_y": [
+        33.0,
+        43.7
+      ],
+      "reason": "terminal fillets only on the solder face (2HP lead-side margin)"
+    },
+    {
+      "id": "jack-thru",
+      "faces": [
+        "component face (KiCad F)"
+      ],
+      "assembly_y": [
+        94.9,
+        106.4
+      ],
+      "assembly_z": [
+        0.2,
+        13.9
+      ],
+      "board_x": [
+        0.0,
+        13.7
+      ],
+      "board_y": [
+        46.4,
+        57.9
+      ],
+      "reason": "PJ-324M body footprint"
+    },
+    {
+      "id": "jack-thru-leads",
+      "faces": [
+        "solder face (KiCad B)"
+      ],
+      "assembly_y": [
+        96.0,
+        106.7
+      ],
+      "assembly_z": [
+        0.2,
+        13.5
+      ],
+      "board_x": [
+        0.0,
+        13.3
+      ],
+      "board_y": [
+        47.5,
+        58.2
+      ],
+      "reason": "terminal fillets only on the solder face (2HP lead-side margin)"
+    }
+  ],
+  "jacks": [
+    {
+      "function": "CV IN",
+      "label": "IN",
+      "axis_assembly_y": 86.5,
+      "axis_board_y": 38.0,
+      "body": {
+        "assembly_y": [
+          80.4,
+          91.9
+        ],
+        "assembly_z": [
+          0.2,
+          13.9
+        ],
+        "board_x": [
+          0.0,
+          13.7
+        ],
+        "board_y": [
+          31.9,
+          43.4
+        ]
+      },
+      "pins": [
+        {
+          "pin": "1",
+          "assembly_y": 86.5,
+          "assembly_z": 1.1,
+          "board_x": 0.9,
+          "board_y": 38.0
+        },
+        {
+          "pin": "2",
+          "assembly_y": 91.7,
+          "assembly_z": 9.1,
+          "board_x": 8.9,
+          "board_y": 43.2
+        },
+        {
+          "pin": "3",
+          "assembly_y": 89.0,
+          "assembly_z": 8.1,
+          "board_x": 7.9,
+          "board_y": 40.5
+        },
+        {
+          "pin": "4",
+          "assembly_y": 82.5,
+          "assembly_z": 12.5,
+          "board_x": 12.3,
+          "board_y": 34.0
+        },
+        {
+          "pin": "5",
+          "assembly_y": 82.0,
+          "assembly_z": 5.1,
+          "board_x": 4.9,
+          "board_y": 33.5
+        }
+      ]
+    },
+    {
+      "function": "CV THRU",
+      "label": "THRU",
+      "axis_assembly_y": 101.0,
+      "axis_board_y": 52.5,
+      "body": {
+        "assembly_y": [
+          94.9,
+          106.4
+        ],
+        "assembly_z": [
+          0.2,
+          13.9
+        ],
+        "board_x": [
+          0.0,
+          13.7
+        ],
+        "board_y": [
+          46.4,
+          57.9
+        ]
+      },
+      "pins": [
+        {
+          "pin": "1",
+          "assembly_y": 101.0,
+          "assembly_z": 1.1,
+          "board_x": 0.9,
+          "board_y": 52.5
+        },
+        {
+          "pin": "2",
+          "assembly_y": 106.2,
+          "assembly_z": 9.1,
+          "board_x": 8.9,
+          "board_y": 57.7
+        },
+        {
+          "pin": "3",
+          "assembly_y": 103.5,
+          "assembly_z": 8.1,
+          "board_x": 7.9,
+          "board_y": 55.0
+        },
+        {
+          "pin": "4",
+          "assembly_y": 97.0,
+          "assembly_z": 12.5,
+          "board_x": 12.3,
+          "board_y": 48.5
+        },
+        {
+          "pin": "5",
+          "assembly_y": 96.5,
+          "assembly_z": 5.1,
+          "board_x": 4.9,
+          "board_y": 48.0
+        }
+      ]
+    }
+  ],
+  "jack_notes": "Pin positions follow the R1 drawing reading; pin functions are INFERRED (R1 Q2) and hole/slot sizes are not sourced (R1 Q3). The jack body seats on the component face; the axis height above that face is INFERRED 3.0 (band [2.6, 3.4]).",
+  "setting_switch": {
+    "part": "C&K PCM13SMTR (R1 selection; JLC stock 0, R1 Q10)",
+    "face": "component face (KiCad F)",
+    "body": {
+      "assembly_y": [
+        107.3,
+        109.9
+      ],
+      "assembly_z": [
+        2.15,
+        11.85
+      ],
+      "board_x": [
+        1.95,
+        11.65
+      ],
+      "board_y": [
+        58.8,
+        61.4
+      ]
+    },
+    "actuator": {
+      "assembly_y": [
+        109.9,
+        111.4
+      ],
+      "assembly_z": [
+        4.85,
+        9.15
+      ],
+      "board_x": [
+        4.65,
+        8.95
+      ],
+      "board_y": [
+        61.4,
+        62.9
+      ]
+    },
+    "pegs": [
+      {
+        "assembly_y": 108.6,
+        "assembly_z": 4.5,
+        "board_x": 4.3,
+        "board_y": 60.1,
+        "diameter": 0.8
+      },
+      {
+        "assembly_y": 108.6,
+        "assembly_z": 9.5,
+        "board_x": 9.3,
+        "board_y": 60.1,
+        "diameter": 0.8
+      }
+    ],
+    "rule": "actuator flush with the bottom board edge; pads from the C&K land pattern, not given here",
+    "label": "ON / PGM / CV on the controller silkscreen next to the actuator (R4); position-to-mode order follows the R1 pin table, not the physical direction"
+  },
+  "headers": {
+    "power_header": {
+      "part": "Molex 530470310 vertical PicoBlade (A5 J5)",
+      "confidence": "PROJECT-CHOICE",
+      "face": "component face (KiCad F)",
+      "pin_row_axis": "board X (assembly Z)",
+      "assembly_y": [
+        73.95,
+        77.15
+      ],
+      "assembly_z": [
+        6.5,
+        12.0
+      ],
+      "board_x": [
+        6.3,
+        11.8
+      ],
+      "board_y": [
+        25.45,
+        28.65
+      ],
+      "height_above_board": 5.2
+    },
+    "led_header": {
+      "part": "JST SM04B-SRSS-TB side-entry SH4 (A5 J3)",
+      "confidence": "PROJECT-CHOICE",
+      "face": "component face (KiCad F)",
+      "pin_row_axis": "board X (assembly Z)",
+      "assembly_y": [
+        57.425,
+        61.675
+      ],
+      "assembly_z": [
+        10.4,
+        16.4
+      ],
+      "board_x": [
+        10.2,
+        16.2
+      ],
+      "board_y": [
+        8.925,
+        13.175
+      ],
+      "height_above_board": 2.95,
+      "opening": "toward board +Y (assembly +Y, toward the bottom edge)"
+    }
+  },
+  "solder_side_rule": "Solder (-X) face carries THT terminals and fillets only; no SMD parts, because the 2HP lead-side margin is the binding dimension"
+}

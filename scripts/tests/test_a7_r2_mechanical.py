@@ -39,6 +39,7 @@ class LayoutCurrent(unittest.TestCase):
         built = LAY.build()
         self.assertEqual(json.dumps(built, indent=2, ensure_ascii=False) + "\n", (MECH / "layout.json").read_text(), "run python3 scripts/a7_mechanical_layout.py")
         self.assertEqual(LAY.report(built), (MECH / "layout.md").read_text())
+        self.assertEqual(json.dumps(LAY.envelopes(built), indent=2, ensure_ascii=False) + "\n", (MECH / "placement-envelopes.json").read_text())
 
     def test_inferred_axis_height_stays_inferred(self):
         self.assertEqual(P["jack_axis_height"]["confidence"], "INFERRED")
@@ -75,9 +76,11 @@ class Candidates(unittest.TestCase):
 
     def test_2hp_not_declared_infeasible_and_3hp_feasible(self):
         d = L["decision"]
-        self.assertEqual(d["primary_verdict"], STUDY.UNRESOLVED)
-        self.assertEqual(d["fallback_verdict"], STUDY.FEASIBLE)
-        self.assertNotIn("INFEASIBLE", d["primary_verdict"])
+        self.assertEqual(d["default_variant"], "3hp")
+        self.assertEqual(d["working_verdict"], STUDY.FEASIBLE)
+        self.assertEqual(d["open_verdict"], STUDY.UNRESOLVED)
+        self.assertNotIn("INFEASIBLE", d["open_verdict"])
+        self.assertEqual(sorted(d["variants_generated"]), ["2hp", "3hp"])
         self.assertTrue(all(v >= 0 for v in L["variants"]["2hp"]["selection"]["nominal"].values()))
         self.assertTrue(all(v >= 0 for v in L["variants"]["3hp"]["selection"]["worst"].values()))
 
@@ -154,6 +157,33 @@ class Stack(unittest.TestCase):
             self.assertLessEqual(k["z"][1], c["outline_z"][1] + 1e-9, k["id"])
 
 
+class Envelopes(unittest.TestCase):
+    E = json.loads((MECH / "placement-envelopes.json").read_text())
+
+    def _board(self, item):
+        y0, z0 = L["controller"]["outline_y"][0], L["controller"]["outline_z"][0]
+        for a, b, o in (("assembly_y", "board_y", y0), ("assembly_z", "board_x", z0)):
+            for p_, q in zip(item[a], item[b]):
+                self.assertAlmostEqual(q, p_ - o, places=6)
+
+    def test_board_frame_matches_assembly_frame(self):
+        e = self.E
+        self._board(e["outline"])
+        for k in e["keepouts"] + [j["body"] for j in e["jacks"]] + [e["setting_switch"]["body"], e["setting_switch"]["actuator"]] + list(e["headers"].values()):
+            self._board(k)
+        w, h = e["outline"]["board_x"][1], e["outline"]["board_y"][1]
+        for j in e["jacks"]:
+            for p_ in j["pins"]:
+                self.assertTrue(0 <= p_["board_x"] <= w and 0 <= p_["board_y"] <= h, p_)
+
+    def test_envelopes_carry_decision_and_all_keepouts(self):
+        e = self.E
+        self.assertEqual(e["default_variant"], L["decision"]["default_variant"])
+        self.assertEqual({k["id"] for k in e["keepouts"]}, {k["id"] for k in L["controller"]["keepouts"]})
+        self.assertEqual(set(e["variants"]), {"2hp", "3hp"})
+        self.assertIn("INFERRED", e["jack_notes"])
+
+
 class Routes(unittest.TestCase):
     def test_fillet_path_right_angle(self):
         segs, length, rmin = LAY.fillet_path([[0, 0, 0], [10, 0, 0], [10, 10, 0]], 2.0)
@@ -193,11 +223,14 @@ class Exports(unittest.TestCase):
                 if "layout_length_mm" in c:
                     self.assertAlmostEqual(c["centerline_length_mm"], c["layout_length_mm"], delta=0.01)
             self.assertFalse(v["manufacturing_release"])
+            self.assertEqual(v["default_variant"], name == L["decision"]["default_variant"])
 
     def test_front_artwork(self):
         g = json.loads((A7 / "front_panel" / "geometry.json").read_text())
         val = json.loads((A7 / "front_panel" / "exports" / "validation_A7.json").read_text())
         self.assertTrue(val["all_passed"])
+        self.assertEqual(g["default_variant"], L["decision"]["default_variant"])
+        self.assertEqual(next(iter(g["variants"])), g["default_variant"])
         for name, fv in g["variants"].items():
             lv = L["variants"][name]
             self.assertEqual(fv["jack_holes"], [[lv["x_axis"], y] for y in L["y_layout"]["jack_y"]])

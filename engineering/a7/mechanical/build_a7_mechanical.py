@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """A7 digital mechanical assembly: perpendicular controller, PJ-324M jacks, side setting switch.
 
-Builds one assembly per width (2HP primary candidate, 3HP fallback) from layout.json, which
+Builds one assembly per width (3HP working candidate and default, 2HP open candidate) from layout.json, which
 scripts/a7_mechanical_layout.py derives from the R1 inputs and A5 geometry. Exports an
 assembled STEP and GLB, three dimensioned views, and verification.json with pairwise
 rigid-collision volumes, cable centreline clearances, envelope checks, the optical-
@@ -614,7 +614,8 @@ def main():
     ap.add_argument("--variant", choices=["2hp", "3hp", "all"], default="all")
     ap.add_argument("--no-export", action="store_true", help="skip STEP/GLB/views (checks only)")
     a = ap.parse_args()
-    for name in (["2hp", "3hp"] if a.variant == "all" else [a.variant]):
+    default = L["decision"]["default_variant"]
+    for name in ([default] + [v for v in L["decision"]["variants_generated"] if v != default] if a.variant == "all" else [a.variant]):
         out = HERE / "exports" / name
         out.mkdir(parents=True, exist_ok=True)
         print(f"Building {name}", flush=True)
@@ -625,6 +626,7 @@ def main():
         res = {
             "revision": "A7", "variant": name, "status": "PROVISIONAL_DIGITAL_STUDY_NOT_FIT_APPROVAL",
             "selection": L["variants"][name]["selection"]["verdict"],
+            "default_variant": name == default,
             "layout_sha256": hashlib.sha256((HERE / "layout.json").read_bytes()).hexdigest(),
             "part_count": len(parts), "all_shapes_valid": all(x["valid"] for x in rows),
             "unexpected_rigid_intersections": collisions, "explicitly_expected_contacts": permitted,

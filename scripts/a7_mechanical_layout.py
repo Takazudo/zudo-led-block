@@ -28,6 +28,7 @@ MECH = A7 / "mechanical"
 INPUTS = MECH / "design-inputs.json"
 LAYOUT = MECH / "layout.json"
 REPORT = MECH / "layout.md"
+ENVELOPES = MECH / "placement-envelopes.json"
 SWITCH_FACTS = A7 / "evidence" / "component-a7-pcm13smtr" / "facts.json"
 JACK_FACTS = A7 / "evidence" / "component-a7-pj-324m" / "facts.json"
 
@@ -473,19 +474,28 @@ def build():
     }
 
     # ---- verdicts -----------------------------------------------------------------------
+    wd = d["width_decision"]
+    working, open_ = wd["working_candidate"], wd["open_candidate"]
+    sel_by = {"2hp": sel2, "3hp": sel3}
+    describe = {"2hp": f"2hp offset {sel2['offset']} mm toward the body side, {sel2['pcb_thickness']} mm FR-4, trimmed leads",
+                "3hp": f"3hp centred, {sel3['pcb_thickness']} mm FR-4, untrimmed leads"}
     decision = {
-        "preferred_width": "2HP",
-        "primary_candidate": f"2hp offset {sel2['offset']} mm toward the body side, {sel2['pcb_thickness']} mm FR-4, trimmed leads",
-        "primary_verdict": sel2["verdict"],
-        "primary_failing_at_worst": sel2["failing_at_worst"],
-        "fallback": f"3hp centred, {sel3['pcb_thickness']} mm FR-4, untrimmed leads",
-        "fallback_verdict": sel3["verdict"],
+        "default_variant": working,
+        "variants_generated": ["3hp", "2hp"],
+        "working_candidate": describe[working],
+        "working_verdict": sel_by[working]["verdict"],
+        "open_candidate": describe[open_],
+        "open_verdict": sel_by[open_]["verdict"],
+        "open_failing_at_worst": sel_by[open_]["failing_at_worst"],
+        "open_worst_margins": {k: sel_by[open_]["worst"][k] for k in ("lead_side", "body_side", "nut_front")},
+        "confidence": wd["confidence"], "source": wd["source"], "reasons": wd["reasons"], "reopen_2hp_when": wd["reopen_2hp_when"],
         "no_2hp_row_passes_worst_corner": best_worst_any["worst_min"] < 0,
         "best_2hp_worst_min_any_row": {"offset": best_worst_any["offset"], "pcb_thickness": best_worst_any["pcb_thickness"], "worst_min": best_worst_any["worst_min"]},
-        "statement": ("2HP is not declared infeasible: the selected 2HP arrangement clears every nominal transverse margin, "
-                      "but its worst-corner transverse margins stay negative, driven by the INFERRED jack-axis height and the ASSUMED lead trim and hole tolerances. "
-                      "3HP passes the same transverse checks at the worst corner and is the modelled fallback; the CAD rigid/optical results for both widths are in exports/<width>/verification.json. The width decision is held for the break-even evidence below; "
-                      "the controller outline in Y-Z is common to both widths."),
+        "statement": ("3HP is the working candidate and the default for the generated artwork, supports and CAD. "
+                      "2HP is not declared infeasible: the selected 2HP arrangement clears every nominal transverse margin, "
+                      "but its worst-corner margins stay negative, driven by the INFERRED jack-axis height and the ASSUMED lead trim and hole tolerances. "
+                      "It stays a fully parameterized open candidate and reopens on the evidence in the break-even table. "
+                      "The controller outline in Y-Z is common to both widths."),
     }
     return {
         "schema_version": 1, "generator": "scripts/a7_mechanical_layout.py",
@@ -537,6 +547,61 @@ def build():
     }
 
 
+def envelopes(L):
+    """Placement envelopes for the controller PCB, in the assembly frame and in a board-local frame for R4."""
+    c, z, y, sw = L["controller"], L["z_stack"], L["y_layout"], L["switch"]
+    y0, z0 = c["outline_y"][0], c["outline_z"][0]
+
+    def bx(zz):
+        return r(zz - z0)
+
+    def by(yy):
+        return r(yy - y0)
+
+    def rect(ys, zs):
+        return {"assembly_y": ys, "assembly_z": zs, "board_x": [bx(zs[0]), bx(zs[1])], "board_y": [by(ys[0]), by(ys[1])]}
+
+    layer = {"+X": "component face (KiCad F)", "-X": "solder face (KiCad B)"}
+    jacks = []
+    for i, ay in enumerate(y["jack_y"]):
+        pins = [{"pin": k[4:], "assembly_y": r(ay + dy), "assembly_z": z["terminal_z"][k], "board_x": bx(z["terminal_z"][k]), "board_y": by(ay + dy)}
+                for k, dy in sorted(y["jack_pin_y_offset_from_axis"].items())]
+        jacks.append({"function": y["jack_function"][i], "label": y["labels"][i]["text"], "axis_assembly_y": ay, "axis_board_y": by(ay),
+                      "body": rect(y["jack_body_y"][i], [z0, z["jack_body_rear_z_max"]]), "pins": pins})
+    swyc = r((sw["body_y"][0] + sw["body_y"][1]) / 2)
+    swzc = r((sw["body_z"][0] + sw["body_z"][1]) / 2)
+    hdr = {}
+    for key in ("power_header", "led_header"):
+        h = c[key]
+        ys, zs = (h["y_extent"], h["z_extent"]) if key == "power_header" else (h["housing_y"], h["housing_z"])
+        hdr[key] = {"part": h["part"], "confidence": h["confidence"], "face": layer["+X"], "pin_row_axis": "board X (assembly Z)", **rect(ys, zs),
+                    "height_above_board": h.get("mated_height_x", h.get("height_x"))}
+    hdr["led_header"]["opening"] = "toward board +Y (assembly +Y, toward the bottom edge)"
+    return {
+        "schema_version": 1, "generator": "scripts/a7_mechanical_layout.py", "derived_from": "engineering/a7/mechanical/layout.json",
+        "status": L["status"] + " Placement envelopes for routing (R4, #19); hole and pad sizes are not given here.",
+        "frames": {
+            "assembly": L["datum"],
+            "board": "KiCad top view of the controller seen from its component face (+X): board_x = assembly Z - " + str(z0) + " (0 = front edge at the PMMA, + toward the rear), board_y = assembly Y - " + str(y0) + " (0 = top edge, + toward the bottom edge). Solder-face (B) items use the same coordinates.",
+        },
+        "default_variant": L["decision"]["default_variant"],
+        "width_decision": {k: L["decision"][k] for k in ("working_candidate", "working_verdict", "open_candidate", "open_verdict", "confidence")},
+        "outline": {**rect(c["outline_y"], c["outline_z"]), "area_mm2": c["outline_area_mm2"], "common_to_both_widths": True},
+        "variants": {name: {"panel_width": v["panel_width"], "pcb_thickness": v["pcb_thickness"], "leads": v["leads"], "pcb_assembly_x": v["controller_pcb_x"],
+                            "component_face_height_budget": v["checks"]["component_face_height_budget"],
+                            "lead_side_nominal_margin": v["checks"]["lead_side_nominal_margin"], "verdict": v["selection"]["verdict"]}
+                     for name, v in L["variants"].items()},
+        "keepouts": [{"id": k["id"], "faces": [layer[f] for f in k["faces"]], **rect(k["y"], k["z"]), "reason": k["reason"]} for k in c["keepouts"]],
+        "jacks": jacks,
+        "jack_notes": "Pin positions follow the R1 drawing reading; pin functions are INFERRED (R1 Q2) and hole/slot sizes are not sourced (R1 Q3). The jack body seats on the component face; the axis height above that face is INFERRED " + str(L["variants"]["3hp"]["jack_axis_height_used"]["value"]) + " (band " + str(L["variants"]["3hp"]["jack_axis_height_used"]["band"]) + ").",
+        "setting_switch": {"part": sw["part"], "face": layer["+X"], "body": rect(sw["body_y"], sw["body_z"]), "actuator": rect(sw["actuator_y"], [r(sw["actuator_positions_z"][0] - sw["actuator_width_z"] / 2), r(sw["actuator_positions_z"][2] + sw["actuator_width_z"] / 2)]),
+                           "pegs": [{"assembly_y": swyc, "assembly_z": r(swzc + s_ * sw["peg_pitch"] / 2), "board_x": bx(swzc + s_ * sw["peg_pitch"] / 2), "board_y": by(swyc), "diameter": sw["peg_diameter"]} for s_ in (-1, 1)],
+                           "rule": "actuator flush with the bottom board edge; pads from the C&K land pattern, not given here", "label": sw["label"]},
+        "headers": hdr,
+        "solder_side_rule": c["solder_side_rule"],
+    }
+
+
 def fmt(v):
     return f"{v:+.2f}" if isinstance(v, (int, float)) and not isinstance(v, bool) else str(v)
 
@@ -545,9 +610,11 @@ def report(L):
     d, z, y, sw, c = L["decision"], L["z_stack"], L["y_layout"], L["switch"], L["controller"]
     out = ["# A7 R2 mechanical layout (generated)", "",
            "Generated by `scripts/a7_mechanical_layout.py`. Do not edit by hand.", "", L["status"], "",
-           "## Width decision: 2HP held for evidence, 3HP fallback passes", "",
-           f"- Primary: **{d['primary_candidate']}**, verdict **{d['primary_verdict']}** (worst corner fails on {', '.join(d['primary_failing_at_worst'])}).",
-           f"- Fallback: **{d['fallback']}**, verdict **{d['fallback_verdict']}**.",
+           "## Width decision: 3HP is the working candidate, 2HP stays open", "",
+           f"- Working candidate (default variant): **{d['working_candidate']}**, verdict **{d['working_verdict']}**.",
+           f"- Open candidate: **{d['open_candidate']}**, verdict **{d['open_verdict']}** (worst corner: " + ", ".join(f"{k} {fmt(v)}" for k, v in d["open_worst_margins"].items()) + ").",
+           f"- Decision ({d['confidence']}): {d['source']} Reasons: " + "; ".join(d["reasons"]) + ".",
+           "- 2HP reopens when: " + "; ".join(d["reopen_2hp_when"]) + ".",
            f"- No 2HP row in the sweep passes the worst corner (best worst-corner minimum {fmt(d['best_2hp_worst_min_any_row']['worst_min'])} at offset {d['best_2hp_worst_min_any_row']['offset']}, {d['best_2hp_worst_min_any_row']['pcb_thickness']} mm).",
            "", d["statement"], "",
            "## What would close 2HP (one input at a time, sensitivity only)", "",
@@ -596,8 +663,9 @@ def main():
     L = build()
     text = json.dumps(L, indent=2, ensure_ascii=False) + "\n"
     rep = report(L)
+    env = json.dumps(envelopes(L), indent=2, ensure_ascii=False) + "\n"
     if a.check:
-        stale = [str(x.relative_to(REPO)) for x, want in ((LAYOUT, text), (REPORT, rep)) if not x.exists() or x.read_text() != want]
+        stale = [str(x.relative_to(REPO)) for x, want in ((LAYOUT, text), (REPORT, rep), (ENVELOPES, env)) if not x.exists() or x.read_text() != want]
         if stale:
             print("STALE: " + ", ".join(stale) + " (run python3 scripts/a7_mechanical_layout.py)")
             return 1
@@ -605,8 +673,9 @@ def main():
         return 0
     LAYOUT.write_text(text)
     REPORT.write_text(rep)
-    print(L["decision"]["primary_candidate"], L["decision"]["primary_verdict"])
-    print(L["decision"]["fallback"], L["decision"]["fallback_verdict"])
+    ENVELOPES.write_text(env)
+    print("working:", L["decision"]["working_candidate"], L["decision"]["working_verdict"])
+    print("open:", L["decision"]["open_candidate"], L["decision"]["open_verdict"])
     return 0
 
 

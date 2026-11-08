@@ -21,86 +21,8 @@
     "ON / PGM / CV legends and their arrow/dot icons",
     "A5 controller M2 hole at Y65"
   ],
+  "default_variant": "3hp",
   "variants": {
-    "2hp": {
-      "width": 9.8,
-      "slot_length": 4.6,
-      "mounts": [
-        [
-          4.9,
-          3.0
-        ],
-        [
-          4.9,
-          125.5
-        ]
-      ],
-      "m2_holes": [
-        [
-          4.9,
-          20.5
-        ],
-        [
-          6.025,
-          60.8
-        ]
-      ],
-      "m2_hole_diameter": 2.2,
-      "jack_holes": [
-        [
-          5.5,
-          86.5
-        ],
-        [
-          5.5,
-          101.0
-        ]
-      ],
-      "jack_hole_diameter": 6.2,
-      "jack_functions": [
-        "CV IN",
-        "CV THRU"
-      ],
-      "labels": [
-        {
-          "text": "IN",
-          "x": 5.5,
-          "y": 79.0,
-          "cap_height": 1.8
-        },
-        {
-          "text": "THRU",
-          "x": 5.5,
-          "y": 93.5,
-          "cap_height": 1.8
-        }
-      ],
-      "rear_pockets": [
-        {
-          "x": [
-            2.3,
-            9.0
-          ],
-          "y": [
-            80.2,
-            92.1
-          ],
-          "depth": 0.5
-        },
-        {
-          "x": [
-            2.3,
-            9.0
-          ],
-          "y": [
-            94.7,
-            106.6
-          ],
-          "depth": 0.5
-        }
-      ],
-      "front_nut_od": 8.0
-    },
     "3hp": {
       "width": 14.9,
       "slot_length": 4.6,
@@ -170,6 +92,85 @@
           "x": [
             4.25,
             10.95
+          ],
+          "y": [
+            94.7,
+            106.6
+          ],
+          "depth": 0.5
+        }
+      ],
+      "front_nut_od": 8.0
+    },
+    "2hp": {
+      "width": 9.8,
+      "slot_length": 4.6,
+      "mounts": [
+        [
+          4.9,
+          3.0
+        ],
+        [
+          4.9,
+          125.5
+        ]
+      ],
+      "m2_holes": [
+        [
+          4.9,
+          20.5
+        ],
+        [
+          6.025,
+          60.8
+        ]
+      ],
+      "m2_hole_diameter": 2.2,
+      "jack_holes": [
+        [
+          5.5,
+          86.5
+        ],
+        [
+          5.5,
+          101.0
+        ]
+      ],
+      "jack_hole_diameter": 6.2,
+      "jack_functions": [
+        "CV IN",
+        "CV THRU"
+      ],
+      "labels": [
+        {
+          "text": "IN",
+          "x": 5.5,
+          "y": 79.0,
+          "cap_height": 1.8
+        },
+        {
+          "text": "THRU",
+          "x": 5.5,
+          "y": 93.5,
+          "cap_height": 1.8
+        }
+      ],
+      "rear_pockets": [
+        {
+          "x": [
+            2.3,
+            9.0
+          ],
+          "y": [
+            80.2,
+            92.1
+          ],
+          "depth": 0.5
+        },
+        {
+          "x": [
+            2.3,
+            9.0
           ],
           "y": [
             94.7,

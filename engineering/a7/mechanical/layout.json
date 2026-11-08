@@ -13,22 +13,43 @@
   "status": "Provisional digital study. Jack-axis height INFERRED; tolerances marked ASSUMED are unsourced. Not a fit approval, part approval or manufacturing release.",
   "datum": "Same as engineering/a7/study/parameters.json: X across the panel (0 = left panel edge), Y down the panel (0 = top edge), Z into the rack with the PMMA rear surface at Z=0. The controller PCB lies in a Y-Z plane; jack bodies and SMD parts sit on its +X (component) face; THT terminals pass to its -X (solder) face.",
   "decision": {
-    "preferred_width": "2HP",
-    "primary_candidate": "2hp offset 0.6 mm toward the body side, 0.8 mm FR-4, trimmed leads",
-    "primary_verdict": "UNRESOLVED",
-    "primary_failing_at_worst": [
+    "default_variant": "3hp",
+    "variants_generated": [
+      "3hp",
+      "2hp"
+    ],
+    "working_candidate": "3hp centred, 1.6 mm FR-4, untrimmed leads",
+    "working_verdict": "FEASIBLE ON PAPER",
+    "open_candidate": "2hp offset 0.6 mm toward the body side, 0.8 mm FR-4, trimmed leads",
+    "open_verdict": "UNRESOLVED",
+    "open_failing_at_worst": [
       "lead_side",
       "body_side"
     ],
-    "fallback": "3hp centred, 1.6 mm FR-4, untrimmed leads",
-    "fallback_verdict": "FEASIBLE ON PAPER",
+    "open_worst_margins": {
+      "lead_side": -0.33,
+      "body_side": -0.15,
+      "nut_front": 0.0
+    },
+    "confidence": "PROJECT-DECISION",
+    "source": "Width decision relayed by the project coordinator on 2026-11-08 after the R2 layout (PR #25, issue #17). Not a fit approval.",
+    "reasons": [
+      "selected 2HP arrangement has negative worst-corner lead-side and body-side margins",
+      "PJ-324M jack-axis height is INFERRED, not manufacturer-confirmed (R1 Q1)",
+      "guaranteed trimmed lead protrusion is ASSUMED, not confirmed (R1 Q6)"
+    ],
+    "reopen_2hp_when": [
+      "manufacturer axis-height evidence (drawing, 3D model or measured part) puts the axis inside the break-even band in layout.md",
+      "confirmed lead-trim data meets the break-even protrusion in layout.md",
+      "either makes every worst-corner hard margin of a 2HP row >= 0"
+    ],
     "no_2hp_row_passes_worst_corner": true,
     "best_2hp_worst_min_any_row": {
       "offset": 0.7,
       "pcb_thickness": 0.8,
       "worst_min": -0.25
     },
-    "statement": "2HP is not declared infeasible: the selected 2HP arrangement clears every nominal transverse margin, but its worst-corner transverse margins stay negative, driven by the INFERRED jack-axis height and the ASSUMED lead trim and hole tolerances. 3HP passes the same transverse checks at the worst corner and is the modelled fallback; the CAD rigid/optical results for both widths are in exports/<width>/verification.json. The width decision is held for the break-even evidence below; the controller outline in Y-Z is common to both widths."
+    "statement": "3HP is the working candidate and the default for the generated artwork, supports and CAD. 2HP is not declared infeasible: the selected 2HP arrangement clears every nominal transverse margin, but its worst-corner margins stay negative, driven by the INFERRED jack-axis height and the ASSUMED lead trim and hole tolerances. It stays a fully parameterized open candidate and reopens on the evidence in the break-even table. The controller outline in Y-Z is common to both widths."
   },
   "candidates": {
     "selection_rule_2hp": "Among 2HP offsets x PCB thicknesses with trimmed leads, keep only rows whose nominal margins are all >= 0 and whose nominal nut edge margin meets the R1 preferred 0.3 mm; pick the row with the largest worst-corner minimum hard margin, then the largest nominal minimum margin, then the thicker PCB.",
