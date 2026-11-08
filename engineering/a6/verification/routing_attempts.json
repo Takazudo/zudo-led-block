@@ -37,5 +37,21 @@
   "nets_unrouted_in_at_least_3_of_4_imported_results": ["+12V_PROT", "+12V_RAW", "+3V3", "+5V", "-12V_PROT", "CV_ADC", "CV_AFFINE", "DATA_L", "DATA_L_3V3", "DATA_R", "DATA_R_5V", "GND", "LED_ENABLE", "LED_EN_N", "NRST", "SWCLK", "SWDIO", "VLED"]
  },
  "placement_finding": "Five parts that serve the upper section sit in the lower analog section because no legal 0603 spot exists near their pins: R9 (MODE_A pull-up, y 61.7), R20 (VLED bleeder, y 61.7), R16/R17 (DATA_L/R_3V3 pull-downs, y 48.5) and R12 (LED_BASE pull-down, y 39.6). A free-spot search over courtyards, board edge, through-hole pads, the J3 plug keep-out, the H1/H2 clamp keep-outs and the M2 posts found no closer spot for any of them, so their nets add five full-length runs through the jam.",
+ "widened_outline_scratch_test": {
+  "recorded_utc": "2026-11-08",
+  "committed": false,
+  "purpose": "Show whether a wider controller outline (the only way a 3HP choice could help routing; A5 uses the same 8.8 mm controller in 2HP and 3HP) would route. Not a design change.",
+  "outline_mm": "13.9 x 62.9 (8.8 mm board plus 2.55 mm strips each side; same height, holes, connector anchors and rules)",
+  "placement_change": "R9 and R12 moved to the left strip, R16, R17 and R20 to the right strip, all on B, near their pins; every other part unchanged",
+  "runs": [
+   {"id": "vW", "inner_layer_In1": "routable + GND plane", "duration_min": 40, "best_unrouted": 1, "passes_at_1_unrouted": 1001, "final_unconnected_after_import": 9,
+    "dsn_sha256": "75041ae9e6e261ef74bd34f6b00c9166e5930eeb0197d54026f5636124031319"},
+   {"id": "vWp", "inner_layer_In1": "GND plane only", "duration_min": 40, "best_unrouted": 15,
+    "dsn_sha256": "88059c5c0b51e160866fa4e77e1c82f379b608996dbac014c69939f1a47d769e"}
+  ],
+  "in_house_router": "not run on the widened outline (it did not converge on 8.8 mm)",
+  "comparison": "8.8 mm board: best transient 7, imported 27-32 unconnected. 13.9 mm board: best transient 1, imported 9 unconnected. Neither reached zero automatically.",
+  "caveat": "A wider board is a new outline: rail/clamp geometry and the 2HP/3HP CadQuery check would have to be redone. The test import widened In2 but not In1, so some GND items in the 9 may be artefacts."
+ },
  "next": "Hand routing in the KiCad 10 interactive router is the recommended next step, starting with the y 12-35 mm section, or a placement change that frees space for the five parts named above. Either way the native gate decides; this file stays as the record of the automated attempts."
 }
