@@ -69,8 +69,10 @@ CONTACT_LIMITS_MM3 = {frozenset(k): v for k, v in {
     ("setting_switch_PCM13SMTR", "controller_pcb_A7"): 0.0,
     ("controller_PicoBlade_mated", "controller_pcb_A7"): 0.7,  # three THT tails through the board (no holes cut)
     ("adapter_C5665_keyed_header", "power_adapter_pcb_A5"): 7.0, ("adapter_PicoBlade_mated", "power_adapter_pcb_A5"): 0.7,
-    ("adapter_C5665_keyed_header", "IDC_socket_REFERENCE_overlap6"): None, ("IDC_socket_REFERENCE_overlap6", "IDC_ribbon_R3_side_exit_SCENARIO"): None,
-    ("bottom_cap_fork_A7", "bottom_leaf_cap"): 0.0,
+    # A5 reference socket / ribbon scenario envelopes, moved unchanged with the adapter; their A5 overlaps stay bounded here
+    ("adapter_C5665_keyed_header", "IDC_socket_REFERENCE_overlap6"): 0.3, ("IDC_socket_REFERENCE_overlap6", "IDC_ribbon_R3_side_exit_SCENARIO"): 0.3,
+    ("adapter_C5665_keyed_header", "IDC_ribbon_R3_side_exit_SCENARIO"): 0.3,
+    ("bottom_cap_fork_A7", "bottom_leaf_cap"): 0.0, ("top_cap_spacer_A7", "top_leaf_adapter_cap"): 0.0, ("top_cap_spacer_A7", "power_adapter_pcb_A5"): 0.0,
 }.items()}
 
 
@@ -199,7 +201,7 @@ def build(name, out):
     y61 = S["front_screw_y"][1]
     spine = spine.cut(cylinder(m2["clearance_hole"] / 2, -0.1, sp["post_top_z"] + 0.2, xc, 20.5))
     spine = spine.cut(cylinder(m2["clearance_hole"] / 2, -0.1, sp["slot_height"] + 0.1, sx[str(y61)], y61))
-    for (xx, yy, z0_) in ((xc, 20.5, 3.0), (xc, 20.5, 14.0), (sx[str(y61)], y61, sp["rib_height"])):
+    for (xx, yy, z0_) in ((xc, 20.5, 3.0), (xc, 20.5, sp["post_nut_z"][0]), (sx[str(y61)], y61, sp["rib_height"])):
         spine = spine.cut(hexagon(m2["nut_af"] + 0.25, z0_, z0_ + 1.8, xx, yy))
         spine = spine.cut(box(xx, w + 0.1, yy - (m2["nut_af"] + 0.25) / 2, yy + (m2["nut_af"] + 0.25) / 2, z0_, z0_ + 1.8))
     add("spine_PETG", spine.clean(), "frame", "printable_design",
@@ -215,11 +217,15 @@ def build(name, out):
             "metal", "standard_hardware_envelope", "Nominal M2 pan head reserve; supplier not selected", group="hardware")
         nz = 3.0 if y == 20.5 else sp["rib_height"]
         add(f"M2_nut_{y}", hexagon(m2["nut_af"], nz, nz + m2["nut_t"], xx, y, 2.0), "metal", "standard_hardware_envelope", group="hardware")
-    add("M2x16_top_cap", union(cylinder(1.0, 11.8, 27.8, xc, 20.5), cylinder(1.9, 27.8, 29.1, xc, 20.5)), "metal", "standard_hardware_envelope", "A5 top-cap screw", group="hardware")
-    add("M2_post_nut_top", hexagon(4.0, 14.0, 15.6, xc, 20.5, 2.0), "metal", "standard_hardware_envelope", group="hardware")
+    tcs = S["top_cap_screw"]
+    add("top_cap_screw_A7", union(cylinder(1.0, tcs["tip_z"], tcs["head_seat_z"], xc, 20.5), cylinder(1.9, tcs["head_seat_z"], 29.1, xc, 20.5)), "metal", "standard_hardware_envelope",
+        f"{tcs['designation']} top-cap screw (A5 M2x16 lengthened by the adapter move)", group="hardware")
+    add("M2_post_nut_top", hexagon(4.0, sp["post_nut_z"][0], sp["post_nut_z"][1], xc, 20.5, 2.0), "metal", "standard_hardware_envelope", group="hardware")
 
     # ---- A5 power adapter (retained) ------------------------------------------------------
-    ad = G5["adapter"]
+    ad = G5["adapter"]  # A5 geometry; the whole adapter group is then moved by the A7 z_shift
+    adz = S["adapter"]["z_shift"]
+    n_before = len(parts)
     apcb = box(xc - 4.4, xc + 4.4, ad["y"][0], ad["y"][1], ad["front_z"], ad["front_z"] + ad["thickness"]).cut(cylinder(1.1, ad["front_z"] - 0.1, ad["front_z"] + 2, xc, 20.5))
     add("power_adapter_pcb_A5", apcb, "pcb", "native_pcb_envelope", "A5 power adapter retained (8.8 x 30 x 1.6)", group="power_adapter")
     idc = box(xc - 4.55, xc + 4.55, 23, 43.8, 8.5, 17.4).cut(box(xc - 3.65, xc + 3.65, 24.4, 42.4, 8.4, 15.8))
@@ -248,6 +254,10 @@ def build(name, out):
     ribbon = transformed(cq.Workplane("XY").polyline(pts).close().extrude(12.7).val(), (0, 39.75, 0), (1, 0, 0), (0, 0, 1), (0, -1, 0))
     add("IDC_ribbon_R3_side_exit_SCENARIO", ribbon, "ribbon", "conditional_cable_scenario", "A5 R3 side-exit scenario carried over; not qualified", scope="conditional_ribbon", group="cables")
     contacts.append(("IDC_socket_REFERENCE_overlap6", "IDC_ribbon_R3_side_exit_SCENARIO"))
+    contacts.append(("adapter_C5665_keyed_header", "IDC_ribbon_R3_side_exit_SCENARIO"))
+    for p_ in parts[n_before:]:
+        p_.shape = p_.shape.translate(cq.Vector(0, 0, adz))
+        p_.note += f"; moved {adz} mm in Z with the adapter (A7)"
 
     # ---- A5 leaves, leaf parts, leaf connectors (retained) ---------------------------------
     leaf_local = box(0, 9, 0, 82.5, -.6, 0)
@@ -311,6 +321,11 @@ def build(name, out):
     fork = union(box(x0 - clr - fk["wall"], x0 - clr, fk["y"][0], fk["y"][1], fz0, fz1),
                  box(x1 + clr, x1 + clr + fk["wall"], fk["y"][0], fk["y"][1], fz0, 18.2),
                  box(x0 - clr - fk["wall"], x1 + clr + fk["wall"], fk["y"][0], fk["y"][1], cz1 + clr, fz1))
+    spz = S["adapter"]["cap_spacer_z"]
+    spacer = cylinder(S["adapter"]["cap_spacer_radius"], spz[0], spz[1], xc, 20.5).cut(cylinder(1.1, spz[0] - 0.1, spz[1] + 0.2, xc, 20.5))
+    add("top_cap_spacer_A7", spacer.clean(), "frame", "printable_design", "A7 boss on the top cap filling the gap left by moving the adapter forward (printed with the cap)", printed=True, group="carrier")
+    contacts.append(("top_cap_spacer_A7", "top_leaf_adapter_cap"))
+    contacts.append(("top_cap_spacer_A7", "power_adapter_pcb_A5"))
     for nm, shp in supports.items():
         add(nm, shp.cut(fork).clean() if nm.startswith("bottom") else shp, "frame", "printable_design", "PETG optical support (A5 topology)", printed=True, group="carrier")
     add("bottom_cap_fork_A7", fork.clean(), "frame", "printable_design", "A7 fork on the bottom cap; straddles the controller rear edge (printed as one part with the cap)", printed=True, group="carrier")
@@ -465,8 +480,8 @@ def validate(parts, contacts, name):
     return rows, collisions, permitted, cable_findings, env
 
 
-A5_GROUPS = ("left_leaf", "right_leaf", "leaves", "power_adapter", "optics")
-A5_NAMES = ("top_leaf_adapter_cap", "bottom_leaf_cap", "M2x16_top_cap", "M2_post_nut_top", "IDC_ribbon_R3_side_exit_SCENARIO")
+A5_GROUPS = ("left_leaf", "right_leaf", "leaves", "optics")  # the power adapter group and its post nut / screw moved in A7
+A5_NAMES = ("top_leaf_adapter_cap", "bottom_leaf_cap")
 
 
 def origin(p):
@@ -512,6 +527,57 @@ def optical(parts, name):
                    "a7_harness_obstructions": [x for x in rows if x["origin"] == "a7_harness"],
                    "projected_bbox_upper_bound_fraction": r3(sum(x["projected_yz_bbox_mm2"] for x in rows) / area)}
     return out
+
+
+def _ray_sphere(o, d, c, rad):
+    oc = [o[i] - c[i] for i in range(3)]
+    bq = sum(oc[i] * d[i] for i in range(3))
+    cq_ = sum(v * v for v in oc) - rad * rad
+    disc = bq * bq - cq_
+    if disc < 0:
+        return None
+    t = -bq - math.sqrt(disc)
+    return t if t > 0 else None
+
+
+def optical_estimate(parts, name, opt, n=4000, seed=7):
+    """First-order shading estimate: cosine-weighted rays from each leaf LED's emitting face to the diffuser plane.
+
+    A7 harnesses are sampled as spheres along their whole centreline (exact bundle radius). A5 carry-over
+    items are not counted here (see optical_obstruction). Not a light simulation (no reflection, no diffuser
+    scattering, no LED angular data)."""
+    import random
+    rng = random.Random(seed)
+    out = {}
+    by_name = {p.name: p for p in parts}
+    for s_ in ("left", "right"):
+        cx = opt[s_]["corridor_x"]
+        sgn = -1 if s_ == "left" else 1
+        plane = cx[0] if s_ == "left" else cx[1]
+        harness = []
+        for row in opt[s_]["obstructions"]:
+            p = by_name[row["part"]]
+            if row["origin"] == "a7_harness":
+                w_ = p.cable_path
+                L_ = w_.Length()
+                k = max(8, int(L_ / (p.cable_radius * 0.5)))
+                harness += [((lambda v: (v.x, v.y, v.z))(w_.positionAt(i / k)), p.cable_radius) for i in range(k + 1)]
+        rows = []
+        for e in sorted((p for p in parts if p.name.startswith(s_ + "_D")), key=lambda p: p.shape.BoundingBox().ymin):
+            bb = e.shape.BoundingBox()
+            fx = bb.xmin if s_ == "left" else bb.xmax
+            hit_h = 0
+            for _ in range(n):
+                o = (fx, bb.ymin + rng.random() * bb.ylen, bb.zmin + rng.random() * bb.zlen)
+                u, v = rng.random(), rng.random()
+                rr, ph = math.sqrt(u), 2 * math.pi * v
+                d = (sgn * math.sqrt(1 - u), rr * math.cos(ph), rr * math.sin(ph))
+                tp = (plane - o[0]) / d[0]
+                hit_h += any((t := _ray_sphere(o, d, c, rad)) is not None and t < tp for c, rad in harness)
+            rows.append({"led": e.name, "y": [r3(bb.ymin), r3(bb.ymax)], "blocked_by_a7_harness": r3(hit_h / n)})
+        out[s_] = rows
+    return {"method": "cosine-weighted rays from each LED face to the diffuser inner plane; " + str(n) + " rays per LED, fixed seed; fraction of rays meeting an A7 harness; not a light simulation",
+            "per_side": out}
 
 
 def tool_access(parts, name):
@@ -677,6 +743,7 @@ def main():
         parts, contacts, cables = build(name, out)
         rows, collisions, permitted, cable_findings, env = validate(parts, contacts, name)
         opt = optical(parts, name)
+        opt_est = optical_estimate(parts, name, opt)
         acc = tool_access(parts, name)
         res = {
             "revision": "A7", "variant": name, "status": "PROVISIONAL_DIGITAL_STUDY_NOT_FIT_APPROVAL",
@@ -689,7 +756,7 @@ def main():
             "cable_findings": cable_findings, "cables": cables,
             "envelope_findings": env,
             "retained_envelope_findings": [x for x in env if x["scope"] not in CONDITIONAL],
-            "optical_obstruction": opt, "switch_tool_access": acc,
+            "optical_obstruction": opt, "optical_shading_estimate": opt_est, "switch_tool_access": acc,
             "parts": rows,
             "manufacturing_release": False,
         }
