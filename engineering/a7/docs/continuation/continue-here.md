@@ -45,7 +45,7 @@ Accepted direction from the owner (2026-11-08):
 | R1 parts and dimension study | [#16](https://github.com/Takazudo/zudo-led-block/issues/16) | merged in PR #23 (`54bda11`), issue closed | `study/`, `evidence/`, `pet-fpc.md`, `open-questions.md`, `.claude/skills/component-a7-*` |
 | R2 mechanical model and artwork | [#17](https://github.com/Takazudo/zudo-led-block/issues/17) | merged in PR [#25](https://github.com/Takazudo/zudo-led-block/pull/25) (`64bd3b7`) and the harness follow-up PR [#27](https://github.com/Takazudo/zudo-led-block/pull/27) (`d27f578`); provisional digital study, issue open | `mechanical/`, `front_panel/`, `scripts/a7_mechanical_layout.py` |
 | R3 native verification foundation | [#18](https://github.com/Takazudo/zudo-led-block/issues/18) | merged in PR #22 (`02992fa`), issue closed | `verification/`, `scripts/native_gate/` |
-| R4 schematic, placement, routing | [#19](https://github.com/Takazudo/zudo-led-block/issues/19) | schematic phase merged in PR [#24](https://github.com/Takazudo/zudo-led-block/pull/24) (`5f6865b`, `SCHEMATIC_REVIEWED`); **board not placed or routed**, issue open | `electronics/`, `verification/schematic/`, `scripts/a7_electronics.py`, `scripts/a7_schematic_check.py` |
+| R4 schematic, placement, routing | [#19](https://github.com/Takazudo/zudo-led-block/issues/19) | schematic phase merged in PR [#24](https://github.com/Takazudo/zudo-led-block/pull/24) (`5f6865b`, `SCHEMATIC_REVIEWED`); **no board on `main`**: placement done locally, autorouting in progress, no PR yet; issue open | `electronics/`, `verification/schematic/`, `scripts/a7_electronics.py`, `scripts/a7_schematic_check.py` |
 | R5 docs, status, continuation | [#20](https://github.com/Takazudo/zudo-led-block/issues/20) | this document; updated again when the R4 board merges | `docs/continuation/`, Japanese site pages |
 
 The A5 component catalog (30 identities) merged in PR #21 (`20b2f8f`); issue
@@ -57,10 +57,10 @@ retrieved.
 1. **R4 schematic (PR #24): done.** J1, J2 and SW1 replaced, every other part and net unchanged from A5;
    ERC 0, parity 0, 51 behavioural assertions pass, authorised delta covers all 12 observed deltas. The native
    gate profile stays `candidate: null` until a board lands with it.
-2. **R2 mechanical (PR #25, #27): done as a digital study.** 3HP FEASIBLE ON PAPER and the default; 2HP open.
+2. **R2 mechanical (PR #25, #27): merged as a provisional digital study; #17 open.** 3HP FEASIBLE ON PAPER and the default; 2HP open.
    Jacks at Y 84.3 / 99.3 in 0.5 mm rear pockets (1.25 mm worst-case thread engagement); controller outline
    Y 48.5–111.4 × Z 0.2–16.4 common to both widths; A5 adapter moved 2.0 mm forward with an M2x18 top-cap screw;
-   A7 power cable requirement 56 ± 3 mm free span (±3 ASSUMED) handed to #8. Placement envelopes for R4 are in
+   A7 power cable requirement 57.0 ± 3.0 mm free span (54–60 mm, ±3 ASSUMED; generated `layout.json`; the hand-written `mechanical/README.md` says 56 ± 3, being checked) handed to #8. Placement envelopes for R4 are in
    `mechanical/placement-envelopes.json`.
 3. **R4 placement and routing** (placement done locally, autorouting in progress, no PR yet). Place against the
    R2 envelopes, route, and make the board the
@@ -82,7 +82,7 @@ retrieved.
 |---|---|---|---|
 | No A7 board on `main` (placement local only, not routed) | A7 gate, A7 BOM, placement export | the R4 routing PR | #19 |
 | 2HP unresolved at the worst corner | width choice | Q1 axis height or Q6 trim evidence (break-even values in `mechanical/layout.md`) | #17 |
-| A7 power cable 56 ± 3 mm (±3 ASSUMED), not routed or measured | power harness | cable sourcing and measurement | #8 |
+| A7 power cable 57 ± 3 mm (±3 ASSUMED), not routed or measured | power harness | cable sourcing and measurement | #8 |
 | Adapter boss and M2x18 clamp load not analysed | adapter retention | analysis and printed part | #8 |
 | PJ-324M axis height only inferred (≈3.0, band 2.6–3.4) | 2HP lead-side margin | dimensioned drawing, 3D model or measured part | Q1 |
 | PJ-324M pin functions inferred | CV_THRU vs GND mapping | bench continuity test with TS and TRS plugs | Q2, #10 |
