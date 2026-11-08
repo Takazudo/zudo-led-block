@@ -1,0 +1,94 @@
+{
+  "schema_version": 1,
+  "facts": [
+    {
+      "fact_id": "fact-cc0603krx7r9bb104-manufacturer",
+      "record_id": "rec-cc0603krx7r9bb104",
+      "source_id": "src-cc0603krx7r9bb104-a5-jlcpcb-snapshot",
+      "class": "PROJECT_STATE",
+      "value": "YAGEO",
+      "unit": "NONE",
+      "conditions": "exact orderable identity; distributor listing only, no manufacturer-primary document inspected yet",
+      "locator": "src-cc0603krx7r9bb104-a5-jlcpcb-snapshot: product table row brand",
+      "provenance": "UNVERIFIED",
+      "verdict": "UNSOURCED",
+      "depends_on": [],
+      "expression": ""
+    },
+    {
+      "fact_id": "fact-cc0603krx7r9bb104-distributor-identity",
+      "record_id": "rec-cc0603krx7r9bb104",
+      "source_id": "src-cc0603krx7r9bb104-a5-jlcpcb-snapshot",
+      "class": "PROJECT_STATE",
+      "value": {
+        "lcsc": "C14663",
+        "manufacturer": "YAGEO",
+        "mpn": "CC0603KRX7R9BB104",
+        "variant": "0603"
+      },
+      "unit": "NONE",
+      "conditions": "order-code identity only; not performance evidence",
+      "locator": "src-cc0603krx7r9bb104-a5-jlcpcb-snapshot: product table rows code, model, brand, specification",
+      "provenance": "DISTRIBUTOR-IDENTITY",
+      "verdict": "CONFIRMED - distributor identity only",
+      "depends_on": [],
+      "expression": ""
+    },
+    {
+      "fact_id": "fact-cc0603krx7r9bb104-a5-placements",
+      "record_id": "rec-cc0603krx7r9bb104",
+      "source_id": "src-cc0603krx7r9bb104-a5-netlist-controller",
+      "class": "PROJECT_STATE",
+      "value": "controller/C4 x1, controller/C8 x1, controller/C9 x1, controller/C10 x1, controller/C11 x1, controller/C12 x1, controller/C14 x1, controller/C17 x1, led_leaf/C1 x2, led_leaf/C2 x2, led_leaf/C3 x2, led_leaf/C4 x2 (12 unique placements, 16 fitted pieces per module)",
+      "unit": "NONE",
+      "conditions": "historical A5 native netlists; declared by the manual inventory provider, not bound to a schematic; as-built placement unverified",
+      "locator": "src-cc0603krx7r9bb104-a5-netlist-controller: components section rows C4, C8, C9, C10, C11, C12, C14, C17, C1, C2, C3, C4",
+      "provenance": "PROJECT-CHOICE",
+      "verdict": "NEEDS BENCH",
+      "depends_on": [],
+      "expression": ""
+    },
+    {
+      "fact_id": "fact-cc0603krx7r9bb104-pinout",
+      "record_id": "rec-cc0603krx7r9bb104",
+      "source_id": "src-cc0603krx7r9bb104-a5-netlist-controller",
+      "class": "PROJECT_STATE",
+      "value": "manufacturer pin numbering and pin functions for package 0603",
+      "unit": "NONE",
+      "conditions": "datasheet pin identity behind the project pin map; no manufacturer document inspected yet",
+      "locator": "src-cc0603krx7r9bb104-a5-netlist-controller: libparts section pin rows for LightBlock:C",
+      "provenance": "UNVERIFIED",
+      "verdict": "UNSOURCED",
+      "depends_on": [],
+      "expression": ""
+    },
+    {
+      "fact_id": "fact-cc0603krx7r9bb104-ratings",
+      "record_id": "rec-cc0603krx7r9bb104",
+      "source_id": "src-cc0603krx7r9bb104-a5-jlcpcb-snapshot",
+      "class": "ABSOLUTE_MAXIMUM",
+      "value": "manufacturer absolute-maximum and recommended operating limits",
+      "unit": "NONE",
+      "conditions": "no manufacturer document inspected yet; distributor listing is identity evidence only",
+      "locator": "src-cc0603krx7r9bb104-a5-jlcpcb-snapshot: product table row specification (identity only)",
+      "provenance": "UNVERIFIED",
+      "verdict": "UNSOURCED",
+      "depends_on": [],
+      "expression": ""
+    },
+    {
+      "fact_id": "fact-cc0603krx7r9bb104-cad-state",
+      "record_id": "rec-cc0603krx7r9bb104",
+      "source_id": "src-cc0603krx7r9bb104-a5-netlist-controller",
+      "class": "PROJECT_STATE",
+      "value": "A5 footprint LightBlock:C0603 and symbol LightBlock:C are not configured as catalog CAD assets (cad.enabled=false); pin-asset check not performed",
+      "unit": "NONE",
+      "conditions": "catalog CAD disabled for this batch; no footprint, model or receipt reviewed",
+      "locator": "src-cc0603krx7r9bb104-a5-netlist-controller: components section footprint field",
+      "provenance": "PROJECT-CHOICE",
+      "verdict": "UNSOURCED",
+      "depends_on": [],
+      "expression": ""
+    }
+  ]
+}

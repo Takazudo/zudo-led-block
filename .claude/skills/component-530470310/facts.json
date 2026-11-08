@@ -1,0 +1,94 @@
+{
+  "schema_version": 1,
+  "facts": [
+    {
+      "fact_id": "fact-530470310-manufacturer",
+      "record_id": "rec-530470310",
+      "source_id": "src-530470310-a5-jlcpcb-snapshot",
+      "class": "PROJECT_STATE",
+      "value": "MOLEX",
+      "unit": "NONE",
+      "conditions": "exact orderable identity; distributor listing only, no manufacturer-primary document inspected yet",
+      "locator": "src-530470310-a5-jlcpcb-snapshot: product table row brand",
+      "provenance": "UNVERIFIED",
+      "verdict": "UNSOURCED",
+      "depends_on": [],
+      "expression": ""
+    },
+    {
+      "fact_id": "fact-530470310-distributor-identity",
+      "record_id": "rec-530470310",
+      "source_id": "src-530470310-a5-jlcpcb-snapshot",
+      "class": "PROJECT_STATE",
+      "value": {
+        "lcsc": "C122442",
+        "manufacturer": "MOLEX",
+        "mpn": "530470310",
+        "variant": "Plugin,P=1.25mm"
+      },
+      "unit": "NONE",
+      "conditions": "order-code identity only; not performance evidence",
+      "locator": "src-530470310-a5-jlcpcb-snapshot: product table rows code, model, brand, specification",
+      "provenance": "DISTRIBUTOR-IDENTITY",
+      "verdict": "CONFIRMED - distributor identity only",
+      "depends_on": [],
+      "expression": ""
+    },
+    {
+      "fact_id": "fact-530470310-a5-placements",
+      "record_id": "rec-530470310",
+      "source_id": "src-530470310-a5-netlist-controller",
+      "class": "PROJECT_STATE",
+      "value": "controller/J5 x1, power_adapter/J2 x1 (2 unique placements, 2 fitted pieces per module)",
+      "unit": "NONE",
+      "conditions": "historical A5 native netlists; declared by the manual inventory provider, not bound to a schematic; as-built placement unverified",
+      "locator": "src-530470310-a5-netlist-controller: components section rows J5, J2",
+      "provenance": "PROJECT-CHOICE",
+      "verdict": "NEEDS BENCH",
+      "depends_on": [],
+      "expression": ""
+    },
+    {
+      "fact_id": "fact-530470310-pinout",
+      "record_id": "rec-530470310",
+      "source_id": "src-530470310-a5-netlist-controller",
+      "class": "PROJECT_STATE",
+      "value": "manufacturer pin numbering and pin functions for package Plugin,P=1.25mm",
+      "unit": "NONE",
+      "conditions": "datasheet pin identity behind the project pin map; no manufacturer document inspected yet",
+      "locator": "src-530470310-a5-netlist-controller: libparts section pin rows for LightBlock:PWR3",
+      "provenance": "UNVERIFIED",
+      "verdict": "UNSOURCED",
+      "depends_on": [],
+      "expression": ""
+    },
+    {
+      "fact_id": "fact-530470310-ratings",
+      "record_id": "rec-530470310",
+      "source_id": "src-530470310-a5-jlcpcb-snapshot",
+      "class": "ABSOLUTE_MAXIMUM",
+      "value": "manufacturer absolute-maximum and recommended operating limits",
+      "unit": "NONE",
+      "conditions": "no manufacturer document inspected yet; distributor listing is identity evidence only",
+      "locator": "src-530470310-a5-jlcpcb-snapshot: product table row specification (identity only)",
+      "provenance": "UNVERIFIED",
+      "verdict": "UNSOURCED",
+      "depends_on": [],
+      "expression": ""
+    },
+    {
+      "fact_id": "fact-530470310-cad-state",
+      "record_id": "rec-530470310",
+      "source_id": "src-530470310-a5-netlist-controller",
+      "class": "PROJECT_STATE",
+      "value": "A5 footprint LightBlock:PICO3 and symbol LightBlock:PWR3 are not configured as catalog CAD assets (cad.enabled=false); pin-asset check not performed",
+      "unit": "NONE",
+      "conditions": "catalog CAD disabled for this batch; no footprint, model or receipt reviewed",
+      "locator": "src-530470310-a5-netlist-controller: components section footprint field",
+      "provenance": "PROJECT-CHOICE",
+      "verdict": "UNSOURCED",
+      "depends_on": [],
+      "expression": ""
+    }
+  ]
+}

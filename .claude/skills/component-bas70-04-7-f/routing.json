@@ -1,0 +1,30 @@
+{
+  "schema_version": 1,
+  "routes": [
+    {
+      "route_id": "route-bas70-04-7-f",
+      "record_id": "rec-bas70-04-7-f",
+      "aliases": {
+        "mpn": [
+          "BAS70-04-7-F"
+        ],
+        "lcsc": [
+          "C134375"
+        ],
+        "manufacturer": [
+          "Diodes Incorporated"
+        ],
+        "function": [
+          "adc clamp dual schottky diode"
+        ]
+      },
+      "positive": [
+        "check BAS70-04-7-F pinout",
+        "audit C134375"
+      ],
+      "negative": [
+        "check adc clamp dual schottky diode from an unnamed vendor"
+      ]
+    }
+  ]
+}

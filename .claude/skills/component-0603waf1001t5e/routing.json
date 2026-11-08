@@ -1,0 +1,30 @@
+{
+  "schema_version": 1,
+  "routes": [
+    {
+      "route_id": "route-0603waf1001t5e",
+      "record_id": "rec-0603waf1001t5e",
+      "aliases": {
+        "mpn": [
+          "0603WAF1001T5E"
+        ],
+        "lcsc": [
+          "C21190"
+        ],
+        "manufacturer": [
+          "UNI-ROYAL(Uniroyal Elec)"
+        ],
+        "function": [
+          "1 kilohm 0603 resistor"
+        ]
+      },
+      "positive": [
+        "check 0603WAF1001T5E pinout",
+        "audit C21190"
+      ],
+      "negative": [
+        "check 1 kilohm 0603 resistor from an unnamed vendor"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,44 @@
+{
+  "schema_version": 1,
+  "sources": [
+    {
+      "source_id": "src-0603waf1003t5e-a5-jlcpcb-snapshot",
+      "record_id": "rec-0603waf1003t5e",
+      "document_title": "JLCPCB public product listing C25803 (A5 retained product-props snapshot)",
+      "document_number": "C25803",
+      "revision": "A5 snapshot observed 2026-11-05T20:20:35.913280+00:00",
+      "document_date": "2026-11-05",
+      "authoritative_url": "https://jlcpcb.com/partdetail/C25803",
+      "alternate_authoritative_url": "https://github.com/Takazudo/zudo-led-block/blob/d41cbb7fc61dc954b4affaf19527aa69f07013b6/engineering/a5/passive_evidence/C25803.snapshot.json",
+      "retrieval_date": "2026-11-05",
+      "authority_class": "DISTRIBUTOR_IDENTITY",
+      "sha256": "8718ea778e98be3cbc1f0f751cd3eaf11157d731c6ac7ba99a1b2a5a7617eba4",
+      "availability": "AVAILABLE",
+      "physical_pdf_page_index": 0,
+      "printed_page_label": "n/a (JSON snapshot of an HTML page)",
+      "locator": "engineering/a5/passive_evidence/C25803.snapshot.json, product table fields componentCode, componentModelEn, componentBrandEn, componentSpecificationEn",
+      "evidence_extract": "componentCode=C25803; componentModelEn=0603WAF1003T5E; componentBrandEn=UNI-ROYAL(Uniroyal Elec); componentSpecificationEn=0603. sha256 above is the retained A5 snapshot JSON file (the bytes inspected). The original page HTML digest recorded inside that snapshot is abf76039badc60886250ff668d6ddbc4318ac52e87d7745ed890c46bdaeaa690; those HTML bytes are not retained and were not re-verified. Distributor identity only: no electrical, mechanical or availability claim.",
+      "refresh_policy": "VOLATILE-HTML",
+      "refresh_note": "The listing URL serves live HTML whose bytes are not deterministic; the recorded hash is of the retained A5 snapshot JSON, so an online refresh cannot reproduce it.",
+      "identity_extract_sha256": "9735dfe73abfc6273fb24724e0c439254131d0c3fc1ae9fbdb4dc50ff6392ce6"
+    },
+    {
+      "source_id": "src-0603waf1003t5e-a5-netlist-controller",
+      "record_id": "rec-0603waf1003t5e",
+      "document_title": "Light Block A5 controller native netlist (KiCad 10.0.8 export, historical)",
+      "document_number": "engineering/a5/integration/native_schematic/controller/netlist.xml",
+      "revision": "A5",
+      "document_date": "2026-11-06",
+      "authoritative_url": "https://github.com/Takazudo/zudo-led-block/blob/d41cbb7fc61dc954b4affaf19527aa69f07013b6/engineering/a5/integration/native_schematic/controller/netlist.xml",
+      "alternate_authoritative_url": "",
+      "retrieval_date": "2026-11-06",
+      "authority_class": "PROJECT_GENERATOR",
+      "sha256": "fa2d267acc4081156649ee15e014fbaeae4303bc96374fe19f4bae7b3a72553f",
+      "availability": "AVAILABLE",
+      "physical_pdf_page_index": 0,
+      "printed_page_label": "n/a (XML netlist)",
+      "locator": "engineering/a5/integration/native_schematic/controller/netlist.xml, components section rows for R12, R16, R17, R18, R19, R23 and the matching nets section nodes",
+      "evidence_extract": "R12: value=100k 1%, footprint=LightBlock:R0603, symbol=LightBlock:R, pin 1 1=/LED_BASE, pin 2 2=/GND; R16: value=100k 1%, footprint=LightBlock:R0603, symbol=LightBlock:R, pin 1 1=/DATA_L_3V3, pin 2 2=/GND; R17: value=100k 1%, footprint=LightBlock:R0603, symbol=LightBlock:R, pin 1 1=/DATA_R_3V3, pin 2 2=/GND; R18: value=100k 1%, footprint=LightBlock:R0603, symbol=LightBlock:R, pin 1 1=/DATA_L, pin 2 2=/GND; R19: value=100k 1%, footprint=LightBlock:R0603, symbol=LightBlock:R, pin 1 1=/DATA_R, pin 2 2=/GND; R23: value=100k 1%, footprint=LightBlock:R0603, symbol=LightBlock:R, pin 1 1=/+5V, pin 2 2=/LED_EN_N. Historical A5 design state only; not fresh A6 state and not as-built verification."
+    }
+  ]
+}

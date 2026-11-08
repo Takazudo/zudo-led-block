@@ -1,0 +1,94 @@
+{
+  "schema_version": 1,
+  "facts": [
+    {
+      "fact_id": "fact-pj-3582-b-manufacturer",
+      "record_id": "rec-pj-3582-b",
+      "source_id": "src-pj-3582-b-a5-jlcpcb-snapshot",
+      "class": "PROJECT_STATE",
+      "value": "XKB Connection",
+      "unit": "NONE",
+      "conditions": "exact orderable identity; distributor listing only, no manufacturer-primary document inspected yet",
+      "locator": "src-pj-3582-b-a5-jlcpcb-snapshot: product table row brand",
+      "provenance": "UNVERIFIED",
+      "verdict": "UNSOURCED",
+      "depends_on": [],
+      "expression": ""
+    },
+    {
+      "fact_id": "fact-pj-3582-b-distributor-identity",
+      "record_id": "rec-pj-3582-b",
+      "source_id": "src-pj-3582-b-a5-jlcpcb-snapshot",
+      "class": "PROJECT_STATE",
+      "value": {
+        "lcsc": "C500090",
+        "manufacturer": "XKB Connection",
+        "mpn": "PJ-3582-B",
+        "variant": "Plugin"
+      },
+      "unit": "NONE",
+      "conditions": "order-code identity only; not performance evidence",
+      "locator": "src-pj-3582-b-a5-jlcpcb-snapshot: product table rows code, model, brand, specification",
+      "provenance": "DISTRIBUTOR-IDENTITY",
+      "verdict": "CONFIRMED - distributor identity only",
+      "depends_on": [],
+      "expression": ""
+    },
+    {
+      "fact_id": "fact-pj-3582-b-a5-placements",
+      "record_id": "rec-pj-3582-b",
+      "source_id": "src-pj-3582-b-a5-netlist-controller",
+      "class": "PROJECT_STATE",
+      "value": "controller/J1 x1, controller/J2 x1 (2 unique placements, 2 fitted pieces per module)",
+      "unit": "NONE",
+      "conditions": "historical A5 native netlists; declared by the manual inventory provider, not bound to a schematic; as-built placement unverified",
+      "locator": "src-pj-3582-b-a5-netlist-controller: components section rows J1, J2",
+      "provenance": "PROJECT-CHOICE",
+      "verdict": "NEEDS BENCH",
+      "depends_on": [],
+      "expression": ""
+    },
+    {
+      "fact_id": "fact-pj-3582-b-pinout",
+      "record_id": "rec-pj-3582-b",
+      "source_id": "src-pj-3582-b-a5-netlist-controller",
+      "class": "PROJECT_STATE",
+      "value": "manufacturer pin numbering and pin functions for package Plugin",
+      "unit": "NONE",
+      "conditions": "datasheet pin identity behind the project pin map; no manufacturer document inspected yet",
+      "locator": "src-pj-3582-b-a5-netlist-controller: libparts section pin rows for LightBlock:JACK",
+      "provenance": "UNVERIFIED",
+      "verdict": "UNSOURCED",
+      "depends_on": [],
+      "expression": ""
+    },
+    {
+      "fact_id": "fact-pj-3582-b-ratings",
+      "record_id": "rec-pj-3582-b",
+      "source_id": "src-pj-3582-b-a5-jlcpcb-snapshot",
+      "class": "ABSOLUTE_MAXIMUM",
+      "value": "manufacturer absolute-maximum and recommended operating limits",
+      "unit": "NONE",
+      "conditions": "no manufacturer document inspected yet; distributor listing is identity evidence only",
+      "locator": "src-pj-3582-b-a5-jlcpcb-snapshot: product table row specification (identity only)",
+      "provenance": "UNVERIFIED",
+      "verdict": "UNSOURCED",
+      "depends_on": [],
+      "expression": ""
+    },
+    {
+      "fact_id": "fact-pj-3582-b-cad-state",
+      "record_id": "rec-pj-3582-b",
+      "source_id": "src-pj-3582-b-a5-netlist-controller",
+      "class": "PROJECT_STATE",
+      "value": "A5 footprint LightBlock:PJ3582_ROT90 and symbol LightBlock:JACK are not configured as catalog CAD assets (cad.enabled=false); pin-asset check not performed",
+      "unit": "NONE",
+      "conditions": "catalog CAD disabled for this batch; no footprint, model or receipt reviewed",
+      "locator": "src-pj-3582-b-a5-netlist-controller: components section footprint field",
+      "provenance": "PROJECT-CHOICE",
+      "verdict": "UNSOURCED",
+      "depends_on": [],
+      "expression": ""
+    }
+  ]
+}

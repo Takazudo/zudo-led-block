@@ -1,0 +1,30 @@
+{
+  "schema_version": 1,
+  "routes": [
+    {
+      "route_id": "route-0603waf1005t5e",
+      "record_id": "rec-0603waf1005t5e",
+      "aliases": {
+        "mpn": [
+          "0603WAF1005T5E"
+        ],
+        "lcsc": [
+          "C7250"
+        ],
+        "manufacturer": [
+          "UNI-ROYAL(Uniroyal Elec)"
+        ],
+        "function": [
+          "10 megohm 0603 resistor"
+        ]
+      },
+      "positive": [
+        "check 0603WAF1005T5E pinout",
+        "audit C7250"
+      ],
+      "negative": [
+        "check 10 megohm 0603 resistor from an unnamed vendor"
+      ]
+    }
+  ]
+}

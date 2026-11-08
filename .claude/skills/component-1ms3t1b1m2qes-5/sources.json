@@ -1,0 +1,44 @@
+{
+  "schema_version": 1,
+  "sources": [
+    {
+      "source_id": "src-1ms3t1b1m2qes-5-a5-jlcpcb-snapshot",
+      "record_id": "rec-1ms3t1b1m2qes-5",
+      "document_title": "JLCPCB public product listing C908270 (A5 retained product-props snapshot)",
+      "document_number": "C908270",
+      "revision": "A5 snapshot observed 2026-11-05T20:24:44.489258+00:00",
+      "document_date": "2026-11-05",
+      "authoritative_url": "https://jlcpcb.com/partdetail/Dailywell-1MS3T1B1M2QES5/C908270",
+      "alternate_authoritative_url": "https://github.com/Takazudo/zudo-led-block/blob/d41cbb7fc61dc954b4affaf19527aa69f07013b6/engineering/a5/mechanical_evidence/C908270.snapshot.json",
+      "retrieval_date": "2026-11-05",
+      "authority_class": "DISTRIBUTOR_IDENTITY",
+      "sha256": "7cf113d68d02d5495d247ffa458ce184e11322fb600fe5d85979476ec810f891",
+      "availability": "AVAILABLE",
+      "physical_pdf_page_index": 0,
+      "printed_page_label": "n/a (JSON snapshot of an HTML page)",
+      "locator": "engineering/a5/mechanical_evidence/C908270.snapshot.json, product table fields componentCode, componentModelEn, componentBrandEn, componentSpecificationEn",
+      "evidence_extract": "componentCode=C908270; componentModelEn=1MS3T1B1M2QES-5; componentBrandEn=Dailywell; componentSpecificationEn=Plugin. sha256 above is the retained A5 snapshot JSON file (the bytes inspected). The original page HTML digest recorded inside that snapshot is 3a07e4240a658cdcc0fe4ccc27b9a62d3e4a641e38e2af5c9f7c10abdac91c30; those HTML bytes are not retained and were not re-verified. Distributor identity only: no electrical, mechanical or availability claim.",
+      "refresh_policy": "VOLATILE-HTML",
+      "refresh_note": "The listing URL serves live HTML whose bytes are not deterministic; the recorded hash is of the retained A5 snapshot JSON, so an online refresh cannot reproduce it.",
+      "identity_extract_sha256": "6c3e66472bf093b72191e368b9c0e0d1f53bee0497d7ee875798f057075915f1"
+    },
+    {
+      "source_id": "src-1ms3t1b1m2qes-5-a5-netlist-controller",
+      "record_id": "rec-1ms3t1b1m2qes-5",
+      "document_title": "Light Block A5 controller native netlist (KiCad 10.0.8 export, historical)",
+      "document_number": "engineering/a5/integration/native_schematic/controller/netlist.xml",
+      "revision": "A5",
+      "document_date": "2026-11-06",
+      "authoritative_url": "https://github.com/Takazudo/zudo-led-block/blob/d41cbb7fc61dc954b4affaf19527aa69f07013b6/engineering/a5/integration/native_schematic/controller/netlist.xml",
+      "alternate_authoritative_url": "",
+      "retrieval_date": "2026-11-06",
+      "authority_class": "PROJECT_GENERATOR",
+      "sha256": "fa2d267acc4081156649ee15e014fbaeae4303bc96374fe19f4bae7b3a72553f",
+      "availability": "AVAILABLE",
+      "physical_pdf_page_index": 0,
+      "printed_page_label": "n/a (XML netlist)",
+      "locator": "engineering/a5/integration/native_schematic/controller/netlist.xml, components section rows for SW1 and the matching nets section nodes",
+      "evidence_extract": "SW1: value=ON / PROGRAM / CV, footprint=LightBlock:DAILYWELL_M2_SP, symbol=LightBlock:SW, pin 1 THROW_A=/MODE_A, pin 2 COMMON=/GND, pin 3 THROW_B=/MODE_B. Historical A5 design state only; not fresh A6 state and not as-built verification."
+    }
+  ]
+}

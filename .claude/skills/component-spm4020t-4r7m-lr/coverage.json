@@ -1,0 +1,71 @@
+{
+  "schema_version": 1,
+  "coverage": [
+    {
+      "coverage_id": "cov-spm4020t-4r7m-lr-identity",
+      "record_id": "rec-spm4020t-4r7m-lr",
+      "domain": "identity",
+      "status": "OPEN",
+      "reason": "fact-spm4020t-4r7m-lr-manufacturer remains UNSOURCED: only distributor identity is retained; no manufacturer-primary document inspected",
+      "fact_ids": [
+        "fact-spm4020t-4r7m-lr-manufacturer",
+        "fact-spm4020t-4r7m-lr-distributor-identity"
+      ],
+      "blocking_fact_ids": [
+        "fact-spm4020t-4r7m-lr-manufacturer"
+      ]
+    },
+    {
+      "coverage_id": "cov-spm4020t-4r7m-lr-pinout",
+      "record_id": "rec-spm4020t-4r7m-lr",
+      "domain": "pinout",
+      "status": "OPEN",
+      "reason": "fact-spm4020t-4r7m-lr-pinout remains UNSOURCED: the pin map is projected from the historical A5 netlist and has not been checked against a manufacturer document",
+      "fact_ids": [
+        "fact-spm4020t-4r7m-lr-pinout"
+      ],
+      "blocking_fact_ids": [
+        "fact-spm4020t-4r7m-lr-pinout"
+      ]
+    },
+    {
+      "coverage_id": "cov-spm4020t-4r7m-lr-ratings",
+      "record_id": "rec-spm4020t-4r7m-lr",
+      "domain": "electrical-ratings",
+      "status": "OPEN",
+      "reason": "fact-spm4020t-4r7m-lr-ratings remains UNSOURCED: no manufacturer limits retained",
+      "fact_ids": [
+        "fact-spm4020t-4r7m-lr-ratings"
+      ],
+      "blocking_fact_ids": [
+        "fact-spm4020t-4r7m-lr-ratings"
+      ]
+    },
+    {
+      "coverage_id": "cov-spm4020t-4r7m-lr-placement",
+      "record_id": "rec-spm4020t-4r7m-lr",
+      "domain": "placement",
+      "status": "OPEN",
+      "reason": "fact-spm4020t-4r7m-lr-a5-placements NEEDS BENCH: placements are declared from the historical A5 netlist only; the manual provider performs no schematic binding and no as-built check exists",
+      "fact_ids": [
+        "fact-spm4020t-4r7m-lr-a5-placements"
+      ],
+      "blocking_fact_ids": [
+        "fact-spm4020t-4r7m-lr-a5-placements"
+      ]
+    },
+    {
+      "coverage_id": "cov-spm4020t-4r7m-lr-cad",
+      "record_id": "rec-spm4020t-4r7m-lr",
+      "domain": "cad-assets",
+      "status": "OPEN",
+      "reason": "fact-spm4020t-4r7m-lr-cad-state remains UNSOURCED: catalog CAD is disabled, so no symbol, footprint or model was reviewed or validated",
+      "fact_ids": [
+        "fact-spm4020t-4r7m-lr-cad-state"
+      ],
+      "blocking_fact_ids": [
+        "fact-spm4020t-4r7m-lr-cad-state"
+      ]
+    }
+  ]
+}

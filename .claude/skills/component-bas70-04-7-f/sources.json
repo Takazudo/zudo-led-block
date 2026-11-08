@@ -1,0 +1,44 @@
+{
+  "schema_version": 1,
+  "sources": [
+    {
+      "source_id": "src-bas70-04-7-f-a5-jlcpcb-snapshot",
+      "record_id": "rec-bas70-04-7-f",
+      "document_title": "JLCPCB public product listing C134375 (A5 retained product-props snapshot)",
+      "document_number": "C134375",
+      "revision": "A5 snapshot observed 2026-11-05T20:24:18.184716+00:00",
+      "document_date": "2026-11-05",
+      "authoritative_url": "https://jlcpcb.com/partdetail/DiodesIncorporated-BAS70_04_7F/C134375",
+      "alternate_authoritative_url": "https://github.com/Takazudo/zudo-led-block/blob/d41cbb7fc61dc954b4affaf19527aa69f07013b6/engineering/a5/ic_led_evidence/C134375.snapshot.json",
+      "retrieval_date": "2026-11-05",
+      "authority_class": "DISTRIBUTOR_IDENTITY",
+      "sha256": "a66a183ed182bdcffbd879abd3b7fe5f6ee6bf52e9d1f33b8a1186ae0f47f869",
+      "availability": "AVAILABLE",
+      "physical_pdf_page_index": 0,
+      "printed_page_label": "n/a (JSON snapshot of an HTML page)",
+      "locator": "engineering/a5/ic_led_evidence/C134375.snapshot.json, product table fields componentCode, componentModelEn, componentBrandEn, componentSpecificationEn",
+      "evidence_extract": "componentCode=C134375; componentModelEn=BAS70-04-7-F; componentBrandEn=Diodes Incorporated; componentSpecificationEn=SOT-23. sha256 above is the retained A5 snapshot JSON file (the bytes inspected). The original page HTML digest recorded inside that snapshot is 27d722dcfc7e96e0647f9fb29261b0312bc4d4d48231fb3557062ff3ae0bdf3d; those HTML bytes are not retained and were not re-verified. Distributor identity only: no electrical, mechanical or availability claim.",
+      "refresh_policy": "VOLATILE-HTML",
+      "refresh_note": "The listing URL serves live HTML whose bytes are not deterministic; the recorded hash is of the retained A5 snapshot JSON, so an online refresh cannot reproduce it.",
+      "identity_extract_sha256": "bc8d9d84f0ee93213d11ff3e118f2210f68ad5518c30314280948561df553210"
+    },
+    {
+      "source_id": "src-bas70-04-7-f-a5-netlist-controller",
+      "record_id": "rec-bas70-04-7-f",
+      "document_title": "Light Block A5 controller native netlist (KiCad 10.0.8 export, historical)",
+      "document_number": "engineering/a5/integration/native_schematic/controller/netlist.xml",
+      "revision": "A5",
+      "document_date": "2026-11-06",
+      "authoritative_url": "https://github.com/Takazudo/zudo-led-block/blob/d41cbb7fc61dc954b4affaf19527aa69f07013b6/engineering/a5/integration/native_schematic/controller/netlist.xml",
+      "alternate_authoritative_url": "",
+      "retrieval_date": "2026-11-06",
+      "authority_class": "PROJECT_GENERATOR",
+      "sha256": "fa2d267acc4081156649ee15e014fbaeae4303bc96374fe19f4bae7b3a72553f",
+      "availability": "AVAILABLE",
+      "physical_pdf_page_index": 0,
+      "printed_page_label": "n/a (XML netlist)",
+      "locator": "engineering/a5/integration/native_schematic/controller/netlist.xml, components section rows for D3 and the matching nets section nodes",
+      "evidence_extract": "D3: value=BAS70-04, footprint=LightBlock:SOT23, symbol=LightBlock:CLAMP, pin 1 A1=/GND, pin 2 K2=/+3V3, pin 3 K1/A2=/CV_FILTER. Historical A5 design state only; not fresh A6 state and not as-built verification."
+    }
+  ]
+}

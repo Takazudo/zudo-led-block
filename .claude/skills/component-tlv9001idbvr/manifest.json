@@ -1,0 +1,36 @@
+{
+  "schema_version": 1,
+  "skill": "component-tlv9001idbvr",
+  "records": [
+    {
+      "record_id": "rec-tlv9001idbvr",
+      "line_id": "line-tlv9001idbvr",
+      "kind": "standalone",
+      "parent_record_id": null,
+      "mpn": "TLV9001IDBVR",
+      "manufacturer": "Texas Instruments",
+      "lcsc": "C398363",
+      "package": "SOT-23-5",
+      "source_ids": [
+        "src-tlv9001idbvr-a5-jlcpcb-snapshot",
+        "src-tlv9001idbvr-a5-netlist-controller"
+      ],
+      "fact_ids": [
+        "fact-tlv9001idbvr-manufacturer",
+        "fact-tlv9001idbvr-distributor-identity",
+        "fact-tlv9001idbvr-a5-placements",
+        "fact-tlv9001idbvr-pinout",
+        "fact-tlv9001idbvr-ratings",
+        "fact-tlv9001idbvr-cad-state"
+      ],
+      "interaction_ids": [],
+      "open_domains": [
+        "identity",
+        "pinout",
+        "electrical-ratings",
+        "placement",
+        "cad-assets"
+      ]
+    }
+  ]
+}

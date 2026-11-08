@@ -1,0 +1,71 @@
+{
+  "schema_version": 1,
+  "coverage": [
+    {
+      "coverage_id": "cov-sm04b-srss-tb-lf-sn-identity",
+      "record_id": "rec-sm04b-srss-tb-lf-sn",
+      "domain": "identity",
+      "status": "OPEN",
+      "reason": "fact-sm04b-srss-tb-lf-sn-manufacturer remains UNSOURCED: only distributor identity is retained; no manufacturer-primary document inspected",
+      "fact_ids": [
+        "fact-sm04b-srss-tb-lf-sn-manufacturer",
+        "fact-sm04b-srss-tb-lf-sn-distributor-identity"
+      ],
+      "blocking_fact_ids": [
+        "fact-sm04b-srss-tb-lf-sn-manufacturer"
+      ]
+    },
+    {
+      "coverage_id": "cov-sm04b-srss-tb-lf-sn-pinout",
+      "record_id": "rec-sm04b-srss-tb-lf-sn",
+      "domain": "pinout",
+      "status": "OPEN",
+      "reason": "fact-sm04b-srss-tb-lf-sn-pinout remains UNSOURCED: the pin map is projected from the historical A5 netlist and has not been checked against a manufacturer document",
+      "fact_ids": [
+        "fact-sm04b-srss-tb-lf-sn-pinout"
+      ],
+      "blocking_fact_ids": [
+        "fact-sm04b-srss-tb-lf-sn-pinout"
+      ]
+    },
+    {
+      "coverage_id": "cov-sm04b-srss-tb-lf-sn-ratings",
+      "record_id": "rec-sm04b-srss-tb-lf-sn",
+      "domain": "electrical-ratings",
+      "status": "OPEN",
+      "reason": "fact-sm04b-srss-tb-lf-sn-ratings remains UNSOURCED: no manufacturer limits retained",
+      "fact_ids": [
+        "fact-sm04b-srss-tb-lf-sn-ratings"
+      ],
+      "blocking_fact_ids": [
+        "fact-sm04b-srss-tb-lf-sn-ratings"
+      ]
+    },
+    {
+      "coverage_id": "cov-sm04b-srss-tb-lf-sn-placement",
+      "record_id": "rec-sm04b-srss-tb-lf-sn",
+      "domain": "placement",
+      "status": "OPEN",
+      "reason": "fact-sm04b-srss-tb-lf-sn-a5-placements NEEDS BENCH: placements are declared from the historical A5 netlist only; the manual provider performs no schematic binding and no as-built check exists",
+      "fact_ids": [
+        "fact-sm04b-srss-tb-lf-sn-a5-placements"
+      ],
+      "blocking_fact_ids": [
+        "fact-sm04b-srss-tb-lf-sn-a5-placements"
+      ]
+    },
+    {
+      "coverage_id": "cov-sm04b-srss-tb-lf-sn-cad",
+      "record_id": "rec-sm04b-srss-tb-lf-sn",
+      "domain": "cad-assets",
+      "status": "OPEN",
+      "reason": "fact-sm04b-srss-tb-lf-sn-cad-state remains UNSOURCED: catalog CAD is disabled, so no symbol, footprint or model was reviewed or validated",
+      "fact_ids": [
+        "fact-sm04b-srss-tb-lf-sn-cad-state"
+      ],
+      "blocking_fact_ids": [
+        "fact-sm04b-srss-tb-lf-sn-cad-state"
+      ]
+    }
+  ]
+}

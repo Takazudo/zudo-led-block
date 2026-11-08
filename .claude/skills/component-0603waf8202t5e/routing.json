@@ -1,0 +1,30 @@
+{
+  "schema_version": 1,
+  "routes": [
+    {
+      "route_id": "route-0603waf8202t5e",
+      "record_id": "rec-0603waf8202t5e",
+      "aliases": {
+        "mpn": [
+          "0603WAF8202T5E"
+        ],
+        "lcsc": [
+          "C23254"
+        ],
+        "manufacturer": [
+          "UNI-ROYAL(Uniroyal Elec)"
+        ],
+        "function": [
+          "82 kilohm 0603 resistor"
+        ]
+      },
+      "positive": [
+        "check 0603WAF8202T5E pinout",
+        "audit C23254"
+      ],
+      "negative": [
+        "check 82 kilohm 0603 resistor from an unnamed vendor"
+      ]
+    }
+  ]
+}

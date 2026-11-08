@@ -1,0 +1,36 @@
+{
+  "schema_version": 1,
+  "skill": "component-pj-3582-b",
+  "records": [
+    {
+      "record_id": "rec-pj-3582-b",
+      "line_id": "line-pj-3582-b",
+      "kind": "standalone",
+      "parent_record_id": null,
+      "mpn": "PJ-3582-B",
+      "manufacturer": "XKB Connection",
+      "lcsc": "C500090",
+      "package": "Plugin",
+      "source_ids": [
+        "src-pj-3582-b-a5-jlcpcb-snapshot",
+        "src-pj-3582-b-a5-netlist-controller"
+      ],
+      "fact_ids": [
+        "fact-pj-3582-b-manufacturer",
+        "fact-pj-3582-b-distributor-identity",
+        "fact-pj-3582-b-a5-placements",
+        "fact-pj-3582-b-pinout",
+        "fact-pj-3582-b-ratings",
+        "fact-pj-3582-b-cad-state"
+      ],
+      "interaction_ids": [],
+      "open_domains": [
+        "identity",
+        "pinout",
+        "electrical-ratings",
+        "placement",
+        "cad-assets"
+      ]
+    }
+  ]
+}

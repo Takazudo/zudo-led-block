@@ -1,0 +1,62 @@
+{
+  "schema_version": 1,
+  "sources": [
+    {
+      "source_id": "src-sm04b-srss-tb-lf-sn-a5-jlcpcb-snapshot",
+      "record_id": "rec-sm04b-srss-tb-lf-sn",
+      "document_title": "JLCPCB public product listing C160404 (A5 retained product-props snapshot)",
+      "document_number": "C160404",
+      "revision": "A5 snapshot observed 2026-11-05T20:26:12.021553+00:00",
+      "document_date": "2026-11-05",
+      "authoritative_url": "https://jlcpcb.com/partdetail/Jst-SM04B_SRSS_TB_LF_SN/C160404",
+      "alternate_authoritative_url": "https://github.com/Takazudo/zudo-led-block/blob/d41cbb7fc61dc954b4affaf19527aa69f07013b6/engineering/a5/mechanical_evidence/C160404.snapshot.json",
+      "retrieval_date": "2026-11-05",
+      "authority_class": "DISTRIBUTOR_IDENTITY",
+      "sha256": "93809e0f7b62e1e9f1af1b4453585d1eba2c36eeb91ea24e48d1531dff841cbc",
+      "availability": "AVAILABLE",
+      "physical_pdf_page_index": 0,
+      "printed_page_label": "n/a (JSON snapshot of an HTML page)",
+      "locator": "engineering/a5/mechanical_evidence/C160404.snapshot.json, product table fields componentCode, componentModelEn, componentBrandEn, componentSpecificationEn",
+      "evidence_extract": "componentCode=C160404; componentModelEn=SM04B-SRSS-TB(LF)(SN); componentBrandEn=JST; componentSpecificationEn=SMD,P=1mm,Surface Mount，Right Angle. sha256 above is the retained A5 snapshot JSON file (the bytes inspected). The original page HTML digest recorded inside that snapshot is ddba96cbd88e64fff36fb0fc37776051893def04b79ae74fca1f072f9dbc1b06; those HTML bytes are not retained and were not re-verified. Distributor identity only: no electrical, mechanical or availability claim.",
+      "refresh_policy": "VOLATILE-HTML",
+      "refresh_note": "The listing URL serves live HTML whose bytes are not deterministic; the recorded hash is of the retained A5 snapshot JSON, so an online refresh cannot reproduce it.",
+      "identity_extract_sha256": "e67862a8809587e1b8f3ddd16d52b259ffe71f170b5c48d5a5fd7e5441e144a9"
+    },
+    {
+      "source_id": "src-sm04b-srss-tb-lf-sn-a5-netlist-controller",
+      "record_id": "rec-sm04b-srss-tb-lf-sn",
+      "document_title": "Light Block A5 controller native netlist (KiCad 10.0.8 export, historical)",
+      "document_number": "engineering/a5/integration/native_schematic/controller/netlist.xml",
+      "revision": "A5",
+      "document_date": "2026-11-06",
+      "authoritative_url": "https://github.com/Takazudo/zudo-led-block/blob/d41cbb7fc61dc954b4affaf19527aa69f07013b6/engineering/a5/integration/native_schematic/controller/netlist.xml",
+      "alternate_authoritative_url": "",
+      "retrieval_date": "2026-11-06",
+      "authority_class": "PROJECT_GENERATOR",
+      "sha256": "fa2d267acc4081156649ee15e014fbaeae4303bc96374fe19f4bae7b3a72553f",
+      "availability": "AVAILABLE",
+      "physical_pdf_page_index": 0,
+      "printed_page_label": "n/a (XML netlist)",
+      "locator": "engineering/a5/integration/native_schematic/controller/netlist.xml, components section rows for J3 and the matching nets section nodes",
+      "evidence_extract": "J3: value=DUAL LED G / 5 / L / R, footprint=LightBlock:JST_SH4, symbol=LightBlock:SH4, pin 1 GND=/GND, pin 2 VLED=/VLED, pin 3 DATA_A=/DATA_L, pin 4 DATA_B=/DATA_R. Historical A5 design state only; not fresh A6 state and not as-built verification."
+    },
+    {
+      "source_id": "src-sm04b-srss-tb-lf-sn-a5-netlist-led-leaf",
+      "record_id": "rec-sm04b-srss-tb-lf-sn",
+      "document_title": "Light Block A5 led_leaf native netlist (KiCad 10.0.8 export, historical)",
+      "document_number": "engineering/a5/integration/native_schematic/led_leaf/netlist.xml",
+      "revision": "A5",
+      "document_date": "2026-11-06",
+      "authoritative_url": "https://github.com/Takazudo/zudo-led-block/blob/d41cbb7fc61dc954b4affaf19527aa69f07013b6/engineering/a5/integration/native_schematic/led_leaf/netlist.xml",
+      "alternate_authoritative_url": "",
+      "retrieval_date": "2026-11-06",
+      "authority_class": "PROJECT_GENERATOR",
+      "sha256": "1857eeb3e3faa65977f2e2cfff30083411db9af728b5529e53065da0c9028670",
+      "availability": "AVAILABLE",
+      "physical_pdf_page_index": 0,
+      "printed_page_label": "n/a (XML netlist)",
+      "locator": "engineering/a5/integration/native_schematic/led_leaf/netlist.xml, components section rows for J1, J2 and the matching nets section nodes",
+      "evidence_extract": "J1: value=INPUT G / 5 / THIS / OTHER, footprint=LightBlock:JST_SH4, symbol=LightBlock:SH4, pin 1 GND=/GND, pin 2 VLED=/VLED, pin 3 DATA_A=/DATA_IN, pin 4 DATA_B=/DATA_OTHER; J2: value=BRIDGE G / 5 / OTHER / THIS, footprint=LightBlock:JST_SH4, symbol=LightBlock:SH4, pin 1 GND=/GND, pin 2 VLED=/VLED, pin 3 DATA_A=/DATA_OTHER, pin 4 DATA_B=/DATA_IN. Historical A5 design state only; not fresh A6 state and not as-built verification."
+    }
+  ]
+}

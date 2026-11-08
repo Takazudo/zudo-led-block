@@ -1,0 +1,38 @@
+{
+  "schema_version": 1,
+  "skill": "component-boomele-2-54-2x5p",
+  "records": [
+    {
+      "record_id": "rec-boomele-2-54-2x5p",
+      "line_id": "line-boomele-2-54-2x5p",
+      "kind": "standalone",
+      "parent_record_id": null,
+      "mpn": "2.54-2*5P",
+      "manufacturer": "BOOMELE(Boom Precision Elec)",
+      "lcsc": "C5665",
+      "package": "Plugin,P=2.54mm",
+      "source_ids": [
+        "src-boomele-2-54-2x5p-lcsc-listing",
+        "src-boomele-2-54-2x5p-a5-jlcpcb-snapshot-mechanical-evidence",
+        "src-boomele-2-54-2x5p-a5-jlcpcb-snapshot-integration",
+        "src-boomele-2-54-2x5p-a5-netlist-power-adapter"
+      ],
+      "fact_ids": [
+        "fact-boomele-2-54-2x5p-manufacturer",
+        "fact-boomele-2-54-2x5p-distributor-identity",
+        "fact-boomele-2-54-2x5p-a5-placements",
+        "fact-boomele-2-54-2x5p-pinout",
+        "fact-boomele-2-54-2x5p-ratings",
+        "fact-boomele-2-54-2x5p-cad-state"
+      ],
+      "interaction_ids": [],
+      "open_domains": [
+        "identity",
+        "pinout",
+        "electrical-ratings",
+        "placement",
+        "cad-assets"
+      ]
+    }
+  ]
+}

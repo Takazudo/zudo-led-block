@@ -1,0 +1,62 @@
+{
+  "schema_version": 1,
+  "sources": [
+    {
+      "source_id": "src-cc0603krx7r9bb104-a5-jlcpcb-snapshot",
+      "record_id": "rec-cc0603krx7r9bb104",
+      "document_title": "JLCPCB public product listing C14663 (A5 retained product-props snapshot)",
+      "document_number": "C14663",
+      "revision": "A5 snapshot observed 2026-11-05T20:18:21.685026+00:00",
+      "document_date": "2026-11-05",
+      "authoritative_url": "https://jlcpcb.com/partdetail/C14663",
+      "alternate_authoritative_url": "https://github.com/Takazudo/zudo-led-block/blob/d41cbb7fc61dc954b4affaf19527aa69f07013b6/engineering/a5/passive_evidence/C14663.snapshot.json",
+      "retrieval_date": "2026-11-05",
+      "authority_class": "DISTRIBUTOR_IDENTITY",
+      "sha256": "b7a22882d30bc82576e7e4c2cc52bead852c27f19e05bd36795dc23536d2c1c0",
+      "availability": "AVAILABLE",
+      "physical_pdf_page_index": 0,
+      "printed_page_label": "n/a (JSON snapshot of an HTML page)",
+      "locator": "engineering/a5/passive_evidence/C14663.snapshot.json, product table fields componentCode, componentModelEn, componentBrandEn, componentSpecificationEn",
+      "evidence_extract": "componentCode=C14663; componentModelEn=CC0603KRX7R9BB104; componentBrandEn=YAGEO; componentSpecificationEn=0603. sha256 above is the retained A5 snapshot JSON file (the bytes inspected). The original page HTML digest recorded inside that snapshot is a97218885bb61f7f360c3a83ecc99546532ab1e695fffeb0e47ae892a0e2328c; those HTML bytes are not retained and were not re-verified. Distributor identity only: no electrical, mechanical or availability claim.",
+      "refresh_policy": "VOLATILE-HTML",
+      "refresh_note": "The listing URL serves live HTML whose bytes are not deterministic; the recorded hash is of the retained A5 snapshot JSON, so an online refresh cannot reproduce it.",
+      "identity_extract_sha256": "88d1c70c1595b51bdda9a74487dc4ae27a7aafae66955a1511a21bd617125897"
+    },
+    {
+      "source_id": "src-cc0603krx7r9bb104-a5-netlist-controller",
+      "record_id": "rec-cc0603krx7r9bb104",
+      "document_title": "Light Block A5 controller native netlist (KiCad 10.0.8 export, historical)",
+      "document_number": "engineering/a5/integration/native_schematic/controller/netlist.xml",
+      "revision": "A5",
+      "document_date": "2026-11-06",
+      "authoritative_url": "https://github.com/Takazudo/zudo-led-block/blob/d41cbb7fc61dc954b4affaf19527aa69f07013b6/engineering/a5/integration/native_schematic/controller/netlist.xml",
+      "alternate_authoritative_url": "",
+      "retrieval_date": "2026-11-06",
+      "authority_class": "PROJECT_GENERATOR",
+      "sha256": "fa2d267acc4081156649ee15e014fbaeae4303bc96374fe19f4bae7b3a72553f",
+      "availability": "AVAILABLE",
+      "physical_pdf_page_index": 0,
+      "printed_page_label": "n/a (XML netlist)",
+      "locator": "engineering/a5/integration/native_schematic/controller/netlist.xml, components section rows for C4, C8, C9, C10, C11, C12, C14, C17 and the matching nets section nodes",
+      "evidence_extract": "C4: value=100n, footprint=LightBlock:C0603, symbol=LightBlock:C, pin 1 1=/BUCK_BST, pin 2 2=/BUCK_SW; C8: value=100n, footprint=LightBlock:C0603, symbol=LightBlock:C, pin 1 1=/+3V3, pin 2 2=/GND; C9: value=100n, footprint=LightBlock:C0603, symbol=LightBlock:C, pin 1 1=/+3V3, pin 2 2=/GND; C10: value=100n, footprint=LightBlock:C0603, symbol=LightBlock:C, pin 1 1=/VLED, pin 2 2=/GND; C11: value=100n, footprint=LightBlock:C0603, symbol=LightBlock:C, pin 1 1=/+12V_PROT, pin 2 2=/GND; C12: value=100n, footprint=LightBlock:C0603, symbol=LightBlock:C, pin 1 1=/GND, pin 2 2=/-12V_PROT; C14: value=100n, footprint=LightBlock:C0603, symbol=LightBlock:C, pin 1 1=/NRST, pin 2 2=/GND; C17: value=100n, footprint=LightBlock:C0603, symbol=LightBlock:C, pin 1 1=/+3V3, pin 2 2=/GND. Historical A5 design state only; not fresh A6 state and not as-built verification."
+    },
+    {
+      "source_id": "src-cc0603krx7r9bb104-a5-netlist-led-leaf",
+      "record_id": "rec-cc0603krx7r9bb104",
+      "document_title": "Light Block A5 led_leaf native netlist (KiCad 10.0.8 export, historical)",
+      "document_number": "engineering/a5/integration/native_schematic/led_leaf/netlist.xml",
+      "revision": "A5",
+      "document_date": "2026-11-06",
+      "authoritative_url": "https://github.com/Takazudo/zudo-led-block/blob/d41cbb7fc61dc954b4affaf19527aa69f07013b6/engineering/a5/integration/native_schematic/led_leaf/netlist.xml",
+      "alternate_authoritative_url": "",
+      "retrieval_date": "2026-11-06",
+      "authority_class": "PROJECT_GENERATOR",
+      "sha256": "1857eeb3e3faa65977f2e2cfff30083411db9af728b5529e53065da0c9028670",
+      "availability": "AVAILABLE",
+      "physical_pdf_page_index": 0,
+      "printed_page_label": "n/a (XML netlist)",
+      "locator": "engineering/a5/integration/native_schematic/led_leaf/netlist.xml, components section rows for C1, C2, C3, C4 and the matching nets section nodes",
+      "evidence_extract": "C1: value=100n 50V X7R, footprint=LightBlock:C0603, symbol=LightBlock:C, pin 1 1=/VLED, pin 2 2=/GND; C2: value=100n 50V X7R, footprint=LightBlock:C0603, symbol=LightBlock:C, pin 1 1=/VLED, pin 2 2=/GND; C3: value=100n 50V X7R, footprint=LightBlock:C0603, symbol=LightBlock:C, pin 1 1=/VLED, pin 2 2=/GND; C4: value=100n 50V X7R, footprint=LightBlock:C0603, symbol=LightBlock:C, pin 1 1=/VLED, pin 2 2=/GND. Historical A5 design state only; not fresh A6 state and not as-built verification."
+    }
+  ]
+}

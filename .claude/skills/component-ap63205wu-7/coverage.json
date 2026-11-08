@@ -1,0 +1,71 @@
+{
+  "schema_version": 1,
+  "coverage": [
+    {
+      "coverage_id": "cov-ap63205wu-7-identity",
+      "record_id": "rec-ap63205wu-7",
+      "domain": "identity",
+      "status": "OPEN",
+      "reason": "fact-ap63205wu-7-manufacturer remains UNSOURCED: only distributor identity is retained; no manufacturer-primary document inspected",
+      "fact_ids": [
+        "fact-ap63205wu-7-manufacturer",
+        "fact-ap63205wu-7-distributor-identity"
+      ],
+      "blocking_fact_ids": [
+        "fact-ap63205wu-7-manufacturer"
+      ]
+    },
+    {
+      "coverage_id": "cov-ap63205wu-7-pinout",
+      "record_id": "rec-ap63205wu-7",
+      "domain": "pinout",
+      "status": "OPEN",
+      "reason": "fact-ap63205wu-7-pinout remains UNSOURCED: the pin map is projected from the historical A5 netlist and has not been checked against a manufacturer document",
+      "fact_ids": [
+        "fact-ap63205wu-7-pinout"
+      ],
+      "blocking_fact_ids": [
+        "fact-ap63205wu-7-pinout"
+      ]
+    },
+    {
+      "coverage_id": "cov-ap63205wu-7-ratings",
+      "record_id": "rec-ap63205wu-7",
+      "domain": "electrical-ratings",
+      "status": "OPEN",
+      "reason": "fact-ap63205wu-7-ratings remains UNSOURCED: no manufacturer limits retained",
+      "fact_ids": [
+        "fact-ap63205wu-7-ratings"
+      ],
+      "blocking_fact_ids": [
+        "fact-ap63205wu-7-ratings"
+      ]
+    },
+    {
+      "coverage_id": "cov-ap63205wu-7-placement",
+      "record_id": "rec-ap63205wu-7",
+      "domain": "placement",
+      "status": "OPEN",
+      "reason": "fact-ap63205wu-7-a5-placements NEEDS BENCH: placements are declared from the historical A5 netlist only; the manual provider performs no schematic binding and no as-built check exists",
+      "fact_ids": [
+        "fact-ap63205wu-7-a5-placements"
+      ],
+      "blocking_fact_ids": [
+        "fact-ap63205wu-7-a5-placements"
+      ]
+    },
+    {
+      "coverage_id": "cov-ap63205wu-7-cad",
+      "record_id": "rec-ap63205wu-7",
+      "domain": "cad-assets",
+      "status": "OPEN",
+      "reason": "fact-ap63205wu-7-cad-state remains UNSOURCED: catalog CAD is disabled, so no symbol, footprint or model was reviewed or validated",
+      "fact_ids": [
+        "fact-ap63205wu-7-cad-state"
+      ],
+      "blocking_fact_ids": [
+        "fact-ap63205wu-7-cad-state"
+      ]
+    }
+  ]
+}

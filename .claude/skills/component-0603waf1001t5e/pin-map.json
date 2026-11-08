@@ -1,0 +1,27 @@
+{
+  "schema_version": 1,
+  "pin_maps": [
+    {
+      "pin_map_id": "pinmap-0603waf1001t5e",
+      "record_id": "rec-0603waf1001t5e",
+      "symbol": "LightBlock:R",
+      "footprint": "LightBlock:R0603",
+      "pins": [
+        {
+          "symbol_pin": "1",
+          "name": "1",
+          "footprint_pad": "1",
+          "function": "passive; A5 nets: controller/R7=/CV_AFFINE; controller/R8=/+3V3; controller/R25=/CV_ADC"
+        },
+        {
+          "symbol_pin": "2",
+          "name": "2",
+          "footprint_pad": "2",
+          "function": "passive; A5 nets: controller/R7=/CV_FILTER; controller/R8=/GND; controller/R25=/GND"
+        }
+      ],
+      "reviewed_by": "not independently reviewed: projected from the A5 native netlist by scripts/a5_catalog.py scaffold",
+      "project_state_source": "historical A5 native netlists (src-0603waf1001t5e-a5-netlist-controller); pad numbers equal KiCad symbol pin numbers in that export"
+    }
+  ]
+}

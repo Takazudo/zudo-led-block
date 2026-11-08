@@ -1,0 +1,36 @@
+{
+  "schema_version": 1,
+  "skill": "component-ws2812b-2020-v6",
+  "records": [
+    {
+      "record_id": "rec-ws2812b-2020-v6",
+      "line_id": "line-ws2812b-2020-v6",
+      "kind": "standalone",
+      "parent_record_id": null,
+      "mpn": "WS2812B-2020-V6",
+      "manufacturer": "Worldsemi",
+      "lcsc": "C52917434",
+      "package": "SMD2020-4P",
+      "source_ids": [
+        "src-ws2812b-2020-v6-a5-jlcpcb-snapshot",
+        "src-ws2812b-2020-v6-a5-netlist-led-leaf"
+      ],
+      "fact_ids": [
+        "fact-ws2812b-2020-v6-manufacturer",
+        "fact-ws2812b-2020-v6-distributor-identity",
+        "fact-ws2812b-2020-v6-a5-placements",
+        "fact-ws2812b-2020-v6-pinout",
+        "fact-ws2812b-2020-v6-ratings",
+        "fact-ws2812b-2020-v6-cad-state"
+      ],
+      "interaction_ids": [],
+      "open_domains": [
+        "identity",
+        "pinout",
+        "electrical-ratings",
+        "placement",
+        "cad-assets"
+      ]
+    }
+  ]
+}

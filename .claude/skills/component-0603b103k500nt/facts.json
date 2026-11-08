@@ -1,0 +1,94 @@
+{
+  "schema_version": 1,
+  "facts": [
+    {
+      "fact_id": "fact-0603b103k500nt-manufacturer",
+      "record_id": "rec-0603b103k500nt",
+      "source_id": "src-0603b103k500nt-a5-jlcpcb-snapshot",
+      "class": "PROJECT_STATE",
+      "value": "FH (Guangdong Fenghua Advanced Tech)",
+      "unit": "NONE",
+      "conditions": "exact orderable identity; distributor listing only, no manufacturer-primary document inspected yet",
+      "locator": "src-0603b103k500nt-a5-jlcpcb-snapshot: product table row brand",
+      "provenance": "UNVERIFIED",
+      "verdict": "UNSOURCED",
+      "depends_on": [],
+      "expression": ""
+    },
+    {
+      "fact_id": "fact-0603b103k500nt-distributor-identity",
+      "record_id": "rec-0603b103k500nt",
+      "source_id": "src-0603b103k500nt-a5-jlcpcb-snapshot",
+      "class": "PROJECT_STATE",
+      "value": {
+        "lcsc": "C57112",
+        "manufacturer": "FH (Guangdong Fenghua Advanced Tech)",
+        "mpn": "0603B103K500NT",
+        "variant": "0603"
+      },
+      "unit": "NONE",
+      "conditions": "order-code identity only; not performance evidence",
+      "locator": "src-0603b103k500nt-a5-jlcpcb-snapshot: product table rows code, model, brand, specification",
+      "provenance": "DISTRIBUTOR-IDENTITY",
+      "verdict": "CONFIRMED - distributor identity only",
+      "depends_on": [],
+      "expression": ""
+    },
+    {
+      "fact_id": "fact-0603b103k500nt-a5-placements",
+      "record_id": "rec-0603b103k500nt",
+      "source_id": "src-0603b103k500nt-a5-netlist-controller",
+      "class": "PROJECT_STATE",
+      "value": "controller/C13 x1 (1 unique placements, 1 fitted pieces per module)",
+      "unit": "NONE",
+      "conditions": "historical A5 native netlists; declared by the manual inventory provider, not bound to a schematic; as-built placement unverified",
+      "locator": "src-0603b103k500nt-a5-netlist-controller: components section rows C13",
+      "provenance": "PROJECT-CHOICE",
+      "verdict": "NEEDS BENCH",
+      "depends_on": [],
+      "expression": ""
+    },
+    {
+      "fact_id": "fact-0603b103k500nt-pinout",
+      "record_id": "rec-0603b103k500nt",
+      "source_id": "src-0603b103k500nt-a5-netlist-controller",
+      "class": "PROJECT_STATE",
+      "value": "manufacturer pin numbering and pin functions for package 0603",
+      "unit": "NONE",
+      "conditions": "datasheet pin identity behind the project pin map; no manufacturer document inspected yet",
+      "locator": "src-0603b103k500nt-a5-netlist-controller: libparts section pin rows for LightBlock:C",
+      "provenance": "UNVERIFIED",
+      "verdict": "UNSOURCED",
+      "depends_on": [],
+      "expression": ""
+    },
+    {
+      "fact_id": "fact-0603b103k500nt-ratings",
+      "record_id": "rec-0603b103k500nt",
+      "source_id": "src-0603b103k500nt-a5-jlcpcb-snapshot",
+      "class": "ABSOLUTE_MAXIMUM",
+      "value": "manufacturer absolute-maximum and recommended operating limits",
+      "unit": "NONE",
+      "conditions": "no manufacturer document inspected yet; distributor listing is identity evidence only",
+      "locator": "src-0603b103k500nt-a5-jlcpcb-snapshot: product table row specification (identity only)",
+      "provenance": "UNVERIFIED",
+      "verdict": "UNSOURCED",
+      "depends_on": [],
+      "expression": ""
+    },
+    {
+      "fact_id": "fact-0603b103k500nt-cad-state",
+      "record_id": "rec-0603b103k500nt",
+      "source_id": "src-0603b103k500nt-a5-netlist-controller",
+      "class": "PROJECT_STATE",
+      "value": "A5 footprint LightBlock:C0603 and symbol LightBlock:C are not configured as catalog CAD assets (cad.enabled=false); pin-asset check not performed",
+      "unit": "NONE",
+      "conditions": "catalog CAD disabled for this batch; no footprint, model or receipt reviewed",
+      "locator": "src-0603b103k500nt-a5-netlist-controller: components section footprint field",
+      "provenance": "PROJECT-CHOICE",
+      "verdict": "UNSOURCED",
+      "depends_on": [],
+      "expression": ""
+    }
+  ]
+}

@@ -1,0 +1,27 @@
+{
+  "schema_version": 1,
+  "pin_maps": [
+    {
+      "pin_map_id": "pinmap-cc0603krx7r9bb104",
+      "record_id": "rec-cc0603krx7r9bb104",
+      "symbol": "LightBlock:C",
+      "footprint": "LightBlock:C0603",
+      "pins": [
+        {
+          "symbol_pin": "1",
+          "name": "1",
+          "footprint_pad": "1",
+          "function": "passive; A5 nets: controller/C4=/BUCK_BST; controller/C8=/+3V3; controller/C9=/+3V3; controller/C10=/VLED; controller/C11=/+12V_PROT; controller/C12=/GND; controller/C14=/NRST; controller/C17=/+3V3; led_leaf/C1=/VLED; led_leaf/C2=/VLED; led_leaf/C3=/VLED; led_leaf/C4=/VLED"
+        },
+        {
+          "symbol_pin": "2",
+          "name": "2",
+          "footprint_pad": "2",
+          "function": "passive; A5 nets: controller/C4=/BUCK_SW; controller/C8=/GND; controller/C9=/GND; controller/C10=/GND; controller/C11=/GND; controller/C12=/-12V_PROT; controller/C14=/GND; controller/C17=/GND; led_leaf/C1=/GND; led_leaf/C2=/GND; led_leaf/C3=/GND; led_leaf/C4=/GND"
+        }
+      ],
+      "reviewed_by": "not independently reviewed: projected from the A5 native netlist by scripts/a5_catalog.py scaffold",
+      "project_state_source": "historical A5 native netlists (src-cc0603krx7r9bb104-a5-netlist-controller, src-cc0603krx7r9bb104-a5-netlist-led-leaf); pad numbers equal KiCad symbol pin numbers in that export"
+    }
+  ]
+}

@@ -1,0 +1,30 @@
+{
+  "schema_version": 1,
+  "routes": [
+    {
+      "route_id": "route-1ms3t1b1m2qes-5",
+      "record_id": "rec-1ms3t1b1m2qes-5",
+      "aliases": {
+        "mpn": [
+          "1MS3T1B1M2QES-5"
+        ],
+        "lcsc": [
+          "C908270"
+        ],
+        "manufacturer": [
+          "Dailywell"
+        ],
+        "function": [
+          "on off on mode toggle switch"
+        ]
+      },
+      "positive": [
+        "check 1MS3T1B1M2QES-5 pinout",
+        "audit C908270"
+      ],
+      "negative": [
+        "check on off on mode toggle switch from an unnamed vendor"
+      ]
+    }
+  ]
+}

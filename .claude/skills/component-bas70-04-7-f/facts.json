@@ -1,0 +1,94 @@
+{
+  "schema_version": 1,
+  "facts": [
+    {
+      "fact_id": "fact-bas70-04-7-f-manufacturer",
+      "record_id": "rec-bas70-04-7-f",
+      "source_id": "src-bas70-04-7-f-a5-jlcpcb-snapshot",
+      "class": "PROJECT_STATE",
+      "value": "Diodes Incorporated",
+      "unit": "NONE",
+      "conditions": "exact orderable identity; distributor listing only, no manufacturer-primary document inspected yet",
+      "locator": "src-bas70-04-7-f-a5-jlcpcb-snapshot: product table row brand",
+      "provenance": "UNVERIFIED",
+      "verdict": "UNSOURCED",
+      "depends_on": [],
+      "expression": ""
+    },
+    {
+      "fact_id": "fact-bas70-04-7-f-distributor-identity",
+      "record_id": "rec-bas70-04-7-f",
+      "source_id": "src-bas70-04-7-f-a5-jlcpcb-snapshot",
+      "class": "PROJECT_STATE",
+      "value": {
+        "lcsc": "C134375",
+        "manufacturer": "Diodes Incorporated",
+        "mpn": "BAS70-04-7-F",
+        "variant": "SOT-23"
+      },
+      "unit": "NONE",
+      "conditions": "order-code identity only; not performance evidence",
+      "locator": "src-bas70-04-7-f-a5-jlcpcb-snapshot: product table rows code, model, brand, specification",
+      "provenance": "DISTRIBUTOR-IDENTITY",
+      "verdict": "CONFIRMED - distributor identity only",
+      "depends_on": [],
+      "expression": ""
+    },
+    {
+      "fact_id": "fact-bas70-04-7-f-a5-placements",
+      "record_id": "rec-bas70-04-7-f",
+      "source_id": "src-bas70-04-7-f-a5-netlist-controller",
+      "class": "PROJECT_STATE",
+      "value": "controller/D3 x1 (1 unique placements, 1 fitted pieces per module)",
+      "unit": "NONE",
+      "conditions": "historical A5 native netlists; declared by the manual inventory provider, not bound to a schematic; as-built placement unverified",
+      "locator": "src-bas70-04-7-f-a5-netlist-controller: components section rows D3",
+      "provenance": "PROJECT-CHOICE",
+      "verdict": "NEEDS BENCH",
+      "depends_on": [],
+      "expression": ""
+    },
+    {
+      "fact_id": "fact-bas70-04-7-f-pinout",
+      "record_id": "rec-bas70-04-7-f",
+      "source_id": "src-bas70-04-7-f-a5-netlist-controller",
+      "class": "PROJECT_STATE",
+      "value": "manufacturer pin numbering and pin functions for package SOT-23",
+      "unit": "NONE",
+      "conditions": "datasheet pin identity behind the project pin map; no manufacturer document inspected yet",
+      "locator": "src-bas70-04-7-f-a5-netlist-controller: libparts section pin rows for LightBlock:CLAMP",
+      "provenance": "UNVERIFIED",
+      "verdict": "UNSOURCED",
+      "depends_on": [],
+      "expression": ""
+    },
+    {
+      "fact_id": "fact-bas70-04-7-f-ratings",
+      "record_id": "rec-bas70-04-7-f",
+      "source_id": "src-bas70-04-7-f-a5-jlcpcb-snapshot",
+      "class": "ABSOLUTE_MAXIMUM",
+      "value": "manufacturer absolute-maximum and recommended operating limits",
+      "unit": "NONE",
+      "conditions": "no manufacturer document inspected yet; distributor listing is identity evidence only",
+      "locator": "src-bas70-04-7-f-a5-jlcpcb-snapshot: product table row specification (identity only)",
+      "provenance": "UNVERIFIED",
+      "verdict": "UNSOURCED",
+      "depends_on": [],
+      "expression": ""
+    },
+    {
+      "fact_id": "fact-bas70-04-7-f-cad-state",
+      "record_id": "rec-bas70-04-7-f",
+      "source_id": "src-bas70-04-7-f-a5-netlist-controller",
+      "class": "PROJECT_STATE",
+      "value": "A5 footprint LightBlock:SOT23 and symbol LightBlock:CLAMP are not configured as catalog CAD assets (cad.enabled=false); pin-asset check not performed",
+      "unit": "NONE",
+      "conditions": "catalog CAD disabled for this batch; no footprint, model or receipt reviewed",
+      "locator": "src-bas70-04-7-f-a5-netlist-controller: components section footprint field",
+      "provenance": "PROJECT-CHOICE",
+      "verdict": "UNSOURCED",
+      "depends_on": [],
+      "expression": ""
+    }
+  ]
+}

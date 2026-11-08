@@ -1,0 +1,44 @@
+{
+  "schema_version": 1,
+  "sources": [
+    {
+      "source_id": "src-sn74lvc2t45dcur-a5-jlcpcb-snapshot",
+      "record_id": "rec-sn74lvc2t45dcur",
+      "document_title": "JLCPCB public product listing C15741 (A5 retained product-props snapshot)",
+      "document_number": "C15741",
+      "revision": "A5 snapshot observed 2026-11-05T20:18:05.476768+00:00",
+      "document_date": "2026-11-05",
+      "authoritative_url": "https://jlcpcb.com/partdetail/TexasInstruments-SN74LVC2T45DCUR/C15741",
+      "alternate_authoritative_url": "https://github.com/Takazudo/zudo-led-block/blob/d41cbb7fc61dc954b4affaf19527aa69f07013b6/engineering/a5/ic_led_evidence/C15741.snapshot.json",
+      "retrieval_date": "2026-11-05",
+      "authority_class": "DISTRIBUTOR_IDENTITY",
+      "sha256": "2d1429984232f8d4535184f0393e758a9f83224a813ffa0f1a61c561044c2afc",
+      "availability": "AVAILABLE",
+      "physical_pdf_page_index": 0,
+      "printed_page_label": "n/a (JSON snapshot of an HTML page)",
+      "locator": "engineering/a5/ic_led_evidence/C15741.snapshot.json, product table fields componentCode, componentModelEn, componentBrandEn, componentSpecificationEn",
+      "evidence_extract": "componentCode=C15741; componentModelEn=SN74LVC2T45DCUR; componentBrandEn=Texas Instruments; componentSpecificationEn=VSSOP-8. sha256 above is the retained A5 snapshot JSON file (the bytes inspected). The original page HTML digest recorded inside that snapshot is 85ba306ad2763bedce46bd9eac0778425fa93b9f9e9807fe53d056f00a127fb3; those HTML bytes are not retained and were not re-verified. Distributor identity only: no electrical, mechanical or availability claim.",
+      "refresh_policy": "VOLATILE-HTML",
+      "refresh_note": "The listing URL serves live HTML whose bytes are not deterministic; the recorded hash is of the retained A5 snapshot JSON, so an online refresh cannot reproduce it.",
+      "identity_extract_sha256": "095699e4ca0e0f15de98995f156582a3fe47c51583db61e6018854ed95db455c"
+    },
+    {
+      "source_id": "src-sn74lvc2t45dcur-a5-netlist-controller",
+      "record_id": "rec-sn74lvc2t45dcur",
+      "document_title": "Light Block A5 controller native netlist (KiCad 10.0.8 export, historical)",
+      "document_number": "engineering/a5/integration/native_schematic/controller/netlist.xml",
+      "revision": "A5",
+      "document_date": "2026-11-06",
+      "authoritative_url": "https://github.com/Takazudo/zudo-led-block/blob/d41cbb7fc61dc954b4affaf19527aa69f07013b6/engineering/a5/integration/native_schematic/controller/netlist.xml",
+      "alternate_authoritative_url": "",
+      "retrieval_date": "2026-11-06",
+      "authority_class": "PROJECT_GENERATOR",
+      "sha256": "fa2d267acc4081156649ee15e014fbaeae4303bc96374fe19f4bae7b3a72553f",
+      "availability": "AVAILABLE",
+      "physical_pdf_page_index": 0,
+      "printed_page_label": "n/a (XML netlist)",
+      "locator": "engineering/a5/integration/native_schematic/controller/netlist.xml, components section rows for U5 and the matching nets section nodes",
+      "evidence_extract": "U5: value=SN74LVC2T45, footprint=LightBlock:DCU8, symbol=LightBlock:XLAT, pin 1 VCCA=/+3V3, pin 2 A1=/DATA_L_3V3, pin 3 A2=/DATA_R_3V3, pin 4 GND=/GND, pin 5 DIR=/+3V3, pin 6 B2=/DATA_R_5V, pin 7 B1=/DATA_L_5V, pin 8 VCCB=/VLED. Historical A5 design state only; not fresh A6 state and not as-built verification."
+    }
+  ]
+}

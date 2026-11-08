@@ -1,0 +1,44 @@
+{
+  "schema_version": 1,
+  "sources": [
+    {
+      "source_id": "src-cl10a475ko8nnnc-a5-jlcpcb-snapshot",
+      "record_id": "rec-cl10a475ko8nnnc",
+      "document_title": "JLCPCB public product listing C19666 (A5 retained product-props snapshot)",
+      "document_number": "C19666",
+      "revision": "A5 snapshot observed 2026-11-05T20:20:48.632895+00:00",
+      "document_date": "2026-11-05",
+      "authoritative_url": "https://jlcpcb.com/partdetail/C19666",
+      "alternate_authoritative_url": "https://github.com/Takazudo/zudo-led-block/blob/d41cbb7fc61dc954b4affaf19527aa69f07013b6/engineering/a5/passive_evidence/C19666.snapshot.json",
+      "retrieval_date": "2026-11-05",
+      "authority_class": "DISTRIBUTOR_IDENTITY",
+      "sha256": "d59d7c1e6831b6d1e7ca6f02f8457bfedf17ba7e7b499bb84fa24d955b118ac6",
+      "availability": "AVAILABLE",
+      "physical_pdf_page_index": 0,
+      "printed_page_label": "n/a (JSON snapshot of an HTML page)",
+      "locator": "engineering/a5/passive_evidence/C19666.snapshot.json, product table fields componentCode, componentModelEn, componentBrandEn, componentSpecificationEn",
+      "evidence_extract": "componentCode=C19666; componentModelEn=CL10A475KO8NNNC; componentBrandEn=Samsung Electro-Mechanics; componentSpecificationEn=0603. sha256 above is the retained A5 snapshot JSON file (the bytes inspected). The original page HTML digest recorded inside that snapshot is fb14a1911b7bea4a0a0f3b33398dfaeb2406a3be98bef226f6eddbba73d3c293; those HTML bytes are not retained and were not re-verified. Distributor identity only: no electrical, mechanical or availability claim.",
+      "refresh_policy": "VOLATILE-HTML",
+      "refresh_note": "The listing URL serves live HTML whose bytes are not deterministic; the recorded hash is of the retained A5 snapshot JSON, so an online refresh cannot reproduce it.",
+      "identity_extract_sha256": "535b7b54b686e35a5408e794830288b0f0c645590edcb364422719ec73826ec3"
+    },
+    {
+      "source_id": "src-cl10a475ko8nnnc-a5-netlist-controller",
+      "record_id": "rec-cl10a475ko8nnnc",
+      "document_title": "Light Block A5 controller native netlist (KiCad 10.0.8 export, historical)",
+      "document_number": "engineering/a5/integration/native_schematic/controller/netlist.xml",
+      "revision": "A5",
+      "document_date": "2026-11-06",
+      "authoritative_url": "https://github.com/Takazudo/zudo-led-block/blob/d41cbb7fc61dc954b4affaf19527aa69f07013b6/engineering/a5/integration/native_schematic/controller/netlist.xml",
+      "alternate_authoritative_url": "",
+      "retrieval_date": "2026-11-06",
+      "authority_class": "PROJECT_GENERATOR",
+      "sha256": "fa2d267acc4081156649ee15e014fbaeae4303bc96374fe19f4bae7b3a72553f",
+      "availability": "AVAILABLE",
+      "physical_pdf_page_index": 0,
+      "printed_page_label": "n/a (XML netlist)",
+      "locator": "engineering/a5/integration/native_schematic/controller/netlist.xml, components section rows for C5, C6, C7 and the matching nets section nodes",
+      "evidence_extract": "C5: value=4.7u, footprint=LightBlock:C0603, symbol=LightBlock:C, pin 1 1=/+5V, pin 2 2=/GND; C6: value=4.7u, footprint=LightBlock:C0603, symbol=LightBlock:C, pin 1 1=/+3V3, pin 2 2=/GND; C7: value=4.7u, footprint=LightBlock:C0603, symbol=LightBlock:C, pin 1 1=/+3V3, pin 2 2=/GND. Historical A5 design state only; not fresh A6 state and not as-built verification."
+    }
+  ]
+}

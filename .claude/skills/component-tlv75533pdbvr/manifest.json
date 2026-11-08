@@ -1,0 +1,36 @@
+{
+  "schema_version": 1,
+  "skill": "component-tlv75533pdbvr",
+  "records": [
+    {
+      "record_id": "rec-tlv75533pdbvr",
+      "line_id": "line-tlv75533pdbvr",
+      "kind": "standalone",
+      "parent_record_id": null,
+      "mpn": "TLV75533PDBVR",
+      "manufacturer": "Texas Instruments",
+      "lcsc": "C404027",
+      "package": "SOT-23-5",
+      "source_ids": [
+        "src-tlv75533pdbvr-a5-jlcpcb-snapshot",
+        "src-tlv75533pdbvr-a5-netlist-controller"
+      ],
+      "fact_ids": [
+        "fact-tlv75533pdbvr-manufacturer",
+        "fact-tlv75533pdbvr-distributor-identity",
+        "fact-tlv75533pdbvr-a5-placements",
+        "fact-tlv75533pdbvr-pinout",
+        "fact-tlv75533pdbvr-ratings",
+        "fact-tlv75533pdbvr-cad-state"
+      ],
+      "interaction_ids": [],
+      "open_domains": [
+        "identity",
+        "pinout",
+        "electrical-ratings",
+        "placement",
+        "cad-assets"
+      ]
+    }
+  ]
+}

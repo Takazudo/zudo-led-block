@@ -1,0 +1,71 @@
+{
+  "schema_version": 1,
+  "coverage": [
+    {
+      "coverage_id": "cov-tps2552dbvr-1-identity",
+      "record_id": "rec-tps2552dbvr-1",
+      "domain": "identity",
+      "status": "OPEN",
+      "reason": "fact-tps2552dbvr-1-manufacturer remains UNSOURCED: only distributor identity is retained; no manufacturer-primary document inspected",
+      "fact_ids": [
+        "fact-tps2552dbvr-1-manufacturer",
+        "fact-tps2552dbvr-1-distributor-identity"
+      ],
+      "blocking_fact_ids": [
+        "fact-tps2552dbvr-1-manufacturer"
+      ]
+    },
+    {
+      "coverage_id": "cov-tps2552dbvr-1-pinout",
+      "record_id": "rec-tps2552dbvr-1",
+      "domain": "pinout",
+      "status": "OPEN",
+      "reason": "fact-tps2552dbvr-1-pinout remains UNSOURCED: the pin map is projected from the historical A5 netlist and has not been checked against a manufacturer document",
+      "fact_ids": [
+        "fact-tps2552dbvr-1-pinout"
+      ],
+      "blocking_fact_ids": [
+        "fact-tps2552dbvr-1-pinout"
+      ]
+    },
+    {
+      "coverage_id": "cov-tps2552dbvr-1-ratings",
+      "record_id": "rec-tps2552dbvr-1",
+      "domain": "electrical-ratings",
+      "status": "OPEN",
+      "reason": "fact-tps2552dbvr-1-ratings remains UNSOURCED: no manufacturer limits retained",
+      "fact_ids": [
+        "fact-tps2552dbvr-1-ratings"
+      ],
+      "blocking_fact_ids": [
+        "fact-tps2552dbvr-1-ratings"
+      ]
+    },
+    {
+      "coverage_id": "cov-tps2552dbvr-1-placement",
+      "record_id": "rec-tps2552dbvr-1",
+      "domain": "placement",
+      "status": "OPEN",
+      "reason": "fact-tps2552dbvr-1-a5-placements NEEDS BENCH: placements are declared from the historical A5 netlist only; the manual provider performs no schematic binding and no as-built check exists",
+      "fact_ids": [
+        "fact-tps2552dbvr-1-a5-placements"
+      ],
+      "blocking_fact_ids": [
+        "fact-tps2552dbvr-1-a5-placements"
+      ]
+    },
+    {
+      "coverage_id": "cov-tps2552dbvr-1-cad",
+      "record_id": "rec-tps2552dbvr-1",
+      "domain": "cad-assets",
+      "status": "OPEN",
+      "reason": "fact-tps2552dbvr-1-cad-state remains UNSOURCED: catalog CAD is disabled, so no symbol, footprint or model was reviewed or validated",
+      "fact_ids": [
+        "fact-tps2552dbvr-1-cad-state"
+      ],
+      "blocking_fact_ids": [
+        "fact-tps2552dbvr-1-cad-state"
+      ]
+    }
+  ]
+}

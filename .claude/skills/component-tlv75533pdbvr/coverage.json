@@ -1,0 +1,71 @@
+{
+  "schema_version": 1,
+  "coverage": [
+    {
+      "coverage_id": "cov-tlv75533pdbvr-identity",
+      "record_id": "rec-tlv75533pdbvr",
+      "domain": "identity",
+      "status": "OPEN",
+      "reason": "fact-tlv75533pdbvr-manufacturer remains UNSOURCED: only distributor identity is retained; no manufacturer-primary document inspected",
+      "fact_ids": [
+        "fact-tlv75533pdbvr-manufacturer",
+        "fact-tlv75533pdbvr-distributor-identity"
+      ],
+      "blocking_fact_ids": [
+        "fact-tlv75533pdbvr-manufacturer"
+      ]
+    },
+    {
+      "coverage_id": "cov-tlv75533pdbvr-pinout",
+      "record_id": "rec-tlv75533pdbvr",
+      "domain": "pinout",
+      "status": "OPEN",
+      "reason": "fact-tlv75533pdbvr-pinout remains UNSOURCED: the pin map is projected from the historical A5 netlist and has not been checked against a manufacturer document",
+      "fact_ids": [
+        "fact-tlv75533pdbvr-pinout"
+      ],
+      "blocking_fact_ids": [
+        "fact-tlv75533pdbvr-pinout"
+      ]
+    },
+    {
+      "coverage_id": "cov-tlv75533pdbvr-ratings",
+      "record_id": "rec-tlv75533pdbvr",
+      "domain": "electrical-ratings",
+      "status": "OPEN",
+      "reason": "fact-tlv75533pdbvr-ratings remains UNSOURCED: no manufacturer limits retained",
+      "fact_ids": [
+        "fact-tlv75533pdbvr-ratings"
+      ],
+      "blocking_fact_ids": [
+        "fact-tlv75533pdbvr-ratings"
+      ]
+    },
+    {
+      "coverage_id": "cov-tlv75533pdbvr-placement",
+      "record_id": "rec-tlv75533pdbvr",
+      "domain": "placement",
+      "status": "OPEN",
+      "reason": "fact-tlv75533pdbvr-a5-placements NEEDS BENCH: placements are declared from the historical A5 netlist only; the manual provider performs no schematic binding and no as-built check exists",
+      "fact_ids": [
+        "fact-tlv75533pdbvr-a5-placements"
+      ],
+      "blocking_fact_ids": [
+        "fact-tlv75533pdbvr-a5-placements"
+      ]
+    },
+    {
+      "coverage_id": "cov-tlv75533pdbvr-cad",
+      "record_id": "rec-tlv75533pdbvr",
+      "domain": "cad-assets",
+      "status": "OPEN",
+      "reason": "fact-tlv75533pdbvr-cad-state remains UNSOURCED: catalog CAD is disabled, so no symbol, footprint or model was reviewed or validated",
+      "fact_ids": [
+        "fact-tlv75533pdbvr-cad-state"
+      ],
+      "blocking_fact_ids": [
+        "fact-tlv75533pdbvr-cad-state"
+      ]
+    }
+  ]
+}

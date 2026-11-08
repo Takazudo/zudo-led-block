@@ -1,0 +1,44 @@
+{
+  "schema_version": 1,
+  "sources": [
+    {
+      "source_id": "src-ws2812b-2020-v6-a5-jlcpcb-snapshot",
+      "record_id": "rec-ws2812b-2020-v6",
+      "document_title": "JLCPCB public product listing C52917434 (A5 retained product-props snapshot)",
+      "document_number": "C52917434",
+      "revision": "A5 snapshot observed 2026-11-05T20:15:49.718553+00:00",
+      "document_date": "2026-11-05",
+      "authoritative_url": "https://jlcpcb.com/partdetail/Worldsemi-LED/C52917434",
+      "alternate_authoritative_url": "https://github.com/Takazudo/zudo-led-block/blob/d41cbb7fc61dc954b4affaf19527aa69f07013b6/engineering/a5/ic_led_evidence/C52917434.snapshot.json",
+      "retrieval_date": "2026-11-05",
+      "authority_class": "DISTRIBUTOR_IDENTITY",
+      "sha256": "909615a8355ecd45f8bce91951c119e994826f0ec58406c4ad1d936d68f26729",
+      "availability": "AVAILABLE",
+      "physical_pdf_page_index": 0,
+      "printed_page_label": "n/a (JSON snapshot of an HTML page)",
+      "locator": "engineering/a5/ic_led_evidence/C52917434.snapshot.json, product table fields componentCode, componentModelEn, componentBrandEn, componentSpecificationEn",
+      "evidence_extract": "componentCode=C52917434; componentModelEn=WS2812B-2020-V6; componentBrandEn=Worldsemi; componentSpecificationEn=SMD2020-4P. sha256 above is the retained A5 snapshot JSON file (the bytes inspected). The original page HTML digest recorded inside that snapshot is da1317253538cb4a4b23647d01f38995c6955b3f7eac7550cde7a016d4dabe77; those HTML bytes are not retained and were not re-verified. Distributor identity only: no electrical, mechanical or availability claim.",
+      "refresh_policy": "VOLATILE-HTML",
+      "refresh_note": "The listing URL serves live HTML whose bytes are not deterministic; the recorded hash is of the retained A5 snapshot JSON, so an online refresh cannot reproduce it.",
+      "identity_extract_sha256": "80c54d42a6d589e438c171ada49bfa4837a8c766a6a93338cd05a76feecb9357"
+    },
+    {
+      "source_id": "src-ws2812b-2020-v6-a5-netlist-led-leaf",
+      "record_id": "rec-ws2812b-2020-v6",
+      "document_title": "Light Block A5 led_leaf native netlist (KiCad 10.0.8 export, historical)",
+      "document_number": "engineering/a5/integration/native_schematic/led_leaf/netlist.xml",
+      "revision": "A5",
+      "document_date": "2026-11-06",
+      "authoritative_url": "https://github.com/Takazudo/zudo-led-block/blob/d41cbb7fc61dc954b4affaf19527aa69f07013b6/engineering/a5/integration/native_schematic/led_leaf/netlist.xml",
+      "alternate_authoritative_url": "",
+      "retrieval_date": "2026-11-06",
+      "authority_class": "PROJECT_GENERATOR",
+      "sha256": "1857eeb3e3faa65977f2e2cfff30083411db9af728b5529e53065da0c9028670",
+      "availability": "AVAILABLE",
+      "physical_pdf_page_index": 0,
+      "printed_page_label": "n/a (XML netlist)",
+      "locator": "engineering/a5/integration/native_schematic/led_leaf/netlist.xml, components section rows for D1, D2, D3, D4 and the matching nets section nodes",
+      "evidence_extract": "D1: value=WS2812B-2020-V6, footprint=LightBlock:WS2812B_2020_V6, symbol=LightBlock:LED, pin 1 DOUT=/DATA_1_2, pin 2 GND=/GND, pin 3 DIN=/DATA_IN, pin 4 VDD=/VLED; D2: value=WS2812B-2020-V6, footprint=LightBlock:WS2812B_2020_V6, symbol=LightBlock:LED, pin 1 DOUT=/DATA_2_3, pin 2 GND=/GND, pin 3 DIN=/DATA_1_2, pin 4 VDD=/VLED; D3: value=WS2812B-2020-V6, footprint=LightBlock:WS2812B_2020_V6, symbol=LightBlock:LED, pin 1 DOUT=/DATA_3_4, pin 2 GND=/GND, pin 3 DIN=/DATA_2_3, pin 4 VDD=/VLED; D4: value=WS2812B-2020-V6, footprint=LightBlock:WS2812B_2020_V6, symbol=LightBlock:LED, pin 1 DOUT=unconnected-(D4-DOUT-Pad1), pin 2 GND=/GND, pin 3 DIN=/DATA_3_4, pin 4 VDD=/VLED. Historical A5 design state only; not fresh A6 state and not as-built verification."
+    }
+  ]
+}

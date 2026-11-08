@@ -1,0 +1,30 @@
+{
+  "schema_version": 1,
+  "routes": [
+    {
+      "route_id": "route-cl31a226kahnnne",
+      "record_id": "rec-cl31a226kahnnne",
+      "aliases": {
+        "mpn": [
+          "CL31A226KAHNNNE"
+        ],
+        "lcsc": [
+          "C12891"
+        ],
+        "manufacturer": [
+          "Samsung Electro-Mechanics"
+        ],
+        "function": [
+          "22 uf 25 v x5r 1206 capacitor"
+        ]
+      },
+      "positive": [
+        "check CL31A226KAHNNNE pinout",
+        "audit C12891"
+      ],
+      "negative": [
+        "check 22 uf 25 v x5r 1206 capacitor from an unnamed vendor"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,37 @@
+{
+  "schema_version": 1,
+  "skill": "component-sm04b-srss-tb-lf-sn",
+  "records": [
+    {
+      "record_id": "rec-sm04b-srss-tb-lf-sn",
+      "line_id": "line-sm04b-srss-tb-lf-sn",
+      "kind": "standalone",
+      "parent_record_id": null,
+      "mpn": "SM04B-SRSS-TB(LF)(SN)",
+      "manufacturer": "JST",
+      "lcsc": "C160404",
+      "package": "SMD,P=1mm,Surface Mount，Right Angle",
+      "source_ids": [
+        "src-sm04b-srss-tb-lf-sn-a5-jlcpcb-snapshot",
+        "src-sm04b-srss-tb-lf-sn-a5-netlist-controller",
+        "src-sm04b-srss-tb-lf-sn-a5-netlist-led-leaf"
+      ],
+      "fact_ids": [
+        "fact-sm04b-srss-tb-lf-sn-manufacturer",
+        "fact-sm04b-srss-tb-lf-sn-distributor-identity",
+        "fact-sm04b-srss-tb-lf-sn-a5-placements",
+        "fact-sm04b-srss-tb-lf-sn-pinout",
+        "fact-sm04b-srss-tb-lf-sn-ratings",
+        "fact-sm04b-srss-tb-lf-sn-cad-state"
+      ],
+      "interaction_ids": [],
+      "open_domains": [
+        "identity",
+        "pinout",
+        "electrical-ratings",
+        "placement",
+        "cad-assets"
+      ]
+    }
+  ]
+}

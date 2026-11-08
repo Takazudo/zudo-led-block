@@ -1,0 +1,30 @@
+{
+  "schema_version": 1,
+  "routes": [
+    {
+      "route_id": "route-mmbt3904-range-100-300",
+      "record_id": "rec-mmbt3904-range-100-300",
+      "aliases": {
+        "mpn": [
+          "MMBT3904(RANGE:100-300)"
+        ],
+        "lcsc": [
+          "C20526"
+        ],
+        "manufacturer": [
+          "Jiangsu Changjing Electronics Technology Co., Ltd."
+        ],
+        "function": [
+          "enable inverter npn transistor"
+        ]
+      },
+      "positive": [
+        "check MMBT3904(RANGE:100-300) pinout",
+        "audit C20526"
+      ],
+      "negative": [
+        "check enable inverter npn transistor from an unnamed vendor"
+      ]
+    }
+  ]
+}

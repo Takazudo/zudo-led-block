@@ -1,0 +1,33 @@
+{
+  "schema_version": 1,
+  "pin_maps": [
+    {
+      "pin_map_id": "pinmap-bas70-04-7-f",
+      "record_id": "rec-bas70-04-7-f",
+      "symbol": "LightBlock:CLAMP",
+      "footprint": "LightBlock:SOT23",
+      "pins": [
+        {
+          "symbol_pin": "1",
+          "name": "A1",
+          "footprint_pad": "1",
+          "function": "passive; A5 nets: controller/D3=/GND"
+        },
+        {
+          "symbol_pin": "2",
+          "name": "K2",
+          "footprint_pad": "2",
+          "function": "passive; A5 nets: controller/D3=/+3V3"
+        },
+        {
+          "symbol_pin": "3",
+          "name": "K1/A2",
+          "footprint_pad": "3",
+          "function": "passive; A5 nets: controller/D3=/CV_FILTER"
+        }
+      ],
+      "reviewed_by": "not independently reviewed: projected from the A5 native netlist by scripts/a5_catalog.py scaffold",
+      "project_state_source": "historical A5 native netlists (src-bas70-04-7-f-a5-netlist-controller); pad numbers equal KiCad symbol pin numbers in that export"
+    }
+  ]
+}

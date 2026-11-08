@@ -1,0 +1,71 @@
+{
+  "schema_version": 1,
+  "coverage": [
+    {
+      "coverage_id": "cov-ws2812b-2020-v6-identity",
+      "record_id": "rec-ws2812b-2020-v6",
+      "domain": "identity",
+      "status": "OPEN",
+      "reason": "fact-ws2812b-2020-v6-manufacturer remains UNSOURCED: only distributor identity is retained; no manufacturer-primary document inspected",
+      "fact_ids": [
+        "fact-ws2812b-2020-v6-manufacturer",
+        "fact-ws2812b-2020-v6-distributor-identity"
+      ],
+      "blocking_fact_ids": [
+        "fact-ws2812b-2020-v6-manufacturer"
+      ]
+    },
+    {
+      "coverage_id": "cov-ws2812b-2020-v6-pinout",
+      "record_id": "rec-ws2812b-2020-v6",
+      "domain": "pinout",
+      "status": "OPEN",
+      "reason": "fact-ws2812b-2020-v6-pinout remains UNSOURCED: the pin map is projected from the historical A5 netlist and has not been checked against a manufacturer document",
+      "fact_ids": [
+        "fact-ws2812b-2020-v6-pinout"
+      ],
+      "blocking_fact_ids": [
+        "fact-ws2812b-2020-v6-pinout"
+      ]
+    },
+    {
+      "coverage_id": "cov-ws2812b-2020-v6-ratings",
+      "record_id": "rec-ws2812b-2020-v6",
+      "domain": "electrical-ratings",
+      "status": "OPEN",
+      "reason": "fact-ws2812b-2020-v6-ratings remains UNSOURCED: no manufacturer limits retained",
+      "fact_ids": [
+        "fact-ws2812b-2020-v6-ratings"
+      ],
+      "blocking_fact_ids": [
+        "fact-ws2812b-2020-v6-ratings"
+      ]
+    },
+    {
+      "coverage_id": "cov-ws2812b-2020-v6-placement",
+      "record_id": "rec-ws2812b-2020-v6",
+      "domain": "placement",
+      "status": "OPEN",
+      "reason": "fact-ws2812b-2020-v6-a5-placements NEEDS BENCH: placements are declared from the historical A5 netlist only; the manual provider performs no schematic binding and no as-built check exists",
+      "fact_ids": [
+        "fact-ws2812b-2020-v6-a5-placements"
+      ],
+      "blocking_fact_ids": [
+        "fact-ws2812b-2020-v6-a5-placements"
+      ]
+    },
+    {
+      "coverage_id": "cov-ws2812b-2020-v6-cad",
+      "record_id": "rec-ws2812b-2020-v6",
+      "domain": "cad-assets",
+      "status": "OPEN",
+      "reason": "fact-ws2812b-2020-v6-cad-state remains UNSOURCED: catalog CAD is disabled, so no symbol, footprint or model was reviewed or validated",
+      "fact_ids": [
+        "fact-ws2812b-2020-v6-cad-state"
+      ],
+      "blocking_fact_ids": [
+        "fact-ws2812b-2020-v6-cad-state"
+      ]
+    }
+  ]
+}

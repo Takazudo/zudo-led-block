@@ -2,10 +2,1043 @@
   "schema_version": 1,
   "generator_specs": [],
   "assertions": {
-    "orderable_lines": 0,
-    "fitted_lines": 0,
-    "dnp_or_hand_fit_lines": 0
+    "orderable_lines": 30,
+    "fitted_lines": 30,
+    "dnp_or_hand_fit_lines": 0,
+    "fitted_placements": 71,
+    "dnp_placements": 0
   },
-  "exclusions": [],
-  "lines": []
+  "exclusions": [
+    {
+      "board": "controller",
+      "refdes": "TP1",
+      "reason": "bare-copper test pad (LightBlock:TESTPAD) with no orderable identity; see provenance/a5-catalog/reconciliation.json"
+    },
+    {
+      "board": "controller",
+      "refdes": "TP2",
+      "reason": "bare-copper test pad (LightBlock:TESTPAD) with no orderable identity; see provenance/a5-catalog/reconciliation.json"
+    },
+    {
+      "board": "controller",
+      "refdes": "TP3",
+      "reason": "bare-copper test pad (LightBlock:TESTPAD) with no orderable identity; see provenance/a5-catalog/reconciliation.json"
+    },
+    {
+      "board": "controller",
+      "refdes": "TP4",
+      "reason": "bare-copper test pad (LightBlock:TESTPAD) with no orderable identity; see provenance/a5-catalog/reconciliation.json"
+    },
+    {
+      "board": "controller",
+      "refdes": "TP5",
+      "reason": "bare-copper test pad (LightBlock:TESTPAD) with no orderable identity; see provenance/a5-catalog/reconciliation.json"
+    }
+  ],
+  "lines": [
+    {
+      "line_id": "line-530470310",
+      "mpn": "530470310",
+      "manufacturer": "MOLEX",
+      "lcsc": "C122442",
+      "package": "Plugin,P=1.25mm",
+      "dnp": false,
+      "owner_skill": "component-530470310",
+      "identity_state": "UNRESOLVED",
+      "source_state": "AVAILABLE",
+      "function": "three-pin power cable header",
+      "suppliers": [
+        {
+          "supplier": "JLCPCB",
+          "order_code": "C122442"
+        },
+        {
+          "supplier": "LCSC",
+          "order_code": "C122442"
+        }
+      ],
+      "placements": [
+        {
+          "board": "controller",
+          "refdes": "J5"
+        },
+        {
+          "board": "power_adapter",
+          "refdes": "J2"
+        }
+      ]
+    },
+    {
+      "line_id": "line-cl31a226kahnnne",
+      "mpn": "CL31A226KAHNNNE",
+      "manufacturer": "Samsung Electro-Mechanics",
+      "lcsc": "C12891",
+      "package": "1206",
+      "dnp": false,
+      "owner_skill": "component-cl31a226kahnnne",
+      "identity_state": "UNRESOLVED",
+      "source_state": "AVAILABLE",
+      "function": "22 uf 25 v x5r 1206 capacitor",
+      "suppliers": [
+        {
+          "supplier": "JLCPCB",
+          "order_code": "C12891"
+        },
+        {
+          "supplier": "LCSC",
+          "order_code": "C12891"
+        }
+      ],
+      "placements": [
+        {
+          "board": "controller",
+          "refdes": "C2"
+        },
+        {
+          "board": "controller",
+          "refdes": "C3"
+        }
+      ]
+    },
+    {
+      "line_id": "line-bas70-04-7-f",
+      "mpn": "BAS70-04-7-F",
+      "manufacturer": "Diodes Incorporated",
+      "lcsc": "C134375",
+      "package": "SOT-23",
+      "dnp": false,
+      "owner_skill": "component-bas70-04-7-f",
+      "identity_state": "UNRESOLVED",
+      "source_state": "AVAILABLE",
+      "function": "adc clamp dual schottky diode",
+      "suppliers": [
+        {
+          "supplier": "JLCPCB",
+          "order_code": "C134375"
+        },
+        {
+          "supplier": "LCSC",
+          "order_code": "C134375"
+        }
+      ],
+      "placements": [
+        {
+          "board": "controller",
+          "refdes": "D3"
+        }
+      ]
+    },
+    {
+      "line_id": "line-tps2552dbvr-1",
+      "mpn": "TPS2552DBVR-1",
+      "manufacturer": "Texas Instruments",
+      "lcsc": "C140331",
+      "package": "SOT-23-6",
+      "dnp": false,
+      "owner_skill": "component-tps2552dbvr-1",
+      "identity_state": "UNRESOLVED",
+      "source_state": "AVAILABLE",
+      "function": "led supply current-limit latch switch",
+      "suppliers": [
+        {
+          "supplier": "JLCPCB",
+          "order_code": "C140331"
+        },
+        {
+          "supplier": "LCSC",
+          "order_code": "C140331"
+        }
+      ],
+      "placements": [
+        {
+          "board": "controller",
+          "refdes": "U4"
+        }
+      ]
+    },
+    {
+      "line_id": "line-cc0603krx7r9bb104",
+      "mpn": "CC0603KRX7R9BB104",
+      "manufacturer": "YAGEO",
+      "lcsc": "C14663",
+      "package": "0603",
+      "dnp": false,
+      "owner_skill": "component-cc0603krx7r9bb104",
+      "identity_state": "UNRESOLVED",
+      "source_state": "AVAILABLE",
+      "function": "100 nf 50 v x7r 0603 capacitor",
+      "suppliers": [
+        {
+          "supplier": "JLCPCB",
+          "order_code": "C14663"
+        },
+        {
+          "supplier": "LCSC",
+          "order_code": "C14663"
+        }
+      ],
+      "placements": [
+        {
+          "board": "controller",
+          "refdes": "C4"
+        },
+        {
+          "board": "controller",
+          "refdes": "C8"
+        },
+        {
+          "board": "controller",
+          "refdes": "C9"
+        },
+        {
+          "board": "controller",
+          "refdes": "C10"
+        },
+        {
+          "board": "controller",
+          "refdes": "C11"
+        },
+        {
+          "board": "controller",
+          "refdes": "C12"
+        },
+        {
+          "board": "controller",
+          "refdes": "C14"
+        },
+        {
+          "board": "controller",
+          "refdes": "C17"
+        },
+        {
+          "board": "led_leaf",
+          "refdes": "C1"
+        },
+        {
+          "board": "led_leaf",
+          "refdes": "C2"
+        },
+        {
+          "board": "led_leaf",
+          "refdes": "C3"
+        },
+        {
+          "board": "led_leaf",
+          "refdes": "C4"
+        }
+      ]
+    },
+    {
+      "line_id": "line-sn74lvc2t45dcur",
+      "mpn": "SN74LVC2T45DCUR",
+      "manufacturer": "Texas Instruments",
+      "lcsc": "C15741",
+      "package": "VSSOP-8",
+      "dnp": false,
+      "owner_skill": "component-sn74lvc2t45dcur",
+      "identity_state": "UNRESOLVED",
+      "source_state": "AVAILABLE",
+      "function": "two-channel led data level translator",
+      "suppliers": [
+        {
+          "supplier": "JLCPCB",
+          "order_code": "C15741"
+        },
+        {
+          "supplier": "LCSC",
+          "order_code": "C15741"
+        }
+      ],
+      "placements": [
+        {
+          "board": "controller",
+          "refdes": "U5"
+        }
+      ]
+    },
+    {
+      "line_id": "line-cl21a106kaynnne",
+      "mpn": "CL21A106KAYNNNE",
+      "manufacturer": "Samsung Electro-Mechanics",
+      "lcsc": "C15850",
+      "package": "0805",
+      "dnp": false,
+      "owner_skill": "component-cl21a106kaynnne",
+      "identity_state": "UNRESOLVED",
+      "source_state": "AVAILABLE",
+      "function": "10 uf 25 v x5r 0805 capacitor",
+      "suppliers": [
+        {
+          "supplier": "JLCPCB",
+          "order_code": "C15850"
+        },
+        {
+          "supplier": "LCSC",
+          "order_code": "C15850"
+        }
+      ],
+      "placements": [
+        {
+          "board": "controller",
+          "refdes": "C1"
+        },
+        {
+          "board": "controller",
+          "refdes": "C15"
+        },
+        {
+          "board": "controller",
+          "refdes": "C16"
+        }
+      ]
+    },
+    {
+      "line_id": "line-sm04b-srss-tb-lf-sn",
+      "mpn": "SM04B-SRSS-TB(LF)(SN)",
+      "manufacturer": "JST",
+      "lcsc": "C160404",
+      "package": "SMD,P=1mm,Surface Mount，Right Angle",
+      "dnp": false,
+      "owner_skill": "component-sm04b-srss-tb-lf-sn",
+      "identity_state": "UNRESOLVED",
+      "source_state": "AVAILABLE",
+      "function": "four-pin led harness header",
+      "suppliers": [
+        {
+          "supplier": "JLCPCB",
+          "order_code": "C160404"
+        },
+        {
+          "supplier": "LCSC",
+          "order_code": "C160404"
+        }
+      ],
+      "placements": [
+        {
+          "board": "controller",
+          "refdes": "J3"
+        },
+        {
+          "board": "led_leaf",
+          "refdes": "J1"
+        },
+        {
+          "board": "led_leaf",
+          "refdes": "J2"
+        }
+      ]
+    },
+    {
+      "line_id": "line-cl10a475ko8nnnc",
+      "mpn": "CL10A475KO8NNNC",
+      "manufacturer": "Samsung Electro-Mechanics",
+      "lcsc": "C19666",
+      "package": "0603",
+      "dnp": false,
+      "owner_skill": "component-cl10a475ko8nnnc",
+      "identity_state": "UNRESOLVED",
+      "source_state": "AVAILABLE",
+      "function": "4.7 uf 16 v x5r 0603 capacitor",
+      "suppliers": [
+        {
+          "supplier": "JLCPCB",
+          "order_code": "C19666"
+        },
+        {
+          "supplier": "LCSC",
+          "order_code": "C19666"
+        }
+      ],
+      "placements": [
+        {
+          "board": "controller",
+          "refdes": "C5"
+        },
+        {
+          "board": "controller",
+          "refdes": "C6"
+        },
+        {
+          "board": "controller",
+          "refdes": "C7"
+        }
+      ]
+    },
+    {
+      "line_id": "line-mmbt3904-range-100-300",
+      "mpn": "MMBT3904(RANGE:100-300)",
+      "manufacturer": "Jiangsu Changjing Electronics Technology Co., Ltd.",
+      "lcsc": "C20526",
+      "package": "SOT-23",
+      "dnp": false,
+      "owner_skill": "component-mmbt3904-range-100-300",
+      "identity_state": "UNRESOLVED",
+      "source_state": "AVAILABLE",
+      "function": "enable inverter npn transistor",
+      "suppliers": [
+        {
+          "supplier": "JLCPCB",
+          "order_code": "C20526"
+        },
+        {
+          "supplier": "LCSC",
+          "order_code": "C20526"
+        }
+      ],
+      "placements": [
+        {
+          "board": "controller",
+          "refdes": "Q1"
+        }
+      ]
+    },
+    {
+      "line_id": "line-ap63205wu-7",
+      "mpn": "AP63205WU-7",
+      "manufacturer": "Diodes Incorporated",
+      "lcsc": "C2071056",
+      "package": "TSOT-23-6",
+      "dnp": false,
+      "owner_skill": "component-ap63205wu-7",
+      "identity_state": "UNRESOLVED",
+      "source_state": "AVAILABLE",
+      "function": "fixed 5 v buck converter",
+      "suppliers": [
+        {
+          "supplier": "JLCPCB",
+          "order_code": "C2071056"
+        },
+        {
+          "supplier": "LCSC",
+          "order_code": "C2071056"
+        }
+      ],
+      "placements": [
+        {
+          "board": "controller",
+          "refdes": "U2"
+        }
+      ]
+    },
+    {
+      "line_id": "line-0603waf1001t5e",
+      "mpn": "0603WAF1001T5E",
+      "manufacturer": "UNI-ROYAL(Uniroyal Elec)",
+      "lcsc": "C21190",
+      "package": "0603",
+      "dnp": false,
+      "owner_skill": "component-0603waf1001t5e",
+      "identity_state": "UNRESOLVED",
+      "source_state": "AVAILABLE",
+      "function": "1 kilohm 0603 resistor",
+      "suppliers": [
+        {
+          "supplier": "JLCPCB",
+          "order_code": "C21190"
+        },
+        {
+          "supplier": "LCSC",
+          "order_code": "C21190"
+        }
+      ],
+      "placements": [
+        {
+          "board": "controller",
+          "refdes": "R7"
+        },
+        {
+          "board": "controller",
+          "refdes": "R8"
+        },
+        {
+          "board": "controller",
+          "refdes": "R25"
+        }
+      ]
+    },
+    {
+      "line_id": "line-opa197idbvr",
+      "mpn": "OPA197IDBVR",
+      "manufacturer": "Texas Instruments",
+      "lcsc": "C221351",
+      "package": "SOT-23-5",
+      "dnp": false,
+      "owner_skill": "component-opa197idbvr",
+      "identity_state": "UNRESOLVED",
+      "source_state": "AVAILABLE",
+      "function": "cv input buffer amplifier",
+      "suppliers": [
+        {
+          "supplier": "JLCPCB",
+          "order_code": "C221351"
+        },
+        {
+          "supplier": "LCSC",
+          "order_code": "C221351"
+        }
+      ],
+      "placements": [
+        {
+          "board": "controller",
+          "refdes": "U6"
+        }
+      ]
+    },
+    {
+      "line_id": "line-0603waf3300t5e",
+      "mpn": "0603WAF3300T5E",
+      "manufacturer": "UNI-ROYAL(Uniroyal Elec)",
+      "lcsc": "C23138",
+      "package": "0603",
+      "dnp": false,
+      "owner_skill": "component-0603waf3300t5e",
+      "identity_state": "UNRESOLVED",
+      "source_state": "AVAILABLE",
+      "function": "330 ohm 0603 resistor",
+      "suppliers": [
+        {
+          "supplier": "JLCPCB",
+          "order_code": "C23138"
+        },
+        {
+          "supplier": "LCSC",
+          "order_code": "C23138"
+        }
+      ],
+      "placements": [
+        {
+          "board": "controller",
+          "refdes": "R14"
+        },
+        {
+          "board": "controller",
+          "refdes": "R15"
+        },
+        {
+          "board": "controller",
+          "refdes": "R24"
+        }
+      ]
+    },
+    {
+      "line_id": "line-0603waf4701t5e",
+      "mpn": "0603WAF4701T5E",
+      "manufacturer": "UNI-ROYAL(Uniroyal Elec)",
+      "lcsc": "C23162",
+      "package": "0603",
+      "dnp": false,
+      "owner_skill": "component-0603waf4701t5e",
+      "identity_state": "UNRESOLVED",
+      "source_state": "AVAILABLE",
+      "function": "4.7 kilohm 0603 resistor",
+      "suppliers": [
+        {
+          "supplier": "JLCPCB",
+          "order_code": "C23162"
+        },
+        {
+          "supplier": "LCSC",
+          "order_code": "C23162"
+        }
+      ],
+      "placements": [
+        {
+          "board": "controller",
+          "refdes": "R20"
+        }
+      ]
+    },
+    {
+      "line_id": "line-0603waf6802t5e",
+      "mpn": "0603WAF6802T5E",
+      "manufacturer": "UNI-ROYAL(Uniroyal Elec)",
+      "lcsc": "C23231",
+      "package": "0603",
+      "dnp": false,
+      "owner_skill": "component-0603waf6802t5e",
+      "identity_state": "UNRESOLVED",
+      "source_state": "AVAILABLE",
+      "function": "68 kilohm 0603 resistor",
+      "suppliers": [
+        {
+          "supplier": "JLCPCB",
+          "order_code": "C23231"
+        },
+        {
+          "supplier": "LCSC",
+          "order_code": "C23231"
+        }
+      ],
+      "placements": [
+        {
+          "board": "controller",
+          "refdes": "R11"
+        }
+      ]
+    },
+    {
+      "line_id": "line-0603waf8202t5e",
+      "mpn": "0603WAF8202T5E",
+      "manufacturer": "UNI-ROYAL(Uniroyal Elec)",
+      "lcsc": "C23254",
+      "package": "0603",
+      "dnp": false,
+      "owner_skill": "component-0603waf8202t5e",
+      "identity_state": "UNRESOLVED",
+      "source_state": "AVAILABLE",
+      "function": "82 kilohm 0603 resistor",
+      "suppliers": [
+        {
+          "supplier": "JLCPCB",
+          "order_code": "C23254"
+        },
+        {
+          "supplier": "LCSC",
+          "order_code": "C23254"
+        }
+      ],
+      "placements": [
+        {
+          "board": "controller",
+          "refdes": "R3"
+        },
+        {
+          "board": "controller",
+          "refdes": "R4"
+        },
+        {
+          "board": "controller",
+          "refdes": "R5"
+        },
+        {
+          "board": "controller",
+          "refdes": "R6"
+        }
+      ]
+    },
+    {
+      "line_id": "line-0603waf1003t5e",
+      "mpn": "0603WAF1003T5E",
+      "manufacturer": "UNI-ROYAL(Uniroyal Elec)",
+      "lcsc": "C25803",
+      "package": "0603",
+      "dnp": false,
+      "owner_skill": "component-0603waf1003t5e",
+      "identity_state": "UNRESOLVED",
+      "source_state": "AVAILABLE",
+      "function": "100 kilohm 0603 resistor",
+      "suppliers": [
+        {
+          "supplier": "JLCPCB",
+          "order_code": "C25803"
+        },
+        {
+          "supplier": "LCSC",
+          "order_code": "C25803"
+        }
+      ],
+      "placements": [
+        {
+          "board": "controller",
+          "refdes": "R12"
+        },
+        {
+          "board": "controller",
+          "refdes": "R16"
+        },
+        {
+          "board": "controller",
+          "refdes": "R17"
+        },
+        {
+          "board": "controller",
+          "refdes": "R18"
+        },
+        {
+          "board": "controller",
+          "refdes": "R19"
+        },
+        {
+          "board": "controller",
+          "refdes": "R23"
+        }
+      ]
+    },
+    {
+      "line_id": "line-0603waf1002t5e",
+      "mpn": "0603WAF1002T5E",
+      "manufacturer": "UNI-ROYAL(Uniroyal Elec)",
+      "lcsc": "C25804",
+      "package": "0603",
+      "dnp": false,
+      "owner_skill": "component-0603waf1002t5e",
+      "identity_state": "UNRESOLVED",
+      "source_state": "AVAILABLE",
+      "function": "10 kilohm 0603 resistor",
+      "suppliers": [
+        {
+          "supplier": "JLCPCB",
+          "order_code": "C25804"
+        },
+        {
+          "supplier": "LCSC",
+          "order_code": "C25804"
+        }
+      ],
+      "placements": [
+        {
+          "board": "controller",
+          "refdes": "R9"
+        },
+        {
+          "board": "controller",
+          "refdes": "R10"
+        },
+        {
+          "board": "controller",
+          "refdes": "R13"
+        },
+        {
+          "board": "controller",
+          "refdes": "R21"
+        },
+        {
+          "board": "controller",
+          "refdes": "R22"
+        }
+      ]
+    },
+    {
+      "line_id": "line-tlv9001idbvr",
+      "mpn": "TLV9001IDBVR",
+      "manufacturer": "Texas Instruments",
+      "lcsc": "C398363",
+      "package": "SOT-23-5",
+      "dnp": false,
+      "owner_skill": "component-tlv9001idbvr",
+      "identity_state": "UNRESOLVED",
+      "source_state": "AVAILABLE",
+      "function": "adc protection buffer amplifier",
+      "suppliers": [
+        {
+          "supplier": "JLCPCB",
+          "order_code": "C398363"
+        },
+        {
+          "supplier": "LCSC",
+          "order_code": "C398363"
+        }
+      ],
+      "placements": [
+        {
+          "board": "controller",
+          "refdes": "U7"
+        }
+      ]
+    },
+    {
+      "line_id": "line-tlv75533pdbvr",
+      "mpn": "TLV75533PDBVR",
+      "manufacturer": "Texas Instruments",
+      "lcsc": "C404027",
+      "package": "SOT-23-5",
+      "dnp": false,
+      "owner_skill": "component-tlv75533pdbvr",
+      "identity_state": "UNRESOLVED",
+      "source_state": "AVAILABLE",
+      "function": "3.3 v ldo regulator",
+      "suppliers": [
+        {
+          "supplier": "JLCPCB",
+          "order_code": "C404027"
+        },
+        {
+          "supplier": "LCSC",
+          "order_code": "C404027"
+        }
+      ],
+      "placements": [
+        {
+          "board": "controller",
+          "refdes": "U3"
+        }
+      ]
+    },
+    {
+      "line_id": "line-pj-3582-b",
+      "mpn": "PJ-3582-B",
+      "manufacturer": "XKB Connection",
+      "lcsc": "C500090",
+      "package": "Plugin",
+      "dnp": false,
+      "owner_skill": "component-pj-3582-b",
+      "identity_state": "UNRESOLVED",
+      "source_state": "AVAILABLE",
+      "function": "cv input and thru jack",
+      "suppliers": [
+        {
+          "supplier": "JLCPCB",
+          "order_code": "C500090"
+        },
+        {
+          "supplier": "LCSC",
+          "order_code": "C500090"
+        }
+      ],
+      "placements": [
+        {
+          "board": "controller",
+          "refdes": "J1"
+        },
+        {
+          "board": "controller",
+          "refdes": "J2"
+        }
+      ]
+    },
+    {
+      "line_id": "line-pmeg4010cej-115",
+      "mpn": "PMEG4010CEJ,115",
+      "manufacturer": "Nexperia",
+      "lcsc": "C50704",
+      "package": "SOD-323F",
+      "dnp": false,
+      "owner_skill": "component-pmeg4010cej-115",
+      "identity_state": "UNRESOLVED",
+      "source_state": "AVAILABLE",
+      "function": "eurorack rail reverse-polarity schottky diode",
+      "suppliers": [
+        {
+          "supplier": "JLCPCB",
+          "order_code": "C50704"
+        },
+        {
+          "supplier": "LCSC",
+          "order_code": "C50704"
+        }
+      ],
+      "placements": [
+        {
+          "board": "controller",
+          "refdes": "D1"
+        },
+        {
+          "board": "controller",
+          "refdes": "D2"
+        }
+      ]
+    },
+    {
+      "line_id": "line-stm32g031g8u6tr",
+      "mpn": "STM32G031G8U6TR",
+      "manufacturer": "STMicroelectronics",
+      "lcsc": "C5270180",
+      "package": "UFQFPN-28(4x4)",
+      "dnp": false,
+      "owner_skill": "component-stm32g031g8u6tr",
+      "identity_state": "UNRESOLVED",
+      "source_state": "AVAILABLE",
+      "function": "main microcontroller",
+      "suppliers": [
+        {
+          "supplier": "JLCPCB",
+          "order_code": "C5270180"
+        },
+        {
+          "supplier": "LCSC",
+          "order_code": "C5270180"
+        }
+      ],
+      "placements": [
+        {
+          "board": "controller",
+          "refdes": "U1"
+        }
+      ]
+    },
+    {
+      "line_id": "line-ws2812b-2020-v6",
+      "mpn": "WS2812B-2020-V6",
+      "manufacturer": "Worldsemi",
+      "lcsc": "C52917434",
+      "package": "SMD2020-4P",
+      "dnp": false,
+      "owner_skill": "component-ws2812b-2020-v6",
+      "identity_state": "UNRESOLVED",
+      "source_state": "AVAILABLE",
+      "function": "addressable rgb led",
+      "suppliers": [
+        {
+          "supplier": "JLCPCB",
+          "order_code": "C52917434"
+        },
+        {
+          "supplier": "LCSC",
+          "order_code": "C52917434"
+        }
+      ],
+      "placements": [
+        {
+          "board": "led_leaf",
+          "refdes": "D1"
+        },
+        {
+          "board": "led_leaf",
+          "refdes": "D2"
+        },
+        {
+          "board": "led_leaf",
+          "refdes": "D3"
+        },
+        {
+          "board": "led_leaf",
+          "refdes": "D4"
+        }
+      ]
+    },
+    {
+      "line_id": "line-boomele-2-54-2x5p",
+      "mpn": "2.54-2*5P",
+      "manufacturer": "BOOMELE(Boom Precision Elec)",
+      "lcsc": "C5665",
+      "package": "Plugin,P=2.54mm",
+      "dnp": false,
+      "owner_skill": "component-boomele-2-54-2x5p",
+      "identity_state": "UNRESOLVED",
+      "source_state": "AVAILABLE",
+      "function": "eurorack ten-pin power box header",
+      "suppliers": [
+        {
+          "supplier": "JLCPCB",
+          "order_code": "C5665"
+        },
+        {
+          "supplier": "LCSC",
+          "order_code": "C5665"
+        }
+      ],
+      "placements": [
+        {
+          "board": "power_adapter",
+          "refdes": "J1"
+        }
+      ]
+    },
+    {
+      "line_id": "line-0603b103k500nt",
+      "mpn": "0603B103K500NT",
+      "manufacturer": "FH (Guangdong Fenghua Advanced Tech)",
+      "lcsc": "C57112",
+      "package": "0603",
+      "dnp": false,
+      "owner_skill": "component-0603b103k500nt",
+      "identity_state": "UNRESOLVED",
+      "source_state": "AVAILABLE",
+      "function": "10 nf 50 v x7r 0603 capacitor",
+      "suppliers": [
+        {
+          "supplier": "JLCPCB",
+          "order_code": "C57112"
+        },
+        {
+          "supplier": "LCSC",
+          "order_code": "C57112"
+        }
+      ],
+      "placements": [
+        {
+          "board": "controller",
+          "refdes": "C13"
+        }
+      ]
+    },
+    {
+      "line_id": "line-spm4020t-4r7m-lr",
+      "mpn": "SPM4020T-4R7M-LR",
+      "manufacturer": "TDK",
+      "lcsc": "C694586",
+      "package": "SMD,4.4x4.1mm nominal; 4.6x4.3x2.0mm maximum envelope",
+      "dnp": false,
+      "owner_skill": "component-spm4020t-4r7m-lr",
+      "identity_state": "UNRESOLVED",
+      "source_state": "AVAILABLE",
+      "function": "buck converter power inductor",
+      "suppliers": [
+        {
+          "supplier": "JLCPCB",
+          "order_code": "C694586"
+        },
+        {
+          "supplier": "LCSC",
+          "order_code": "C694586"
+        }
+      ],
+      "placements": [
+        {
+          "board": "controller",
+          "refdes": "L1"
+        }
+      ]
+    },
+    {
+      "line_id": "line-0603waf1005t5e",
+      "mpn": "0603WAF1005T5E",
+      "manufacturer": "UNI-ROYAL(Uniroyal Elec)",
+      "lcsc": "C7250",
+      "package": "0603",
+      "dnp": false,
+      "owner_skill": "component-0603waf1005t5e",
+      "identity_state": "UNRESOLVED",
+      "source_state": "AVAILABLE",
+      "function": "10 megohm 0603 resistor",
+      "suppliers": [
+        {
+          "supplier": "JLCPCB",
+          "order_code": "C7250"
+        },
+        {
+          "supplier": "LCSC",
+          "order_code": "C7250"
+        }
+      ],
+      "placements": [
+        {
+          "board": "controller",
+          "refdes": "R1"
+        },
+        {
+          "board": "controller",
+          "refdes": "R2"
+        }
+      ]
+    },
+    {
+      "line_id": "line-1ms3t1b1m2qes-5",
+      "mpn": "1MS3T1B1M2QES-5",
+      "manufacturer": "Dailywell",
+      "lcsc": "C908270",
+      "package": "Plugin",
+      "dnp": false,
+      "owner_skill": "component-1ms3t1b1m2qes-5",
+      "identity_state": "UNRESOLVED",
+      "source_state": "AVAILABLE",
+      "function": "on off on mode toggle switch",
+      "suppliers": [
+        {
+          "supplier": "JLCPCB",
+          "order_code": "C908270"
+        },
+        {
+          "supplier": "LCSC",
+          "order_code": "C908270"
+        }
+      ],
+      "placements": [
+        {
+          "board": "controller",
+          "refdes": "SW1"
+        }
+      ]
+    }
+  ]
 }

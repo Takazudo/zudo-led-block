@@ -1,0 +1,30 @@
+{
+  "schema_version": 1,
+  "routes": [
+    {
+      "route_id": "route-tlv9001idbvr",
+      "record_id": "rec-tlv9001idbvr",
+      "aliases": {
+        "mpn": [
+          "TLV9001IDBVR"
+        ],
+        "lcsc": [
+          "C398363"
+        ],
+        "manufacturer": [
+          "Texas Instruments"
+        ],
+        "function": [
+          "adc protection buffer amplifier"
+        ]
+      },
+      "positive": [
+        "check TLV9001IDBVR pinout",
+        "audit C398363"
+      ],
+      "negative": [
+        "check TLV9061IDBVR pinout"
+      ]
+    }
+  ]
+}

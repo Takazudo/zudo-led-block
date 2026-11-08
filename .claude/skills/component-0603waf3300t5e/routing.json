@@ -1,0 +1,30 @@
+{
+  "schema_version": 1,
+  "routes": [
+    {
+      "route_id": "route-0603waf3300t5e",
+      "record_id": "rec-0603waf3300t5e",
+      "aliases": {
+        "mpn": [
+          "0603WAF3300T5E"
+        ],
+        "lcsc": [
+          "C23138"
+        ],
+        "manufacturer": [
+          "UNI-ROYAL(Uniroyal Elec)"
+        ],
+        "function": [
+          "330 ohm 0603 resistor"
+        ]
+      },
+      "positive": [
+        "check 0603WAF3300T5E pinout",
+        "audit C23138"
+      ],
+      "negative": [
+        "check 330 ohm 0603 resistor from an unnamed vendor"
+      ]
+    }
+  ]
+}

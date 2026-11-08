@@ -1,0 +1,71 @@
+{
+  "schema_version": 1,
+  "coverage": [
+    {
+      "coverage_id": "cov-pj-3582-b-identity",
+      "record_id": "rec-pj-3582-b",
+      "domain": "identity",
+      "status": "OPEN",
+      "reason": "fact-pj-3582-b-manufacturer remains UNSOURCED: only distributor identity is retained; no manufacturer-primary document inspected",
+      "fact_ids": [
+        "fact-pj-3582-b-manufacturer",
+        "fact-pj-3582-b-distributor-identity"
+      ],
+      "blocking_fact_ids": [
+        "fact-pj-3582-b-manufacturer"
+      ]
+    },
+    {
+      "coverage_id": "cov-pj-3582-b-pinout",
+      "record_id": "rec-pj-3582-b",
+      "domain": "pinout",
+      "status": "OPEN",
+      "reason": "fact-pj-3582-b-pinout remains UNSOURCED: the pin map is projected from the historical A5 netlist and has not been checked against a manufacturer document",
+      "fact_ids": [
+        "fact-pj-3582-b-pinout"
+      ],
+      "blocking_fact_ids": [
+        "fact-pj-3582-b-pinout"
+      ]
+    },
+    {
+      "coverage_id": "cov-pj-3582-b-ratings",
+      "record_id": "rec-pj-3582-b",
+      "domain": "electrical-ratings",
+      "status": "OPEN",
+      "reason": "fact-pj-3582-b-ratings remains UNSOURCED: no manufacturer limits retained",
+      "fact_ids": [
+        "fact-pj-3582-b-ratings"
+      ],
+      "blocking_fact_ids": [
+        "fact-pj-3582-b-ratings"
+      ]
+    },
+    {
+      "coverage_id": "cov-pj-3582-b-placement",
+      "record_id": "rec-pj-3582-b",
+      "domain": "placement",
+      "status": "OPEN",
+      "reason": "fact-pj-3582-b-a5-placements NEEDS BENCH: placements are declared from the historical A5 netlist only; the manual provider performs no schematic binding and no as-built check exists",
+      "fact_ids": [
+        "fact-pj-3582-b-a5-placements"
+      ],
+      "blocking_fact_ids": [
+        "fact-pj-3582-b-a5-placements"
+      ]
+    },
+    {
+      "coverage_id": "cov-pj-3582-b-cad",
+      "record_id": "rec-pj-3582-b",
+      "domain": "cad-assets",
+      "status": "OPEN",
+      "reason": "fact-pj-3582-b-cad-state remains UNSOURCED: catalog CAD is disabled, so no symbol, footprint or model was reviewed or validated",
+      "fact_ids": [
+        "fact-pj-3582-b-cad-state"
+      ],
+      "blocking_fact_ids": [
+        "fact-pj-3582-b-cad-state"
+      ]
+    }
+  ]
+}
