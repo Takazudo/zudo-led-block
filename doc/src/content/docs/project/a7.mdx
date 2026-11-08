@@ -1,0 +1,90 @@
+---
+title: "A7 の現状"
+description: "A7 構造変更 (直角ジャック・基板側の設定スイッチ・透明 LED 基板の検討) の進み具合、部品の変更案、未解決事項。"
+sidebar_position: 2
+---
+
+:::danger[A7 は設計検討の段階です]
+A7 は **製造用にリリースしていません**。`main` には A7 の回路図・基板・機構モデル・アートワークがまだありません。
+ここに書いた結果は机上の検討と部品資料の記録で、部品の承認・組み付けの承認・電気的な結果ではありません。CI が通っても承認にはなりません。
+:::
+
+A7 は [#15](https://github.com/Takazudo/zudo-led-block/issues/15) で追跡している構造変更です。
+作業を引き継ぐときは、リポジトリの [`engineering/a7/docs/continuation/continue-here.md`](https://github.com/Takazudo/zudo-led-block/blob/main/engineering/a7/docs/continuation/continue-here.md) と
+[証跡の一覧 (`evidence-index.md`)](https://github.com/Takazudo/zudo-led-block/blob/main/engineering/a7/docs/continuation/evidence-index.md) を読んでください。
+このページの内容は 2026-11-08 時点の `main` (`54bda11`) に合わせています。
+
+## 版の位置づけ
+
+| 版 | 場所 | 状態 |
+|---|---|---|
+| A5 | `engineering/a5/` | 不変のチェックポイント (2026-11-06 JST)。制御基板は配置のみ・未配線。ERC / DRC / 試験の結果はすべて **履歴上の記録**。A7 の基準として使う |
+| A6 | ブランチ `claude/project-thread-391rx3` (`7e96380`)、ドラフト PR [#14](https://github.com/Takazudo/zudo-led-block/pull/14)、[#7](https://github.com/Takazudo/zudo-led-block/issues/7) | **保留。`main` には入っていません**。幅 8.8 mm 固定の制御基板は配置のみで、自動配線では未接続を 0 にできませんでした (未接続 125)。A7 は A6 の配線を完了させるものではなく、A6 の作業は A7 の進捗に数えません |
+| A7 | `engineering/a7/` | 部品・寸法の検討と検証の基盤が `main` に入りました。回路図・機構・基板は作業中 |
+
+## A7 の方針 (2026-11-08 に採用)
+
+| 項目 | 内容 |
+|---|---|
+| 前面 | 透明キャスト PMMA (高さ 128.5 mm、厚さ 2 mm) の光る文字と、正面向きの 3.5 mm CV ジャック 2 個 (IN と THRU)。裏面フロスト・正面平滑の見た目を維持 |
+| 前面から外すもの | スイッチの穴、MODE の表示、ON / PGM / CV の表示 |
+| モード切替 | 基板側の小さな設定スイッチ。取り付け前、またはモジュールを外した状態で操作する設定用 |
+| ジャック | 直角のねじ付きジャック SOFNG PJ-324M (LCSC C22355739)。モノラル CV だけに使い、ステレオ機能は追加しない |
+| 制御基板 | 前面に対して垂直に置き、奥行きを配線の場所として使う |
+| 幅 | 2HP (9.8 mm) を優先、3HP (14.9 mm) を代替として採用。3HP は幅を広げれば解決すると決めつけず、別に確認する |
+| 透明 LED 基板 | LED 部分だけ透明 PET FPC を検討。制御・電源・ジャックやスイッチの荷重はリジッド FR-4 に置く。A5 の FR-4 LED 基板を基準・予備として残す |
+| 維持するもの | 奥行き 30 mm 目標 (PMMA 裏面から)、左右独立した 4 画素の RGB 2 列、共通の電流制限 LED 電源、受動の CV IN→THRU、MCU のピン割り当て、CV の変換、電源・起動の動作、工場実装と完成ケーブル |
+
+透明 PET の回路フィルム、透明 PMMA の前面、半透明 PETG の拡散板は役割が違い、互いに置き換えられる材料ではありません。
+
+## 作業の状態
+
+| 作業 | Issue | `main` での状態 |
+|---|---|---|
+| R1 部品と寸法の検討 | [#16](https://github.com/Takazudo/zudo-led-block/issues/16) | **完了** (PR #23)。[A7 部品と寸法の検討](/docs/research/a7-parts-and-dimensions/) |
+| R2 機構モデルと前面アートワーク | [#17](https://github.com/Takazudo/zudo-led-block/issues/17) | **未完了**。ドラフト PR [#25](https://github.com/Takazudo/zudo-led-block/pull/25) でジャック本体の向きとスイッチ–ジャック間の隙間を修正中 |
+| R3 ネイティブ検証の基盤 | [#18](https://github.com/Takazudo/zudo-led-block/issues/18) | **完了** (PR #22)。A7 の基板がまだ無いため、A7 のゲートは `NO_CANDIDATE` で止まる。フィクスチャでの合格は検証機構の確認で、A7 基板の合格ではない |
+| R4 回路図・配置・配線 | [#19](https://github.com/Takazudo/zudo-led-block/issues/19) | **未完了**。回路図はドラフト PR [#24](https://github.com/Takazudo/zudo-led-block/pull/24)、配置・配線はその後 |
+| R5 ドキュメントと引継ぎ | [#20](https://github.com/Takazudo/zudo-led-block/issues/20) | このページ。R2 / R4 が入るたびに更新 |
+
+A5 の部品証跡カタログ (30 型番) は PR #21 で入りました。メーカー資料を取得できなかった項目のため [#9](https://github.com/Takazudo/zudo-led-block/issues/9) は開いたままです。
+
+## 部品の変更案 (A5 の BOM との差分)
+
+A7 の回路図はまだ `main` に入っていないので、**A7 の BOM は確定していません**。下の表は R1 で選んだ候補で、[部品表 (A5 BOM)](/docs/architecture/bom/) は A5 の記録のまま変えていません。
+
+| 役割 | A5 | A7 の候補 | 状態 |
+|---|---|---|---|
+| CV IN / THRU ジャック (×2) | XKB PJ-3582-B (C500090) | SOFNG PJ-324M (C22355739)。[記録](/docs/components/records/a7-pj-324m/) | 資料はミラーのみ。軸高さは推定、ピン機能は推定 (要導通確認)、穴径は図面に無い |
+| ジャックのナット | — | 付属の有無が不明 | M6x0.5 のナットが合うかは未確認 |
+| モード切替 | Dailywell 1MS3T1B1M2QES-5 (C908270)、前面のトグル | C&K PCM13SMTR (C221842)、基板側の側面スライド。[記録](/docs/components/records/a7-pcm13smtr/) | 位置ごとの端子表 (ミラー) で選定。**JLC の在庫は 0** (2026-11-08)。代替候補は端子表が無い |
+| LED 基板 | 0.6 mm FR-4 ×2 | 透明 PET FPC を検討、FR-4 を予備 | JLC への質問は未送信 |
+
+A7 の部品は `line-a7-` の行として部品カタログに登録しています。A5 の 30 型番 / 71 配置 / 81 点の集計には含めません。
+
+## 未解決事項
+
+| 未解決 | 影響するもの | 必要なもの | 追跡 |
+|---|---|---|---|
+| 回路図が `main` に無い | 配置、A7 の BOM、インターフェースの役割 | PR #24 | #19 |
+| 機構モデルが `main` に無い | 基板の外形、ジャック・スイッチの位置、奥行き | PR #25 の修正 | #17 |
+| PJ-324M の軸高さが推定 (約 3.0、2.6〜3.4) | 2HP の端子側の余裕 | 寸法入りの図面、3D モデル、実測 | Q1 |
+| PJ-324M のピン機能が推定 | CV_THRU と GND の割り当て | TS / TRS プラグでの導通確認 | Q2、#10 |
+| PJ-324M の穴径が無い | フットプリント | JLC / EasyEDA のフットプリント確認 | Q3 |
+| ナットの供給と適合 | 前面の固定 | 供給元の回答、部品 | Q4 |
+| PCM13SMTR の在庫 0 | 設定スイッチの調達 | 在庫、または代替部品の端子表・導通確認 | Q10 |
+| メーカーのサイトから資料を取得できない | 図面の値を確認済みにできない | SOFNG / C&K の資料 | Q0 |
+| 透明 PET FPC の工程 | 透明 LED 基板 | JLC の回答 (質問は未送信) | Q11 |
+| ねじのかかり | ジャックの固定 | PMMA 裏の 0.5 mm ポケットの評価 | Q8、Q9 |
+| エージェント向けページの公開 | サイトの公開範囲 | オーナーの判断 | #12 |
+
+Q0〜Q12 の一覧は `engineering/a7/open-questions.md` にあります。2HP は **未確定で、不成立ではありません**。
+
+## 物理評価は未実施
+
+次の項目は結果がありません。部品・試作・供給元の回答が必要で、デジタルの作業では閉じられません。
+
+- ハーネス経路、IDC / ストレインリリーフの寸法、公差、PETG の適合、全ケーブル込みの奥行き 30 mm ([#8](https://github.com/Takazudo/zudo-led-block/issues/8))
+- 電源・CV・ファームウェア・光学・温度・荷重の統合評価と製造ファイル ([#10](https://github.com/Takazudo/zudo-led-block/issues/10))
+- WS2812B-2020-V6 の T1L タイミングとデータシート V1.4 の差 ([#13](https://github.com/Takazudo/zudo-led-block/issues/13))
+- PJ-324M のピン機能・軸高さ・ナット・端子カット、PMMA の公差とポケット、締付け荷重、透明 PET の実装後の状態
