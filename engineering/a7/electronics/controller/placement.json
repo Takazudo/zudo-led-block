@@ -1,0 +1,527 @@
+{
+ "generator": "scripts/a7_board.py place",
+ "frame": "R2 board frame: board_x = assembly Z - 0.2, board_y = assembly Y - 48.5, seen from the component face (+X)",
+ "mechanical_source": "engineering/a7/mechanical/placement-envelopes.json (R2, merged in #27)",
+ "solder_face_rule": "B side carries only 0603 resistors and flat test pads besides THT terminals, inside R2 solder_face_low_profile_zone (max 0.6 mm)",
+ "fixed": {
+  "J1": "R2 jacks[CV IN] axis board_y 35.8, pin 1 at (0.9, 35.8)",
+  "J2": "R2 jacks[CV THRU] axis board_y 50.8",
+  "SW1": "R2 setting_switch pegs (4.3, 60.1) and (9.3, 60.1), actuator toward +y",
+  "J3": "R2 headers.led_header board_y 8.925..13.175, opening +y; moved 0.6 toward the front from R2 board_x 10.2..16.2 so the MP pad (to x+3.4) keeps 0.2 mm copper-to-edge clearance; body 9.6..15.6",
+  "J5": "R2 headers.power_header board_y 25.45..28.65 (PR #27 f58180a); body board_x 5.74..11.24, 0.09 behind R2 5.65..11.15 because the MCU courtyard (edge to 5.24) abuts its courtyard"
+ },
+ "placements": {
+  "C1": {
+   "at": [
+    4.75,
+    1.9
+   ],
+   "rot": 270,
+   "side": "F"
+  },
+  "C2": {
+   "at": [
+    6.3,
+    11.9
+   ],
+   "rot": 0,
+   "side": "F"
+  },
+  "C3": {
+   "at": [
+    14.95,
+    31.95
+   ],
+   "rot": 90,
+   "side": "F"
+  },
+  "C4": {
+   "at": [
+    7.7,
+    4.45
+   ],
+   "rot": 180,
+   "side": "F"
+  },
+  "C5": {
+   "at": [
+    9.84,
+    4.45
+   ],
+   "rot": 270,
+   "side": "F"
+  },
+  "C6": {
+   "at": [
+    11.38,
+    4.45
+   ],
+   "rot": 270,
+   "side": "F"
+  },
+  "C7": {
+   "at": [
+    9.43,
+    22.84
+   ],
+   "rot": 0,
+   "side": "F"
+  },
+  "C8": {
+   "at": [
+    1.5,
+    29.46
+   ],
+   "rot": 180,
+   "side": "F"
+  },
+  "C9": {
+   "at": [
+    7.3,
+    43.75
+   ],
+   "rot": 0,
+   "side": "F"
+  },
+  "C10": {
+   "at": [
+    10.25,
+    43.75
+   ],
+   "rot": 0,
+   "side": "F"
+  },
+  "C11": {
+   "at": [
+    9.84,
+    1.5
+   ],
+   "rot": 90,
+   "side": "F"
+  },
+  "C12": {
+   "at": [
+    11.38,
+    1.5
+   ],
+   "rot": 90,
+   "side": "F"
+  },
+  "C13": {
+   "at": [
+    9.53,
+    17.73
+   ],
+   "rot": 0,
+   "side": "F"
+  },
+  "C14": {
+   "at": [
+    9.43,
+    24.24
+   ],
+   "rot": 0,
+   "side": "F"
+  },
+  "C15": {
+   "at": [
+    14.95,
+    49.0
+   ],
+   "rot": 90,
+   "side": "F"
+  },
+  "C16": {
+   "at": [
+    9.68,
+    16.1
+   ],
+   "rot": 0,
+   "side": "F"
+  },
+  "C17": {
+   "at": [
+    5.3,
+    22.78
+   ],
+   "rot": 0,
+   "side": "F"
+  },
+  "D1": {
+   "at": [
+    14.95,
+    36.0
+   ],
+   "rot": 90,
+   "side": "F"
+  },
+  "D2": {
+   "at": [
+    14.95,
+    39.5
+   ],
+   "rot": 90,
+   "side": "F"
+  },
+  "D3": {
+   "at": [
+    9.68,
+    20.4
+   ],
+   "rot": 180,
+   "side": "F"
+  },
+  "J1": {
+   "at": [
+    -0.7,
+    35.8
+   ],
+   "rot": 90,
+   "side": "F"
+  },
+  "J2": {
+   "at": [
+    -0.7,
+    50.8
+   ],
+   "rot": 90,
+   "side": "F"
+  },
+  "J3": {
+   "at": [
+    12.6,
+    10.6
+   ],
+   "rot": 0,
+   "side": "F"
+  },
+  "J5": {
+   "at": [
+    7.24,
+    27.5
+   ],
+   "rot": 0,
+   "side": "F"
+  },
+  "L1": {
+   "at": [
+    6.3,
+    7.93
+   ],
+   "rot": 270,
+   "side": "F"
+  },
+  "Q1": {
+   "at": [
+    14.45,
+    60.7
+   ],
+   "rot": 0,
+   "side": "F"
+  },
+  "R1": {
+   "at": [
+    13.0,
+    4.0
+   ],
+   "rot": 0,
+   "side": "B"
+  },
+  "R2": {
+   "at": [
+    13.0,
+    2.5
+   ],
+   "rot": 0,
+   "side": "B"
+  },
+  "R3": {
+   "at": [
+    9.6,
+    19.0
+   ],
+   "rot": 0,
+   "side": "B"
+  },
+  "R4": {
+   "at": [
+    10.6,
+    16.7
+   ],
+   "rot": 90,
+   "side": "B"
+  },
+  "R5": {
+   "at": [
+    12.2,
+    18.0
+   ],
+   "rot": 90,
+   "side": "B"
+  },
+  "R6": {
+   "at": [
+    6.7,
+    15.5
+   ],
+   "rot": 0,
+   "side": "B"
+  },
+  "R7": {
+   "at": [
+    10.8,
+    21.3
+   ],
+   "rot": 90,
+   "side": "B"
+  },
+  "R8": {
+   "at": [
+    10.0,
+    3.0
+   ],
+   "rot": 90,
+   "side": "B"
+  },
+  "R9": {
+   "at": [
+    10.1,
+    24.1
+   ],
+   "rot": 0,
+   "side": "B"
+  },
+  "R10": {
+   "at": [
+    5.3,
+    22.5
+   ],
+   "rot": 0,
+   "side": "B"
+  },
+  "R11": {
+   "at": [
+    6.5,
+    17.0
+   ],
+   "rot": 0,
+   "side": "B"
+  },
+  "R12": {
+   "at": [
+    14.0,
+    60.5
+   ],
+   "rot": 0,
+   "side": "B"
+  },
+  "R13": {
+   "at": [
+    6.5,
+    18.5
+   ],
+   "rot": 0,
+   "side": "B"
+  },
+  "R14": {
+   "at": [
+    7.6,
+    43.7
+   ],
+   "rot": 0,
+   "side": "B"
+  },
+  "R15": {
+   "at": [
+    10.7,
+    43.7
+   ],
+   "rot": 0,
+   "side": "B"
+  },
+  "R16": {
+   "at": [
+    13.8,
+    43.7
+   ],
+   "rot": 0,
+   "side": "B"
+  },
+  "R17": {
+   "at": [
+    14.6,
+    46.0
+   ],
+   "rot": 90,
+   "side": "B"
+  },
+  "R18": {
+   "at": [
+    14.6,
+    41.4
+   ],
+   "rot": 90,
+   "side": "B"
+  },
+  "R19": {
+   "at": [
+    14.6,
+    49.1
+   ],
+   "rot": 90,
+   "side": "B"
+  },
+  "R20": {
+   "at": [
+    9.0,
+    16.0
+   ],
+   "rot": 90,
+   "side": "B"
+  },
+  "R21": {
+   "at": [
+    7.0,
+    24.1
+   ],
+   "rot": 0,
+   "side": "B"
+  },
+  "R22": {
+   "at": [
+    14.0,
+    62.0
+   ],
+   "rot": 0,
+   "side": "B"
+  },
+  "R23": {
+   "at": [
+    5.3,
+    20.0
+   ],
+   "rot": 0,
+   "side": "B"
+  },
+  "R24": {
+   "at": [
+    7.6,
+    21.8
+   ],
+   "rot": 90,
+   "side": "B"
+  },
+  "R25": {
+   "at": [
+    9.2,
+    21.8
+   ],
+   "rot": 90,
+   "side": "B"
+  },
+  "SW1": {
+   "at": [
+    6.8,
+    60.1
+   ],
+   "rot": 0,
+   "side": "F"
+  },
+  "TP1": {
+   "at": [
+    12.3,
+    24.2
+   ],
+   "rot": 0,
+   "side": "B"
+  },
+  "TP2": {
+   "at": [
+    12.5,
+    26.0
+   ],
+   "rot": 0,
+   "side": "B"
+  },
+  "TP3": {
+   "at": [
+    12.5,
+    27.4
+   ],
+   "rot": 0,
+   "side": "B"
+  },
+  "TP4": {
+   "at": [
+    12.3,
+    22.8
+   ],
+   "rot": 0,
+   "side": "B"
+  },
+  "TP5": {
+   "at": [
+    12.5,
+    28.8
+   ],
+   "rot": 0,
+   "side": "B"
+  },
+  "U1": {
+   "at": [
+    2.62,
+    26.13
+   ],
+   "rot": 90,
+   "side": "F"
+  },
+  "U2": {
+   "at": [
+    7.4,
+    1.9
+   ],
+   "rot": 270,
+   "side": "F"
+  },
+  "U3": {
+   "at": [
+    14.15,
+    5.2
+   ],
+   "rot": 180,
+   "side": "F"
+  },
+  "U4": {
+   "at": [
+    5.9,
+    16.9
+   ],
+   "rot": 0,
+   "side": "F"
+  },
+  "U5": {
+   "at": [
+    3.6,
+    43.75
+   ],
+   "rot": 0,
+   "side": "F"
+  },
+  "U6": {
+   "at": [
+    14.15,
+    1.75
+   ],
+   "rot": 0,
+   "side": "F"
+  },
+  "U7": {
+   "at": [
+    5.9,
+    20.35
+   ],
+   "rot": 180,
+   "side": "F"
+  }
+ }
+}

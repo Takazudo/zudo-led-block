@@ -252,9 +252,12 @@ class ProfileTests(unittest.TestCase):
             with self.assertRaises(nv.ev.Fail):
                 nv.load_profile(Path(td), 'p.json')
 
-    def test_a7_profile_without_candidate_stops_with_no_candidate(self):
+    def test_revision_profile_without_candidate_stops_with_no_candidate(self):
         with tempfile.TemporaryDirectory() as td:
-            a = argparse.Namespace(profile=A7, repo=REPO, out=Path(td) / 'out', deadline_s=60)
+            p = json.loads((REPO / A7).read_text()); p['candidate'] = None
+            (Path(td) / 'repo').mkdir()
+            (Path(td) / 'repo/p.json').write_text(json.dumps(p))
+            a = argparse.Namespace(profile='p.json', repo=Path(td) / 'repo', out=Path(td) / 'out', deadline_s=60)
             self.assertEqual(nv.cmd_run(a), 1)
             s = json.loads((Path(td) / 'out/summary.json').read_text())
             self.assertEqual(s['status'], 'NO_CANDIDATE')

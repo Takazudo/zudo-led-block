@@ -1,6 +1,6 @@
-# A7 コントローラー電子設計（R4, #19）— 回路図フェーズ
+# A7 コントローラー電子設計（R4, #19）
 
-**状態: 回路図フェーズ、独立電気レビュー済み（#24、head `1a2f31a`）。** 基板は未配置・未配線で、権威ある A7 基板（`controller/controller.kicad_pcb`）はまだ存在しません。A7 リビジョンゲート（`engineering/a7/verification/native_gate.json`）は `NO_CANDIDATE` のまま失敗します。製造リリースではありません。
+**状態: 回路図は独立電気レビュー済み（#24、head `1a2f31a`）。基板は配置・配線済みで、独立したレイアウト・電気レビュー待ち。** 権威ある A7 基板 `controller/controller.kicad_pcb` を `candidate` とする A7 リビジョンゲート（`engineering/a7/verification/native_gate.json`）は新規実行で `PASS` です。これはデジタル検証だけの結果で、物理評価・製造リリースではありません。
 
 ## 何が A5 から変わったか
 
@@ -39,7 +39,16 @@
 
 状態は `SCHEMATIC_REVIEWED` です。これは回路図フェーズの結果であり、基板・配線・物理ゲートの承認ではありません。レビュー記録（`authorized_delta.json` / `interface_roles/a7_controller.json` の `review`）は未解決の物理ゲートを列挙しています: PJ-324M のピン機能（TS/TRS 導通試験）、across 方向の符号、穴寸法（Q3）、軸高さ（Q1）、PCM13SMTR の本体センタリング、在庫（Q10）。
 
+## 基板（配置・配線）
+
+- **外形と座標**: R2 の外形 16.2×62.9 mm、board_x = 組立 Z − 0.2、board_y = 組立 Y − 48.5。F 面が部品面、B 面ははんだ面で 0.6 mm の低背領域（R0603 とテストパッドだけ）。
+- **層構成**: 4 層 1.6 mm。In1.Cu は GND のベタ、F・In2・B にも GND の塗りつぶし。信号層は F・In2・B。
+- **配置**: `scripts/a7_board.py place` が R2 の `placement-envelopes.json` のキープアウトに対して配置を検査し、`controller/placement.json` に書きます。J1/J2/J3/J5/SW1 は R2 が決めた位置に固定（J3 は MP パッドの基板端クリアランスのため x 12.6）。
+- **配線**: `scripts/a7_board.py build` がリポジトリ外の空ディレクトリに未配線の基板とパッド形状を作り、`scripts/a7_route.py`（0.1 mm 格子の negotiated-congestion ルーター、seed 0）が配線案を作り、`a7_board.py apply` が配線・ビア・GND の塗りつぶしを加えて充填します。結果を確認してから権威基板にコピーしました。配線案は `engineering/a7/verification/routing/route_proposal_seed0.json` に記録し、現在の配置から同じ結果が再現します。通常の再生成は権威基板を書きません。
+- **設計ルール差分**: ビアを 0.6/0.3 mm から 0.5/0.2 mm に変更（`min_via_diameter`、`min_through_hole_diameter`、ネットクラスのビア）。U1 周辺の配線を通すために必要でした。JLCPCB の公開能力（多層 0.15/0.25 mm 以上、推奨最小穴 0.2 mm）に基づき、`native_gate.json` の `design_rule_delta` に理由と証拠（`engineering/a7/verification/fab/jlcpcb_capabilities.json`、URL・取得ハッシュ・該当行）を記録しています。アニュラーリング 0.15 mm、配線幅・クリアランス・層数は A5 のままです。
+- **ゲート結果**（ピン留め KiCad 10.0.8、新規実行）: ERC 0、パリティ 0、DRC 0、未接続 0、ゾーン再充填が一致、再生成で基板が変わらない、配置エクスポート `controller/board_placement.json` が最新。負の対照（配線切断・誤接続・充填ずれ・タイムアウト・A5 期待失敗・合成対照）はすべて検出。
+
 ## 残っている作業
 
-1. R2（#17）の外形と部品エンベロープ（`engineering/a7/mechanical`）に基づく配置・配線、配置のエクスポート。権威ある基板と完全なゲートを同時に投入します。
-2. 物理ゲート: PJ-324M のピン導通、PCM13SMTR の位置ごとの導通とランド適合、軸高さの実測。
+1. 配線済み基板の独立したレイアウト・電気レビュー（PR #30 はそれまでドラフト）。
+2. 物理ゲート: PJ-324M のピン導通・穴寸法・軸高さの実測、PCM13SMTR の位置ごとの導通とランド適合、在庫（Q10）。

@@ -11,7 +11,7 @@
   },
   "PJ324M": {
    "body_outline": "MIRROR: 11.5 wide, axis 5.4 from the pin-4/5 edge and 6.1 from the pin-2/3 edge, 14.2 deep, barrel 3.5 projecting, 6.3 overall height; the across sign (view direction of the drawing) is UNVERIFIED",
-   "holes": "ASSUMED: oval plated slots 1.6 x 0.8 mm drill, 2.3 x 1.5 mm pads, oriented as drawn (1 and 4 across the axis, 2, 3 and 5 along it), about 0.2 mm per side around a 1.2 x 0.40 mm blade; the drawing gives no hole/slot size (open question Q3)",
+   "holes": "ASSUMED: oval plated slots 1.6 x 0.8 mm drill, 2.3 x 1.5 mm pads (pin 1: 2.3 x 1.3, 0.25 mm annular ring along the axis, for board-edge clearance at the R2 front-edge position), oriented as drawn (1 and 4 across the axis, 2, 3 and 5 along it), about 0.2 mm per side around a 1.2 x 0.40 mm blade; the drawing gives no hole/slot size (open question Q3)",
    "part": "SOFNG PJ-324M, LCSC C22355739",
    "pin_functions": "INFERRED (R1 pinmap-a7-pj-324m): 1 sleeve, 2 ring, 3 ring normal, 4 tip, 5 tip normal; continuity test of incoming parts still required",
    "terminal_positions": "MIRROR: SOFNG drawing CIRCUIT BOARD SIZE via LCSC (R1 fact-a7-pj-324m-footprint-positions); across sign follows the drawing view and is UNVERIFIED against the component side"
@@ -95,6 +95,12 @@
     2.3,
     1.5
    ],
+   "pad_overrides": {
+    "1": [
+     2.3,
+     1.3
+    ]
+   },
    "pins": {
     "1": [
      0.0,

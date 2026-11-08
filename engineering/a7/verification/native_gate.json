@@ -2,9 +2,8 @@
  "schema": 1,
  "profile": "a7-controller",
  "kind": "revision",
- "what": "A7 revision gate. Enforced on the authoritative A7 controller board once it exists (R4, #19). Until then candidate is null and the gate stops with NO_CANDIDATE; it can never report a pass without a board.",
- "candidate": null,
- "candidate_note": "No authoritative A7 board yet. The board and this profile's designs/controls land together in the R4 routing PR; an unrouted initial board stays on a draft branch with this gate failing.",
+ "what": "A7 revision gate on the authoritative A7 controller board (R4, #19): fresh ERC, netlist, schematic parity, DRC (0 violations, 0 unconnected), zone refill, behavioral interface and authorized-delta checks, controls on the candidate's own copper, and regeneration preservation.",
+ "candidate": "a7_controller",
  "image": "kicad/kicad:10.0.8@sha256:3f4a01786dfbe803a65f345c3342b765db9add913f5e9448f8356793714ddc34",
  "kicad_version": "10.0.8",
  "lock": "engineering/a7/verification/native_gate.lock.json",
@@ -43,19 +42,70 @@
   ],
   "ignored_checks_note": "KiCad 10.0.8 default ignore set. A7-specific residuals or dispositions are added only with fresh justification; nothing is inherited from A6 (e.g. its H1/J3 courtyard residual)."
  },
- "designs": {},
- "controls_required_when_candidate_lands": [
-  "expected_failure: immutable A5 controller (2 courtyard overlaps, 130 unconnected)",
-  "timeout control on the candidate",
-  "route_break, wrong_connection and fill_shift mutations on the candidate's routed copper",
-  "synthetic evaluator controls on the candidate record"
- ],
+ "designs": {
+  "a7_controller": {
+   "role": "authoritative A7 controller board (candidate)",
+   "dir": "engineering/a7/electronics/controller",
+   "schematic": "controller.kicad_sch",
+   "board": "controller.kicad_pcb",
+   "erc_violations_max": 0,
+   "board_only": [],
+   "refill_check": true,
+   "parity_dispositions": {},
+   "parity_counts": {},
+   "drc_residuals": []
+  },
+  "a5_led_leaf": {
+   "role": "immutable A5 routed LED leaf (interface partner of the controller; PET leaf is R3), freshly checked in place",
+   "dir": "engineering/a5/electronics/native/led_leaf",
+   "schematic": "led_leaf.kicad_sch",
+   "board": "led_leaf.kicad_pcb",
+   "erc_violations_max": 0,
+   "board_only": [],
+   "parity_dispositions": {
+    "net_prefix_only": true,
+    "no_connect_unnamed": true,
+    "missing_fields": [
+     "MPN"
+    ]
+   },
+   "parity_counts": {
+    "net_prefix_only": 31,
+    "no_connect_unnamed": 1,
+    "missing_field": 10
+   },
+   "drc_residuals": []
+  },
+  "a5_power_adapter": {
+   "role": "immutable A5 routed power adapter (interface partner), freshly checked in place",
+   "dir": "engineering/a5/electronics/native/power_adapter",
+   "schematic": "power_adapter.kicad_sch",
+   "board": "power_adapter.kicad_pcb",
+   "erc_violations_max": 0,
+   "board_only": [],
+   "parity_dispositions": {
+    "net_prefix_only": true,
+    "missing_fields": [
+     "MPN"
+    ],
+    "extra_footprints": [
+     "H1"
+    ]
+   },
+   "parity_counts": {
+    "net_prefix_only": 13,
+    "missing_field": 2,
+    "extra_footprint": 1
+   },
+   "drc_residuals": []
+  }
+ },
  "interface": {
   "roles": "engineering/a7/verification/interface_roles/a7_controller.json",
   "netlists": {
    "controller": "a7_controller",
-   "led_leaf": "TBD (A5 FR-4 leaf reference or PET leaf)",
-   "power_adapter": "TBD"
+   "led_leaf": "a5_led_leaf",
+   "power_adapter": "a5_power_adapter"
   },
   "min_checks": 40
  },
@@ -66,14 +116,15 @@
  "regeneration": {
   "check_command": [
    "{python}",
-   "scripts/a7_electronics.py",
-   "generate",
-   "--check"
+   "scripts/a7_board.py",
+   "regen-check",
+   "--raw",
+   "{raw}"
   ],
   "protected": [
    "engineering/a7/electronics/controller/controller.kicad_pcb"
   ],
-  "note": "Normal regeneration of the derived A7 schematic and A7 footprints (scripts/a7_electronics.py) must leave the protected board byte-identical; placement export uses scripts/native_gate/authority.py export-placement."
+  "note": "Normal regeneration of the derived A7 schematic, footprints and seed placement must leave the protected board byte-identical; the placement export is compared (--check) against fresh native facts of the board."
  },
  "evidence": {
   "allowed_names": [
@@ -87,5 +138,96 @@
    "interface_check.json",
    "delta_check.json"
   ]
+ },
+ "design_rule_delta": {
+  "what": "Authorized A7 changes to the A5 controller design rules. Every other A5 rule (clearance 0.15, edge 0.2, hole clearance 0.2, track 0.15, via annular 0.15) is unchanged. The project file is derived (scripts/a7_electronics.py A7_STYLE rule_delta) and a test proves it equals the A5 rules plus exactly this delta.",
+  "rules": {
+   "min_via_diameter": {
+    "from": 0.6,
+    "to": 0.5
+   },
+   "min_through_hole_diameter": {
+    "from": 0.3,
+    "to": 0.2
+   }
+  },
+  "netclass": {
+   "via_diameter": {
+    "from": 0.6,
+    "to": 0.5
+   },
+   "via_drill": {
+    "from": 0.3,
+    "to": 0.2
+   }
+  },
+  "reason": "MCU (QFN28, 0.5 mm pitch) and U5 (VSSOP-8) fan-out on the 16.2 mm controller: with 0.6/0.3 vias the routed candidate could not be completed (rip-up router left 1-7 nets blocked around U1/U5, PR #30). Approved by the coordinator 2026-11-08 under conditions: fabricator capability evidence, recorded delta, no trace/clearance relaxation, no layer change.",
+  "evidence": "engineering/a7/verification/fab/jlcpcb_capabilities.json",
+  "issue": "#19"
+ },
+ "footprint_dirs": [
+  "engineering/a7/electronics/footprints/LightBlockA7.pretty"
+ ],
+ "parity_disposition_note": "A5 leaf/adapter boards name nets without the schematic's '/' sheet prefix, leave the no-connect D4.1 unnamed, omit the MPN field and (adapter) carry hole H1 without a symbol. Naming/metadata classes only; the independent pad-by-pad parity still runs. Carried from PR #14 for the A5 leaf and adapter only. The A7 controller has no dispositions: its board takes net names and fields from the A7 schematic netlist, so any parity issue fails.",
+ "expected_failure": {
+  "a5_controller": {
+   "role": "immutable A5 controller (unrouted placement draft): must fail in exactly its recorded way",
+   "dir": "engineering/a5/electronics/native/controller",
+   "schematic": "controller.kicad_sch",
+   "board": "controller.kicad_pcb",
+   "violations": [
+    {
+     "type": "courtyards_overlap",
+     "refs": [
+      "C7",
+      "J3"
+     ]
+    },
+    {
+     "type": "courtyards_overlap",
+     "refs": [
+      "H1",
+      "J3"
+     ]
+    }
+   ],
+   "unconnected": 130
+  }
+ },
+ "controls": {
+  "timeout": {
+   "design": "a7_controller",
+   "deadline_s": 0.01
+  },
+  "mutations": {
+   "control_route_break": {
+    "design": "a7_controller",
+    "kind": "route_break",
+    "must_report": [
+     "unconnected"
+    ]
+   },
+   "control_wrong_connection": {
+    "design": "a7_controller",
+    "kind": "wrong_connection",
+    "spec": {
+     "pad": "U1.11",
+     "to_net_of": "U1.10"
+    },
+    "must_report": [
+     "U1.11"
+    ]
+   },
+   "control_fill_shift": {
+    "design": "a7_controller",
+    "kind": "fill_shift",
+    "refill_check": true,
+    "must_report": [
+     "committed zone fills are stale"
+    ],
+    "purpose": "one committed fill moved 0.05 mm with unchanged area and vertex count; the canonical polygon fingerprint must still differ from a fresh refill"
+   }
+  },
+  "synthetic_design": "a7_controller"
  }
 }
