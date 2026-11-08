@@ -1,0 +1,248 @@
+{
+  "schema_version": 1,
+  "title": "A7 R2 mechanical layout inputs (project choices only)",
+  "units": "mm",
+  "datum": "Same as engineering/a7/study/parameters.json: X across the panel (0 = left panel edge), Y down the panel (0 = top edge), Z into the rack with the PMMA rear surface at Z=0. The controller PCB lies in a Y-Z plane; jack bodies and SMD parts sit on its +X (component) face; THT terminals pass to its -X (solder) face.",
+  "authority": "Jack, nut, panel, PCB-thickness, trim and tolerance inputs come only from engineering/a7/study/parameters.json (R1). Switch dimensions come only from engineering/a7/evidence/component-a7-pcm13smtr/facts.json (R1). A5 optical, adapter, leaf, rail and cable facts come from engineering/a5 (read-only). This file holds R2's own choices; every value carries a confidence label from parameters.json.",
+  "status": "Provisional digital study. Not a fit approval, not a part approval, not a manufacturing release.",
+  "candidate_selection": {
+    "offset_sweep": {
+      "start": 0.0,
+      "stop": 1.2,
+      "step": 0.05,
+      "confidence": "PROJECT-CHOICE",
+      "note": "R1 evaluated offsets 0 / 0.3 / 0.6 / 0.9; R2 sweeps the same R1 calculation at finer steps"
+    },
+    "rule_2hp": "Among 2HP offsets x PCB thicknesses with trimmed leads, keep only rows whose nominal margins are all >= 0 and whose nominal nut edge margin meets the R1 preferred 0.3 mm; pick the row with the largest worst-corner minimum hard margin, then the largest nominal minimum margin, then the thicker PCB.",
+    "rule_3hp": "3HP centred with the thickest PCB option that is FEASIBLE ON PAPER with untrimmed leads (no factory trim dependency).",
+    "confidence": "PROJECT-CHOICE"
+  },
+  "axial_option": {
+    "selected": "rear-pocket",
+    "alternate": "plain",
+    "pocket_clearance_around_body": 0.2,
+    "confidence": "PROJECT-CHOICE",
+    "reason": "Only R1 axial option that meets the 1.0 mm worst-corner engagement criterion; the rectangular pocket also keys the jack body against nut torque so the solder joints are not the anti-rotation path. Depends on R1 Q8 (pocket depth tolerance, appearance, strength) and Q9 (clamp load)."
+  },
+  "nut": {
+    "selected": "same-sky-3.5mm-nut-e",
+    "confidence": "PROJECT-CHOICE",
+    "note": "Dimension reference only (R1); fit on the SOFNG barrel is UNVERIFIED (R1 Q4)."
+  },
+  "jacks": {
+    "functions": [
+      "CV IN",
+      "CV THRU"
+    ],
+    "pitch": {
+      "minimum": 14.0,
+      "round_up_to": 0.5,
+      "confidence": "PROJECT-CHOICE",
+      "source": "A5 jack_y pitch 14.0 is the floor; the pitch grows until each label fits between the jack bodies and pockets without overlapping them"
+    },
+    "near_edge_toward": "+Y",
+    "near_edge_note": "the 5.4 mm axis-to-edge side (pin 2 side) faces down, toward the setting switch; both jacks share one orientation so one footprint serves both",
+    "y_round_down_to": 0.5,
+    "body_to_switch_gap": {
+      "nominal": 0.5,
+      "confidence": "PROJECT-CHOICE"
+    },
+    "label_cap_height": {
+      "nominal": 1.8,
+      "confidence": "SOURCED",
+      "source": "A5 front_panel labels IN/OUT cap height 1.8"
+    },
+    "labels": [
+      "IN",
+      "THRU"
+    ],
+    "label_gap_to_body": {
+      "nominal": 0.3,
+      "confidence": "PROJECT-CHOICE",
+      "note": "clear label strokes must not sit in front of a jack body or rear pocket: the body is opaque and the pocket floor is not part of the frosted field"
+    }
+  },
+  "controller": {
+    "y_top": {
+      "nominal": 48.5,
+      "confidence": "SOURCED",
+      "source": "A5 mechanical controller.y[0]; clears the A5 adapter PicoBlade mated envelope (Y <= 47.85)"
+    },
+    "y_bottom_from_rail_body": true,
+    "front_gap_to_pmma": {
+      "nominal": 0.2,
+      "confidence": "PROJECT-CHOICE"
+    },
+    "terminal_to_rear_edge": {
+      "nominal": 1.5,
+      "confidence": "ASSUMED",
+      "note": "pad radius plus copper-to-edge allowance behind the rearmost jack terminal; the PJ-324M hole size is not sourced (R1 Q3)"
+    },
+    "rear_gap_to_optical_volume": {
+      "nominal": 1.0,
+      "confidence": "PROJECT-CHOICE"
+    },
+    "component_reserve_height_from_a5": true,
+    "component_reserve_margin": {
+      "nominal": 0.3,
+      "confidence": "PROJECT-CHOICE"
+    },
+    "solder_side_rule": "Solder (-X) face carries THT terminals and fillets only; no SMD parts, because the 2HP lead-side margin is the binding dimension",
+    "power_header": {
+      "part": "Molex 530470310 vertical PicoBlade (A5 J5)",
+      "y": 76.0,
+      "z_centre": 9.25,
+      "confidence": "PROJECT-CHOICE",
+      "note": "between the spine slot and the upper jack body; wires leave the mated plug along +X"
+    },
+    "led_header": {
+      "part": "JST SM04B-SRSS-TB side-entry SH4 (A5 J3)",
+      "opening": "+Y",
+      "y": 60.0,
+      "z_centre": 13.4,
+      "confidence": "PROJECT-CHOICE",
+      "note": "row along Z near the rear edge; the cable leaves along +Y and folds back once in the gap in front of the optical volume, so the 50 mm finished length is used without a free loop"
+    }
+  },
+  "setting_switch": {
+    "part": "C&K PCM13SMTR (R1 selection; JLC stock 0, R1 Q10)",
+    "placement": "controller component face, bottom PCB edge, actuator projecting toward +Y and sliding along Z",
+    "actuator_tip_y": "controller y_bottom",
+    "z_centre": {
+      "nominal": 7.0,
+      "confidence": "PROJECT-CHOICE"
+    },
+    "access": "Setup control: reached from below (+Y) with the module out of the rack; no front-panel access",
+    "tool": {
+      "description": "fingernail or 1.0 mm plastic probe",
+      "probe_diameter": 1.0,
+      "confidence": "PROJECT-CHOICE"
+    },
+    "label": "ON / PGM / CV on the controller silkscreen next to the actuator (R4); position-to-mode order follows the R1 pin table, not the physical direction",
+    "actuation_force": "not sourced"
+  },
+  "supports": {
+    "front_screw_y": {
+      "values": [
+        20.5,
+        60.8
+      ],
+      "confidence": "SOURCED",
+      "source": "A5 front_panel carrier.front_screws_y (front M2 holes kept; the A5 Y65 controller hole is dropped)"
+    },
+    "m2": {
+      "clearance_hole": 2.2,
+      "washer_od": 4.0,
+      "washer_t": 0.3,
+      "head_d": 3.8,
+      "head_h": 1.2,
+      "nut_af": 4.0,
+      "nut_t": 1.6,
+      "confidence": "SOURCED",
+      "source": "A5 front_panel front_washers.m2 and A5 mechanical hardware envelopes"
+    },
+    "spine_rib_width": {
+      "nominal": 3.0,
+      "confidence": "PROJECT-CHOICE"
+    },
+    "spine_rib_height": {
+      "nominal": 1.6,
+      "confidence": "PROJECT-CHOICE"
+    },
+    "controller_slot_y": {
+      "values": [
+        50.0,
+        72.0
+      ],
+      "confidence": "PROJECT-CHOICE"
+    },
+    "controller_slot_height": {
+      "nominal": 4.0,
+      "confidence": "PROJECT-CHOICE"
+    },
+    "slot_clearance": {
+      "nominal": 0.05,
+      "confidence": "PROJECT-CHOICE"
+    },
+    "adapter_post_radius": {
+      "nominal": 2.5,
+      "confidence": "SOURCED",
+      "source": "A5 build_mechanical front cradle post r2.5 at Y20.5"
+    },
+    "bottom_fork_y": {
+      "values": [
+        104.0,
+        107.0
+      ],
+      "confidence": "PROJECT-CHOICE",
+      "note": "integral tongue of the bottom optical cap straddling the controller rear edge; locates the optical stack, carries no jack load"
+    },
+    "fork_wall": {
+      "nominal": 1.2,
+      "confidence": "SOURCED",
+      "source": "A5 minimum_general_structural_web"
+    },
+    "fork_engagement": {
+      "nominal": 1.8,
+      "confidence": "PROJECT-CHOICE"
+    },
+    "printed_material": "PETG (A5 nominal); not sliced, not printed"
+  },
+  "cables": {
+    "sh_finished_length": {
+      "nominal": 50.0,
+      "confidence": "SOURCED",
+      "source": "A5 harness: ~50 mm SH4 1:1 assemblies (engineering/a5/integration/harness_contract_A5.md)"
+    },
+    "power_finished_free_span": {
+      "nominal": 50.0,
+      "tol": 6.0,
+      "confidence": "SOURCED",
+      "source": "A5 mechanical README: Molex 151340300 50 +/- 6 mm between wire-exit shoulders"
+    },
+    "wire_radius": {
+      "nominal": 0.4,
+      "confidence": "SOURCED",
+      "source": "A5 mechanical cable model 0.8 mm design reserve"
+    },
+    "status": "Route scenarios only; manufacturer bend radius, insulation diameter and label storage are not qualified (#8).",
+    "sh_bundle_radius": {
+      "nominal": 1.0,
+      "confidence": "ASSUMED",
+      "note": "four 0.8 mm design-reserve wires (A5) treated as one round bundle; real insulation diameter not sourced"
+    },
+    "power_bundle_radius": {
+      "nominal": 0.9,
+      "confidence": "ASSUMED",
+      "note": "three 0.8 mm design-reserve wires as one round bundle"
+    },
+    "preferred_bend_radius": {
+      "nominal": 2.0,
+      "confidence": "PROJECT-CHOICE",
+      "note": "design target only; no manufacturer bend radius is retained"
+    },
+    "led_route": {
+      "descent_y": 49.05,
+      "gap_run_z": 17.9,
+      "return_z": 13.4,
+      "confidence": "PROJECT-CHOICE",
+      "note": "descent just below the A5 adapter PCB (Y<=48) and above leaf LED D2 (Y>=50.08); run between the controller rear edge and the leaf front"
+    },
+    "power_route": {
+      "layers_z": [
+        5.0,
+        9.0,
+        13.0
+      ],
+      "lane_entry_y": 50.0,
+      "fold_start_y": 52.0,
+      "fold_end_y": 72.0,
+      "confidence": "PROJECT-CHOICE",
+      "note": "drop in front of the adapter, lane above the controller component reserve, one S-fold (layers Z 5/9/13, above the spine block Z<=4); the fold span is solved for the finished length"
+    }
+  },
+  "optical": {
+    "retain_a5_stack": true,
+    "note": "Leaves, bond line, caps, L-section diffusers and M1.6 hardware follow A5 geometry; PET FPC leaves are not modelled (R1 pet-fpc.md, Q11); the FR-4 leaf is the reference/fallback."
+  }
+}
