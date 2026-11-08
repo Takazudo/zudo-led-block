@@ -1,40 +1,61 @@
 ---
 title: "次の作業"
-description: "A5 から続ける作業の順序、未解決の問い、完了条件。"
-sidebar_position: 3
+description: "A7 構造変更で次にやること、A5 から引き継ぐ作業、未解決の問い、完了条件。"
+sidebar_position: 4
 ---
 
-このページは作業を続けるための入口です。出典は `engineering/a5/continue-here.md` と `integration/a5_status.json` です。
+このページは作業を続けるための入口です。A7 の出典は `engineering/a7/docs/continuation/continue-here.md`、A5 の出典は `engineering/a5/continue-here.md` と `integration/a5_status.json` です。
 
 ## 現在のスナップショット
 
 | 項目 | 内容 |
 |---|---|
-| 日付 | 2026-11-06 JST (A5 チェックポイント)。リポジトリへの取込みは 2026-11-07 JST |
-| 現在の設計リビジョン | A5 (`engineering/a5/`、不変) |
-| 最新の成果 | A5 の設計と BOM を取込み済み。ドキュメントサイトと認証情報不要の CI を整備 |
-| 最も大きな未解決事項 | 制御基板の配線と、全長ケーブルを含む装着適合 |
-| 部品証跡カタログ | **30 型番を移行済み** (issue #9)。配置・ピンマップは A5 の履歴ネットリストからの投影で、未配線・実機未確認。CAD は無効 ([照合の詳細](/docs/verification/component-catalog/)) |
+| 日付 | 2026-11-08 (`main` の `5f6865b`)。A5 チェックポイントは 2026-11-06 JST |
+| 進めている版 | **A7** 構造変更 ([#15](https://github.com/Takazudo/zudo-led-block/issues/15))。設計検討の段階で、製造リリースではない |
+| `main` に入った A7 の成果 | R1 部品と寸法の検討 (PR #23)、R3 ネイティブ検証の基盤 (PR #22)、R4 回路図 (PR #24、レビュー済み、基板なし) |
+| 作業中 | R2 機構モデル (ドラフト PR #25、`main` には未反映) |
+| 作業中 (PR なし) | R4 配置・配線 (配置はローカルで完了、自動配線中、PR はまだ無い) |
+| 保留 | A6 (PR #14、ドラフトのまま。制御基板は未配線) |
+| 部品証跡カタログ | A5 の **30 型番を移行済み** (PR #21)。配置・ピンマップは A5 の履歴ネットリストからの投影で、未配線・実機未確認。A7 の 2 部品は `line-a7-` の行として別に登録 |
+| 最も大きな未解決事項 | A7 の機構モデルと基板が `main` に無いこと。物理的な評価が一つも無いこと |
 
-## 次にやること (順番)
+状態の詳細は [A7 の現状](/docs/project/a7/) を参照してください。
+
+## A7 で次にやること (順番)
 
 | 順 | 作業 | 完了条件 |
 |---:|---|---|
-| 1 | **制御基板の配置・配線を終える**。`mechanical/geometry.json` と `electronics/design/design_data.py` の座標を守り、降圧のホットループ、アナログ分離、グラウンド帰路、デカップリング、サービスアクセスを詰める | KiCad 10 のネイティブ DRC (未接続を含む) を全体除外なしで実行し、結果を評価 |
-| 2 | **電源ケーブルの実装を決める**。実物の IDC ソケットとストレインリリーフ、リボン厚、許容曲げ半径、余長を測る。まず 2HP、必要なら 3HP | 電線の交差・側板接触が解消したモデルと、実物の寸法記録 |
-| 3 | **機構の公差と造形を詰める**。ジャックの襟、トグルの回り止め、軸方向の座り、端子トリム、基板支持、工具アクセス。PETG のプロファイルでスライス | PETG での造形確認と保持力の確認 |
-| 4 | **完成回路で保護を再確認**。急な電源断、部分電源、逆給電、U7 の差動ストレス、LDO 逆電流、電源 OFF 時の CV、起動、負荷・短絡、MLCC の実効容量、インダクタ温度 | ベンチ測定の記録。必要なら 5 V 正常監視などの回路変更を判断 |
-| 5 | **統合試作のリリースを準備**。Gerber・ドリル・基板別 BOM / CPL・積層・組立注記・ハーネス図・書込み / 校正手順 | 最新の価格・在庫と注文ごとの見積り |
-| 6 | **実機を評価**。LED 波形、電源・電流、CV と THRU、故障と復帰、起動 / リセット、発熱、Kumiko への照射、PETG 温度、挿抜、側板交換、全ケーブル込みの 30 mm | 測定記録。その後に見た目の調整 |
+| 1 | **R2 機構モデル** (ドラフト PR #25)。ジャック本体の向きとスイッチ–ジャック間の隙間の修正を仕上げ、3HP を作業候補としてモデル化。2HP の 0.6 mm ずらしはパラメータとして残す。ねじのかかりのため PMMA 裏のポケット (Q8) を評価 | 2HP / 3HP の干渉と余裕を、推定値・仮定値を区別したまま記録 |
+| 2 | **R4 配置・配線**。R2 の垂直な基板外形に配置・配線し、同じ PR でその基板をゲートの `candidate` にする | KiCad 10.0.8 のネイティブゲートが、規則の緩和・除外・成功扱いのラッパーなしで通る |
+| 3 | **R5 の再同期**。R2 / R4 が入るたびに、このページ、[A7 の現状](/docs/project/a7/)、[判断と経緯](/docs/decisions/)、引継ぎ文書、BOM の差分を更新 | 文書が `main` に入った内容と一致する |
+| 4 | **外部の証跡** (`engineering/a7/open-questions.md` の Q0〜Q11。Q12 は決定済み)。メーカーの資料、軸高さ、ピン機能、穴径、ナット、端子カット、PMMA の公差、スイッチの在庫、JLC の PET の回答 | 事実を 1 件ずつ更新。下書きがあるのは JLC への PET の質問 (`engineering/a7/pet-fpc.md`) だけで、**未送信**。ほかの質問は未作成。供給元への送信は現在の作業範囲外 |
+| 5 | **物理評価** ([#8](https://github.com/Takazudo/zudo-led-block/issues/8)、[#10](https://github.com/Takazudo/zudo-led-block/issues/10)、[#13](https://github.com/Takazudo/zudo-led-block/issues/13)) | 測定記録。デジタルの作業では完了にできない |
+
+完了済み: **R4 回路図** (PR #24、2026-11-08)。J1・J2・SW1 だけを差し替え、ERC 0、パリティ 0、振る舞いアサーション 51 件合格。A7 ゲートは基板が入るまで `candidate: null` のままです。
+
+## A5 の作業がどう引き継がれるか
+
+A5 の「次の作業」は次のように扱います。A5 のファイルは変更しません。
+
+| A5 の作業 | A7 での扱い |
+|---|---|
+| 制御基板の配置・配線を終える | A5 / A6 の 8.8 mm 基板ではなく、A7 の垂直な制御基板 (R4) で行う |
+| 電源ケーブルの実装を決める | 引き続き必要 ([#8](https://github.com/Takazudo/zudo-led-block/issues/8))。A7 の機構モデルの上で再評価 |
+| 機構の公差と造形 | ジャックの襟とトグルの回り止めは A7 では不要になる見込み (R1 の検討)。軸方向の座り、端子カット、基板支持は R2 で扱う |
+| 完成回路で保護を再確認 | 引き続き必要 ([#10](https://github.com/Takazudo/zudo-led-block/issues/10))。電源・CV・起動の動作は A5 を維持 |
+| 統合試作のリリース準備 | A7 の回路・基板・機構がそろってから。製造リリースと発注は現在の作業範囲外 |
+| 実機の評価 | 引き続き必要 ([#10](https://github.com/Takazudo/zudo-led-block/issues/10)、[#13](https://github.com/Takazudo/zudo-led-block/issues/13)) |
 
 部品証跡カタログでは、メーカー一次資料が取得できなかった項目や、販売店がホストする写し (MANUFACTURER_MIRROR) しか無い項目が `OPEN` のまま残っています。資料が入手できたら `circuit/WORKFLOW.md` の Workflow C に従い、事実を 1 件ずつ更新します。一括での格上げはしません。
 
 ## GitHub で追跡している作業
 
-- 制御基板の配置・配線と KiCad 10 のネイティブ確認
-- ハーネス経路、IDC / ストレインリリーフの寸法、公差、PETG の適合
-- 部品証跡カタログの残りの `OPEN` 項目 (一次資料の再取得、CAD の有効化の判断)
-- 電源 / CV / FW / 光学 / 温度 / 負荷の統合評価と製造ファイルの準備
-- ホスティングの有効化 (ユーザーがリポジトリ設定を行った後に実ドメインで確認)
+- A7 構造変更: [#15](https://github.com/Takazudo/zudo-led-block/issues/15) (R2 [#17](https://github.com/Takazudo/zudo-led-block/issues/17)、R4 [#19](https://github.com/Takazudo/zudo-led-block/issues/19)、R5 [#20](https://github.com/Takazudo/zudo-led-block/issues/20) が未完了)
+- ハーネス経路、IDC / ストレインリリーフの寸法、公差、PETG の適合 ([#8](https://github.com/Takazudo/zudo-led-block/issues/8))
+- 部品証跡カタログの残りの `OPEN` 項目 ([#9](https://github.com/Takazudo/zudo-led-block/issues/9))
+- 電源 / CV / FW / 光学 / 温度 / 負荷の統合評価と製造ファイルの準備 ([#10](https://github.com/Takazudo/zudo-led-block/issues/10))
+- WS2812B の T1L タイミング ([#13](https://github.com/Takazudo/zudo-led-block/issues/13))
+- エージェント向けページを公開するかの判断 ([#12](https://github.com/Takazudo/zudo-led-block/issues/12))
+- ホスティングの有効化 ([#11](https://github.com/Takazudo/zudo-led-block/issues/11)。ユーザーがリポジトリ設定を行った後に実ドメインで確認)
 
 [GitHub の Issue 一覧](https://github.com/Takazudo/zudo-led-block/issues) を参照してください。
