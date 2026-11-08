@@ -15,6 +15,7 @@ Everything here is a paper calculation. INFERRED and ASSUMED inputs stay labelle
 """
 import argparse
 import copy
+import hashlib
 import importlib.util
 import json
 import math
@@ -29,6 +30,11 @@ INPUTS = MECH / "design-inputs.json"
 LAYOUT = MECH / "layout.json"
 REPORT = MECH / "layout.md"
 ENVELOPES = MECH / "placement-envelopes.json"
+R4_PLACEMENT = MECH / "inputs" / "r4-placement-prerouting.json"
+R4_CHECK = MECH / "r4-placement-check.json"
+# Vendored from R4 (#19) draft PR #30, branch claude/project-thread-rhjln2, head 0ce69b0; the board is not routed yet.
+R4_PLACEMENT_SOURCE = {"pr": 30, "branch": "claude/project-thread-rhjln2", "head": "0ce69b016db3dbec0cd3a92a96862146d8ce99c6",
+                       "path": "engineering/a7/electronics/controller/placement.json", "status": "PRE-ROUTING"}
 SKILLS = REPO / ".claude" / "skills"
 SWITCH_FACTS = SKILLS / "component-a7-pcm13smtr" / "facts.json"
 JACK_FACTS = SKILLS / "component-a7-pj-324m" / "facts.json"
@@ -738,6 +744,48 @@ def envelopes(L):
     }
 
 
+def r4_placement_check(E):
+    """Compare R4's pre-routing placement with these envelopes: fixed parts by position, every other part by its origin only."""
+    P = json.loads(R4_PLACEMENT.read_text())
+    pl = P["placements"]
+    face = {"F": "component face (KiCad F)", "B": "solder face (KiCad B)"}
+    hd = E["headers"]
+    fixed = []
+
+    def row(ref, what, r4, r2, tol=0.011):
+        fixed.append({"ref": ref, "what": what, "r4": r4, "r2": r2, "delta": r(r4 - r2), "ok": abs(r4 - r2) <= tol})
+
+    for ref, jk in (("J1", E["jacks"][0]), ("J2", E["jacks"][1])):
+        row(ref, "jack axis board_y", pl[ref]["at"][1], jk["axis_board_y"])
+    row("J3", "SH4 housing centre board_x", pl["J3"]["at"][0], r(sum(hd["led_header"]["board_x"]) / 2))
+    ph = hd["power_header"]
+    # KiCad PicoBlade 53047-0310 footprint origin is pin 1; the 3-pin housing centres on pin 2, one 1.25 mm pitch along the row
+    row("J5", "PicoBlade housing centre board_x", r(pl["J5"]["at"][0] + 1.25), r(sum(ph["board_x"]) / 2))
+    row("J5", "PicoBlade pin row board_y", pl["J5"]["at"][1], r(ph["board_y"][0] + 2.05))
+    row("SW1", "switch peg centre board_x", pl["SW1"]["at"][0], r(sum(p["board_x"] for p in E["setting_switch"]["pegs"]) / 2))
+    row("SW1", "switch peg line board_y", pl["SW1"]["at"][1], E["setting_switch"]["pegs"][0]["board_y"])
+    own = {"J1": ("jack-in", "jack-in-leads"), "J2": ("jack-thru", "jack-thru-leads"), "J3": ("sh4-header", "led-cable-lane"),
+           "J5": ("picoblade-header", "picoblade-tails"), "SW1": ("setting-switch", "switch-access")}
+    origin_hits = []
+    for ref, p in sorted(pl.items()):
+        x, y = p["at"]
+        for k in E["keepouts"]:
+            if face[p["side"]] in k["faces"] and k["id"] not in own.get(ref, ()) and k["board_x"][0] <= x <= k["board_x"][1] and k["board_y"][0] <= y <= k["board_y"][1]:
+                origin_hits.append({"ref": ref, "side": p["side"], "at": p["at"], "keepout": k["id"]})
+    zone = E["solder_face_low_profile_zone"]
+    b_side = sorted(ref for ref, p in pl.items() if p["side"] == "B")
+    return {
+        "status": "PRE-ROUTING: R4's agreed placement before routing; re-run on the routed export (authority.py export-placement, with the board SHA-256)",
+        "source": dict(R4_PLACEMENT_SOURCE, sha256=hashlib.sha256(R4_PLACEMENT.read_bytes()).hexdigest()),
+        "frame_matches": P["frame"].startswith("R2 board frame"), "parts": len(pl),
+        "fixed_parts": fixed, "fixed_parts_ok": all(f["ok"] for f in fixed),
+        "origins_inside_foreign_keepouts": origin_hits,
+        "solder_face_parts": b_side, "solder_face_parts_are_resistors_or_test_pads": all(ref.startswith(("R", "TP")) for ref in b_side),
+        "solder_face_max_height": zone["max_height"],
+        "not_checked": "footprint courtyards and part heights (placement gives origin, rotation and side only); copper and routing (#19)",
+    }
+
+
 def fmt(v):
     return f"{v:+.2f}" if isinstance(v, (int, float)) and not isinstance(v, bool) else str(v)
 
@@ -799,9 +847,11 @@ def main():
     L = build()
     text = json.dumps(L, indent=2, ensure_ascii=False) + "\n"
     rep = report(L)
-    env = json.dumps(envelopes(L), indent=2, ensure_ascii=False) + "\n"
+    E = envelopes(L)
+    env = json.dumps(E, indent=2, ensure_ascii=False) + "\n"
+    chk = json.dumps(r4_placement_check(E), indent=2, ensure_ascii=False) + "\n"
     if a.check:
-        stale = [str(x.relative_to(REPO)) for x, want in ((LAYOUT, text), (REPORT, rep), (ENVELOPES, env)) if not x.exists() or x.read_text() != want]
+        stale = [str(x.relative_to(REPO)) for x, want in ((LAYOUT, text), (REPORT, rep), (ENVELOPES, env), (R4_CHECK, chk)) if not x.exists() or x.read_text() != want]
         if stale:
             print("STALE: " + ", ".join(stale) + " (run python3 scripts/a7_mechanical_layout.py)")
             return 1
@@ -810,6 +860,7 @@ def main():
     LAYOUT.write_text(text)
     REPORT.write_text(rep)
     ENVELOPES.write_text(env)
+    R4_CHECK.write_text(chk)
     print("working:", L["decision"]["working_candidate"], L["decision"]["working_verdict"])
     print("open:", L["decision"]["open_candidate"], L["decision"]["open_verdict"])
     return 0

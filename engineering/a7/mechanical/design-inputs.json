@@ -110,9 +110,9 @@
     "power_header": {
       "part": "Molex 530470310 vertical PicoBlade (A5 J5)",
       "y": 76.0,
-      "z_centre": 8.6,
-      "confidence": "PROJECT-CHOICE",
-      "note": "between the spine slot and the upper jack body; wires leave the mated plug along +X. Moved from 9.25 so the SH4 harness fold (Z 12.8 at Y ~75) clears the housing (R4 J5 board_x 5.65-11.15)"
+      "z_centre": 8.69,
+      "confidence": "R4-PLACEMENT (pre-routing)",
+      "note": "between the spine slot and the upper jack body; wires leave the mated plug along +X. Moved from 9.25 so the SH4 harness fold (Z 12.8 at Y ~75) clears the housing; 8.69 is R4's pre-routing J5 body board_x 5.74-11.24 (MCU courtyard abuts it), see inputs/r4-placement-prerouting.json"
     },
     "led_header": {
       "part": "JST SM04B-SRSS-TB side-entry SH4 (A5 J3)",

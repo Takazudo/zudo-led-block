@@ -1,0 +1,108 @@
+{
+  "status": "PRE-ROUTING: R4's agreed placement before routing; re-run on the routed export (authority.py export-placement, with the board SHA-256)",
+  "source": {
+    "pr": 30,
+    "branch": "claude/project-thread-rhjln2",
+    "head": "0ce69b016db3dbec0cd3a92a96862146d8ce99c6",
+    "path": "engineering/a7/electronics/controller/placement.json",
+    "status": "PRE-ROUTING",
+    "sha256": "a6e9be1ca2f7c3ef805e4f99db292fcf887b5683927178cfdad65a9819314bd8"
+  },
+  "frame_matches": true,
+  "parts": 64,
+  "fixed_parts": [
+    {
+      "ref": "J1",
+      "what": "jack axis board_y",
+      "r4": 35.8,
+      "r2": 35.8,
+      "delta": 0.0,
+      "ok": true
+    },
+    {
+      "ref": "J2",
+      "what": "jack axis board_y",
+      "r4": 50.8,
+      "r2": 50.8,
+      "delta": 0.0,
+      "ok": true
+    },
+    {
+      "ref": "J3",
+      "what": "SH4 housing centre board_x",
+      "r4": 12.6,
+      "r2": 12.6,
+      "delta": 0.0,
+      "ok": true
+    },
+    {
+      "ref": "J5",
+      "what": "PicoBlade housing centre board_x",
+      "r4": 8.49,
+      "r2": 8.49,
+      "delta": 0.0,
+      "ok": true
+    },
+    {
+      "ref": "J5",
+      "what": "PicoBlade pin row board_y",
+      "r4": 27.5,
+      "r2": 27.5,
+      "delta": 0.0,
+      "ok": true
+    },
+    {
+      "ref": "SW1",
+      "what": "switch peg centre board_x",
+      "r4": 6.8,
+      "r2": 6.8,
+      "delta": 0.0,
+      "ok": true
+    },
+    {
+      "ref": "SW1",
+      "what": "switch peg line board_y",
+      "r4": 60.1,
+      "r2": 60.1,
+      "delta": 0.0,
+      "ok": true
+    }
+  ],
+  "fixed_parts_ok": true,
+  "origins_inside_foreign_keepouts": [],
+  "solder_face_parts": [
+    "R1",
+    "R10",
+    "R11",
+    "R12",
+    "R13",
+    "R14",
+    "R15",
+    "R16",
+    "R17",
+    "R18",
+    "R19",
+    "R2",
+    "R20",
+    "R21",
+    "R22",
+    "R23",
+    "R24",
+    "R25",
+    "R3",
+    "R4",
+    "R5",
+    "R6",
+    "R7",
+    "R8",
+    "R9",
+    "TP1",
+    "TP2",
+    "TP3",
+    "TP4",
+    "TP5"
+  ],
+  "solder_face_parts_are_resistors_or_test_pads": true,
+  "solder_face_max_height": 0.6,
+  "not_checked": "footprint courtyards and part heights (placement gives origin, rotation and side only); copper and routing (#19)"
+}
