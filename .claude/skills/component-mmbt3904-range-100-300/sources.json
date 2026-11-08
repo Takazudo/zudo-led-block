@@ -1,0 +1,62 @@
+{
+  "schema_version": 1,
+  "sources": [
+    {
+      "source_id": "src-mmbt3904-range-100-300-a5-jlcpcb-snapshot",
+      "record_id": "rec-mmbt3904-range-100-300",
+      "document_title": "JLCPCB public product listing C20526 (A5 retained product-props snapshot)",
+      "document_number": "C20526",
+      "revision": "A5 snapshot observed 2026-11-05T20:33:13.101022+00:00",
+      "document_date": "2026-11-05",
+      "authoritative_url": "https://jlcpcb.com/partdetail/21237-MMBT3904/C20526",
+      "alternate_authoritative_url": "https://github.com/Takazudo/zudo-led-block/blob/d41cbb7fc61dc954b4affaf19527aa69f07013b6/engineering/a5/ic_led_evidence/C20526.snapshot.json",
+      "retrieval_date": "2026-11-05",
+      "authority_class": "DISTRIBUTOR_IDENTITY",
+      "sha256": "2accf5866d5a69f40d9abc56c5922d414e1a20c41c265d062f2440d54c23d3b8",
+      "availability": "AVAILABLE",
+      "physical_pdf_page_index": 0,
+      "printed_page_label": "n/a (JSON snapshot of an HTML page)",
+      "locator": "engineering/a5/ic_led_evidence/C20526.snapshot.json, product table fields componentCode, componentModelEn, componentBrandEn, componentSpecificationEn",
+      "evidence_extract": "componentCode=C20526; componentModelEn=MMBT3904(RANGE:100-300); componentBrandEn=Jiangsu Changjing Electronics Technology Co., Ltd.; componentSpecificationEn=SOT-23. sha256 above is the retained A5 snapshot JSON file (the bytes inspected). The original page HTML digest recorded inside that snapshot is f8459b04e5d50cec34ff5fe47811a2d063b322f5b672a2e8f5b218824d695c72; those HTML bytes are not retained and were not re-verified. Distributor identity only: no electrical, mechanical or availability claim.",
+      "refresh_policy": "VOLATILE-HTML",
+      "refresh_note": "The listing URL serves live HTML whose bytes are not deterministic; the recorded hash is of the retained A5 snapshot JSON, so an online refresh cannot reproduce it.",
+      "identity_extract_sha256": "980dcdc2d9780bf60c015f185b2eab8d99d5f5ae5b23a71e9df60f6d6d135e57"
+    },
+    {
+      "source_id": "src-mmbt3904-range-100-300-a5-netlist-controller",
+      "record_id": "rec-mmbt3904-range-100-300",
+      "document_title": "Light Block A5 controller native netlist (KiCad 10.0.8 export, historical)",
+      "document_number": "engineering/a5/integration/native_schematic/controller/netlist.xml",
+      "revision": "A5",
+      "document_date": "2026-11-06",
+      "authoritative_url": "https://github.com/Takazudo/zudo-led-block/blob/d41cbb7fc61dc954b4affaf19527aa69f07013b6/engineering/a5/integration/native_schematic/controller/netlist.xml",
+      "alternate_authoritative_url": "",
+      "retrieval_date": "2026-11-06",
+      "authority_class": "PROJECT_GENERATOR",
+      "sha256": "fa2d267acc4081156649ee15e014fbaeae4303bc96374fe19f4bae7b3a72553f",
+      "availability": "AVAILABLE",
+      "physical_pdf_page_index": 0,
+      "printed_page_label": "n/a (XML netlist)",
+      "locator": "engineering/a5/integration/native_schematic/controller/netlist.xml, components section rows for Q1 and the matching nets section nodes",
+      "evidence_extract": "Q1: value=MMBT3904, footprint=LightBlock:SOT23, symbol=LightBlock:NPN, pin 1 B=/LED_BASE, pin 2 E=/GND, pin 3 C=/LED_EN_N. Historical A5 design state only; not fresh A6 state and not as-built verification."
+    },
+    {
+      "source_id": "src-mmbt3904-range-100-300-ds-p0",
+      "record_id": "rec-mmbt3904-range-100-300",
+      "document_title": "MMBT3904 SOT-23 Plastic-Encapsulate Transistors, TRANSISTOR (NPN)",
+      "document_number": "MMBT3904 SOT-23",
+      "revision": "Rev. - 2.0",
+      "document_date": "2012-03 (PDF creation metadata; no printed date)",
+      "authoritative_url": "https://www.jscj-elec.com/gallery/file/MMBT3904%20SOT-23V2.pdf",
+      "alternate_authoritative_url": "",
+      "retrieval_date": "2026-11-08",
+      "authority_class": "MANUFACTURER_PRIMARY",
+      "sha256": "573f0ec7b7c05ca0e1336f5bd4cad8c5560b84f50b036a12a969cafdbb6926ae",
+      "availability": "AVAILABLE",
+      "physical_pdf_page_index": 0,
+      "printed_page_label": "1",
+      "locator": "Page 1: title block, MAXIMUM RATINGS table, SOT-23 pin legend, ELECTRICAL CHARACTERISTICS table and CLASSIFICATION OF hFE(1) table",
+      "evidence_extract": "Title block: \"JIANGSU CHANGJING ELECTRONICS TECHNOLOGY CO., LTD\", \"SOT-23 Plastic-Encapsulate Transistors\", \"MMBT3904 TRANSISTOR (NPN)\", MARKING 1AM. Pin legend: 1. BASE 2. EMITTER 3. COLLECTOR. Maximum ratings (Ta=25C): VCBO 60 V; VCEO 40 V; VEBO 6 V; IC 200 mA; PC 200 mW; RthJA 625 C/W; TJ,Tstg -55 to +150 C. Electrical: hFE(1) 100-300 @ VCE=1V IC=10mA; VCE(sat) 0.3 V max @ IC=50mA IB=5mA; VBE(sat) 0.95 V max. hFE(1) classification 100-300: rank L 100-200, rank H 200-300. Footer: www.jscj-elec.com, \"Rev. - 2.0\". No ordering table. A5 recorded no sha256 for https://www.jscj-elec.com/gallery/file/MMBT3904%20SOT-23V2.pdf (engineering/a5/electronics/source_provenance.json id MMBT3904 lists the URL and retrieval refs only, 2026-11-05/06); bytes inspected now (2026-11-08): 573f0ec7b7c05ca0e1336f5bd4cad8c5560b84f50b036a12a969cafdbb6926ae, 4 pages, Content-Type application/pdf; identity with A5's bytes cannot be established."
+    }
+  ]
+}

@@ -1,0 +1,30 @@
+{
+  "schema_version": 1,
+  "routes": [
+    {
+      "route_id": "route-pmeg4010cej-115",
+      "record_id": "rec-pmeg4010cej-115",
+      "aliases": {
+        "mpn": [
+          "PMEG4010CEJ,115"
+        ],
+        "lcsc": [
+          "C50704"
+        ],
+        "manufacturer": [
+          "Nexperia"
+        ],
+        "function": [
+          "eurorack rail reverse-polarity schottky diode"
+        ]
+      },
+      "positive": [
+        "check PMEG4010CEJ,115 pinout",
+        "audit C50704"
+      ],
+      "negative": [
+        "check eurorack rail reverse-polarity schottky diode from an unnamed vendor"
+      ]
+    }
+  ]
+}

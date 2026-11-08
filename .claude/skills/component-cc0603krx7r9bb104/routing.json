@@ -1,0 +1,30 @@
+{
+  "schema_version": 1,
+  "routes": [
+    {
+      "route_id": "route-cc0603krx7r9bb104",
+      "record_id": "rec-cc0603krx7r9bb104",
+      "aliases": {
+        "mpn": [
+          "CC0603KRX7R9BB104"
+        ],
+        "lcsc": [
+          "C14663"
+        ],
+        "manufacturer": [
+          "YAGEO"
+        ],
+        "function": [
+          "100 nf 50 v x7r 0603 capacitor"
+        ]
+      },
+      "positive": [
+        "check CC0603KRX7R9BB104 pinout",
+        "audit C14663"
+      ],
+      "negative": [
+        "check 100 nf 50 v x7r 0603 capacitor from an unnamed vendor"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,108 @@
+{
+  "schema_version": 1,
+  "facts": [
+    {
+      "fact_id": "fact-stm32g031g8u6tr-manufacturer",
+      "record_id": "rec-stm32g031g8u6tr",
+      "source_id": "src-stm32g031g8u6tr-ds",
+      "class": "PROJECT_STATE",
+      "value": "STMicroelectronics",
+      "unit": "NONE",
+      "conditions": "manufacturer-primary datasheet DS12992 could not be acquired; distributor listing names STMicroelectronics (identity only)",
+      "locator": "src-stm32g031g8u6tr-ds: title block (not inspected, SOURCE UNAVAILABLE)",
+      "provenance": "UNVERIFIED",
+      "verdict": "UNSOURCED",
+      "depends_on": [],
+      "expression": ""
+    },
+    {
+      "fact_id": "fact-stm32g031g8u6tr-distributor-identity",
+      "record_id": "rec-stm32g031g8u6tr",
+      "source_id": "src-stm32g031g8u6tr-a5-jlcpcb-snapshot",
+      "class": "PROJECT_STATE",
+      "value": {
+        "lcsc": "C5270180",
+        "manufacturer": "STMicroelectronics",
+        "mpn": "STM32G031G8U6TR",
+        "variant": "UFQFPN-28(4x4)"
+      },
+      "unit": "NONE",
+      "conditions": "order-code identity only; not performance evidence",
+      "locator": "src-stm32g031g8u6tr-a5-jlcpcb-snapshot: product table rows code, model, brand, specification",
+      "provenance": "DISTRIBUTOR-IDENTITY",
+      "verdict": "CONFIRMED - distributor identity only",
+      "depends_on": [],
+      "expression": ""
+    },
+    {
+      "fact_id": "fact-stm32g031g8u6tr-a5-placements",
+      "record_id": "rec-stm32g031g8u6tr",
+      "source_id": "src-stm32g031g8u6tr-a5-netlist-controller",
+      "class": "PROJECT_STATE",
+      "value": "controller/U1 x1 (1 unique placements, 1 fitted pieces per module)",
+      "unit": "NONE",
+      "conditions": "historical A5 native netlists; declared by the manual inventory provider, not bound to a schematic; as-built placement unverified",
+      "locator": "src-stm32g031g8u6tr-a5-netlist-controller: components section rows U1",
+      "provenance": "PROJECT-CHOICE",
+      "verdict": "NEEDS BENCH",
+      "depends_on": [],
+      "expression": ""
+    },
+    {
+      "fact_id": "fact-stm32g031g8u6tr-pinout",
+      "record_id": "rec-stm32g031g8u6tr",
+      "source_id": "src-stm32g031g8u6tr-ds",
+      "class": "PROJECT_STATE",
+      "value": "manufacturer pin numbering and pin functions for package UFQFPN-28 (4x4)",
+      "unit": "NONE",
+      "conditions": "DS12992 UFQFPN28 pin table not inspected; the 28-pin project pin map (incl. pin 3 VDD/VDDA, pin 4 VSS/VSSA, pin 5 PF2/NRST, exposed-pad question) remains unchecked against the manufacturer",
+      "locator": "src-stm32g031g8u6tr-ds: pinout table rows for UFQFPN28 (not inspected, SOURCE UNAVAILABLE)",
+      "provenance": "UNVERIFIED",
+      "verdict": "UNSOURCED",
+      "depends_on": [],
+      "expression": ""
+    },
+    {
+      "fact_id": "fact-stm32g031g8u6tr-ratings",
+      "record_id": "rec-stm32g031g8u6tr",
+      "source_id": "src-stm32g031g8u6tr-ds",
+      "class": "ABSOLUTE_MAXIMUM",
+      "value": "manufacturer absolute-maximum and recommended operating limits (VDD, I/O injection, ADC input range)",
+      "unit": "NONE",
+      "conditions": "DS12992 absolute maximum ratings and general operating conditions not inspected; no value recorded",
+      "locator": "src-stm32g031g8u6tr-ds: absolute maximum ratings section tables (not inspected, SOURCE UNAVAILABLE)",
+      "provenance": "UNVERIFIED",
+      "verdict": "UNSOURCED",
+      "depends_on": [],
+      "expression": ""
+    },
+    {
+      "fact_id": "fact-stm32g031g8u6tr-cad-state",
+      "record_id": "rec-stm32g031g8u6tr",
+      "source_id": "src-stm32g031g8u6tr-a5-netlist-controller",
+      "class": "PROJECT_STATE",
+      "value": "A5 footprint LightBlock:QFN28 and symbol LightBlock:MCU are not configured as catalog CAD assets (cad.enabled=false); pin-asset check not performed",
+      "unit": "NONE",
+      "conditions": "catalog CAD disabled for this batch; no footprint, model or receipt reviewed",
+      "locator": "src-stm32g031g8u6tr-a5-netlist-controller: components section footprint field",
+      "provenance": "PROJECT-CHOICE",
+      "verdict": "UNSOURCED",
+      "depends_on": [],
+      "expression": ""
+    },
+    {
+      "fact_id": "fact-stm32g031g8u6tr-orderable",
+      "record_id": "rec-stm32g031g8u6tr",
+      "source_id": "src-stm32g031g8u6tr-ds",
+      "class": "PROJECT_STATE",
+      "value": "STM32G031G8U6TR in the DS12992 ordering information scheme",
+      "unit": "NONE",
+      "conditions": "not established: the ordering information section of DS12992 could not be acquired",
+      "locator": "src-stm32g031g8u6tr-ds: ordering information section (not inspected, SOURCE UNAVAILABLE)",
+      "provenance": "UNVERIFIED",
+      "verdict": "UNSOURCED",
+      "depends_on": [],
+      "expression": ""
+    }
+  ]
+}

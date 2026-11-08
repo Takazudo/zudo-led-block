@@ -1,0 +1,73 @@
+{
+  "schema_version": 1,
+  "coverage": [
+    {
+      "coverage_id": "cov-mmbt3904-range-100-300-identity",
+      "record_id": "rec-mmbt3904-range-100-300",
+      "domain": "identity",
+      "status": "OPEN",
+      "reason": "fact-mmbt3904-range-100-300-orderable remains UNSOURCED: the JSCJ datasheet confirms the manufacturer and the MMBT3904 hFE 100-300 classification but has no ordering table naming MMBT3904(RANGE:100-300)",
+      "fact_ids": [
+        "fact-mmbt3904-range-100-300-manufacturer",
+        "fact-mmbt3904-range-100-300-orderable",
+        "fact-mmbt3904-range-100-300-distributor-identity"
+      ],
+      "blocking_fact_ids": [
+        "fact-mmbt3904-range-100-300-orderable"
+      ]
+    },
+    {
+      "coverage_id": "cov-mmbt3904-range-100-300-pinout",
+      "record_id": "rec-mmbt3904-range-100-300",
+      "domain": "pinout",
+      "status": "COVERED",
+      "reason": "pin legend 1 BASE, 2 EMITTER, 3 COLLECTOR from the JSCJ datasheet matches the project pin map",
+      "fact_ids": [
+        "fact-mmbt3904-range-100-300-pinout"
+      ],
+      "blocking_fact_ids": []
+    },
+    {
+      "coverage_id": "cov-mmbt3904-range-100-300-ratings",
+      "record_id": "rec-mmbt3904-range-100-300",
+      "domain": "electrical-ratings",
+      "status": "COVERED",
+      "reason": "VCEO, VEBO, IC, hFE, VCE(sat) and temperature limits are read from the JSCJ MMBT3904 datasheet Rev. 2.0 page 1 tables",
+      "fact_ids": [
+        "fact-mmbt3904-range-100-300-ratings",
+        "fact-mmbt3904-range-100-300-collector-current",
+        "fact-mmbt3904-range-100-300-emitter-base-voltage",
+        "fact-mmbt3904-range-100-300-hfe",
+        "fact-mmbt3904-range-100-300-vce-sat",
+        "fact-mmbt3904-range-100-300-junction-temperature"
+      ],
+      "blocking_fact_ids": []
+    },
+    {
+      "coverage_id": "cov-mmbt3904-range-100-300-placement",
+      "record_id": "rec-mmbt3904-range-100-300",
+      "domain": "placement",
+      "status": "OPEN",
+      "reason": "fact-mmbt3904-range-100-300-a5-placements NEEDS BENCH: placements are declared from the historical A5 netlist only; the manual provider performs no schematic binding and no as-built check exists",
+      "fact_ids": [
+        "fact-mmbt3904-range-100-300-a5-placements"
+      ],
+      "blocking_fact_ids": [
+        "fact-mmbt3904-range-100-300-a5-placements"
+      ]
+    },
+    {
+      "coverage_id": "cov-mmbt3904-range-100-300-cad",
+      "record_id": "rec-mmbt3904-range-100-300",
+      "domain": "cad-assets",
+      "status": "OPEN",
+      "reason": "fact-mmbt3904-range-100-300-cad-state remains UNSOURCED: catalog CAD is disabled, so no symbol, footprint or model was reviewed or validated",
+      "fact_ids": [
+        "fact-mmbt3904-range-100-300-cad-state"
+      ],
+      "blocking_fact_ids": [
+        "fact-mmbt3904-range-100-300-cad-state"
+      ]
+    }
+  ]
+}

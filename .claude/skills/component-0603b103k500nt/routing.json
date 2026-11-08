@@ -1,0 +1,30 @@
+{
+  "schema_version": 1,
+  "routes": [
+    {
+      "route_id": "route-0603b103k500nt",
+      "record_id": "rec-fh-0603b103k500nt",
+      "aliases": {
+        "mpn": [
+          "0603B103K500NT"
+        ],
+        "lcsc": [
+          "C57112"
+        ],
+        "manufacturer": [
+          "FH (Guangdong Fenghua Advanced Tech)"
+        ],
+        "function": [
+          "10 nf 50 v x7r 0603 capacitor"
+        ]
+      },
+      "positive": [
+        "check 0603B103K500NT pinout",
+        "audit C57112"
+      ],
+      "negative": [
+        "check 10 nf 50 v x7r 0603 capacitor from an unnamed vendor"
+      ]
+    }
+  ]
+}

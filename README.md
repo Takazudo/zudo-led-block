@@ -7,7 +7,7 @@ Documentation (Japanese): https://zudo-led-block.zudolab.dev/ — **not live yet
 > [!IMPORTANT]
 > **A5 is not released for manufacture.** The controller PCB is placed but **unrouted** (130 unconnected items, courtyard overlaps J3-H1 and J3-C7). Harness routing and installed fit are unresolved, and no physical electrical, optical, thermal, print or load qualification has happened. Passing CI is not an electronics or manufacturing approval.
 
-**Status:** A5 design and BOM imported; component-evidence catalog migration pending. The complete 30-type / 81-piece BOM is published on the site's [BOM page](doc/src/content/docs/architecture/bom.mdx) (generated from the A5 ledger and native netlists). The framework's `/docs/components/` catalog stays empty until the evidence bundles are migrated without invented facts.
+**Status:** A5 design and BOM imported; all 30 fitted identities are migrated into the component-evidence catalog (`/docs/components/`), with explicit open gaps. The complete 30-type / 81-piece BOM is published on the site's [BOM page](doc/src/content/docs/architecture/bom.mdx) (generated from the A5 ledger and native netlists) and links each row to its catalog record. The reconciliation (30 identities / 71 placements / 81 pieces) is `provenance/a5-catalog/reconciliation.json`, built and checked by `scripts/a5_catalog.py`.
 
 ## Repository map
 

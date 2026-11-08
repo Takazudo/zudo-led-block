@@ -1,0 +1,62 @@
+{
+  "schema_version": 1,
+  "sources": [
+    {
+      "source_id": "src-spm4020t-4r7m-lr-lcsc-listing",
+      "record_id": "rec-spm4020t-4r7m-lr",
+      "document_title": "LCSC public product listing C694586",
+      "document_number": "C694586",
+      "revision": "observed 2026-11-08T00:16Z",
+      "document_date": "2026-11-08",
+      "authoritative_url": "https://www.lcsc.com/product-detail/C694586.html",
+      "alternate_authoritative_url": "",
+      "retrieval_date": "2026-11-08",
+      "authority_class": "DISTRIBUTOR_IDENTITY",
+      "sha256": "760eaa8e4a6d2b8ff8a65799a501687bb5c58a68860d4fd79c35fb5a80990ffe",
+      "availability": "AVAILABLE",
+      "physical_pdf_page_index": 0,
+      "printed_page_label": "n/a (HTML page)",
+      "locator": "schema.org Product JSON-LD section, fields sku, mpn, brand.name (extract retained in provenance/a5-catalog/lcsc-listings-2026-11-08.json)",
+      "evidence_extract": "sku=C694586; mpn=SPM4020T-4R7M-LR; brand=TDK. sha256 above is the HTML bytes inspected on 2026-11-08; the HTML is not retained, only the JSON-LD extract. Distributor identity only: no electrical, mechanical or availability claim.",
+      "refresh_policy": "VOLATILE-HTML",
+      "refresh_note": "The listing URL serves live HTML whose bytes are not deterministic; the recorded hash is of the bytes inspected once on 2026-11-08.",
+      "identity_extract_sha256": "79f1ed2f1ff968270f7d9a7fe77df4cf565e4a4113b106e657d391362b00227f"
+    },
+    {
+      "source_id": "src-spm4020t-4r7m-lr-a5-netlist-controller",
+      "record_id": "rec-spm4020t-4r7m-lr",
+      "document_title": "Light Block A5 controller native netlist (KiCad 10.0.8 export, historical)",
+      "document_number": "engineering/a5/integration/native_schematic/controller/netlist.xml",
+      "revision": "A5",
+      "document_date": "2026-11-06",
+      "authoritative_url": "https://github.com/Takazudo/zudo-led-block/blob/d41cbb7fc61dc954b4affaf19527aa69f07013b6/engineering/a5/integration/native_schematic/controller/netlist.xml",
+      "alternate_authoritative_url": "",
+      "retrieval_date": "2026-11-06",
+      "authority_class": "PROJECT_GENERATOR",
+      "sha256": "fa2d267acc4081156649ee15e014fbaeae4303bc96374fe19f4bae7b3a72553f",
+      "availability": "AVAILABLE",
+      "physical_pdf_page_index": 0,
+      "printed_page_label": "n/a (XML netlist)",
+      "locator": "engineering/a5/integration/native_schematic/controller/netlist.xml, components section rows for L1 and the matching nets section nodes",
+      "evidence_extract": "L1: value=4.7uH SPM4020-LR, footprint=LightBlock:SPM4020_LR, symbol=LightBlock:L, pin 1 1=/BUCK_SW, pin 2 2=/+5V. Historical A5 design state only; not fresh A6 state and not as-built verification."
+    },
+    {
+      "source_id": "src-spm4020t-4r7m-lr-catalog",
+      "record_id": "rec-spm4020t-4r7m-lr",
+      "document_title": "TDK SPM4020-LR series commercial power inductor catalog (inductor_commercial_power_spm4020-lr_en), title as recorded by A5; not acquired",
+      "document_number": "inductor_commercial_power_spm4020-lr_en",
+      "revision": "unknown (not acquired)",
+      "document_date": "unknown (not acquired)",
+      "authoritative_url": "https://product.tdk.com/system/files/dam/doc/product/inductor/inductor/smd/catalog/inductor_commercial_power_spm4020-lr_en.pdf",
+      "alternate_authoritative_url": "",
+      "retrieval_date": "2026-11-08",
+      "authority_class": "MANUFACTURER_PRIMARY",
+      "sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+      "availability": "SOURCE UNAVAILABLE",
+      "physical_pdf_page_index": 0,
+      "printed_page_label": "n/a (not acquired)",
+      "locator": "intended: SPM4020-LR catalog characteristics table row SPM4020T-4R7M-LR and shapes and dimensions figure; not inspected",
+      "evidence_extract": "SOURCE UNAVAILABLE on 2026-11-08. Attempted: the A5 catalog URL above (HTTP 403, text/html \"Access Denied\" edge page), https://product.tdk.com/en/system/files?file=dam/doc/product/inductor/inductor/smd/catalog/inductor_commercial_power_spm4020-lr_en.pdf (403) and the TDK product page https://product.tdk.com/en/search/inductor/inductor/smd/info?part_no=SPM4020T-4R7M-LR (403). Reason: product.tdk.com returns an Akamai \"Access Denied\" HTML page (HTTP 403) for every request from this environment; no PDF bytes were received. A5 recorded sha256 17d657a765bbd1135b1619d8386dca0fadac3ee8115cbbbcef0134fa6a7f5451 (2026-11-05/06) for https://product.tdk.com/system/files/dam/doc/product/inductor/inductor/smd/catalog/inductor_commercial_power_spm4020-lr_en.pdf; no bytes inspected now, so no comparison is possible and no value is taken from A5 notes or memory."
+    }
+  ]
+}

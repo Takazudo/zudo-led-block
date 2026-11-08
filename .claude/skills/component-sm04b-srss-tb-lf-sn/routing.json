@@ -1,0 +1,30 @@
+{
+  "schema_version": 1,
+  "routes": [
+    {
+      "route_id": "route-sm04b-srss-tb-lf-sn",
+      "record_id": "rec-sm04b-srss-tb-lf-sn",
+      "aliases": {
+        "mpn": [
+          "SM04B-SRSS-TB(LF)(SN)"
+        ],
+        "lcsc": [
+          "C160404"
+        ],
+        "manufacturer": [
+          "JST"
+        ],
+        "function": [
+          "four-pin led harness header"
+        ]
+      },
+      "positive": [
+        "check SM04B-SRSS-TB(LF)(SN) pinout",
+        "audit C160404"
+      ],
+      "negative": [
+        "check four-pin led harness header from an unnamed vendor"
+      ]
+    }
+  ]
+}

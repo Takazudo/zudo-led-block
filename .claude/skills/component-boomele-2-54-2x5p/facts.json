@@ -1,0 +1,94 @@
+{
+  "schema_version": 1,
+  "facts": [
+    {
+      "fact_id": "fact-boomele-2-54-2x5p-manufacturer",
+      "record_id": "rec-boomele-2-54-2x5p",
+      "source_id": "src-boomele-2-54-2x5p-lcsc-drawing",
+      "class": "PROJECT_STATE",
+      "value": "BOOMELE(Boom Precision Elec)",
+      "unit": "NONE",
+      "conditions": "no manufacturer-hosted document is known and the distributor-hosted drawing returned HTML on 2026-11-08; only distributor identity is retained",
+      "locator": "src-boomele-2-54-2x5p-lcsc-drawing: intended drawing title block",
+      "provenance": "UNVERIFIED",
+      "verdict": "UNSOURCED",
+      "depends_on": [],
+      "expression": ""
+    },
+    {
+      "fact_id": "fact-boomele-2-54-2x5p-distributor-identity",
+      "record_id": "rec-boomele-2-54-2x5p",
+      "source_id": "src-boomele-2-54-2x5p-lcsc-listing",
+      "class": "PROJECT_STATE",
+      "value": {
+        "lcsc": "C5665",
+        "manufacturer": "BOOMELE(Boom Precision Elec)",
+        "mpn": "2.54-2*5P",
+        "variant": "Plugin,P=2.54mm"
+      },
+      "unit": "NONE",
+      "conditions": "order-code identity only; not performance evidence",
+      "locator": "src-boomele-2-54-2x5p-lcsc-listing: product table rows code, model, brand, specification",
+      "provenance": "DISTRIBUTOR-IDENTITY",
+      "verdict": "CONFIRMED - distributor identity only",
+      "depends_on": [],
+      "expression": ""
+    },
+    {
+      "fact_id": "fact-boomele-2-54-2x5p-a5-placements",
+      "record_id": "rec-boomele-2-54-2x5p",
+      "source_id": "src-boomele-2-54-2x5p-a5-netlist-power-adapter",
+      "class": "PROJECT_STATE",
+      "value": "power_adapter/J1 x1 (1 unique placements, 1 fitted pieces per module)",
+      "unit": "NONE",
+      "conditions": "historical A5 native netlists; declared by the manual inventory provider, not bound to a schematic; as-built placement unverified",
+      "locator": "src-boomele-2-54-2x5p-a5-netlist-power-adapter: components section rows J1",
+      "provenance": "PROJECT-CHOICE",
+      "verdict": "NEEDS BENCH",
+      "depends_on": [],
+      "expression": ""
+    },
+    {
+      "fact_id": "fact-boomele-2-54-2x5p-pinout",
+      "record_id": "rec-boomele-2-54-2x5p",
+      "source_id": "src-boomele-2-54-2x5p-lcsc-drawing",
+      "class": "PROJECT_STATE",
+      "value": "manufacturer pin numbering for the 2x5 2.54 mm box header",
+      "unit": "NONE",
+      "conditions": "not checked: no manufacturer document inspected; the project pin map is a historical A5 netlist projection",
+      "locator": "src-boomele-2-54-2x5p-lcsc-drawing: intended pin numbering figure",
+      "provenance": "UNVERIFIED",
+      "verdict": "UNSOURCED",
+      "depends_on": [],
+      "expression": ""
+    },
+    {
+      "fact_id": "fact-boomele-2-54-2x5p-ratings",
+      "record_id": "rec-boomele-2-54-2x5p",
+      "source_id": "src-boomele-2-54-2x5p-lcsc-drawing",
+      "class": "ABSOLUTE_MAXIMUM",
+      "value": "manufacturer current and voltage rating",
+      "unit": "NONE",
+      "conditions": "not read: no manufacturer document inspected; no value taken from A5 notes or memory",
+      "locator": "src-boomele-2-54-2x5p-lcsc-drawing: intended specification table",
+      "provenance": "UNVERIFIED",
+      "verdict": "UNSOURCED",
+      "depends_on": [],
+      "expression": ""
+    },
+    {
+      "fact_id": "fact-boomele-2-54-2x5p-cad-state",
+      "record_id": "rec-boomele-2-54-2x5p",
+      "source_id": "src-boomele-2-54-2x5p-a5-netlist-power-adapter",
+      "class": "PROJECT_STATE",
+      "value": "A5 footprint LightBlock:IDC10 and symbol LightBlock:IDC are not configured as catalog CAD assets (cad.enabled=false); pin-asset check not performed",
+      "unit": "NONE",
+      "conditions": "catalog CAD disabled for this batch; no footprint, model or receipt reviewed",
+      "locator": "src-boomele-2-54-2x5p-a5-netlist-power-adapter: components section footprint field",
+      "provenance": "PROJECT-CHOICE",
+      "verdict": "UNSOURCED",
+      "depends_on": [],
+      "expression": ""
+    }
+  ]
+}

@@ -1,0 +1,72 @@
+{
+  "schema_version": 1,
+  "coverage": [
+    {
+      "coverage_id": "cov-bas70-04-7-f-identity",
+      "record_id": "rec-bas70-04-7-f",
+      "domain": "identity",
+      "status": "COVERED",
+      "reason": "manufacturer and the exact orderable BAS70-04-7-F are confirmed by Diodes DS11007 Rev. 27 - 2 (title block, Ordering Information table); distributor identity agrees",
+      "fact_ids": [
+        "fact-bas70-04-7-f-manufacturer",
+        "fact-bas70-04-7-f-orderable",
+        "fact-bas70-04-7-f-distributor-identity"
+      ],
+      "blocking_fact_ids": []
+    },
+    {
+      "coverage_id": "cov-bas70-04-7-f-pinout",
+      "record_id": "rec-bas70-04-7-f",
+      "domain": "pinout",
+      "status": "OPEN",
+      "reason": "fact-bas70-04-7-f-pinout remains UNSOURCED: DS11007 shows the BAS70-04 series topology but prints no pin numbers, so the pin-number mapping of the project pin map is not confirmed by a manufacturer document",
+      "fact_ids": [
+        "fact-bas70-04-7-f-pinout"
+      ],
+      "blocking_fact_ids": [
+        "fact-bas70-04-7-f-pinout"
+      ]
+    },
+    {
+      "coverage_id": "cov-bas70-04-7-f-ratings",
+      "record_id": "rec-bas70-04-7-f",
+      "domain": "electrical-ratings",
+      "status": "COVERED",
+      "reason": "reverse voltage, forward current, forward voltage, reverse current and junction temperature limits are read from DS11007 Rev. 27 - 2 page 2 tables",
+      "fact_ids": [
+        "fact-bas70-04-7-f-ratings",
+        "fact-bas70-04-7-f-forward-current",
+        "fact-bas70-04-7-f-forward-voltage",
+        "fact-bas70-04-7-f-reverse-current",
+        "fact-bas70-04-7-f-junction-temperature"
+      ],
+      "blocking_fact_ids": []
+    },
+    {
+      "coverage_id": "cov-bas70-04-7-f-placement",
+      "record_id": "rec-bas70-04-7-f",
+      "domain": "placement",
+      "status": "OPEN",
+      "reason": "fact-bas70-04-7-f-a5-placements NEEDS BENCH: placements are declared from the historical A5 netlist only; the manual provider performs no schematic binding and no as-built check exists",
+      "fact_ids": [
+        "fact-bas70-04-7-f-a5-placements"
+      ],
+      "blocking_fact_ids": [
+        "fact-bas70-04-7-f-a5-placements"
+      ]
+    },
+    {
+      "coverage_id": "cov-bas70-04-7-f-cad",
+      "record_id": "rec-bas70-04-7-f",
+      "domain": "cad-assets",
+      "status": "OPEN",
+      "reason": "fact-bas70-04-7-f-cad-state remains UNSOURCED: catalog CAD is disabled, so no symbol, footprint or model was reviewed or validated",
+      "fact_ids": [
+        "fact-bas70-04-7-f-cad-state"
+      ],
+      "blocking_fact_ids": [
+        "fact-bas70-04-7-f-cad-state"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,254 @@
+{
+  "schema_version": 1,
+  "status": "reviewed",
+  "description": "Reviewed identity crosswalk for the 30 A5 fitted orderable identities. Each entry names its owner bundle, inventory line, record and English routing function. Only entries listed under spelling_crosswalk may carry an observed spelling that differs from the canonical MPN, and only for the named sources. Matching everywhere else is exact string equality: no fuzzy matching, case-folding or text stripping.",
+  "lines": [
+    {
+      "lcsc": "C5270180",
+      "owner_skill": "component-stm32g031g8u6tr",
+      "line_id": "line-stm32g031g8u6tr",
+      "record_id": "rec-stm32g031g8u6tr",
+      "function": "main microcontroller"
+    },
+    {
+      "lcsc": "C52917434",
+      "owner_skill": "component-ws2812b-2020-v6",
+      "line_id": "line-ws2812b-2020-v6",
+      "record_id": "rec-ws2812b-2020-v6",
+      "function": "addressable rgb led"
+    },
+    {
+      "lcsc": "C2071056",
+      "owner_skill": "component-ap63205wu-7",
+      "line_id": "line-ap63205wu-7",
+      "record_id": "rec-ap63205wu-7",
+      "function": "fixed 5 v buck converter"
+    },
+    {
+      "lcsc": "C404027",
+      "owner_skill": "component-tlv75533pdbvr",
+      "line_id": "line-tlv75533pdbvr",
+      "record_id": "rec-tlv75533pdbvr",
+      "function": "3.3 v ldo regulator"
+    },
+    {
+      "lcsc": "C140331",
+      "owner_skill": "component-tps2552dbvr-1",
+      "line_id": "line-tps2552dbvr-1",
+      "record_id": "rec-tps2552dbvr-1",
+      "function": "led supply current-limit latch switch"
+    },
+    {
+      "lcsc": "C20526",
+      "owner_skill": "component-mmbt3904-range-100-300",
+      "line_id": "line-mmbt3904-range-100-300",
+      "record_id": "rec-mmbt3904-range-100-300",
+      "function": "enable inverter npn transistor"
+    },
+    {
+      "lcsc": "C15741",
+      "owner_skill": "component-sn74lvc2t45dcur",
+      "line_id": "line-sn74lvc2t45dcur",
+      "record_id": "rec-sn74lvc2t45dcur",
+      "function": "two-channel led data level translator"
+    },
+    {
+      "lcsc": "C221351",
+      "owner_skill": "component-opa197idbvr",
+      "line_id": "line-opa197idbvr",
+      "record_id": "rec-opa197idbvr",
+      "function": "cv input buffer amplifier"
+    },
+    {
+      "lcsc": "C398363",
+      "owner_skill": "component-tlv9001idbvr",
+      "line_id": "line-tlv9001idbvr",
+      "record_id": "rec-tlv9001idbvr",
+      "function": "adc protection buffer amplifier"
+    },
+    {
+      "lcsc": "C50704",
+      "owner_skill": "component-pmeg4010cej-115",
+      "line_id": "line-pmeg4010cej-115",
+      "record_id": "rec-pmeg4010cej-115",
+      "function": "eurorack rail reverse-polarity schottky diode"
+    },
+    {
+      "lcsc": "C134375",
+      "owner_skill": "component-bas70-04-7-f",
+      "line_id": "line-bas70-04-7-f",
+      "record_id": "rec-bas70-04-7-f",
+      "function": "adc clamp dual schottky diode"
+    },
+    {
+      "lcsc": "C694586",
+      "owner_skill": "component-spm4020t-4r7m-lr",
+      "line_id": "line-spm4020t-4r7m-lr",
+      "record_id": "rec-spm4020t-4r7m-lr",
+      "function": "buck converter power inductor"
+    },
+    {
+      "lcsc": "C500090",
+      "owner_skill": "component-pj-3582-b",
+      "line_id": "line-pj-3582-b",
+      "record_id": "rec-pj-3582-b",
+      "function": "cv input and thru jack"
+    },
+    {
+      "lcsc": "C908270",
+      "owner_skill": "component-1ms3t1b1m2qes-5",
+      "line_id": "line-1ms3t1b1m2qes-5",
+      "record_id": "rec-dailywell-1ms3t1b1m2qes-5",
+      "function": "on off on mode toggle switch"
+    },
+    {
+      "lcsc": "C160404",
+      "owner_skill": "component-sm04b-srss-tb-lf-sn",
+      "line_id": "line-sm04b-srss-tb-lf-sn",
+      "record_id": "rec-sm04b-srss-tb-lf-sn",
+      "function": "four-pin led harness header"
+    },
+    {
+      "lcsc": "C122442",
+      "owner_skill": "component-530470310",
+      "line_id": "line-530470310",
+      "record_id": "rec-molex-530470310",
+      "function": "three-pin power cable header"
+    },
+    {
+      "lcsc": "C5665",
+      "owner_skill": "component-boomele-2-54-2x5p",
+      "line_id": "line-boomele-2-54-2x5p",
+      "record_id": "rec-boomele-2-54-2x5p",
+      "function": "eurorack ten-pin power box header",
+      "canonical_mpn": "2.54-2*5P"
+    },
+    {
+      "lcsc": "C7250",
+      "owner_skill": "component-0603waf1005t5e",
+      "line_id": "line-0603waf1005t5e",
+      "record_id": "rec-uniroyal-0603waf1005t5e",
+      "function": "10 megohm 0603 resistor"
+    },
+    {
+      "lcsc": "C23254",
+      "owner_skill": "component-0603waf8202t5e",
+      "line_id": "line-0603waf8202t5e",
+      "record_id": "rec-uniroyal-0603waf8202t5e",
+      "function": "82 kilohm 0603 resistor"
+    },
+    {
+      "lcsc": "C21190",
+      "owner_skill": "component-0603waf1001t5e",
+      "line_id": "line-0603waf1001t5e",
+      "record_id": "rec-uniroyal-0603waf1001t5e",
+      "function": "1 kilohm 0603 resistor"
+    },
+    {
+      "lcsc": "C25804",
+      "owner_skill": "component-0603waf1002t5e",
+      "line_id": "line-0603waf1002t5e",
+      "record_id": "rec-uniroyal-0603waf1002t5e",
+      "function": "10 kilohm 0603 resistor"
+    },
+    {
+      "lcsc": "C23231",
+      "owner_skill": "component-0603waf6802t5e",
+      "line_id": "line-0603waf6802t5e",
+      "record_id": "rec-uniroyal-0603waf6802t5e",
+      "function": "68 kilohm 0603 resistor"
+    },
+    {
+      "lcsc": "C25803",
+      "owner_skill": "component-0603waf1003t5e",
+      "line_id": "line-0603waf1003t5e",
+      "record_id": "rec-uniroyal-0603waf1003t5e",
+      "function": "100 kilohm 0603 resistor"
+    },
+    {
+      "lcsc": "C23138",
+      "owner_skill": "component-0603waf3300t5e",
+      "line_id": "line-0603waf3300t5e",
+      "record_id": "rec-uniroyal-0603waf3300t5e",
+      "function": "330 ohm 0603 resistor"
+    },
+    {
+      "lcsc": "C23162",
+      "owner_skill": "component-0603waf4701t5e",
+      "line_id": "line-0603waf4701t5e",
+      "record_id": "rec-uniroyal-0603waf4701t5e",
+      "function": "4.7 kilohm 0603 resistor"
+    },
+    {
+      "lcsc": "C14663",
+      "owner_skill": "component-cc0603krx7r9bb104",
+      "line_id": "line-cc0603krx7r9bb104",
+      "record_id": "rec-cc0603krx7r9bb104",
+      "function": "100 nf 50 v x7r 0603 capacitor"
+    },
+    {
+      "lcsc": "C57112",
+      "owner_skill": "component-0603b103k500nt",
+      "line_id": "line-0603b103k500nt",
+      "record_id": "rec-fh-0603b103k500nt",
+      "function": "10 nf 50 v x7r 0603 capacitor"
+    },
+    {
+      "lcsc": "C15850",
+      "owner_skill": "component-cl21a106kaynnne",
+      "line_id": "line-cl21a106kaynnne",
+      "record_id": "rec-cl21a106kaynnne",
+      "function": "10 uf 25 v x5r 0805 capacitor"
+    },
+    {
+      "lcsc": "C12891",
+      "owner_skill": "component-cl31a226kahnnne",
+      "line_id": "line-cl31a226kahnnne",
+      "record_id": "rec-cl31a226kahnnne",
+      "function": "22 uf 25 v x5r 1206 capacitor"
+    },
+    {
+      "lcsc": "C19666",
+      "owner_skill": "component-cl10a475ko8nnnc",
+      "line_id": "line-cl10a475ko8nnnc",
+      "record_id": "rec-cl10a475ko8nnnc",
+      "function": "4.7 uf 16 v x5r 0603 capacitor"
+    }
+  ],
+  "spelling_crosswalk": [
+    {
+      "lcsc": "C5665",
+      "manufacturer": "BOOMELE(Boom Precision Elec)",
+      "canonical_mpn": "2.54-2*5P",
+      "canonical_basis": [
+        "LCSC public product page https://www.lcsc.com/product-detail/C5665.html, schema.org Product JSON-LD mpn=\"2.54-2*5P\", sku=\"C5665\", brand=\"BOOMELE(Boom Precision Elec)\" (retrieved 2026-11-08; see provenance/a5-catalog/lcsc-listings-2026-11-08.json)",
+        "A5 fitted ledger engineering/a5/electronics/fitted_component_ledger.json mpn=\"2.54-2*5P\"",
+        "A5 power-adapter native netlist engineering/a5/integration/native_schematic/power_adapter/netlist.xml, J1 field MPN=\"2.54-2*5P\", LCSC=\"C5665\"",
+        "The LCSC-hosted datasheet file name recorded by A5 (lcsc_datasheet_1810281612_BOOMELE-Boom-Precision-Elec-2-54-2-5P_C5665.pdf) carries the same 2-54-2-5P model token"
+      ],
+      "observed_spellings": [
+        {
+          "spelling": "2.54-2*5P",
+          "sources": [
+            "engineering/a5/electronics/fitted_component_ledger.json",
+            "engineering/a5/integration/native_schematic/power_adapter/netlist.xml",
+            "provenance/a5-catalog/lcsc-listings-2026-11-08.json"
+          ]
+        },
+        {
+          "spelling": "2.54-2*5P2.54 mm pitch 2×5 pin IDC box header",
+          "sources": [
+            "engineering/a5/procurement_rows.json",
+            "engineering/a5/evidence_refresh/C5665.json",
+            "engineering/a5/integration/evidence/C5665.snapshot.json",
+            "engineering/a5/mechanical_evidence/C5665.snapshot.json"
+          ]
+        }
+      ],
+      "reason": "JLCPCB's componentModelEn field (and its page title and schema.org mpn) joins the model token \"2.54-2*5P\" directly to the descriptive text \"2.54 mm pitch 2×5 pin IDC box header\". LCSC, the same supplier group's catalog for the same C5665 order code and brand, lists the model as \"2.54-2*5P\" alone, matching the A5 ledger and netlist. The long form is therefore a supplier listing-title spelling of the same orderable, not a different part. Both spellings are retained here; A5 files are not modified.",
+      "reviewed": "2026-11-08 by the #9 catalog migration (agent review against the cited bytes; owner review pending in the pull request)",
+      "manufacturer_primary_identity": "UNRESOLVED: no BOOMELE-hosted document was found; the only drawing seen is an LCSC-hosted mirror, so the manufacturer-primary identity stays UNRESOLVED in the owner bundle"
+    }
+  ],
+  "record_id_rule": "record_id is rec-<owner suffix>; when the suffix starts with a digit (the generated route slug must start with a letter) a manufacturer prefix is inserted: uniroyal-, molex-, fh-, dailywell-"
+}

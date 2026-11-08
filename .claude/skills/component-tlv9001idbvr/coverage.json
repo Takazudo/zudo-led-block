@@ -1,0 +1,70 @@
+{
+  "schema_version": 1,
+  "coverage": [
+    {
+      "coverage_id": "cov-tlv9001idbvr-identity",
+      "record_id": "rec-tlv9001idbvr",
+      "domain": "identity",
+      "status": "COVERED",
+      "reason": "manufacturer and exact orderable confirmed from the manufacturer-hosted datasheet (MANUFACTURER_PRIMARY, bytes inspected 2026-11-08); distributor identity retained as order-code evidence",
+      "fact_ids": [
+        "fact-tlv9001idbvr-manufacturer",
+        "fact-tlv9001idbvr-distributor-identity",
+        "fact-tlv9001idbvr-orderable"
+      ],
+      "blocking_fact_ids": []
+    },
+    {
+      "coverage_id": "cov-tlv9001idbvr-pinout",
+      "record_id": "rec-tlv9001idbvr",
+      "domain": "pinout",
+      "status": "COVERED",
+      "reason": "datasheet pin table for the exact package inspected and compared with the project pin map: matches by number and function",
+      "fact_ids": [
+        "fact-tlv9001idbvr-pinout"
+      ],
+      "blocking_fact_ids": []
+    },
+    {
+      "coverage_id": "cov-tlv9001idbvr-ratings",
+      "record_id": "rec-tlv9001idbvr",
+      "domain": "electrical-ratings",
+      "status": "COVERED",
+      "reason": "absolute-maximum, recommended-operation and design-relevant characteristics recorded from the manufacturer-hosted datasheet; this is manufacturer data only, not a design-margin or safety verdict",
+      "fact_ids": [
+        "fact-tlv9001idbvr-ratings",
+        "fact-tlv9001idbvr-abs-max-input-voltage",
+        "fact-tlv9001idbvr-abs-max-input-current",
+        "fact-tlv9001idbvr-roc-vs",
+        "fact-tlv9001idbvr-vcm-range"
+      ],
+      "blocking_fact_ids": []
+    },
+    {
+      "coverage_id": "cov-tlv9001idbvr-placement",
+      "record_id": "rec-tlv9001idbvr",
+      "domain": "placement",
+      "status": "OPEN",
+      "reason": "fact-tlv9001idbvr-a5-placements NEEDS BENCH: placements are declared from the historical A5 netlist only; the manual provider performs no schematic binding and no as-built check exists",
+      "fact_ids": [
+        "fact-tlv9001idbvr-a5-placements"
+      ],
+      "blocking_fact_ids": [
+        "fact-tlv9001idbvr-a5-placements"
+      ]
+    },
+    {
+      "coverage_id": "cov-tlv9001idbvr-cad",
+      "record_id": "rec-tlv9001idbvr",
+      "domain": "cad-assets",
+      "status": "OPEN",
+      "reason": "fact-tlv9001idbvr-cad-state remains UNSOURCED: catalog CAD is disabled, so no symbol, footprint or model was reviewed or validated",
+      "fact_ids": [
+        "fact-tlv9001idbvr-cad-state"
+      ],
+      "blocking_fact_ids": [
+        "fact-tlv9001idbvr-cad-state"
+      ]
+    }
+  ]
+}

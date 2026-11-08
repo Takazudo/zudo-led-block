@@ -1,0 +1,122 @@
+{
+  "schema_version": 1,
+  "facts": [
+    {
+      "fact_id": "fact-pj-3582-b-manufacturer",
+      "record_id": "rec-pj-3582-b",
+      "source_id": "src-pj-3582-b-drawing-p0",
+      "class": "PROJECT_STATE",
+      "value": "XKB Connection",
+      "unit": "NONE",
+      "conditions": "read from a distributor-hosted mirror; not primary-trusted; the title block prints \"XKB INDUSTRIAL PRECISION CO.,LIMITED\" with the XKB Connection logo, so the legal-entity naming differs from the record string",
+      "locator": "src-pj-3582-b-drawing-p0: drawing title block",
+      "provenance": "UNVERIFIED",
+      "verdict": "UNSOURCED",
+      "depends_on": [],
+      "expression": ""
+    },
+    {
+      "fact_id": "fact-pj-3582-b-distributor-identity",
+      "record_id": "rec-pj-3582-b",
+      "source_id": "src-pj-3582-b-a5-jlcpcb-snapshot",
+      "class": "PROJECT_STATE",
+      "value": {
+        "lcsc": "C500090",
+        "manufacturer": "XKB Connection",
+        "mpn": "PJ-3582-B",
+        "variant": "Plugin"
+      },
+      "unit": "NONE",
+      "conditions": "order-code identity only; not performance evidence",
+      "locator": "src-pj-3582-b-a5-jlcpcb-snapshot: product table rows code, model, brand, specification",
+      "provenance": "DISTRIBUTOR-IDENTITY",
+      "verdict": "CONFIRMED - distributor identity only",
+      "depends_on": [],
+      "expression": ""
+    },
+    {
+      "fact_id": "fact-pj-3582-b-a5-placements",
+      "record_id": "rec-pj-3582-b",
+      "source_id": "src-pj-3582-b-a5-netlist-controller",
+      "class": "PROJECT_STATE",
+      "value": "controller/J1 x1, controller/J2 x1 (2 unique placements, 2 fitted pieces per module)",
+      "unit": "NONE",
+      "conditions": "historical A5 native netlists; declared by the manual inventory provider, not bound to a schematic; as-built placement unverified",
+      "locator": "src-pj-3582-b-a5-netlist-controller: components section rows J1, J2",
+      "provenance": "PROJECT-CHOICE",
+      "verdict": "NEEDS BENCH",
+      "depends_on": [],
+      "expression": ""
+    },
+    {
+      "fact_id": "fact-pj-3582-b-pinout",
+      "record_id": "rec-pj-3582-b",
+      "source_id": "src-pj-3582-b-drawing-p0",
+      "class": "PROJECT_STATE",
+      "value": "terminals 2, 3, 4, 5, 6 (schematic graphic only; terminal functions not labelled in text)",
+      "unit": "NONE",
+      "conditions": "read from a distributor-hosted mirror; not primary-trusted; the terminal set 2-6 matches the project pin map pads 2-6, but TIP/RING/SLEEVE/switch roles are read only from the schematic graphic and are not confirmed",
+      "locator": "src-pj-3582-b-drawing-p0: Schematic table row PJ-3582-X and PCB holes figure",
+      "provenance": "UNVERIFIED",
+      "verdict": "UNSOURCED",
+      "depends_on": [],
+      "expression": ""
+    },
+    {
+      "fact_id": "fact-pj-3582-b-ratings",
+      "record_id": "rec-pj-3582-b",
+      "source_id": "src-pj-3582-b-drawing-p0",
+      "class": "ABSOLUTE_MAXIMUM",
+      "value": "no electrical rating printed on the drawing",
+      "unit": "NONE",
+      "conditions": "read from a distributor-hosted mirror; not primary-trusted; the drawing gives dimensions and materials only, no current or voltage rating",
+      "locator": "src-pj-3582-b-drawing-p0: drawing title block and materials table",
+      "provenance": "UNVERIFIED",
+      "verdict": "UNSOURCED",
+      "depends_on": [],
+      "expression": ""
+    },
+    {
+      "fact_id": "fact-pj-3582-b-cad-state",
+      "record_id": "rec-pj-3582-b",
+      "source_id": "src-pj-3582-b-a5-netlist-controller",
+      "class": "PROJECT_STATE",
+      "value": "A5 footprint LightBlock:PJ3582_ROT90 and symbol LightBlock:JACK are not configured as catalog CAD assets (cad.enabled=false); pin-asset check not performed",
+      "unit": "NONE",
+      "conditions": "catalog CAD disabled for this batch; no footprint, model or receipt reviewed",
+      "locator": "src-pj-3582-b-a5-netlist-controller: components section footprint field",
+      "provenance": "PROJECT-CHOICE",
+      "verdict": "UNSOURCED",
+      "depends_on": [],
+      "expression": ""
+    },
+    {
+      "fact_id": "fact-pj-3582-b-orderable",
+      "record_id": "rec-pj-3582-b",
+      "source_id": "src-pj-3582-b-drawing-p0",
+      "class": "PROJECT_STATE",
+      "value": "PJ-3582-B",
+      "unit": "NONE",
+      "conditions": "read from a distributor-hosted mirror; not primary-trusted; PART NO. PJ-3582-B in the title block; color code B = Black per the Color row",
+      "locator": "src-pj-3582-b-drawing-p0: drawing title block row PART NO.",
+      "provenance": "UNVERIFIED",
+      "verdict": "UNSOURCED",
+      "depends_on": [],
+      "expression": ""
+    },
+    {
+      "fact_id": "fact-pj-3582-b-envelope",
+      "record_id": "rec-pj-3582-b",
+      "source_id": "src-pj-3582-b-drawing-p0",
+      "class": "PROJECT_STATE",
+      "value": "front 10.00 x 6.10; barrel D6.00 x 3.00; body length 12.00",
+      "unit": "mm",
+      "conditions": "read from a distributor-hosted mirror; not primary-trusted; unthreaded barrel (no nut retention shown); general tolerance per title block table",
+      "locator": "src-pj-3582-b-drawing-p0: front view and side view dimension figures",
+      "provenance": "UNVERIFIED",
+      "verdict": "UNSOURCED",
+      "depends_on": [],
+      "expression": ""
+    }
+  ]
+}

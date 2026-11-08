@@ -1,0 +1,63 @@
+{
+  "schema_version": 1,
+  "pin_maps": [
+    {
+      "pin_map_id": "pinmap-sn74lvc2t45dcur",
+      "record_id": "rec-sn74lvc2t45dcur",
+      "symbol": "LightBlock:XLAT",
+      "footprint": "LightBlock:DCU8",
+      "pins": [
+        {
+          "symbol_pin": "1",
+          "name": "VCCA",
+          "footprint_pad": "1",
+          "function": "power_in; A5 nets: controller/U5=/+3V3"
+        },
+        {
+          "symbol_pin": "2",
+          "name": "A1",
+          "footprint_pad": "2",
+          "function": "bidirectional; A5 nets: controller/U5=/DATA_L_3V3"
+        },
+        {
+          "symbol_pin": "3",
+          "name": "A2",
+          "footprint_pad": "3",
+          "function": "bidirectional; A5 nets: controller/U5=/DATA_R_3V3"
+        },
+        {
+          "symbol_pin": "4",
+          "name": "GND",
+          "footprint_pad": "4",
+          "function": "power_in; A5 nets: controller/U5=/GND"
+        },
+        {
+          "symbol_pin": "5",
+          "name": "DIR",
+          "footprint_pad": "5",
+          "function": "input; A5 nets: controller/U5=/+3V3"
+        },
+        {
+          "symbol_pin": "6",
+          "name": "B2",
+          "footprint_pad": "6",
+          "function": "bidirectional; A5 nets: controller/U5=/DATA_R_5V"
+        },
+        {
+          "symbol_pin": "7",
+          "name": "B1",
+          "footprint_pad": "7",
+          "function": "bidirectional; A5 nets: controller/U5=/DATA_L_5V"
+        },
+        {
+          "symbol_pin": "8",
+          "name": "VCCB",
+          "footprint_pad": "8",
+          "function": "power_in; A5 nets: controller/U5=/VLED"
+        }
+      ],
+      "reviewed_by": "not independently reviewed: projected from the A5 native netlist by scripts/a5_catalog.py scaffold",
+      "project_state_source": "historical A5 native netlists (src-sn74lvc2t45dcur-a5-netlist-controller); pad numbers equal KiCad symbol pin numbers in that export"
+    }
+  ]
+}

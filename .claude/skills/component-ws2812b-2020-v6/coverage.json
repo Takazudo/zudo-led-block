@@ -1,0 +1,80 @@
+{
+  "schema_version": 1,
+  "coverage": [
+    {
+      "coverage_id": "cov-ws2812b-2020-v6-identity",
+      "record_id": "rec-ws2812b-2020-v6",
+      "domain": "identity",
+      "status": "COVERED",
+      "reason": "Worldsemi WS2812B-2020-V6 datasheet V1.4 from world-semi.com names the exact part in its title block; distributor listing retained for order-code identity",
+      "fact_ids": [
+        "fact-ws2812b-2020-v6-manufacturer",
+        "fact-ws2812b-2020-v6-orderable",
+        "fact-ws2812b-2020-v6-distributor-identity"
+      ],
+      "blocking_fact_ids": []
+    },
+    {
+      "coverage_id": "cov-ws2812b-2020-v6-pinout",
+      "record_id": "rec-ws2812b-2020-v6",
+      "domain": "pinout",
+      "status": "COVERED",
+      "reason": "pin functions read from the V1.4 PIN Function table and matched to the project pin map by number and function",
+      "fact_ids": [
+        "fact-ws2812b-2020-v6-pinout"
+      ],
+      "blocking_fact_ids": []
+    },
+    {
+      "coverage_id": "cov-ws2812b-2020-v6-ratings",
+      "record_id": "rec-ws2812b-2020-v6",
+      "domain": "electrical-ratings",
+      "status": "COVERED",
+      "reason": "VDD and input-voltage absolute maximum and VIH threshold read from the V1.4 page-3 tables",
+      "fact_ids": [
+        "fact-ws2812b-2020-v6-ratings",
+        "fact-ws2812b-2020-v6-input-abs-max",
+        "fact-ws2812b-2020-v6-vih"
+      ],
+      "blocking_fact_ids": []
+    },
+    {
+      "coverage_id": "cov-ws2812b-2020-v6-signal-timing",
+      "record_id": "rec-ws2812b-2020-v6",
+      "domain": "signal-timing",
+      "status": "COVERED",
+      "reason": "data bit and reset timing read from the V1.4 Data Transfer Time table",
+      "fact_ids": [
+        "fact-ws2812b-2020-v6-bit-timing",
+        "fact-ws2812b-2020-v6-reset-time"
+      ],
+      "blocking_fact_ids": []
+    },
+    {
+      "coverage_id": "cov-ws2812b-2020-v6-placement",
+      "record_id": "rec-ws2812b-2020-v6",
+      "domain": "placement",
+      "status": "OPEN",
+      "reason": "fact-ws2812b-2020-v6-a5-placements NEEDS BENCH: placements are declared from the historical A5 netlist only; the manual provider performs no schematic binding and no as-built check exists",
+      "fact_ids": [
+        "fact-ws2812b-2020-v6-a5-placements"
+      ],
+      "blocking_fact_ids": [
+        "fact-ws2812b-2020-v6-a5-placements"
+      ]
+    },
+    {
+      "coverage_id": "cov-ws2812b-2020-v6-cad",
+      "record_id": "rec-ws2812b-2020-v6",
+      "domain": "cad-assets",
+      "status": "OPEN",
+      "reason": "fact-ws2812b-2020-v6-cad-state remains UNSOURCED: catalog CAD is disabled, so no symbol, footprint or model was reviewed or validated",
+      "fact_ids": [
+        "fact-ws2812b-2020-v6-cad-state"
+      ],
+      "blocking_fact_ids": [
+        "fact-ws2812b-2020-v6-cad-state"
+      ]
+    }
+  ]
+}

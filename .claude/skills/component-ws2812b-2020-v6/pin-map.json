@@ -1,0 +1,39 @@
+{
+  "schema_version": 1,
+  "pin_maps": [
+    {
+      "pin_map_id": "pinmap-ws2812b-2020-v6",
+      "record_id": "rec-ws2812b-2020-v6",
+      "symbol": "LightBlock:LED",
+      "footprint": "LightBlock:WS2812B_2020_V6",
+      "pins": [
+        {
+          "symbol_pin": "1",
+          "name": "DOUT",
+          "footprint_pad": "1",
+          "function": "output; A5 nets: led_leaf/D1=/DATA_1_2; led_leaf/D2=/DATA_2_3; led_leaf/D3=/DATA_3_4; led_leaf/D4=unconnected-(D4-DOUT-Pad1)"
+        },
+        {
+          "symbol_pin": "2",
+          "name": "GND",
+          "footprint_pad": "2",
+          "function": "power_in; A5 nets: led_leaf/D1=/GND; led_leaf/D2=/GND; led_leaf/D3=/GND; led_leaf/D4=/GND"
+        },
+        {
+          "symbol_pin": "3",
+          "name": "DIN",
+          "footprint_pad": "3",
+          "function": "input; A5 nets: led_leaf/D1=/DATA_IN; led_leaf/D2=/DATA_1_2; led_leaf/D3=/DATA_2_3; led_leaf/D4=/DATA_3_4"
+        },
+        {
+          "symbol_pin": "4",
+          "name": "VDD",
+          "footprint_pad": "4",
+          "function": "power_in; A5 nets: led_leaf/D1=/VLED; led_leaf/D2=/VLED; led_leaf/D3=/VLED; led_leaf/D4=/VLED"
+        }
+      ],
+      "reviewed_by": "not independently reviewed: projected from the A5 native netlist by scripts/a5_catalog.py scaffold",
+      "project_state_source": "historical A5 native netlists (src-ws2812b-2020-v6-a5-netlist-led-leaf); pad numbers equal KiCad symbol pin numbers in that export"
+    }
+  ]
+}

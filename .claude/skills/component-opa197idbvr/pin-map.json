@@ -1,0 +1,45 @@
+{
+  "schema_version": 1,
+  "pin_maps": [
+    {
+      "pin_map_id": "pinmap-opa197idbvr",
+      "record_id": "rec-opa197idbvr",
+      "symbol": "LightBlock:OPA",
+      "footprint": "LightBlock:DBV5",
+      "pins": [
+        {
+          "symbol_pin": "1",
+          "name": "OUT",
+          "footprint_pad": "1",
+          "function": "output; A5 nets: controller/U6=/CV_BUF"
+        },
+        {
+          "symbol_pin": "2",
+          "name": "V-",
+          "footprint_pad": "2",
+          "function": "power_in; A5 nets: controller/U6=/-12V_PROT"
+        },
+        {
+          "symbol_pin": "3",
+          "name": "IN+",
+          "footprint_pad": "3",
+          "function": "input; A5 nets: controller/U6=/CV_SENSE"
+        },
+        {
+          "symbol_pin": "4",
+          "name": "IN-",
+          "footprint_pad": "4",
+          "function": "input; A5 nets: controller/U6=/CV_BUF"
+        },
+        {
+          "symbol_pin": "5",
+          "name": "V+",
+          "footprint_pad": "5",
+          "function": "power_in; A5 nets: controller/U6=/+12V_PROT"
+        }
+      ],
+      "reviewed_by": "not independently reviewed: projected from the A5 native netlist by scripts/a5_catalog.py scaffold",
+      "project_state_source": "historical A5 native netlists (src-opa197idbvr-a5-netlist-controller); pad numbers equal KiCad symbol pin numbers in that export"
+    }
+  ]
+}

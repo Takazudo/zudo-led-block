@@ -1,0 +1,75 @@
+{
+  "schema_version": 1,
+  "pin_maps": [
+    {
+      "pin_map_id": "pinmap-boomele-2-54-2x5p",
+      "record_id": "rec-boomele-2-54-2x5p",
+      "symbol": "LightBlock:IDC",
+      "footprint": "LightBlock:IDC10",
+      "pins": [
+        {
+          "symbol_pin": "1",
+          "name": "1",
+          "footprint_pad": "1",
+          "function": "passive; A5 nets: power_adapter/J1=/-12V_RAW"
+        },
+        {
+          "symbol_pin": "2",
+          "name": "2",
+          "footprint_pad": "2",
+          "function": "passive; A5 nets: power_adapter/J1=/-12V_RAW"
+        },
+        {
+          "symbol_pin": "3",
+          "name": "3",
+          "footprint_pad": "3",
+          "function": "passive; A5 nets: power_adapter/J1=/GND"
+        },
+        {
+          "symbol_pin": "4",
+          "name": "4",
+          "footprint_pad": "4",
+          "function": "passive; A5 nets: power_adapter/J1=/GND"
+        },
+        {
+          "symbol_pin": "5",
+          "name": "5",
+          "footprint_pad": "5",
+          "function": "passive; A5 nets: power_adapter/J1=/GND"
+        },
+        {
+          "symbol_pin": "6",
+          "name": "6",
+          "footprint_pad": "6",
+          "function": "passive; A5 nets: power_adapter/J1=/GND"
+        },
+        {
+          "symbol_pin": "7",
+          "name": "7",
+          "footprint_pad": "7",
+          "function": "passive; A5 nets: power_adapter/J1=/GND"
+        },
+        {
+          "symbol_pin": "8",
+          "name": "8",
+          "footprint_pad": "8",
+          "function": "passive; A5 nets: power_adapter/J1=/GND"
+        },
+        {
+          "symbol_pin": "9",
+          "name": "9",
+          "footprint_pad": "9",
+          "function": "passive; A5 nets: power_adapter/J1=/+12V_RAW"
+        },
+        {
+          "symbol_pin": "10",
+          "name": "10",
+          "footprint_pad": "10",
+          "function": "passive; A5 nets: power_adapter/J1=/+12V_RAW"
+        }
+      ],
+      "reviewed_by": "not independently reviewed: projected from the A5 native netlist by scripts/a5_catalog.py scaffold",
+      "project_state_source": "historical A5 native netlists (src-boomele-2-54-2x5p-a5-netlist-power-adapter); pad numbers equal KiCad symbol pin numbers in that export"
+    }
+  ]
+}

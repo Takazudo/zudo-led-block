@@ -1,0 +1,33 @@
+{
+  "schema_version": 1,
+  "pin_maps": [
+    {
+      "pin_map_id": "pinmap-1ms3t1b1m2qes-5",
+      "record_id": "rec-dailywell-1ms3t1b1m2qes-5",
+      "symbol": "LightBlock:SW",
+      "footprint": "LightBlock:DAILYWELL_M2_SP",
+      "pins": [
+        {
+          "symbol_pin": "1",
+          "name": "THROW_A",
+          "footprint_pad": "1",
+          "function": "passive; A5 nets: controller/SW1=/MODE_A"
+        },
+        {
+          "symbol_pin": "2",
+          "name": "COMMON",
+          "footprint_pad": "2",
+          "function": "passive; A5 nets: controller/SW1=/GND"
+        },
+        {
+          "symbol_pin": "3",
+          "name": "THROW_B",
+          "footprint_pad": "3",
+          "function": "passive; A5 nets: controller/SW1=/MODE_B"
+        }
+      ],
+      "reviewed_by": "not independently reviewed: projected from the A5 native netlist by scripts/a5_catalog.py scaffold",
+      "project_state_source": "historical A5 native netlists (src-1ms3t1b1m2qes-5-a5-netlist-controller); pad numbers equal KiCad symbol pin numbers in that export"
+    }
+  ]
+}

@@ -1,0 +1,27 @@
+{
+  "schema_version": 1,
+  "pin_maps": [
+    {
+      "pin_map_id": "pinmap-spm4020t-4r7m-lr",
+      "record_id": "rec-spm4020t-4r7m-lr",
+      "symbol": "LightBlock:L",
+      "footprint": "LightBlock:SPM4020_LR",
+      "pins": [
+        {
+          "symbol_pin": "1",
+          "name": "1",
+          "footprint_pad": "1",
+          "function": "passive; A5 nets: controller/L1=/BUCK_SW"
+        },
+        {
+          "symbol_pin": "2",
+          "name": "2",
+          "footprint_pad": "2",
+          "function": "passive; A5 nets: controller/L1=/+5V"
+        }
+      ],
+      "reviewed_by": "not independently reviewed: projected from the A5 native netlist by scripts/a5_catalog.py scaffold",
+      "project_state_source": "historical A5 native netlists (src-spm4020t-4r7m-lr-a5-netlist-controller); pad numbers equal KiCad symbol pin numbers in that export"
+    }
+  ]
+}

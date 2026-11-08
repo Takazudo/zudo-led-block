@@ -1,0 +1,76 @@
+{
+  "schema_version": 1,
+  "coverage": [
+    {
+      "coverage_id": "cov-0603waf4701t5e-identity",
+      "record_id": "rec-uniroyal-0603waf4701t5e",
+      "domain": "identity",
+      "status": "OPEN",
+      "reason": "fact-0603waf4701t5e-orderable remain UNSOURCED: the series datasheet's E-24 part-number rule (Section 2.4.1) contradicts this MPN's resistance code, so the exact orderable/value is not unambiguously established by the manufacturer document",
+      "fact_ids": [
+        "fact-0603waf4701t5e-manufacturer",
+        "fact-0603waf4701t5e-distributor-identity",
+        "fact-0603waf4701t5e-orderable"
+      ],
+      "blocking_fact_ids": [
+        "fact-0603waf4701t5e-orderable"
+      ]
+    },
+    {
+      "coverage_id": "cov-0603waf4701t5e-pinout",
+      "record_id": "rec-uniroyal-0603waf4701t5e",
+      "domain": "pinout",
+      "status": "COVERED",
+      "reason": "non-polarised two-terminal part: the manufacturer document defines two identical end terminations and no terminal numbering, so pin identity is NOT APPLICABLE; project pin map pads 1/2 do not contradict it",
+      "fact_ids": [
+        "fact-0603waf4701t5e-pinout"
+      ],
+      "blocking_fact_ids": []
+    },
+    {
+      "coverage_id": "cov-0603waf4701t5e-ratings",
+      "record_id": "rec-uniroyal-0603waf4701t5e",
+      "domain": "electrical-ratings",
+      "status": "OPEN",
+      "reason": "fact-0603waf4701t5e-resistance remain UNSOURCED: the series datasheet's E-24 part-number rule (Section 2.4.1) contradicts this MPN's resistance code, so the exact orderable/value is not unambiguously established by the manufacturer document",
+      "fact_ids": [
+        "fact-0603waf4701t5e-ratings",
+        "fact-0603waf4701t5e-resistance",
+        "fact-0603waf4701t5e-tolerance",
+        "fact-0603waf4701t5e-max-working-voltage",
+        "fact-0603waf4701t5e-max-overload-voltage",
+        "fact-0603waf4701t5e-operating-temperature",
+        "fact-0603waf4701t5e-tcr"
+      ],
+      "blocking_fact_ids": [
+        "fact-0603waf4701t5e-resistance"
+      ]
+    },
+    {
+      "coverage_id": "cov-0603waf4701t5e-placement",
+      "record_id": "rec-uniroyal-0603waf4701t5e",
+      "domain": "placement",
+      "status": "OPEN",
+      "reason": "fact-0603waf4701t5e-a5-placements NEEDS BENCH: placements are declared from the historical A5 netlist only; the manual provider performs no schematic binding and no as-built check exists",
+      "fact_ids": [
+        "fact-0603waf4701t5e-a5-placements"
+      ],
+      "blocking_fact_ids": [
+        "fact-0603waf4701t5e-a5-placements"
+      ]
+    },
+    {
+      "coverage_id": "cov-0603waf4701t5e-cad",
+      "record_id": "rec-uniroyal-0603waf4701t5e",
+      "domain": "cad-assets",
+      "status": "OPEN",
+      "reason": "fact-0603waf4701t5e-cad-state remains UNSOURCED: catalog CAD is disabled, so no symbol, footprint or model was reviewed or validated",
+      "fact_ids": [
+        "fact-0603waf4701t5e-cad-state"
+      ],
+      "blocking_fact_ids": [
+        "fact-0603waf4701t5e-cad-state"
+      ]
+    }
+  ]
+}

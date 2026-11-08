@@ -1,0 +1,108 @@
+{
+  "schema_version": 1,
+  "facts": [
+    {
+      "fact_id": "fact-spm4020t-4r7m-lr-manufacturer",
+      "record_id": "rec-spm4020t-4r7m-lr",
+      "source_id": "src-spm4020t-4r7m-lr-catalog",
+      "class": "PROJECT_STATE",
+      "value": "TDK",
+      "unit": "NONE",
+      "conditions": "manufacturer-primary catalog could not be acquired; distributor listing names TDK (identity only)",
+      "locator": "src-spm4020t-4r7m-lr-catalog: title block (not inspected, SOURCE UNAVAILABLE)",
+      "provenance": "UNVERIFIED",
+      "verdict": "UNSOURCED",
+      "depends_on": [],
+      "expression": ""
+    },
+    {
+      "fact_id": "fact-spm4020t-4r7m-lr-distributor-identity",
+      "record_id": "rec-spm4020t-4r7m-lr",
+      "source_id": "src-spm4020t-4r7m-lr-lcsc-listing",
+      "class": "PROJECT_STATE",
+      "value": {
+        "lcsc": "C694586",
+        "manufacturer": "TDK",
+        "mpn": "SPM4020T-4R7M-LR",
+        "variant": "SMD,4.4x4.1mm nominal; 4.6x4.3x2.0mm maximum envelope"
+      },
+      "unit": "NONE",
+      "conditions": "order-code identity only; not performance evidence",
+      "locator": "src-spm4020t-4r7m-lr-lcsc-listing: product table rows code, model, brand, specification",
+      "provenance": "DISTRIBUTOR-IDENTITY",
+      "verdict": "CONFIRMED - distributor identity only",
+      "depends_on": [],
+      "expression": ""
+    },
+    {
+      "fact_id": "fact-spm4020t-4r7m-lr-a5-placements",
+      "record_id": "rec-spm4020t-4r7m-lr",
+      "source_id": "src-spm4020t-4r7m-lr-a5-netlist-controller",
+      "class": "PROJECT_STATE",
+      "value": "controller/L1 x1 (1 unique placements, 1 fitted pieces per module)",
+      "unit": "NONE",
+      "conditions": "historical A5 native netlists; declared by the manual inventory provider, not bound to a schematic; as-built placement unverified",
+      "locator": "src-spm4020t-4r7m-lr-a5-netlist-controller: components section rows L1",
+      "provenance": "PROJECT-CHOICE",
+      "verdict": "NEEDS BENCH",
+      "depends_on": [],
+      "expression": ""
+    },
+    {
+      "fact_id": "fact-spm4020t-4r7m-lr-pinout",
+      "record_id": "rec-spm4020t-4r7m-lr",
+      "source_id": "src-spm4020t-4r7m-lr-catalog",
+      "class": "PROJECT_STATE",
+      "value": "terminal convention for the two-terminal SPM4020-LR inductor",
+      "unit": "NONE",
+      "conditions": "catalog not inspected; whether TDK defines a terminal/winding-start convention is unknown",
+      "locator": "src-spm4020t-4r7m-lr-catalog: shapes and dimensions figure terminal row (not inspected, SOURCE UNAVAILABLE)",
+      "provenance": "UNVERIFIED",
+      "verdict": "UNSOURCED",
+      "depends_on": [],
+      "expression": ""
+    },
+    {
+      "fact_id": "fact-spm4020t-4r7m-lr-ratings",
+      "record_id": "rec-spm4020t-4r7m-lr",
+      "source_id": "src-spm4020t-4r7m-lr-catalog",
+      "class": "GUARANTEED_ELECTRICAL",
+      "value": "inductance and tolerance, DC resistance, saturation (Isat) and temperature-rise (Itemp) current for SPM4020T-4R7M-LR",
+      "unit": "NONE",
+      "conditions": "TDK catalog characteristics table not inspected; no value recorded",
+      "locator": "src-spm4020t-4r7m-lr-catalog: characteristics table row SPM4020T-4R7M-LR (not inspected, SOURCE UNAVAILABLE)",
+      "provenance": "UNVERIFIED",
+      "verdict": "UNSOURCED",
+      "depends_on": [],
+      "expression": ""
+    },
+    {
+      "fact_id": "fact-spm4020t-4r7m-lr-cad-state",
+      "record_id": "rec-spm4020t-4r7m-lr",
+      "source_id": "src-spm4020t-4r7m-lr-a5-netlist-controller",
+      "class": "PROJECT_STATE",
+      "value": "A5 footprint LightBlock:SPM4020_LR and symbol LightBlock:L are not configured as catalog CAD assets (cad.enabled=false); pin-asset check not performed",
+      "unit": "NONE",
+      "conditions": "catalog CAD disabled for this batch; no footprint, model or receipt reviewed",
+      "locator": "src-spm4020t-4r7m-lr-a5-netlist-controller: components section footprint field",
+      "provenance": "PROJECT-CHOICE",
+      "verdict": "UNSOURCED",
+      "depends_on": [],
+      "expression": ""
+    },
+    {
+      "fact_id": "fact-spm4020t-4r7m-lr-orderable",
+      "record_id": "rec-spm4020t-4r7m-lr",
+      "source_id": "src-spm4020t-4r7m-lr-catalog",
+      "class": "PROJECT_STATE",
+      "value": "SPM4020T-4R7M-LR in the TDK SPM4020-LR characteristics table",
+      "unit": "NONE",
+      "conditions": "not established: the catalog part list could not be acquired; the -LR variant is the fitted A5 part",
+      "locator": "src-spm4020t-4r7m-lr-catalog: characteristics table row SPM4020T-4R7M-LR (not inspected, SOURCE UNAVAILABLE)",
+      "provenance": "UNVERIFIED",
+      "verdict": "UNSOURCED",
+      "depends_on": [],
+      "expression": ""
+    }
+  ]
+}

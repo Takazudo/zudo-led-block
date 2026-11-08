@@ -75,6 +75,21 @@ const PAGES = [
   { path: "/docs/project/hosting/", name: "hosting", expect: ["CLOUDFLARE_DEPLOY_ENABLED"] },
 ];
 
+// Component-evidence catalog expectations, derived from the committed evidence (never hard-coded).
+const RECON = JSON.parse(await readFile(join(ROOT, "provenance/a5-catalog/reconciliation.json"), "utf8"));
+const SELECTION = JSON.parse(await readFile(join(ROOT, "circuit/publication/selection.json"), "utf8"));
+const CATALOG_RECORDS = RECON.identities.map((i) => ({ slug: i.record_id.slice(4), recordId: i.record_id, mpn: i.mpn, lcsc: i.lcsc, owner: i.owner_skill }));
+const SELECTED_DOC = new Map(SELECTION.documentSelections.map((d) => [d.recordId, d]));
+const EXCEPTED_DOC = new Map((SELECTION.documentExceptions ?? []).map((d) => [d.recordId, d]));
+// Mobile + desktop representatives: one record with a reviewed manufacturer-primary document,
+// one whose document is unavailable or lower-authority, and the C5665 crosswalk record.
+const PRIMARY_REP = CATALOG_RECORDS.find((r) => SELECTED_DOC.has(r.recordId));
+const EXCEPTION_REP = CATALOG_RECORDS.find((r) => r.lcsc === "C5665" && EXCEPTED_DOC.has(r.recordId)) ?? CATALOG_RECORDS.find((r) => EXCEPTED_DOC.has(r.recordId));
+for (const [label, rep] of [["primary-document record", PRIMARY_REP], ["document-exception record", EXCEPTION_REP]]) {
+  if (rep) PAGES.push({ path: `/docs/components/records/${rep.slug}/`, name: `record-${rep.slug}`, expect: [rep.mpn, rep.lcsc, "Sources", "Facts"], catalogRole: label });
+}
+PAGES.push({ path: "/docs/components/catalog/", name: "catalog", expect: CATALOG_RECORDS.map((r) => r.mpn) });
+
 const failures = [];
 const fail = (msg) => { failures.push(msg); console.error(`FAIL ${msg}`); };
 const pass = (msg) => console.log(`PASS ${msg}`);
@@ -109,6 +124,89 @@ async function checkPage(context, base, page, viewport) {
   await tab.screenshot({ path: join(OUT, `${viewport}-${page.name}.png`), fullPage: false });
   pass(`${label} (${images.length} images)`);
   return tab;
+}
+
+async function readSourceRecord(owner) {
+  const bundle = JSON.parse(await readFile(join(ROOT, ".claude/skills", owner, "sources.json"), "utf8"));
+  return new Map(bundle.sources.map((s) => [s.source_id, s]));
+}
+
+// Every in-page fragment link on a record page must land on an element that exists.
+async function brokenFragments(tab) {
+  return tab.evaluate(() => [...document.querySelectorAll("main a[href^='#'], article a[href^='#']")]
+    .map((a) => a.getAttribute("href").slice(1))
+    .filter((id) => id && !document.getElementById(decodeURIComponent(id))));
+}
+
+async function checkCatalog(context, base) {
+  if (CATALOG_RECORDS.length !== 30) fail(`catalog: reconciliation lists ${CATALOG_RECORDS.length} identities, expected 30`);
+  if (!PRIMARY_REP) fail("catalog: no published record has a reviewed manufacturer-primary document (primary-source representative missing)");
+  if (!EXCEPTION_REP) fail("catalog: no published record has a document exception (unavailable/lower-authority representative missing)");
+  const tab = await context.newPage();
+  const errors = [];
+  tab.on("console", (m) => { if (m.type() === "error") errors.push(m.text()); });
+  tab.on("pageerror", (e) => errors.push(String(e)));
+
+  // Catalog lists every fitted identity and links to its record page.
+  await tab.goto(`${base}/docs/components/catalog/`, { waitUntil: "networkidle" });
+  const catalogLinks = new Set(await tab.$$eval("main a[href*='/docs/components/records/']", (as) => as.map((a) => new URL(a.href).pathname)));
+  const missing = CATALOG_RECORDS.filter((r) => !catalogLinks.has(`/docs/components/records/${r.slug}/`));
+  if (missing.length) fail(`catalog: no link to ${missing.map((r) => r.slug).join(", ")}`);
+  else pass(`catalog links all ${CATALOG_RECORDS.length} record pages`);
+  // Clicking a catalog entry navigates to that record.
+  const first = CATALOG_RECORDS[0];
+  await tab.locator(`main a[href$='/docs/components/records/${first.slug}/']`).first().click();
+  await tab.waitForURL(new RegExp(`/docs/components/records/${first.slug}/`));
+  pass(`catalog click navigates to ${first.slug}`);
+
+  // Every record page: served, identity shown, all fragment (source/fact/coverage) links resolve.
+  for (const rec of CATALOG_RECORDS) {
+    const response = await tab.goto(`${base}/docs/components/records/${rec.slug}/`, { waitUntil: "domcontentloaded" });
+    const text = await tab.locator("main").first().innerText();
+    const broken = await brokenFragments(tab);
+    if (response?.status() !== 200) fail(`record ${rec.slug}: HTTP ${response?.status()}`);
+    else if (!text.includes(rec.mpn) || !text.includes(rec.lcsc)) fail(`record ${rec.slug}: identity ${rec.mpn}/${rec.lcsc} not shown`);
+    else if (broken.length) fail(`record ${rec.slug}: fragment links without targets ${broken.slice(0, 5).join(", ")}`);
+    const doc = SELECTED_DOC.get(rec.recordId);
+    if (doc) {
+      const source = (await readSourceRecord(rec.owner)).get(doc.sourceId);
+      const hrefs = await tab.$$eval("main a[href^='http']", (as) => as.map((a) => a.href));
+      if (!source || !hrefs.includes(new URL(source.authoritative_url).href)) fail(`record ${rec.slug}: selected document link ${source?.authoritative_url} not published`);
+      if (!text.includes("PASS - primary-source confirmed")) fail(`record ${rec.slug}: selected manufacturer document but no primary-source PASS fact shown`);
+    } else if (!text.includes("Document unavailable")) {
+      fail(`record ${rec.slug}: document exception not shown as unavailable`);
+    }
+  }
+  pass(`${CATALOG_RECORDS.length} record pages: identity, document decision and fragment links verified`);
+
+  // Source anchor navigation on the primary representative: a fact's source link scrolls to the source entry.
+  if (PRIMARY_REP) {
+    await tab.goto(`${base}/docs/components/records/${PRIMARY_REP.slug}/`, { waitUntil: "networkidle" });
+    const link = tab.locator("main a[href^='#src-']").first();
+    const target = (await link.getAttribute("href")).slice(1);
+    await link.click();
+    await tab.waitForFunction((id) => location.hash === `#${id}`, target);
+    const visible = await tab.evaluate((id) => { const r = document.getElementById(id).getBoundingClientRect(); return r.top < innerHeight && r.bottom > 0; }, target);
+    if (!visible) fail(`record ${PRIMARY_REP.slug}: source link #${target} did not bring the source into view`);
+    else pass(`record ${PRIMARY_REP.slug}: source link #${target} navigates to the source entry`);
+  }
+
+  // BOM <-> catalog correspondence: every BOM row links its catalog record, and that record shows the same C-code.
+  await tab.goto(`${base}/docs/architecture/bom/`, { waitUntil: "networkidle" });
+  const rows = await tab.$$eval("main table tr", (trs) => trs.map((tr) => {
+    const link = tr.querySelector("a[href*='/docs/components/records/']");
+    const jlc = [...tr.querySelectorAll("a")].map((a) => a.textContent.trim()).find((x) => /^C\d+$/.test(x));
+    return link && jlc ? { href: new URL(link.href).pathname, code: jlc } : null;
+  }).filter(Boolean));
+  const byCode = new Map(CATALOG_RECORDS.map((r) => [r.lcsc, r]));
+  if (rows.length !== 30 || new Set(rows.map((r) => r.code)).size !== 30) fail(`BOM: ${rows.length} rows link a catalog record (expected 30 distinct)`);
+  for (const row of rows) {
+    const rec = byCode.get(row.code);
+    if (!rec || row.href !== `/docs/components/records/${rec.slug}/`) fail(`BOM ${row.code}: links ${row.href}, expected ${rec ? rec.slug : "no record"}`);
+  }
+  if (rows.length === 30) pass("BOM rows link the matching catalog record for all 30 identities");
+  if (errors.length) fail(`catalog pages: console errors ${JSON.stringify(errors.slice(0, 3))}`);
+  await tab.close();
 }
 
 async function main() {
@@ -177,6 +275,7 @@ async function main() {
     }
     pass(`${links.length} downloads served byte-identically`);
     await dl.close();
+    await checkCatalog(desktop, base);
   } finally {
     await browser.close();
     server.close();

@@ -1,0 +1,428 @@
+{
+  "schema_version": 1,
+  "description": "Dated LCSC public product-page observations used as a current supplier order-code cross-check for the 30 A5 fitted identities. Only the schema.org Product JSON-LD fields are retained; the HTML bytes themselves are not retained. html_sha256 is the digest of the exact bytes inspected on retrieval. These are distributor identity observations only: no price, stock, performance or manufacturer-primary claim.",
+  "retrieved_utc": "2026-11-08T00:16Z",
+  "method": "Anonymous HTTPS GET of https://www.lcsc.com/product-detail/<C-code>.html; schema.org Product JSON-LD block extracted verbatim.",
+  "listings": {
+    "C122442": {
+      "url": "https://www.lcsc.com/product-detail/C122442.html",
+      "http_status_line": "HTTP/2 200",
+      "content_type": "text/html; charset=utf-8",
+      "html_bytes": 453240,
+      "html_sha256": "f681ec686a189cf393af01e260fe9c64f67fa8dcb6bce808c9a399a2d5bbeb97",
+      "jsonld_product": {
+        "name": "MOLEX 530470310",
+        "sku": "C122442",
+        "mpn": "530470310",
+        "brand": "MOLEX",
+        "description": "Connector Header 3 position 1.25mm Pitch 1A Through Hole -40℃~+85℃"
+      }
+    },
+    "C12891": {
+      "url": "https://www.lcsc.com/product-detail/C12891.html",
+      "http_status_line": "HTTP/2 200",
+      "content_type": "text/html; charset=utf-8",
+      "html_bytes": 404371,
+      "html_sha256": "f41c455ed6c7ea4238084564d749a835712870e3ffb9ccfb968e3314c589a942",
+      "jsonld_product": {
+        "name": "Samsung Electro-Mechanics CL31A226KAHNNNE",
+        "sku": "C12891",
+        "mpn": "CL31A226KAHNNNE",
+        "brand": "Samsung Electro-Mechanics",
+        "description": "22uF ±10% 25V Ceramic Capacitor X5R 1206"
+      }
+    },
+    "C134375": {
+      "url": "https://www.lcsc.com/product-detail/C134375.html",
+      "http_status_line": "HTTP/2 200",
+      "content_type": "text/html; charset=utf-8",
+      "html_bytes": 423438,
+      "html_sha256": "17376c0f31ebd6473a6d400257933d1d5c1f8d74b534fac44b45a35783189575",
+      "jsonld_product": {
+        "name": "DIODES BAS70-04-7-F",
+        "sku": "C134375",
+        "mpn": "BAS70-04-7-F",
+        "brand": "DIODES",
+        "description": "Diode Array 1 Pair Series Connection 70V 70mA Surface Mount SOT-23"
+      }
+    },
+    "C140331": {
+      "url": "https://www.lcsc.com/product-detail/C140331.html",
+      "http_status_line": "HTTP/2 200",
+      "content_type": "text/html; charset=utf-8",
+      "html_bytes": 430039,
+      "html_sha256": "716e1455b8cc5c2205c85f8413c0614f9964245b6c3770074c7aacd8d657efbe",
+      "jsonld_product": {
+        "name": "TI TPS2552DBVR-1",
+        "sku": "C140331",
+        "mpn": "TPS2552DBVR-1",
+        "brand": "TI",
+        "description": "1 Active Low 1.5A High Side Switch SOT-23-6 Power Distribution Switches, Load Drivers RoHS"
+      }
+    },
+    "C14663": {
+      "url": "https://www.lcsc.com/product-detail/C14663.html",
+      "http_status_line": "HTTP/2 200",
+      "content_type": "text/html; charset=utf-8",
+      "html_bytes": 404085,
+      "html_sha256": "722bef1e8bcdce6889dc9eb872e235951ee884975740f6b9770a6161a6d0a509",
+      "jsonld_product": {
+        "name": "YAGEO CC0603KRX7R9BB104",
+        "sku": "C14663",
+        "mpn": "CC0603KRX7R9BB104",
+        "brand": "YAGEO",
+        "description": "100nF ±10% 50V Ceramic Capacitor X7R 0603"
+      }
+    },
+    "C15741": {
+      "url": "https://www.lcsc.com/product-detail/C15741.html",
+      "http_status_line": "HTTP/2 200",
+      "content_type": "text/html; charset=utf-8",
+      "html_bytes": 416000,
+      "html_sha256": "56277cba52a00a7466ac4d056404ac8dbf56fc26304baba8164e0781960c9ae9",
+      "jsonld_product": {
+        "name": "TI SN74LVC2T45DCUR",
+        "sku": "C15741",
+        "mpn": "SN74LVC2T45DCUR",
+        "brand": "TI",
+        "description": "2 10uA 1.65V~5.5V VSSOP-8 Translators, Level Shifters RoHS"
+      }
+    },
+    "C15850": {
+      "url": "https://www.lcsc.com/product-detail/C15850.html",
+      "http_status_line": "HTTP/2 200",
+      "content_type": "text/html; charset=utf-8",
+      "html_bytes": 411997,
+      "html_sha256": "c24d8ce934d30a1a27d66b751911758623d778701b8656f11df43f7dcb082701",
+      "jsonld_product": {
+        "name": "Samsung Electro-Mechanics CL21A106KAYNNNE",
+        "sku": "C15850",
+        "mpn": "CL21A106KAYNNNE",
+        "brand": "Samsung Electro-Mechanics",
+        "description": "10uF ±10% 25V Ceramic Capacitor X5R 0805"
+      }
+    },
+    "C160404": {
+      "url": "https://www.lcsc.com/product-detail/C160404.html",
+      "http_status_line": "HTTP/2 200",
+      "content_type": "text/html; charset=utf-8",
+      "html_bytes": 457868,
+      "html_sha256": "9c9a69c174eef1f441803d9c3d290064f607460288eaf622b59e85f1d4df5165",
+      "jsonld_product": {
+        "name": "JST SM04B-SRSS-TB(LF)(SN)",
+        "sku": "C160404",
+        "mpn": "SM04B-SRSS-TB(LF)(SN)",
+        "brand": "JST",
+        "description": "Connector Header 4 position 1mm Pitch 1A Surface Mount, Right Angle -25℃~+85℃"
+      }
+    },
+    "C19666": {
+      "url": "https://www.lcsc.com/product-detail/C19666.html",
+      "http_status_line": "HTTP/2 200",
+      "content_type": "text/html; charset=utf-8",
+      "html_bytes": 412471,
+      "html_sha256": "4efc5d71150f424ed8cd0320f7963c58cc806b7f808e29bcfd46fb4f27cbf511",
+      "jsonld_product": {
+        "name": "Samsung Electro-Mechanics CL10A475KO8NNNC",
+        "sku": "C19666",
+        "mpn": "CL10A475KO8NNNC",
+        "brand": "Samsung Electro-Mechanics",
+        "description": "4.7uF ±10% 16V Ceramic Capacitor X5R 0603"
+      }
+    },
+    "C20526": {
+      "url": "https://www.lcsc.com/product-detail/C20526.html",
+      "http_status_line": "HTTP/2 200",
+      "content_type": "text/html; charset=utf-8",
+      "html_bytes": 437625,
+      "html_sha256": "25a9ef6ea9125d9b5473cda0bdb592bf3193a17ef7eca543a43095af64ebfedd",
+      "jsonld_product": {
+        "name": "JSCJ MMBT3904(RANGE:100-300)",
+        "sku": "C20526",
+        "mpn": "MMBT3904(RANGE:100-300)",
+        "brand": "JSCJ",
+        "description": "Bipolar (BJT) Transistor NPN 40V 200mA 300MHz 200mW Surface Mount SOT-23"
+      }
+    },
+    "C2071056": {
+      "url": "https://www.lcsc.com/product-detail/C2071056.html",
+      "http_status_line": "HTTP/2 200",
+      "content_type": "text/html; charset=utf-8",
+      "html_bytes": 435680,
+      "html_sha256": "895f12b1afc413c6562514eaf5e67060efc61bd3a614b23a689948d71f8503c4",
+      "jsonld_product": {
+        "name": "DIODES AP63205WU-7",
+        "sku": "C2071056",
+        "mpn": "AP63205WU-7",
+        "brand": "DIODES",
+        "description": "1.1MHz Step-down type Fixed 2A 5V TSOT-23-6 Voltage Regulators - DC DC Switching Regulators RoHS"
+      }
+    },
+    "C21190": {
+      "url": "https://www.lcsc.com/product-detail/C21190.html",
+      "http_status_line": "HTTP/2 200",
+      "content_type": "text/html; charset=utf-8",
+      "html_bytes": 421292,
+      "html_sha256": "8a85a3414f8c7a8b2b2f50a35dbf519c4954815d195a001d16754f40355db6b5",
+      "jsonld_product": {
+        "name": "UNI-ROYAL 0603WAF1001T5E",
+        "sku": "C21190",
+        "mpn": "0603WAF1001T5E",
+        "brand": "UNI-ROYAL",
+        "description": "1kΩ ±1% 100mW 0603 Thick Film Resistor"
+      }
+    },
+    "C221351": {
+      "url": "https://www.lcsc.com/product-detail/C221351.html",
+      "http_status_line": "HTTP/2 200",
+      "content_type": "text/html; charset=utf-8",
+      "html_bytes": 458739,
+      "html_sha256": "1bf60742ea5d0a2a8f287b9a04a7a5d1dab79a7c7957bdb31c5816839e9c8761",
+      "jsonld_product": {
+        "name": "TI OPA197IDBVR",
+        "sku": "C221351",
+        "mpn": "OPA197IDBVR",
+        "brand": "TI",
+        "description": "65mA 1 100uV 20V/us 140dB 5pA 1mA 10MHz Rail-to-Rail Input, Rail-to-Rail Output SOT-23-5 Instrumentation, Op Amps, Buffer Amps RoHS"
+      }
+    },
+    "C23138": {
+      "url": "https://www.lcsc.com/product-detail/C23138.html",
+      "http_status_line": "HTTP/2 200",
+      "content_type": "text/html; charset=utf-8",
+      "html_bytes": 410012,
+      "html_sha256": "66b2fa8549a14e578a01050ef83edddf3fc8fb00294a707314487286e489bf0c",
+      "jsonld_product": {
+        "name": "UNI-ROYAL 0603WAF3300T5E",
+        "sku": "C23138",
+        "mpn": "0603WAF3300T5E",
+        "brand": "UNI-ROYAL",
+        "description": "330Ω ±1% 100mW 0603 Thick Film Resistor"
+      }
+    },
+    "C23162": {
+      "url": "https://www.lcsc.com/product-detail/C23162.html",
+      "http_status_line": "HTTP/2 200",
+      "content_type": "text/html; charset=utf-8",
+      "html_bytes": 413782,
+      "html_sha256": "1b84658f16d728cd075aff362ab7626d3a7be03bb85644488fd3ccfb811c9aae",
+      "jsonld_product": {
+        "name": "UNI-ROYAL 0603WAF4701T5E",
+        "sku": "C23162",
+        "mpn": "0603WAF4701T5E",
+        "brand": "UNI-ROYAL",
+        "description": "4.7kΩ ±1% 100mW 0603 Thick Film Resistor"
+      }
+    },
+    "C23231": {
+      "url": "https://www.lcsc.com/product-detail/C23231.html",
+      "http_status_line": "HTTP/2 200",
+      "content_type": "text/html; charset=utf-8",
+      "html_bytes": 411291,
+      "html_sha256": "de6881e805ac787efc4716295a924815098c44acd1d68e4ab7e34f8a5cad1f57",
+      "jsonld_product": {
+        "name": "UNI-ROYAL 0603WAF6802T5E",
+        "sku": "C23231",
+        "mpn": "0603WAF6802T5E",
+        "brand": "UNI-ROYAL",
+        "description": "68kΩ ±1% 100mW 0603 Thick Film Resistor"
+      }
+    },
+    "C23254": {
+      "url": "https://www.lcsc.com/product-detail/C23254.html",
+      "http_status_line": "HTTP/2 200",
+      "content_type": "text/html; charset=utf-8",
+      "html_bytes": 411731,
+      "html_sha256": "b3e4cde2eea119a3487b48881cb75d588a907a6baccfe7d979dbfacf3244c503",
+      "jsonld_product": {
+        "name": "UNI-ROYAL 0603WAF8202T5E",
+        "sku": "C23254",
+        "mpn": "0603WAF8202T5E",
+        "brand": "UNI-ROYAL",
+        "description": "82kΩ ±1% 100mW 0603 Thick Film Resistor"
+      }
+    },
+    "C25803": {
+      "url": "https://www.lcsc.com/product-detail/C25803.html",
+      "http_status_line": "HTTP/2 200",
+      "content_type": "text/html; charset=utf-8",
+      "html_bytes": 421613,
+      "html_sha256": "597c7e43974fb6a8390251e28cced8a5db8eae9142dc1c2efcfb25459bb9edf0",
+      "jsonld_product": {
+        "name": "UNI-ROYAL 0603WAF1003T5E",
+        "sku": "C25803",
+        "mpn": "0603WAF1003T5E",
+        "brand": "UNI-ROYAL",
+        "description": "100kΩ ±1% 100mW 0603 Thick Film Resistor"
+      }
+    },
+    "C25804": {
+      "url": "https://www.lcsc.com/product-detail/C25804.html",
+      "http_status_line": "HTTP/2 200",
+      "content_type": "text/html; charset=utf-8",
+      "html_bytes": 415505,
+      "html_sha256": "646383ce350dfd294f440d97f1aa5304d2ddce3785d1b695483c49f32b672d48",
+      "jsonld_product": {
+        "name": "UNI-ROYAL 0603WAF1002T5E",
+        "sku": "C25804",
+        "mpn": "0603WAF1002T5E",
+        "brand": "UNI-ROYAL",
+        "description": "10kΩ ±1% 100mW 0603 Thick Film Resistor"
+      }
+    },
+    "C398363": {
+      "url": "https://www.lcsc.com/product-detail/C398363.html",
+      "http_status_line": "HTTP/2 200",
+      "content_type": "text/html; charset=utf-8",
+      "html_bytes": 462595,
+      "html_sha256": "90b0de3e59e493a4a66b0c5baa3a8ffa181c680282c332c99d454c31d24f59ab",
+      "jsonld_product": {
+        "name": "TI TLV9001IDBVR",
+        "sku": "C398363",
+        "mpn": "TLV9001IDBVR",
+        "brand": "TI",
+        "description": "40mA 1 1.6mV 2V/us 86dB 5pA 60uA 1MHz Rail-to-Rail Input, Rail-to-Rail Output SOT-23-5 Instrumentation, Op Amps, Buffer Amps RoHS"
+      }
+    },
+    "C404027": {
+      "url": "https://www.lcsc.com/product-detail/C404027.html",
+      "http_status_line": "HTTP/2 200",
+      "content_type": "text/html; charset=utf-8",
+      "html_bytes": 437248,
+      "html_sha256": "11608dda5c1a2fc3c7b75cbe4df2ac147959543332926b8946b43d2bf6e7b98b",
+      "jsonld_product": {
+        "name": "TI TLV75533PDBVR",
+        "sku": "C404027",
+        "mpn": "TLV75533PDBVR",
+        "brand": "TI",
+        "description": "3.3V Positive Fixed SOT-23-5 Voltage Regulators - Linear, Low Drop Out (LDO) Regulators RoHS"
+      }
+    },
+    "C500090": {
+      "url": "https://www.lcsc.com/product-detail/C500090.html",
+      "http_status_line": "HTTP/2 200",
+      "content_type": "text/html; charset=utf-8",
+      "html_bytes": 425133,
+      "html_sha256": "2e748ef80b2cb67c6a65dc4d7aa773d8b6636f258f5cb1524f283c7723d92e42",
+      "jsonld_product": {
+        "name": "XKB Connection PJ-3582-B",
+        "sku": "C500090",
+        "mpn": "PJ-3582-B",
+        "brand": "XKB Connection",
+        "description": "3.5mm Headphone Jack 0.5A 30V Through Hole"
+      }
+    },
+    "C50704": {
+      "url": "https://www.lcsc.com/product-detail/C50704.html",
+      "http_status_line": "HTTP/2 200",
+      "content_type": "text/html; charset=utf-8",
+      "html_bytes": 419069,
+      "html_sha256": "4c65a8b630882776d5574544abeb4e9ea9c3edd1a2c48446ff8abe7064d67be2",
+      "jsonld_product": {
+        "name": "Nexperia PMEG4010CEJ,115",
+        "sku": "C50704",
+        "mpn": "PMEG4010CEJ,115",
+        "brand": "Nexperia",
+        "description": "Diode 1 Independent 40V 1A Surface Mount SOD-323F"
+      }
+    },
+    "C5270180": {
+      "url": "https://www.lcsc.com/product-detail/C5270180.html",
+      "http_status_line": "HTTP/2 200",
+      "content_type": "text/html; charset=utf-8",
+      "html_bytes": 384450,
+      "html_sha256": "d12e4381f7323a52136e09a74c9028be3f79309362874982e7d0f02fa78c4544",
+      "jsonld_product": {
+        "name": "ST STM32G031G8U6TR",
+        "sku": "C5270180",
+        "mpn": "STM32G031G8U6TR",
+        "brand": "ST",
+        "description": "ARM Cortex-M0+ 64MHz UFQFPN-28(4x4) Microcontrollers RoHS"
+      }
+    },
+    "C52917434": {
+      "url": "https://www.lcsc.com/product-detail/C52917434.html",
+      "http_status_line": "HTTP/2 200",
+      "content_type": "text/html; charset=utf-8",
+      "html_bytes": 434642,
+      "html_sha256": "dd68c69e9fd22b00c89f129eff3b045c9f06adb722fe613f0f874837732e49a0",
+      "jsonld_product": {
+        "name": "Worldsemi WS2812B-2020-V6",
+        "sku": "C52917434",
+        "mpn": "WS2812B-2020-V6",
+        "brand": "Worldsemi",
+        "description": "SMD2020-4P LED Indication - Discrete "
+      }
+    },
+    "C5665": {
+      "url": "https://www.lcsc.com/product-detail/C5665.html",
+      "http_status_line": "HTTP/2 200",
+      "content_type": "text/html; charset=utf-8",
+      "html_bytes": 396469,
+      "html_sha256": "c986cf4ff8b732703e844e3279780d3ec8f16581eaf77c39fedfe87b7f41cd85",
+      "jsonld_product": {
+        "name": "BOOMELE(Boom Precision Elec) 2.54-2*5P",
+        "sku": "C5665",
+        "mpn": "2.54-2*5P",
+        "brand": "BOOMELE(Boom Precision Elec)",
+        "description": "Connector IDC Header Through Hole 10 position 2.54mm"
+      }
+    },
+    "C57112": {
+      "url": "https://www.lcsc.com/product-detail/C57112.html",
+      "http_status_line": "HTTP/2 200",
+      "content_type": "text/html; charset=utf-8",
+      "html_bytes": 401498,
+      "html_sha256": "32b607be9309a4eac920fb35fb14e9e021a35f9a219f88a87d92125d3c3e48c2",
+      "jsonld_product": {
+        "name": "FH 0603B103K500NT",
+        "sku": "C57112",
+        "mpn": "0603B103K500NT",
+        "brand": "FH",
+        "description": "10nF ±10% 50V Ceramic Capacitor X7R 0603"
+      }
+    },
+    "C694586": {
+      "url": "https://www.lcsc.com/product-detail/C694586.html",
+      "http_status_line": "HTTP/2 200",
+      "content_type": "text/html; charset=utf-8",
+      "html_bytes": 414327,
+      "html_sha256": "760eaa8e4a6d2b8ff8a65799a501687bb5c58a68860d4fd79c35fb5a80990ffe",
+      "jsonld_product": {
+        "name": "TDK SPM4020T-4R7M-LR",
+        "sku": "C694586",
+        "mpn": "SPM4020T-4R7M-LR",
+        "brand": "TDK",
+        "description": "2.5A 4.7uH ±20% 147.2mΩ 3.5A SMD,4.4x4.1mm Fixed Inductors RoHS"
+      }
+    },
+    "C7250": {
+      "url": "https://www.lcsc.com/product-detail/C7250.html",
+      "http_status_line": "HTTP/2 200",
+      "content_type": "text/html; charset=utf-8",
+      "html_bytes": 409848,
+      "html_sha256": "0f021d459e2a9edc0624d2030c52c5cceae27223aba6a34f1a040b777df897f5",
+      "jsonld_product": {
+        "name": "UNI-ROYAL 0603WAF1005T5E",
+        "sku": "C7250",
+        "mpn": "0603WAF1005T5E",
+        "brand": "UNI-ROYAL",
+        "description": "10MΩ ±1% 100mW 0603 Thick Film Resistor"
+      }
+    },
+    "C908270": {
+      "url": "https://www.lcsc.com/product-detail/C908270.html",
+      "http_status_line": "HTTP/2 200",
+      "content_type": "text/html; charset=utf-8",
+      "html_bytes": 419495,
+      "html_sha256": "98135dc61e585180d297b200a43457e0afe85b4d65b5f04eeb68dc22d45f50fd",
+      "jsonld_product": {
+        "name": "Dailywell 1MS3T1B1M2QES-5",
+        "sku": "C908270",
+        "mpn": "1MS3T1B1M2QES-5",
+        "brand": "Dailywell",
+        "description": "SPDT Through Hole 40,000 Cycles Through Hole Toggle Switches RoHS"
+      }
+    }
+  }
+}
