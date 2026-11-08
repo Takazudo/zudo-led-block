@@ -54,7 +54,17 @@ class StudyOutputs(unittest.TestCase):
     def test_jack_dimensions_are_labelled_mirror_not_sourced(self):
         for key, value in PARAMS["parameters"].items():
             if value["source"].startswith("fact-a7-pj-324m-"):
-                self.assertIn(value["confidence"], ("MIRROR", "INFERRED"), key)
+                self.assertIn(value["confidence"], ("MIRROR", "DERIVED-MIRROR", "INFERRED"), key)
+
+    def test_every_tolerance_states_its_own_confidence(self):
+        for key, value in PARAMS["parameters"].items():
+            if "tol" in value:
+                self.assertIn(value.get("tol_confidence"), PARAMS["confidence_levels"], key)
+
+    def test_calculated_far_edge_is_not_labelled_printed(self):
+        far = PARAMS["parameters"]["jack_axis_to_edge_far"]
+        self.assertEqual(far["confidence"], "DERIVED-MIRROR")
+        self.assertGreater(far.get("tol", 0), 0)
 
     def test_nut_fit_is_not_assumed(self):
         for nut in PARAMS["nuts"].values():
@@ -89,13 +99,24 @@ class TransverseModel(unittest.TestCase):
         summary = STUDY.build()["transverse_summary"]
         self.assertEqual(summary["3hp-centred"]["verdict"], STUDY.FEASIBLE)
         worst = self.case(width="panel_width_3hp", corner="worst")
-        self.assertTrue(all(v >= 0 for k, v in worst["margins"].items() if k != "pcb_hole_web"))
+        self.assertTrue(all(v >= 0 for k, v in worst["margins"].items() if k != "panel_hole_web"))
 
     def test_two_hp_is_not_declared_feasible_or_infeasible_from_missing_evidence(self):
         summary = STUDY.build()["transverse_summary"]
         for key, row in summary.items():
             if key.startswith("2hp"):
                 self.assertEqual(row["verdict"], STUDY.UNRESOLVED, key)
+
+    def test_best_corner_is_never_worse_than_nominal(self):
+        for row in STUDY.build()["transverse"]:
+            for key, value in row["best"]["margins"].items():
+                self.assertGreaterEqual(value, row["nominal"]["margins"][key], (row["arrangement"], row["pcb_thickness"], row["leads"], key))
+                self.assertLessEqual(row["worst"]["margins"][key], row["nominal"]["margins"][key], (row["arrangement"], key))
+
+    def test_untrimmed_lead_extent_includes_the_board_face(self):
+        thick = self.case(t=4.0, leads="untrimmed")
+        seat = 9.8 / 2 - PARAMS["parameters"]["jack_axis_height"]["nominal"]
+        self.assertAlmostEqual(thick["lead_tip_x"], seat - 4.0)
 
     def test_classify_marks_best_corner_failures_infeasible(self):
         worst = {"margins": {"a": -1.0}, "lead_long_enough_for_trim": True}
@@ -113,6 +134,12 @@ class AxialModel(unittest.TestCase):
     def test_plain_mount_leaves_1_5_nominal(self):
         row = next(r for r in STUDY.axial(PARAMS) if r["option"] == "plain")
         self.assertAlmostEqual(row["cases"]["nominal"]["exposed_thread"], 1.5)
+
+    def test_engagement_corners_are_ordered(self):
+        for row in STUDY.axial(PARAMS):
+            c = row["cases"]
+            self.assertLessEqual(c["worst"]["engaged"], c["nominal"]["engaged"], row["option"])
+            self.assertLessEqual(c["nominal"]["engaged"], c["best"]["engaged"], row["option"])
 
     def test_engagement_never_exceeds_nut_thickness(self):
         for row in STUDY.axial(PARAMS):

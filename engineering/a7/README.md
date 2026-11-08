@@ -43,7 +43,7 @@ python3 -m unittest scripts/tests/test_a7_r1_study.py
   to Littelfuse, which answered HTTP 403). Every value read from them is kept as UNVERIFIED / UNSOURCED with the
   value retained, and the study labels those inputs MIRROR. Nothing below is primary-source confirmed.
 - **Jack: SOFNG PJ-324M, JLCPCB/LCSC C22355739** (`.claude/skills/component-a7-pj-324m/`). The SOFNG drawing (mirror) prints
-  M6x0.5, body height 6.0 (headline 6.3), width 11.5 with the axis 5.4 from one edge and 6.1 from the other,
+  M6x0.5, body height 6.0 (headline 6.3), width 11.5 with the axis 5.4 from one edge (so 6.1 from the other, calculated),
   body 14.2 behind a 3.5 barrel, 3.2 untrimmed terminals from the seating plane, and the terminal positions.
   It does **not** dimension the axis height (carried as INFERRED ≈3.0, band 2.6–3.4), give hole sizes, label
   pin functions, or fill in the operating temperature. JLC lists it as a wave-soldered plug-in part; stock 6209
@@ -68,24 +68,27 @@ python3 -m unittest scripts/tests/test_a7_r1_study.py
 
 ### Dimensions (`study/report.md`)
 
-- **3HP (14.9 mm) is feasible on paper**, checked on its own: every margin stays positive at the worst corner
-  with a standard 1.6 mm board and even untrimmed terminals.
+- **3HP (14.9 mm) is feasible on paper across the width**, checked on its own: every transverse (X) margin stays
+  positive at the worst corner with a standard 1.6 mm board and even untrimmed terminals. Thread engagement is a
+  separate axial check that does not depend on width; it applies to 3HP exactly as to 2HP (below).
 - **2HP (9.8 mm) is unresolved, not infeasible.** At nominal inputs, a jack offset 0.3–0.6 mm toward the body
   side with a ≤ 1.0 mm FR-4 controller and trimmed terminals clears everything. At the worst corner the
   terminal side goes negative. The drivers are the INFERRED axis height, the ASSUMED trim length (Q6) and the
   hole position/float (Q7). Even if the axis height were confirmed at 3.0 ± 0.1, the other assumed tolerances
-  keep 2HP unresolved. A centred jack on a 1.6 mm board fails even at the best corner. A 0.9 mm offset puts
-  the Ø8 nut on the panel edge.
+  keep 2HP unresolved. With trimmed terminals no 2HP row fails at the best corner, so none is infeasible within
+  the stated ranges; with untrimmed terminals every 2HP row except the 0.9 mm offset fails even at the best
+  corner. A 0.9 mm offset puts the Ø8 nut on the panel edge at nominal.
 - **Thread engagement:** a plain mount leaves 1.5 mm nominal and 1.1 mm worst-case exposed thread. That is
   0.85 mm engaged after the lead-in, below the 1.0 mm study criterion, so it is unresolved. Keeping the A5
   0.6 mm collar leaves 0.9 mm nominal; drop it. A front washer makes it worse. A 0.5 mm concealed rear pocket
   in the PMMA at each jack gives ≥ 1.25 mm engaged at the worst corner, so it is the option R2 should evaluate.
   It depends on Q8 and Q9.
-- **Depth:** the jack body ends at Z ≤ 14.4 (13.9 in a pocket). That is 3.0 mm in front of the A5 optical skin
+- **Depth:** the jack body ends at Z ≤ 14.4 (14.0 in a pocket at its shallowest). That is 3.0 mm in front of the A5 optical skin
   (Z 17.4) and 5.0 mm in front of the A5 leaves (Z 19.4). A frontward controller volume and a separate rear
   optical volume are geometrically compatible at the jack positions; R2 derives the real boundary.
-- **Y layout at the A5 jack positions (90 / 104):** 2.5 mm between bodies, 6.0 mm between nuts, lower body edge
-  at Y 110.1 against the 111.4 rail-body limit.
+- **Y layout at the A5 jack positions (90 / 104), worst case** (body-edge tolerances, including the 6.1 mm far
+  edge, which is calculated rather than printed, plus hole position and float): 1.5 mm between bodies, 5.5 mm
+  between nuts, lower body edge at Y 110.7 against the 111.4 rail-body limit (0.7 mm margin).
 
 ### Transparent LED board
 

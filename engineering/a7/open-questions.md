@@ -11,7 +11,7 @@ answered inside the Cloud batch; they need a stronger document, a supplier answe
 | Q3 | PJ-324M recommended PCB hole/slot sizes | footprint (R4) | not on the drawing; JLC/EasyEDA footprint not yet inspected |
 | Q4 | Whether C22355739 ships with a nut, and which nut fits the SOFNG M6x0.5 barrel | front retention and appearance | Same Sky 3.5mm-nut-e and MJ-3502-nut are dimension references only; fit UNVERIFIED |
 | Q5 | PJ-324M operating temperature | ratings domain | drawing field blank; JLC lists -25..+75 °C (distributor only) |
-| Q6 | Lead trim length the assembler guarantees after wave soldering, and the fillet height | 2HP lead-side margin | ASSUMED 0.7 nominal, 1.0 max |
+| Q6 | Lead trim length the assembler guarantees after wave soldering, and the fillet height | 2HP lead-side margin | ASSUMED 0.7 nominal, 0.5 min, 1.0 max |
 | Q7 | Cast-PMMA sheet thickness tolerance and laser hole position tolerance from the fabricator | thread engagement, nut edge margin | ASSUMED ±0.2 and ±0.1 |
 | Q8 | Rear pocket in cast PMMA: achievable depth tolerance, appearance through the clear front, strength beside a 6.2 mm hole | thread engagement option `rear-pocket` | PROJECT-CHOICE 0.5 ± 0.1 |
 | Q9 | Clamp load the PMMA may take between nut and jack body without crazing, and the tightening torque | complete jack load path (R2) | not analysed; A5 rule "do not preload the acrylic" still applies |
