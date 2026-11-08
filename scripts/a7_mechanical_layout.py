@@ -32,9 +32,9 @@ REPORT = MECH / "layout.md"
 ENVELOPES = MECH / "placement-envelopes.json"
 R4_PLACEMENT = MECH / "inputs" / "r4-board-placement-routed.json"
 R4_CHECK = MECH / "r4-placement-check.json"
-# Vendored unchanged from R4 (#19) PR #30, branch claude/project-thread-rhjln2, head e2a2219: routed-board export after layout review (authority.py export-placement).
+# Vendored unchanged from R4 (#19) PR #30 (merged at eb8adeb), head e2a2219: routed-board export after layout review (authority.py export-placement).
 R4_PLACEMENT_SOURCE = {"pr": 30, "branch": "claude/project-thread-rhjln2", "head": "e2a221936bc39321f4054ac3a44b3176a1bb2705",
-                       "path": "engineering/a7/electronics/controller/board_placement.json", "status": "ROUTED, PR #30 not merged"}
+                       "path": "engineering/a7/electronics/controller/board_placement.json", "status": "ROUTED, PR #30 merged at eb8adeb (board ec810aec); fit check merged in #33"}
 SKILLS = REPO / ".claude" / "skills"
 SWITCH_FACTS = SKILLS / "component-a7-pcm13smtr" / "facts.json"
 JACK_FACTS = SKILLS / "component-a7-pj-324m" / "facts.json"
@@ -852,7 +852,7 @@ def r4_placement_check(E):
     zone = E["solder_face_low_profile_zone"]
     b_side = sorted(ref for ref, p in pl.items() if p["side"] == "B")
     return {
-        "status": "ROUTED EXPORT: R4's routed board (PR #30, not merged; may change after independent review, then a new export and SHA)",
+        "status": "ROUTED EXPORT: R4's routed board (PR #30 merged at eb8adeb, board ec810aec; this fit check merged in #33). A later board change needs a new export and SHA",
         "source": dict(R4_PLACEMENT_SOURCE, sha256=hashlib.sha256(R4_PLACEMENT.read_bytes()).hexdigest(), board_sha256=P["board_sha256"],
                        board_thickness=P["thickness_mm"], unconnected=P["unconnected_pcbnew"]),
         "board_outline": outline, "outline_matches": outline == [0.0, E["outline"]["board_x"][1], 0.0, E["outline"]["board_y"][1]],
