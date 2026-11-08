@@ -5,12 +5,12 @@ Read this first, then [`evidence-index.md`](evidence-index.md). The Japanese sta
 (`doc/src/content/docs/project/a7.mdx`, `next-actions.mdx`) say the same thing for readers.
 
 **A7 is a design study. It is not released for manufacture.** The integrated digital result is on `main`: the
-reviewed controller schematic, the routed controller board (native gate PASS, independent layout/electrical review
-approved), and a provisional digital mechanical model and front artwork checked against that board. There is no
+reviewed controller schematic, the routed controller board at revision 2 (native gate PASS, independent layout/electrical
+re-review with no blocking findings), and a provisional digital mechanical model and front artwork checked against that board. There is no
 prototype and no physical measurement. Nothing in A7 is a measured fit, part approval, fit approval, electrical result or
 manufacturing approval, and a green CI is none of those either.
 
-Last synchronised with `main` at `a9709b3` (2026-11-08 UTC).
+Last synchronised with `main` at `8bd064b` (2026-11-08 UTC).
 
 ## What A7 is
 
@@ -44,9 +44,9 @@ Accepted direction from the owner (2026-11-08):
 | Task | Issue | State on `main` | Where |
 |---|---|---|---|
 | R1 parts and dimension study | [#16](https://github.com/Takazudo/zudo-led-block/issues/16) | merged in PR #23 (`54bda11`), issue closed | `study/`, `evidence/`, `pet-fpc.md`, `open-questions.md`, `.claude/skills/component-a7-*` |
-| R2 mechanical model and artwork | [#17](https://github.com/Takazudo/zudo-led-block/issues/17) | merged in PR [#25](https://github.com/Takazudo/zudo-led-block/pull/25) (`64bd3b7`), the harness follow-up PR [#27](https://github.com/Takazudo/zudo-led-block/pull/27) (`d27f578`), PR #29, and the placement checks against R4's board PRs #31–#33 (`dd45ed5`); provisional digital study, issue open | `mechanical/`, `front_panel/`, `scripts/a7_mechanical_layout.py` |
+| R2 mechanical model and artwork | [#17](https://github.com/Takazudo/zudo-led-block/issues/17) | merged in PR [#25](https://github.com/Takazudo/zudo-led-block/pull/25) (`64bd3b7`), the harness follow-up PR [#27](https://github.com/Takazudo/zudo-led-block/pull/27) (`d27f578`), PR #29, and the placement checks against R4's board PRs #31–#33 (`dd45ed5`) and #38 (`2a76cae`, revision 2), and the PET versus FR-4 leaf comparison PR [#35](https://github.com/Takazudo/zudo-led-block/pull/35) (`1b9d02d`); provisional digital study, issue open | `mechanical/`, `front_panel/`, `scripts/a7_mechanical_layout.py` |
 | R3 native verification foundation | [#18](https://github.com/Takazudo/zudo-led-block/issues/18) | merged in PR #22 (`02992fa`), issue closed | `verification/`, `scripts/native_gate/` |
-| R4 schematic, placement, routing | [#19](https://github.com/Takazudo/zudo-led-block/issues/19) | schematic merged in PR [#24](https://github.com/Takazudo/zudo-led-block/pull/24) (`5f6865b`); routed board merged in PR [#30](https://github.com/Takazudo/zudo-led-block/pull/30) (`eb8adeb`, board `ec810aec…74f2`, gate PASS, review approved); issue open for the physical gates | `electronics/`, `verification/`, `scripts/a7_electronics.py`, `scripts/a7_board.py`, `scripts/a7_route.py` |
+| R4 schematic, placement, routing | [#19](https://github.com/Takazudo/zudo-led-block/issues/19) | schematic merged in PR [#24](https://github.com/Takazudo/zudo-led-block/pull/24) (`5f6865b`); routed board merged in PR [#30](https://github.com/Takazudo/zudo-led-block/pull/30) (`eb8adeb`, revision 1, board `ec810aec…74f2`), revision 2 in PR [#37](https://github.com/Takazudo/zudo-led-block/pull/37) (`edf98c2`, board `4453f818…628e`, gate PASS, re-review with no blocking findings); issue open for the physical gates | `electronics/`, `verification/`, `scripts/a7_electronics.py`, `scripts/a7_board.py`, `scripts/a7_route.py` |
 | R5 docs, status, continuation | [#20](https://github.com/Takazudo/zudo-led-block/issues/20) | this document; reflects the integrated digital result | `docs/continuation/`, Japanese site pages |
 
 The A5 component catalog (30 identities) merged in PR #21 (`20b2f8f`); issue
@@ -55,51 +55,73 @@ retrieved.
 
 ## Done (digital)
 
-- **R4 board (PR #30, `eb8adeb`).** `electronics/controller/controller.kicad_pcb`, SHA-256
-  `ec810aecd9e67e2806f8886e43f3944bf35c1051dcc4a52f23332216025e74f2`, 16.2 × 62.9 mm, 4 layers, 1.6 mm, In1 solid GND.
-  Fresh KiCad 10.0.8 gate PASS on the committed board: ERC 0, parity 0 (independent pad parity 0), DRC 0, unconnected 0,
-  zone refill identical, regeneration preserves the board, 51 interface checks, every negative control detected
-  (runs 42499745759 on `e2a2219`, 42500103564 on `main`).
-- **Rule delta:** vias 0.6/0.3 → 0.5/0.2 mm and the board-wide minimum through-hole diameter 0.3 → 0.2 mm (U1 QFN28 and U5 VSSOP-8 fan-out), recorded as `native_gate.json` → `design_rule_delta`, backed by
+### Board revision history
+
+| Revision | Board SHA-256 | Merged | What changed | Review |
+|---|---|---|---|---|
+| 1 | `ec810aecd9e67e2806f8886e43f3944bf35c1051dcc4a52f23332216025e74f2` | PR #30, `eb8adeb` | first placement and routing | requested changes on `493155e`, approved on `e2a2219`; four non-blocking polish items left |
+| 2 (current) | `4453f818ede1e6d6c56e45ef43aa6faecb90990f3755f82c6d752258cd4d628e` | PR #37, `edf98c2` (head `ae5aa3c`) | the four polish items, PTH-to-track 0.35 mm rule and control, 1 nm courtyard comparison | requested changes on `eb5d833` (no gate run on that head), no blocking findings on `ae5aa3c` |
+
+- **Current board (revision 2).** `electronics/controller/controller.kicad_pcb`, 16.2 × 62.9 mm, 4 layers, 1.6 mm,
+  In1 solid GND. Fresh KiCad 10.0.8 gate PASS on the committed board (CI run 42503602665 on `ae5aa3c`, whose summary's
+  `tested_board_sha256` matches the committed board; main runs 42503992506 on `edf98c2` and 42504705390 on `8bd064b`): ERC 0, parity 0, DRC 0, unconnected 0, zone refill identical,
+  regeneration preserves the board, every negative control detected.
+- **Polish items applied:** C11 1.53 mm from U6.5 (was 5.8); GND vias at U7.2 / C17.2 0.52 / 0.66 mm (was 1.5–2);
+  C15 1.8 mm from U4.1 (nearest +5 V cap was C2 at 4.1); CV_FILTER all on F.Cu, nearest same-layer VLED 3.65 mm
+  (was about 0.9). Dispositions in `verification/interface_review.md`.
+- **Minor couplings from the `eb5d833` re-review (non-blocking, carried over on `ae5aa3c`):** CV_ADC beside SWCLK for 1.0 mm on one layer; CV_THRU on In2 beside
+  DATA_L_3V3 and SWDIO. Watch DATA_L coupling in bench CV-noise tests (#10).
+- **Rule delta:** vias 0.6/0.3 → 0.5/0.2 mm and the board-wide minimum through-hole diameter 0.3 → 0.2 mm (U1 QFN28 and
+  U5 VSSOP-8 fan-out), recorded as `native_gate.json` → `design_rule_delta`, backed by
   `verification/fab/jlcpcb_capabilities.json` (URL, retrieval SHA-256, quoted rows: multilayer min 0.15 hole / 0.25 via,
-  preferred min hole 0.2). Track width, clearances, annular ring 0.15 mm and layer count are A5's.
-- **Independent review:** first pass on `493155e` requested changes (B1 buck hot loops, B2 CV analog placement;
-  S1 decoupling, S2 under-QFN routing). Re-review on `e2a2219` approved the digital board. Non-blocking polish left:
-  C11 5.8 mm from U6.5; one more GND stitch via near C17 / U7; nearest +5 V cap to U4.1 is C2 at 4.1 mm; CV_FILTER
-  runs about 0.9 mm beside VLED. Changing any of them changes the board hash and needs the gate, review and R2 check again.
-- **R2 fit check (PR #33):** `mechanical/r4-placement-check.json` compares R4's routed export with the envelopes:
-  outline matches, 64 parts, fixed parts (J1 / J2 axis and all pins, J3, J5, SW1) in position, no origin or pad centre
-  in a foreign keep-out, solder face only resistors and test pads (≤ 0.6 mm). Courtyards, pad extents, heights and
-  copper are outside that check (they are R4's DRC). The board is 1.6 mm, i.e. the 3HP working candidate; 2HP would
-  need a 0.8 mm board and new routing.
+  preferred min hole 0.2). Since revision 2 also the stricter-only custom rule `a7_pth_to_track` (0.35 mm PTH drill to
+  another net's track, JLCPCB recommended; `controller.kicad_dru`), proved each run by `control_pth_to_track`; the
+  board's closest is 0.386 mm. Track width, clearances, annular ring 0.15 mm and layer count are A5's.
+- **Router reproducibility in CI (PR #39):** every native CI job runs `scripts/a7_route_check.py`. It rebuilds the
+  staging board from the committed placement, re-runs `a7_route.py --seed 0` (numpy pinned with hashes in
+  `scripts/requirements-router.txt`), requires a byte-identical `verification/routing/route_proposal_seed0.json`,
+  and requires the authoritative board's tracks and vias to equal the proposal at 1 nm. The same PR makes the
+  `rule_squeeze` control require its rule name and pad in the native report. The `--review-aid` Gerber / drill /
+  position artifact is **not a release output** and must not be ordered from. First passed on main in run 42504705390 (`8bd064b`).
+- **R2 fit checks:** `mechanical/r4-placement-check.json` compares R4's routed export with the envelopes (revision 1
+  in PR #33, revision 2 in PR #38): outline matches, fixed parts (J1 / J2 axis and all pins, J3, J5, SW1) in
+  position, no origin or pad centre in a foreign keep-out, solder face only resistors and test pads (≤ 0.6 mm).
+  Courtyards, pad extents, heights and copper are outside that check (they are R4's DRC). The board is 1.6 mm, i.e.
+  the 3HP working candidate; 2HP would need a 0.8 mm board and new routing.
+- **LED leaf comparison (PR #35, `1b9d02d`):** FR-4 stays the default and fallback. A clear PET leaf is feasible on
+  paper only as two 0.14 mm films on OCA either side of a clear 0.8 mm PC carrier (1.28 mm, FR-4 1.30; positions move
+  0.01 mm). It is 8–37× less stiff (worst-case buckling about 8 N under the SH push, FR-4 about 300 N); the film alone
+  buckles at about 0.07 N. New open items Q11a (carrier lamination supplier), Q11b (unmating pull and peel), Q11c
+  (2HP with PET). `mechanical/README.md`, `layout.md`, `layout.json` → `leaf_comparison`, `exports/3hp_pet/`.
 - **R2 mechanical (PR #25, #27, #29):** 3HP FEASIBLE ON PAPER and the default; 2HP open (worst corner −0.33 / −0.15 mm).
   Jacks at Y 84.3 / 99.3 in 0.5 mm rear pockets; A5 adapter 2.0 mm forward with an M2x18 top-cap screw; power cable
   requirement from `mechanical/layout.json` → `power_cable_requirement` (currently 57 ± 3 mm, ±3 ASSUMED).
 - **R4 schematic (PR #24):** J1, J2 and SW1 replaced; every other part and net unchanged from A5.
 
-
 ## In progress (no result on `main`)
 
-- **Board revision 2:** the four non-blocking polish items plus a stricter PTH-to-track rule. A new board hash means
-  re-running the gate, a new independent review and a new R2 fit check.
-- **PET FPC leaf evaluation** (`engineering/a7/pet-fpc.md`): LED leaves only; the A5 FR-4 leaf stays reference and
-  fallback. The JLC questions are drafted, not sent.
+- **Route-check hardening (R4, PR [#40](https://github.com/Takazudo/zudo-led-block/pull/40)):** follow-up to the
+  PR #39 check.
+- **PET leaf electrical profile and interface check (R4):** preliminary findings only. A 1-layer transparent film
+  cannot carry the A5 LED copper; 2-layer plated-via support on transparent film is unconfirmed at JLC; the coverlay
+  bridges are 0.2 mm against JLC's 0.5 mm minimum. None of this is a merged result. FR-4 stays the default.
 
 ## Next actions, in order
 
-Most remaining work needs parts, a prototype or an owner decision.
+The planned digital work is done. What remains needs parts, a prototype, supplier answers or an owner decision. Any
+later board change re-runs the gate, independent review and R2 fit check.
 
 1. **Physical and owner gates:** PJ-324M pin functions by TS / TRS continuity test (Q2), slot sizes (Q3, the board
    still uses ASSUMED 1.6 × 0.8 mm slots), axis height (Q1, INFERRED), PCM13SMTR stock and fit (Q10, body centring
    ASSUMED), and the owner's 2HP decision.
-2. **External evidence** listed in `../../open-questions.md` (Q0–Q11; Q12 is decided). Only the JLC PET questions are
+2. **External evidence** listed in `../../open-questions.md` (Q0–Q11 and Q11a–Q11c; Q12 is decided). Only the JLC PET questions are
    drafted (`../../pet-fpc.md`), and they are **not sent**; the others are not drafted. Sending supplier messages is
    outside the current authorisation.
-3. **Optional board polish** (the four non-blocking items above), with gate, review and R2 check re-run.
-4. **Physical qualification** with [#8](https://github.com/Takazudo/zudo-led-block/issues/8) (harness, power cable,
+3. **Physical qualification** with [#8](https://github.com/Takazudo/zudo-led-block/issues/8) (harness, power cable,
    fit, PETG), [#10](https://github.com/Takazudo/zudo-led-block/issues/10) (power / CV / firmware / optical / thermal /
-   load, manufacturing files) and [#13](https://github.com/Takazudo/zudo-led-block/issues/13) (WS2812B T1L timing).
-5. **Manufacturing files and release** are an owner decision and outside the current authorisation.
+   load, manufacturing files, CV noise with DATA_L coupling, and if PET is pursued the SH mating / unmating force
+   and lit appearance) and [#13](https://github.com/Takazudo/zudo-led-block/issues/13) (WS2812B T1L timing).
+4. **Manufacturing files and release** are an owner decision and outside the current authorisation.
 
 ## Blockers
 
@@ -117,6 +139,9 @@ Most remaining work needs parts, a prototype or an owner decision.
 | PCM13SMTR JLC stock 0; land fit and body centring unconfirmed | side switch sourcing and fit | stock, or a printed per-position table / bench check for an alternate | Q10 |
 | Maker-hosted drawings unavailable | any drawing fact counting as PASS | SOFNG / C&K documents | Q0 |
 | PET FPC process answers missing | transparent LED leaf | JLC written answers (questions not sent) | Q11 |
+| No supplier for laminating the PC carrier with OCA after reflow | building a PET leaf at all | supplier and process | Q11a |
+| SH unmating pull and pad / OCA peel strength unsourced | PET leaf connector retention | force data and a physical test | Q11b, #10 |
+| PET leaf built for 3HP only | 2HP with PET | 2HP decision first (X stack differs by 0.02 mm, so 3HP carries over) | Q11c |
 | No physical prototype | every fit, electrical, optical, thermal result | owner-approved build | #8, #10 |
 | Agent-instruction pages on the site | publication scope | owner decision | #12 |
 
