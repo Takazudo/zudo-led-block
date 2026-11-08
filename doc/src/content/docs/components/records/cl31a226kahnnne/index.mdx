@@ -29,11 +29,11 @@ This record in the catalog: [CL31A226KAHNNNE](/docs/components/catalog/#rec-cl31
 
 **Fit:** Fitted
 
-**Identity state:** UNRESOLVED
+**Identity state:** VERIFIED
 
 **Source state:** AVAILABLE
 
-**Coverage:** 5 open of 5 published
+**Coverage:** 3 open of 6 published
 
 ## Documents and package
 
@@ -41,9 +41,13 @@ This record in the catalog: [CL31A226KAHNNNE](/docs/components/catalog/#rec-cl31
 
 <EvidenceAnchor id="component-references" />
 
-**Selected document:** Document unavailable
+[Datasheet PDF](https://product.samsungsem.com/part/download.do?masterKey=CL31A226KAHNNN\&type=specsheet) — Samsung Electro-Mechanics SPECIFICATION (Reference Sheet) for CL31A226KAHNNNE, Multi-layer Ceramic Capacitor, with appended MLCC Product Manual
 
-**Reason:** No manufacturer-primary document for this exact orderable is retained in the evidence. Reviewed: JLCPCB public product listing C12891 (A5 retained product-props snapshot) (DISTRIBUTOR\_IDENTITY, AVAILABLE). Distributor listings establish order identity only, and a distributor-hosted mirror is lower authority, so neither is published as a manufacturer document.
+**Selected source ID:** `src-cl31a226kahnnne-ds-p1`
+
+**Authority:** MANUFACTURER\_PRIMARY
+
+**Availability:** AVAILABLE
 
 No footprint or 3D model is published for this record: CAD is not enabled for this project.
 
@@ -64,32 +68,25 @@ Coverage is stated one domain at a time and is never rolled up. A domain marked 
 
 <EvidenceAnchor id="cov-cl31a226kahnnne-identity" />
 
-**Coverage ID:** `cov-cl31a226kahnnne-identity` · **Status:** OPEN
+**Coverage ID:** `cov-cl31a226kahnnne-identity` · **Status:** COVERED
 
-**Reason:** fact-cl31a226kahnnne-manufacturer remains UNSOURCED: only distributor identity is retained; no manufacturer-primary document inspected
+**Reason:** manufacturer and exact orderable confirmed from the manufacturer-hosted document (MANUFACTURER\_PRIMARY, bytes inspected 2026-11-08); distributor identity retained as order-code evidence
 
 **Facts in this domain:**
 
 - [`fact-cl31a226kahnnne-manufacturer`](#fact-cl31a226kahnnne-manufacturer)
 - [`fact-cl31a226kahnnne-distributor-identity`](#fact-cl31a226kahnnne-distributor-identity)
-
-**Blocked by:** these facts must be resolved before the domain can close. Each is listed in full under Facts.
-
-- [`fact-cl31a226kahnnne-manufacturer`](#fact-cl31a226kahnnne-manufacturer)
+- [`fact-cl31a226kahnnne-orderable`](#fact-cl31a226kahnnne-orderable)
 
 ### pinout
 
 <EvidenceAnchor id="cov-cl31a226kahnnne-pinout" />
 
-**Coverage ID:** `cov-cl31a226kahnnne-pinout` · **Status:** OPEN
+**Coverage ID:** `cov-cl31a226kahnnne-pinout` · **Status:** COVERED
 
-**Reason:** fact-cl31a226kahnnne-pinout remains UNSOURCED: the pin map is projected from the historical A5 netlist and has not been checked against a manufacturer document
+**Reason:** non-polarised two-terminal part: the manufacturer document defines two identical end terminations and no terminal numbering, so pin identity is NOT APPLICABLE; project pin map pads 1/2 do not contradict it
 
 **Facts in this domain:**
-
-- [`fact-cl31a226kahnnne-pinout`](#fact-cl31a226kahnnne-pinout)
-
-**Blocked by:** these facts must be resolved before the domain can close. Each is listed in full under Facts.
 
 - [`fact-cl31a226kahnnne-pinout`](#fact-cl31a226kahnnne-pinout)
 
@@ -97,17 +94,32 @@ Coverage is stated one domain at a time and is never rolled up. A domain marked 
 
 <EvidenceAnchor id="cov-cl31a226kahnnne-ratings" />
 
-**Coverage ID:** `cov-cl31a226kahnnne-ratings` · **Status:** OPEN
+**Coverage ID:** `cov-cl31a226kahnnne-ratings` · **Status:** COVERED
 
-**Reason:** fact-cl31a226kahnnne-ratings remains UNSOURCED: no manufacturer limits retained
+**Reason:** rated and characteristic values recorded from the manufacturer-hosted document; manufacturer data only, not a design-margin or safety verdict
 
 **Facts in this domain:**
 
 - [`fact-cl31a226kahnnne-ratings`](#fact-cl31a226kahnnne-ratings)
+- [`fact-cl31a226kahnnne-capacitance`](#fact-cl31a226kahnnne-capacitance)
+- [`fact-cl31a226kahnnne-tolerance`](#fact-cl31a226kahnnne-tolerance)
+- [`fact-cl31a226kahnnne-dielectric`](#fact-cl31a226kahnnne-dielectric)
+
+### dc-bias-capacitance
+
+<EvidenceAnchor id="cov-cl31a226kahnnne-dc-bias-capacitance" />
+
+**Coverage ID:** `cov-cl31a226kahnnne-dc-bias-capacitance` · **Status:** OPEN
+
+**Reason:** fact-cl31a226kahnnne-dc-bias NEEDS BENCH: effective MLCC capacitance under the A5 DC bias, temperature and ageing is not established; the manufacturer document gives no part-specific DC-bias curve and A5 never qualified it
+
+**Facts in this domain:**
+
+- [`fact-cl31a226kahnnne-dc-bias`](#fact-cl31a226kahnnne-dc-bias)
 
 **Blocked by:** these facts must be resolved before the domain can close. Each is listed in full under Facts.
 
-- [`fact-cl31a226kahnnne-ratings`](#fact-cl31a226kahnnne-ratings)
+- [`fact-cl31a226kahnnne-dc-bias`](#fact-cl31a226kahnnne-dc-bias)
 
 ### placement
 
@@ -145,22 +157,86 @@ Coverage is stated one domain at a time and is never rolled up. A domain marked 
 
 Each fact keeps its value, its unit, the conditions it holds under, where it came from and how far it has been confirmed as separate fields, because they are separate claims. A value without its conditions is not the same fact, and a verdict is about the evidence for the value, not about the part.
 
-### ABSOLUTE\_MAXIMUM
+### RECOMMENDED\_OPERATION
 
-A never-exceed limit. Reaching it may damage the part; it is not an operating target and there is no margin implied by it.
+The range the manufacturer intends the part to be used in. Always narrower than the absolute maximum.
 
 <EvidenceFact>
   <EvidenceAnchor id="fact-cl31a226kahnnne-ratings" />
 
   **Fact:** `fact-cl31a226kahnnne-ratings`
 
-  **Value:** manufacturer absolute-maximum and recommended operating limits · **Unit:** `NONE`
+  **Value:** 25 · **Unit:** `V`
 
-  **Conditions:** no manufacturer document inspected yet; distributor listing is identity evidence only
+  **Conditions:** rated voltage (maximum continuous DC working voltage) per the part-number decode; the document gives no separate absolute-maximum table; withstanding-voltage test is 250% of rated for test only (Section C)
 
-  **Verdict:** UNSOURCED · **Provenance:** UNVERIFIED
+  **Verdict:** PASS - primary-source confirmed · **Provenance:** PRIMARY-SPEC
 
-  **Evidence:** [src-cl31a226kahnnne-a5-jlcpcb-snapshot: product table row specification (identity only)](#src-cl31a226kahnnne-a5-jlcpcb-snapshot)
+  **Evidence:** [src-cl31a226kahnnne-ds-p1: Section A Samsung Part Number table row 6 Rated Voltage](#src-cl31a226kahnnne-ds-p1)
+</EvidenceFact>
+
+### GUARANTEED\_ELECTRICAL
+
+A parameter the manufacturer guarantees over the stated conditions, usually with minimum, typical and maximum values.
+
+<EvidenceFact>
+  <EvidenceAnchor id="fact-cl31a226kahnnne-capacitance" />
+
+  **Fact:** `fact-cl31a226kahnnne-capacitance`
+
+  **Value:** 22 · **Unit:** `uF`
+
+  **Conditions:** nominal capacitance measured at 1 kHz +/-10%, 1.0 +/-0.2 Vrms with no DC bias (Section C); tolerance recorded separately
+
+  **Verdict:** PASS - primary-source confirmed · **Provenance:** PRIMARY-SPEC
+
+  **Evidence:** [src-cl31a226kahnnne-ds-p1: Section A Samsung Part Number table row 4 Capacitance](#src-cl31a226kahnnne-ds-p1)
+</EvidenceFact>
+
+<EvidenceFact>
+  <EvidenceAnchor id="fact-cl31a226kahnnne-tolerance" />
+
+  **Fact:** `fact-cl31a226kahnnne-tolerance`
+
+  **Value:** 10 · **Unit:** `%`
+
+  **Conditions:** capacitance tolerance +/-10% (code K) at the Section C measurement condition
+
+  **Verdict:** PASS - primary-source confirmed · **Provenance:** PRIMARY-SPEC
+
+  **Evidence:** [src-cl31a226kahnnne-ds-p1: Section A Samsung Part Number table row 5 Capacitance tolerance](#src-cl31a226kahnnne-ds-p1)
+</EvidenceFact>
+
+<EvidenceFact>
+  <EvidenceAnchor id="fact-cl31a226kahnnne-dielectric" />
+
+  **Fact:** `fact-cl31a226kahnnne-dielectric`
+
+  **Value:** 15 · **Unit:** `%`
+
+  **Conditions:** X5R dielectric: capacitance change within +/-15% from -55 degC to 85 degC (Section C temperature characteristic, no DC bias); the sheet states no separate operating-temperature row
+
+  **Verdict:** PASS - primary-source confirmed · **Provenance:** PRIMARY-SPEC
+
+  **Evidence:** [src-cl31a226kahnnne-ds-p2: Section C table row Temperature Characteristics](#src-cl31a226kahnnne-ds-p2)
+</EvidenceFact>
+
+### TYPICAL\_CURVE
+
+A representative figure read from a characteristic curve. Typical values are not guaranteed and vary part to part.
+
+<EvidenceFact>
+  <EvidenceAnchor id="fact-cl31a226kahnnne-dc-bias" />
+
+  **Fact:** `fact-cl31a226kahnnne-dc-bias`
+
+  **Value:** effective capacitance at the A5 DC operating point not established · **Unit:** `NONE`
+
+  **Conditions:** the document only warns that Class II capacitance falls with DC bias and shows a generic example curve for a different part (X5R 10uF 6.3V); no curve for this part was inspected and A5 never qualified DC bias, temperature, tolerance and ageing together; needs a bench measurement or a part-specific manufacturer curve
+
+  **Verdict:** NEEDS BENCH · **Provenance:** UNVERIFIED
+
+  **Evidence:** [src-cl31a226kahnnne-ds-p16: MLCC Product Manual section 2-7, row 2-7-1 and Example of DC Bias characteristics figure](#src-cl31a226kahnnne-ds-p16)
 </EvidenceFact>
 
 ### PROJECT\_STATE
@@ -174,11 +250,11 @@ A value this project recorded about how the part is used here — a chosen opera
 
   **Value:** Samsung Electro-Mechanics · **Unit:** `NONE`
 
-  **Conditions:** exact orderable identity; distributor listing only, no manufacturer-primary document inspected yet
+  **Conditions:** title block prints 'Supplier : Samsung electro-mechanics' (cosmetic case difference); document served from the manufacturer's own host product.samsungsem.com
 
-  **Verdict:** UNSOURCED · **Provenance:** UNVERIFIED
+  **Verdict:** PASS - primary-source confirmed · **Provenance:** PRIMARY-SPEC
 
-  **Evidence:** [src-cl31a226kahnnne-a5-jlcpcb-snapshot: product table row brand](#src-cl31a226kahnnne-a5-jlcpcb-snapshot)
+  **Evidence:** [src-cl31a226kahnnne-ds-p1: page 1 title block row Supplier](#src-cl31a226kahnnne-ds-p1)
 </EvidenceFact>
 
 <EvidenceFact>
@@ -214,13 +290,13 @@ A value this project recorded about how the part is used here — a chosen opera
 
   **Fact:** `fact-cl31a226kahnnne-pinout`
 
-  **Value:** manufacturer pin numbering and pin functions for package 1206 · **Unit:** `NONE`
+  **Value:** not applicable: non-polarised two-terminal MLCC; Section B shows two identical end terminations and the document defines no terminal numbering or polarity · **Unit:** `NONE`
 
-  **Conditions:** datasheet pin identity behind the project pin map; no manufacturer document inspected yet
+  **Conditions:** project pin map pads 1 and 2 are KiCad numbering of interchangeable terminals; no contradiction with the document
 
-  **Verdict:** UNSOURCED · **Provenance:** UNVERIFIED
+  **Verdict:** NOT APPLICABLE · **Provenance:** PRIMARY-SPEC
 
-  **Evidence:** [src-cl31a226kahnnne-a5-netlist-controller: libparts section pin rows for LightBlock:C](#src-cl31a226kahnnne-a5-netlist-controller)
+  **Evidence:** [src-cl31a226kahnnne-ds-p1: Section B Structure & Dimension figure and table row CL31A226KAHNNNE](#src-cl31a226kahnnne-ds-p1)
 </EvidenceFact>
 
 <EvidenceFact>
@@ -235,6 +311,20 @@ A value this project recorded about how the part is used here — a chosen opera
   **Verdict:** UNSOURCED · **Provenance:** PROJECT-CHOICE
 
   **Evidence:** [src-cl31a226kahnnne-a5-netlist-controller: components section footprint field](#src-cl31a226kahnnne-a5-netlist-controller)
+</EvidenceFact>
+
+<EvidenceFact>
+  <EvidenceAnchor id="fact-cl31a226kahnnne-orderable" />
+
+  **Fact:** `fact-cl31a226kahnnne-orderable`
+
+  **Value:** CL31A226KAHNNNE printed as the Samsung P/N of this per-part specification; decode CL / 31 (1206) / A (X5R) / 226 (22uF) / K (+/-10%) / A (25 V) / H (thickness 1.60+/-0.20 mm) / N (Ni inner electrode, Cu termination, Ni/Sn plating) / N (Normal) / N (reserved) / E (Embossed Type, 7 inch reel, 2K) · **Unit:** `NONE`
+
+  **Conditions:** exact orderable printed in the title block and the Section A decode table; per-part reference sheet, not a family document
+
+  **Verdict:** PASS - primary-source confirmed · **Provenance:** PRIMARY-SPEC
+
+  **Evidence:** [src-cl31a226kahnnne-ds-p1: page 1 title block row Samsung P/N and Section A Samsung Part Number table](#src-cl31a226kahnnne-ds-p1)
 </EvidenceFact>
 
 ## Pin maps
@@ -314,6 +404,66 @@ Every document cited above, with its identification, when it was retrieved, and 
 
 **Document URL:** [https://github.com/Takazudo/zudo-led-block/blob/d41cbb7fc61dc954b4affaf19527aa69f07013b6/engineering/a5/integration/native\_schematic/controller/netlist.xml](https://github.com/Takazudo/zudo-led-block/blob/d41cbb7fc61dc954b4affaf19527aa69f07013b6/engineering/a5/integration/native_schematic/controller/netlist.xml)
 
+### Samsung Electro-Mechanics SPECIFICATION (Reference Sheet) for CL31A226KAHNNNE, Multi-layer Ceramic Capacitor, with appended MLCC Product Manual
+
+<EvidenceAnchor id="src-cl31a226kahnnne-ds-p1" />
+
+**Source ID:** `src-cl31a226kahnnne-ds-p1` · **Authority:** MANUFACTURER\_PRIMARY
+
+| Field           | Recorded value                                          |
+| --------------- | ------------------------------------------------------- |
+| Document number | SpecSheet\_CL31A226KAHNNN (Samsung P/N CL31A226KAHNNNE) |
+| Revision        | Issued date : MAY.09.2024                               |
+| Document date   | 2024-05-09                                              |
+| Retrieved       | 2026-11-08                                              |
+| Printed page    | none printed (Issued date header only)                  |
+
+**Locator:** Page 1 title block (Supplier, Samsung P/N, Product, Description), Section A Samsung Part Number decode table and Section B Structure & Dimension table
+
+**Availability:** AVAILABLE
+
+**Document URL:** [https://product.samsungsem.com/part/download.do?masterKey=CL31A226KAHNNN\&type=specsheet](https://product.samsungsem.com/part/download.do?masterKey=CL31A226KAHNNN\&type=specsheet)
+
+### Samsung Electro-Mechanics SPECIFICATION (Reference Sheet) for CL31A226KAHNNNE, Multi-layer Ceramic Capacitor, with appended MLCC Product Manual
+
+<EvidenceAnchor id="src-cl31a226kahnnne-ds-p2" />
+
+**Source ID:** `src-cl31a226kahnnne-ds-p2` · **Authority:** MANUFACTURER\_PRIMARY
+
+| Field           | Recorded value                                          |
+| --------------- | ------------------------------------------------------- |
+| Document number | SpecSheet\_CL31A226KAHNNN (Samsung P/N CL31A226KAHNNNE) |
+| Revision        | Issued date : MAY.09.2024                               |
+| Document date   | 2024-05-09                                              |
+| Retrieved       | 2026-11-08                                              |
+| Printed page    | none printed                                            |
+
+**Locator:** Section C Samsung Reliability Test and Judgement Condition table, rows Capacitance, Withstanding Voltage and Temperature Characteristics
+
+**Availability:** AVAILABLE
+
+**Document URL:** [https://product.samsungsem.com/part/download.do?masterKey=CL31A226KAHNNN\&type=specsheet](https://product.samsungsem.com/part/download.do?masterKey=CL31A226KAHNNN\&type=specsheet)
+
+### Samsung Electro-Mechanics SPECIFICATION (Reference Sheet) for CL31A226KAHNNNE, Multi-layer Ceramic Capacitor, with appended MLCC Product Manual
+
+<EvidenceAnchor id="src-cl31a226kahnnne-ds-p16" />
+
+**Source ID:** `src-cl31a226kahnnne-ds-p16` · **Authority:** MANUFACTURER\_PRIMARY
+
+| Field           | Recorded value                                          |
+| --------------- | ------------------------------------------------------- |
+| Document number | SpecSheet\_CL31A226KAHNNN (Samsung P/N CL31A226KAHNNNE) |
+| Revision        | Issued date : MAY.09.2024                               |
+| Document date   | 2024-05-09                                              |
+| Retrieved       | 2026-11-08                                              |
+| Printed page    | none printed (MLCC Product Manual page)                 |
+
+**Locator:** MLCC Product Manual section 2-7 DC & AC Voltage Characteristics, row 2-7-1 and the Example of DC Bias characteristics figure
+
+**Availability:** AVAILABLE
+
+**Document URL:** [https://product.samsungsem.com/part/download.do?masterKey=CL31A226KAHNNN\&type=specsheet](https://product.samsungsem.com/part/download.do?masterKey=CL31A226KAHNNN\&type=specsheet)
+
 ## Legend
 
 What the recorded terms on this page mean, in ordinary words. The exact terms above are the ones that count; these descriptions explain them and never replace them.
@@ -324,6 +474,8 @@ What the recorded terms on this page mean, in ordinary words. The exact terms ab
 | --------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------- |
 | `CONFIRMED - distributor identity only` | A distributor listing confirms which part this is, and nothing more. It carries no electrical, thermal or lifetime authority. |
 | `NEEDS BENCH`                           | Cannot be settled from documents. It needs measurement on real hardware before it can be relied on.                           |
+| `NOT APPLICABLE`                        | The parameter does not apply to this part as it is used here.                                                                 |
+| `PASS - primary-source confirmed`       | Confirmed against the manufacturer's own document for this exact part.                                                        |
 | `UNSOURCED`                             | No accepted source backs this value yet. Treat it as a claim, not a fact.                                                     |
 
 ### Provenance
@@ -331,20 +483,24 @@ What the recorded terms on this page mean, in ordinary words. The exact terms ab
 | Recorded term          | What it means                                                |
 | ---------------------- | ------------------------------------------------------------ |
 | `DISTRIBUTOR-IDENTITY` | Taken from a distributor listing. Identity information only. |
+| `PRIMARY-SPEC`         | Taken from the manufacturer's own specification document.    |
 | `PROJECT-CHOICE`       | A decision made by this project. No vendor asserts it.       |
 | `UNVERIFIED`           | Recorded, but not yet backed by an accepted source.          |
 
 ### Fact class
 
-| Recorded term      | What it means                                                                                                                                                      |
-| ------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| `ABSOLUTE_MAXIMUM` | A never-exceed limit. Reaching it may damage the part; it is not an operating target and there is no margin implied by it.                                         |
-| `PROJECT_STATE`    | A value this project recorded about how the part is used here — a chosen operating point, a net assignment, or a derived figure. Not a manufacturer specification. |
+| Recorded term           | What it means                                                                                                                                                      |
+| ----------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| `GUARANTEED_ELECTRICAL` | A parameter the manufacturer guarantees over the stated conditions, usually with minimum, typical and maximum values.                                              |
+| `PROJECT_STATE`         | A value this project recorded about how the part is used here — a chosen operating point, a net assignment, or a derived figure. Not a manufacturer specification. |
+| `RECOMMENDED_OPERATION` | The range the manufacturer intends the part to be used in. Always narrower than the absolute maximum.                                                              |
+| `TYPICAL_CURVE`         | A representative figure read from a characteristic curve. Typical values are not guaranteed and vary part to part.                                                 |
 
 ### Coverage status
 
 | Recorded term | What it means                                                                                                               |
 | ------------- | --------------------------------------------------------------------------------------------------------------------------- |
+| `COVERED`     | Every question this domain asks is answered by the facts listed against it.                                                 |
 | `OPEN`        | Unresolved. Open means the question has not been answered, not that the part is unsafe — the reason states what is missing. |
 
 ### Source availability
@@ -358,13 +514,14 @@ What the recorded terms on this page mean, in ordinary words. The exact terms ab
 | Recorded term          | What it means                                                             |
 | ---------------------- | ------------------------------------------------------------------------- |
 | `DISTRIBUTOR_IDENTITY` | A distributor listing. Establishes which part this is, nothing more.      |
+| `MANUFACTURER_PRIMARY` | The manufacturer's own document for this exact part.                      |
 | `PROJECT_GENERATOR`    | A document this project generated, such as a schematic or netlist export. |
 
 ### Identity state
 
-| Recorded term | What it means                                                                                                                    |
-| ------------- | -------------------------------------------------------------------------------------------------------------------------------- |
-| `UNRESOLVED`  | The exact orderable part is not yet confirmed. Substituting a same-name part from another vendor is not permitted on that basis. |
+| Recorded term | What it means                                                 |
+| ------------- | ------------------------------------------------------------- |
+| `VERIFIED`    | The exact orderable part has been confirmed against a source. |
 
 ### Source state
 

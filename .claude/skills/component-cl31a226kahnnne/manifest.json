@@ -13,7 +13,10 @@
       "package": "1206",
       "source_ids": [
         "src-cl31a226kahnnne-a5-jlcpcb-snapshot",
-        "src-cl31a226kahnnne-a5-netlist-controller"
+        "src-cl31a226kahnnne-a5-netlist-controller",
+        "src-cl31a226kahnnne-ds-p1",
+        "src-cl31a226kahnnne-ds-p2",
+        "src-cl31a226kahnnne-ds-p16"
       ],
       "fact_ids": [
         "fact-cl31a226kahnnne-manufacturer",
@@ -21,13 +24,16 @@
         "fact-cl31a226kahnnne-a5-placements",
         "fact-cl31a226kahnnne-pinout",
         "fact-cl31a226kahnnne-ratings",
-        "fact-cl31a226kahnnne-cad-state"
+        "fact-cl31a226kahnnne-cad-state",
+        "fact-cl31a226kahnnne-orderable",
+        "fact-cl31a226kahnnne-capacitance",
+        "fact-cl31a226kahnnne-tolerance",
+        "fact-cl31a226kahnnne-dielectric",
+        "fact-cl31a226kahnnne-dc-bias"
       ],
       "interaction_ids": [],
       "open_domains": [
-        "identity",
-        "pinout",
-        "electrical-ratings",
+        "dc-bias-capacitance",
         "placement",
         "cad-assets"
       ]

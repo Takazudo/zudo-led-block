@@ -29,11 +29,11 @@ This record in the catalog: [CC0603KRX7R9BB104](/docs/components/catalog/#rec-cc
 
 **Fit:** Fitted
 
-**Identity state:** UNRESOLVED
+**Identity state:** VERIFIED
 
 **Source state:** AVAILABLE
 
-**Coverage:** 5 open of 5 published
+**Coverage:** 3 open of 6 published
 
 ## Documents and package
 
@@ -41,9 +41,13 @@ This record in the catalog: [CC0603KRX7R9BB104](/docs/components/catalog/#rec-cc
 
 <EvidenceAnchor id="component-references" />
 
-**Selected document:** Document unavailable
+[Datasheet PDF](https://yageogroup.com/content/datasheet/asset/file/UPY-GPHC_X7R_6_3V-TO-250V) — YAGEO DATA SHEET Surface-Mount Ceramic Multilayer Capacitors, General Purpose & High Capacitance, Class 2, X7R, 6.3 V to 250 V, 100 pF to 47 uF
 
-**Reason:** No manufacturer-primary document for this exact orderable is retained in the evidence. Reviewed: JLCPCB public product listing C14663 (A5 retained product-props snapshot) (DISTRIBUTOR\_IDENTITY, AVAILABLE). Distributor listings establish order identity only, and a distributor-hosted mirror is lower authority, so neither is published as a manufacturer document.
+**Selected source ID:** `src-cc0603krx7r9bb104-ds-p2`
+
+**Authority:** MANUFACTURER\_PRIMARY
+
+**Availability:** AVAILABLE
 
 No footprint or 3D model is published for this record: CAD is not enabled for this project.
 
@@ -74,32 +78,25 @@ Coverage is stated one domain at a time and is never rolled up. A domain marked 
 
 <EvidenceAnchor id="cov-cc0603krx7r9bb104-identity" />
 
-**Coverage ID:** `cov-cc0603krx7r9bb104-identity` · **Status:** OPEN
+**Coverage ID:** `cov-cc0603krx7r9bb104-identity` · **Status:** COVERED
 
-**Reason:** fact-cc0603krx7r9bb104-manufacturer remains UNSOURCED: only distributor identity is retained; no manufacturer-primary document inspected
+**Reason:** manufacturer and exact orderable confirmed from the manufacturer-hosted document (MANUFACTURER\_PRIMARY, bytes inspected 2026-11-08); distributor identity retained as order-code evidence
 
 **Facts in this domain:**
 
 - [`fact-cc0603krx7r9bb104-manufacturer`](#fact-cc0603krx7r9bb104-manufacturer)
 - [`fact-cc0603krx7r9bb104-distributor-identity`](#fact-cc0603krx7r9bb104-distributor-identity)
-
-**Blocked by:** these facts must be resolved before the domain can close. Each is listed in full under Facts.
-
-- [`fact-cc0603krx7r9bb104-manufacturer`](#fact-cc0603krx7r9bb104-manufacturer)
+- [`fact-cc0603krx7r9bb104-orderable`](#fact-cc0603krx7r9bb104-orderable)
 
 ### pinout
 
 <EvidenceAnchor id="cov-cc0603krx7r9bb104-pinout" />
 
-**Coverage ID:** `cov-cc0603krx7r9bb104-pinout` · **Status:** OPEN
+**Coverage ID:** `cov-cc0603krx7r9bb104-pinout` · **Status:** COVERED
 
-**Reason:** fact-cc0603krx7r9bb104-pinout remains UNSOURCED: the pin map is projected from the historical A5 netlist and has not been checked against a manufacturer document
+**Reason:** non-polarised two-terminal part: the manufacturer document defines two identical end terminations and no terminal numbering, so pin identity is NOT APPLICABLE; project pin map pads 1/2 do not contradict it
 
 **Facts in this domain:**
-
-- [`fact-cc0603krx7r9bb104-pinout`](#fact-cc0603krx7r9bb104-pinout)
-
-**Blocked by:** these facts must be resolved before the domain can close. Each is listed in full under Facts.
 
 - [`fact-cc0603krx7r9bb104-pinout`](#fact-cc0603krx7r9bb104-pinout)
 
@@ -107,17 +104,33 @@ Coverage is stated one domain at a time and is never rolled up. A domain marked 
 
 <EvidenceAnchor id="cov-cc0603krx7r9bb104-ratings" />
 
-**Coverage ID:** `cov-cc0603krx7r9bb104-ratings` · **Status:** OPEN
+**Coverage ID:** `cov-cc0603krx7r9bb104-ratings` · **Status:** COVERED
 
-**Reason:** fact-cc0603krx7r9bb104-ratings remains UNSOURCED: no manufacturer limits retained
+**Reason:** rated and characteristic values recorded from the manufacturer-hosted document; manufacturer data only, not a design-margin or safety verdict
 
 **Facts in this domain:**
 
 - [`fact-cc0603krx7r9bb104-ratings`](#fact-cc0603krx7r9bb104-ratings)
+- [`fact-cc0603krx7r9bb104-capacitance`](#fact-cc0603krx7r9bb104-capacitance)
+- [`fact-cc0603krx7r9bb104-tolerance`](#fact-cc0603krx7r9bb104-tolerance)
+- [`fact-cc0603krx7r9bb104-dielectric`](#fact-cc0603krx7r9bb104-dielectric)
+- [`fact-cc0603krx7r9bb104-operating-temperature`](#fact-cc0603krx7r9bb104-operating-temperature)
+
+### dc-bias-capacitance
+
+<EvidenceAnchor id="cov-cc0603krx7r9bb104-dc-bias-capacitance" />
+
+**Coverage ID:** `cov-cc0603krx7r9bb104-dc-bias-capacitance` · **Status:** OPEN
+
+**Reason:** fact-cc0603krx7r9bb104-dc-bias NEEDS BENCH: effective MLCC capacitance under the A5 DC bias, temperature and ageing is not established; the manufacturer document gives no part-specific DC-bias curve and A5 never qualified it
+
+**Facts in this domain:**
+
+- [`fact-cc0603krx7r9bb104-dc-bias`](#fact-cc0603krx7r9bb104-dc-bias)
 
 **Blocked by:** these facts must be resolved before the domain can close. Each is listed in full under Facts.
 
-- [`fact-cc0603krx7r9bb104-ratings`](#fact-cc0603krx7r9bb104-ratings)
+- [`fact-cc0603krx7r9bb104-dc-bias`](#fact-cc0603krx7r9bb104-dc-bias)
 
 ### placement
 
@@ -155,22 +168,100 @@ Coverage is stated one domain at a time and is never rolled up. A domain marked 
 
 Each fact keeps its value, its unit, the conditions it holds under, where it came from and how far it has been confirmed as separate fields, because they are separate claims. A value without its conditions is not the same fact, and a verdict is about the evidence for the value, not about the part.
 
-### ABSOLUTE\_MAXIMUM
+### RECOMMENDED\_OPERATION
 
-A never-exceed limit. Reaching it may damage the part; it is not an operating target and there is no margin implied by it.
+The range the manufacturer intends the part to be used in. Always narrower than the absolute maximum.
 
 <EvidenceFact>
   <EvidenceAnchor id="fact-cc0603krx7r9bb104-ratings" />
 
   **Fact:** `fact-cc0603krx7r9bb104-ratings`
 
-  **Value:** manufacturer absolute-maximum and recommended operating limits · **Unit:** `NONE`
+  **Value:** 50 · **Unit:** `V`
 
-  **Conditions:** no manufacturer document inspected yet; distributor listing is identity evidence only
+  **Conditions:** rated voltage Ur (voltage code 9) per the part-number system; the document gives no separate absolute-maximum table
 
-  **Verdict:** UNSOURCED · **Provenance:** UNVERIFIED
+  **Verdict:** PASS - primary-source confirmed · **Provenance:** PRIMARY-SPEC
 
-  **Evidence:** [src-cc0603krx7r9bb104-a5-jlcpcb-snapshot: product table row specification (identity only)](#src-cc0603krx7r9bb104-a5-jlcpcb-snapshot)
+  **Evidence:** [src-cc0603krx7r9bb104-ds-p2: Ordering Information section table (4) Rated voltage row 9 = 50 V](#src-cc0603krx7r9bb104-ds-p2)
+</EvidenceFact>
+
+<EvidenceFact>
+  <EvidenceAnchor id="fact-cc0603krx7r9bb104-operating-temperature" />
+
+  **Fact:** `fact-cc0603krx7r9bb104-operating-temperature`
+
+  **Value:** -55 to +125 · **Unit:** `degC`
+
+  **Conditions:** X7R operating temperature range
+
+  **Verdict:** PASS - primary-source confirmed · **Provenance:** PRIMARY-SPEC
+
+  **Evidence:** [src-cc0603krx7r9bb104-ds-p14: Table 12 row Operating temperature range](#src-cc0603krx7r9bb104-ds-p14)
+</EvidenceFact>
+
+### GUARANTEED\_ELECTRICAL
+
+A parameter the manufacturer guarantees over the stated conditions, usually with minimum, typical and maximum values.
+
+<EvidenceFact>
+  <EvidenceAnchor id="fact-cc0603krx7r9bb104-capacitance" />
+
+  **Fact:** `fact-cc0603krx7r9bb104-capacitance`
+
+  **Value:** 100 · **Unit:** `nF`
+
+  **Conditions:** nominal capacitance from code 104 (page 2 table (5)); Table 3 confirms 100 nF at 50 V in 0603 (thickness DA); measured without DC bias
+
+  **Verdict:** PASS - primary-source confirmed · **Provenance:** PRIMARY-SPEC
+
+  **Evidence:** [src-cc0603krx7r9bb104-ds-p5: Table 3 Sizes from 0603, row 100 nF, column 50 V](#src-cc0603krx7r9bb104-ds-p5)
+</EvidenceFact>
+
+<EvidenceFact>
+  <EvidenceAnchor id="fact-cc0603krx7r9bb104-tolerance" />
+
+  **Fact:** `fact-cc0603krx7r9bb104-tolerance`
+
+  **Value:** 10 · **Unit:** `%`
+
+  **Conditions:** capacitance tolerance +/-10% (code K)
+
+  **Verdict:** PASS - primary-source confirmed · **Provenance:** PRIMARY-SPEC
+
+  **Evidence:** [src-cc0603krx7r9bb104-ds-p2: Ordering Information section table (2) Tolerance row K](#src-cc0603krx7r9bb104-ds-p2)
+</EvidenceFact>
+
+<EvidenceFact>
+  <EvidenceAnchor id="fact-cc0603krx7r9bb104-dielectric" />
+
+  **Fact:** `fact-cc0603krx7r9bb104-dielectric`
+
+  **Value:** 15 · **Unit:** `%`
+
+  **Conditions:** X7R: maximum capacitance change as a function of temperature +/-15% over the operating range (no DC bias)
+
+  **Verdict:** PASS - primary-source confirmed · **Provenance:** PRIMARY-SPEC
+
+  **Evidence:** [src-cc0603krx7r9bb104-ds-p14: Table 12 row Maximum capacitance change as a function of temperature](#src-cc0603krx7r9bb104-ds-p14)
+</EvidenceFact>
+
+### TYPICAL\_CURVE
+
+A representative figure read from a characteristic curve. Typical values are not guaranteed and vary part to part.
+
+<EvidenceFact>
+  <EvidenceAnchor id="fact-cc0603krx7r9bb104-dc-bias" />
+
+  **Fact:** `fact-cc0603krx7r9bb104-dc-bias`
+
+  **Value:** effective capacitance at the A5 DC operating point not established · **Unit:** `NONE`
+
+  **Conditions:** the series datasheet gives no DC-bias characteristic for this part; A5 never qualified DC bias, temperature, tolerance and ageing together; needs a bench measurement or a part-specific manufacturer curve
+
+  **Verdict:** NEEDS BENCH · **Provenance:** UNVERIFIED
+
+  **Evidence:** [src-cc0603krx7r9bb104-ds-p14: Table 12 (Electrical Characteristics) rows; no DC-bias row exists](#src-cc0603krx7r9bb104-ds-p14)
 </EvidenceFact>
 
 ### PROJECT\_STATE
@@ -184,11 +275,11 @@ A value this project recorded about how the part is used here — a chosen opera
 
   **Value:** YAGEO · **Unit:** `NONE`
 
-  **Conditions:** exact orderable identity; distributor listing only, no manufacturer-primary document inspected yet
+  **Conditions:** ordering section prints 'YAGEO BRAND ordering code'; document served from the manufacturer's own host yageogroup.com (www.yageo.com in the footer)
 
-  **Verdict:** UNSOURCED · **Provenance:** UNVERIFIED
+  **Verdict:** PASS - primary-source confirmed · **Provenance:** PRIMARY-SPEC
 
-  **Evidence:** [src-cc0603krx7r9bb104-a5-jlcpcb-snapshot: product table row brand](#src-cc0603krx7r9bb104-a5-jlcpcb-snapshot)
+  **Evidence:** [src-cc0603krx7r9bb104-ds-p2: Ordering Information section heading YAGEO BRAND ordering code](#src-cc0603krx7r9bb104-ds-p2)
 </EvidenceFact>
 
 <EvidenceFact>
@@ -224,13 +315,13 @@ A value this project recorded about how the part is used here — a chosen opera
 
   **Fact:** `fact-cc0603krx7r9bb104-pinout`
 
-  **Value:** manufacturer pin numbering and pin functions for package 0603 · **Unit:** `NONE`
+  **Value:** not applicable: non-polarised two-terminal MLCC; the construction figure shows two identical end terminations and the document defines no terminal numbering or polarity · **Unit:** `NONE`
 
-  **Conditions:** datasheet pin identity behind the project pin map; no manufacturer document inspected yet
+  **Conditions:** project pin map pads 1 and 2 are KiCad numbering of interchangeable terminals; no contradiction with the document
 
-  **Verdict:** UNSOURCED · **Provenance:** UNVERIFIED
+  **Verdict:** NOT APPLICABLE · **Provenance:** PRIMARY-SPEC
 
-  **Evidence:** [src-cc0603krx7r9bb104-a5-netlist-controller: libparts section pin rows for LightBlock:C](#src-cc0603krx7r9bb104-a5-netlist-controller)
+  **Evidence:** [src-cc0603krx7r9bb104-ds-p3: Construction section Fig. 1 and Dimension section Table 1 row 0603](#src-cc0603krx7r9bb104-ds-p3)
 </EvidenceFact>
 
 <EvidenceFact>
@@ -245,6 +336,20 @@ A value this project recorded about how the part is used here — a chosen opera
   **Verdict:** UNSOURCED · **Provenance:** PROJECT-CHOICE
 
   **Evidence:** [src-cc0603krx7r9bb104-a5-netlist-controller: components section footprint field](#src-cc0603krx7r9bb104-a5-netlist-controller)
+</EvidenceFact>
+
+<EvidenceFact>
+  <EvidenceAnchor id="fact-cc0603krx7r9bb104-orderable" />
+
+  **Fact:** `fact-cc0603krx7r9bb104-orderable`
+
+  **Value:** CC0603KRX7R9BB104 = CC / 0603 (1608) / K (+/-10%) / R (paper/PE taping reel, 7 inch) / X7R / 9 (50 V) / BB / 104 (100 nF) · **Unit:** `NONE`
+
+  **Conditions:** series datasheet; the exact MPN is not printed but the GLOBAL PART NUMBER (PREFERRED) system decodes every field uniquely, and Table 3 (page 5) lists 0603 100 nF 50 V X7R as available (thickness DA)
+
+  **Verdict:** PASS - primary-source confirmed · **Provenance:** PRIMARY-SPEC
+
+  **Evidence:** [src-cc0603krx7r9bb104-ds-p2: Ordering Information section GLOBAL PART NUMBER (PREFERRED) figure and tables (1)-(5)](#src-cc0603krx7r9bb104-ds-p2)
 </EvidenceFact>
 
 ## Pin maps
@@ -324,25 +429,85 @@ Every document cited above, with its identification, when it was retrieved, and 
 
 **Document URL:** [https://github.com/Takazudo/zudo-led-block/blob/d41cbb7fc61dc954b4affaf19527aa69f07013b6/engineering/a5/integration/native\_schematic/controller/netlist.xml](https://github.com/Takazudo/zudo-led-block/blob/d41cbb7fc61dc954b4affaf19527aa69f07013b6/engineering/a5/integration/native_schematic/controller/netlist.xml)
 
-### Light Block A5 led\_leaf native netlist (KiCad 10.0.8 export, historical)
+### YAGEO DATA SHEET Surface-Mount Ceramic Multilayer Capacitors, General Purpose & High Capacitance, Class 2, X7R, 6.3 V to 250 V, 100 pF to 47 uF
 
-<EvidenceAnchor id="src-cc0603krx7r9bb104-a5-netlist-led-leaf" />
+<EvidenceAnchor id="src-cc0603krx7r9bb104-ds-p2" />
 
-**Source ID:** `src-cc0603krx7r9bb104-a5-netlist-led-leaf` · **Authority:** PROJECT\_GENERATOR
+**Source ID:** `src-cc0603krx7r9bb104-ds-p2` · **Authority:** MANUFACTURER\_PRIMARY
 
-| Field           | Recorded value                                                     |
-| --------------- | ------------------------------------------------------------------ |
-| Document number | engineering/a5/integration/native\_schematic/led\_leaf/netlist.xml |
-| Revision        | A5                                                                 |
-| Document date   | 2026-11-06                                                         |
-| Retrieved       | 2026-11-06                                                         |
-| Printed page    | n/a (XML netlist)                                                  |
+| Field           | Recorded value                             |
+| --------------- | ------------------------------------------ |
+| Document number | UPY-GPHC\_X7R\_6.3V-TO-250V                |
+| Revision        | Product Specification - March 6, 2026 V.27 |
+| Document date   | 2026-03-06                                 |
+| Retrieved       | 2026-11-08                                 |
+| Printed page    | 2 (of 29)                                  |
 
-**Locator:** engineering/a5/integration/native\_schematic/led\_leaf/netlist.xml, components section rows for C1, C2, C3, C4 and the matching nets section nodes
+**Locator:** Ordering Information - Global Part Number section: YAGEO BRAND ordering code, GLOBAL PART NUMBER (PREFERRED) figure and code tables (1) size, (2) tolerance, (3) packing style, (4) rated voltage, (5) capacitance value
 
 **Availability:** AVAILABLE
 
-**Document URL:** [https://github.com/Takazudo/zudo-led-block/blob/d41cbb7fc61dc954b4affaf19527aa69f07013b6/engineering/a5/integration/native\_schematic/led\_leaf/netlist.xml](https://github.com/Takazudo/zudo-led-block/blob/d41cbb7fc61dc954b4affaf19527aa69f07013b6/engineering/a5/integration/native_schematic/led_leaf/netlist.xml)
+**Document URL:** [https://yageogroup.com/content/datasheet/asset/file/UPY-GPHC\_X7R\_6\_3V-TO-250V](https://yageogroup.com/content/datasheet/asset/file/UPY-GPHC_X7R_6_3V-TO-250V)
+
+### YAGEO DATA SHEET Surface-Mount Ceramic Multilayer Capacitors, General Purpose & High Capacitance, Class 2, X7R, 6.3 V to 250 V, 100 pF to 47 uF
+
+<EvidenceAnchor id="src-cc0603krx7r9bb104-ds-p3" />
+
+**Source ID:** `src-cc0603krx7r9bb104-ds-p3` · **Authority:** MANUFACTURER\_PRIMARY
+
+| Field           | Recorded value                             |
+| --------------- | ------------------------------------------ |
+| Document number | UPY-GPHC\_X7R\_6.3V-TO-250V                |
+| Revision        | Product Specification - March 6, 2026 V.27 |
+| Document date   | 2026-03-06                                 |
+| Retrieved       | 2026-11-08                                 |
+| Printed page    | 3 (of 29)                                  |
+
+**Locator:** Construction section Fig. 1 and Dimension section Table 1 row 0603 code DA
+
+**Availability:** AVAILABLE
+
+**Document URL:** [https://yageogroup.com/content/datasheet/asset/file/UPY-GPHC\_X7R\_6\_3V-TO-250V](https://yageogroup.com/content/datasheet/asset/file/UPY-GPHC_X7R_6_3V-TO-250V)
+
+### YAGEO DATA SHEET Surface-Mount Ceramic Multilayer Capacitors, General Purpose & High Capacitance, Class 2, X7R, 6.3 V to 250 V, 100 pF to 47 uF
+
+<EvidenceAnchor id="src-cc0603krx7r9bb104-ds-p5" />
+
+**Source ID:** `src-cc0603krx7r9bb104-ds-p5` · **Authority:** MANUFACTURER\_PRIMARY
+
+| Field           | Recorded value                             |
+| --------------- | ------------------------------------------ |
+| Document number | UPY-GPHC\_X7R\_6.3V-TO-250V                |
+| Revision        | Product Specification - March 6, 2026 V.27 |
+| Document date   | 2026-03-06                                 |
+| Retrieved       | 2026-11-08                                 |
+| Printed page    | 5 (of 29)                                  |
+
+**Locator:** Capacitance Range & Thickness for X7R section, Table 3 (Sizes from 0603), row 100 nF, column 50 V
+
+**Availability:** AVAILABLE
+
+**Document URL:** [https://yageogroup.com/content/datasheet/asset/file/UPY-GPHC\_X7R\_6\_3V-TO-250V](https://yageogroup.com/content/datasheet/asset/file/UPY-GPHC_X7R_6_3V-TO-250V)
+
+### YAGEO DATA SHEET Surface-Mount Ceramic Multilayer Capacitors, General Purpose & High Capacitance, Class 2, X7R, 6.3 V to 250 V, 100 pF to 47 uF
+
+<EvidenceAnchor id="src-cc0603krx7r9bb104-ds-p14" />
+
+**Source ID:** `src-cc0603krx7r9bb104-ds-p14` · **Authority:** MANUFACTURER\_PRIMARY
+
+| Field           | Recorded value                             |
+| --------------- | ------------------------------------------ |
+| Document number | UPY-GPHC\_X7R\_6.3V-TO-250V                |
+| Revision        | Product Specification - March 6, 2026 V.27 |
+| Document date   | 2026-03-06                                 |
+| Retrieved       | 2026-11-08                                 |
+| Printed page    | 14 (of 29)                                 |
+
+**Locator:** Electrical Characteristics section, Table 12 rows Capacitance tolerance, Dissipation factor, Insulation resistance, temperature characteristic and Operating temperature range
+
+**Availability:** AVAILABLE
+
+**Document URL:** [https://yageogroup.com/content/datasheet/asset/file/UPY-GPHC\_X7R\_6\_3V-TO-250V](https://yageogroup.com/content/datasheet/asset/file/UPY-GPHC_X7R_6_3V-TO-250V)
 
 ## Legend
 
@@ -354,6 +519,8 @@ What the recorded terms on this page mean, in ordinary words. The exact terms ab
 | --------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------- |
 | `CONFIRMED - distributor identity only` | A distributor listing confirms which part this is, and nothing more. It carries no electrical, thermal or lifetime authority. |
 | `NEEDS BENCH`                           | Cannot be settled from documents. It needs measurement on real hardware before it can be relied on.                           |
+| `NOT APPLICABLE`                        | The parameter does not apply to this part as it is used here.                                                                 |
+| `PASS - primary-source confirmed`       | Confirmed against the manufacturer's own document for this exact part.                                                        |
 | `UNSOURCED`                             | No accepted source backs this value yet. Treat it as a claim, not a fact.                                                     |
 
 ### Provenance
@@ -361,20 +528,24 @@ What the recorded terms on this page mean, in ordinary words. The exact terms ab
 | Recorded term          | What it means                                                |
 | ---------------------- | ------------------------------------------------------------ |
 | `DISTRIBUTOR-IDENTITY` | Taken from a distributor listing. Identity information only. |
+| `PRIMARY-SPEC`         | Taken from the manufacturer's own specification document.    |
 | `PROJECT-CHOICE`       | A decision made by this project. No vendor asserts it.       |
 | `UNVERIFIED`           | Recorded, but not yet backed by an accepted source.          |
 
 ### Fact class
 
-| Recorded term      | What it means                                                                                                                                                      |
-| ------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| `ABSOLUTE_MAXIMUM` | A never-exceed limit. Reaching it may damage the part; it is not an operating target and there is no margin implied by it.                                         |
-| `PROJECT_STATE`    | A value this project recorded about how the part is used here — a chosen operating point, a net assignment, or a derived figure. Not a manufacturer specification. |
+| Recorded term           | What it means                                                                                                                                                      |
+| ----------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| `GUARANTEED_ELECTRICAL` | A parameter the manufacturer guarantees over the stated conditions, usually with minimum, typical and maximum values.                                              |
+| `PROJECT_STATE`         | A value this project recorded about how the part is used here — a chosen operating point, a net assignment, or a derived figure. Not a manufacturer specification. |
+| `RECOMMENDED_OPERATION` | The range the manufacturer intends the part to be used in. Always narrower than the absolute maximum.                                                              |
+| `TYPICAL_CURVE`         | A representative figure read from a characteristic curve. Typical values are not guaranteed and vary part to part.                                                 |
 
 ### Coverage status
 
 | Recorded term | What it means                                                                                                               |
 | ------------- | --------------------------------------------------------------------------------------------------------------------------- |
+| `COVERED`     | Every question this domain asks is answered by the facts listed against it.                                                 |
 | `OPEN`        | Unresolved. Open means the question has not been answered, not that the part is unsafe — the reason states what is missing. |
 
 ### Source availability
@@ -388,13 +559,14 @@ What the recorded terms on this page mean, in ordinary words. The exact terms ab
 | Recorded term          | What it means                                                             |
 | ---------------------- | ------------------------------------------------------------------------- |
 | `DISTRIBUTOR_IDENTITY` | A distributor listing. Establishes which part this is, nothing more.      |
+| `MANUFACTURER_PRIMARY` | The manufacturer's own document for this exact part.                      |
 | `PROJECT_GENERATOR`    | A document this project generated, such as a schematic or netlist export. |
 
 ### Identity state
 
-| Recorded term | What it means                                                                                                                    |
-| ------------- | -------------------------------------------------------------------------------------------------------------------------------- |
-| `UNRESOLVED`  | The exact orderable part is not yet confirmed. Substituting a same-name part from another vendor is not permitted on that basis. |
+| Recorded term | What it means                                                 |
+| ------------- | ------------------------------------------------------------- |
+| `VERIFIED`    | The exact orderable part has been confirmed against a source. |
 
 ### Source state
 

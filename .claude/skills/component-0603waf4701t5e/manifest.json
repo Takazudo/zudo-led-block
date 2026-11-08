@@ -13,7 +13,12 @@
       "package": "0603",
       "source_ids": [
         "src-0603waf4701t5e-a5-jlcpcb-snapshot",
-        "src-0603waf4701t5e-a5-netlist-controller"
+        "src-0603waf4701t5e-a5-netlist-controller",
+        "src-0603waf4701t5e-ds-p1",
+        "src-0603waf4701t5e-ds-p2",
+        "src-0603waf4701t5e-ds-p4",
+        "src-0603waf4701t5e-ds-p5",
+        "src-0603waf4701t5e-ds-p7"
       ],
       "fact_ids": [
         "fact-0603waf4701t5e-manufacturer",
@@ -21,15 +26,21 @@
         "fact-0603waf4701t5e-a5-placements",
         "fact-0603waf4701t5e-pinout",
         "fact-0603waf4701t5e-ratings",
-        "fact-0603waf4701t5e-cad-state"
+        "fact-0603waf4701t5e-cad-state",
+        "fact-0603waf4701t5e-orderable",
+        "fact-0603waf4701t5e-resistance",
+        "fact-0603waf4701t5e-tolerance",
+        "fact-0603waf4701t5e-max-working-voltage",
+        "fact-0603waf4701t5e-max-overload-voltage",
+        "fact-0603waf4701t5e-operating-temperature",
+        "fact-0603waf4701t5e-tcr"
       ],
       "interaction_ids": [],
       "open_domains": [
-        "identity",
-        "pinout",
-        "electrical-ratings",
         "placement",
-        "cad-assets"
+        "cad-assets",
+        "identity",
+        "electrical-ratings"
       ]
     }
   ]

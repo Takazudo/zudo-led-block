@@ -15,6 +15,7 @@ datasheet of another variant or same-name vendor data.
 - The pin map and placements are projected from the immutable historical A5 native netlists
   (`engineering/a5/integration/native_schematic/`). They are not fresh A6 design state, are not
   bound by the manual inventory provider, and are not as-built verification.
+- Primary document: Samsung Electro-Mechanics SPECIFICATION (Reference Sheet) for CL10A475KO8NNNC, issued MAY.09.2024, product.samsungsem.com, sha256 b2081b0b0d43...
 - Catalog CAD is disabled (`cad.enabled = false`); the pin-asset check is SKIPPED.
 - A5 is not released for manufacture. Nothing here is hardware or manufacturing sign-off.
 

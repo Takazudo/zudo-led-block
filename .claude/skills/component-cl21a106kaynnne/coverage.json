@@ -5,40 +5,51 @@
       "coverage_id": "cov-cl21a106kaynnne-identity",
       "record_id": "rec-cl21a106kaynnne",
       "domain": "identity",
-      "status": "OPEN",
-      "reason": "fact-cl21a106kaynnne-manufacturer remains UNSOURCED: only distributor identity is retained; no manufacturer-primary document inspected",
+      "status": "COVERED",
+      "reason": "manufacturer and exact orderable confirmed from the manufacturer-hosted document (MANUFACTURER_PRIMARY, bytes inspected 2026-11-08); distributor identity retained as order-code evidence",
       "fact_ids": [
         "fact-cl21a106kaynnne-manufacturer",
-        "fact-cl21a106kaynnne-distributor-identity"
+        "fact-cl21a106kaynnne-distributor-identity",
+        "fact-cl21a106kaynnne-orderable"
       ],
-      "blocking_fact_ids": [
-        "fact-cl21a106kaynnne-manufacturer"
-      ]
+      "blocking_fact_ids": []
     },
     {
       "coverage_id": "cov-cl21a106kaynnne-pinout",
       "record_id": "rec-cl21a106kaynnne",
       "domain": "pinout",
-      "status": "OPEN",
-      "reason": "fact-cl21a106kaynnne-pinout remains UNSOURCED: the pin map is projected from the historical A5 netlist and has not been checked against a manufacturer document",
+      "status": "COVERED",
+      "reason": "non-polarised two-terminal part: the manufacturer document defines two identical end terminations and no terminal numbering, so pin identity is NOT APPLICABLE; project pin map pads 1/2 do not contradict it",
       "fact_ids": [
         "fact-cl21a106kaynnne-pinout"
       ],
-      "blocking_fact_ids": [
-        "fact-cl21a106kaynnne-pinout"
-      ]
+      "blocking_fact_ids": []
     },
     {
       "coverage_id": "cov-cl21a106kaynnne-ratings",
       "record_id": "rec-cl21a106kaynnne",
       "domain": "electrical-ratings",
-      "status": "OPEN",
-      "reason": "fact-cl21a106kaynnne-ratings remains UNSOURCED: no manufacturer limits retained",
+      "status": "COVERED",
+      "reason": "rated and characteristic values recorded from the manufacturer-hosted document; manufacturer data only, not a design-margin or safety verdict",
       "fact_ids": [
-        "fact-cl21a106kaynnne-ratings"
+        "fact-cl21a106kaynnne-ratings",
+        "fact-cl21a106kaynnne-capacitance",
+        "fact-cl21a106kaynnne-tolerance",
+        "fact-cl21a106kaynnne-dielectric"
+      ],
+      "blocking_fact_ids": []
+    },
+    {
+      "coverage_id": "cov-cl21a106kaynnne-dc-bias-capacitance",
+      "record_id": "rec-cl21a106kaynnne",
+      "domain": "dc-bias-capacitance",
+      "status": "OPEN",
+      "reason": "fact-cl21a106kaynnne-dc-bias NEEDS BENCH: effective MLCC capacitance under the A5 DC bias, temperature and ageing is not established; the manufacturer document gives no part-specific DC-bias curve and A5 never qualified it",
+      "fact_ids": [
+        "fact-cl21a106kaynnne-dc-bias"
       ],
       "blocking_fact_ids": [
-        "fact-cl21a106kaynnne-ratings"
+        "fact-cl21a106kaynnne-dc-bias"
       ]
     },
     {

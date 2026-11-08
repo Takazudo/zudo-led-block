@@ -29,11 +29,11 @@ This record in the catalog: [0603B103K500NT](/docs/components/catalog/#rec-fh-06
 
 **Fit:** Fitted
 
-**Identity state:** UNRESOLVED
+**Identity state:** VERIFIED
 
 **Source state:** AVAILABLE
 
-**Coverage:** 5 open of 5 published
+**Coverage:** 3 open of 6 published
 
 ## Documents and package
 
@@ -41,9 +41,13 @@ This record in the catalog: [0603B103K500NT](/docs/components/catalog/#rec-fh-06
 
 <EvidenceAnchor id="component-references" />
 
-**Selected document:** Document unavailable
+[Datasheet PDF](https://www.fhcomp.com/uploads/20260922/110408_%E9%80%9A%E7%94%A8%E5%9E%8B%E7%B3%BB%E5%88%97%E5%A4%9A%E5%B1%82%E7%89%87%E5%BC%8F%E9%99%B6%E7%93%B7%E7%94%B5%E5%AE%B9%E5%99%A8-A0006.pdf) — Fenghua GENERAL TYPE MLCC specification (通用型系列多层片式陶瓷电容器 / General Series Multi-layer Ceramic Capacitors)
 
-**Reason:** No manufacturer-primary document for this exact orderable is retained in the evidence. Reviewed: JLCPCB public product listing C57112 (A5 retained product-props snapshot) (DISTRIBUTOR\_IDENTITY, AVAILABLE). Distributor listings establish order identity only, and a distributor-hosted mirror is lower authority, so neither is published as a manufacturer document.
+**Selected source ID:** `src-0603b103k500nt-ds-p3`
+
+**Authority:** MANUFACTURER\_PRIMARY
+
+**Availability:** AVAILABLE
 
 No footprint or 3D model is published for this record: CAD is not enabled for this project.
 
@@ -63,32 +67,25 @@ Coverage is stated one domain at a time and is never rolled up. A domain marked 
 
 <EvidenceAnchor id="cov-0603b103k500nt-identity" />
 
-**Coverage ID:** `cov-0603b103k500nt-identity` · **Status:** OPEN
+**Coverage ID:** `cov-0603b103k500nt-identity` · **Status:** COVERED
 
-**Reason:** fact-0603b103k500nt-manufacturer remains UNSOURCED: only distributor identity is retained; no manufacturer-primary document inspected
+**Reason:** manufacturer and exact orderable confirmed from the manufacturer-hosted document (MANUFACTURER\_PRIMARY, bytes inspected 2026-11-08); distributor identity retained as order-code evidence
 
 **Facts in this domain:**
 
 - [`fact-0603b103k500nt-manufacturer`](#fact-0603b103k500nt-manufacturer)
 - [`fact-0603b103k500nt-distributor-identity`](#fact-0603b103k500nt-distributor-identity)
-
-**Blocked by:** these facts must be resolved before the domain can close. Each is listed in full under Facts.
-
-- [`fact-0603b103k500nt-manufacturer`](#fact-0603b103k500nt-manufacturer)
+- [`fact-0603b103k500nt-orderable`](#fact-0603b103k500nt-orderable)
 
 ### pinout
 
 <EvidenceAnchor id="cov-0603b103k500nt-pinout" />
 
-**Coverage ID:** `cov-0603b103k500nt-pinout` · **Status:** OPEN
+**Coverage ID:** `cov-0603b103k500nt-pinout` · **Status:** COVERED
 
-**Reason:** fact-0603b103k500nt-pinout remains UNSOURCED: the pin map is projected from the historical A5 netlist and has not been checked against a manufacturer document
+**Reason:** non-polarised two-terminal part: the manufacturer document defines two identical end terminations and no terminal numbering, so pin identity is NOT APPLICABLE; project pin map pads 1/2 do not contradict it
 
 **Facts in this domain:**
-
-- [`fact-0603b103k500nt-pinout`](#fact-0603b103k500nt-pinout)
-
-**Blocked by:** these facts must be resolved before the domain can close. Each is listed in full under Facts.
 
 - [`fact-0603b103k500nt-pinout`](#fact-0603b103k500nt-pinout)
 
@@ -96,17 +93,33 @@ Coverage is stated one domain at a time and is never rolled up. A domain marked 
 
 <EvidenceAnchor id="cov-0603b103k500nt-ratings" />
 
-**Coverage ID:** `cov-0603b103k500nt-ratings` · **Status:** OPEN
+**Coverage ID:** `cov-0603b103k500nt-ratings` · **Status:** COVERED
 
-**Reason:** fact-0603b103k500nt-ratings remains UNSOURCED: no manufacturer limits retained
+**Reason:** rated and characteristic values recorded from the manufacturer-hosted document; manufacturer data only, not a design-margin or safety verdict
 
 **Facts in this domain:**
 
 - [`fact-0603b103k500nt-ratings`](#fact-0603b103k500nt-ratings)
+- [`fact-0603b103k500nt-capacitance`](#fact-0603b103k500nt-capacitance)
+- [`fact-0603b103k500nt-tolerance`](#fact-0603b103k500nt-tolerance)
+- [`fact-0603b103k500nt-dielectric`](#fact-0603b103k500nt-dielectric)
+- [`fact-0603b103k500nt-operating-temperature`](#fact-0603b103k500nt-operating-temperature)
+
+### dc-bias-capacitance
+
+<EvidenceAnchor id="cov-0603b103k500nt-dc-bias-capacitance" />
+
+**Coverage ID:** `cov-0603b103k500nt-dc-bias-capacitance` · **Status:** OPEN
+
+**Reason:** fact-0603b103k500nt-dc-bias NEEDS BENCH: effective MLCC capacitance under the A5 DC bias, temperature and ageing is not established; the manufacturer document gives no part-specific DC-bias curve and A5 never qualified it
+
+**Facts in this domain:**
+
+- [`fact-0603b103k500nt-dc-bias`](#fact-0603b103k500nt-dc-bias)
 
 **Blocked by:** these facts must be resolved before the domain can close. Each is listed in full under Facts.
 
-- [`fact-0603b103k500nt-ratings`](#fact-0603b103k500nt-ratings)
+- [`fact-0603b103k500nt-dc-bias`](#fact-0603b103k500nt-dc-bias)
 
 ### placement
 
@@ -144,22 +157,100 @@ Coverage is stated one domain at a time and is never rolled up. A domain marked 
 
 Each fact keeps its value, its unit, the conditions it holds under, where it came from and how far it has been confirmed as separate fields, because they are separate claims. A value without its conditions is not the same fact, and a verdict is about the evidence for the value, not about the part.
 
-### ABSOLUTE\_MAXIMUM
+### RECOMMENDED\_OPERATION
 
-A never-exceed limit. Reaching it may damage the part; it is not an operating target and there is no margin implied by it.
+The range the manufacturer intends the part to be used in. Always narrower than the absolute maximum.
 
 <EvidenceFact>
   <EvidenceAnchor id="fact-0603b103k500nt-ratings" />
 
   **Fact:** `fact-0603b103k500nt-ratings`
 
-  **Value:** manufacturer absolute-maximum and recommended operating limits · **Unit:** `NONE`
+  **Value:** 50 · **Unit:** `V`
 
-  **Conditions:** no manufacturer document inspected yet; distributor listing is identity evidence only
+  **Conditions:** rated voltage from code 500 (50x10^0 V); the document gives no separate absolute-maximum table; dielectric withstanding test is 250% of rated for Class II, test only (page 16)
 
-  **Verdict:** UNSOURCED · **Provenance:** UNVERIFIED
+  **Verdict:** PASS - primary-source confirmed · **Provenance:** PRIMARY-SPEC
 
-  **Evidence:** [src-0603b103k500nt-a5-jlcpcb-snapshot: product table row specification (identity only)](#src-0603b103k500nt-a5-jlcpcb-snapshot)
+  **Evidence:** [src-0603b103k500nt-ds-p3: How To Order section Rated Voltage table](#src-0603b103k500nt-ds-p3)
+</EvidenceFact>
+
+<EvidenceFact>
+  <EvidenceAnchor id="fact-0603b103k500nt-operating-temperature" />
+
+  **Fact:** `fact-0603b103k500nt-operating-temperature`
+
+  **Value:** -55 to +125 · **Unit:** `degC`
+
+  **Conditions:** X7R operation temperature range
+
+  **Verdict:** PASS - primary-source confirmed · **Provenance:** PRIMARY-SPEC
+
+  **Evidence:** [src-0603b103k500nt-ds-p4: Temperature Coefficient /Characteristics table row X7R, Operation Temperature Range column](#src-0603b103k500nt-ds-p4)
+</EvidenceFact>
+
+### GUARANTEED\_ELECTRICAL
+
+A parameter the manufacturer guarantees over the stated conditions, usually with minimum, typical and maximum values.
+
+<EvidenceFact>
+  <EvidenceAnchor id="fact-0603b103k500nt-capacitance" />
+
+  **Fact:** `fact-0603b103k500nt-capacitance`
+
+  **Value:** 10 · **Unit:** `nF`
+
+  **Conditions:** nominal capacitance from code 103 (page 2); confirmed in the 0603 X7R 50 V range table; measured without DC bias
+
+  **Verdict:** PASS - primary-source confirmed · **Provenance:** PRIMARY-SPEC
+
+  **Evidence:** [src-0603b103k500nt-ds-p9: 0603 Capacitance Range and Voltage table, row 10nF, X7R series column 50V](#src-0603b103k500nt-ds-p9)
+</EvidenceFact>
+
+<EvidenceFact>
+  <EvidenceAnchor id="fact-0603b103k500nt-tolerance" />
+
+  **Fact:** `fact-0603b103k500nt-tolerance`
+
+  **Value:** 10 · **Unit:** `%`
+
+  **Conditions:** capacitance tolerance +/-10% (code K)
+
+  **Verdict:** PASS - primary-source confirmed · **Provenance:** PRIMARY-SPEC
+
+  **Evidence:** [src-0603b103k500nt-ds-p3: How To Order section Capacitance Tolerance table row K](#src-0603b103k500nt-ds-p3)
+</EvidenceFact>
+
+<EvidenceFact>
+  <EvidenceAnchor id="fact-0603b103k500nt-dielectric" />
+
+  **Fact:** `fact-0603b103k500nt-dielectric`
+
+  **Value:** 15 · **Unit:** `%`
+
+  **Conditions:** X7R temperature characteristic +/-15% referenced to 25 degC over the operation temperature range (no DC bias)
+
+  **Verdict:** PASS - primary-source confirmed · **Provenance:** PRIMARY-SPEC
+
+  **Evidence:** [src-0603b103k500nt-ds-p4: Temperature Coefficient /Characteristics table row X7R](#src-0603b103k500nt-ds-p4)
+</EvidenceFact>
+
+### TYPICAL\_CURVE
+
+A representative figure read from a characteristic curve. Typical values are not guaranteed and vary part to part.
+
+<EvidenceFact>
+  <EvidenceAnchor id="fact-0603b103k500nt-dc-bias" />
+
+  **Fact:** `fact-0603b103k500nt-dc-bias`
+
+  **Value:** effective capacitance at the A5 DC operating point not established · **Unit:** `NONE`
+
+  **Conditions:** the series specification gives no DC-bias characteristic; A5 never qualified DC bias, temperature, tolerance and ageing together; needs a bench measurement or a part-specific manufacturer curve
+
+  **Verdict:** NEEDS BENCH · **Provenance:** UNVERIFIED
+
+  **Evidence:** [src-0603b103k500nt-ds-p4: Temperature Coefficient /Characteristics table row X7R; no DC-bias table exists in the document](#src-0603b103k500nt-ds-p4)
 </EvidenceFact>
 
 ### PROJECT\_STATE
@@ -173,11 +264,11 @@ A value this project recorded about how the part is used here — a chosen opera
 
   **Value:** FH (Guangdong Fenghua Advanced Tech) · **Unit:** `NONE`
 
-  **Conditions:** exact orderable identity; distributor listing only, no manufacturer-primary document inspected yet
+  **Conditions:** the document names its issuer as FENGHUA / 风华 and is served from www.fhcomp.com, the site of Guangdong Fenghua Advanced Technology Holding Co.,Ltd. (广东风华高新科技股份有限公司); same maker as the record string
 
-  **Verdict:** UNSOURCED · **Provenance:** UNVERIFIED
+  **Verdict:** PASS - primary-source confirmed · **Provenance:** PRIMARY-SPEC
 
-  **Evidence:** [src-0603b103k500nt-a5-jlcpcb-snapshot: product table row brand](#src-0603b103k500nt-a5-jlcpcb-snapshot)
+  **Evidence:** [src-0603b103k500nt-ds-p30: Section 13 Revision History table note 1](#src-0603b103k500nt-ds-p30)
 </EvidenceFact>
 
 <EvidenceFact>
@@ -213,13 +304,13 @@ A value this project recorded about how the part is used here — a chosen opera
 
   **Fact:** `fact-0603b103k500nt-pinout`
 
-  **Value:** manufacturer pin numbering and pin functions for package 0603 · **Unit:** `NONE`
+  **Value:** not applicable: non-polarised two-terminal MLCC; the Product Structure figure shows two identical outer electrodes and the document defines no terminal numbering or polarity · **Unit:** `NONE`
 
-  **Conditions:** datasheet pin identity behind the project pin map; no manufacturer document inspected yet
+  **Conditions:** project pin map pads 1 and 2 are KiCad numbering of interchangeable terminals; no contradiction with the document
 
-  **Verdict:** UNSOURCED · **Provenance:** UNVERIFIED
+  **Verdict:** NOT APPLICABLE · **Provenance:** PRIMARY-SPEC
 
-  **Evidence:** [src-0603b103k500nt-a5-netlist-controller: libparts section pin rows for LightBlock:C](#src-0603b103k500nt-a5-netlist-controller)
+  **Evidence:** [src-0603b103k500nt-ds-p3: Product Structure section figure and name table](#src-0603b103k500nt-ds-p3)
 </EvidenceFact>
 
 <EvidenceFact>
@@ -234,6 +325,20 @@ A value this project recorded about how the part is used here — a chosen opera
   **Verdict:** UNSOURCED · **Provenance:** PROJECT-CHOICE
 
   **Evidence:** [src-0603b103k500nt-a5-netlist-controller: components section footprint field](#src-0603b103k500nt-a5-netlist-controller)
+</EvidenceFact>
+
+<EvidenceFact>
+  <EvidenceAnchor id="fact-0603b103k500nt-orderable" />
+
+  **Fact:** `fact-0603b103k500nt-orderable`
+
+  **Value:** 0603B103K500NT = 0603 (1.60x0.80 mm) / B (X7R) / 103 (10x10^3 pF = 10 nF) / K (+/-10%) / 500 (50 V) / N (nickel barrier termination) / T (7 inch tape reel) · **Unit:** `NONE`
+
+  **Conditions:** series specification; the exact MPN is not printed but the How To Order system decodes every field uniquely, and the 0603 capacitance-range table (page 8) lists 10 nF 50 V X7R
+
+  **Verdict:** PASS - primary-source confirmed · **Provenance:** PRIMARY-SPEC
+
+  **Evidence:** [src-0603b103k500nt-ds-p3: How To Order section ordering-code figure and code tables](#src-0603b103k500nt-ds-p3)
 </EvidenceFact>
 
 ## Pin maps
@@ -313,6 +418,86 @@ Every document cited above, with its identification, when it was retrieved, and 
 
 **Document URL:** [https://github.com/Takazudo/zudo-led-block/blob/d41cbb7fc61dc954b4affaf19527aa69f07013b6/engineering/a5/integration/native\_schematic/controller/netlist.xml](https://github.com/Takazudo/zudo-led-block/blob/d41cbb7fc61dc954b4affaf19527aa69f07013b6/engineering/a5/integration/native_schematic/controller/netlist.xml)
 
+### Fenghua GENERAL TYPE MLCC specification (通用型系列多层片式陶瓷电容器 / General Series Multi-layer Ceramic Capacitors)
+
+<EvidenceAnchor id="src-0603b103k500nt-ds-p3" />
+
+**Source ID:** `src-0603b103k500nt-ds-p3` · **Authority:** MANUFACTURER\_PRIMARY
+
+| Field           | Recorded value                    |
+| --------------- | --------------------------------- |
+| Document number | 通用型系列多层片式陶瓷电容器-A0006              |
+| Revision        | A0006 (revision history 2026-9-9) |
+| Document date   | 2026-09-09                        |
+| Retrieved       | 2026-11-08                        |
+| Printed page    | 第 2 页 共 28 页 (page 2 of 28)       |
+
+**Locator:** How To Order (型号表示法) section: ordering-code figure and tables Size Code, Dielectric Code, Nominal Capacitance, Capacitance Tolerance, Rated Voltage, Terminal Material Styles, Package Styles; Product Structure figure
+
+**Availability:** AVAILABLE
+
+**Document URL:** [https://www.fhcomp.com/uploads/20260922/110408\_%E9%80%9A%E7%94%A8%E5%9E%8B%E7%B3%BB%E5%88%97%E5%A4%9A%E5%B1%82%E7%89%87%E5%BC%8F%E9%99%B6%E7%93%B7%E7%94%B5%E5%AE%B9%E5%99%A8-A0006.pdf](https://www.fhcomp.com/uploads/20260922/110408_%E9%80%9A%E7%94%A8%E5%9E%8B%E7%B3%BB%E5%88%97%E5%A4%9A%E5%B1%82%E7%89%87%E5%BC%8F%E9%99%B6%E7%93%B7%E7%94%B5%E5%AE%B9%E5%99%A8-A0006.pdf)
+
+### Fenghua GENERAL TYPE MLCC specification (通用型系列多层片式陶瓷电容器 / General Series Multi-layer Ceramic Capacitors)
+
+<EvidenceAnchor id="src-0603b103k500nt-ds-p4" />
+
+**Source ID:** `src-0603b103k500nt-ds-p4` · **Authority:** MANUFACTURER\_PRIMARY
+
+| Field           | Recorded value                    |
+| --------------- | --------------------------------- |
+| Document number | 通用型系列多层片式陶瓷电容器-A0006              |
+| Revision        | A0006 (revision history 2026-9-9) |
+| Document date   | 2026-09-09                        |
+| Retrieved       | 2026-11-08                        |
+| Printed page    | 第 3 页 共 28 页 (page 3 of 28)       |
+
+**Locator:** Temperature Coefficient /Characteristics section table, row X7R
+
+**Availability:** AVAILABLE
+
+**Document URL:** [https://www.fhcomp.com/uploads/20260922/110408\_%E9%80%9A%E7%94%A8%E5%9E%8B%E7%B3%BB%E5%88%97%E5%A4%9A%E5%B1%82%E7%89%87%E5%BC%8F%E9%99%B6%E7%93%B7%E7%94%B5%E5%AE%B9%E5%99%A8-A0006.pdf](https://www.fhcomp.com/uploads/20260922/110408_%E9%80%9A%E7%94%A8%E5%9E%8B%E7%B3%BB%E5%88%97%E5%A4%9A%E5%B1%82%E7%89%87%E5%BC%8F%E9%99%B6%E7%93%B7%E7%94%B5%E5%AE%B9%E5%99%A8-A0006.pdf)
+
+### Fenghua GENERAL TYPE MLCC specification (通用型系列多层片式陶瓷电容器 / General Series Multi-layer Ceramic Capacitors)
+
+<EvidenceAnchor id="src-0603b103k500nt-ds-p9" />
+
+**Source ID:** `src-0603b103k500nt-ds-p9` · **Authority:** MANUFACTURER\_PRIMARY
+
+| Field           | Recorded value                    |
+| --------------- | --------------------------------- |
+| Document number | 通用型系列多层片式陶瓷电容器-A0006              |
+| Revision        | A0006 (revision history 2026-9-9) |
+| Document date   | 2026-09-09                        |
+| Retrieved       | 2026-11-08                        |
+| Printed page    | 第 8 页 共 28 页 (page 8 of 28)       |
+
+**Locator:** Capacitance Range and Voltage section, 0603 (1.6mm\*0.8mm) table, row 10nF, X7R series column 50V
+
+**Availability:** AVAILABLE
+
+**Document URL:** [https://www.fhcomp.com/uploads/20260922/110408\_%E9%80%9A%E7%94%A8%E5%9E%8B%E7%B3%BB%E5%88%97%E5%A4%9A%E5%B1%82%E7%89%87%E5%BC%8F%E9%99%B6%E7%93%B7%E7%94%B5%E5%AE%B9%E5%99%A8-A0006.pdf](https://www.fhcomp.com/uploads/20260922/110408_%E9%80%9A%E7%94%A8%E5%9E%8B%E7%B3%BB%E5%88%97%E5%A4%9A%E5%B1%82%E7%89%87%E5%BC%8F%E9%99%B6%E7%93%B7%E7%94%B5%E5%AE%B9%E5%99%A8-A0006.pdf)
+
+### Fenghua GENERAL TYPE MLCC specification (通用型系列多层片式陶瓷电容器 / General Series Multi-layer Ceramic Capacitors)
+
+<EvidenceAnchor id="src-0603b103k500nt-ds-p30" />
+
+**Source ID:** `src-0603b103k500nt-ds-p30` · **Authority:** MANUFACTURER\_PRIMARY
+
+| Field           | Recorded value                       |
+| --------------- | ------------------------------------ |
+| Document number | 通用型系列多层片式陶瓷电容器-A0006                 |
+| Revision        | A0006 (revision history 2026-9-9)    |
+| Document date   | 2026-09-09                           |
+| Retrieved       | 2026-11-08                           |
+| Printed page    | none printed (revision history page) |
+
+**Locator:** Section 13 Revision History (修订履历) table rows A0004-A0006 and note 1 beneath it
+
+**Availability:** AVAILABLE
+
+**Document URL:** [https://www.fhcomp.com/uploads/20260922/110408\_%E9%80%9A%E7%94%A8%E5%9E%8B%E7%B3%BB%E5%88%97%E5%A4%9A%E5%B1%82%E7%89%87%E5%BC%8F%E9%99%B6%E7%93%B7%E7%94%B5%E5%AE%B9%E5%99%A8-A0006.pdf](https://www.fhcomp.com/uploads/20260922/110408_%E9%80%9A%E7%94%A8%E5%9E%8B%E7%B3%BB%E5%88%97%E5%A4%9A%E5%B1%82%E7%89%87%E5%BC%8F%E9%99%B6%E7%93%B7%E7%94%B5%E5%AE%B9%E5%99%A8-A0006.pdf)
+
 ## Legend
 
 What the recorded terms on this page mean, in ordinary words. The exact terms above are the ones that count; these descriptions explain them and never replace them.
@@ -323,6 +508,8 @@ What the recorded terms on this page mean, in ordinary words. The exact terms ab
 | --------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------- |
 | `CONFIRMED - distributor identity only` | A distributor listing confirms which part this is, and nothing more. It carries no electrical, thermal or lifetime authority. |
 | `NEEDS BENCH`                           | Cannot be settled from documents. It needs measurement on real hardware before it can be relied on.                           |
+| `NOT APPLICABLE`                        | The parameter does not apply to this part as it is used here.                                                                 |
+| `PASS - primary-source confirmed`       | Confirmed against the manufacturer's own document for this exact part.                                                        |
 | `UNSOURCED`                             | No accepted source backs this value yet. Treat it as a claim, not a fact.                                                     |
 
 ### Provenance
@@ -330,20 +517,24 @@ What the recorded terms on this page mean, in ordinary words. The exact terms ab
 | Recorded term          | What it means                                                |
 | ---------------------- | ------------------------------------------------------------ |
 | `DISTRIBUTOR-IDENTITY` | Taken from a distributor listing. Identity information only. |
+| `PRIMARY-SPEC`         | Taken from the manufacturer's own specification document.    |
 | `PROJECT-CHOICE`       | A decision made by this project. No vendor asserts it.       |
 | `UNVERIFIED`           | Recorded, but not yet backed by an accepted source.          |
 
 ### Fact class
 
-| Recorded term      | What it means                                                                                                                                                      |
-| ------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| `ABSOLUTE_MAXIMUM` | A never-exceed limit. Reaching it may damage the part; it is not an operating target and there is no margin implied by it.                                         |
-| `PROJECT_STATE`    | A value this project recorded about how the part is used here — a chosen operating point, a net assignment, or a derived figure. Not a manufacturer specification. |
+| Recorded term           | What it means                                                                                                                                                      |
+| ----------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| `GUARANTEED_ELECTRICAL` | A parameter the manufacturer guarantees over the stated conditions, usually with minimum, typical and maximum values.                                              |
+| `PROJECT_STATE`         | A value this project recorded about how the part is used here — a chosen operating point, a net assignment, or a derived figure. Not a manufacturer specification. |
+| `RECOMMENDED_OPERATION` | The range the manufacturer intends the part to be used in. Always narrower than the absolute maximum.                                                              |
+| `TYPICAL_CURVE`         | A representative figure read from a characteristic curve. Typical values are not guaranteed and vary part to part.                                                 |
 
 ### Coverage status
 
 | Recorded term | What it means                                                                                                               |
 | ------------- | --------------------------------------------------------------------------------------------------------------------------- |
+| `COVERED`     | Every question this domain asks is answered by the facts listed against it.                                                 |
 | `OPEN`        | Unresolved. Open means the question has not been answered, not that the part is unsafe — the reason states what is missing. |
 
 ### Source availability
@@ -357,13 +548,14 @@ What the recorded terms on this page mean, in ordinary words. The exact terms ab
 | Recorded term          | What it means                                                             |
 | ---------------------- | ------------------------------------------------------------------------- |
 | `DISTRIBUTOR_IDENTITY` | A distributor listing. Establishes which part this is, nothing more.      |
+| `MANUFACTURER_PRIMARY` | The manufacturer's own document for this exact part.                      |
 | `PROJECT_GENERATOR`    | A document this project generated, such as a schematic or netlist export. |
 
 ### Identity state
 
-| Recorded term | What it means                                                                                                                    |
-| ------------- | -------------------------------------------------------------------------------------------------------------------------------- |
-| `UNRESOLVED`  | The exact orderable part is not yet confirmed. Substituting a same-name part from another vendor is not permitted on that basis. |
+| Recorded term | What it means                                                 |
+| ------------- | ------------------------------------------------------------- |
+| `VERIFIED`    | The exact orderable part has been confirmed against a source. |
 
 ### Source state
 

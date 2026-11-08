@@ -15,6 +15,7 @@ datasheet of another variant or same-name vendor data.
 - The pin map and placements are projected from the immutable historical A5 native netlists
   (`engineering/a5/integration/native_schematic/`). They are not fresh A6 design state, are not
   bound by the manual inventory provider, and are not as-built verification.
+- Primary document: YAGEO General Purpose & High Capacitance X7R 6.3 V to 250 V datasheet UPY-GPHC_X7R_6.3V-TO-250V V.27 (March 6, 2026), yageogroup.com, sha256 3aa10c5d01fb...; exact MPN established by part-number decode only.
 - Catalog CAD is disabled (`cad.enabled = false`); the pin-asset check is SKIPPED.
 - A5 is not released for manufacture. Nothing here is hardware or manufacturing sign-off.
 

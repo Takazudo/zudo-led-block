@@ -15,6 +15,7 @@ datasheet of another variant or same-name vendor data.
 - The pin map and placements are projected from the immutable historical A5 native netlists
   (`engineering/a5/integration/native_schematic/`). They are not fresh A6 design state, are not
   bound by the manual inventory provider, and are not as-built verification.
+- Primary document: UNI-ROYAL Thick Film Chip Resistors (Chip Series) datasheet File No. SMD-SP-001 V.11 (Mar.17,2026), uni-royal.cn, sha256 d27e4cdcdf8f...; exact MPN established by part-number decode only.
 - Catalog CAD is disabled (`cad.enabled = false`); the pin-asset check is SKIPPED.
 - A5 is not released for manufacture. Nothing here is hardware or manufacturing sign-off.
 
