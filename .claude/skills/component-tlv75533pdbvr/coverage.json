@@ -1,0 +1,72 @@
+{
+  "schema_version": 1,
+  "coverage": [
+    {
+      "coverage_id": "cov-tlv75533pdbvr-identity",
+      "record_id": "rec-tlv75533pdbvr",
+      "domain": "identity",
+      "status": "COVERED",
+      "reason": "manufacturer and exact orderable confirmed from the manufacturer-hosted datasheet (MANUFACTURER_PRIMARY, bytes inspected 2026-11-08); distributor identity retained as order-code evidence",
+      "fact_ids": [
+        "fact-tlv75533pdbvr-manufacturer",
+        "fact-tlv75533pdbvr-distributor-identity",
+        "fact-tlv75533pdbvr-orderable",
+        "fact-tlv75533pdbvr-vout-nominal"
+      ],
+      "blocking_fact_ids": []
+    },
+    {
+      "coverage_id": "cov-tlv75533pdbvr-pinout",
+      "record_id": "rec-tlv75533pdbvr",
+      "domain": "pinout",
+      "status": "COVERED",
+      "reason": "datasheet pin table for the exact package inspected and compared with the project pin map: matches by number and function",
+      "fact_ids": [
+        "fact-tlv75533pdbvr-pinout"
+      ],
+      "blocking_fact_ids": []
+    },
+    {
+      "coverage_id": "cov-tlv75533pdbvr-ratings",
+      "record_id": "rec-tlv75533pdbvr",
+      "domain": "electrical-ratings",
+      "status": "COVERED",
+      "reason": "absolute-maximum, recommended-operation and design-relevant characteristics recorded from the manufacturer-hosted datasheet; this is manufacturer data only, not a design-margin or safety verdict",
+      "fact_ids": [
+        "fact-tlv75533pdbvr-ratings",
+        "fact-tlv75533pdbvr-abs-max-en",
+        "fact-tlv75533pdbvr-roc-vin",
+        "fact-tlv75533pdbvr-roc-iout",
+        "fact-tlv75533pdbvr-output-accuracy",
+        "fact-tlv75533pdbvr-current-limit"
+      ],
+      "blocking_fact_ids": []
+    },
+    {
+      "coverage_id": "cov-tlv75533pdbvr-placement",
+      "record_id": "rec-tlv75533pdbvr",
+      "domain": "placement",
+      "status": "OPEN",
+      "reason": "fact-tlv75533pdbvr-a5-placements NEEDS BENCH: placements are declared from the historical A5 netlist only; the manual provider performs no schematic binding and no as-built check exists",
+      "fact_ids": [
+        "fact-tlv75533pdbvr-a5-placements"
+      ],
+      "blocking_fact_ids": [
+        "fact-tlv75533pdbvr-a5-placements"
+      ]
+    },
+    {
+      "coverage_id": "cov-tlv75533pdbvr-cad",
+      "record_id": "rec-tlv75533pdbvr",
+      "domain": "cad-assets",
+      "status": "OPEN",
+      "reason": "fact-tlv75533pdbvr-cad-state remains UNSOURCED: catalog CAD is disabled, so no symbol, footprint or model was reviewed or validated",
+      "fact_ids": [
+        "fact-tlv75533pdbvr-cad-state"
+      ],
+      "blocking_fact_ids": [
+        "fact-tlv75533pdbvr-cad-state"
+      ]
+    }
+  ]
+}

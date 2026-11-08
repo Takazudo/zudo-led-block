@@ -1,0 +1,30 @@
+{
+  "schema_version": 1,
+  "routes": [
+    {
+      "route_id": "route-sn74lvc2t45dcur",
+      "record_id": "rec-sn74lvc2t45dcur",
+      "aliases": {
+        "mpn": [
+          "SN74LVC2T45DCUR"
+        ],
+        "lcsc": [
+          "C15741"
+        ],
+        "manufacturer": [
+          "Texas Instruments"
+        ],
+        "function": [
+          "two-channel led data level translator"
+        ]
+      },
+      "positive": [
+        "check SN74LVC2T45DCUR pinout",
+        "audit C15741"
+      ],
+      "negative": [
+        "check two-channel led data level translator from an unnamed vendor"
+      ]
+    }
+  ]
+}

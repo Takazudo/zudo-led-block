@@ -1,0 +1,30 @@
+{
+  "schema_version": 1,
+  "routes": [
+    {
+      "route_id": "route-530470310",
+      "record_id": "rec-molex-530470310",
+      "aliases": {
+        "mpn": [
+          "530470310"
+        ],
+        "lcsc": [
+          "C122442"
+        ],
+        "manufacturer": [
+          "MOLEX"
+        ],
+        "function": [
+          "three-pin power cable header"
+        ]
+      },
+      "positive": [
+        "check 530470310 pinout",
+        "audit C122442"
+      ],
+      "negative": [
+        "check three-pin power cable header from an unnamed vendor"
+      ]
+    }
+  ]
+}

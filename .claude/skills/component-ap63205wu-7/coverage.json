@@ -1,0 +1,72 @@
+{
+  "schema_version": 1,
+  "coverage": [
+    {
+      "coverage_id": "cov-ap63205wu-7-identity",
+      "record_id": "rec-ap63205wu-7",
+      "domain": "identity",
+      "status": "COVERED",
+      "reason": "manufacturer and exact orderable AP63205WU-7 confirmed in the Diodes DS41326 Rev. 3 - 2 title block and Ordering Information table; distributor listing retained for order-code identity",
+      "fact_ids": [
+        "fact-ap63205wu-7-manufacturer",
+        "fact-ap63205wu-7-orderable",
+        "fact-ap63205wu-7-distributor-identity"
+      ],
+      "blocking_fact_ids": []
+    },
+    {
+      "coverage_id": "cov-ap63205wu-7-pinout",
+      "record_id": "rec-ap63205wu-7",
+      "domain": "pinout",
+      "status": "COVERED",
+      "reason": "TSOT26 pin functions read from the DS41326 Pin Descriptions table and matched to the project pin map by number and function",
+      "fact_ids": [
+        "fact-ap63205wu-7-pinout"
+      ],
+      "blocking_fact_ids": []
+    },
+    {
+      "coverage_id": "cov-ap63205wu-7-ratings",
+      "record_id": "rec-ap63205wu-7",
+      "domain": "electrical-ratings",
+      "status": "COVERED",
+      "reason": "absolute-maximum VIN/VEN/VFB, recommended VIN range, AP63205 output regulation, peak current limit and switching frequency read from DS41326 pages 4 and 5",
+      "fact_ids": [
+        "fact-ap63205wu-7-ratings",
+        "fact-ap63205wu-7-en-abs-max",
+        "fact-ap63205wu-7-fb-abs-max",
+        "fact-ap63205wu-7-vin-recommended",
+        "fact-ap63205wu-7-vout",
+        "fact-ap63205wu-7-peak-current-limit",
+        "fact-ap63205wu-7-switching-frequency"
+      ],
+      "blocking_fact_ids": []
+    },
+    {
+      "coverage_id": "cov-ap63205wu-7-placement",
+      "record_id": "rec-ap63205wu-7",
+      "domain": "placement",
+      "status": "OPEN",
+      "reason": "fact-ap63205wu-7-a5-placements NEEDS BENCH: placements are declared from the historical A5 netlist only; the manual provider performs no schematic binding and no as-built check exists",
+      "fact_ids": [
+        "fact-ap63205wu-7-a5-placements"
+      ],
+      "blocking_fact_ids": [
+        "fact-ap63205wu-7-a5-placements"
+      ]
+    },
+    {
+      "coverage_id": "cov-ap63205wu-7-cad",
+      "record_id": "rec-ap63205wu-7",
+      "domain": "cad-assets",
+      "status": "OPEN",
+      "reason": "fact-ap63205wu-7-cad-state remains UNSOURCED: catalog CAD is disabled, so no symbol, footprint or model was reviewed or validated",
+      "fact_ids": [
+        "fact-ap63205wu-7-cad-state"
+      ],
+      "blocking_fact_ids": [
+        "fact-ap63205wu-7-cad-state"
+      ]
+    }
+  ]
+}

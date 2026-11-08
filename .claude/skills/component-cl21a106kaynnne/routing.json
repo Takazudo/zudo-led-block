@@ -1,0 +1,30 @@
+{
+  "schema_version": 1,
+  "routes": [
+    {
+      "route_id": "route-cl21a106kaynnne",
+      "record_id": "rec-cl21a106kaynnne",
+      "aliases": {
+        "mpn": [
+          "CL21A106KAYNNNE"
+        ],
+        "lcsc": [
+          "C15850"
+        ],
+        "manufacturer": [
+          "Samsung Electro-Mechanics"
+        ],
+        "function": [
+          "10 uf 25 v x5r 0805 capacitor"
+        ]
+      },
+      "positive": [
+        "check CL21A106KAYNNNE pinout",
+        "audit C15850"
+      ],
+      "negative": [
+        "check 10 uf 25 v x5r 0805 capacitor from an unnamed vendor"
+      ]
+    }
+  ]
+}

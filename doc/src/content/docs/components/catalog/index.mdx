@@ -9,4 +9,804 @@ Generated from the component evidence records — edit the records, not this pag
 
 Every component record this project publishes, in the order the bill of materials lists them, with each subordinate record directly after the part it belongs to. The identity, placement and state columns are projected from stored evidence; the record pages behind them carry the facts, sources and coverage themselves.
 
-No component record is published yet. Add the first exact component with Workflow B in `circuit/WORKFLOW.md`, then select it in `circuit/publication/selection.json`.
+## How to read this catalog
+
+Four columns describe state. None of them is a grade, and there is deliberately no column combining them — a part is not summarised into a verdict here or anywhere else in this section.
+
+- **Fit** — Whether the part is fitted in the as-built design, or is marked do-not-populate or hand-fit.
+- **Identity** — Whether the exact orderable part has been confirmed. Unresolved does not mean the wrong part is fitted; it means the confirmation is not on record, so a same-name part from another vendor may not be substituted on the strength of it.
+- **Sources** — Whether any document backing this line could be retrieved. A line whose sources are unavailable still publishes, so the gap stays visible rather than absent.
+- **Open domains** — How many of the record's published coverage domains are unresolved, out of how many were published at all. The denominator is the point: no open domains out of none published means nothing was checked, not that everything passed.
+
+## Parts at a glance
+
+<EvidenceAnchor id="catalog-index" />
+
+<EvidenceTable label="parts-index">
+  | Part                                                                                                                          | Record                          | Function                                      | Fit    | Identity   | Sources            | Open domains |
+  | ----------------------------------------------------------------------------------------------------------------------------- | ------------------------------- | --------------------------------------------- | ------ | ---------- | ------------------ | ------------ |
+  | <EvidenceAnchor id="rec-molex-530470310" />[530470310](/docs/components/records/molex-530470310/)                             | `rec-molex-530470310`           | three-pin power cable header                  | Fitted | UNRESOLVED | SOURCE UNAVAILABLE | 5 of 5       |
+  | <EvidenceAnchor id="rec-cl31a226kahnnne" />[CL31A226KAHNNNE](/docs/components/records/cl31a226kahnnne/)                       | `rec-cl31a226kahnnne`           | 22 uf 25 v x5r 1206 capacitor                 | Fitted | VERIFIED   | AVAILABLE          | 3 of 6       |
+  | <EvidenceAnchor id="rec-bas70-04-7-f" />[BAS70-04-7-F](/docs/components/records/bas70-04-7-f/)                                | `rec-bas70-04-7-f`              | adc clamp dual schottky diode                 | Fitted | VERIFIED   | AVAILABLE          | 3 of 5       |
+  | <EvidenceAnchor id="rec-tps2552dbvr-1" />[TPS2552DBVR-1](/docs/components/records/tps2552dbvr-1/)                             | `rec-tps2552dbvr-1`             | led supply current-limit latch switch         | Fitted | VERIFIED   | AVAILABLE          | 2 of 5       |
+  | <EvidenceAnchor id="rec-cc0603krx7r9bb104" />[CC0603KRX7R9BB104](/docs/components/records/cc0603krx7r9bb104/)                 | `rec-cc0603krx7r9bb104`         | 100 nf 50 v x7r 0603 capacitor                | Fitted | VERIFIED   | AVAILABLE          | 3 of 6       |
+  | <EvidenceAnchor id="rec-sn74lvc2t45dcur" />[SN74LVC2T45DCUR](/docs/components/records/sn74lvc2t45dcur/)                       | `rec-sn74lvc2t45dcur`           | two-channel led data level translator         | Fitted | VERIFIED   | AVAILABLE          | 2 of 5       |
+  | <EvidenceAnchor id="rec-cl21a106kaynnne" />[CL21A106KAYNNNE](/docs/components/records/cl21a106kaynnne/)                       | `rec-cl21a106kaynnne`           | 10 uf 25 v x5r 0805 capacitor                 | Fitted | VERIFIED   | AVAILABLE          | 3 of 6       |
+  | <EvidenceAnchor id="rec-sm04b-srss-tb-lf-sn" />[SM04B-SRSS-TB(LF)(SN)](/docs/components/records/sm04b-srss-tb-lf-sn/)         | `rec-sm04b-srss-tb-lf-sn`       | four-pin led harness header                   | Fitted | UNRESOLVED | SOURCE UNAVAILABLE | 5 of 5       |
+  | <EvidenceAnchor id="rec-cl10a475ko8nnnc" />[CL10A475KO8NNNC](/docs/components/records/cl10a475ko8nnnc/)                       | `rec-cl10a475ko8nnnc`           | 4.7 uf 16 v x5r 0603 capacitor                | Fitted | VERIFIED   | AVAILABLE          | 3 of 6       |
+  | <EvidenceAnchor id="rec-mmbt3904-range-100-300" />[MMBT3904(RANGE:100-300)](/docs/components/records/mmbt3904-range-100-300/) | `rec-mmbt3904-range-100-300`    | enable inverter npn transistor                | Fitted | VERIFIED   | AVAILABLE          | 3 of 5       |
+  | <EvidenceAnchor id="rec-ap63205wu-7" />[AP63205WU-7](/docs/components/records/ap63205wu-7/)                                   | `rec-ap63205wu-7`               | fixed 5 v buck converter                      | Fitted | VERIFIED   | AVAILABLE          | 2 of 5       |
+  | <EvidenceAnchor id="rec-uniroyal-0603waf1001t5e" />[0603WAF1001T5E](/docs/components/records/uniroyal-0603waf1001t5e/)        | `rec-uniroyal-0603waf1001t5e`   | 1 kilohm 0603 resistor                        | Fitted | VERIFIED   | AVAILABLE          | 2 of 5       |
+  | <EvidenceAnchor id="rec-opa197idbvr" />[OPA197IDBVR](/docs/components/records/opa197idbvr/)                                   | `rec-opa197idbvr`               | cv input buffer amplifier                     | Fitted | VERIFIED   | AVAILABLE          | 2 of 5       |
+  | <EvidenceAnchor id="rec-uniroyal-0603waf3300t5e" />[0603WAF3300T5E](/docs/components/records/uniroyal-0603waf3300t5e/)        | `rec-uniroyal-0603waf3300t5e`   | 330 ohm 0603 resistor                         | Fitted | VERIFIED   | AVAILABLE          | 4 of 5       |
+  | <EvidenceAnchor id="rec-uniroyal-0603waf4701t5e" />[0603WAF4701T5E](/docs/components/records/uniroyal-0603waf4701t5e/)        | `rec-uniroyal-0603waf4701t5e`   | 4.7 kilohm 0603 resistor                      | Fitted | VERIFIED   | AVAILABLE          | 4 of 5       |
+  | <EvidenceAnchor id="rec-uniroyal-0603waf6802t5e" />[0603WAF6802T5E](/docs/components/records/uniroyal-0603waf6802t5e/)        | `rec-uniroyal-0603waf6802t5e`   | 68 kilohm 0603 resistor                       | Fitted | VERIFIED   | AVAILABLE          | 4 of 5       |
+  | <EvidenceAnchor id="rec-uniroyal-0603waf8202t5e" />[0603WAF8202T5E](/docs/components/records/uniroyal-0603waf8202t5e/)        | `rec-uniroyal-0603waf8202t5e`   | 82 kilohm 0603 resistor                       | Fitted | VERIFIED   | AVAILABLE          | 4 of 5       |
+  | <EvidenceAnchor id="rec-uniroyal-0603waf1003t5e" />[0603WAF1003T5E](/docs/components/records/uniroyal-0603waf1003t5e/)        | `rec-uniroyal-0603waf1003t5e`   | 100 kilohm 0603 resistor                      | Fitted | VERIFIED   | AVAILABLE          | 2 of 5       |
+  | <EvidenceAnchor id="rec-uniroyal-0603waf1002t5e" />[0603WAF1002T5E](/docs/components/records/uniroyal-0603waf1002t5e/)        | `rec-uniroyal-0603waf1002t5e`   | 10 kilohm 0603 resistor                       | Fitted | VERIFIED   | AVAILABLE          | 2 of 5       |
+  | <EvidenceAnchor id="rec-tlv9001idbvr" />[TLV9001IDBVR](/docs/components/records/tlv9001idbvr/)                                | `rec-tlv9001idbvr`              | adc protection buffer amplifier               | Fitted | VERIFIED   | AVAILABLE          | 2 of 5       |
+  | <EvidenceAnchor id="rec-tlv75533pdbvr" />[TLV75533PDBVR](/docs/components/records/tlv75533pdbvr/)                             | `rec-tlv75533pdbvr`             | 3.3 v ldo regulator                           | Fitted | VERIFIED   | AVAILABLE          | 2 of 5       |
+  | <EvidenceAnchor id="rec-pj-3582-b" />[PJ-3582-B](/docs/components/records/pj-3582-b/)                                         | `rec-pj-3582-b`                 | cv input and thru jack                        | Fitted | UNRESOLVED | AVAILABLE          | 6 of 6       |
+  | <EvidenceAnchor id="rec-pmeg4010cej-115" />[PMEG4010CEJ,115](/docs/components/records/pmeg4010cej-115/)                       | `rec-pmeg4010cej-115`           | eurorack rail reverse-polarity schottky diode | Fitted | UNRESOLVED | SOURCE UNAVAILABLE | 5 of 5       |
+  | <EvidenceAnchor id="rec-stm32g031g8u6tr" />[STM32G031G8U6TR](/docs/components/records/stm32g031g8u6tr/)                       | `rec-stm32g031g8u6tr`           | main microcontroller                          | Fitted | UNRESOLVED | SOURCE UNAVAILABLE | 5 of 5       |
+  | <EvidenceAnchor id="rec-ws2812b-2020-v6" />[WS2812B-2020-V6](/docs/components/records/ws2812b-2020-v6/)                       | `rec-ws2812b-2020-v6`           | addressable rgb led                           | Fitted | VERIFIED   | AVAILABLE          | 2 of 6       |
+  | <EvidenceAnchor id="rec-boomele-2-54-2x5p" />[2.54-2\*5P](/docs/components/records/boomele-2-54-2x5p/)                        | `rec-boomele-2-54-2x5p`         | eurorack ten-pin power box header             | Fitted | UNRESOLVED | SOURCE UNAVAILABLE | 5 of 5       |
+  | <EvidenceAnchor id="rec-fh-0603b103k500nt" />[0603B103K500NT](/docs/components/records/fh-0603b103k500nt/)                    | `rec-fh-0603b103k500nt`         | 10 nf 50 v x7r 0603 capacitor                 | Fitted | VERIFIED   | AVAILABLE          | 3 of 6       |
+  | <EvidenceAnchor id="rec-spm4020t-4r7m-lr" />[SPM4020T-4R7M-LR](/docs/components/records/spm4020t-4r7m-lr/)                    | `rec-spm4020t-4r7m-lr`          | buck converter power inductor                 | Fitted | UNRESOLVED | SOURCE UNAVAILABLE | 5 of 5       |
+  | <EvidenceAnchor id="rec-uniroyal-0603waf1005t5e" />[0603WAF1005T5E](/docs/components/records/uniroyal-0603waf1005t5e/)        | `rec-uniroyal-0603waf1005t5e`   | 10 megohm 0603 resistor                       | Fitted | VERIFIED   | AVAILABLE          | 2 of 5       |
+  | <EvidenceAnchor id="rec-dailywell-1ms3t1b1m2qes-5" />[1MS3T1B1M2QES-5](/docs/components/records/dailywell-1ms3t1b1m2qes-5/)   | `rec-dailywell-1ms3t1b1m2qes-5` | on off on mode toggle switch                  | Fitted | UNRESOLVED | AVAILABLE          | 5 of 5       |
+</EvidenceTable>
+
+## Part entries
+
+One entry per record, carrying the orderable identity and every board placement. Each entry links to its record page, where the evidence itself is published, and to the raw agent resource that evidence is stored in.
+
+### 530470310
+
+| Field          | Recorded value                        |
+| -------------- | ------------------------------------- |
+| Record ID      | `rec-molex-530470310`                 |
+| Kind           | standalone — audited in its own right |
+| Manufacturer   | MOLEX                                 |
+| Function       | three-pin power cable header          |
+| Orderable ID   | `C122442`                             |
+| Package        | `Plugin,P=1.25mm`                     |
+| Inventory line | `line-530470310`                      |
+| Owner skill    | `component-530470310`                 |
+
+**Placements:** controller J5; power\_adapter J2
+
+**Fit:** Fitted
+
+**Identity state:** UNRESOLVED
+
+**Source state:** SOURCE UNAVAILABLE
+
+**Open coverage domains:** 5 open of 5 published
+
+[530470310 record details](/docs/components/records/molex-530470310/) — [530470310 raw agent resource](/docs/claude-skills/component-530470310/)
+
+### CL31A226KAHNNNE
+
+| Field          | Recorded value                        |
+| -------------- | ------------------------------------- |
+| Record ID      | `rec-cl31a226kahnnne`                 |
+| Kind           | standalone — audited in its own right |
+| Manufacturer   | Samsung Electro-Mechanics             |
+| Function       | 22 uf 25 v x5r 1206 capacitor         |
+| Orderable ID   | `C12891`                              |
+| Package        | `1206`                                |
+| Inventory line | `line-cl31a226kahnnne`                |
+| Owner skill    | `component-cl31a226kahnnne`           |
+
+**Placements:** controller C2, C3
+
+**Fit:** Fitted
+
+**Identity state:** VERIFIED
+
+**Source state:** AVAILABLE
+
+**Open coverage domains:** 3 open of 6 published
+
+[CL31A226KAHNNNE record details](/docs/components/records/cl31a226kahnnne/) — [CL31A226KAHNNNE raw agent resource](/docs/claude-skills/component-cl31a226kahnnne/)
+
+### BAS70-04-7-F
+
+| Field          | Recorded value                        |
+| -------------- | ------------------------------------- |
+| Record ID      | `rec-bas70-04-7-f`                    |
+| Kind           | standalone — audited in its own right |
+| Manufacturer   | Diodes Incorporated                   |
+| Function       | adc clamp dual schottky diode         |
+| Orderable ID   | `C134375`                             |
+| Package        | `SOT-23`                              |
+| Inventory line | `line-bas70-04-7-f`                   |
+| Owner skill    | `component-bas70-04-7-f`              |
+
+**Placements:** controller D3
+
+**Fit:** Fitted
+
+**Identity state:** VERIFIED
+
+**Source state:** AVAILABLE
+
+**Open coverage domains:** 3 open of 5 published
+
+[BAS70-04-7-F record details](/docs/components/records/bas70-04-7-f/) — [BAS70-04-7-F raw agent resource](/docs/claude-skills/component-bas70-04-7-f/)
+
+### TPS2552DBVR-1
+
+| Field          | Recorded value                        |
+| -------------- | ------------------------------------- |
+| Record ID      | `rec-tps2552dbvr-1`                   |
+| Kind           | standalone — audited in its own right |
+| Manufacturer   | Texas Instruments                     |
+| Function       | led supply current-limit latch switch |
+| Orderable ID   | `C140331`                             |
+| Package        | `SOT-23-6`                            |
+| Inventory line | `line-tps2552dbvr-1`                  |
+| Owner skill    | `component-tps2552dbvr-1`             |
+
+**Placements:** controller U4
+
+**Fit:** Fitted
+
+**Identity state:** VERIFIED
+
+**Source state:** AVAILABLE
+
+**Open coverage domains:** 2 open of 5 published
+
+[TPS2552DBVR-1 record details](/docs/components/records/tps2552dbvr-1/) — [TPS2552DBVR-1 raw agent resource](/docs/claude-skills/component-tps2552dbvr-1/)
+
+### CC0603KRX7R9BB104
+
+| Field          | Recorded value                        |
+| -------------- | ------------------------------------- |
+| Record ID      | `rec-cc0603krx7r9bb104`               |
+| Kind           | standalone — audited in its own right |
+| Manufacturer   | YAGEO                                 |
+| Function       | 100 nf 50 v x7r 0603 capacitor        |
+| Orderable ID   | `C14663`                              |
+| Package        | `0603`                                |
+| Inventory line | `line-cc0603krx7r9bb104`              |
+| Owner skill    | `component-cc0603krx7r9bb104`         |
+
+**Placements:** controller C4, C8, C9, C10, C11, C12, C14, C17; led\_leaf C1, C2, C3, C4
+
+**Fit:** Fitted
+
+**Identity state:** VERIFIED
+
+**Source state:** AVAILABLE
+
+**Open coverage domains:** 3 open of 6 published
+
+[CC0603KRX7R9BB104 record details](/docs/components/records/cc0603krx7r9bb104/) — [CC0603KRX7R9BB104 raw agent resource](/docs/claude-skills/component-cc0603krx7r9bb104/)
+
+### SN74LVC2T45DCUR
+
+| Field          | Recorded value                        |
+| -------------- | ------------------------------------- |
+| Record ID      | `rec-sn74lvc2t45dcur`                 |
+| Kind           | standalone — audited in its own right |
+| Manufacturer   | Texas Instruments                     |
+| Function       | two-channel led data level translator |
+| Orderable ID   | `C15741`                              |
+| Package        | `VSSOP-8`                             |
+| Inventory line | `line-sn74lvc2t45dcur`                |
+| Owner skill    | `component-sn74lvc2t45dcur`           |
+
+**Placements:** controller U5
+
+**Fit:** Fitted
+
+**Identity state:** VERIFIED
+
+**Source state:** AVAILABLE
+
+**Open coverage domains:** 2 open of 5 published
+
+[SN74LVC2T45DCUR record details](/docs/components/records/sn74lvc2t45dcur/) — [SN74LVC2T45DCUR raw agent resource](/docs/claude-skills/component-sn74lvc2t45dcur/)
+
+### CL21A106KAYNNNE
+
+| Field          | Recorded value                        |
+| -------------- | ------------------------------------- |
+| Record ID      | `rec-cl21a106kaynnne`                 |
+| Kind           | standalone — audited in its own right |
+| Manufacturer   | Samsung Electro-Mechanics             |
+| Function       | 10 uf 25 v x5r 0805 capacitor         |
+| Orderable ID   | `C15850`                              |
+| Package        | `0805`                                |
+| Inventory line | `line-cl21a106kaynnne`                |
+| Owner skill    | `component-cl21a106kaynnne`           |
+
+**Placements:** controller C1, C15, C16
+
+**Fit:** Fitted
+
+**Identity state:** VERIFIED
+
+**Source state:** AVAILABLE
+
+**Open coverage domains:** 3 open of 6 published
+
+[CL21A106KAYNNNE record details](/docs/components/records/cl21a106kaynnne/) — [CL21A106KAYNNNE raw agent resource](/docs/claude-skills/component-cl21a106kaynnne/)
+
+### SM04B-SRSS-TB(LF)(SN)
+
+| Field          | Recorded value                        |
+| -------------- | ------------------------------------- |
+| Record ID      | `rec-sm04b-srss-tb-lf-sn`             |
+| Kind           | standalone — audited in its own right |
+| Manufacturer   | JST                                   |
+| Function       | four-pin led harness header           |
+| Orderable ID   | `C160404`                             |
+| Package        | `SMD,P=1mm,Surface Mount，Right Angle` |
+| Inventory line | `line-sm04b-srss-tb-lf-sn`            |
+| Owner skill    | `component-sm04b-srss-tb-lf-sn`       |
+
+**Placements:** controller J3; led\_leaf J1, J2
+
+**Fit:** Fitted
+
+**Identity state:** UNRESOLVED
+
+**Source state:** SOURCE UNAVAILABLE
+
+**Open coverage domains:** 5 open of 5 published
+
+[SM04B-SRSS-TB(LF)(SN) record details](/docs/components/records/sm04b-srss-tb-lf-sn/) — [SM04B-SRSS-TB(LF)(SN) raw agent resource](/docs/claude-skills/component-sm04b-srss-tb-lf-sn/)
+
+### CL10A475KO8NNNC
+
+| Field          | Recorded value                        |
+| -------------- | ------------------------------------- |
+| Record ID      | `rec-cl10a475ko8nnnc`                 |
+| Kind           | standalone — audited in its own right |
+| Manufacturer   | Samsung Electro-Mechanics             |
+| Function       | 4.7 uf 16 v x5r 0603 capacitor        |
+| Orderable ID   | `C19666`                              |
+| Package        | `0603`                                |
+| Inventory line | `line-cl10a475ko8nnnc`                |
+| Owner skill    | `component-cl10a475ko8nnnc`           |
+
+**Placements:** controller C5, C6, C7
+
+**Fit:** Fitted
+
+**Identity state:** VERIFIED
+
+**Source state:** AVAILABLE
+
+**Open coverage domains:** 3 open of 6 published
+
+[CL10A475KO8NNNC record details](/docs/components/records/cl10a475ko8nnnc/) — [CL10A475KO8NNNC raw agent resource](/docs/claude-skills/component-cl10a475ko8nnnc/)
+
+### MMBT3904(RANGE:100-300)
+
+| Field          | Recorded value                                     |
+| -------------- | -------------------------------------------------- |
+| Record ID      | `rec-mmbt3904-range-100-300`                       |
+| Kind           | standalone — audited in its own right              |
+| Manufacturer   | Jiangsu Changjing Electronics Technology Co., Ltd. |
+| Function       | enable inverter npn transistor                     |
+| Orderable ID   | `C20526`                                           |
+| Package        | `SOT-23`                                           |
+| Inventory line | `line-mmbt3904-range-100-300`                      |
+| Owner skill    | `component-mmbt3904-range-100-300`                 |
+
+**Placements:** controller Q1
+
+**Fit:** Fitted
+
+**Identity state:** VERIFIED
+
+**Source state:** AVAILABLE
+
+**Open coverage domains:** 3 open of 5 published
+
+[MMBT3904(RANGE:100-300) record details](/docs/components/records/mmbt3904-range-100-300/) — [MMBT3904(RANGE:100-300) raw agent resource](/docs/claude-skills/component-mmbt3904-range-100-300/)
+
+### AP63205WU-7
+
+| Field          | Recorded value                        |
+| -------------- | ------------------------------------- |
+| Record ID      | `rec-ap63205wu-7`                     |
+| Kind           | standalone — audited in its own right |
+| Manufacturer   | Diodes Incorporated                   |
+| Function       | fixed 5 v buck converter              |
+| Orderable ID   | `C2071056`                            |
+| Package        | `TSOT-23-6`                           |
+| Inventory line | `line-ap63205wu-7`                    |
+| Owner skill    | `component-ap63205wu-7`               |
+
+**Placements:** controller U2
+
+**Fit:** Fitted
+
+**Identity state:** VERIFIED
+
+**Source state:** AVAILABLE
+
+**Open coverage domains:** 2 open of 5 published
+
+[AP63205WU-7 record details](/docs/components/records/ap63205wu-7/) — [AP63205WU-7 raw agent resource](/docs/claude-skills/component-ap63205wu-7/)
+
+### 0603WAF1001T5E
+
+| Field          | Recorded value                        |
+| -------------- | ------------------------------------- |
+| Record ID      | `rec-uniroyal-0603waf1001t5e`         |
+| Kind           | standalone — audited in its own right |
+| Manufacturer   | UNI-ROYAL(Uniroyal Elec)              |
+| Function       | 1 kilohm 0603 resistor                |
+| Orderable ID   | `C21190`                              |
+| Package        | `0603`                                |
+| Inventory line | `line-0603waf1001t5e`                 |
+| Owner skill    | `component-0603waf1001t5e`            |
+
+**Placements:** controller R7, R8, R25
+
+**Fit:** Fitted
+
+**Identity state:** VERIFIED
+
+**Source state:** AVAILABLE
+
+**Open coverage domains:** 2 open of 5 published
+
+[0603WAF1001T5E record details](/docs/components/records/uniroyal-0603waf1001t5e/) — [0603WAF1001T5E raw agent resource](/docs/claude-skills/component-0603waf1001t5e/)
+
+### OPA197IDBVR
+
+| Field          | Recorded value                        |
+| -------------- | ------------------------------------- |
+| Record ID      | `rec-opa197idbvr`                     |
+| Kind           | standalone — audited in its own right |
+| Manufacturer   | Texas Instruments                     |
+| Function       | cv input buffer amplifier             |
+| Orderable ID   | `C221351`                             |
+| Package        | `SOT-23-5`                            |
+| Inventory line | `line-opa197idbvr`                    |
+| Owner skill    | `component-opa197idbvr`               |
+
+**Placements:** controller U6
+
+**Fit:** Fitted
+
+**Identity state:** VERIFIED
+
+**Source state:** AVAILABLE
+
+**Open coverage domains:** 2 open of 5 published
+
+[OPA197IDBVR record details](/docs/components/records/opa197idbvr/) — [OPA197IDBVR raw agent resource](/docs/claude-skills/component-opa197idbvr/)
+
+### 0603WAF3300T5E
+
+| Field          | Recorded value                        |
+| -------------- | ------------------------------------- |
+| Record ID      | `rec-uniroyal-0603waf3300t5e`         |
+| Kind           | standalone — audited in its own right |
+| Manufacturer   | UNI-ROYAL(Uniroyal Elec)              |
+| Function       | 330 ohm 0603 resistor                 |
+| Orderable ID   | `C23138`                              |
+| Package        | `0603`                                |
+| Inventory line | `line-0603waf3300t5e`                 |
+| Owner skill    | `component-0603waf3300t5e`            |
+
+**Placements:** controller R14, R15, R24
+
+**Fit:** Fitted
+
+**Identity state:** VERIFIED
+
+**Source state:** AVAILABLE
+
+**Open coverage domains:** 4 open of 5 published
+
+[0603WAF3300T5E record details](/docs/components/records/uniroyal-0603waf3300t5e/) — [0603WAF3300T5E raw agent resource](/docs/claude-skills/component-0603waf3300t5e/)
+
+### 0603WAF4701T5E
+
+| Field          | Recorded value                        |
+| -------------- | ------------------------------------- |
+| Record ID      | `rec-uniroyal-0603waf4701t5e`         |
+| Kind           | standalone — audited in its own right |
+| Manufacturer   | UNI-ROYAL(Uniroyal Elec)              |
+| Function       | 4.7 kilohm 0603 resistor              |
+| Orderable ID   | `C23162`                              |
+| Package        | `0603`                                |
+| Inventory line | `line-0603waf4701t5e`                 |
+| Owner skill    | `component-0603waf4701t5e`            |
+
+**Placements:** controller R20
+
+**Fit:** Fitted
+
+**Identity state:** VERIFIED
+
+**Source state:** AVAILABLE
+
+**Open coverage domains:** 4 open of 5 published
+
+[0603WAF4701T5E record details](/docs/components/records/uniroyal-0603waf4701t5e/) — [0603WAF4701T5E raw agent resource](/docs/claude-skills/component-0603waf4701t5e/)
+
+### 0603WAF6802T5E
+
+| Field          | Recorded value                        |
+| -------------- | ------------------------------------- |
+| Record ID      | `rec-uniroyal-0603waf6802t5e`         |
+| Kind           | standalone — audited in its own right |
+| Manufacturer   | UNI-ROYAL(Uniroyal Elec)              |
+| Function       | 68 kilohm 0603 resistor               |
+| Orderable ID   | `C23231`                              |
+| Package        | `0603`                                |
+| Inventory line | `line-0603waf6802t5e`                 |
+| Owner skill    | `component-0603waf6802t5e`            |
+
+**Placements:** controller R11
+
+**Fit:** Fitted
+
+**Identity state:** VERIFIED
+
+**Source state:** AVAILABLE
+
+**Open coverage domains:** 4 open of 5 published
+
+[0603WAF6802T5E record details](/docs/components/records/uniroyal-0603waf6802t5e/) — [0603WAF6802T5E raw agent resource](/docs/claude-skills/component-0603waf6802t5e/)
+
+### 0603WAF8202T5E
+
+| Field          | Recorded value                        |
+| -------------- | ------------------------------------- |
+| Record ID      | `rec-uniroyal-0603waf8202t5e`         |
+| Kind           | standalone — audited in its own right |
+| Manufacturer   | UNI-ROYAL(Uniroyal Elec)              |
+| Function       | 82 kilohm 0603 resistor               |
+| Orderable ID   | `C23254`                              |
+| Package        | `0603`                                |
+| Inventory line | `line-0603waf8202t5e`                 |
+| Owner skill    | `component-0603waf8202t5e`            |
+
+**Placements:** controller R3, R4, R5, R6
+
+**Fit:** Fitted
+
+**Identity state:** VERIFIED
+
+**Source state:** AVAILABLE
+
+**Open coverage domains:** 4 open of 5 published
+
+[0603WAF8202T5E record details](/docs/components/records/uniroyal-0603waf8202t5e/) — [0603WAF8202T5E raw agent resource](/docs/claude-skills/component-0603waf8202t5e/)
+
+### 0603WAF1003T5E
+
+| Field          | Recorded value                        |
+| -------------- | ------------------------------------- |
+| Record ID      | `rec-uniroyal-0603waf1003t5e`         |
+| Kind           | standalone — audited in its own right |
+| Manufacturer   | UNI-ROYAL(Uniroyal Elec)              |
+| Function       | 100 kilohm 0603 resistor              |
+| Orderable ID   | `C25803`                              |
+| Package        | `0603`                                |
+| Inventory line | `line-0603waf1003t5e`                 |
+| Owner skill    | `component-0603waf1003t5e`            |
+
+**Placements:** controller R12, R16, R17, R18, R19, R23
+
+**Fit:** Fitted
+
+**Identity state:** VERIFIED
+
+**Source state:** AVAILABLE
+
+**Open coverage domains:** 2 open of 5 published
+
+[0603WAF1003T5E record details](/docs/components/records/uniroyal-0603waf1003t5e/) — [0603WAF1003T5E raw agent resource](/docs/claude-skills/component-0603waf1003t5e/)
+
+### 0603WAF1002T5E
+
+| Field          | Recorded value                        |
+| -------------- | ------------------------------------- |
+| Record ID      | `rec-uniroyal-0603waf1002t5e`         |
+| Kind           | standalone — audited in its own right |
+| Manufacturer   | UNI-ROYAL(Uniroyal Elec)              |
+| Function       | 10 kilohm 0603 resistor               |
+| Orderable ID   | `C25804`                              |
+| Package        | `0603`                                |
+| Inventory line | `line-0603waf1002t5e`                 |
+| Owner skill    | `component-0603waf1002t5e`            |
+
+**Placements:** controller R9, R10, R13, R21, R22
+
+**Fit:** Fitted
+
+**Identity state:** VERIFIED
+
+**Source state:** AVAILABLE
+
+**Open coverage domains:** 2 open of 5 published
+
+[0603WAF1002T5E record details](/docs/components/records/uniroyal-0603waf1002t5e/) — [0603WAF1002T5E raw agent resource](/docs/claude-skills/component-0603waf1002t5e/)
+
+### TLV9001IDBVR
+
+| Field          | Recorded value                        |
+| -------------- | ------------------------------------- |
+| Record ID      | `rec-tlv9001idbvr`                    |
+| Kind           | standalone — audited in its own right |
+| Manufacturer   | Texas Instruments                     |
+| Function       | adc protection buffer amplifier       |
+| Orderable ID   | `C398363`                             |
+| Package        | `SOT-23-5`                            |
+| Inventory line | `line-tlv9001idbvr`                   |
+| Owner skill    | `component-tlv9001idbvr`              |
+
+**Placements:** controller U7
+
+**Fit:** Fitted
+
+**Identity state:** VERIFIED
+
+**Source state:** AVAILABLE
+
+**Open coverage domains:** 2 open of 5 published
+
+[TLV9001IDBVR record details](/docs/components/records/tlv9001idbvr/) — [TLV9001IDBVR raw agent resource](/docs/claude-skills/component-tlv9001idbvr/)
+
+### TLV75533PDBVR
+
+| Field          | Recorded value                        |
+| -------------- | ------------------------------------- |
+| Record ID      | `rec-tlv75533pdbvr`                   |
+| Kind           | standalone — audited in its own right |
+| Manufacturer   | Texas Instruments                     |
+| Function       | 3.3 v ldo regulator                   |
+| Orderable ID   | `C404027`                             |
+| Package        | `SOT-23-5`                            |
+| Inventory line | `line-tlv75533pdbvr`                  |
+| Owner skill    | `component-tlv75533pdbvr`             |
+
+**Placements:** controller U3
+
+**Fit:** Fitted
+
+**Identity state:** VERIFIED
+
+**Source state:** AVAILABLE
+
+**Open coverage domains:** 2 open of 5 published
+
+[TLV75533PDBVR record details](/docs/components/records/tlv75533pdbvr/) — [TLV75533PDBVR raw agent resource](/docs/claude-skills/component-tlv75533pdbvr/)
+
+### PJ-3582-B
+
+| Field          | Recorded value                        |
+| -------------- | ------------------------------------- |
+| Record ID      | `rec-pj-3582-b`                       |
+| Kind           | standalone — audited in its own right |
+| Manufacturer   | XKB Connection                        |
+| Function       | cv input and thru jack                |
+| Orderable ID   | `C500090`                             |
+| Package        | `Plugin`                              |
+| Inventory line | `line-pj-3582-b`                      |
+| Owner skill    | `component-pj-3582-b`                 |
+
+**Placements:** controller J1, J2
+
+**Fit:** Fitted
+
+**Identity state:** UNRESOLVED
+
+**Source state:** AVAILABLE
+
+**Open coverage domains:** 6 open of 6 published
+
+[PJ-3582-B record details](/docs/components/records/pj-3582-b/) — [PJ-3582-B raw agent resource](/docs/claude-skills/component-pj-3582-b/)
+
+### PMEG4010CEJ,115
+
+| Field          | Recorded value                                |
+| -------------- | --------------------------------------------- |
+| Record ID      | `rec-pmeg4010cej-115`                         |
+| Kind           | standalone — audited in its own right         |
+| Manufacturer   | Nexperia                                      |
+| Function       | eurorack rail reverse-polarity schottky diode |
+| Orderable ID   | `C50704`                                      |
+| Package        | `SOD-323F`                                    |
+| Inventory line | `line-pmeg4010cej-115`                        |
+| Owner skill    | `component-pmeg4010cej-115`                   |
+
+**Placements:** controller D1, D2
+
+**Fit:** Fitted
+
+**Identity state:** UNRESOLVED
+
+**Source state:** SOURCE UNAVAILABLE
+
+**Open coverage domains:** 5 open of 5 published
+
+[PMEG4010CEJ,115 record details](/docs/components/records/pmeg4010cej-115/) — [PMEG4010CEJ,115 raw agent resource](/docs/claude-skills/component-pmeg4010cej-115/)
+
+### STM32G031G8U6TR
+
+| Field          | Recorded value                        |
+| -------------- | ------------------------------------- |
+| Record ID      | `rec-stm32g031g8u6tr`                 |
+| Kind           | standalone — audited in its own right |
+| Manufacturer   | STMicroelectronics                    |
+| Function       | main microcontroller                  |
+| Orderable ID   | `C5270180`                            |
+| Package        | `UFQFPN-28(4x4)`                      |
+| Inventory line | `line-stm32g031g8u6tr`                |
+| Owner skill    | `component-stm32g031g8u6tr`           |
+
+**Placements:** controller U1
+
+**Fit:** Fitted
+
+**Identity state:** UNRESOLVED
+
+**Source state:** SOURCE UNAVAILABLE
+
+**Open coverage domains:** 5 open of 5 published
+
+[STM32G031G8U6TR record details](/docs/components/records/stm32g031g8u6tr/) — [STM32G031G8U6TR raw agent resource](/docs/claude-skills/component-stm32g031g8u6tr/)
+
+### WS2812B-2020-V6
+
+| Field          | Recorded value                        |
+| -------------- | ------------------------------------- |
+| Record ID      | `rec-ws2812b-2020-v6`                 |
+| Kind           | standalone — audited in its own right |
+| Manufacturer   | Worldsemi                             |
+| Function       | addressable rgb led                   |
+| Orderable ID   | `C52917434`                           |
+| Package        | `SMD2020-4P`                          |
+| Inventory line | `line-ws2812b-2020-v6`                |
+| Owner skill    | `component-ws2812b-2020-v6`           |
+
+**Placements:** led\_leaf D1, D2, D3, D4
+
+**Fit:** Fitted
+
+**Identity state:** VERIFIED
+
+**Source state:** AVAILABLE
+
+**Open coverage domains:** 2 open of 6 published
+
+[WS2812B-2020-V6 record details](/docs/components/records/ws2812b-2020-v6/) — [WS2812B-2020-V6 raw agent resource](/docs/claude-skills/component-ws2812b-2020-v6/)
+
+### 2.54-2\*5P
+
+| Field          | Recorded value                        |
+| -------------- | ------------------------------------- |
+| Record ID      | `rec-boomele-2-54-2x5p`               |
+| Kind           | standalone — audited in its own right |
+| Manufacturer   | BOOMELE(Boom Precision Elec)          |
+| Function       | eurorack ten-pin power box header     |
+| Orderable ID   | `C5665`                               |
+| Package        | `Plugin,P=2.54mm`                     |
+| Inventory line | `line-boomele-2-54-2x5p`              |
+| Owner skill    | `component-boomele-2-54-2x5p`         |
+
+**Placements:** power\_adapter J1
+
+**Fit:** Fitted
+
+**Identity state:** UNRESOLVED
+
+**Source state:** SOURCE UNAVAILABLE
+
+**Open coverage domains:** 5 open of 5 published
+
+[2.54-2\*5P record details](/docs/components/records/boomele-2-54-2x5p/) — [2.54-2\*5P raw agent resource](/docs/claude-skills/component-boomele-2-54-2x5p/)
+
+### 0603B103K500NT
+
+| Field          | Recorded value                        |
+| -------------- | ------------------------------------- |
+| Record ID      | `rec-fh-0603b103k500nt`               |
+| Kind           | standalone — audited in its own right |
+| Manufacturer   | FH (Guangdong Fenghua Advanced Tech)  |
+| Function       | 10 nf 50 v x7r 0603 capacitor         |
+| Orderable ID   | `C57112`                              |
+| Package        | `0603`                                |
+| Inventory line | `line-0603b103k500nt`                 |
+| Owner skill    | `component-0603b103k500nt`            |
+
+**Placements:** controller C13
+
+**Fit:** Fitted
+
+**Identity state:** VERIFIED
+
+**Source state:** AVAILABLE
+
+**Open coverage domains:** 3 open of 6 published
+
+[0603B103K500NT record details](/docs/components/records/fh-0603b103k500nt/) — [0603B103K500NT raw agent resource](/docs/claude-skills/component-0603b103k500nt/)
+
+### SPM4020T-4R7M-LR
+
+| Field          | Recorded value                                          |
+| -------------- | ------------------------------------------------------- |
+| Record ID      | `rec-spm4020t-4r7m-lr`                                  |
+| Kind           | standalone — audited in its own right                   |
+| Manufacturer   | TDK                                                     |
+| Function       | buck converter power inductor                           |
+| Orderable ID   | `C694586`                                               |
+| Package        | `SMD,4.4x4.1mm nominal; 4.6x4.3x2.0mm maximum envelope` |
+| Inventory line | `line-spm4020t-4r7m-lr`                                 |
+| Owner skill    | `component-spm4020t-4r7m-lr`                            |
+
+**Placements:** controller L1
+
+**Fit:** Fitted
+
+**Identity state:** UNRESOLVED
+
+**Source state:** SOURCE UNAVAILABLE
+
+**Open coverage domains:** 5 open of 5 published
+
+[SPM4020T-4R7M-LR record details](/docs/components/records/spm4020t-4r7m-lr/) — [SPM4020T-4R7M-LR raw agent resource](/docs/claude-skills/component-spm4020t-4r7m-lr/)
+
+### 0603WAF1005T5E
+
+| Field          | Recorded value                        |
+| -------------- | ------------------------------------- |
+| Record ID      | `rec-uniroyal-0603waf1005t5e`         |
+| Kind           | standalone — audited in its own right |
+| Manufacturer   | UNI-ROYAL(Uniroyal Elec)              |
+| Function       | 10 megohm 0603 resistor               |
+| Orderable ID   | `C7250`                               |
+| Package        | `0603`                                |
+| Inventory line | `line-0603waf1005t5e`                 |
+| Owner skill    | `component-0603waf1005t5e`            |
+
+**Placements:** controller R1, R2
+
+**Fit:** Fitted
+
+**Identity state:** VERIFIED
+
+**Source state:** AVAILABLE
+
+**Open coverage domains:** 2 open of 5 published
+
+[0603WAF1005T5E record details](/docs/components/records/uniroyal-0603waf1005t5e/) — [0603WAF1005T5E raw agent resource](/docs/claude-skills/component-0603waf1005t5e/)
+
+### 1MS3T1B1M2QES-5
+
+| Field          | Recorded value                        |
+| -------------- | ------------------------------------- |
+| Record ID      | `rec-dailywell-1ms3t1b1m2qes-5`       |
+| Kind           | standalone — audited in its own right |
+| Manufacturer   | Dailywell                             |
+| Function       | on off on mode toggle switch          |
+| Orderable ID   | `C908270`                             |
+| Package        | `Plugin`                              |
+| Inventory line | `line-1ms3t1b1m2qes-5`                |
+| Owner skill    | `component-1ms3t1b1m2qes-5`           |
+
+**Placements:** controller SW1
+
+**Fit:** Fitted
+
+**Identity state:** UNRESOLVED
+
+**Source state:** AVAILABLE
+
+**Open coverage domains:** 5 open of 5 published
+
+[1MS3T1B1M2QES-5 record details](/docs/components/records/dailywell-1ms3t1b1m2qes-5/) — [1MS3T1B1M2QES-5 raw agent resource](/docs/claude-skills/component-1ms3t1b1m2qes-5/)

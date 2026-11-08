@@ -1,0 +1,38 @@
+{
+  "schema_version": 1,
+  "skill": "component-530470310",
+  "records": [
+    {
+      "record_id": "rec-molex-530470310",
+      "line_id": "line-530470310",
+      "kind": "standalone",
+      "parent_record_id": null,
+      "mpn": "530470310",
+      "manufacturer": "MOLEX",
+      "lcsc": "C122442",
+      "package": "Plugin,P=1.25mm",
+      "source_ids": [
+        "src-530470310-a5-jlcpcb-snapshot",
+        "src-530470310-a5-netlist-controller",
+        "src-530470310-a5-netlist-power-adapter",
+        "src-530470310-sd"
+      ],
+      "fact_ids": [
+        "fact-530470310-manufacturer",
+        "fact-530470310-distributor-identity",
+        "fact-530470310-a5-placements",
+        "fact-530470310-pinout",
+        "fact-530470310-ratings",
+        "fact-530470310-cad-state"
+      ],
+      "interaction_ids": [],
+      "open_domains": [
+        "identity",
+        "pinout",
+        "electrical-ratings",
+        "placement",
+        "cad-assets"
+      ]
+    }
+  ]
+}

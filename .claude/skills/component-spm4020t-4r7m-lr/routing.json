@@ -1,0 +1,30 @@
+{
+  "schema_version": 1,
+  "routes": [
+    {
+      "route_id": "route-spm4020t-4r7m-lr",
+      "record_id": "rec-spm4020t-4r7m-lr",
+      "aliases": {
+        "mpn": [
+          "SPM4020T-4R7M-LR"
+        ],
+        "lcsc": [
+          "C694586"
+        ],
+        "manufacturer": [
+          "TDK"
+        ],
+        "function": [
+          "buck converter power inductor"
+        ]
+      },
+      "positive": [
+        "check SPM4020T-4R7M-LR pinout",
+        "audit C694586"
+      ],
+      "negative": [
+        "check 74437324047 pinout"
+      ]
+    }
+  ]
+}

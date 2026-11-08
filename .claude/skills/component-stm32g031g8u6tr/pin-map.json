@@ -1,0 +1,183 @@
+{
+  "schema_version": 1,
+  "pin_maps": [
+    {
+      "pin_map_id": "pinmap-stm32g031g8u6tr",
+      "record_id": "rec-stm32g031g8u6tr",
+      "symbol": "LightBlock:MCU",
+      "footprint": "LightBlock:QFN28",
+      "pins": [
+        {
+          "symbol_pin": "1",
+          "name": "PC14",
+          "footprint_pad": "1",
+          "function": "bidirectional; A5 nets: controller/U1=unconnected-(U1-PC14-Pad1)"
+        },
+        {
+          "symbol_pin": "2",
+          "name": "PC15",
+          "footprint_pad": "2",
+          "function": "bidirectional; A5 nets: controller/U1=unconnected-(U1-PC15-Pad2)"
+        },
+        {
+          "symbol_pin": "3",
+          "name": "VDD/VDDA",
+          "footprint_pad": "3",
+          "function": "power_in; A5 nets: controller/U1=/+3V3"
+        },
+        {
+          "symbol_pin": "4",
+          "name": "VSS/VSSA",
+          "footprint_pad": "4",
+          "function": "power_in; A5 nets: controller/U1=/GND"
+        },
+        {
+          "symbol_pin": "5",
+          "name": "PF2/NRST",
+          "footprint_pad": "5",
+          "function": "bidirectional; A5 nets: controller/U1=/NRST"
+        },
+        {
+          "symbol_pin": "6",
+          "name": "PA0/ADC0",
+          "footprint_pad": "6",
+          "function": "bidirectional; A5 nets: controller/U1=/CV_ADC"
+        },
+        {
+          "symbol_pin": "7",
+          "name": "PA1",
+          "footprint_pad": "7",
+          "function": "bidirectional; A5 nets: controller/U1=unconnected-(U1-PA1-Pad7)"
+        },
+        {
+          "symbol_pin": "8",
+          "name": "PA2",
+          "footprint_pad": "8",
+          "function": "bidirectional; A5 nets: controller/U1=/MODE_A"
+        },
+        {
+          "symbol_pin": "9",
+          "name": "PA3",
+          "footprint_pad": "9",
+          "function": "bidirectional; A5 nets: controller/U1=/MODE_B"
+        },
+        {
+          "symbol_pin": "10",
+          "name": "PA4",
+          "footprint_pad": "10",
+          "function": "bidirectional; A5 nets: controller/U1=/LED_FAULT_N"
+        },
+        {
+          "symbol_pin": "11",
+          "name": "PA5",
+          "footprint_pad": "11",
+          "function": "bidirectional; A5 nets: controller/U1=/LED_ENABLE"
+        },
+        {
+          "symbol_pin": "12",
+          "name": "PA6/TIM3_CH1",
+          "footprint_pad": "12",
+          "function": "bidirectional; A5 nets: controller/U1=/DATA_L_3V3"
+        },
+        {
+          "symbol_pin": "13",
+          "name": "PA7/TIM3_CH2",
+          "footprint_pad": "13",
+          "function": "bidirectional; A5 nets: controller/U1=/DATA_R_3V3"
+        },
+        {
+          "symbol_pin": "14",
+          "name": "PB0",
+          "footprint_pad": "14",
+          "function": "bidirectional; A5 nets: controller/U1=unconnected-(U1-PB0-Pad14)"
+        },
+        {
+          "symbol_pin": "15",
+          "name": "PB1",
+          "footprint_pad": "15",
+          "function": "bidirectional; A5 nets: controller/U1=unconnected-(U1-PB1-Pad15)"
+        },
+        {
+          "symbol_pin": "16",
+          "name": "PA8",
+          "footprint_pad": "16",
+          "function": "bidirectional; A5 nets: controller/U1=unconnected-(U1-PA8-Pad16)"
+        },
+        {
+          "symbol_pin": "17",
+          "name": "PC6",
+          "footprint_pad": "17",
+          "function": "bidirectional; A5 nets: controller/U1=unconnected-(U1-PC6-Pad17)"
+        },
+        {
+          "symbol_pin": "18",
+          "name": "PA11",
+          "footprint_pad": "18",
+          "function": "bidirectional; A5 nets: controller/U1=unconnected-(U1-PA11-Pad18)"
+        },
+        {
+          "symbol_pin": "19",
+          "name": "PA12",
+          "footprint_pad": "19",
+          "function": "bidirectional; A5 nets: controller/U1=unconnected-(U1-PA12-Pad19)"
+        },
+        {
+          "symbol_pin": "20",
+          "name": "PA13/SWDIO",
+          "footprint_pad": "20",
+          "function": "bidirectional; A5 nets: controller/U1=/SWDIO"
+        },
+        {
+          "symbol_pin": "21",
+          "name": "PA14/SWCLK",
+          "footprint_pad": "21",
+          "function": "bidirectional; A5 nets: controller/U1=/SWCLK"
+        },
+        {
+          "symbol_pin": "22",
+          "name": "PA15",
+          "footprint_pad": "22",
+          "function": "bidirectional; A5 nets: controller/U1=unconnected-(U1-PA15-Pad22)"
+        },
+        {
+          "symbol_pin": "23",
+          "name": "PB3",
+          "footprint_pad": "23",
+          "function": "bidirectional; A5 nets: controller/U1=unconnected-(U1-PB3-Pad23)"
+        },
+        {
+          "symbol_pin": "24",
+          "name": "PB4",
+          "footprint_pad": "24",
+          "function": "bidirectional; A5 nets: controller/U1=unconnected-(U1-PB4-Pad24)"
+        },
+        {
+          "symbol_pin": "25",
+          "name": "PB5",
+          "footprint_pad": "25",
+          "function": "bidirectional; A5 nets: controller/U1=unconnected-(U1-PB5-Pad25)"
+        },
+        {
+          "symbol_pin": "26",
+          "name": "PB6",
+          "footprint_pad": "26",
+          "function": "bidirectional; A5 nets: controller/U1=unconnected-(U1-PB6-Pad26)"
+        },
+        {
+          "symbol_pin": "27",
+          "name": "PB7",
+          "footprint_pad": "27",
+          "function": "bidirectional; A5 nets: controller/U1=unconnected-(U1-PB7-Pad27)"
+        },
+        {
+          "symbol_pin": "28",
+          "name": "PB8",
+          "footprint_pad": "28",
+          "function": "bidirectional; A5 nets: controller/U1=unconnected-(U1-PB8-Pad28)"
+        }
+      ],
+      "reviewed_by": "not independently reviewed: projected from the A5 native netlist by scripts/a5_catalog.py scaffold",
+      "project_state_source": "historical A5 native netlists (src-stm32g031g8u6tr-a5-netlist-controller); pad numbers equal KiCad symbol pin numbers in that export"
+    }
+  ]
+}

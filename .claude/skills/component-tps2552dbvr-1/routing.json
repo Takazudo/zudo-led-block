@@ -1,0 +1,30 @@
+{
+  "schema_version": 1,
+  "routes": [
+    {
+      "route_id": "route-tps2552dbvr-1",
+      "record_id": "rec-tps2552dbvr-1",
+      "aliases": {
+        "mpn": [
+          "TPS2552DBVR-1"
+        ],
+        "lcsc": [
+          "C140331"
+        ],
+        "manufacturer": [
+          "Texas Instruments"
+        ],
+        "function": [
+          "led supply current-limit latch switch"
+        ]
+      },
+      "positive": [
+        "check TPS2552DBVR-1 pinout",
+        "audit C140331"
+      ],
+      "negative": [
+        "check TPS2553DBVR-1 pinout"
+      ]
+    }
+  ]
+}

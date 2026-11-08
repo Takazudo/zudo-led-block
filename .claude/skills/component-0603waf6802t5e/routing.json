@@ -1,0 +1,30 @@
+{
+  "schema_version": 1,
+  "routes": [
+    {
+      "route_id": "route-0603waf6802t5e",
+      "record_id": "rec-uniroyal-0603waf6802t5e",
+      "aliases": {
+        "mpn": [
+          "0603WAF6802T5E"
+        ],
+        "lcsc": [
+          "C23231"
+        ],
+        "manufacturer": [
+          "UNI-ROYAL(Uniroyal Elec)"
+        ],
+        "function": [
+          "68 kilohm 0603 resistor"
+        ]
+      },
+      "positive": [
+        "check 0603WAF6802T5E pinout",
+        "audit C23231"
+      ],
+      "negative": [
+        "check 68 kilohm 0603 resistor from an unnamed vendor"
+      ]
+    }
+  ]
+}

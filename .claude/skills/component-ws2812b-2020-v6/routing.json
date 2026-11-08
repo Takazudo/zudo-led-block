@@ -1,0 +1,30 @@
+{
+  "schema_version": 1,
+  "routes": [
+    {
+      "route_id": "route-ws2812b-2020-v6",
+      "record_id": "rec-ws2812b-2020-v6",
+      "aliases": {
+        "mpn": [
+          "WS2812B-2020-V6"
+        ],
+        "lcsc": [
+          "C52917434"
+        ],
+        "manufacturer": [
+          "Worldsemi"
+        ],
+        "function": [
+          "addressable rgb led"
+        ]
+      },
+      "positive": [
+        "check WS2812B-2020-V6 pinout",
+        "audit C52917434"
+      ],
+      "negative": [
+        "check WS2812B-MINI-V6 pinout"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,30 @@
+{
+  "schema_version": 1,
+  "routes": [
+    {
+      "route_id": "route-ap63205wu-7",
+      "record_id": "rec-ap63205wu-7",
+      "aliases": {
+        "mpn": [
+          "AP63205WU-7"
+        ],
+        "lcsc": [
+          "C2071056"
+        ],
+        "manufacturer": [
+          "Diodes Incorporated"
+        ],
+        "function": [
+          "fixed 5 v buck converter"
+        ]
+      },
+      "positive": [
+        "check AP63205WU-7 pinout",
+        "audit C2071056"
+      ],
+      "negative": [
+        "check fixed 5 v buck converter from an unnamed vendor"
+      ]
+    }
+  ]
+}

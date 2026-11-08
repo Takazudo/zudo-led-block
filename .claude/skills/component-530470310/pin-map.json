@@ -1,0 +1,33 @@
+{
+  "schema_version": 1,
+  "pin_maps": [
+    {
+      "pin_map_id": "pinmap-530470310",
+      "record_id": "rec-molex-530470310",
+      "symbol": "LightBlock:PWR3",
+      "footprint": "LightBlock:PICO3",
+      "pins": [
+        {
+          "symbol_pin": "1",
+          "name": "1",
+          "footprint_pad": "1",
+          "function": "passive; A5 nets: controller/J5=/+12V_RAW; power_adapter/J2=/-12V_RAW"
+        },
+        {
+          "symbol_pin": "2",
+          "name": "2",
+          "footprint_pad": "2",
+          "function": "passive; A5 nets: controller/J5=/GND; power_adapter/J2=/GND"
+        },
+        {
+          "symbol_pin": "3",
+          "name": "3",
+          "footprint_pad": "3",
+          "function": "passive; A5 nets: controller/J5=/-12V_RAW; power_adapter/J2=/+12V_RAW"
+        }
+      ],
+      "reviewed_by": "not independently reviewed: projected from the A5 native netlist by scripts/a5_catalog.py scaffold",
+      "project_state_source": "historical A5 native netlists (src-530470310-a5-netlist-controller, src-530470310-a5-netlist-power-adapter); pad numbers equal KiCad symbol pin numbers in that export"
+    }
+  ]
+}

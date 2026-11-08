@@ -1,0 +1,94 @@
+{
+  "schema_version": 1,
+  "facts": [
+    {
+      "fact_id": "fact-pmeg4010cej-115-manufacturer",
+      "record_id": "rec-pmeg4010cej-115",
+      "source_id": "src-pmeg4010cej-115-ds",
+      "class": "PROJECT_STATE",
+      "value": "Nexperia",
+      "unit": "NONE",
+      "conditions": "the Nexperia datasheet is SOURCE UNAVAILABLE (assets.nexperia.com HTTP 403 on 2026-11-08); only distributor identity is retained",
+      "locator": "src-pmeg4010cej-115-ds: intended page 1 title block",
+      "provenance": "UNVERIFIED",
+      "verdict": "UNSOURCED",
+      "depends_on": [],
+      "expression": ""
+    },
+    {
+      "fact_id": "fact-pmeg4010cej-115-distributor-identity",
+      "record_id": "rec-pmeg4010cej-115",
+      "source_id": "src-pmeg4010cej-115-a5-jlcpcb-snapshot",
+      "class": "PROJECT_STATE",
+      "value": {
+        "lcsc": "C50704",
+        "manufacturer": "Nexperia",
+        "mpn": "PMEG4010CEJ,115",
+        "variant": "SOD-323F"
+      },
+      "unit": "NONE",
+      "conditions": "order-code identity only; not performance evidence",
+      "locator": "src-pmeg4010cej-115-a5-jlcpcb-snapshot: product table rows code, model, brand, specification",
+      "provenance": "DISTRIBUTOR-IDENTITY",
+      "verdict": "CONFIRMED - distributor identity only",
+      "depends_on": [],
+      "expression": ""
+    },
+    {
+      "fact_id": "fact-pmeg4010cej-115-a5-placements",
+      "record_id": "rec-pmeg4010cej-115",
+      "source_id": "src-pmeg4010cej-115-a5-netlist-controller",
+      "class": "PROJECT_STATE",
+      "value": "controller/D1 x1, controller/D2 x1 (2 unique placements, 2 fitted pieces per module)",
+      "unit": "NONE",
+      "conditions": "historical A5 native netlists; declared by the manual inventory provider, not bound to a schematic; as-built placement unverified",
+      "locator": "src-pmeg4010cej-115-a5-netlist-controller: components section rows D1, D2",
+      "provenance": "PROJECT-CHOICE",
+      "verdict": "NEEDS BENCH",
+      "depends_on": [],
+      "expression": ""
+    },
+    {
+      "fact_id": "fact-pmeg4010cej-115-pinout",
+      "record_id": "rec-pmeg4010cej-115",
+      "source_id": "src-pmeg4010cej-115-ds",
+      "class": "PROJECT_STATE",
+      "value": "manufacturer pin numbering and pin functions for package SOD-323F",
+      "unit": "NONE",
+      "conditions": "not checked: the Nexperia datasheet is SOURCE UNAVAILABLE; the project pin map is a historical A5 netlist projection",
+      "locator": "src-pmeg4010cej-115-ds: intended Pinning information table",
+      "provenance": "UNVERIFIED",
+      "verdict": "UNSOURCED",
+      "depends_on": [],
+      "expression": ""
+    },
+    {
+      "fact_id": "fact-pmeg4010cej-115-ratings",
+      "record_id": "rec-pmeg4010cej-115",
+      "source_id": "src-pmeg4010cej-115-ds",
+      "class": "ABSOLUTE_MAXIMUM",
+      "value": "manufacturer absolute-maximum limits (VR, IF, IFSM, Tj)",
+      "unit": "NONE",
+      "conditions": "not read: the Nexperia datasheet is SOURCE UNAVAILABLE; no value taken from A5 notes or memory",
+      "locator": "src-pmeg4010cej-115-ds: intended Limiting values table",
+      "provenance": "UNVERIFIED",
+      "verdict": "UNSOURCED",
+      "depends_on": [],
+      "expression": ""
+    },
+    {
+      "fact_id": "fact-pmeg4010cej-115-cad-state",
+      "record_id": "rec-pmeg4010cej-115",
+      "source_id": "src-pmeg4010cej-115-a5-netlist-controller",
+      "class": "PROJECT_STATE",
+      "value": "A5 footprint LightBlock:SOD323F and symbol LightBlock:RECT are not configured as catalog CAD assets (cad.enabled=false); pin-asset check not performed",
+      "unit": "NONE",
+      "conditions": "catalog CAD disabled for this batch; no footprint, model or receipt reviewed",
+      "locator": "src-pmeg4010cej-115-a5-netlist-controller: components section footprint field",
+      "provenance": "PROJECT-CHOICE",
+      "verdict": "UNSOURCED",
+      "depends_on": [],
+      "expression": ""
+    }
+  ]
+}

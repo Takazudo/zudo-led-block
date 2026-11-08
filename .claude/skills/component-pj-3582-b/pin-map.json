@@ -1,0 +1,45 @@
+{
+  "schema_version": 1,
+  "pin_maps": [
+    {
+      "pin_map_id": "pinmap-pj-3582-b",
+      "record_id": "rec-pj-3582-b",
+      "symbol": "LightBlock:JACK",
+      "footprint": "LightBlock:PJ3582_ROT90",
+      "pins": [
+        {
+          "symbol_pin": "2",
+          "name": "SLEEVE",
+          "footprint_pad": "2",
+          "function": "passive; A5 nets: controller/J1=/GND; controller/J2=/GND"
+        },
+        {
+          "symbol_pin": "3",
+          "name": "RING",
+          "footprint_pad": "3",
+          "function": "passive; A5 nets: controller/J1=/GND; controller/J2=/GND"
+        },
+        {
+          "symbol_pin": "4",
+          "name": "DETECT_A",
+          "footprint_pad": "4",
+          "function": "passive; A5 nets: controller/J1=unconnected-(J1-DETECT_A-Pad4); controller/J2=unconnected-(J2-DETECT_A-Pad4)"
+        },
+        {
+          "symbol_pin": "5",
+          "name": "DETECT_B",
+          "footprint_pad": "5",
+          "function": "passive; A5 nets: controller/J1=unconnected-(J1-DETECT_B-Pad5); controller/J2=unconnected-(J2-DETECT_B-Pad5)"
+        },
+        {
+          "symbol_pin": "6",
+          "name": "TIP",
+          "footprint_pad": "6",
+          "function": "passive; A5 nets: controller/J1=/CV_THRU; controller/J2=/CV_THRU"
+        }
+      ],
+      "reviewed_by": "not independently reviewed: projected from the A5 native netlist by scripts/a5_catalog.py scaffold",
+      "project_state_source": "historical A5 native netlists (src-pj-3582-b-a5-netlist-controller); pad numbers equal KiCad symbol pin numbers in that export"
+    }
+  ]
+}
