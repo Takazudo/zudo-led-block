@@ -1,0 +1,16 @@
+{
+ "schema": 1,
+ "what": "Authorized schematic deltas of the A7 controller against the reviewed baseline. Checked by scripts/native_gate/delta.py: every observed delta must match an entry and every entry must match an observed delta. Pins of a component_replaced ref leave the connectivity comparison and are covered by the behavioral interface assertions instead.",
+ "baseline": {
+  "netlist": "engineering/a5/integration/native_schematic/controller/netlist.xml",
+  "sha256": "fa2d267acc4081156649ee15e014fbaeae4303bc96374fe19f4bae7b3a72553f",
+  "label": "A5 controller XML netlist; the native infrastructure run shows a fresh KiCad 10.0.8 export of the A5 schematic equals it with no delta"
+ },
+ "review": null,
+ "expected_entry_topics": [
+  "J1/J2 PJ-3582-B -> SOFNG PJ-324M (C22355739): component_replaced, pin identities from R1 #16 evidence",
+  "SW1 front toggle -> PCB-side ON-OFF-ON setting switch: component_replaced, contact table from R1 #16 evidence",
+  "any support/mounting/connector change required by the perpendicular controller (R2 #17 / R4 #19)"
+ ],
+ "entries": []
+}

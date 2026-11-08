@@ -1,0 +1,59 @@
+{
+ "schema": 1,
+ "what": "A7 source ownership. Exactly one class per path. Generators may write only 'derived' paths; 'authoritative' and 'inherited' paths are refused by scripts/native_gate/authority.py.",
+ "classes": {
+  "authoritative": "Hand-edited source of truth. No generator writes it. The native gate proves it byte-identical across normal regeneration.",
+  "authored": "Hand-written reviewed records (expectations, role maps, authorized deltas, rationale). Changing one needs review.",
+  "derived": "Written only by a named generator from authoritative/authored inputs; --check must report it current.",
+  "inherited": "Immutable A5 checkpoint, referenced by path and SHA-256; never copied over, edited or regenerated.",
+  "fixture": "Test infrastructure under scripts/tests/fixtures/native/; never an A7 board."
+ },
+ "entries": [
+  {
+   "path": "engineering/a5",
+   "class": "inherited",
+   "rule": "byte-for-byte; scripts/verify_seed.py must PASS before and after every gate run"
+  },
+  {
+   "path": "engineering/a7/electronics/controller/controller.kicad_pcb",
+   "class": "authoritative",
+   "present": false,
+   "rule": "Reserved. Lands only together with a revision gate profile whose candidate names it and whose full enforcement passes (R4, #19). An unrouted initial board stays on a draft branch."
+  },
+  {
+   "path": "engineering/a7/verification/native_gate.json",
+   "class": "authored",
+   "rule": "A7 revision gate profile; candidate is null until R4"
+  },
+  {
+   "path": "engineering/a7/verification/native_gate.lock.json",
+   "class": "derived",
+   "generator": "python3 scripts/native_gate/runner.py lock --profile engineering/a7/verification/native_gate.json"
+  },
+  {
+   "path": "engineering/a7/verification/authorized_delta.json",
+   "class": "authored",
+   "rule": "every schematic delta vs the A5 baseline netlist, each with reason, issue and review"
+  },
+  {
+   "path": "engineering/a7/verification/interface_roles",
+   "class": "authored",
+   "rule": "pin identities for the behavioral assertions; new jack/switch pins come from exact-part evidence (R1, #16)"
+  },
+  {
+   "path": "engineering/a7/verification/source_authority.json",
+   "class": "authored"
+  },
+  {
+   "path": "scripts/tests/fixtures/native",
+   "class": "fixture",
+   "rule": "fixture boards are regenerated only with scripts/native_gate/make_fixture.py into an empty directory, then reviewed and committed"
+  }
+ ],
+ "regeneration_rules": [
+  "Normal generation never writes an authoritative board; the gate hashes it before and after its regeneration --check.",
+  "Placement/connectivity for downstream geometry is exported from fresh native facts of the authoritative board (scripts/native_gate/authority.py export-placement) and records the board SHA-256.",
+  "Initial-board generation writes only into an empty directory outside the repository (authority.py init-board, make_fixture.py).",
+  "The A7 schematic's class (authoritative KiCad file or derived from design data) must be declared here before the A7 board lands."
+ ]
+}

@@ -1,0 +1,203 @@
+{
+ "schema": 1,
+ "profile": "native-infrastructure-fixtures",
+ "kind": "infrastructure",
+ "what": "Exercises the native gate machinery on genuinely routed fixtures, with the immutable A5 controller as an expected-failure control. INFRASTRUCTURE_PASS means the gate detects what it must; it is never an A7 board result.",
+ "image": "kicad/kicad:10.0.8@sha256:3f4a01786dfbe803a65f345c3342b765db9add913f5e9448f8356793714ddc34",
+ "kicad_version": "10.0.8",
+ "lock": "scripts/tests/fixtures/native/profile.lock.json",
+ "limits": {
+  "native_deadline_s": 600,
+  "cleanup_reserve_s": 60,
+  "design_deadline_s": 240
+ },
+ "drc": {
+  "included_severities": [
+   "error",
+   "warning",
+   "exclusion"
+  ],
+  "ignored_checks": [
+   {
+    "description": "Footprint has no courtyard defined",
+    "key": "missing_courtyard"
+   },
+   {
+    "description": "Track endpoint not centered on via",
+    "key": "track_not_centered_on_via"
+   },
+   {
+    "description": "Tuning profile track geometries",
+    "key": "tuning_profile_track_geometries"
+   },
+   {
+    "description": "Footprint doesn't match symbol's footprint filters",
+    "key": "footprint_filters_mismatch"
+   },
+   {
+    "description": "Footprint component type doesn't match footprint pads",
+    "key": "footprint_type_mismatch"
+   }
+  ],
+  "ignored_checks_note": "KiCad 10.0.8 default ignore set (carried from PR #14 native_expectations.json); the projects define no exclusions or custom rules. A change to this set fails the gate."
+ },
+ "designs": {
+  "fixture_leaf": {
+   "role": "routed + zoned infrastructure fixture (A5 leaf routing plus one filled GND zone); positive control",
+   "dir": "scripts/tests/fixtures/native/led_leaf_zoned",
+   "schematic": "fixture.kicad_sch",
+   "board": "fixture.kicad_pcb",
+   "erc_violations_max": 0,
+   "board_only": [],
+   "refill_check": true,
+   "parity_dispositions": {
+    "net_prefix_only": true,
+    "no_connect_unnamed": true,
+    "missing_fields": [
+     "MPN"
+    ]
+   },
+   "parity_counts": {
+    "net_prefix_only": 31,
+    "no_connect_unnamed": 1,
+    "missing_field": 10
+   },
+   "drc_residuals": []
+  },
+  "a5_power_adapter": {
+   "role": "immutable A5 routed power adapter, freshly checked in place; positive control",
+   "dir": "engineering/a5/electronics/native/power_adapter",
+   "schematic": "power_adapter.kicad_sch",
+   "board": "power_adapter.kicad_pcb",
+   "erc_violations_max": 0,
+   "board_only": [],
+   "parity_dispositions": {
+    "net_prefix_only": true,
+    "missing_fields": [
+     "MPN"
+    ],
+    "extra_footprints": [
+     "H1"
+    ]
+   },
+   "parity_counts": {
+    "net_prefix_only": 13,
+    "missing_field": 2,
+    "extra_footprint": 1
+   },
+   "drc_residuals": []
+  }
+ },
+ "parity_disposition_note": "A5 leaf/adapter boards name nets without the schematic's '/' sheet prefix, leave the no-connect D4.1 unnamed, omit the MPN field and (adapter) carry hole H1 without a symbol. Naming/metadata classes only; the independent pad-by-pad parity still runs. Carried from PR #14 for these A5-derived boards only; an A7 board gets its own reviewed dispositions.",
+ "expected_failure": {
+  "a5_controller": {
+   "role": "immutable A5 controller (unrouted placement draft): must fail in exactly its recorded way",
+   "dir": "engineering/a5/electronics/native/controller",
+   "schematic": "controller.kicad_sch",
+   "board": "controller.kicad_pcb",
+   "violations": [
+    {
+     "type": "courtyards_overlap",
+     "refs": [
+      "C7",
+      "J3"
+     ]
+    },
+    {
+     "type": "courtyards_overlap",
+     "refs": [
+      "H1",
+      "J3"
+     ]
+    }
+   ],
+   "unconnected": 130
+  }
+ },
+ "controls": {
+  "timeout": {
+   "design": "fixture_leaf",
+   "deadline_s": 0.01
+  },
+  "mutations": {
+   "control_route_break": {
+    "design": "fixture_leaf",
+    "kind": "route_break",
+    "must_report": [
+     "unconnected"
+    ]
+   },
+   "control_wrong_connection": {
+    "design": "fixture_leaf",
+    "kind": "wrong_connection",
+    "spec": {
+     "pad": "D1.3",
+     "to_net_of": "J1.4"
+    },
+    "must_report": [
+     "D1.3"
+    ]
+   },
+   "control_fill_shift": {
+    "design": "fixture_leaf",
+    "kind": "fill_shift",
+    "refill_check": true,
+    "must_report": [
+     "committed zone fills are stale"
+    ],
+    "purpose": "one committed fill moved 0.05 mm with unchanged area and vertex count; the canonical polygon fingerprint must still differ from a fresh refill"
+   }
+  },
+  "synthetic_design": "fixture_leaf"
+ },
+ "interface": {
+  "roles": "engineering/a7/verification/interface_roles/a5_reference.json",
+  "netlists": {
+   "controller": "a5_controller",
+   "led_leaf": "fixture_leaf",
+   "power_adapter": "a5_power_adapter"
+  },
+  "min_checks": 40
+ },
+ "delta": {
+  "record": "scripts/tests/fixtures/native/a5_identity_delta.json",
+  "candidate_design": "a5_controller"
+ },
+ "regeneration": {
+  "check_command": [
+   "{python}",
+   "scripts/native_gate/authority.py",
+   "export-placement",
+   "--check",
+   "--board",
+   "scripts/tests/fixtures/native/led_leaf_zoned/fixture.kicad_pcb",
+   "--facts",
+   "{raw}/fixture_leaf/board_facts.json",
+   "--geometry",
+   "{raw}/fixture_leaf/board_geometry.json",
+   "--out",
+   "scripts/tests/fixtures/native/led_leaf_zoned/placement.json"
+  ],
+  "protected": [
+   "scripts/tests/fixtures/native/led_leaf_zoned/fixture.kicad_pcb"
+  ]
+ },
+ "read_inputs": [
+  "scripts/tests/fixtures/native/led_leaf_zoned/provenance.json",
+  "scripts/tests/fixtures/native/led_leaf_zoned/placement.json",
+  "scripts/native_gate/make_fixture.py"
+ ],
+ "evidence": {
+  "allowed_names": [
+   "erc.json",
+   "drc.json",
+   "netlist.xml",
+   "board_facts.json",
+   "board_geometry.json",
+   "refill.json",
+   "inner_record.json",
+   "interface_check.json",
+   "delta_check.json"
+  ]
+ }
+}

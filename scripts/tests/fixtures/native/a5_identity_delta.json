@@ -1,0 +1,14 @@
+{
+ "schema": 1,
+ "what": "Identity record for the infrastructure profile: the fresh KiCad 10.0.8 netlist of the immutable A5 controller must equal the historical A5 netlist with no delta. Proves the delta checker accepts identity and (via the runner's control) refuses an unauthorized pin move.",
+ "baseline": {
+  "netlist": "engineering/a5/integration/native_schematic/controller/netlist.xml",
+  "sha256": "fa2d267acc4081156649ee15e014fbaeae4303bc96374fe19f4bae7b3a72553f",
+  "label": "A5 controller XML netlist (historical import, engineering/a5/integration/native_schematic)"
+ },
+ "review": {
+  "by": "infrastructure fixture; no authorization content",
+  "issue": "https://github.com/Takazudo/zudo-led-block/issues/18"
+ },
+ "entries": []
+}
