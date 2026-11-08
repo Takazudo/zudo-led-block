@@ -46,7 +46,7 @@
   ],
   "freerouting_best_state": "Freerouting 2.1.0 writes only its current state at the job timeout, never its best pass; save_intermediate_stages produced no files in CLI mode.",
   "closer": "Scripted negotiated closer on top of the vC result (KiCad DRC as the connectivity oracle each round): it diverged, 32 -> 57 -> 92 -> 128 unconnected over three rounds, because every forced crossing in the y 12-35 mm section opens new gaps in other nets.",
-  "in_house_router_4_layers": "PathFinder on all four layers at minimum widths: still 22 nets overlapping after 31 iterations.",
+  "in_house_router_4_layers": "PathFinder on all four layers at minimum widths (time box 80 negotiation iterations, 4860 s): did not converge. Overlapping nets went 28 at iteration 0, 22 at 31, best 17 at 63, 18 at the final iteration 79; 9 nets unrouted at the end and 22 pad fan-outs found no legal escape. Input geometry sha256 dbcf4ba15cab3ce0ab2c56824bb86a09b7f1f2a027c72bf2cc0a04fa693848e0, config sha256 cc2b121978f11fe472cdb9b56b2610541607607e6de343f832135d8ccd9572ff (scratch, not committed). No further 8.8 mm attempts were made after this run.",
   "capacity_check": "Every horizontal cross-section has roughly 60-100 track slots at 0.3 mm pitch for at most 20 crossing non-GND nets, so the failure is local pin escape and via spacing (vias block all four layers) around U1, SW1, U4/U5/Q1 and the TP row, not raw width."
  },
  "widened_outline_scratch_test": {
