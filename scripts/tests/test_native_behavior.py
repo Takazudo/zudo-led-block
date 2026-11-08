@@ -79,7 +79,7 @@ class InterfaceTests(unittest.TestCase):
     def test_a7_draft_roles_cannot_pass(self):
         r = itf.check(netlists(), ROLES / 'a7_controller.json')
         self.assertFalse(r['all_passed'])
-        for cid in ('cv.passive_thru', 'mode.truth_table', 'mode.common_gnd'):
+        for cid in ('cv.passive_thru', 'mode.common_gnd', 'roles.reviewed'):
             self.assertIn(cid, self.failed(r))
 
     def test_thru_tip_moved_off_cv_net(self):

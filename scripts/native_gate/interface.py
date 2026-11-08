@@ -186,6 +186,7 @@ def run(nets: dict, roles: dict) -> list[dict]:
     x.same('mode.a_input', 'MODE_A throw, MCU input and pull-up share one net', C + 'sw.throw_a', C + 'mcu.mode_a', C + 'mode.a_pullup_node')
     x.same('mode.b_input', 'MODE_B throw, MCU input and pull-up share one net', C + 'sw.throw_b', C + 'mcu.mode_b', C + 'mode.b_pullup_node')
     x.same('mode.pullups_to_vdd', 'Both mode pull-ups return to MCU VDD', C + 'mode.a_pullup_rail', C + 'mode.b_pullup_rail', C + 'mcu.vdd')
+    x.unused('mode.spare_contacts_unused', 'Switch contacts outside the mode encoding are unconnected', C + 'sw.unused')
     x.distinct('mode.inputs_distinct', 'MODE_A and MODE_B are separate nets', C + 'mcu.mode_a', C + 'mcu.mode_b')
     x.record('mode.truth_table', 'Switch positions encode ON=01, PGM=11, CV=10 (centre/open = PROGRAM)', lambda: mode_truth(x))
     # LED power

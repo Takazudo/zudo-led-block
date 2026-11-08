@@ -21,6 +21,48 @@
    "rule": "Reserved. Lands only together with a revision gate profile whose candidate names it and whose full enforcement passes (R4, #19). An unrouted initial board stays on a draft branch."
   },
   {
+   "path": "engineering/a7/electronics/controller/controller.kicad_sch",
+   "class": "derived",
+   "generator": "python3 scripts/a7_electronics.py generate",
+   "rule": "Derived from the immutable A5 design data plus the A7 changes in scripts/a7_electronics.py (J1, J2, SW1 only). Never hand-edited; --check must report it current. The A5 writer port is proven by a7_electronics.py reproduce-a5 (byte-identical A5 schematic)."
+  },
+  {
+   "path": "engineering/a7/electronics/controller/LightBlock.kicad_sym",
+   "class": "derived",
+   "generator": "python3 scripts/a7_electronics.py generate"
+  },
+  {
+   "path": "engineering/a7/electronics/controller/controller.kicad_pro",
+   "class": "derived",
+   "generator": "python3 scripts/a7_electronics.py generate"
+  },
+  {
+   "path": "engineering/a7/electronics/controller/sym-lib-table",
+   "class": "derived",
+   "generator": "python3 scripts/a7_electronics.py generate"
+  },
+  {
+   "path": "engineering/a7/electronics/controller/fp-lib-table",
+   "class": "derived",
+   "generator": "python3 scripts/a7_electronics.py generate"
+  },
+  {
+   "path": "engineering/a7/electronics/footprints",
+   "class": "derived",
+   "generator": "python3 scripts/a7_electronics.py generate",
+   "rule": "PJ324M and PCM13SMTR only; every dimension tagged MIRROR/ASSUMED/INFERRED in footprint_sources.json. A5 footprints are referenced read-only from engineering/a5."
+  },
+  {
+   "path": "engineering/a7/electronics/README.md",
+   "class": "authored"
+  },
+  {
+   "path": "engineering/a7/verification/schematic",
+   "class": "derived",
+   "generator": "python3 scripts/a7_schematic_check.py --out <empty dir outside the repo> --evidence-dir engineering/a7/verification/schematic",
+   "rule": "Fresh pinned-image ERC, netlist, staging parity, interface and delta results of the committed schematic. Evidence of a run, not a board result."
+  },
+  {
    "path": "engineering/a7/verification/native_gate.json",
    "class": "authored",
    "rule": "A7 revision gate profile; candidate is null until R4"
@@ -54,6 +96,6 @@
   "Normal generation never writes an authoritative board; the gate hashes it before and after its regeneration --check.",
   "Placement/connectivity for downstream geometry is exported from fresh native facts of the authoritative board (scripts/native_gate/authority.py export-placement) and records the board SHA-256.",
   "Initial-board generation writes only into an empty directory outside the repository (authority.py init-board, make_fixture.py).",
-  "The A7 schematic's class (authoritative KiCad file or derived from design data) must be declared here before the A7 board lands."
+  "The A7 schematic is derived (scripts/a7_electronics.py), declared above; the board remains the only authoritative A7 electronics file."
  ]
 }

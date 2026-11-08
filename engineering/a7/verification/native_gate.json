@@ -64,11 +64,16 @@
   "candidate_design": "a7_controller"
  },
  "regeneration": {
-  "check_command": [],
+  "check_command": [
+   "{python}",
+   "scripts/a7_electronics.py",
+   "generate",
+   "--check"
+  ],
   "protected": [
    "engineering/a7/electronics/controller/controller.kicad_pcb"
   ],
-  "note": "R4 supplies the A7 generator --check command; placement export uses scripts/native_gate/authority.py export-placement."
+  "note": "Normal regeneration of the derived A7 schematic and A7 footprints (scripts/a7_electronics.py) must leave the protected board byte-identical; placement export uses scripts/native_gate/authority.py export-placement."
  },
  "evidence": {
   "allowed_names": [

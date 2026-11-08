@@ -1,0 +1,44 @@
+{
+ "status": "SCHEMATIC_UNREVIEWED",
+ "board_result": "NONE (schematic phase; A7 revision gate stays NO_CANDIDATE)",
+ "image": "kicad/kicad:10.0.8@sha256:3f4a01786dfbe803a65f345c3342b765db9add913f5e9448f8356793714ddc34",
+ "kicad_version": "10.0.8",
+ "schematic": "engineering/a7/electronics/controller/controller.kicad_sch",
+ "schematic_sha256": "01c09e69f2623bdbb98ae6176b4b52204ae817f927ecb311242d7ac1295fbc72",
+ "native": {
+  "docker_exit": 0,
+  "codes": {
+   "erc": "0",
+   "netlist": "0",
+   "init": "0",
+   "drc": "0"
+  },
+  "stderr_tail": ""
+ },
+ "failures": [],
+ "review_pending": [
+  "interface: roles.reviewed",
+  "delta: authorized-delta record has no review entry; an unreviewed record cannot authorize anything"
+ ],
+ "erc_violations": 0,
+ "parity_issues": 0,
+ "staging_board_note": "unrouted staging board at A5 placements; its DRC and unconnected counts are not a board result and are not evaluated",
+ "interface": {
+  "checks": 49,
+  "failed": [
+   "roles.reviewed"
+  ],
+  "errors": []
+ },
+ "delta": {
+  "failures": [
+   "authorized-delta record has no review entry; an unreviewed record cannot authorize anything"
+  ],
+  "observed": 12,
+  "replaced_refs": [
+   "J1",
+   "J2",
+   "SW1"
+  ]
+ }
+}

@@ -1,0 +1,135 @@
+{
+ "ok": false,
+ "failures": [
+  "authorized-delta record has no review entry; an unreviewed record cannot authorize anything"
+ ],
+ "baseline": "engineering/a5/integration/native_schematic/controller/netlist.xml",
+ "baseline_sha256": "fa2d267acc4081156649ee15e014fbaeae4303bc96374fe19f4bae7b3a72553f",
+ "candidate_sha256": "880212cb3c1836694b27a8130f52f37ab260a77ed0bd6b810da835c3f1d21617",
+ "record_sha256": "766699d415111dcd78ee87571241db46b23eff36e75437f08747f8335c971697",
+ "observed_delta": [
+  {
+   "kind": "field_changed",
+   "ref": "J1",
+   "field": "field:Footprint",
+   "from": "LightBlock:PJ3582_ROT90",
+   "to": "LightBlockA7:PJ324M"
+  },
+  {
+   "kind": "field_changed",
+   "ref": "J1",
+   "field": "field:LCSC",
+   "from": "C500090",
+   "to": "C22355739"
+  },
+  {
+   "kind": "field_changed",
+   "ref": "J1",
+   "field": "field:MPN",
+   "from": "PJ-3582-B",
+   "to": "PJ-324M"
+  },
+  {
+   "kind": "field_changed",
+   "ref": "J1",
+   "field": "footprint",
+   "from": "LightBlock:PJ3582_ROT90",
+   "to": "LightBlockA7:PJ324M"
+  },
+  {
+   "kind": "field_changed",
+   "ref": "J2",
+   "field": "field:Footprint",
+   "from": "LightBlock:PJ3582_ROT90",
+   "to": "LightBlockA7:PJ324M"
+  },
+  {
+   "kind": "field_changed",
+   "ref": "J2",
+   "field": "field:LCSC",
+   "from": "C500090",
+   "to": "C22355739"
+  },
+  {
+   "kind": "field_changed",
+   "ref": "J2",
+   "field": "field:MPN",
+   "from": "PJ-3582-B",
+   "to": "PJ-324M"
+  },
+  {
+   "kind": "field_changed",
+   "ref": "J2",
+   "field": "footprint",
+   "from": "LightBlock:PJ3582_ROT90",
+   "to": "LightBlockA7:PJ324M"
+  },
+  {
+   "kind": "field_changed",
+   "ref": "SW1",
+   "field": "field:Footprint",
+   "from": "LightBlock:DAILYWELL_M2_SP",
+   "to": "LightBlockA7:PCM13SMTR"
+  },
+  {
+   "kind": "field_changed",
+   "ref": "SW1",
+   "field": "field:LCSC",
+   "from": "C908270",
+   "to": "C221842"
+  },
+  {
+   "kind": "field_changed",
+   "ref": "SW1",
+   "field": "field:MPN",
+   "from": "1MS3T1B1M2QES-5",
+   "to": "PCM13SMTR"
+  },
+  {
+   "kind": "field_changed",
+   "ref": "SW1",
+   "field": "footprint",
+   "from": "LightBlock:DAILYWELL_M2_SP",
+   "to": "LightBlockA7:PCM13SMTR"
+  }
+ ],
+ "replaced_refs": [
+  "J1",
+  "J2",
+  "SW1"
+ ],
+ "net_renames": [
+  [
+   "/GND",
+   "unconnected-(J1-RING_NORMAL-Pad3)"
+  ],
+  [
+   "/GND",
+   "unconnected-(J2-RING_NORMAL-Pad3)"
+  ],
+  [
+   "/GND",
+   "unconnected-(SW1-THROW_2-Pad2)"
+  ],
+  [
+   "/MODE_B",
+   "/GND"
+  ],
+  [
+   "unconnected-(J1-DETECT_A-Pad4)",
+   "/CV_THRU"
+  ],
+  [
+   "unconnected-(J1-DETECT_B-Pad5)",
+   "unconnected-(J1-TIP_NORMAL-Pad5)"
+  ],
+  [
+   "unconnected-(J2-DETECT_A-Pad4)",
+   "/CV_THRU"
+  ],
+  [
+   "unconnected-(J2-DETECT_B-Pad5)",
+   "unconnected-(J2-TIP_NORMAL-Pad5)"
+  ]
+ ]
+}
