@@ -482,6 +482,15 @@ def evaluate_all(g: Gate, p: dict, lk: dict, raw: Path, info: dict) -> dict:
         ok = base_ok and (not r['ok']) and bool(hit) and 'error' not in (mr.get('mutation') or {'error': 'missing'})
         if c['kind'] == 'fill_shift' and (mr.get('mutation') or {}).get('summary_unchanged') is not True:
             ok = False  # the control only proves something if area and vertex count stayed equal
+        if c['kind'] == 'route_break':
+            # the reported break must be on the net whose segment was removed, not some unrelated one
+            net = (mr.get('mutation') or {}).get('removed_track_net')
+            try:
+                items = json.loads((out / 'drc.json').read_text()).get('unconnected_items', [])
+            except (OSError, ValueError):
+                items = []
+            if not net or not any(f'[{net}]' in i.get('description', '') for u in items for i in u.get('items', [])):
+                ok = False
         ctl[name] = {'ok': ok, 'base_design_passed': base_ok, 'mutation': mr.get('mutation'), 'detected_by': hit[:5]}
         if not ok:
             g.fail(f'negative control {name} was not demonstrated (base passed={base_ok}, must report {c["must_report"]})')

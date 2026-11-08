@@ -74,29 +74,36 @@ B_ALLOWED = {'R0603', 'TESTPAD'}
 VIA_FIELDS = ('U1', 'U5')
 GAP = 0.15
 
-# Component-face placement, hand-packed by function into the regions R2's keep-outs leave free:
-# buck output (L1, C2) and analog U6/U7 at the top; Q1, U2, U3, U4 and C14 in the column beside the spine
-# slot with their capacitors (C1, C4, C16, C5, C6) in the block between that column and the LED cable lane; MCU between the spine slot and the CV IN jack; translator U5 between the jacks; 1206/SOD323
-# parts in the 2.45 mm strip behind the jack bodies; D3 in the corner beside the switch.
+# Component-face placement, hand-packed by function into the regions R2's keep-outs leave free (layout review of
+# PR #30: hot loops at the IC, analog parts at the pins they serve).
+# Buck (top left): C1 across U2 VIN (pin 3) and GND (pin 4); C4 across BST/SW right under the IC; L1's SW pad
+# straight below; output cap C2 at L1's +5V pad. Top right, above the J3 courtyard: U6 with C11/C12 and LDO U3
+# with C5/C6 (C6 at the output pin). Beside the spine slot: U4 with C16 at VLED, then the ADC buffer island U7 with
+# D3 at U7.3 (CV_FILTER), C13 on CV_AFFINE beside R7 and C17 at U7.5, so the long CV run is U6's low-impedance
+# output. MCU 100 n (C8) right under VDD (U1.3/U1.4), C7/C14 at the MCU's upper right. Q1 (DC enable for U4) in
+# the free corner beside the switch; 1206/SOD323 bulk parts in the strip behind the jack bodies; U5 between jacks.
 MANUAL_F = {
-    'L1': (6.6, 2.55, 0), 'C2': (6.1, 6.2, 0), 'U6': (14.1, 1.85, 0), 'U7': (14.1, 5.35, 0),
-    'C11': (11.2, 1.6, 90), 'C12': (11.2, 4.65, 90),
-    'Q1': (5.6, 9.17, 0), 'U2': (5.65, 12.74, 0), 'U3': (5.95, 16.29, 0), 'U4': (5.95, 19.84, 0), 'C14': (5.35, 22.365, 0),
-    # rows below the mated SH4 plug keep-out, courtyards abutting (no overlap)
-    'C1': (9.05, 16.9, 90), 'C4': (10.675, 16.65, 90), 'C16': (9.05, 20.32, 90), 'C5': (10.675, 20.07, 90), 'C6': (9.6, 22.715, 0),
-    'U1': (2.62, 26.3, 90), 'C7': (6.98, 24.2, 0), 'C8': (9.91, 24.2, 0),
-    'C3': (14.95, 31.95, 90), 'D1': (14.95, 36.0, 90), 'D2': (14.95, 39.5, 90), 'C13': (14.95, 42.75, 90), 'C17': (14.95, 45.75, 90), 'C15': (14.95, 49.0, 90),
+    'C1': (4.75, 1.9, 270), 'U2': (7.4, 1.9, 270), 'C4': (7.7, 4.45, 180), 'L1': (6.3, 7.93, 270), 'C2': (6.3, 11.9, 0),
+    'U6': (14.15, 1.75, 0), 'U3': (14.15, 5.2, 180),
+    'C11': (9.84, 1.5, 90), 'C12': (11.38, 1.5, 90), 'C5': (9.84, 4.45, 270), 'C6': (11.38, 4.45, 270),
+    'U4': (5.9, 16.9, 0), 'C16': (9.68, 16.1, 0), 'C13': (9.53, 17.73, 0),
+    'U7': (5.9, 20.35, 180), 'D3': (9.68, 20.4, 180), 'C17': (5.3, 22.78, 0),
+    'C7': (9.43, 22.84, 0), 'C14': (9.43, 24.24, 0),
+    'U1': (2.62, 26.13, 90), 'C8': (1.5, 29.46, 180),
+    'C3': (14.95, 31.95, 90), 'D1': (14.95, 36.0, 90), 'D2': (14.95, 39.5, 90), 'C15': (14.95, 49.0, 90),
     'U5': (3.6, 43.75, 0), 'C9': (7.3, 43.75, 0), 'C10': (10.25, 43.75, 0),
-    'D3': (14.45, 60.7, 0),
+    'Q1': (14.45, 60.7, 0),
 }
 # Fixed-part courtyards that R2 placed into a keep-out on purpose (reason recorded, checked by name).
 ACCEPTED = {('J5', 'led-cable-lane'): 'courtyard margin only: J5 body ends at board_x 11.15, the lane starts at 11.4 (R2 PR #27 f58180a)'}
 # Solder-face anchors for the packer (resistors and test pads), near the parts they serve.
 ANCHORS = {
-    'R1': (14.0, 9.0), 'R2': (14.0, 9.0), 'R3': (14.0, 4.0), 'R4': (14.0, 4.0), 'R5': (14.0, 4.0), 'R6': (14.0, 4.0),
-    'R7': (12.0, 6.0), 'R8': (12.0, 6.0), 'R24': (12.0, 6.0), 'R25': (12.0, 6.0),
+    'R1': (13.0, 4.0), 'R2': (13.0, 4.0), 'R8': (10.0, 3.0),
+    'R3': (8.0, 19.0), 'R4': (9.0, 18.0), 'R5': (9.0, 18.0), 'R6': (9.0, 18.0), 'R7': (8.4, 19.6),
+    'R24': (6.5, 22.5), 'R25': (6.5, 22.5),
+    'R11': (6.5, 17.0), 'R13': (6.5, 18.0), 'R20': (9.0, 16.0), 'R23': (5.0, 18.0),
+    'R12': (14.0, 60.5), 'R22': (14.0, 60.5),
     'R9': (3.0, 26.0), 'R10': (3.0, 26.0), 'R21': (3.0, 26.0),
-    'R11': (6.0, 20.0), 'R13': (6.0, 20.0), 'R20': (6.0, 20.0), 'R23': (6.0, 20.0), 'R12': (6.0, 12.0), 'R22': (6.0, 12.0),
     'R14': (6.0, 43.7), 'R15': (6.0, 43.7), 'R16': (6.0, 43.7), 'R17': (6.0, 43.7), 'R18': (6.0, 43.7), 'R19': (6.0, 43.7),
     'TP1': (3.0, 26.0), 'TP2': (3.0, 26.0), 'TP3': (3.0, 26.0), 'TP4': (3.0, 26.0), 'TP5': (3.0, 26.0),
 }

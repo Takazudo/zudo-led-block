@@ -49,6 +49,13 @@ HARD = -1
 # nets are routed first, so their escapes are not taken by through-traffic.
 ESCAPE_PARTS = {'U1': 1.2, 'U5': 0.8}
 ESCAPE_COST = 3.0
+# Layout review (PR #30): no signal vias between the pads under U1's body (half-size of the via-free square around
+# its centre; U1.4 GND may stitch to the plane there), and the ADC input stays out of U1's footprint on every layer
+# except its own pad.
+NO_VIA_UNDER = {'U1': 1.6}
+KEEP_OUT_OF = {'/CV_ADC': ('U1', -0.2)}
+# Buck hot-loop GND pads get more than one via into the In1 plane.
+GND_VIAS = {('U2', '4'): 2, ('C1', '2'): 2, ('C2', '2'): 2}
 PRES0, PRES_MULT, HIST_INC = 0.5, 1.6, 1.0
 MAX_ITER = 60
 MAX_POPS = 2000000
@@ -147,6 +154,7 @@ class Router:
         for p in geo['pads']:
             if p['net'] and p['net'] not in self.net_ids:
                 self.net_ids[p['net']] = len(self.net_ids) + 1
+        self.nid_net = {v: k for k, v in self.net_ids.items()}
         self.pads = geo['pads']
         for p in self.pads:
             nid = self.net_ids.get(p['net'], HARD)
@@ -183,14 +191,28 @@ class Router:
             x1, y1, x2, y2 = geo['courtyards'][ref]
             self.reserve |= (X > x1 - m) & (X < x2 + m) & (Y > y1 - m) & (Y < y2 + m)
             self.reserve_nets |= {p['net'] for p in self.pads if p['ref'] == ref and p['net']}
+        self.no_via = np.zeros(shape, bool)
+        for ref, h in NO_VIA_UNDER.items():
+            x1, y1, x2, y2 = geo['courtyards'][ref]
+            cx, cy = (x1 + x2) / 2, (y1 + y2) / 2
+            self.no_via |= (np.abs(X - cx) < h) & (np.abs(Y - cy) < h)
+        self.keep_out = {}
+        for net, (ref, m) in KEEP_OUT_OF.items():
+            x1, y1, x2, y2 = geo['courtyards'][ref]
+            self.keep_out[net] = (X > x1 - m) & (X < x2 + m) & (Y > y1 - m) & (Y < y2 + m)
 
     # -- base (hard) passability: pads, holes, edge
     def passable(self, cls, layer, nid):
         g = self.base[(cls, layer)]
-        return (g == 0) | (g == nid)
+        ok = (g == 0) | (g == nid)
+        net = self.nid_net.get(nid)
+        if net in self.keep_out:
+            # own pad copper stays reachable (g == nid); everything else in the footprint is closed to this net
+            ok &= ~self.keep_out[net] | (g == nid) & (layer == 'F.Cu')
+        return ok
 
     def via_ok(self, nid):
-        ok = np.ones((self.g.ny, self.g.nx), bool)
+        ok = np.ones((self.g.ny, self.g.nx), bool) if self.nid_net.get(nid) == GND else ~self.no_via
         for l in self.g.layers:
             ok &= self.passable('v', l, nid)
         return ok
@@ -253,13 +275,13 @@ class Router:
                 out += [(ROUTE_LAYERS.index(l), int(j + sj.start), int(i + si.start)) for j, i in zip(jj, ii)]
         return out
 
-    def search(self, net, sources, targets, cls, fac, want_via_target=False):
+    def search(self, net, sources, targets, cls, fac, want_via_target=False, reuse_vias=True):
         """A* over (layer, j, i); step cost = length * congestion factor (>= 1, so the heuristic is admissible)."""
         nid = self.net_ids[net]
         nx, ny = self.g.nx, self.g.ny
         pas = [self.passable(cls, l, nid) for l in ROUTE_LAYERS]
         via = self.via_ok(nid) & ~self.own_hole_block(net)
-        reuse = {(round(v['at'][0], 4), round(v['at'][1], 4)) for v in self.vias[net]}
+        reuse = {(round(v['at'][0], 4), round(v['at'][1], 4)) for v in self.vias[net]} if reuse_vias else set()
         for x, y in reuse:
             i, j = self.g.cell(x, y)
             via[j, i] = True
@@ -391,14 +413,15 @@ class Router:
             for p in self.pads:
                 if p['net'] != GND or p['drill']:
                     continue
-                for cls, w in classes:
-                    src = self.pad_cells(p, cls, nid)
-                    path = self.search(GND, src, [], cls, fac(cls), want_via_target=True) if src else None
-                    if path is not None:
-                        self.commit(GND, path, w, cls, end_via=True)
-                        break
-                else:
-                    fails.append(f"{GND}: {p['ref']}.{p['pad']} has no via site")
+                for k in range(GND_VIAS.get((p['ref'], p['pad']), 1)):
+                    for cls, w in classes:
+                        src = self.pad_cells(p, cls, nid)
+                        path = self.search(GND, src, [], cls, fac(cls), want_via_target=True, reuse_vias=k == 0) if src else None
+                        if path is not None:
+                            self.commit(GND, path, w, cls, end_via=True)
+                            break
+                    else:
+                        fails.append(f"{GND}: {p['ref']}.{p['pad']} has no via site ({k + 1})")
         else:
             pads = sorted((p for p in self.pads if p['net'] == net), key=lambda p: (p['at'][1], p['at'][0], p['ref'], p['pad']))
             cells = {c: [self.pad_cells(p, c, nid) for p in pads] for c in ('p', 's')}
@@ -468,11 +491,11 @@ def main() -> int:
     r = Router(geo)
     history = []
     todo = list(order)
-    fails = []
+    fails_by_net = {}
     for it in range(MAX_ITER):
-        fails = []
         for n in todo:
-            fails += r.route(n)
+            fails_by_net[n] = r.route(n)
+        fails = [f for n in order for f in fails_by_net.get(n, [])]
         bad = r.conflicts()
         ncells = sum(len(v) for v in bad.values())
         history.append({'iteration': it, 'present': round(r.pres, 3), 'conflict_cells': ncells,
@@ -487,7 +510,7 @@ def main() -> int:
                 else:
                     r.hist[L][j, i] += HIST_INC
         r.pres *= PRES_MULT
-        todo = [n for n in order if n in bad] or list(order)
+        todo = [n for n in order if n in bad or fails_by_net.get(n)] or list(order)
     bad = r.conflicts()
     tracks = [t for n in order for t in r.tracks.get(n, [])]
     vias = [v for n in order for v in r.vias.get(n, [])]

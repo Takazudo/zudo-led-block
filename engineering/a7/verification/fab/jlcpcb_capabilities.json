@@ -48,7 +48,11 @@
   {
    "row": "Finished Inner Layer Copper",
    "quote": "Finished copper weight of inner layer is 0.5oz by default."
+  },
+  {
+   "row": "PTH to Track",
+   "quote": "0.28mm (0.35mm is recommended, minimum 0.28mm)"
   }
  ],
- "reading": "0.5 mm pad / 0.2 mm drill: drill equals the preferred minimum, pad exceeds drill by 0.3 (>= 0.15 preferred), and the diameter is >= 0.45 so the hole is outside the extra-cost class. Annular ring 0.15 keeps the A5 min_via_annular_width. Rule hole-to-track (0.2) matches A5 min_hole_clearance."
+ "reading": "0.5 mm pad / 0.2 mm drill: drill equals the preferred minimum, pad exceeds drill by 0.3 (>= 0.15 preferred), and the diameter is >= 0.45 so the hole is outside the extra-cost class. Annular ring 0.15 keeps the A5 min_via_annular_width. Rule hole-to-track (0.2) matches A5 min_hole_clearance. The A5 rule set has no PTH-to-track rule (min_hole_clearance 0.2 is hole-to-copper); the closest PTH drill to another net's track on the committed board is 0.41 mm (J5 pad 3 to CV_ADC on In2), above the 0.35 mm recommendation (measured from the drill capsule to the track edge, layout review of PR #30)."
 }
