@@ -15,6 +15,7 @@ datasheet of another variant or same-name vendor data.
 - The pin map and placements are projected from the immutable historical A5 native netlists
   (`engineering/a5/integration/native_schematic/`). They are not fresh A6 design state, are not
   bound by the manual inventory provider, and are not as-built verification.
+- Primary document: TI SLVS841G Rev. G (NOVEMBER 2008 - REVISED OCTOBER 2026) (https://www.ti.com/lit/ds/symlink/tps2552.pdf), sha256 edd76d150b073ae8..., inspected 2026-11-08; identical to the A5-recorded bytes.
 - Catalog CAD is disabled (`cad.enabled = false`); the pin-asset check is SKIPPED.
 - A5 is not released for manufacture. Nothing here is hardware or manufacturing sign-off.
 

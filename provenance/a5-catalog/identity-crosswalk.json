@@ -98,7 +98,7 @@
       "lcsc": "C908270",
       "owner_skill": "component-1ms3t1b1m2qes-5",
       "line_id": "line-1ms3t1b1m2qes-5",
-      "record_id": "rec-1ms3t1b1m2qes-5",
+      "record_id": "rec-dailywell-1ms3t1b1m2qes-5",
       "function": "on off on mode toggle switch"
     },
     {
@@ -112,7 +112,7 @@
       "lcsc": "C122442",
       "owner_skill": "component-530470310",
       "line_id": "line-530470310",
-      "record_id": "rec-530470310",
+      "record_id": "rec-molex-530470310",
       "function": "three-pin power cable header"
     },
     {
@@ -127,56 +127,56 @@
       "lcsc": "C7250",
       "owner_skill": "component-0603waf1005t5e",
       "line_id": "line-0603waf1005t5e",
-      "record_id": "rec-0603waf1005t5e",
+      "record_id": "rec-uniroyal-0603waf1005t5e",
       "function": "10 megohm 0603 resistor"
     },
     {
       "lcsc": "C23254",
       "owner_skill": "component-0603waf8202t5e",
       "line_id": "line-0603waf8202t5e",
-      "record_id": "rec-0603waf8202t5e",
+      "record_id": "rec-uniroyal-0603waf8202t5e",
       "function": "82 kilohm 0603 resistor"
     },
     {
       "lcsc": "C21190",
       "owner_skill": "component-0603waf1001t5e",
       "line_id": "line-0603waf1001t5e",
-      "record_id": "rec-0603waf1001t5e",
+      "record_id": "rec-uniroyal-0603waf1001t5e",
       "function": "1 kilohm 0603 resistor"
     },
     {
       "lcsc": "C25804",
       "owner_skill": "component-0603waf1002t5e",
       "line_id": "line-0603waf1002t5e",
-      "record_id": "rec-0603waf1002t5e",
+      "record_id": "rec-uniroyal-0603waf1002t5e",
       "function": "10 kilohm 0603 resistor"
     },
     {
       "lcsc": "C23231",
       "owner_skill": "component-0603waf6802t5e",
       "line_id": "line-0603waf6802t5e",
-      "record_id": "rec-0603waf6802t5e",
+      "record_id": "rec-uniroyal-0603waf6802t5e",
       "function": "68 kilohm 0603 resistor"
     },
     {
       "lcsc": "C25803",
       "owner_skill": "component-0603waf1003t5e",
       "line_id": "line-0603waf1003t5e",
-      "record_id": "rec-0603waf1003t5e",
+      "record_id": "rec-uniroyal-0603waf1003t5e",
       "function": "100 kilohm 0603 resistor"
     },
     {
       "lcsc": "C23138",
       "owner_skill": "component-0603waf3300t5e",
       "line_id": "line-0603waf3300t5e",
-      "record_id": "rec-0603waf3300t5e",
+      "record_id": "rec-uniroyal-0603waf3300t5e",
       "function": "330 ohm 0603 resistor"
     },
     {
       "lcsc": "C23162",
       "owner_skill": "component-0603waf4701t5e",
       "line_id": "line-0603waf4701t5e",
-      "record_id": "rec-0603waf4701t5e",
+      "record_id": "rec-uniroyal-0603waf4701t5e",
       "function": "4.7 kilohm 0603 resistor"
     },
     {
@@ -190,7 +190,7 @@
       "lcsc": "C57112",
       "owner_skill": "component-0603b103k500nt",
       "line_id": "line-0603b103k500nt",
-      "record_id": "rec-0603b103k500nt",
+      "record_id": "rec-fh-0603b103k500nt",
       "function": "10 nf 50 v x7r 0603 capacitor"
     },
     {
@@ -249,5 +249,6 @@
       "reviewed": "2026-11-08 by the #9 catalog migration (agent review against the cited bytes; owner review pending in the pull request)",
       "manufacturer_primary_identity": "UNRESOLVED: no BOOMELE-hosted document was found; the only drawing seen is an LCSC-hosted mirror, so the manufacturer-primary identity stays UNRESOLVED in the owner bundle"
     }
-  ]
+  ],
+  "record_id_rule": "record_id is rec-<owner suffix>; when the suffix starts with a digit (the generated route slug must start with a letter) a manufacturer prefix is inserted: uniroyal-, molex-, fh-, dailywell-"
 }

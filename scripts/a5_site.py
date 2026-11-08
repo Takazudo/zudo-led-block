@@ -150,6 +150,33 @@ def reconcile():
             "fitted_total": fitted_total, "unique_placements": unique_placements}
 
 
+CATALOG_RECONCILIATION = ROOT / "provenance" / "a5-catalog" / "reconciliation.json"
+
+
+def catalog_records() -> dict:
+    """C-code -> component-catalog record slug, from the committed A5 catalog reconciliation."""
+    data = json.loads(CATALOG_RECONCILIATION.read_text(encoding="utf-8"))
+    return {item["lcsc"]: item["record_id"][len("rec-"):] for item in data["identities"]}
+
+
+def catalog_spellings() -> list:
+    data = json.loads(CATALOG_RECONCILIATION.read_text(encoding="utf-8"))
+    seen, out = set(), []
+    for item in data["spelling_crosswalk_applied"]:
+        key = (item["lcsc"], item["observed"])
+        if key not in seen and item["field"] == "procurement mpn":
+            seen.add(key)
+            out.append(item)
+    return out
+
+
+def catalog_link(catalog: dict, code: str) -> str:
+    slug = catalog.get(code)
+    if slug is None:
+        raise SystemExit(f"A5 BOM: {code} has no component-catalog record in {CATALOG_RECONCILIATION}")
+    return f"[記録](/docs/components/records/{slug}/)"
+
+
 # ---------------------------------------------------------------- pages
 def page_bom(data) -> str:
     rows = data["rows"]
@@ -188,6 +215,7 @@ def page_bom(data) -> str:
     out.append("\n1/10/100 台は費用比較の条件で、合意済みの発注数量ではありません。"
                "含まれないもの: " + esc(costs["10"]["excludes"]) + " (PMMA・PETG・金具・Eurorack リボン・書込みも含みません)。\n")
     out.append(f"観測時刻: {esc(rows['as_of_jst'])}\n")
+    catalog = catalog_records()
     by_cat = defaultdict(list)
     for row in comps:
         by_cat[row["category"]].append(row)
@@ -202,11 +230,16 @@ def page_bom(data) -> str:
             body.append([esc(row["role_ja"]), f"`{esc(row['mpn'])}`", esc(row["manufacturer"]),
                          f"[{esc(row['c_code'])}]({row['url']})", esc(row.get("package")), str(row["qty_per_module"]),
                          esc(placement), usd(tier1) if tier1 is not None else "—", f"{row['stock']:,}",
-                         esc(row["observed_jst"][:16].replace("T", " "))])
+                         esc(row["observed_jst"][:16].replace("T", " ")), catalog_link(catalog, row["c_code"])])
         out.append(table(["役割", "型番", "メーカー", "JLC", "パッケージ", "数/台", "配置 (ネットリスト)",
-                          "単価 (最小帯)", "在庫 (観測)", "観測 (JST)"], body,
-                         ["---", "---", "---", "---", "---", "---:", "---", "---:", "---:", "---"]))
+                          "単価 (最小帯)", "在庫 (観測)", "観測 (JST)", "部品証跡"], body,
+                         ["---", "---", "---", "---", "---", "---:", "---", "---:", "---:", "---", "---"]))
         out.append("")
+    out.append("「部品証跡」列は [部品証跡カタログ](/docs/components/catalog/) の記録ページへのリンクです。"
+               "対応は `provenance/a5-catalog/reconciliation.json` (`scripts/a5_catalog.py reconcile`) で照合しています。"
+               "型番列は A5 の調達表のままで、" + "; ".join(
+                   f"`{esc(d['observed'])}` は正準型番 `{esc(d['canonical'])}` ({esc(d['lcsc'])})"
+                   for d in catalog_spellings()) + " として `provenance/a5-catalog/identity-crosswalk.json` で対応付けています。\n")
     out.append("## 外部ケーブル (別枠)\n")
     ext = []
     for row in rows["external_items"]:

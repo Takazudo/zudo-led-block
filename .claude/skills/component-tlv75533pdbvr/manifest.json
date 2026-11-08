@@ -13,7 +13,12 @@
       "package": "SOT-23-5",
       "source_ids": [
         "src-tlv75533pdbvr-a5-jlcpcb-snapshot",
-        "src-tlv75533pdbvr-a5-netlist-controller"
+        "src-tlv75533pdbvr-a5-netlist-controller",
+        "src-tlv75533pdbvr-ds-p3",
+        "src-tlv75533pdbvr-ds-p4",
+        "src-tlv75533pdbvr-ds-p5",
+        "src-tlv75533pdbvr-ds-p23",
+        "src-tlv75533pdbvr-ds-p28"
       ],
       "fact_ids": [
         "fact-tlv75533pdbvr-manufacturer",
@@ -21,13 +26,17 @@
         "fact-tlv75533pdbvr-a5-placements",
         "fact-tlv75533pdbvr-pinout",
         "fact-tlv75533pdbvr-ratings",
-        "fact-tlv75533pdbvr-cad-state"
+        "fact-tlv75533pdbvr-cad-state",
+        "fact-tlv75533pdbvr-orderable",
+        "fact-tlv75533pdbvr-vout-nominal",
+        "fact-tlv75533pdbvr-abs-max-en",
+        "fact-tlv75533pdbvr-roc-vin",
+        "fact-tlv75533pdbvr-roc-iout",
+        "fact-tlv75533pdbvr-output-accuracy",
+        "fact-tlv75533pdbvr-current-limit"
       ],
       "interaction_ids": [],
       "open_domains": [
-        "identity",
-        "pinout",
-        "electrical-ratings",
         "placement",
         "cad-assets"
       ]

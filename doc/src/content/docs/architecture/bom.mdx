@@ -41,53 +41,55 @@ A5 は開発チェックポイントです。制御基板は未配線で、価�
 
 ### IC・LED・電源
 
-| 役割 | 型番 | メーカー | JLC | パッケージ | 数/台 | 配置 (ネットリスト) | 単価 (最小帯) | 在庫 (観測) | 観測 (JST) |
-| --- | --- | --- | --- | --- | ---: | --- | ---: | ---: | --- |
-| MCU / U1 | `STM32G031G8U6TR` | STMicroelectronics | [C5270180](https://jlcpcb.com/partdetail/STMicroelectronics-STM32G031G8U6TR/C5270180) | UFQFPN-28(4x4) | 1 | 制御基板: U1 | $1.7468 | 4,522 | 2026-11-06 11:30 |
-| RGB LED / LED1〜8 | `WS2812B-2020-V6` | Worldsemi | [C52917434](https://jlcpcb.com/partdetail/Worldsemi-LED/C52917434) | SMD2020-4P | 8 | LED 基板 (同一 ×2): D1, D2, D3, D4 | $0.0916 | 768,169 | 2026-11-06 11:30 |
-| 5 V降圧 / U2 | `AP63205WU-7` | Diodes Incorporated | [C2071056](https://jlcpcb.com/partdetail/AP63205WU-7/C2071056) | TSOT-23-6 | 1 | 制御基板: U2 | $0.4617 | 20,569 | 2026-11-06 11:30 |
-| 3.3 V LDO / U3 | `TLV75533PDBVR` | Texas Instruments | [C404027](https://jlcpcb.com/partdetail/TexasInstruments-TLV75533PDBVR/C404027) | SOT-23-5 | 1 | 制御基板: U3 | $0.1217 | 95,119 | 2026-11-06 11:30 |
-| LED電源ラッチ / U4 | `TPS2552DBVR-1` | Texas Instruments | [C140331](https://jlcpcb.com/partdetail/TexasInstruments-TPS2552DBVR1/C140331) | SOT-23-6 | 1 | 制御基板: U4 | $0.5747 | 2,336 | 2026-11-06 11:31 |
-| EN反転NPN / Q1 | `MMBT3904(RANGE:100-300)` | Jiangsu Changjing Electronics Technology Co., Ltd. | [C20526](https://jlcpcb.com/partdetail/21237-MMBT3904/C20526) | SOT-23 | 1 | 制御基板: Q1 | $0.0117 | 2,739,252 | 2026-11-06 11:31 |
-| LED用2chレベル変換 / U5 | `SN74LVC2T45DCUR` | Texas Instruments | [C15741](https://jlcpcb.com/partdetail/TexasInstruments-SN74LVC2T45DCUR/C15741) | VSSOP-8 | 1 | 制御基板: U5 | $0.2081 | 91,268 | 2026-11-06 11:31 |
-| CVバッファ / U6 | `OPA197IDBVR` | Texas Instruments | [C221351](https://jlcpcb.com/partdetail/TexasInstruments-OPA197IDBVR/C221351) | SOT-23-5 | 1 | 制御基板: U6 | $0.8431 | 80,652 | 2026-11-06 11:31 |
-| ADC保護用3V3バッファ / U7 | `TLV9001IDBVR` | Texas Instruments | [C398363](https://jlcpcb.com/partdetail/C398363) | SOT-23-5 | 1 | 制御基板: U7 | $0.0832 | 49,852 | 2026-11-06 14:37 |
-| ±12 V逆接保護用 / D1,D2 | `PMEG4010CEJ,115` | Nexperia | [C50704](https://jlcpcb.com/partdetail/PMEG4010CEJ%2C115/C50704) | SOD-323F | 2 | 制御基板: D1, D2 | $0.3682 | 14,151 | 2026-11-06 11:31 |
-| ADCクランプ候補 / D3 | `BAS70-04-7-F` | Diodes Incorporated | [C134375](https://jlcpcb.com/partdetail/DiodesIncorporated-BAS70_04_7F/C134375) | SOT-23 | 1 | 制御基板: D3 | $0.0724 | 6,783 | 2026-11-06 11:31 |
-| 降圧インダクタ4.7 µH / L1 | `SPM4020T-4R7M-LR` | TDK | [C694586](https://jlcpcb.com/partdetail/C694586) | SMD,4.4x4.1mm nominal; 4.6x4.3x2.0mm maximum envelope | 1 | 制御基板: L1 | $0.3802 | 726 | 2026-11-06 11:37 |
+| 役割 | 型番 | メーカー | JLC | パッケージ | 数/台 | 配置 (ネットリスト) | 単価 (最小帯) | 在庫 (観測) | 観測 (JST) | 部品証跡 |
+| --- | --- | --- | --- | --- | ---: | --- | ---: | ---: | --- | --- |
+| MCU / U1 | `STM32G031G8U6TR` | STMicroelectronics | [C5270180](https://jlcpcb.com/partdetail/STMicroelectronics-STM32G031G8U6TR/C5270180) | UFQFPN-28(4x4) | 1 | 制御基板: U1 | $1.7468 | 4,522 | 2026-11-06 11:30 | [記録](/docs/components/records/stm32g031g8u6tr/) |
+| RGB LED / LED1〜8 | `WS2812B-2020-V6` | Worldsemi | [C52917434](https://jlcpcb.com/partdetail/Worldsemi-LED/C52917434) | SMD2020-4P | 8 | LED 基板 (同一 ×2): D1, D2, D3, D4 | $0.0916 | 768,169 | 2026-11-06 11:30 | [記録](/docs/components/records/ws2812b-2020-v6/) |
+| 5 V降圧 / U2 | `AP63205WU-7` | Diodes Incorporated | [C2071056](https://jlcpcb.com/partdetail/AP63205WU-7/C2071056) | TSOT-23-6 | 1 | 制御基板: U2 | $0.4617 | 20,569 | 2026-11-06 11:30 | [記録](/docs/components/records/ap63205wu-7/) |
+| 3.3 V LDO / U3 | `TLV75533PDBVR` | Texas Instruments | [C404027](https://jlcpcb.com/partdetail/TexasInstruments-TLV75533PDBVR/C404027) | SOT-23-5 | 1 | 制御基板: U3 | $0.1217 | 95,119 | 2026-11-06 11:30 | [記録](/docs/components/records/tlv75533pdbvr/) |
+| LED電源ラッチ / U4 | `TPS2552DBVR-1` | Texas Instruments | [C140331](https://jlcpcb.com/partdetail/TexasInstruments-TPS2552DBVR1/C140331) | SOT-23-6 | 1 | 制御基板: U4 | $0.5747 | 2,336 | 2026-11-06 11:31 | [記録](/docs/components/records/tps2552dbvr-1/) |
+| EN反転NPN / Q1 | `MMBT3904(RANGE:100-300)` | Jiangsu Changjing Electronics Technology Co., Ltd. | [C20526](https://jlcpcb.com/partdetail/21237-MMBT3904/C20526) | SOT-23 | 1 | 制御基板: Q1 | $0.0117 | 2,739,252 | 2026-11-06 11:31 | [記録](/docs/components/records/mmbt3904-range-100-300/) |
+| LED用2chレベル変換 / U5 | `SN74LVC2T45DCUR` | Texas Instruments | [C15741](https://jlcpcb.com/partdetail/TexasInstruments-SN74LVC2T45DCUR/C15741) | VSSOP-8 | 1 | 制御基板: U5 | $0.2081 | 91,268 | 2026-11-06 11:31 | [記録](/docs/components/records/sn74lvc2t45dcur/) |
+| CVバッファ / U6 | `OPA197IDBVR` | Texas Instruments | [C221351](https://jlcpcb.com/partdetail/TexasInstruments-OPA197IDBVR/C221351) | SOT-23-5 | 1 | 制御基板: U6 | $0.8431 | 80,652 | 2026-11-06 11:31 | [記録](/docs/components/records/opa197idbvr/) |
+| ADC保護用3V3バッファ / U7 | `TLV9001IDBVR` | Texas Instruments | [C398363](https://jlcpcb.com/partdetail/C398363) | SOT-23-5 | 1 | 制御基板: U7 | $0.0832 | 49,852 | 2026-11-06 14:37 | [記録](/docs/components/records/tlv9001idbvr/) |
+| ±12 V逆接保護用 / D1,D2 | `PMEG4010CEJ,115` | Nexperia | [C50704](https://jlcpcb.com/partdetail/PMEG4010CEJ%2C115/C50704) | SOD-323F | 2 | 制御基板: D1, D2 | $0.3682 | 14,151 | 2026-11-06 11:31 | [記録](/docs/components/records/pmeg4010cej-115/) |
+| ADCクランプ候補 / D3 | `BAS70-04-7-F` | Diodes Incorporated | [C134375](https://jlcpcb.com/partdetail/DiodesIncorporated-BAS70_04_7F/C134375) | SOT-23 | 1 | 制御基板: D3 | $0.0724 | 6,783 | 2026-11-06 11:31 | [記録](/docs/components/records/bas70-04-7-f/) |
+| 降圧インダクタ4.7 µH / L1 | `SPM4020T-4R7M-LR` | TDK | [C694586](https://jlcpcb.com/partdetail/C694586) | SMD,4.4x4.1mm nominal; 4.6x4.3x2.0mm maximum envelope | 1 | 制御基板: L1 | $0.3802 | 726 | 2026-11-06 11:37 | [記録](/docs/components/records/spm4020t-4r7m-lr/) |
 
 ### I/O・コネクタ
 
-| 役割 | 型番 | メーカー | JLC | パッケージ | 数/台 | 配置 (ネットリスト) | 単価 (最小帯) | 在庫 (観測) | 観測 (JST) |
-| --- | --- | --- | --- | --- | ---: | --- | ---: | ---: | --- |
-| CV IN・THRUジャック / J1,J2 | `PJ-3582-B` | XKB Connection | [C500090](https://jlcpcb.com/partdetail/XKBConnection-PJ_3582B/C500090) | Plugin | 2 | 制御基板: J1, J2 | $0.2662 | 2,891 | 2026-11-06 11:31 |
-| ON–OFF–ONトグル / SW1 | `1MS3T1B1M2QES-5` | Dailywell | [C908270](https://jlcpcb.com/partdetail/Dailywell-1MS3T1B1M2QES5/C908270) | Plugin | 1 | 制御基板: SW1 | $1.4161 | 1,134 | 2026-11-06 11:30 |
-| LED用SH4ヘッダ / 制御1＋LED4 | `SM04B-SRSS-TB(LF)(SN)` | JST | [C160404](https://jlcpcb.com/partdetail/Jst-SM04B_SRSS_TB_LF_SN/C160404) | SMD,P=1mm,Surface Mount，Right Angle | 5 | 制御基板: J3; LED 基板 (同一 ×2): J1, J2 | $0.2148 | 57,403 | 2026-11-06 11:31 |
-| 電源用3pinヘッダ / 制御1＋変換1 | `530470310` | MOLEX | [C122442](https://jlcpcb.com/partdetail/MOLEX-530470310/C122442) | Plugin,P=1.25mm | 2 | 制御基板: J5; 電源変換基板: J2 | $0.1315 | 22,487 | 2026-11-06 11:31 |
-| Eurorack IDC10 / 変換基板1 | `2.54-2\*5P2.54 mm pitch 2×5 pin IDC box header` | BOOMELE(Boom Precision Elec) | [C5665](https://jlcpcb.com/partdetail/BOOMELE_Boom_Precision_Elec-2_54_2_5P/C5665) | Plugin,P=2.54mm | 1 | 電源変換基板: J1 | $0.1042 | 142,910 | 2026-11-06 14:39 |
+| 役割 | 型番 | メーカー | JLC | パッケージ | 数/台 | 配置 (ネットリスト) | 単価 (最小帯) | 在庫 (観測) | 観測 (JST) | 部品証跡 |
+| --- | --- | --- | --- | --- | ---: | --- | ---: | ---: | --- | --- |
+| CV IN・THRUジャック / J1,J2 | `PJ-3582-B` | XKB Connection | [C500090](https://jlcpcb.com/partdetail/XKBConnection-PJ_3582B/C500090) | Plugin | 2 | 制御基板: J1, J2 | $0.2662 | 2,891 | 2026-11-06 11:31 | [記録](/docs/components/records/pj-3582-b/) |
+| ON–OFF–ONトグル / SW1 | `1MS3T1B1M2QES-5` | Dailywell | [C908270](https://jlcpcb.com/partdetail/Dailywell-1MS3T1B1M2QES5/C908270) | Plugin | 1 | 制御基板: SW1 | $1.4161 | 1,134 | 2026-11-06 11:30 | [記録](/docs/components/records/dailywell-1ms3t1b1m2qes-5/) |
+| LED用SH4ヘッダ / 制御1＋LED4 | `SM04B-SRSS-TB(LF)(SN)` | JST | [C160404](https://jlcpcb.com/partdetail/Jst-SM04B_SRSS_TB_LF_SN/C160404) | SMD,P=1mm,Surface Mount，Right Angle | 5 | 制御基板: J3; LED 基板 (同一 ×2): J1, J2 | $0.2148 | 57,403 | 2026-11-06 11:31 | [記録](/docs/components/records/sm04b-srss-tb-lf-sn/) |
+| 電源用3pinヘッダ / 制御1＋変換1 | `530470310` | MOLEX | [C122442](https://jlcpcb.com/partdetail/MOLEX-530470310/C122442) | Plugin,P=1.25mm | 2 | 制御基板: J5; 電源変換基板: J2 | $0.1315 | 22,487 | 2026-11-06 11:31 | [記録](/docs/components/records/molex-530470310/) |
+| Eurorack IDC10 / 変換基板1 | `2.54-2\*5P2.54 mm pitch 2×5 pin IDC box header` | BOOMELE(Boom Precision Elec) | [C5665](https://jlcpcb.com/partdetail/BOOMELE_Boom_Precision_Elec-2_54_2_5P/C5665) | Plugin,P=2.54mm | 1 | 電源変換基板: J1 | $0.1042 | 142,910 | 2026-11-06 14:39 | [記録](/docs/components/records/boomele-2-54-2x5p/) |
 
 ### 抵抗
 
-| 役割 | 型番 | メーカー | JLC | パッケージ | 数/台 | 配置 (ネットリスト) | 単価 (最小帯) | 在庫 (観測) | 観測 (JST) |
-| --- | --- | --- | --- | --- | ---: | --- | ---: | ---: | --- |
-| 10 MΩ 1% / R1,R2 | `0603WAF1005T5E` | UNI-ROYAL(Uniroyal Elec) | [C7250](https://jlcpcb.com/partdetail/C7250) | 0603 | 2 | 制御基板: R1, R2 | $0.0024 | 843,422 | 2026-11-06 11:31 |
-| 82 kΩ 1% / R3〜R6 | `0603WAF8202T5E` | UNI-ROYAL(Uniroyal Elec) | [C23254](https://jlcpcb.com/partdetail/C23254) | 0603 | 4 | 制御基板: R3, R4, R5, R6 | $0.0027 | 1,037,430 | 2026-11-06 11:31 |
-| 1 kΩ 1% / R7,R8,R25 | `0603WAF1001T5E` | UNI-ROYAL(Uniroyal Elec) | [C21190](https://jlcpcb.com/partdetail/C21190) | 0603 | 3 | 制御基板: R7, R8, R25 | $0.0017 | 27,741,384 | 2026-11-06 11:32 |
-| 10 kΩ 1% / R9,R10,R13,R21,R22 | `0603WAF1002T5E` | UNI-ROYAL(Uniroyal Elec) | [C25804](https://jlcpcb.com/partdetail/C25804) | 0603 | 5 | 制御基板: R9, R10, R13, R21, R22 | $0.0024 | 43,335,083 | 2026-11-06 11:32 |
-| 68 kΩ 1% / R11 | `0603WAF6802T5E` | UNI-ROYAL(Uniroyal Elec) | [C23231](https://jlcpcb.com/partdetail/C23231) | 0603 | 1 | 制御基板: R11 | $0.0016 | 907,020 | 2026-11-06 11:32 |
-| 100 kΩ 1% / R12,R16〜R19,R23 | `0603WAF1003T5E` | UNI-ROYAL(Uniroyal Elec) | [C25803](https://jlcpcb.com/partdetail/C25803) | 0603 | 6 | 制御基板: R12, R16, R17, R18, R19, R23 | $0.0029 | 16,339,561 | 2026-11-06 11:33 |
-| 330 Ω 1% / R14,R15,R24 | `0603WAF3300T5E` | UNI-ROYAL(Uniroyal Elec) | [C23138](https://jlcpcb.com/partdetail/C23138) | 0603 | 3 | 制御基板: R14, R15, R24 | $0.0020 | 2,930,596 | 2026-11-06 11:33 |
-| 4.7 kΩ 1% / R20 | `0603WAF4701T5E` | UNI-ROYAL(Uniroyal Elec) | [C23162](https://jlcpcb.com/partdetail/C23162) | 0603 | 1 | 制御基板: R20 | $0.0028 | 16,257,259 | 2026-11-06 11:33 |
+| 役割 | 型番 | メーカー | JLC | パッケージ | 数/台 | 配置 (ネットリスト) | 単価 (最小帯) | 在庫 (観測) | 観測 (JST) | 部品証跡 |
+| --- | --- | --- | --- | --- | ---: | --- | ---: | ---: | --- | --- |
+| 10 MΩ 1% / R1,R2 | `0603WAF1005T5E` | UNI-ROYAL(Uniroyal Elec) | [C7250](https://jlcpcb.com/partdetail/C7250) | 0603 | 2 | 制御基板: R1, R2 | $0.0024 | 843,422 | 2026-11-06 11:31 | [記録](/docs/components/records/uniroyal-0603waf1005t5e/) |
+| 82 kΩ 1% / R3〜R6 | `0603WAF8202T5E` | UNI-ROYAL(Uniroyal Elec) | [C23254](https://jlcpcb.com/partdetail/C23254) | 0603 | 4 | 制御基板: R3, R4, R5, R6 | $0.0027 | 1,037,430 | 2026-11-06 11:31 | [記録](/docs/components/records/uniroyal-0603waf8202t5e/) |
+| 1 kΩ 1% / R7,R8,R25 | `0603WAF1001T5E` | UNI-ROYAL(Uniroyal Elec) | [C21190](https://jlcpcb.com/partdetail/C21190) | 0603 | 3 | 制御基板: R7, R8, R25 | $0.0017 | 27,741,384 | 2026-11-06 11:32 | [記録](/docs/components/records/uniroyal-0603waf1001t5e/) |
+| 10 kΩ 1% / R9,R10,R13,R21,R22 | `0603WAF1002T5E` | UNI-ROYAL(Uniroyal Elec) | [C25804](https://jlcpcb.com/partdetail/C25804) | 0603 | 5 | 制御基板: R9, R10, R13, R21, R22 | $0.0024 | 43,335,083 | 2026-11-06 11:32 | [記録](/docs/components/records/uniroyal-0603waf1002t5e/) |
+| 68 kΩ 1% / R11 | `0603WAF6802T5E` | UNI-ROYAL(Uniroyal Elec) | [C23231](https://jlcpcb.com/partdetail/C23231) | 0603 | 1 | 制御基板: R11 | $0.0016 | 907,020 | 2026-11-06 11:32 | [記録](/docs/components/records/uniroyal-0603waf6802t5e/) |
+| 100 kΩ 1% / R12,R16〜R19,R23 | `0603WAF1003T5E` | UNI-ROYAL(Uniroyal Elec) | [C25803](https://jlcpcb.com/partdetail/C25803) | 0603 | 6 | 制御基板: R12, R16, R17, R18, R19, R23 | $0.0029 | 16,339,561 | 2026-11-06 11:33 | [記録](/docs/components/records/uniroyal-0603waf1003t5e/) |
+| 330 Ω 1% / R14,R15,R24 | `0603WAF3300T5E` | UNI-ROYAL(Uniroyal Elec) | [C23138](https://jlcpcb.com/partdetail/C23138) | 0603 | 3 | 制御基板: R14, R15, R24 | $0.0020 | 2,930,596 | 2026-11-06 11:33 | [記録](/docs/components/records/uniroyal-0603waf3300t5e/) |
+| 4.7 kΩ 1% / R20 | `0603WAF4701T5E` | UNI-ROYAL(Uniroyal Elec) | [C23162](https://jlcpcb.com/partdetail/C23162) | 0603 | 1 | 制御基板: R20 | $0.0028 | 16,257,259 | 2026-11-06 11:33 | [記録](/docs/components/records/uniroyal-0603waf4701t5e/) |
 
 ### コンデンサ
 
-| 役割 | 型番 | メーカー | JLC | パッケージ | 数/台 | 配置 (ネットリスト) | 単価 (最小帯) | 在庫 (観測) | 観測 (JST) |
-| --- | --- | --- | --- | --- | ---: | --- | ---: | ---: | --- |
-| 100 nF 50 V X7R / 制御8＋LED8 | `CC0603KRX7R9BB104` | YAGEO | [C14663](https://jlcpcb.com/partdetail/C14663) | 0603 | 16 | 制御基板: C4, C8, C9, C10, C11, C12, C14, C17; LED 基板 (同一 ×2): C1, C2, C3, C4 | $0.0067 | 35,680,175 | 2026-11-06 11:33 |
-| 10 nF 50 V X7R / C13 | `0603B103K500NT` | FH (Guangdong Fenghua Advanced Tech) | [C57112](https://jlcpcb.com/partdetail/C57112) | 0603 | 1 | 制御基板: C13 | $0.0097 | 5,106,962 | 2026-11-06 11:33 |
-| 10 µF 25 V X5R / C1,C15,C16 | `CL21A106KAYNNNE` | Samsung Electro-Mechanics | [C15850](https://jlcpcb.com/partdetail/C15850) | 0805 | 3 | 制御基板: C1, C15, C16 | $0.0397 | 7,369,336 | 2026-11-06 11:33 |
-| 22 µF 25 V X5R / C2,C3 | `CL31A226KAHNNNE` | Samsung Electro-Mechanics | [C12891](https://jlcpcb.com/partdetail/C12891) | 1206 | 2 | 制御基板: C2, C3 | $0.1178 | 1,606,302 | 2026-11-06 11:33 |
-| 4.7 µF 16 V X5R / C5,C6,C7 | `CL10A475KO8NNNC` | Samsung Electro-Mechanics | [C19666](https://jlcpcb.com/partdetail/C19666) | 0603 | 3 | 制御基板: C5, C6, C7 | $0.0150 | 4,032,683 | 2026-11-06 11:33 |
+| 役割 | 型番 | メーカー | JLC | パッケージ | 数/台 | 配置 (ネットリスト) | 単価 (最小帯) | 在庫 (観測) | 観測 (JST) | 部品証跡 |
+| --- | --- | --- | --- | --- | ---: | --- | ---: | ---: | --- | --- |
+| 100 nF 50 V X7R / 制御8＋LED8 | `CC0603KRX7R9BB104` | YAGEO | [C14663](https://jlcpcb.com/partdetail/C14663) | 0603 | 16 | 制御基板: C4, C8, C9, C10, C11, C12, C14, C17; LED 基板 (同一 ×2): C1, C2, C3, C4 | $0.0067 | 35,680,175 | 2026-11-06 11:33 | [記録](/docs/components/records/cc0603krx7r9bb104/) |
+| 10 nF 50 V X7R / C13 | `0603B103K500NT` | FH (Guangdong Fenghua Advanced Tech) | [C57112](https://jlcpcb.com/partdetail/C57112) | 0603 | 1 | 制御基板: C13 | $0.0097 | 5,106,962 | 2026-11-06 11:33 | [記録](/docs/components/records/fh-0603b103k500nt/) |
+| 10 µF 25 V X5R / C1,C15,C16 | `CL21A106KAYNNNE` | Samsung Electro-Mechanics | [C15850](https://jlcpcb.com/partdetail/C15850) | 0805 | 3 | 制御基板: C1, C15, C16 | $0.0397 | 7,369,336 | 2026-11-06 11:33 | [記録](/docs/components/records/cl21a106kaynnne/) |
+| 22 µF 25 V X5R / C2,C3 | `CL31A226KAHNNNE` | Samsung Electro-Mechanics | [C12891](https://jlcpcb.com/partdetail/C12891) | 1206 | 2 | 制御基板: C2, C3 | $0.1178 | 1,606,302 | 2026-11-06 11:33 | [記録](/docs/components/records/cl31a226kahnnne/) |
+| 4.7 µF 16 V X5R / C5,C6,C7 | `CL10A475KO8NNNC` | Samsung Electro-Mechanics | [C19666](https://jlcpcb.com/partdetail/C19666) | 0603 | 3 | 制御基板: C5, C6, C7 | $0.0150 | 4,032,683 | 2026-11-06 11:33 | [記録](/docs/components/records/cl10a475ko8nnnc/) |
+
+「部品証跡」列は [部品証跡カタログ](/docs/components/catalog/) の記録ページへのリンクです。対応は `provenance/a5-catalog/reconciliation.json` (`scripts/a5_catalog.py reconcile`) で照合しています。型番列は A5 の調達表のままで、`2.54-2\*5P2.54 mm pitch 2×5 pin IDC box header` は正準型番 `2.54-2\*5P` (C5665) として `provenance/a5-catalog/identity-crosswalk.json` で対応付けています。
 
 ## 外部ケーブル (別枠)
 

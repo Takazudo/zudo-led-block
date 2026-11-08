@@ -5,41 +5,43 @@
       "coverage_id": "cov-tps2552dbvr-1-identity",
       "record_id": "rec-tps2552dbvr-1",
       "domain": "identity",
-      "status": "OPEN",
-      "reason": "fact-tps2552dbvr-1-manufacturer remains UNSOURCED: only distributor identity is retained; no manufacturer-primary document inspected",
+      "status": "COVERED",
+      "reason": "manufacturer and exact orderable confirmed from the manufacturer-hosted datasheet (MANUFACTURER_PRIMARY, bytes inspected 2026-11-08); distributor identity retained as order-code evidence",
       "fact_ids": [
         "fact-tps2552dbvr-1-manufacturer",
-        "fact-tps2552dbvr-1-distributor-identity"
+        "fact-tps2552dbvr-1-distributor-identity",
+        "fact-tps2552dbvr-1-orderable",
+        "fact-tps2552dbvr-1-variant-latch"
       ],
-      "blocking_fact_ids": [
-        "fact-tps2552dbvr-1-manufacturer"
-      ]
+      "blocking_fact_ids": []
     },
     {
       "coverage_id": "cov-tps2552dbvr-1-pinout",
       "record_id": "rec-tps2552dbvr-1",
       "domain": "pinout",
-      "status": "OPEN",
-      "reason": "fact-tps2552dbvr-1-pinout remains UNSOURCED: the pin map is projected from the historical A5 netlist and has not been checked against a manufacturer document",
+      "status": "COVERED",
+      "reason": "datasheet pin table for the exact package inspected and compared with the project pin map: matches by number and function",
       "fact_ids": [
         "fact-tps2552dbvr-1-pinout"
       ],
-      "blocking_fact_ids": [
-        "fact-tps2552dbvr-1-pinout"
-      ]
+      "blocking_fact_ids": []
     },
     {
       "coverage_id": "cov-tps2552dbvr-1-ratings",
       "record_id": "rec-tps2552dbvr-1",
       "domain": "electrical-ratings",
-      "status": "OPEN",
-      "reason": "fact-tps2552dbvr-1-ratings remains UNSOURCED: no manufacturer limits retained",
+      "status": "COVERED",
+      "reason": "absolute-maximum, recommended-operation and design-relevant characteristics recorded from the manufacturer-hosted datasheet; this is manufacturer data only, not a design-margin or safety verdict",
       "fact_ids": [
-        "fact-tps2552dbvr-1-ratings"
+        "fact-tps2552dbvr-1-ratings",
+        "fact-tps2552dbvr-1-roc-vin",
+        "fact-tps2552dbvr-1-roc-iout",
+        "fact-tps2552dbvr-1-rilim-range",
+        "fact-tps2552dbvr-1-ilim-formula-max",
+        "fact-tps2552dbvr-1-ilim-formula-nom-min",
+        "fact-tps2552dbvr-1-latch-behaviour"
       ],
-      "blocking_fact_ids": [
-        "fact-tps2552dbvr-1-ratings"
-      ]
+      "blocking_fact_ids": []
     },
     {
       "coverage_id": "cov-tps2552dbvr-1-placement",

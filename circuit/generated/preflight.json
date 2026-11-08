@@ -5,327 +5,449 @@
     "contractVersion": 1
   },
   "records": {
-    "available": 0,
-    "selected": 0,
-    "slugs": []
+    "available": 30,
+    "selected": 30,
+    "slugs": [
+      "ap63205wu-7",
+      "bas70-04-7-f",
+      "boomele-2-54-2x5p",
+      "cc0603krx7r9bb104",
+      "cl10a475ko8nnnc",
+      "cl21a106kaynnne",
+      "cl31a226kahnnne",
+      "dailywell-1ms3t1b1m2qes-5",
+      "fh-0603b103k500nt",
+      "mmbt3904-range-100-300",
+      "molex-530470310",
+      "opa197idbvr",
+      "pj-3582-b",
+      "pmeg4010cej-115",
+      "sm04b-srss-tb-lf-sn",
+      "sn74lvc2t45dcur",
+      "spm4020t-4r7m-lr",
+      "stm32g031g8u6tr",
+      "tlv75533pdbvr",
+      "tlv9001idbvr",
+      "tps2552dbvr-1",
+      "uniroyal-0603waf1001t5e",
+      "uniroyal-0603waf1002t5e",
+      "uniroyal-0603waf1003t5e",
+      "uniroyal-0603waf1005t5e",
+      "uniroyal-0603waf3300t5e",
+      "uniroyal-0603waf4701t5e",
+      "uniroyal-0603waf6802t5e",
+      "uniroyal-0603waf8202t5e",
+      "ws2812b-2020-v6"
+    ]
   },
   "sources": {
-    "available": 0,
-    "selected": 0,
-    "linkable": 0,
-    "ids": []
+    "available": 90,
+    "selected": 90,
+    "linkable": 58,
+    "ids": [
+      "src-0603b103k500nt-a5-jlcpcb-snapshot",
+      "src-0603b103k500nt-a5-netlist-controller",
+      "src-0603waf1001t5e-a5-jlcpcb-snapshot",
+      "src-0603waf1001t5e-a5-netlist-controller",
+      "src-0603waf1002t5e-a5-jlcpcb-snapshot",
+      "src-0603waf1002t5e-a5-netlist-controller",
+      "src-0603waf1003t5e-a5-jlcpcb-snapshot",
+      "src-0603waf1003t5e-a5-netlist-controller",
+      "src-0603waf1005t5e-a5-jlcpcb-snapshot",
+      "src-0603waf1005t5e-a5-netlist-controller",
+      "src-0603waf3300t5e-a5-jlcpcb-snapshot",
+      "src-0603waf3300t5e-a5-netlist-controller",
+      "src-0603waf4701t5e-a5-jlcpcb-snapshot",
+      "src-0603waf4701t5e-a5-netlist-controller",
+      "src-0603waf6802t5e-a5-jlcpcb-snapshot",
+      "src-0603waf6802t5e-a5-netlist-controller",
+      "src-0603waf8202t5e-a5-jlcpcb-snapshot",
+      "src-0603waf8202t5e-a5-netlist-controller",
+      "src-1ms3t1b1m2qes-5-a5-jlcpcb-snapshot",
+      "src-1ms3t1b1m2qes-5-a5-netlist-controller",
+      "src-530470310-a5-jlcpcb-snapshot",
+      "src-530470310-a5-netlist-controller",
+      "src-530470310-a5-netlist-power-adapter",
+      "src-ap63205wu-7-a5-jlcpcb-snapshot",
+      "src-ap63205wu-7-a5-netlist-controller",
+      "src-bas70-04-7-f-a5-jlcpcb-snapshot",
+      "src-bas70-04-7-f-a5-netlist-controller",
+      "src-boomele-2-54-2x5p-a5-jlcpcb-snapshot-integration",
+      "src-boomele-2-54-2x5p-a5-jlcpcb-snapshot-mechanical-evidence",
+      "src-boomele-2-54-2x5p-a5-netlist-power-adapter",
+      "src-boomele-2-54-2x5p-lcsc-listing",
+      "src-cc0603krx7r9bb104-a5-jlcpcb-snapshot",
+      "src-cc0603krx7r9bb104-a5-netlist-controller",
+      "src-cc0603krx7r9bb104-a5-netlist-led-leaf",
+      "src-cl10a475ko8nnnc-a5-jlcpcb-snapshot",
+      "src-cl10a475ko8nnnc-a5-netlist-controller",
+      "src-cl21a106kaynnne-a5-jlcpcb-snapshot",
+      "src-cl21a106kaynnne-a5-netlist-controller",
+      "src-cl31a226kahnnne-a5-jlcpcb-snapshot",
+      "src-cl31a226kahnnne-a5-netlist-controller",
+      "src-mmbt3904-range-100-300-a5-jlcpcb-snapshot",
+      "src-mmbt3904-range-100-300-a5-netlist-controller",
+      "src-opa197idbvr-a5-jlcpcb-snapshot",
+      "src-opa197idbvr-a5-netlist-controller",
+      "src-opa197idbvr-ds-p34",
+      "src-opa197idbvr-ds-p4",
+      "src-opa197idbvr-ds-p5",
+      "src-opa197idbvr-ds-p7",
+      "src-pj-3582-b-a5-jlcpcb-snapshot",
+      "src-pj-3582-b-a5-netlist-controller",
+      "src-pmeg4010cej-115-a5-jlcpcb-snapshot",
+      "src-pmeg4010cej-115-a5-netlist-controller",
+      "src-sm04b-srss-tb-lf-sn-a5-jlcpcb-snapshot",
+      "src-sm04b-srss-tb-lf-sn-a5-netlist-controller",
+      "src-sm04b-srss-tb-lf-sn-a5-netlist-led-leaf",
+      "src-sn74lvc2t45dcur-a5-jlcpcb-snapshot",
+      "src-sn74lvc2t45dcur-a5-netlist-controller",
+      "src-sn74lvc2t45dcur-ds-p15",
+      "src-sn74lvc2t45dcur-ds-p2",
+      "src-sn74lvc2t45dcur-ds-p22",
+      "src-sn74lvc2t45dcur-ds-p4",
+      "src-sn74lvc2t45dcur-ds-p6",
+      "src-spm4020t-4r7m-lr-a5-netlist-controller",
+      "src-spm4020t-4r7m-lr-lcsc-listing",
+      "src-stm32g031g8u6tr-a5-jlcpcb-snapshot",
+      "src-stm32g031g8u6tr-a5-netlist-controller",
+      "src-tlv75533pdbvr-a5-jlcpcb-snapshot",
+      "src-tlv75533pdbvr-a5-netlist-controller",
+      "src-tlv75533pdbvr-ds-p23",
+      "src-tlv75533pdbvr-ds-p28",
+      "src-tlv75533pdbvr-ds-p3",
+      "src-tlv75533pdbvr-ds-p4",
+      "src-tlv75533pdbvr-ds-p5",
+      "src-tlv9001idbvr-a5-jlcpcb-snapshot",
+      "src-tlv9001idbvr-a5-netlist-controller",
+      "src-tlv9001idbvr-ds-p14",
+      "src-tlv9001idbvr-ds-p17",
+      "src-tlv9001idbvr-ds-p40",
+      "src-tlv9001idbvr-ds-p7",
+      "src-tps2552dbvr-1-a5-jlcpcb-snapshot",
+      "src-tps2552dbvr-1-a5-netlist-controller",
+      "src-tps2552dbvr-1-ds-p16",
+      "src-tps2552dbvr-1-ds-p17",
+      "src-tps2552dbvr-1-ds-p18",
+      "src-tps2552dbvr-1-ds-p29",
+      "src-tps2552dbvr-1-ds-p3",
+      "src-tps2552dbvr-1-ds-p4",
+      "src-tps2552dbvr-1-ds-p5",
+      "src-ws2812b-2020-v6-a5-jlcpcb-snapshot",
+      "src-ws2812b-2020-v6-a5-netlist-led-leaf"
+    ]
   },
   "fields": [
     {
       "key": "record.recordId",
       "decision": "PUBLISH",
-      "emitted": 0,
+      "emitted": 30,
       "withheld": 0
     },
     {
       "key": "record.slug",
       "decision": "PUBLISH",
-      "emitted": 0,
+      "emitted": 30,
       "withheld": 0
     },
     {
       "key": "record.kind",
       "decision": "PUBLISH",
-      "emitted": 0,
+      "emitted": 30,
       "withheld": 0
     },
     {
       "key": "record.parentRecordId",
       "decision": "PUBLISH",
-      "emitted": 0,
+      "emitted": 30,
       "withheld": 0
     },
     {
       "key": "record.lineId",
       "decision": "PUBLISH",
-      "emitted": 0,
+      "emitted": 30,
       "withheld": 0
     },
     {
       "key": "record.ownerSkill",
       "decision": "PUBLISH",
-      "emitted": 0,
+      "emitted": 30,
       "withheld": 0
     },
     {
       "key": "record.mpn",
       "decision": "PUBLISH",
-      "emitted": 0,
+      "emitted": 30,
       "withheld": 0
     },
     {
       "key": "record.manufacturer",
       "decision": "PUBLISH",
-      "emitted": 0,
+      "emitted": 30,
       "withheld": 0
     },
     {
       "key": "record.lcsc",
       "decision": "PUBLISH",
-      "emitted": 0,
+      "emitted": 30,
       "withheld": 0
     },
     {
       "key": "record.package",
       "decision": "PUBLISH",
-      "emitted": 0,
+      "emitted": 30,
       "withheld": 0
     },
     {
       "key": "record.function",
       "decision": "PUBLISH",
-      "emitted": 0,
+      "emitted": 30,
       "withheld": 0
     },
     {
       "key": "record.identityState",
       "decision": "PUBLISH",
-      "emitted": 0,
+      "emitted": 30,
       "withheld": 0
     },
     {
       "key": "record.sourceState",
       "decision": "PUBLISH",
-      "emitted": 0,
+      "emitted": 30,
       "withheld": 0
     },
     {
       "key": "record.dnp",
       "decision": "PUBLISH",
-      "emitted": 0,
+      "emitted": 30,
       "withheld": 0
     },
     {
       "key": "record.placements",
       "decision": "PUBLISH",
-      "emitted": 0,
+      "emitted": 30,
       "withheld": 0
     },
     {
       "key": "alias.mpn",
       "decision": "PUBLISH",
-      "emitted": 0,
+      "emitted": 30,
       "withheld": 0
     },
     {
       "key": "alias.lcsc",
       "decision": "PUBLISH",
-      "emitted": 0,
+      "emitted": 30,
       "withheld": 0
     },
     {
       "key": "alias.manufacturer",
       "decision": "PUBLISH",
-      "emitted": 0,
+      "emitted": 30,
       "withheld": 0
     },
     {
       "key": "alias.function",
       "decision": "PUBLISH",
-      "emitted": 0,
+      "emitted": 30,
       "withheld": 0
     },
     {
       "key": "routing.positivePrompts",
       "decision": "DENY",
       "emitted": 0,
-      "withheld": 0
+      "withheld": 30
     },
     {
       "key": "routing.negativePrompts",
       "decision": "DENY",
       "emitted": 0,
-      "withheld": 0
+      "withheld": 30
     },
     {
       "key": "source.sourceId",
       "decision": "PUBLISH",
-      "emitted": 0,
+      "emitted": 90,
       "withheld": 0
     },
     {
       "key": "source.documentTitle",
       "decision": "PUBLISH",
-      "emitted": 0,
+      "emitted": 90,
       "withheld": 0
     },
     {
       "key": "source.documentNumber",
       "decision": "PUBLISH",
-      "emitted": 0,
+      "emitted": 90,
       "withheld": 0
     },
     {
       "key": "source.revision",
       "decision": "PUBLISH",
-      "emitted": 0,
+      "emitted": 90,
       "withheld": 0
     },
     {
       "key": "source.documentDate",
       "decision": "PUBLISH",
-      "emitted": 0,
+      "emitted": 90,
       "withheld": 0
     },
     {
       "key": "source.retrievalDate",
       "decision": "PUBLISH",
-      "emitted": 0,
+      "emitted": 90,
       "withheld": 0
     },
     {
       "key": "source.authorityClass",
       "decision": "PUBLISH",
-      "emitted": 0,
+      "emitted": 90,
       "withheld": 0
     },
     {
       "key": "source.availability",
       "decision": "PUBLISH",
-      "emitted": 0,
+      "emitted": 90,
       "withheld": 0
     },
     {
       "key": "source.locator",
       "decision": "PUBLISH",
-      "emitted": 0,
+      "emitted": 90,
       "withheld": 0
     },
     {
       "key": "source.printedPageLabel",
       "decision": "PUBLISH",
-      "emitted": 0,
+      "emitted": 90,
       "withheld": 0
     },
     {
       "key": "source.physicalPdfPageIndex",
       "decision": "DENY",
       "emitted": 0,
-      "withheld": 0
+      "withheld": 90
     },
     {
       "key": "source.authoritativeUrl",
       "decision": "PUBLISH",
-      "emitted": 0,
+      "emitted": 58,
       "withheld": 0
     },
     {
       "key": "source.alternateAuthoritativeUrl",
       "decision": "DENY",
       "emitted": 0,
-      "withheld": 0
+      "withheld": 90
     },
     {
       "key": "source.sha256",
       "decision": "DENY",
       "emitted": 0,
-      "withheld": 0
+      "withheld": 90
     },
     {
       "key": "source.evidenceExtract",
       "decision": "DENY",
       "emitted": 0,
-      "withheld": 0
+      "withheld": 90
     },
     {
       "key": "fact.factId",
       "decision": "PUBLISH",
-      "emitted": 0,
+      "emitted": 211,
       "withheld": 0
     },
     {
       "key": "fact.class",
       "decision": "PUBLISH",
-      "emitted": 0,
+      "emitted": 211,
       "withheld": 0
     },
     {
       "key": "fact.value",
       "decision": "PUBLISH",
-      "emitted": 0,
+      "emitted": 211,
       "withheld": 0
     },
     {
       "key": "fact.unit",
       "decision": "PUBLISH",
-      "emitted": 0,
+      "emitted": 211,
       "withheld": 0
     },
     {
       "key": "fact.conditions",
       "decision": "PUBLISH",
-      "emitted": 0,
+      "emitted": 211,
       "withheld": 0
     },
     {
       "key": "fact.locator",
       "decision": "PUBLISH",
-      "emitted": 0,
+      "emitted": 211,
       "withheld": 0
     },
     {
       "key": "fact.provenance",
       "decision": "PUBLISH",
-      "emitted": 0,
+      "emitted": 211,
       "withheld": 0
     },
     {
       "key": "fact.verdict",
       "decision": "PUBLISH",
-      "emitted": 0,
+      "emitted": 211,
       "withheld": 0
     },
     {
       "key": "fact.dependsOn",
       "decision": "PUBLISH",
-      "emitted": 0,
+      "emitted": 211,
       "withheld": 0
     },
     {
       "key": "fact.expression",
       "decision": "PUBLISH",
-      "emitted": 0,
+      "emitted": 211,
       "withheld": 0
     },
     {
       "key": "coverage.coverageId",
       "decision": "PUBLISH",
-      "emitted": 0,
+      "emitted": 150,
       "withheld": 0
     },
     {
       "key": "coverage.domain",
       "decision": "PUBLISH",
-      "emitted": 0,
+      "emitted": 150,
       "withheld": 0
     },
     {
       "key": "coverage.status",
       "decision": "PUBLISH",
-      "emitted": 0,
+      "emitted": 150,
       "withheld": 0
     },
     {
       "key": "coverage.reason",
       "decision": "PUBLISH",
-      "emitted": 0,
+      "emitted": 150,
       "withheld": 0
     },
     {
       "key": "coverage.factIds",
       "decision": "PUBLISH",
-      "emitted": 0,
+      "emitted": 150,
       "withheld": 0
     },
     {
       "key": "coverage.blockingFactIds",
       "decision": "PUBLISH",
-      "emitted": 0,
+      "emitted": 150,
       "withheld": 0
     },
     {
@@ -463,73 +585,73 @@
     {
       "key": "pinMap.pinMapId",
       "decision": "PUBLISH",
-      "emitted": 0,
+      "emitted": 30,
       "withheld": 0
     },
     {
       "key": "pinMap.symbol",
       "decision": "PUBLISH",
-      "emitted": 0,
+      "emitted": 30,
       "withheld": 0
     },
     {
       "key": "pinMap.footprint",
       "decision": "PUBLISH",
-      "emitted": 0,
+      "emitted": 30,
       "withheld": 0
     },
     {
       "key": "pinMap.pins",
       "decision": "PUBLISH",
-      "emitted": 0,
+      "emitted": 30,
       "withheld": 0
     },
     {
       "key": "pinMap.reviewedBy",
       "decision": "DENY",
       "emitted": 0,
-      "withheld": 0
+      "withheld": 30
     },
     {
       "key": "reference.document.sourceId",
       "decision": "PUBLISH",
-      "emitted": 0,
+      "emitted": 5,
       "withheld": 0
     },
     {
       "key": "reference.document.documentTitle",
       "decision": "PUBLISH",
-      "emitted": 0,
+      "emitted": 5,
       "withheld": 0
     },
     {
       "key": "reference.document.label",
       "decision": "PUBLISH",
-      "emitted": 0,
+      "emitted": 5,
       "withheld": 0
     },
     {
       "key": "reference.document.authorityClass",
       "decision": "PUBLISH",
-      "emitted": 0,
+      "emitted": 5,
       "withheld": 0
     },
     {
       "key": "reference.document.url",
       "decision": "PUBLISH",
-      "emitted": 0,
+      "emitted": 5,
       "withheld": 0
     },
     {
       "key": "reference.document.availability",
       "decision": "PUBLISH",
-      "emitted": 0,
+      "emitted": 30,
       "withheld": 0
     },
     {
       "key": "reference.document.documentKind",
       "decision": "PUBLISH",
-      "emitted": 0,
+      "emitted": 5,
       "withheld": 0
     },
     {
@@ -589,7 +711,7 @@
     {
       "key": "asset.datasheetPdf",
       "decision": "PUBLISH",
-      "emitted": 0,
+      "emitted": 5,
       "withheld": 0
     },
     {
@@ -611,15 +733,556 @@
       "withheld": 0
     }
   ],
-  "urls": [],
+  "urls": [
+    {
+      "sourceId": "src-0603b103k500nt-a5-jlcpcb-snapshot",
+      "url": "",
+      "decision": "DENY",
+      "reason": "SOURCE_NOT_LINKABLE"
+    },
+    {
+      "sourceId": "src-0603b103k500nt-a5-netlist-controller",
+      "url": "https://github.com/Takazudo/zudo-led-block/blob/d41cbb7fc61dc954b4affaf19527aa69f07013b6/engineering/a5/integration/native_schematic/controller/netlist.xml",
+      "decision": "ALLOW",
+      "reason": "ABSOLUTE_HTTP_URL"
+    },
+    {
+      "sourceId": "src-0603waf1001t5e-a5-jlcpcb-snapshot",
+      "url": "",
+      "decision": "DENY",
+      "reason": "SOURCE_NOT_LINKABLE"
+    },
+    {
+      "sourceId": "src-0603waf1001t5e-a5-netlist-controller",
+      "url": "https://github.com/Takazudo/zudo-led-block/blob/d41cbb7fc61dc954b4affaf19527aa69f07013b6/engineering/a5/integration/native_schematic/controller/netlist.xml",
+      "decision": "ALLOW",
+      "reason": "ABSOLUTE_HTTP_URL"
+    },
+    {
+      "sourceId": "src-0603waf1002t5e-a5-jlcpcb-snapshot",
+      "url": "",
+      "decision": "DENY",
+      "reason": "SOURCE_NOT_LINKABLE"
+    },
+    {
+      "sourceId": "src-0603waf1002t5e-a5-netlist-controller",
+      "url": "https://github.com/Takazudo/zudo-led-block/blob/d41cbb7fc61dc954b4affaf19527aa69f07013b6/engineering/a5/integration/native_schematic/controller/netlist.xml",
+      "decision": "ALLOW",
+      "reason": "ABSOLUTE_HTTP_URL"
+    },
+    {
+      "sourceId": "src-0603waf1003t5e-a5-jlcpcb-snapshot",
+      "url": "",
+      "decision": "DENY",
+      "reason": "SOURCE_NOT_LINKABLE"
+    },
+    {
+      "sourceId": "src-0603waf1003t5e-a5-netlist-controller",
+      "url": "https://github.com/Takazudo/zudo-led-block/blob/d41cbb7fc61dc954b4affaf19527aa69f07013b6/engineering/a5/integration/native_schematic/controller/netlist.xml",
+      "decision": "ALLOW",
+      "reason": "ABSOLUTE_HTTP_URL"
+    },
+    {
+      "sourceId": "src-0603waf1005t5e-a5-jlcpcb-snapshot",
+      "url": "",
+      "decision": "DENY",
+      "reason": "SOURCE_NOT_LINKABLE"
+    },
+    {
+      "sourceId": "src-0603waf1005t5e-a5-netlist-controller",
+      "url": "https://github.com/Takazudo/zudo-led-block/blob/d41cbb7fc61dc954b4affaf19527aa69f07013b6/engineering/a5/integration/native_schematic/controller/netlist.xml",
+      "decision": "ALLOW",
+      "reason": "ABSOLUTE_HTTP_URL"
+    },
+    {
+      "sourceId": "src-0603waf3300t5e-a5-jlcpcb-snapshot",
+      "url": "",
+      "decision": "DENY",
+      "reason": "SOURCE_NOT_LINKABLE"
+    },
+    {
+      "sourceId": "src-0603waf3300t5e-a5-netlist-controller",
+      "url": "https://github.com/Takazudo/zudo-led-block/blob/d41cbb7fc61dc954b4affaf19527aa69f07013b6/engineering/a5/integration/native_schematic/controller/netlist.xml",
+      "decision": "ALLOW",
+      "reason": "ABSOLUTE_HTTP_URL"
+    },
+    {
+      "sourceId": "src-0603waf4701t5e-a5-jlcpcb-snapshot",
+      "url": "",
+      "decision": "DENY",
+      "reason": "SOURCE_NOT_LINKABLE"
+    },
+    {
+      "sourceId": "src-0603waf4701t5e-a5-netlist-controller",
+      "url": "https://github.com/Takazudo/zudo-led-block/blob/d41cbb7fc61dc954b4affaf19527aa69f07013b6/engineering/a5/integration/native_schematic/controller/netlist.xml",
+      "decision": "ALLOW",
+      "reason": "ABSOLUTE_HTTP_URL"
+    },
+    {
+      "sourceId": "src-0603waf6802t5e-a5-jlcpcb-snapshot",
+      "url": "",
+      "decision": "DENY",
+      "reason": "SOURCE_NOT_LINKABLE"
+    },
+    {
+      "sourceId": "src-0603waf6802t5e-a5-netlist-controller",
+      "url": "https://github.com/Takazudo/zudo-led-block/blob/d41cbb7fc61dc954b4affaf19527aa69f07013b6/engineering/a5/integration/native_schematic/controller/netlist.xml",
+      "decision": "ALLOW",
+      "reason": "ABSOLUTE_HTTP_URL"
+    },
+    {
+      "sourceId": "src-0603waf8202t5e-a5-jlcpcb-snapshot",
+      "url": "",
+      "decision": "DENY",
+      "reason": "SOURCE_NOT_LINKABLE"
+    },
+    {
+      "sourceId": "src-0603waf8202t5e-a5-netlist-controller",
+      "url": "https://github.com/Takazudo/zudo-led-block/blob/d41cbb7fc61dc954b4affaf19527aa69f07013b6/engineering/a5/integration/native_schematic/controller/netlist.xml",
+      "decision": "ALLOW",
+      "reason": "ABSOLUTE_HTTP_URL"
+    },
+    {
+      "sourceId": "src-1ms3t1b1m2qes-5-a5-jlcpcb-snapshot",
+      "url": "",
+      "decision": "DENY",
+      "reason": "SOURCE_NOT_LINKABLE"
+    },
+    {
+      "sourceId": "src-1ms3t1b1m2qes-5-a5-netlist-controller",
+      "url": "https://github.com/Takazudo/zudo-led-block/blob/d41cbb7fc61dc954b4affaf19527aa69f07013b6/engineering/a5/integration/native_schematic/controller/netlist.xml",
+      "decision": "ALLOW",
+      "reason": "ABSOLUTE_HTTP_URL"
+    },
+    {
+      "sourceId": "src-530470310-a5-jlcpcb-snapshot",
+      "url": "",
+      "decision": "DENY",
+      "reason": "SOURCE_NOT_LINKABLE"
+    },
+    {
+      "sourceId": "src-530470310-a5-netlist-controller",
+      "url": "https://github.com/Takazudo/zudo-led-block/blob/d41cbb7fc61dc954b4affaf19527aa69f07013b6/engineering/a5/integration/native_schematic/controller/netlist.xml",
+      "decision": "ALLOW",
+      "reason": "ABSOLUTE_HTTP_URL"
+    },
+    {
+      "sourceId": "src-530470310-a5-netlist-power-adapter",
+      "url": "https://github.com/Takazudo/zudo-led-block/blob/d41cbb7fc61dc954b4affaf19527aa69f07013b6/engineering/a5/integration/native_schematic/power_adapter/netlist.xml",
+      "decision": "ALLOW",
+      "reason": "ABSOLUTE_HTTP_URL"
+    },
+    {
+      "sourceId": "src-ap63205wu-7-a5-jlcpcb-snapshot",
+      "url": "",
+      "decision": "DENY",
+      "reason": "SOURCE_NOT_LINKABLE"
+    },
+    {
+      "sourceId": "src-ap63205wu-7-a5-netlist-controller",
+      "url": "https://github.com/Takazudo/zudo-led-block/blob/d41cbb7fc61dc954b4affaf19527aa69f07013b6/engineering/a5/integration/native_schematic/controller/netlist.xml",
+      "decision": "ALLOW",
+      "reason": "ABSOLUTE_HTTP_URL"
+    },
+    {
+      "sourceId": "src-bas70-04-7-f-a5-jlcpcb-snapshot",
+      "url": "",
+      "decision": "DENY",
+      "reason": "SOURCE_NOT_LINKABLE"
+    },
+    {
+      "sourceId": "src-bas70-04-7-f-a5-netlist-controller",
+      "url": "https://github.com/Takazudo/zudo-led-block/blob/d41cbb7fc61dc954b4affaf19527aa69f07013b6/engineering/a5/integration/native_schematic/controller/netlist.xml",
+      "decision": "ALLOW",
+      "reason": "ABSOLUTE_HTTP_URL"
+    },
+    {
+      "sourceId": "src-boomele-2-54-2x5p-a5-jlcpcb-snapshot-integration",
+      "url": "",
+      "decision": "DENY",
+      "reason": "SOURCE_NOT_LINKABLE"
+    },
+    {
+      "sourceId": "src-boomele-2-54-2x5p-a5-jlcpcb-snapshot-mechanical-evidence",
+      "url": "",
+      "decision": "DENY",
+      "reason": "SOURCE_NOT_LINKABLE"
+    },
+    {
+      "sourceId": "src-boomele-2-54-2x5p-a5-netlist-power-adapter",
+      "url": "https://github.com/Takazudo/zudo-led-block/blob/d41cbb7fc61dc954b4affaf19527aa69f07013b6/engineering/a5/integration/native_schematic/power_adapter/netlist.xml",
+      "decision": "ALLOW",
+      "reason": "ABSOLUTE_HTTP_URL"
+    },
+    {
+      "sourceId": "src-boomele-2-54-2x5p-lcsc-listing",
+      "url": "",
+      "decision": "DENY",
+      "reason": "SOURCE_NOT_LINKABLE"
+    },
+    {
+      "sourceId": "src-cc0603krx7r9bb104-a5-jlcpcb-snapshot",
+      "url": "",
+      "decision": "DENY",
+      "reason": "SOURCE_NOT_LINKABLE"
+    },
+    {
+      "sourceId": "src-cc0603krx7r9bb104-a5-netlist-controller",
+      "url": "https://github.com/Takazudo/zudo-led-block/blob/d41cbb7fc61dc954b4affaf19527aa69f07013b6/engineering/a5/integration/native_schematic/controller/netlist.xml",
+      "decision": "ALLOW",
+      "reason": "ABSOLUTE_HTTP_URL"
+    },
+    {
+      "sourceId": "src-cc0603krx7r9bb104-a5-netlist-led-leaf",
+      "url": "https://github.com/Takazudo/zudo-led-block/blob/d41cbb7fc61dc954b4affaf19527aa69f07013b6/engineering/a5/integration/native_schematic/led_leaf/netlist.xml",
+      "decision": "ALLOW",
+      "reason": "ABSOLUTE_HTTP_URL"
+    },
+    {
+      "sourceId": "src-cl10a475ko8nnnc-a5-jlcpcb-snapshot",
+      "url": "",
+      "decision": "DENY",
+      "reason": "SOURCE_NOT_LINKABLE"
+    },
+    {
+      "sourceId": "src-cl10a475ko8nnnc-a5-netlist-controller",
+      "url": "https://github.com/Takazudo/zudo-led-block/blob/d41cbb7fc61dc954b4affaf19527aa69f07013b6/engineering/a5/integration/native_schematic/controller/netlist.xml",
+      "decision": "ALLOW",
+      "reason": "ABSOLUTE_HTTP_URL"
+    },
+    {
+      "sourceId": "src-cl21a106kaynnne-a5-jlcpcb-snapshot",
+      "url": "",
+      "decision": "DENY",
+      "reason": "SOURCE_NOT_LINKABLE"
+    },
+    {
+      "sourceId": "src-cl21a106kaynnne-a5-netlist-controller",
+      "url": "https://github.com/Takazudo/zudo-led-block/blob/d41cbb7fc61dc954b4affaf19527aa69f07013b6/engineering/a5/integration/native_schematic/controller/netlist.xml",
+      "decision": "ALLOW",
+      "reason": "ABSOLUTE_HTTP_URL"
+    },
+    {
+      "sourceId": "src-cl31a226kahnnne-a5-jlcpcb-snapshot",
+      "url": "",
+      "decision": "DENY",
+      "reason": "SOURCE_NOT_LINKABLE"
+    },
+    {
+      "sourceId": "src-cl31a226kahnnne-a5-netlist-controller",
+      "url": "https://github.com/Takazudo/zudo-led-block/blob/d41cbb7fc61dc954b4affaf19527aa69f07013b6/engineering/a5/integration/native_schematic/controller/netlist.xml",
+      "decision": "ALLOW",
+      "reason": "ABSOLUTE_HTTP_URL"
+    },
+    {
+      "sourceId": "src-mmbt3904-range-100-300-a5-jlcpcb-snapshot",
+      "url": "",
+      "decision": "DENY",
+      "reason": "SOURCE_NOT_LINKABLE"
+    },
+    {
+      "sourceId": "src-mmbt3904-range-100-300-a5-netlist-controller",
+      "url": "https://github.com/Takazudo/zudo-led-block/blob/d41cbb7fc61dc954b4affaf19527aa69f07013b6/engineering/a5/integration/native_schematic/controller/netlist.xml",
+      "decision": "ALLOW",
+      "reason": "ABSOLUTE_HTTP_URL"
+    },
+    {
+      "sourceId": "src-opa197idbvr-a5-jlcpcb-snapshot",
+      "url": "",
+      "decision": "DENY",
+      "reason": "SOURCE_NOT_LINKABLE"
+    },
+    {
+      "sourceId": "src-opa197idbvr-a5-netlist-controller",
+      "url": "https://github.com/Takazudo/zudo-led-block/blob/d41cbb7fc61dc954b4affaf19527aa69f07013b6/engineering/a5/integration/native_schematic/controller/netlist.xml",
+      "decision": "ALLOW",
+      "reason": "ABSOLUTE_HTTP_URL"
+    },
+    {
+      "sourceId": "src-opa197idbvr-ds-p34",
+      "url": "https://www.ti.com/lit/ds/symlink/opa197.pdf",
+      "decision": "ALLOW",
+      "reason": "ABSOLUTE_HTTP_URL"
+    },
+    {
+      "sourceId": "src-opa197idbvr-ds-p4",
+      "url": "https://www.ti.com/lit/ds/symlink/opa197.pdf",
+      "decision": "ALLOW",
+      "reason": "ABSOLUTE_HTTP_URL"
+    },
+    {
+      "sourceId": "src-opa197idbvr-ds-p5",
+      "url": "https://www.ti.com/lit/ds/symlink/opa197.pdf",
+      "decision": "ALLOW",
+      "reason": "ABSOLUTE_HTTP_URL"
+    },
+    {
+      "sourceId": "src-opa197idbvr-ds-p7",
+      "url": "https://www.ti.com/lit/ds/symlink/opa197.pdf",
+      "decision": "ALLOW",
+      "reason": "ABSOLUTE_HTTP_URL"
+    },
+    {
+      "sourceId": "src-pj-3582-b-a5-jlcpcb-snapshot",
+      "url": "",
+      "decision": "DENY",
+      "reason": "SOURCE_NOT_LINKABLE"
+    },
+    {
+      "sourceId": "src-pj-3582-b-a5-netlist-controller",
+      "url": "https://github.com/Takazudo/zudo-led-block/blob/d41cbb7fc61dc954b4affaf19527aa69f07013b6/engineering/a5/integration/native_schematic/controller/netlist.xml",
+      "decision": "ALLOW",
+      "reason": "ABSOLUTE_HTTP_URL"
+    },
+    {
+      "sourceId": "src-pmeg4010cej-115-a5-jlcpcb-snapshot",
+      "url": "",
+      "decision": "DENY",
+      "reason": "SOURCE_NOT_LINKABLE"
+    },
+    {
+      "sourceId": "src-pmeg4010cej-115-a5-netlist-controller",
+      "url": "https://github.com/Takazudo/zudo-led-block/blob/d41cbb7fc61dc954b4affaf19527aa69f07013b6/engineering/a5/integration/native_schematic/controller/netlist.xml",
+      "decision": "ALLOW",
+      "reason": "ABSOLUTE_HTTP_URL"
+    },
+    {
+      "sourceId": "src-sm04b-srss-tb-lf-sn-a5-jlcpcb-snapshot",
+      "url": "",
+      "decision": "DENY",
+      "reason": "SOURCE_NOT_LINKABLE"
+    },
+    {
+      "sourceId": "src-sm04b-srss-tb-lf-sn-a5-netlist-controller",
+      "url": "https://github.com/Takazudo/zudo-led-block/blob/d41cbb7fc61dc954b4affaf19527aa69f07013b6/engineering/a5/integration/native_schematic/controller/netlist.xml",
+      "decision": "ALLOW",
+      "reason": "ABSOLUTE_HTTP_URL"
+    },
+    {
+      "sourceId": "src-sm04b-srss-tb-lf-sn-a5-netlist-led-leaf",
+      "url": "https://github.com/Takazudo/zudo-led-block/blob/d41cbb7fc61dc954b4affaf19527aa69f07013b6/engineering/a5/integration/native_schematic/led_leaf/netlist.xml",
+      "decision": "ALLOW",
+      "reason": "ABSOLUTE_HTTP_URL"
+    },
+    {
+      "sourceId": "src-sn74lvc2t45dcur-a5-jlcpcb-snapshot",
+      "url": "",
+      "decision": "DENY",
+      "reason": "SOURCE_NOT_LINKABLE"
+    },
+    {
+      "sourceId": "src-sn74lvc2t45dcur-a5-netlist-controller",
+      "url": "https://github.com/Takazudo/zudo-led-block/blob/d41cbb7fc61dc954b4affaf19527aa69f07013b6/engineering/a5/integration/native_schematic/controller/netlist.xml",
+      "decision": "ALLOW",
+      "reason": "ABSOLUTE_HTTP_URL"
+    },
+    {
+      "sourceId": "src-sn74lvc2t45dcur-ds-p15",
+      "url": "https://www.ti.com/lit/ds/symlink/sn74lvc2t45.pdf",
+      "decision": "ALLOW",
+      "reason": "ABSOLUTE_HTTP_URL"
+    },
+    {
+      "sourceId": "src-sn74lvc2t45dcur-ds-p2",
+      "url": "https://www.ti.com/lit/ds/symlink/sn74lvc2t45.pdf",
+      "decision": "ALLOW",
+      "reason": "ABSOLUTE_HTTP_URL"
+    },
+    {
+      "sourceId": "src-sn74lvc2t45dcur-ds-p22",
+      "url": "https://www.ti.com/lit/ds/symlink/sn74lvc2t45.pdf",
+      "decision": "ALLOW",
+      "reason": "ABSOLUTE_HTTP_URL"
+    },
+    {
+      "sourceId": "src-sn74lvc2t45dcur-ds-p4",
+      "url": "https://www.ti.com/lit/ds/symlink/sn74lvc2t45.pdf",
+      "decision": "ALLOW",
+      "reason": "ABSOLUTE_HTTP_URL"
+    },
+    {
+      "sourceId": "src-sn74lvc2t45dcur-ds-p6",
+      "url": "https://www.ti.com/lit/ds/symlink/sn74lvc2t45.pdf",
+      "decision": "ALLOW",
+      "reason": "ABSOLUTE_HTTP_URL"
+    },
+    {
+      "sourceId": "src-spm4020t-4r7m-lr-a5-netlist-controller",
+      "url": "https://github.com/Takazudo/zudo-led-block/blob/d41cbb7fc61dc954b4affaf19527aa69f07013b6/engineering/a5/integration/native_schematic/controller/netlist.xml",
+      "decision": "ALLOW",
+      "reason": "ABSOLUTE_HTTP_URL"
+    },
+    {
+      "sourceId": "src-spm4020t-4r7m-lr-lcsc-listing",
+      "url": "",
+      "decision": "DENY",
+      "reason": "SOURCE_NOT_LINKABLE"
+    },
+    {
+      "sourceId": "src-stm32g031g8u6tr-a5-jlcpcb-snapshot",
+      "url": "",
+      "decision": "DENY",
+      "reason": "SOURCE_NOT_LINKABLE"
+    },
+    {
+      "sourceId": "src-stm32g031g8u6tr-a5-netlist-controller",
+      "url": "https://github.com/Takazudo/zudo-led-block/blob/d41cbb7fc61dc954b4affaf19527aa69f07013b6/engineering/a5/integration/native_schematic/controller/netlist.xml",
+      "decision": "ALLOW",
+      "reason": "ABSOLUTE_HTTP_URL"
+    },
+    {
+      "sourceId": "src-tlv75533pdbvr-a5-jlcpcb-snapshot",
+      "url": "",
+      "decision": "DENY",
+      "reason": "SOURCE_NOT_LINKABLE"
+    },
+    {
+      "sourceId": "src-tlv75533pdbvr-a5-netlist-controller",
+      "url": "https://github.com/Takazudo/zudo-led-block/blob/d41cbb7fc61dc954b4affaf19527aa69f07013b6/engineering/a5/integration/native_schematic/controller/netlist.xml",
+      "decision": "ALLOW",
+      "reason": "ABSOLUTE_HTTP_URL"
+    },
+    {
+      "sourceId": "src-tlv75533pdbvr-ds-p23",
+      "url": "https://www.ti.com/lit/ds/symlink/tlv755p.pdf",
+      "decision": "ALLOW",
+      "reason": "ABSOLUTE_HTTP_URL"
+    },
+    {
+      "sourceId": "src-tlv75533pdbvr-ds-p28",
+      "url": "https://www.ti.com/lit/ds/symlink/tlv755p.pdf",
+      "decision": "ALLOW",
+      "reason": "ABSOLUTE_HTTP_URL"
+    },
+    {
+      "sourceId": "src-tlv75533pdbvr-ds-p3",
+      "url": "https://www.ti.com/lit/ds/symlink/tlv755p.pdf",
+      "decision": "ALLOW",
+      "reason": "ABSOLUTE_HTTP_URL"
+    },
+    {
+      "sourceId": "src-tlv75533pdbvr-ds-p4",
+      "url": "https://www.ti.com/lit/ds/symlink/tlv755p.pdf",
+      "decision": "ALLOW",
+      "reason": "ABSOLUTE_HTTP_URL"
+    },
+    {
+      "sourceId": "src-tlv75533pdbvr-ds-p5",
+      "url": "https://www.ti.com/lit/ds/symlink/tlv755p.pdf",
+      "decision": "ALLOW",
+      "reason": "ABSOLUTE_HTTP_URL"
+    },
+    {
+      "sourceId": "src-tlv9001idbvr-a5-jlcpcb-snapshot",
+      "url": "",
+      "decision": "DENY",
+      "reason": "SOURCE_NOT_LINKABLE"
+    },
+    {
+      "sourceId": "src-tlv9001idbvr-a5-netlist-controller",
+      "url": "https://github.com/Takazudo/zudo-led-block/blob/d41cbb7fc61dc954b4affaf19527aa69f07013b6/engineering/a5/integration/native_schematic/controller/netlist.xml",
+      "decision": "ALLOW",
+      "reason": "ABSOLUTE_HTTP_URL"
+    },
+    {
+      "sourceId": "src-tlv9001idbvr-ds-p14",
+      "url": "https://www.ti.com/lit/ds/symlink/tlv9001.pdf",
+      "decision": "ALLOW",
+      "reason": "ABSOLUTE_HTTP_URL"
+    },
+    {
+      "sourceId": "src-tlv9001idbvr-ds-p17",
+      "url": "https://www.ti.com/lit/ds/symlink/tlv9001.pdf",
+      "decision": "ALLOW",
+      "reason": "ABSOLUTE_HTTP_URL"
+    },
+    {
+      "sourceId": "src-tlv9001idbvr-ds-p40",
+      "url": "https://www.ti.com/lit/ds/symlink/tlv9001.pdf",
+      "decision": "ALLOW",
+      "reason": "ABSOLUTE_HTTP_URL"
+    },
+    {
+      "sourceId": "src-tlv9001idbvr-ds-p7",
+      "url": "https://www.ti.com/lit/ds/symlink/tlv9001.pdf",
+      "decision": "ALLOW",
+      "reason": "ABSOLUTE_HTTP_URL"
+    },
+    {
+      "sourceId": "src-tps2552dbvr-1-a5-jlcpcb-snapshot",
+      "url": "",
+      "decision": "DENY",
+      "reason": "SOURCE_NOT_LINKABLE"
+    },
+    {
+      "sourceId": "src-tps2552dbvr-1-a5-netlist-controller",
+      "url": "https://github.com/Takazudo/zudo-led-block/blob/d41cbb7fc61dc954b4affaf19527aa69f07013b6/engineering/a5/integration/native_schematic/controller/netlist.xml",
+      "decision": "ALLOW",
+      "reason": "ABSOLUTE_HTTP_URL"
+    },
+    {
+      "sourceId": "src-tps2552dbvr-1-ds-p16",
+      "url": "https://www.ti.com/lit/ds/symlink/tps2552.pdf",
+      "decision": "ALLOW",
+      "reason": "ABSOLUTE_HTTP_URL"
+    },
+    {
+      "sourceId": "src-tps2552dbvr-1-ds-p17",
+      "url": "https://www.ti.com/lit/ds/symlink/tps2552.pdf",
+      "decision": "ALLOW",
+      "reason": "ABSOLUTE_HTTP_URL"
+    },
+    {
+      "sourceId": "src-tps2552dbvr-1-ds-p18",
+      "url": "https://www.ti.com/lit/ds/symlink/tps2552.pdf",
+      "decision": "ALLOW",
+      "reason": "ABSOLUTE_HTTP_URL"
+    },
+    {
+      "sourceId": "src-tps2552dbvr-1-ds-p29",
+      "url": "https://www.ti.com/lit/ds/symlink/tps2552.pdf",
+      "decision": "ALLOW",
+      "reason": "ABSOLUTE_HTTP_URL"
+    },
+    {
+      "sourceId": "src-tps2552dbvr-1-ds-p3",
+      "url": "https://www.ti.com/lit/ds/symlink/tps2552.pdf",
+      "decision": "ALLOW",
+      "reason": "ABSOLUTE_HTTP_URL"
+    },
+    {
+      "sourceId": "src-tps2552dbvr-1-ds-p4",
+      "url": "https://www.ti.com/lit/ds/symlink/tps2552.pdf",
+      "decision": "ALLOW",
+      "reason": "ABSOLUTE_HTTP_URL"
+    },
+    {
+      "sourceId": "src-tps2552dbvr-1-ds-p5",
+      "url": "https://www.ti.com/lit/ds/symlink/tps2552.pdf",
+      "decision": "ALLOW",
+      "reason": "ABSOLUTE_HTTP_URL"
+    },
+    {
+      "sourceId": "src-ws2812b-2020-v6-a5-jlcpcb-snapshot",
+      "url": "",
+      "decision": "DENY",
+      "reason": "SOURCE_NOT_LINKABLE"
+    },
+    {
+      "sourceId": "src-ws2812b-2020-v6-a5-netlist-led-leaf",
+      "url": "https://github.com/Takazudo/zudo-led-block/blob/d41cbb7fc61dc954b4affaf19527aa69f07013b6/engineering/a5/integration/native_schematic/led_leaf/netlist.xml",
+      "decision": "ALLOW",
+      "reason": "ABSOLUTE_HTTP_URL"
+    }
+  ],
   "counts": {
-    "generatedPages": 4,
-    "publishedCoverageDomains": 0,
-    "publishedFacts": 0,
+    "generatedPages": 34,
+    "publishedCoverageDomains": 150,
+    "publishedFacts": 211,
     "publishedIntegrationRules": 0,
     "publishedInteractions": 0,
-    "publishedPinMaps": 0,
-    "publishedRecords": 0,
-    "publishedSources": 0
+    "publishedPinMaps": 30,
+    "publishedRecords": 30,
+    "publishedSources": 90
   }
 }

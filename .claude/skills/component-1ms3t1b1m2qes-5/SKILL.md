@@ -20,7 +20,7 @@ datasheet of another variant or same-name vendor data.
 
 ## Human component reference
 
-Human projection of this bundle: [rec-1ms3t1b1m2qes-5](/docs/components/records/1ms3t1b1m2qes-5/).
+Human projection of this bundle: [rec-dailywell-1ms3t1b1m2qes-5](/docs/components/records/dailywell-1ms3t1b1m2qes-5/).
 See also the [component catalog](/docs/components/catalog/) and
 [cross-component rules](/docs/components/integration/). These pages are generated from this
 bundle's JSON files and add nothing to them.

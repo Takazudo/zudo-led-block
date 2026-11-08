@@ -5,41 +5,40 @@
       "coverage_id": "cov-opa197idbvr-identity",
       "record_id": "rec-opa197idbvr",
       "domain": "identity",
-      "status": "OPEN",
-      "reason": "fact-opa197idbvr-manufacturer remains UNSOURCED: only distributor identity is retained; no manufacturer-primary document inspected",
+      "status": "COVERED",
+      "reason": "manufacturer and exact orderable confirmed from the manufacturer-hosted datasheet (MANUFACTURER_PRIMARY, bytes inspected 2026-11-08); distributor identity retained as order-code evidence",
       "fact_ids": [
         "fact-opa197idbvr-manufacturer",
-        "fact-opa197idbvr-distributor-identity"
+        "fact-opa197idbvr-distributor-identity",
+        "fact-opa197idbvr-orderable"
       ],
-      "blocking_fact_ids": [
-        "fact-opa197idbvr-manufacturer"
-      ]
+      "blocking_fact_ids": []
     },
     {
       "coverage_id": "cov-opa197idbvr-pinout",
       "record_id": "rec-opa197idbvr",
       "domain": "pinout",
-      "status": "OPEN",
-      "reason": "fact-opa197idbvr-pinout remains UNSOURCED: the pin map is projected from the historical A5 netlist and has not been checked against a manufacturer document",
+      "status": "COVERED",
+      "reason": "datasheet pin table for the exact package inspected and compared with the project pin map: matches by number and function",
       "fact_ids": [
         "fact-opa197idbvr-pinout"
       ],
-      "blocking_fact_ids": [
-        "fact-opa197idbvr-pinout"
-      ]
+      "blocking_fact_ids": []
     },
     {
       "coverage_id": "cov-opa197idbvr-ratings",
       "record_id": "rec-opa197idbvr",
       "domain": "electrical-ratings",
-      "status": "OPEN",
-      "reason": "fact-opa197idbvr-ratings remains UNSOURCED: no manufacturer limits retained",
+      "status": "COVERED",
+      "reason": "absolute-maximum, recommended-operation and design-relevant characteristics recorded from the manufacturer-hosted datasheet; this is manufacturer data only, not a design-margin or safety verdict",
       "fact_ids": [
-        "fact-opa197idbvr-ratings"
+        "fact-opa197idbvr-ratings",
+        "fact-opa197idbvr-abs-max-input-voltage",
+        "fact-opa197idbvr-abs-max-input-current",
+        "fact-opa197idbvr-roc-vs",
+        "fact-opa197idbvr-vcm-range"
       ],
-      "blocking_fact_ids": [
-        "fact-opa197idbvr-ratings"
-      ]
+      "blocking_fact_ids": []
     },
     {
       "coverage_id": "cov-opa197idbvr-placement",

@@ -5,41 +5,42 @@
       "coverage_id": "cov-tlv75533pdbvr-identity",
       "record_id": "rec-tlv75533pdbvr",
       "domain": "identity",
-      "status": "OPEN",
-      "reason": "fact-tlv75533pdbvr-manufacturer remains UNSOURCED: only distributor identity is retained; no manufacturer-primary document inspected",
+      "status": "COVERED",
+      "reason": "manufacturer and exact orderable confirmed from the manufacturer-hosted datasheet (MANUFACTURER_PRIMARY, bytes inspected 2026-11-08); distributor identity retained as order-code evidence",
       "fact_ids": [
         "fact-tlv75533pdbvr-manufacturer",
-        "fact-tlv75533pdbvr-distributor-identity"
+        "fact-tlv75533pdbvr-distributor-identity",
+        "fact-tlv75533pdbvr-orderable",
+        "fact-tlv75533pdbvr-vout-nominal"
       ],
-      "blocking_fact_ids": [
-        "fact-tlv75533pdbvr-manufacturer"
-      ]
+      "blocking_fact_ids": []
     },
     {
       "coverage_id": "cov-tlv75533pdbvr-pinout",
       "record_id": "rec-tlv75533pdbvr",
       "domain": "pinout",
-      "status": "OPEN",
-      "reason": "fact-tlv75533pdbvr-pinout remains UNSOURCED: the pin map is projected from the historical A5 netlist and has not been checked against a manufacturer document",
+      "status": "COVERED",
+      "reason": "datasheet pin table for the exact package inspected and compared with the project pin map: matches by number and function",
       "fact_ids": [
         "fact-tlv75533pdbvr-pinout"
       ],
-      "blocking_fact_ids": [
-        "fact-tlv75533pdbvr-pinout"
-      ]
+      "blocking_fact_ids": []
     },
     {
       "coverage_id": "cov-tlv75533pdbvr-ratings",
       "record_id": "rec-tlv75533pdbvr",
       "domain": "electrical-ratings",
-      "status": "OPEN",
-      "reason": "fact-tlv75533pdbvr-ratings remains UNSOURCED: no manufacturer limits retained",
+      "status": "COVERED",
+      "reason": "absolute-maximum, recommended-operation and design-relevant characteristics recorded from the manufacturer-hosted datasheet; this is manufacturer data only, not a design-margin or safety verdict",
       "fact_ids": [
-        "fact-tlv75533pdbvr-ratings"
+        "fact-tlv75533pdbvr-ratings",
+        "fact-tlv75533pdbvr-abs-max-en",
+        "fact-tlv75533pdbvr-roc-vin",
+        "fact-tlv75533pdbvr-roc-iout",
+        "fact-tlv75533pdbvr-output-accuracy",
+        "fact-tlv75533pdbvr-current-limit"
       ],
-      "blocking_fact_ids": [
-        "fact-tlv75533pdbvr-ratings"
-      ]
+      "blocking_fact_ids": []
     },
     {
       "coverage_id": "cov-tlv75533pdbvr-placement",

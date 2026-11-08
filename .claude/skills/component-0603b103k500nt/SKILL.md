@@ -20,7 +20,7 @@ datasheet of another variant or same-name vendor data.
 
 ## Human component reference
 
-Human projection of this bundle: [rec-0603b103k500nt](/docs/components/records/0603b103k500nt/).
+Human projection of this bundle: [rec-fh-0603b103k500nt](/docs/components/records/fh-0603b103k500nt/).
 See also the [component catalog](/docs/components/catalog/) and
 [cross-component rules](/docs/components/integration/). These pages are generated from this
 bundle's JSON files and add nothing to them.

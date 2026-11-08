@@ -5,41 +5,41 @@
       "coverage_id": "cov-sn74lvc2t45dcur-identity",
       "record_id": "rec-sn74lvc2t45dcur",
       "domain": "identity",
-      "status": "OPEN",
-      "reason": "fact-sn74lvc2t45dcur-manufacturer remains UNSOURCED: only distributor identity is retained; no manufacturer-primary document inspected",
+      "status": "COVERED",
+      "reason": "manufacturer and exact orderable confirmed from the manufacturer-hosted datasheet (MANUFACTURER_PRIMARY, bytes inspected 2026-11-08); distributor identity retained as order-code evidence",
       "fact_ids": [
         "fact-sn74lvc2t45dcur-manufacturer",
-        "fact-sn74lvc2t45dcur-distributor-identity"
+        "fact-sn74lvc2t45dcur-distributor-identity",
+        "fact-sn74lvc2t45dcur-orderable"
       ],
-      "blocking_fact_ids": [
-        "fact-sn74lvc2t45dcur-manufacturer"
-      ]
+      "blocking_fact_ids": []
     },
     {
       "coverage_id": "cov-sn74lvc2t45dcur-pinout",
       "record_id": "rec-sn74lvc2t45dcur",
       "domain": "pinout",
-      "status": "OPEN",
-      "reason": "fact-sn74lvc2t45dcur-pinout remains UNSOURCED: the pin map is projected from the historical A5 netlist and has not been checked against a manufacturer document",
+      "status": "COVERED",
+      "reason": "datasheet pin table for the exact package inspected and compared with the project pin map: matches by number and function",
       "fact_ids": [
         "fact-sn74lvc2t45dcur-pinout"
       ],
-      "blocking_fact_ids": [
-        "fact-sn74lvc2t45dcur-pinout"
-      ]
+      "blocking_fact_ids": []
     },
     {
       "coverage_id": "cov-sn74lvc2t45dcur-ratings",
       "record_id": "rec-sn74lvc2t45dcur",
       "domain": "electrical-ratings",
-      "status": "OPEN",
-      "reason": "fact-sn74lvc2t45dcur-ratings remains UNSOURCED: no manufacturer limits retained",
+      "status": "COVERED",
+      "reason": "absolute-maximum, recommended-operation and design-relevant characteristics recorded from the manufacturer-hosted datasheet; this is manufacturer data only, not a design-margin or safety verdict",
       "fact_ids": [
-        "fact-sn74lvc2t45dcur-ratings"
+        "fact-sn74lvc2t45dcur-ratings",
+        "fact-sn74lvc2t45dcur-abs-max-vi",
+        "fact-sn74lvc2t45dcur-roc-vcc",
+        "fact-sn74lvc2t45dcur-dir-reference",
+        "fact-sn74lvc2t45dcur-dir-function",
+        "fact-sn74lvc2t45dcur-ioff"
       ],
-      "blocking_fact_ids": [
-        "fact-sn74lvc2t45dcur-ratings"
-      ]
+      "blocking_fact_ids": []
     },
     {
       "coverage_id": "cov-sn74lvc2t45dcur-placement",

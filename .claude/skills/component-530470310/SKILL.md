@@ -20,7 +20,7 @@ datasheet of another variant or same-name vendor data.
 
 ## Human component reference
 
-Human projection of this bundle: [rec-530470310](/docs/components/records/530470310/).
+Human projection of this bundle: [rec-molex-530470310](/docs/components/records/molex-530470310/).
 See also the [component catalog](/docs/components/catalog/) and
 [cross-component rules](/docs/components/integration/). These pages are generated from this
 bundle's JSON files and add nothing to them.

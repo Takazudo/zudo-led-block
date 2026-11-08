@@ -650,6 +650,265 @@ def cmd_scaffold(args) -> int:
     return 0
 
 
+# --- publication selection -------------------------------------------------------------------
+
+
+def load_bundle(owner: str):
+    directory = SKILLS / owner
+    return {name: load_json(directory / f"{name}.json") for name in ("manifest", "sources", "facts", "coverage", "routing", "interactions", "pin-map")}
+
+
+def is_reviewed_pdf(source) -> bool:
+    return (
+        source["availability"] == "AVAILABLE"
+        and source["authority_class"] == "MANUFACTURER_PRIMARY"
+        and source.get("document_format", "pdf") == "pdf"
+        and source["sha256"] != ZERO
+    )
+
+
+def document_exception_reason(sources) -> str:
+    reviewed = []
+    for source in sources:
+        if source["authority_class"] in ("PROJECT_GENERATOR",):
+            continue
+        reviewed.append(f"{source['document_title']} ({source['authority_class']}, {source['availability']})")
+    unique = list(dict.fromkeys(reviewed))
+    return (
+        "No manufacturer-primary document for this exact orderable is retained in the evidence. Reviewed: "
+        + "; ".join(unique)
+        + ". Distributor listings establish order identity only, and a distributor-hosted mirror is lower authority, so neither is published as a manufacturer document."
+    )
+
+
+def propose_selection(report):
+    record_ids, source_ids, linkable, selections, exceptions = [], [], [], [], []
+    for identity in report["identities"]:
+        bundle = load_bundle(identity["owner_skill"])
+        record = bundle["manifest"]["records"][0]
+        sources = bundle["sources"]["sources"]
+        record_ids.append(record["record_id"])
+        for source in sources:
+            source_ids.append(source["source_id"])
+            if source["availability"] == "AVAILABLE" and source["authority_class"] in ("MANUFACTURER_PRIMARY", "PROJECT_GENERATOR"):
+                linkable.append(source["source_id"])
+        pdfs = sorted((s for s in sources if is_reviewed_pdf(s)), key=lambda s: (s["physical_pdf_page_index"], s["source_id"]))
+        if pdfs:
+            chosen = pdfs[0]
+            kind = "drawing" if re.search(r"drawing", chosen["document_title"], re.I) else "datasheet"
+            selections.append({"recordId": record["record_id"], "sourceId": chosen["source_id"], "documentKind": kind})
+        else:
+            exceptions.append({"recordId": record["record_id"], "reason": document_exception_reason(sources)})
+    rules = load_json(SKILLS / "circuit-spec-integration" / "references" / "rules.json")["rules"]
+    return {
+        "schema_version": 1,
+        "recordIds": record_ids,
+        "sourceIds": source_ids,
+        "linkableSourceIds": linkable,
+        "documentSelections": selections,
+        "documentExceptions": exceptions,
+        "expect": {"records": len(record_ids), "sources": len(source_ids), "integrationRules": len(rules), "packages": 0},
+    }
+
+
+def cmd_selection(args) -> int:
+    report = load_json(RECONCILIATION)
+    proposed = dump(propose_selection(report))
+    current = SELECTION.read_text(encoding="utf-8")
+    if args.check:
+        if current != proposed:
+            print(f"FAIL: {rel(SELECTION)} differs from the selection derived from the evidence; run `python3 scripts/a5_catalog.py selection` and review the diff", file=sys.stderr)
+            return 1
+        print(f"PASS: {rel(SELECTION)} matches the evidence-derived selection")
+        return 0
+    SELECTION.write_text(proposed, encoding="utf-8")
+    print(f"wrote {rel(SELECTION)}; review the diff")
+    return 0
+
+
+# --- consistency check -----------------------------------------------------------------------
+
+
+def projected_pins(identity):
+    first = identity["placements"][0]
+    pins = []
+    for pin in first["pins"]:
+        nets = "; ".join(
+            f"{p['board']}/{p['refdes']}={next(x['net'] for x in p['pins'] if x['num'] == pin['num']) or 'unconnected'}"
+            for p in identity["placements"]
+        )
+        pins.append({"symbol_pin": pin["num"], "name": pin["name"], "footprint_pad": pin["num"], "function": f"{pin['type']}; A5 nets: {nets}"})
+    return pins
+
+
+def catalog_problems():
+    problems = []
+    report, recon_problems = build_reconciliation()
+    problems += recon_problems
+    if not RECONCILIATION.is_file() or RECONCILIATION.read_text(encoding="utf-8") != dump(report):
+        problems.append(f"{rel(RECONCILIATION)} is missing or stale")
+    identities = {i["lcsc"]: i for i in report["identities"]}
+    alternatives = set(report["excluded_from_counts"]["procurement_alternatives_not_fitted"]) | set(report["excluded_from_counts"]["evidence_snapshot_codes_not_fitted"])
+    inputs_by_path = {item["path"]: item["sha256"] for item in report["inputs"]}
+
+    inventory = load_json(INVENTORY)
+    lines = inventory["lines"]
+    codes = [line["lcsc"] for line in lines]
+    for code, count in Counter(codes).items():
+        if count > 1:
+            problems.append(f"inventory: duplicate fitted identity {code}")
+    for code in sorted(set(identities) - set(codes)):
+        problems.append(f"inventory: missing fitted identity {code} {identities[code]['mpn']}")
+    for line in lines:
+        code = line["lcsc"]
+        if code in alternatives or line["mpn"] in FORBIDDEN_FITTED_MPNS:
+            problems.append(f"inventory: alternative/non-fitted identity {code} {line['mpn']} present")
+        identity = identities.get(code)
+        if identity is None:
+            problems.append(f"inventory: unexpected identity {code} {line['mpn']}")
+            continue
+        for key in ("line_id", "mpn", "manufacturer", "package", "owner_skill", "function"):
+            if line[key] != identity[key]:
+                problems.append(f"inventory {code}: {key} {line[key]!r} != reconciled {identity[key]!r}")
+        if line["dnp"] is not False or line.get("mounting", "pcb") != "pcb":
+            problems.append(f"inventory {code}: must be a fitted PCB line")
+        want = [{"board": p["board"], "refdes": p["refdes"]} for p in identity["placements"]]
+        if line["placements"] != want:
+            problems.append(f"inventory {code}: placements {line['placements']} != reconciled {want}")
+        if (SKILLS / line["owner_skill"]).is_dir() and (line["identity_state"], line["source_state"]) != evidence_states(line["owner_skill"]):
+            problems.append(f"inventory {code}: identity/source state {line['identity_state']}/{line['source_state']} lags the evidence {evidence_states(line['owner_skill'])} (run `python3 scripts/a5_catalog.py sync-states`)")
+        suppliers = {(s["supplier"], s["order_code"]) for s in line.get("suppliers", [])}
+        if suppliers != {("JLCPCB", code), ("LCSC", code)}:
+            problems.append(f"inventory {code}: supplier order codes {sorted(suppliers)}")
+    totals = report["totals"]
+    expected_assertions = {"orderable_lines": totals["identities"], "fitted_lines": totals["identities"], "dnp_or_hand_fit_lines": 0,
+                           "fitted_placements": totals["unique_placements"], "dnp_placements": 0}
+    if inventory["assertions"] != expected_assertions:
+        problems.append(f"inventory assertions {inventory['assertions']} != {expected_assertions}")
+    excluded = {(x["board"], x["refdes"]) for x in report["excluded_from_counts"]["netlist_items_without_identity"]}
+    if {(x["board"], x["refdes"]) for x in inventory["exclusions"]} != excluded:
+        problems.append("inventory exclusions differ from the reconciled test-pad exclusions")
+
+    owners = {i["owner_skill"] for i in identities.values()}
+    for directory in sorted(SKILLS.glob("component-*")):
+        if directory.name not in owners and directory.name != "component-spec-audit":
+            problems.append(f"bundle {directory.name}: not a reconciled fitted identity")
+    for code, identity in sorted(identities.items()):
+        owner = identity["owner_skill"]
+        if not (SKILLS / owner).is_dir():
+            problems.append(f"{code}: owner bundle {owner} missing")
+            continue
+        bundle = load_bundle(owner)
+        records = bundle["manifest"]["records"]
+        if len(records) != 1:
+            problems.append(f"{owner}: expected exactly one record")
+            continue
+        record = records[0]
+        for key, want in (("record_id", identity["record_id"]), ("line_id", identity["line_id"]), ("mpn", identity["mpn"]),
+                          ("manufacturer", identity["manufacturer"]), ("lcsc", code), ("package", identity["package"])):
+            if record[key] != want:
+                problems.append(f"{owner}: record {key} {record[key]!r} != {want!r}")
+        facts = {f["fact_id"]: f for f in bundle["facts"]["facts"]}
+        sources = {s["source_id"]: s for s in bundle["sources"]["sources"]}
+        s = suffix_of(identity)
+        ident = facts.get(f"fact-{s}-distributor-identity")
+        if not ident or ident["verdict"] != "CONFIRMED - distributor identity only" or ident["value"].get("mpn") != identity["mpn"] or ident["value"].get("lcsc") != code:
+            problems.append(f"{owner}: distributor identity fact missing or changed")
+        else:
+            src = sources[ident["source_id"]]
+            snap_hashes = {snap["sha256"] for snap in identity["identity_snapshots"]}
+            listing = identity["lcsc_listing"] or {}
+            if src["sha256"] not in snap_hashes | {listing.get("html_sha256")}:
+                problems.append(f"{owner}: distributor identity source hash {src['sha256']} matches no reconciled observation")
+        placement = facts.get(f"fact-{s}-a5-placements")
+        if not placement or placement["verdict"] != "NEEDS BENCH":
+            problems.append(f"{owner}: A5 placement fact must stay NEEDS BENCH (declared, not bound or as-built verified)")
+        for board in {p["board"] for p in identity["placements"]}:
+            src = sources.get(f"src-{s}-a5-netlist-{board.replace('_', '-')}")
+            path = f"engineering/a5/{NETLISTS[board]}"
+            if not src or src["sha256"] != inputs_by_path[path]:
+                problems.append(f"{owner}: A5 {board} netlist source missing or hash differs from {path}")
+        maps = bundle["pin-map"]["pin_maps"]
+        if len(maps) != 1:
+            problems.append(f"{owner}: expected one pin map")
+        else:
+            pin_map = maps[0]
+            if pin_map["symbol"] != identity["symbol"] or pin_map["footprint"] != identity["placements"][0]["footprint"]:
+                problems.append(f"{owner}: pin map symbol/footprint differ from the A5 netlist")
+            got = [{k: pin[k] for k in ("symbol_pin", "name", "footprint_pad", "function")} for pin in pin_map["pins"]]
+            if got != projected_pins(identity):
+                problems.append(f"{owner}: pin map differs from the A5 netlist projection (pins, names, pads or nets)")
+        for fact in facts.values():
+            if fact["verdict"] == "PASS - primary-source confirmed" and fact["provenance"] == "PRIMARY-SPEC":
+                src = sources[fact["source_id"]]
+                if src["authority_class"] != "MANUFACTURER_PRIMARY" or src["availability"] != "AVAILABLE":
+                    problems.append(f"{owner}: {fact['fact_id']} PASS without an available manufacturer-primary source")
+
+    routing = load_json(DIRECT_ROUTING)
+    if sorted(case["line_id"] for case in routing["cases"]) != sorted(i["line_id"] for i in identities.values()):
+        problems.append("direct routing: cases differ from the reconciled lines")
+
+    selection = load_json(SELECTION)
+    proposed = propose_selection(report)
+    if dump(selection) != dump(proposed):
+        problems.append("circuit/publication/selection.json differs from the evidence-derived selection (run `python3 scripts/a5_catalog.py selection`)")
+    if selection["expect"]["records"] != totals["identities"]:
+        problems.append("selection: expect.records must equal the reconciled identity count")
+
+    bom = (ROOT / "doc" / "src" / "content" / "docs" / "architecture" / "bom.mdx").read_text(encoding="utf-8")
+    for code in identities:
+        if code not in bom:
+            problems.append(f"BOM page: fitted identity {code} missing (catalog/BOM correspondence)")
+    records_dir = ROOT / "doc" / "src" / "content" / "docs" / "components" / "records"
+    for identity in identities.values():
+        slug = identity["record_id"][len("rec-"):]
+        if not any(records_dir.glob(f"{slug}.mdx")) and not (records_dir / slug).exists():
+            problems.append(f"generated record page for {identity['record_id']} missing (run pnpm circuit:generate)")
+    return problems, report
+
+
+def evidence_states(owner: str):
+    """(identity_state, source_state) the owner bundle supports, mirroring the framework's summary-lag rule."""
+    bundle = load_bundle(owner)
+    sources = {s["source_id"]: s for s in bundle["sources"]["sources"]}
+    facts = bundle["facts"]["facts"]
+    source_state = "AVAILABLE" if sources and all(s["availability"] == "AVAILABLE" for s in sources.values()) else "SOURCE UNAVAILABLE"
+    verified = any(
+        f["fact_id"].endswith("-manufacturer") and f["provenance"] == "PRIMARY-SPEC" and f["verdict"] == "PASS - primary-source confirmed"
+        and sources[f["source_id"]]["availability"] == "AVAILABLE" and sources[f["source_id"]]["authority_class"] == "MANUFACTURER_PRIMARY"
+        for f in facts
+    )
+    return ("VERIFIED" if verified else "UNRESOLVED"), source_state
+
+
+def cmd_sync_states(args) -> int:
+    inventory = load_json(INVENTORY)
+    changed = []
+    for line in inventory["lines"]:
+        identity_state, source_state = evidence_states(line["owner_skill"])
+        if (line["identity_state"], line["source_state"]) != (identity_state, source_state):
+            changed.append(f"{line['line_id']}: {line['identity_state']}/{line['source_state']} -> {identity_state}/{source_state}")
+            line["identity_state"], line["source_state"] = identity_state, source_state
+    INVENTORY.write_text(dump(inventory), encoding="utf-8")
+    print("\n".join(changed) or "inventory states already match the evidence")
+    return 0
+
+
+def cmd_check(args) -> int:
+    problems, report = catalog_problems()
+    for problem in problems:
+        print(f"FAIL: {problem}", file=sys.stderr)
+    t = report["totals"]
+    if problems:
+        print(f"FAIL: A5 catalog consistency ({len(problems)} problems)")
+        return 1
+    print(f"PASS: A5 catalog consistency: {t['identities']} fitted identities = inventory lines = owner bundles = published records; "
+          f"{t['unique_placements']} declared placements (59/10/2), {t['physical_pieces']} fitted pieces with the LED-leaf x2 multiplier; "
+          "pin maps equal the historical A5 netlist projection; selection equals the evidence-derived selection")
+    print("SCOPE: placements and pin maps are historical A5 netlist projections (manual provider, no schematic binding; CAD disabled)")
+    return 0
+
+
 def main(argv=None) -> int:
     parser = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     sub = parser.add_subparsers(dest="command", required=True)
@@ -660,6 +919,13 @@ def main(argv=None) -> int:
     p.add_argument("codes", nargs="*")
     p.add_argument("--all", action="store_true")
     p.set_defaults(func=cmd_scaffold)
+    p = sub.add_parser("selection")
+    p.add_argument("--check", action="store_true")
+    p.set_defaults(func=cmd_selection)
+    p = sub.add_parser("sync-states")
+    p.set_defaults(func=cmd_sync_states)
+    p = sub.add_parser("check")
+    p.set_defaults(func=cmd_check)
     args = parser.parse_args(argv)
     return args.func(args)
 

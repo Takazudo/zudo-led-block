@@ -13,7 +13,11 @@
       "package": "SOT-23-5",
       "source_ids": [
         "src-tlv9001idbvr-a5-jlcpcb-snapshot",
-        "src-tlv9001idbvr-a5-netlist-controller"
+        "src-tlv9001idbvr-a5-netlist-controller",
+        "src-tlv9001idbvr-ds-p7",
+        "src-tlv9001idbvr-ds-p14",
+        "src-tlv9001idbvr-ds-p17",
+        "src-tlv9001idbvr-ds-p40"
       ],
       "fact_ids": [
         "fact-tlv9001idbvr-manufacturer",
@@ -21,13 +25,15 @@
         "fact-tlv9001idbvr-a5-placements",
         "fact-tlv9001idbvr-pinout",
         "fact-tlv9001idbvr-ratings",
-        "fact-tlv9001idbvr-cad-state"
+        "fact-tlv9001idbvr-cad-state",
+        "fact-tlv9001idbvr-orderable",
+        "fact-tlv9001idbvr-abs-max-input-voltage",
+        "fact-tlv9001idbvr-abs-max-input-current",
+        "fact-tlv9001idbvr-roc-vs",
+        "fact-tlv9001idbvr-vcm-range"
       ],
       "interaction_ids": [],
       "open_domains": [
-        "identity",
-        "pinout",
-        "electrical-ratings",
         "placement",
         "cad-assets"
       ]
