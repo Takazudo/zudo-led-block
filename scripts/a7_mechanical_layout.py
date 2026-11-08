@@ -32,9 +32,9 @@ REPORT = MECH / "layout.md"
 ENVELOPES = MECH / "placement-envelopes.json"
 R4_PLACEMENT = MECH / "inputs" / "r4-board-placement-routed.json"
 R4_CHECK = MECH / "r4-placement-check.json"
-# Vendored unchanged from R4 (#19) PR #30, branch claude/project-thread-rhjln2, head e2a2219: routed-board export after layout review (authority.py export-placement).
+# Vendored unchanged from R4 (#19) PR #30 (merged at eb8adeb), head e2a2219: routed-board export after layout review (authority.py export-placement).
 R4_PLACEMENT_SOURCE = {"pr": 30, "branch": "claude/project-thread-rhjln2", "head": "e2a221936bc39321f4054ac3a44b3176a1bb2705",
-                       "path": "engineering/a7/electronics/controller/board_placement.json", "status": "ROUTED, PR #30 not merged"}
+                       "path": "engineering/a7/electronics/controller/board_placement.json", "status": "ROUTED, PR #30 merged at eb8adeb (board ec810aec); fit check merged in #33"}
 SKILLS = REPO / ".claude" / "skills"
 SWITCH_FACTS = SKILLS / "component-a7-pcm13smtr" / "facts.json"
 JACK_FACTS = SKILLS / "component-a7-pj-324m" / "facts.json"
@@ -150,6 +150,71 @@ def solve(fn, lo, hi, target, n=80):
         else:
             hi = mid
     return (lo + hi) / 2
+
+
+def leaf_comparison(d, l5, z_stack):
+    """FR-4 (A5) leaf versus a clear PET FPC leaf on a clear carrier: stack, stiffness, buckling under the SH mating push, fit in the A5 caps."""
+    lv = d["leaf_variants"]
+    f4, pe = lv["fr4"], lv["pet"]
+    depth = l5["depth"]
+    span = lv["sh_header_span_to_cap"]["nominal"]
+    slot_width = 1.6  # A5 cap slot cut xc +/- 0.8 (build_mechanical.py, kept in A7)
+
+    def layers_fr4():
+        t, b, e = f4["board_thickness"]["nominal"], f4["bond_line"]["nominal"], f4["flexural_modulus_mpa"]["nominal"]
+        return [(b / 2, b / 2 + t, e, "FR-4")], b / 2 + t
+
+    def layers_pet():
+        tc, ec = pe["carrier"]["thickness"]["nominal"], pe["carrier"]["modulus_mpa"]["nominal"]
+        ta, tf, ef = pe["adhesive"]["thickness"]["nominal"], pe["film"]["finished_thickness"]["nominal"], pe["film"]["modulus_mpa"]["nominal"]
+        z0 = tc / 2 + ta
+        return [(0.0, tc / 2, ec, "carrier"), (z0, z0 + tf, ef, "PET film")], z0 + tf
+
+    def stack(layers, half, composite_layers):
+        # flexural rigidity per mm of leaf depth (N mm), symmetric about the bond/carrier mid-plane
+        bonded = sum(2 * e * (z1 ** 3 - z0 ** 3) / 3 for z0, z1, e, _ in layers)
+        loose = sum((2 if z0 > 0 else 1) * e * ((z1 - z0) * (2 if z0 == 0 else 1)) ** 3 / 12 for z0, z1, e, _ in layers)
+        d_low = bonded if composite_layers else loose
+        out = {"total_thickness": r(2 * half), "outer_face_offset_from_centre": r(half),
+               "rigidity_per_mm_bonded_nmm": r(bonded), "rigidity_per_mm_lower_bound_nmm": r(d_low)}
+        for tag, dd in (("lower_bound", d_low), ("bonded", bonded)):
+            ei = dd * depth
+            out[f"buckling_load_{tag}_n"] = {"fixed_free_K2": r(math.pi ** 2 * ei / (2 * span) ** 2), "fixed_pinned_K0.7": r(math.pi ** 2 * ei / (0.7 * span) ** 2)}
+        out["cap_slot_clearance_per_side"] = r((slot_width - 2 * half) / 2)
+        return out
+
+    lf, hf = layers_fr4()
+    lp, hp = layers_pet()
+    fr4 = stack(lf, hf, True)  # the A5 FR-4 boards are bonded rigidly enough to count as one section
+    pet = stack(lp, hp, False)
+    tf, ef = pe["film"]["finished_thickness"]["nominal"], pe["film"]["modulus_mpa"]["nominal"]
+    film_alone = math.pi ** 2 * ef * depth * tf ** 3 / 12 / (2 * span) ** 2
+    shift = r(hp - hf)
+    return {
+        "status": "Digital comparison only; FR-4 stays the default leaf. Values marked INFERRED are typical material figures, not supplier data.",
+        "default": lv["default"],
+        "inputs": {"fr4": f4, "pet": pe, "sh_header_span_to_cap": span, "sh_mating_force_n": lv["sh_mating_force_n"], "leaf_depth": depth,
+                   "cap_slot_width": slot_width},
+        "fr4": fr4, "pet": pet,
+        "pet_film_alone_buckling_load_fixed_free_n": r(film_alone),
+        "rigidity_ratio_fr4_to_pet": {"lower_bound": r(fr4["rigidity_per_mm_bonded_nmm"] / pet["rigidity_per_mm_lower_bound_nmm"]),
+                                      "bonded": r(fr4["rigidity_per_mm_bonded_nmm"] / pet["rigidity_per_mm_bonded_nmm"])},
+        "outer_face_shift_pet_minus_fr4": shift,
+        "optical": {"leaf_outline_unchanged": True, "leaf_z": l5["z"], "led_and_connector_shift_toward_centre": r(-shift),
+                    "corridor_unchanged": "A5 corridor X limits (xc +/- 1.25 to the diffuser) are kept; the LED emitting faces move by the face shift",
+                    "transmittance": pe["film"]["transmittance"]},
+        "rear_pocket": {"pmma_rear_z": z_stack["pmma_rear_z"], "rear_pocket_depth": z_stack["rear_pocket_depth"], "leaf_front_z": l5["z"][0],
+                        "z_gap_leaf_to_pmma_rear": r(l5["z"][0] - z_stack["pmma_rear_z"]),
+                        "interaction": "none: the leaf variant changes only the X stack, not the leaf Z range, so the 0.5 mm jack pockets and the 30 mm depth budget are unchanged"},
+        "harness": {"sh4_plug_shift_toward_centre": r(-shift), "note": "the SH4 plug sits on the film outer face, so the R2-C6 route start moves by the face shift; the CAD re-check is in exports/3hp_pet/verification.json"},
+        "min_static_bend_radius_mm": r(pe["film"]["min_static_bend_radius_factor"]["nominal"] * tf),
+        "recommendation": ("Keep FR-4 as the default and fallback. A clear PET leaf is mechanically feasible only as film laminated to a clear carrier: "
+                           f"the film alone buckles at about {film_alone:.2f} N under the SH mating push, so it cannot stand on its own. "
+                           f"With a {pe['carrier']['thickness']['nominal']} mm PC carrier the stack is {2 * hp:.2f} mm (FR-4 {2 * hf:.2f} mm), fits the A5 cap slots and keeps every LED, connector, corridor and harness position within {abs(shift):.2f} mm, "
+                           f"but it is {fr4['rigidity_per_mm_bonded_nmm'] / pet['rigidity_per_mm_bonded_nmm']:.0f}-{fr4['rigidity_per_mm_bonded_nmm'] / pet['rigidity_per_mm_lower_bound_nmm']:.0f}x less stiff: "
+                           f"its worst-case buckling load under the SH push is about {pet['buckling_load_lower_bound_n']['fixed_free_K2']:.0f} N (FR-4 {fr4['buckling_load_lower_bound_n']['fixed_free_K2']:.0f} N), and the SH mating force is unsourced. "
+                           "Pursue PET only after JLC answers reflow/paste, PET-compatible stiffeners and OCA clarity (Q11), and after a physical mating-force and lit-appearance test (#10)."),
+    }
 
 
 def led_route(xc, x1, cfg, leaf_exit_y, leaf_exit_z, yp_end, target):
@@ -647,6 +712,7 @@ def build():
             "break_even_2hp": break_even(p, sel2),
         },
         "z_stack": z_stack, "y_layout": y_layout, "switch": switch, "controller": controller, "power_cable_requirement": power_cable,
+        "leaf_comparison": leaf_comparison(d, l5, z_stack),
         "variants": variants,
         "supports": {
             "front_screw_y": sup["front_screw_y"]["values"], "m2": m2,
@@ -786,7 +852,7 @@ def r4_placement_check(E):
     zone = E["solder_face_low_profile_zone"]
     b_side = sorted(ref for ref, p in pl.items() if p["side"] == "B")
     return {
-        "status": "ROUTED EXPORT: R4's routed board (PR #30, not merged; may change after independent review, then a new export and SHA)",
+        "status": "ROUTED EXPORT: R4's routed board (PR #30 merged at eb8adeb, board ec810aec; this fit check merged in #33). A later board change needs a new export and SHA",
         "source": dict(R4_PLACEMENT_SOURCE, sha256=hashlib.sha256(R4_PLACEMENT.read_bytes()).hexdigest(), board_sha256=P["board_sha256"],
                        board_thickness=P["thickness_mm"], unconnected=P["unconnected_pcbnew"]),
         "board_outline": outline, "outline_matches": outline == [0.0, E["outline"]["board_x"][1], 0.0, E["outline"]["board_y"][1]],
@@ -849,6 +915,20 @@ def report(L):
     for k in ("x_axis", "jack_seat_x", "controller_pcb_x", "front_screw_x"):
         out.append(f"| {k} | {L['variants']['2hp'][k]} | {L['variants']['3hp'][k]} |")
     out += ["", "## Load path", ""] + [f"- {x}" for x in L["supports"]["load_path"]]
+    lc = L["leaf_comparison"]
+
+    def num(v):
+        return f"{v:g}"
+    out += ["", "## LED leaf: FR-4 (default) versus clear PET FPC on a clear carrier", "", lc["status"], "",
+            "| | FR-4 (A5) | PET film + OCA + PC carrier |", "|---|---|---|",
+            f"| Stack thickness (mm) | {num(lc['fr4']['total_thickness'])} | {num(lc['pet']['total_thickness'])} |",
+            f"| Outer face from centre (mm) | {num(lc['fr4']['outer_face_offset_from_centre'])} | {num(lc['pet']['outer_face_offset_from_centre'])} |",
+            f"| Flexural rigidity per mm, bonded / lower bound (N mm) | {num(lc['fr4']['rigidity_per_mm_bonded_nmm'])} | {num(lc['pet']['rigidity_per_mm_bonded_nmm'])} / {num(lc['pet']['rigidity_per_mm_lower_bound_nmm'])} |",
+            f"| Buckling under the SH push, fixed-free, lower bound (N) | {num(lc['fr4']['buckling_load_lower_bound_n']['fixed_free_K2'])} | {num(lc['pet']['buckling_load_lower_bound_n']['fixed_free_K2'])} |",
+            f"| Cap slot clearance per side (mm) | {num(lc['fr4']['cap_slot_clearance_per_side'])} | {num(lc['pet']['cap_slot_clearance_per_side'])} |",
+            "", f"- PET film alone buckles at {num(lc['pet_film_alone_buckling_load_fixed_free_n'])} N; minimum static bend radius {num(lc['min_static_bend_radius_mm'])} mm (JLC 6x rule).",
+            f"- LED, connector and harness start move {num(lc['optical']['led_and_connector_shift_toward_centre'])} mm toward the centre; leaf Z {lc['optical']['leaf_z']} unchanged; rear pocket: {lc['rear_pocket']['interaction']}.",
+            "", "**Recommendation.** " + lc["recommendation"]]
     out += ["", "## Unresolved inputs", "", "| ID | Item | Decides |", "|---|---|---|"] + [f"| {u['id']} | {u['item']} | {u['decides']} |" for u in L["unresolved"]]
     return "\n".join(out) + "\n"
 

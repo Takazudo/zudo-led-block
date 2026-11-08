@@ -143,6 +143,23 @@ Provisional digital study. Jack-axis height INFERRED; tolerances marked ASSUMED 
 - Setting switch: actuation force along Z into the SMD body and its two pegs -> PCB; force not sourced.
 - Optical stack: top cap -> M2 into the spine post at Y20.5 (A5 topology); bottom cap located by its fork on the controller rear edge; no jack load enters the optics.
 
+## LED leaf: FR-4 (default) versus clear PET FPC on a clear carrier
+
+Digital comparison only; FR-4 stays the default leaf. Values marked INFERRED are typical material figures, not supplier data.
+
+| | FR-4 (A5) | PET film + OCA + PC carrier |
+|---|---|---|
+| Stack thickness (mm) | 1.3 | 1.28 |
+| Outer face from centre (mm) | 0.65 | 0.64 |
+| Flexural rigidity per mm, bonded / lower bound (N mm) | 3660 | 463.851 / 99.963 |
+| Buckling under the SH push, fixed-free, lower bound (N) | 298.535 | 8.154 |
+| Cap slot clearance per side (mm) | 0.15 | 0.16 |
+
+- PET film alone buckles at 0.075 N; minimum static bend radius 0.84 mm (JLC 6x rule).
+- LED, connector and harness start move 0.01 mm toward the centre; leaf Z [19.4, 28.4] unchanged; rear pocket: none: the leaf variant changes only the X stack, not the leaf Z range, so the 0.5 mm jack pockets and the 30 mm depth budget are unchanged.
+
+**Recommendation.** Keep FR-4 as the default and fallback. A clear PET leaf is mechanically feasible only as film laminated to a clear carrier: the film alone buckles at about 0.07 N under the SH mating push, so it cannot stand on its own. With a 0.8 mm PC carrier the stack is 1.28 mm (FR-4 1.30 mm), fits the A5 cap slots and keeps every LED, connector, corridor and harness position within 0.01 mm, but it is 8-37x less stiff: its worst-case buckling load under the SH push is about 8 N (FR-4 299 N), and the SH mating force is unsourced. Pursue PET only after JLC answers reflow/paste, PET-compatible stiffeners and OCA clarity (Q11), and after a physical mating-force and lit-appearance test (#10).
+
 ## Unresolved inputs
 
 | ID | Item | Decides |

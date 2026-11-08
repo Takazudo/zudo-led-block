@@ -3444,6 +3444,145 @@
     "taut_reference": "shortest S-fold the route allows (fold span = two bend radii); the cable is never pulled tighter",
     "physical_measurement": "MISSING: no cable has been routed or measured; plug strain relief, wire stiffness and the real fold shape are not known (#8)"
   },
+  "leaf_comparison": {
+    "status": "Digital comparison only; FR-4 stays the default leaf. Values marked INFERRED are typical material figures, not supplier data.",
+    "default": "fr4",
+    "inputs": {
+      "fr4": {
+        "board_thickness": {
+          "nominal": 0.6,
+          "confidence": "A5-GEOMETRY",
+          "source": "engineering/a5/mechanical/geometry.json leaf.thickness"
+        },
+        "bond_line": {
+          "nominal": 0.1,
+          "confidence": "A5-GEOMETRY",
+          "source": "engineering/a5/mechanical/geometry.json leaf.bond_line"
+        },
+        "flexural_modulus_mpa": {
+          "nominal": 20000,
+          "confidence": "INFERRED",
+          "note": "typical FR-4 laminate flexural modulus (about 18-24 GPa); not a supplier value"
+        }
+      },
+      "pet": {
+        "film": {
+          "layers": 1,
+          "finished_thickness": {
+            "nominal": 0.14,
+            "confidence": "MANUFACTURER_PRIMARY",
+            "source": "src-a7-jlc-flex-capabilities (1-layer transparent FPC finished thickness, excluding stiffeners)"
+          },
+          "core": "PET 36 um (src-a7-jlc-flex-capabilities)",
+          "coverlay": "PET 25 um + adhesive 25 um (src-a7-jlc-flex-capabilities)",
+          "transmittance": "up to 85 % (film figure, src-a7-jlc-transparent-fpc-news)",
+          "modulus_mpa": {
+            "nominal": 4000,
+            "confidence": "INFERRED",
+            "note": "typical biaxially oriented PET film tensile modulus (about 2-5 GPa); JLC gives no modulus"
+          },
+          "min_static_bend_radius_factor": {
+            "nominal": 6,
+            "confidence": "MANUFACTURER_PRIMARY",
+            "source": "src-a7-jlc-flex-capabilities (>= 6x total thickness, 1 layer)"
+          }
+        },
+        "adhesive": {
+          "type": "optically clear adhesive (OCA) film",
+          "thickness": {
+            "nominal": 0.1,
+            "confidence": "INFERRED",
+            "note": "typical OCA film thickness (50-175 um ranges exist); no product selected; clarity after reflow is R1 Q11 item 5"
+          },
+          "composite_action": "not counted: a soft OCA transmits little shear, so the films are treated as non-composite for stiffness (lower bound); the fully bonded value is given as an upper bound"
+        },
+        "carrier": {
+          "material": "clear polycarbonate sheet",
+          "thickness": {
+            "nominal": 0.8,
+            "confidence": "INFERRED",
+            "note": "common clear PC sheet thickness; not sourced to a supplier"
+          },
+          "modulus_mpa": {
+            "nominal": 2300,
+            "confidence": "INFERRED",
+            "note": "typical PC tensile/flexural modulus"
+          },
+          "role": "single clear carrier between the two films (replaces the A5 back-to-back bond); takes the SH mating load and holds the outline in the cap slots"
+        },
+        "connector_backing": {
+          "note": "the SH header pads sit on film over the carrier; whether a JLC stiffener (PI/FR-4) can be bonded to transparent PET is R1 Q11 item 3, so no stiffener is modelled"
+        }
+      },
+      "sh_header_span_to_cap": 16.5,
+      "sh_mating_force_n": {
+        "nominal": null,
+        "confidence": "UNSOURCED",
+        "note": "the SM04B-SRSS-TB owner bundle carries no insertion-force fact; the comparison reports the buckling load each stack can take instead"
+      },
+      "leaf_depth": 9.0,
+      "cap_slot_width": 1.6
+    },
+    "fr4": {
+      "total_thickness": 1.3,
+      "outer_face_offset_from_centre": 0.65,
+      "rigidity_per_mm_bonded_nmm": 3660.0,
+      "rigidity_per_mm_lower_bound_nmm": 3660.0,
+      "buckling_load_lower_bound_n": {
+        "fixed_free_K2": 298.535,
+        "fixed_pinned_K0.7": 2437.022
+      },
+      "buckling_load_bonded_n": {
+        "fixed_free_K2": 298.535,
+        "fixed_pinned_K0.7": 2437.022
+      },
+      "cap_slot_clearance_per_side": 0.15
+    },
+    "pet": {
+      "total_thickness": 1.28,
+      "outer_face_offset_from_centre": 0.64,
+      "rigidity_per_mm_bonded_nmm": 463.851,
+      "rigidity_per_mm_lower_bound_nmm": 99.963,
+      "buckling_load_lower_bound_n": {
+        "fixed_free_K2": 8.154,
+        "fixed_pinned_K0.7": 66.56
+      },
+      "buckling_load_bonded_n": {
+        "fixed_free_K2": 37.835,
+        "fixed_pinned_K0.7": 308.856
+      },
+      "cap_slot_clearance_per_side": 0.16
+    },
+    "pet_film_alone_buckling_load_fixed_free_n": 0.075,
+    "rigidity_ratio_fr4_to_pet": {
+      "lower_bound": 36.614,
+      "bonded": 7.89
+    },
+    "outer_face_shift_pet_minus_fr4": -0.01,
+    "optical": {
+      "leaf_outline_unchanged": true,
+      "leaf_z": [
+        19.4,
+        28.4
+      ],
+      "led_and_connector_shift_toward_centre": 0.01,
+      "corridor_unchanged": "A5 corridor X limits (xc +/- 1.25 to the diffuser) are kept; the LED emitting faces move by the face shift",
+      "transmittance": "up to 85 % (film figure, src-a7-jlc-transparent-fpc-news)"
+    },
+    "rear_pocket": {
+      "pmma_rear_z": 0.0,
+      "rear_pocket_depth": 0.5,
+      "leaf_front_z": 19.4,
+      "z_gap_leaf_to_pmma_rear": 19.4,
+      "interaction": "none: the leaf variant changes only the X stack, not the leaf Z range, so the 0.5 mm jack pockets and the 30 mm depth budget are unchanged"
+    },
+    "harness": {
+      "sh4_plug_shift_toward_centre": 0.01,
+      "note": "the SH4 plug sits on the film outer face, so the R2-C6 route start moves by the face shift; the CAD re-check is in exports/3hp_pet/verification.json"
+    },
+    "min_static_bend_radius_mm": 0.84,
+    "recommendation": "Keep FR-4 as the default and fallback. A clear PET leaf is mechanically feasible only as film laminated to a clear carrier: the film alone buckles at about 0.07 N under the SH mating push, so it cannot stand on its own. With a 0.8 mm PC carrier the stack is 1.28 mm (FR-4 1.30 mm), fits the A5 cap slots and keeps every LED, connector, corridor and harness position within 0.01 mm, but it is 8-37x less stiff: its worst-case buckling load under the SH push is about 8 N (FR-4 299 N), and the SH mating force is unsourced. Pursue PET only after JLC answers reflow/paste, PET-compatible stiffeners and OCA clarity (Q11), and after a physical mating-force and lit-appearance test (#10)."
+  },
   "variants": {
     "2hp": {
       "rear_pocket_x": [

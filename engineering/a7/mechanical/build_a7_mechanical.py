@@ -91,7 +91,7 @@ def edges_from(points, radius):
     return cq.Wire.assembleEdges(edges), length, rmin
 
 
-def build(name, out):
+def build(name, out, leaf="fr4"):
     V = L["variants"][name]
     w = V["panel_width"]
     xc = w / 2
@@ -260,16 +260,33 @@ def build(name, out):
         p_.note += f"; moved {adz} mm in Z with the adapter (A7)"
 
     # ---- A5 leaves, leaf parts, leaf connectors (retained) ---------------------------------
-    leaf_local = box(0, 9, 0, 82.5, -.6, 0)
-    for u0, v0, u1, v1 in BOARDS["led_leaf"]["front_edge_notches_mm"]:
-        leaf_local = leaf_local.cut(box(u0 - .1, u1, v0, v1, -.7, .1))
-    poses = {"left": ((xc - .65, 22.5, 19.4), (0, 0, 1), (0, 1, 0), (-1, 0, 0)), "right": ((xc + .65, 105, 19.4), (0, 0, 1), (0, -1, 0), (1, 0, 0))}
-    for s_, pose in poses.items():
-        add(f"{s_}_leaf_pcb_A5", transformed(leaf_local, *pose), "pcb", "native_pcb_envelope", "A5 FR-4 leaf (reference/fallback; PET FPC not modelled)", group=f"{s_}_leaf")
-    bond = box(xc - .05, xc + .05, 22.5, 105, 19.4, 28.4)
-    for ny in (46.7, 80.8):
-        bond = bond.cut(box(xc - .1, xc + .1, ny - 1, ny + 1, 19.3, 20.4))
-    add("leaf_bond_line_reserve", bond, "frame", "assembly_allowance", "A5 0.1 mm bond-line reserve", group="leaves")
+    LC = L["leaf_comparison"]
+    half = LC[leaf]["outer_face_offset_from_centre"]
+
+    def notched(t):
+        sheet = box(0, 9, 0, 82.5, -t, 0)
+        for u0, v0, u1, v1 in BOARDS["led_leaf"]["front_edge_notches_mm"]:
+            sheet = sheet.cut(box(u0 - .1, u1, v0, v1, -t - .1, .1))
+        return sheet
+
+    poses = {"left": ((xc - half, 22.5, 19.4), (0, 0, 1), (0, 1, 0), (-1, 0, 0)), "right": ((xc + half, 105, 19.4), (0, 0, 1), (0, -1, 0), (1, 0, 0))}
+    if leaf == "fr4":
+        for s_, pose in poses.items():
+            add(f"{s_}_leaf_pcb_A5", transformed(notched(.6), *pose), "pcb", "native_pcb_envelope", "A5 FR-4 leaf (default; reference/fallback)", group=f"{s_}_leaf")
+        bond = box(xc - .05, xc + .05, 22.5, 105, 19.4, 28.4)
+        for ny in (46.7, 80.8):
+            bond = bond.cut(box(xc - .1, xc + .1, ny - 1, ny + 1, 19.3, 20.4))
+        add("leaf_bond_line_reserve", bond, "frame", "assembly_allowance", "A5 0.1 mm bond-line reserve", group="leaves")
+    else:
+        pe = LC["inputs"]["pet"]
+        tf, ta, tc = pe["film"]["finished_thickness"]["nominal"], pe["adhesive"]["thickness"]["nominal"], pe["carrier"]["thickness"]["nominal"]
+        for s_, pose in poses.items():
+            add(f"{s_}_leaf_film_PET", transformed(notched(tf), *pose), "pcb", "design_geometry", "clear PET FPC leaf film, 1 layer 0.14 mm (JLC); comparison variant", group=f"{s_}_leaf")
+            add(f"{s_}_leaf_OCA", transformed(notched(ta).translate((0, 0, -tf)), *pose), "frame", "assembly_allowance", "optically clear adhesive film (thickness INFERRED)", group="leaves")
+        carrier = box(xc - tc / 2, xc + tc / 2, 22.5, 105, 19.4, 28.4)
+        for ny in (46.7, 80.8):
+            carrier = carrier.cut(box(xc - tc / 2 - .01, xc + tc / 2 + .01, ny - 1, ny + 1, 19.3, 20.4))
+        add("leaf_carrier_PC", carrier, "frame", "design_geometry", "clear PC carrier between the two films (thickness and modulus INFERRED)", group="leaves")
     jst_local = union(box(-3, 3, -1.675, 2.575, 0, 2.95), box(-3.5, 3.5, 2.575, 4.575, .15, 2.95))
     jst = {"left": [], "right": []}
     for s_, pose in poses.items():
@@ -504,7 +521,7 @@ def optical(parts, name):
     for s_, cor in corridors.items():
         rows = []
         for p in parts:
-            if p.group == "optics" or p.name.endswith("_leaf_pcb_A5") or p.name == "leaf_bond_line_reserve":
+            if p.group == "optics" or p.name.endswith(("_leaf_pcb_A5", "_leaf_film_PET", "_leaf_OCA")) or p.name in ("leaf_bond_line_reserve", "leaf_carrier_PC"):
                 continue
             if p.name.startswith(s_ + "_D"):
                 continue  # the emitters themselves
@@ -734,19 +751,23 @@ def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--variant", choices=["2hp", "3hp", "all"], default="all")
     ap.add_argument("--no-export", action="store_true", help="skip STEP/GLB/views (checks only)")
+    ap.add_argument("--leaf", choices=["fr4", "pet", "all"], default="all", help="pet builds the PET leaf comparison on the default variant only")
     a = ap.parse_args()
     default = L["decision"]["default_variant"]
-    for name in ([default] + [v for v in L["decision"]["variants_generated"] if v != default] if a.variant == "all" else [a.variant]):
-        out = HERE / "exports" / name
+    names = [default] + [v for v in L["decision"]["variants_generated"] if v != default] if a.variant == "all" else [a.variant]
+    jobs = ([(n, "fr4") for n in names] if a.leaf in ("fr4", "all") else []) + ([(default, "pet")] if a.leaf in ("pet", "all") else [])
+    for name, leaf in jobs:
+        label = name if leaf == "fr4" else f"{name}_pet"
+        out = HERE / "exports" / label
         out.mkdir(parents=True, exist_ok=True)
-        print(f"Building {name}", flush=True)
-        parts, contacts, cables = build(name, out)
+        print(f"Building {label}", flush=True)
+        parts, contacts, cables = build(name, out, leaf)
         rows, collisions, permitted, cable_findings, env = validate(parts, contacts, name)
         opt = optical(parts, name)
         opt_est = optical_estimate(parts, name, opt)
         acc = tool_access(parts, name)
         res = {
-            "revision": "A7", "variant": name, "status": "PROVISIONAL_DIGITAL_STUDY_NOT_FIT_APPROVAL",
+            "revision": "A7", "variant": name, "leaf": leaf, "status": "PROVISIONAL_DIGITAL_STUDY_NOT_FIT_APPROVAL",
             "selection": L["variants"][name]["selection"]["verdict"],
             "default_variant": name == default,
             "layout_sha256": hashlib.sha256((HERE / "layout.json").read_bytes()).hexdigest(),
@@ -761,10 +782,10 @@ def main():
             "manufacturing_release": False,
         }
         if not a.no_export:
-            res["export"] = export(parts, out, name)
-            res["views"] = views(parts, name, out)
+            res["export"] = export(parts, out, label)
+            res["views"] = views(parts, name, out) if leaf == "fr4" else {}
         (out / "verification.json").write_text(json.dumps(res, indent=2) + "\n")
-        print(json.dumps({"variant": name, "parts": len(parts), "collisions": collisions, "cable_findings": len(cable_findings),
+        print(json.dumps({"variant": label, "parts": len(parts), "collisions": collisions, "cable_findings": len(cable_findings),
                           "retained_envelope": res["retained_envelope_findings"],
                           "a7_optical": {k: v["a7_controller_or_support_obstructions"] for k, v in opt.items()}, "tool_access_clear": acc["clear"]}, indent=1), flush=True)
 

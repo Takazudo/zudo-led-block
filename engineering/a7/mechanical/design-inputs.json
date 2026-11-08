@@ -300,7 +300,31 @@
   },
   "optical": {
     "retain_a5_stack": true,
-    "note": "Leaves, bond line, caps, L-section diffusers and M1.6 hardware follow A5 geometry; PET FPC leaves are not modelled (R1 pet-fpc.md, Q11); the FR-4 leaf is the reference/fallback."
+    "note": "Leaves, bond line, caps, L-section diffusers and M1.6 hardware follow A5 geometry. The FR-4 leaf is the reference/fallback and the default; a PET FPC leaf variant is compared in leaf_variants (R1 pet-fpc.md, Q11)."
+  },
+  "leaf_variants": {
+    "default": "fr4",
+    "note": "Mechanical/optical comparison only. The electrical PET leaf profile belongs to R4. The PET stack keeps the A5 leaf outline (82.5 x 9.0), the LED/connector positions and the outer face planes within the stack tolerance, so the optical corridor, harness and leaf-link geometry are re-checked rather than redesigned.",
+    "fr4": {
+      "board_thickness": {"nominal": 0.6, "confidence": "A5-GEOMETRY", "source": "engineering/a5/mechanical/geometry.json leaf.thickness"},
+      "bond_line": {"nominal": 0.1, "confidence": "A5-GEOMETRY", "source": "engineering/a5/mechanical/geometry.json leaf.bond_line"},
+      "flexural_modulus_mpa": {"nominal": 20000, "confidence": "INFERRED", "note": "typical FR-4 laminate flexural modulus (about 18-24 GPa); not a supplier value"}
+    },
+    "pet": {
+      "film": {"layers": 1, "finished_thickness": {"nominal": 0.14, "confidence": "MANUFACTURER_PRIMARY", "source": "src-a7-jlc-flex-capabilities (1-layer transparent FPC finished thickness, excluding stiffeners)"},
+               "core": "PET 36 um (src-a7-jlc-flex-capabilities)", "coverlay": "PET 25 um + adhesive 25 um (src-a7-jlc-flex-capabilities)",
+               "transmittance": "up to 85 % (film figure, src-a7-jlc-transparent-fpc-news)",
+               "modulus_mpa": {"nominal": 4000, "confidence": "INFERRED", "note": "typical biaxially oriented PET film tensile modulus (about 2-5 GPa); JLC gives no modulus"},
+               "min_static_bend_radius_factor": {"nominal": 6, "confidence": "MANUFACTURER_PRIMARY", "source": "src-a7-jlc-flex-capabilities (>= 6x total thickness, 1 layer)"}},
+      "adhesive": {"type": "optically clear adhesive (OCA) film", "thickness": {"nominal": 0.1, "confidence": "INFERRED", "note": "typical OCA film thickness (50-175 um ranges exist); no product selected; clarity after reflow is R1 Q11 item 5"},
+                   "composite_action": "not counted: a soft OCA transmits little shear, so the films are treated as non-composite for stiffness (lower bound); the fully bonded value is given as an upper bound"},
+      "carrier": {"material": "clear polycarbonate sheet", "thickness": {"nominal": 0.8, "confidence": "INFERRED", "note": "common clear PC sheet thickness; not sourced to a supplier"},
+                  "modulus_mpa": {"nominal": 2300, "confidence": "INFERRED", "note": "typical PC tensile/flexural modulus"},
+                  "role": "single clear carrier between the two films (replaces the A5 back-to-back bond); takes the SH mating load and holds the outline in the cap slots"},
+      "connector_backing": {"note": "the SH header pads sit on film over the carrier; whether a JLC stiffener (PI/FR-4) can be bonded to transparent PET is R1 Q11 item 3, so no stiffener is modelled"}
+    },
+    "sh_header_span_to_cap": {"nominal": 16.5, "confidence": "A5-GEOMETRY", "source": "A5 leaf header_origins_local_v[0] (left J1 opens +v, so mating pushes the leaf toward the top cap at v = 0)"},
+    "sh_mating_force_n": {"nominal": null, "confidence": "UNSOURCED", "note": "the SM04B-SRSS-TB owner bundle carries no insertion-force fact; the comparison reports the buckling load each stack can take instead"}
   },
   "adapter_relocation": {
     "z_shift": {
