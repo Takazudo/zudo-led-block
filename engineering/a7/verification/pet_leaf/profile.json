@@ -1,0 +1,107 @@
+{
+ "schema": 1,
+ "what": "Electrical profile and interface check for the bonded PET LED leaf variant (R4 item 5, #19): a clear PET film laminated with OCA to a 0.8 mm clear PC carrier, as compared by R2 in PR #35 (engineering/a7/mechanical/layout.md, 'LED leaf: FR-4 (default) versus clear PET FPC on a clear carrier'). A profile and a check of the A5 leaf circuit and copper against it, not a leaf design.",
+ "status": "PROFILE_ONLY_NOT_A_DESIGN",
+ "default_leaf": "fr4",
+ "default_note": "The A5 FR-4 leaf stays the default and fallback. Nothing here selects PET, approves a PET process or releases anything for manufacture; JLC's PET answers (Q11) and the physical mating-force and lit-appearance tests (#10) are still open.",
+ "issue": "#19",
+ "reference": {
+  "board": "engineering/a5/electronics/native/led_leaf/led_leaf.kicad_pcb",
+  "netlist": "engineering/a5/integration/native_schematic/led_leaf/netlist.xml",
+  "copy_root": "engineering/a5/electronics",
+  "note": "The PET variant keeps the A5 leaf circuit, outline (82.5 x 9.0), LED and SH4 positions. Its netlist contract is the A5 leaf netlist under the reviewed role map; the A5 copper is the only layout that exists, so it is what the rules below are checked against."
+ },
+ "interface": {
+  "roles": "engineering/a7/verification/interface_roles/a7_controller.json",
+  "netlists": {
+   "controller": "engineering/a7/verification/schematic/netlist.xml",
+   "led_leaf": "engineering/a5/integration/native_schematic/led_leaf/netlist.xml",
+   "power_adapter": "engineering/a5/integration/native_schematic/power_adapter/netlist.xml"
+  },
+  "required_checks": ["led.left_cable", "led.right_cable", "led.streams_distinct", "power.vled_shared", "leaf.this_stream", "leaf.other_stream", "leaf.streams_distinct", "leaf.chain_1", "leaf.chain_2", "leaf.chain_3", "leaf.power", "leaf.ground", "led.two_streams"],
+  "note": "Controller J3 -> left leaf J1, left leaf J2 -> right leaf J1 over two straight 1:1 SH4 harnesses (scripts/native_gate/interface.py harness())."
+ },
+ "mechanical": {
+  "verification": "engineering/a7/mechanical/exports/3hp_pet/verification.json",
+  "require": {"leaf": "pet", "envelope_findings": [], "unexpected_rigid_intersections": [], "manufacturing_release": false},
+  "note": "R2's 3HP PET export: LED, SH4 and harness start within 0.01 mm of the FR-4 positions; leaf Z range unchanged."
+ },
+ "stack": {
+  "carrier": {"material": "clear polycarbonate", "thickness_mm": 0.8, "confidence": "INFERRED", "source": "engineering/a7/mechanical/design-inputs.json leaf_variants.pet.carrier"},
+  "adhesive": {"material": "OCA", "thickness_mm": 0.1, "confidence": "INFERRED", "source": "engineering/a7/mechanical/design-inputs.json leaf_variants.pet.adhesive"},
+  "films_per_leaf": 2,
+  "note": "Two films (one per face) on one carrier, as R2 modelled. Stack = 2 x film + 2 x OCA + carrier."
+ },
+ "variants": {
+  "pet_1layer": {
+   "film_mm": 0.14, "copper_layers": ["F.Cu"], "plated_vias": false, "copper_um": [18, 35],
+   "source": "src-a7-jlc-flex-capabilities (1-layer transparent 0.14 mm; single-sided copper 18/35 um)",
+   "note": "The stack R2 modelled (1.28 mm, 0.16 mm cap slot clearance per side)."
+  },
+  "pet_2layer": {
+   "film_mm": 0.24, "copper_layers": ["F.Cu", "B.Cu"], "plated_vias": "NOT_STATED_FOR_TRANSPARENT", "copper_um": [12, 18, 35],
+   "source": "src-a7-jlc-flex-capabilities (2-layer transparent 0.24 mm; double-sided copper 12/18/35 um)",
+   "note": "Not modelled by R2. Stack 1.48 mm against the 1.60 mm slot implied by R2's 1.28 mm + 2 x 0.16 mm, i.e. 0.06 mm per side on paper; R2 must re-check before this is used."
+  }
+ },
+ "rules": {
+  "source": "src-a7-jlc-flex-rules-r4",
+  "min_track_mm": {"value": 0.0889, "note": "3.5 mil at 18 um copper (3/3 mil at 12 um, 4/4 mil at 35 um)"},
+  "min_clearance_mm": {"value": 0.0889, "note": "3.5 mil at 18 um copper"},
+  "via_min_drill_mm": 0.3,
+  "via_min_diameter_mm": 0.55,
+  "via_ring_to_track_mm": 0.1,
+  "exposed_pad_to_track_mm": 0.15,
+  "copper_to_edge_mm": 0.3,
+  "coverlay_expansion_mm": 0.1,
+  "min_coverlay_bridge_mm": 0.5,
+  "coverlay_opening_to_trace_mm": {"value": 0.15, "implied_pad_to_track_mm": 0.25, "note": "With the 0.1 mm coverlay expansion an exposed pad needs >= 0.25 mm to any other track. Measured on the A5 leaf by native DRC with a pad-to-track rule: no hit at 0.25 mm; the minimum is 0.30 mm (J1/J2 MP pads to the nearest track). Met; recorded here, not encoded as a verdict."},
+  "pth_annular_ring_mm": {"recommended": 0.25, "absolute_min": 0.18, "applies_to_vias": "NOT_STATED", "note": "The A5 leaf vias (0.6/0.3) have a 0.15 mm ring and fail this row if JLC applies it to vias as well as component holes. Recorded under Q11e, not encoded as a verdict."},
+  "smt_only": true,
+  "smt_only_source": "engineering/a7/pet-fpc.md (THT and wave soldering on PET not stated; leaf must stay SMT-only)"
+ },
+ "current_bound": {
+  "what": "Worst-case shared VLED current: the TPS2552 short-circuit limit with the controller's ILIM resistor. The left leaf carries both leaves' current (its J2 feeds the right leaf), so every leaf power segment is checked at this bound.",
+  "part": "U4 TPS2552DBVR-1",
+  "rilim_ref": "R11",
+  "rilim_kohm": 68,
+  "formula": "IOSmax(mA) = 22980 / RILIM(kohm)^0.94",
+  "fact": "fact-tps2552dbvr-1-ilim-formula-max (.claude/skills/component-tps2552dbvr-1/facts.json)",
+  "firmware_cap_note": "The firmware code<=51 PWM cap is a commanded cap, not a supply-current limit (engineering/a5/firmware/README.md), so it is not used as the bound."
+ },
+ "copper_resistivity_ohm_m": {"value": 1.72e-8, "confidence": "INFERRED", "note": "annealed copper at 20 C; ENIG and temperature rise not counted"},
+ "expected": {
+  "interface": "PASS",
+  "mechanical": "PASS",
+  "smt_only": "PASS",
+  "pet_1layer.copper": "NOT_MET",
+  "pet_2layer.track_and_clearance": "PASS",
+  "pet_2layer.vias": "PASS",
+  "pet_2layer.copper_to_edge": "PASS",
+  "coverlay_bridges": "NOT_MET",
+  "note": "Recorded verdicts of the current A5 copper against this profile. The check fails when a fresh verdict differs, so a change to the profile, the rules or the reference cannot pass silently. NOT_MET is a finding, not a gate failure."
+ },
+ "open_questions_ref": "engineering/a7/open-questions.md Q11d (1-layer cannot carry the A5 copper), Q11e (plated vias on 2-layer transparent PET), Q11f (0.2 mm coverlay bridges vs the 0.5 mm minimum); blocking for the PET variant only, not for the FR-4 default",
+ "open": [
+  "JLC: are plated vias offered on 2-layer transparent PET (the A5 leaf routes all data on B.Cu through 11 vias), and does the PTH annular ring row (>= 0.18 mm absolute) apply to vias (the A5 vias have 0.15 mm)?",
+  "JLC: coverlay bridges under 0.5 mm are removed, so the WS2812B-2020 and SH4 pads share coverlay openings; is that acceptable for assembly, or is a LPI/transparent solder mask offered on PET?",
+  "JLC Q11 items 1-7 in engineering/a7/pet-fpc.md (reflow profile, operating temperature, stiffeners, part classes, OCA clarity, transparent coverlay transmittance, separate FR-4 order).",
+  "SH4 header retention on film over a PC carrier: only the two SMD MP pads hold it; the SH mating force is unsourced (R2) and needs the #10 physical test.",
+  "SH4 contact current rating: the JST SH catalog is SOURCE UNAVAILABLE in the SM04B-SRSS-TB owner bundle."
+ ],
+ "sources": [
+  {
+   "source_id": "src-a7-jlc-flex-rules-r4",
+   "document_title": "JLCPCB Flex PCB Capabilities (design-rule rows)",
+   "authoritative_url": "https://jlcpcb.com/capabilities/flex-pcb-capabilities",
+   "retrieved_at": "2026-11-08T17:27:56Z",
+   "sha256": "fa9bca4d588709b552f09dcc70897a3a90c03e59be05eed3275223fb5352c2f7",
+   "size_bytes": 122551,
+   "authority_class": "MANUFACTURER_PRIMARY",
+   "refresh_policy": "VOLATILE-HTML",
+   "retained_bytes": "not committed",
+   "evidence_extract": "Minimum Trace Width/Spacing: 12 um copper 3/3 mil (absolute limit 2/2 mil), 18 um 3.5/3.5 mil, 35 um 4/4 mil. Min. via hole size/diameter regular 0.3 mm/0.55 mm; via diameter at least 0.2 mm larger than the hole. Pad-to-trace: via ring to trace >= 0.1 mm, exposed pad to trace >= 0.15 mm. Copper to board edge >= 0.3 mm. Coverlay expansion (one-sided) 0.1 mm; coverlay opening to trace >= 0.15 mm. Minimum solder bridge width 0.5 mm: a bridge narrower than 0.5 mm will be removed. Outer copper: single-sided 18/35 um; double-sided 12/18/35 um. Coverlay colours include Transparent. Annular Ring for PTH >= 0.25 mm recommended, absolute limit 0.18 mm.",
+   "note": "Same page as src-a7-jlc-flex-capabilities (R1), retrieved again for the design-rule rows R1 did not extract; the live page hash differs from R1's capture."
+  }
+ ]
+}

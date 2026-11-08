@@ -18,7 +18,7 @@
    "path": "engineering/a7/electronics/controller/controller.kicad_pcb",
    "class": "authoritative",
    "present": true,
-   "rule": "Authoritative routed A7 controller board (R4, #19). Source of truth; no generator writes it. Revision 1 passed independent layout/electrical review on PR #30 (head e2a2219). Revision 2 (the PR #30 polish items) is pending re-review. Seeded by scripts/a7_board.py build + scripts/a7_route.py + a7_board.py apply in an empty staging dir outside the repo, then copied here once native DRC (0 violations, 0 unconnected) and parity passed. Enforced by native_gate.json with candidate a7_controller."
+   "rule": "Authoritative routed A7 controller board (R4, #19). Source of truth; no generator writes it. Revision 1 passed independent layout/electrical review on PR #30 (head e2a2219). Revision 2 (the PR #30 polish items) passed independent re-review on PR #37 (review 5818812844, head ae5aa3c) and merged as edf98c2. Seeded by scripts/a7_board.py build + scripts/a7_route.py + a7_board.py apply in an empty staging dir outside the repo, then copied here once native DRC (0 violations, 0 unconnected) and parity passed. Enforced by native_gate.json with candidate a7_controller."
   },
   {
    "path": "engineering/a7/electronics/controller/controller.kicad_sch",
@@ -113,6 +113,11 @@
    "path": "engineering/a7/verification/fab",
    "class": "authored",
    "rule": "fabricator capability rows quoted with URL and retrieval hash; backs native_gate.json design_rule_delta"
+  },
+  {
+   "path": "engineering/a7/verification/pet_leaf",
+   "class": "authored",
+   "rule": "Electrical profile of the bonded PET LED leaf variant (R4 item 5, #19) and its reviewed expected verdicts; checked by python3 scripts/a7_pet_leaf_check.py --out <empty dir outside the repo> against the immutable A5 leaf circuit and copper. A profile only: no leaf design, no PET approval; FR-4 stays the default leaf."
   },
   {
    "path": "engineering/a7/verification/routing",
