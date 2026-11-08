@@ -1,0 +1,593 @@
+{
+ "method": "Behavioral interface assertions on KiCad XML netlists via a reviewed role map",
+ "roles": "/home/user/zudo-led-block/engineering/a7/verification/interface_roles/a7_controller.json",
+ "roles_sha256": "e20ac9978740196cf71bf0fcb4ba0f36c1a019f6da930541d6f8b3d7a9389b28",
+ "role_map_status": "reviewed",
+ "netlists": {
+  "controller": {
+   "path": "/tmp/claude-0/-home-user-zudo-led-block/05509268-86ba-5de7-8086-a9c696616ce9/scratchpad/r4check6/netlist.xml",
+   "sha256": "a944cec8877d272637a85afae9f980d4d5e54888453f0f9652a2dd41e575b7cc"
+  },
+  "led_leaf": {
+   "path": "/home/user/zudo-led-block/engineering/a5/integration/native_schematic/led_leaf/netlist.xml",
+   "sha256": "1857eeb3e3faa65977f2e2cfff30083411db9af728b5529e53065da0c9028670"
+  },
+  "power_adapter": {
+   "path": "/home/user/zudo-led-block/engineering/a5/integration/native_schematic/power_adapter/netlist.xml",
+   "sha256": "d995064a9945ca0516a0a2844b197fcde3a19c8e1873230def0a3899ff514d04"
+  }
+ },
+ "errors": [],
+ "checks": [
+  {
+   "id": "cv.passive_thru",
+   "check": "CV IN tip, CV THRU tip and the pickup input share one passive net",
+   "passed": true,
+   "exported_nets": {
+    "controller:J1.4": "/CV_THRU",
+    "controller:J2.4": "/CV_THRU",
+    "controller:R1.1": "/CV_THRU"
+   }
+  },
+  {
+   "id": "cv.jack_returns",
+   "check": "Jack sleeve/ring returns and MCU VSS share ground",
+   "passed": true,
+   "exported_nets": {
+    "controller:J1.1": "/GND",
+    "controller:J1.2": "/GND",
+    "controller:J2.1": "/GND",
+    "controller:J2.2": "/GND",
+    "controller:U1.4": "/GND"
+   }
+  },
+  {
+   "id": "cv.normals_in_unused",
+   "check": "CV IN normal/switch contacts unused",
+   "passed": true,
+   "connected": {},
+   "missing_from_netlist": []
+  },
+  {
+   "id": "cv.normals_thru_unused",
+   "check": "CV THRU normal/switch contacts unused",
+   "passed": true,
+   "connected": {},
+   "missing_from_netlist": []
+  },
+  {
+   "id": "cv.jack_in_pins_covered",
+   "check": "CV IN jack: tip, returns and normals name every pin of the part",
+   "passed": true,
+   "netlist_pins": [
+    "J1.1",
+    "J1.2",
+    "J1.3",
+    "J1.4",
+    "J1.5"
+   ],
+   "role_pins": [
+    "J1.1",
+    "J1.2",
+    "J1.3",
+    "J1.4",
+    "J1.5"
+   ],
+   "unnamed": [],
+   "not_in_netlist": [],
+   "named_twice": []
+  },
+  {
+   "id": "cv.jack_thru_pins_covered",
+   "check": "CV THRU jack: tip, returns and normals name every pin of the part",
+   "passed": true,
+   "netlist_pins": [
+    "J2.1",
+    "J2.2",
+    "J2.3",
+    "J2.4",
+    "J2.5"
+   ],
+   "role_pins": [
+    "J2.1",
+    "J2.2",
+    "J2.3",
+    "J2.4",
+    "J2.5"
+   ],
+   "unnamed": [],
+   "not_in_netlist": [],
+   "named_twice": []
+  },
+  {
+   "id": "cv.pickup_mid",
+   "check": "20 Mohm pickup midpoint into follower",
+   "passed": true,
+   "exported_nets": {
+    "controller:R1.2": "/CV_SENSE",
+    "controller:R2.1": "/CV_SENSE",
+    "controller:U6.3": "/CV_SENSE"
+   }
+  },
+  {
+   "id": "cv.follower",
+   "check": "OPA197 voltage follower output",
+   "passed": true,
+   "exported_nets": {
+    "controller:U6.1": "/CV_BUF",
+    "controller:U6.4": "/CV_BUF",
+    "controller:R3.1": "/CV_BUF"
+   }
+  },
+  {
+   "id": "cv.affine_node",
+   "check": "Four-resistor affine node with C13 upstream of R7",
+   "passed": true,
+   "exported_nets": {
+    "controller:R3.2": "/CV_AFFINE",
+    "controller:R4.2": "/CV_AFFINE",
+    "controller:R5.2": "/CV_AFFINE",
+    "controller:R6.1": "/CV_AFFINE",
+    "controller:R7.1": "/CV_AFFINE",
+    "controller:C13.1": "/CV_AFFINE"
+   }
+  },
+  {
+   "id": "cv.affine_feeds",
+   "check": "Affine VDD feeds share MCU VDD",
+   "passed": true,
+   "exported_nets": {
+    "controller:R4.1": "/+3V3",
+    "controller:R5.1": "/+3V3",
+    "controller:U7.5": "/+3V3",
+    "controller:U1.3": "/+3V3"
+   }
+  },
+  {
+   "id": "cv.filter_node",
+   "check": "Protected buffer input after R7",
+   "passed": true,
+   "exported_nets": {
+    "controller:R7.2": "/CV_FILTER",
+    "controller:U7.3": "/CV_FILTER",
+    "controller:D3.3": "/CV_FILTER"
+   }
+  },
+  {
+   "id": "cv.c13_before_r7",
+   "check": "C13 charge passes through R7 before the buffer input",
+   "passed": true,
+   "nets": [
+    "/CV_AFFINE",
+    "/CV_FILTER"
+   ]
+  },
+  {
+   "id": "cv.c13_on_r7_input",
+   "check": "C13 sits on the R7 input side",
+   "passed": true,
+   "exported_nets": {
+    "controller:C13.1": "/CV_AFFINE",
+    "controller:R7.1": "/CV_AFFINE"
+   }
+  },
+  {
+   "id": "cv.output_follower",
+   "check": "Output follower into series resistor",
+   "passed": true,
+   "exported_nets": {
+    "controller:U7.1": "/CV_DRIVE",
+    "controller:U7.4": "/CV_DRIVE",
+    "controller:R24.1": "/CV_DRIVE"
+   }
+  },
+  {
+   "id": "cv.adc",
+   "check": "ADC input after the 100/133 divider",
+   "passed": true,
+   "exported_nets": {
+    "controller:R24.2": "/CV_ADC",
+    "controller:R25.1": "/CV_ADC",
+    "controller:U1.6": "/CV_ADC"
+   }
+  },
+  {
+   "id": "cv.grounds",
+   "check": "Divider, buffer and pickup grounds share MCU VSS",
+   "passed": true,
+   "exported_nets": {
+    "controller:R25.2": "/GND",
+    "controller:U7.2": "/GND",
+    "controller:R6.2": "/GND",
+    "controller:R2.2": "/GND",
+    "controller:U1.4": "/GND"
+   }
+  },
+  {
+   "id": "mode.common_gnd",
+   "check": "Mode switch common grounded",
+   "passed": true,
+   "exported_nets": {
+    "controller:SW1.3": "/GND",
+    "controller:U1.4": "/GND"
+   }
+  },
+  {
+   "id": "mode.a_input",
+   "check": "MODE_A throw, MCU input and pull-up share one net",
+   "passed": true,
+   "exported_nets": {
+    "controller:SW1.1": "/MODE_A",
+    "controller:U1.8": "/MODE_A",
+    "controller:R9.2": "/MODE_A"
+   }
+  },
+  {
+   "id": "mode.b_input",
+   "check": "MODE_B throw, MCU input and pull-up share one net",
+   "passed": true,
+   "exported_nets": {
+    "controller:SW1.4": "/MODE_B",
+    "controller:U1.9": "/MODE_B",
+    "controller:R10.2": "/MODE_B"
+   }
+  },
+  {
+   "id": "mode.pullups_to_vdd",
+   "check": "Both mode pull-ups return to MCU VDD",
+   "passed": true,
+   "exported_nets": {
+    "controller:R9.1": "/+3V3",
+    "controller:R10.1": "/+3V3",
+    "controller:U1.3": "/+3V3"
+   }
+  },
+  {
+   "id": "mode.switch_pins_covered",
+   "check": "Mode switch: common, throws and spare contacts name every pin of the part",
+   "passed": true,
+   "netlist_pins": [
+    "SW1.1",
+    "SW1.2",
+    "SW1.3",
+    "SW1.4"
+   ],
+   "role_pins": [
+    "SW1.1",
+    "SW1.2",
+    "SW1.3",
+    "SW1.4"
+   ],
+   "unnamed": [],
+   "not_in_netlist": [],
+   "named_twice": []
+  },
+  {
+   "id": "mode.spare_contacts_unused",
+   "check": "Switch contacts outside the mode encoding are unconnected",
+   "passed": true,
+   "connected": {},
+   "missing_from_netlist": []
+  },
+  {
+   "id": "mode.inputs_distinct",
+   "check": "MODE_A and MODE_B are separate nets",
+   "passed": true,
+   "nets": [
+    "/MODE_A",
+    "/MODE_B"
+   ]
+  },
+  {
+   "id": "mode.truth_table",
+   "check": "Switch positions encode ON=01, PGM=11, CV=10 (centre/open = PROGRAM)",
+   "passed": true,
+   "derived": {
+    "ON": [
+     0,
+     1
+    ],
+    "PGM": [
+     1,
+     1
+    ],
+    "CV": [
+     1,
+     0
+    ]
+   },
+   "required": {
+    "ON": [
+     0,
+     1
+    ],
+    "PGM": [
+     1,
+     1
+    ],
+    "CV": [
+     1,
+     0
+    ]
+   }
+  },
+  {
+   "id": "power.enable",
+   "check": "LED enable MCU pin drives the NPN base resistor",
+   "passed": true,
+   "exported_nets": {
+    "controller:U1.11": "/LED_ENABLE",
+    "controller:R22.1": "/LED_ENABLE"
+   }
+  },
+  {
+   "id": "power.base_pulldown",
+   "check": "NPN default-off base pull-down",
+   "passed": true,
+   "exported_nets": {
+    "controller:R22.2": "/LED_BASE",
+    "controller:Q1.1": "/LED_BASE",
+    "controller:R12.1": "/LED_BASE"
+   }
+  },
+  {
+   "id": "power.switch_enable",
+   "check": "Active-low current-limit switch enable",
+   "passed": true,
+   "exported_nets": {
+    "controller:Q1.3": "/LED_EN_N",
+    "controller:U4.3": "/LED_EN_N",
+    "controller:R23.2": "/LED_EN_N"
+   }
+  },
+  {
+   "id": "power.fault",
+   "check": "FAULT output to MCU with pull-up",
+   "passed": true,
+   "exported_nets": {
+    "controller:U4.4": "/LED_FAULT_N",
+    "controller:R13.2": "/LED_FAULT_N",
+    "controller:U1.10": "/LED_FAULT_N"
+   }
+  },
+  {
+   "id": "power.vled_shared",
+   "check": "Shared current-limited VLED feeds translator and the LED harness",
+   "passed": true,
+   "exported_nets": {
+    "controller:U5.8": "/VLED",
+    "controller:U4.6": "/VLED",
+    "controller:J3.2": "/VLED"
+   }
+  },
+  {
+   "id": "power.cable_pos",
+   "check": "Controller power cable positive pin to its input diode",
+   "passed": true,
+   "exported_nets": {
+    "controller:J5.1": "/+12V_RAW",
+    "controller:D1.2": "/+12V_RAW"
+   }
+  },
+  {
+   "id": "power.cable_neg",
+   "check": "Controller power cable negative pin to its input diode",
+   "passed": true,
+   "exported_nets": {
+    "controller:J5.3": "/-12V_RAW",
+    "controller:D2.1": "/-12V_RAW"
+   }
+  },
+  {
+   "id": "led.left_mcu",
+   "check": "Left stream MCU timer pin to translator",
+   "passed": true,
+   "exported_nets": {
+    "controller:U1.12": "/DATA_L_3V3",
+    "controller:U5.2": "/DATA_L_3V3"
+   }
+  },
+  {
+   "id": "led.right_mcu",
+   "check": "Right stream MCU timer pin to translator",
+   "passed": true,
+   "exported_nets": {
+    "controller:U1.13": "/DATA_R_3V3",
+    "controller:U5.3": "/DATA_R_3V3"
+   }
+  },
+  {
+   "id": "led.translator_dir",
+   "check": "Translator direction and VCCA tied to MCU VDD",
+   "passed": true,
+   "exported_nets": {
+    "controller:U5.5": "/+3V3",
+    "controller:U5.1": "/+3V3",
+    "controller:U1.3": "/+3V3"
+   }
+  },
+  {
+   "id": "led.left_damping",
+   "check": "Left translator output through damping resistor",
+   "passed": true,
+   "exported_nets": {
+    "controller:U5.7": "/DATA_L_5V",
+    "controller:R14.1": "/DATA_L_5V"
+   }
+  },
+  {
+   "id": "led.right_damping",
+   "check": "Right translator output through damping resistor",
+   "passed": true,
+   "exported_nets": {
+    "controller:U5.6": "/DATA_R_5V",
+    "controller:R15.1": "/DATA_R_5V"
+   }
+  },
+  {
+   "id": "led.left_cable",
+   "check": "Left damped data on its cable pin",
+   "passed": true,
+   "exported_nets": {
+    "controller:R14.2": "/DATA_L",
+    "controller:J3.3": "/DATA_L"
+   }
+  },
+  {
+   "id": "led.right_cable",
+   "check": "Right damped data on its cable pin",
+   "passed": true,
+   "exported_nets": {
+    "controller:R15.2": "/DATA_R",
+    "controller:J3.4": "/DATA_R"
+   }
+  },
+  {
+   "id": "led.streams_distinct",
+   "check": "Left and right streams are electrically separate",
+   "passed": true,
+   "nets": [
+    "/DATA_L",
+    "/DATA_R"
+   ]
+  },
+  {
+   "id": "leaf.this_stream",
+   "check": "Leaf THIS stream to first pixel and bridge",
+   "passed": true,
+   "exported_nets": {
+    "led_leaf:J1.3": "/DATA_IN",
+    "led_leaf:D1.3": "/DATA_IN",
+    "led_leaf:J2.4": "/DATA_IN"
+   }
+  },
+  {
+   "id": "leaf.other_stream",
+   "check": "Leaf OTHER stream passes to bridge",
+   "passed": true,
+   "exported_nets": {
+    "led_leaf:J1.4": "/DATA_OTHER",
+    "led_leaf:J2.3": "/DATA_OTHER"
+   }
+  },
+  {
+   "id": "leaf.streams_distinct",
+   "check": "Leaf input streams stay separate",
+   "passed": true,
+   "nets": [
+    "/DATA_IN",
+    "/DATA_OTHER"
+   ]
+  },
+  {
+   "id": "leaf.chain_1",
+   "check": "Pixel chain 1 to 2",
+   "passed": true,
+   "exported_nets": {
+    "led_leaf:D1.1": "/DATA_1_2",
+    "led_leaf:D2.3": "/DATA_1_2"
+   }
+  },
+  {
+   "id": "leaf.chain_2",
+   "check": "Pixel chain 2 to 3",
+   "passed": true,
+   "exported_nets": {
+    "led_leaf:D2.1": "/DATA_2_3",
+    "led_leaf:D3.3": "/DATA_2_3"
+   }
+  },
+  {
+   "id": "leaf.chain_3",
+   "check": "Pixel chain 3 to 4",
+   "passed": true,
+   "exported_nets": {
+    "led_leaf:D3.1": "/DATA_3_4",
+    "led_leaf:D4.3": "/DATA_3_4"
+   }
+  },
+  {
+   "id": "leaf.power",
+   "check": "Leaf and bridge VLED distribution",
+   "passed": true,
+   "exported_nets": {
+    "led_leaf:J1.2": "/VLED",
+    "led_leaf:J2.2": "/VLED",
+    "led_leaf:D1.4": "/VLED",
+    "led_leaf:D2.4": "/VLED",
+    "led_leaf:D3.4": "/VLED",
+    "led_leaf:D4.4": "/VLED",
+    "led_leaf:C1.1": "/VLED",
+    "led_leaf:C2.1": "/VLED",
+    "led_leaf:C3.1": "/VLED",
+    "led_leaf:C4.1": "/VLED"
+   }
+  },
+  {
+   "id": "leaf.ground",
+   "check": "Leaf and bridge ground distribution",
+   "passed": true,
+   "exported_nets": {
+    "led_leaf:J1.1": "/GND",
+    "led_leaf:J2.1": "/GND",
+    "led_leaf:D1.2": "/GND",
+    "led_leaf:D2.2": "/GND",
+    "led_leaf:D3.2": "/GND",
+    "led_leaf:D4.2": "/GND",
+    "led_leaf:C1.2": "/GND",
+    "led_leaf:C2.2": "/GND",
+    "led_leaf:C3.2": "/GND",
+    "led_leaf:C4.2": "/GND"
+   }
+  },
+  {
+   "id": "led.two_streams",
+   "check": "Two 1:1 harnesses deliver independent left/right streams, VLED and GND to both four-pixel chains",
+   "passed": true,
+   "left_first_pixel_net": "/DATA_L",
+   "right_first_pixel_net": "/DATA_R",
+   "right_vdd_net": "/VLED",
+   "right_gnd_net": "/GND"
+  },
+  {
+   "id": "adapter.neg",
+   "check": "IDC negative rail to reversed cable pin",
+   "passed": true,
+   "exported_nets": {
+    "power_adapter:J1.1": "/-12V_RAW",
+    "power_adapter:J1.2": "/-12V_RAW",
+    "power_adapter:J2.1": "/-12V_RAW"
+   }
+  },
+  {
+   "id": "adapter.gnd",
+   "check": "IDC ground to cable ground",
+   "passed": true,
+   "exported_nets": {
+    "power_adapter:J1.3": "/GND",
+    "power_adapter:J1.4": "/GND",
+    "power_adapter:J1.5": "/GND",
+    "power_adapter:J1.6": "/GND",
+    "power_adapter:J1.7": "/GND",
+    "power_adapter:J1.8": "/GND",
+    "power_adapter:J2.2": "/GND"
+   }
+  },
+  {
+   "id": "adapter.pos",
+   "check": "IDC positive rail to reversed cable pin",
+   "passed": true,
+   "exported_nets": {
+    "power_adapter:J1.9": "/+12V_RAW",
+    "power_adapter:J1.10": "/+12V_RAW",
+    "power_adapter:J2.3": "/+12V_RAW"
+   }
+  }
+ ],
+ "all_passed": true,
+ "limits": [
+  "No hardware test",
+  "Does not prove analog behaviour, routing or switch lever direction",
+  "Harness composition assumes intact straight 1:1 manufacturer cables"
+ ]
+}
