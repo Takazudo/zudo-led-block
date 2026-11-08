@@ -121,11 +121,26 @@ class Stack(unittest.TestCase):
     def test_y_layout(self):
         y, sw = L["y_layout"], L["switch"]
         self.assertEqual(sw["actuator_y"][1], G5["rail_body_y"][1])
-        self.assertGreaterEqual(sw["gap_to_lower_jack_body"], 0.5 - 1e-9)
+        D = json.loads((MECH / "design-inputs.json").read_text())
+        self.assertGreaterEqual(sw["gap_to_lower_jack_body"], D["jacks"]["body_to_switch_gap"]["nominal"] - 1e-9)
+        tn, tf = P["jack_axis_to_edge_near"].get("tol", 0), P["jack_axis_to_edge_far"].get("tol", 0)
+        for yc, (e0, e1), (n0, n1) in zip(y["jack_y"], y["jack_body_y"], y["jack_body_y_nominal"]):
+            # pin 2 faces +Y; the 6.1 (far) edge is the pin-2 side (#24 review reading)
+            self.assertAlmostEqual(e1 - yc, P["jack_axis_to_edge_far"]["nominal"] + tf, places=6)
+            self.assertAlmostEqual(yc - e0, P["jack_axis_to_edge_near"]["nominal"] + tn, places=6)
+            self.assertTrue(e0 <= n0 and n1 <= e1)
+        self.assertGreater(y["jack_pin_y_offset_from_axis"]["pin_2"], 0, "pin 2 faces +Y (switch)")
+        self.assertLess(y["jack_pin_y_offset_from_axis"]["pin_4"], 0)
+        self.assertGreaterEqual(sw["pad_gap_to_lower_jack_body"], 0)
+        for k in L["controller"]["keepouts"]:
+            if k["id"].endswith("-leads"):
+                yc = L["y_layout"]["jack_y"][0 if "-in-" in k["id"] else 1]
+                for dy in y["jack_pin_y_offset_from_axis"].values():
+                    self.assertTrue(k["y"][0] + 0.75 <= yc + dy <= k["y"][1] - 0.75, (k["id"], dy))
         (a0, a1), (b0, b1) = y["jack_body_y"]
         self.assertGreater(b0, a1)
         self.assertGreaterEqual(a0, L["supports"]["spine"]["slot_y"][1])
-        self.assertGreaterEqual(min(y["jack_y"]) - 6.1, L["controller"]["outline_y"][0])
+        self.assertGreaterEqual(y["jack_body_y"][0][0], L["controller"]["outline_y"][0])
         self.assertGreaterEqual(y["pitch"], 14.0)
         for i, q in enumerate(y["labels"]):
             top, bot = q["y"] - q["cap_height"] / 2, q["y"] + q["cap_height"] / 2
@@ -144,6 +159,8 @@ class Stack(unittest.TestCase):
             self.assertGreater(c["spine_screw_nut_clear_of_side"], 0, name)
             self.assertGreaterEqual(c["lead_side_nominal_margin"], 0, name)
             self.assertGreaterEqual(c["body_side_nominal_margin"], 0, name)
+            self.assertTrue(c["solder_face_zone_below_lead_tips"], name)
+            self.assertGreaterEqual(c["solder_face_zone_margin_worst"], 0, name)
             x0, x1 = v["controller_pcb_x"]
             self.assertAlmostEqual(x1 - x0, v["pcb_thickness"], places=6)
             self.assertAlmostEqual(x1, v["x_axis"] - P["jack_axis_height"]["nominal"], places=6)

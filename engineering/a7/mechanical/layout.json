@@ -3,8 +3,8 @@
   "generator": "scripts/a7_mechanical_layout.py",
   "inputs": [
     "engineering/a7/study/parameters.json",
-    "engineering/a7/evidence/component-a7-pcm13smtr/facts.json",
-    "engineering/a7/evidence/component-a7-pj-324m/facts.json",
+    ".claude/skills/component-a7-pcm13smtr/facts.json",
+    ".claude/skills/component-a7-pj-324m/facts.json",
     "engineering/a7/mechanical/design-inputs.json",
     "engineering/a5/mechanical/geometry.json",
     "engineering/a5/front_panel/geometry.json",
@@ -72,13 +72,13 @@
         "lead_side": -0.33,
         "body_side": -0.15,
         "nut_front": 0.0,
-        "pcb_hole_web": 0.95
+        "panel_hole_web": 1.05
       },
       "nominal": {
         "lead_side": 0.7,
         "body_side": 0.7,
         "nut_front": 0.3,
-        "pcb_hole_web": 1.2
+        "panel_hole_web": 1.2
       },
       "lead_long_enough_for_trim": true
     },
@@ -96,13 +96,13 @@
         "lead_side": 0.1,
         "body_side": 3.0,
         "nut_front": 3.15,
-        "pcb_hole_web": 4.1
+        "panel_hole_web": 4.2
       },
       "nominal": {
         "lead_side": 0.95,
         "body_side": 3.85,
         "nut_front": 3.45,
-        "pcb_hole_web": 4.35
+        "panel_hole_web": 4.35
       },
       "lead_long_enough_for_trim": true
     },
@@ -121,13 +121,13 @@
           "lead_side": 0.1,
           "body_side": 3.0,
           "nut_front": 3.15,
-          "pcb_hole_web": 4.1
+          "panel_hole_web": 4.2
         },
         "nominal": {
           "lead_side": 0.95,
           "body_side": 3.85,
           "nut_front": 3.45,
-          "pcb_hole_web": 4.35
+          "panel_hole_web": 4.35
         },
         "lead_long_enough_for_trim": true
       }
@@ -149,13 +149,13 @@
           "lead_side": -0.93,
           "body_side": 0.45,
           "nut_front": 0.6,
-          "pcb_hole_web": 1.55
+          "panel_hole_web": 1.65
         },
         "nominal": {
           "lead_side": 0.1,
           "body_side": 1.3,
           "nut_front": 0.9,
-          "pcb_hole_web": 1.8
+          "panel_hole_web": 1.8
         },
         "lead_long_enough_for_trim": true
       },
@@ -175,13 +175,13 @@
           "lead_side": -0.88,
           "body_side": 0.4,
           "nut_front": 0.55,
-          "pcb_hole_web": 1.5
+          "panel_hole_web": 1.6
         },
         "nominal": {
           "lead_side": 0.15,
           "body_side": 1.25,
           "nut_front": 0.85,
-          "pcb_hole_web": 1.75
+          "panel_hole_web": 1.75
         },
         "lead_long_enough_for_trim": true
       },
@@ -201,13 +201,13 @@
           "lead_side": -0.83,
           "body_side": 0.35,
           "nut_front": 0.5,
-          "pcb_hole_web": 1.45
+          "panel_hole_web": 1.55
         },
         "nominal": {
           "lead_side": 0.2,
           "body_side": 1.2,
           "nut_front": 0.8,
-          "pcb_hole_web": 1.7
+          "panel_hole_web": 1.7
         },
         "lead_long_enough_for_trim": true
       },
@@ -227,13 +227,13 @@
           "lead_side": -0.78,
           "body_side": 0.3,
           "nut_front": 0.45,
-          "pcb_hole_web": 1.4
+          "panel_hole_web": 1.5
         },
         "nominal": {
           "lead_side": 0.25,
           "body_side": 1.15,
           "nut_front": 0.75,
-          "pcb_hole_web": 1.65
+          "panel_hole_web": 1.65
         },
         "lead_long_enough_for_trim": true
       },
@@ -253,13 +253,13 @@
           "lead_side": -0.73,
           "body_side": 0.25,
           "nut_front": 0.4,
-          "pcb_hole_web": 1.35
+          "panel_hole_web": 1.45
         },
         "nominal": {
           "lead_side": 0.3,
           "body_side": 1.1,
           "nut_front": 0.7,
-          "pcb_hole_web": 1.6
+          "panel_hole_web": 1.6
         },
         "lead_long_enough_for_trim": true
       },
@@ -279,13 +279,13 @@
           "lead_side": -0.68,
           "body_side": 0.2,
           "nut_front": 0.35,
-          "pcb_hole_web": 1.3
+          "panel_hole_web": 1.4
         },
         "nominal": {
           "lead_side": 0.35,
           "body_side": 1.05,
           "nut_front": 0.65,
-          "pcb_hole_web": 1.55
+          "panel_hole_web": 1.55
         },
         "lead_long_enough_for_trim": true
       },
@@ -305,13 +305,13 @@
           "lead_side": -0.63,
           "body_side": 0.15,
           "nut_front": 0.3,
-          "pcb_hole_web": 1.25
+          "panel_hole_web": 1.35
         },
         "nominal": {
           "lead_side": 0.4,
           "body_side": 1.0,
           "nut_front": 0.6,
-          "pcb_hole_web": 1.5
+          "panel_hole_web": 1.5
         },
         "lead_long_enough_for_trim": true
       },
@@ -331,13 +331,13 @@
           "lead_side": -0.58,
           "body_side": 0.1,
           "nut_front": 0.25,
-          "pcb_hole_web": 1.2
+          "panel_hole_web": 1.3
         },
         "nominal": {
           "lead_side": 0.45,
           "body_side": 0.95,
           "nut_front": 0.55,
-          "pcb_hole_web": 1.45
+          "panel_hole_web": 1.45
         },
         "lead_long_enough_for_trim": true
       },
@@ -357,13 +357,13 @@
           "lead_side": -0.53,
           "body_side": 0.05,
           "nut_front": 0.2,
-          "pcb_hole_web": 1.15
+          "panel_hole_web": 1.25
         },
         "nominal": {
           "lead_side": 0.5,
           "body_side": 0.9,
           "nut_front": 0.5,
-          "pcb_hole_web": 1.4
+          "panel_hole_web": 1.4
         },
         "lead_long_enough_for_trim": true
       },
@@ -383,13 +383,13 @@
           "lead_side": -0.48,
           "body_side": -0.0,
           "nut_front": 0.15,
-          "pcb_hole_web": 1.1
+          "panel_hole_web": 1.2
         },
         "nominal": {
           "lead_side": 0.55,
           "body_side": 0.85,
           "nut_front": 0.45,
-          "pcb_hole_web": 1.35
+          "panel_hole_web": 1.35
         },
         "lead_long_enough_for_trim": true
       },
@@ -410,13 +410,13 @@
           "lead_side": -0.43,
           "body_side": -0.05,
           "nut_front": 0.1,
-          "pcb_hole_web": 1.05
+          "panel_hole_web": 1.15
         },
         "nominal": {
           "lead_side": 0.6,
           "body_side": 0.8,
           "nut_front": 0.4,
-          "pcb_hole_web": 1.3
+          "panel_hole_web": 1.3
         },
         "lead_long_enough_for_trim": true
       },
@@ -437,13 +437,13 @@
           "lead_side": -0.38,
           "body_side": -0.1,
           "nut_front": 0.05,
-          "pcb_hole_web": 1.0
+          "panel_hole_web": 1.1
         },
         "nominal": {
           "lead_side": 0.65,
           "body_side": 0.75,
           "nut_front": 0.35,
-          "pcb_hole_web": 1.25
+          "panel_hole_web": 1.25
         },
         "lead_long_enough_for_trim": true
       },
@@ -464,13 +464,13 @@
           "lead_side": -0.33,
           "body_side": -0.15,
           "nut_front": 0.0,
-          "pcb_hole_web": 0.95
+          "panel_hole_web": 1.05
         },
         "nominal": {
           "lead_side": 0.7,
           "body_side": 0.7,
           "nut_front": 0.3,
-          "pcb_hole_web": 1.2
+          "panel_hole_web": 1.2
         },
         "lead_long_enough_for_trim": true
       },
@@ -492,13 +492,13 @@
           "lead_side": -0.28,
           "body_side": -0.2,
           "nut_front": -0.05,
-          "pcb_hole_web": 0.9
+          "panel_hole_web": 1.0
         },
         "nominal": {
           "lead_side": 0.75,
           "body_side": 0.65,
           "nut_front": 0.25,
-          "pcb_hole_web": 1.15
+          "panel_hole_web": 1.15
         },
         "lead_long_enough_for_trim": true
       },
@@ -520,13 +520,13 @@
           "lead_side": -0.23,
           "body_side": -0.25,
           "nut_front": -0.1,
-          "pcb_hole_web": 0.85
+          "panel_hole_web": 0.95
         },
         "nominal": {
           "lead_side": 0.8,
           "body_side": 0.6,
           "nut_front": 0.2,
-          "pcb_hole_web": 1.1
+          "panel_hole_web": 1.1
         },
         "lead_long_enough_for_trim": true
       },
@@ -548,13 +548,13 @@
           "lead_side": -0.18,
           "body_side": -0.3,
           "nut_front": -0.15,
-          "pcb_hole_web": 0.8
+          "panel_hole_web": 0.9
         },
         "nominal": {
           "lead_side": 0.85,
           "body_side": 0.55,
           "nut_front": 0.15,
-          "pcb_hole_web": 1.05
+          "panel_hole_web": 1.05
         },
         "lead_long_enough_for_trim": true
       },
@@ -576,13 +576,13 @@
           "lead_side": -0.13,
           "body_side": -0.35,
           "nut_front": -0.2,
-          "pcb_hole_web": 0.75
+          "panel_hole_web": 0.85
         },
         "nominal": {
           "lead_side": 0.9,
           "body_side": 0.5,
           "nut_front": 0.1,
-          "pcb_hole_web": 1.0
+          "panel_hole_web": 1.0
         },
         "lead_long_enough_for_trim": true
       },
@@ -604,13 +604,13 @@
           "lead_side": -0.08,
           "body_side": -0.4,
           "nut_front": -0.25,
-          "pcb_hole_web": 0.7
+          "panel_hole_web": 0.8
         },
         "nominal": {
           "lead_side": 0.95,
           "body_side": 0.45,
           "nut_front": 0.05,
-          "pcb_hole_web": 0.95
+          "panel_hole_web": 0.95
         },
         "lead_long_enough_for_trim": true
       },
@@ -632,13 +632,13 @@
           "lead_side": -0.03,
           "body_side": -0.45,
           "nut_front": -0.3,
-          "pcb_hole_web": 0.65
+          "panel_hole_web": 0.75
         },
         "nominal": {
           "lead_side": 1.0,
           "body_side": 0.4,
           "nut_front": 0.0,
-          "pcb_hole_web": 0.9
+          "panel_hole_web": 0.9
         },
         "lead_long_enough_for_trim": true
       },
@@ -648,8 +648,9 @@
         "offset": 0.95,
         "pcb_thickness": 0.8,
         "leads": "trimmed",
-        "verdict": "INFEASIBLE WITHIN STATED RANGES",
+        "verdict": "UNRESOLVED",
         "failing_at_worst": [
+          "body_side",
           "nut_front"
         ],
         "worst_min": -0.5,
@@ -658,13 +659,13 @@
           "lead_side": 0.02,
           "body_side": -0.5,
           "nut_front": -0.35,
-          "pcb_hole_web": 0.6
+          "panel_hole_web": 0.7
         },
         "nominal": {
           "lead_side": 1.05,
           "body_side": 0.35,
           "nut_front": -0.05,
-          "pcb_hole_web": 0.85
+          "panel_hole_web": 0.85
         },
         "lead_long_enough_for_trim": true
       },
@@ -674,8 +675,9 @@
         "offset": 1.0,
         "pcb_thickness": 0.8,
         "leads": "trimmed",
-        "verdict": "INFEASIBLE WITHIN STATED RANGES",
+        "verdict": "UNRESOLVED",
         "failing_at_worst": [
+          "body_side",
           "nut_front"
         ],
         "worst_min": -0.55,
@@ -684,13 +686,13 @@
           "lead_side": 0.07,
           "body_side": -0.55,
           "nut_front": -0.4,
-          "pcb_hole_web": 0.55
+          "panel_hole_web": 0.65
         },
         "nominal": {
           "lead_side": 1.1,
           "body_side": 0.3,
           "nut_front": -0.1,
-          "pcb_hole_web": 0.8
+          "panel_hole_web": 0.8
         },
         "lead_long_enough_for_trim": true
       },
@@ -700,8 +702,9 @@
         "offset": 1.05,
         "pcb_thickness": 0.8,
         "leads": "trimmed",
-        "verdict": "INFEASIBLE WITHIN STATED RANGES",
+        "verdict": "UNRESOLVED",
         "failing_at_worst": [
+          "body_side",
           "nut_front"
         ],
         "worst_min": -0.6,
@@ -710,13 +713,13 @@
           "lead_side": 0.12,
           "body_side": -0.6,
           "nut_front": -0.45,
-          "pcb_hole_web": 0.5
+          "panel_hole_web": 0.6
         },
         "nominal": {
           "lead_side": 1.15,
           "body_side": 0.25,
           "nut_front": -0.15,
-          "pcb_hole_web": 0.75
+          "panel_hole_web": 0.75
         },
         "lead_long_enough_for_trim": true
       },
@@ -726,8 +729,9 @@
         "offset": 1.1,
         "pcb_thickness": 0.8,
         "leads": "trimmed",
-        "verdict": "INFEASIBLE WITHIN STATED RANGES",
+        "verdict": "UNRESOLVED",
         "failing_at_worst": [
+          "body_side",
           "nut_front"
         ],
         "worst_min": -0.65,
@@ -736,13 +740,13 @@
           "lead_side": 0.17,
           "body_side": -0.65,
           "nut_front": -0.5,
-          "pcb_hole_web": 0.45
+          "panel_hole_web": 0.55
         },
         "nominal": {
           "lead_side": 1.2,
           "body_side": 0.2,
           "nut_front": -0.2,
-          "pcb_hole_web": 0.7
+          "panel_hole_web": 0.7
         },
         "lead_long_enough_for_trim": true
       },
@@ -752,8 +756,9 @@
         "offset": 1.15,
         "pcb_thickness": 0.8,
         "leads": "trimmed",
-        "verdict": "INFEASIBLE WITHIN STATED RANGES",
+        "verdict": "UNRESOLVED",
         "failing_at_worst": [
+          "body_side",
           "nut_front"
         ],
         "worst_min": -0.7,
@@ -762,13 +767,13 @@
           "lead_side": 0.22,
           "body_side": -0.7,
           "nut_front": -0.55,
-          "pcb_hole_web": 0.4
+          "panel_hole_web": 0.5
         },
         "nominal": {
           "lead_side": 1.25,
           "body_side": 0.15,
           "nut_front": -0.25,
-          "pcb_hole_web": 0.65
+          "panel_hole_web": 0.65
         },
         "lead_long_enough_for_trim": true
       },
@@ -788,13 +793,13 @@
           "lead_side": 0.27,
           "body_side": -0.75,
           "nut_front": -0.6,
-          "pcb_hole_web": 0.35
+          "panel_hole_web": 0.45
         },
         "nominal": {
           "lead_side": 1.3,
           "body_side": 0.1,
           "nut_front": -0.3,
-          "pcb_hole_web": 0.6
+          "panel_hole_web": 0.6
         },
         "lead_long_enough_for_trim": true
       },
@@ -814,13 +819,13 @@
           "lead_side": -1.15,
           "body_side": 0.45,
           "nut_front": 0.6,
-          "pcb_hole_web": 1.55
+          "panel_hole_web": 1.65
         },
         "nominal": {
           "lead_side": -0.1,
           "body_side": 1.3,
           "nut_front": 0.9,
-          "pcb_hole_web": 1.8
+          "panel_hole_web": 1.8
         },
         "lead_long_enough_for_trim": true
       },
@@ -840,13 +845,13 @@
           "lead_side": -1.1,
           "body_side": 0.4,
           "nut_front": 0.55,
-          "pcb_hole_web": 1.5
+          "panel_hole_web": 1.6
         },
         "nominal": {
           "lead_side": -0.05,
           "body_side": 1.25,
           "nut_front": 0.85,
-          "pcb_hole_web": 1.75
+          "panel_hole_web": 1.75
         },
         "lead_long_enough_for_trim": true
       },
@@ -866,13 +871,13 @@
           "lead_side": -1.05,
           "body_side": 0.35,
           "nut_front": 0.5,
-          "pcb_hole_web": 1.45
+          "panel_hole_web": 1.55
         },
         "nominal": {
           "lead_side": 0.0,
           "body_side": 1.2,
           "nut_front": 0.8,
-          "pcb_hole_web": 1.7
+          "panel_hole_web": 1.7
         },
         "lead_long_enough_for_trim": true
       },
@@ -892,13 +897,13 @@
           "lead_side": -1.0,
           "body_side": 0.3,
           "nut_front": 0.45,
-          "pcb_hole_web": 1.4
+          "panel_hole_web": 1.5
         },
         "nominal": {
           "lead_side": 0.05,
           "body_side": 1.15,
           "nut_front": 0.75,
-          "pcb_hole_web": 1.65
+          "panel_hole_web": 1.65
         },
         "lead_long_enough_for_trim": true
       },
@@ -918,13 +923,13 @@
           "lead_side": -0.95,
           "body_side": 0.25,
           "nut_front": 0.4,
-          "pcb_hole_web": 1.35
+          "panel_hole_web": 1.45
         },
         "nominal": {
           "lead_side": 0.1,
           "body_side": 1.1,
           "nut_front": 0.7,
-          "pcb_hole_web": 1.6
+          "panel_hole_web": 1.6
         },
         "lead_long_enough_for_trim": true
       },
@@ -944,13 +949,13 @@
           "lead_side": -0.9,
           "body_side": 0.2,
           "nut_front": 0.35,
-          "pcb_hole_web": 1.3
+          "panel_hole_web": 1.4
         },
         "nominal": {
           "lead_side": 0.15,
           "body_side": 1.05,
           "nut_front": 0.65,
-          "pcb_hole_web": 1.55
+          "panel_hole_web": 1.55
         },
         "lead_long_enough_for_trim": true
       },
@@ -970,13 +975,13 @@
           "lead_side": -0.85,
           "body_side": 0.15,
           "nut_front": 0.3,
-          "pcb_hole_web": 1.25
+          "panel_hole_web": 1.35
         },
         "nominal": {
           "lead_side": 0.2,
           "body_side": 1.0,
           "nut_front": 0.6,
-          "pcb_hole_web": 1.5
+          "panel_hole_web": 1.5
         },
         "lead_long_enough_for_trim": true
       },
@@ -996,13 +1001,13 @@
           "lead_side": -0.8,
           "body_side": 0.1,
           "nut_front": 0.25,
-          "pcb_hole_web": 1.2
+          "panel_hole_web": 1.3
         },
         "nominal": {
           "lead_side": 0.25,
           "body_side": 0.95,
           "nut_front": 0.55,
-          "pcb_hole_web": 1.45
+          "panel_hole_web": 1.45
         },
         "lead_long_enough_for_trim": true
       },
@@ -1022,13 +1027,13 @@
           "lead_side": -0.75,
           "body_side": 0.05,
           "nut_front": 0.2,
-          "pcb_hole_web": 1.15
+          "panel_hole_web": 1.25
         },
         "nominal": {
           "lead_side": 0.3,
           "body_side": 0.9,
           "nut_front": 0.5,
-          "pcb_hole_web": 1.4
+          "panel_hole_web": 1.4
         },
         "lead_long_enough_for_trim": true
       },
@@ -1048,13 +1053,13 @@
           "lead_side": -0.7,
           "body_side": -0.0,
           "nut_front": 0.15,
-          "pcb_hole_web": 1.1
+          "panel_hole_web": 1.2
         },
         "nominal": {
           "lead_side": 0.35,
           "body_side": 0.85,
           "nut_front": 0.45,
-          "pcb_hole_web": 1.35
+          "panel_hole_web": 1.35
         },
         "lead_long_enough_for_trim": true
       },
@@ -1075,13 +1080,13 @@
           "lead_side": -0.65,
           "body_side": -0.05,
           "nut_front": 0.1,
-          "pcb_hole_web": 1.05
+          "panel_hole_web": 1.15
         },
         "nominal": {
           "lead_side": 0.4,
           "body_side": 0.8,
           "nut_front": 0.4,
-          "pcb_hole_web": 1.3
+          "panel_hole_web": 1.3
         },
         "lead_long_enough_for_trim": true
       },
@@ -1102,13 +1107,13 @@
           "lead_side": -0.6,
           "body_side": -0.1,
           "nut_front": 0.05,
-          "pcb_hole_web": 1.0
+          "panel_hole_web": 1.1
         },
         "nominal": {
           "lead_side": 0.45,
           "body_side": 0.75,
           "nut_front": 0.35,
-          "pcb_hole_web": 1.25
+          "panel_hole_web": 1.25
         },
         "lead_long_enough_for_trim": true
       },
@@ -1129,13 +1134,13 @@
           "lead_side": -0.55,
           "body_side": -0.15,
           "nut_front": 0.0,
-          "pcb_hole_web": 0.95
+          "panel_hole_web": 1.05
         },
         "nominal": {
           "lead_side": 0.5,
           "body_side": 0.7,
           "nut_front": 0.3,
-          "pcb_hole_web": 1.2
+          "panel_hole_web": 1.2
         },
         "lead_long_enough_for_trim": true
       },
@@ -1157,13 +1162,13 @@
           "lead_side": -0.5,
           "body_side": -0.2,
           "nut_front": -0.05,
-          "pcb_hole_web": 0.9
+          "panel_hole_web": 1.0
         },
         "nominal": {
           "lead_side": 0.55,
           "body_side": 0.65,
           "nut_front": 0.25,
-          "pcb_hole_web": 1.15
+          "panel_hole_web": 1.15
         },
         "lead_long_enough_for_trim": true
       },
@@ -1185,13 +1190,13 @@
           "lead_side": -0.45,
           "body_side": -0.25,
           "nut_front": -0.1,
-          "pcb_hole_web": 0.85
+          "panel_hole_web": 0.95
         },
         "nominal": {
           "lead_side": 0.6,
           "body_side": 0.6,
           "nut_front": 0.2,
-          "pcb_hole_web": 1.1
+          "panel_hole_web": 1.1
         },
         "lead_long_enough_for_trim": true
       },
@@ -1213,13 +1218,13 @@
           "lead_side": -0.4,
           "body_side": -0.3,
           "nut_front": -0.15,
-          "pcb_hole_web": 0.8
+          "panel_hole_web": 0.9
         },
         "nominal": {
           "lead_side": 0.65,
           "body_side": 0.55,
           "nut_front": 0.15,
-          "pcb_hole_web": 1.05
+          "panel_hole_web": 1.05
         },
         "lead_long_enough_for_trim": true
       },
@@ -1241,13 +1246,13 @@
           "lead_side": -0.35,
           "body_side": -0.35,
           "nut_front": -0.2,
-          "pcb_hole_web": 0.75
+          "panel_hole_web": 0.85
         },
         "nominal": {
           "lead_side": 0.7,
           "body_side": 0.5,
           "nut_front": 0.1,
-          "pcb_hole_web": 1.0
+          "panel_hole_web": 1.0
         },
         "lead_long_enough_for_trim": true
       },
@@ -1269,13 +1274,13 @@
           "lead_side": -0.3,
           "body_side": -0.4,
           "nut_front": -0.25,
-          "pcb_hole_web": 0.7
+          "panel_hole_web": 0.8
         },
         "nominal": {
           "lead_side": 0.75,
           "body_side": 0.45,
           "nut_front": 0.05,
-          "pcb_hole_web": 0.95
+          "panel_hole_web": 0.95
         },
         "lead_long_enough_for_trim": true
       },
@@ -1297,13 +1302,13 @@
           "lead_side": -0.25,
           "body_side": -0.45,
           "nut_front": -0.3,
-          "pcb_hole_web": 0.65
+          "panel_hole_web": 0.75
         },
         "nominal": {
           "lead_side": 0.8,
           "body_side": 0.4,
           "nut_front": 0.0,
-          "pcb_hole_web": 0.9
+          "panel_hole_web": 0.9
         },
         "lead_long_enough_for_trim": true
       },
@@ -1313,8 +1318,10 @@
         "offset": 0.95,
         "pcb_thickness": 1.0,
         "leads": "trimmed",
-        "verdict": "INFEASIBLE WITHIN STATED RANGES",
+        "verdict": "UNRESOLVED",
         "failing_at_worst": [
+          "lead_side",
+          "body_side",
           "nut_front"
         ],
         "worst_min": -0.5,
@@ -1323,13 +1330,13 @@
           "lead_side": -0.2,
           "body_side": -0.5,
           "nut_front": -0.35,
-          "pcb_hole_web": 0.6
+          "panel_hole_web": 0.7
         },
         "nominal": {
           "lead_side": 0.85,
           "body_side": 0.35,
           "nut_front": -0.05,
-          "pcb_hole_web": 0.85
+          "panel_hole_web": 0.85
         },
         "lead_long_enough_for_trim": true
       },
@@ -1339,8 +1346,10 @@
         "offset": 1.0,
         "pcb_thickness": 1.0,
         "leads": "trimmed",
-        "verdict": "INFEASIBLE WITHIN STATED RANGES",
+        "verdict": "UNRESOLVED",
         "failing_at_worst": [
+          "lead_side",
+          "body_side",
           "nut_front"
         ],
         "worst_min": -0.55,
@@ -1349,13 +1358,13 @@
           "lead_side": -0.15,
           "body_side": -0.55,
           "nut_front": -0.4,
-          "pcb_hole_web": 0.55
+          "panel_hole_web": 0.65
         },
         "nominal": {
           "lead_side": 0.9,
           "body_side": 0.3,
           "nut_front": -0.1,
-          "pcb_hole_web": 0.8
+          "panel_hole_web": 0.8
         },
         "lead_long_enough_for_trim": true
       },
@@ -1365,8 +1374,10 @@
         "offset": 1.05,
         "pcb_thickness": 1.0,
         "leads": "trimmed",
-        "verdict": "INFEASIBLE WITHIN STATED RANGES",
+        "verdict": "UNRESOLVED",
         "failing_at_worst": [
+          "lead_side",
+          "body_side",
           "nut_front"
         ],
         "worst_min": -0.6,
@@ -1375,13 +1386,13 @@
           "lead_side": -0.1,
           "body_side": -0.6,
           "nut_front": -0.45,
-          "pcb_hole_web": 0.5
+          "panel_hole_web": 0.6
         },
         "nominal": {
           "lead_side": 0.95,
           "body_side": 0.25,
           "nut_front": -0.15,
-          "pcb_hole_web": 0.75
+          "panel_hole_web": 0.75
         },
         "lead_long_enough_for_trim": true
       },
@@ -1391,8 +1402,10 @@
         "offset": 1.1,
         "pcb_thickness": 1.0,
         "leads": "trimmed",
-        "verdict": "INFEASIBLE WITHIN STATED RANGES",
+        "verdict": "UNRESOLVED",
         "failing_at_worst": [
+          "lead_side",
+          "body_side",
           "nut_front"
         ],
         "worst_min": -0.65,
@@ -1401,13 +1414,13 @@
           "lead_side": -0.05,
           "body_side": -0.65,
           "nut_front": -0.5,
-          "pcb_hole_web": 0.45
+          "panel_hole_web": 0.55
         },
         "nominal": {
           "lead_side": 1.0,
           "body_side": 0.2,
           "nut_front": -0.2,
-          "pcb_hole_web": 0.7
+          "panel_hole_web": 0.7
         },
         "lead_long_enough_for_trim": true
       },
@@ -1417,8 +1430,9 @@
         "offset": 1.15,
         "pcb_thickness": 1.0,
         "leads": "trimmed",
-        "verdict": "INFEASIBLE WITHIN STATED RANGES",
+        "verdict": "UNRESOLVED",
         "failing_at_worst": [
+          "body_side",
           "nut_front"
         ],
         "worst_min": -0.7,
@@ -1427,13 +1441,13 @@
           "lead_side": 0.0,
           "body_side": -0.7,
           "nut_front": -0.55,
-          "pcb_hole_web": 0.4
+          "panel_hole_web": 0.5
         },
         "nominal": {
           "lead_side": 1.05,
           "body_side": 0.15,
           "nut_front": -0.25,
-          "pcb_hole_web": 0.65
+          "panel_hole_web": 0.65
         },
         "lead_long_enough_for_trim": true
       },
@@ -1453,13 +1467,13 @@
           "lead_side": 0.05,
           "body_side": -0.75,
           "nut_front": -0.6,
-          "pcb_hole_web": 0.35
+          "panel_hole_web": 0.45
         },
         "nominal": {
           "lead_side": 1.1,
           "body_side": 0.1,
           "nut_front": -0.3,
-          "pcb_hole_web": 0.6
+          "panel_hole_web": 0.6
         },
         "lead_long_enough_for_trim": true
       },
@@ -1479,13 +1493,13 @@
           "lead_side": -1.37,
           "body_side": 0.45,
           "nut_front": 0.6,
-          "pcb_hole_web": 1.55
+          "panel_hole_web": 1.65
         },
         "nominal": {
           "lead_side": -0.3,
           "body_side": 1.3,
           "nut_front": 0.9,
-          "pcb_hole_web": 1.8
+          "panel_hole_web": 1.8
         },
         "lead_long_enough_for_trim": true
       },
@@ -1505,13 +1519,13 @@
           "lead_side": -1.32,
           "body_side": 0.4,
           "nut_front": 0.55,
-          "pcb_hole_web": 1.5
+          "panel_hole_web": 1.6
         },
         "nominal": {
           "lead_side": -0.25,
           "body_side": 1.25,
           "nut_front": 0.85,
-          "pcb_hole_web": 1.75
+          "panel_hole_web": 1.75
         },
         "lead_long_enough_for_trim": true
       },
@@ -1531,13 +1545,13 @@
           "lead_side": -1.27,
           "body_side": 0.35,
           "nut_front": 0.5,
-          "pcb_hole_web": 1.45
+          "panel_hole_web": 1.55
         },
         "nominal": {
           "lead_side": -0.2,
           "body_side": 1.2,
           "nut_front": 0.8,
-          "pcb_hole_web": 1.7
+          "panel_hole_web": 1.7
         },
         "lead_long_enough_for_trim": true
       },
@@ -1557,13 +1571,13 @@
           "lead_side": -1.22,
           "body_side": 0.3,
           "nut_front": 0.45,
-          "pcb_hole_web": 1.4
+          "panel_hole_web": 1.5
         },
         "nominal": {
           "lead_side": -0.15,
           "body_side": 1.15,
           "nut_front": 0.75,
-          "pcb_hole_web": 1.65
+          "panel_hole_web": 1.65
         },
         "lead_long_enough_for_trim": true
       },
@@ -1583,13 +1597,13 @@
           "lead_side": -1.17,
           "body_side": 0.25,
           "nut_front": 0.4,
-          "pcb_hole_web": 1.35
+          "panel_hole_web": 1.45
         },
         "nominal": {
           "lead_side": -0.1,
           "body_side": 1.1,
           "nut_front": 0.7,
-          "pcb_hole_web": 1.6
+          "panel_hole_web": 1.6
         },
         "lead_long_enough_for_trim": true
       },
@@ -1609,13 +1623,13 @@
           "lead_side": -1.12,
           "body_side": 0.2,
           "nut_front": 0.35,
-          "pcb_hole_web": 1.3
+          "panel_hole_web": 1.4
         },
         "nominal": {
           "lead_side": -0.05,
           "body_side": 1.05,
           "nut_front": 0.65,
-          "pcb_hole_web": 1.55
+          "panel_hole_web": 1.55
         },
         "lead_long_enough_for_trim": true
       },
@@ -1635,13 +1649,13 @@
           "lead_side": -1.07,
           "body_side": 0.15,
           "nut_front": 0.3,
-          "pcb_hole_web": 1.25
+          "panel_hole_web": 1.35
         },
         "nominal": {
           "lead_side": 0.0,
           "body_side": 1.0,
           "nut_front": 0.6,
-          "pcb_hole_web": 1.5
+          "panel_hole_web": 1.5
         },
         "lead_long_enough_for_trim": true
       },
@@ -1661,13 +1675,13 @@
           "lead_side": -1.02,
           "body_side": 0.1,
           "nut_front": 0.25,
-          "pcb_hole_web": 1.2
+          "panel_hole_web": 1.3
         },
         "nominal": {
           "lead_side": 0.05,
           "body_side": 0.95,
           "nut_front": 0.55,
-          "pcb_hole_web": 1.45
+          "panel_hole_web": 1.45
         },
         "lead_long_enough_for_trim": true
       },
@@ -1687,13 +1701,13 @@
           "lead_side": -0.97,
           "body_side": 0.05,
           "nut_front": 0.2,
-          "pcb_hole_web": 1.15
+          "panel_hole_web": 1.25
         },
         "nominal": {
           "lead_side": 0.1,
           "body_side": 0.9,
           "nut_front": 0.5,
-          "pcb_hole_web": 1.4
+          "panel_hole_web": 1.4
         },
         "lead_long_enough_for_trim": true
       },
@@ -1713,13 +1727,13 @@
           "lead_side": -0.92,
           "body_side": -0.0,
           "nut_front": 0.15,
-          "pcb_hole_web": 1.1
+          "panel_hole_web": 1.2
         },
         "nominal": {
           "lead_side": 0.15,
           "body_side": 0.85,
           "nut_front": 0.45,
-          "pcb_hole_web": 1.35
+          "panel_hole_web": 1.35
         },
         "lead_long_enough_for_trim": true
       },
@@ -1740,13 +1754,13 @@
           "lead_side": -0.87,
           "body_side": -0.05,
           "nut_front": 0.1,
-          "pcb_hole_web": 1.05
+          "panel_hole_web": 1.15
         },
         "nominal": {
           "lead_side": 0.2,
           "body_side": 0.8,
           "nut_front": 0.4,
-          "pcb_hole_web": 1.3
+          "panel_hole_web": 1.3
         },
         "lead_long_enough_for_trim": true
       },
@@ -1767,13 +1781,13 @@
           "lead_side": -0.82,
           "body_side": -0.1,
           "nut_front": 0.05,
-          "pcb_hole_web": 1.0
+          "panel_hole_web": 1.1
         },
         "nominal": {
           "lead_side": 0.25,
           "body_side": 0.75,
           "nut_front": 0.35,
-          "pcb_hole_web": 1.25
+          "panel_hole_web": 1.25
         },
         "lead_long_enough_for_trim": true
       },
@@ -1794,13 +1808,13 @@
           "lead_side": -0.77,
           "body_side": -0.15,
           "nut_front": 0.0,
-          "pcb_hole_web": 0.95
+          "panel_hole_web": 1.05
         },
         "nominal": {
           "lead_side": 0.3,
           "body_side": 0.7,
           "nut_front": 0.3,
-          "pcb_hole_web": 1.2
+          "panel_hole_web": 1.2
         },
         "lead_long_enough_for_trim": true
       },
@@ -1822,13 +1836,13 @@
           "lead_side": -0.72,
           "body_side": -0.2,
           "nut_front": -0.05,
-          "pcb_hole_web": 0.9
+          "panel_hole_web": 1.0
         },
         "nominal": {
           "lead_side": 0.35,
           "body_side": 0.65,
           "nut_front": 0.25,
-          "pcb_hole_web": 1.15
+          "panel_hole_web": 1.15
         },
         "lead_long_enough_for_trim": true
       },
@@ -1850,13 +1864,13 @@
           "lead_side": -0.67,
           "body_side": -0.25,
           "nut_front": -0.1,
-          "pcb_hole_web": 0.85
+          "panel_hole_web": 0.95
         },
         "nominal": {
           "lead_side": 0.4,
           "body_side": 0.6,
           "nut_front": 0.2,
-          "pcb_hole_web": 1.1
+          "panel_hole_web": 1.1
         },
         "lead_long_enough_for_trim": true
       },
@@ -1878,13 +1892,13 @@
           "lead_side": -0.62,
           "body_side": -0.3,
           "nut_front": -0.15,
-          "pcb_hole_web": 0.8
+          "panel_hole_web": 0.9
         },
         "nominal": {
           "lead_side": 0.45,
           "body_side": 0.55,
           "nut_front": 0.15,
-          "pcb_hole_web": 1.05
+          "panel_hole_web": 1.05
         },
         "lead_long_enough_for_trim": true
       },
@@ -1906,13 +1920,13 @@
           "lead_side": -0.57,
           "body_side": -0.35,
           "nut_front": -0.2,
-          "pcb_hole_web": 0.75
+          "panel_hole_web": 0.85
         },
         "nominal": {
           "lead_side": 0.5,
           "body_side": 0.5,
           "nut_front": 0.1,
-          "pcb_hole_web": 1.0
+          "panel_hole_web": 1.0
         },
         "lead_long_enough_for_trim": true
       },
@@ -1934,13 +1948,13 @@
           "lead_side": -0.52,
           "body_side": -0.4,
           "nut_front": -0.25,
-          "pcb_hole_web": 0.7
+          "panel_hole_web": 0.8
         },
         "nominal": {
           "lead_side": 0.55,
           "body_side": 0.45,
           "nut_front": 0.05,
-          "pcb_hole_web": 0.95
+          "panel_hole_web": 0.95
         },
         "lead_long_enough_for_trim": true
       },
@@ -1962,13 +1976,13 @@
           "lead_side": -0.47,
           "body_side": -0.45,
           "nut_front": -0.3,
-          "pcb_hole_web": 0.65
+          "panel_hole_web": 0.75
         },
         "nominal": {
           "lead_side": 0.6,
           "body_side": 0.4,
           "nut_front": 0.0,
-          "pcb_hole_web": 0.9
+          "panel_hole_web": 0.9
         },
         "lead_long_enough_for_trim": true
       },
@@ -1978,8 +1992,10 @@
         "offset": 0.95,
         "pcb_thickness": 1.2,
         "leads": "trimmed",
-        "verdict": "INFEASIBLE WITHIN STATED RANGES",
+        "verdict": "UNRESOLVED",
         "failing_at_worst": [
+          "lead_side",
+          "body_side",
           "nut_front"
         ],
         "worst_min": -0.5,
@@ -1988,13 +2004,13 @@
           "lead_side": -0.42,
           "body_side": -0.5,
           "nut_front": -0.35,
-          "pcb_hole_web": 0.6
+          "panel_hole_web": 0.7
         },
         "nominal": {
           "lead_side": 0.65,
           "body_side": 0.35,
           "nut_front": -0.05,
-          "pcb_hole_web": 0.85
+          "panel_hole_web": 0.85
         },
         "lead_long_enough_for_trim": true
       },
@@ -2004,8 +2020,10 @@
         "offset": 1.0,
         "pcb_thickness": 1.2,
         "leads": "trimmed",
-        "verdict": "INFEASIBLE WITHIN STATED RANGES",
+        "verdict": "UNRESOLVED",
         "failing_at_worst": [
+          "lead_side",
+          "body_side",
           "nut_front"
         ],
         "worst_min": -0.55,
@@ -2014,13 +2032,13 @@
           "lead_side": -0.37,
           "body_side": -0.55,
           "nut_front": -0.4,
-          "pcb_hole_web": 0.55
+          "panel_hole_web": 0.65
         },
         "nominal": {
           "lead_side": 0.7,
           "body_side": 0.3,
           "nut_front": -0.1,
-          "pcb_hole_web": 0.8
+          "panel_hole_web": 0.8
         },
         "lead_long_enough_for_trim": true
       },
@@ -2030,8 +2048,10 @@
         "offset": 1.05,
         "pcb_thickness": 1.2,
         "leads": "trimmed",
-        "verdict": "INFEASIBLE WITHIN STATED RANGES",
+        "verdict": "UNRESOLVED",
         "failing_at_worst": [
+          "lead_side",
+          "body_side",
           "nut_front"
         ],
         "worst_min": -0.6,
@@ -2040,13 +2060,13 @@
           "lead_side": -0.32,
           "body_side": -0.6,
           "nut_front": -0.45,
-          "pcb_hole_web": 0.5
+          "panel_hole_web": 0.6
         },
         "nominal": {
           "lead_side": 0.75,
           "body_side": 0.25,
           "nut_front": -0.15,
-          "pcb_hole_web": 0.75
+          "panel_hole_web": 0.75
         },
         "lead_long_enough_for_trim": true
       },
@@ -2056,8 +2076,10 @@
         "offset": 1.1,
         "pcb_thickness": 1.2,
         "leads": "trimmed",
-        "verdict": "INFEASIBLE WITHIN STATED RANGES",
+        "verdict": "UNRESOLVED",
         "failing_at_worst": [
+          "lead_side",
+          "body_side",
           "nut_front"
         ],
         "worst_min": -0.65,
@@ -2066,13 +2088,13 @@
           "lead_side": -0.27,
           "body_side": -0.65,
           "nut_front": -0.5,
-          "pcb_hole_web": 0.45
+          "panel_hole_web": 0.55
         },
         "nominal": {
           "lead_side": 0.8,
           "body_side": 0.2,
           "nut_front": -0.2,
-          "pcb_hole_web": 0.7
+          "panel_hole_web": 0.7
         },
         "lead_long_enough_for_trim": true
       },
@@ -2082,8 +2104,10 @@
         "offset": 1.15,
         "pcb_thickness": 1.2,
         "leads": "trimmed",
-        "verdict": "INFEASIBLE WITHIN STATED RANGES",
+        "verdict": "UNRESOLVED",
         "failing_at_worst": [
+          "lead_side",
+          "body_side",
           "nut_front"
         ],
         "worst_min": -0.7,
@@ -2092,13 +2116,13 @@
           "lead_side": -0.22,
           "body_side": -0.7,
           "nut_front": -0.55,
-          "pcb_hole_web": 0.4
+          "panel_hole_web": 0.5
         },
         "nominal": {
           "lead_side": 0.85,
           "body_side": 0.15,
           "nut_front": -0.25,
-          "pcb_hole_web": 0.65
+          "panel_hole_web": 0.65
         },
         "lead_long_enough_for_trim": true
       },
@@ -2118,13 +2142,13 @@
           "lead_side": -0.17,
           "body_side": -0.75,
           "nut_front": -0.6,
-          "pcb_hole_web": 0.35
+          "panel_hole_web": 0.45
         },
         "nominal": {
           "lead_side": 0.9,
           "body_side": 0.1,
           "nut_front": -0.3,
-          "pcb_hole_web": 0.6
+          "panel_hole_web": 0.6
         },
         "lead_long_enough_for_trim": true
       },
@@ -2134,7 +2158,7 @@
         "offset": 0.0,
         "pcb_thickness": 1.6,
         "leads": "trimmed",
-        "verdict": "INFEASIBLE WITHIN STATED RANGES",
+        "verdict": "UNRESOLVED",
         "failing_at_worst": [
           "lead_side"
         ],
@@ -2144,13 +2168,13 @@
           "lead_side": -1.81,
           "body_side": 0.45,
           "nut_front": 0.6,
-          "pcb_hole_web": 1.55
+          "panel_hole_web": 1.65
         },
         "nominal": {
           "lead_side": -0.7,
           "body_side": 1.3,
           "nut_front": 0.9,
-          "pcb_hole_web": 1.8
+          "panel_hole_web": 1.8
         },
         "lead_long_enough_for_trim": true
       },
@@ -2160,7 +2184,7 @@
         "offset": 0.05,
         "pcb_thickness": 1.6,
         "leads": "trimmed",
-        "verdict": "INFEASIBLE WITHIN STATED RANGES",
+        "verdict": "UNRESOLVED",
         "failing_at_worst": [
           "lead_side"
         ],
@@ -2170,13 +2194,13 @@
           "lead_side": -1.76,
           "body_side": 0.4,
           "nut_front": 0.55,
-          "pcb_hole_web": 1.5
+          "panel_hole_web": 1.6
         },
         "nominal": {
           "lead_side": -0.65,
           "body_side": 1.25,
           "nut_front": 0.85,
-          "pcb_hole_web": 1.75
+          "panel_hole_web": 1.75
         },
         "lead_long_enough_for_trim": true
       },
@@ -2186,7 +2210,7 @@
         "offset": 0.1,
         "pcb_thickness": 1.6,
         "leads": "trimmed",
-        "verdict": "INFEASIBLE WITHIN STATED RANGES",
+        "verdict": "UNRESOLVED",
         "failing_at_worst": [
           "lead_side"
         ],
@@ -2196,13 +2220,13 @@
           "lead_side": -1.71,
           "body_side": 0.35,
           "nut_front": 0.5,
-          "pcb_hole_web": 1.45
+          "panel_hole_web": 1.55
         },
         "nominal": {
           "lead_side": -0.6,
           "body_side": 1.2,
           "nut_front": 0.8,
-          "pcb_hole_web": 1.7
+          "panel_hole_web": 1.7
         },
         "lead_long_enough_for_trim": true
       },
@@ -2222,13 +2246,13 @@
           "lead_side": -1.66,
           "body_side": 0.3,
           "nut_front": 0.45,
-          "pcb_hole_web": 1.4
+          "panel_hole_web": 1.5
         },
         "nominal": {
           "lead_side": -0.55,
           "body_side": 1.15,
           "nut_front": 0.75,
-          "pcb_hole_web": 1.65
+          "panel_hole_web": 1.65
         },
         "lead_long_enough_for_trim": true
       },
@@ -2248,13 +2272,13 @@
           "lead_side": -1.61,
           "body_side": 0.25,
           "nut_front": 0.4,
-          "pcb_hole_web": 1.35
+          "panel_hole_web": 1.45
         },
         "nominal": {
           "lead_side": -0.5,
           "body_side": 1.1,
           "nut_front": 0.7,
-          "pcb_hole_web": 1.6
+          "panel_hole_web": 1.6
         },
         "lead_long_enough_for_trim": true
       },
@@ -2274,13 +2298,13 @@
           "lead_side": -1.56,
           "body_side": 0.2,
           "nut_front": 0.35,
-          "pcb_hole_web": 1.3
+          "panel_hole_web": 1.4
         },
         "nominal": {
           "lead_side": -0.45,
           "body_side": 1.05,
           "nut_front": 0.65,
-          "pcb_hole_web": 1.55
+          "panel_hole_web": 1.55
         },
         "lead_long_enough_for_trim": true
       },
@@ -2300,13 +2324,13 @@
           "lead_side": -1.51,
           "body_side": 0.15,
           "nut_front": 0.3,
-          "pcb_hole_web": 1.25
+          "panel_hole_web": 1.35
         },
         "nominal": {
           "lead_side": -0.4,
           "body_side": 1.0,
           "nut_front": 0.6,
-          "pcb_hole_web": 1.5
+          "panel_hole_web": 1.5
         },
         "lead_long_enough_for_trim": true
       },
@@ -2326,13 +2350,13 @@
           "lead_side": -1.46,
           "body_side": 0.1,
           "nut_front": 0.25,
-          "pcb_hole_web": 1.2
+          "panel_hole_web": 1.3
         },
         "nominal": {
           "lead_side": -0.35,
           "body_side": 0.95,
           "nut_front": 0.55,
-          "pcb_hole_web": 1.45
+          "panel_hole_web": 1.45
         },
         "lead_long_enough_for_trim": true
       },
@@ -2352,13 +2376,13 @@
           "lead_side": -1.41,
           "body_side": 0.05,
           "nut_front": 0.2,
-          "pcb_hole_web": 1.15
+          "panel_hole_web": 1.25
         },
         "nominal": {
           "lead_side": -0.3,
           "body_side": 0.9,
           "nut_front": 0.5,
-          "pcb_hole_web": 1.4
+          "panel_hole_web": 1.4
         },
         "lead_long_enough_for_trim": true
       },
@@ -2378,13 +2402,13 @@
           "lead_side": -1.36,
           "body_side": -0.0,
           "nut_front": 0.15,
-          "pcb_hole_web": 1.1
+          "panel_hole_web": 1.2
         },
         "nominal": {
           "lead_side": -0.25,
           "body_side": 0.85,
           "nut_front": 0.45,
-          "pcb_hole_web": 1.35
+          "panel_hole_web": 1.35
         },
         "lead_long_enough_for_trim": true
       },
@@ -2405,13 +2429,13 @@
           "lead_side": -1.31,
           "body_side": -0.05,
           "nut_front": 0.1,
-          "pcb_hole_web": 1.05
+          "panel_hole_web": 1.15
         },
         "nominal": {
           "lead_side": -0.2,
           "body_side": 0.8,
           "nut_front": 0.4,
-          "pcb_hole_web": 1.3
+          "panel_hole_web": 1.3
         },
         "lead_long_enough_for_trim": true
       },
@@ -2432,13 +2456,13 @@
           "lead_side": -1.26,
           "body_side": -0.1,
           "nut_front": 0.05,
-          "pcb_hole_web": 1.0
+          "panel_hole_web": 1.1
         },
         "nominal": {
           "lead_side": -0.15,
           "body_side": 0.75,
           "nut_front": 0.35,
-          "pcb_hole_web": 1.25
+          "panel_hole_web": 1.25
         },
         "lead_long_enough_for_trim": true
       },
@@ -2459,13 +2483,13 @@
           "lead_side": -1.21,
           "body_side": -0.15,
           "nut_front": 0.0,
-          "pcb_hole_web": 0.95
+          "panel_hole_web": 1.05
         },
         "nominal": {
           "lead_side": -0.1,
           "body_side": 0.7,
           "nut_front": 0.3,
-          "pcb_hole_web": 1.2
+          "panel_hole_web": 1.2
         },
         "lead_long_enough_for_trim": true
       },
@@ -2487,13 +2511,13 @@
           "lead_side": -1.16,
           "body_side": -0.2,
           "nut_front": -0.05,
-          "pcb_hole_web": 0.9
+          "panel_hole_web": 1.0
         },
         "nominal": {
           "lead_side": -0.05,
           "body_side": 0.65,
           "nut_front": 0.25,
-          "pcb_hole_web": 1.15
+          "panel_hole_web": 1.15
         },
         "lead_long_enough_for_trim": true
       },
@@ -2515,13 +2539,13 @@
           "lead_side": -1.11,
           "body_side": -0.25,
           "nut_front": -0.1,
-          "pcb_hole_web": 0.85
+          "panel_hole_web": 0.95
         },
         "nominal": {
           "lead_side": 0.0,
           "body_side": 0.6,
           "nut_front": 0.2,
-          "pcb_hole_web": 1.1
+          "panel_hole_web": 1.1
         },
         "lead_long_enough_for_trim": true
       },
@@ -2543,13 +2567,13 @@
           "lead_side": -1.06,
           "body_side": -0.3,
           "nut_front": -0.15,
-          "pcb_hole_web": 0.8
+          "panel_hole_web": 0.9
         },
         "nominal": {
           "lead_side": 0.05,
           "body_side": 0.55,
           "nut_front": 0.15,
-          "pcb_hole_web": 1.05
+          "panel_hole_web": 1.05
         },
         "lead_long_enough_for_trim": true
       },
@@ -2571,13 +2595,13 @@
           "lead_side": -1.01,
           "body_side": -0.35,
           "nut_front": -0.2,
-          "pcb_hole_web": 0.75
+          "panel_hole_web": 0.85
         },
         "nominal": {
           "lead_side": 0.1,
           "body_side": 0.5,
           "nut_front": 0.1,
-          "pcb_hole_web": 1.0
+          "panel_hole_web": 1.0
         },
         "lead_long_enough_for_trim": true
       },
@@ -2599,13 +2623,13 @@
           "lead_side": -0.96,
           "body_side": -0.4,
           "nut_front": -0.25,
-          "pcb_hole_web": 0.7
+          "panel_hole_web": 0.8
         },
         "nominal": {
           "lead_side": 0.15,
           "body_side": 0.45,
           "nut_front": 0.05,
-          "pcb_hole_web": 0.95
+          "panel_hole_web": 0.95
         },
         "lead_long_enough_for_trim": true
       },
@@ -2627,13 +2651,13 @@
           "lead_side": -0.91,
           "body_side": -0.45,
           "nut_front": -0.3,
-          "pcb_hole_web": 0.65
+          "panel_hole_web": 0.75
         },
         "nominal": {
           "lead_side": 0.2,
           "body_side": 0.4,
           "nut_front": 0.0,
-          "pcb_hole_web": 0.9
+          "panel_hole_web": 0.9
         },
         "lead_long_enough_for_trim": true
       },
@@ -2643,8 +2667,10 @@
         "offset": 0.95,
         "pcb_thickness": 1.6,
         "leads": "trimmed",
-        "verdict": "INFEASIBLE WITHIN STATED RANGES",
+        "verdict": "UNRESOLVED",
         "failing_at_worst": [
+          "lead_side",
+          "body_side",
           "nut_front"
         ],
         "worst_min": -0.86,
@@ -2653,13 +2679,13 @@
           "lead_side": -0.86,
           "body_side": -0.5,
           "nut_front": -0.35,
-          "pcb_hole_web": 0.6
+          "panel_hole_web": 0.7
         },
         "nominal": {
           "lead_side": 0.25,
           "body_side": 0.35,
           "nut_front": -0.05,
-          "pcb_hole_web": 0.85
+          "panel_hole_web": 0.85
         },
         "lead_long_enough_for_trim": true
       },
@@ -2669,8 +2695,10 @@
         "offset": 1.0,
         "pcb_thickness": 1.6,
         "leads": "trimmed",
-        "verdict": "INFEASIBLE WITHIN STATED RANGES",
+        "verdict": "UNRESOLVED",
         "failing_at_worst": [
+          "lead_side",
+          "body_side",
           "nut_front"
         ],
         "worst_min": -0.81,
@@ -2679,13 +2707,13 @@
           "lead_side": -0.81,
           "body_side": -0.55,
           "nut_front": -0.4,
-          "pcb_hole_web": 0.55
+          "panel_hole_web": 0.65
         },
         "nominal": {
           "lead_side": 0.3,
           "body_side": 0.3,
           "nut_front": -0.1,
-          "pcb_hole_web": 0.8
+          "panel_hole_web": 0.8
         },
         "lead_long_enough_for_trim": true
       },
@@ -2695,8 +2723,10 @@
         "offset": 1.05,
         "pcb_thickness": 1.6,
         "leads": "trimmed",
-        "verdict": "INFEASIBLE WITHIN STATED RANGES",
+        "verdict": "UNRESOLVED",
         "failing_at_worst": [
+          "lead_side",
+          "body_side",
           "nut_front"
         ],
         "worst_min": -0.76,
@@ -2705,13 +2735,13 @@
           "lead_side": -0.76,
           "body_side": -0.6,
           "nut_front": -0.45,
-          "pcb_hole_web": 0.5
+          "panel_hole_web": 0.6
         },
         "nominal": {
           "lead_side": 0.35,
           "body_side": 0.25,
           "nut_front": -0.15,
-          "pcb_hole_web": 0.75
+          "panel_hole_web": 0.75
         },
         "lead_long_enough_for_trim": true
       },
@@ -2721,8 +2751,10 @@
         "offset": 1.1,
         "pcb_thickness": 1.6,
         "leads": "trimmed",
-        "verdict": "INFEASIBLE WITHIN STATED RANGES",
+        "verdict": "UNRESOLVED",
         "failing_at_worst": [
+          "lead_side",
+          "body_side",
           "nut_front"
         ],
         "worst_min": -0.71,
@@ -2731,13 +2763,13 @@
           "lead_side": -0.71,
           "body_side": -0.65,
           "nut_front": -0.5,
-          "pcb_hole_web": 0.45
+          "panel_hole_web": 0.55
         },
         "nominal": {
           "lead_side": 0.4,
           "body_side": 0.2,
           "nut_front": -0.2,
-          "pcb_hole_web": 0.7
+          "panel_hole_web": 0.7
         },
         "lead_long_enough_for_trim": true
       },
@@ -2747,8 +2779,10 @@
         "offset": 1.15,
         "pcb_thickness": 1.6,
         "leads": "trimmed",
-        "verdict": "INFEASIBLE WITHIN STATED RANGES",
+        "verdict": "UNRESOLVED",
         "failing_at_worst": [
+          "lead_side",
+          "body_side",
           "nut_front"
         ],
         "worst_min": -0.7,
@@ -2757,13 +2791,13 @@
           "lead_side": -0.66,
           "body_side": -0.7,
           "nut_front": -0.55,
-          "pcb_hole_web": 0.4
+          "panel_hole_web": 0.5
         },
         "nominal": {
           "lead_side": 0.45,
           "body_side": 0.15,
           "nut_front": -0.25,
-          "pcb_hole_web": 0.65
+          "panel_hole_web": 0.65
         },
         "lead_long_enough_for_trim": true
       },
@@ -2783,13 +2817,13 @@
           "lead_side": -0.61,
           "body_side": -0.75,
           "nut_front": -0.6,
-          "pcb_hole_web": 0.35
+          "panel_hole_web": 0.45
         },
         "nominal": {
           "lead_side": 0.5,
           "body_side": 0.1,
           "nut_front": -0.3,
-          "pcb_hole_web": 0.6
+          "panel_hole_web": 0.6
         },
         "lead_long_enough_for_trim": true
       }
@@ -2802,7 +2836,7 @@
       "2hp-centred|1.2|untrimmed": "INFEASIBLE WITHIN STATED RANGES",
       "2hp-centred|1.2|trimmed": "UNRESOLVED",
       "2hp-centred|1.6|untrimmed": "INFEASIBLE WITHIN STATED RANGES",
-      "2hp-centred|1.6|trimmed": "INFEASIBLE WITHIN STATED RANGES",
+      "2hp-centred|1.6|trimmed": "UNRESOLVED",
       "2hp-offset-0.3|0.8|untrimmed": "INFEASIBLE WITHIN STATED RANGES",
       "2hp-offset-0.3|0.8|trimmed": "UNRESOLVED",
       "2hp-offset-0.3|1.0|untrimmed": "INFEASIBLE WITHIN STATED RANGES",
@@ -2819,13 +2853,13 @@
       "2hp-offset-0.6|1.2|trimmed": "UNRESOLVED",
       "2hp-offset-0.6|1.6|untrimmed": "INFEASIBLE WITHIN STATED RANGES",
       "2hp-offset-0.6|1.6|trimmed": "UNRESOLVED",
-      "2hp-offset-0.9|0.8|untrimmed": "INFEASIBLE WITHIN STATED RANGES",
+      "2hp-offset-0.9|0.8|untrimmed": "UNRESOLVED",
       "2hp-offset-0.9|0.8|trimmed": "UNRESOLVED",
-      "2hp-offset-0.9|1.0|untrimmed": "INFEASIBLE WITHIN STATED RANGES",
+      "2hp-offset-0.9|1.0|untrimmed": "UNRESOLVED",
       "2hp-offset-0.9|1.0|trimmed": "UNRESOLVED",
-      "2hp-offset-0.9|1.2|untrimmed": "INFEASIBLE WITHIN STATED RANGES",
+      "2hp-offset-0.9|1.2|untrimmed": "UNRESOLVED",
       "2hp-offset-0.9|1.2|trimmed": "UNRESOLVED",
-      "2hp-offset-0.9|1.6|untrimmed": "INFEASIBLE WITHIN STATED RANGES",
+      "2hp-offset-0.9|1.6|untrimmed": "UNRESOLVED",
       "2hp-offset-0.9|1.6|trimmed": "UNRESOLVED",
       "3hp-centred|0.8|untrimmed": "FEASIBLE ON PAPER",
       "3hp-centred|0.8|trimmed": "FEASIBLE ON PAPER",
@@ -2849,7 +2883,7 @@
         "margin": "lead_side",
         "input": "jack_axis_height.max (INFERRED, R1 Q1)",
         "worst_margin_now": -0.33,
-        "break_even_value": 3.071,
+        "break_even_value": 3.07,
         "closes_within_search": true,
         "note": "largest axis height that still clears the lead side"
       },
@@ -2876,7 +2910,7 @@
         "margin": "body_side",
         "input": "jack_axis_height.min (INFERRED, R1 Q1)",
         "worst_margin_now": -0.15,
-        "break_even_value": 2.749,
+        "break_even_value": 2.75,
         "closes_within_search": true,
         "note": "smallest axis height that still clears the body side"
       },
@@ -2884,7 +2918,7 @@
         "margin": "body_side",
         "input": "jack_overall_height.tol (ASSUMED tol band)",
         "worst_margin_now": -0.15,
-        "break_even_value": 0.051,
+        "break_even_value": 0.05,
         "closes_within_search": true,
         "note": "largest overall-height tolerance"
       },
@@ -2916,10 +2950,10 @@
     ],
     "terminal_z": {
       "pin_1": 1.1,
-      "pin_5": 5.1,
-      "pin_3": 8.1,
       "pin_2": 9.1,
-      "pin_4": 12.5
+      "pin_3": 8.1,
+      "pin_4": 12.5,
+      "pin_5": 5.1
     },
     "controller_pcb_z": [
       0.2,
@@ -2975,8 +3009,8 @@
       111.4
     ],
     "jack_y": [
-      86.5,
-      101.0
+      84.3,
+      99.3
     ],
     "jack_function": [
       "CV IN",
@@ -2984,47 +3018,59 @@
     ],
     "jack_body_y": [
       [
-        80.4,
-        91.9
+        78.7,
+        90.8
       ],
       [
-        94.9,
-        106.4
+        93.7,
+        105.8
+      ]
+    ],
+    "jack_body_y_basis": "tolerance envelope about the axis: far 6.5 / near 5.6 (nominal 6.1 / 5.4; MIRROR / DERIVED-MIRROR)",
+    "jack_body_y_nominal": [
+      [
+        78.9,
+        90.4
+      ],
+      [
+        93.9,
+        105.4
       ]
     ],
     "jack_pin_y_offset_from_axis": {
       "pin_1": 0.0,
-      "pin_5": -4.5,
-      "pin_3": 2.5,
       "pin_2": 5.2,
-      "pin_4": -4.0
+      "pin_3": 2.5,
+      "pin_4": -4.0,
+      "pin_5": -4.5
     },
-    "body_gap": 3.0,
-    "nut_gap": 6.5,
-    "pitch": 14.5,
-    "pitch_required_for_labels": 14.3,
+    "jack_orientation": "pin 2 and the 6.1 mm (far) edge face +Y toward the switch; pins 4/5 and the 5.4 mm (near) edge face -Y. Which side is near follows the #24 review reading of the drawing; the 'across' sign is read from the drawing view and must be re-checked against the component side (fact-a7-pj-324m-footprint-positions); pin functions INFERRED (R1 Q2)",
+    "body_gap": 2.9,
+    "nut_gap": 7.0,
+    "pitch": 15.0,
+    "pitch_required_for_labels": 14.9,
     "label_clearance_to_bodies": [
       null,
-      0.5
+      0.4
     ],
-    "upper_body_to_controller_slot": 8.4,
+    "upper_body_to_controller_slot": 6.7,
     "a5_jack_y": [
       90.0,
       104.0
     ],
     "shift_from_a5": [
-      -3.5,
-      -3.0
+      -5.7,
+      -4.7
     ],
     "labels": [
       {
         "text": "IN",
-        "y": 79.0,
+        "y": 77.3,
         "cap_height": 1.8
       },
       {
         "text": "THRU",
-        "y": 93.5,
+        "y": 92.3,
         "cap_height": 1.8
       }
     ]
@@ -3055,7 +3101,19 @@
     "peg_diameter": 0.8,
     "access_from": "+Y (below the module), module out of the rack",
     "label": "ON / PGM / CV on the controller silkscreen next to the actuator (R4); position-to-mode order follows the R1 pin table, not the physical direction",
-    "gap_to_lower_jack_body": 0.9
+    "gap_to_lower_jack_body": 1.5,
+    "gap_to_lower_jack_body_nominal": 1.9,
+    "footprint_y": [
+      106.1,
+      111.4
+    ],
+    "footprint_z": [
+      1.35,
+      12.65
+    ],
+    "footprint_source": "corrected R4 PCM13SMTR footprint (#19/#24 review), relayed 2026-11-08; land pattern not in the R1 owner bundle",
+    "pad_gap_to_lower_jack_body": 0.3,
+    "gap_basis": "worst value uses the jack body tolerance envelope; required gap is design-inputs jacks.body_to_switch_gap"
   },
   "controller": {
     "outline_y": [
@@ -3067,7 +3125,7 @@
       16.4
     ],
     "outline_area_mm2": 1018.98,
-    "component_face_free_area_mm2_approx": 488.485,
+    "component_face_free_area_mm2_approx": 446.225,
     "a5_controller_board_area_mm2": 553.52,
     "a5_small_component_body_area_mm2": 144.182,
     "power_header": {
@@ -3114,7 +3172,7 @@
           "-X"
         ],
         "y": [
-          50.0,
+          48.5,
           72.0
         ],
         "z": [
@@ -3145,14 +3203,14 @@
           "+X"
         ],
         "y": [
-          107.3,
+          106.1,
           111.4
         ],
         "z": [
-          2.15,
-          11.85
+          1.35,
+          12.65
         ],
-        "reason": "PCM13SMTR body and actuator at the bottom edge"
+        "reason": "PCM13SMTR body, actuator and its signal/retention pads at the bottom edge"
       },
       {
         "id": "switch-access",
@@ -3168,6 +3226,21 @@
           9.65
         ],
         "reason": "actuator travel plus tool clearance; nothing taller than the switch between actuator and board edge"
+      },
+      {
+        "id": "picoblade-tails",
+        "faces": [
+          "-X"
+        ],
+        "y": [
+          73.95,
+          77.15
+        ],
+        "z": [
+          6.5,
+          12.0
+        ],
+        "reason": "PicoBlade THT tails and fillets on the solder face (cut to the jack trim rule in 2HP)"
       },
       {
         "id": "led-cable-lane",
@@ -3190,8 +3263,8 @@
           "+X"
         ],
         "y": [
-          80.4,
-          91.9
+          78.7,
+          90.8
         ],
         "z": [
           0.2,
@@ -3205,8 +3278,8 @@
           "-X"
         ],
         "y": [
-          81.5,
-          92.2
+          78.8,
+          90.5
         ],
         "z": [
           0.2,
@@ -3220,8 +3293,8 @@
           "+X"
         ],
         "y": [
-          94.9,
-          106.4
+          93.7,
+          105.8
         ],
         "z": [
           0.2,
@@ -3235,8 +3308,8 @@
           "-X"
         ],
         "y": [
-          96.0,
-          106.7
+          93.8,
+          105.5
         ],
         "z": [
           0.2,
@@ -3245,7 +3318,41 @@
         "reason": "terminal fillets only on the solder face (2HP lead-side margin)"
       }
     ],
-    "solder_side_rule": "Solder (-X) face carries THT terminals and fillets only; no SMD parts, because the 2HP lead-side margin is the binding dimension",
+    "solder_face_low_profile_zone": {
+      "max_height": 0.6,
+      "confidence": "PROJECT-CHOICE",
+      "source": "R4 (#19) proposal: 0603 resistors on the solder (-X) face; 0.55 max body height plus 0.05 solder/standoff allowance (part height not sourced here)",
+      "excludes": [
+        "spine-slot",
+        "optical-fork",
+        "jack lead keep-outs"
+      ],
+      "face": "-X",
+      "allowed_region": "controller outline minus every keep-out that lists the -X face",
+      "excluded_keepouts": [
+        "spine-slot",
+        "optical-fork",
+        "picoblade-tails",
+        "jack-in-leads",
+        "jack-thru-leads"
+      ],
+      "margins": {
+        "2hp": {
+          "worst": 0.07,
+          "nominal": 0.8,
+          "jack_lead_worst": -0.33,
+          "never_beyond_jack_lead_tips": true
+        },
+        "3hp": {
+          "worst": 1.14,
+          "nominal": 1.95,
+          "jack_lead_worst": 0.1,
+          "never_beyond_jack_lead_tips": true
+        }
+      },
+      "rule": "parts on the solder face must stay within max_height of the board; the zone is computed with R1's lead-side margin, replacing the trimmed lead protrusion by max_height"
+    },
+    "solder_side_rule": "Solder (-X) face carries THT terminals, their fillets, and only low-profile parts (max height in solder_face_low_profile_zone) outside every -X keep-out; at that height a part never reaches further than the trimmed jack lead tips, so it does not consume the binding 2HP lead-side margin",
     "power_input_on_controller": "3-wire PicoBlade from the A5-style separate power adapter (keyed IDC10 stays on the adapter)",
     "why_separate_adapter": "a vertical keyed IDC10 header body is 8.9 mm tall (A5 C5665 maximum envelope); on the perpendicular board it would need 8.9 mm of X but the 2HP component face offers 7.0 mm"
   },
@@ -3378,13 +3485,13 @@
           "lead_side": -0.33,
           "body_side": -0.15,
           "nut_front": 0.0,
-          "pcb_hole_web": 0.95
+          "panel_hole_web": 1.05
         },
         "nominal": {
           "lead_side": 0.7,
           "body_side": 0.7,
           "nut_front": 0.3,
-          "pcb_hole_web": 1.2
+          "panel_hole_web": 1.2
         },
         "lead_long_enough_for_trim": true
       },
@@ -3432,6 +3539,10 @@
         "fork_wall_fits_solder_side": true,
         "nut_edge_nominal": 0.3,
         "pcb_x_within_inner": true,
+        "solder_face_zone_height": 0.6,
+        "solder_face_zone_margin_worst": 0.07,
+        "solder_face_zone_margin_nominal": 0.8,
+        "solder_face_zone_below_lead_tips": true,
         "power_route_end_bend_room": 0.9,
         "power_route_min_radius": 0.9,
         "led_route_min_radius": 2.0
@@ -3562,13 +3673,13 @@
           "lead_side": 0.1,
           "body_side": 3.0,
           "nut_front": 3.15,
-          "pcb_hole_web": 4.1
+          "panel_hole_web": 4.2
         },
         "nominal": {
           "lead_side": 0.95,
           "body_side": 3.85,
           "nut_front": 3.45,
-          "pcb_hole_web": 4.35
+          "panel_hole_web": 4.35
         },
         "lead_long_enough_for_trim": true
       },
@@ -3616,6 +3727,10 @@
         "fork_wall_fits_solder_side": true,
         "nut_edge_nominal": 3.45,
         "pcb_x_within_inner": true,
+        "solder_face_zone_height": 0.6,
+        "solder_face_zone_margin_worst": 1.14,
+        "solder_face_zone_margin_nominal": 1.95,
+        "solder_face_zone_below_lead_tips": true,
         "power_route_end_bend_room": 2.0,
         "power_route_min_radius": 2.0,
         "led_route_min_radius": 2.0

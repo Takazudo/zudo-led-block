@@ -18,11 +18,11 @@ Provisional digital study. Jack-axis height INFERRED; tolerances marked ASSUMED 
 
 | Margin | Input | Worst margin now | Break-even value |
 |---|---|---|---|
-| lead_side | jack_axis_height.max (INFERRED, R1 Q1) | -0.33 | 3.071 |
+| lead_side | jack_axis_height.max (INFERRED, R1 Q1) | -0.33 | 3.07 |
 | lead_side | lead_protrusion_trimmed.max (ASSUMED, R1 Q6) | -0.33 | 0.67 |
 | lead_side | panel_hole_position_tol (ASSUMED, R1 Q7) | -0.33 | does not close alone |
-| body_side | jack_axis_height.min (INFERRED, R1 Q1) | -0.15 | 2.749 |
-| body_side | jack_overall_height.tol (ASSUMED tol band) | -0.15 | 0.051 |
+| body_side | jack_axis_height.min (INFERRED, R1 Q1) | -0.15 | 2.75 |
+| body_side | jack_overall_height.tol (ASSUMED tol band) | -0.15 | 0.05 |
 | body_side | panel_hole_position_tol (ASSUMED, R1 Q7) | -0.15 | does not close alone |
 
 ## Selected rows
@@ -71,26 +71,27 @@ Provisional digital study. Jack-axis height INFERRED; tolerances marked ASSUMED 
 
 ## Y layout
 
-- Jacks IN / THRU at Y 86.5 / 101.0 (A5: 90.0 / 104.0), pitch 14.5; body gap 3.0, nut gap 6.5.
-- Labels: IN at Y 79.0, THRU at Y 93.5. MODE and ON/PGM/CV are removed from the front.
-- Setting switch body Y 107.3..109.9, Z 2.15..11.85; actuator reaches the controller bottom edge Y 111.4 and is reached from below with the module out of the rack. Gap to the lower jack body 0.9.
+- Jacks IN / THRU at Y 84.3 / 99.3 (A5: 90.0 / 104.0), pitch 15.0; body gap 2.9, nut gap 7.0.
+- Labels: IN at Y 77.3, THRU at Y 92.3. MODE and ON/PGM/CV are removed from the front.
+- Setting switch body Y 107.3..109.9, Z 2.15..11.85; actuator reaches the controller bottom edge Y 111.4 and is reached from below with the module out of the rack. Gap to the lower jack body 1.5.
 
 ## Controller (Y-Z board, common to both widths)
 
-- Outline Y 48.5..111.4 x Z 0.2..16.4 = 1018.98 mm2 (A5 board 553.52 mm2; A5 small-part body area 144.182 mm2). Free component-face area after keep-outs about 488.485 mm2.
+- Outline Y 48.5..111.4 x Z 0.2..16.4 = 1018.98 mm2 (A5 board 553.52 mm2; A5 small-part body area 144.182 mm2). Free component-face area after keep-outs about 446.225 mm2.
 - a vertical keyed IDC10 header body is 8.9 mm tall (A5 C5665 maximum envelope); on the perpendicular board it would need 8.9 mm of X but the 2HP component face offers 7.0 mm.
 
 | Keep-out | Faces | Y | Z | Reason |
 |---|---|---|---|---|
-| spine-slot | +X, -X | 50.0..72.0 | 0.2..4.0 | printed spine slot captures the PCB front edge |
+| spine-slot | +X, -X | 48.5..72.0 | 0.2..4.0 | printed spine slot captures the PCB front edge |
 | optical-fork | +X, -X | 104.0..107.0 | 14.6..16.4 | bottom optical cap tongue straddles the rear edge |
-| setting-switch | +X | 107.3..111.4 | 2.15..11.85 | PCM13SMTR body and actuator at the bottom edge |
+| setting-switch | +X | 106.1..111.4 | 1.35..12.65 | PCM13SMTR body, actuator and its signal/retention pads at the bottom edge |
 | switch-access | +X | 109.9..111.4 | 4.35..9.65 | actuator travel plus tool clearance; nothing taller than the switch between actuator and board edge |
+| picoblade-tails | -X | 73.95..77.15 | 6.5..12.0 | PicoBlade THT tails and fillets on the solder face (cut to the jack trim rule in 2HP) |
 | led-cable-lane | +X | 57.425..78.05 | 12.2..16.4 | SH4 header and the returning LED harness lie over the component face |
-| jack-in | +X | 80.4..91.9 | 0.2..13.9 | PJ-324M body footprint |
-| jack-in-leads | -X | 81.5..92.2 | 0.2..13.5 | terminal fillets only on the solder face (2HP lead-side margin) |
-| jack-thru | +X | 94.9..106.4 | 0.2..13.9 | PJ-324M body footprint |
-| jack-thru-leads | -X | 96.0..106.7 | 0.2..13.5 | terminal fillets only on the solder face (2HP lead-side margin) |
+| jack-in | +X | 78.7..90.8 | 0.2..13.9 | PJ-324M body footprint |
+| jack-in-leads | -X | 78.8..90.5 | 0.2..13.5 | terminal fillets only on the solder face (2HP lead-side margin) |
+| jack-thru | +X | 93.7..105.8 | 0.2..13.9 | PJ-324M body footprint |
+| jack-thru-leads | -X | 93.8..105.5 | 0.2..13.5 | terminal fillets only on the solder face (2HP lead-side margin) |
 
 ## Per-variant X placement (nominal)
 
@@ -115,6 +116,10 @@ Provisional digital study. Jack-axis height INFERRED; tolerances marked ASSUMED 
 | fork_wall_fits_solder_side | True | True |
 | nut_edge_nominal | +0.30 | +3.45 |
 | pcb_x_within_inner | True | True |
+| solder_face_zone_height | +0.60 | +0.60 |
+| solder_face_zone_margin_worst | +0.07 | +1.14 |
+| solder_face_zone_margin_nominal | +0.80 | +1.95 |
+| solder_face_zone_below_lead_tips | True | True |
 | power_route_end_bend_room | +0.90 | +2.00 |
 | power_route_min_radius | +0.90 | +2.00 |
 | led_route_min_radius | +2.00 | +2.00 |

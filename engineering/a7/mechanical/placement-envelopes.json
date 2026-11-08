@@ -69,7 +69,7 @@
         "solder face (KiCad B)"
       ],
       "assembly_y": [
-        50.0,
+        48.5,
         72.0
       ],
       "assembly_z": [
@@ -81,7 +81,7 @@
         3.8
       ],
       "board_y": [
-        1.5,
+        0.0,
         23.5
       ],
       "reason": "printed spine slot captures the PCB front edge"
@@ -116,22 +116,22 @@
         "component face (KiCad F)"
       ],
       "assembly_y": [
-        107.3,
+        106.1,
         111.4
       ],
       "assembly_z": [
-        2.15,
-        11.85
+        1.35,
+        12.65
       ],
       "board_x": [
-        1.95,
-        11.65
+        1.15,
+        12.45
       ],
       "board_y": [
-        58.8,
+        57.6,
         62.9
       ],
-      "reason": "PCM13SMTR body and actuator at the bottom edge"
+      "reason": "PCM13SMTR body, actuator and its signal/retention pads at the bottom edge"
     },
     {
       "id": "switch-access",
@@ -155,6 +155,29 @@
         62.9
       ],
       "reason": "actuator travel plus tool clearance; nothing taller than the switch between actuator and board edge"
+    },
+    {
+      "id": "picoblade-tails",
+      "faces": [
+        "solder face (KiCad B)"
+      ],
+      "assembly_y": [
+        73.95,
+        77.15
+      ],
+      "assembly_z": [
+        6.5,
+        12.0
+      ],
+      "board_x": [
+        6.3,
+        11.8
+      ],
+      "board_y": [
+        25.45,
+        28.65
+      ],
+      "reason": "PicoBlade THT tails and fillets on the solder face (cut to the jack trim rule in 2HP)"
     },
     {
       "id": "led-cable-lane",
@@ -185,8 +208,8 @@
         "component face (KiCad F)"
       ],
       "assembly_y": [
-        80.4,
-        91.9
+        78.7,
+        90.8
       ],
       "assembly_z": [
         0.2,
@@ -197,8 +220,8 @@
         13.7
       ],
       "board_y": [
-        31.9,
-        43.4
+        30.2,
+        42.3
       ],
       "reason": "PJ-324M body footprint"
     },
@@ -208,8 +231,8 @@
         "solder face (KiCad B)"
       ],
       "assembly_y": [
-        81.5,
-        92.2
+        78.8,
+        90.5
       ],
       "assembly_z": [
         0.2,
@@ -220,8 +243,8 @@
         13.3
       ],
       "board_y": [
-        33.0,
-        43.7
+        30.3,
+        42.0
       ],
       "reason": "terminal fillets only on the solder face (2HP lead-side margin)"
     },
@@ -231,8 +254,8 @@
         "component face (KiCad F)"
       ],
       "assembly_y": [
-        94.9,
-        106.4
+        93.7,
+        105.8
       ],
       "assembly_z": [
         0.2,
@@ -243,8 +266,8 @@
         13.7
       ],
       "board_y": [
-        46.4,
-        57.9
+        45.2,
+        57.3
       ],
       "reason": "PJ-324M body footprint"
     },
@@ -254,8 +277,8 @@
         "solder face (KiCad B)"
       ],
       "assembly_y": [
-        96.0,
-        106.7
+        93.8,
+        105.5
       ],
       "assembly_z": [
         0.2,
@@ -266,8 +289,8 @@
         13.3
       ],
       "board_y": [
-        47.5,
-        58.2
+        45.3,
+        57.0
       ],
       "reason": "terminal fillets only on the solder face (2HP lead-side margin)"
     }
@@ -276,12 +299,12 @@
     {
       "function": "CV IN",
       "label": "IN",
-      "axis_assembly_y": 86.5,
-      "axis_board_y": 38.0,
+      "axis_assembly_y": 84.3,
+      "axis_board_y": 35.8,
       "body": {
         "assembly_y": [
-          80.4,
-          91.9
+          78.7,
+          90.8
         ],
         "assembly_z": [
           0.2,
@@ -292,57 +315,57 @@
           13.7
         ],
         "board_y": [
-          31.9,
-          43.4
+          30.2,
+          42.3
         ]
       },
       "pins": [
         {
           "pin": "1",
-          "assembly_y": 86.5,
+          "assembly_y": 84.3,
           "assembly_z": 1.1,
           "board_x": 0.9,
-          "board_y": 38.0
+          "board_y": 35.8
         },
         {
           "pin": "2",
-          "assembly_y": 91.7,
+          "assembly_y": 89.5,
           "assembly_z": 9.1,
           "board_x": 8.9,
-          "board_y": 43.2
+          "board_y": 41.0
         },
         {
           "pin": "3",
-          "assembly_y": 89.0,
+          "assembly_y": 86.8,
           "assembly_z": 8.1,
           "board_x": 7.9,
-          "board_y": 40.5
+          "board_y": 38.3
         },
         {
           "pin": "4",
-          "assembly_y": 82.5,
+          "assembly_y": 80.3,
           "assembly_z": 12.5,
           "board_x": 12.3,
-          "board_y": 34.0
+          "board_y": 31.8
         },
         {
           "pin": "5",
-          "assembly_y": 82.0,
+          "assembly_y": 79.8,
           "assembly_z": 5.1,
           "board_x": 4.9,
-          "board_y": 33.5
+          "board_y": 31.3
         }
       ]
     },
     {
       "function": "CV THRU",
       "label": "THRU",
-      "axis_assembly_y": 101.0,
-      "axis_board_y": 52.5,
+      "axis_assembly_y": 99.3,
+      "axis_board_y": 50.8,
       "body": {
         "assembly_y": [
-          94.9,
-          106.4
+          93.7,
+          105.8
         ],
         "assembly_z": [
           0.2,
@@ -353,45 +376,45 @@
           13.7
         ],
         "board_y": [
-          46.4,
-          57.9
+          45.2,
+          57.3
         ]
       },
       "pins": [
         {
           "pin": "1",
-          "assembly_y": 101.0,
+          "assembly_y": 99.3,
           "assembly_z": 1.1,
           "board_x": 0.9,
-          "board_y": 52.5
+          "board_y": 50.8
         },
         {
           "pin": "2",
-          "assembly_y": 106.2,
+          "assembly_y": 104.5,
           "assembly_z": 9.1,
           "board_x": 8.9,
-          "board_y": 57.7
+          "board_y": 56.0
         },
         {
           "pin": "3",
-          "assembly_y": 103.5,
+          "assembly_y": 101.8,
           "assembly_z": 8.1,
           "board_x": 7.9,
-          "board_y": 55.0
+          "board_y": 53.3
         },
         {
           "pin": "4",
-          "assembly_y": 97.0,
+          "assembly_y": 95.3,
           "assembly_z": 12.5,
           "board_x": 12.3,
-          "board_y": 48.5
+          "board_y": 46.8
         },
         {
           "pin": "5",
-          "assembly_y": 96.5,
+          "assembly_y": 94.8,
           "assembly_z": 5.1,
           "board_x": 4.9,
-          "board_y": 48.0
+          "board_y": 46.3
         }
       ]
     }
@@ -504,5 +527,39 @@
       "opening": "toward board +Y (assembly +Y, toward the bottom edge)"
     }
   },
-  "solder_side_rule": "Solder (-X) face carries THT terminals and fillets only; no SMD parts, because the 2HP lead-side margin is the binding dimension"
+  "solder_face_low_profile_zone": {
+    "max_height": 0.6,
+    "confidence": "PROJECT-CHOICE",
+    "source": "R4 (#19) proposal: 0603 resistors on the solder (-X) face; 0.55 max body height plus 0.05 solder/standoff allowance (part height not sourced here)",
+    "excludes": [
+      "spine-slot",
+      "optical-fork",
+      "jack lead keep-outs"
+    ],
+    "face": "-X",
+    "allowed_region": "controller outline minus every keep-out that lists the -X face",
+    "excluded_keepouts": [
+      "spine-slot",
+      "optical-fork",
+      "picoblade-tails",
+      "jack-in-leads",
+      "jack-thru-leads"
+    ],
+    "margins": {
+      "2hp": {
+        "worst": 0.07,
+        "nominal": 0.8,
+        "jack_lead_worst": -0.33,
+        "never_beyond_jack_lead_tips": true
+      },
+      "3hp": {
+        "worst": 1.14,
+        "nominal": 1.95,
+        "jack_lead_worst": 0.1,
+        "never_beyond_jack_lead_tips": true
+      }
+    },
+    "rule": "parts on the solder face must stay within max_height of the board; the zone is computed with R1's lead-side margin, replacing the trimmed lead protrusion by max_height"
+  },
+  "solder_side_rule": "Solder (-X) face carries THT terminals, their fillets, and only low-profile parts (max height in solder_face_low_profile_zone) outside every -X keep-out; at that height a part never reaches further than the trimmed jack lead tips, so it does not consume the binding 2HP lead-side margin"
 }

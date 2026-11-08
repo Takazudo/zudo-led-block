@@ -3,8 +3,9 @@
   "variant": "2hp",
   "status": "PROVISIONAL_DIGITAL_STUDY_NOT_FIT_APPROVAL",
   "selection": "UNRESOLVED",
-  "layout_sha256": "638ba62a5fe9abc6dac155060398a908757da9f724d4f0e023835641eb94ce54",
-  "part_count": 66,
+  "default_variant": false,
+  "layout_sha256": "5a4b14a06cd227b72a55ccae9e8e13e06fdaeab4cc997e38ce409d4db110d29b",
+  "part_count": 67,
   "all_shapes_valid": true,
   "unexpected_rigid_intersections": [],
   "explicitly_expected_contacts": [
@@ -819,7 +820,7 @@
       "part": "front_pmma_A7",
       "valid": true,
       "solids": 1,
-      "volume_mm3": 2282.573,
+      "volume_mm3": 2278.553,
       "bbox_min": [
         -0.0,
         -0.0,
@@ -840,12 +841,12 @@
       "volume_mm3": 1095.125,
       "bbox_min": [
         1.0,
-        80.4,
+        78.9,
         -4.0
       ],
       "bbox_max": [
         8.8,
-        91.95,
+        90.4,
         13.7
       ],
       "scope": "retained_module",
@@ -858,12 +859,12 @@
       "volume_mm3": 5.301,
       "bbox_min": [
         1.1,
-        81.25,
+        79.05,
         0.35
       ],
       "bbox_max": [
         1.7,
-        92.45,
+        90.25,
         13.25
       ],
       "scope": "retained_module",
@@ -876,12 +877,12 @@
       "volume_mm3": 32.987,
       "bbox_min": [
         1.5,
-        82.5,
+        80.3,
         -3.5
       ],
       "bbox_max": [
         9.5,
-        90.5,
+        88.3,
         -2.0
       ],
       "scope": "retained_module",
@@ -894,12 +895,12 @@
       "volume_mm3": 1095.125,
       "bbox_min": [
         1.0,
-        94.9,
+        93.9,
         -4.0
       ],
       "bbox_max": [
         8.8,
-        106.45,
+        105.4,
         13.7
       ],
       "scope": "retained_module",
@@ -912,12 +913,12 @@
       "volume_mm3": 5.301,
       "bbox_min": [
         1.1,
-        95.75,
+        94.05,
         0.35
       ],
       "bbox_max": [
         1.7,
-        106.95,
+        105.25,
         13.25
       ],
       "scope": "retained_module",
@@ -930,12 +931,12 @@
       "volume_mm3": 32.987,
       "bbox_min": [
         1.5,
-        97.0,
+        95.3,
         -3.5
       ],
       "bbox_max": [
         9.5,
-        105.0,
+        103.3,
         -2.0
       ],
       "scope": "retained_module",
@@ -958,6 +959,24 @@
       ],
       "scope": "retained_module",
       "kind": "design_geometry"
+    },
+    {
+      "part": "solder_face_low_profile_zone",
+      "valid": true,
+      "solids": 1,
+      "volume_mm3": 357.276,
+      "bbox_min": [
+        1.1,
+        48.5,
+        0.2
+      ],
+      "bbox_max": [
+        1.7,
+        111.4,
+        16.4
+      ],
+      "scope": "retained_module",
+      "kind": "assembly_allowance"
     },
     {
       "part": "setting_switch_PCM13SMTR",
@@ -2009,8 +2028,8 @@
     "step": "zudo_led_block_A7_2hp_assembled.step",
     "glb": "zudo_led_block_A7_2hp_assembled.glb",
     "valid": true,
-    "source_solids": 74,
-    "imported_solids": 74,
+    "source_solids": 75,
+    "imported_solids": 75,
     "volume_difference_mm3": 0.0
   },
   "views": {

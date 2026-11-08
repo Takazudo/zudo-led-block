@@ -100,7 +100,6 @@ def build(name, out):
 
     # ---- jacks, nuts ---------------------------------------------------------------------
     bf = Z["jack_body_front_z"]
-    near, far = P1["jack_axis_to_edge_near"]["nominal"], P1["jack_axis_to_edge_far"]["nominal"]
     overall = P1["jack_overall_height"]["nominal"]
     depth = P1["jack_body_depth"]["nominal"]
     lead_below = (t + P1["lead_protrusion_trimmed"]["nominal"]) if V["leads"] == "trimmed" else P1["jack_terminal_projection"]["nominal"]
@@ -108,9 +107,9 @@ def build(name, out):
     pins_rel = {k: v for k, v in Z["terminal_z"].items()}
     nut = L["candidates"]["selected_2hp"]  # nut identity is common; dimensions below
     nut_z = Z["nut_z"]
-    for fn, y in zip(Y["jack_function"], Y["jack_y"]):
+    for fn, y, (by0, by1) in zip(Y["jack_function"], Y["jack_y"], Y["jack_body_y_nominal"]):
         tag = fn.split()[-1].lower()
-        body = box(seat, seat + overall, y - far, y + near, bf, bf + depth)
+        body = box(seat, seat + overall, by0, by1, bf, bf + depth)
         barrel = cylinder(3.0, bf - P1["jack_barrel_projection"]["nominal"], bf, xa, y).cut(cylinder(1.8, bf - 4, bf + 0.1, xa, y))
         sh = union(body, barrel)
         for pk, zz in pins_rel.items():
@@ -145,6 +144,14 @@ def build(name, out):
         pcb = pcb.cut(cylinder(0.45, 0, x1 - x0 + 0.2).rotate((0, 0, 0), (0, 1, 0), 90).translate((x0 - 0.1, swyc, zz)))
     add("controller_pcb_A7", pcb, "pcb_a7", "design_geometry",
         f"{t} mm FR-4, Y{cy0}-{cy1} x Z{cz0}-{cz1}; unrouted outline for R4; THT slots 0.9 x 1.3 ASSUMED (R1 Q3)", group="controller")
+    # solder-face low-profile zone (R4 0603 resistors): an envelope so the rigid checks cover it
+    zc = C["solder_face_low_profile_zone"]
+    zone = box(x0 - zc["max_height"], x0, cy0, cy1, cz0, cz1)
+    for k in C["keepouts"]:
+        if "-X" in k["faces"]:
+            zone = zone.cut(box(x0 - zc["max_height"] - 0.1, x0 + 0.1, k["y"][0], k["y"][1], k["z"][0] - 0.1 if k["z"][0] <= cz0 else k["z"][0], k["z"][1] + 0.1 if k["z"][1] >= cz1 else k["z"][1]))
+    add("solder_face_low_profile_zone", zone.clean(), "metal", "assembly_allowance",
+        f"R4 solder-face zone, parts <= {zc['max_height']} mm outside every -X keep-out (envelope, not parts)", group="controller")
     # setting switch
     sw = box(x1, x1 + SW["height_above_pcb"], SW["body_y"][0], SW["body_y"][1], swz[0], swz[1])
     za = SW["actuator_positions_z"][1]

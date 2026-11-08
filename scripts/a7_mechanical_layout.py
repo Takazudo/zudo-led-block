@@ -29,8 +29,9 @@ INPUTS = MECH / "design-inputs.json"
 LAYOUT = MECH / "layout.json"
 REPORT = MECH / "layout.md"
 ENVELOPES = MECH / "placement-envelopes.json"
-SWITCH_FACTS = A7 / "evidence" / "component-a7-pcm13smtr" / "facts.json"
-JACK_FACTS = A7 / "evidence" / "component-a7-pj-324m" / "facts.json"
+SKILLS = REPO / ".claude" / "skills"
+SWITCH_FACTS = SKILLS / "component-a7-pcm13smtr" / "facts.json"
+JACK_FACTS = SKILLS / "component-a7-pj-324m" / "facts.json"
 
 
 def load_study():
@@ -277,7 +278,9 @@ def build():
     f5 = json.loads((A5 / "front_panel" / "geometry.json").read_text())
     e5 = json.loads((A5 / "electronics" / "placement_and_connectivity.json").read_text())
     sw = fact(SWITCH_FACTS, "fact-a7-pcm13smtr-outline")
-    pins = fact(JACK_FACTS, "fact-a7-pj-324m-footprint-positions")
+    raw = fact(JACK_FACTS, "fact-a7-pj-324m-footprint-positions")
+    pins = {f"pin_{n}": {"along": raw[f"pin_{n}_along"], "across": raw[f"pin_{n}_across"]}
+            for n in sorted({k.split("_")[1] for k in raw if k.startswith("pin_") and k.endswith("_along")})}
 
     # ---- candidates -------------------------------------------------------------------
     rows = sweep_2hp(p, d)
@@ -339,17 +342,28 @@ def build():
     y_top = c["y_top"]["nominal"]
     sw_body_y = [r(y_bottom - sw["actuator_projection_beyond_body"] - sw["body_depth"]), r(y_bottom - sw["actuator_projection_beyond_body"])]
     j = d["jacks"]
-    near, far = P["jack_axis_to_edge_near"]["nominal"], P["jack_axis_to_edge_far"]["nominal"]
+    near_nom, far_nom = P["jack_axis_to_edge_near"]["nominal"], P["jack_axis_to_edge_far"]["nominal"]
+    # Y clearances use the body tolerance envelope about the axis (R1: near 5.4 +/-0.2 MIRROR, far 6.1 +/-0.4 DERIVED-MIRROR).
+    near = near_nom + P["jack_axis_to_edge_near"].get("tol", 0.0)
+    far = far_nom + P["jack_axis_to_edge_far"].get("tol", 0.0)
     step = j["y_round_down_to"]
-    y2 = math.floor((sw_body_y[0] - j["body_to_switch_gap"]["nominal"] - near) / step + 1e-9) * step
+    # +across on the drawing points toward the pin-4/pin-5 side, which is the 5.4 (near) side (#24 review reading).
+    # Pins are placed at Y = axis - across, so pin 2 faces +Y (the switch) and the far (6.1) edge is the one toward +Y.
+    pin_y_rel = {k: r(-v["across"]) for k, v in pins.items() if k.startswith("pin_")}
+    near_toward_plus_y = (pin_y_rel["pin_4"] > 0) == (j["near_edge_side_pins"] == "pin_4/pin_5")
+    lo, hi = (far, near) if near_toward_plus_y else (near, far)
+    lo_nom, hi_nom = (far_nom, near_nom) if near_toward_plus_y else (near_nom, far_nom)
+    sfp = d["setting_switch"]["footprint"]
+    peg_line = (sw_body_y[0] + sw_body_y[1]) / 2
+    pad_y0 = r(peg_line - sfp["signal_pad_reach_from_peg_line"]["nominal"])
+    y2 = math.floor((sw_body_y[0] - j["body_to_switch_gap"]["nominal"] - hi) / step + 1e-9) * step
     pk_clr = d["axial_option"]["pocket_clearance_around_body"] if pocket > 0 else 0.0
     need = near + far + 2 * pk_clr + 2 * j["label_gap_to_body"]["nominal"] + j["label_cap_height"]["nominal"]
     pitch = max(j["pitch"]["minimum"], math.ceil(need / j["pitch"]["round_up_to"] - 1e-9) * j["pitch"]["round_up_to"])
     y1 = y2 - pitch
     jack_y = [r(y1), r(y2)]
-    # +across on the drawing points toward the pin-4/pin-5 (far, 6.1) side; the near side faces +Y.
-    pin_y_rel = {k: r(-v["across"]) for k, v in pins.items() if k.startswith("pin_")}
-    body_y = [[r(y - far), r(y + near)] for y in jack_y]
+    body_y = [[r(y - lo), r(y + hi)] for y in jack_y]
+    body_y_nom = [[r(y - lo_nom), r(y + hi_nom)] for y in jack_y]
     sw_zc = d["setting_switch"]["z_centre"]["nominal"]
     switch = {
         "part": d["setting_switch"]["part"], "body_y": sw_body_y,
@@ -360,13 +374,21 @@ def build():
         "peg_pitch": sw["peg_pitch"], "peg_diameter": sw["peg_diameter"],
         "access_from": "+Y (below the module), module out of the rack", "label": d["setting_switch"]["label"],
         "gap_to_lower_jack_body": r(sw_body_y[0] - body_y[1][1]),
+        "gap_to_lower_jack_body_nominal": r(sw_body_y[0] - body_y_nom[1][1]),
+        "footprint_y": [pad_y0, r(y_bottom)], "footprint_z": [r(sw_zc - sfp["retention_pad_half_span"]["nominal"]), r(sw_zc + sfp["retention_pad_half_span"]["nominal"])],
+        "footprint_source": sfp["source"],
+        "pad_gap_to_lower_jack_body": r(pad_y0 - body_y[1][1]),
+        "gap_basis": "worst value uses the jack body tolerance envelope; required gap is design-inputs jacks.body_to_switch_gap",
     }
-    lab_off = far + pk_clr + j["label_gap_to_body"]["nominal"] + j["label_cap_height"]["nominal"] / 2
+    lab_off = lo + pk_clr + j["label_gap_to_body"]["nominal"] + j["label_cap_height"]["nominal"] / 2
     labels = [{"text": t, "y": r(y - lab_off), "cap_height": j["label_cap_height"]["nominal"]} for t, y in zip(j["labels"], jack_y)]
     sup = d["supports"]
     y_layout = {
         "rail_body_y": g5["rail_body_y"], "controller_pcb_y": [y_top, y_bottom], "jack_y": jack_y, "jack_function": j["functions"],
-        "jack_body_y": body_y, "jack_pin_y_offset_from_axis": pin_y_rel, "body_gap": r(body_y[1][0] - body_y[0][1]),
+        "jack_body_y": body_y, "jack_body_y_basis": f"tolerance envelope about the axis: far {r(far)} / near {r(near)} (nominal {far_nom} / {near_nom}; MIRROR / DERIVED-MIRROR)",
+        "jack_body_y_nominal": body_y_nom, "jack_pin_y_offset_from_axis": pin_y_rel,
+        "jack_orientation": ("pin 2 and the 6.1 mm (far) edge face +Y toward the switch; pins 4/5 and the 5.4 mm (near) edge face -Y" if near_toward_plus_y is False else "pin 4/5 and the 5.4 mm edge face +Y")
+                            + ". Which side is near follows the #24 review reading of the drawing; the 'across' sign is read from the drawing view and must be re-checked against the component side (fact-a7-pj-324m-footprint-positions); pin functions INFERRED (R1 Q2)", "body_gap": r(body_y[1][0] - body_y[0][1]),
         "nut_gap": r(pitch - p["nuts"][nut_id]["od"]), "pitch": r(pitch), "pitch_required_for_labels": r(need),
         "label_clearance_to_bodies": [r((y - lab_off - j["label_cap_height"]["nominal"] / 2) - (yb[1] + pk_clr)) if i else None for i, (y, yb) in enumerate(zip(jack_y, [[0, 0]] + body_y[:-1]))],
         "upper_body_to_controller_slot": r(body_y[0][0] - sup["controller_slot_y"]["values"][1]),
@@ -415,6 +437,15 @@ def build():
             "nut_edge_nominal": r(w / 2 - abs(row["offset"]) - p["nuts"][nut_id]["od"] / 2),
             "pcb_x_within_inner": x_pcb[0] >= side,
         }
+        hz = c["solder_face_low_profile_zone"]["max_height"]
+        qz = copy.deepcopy(p)
+        qz["parameters"]["lead_protrusion_trimmed"].update(nominal=hz, max=hz, min=hz)
+        zone = {k: S.transverse_case(qz, row["width_key"], row["offset"], t, "trimmed", k)["margins"]["lead_side"] for k in ("worst", "nominal")}
+        lead = {k: row[k]["lead_side"] for k in ("worst", "nominal")}
+        checks["solder_face_zone_height"] = hz
+        checks["solder_face_zone_margin_worst"] = zone["worst"]
+        checks["solder_face_zone_margin_nominal"] = zone["nominal"]
+        checks["solder_face_zone_below_lead_tips"] = all(zone[k] >= lead[k] - 1e-9 for k in zone)
         cab = d["cables"]
         lh, ph = c["led_header"], c["power_header"]
         routes = {
@@ -445,11 +476,14 @@ def build():
     fy = sup["bottom_fork_y"]["values"]
     fork_z0 = r(pcb_z1 - sup["fork_engagement"]["nominal"])
     keepouts = [
-        {"id": "spine-slot", "faces": ["+X", "-X"], "y": sv, "z": [pcb_z0, sup["controller_slot_height"]["nominal"]], "reason": "printed spine slot captures the PCB front edge"},
+        {"id": "spine-slot", "faces": ["+X", "-X"], "y": [y_top, sv[1]], "z": [pcb_z0, sup["controller_slot_height"]["nominal"]], "reason": "printed spine slot captures the PCB front edge"},
         {"id": "optical-fork", "faces": ["+X", "-X"], "y": fy, "z": [fork_z0, pcb_z1], "reason": "bottom optical cap tongue straddles the rear edge"},
-        {"id": "setting-switch", "faces": ["+X"], "y": [sw_body_y[0], y_bottom], "z": switch["body_z"], "reason": "PCM13SMTR body and actuator at the bottom edge"},
+        {"id": "setting-switch", "faces": ["+X"], "y": switch["footprint_y"], "z": switch["footprint_z"], "reason": "PCM13SMTR body, actuator and its signal/retention pads at the bottom edge"},
         {"id": "switch-access", "faces": ["+X"], "y": [sw_body_y[1], y_bottom], "z": [r(switch["actuator_positions_z"][0] - sw["actuator_width"] / 2 - 0.5), r(switch["actuator_positions_z"][2] + sw["actuator_width"] / 2 + 0.5)], "reason": "actuator travel plus tool clearance; nothing taller than the switch between actuator and board edge"},
     ]
+    ph = c["power_header"]
+    keepouts.append({"id": "picoblade-tails", "faces": ["-X"], "y": [r(ph["y"] - 2.05), r(ph["y"] + 1.15)], "z": [r(ph["z_centre"] - 2.75), r(ph["z_centre"] + 2.75)],
+                     "reason": "PicoBlade THT tails and fillets on the solder face (cut to the jack trim rule in 2HP)"})
     lh = c["led_header"]
     fold = max(v["routes"]["controller_to_left_leaf_sh4"]["fold_y"] for v in variants.values())
     br = d["cables"]["sh_bundle_radius"]["nominal"]
@@ -457,7 +491,9 @@ def build():
                      "z": [r(d["cables"]["led_route"]["return_z"] - br - 0.2), pcb_z1], "reason": "SH4 header and the returning LED harness lie over the component face"})
     for i, y in enumerate(jack_y):
         keepouts.append({"id": f"jack-{j['functions'][i].split()[-1].lower()}", "faces": ["+X"], "y": body_y[i], "z": [pcb_z0, r(body_rear_max)], "reason": "PJ-324M body footprint"})
-        keepouts.append({"id": f"jack-{j['functions'][i].split()[-1].lower()}-leads", "faces": ["-X"], "y": [r(y - 5.0), r(y + 5.7)], "z": [pcb_z0, r(max(pin_z.values()) + 1.0)], "reason": "terminal fillets only on the solder face (2HP lead-side margin)"})
+        fr = 1.0  # CAD solder-fillet allowance radius 0.75 plus 0.25
+        keepouts.append({"id": f"jack-{j['functions'][i].split()[-1].lower()}-leads", "faces": ["-X"], "y": [r(y + min(pin_y_rel.values()) - fr), r(y + max(pin_y_rel.values()) + fr)],
+                         "z": [pcb_z0, r(max(pin_z.values()) + fr)], "reason": "terminal fillets only on the solder face (2HP lead-side margin)"})
     area_total = (y_bottom - y_top) * (pcb_z1 - pcb_z0)
     area_keep = sum((k["y"][1] - k["y"][0]) * (k["z"][1] - k["z"][0]) for k in keepouts if "+X" in k["faces"] and k["id"] != "switch-access")
     controller = {
@@ -468,6 +504,13 @@ def build():
         "power_header": {**c["power_header"], "pin_row_axis": "Z", "mated_height_x": 5.2, "y_extent": [r(c["power_header"]["y"] - 2.05), r(c["power_header"]["y"] + 1.15)], "z_extent": [r(c["power_header"]["z_centre"] - 2.75), r(c["power_header"]["z_centre"] + 2.75)]},
         "led_header": {**c["led_header"], "pin_row_axis": "Z", "housing_y": [r(c["led_header"]["y"] - 2.575), r(c["led_header"]["y"] + 1.675)], "mated_handle_y_max": r(c["led_header"]["y"] + 1.675 + 2.0), "housing_z": [r(c["led_header"]["z_centre"] - 3.0), r(c["led_header"]["z_centre"] + 3.0)], "height_x": 2.95},
         "keepouts": keepouts,
+        "solder_face_low_profile_zone": {**c["solder_face_low_profile_zone"], "face": "-X",
+                                         "allowed_region": "controller outline minus every keep-out that lists the -X face",
+                                         "excluded_keepouts": [k["id"] for k in keepouts if "-X" in k["faces"]],
+                                         "margins": {n: {"worst": v["checks"]["solder_face_zone_margin_worst"], "nominal": v["checks"]["solder_face_zone_margin_nominal"],
+                                                         "jack_lead_worst": v["selection"]["worst"]["lead_side"], "never_beyond_jack_lead_tips": v["checks"]["solder_face_zone_below_lead_tips"]}
+                                                     for n, v in variants.items()},
+                                         "rule": "parts on the solder face must stay within max_height of the board; the zone is computed with R1's lead-side margin, replacing the trimmed lead protrusion by max_height"},
         "solder_side_rule": c["solder_side_rule"],
         "power_input_on_controller": "3-wire PicoBlade from the A5-style separate power adapter (keyed IDC10 stays on the adapter)",
         "why_separate_adapter": f"a vertical keyed IDC10 header body is 8.9 mm tall (A5 C5665 maximum envelope); on the perpendicular board it would need {8.9} mm of X but the 2HP component face offers {variants['2hp']['checks']['component_face_height_budget']} mm",
@@ -499,8 +542,8 @@ def build():
     }
     return {
         "schema_version": 1, "generator": "scripts/a7_mechanical_layout.py",
-        "inputs": ["engineering/a7/study/parameters.json", "engineering/a7/evidence/component-a7-pcm13smtr/facts.json",
-                   "engineering/a7/evidence/component-a7-pj-324m/facts.json", "engineering/a7/mechanical/design-inputs.json",
+        "inputs": ["engineering/a7/study/parameters.json", ".claude/skills/component-a7-pcm13smtr/facts.json",
+                   ".claude/skills/component-a7-pj-324m/facts.json", "engineering/a7/mechanical/design-inputs.json",
                    "engineering/a5/mechanical/geometry.json", "engineering/a5/front_panel/geometry.json",
                    "engineering/a5/electronics/placement_and_connectivity.json"],
         "status": "Provisional digital study. Jack-axis height INFERRED; tolerances marked ASSUMED are unsourced. Not a fit approval, part approval or manufacturing release.",
@@ -598,6 +641,7 @@ def envelopes(L):
                            "pegs": [{"assembly_y": swyc, "assembly_z": r(swzc + s_ * sw["peg_pitch"] / 2), "board_x": bx(swzc + s_ * sw["peg_pitch"] / 2), "board_y": by(swyc), "diameter": sw["peg_diameter"]} for s_ in (-1, 1)],
                            "rule": "actuator flush with the bottom board edge; pads from the C&K land pattern, not given here", "label": sw["label"]},
         "headers": hdr,
+        "solder_face_low_profile_zone": c["solder_face_low_profile_zone"],
         "solder_side_rule": c["solder_side_rule"],
     }
 
