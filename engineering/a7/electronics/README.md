@@ -1,6 +1,6 @@
 # A7 コントローラー電子設計（R4, #19）
 
-**状態: 回路図は独立電気レビュー済み（#24、head `1a2f31a`）。基板は配置・配線済みで、独立したレイアウト・電気レビュー済み（PR #30、head `e2a2219`、main へのマージ `eb8adeb`、基板 sha256 `ec810aec…74f2`）。** 権威ある A7 基板 `controller/controller.kicad_pcb` を `candidate` とする A7 リビジョンゲート（`engineering/a7/verification/native_gate.json`）は新規実行で `PASS` です。これはデジタル検証だけの結果で、物理評価・製造リリースではありません。
+**状態: 回路図は独立電気レビュー済み（#24、head `1a2f31a`）。基板は配置・配線済み。初版はレイアウト・電気レビュー済み（PR #30、head `e2a2219`、main へのマージ `eb8adeb`、基板 sha256 `ec810aec…74f2`）。現在の基板はレビューの軽微な指摘 4 件を反映したリビジョン 2 で（基板 sha256 `4453f818…628e`）、再レビュー待ちです。** 権威ある A7 基板 `controller/controller.kicad_pcb` を `candidate` とする A7 リビジョンゲート（`engineering/a7/verification/native_gate.json`）は新規実行で `PASS` です。これはデジタル検証だけの結果で、物理評価・製造リリースではありません。
 
 ## 何が A5 から変わったか
 
@@ -46,9 +46,11 @@
 - **配置**: `scripts/a7_board.py place` が R2 の `placement-envelopes.json` のキープアウトに対して配置を検査し、`controller/placement.json` に書きます。J1/J2/J3/J5/SW1 は R2 が決めた位置に固定（J3 は MP パッドの基板端クリアランスのため x 12.6）。
 - **配線**: `scripts/a7_board.py build` がリポジトリ外の空ディレクトリに未配線の基板とパッド形状を作り、`scripts/a7_route.py`（0.1 mm 格子の negotiated-congestion ルーター、seed 0）が配線案を作り、`a7_board.py apply` が配線・ビア・GND の塗りつぶしを加えて充填します。結果を確認してから権威基板にコピーしました。配線案は `engineering/a7/verification/routing/route_proposal_seed0.json` に記録し、現在の配置から同じ結果が再現します。通常の再生成は権威基板を書きません。
 - **設計ルール差分**: ビアを 0.6/0.3 mm から 0.5/0.2 mm に変更（`min_via_diameter`、`min_through_hole_diameter`、ネットクラスのビア）。U1 周辺の配線を通すために必要でした。JLCPCB の公開能力（多層 0.15/0.25 mm 以上、推奨最小穴 0.2 mm）に基づき、`native_gate.json` の `design_rule_delta` に理由と証拠（`engineering/a7/verification/fab/jlcpcb_capabilities.json`、URL・取得ハッシュ・該当行）を記録しています。アニュラーリング 0.15 mm、配線幅・クリアランス・層数は A5 のままです。
-- **ゲート結果**（ピン留め KiCad 10.0.8、新規実行）: ERC 0、パリティ 0、DRC 0、未接続 0、ゾーン再充填が一致、再生成で基板が変わらない、配置エクスポート `controller/board_placement.json` が最新。負の対照（配線切断・誤接続・充填ずれ・タイムアウト・A5 期待失敗・合成対照）はすべて検出。
+- **厳しくする方向だけのカスタムルール**: `controller/controller.kicad_dru` の `a7_pth_to_track` は、スルーホールの穴から他ネットのトラックまで 0.35 mm 以上を要求します（JLCPCB の推奨値。最小は 0.28 mm。A5 の穴クリアランス 0.2 mm より厳しい）。`a7_electronics.py generate` が `native_gate.json` の `design_rule_delta.custom_rules` と同じ内容で書き、ゲートは内容が違えば失敗します。負の対照 `control_pth_to_track` が穴から 0.32 mm のトラックを 1 本足し、このルール名で検出されることを毎回確かめます。現在の基板の最小値は 0.386 mm です。
+- **配置チェックの比較精度**: コートヤードの比較は KiCad の内部単位（1 nm）に丸めてから行います（`native_gate.json` の `placement`）。ちょうど接する配置は DRC と同じく可、1 nm 以上の重なりは違反です。必要な隙間は 0 mm のままで、緩めていません。
+- **ゲート結果**（ピン留め KiCad 10.0.8、新規実行）: ERC 0、パリティ 0、DRC 0、未接続 0、ゾーン再充填が一致、再生成で基板が変わらない、配置エクスポート `controller/board_placement.json` が最新。負の対照（配線切断・誤接続・充填ずれ・PTH–トラック・タイムアウト・A5 期待失敗・合成対照）はすべて検出。変異基板の DRC は、元の基板と同じプロジェクトルールとカスタムルールで実行します。
 
 ## 残っている作業
 
-1. レビューで挙がった軽微な改善（C11 と U6.5 の距離、C17/U7.2 付近の GND ビア追加、U4.1 近くの +5 V コンデンサ、CV_FILTER と VLED の並走 約 0.9 mm）。
+1. リビジョン 2 の再レビュー。軽微な指摘 4 件は反映済みです。C11 は U6.5 から 1.53 mm（以前 5.8 mm）。U7.2 と C17.2 の GND ビアはそれぞれ 0.52 mm と 0.66 mm（以前 1.5〜2 mm）。+5 V の C15 (10 µF) は U4.1 から 1.8 mm（以前は最寄りが C2 の 4.1 mm）。CV_FILTER は全長が F.Cu にあり、VLED との間隔は同じ層で 3.65 mm です。VLED が In2/B で下を横切りますが、間に In1 の GND プレーンがあります。
 2. 物理ゲート: PJ-324M のピン導通・穴寸法・軸高さの実測、PCM13SMTR の位置ごとの導通とランド適合、在庫（Q10）。

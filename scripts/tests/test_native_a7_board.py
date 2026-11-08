@@ -46,6 +46,28 @@ class PlacementTests(unittest.TestCase):
         pl['C5'] = copy.deepcopy(pl['C4'])
         self.assertIn('courtyard overlap C4 / C5', ab.violations(pl))
 
+    def test_courtyard_comparison_is_exact_at_kicad_resolution(self):
+        # exact abutment is clear (as in native DRC), float noise cannot flip it, 1 nm of overlap is reported
+        self.assertEqual(ab.placement_rule(), (1, 0))
+        comps = ab.components()
+        base = copy.deepcopy(committed())
+        x1, _, x2, _ = ab.footprint_rect(comps['C9'], base['C9'])
+        cases = {0.0: False, 1e-12: False, -1e-12: False, -1e-6: True}
+        for shift, reported in cases.items():
+            pl = copy.deepcopy(base)
+            pl['C10'] = copy.deepcopy(pl['C9'])
+            pl['C10']['at'] = [pl['C9']['at'][0] + (x2 - x1) + shift, pl['C9']['at'][1]]
+            self.assertEqual('courtyard overlap C10 / C9' in ab.violations(pl), reported, shift)
+
+    def test_courtyard_past_board_edge_is_reported(self):
+        pl = copy.deepcopy(committed())
+        comps = ab.components()
+        x1, _, _, _ = ab.footprint_rect(comps['C8'], pl['C8'])
+        pl['C8']['at'] = [pl['C8']['at'][0] - x1 - 1e-6, pl['C8']['at'][1]]
+        self.assertTrue(any(v.startswith('C8: courtyard') and 'outside the board' in v for v in ab.violations(pl)))
+        pl['C8']['at'][0] += 1e-6
+        self.assertFalse(any(v.startswith('C8: courtyard') and 'outside the board' in v for v in ab.violations(pl)))
+
     def test_keepout_intrusion_is_reported(self):
         pl = copy.deepcopy(committed())
         pl['C9'] = {'at': [6.0, 36.0], 'rot': 0, 'side': 'F'}
@@ -77,6 +99,45 @@ class RuleDeltaTests(unittest.TestCase):
             self.assertEqual(cls[k], v['from'], k)
             cls[k] = v['to']
         self.assertEqual(a7['net_settings']['classes'][0], cls)
+
+    def test_custom_rules_only_tighten_and_match_the_profile(self):
+        sys.path.insert(0, str(REPO / 'scripts/native_gate'))
+        import runner
+        prof = json.loads((REPO / 'engineering/a7/verification/native_gate.json').read_text())
+        rules = prof['design_rule_delta']['custom_rules']
+        self.assertEqual(ab.a7.A7_STYLE['custom_rules'], [{k: r[k] for k in ('name', 'constraint', 'min_mm', 'condition')} for r in rules])
+        dru = (ab.a7.A7_CTRL / 'controller.kicad_dru').read_text()
+        self.assertEqual(dru, ab.a7.custom_rules_text(ab.a7.A7_STYLE['custom_rules']))
+        self.assertEqual(dru, runner.custom_rules_text(rules))
+        self.assertEqual(runner.custom_rules_failures(REPO, prof), [])
+        pro = json.loads((ab.a7.A7_CTRL / 'controller.kicad_pro').read_text())['board']['design_settings']['rules']
+        for r in rules:
+            self.assertEqual(r['direction'], 'stricter')
+            self.assertEqual(r['constraint'], 'hole_clearance')
+            self.assertGreater(r['min_mm'], pro['min_hole_clearance'])
+        ev = json.loads((REPO / prof['design_rule_delta']['evidence']).read_text())
+        self.assertIn('PTH to Track', json.dumps(ev))
+
+    def test_edited_custom_rules_file_is_refused(self):
+        import shutil
+        import tempfile
+        sys.path.insert(0, str(REPO / 'scripts/native_gate'))
+        import runner
+        prof = json.loads((REPO / 'engineering/a7/verification/native_gate.json').read_text())
+        d = prof['designs']['a7_controller']
+        with tempfile.TemporaryDirectory() as td:
+            repo = Path(td)
+            (repo / d['dir']).mkdir(parents=True)
+            src = REPO / d['dir'] / d['custom_rules']
+            shutil.copyfile(src, repo / d['dir'] / d['custom_rules'])
+            self.assertEqual(runner.custom_rules_failures(repo, prof), [])
+            (repo / d['dir'] / d['custom_rules']).write_text(src.read_text().replace('0.35mm', '0.2mm'))
+            self.assertTrue(runner.custom_rules_failures(repo, prof))
+            (repo / d['dir'] / d['custom_rules']).unlink()
+            self.assertTrue(any('missing' in f for f in runner.custom_rules_failures(repo, prof)))
+        weak = copy.deepcopy(prof)
+        weak['controls']['mutations'].pop('control_pth_to_track')
+        self.assertTrue(any('no rule_squeeze control' in e for e in runner.candidate_binding(weak)))
 
     def test_delta_is_backed_by_fabricator_evidence(self):
         delta = json.loads((REPO / 'engineering/a7/verification/native_gate.json').read_text())['design_rule_delta']
