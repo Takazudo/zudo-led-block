@@ -97,15 +97,33 @@ class Ctx:
         self.record(cid, label, fn)
 
     def unused(self, cid: str, label: str, role: str) -> None:
-        """Each pin is absent from the netlist or alone on its net (no-connect)."""
+        """Each pin exists in the netlist (KiCad exports a no-connect pin as a single-pin net) and is alone on its net."""
         def fn():
             design = role.partition(':')[0]
-            bad = {}
+            bad, missing = {}, []
             for p in self.pins(role):
                 n = self.nets[design].get(p)
-                if n is not None and sum(1 for v in self.nets[design].values() if v == n) > 1:
+                if n is None:
+                    missing.append(p)
+                elif sum(1 for v in self.nets[design].values() if v == n) > 1:
                     bad[p] = n
-            return not bad, {'connected': bad}
+            return not bad and not missing, {'connected': bad, 'missing_from_netlist': missing}
+        self.record(cid, label, fn)
+
+    def covers(self, cid: str, label: str, *roles: str) -> None:
+        """The roles name one component, and together name exactly every pin it has in the netlist."""
+        def fn():
+            design = roles[0].partition(':')[0]
+            named = [p for r in roles for p in self.pins(r)]
+            refs = {p.split('.')[0] for p in named}
+            if len(refs) != 1:
+                raise RoleError(f'roles {list(roles)} must name one component, got {sorted(refs)}')
+            ref = refs.pop()
+            have = {p for p in self.nets[design] if p.split('.')[0] == ref}
+            dup = sorted({p for p in named if named.count(p) > 1})
+            return set(named) == have and not dup, {'netlist_pins': sorted(have), 'role_pins': sorted(set(named)),
+                                                    'unnamed': sorted(have - set(named)), 'not_in_netlist': sorted(set(named) - have),
+                                                    'named_twice': dup}
         self.record(cid, label, fn)
 
 
@@ -170,6 +188,10 @@ def run(nets: dict, roles: dict) -> list[dict]:
            C + 'jack_in.returns', C + 'jack_thru.returns', C + 'mcu.vss')
     x.unused('cv.normals_in_unused', 'CV IN normal/switch contacts unused', C + 'jack_in.normals')
     x.unused('cv.normals_thru_unused', 'CV THRU normal/switch contacts unused', C + 'jack_thru.normals')
+    x.covers('cv.jack_in_pins_covered', 'CV IN jack: tip, returns and normals name every pin of the part',
+             C + 'jack_in.tip', C + 'jack_in.returns', C + 'jack_in.normals')
+    x.covers('cv.jack_thru_pins_covered', 'CV THRU jack: tip, returns and normals name every pin of the part',
+             C + 'jack_thru.tip', C + 'jack_thru.returns', C + 'jack_thru.normals')
     # CV conditioning chain (unchanged behavior; VADC=(100/133)*(VDD/2+CV/8) depends on these nodes)
     x.same('cv.pickup_mid', '20 Mohm pickup midpoint into follower', C + 'cv.pickup_mid')
     x.same('cv.follower', 'OPA197 voltage follower output', C + 'cv.follower')
@@ -186,6 +208,9 @@ def run(nets: dict, roles: dict) -> list[dict]:
     x.same('mode.a_input', 'MODE_A throw, MCU input and pull-up share one net', C + 'sw.throw_a', C + 'mcu.mode_a', C + 'mode.a_pullup_node')
     x.same('mode.b_input', 'MODE_B throw, MCU input and pull-up share one net', C + 'sw.throw_b', C + 'mcu.mode_b', C + 'mode.b_pullup_node')
     x.same('mode.pullups_to_vdd', 'Both mode pull-ups return to MCU VDD', C + 'mode.a_pullup_rail', C + 'mode.b_pullup_rail', C + 'mcu.vdd')
+    x.covers('mode.switch_pins_covered', 'Mode switch: common, throws and spare contacts name every pin of the part',
+             C + 'sw.common', C + 'sw.throw_a', C + 'sw.throw_b', C + 'sw.unused')
+    x.unused('mode.spare_contacts_unused', 'Switch contacts outside the mode encoding are unconnected', C + 'sw.unused')
     x.distinct('mode.inputs_distinct', 'MODE_A and MODE_B are separate nets', C + 'mcu.mode_a', C + 'mcu.mode_b')
     x.record('mode.truth_table', 'Switch positions encode ON=01, PGM=11, CV=10 (centre/open = PROGRAM)', lambda: mode_truth(x))
     # LED power

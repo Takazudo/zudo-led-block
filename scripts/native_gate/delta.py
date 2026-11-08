@@ -161,12 +161,17 @@ def check(record_path: Path, candidate: Path, root: Path) -> dict:
         fails.append(f'unauthorized delta: {json.dumps(d, sort_keys=True)}')
     if len(unauthorized) > 50:
         fails.append(f'... {len(unauthorized) - 50} more unauthorized deltas')
+    gb_all, gc_all = groups(b[1], set()), groups(c[1], set())
+
+    def pins_changed(ref: str) -> bool:
+        mine = {p for p in set(gb_all) | set(gc_all) if p.split('.')[0] == ref}
+        return any(gb_all.get(p) != gc_all.get(p) for p in mine)
+
     for i, e in enumerate(entries):
-        if i not in used and e.get('kind') != 'component_replaced':
+        # a component_replaced whose part shows neither a field nor a connectivity change is stale too:
+        # it would otherwise silently exempt that ref's pins from the comparison
+        if i not in used and (e.get('kind') != 'component_replaced' or (e.get('ref') in replaced and not pins_changed(e['ref']))):
             fails.append(f'stale authorization (matches no observed delta): entry {i} {json.dumps(e, sort_keys=True)}')
-        elif e.get('kind') == 'component_replaced' and i not in used and e.get('ref') in replaced:
-            # replacement with identical fields: still a real pin-level authorization, keep it visible
-            pass
     renamed = sorted({(b[1][p], c[1][p]) for p in set(b[1]) & set(c[1]) if b[1][p] != c[1][p]})
     return {'ok': not fails, 'failures': fails, 'baseline': base_rel, 'baseline_sha256': got_sha,
             'candidate_sha256': hashlib.sha256(candidate.read_bytes()).hexdigest(),
