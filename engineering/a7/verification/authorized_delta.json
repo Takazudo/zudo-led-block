@@ -6,11 +6,119 @@
   "sha256": "fa2d267acc4081156649ee15e014fbaeae4303bc96374fe19f4bae7b3a72553f",
   "label": "A5 controller XML netlist; the native infrastructure run shows a fresh KiCad 10.0.8 export of the A5 schematic equals it with no delta"
  },
- "review": null,
- "expected_entry_topics": [
-  "J1/J2 PJ-3582-B -> SOFNG PJ-324M (C22355739): component_replaced, pin identities from R1 #16 evidence",
-  "SW1 front toggle -> PCB-side ON-OFF-ON setting switch: component_replaced, contact table from R1 #16 evidence",
-  "any support/mounting/connector change required by the perpendicular controller (R2 #17 / R4 #19)"
+ "review": {
+  "by": "independent electrical reviewer (separate Claude thread, not the author of this change)",
+  "scope": "schematic/netlist delta: role map pin identities, authorized-delta connectivity, PCM13SMTR and PJ-324M footprints against the drawings",
+  "head": "1a2f31a5b599a2a9c92515bc94a440bb9482dd7e",
+  "record": "https://github.com/Takazudo/zudo-led-block/pull/24#pullrequestreview-5818088400 (first pass: review 5818084195 series; findings fixed in 1a2f31a)",
+  "date": "2026-11-08",
+  "verdict": "approved for the schematic phase; not an approval of the board, routing or physical gates",
+  "open_physical_gates": [
+   "PJ-324M pin functions (tip/ring/sleeve/normals) by TS/TRS continuity test of incoming parts",
+   "PJ-324M across-axis sign (drawing view direction) against the component side",
+   "PJ-324M hole/slot sizes (Q3)",
+   "PJ-324M axis height (INFERRED ~3.0, Q1)",
+   "PCM13SMTR body centring on the peg line (ASSUMED)",
+   "PCM13SMTR sourcing, JLC stock 0 (Q10)"
+  ]
+ },
+ "entries": [
+  {
+   "kind": "component_replaced",
+   "ref": "J1",
+   "from": {
+    "mpn": "PJ-3582-B",
+    "lcsc": "C500090",
+    "footprint": "LightBlock:PJ3582_ROT90",
+    "pins": {
+     "2": "GND",
+     "3": "GND",
+     "4": "NC",
+     "5": "NC",
+     "6": "CV_THRU"
+    }
+   },
+   "to": {
+    "mpn": "PJ-324M",
+    "lcsc": "C22355739",
+    "footprint": "LightBlockA7:PJ324M",
+    "pins": {
+     "1": "GND (SLEEVE, INFERRED)",
+     "2": "GND (RING, INFERRED)",
+     "3": "NC (RING normal, INFERRED)",
+     "4": "CV_THRU (TIP, INFERRED)",
+     "5": "NC (TIP normal, INFERRED)"
+    }
+   },
+   "reason": "CV IN jack: accepted A7 redesign replaces the front-panel PJ-3582-B with the SOFNG PJ-324M right-angle threaded jack on the perpendicular controller. The mono CV contract is unchanged: tip to CV_THRU (J1/J2 tip-to-tip passive THRU), sleeve and ring to GND, normals unused.",
+   "issue": "#19 (R4), evidence #16 (R1, .claude/skills/component-a7-pj-324m)",
+   "evidence_status": "INFERRED pin functions (pinmap-a7-pj-324m): no manufacturer pin-function table exists; the SOFNG symbol and terminal depth were used. Not promoted. Incoming-part continuity test (tip/ring/sleeve/normals per pin) remains a physical gate.",
+   "carried_by": "interface assertions jack_in.* / jack_thru.* in engineering/a7/verification/interface_roles/a7_controller.json"
+  },
+  {
+   "kind": "component_replaced",
+   "ref": "J2",
+   "from": {
+    "mpn": "PJ-3582-B",
+    "lcsc": "C500090",
+    "footprint": "LightBlock:PJ3582_ROT90",
+    "pins": {
+     "2": "GND",
+     "3": "GND",
+     "4": "NC",
+     "5": "NC",
+     "6": "CV_THRU"
+    }
+   },
+   "to": {
+    "mpn": "PJ-324M",
+    "lcsc": "C22355739",
+    "footprint": "LightBlockA7:PJ324M",
+    "pins": {
+     "1": "GND (SLEEVE, INFERRED)",
+     "2": "GND (RING, INFERRED)",
+     "3": "NC (RING normal, INFERRED)",
+     "4": "CV_THRU (TIP, INFERRED)",
+     "5": "NC (TIP normal, INFERRED)"
+    }
+   },
+   "reason": "CV THRU jack: accepted A7 redesign replaces the front-panel PJ-3582-B with the SOFNG PJ-324M right-angle threaded jack on the perpendicular controller. The mono CV contract is unchanged: tip to CV_THRU (J1/J2 tip-to-tip passive THRU), sleeve and ring to GND, normals unused.",
+   "issue": "#19 (R4), evidence #16 (R1, .claude/skills/component-a7-pj-324m)",
+   "evidence_status": "INFERRED pin functions (pinmap-a7-pj-324m): no manufacturer pin-function table exists; the SOFNG symbol and terminal depth were used. Not promoted. Incoming-part continuity test (tip/ring/sleeve/normals per pin) remains a physical gate.",
+   "carried_by": "interface assertions jack_in.* / jack_thru.* in engineering/a7/verification/interface_roles/a7_controller.json"
+  },
+  {
+   "kind": "component_replaced",
+   "ref": "SW1",
+   "from": {
+    "mpn": "1MS3T1B1M2QES-5",
+    "lcsc": "C908270",
+    "footprint": "LightBlock:DAILYWELL_M2_SP",
+    "pins": {
+     "1": "MODE_A",
+     "2": "GND (common)",
+     "3": "MODE_B"
+    }
+   },
+   "to": {
+    "mpn": "PCM13SMTR",
+    "lcsc": "C221842",
+    "footprint": "LightBlockA7:PCM13SMTR",
+    "pins": {
+     "1": "MODE_A",
+     "2": "NC",
+     "3": "GND (common)",
+     "4": "MODE_B"
+    }
+   },
+   "reason": "Accepted A7 redesign moves ON/PROGRAM/CV from the front toggle to a PCB-side slide switch. Mode encoding is unchanged: grounded common, MODE_A/MODE_B pulled up by R9/R10. POS.1 (1-3) MODE_A=0,B=1 ON; POS.2 (2-3, terminal 2 open) 1,1 PROGRAM; POS.3 (3-4) 1,0 CV; 0,0 unreachable.",
+   "issue": "#19 (R4), evidence #16 (R1, .claude/skills/component-a7-pcm13smtr)",
+   "evidence_status": "Function table MIRROR (C&K document via LCSC, sha256 1c2ca483...). Land pattern read from the same drawing, unreviewed. JLC stock 0 (Q10); an in-stock alternate would be a new component_replaced review.",
+   "carried_by": "interface assertions sw.* / switch_positions / mode truth table"
+  }
  ],
- "entries": []
+ "candidate": {
+  "schematic": "engineering/a7/electronics/controller/controller.kicad_sch",
+  "generator": "scripts/a7_electronics.py generate"
+ }
 }

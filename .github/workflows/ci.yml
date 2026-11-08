@@ -288,6 +288,14 @@ jobs:
         run: |
           docker pull "$KICAD_IMAGE"
           docker image inspect "$KICAD_IMAGE" --format '{{json .RepoDigests}} {{.Architecture}}' | tee "$RUNNER_TEMP/native-receipt/image.txt"
+      - name: A7 schematic phase check (fresh ERC, netlist, staging parity, interface, delta; not a board result)
+        timeout-minutes: 8
+        run: |
+          python3 scripts/a7_electronics.py generate --check
+          python3 scripts/a7_schematic_check.py --out "$RUNNER_TEMP/a7-schematic"
+          s="$(python3 -c 'import json,sys;print(json.load(open(sys.argv[1]))["status"])' "$RUNNER_TEMP/a7-schematic/summary.json")"
+          echo "### A7 schematic phase: $s (schematic only; A7 revision gate stays NO_CANDIDATE)" >> "$GITHUB_STEP_SUMMARY"
+          test -z "$(docker ps -aq --filter label=zudo-led-block.a7-schematic)"
       - name: Native infrastructure run (ERC, netlists, parity, DRC, refill, interface, delta, controls)
         timeout-minutes: 12
         run: python3 scripts/native_gate/runner.py run --profile "$PROFILE" --out "$RUNNER_TEMP/native" --deadline-s 660
@@ -344,6 +352,7 @@ jobs:
             ${{ runner.temp }}/native/plan.json
             ${{ runner.temp }}/native/evidence/
             ${{ runner.temp }}/a7-gate/summary.json
+            ${{ runner.temp }}/a7-schematic/summary.json
           retention-days: 7
           if-no-files-found: warn
 
