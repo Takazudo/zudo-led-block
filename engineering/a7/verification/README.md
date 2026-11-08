@@ -20,6 +20,7 @@
 | `source_authority.json` | authored | 所有区分と再生成ルール |
 | `fab/jlcpcb_capabilities.json` | authored | ルール差分の根拠となる JLCPCB の公開能力 (URL・取得ハッシュ・該当行) |
 | `routing/route_proposal_seed0.json` | authored | 権威基板の配線を作ったルーター出力の記録 (基板が正、これから基板は再生成しない) |
+| `pet_leaf/profile.json` | authored | 貼り合わせ型 PET LED リーフの電気プロファイルと判定の期待値（R4 項目 5）。`scripts/a7_pet_leaf_check.py` が A5 リーフの回路と銅箔に対して確認します。リーフの設計ではなく、PET の承認でもありません |
 
 ## ルール
 
