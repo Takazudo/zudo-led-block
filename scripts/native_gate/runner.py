@@ -465,6 +465,18 @@ def custom_rules_failures(repo: Path, p: dict) -> list[str]:
     return errs
 
 
+def rule_squeeze_reported(violations: list[dict], rules: list[str], pad: str) -> bool:
+    """Every named custom rule appears in a native hole_clearance violation whose items include the squeezed pad."""
+    ref, _, num = pad.partition('.')
+    if not ref or not num or not rules:
+        return False
+    tag = f'pad {num} '
+    return all(any(v.get('type') == 'hole_clearance' and f"rule '{rule}'" in v.get('description', '')
+                   and any(tag in i.get('description', '') and i.get('description', '').endswith(f' of {ref}')
+                           for i in v.get('items', []))
+                   for v in violations) for rule in rules)
+
+
 def design_expect(p: dict, name: str) -> dict:
     e = dict(p['designs'][name])
     e.update({k: p['drc'][k] for k in ('included_severities', 'ignored_checks')})
@@ -528,6 +540,13 @@ def evaluate_all(g: Gate, p: dict, lk: dict, raw: Path, info: dict) -> dict:
                 ok = False
             if any(f'DRC clearance' in f or 'shorting' in f for f in r['failures']):
                 ok = False  # the added track must not also be caught by plain copper clearance
+            # the native report itself must carry a hole_clearance violation that names the rule and the squeezed pad
+            try:
+                viol = json.loads((out / 'drc.json').read_text()).get('violations', [])
+            except (OSError, ValueError):
+                viol = []
+            if not rule_squeeze_reported(viol, c['must_report'], str((c.get('spec') or {}).get('pad', ''))):
+                ok = False
         if c['kind'] == 'route_break':
             # the reported break must be on the net whose segment was removed, not some unrelated one
             net = (mr.get('mutation') or {}).get('removed_track_net')

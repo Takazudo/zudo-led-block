@@ -139,6 +139,22 @@ class RuleDeltaTests(unittest.TestCase):
         weak['controls']['mutations'].pop('control_pth_to_track')
         self.assertTrue(any('no rule_squeeze control' in e for e in runner.candidate_binding(weak)))
 
+    def test_rule_squeeze_needs_the_rule_name_and_pad_in_the_native_report(self):
+        sys.path.insert(0, str(REPO / 'scripts/native_gate'))
+        import runner
+        hit = {'type': 'hole_clearance',
+               'description': "Hole clearance violation (rule 'a7_pth_to_track' clearance 0.3500 mm; actual 0.3200 mm)",
+               'items': [{'description': 'Track [/GND] on In1.Cu, length 1.0000 mm'},
+                         {'description': 'PTH pad 1 [/+12V_RAW] of J5'}]}
+        self.assertTrue(runner.rule_squeeze_reported([hit], ['a7_pth_to_track'], 'J5.1'))
+        base_rule = dict(hit, description='Hole clearance violation (board setup constraints clearance 0.2000 mm; actual 0.1500 mm)')
+        self.assertFalse(runner.rule_squeeze_reported([base_rule], ['a7_pth_to_track'], 'J5.1'))
+        self.assertFalse(runner.rule_squeeze_reported([dict(hit, type='clearance')], ['a7_pth_to_track'], 'J5.1'))
+        self.assertFalse(runner.rule_squeeze_reported([hit], ['a7_pth_to_track'], 'J5.3'))
+        self.assertFalse(runner.rule_squeeze_reported([hit], ['a7_pth_to_track'], 'J1.1'))
+        self.assertFalse(runner.rule_squeeze_reported([], ['a7_pth_to_track'], 'J5.1'))
+        self.assertFalse(runner.rule_squeeze_reported([hit], [], 'J5.1'))
+
     def test_delta_is_backed_by_fabricator_evidence(self):
         delta = json.loads((REPO / 'engineering/a7/verification/native_gate.json').read_text())['design_rule_delta']
         ev = json.loads((REPO / delta['evidence']).read_text())
