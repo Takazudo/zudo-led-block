@@ -17,6 +17,7 @@ import argparse
 import hashlib
 import json
 import os
+import shutil
 import subprocess
 import sys
 import time
@@ -194,6 +195,27 @@ def mutate(src: Path, dst: Path, kind: str, spec: dict | None = None) -> dict:
         z.SetFilledPolysList(l, moved)
         after, _ = fill_fingerprint(b)
         info.update({'zone': z.GetZoneName(), 'layer': b.GetLayerName(l), 'summary_unchanged': before == after})
+    elif kind == 'rule_squeeze':
+        # one short track of another pad's net beside a plated hole, a set gap from the hole edge (left of the pad)
+        ref, num = spec['pad'].split('.')
+        tref, tnum = spec['net_of'].split('.')
+        pad = [pd for pd in b.FindFootprintByReference(ref).Pads() if pd.GetNumber() == num][0]
+        tpad = [pd for pd in b.FindFootprintByReference(tref).Pads() if pd.GetNumber() == tnum][0]
+        if pad.GetAttribute() != p.PAD_ATTRIB_PTH or pad.GetNetCode() == tpad.GetNetCode():
+            raise ValueError('rule_squeeze needs a plated through-hole pad and a track of another net')
+        w, gap = spec['width_mm'], spec['hole_gap_mm']
+        x = p.ToMM(pad.GetPosition().x) - p.ToMM(pad.GetDrillSize().x) / 2 - gap - w / 2
+        y = p.ToMM(pad.GetPosition().y)
+        t = p.PCB_TRACK(b)
+        t.SetStart(p.VECTOR2I(p.FromMM(x), p.FromMM(y - 0.5)))
+        t.SetEnd(p.VECTOR2I(p.FromMM(x), p.FromMM(y + 0.5)))
+        t.SetWidth(p.FromMM(w))
+        t.SetLayer(b.GetLayerID(spec['layer']))
+        t.SetNet(tpad.GetNet())
+        b.Add(t)
+        pro = json.loads(src.with_suffix('.kicad_pro').read_text())
+        info.update({'pad': spec['pad'], 'track_net': tpad.GetNetname(), 'layer': spec['layer'], 'hole_gap_mm': gap,
+                     'project_min_hole_clearance_mm': pro['board']['design_settings']['rules']['min_hole_clearance']})
     p.SaveBoard(str(dst), b)
     return info
 
@@ -212,6 +234,11 @@ def run_one_control(a, plan: dict, cname: str) -> int:
         info = {'error': repr(e)}
     ops = {}
     if mut.exists():
+        # KiCad loads design rules from the project files named like the board: give the mutated copy the same ones
+        for suffix in ('.kicad_pro', '.kicad_dru'):
+            q = (proj / c['source_board']).with_suffix(suffix)
+            if q.is_file():
+                shutil.copyfile(q, mut.with_suffix(suffix))
         ops['drc'] = run(['kicad-cli', 'pcb', 'drc', '--format', 'json', '--severity-all', '--schematic-parity',
                           '--exit-code-violations', '-o', str(out / 'drc.json'), str(mut)], proj, deadline)
         try:

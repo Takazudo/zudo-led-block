@@ -53,7 +53,8 @@
    "refill_check": true,
    "parity_dispositions": {},
    "parity_counts": {},
-   "drc_residuals": []
+   "drc_residuals": [],
+   "custom_rules": "controller.kicad_dru"
   },
   "a5_led_leaf": {
    "role": "immutable A5 routed LED leaf (interface partner of the controller; PET leaf is R3), freshly checked in place",
@@ -140,7 +141,7 @@
   ]
  },
  "design_rule_delta": {
-  "what": "Authorized A7 changes to the A5 controller design rules. Every other A5 rule (clearance 0.15, edge 0.2, hole clearance 0.2, track 0.15, via annular 0.15) is unchanged. The project file is derived (scripts/a7_electronics.py A7_STYLE rule_delta) and a test proves it equals the A5 rules plus exactly this delta.",
+  "what": "Authorized A7 changes to the A5 controller design rules. Every other A5 rule (clearance 0.15, edge 0.2, hole clearance 0.2, track 0.15, via annular 0.15) is unchanged. Custom rules may only tighten (custom_rules). The project file is derived (scripts/a7_electronics.py A7_STYLE rule_delta) and a test proves it equals the A5 rules plus exactly this delta.",
   "rules": {
    "min_via_diameter": {
     "from": 0.6,
@@ -163,7 +164,19 @@
   },
   "reason": "MCU (QFN28, 0.5 mm pitch) and U5 (VSSOP-8) fan-out on the 16.2 mm controller: with 0.6/0.3 vias the routed candidate could not be completed (rip-up router left 1-7 nets blocked around U1/U5, PR #30). Approved by the coordinator 2026-11-08 under conditions: fabricator capability evidence, recorded delta, no trace/clearance relaxation, no layer change.",
   "evidence": "engineering/a7/verification/fab/jlcpcb_capabilities.json",
-  "issue": "#19"
+  "issue": "#19",
+  "custom_rules": [
+   {
+    "name": "a7_pth_to_track",
+    "constraint": "hole_clearance",
+    "min_mm": 0.35,
+    "condition": "(A.Pad_Type == 'Through-hole' && B.Type == 'Track') || (B.Pad_Type == 'Through-hole' && A.Type == 'Track')",
+    "file": "engineering/a7/electronics/controller/controller.kicad_dru",
+    "direction": "stricter",
+    "reason": "JLC lists PTH to track as 0.28 mm minimum and 0.35 mm recommended (fab/jlcpcb_capabilities.json). The A5 board rule min_hole_clearance 0.2 would accept less, so the recommended value is enforced by native DRC for every track against a plated through-hole. Only tightens; the A5 rules stay as they are.",
+    "proof": "controls.mutations.control_pth_to_track: one track placed with a hole gap between the A5 hole clearance and this minimum must be reported by this rule name"
+   }
+  ]
  },
  "footprint_dirs": [
   "engineering/a7/electronics/footprints/LightBlockA7.pretty"
@@ -226,8 +239,29 @@
      "committed zone fills are stale"
     ],
     "purpose": "one committed fill moved 0.05 mm with unchanged area and vertex count; the canonical polygon fingerprint must still differ from a fresh refill"
+   },
+   "control_pth_to_track": {
+    "design": "a7_controller",
+    "kind": "rule_squeeze",
+    "spec": {
+     "pad": "J5.1",
+     "net_of": "J5.2",
+     "layer": "In1.Cu",
+     "hole_gap_mm": 0.32,
+     "width_mm": 0.2
+    },
+    "must_report": [
+     "a7_pth_to_track"
+    ],
+    "purpose": "adds one short track beside a plated hole, 0.32 mm from the hole edge (clear of the pad copper and of the A5 0.2 mm hole clearance); only the custom rule can report it, so a dropped or unloaded .kicad_dru fails the gate"
    }
   },
   "synthetic_design": "a7_controller"
+ },
+ "placement": {
+  "resolution_nm": 1,
+  "min_courtyard_gap_mm": 0.0,
+  "applies_to": "scripts/a7_board.py violations(): courtyard to courtyard on one face, courtyard to keep-out, and courtyard to board edge",
+  "note": "Courtyard rectangles are rounded to KiCad internal units (integer nanometres) before comparison, so float noise in rotation and sums cannot flip a result: an exact abutment counts as clear, as in native DRC, and any overlap of 1 nm or more is reported. The required gap stays 0 mm, so nothing is relaxed. Native DRC courtyard checks still run unchanged."
  }
 }

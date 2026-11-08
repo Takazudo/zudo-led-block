@@ -37,6 +37,12 @@
    "generator": "python3 scripts/a7_electronics.py generate"
   },
   {
+   "path": "engineering/a7/electronics/controller/controller.kicad_dru",
+   "class": "derived",
+   "generator": "python3 scripts/a7_electronics.py generate",
+   "rule": "Stricter-only custom DRC rules recorded in native_gate.json design_rule_delta.custom_rules; the gate refuses a file that differs from the profile and a control proves KiCad applies it."
+  },
+  {
    "path": "engineering/a7/electronics/controller/sym-lib-table",
    "class": "derived",
    "generator": "python3 scripts/a7_electronics.py generate"

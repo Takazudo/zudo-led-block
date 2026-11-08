@@ -36,6 +36,7 @@ PLACEMENT = a7.A7_CTRL / 'placement.json'
 BOARD = a7.A7_CTRL / 'controller.kicad_pcb'
 BOARD_EXPORT = a7.A7_CTRL / 'board_placement.json'
 W, H = 16.2, 62.9
+GATE_PROFILE = REPO / 'engineering/a7/verification/native_gate.json'
 ENVELOPES = 'engineering/a7/mechanical/placement-envelopes.json (R2, merged in #27)'
 
 ENVELOPE_FILE = REPO / 'engineering/a7/mechanical/placement-envelopes.json'
@@ -138,6 +139,16 @@ def overlap(a, b, gap=0.0):
     return a[0] < b[2] + gap and b[0] < a[2] + gap and a[1] < b[3] + gap and b[1] < a[3] + gap
 
 
+def placement_rule() -> tuple[int, int]:
+    """(resolution, minimum gap) in nanometres, from the gate profile."""
+    r = json.loads(GATE_PROFILE.read_text())['placement']
+    return int(r['resolution_nm']), round(r['min_courtyard_gap_mm'] * 1e6)
+
+
+def to_nm(rect, res: int) -> tuple[int, ...]:
+    return tuple(round(v * 1e6 / res) * res for v in rect)
+
+
 def components() -> dict:
     return {c['ref']: c for c in a7.a7_controller()['components'] if c['footprint']}
 
@@ -152,21 +163,24 @@ def violations(placement: dict) -> list[str]:
     missing = sorted(set(comps) - set(placement))
     if missing:
         out.append(f'unplaced: {missing}')
-    rects = {r: (placement[r]['side'], footprint_rect(comps[r], placement[r])) for r in placement if r in comps}
+    res, tol = placement_rule()
+    rects = {r: (placement[r]['side'], to_nm(footprint_rect(comps[r], placement[r]), res)) for r in placement if r in comps}
+    edge = to_nm((0, 0, W, H), res)
     for r, (side, rc) in rects.items():
         fp = comps[r]['footprint']
         if side == 'B' and fp not in B_ALLOWED and r not in CONNECTOR_REFS:
             out.append(f'{r}: {fp} not allowed on the solder face')
-        if r not in CONNECTOR_REFS and not (rc[0] >= 0 and rc[1] >= 0 and rc[2] <= W and rc[3] <= H):
-            out.append(f'{r}: courtyard {tuple(round(v, 3) for v in rc)} outside the board')
+        if r not in CONNECTOR_REFS and not (rc[0] >= edge[0] + tol and rc[1] >= edge[1] + tol and rc[2] <= edge[2] - tol
+                                            and rc[3] <= edge[3] - tol):
+            out.append(f'{r}: courtyard {tuple(round(v / 1e6, 3) for v in rc)} outside the board')
         for k in KEEPOUTS:
-            if side in k['faces'] and k.get('owner') != r and (r, k['id']) not in ACCEPTED and overlap(rc, k['rect']):
+            if side in k['faces'] and k.get('owner') != r and (r, k['id']) not in ACCEPTED and overlap(rc, to_nm(k['rect'], res), tol):
                 out.append(f'{r}: courtyard in keep-out {k["id"]}')
     refs = sorted(rects)
     for i, a in enumerate(refs):
         for b in refs[i + 1:]:
             # THT connectors occupy both faces for courtyard purposes only on their own side
-            if rects[a][0] == rects[b][0] and overlap(rects[a][1], rects[b][1]):
+            if rects[a][0] == rects[b][0] and overlap(rects[a][1], rects[b][1], tol):
                 out.append(f'courtyard overlap {a} / {b}')
     return out
 
