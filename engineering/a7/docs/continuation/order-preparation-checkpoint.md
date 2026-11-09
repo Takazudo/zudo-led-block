@@ -86,8 +86,10 @@ main の既存 CI 42508822486 は基準 SHA での履歴証跡です。新しい
 完了条件: BLOCKED report の schema pass と order/release eligibility を分離。board/population/firmware/config/raw evidence を結び、missing/stale/negative/unapproved を拒否。観測は NOT_MEASURED、PET/2HP は別。prototype を得るための owner-approved route を明記。
 検証: wrong revision/firmware、stale material、raw evidence 欠落、false completion の負のテスト、docs/site/browser。物理結果を作らず、release gate を緩めない。
 
-## 統合検証（commit前）
+## 統合検証
 
-40 preparation tests、17 readiness tests normal/-O、28 mechanical tests、125 native tests normal/-O、A5/circuit/catalog、generator freshness、CadQuery 2.7.0 carrier geometry は PASS。公開サイト build/check/site scan は PASS。ブラウザは当初pinned binary未導入で失敗し、導入後の再検証が必要。これらは完成治具/物理合格ではありません。
+40 preparation tests、17 readiness tests normal/-O、28 mechanical tests、125 native tests normal/-O、A5/circuit/catalog、generator freshness、CadQuery 2.7.0 carrier geometry は PASS。公開サイト build/check/site scan は PASS。ブラウザは当初pinned binary未導入で失敗したが、導入後のauthored-site checksとframework 16 viewport/theme navigationsはPASS（viewer機能は対象なしでSKIP）。これらは完成治具/物理合格ではありません。
 
 E1 CIログでは `ENABLED` は空でした（2026-11-09T09:35:50Z）。ただし設定APIは404、protected-policy accessを迂回せず、最終headのmerge条件は未確定のまま保留します。
+
+統合commit `ec75bdd40dadaaae2f8193a30b78fc1c89d92082` のCI 42595823301で、R1の古い2テストがPCM一次資料未取得を固定期待していたことを検出。ローカルでも再現し、実取得hash/authorityとidentityの期待値に更新。物理coverage OPENの負の検査は維持。最終headの結果はPR #44のchecksを参照。

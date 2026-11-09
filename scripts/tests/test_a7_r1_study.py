@@ -191,10 +191,15 @@ class EvidenceBundles(unittest.TestCase):
                     self.assertEqual((source["authority_class"], source["availability"]), ("MANUFACTURER_PRIMARY", "AVAILABLE"), fact["fact_id"])
 
     def test_maker_hosted_attempts_stay_visible(self):
-        for name, sid in (("pj-324m", "src-a7-pj-324m-sofng-site"), ("pcm13smtr", "src-a7-pcm13smtr-ck-site")):
+        expected = (
+            ("pj-324m", "src-a7-pj-324m-sofng-site", "SOURCE UNAVAILABLE", "0" * 64),
+            ("pcm13smtr", "src-a7-pcm13smtr-ck-site", "AVAILABLE", "6a758d151b7eee7f8cd59594bd92cfec4c9b1470e0743094f185f19e7ac2a868"),
+        )
+        for name, sid, availability, digest in expected:
             source = next(s for s in bundle(name, "sources")["sources"] if s["source_id"] == sid)
-            self.assertEqual(source["availability"], "SOURCE UNAVAILABLE")
-            self.assertEqual(source["sha256"], "0" * 64)
+            self.assertEqual(source["availability"], availability)
+            self.assertEqual(source["sha256"], digest)
+            self.assertEqual(source["authority_class"], "MANUFACTURER_PRIMARY")
 
     def test_every_open_coverage_names_its_blockers(self):
         for name in ("pj-324m", "pcm13smtr"):
@@ -210,7 +215,7 @@ class EvidenceBundles(unittest.TestCase):
         for name in ("pj-324m", "pcm13smtr"):
             line = lines[f"line-a7-{name}"]
             self.assertEqual(line["owner_skill"], f"component-a7-{name}")
-            self.assertEqual(line["identity_state"], "UNRESOLVED")
+            self.assertEqual(line["identity_state"], "VERIFIED" if name == "pcm13smtr" else "UNRESOLVED")
 
 if __name__ == "__main__":
     unittest.main()
