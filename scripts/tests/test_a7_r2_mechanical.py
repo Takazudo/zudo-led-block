@@ -11,8 +11,10 @@ import hashlib
 import importlib.util
 import json
 import math
+import tempfile
 import unittest
 from pathlib import Path
+from unittest.mock import patch
 
 REPO = Path(__file__).resolve().parents[2]
 A7 = REPO / "engineering" / "a7"
@@ -32,6 +34,73 @@ L = json.loads((MECH / "layout.json").read_text())
 PARAMS = json.loads((A7 / "study" / "parameters.json").read_text())
 P = PARAMS["parameters"]
 G5 = json.loads((REPO / "engineering" / "a5" / "mechanical" / "geometry.json").read_text())
+
+
+class PlacementIdentity(unittest.TestCase):
+    def setUp(self):
+        self.tmp = tempfile.TemporaryDirectory()
+        self.addCleanup(self.tmp.cleanup)
+        root = Path(self.tmp.name)
+        self.board = root / "controller.kicad_pcb"
+        self.board.write_bytes(LAY.R4_BOARD.read_bytes())
+        self.canonical = root / "canonical.json"
+        self.snapshot = root / "snapshot.json"
+        self.original = LAY.R4_CANONICAL.read_bytes()
+        self.canonical.write_bytes(self.original)
+        self.snapshot.write_bytes(self.original)
+        for name, path in (("R4_BOARD", self.board), ("R4_CANONICAL", self.canonical), ("R4_PLACEMENT", self.snapshot)):
+            mock = patch.object(LAY, name, path)
+            mock.start()
+            self.addCleanup(mock.stop)
+        self.E = LAY.envelopes(L)
+
+    def write_both(self, data):
+        raw = json.dumps(data).encode()
+        self.canonical.write_bytes(raw)
+        self.snapshot.write_bytes(raw)
+
+    def test_current_board_passes_and_report_is_fresh(self):
+        actual = LAY.r4_placement_check(self.E)
+        self.assertTrue(actual["fixed_parts_ok"])
+        self.assertEqual(actual, json.loads((MECH / "r4-placement-check.json").read_text()))
+
+    def test_changed_canonical_with_retained_snapshot_is_rejected(self):
+        data = json.loads(self.original)
+        next(c for c in data["components"] if c["ref"] == "J1")["at_mm"][1] += 1
+        self.canonical.write_text(json.dumps(data))
+        with self.assertRaisesRegex(ValueError, "stale mechanical snapshot"):
+            LAY.r4_placement_check(self.E)
+
+    def test_actual_pcb_change_with_stale_exports_is_rejected(self):
+        self.board.write_bytes(self.board.read_bytes() + b"\n")
+        with self.assertRaisesRegex(ValueError, "PCB bytes changed"):
+            LAY.r4_placement_check(self.E)
+
+    def test_wrong_board_identity_and_missing_or_malformed_hashes_fail(self):
+        mutations = [("board", None), ("board", "engineering/a5/controller.kicad_pcb")]
+        mutations += [(key, value) for key in ("board_sha256", "geometry_sha256", "zone_fill_sha256")
+                      for value in (None, 42, [], "", "z" * 64, "0" * 64)]
+        for key, value in mutations:
+            with self.subTest(key=key, value=value):
+                data = json.loads(self.original)
+                if value is None:
+                    del data[key]
+                else:
+                    data[key] = value
+                self.write_both(data)
+                with self.assertRaises(ValueError):
+                    LAY.r4_placement_check(self.E)
+
+    def test_malformed_identity_object_fails(self):
+        self.write_both([])
+        with self.assertRaises(ValueError):
+            LAY.r4_placement_check(self.E)
+
+    def test_geometry_checks_remain_active_after_identity_binding(self):
+        data = json.loads(self.original)
+        next(c for c in data["components"] if c["ref"] == "J1")["at_mm"][1] += 1
+        self.write_both(data)
+        self.assertFalse(LAY.r4_placement_check(self.E)["fixed_parts_ok"])
 
 
 class LayoutCurrent(unittest.TestCase):

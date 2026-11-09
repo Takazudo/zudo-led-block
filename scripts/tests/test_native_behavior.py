@@ -8,6 +8,7 @@ from __future__ import annotations
 
 import argparse
 import copy
+import hashlib
 import json
 import sys
 import tempfile
@@ -230,6 +231,56 @@ class AuthorityTests(unittest.TestCase):
         board = REPO / 'scripts/tests/fixtures/native/led_leaf_zoned/fixture.kicad_pcb'
         with self.assertRaises(au.Refused):
             au.placement(board, {'geometry_sha256': 'x'}, {'footprints': []})
+
+
+class NativePlacementIdentity(unittest.TestCase):
+    def setUp(self):
+        self.tmp = tempfile.TemporaryDirectory()
+        self.addCleanup(self.tmp.cleanup)
+        self.board = Path(self.tmp.name) / 'board.kicad_pcb'
+        self.board.write_bytes(b'synthetic board bytes, never hardware evidence')
+        self.geom = {'footprints': [], 'copper_layers': 4, 'thickness_mm': 1.6, 'edges': []}
+        self.facts = {'board_sha256': au.sha(self.board),
+                      'geometry_sha256': hashlib.sha256(json.dumps(self.geom, sort_keys=True).encode()).hexdigest(),
+                      'zone_fill_sha256': 'a' * 64}
+
+    def test_bound_facts_export(self):
+        out = json.loads(au.placement(self.board, self.facts, self.geom))
+        self.assertEqual(out['board_sha256'], au.sha(self.board))
+
+    def test_stale_native_facts_cannot_be_restamped_with_changed_board_hash(self):
+        self.board.write_bytes(self.board.read_bytes() + b'changed')
+        with self.assertRaisesRegex(au.Refused, 'PCB bytes'):
+            au.placement(self.board, self.facts, self.geom)
+
+    def test_missing_and_malformed_native_identity_refused(self):
+        for key in ('board_sha256', 'geometry_sha256', 'zone_fill_sha256'):
+            for value in (None, 42, [], '', 'z' * 64, '0' * 64):
+                with self.subTest(key=key, value=value):
+                    facts = copy.deepcopy(self.facts)
+                    if value is None:
+                        del facts[key]
+                    else:
+                        facts[key] = value
+                    with self.assertRaises(au.Refused):
+                        au.placement(self.board, facts, self.geom)
+
+    def test_facts_geometry_pair_must_match(self):
+        self.geom['thickness_mm'] = 0.8
+        with self.assertRaisesRegex(au.Refused, 'facts/geometry pair'):
+            au.placement(self.board, self.facts, self.geom)
+
+    def test_fresh_export_check_rejects_forged_derived_output(self):
+        output = Path(self.tmp.name) / 'placement.json'
+        data = json.loads(au.placement(self.board, self.facts, self.geom))
+        data['thickness_mm'] = 0.8
+        output.write_text(json.dumps(data))
+        facts = Path(self.tmp.name) / 'facts.json'
+        geometry = Path(self.tmp.name) / 'geometry.json'
+        facts.write_text(json.dumps(self.facts))
+        geometry.write_text(json.dumps(self.geom))
+        args = argparse.Namespace(board=str(self.board), out=str(output), facts=str(facts), geometry=str(geometry), check=True)
+        self.assertEqual(au.cmd_export(args), 1)
 
 
 class ProfileTests(unittest.TestCase):

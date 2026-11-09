@@ -156,8 +156,9 @@ later board change re-runs the gate, independent review and R2 fit check.
 - Never edit, regenerate or reformat `engineering/a5/`. Run
   `python3 scripts/verify_seed.py --manifest provenance/seed-manifest.json --repo .` before and after.
 - Never hand-edit generated files: `doc/src/content/docs/components/`, the `scripts/a5_site.py` outputs,
-  `engineering/a7/study/results.json` / `report.md`, and everything under `engineering/a7/electronics/`
-  (derived by `scripts/a7_electronics.py generate`; see `verification/source_authority.json`).
+  `engineering/a7/study/results.json` / `report.md`, and electronics paths explicitly classed derived in
+  `verification/source_authority.json`. The routed controller PCB is authoritative; normal generation never writes it.
+  Electronics README and reviewed records are authored, not generator output.
 - A7 catalog lines use `line-a7-` IDs and `component-a7-` owner bundles; they never count toward the A5
   30 / 71 / 81 reconciliation.
 - Keep facts that were not verified at their real state (`UNVERIFIED`, `UNSOURCED`, `NEEDS BENCH`, `INFERRED`,

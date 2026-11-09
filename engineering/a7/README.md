@@ -20,7 +20,7 @@ next actions and blockers, and [`docs/continuation/evidence-index.md`](docs/cont
 | `pet-fpc.md`, `open-questions.md` | R1 | capability capture and the external evidence still needed |
 | `verification/` | R3 ([#18](https://github.com/Takazudo/zudo-led-block/issues/18)) | native verification foundation; R1 does not write there |
 | `mechanical/`, `front_panel/` | R2 ([#17](https://github.com/Takazudo/zudo-led-block/issues/17)) | digital mechanical model and front artwork; see `mechanical/README.md` |
-| `electronics/`, `verification/schematic/` | R4 ([#19](https://github.com/Takazudo/zudo-led-block/issues/19)) | controller schematic (derived, `scripts/a7_electronics.py`), schematic-phase check results; board to come |
+| `electronics/`, `verification/schematic/` | R4 ([#19](https://github.com/Takazudo/zudo-led-block/issues/19)) | authoritative routed controller PCB; derived schematic/footprints/exports and verification records; see `verification/source_authority.json` |
 | `docs/continuation/` | R5 ([#20](https://github.com/Takazudo/zudo-led-block/issues/20)) | `continue-here.md` (hand-off, next actions, blockers) and `evidence-index.md` (A5 historical / A6 held / A7 digital / physical, kept apart) |
 
 The two A7 lines sit in the shared catalog beside the 30 A5 identities. `python3 scripts/a5_catalog.py check`

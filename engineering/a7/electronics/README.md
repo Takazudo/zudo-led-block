@@ -23,7 +23,7 @@
 
 ## ファイルと所有区分
 
-すべて `scripts/a7_electronics.py generate` が書く **derived** ファイルです（`engineering/a7/verification/source_authority.json`）。手で編集しません。`generate --check` が最新であることを確認します。A5 の回路図ライタの移植は `reproduce-a5` で A5 回路図をバイト一致で再生成して証明しています。
+`controller/controller.kicad_pcb` は **authoritative** な配線済み基板です。通常の生成処理は上書きしません。回路図・ライブラリ・フットプリント等は `scripts/a7_electronics.py generate` の **derived** 出力、配置 export は fresh native facts からの派生物、README は authored です。所有区分は `engineering/a7/verification/source_authority.json` に従います。派生物は手で編集せず、各 generator の `--check` で確認します。A5 の回路図ライタの移植は `reproduce-a5` で A5 回路図をバイト一致で再生成して証明しています。
 
 - `controller/` — 回路図、シンボルライブラリ、プロジェクト、ライブラリテーブル。A5 フットプリントは `engineering/a5/electronics/footprints/LightBlock.pretty` を読み取り専用で参照します。
 - `footprints/LightBlockA7.pretty/` — PJ324M と PCM13SMTR のみ。

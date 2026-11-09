@@ -19,6 +19,7 @@ import hashlib
 import importlib.util
 import json
 import math
+import re
 import sys
 from pathlib import Path
 
@@ -31,10 +32,14 @@ LAYOUT = MECH / "layout.json"
 REPORT = MECH / "layout.md"
 ENVELOPES = MECH / "placement-envelopes.json"
 R4_PLACEMENT = MECH / "inputs" / "r4-board-placement-routed.json"
+R4_CANONICAL = A7 / "electronics/controller/board_placement.json"
+R4_BOARD_REL = "engineering/a7/electronics/controller/controller.kicad_pcb"
+R4_BOARD = REPO / R4_BOARD_REL
 R4_CHECK = MECH / "r4-placement-check.json"
-# Vendored unchanged from R4 (#19) PR #37 (merged at edf98c2), head eb5d833: board revision 2 export (authority.py export-placement). Revision 1 was PR #30 (merged at eb8adeb, board ec810aec), checked in #33.
-R4_PLACEMENT_SOURCE = {"pr": 37, "branch": "claude/project-thread-rhjln2", "head": "eb5d833a1df25149a5e7e41bd2229d969debd901",
-                       "path": "engineering/a7/electronics/controller/board_placement.json", "status": "ROUTED REVISION 2, PR #37 merged at edf98c2 (revision 1: PR #30 at eb8adeb, board ec810aec)"}
+# The retained mechanical snapshot is a checked copy, never a second authority.
+R4_PLACEMENT_SOURCE = {"path": "engineering/a7/electronics/controller/board_placement.json",
+                       "snapshot": "engineering/a7/mechanical/inputs/r4-board-placement-routed.json",
+                       "status": "Canonical export bound to current PCB bytes; retained snapshot byte-identical. Geometry requires independent fresh native gate comparison."}
 SKILLS = REPO / ".claude" / "skills"
 SWITCH_FACTS = SKILLS / "component-a7-pcm13smtr" / "facts.json"
 JACK_FACTS = SKILLS / "component-a7-pj-324m" / "facts.json"
@@ -810,9 +815,30 @@ def envelopes(L):
     }
 
 
+def bound_r4_placement():
+    """Bind the retained mechanical input to the canonical export and current PCB.
+
+    Fresh native export comparison in the board gate independently checks the
+    geometry; these offline identity checks cannot authenticate edited JSON.
+    """
+    raw = R4_CANONICAL.read_bytes()
+    if R4_PLACEMENT.read_bytes() != raw:
+        raise ValueError("stale mechanical snapshot: differs from canonical board placement")
+    P = json.loads(raw)
+    if not isinstance(P, dict) or P.get("board") != R4_BOARD_REL:
+        raise ValueError("placement does not identify the authoritative A7 controller")
+    for key in ("board_sha256", "geometry_sha256", "zone_fill_sha256"):
+        value = P.get(key)
+        if not isinstance(value, str) or not re.fullmatch(r"[0-9a-f]{64}", value) or value == "0" * 64:
+            raise ValueError(f"missing or malformed placement identity: {key}")
+    if P["board_sha256"] != hashlib.sha256(R4_BOARD.read_bytes()).hexdigest():
+        raise ValueError("stale canonical placement: authoritative PCB bytes changed")
+    return P
+
+
 def r4_placement_check(E):
-    """Compare R4's pre-routing placement with these envelopes: fixed parts by position, every other part by its origin only."""
-    P = json.loads(R4_PLACEMENT.read_text())
+    """Compare the current routed export with fixed positions and keep-outs."""
+    P = bound_r4_placement()
     pl = {c["ref"]: {"at": c["at_mm"], "rot": c["angle_deg"], "side": c["side"], "pads": c["pads"]} for c in P["components"] if not c["board_only"]}
     face = {"F": "component face (KiCad F)", "B": "solder face (KiCad B)"}
     hd = E["headers"]
@@ -852,7 +878,7 @@ def r4_placement_check(E):
     zone = E["solder_face_low_profile_zone"]
     b_side = sorted(ref for ref, p in pl.items() if p["side"] == "B")
     return {
-        "status": "ROUTED EXPORT: R4's board revision 2 (PR #37 merged at edf98c2, head eb5d833, byte-identical on main; revision 1 was PR #30 at eb8adeb, board ec810aec). A later board change needs a new export and SHA",
+        "status": "ROUTED EXPORT: canonical placement and retained mechanical snapshot bound to the current authoritative PCB. Fresh native export comparison remains required to verify geometry.",
         "source": dict(R4_PLACEMENT_SOURCE, sha256=hashlib.sha256(R4_PLACEMENT.read_bytes()).hexdigest(), board_sha256=P["board_sha256"],
                        board_thickness=P["thickness_mm"], unconnected=P["unconnected_pcbnew"]),
         "board_outline": outline, "outline_matches": outline == [0.0, E["outline"]["board_x"][1], 0.0, E["outline"]["board_y"][1]],

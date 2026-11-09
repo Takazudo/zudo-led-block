@@ -57,6 +57,7 @@ def run(args: list[str], cwd: Path, deadline: float) -> dict:
 def board_facts(pcb: Path) -> dict:
     """Connectivity, pad nets and a canonical geometry digest from pcbnew."""
     import pcbnew as p
+    board_sha256 = sha(pcb)
     b = p.LoadBoard(str(pcb))
     T = p.ToMM
     fps = []
@@ -101,7 +102,9 @@ def board_facts(pcb: Path) -> dict:
     conn = b.GetConnectivity()
     fills, fill_canon = fill_fingerprint(b)
     fill_digest = hashlib.sha256(json.dumps(fill_canon, sort_keys=True).encode()).hexdigest()
-    return {'geometry_sha256': digest, 'zone_fill_summary': fills, 'zone_fill_sha256': fill_digest,
+    if sha(pcb) != board_sha256:
+        raise ValueError('PCB bytes changed during native fact extraction')
+    return {'board_sha256': board_sha256, 'geometry_sha256': digest, 'zone_fill_summary': fills, 'zone_fill_sha256': fill_digest,
             'unconnected_pcbnew': conn.GetUnconnectedCount(True), 'track_count': len(tracks), 'via_count': len(vias),
             'zone_count': len(zones), 'footprint_count': len(fps),
             'pad_nets': {f['ref']: {pd[0]: pd[1] for pd in f['pads'] if pd[0]} for f in fps},
