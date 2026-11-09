@@ -189,3 +189,5 @@ fails about 0.4 s in with `Error: Chrome page target was not available`, in `@ta
 42505006029 and 42505981975 and passed on their re-runs and on other runs of the same code. Treat it as this
 intermittent only when the same step also passes on `main`; no retry wrapper or `continue-on-error` was added.
 Whether to report it upstream is the owner's call. Details: [#19 comment](https://github.com/Takazudo/zudo-led-block/issues/19#issuecomment-6724919062).
+
+ローカルKiCadへ進む際は [固定入力と実行手順](local-kicad-handoff.md) を使用してください。Cloudの成果と未取得native/物理証跡を分離しています。
