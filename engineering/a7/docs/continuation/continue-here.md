@@ -10,7 +10,8 @@ re-review with no blocking findings), and a provisional digital mechanical model
 prototype and no physical measurement. Nothing in A7 is a measured fit, part approval, fit approval, electrical result or
 manufacturing approval, and a green CI is none of those either.
 
-Last synchronised with `main` at `355999a` (2026-11-08 UTC).
+Main baseline: `af523f9abb74e206c27aaaa076b3b68a5c474940`. 2026-11-09 local preparation is tracked in
+[`order-preparation-checkpoint.md`](order-preparation-checkpoint.md). Draft PR #44 contains E1; later local outputs are not merged merely because they exist.
 
 ## What A7 is
 
@@ -111,14 +112,17 @@ retrieved.
 
 ## Next actions, in order
 
-The planned digital work is done. What remains needs parts, a prototype, supplier answers or an owner decision. Any
-later board change re-runs the gate, independent review and R2 fit check.
+New preparation work is in progress: board/export binding, exact-part source recovery, fixture study,
+active procurement ledger and blank physical procedures. `qualification/readiness.json` reports BLOCKED.
+The fixture is incomplete, and source/supply/physical/owner gates remain. Any later board change re-runs
+the gate, independent review and R2 fit check.
 
 1. **Physical and owner gates:** PJ-324M pin functions by TS / TRS continuity test (Q2), slot sizes (Q3, the board
    still uses ASSUMED 1.6 × 0.8 mm slots), axis height (Q1, INFERRED), PCM13SMTR stock and fit (Q10, body centring
-   ASSUMED), and the owner's 2HP decision.
-2. **External evidence** listed in `../../open-questions.md` (Q0–Q11 and Q11a–Q11f; Q12 is decided). Only the JLC PET questions 1–9 are
-   drafted (`../../pet-fpc.md`; 8 and 9 are Q11e and Q11f), and they are **not sent**; the others are not drafted. Sending supplier messages is
+   ASSUMED), and the owner-approved FR-4 prototype route. The optional 2HP decision does not block FR-4 preparation.
+2. **External evidence** listed in `../../open-questions.md` (Q0–Q11 and Q11a–Q11f; Q12 is decided). The JLC PET questions 1–9 remain
+   drafted (`../../pet-fpc.md`; 8 and 9 are Q11e and Q11f). Other questions are now drafted in
+   `../../qualification/supplier-questions.md`; all are **not sent**. Sending supplier messages is
    outside the current authorisation.
 3. **Physical qualification** with [#8](https://github.com/Takazudo/zudo-led-block/issues/8) (harness, power cable,
    fit, PETG), [#10](https://github.com/Takazudo/zudo-led-block/issues/10) (power / CV / firmware / optical / thermal /
@@ -137,10 +141,10 @@ later board change re-runs the gate, independent review and R2 fit check.
 | Adapter boss and M2x18 clamp load not analysed | adapter retention | analysis and printed part | #8 |
 | PJ-324M axis height only inferred (≈3.0, band 2.6–3.4) | 2HP lead-side margin | dimensioned drawing, 3D model or measured part | Q1 |
 | PJ-324M pin functions inferred | CV_THRU vs GND mapping | bench continuity test with TS and TRS plugs | Q2, #10 |
-| PJ-324M hole sizes not on the drawing | footprint (routed board uses ASSUMED slots) | JLC/EasyEDA footprint inspection, maker answer or part | Q3 |
+| PJ-324M hole sizes not on the drawing | footprint (routed board uses ASSUMED slots) | supplier CAD inspected; maker slot/lead tolerances or measured part still needed | Q3 |
 | Nut supply and fit unknown | front retention | supplier answer or part | Q4 |
 | PCM13SMTR JLC stock 0; land fit and body centring unconfirmed | side switch sourcing and fit | stock, or a printed per-position table / bench check for an alternate | Q10 |
-| Maker-hosted drawings unavailable | any drawing fact counting as PASS | SOFNG / C&K documents | Q0 |
+| SOFNG primary drawing unavailable; PCM primary recovered | unsupported jack drawing facts | exact SOFNG document or measured evidence | Q0 |
 | PET FPC process answers missing | transparent LED leaf | JLC written answers (questions not sent) | Q11 |
 | No supplier for laminating the PC carrier with OCA after reflow | building a PET leaf at all | supplier and process | Q11a |
 | SH unmating pull and pad / OCA peel strength unsourced | PET leaf connector retention | force data and a physical test | Q11b, #10 |

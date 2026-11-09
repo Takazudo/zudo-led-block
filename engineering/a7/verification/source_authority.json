@@ -123,6 +123,99 @@
    "path": "engineering/a7/verification/routing",
    "class": "authored",
    "rule": "Router proposal (python3 -I scripts/a7_route.py --seed 0 --geometry <a7_board.py build geometry.json>) that seeded the authoritative board; reproduces byte-identically from the current placement. A record only: the board, not this file, is the source of truth, and nothing regenerates the board from it."
+  },
+  {
+   "path": "engineering/a7/fixture/README.md",
+   "class": "authored",
+   "rule": "Engineering preparation only; no physical observation or release approval is implied."
+  },
+  {
+   "path": "engineering/a7/fixture/sources.json",
+   "class": "authored",
+   "rule": "Engineering preparation only; no physical observation or release approval is implied."
+  },
+  {
+   "path": "engineering/a7/fixture/materials.json",
+   "class": "authored",
+   "rule": "Engineering preparation only; no physical observation or release approval is implied."
+  },
+  {
+   "path": "engineering/a7/fixture/manifest.json",
+   "class": "derived",
+   "rule": "Engineering preparation only; no physical observation or release approval is implied.",
+   "generator": "python3 scripts/a7_fixture.py --cad"
+  },
+  {
+   "path": "engineering/a7/fixture/carrier-study.svg",
+   "class": "derived",
+   "rule": "Engineering preparation only; no physical observation or release approval is implied.",
+   "generator": "python3 scripts/a7_fixture.py --cad"
+  },
+  {
+   "path": "engineering/a7/fixture/carrier-study.step",
+   "class": "derived",
+   "rule": "Engineering preparation only; no physical observation or release approval is implied.",
+   "generator": "python3 scripts/a7_fixture.py --cad"
+  },
+  {
+   "path": "engineering/a7/procurement/README.md",
+   "class": "authored",
+   "rule": "Engineering preparation only; no physical observation or release approval is implied."
+  },
+  {
+   "path": "engineering/a7/procurement/assembly-manifest.json",
+   "class": "derived",
+   "rule": "Engineering preparation only; no physical observation or release approval is implied.",
+   "generator": "python3 scripts/a7_procurement.py"
+  },
+  {
+   "path": "engineering/a7/procurement/population.csv",
+   "class": "derived",
+   "rule": "Engineering preparation only; no physical observation or release approval is implied.",
+   "generator": "python3 scripts/a7_procurement.py"
+  },
+  {
+   "path": "engineering/a7/procurement/ledger.md",
+   "class": "derived",
+   "rule": "Engineering preparation only; no physical observation or release approval is implied.",
+   "generator": "python3 scripts/a7_procurement.py"
+  },
+  {
+   "path": "engineering/a7/qualification/README.md",
+   "class": "authored",
+   "rule": "Engineering preparation only; no physical observation or release approval is implied."
+  },
+  {
+   "path": "engineering/a7/qualification/plan.json",
+   "class": "authored",
+   "rule": "Engineering preparation only; no physical observation or release approval is implied."
+  },
+  {
+   "path": "engineering/a7/qualification/records.json",
+   "class": "authored",
+   "rule": "Engineering preparation only; no physical observation or release approval is implied."
+  },
+  {
+   "path": "engineering/a7/qualification/run-template.json",
+   "class": "authored",
+   "rule": "Engineering preparation only; no physical observation or release approval is implied."
+  },
+  {
+   "path": "engineering/a7/qualification/supplier-questions.md",
+   "class": "authored",
+   "rule": "Engineering preparation only; no physical observation or release approval is implied."
+  },
+  {
+   "path": "engineering/a7/qualification/readiness.json",
+   "class": "derived",
+   "rule": "Engineering preparation only; no physical observation or release approval is implied.",
+   "generator": "python3 scripts/a7_readiness.py"
+  },
+  {
+   "path": "engineering/a7/qualification/procedures.md",
+   "class": "derived",
+   "rule": "Engineering preparation only; no physical observation or release approval is implied.",
+   "generator": "python3 scripts/a7_readiness.py"
   }
  ],
  "regeneration_rules": [

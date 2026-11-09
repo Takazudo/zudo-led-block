@@ -5,22 +5,20 @@
       "coverage_id": "cov-530470310-identity",
       "record_id": "rec-molex-530470310",
       "domain": "identity",
-      "status": "OPEN",
-      "reason": "fact-530470310-manufacturer remains UNSOURCED: the Molex sales drawing is SOURCE UNAVAILABLE (connection closed on 2026-11-08); only distributor identity is retained",
+      "status": "COVERED",
+      "reason": "Exact manufacturer identity/order scheme inspected in primary document; stock and assembly qualification remain separate.",
       "fact_ids": [
         "fact-530470310-manufacturer",
         "fact-530470310-distributor-identity"
       ],
-      "blocking_fact_ids": [
-        "fact-530470310-manufacturer"
-      ]
+      "blocking_fact_ids": []
     },
     {
       "coverage_id": "cov-530470310-pinout",
       "record_id": "rec-molex-530470310",
       "domain": "pinout",
       "status": "OPEN",
-      "reason": "fact-530470310-pinout remains UNSOURCED: the Molex sales drawing is SOURCE UNAVAILABLE, so circuit numbering is not checked",
+      "reason": "Primary document acquired on 2026-11-09. This domain remains OPEN: per-criterion electrical/mechanical/pin-map review and applicable physical qualification incomplete",
       "fact_ids": [
         "fact-530470310-pinout"
       ],
@@ -33,7 +31,7 @@
       "record_id": "rec-molex-530470310",
       "domain": "electrical-ratings",
       "status": "OPEN",
-      "reason": "fact-530470310-ratings remains UNSOURCED: the Molex sales drawing is SOURCE UNAVAILABLE, so the ratings are not recorded",
+      "reason": "Primary document acquired on 2026-11-09. This domain remains OPEN: per-criterion electrical/mechanical/pin-map review and applicable physical qualification incomplete",
       "fact_ids": [
         "fact-530470310-ratings"
       ],

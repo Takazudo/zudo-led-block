@@ -5,27 +5,26 @@
       "coverage_id": "cov-a7-pcm13smtr-identity",
       "record_id": "rec-a7-pcm13smtr",
       "domain": "identity",
-      "status": "OPEN",
-      "reason": "the only manufacturer document is a lower-authority LCSC-hosted mirror and the manufacturer-hosted copy was SOURCE UNAVAILABLE; manufacturer datasheet and distributor identity retained",
+      "status": "COVERED",
+      "reason": "Exact manufacturer identity/order scheme inspected in primary document; stock and assembly qualification remain separate.",
       "fact_ids": [
         "fact-a7-pcm13smtr-manufacturer",
         "fact-a7-pcm13smtr-distributor-identity"
       ],
-      "blocking_fact_ids": [
-        "fact-a7-pcm13smtr-manufacturer"
-      ]
+      "blocking_fact_ids": []
     },
     {
       "coverage_id": "cov-a7-pcm13smtr-function",
       "record_id": "rec-a7-pcm13smtr",
       "domain": "pinout",
       "status": "OPEN",
-      "reason": "the only manufacturer document is a lower-authority LCSC-hosted mirror and the manufacturer-hosted copy was SOURCE UNAVAILABLE; per-position terminal table is printed by the manufacturer",
+      "reason": "Physical per-position truth table and reliable contacts on exact received PCM13SMTR units remain NOT_MEASURED.",
       "fact_ids": [
-        "fact-a7-pcm13smtr-function"
+        "fact-a7-pcm13smtr-function",
+        "fact-a7-pcm13smtr-physical-function"
       ],
       "blocking_fact_ids": [
-        "fact-a7-pcm13smtr-function"
+        "fact-a7-pcm13smtr-physical-function"
       ]
     },
     {
@@ -33,18 +32,16 @@
       "record_id": "rec-a7-pcm13smtr",
       "domain": "electrical-ratings",
       "status": "OPEN",
-      "reason": "the only manufacturer document is a lower-authority LCSC-hosted mirror and the manufacturer-hosted copy was SOURCE UNAVAILABLE; contact rating, life and temperature are printed",
+      "reason": "Reliable contact at the actual 3.3 V / 10 kOhm pull-up load remains NOT_MEASURED; the printed 0.3 A rating does not establish a minimum reliable switching load.",
       "fact_ids": [
         "fact-a7-pcm13smtr-contact-rating",
         "fact-a7-pcm13smtr-life",
         "fact-a7-pcm13smtr-operating-temperature",
-        "fact-a7-pcm13smtr-solder"
+        "fact-a7-pcm13smtr-solder",
+        "fact-a7-pcm13smtr-physical-contact"
       ],
       "blocking_fact_ids": [
-        "fact-a7-pcm13smtr-contact-rating",
-        "fact-a7-pcm13smtr-life",
-        "fact-a7-pcm13smtr-operating-temperature",
-        "fact-a7-pcm13smtr-solder"
+        "fact-a7-pcm13smtr-physical-contact"
       ]
     },
     {
@@ -52,14 +49,14 @@
       "record_id": "rec-a7-pcm13smtr",
       "domain": "mechanical",
       "status": "OPEN",
-      "reason": "the only manufacturer document is a lower-authority LCSC-hosted mirror and the manufacturer-hosted copy was SOURCE UNAVAILABLE; outline and land pattern printed; actuator access is an R2 design task",
+      "reason": "Actual land/peg fit, assumed body-to-peg centering and installed setup access remain NOT_MEASURED.",
       "fact_ids": [
         "fact-a7-pcm13smtr-outline",
-        "fact-a7-pcm13smtr-orientation-discrepancy"
+        "fact-a7-pcm13smtr-orientation-discrepancy",
+        "fact-a7-pcm13smtr-physical-fit"
       ],
       "blocking_fact_ids": [
-        "fact-a7-pcm13smtr-outline",
-        "fact-a7-pcm13smtr-orientation-discrepancy"
+        "fact-a7-pcm13smtr-physical-fit"
       ]
     },
     {
@@ -67,7 +64,7 @@
       "record_id": "rec-a7-pcm13smtr",
       "domain": "sourcing",
       "status": "OPEN",
-      "reason": "JLC stock 0 on 2026-11-08",
+      "reason": "JLC stock and presale both0 on 2026-11-09; assembly supply remains unresolved.",
       "fact_ids": [
         "fact-a7-pcm13smtr-sourcing"
       ],

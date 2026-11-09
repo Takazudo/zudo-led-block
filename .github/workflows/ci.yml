@@ -112,6 +112,13 @@ jobs:
         run: python3 scripts/a7_mechanical_layout.py --check
       - name: A7 R2 geometry tests (stack, candidates, keep-outs, routes, CAD/front records)
         run: python3 -m unittest -v scripts/tests/test_a7_r2_mechanical.py
+      - name: A7 evidence and preparation negative controls (blocked reports remain valid)
+        run: |
+          python3 -m unittest scripts/tests/test_a7_e2_evidence.py scripts/tests/test_a7_fixture.py scripts/tests/test_a7_procurement.py scripts/tests/test_a7_readiness.py
+          python3 -O -m unittest scripts/tests/test_a7_readiness.py
+          python3 scripts/a7_fixture.py --check
+          python3 scripts/a7_procurement.py --check
+          python3 scripts/a7_readiness.py --check
       - name: Summary
         if: always()
         run: echo "### A7 mechanical checks are a provisional digital study, not a fit approval or manufacturing release" >> "$GITHUB_STEP_SUMMARY"

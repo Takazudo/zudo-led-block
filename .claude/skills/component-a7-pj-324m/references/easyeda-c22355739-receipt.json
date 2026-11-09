@@ -1,0 +1,155 @@
+{
+  "receipt_version": 1,
+  "identity": {
+    "asset_id": "easyeda-c22355739-20261109",
+    "record_id": "rec-a7-pj-324m",
+    "manufacturer": "SOFNG",
+    "mpn": "PJ-324M",
+    "package": "AUDIO-TH_PJ-324M",
+    "variant_notes": "Supplier asset only; no adoption"
+  },
+  "acquisition": {
+    "provider": "EasyEDA official library (owner lcsc)",
+    "library_release_tag": null,
+    "source_url": "https://easyeda.com/api/products/C22355739/components?version=6.4.19.5",
+    "acquired_on": "2026-11-09",
+    "original_filenames": [
+      "easyeda-C22355739.json"
+    ],
+    "sha256": {
+      "easyeda-C22355739.json": "0e0f2baced21804bef9b7835aa6063bf7055d1057bedd0d5ae9556137b6ac756"
+    }
+  },
+  "representation": {
+    "files": [],
+    "formats": [
+      "EasyEDA JSON"
+    ],
+    "units": "10mil = 0.254mm",
+    "original_paths": [
+      ".circuit-cache/e2-20261109/easyeda-C22355739.json (ignored; not redistributed)"
+    ]
+  },
+  "fidelity": {
+    "class": null,
+    "reason": "Inspection only: supplier-owned exact-part CAD, not manufacturer-published exact-vendor geometry. No supported fidelity classification asserted; no asset adopted.",
+    "evidence": [
+      "src-a7-pj-324m-easyeda-2026-11-09"
+    ]
+  },
+  "derivation": {
+    "derived": false,
+    "input_sha256": {},
+    "tool": null,
+    "tool_version": null,
+    "parameters": {},
+    "output_sha256": {}
+  },
+  "cad_use": {
+    "symbol": null,
+    "footprint": null,
+    "model_path": null,
+    "transform": {
+      "offset": null,
+      "rotation": null,
+      "scale": null
+    },
+    "seating_plane": null
+  },
+  "checks": {
+    "performed": [
+      "Exact supplier identity",
+      "Pad positions and slot fields",
+      "Visual symbol inspection: conflicting4/5 interpretation"
+    ],
+    "remaining_physical_checks": [
+      "Q0 manufacturer-primary jack drawing",
+      "Q1 jack-axis height",
+      "Q2 TS/TRS continuity and manufacturer pin map",
+      "Q3 lead dimensions and finished-hole/slot fit",
+      "Seating/orientation qualification",
+      "Q4 nut/washer inclusion and fit"
+    ],
+    "numerical_inspection": {
+      "source": "JLCEDA/EasyEDA Official Library",
+      "source_url": "https://easyeda.com/api/products/C22355739/components?version=6.4.19.5",
+      "raw_sha256": "0e0f2baced21804bef9b7835aa6063bf7055d1057bedd0d5ae9556137b6ac756",
+      "component_uuid": "a49c98a2f4174ffc8e7e3eff88cdb745",
+      "footprint_uuid": "53b3b0970c844376958f9a4872a0c6f5",
+      "units_source": "https://docs.easyeda.com/en/DocumentFormat/EasyEDA-Document-Format/index.html",
+      "pads": [
+        {
+          "pin": "5",
+          "across_relative_pin1_mm": 4.49999,
+          "axial_relative_pin1_mm": 4.00002,
+          "pad_xy_mm": [
+            2.0,
+            1.1
+          ],
+          "drill_diameter_mm": 0.50002,
+          "slot_length_mm": 1.50002,
+          "rotation": "0"
+        },
+        {
+          "pin": "4",
+          "across_relative_pin1_mm": 3.99999,
+          "axial_relative_pin1_mm": 11.4,
+          "pad_xy_mm": [
+            1.5,
+            2.2
+          ],
+          "drill_diameter_mm": 0.8,
+          "slot_length_mm": 1.5,
+          "rotation": "0"
+        },
+        {
+          "pin": "3",
+          "across_relative_pin1_mm": -2.5,
+          "axial_relative_pin1_mm": 7.00001,
+          "pad_xy_mm": [
+            1.4,
+            2.2
+          ],
+          "drill_diameter_mm": 0.8,
+          "slot_length_mm": 1.50002,
+          "rotation": "90"
+        },
+        {
+          "pin": "2",
+          "across_relative_pin1_mm": -5.19989,
+          "axial_relative_pin1_mm": 8.00001,
+          "pad_xy_mm": [
+            2.0,
+            1.0
+          ],
+          "drill_diameter_mm": 0.50002,
+          "slot_length_mm": 1.50002,
+          "rotation": "0"
+        },
+        {
+          "pin": "1",
+          "across_relative_pin1_mm": 0.0,
+          "axial_relative_pin1_mm": 0.0,
+          "pad_xy_mm": [
+            1.5,
+            2.2
+          ],
+          "drill_diameter_mm": 0.8,
+          "slot_length_mm": 1.50002,
+          "rotation": "0"
+        }
+      ],
+      "scope": "Supplier CAD inspection only; not manufacturer proof or physical qualification; no asset adopted."
+    },
+    "coordinate_transform": {
+      "across_mm": "(cy-3026.8425)*0.254",
+      "axial_mm": "(cx-3983.4409)*0.254",
+      "reference": "pin1; compare current footprint after subtracting pin1 (0,1.6mm)"
+    }
+  },
+  "publication": {
+    "preview_selected": false,
+    "download_published": false,
+    "permitted_scope": "Minimal receipt only; raw asset not redistributed or adopted."
+  }
+}

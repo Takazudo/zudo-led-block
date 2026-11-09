@@ -1,0 +1,153 @@
+{
+  "schema": 1,
+  "status": "BLOCKED",
+  "digital_fixture_complete": false,
+  "scope": "Carrier-only dimensional study, not complete fixture or fabrication approval",
+  "board_sha256": "4453f818ede1e6d6c56e45ef43aa6faecb90990f3755f82c6d752258cd4d628e",
+  "placement_sha256": "1891af356ead303127c6b7a99b8934b08aa25f465b4b2c96872f5d5d24afdc01",
+  "geometry_sha256": "1522f0aa2bf4907a39e51d8ef0e58eab9256cc961b0bc897c37ea0dae41870c2",
+  "inputs_sha256": {
+    "engineering/a7/electronics/controller/controller.kicad_pcb": "4453f818ede1e6d6c56e45ef43aa6faecb90990f3755f82c6d752258cd4d628e",
+    "engineering/a7/electronics/controller/board_placement.json": "1891af356ead303127c6b7a99b8934b08aa25f465b4b2c96872f5d5d24afdc01",
+    "scripts/a7_fixture.py": "9e04daf7b6503ec6cc3659b1e13556c0b1680cff09e544692eb07c34fc4981ea",
+    "engineering/a7/fixture/sources.json": "6fde5bc90563e071ab3b302b60ec1aaf78ba6a58269b2e6726c5f8541e92f3e0",
+    "engineering/a7/fixture/materials.json": "b05f46b48715ec8cdcf18a557a880d6f68f2ca7967ba932fc38ade4fef0e983e"
+  },
+  "fresh_native_verified": false,
+  "native_ci_evidence": {
+    "observed_date_utc": "2026-11-09",
+    "run_url": "https://github.com/Takazudo/zudo-led-block/actions/runs/42594178172",
+    "head_sha": "4894a6f6f21b30419d039bd6427e89553f8dee55",
+    "result": "PASS",
+    "board_sha256": "4453f818ede1e6d6c56e45ef43aa6faecb90990f3755f82c6d752258cd4d628e",
+    "scope": "E1 pinned native CI on the stated head and unchanged board; not verification of the uncommitted integration or fixture geometry",
+    "raw_facts_consumed": false,
+    "artifact_access": "Forbidden, including escalated download; raw facts unavailable"
+  },
+  "transform": {
+    "description": "B side view: x_f = 16.2 - x_board; y_f = y_board. Carrier local Z is not an installed height.",
+    "matrix_xy": [
+      [
+        -1,
+        0,
+        16.2
+      ],
+      [
+        0,
+        1,
+        0
+      ],
+      [
+        0,
+        0,
+        1
+      ]
+    ]
+  },
+  "pads": [
+    {
+      "ref": "TP1",
+      "net": "+3V3",
+      "board_xy_mm": [
+        12.4,
+        23.8
+      ],
+      "carrier_xy_mm": [
+        3.8,
+        23.8
+      ],
+      "pad_diameter_mm": 1.0
+    },
+    {
+      "ref": "TP2",
+      "net": "GND",
+      "board_xy_mm": [
+        12.5,
+        28.2
+      ],
+      "carrier_xy_mm": [
+        3.7,
+        28.2
+      ],
+      "pad_diameter_mm": 1.0
+    },
+    {
+      "ref": "TP3",
+      "net": "SWDIO",
+      "board_xy_mm": [
+        12.4,
+        22.4
+      ],
+      "carrier_xy_mm": [
+        3.8,
+        22.4
+      ],
+      "pad_diameter_mm": 1.0
+    },
+    {
+      "ref": "TP4",
+      "net": "SWCLK",
+      "board_xy_mm": [
+        13.8,
+        23.8
+      ],
+      "carrier_xy_mm": [
+        2.4,
+        23.8
+      ],
+      "pad_diameter_mm": 1.0
+    },
+    {
+      "ref": "TP5",
+      "net": "NRST",
+      "board_xy_mm": [
+        14.1,
+        26.0
+      ],
+      "carrier_xy_mm": [
+        2.1,
+        26.0
+      ],
+      "pad_diameter_mm": 1.0
+    }
+  ],
+  "calculations": {
+    "nominal_radial_budget_mm": 0.25,
+    "worst_case_registration_margin_mm": null,
+    "registration_equation": "0.25 - (board edge-to-pad + datum registration + carrier bore position + probe lateral play/concentricity); all terms radial worst-case mm",
+    "minimum_probe_pitch_mm": 1.4,
+    "manufacturer_nominal_grid_mm": 1.27,
+    "nominal_collar_edge_gap_mm": 0.36,
+    "recommended_working_stroke_mm": 4.3,
+    "maximum_stroke_mm": 6.35,
+    "nominal_total_force_at_working_stroke_N": 5.0,
+    "nominal_total_preload_N": 2.2,
+    "force_tolerance_N": null
+  },
+  "carrier": {
+    "bounds_mm": [
+      -4.4,
+      20,
+      0,
+      20.6,
+      60,
+      5
+    ],
+    "receptacle_bore_diameter_mm": 0.99,
+    "bore_acceptance_requirement_mm": [
+      0.98,
+      1.0
+    ],
+    "bore_material": "FR4, machined; not a printed plastic tolerance claim",
+    "mounting_holes_mm": [],
+    "mounting_diameter_mm": 3.2
+  },
+  "blockers": [
+    "No complete keyed outline registration, board support, load path or travel stop designed/verified.",
+    "No source-backed board edge-to-pad tolerance or probe lateral play/concentricity tolerance; worst-case margin NOT_ESTABLISHED.",
+    "Actual fresh-native F/B component extents and solder envelopes have not been obtained for clearance/support design.",
+    "Receptacle drawing diameter 0.96mm versus PDF table 0.95mm; use 0.96mm envelope only as conservative study input, resolve before selection.",
+    "No physical fit, contact, insertion-force or measured stroke evidence; no prototype exists.",
+    "E1 pinned native CI passed at 4894a6f6f21b30419d039bd6427e89553f8dee55 for this unchanged board; artifact download was Forbidden. Fixture has not consumed fresh native facts and the uncommitted integration is not covered by that run."
+  ]
+}

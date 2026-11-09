@@ -37,7 +37,11 @@ pnpm circuit:check                             # evidence contract for every bun
 python3 -m unittest scripts/tests/test_a7_r1_study.py
 ```
 
-## R1 findings (2026-11-08)
+## 2026-11-09 の準備作業（未リリース）
+
+E1 は基板→canonical placement→機構コピーの結合を強化。E2 は PCM/ST/TDK/Molex の一次資料を回収し、PJ-324M supplier symbol の端子4/5の不一致を記録しました。回路・銅箔は変更していません。`procurement/` は現行実装台帳、`qualification/` は未実施の評価手順と BLOCKED readiness、`fixture/` は未完成のキャリア検討です。発注適格性は未成立です。詳細は `docs/continuation/order-preparation-checkpoint.md`。
+
+## R1 findings (historical, 2026-11-08)
 
 ### Parts
 

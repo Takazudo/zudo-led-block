@@ -59,6 +59,14 @@ re-run KiCad or CadQuery for these records.
 | Interface roles | `engineering/a7/verification/interface_roles/` | R3, filled by R4 | A5 reference roles; A7 jack / switch roles reviewed for the schematic phase |
 | Authorized delta | `engineering/a7/verification/authorized_delta.json` | R3, filled by R4 | reviewed `component_replaced` entries for J1 / J2 / SW1; lists the open physical gates |
 
+## 2026-11-09 preparation (not a release)
+
+- `procurement/assembly-manifest.json`: generated current controller plus two FR-4 leaves and adapter; external hardware/cables/fixture candidates. Engineering only, not supplier upload.
+- `fixture/`: exact INGUN receipts and current B-side pad map; generated carrier-only STEP/SVG. Full registration/support/stop and tolerance qualification BLOCKED.
+- `qualification/`: blank Workflow F procedures, unsent supplier questions, revision-bound BLOCKED readiness. Report validation is separate from order/release eligibility.
+- `docs/continuation/order-preparation-checkpoint.md`: working state, access/verification blockers and proposed child tracking. No physical results.
+- Component owner bundles: acquired PCM/ST/TDK/Molex primary documents and PJ-324M supplier CAD discrepancy. Original R1 table below/above remains a dated history, not current acquisition status.
+
 ## 4. Outstanding physical qualification
 
 Nothing below has a result. Each needs a physical part, a prototype or a supplier answer.

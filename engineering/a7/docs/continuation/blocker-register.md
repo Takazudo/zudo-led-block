@@ -1,0 +1,29 @@
+# A7 発注準備の未解決記録
+
+2026-11-09。判断は [decision-register.md](decision-register.md)、exact-head検証と成果identityは [checkpoint](order-preparation-checkpoint.md) を参照してください。以下は合格でも製品判断でもなく、未取得の証跡・未完実装・アクセス条件です。
+
+| ID | 止まる範囲 / 状態 | 不足・解除条件 | 関連 |
+|---|---|---|---|
+| B1 | E1 merge: 保留 | リポジトリ変数APIはHTTP404。現在のmain mergeが無許可デプロイを起動しないことを、許可された方法で確認する必要。PR runのSKIPだけでは足りない | PR #44 |
+| B2 | 新規子Issue: 親のhold | 最初の作成は中断され、未作成を確認済み。拒否/中断の理由が未特定。理由が明らかになるまで当該操作を再試行しない | #15、E1–E5下書き |
+| B3 | ローカルnative取得/実行: ENOSPC失敗 | digest-pinned imageが32 GBを満たした。容量回復後もローカル成功とは記録しない。E1はexact-head CI native PASSで検証済み。新しいnative出力が必要な作業は対応可能なCloud実行環境が必要 | E1/E3 |
+| B4 | E2残り資料: 未取得 | claim単位監査、独立レビュー修正、sync-states/selection/generation、公開site scanは完了。未取得一次資料と物理適用は残る。取得成功はfit/stock/service承認ではない | #9/#13/#19 |
+| B5 | E3完成治具: BLOCKED | 基板edge→pad公差、probe lateral play/concentricity、fresh-native部品/pad extents、逆挿入防止、PCB支持/load path、travel stopと最悪registration marginが必要。carrier STEPだけでは満たさない | #19/#10 |
+| B6 | 完成品調達: 未確定 | PJ-324M nut/washer、保証ケーブル構成と自由長、公差、PCM13SMTR供給/実装サービス、PMMA/PETG工程、fixture部材の確定。現行在庫/価格/MOQ/納期/包装は実取得分だけ有効 | #8/#9/#19 |
+| B7 | ジャック/スイッチ適合: NOT_MEASURED | TS/TRS全端子導通、軸/端子/スロット/ナット、switch真理値/ランド/設定アクセスを実部品で確認しraw記録を残す | Q1–Q4/Q10、#8/#19 |
+| B8 | 機構/ハーネス: NOT_MEASURED | PMMA公差・ポケット・締付/保持、PETG支持、完成ケーブル全長経路、M2×18 load path、挿抜/交換、全ケーブル込み30 mm奥行きの実測 | #8/#17 |
+| B9 | 電気/FW/熱/光学: NOT_MEASURED | `qualification/procedures.md` の全手順とraw evidence kinds。電源/CV/THRU/校正、reset/rail-collapse/partial-rail/back-power/U7/LDO/load/容量、熱/光学、DATA_L結合ノイズを含む | #10 |
+| B10 | LED timing判断: 未解決 | exact WS2812B-2020-V6 V1.4のT1L 580 ns–1 µsと継承FW 220–420 nsの不一致。メーカー訂正/新資料または購入ロット実測に基づく別レビュー。A5は変更しない | #13 |
+| B11 | 試作入手: 未承認 | #10の現行release条件を保持したまま、限定sample/prototype routeのオーナー承認が必要。物理測定を捏造して依存関係を解消しない | #10 |
+| B12 | 製造リリース/注文: なし | 必要な物理・供給・版別raw証跡と基準、レビュー済み製造ファイル、数量/注文条件、明示オーナー承認が必要。NOT-A-RELEASE出力を注文ファイルに改名しない | #10 |
+
+`qualification/readiness.json` は現在49個の具体的な不足を機械可読で列挙します。資料または入力が変われば再生成が必要です。schema/reportのVALIDはこれらの解消を意味しません。
+
+PET Q11/Q11a–fと2HPの0.8 mm再配線/公差課題は別案のブロッカーです。FR-4/3HPの必須ゲートに混ぜません。A6 #7/PR #14は引き続きON HOLDで、そのブランチ・記録を削除しません。
+
+## 2026-11-09 の取得失敗
+
+- `src-pmeg4010cej-115-ds`: https://assets.nexperia.com/documents/data-sheet/PMEG4010CEJ.pdf、2026-11-09T09:19:18.570819+00:00、HTTP 403、資料bytes未取得。別の公式配布先またはオーナー提供の原本を取得し、hash/適用型番/ページを検証する。変更のない再試行はしない。
+- `src-sm04b-srss-tb-lf-sn-sh-catalog`: https://www.jst-mfg.com/product/pdf/eng/eSH.pdf、2026-11-09T09:19:19.369040+00:00、HTTP 403、資料bytes未取得。別の公式配布先またはオーナー提供の原本を取得し、hash/適用型番/ページを検証する。変更のない再試行はしない。
+- `src-a7-pj-324m-sofng-site`: https://www.sofng.com/、2026-11-09T09:19:23.249215+00:00、HTTP 502、資料bytes未取得。別の公式配布先またはオーナー提供の原本を取得し、hash/適用型番/ページを検証する。変更のない再試行はしない。
+- E1 CI artifact `native-infrastructure-evidence`（run 42594178172）のダウンロードは通常/許可された昇格とも Forbidden。CIログのPASSは確認したが、fixtureのfresh-native geometry未取得を解消しない。

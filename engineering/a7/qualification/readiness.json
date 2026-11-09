@@ -1,0 +1,257 @@
+{
+  "schema": 1,
+  "variant": "fr4-3hp",
+  "report_validation": "VALID",
+  "order_eligibility": "BLOCKED",
+  "manufacturing_release": "NOT_ESTABLISHED",
+  "order_submitted": "NOT_ESTABLISHED",
+  "identities": {
+    "board": {
+      "path": "engineering/a7/electronics/controller/controller.kicad_pcb",
+      "sha256": "4453f818ede1e6d6c56e45ef43aa6faecb90990f3755f82c6d752258cd4d628e"
+    },
+    "population": {
+      "path": "engineering/a7/electronics/controller/board_placement.json",
+      "sha256": "1891af356ead303127c6b7a99b8934b08aa25f465b4b2c96872f5d5d24afdc01"
+    },
+    "schematic": {
+      "path": "engineering/a7/electronics/controller/controller.kicad_sch",
+      "sha256": "01c09e69f2623bdbb98ae6176b4b52204ae817f927ecb311242d7ac1295fbc72"
+    },
+    "firmware": {
+      "path": "engineering/a5/firmware/dist/light_block_A5.bin",
+      "sha256": "0446cb0acfa7efe86a5f6c02beb7afa482daa419ecfce204fe9169487599765e"
+    },
+    "firmware_sources": {
+      "path": "engineering/a5/firmware/dist/source_files.sha256",
+      "sha256": "61155c23cc8f9c05f8d5712ecd8f009673c1929a34b8437b9869c202deb85c46"
+    },
+    "configuration": {
+      "path": "engineering/a5/firmware/include/lb_config.h",
+      "sha256": "195092c88e1b9270bae22d27f4a08f4a606f9be77008f3011f06d7a975b0f6a7"
+    },
+    "mechanical": {
+      "path": "engineering/a7/mechanical/layout.json",
+      "sha256": "9cbc6ac99f5b05c7e3145f2016b6918cbc5d2b77170db31ed7155755cba0d591"
+    },
+    "fixture": {
+      "path": "engineering/a7/fixture/manifest.json",
+      "sha256": "9109acd79096d832bfc31b1a44e389c4cbed6028dd86a3072b8f1b412169ff69"
+    },
+    "assembly_manifest": {
+      "path": "engineering/a7/procurement/assembly-manifest.json",
+      "sha256": "69033523efa1ec2da53093c6814c3522ef0264adbc084f1fac3c3980c86e3967"
+    }
+  },
+  "plan_sha256": "67cf8a4c8a421bf5142b158e54e3d65aa5717482f4a807398a89814d061b2e4e",
+  "procedures": [
+    {
+      "id": "jack-continuity",
+      "status": "BLOCKED",
+      "reasons": [
+        "criterion unresolved or review receipt missing",
+        "NOT_MEASURED: no run"
+      ]
+    },
+    {
+      "id": "jack-dimensions",
+      "status": "BLOCKED",
+      "reasons": [
+        "criterion unresolved or review receipt missing",
+        "NOT_MEASURED: no run"
+      ]
+    },
+    {
+      "id": "switch-fit",
+      "status": "BLOCKED",
+      "reasons": [
+        "criterion unresolved or review receipt missing",
+        "NOT_MEASURED: no run"
+      ]
+    },
+    {
+      "id": "harness-depth",
+      "status": "BLOCKED",
+      "reasons": [
+        "criterion unresolved or review receipt missing",
+        "NOT_MEASURED: no run"
+      ]
+    },
+    {
+      "id": "pmma-supports",
+      "status": "BLOCKED",
+      "reasons": [
+        "criterion unresolved or review receipt missing",
+        "NOT_MEASURED: no run"
+      ]
+    },
+    {
+      "id": "fixture-contact",
+      "status": "BLOCKED",
+      "reasons": [
+        "criterion unresolved or review receipt missing",
+        "NOT_MEASURED: no run"
+      ]
+    },
+    {
+      "id": "firmware-waveforms",
+      "status": "BLOCKED",
+      "reasons": [
+        "criterion unresolved or review receipt missing",
+        "NOT_MEASURED: no run"
+      ]
+    },
+    {
+      "id": "power-current",
+      "status": "BLOCKED",
+      "reasons": [
+        "criterion unresolved or review receipt missing",
+        "NOT_MEASURED: no run"
+      ]
+    },
+    {
+      "id": "cv-thru-calibration",
+      "status": "BLOCKED",
+      "reasons": [
+        "criterion unresolved or review receipt missing",
+        "NOT_MEASURED: no run"
+      ]
+    },
+    {
+      "id": "startup-reset",
+      "status": "BLOCKED",
+      "reasons": [
+        "criterion unresolved or review receipt missing",
+        "NOT_MEASURED: no run"
+      ]
+    },
+    {
+      "id": "rail-collapse",
+      "status": "BLOCKED",
+      "reasons": [
+        "criterion unresolved or review receipt missing",
+        "NOT_MEASURED: no run"
+      ]
+    },
+    {
+      "id": "partial-rails",
+      "status": "BLOCKED",
+      "reasons": [
+        "criterion unresolved or review receipt missing",
+        "NOT_MEASURED: no run"
+      ]
+    },
+    {
+      "id": "u7-stress",
+      "status": "BLOCKED",
+      "reasons": [
+        "criterion unresolved or review receipt missing",
+        "NOT_MEASURED: no run"
+      ]
+    },
+    {
+      "id": "ldo-reverse",
+      "status": "BLOCKED",
+      "reasons": [
+        "criterion unresolved or review receipt missing",
+        "NOT_MEASURED: no run"
+      ]
+    },
+    {
+      "id": "load-short",
+      "status": "BLOCKED",
+      "reasons": [
+        "criterion unresolved or review receipt missing",
+        "NOT_MEASURED: no run"
+      ]
+    },
+    {
+      "id": "effective-capacitance",
+      "status": "BLOCKED",
+      "reasons": [
+        "criterion unresolved or review receipt missing",
+        "NOT_MEASURED: no run"
+      ]
+    },
+    {
+      "id": "thermal-optical",
+      "status": "BLOCKED",
+      "reasons": [
+        "criterion unresolved or review receipt missing",
+        "NOT_MEASURED: no run"
+      ]
+    },
+    {
+      "id": "cv-noise",
+      "status": "BLOCKED",
+      "reasons": [
+        "criterion unresolved or review receipt missing",
+        "NOT_MEASURED: no run"
+      ]
+    },
+    {
+      "id": "service-envelope",
+      "status": "BLOCKED",
+      "reasons": [
+        "criterion unresolved or review receipt missing",
+        "NOT_MEASURED: no run"
+      ]
+    }
+  ],
+  "blockers": [
+    "fixture digital design incomplete or unverified",
+    "fixture: unresolved preparation blockers",
+    "assembly_manifest: unresolved preparation blockers",
+    "jack-continuity: criterion unresolved or review receipt missing",
+    "jack-continuity: NOT_MEASURED: no run",
+    "jack-dimensions: criterion unresolved or review receipt missing",
+    "jack-dimensions: NOT_MEASURED: no run",
+    "switch-fit: criterion unresolved or review receipt missing",
+    "switch-fit: NOT_MEASURED: no run",
+    "harness-depth: criterion unresolved or review receipt missing",
+    "harness-depth: NOT_MEASURED: no run",
+    "pmma-supports: criterion unresolved or review receipt missing",
+    "pmma-supports: NOT_MEASURED: no run",
+    "fixture-contact: criterion unresolved or review receipt missing",
+    "fixture-contact: NOT_MEASURED: no run",
+    "firmware-waveforms: criterion unresolved or review receipt missing",
+    "firmware-waveforms: NOT_MEASURED: no run",
+    "power-current: criterion unresolved or review receipt missing",
+    "power-current: NOT_MEASURED: no run",
+    "cv-thru-calibration: criterion unresolved or review receipt missing",
+    "cv-thru-calibration: NOT_MEASURED: no run",
+    "startup-reset: criterion unresolved or review receipt missing",
+    "startup-reset: NOT_MEASURED: no run",
+    "rail-collapse: criterion unresolved or review receipt missing",
+    "rail-collapse: NOT_MEASURED: no run",
+    "partial-rails: criterion unresolved or review receipt missing",
+    "partial-rails: NOT_MEASURED: no run",
+    "u7-stress: criterion unresolved or review receipt missing",
+    "u7-stress: NOT_MEASURED: no run",
+    "ldo-reverse: criterion unresolved or review receipt missing",
+    "ldo-reverse: NOT_MEASURED: no run",
+    "load-short: criterion unresolved or review receipt missing",
+    "load-short: NOT_MEASURED: no run",
+    "effective-capacitance: criterion unresolved or review receipt missing",
+    "effective-capacitance: NOT_MEASURED: no run",
+    "thermal-optical: criterion unresolved or review receipt missing",
+    "thermal-optical: NOT_MEASURED: no run",
+    "cv-noise: criterion unresolved or review receipt missing",
+    "cv-noise: NOT_MEASURED: no run",
+    "service-envelope: criterion unresolved or review receipt missing",
+    "service-envelope: NOT_MEASURED: no run",
+    "material assembly_service: missing or ambiguous dated observation",
+    "material finished_cables: missing or ambiguous dated observation",
+    "material fixture: missing or ambiguous dated observation",
+    "material jack: missing or ambiguous dated observation",
+    "material pmma_petg_hardware: missing or ambiguous dated observation",
+    "material switch: missing or ambiguous dated observation",
+    "owner-approved sample/prototype route absent for this revision and quantity",
+    "reviewed manufacturing files and explicit revision-bound owner release absent"
+  ],
+  "optional_variants": {
+    "pet": "Q11/Q11a–f: process, copper/vias/coverlay, lamination, force and optical tests remain separate. Reuse pet-fpc.md questions 1–9; not sent.",
+    "2hp": "Parked: Q1/Q6 evidence, owner choice, 0.8 mm controller and new routing required."
+  },
+  "limit": "Schema validation is not measurement authenticity, hardware approval, a release authorization or an order. No order is submitted by this command."
+}

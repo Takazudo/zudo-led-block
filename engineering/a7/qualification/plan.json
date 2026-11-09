@@ -1,0 +1,412 @@
+{
+  "schema": 1,
+  "variant": "fr4-3hp",
+  "scope": "Workflow F preparation only; no physical observations",
+  "procedures": [
+    {
+      "id": "jack-continuity",
+      "title": "PJ-324M 入荷時 TS/TRS 導通・端子対応",
+      "variant": "fr4-3hp",
+      "issues": "Q2; #19",
+      "setup": "絶縁された未実装ジャック、TS/TRS プラグ、導通計。各挿抜状態で全端子対を測る。",
+      "expected": "J1/J2: 1=sleeve→GND, 2=ring→GND, 4=tip→CV_THRU, 3/5=NC は設計上の推定。実物対応と normal 接点を確認し、TS sleeve に CV が短絡しないこと。",
+      "basis": "engineering/a7/electronics/README.md",
+      "criterion_status": "UNRESOLVED",
+      "missing_criterion": "設計推定を採否判定する導通抵抗上限は未決。計器条件と判定値のレビューが必要。",
+      "raw_evidence_required": "全端子対の導通表、プラグ型番、写真、ジャックロット",
+      "observation": "NOT_MEASURED",
+      "result": "NOT_RUN",
+      "next_action": "不足する基準をレビューし、オーナー承認の試作ルート確定後に実物で実施。",
+      "required_evidence_kinds": [
+        "terminal_matrix",
+        "ts_plug_identity",
+        "trs_plug_identity",
+        "jack_lot",
+        "contact_photos"
+      ]
+    },
+    {
+      "id": "jack-dimensions",
+      "title": "ジャック軸・スロット・端子・ナット",
+      "variant": "fr4-3hp",
+      "issues": "Q1/Q3/Q4; #8",
+      "setup": "未実装品と実基板を基準面を明示して寸法測定。ナット・ワッシャを含める。",
+      "expected": "3HP/1.6 mm の現行寸法と比較。軸高さは INFERRED、基板スロットは ASSUMED、ナット同梱と適合は未確認。",
+      "basis": "engineering/a7/open-questions.md",
+      "criterion_status": "UNRESOLVED",
+      "missing_criterion": "メーカー公差、穴・リード寸法、適合ナット/ワッシャ仕様が必要。",
+      "raw_evidence_required": "寸法図付き測定、座面写真、ロット、ゲージ情報",
+      "observation": "NOT_MEASURED",
+      "result": "NOT_RUN",
+      "next_action": "不足する基準をレビューし、オーナー承認の試作ルート確定後に実物で実施。",
+      "required_evidence_kinds": [
+        "axis_measurements",
+        "slot_lead_measurements",
+        "nut_washer_fit",
+        "instrument_identity"
+      ]
+    },
+    {
+      "id": "switch-fit",
+      "title": "PCM13SMTR 真理値・ランド・設定アクセス",
+      "variant": "fr4-3hp",
+      "issues": "Q10; #19",
+      "setup": "未実装品の全接点を測定後、基板ランドとペグを照合。モジュールを外して設定工具を確認。",
+      "expected": "端子3共通GND、1→MODE_A、4→MODE_B、2→NC。1–3/2–3/3–4→ON/PROGRAM/CV。0/0はinvalid/dark。",
+      "basis": "engineering/a7/electronics/README.md",
+      "criterion_status": "UNRESOLVED",
+      "missing_criterion": "ランド/本体位置公差、導通判定抵抗、設定工具と保持条件の採否値が未決。",
+      "raw_evidence_required": "接点表、寸法、実装写真、アクセス動画",
+      "observation": "NOT_MEASURED",
+      "result": "NOT_RUN",
+      "next_action": "不足する基準をレビューし、オーナー承認の試作ルート確定後に実物で実施。",
+      "required_evidence_kinds": [
+        "contact_truth_table",
+        "land_peg_measurements",
+        "setup_access",
+        "switch_lot"
+      ]
+    },
+    {
+      "id": "harness-depth",
+      "title": "完成ハーネスの全長経路・極性・奥行き",
+      "variant": "fr4-3hp",
+      "issues": " #8",
+      "setup": "完成 SH4 と電源ケーブルを全長収納し、全コネクタ・ラベル・IDC を含めて組む。",
+      "expected": "PMMA 裏面から30 mm以内が目標。電源自由長は mechanical/layout.json の power_cable_requirement（現時点57±3 mm、±3 ASSUMED）。A5 50±6 mmは流用不可。",
+      "basis": "engineering/a7/mechanical/layout.json",
+      "criterion_status": "UNRESOLVED",
+      "missing_criterion": "現物ケーブル径、許容曲げ、自由長公差とラベル、完成品供給仕様が未確定。",
+      "raw_evidence_required": "配線極性表、全長/曲げ/奥行き測定、各方向写真",
+      "observation": "NOT_MEASURED",
+      "result": "NOT_RUN",
+      "next_action": "不足する基準をレビューし、オーナー承認の試作ルート確定後に実物で実施。",
+      "required_evidence_kinds": [
+        "polarity_matrix",
+        "full_length_routing",
+        "bend_measurements",
+        "installed_depth",
+        "cable_identity"
+      ]
+    },
+    {
+      "id": "pmma-supports",
+      "title": "PMMA ポケット・締結・PETG 支持",
+      "variant": "fr4-3hp",
+      "issues": "Q7/Q8/Q9; #8",
+      "setup": "製造ロットのPMMAと造形品を測る。段階的締結と保持を記録。",
+      "expected": "透明2 mm PMMA、裏面フロスト/表面平滑。0.5 mm後面ポケットは設計選択。M2×18上部ねじ、ボスとフォークを含む。",
+      "basis": "engineering/a7/mechanical/README.md",
+      "criterion_status": "UNRESOLVED",
+      "missing_criterion": "加工公差、締付トルク、割れ/クレージング、保持荷重、PETG工程条件の採否基準が未決。",
+      "raw_evidence_required": "加工測定、締付ログ、保持試験、写真、材料/造形設定",
+      "observation": "NOT_MEASURED",
+      "result": "NOT_RUN",
+      "next_action": "不足する基準をレビューし、オーナー承認の試作ルート確定後に実物で実施。",
+      "required_evidence_kinds": [
+        "material_identity",
+        "pocket_tolerances",
+        "tightening_log",
+        "retention_load",
+        "print_settings"
+      ]
+    },
+    {
+      "id": "fixture-contact",
+      "title": "SWD 治具の位置・接触・荷重",
+      "variant": "fr4-3hp",
+      "issues": " #19; #10",
+      "setup": "基板単体を支持した治具。PMMAとジャックは荷重経路に使わない。電源OFFで位置と短絡を検査後、承認された電源手順へ。",
+      "expected": "現行基板のB面TP1 +3V3（電圧参照）、TP2 GND、TP3 SWDIO、TP4 SWCLK、TP5 NRST。治具の計算ストロークと荷重に照合。",
+      "basis": "engineering/a7/electronics/controller/board_placement.json",
+      "criterion_status": "UNRESOLVED",
+      "missing_criterion": "完成治具の実位置公差、接触抵抗/繰返し回数、実挿入力と許容荷重が未決。",
+      "raw_evidence_required": "位置測定、荷重/ストローク、短絡/接触ログ、写真",
+      "observation": "NOT_MEASURED",
+      "result": "NOT_RUN",
+      "next_action": "不足する基準をレビューし、オーナー承認の試作ルート確定後に実物で実施。",
+      "required_evidence_kinds": [
+        "registration_measurements",
+        "contact_short_matrix",
+        "stroke_force",
+        "support_photos"
+      ]
+    },
+    {
+      "id": "firmware-waveforms",
+      "title": "書込み識別とLED実ロット波形",
+      "variant": "fr4-3hp",
+      "issues": " #13; #10",
+      "setup": "承認済み電源/プログラマ構成、SWD readback、校正したオシロスコープで左右列を観測。",
+      "expected": "現行A5イメージのハッシュと設定を照合。WS2812B-2020-V6 V1.4 T1L 580 ns–1 µs 対FW 220–420 nsは未解決。",
+      "basis": "engineering/a5/firmware/dist/timing.md",
+      "criterion_status": "UNRESOLVED",
+      "missing_criterion": "Worldsemi訂正/新資料または購入ロットの根拠に基づく別レビューのFW判断が必要。現FWタイミングを承認しない。",
+      "raw_evidence_required": "書込み/readbackハッシュ、設定、ロット、両列のraw波形と時間軸",
+      "observation": "NOT_MEASURED",
+      "result": "NOT_RUN",
+      "next_action": "不足する基準をレビューし、オーナー承認の試作ルート確定後に実物で実施。",
+      "required_evidence_kinds": [
+        "programming_readback",
+        "stored_configuration",
+        "led_lot",
+        "left_waveform",
+        "right_waveform",
+        "timebase_setup"
+      ]
+    },
+    {
+      "id": "power-current",
+      "title": "電源・電流制限",
+      "variant": "fr4-3hp",
+      "issues": " #10",
+      "setup": "電流制限電源、全レール電圧/電流計測、左右LEDの規定負荷。",
+      "expected": "各部品の推奨条件と電流制限の依存関係を exact component 証跡から試験条件ごとにレビュー。",
+      "basis": "engineering/a5/integration/independent_review",
+      "criterion_status": "UNRESOLVED",
+      "missing_criterion": "試験電圧/負荷/持続時間と合否値のレビュー済み数表が未作成。",
+      "raw_evidence_required": "電源設定、全レール波形、電流ログ、負荷表",
+      "observation": "NOT_MEASURED",
+      "result": "NOT_RUN",
+      "next_action": "不足する基準をレビューし、オーナー承認の試作ルート確定後に実物で実施。",
+      "required_evidence_kinds": [
+        "supply_setup",
+        "rail_waveforms",
+        "current_log",
+        "load_matrix"
+      ]
+    },
+    {
+      "id": "cv-thru-calibration",
+      "title": "CV/受動THRU/校正",
+      "variant": "fr4-3hp",
+      "issues": " #10",
+      "setup": "校正したCV源と計測器、IN/THRU/ADCを同時測定。",
+      "expected": "VADC=(100/133)*(VDD/2+CV/8)、C13→R7→U7、R24/R25、受動THRUを維持。",
+      "basis": "engineering/a7/electronics/README.md",
+      "criterion_status": "UNRESOLVED",
+      "missing_criterion": "誤差/直線性/校正残差の採否値と測定不確かさが未決。",
+      "raw_evidence_required": "入力掃引、VDD/ADC/THRU記録、校正係数と残差",
+      "observation": "NOT_MEASURED",
+      "result": "NOT_RUN",
+      "next_action": "不足する基準をレビューし、オーナー承認の試作ルート確定後に実物で実施。",
+      "required_evidence_kinds": [
+        "cv_sweep",
+        "vdd_adc_thru_data",
+        "calibration_coefficients",
+        "residuals"
+      ]
+    },
+    {
+      "id": "startup-reset",
+      "title": "起動・リセット・fault復帰",
+      "variant": "fr4-3hp",
+      "issues": " #10",
+      "setup": "規定の電源立上り/リセット/FAULT条件を一つずつ印加し全レールとLED enableを観測。",
+      "expected": "既存startup/fault動作を維持。保持reset禁止は全ての部分電源喪失を保証しない。",
+      "basis": "engineering/a5/integration/independent_review",
+      "criterion_status": "UNRESOLVED",
+      "missing_criterion": "ランプ/パルス条件、観測窓、復帰合否表をレビューする必要。",
+      "raw_evidence_required": "リセット/FAULT/enable/全レールraw波形、設定",
+      "observation": "NOT_MEASURED",
+      "result": "NOT_RUN",
+      "next_action": "不足する基準をレビューし、オーナー承認の試作ルート確定後に実物で実施。",
+      "required_evidence_kinds": [
+        "reset_fault_enable_waveforms",
+        "rail_waveforms",
+        "configuration_readback"
+      ]
+    },
+    {
+      "id": "rail-collapse",
+      "title": "急速レール崩壊",
+      "variant": "fr4-3hp",
+      "issues": " #10",
+      "setup": "承認された負荷/電源遮断条件でレール低下と制御を同時観測。",
+      "expected": "5 V-only sagとバックアップ状態喪失の未解決を評価する。",
+      "basis": "engineering/a5/integration/independent_review",
+      "criterion_status": "UNRESOLVED",
+      "missing_criterion": "崩壊率、最悪負荷、5 V valid monitorの必要性を判断する合否基準が未決。",
+      "raw_evidence_required": "全レール/enable/MCU信号raw波形、負荷と遮断条件",
+      "observation": "NOT_MEASURED",
+      "result": "NOT_RUN",
+      "next_action": "不足する基準をレビューし、オーナー承認の試作ルート確定後に実物で実施。",
+      "required_evidence_kinds": [
+        "rail_enable_waveforms",
+        "collapse_load_conditions"
+      ]
+    },
+    {
+      "id": "partial-rails",
+      "title": "部分電源・逆給電・無電源CV",
+      "variant": "fr4-3hp",
+      "issues": " #10",
+      "setup": "許可された全レール組合せと無電源CV入力を電流制限下で試す。",
+      "expected": "部分電源/バックパワーを未確認として扱う。",
+      "basis": "engineering/a5/integration/independent_review",
+      "criterion_status": "UNRESOLVED",
+      "missing_criterion": "最大印加値、注入電流制限、順序、許容逆流値を部品資料から承認する必要。",
+      "raw_evidence_required": "組合せ表、電圧/注入/逆流記録、raw波形",
+      "observation": "NOT_MEASURED",
+      "result": "NOT_RUN",
+      "next_action": "不足する基準をレビューし、オーナー承認の試作ルート確定後に実物で実施。",
+      "required_evidence_kinds": [
+        "rail_combination_matrix",
+        "injection_reverse_current",
+        "rail_waveforms"
+      ]
+    },
+    {
+      "id": "u7-stress",
+      "title": "U7 差動ストレス",
+      "variant": "fr4-3hp",
+      "issues": " #10",
+      "setup": "CVと電源遷移中のU7両入力/電源を差動プローブで測る。",
+      "expected": "exact U7 の許容入力差動条件に条件ごと照合。",
+      "basis": "engineering/a5/integration/independent_review",
+      "criterion_status": "UNRESOLVED",
+      "missing_criterion": "安全な印加条件とプローブ帯域、部品限界の条件付き数表が未作成。",
+      "raw_evidence_required": "両入力と電源のraw波形、最大差分計算、プローブ情報",
+      "observation": "NOT_MEASURED",
+      "result": "NOT_RUN",
+      "next_action": "不足する基準をレビューし、オーナー承認の試作ルート確定後に実物で実施。",
+      "required_evidence_kinds": [
+        "input_supply_waveforms",
+        "differential_stress_calculation",
+        "probe_identity"
+      ]
+    },
+    {
+      "id": "ldo-reverse",
+      "title": "LDO 逆電流",
+      "variant": "fr4-3hp",
+      "issues": " #10",
+      "setup": "入力/出力レール遷移を承認済み制限下で独立に制御。",
+      "expected": "TLV75533PDBVR の逆電流未確認を評価。",
+      "basis": "engineering/a5/integration/independent_review",
+      "criterion_status": "UNRESOLVED",
+      "missing_criterion": "印加順序/上限と許容逆電流/時間のexact-part根拠が必要。",
+      "raw_evidence_required": "両レール波形、逆電流、温度、回路条件",
+      "observation": "NOT_MEASURED",
+      "result": "NOT_RUN",
+      "next_action": "不足する基準をレビューし、オーナー承認の試作ルート確定後に実物で実施。",
+      "required_evidence_kinds": [
+        "rail_waveforms",
+        "reverse_current",
+        "temperature",
+        "sequence_conditions"
+      ]
+    },
+    {
+      "id": "load-short",
+      "title": "負荷・短絡・保護",
+      "variant": "fr4-3hp",
+      "issues": " #10",
+      "setup": "制限電源と規定短絡負荷を使い、回復と温度を観測。",
+      "expected": "現行電源保護の実動作を検証する。",
+      "basis": "engineering/a5/integration/independent_review",
+      "criterion_status": "UNRESOLVED",
+      "missing_criterion": "短絡場所、時間、繰返しと復帰/最大温度基準の承認が必要。",
+      "raw_evidence_required": "短絡/解除波形、電流/温度/FAULTログ",
+      "observation": "NOT_MEASURED",
+      "result": "NOT_RUN",
+      "next_action": "不足する基準をレビューし、オーナー承認の試作ルート確定後に実物で実施。",
+      "required_evidence_kinds": [
+        "short_recovery_waveforms",
+        "current_temperature",
+        "fault_log",
+        "load_conditions"
+      ]
+    },
+    {
+      "id": "effective-capacitance",
+      "title": "MLCC 実効容量",
+      "variant": "fr4-3hp",
+      "issues": " #10",
+      "setup": "実装型番/ロットのDCバイアスと温度条件を記録して容量/リップルを測る。",
+      "expected": "各exact MLCCの条件付き有効容量と回路要求の照合。",
+      "basis": "engineering/a5/integration/independent_review",
+      "criterion_status": "UNRESOLVED",
+      "missing_criterion": "必要容量下限と測定法を部品曲線と回路レビューで決める。",
+      "raw_evidence_required": "型番/ロット、バイアス/温度、容量とリップルraw記録",
+      "observation": "NOT_MEASURED",
+      "result": "NOT_RUN",
+      "next_action": "不足する基準をレビューし、オーナー承認の試作ルート確定後に実物で実施。",
+      "required_evidence_kinds": [
+        "component_lot",
+        "bias_temperature",
+        "capacitance",
+        "ripple_waveforms"
+      ]
+    },
+    {
+      "id": "thermal-optical",
+      "title": "温度・光学・Kumiko照明",
+      "variant": "fr4-3hp",
+      "issues": " #10",
+      "setup": "最悪負荷/周囲条件でインダクタ、ホットスポット、PETG、PMMAを測定し左右照明を撮影。",
+      "expected": "51/255 capは温度承認ではない。約2% D2遮光はモデル推定のみ。",
+      "basis": "engineering/a7/mechanical/README.md",
+      "criterion_status": "UNRESOLVED",
+      "missing_criterion": "周囲条件/安定判定、部品/材料温度限界と見え方のオーナー採否が未決。",
+      "raw_evidence_required": "温度時系列、IR補正、材料ロット、露出固定写真、周囲条件",
+      "observation": "NOT_MEASURED",
+      "result": "NOT_RUN",
+      "next_action": "不足する基準をレビューし、オーナー承認の試作ルート確定後に実物で実施。",
+      "required_evidence_kinds": [
+        "temperature_series",
+        "ir_corrections",
+        "material_lot",
+        "optical_photos",
+        "ambient_conditions"
+      ]
+    },
+    {
+      "id": "cv-noise",
+      "title": "CV ノイズと DATA_L 結合",
+      "variant": "fr4-3hp",
+      "issues": " #10",
+      "setup": "静的CVを印加しDATA_L/左右ストリームのパターンを切替、ADC/THRUを同期観測。",
+      "expected": "記録されたCV_THRU対DATA_L_3V3/SWDIO、CV_ADC対SWCLKの結合懸念を評価。",
+      "basis": "engineering/a7/verification/interface_review.md",
+      "criterion_status": "UNRESOLVED",
+      "missing_criterion": "帯域、ノイズ統計と許容誤差の採否値が未決。",
+      "raw_evidence_required": "同期波形、スペクトル/統計、配線/プローブ位置、パターン",
+      "observation": "NOT_MEASURED",
+      "result": "NOT_RUN",
+      "next_action": "不足する基準をレビューし、オーナー承認の試作ルート確定後に実物で実施。",
+      "required_evidence_kinds": [
+        "synchronous_waveforms",
+        "noise_statistics",
+        "probe_wiring",
+        "data_patterns"
+      ]
+    },
+    {
+      "id": "service-envelope",
+      "title": "挿抜・交換・組立外形",
+      "variant": "fr4-3hp",
+      "issues": " #8; #10",
+      "setup": "全ケーブルと完成部品で挿抜、側板交換、スイッチ設定、再組立を実施。",
+      "expected": "PMMA裏面を基準に30 mm目標、3HP前幅14.9 mm、高さ128.5 mm。",
+      "basis": "engineering/a7/mechanical/layout.json",
+      "criterion_status": "UNRESOLVED",
+      "missing_criterion": "繰返し回数、許容力/損傷、組立ばらつきと合否基準が未決。",
+      "raw_evidence_required": "寸法、挿抜力、交換動画、前後写真、部品識別",
+      "observation": "NOT_MEASURED",
+      "result": "NOT_RUN",
+      "next_action": "不足する基準をレビューし、オーナー承認の試作ルート確定後に実物で実施。",
+      "required_evidence_kinds": [
+        "envelope_dimensions",
+        "insertion_extraction_force",
+        "replacement_record",
+        "before_after_photos",
+        "part_identity"
+      ]
+    }
+  ],
+  "optional_variants": {
+    "pet": "Q11/Q11a–f: process, copper/vias/coverlay, lamination, force and optical tests remain separate. Reuse pet-fpc.md questions 1–9; not sent.",
+    "2hp": "Parked: Q1/Q6 evidence, owner choice, 0.8 mm controller and new routing required."
+  }
+}
