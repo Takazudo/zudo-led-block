@@ -15,7 +15,7 @@ Cloud ローカルでは digest-pinned image 展開が32 GBディスクを満た
 
 ## ローカル実行
 
-新しいcheckout/worktreeでrootのAGENTS.mdとcircuit/WORKFLOW.mdを読み、上記commitを取得します。以下は**引き継ぎ用**で、このCloudセッションで実行したローカル機の結果ではありません。ローカルのheavy-test policyがある場合は、そのguardでnative/CAD実行を包んでください。Docker storageには32 GBを超える展開余裕を実測で確認します。
+新しいcheckout/worktreeでrootのAGENTS.mdとcircuit/WORKFLOW.mdを読み、上記commitを取得します。以下は**引き継ぎ用**で、このCloudセッションで実行したローカル機の結果ではありません。ローカルのheavy-test policyがある場合は、そのguardでnative/CAD実行を包んでください。Docker storageには32 GBを超える展開余裕を実測で確認します。選択したPython 3.12環境にCadQuery 2.7.0を導入済みであることを確認します（例: 専用venvで `python3 -m pip install cadquery==2.7.0`）。
 
 ```bash
 set -euo pipefail
@@ -23,7 +23,9 @@ git status --short
 git rev-parse HEAD
 sha256sum engineering/a7/electronics/controller/controller.kicad_pcb
 python3 scripts/verify_seed.py --manifest provenance/seed-manifest.json --repo .
+corepack pnpm install --frozen-lockfile
 corepack pnpm circuit:check
+python3 -c 'import cadquery; assert cadquery.__version__ == "2.7.0"'
 python3 scripts/native_gate/runner.py lock --profile engineering/a7/verification/native_gate.json --check
 python3 scripts/native_gate/runner.py lock --profile scripts/tests/fixtures/native/profile.json --check
 # checkout外の新しい空directory。過去の失敗結果は上書きしない。
