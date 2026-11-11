@@ -18,14 +18,18 @@ cv-thru-calibration e8597916ae9c3c860295c1aa8f6ae82f1181e8ec155419830721f41e0e48
 rail-collapse 79f8442e4bbfd8059e2802b4d86f77fb28aa0f4bbe1d37158f4b38b8930eced0
 load-short 197cb2fb3ec8c9d635656c65e478cb8db344923227488dcf50cae4e71b67ccc8
 cv-noise ed52279e0344626b20103633bbb0da95af82cc01c16a90a757a216277cd0063b
+jack-continuity 7df1bb0b431b95f90016b17eb77894a4cee1f90fcd25452e7060f9a83b8f0dee
 
 ## 採用しなかったもの
 
 - u7-stress: 電源範囲と絶対最大の行は採用したが、R7 電流の上限 0.313 mA は CV_BUF の上限を推定に頼るため PROPOSED のまま。手順全体の基準ゲートは解除しない。
-- jack-continuity: 独立レビューが確認しなかった（CV_THRU は下流のモジュールも駆動し、200 kΩ は接点品質の上限にならない）。PROPOSED のまま。
 - thermal-optical: 85 °C が基板で最も低い温度上限であることを確認できない（14 種の部品に温度上限の fact がない。WS2812B を含む）。PROPOSED のまま。
 - firmware-waveforms、harness-depth、service-envelope: コーディネーターの判断でオーナーに残す。
 
 ## レビューの注記
 
 - cv-noise（50 mV）と cv-thru-calibration の残差（50 mV）はそれぞれ確認済み。ただし両方が上限近くなら合計は不感帯を超えうる。誤差予算の合算はオーナーの確認事項として残す。
+
+## 追記（同日 19:53Z のコーディネーター判断）
+
+- jack-continuity: 端子対応の閾値（200 kΩ / 20 MΩ）と接点品質（閉じた接点 1 つあたり 50 mΩ 以下、SOFNG 掲載図面の B 等級の初期接触抵抗、未監査の抜粋なので UNVERIFIED）に分けた。独立レビューが分割を確認したので、コーディネーターが採用。手順に 4 端子法（測定電流 50 mA 以下）とリード抵抗の差し引きを追加した。

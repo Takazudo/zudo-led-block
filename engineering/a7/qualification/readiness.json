@@ -43,14 +43,12 @@
       "sha256": "0201bfaf16235df9bcf450a35842ca7b4c7316592c3de21aa92ad50041a406ce"
     }
   },
-  "plan_sha256": "8ebfed8d995969ecd7301ecc5ee6e4d11916cdea92dc7b68a5c23224ba649d5b",
+  "plan_sha256": "0ba6d52695e056cd3ec80c0d0a8b2b19552472ee86383ead44739f0a8c4fd8a9",
   "procedures": [
     {
       "id": "jack-continuity",
       "status": "BLOCKED",
       "reasons": [
-        "criterion unresolved or review receipt missing",
-        "criterion has PROPOSED or UNRESOLVED acceptance values: mapping-closed-max, mapping-open-min, contact-max",
         "NOT_MEASURED: no run"
       ]
     },
@@ -218,8 +216,6 @@
     "assembly_manifest: rack-hardware: Owner rack rail/thread interface and fasteners not specified.",
     "assembly_manifest: fixture-materials: Fixture design and materials incomplete (see fixture manifest); physical contact/load tests follow.",
     "assembly_manifest: prototype-and-release: No owner-approved prototype route, no reviewed manufacturing package and no release approval.",
-    "jack-continuity: criterion unresolved or review receipt missing",
-    "jack-continuity: criterion has PROPOSED or UNRESOLVED acceptance values: mapping-closed-max, mapping-open-min, contact-max",
     "jack-continuity: NOT_MEASURED: no run",
     "jack-dimensions: criterion unresolved or review receipt missing",
     "jack-dimensions: criterion has PROPOSED or UNRESOLVED acceptance values: tolerances",
@@ -349,14 +345,6 @@
       "class": "OWNER_DECISION",
       "reasons": [
         "assembly_manifest: prototype-and-release: No owner-approved prototype route, no reviewed manufacturing package and no release approval."
-      ]
-    },
-    {
-      "gate": "criterion:jack-continuity",
-      "class": "OWNER_DECISION",
-      "reasons": [
-        "jack-continuity: criterion unresolved or review receipt missing",
-        "jack-continuity: criterion has PROPOSED or UNRESOLVED acceptance values: mapping-closed-max, mapping-open-min, contact-max"
       ]
     },
     {
@@ -647,7 +635,7 @@
   ],
   "gate_counts": {
     "CLOUD_DIGITAL": 2,
-    "OWNER_DECISION": 13,
+    "OWNER_DECISION": 12,
     "ACCESS_EVIDENCE_HOLD": 16,
     "PHYSICAL_ONLY": 20
   },

@@ -15,11 +15,11 @@
 ### jack-continuity — PJ-324M 入荷時 TS/TRS 導通・端子対応
 
 - 関連: Q2; #19
-- 概要: 絶縁された未実装ジャック、TS/TRS プラグ、導通計。各挿抜状態で全端子対を測る。
+- 概要: 絶縁された未実装ジャック、TS/TRS プラグ、導通計とミリオーム計。各挿抜状態で全端子対を測り、閉じた接点の接触抵抗を測る。
 - 根拠: `engineering/a7/electronics/README.md`
-- 未決: 設計推定を採否判定する導通抵抗上限は未決。計器条件と判定値のレビューが必要。（区分: オーナーの判断）
+- 基準: 採用済み（プロジェクトのコーディネーター（オーナーが委ねた作業方針による）、記録 `engineering/a7/qualification/reviews/2026-11-11-coordinator-criteria-acceptance.md`）
 - 観測: NOT_MEASURED。結果: NOT_RUN。
-- 次: PCB を発注する前に、オーナー承認の試作ルートで入手した PJ-324M 実物で実施する（端子 4/5 の tip/normal を確定）。不足する判定抵抗値はレビューで決める。
+- 次: 基準はコーディネーターが採用済み（オーナー本人ではない）。PCB を発注する前に実物の PJ-324M で手順を実施し、端子 4/5 を確定する（O0）。
 
 準備するもの:
 
@@ -29,6 +29,7 @@
 計器・道具:
 
 - 抵抗計/導通計（型番・校正記録）
+- ミリオーム計（4 端子法、測定電流 50 mA 以下に設定できるもの。型番・測定電流・校正記録）
 - 拡大鏡またはマクロ撮影できるカメラ
 
 実施前の条件:
@@ -43,14 +44,15 @@
 2. 無挿入で全10端子対の抵抗を測り、表に記録する。
 3. TS プラグを最後まで挿入し、全10端子対とプラグの Tip/Sleeve 対各端子を測る。
 4. TRS プラグで同じ測定をする。プラグを抜き、無挿入の状態をもう一度測る。
-5. 端子 4 と 5 のどちらが tip 接点（プラグの tip と導通）で、どちらがその normal（無挿入で tip 接点と導通し、挿入で開放）かを判定し、terminal_matrix に「tip=端子N、tip normal=端子M」と明記する。供給元 symbol は端子 5 を tip としており、現在の推定（端子 4 = tip）と矛盾する。この判定は PCB を発注する前に必須。
-6. 結果を下の推定対応・基板ネットと突き合わせる。1 か所でも違えば FAIL とし、基板を変えるかどうかは別のレビューで決める（ここで設計を変えない）。
+5. TS と TRS プラグを挿入した状態で、閉じている各接点（プラグ tip–tip 端子、sleeve–sleeve 端子、TRS の ring–ring 端子）の抵抗をミリオーム計で測る。4 端子法で、測定電流は 50 mA 以下。2 端子法しか使えない場合は、測定リードとプラグを短絡して読んだ値を差し引き、その値も記録する。
+6. 端子 4 と 5 のどちらが tip 接点（プラグの tip と導通）で、どちらがその normal（無挿入で tip 接点と導通し、挿入で開放）かを判定し、terminal_matrix に「tip=端子N、tip normal=端子M」と明記する。供給元 symbol は端子 5 を tip としており、現在の推定（端子 4 = tip）と矛盾する。この判定は PCB を発注する前に必須。
+7. 結果を下の推定対応・基板ネットと突き合わせる。1 か所でも違えば FAIL とし、基板を変えるかどうかは別のレビューで決める（ここで設計を変えない）。
 
 記録する raw 証跡（種別ごとに別ファイル）:
 
 | 種別 | 内容 |
 |---|---|
-| `terminal_matrix` | 無挿入/TS/TRS/再無挿入 × 全端子対と、プラグ接点対端子の抵抗表（CSV、単位 Ω、開放は OL） |
+| `terminal_matrix` | 無挿入/TS/TRS/再無挿入 × 全端子対と、プラグ接点対端子の抵抗表（CSV、単位 Ω、開放は OL）。閉じた接点の接触抵抗（mΩ、測定法・測定電流・差し引いたリード抵抗）を別の列に記録 |
 | `ts_plug_identity` | TS プラグの型番・購入元・写真 |
 | `trs_plug_identity` | TRS プラグの型番・購入元・写真 |
 | `jack_lot` | ジャックの購入記録、ロット、数量、外観写真 |
@@ -65,9 +67,9 @@
 | supplier-cad-conflict | 供給元 CAD の端子4/5の矛盾を実物で解消すること | `"Supplier symbol appears to assign direct tip spring to5 and normal branch to4, contrary to current inferred mapping."` | reference | NONE | UNVERIFIED | `.claude/skills/component-a7-pj-324m/facts.json` `fact-a7-pj-324m-supplier-cad-conflict` |
 | ts-sleeve | TS / TRS プラグでの入荷時導通試験が必須（tip/ring が入れ替わると TS プラグの sleeve が CV_THRU に触れるため） | `"an incoming-part continuity test with TS and TRS plugs is required"` | reference | NONE | DESIGN | `engineering/a7/README.md` 引用 |
 | test-current | 測定電流は接点定格以下 | `"50 mA, 24 V DC"` | max | NONE | SOURCED | `.claude/skills/component-a7-pj-324m/facts.json` `fact-a7-pj-324m-contact-rating` |
-| mapping-closed-max | 端子対応の判定で「導通」とみなす抵抗の上限（どの端子が tip / normal かを見分けるためだけの閾値） | `200000` | max | ohm | PROPOSED（根拠 CALCULATED） | 計算 `(R1 + R2) * DB / FS`（内訳は下） |
-| mapping-open-min | 端子対応の判定で「開放」とみなす抵抗の下限 | `20000000` | min | ohm | PROPOSED（根拠 CALCULATED） | 計算 `R1 + R2`（内訳は下） |
-| contact-max | 閉じた接点 1 つあたりの接触抵抗の上限（新品の初期値）。4 端子法、または 2 端子法で、測定リードとプラグを短絡して読んだ値を差し引く（リード抵抗の扱いを記録）。測定電流は接点定格 50 mA 以下 | `50` | max | mohm | PROPOSED（根拠 UNVERIFIED） | 計算 `Rc`（内訳は下） |
+| mapping-closed-max | 端子対応の判定で「導通」とみなす抵抗の上限（どの端子が tip / normal かを見分けるためだけの閾値） | `200000` | max | ohm | CALCULATED | 計算 `(R1 + R2) * DB / FS`（内訳は下） |
+| mapping-open-min | 端子対応の判定で「開放」とみなす抵抗の下限 | `20000000` | min | ohm | CALCULATED | 計算 `R1 + R2`（内訳は下） |
+| contact-max | 閉じた接点 1 つあたりの接触抵抗の上限（新品の初期値）。4 端子法、または 2 端子法で、測定リードとプラグを短絡して読んだ値を差し引く（リード抵抗の扱いを記録）。測定電流は接点定格 50 mA 以下 | `50` | max | mohm | UNVERIFIED | 計算 `Rc`（内訳は下） |
 
 計算の内訳:
 
@@ -81,12 +83,6 @@
   - `R2` = 10000000.0（`10M`、`engineering/a7/verification/schematic/netlist.xml` R2 の値、の value）
 - `contact-max`: `Rc` = `50` mohm（小数 0 桁に丸め）
   - `Rc` = 50.0（`50`、`.claude/skills/component-a7-pj-324m/sources.json` `src-a7-pj-324m-sofng-site` の抜粋（未監査）、「50 mOhm max」）
-
-提案の理由（PROPOSED は採否前で、この手順の基準ゲートを解除しません）:
-
-- `mapping-closed-max`: 端子の対応を見分けるための閾値。この基板の入力 R1+R2 (20 MΩ) に対する誤差 Rc/(R1+R2) が FW の不感帯 50 mV / 5000 mV（1 %）を超えない上限。CV_THRU は J2 から下流のモジュールも駆動するので、接点品質の判定には使わない（接点品質は contact-max）。
-- `mapping-open-min`: 開放側の漏れがモジュール自身の入力抵抗 (R1+R2 = 20 MΩ) 以上なら、CV_THRU への追加負荷は入力そのもの以下で、機能上は開放と同じ。計器のレンジがこれに届かなければ採否で下げる。
-- `contact-max`: SOFNG が自社サイトに掲載した PJ-324M の図面（製造元の一次資料）の「initial contact resistance 30 / 50 mOhm max (A better / B average product)」。購入品がどちらの等級か分からないので、緩い B 側の 50 mΩ を上限にする。この値は部品 evidence の fact には未登録で、抜粋の引用なので UNVERIFIED。
 
 ### jack-dimensions — ジャック軸・スロット・端子・ナット
 
@@ -1181,7 +1177,7 @@
 | 区分 | ゲート数 |
 |---|---:|
 | CLOUD_DIGITAL（クラウドで進められるデジタル作業） | 2 |
-| OWNER_DECISION（オーナーの判断） | 13 |
+| OWNER_DECISION（オーナーの判断） | 12 |
 | ACCESS_EVIDENCE_HOLD（外部の証跡・アクセス待ち） | 16 |
 | PHYSICAL_ONLY（実機が必要） | 20 |
 
@@ -1199,8 +1195,6 @@
 - assembly_manifest: rack-hardware: Owner rack rail/thread interface and fasteners not specified.
 - assembly_manifest: fixture-materials: Fixture design and materials incomplete (see fixture manifest); physical contact/load tests follow.
 - assembly_manifest: prototype-and-release: No owner-approved prototype route, no reviewed manufacturing package and no release approval.
-- jack-continuity: criterion unresolved or review receipt missing
-- jack-continuity: criterion has PROPOSED or UNRESOLVED acceptance values: mapping-closed-max, mapping-open-min, contact-max
 - jack-continuity: NOT_MEASURED: no run
 - jack-dimensions: criterion unresolved or review receipt missing
 - jack-dimensions: criterion has PROPOSED or UNRESOLVED acceptance values: tolerances

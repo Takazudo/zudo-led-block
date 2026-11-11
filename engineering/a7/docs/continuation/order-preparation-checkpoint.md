@@ -130,7 +130,7 @@ E1 CIログでは `ENABLED` は空でした（2026-11-09T09:35:50Z）。ただ�
 
 - 基準 main: `5b9db66`（PR #49 の merge）。作業ブランチ `claude/project-thread-eroz5e`（main から作り直し）。権威基板は変更していません。
 - **導出した受入値:** power-current（VLED 電流制限 343.3–439.4 mA、通常点灯はその下限未満、+3V3 3.267–3.333 V、+5 V 4.95–5.05 V）、startup-reset（LED_EN_N ≥ 1.1 V で無効、≤ 0.66 V で有効、有効化は初期化から 100 ms 以降、黒フレームまで 5 ms 以上、ADC 待ち 250 ms、VDDA 3000–3600 mV、観測窓 260 ms 以上（SW1 が有効位置のとき）、FAULT 後の再有効化なし、保持マーカーが残るリセットでは起動しない）、u7-stress（電源 1.8–5.5 V、入力 ±0.5 V / 10 mA の絶対最大、R7 電流の計算上限 0.313 mA は PROPOSED）。すべて NOT_MEASURED。
-- **提案値と採用:** オーナー判断の手順に PROPOSED を用意し、独立レビューが確認したものをコーディネーターが採用（6 手順。オーナー本人ではない）。残る提案は 9 件。採用は受入値のダイジェストに結び付き、値を変えると基準ゲートが再び閉じる。
+- **提案値と採用:** オーナー判断の手順に PROPOSED を用意し、独立レビューが確認したものをコーディネーターが採用（7 手順。オーナー本人ではない）。残る提案は 7 件。採用は受入値のダイジェストに結び付き、値を変えると基準ゲートが再び閉じる。
 - **外部証跡待ち:** 7 手順の未決値に、決め手になる資料または測定を記録。
 - **チェックリスト:** オーナーの作業を 1 つの順序付きリスト（11 項目）にし、提案値の一覧を追加。
-- readiness は 51 ゲート / 65 理由（CLOUD_DIGITAL 2、OWNER_DECISION 13、ACCESS_EVIDENCE_HOLD 16、PHYSICAL_ONLY 20）。order gate は BLOCKED のまま。
+- readiness は 50 ゲート / 63 理由（CLOUD_DIGITAL 2、OWNER_DECISION 12、ACCESS_EVIDENCE_HOLD 16、PHYSICAL_ONLY 20）。order gate は BLOCKED のまま。

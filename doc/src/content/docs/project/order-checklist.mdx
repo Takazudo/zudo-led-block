@@ -9,13 +9,13 @@ sidebar_position: 4.5
 発注ゲートは **BLOCKED** です。このページは準備の一覧で、発注・供給元への連絡・製造承認・通電を許可するものではありません。
 :::
 
-readiness（`engineering/a7/qualification/readiness.json`）は不足を 51 個のゲートに分け、何で解除できるかで分類しています。
+readiness（`engineering/a7/qualification/readiness.json`）は不足を 50 個のゲートに分け、何で解除できるかで分類しています。
 ゲート名は readiness のものと同じです。
 
 | 区分 | ゲート数 |
 |---|---:|
 | クラウドで進められるデジタル作業 | 2 |
-| オーナーの判断 | 13 |
+| オーナーの判断 | 12 |
 | 外部の証跡・アクセス待ち | 16 |
 | 実機が必要 | 20 |
 
@@ -37,13 +37,10 @@ readiness（`engineering/a7/qualification/readiness.json`）は不足を 51 個�
 
 ## 採否を待つ提案値
 
-エージェントが出典から用意した提案です（10 件）。採るまでは該当する基準ゲートを解除しません。理由と計算は procedures.md にあります。
+エージェントが出典から用意した提案です（7 件）。採るまでは該当する基準ゲートを解除しません。理由と計算は procedures.md にあります。
 
 | 手順 | ID | 基準 | 提案値 | 単位 |
 |---|---|---|---|---|
-| jack-continuity | mapping-closed-max | 端子対応の判定で「導通」とみなす抵抗の上限（どの端子が tip / normal かを見分けるためだけの閾値） | `200000` | ohm |
-| jack-continuity | mapping-open-min | 端子対応の判定で「開放」とみなす抵抗の下限 | `20000000` | ohm |
-| jack-continuity | contact-max | 閉じた接点 1 つあたりの接触抵抗の上限（新品の初期値）。4 端子法、または 2 端子法で、測定リードとプラグを短絡して読んだ値を差し引く（リード抵抗の扱いを記録）。測定電流は接点定格 50 mA 以下 | `50` | mohm |
 | harness-depth | bend-radius | 許容最小曲げ半径 | `2.0` | mm |
 | harness-depth | power-band-order | 電源ケーブル自由長の注文範囲 | `[54.0, 60.0]` | mm |
 | firmware-waveforms | t1l-min | T1L の下限 | `580` | ns |
@@ -56,6 +53,7 @@ readiness（`engineering/a7/qualification/readiness.json`）は不足を 51 個�
 
 採用者を区別して示します。採用は基準の確定で、測定や合格ではありません。
 
+- jack-continuity: プロジェクトのコーディネーター（オーナーが委ねた作業方針による）（記録 `engineering/a7/qualification/reviews/2026-11-11-coordinator-criteria-acceptance.md`）
 - power-current: プロジェクトのコーディネーター（オーナーが委ねた作業方針による）（記録 `engineering/a7/qualification/reviews/2026-11-11-coordinator-criteria-acceptance.md`）
 - cv-thru-calibration: プロジェクトのコーディネーター（オーナーが委ねた作業方針による）（記録 `engineering/a7/qualification/reviews/2026-11-11-coordinator-criteria-acceptance.md`）
 - startup-reset: プロジェクトのコーディネーター（オーナーが委ねた作業方針による）（記録 `engineering/a7/qualification/reviews/2026-11-11-coordinator-criteria-acceptance.md`）
@@ -67,9 +65,9 @@ readiness（`engineering/a7/qualification/readiness.json`）は不足を 51 個�
 
 | # | 内容 | 解除するゲート（現在の状態） |
 |---|---|---|
-| O0 | 供給元の symbol は端子 5 を tip としており、基板の推定対応（端子 4 = tip）と矛盾する。symbol の読みだけでは欠陥とは言えないので、ピン対応と銅箔は変更していない。実物の PJ-324M を TS / TRS プラグで導通試験し（jack-continuity の手順 5）、どちらが tip 接点でどちらがその normal かを記録する。PCB 発注の前提条件。 | `run:jack-continuity`（BLOCKED）、`criterion:jack-continuity`（BLOCKED）、`assembly:jack-switch-qualification`（BLOCKED） |
+| O0 | 供給元の symbol は端子 5 を tip としており、基板の推定対応（端子 4 = tip）と矛盾する。symbol の読みだけでは欠陥とは言えないので、ピン対応と銅箔は変更していない。実物の PJ-324M を TS / TRS プラグで導通試験し（jack-continuity の手順 5）、どちらが tip 接点でどちらがその normal かを記録する。PCB 発注の前提条件。 | `run:jack-continuity`（BLOCKED）、`criterion:jack-continuity`（解除済み）、`assembly:jack-switch-qualification`（BLOCKED） |
 | O3 | `engineering/a7/qualification/supplier-questions.md` は未送信の下書き。送信と回答の保存（取得日・送信先・raw・ハッシュ）はオーナーだけが行える。 | `assembly:supply-observations`（BLOCKED）、`assembly:mechanical-materials`（BLOCKED）、`criterion:jack-dimensions`（BLOCKED）、`criterion:switch-fit`（BLOCKED）、`criterion:pmma-supports`（BLOCKED）、`criterion:ldo-reverse`（BLOCKED）、`criterion:effective-capacitance`（BLOCKED）、`material:jack`（BLOCKED）、`material:switch`（BLOCKED）、`material:finished_cables`（BLOCKED）、`material:pmma_petg_hardware`（BLOCKED）、`material:fixture`（BLOCKED）、`material:assembly_service`（BLOCKED） |
-| O7 | 導出した受入値（power-current / startup-reset / u7-stress）と、PROPOSED の提案値（見え方・温度、挿抜力と回数、短絡、CV の誤差とノイズ、レール崩壊、ジャック導通）を採るか決める。採った値はレビュー記録に残す。提案値のままではゲートは解除されない。 | `criterion:thermal-optical`（BLOCKED）、`criterion:service-envelope`（BLOCKED）、`criterion:load-short`（解除済み）、`criterion:cv-noise`（解除済み）、`criterion:rail-collapse`（解除済み）、`criterion:jack-continuity`（BLOCKED）、`criterion:cv-thru-calibration`（解除済み）、`criterion:power-current`（解除済み）、`criterion:startup-reset`（解除済み）、`criterion:u7-stress`（BLOCKED） |
+| O7 | 導出した受入値（power-current / startup-reset / u7-stress）と、PROPOSED の提案値（見え方・温度、挿抜力と回数、短絡、CV の誤差とノイズ、レール崩壊、ジャック導通）を採るか決める。採った値はレビュー記録に残す。提案値のままではゲートは解除されない。 | `criterion:thermal-optical`（BLOCKED）、`criterion:service-envelope`（BLOCKED）、`criterion:load-short`（解除済み）、`criterion:cv-noise`（解除済み）、`criterion:rail-collapse`（解除済み）、`criterion:jack-continuity`（解除済み）、`criterion:cv-thru-calibration`（解除済み）、`criterion:power-current`（解除済み）、`criterion:startup-reset`（解除済み）、`criterion:u7-stress`（BLOCKED） |
 | O8 | **矛盾:** データシート V1.4 の T1L は 580–1000 ns、現行 FW は 220–420 ns。提案値（t1l-min / t1l-max = 580 / 1000 ns）を採ると現行 FW は不合格になるので、#13 が開いている間は採らない（コーディネーター判断）。メーカー訂正を待つか、購入ロットの実測で別レビューするか、FW を直すかをオーナーが決める。 | `criterion:firmware-waveforms`（BLOCKED） |
 | O4 | 入荷を待つ、別の販売店から買う、または接点表と適合を別にレビューした代替品を認める（Q10）。 | `assembly:switch-supply`（BLOCKED） |
 | O5 | 電源 57 mm の公差は仮定。供給元が保証できる公差と組立の選択を決める。SH4 と IDC リボンも同じ。 | `assembly:finished-cables`（BLOCKED）、`criterion:harness-depth`（BLOCKED） |

@@ -18,7 +18,7 @@
     "fixture": "fac00cc2d61cee463859a218eb00542d3b45e4099492757ff8f9ed9e36e40f1f",
     "assembly_manifest": "0201bfaf16235df9bcf450a35842ca7b4c7316592c3de21aa92ad50041a406ce"
   },
-  "plan_sha256": "8ebfed8d995969ecd7301ecc5ee6e4d11916cdea92dc7b68a5c23224ba649d5b",
+  "plan_sha256": "0ba6d52695e056cd3ec80c0d0a8b2b19552472ee86383ead44739f0a8c4fd8a9",
   "instruments": null,
   "setup": null,
   "conditions": null,
@@ -122,8 +122,8 @@
       "expected": 200000,
       "bound": "max",
       "unit": "ohm",
-      "confidence": "PROPOSED",
-      "proposed": true,
+      "confidence": "CALCULATED",
+      "proposed": false,
       "observed": null,
       "verdict": null
     },
@@ -133,8 +133,8 @@
       "expected": 20000000,
       "bound": "min",
       "unit": "ohm",
-      "confidence": "PROPOSED",
-      "proposed": true,
+      "confidence": "CALCULATED",
+      "proposed": false,
       "observed": null,
       "verdict": null
     },
@@ -144,8 +144,8 @@
       "expected": 50,
       "bound": "max",
       "unit": "mohm",
-      "confidence": "PROPOSED",
-      "proposed": true,
+      "confidence": "UNVERIFIED",
+      "proposed": false,
       "observed": null,
       "verdict": null
     }

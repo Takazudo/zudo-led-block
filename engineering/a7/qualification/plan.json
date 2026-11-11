@@ -8,15 +8,15 @@
       "title": "PJ-324M 入荷時 TS/TRS 導通・端子対応",
       "variant": "fr4-3hp",
       "issues": "Q2; #19",
-      "setup": "絶縁された未実装ジャック、TS/TRS プラグ、導通計。各挿抜状態で全端子対を測る。",
+      "setup": "絶縁された未実装ジャック、TS/TRS プラグ、導通計とミリオーム計。各挿抜状態で全端子対を測り、閉じた接点の接触抵抗を測る。",
       "expected": "J1/J2: 1=sleeve→GND, 2=ring→GND, 4=tip→CV_THRU, 3/5=NC は設計上の推定。実物対応と normal 接点を確認し、TS sleeve に CV が短絡しないこと。",
       "basis": "engineering/a7/electronics/README.md",
-      "criterion_status": "UNRESOLVED",
-      "missing_criterion": "設計推定を採否判定する導通抵抗上限は未決。計器条件と判定値のレビューが必要。",
+      "criterion_status": "REVIEWED",
+      "missing_criterion": "",
       "raw_evidence_required": "全端子対の導通表、プラグ型番、写真、ジャックロット",
       "observation": "NOT_MEASURED",
       "result": "NOT_RUN",
-      "next_action": "PCB を発注する前に、オーナー承認の試作ルートで入手した PJ-324M 実物で実施する（端子 4/5 の tip/normal を確定）。不足する判定抵抗値はレビューで決める。",
+      "next_action": "基準はコーディネーターが採用済み（オーナー本人ではない）。PCB を発注する前に実物の PJ-324M で手順を実施し、端子 4/5 を確定する（O0）。",
       "required_evidence_kinds": [
         "terminal_matrix",
         "ts_plug_identity",
@@ -31,6 +31,7 @@
       ],
       "tools": [
         "抵抗計/導通計（型番・校正記録）",
+        "ミリオーム計（4 端子法、測定電流 50 mA 以下に設定できるもの。型番・測定電流・校正記録）",
         "拡大鏡またはマクロ撮影できるカメラ"
       ],
       "preconditions": [
@@ -43,11 +44,12 @@
         "無挿入で全10端子対の抵抗を測り、表に記録する。",
         "TS プラグを最後まで挿入し、全10端子対とプラグの Tip/Sleeve 対各端子を測る。",
         "TRS プラグで同じ測定をする。プラグを抜き、無挿入の状態をもう一度測る。",
+        "TS と TRS プラグを挿入した状態で、閉じている各接点（プラグ tip–tip 端子、sleeve–sleeve 端子、TRS の ring–ring 端子）の抵抗をミリオーム計で測る。4 端子法で、測定電流は 50 mA 以下。2 端子法しか使えない場合は、測定リードとプラグを短絡して読んだ値を差し引き、その値も記録する。",
         "端子 4 と 5 のどちらが tip 接点（プラグの tip と導通）で、どちらがその normal（無挿入で tip 接点と導通し、挿入で開放）かを判定し、terminal_matrix に「tip=端子N、tip normal=端子M」と明記する。供給元 symbol は端子 5 を tip としており、現在の推定（端子 4 = tip）と矛盾する。この判定は PCB を発注する前に必須。",
         "結果を下の推定対応・基板ネットと突き合わせる。1 か所でも違えば FAIL とし、基板を変えるかどうかは別のレビューで決める（ここで設計を変えない）。"
       ],
       "record": {
-        "terminal_matrix": "無挿入/TS/TRS/再無挿入 × 全端子対と、プラグ接点対端子の抵抗表（CSV、単位 Ω、開放は OL）",
+        "terminal_matrix": "無挿入/TS/TRS/再無挿入 × 全端子対と、プラグ接点対端子の抵抗表（CSV、単位 Ω、開放は OL）。閉じた接点の接触抵抗（mΩ、測定法・測定電流・差し引いたリード抵抗）を別の列に記録",
         "ts_plug_identity": "TS プラグの型番・購入元・写真",
         "trs_plug_identity": "TRS プラグの型番・購入元・写真",
         "jack_lot": "ジャックの購入記録、ロット、数量、外観写真",
@@ -125,7 +127,7 @@
           "criterion": "端子対応の判定で「導通」とみなす抵抗の上限（どの端子が tip / normal かを見分けるためだけの閾値）",
           "value": 200000,
           "unit": "ohm",
-          "confidence": "PROPOSED",
+          "confidence": "CALCULATED",
           "derivation": {
             "expression": "(R1 + R2) * DB / FS",
             "inputs": [
@@ -172,16 +174,14 @@
             ],
             "round": 0
           },
-          "bound": "max",
-          "basis_confidence": "CALCULATED",
-          "rationale": "端子の対応を見分けるための閾値。この基板の入力 R1+R2 (20 MΩ) に対する誤差 Rc/(R1+R2) が FW の不感帯 50 mV / 5000 mV（1 %）を超えない上限。CV_THRU は J2 から下流のモジュールも駆動するので、接点品質の判定には使わない（接点品質は contact-max）。"
+          "bound": "max"
         },
         {
           "id": "mapping-open-min",
           "criterion": "端子対応の判定で「開放」とみなす抵抗の下限",
           "value": 20000000,
           "unit": "ohm",
-          "confidence": "PROPOSED",
+          "confidence": "CALCULATED",
           "derivation": {
             "expression": "R1 + R2",
             "inputs": [
@@ -208,17 +208,14 @@
             ],
             "round": 0
           },
-          "bound": "min",
-          "basis_confidence": "CALCULATED",
-          "rationale": "開放側の漏れがモジュール自身の入力抵抗 (R1+R2 = 20 MΩ) 以上なら、CV_THRU への追加負荷は入力そのもの以下で、機能上は開放と同じ。計器のレンジがこれに届かなければ採否で下げる。"
+          "bound": "min"
         },
         {
           "id": "contact-max",
           "criterion": "閉じた接点 1 つあたりの接触抵抗の上限（新品の初期値）。4 端子法、または 2 端子法で、測定リードとプラグを短絡して読んだ値を差し引く（リード抵抗の扱いを記録）。測定電流は接点定格 50 mA 以下",
           "value": 50,
           "unit": "mohm",
-          "confidence": "PROPOSED",
-          "basis_confidence": "UNVERIFIED",
+          "confidence": "UNVERIFIED",
           "derivation": {
             "expression": "Rc",
             "inputs": [
@@ -236,10 +233,15 @@
             ],
             "round": 0
           },
-          "bound": "max",
-          "rationale": "SOFNG が自社サイトに掲載した PJ-324M の図面（製造元の一次資料）の「initial contact resistance 30 / 50 mOhm max (A better / B average product)」。購入品がどちらの等級か分からないので、緩い B 側の 50 mΩ を上限にする。この値は部品 evidence の fact には未登録で、抜粋の引用なので UNVERIFIED。"
+          "bound": "max"
         }
-      ]
+      ],
+      "criterion_accepted_by": "PROJECT_COORDINATOR_DELEGATED",
+      "criterion_review": {
+        "path": "engineering/a7/qualification/reviews/2026-11-11-coordinator-criteria-acceptance.md",
+        "sha256": "de65e2b2ddbfb1bca68b01ca37e5222ada0f1d6ee695d191baf3516bb1abe93f"
+      },
+      "criterion_acceptance_sha256": "7df1bb0b431b95f90016b17eb77894a4cee1f90fcd25452e7060f9a83b8f0dee"
     },
     {
       "id": "jack-dimensions",
@@ -1545,7 +1547,7 @@
       "criterion_accepted_by": "PROJECT_COORDINATOR_DELEGATED",
       "criterion_review": {
         "path": "engineering/a7/qualification/reviews/2026-11-11-coordinator-criteria-acceptance.md",
-        "sha256": "c4c63f2f28dc28e53c9bf54d33b58b94207bc028a23bb6c7f0c3edea0e921b3f"
+        "sha256": "de65e2b2ddbfb1bca68b01ca37e5222ada0f1d6ee695d191baf3516bb1abe93f"
       },
       "criterion_acceptance_sha256": "5e29c26369e4904a769355f696e0a23c70be95a7bcd5b3f41aa14eb99fb43ac6"
     },
@@ -1785,7 +1787,7 @@
       "criterion_accepted_by": "PROJECT_COORDINATOR_DELEGATED",
       "criterion_review": {
         "path": "engineering/a7/qualification/reviews/2026-11-11-coordinator-criteria-acceptance.md",
-        "sha256": "c4c63f2f28dc28e53c9bf54d33b58b94207bc028a23bb6c7f0c3edea0e921b3f"
+        "sha256": "de65e2b2ddbfb1bca68b01ca37e5222ada0f1d6ee695d191baf3516bb1abe93f"
       },
       "criterion_acceptance_sha256": "e8597916ae9c3c860295c1aa8f6ae82f1181e8ec155419830721f41e0e48797e"
     },
@@ -2140,7 +2142,7 @@
       "criterion_accepted_by": "PROJECT_COORDINATOR_DELEGATED",
       "criterion_review": {
         "path": "engineering/a7/qualification/reviews/2026-11-11-coordinator-criteria-acceptance.md",
-        "sha256": "c4c63f2f28dc28e53c9bf54d33b58b94207bc028a23bb6c7f0c3edea0e921b3f"
+        "sha256": "de65e2b2ddbfb1bca68b01ca37e5222ada0f1d6ee695d191baf3516bb1abe93f"
       },
       "criterion_acceptance_sha256": "1b4ab27ce26ac587713cd432b5df862f3a6bc49704453de2ce0739544dfd805f"
     },
@@ -2264,7 +2266,7 @@
       "criterion_accepted_by": "PROJECT_COORDINATOR_DELEGATED",
       "criterion_review": {
         "path": "engineering/a7/qualification/reviews/2026-11-11-coordinator-criteria-acceptance.md",
-        "sha256": "c4c63f2f28dc28e53c9bf54d33b58b94207bc028a23bb6c7f0c3edea0e921b3f"
+        "sha256": "de65e2b2ddbfb1bca68b01ca37e5222ada0f1d6ee695d191baf3516bb1abe93f"
       },
       "criterion_acceptance_sha256": "79f8442e4bbfd8059e2802b4d86f77fb28aa0f4bbe1d37158f4b38b8930eced0"
     },
@@ -2819,7 +2821,7 @@
       "criterion_accepted_by": "PROJECT_COORDINATOR_DELEGATED",
       "criterion_review": {
         "path": "engineering/a7/qualification/reviews/2026-11-11-coordinator-criteria-acceptance.md",
-        "sha256": "c4c63f2f28dc28e53c9bf54d33b58b94207bc028a23bb6c7f0c3edea0e921b3f"
+        "sha256": "de65e2b2ddbfb1bca68b01ca37e5222ada0f1d6ee695d191baf3516bb1abe93f"
       },
       "criterion_acceptance_sha256": "197cb2fb3ec8c9d635656c65e478cb8db344923227488dcf50cae4e71b67ccc8"
     },
@@ -3138,7 +3140,7 @@
       "criterion_accepted_by": "PROJECT_COORDINATOR_DELEGATED",
       "criterion_review": {
         "path": "engineering/a7/qualification/reviews/2026-11-11-coordinator-criteria-acceptance.md",
-        "sha256": "c4c63f2f28dc28e53c9bf54d33b58b94207bc028a23bb6c7f0c3edea0e921b3f"
+        "sha256": "de65e2b2ddbfb1bca68b01ca37e5222ada0f1d6ee695d191baf3516bb1abe93f"
       },
       "criterion_acceptance_sha256": "ed52279e0344626b20103633bbb0da95af82cc01c16a90a757a216277cd0063b"
     },

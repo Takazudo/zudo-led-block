@@ -459,8 +459,8 @@ class ExecutableProcedureTests(unittest.TestCase):
 
     def test_unaudited_source_extract_stays_unverified(self):
         a = self.item('jack-continuity', 'contact-max')
-        self.assertEqual((a['basis_confidence'], a['value']), ('UNVERIFIED', 50))
-        a['basis_confidence'] = 'CALCULATED'
+        self.assertEqual((a['confidence'], a['value']), ('UNVERIFIED', 50))
+        a['confidence'] = 'CALCULATED'
         self.assertUntraceable('allow only UNVERIFIED')
         self.plan = json.loads((REPO/m.QUAL/'plan.json').read_text())
         src = self.item('jack-continuity', 'contact-max')['derivation']['inputs'][0]['source']
