@@ -97,7 +97,7 @@ E1 CIログでは `ENABLED` は空でした（2026-11-09T09:35:50Z）。ただ�
 ## 2026-11-11 統合（PR #44）
 
 - 作業: Claude Code Cloud Project の単一 manager が PR #44 を引き継ぎ、main `33457b01c5722d91b9ab5b25e8e73c097b32236b`（orchestration 文書のみ追加）を merge。E1–E5 を作り直さず、全差分を独立レビュー。
-- レビュー指摘の修正: readiness で 1 つの保持ファイルが複数の承認役割（基準レビュー、実施レビュー、材料出典、試作承認、製造リリース承認、レビュー済み発注ファイル）や複数手順の raw evidence を兼ねることを拒否（`receipt reused across roles`）。fixture manifest が `carrier-study.step` の bytes を `study_step_sha256` で結合し、STEP の差し替えを `--check` で検出。PCM13SMTR の記述の空白欠落を修正。上の「uncommitted」表現と E1 のみの記述を producer から更新。
+- レビュー指摘の修正: readiness で 1 つの保持ファイルが複数の承認役割（基準レビュー、実施レビュー、材料出典、試作承認、製造リリース承認、レビュー済み発注ファイル）や複数手順の raw evidence を兼ねることを、解決後のファイルと内容 hash の両方で拒否（`receipt reused across roles`）。fixture manifest が `carrier-study.step` の bytes を `study_step_sha256` で結合し、STEP の差し替えを `--check` で検出。PCM13SMTR の記述の空白欠落を修正。上の「uncommitted」表現と E1 のみの記述を producer から更新。
 - 未修正として残すもの: 材料観測の `valid_until` に上限期間がない（期間の方針は未決のため数値を創作しない）。E2 で記録した資料 hash は ignored cache の bytes に依存し、CI では再計算できない。
 - native CI: 準備 head `f0b1d8aa37f3967ccc8c9a6bd6ca0e7b7fc7b3a0`（base `af523f9`、synthetic merge `f3232a4`）の [run 42596523199](https://github.com/Takazudo/zudo-led-block/actions/runs/42596523199) は全 job PASS。統合 head の結果は PR #44 の checks を参照。
 - artifact: 2026-11-09 の Forbidden は当時の観測。2026-11-11 に run 42596523199 の `native-infrastructure-evidence`（ID 13663737750、ZIP SHA-256 `33f3d9121164f364b0325540b161e9546ddf73c8b723c9166fdcd8a19867cf0e`、43 members）を取得できた。A7 候補は `a7-gate/summary.json` のみで、summary が hash を記録する `board_facts.json` / `board_geometry.json` は含まれない。これは保存範囲の不足で、別の CI 修正で扱う。`fresh_native_verified` は false のまま。
@@ -106,6 +106,6 @@ E1 CIログでは `ENABLED` は空でした（2026-11-09T09:35:50Z）。ただ�
 
 | 成果（2026-11-11 統合時） | SHA-256 |
 |---|---|
-| `engineering/a7/fixture/manifest.json` | `78c002bcf49a3af8f3ba5f4394ee8fe9328c38a3f07abec6ea7b282ab95445c4` |
+| `engineering/a7/fixture/manifest.json` | `52266a19a09d0f3c282da2297a4000f904044a4c0f0cb402c2822f1525a2f808` |
 | `engineering/a7/procurement/assembly-manifest.json` | `69033523efa1ec2da53093c6814c3522ef0264adbc084f1fac3c3980c86e3967` |
-| `engineering/a7/qualification/readiness.json` | `fe9bb13dba67ad8b298d57d31c50a14574a1edbc47d9ab290b263499789df48a` |
+| `engineering/a7/qualification/readiness.json` | `7bb5f9d8af782a5e07a81ef7d371c4afc829fee3e7a986393ee45d30f0e206df` |

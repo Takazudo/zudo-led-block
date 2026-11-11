@@ -60,7 +60,7 @@ class ReadinessTests(unittest.TestCase):
             raw = []
             for kind in m.REQUIRED_EVIDENCE[p['id']]:
                 f = self.root/(p['id']+'-'+kind+'.txt')
-                f.write_text('SYNTHETIC '+kind)
+                f.write_text('SYNTHETIC '+p['id']+' '+kind)
                 raw.append({'kind':kind, 'path':f.name, 'sha256':m.digest(f)})
             run.update(run_id=p['id']+'-synthetic', procedure=p['id'], evidence_kind='BENCH_RECORD',
                        synthetic=False, result='PASS', identities=ids, plan_sha256=ph,
@@ -70,6 +70,18 @@ class ReadinessTests(unittest.TestCase):
             valid_until='2026-11-10', identities=ids, available_for_proposed_order=True, source=self.receipts['material']) for k in m.MATERIALS]
         self.records['owner_prototype_route'] = dict(identities=ids, scope='synthetic', quantity='1', constraints='synthetic', approval=self.receipts['route'])
         self.records['manufacturing_release'] = dict(identities=ids, approval=self.receipts['release'], reviewed_order_files=self.receipts['order_files'])
+
+    def copy_of(self, role):
+        src = self.root/self.receipts[role]['path']
+        dst = self.root/('copy-of-'+src.name)
+        dst.write_bytes(src.read_bytes())
+        return {'path': dst.name, 'sha256': m.digest(dst)}
+
+    def test_non_list_raw_evidence_blocks(self):
+        self.fully_recorded_synthetic_case()
+        self.records['runs'][0]['raw_evidence'] = 7
+        r = self.evaluate()
+        self.assertEqual(r['order_eligibility'], 'BLOCKED')
 
     def test_one_receipt_cannot_serve_several_roles(self):
         self.fully_recorded_synthetic_case()
@@ -81,6 +93,10 @@ class ReadinessTests(unittest.TestCase):
                 dict(self.records['runs'][0]['raw_evidence'][0], kind='extra_kind')),
             'criterion review reused as raw evidence': lambda: self.records['runs'][0]['raw_evidence'].append(
                 dict(self.receipts['criterion'], kind='extra_kind')),
+            'dot-dot spelling of the execution review as route approval': lambda: self.records['owner_prototype_route'].update(
+                approval=dict(self.receipts['review'], path='sub/../'+self.receipts['review']['path'])),
+            'byte-identical copy of the release approval as order files': lambda: self.records['manufacturing_release'].update(
+                reviewed_order_files=self.copy_of('release')),
         }
         base = copy.deepcopy(self.records)
         for name, mutate in cases.items():

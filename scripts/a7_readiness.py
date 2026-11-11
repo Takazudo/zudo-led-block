@@ -191,16 +191,22 @@ def evaluate(root, plan, records, today=None):
     if not isinstance(release, dict) or release.get('identities') != binding or not raw_ok(release.get('approval'), root) or not raw_ok(release.get('reviewed_order_files'), root):
         reasons.append('reviewed manufacturing files and explicit revision-bound owner release absent')
     # One retained file cannot stand in for several approval roles, nor raw evidence for two procedures.
+    # Keyed on the resolved file and on its bytes, so '..' spellings or byte-identical copies cannot evade it.
     roles = {}
     def use(item, role):
         if isinstance(item, dict) and isinstance(item.get('path'), str):
-            roles.setdefault(str(Path(item['path'])), set()).add(role)
+            full = (root / item['path']).resolve()
+            roles.setdefault('file ' + str(full.relative_to(root.resolve()) if full.is_relative_to(root.resolve()) else full), set()).add(role)
+            content = digest(full) if full.is_file() else item.get('sha256')
+            if isinstance(content, str):
+                roles.setdefault('bytes ' + content, set()).add(role)
     for p in plan['procedures']:
         use(p.get('criterion_review'), 'criterion_review')
     for run in records['runs']:
         if isinstance(run, dict):
             use(run.get('review'), 'execution_review')
-            for x in run.get('raw_evidence') or []:
+            raw_items = run.get('raw_evidence')
+            for x in raw_items if isinstance(raw_items, list) else []:
                 use(x, 'raw:' + str(run.get('procedure')))
     for m in observations:
         if isinstance(m, dict):
