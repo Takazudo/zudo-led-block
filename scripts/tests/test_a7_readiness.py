@@ -241,6 +241,7 @@ class ExecutableProcedureTests(unittest.TestCase):
         self.assertEqual(self.item('harness-depth', 'power-tolerance')['confidence'], 'ASSUMED')
         self.assertEqual(self.item('harness-depth', 'power-tolerance')['value'], 3.0)
         self.assertEqual(self.item('jack-dimensions', 'axis-height')['confidence'], 'INFERRED')
+        self.assertEqual(self.item('harness-depth', 'power-band')['confidence'], 'ASSUMED')
         self.item('harness-depth', 'power-tolerance')['confidence'] = 'DESIGN'
         self.assertUntraceable('marks this value ASSUMED')
 
@@ -268,12 +269,47 @@ class ExecutableProcedureTests(unittest.TestCase):
         self.item('jack-continuity', 'threshold')['value'] = 1.0
         self.assertUntraceable('UNRESOLVED')
 
+    def test_plan_and_generated_files_cannot_be_cited(self):
+        a = self.item('harness-depth', 'depth-target')
+        a['source'] = {'path': str(m.QUAL/'plan.json'), 'quote': '30'}
+        a['value'] = '30'
+        self.assertUntraceable('not an allowed design source')
+
+    def test_component_facts_only_by_fact_id(self):
+        a = self.item('jack-dimensions', 'axis-height')
+        a['source'] = {'path': a['source']['path'], 'pointer': '/facts/0/value'}
+        a['confidence'] = 'DESIGN'
+        self.assertUntraceable('only by fact_id')
+
+    def test_any_stated_confidence_is_enforced(self):
+        a = self.item('jack-dimensions', 'axis-band')
+        a['confidence'] = 'DESIGN'
+        a.pop('confidence_trace')
+        self.assertUntraceable('marks this value INFERRED')
+
+    def test_quoted_assumption_cannot_become_design(self):
+        a = self.item('jack-dimensions', 'slot-drill')
+        a['confidence'] = 'DESIGN'
+        a.pop('confidence_trace')
+        self.assertUntraceable('quoted line marks this value ASSUMED')
+
+    def test_quote_value_must_be_a_whole_token(self):
+        self.item('jack-dimensions', 'slot-drill')['value'] = '1'
+        self.assertUntraceable('whole token')
+
+    def test_bound_is_required(self):
+        self.item('firmware-waveforms', 'reset').pop('bound')
+        self.assertUntraceable('bound must be')
+
     def test_record_template_must_match_evidence_kinds(self):
         self.proc('switch-fit')['record'].pop('switch_lot')
         self.assertUntraceable('record template')
 
     def test_owner_action_must_name_real_gates(self):
         self.plan['owner_actions'][0]['unblocks'].append('criterion:no-such-procedure')
+        self.assertUntraceable('unknown gate')
+        self.plan = json.loads((REPO/m.QUAL/'plan.json').read_text())
+        self.plan['owner_actions'][0]['unblocks'].append('assembly:no-such-blocker')
         self.assertUntraceable('unknown gate')
 
     def test_gates_partition_blockers_and_owner_gates_have_actions(self):

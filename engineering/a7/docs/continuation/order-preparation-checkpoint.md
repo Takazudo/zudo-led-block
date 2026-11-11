@@ -124,3 +124,4 @@ E1 CIログでは `ENABLED` は空でした（2026-11-09T09:35:50Z）。ただ�
 - **物理手順:** 19 手順に準備物、計器、実施前の条件、手順、raw 証跡の記録項目、受入値を追加。受入値は部品 fact・設計記録・引用と照合し、確度（SOURCED / MIRROR / UNVERIFIED / INFERRED / DESIGN / ASSUMED / UNRESOLVED）が出典と違えば生成が失敗する。`qualification/run-templates/` に手順ごとの記録雛形を生成。すべて NOT_MEASURED のまま。
 - **オーナーのチェックリスト:** `doc/src/content/docs/project/order-checklist.mdx`（生成物）に、オーナーにしかできない 10 項目と、それぞれが解除するゲートを記載。
 - readiness は 56 ゲート / 57 理由（以前は区分なしの 49 理由。増えたのは台帳の未解決事項を 1 件から 9 件に分けたため）。order gate は BLOCKED のまま。
+- 独立レビューの指摘を修正: 出典は部品 fact（fact_id のみ）と設計記録に限定し計画・生成物は引用不可、記録が値の隣に書く確度はすべて強制、引用行の ASSUMED/INFERRED も強制、引用値は語単位で一致、比較の向き `bound` を必須化、電源ケーブル範囲 54–60 mm を ASSUMED に訂正、ねじ噛み合い手順を rear-pocket 構成に合わせた、cv-thru-calibration をオーナー判断・partial-rails と fixture-contact を外部証跡待ちに再分類、リーフ間 SH4 のピン対応もネットリストから生成。

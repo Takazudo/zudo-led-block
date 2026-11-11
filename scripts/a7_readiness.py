@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 """A7 Workflow F preparation: valid BLOCKED reports are not release eligibility."""
 import argparse
+import re
 import datetime as dt
 import hashlib
 import json
@@ -31,6 +32,15 @@ CLASS_JA = {'CLOUD_DIGITAL': 'クラウドで進められるデジタル作業',
             'ACCESS_EVIDENCE_HOLD': '外部の証跡・アクセス待ち', 'PHYSICAL_ONLY': '実機が必要'}
 # DESIGN: a project design record; SOURCED/MIRROR/UNVERIFIED/INFERRED: derived from the cited fact.
 CONFIDENCES = ('SOURCED', 'MIRROR', 'UNVERIFIED', 'INFERRED', 'DESIGN', 'ASSUMED', 'UNRESOLVED')
+BOUNDS = ('exact', 'min', 'min_exclusive', 'max', 'range', 'reference')
+# Acceptance values may cite only design records and component facts, never this plan or generated outputs.
+SOURCE_ROOTS = ('engineering/a7/mechanical/', 'engineering/a7/study/', 'engineering/a7/electronics/',
+                'engineering/a7/verification/', 'engineering/a7/README.md', 'engineering/a5/')
+# Confidence words that JSON design records write beside a value, mapped to the label an acceptance item must use.
+STATED = {'ASSUMED': {'ASSUMED'}, 'INFERRED': {'INFERRED'}, 'MIRROR': {'MIRROR'}, 'DERIVED-MIRROR': {'MIRROR'},
+          'UNSOURCED': {'UNVERIFIED'}, 'UNVERIFIED': {'UNVERIFIED'}, 'SOURCED': {'DESIGN'}, 'PROJECT-CHOICE': {'DESIGN'},
+          'A5-GEOMETRY': {'DESIGN'}, 'MANUFACTURER_PRIMARY': {'DESIGN'}}
+FACTS = re.compile(r'^\.claude/skills/component-[a-z0-9-]+/facts\.json$')
 RUN_TEMPLATES = QUAL / 'run-templates'
 CHECKLIST = Path('doc/src/content/docs/project/order-checklist.mdx')
 PROCEDURE_LISTS = ('inputs', 'tools', 'preconditions', 'steps')
@@ -75,11 +85,17 @@ def artifact_errors(key, artifact, root):
 
 
 def fact_confidence(fact):
-    if 'INFERRED' in fact.get('conditions', ''):
+    conditions = fact.get('conditions', '')
+    if re.search(r'\binferred\b', conditions, re.I):
         return 'INFERRED'
-    if fact.get('provenance') == 'PRIMARY-SPEC':
+    provenance = fact.get('provenance')
+    if provenance == 'PRIMARY-SPEC' and str(fact.get('verdict', '')).startswith('PASS'):
         return 'SOURCED'
-    return 'MIRROR' if 'mirror' in fact.get('conditions', '').lower() else 'UNVERIFIED'
+    if provenance == 'PROJECT-CHOICE':
+        return 'DESIGN'
+    if provenance == 'UNVERIFIED' and re.search(r'MANUFACTURER_MIRROR|hosted mirror', conditions):
+        return 'MIRROR'
+    return 'UNVERIFIED'
 
 
 def resolve(trace, root):
@@ -89,14 +105,21 @@ def resolve(trace, root):
     full = (root / trace['path']).resolve()
     if not full.is_relative_to(root.resolve()) or not full.is_file():
         raise ValueError('trace path missing: ' + trace['path'])
+    rel = full.relative_to(root.resolve()).as_posix()
     forms = [k for k in ('fact_id', 'pointer', 'quote') if k in trace]
     if len(forms) != 1 or set(trace) != {'path', forms[0]}:
         raise ValueError('trace needs exactly one of fact_id, pointer or quote: ' + trace['path'])
+    if bool(FACTS.match(rel)) != ('fact_id' in trace):
+        raise ValueError('component facts are cited only by fact_id, and fact_id only cites component facts: ' + rel)
+    if not FACTS.match(rel) and not rel.startswith(SOURCE_ROOTS):
+        raise ValueError('not an allowed design source: ' + rel)
     if 'quote' in trace:
         text = full.read_text()
         if not isinstance(trace['quote'], str) or not trace['quote'] or trace['quote'] not in text:
             raise ValueError('quote not found in ' + trace['path'])
-        return trace['quote'], trace['quote'], None
+        line = next(l for l in text.splitlines() if trace['quote'] in l) if '\n' not in trace['quote'] else trace['quote']
+        stated = [w for w in ('ASSUMED', 'INFERRED') if w in line]
+        return trace['quote'], trace['quote'], stated
     data = json.loads(full.read_text())
     if 'fact_id' in trace:
         facts = [f for f in data.get('facts', []) if f.get('fact_id') == trace['fact_id']]
@@ -145,13 +168,21 @@ def acceptance_errors(procedure, root):
             errors.append(where + 'invalid confidence, criterion or unit')
             continue
         if a['confidence'] == 'UNRESOLVED':
-            if a.get('value') is not None or not text_fields(a, ['decided_by']) or 'source' in a:
+            if a.get('value') is not None or not text_fields(a, ['decided_by']) or 'source' in a or 'bound' in a:
                 errors.append(where + 'UNRESOLVED needs value null, decided_by and no source')
             continue
         try:
+            if a.get('bound') not in BOUNDS:
+                errors.append(where + 'bound must be one of ' + ', '.join(BOUNDS))
             got, quote, stated = resolve(a.get('source'), root)
-            if stated in ('ASSUMED', 'INFERRED') and a['confidence'] != stated:
-                errors.append(where + 'the cited record marks this value ' + stated)
+            if isinstance(stated, list):
+                if stated and a['confidence'] not in stated:
+                    errors.append(where + 'the quoted line marks this value ' + '/'.join(stated))
+            elif stated is not None:
+                if stated not in STATED:
+                    errors.append(where + 'unknown stated confidence ' + stated)
+                elif a['confidence'] not in STATED[stated]:
+                    errors.append(where + 'the cited record marks this value ' + stated)
             if isinstance(got, dict) and 'fact_id' in a['source']:
                 if (got.get('value'), got.get('unit')) != (a.get('value'), a['unit']):
                     errors.append(where + 'value/unit differs from the cited fact')
@@ -159,12 +190,12 @@ def acceptance_errors(procedure, root):
                     errors.append(where + 'confidence differs from the cited fact (' + fact_confidence(got) + ')')
             else:
                 if quote is not None:
-                    if not isinstance(a.get('value'), str) or a['value'] not in quote:
-                        errors.append(where + 'value is not in the cited quote')
+                    if not isinstance(a.get('value'), str) or not re.search(r'(?<![\w.])' + re.escape(a['value']) + r'(?![\w.])', quote):
+                        errors.append(where + 'value is not a whole token of the cited quote')
                 elif got != a.get('value'):
                     errors.append(where + 'value differs from the cited record')
-                if a['confidence'] not in ('DESIGN', 'ASSUMED', 'INFERRED'):
-                    errors.append(where + 'record citations are DESIGN, ASSUMED or INFERRED')
+                if a['confidence'] not in ('DESIGN', 'ASSUMED', 'INFERRED', 'MIRROR', 'UNVERIFIED'):
+                    errors.append(where + 'a design record cannot make a value SOURCED')
             if a['confidence'] in ('ASSUMED', 'INFERRED') and 'fact_id' not in a['source']:
                 marker = resolve(a.get('confidence_trace'), root)[0]
                 if a['confidence'] not in json.dumps(marker, ensure_ascii=False):
@@ -174,8 +205,11 @@ def acceptance_errors(procedure, root):
     return errors
 
 
-def gate_keys(plan):
-    keys = {'artifact:fixture', 'artifact:assembly_manifest', 'owner_prototype_route', 'manufacturing_release',
+def gate_keys(plan, root=ROOT):
+    manifest = root / IDENTITY_PATHS['assembly_manifest']
+    pending = json.loads(manifest.read_text()).get('blockers', []) if manifest.is_file() else []
+    keys = {'assembly:' + b['id'] for b in pending if isinstance(b, dict) and isinstance(b.get('id'), str)}
+    keys |= {'artifact:fixture', 'artifact:assembly_manifest', 'owner_prototype_route', 'manufacturing_release',
             'records:receipt-reuse', 'run:*'}
     keys |= {'material:' + k for k in MATERIALS}
     for p in plan['procedures']:
@@ -226,7 +260,7 @@ def schema(plan, records):
         if not text_fields(a, ['id', 'title', 'detail']) or not isinstance(a.get('unblocks'), list) or not a['unblocks']:
             raise ValueError('incomplete owner action')
         for g in a['unblocks']:
-            if not isinstance(g, str) or (g not in keys and not g.startswith('assembly:')):
+            if not isinstance(g, str) or g not in keys:
                 raise ValueError('owner action '+a['id']+' names unknown gate '+str(g))
     for key in ['runs', 'material_observations']:
         if not isinstance(records.get(key), list) or any(not isinstance(r, dict) for r in records[key]):
@@ -411,7 +445,8 @@ def markdown(plan, report):
              '雛形の identities と plan_sha256 は生成時点の値です。実施前に `python3 scripts/a7_readiness.py --check` が通ることを確認し、変わっていれば雛形を取り直します。'
              '失敗や再加工を上書きせず別 run として追加します。', '',
              '受入値の確度: SOURCED = メーカー一次資料、MIRROR = 販売店掲載の写し、UNVERIFIED = 出典が未確認の記録、INFERRED = 推定、DESIGN = このプロジェクトの設計記録、ASSUMED = 仮定、UNRESOLVED = 未決（決める主体を記載）。'
-             '値はすべて出典と照合済みで、照合できない値は生成時にエラーになります。', '',
+             '各値は出典の値と一致すること、確度が出典の記載（部品 fact の provenance、記録に並ぶ確度、引用行の ASSUMED / INFERRED）を超えないことを生成時に検査します。'
+             '出典は部品 fact と設計記録だけで、この計画や生成物は引用できません。範囲（min/max 等）の向きは人が出典を読んで付けたもので、自動照合していません。', '',
              '## 未実施の手順', '']
     for p in plan['procedures']:
         lines += ['### '+p['id']+' — '+p['title'], '', '- 関連: '+p['issues'], '- 概要: '+p['setup'],
@@ -422,10 +457,11 @@ def markdown(plan, report):
         lines += ['', '手順:', ''] + [str(i)+'. '+x for i, x in enumerate(p['steps'], 1)]
         lines += ['', '記録する raw 証跡（種別ごとに別ファイル）:', '', '| 種別 | 内容 |', '|---|---|']
         lines += ['| `'+k+'` | '+p['record'][k]+' |' for k in p['required_evidence_kinds']]
-        lines += ['', '受入値:', '', '| ID | 基準 | 値 | 単位 | 確度 | 出典 / 決める主体 |', '|---|---|---|---|---|---|']
+        lines += ['', '受入値（範囲: exact = 一致、min / max = 下限 / 上限、min_exclusive = この値を超える、range = 範囲内、reference = 比較の参照値）:', '',
+                  '| ID | 基準 | 値 | 範囲 | 単位 | 確度 | 出典 / 決める主体 |', '|---|---|---|---|---|---|---|']
         for a in p['acceptance']:
             where = a['decided_by'] if a['confidence'] == 'UNRESOLVED' else trace_text(a['source'])
-            lines.append('| '+a['id']+' | '+a['criterion']+' | '+show(a['value']).replace('|', '\\|')+' | '+a['unit']+' | '+a['confidence']+' | '+where.replace('|', '\\|')+' |')
+            lines.append('| '+a['id']+' | '+a['criterion']+' | '+show(a['value']).replace('|', '\\|')+' | '+a.get('bound', '—')+' | '+a['unit']+' | '+a['confidence']+' | '+where.replace('|', '\\|')+' |')
         lines.append('')
     lines += ['## ゲートの区分', '', '| 区分 | ゲート数 |', '|---|---:|']
     lines += ['| '+c+'（'+CLASS_JA[c]+'） | '+str(report['gate_counts'][c])+' |' for c in CLASSES]
@@ -439,7 +475,7 @@ def run_template(plan, report, procedure):
     template.update(procedure=procedure['id'], identities={k: v['sha256'] for k, v in report['identities'].items()},
                     plan_sha256=report['plan_sha256'],
                     raw_evidence=[{'kind': k, 'path': None, 'sha256': None} for k in procedure['required_evidence_kinds']],
-                    acceptance_checklist=[{'id': a['id'], 'criterion': a['criterion'], 'expected': a['value'], 'unit': a['unit'],
+                    acceptance_checklist=[{'id': a['id'], 'criterion': a['criterion'], 'expected': a['value'], 'bound': a.get('bound'), 'unit': a['unit'],
                                            'confidence': a['confidence'], 'observed': None, 'verdict': None} for a in procedure['acceptance']])
     return json.dumps(template, indent=2, ensure_ascii=False)+'\n'
 
@@ -447,13 +483,14 @@ def run_template(plan, report, procedure):
 def mdx(text):
     out, code = [], False
     for part in text.split('`'):
-        out.append(part if code else part.replace('{', '&#123;').replace('}', '&#125;').replace('<', '&lt;').replace('>', '&gt;'))
+        out.append(part.replace('|', '\\|') if code else part.replace('{', '&#123;').replace('}', '&#125;').replace('<', '&lt;').replace('>', '&gt;').replace('|', '\\|'))
         code = not code
     return '`'.join(out)
 
 
 def checklist(plan, report):
     gates = {g['gate']: g for g in report['gates']}
+    known = gate_keys(plan)
     def covers(pattern):
         return [g for k, g in gates.items() if k == pattern or (pattern == 'run:*' and k.startswith('run:'))]
     lines = ['---', '# GENERATED by scripts/a7_readiness.py from engineering/a7/qualification/ — do not edit; run `python3 scripts/a7_readiness.py`',
@@ -469,6 +506,8 @@ def checklist(plan, report):
         names = []
         for pattern in a['unblocks']:
             hit = covers(pattern)
+            if pattern not in known:
+                raise ValueError('owner action '+a['id']+' names unknown gate '+pattern)
             if pattern == 'run:*':
                 names.append('`run:*`（'+str(len(hit))+' 手順が未実施）')
             else:

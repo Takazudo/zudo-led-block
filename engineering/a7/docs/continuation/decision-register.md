@@ -21,4 +21,4 @@
 
 #11 hosting、#12 agentページ公開の判断、A6 #7/PR #14 のholdは、この作業で変更しません。
 
-2026-11-11 W3: 「基準が未決の物理試験」は、手順ごとに `criterion_class` で、クラウドで作れる条件表（power-current、cv-thru-calibration、startup-reset、partial-rails、u7-stress、fixture-contact）、オーナーの判断、外部の証跡待ちに分けました。オーナーが決める項目は `/docs/project/order-checklist/` の O1–O10 です。エージェントは数値を創作せず、出典のない合否値は UNRESOLVED のままです。
+2026-11-11 W3: 「基準が未決の物理試験」は、手順ごとに `criterion_class` で、クラウドで作れる条件表（power-current、startup-reset、u7-stress）、オーナーの判断（cv-thru-calibration の許容誤差を含む）、外部の証跡待ち（partial-rails の STM32 注入電流、fixture-contact のプローブ仕様など）に分けました。オーナーが決める項目は `/docs/project/order-checklist/` の O1–O10 です。エージェントは数値を創作せず、出典のない合否値は UNRESOLVED のままです。

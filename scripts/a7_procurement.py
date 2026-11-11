@@ -20,6 +20,9 @@ HARNESS = 'engineering/a5/integration/harness_contract_A5.md'
 # Gate classes shared with scripts/a7_readiness.py (what can resolve a blocker).
 # Harness contract: controller J3 DATA_L/DATA_R arrive on the left leaf's J1 as its own and the other leaf's data.
 SH4_NET_ROLES = {'DATA_L': 'DATA_IN', 'DATA_R': 'DATA_OTHER'}
+# Harness contract: each leaf swaps the data lines in copper (J1.4 -> J2.3, J1.3 -> J2.4), so a 1:1 cable
+# carries the left leaf's DATA_OTHER to the right leaf's DATA_IN.
+LEAF_LINK_NET_ROLES = {'DATA_OTHER': 'DATA_IN', 'DATA_IN': 'DATA_OTHER'}
 CLASSES = ('CLOUD_DIGITAL', 'OWNER_DECISION', 'ACCESS_EVIDENCE_HOLD', 'PHYSICAL_ONLY')
 BOARDS = {
  'controller': (1, 'engineering/a7/verification/schematic/netlist.xml', 'engineering/a7/electronics/controller/controller.kicad_pcb'),
@@ -205,7 +208,7 @@ def generate(root=ROOT):
  external += [
   {'id':'finished-sh4','quantity_per_module':2,'pin_maps':{
     'controller J3 -> left leaf J1':cable_pin_map(root,BOARDS['controller'][1],'J3',BOARDS['led_leaf'][1],'J1',False,SH4_NET_ROLES),
-    'left leaf J2 -> right leaf J1 (net names are per-leaf; copper swaps data lines)':[{'a_pin':i,'b_pin':i} for i in range(1,5)]},'candidate':'Adafruit 4399 / Kaweei CBH-100-04-050-A','requirement':'Finished 50 mm SH4 AWG28 1:1; controller J3 to left J1, left J2 to right J1. Incoming construction/length and real route unqualified.','source':'engineering/a5/integration/harness_contract_A5.md','commercial_observation':None},
+    'left leaf J2 -> right leaf J1':cable_pin_map(root,BOARDS['led_leaf'][1],'J2',BOARDS['led_leaf'][1],'J1',False,LEAF_LINK_NET_ROLES)},'candidate':'Adafruit 4399 / Kaweei CBH-100-04-050-A','requirement':'Finished 50 mm SH4 AWG28 1:1; controller J3 to left J1, left J2 to right J1. Incoming construction/length and real route unqualified.','source':'engineering/a5/integration/harness_contract_A5.md','commercial_observation':None},
   {'id':'finished-power-cable','quantity_per_module':1,'exact_orderable':None,'requirement':layout['power_cable_requirement'],'source':LAYOUT,
    'pin_map':cable_pin_map(root,BOARDS['controller'][1],'J5',BOARDS['power_adapter'][1],'J2',True),
    'status':'BLOCKED: exact finished assembly not selected; historical Molex 151340300 50±6 mm is not the A7 cable','commercial_observation':None},

@@ -2,11 +2,11 @@
 
 Workflow F (`circuit/WORKFLOW.md`) の小さなプロジェクト専用記録です。現在、実機、測定、製造承認、発注はありません。
 
-- `plan.json`: 手書きの手順と未決の判定基準。数値を埋めるための仮定は追加していません。
+- `plan.json`: 手書きの手順と未決の判定基準。受入値は既存の部品 fact と設計記録からの引用だけで、新しい仮定は追加していません（引用元が仮定としている値は ASSUMED と表示します）。
 - `records.json`: 実施記録の追記先。現在は空です。試験結果を入力する前に根拠付き基準をレビューします。
 - `run-template.json`: 未実施テンプレート。コピー先でunit/基板/実装/FW/設定、計器、条件、raw、結果と次の行動を埋めます。
 - `readiness.json`, `procedures.md`, `run-templates/<手順ID>.json`, `doc/src/content/docs/project/order-checklist.mdx`: `python3 scripts/a7_readiness.py` の生成物。手編集しません。
-- `plan.json` の各手順は inputs / tools / preconditions / steps / record / acceptance を持ちます。acceptance の値は `source`（部品 fact の `fact_id`、JSON の `pointer`、文書の `quote`）と一致しなければならず、確度は出典から決まります（部品 fact の provenance、記録に並ぶ `*_confidence`）。ASSUMED / INFERRED は `confidence_trace` でその記載を示します。出典のない合否値は `UNRESOLVED` とし、`decided_by` に決める主体を書きます。
+- `plan.json` の各手順は inputs / tools / preconditions / steps / record / acceptance を持ちます。acceptance の値は `source`（部品 fact の `fact_id`、JSON の `pointer`、文書の `quote`）と一致しなければならず、確度は出典の記載を超えられません（部品 fact の provenance と verdict、JSON 記録で値の隣にある確度、引用行の ASSUMED / INFERRED）。出典は部品 fact（`fact_id` だけ）と設計記録（`engineering/a7/` の mechanical / study / electronics / verification と README、`engineering/a5/`）に限り、この計画や生成物は引用できません。`bound`（exact / min / min_exclusive / max / range / reference）は人が出典を読んで付けた比較の向きで、自動照合はしていません。ASSUMED / INFERRED は `confidence_trace` でその記載を示します。出典のない合否値は `UNRESOLVED` とし、`decided_by` に決める主体を書きます。
 - `criterion_class` と `owner_actions` は、readiness の各ゲートを CLOUD_DIGITAL / OWNER_DECISION / ACCESS_EVIDENCE_HOLD / PHYSICAL_ONLY に分け、オーナーの作業と結び付けます。
 - `supplier-questions.md`: 未送信の質問。送信や発注の承認ではありません。
 

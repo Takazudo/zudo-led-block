@@ -124,6 +124,9 @@ class LedgerTests(unittest.TestCase):
                    [(1,3,'+12V_RAW'),(2,2,'GND'),(3,1,'-12V_RAW')])
   sh4=ext['finished-sh4']['pin_maps']['controller J3 -> left leaf J1']
   self.assertEqual([(r['a_net'],r['b_net']) for r in sh4],[('GND','GND'),('VLED','VLED'),('DATA_L','DATA_IN'),('DATA_R','DATA_OTHER')])
+  link=ext['finished-sh4']['pin_maps']['left leaf J2 -> right leaf J1']
+  self.assertEqual([(r['a_pin'],r['b_pin'],r['a_net'],r['b_net']) for r in link],
+                   [(1,1,'GND','GND'),(2,2,'VLED','VLED'),(3,3,'DATA_OTHER','DATA_IN'),(4,4,'DATA_IN','DATA_OTHER')])
   real=P.pin_nets
   def reversed_adapter(root,netlist,ref):
    nets=real(root,netlist,ref)

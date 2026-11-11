@@ -2681,22 +2681,30 @@
             "b_net": "DATA_OTHER"
           }
         ],
-        "left leaf J2 -> right leaf J1 (net names are per-leaf; copper swaps data lines)": [
+        "left leaf J2 -> right leaf J1": [
           {
             "a_pin": 1,
-            "b_pin": 1
+            "b_pin": 1,
+            "a_net": "GND",
+            "b_net": "GND"
           },
           {
             "a_pin": 2,
-            "b_pin": 2
+            "b_pin": 2,
+            "a_net": "VLED",
+            "b_net": "VLED"
           },
           {
             "a_pin": 3,
-            "b_pin": 3
+            "b_pin": 3,
+            "a_net": "DATA_OTHER",
+            "b_net": "DATA_IN"
           },
           {
             "a_pin": 4,
-            "b_pin": 4
+            "b_pin": 4,
+            "a_net": "DATA_IN",
+            "b_net": "DATA_OTHER"
           }
         ]
       },

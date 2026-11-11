@@ -14,9 +14,9 @@ readiness（`engineering/a7/qualification/readiness.json`）は不足を 56 個�
 
 | 区分 | ゲート数 |
 |---|---:|
-| クラウドで進められるデジタル作業 | 8 |
-| オーナーの判断 | 15 |
-| 外部の証跡・アクセス待ち | 13 |
+| クラウドで進められるデジタル作業 | 5 |
+| オーナーの判断 | 16 |
+| 外部の証跡・アクセス待ち | 15 |
 | 実機が必要 | 20 |
 
 ## オーナーにしかできないこと
@@ -29,7 +29,7 @@ readiness（`engineering/a7/qualification/readiness.json`）は不足を 56 個�
 | O4 | PCM13SMTR の在庫 0 への対応を決める | 入荷を待つ、別の販売店から買う、または接点表と適合を別にレビューした代替品を認める（Q10）。 | `assembly:switch-supply`（BLOCKED） |
 | O5 | 完成ケーブルを選び、電源ケーブル公差 ±3 mm（仮定）を認めるか決める | 電源 57 mm の公差は仮定。供給元が保証できる公差と組立の選択を決める。SH4 と IDC リボンも同じ。 | `assembly:finished-cables`（BLOCKED）、`criterion:harness-depth`（BLOCKED） |
 | O6 | ラック締結部品を指定する | 使うラックのレール・ねじ規格。 | `assembly:rack-hardware`（BLOCKED） |
-| O7 | オーナーが決める合否基準を決める | 見え方・温度、繰返し回数と損傷、短絡試験で許す破損、ノイズ許容値、5 V 監視の要否。 | `criterion:thermal-optical`（BLOCKED）、`criterion:service-envelope`（BLOCKED）、`criterion:load-short`（BLOCKED）、`criterion:cv-noise`（BLOCKED）、`criterion:rail-collapse`（BLOCKED）、`criterion:jack-continuity`（BLOCKED） |
+| O7 | オーナーが決める合否基準を決める | 見え方・温度、繰返し回数と損傷、短絡試験で許す破損、CV の許容誤差とノイズ許容値、5 V 監視の要否。 | `criterion:thermal-optical`（BLOCKED）、`criterion:service-envelope`（BLOCKED）、`criterion:load-short`（BLOCKED）、`criterion:cv-noise`（BLOCKED）、`criterion:rail-collapse`（BLOCKED）、`criterion:jack-continuity`（BLOCKED）、`criterion:cv-thru-calibration`（BLOCKED） |
 | O8 | LED タイミング (#13) の扱いを決める | データシートの T1L 580–1000 ns と FW の 220–420 ns の矛盾。メーカー訂正を待つか、購入ロットの実測で別レビューするか。 | `criterion:firmware-waveforms`（BLOCKED） |
 | O9 | 物理手順を実施して記録する | 19 手順はすべて実機が必要。`run-templates/` の雛形をコピーし、raw ファイルとハッシュを付けて `records.json` に追加する。 | `run:*`（19 手順が未実施） |
 | O10 | 製造リリースと発注を明示的に承認する | レビュー済み製造ファイル、数量、版に結び付いた承認。上のすべてが揃った後。 | `manufacturing_release`（BLOCKED）、`assembly:prototype-and-release`（BLOCKED） |
@@ -40,11 +40,8 @@ readiness（`engineering/a7/qualification/readiness.json`）は不足を 56 個�
 
 - `artifact:fixture`: fixture digital design incomplete or unverified
 - `assembly:fixture-materials`: assembly_manifest: fixture-materials: Fixture design and materials incomplete (see fixture manifest); physical contact/load tests follow.
-- `criterion:fixture-contact`: fixture-contact: criterion unresolved or review receipt missing
 - `criterion:power-current`: power-current: criterion unresolved or review receipt missing
-- `criterion:cv-thru-calibration`: cv-thru-calibration: criterion unresolved or review receipt missing
 - `criterion:startup-reset`: startup-reset: criterion unresolved or review receipt missing
-- `criterion:partial-rails`: partial-rails: criterion unresolved or review receipt missing
 - `criterion:u7-stress`: u7-stress: criterion unresolved or review receipt missing
 
 ## 物理手順
