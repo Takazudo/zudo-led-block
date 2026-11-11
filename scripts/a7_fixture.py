@@ -144,12 +144,17 @@ def report():
         'Receptacle drawing diameter 0.96 mm versus PDF table 0.95 mm; the bore follows the 0.98-1.00 mm FR-4 mounting-hole data, resolve before selection.',
     ]
     physical_items = ['No physical fit, contact, insertion-force or measured stroke evidence; no prototype exists; every acceptance measurement in b_side_relief is a requirement, not a result.']
-    complete = fresh and all(completion[k]['met'] for k in digital) and not blockers
+    digital_met = fresh and all(completion[k]['met'] for k in digital) and not blockers
+    # the documented flag keeps every criterion, including the physical criterion 5
+    complete = digital_met and all(c['met'] for c in completion.values())
     files = (BOARD, CANONICAL, Path(__file__).resolve(), Path(relief_design.__file__).resolve(), Path(relief_assembly.__file__).resolve(),
              relief_design.POPULATION, OUT/'sources.json', OUT/'materials.json', OUT/'candidate-references.json')
     return dict(
         schema=2, status='DIGITAL_DESIGN_VERIFIED' if complete else 'BLOCKED', digital_fixture_complete=complete,
-        digital_fixture_complete_scope='criteria 1-4 (digital); criterion 5 is physical and is never closed here',
+        digital_fixture_complete_scope='README completion criteria 1-5, including the physical criterion 5',
+        digital_criteria_1_to_4_met=digital_met,
+        digital_criteria_1_to_4_met_scope='progress indicator only: README criteria 1-4 met digitally with no digital blocker; it is not '
+                                          'digital_fixture_complete, not a fit result and not order eligibility',
         scope='Digital fixture design: support carrier, probe plate, pressure plate, base plate and hardware envelopes with the assembly STEP and '
               'interference check; not a fit result, not a selection and not a fabrication approval',
         board_sha256=digest(BOARD), placement_sha256=digest(CANONICAL), geometry_sha256=p['geometry_sha256'],

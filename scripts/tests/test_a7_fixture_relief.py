@@ -293,8 +293,20 @@ class CompletionTests(unittest.TestCase):
         self.assertFalse(cc['5_physical_tests']['met'])
         self.assertEqual(r['status'], 'BLOCKED')
         self.assertFalse(r['digital_fixture_complete'])
+        self.assertFalse(r['digital_criteria_1_to_4_met'])
         self.assertEqual(len(r['blockers']), 1)
         self.assertIn('J5', r['blockers'][0])
+
+    def test_criterion_5_keeps_gating_the_documented_flag(self):
+        r = f.report()
+        with unittest.mock.patch.object(f, 'assembly_status', return_value=(True, 'ok', None)), \
+                unittest.mock.patch.dict(rl.SOURCES['PicoBlade 530470310'], {'class': 'SOURCE_DERIVED'}):
+            r2 = f.report()
+        self.assertTrue(r2['digital_criteria_1_to_4_met'])
+        self.assertFalse(r2['completion_criteria']['5_physical_tests']['met'])
+        self.assertFalse(r2['digital_fixture_complete'])
+        self.assertEqual(r2['status'], 'BLOCKED')
+        self.assertIn('not order eligibility', r['digital_criteria_1_to_4_met_scope'])
 
     def test_a_design_change_invalidates_the_assembly_check(self):
         with unittest.mock.patch.dict(rl.SOURCES['PicoBlade 530470310'], {'class': 'SOURCE_DERIVED'}):
