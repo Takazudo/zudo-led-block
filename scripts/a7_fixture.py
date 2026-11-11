@@ -68,7 +68,7 @@ def native_probe_pads(pads):
             raise ValueError(f"{pad['ref']}: native pad differs from the fixture probe map")
     prov = rec['provenance']
     return {'record': str(path.relative_to(ROOT)), 'record_sha256': digest(path), 'status': rec['status'],
-            'github_run_id': prov['identity']['github_run_id'], 'pr_head_sha': prov['identity']['pr_head_sha'],
+            'github_run_id': prov['identity']['github_run_id'], 'tested_revision': prov['identity'].get('pr_head_sha') or prov['identity'].get('checkout_head'),
             'artifact_zip_sha256': prov['artifact_zip_sha256'], 'probe_pads_match': True,
             'scope': 'Native KiCad pad facts confirm the five probe pads (B side, round 1 mm, B.Cu/B.Mask, position, net). Native courtyard/footprint boxes are available for clearance design but not yet used by this carrier study; body heights and solder envelopes are not native facts.'}
 

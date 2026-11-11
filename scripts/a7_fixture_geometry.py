@@ -10,9 +10,16 @@ against the current PCB bytes and the canonical placement export.
 
 Conventions (from the extractor): KiCad absolute board coordinates in mm, +X right, +Y down,
 rotation in degrees counter-clockwise as displayed by KiCad, back-side items reported in
-board coordinates as seen from the front. The consumer proves the transform pad = footprint
-origin + R(rotation) * fp_relative for every pad and the face/layer agreement, so a wrong face
-or mirrored transform fails.
+board coordinates as seen from the front. The consumer checks the footprint set, face, origin,
+rotation and numbered pads against the canonical placement, each footprint's pad count against
+the PCB text, SMD copper on the footprint face, pad boxes against pad size, and the internal
+consistency pad = origin + R(rotation) * fp_relative (KiCad derives fp_relative from the same
+data, so that last check only catches inconsistent edits; face errors are caught by the side
+and copper checks).
+
+`--check` proves the record is current for this PCB and placement and internally consistent.
+It cannot prove provenance of a record whose member hash was recomputed after an edit; that
+is established once, by `--from-zip` on the retained artifact, and by review of the record diff.
 
 Courtyard and footprint boxes are CAD extents; they are not body height, solder envelope,
 manufacturing tolerance or measured fit. Absent geometry stays null and is listed as unknown.
@@ -24,6 +31,7 @@ import argparse
 import hashlib
 import json
 import math
+import re
 import sys
 from pathlib import Path
 
@@ -37,9 +45,10 @@ BOARD = ROOT / 'engineering/a7/electronics/controller/controller.kicad_pcb'
 PLACEMENT = BOARD.with_name('board_placement.json')
 RECORD = ROOT / 'engineering/a7/fixture/native-geometry.json'
 MEMBER = 'evidence/a7_controller/fixture_geometry.json'
-TOL_MM = 2e-4
+TOL_MM = 1e-3  # board text keeps 4-decimal coordinates; rounding through rotation stays well below 1 um
 PAD_FIELDS = ('number', 'net', 'at_mm', 'fp_relative_mm', 'shape', 'size_mm', 'bbox_mm', 'rotation_deg', 'layers', 'attribute')
 CU = {'F': 'F.Cu', 'B': 'B.Cu'}
+ATTRIBUTES = {'SMD', 'PTH', 'NPTH', 'CONN'}
 
 
 def sha(b: bytes) -> str:
@@ -61,7 +70,20 @@ def _pt(v) -> bool:
     return isinstance(v, list) and len(v) == 2 and all(_num(c) for c in v)
 
 
-def check_geometry(fx: dict, board_sha: str, placement: dict) -> tuple[list[str], list[str]]:
+def _box(v) -> bool:
+    return isinstance(v, list) and len(v) == 4 and all(_num(c) for c in v) and v[0] <= v[2] and v[1] <= v[3]
+
+
+def board_pad_counts(board_text: str) -> dict[str, int]:
+    out = {}
+    for block in board_text.split('\n\t(footprint ')[1:]:
+        m = re.search(r'\(property "Reference" "([^"]+)"', block)
+        if m:
+            out[m.group(1)] = len(re.findall(r'\n\t\t\(pad ', block))
+    return out
+
+
+def check_geometry(fx: dict, board_sha: str, placement: dict, pad_counts: dict | None = None) -> tuple[list[str], list[str]]:
     """Return (errors, unknowns). Errors mean wrong, stale or incomplete evidence."""
     errors: list[str] = []
     unknowns: list[str] = []
@@ -105,10 +127,15 @@ def check_geometry(fx: dict, board_sha: str, placement: dict) -> tuple[list[str]
         if not isinstance(pads, list) or not pads:
             errors.append(f'{ref}: pads missing')
             continue
+        if pad_counts is not None and pad_counts.get(ref) != len(pads):
+            errors.append(f'{ref}: pad count {len(pads)} differs from the PCB ({pad_counts.get(ref)})')
         seen = {}
         for pd in pads:
             if not isinstance(pd, dict) or any(k not in pd for k in PAD_FIELDS):
                 errors.append(f'{ref}: pad record missing required fields')
+                continue
+            if not isinstance(pd['number'], str) or not isinstance(pd['net'], str):
+                errors.append(f'{ref}: pad number/net malformed')
                 continue
             tag = f"{ref}.{pd['number']}"
             if not _pt(pd['at_mm']) or not _pt(pd['fp_relative_mm']) or not _num(pd['rotation_deg']):
@@ -121,8 +148,15 @@ def check_geometry(fx: dict, board_sha: str, placement: dict) -> tuple[list[str]
             if not (isinstance(bb, list) and len(bb) == 4 and all(_num(v) for v in bb) and bb[0] < bb[2] and bb[1] < bb[3]
                     and bb[0] - TOL_MM <= pd['at_mm'][0] <= bb[2] + TOL_MM and bb[1] - TOL_MM <= pd['at_mm'][1] <= bb[3] + TOL_MM):
                 errors.append(f'{tag}: pad copper box missing or does not contain the pad position')
+            elif pd['shape'] != 'CUSTOM' and _pt(pd['size_mm']) and round(pd['rotation_deg']) % 90 == 0 \
+                    and abs(pd['rotation_deg'] - round(pd['rotation_deg'])) < 1e-6:
+                w, h = pd['size_mm'] if round(pd['rotation_deg']) % 180 == 0 else pd['size_mm'][::-1]
+                if abs(bb[2] - bb[0] - w) > TOL_MM or abs(bb[3] - bb[1] - h) > TOL_MM:
+                    errors.append(f'{tag}: pad copper box disagrees with pad size')
+            if pd['attribute'] not in ATTRIBUTES:
+                errors.append(f'{tag}: pad attribute missing or unknown')
             layers = pd['layers']
-            if not isinstance(layers, list) or not layers:
+            if not isinstance(layers, list) or not layers or not all(isinstance(l, str) for l in layers):
                 errors.append(f'{tag}: pad layers missing')
                 continue
             want = [a + b for a, b in zip(f['at_mm'], rotate(pd['fp_relative_mm'], f['rotation_deg']))]
@@ -141,10 +175,14 @@ def check_geometry(fx: dict, board_sha: str, placement: dict) -> tuple[list[str]
         if set(seen) != set(c.get('pads') or {}):
             errors.append(f'{ref}: numbered pad set differs from canonical placement')
         crt = f.get('courtyard_bbox_mm')
-        if not isinstance(crt, dict) or crt.get(f['side']) is None:
+        if not isinstance(crt, dict) or set(crt) != {'F', 'B'} or any(v is not None and not _box(v) for v in crt.values()):
+            errors.append(f'{ref}: courtyard boxes malformed')
+        elif crt[f['side']] is None:
             unknowns.append(f'{ref}: courtyard on its face not available')
         if f.get('footprint_bbox_mm') is None:
             unknowns.append(f'{ref}: footprint extents not available')
+        elif not _box(f['footprint_bbox_mm']):
+            errors.append(f'{ref}: footprint box malformed')
         if f.get('body_height_mm') is not None:
             errors.append(f'{ref}: body height must not be asserted from CAD extraction')
     return errors, unknowns
@@ -162,7 +200,7 @@ def from_zip(zip_path: Path, expect_revision: str, expect_run_id: str, expect_ru
         raise ValueError(f'artifact lacks a7-gate/{MEMBER}')
     fx = json.loads(members[MEMBER])
     placement = json.loads(PLACEMENT.read_text())
-    errors, unknowns = check_geometry(fx, board_sha, placement)
+    errors, unknowns = check_geometry(fx, board_sha, placement, board_pad_counts(BOARD.read_text()))
     if errors:
         raise ValueError('fixture geometry rejected: ' + '; '.join(errors[:10]))
     return {'schema': RECORD_SCHEMA, 'status': 'NATIVE_GEOMETRY_VALIDATED', 'board_sha256': board_sha,
@@ -189,7 +227,13 @@ def check_record(rec: dict) -> list[str]:
     fx = rec.get('geometry')
     if (prov.get('members_sha256') or {}).get(MEMBER) != sha((json.dumps(fx, indent=1, sort_keys=True) + '\n').encode()):
         errs.append('record geometry differs from the retained artifact member')
-    e, unknowns = check_geometry(fx, board_sha, json.loads(placement_bytes))
+    image = json.loads((ROOT / art.PROFILE).read_text())['image']
+    if prov.get('image') != image or not isinstance(fx, dict) or f":{fx.get('kicad_build_version')}@" not in image:
+        errs.append('record image/KiCad version differs from the pinned native profile')
+    try:
+        e, unknowns = check_geometry(fx, board_sha, json.loads(placement_bytes), board_pad_counts(BOARD.read_text()))
+    except (TypeError, AttributeError, KeyError, ValueError) as ex:
+        return errs + [f'record geometry malformed: {type(ex).__name__}']
     errs += e
     if rec.get('unknowns') != unknowns:
         errs.append('record unknowns list differs from the geometry')
