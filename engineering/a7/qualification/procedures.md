@@ -81,7 +81,7 @@
 
 提案の理由（PROPOSED は採否前で、この手順の基準ゲートを解除しません）:
 
-- `closed-max`: 接点抵抗は CV_THRU と R1+R2 (20 MΩ) の直列に入る。その誤差 Rc/(R1+R2) が FW の不感帯 50 mV / 5000 mV（1 %）を超えない上限。健全な接点はこれより何桁も小さく、判定を分けるには十分。より厳しい値にするかは採否で決める。
+- `closed-max`: 端子の対応を見分けるための閾値。この基板の入力 R1+R2 (20 MΩ) に対する誤差 Rc/(R1+R2) が FW の不感帯 50 mV / 5000 mV（1 %）を超えない上限。ただし CV_THRU は J2 から下流のモジュールも駆動し、その入力抵抗は資料がないので、接点品質の上限にはならない（独立レビュー指摘。下流 100 kΩ なら 200 kΩ で大きな誤差）。接点品質の上限は別に決める。
 - `open-min`: 開放側の漏れがモジュール自身の入力抵抗 (R1+R2 = 20 MΩ) 以上なら、CV_THRU への追加負荷は入力そのもの以下で、機能上は開放と同じ。計器のレンジがこれに届かなければ採否で下げる。
 
 ### jack-dimensions — ジャック軸・スロット・端子・ナット
@@ -450,9 +450,9 @@
 - 関連:  #10
 - 概要: 電流制限電源、全レール電圧/電流計測、左右LEDの規定負荷。
 - 根拠: `engineering/a5/integration/independent_review`
-- 未決: 受入値は部品資料・ネットリスト・FW 定数から導出し、生成時に再計算で照合している。採用のレビュー記録（criterion_review）がまだない。（区分: オーナーの判断）
+- 基準: 採用済み（プロジェクトのコーディネーター（オーナーが委ねた作業方針による）、記録 `engineering/a7/qualification/reviews/2026-11-11-coordinator-criteria-acceptance.md`）
 - 観測: NOT_MEASURED。結果: NOT_RUN。
-- 次: 導出した受入値をレビューして採否を記録する（コーディネーターかオーナー）。その後に実機で手順を実施する。
+- 次: 基準はコーディネーターが採用済み（オーナー本人ではない）。実機で手順を実施して記録する。
 
 準備するもの:
 
@@ -533,9 +533,9 @@
 - 関連:  #10
 - 概要: 校正したCV源と計測器、IN/THRU/ADCを同時測定。
 - 根拠: `engineering/a7/electronics/README.md`
-- 未決: 誤差/直線性/校正残差の採否値と測定不確かさが未決。（区分: オーナーの判断）
+- 基準: 採用済み（プロジェクトのコーディネーター（オーナーが委ねた作業方針による）、記録 `engineering/a7/qualification/reviews/2026-11-11-coordinator-criteria-acceptance.md`）
 - 観測: NOT_MEASURED。結果: NOT_RUN。
-- 次: 不足する基準をレビューし、オーナー承認の試作ルート確定後に実物で実施。
+- 次: 基準はコーディネーターが採用済み（オーナー本人ではない）。実機で手順を実施して記録する。
 
 準備するもの:
 
@@ -574,13 +574,13 @@
 |---|---|---|---|---|---|---|
 | transfer | ADC 入力の伝達式 | `"VADC=(100/133)*(VDD/2+CV/8)"` | reference | NONE | DESIGN | `engineering/a7/electronics/README.md` 引用 |
 | vdd-accuracy | VDD (3.3 V LDO) の出力精度 | `1` | max | % | SOURCED | `.claude/skills/component-tlv75533pdbvr/facts.json` `fact-tlv75533pdbvr-output-accuracy` |
-| adc-m5-min | CV = -5 V での未校正 V(CV_ADC) の下限 | `0.634` | min | V | PROPOSED（根拠 CALCULATED） | 計算 `V`（内訳は下） |
-| adc-m5-max | CV = -5 V での未校正 V(CV_ADC) の上限 | `0.911` | max | V | PROPOSED（根拠 CALCULATED） | 計算 `V`（内訳は下） |
-| adc-0-min | CV = 0 V での未校正 V(CV_ADC) の下限 | `1.111` | min | V | PROPOSED（根拠 CALCULATED） | 計算 `V`（内訳は下） |
-| adc-0-max | CV = 0 V での未校正 V(CV_ADC) の上限 | `1.374` | max | V | PROPOSED（根拠 CALCULATED） | 計算 `V`（内訳は下） |
-| adc-p5-min | CV = 5 V での未校正 V(CV_ADC) の下限 | `1.577` | min | V | PROPOSED（根拠 CALCULATED） | 計算 `V`（内訳は下） |
-| adc-p5-max | CV = 5 V での未校正 V(CV_ADC) の上限 | `1.846` | max | V | PROPOSED（根拠 CALCULATED） | 計算 `V`（内訳は下） |
-| residual-max | 校正後の CV 残差の上限 | `50` | max | mV | PROPOSED（根拠 CALCULATED） | 計算 `DB`（内訳は下） |
+| adc-m5-min | CV = -5 V での未校正 V(CV_ADC) の下限 | `0.634` | min | V | CALCULATED | 計算 `V`（内訳は下） |
+| adc-m5-max | CV = -5 V での未校正 V(CV_ADC) の上限 | `0.911` | max | V | CALCULATED | 計算 `V`（内訳は下） |
+| adc-0-min | CV = 0 V での未校正 V(CV_ADC) の下限 | `1.111` | min | V | CALCULATED | 計算 `V`（内訳は下） |
+| adc-0-max | CV = 0 V での未校正 V(CV_ADC) の上限 | `1.374` | max | V | CALCULATED | 計算 `V`（内訳は下） |
+| adc-p5-min | CV = 5 V での未校正 V(CV_ADC) の下限 | `1.577` | min | V | CALCULATED | 計算 `V`（内訳は下） |
+| adc-p5-max | CV = 5 V での未校正 V(CV_ADC) の上限 | `1.846` | max | V | CALCULATED | 計算 `V`（内訳は下） |
+| residual-max | 校正後の CV 残差の上限 | `50` | max | mV | CALCULATED | 計算 `DB`（内訳は下） |
 
 計算の内訳:
 
@@ -599,24 +599,14 @@
 - `residual-max`: `DB` = `50` mV（小数 0 桁に丸め）
   - `DB` = 50.0（`50`、`engineering/a5/firmware/include/lb_config.h` 引用、「LB_CV_DEADBAND_MV            50」）
 
-提案の理由（PROPOSED は採否前で、この手順の基準ゲートを解除しません）:
-
-- `adc-m5-min`: A5 の抵抗コーナーと VDD 3.0–3.6 V での計算範囲（electrical_margins.json）。A7 の CV 網はネットリスト上 A5 と同じ定数。オペアンプのオフセット・ADC 誤差は含まないので、境界付近の不合格はレビューで扱う。
-- `adc-m5-max`: A5 の抵抗コーナーと VDD 3.0–3.6 V での計算範囲（electrical_margins.json）。A7 の CV 網はネットリスト上 A5 と同じ定数。オペアンプのオフセット・ADC 誤差は含まないので、境界付近の不合格はレビューで扱う。
-- `adc-0-min`: A5 の抵抗コーナーと VDD 3.0–3.6 V での計算範囲（electrical_margins.json）。A7 の CV 網はネットリスト上 A5 と同じ定数。オペアンプのオフセット・ADC 誤差は含まないので、境界付近の不合格はレビューで扱う。
-- `adc-0-max`: A5 の抵抗コーナーと VDD 3.0–3.6 V での計算範囲（electrical_margins.json）。A7 の CV 網はネットリスト上 A5 と同じ定数。オペアンプのオフセット・ADC 誤差は含まないので、境界付近の不合格はレビューで扱う。
-- `adc-p5-min`: A5 の抵抗コーナーと VDD 3.0–3.6 V での計算範囲（electrical_margins.json）。A7 の CV 網はネットリスト上 A5 と同じ定数。オペアンプのオフセット・ADC 誤差は含まないので、境界付近の不合格はレビューで扱う。
-- `adc-p5-max`: A5 の抵抗コーナーと VDD 3.0–3.6 V での計算範囲（electrical_margins.json）。A7 の CV 網はネットリスト上 A5 と同じ定数。オペアンプのオフセット・ADC 誤差は含まないので、境界付近の不合格はレビューで扱う。
-- `residual-max`: 校正後の残差が FW の不感帯 50 mV 以下なら、残差で表示が切り替わらない。直線性も同じ上限で見る。
-
 ### startup-reset — 起動・リセット・fault復帰
 
 - 関連:  #10
 - 概要: 規定の電源立上り/リセット/FAULT条件を一つずつ印加し全レールとLED enableを観測。
 - 根拠: `engineering/a5/integration/independent_review`
-- 未決: 受入値は部品資料・ネットリスト・FW 定数から導出し、生成時に再計算で照合している。採用のレビュー記録（criterion_review）がまだない。（区分: オーナーの判断）
+- 基準: 採用済み（プロジェクトのコーディネーター（オーナーが委ねた作業方針による）、記録 `engineering/a7/qualification/reviews/2026-11-11-coordinator-criteria-acceptance.md`）
 - 観測: NOT_MEASURED。結果: NOT_RUN。
-- 次: 導出した受入値をレビューして採否を記録する（コーディネーターかオーナー）。その後に実機で手順を実施する。
+- 次: 基準はコーディネーターが採用済み（オーナー本人ではない）。実機で手順を実施して記録する。
 
 準備するもの:
 
@@ -694,9 +684,9 @@
 - 関連:  #10
 - 概要: 承認された負荷/電源遮断条件でレール低下と制御を同時観測。
 - 根拠: `engineering/a5/integration/independent_review`
-- 未決: 崩壊率、最悪負荷、5 V valid monitorの必要性を判断する合否基準が未決。（区分: オーナーの判断）
+- 基準: 採用済み（プロジェクトのコーディネーター（オーナーが委ねた作業方針による）、記録 `engineering/a7/qualification/reviews/2026-11-11-coordinator-criteria-acceptance.md`）
 - 観測: NOT_MEASURED。結果: NOT_RUN。
-- 次: 不足する基準をレビューし、オーナー承認の試作ルート確定後に実物で実施。
+- 次: 基準はコーディネーターが採用済み（オーナー本人ではない）。実機で手順を実施して記録する。
 
 準備するもの:
 
@@ -732,9 +722,9 @@
 | ID | 基準 | 値 | 範囲 | 単位 | 確度 | 出典 / 決める主体 |
 |---|---|---|---|---|---|---|
 | ldo-vin | TLV75533 の推奨入力範囲 | `"1.45 to 5.5"` | range | V | SOURCED | `.claude/skills/component-tlv75533pdbvr/facts.json` `fact-tlv75533pdbvr-roc-vin` |
-| collapse-en-off | +3V3 が vdda 下限未満になっている間の LED_EN_N（U4 オフ） | `1.1` | min | V | PROPOSED（根拠 CALCULATED） | 計算 `VIH`（内訳は下） |
-| collapse-threshold | 上の条件を見る +3V3 の電圧 | `3000` | reference | mV | PROPOSED（根拠 CALCULATED） | 計算 `V`（内訳は下） |
-| collapse-recovery | 復帰後、バックアップ領域が残っていれば有効化しない（RESET_LOCKOUT） | `"return LB_BOOT_LOCKED_RETAINED;"` | exact | NONE | PROPOSED（根拠 DESIGN） | `engineering/a5/firmware/src/light_block.c` 引用 |
+| collapse-en-off | +3V3 が vdda 下限未満になっている間の LED_EN_N（U4 オフ） | `1.1` | min | V | CALCULATED | 計算 `VIH`（内訳は下） |
+| collapse-threshold | 上の条件を見る +3V3 の電圧 | `3000` | reference | mV | CALCULATED | 計算 `V`（内訳は下） |
+| collapse-recovery | 復帰後、バックアップ領域が残っていれば有効化しない（RESET_LOCKOUT） | `"return LB_BOOT_LOCKED_RETAINED;"` | exact | NONE | DESIGN | `engineering/a5/firmware/src/light_block.c` 引用 |
 
 計算の内訳:
 
@@ -742,12 +732,6 @@
   - `VIH` = 1.1（`1.1`、`.claude/skills/component-tps2552dbvr-1/facts.json` `fact-tps2552dbvr-1-roc-vin`、conditions、「EN VIH min 1.1 V」）
 - `collapse-threshold`: `V` = `3000` mV（小数 0 桁に丸め）
   - `V` = 3000.0（`3000u`、`engineering/a5/firmware/include/lb_config.h` 引用、「LB_VDDA_MIN_MV               3000u」）
-
-提案の理由（PROPOSED は採否前で、この手順の基準ゲートを解除しません）:
-
-- `collapse-en-off`: +12 V が落ちて MCU が動作範囲を外れても、+5 V が U4 の推奨入力下限 2.5 V 以上の間は LED_EN_N が EN VIH 以上（U4 オフ）であれば LED への給電は止まる。リセット中は Q1 のベースが R12 で引き下げられ、R23 が EN を引き上げる既定オフの設計を確かめる基準。これが満たされれば 5 V valid 監視は追加しない案。 FW は毎 1 ms の取り込みで VDDA を計算し、範囲外なら直ちに FAULT にする（lb_controller_adc）。判定は次の取り込みまでの遅れを含めて見る。MCU が動作を止める電圧（POR/PDR）より下では Q1 のベースが R12 で引き下げられる。
-- `collapse-threshold`: FW 自身が ADC FAULT とする VDDA の下限。
-- `collapse-recovery`: バックアップ領域が残る瞬断では勝手に再点灯しないことを合格条件にする。全電源が崩壊した場合は電源再投入と区別できず再起動しうる（firmware/docs/reset_policy.md の既知の境界）ので、それは不合格にしない。設定は SW1 から毎回読み、校正は工場値から計算するため、失われて困る保存値はない。
 
 ### partial-rails — 部分電源・逆給電・無電源CV
 
@@ -921,9 +905,9 @@
 - 関連:  #10
 - 概要: 制限電源と規定短絡負荷を使い、回復と温度を観測。
 - 根拠: `engineering/a5/integration/independent_review`
-- 未決: 短絡場所、時間、繰返しと復帰/最大温度基準の承認が必要。（区分: オーナーの判断）
+- 基準: 採用済み（プロジェクトのコーディネーター（オーナーが委ねた作業方針による）、記録 `engineering/a7/qualification/reviews/2026-11-11-coordinator-criteria-acceptance.md`）
 - 観測: NOT_MEASURED。結果: NOT_RUN。
-- 次: 不足する基準をレビューし、オーナー承認の試作ルート確定後に実物で実施。
+- 次: 基準はコーディネーターが採用済み（オーナー本人ではない）。実機で手順を実施して記録する。
 
 準備するもの:
 
@@ -964,13 +948,8 @@
 | latch | TPS2552-1 のラッチオフ動作 | `"TPS2552DxVx-1: enable active low; overcurrent fault response latch off; no quick output discharge"` | reference | NONE | SOURCED | `.claude/skills/component-tps2552dbvr-1/facts.json` `fact-tps2552dbvr-1-variant-latch` |
 | ldo-limit | TLV75533 の電流制限（最小） | `560` | min | mA | SOURCED | `.claude/skills/component-tlv75533pdbvr/facts.json` `fact-tlv75533pdbvr-current-limit` |
 | buck-limit | AP63205 のピーク電流制限 | `"2.5 to 3.1 (typ 2.8)"` | range | A | SOURCED | `.claude/skills/component-ap63205wu-7/facts.json` `fact-ap63205wu-7-peak-current-limit` |
-| vled-short | VLED (J3) 短絡で U4 がラッチオフし、外しても電源再投入まで復帰しない | `"TPS255x-1 latch-off: on overcurrent it asserts FAULT after the deglitch period and turns off; stays off even after the overload is removed until enable is toggled or power is cycled"` | exact | NONE | PROPOSED（根拠 SOURCED） | `.claude/skills/component-tps2552dbvr-1/facts.json` `fact-tps2552dbvr-1-latch-behaviour` |
-| short-no-retry | 短絡後 FW は再有効化しない | `"No enable or retry path exists in this routine."` | exact | NONE | PROPOSED（根拠 DESIGN） | `engineering/a5/firmware/src/light_block.c` 引用 |
-
-提案の理由（PROPOSED は採否前で、この手順の基準ゲートを解除しません）:
-
-- `vled-short`: 短絡はユーザーが起こしうる VLED (J3) だけで行い、LED_FAULT_N の低下を確認したら外す。+5 V と +3V3 の短絡は安全な時間を示す資料がないので、破損を許すとオーナーが決めない限り行わない。
-- `short-no-retry`: FW 側も FAULT 後に再試行しないことを同時に確かめる。
+| vled-short | VLED (J3) 短絡で U4 がラッチオフし、外しても電源再投入まで復帰しない | `"TPS255x-1 latch-off: on overcurrent it asserts FAULT after the deglitch period and turns off; stays off even after the overload is removed until enable is toggled or power is cycled"` | exact | NONE | SOURCED | `.claude/skills/component-tps2552dbvr-1/facts.json` `fact-tps2552dbvr-1-latch-behaviour` |
+| short-no-retry | 短絡後 FW は再有効化しない | `"No enable or retry path exists in this routine."` | exact | NONE | DESIGN | `engineering/a5/firmware/src/light_block.c` 引用 |
 
 ### effective-capacitance — MLCC 実効容量
 
@@ -1086,9 +1065,9 @@
 - 関連:  #10
 - 概要: 静的CVを印加しDATA_L/左右ストリームのパターンを切替、ADC/THRUを同期観測。
 - 根拠: `engineering/a7/verification/interface_review.md`
-- 未決: 帯域、ノイズ統計と許容誤差の採否値が未決。（区分: オーナーの判断）
+- 基準: 採用済み（プロジェクトのコーディネーター（オーナーが委ねた作業方針による）、記録 `engineering/a7/qualification/reviews/2026-11-11-coordinator-criteria-acceptance.md`）
 - 観測: NOT_MEASURED。結果: NOT_RUN。
-- 次: 不足する基準をレビューし、オーナー承認の試作ルート確定後に実物で実施。
+- 次: 基準はコーディネーターが採用済み（オーナー本人ではない）。実機で手順を実施して記録する。
 
 準備するもの:
 
@@ -1124,16 +1103,12 @@
 | ID | 基準 | 値 | 範囲 | 単位 | 確度 | 出典 / 決める主体 |
 |---|---|---|---|---|---|---|
 | layout | 同層での CV と DATA の間隔（設計） | `"No CV node runs within 0.6 mm of DATA_L/R or ±12V_PROT on the same layer."` | reference | NONE | DESIGN | `engineering/a7/verification/interface_review.md` 引用 |
-| noise-max | LED データ送信中の CV 換算ノイズ（ピーク・ツー・ピーク）の上限 | `50` | max | mV | PROPOSED（根拠 CALCULATED） | 計算 `DB`（内訳は下） |
+| noise-max | LED データ送信中の CV 換算ノイズ（ピーク・ツー・ピーク）の上限 | `50` | max | mV | CALCULATED | 計算 `DB`（内訳は下） |
 
 計算の内訳:
 
 - `noise-max`: `DB` = `50` mV（小数 0 桁に丸め）
   - `DB` = 50.0（`50`、`engineering/a5/firmware/include/lb_config.h` 引用、「LB_CV_DEADBAND_MV            50」）
-
-提案の理由（PROPOSED は採否前で、この手順の基準ゲートを解除しません）:
-
-- `noise-max`: FW の不感帯 50 mV を超えなければ、ノイズで表示が切り替わらない。FW は ADC 値を 1/8 の指数平均でならしてから使うので、統計は生の ADC 値と平均後の値の両方で取る。
 
 ### service-envelope — 挿抜・交換・組立外形
 
@@ -1202,7 +1177,7 @@
 | 区分 | ゲート数 |
 |---|---:|
 | CLOUD_DIGITAL（クラウドで進められるデジタル作業） | 2 |
-| OWNER_DECISION（オーナーの判断） | 19 |
+| OWNER_DECISION（オーナーの判断） | 13 |
 | ACCESS_EVIDENCE_HOLD（外部の証跡・アクセス待ち） | 16 |
 | PHYSICAL_ONLY（実機が必要） | 20 |
 
@@ -1241,15 +1216,9 @@
 - firmware-waveforms: criterion unresolved or review receipt missing
 - firmware-waveforms: criterion has PROPOSED or UNRESOLVED acceptance values: t1l-min, t1l-max
 - firmware-waveforms: NOT_MEASURED: no run
-- power-current: criterion unresolved or review receipt missing
 - power-current: NOT_MEASURED: no run
-- cv-thru-calibration: criterion unresolved or review receipt missing
-- cv-thru-calibration: criterion has PROPOSED or UNRESOLVED acceptance values: adc-m5-min, adc-m5-max, adc-0-min, adc-0-max, adc-p5-min, adc-p5-max, residual-max
 - cv-thru-calibration: NOT_MEASURED: no run
-- startup-reset: criterion unresolved or review receipt missing
 - startup-reset: NOT_MEASURED: no run
-- rail-collapse: criterion unresolved or review receipt missing
-- rail-collapse: criterion has PROPOSED or UNRESOLVED acceptance values: collapse-en-off, collapse-threshold, collapse-recovery
 - rail-collapse: NOT_MEASURED: no run
 - partial-rails: criterion unresolved or review receipt missing
 - partial-rails: criterion has PROPOSED or UNRESOLVED acceptance values: limits
@@ -1260,8 +1229,6 @@
 - ldo-reverse: criterion unresolved or review receipt missing
 - ldo-reverse: criterion has PROPOSED or UNRESOLVED acceptance values: reverse
 - ldo-reverse: NOT_MEASURED: no run
-- load-short: criterion unresolved or review receipt missing
-- load-short: criterion has PROPOSED or UNRESOLVED acceptance values: vled-short, short-no-retry
 - load-short: NOT_MEASURED: no run
 - effective-capacitance: criterion unresolved or review receipt missing
 - effective-capacitance: criterion has PROPOSED or UNRESOLVED acceptance values: minimum
@@ -1269,8 +1236,6 @@
 - thermal-optical: criterion unresolved or review receipt missing
 - thermal-optical: criterion has PROPOSED or UNRESOLVED acceptance values: part-temp-max, materials-appearance
 - thermal-optical: NOT_MEASURED: no run
-- cv-noise: criterion unresolved or review receipt missing
-- cv-noise: criterion has PROPOSED or UNRESOLVED acceptance values: noise-max
 - cv-noise: NOT_MEASURED: no run
 - service-envelope: criterion unresolved or review receipt missing
 - service-envelope: criterion has PROPOSED or UNRESOLVED acceptance values: cycles, retention-force

@@ -174,7 +174,7 @@
           },
           "bound": "max",
           "basis_confidence": "CALCULATED",
-          "rationale": "接点抵抗は CV_THRU と R1+R2 (20 MΩ) の直列に入る。その誤差 Rc/(R1+R2) が FW の不感帯 50 mV / 5000 mV（1 %）を超えない上限。健全な接点はこれより何桁も小さく、判定を分けるには十分。より厳しい値にするかは採否で決める。"
+          "rationale": "端子の対応を見分けるための閾値。この基板の入力 R1+R2 (20 MΩ) に対する誤差 Rc/(R1+R2) が FW の不感帯 50 mV / 5000 mV（1 %）を超えない上限。ただし CV_THRU は J2 から下流のモジュールも駆動し、その入力抵抗は資料がないので、接点品質の上限にはならない（独立レビュー指摘。下流 100 kΩ なら 200 kΩ で大きな誤差）。接点品質の上限は別に決める。"
         },
         {
           "id": "open-min",
@@ -1164,12 +1164,12 @@
       "setup": "電流制限電源、全レール電圧/電流計測、左右LEDの規定負荷。",
       "expected": "各部品の推奨条件と電流制限の依存関係を exact component 証跡から試験条件ごとにレビュー。",
       "basis": "engineering/a5/integration/independent_review",
-      "criterion_status": "UNRESOLVED",
-      "missing_criterion": "受入値は部品資料・ネットリスト・FW 定数から導出し、生成時に再計算で照合している。採用のレビュー記録（criterion_review）がまだない。",
+      "criterion_status": "REVIEWED",
+      "missing_criterion": "",
       "raw_evidence_required": "電源設定、全レール波形、電流ログ、負荷表",
       "observation": "NOT_MEASURED",
       "result": "NOT_RUN",
-      "next_action": "導出した受入値をレビューして採否を記録する（コーディネーターかオーナー）。その後に実機で手順を実施する。",
+      "next_action": "基準はコーディネーターが採用済み（オーナー本人ではない）。実機で手順を実施して記録する。",
       "required_evidence_kinds": [
         "supply_setup",
         "rail_waveforms",
@@ -1514,7 +1514,13 @@
           },
           "bound": "range"
         }
-      ]
+      ],
+      "criterion_accepted_by": "PROJECT_COORDINATOR_DELEGATED",
+      "criterion_review": {
+        "path": "engineering/a7/qualification/reviews/2026-11-11-coordinator-criteria-acceptance.md",
+        "sha256": "c4c63f2f28dc28e53c9bf54d33b58b94207bc028a23bb6c7f0c3edea0e921b3f"
+      },
+      "criterion_acceptance_sha256": "5e29c26369e4904a769355f696e0a23c70be95a7bcd5b3f41aa14eb99fb43ac6"
     },
     {
       "id": "cv-thru-calibration",
@@ -1524,12 +1530,12 @@
       "setup": "校正したCV源と計測器、IN/THRU/ADCを同時測定。",
       "expected": "VADC=(100/133)*(VDD/2+CV/8)、C13→R7→U7、R24/R25、受動THRUを維持。",
       "basis": "engineering/a7/electronics/README.md",
-      "criterion_status": "UNRESOLVED",
-      "missing_criterion": "誤差/直線性/校正残差の採否値と測定不確かさが未決。",
+      "criterion_status": "REVIEWED",
+      "missing_criterion": "",
       "raw_evidence_required": "入力掃引、VDD/ADC/THRU記録、校正係数と残差",
       "observation": "NOT_MEASURED",
       "result": "NOT_RUN",
-      "next_action": "不足する基準をレビューし、オーナー承認の試作ルート確定後に実物で実施。",
+      "next_action": "基準はコーディネーターが採用済み（オーナー本人ではない）。実機で手順を実施して記録する。",
       "required_evidence_kinds": [
         "cv_sweep",
         "vdd_adc_thru_data",
@@ -1591,7 +1597,7 @@
           "criterion": "CV = -5 V での未校正 V(CV_ADC) の下限",
           "value": 0.634,
           "unit": "V",
-          "confidence": "PROPOSED",
+          "confidence": "CALCULATED",
           "derivation": {
             "expression": "V",
             "inputs": [
@@ -1607,16 +1613,14 @@
             ],
             "round": 3
           },
-          "bound": "min",
-          "basis_confidence": "CALCULATED",
-          "rationale": "A5 の抵抗コーナーと VDD 3.0–3.6 V での計算範囲（electrical_margins.json）。A7 の CV 網はネットリスト上 A5 と同じ定数。オペアンプのオフセット・ADC 誤差は含まないので、境界付近の不合格はレビューで扱う。"
+          "bound": "min"
         },
         {
           "id": "adc-m5-max",
           "criterion": "CV = -5 V での未校正 V(CV_ADC) の上限",
           "value": 0.911,
           "unit": "V",
-          "confidence": "PROPOSED",
+          "confidence": "CALCULATED",
           "derivation": {
             "expression": "V",
             "inputs": [
@@ -1632,16 +1636,14 @@
             ],
             "round": 3
           },
-          "bound": "max",
-          "basis_confidence": "CALCULATED",
-          "rationale": "A5 の抵抗コーナーと VDD 3.0–3.6 V での計算範囲（electrical_margins.json）。A7 の CV 網はネットリスト上 A5 と同じ定数。オペアンプのオフセット・ADC 誤差は含まないので、境界付近の不合格はレビューで扱う。"
+          "bound": "max"
         },
         {
           "id": "adc-0-min",
           "criterion": "CV = 0 V での未校正 V(CV_ADC) の下限",
           "value": 1.111,
           "unit": "V",
-          "confidence": "PROPOSED",
+          "confidence": "CALCULATED",
           "derivation": {
             "expression": "V",
             "inputs": [
@@ -1657,16 +1659,14 @@
             ],
             "round": 3
           },
-          "bound": "min",
-          "basis_confidence": "CALCULATED",
-          "rationale": "A5 の抵抗コーナーと VDD 3.0–3.6 V での計算範囲（electrical_margins.json）。A7 の CV 網はネットリスト上 A5 と同じ定数。オペアンプのオフセット・ADC 誤差は含まないので、境界付近の不合格はレビューで扱う。"
+          "bound": "min"
         },
         {
           "id": "adc-0-max",
           "criterion": "CV = 0 V での未校正 V(CV_ADC) の上限",
           "value": 1.374,
           "unit": "V",
-          "confidence": "PROPOSED",
+          "confidence": "CALCULATED",
           "derivation": {
             "expression": "V",
             "inputs": [
@@ -1682,16 +1682,14 @@
             ],
             "round": 3
           },
-          "bound": "max",
-          "basis_confidence": "CALCULATED",
-          "rationale": "A5 の抵抗コーナーと VDD 3.0–3.6 V での計算範囲（electrical_margins.json）。A7 の CV 網はネットリスト上 A5 と同じ定数。オペアンプのオフセット・ADC 誤差は含まないので、境界付近の不合格はレビューで扱う。"
+          "bound": "max"
         },
         {
           "id": "adc-p5-min",
           "criterion": "CV = 5 V での未校正 V(CV_ADC) の下限",
           "value": 1.577,
           "unit": "V",
-          "confidence": "PROPOSED",
+          "confidence": "CALCULATED",
           "derivation": {
             "expression": "V",
             "inputs": [
@@ -1707,16 +1705,14 @@
             ],
             "round": 3
           },
-          "bound": "min",
-          "basis_confidence": "CALCULATED",
-          "rationale": "A5 の抵抗コーナーと VDD 3.0–3.6 V での計算範囲（electrical_margins.json）。A7 の CV 網はネットリスト上 A5 と同じ定数。オペアンプのオフセット・ADC 誤差は含まないので、境界付近の不合格はレビューで扱う。"
+          "bound": "min"
         },
         {
           "id": "adc-p5-max",
           "criterion": "CV = 5 V での未校正 V(CV_ADC) の上限",
           "value": 1.846,
           "unit": "V",
-          "confidence": "PROPOSED",
+          "confidence": "CALCULATED",
           "derivation": {
             "expression": "V",
             "inputs": [
@@ -1732,16 +1728,14 @@
             ],
             "round": 3
           },
-          "bound": "max",
-          "basis_confidence": "CALCULATED",
-          "rationale": "A5 の抵抗コーナーと VDD 3.0–3.6 V での計算範囲（electrical_margins.json）。A7 の CV 網はネットリスト上 A5 と同じ定数。オペアンプのオフセット・ADC 誤差は含まないので、境界付近の不合格はレビューで扱う。"
+          "bound": "max"
         },
         {
           "id": "residual-max",
           "criterion": "校正後の CV 残差の上限",
           "value": 50,
           "unit": "mV",
-          "confidence": "PROPOSED",
+          "confidence": "CALCULATED",
           "derivation": {
             "expression": "DB",
             "inputs": [
@@ -1758,11 +1752,15 @@
             ],
             "round": 0
           },
-          "bound": "max",
-          "basis_confidence": "CALCULATED",
-          "rationale": "校正後の残差が FW の不感帯 50 mV 以下なら、残差で表示が切り替わらない。直線性も同じ上限で見る。"
+          "bound": "max"
         }
-      ]
+      ],
+      "criterion_accepted_by": "PROJECT_COORDINATOR_DELEGATED",
+      "criterion_review": {
+        "path": "engineering/a7/qualification/reviews/2026-11-11-coordinator-criteria-acceptance.md",
+        "sha256": "c4c63f2f28dc28e53c9bf54d33b58b94207bc028a23bb6c7f0c3edea0e921b3f"
+      },
+      "criterion_acceptance_sha256": "e8597916ae9c3c860295c1aa8f6ae82f1181e8ec155419830721f41e0e48797e"
     },
     {
       "id": "startup-reset",
@@ -1772,12 +1770,12 @@
       "setup": "規定の電源立上り/リセット/FAULT条件を一つずつ印加し全レールとLED enableを観測。",
       "expected": "既存startup/fault動作を維持。保持reset禁止は全ての部分電源喪失を保証しない。",
       "basis": "engineering/a5/integration/independent_review",
-      "criterion_status": "UNRESOLVED",
-      "missing_criterion": "受入値は部品資料・ネットリスト・FW 定数から導出し、生成時に再計算で照合している。採用のレビュー記録（criterion_review）がまだない。",
+      "criterion_status": "REVIEWED",
+      "missing_criterion": "",
       "raw_evidence_required": "リセット/FAULT/enable/全レールraw波形、設定",
       "observation": "NOT_MEASURED",
       "result": "NOT_RUN",
-      "next_action": "導出した受入値をレビューして採否を記録する（コーディネーターかオーナー）。その後に実機で手順を実施する。",
+      "next_action": "基準はコーディネーターが採用済み（オーナー本人ではない）。実機で手順を実施して記録する。",
       "required_evidence_kinds": [
         "reset_fault_enable_waveforms",
         "rail_waveforms",
@@ -2111,7 +2109,13 @@
           },
           "bound": "min"
         }
-      ]
+      ],
+      "criterion_accepted_by": "PROJECT_COORDINATOR_DELEGATED",
+      "criterion_review": {
+        "path": "engineering/a7/qualification/reviews/2026-11-11-coordinator-criteria-acceptance.md",
+        "sha256": "c4c63f2f28dc28e53c9bf54d33b58b94207bc028a23bb6c7f0c3edea0e921b3f"
+      },
+      "criterion_acceptance_sha256": "1b4ab27ce26ac587713cd432b5df862f3a6bc49704453de2ce0739544dfd805f"
     },
     {
       "id": "rail-collapse",
@@ -2121,12 +2125,12 @@
       "setup": "承認された負荷/電源遮断条件でレール低下と制御を同時観測。",
       "expected": "5 V-only sagとバックアップ状態喪失の未解決を評価する。",
       "basis": "engineering/a5/integration/independent_review",
-      "criterion_status": "UNRESOLVED",
-      "missing_criterion": "崩壊率、最悪負荷、5 V valid monitorの必要性を判断する合否基準が未決。",
+      "criterion_status": "REVIEWED",
+      "missing_criterion": "",
       "raw_evidence_required": "全レール/enable/MCU信号raw波形、負荷と遮断条件",
       "observation": "NOT_MEASURED",
       "result": "NOT_RUN",
-      "next_action": "不足する基準をレビューし、オーナー承認の試作ルート確定後に実物で実施。",
+      "next_action": "基準はコーディネーターが採用済み（オーナー本人ではない）。実機で手順を実施して記録する。",
       "required_evidence_kinds": [
         "rail_enable_waveforms",
         "collapse_load_conditions"
@@ -2172,7 +2176,7 @@
           "criterion": "+3V3 が vdda 下限未満になっている間の LED_EN_N（U4 オフ）",
           "value": 1.1,
           "unit": "V",
-          "confidence": "PROPOSED",
+          "confidence": "CALCULATED",
           "derivation": {
             "expression": "VIH",
             "inputs": [
@@ -2190,16 +2194,14 @@
             ],
             "round": 2
           },
-          "bound": "min",
-          "basis_confidence": "CALCULATED",
-          "rationale": "+12 V が落ちて MCU が動作範囲を外れても、+5 V が U4 の推奨入力下限 2.5 V 以上の間は LED_EN_N が EN VIH 以上（U4 オフ）であれば LED への給電は止まる。リセット中は Q1 のベースが R12 で引き下げられ、R23 が EN を引き上げる既定オフの設計を確かめる基準。これが満たされれば 5 V valid 監視は追加しない案。 FW は毎 1 ms の取り込みで VDDA を計算し、範囲外なら直ちに FAULT にする（lb_controller_adc）。判定は次の取り込みまでの遅れを含めて見る。MCU が動作を止める電圧（POR/PDR）より下では Q1 のベースが R12 で引き下げられる。"
+          "bound": "min"
         },
         {
           "id": "collapse-threshold",
           "criterion": "上の条件を見る +3V3 の電圧",
           "value": 3000,
           "unit": "mV",
-          "confidence": "PROPOSED",
+          "confidence": "CALCULATED",
           "derivation": {
             "expression": "V",
             "inputs": [
@@ -2217,25 +2219,27 @@
             ],
             "round": 0
           },
-          "bound": "reference",
-          "basis_confidence": "CALCULATED",
-          "rationale": "FW 自身が ADC FAULT とする VDDA の下限。"
+          "bound": "reference"
         },
         {
           "id": "collapse-recovery",
           "criterion": "復帰後、バックアップ領域が残っていれば有効化しない（RESET_LOCKOUT）",
           "value": "return LB_BOOT_LOCKED_RETAINED;",
           "unit": "NONE",
-          "confidence": "PROPOSED",
+          "confidence": "DESIGN",
           "source": {
             "path": "engineering/a5/firmware/src/light_block.c",
             "quote": "return LB_BOOT_LOCKED_RETAINED;"
           },
-          "bound": "exact",
-          "basis_confidence": "DESIGN",
-          "rationale": "バックアップ領域が残る瞬断では勝手に再点灯しないことを合格条件にする。全電源が崩壊した場合は電源再投入と区別できず再起動しうる（firmware/docs/reset_policy.md の既知の境界）ので、それは不合格にしない。設定は SW1 から毎回読み、校正は工場値から計算するため、失われて困る保存値はない。"
+          "bound": "exact"
         }
-      ]
+      ],
+      "criterion_accepted_by": "PROJECT_COORDINATOR_DELEGATED",
+      "criterion_review": {
+        "path": "engineering/a7/qualification/reviews/2026-11-11-coordinator-criteria-acceptance.md",
+        "sha256": "c4c63f2f28dc28e53c9bf54d33b58b94207bc028a23bb6c7f0c3edea0e921b3f"
+      },
+      "criterion_acceptance_sha256": "79f8442e4bbfd8059e2802b4d86f77fb28aa0f4bbe1d37158f4b38b8930eced0"
     },
     {
       "id": "partial-rails",
@@ -2685,12 +2689,12 @@
       "setup": "制限電源と規定短絡負荷を使い、回復と温度を観測。",
       "expected": "現行電源保護の実動作を検証する。",
       "basis": "engineering/a5/integration/independent_review",
-      "criterion_status": "UNRESOLVED",
-      "missing_criterion": "短絡場所、時間、繰返しと復帰/最大温度基準の承認が必要。",
+      "criterion_status": "REVIEWED",
+      "missing_criterion": "",
       "raw_evidence_required": "短絡/解除波形、電流/温度/FAULTログ",
       "observation": "NOT_MEASURED",
       "result": "NOT_RUN",
-      "next_action": "不足する基準をレビューし、オーナー承認の試作ルート確定後に実物で実施。",
+      "next_action": "基準はコーディネーターが採用済み（オーナー本人ではない）。実機で手順を実施して記録する。",
       "required_evidence_kinds": [
         "short_recovery_waveforms",
         "current_temperature",
@@ -2765,30 +2769,32 @@
           "criterion": "VLED (J3) 短絡で U4 がラッチオフし、外しても電源再投入まで復帰しない",
           "value": "TPS255x-1 latch-off: on overcurrent it asserts FAULT after the deglitch period and turns off; stays off even after the overload is removed until enable is toggled or power is cycled",
           "unit": "NONE",
-          "confidence": "PROPOSED",
+          "confidence": "SOURCED",
           "source": {
             "path": ".claude/skills/component-tps2552dbvr-1/facts.json",
             "fact_id": "fact-tps2552dbvr-1-latch-behaviour"
           },
-          "bound": "exact",
-          "basis_confidence": "SOURCED",
-          "rationale": "短絡はユーザーが起こしうる VLED (J3) だけで行い、LED_FAULT_N の低下を確認したら外す。+5 V と +3V3 の短絡は安全な時間を示す資料がないので、破損を許すとオーナーが決めない限り行わない。"
+          "bound": "exact"
         },
         {
           "id": "short-no-retry",
           "criterion": "短絡後 FW は再有効化しない",
           "value": "No enable or retry path exists in this routine.",
           "unit": "NONE",
-          "confidence": "PROPOSED",
+          "confidence": "DESIGN",
           "source": {
             "path": "engineering/a5/firmware/src/light_block.c",
             "quote": "No enable or retry path exists in this routine."
           },
-          "bound": "exact",
-          "basis_confidence": "DESIGN",
-          "rationale": "FW 側も FAULT 後に再試行しないことを同時に確かめる。"
+          "bound": "exact"
         }
-      ]
+      ],
+      "criterion_accepted_by": "PROJECT_COORDINATOR_DELEGATED",
+      "criterion_review": {
+        "path": "engineering/a7/qualification/reviews/2026-11-11-coordinator-criteria-acceptance.md",
+        "sha256": "c4c63f2f28dc28e53c9bf54d33b58b94207bc028a23bb6c7f0c3edea0e921b3f"
+      },
+      "criterion_acceptance_sha256": "197cb2fb3ec8c9d635656c65e478cb8db344923227488dcf50cae4e71b67ccc8"
     },
     {
       "id": "effective-capacitance",
@@ -3029,12 +3035,12 @@
       "setup": "静的CVを印加しDATA_L/左右ストリームのパターンを切替、ADC/THRUを同期観測。",
       "expected": "記録されたCV_THRU対DATA_L_3V3/SWDIO、CV_ADC対SWCLKの結合懸念を評価。",
       "basis": "engineering/a7/verification/interface_review.md",
-      "criterion_status": "UNRESOLVED",
-      "missing_criterion": "帯域、ノイズ統計と許容誤差の採否値が未決。",
+      "criterion_status": "REVIEWED",
+      "missing_criterion": "",
       "raw_evidence_required": "同期波形、スペクトル/統計、配線/プローブ位置、パターン",
       "observation": "NOT_MEASURED",
       "result": "NOT_RUN",
-      "next_action": "不足する基準をレビューし、オーナー承認の試作ルート確定後に実物で実施。",
+      "next_action": "基準はコーディネーターが採用済み（オーナー本人ではない）。実機で手順を実施して記録する。",
       "required_evidence_kinds": [
         "synchronous_waveforms",
         "noise_statistics",
@@ -3082,7 +3088,7 @@
           "criterion": "LED データ送信中の CV 換算ノイズ（ピーク・ツー・ピーク）の上限",
           "value": 50,
           "unit": "mV",
-          "confidence": "PROPOSED",
+          "confidence": "CALCULATED",
           "derivation": {
             "expression": "DB",
             "inputs": [
@@ -3099,11 +3105,15 @@
             ],
             "round": 0
           },
-          "bound": "max",
-          "basis_confidence": "CALCULATED",
-          "rationale": "FW の不感帯 50 mV を超えなければ、ノイズで表示が切り替わらない。FW は ADC 値を 1/8 の指数平均でならしてから使うので、統計は生の ADC 値と平均後の値の両方で取る。"
+          "bound": "max"
         }
-      ]
+      ],
+      "criterion_accepted_by": "PROJECT_COORDINATOR_DELEGATED",
+      "criterion_review": {
+        "path": "engineering/a7/qualification/reviews/2026-11-11-coordinator-criteria-acceptance.md",
+        "sha256": "c4c63f2f28dc28e53c9bf54d33b58b94207bc028a23bb6c7f0c3edea0e921b3f"
+      },
+      "criterion_acceptance_sha256": "ed52279e0344626b20103633bbb0da95af82cc01c16a90a757a216277cd0063b"
     },
     {
       "id": "service-envelope",
@@ -3305,7 +3315,7 @@
     {
       "id": "O8",
       "title": "LED タイミング (#13) の扱いを決める",
-      "detail": "データシートの T1L 580–1000 ns と FW の 220–420 ns の矛盾。メーカー訂正を待つか、購入ロットの実測で別レビューするか。",
+      "detail": "**矛盾:** データシート V1.4 の T1L は 580–1000 ns、現行 FW は 220–420 ns。提案値（t1l-min / t1l-max = 580 / 1000 ns）を採ると現行 FW は不合格になるので、#13 が開いている間は採らない（コーディネーター判断）。メーカー訂正を待つか、購入ロットの実測で別レビューするか、FW を直すかをオーナーが決める。",
       "unblocks": [
         "criterion:firmware-waveforms"
       ]

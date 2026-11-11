@@ -61,6 +61,10 @@ class ReadinessTests(unittest.TestCase):
                     a['confidence'] = a.pop('basis_confidence')
                     a.pop('rationale')
             p['criterion_acceptance_sha256'] = m.acceptance_digest(p)
+        receipt = self.root / self.receipts['criterion']['path']
+        receipt.write_text('SYNTHETIC criterion\n' + ''.join(p['id'] + ' ' + p['criterion_acceptance_sha256'] + '\n' for p in self.plan['procedures']))
+        for p in self.plan['procedures']:
+            p['criterion_review'] = {'path': self.receipts['criterion']['path'], 'sha256': m.digest(receipt)}
         ids = {k: v['sha256'] for k, v in m.identities(self.root).items()}
         ph = hashlib.sha256(json.dumps(self.plan, sort_keys=True, ensure_ascii=False).encode()).hexdigest()
         for p in self.plan['procedures']:
@@ -239,6 +243,10 @@ class ReadinessTests(unittest.TestCase):
         self.assertFalse(self.evaluate()['blockers'])
         a = next(a for p in self.plan['procedures'] if p['id'] == 'startup-reset' for a in p['acceptance'] if a['id'] == 'en-off')
         a['bound'] = 'max'
+        gates = {g['gate']: g for g in self.evaluate()['gates']}
+        self.assertTrue(any('does not match' in r for r in gates['criterion:startup-reset']['reasons']))
+        p = next(p for p in self.plan['procedures'] if p['id'] == 'startup-reset')
+        p['criterion_acceptance_sha256'] = m.acceptance_digest(p)  # re-signing in the plan alone is not enough
         gates = {g['gate']: g for g in self.evaluate()['gates']}
         self.assertTrue(any('does not match' in r for r in gates['criterion:startup-reset']['reasons']))
 
@@ -435,6 +443,19 @@ class ExecutableProcedureTests(unittest.TestCase):
     def test_stray_keys_are_rejected(self):
         self.item('harness-depth', 'depth-target')['supplied_by'] = {'kind': 'DOCUMENT', 'what': 'x'}
         self.assertUntraceable('keys not valid for DESIGN')
+
+    def test_quote_cannot_cut_a_number_short(self):
+        a = self.item('startup-reset', 'no-retry')
+        a['source']['quote'] = a['value'] = 'No enable or retry path exists in this rout'
+        self.assertUntraceable('cuts a word or number short')
+        self.plan = json.loads((REPO/m.QUAL/'plan.json').read_text())
+        inp = self.item('startup-reset', 'adc-timeout')['derivation']['inputs'][0]
+        inp['source']['quote'] = inp['context'] = 'LB_STARTUP_ADC_TIMEOUT_MS    25'
+        inp['token'], inp['number'] = '25', 25.0
+        self.assertUntraceable('cuts a word or number short')
+        self.plan = json.loads((REPO/m.QUAL/'plan.json').read_text())
+        self.item('startup-reset', 'en-off')['derivation']['expression'] = '+'.join(['VIH'] * 3000)
+        self.assertUntraceable('at most 600 characters')
 
     def test_calculated_needs_a_derivation(self):
         self.item('startup-reset', 'no-retry')['confidence'] = 'CALCULATED'

@@ -47,9 +47,10 @@ PET Q11/Q11a–fと2HPの0.8 mm再配線/公差課題は別案のブロッカー
 
 ## 2026-11-11 W6 更新
 
-合否基準の作業（W6）で区分が変わりました。57 ゲート / 74 理由（CLOUD_DIGITAL 2、OWNER_DECISION 19、ACCESS_EVIDENCE_HOLD 16、PHYSICAL_ONLY 20）。理由が増えたのは、提案値が残る基準ゲートに「PROPOSED または UNRESOLVED が残る」という理由を足したためで、新しい不足ではありません。
+合否基準の作業（W6）で区分が変わりました。51 ゲート / 65 理由（CLOUD_DIGITAL 2、OWNER_DECISION 13、ACCESS_EVIDENCE_HOLD 16、PHYSICAL_ONLY 20）。提案値が残る基準ゲートには「PROPOSED または UNRESOLVED が残る」という理由が付きます。6 手順の基準をコーディネーターが採用したため、その基準ゲートは解除されました（`qualification/reviews/2026-11-11-coordinator-criteria-acceptance.md`、オーナー本人の採用ではない）。
 
-- power-current、startup-reset、u7-stress: 受入値を部品資料・ネットリスト・FW 定数から導出し、生成時に再計算で照合するようにした。残るのは採用のレビュー記録だけなので、CLOUD_DIGITAL から OWNER_DECISION（コーディネーターかオーナーの採否）に移した。
+- power-current、startup-reset、u7-stress: 受入値を部品資料・ネットリスト・FW 定数から導出し、生成時に再計算で照合するようにした。power-current と startup-reset はコーディネーターが採用。u7-stress は R7 電流の上限が推定に頼るため PROPOSED が残り、基準ゲートは閉じたまま。
+- コーディネーターが採用: power-current、startup-reset、cv-thru-calibration、rail-collapse、load-short、cv-noise（独立レビューが導出を確認したものだけ）。jack-continuity は独立レビューが確認せず（CV_THRU は下流のモジュールも駆動する）、thermal-optical は 85 °C が最低の温度上限だと確認できない（14 種の部品に温度 fact がない）ため採用していない。
 - オーナー判断の 9 手順: 出典付きの提案値（PROPOSED、21 件）を用意。採否前なのでゲートは解除しない。service-envelope の繰返し回数と thermal-optical の材料温度・見え方は提案できる出典がなく、UNRESOLVED のまま。
 - 外部証跡待ちの 7 手順: 未決の値ごとに、何の資料または測定で決まるかを `supplied_by` に記録。
 - CLOUD_DIGITAL に残る 2 ゲート（`artifact:fixture`、`assembly:fixture-materials`）は治具の作業（W5）が持つ。

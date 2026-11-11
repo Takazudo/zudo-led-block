@@ -43,7 +43,7 @@
       "sha256": "0201bfaf16235df9bcf450a35842ca7b4c7316592c3de21aa92ad50041a406ce"
     }
   },
-  "plan_sha256": "c643e6597611194eb8894213488547f8fb11b66f127b1beb4d6df48bdd8e2c58",
+  "plan_sha256": "c4ba587d7f06f591e8d4e0aa7b05f28442e7f23016cb850c91d23442a20fd2ec",
   "procedures": [
     {
       "id": "jack-continuity",
@@ -112,7 +112,6 @@
       "id": "power-current",
       "status": "BLOCKED",
       "reasons": [
-        "criterion unresolved or review receipt missing",
         "NOT_MEASURED: no run"
       ]
     },
@@ -120,8 +119,6 @@
       "id": "cv-thru-calibration",
       "status": "BLOCKED",
       "reasons": [
-        "criterion unresolved or review receipt missing",
-        "criterion has PROPOSED or UNRESOLVED acceptance values: adc-m5-min, adc-m5-max, adc-0-min, adc-0-max, adc-p5-min, adc-p5-max, residual-max",
         "NOT_MEASURED: no run"
       ]
     },
@@ -129,7 +126,6 @@
       "id": "startup-reset",
       "status": "BLOCKED",
       "reasons": [
-        "criterion unresolved or review receipt missing",
         "NOT_MEASURED: no run"
       ]
     },
@@ -137,8 +133,6 @@
       "id": "rail-collapse",
       "status": "BLOCKED",
       "reasons": [
-        "criterion unresolved or review receipt missing",
-        "criterion has PROPOSED or UNRESOLVED acceptance values: collapse-en-off, collapse-threshold, collapse-recovery",
         "NOT_MEASURED: no run"
       ]
     },
@@ -173,8 +167,6 @@
       "id": "load-short",
       "status": "BLOCKED",
       "reasons": [
-        "criterion unresolved or review receipt missing",
-        "criterion has PROPOSED or UNRESOLVED acceptance values: vled-short, short-no-retry",
         "NOT_MEASURED: no run"
       ]
     },
@@ -200,8 +192,6 @@
       "id": "cv-noise",
       "status": "BLOCKED",
       "reasons": [
-        "criterion unresolved or review receipt missing",
-        "criterion has PROPOSED or UNRESOLVED acceptance values: noise-max",
         "NOT_MEASURED: no run"
       ]
     },
@@ -249,15 +239,9 @@
     "firmware-waveforms: criterion unresolved or review receipt missing",
     "firmware-waveforms: criterion has PROPOSED or UNRESOLVED acceptance values: t1l-min, t1l-max",
     "firmware-waveforms: NOT_MEASURED: no run",
-    "power-current: criterion unresolved or review receipt missing",
     "power-current: NOT_MEASURED: no run",
-    "cv-thru-calibration: criterion unresolved or review receipt missing",
-    "cv-thru-calibration: criterion has PROPOSED or UNRESOLVED acceptance values: adc-m5-min, adc-m5-max, adc-0-min, adc-0-max, adc-p5-min, adc-p5-max, residual-max",
     "cv-thru-calibration: NOT_MEASURED: no run",
-    "startup-reset: criterion unresolved or review receipt missing",
     "startup-reset: NOT_MEASURED: no run",
-    "rail-collapse: criterion unresolved or review receipt missing",
-    "rail-collapse: criterion has PROPOSED or UNRESOLVED acceptance values: collapse-en-off, collapse-threshold, collapse-recovery",
     "rail-collapse: NOT_MEASURED: no run",
     "partial-rails: criterion unresolved or review receipt missing",
     "partial-rails: criterion has PROPOSED or UNRESOLVED acceptance values: limits",
@@ -268,8 +252,6 @@
     "ldo-reverse: criterion unresolved or review receipt missing",
     "ldo-reverse: criterion has PROPOSED or UNRESOLVED acceptance values: reverse",
     "ldo-reverse: NOT_MEASURED: no run",
-    "load-short: criterion unresolved or review receipt missing",
-    "load-short: criterion has PROPOSED or UNRESOLVED acceptance values: vled-short, short-no-retry",
     "load-short: NOT_MEASURED: no run",
     "effective-capacitance: criterion unresolved or review receipt missing",
     "effective-capacitance: criterion has PROPOSED or UNRESOLVED acceptance values: minimum",
@@ -277,8 +259,6 @@
     "thermal-optical: criterion unresolved or review receipt missing",
     "thermal-optical: criterion has PROPOSED or UNRESOLVED acceptance values: part-temp-max, materials-appearance",
     "thermal-optical: NOT_MEASURED: no run",
-    "cv-noise: criterion unresolved or review receipt missing",
-    "cv-noise: criterion has PROPOSED or UNRESOLVED acceptance values: noise-max",
     "cv-noise: NOT_MEASURED: no run",
     "service-envelope: criterion unresolved or review receipt missing",
     "service-envelope: criterion has PROPOSED or UNRESOLVED acceptance values: cycles, retention-force",
@@ -477,25 +457,10 @@
       ]
     },
     {
-      "gate": "criterion:power-current",
-      "class": "OWNER_DECISION",
-      "reasons": [
-        "power-current: criterion unresolved or review receipt missing"
-      ]
-    },
-    {
       "gate": "run:power-current",
       "class": "PHYSICAL_ONLY",
       "reasons": [
         "power-current: NOT_MEASURED: no run"
-      ]
-    },
-    {
-      "gate": "criterion:cv-thru-calibration",
-      "class": "OWNER_DECISION",
-      "reasons": [
-        "cv-thru-calibration: criterion unresolved or review receipt missing",
-        "cv-thru-calibration: criterion has PROPOSED or UNRESOLVED acceptance values: adc-m5-min, adc-m5-max, adc-0-min, adc-0-max, adc-p5-min, adc-p5-max, residual-max"
       ]
     },
     {
@@ -506,25 +471,10 @@
       ]
     },
     {
-      "gate": "criterion:startup-reset",
-      "class": "OWNER_DECISION",
-      "reasons": [
-        "startup-reset: criterion unresolved or review receipt missing"
-      ]
-    },
-    {
       "gate": "run:startup-reset",
       "class": "PHYSICAL_ONLY",
       "reasons": [
         "startup-reset: NOT_MEASURED: no run"
-      ]
-    },
-    {
-      "gate": "criterion:rail-collapse",
-      "class": "OWNER_DECISION",
-      "reasons": [
-        "rail-collapse: criterion unresolved or review receipt missing",
-        "rail-collapse: criterion has PROPOSED or UNRESOLVED acceptance values: collapse-en-off, collapse-threshold, collapse-recovery"
       ]
     },
     {
@@ -580,14 +530,6 @@
       ]
     },
     {
-      "gate": "criterion:load-short",
-      "class": "OWNER_DECISION",
-      "reasons": [
-        "load-short: criterion unresolved or review receipt missing",
-        "load-short: criterion has PROPOSED or UNRESOLVED acceptance values: vled-short, short-no-retry"
-      ]
-    },
-    {
       "gate": "run:load-short",
       "class": "PHYSICAL_ONLY",
       "reasons": [
@@ -622,14 +564,6 @@
       "class": "PHYSICAL_ONLY",
       "reasons": [
         "thermal-optical: NOT_MEASURED: no run"
-      ]
-    },
-    {
-      "gate": "criterion:cv-noise",
-      "class": "OWNER_DECISION",
-      "reasons": [
-        "cv-noise: criterion unresolved or review receipt missing",
-        "cv-noise: criterion has PROPOSED or UNRESOLVED acceptance values: noise-max"
       ]
     },
     {
@@ -713,7 +647,7 @@
   ],
   "gate_counts": {
     "CLOUD_DIGITAL": 2,
-    "OWNER_DECISION": 19,
+    "OWNER_DECISION": 13,
     "ACCESS_EVIDENCE_HOLD": 16,
     "PHYSICAL_ONLY": 20
   },

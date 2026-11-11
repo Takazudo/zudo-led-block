@@ -138,8 +138,13 @@ def resolve(trace, root):
         return values[0], values[0], []
     if 'quote' in trace:
         text = full.read_text()
-        if not isinstance(trace['quote'], str) or not trace['quote'] or trace['quote'] not in text:
+        quote = trace['quote']
+        if not isinstance(quote, str) or not quote or quote not in text:
             raise ValueError('quote not found in ' + trace['path'])
+        # A quote may not cut a word or number short ('...MS    25' out of '...MS    250u').
+        edges = (r'(?<!\w)' if quote[0].isalnum() or quote[0] == '_' else '') + re.escape(quote) + (r'(?!\w)' if quote[-1].isalnum() or quote[-1] == '_' else '')
+        if not re.search(edges, text):
+            raise ValueError('quote cuts a word or number short in ' + trace['path'])
         line = next(l for l in text.splitlines() if trace['quote'] in l) if '\n' not in trace['quote'] else trace['quote']
         stated = [w for w in ('ASSUMED', 'INFERRED') if w in line]
         return trace['quote'], trace['quote'], stated
@@ -280,11 +285,11 @@ def evaluate_expression(expression, names):
         if isinstance(node, ast.Constant) and type(node.value) is int and node.value in LITERALS:
             return float(node.value)
         raise ValueError('expression may use only inputs, + - * / **, min/max and the literals ' + str(sorted(LITERALS)))
-    if not isinstance(expression, str):
-        raise ValueError('expression must be a string')
+    if not isinstance(expression, str) or len(expression) > 600:
+        raise ValueError('expression must be a string of at most 600 characters')
     try:
         result = walk(ast.parse(expression, mode='eval'))
-    except (ArithmeticError, TypeError, SyntaxError) as e:
+    except (ArithmeticError, TypeError, SyntaxError, RecursionError) as e:
         raise ValueError('expression does not evaluate: ' + str(e))
     if set(names) - used:
         raise ValueError('unused derivation inputs: ' + ', '.join(sorted(set(names) - used)))
@@ -544,8 +549,14 @@ def evaluate(root, plan, records, today=None):
         why = []
         if p['criterion_status'] != 'REVIEWED' or p.get('missing_criterion') != '' or not raw_ok(p.get('criterion_review'), root):
             why.append('criterion unresolved or review receipt missing')
-        if p['criterion_status'] == 'REVIEWED' and p.get('criterion_acceptance_sha256') != acceptance_digest(p):
-            why.append('criterion acceptance record does not match the current acceptance values')
+        if p['criterion_status'] == 'REVIEWED':
+            digest_now = acceptance_digest(p)
+            receipt = p.get('criterion_review')
+            receipt_path = (root / receipt['path']) if isinstance(receipt, dict) and isinstance(receipt.get('path'), str) else None
+            # The retained review record itself must name this procedure's current acceptance digest.
+            named = receipt_path is not None and receipt_path.is_file() and (p['id'] + ' ' + digest_now) in receipt_path.read_text(errors='replace')
+            if p.get('criterion_acceptance_sha256') != digest_now or not named:
+                why.append('criterion acceptance record does not match the current acceptance values')
         open_items = [a['id'] for a in p['acceptance'] if a.get('confidence') in ('PROPOSED', 'UNRESOLVED')]
         if open_items:
             # A proposal is offered for review; it never stands in for an accepted value.
@@ -797,6 +808,10 @@ def checklist(plan, report):
               'エージェントが出典から用意した提案です（'+str(len(proposals))+' 件）。採るまでは該当する基準ゲートを解除しません。理由と計算は procedures.md にあります。', '',
               '| 手順 | ID | 基準 | 提案値 | 単位 |', '|---|---|---|---|---|']
     lines += ['| '+pid+' | '+a['id']+' | '+mdx(a['criterion'])+' | '+mdx(show(a['value']))+' | '+a['unit']+' |' for pid, a in proposals]
+    reviewed = [p for p in plan['procedures'] if p['criterion_status'] == 'REVIEWED']
+    if reviewed:
+        lines += ['', '## 採用済みの合否基準', '', '採用者を区別して示します。採用は基準の確定で、測定や合格ではありません。', '']
+        lines += ['- '+p['id']+': '+ACCEPTED_JA[p['criterion_accepted_by']]+'（記録 `'+p['criterion_review']['path']+'`）' for p in reviewed]
     lines += ['', '## 各作業の詳細', '', '| # | 内容 | 解除するゲート（現在の状態） |', '|---|---|---|'] + rows
     owned = set()
     for a in plan['owner_actions']:

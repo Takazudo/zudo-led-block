@@ -9,13 +9,13 @@ sidebar_position: 4.5
 発注ゲートは **BLOCKED** です。このページは準備の一覧で、発注・供給元への連絡・製造承認・通電を許可するものではありません。
 :::
 
-readiness（`engineering/a7/qualification/readiness.json`）は不足を 57 個のゲートに分け、何で解除できるかで分類しています。
+readiness（`engineering/a7/qualification/readiness.json`）は不足を 51 個のゲートに分け、何で解除できるかで分類しています。
 ゲート名は readiness のものと同じです。
 
 | 区分 | ゲート数 |
 |---|---:|
 | クラウドで進められるデジタル作業 | 2 |
-| オーナーの判断 | 19 |
+| オーナーの判断 | 13 |
 | 外部の証跡・アクセス待ち | 16 |
 | 実機が必要 | 20 |
 
@@ -37,7 +37,7 @@ readiness（`engineering/a7/qualification/readiness.json`）は不足を 57 個�
 
 ## 採否を待つ提案値
 
-エージェントが出典から用意した提案です（22 件）。採るまでは該当する基準ゲートを解除しません。理由と計算は procedures.md にあります。
+エージェントが出典から用意した提案です（9 件）。採るまでは該当する基準ゲートを解除しません。理由と計算は procedures.md にあります。
 
 | 手順 | ID | 基準 | 提案値 | 単位 |
 |---|---|---|---|---|
@@ -47,22 +47,20 @@ readiness（`engineering/a7/qualification/readiness.json`）は不足を 57 個�
 | harness-depth | power-band-order | 電源ケーブル自由長の注文範囲 | `[54.0, 60.0]` | mm |
 | firmware-waveforms | t1l-min | T1L の下限 | `580` | ns |
 | firmware-waveforms | t1l-max | T1L の上限 | `1000` | ns |
-| cv-thru-calibration | adc-m5-min | CV = -5 V での未校正 V(CV_ADC) の下限 | `0.634` | V |
-| cv-thru-calibration | adc-m5-max | CV = -5 V での未校正 V(CV_ADC) の上限 | `0.911` | V |
-| cv-thru-calibration | adc-0-min | CV = 0 V での未校正 V(CV_ADC) の下限 | `1.111` | V |
-| cv-thru-calibration | adc-0-max | CV = 0 V での未校正 V(CV_ADC) の上限 | `1.374` | V |
-| cv-thru-calibration | adc-p5-min | CV = 5 V での未校正 V(CV_ADC) の下限 | `1.577` | V |
-| cv-thru-calibration | adc-p5-max | CV = 5 V での未校正 V(CV_ADC) の上限 | `1.846` | V |
-| cv-thru-calibration | residual-max | 校正後の CV 残差の上限 | `50` | mV |
-| rail-collapse | collapse-en-off | +3V3 が vdda 下限未満になっている間の LED_EN_N（U4 オフ） | `1.1` | V |
-| rail-collapse | collapse-threshold | 上の条件を見る +3V3 の電圧 | `3000` | mV |
-| rail-collapse | collapse-recovery | 復帰後、バックアップ領域が残っていれば有効化しない（RESET_LOCKOUT） | `"return LB_BOOT_LOCKED_RETAINED;"` | NONE |
 | u7-stress | in-current-bound | R7 を流れる電流（U7 IN+ と D3 の合計）の上限（計算）。CV_AFFINE の全抵抗（R3–R6）と +3V3 の上限を含む節点計算。測定した R7 の電圧から求めた電流はこれ以下で、U7 入力の絶対最大 10 mA より小さい | `0.313` | mA |
-| load-short | vled-short | VLED (J3) 短絡で U4 がラッチオフし、外しても電源再投入まで復帰しない | `"TPS255x-1 latch-off: on overcurrent it asserts FAULT after the deglitch period and turns off; stays off even after the overload is removed until enable is toggled or power is cycled"` | NONE |
-| load-short | short-no-retry | 短絡後 FW は再有効化しない | `"No enable or retry path exists in this routine."` | NONE |
 | thermal-optical | part-temp-max | 安定後の部品表面温度の上限 | `85` | degC |
-| cv-noise | noise-max | LED データ送信中の CV 換算ノイズ（ピーク・ツー・ピーク）の上限 | `50` | mV |
 | service-envelope | retention-force | ジャック保持がずれ・割れなく受ける挿抜力 | `10.0` | N |
+
+## 採用済みの合否基準
+
+採用者を区別して示します。採用は基準の確定で、測定や合格ではありません。
+
+- power-current: プロジェクトのコーディネーター（オーナーが委ねた作業方針による）（記録 `engineering/a7/qualification/reviews/2026-11-11-coordinator-criteria-acceptance.md`）
+- cv-thru-calibration: プロジェクトのコーディネーター（オーナーが委ねた作業方針による）（記録 `engineering/a7/qualification/reviews/2026-11-11-coordinator-criteria-acceptance.md`）
+- startup-reset: プロジェクトのコーディネーター（オーナーが委ねた作業方針による）（記録 `engineering/a7/qualification/reviews/2026-11-11-coordinator-criteria-acceptance.md`）
+- rail-collapse: プロジェクトのコーディネーター（オーナーが委ねた作業方針による）（記録 `engineering/a7/qualification/reviews/2026-11-11-coordinator-criteria-acceptance.md`）
+- load-short: プロジェクトのコーディネーター（オーナーが委ねた作業方針による）（記録 `engineering/a7/qualification/reviews/2026-11-11-coordinator-criteria-acceptance.md`）
+- cv-noise: プロジェクトのコーディネーター（オーナーが委ねた作業方針による）（記録 `engineering/a7/qualification/reviews/2026-11-11-coordinator-criteria-acceptance.md`）
 
 ## 各作業の詳細
 
@@ -70,8 +68,8 @@ readiness（`engineering/a7/qualification/readiness.json`）は不足を 57 個�
 |---|---|---|
 | O0 | 供給元の symbol は端子 5 を tip としており、基板の推定対応（端子 4 = tip）と矛盾する。symbol の読みだけでは欠陥とは言えないので、ピン対応と銅箔は変更していない。実物の PJ-324M を TS / TRS プラグで導通試験し（jack-continuity の手順 5）、どちらが tip 接点でどちらがその normal かを記録する。PCB 発注の前提条件。 | `run:jack-continuity`（BLOCKED）、`criterion:jack-continuity`（BLOCKED）、`assembly:jack-switch-qualification`（BLOCKED） |
 | O3 | `engineering/a7/qualification/supplier-questions.md` は未送信の下書き。送信と回答の保存（取得日・送信先・raw・ハッシュ）はオーナーだけが行える。 | `assembly:supply-observations`（BLOCKED）、`assembly:mechanical-materials`（BLOCKED）、`criterion:jack-dimensions`（BLOCKED）、`criterion:switch-fit`（BLOCKED）、`criterion:pmma-supports`（BLOCKED）、`criterion:ldo-reverse`（BLOCKED）、`criterion:effective-capacitance`（BLOCKED）、`material:jack`（BLOCKED）、`material:switch`（BLOCKED）、`material:finished_cables`（BLOCKED）、`material:pmma_petg_hardware`（BLOCKED）、`material:fixture`（BLOCKED）、`material:assembly_service`（BLOCKED） |
-| O7 | 導出した受入値（power-current / startup-reset / u7-stress）と、PROPOSED の提案値（見え方・温度、挿抜力と回数、短絡、CV の誤差とノイズ、レール崩壊、ジャック導通）を採るか決める。採った値はレビュー記録に残す。提案値のままではゲートは解除されない。 | `criterion:thermal-optical`（BLOCKED）、`criterion:service-envelope`（BLOCKED）、`criterion:load-short`（BLOCKED）、`criterion:cv-noise`（BLOCKED）、`criterion:rail-collapse`（BLOCKED）、`criterion:jack-continuity`（BLOCKED）、`criterion:cv-thru-calibration`（BLOCKED）、`criterion:power-current`（BLOCKED）、`criterion:startup-reset`（BLOCKED）、`criterion:u7-stress`（BLOCKED） |
-| O8 | データシートの T1L 580–1000 ns と FW の 220–420 ns の矛盾。メーカー訂正を待つか、購入ロットの実測で別レビューするか。 | `criterion:firmware-waveforms`（BLOCKED） |
+| O7 | 導出した受入値（power-current / startup-reset / u7-stress）と、PROPOSED の提案値（見え方・温度、挿抜力と回数、短絡、CV の誤差とノイズ、レール崩壊、ジャック導通）を採るか決める。採った値はレビュー記録に残す。提案値のままではゲートは解除されない。 | `criterion:thermal-optical`（BLOCKED）、`criterion:service-envelope`（BLOCKED）、`criterion:load-short`（解除済み）、`criterion:cv-noise`（解除済み）、`criterion:rail-collapse`（解除済み）、`criterion:jack-continuity`（BLOCKED）、`criterion:cv-thru-calibration`（解除済み）、`criterion:power-current`（解除済み）、`criterion:startup-reset`（解除済み）、`criterion:u7-stress`（BLOCKED） |
+| O8 | **矛盾:** データシート V1.4 の T1L は 580–1000 ns、現行 FW は 220–420 ns。提案値（t1l-min / t1l-max = 580 / 1000 ns）を採ると現行 FW は不合格になるので、#13 が開いている間は採らない（コーディネーター判断）。メーカー訂正を待つか、購入ロットの実測で別レビューするか、FW を直すかをオーナーが決める。 | `criterion:firmware-waveforms`（BLOCKED） |
 | O4 | 入荷を待つ、別の販売店から買う、または接点表と適合を別にレビューした代替品を認める（Q10）。 | `assembly:switch-supply`（BLOCKED） |
 | O5 | 電源 57 mm の公差は仮定。供給元が保証できる公差と組立の選択を決める。SH4 と IDC リボンも同じ。 | `assembly:finished-cables`（BLOCKED）、`criterion:harness-depth`（BLOCKED） |
 | O6 | 使うラックのレール・ねじ規格。 | `assembly:rack-hardware`（BLOCKED） |
