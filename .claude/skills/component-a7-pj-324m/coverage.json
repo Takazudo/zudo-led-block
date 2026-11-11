@@ -47,7 +47,7 @@
       "record_id": "rec-a7-pj-324m",
       "domain": "pinout",
       "status": "OPEN",
-      "reason": "no manufacturer pin-function table; the manufacturer symbol (SOFNG-hosted, 2026-11-11) draws contact 5 with normal 4 and contact 2 with normal 3 but does not name tip or ring; this agrees with the supplier CAD reading and contradicts the current inferred 4 TIP / 5 TIP-normal mapping, so a TS/TRS continuity test is required before mapping approval",
+      "reason": "no manufacturer pin-function table; read visually, the manufacturer symbol (SOFNG-hosted, 2026-11-11) appears to draw terminal 5 as the lower contact with terminal 4 as its normal (arrow), and terminal 2 with normal 3, without naming tip or ring; that reading agrees with the supplier CAD and contradicts the current inferred 4 TIP / 5 TIP-normal mapping, so a TS/TRS continuity test is required before mapping approval",
       "fact_ids": [
         "fact-a7-pj-324m-pin-function",
         "fact-a7-pj-324m-pin-function-inference",
