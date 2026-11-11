@@ -29,7 +29,7 @@ BOARD = 'engineering/a7/electronics/controller/controller.kicad_pcb'
 CANDIDATE = 'a7_controller'
 PREFIX = 'a7-gate/'
 REQUIRED = ('summary.json', 'plan.json', f'evidence/{CANDIDATE}/board_facts.json',
-            f'evidence/{CANDIDATE}/board_geometry.json')
+            f'evidence/{CANDIDATE}/board_geometry.json', f'evidence/{CANDIDATE}/fixture_geometry.json')
 ALLOWED = set(REQUIRED)
 MAX_MEMBER_BYTES = 8 * 1024 * 1024
 

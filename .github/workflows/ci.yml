@@ -449,6 +449,7 @@ jobs:
             ${{ runner.temp }}/a7-gate/plan.json
             ${{ runner.temp }}/a7-gate/evidence/a7_controller/board_facts.json
             ${{ runner.temp }}/a7-gate/evidence/a7_controller/board_geometry.json
+            ${{ runner.temp }}/a7-gate/evidence/a7_controller/fixture_geometry.json
             ${{ runner.temp }}/a7-schematic/summary.json
             ${{ runner.temp }}/a7-route-check/summary.json
             ${{ runner.temp }}/a7-pet-leaf/summary.json

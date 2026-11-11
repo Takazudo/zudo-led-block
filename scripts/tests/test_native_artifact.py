@@ -26,16 +26,19 @@ def artifact(status='PASS', failures=(), **over):
     geom = {'outline': [[0, 0], [16.2, 0]], 'footprints': []}
     facts = {'board_sha256': BOARD, 'geometry_sha256': h(json.dumps(geom, sort_keys=True).encode())}
     fb, gb, pb = json.dumps(facts).encode(), json.dumps(geom).encode(), b'{"designs": []}'
+    xb = b'{"schema": "zudo-led-block/a7-fixture-geometry/1"}'
     s = {'status': status, 'failures': list(failures), 'board_result': 'candidate: a7_controller',
          'profile': {'kind': 'revision', 'path': m.PROFILE, 'name': 'a7-controller'}, 'image': IMAGE,
          'tested_board_sha256': {'a7_controller': BOARD}, 'plan_sha256': h(pb),
          'identity': {'pr_head_sha': HEAD, 'checkout_head': MERGE, 'github_run_id': '7', 'github_run_attempt': '1',
                       'workflow_ref': 'x/ci.yml@refs/pull/1/merge', 'workflow_sha': MERGE, 'tool_sha256': {'ci': 'd'}},
-         'evidence': {'files': {'a7_controller/board_facts.json': h(fb), 'a7_controller/board_geometry.json': h(gb)}}}
+         'evidence': {'files': {'a7_controller/board_facts.json': h(fb), 'a7_controller/board_geometry.json': h(gb),
+                                'a7_controller/fixture_geometry.json': h(xb)}}}
     for k, v in over.items():
         s[k] = v
     return {'summary.json': json.dumps(s).encode(), 'plan.json': pb,
-            'evidence/a7_controller/board_facts.json': fb, 'evidence/a7_controller/board_geometry.json': gb}
+            'evidence/a7_controller/board_facts.json': fb, 'evidence/a7_controller/board_geometry.json': gb,
+            'evidence/a7_controller/fixture_geometry.json': xb}
 
 
 def run(members, **kw):
