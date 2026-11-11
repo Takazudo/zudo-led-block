@@ -57,4 +57,27 @@ class StepBindingTests(unittest.TestCase):
             with self.assertRaisesRegex(ValueError,'canonical producer'):
                 f.validate_report(json.loads((f.OUT/'manifest.json').read_text()))
 
+class NativeGeometryBindingTests(unittest.TestCase):
+    def pads(self):
+        return f.probe_map(f.bound_r4_placement(),f.BOARD.read_text())
+
+    def test_probe_pads_confirmed_by_native_record(self):
+        n=f.report()['native_geometry']
+        self.assertTrue(n['probe_pads_match'])
+        self.assertEqual(n['record_sha256'],f.digest(f.native_geom.RECORD))
+
+    def test_probe_pad_disagreement_rejected(self):
+        for key,value in (('board_xy_mm',[0.0,0.0]),('pad_diameter_mm',0.9),('net','GND')):
+            pads=self.pads();pads[0][key]=value
+            with self.subTest(key=key),self.assertRaisesRegex(ValueError,'native'):f.native_probe_pads(pads)
+
+    def test_invalid_or_missing_record_rejected(self):
+        with patch.object(f.native_geom,'check_record',return_value=['record is stale']):
+            with self.assertRaisesRegex(ValueError,'record invalid'):f.native_probe_pads(self.pads())
+        with patch.object(f.native_geom,'RECORD',f.OUT/'absent.json'):
+            with self.assertRaisesRegex(ValueError,'record missing'):f.native_probe_pads(self.pads())
+
+    def test_native_pads_do_not_set_fresh_native_verified(self):
+        self.assertFalse(f.report()['fresh_native_verified'])
+
 if __name__=='__main__':unittest.main()

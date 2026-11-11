@@ -1,0 +1,7982 @@
+{
+ "board_sha256": "4453f818ede1e6d6c56e45ef43aa6faecb90990f3755f82c6d752258cd4d628e",
+ "geometry": {
+  "axes": {
+   "x": "right",
+   "y": "down"
+  },
+  "back_side": "B-side footprints and pads are reported in KiCad board coordinates as seen from the front (no extra mirroring)",
+  "board_sha256": "4453f818ede1e6d6c56e45ef43aa6faecb90990f3755f82c6d752258cd4d628e",
+  "extraction_errors": [],
+  "footprints": [
+   {
+    "at_mm": [
+     4.75,
+     1.9
+    ],
+    "body_height_mm": null,
+    "courtyard_bbox_mm": {
+     "B": null,
+     "F": [
+      3.805,
+      0.155,
+      5.695,
+      3.645
+     ]
+    },
+    "footprint_bbox_mm": [
+     3.825,
+     0.175,
+     5.675,
+     3.625
+    ],
+    "fpid": "LightBlock:C0805",
+    "models": [],
+    "pads": [
+     {
+      "at_mm": [
+       4.75,
+       0.9
+      ],
+      "attribute": "SMD",
+      "bbox_mm": [
+       4.05,
+       0.4,
+       5.45,
+       1.4
+      ],
+      "drill_mm": null,
+      "fp_relative_mm": [
+       -1.0,
+       0.0
+      ],
+      "layers": [
+       "F.Cu",
+       "F.Mask",
+       "F.Paste"
+      ],
+      "net": "/+12V_PROT",
+      "number": "1",
+      "rotation_deg": 270.0,
+      "shape": "ROUNDRECT",
+      "size_mm": [
+       1.0,
+       1.4
+      ]
+     },
+     {
+      "at_mm": [
+       4.75,
+       2.9
+      ],
+      "attribute": "SMD",
+      "bbox_mm": [
+       4.05,
+       2.4,
+       5.45,
+       3.4
+      ],
+      "drill_mm": null,
+      "fp_relative_mm": [
+       1.0,
+       0.0
+      ],
+      "layers": [
+       "F.Cu",
+       "F.Mask",
+       "F.Paste"
+      ],
+      "net": "/GND",
+      "number": "2",
+      "rotation_deg": 270.0,
+      "shape": "ROUNDRECT",
+      "size_mm": [
+       1.0,
+       1.4
+      ]
+     }
+    ],
+    "ref": "C1",
+    "rotation_deg": -90.0,
+    "side": "F"
+   },
+   {
+    "at_mm": [
+     10.25,
+     43.75
+    ],
+    "body_height_mm": null,
+    "courtyard_bbox_mm": {
+     "B": null,
+     "F": [
+      8.755,
+      43.03,
+      11.745,
+      44.47
+     ]
+    },
+    "footprint_bbox_mm": [
+     8.775,
+     43.05,
+     11.725,
+     44.45
+    ],
+    "fpid": "LightBlock:C0603",
+    "models": [],
+    "pads": [
+     {
+      "at_mm": [
+       9.45,
+       43.75
+      ],
+      "attribute": "SMD",
+      "bbox_mm": [
+       9.0,
+       43.275,
+       9.9,
+       44.225
+      ],
+      "drill_mm": null,
+      "fp_relative_mm": [
+       -0.8,
+       0.0
+      ],
+      "layers": [
+       "F.Cu",
+       "F.Mask",
+       "F.Paste"
+      ],
+      "net": "/VLED",
+      "number": "1",
+      "rotation_deg": 0.0,
+      "shape": "ROUNDRECT",
+      "size_mm": [
+       0.9,
+       0.95
+      ]
+     },
+     {
+      "at_mm": [
+       11.05,
+       43.75
+      ],
+      "attribute": "SMD",
+      "bbox_mm": [
+       10.6,
+       43.275,
+       11.5,
+       44.225
+      ],
+      "drill_mm": null,
+      "fp_relative_mm": [
+       0.8,
+       0.0
+      ],
+      "layers": [
+       "F.Cu",
+       "F.Mask",
+       "F.Paste"
+      ],
+      "net": "/GND",
+      "number": "2",
+      "rotation_deg": 0.0,
+      "shape": "ROUNDRECT",
+      "size_mm": [
+       0.9,
+       0.95
+      ]
+     }
+    ],
+    "ref": "C10",
+    "rotation_deg": 0.0,
+    "side": "F"
+   },
+   {
+    "at_mm": [
+     15.5,
+     1.5
+    ],
+    "body_height_mm": null,
+    "courtyard_bbox_mm": {
+     "B": null,
+     "F": [
+      14.78,
+      0.005,
+      16.22,
+      2.995
+     ]
+    },
+    "footprint_bbox_mm": [
+     14.8,
+     0.025,
+     16.2,
+     2.975
+    ],
+    "fpid": "LightBlock:C0603",
+    "models": [],
+    "pads": [
+     {
+      "at_mm": [
+       15.5,
+       0.7
+      ],
+      "attribute": "SMD",
+      "bbox_mm": [
+       15.025,
+       0.25,
+       15.975,
+       1.15
+      ],
+      "drill_mm": null,
+      "fp_relative_mm": [
+       -0.8,
+       0.0
+      ],
+      "layers": [
+       "F.Cu",
+       "F.Mask",
+       "F.Paste"
+      ],
+      "net": "/+12V_PROT",
+      "number": "1",
+      "rotation_deg": 270.0,
+      "shape": "ROUNDRECT",
+      "size_mm": [
+       0.9,
+       0.95
+      ]
+     },
+     {
+      "at_mm": [
+       15.5,
+       2.3
+      ],
+      "attribute": "SMD",
+      "bbox_mm": [
+       15.025,
+       1.85,
+       15.975,
+       2.75
+      ],
+      "drill_mm": null,
+      "fp_relative_mm": [
+       0.8,
+       0.0
+      ],
+      "layers": [
+       "F.Cu",
+       "F.Mask",
+       "F.Paste"
+      ],
+      "net": "/GND",
+      "number": "2",
+      "rotation_deg": 270.0,
+      "shape": "ROUNDRECT",
+      "size_mm": [
+       0.9,
+       0.95
+      ]
+     }
+    ],
+    "ref": "C11",
+    "rotation_deg": -90.0,
+    "side": "F"
+   },
+   {
+    "at_mm": [
+     9.84,
+     1.5
+    ],
+    "body_height_mm": null,
+    "courtyard_bbox_mm": {
+     "B": null,
+     "F": [
+      9.12,
+      0.005,
+      10.56,
+      2.995
+     ]
+    },
+    "footprint_bbox_mm": [
+     9.14,
+     0.025,
+     10.54,
+     2.975
+    ],
+    "fpid": "LightBlock:C0603",
+    "models": [],
+    "pads": [
+     {
+      "at_mm": [
+       9.84,
+       0.7
+      ],
+      "attribute": "SMD",
+      "bbox_mm": [
+       9.365,
+       0.25,
+       10.315,
+       1.15
+      ],
+      "drill_mm": null,
+      "fp_relative_mm": [
+       -0.8,
+       0.0
+      ],
+      "layers": [
+       "F.Cu",
+       "F.Mask",
+       "F.Paste"
+      ],
+      "net": "/GND",
+      "number": "1",
+      "rotation_deg": 270.0,
+      "shape": "ROUNDRECT",
+      "size_mm": [
+       0.9,
+       0.95
+      ]
+     },
+     {
+      "at_mm": [
+       9.84,
+       2.3
+      ],
+      "attribute": "SMD",
+      "bbox_mm": [
+       9.365,
+       1.85,
+       10.315,
+       2.75
+      ],
+      "drill_mm": null,
+      "fp_relative_mm": [
+       0.8,
+       0.0
+      ],
+      "layers": [
+       "F.Cu",
+       "F.Mask",
+       "F.Paste"
+      ],
+      "net": "/-12V_PROT",
+      "number": "2",
+      "rotation_deg": 270.0,
+      "shape": "ROUNDRECT",
+      "size_mm": [
+       0.9,
+       0.95
+      ]
+     }
+    ],
+    "ref": "C12",
+    "rotation_deg": -90.0,
+    "side": "F"
+   },
+   {
+    "at_mm": [
+     9.53,
+     17.73
+    ],
+    "body_height_mm": null,
+    "courtyard_bbox_mm": {
+     "B": null,
+     "F": [
+      8.035,
+      17.01,
+      11.025,
+      18.45
+     ]
+    },
+    "footprint_bbox_mm": [
+     8.055,
+     17.03,
+     11.005,
+     18.43
+    ],
+    "fpid": "LightBlock:C0603",
+    "models": [],
+    "pads": [
+     {
+      "at_mm": [
+       8.73,
+       17.73
+      ],
+      "attribute": "SMD",
+      "bbox_mm": [
+       8.28,
+       17.255,
+       9.18,
+       18.205
+      ],
+      "drill_mm": null,
+      "fp_relative_mm": [
+       -0.8,
+       0.0
+      ],
+      "layers": [
+       "F.Cu",
+       "F.Mask",
+       "F.Paste"
+      ],
+      "net": "/CV_AFFINE",
+      "number": "1",
+      "rotation_deg": 0.0,
+      "shape": "ROUNDRECT",
+      "size_mm": [
+       0.9,
+       0.95
+      ]
+     },
+     {
+      "at_mm": [
+       10.33,
+       17.73
+      ],
+      "attribute": "SMD",
+      "bbox_mm": [
+       9.88,
+       17.255,
+       10.78,
+       18.205
+      ],
+      "drill_mm": null,
+      "fp_relative_mm": [
+       0.8,
+       0.0
+      ],
+      "layers": [
+       "F.Cu",
+       "F.Mask",
+       "F.Paste"
+      ],
+      "net": "/GND",
+      "number": "2",
+      "rotation_deg": 0.0,
+      "shape": "ROUNDRECT",
+      "size_mm": [
+       0.9,
+       0.95
+      ]
+     }
+    ],
+    "ref": "C13",
+    "rotation_deg": 0.0,
+    "side": "F"
+   },
+   {
+    "at_mm": [
+     9.43,
+     24.24
+    ],
+    "body_height_mm": null,
+    "courtyard_bbox_mm": {
+     "B": null,
+     "F": [
+      7.935,
+      23.52,
+      10.925,
+      24.96
+     ]
+    },
+    "footprint_bbox_mm": [
+     7.955,
+     23.54,
+     10.905,
+     24.94
+    ],
+    "fpid": "LightBlock:C0603",
+    "models": [],
+    "pads": [
+     {
+      "at_mm": [
+       8.63,
+       24.24
+      ],
+      "attribute": "SMD",
+      "bbox_mm": [
+       8.18,
+       23.765,
+       9.08,
+       24.715
+      ],
+      "drill_mm": null,
+      "fp_relative_mm": [
+       -0.8,
+       0.0
+      ],
+      "layers": [
+       "F.Cu",
+       "F.Mask",
+       "F.Paste"
+      ],
+      "net": "/NRST",
+      "number": "1",
+      "rotation_deg": 0.0,
+      "shape": "ROUNDRECT",
+      "size_mm": [
+       0.9,
+       0.95
+      ]
+     },
+     {
+      "at_mm": [
+       10.23,
+       24.24
+      ],
+      "attribute": "SMD",
+      "bbox_mm": [
+       9.78,
+       23.765,
+       10.68,
+       24.715
+      ],
+      "drill_mm": null,
+      "fp_relative_mm": [
+       0.8,
+       0.0
+      ],
+      "layers": [
+       "F.Cu",
+       "F.Mask",
+       "F.Paste"
+      ],
+      "net": "/GND",
+      "number": "2",
+      "rotation_deg": 0.0,
+      "shape": "ROUNDRECT",
+      "size_mm": [
+       0.9,
+       0.95
+      ]
+     }
+    ],
+    "ref": "C14",
+    "rotation_deg": 0.0,
+    "side": "F"
+   },
+   {
+    "at_mm": [
+     5.6,
+     14.15
+    ],
+    "body_height_mm": null,
+    "courtyard_bbox_mm": {
+     "B": null,
+     "F": [
+      3.855,
+      13.205,
+      7.345,
+      15.095
+     ]
+    },
+    "footprint_bbox_mm": [
+     3.875,
+     13.225,
+     7.325,
+     15.075
+    ],
+    "fpid": "LightBlock:C0805",
+    "models": [],
+    "pads": [
+     {
+      "at_mm": [
+       4.6,
+       14.15
+      ],
+      "attribute": "SMD",
+      "bbox_mm": [
+       4.1,
+       13.45,
+       5.1,
+       14.85
+      ],
+      "drill_mm": null,
+      "fp_relative_mm": [
+       -1.0,
+       0.0
+      ],
+      "layers": [
+       "F.Cu",
+       "F.Mask",
+       "F.Paste"
+      ],
+      "net": "/+5V",
+      "number": "1",
+      "rotation_deg": 0.0,
+      "shape": "ROUNDRECT",
+      "size_mm": [
+       1.0,
+       1.4
+      ]
+     },
+     {
+      "at_mm": [
+       6.6,
+       14.15
+      ],
+      "attribute": "SMD",
+      "bbox_mm": [
+       6.1,
+       13.45,
+       7.1,
+       14.85
+      ],
+      "drill_mm": null,
+      "fp_relative_mm": [
+       1.0,
+       0.0
+      ],
+      "layers": [
+       "F.Cu",
+       "F.Mask",
+       "F.Paste"
+      ],
+      "net": "/GND",
+      "number": "2",
+      "rotation_deg": 0.0,
+      "shape": "ROUNDRECT",
+      "size_mm": [
+       1.0,
+       1.4
+      ]
+     }
+    ],
+    "ref": "C15",
+    "rotation_deg": 0.0,
+    "side": "F"
+   },
+   {
+    "at_mm": [
+     9.68,
+     16.1
+    ],
+    "body_height_mm": null,
+    "courtyard_bbox_mm": {
+     "B": null,
+     "F": [
+      7.935,
+      15.155,
+      11.425,
+      17.045
+     ]
+    },
+    "footprint_bbox_mm": [
+     7.955,
+     15.175,
+     11.405,
+     17.025
+    ],
+    "fpid": "LightBlock:C0805",
+    "models": [],
+    "pads": [
+     {
+      "at_mm": [
+       8.68,
+       16.1
+      ],
+      "attribute": "SMD",
+      "bbox_mm": [
+       8.18,
+       15.4,
+       9.18,
+       16.8
+      ],
+      "drill_mm": null,
+      "fp_relative_mm": [
+       -1.0,
+       0.0
+      ],
+      "layers": [
+       "F.Cu",
+       "F.Mask",
+       "F.Paste"
+      ],
+      "net": "/VLED",
+      "number": "1",
+      "rotation_deg": 0.0,
+      "shape": "ROUNDRECT",
+      "size_mm": [
+       1.0,
+       1.4
+      ]
+     },
+     {
+      "at_mm": [
+       10.68,
+       16.1
+      ],
+      "attribute": "SMD",
+      "bbox_mm": [
+       10.18,
+       15.4,
+       11.18,
+       16.8
+      ],
+      "drill_mm": null,
+      "fp_relative_mm": [
+       1.0,
+       0.0
+      ],
+      "layers": [
+       "F.Cu",
+       "F.Mask",
+       "F.Paste"
+      ],
+      "net": "/GND",
+      "number": "2",
+      "rotation_deg": 0.0,
+      "shape": "ROUNDRECT",
+      "size_mm": [
+       1.0,
+       1.4
+      ]
+     }
+    ],
+    "ref": "C16",
+    "rotation_deg": 0.0,
+    "side": "F"
+   },
+   {
+    "at_mm": [
+     5.3,
+     22.78
+    ],
+    "body_height_mm": null,
+    "courtyard_bbox_mm": {
+     "B": null,
+     "F": [
+      3.805,
+      22.06,
+      6.795,
+      23.5
+     ]
+    },
+    "footprint_bbox_mm": [
+     3.825,
+     22.08,
+     6.775,
+     23.48
+    ],
+    "fpid": "LightBlock:C0603",
+    "models": [],
+    "pads": [
+     {
+      "at_mm": [
+       4.5,
+       22.78
+      ],
+      "attribute": "SMD",
+      "bbox_mm": [
+       4.05,
+       22.305,
+       4.95,
+       23.255
+      ],
+      "drill_mm": null,
+      "fp_relative_mm": [
+       -0.8,
+       0.0
+      ],
+      "layers": [
+       "F.Cu",
+       "F.Mask",
+       "F.Paste"
+      ],
+      "net": "/+3V3",
+      "number": "1",
+      "rotation_deg": 0.0,
+      "shape": "ROUNDRECT",
+      "size_mm": [
+       0.9,
+       0.95
+      ]
+     },
+     {
+      "at_mm": [
+       6.1,
+       22.78
+      ],
+      "attribute": "SMD",
+      "bbox_mm": [
+       5.65,
+       22.305,
+       6.55,
+       23.255
+      ],
+      "drill_mm": null,
+      "fp_relative_mm": [
+       0.8,
+       0.0
+      ],
+      "layers": [
+       "F.Cu",
+       "F.Mask",
+       "F.Paste"
+      ],
+      "net": "/GND",
+      "number": "2",
+      "rotation_deg": 0.0,
+      "shape": "ROUNDRECT",
+      "size_mm": [
+       0.9,
+       0.95
+      ]
+     }
+    ],
+    "ref": "C17",
+    "rotation_deg": 0.0,
+    "side": "F"
+   },
+   {
+    "at_mm": [
+     6.3,
+     11.9
+    ],
+    "body_height_mm": null,
+    "courtyard_bbox_mm": {
+     "B": null,
+     "F": [
+      4.005,
+      10.705,
+      8.595,
+      13.095
+     ]
+    },
+    "footprint_bbox_mm": [
+     4.025,
+     10.725,
+     8.575,
+     13.075
+    ],
+    "fpid": "LightBlock:C1206",
+    "models": [],
+    "pads": [
+     {
+      "at_mm": [
+       4.85,
+       11.9
+      ],
+      "attribute": "SMD",
+      "bbox_mm": [
+       4.25,
+       10.95,
+       5.45,
+       12.85
+      ],
+      "drill_mm": null,
+      "fp_relative_mm": [
+       -1.45,
+       0.0
+      ],
+      "layers": [
+       "F.Cu",
+       "F.Mask",
+       "F.Paste"
+      ],
+      "net": "/+5V",
+      "number": "1",
+      "rotation_deg": 0.0,
+      "shape": "ROUNDRECT",
+      "size_mm": [
+       1.2,
+       1.9
+      ]
+     },
+     {
+      "at_mm": [
+       7.75,
+       11.9
+      ],
+      "attribute": "SMD",
+      "bbox_mm": [
+       7.15,
+       10.95,
+       8.35,
+       12.85
+      ],
+      "drill_mm": null,
+      "fp_relative_mm": [
+       1.45,
+       0.0
+      ],
+      "layers": [
+       "F.Cu",
+       "F.Mask",
+       "F.Paste"
+      ],
+      "net": "/GND",
+      "number": "2",
+      "rotation_deg": 0.0,
+      "shape": "ROUNDRECT",
+      "size_mm": [
+       1.2,
+       1.9
+      ]
+     }
+    ],
+    "ref": "C2",
+    "rotation_deg": 0.0,
+    "side": "F"
+   },
+   {
+    "at_mm": [
+     14.95,
+     31.95
+    ],
+    "body_height_mm": null,
+    "courtyard_bbox_mm": {
+     "B": null,
+     "F": [
+      13.755,
+      29.655,
+      16.145,
+      34.245
+     ]
+    },
+    "footprint_bbox_mm": [
+     13.775,
+     29.675,
+     16.125,
+     34.225
+    ],
+    "fpid": "LightBlock:C1206",
+    "models": [],
+    "pads": [
+     {
+      "at_mm": [
+       14.95,
+       33.4
+      ],
+      "attribute": "SMD",
+      "bbox_mm": [
+       14.0,
+       32.8,
+       15.9,
+       34.0
+      ],
+      "drill_mm": null,
+      "fp_relative_mm": [
+       -1.45,
+       0.0
+      ],
+      "layers": [
+       "F.Cu",
+       "F.Mask",
+       "F.Paste"
+      ],
+      "net": "/+5V",
+      "number": "1",
+      "rotation_deg": 90.0,
+      "shape": "ROUNDRECT",
+      "size_mm": [
+       1.2,
+       1.9
+      ]
+     },
+     {
+      "at_mm": [
+       14.95,
+       30.5
+      ],
+      "attribute": "SMD",
+      "bbox_mm": [
+       14.0,
+       29.9,
+       15.9,
+       31.1
+      ],
+      "drill_mm": null,
+      "fp_relative_mm": [
+       1.45,
+       0.0
+      ],
+      "layers": [
+       "F.Cu",
+       "F.Mask",
+       "F.Paste"
+      ],
+      "net": "/GND",
+      "number": "2",
+      "rotation_deg": 90.0,
+      "shape": "ROUNDRECT",
+      "size_mm": [
+       1.2,
+       1.9
+      ]
+     }
+    ],
+    "ref": "C3",
+    "rotation_deg": 90.0,
+    "side": "F"
+   },
+   {
+    "at_mm": [
+     7.7,
+     4.45
+    ],
+    "body_height_mm": null,
+    "courtyard_bbox_mm": {
+     "B": null,
+     "F": [
+      6.205,
+      3.73,
+      9.195,
+      5.17
+     ]
+    },
+    "footprint_bbox_mm": [
+     6.225,
+     3.75,
+     9.175,
+     5.15
+    ],
+    "fpid": "LightBlock:C0603",
+    "models": [],
+    "pads": [
+     {
+      "at_mm": [
+       8.5,
+       4.45
+      ],
+      "attribute": "SMD",
+      "bbox_mm": [
+       8.05,
+       3.975,
+       8.95,
+       4.925
+      ],
+      "drill_mm": null,
+      "fp_relative_mm": [
+       -0.8,
+       0.0
+      ],
+      "layers": [
+       "F.Cu",
+       "F.Mask",
+       "F.Paste"
+      ],
+      "net": "/BUCK_BST",
+      "number": "1",
+      "rotation_deg": 180.0,
+      "shape": "ROUNDRECT",
+      "size_mm": [
+       0.9,
+       0.95
+      ]
+     },
+     {
+      "at_mm": [
+       6.9,
+       4.45
+      ],
+      "attribute": "SMD",
+      "bbox_mm": [
+       6.45,
+       3.975,
+       7.35,
+       4.925
+      ],
+      "drill_mm": null,
+      "fp_relative_mm": [
+       0.8,
+       0.0
+      ],
+      "layers": [
+       "F.Cu",
+       "F.Mask",
+       "F.Paste"
+      ],
+      "net": "/BUCK_SW",
+      "number": "2",
+      "rotation_deg": 180.0,
+      "shape": "ROUNDRECT",
+      "size_mm": [
+       0.9,
+       0.95
+      ]
+     }
+    ],
+    "ref": "C4",
+    "rotation_deg": 180.0,
+    "side": "F"
+   },
+   {
+    "at_mm": [
+     9.84,
+     4.95
+    ],
+    "body_height_mm": null,
+    "courtyard_bbox_mm": {
+     "B": null,
+     "F": [
+      9.12,
+      3.455,
+      10.56,
+      6.445
+     ]
+    },
+    "footprint_bbox_mm": [
+     9.14,
+     3.475,
+     10.54,
+     6.425
+    ],
+    "fpid": "LightBlock:C0603",
+    "models": [],
+    "pads": [
+     {
+      "at_mm": [
+       9.84,
+       4.15
+      ],
+      "attribute": "SMD",
+      "bbox_mm": [
+       9.365,
+       3.7,
+       10.315,
+       4.6
+      ],
+      "drill_mm": null,
+      "fp_relative_mm": [
+       -0.8,
+       0.0
+      ],
+      "layers": [
+       "F.Cu",
+       "F.Mask",
+       "F.Paste"
+      ],
+      "net": "/+5V",
+      "number": "1",
+      "rotation_deg": 270.0,
+      "shape": "ROUNDRECT",
+      "size_mm": [
+       0.9,
+       0.95
+      ]
+     },
+     {
+      "at_mm": [
+       9.84,
+       5.75
+      ],
+      "attribute": "SMD",
+      "bbox_mm": [
+       9.365,
+       5.3,
+       10.315,
+       6.2
+      ],
+      "drill_mm": null,
+      "fp_relative_mm": [
+       0.8,
+       0.0
+      ],
+      "layers": [
+       "F.Cu",
+       "F.Mask",
+       "F.Paste"
+      ],
+      "net": "/GND",
+      "number": "2",
+      "rotation_deg": 270.0,
+      "shape": "ROUNDRECT",
+      "size_mm": [
+       0.9,
+       0.95
+      ]
+     }
+    ],
+    "ref": "C5",
+    "rotation_deg": -90.0,
+    "side": "F"
+   },
+   {
+    "at_mm": [
+     11.38,
+     4.95
+    ],
+    "body_height_mm": null,
+    "courtyard_bbox_mm": {
+     "B": null,
+     "F": [
+      10.66,
+      3.455,
+      12.1,
+      6.445
+     ]
+    },
+    "footprint_bbox_mm": [
+     10.68,
+     3.475,
+     12.08,
+     6.425
+    ],
+    "fpid": "LightBlock:C0603",
+    "models": [],
+    "pads": [
+     {
+      "at_mm": [
+       11.38,
+       4.15
+      ],
+      "attribute": "SMD",
+      "bbox_mm": [
+       10.905,
+       3.7,
+       11.855,
+       4.6
+      ],
+      "drill_mm": null,
+      "fp_relative_mm": [
+       -0.8,
+       0.0
+      ],
+      "layers": [
+       "F.Cu",
+       "F.Mask",
+       "F.Paste"
+      ],
+      "net": "/+3V3",
+      "number": "1",
+      "rotation_deg": 270.0,
+      "shape": "ROUNDRECT",
+      "size_mm": [
+       0.9,
+       0.95
+      ]
+     },
+     {
+      "at_mm": [
+       11.38,
+       5.75
+      ],
+      "attribute": "SMD",
+      "bbox_mm": [
+       10.905,
+       5.3,
+       11.855,
+       6.2
+      ],
+      "drill_mm": null,
+      "fp_relative_mm": [
+       0.8,
+       0.0
+      ],
+      "layers": [
+       "F.Cu",
+       "F.Mask",
+       "F.Paste"
+      ],
+      "net": "/GND",
+      "number": "2",
+      "rotation_deg": 270.0,
+      "shape": "ROUNDRECT",
+      "size_mm": [
+       0.9,
+       0.95
+      ]
+     }
+    ],
+    "ref": "C6",
+    "rotation_deg": -90.0,
+    "side": "F"
+   },
+   {
+    "at_mm": [
+     9.43,
+     22.84
+    ],
+    "body_height_mm": null,
+    "courtyard_bbox_mm": {
+     "B": null,
+     "F": [
+      7.935,
+      22.12,
+      10.925,
+      23.56
+     ]
+    },
+    "footprint_bbox_mm": [
+     7.955,
+     22.14,
+     10.905,
+     23.54
+    ],
+    "fpid": "LightBlock:C0603",
+    "models": [],
+    "pads": [
+     {
+      "at_mm": [
+       8.63,
+       22.84
+      ],
+      "attribute": "SMD",
+      "bbox_mm": [
+       8.18,
+       22.365,
+       9.08,
+       23.315
+      ],
+      "drill_mm": null,
+      "fp_relative_mm": [
+       -0.8,
+       0.0
+      ],
+      "layers": [
+       "F.Cu",
+       "F.Mask",
+       "F.Paste"
+      ],
+      "net": "/+3V3",
+      "number": "1",
+      "rotation_deg": 0.0,
+      "shape": "ROUNDRECT",
+      "size_mm": [
+       0.9,
+       0.95
+      ]
+     },
+     {
+      "at_mm": [
+       10.23,
+       22.84
+      ],
+      "attribute": "SMD",
+      "bbox_mm": [
+       9.78,
+       22.365,
+       10.68,
+       23.315
+      ],
+      "drill_mm": null,
+      "fp_relative_mm": [
+       0.8,
+       0.0
+      ],
+      "layers": [
+       "F.Cu",
+       "F.Mask",
+       "F.Paste"
+      ],
+      "net": "/GND",
+      "number": "2",
+      "rotation_deg": 0.0,
+      "shape": "ROUNDRECT",
+      "size_mm": [
+       0.9,
+       0.95
+      ]
+     }
+    ],
+    "ref": "C7",
+    "rotation_deg": 0.0,
+    "side": "F"
+   },
+   {
+    "at_mm": [
+     1.5,
+     29.46
+    ],
+    "body_height_mm": null,
+    "courtyard_bbox_mm": {
+     "B": null,
+     "F": [
+      0.005,
+      28.74,
+      2.995,
+      30.18
+     ]
+    },
+    "footprint_bbox_mm": [
+     0.025,
+     28.76,
+     2.975,
+     30.16
+    ],
+    "fpid": "LightBlock:C0603",
+    "models": [],
+    "pads": [
+     {
+      "at_mm": [
+       2.3,
+       29.46
+      ],
+      "attribute": "SMD",
+      "bbox_mm": [
+       1.85,
+       28.985,
+       2.75,
+       29.935
+      ],
+      "drill_mm": null,
+      "fp_relative_mm": [
+       -0.8,
+       0.0
+      ],
+      "layers": [
+       "F.Cu",
+       "F.Mask",
+       "F.Paste"
+      ],
+      "net": "/+3V3",
+      "number": "1",
+      "rotation_deg": 180.0,
+      "shape": "ROUNDRECT",
+      "size_mm": [
+       0.9,
+       0.95
+      ]
+     },
+     {
+      "at_mm": [
+       0.7,
+       29.46
+      ],
+      "attribute": "SMD",
+      "bbox_mm": [
+       0.25,
+       28.985,
+       1.15,
+       29.935
+      ],
+      "drill_mm": null,
+      "fp_relative_mm": [
+       0.8,
+       0.0
+      ],
+      "layers": [
+       "F.Cu",
+       "F.Mask",
+       "F.Paste"
+      ],
+      "net": "/GND",
+      "number": "2",
+      "rotation_deg": 180.0,
+      "shape": "ROUNDRECT",
+      "size_mm": [
+       0.9,
+       0.95
+      ]
+     }
+    ],
+    "ref": "C8",
+    "rotation_deg": 180.0,
+    "side": "F"
+   },
+   {
+    "at_mm": [
+     7.3,
+     43.75
+    ],
+    "body_height_mm": null,
+    "courtyard_bbox_mm": {
+     "B": null,
+     "F": [
+      5.805,
+      43.03,
+      8.795,
+      44.47
+     ]
+    },
+    "footprint_bbox_mm": [
+     5.825,
+     43.05,
+     8.775,
+     44.45
+    ],
+    "fpid": "LightBlock:C0603",
+    "models": [],
+    "pads": [
+     {
+      "at_mm": [
+       6.5,
+       43.75
+      ],
+      "attribute": "SMD",
+      "bbox_mm": [
+       6.05,
+       43.275,
+       6.95,
+       44.225
+      ],
+      "drill_mm": null,
+      "fp_relative_mm": [
+       -0.8,
+       0.0
+      ],
+      "layers": [
+       "F.Cu",
+       "F.Mask",
+       "F.Paste"
+      ],
+      "net": "/+3V3",
+      "number": "1",
+      "rotation_deg": 0.0,
+      "shape": "ROUNDRECT",
+      "size_mm": [
+       0.9,
+       0.95
+      ]
+     },
+     {
+      "at_mm": [
+       8.1,
+       43.75
+      ],
+      "attribute": "SMD",
+      "bbox_mm": [
+       7.65,
+       43.275,
+       8.55,
+       44.225
+      ],
+      "drill_mm": null,
+      "fp_relative_mm": [
+       0.8,
+       0.0
+      ],
+      "layers": [
+       "F.Cu",
+       "F.Mask",
+       "F.Paste"
+      ],
+      "net": "/GND",
+      "number": "2",
+      "rotation_deg": 0.0,
+      "shape": "ROUNDRECT",
+      "size_mm": [
+       0.9,
+       0.95
+      ]
+     }
+    ],
+    "ref": "C9",
+    "rotation_deg": 0.0,
+    "side": "F"
+   },
+   {
+    "at_mm": [
+     14.95,
+     36.0
+    ],
+    "body_height_mm": null,
+    "courtyard_bbox_mm": {
+     "B": null,
+     "F": [
+      14.08,
+      34.255,
+      15.82,
+      37.745
+     ]
+    },
+    "footprint_bbox_mm": [
+     14.1,
+     34.275,
+     15.8,
+     37.725
+    ],
+    "fpid": "LightBlock:SOD323F",
+    "models": [],
+    "pads": [
+     {
+      "at_mm": [
+       14.95,
+       37.1
+      ],
+      "attribute": "SMD",
+      "bbox_mm": [
+       14.45,
+       36.7,
+       15.45,
+       37.5
+      ],
+      "drill_mm": null,
+      "fp_relative_mm": [
+       -1.1,
+       0.0
+      ],
+      "layers": [
+       "F.Cu",
+       "F.Mask",
+       "F.Paste"
+      ],
+      "net": "/+12V_PROT",
+      "number": "1",
+      "rotation_deg": 90.0,
+      "shape": "ROUNDRECT",
+      "size_mm": [
+       0.8,
+       1.0
+      ]
+     },
+     {
+      "at_mm": [
+       14.95,
+       34.9
+      ],
+      "attribute": "SMD",
+      "bbox_mm": [
+       14.45,
+       34.5,
+       15.45,
+       35.3
+      ],
+      "drill_mm": null,
+      "fp_relative_mm": [
+       1.1,
+       0.0
+      ],
+      "layers": [
+       "F.Cu",
+       "F.Mask",
+       "F.Paste"
+      ],
+      "net": "/+12V_RAW",
+      "number": "2",
+      "rotation_deg": 90.0,
+      "shape": "ROUNDRECT",
+      "size_mm": [
+       0.8,
+       1.0
+      ]
+     }
+    ],
+    "ref": "D1",
+    "rotation_deg": 90.0,
+    "side": "F"
+   },
+   {
+    "at_mm": [
+     14.95,
+     39.5
+    ],
+    "body_height_mm": null,
+    "courtyard_bbox_mm": {
+     "B": null,
+     "F": [
+      14.08,
+      37.755,
+      15.82,
+      41.245
+     ]
+    },
+    "footprint_bbox_mm": [
+     14.1,
+     37.775,
+     15.8,
+     41.225
+    ],
+    "fpid": "LightBlock:SOD323F",
+    "models": [],
+    "pads": [
+     {
+      "at_mm": [
+       14.95,
+       40.6
+      ],
+      "attribute": "SMD",
+      "bbox_mm": [
+       14.45,
+       40.2,
+       15.45,
+       41.0
+      ],
+      "drill_mm": null,
+      "fp_relative_mm": [
+       -1.1,
+       0.0
+      ],
+      "layers": [
+       "F.Cu",
+       "F.Mask",
+       "F.Paste"
+      ],
+      "net": "/-12V_RAW",
+      "number": "1",
+      "rotation_deg": 90.0,
+      "shape": "ROUNDRECT",
+      "size_mm": [
+       0.8,
+       1.0
+      ]
+     },
+     {
+      "at_mm": [
+       14.95,
+       38.4
+      ],
+      "attribute": "SMD",
+      "bbox_mm": [
+       14.45,
+       38.0,
+       15.45,
+       38.8
+      ],
+      "drill_mm": null,
+      "fp_relative_mm": [
+       1.1,
+       0.0
+      ],
+      "layers": [
+       "F.Cu",
+       "F.Mask",
+       "F.Paste"
+      ],
+      "net": "/-12V_PROT",
+      "number": "2",
+      "rotation_deg": 90.0,
+      "shape": "ROUNDRECT",
+      "size_mm": [
+       0.8,
+       1.0
+      ]
+     }
+    ],
+    "ref": "D2",
+    "rotation_deg": 90.0,
+    "side": "F"
+   },
+   {
+    "at_mm": [
+     9.68,
+     20.4
+    ],
+    "body_height_mm": null,
+    "courtyard_bbox_mm": {
+     "B": null,
+     "F": [
+      7.935,
+      18.635,
+      11.425,
+      22.165
+     ]
+    },
+    "footprint_bbox_mm": [
+     7.955,
+     18.655,
+     11.405,
+     22.145
+    ],
+    "fpid": "LightBlock:SOT23",
+    "models": [],
+    "pads": [
+     {
+      "at_mm": [
+       10.68,
+       21.35
+      ],
+      "attribute": "SMD",
+      "bbox_mm": [
+       10.18,
+       21.0,
+       11.18,
+       21.7
+      ],
+      "drill_mm": null,
+      "fp_relative_mm": [
+       -1.0,
+       -0.95
+      ],
+      "layers": [
+       "F.Cu",
+       "F.Mask",
+       "F.Paste"
+      ],
+      "net": "/GND",
+      "number": "1",
+      "rotation_deg": 180.0,
+      "shape": "ROUNDRECT",
+      "size_mm": [
+       1.0,
+       0.7
+      ]
+     },
+     {
+      "at_mm": [
+       10.68,
+       19.45
+      ],
+      "attribute": "SMD",
+      "bbox_mm": [
+       10.18,
+       19.1,
+       11.18,
+       19.8
+      ],
+      "drill_mm": null,
+      "fp_relative_mm": [
+       -1.0,
+       0.95
+      ],
+      "layers": [
+       "F.Cu",
+       "F.Mask",
+       "F.Paste"
+      ],
+      "net": "/+3V3",
+      "number": "2",
+      "rotation_deg": 180.0,
+      "shape": "ROUNDRECT",
+      "size_mm": [
+       1.0,
+       0.7
+      ]
+     },
+     {
+      "at_mm": [
+       8.68,
+       20.4
+      ],
+      "attribute": "SMD",
+      "bbox_mm": [
+       8.18,
+       20.05,
+       9.18,
+       20.75
+      ],
+      "drill_mm": null,
+      "fp_relative_mm": [
+       1.0,
+       0.0
+      ],
+      "layers": [
+       "F.Cu",
+       "F.Mask",
+       "F.Paste"
+      ],
+      "net": "/CV_FILTER",
+      "number": "3",
+      "rotation_deg": 180.0,
+      "shape": "ROUNDRECT",
+      "size_mm": [
+       1.0,
+       0.7
+      ]
+     }
+    ],
+    "ref": "D3",
+    "rotation_deg": 180.0,
+    "side": "F"
+   },
+   {
+    "at_mm": [
+     -0.7,
+     35.8
+    ],
+    "body_height_mm": null,
+    "courtyard_bbox_mm": {
+     "B": null,
+     "F": [
+      -4.495,
+      30.105,
+      13.795,
+      42.195
+     ]
+    },
+    "footprint_bbox_mm": [
+     -4.475,
+     30.125,
+     13.775,
+     42.175
+    ],
+    "fpid": "LightBlockA7:PJ324M",
+    "models": [],
+    "pads": [
+     {
+      "at_mm": [
+       0.9,
+       35.8
+      ],
+      "attribute": "PTH",
+      "bbox_mm": [
+       0.25,
+       34.65,
+       1.55,
+       36.95
+      ],
+      "drill_mm": [
+       1.6,
+       0.8
+      ],
+      "fp_relative_mm": [
+       0.0,
+       1.6
+      ],
+      "layers": [
+       "B.Cu",
+       "B.Mask",
+       "F.Cu",
+       "F.Mask",
+       "In1.Cu",
+       "In2.Cu"
+      ],
+      "net": "/GND",
+      "number": "1",
+      "rotation_deg": 90.0,
+      "shape": "OVAL",
+      "size_mm": [
+       2.3,
+       1.3
+      ]
+     },
+     {
+      "at_mm": [
+       8.9,
+       41.0
+      ],
+      "attribute": "PTH",
+      "bbox_mm": [
+       7.75,
+       40.25,
+       10.05,
+       41.75
+      ],
+      "drill_mm": [
+       0.8,
+       1.6
+      ],
+      "fp_relative_mm": [
+       -5.2,
+       9.6
+      ],
+      "layers": [
+       "B.Cu",
+       "B.Mask",
+       "F.Cu",
+       "F.Mask",
+       "In1.Cu",
+       "In2.Cu"
+      ],
+      "net": "/GND",
+      "number": "2",
+      "rotation_deg": 90.0,
+      "shape": "OVAL",
+      "size_mm": [
+       1.5,
+       2.3
+      ]
+     },
+     {
+      "at_mm": [
+       7.9,
+       38.3
+      ],
+      "attribute": "PTH",
+      "bbox_mm": [
+       6.75,
+       37.55,
+       9.05,
+       39.05
+      ],
+      "drill_mm": [
+       0.8,
+       1.6
+      ],
+      "fp_relative_mm": [
+       -2.5,
+       8.6
+      ],
+      "layers": [
+       "B.Cu",
+       "B.Mask",
+       "F.Cu",
+       "F.Mask",
+       "In1.Cu",
+       "In2.Cu"
+      ],
+      "net": "unconnected-(J1-RING_NORMAL-Pad3)",
+      "number": "3",
+      "rotation_deg": 90.0,
+      "shape": "OVAL",
+      "size_mm": [
+       1.5,
+       2.3
+      ]
+     },
+     {
+      "at_mm": [
+       12.3,
+       31.8
+      ],
+      "attribute": "PTH",
+      "bbox_mm": [
+       11.55,
+       30.65,
+       13.05,
+       32.95
+      ],
+      "drill_mm": [
+       1.6,
+       0.8
+      ],
+      "fp_relative_mm": [
+       4.0,
+       13.0
+      ],
+      "layers": [
+       "B.Cu",
+       "B.Mask",
+       "F.Cu",
+       "F.Mask",
+       "In1.Cu",
+       "In2.Cu"
+      ],
+      "net": "/CV_THRU",
+      "number": "4",
+      "rotation_deg": 90.0,
+      "shape": "OVAL",
+      "size_mm": [
+       2.3,
+       1.5
+      ]
+     },
+     {
+      "at_mm": [
+       4.9,
+       31.3
+      ],
+      "attribute": "PTH",
+      "bbox_mm": [
+       3.75,
+       30.55,
+       6.05,
+       32.05
+      ],
+      "drill_mm": [
+       0.8,
+       1.6
+      ],
+      "fp_relative_mm": [
+       4.5,
+       5.6
+      ],
+      "layers": [
+       "B.Cu",
+       "B.Mask",
+       "F.Cu",
+       "F.Mask",
+       "In1.Cu",
+       "In2.Cu"
+      ],
+      "net": "unconnected-(J1-TIP_NORMAL-Pad5)",
+      "number": "5",
+      "rotation_deg": 90.0,
+      "shape": "OVAL",
+      "size_mm": [
+       1.5,
+       2.3
+      ]
+     }
+    ],
+    "ref": "J1",
+    "rotation_deg": 90.0,
+    "side": "F"
+   },
+   {
+    "at_mm": [
+     -0.7,
+     50.8
+    ],
+    "body_height_mm": null,
+    "courtyard_bbox_mm": {
+     "B": null,
+     "F": [
+      -4.495,
+      45.105,
+      13.795,
+      57.195
+     ]
+    },
+    "footprint_bbox_mm": [
+     -4.475,
+     45.125,
+     13.775,
+     57.175
+    ],
+    "fpid": "LightBlockA7:PJ324M",
+    "models": [],
+    "pads": [
+     {
+      "at_mm": [
+       0.9,
+       50.8
+      ],
+      "attribute": "PTH",
+      "bbox_mm": [
+       0.25,
+       49.65,
+       1.55,
+       51.95
+      ],
+      "drill_mm": [
+       1.6,
+       0.8
+      ],
+      "fp_relative_mm": [
+       0.0,
+       1.6
+      ],
+      "layers": [
+       "B.Cu",
+       "B.Mask",
+       "F.Cu",
+       "F.Mask",
+       "In1.Cu",
+       "In2.Cu"
+      ],
+      "net": "/GND",
+      "number": "1",
+      "rotation_deg": 90.0,
+      "shape": "OVAL",
+      "size_mm": [
+       2.3,
+       1.3
+      ]
+     },
+     {
+      "at_mm": [
+       8.9,
+       56.0
+      ],
+      "attribute": "PTH",
+      "bbox_mm": [
+       7.75,
+       55.25,
+       10.05,
+       56.75
+      ],
+      "drill_mm": [
+       0.8,
+       1.6
+      ],
+      "fp_relative_mm": [
+       -5.2,
+       9.6
+      ],
+      "layers": [
+       "B.Cu",
+       "B.Mask",
+       "F.Cu",
+       "F.Mask",
+       "In1.Cu",
+       "In2.Cu"
+      ],
+      "net": "/GND",
+      "number": "2",
+      "rotation_deg": 90.0,
+      "shape": "OVAL",
+      "size_mm": [
+       1.5,
+       2.3
+      ]
+     },
+     {
+      "at_mm": [
+       7.9,
+       53.3
+      ],
+      "attribute": "PTH",
+      "bbox_mm": [
+       6.75,
+       52.55,
+       9.05,
+       54.05
+      ],
+      "drill_mm": [
+       0.8,
+       1.6
+      ],
+      "fp_relative_mm": [
+       -2.5,
+       8.6
+      ],
+      "layers": [
+       "B.Cu",
+       "B.Mask",
+       "F.Cu",
+       "F.Mask",
+       "In1.Cu",
+       "In2.Cu"
+      ],
+      "net": "unconnected-(J2-RING_NORMAL-Pad3)",
+      "number": "3",
+      "rotation_deg": 90.0,
+      "shape": "OVAL",
+      "size_mm": [
+       1.5,
+       2.3
+      ]
+     },
+     {
+      "at_mm": [
+       12.3,
+       46.8
+      ],
+      "attribute": "PTH",
+      "bbox_mm": [
+       11.55,
+       45.65,
+       13.05,
+       47.95
+      ],
+      "drill_mm": [
+       1.6,
+       0.8
+      ],
+      "fp_relative_mm": [
+       4.0,
+       13.0
+      ],
+      "layers": [
+       "B.Cu",
+       "B.Mask",
+       "F.Cu",
+       "F.Mask",
+       "In1.Cu",
+       "In2.Cu"
+      ],
+      "net": "/CV_THRU",
+      "number": "4",
+      "rotation_deg": 90.0,
+      "shape": "OVAL",
+      "size_mm": [
+       2.3,
+       1.5
+      ]
+     },
+     {
+      "at_mm": [
+       4.9,
+       46.3
+      ],
+      "attribute": "PTH",
+      "bbox_mm": [
+       3.75,
+       45.55,
+       6.05,
+       47.05
+      ],
+      "drill_mm": [
+       0.8,
+       1.6
+      ],
+      "fp_relative_mm": [
+       4.5,
+       5.6
+      ],
+      "layers": [
+       "B.Cu",
+       "B.Mask",
+       "F.Cu",
+       "F.Mask",
+       "In1.Cu",
+       "In2.Cu"
+      ],
+      "net": "unconnected-(J2-TIP_NORMAL-Pad5)",
+      "number": "5",
+      "rotation_deg": 90.0,
+      "shape": "OVAL",
+      "size_mm": [
+       1.5,
+       2.3
+      ]
+     }
+    ],
+    "ref": "J2",
+    "rotation_deg": 90.0,
+    "side": "F"
+   },
+   {
+    "at_mm": [
+     12.6,
+     10.6
+    ],
+    "body_height_mm": null,
+    "courtyard_bbox_mm": {
+     "B": null,
+     "F": [
+      8.655,
+      7.275,
+      16.545,
+      13.925
+     ]
+    },
+    "footprint_bbox_mm": [
+     8.675,
+     7.295,
+     16.525,
+     13.905
+    ],
+    "fpid": "LightBlock:JST_SH4",
+    "models": [
+     "${KISYS3DMOD}/Connector_JST.3dshapes/JST_SH_SM04B-SRSS-TB_1x04-1MP_P1.00mm_Horizontal.wrl"
+    ],
+    "pads": [
+     {
+      "at_mm": [
+       11.1,
+       8.6
+      ],
+      "attribute": "SMD",
+      "bbox_mm": [
+       10.8,
+       7.825,
+       11.4,
+       9.375
+      ],
+      "drill_mm": null,
+      "fp_relative_mm": [
+       -1.5,
+       -2.0
+      ],
+      "layers": [
+       "F.Cu",
+       "F.Mask",
+       "F.Paste"
+      ],
+      "net": "/GND",
+      "number": "1",
+      "rotation_deg": 0.0,
+      "shape": "ROUNDRECT",
+      "size_mm": [
+       0.6,
+       1.55
+      ]
+     },
+     {
+      "at_mm": [
+       12.1,
+       8.6
+      ],
+      "attribute": "SMD",
+      "bbox_mm": [
+       11.8,
+       7.825,
+       12.4,
+       9.375
+      ],
+      "drill_mm": null,
+      "fp_relative_mm": [
+       -0.5,
+       -2.0
+      ],
+      "layers": [
+       "F.Cu",
+       "F.Mask",
+       "F.Paste"
+      ],
+      "net": "/VLED",
+      "number": "2",
+      "rotation_deg": 0.0,
+      "shape": "ROUNDRECT",
+      "size_mm": [
+       0.6,
+       1.55
+      ]
+     },
+     {
+      "at_mm": [
+       13.1,
+       8.6
+      ],
+      "attribute": "SMD",
+      "bbox_mm": [
+       12.8,
+       7.825,
+       13.4,
+       9.375
+      ],
+      "drill_mm": null,
+      "fp_relative_mm": [
+       0.5,
+       -2.0
+      ],
+      "layers": [
+       "F.Cu",
+       "F.Mask",
+       "F.Paste"
+      ],
+      "net": "/DATA_L",
+      "number": "3",
+      "rotation_deg": 0.0,
+      "shape": "ROUNDRECT",
+      "size_mm": [
+       0.6,
+       1.55
+      ]
+     },
+     {
+      "at_mm": [
+       14.1,
+       8.6
+      ],
+      "attribute": "SMD",
+      "bbox_mm": [
+       13.8,
+       7.825,
+       14.4,
+       9.375
+      ],
+      "drill_mm": null,
+      "fp_relative_mm": [
+       1.5,
+       -2.0
+      ],
+      "layers": [
+       "F.Cu",
+       "F.Mask",
+       "F.Paste"
+      ],
+      "net": "/DATA_R",
+      "number": "4",
+      "rotation_deg": 0.0,
+      "shape": "ROUNDRECT",
+      "size_mm": [
+       0.6,
+       1.55
+      ]
+     },
+     {
+      "at_mm": [
+       9.8,
+       12.475
+      ],
+      "attribute": "SMD",
+      "bbox_mm": [
+       9.2,
+       11.575,
+       10.4,
+       13.375
+      ],
+      "drill_mm": null,
+      "fp_relative_mm": [
+       -2.8,
+       1.875
+      ],
+      "layers": [
+       "F.Cu",
+       "F.Mask",
+       "F.Paste"
+      ],
+      "net": "",
+      "number": "MP",
+      "rotation_deg": 0.0,
+      "shape": "ROUNDRECT",
+      "size_mm": [
+       1.2,
+       1.8
+      ]
+     },
+     {
+      "at_mm": [
+       15.4,
+       12.475
+      ],
+      "attribute": "SMD",
+      "bbox_mm": [
+       14.8,
+       11.575,
+       16.0,
+       13.375
+      ],
+      "drill_mm": null,
+      "fp_relative_mm": [
+       2.8,
+       1.875
+      ],
+      "layers": [
+       "F.Cu",
+       "F.Mask",
+       "F.Paste"
+      ],
+      "net": "",
+      "number": "MP",
+      "rotation_deg": 0.0,
+      "shape": "ROUNDRECT",
+      "size_mm": [
+       1.2,
+       1.8
+      ]
+     }
+    ],
+    "ref": "J3",
+    "rotation_deg": 0.0,
+    "side": "F"
+   },
+   {
+    "at_mm": [
+     7.24,
+     27.5
+    ],
+    "body_height_mm": null,
+    "courtyard_bbox_mm": {
+     "B": null,
+     "F": [
+      5.195,
+      24.905,
+      11.785,
+      29.195
+     ]
+    },
+    "footprint_bbox_mm": [
+     5.215,
+     24.925,
+     11.765,
+     29.175
+    ],
+    "fpid": "LightBlock:PICO3",
+    "models": [
+     "${KISYS3DMOD}/Connector_Molex.3dshapes/Molex_PicoBlade_53047-0310_1x03_P1.25mm_Vertical.wrl"
+    ],
+    "pads": [
+     {
+      "at_mm": [
+       7.24,
+       27.5
+      ],
+      "attribute": "PTH",
+      "bbox_mm": [
+       6.84,
+       26.85,
+       7.64,
+       28.15
+      ],
+      "drill_mm": [
+       0.5,
+       0.5
+      ],
+      "fp_relative_mm": [
+       0.0,
+       0.0
+      ],
+      "layers": [
+       "B.Cu",
+       "B.Mask",
+       "F.Cu",
+       "F.Mask",
+       "In1.Cu",
+       "In2.Cu"
+      ],
+      "net": "/+12V_RAW",
+      "number": "1",
+      "rotation_deg": 0.0,
+      "shape": "ROUNDRECT",
+      "size_mm": [
+       0.8,
+       1.3
+      ]
+     },
+     {
+      "at_mm": [
+       8.49,
+       27.5
+      ],
+      "attribute": "PTH",
+      "bbox_mm": [
+       8.09,
+       26.85,
+       8.89,
+       28.15
+      ],
+      "drill_mm": [
+       0.5,
+       0.5
+      ],
+      "fp_relative_mm": [
+       1.25,
+       0.0
+      ],
+      "layers": [
+       "B.Cu",
+       "B.Mask",
+       "F.Cu",
+       "F.Mask",
+       "In1.Cu",
+       "In2.Cu"
+      ],
+      "net": "/GND",
+      "number": "2",
+      "rotation_deg": 0.0,
+      "shape": "OVAL",
+      "size_mm": [
+       0.8,
+       1.3
+      ]
+     },
+     {
+      "at_mm": [
+       9.74,
+       27.5
+      ],
+      "attribute": "PTH",
+      "bbox_mm": [
+       9.34,
+       26.85,
+       10.14,
+       28.15
+      ],
+      "drill_mm": [
+       0.5,
+       0.5
+      ],
+      "fp_relative_mm": [
+       2.5,
+       0.0
+      ],
+      "layers": [
+       "B.Cu",
+       "B.Mask",
+       "F.Cu",
+       "F.Mask",
+       "In1.Cu",
+       "In2.Cu"
+      ],
+      "net": "/-12V_RAW",
+      "number": "3",
+      "rotation_deg": 0.0,
+      "shape": "OVAL",
+      "size_mm": [
+       0.8,
+       1.3
+      ]
+     }
+    ],
+    "ref": "J5",
+    "rotation_deg": 0.0,
+    "side": "F"
+   },
+   {
+    "at_mm": [
+     6.3,
+     7.93
+    ],
+    "body_height_mm": null,
+    "courtyard_bbox_mm": {
+     "B": null,
+     "F": [
+      3.855,
+      5.16,
+      8.745,
+      10.7
+     ]
+    },
+    "footprint_bbox_mm": [
+     3.875,
+     5.18,
+     8.725,
+     10.68
+    ],
+    "fpid": "LightBlock:SPM4020_LR",
+    "models": [],
+    "pads": [
+     {
+      "at_mm": [
+       6.3,
+       6.28
+      ],
+      "attribute": "SMD",
+      "bbox_mm": [
+       5.15,
+       5.455,
+       7.45,
+       7.105
+      ],
+      "drill_mm": null,
+      "fp_relative_mm": [
+       -1.65,
+       0.0
+      ],
+      "layers": [
+       "F.Cu",
+       "F.Mask",
+       "F.Paste"
+      ],
+      "net": "/BUCK_SW",
+      "number": "1",
+      "rotation_deg": 270.0,
+      "shape": "ROUNDRECT",
+      "size_mm": [
+       1.65,
+       2.3
+      ]
+     },
+     {
+      "at_mm": [
+       6.3,
+       9.58
+      ],
+      "attribute": "SMD",
+      "bbox_mm": [
+       5.15,
+       8.755,
+       7.45,
+       10.405
+      ],
+      "drill_mm": null,
+      "fp_relative_mm": [
+       1.65,
+       0.0
+      ],
+      "layers": [
+       "F.Cu",
+       "F.Mask",
+       "F.Paste"
+      ],
+      "net": "/+5V",
+      "number": "2",
+      "rotation_deg": 270.0,
+      "shape": "ROUNDRECT",
+      "size_mm": [
+       1.65,
+       2.3
+      ]
+     }
+    ],
+    "ref": "L1",
+    "rotation_deg": -90.0,
+    "side": "F"
+   },
+   {
+    "at_mm": [
+     14.45,
+     60.7
+    ],
+    "body_height_mm": null,
+    "courtyard_bbox_mm": {
+     "B": null,
+     "F": [
+      12.705,
+      58.935,
+      16.195,
+      62.465
+     ]
+    },
+    "footprint_bbox_mm": [
+     12.725,
+     58.955,
+     16.175,
+     62.445
+    ],
+    "fpid": "LightBlock:SOT23",
+    "models": [],
+    "pads": [
+     {
+      "at_mm": [
+       13.45,
+       59.75
+      ],
+      "attribute": "SMD",
+      "bbox_mm": [
+       12.95,
+       59.4,
+       13.95,
+       60.1
+      ],
+      "drill_mm": null,
+      "fp_relative_mm": [
+       -1.0,
+       -0.95
+      ],
+      "layers": [
+       "F.Cu",
+       "F.Mask",
+       "F.Paste"
+      ],
+      "net": "/LED_BASE",
+      "number": "1",
+      "rotation_deg": 0.0,
+      "shape": "ROUNDRECT",
+      "size_mm": [
+       1.0,
+       0.7
+      ]
+     },
+     {
+      "at_mm": [
+       13.45,
+       61.65
+      ],
+      "attribute": "SMD",
+      "bbox_mm": [
+       12.95,
+       61.3,
+       13.95,
+       62.0
+      ],
+      "drill_mm": null,
+      "fp_relative_mm": [
+       -1.0,
+       0.95
+      ],
+      "layers": [
+       "F.Cu",
+       "F.Mask",
+       "F.Paste"
+      ],
+      "net": "/GND",
+      "number": "2",
+      "rotation_deg": 0.0,
+      "shape": "ROUNDRECT",
+      "size_mm": [
+       1.0,
+       0.7
+      ]
+     },
+     {
+      "at_mm": [
+       15.45,
+       60.7
+      ],
+      "attribute": "SMD",
+      "bbox_mm": [
+       14.95,
+       60.35,
+       15.95,
+       61.05
+      ],
+      "drill_mm": null,
+      "fp_relative_mm": [
+       1.0,
+       0.0
+      ],
+      "layers": [
+       "F.Cu",
+       "F.Mask",
+       "F.Paste"
+      ],
+      "net": "/LED_EN_N",
+      "number": "3",
+      "rotation_deg": 0.0,
+      "shape": "ROUNDRECT",
+      "size_mm": [
+       1.0,
+       0.7
+      ]
+     }
+    ],
+    "ref": "Q1",
+    "rotation_deg": 0.0,
+    "side": "F"
+   },
+   {
+    "at_mm": [
+     13.0,
+     4.0
+    ],
+    "body_height_mm": null,
+    "courtyard_bbox_mm": {
+     "B": [
+      11.505,
+      3.28,
+      14.495,
+      4.72
+     ],
+     "F": null
+    },
+    "footprint_bbox_mm": [
+     11.525,
+     3.3,
+     14.475,
+     4.7
+    ],
+    "fpid": "LightBlock:R0603",
+    "models": [],
+    "pads": [
+     {
+      "at_mm": [
+       12.2,
+       4.0
+      ],
+      "attribute": "SMD",
+      "bbox_mm": [
+       11.75,
+       3.525,
+       12.65,
+       4.475
+      ],
+      "drill_mm": null,
+      "fp_relative_mm": [
+       -0.8,
+       0.0
+      ],
+      "layers": [
+       "B.Cu",
+       "B.Mask",
+       "B.Paste"
+      ],
+      "net": "/CV_THRU",
+      "number": "1",
+      "rotation_deg": 0.0,
+      "shape": "ROUNDRECT",
+      "size_mm": [
+       0.9,
+       0.95
+      ]
+     },
+     {
+      "at_mm": [
+       13.8,
+       4.0
+      ],
+      "attribute": "SMD",
+      "bbox_mm": [
+       13.35,
+       3.525,
+       14.25,
+       4.475
+      ],
+      "drill_mm": null,
+      "fp_relative_mm": [
+       0.8,
+       0.0
+      ],
+      "layers": [
+       "B.Cu",
+       "B.Mask",
+       "B.Paste"
+      ],
+      "net": "/CV_SENSE",
+      "number": "2",
+      "rotation_deg": 0.0,
+      "shape": "ROUNDRECT",
+      "size_mm": [
+       0.9,
+       0.95
+      ]
+     }
+    ],
+    "ref": "R1",
+    "rotation_deg": 0.0,
+    "side": "B"
+   },
+   {
+    "at_mm": [
+     4.5,
+     21.7
+    ],
+    "body_height_mm": null,
+    "courtyard_bbox_mm": {
+     "B": [
+      3.78,
+      20.205,
+      5.22,
+      23.195
+     ],
+     "F": null
+    },
+    "footprint_bbox_mm": [
+     3.8,
+     20.225,
+     5.2,
+     23.175
+    ],
+    "fpid": "LightBlock:R0603",
+    "models": [],
+    "pads": [
+     {
+      "at_mm": [
+       4.5,
+       22.5
+      ],
+      "attribute": "SMD",
+      "bbox_mm": [
+       4.025,
+       22.05,
+       4.975,
+       22.95
+      ],
+      "drill_mm": null,
+      "fp_relative_mm": [
+       -0.8,
+       0.0
+      ],
+      "layers": [
+       "B.Cu",
+       "B.Mask",
+       "B.Paste"
+      ],
+      "net": "/+3V3",
+      "number": "1",
+      "rotation_deg": 90.0,
+      "shape": "ROUNDRECT",
+      "size_mm": [
+       0.9,
+       0.95
+      ]
+     },
+     {
+      "at_mm": [
+       4.5,
+       20.9
+      ],
+      "attribute": "SMD",
+      "bbox_mm": [
+       4.025,
+       20.45,
+       4.975,
+       21.35
+      ],
+      "drill_mm": null,
+      "fp_relative_mm": [
+       0.8,
+       0.0
+      ],
+      "layers": [
+       "B.Cu",
+       "B.Mask",
+       "B.Paste"
+      ],
+      "net": "/MODE_B",
+      "number": "2",
+      "rotation_deg": 90.0,
+      "shape": "ROUNDRECT",
+      "size_mm": [
+       0.9,
+       0.95
+      ]
+     }
+    ],
+    "ref": "R10",
+    "rotation_deg": 90.0,
+    "side": "B"
+   },
+   {
+    "at_mm": [
+     6.5,
+     17.0
+    ],
+    "body_height_mm": null,
+    "courtyard_bbox_mm": {
+     "B": [
+      5.005,
+      16.28,
+      7.995,
+      17.72
+     ],
+     "F": null
+    },
+    "footprint_bbox_mm": [
+     5.025,
+     16.3,
+     7.975,
+     17.7
+    ],
+    "fpid": "LightBlock:R0603",
+    "models": [],
+    "pads": [
+     {
+      "at_mm": [
+       5.7,
+       17.0
+      ],
+      "attribute": "SMD",
+      "bbox_mm": [
+       5.25,
+       16.525,
+       6.15,
+       17.475
+      ],
+      "drill_mm": null,
+      "fp_relative_mm": [
+       -0.8,
+       0.0
+      ],
+      "layers": [
+       "B.Cu",
+       "B.Mask",
+       "B.Paste"
+      ],
+      "net": "/LED_ILIM",
+      "number": "1",
+      "rotation_deg": 0.0,
+      "shape": "ROUNDRECT",
+      "size_mm": [
+       0.9,
+       0.95
+      ]
+     },
+     {
+      "at_mm": [
+       7.3,
+       17.0
+      ],
+      "attribute": "SMD",
+      "bbox_mm": [
+       6.85,
+       16.525,
+       7.75,
+       17.475
+      ],
+      "drill_mm": null,
+      "fp_relative_mm": [
+       0.8,
+       0.0
+      ],
+      "layers": [
+       "B.Cu",
+       "B.Mask",
+       "B.Paste"
+      ],
+      "net": "/GND",
+      "number": "2",
+      "rotation_deg": 0.0,
+      "shape": "ROUNDRECT",
+      "size_mm": [
+       0.9,
+       0.95
+      ]
+     }
+    ],
+    "ref": "R11",
+    "rotation_deg": 0.0,
+    "side": "B"
+   },
+   {
+    "at_mm": [
+     14.0,
+     60.5
+    ],
+    "body_height_mm": null,
+    "courtyard_bbox_mm": {
+     "B": [
+      12.505,
+      59.78,
+      15.495,
+      61.22
+     ],
+     "F": null
+    },
+    "footprint_bbox_mm": [
+     12.525,
+     59.8,
+     15.475,
+     61.2
+    ],
+    "fpid": "LightBlock:R0603",
+    "models": [],
+    "pads": [
+     {
+      "at_mm": [
+       13.2,
+       60.5
+      ],
+      "attribute": "SMD",
+      "bbox_mm": [
+       12.75,
+       60.025,
+       13.65,
+       60.975
+      ],
+      "drill_mm": null,
+      "fp_relative_mm": [
+       -0.8,
+       0.0
+      ],
+      "layers": [
+       "B.Cu",
+       "B.Mask",
+       "B.Paste"
+      ],
+      "net": "/LED_BASE",
+      "number": "1",
+      "rotation_deg": 0.0,
+      "shape": "ROUNDRECT",
+      "size_mm": [
+       0.9,
+       0.95
+      ]
+     },
+     {
+      "at_mm": [
+       14.8,
+       60.5
+      ],
+      "attribute": "SMD",
+      "bbox_mm": [
+       14.35,
+       60.025,
+       15.25,
+       60.975
+      ],
+      "drill_mm": null,
+      "fp_relative_mm": [
+       0.8,
+       0.0
+      ],
+      "layers": [
+       "B.Cu",
+       "B.Mask",
+       "B.Paste"
+      ],
+      "net": "/GND",
+      "number": "2",
+      "rotation_deg": 0.0,
+      "shape": "ROUNDRECT",
+      "size_mm": [
+       0.9,
+       0.95
+      ]
+     }
+    ],
+    "ref": "R12",
+    "rotation_deg": 0.0,
+    "side": "B"
+   },
+   {
+    "at_mm": [
+     6.5,
+     18.5
+    ],
+    "body_height_mm": null,
+    "courtyard_bbox_mm": {
+     "B": [
+      5.005,
+      17.78,
+      7.995,
+      19.22
+     ],
+     "F": null
+    },
+    "footprint_bbox_mm": [
+     5.025,
+     17.8,
+     7.975,
+     19.2
+    ],
+    "fpid": "LightBlock:R0603",
+    "models": [],
+    "pads": [
+     {
+      "at_mm": [
+       5.7,
+       18.5
+      ],
+      "attribute": "SMD",
+      "bbox_mm": [
+       5.25,
+       18.025,
+       6.15,
+       18.975
+      ],
+      "drill_mm": null,
+      "fp_relative_mm": [
+       -0.8,
+       0.0
+      ],
+      "layers": [
+       "B.Cu",
+       "B.Mask",
+       "B.Paste"
+      ],
+      "net": "/+3V3",
+      "number": "1",
+      "rotation_deg": 0.0,
+      "shape": "ROUNDRECT",
+      "size_mm": [
+       0.9,
+       0.95
+      ]
+     },
+     {
+      "at_mm": [
+       7.3,
+       18.5
+      ],
+      "attribute": "SMD",
+      "bbox_mm": [
+       6.85,
+       18.025,
+       7.75,
+       18.975
+      ],
+      "drill_mm": null,
+      "fp_relative_mm": [
+       0.8,
+       0.0
+      ],
+      "layers": [
+       "B.Cu",
+       "B.Mask",
+       "B.Paste"
+      ],
+      "net": "/LED_FAULT_N",
+      "number": "2",
+      "rotation_deg": 0.0,
+      "shape": "ROUNDRECT",
+      "size_mm": [
+       0.9,
+       0.95
+      ]
+     }
+    ],
+    "ref": "R13",
+    "rotation_deg": 0.0,
+    "side": "B"
+   },
+   {
+    "at_mm": [
+     7.6,
+     43.7
+    ],
+    "body_height_mm": null,
+    "courtyard_bbox_mm": {
+     "B": [
+      6.105,
+      42.98,
+      9.095,
+      44.42
+     ],
+     "F": null
+    },
+    "footprint_bbox_mm": [
+     6.125,
+     43.0,
+     9.075,
+     44.4
+    ],
+    "fpid": "LightBlock:R0603",
+    "models": [],
+    "pads": [
+     {
+      "at_mm": [
+       6.8,
+       43.7
+      ],
+      "attribute": "SMD",
+      "bbox_mm": [
+       6.35,
+       43.225,
+       7.25,
+       44.175
+      ],
+      "drill_mm": null,
+      "fp_relative_mm": [
+       -0.8,
+       0.0
+      ],
+      "layers": [
+       "B.Cu",
+       "B.Mask",
+       "B.Paste"
+      ],
+      "net": "/DATA_L_5V",
+      "number": "1",
+      "rotation_deg": 0.0,
+      "shape": "ROUNDRECT",
+      "size_mm": [
+       0.9,
+       0.95
+      ]
+     },
+     {
+      "at_mm": [
+       8.4,
+       43.7
+      ],
+      "attribute": "SMD",
+      "bbox_mm": [
+       7.95,
+       43.225,
+       8.85,
+       44.175
+      ],
+      "drill_mm": null,
+      "fp_relative_mm": [
+       0.8,
+       0.0
+      ],
+      "layers": [
+       "B.Cu",
+       "B.Mask",
+       "B.Paste"
+      ],
+      "net": "/DATA_L",
+      "number": "2",
+      "rotation_deg": 0.0,
+      "shape": "ROUNDRECT",
+      "size_mm": [
+       0.9,
+       0.95
+      ]
+     }
+    ],
+    "ref": "R14",
+    "rotation_deg": 0.0,
+    "side": "B"
+   },
+   {
+    "at_mm": [
+     10.7,
+     43.7
+    ],
+    "body_height_mm": null,
+    "courtyard_bbox_mm": {
+     "B": [
+      9.205,
+      42.98,
+      12.195,
+      44.42
+     ],
+     "F": null
+    },
+    "footprint_bbox_mm": [
+     9.225,
+     43.0,
+     12.175,
+     44.4
+    ],
+    "fpid": "LightBlock:R0603",
+    "models": [],
+    "pads": [
+     {
+      "at_mm": [
+       9.9,
+       43.7
+      ],
+      "attribute": "SMD",
+      "bbox_mm": [
+       9.45,
+       43.225,
+       10.35,
+       44.175
+      ],
+      "drill_mm": null,
+      "fp_relative_mm": [
+       -0.8,
+       0.0
+      ],
+      "layers": [
+       "B.Cu",
+       "B.Mask",
+       "B.Paste"
+      ],
+      "net": "/DATA_R_5V",
+      "number": "1",
+      "rotation_deg": 0.0,
+      "shape": "ROUNDRECT",
+      "size_mm": [
+       0.9,
+       0.95
+      ]
+     },
+     {
+      "at_mm": [
+       11.5,
+       43.7
+      ],
+      "attribute": "SMD",
+      "bbox_mm": [
+       11.05,
+       43.225,
+       11.95,
+       44.175
+      ],
+      "drill_mm": null,
+      "fp_relative_mm": [
+       0.8,
+       0.0
+      ],
+      "layers": [
+       "B.Cu",
+       "B.Mask",
+       "B.Paste"
+      ],
+      "net": "/DATA_R",
+      "number": "2",
+      "rotation_deg": 0.0,
+      "shape": "ROUNDRECT",
+      "size_mm": [
+       0.9,
+       0.95
+      ]
+     }
+    ],
+    "ref": "R15",
+    "rotation_deg": 0.0,
+    "side": "B"
+   },
+   {
+    "at_mm": [
+     13.8,
+     43.7
+    ],
+    "body_height_mm": null,
+    "courtyard_bbox_mm": {
+     "B": [
+      12.305,
+      42.98,
+      15.295,
+      44.42
+     ],
+     "F": null
+    },
+    "footprint_bbox_mm": [
+     12.325,
+     43.0,
+     15.275,
+     44.4
+    ],
+    "fpid": "LightBlock:R0603",
+    "models": [],
+    "pads": [
+     {
+      "at_mm": [
+       13.0,
+       43.7
+      ],
+      "attribute": "SMD",
+      "bbox_mm": [
+       12.55,
+       43.225,
+       13.45,
+       44.175
+      ],
+      "drill_mm": null,
+      "fp_relative_mm": [
+       -0.8,
+       0.0
+      ],
+      "layers": [
+       "B.Cu",
+       "B.Mask",
+       "B.Paste"
+      ],
+      "net": "/DATA_L_3V3",
+      "number": "1",
+      "rotation_deg": 0.0,
+      "shape": "ROUNDRECT",
+      "size_mm": [
+       0.9,
+       0.95
+      ]
+     },
+     {
+      "at_mm": [
+       14.6,
+       43.7
+      ],
+      "attribute": "SMD",
+      "bbox_mm": [
+       14.15,
+       43.225,
+       15.05,
+       44.175
+      ],
+      "drill_mm": null,
+      "fp_relative_mm": [
+       0.8,
+       0.0
+      ],
+      "layers": [
+       "B.Cu",
+       "B.Mask",
+       "B.Paste"
+      ],
+      "net": "/GND",
+      "number": "2",
+      "rotation_deg": 0.0,
+      "shape": "ROUNDRECT",
+      "size_mm": [
+       0.9,
+       0.95
+      ]
+     }
+    ],
+    "ref": "R16",
+    "rotation_deg": 0.0,
+    "side": "B"
+   },
+   {
+    "at_mm": [
+     14.6,
+     46.0
+    ],
+    "body_height_mm": null,
+    "courtyard_bbox_mm": {
+     "B": [
+      13.88,
+      44.505,
+      15.32,
+      47.495
+     ],
+     "F": null
+    },
+    "footprint_bbox_mm": [
+     13.9,
+     44.525,
+     15.3,
+     47.475
+    ],
+    "fpid": "LightBlock:R0603",
+    "models": [],
+    "pads": [
+     {
+      "at_mm": [
+       14.6,
+       46.8
+      ],
+      "attribute": "SMD",
+      "bbox_mm": [
+       14.125,
+       46.35,
+       15.075,
+       47.25
+      ],
+      "drill_mm": null,
+      "fp_relative_mm": [
+       -0.8,
+       0.0
+      ],
+      "layers": [
+       "B.Cu",
+       "B.Mask",
+       "B.Paste"
+      ],
+      "net": "/DATA_R_3V3",
+      "number": "1",
+      "rotation_deg": 90.0,
+      "shape": "ROUNDRECT",
+      "size_mm": [
+       0.9,
+       0.95
+      ]
+     },
+     {
+      "at_mm": [
+       14.6,
+       45.2
+      ],
+      "attribute": "SMD",
+      "bbox_mm": [
+       14.125,
+       44.75,
+       15.075,
+       45.65
+      ],
+      "drill_mm": null,
+      "fp_relative_mm": [
+       0.8,
+       0.0
+      ],
+      "layers": [
+       "B.Cu",
+       "B.Mask",
+       "B.Paste"
+      ],
+      "net": "/GND",
+      "number": "2",
+      "rotation_deg": 90.0,
+      "shape": "ROUNDRECT",
+      "size_mm": [
+       0.9,
+       0.95
+      ]
+     }
+    ],
+    "ref": "R17",
+    "rotation_deg": 90.0,
+    "side": "B"
+   },
+   {
+    "at_mm": [
+     14.6,
+     41.4
+    ],
+    "body_height_mm": null,
+    "courtyard_bbox_mm": {
+     "B": [
+      13.88,
+      39.905,
+      15.32,
+      42.895
+     ],
+     "F": null
+    },
+    "footprint_bbox_mm": [
+     13.9,
+     39.925,
+     15.3,
+     42.875
+    ],
+    "fpid": "LightBlock:R0603",
+    "models": [],
+    "pads": [
+     {
+      "at_mm": [
+       14.6,
+       42.2
+      ],
+      "attribute": "SMD",
+      "bbox_mm": [
+       14.125,
+       41.75,
+       15.075,
+       42.65
+      ],
+      "drill_mm": null,
+      "fp_relative_mm": [
+       -0.8,
+       0.0
+      ],
+      "layers": [
+       "B.Cu",
+       "B.Mask",
+       "B.Paste"
+      ],
+      "net": "/DATA_L",
+      "number": "1",
+      "rotation_deg": 90.0,
+      "shape": "ROUNDRECT",
+      "size_mm": [
+       0.9,
+       0.95
+      ]
+     },
+     {
+      "at_mm": [
+       14.6,
+       40.6
+      ],
+      "attribute": "SMD",
+      "bbox_mm": [
+       14.125,
+       40.15,
+       15.075,
+       41.05
+      ],
+      "drill_mm": null,
+      "fp_relative_mm": [
+       0.8,
+       0.0
+      ],
+      "layers": [
+       "B.Cu",
+       "B.Mask",
+       "B.Paste"
+      ],
+      "net": "/GND",
+      "number": "2",
+      "rotation_deg": 90.0,
+      "shape": "ROUNDRECT",
+      "size_mm": [
+       0.9,
+       0.95
+      ]
+     }
+    ],
+    "ref": "R18",
+    "rotation_deg": 90.0,
+    "side": "B"
+   },
+   {
+    "at_mm": [
+     14.6,
+     49.1
+    ],
+    "body_height_mm": null,
+    "courtyard_bbox_mm": {
+     "B": [
+      13.88,
+      47.605,
+      15.32,
+      50.595
+     ],
+     "F": null
+    },
+    "footprint_bbox_mm": [
+     13.9,
+     47.625,
+     15.3,
+     50.575
+    ],
+    "fpid": "LightBlock:R0603",
+    "models": [],
+    "pads": [
+     {
+      "at_mm": [
+       14.6,
+       49.9
+      ],
+      "attribute": "SMD",
+      "bbox_mm": [
+       14.125,
+       49.45,
+       15.075,
+       50.35
+      ],
+      "drill_mm": null,
+      "fp_relative_mm": [
+       -0.8,
+       0.0
+      ],
+      "layers": [
+       "B.Cu",
+       "B.Mask",
+       "B.Paste"
+      ],
+      "net": "/DATA_R",
+      "number": "1",
+      "rotation_deg": 90.0,
+      "shape": "ROUNDRECT",
+      "size_mm": [
+       0.9,
+       0.95
+      ]
+     },
+     {
+      "at_mm": [
+       14.6,
+       48.3
+      ],
+      "attribute": "SMD",
+      "bbox_mm": [
+       14.125,
+       47.85,
+       15.075,
+       48.75
+      ],
+      "drill_mm": null,
+      "fp_relative_mm": [
+       0.8,
+       0.0
+      ],
+      "layers": [
+       "B.Cu",
+       "B.Mask",
+       "B.Paste"
+      ],
+      "net": "/GND",
+      "number": "2",
+      "rotation_deg": 90.0,
+      "shape": "ROUNDRECT",
+      "size_mm": [
+       0.9,
+       0.95
+      ]
+     }
+    ],
+    "ref": "R19",
+    "rotation_deg": 90.0,
+    "side": "B"
+   },
+   {
+    "at_mm": [
+     13.0,
+     2.5
+    ],
+    "body_height_mm": null,
+    "courtyard_bbox_mm": {
+     "B": [
+      11.505,
+      1.78,
+      14.495,
+      3.22
+     ],
+     "F": null
+    },
+    "footprint_bbox_mm": [
+     11.525,
+     1.8,
+     14.475,
+     3.2
+    ],
+    "fpid": "LightBlock:R0603",
+    "models": [],
+    "pads": [
+     {
+      "at_mm": [
+       12.2,
+       2.5
+      ],
+      "attribute": "SMD",
+      "bbox_mm": [
+       11.75,
+       2.025,
+       12.65,
+       2.975
+      ],
+      "drill_mm": null,
+      "fp_relative_mm": [
+       -0.8,
+       0.0
+      ],
+      "layers": [
+       "B.Cu",
+       "B.Mask",
+       "B.Paste"
+      ],
+      "net": "/CV_SENSE",
+      "number": "1",
+      "rotation_deg": 0.0,
+      "shape": "ROUNDRECT",
+      "size_mm": [
+       0.9,
+       0.95
+      ]
+     },
+     {
+      "at_mm": [
+       13.8,
+       2.5
+      ],
+      "attribute": "SMD",
+      "bbox_mm": [
+       13.35,
+       2.025,
+       14.25,
+       2.975
+      ],
+      "drill_mm": null,
+      "fp_relative_mm": [
+       0.8,
+       0.0
+      ],
+      "layers": [
+       "B.Cu",
+       "B.Mask",
+       "B.Paste"
+      ],
+      "net": "/GND",
+      "number": "2",
+      "rotation_deg": 0.0,
+      "shape": "ROUNDRECT",
+      "size_mm": [
+       0.9,
+       0.95
+      ]
+     }
+    ],
+    "ref": "R2",
+    "rotation_deg": 0.0,
+    "side": "B"
+   },
+   {
+    "at_mm": [
+     9.0,
+     16.0
+    ],
+    "body_height_mm": null,
+    "courtyard_bbox_mm": {
+     "B": [
+      8.28,
+      14.505,
+      9.72,
+      17.495
+     ],
+     "F": null
+    },
+    "footprint_bbox_mm": [
+     8.3,
+     14.525,
+     9.7,
+     17.475
+    ],
+    "fpid": "LightBlock:R0603",
+    "models": [],
+    "pads": [
+     {
+      "at_mm": [
+       9.0,
+       16.8
+      ],
+      "attribute": "SMD",
+      "bbox_mm": [
+       8.525,
+       16.35,
+       9.475,
+       17.25
+      ],
+      "drill_mm": null,
+      "fp_relative_mm": [
+       -0.8,
+       0.0
+      ],
+      "layers": [
+       "B.Cu",
+       "B.Mask",
+       "B.Paste"
+      ],
+      "net": "/VLED",
+      "number": "1",
+      "rotation_deg": 90.0,
+      "shape": "ROUNDRECT",
+      "size_mm": [
+       0.9,
+       0.95
+      ]
+     },
+     {
+      "at_mm": [
+       9.0,
+       15.2
+      ],
+      "attribute": "SMD",
+      "bbox_mm": [
+       8.525,
+       14.75,
+       9.475,
+       15.65
+      ],
+      "drill_mm": null,
+      "fp_relative_mm": [
+       0.8,
+       0.0
+      ],
+      "layers": [
+       "B.Cu",
+       "B.Mask",
+       "B.Paste"
+      ],
+      "net": "/GND",
+      "number": "2",
+      "rotation_deg": 90.0,
+      "shape": "ROUNDRECT",
+      "size_mm": [
+       0.9,
+       0.95
+      ]
+     }
+    ],
+    "ref": "R20",
+    "rotation_deg": 90.0,
+    "side": "B"
+   },
+   {
+    "at_mm": [
+     7.5,
+     23.3
+    ],
+    "body_height_mm": null,
+    "courtyard_bbox_mm": {
+     "B": [
+      6.78,
+      21.805,
+      8.22,
+      24.795
+     ],
+     "F": null
+    },
+    "footprint_bbox_mm": [
+     6.8,
+     21.825,
+     8.2,
+     24.775
+    ],
+    "fpid": "LightBlock:R0603",
+    "models": [],
+    "pads": [
+     {
+      "at_mm": [
+       7.5,
+       24.1
+      ],
+      "attribute": "SMD",
+      "bbox_mm": [
+       7.025,
+       23.65,
+       7.975,
+       24.55
+      ],
+      "drill_mm": null,
+      "fp_relative_mm": [
+       -0.8,
+       0.0
+      ],
+      "layers": [
+       "B.Cu",
+       "B.Mask",
+       "B.Paste"
+      ],
+      "net": "/+3V3",
+      "number": "1",
+      "rotation_deg": 90.0,
+      "shape": "ROUNDRECT",
+      "size_mm": [
+       0.9,
+       0.95
+      ]
+     },
+     {
+      "at_mm": [
+       7.5,
+       22.5
+      ],
+      "attribute": "SMD",
+      "bbox_mm": [
+       7.025,
+       22.05,
+       7.975,
+       22.95
+      ],
+      "drill_mm": null,
+      "fp_relative_mm": [
+       0.8,
+       0.0
+      ],
+      "layers": [
+       "B.Cu",
+       "B.Mask",
+       "B.Paste"
+      ],
+      "net": "/NRST",
+      "number": "2",
+      "rotation_deg": 90.0,
+      "shape": "ROUNDRECT",
+      "size_mm": [
+       0.9,
+       0.95
+      ]
+     }
+    ],
+    "ref": "R21",
+    "rotation_deg": 90.0,
+    "side": "B"
+   },
+   {
+    "at_mm": [
+     14.0,
+     62.0
+    ],
+    "body_height_mm": null,
+    "courtyard_bbox_mm": {
+     "B": [
+      12.505,
+      61.28,
+      15.495,
+      62.72
+     ],
+     "F": null
+    },
+    "footprint_bbox_mm": [
+     12.525,
+     61.3,
+     15.475,
+     62.7
+    ],
+    "fpid": "LightBlock:R0603",
+    "models": [],
+    "pads": [
+     {
+      "at_mm": [
+       13.2,
+       62.0
+      ],
+      "attribute": "SMD",
+      "bbox_mm": [
+       12.75,
+       61.525,
+       13.65,
+       62.475
+      ],
+      "drill_mm": null,
+      "fp_relative_mm": [
+       -0.8,
+       0.0
+      ],
+      "layers": [
+       "B.Cu",
+       "B.Mask",
+       "B.Paste"
+      ],
+      "net": "/LED_ENABLE",
+      "number": "1",
+      "rotation_deg": 0.0,
+      "shape": "ROUNDRECT",
+      "size_mm": [
+       0.9,
+       0.95
+      ]
+     },
+     {
+      "at_mm": [
+       14.8,
+       62.0
+      ],
+      "attribute": "SMD",
+      "bbox_mm": [
+       14.35,
+       61.525,
+       15.25,
+       62.475
+      ],
+      "drill_mm": null,
+      "fp_relative_mm": [
+       0.8,
+       0.0
+      ],
+      "layers": [
+       "B.Cu",
+       "B.Mask",
+       "B.Paste"
+      ],
+      "net": "/LED_BASE",
+      "number": "2",
+      "rotation_deg": 0.0,
+      "shape": "ROUNDRECT",
+      "size_mm": [
+       0.9,
+       0.95
+      ]
+     }
+    ],
+    "ref": "R22",
+    "rotation_deg": 0.0,
+    "side": "B"
+   },
+   {
+    "at_mm": [
+     5.3,
+     15.5
+    ],
+    "body_height_mm": null,
+    "courtyard_bbox_mm": {
+     "B": [
+      3.805,
+      14.78,
+      6.795,
+      16.22
+     ],
+     "F": null
+    },
+    "footprint_bbox_mm": [
+     3.825,
+     14.8,
+     6.775,
+     16.2
+    ],
+    "fpid": "LightBlock:R0603",
+    "models": [],
+    "pads": [
+     {
+      "at_mm": [
+       4.5,
+       15.5
+      ],
+      "attribute": "SMD",
+      "bbox_mm": [
+       4.05,
+       15.025,
+       4.95,
+       15.975
+      ],
+      "drill_mm": null,
+      "fp_relative_mm": [
+       -0.8,
+       0.0
+      ],
+      "layers": [
+       "B.Cu",
+       "B.Mask",
+       "B.Paste"
+      ],
+      "net": "/+5V",
+      "number": "1",
+      "rotation_deg": 0.0,
+      "shape": "ROUNDRECT",
+      "size_mm": [
+       0.9,
+       0.95
+      ]
+     },
+     {
+      "at_mm": [
+       6.1,
+       15.5
+      ],
+      "attribute": "SMD",
+      "bbox_mm": [
+       5.65,
+       15.025,
+       6.55,
+       15.975
+      ],
+      "drill_mm": null,
+      "fp_relative_mm": [
+       0.8,
+       0.0
+      ],
+      "layers": [
+       "B.Cu",
+       "B.Mask",
+       "B.Paste"
+      ],
+      "net": "/LED_EN_N",
+      "number": "2",
+      "rotation_deg": 0.0,
+      "shape": "ROUNDRECT",
+      "size_mm": [
+       0.9,
+       0.95
+      ]
+     }
+    ],
+    "ref": "R23",
+    "rotation_deg": 0.0,
+    "side": "B"
+   },
+   {
+    "at_mm": [
+     8.6,
+     21.0
+    ],
+    "body_height_mm": null,
+    "courtyard_bbox_mm": {
+     "B": [
+      7.105,
+      20.28,
+      10.095,
+      21.72
+     ],
+     "F": null
+    },
+    "footprint_bbox_mm": [
+     7.125,
+     20.3,
+     10.075,
+     21.7
+    ],
+    "fpid": "LightBlock:R0603",
+    "models": [],
+    "pads": [
+     {
+      "at_mm": [
+       7.8,
+       21.0
+      ],
+      "attribute": "SMD",
+      "bbox_mm": [
+       7.35,
+       20.525,
+       8.25,
+       21.475
+      ],
+      "drill_mm": null,
+      "fp_relative_mm": [
+       -0.8,
+       0.0
+      ],
+      "layers": [
+       "B.Cu",
+       "B.Mask",
+       "B.Paste"
+      ],
+      "net": "/CV_DRIVE",
+      "number": "1",
+      "rotation_deg": 0.0,
+      "shape": "ROUNDRECT",
+      "size_mm": [
+       0.9,
+       0.95
+      ]
+     },
+     {
+      "at_mm": [
+       9.4,
+       21.0
+      ],
+      "attribute": "SMD",
+      "bbox_mm": [
+       8.95,
+       20.525,
+       9.85,
+       21.475
+      ],
+      "drill_mm": null,
+      "fp_relative_mm": [
+       0.8,
+       0.0
+      ],
+      "layers": [
+       "B.Cu",
+       "B.Mask",
+       "B.Paste"
+      ],
+      "net": "/CV_ADC",
+      "number": "2",
+      "rotation_deg": 0.0,
+      "shape": "ROUNDRECT",
+      "size_mm": [
+       0.9,
+       0.95
+      ]
+     }
+    ],
+    "ref": "R24",
+    "rotation_deg": 0.0,
+    "side": "B"
+   },
+   {
+    "at_mm": [
+     9.1,
+     23.3
+    ],
+    "body_height_mm": null,
+    "courtyard_bbox_mm": {
+     "B": [
+      8.38,
+      21.805,
+      9.82,
+      24.795
+     ],
+     "F": null
+    },
+    "footprint_bbox_mm": [
+     8.4,
+     21.825,
+     9.8,
+     24.775
+    ],
+    "fpid": "LightBlock:R0603",
+    "models": [],
+    "pads": [
+     {
+      "at_mm": [
+       9.1,
+       24.1
+      ],
+      "attribute": "SMD",
+      "bbox_mm": [
+       8.625,
+       23.65,
+       9.575,
+       24.55
+      ],
+      "drill_mm": null,
+      "fp_relative_mm": [
+       -0.8,
+       0.0
+      ],
+      "layers": [
+       "B.Cu",
+       "B.Mask",
+       "B.Paste"
+      ],
+      "net": "/CV_ADC",
+      "number": "1",
+      "rotation_deg": 90.0,
+      "shape": "ROUNDRECT",
+      "size_mm": [
+       0.9,
+       0.95
+      ]
+     },
+     {
+      "at_mm": [
+       9.1,
+       22.5
+      ],
+      "attribute": "SMD",
+      "bbox_mm": [
+       8.625,
+       22.05,
+       9.575,
+       22.95
+      ],
+      "drill_mm": null,
+      "fp_relative_mm": [
+       0.8,
+       0.0
+      ],
+      "layers": [
+       "B.Cu",
+       "B.Mask",
+       "B.Paste"
+      ],
+      "net": "/GND",
+      "number": "2",
+      "rotation_deg": 90.0,
+      "shape": "ROUNDRECT",
+      "size_mm": [
+       0.9,
+       0.95
+      ]
+     }
+    ],
+    "ref": "R25",
+    "rotation_deg": 90.0,
+    "side": "B"
+   },
+   {
+    "at_mm": [
+     9.6,
+     19.0
+    ],
+    "body_height_mm": null,
+    "courtyard_bbox_mm": {
+     "B": [
+      8.105,
+      18.28,
+      11.095,
+      19.72
+     ],
+     "F": null
+    },
+    "footprint_bbox_mm": [
+     8.125,
+     18.3,
+     11.075,
+     19.7
+    ],
+    "fpid": "LightBlock:R0603",
+    "models": [],
+    "pads": [
+     {
+      "at_mm": [
+       8.8,
+       19.0
+      ],
+      "attribute": "SMD",
+      "bbox_mm": [
+       8.35,
+       18.525,
+       9.25,
+       19.475
+      ],
+      "drill_mm": null,
+      "fp_relative_mm": [
+       -0.8,
+       0.0
+      ],
+      "layers": [
+       "B.Cu",
+       "B.Mask",
+       "B.Paste"
+      ],
+      "net": "/CV_BUF",
+      "number": "1",
+      "rotation_deg": 0.0,
+      "shape": "ROUNDRECT",
+      "size_mm": [
+       0.9,
+       0.95
+      ]
+     },
+     {
+      "at_mm": [
+       10.4,
+       19.0
+      ],
+      "attribute": "SMD",
+      "bbox_mm": [
+       9.95,
+       18.525,
+       10.85,
+       19.475
+      ],
+      "drill_mm": null,
+      "fp_relative_mm": [
+       0.8,
+       0.0
+      ],
+      "layers": [
+       "B.Cu",
+       "B.Mask",
+       "B.Paste"
+      ],
+      "net": "/CV_AFFINE",
+      "number": "2",
+      "rotation_deg": 0.0,
+      "shape": "ROUNDRECT",
+      "size_mm": [
+       0.9,
+       0.95
+      ]
+     }
+    ],
+    "ref": "R3",
+    "rotation_deg": 0.0,
+    "side": "B"
+   },
+   {
+    "at_mm": [
+     10.6,
+     16.7
+    ],
+    "body_height_mm": null,
+    "courtyard_bbox_mm": {
+     "B": [
+      9.88,
+      15.205,
+      11.32,
+      18.195
+     ],
+     "F": null
+    },
+    "footprint_bbox_mm": [
+     9.9,
+     15.225,
+     11.3,
+     18.175
+    ],
+    "fpid": "LightBlock:R0603",
+    "models": [],
+    "pads": [
+     {
+      "at_mm": [
+       10.6,
+       17.5
+      ],
+      "attribute": "SMD",
+      "bbox_mm": [
+       10.125,
+       17.05,
+       11.075,
+       17.95
+      ],
+      "drill_mm": null,
+      "fp_relative_mm": [
+       -0.8,
+       0.0
+      ],
+      "layers": [
+       "B.Cu",
+       "B.Mask",
+       "B.Paste"
+      ],
+      "net": "/+3V3",
+      "number": "1",
+      "rotation_deg": 90.0,
+      "shape": "ROUNDRECT",
+      "size_mm": [
+       0.9,
+       0.95
+      ]
+     },
+     {
+      "at_mm": [
+       10.6,
+       15.9
+      ],
+      "attribute": "SMD",
+      "bbox_mm": [
+       10.125,
+       15.45,
+       11.075,
+       16.35
+      ],
+      "drill_mm": null,
+      "fp_relative_mm": [
+       0.8,
+       0.0
+      ],
+      "layers": [
+       "B.Cu",
+       "B.Mask",
+       "B.Paste"
+      ],
+      "net": "/CV_AFFINE",
+      "number": "2",
+      "rotation_deg": 90.0,
+      "shape": "ROUNDRECT",
+      "size_mm": [
+       0.9,
+       0.95
+      ]
+     }
+    ],
+    "ref": "R4",
+    "rotation_deg": 90.0,
+    "side": "B"
+   },
+   {
+    "at_mm": [
+     12.2,
+     18.0
+    ],
+    "body_height_mm": null,
+    "courtyard_bbox_mm": {
+     "B": [
+      11.48,
+      16.505,
+      12.92,
+      19.495
+     ],
+     "F": null
+    },
+    "footprint_bbox_mm": [
+     11.5,
+     16.525,
+     12.9,
+     19.475
+    ],
+    "fpid": "LightBlock:R0603",
+    "models": [],
+    "pads": [
+     {
+      "at_mm": [
+       12.2,
+       18.8
+      ],
+      "attribute": "SMD",
+      "bbox_mm": [
+       11.725,
+       18.35,
+       12.675,
+       19.25
+      ],
+      "drill_mm": null,
+      "fp_relative_mm": [
+       -0.8,
+       0.0
+      ],
+      "layers": [
+       "B.Cu",
+       "B.Mask",
+       "B.Paste"
+      ],
+      "net": "/+3V3",
+      "number": "1",
+      "rotation_deg": 90.0,
+      "shape": "ROUNDRECT",
+      "size_mm": [
+       0.9,
+       0.95
+      ]
+     },
+     {
+      "at_mm": [
+       12.2,
+       17.2
+      ],
+      "attribute": "SMD",
+      "bbox_mm": [
+       11.725,
+       16.75,
+       12.675,
+       17.65
+      ],
+      "drill_mm": null,
+      "fp_relative_mm": [
+       0.8,
+       0.0
+      ],
+      "layers": [
+       "B.Cu",
+       "B.Mask",
+       "B.Paste"
+      ],
+      "net": "/CV_AFFINE",
+      "number": "2",
+      "rotation_deg": 90.0,
+      "shape": "ROUNDRECT",
+      "size_mm": [
+       0.9,
+       0.95
+      ]
+     }
+    ],
+    "ref": "R5",
+    "rotation_deg": 90.0,
+    "side": "B"
+   },
+   {
+    "at_mm": [
+     11.7,
+     20.5
+    ],
+    "body_height_mm": null,
+    "courtyard_bbox_mm": {
+     "B": [
+      10.205,
+      19.78,
+      13.195,
+      21.22
+     ],
+     "F": null
+    },
+    "footprint_bbox_mm": [
+     10.225,
+     19.8,
+     13.175,
+     21.2
+    ],
+    "fpid": "LightBlock:R0603",
+    "models": [],
+    "pads": [
+     {
+      "at_mm": [
+       10.9,
+       20.5
+      ],
+      "attribute": "SMD",
+      "bbox_mm": [
+       10.45,
+       20.025,
+       11.35,
+       20.975
+      ],
+      "drill_mm": null,
+      "fp_relative_mm": [
+       -0.8,
+       0.0
+      ],
+      "layers": [
+       "B.Cu",
+       "B.Mask",
+       "B.Paste"
+      ],
+      "net": "/CV_AFFINE",
+      "number": "1",
+      "rotation_deg": 0.0,
+      "shape": "ROUNDRECT",
+      "size_mm": [
+       0.9,
+       0.95
+      ]
+     },
+     {
+      "at_mm": [
+       12.5,
+       20.5
+      ],
+      "attribute": "SMD",
+      "bbox_mm": [
+       12.05,
+       20.025,
+       12.95,
+       20.975
+      ],
+      "drill_mm": null,
+      "fp_relative_mm": [
+       0.8,
+       0.0
+      ],
+      "layers": [
+       "B.Cu",
+       "B.Mask",
+       "B.Paste"
+      ],
+      "net": "/GND",
+      "number": "2",
+      "rotation_deg": 0.0,
+      "shape": "ROUNDRECT",
+      "size_mm": [
+       0.9,
+       0.95
+      ]
+     }
+    ],
+    "ref": "R6",
+    "rotation_deg": 0.0,
+    "side": "B"
+   },
+   {
+    "at_mm": [
+     10.9,
+     22.8
+    ],
+    "body_height_mm": null,
+    "courtyard_bbox_mm": {
+     "B": [
+      10.18,
+      21.305,
+      11.62,
+      24.295
+     ],
+     "F": null
+    },
+    "footprint_bbox_mm": [
+     10.2,
+     21.325,
+     11.6,
+     24.275
+    ],
+    "fpid": "LightBlock:R0603",
+    "models": [],
+    "pads": [
+     {
+      "at_mm": [
+       10.9,
+       23.6
+      ],
+      "attribute": "SMD",
+      "bbox_mm": [
+       10.425,
+       23.15,
+       11.375,
+       24.05
+      ],
+      "drill_mm": null,
+      "fp_relative_mm": [
+       -0.8,
+       0.0
+      ],
+      "layers": [
+       "B.Cu",
+       "B.Mask",
+       "B.Paste"
+      ],
+      "net": "/CV_AFFINE",
+      "number": "1",
+      "rotation_deg": 90.0,
+      "shape": "ROUNDRECT",
+      "size_mm": [
+       0.9,
+       0.95
+      ]
+     },
+     {
+      "at_mm": [
+       10.9,
+       22.0
+      ],
+      "attribute": "SMD",
+      "bbox_mm": [
+       10.425,
+       21.55,
+       11.375,
+       22.45
+      ],
+      "drill_mm": null,
+      "fp_relative_mm": [
+       0.8,
+       0.0
+      ],
+      "layers": [
+       "B.Cu",
+       "B.Mask",
+       "B.Paste"
+      ],
+      "net": "/CV_FILTER",
+      "number": "2",
+      "rotation_deg": 90.0,
+      "shape": "ROUNDRECT",
+      "size_mm": [
+       0.9,
+       0.95
+      ]
+     }
+    ],
+    "ref": "R7",
+    "rotation_deg": 90.0,
+    "side": "B"
+   },
+   {
+    "at_mm": [
+     10.0,
+     3.0
+    ],
+    "body_height_mm": null,
+    "courtyard_bbox_mm": {
+     "B": [
+      9.28,
+      1.505,
+      10.72,
+      4.495
+     ],
+     "F": null
+    },
+    "footprint_bbox_mm": [
+     9.3,
+     1.525,
+     10.7,
+     4.475
+    ],
+    "fpid": "LightBlock:R0603",
+    "models": [],
+    "pads": [
+     {
+      "at_mm": [
+       10.0,
+       3.8
+      ],
+      "attribute": "SMD",
+      "bbox_mm": [
+       9.525,
+       3.35,
+       10.475,
+       4.25
+      ],
+      "drill_mm": null,
+      "fp_relative_mm": [
+       -0.8,
+       0.0
+      ],
+      "layers": [
+       "B.Cu",
+       "B.Mask",
+       "B.Paste"
+      ],
+      "net": "/+3V3",
+      "number": "1",
+      "rotation_deg": 90.0,
+      "shape": "ROUNDRECT",
+      "size_mm": [
+       0.9,
+       0.95
+      ]
+     },
+     {
+      "at_mm": [
+       10.0,
+       2.2
+      ],
+      "attribute": "SMD",
+      "bbox_mm": [
+       9.525,
+       1.75,
+       10.475,
+       2.65
+      ],
+      "drill_mm": null,
+      "fp_relative_mm": [
+       0.8,
+       0.0
+      ],
+      "layers": [
+       "B.Cu",
+       "B.Mask",
+       "B.Paste"
+      ],
+      "net": "/GND",
+      "number": "2",
+      "rotation_deg": 90.0,
+      "shape": "ROUNDRECT",
+      "size_mm": [
+       0.9,
+       0.95
+      ]
+     }
+    ],
+    "ref": "R8",
+    "rotation_deg": 90.0,
+    "side": "B"
+   },
+   {
+    "at_mm": [
+     12.6,
+     26.0
+    ],
+    "body_height_mm": null,
+    "courtyard_bbox_mm": {
+     "B": [
+      11.88,
+      24.505,
+      13.32,
+      27.495
+     ],
+     "F": null
+    },
+    "footprint_bbox_mm": [
+     11.9,
+     24.525,
+     13.3,
+     27.475
+    ],
+    "fpid": "LightBlock:R0603",
+    "models": [],
+    "pads": [
+     {
+      "at_mm": [
+       12.6,
+       26.8
+      ],
+      "attribute": "SMD",
+      "bbox_mm": [
+       12.125,
+       26.35,
+       13.075,
+       27.25
+      ],
+      "drill_mm": null,
+      "fp_relative_mm": [
+       -0.8,
+       0.0
+      ],
+      "layers": [
+       "B.Cu",
+       "B.Mask",
+       "B.Paste"
+      ],
+      "net": "/+3V3",
+      "number": "1",
+      "rotation_deg": 90.0,
+      "shape": "ROUNDRECT",
+      "size_mm": [
+       0.9,
+       0.95
+      ]
+     },
+     {
+      "at_mm": [
+       12.6,
+       25.2
+      ],
+      "attribute": "SMD",
+      "bbox_mm": [
+       12.125,
+       24.75,
+       13.075,
+       25.65
+      ],
+      "drill_mm": null,
+      "fp_relative_mm": [
+       0.8,
+       0.0
+      ],
+      "layers": [
+       "B.Cu",
+       "B.Mask",
+       "B.Paste"
+      ],
+      "net": "/MODE_A",
+      "number": "2",
+      "rotation_deg": 90.0,
+      "shape": "ROUNDRECT",
+      "size_mm": [
+       0.9,
+       0.95
+      ]
+     }
+    ],
+    "ref": "R9",
+    "rotation_deg": 90.0,
+    "side": "B"
+   },
+   {
+    "at_mm": [
+     6.8,
+     60.1
+    ],
+    "body_height_mm": null,
+    "courtyard_bbox_mm": {
+     "B": null,
+     "F": [
+      0.855,
+      57.305,
+      12.745,
+      63.195
+     ]
+    },
+    "footprint_bbox_mm": [
+     0.875,
+     57.325,
+     12.725,
+     63.175
+    ],
+    "fpid": "LightBlockA7:PCM13SMTR",
+    "models": [],
+    "pads": [
+     {
+      "at_mm": [
+       1.65,
+       59.135
+      ],
+      "attribute": "SMD",
+      "bbox_mm": [
+       1.15,
+       58.735,
+       2.15,
+       59.535
+      ],
+      "drill_mm": null,
+      "fp_relative_mm": [
+       -5.15,
+       -0.965
+      ],
+      "layers": [
+       "F.Cu",
+       "F.Mask",
+       "F.Paste"
+      ],
+      "net": "",
+      "number": "",
+      "rotation_deg": 0.0,
+      "shape": "ROUNDRECT",
+      "size_mm": [
+       1.0,
+       0.8
+      ]
+     },
+     {
+      "at_mm": [
+       1.65,
+       61.065
+      ],
+      "attribute": "SMD",
+      "bbox_mm": [
+       1.15,
+       60.665,
+       2.15,
+       61.465
+      ],
+      "drill_mm": null,
+      "fp_relative_mm": [
+       -5.15,
+       0.965
+      ],
+      "layers": [
+       "F.Cu",
+       "F.Mask",
+       "F.Paste"
+      ],
+      "net": "",
+      "number": "",
+      "rotation_deg": 0.0,
+      "shape": "ROUNDRECT",
+      "size_mm": [
+       1.0,
+       0.8
+      ]
+     },
+     {
+      "at_mm": [
+       4.3,
+       60.1
+      ],
+      "attribute": "NPTH",
+      "bbox_mm": [
+       3.85,
+       59.65,
+       4.75,
+       60.55
+      ],
+      "drill_mm": [
+       0.9,
+       0.9
+      ],
+      "fp_relative_mm": [
+       -2.5,
+       0.0
+      ],
+      "layers": [
+       "B.Cu",
+       "B.Mask",
+       "F.Cu",
+       "F.Mask",
+       "In1.Cu",
+       "In2.Cu"
+      ],
+      "net": "",
+      "number": "",
+      "rotation_deg": 0.0,
+      "shape": "CIRCLE",
+      "size_mm": [
+       0.9,
+       0.9
+      ]
+     },
+     {
+      "at_mm": [
+       9.3,
+       60.1
+      ],
+      "attribute": "NPTH",
+      "bbox_mm": [
+       8.85,
+       59.65,
+       9.75,
+       60.55
+      ],
+      "drill_mm": [
+       0.9,
+       0.9
+      ],
+      "fp_relative_mm": [
+       2.5,
+       0.0
+      ],
+      "layers": [
+       "B.Cu",
+       "B.Mask",
+       "F.Cu",
+       "F.Mask",
+       "In1.Cu",
+       "In2.Cu"
+      ],
+      "net": "",
+      "number": "",
+      "rotation_deg": 0.0,
+      "shape": "CIRCLE",
+      "size_mm": [
+       0.9,
+       0.9
+      ]
+     },
+     {
+      "at_mm": [
+       11.95,
+       59.135
+      ],
+      "attribute": "SMD",
+      "bbox_mm": [
+       11.45,
+       58.735,
+       12.45,
+       59.535
+      ],
+      "drill_mm": null,
+      "fp_relative_mm": [
+       5.15,
+       -0.965
+      ],
+      "layers": [
+       "F.Cu",
+       "F.Mask",
+       "F.Paste"
+      ],
+      "net": "",
+      "number": "",
+      "rotation_deg": 0.0,
+      "shape": "ROUNDRECT",
+      "size_mm": [
+       1.0,
+       0.8
+      ]
+     },
+     {
+      "at_mm": [
+       11.95,
+       61.065
+      ],
+      "attribute": "SMD",
+      "bbox_mm": [
+       11.45,
+       60.665,
+       12.45,
+       61.465
+      ],
+      "drill_mm": null,
+      "fp_relative_mm": [
+       5.15,
+       0.965
+      ],
+      "layers": [
+       "F.Cu",
+       "F.Mask",
+       "F.Paste"
+      ],
+      "net": "",
+      "number": "",
+      "rotation_deg": 0.0,
+      "shape": "ROUNDRECT",
+      "size_mm": [
+       1.0,
+       0.8
+      ]
+     },
+     {
+      "at_mm": [
+       3.8,
+       58.35
+      ],
+      "attribute": "SMD",
+      "bbox_mm": [
+       3.45,
+       57.6,
+       4.15,
+       59.1
+      ],
+      "drill_mm": null,
+      "fp_relative_mm": [
+       -3.0,
+       -1.75
+      ],
+      "layers": [
+       "F.Cu",
+       "F.Mask",
+       "F.Paste"
+      ],
+      "net": "/MODE_A",
+      "number": "1",
+      "rotation_deg": 0.0,
+      "shape": "ROUNDRECT",
+      "size_mm": [
+       0.7,
+       1.5
+      ]
+     },
+     {
+      "at_mm": [
+       5.3,
+       58.35
+      ],
+      "attribute": "SMD",
+      "bbox_mm": [
+       4.95,
+       57.6,
+       5.65,
+       59.1
+      ],
+      "drill_mm": null,
+      "fp_relative_mm": [
+       -1.5,
+       -1.75
+      ],
+      "layers": [
+       "F.Cu",
+       "F.Mask",
+       "F.Paste"
+      ],
+      "net": "unconnected-(SW1-THROW_2-Pad2)",
+      "number": "2",
+      "rotation_deg": 0.0,
+      "shape": "ROUNDRECT",
+      "size_mm": [
+       0.7,
+       1.5
+      ]
+     },
+     {
+      "at_mm": [
+       8.3,
+       58.35
+      ],
+      "attribute": "SMD",
+      "bbox_mm": [
+       7.95,
+       57.6,
+       8.65,
+       59.1
+      ],
+      "drill_mm": null,
+      "fp_relative_mm": [
+       1.5,
+       -1.75
+      ],
+      "layers": [
+       "F.Cu",
+       "F.Mask",
+       "F.Paste"
+      ],
+      "net": "/GND",
+      "number": "3",
+      "rotation_deg": 0.0,
+      "shape": "ROUNDRECT",
+      "size_mm": [
+       0.7,
+       1.5
+      ]
+     },
+     {
+      "at_mm": [
+       9.8,
+       58.35
+      ],
+      "attribute": "SMD",
+      "bbox_mm": [
+       9.45,
+       57.6,
+       10.15,
+       59.1
+      ],
+      "drill_mm": null,
+      "fp_relative_mm": [
+       3.0,
+       -1.75
+      ],
+      "layers": [
+       "F.Cu",
+       "F.Mask",
+       "F.Paste"
+      ],
+      "net": "/MODE_B",
+      "number": "4",
+      "rotation_deg": 0.0,
+      "shape": "ROUNDRECT",
+      "size_mm": [
+       0.7,
+       1.5
+      ]
+     }
+    ],
+    "ref": "SW1",
+    "rotation_deg": 0.0,
+    "side": "F"
+   },
+   {
+    "at_mm": [
+     12.4,
+     23.8
+    ],
+    "body_height_mm": null,
+    "courtyard_bbox_mm": {
+     "B": [
+      11.755,
+      23.155,
+      13.045,
+      24.445
+     ],
+     "F": null
+    },
+    "footprint_bbox_mm": [
+     11.775,
+     23.175,
+     13.025,
+     24.425
+    ],
+    "fpid": "LightBlock:TESTPAD",
+    "models": [],
+    "pads": [
+     {
+      "at_mm": [
+       12.4,
+       23.8
+      ],
+      "attribute": "SMD",
+      "bbox_mm": [
+       11.9,
+       23.3,
+       12.9,
+       24.3
+      ],
+      "drill_mm": null,
+      "fp_relative_mm": [
+       0.0,
+       0.0
+      ],
+      "layers": [
+       "B.Cu",
+       "B.Mask"
+      ],
+      "net": "/+3V3",
+      "number": "1",
+      "rotation_deg": 0.0,
+      "shape": "CIRCLE",
+      "size_mm": [
+       1.0,
+       1.0
+      ]
+     }
+    ],
+    "ref": "TP1",
+    "rotation_deg": 0.0,
+    "side": "B"
+   },
+   {
+    "at_mm": [
+     12.5,
+     28.2
+    ],
+    "body_height_mm": null,
+    "courtyard_bbox_mm": {
+     "B": [
+      11.855,
+      27.555,
+      13.145,
+      28.845
+     ],
+     "F": null
+    },
+    "footprint_bbox_mm": [
+     11.875,
+     27.575,
+     13.125,
+     28.825
+    ],
+    "fpid": "LightBlock:TESTPAD",
+    "models": [],
+    "pads": [
+     {
+      "at_mm": [
+       12.5,
+       28.2
+      ],
+      "attribute": "SMD",
+      "bbox_mm": [
+       12.0,
+       27.7,
+       13.0,
+       28.7
+      ],
+      "drill_mm": null,
+      "fp_relative_mm": [
+       0.0,
+       0.0
+      ],
+      "layers": [
+       "B.Cu",
+       "B.Mask"
+      ],
+      "net": "/GND",
+      "number": "1",
+      "rotation_deg": 0.0,
+      "shape": "CIRCLE",
+      "size_mm": [
+       1.0,
+       1.0
+      ]
+     }
+    ],
+    "ref": "TP2",
+    "rotation_deg": 0.0,
+    "side": "B"
+   },
+   {
+    "at_mm": [
+     12.4,
+     22.4
+    ],
+    "body_height_mm": null,
+    "courtyard_bbox_mm": {
+     "B": [
+      11.755,
+      21.755,
+      13.045,
+      23.045
+     ],
+     "F": null
+    },
+    "footprint_bbox_mm": [
+     11.775,
+     21.775,
+     13.025,
+     23.025
+    ],
+    "fpid": "LightBlock:TESTPAD",
+    "models": [],
+    "pads": [
+     {
+      "at_mm": [
+       12.4,
+       22.4
+      ],
+      "attribute": "SMD",
+      "bbox_mm": [
+       11.9,
+       21.9,
+       12.9,
+       22.9
+      ],
+      "drill_mm": null,
+      "fp_relative_mm": [
+       0.0,
+       0.0
+      ],
+      "layers": [
+       "B.Cu",
+       "B.Mask"
+      ],
+      "net": "/SWDIO",
+      "number": "1",
+      "rotation_deg": 0.0,
+      "shape": "CIRCLE",
+      "size_mm": [
+       1.0,
+       1.0
+      ]
+     }
+    ],
+    "ref": "TP3",
+    "rotation_deg": 0.0,
+    "side": "B"
+   },
+   {
+    "at_mm": [
+     13.8,
+     23.8
+    ],
+    "body_height_mm": null,
+    "courtyard_bbox_mm": {
+     "B": [
+      13.155,
+      23.155,
+      14.445,
+      24.445
+     ],
+     "F": null
+    },
+    "footprint_bbox_mm": [
+     13.175,
+     23.175,
+     14.425,
+     24.425
+    ],
+    "fpid": "LightBlock:TESTPAD",
+    "models": [],
+    "pads": [
+     {
+      "at_mm": [
+       13.8,
+       23.8
+      ],
+      "attribute": "SMD",
+      "bbox_mm": [
+       13.3,
+       23.3,
+       14.3,
+       24.3
+      ],
+      "drill_mm": null,
+      "fp_relative_mm": [
+       0.0,
+       0.0
+      ],
+      "layers": [
+       "B.Cu",
+       "B.Mask"
+      ],
+      "net": "/SWCLK",
+      "number": "1",
+      "rotation_deg": 0.0,
+      "shape": "CIRCLE",
+      "size_mm": [
+       1.0,
+       1.0
+      ]
+     }
+    ],
+    "ref": "TP4",
+    "rotation_deg": 0.0,
+    "side": "B"
+   },
+   {
+    "at_mm": [
+     14.1,
+     26.0
+    ],
+    "body_height_mm": null,
+    "courtyard_bbox_mm": {
+     "B": [
+      13.455,
+      25.355,
+      14.745,
+      26.645
+     ],
+     "F": null
+    },
+    "footprint_bbox_mm": [
+     13.475,
+     25.375,
+     14.725,
+     26.625
+    ],
+    "fpid": "LightBlock:TESTPAD",
+    "models": [],
+    "pads": [
+     {
+      "at_mm": [
+       14.1,
+       26.0
+      ],
+      "attribute": "SMD",
+      "bbox_mm": [
+       13.6,
+       25.5,
+       14.6,
+       26.5
+      ],
+      "drill_mm": null,
+      "fp_relative_mm": [
+       0.0,
+       0.0
+      ],
+      "layers": [
+       "B.Cu",
+       "B.Mask"
+      ],
+      "net": "/NRST",
+      "number": "1",
+      "rotation_deg": 0.0,
+      "shape": "CIRCLE",
+      "size_mm": [
+       1.0,
+       1.0
+      ]
+     }
+    ],
+    "ref": "TP5",
+    "rotation_deg": 0.0,
+    "side": "B"
+   },
+   {
+    "at_mm": [
+     2.62,
+     26.13
+    ],
+    "body_height_mm": null,
+    "courtyard_bbox_mm": {
+     "B": null,
+     "F": [
+      -0.045,
+      23.465,
+      5.285,
+      28.795
+     ]
+    },
+    "footprint_bbox_mm": [
+     -0.025,
+     23.485,
+     5.265,
+     28.775
+    ],
+    "fpid": "LightBlock:QFN28",
+    "models": [
+     "${KISYS3DMOD}/Package_DFN_QFN.3dshapes/QFN-28_4x4mm_P0.5mm.wrl"
+    ],
+    "pads": [
+     {
+      "at_mm": [
+       1.12,
+       28.1275
+      ],
+      "attribute": "SMD",
+      "bbox_mm": [
+       0.995,
+       27.75,
+       1.245,
+       28.505
+      ],
+      "drill_mm": null,
+      "fp_relative_mm": [
+       -1.9975,
+       -1.5
+      ],
+      "layers": [
+       "F.Cu",
+       "F.Mask",
+       "F.Paste"
+      ],
+      "net": "unconnected-(U1-PC14-Pad1)",
+      "number": "1",
+      "rotation_deg": 90.0,
+      "shape": "CUSTOM",
+      "size_mm": [
+       0.1369,
+       0.1369
+      ]
+     },
+     {
+      "at_mm": [
+       4.5575,
+       26.63
+      ],
+      "attribute": "SMD",
+      "bbox_mm": [
+       4.12,
+       26.505,
+       4.995,
+       26.755
+      ],
+      "drill_mm": null,
+      "fp_relative_mm": [
+       -0.5,
+       1.9375
+      ],
+      "layers": [
+       "F.Cu",
+       "F.Mask",
+       "F.Paste"
+      ],
+      "net": "/LED_FAULT_N",
+      "number": "10",
+      "rotation_deg": 90.0,
+      "shape": "ROUNDRECT",
+      "size_mm": [
+       0.25,
+       0.875
+      ]
+     },
+     {
+      "at_mm": [
+       4.5575,
+       26.13
+      ],
+      "attribute": "SMD",
+      "bbox_mm": [
+       4.12,
+       26.005,
+       4.995,
+       26.255
+      ],
+      "drill_mm": null,
+      "fp_relative_mm": [
+       0.0,
+       1.9375
+      ],
+      "layers": [
+       "F.Cu",
+       "F.Mask",
+       "F.Paste"
+      ],
+      "net": "/LED_ENABLE",
+      "number": "11",
+      "rotation_deg": 90.0,
+      "shape": "ROUNDRECT",
+      "size_mm": [
+       0.25,
+       0.875
+      ]
+     },
+     {
+      "at_mm": [
+       4.5575,
+       25.63
+      ],
+      "attribute": "SMD",
+      "bbox_mm": [
+       4.12,
+       25.505,
+       4.995,
+       25.755
+      ],
+      "drill_mm": null,
+      "fp_relative_mm": [
+       0.5,
+       1.9375
+      ],
+      "layers": [
+       "F.Cu",
+       "F.Mask",
+       "F.Paste"
+      ],
+      "net": "/DATA_L_3V3",
+      "number": "12",
+      "rotation_deg": 90.0,
+      "shape": "ROUNDRECT",
+      "size_mm": [
+       0.25,
+       0.875
+      ]
+     },
+     {
+      "at_mm": [
+       4.5575,
+       25.13
+      ],
+      "attribute": "SMD",
+      "bbox_mm": [
+       4.12,
+       25.005,
+       4.995,
+       25.255
+      ],
+      "drill_mm": null,
+      "fp_relative_mm": [
+       1.0,
+       1.9375
+      ],
+      "layers": [
+       "F.Cu",
+       "F.Mask",
+       "F.Paste"
+      ],
+      "net": "/DATA_R_3V3",
+      "number": "13",
+      "rotation_deg": 90.0,
+      "shape": "ROUNDRECT",
+      "size_mm": [
+       0.25,
+       0.875
+      ]
+     },
+     {
+      "at_mm": [
+       4.6175,
+       24.63
+      ],
+      "attribute": "SMD",
+      "bbox_mm": [
+       4.24,
+       24.505,
+       4.995,
+       24.755
+      ],
+      "drill_mm": null,
+      "fp_relative_mm": [
+       1.5,
+       1.9975
+      ],
+      "layers": [
+       "F.Cu",
+       "F.Mask",
+       "F.Paste"
+      ],
+      "net": "unconnected-(U1-PB0-Pad14)",
+      "number": "14",
+      "rotation_deg": 90.0,
+      "shape": "CUSTOM",
+      "size_mm": [
+       0.1369,
+       0.1369
+      ]
+     },
+     {
+      "at_mm": [
+       4.12,
+       24.1325
+      ],
+      "attribute": "SMD",
+      "bbox_mm": [
+       3.995,
+       23.755,
+       4.245,
+       24.51
+      ],
+      "drill_mm": null,
+      "fp_relative_mm": [
+       1.9975,
+       1.5
+      ],
+      "layers": [
+       "F.Cu",
+       "F.Mask",
+       "F.Paste"
+      ],
+      "net": "unconnected-(U1-PB1-Pad15)",
+      "number": "15",
+      "rotation_deg": 90.0,
+      "shape": "CUSTOM",
+      "size_mm": [
+       0.1369,
+       0.1369
+      ]
+     },
+     {
+      "at_mm": [
+       3.62,
+       24.1925
+      ],
+      "attribute": "SMD",
+      "bbox_mm": [
+       3.495,
+       23.755,
+       3.745,
+       24.63
+      ],
+      "drill_mm": null,
+      "fp_relative_mm": [
+       1.9375,
+       1.0
+      ],
+      "layers": [
+       "F.Cu",
+       "F.Mask",
+       "F.Paste"
+      ],
+      "net": "unconnected-(U1-PA8-Pad16)",
+      "number": "16",
+      "rotation_deg": 90.0,
+      "shape": "ROUNDRECT",
+      "size_mm": [
+       0.875,
+       0.25
+      ]
+     },
+     {
+      "at_mm": [
+       3.12,
+       24.1925
+      ],
+      "attribute": "SMD",
+      "bbox_mm": [
+       2.995,
+       23.755,
+       3.245,
+       24.63
+      ],
+      "drill_mm": null,
+      "fp_relative_mm": [
+       1.9375,
+       0.5
+      ],
+      "layers": [
+       "F.Cu",
+       "F.Mask",
+       "F.Paste"
+      ],
+      "net": "unconnected-(U1-PC6-Pad17)",
+      "number": "17",
+      "rotation_deg": 90.0,
+      "shape": "ROUNDRECT",
+      "size_mm": [
+       0.875,
+       0.25
+      ]
+     },
+     {
+      "at_mm": [
+       2.62,
+       24.1925
+      ],
+      "attribute": "SMD",
+      "bbox_mm": [
+       2.495,
+       23.755,
+       2.745,
+       24.63
+      ],
+      "drill_mm": null,
+      "fp_relative_mm": [
+       1.9375,
+       0.0
+      ],
+      "layers": [
+       "F.Cu",
+       "F.Mask",
+       "F.Paste"
+      ],
+      "net": "unconnected-(U1-PA11-Pad18)",
+      "number": "18",
+      "rotation_deg": 90.0,
+      "shape": "ROUNDRECT",
+      "size_mm": [
+       0.875,
+       0.25
+      ]
+     },
+     {
+      "at_mm": [
+       2.12,
+       24.1925
+      ],
+      "attribute": "SMD",
+      "bbox_mm": [
+       1.995,
+       23.755,
+       2.245,
+       24.63
+      ],
+      "drill_mm": null,
+      "fp_relative_mm": [
+       1.9375,
+       -0.5
+      ],
+      "layers": [
+       "F.Cu",
+       "F.Mask",
+       "F.Paste"
+      ],
+      "net": "unconnected-(U1-PA12-Pad19)",
+      "number": "19",
+      "rotation_deg": 90.0,
+      "shape": "ROUNDRECT",
+      "size_mm": [
+       0.875,
+       0.25
+      ]
+     },
+     {
+      "at_mm": [
+       1.62,
+       28.0675
+      ],
+      "attribute": "SMD",
+      "bbox_mm": [
+       1.495,
+       27.63,
+       1.745,
+       28.505
+      ],
+      "drill_mm": null,
+      "fp_relative_mm": [
+       -1.9375,
+       -1.0
+      ],
+      "layers": [
+       "F.Cu",
+       "F.Mask",
+       "F.Paste"
+      ],
+      "net": "unconnected-(U1-PC15-Pad2)",
+      "number": "2",
+      "rotation_deg": 90.0,
+      "shape": "ROUNDRECT",
+      "size_mm": [
+       0.875,
+       0.25
+      ]
+     },
+     {
+      "at_mm": [
+       1.62,
+       24.1925
+      ],
+      "attribute": "SMD",
+      "bbox_mm": [
+       1.495,
+       23.755,
+       1.745,
+       24.63
+      ],
+      "drill_mm": null,
+      "fp_relative_mm": [
+       1.9375,
+       -1.0
+      ],
+      "layers": [
+       "F.Cu",
+       "F.Mask",
+       "F.Paste"
+      ],
+      "net": "/SWDIO",
+      "number": "20",
+      "rotation_deg": 90.0,
+      "shape": "ROUNDRECT",
+      "size_mm": [
+       0.875,
+       0.25
+      ]
+     },
+     {
+      "at_mm": [
+       1.12,
+       24.1325
+      ],
+      "attribute": "SMD",
+      "bbox_mm": [
+       0.995,
+       23.755,
+       1.245,
+       24.51
+      ],
+      "drill_mm": null,
+      "fp_relative_mm": [
+       1.9975,
+       -1.5
+      ],
+      "layers": [
+       "F.Cu",
+       "F.Mask",
+       "F.Paste"
+      ],
+      "net": "/SWCLK",
+      "number": "21",
+      "rotation_deg": 90.0,
+      "shape": "CUSTOM",
+      "size_mm": [
+       0.1369,
+       0.1369
+      ]
+     },
+     {
+      "at_mm": [
+       0.6225,
+       24.63
+      ],
+      "attribute": "SMD",
+      "bbox_mm": [
+       0.245,
+       24.505,
+       1.0,
+       24.755
+      ],
+      "drill_mm": null,
+      "fp_relative_mm": [
+       1.5,
+       -1.9975
+      ],
+      "layers": [
+       "F.Cu",
+       "F.Mask",
+       "F.Paste"
+      ],
+      "net": "unconnected-(U1-PA15-Pad22)",
+      "number": "22",
+      "rotation_deg": 90.0,
+      "shape": "CUSTOM",
+      "size_mm": [
+       0.1369,
+       0.1369
+      ]
+     },
+     {
+      "at_mm": [
+       0.6825,
+       25.13
+      ],
+      "attribute": "SMD",
+      "bbox_mm": [
+       0.245,
+       25.005,
+       1.12,
+       25.255
+      ],
+      "drill_mm": null,
+      "fp_relative_mm": [
+       1.0,
+       -1.9375
+      ],
+      "layers": [
+       "F.Cu",
+       "F.Mask",
+       "F.Paste"
+      ],
+      "net": "unconnected-(U1-PB3-Pad23)",
+      "number": "23",
+      "rotation_deg": 90.0,
+      "shape": "ROUNDRECT",
+      "size_mm": [
+       0.25,
+       0.875
+      ]
+     },
+     {
+      "at_mm": [
+       0.6825,
+       25.63
+      ],
+      "attribute": "SMD",
+      "bbox_mm": [
+       0.245,
+       25.505,
+       1.12,
+       25.755
+      ],
+      "drill_mm": null,
+      "fp_relative_mm": [
+       0.5,
+       -1.9375
+      ],
+      "layers": [
+       "F.Cu",
+       "F.Mask",
+       "F.Paste"
+      ],
+      "net": "unconnected-(U1-PB4-Pad24)",
+      "number": "24",
+      "rotation_deg": 90.0,
+      "shape": "ROUNDRECT",
+      "size_mm": [
+       0.25,
+       0.875
+      ]
+     },
+     {
+      "at_mm": [
+       0.6825,
+       26.13
+      ],
+      "attribute": "SMD",
+      "bbox_mm": [
+       0.245,
+       26.005,
+       1.12,
+       26.255
+      ],
+      "drill_mm": null,
+      "fp_relative_mm": [
+       0.0,
+       -1.9375
+      ],
+      "layers": [
+       "F.Cu",
+       "F.Mask",
+       "F.Paste"
+      ],
+      "net": "unconnected-(U1-PB5-Pad25)",
+      "number": "25",
+      "rotation_deg": 90.0,
+      "shape": "ROUNDRECT",
+      "size_mm": [
+       0.25,
+       0.875
+      ]
+     },
+     {
+      "at_mm": [
+       0.6825,
+       26.63
+      ],
+      "attribute": "SMD",
+      "bbox_mm": [
+       0.245,
+       26.505,
+       1.12,
+       26.755
+      ],
+      "drill_mm": null,
+      "fp_relative_mm": [
+       -0.5,
+       -1.9375
+      ],
+      "layers": [
+       "F.Cu",
+       "F.Mask",
+       "F.Paste"
+      ],
+      "net": "unconnected-(U1-PB6-Pad26)",
+      "number": "26",
+      "rotation_deg": 90.0,
+      "shape": "ROUNDRECT",
+      "size_mm": [
+       0.25,
+       0.875
+      ]
+     },
+     {
+      "at_mm": [
+       0.6825,
+       27.13
+      ],
+      "attribute": "SMD",
+      "bbox_mm": [
+       0.245,
+       27.005,
+       1.12,
+       27.255
+      ],
+      "drill_mm": null,
+      "fp_relative_mm": [
+       -1.0,
+       -1.9375
+      ],
+      "layers": [
+       "F.Cu",
+       "F.Mask",
+       "F.Paste"
+      ],
+      "net": "unconnected-(U1-PB7-Pad27)",
+      "number": "27",
+      "rotation_deg": 90.0,
+      "shape": "ROUNDRECT",
+      "size_mm": [
+       0.25,
+       0.875
+      ]
+     },
+     {
+      "at_mm": [
+       0.6225,
+       27.63
+      ],
+      "attribute": "SMD",
+      "bbox_mm": [
+       0.245,
+       27.505,
+       1.0,
+       27.755
+      ],
+      "drill_mm": null,
+      "fp_relative_mm": [
+       -1.5,
+       -1.9975
+      ],
+      "layers": [
+       "F.Cu",
+       "F.Mask",
+       "F.Paste"
+      ],
+      "net": "unconnected-(U1-PB8-Pad28)",
+      "number": "28",
+      "rotation_deg": 90.0,
+      "shape": "CUSTOM",
+      "size_mm": [
+       0.1369,
+       0.1369
+      ]
+     },
+     {
+      "at_mm": [
+       2.12,
+       28.0675
+      ],
+      "attribute": "SMD",
+      "bbox_mm": [
+       1.995,
+       27.63,
+       2.245,
+       28.505
+      ],
+      "drill_mm": null,
+      "fp_relative_mm": [
+       -1.9375,
+       -0.5
+      ],
+      "layers": [
+       "F.Cu",
+       "F.Mask",
+       "F.Paste"
+      ],
+      "net": "/+3V3",
+      "number": "3",
+      "rotation_deg": 90.0,
+      "shape": "ROUNDRECT",
+      "size_mm": [
+       0.875,
+       0.25
+      ]
+     },
+     {
+      "at_mm": [
+       2.62,
+       28.0675
+      ],
+      "attribute": "SMD",
+      "bbox_mm": [
+       2.495,
+       27.63,
+       2.745,
+       28.505
+      ],
+      "drill_mm": null,
+      "fp_relative_mm": [
+       -1.9375,
+       0.0
+      ],
+      "layers": [
+       "F.Cu",
+       "F.Mask",
+       "F.Paste"
+      ],
+      "net": "/GND",
+      "number": "4",
+      "rotation_deg": 90.0,
+      "shape": "ROUNDRECT",
+      "size_mm": [
+       0.875,
+       0.25
+      ]
+     },
+     {
+      "at_mm": [
+       3.12,
+       28.0675
+      ],
+      "attribute": "SMD",
+      "bbox_mm": [
+       2.995,
+       27.63,
+       3.245,
+       28.505
+      ],
+      "drill_mm": null,
+      "fp_relative_mm": [
+       -1.9375,
+       0.5
+      ],
+      "layers": [
+       "F.Cu",
+       "F.Mask",
+       "F.Paste"
+      ],
+      "net": "/NRST",
+      "number": "5",
+      "rotation_deg": 90.0,
+      "shape": "ROUNDRECT",
+      "size_mm": [
+       0.875,
+       0.25
+      ]
+     },
+     {
+      "at_mm": [
+       3.62,
+       28.0675
+      ],
+      "attribute": "SMD",
+      "bbox_mm": [
+       3.495,
+       27.63,
+       3.745,
+       28.505
+      ],
+      "drill_mm": null,
+      "fp_relative_mm": [
+       -1.9375,
+       1.0
+      ],
+      "layers": [
+       "F.Cu",
+       "F.Mask",
+       "F.Paste"
+      ],
+      "net": "/CV_ADC",
+      "number": "6",
+      "rotation_deg": 90.0,
+      "shape": "ROUNDRECT",
+      "size_mm": [
+       0.875,
+       0.25
+      ]
+     },
+     {
+      "at_mm": [
+       4.12,
+       28.1275
+      ],
+      "attribute": "SMD",
+      "bbox_mm": [
+       3.995,
+       27.75,
+       4.245,
+       28.505
+      ],
+      "drill_mm": null,
+      "fp_relative_mm": [
+       -1.9975,
+       1.5
+      ],
+      "layers": [
+       "F.Cu",
+       "F.Mask",
+       "F.Paste"
+      ],
+      "net": "unconnected-(U1-PA1-Pad7)",
+      "number": "7",
+      "rotation_deg": 90.0,
+      "shape": "CUSTOM",
+      "size_mm": [
+       0.1369,
+       0.1369
+      ]
+     },
+     {
+      "at_mm": [
+       4.6175,
+       27.63
+      ],
+      "attribute": "SMD",
+      "bbox_mm": [
+       4.24,
+       27.505,
+       4.995,
+       27.755
+      ],
+      "drill_mm": null,
+      "fp_relative_mm": [
+       -1.5,
+       1.9975
+      ],
+      "layers": [
+       "F.Cu",
+       "F.Mask",
+       "F.Paste"
+      ],
+      "net": "/MODE_A",
+      "number": "8",
+      "rotation_deg": 90.0,
+      "shape": "CUSTOM",
+      "size_mm": [
+       0.1369,
+       0.1369
+      ]
+     },
+     {
+      "at_mm": [
+       4.5575,
+       27.13
+      ],
+      "attribute": "SMD",
+      "bbox_mm": [
+       4.12,
+       27.005,
+       4.995,
+       27.255
+      ],
+      "drill_mm": null,
+      "fp_relative_mm": [
+       -1.0,
+       1.9375
+      ],
+      "layers": [
+       "F.Cu",
+       "F.Mask",
+       "F.Paste"
+      ],
+      "net": "/MODE_B",
+      "number": "9",
+      "rotation_deg": 90.0,
+      "shape": "ROUNDRECT",
+      "size_mm": [
+       0.25,
+       0.875
+      ]
+     }
+    ],
+    "ref": "U1",
+    "rotation_deg": 90.0,
+    "side": "F"
+   },
+   {
+    "at_mm": [
+     7.4,
+     1.9
+    ],
+    "body_height_mm": null,
+    "courtyard_bbox_mm": {
+     "B": null,
+     "F": [
+      5.655,
+      0.055,
+      9.145,
+      3.745
+     ]
+    },
+    "footprint_bbox_mm": [
+     5.675,
+     0.075,
+     9.125,
+     3.725
+    ],
+    "fpid": "LightBlock:TSOT26",
+    "models": [],
+    "pads": [
+     {
+      "at_mm": [
+       8.35,
+       0.8
+      ],
+      "attribute": "SMD",
+      "bbox_mm": [
+       8.0,
+       0.3,
+       8.7,
+       1.3
+      ],
+      "drill_mm": null,
+      "fp_relative_mm": [
+       -1.1,
+       -0.95
+      ],
+      "layers": [
+       "F.Cu",
+       "F.Mask",
+       "F.Paste"
+      ],
+      "net": "/+5V",
+      "number": "1",
+      "rotation_deg": 270.0,
+      "shape": "ROUNDRECT",
+      "size_mm": [
+       1.0,
+       0.7
+      ]
+     },
+     {
+      "at_mm": [
+       7.4,
+       0.8
+      ],
+      "attribute": "SMD",
+      "bbox_mm": [
+       7.05,
+       0.3,
+       7.75,
+       1.3
+      ],
+      "drill_mm": null,
+      "fp_relative_mm": [
+       -1.1,
+       0.0
+      ],
+      "layers": [
+       "F.Cu",
+       "F.Mask",
+       "F.Paste"
+      ],
+      "net": "/+12V_PROT",
+      "number": "2",
+      "rotation_deg": 270.0,
+      "shape": "ROUNDRECT",
+      "size_mm": [
+       1.0,
+       0.7
+      ]
+     },
+     {
+      "at_mm": [
+       6.45,
+       0.8
+      ],
+      "attribute": "SMD",
+      "bbox_mm": [
+       6.1,
+       0.3,
+       6.8,
+       1.3
+      ],
+      "drill_mm": null,
+      "fp_relative_mm": [
+       -1.1,
+       0.95
+      ],
+      "layers": [
+       "F.Cu",
+       "F.Mask",
+       "F.Paste"
+      ],
+      "net": "/+12V_PROT",
+      "number": "3",
+      "rotation_deg": 270.0,
+      "shape": "ROUNDRECT",
+      "size_mm": [
+       1.0,
+       0.7
+      ]
+     },
+     {
+      "at_mm": [
+       6.45,
+       3.0
+      ],
+      "attribute": "SMD",
+      "bbox_mm": [
+       6.1,
+       2.5,
+       6.8,
+       3.5
+      ],
+      "drill_mm": null,
+      "fp_relative_mm": [
+       1.1,
+       0.95
+      ],
+      "layers": [
+       "F.Cu",
+       "F.Mask",
+       "F.Paste"
+      ],
+      "net": "/GND",
+      "number": "4",
+      "rotation_deg": 270.0,
+      "shape": "ROUNDRECT",
+      "size_mm": [
+       1.0,
+       0.7
+      ]
+     },
+     {
+      "at_mm": [
+       7.4,
+       3.0
+      ],
+      "attribute": "SMD",
+      "bbox_mm": [
+       7.05,
+       2.5,
+       7.75,
+       3.5
+      ],
+      "drill_mm": null,
+      "fp_relative_mm": [
+       1.1,
+       0.0
+      ],
+      "layers": [
+       "F.Cu",
+       "F.Mask",
+       "F.Paste"
+      ],
+      "net": "/BUCK_SW",
+      "number": "5",
+      "rotation_deg": 270.0,
+      "shape": "ROUNDRECT",
+      "size_mm": [
+       1.0,
+       0.7
+      ]
+     },
+     {
+      "at_mm": [
+       8.35,
+       3.0
+      ],
+      "attribute": "SMD",
+      "bbox_mm": [
+       8.0,
+       2.5,
+       8.7,
+       3.5
+      ],
+      "drill_mm": null,
+      "fp_relative_mm": [
+       1.1,
+       -0.95
+      ],
+      "layers": [
+       "F.Cu",
+       "F.Mask",
+       "F.Paste"
+      ],
+      "net": "/BUCK_BST",
+      "number": "6",
+      "rotation_deg": 270.0,
+      "shape": "ROUNDRECT",
+      "size_mm": [
+       1.0,
+       0.7
+      ]
+     }
+    ],
+    "ref": "U2",
+    "rotation_deg": -90.0,
+    "side": "F"
+   },
+   {
+    "at_mm": [
+     14.13,
+     5.2
+    ],
+    "body_height_mm": null,
+    "courtyard_bbox_mm": {
+     "B": null,
+     "F": [
+      12.035,
+      3.455,
+      16.225,
+      6.945
+     ]
+    },
+    "footprint_bbox_mm": [
+     12.055,
+     3.475,
+     16.205,
+     6.925
+    ],
+    "fpid": "LightBlock:DBV5",
+    "models": [],
+    "pads": [
+     {
+      "at_mm": [
+       15.43,
+       6.15
+      ],
+      "attribute": "SMD",
+      "bbox_mm": [
+       14.88,
+       5.85,
+       15.98,
+       6.45
+      ],
+      "drill_mm": null,
+      "fp_relative_mm": [
+       -1.3,
+       -0.95
+      ],
+      "layers": [
+       "F.Cu",
+       "F.Mask",
+       "F.Paste"
+      ],
+      "net": "/+5V",
+      "number": "1",
+      "rotation_deg": 180.0,
+      "shape": "ROUNDRECT",
+      "size_mm": [
+       1.1,
+       0.6
+      ]
+     },
+     {
+      "at_mm": [
+       15.43,
+       5.2
+      ],
+      "attribute": "SMD",
+      "bbox_mm": [
+       14.88,
+       4.9,
+       15.98,
+       5.5
+      ],
+      "drill_mm": null,
+      "fp_relative_mm": [
+       -1.3,
+       0.0
+      ],
+      "layers": [
+       "F.Cu",
+       "F.Mask",
+       "F.Paste"
+      ],
+      "net": "/GND",
+      "number": "2",
+      "rotation_deg": 180.0,
+      "shape": "ROUNDRECT",
+      "size_mm": [
+       1.1,
+       0.6
+      ]
+     },
+     {
+      "at_mm": [
+       15.43,
+       4.25
+      ],
+      "attribute": "SMD",
+      "bbox_mm": [
+       14.88,
+       3.95,
+       15.98,
+       4.55
+      ],
+      "drill_mm": null,
+      "fp_relative_mm": [
+       -1.3,
+       0.95
+      ],
+      "layers": [
+       "F.Cu",
+       "F.Mask",
+       "F.Paste"
+      ],
+      "net": "/+5V",
+      "number": "3",
+      "rotation_deg": 180.0,
+      "shape": "ROUNDRECT",
+      "size_mm": [
+       1.1,
+       0.6
+      ]
+     },
+     {
+      "at_mm": [
+       12.83,
+       4.25
+      ],
+      "attribute": "SMD",
+      "bbox_mm": [
+       12.28,
+       3.95,
+       13.38,
+       4.55
+      ],
+      "drill_mm": null,
+      "fp_relative_mm": [
+       1.3,
+       0.95
+      ],
+      "layers": [
+       "F.Cu",
+       "F.Mask",
+       "F.Paste"
+      ],
+      "net": "unconnected-(U3-NC-Pad4)",
+      "number": "4",
+      "rotation_deg": 180.0,
+      "shape": "ROUNDRECT",
+      "size_mm": [
+       1.1,
+       0.6
+      ]
+     },
+     {
+      "at_mm": [
+       12.83,
+       6.15
+      ],
+      "attribute": "SMD",
+      "bbox_mm": [
+       12.28,
+       5.85,
+       13.38,
+       6.45
+      ],
+      "drill_mm": null,
+      "fp_relative_mm": [
+       1.3,
+       -0.95
+      ],
+      "layers": [
+       "F.Cu",
+       "F.Mask",
+       "F.Paste"
+      ],
+      "net": "/+3V3",
+      "number": "5",
+      "rotation_deg": 180.0,
+      "shape": "ROUNDRECT",
+      "size_mm": [
+       1.1,
+       0.6
+      ]
+     }
+    ],
+    "ref": "U3",
+    "rotation_deg": 180.0,
+    "side": "F"
+   },
+   {
+    "at_mm": [
+     5.9,
+     16.9
+    ],
+    "body_height_mm": null,
+    "courtyard_bbox_mm": {
+     "B": null,
+     "F": [
+      3.805,
+      15.155,
+      7.995,
+      18.645
+     ]
+    },
+    "footprint_bbox_mm": [
+     3.825,
+     15.175,
+     7.975,
+     18.625
+    ],
+    "fpid": "LightBlock:DBV6",
+    "models": [],
+    "pads": [
+     {
+      "at_mm": [
+       4.6,
+       15.95
+      ],
+      "attribute": "SMD",
+      "bbox_mm": [
+       4.05,
+       15.65,
+       5.15,
+       16.25
+      ],
+      "drill_mm": null,
+      "fp_relative_mm": [
+       -1.3,
+       -0.95
+      ],
+      "layers": [
+       "F.Cu",
+       "F.Mask",
+       "F.Paste"
+      ],
+      "net": "/+5V",
+      "number": "1",
+      "rotation_deg": 0.0,
+      "shape": "ROUNDRECT",
+      "size_mm": [
+       1.1,
+       0.6
+      ]
+     },
+     {
+      "at_mm": [
+       4.6,
+       16.9
+      ],
+      "attribute": "SMD",
+      "bbox_mm": [
+       4.05,
+       16.6,
+       5.15,
+       17.2
+      ],
+      "drill_mm": null,
+      "fp_relative_mm": [
+       -1.3,
+       0.0
+      ],
+      "layers": [
+       "F.Cu",
+       "F.Mask",
+       "F.Paste"
+      ],
+      "net": "/GND",
+      "number": "2",
+      "rotation_deg": 0.0,
+      "shape": "ROUNDRECT",
+      "size_mm": [
+       1.1,
+       0.6
+      ]
+     },
+     {
+      "at_mm": [
+       4.6,
+       17.85
+      ],
+      "attribute": "SMD",
+      "bbox_mm": [
+       4.05,
+       17.55,
+       5.15,
+       18.15
+      ],
+      "drill_mm": null,
+      "fp_relative_mm": [
+       -1.3,
+       0.95
+      ],
+      "layers": [
+       "F.Cu",
+       "F.Mask",
+       "F.Paste"
+      ],
+      "net": "/LED_EN_N",
+      "number": "3",
+      "rotation_deg": 0.0,
+      "shape": "ROUNDRECT",
+      "size_mm": [
+       1.1,
+       0.6
+      ]
+     },
+     {
+      "at_mm": [
+       7.2,
+       17.85
+      ],
+      "attribute": "SMD",
+      "bbox_mm": [
+       6.65,
+       17.55,
+       7.75,
+       18.15
+      ],
+      "drill_mm": null,
+      "fp_relative_mm": [
+       1.3,
+       0.95
+      ],
+      "layers": [
+       "F.Cu",
+       "F.Mask",
+       "F.Paste"
+      ],
+      "net": "/LED_FAULT_N",
+      "number": "4",
+      "rotation_deg": 0.0,
+      "shape": "ROUNDRECT",
+      "size_mm": [
+       1.1,
+       0.6
+      ]
+     },
+     {
+      "at_mm": [
+       7.2,
+       16.9
+      ],
+      "attribute": "SMD",
+      "bbox_mm": [
+       6.65,
+       16.6,
+       7.75,
+       17.2
+      ],
+      "drill_mm": null,
+      "fp_relative_mm": [
+       1.3,
+       0.0
+      ],
+      "layers": [
+       "F.Cu",
+       "F.Mask",
+       "F.Paste"
+      ],
+      "net": "/LED_ILIM",
+      "number": "5",
+      "rotation_deg": 0.0,
+      "shape": "ROUNDRECT",
+      "size_mm": [
+       1.1,
+       0.6
+      ]
+     },
+     {
+      "at_mm": [
+       7.2,
+       15.95
+      ],
+      "attribute": "SMD",
+      "bbox_mm": [
+       6.65,
+       15.65,
+       7.75,
+       16.25
+      ],
+      "drill_mm": null,
+      "fp_relative_mm": [
+       1.3,
+       -0.95
+      ],
+      "layers": [
+       "F.Cu",
+       "F.Mask",
+       "F.Paste"
+      ],
+      "net": "/VLED",
+      "number": "6",
+      "rotation_deg": 0.0,
+      "shape": "ROUNDRECT",
+      "size_mm": [
+       1.1,
+       0.6
+      ]
+     }
+    ],
+    "ref": "U4",
+    "rotation_deg": 0.0,
+    "side": "F"
+   },
+   {
+    "at_mm": [
+     3.6,
+     43.75
+    ],
+    "body_height_mm": null,
+    "courtyard_bbox_mm": {
+     "B": null,
+     "F": [
+      1.38,
+      42.305,
+      5.82,
+      45.195
+     ]
+    },
+    "footprint_bbox_mm": [
+     1.4,
+     42.325,
+     5.8,
+     45.175
+    ],
+    "fpid": "LightBlock:DCU8",
+    "models": [],
+    "pads": [
+     {
+      "at_mm": [
+       2.05,
+       43.0
+      ],
+      "attribute": "SMD",
+      "bbox_mm": [
+       1.625,
+       42.85,
+       2.475,
+       43.15
+      ],
+      "drill_mm": null,
+      "fp_relative_mm": [
+       -1.55,
+       -0.75
+      ],
+      "layers": [
+       "F.Cu",
+       "F.Mask",
+       "F.Paste"
+      ],
+      "net": "/+3V3",
+      "number": "1",
+      "rotation_deg": 0.0,
+      "shape": "ROUNDRECT",
+      "size_mm": [
+       0.85,
+       0.3
+      ]
+     },
+     {
+      "at_mm": [
+       2.05,
+       43.5
+      ],
+      "attribute": "SMD",
+      "bbox_mm": [
+       1.625,
+       43.35,
+       2.475,
+       43.65
+      ],
+      "drill_mm": null,
+      "fp_relative_mm": [
+       -1.55,
+       -0.25
+      ],
+      "layers": [
+       "F.Cu",
+       "F.Mask",
+       "F.Paste"
+      ],
+      "net": "/DATA_L_3V3",
+      "number": "2",
+      "rotation_deg": 0.0,
+      "shape": "ROUNDRECT",
+      "size_mm": [
+       0.85,
+       0.3
+      ]
+     },
+     {
+      "at_mm": [
+       2.05,
+       44.0
+      ],
+      "attribute": "SMD",
+      "bbox_mm": [
+       1.625,
+       43.85,
+       2.475,
+       44.15
+      ],
+      "drill_mm": null,
+      "fp_relative_mm": [
+       -1.55,
+       0.25
+      ],
+      "layers": [
+       "F.Cu",
+       "F.Mask",
+       "F.Paste"
+      ],
+      "net": "/DATA_R_3V3",
+      "number": "3",
+      "rotation_deg": 0.0,
+      "shape": "ROUNDRECT",
+      "size_mm": [
+       0.85,
+       0.3
+      ]
+     },
+     {
+      "at_mm": [
+       2.05,
+       44.5
+      ],
+      "attribute": "SMD",
+      "bbox_mm": [
+       1.625,
+       44.35,
+       2.475,
+       44.65
+      ],
+      "drill_mm": null,
+      "fp_relative_mm": [
+       -1.55,
+       0.75
+      ],
+      "layers": [
+       "F.Cu",
+       "F.Mask",
+       "F.Paste"
+      ],
+      "net": "/GND",
+      "number": "4",
+      "rotation_deg": 0.0,
+      "shape": "ROUNDRECT",
+      "size_mm": [
+       0.85,
+       0.3
+      ]
+     },
+     {
+      "at_mm": [
+       5.15,
+       44.5
+      ],
+      "attribute": "SMD",
+      "bbox_mm": [
+       4.725,
+       44.35,
+       5.575,
+       44.65
+      ],
+      "drill_mm": null,
+      "fp_relative_mm": [
+       1.55,
+       0.75
+      ],
+      "layers": [
+       "F.Cu",
+       "F.Mask",
+       "F.Paste"
+      ],
+      "net": "/+3V3",
+      "number": "5",
+      "rotation_deg": 0.0,
+      "shape": "ROUNDRECT",
+      "size_mm": [
+       0.85,
+       0.3
+      ]
+     },
+     {
+      "at_mm": [
+       5.15,
+       44.0
+      ],
+      "attribute": "SMD",
+      "bbox_mm": [
+       4.725,
+       43.85,
+       5.575,
+       44.15
+      ],
+      "drill_mm": null,
+      "fp_relative_mm": [
+       1.55,
+       0.25
+      ],
+      "layers": [
+       "F.Cu",
+       "F.Mask",
+       "F.Paste"
+      ],
+      "net": "/DATA_R_5V",
+      "number": "6",
+      "rotation_deg": 0.0,
+      "shape": "ROUNDRECT",
+      "size_mm": [
+       0.85,
+       0.3
+      ]
+     },
+     {
+      "at_mm": [
+       5.15,
+       43.5
+      ],
+      "attribute": "SMD",
+      "bbox_mm": [
+       4.725,
+       43.35,
+       5.575,
+       43.65
+      ],
+      "drill_mm": null,
+      "fp_relative_mm": [
+       1.55,
+       -0.25
+      ],
+      "layers": [
+       "F.Cu",
+       "F.Mask",
+       "F.Paste"
+      ],
+      "net": "/DATA_L_5V",
+      "number": "7",
+      "rotation_deg": 0.0,
+      "shape": "ROUNDRECT",
+      "size_mm": [
+       0.85,
+       0.3
+      ]
+     },
+     {
+      "at_mm": [
+       5.15,
+       43.0
+      ],
+      "attribute": "SMD",
+      "bbox_mm": [
+       4.725,
+       42.85,
+       5.575,
+       43.15
+      ],
+      "drill_mm": null,
+      "fp_relative_mm": [
+       1.55,
+       -0.75
+      ],
+      "layers": [
+       "F.Cu",
+       "F.Mask",
+       "F.Paste"
+      ],
+      "net": "/VLED",
+      "number": "8",
+      "rotation_deg": 0.0,
+      "shape": "ROUNDRECT",
+      "size_mm": [
+       0.85,
+       0.3
+      ]
+     }
+    ],
+    "ref": "U5",
+    "rotation_deg": 0.0,
+    "side": "F"
+   },
+   {
+    "at_mm": [
+     12.67,
+     1.75
+    ],
+    "body_height_mm": null,
+    "courtyard_bbox_mm": {
+     "B": null,
+     "F": [
+      10.575,
+      0.005,
+      14.765,
+      3.495
+     ]
+    },
+    "footprint_bbox_mm": [
+     10.595,
+     0.025,
+     14.745,
+     3.475
+    ],
+    "fpid": "LightBlock:DBV5",
+    "models": [],
+    "pads": [
+     {
+      "at_mm": [
+       11.37,
+       0.8
+      ],
+      "attribute": "SMD",
+      "bbox_mm": [
+       10.82,
+       0.5,
+       11.92,
+       1.1
+      ],
+      "drill_mm": null,
+      "fp_relative_mm": [
+       -1.3,
+       -0.95
+      ],
+      "layers": [
+       "F.Cu",
+       "F.Mask",
+       "F.Paste"
+      ],
+      "net": "/CV_BUF",
+      "number": "1",
+      "rotation_deg": 0.0,
+      "shape": "ROUNDRECT",
+      "size_mm": [
+       1.1,
+       0.6
+      ]
+     },
+     {
+      "at_mm": [
+       11.37,
+       1.75
+      ],
+      "attribute": "SMD",
+      "bbox_mm": [
+       10.82,
+       1.45,
+       11.92,
+       2.05
+      ],
+      "drill_mm": null,
+      "fp_relative_mm": [
+       -1.3,
+       0.0
+      ],
+      "layers": [
+       "F.Cu",
+       "F.Mask",
+       "F.Paste"
+      ],
+      "net": "/-12V_PROT",
+      "number": "2",
+      "rotation_deg": 0.0,
+      "shape": "ROUNDRECT",
+      "size_mm": [
+       1.1,
+       0.6
+      ]
+     },
+     {
+      "at_mm": [
+       11.37,
+       2.7
+      ],
+      "attribute": "SMD",
+      "bbox_mm": [
+       10.82,
+       2.4,
+       11.92,
+       3.0
+      ],
+      "drill_mm": null,
+      "fp_relative_mm": [
+       -1.3,
+       0.95
+      ],
+      "layers": [
+       "F.Cu",
+       "F.Mask",
+       "F.Paste"
+      ],
+      "net": "/CV_SENSE",
+      "number": "3",
+      "rotation_deg": 0.0,
+      "shape": "ROUNDRECT",
+      "size_mm": [
+       1.1,
+       0.6
+      ]
+     },
+     {
+      "at_mm": [
+       13.97,
+       2.7
+      ],
+      "attribute": "SMD",
+      "bbox_mm": [
+       13.42,
+       2.4,
+       14.52,
+       3.0
+      ],
+      "drill_mm": null,
+      "fp_relative_mm": [
+       1.3,
+       0.95
+      ],
+      "layers": [
+       "F.Cu",
+       "F.Mask",
+       "F.Paste"
+      ],
+      "net": "/CV_BUF",
+      "number": "4",
+      "rotation_deg": 0.0,
+      "shape": "ROUNDRECT",
+      "size_mm": [
+       1.1,
+       0.6
+      ]
+     },
+     {
+      "at_mm": [
+       13.97,
+       0.8
+      ],
+      "attribute": "SMD",
+      "bbox_mm": [
+       13.42,
+       0.5,
+       14.52,
+       1.1
+      ],
+      "drill_mm": null,
+      "fp_relative_mm": [
+       1.3,
+       -0.95
+      ],
+      "layers": [
+       "F.Cu",
+       "F.Mask",
+       "F.Paste"
+      ],
+      "net": "/+12V_PROT",
+      "number": "5",
+      "rotation_deg": 0.0,
+      "shape": "ROUNDRECT",
+      "size_mm": [
+       1.1,
+       0.6
+      ]
+     }
+    ],
+    "ref": "U6",
+    "rotation_deg": 0.0,
+    "side": "F"
+   },
+   {
+    "at_mm": [
+     5.9,
+     20.35
+    ],
+    "body_height_mm": null,
+    "courtyard_bbox_mm": {
+     "B": null,
+     "F": [
+      3.805,
+      18.605,
+      7.995,
+      22.095
+     ]
+    },
+    "footprint_bbox_mm": [
+     3.825,
+     18.625,
+     7.975,
+     22.075
+    ],
+    "fpid": "LightBlock:DBV5",
+    "models": [],
+    "pads": [
+     {
+      "at_mm": [
+       7.2,
+       21.3
+      ],
+      "attribute": "SMD",
+      "bbox_mm": [
+       6.65,
+       21.0,
+       7.75,
+       21.6
+      ],
+      "drill_mm": null,
+      "fp_relative_mm": [
+       -1.3,
+       -0.95
+      ],
+      "layers": [
+       "F.Cu",
+       "F.Mask",
+       "F.Paste"
+      ],
+      "net": "/CV_DRIVE",
+      "number": "1",
+      "rotation_deg": 180.0,
+      "shape": "ROUNDRECT",
+      "size_mm": [
+       1.1,
+       0.6
+      ]
+     },
+     {
+      "at_mm": [
+       7.2,
+       20.35
+      ],
+      "attribute": "SMD",
+      "bbox_mm": [
+       6.65,
+       20.05,
+       7.75,
+       20.65
+      ],
+      "drill_mm": null,
+      "fp_relative_mm": [
+       -1.3,
+       0.0
+      ],
+      "layers": [
+       "F.Cu",
+       "F.Mask",
+       "F.Paste"
+      ],
+      "net": "/GND",
+      "number": "2",
+      "rotation_deg": 180.0,
+      "shape": "ROUNDRECT",
+      "size_mm": [
+       1.1,
+       0.6
+      ]
+     },
+     {
+      "at_mm": [
+       7.2,
+       19.4
+      ],
+      "attribute": "SMD",
+      "bbox_mm": [
+       6.65,
+       19.1,
+       7.75,
+       19.7
+      ],
+      "drill_mm": null,
+      "fp_relative_mm": [
+       -1.3,
+       0.95
+      ],
+      "layers": [
+       "F.Cu",
+       "F.Mask",
+       "F.Paste"
+      ],
+      "net": "/CV_FILTER",
+      "number": "3",
+      "rotation_deg": 180.0,
+      "shape": "ROUNDRECT",
+      "size_mm": [
+       1.1,
+       0.6
+      ]
+     },
+     {
+      "at_mm": [
+       4.6,
+       19.4
+      ],
+      "attribute": "SMD",
+      "bbox_mm": [
+       4.05,
+       19.1,
+       5.15,
+       19.7
+      ],
+      "drill_mm": null,
+      "fp_relative_mm": [
+       1.3,
+       0.95
+      ],
+      "layers": [
+       "F.Cu",
+       "F.Mask",
+       "F.Paste"
+      ],
+      "net": "/CV_DRIVE",
+      "number": "4",
+      "rotation_deg": 180.0,
+      "shape": "ROUNDRECT",
+      "size_mm": [
+       1.1,
+       0.6
+      ]
+     },
+     {
+      "at_mm": [
+       4.6,
+       21.3
+      ],
+      "attribute": "SMD",
+      "bbox_mm": [
+       4.05,
+       21.0,
+       5.15,
+       21.6
+      ],
+      "drill_mm": null,
+      "fp_relative_mm": [
+       1.3,
+       -0.95
+      ],
+      "layers": [
+       "F.Cu",
+       "F.Mask",
+       "F.Paste"
+      ],
+      "net": "/+3V3",
+      "number": "5",
+      "rotation_deg": 180.0,
+      "shape": "ROUNDRECT",
+      "size_mm": [
+       1.1,
+       0.6
+      ]
+     }
+    ],
+    "ref": "U7",
+    "rotation_deg": 180.0,
+    "side": "F"
+   }
+  ],
+  "kicad_build_version": "10.0.8",
+  "layers": "restricted to layers enabled on the board",
+  "not_established": [
+   "body_height_mm",
+   "solder_envelope",
+   "manufacturing_tolerance",
+   "measured_fit"
+  ],
+  "origin": "KiCad absolute board coordinates",
+  "pad_bbox": "axis-aligned absolute pad copper box (covers rotation and custom-shape primitives); size_mm of a CUSTOM pad is only its anchor",
+  "rotation": "degrees, counter-clockwise as displayed by KiCad",
+  "schema": "zudo-led-block/a7-fixture-geometry/1",
+  "units": "mm"
+ },
+ "placement_sha256": "1891af356ead303127c6b7a99b8934b08aa25f465b4b2c96872f5d5d24afdc01",
+ "provenance": {
+  "artifact_zip_sha256": "db6d6fe101641a4176d0fad83a7fd453ee4ae09173e7fb36d26dd444284b74c4",
+  "identity": {
+   "checkout_head": "7162d31207b50e08697d478942b64e2b9340f7af",
+   "checkout_is_synthetic_merge": true,
+   "github_run_attempt": "1",
+   "github_run_id": "43077448786",
+   "pr_base_sha": "2ff408abba222718f9f577d2e8a6f68ead49fe66",
+   "pr_head_sha": "01bc3812202c6e72f772d2568148ae5df4915be7",
+   "workflow_sha": "7162d31207b50e08697d478942b64e2b9340f7af"
+  },
+  "image": "kicad/kicad:10.0.8@sha256:3f4a01786dfbe803a65f345c3342b765db9add913f5e9448f8356793714ddc34",
+  "members_sha256": {
+   "evidence/a7_controller/board_facts.json": "1dd2588f20f3792d9035db2f43edcbd061ce2eb712a3f83e26c22452788525ce",
+   "evidence/a7_controller/board_geometry.json": "e3c39782a55a882dc7f6ae98ecf97334ee8a6420d141a7dc79eed94e52fa2751",
+   "evidence/a7_controller/fixture_geometry.json": "c077bd3926149f14bf40618e36d68e48b34c3cb75459689c2e3cce0b78ef65b7",
+   "plan.json": "1c617f0e7578215d3d1a93067f5b121e35ad7937d1f8126fbde759bf7e755187",
+   "summary.json": "5e1892a2ecad632dbde63bb88bd9fbb7b286954562e9d0907368472dce44a624"
+  }
+ },
+ "schema": "zudo-led-block/a7-fixture-native-geometry-record/1",
+ "scope": "Native CAD pad/footprint geometry for fixture design only. Not body height, solder envelope, tolerance, measured fit, a completed fixture or a manufacturing approval.",
+ "status": "NATIVE_GEOMETRY_VALIDATED",
+ "unknowns": []
+}

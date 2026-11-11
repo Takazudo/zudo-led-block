@@ -109,3 +109,5 @@ E1 CIログでは `ENABLED` は空でした（2026-11-09T09:35:50Z）。ただ�
 | `engineering/a7/fixture/manifest.json` | `52266a19a09d0f3c282da2297a4000f904044a4c0f0cb402c2822f1525a2f808` |
 | `engineering/a7/procurement/assembly-manifest.json` | `69033523efa1ec2da53093c6814c3522ef0264adbc084f1fac3c3980c86e3967` |
 | `engineering/a7/qualification/readiness.json` | `7bb5f9d8af782a5e07a81ef7d371c4afc829fee3e7a986393ee45d30f0e206df` |
+
+2026-11-11 追記: PR #45 で CI artifact が A7 候補の `plan.json` / `board_facts.json` / `board_geometry.json` を保持し、`scripts/a7_native_artifact.py` が検証するようになった（上の保存範囲の不足は解消）。PR #46 で治具用 native geometry を `fixture/native-geometry.json` に記録し、fixture manifest が TP1–TP5 を照合する。`fresh_native_verified` と `digital_fixture_complete` は false、order gate は BLOCKED のまま。この時点の fixture manifest は `38dde81d2bcce1b61cc66763f3bd3f0f5bb470f4b3c08bdeedcb0c6995df81f5`、readiness は `418ad365a774635427339019bcd05d27e001ca730e85d9df559d0c1b1b941ba2`（procurement は不変）。

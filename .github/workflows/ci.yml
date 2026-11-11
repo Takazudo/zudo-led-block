@@ -117,6 +117,7 @@ jobs:
           python3 -m unittest scripts/tests/test_a7_e2_evidence.py scripts/tests/test_a7_fixture.py scripts/tests/test_a7_procurement.py scripts/tests/test_a7_readiness.py
           python3 -O -m unittest scripts/tests/test_a7_readiness.py
           python3 scripts/a7_fixture.py --check
+          python3 scripts/a7_fixture_geometry.py --check
           python3 scripts/a7_procurement.py --check
           python3 scripts/a7_readiness.py --check
       - name: Summary
@@ -449,6 +450,7 @@ jobs:
             ${{ runner.temp }}/a7-gate/plan.json
             ${{ runner.temp }}/a7-gate/evidence/a7_controller/board_facts.json
             ${{ runner.temp }}/a7-gate/evidence/a7_controller/board_geometry.json
+            ${{ runner.temp }}/a7-gate/evidence/a7_controller/fixture_geometry.json
             ${{ runner.temp }}/a7-schematic/summary.json
             ${{ runner.temp }}/a7-route-check/summary.json
             ${{ runner.temp }}/a7-pet-leaf/summary.json

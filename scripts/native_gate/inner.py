@@ -111,6 +111,131 @@ def board_facts(pcb: Path) -> dict:
             'board_only': sorted(f['ref'] for f in fps if f['board_only']), 'geometry': geom}
 
 
+FIXTURE_SCHEMA = 'zudo-led-block/a7-fixture-geometry/1'
+
+
+def _call(obj, name, *variants):
+    """Call a pcbnew method trying argument variants (KiCad API signatures differ by version)."""
+    fn = getattr(obj, name)
+    last = None
+    for args in variants or ((),):
+        try:
+            return fn(*args)
+        except TypeError as e:
+            last = e
+    raise last
+
+
+def _enum_name(p, prefix: str, value) -> str:
+    names = sorted(k for k in dir(p) if k.startswith(prefix) and getattr(p, k) == value)
+    return names[0][len(prefix):] if names else f'UNKNOWN_{value}'
+
+
+def _box(p, box) -> list | None:
+    T = p.ToMM
+    if box is None or box.GetWidth() <= 0 or box.GetHeight() <= 0:
+        return None
+    return [round(T(box.GetX()), 4), round(T(box.GetY()), 4), round(T(box.GetX() + box.GetWidth()), 4),
+            round(T(box.GetY() + box.GetHeight()), 4)]
+
+
+def fixture_geometry(pcb: Path) -> dict:
+    """Fixture-oriented pad and footprint geometry from the same staged board bytes.
+
+    Absolute KiCad board coordinates in mm, +X right, +Y down (KiCad page axes), rotation in
+    degrees counter-clockwise as displayed by KiCad; back-side footprints keep KiCad's own
+    flipped coordinates (no mirroring applied here). Fields that cannot be read are null and
+    listed in extraction_errors: nothing is estimated. CAD extents are not body height,
+    solder envelope, tolerance or measured fit.
+    """
+    import pcbnew as p
+    board_sha256 = sha(pcb)
+    b = p.LoadBoard(str(pcb))
+    T = p.ToMM
+    errors: list[str] = []
+    fps = []
+    for fp in sorted(b.GetFootprints(), key=lambda f: f.GetReference()):
+        ref = fp.GetReference()
+        side = 'B' if fp.IsFlipped() else 'F'
+        pads = []
+        for pd in fp.Pads():
+            rec = {'number': pd.GetNumber(), 'net': pd.GetNetname(),
+                   'at_mm': [round(T(pd.GetPosition().x), 4), round(T(pd.GetPosition().y), 4)]}
+            try:
+                layer = pd.GetPrincipalLayer()
+                shape = _call(pd, 'GetShape', (layer,), ())
+                size = _call(pd, 'GetSize', (layer,), ())
+                rec['shape'] = _enum_name(p, 'PAD_SHAPE_', shape)
+                rec['size_mm'] = [round(T(size.x), 4), round(T(size.y), 4)]
+            except Exception as e:  # recorded, never guessed
+                rec['shape'] = rec['size_mm'] = None
+                errors.append(f'{ref}.{pd.GetNumber()} shape/size: {e!r}')
+            try:
+                rec['bbox_mm'] = _box(p, _call(pd, 'GetBoundingBox', (), (pd.GetPrincipalLayer(),)))
+            except Exception as e:
+                rec['bbox_mm'] = None
+                errors.append(f'{ref}.{pd.GetNumber()} bbox: {e!r}')
+            try:
+                rel = pd.GetFPRelativePosition()
+                rec['fp_relative_mm'] = [round(T(rel.x), 4), round(T(rel.y), 4)]
+            except Exception as e:
+                rec['fp_relative_mm'] = None
+                errors.append(f'{ref}.{pd.GetNumber()} relative position: {e!r}')
+            try:
+                rec['rotation_deg'] = round(pd.GetOrientationDegrees(), 3)
+            except Exception as e:
+                rec['rotation_deg'] = None
+                errors.append(f'{ref}.{pd.GetNumber()} rotation: {e!r}')
+            try:
+                rec['layers'] = sorted(b.GetLayerName(l) for l in pd.GetLayerSet().Seq() if b.IsLayerEnabled(l))
+                rec['attribute'] = _enum_name(p, 'PAD_ATTRIB_', pd.GetAttribute())
+                d = pd.GetDrillSize()
+                rec['drill_mm'] = [round(T(d.x), 4), round(T(d.y), 4)] if d.x > 0 else None
+            except Exception as e:
+                rec.setdefault('layers', None); rec.setdefault('attribute', None); rec.setdefault('drill_mm', None)
+                errors.append(f'{ref}.{pd.GetNumber()} layers/drill: {e!r}')
+            pads.append(rec)
+        pads.sort(key=lambda r: (r['number'], r['at_mm']))
+        entry = {'ref': ref, 'fpid': fp.GetFPIDAsString(), 'side': side,
+                 'at_mm': [round(T(fp.GetPosition().x), 4), round(T(fp.GetPosition().y), 4)],
+                 'rotation_deg': round(fp.GetOrientationDegrees(), 3), 'pads': pads}
+        crt = {}
+        for name, layer in (('F', p.F_CrtYd), ('B', p.B_CrtYd)):
+            try:
+                poly = fp.GetCourtyard(layer)
+                crt[name] = _box(p, poly.BBox()) if poly.OutlineCount() else None
+            except Exception as e:
+                crt[name] = None
+                errors.append(f'{ref} courtyard {name}: {e!r}')
+        entry['courtyard_bbox_mm'] = crt
+        try:
+            entry['footprint_bbox_mm'] = _box(p, _call(fp, 'GetBoundingBox', (False,), (False, False), ()))
+        except Exception as e:
+            entry['footprint_bbox_mm'] = None
+            errors.append(f'{ref} bbox: {e!r}')
+        try:
+            entry['models'] = sorted(m.m_Filename for m in fp.Models())
+        except Exception as e:
+            entry['models'] = None
+            errors.append(f'{ref} models: {e!r}')
+        entry['body_height_mm'] = None
+        fps.append(entry)
+    if sha(pcb) != board_sha256:
+        raise ValueError('PCB bytes changed during fixture geometry extraction')
+    try:
+        version = p.GetBuildVersion()
+    except Exception:
+        version = None
+    return {'schema': FIXTURE_SCHEMA, 'board_sha256': board_sha256, 'kicad_build_version': version,
+            'units': 'mm', 'origin': 'KiCad absolute board coordinates',
+            'axes': {'x': 'right', 'y': 'down'}, 'rotation': 'degrees, counter-clockwise as displayed by KiCad',
+            'back_side': 'B-side footprints and pads are reported in KiCad board coordinates as seen from the front (no extra mirroring)',
+            'pad_bbox': 'axis-aligned absolute pad copper box (covers rotation and custom-shape primitives); size_mm of a CUSTOM pad is only its anchor',
+            'layers': 'restricted to layers enabled on the board',
+            'not_established': ['body_height_mm', 'solder_envelope', 'manufacturing_tolerance', 'measured_fit'],
+            'footprints': fps, 'extraction_errors': errors}
+
+
 def canonical_ring(chain) -> list:
     """Integer-nm ring, rotated to its smallest point and oriented one way, so equal shapes hash equally."""
     pts = [(chain.CPoint(i).x, chain.CPoint(i).y) for i in range(chain.PointCount())]
@@ -310,6 +435,11 @@ def main() -> int:
         (out / 'board_facts.json').write_text(json.dumps(facts, indent=1, sort_keys=True) + '\n')
         if geom is not None:
             (out / 'board_geometry.json').write_text(json.dumps(geom, sort_keys=True) + '\n')
+        try:
+            fx = fixture_geometry(pcb)
+        except Exception as e:  # recorded; the fixture consumer treats it as incomplete
+            fx = {'schema': FIXTURE_SCHEMA, 'error': repr(e)}
+        (out / 'fixture_geometry.json').write_text(json.dumps(fx, indent=1, sort_keys=True) + '\n')
         if d.get('refill_check') and facts_ok:
             tmp = proj / ('refill_' + d['board'])
             try:
