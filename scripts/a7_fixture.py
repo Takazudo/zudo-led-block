@@ -71,7 +71,7 @@ def native_probe_pads(pads):
     return {'record': str(path.relative_to(ROOT)), 'record_sha256': digest(path), 'status': rec['status'],
             'github_run_id': prov['identity']['github_run_id'], 'tested_revision': prov['identity'].get('pr_head_sha') or prov['identity'].get('checkout_head'),
             'artifact_zip_sha256': prov['artifact_zip_sha256'], 'probe_pads_match': True,
-            'scope': 'Native KiCad pad facts confirm the five probe pads (B side, round 1 mm, B.Cu/B.Mask, position, net). Native courtyard/footprint boxes are available for clearance design but not yet used by this carrier study; body heights and solder envelopes are not native facts.'}
+            'scope': 'Native KiCad pad facts confirm the five probe pads (B side, round 1 mm, B.Cu/B.Mask, position, net). Native pad copper boxes set the carrier cuts and native F courtyards bound the clamp points (b_side_relief); body heights and solder envelopes are not native facts.'}
 
 
 def report():
@@ -105,8 +105,8 @@ def report():
         *(['Cut wall below the 0.27 mm sourced minimum: ' + '; '.join(relief['relief_wall_conflicts'])] if relief['relief_wall_conflicts'] else []),
     ]
     candidate_checks = candidate_reference_checks(relief)
-    narrow = candidate_checks[0]['checks']['narrowest_cut_mm']['design'] if candidate_checks else None
-    blockers.append(f'Carrier manufacturability not confirmed: the narrowest through-cut is {narrow} mm and every internal corner is sharp, so the process must cut the merged shapes as drawn (or widen the bridges) and hold the 0.27 mm walls; no fabricator is selected and the captured JLCCNC guidance (candidate reference only) is not satisfied.')
+    narrow = candidate_checks[0]['checks']['narrowest_cut_rectangle_mm']['design'] if candidate_checks else None
+    blockers.append(f'Carrier manufacturability not confirmed: the narrowest cut rectangle is {narrow} mm, merge bridges are 0.025-0.25 mm wide and every internal corner is sharp, so the process must cut the merged shapes as drawn (or widen the bridges) and hold the 0.27 mm walls; no fabricator is selected and the captured JLCCNC guidance (candidate reference only) is not satisfied.')
     complete = all(c['met'] for c in completion.values()) and not blockers
     files = (BOARD, CANONICAL, Path(__file__).resolve(), Path(relief_design.__file__).resolve(), relief_design.POPULATION, OUT/'sources.json', OUT/'materials.json', OUT/'candidate-references.json')
     return dict(
@@ -139,7 +139,8 @@ def candidate_reference_checks(relief):
                                       'met': relief_design.MIN_WALL >= rules['wall_absolute_minimum_mm']},
                   'through_cut_internal_corners': {'design': 'sharp rectangular corners', 'guidance_radius_mm': radius, 'guidance_tool_diameter_mm': tool,
                                                    'met': False},
-                  'narrowest_cut_mm': {'design': narrowest, 'guidance_tool_diameter_mm': tool, 'met': narrowest >= tool},
+                  'narrowest_cut_rectangle_mm': {'design': narrowest, 'guidance_tool_diameter_mm': tool, 'met': narrowest >= tool,
+                                                 'note': 'rectangles merge into larger openings; several bridges between parts (0.15-0.25 mm) are genuine narrow slots'},
                   'registration_tolerances_mm': {'design': '0.05 carrier allocation, cut edges +/-0.05', 'guidance_standard': rules['standard_tolerance_mm'],
                                                  'met': None, 'note': 'tighter than standard; needs an annotated 2D drawing, availability not confirmed'}}
         out.append({'id': ref['id'], 'selection_status': ref['selection_status'], 'checks': checks,

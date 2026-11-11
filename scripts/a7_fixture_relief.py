@@ -55,6 +55,8 @@ RULES = {
     'datum_pin_height_above_carrier_mm': 1.0,
     'holddown_pin_diameter_mm': 1.5,
     'holddown_f_side_clearance_mm': 0.3,
+    'holddown_search_radius_mm': 14.0,
+    'holddown_resultant_margin_mm': 0.5,
     'support_grid_mm': 0.1,
     'support_radius_around_probe_mm': 3.0,
     'confidence': 'PROJECT-CHOICE design values except the minimum wall; not machining tolerances, fit results or approvals',
@@ -169,32 +171,67 @@ def _components(cuts):
     return [find(i) for i in range(len(cuts))]
 
 
+def _union_area(boxes):
+    xs = sorted({v for q in boxes for v in (q[0], q[2])}); ys = sorted({v for q in boxes for v in (q[1], q[3])}); area = 0.0
+    for i in range(len(xs) - 1):
+        for j in range(len(ys) - 1):
+            cx, cy = (xs[i] + xs[i + 1]) / 2, (ys[j] + ys[j + 1]) / 2
+            if any(q[0] <= cx <= q[2] and q[1] <= cy <= q[3] for q in boxes):
+                area += (xs[i + 1] - xs[i]) * (ys[j + 1] - ys[j])
+    return area
+
+
+def _strip(a, b):
+    """Material between two boxes closer than the minimum, as one rectangle to cut through.
+
+    Side by side: the strip over the shared span. Diagonally offset: a strip across the narrower gap spanning both
+    boxes, so the merged opening meets each box along a full edge and leaves no point-contact pinch of material.
+    """
+    xg = (a[2], b[0]) if a[2] <= b[0] else (b[2], a[0]) if b[2] <= a[0] else None
+    yg = (a[3], b[1]) if a[3] <= b[1] else (b[3], a[1]) if b[3] <= a[1] else None
+    if xg and not yg:
+        return [xg[0], max(a[1], b[1]), xg[1], min(a[3], b[3])]
+    if yg and not xg:
+        return [max(a[0], b[0]), yg[0], min(a[2], b[2]), yg[1]]
+    if xg[1] - xg[0] <= yg[1] - yg[0]:
+        return [xg[0], min(a[1], b[1]), xg[1], max(a[3], b[3])]
+    return [min(a[0], b[0]), yg[0], max(a[2], b[2]), yg[1]]
+
+
+def _thin_walls(cuts):
+    """Every pair of cuts closer than the minimum whose material between them is not already removed by other cuts.
+
+    Checked for all pairs, including cuts already joined elsewhere, so a finger left between two cuts of one opening
+    is still found.
+    """
+    boxes = [c['board_box_mm'] for c in cuts]
+    out = []
+    for i in range(len(cuts)):
+        for j in range(i + 1, len(cuts)):
+            gap = _box_gap(boxes[i], boxes[j])
+            if not 0 < gap < MIN_WALL:
+                continue
+            st = _strip(boxes[i], boxes[j])
+            clipped = [[max(q[0], st[0]), max(q[1], st[1]), min(q[2], st[2]), min(q[3], st[3])] for q in boxes]
+            clipped = [q for q in clipped if q[0] < q[2] and q[1] < q[3]]
+            if _union_area(clipped) >= (st[2] - st[0]) * (st[3] - st[1]) - 1e-9:
+                continue
+            out.append((i, j, gap, st))
+    return out
+
+
 def _bridges(cuts):
-    """Join cut groups whose wall is under the minimum: a strip over the shared span, or the corner gap square."""
+    """Remove every wall under the minimum between two side-by-side cuts by cutting through the strip between them."""
     added = []
-    for _ in range(50):
-        groups = _components(cuts + added)
+    for _ in range(200):
         allc = cuts + added
-        fix = None
-        for i in range(len(allc)):
-            for j in range(i + 1, len(allc)):
-                if groups[i] == groups[j]:
-                    continue
-                a, b = allc[i]['board_box_mm'], allc[j]['board_box_mm']
-                gap = _box_gap(a, b)
-                if 0 < gap < MIN_WALL:
-                    x0, x1 = (a[2], b[0]) if a[2] <= b[0] else (b[2], a[0]) if b[2] <= a[0] else (max(a[0], b[0]), min(a[2], b[2]))
-                    y0, y1 = (a[3], b[1]) if a[3] <= b[1] else (b[3], a[1]) if b[3] <= a[1] else (max(a[1], b[1]), min(a[3], b[3]))
-                    fix = {'ref': f"bridge {allc[i]['ref']}+{allc[j]['ref']}", 'kind': 'through', 'basis': f'merges a {gap:.3f} mm wall below the minimum',
-                           'board_box_mm': [round(v, 6) for v in (x0, y0, x1, y1)]}
-                    break
-            if fix:
-                break
-        if not fix:
+        fixable = _thin_walls(allc)
+        if not fixable:
             return added
-        fix['carrier_box_mm'] = _to_carrier(fix['board_box_mm'])
-        fix['depth_mm'] = CARRIER_THICKNESS
-        added.append(fix)
+        i, j, gap, st = fixable[0]
+        added.append({'ref': f"bridge {allc[i]['ref']}+{allc[j]['ref']}", 'kind': 'through',
+                      'basis': f'merges a {gap:.3f} mm wall below the minimum', 'board_box_mm': [round(v, 6) for v in st],
+                      'carrier_box_mm': _to_carrier(st), 'depth_mm': CARRIER_THICKNESS})
     raise ValueError('wall merging did not converge')
 
 
@@ -274,19 +311,17 @@ def design(geometry: dict, probes: list[dict], pop: dict | None = None) -> dict:
         for n2, b, rb in holes[i + 1:]:
             if math.dist(a, b) - ra - rb < MIN_WALL:
                 conflicts.append(f'{n1}/{n2} hole web {math.dist(a, b) - ra - rb:.3f} mm < {MIN_WALL} mm')
-    groups = _components(cuts)
-    walls = []
+    walls = [f"{cuts[i]['ref']}/{cuts[j]['ref']} wall {gap:.3f} mm" for i, j, gap, st in _thin_walls(cuts)]
     for i in range(len(cuts)):
-        for j in range(i + 1, len(cuts)):
-            gap = _box_gap(cuts[i]['board_box_mm'], cuts[j]['board_box_mm'])
-            if groups[i] != groups[j] and 0 < gap < MIN_WALL:
-                walls.append(f"{cuts[i]['ref']}/{cuts[j]['ref']} wall {gap:.3f} mm")
         A = cuts[i]['board_box_mm']
         for edge in (A[1] - CARRIER_Y[0], CARRIER_Y[1] - A[3], A[0] - CARRIER_BOARD_X[0], CARRIER_BOARD_X[1] - A[2]):
             if 0 < edge < MIN_WALL:
                 walls.append(f"{cuts[i]['ref']}/carrier edge wall {edge:.3f} mm")
 
     # keying: the board turned 180 degrees in plane (B face still down) must not seat on the carrier
+    def _land_at(x, y):
+        return (_in_box(_clip_strict(BOARD), x, y) and not any(_in_box(k['board_box_mm'], x, y) for k in cuts)
+                and all(math.dist((x, y), xy) > rad for _, xy, rad in holes))
     turned = []
     for c in reliefs:
         if c['height_source'] != 'PJ-324M':
@@ -294,7 +329,7 @@ def design(geometry: dict, probes: list[dict], pop: dict | None = None) -> dict:
         b = c['board_box_mm']
         tb = [16.2 - b[2], 62.9 - b[3], 16.2 - b[0], 62.9 - b[1]]
         cx, cy = (tb[0] + tb[2]) / 2, (tb[1] + tb[3]) / 2
-        on_land = _in_box(_clip_strict(BOARD), cx, cy) and not any(_in_box(k['board_box_mm'], cx, cy) for k in cuts)
+        on_land = _land_at(cx, cy)
         turned.append({'lead': c['ref'], 'turned_centre_mm': [round(cx, 6), round(cy, 6)], 'lands_on_carrier': on_land})
     for f in sorted(geometry['footprints'], key=lambda f: f['ref']):
         if f['side'] != 'B' or f['ref'] in probe_refs:
@@ -302,7 +337,7 @@ def design(geometry: dict, probes: list[dict], pop: dict | None = None) -> dict:
         for pd in f['pads']:
             b = pd['bbox_mm']
             cx, cy = 16.2 - (b[0] + b[2]) / 2, 62.9 - (b[1] + b[3]) / 2
-            on_land = _in_box(_clip_strict(BOARD), cx, cy) and not any(_in_box(k['board_box_mm'], cx, cy) for k in cuts)
+            on_land = _land_at(cx, cy)
             turned.append({'lead': f"{f['ref']}.{pd['number']}", 'turned_centre_mm': [round(cx, 6), round(cy, 6)],
                            'lands_on_carrier': on_land})
     blocking = [t['lead'] for t in turned if t['lands_on_carrier']]
@@ -343,20 +378,47 @@ def design(geometry: dict, probes: list[dict], pop: dict | None = None) -> dict:
         x = round(i * step, 6)
         for j in range(round((y_hi - CARRIER_Y[0]) / step) + 1):
             y = round(CARRIER_Y[0] + j * step, 6)
-            if x - hr < 0 or x + hr > 16.2:
+            if x - hr < 0 or x + hr > 16.2 or y - hr < CARRIER_Y[0] or y + hr > y_hi:
                 continue
             if any(_box_point_dist(b, (x, y)) < hr + RULES['holddown_f_side_clearance_mm'] for b in fside):
                 continue
-            ring = [(x + hr * math.cos(a * math.pi / 4), y + hr * math.sin(a * math.pi / 4)) for a in range(8)] + [(x, y)]
-            if all(solid(px, py) for px, py in ring):
-                cands.append((round(math.dist((x, y), (cx, cy)), 6), x, y))
+            # exact: the whole pin circle lies over carrier land (no cut box or probe bore under it)
+            if any(_box_point_dist(k['board_box_mm'], (x, y)) < hr for k in cuts):
+                continue
+            if any(math.dist((x, y), p['board_xy_mm']) < hr + BORE_MAX / 2 for p in probes):
+                continue
+            d = math.dist((x, y), (cx, cy))
+            if d <= RULES['holddown_search_radius_mm']:
+                cands.append((round(d, 6), x, y))
     cands.sort()
-    chosen = []
+    thinned = []
     for d, x, y in cands:
-        if all(math.dist((x, y), c) >= 2.0 for c in chosen):
-            chosen.append((x, y))
-        if len(chosen) == 3:
-            break
+        if all(math.dist((x, y), q) >= 1.0 for q in thinned):
+            thinned.append((x, y))
+
+    def margin(tri):
+        (x1, y1), (x2, y2), (x3, y3) = tri
+        area2 = (x2 - x1) * (y3 - y1) - (x3 - x1) * (y2 - y1)
+        if abs(area2) < 1e-9:
+            return -1.0
+        out = []
+        for (ax, ay), (bx, by) in ((tri[0], tri[1]), (tri[1], tri[2]), (tri[2], tri[0])):
+            cross = (bx - ax) * (cy - ay) - (by - ay) * (cx - ax)
+            out.append(cross / math.hypot(bx - ax, by - ay) * (1 if area2 > 0 else -1))
+        return min(out)
+    best = None
+    need = RULES['holddown_resultant_margin_mm']
+    for i in range(len(thinned)):
+        for j in range(i + 1, len(thinned)):
+            for k in range(j + 1, len(thinned)):
+                tri = (thinned[i], thinned[j], thinned[k])
+                m = margin(tri)
+                if m >= need:
+                    reach = max(math.dist(q, (cx, cy)) for q in tri)
+                    if best is None or (reach, -m) < best[0]:
+                        best = ((reach, -m), tri, m)
+    chosen = list(best[1]) if best else []
+    resultant_margin = round(best[2], 6) if best else None
     f_max = INGUN['force_graph']['facts']['force_at_maximum_stroke_N']
     f_work = INGUN['probe']['facts']['force_at_working_stroke_N']
     n = len(probes)
@@ -365,9 +427,13 @@ def design(geometry: dict, probes: list[dict], pop: dict | None = None) -> dict:
                 'rule': 'pressure pins on the F side, clear of every native F courtyard by 0.3 mm, each over solid carrier land so the '
                         'clamp load passes straight through the board into the carrier; nothing presses on jack bodies or solder joints',
                 'probe_force_total_N': {'working_stroke': round(n * f_work, 6), 'maximum_stroke': round(n * f_max, 6)},
+                'probe_resultant_board_mm': [round(cx, 6), round(cy, 6)],
+                'resultant_margin_inside_clamp_triangle_mm': resultant_margin,
                 'required_clamp_force_N': round(n * f_max, 6),
-                'required_clamp_force_basis': 'all five probes at the 6.35 mm maximum stroke (graph value); the clamp must exceed it so the '
-                                              'board stays on the carrier land at any stroke',
+                'required_clamp_force_basis': 'all five probes at the 6.35 mm maximum stroke (graph value), equal probe forces so the resultant is '
+                                              'the probe centroid; it lies inside the clamp triangle by the stated margin, so the probe load is reacted '
+                                              'inside the clamped area instead of tipping the board about the clamp line (rigid-board statics; '
+                                              'board bending not analysed)',
                 'mechanism': None, 'mechanism_status': 'NOT_SELECTED (owner/supplier choice)'}
     support = {'method': f'grid {g} mm over the board outline inside the carrier (board X 0-16.2, Y {CARRIER_Y[0]}-{y_hi})',
                'land_fraction': round(land / total, 4),
@@ -413,7 +479,7 @@ def design(geometry: dict, probes: list[dict], pop: dict | None = None) -> dict:
         'every_b_face_protrusion_sourced': not unknown_heights,
         'no_wall_below_sourced_minimum': not conflicts and not walls,
         'keyed_against_turned_insertion': keying['keyed'],
-        'holddown_points_over_land_clear_of_f_parts': len(chosen) == 3,
+        'holddown_points_over_land_clear_of_f_parts_and_around_probe_resultant': len(chosen) == 3,
     }
     return {'rules': RULES, 'manufacturer_data': INGUN, 'height_sources': SOURCES, 'reliefs': reliefs, 'bridges': bridges,
             'datum_pins': pins, 'hole_to_cut_webs_below_2mm': sorted(webs, key=lambda w: (w['web_mm'], w['hole'], w['cut'])),

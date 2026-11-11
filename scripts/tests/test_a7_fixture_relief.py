@@ -2,6 +2,7 @@
 import copy
 import importlib.util
 import json
+import math
 from pathlib import Path
 import sys
 import unittest
@@ -127,6 +128,57 @@ class ReliefTests(unittest.TestCase):
                 if groups[i] != groups[j]:
                     self.assertGreaterEqual(rl._box_gap(cuts[i]['board_box_mm'], cuts[j]['board_box_mm']), rl.MIN_WALL - 1e-9)
 
+    def test_independent_raster_finds_no_material_thinner_than_the_minimum(self):
+        """Grid opening near every cut: each solid point must lie in a disc or an axis-aligned square of the minimum wall.
+
+        The disc catches walls next to round bores and pins; the square keeps the square corners of rectangular cuts,
+        which a disc opening would round off. A wall thinner than the minimum fits neither.
+        """
+        cuts = [c['board_box_mm'] for c in self.d['reliefs'] + self.d['bridges']]
+        holes = [(p['board_xy_mm'], rl.BORE_MAX / 2) for p in probes()] + [(q['board_xy_mm'], 1.0) for q in self.d['datum_pins']]
+        x0, y0, x1, y1 = rl.CARRIER_BOARD_X[0], rl.CARRIER_Y[0], rl.CARRIER_BOARD_X[1], rl.CARRIER_Y[1]
+        h, r = 0.02, rl.MIN_WALL / 2 - 0.03  # grid allowance; a 0.175 mm wall has half-width 0.0875 < r
+
+        def clear(x, y, square):
+            d = min(x - x0, x1 - x, y - y0, y1 - y)
+            for b in cuts:
+                if rl._in_box(b, x, y):
+                    return -1
+                dx, dy = max(b[0] - x, 0.0, x - b[2]), max(b[1] - y, 0.0, y - b[3])
+                d = min(d, max(dx, dy) if square else math.hypot(dx, dy))
+            for c, rr in holes:
+                d = min(d, (math.dist((x, y), c) - rr) / (math.sqrt(2) if square else 1))
+            return d
+        k = math.ceil(r / h)
+        disc = [(i, j) for i in range(-k, k + 1) for j in range(-k, k + 1) if math.hypot(i * h, j * h) <= r]
+        sq = [(i, j) for i in range(-k, k + 1) for j in range(-k, k + 1) if max(abs(i), abs(j)) * h <= r]
+        cache = {}
+
+        def core(i, j, square):
+            if (i, j, square) not in cache:
+                cache[(i, j, square)] = clear(i * h, j * h, square) >= r
+            return cache[(i, j, square)]
+        thin = []
+        for b in cuts:  # thin material can only sit next to a cut
+            for i in range(math.floor((b[0] - rl.MIN_WALL) / h), math.ceil((b[2] + rl.MIN_WALL) / h) + 1):
+                for j in range(math.floor((b[1] - rl.MIN_WALL) / h), math.ceil((b[3] + rl.MIN_WALL) / h) + 1):
+                    x, y = i * h, j * h
+                    if not (x0 < x < x1 and y0 < y < y1) or clear(x, y, False) <= h:
+                        continue
+                    if not any(core(i + a, j + c, False) for a, c in disc) and not any(core(i + a, j + c, True) for a, c in sq):
+                        thin.append((round(x, 3), round(y, 3)))
+        self.assertEqual(sorted(set(thin)), [])
+
+    def test_raster_check_sees_the_fingers_bridges_removed(self):
+        d = dict(self.d)
+        d['bridges'] = [b for b in self.d['bridges'] if b['ref'] not in ('bridge R24+R25', 'bridge R6+R7')]
+        saved, self.d = self.d, d
+        try:
+            with self.assertRaises(AssertionError):
+                self.test_independent_raster_finds_no_material_thinner_than_the_minimum()
+        finally:
+            self.d = saved
+
     def test_bridging_is_detected_when_removed(self):
         with unittest.mock.patch.object(rl, '_bridges', return_value=[]):
             d = rl.design(GEOM, probes())
@@ -139,6 +191,8 @@ class ReliefTests(unittest.TestCase):
         self.assertEqual(set(s['land_fraction_within_radius_of_probe']), {'TP1', 'TP2', 'TP3', 'TP4', 'TP5'})
         h = self.d['holddown']
         self.assertEqual(len(h['points_board_mm']), 3)
+        self.assertGreaterEqual(h['resultant_margin_inside_clamp_triangle_mm'], rl.RULES['holddown_resultant_margin_mm'])
+        bores = [p['board_xy_mm'] for p in probes()]
         self.assertAlmostEqual(h['required_clamp_force_N'], 5 * 1.27)
         self.assertIsNone(h['mechanism'])
         fside = [fp['courtyard_bbox_mm']['F'] for fp in GEOM['footprints'] if fp['side'] == 'F' and fp['courtyard_bbox_mm'].get('F')]
@@ -146,6 +200,7 @@ class ReliefTests(unittest.TestCase):
         for x, y in h['points_board_mm']:
             self.assertTrue(all(rl._box_point_dist(b, (x, y)) >= 0.75 + 0.3 - 1e-9 for b in fside))
             self.assertTrue(all(rl._box_point_dist(c['board_box_mm'], (x, y)) >= 0.75 - 1e-9 for c in cuts))
+            self.assertTrue(all(math.dist((x, y), b) >= 0.75 + rl.BORE_MAX / 2 - 1e-9 for b in bores))
 
     def test_keying_registration_and_stroke(self):
         k = self.d['keying']

@@ -9,14 +9,14 @@
   "inputs_sha256": {
     "engineering/a7/electronics/controller/controller.kicad_pcb": "4453f818ede1e6d6c56e45ef43aa6faecb90990f3755f82c6d752258cd4d628e",
     "engineering/a7/electronics/controller/board_placement.json": "1891af356ead303127c6b7a99b8934b08aa25f465b4b2c96872f5d5d24afdc01",
-    "scripts/a7_fixture.py": "f1b00f9b07867192f75ade77eef4686601247aa1a4628d108906c7b4b7065dc8",
-    "scripts/a7_fixture_relief.py": "879f5095dfe9ae080efda9f863a883f138c459b47cf10aaa1b96d939de2a1f1f",
+    "scripts/a7_fixture.py": "d272c09d7ebedf1bdb7b83ce55b01b1e4bd89be9f9404a10f38b465fcfe77553",
+    "scripts/a7_fixture_relief.py": "a06860ee30da43a5e63bd297c3b35eda2bafd3be05c5e423550f0b396494808a",
     "engineering/a7/procurement/population.csv": "6ce7636d2d0cae04ccbd2dace8cd0efacafe154b5e772acaa04a5e79718b0dd8",
     "engineering/a7/fixture/sources.json": "6fde5bc90563e071ab3b302b60ec1aaf78ba6a58269b2e6726c5f8541e92f3e0",
     "engineering/a7/fixture/materials.json": "2066c14079421fe1487c88202c9bef29fdce886c419923ea096b66d0a1ca243e",
     "engineering/a7/fixture/candidate-references.json": "6f929c9edf3d115dc18f5cf1b055f9971ec25af64ce20948a882729250151845"
   },
-  "study_step_sha256": "d4ba058b549a8080a4ffc3606ff826a3c9e583c5fc374725573b54b2213e903e",
+  "study_step_sha256": "2de0595bf1d33a3029229a87ab0cb7e461c462fd4445a3c81254dbf6c2c126a2",
   "fresh_native_verified": false,
   "fresh_native_criteria": {
     "every_b_side_part_and_tht_lead_relieved_from_native_geometry": true,
@@ -24,7 +24,7 @@
     "every_b_face_protrusion_sourced": false,
     "no_wall_below_sourced_minimum": true,
     "keyed_against_turned_insertion": true,
-    "holddown_points_over_land_clear_of_f_parts": true,
+    "holddown_points_over_land_clear_of_f_parts_and_around_probe_resultant": true,
     "native_record_valid_and_probe_pads_confirmed": true
   },
   "completion_criteria": {
@@ -57,7 +57,7 @@
     "tested_revision": "01bc3812202c6e72f772d2568148ae5df4915be7",
     "artifact_zip_sha256": "db6d6fe101641a4176d0fad83a7fd453ee4ae09173e7fb36d26dd444284b74c4",
     "probe_pads_match": true,
-    "scope": "Native KiCad pad facts confirm the five probe pads (B side, round 1 mm, B.Cu/B.Mask, position, net). Native courtyard/footprint boxes are available for clearance design but not yet used by this carrier study; body heights and solder envelopes are not native facts."
+    "scope": "Native KiCad pad facts confirm the five probe pads (B side, round 1 mm, B.Cu/B.Mask, position, net). Native pad copper boxes set the carrier cuts and native F courtyards bound the clamp points (b_side_relief); body heights and solder envelopes are not native facts."
   },
   "b_side_relief": {
     "rules": {
@@ -70,6 +70,8 @@
       "datum_pin_height_above_carrier_mm": 1.0,
       "holddown_pin_diameter_mm": 1.5,
       "holddown_f_side_clearance_mm": 0.3,
+      "holddown_search_radius_mm": 14.0,
+      "holddown_resultant_margin_mm": 0.5,
       "support_grid_mm": 0.1,
       "support_radius_around_probe_mm": 3.0,
       "confidence": "PROJECT-CHOICE design values except the minimum wall; not machining tolerances, fit results or approvals"
@@ -958,6 +960,24 @@
         "depth_mm": 5.0
       },
       {
+        "ref": "bridge R24+R25",
+        "kind": "through",
+        "basis": "merges a 0.175 mm wall below the minimum",
+        "board_box_mm": [
+          8.425,
+          21.675,
+          9.775,
+          21.85
+        ],
+        "carrier_box_mm": [
+          6.425,
+          21.675,
+          7.775,
+          21.85
+        ],
+        "depth_mm": 5.0
+      },
+      {
         "ref": "bridge R24+R6",
         "kind": "through",
         "basis": "merges a 0.200 mm wall below the minimum",
@@ -989,6 +1009,78 @@
           5.975,
           21.35,
           6.15,
+          21.675
+        ],
+        "depth_mm": 5.0
+      },
+      {
+        "ref": "bridge R24+bridge R21+R25",
+        "kind": "through",
+        "basis": "merges a 0.175 mm wall below the minimum",
+        "board_box_mm": [
+          8.175,
+          21.675,
+          8.425,
+          21.85
+        ],
+        "carrier_box_mm": [
+          7.775,
+          21.675,
+          8.025,
+          21.85
+        ],
+        "depth_mm": 5.0
+      },
+      {
+        "ref": "bridge R6+R7",
+        "kind": "through",
+        "basis": "merges a 0.175 mm wall below the minimum",
+        "board_box_mm": [
+          10.25,
+          21.175,
+          11.575,
+          21.35
+        ],
+        "carrier_box_mm": [
+          4.625,
+          21.175,
+          5.95,
+          21.35
+        ],
+        "depth_mm": 5.0
+      },
+      {
+        "ref": "bridge R24+bridge R6+R7",
+        "kind": "through",
+        "basis": "merges a 0.200 mm wall below the minimum",
+        "board_box_mm": [
+          10.05,
+          21.175,
+          10.25,
+          21.35
+        ],
+        "carrier_box_mm": [
+          5.95,
+          21.175,
+          6.15,
+          21.35
+        ],
+        "depth_mm": 5.0
+      },
+      {
+        "ref": "bridge R6+bridge R24+R7",
+        "kind": "through",
+        "basis": "merges a 0.177 mm wall below the minimum",
+        "board_box_mm": [
+          10.225,
+          20.0,
+          10.25,
+          21.675
+        ],
+        "carrier_box_mm": [
+          5.95,
+          20.0,
+          5.975,
           21.675
         ],
         "depth_mm": 5.0
@@ -1069,6 +1161,11 @@
         "web_mm": 0.725
       },
       {
+        "hole": "TP3",
+        "cut": "bridge R6+R7",
+        "web_mm": 0.835337
+      },
+      {
         "hole": "TP2",
         "cut": "J5.3",
         "web_mm": 1.56
@@ -1090,8 +1187,18 @@
       },
       {
         "hole": "TP3",
+        "cut": "bridge R6+bridge R24+R7",
+        "web_mm": 1.768948
+      },
+      {
+        "hole": "TP3",
         "cut": "bridge R24+R7",
         "web_mm": 1.792651
+      },
+      {
+        "hole": "TP3",
+        "cut": "bridge R24+bridge R6+R7",
+        "web_mm": 1.892697
       },
       {
         "hole": "TP3",
@@ -1629,11 +1736,11 @@
     },
     "support": {
       "method": "grid 0.1 mm over the board outline inside the carrier (board X 0-16.2, Y 20.0-62.9)",
-      "land_fraction": 0.8017,
+      "land_fraction": 0.8013,
       "land_fraction_within_radius_of_probe": {
-        "TP1": 0.5909,
+        "TP1": 0.588,
         "TP2": 0.7295,
-        "TP3": 0.5369,
+        "TP3": 0.5302,
         "TP4": 0.7181,
         "TP5": 0.735
       },
@@ -1643,16 +1750,16 @@
     "holddown": {
       "points_board_mm": [
         [
-          14.5,
-          24.9
+          14.8,
+          28.6
         ],
         [
-          13.7,
-          22.5
+          15.4,
+          21.4
         ],
         [
-          14.1,
-          27.3
+          2.7,
+          22.4
         ]
       ],
       "pin_diameter_mm": 1.5,
@@ -1661,8 +1768,13 @@
         "working_stroke": 5.0,
         "maximum_stroke": 6.35
       },
+      "probe_resultant_board_mm": [
+        13.04,
+        24.84
+      ],
+      "resultant_margin_inside_clamp_triangle_mm": 2.066172,
       "required_clamp_force_N": 6.35,
-      "required_clamp_force_basis": "all five probes at the 6.35 mm maximum stroke (graph value); the clamp must exceed it so the board stays on the carrier land at any stroke",
+      "required_clamp_force_basis": "all five probes at the 6.35 mm maximum stroke (graph value), equal probe forces so the resultant is the probe centroid; it lies inside the clamp triangle by the stated margin, so the probe load is reacted inside the clamped area instead of tipping the board about the clamp line (rigid-board statics; board bending not analysed)",
       "mechanism": null,
       "mechanism_status": "NOT_SELECTED (owner/supplier choice)"
     },
@@ -1709,7 +1821,7 @@
       "every_b_face_protrusion_sourced": false,
       "no_wall_below_sourced_minimum": true,
       "keyed_against_turned_insertion": true,
-      "holddown_points_over_land_clear_of_f_parts": true
+      "holddown_points_over_land_clear_of_f_parts_and_around_probe_resultant": true
     }
   },
   "native_ci_evidence": {
@@ -1885,10 +1997,11 @@
           "guidance_tool_diameter_mm": 1.0,
           "met": false
         },
-        "narrowest_cut_mm": {
-          "design": 0.15,
+        "narrowest_cut_rectangle_mm": {
+          "design": 0.025,
           "guidance_tool_diameter_mm": 1.0,
-          "met": false
+          "met": false,
+          "note": "rectangles merge into larger openings; several bridges between parts (0.15-0.25 mm) are genuine narrow slots"
         },
         "registration_tolerances_mm": {
           "design": "0.05 carrier allocation, cut edges +/-0.05",
@@ -1906,6 +2019,6 @@
     "No complete assembly STEP/drawing with an interference check; the carrier STEP alone is not a finished fixture.",
     "Receptacle drawing diameter 0.96mm versus PDF table 0.95mm; use 0.96mm envelope only as conservative study input, resolve before selection.",
     "No physical fit, contact, insertion-force or measured stroke evidence; no prototype exists; the acceptance measurements in b_side_relief are requirements, not results.",
-    "Carrier manufacturability not confirmed: the narrowest through-cut is 0.15 mm and every internal corner is sharp, so the process must cut the merged shapes as drawn (or widen the bridges) and hold the 0.27 mm walls; no fabricator is selected and the captured JLCCNC guidance (candidate reference only) is not satisfied."
+    "Carrier manufacturability not confirmed: the narrowest cut rectangle is 0.025 mm, merge bridges are 0.025-0.25 mm wide and every internal corner is sharp, so the process must cut the merged shapes as drawn (or widen the bridges) and hold the 0.27 mm walls; no fabricator is selected and the captured JLCCNC guidance (candidate reference only) is not satisfied."
   ]
 }
