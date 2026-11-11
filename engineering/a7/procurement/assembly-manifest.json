@@ -23,7 +23,7 @@
     "engineering/a7/electronics/controller/board_placement.json": "1891af356ead303127c6b7a99b8934b08aa25f465b4b2c96872f5d5d24afdc01",
     "engineering/a7/electronics/controller/controller.kicad_pcb": "4453f818ede1e6d6c56e45ef43aa6faecb90990f3755f82c6d752258cd4d628e",
     "engineering/a7/electronics/controller/controller.kicad_sch": "01c09e69f2623bdbb98ae6176b4b52204ae817f927ecb311242d7ac1295fbc72",
-    "engineering/a7/fixture/materials.json": "b05f46b48715ec8cdcf18a557a880d6f68f2ca7967ba932fc38ade4fef0e983e",
+    "engineering/a7/fixture/materials.json": "2066c14079421fe1487c88202c9bef29fdce886c419923ea096b66d0a1ca243e",
     "engineering/a7/fixture/native-geometry.json": "2f372a058a24cb117d9e294d11411e84cb575e682d18f7651cbf0547d1bc7f51",
     "engineering/a7/mechanical/build_a7_mechanical.py": "98f47662650732d7d8215e0f86cff404521351ca43a795bd8811fc4f452d3daa",
     "engineering/a7/mechanical/exports/3hp/verification.json": "90d7b8c54ebb59cdc2e2ad2b66d1ba9f183759a6104865d93cc57cdfb1902c26",
@@ -2820,16 +2820,45 @@
         "source": "sources.json#receptacle"
       },
       {
-        "id": "carrier-study",
-        "description": "Machined FR4 carrier study, 25 x 40 x 5mm; bore requirement 0.98–1.00mm; not approved fabrication",
+        "id": "carrier",
+        "description": "Machined FR4 B-side carrier, 25 x 46 x 5 mm: 5 receptacle bores 0.98-1.00 mm, 3 datum pin holes 2.0 mm, 28 part through-cuts and 10 merge bridges, every wall at least 0.27 mm (INGUN-derived); geometry in carrier-study.step and manifest.json; fabricator not selected",
         "quantity": 1,
         "manufacturer": null,
         "mpn": null,
-        "status": "PROVISIONAL_GEOMETRY_ONLY"
+        "status": "DIGITAL_DESIGN_NOT_SELECTED",
+        "source": "manifest.json#b_side_relief"
+      },
+      {
+        "id": "datum-pins",
+        "description": "Dowel pins 2.0 mm diameter, 1.0 mm above the carrier top (below the 1.6 mm board edge), press fit in the carrier: X1, X2 on the x = 16.2 board edge, Y1 on the y = 62.9 edge",
+        "quantity": 3,
+        "manufacturer": null,
+        "mpn": null,
+        "status": "REQUIRED_NOT_SELECTED",
+        "source": "manifest.json#b_side_relief.datum_pins"
+      },
+      {
+        "id": "holddown-bias",
+        "description": "F-side hold-down with 1.5 mm pressure pins at the three listed board points (over carrier land, clear of F courtyards by 0.3 mm), total clamp force above 6.35 N, plus a spring bias pushing the board against X1, X2 and Y1",
+        "quantity": 1,
+        "manufacturer": null,
+        "mpn": null,
+        "status": "REQUIRED_NOT_SELECTED",
+        "source": "manifest.json#b_side_relief.holddown"
+      },
+      {
+        "id": "base-and-guide",
+        "description": "Base under the carrier keeping free the receptacle tails and the J5 tail, probe guide, fixing to the carrier, insulation and wire retention for the 5 prewired receptacle leads",
+        "quantity": 1,
+        "manufacturer": null,
+        "mpn": null,
+        "status": "NOT_DESIGNED",
+        "source": "README.md#完成に必要な証拠"
       }
     ],
     "blockers": [
-      "Board support, keyed registration, travel mechanism, fasteners and connector termination are not selected.",
+      "Hold-down/bias mechanism, datum pins, base, guide, fixing, insulation and wire retention are not selected or designed.",
+      "Fixture supplier and carrier fabricator are owner choices and are not selected; JLCCNC guidance is a candidate reference only.",
       "No complete fixture BOM or supplier-upload package.",
       "No current price, MOQ, lead time or assembly availability retrieved."
     ]
