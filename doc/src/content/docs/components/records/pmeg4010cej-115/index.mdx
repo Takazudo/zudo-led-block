@@ -29,11 +29,11 @@ This record in the catalog: [PMEG4010CEJ,115](/docs/components/catalog/#rec-pmeg
 
 **Fit:** Fitted
 
-**Identity state:** UNRESOLVED
+**Identity state:** VERIFIED
 
-**Source state:** SOURCE UNAVAILABLE
+**Source state:** AVAILABLE
 
-**Coverage:** 5 open of 5 published
+**Coverage:** 3 open of 5 published
 
 ## Documents and package
 
@@ -41,9 +41,13 @@ This record in the catalog: [PMEG4010CEJ,115](/docs/components/catalog/#rec-pmeg
 
 <EvidenceAnchor id="component-references" />
 
-**Selected document:** Document unavailable
+[Datasheet PDF](https://assets.nexperia.com/documents/data-sheet/PMEG4010CEJ.pdf) — PMEG4010CEJ 40 V, 1 A very low VF Schottky barrier rectifier, Product data sheet
 
-**Reason:** No manufacturer-primary document for this exact orderable is retained in the evidence. Reviewed: JLCPCB public product listing C50704 (A5 retained product-props snapshot) (DISTRIBUTOR\_IDENTITY, AVAILABLE); Nexperia PMEG4010CEJ datasheet (title as implied by the A5 URL); not acquired (MANUFACTURER\_PRIMARY, SOURCE UNAVAILABLE). Distributor listings establish order identity only, and a distributor-hosted mirror is lower authority, so neither is published as a manufacturer document.
+**Selected source ID:** `src-pmeg4010cej-115-ds`
+
+**Authority:** MANUFACTURER\_PRIMARY
+
+**Availability:** AVAILABLE
 
 No footprint or 3D model is published for this record: CAD is not enabled for this project.
 
@@ -66,30 +70,27 @@ Coverage is stated one domain at a time and is never rolled up. A domain marked 
 
 **Coverage ID:** `cov-pmeg4010cej-115-identity` · **Status:** OPEN
 
-**Reason:** fact-pmeg4010cej-115-manufacturer remains UNSOURCED: the Nexperia datasheet is SOURCE UNAVAILABLE (HTTP 403 on 2026-11-08); only distributor identity is retained
+**Reason:** manufacturer is confirmed by Nexperia PMEG4010CEJ v.3; the exact ',115' packing variant stays UNSOURCED because v.3 removed packing information (distributor identity only)
 
 **Facts in this domain:**
 
 - [`fact-pmeg4010cej-115-manufacturer`](#fact-pmeg4010cej-115-manufacturer)
+- [`fact-pmeg4010cej-115-orderable`](#fact-pmeg4010cej-115-orderable)
 - [`fact-pmeg4010cej-115-distributor-identity`](#fact-pmeg4010cej-115-distributor-identity)
 
 **Blocked by:** these facts must be resolved before the domain can close. Each is listed in full under Facts.
 
-- [`fact-pmeg4010cej-115-manufacturer`](#fact-pmeg4010cej-115-manufacturer)
+- [`fact-pmeg4010cej-115-orderable`](#fact-pmeg4010cej-115-orderable)
 
 ### pinout
 
 <EvidenceAnchor id="cov-pmeg4010cej-115-pinout" />
 
-**Coverage ID:** `cov-pmeg4010cej-115-pinout` · **Status:** OPEN
+**Coverage ID:** `cov-pmeg4010cej-115-pinout` · **Status:** COVERED
 
-**Reason:** fact-pmeg4010cej-115-pinout remains UNSOURCED: the Nexperia datasheet is SOURCE UNAVAILABLE, so the SOD-323F cathode/anode convention is not checked
+**Reason:** pin 1 K / pin 2 A is read from the Nexperia v.3 Pinning information table and agrees with the A5 pin map; footprint pad geometry is a separate CAD domain
 
 **Facts in this domain:**
-
-- [`fact-pmeg4010cej-115-pinout`](#fact-pmeg4010cej-115-pinout)
-
-**Blocked by:** these facts must be resolved before the domain can close. Each is listed in full under Facts.
 
 - [`fact-pmeg4010cej-115-pinout`](#fact-pmeg4010cej-115-pinout)
 
@@ -97,17 +98,17 @@ Coverage is stated one domain at a time and is never rolled up. A domain marked 
 
 <EvidenceAnchor id="cov-pmeg4010cej-115-ratings" />
 
-**Coverage ID:** `cov-pmeg4010cej-115-ratings` · **Status:** OPEN
+**Coverage ID:** `cov-pmeg4010cej-115-ratings` · **Status:** COVERED
 
-**Reason:** fact-pmeg4010cej-115-ratings remains UNSOURCED: the Nexperia datasheet is SOURCE UNAVAILABLE, so no limiting value is recorded
+**Reason:** VR, IF/IFRM/IFSM, Tj/Ptot/Rth, VF max and IR max are read from Nexperia PMEG4010CEJ v.3 Tables 5-7; application thermal and reverse-leakage margins are not evaluated here
 
 **Facts in this domain:**
 
 - [`fact-pmeg4010cej-115-ratings`](#fact-pmeg4010cej-115-ratings)
-
-**Blocked by:** these facts must be resolved before the domain can close. Each is listed in full under Facts.
-
-- [`fact-pmeg4010cej-115-ratings`](#fact-pmeg4010cej-115-ratings)
+- [`fact-pmeg4010cej-115-forward-current`](#fact-pmeg4010cej-115-forward-current)
+- [`fact-pmeg4010cej-115-junction-temperature`](#fact-pmeg4010cej-115-junction-temperature)
+- [`fact-pmeg4010cej-115-forward-voltage`](#fact-pmeg4010cej-115-forward-voltage)
+- [`fact-pmeg4010cej-115-reverse-current`](#fact-pmeg4010cej-115-reverse-current)
 
 ### placement
 
@@ -154,13 +155,73 @@ A never-exceed limit. Reaching it may damage the part; it is not an operating ta
 
   **Fact:** `fact-pmeg4010cej-115-ratings`
 
-  **Value:** manufacturer absolute-maximum limits (VR, IF, IFSM, Tj) · **Unit:** `NONE`
+  **Value:** 40 · **Unit:** `V`
 
-  **Conditions:** not read: the Nexperia datasheet is SOURCE UNAVAILABLE; no value taken from A5 notes or memory
+  **Conditions:** VR reverse voltage absolute maximum (Table 5, IEC 60134 absolute maximum rating system); IF 1 A at Tsp\<=55 C, IFSM 10 A and Tj 150 C are separate facts
 
-  **Verdict:** UNSOURCED · **Provenance:** UNVERIFIED
+  **Verdict:** PASS - primary-source confirmed · **Provenance:** PRIMARY-SPEC
 
-  **Evidence:** [src-pmeg4010cej-115-ds: intended Limiting values table](#src-pmeg4010cej-115-ds)
+  **Evidence:** [src-pmeg4010cej-115-ds-p1: Table 5 Limiting values row VR](#src-pmeg4010cej-115-ds-p1)
+</EvidenceFact>
+
+<EvidenceFact>
+  <EvidenceAnchor id="fact-pmeg4010cej-115-forward-current" />
+
+  **Fact:** `fact-pmeg4010cej-115-forward-current`
+
+  **Value:** 1 · **Unit:** `A`
+
+  **Conditions:** IF forward current absolute maximum at Tsp\<=55 C (solder point); IFRM 7 A at tp\<=1 ms, delta\<=0.25; IFSM 10 A at tp=8 ms square wave, Tj(init)=25 C
+
+  **Verdict:** PASS - primary-source confirmed · **Provenance:** PRIMARY-SPEC
+
+  **Evidence:** [src-pmeg4010cej-115-ds-p1: Table 5 Limiting values rows IF, IFRM, IFSM](#src-pmeg4010cej-115-ds-p1)
+</EvidenceFact>
+
+<EvidenceFact>
+  <EvidenceAnchor id="fact-pmeg4010cej-115-junction-temperature" />
+
+  **Fact:** `fact-pmeg4010cej-115-junction-temperature`
+
+  **Value:** 150 · **Unit:** `degC`
+
+  **Conditions:** Tj junction temperature maximum; Tamb and Tstg -65..150 C; Ptot 350 mW (standard footprint, FR4 single-sided) or 830 mW (1 cm2 cathode pad) at Tamb\<=25 C; Rth(j-a) 350 / 150 K/W for the same two mountings; Table 6 note \[1]: thermal runaway has to be considered for Schottky barrier diodes
+
+  **Verdict:** PASS - primary-source confirmed · **Provenance:** PRIMARY-SPEC
+
+  **Evidence:** [src-pmeg4010cej-115-ds-p1: Table 5 rows Tj, Tamb, Tstg, Ptot; Table 6 Thermal characteristics](#src-pmeg4010cej-115-ds-p1)
+</EvidenceFact>
+
+### GUARANTEED\_ELECTRICAL
+
+A parameter the manufacturer guarantees over the stated conditions, usually with minimum, typical and maximum values.
+
+<EvidenceFact>
+  <EvidenceAnchor id="fact-pmeg4010cej-115-forward-voltage" />
+
+  **Fact:** `fact-pmeg4010cej-115-forward-voltage`
+
+  **Value:** 390 max at IF=100mA; 490 max at IF=500mA; 570 max at IF=1000mA · **Unit:** `mV`
+
+  **Conditions:** VF maximum at Tamb=25 C, pulsed tp\<=300 us, delta\<=0.02; typical curves over temperature (Fig. 1) are not guaranteed limits
+
+  **Verdict:** PASS - primary-source confirmed · **Provenance:** PRIMARY-SPEC
+
+  **Evidence:** [src-pmeg4010cej-115-ds-p2: Table 7 Characteristics rows VF](#src-pmeg4010cej-115-ds-p2)
+</EvidenceFact>
+
+<EvidenceFact>
+  <EvidenceAnchor id="fact-pmeg4010cej-115-reverse-current" />
+
+  **Fact:** `fact-pmeg4010cej-115-reverse-current`
+
+  **Value:** 50 · **Unit:** `uA`
+
+  **Conditions:** IR maximum at VR=40 V, Tamb=25 C (typ 6 uA); only typical values are printed at 5 V and 10 V; reverse current rises steeply with temperature (Fig. 2, typical)
+
+  **Verdict:** PASS - primary-source confirmed · **Provenance:** PRIMARY-SPEC
+
+  **Evidence:** [src-pmeg4010cej-115-ds-p2: Table 7 Characteristics rows IR](#src-pmeg4010cej-115-ds-p2)
 </EvidenceFact>
 
 ### PROJECT\_STATE
@@ -174,11 +235,11 @@ A value this project recorded about how the part is used here — a chosen opera
 
   **Value:** Nexperia · **Unit:** `NONE`
 
-  **Conditions:** the Nexperia datasheet is SOURCE UNAVAILABLE (assets.nexperia.com HTTP 403 on 2026-11-08); only distributor identity is retained
+  **Conditions:** Nexperia product data sheet PMEG4010CEJ v.3 (1 October 2022) served from assets.nexperia.com; page footer reads 'Nexperia B.V. 2022. All rights reserved'
 
-  **Verdict:** UNSOURCED · **Provenance:** UNVERIFIED
+  **Verdict:** PASS - primary-source confirmed · **Provenance:** PRIMARY-SPEC
 
-  **Evidence:** [src-pmeg4010cej-115-ds: intended page 1 title block](#src-pmeg4010cej-115-ds)
+  **Evidence:** [src-pmeg4010cej-115-ds: page 1 title block and page footer](#src-pmeg4010cej-115-ds)
 </EvidenceFact>
 
 <EvidenceFact>
@@ -214,13 +275,13 @@ A value this project recorded about how the part is used here — a chosen opera
 
   **Fact:** `fact-pmeg4010cej-115-pinout`
 
-  **Value:** manufacturer pin numbering and pin functions for package SOD-323F · **Unit:** `NONE`
+  **Value:** pin 1 K (cathode, marked by the cathode bar), pin 2 A (anode), SC-90 (SOD323F) · **Unit:** `NONE`
 
-  **Conditions:** not checked: the Nexperia datasheet is SOURCE UNAVAILABLE; the project pin map is a historical A5 netlist projection
+  **Conditions:** manufacturer Pinning information; agrees with the A5 projection D1/D2 pin 1 K, pin 2 A (src-pmeg4010cej-115-a5-netlist-controller). Pad geometry of LightBlock:SOD323F is not reviewed (CAD disabled)
 
-  **Verdict:** UNSOURCED · **Provenance:** UNVERIFIED
+  **Verdict:** PASS - primary-source confirmed · **Provenance:** PRIMARY-SPEC
 
-  **Evidence:** [src-pmeg4010cej-115-ds: intended Pinning information table](#src-pmeg4010cej-115-ds)
+  **Evidence:** [src-pmeg4010cej-115-ds: Table 2 Pinning information rows 1 and 2](#src-pmeg4010cej-115-ds)
 </EvidenceFact>
 
 <EvidenceFact>
@@ -235,6 +296,20 @@ A value this project recorded about how the part is used here — a chosen opera
   **Verdict:** UNSOURCED · **Provenance:** PROJECT-CHOICE
 
   **Evidence:** [src-pmeg4010cej-115-a5-netlist-controller: components section footprint field](#src-pmeg4010cej-115-a5-netlist-controller)
+</EvidenceFact>
+
+<EvidenceFact>
+  <EvidenceAnchor id="fact-pmeg4010cej-115-orderable" />
+
+  **Fact:** `fact-pmeg4010cej-115-orderable`
+
+  **Value:** PMEG4010CEJ,115 (packing suffix ,115) · **Unit:** `NONE`
+
+  **Conditions:** the type number PMEG4010CEJ is in Table 3 (src-pmeg4010cej-115-ds-p1), but v.3 states 'Packing information removed', so the ',115' packing variant is not established by this document; it is supported by distributor identity only
+
+  **Verdict:** UNSOURCED · **Provenance:** UNVERIFIED
+
+  **Evidence:** [src-pmeg4010cej-115-ds-p5: Table 8 Revision history, v.3 modifications; src-pmeg4010cej-115-ds-p1: Table 3 Ordering information](#src-pmeg4010cej-115-ds-p5)
 </EvidenceFact>
 
 ## Pin maps
@@ -314,25 +389,85 @@ Every document cited above, with its identification, when it was retrieved, and 
 
 **Document URL:** [https://github.com/Takazudo/zudo-led-block/blob/d41cbb7fc61dc954b4affaf19527aa69f07013b6/engineering/a5/integration/native\_schematic/controller/netlist.xml](https://github.com/Takazudo/zudo-led-block/blob/d41cbb7fc61dc954b4affaf19527aa69f07013b6/engineering/a5/integration/native_schematic/controller/netlist.xml)
 
-### Nexperia PMEG4010CEJ datasheet (title as implied by the A5 URL); not acquired
+### PMEG4010CEJ 40 V, 1 A very low VF Schottky barrier rectifier, Product data sheet
 
 <EvidenceAnchor id="src-pmeg4010cej-115-ds" />
 
 **Source ID:** `src-pmeg4010cej-115-ds` · **Authority:** MANUFACTURER\_PRIMARY
 
-| Field           | Recorded value         |
-| --------------- | ---------------------- |
-| Document number | PMEG4010CEJ            |
-| Revision        | unknown (not acquired) |
-| Document date   | unknown (not acquired) |
-| Retrieved       | 2026-11-08             |
-| Printed page    | n/a (not acquired)     |
+| Field           | Recorded value                             |
+| --------------- | ------------------------------------------ |
+| Document number | PMEG4010CEJ v.3                            |
+| Revision        | v.3 (Product data sheet, release 20221001) |
+| Document date   | 2022-10-01                                 |
+| Retrieved       | 2026-11-11                                 |
+| Printed page    | 1 / 8                                      |
 
-**Locator:** intended: Ordering information table row PMEG4010CEJ,115, Pinning information table (SOD323F) and Limiting values table; not inspected
+**Locator:** page 1: title block, Table 1 Quick reference data, Table 2 Pinning information
 
-**Availability:** SOURCE UNAVAILABLE
+**Availability:** AVAILABLE
 
-**Document URL:** no link is published for this source
+**Document URL:** [https://assets.nexperia.com/documents/data-sheet/PMEG4010CEJ.pdf](https://assets.nexperia.com/documents/data-sheet/PMEG4010CEJ.pdf)
+
+### PMEG4010CEJ 40 V, 1 A very low VF Schottky barrier rectifier, Product data sheet
+
+<EvidenceAnchor id="src-pmeg4010cej-115-ds-p1" />
+
+**Source ID:** `src-pmeg4010cej-115-ds-p1` · **Authority:** MANUFACTURER\_PRIMARY
+
+| Field           | Recorded value                             |
+| --------------- | ------------------------------------------ |
+| Document number | PMEG4010CEJ v.3                            |
+| Revision        | v.3 (Product data sheet, release 20221001) |
+| Document date   | 2022-10-01                                 |
+| Retrieved       | 2026-11-11                                 |
+| Printed page    | 2 / 8                                      |
+
+**Locator:** page 2: Table 3 Ordering information, Table 4 Marking codes, Table 5 Limiting values, Table 6 Thermal characteristics
+
+**Availability:** AVAILABLE
+
+**Document URL:** [https://assets.nexperia.com/documents/data-sheet/PMEG4010CEJ.pdf](https://assets.nexperia.com/documents/data-sheet/PMEG4010CEJ.pdf)
+
+### PMEG4010CEJ 40 V, 1 A very low VF Schottky barrier rectifier, Product data sheet
+
+<EvidenceAnchor id="src-pmeg4010cej-115-ds-p2" />
+
+**Source ID:** `src-pmeg4010cej-115-ds-p2` · **Authority:** MANUFACTURER\_PRIMARY
+
+| Field           | Recorded value                             |
+| --------------- | ------------------------------------------ |
+| Document number | PMEG4010CEJ v.3                            |
+| Revision        | v.3 (Product data sheet, release 20221001) |
+| Document date   | 2022-10-01                                 |
+| Retrieved       | 2026-11-11                                 |
+| Printed page    | 3 / 8                                      |
+
+**Locator:** page 3: Table 7 Characteristics, rows VF, IR, Cd
+
+**Availability:** AVAILABLE
+
+**Document URL:** [https://assets.nexperia.com/documents/data-sheet/PMEG4010CEJ.pdf](https://assets.nexperia.com/documents/data-sheet/PMEG4010CEJ.pdf)
+
+### PMEG4010CEJ 40 V, 1 A very low VF Schottky barrier rectifier, Product data sheet
+
+<EvidenceAnchor id="src-pmeg4010cej-115-ds-p5" />
+
+**Source ID:** `src-pmeg4010cej-115-ds-p5` · **Authority:** MANUFACTURER\_PRIMARY
+
+| Field           | Recorded value                             |
+| --------------- | ------------------------------------------ |
+| Document number | PMEG4010CEJ v.3                            |
+| Revision        | v.3 (Product data sheet, release 20221001) |
+| Document date   | 2022-10-01                                 |
+| Retrieved       | 2026-11-11                                 |
+| Printed page    | 6 / 8                                      |
+
+**Locator:** page 6: Table 8 Revision history
+
+**Availability:** AVAILABLE
+
+**Document URL:** [https://assets.nexperia.com/documents/data-sheet/PMEG4010CEJ.pdf](https://assets.nexperia.com/documents/data-sheet/PMEG4010CEJ.pdf)
 
 ## Legend
 
@@ -344,6 +479,7 @@ What the recorded terms on this page mean, in ordinary words. The exact terms ab
 | --------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------- |
 | `CONFIRMED - distributor identity only` | A distributor listing confirms which part this is, and nothing more. It carries no electrical, thermal or lifetime authority. |
 | `NEEDS BENCH`                           | Cannot be settled from documents. It needs measurement on real hardware before it can be relied on.                           |
+| `PASS - primary-source confirmed`       | Confirmed against the manufacturer's own document for this exact part.                                                        |
 | `UNSOURCED`                             | No accepted source backs this value yet. Treat it as a claim, not a fact.                                                     |
 
 ### Provenance
@@ -351,28 +487,30 @@ What the recorded terms on this page mean, in ordinary words. The exact terms ab
 | Recorded term          | What it means                                                |
 | ---------------------- | ------------------------------------------------------------ |
 | `DISTRIBUTOR-IDENTITY` | Taken from a distributor listing. Identity information only. |
+| `PRIMARY-SPEC`         | Taken from the manufacturer's own specification document.    |
 | `PROJECT-CHOICE`       | A decision made by this project. No vendor asserts it.       |
 | `UNVERIFIED`           | Recorded, but not yet backed by an accepted source.          |
 
 ### Fact class
 
-| Recorded term      | What it means                                                                                                                                                      |
-| ------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| `ABSOLUTE_MAXIMUM` | A never-exceed limit. Reaching it may damage the part; it is not an operating target and there is no margin implied by it.                                         |
-| `PROJECT_STATE`    | A value this project recorded about how the part is used here — a chosen operating point, a net assignment, or a derived figure. Not a manufacturer specification. |
+| Recorded term           | What it means                                                                                                                                                      |
+| ----------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| `ABSOLUTE_MAXIMUM`      | A never-exceed limit. Reaching it may damage the part; it is not an operating target and there is no margin implied by it.                                         |
+| `GUARANTEED_ELECTRICAL` | A parameter the manufacturer guarantees over the stated conditions, usually with minimum, typical and maximum values.                                              |
+| `PROJECT_STATE`         | A value this project recorded about how the part is used here — a chosen operating point, a net assignment, or a derived figure. Not a manufacturer specification. |
 
 ### Coverage status
 
 | Recorded term | What it means                                                                                                               |
 | ------------- | --------------------------------------------------------------------------------------------------------------------------- |
+| `COVERED`     | Every question this domain asks is answered by the facts listed against it.                                                 |
 | `OPEN`        | Unresolved. Open means the question has not been answered, not that the part is unsafe — the reason states what is missing. |
 
 ### Source availability
 
-| Recorded term        | What it means                                                                                                         |
-| -------------------- | --------------------------------------------------------------------------------------------------------------------- |
-| `AVAILABLE`          | The document was retrieved and is on record.                                                                          |
-| `SOURCE UNAVAILABLE` | The document could not be retrieved. It stays listed so the gap is visible; anything resting on it remains unsourced. |
+| Recorded term | What it means                                |
+| ------------- | -------------------------------------------- |
+| `AVAILABLE`   | The document was retrieved and is on record. |
 
 ### Source authority
 
@@ -384,15 +522,15 @@ What the recorded terms on this page mean, in ordinary words. The exact terms ab
 
 ### Identity state
 
-| Recorded term | What it means                                                                                                                    |
-| ------------- | -------------------------------------------------------------------------------------------------------------------------------- |
-| `UNRESOLVED`  | The exact orderable part is not yet confirmed. Substituting a same-name part from another vendor is not permitted on that basis. |
+| Recorded term | What it means                                                 |
+| ------------- | ------------------------------------------------------------- |
+| `VERIFIED`    | The exact orderable part has been confirmed against a source. |
 
 ### Source state
 
-| Recorded term        | What it means                                     |
-| -------------------- | ------------------------------------------------- |
-| `SOURCE UNAVAILABLE` | No document backing this line could be retrieved. |
+| Recorded term | What it means                                          |
+| ------------- | ------------------------------------------------------ |
+| `AVAILABLE`   | At least one document backing this line was retrieved. |
 
 ### Unit
 

@@ -680,6 +680,16 @@ def is_reviewed_pdf(source) -> bool:
     )
 
 
+def is_reviewed_source_record(source) -> bool:
+    # circuit/WORKFLOW.md publication policy: a reviewed non-PDF source is published as `source-record`, never as a drawing.
+    return (
+        source["availability"] == "AVAILABLE"
+        and source["authority_class"] == "MANUFACTURER_PRIMARY"
+        and source.get("document_format", "pdf") != "pdf"
+        and source["sha256"] != ZERO
+    )
+
+
 def document_exception_reason(sources) -> str:
     reviewed = []
     for source in sources:
@@ -711,6 +721,9 @@ def propose_selection(report):
             chosen = pdfs[0]
             kind = "drawing" if re.search(r"drawing", chosen["document_title"], re.I) else "datasheet"
             selections.append({"recordId": record["record_id"], "sourceId": chosen["source_id"], "documentKind": kind})
+        elif records := [s for s in sources if is_reviewed_source_record(s)]:
+            chosen = sorted(records, key=lambda s: s["source_id"])[0]
+            selections.append({"recordId": record["record_id"], "sourceId": chosen["source_id"], "documentKind": "source-record"})
         else:
             exceptions.append({"recordId": record["record_id"], "reason": document_exception_reason(sources)})
 

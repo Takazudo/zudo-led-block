@@ -6,40 +6,41 @@
       "record_id": "rec-pmeg4010cej-115",
       "domain": "identity",
       "status": "OPEN",
-      "reason": "fact-pmeg4010cej-115-manufacturer remains UNSOURCED: the Nexperia datasheet is SOURCE UNAVAILABLE (HTTP 403 on 2026-11-08); only distributor identity is retained",
+      "reason": "manufacturer is confirmed by Nexperia PMEG4010CEJ v.3; the exact ',115' packing variant stays UNSOURCED because v.3 removed packing information (distributor identity only)",
       "fact_ids": [
         "fact-pmeg4010cej-115-manufacturer",
+        "fact-pmeg4010cej-115-orderable",
         "fact-pmeg4010cej-115-distributor-identity"
       ],
       "blocking_fact_ids": [
-        "fact-pmeg4010cej-115-manufacturer"
+        "fact-pmeg4010cej-115-orderable"
       ]
     },
     {
       "coverage_id": "cov-pmeg4010cej-115-pinout",
       "record_id": "rec-pmeg4010cej-115",
       "domain": "pinout",
-      "status": "OPEN",
-      "reason": "fact-pmeg4010cej-115-pinout remains UNSOURCED: the Nexperia datasheet is SOURCE UNAVAILABLE, so the SOD-323F cathode/anode convention is not checked",
+      "status": "COVERED",
+      "reason": "pin 1 K / pin 2 A is read from the Nexperia v.3 Pinning information table and agrees with the A5 pin map; footprint pad geometry is a separate CAD domain",
       "fact_ids": [
         "fact-pmeg4010cej-115-pinout"
       ],
-      "blocking_fact_ids": [
-        "fact-pmeg4010cej-115-pinout"
-      ]
+      "blocking_fact_ids": []
     },
     {
       "coverage_id": "cov-pmeg4010cej-115-ratings",
       "record_id": "rec-pmeg4010cej-115",
       "domain": "electrical-ratings",
-      "status": "OPEN",
-      "reason": "fact-pmeg4010cej-115-ratings remains UNSOURCED: the Nexperia datasheet is SOURCE UNAVAILABLE, so no limiting value is recorded",
+      "status": "COVERED",
+      "reason": "VR, IF/IFRM/IFSM, Tj/Ptot/Rth, VF max and IR max are read from Nexperia PMEG4010CEJ v.3 Tables 5-7; application thermal and reverse-leakage margins are not evaluated here",
       "fact_ids": [
-        "fact-pmeg4010cej-115-ratings"
+        "fact-pmeg4010cej-115-ratings",
+        "fact-pmeg4010cej-115-forward-current",
+        "fact-pmeg4010cej-115-junction-temperature",
+        "fact-pmeg4010cej-115-forward-voltage",
+        "fact-pmeg4010cej-115-reverse-current"
       ],
-      "blocking_fact_ids": [
-        "fact-pmeg4010cej-115-ratings"
-      ]
+      "blocking_fact_ids": []
     },
     {
       "coverage_id": "cov-pmeg4010cej-115-placement",
