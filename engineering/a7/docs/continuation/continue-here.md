@@ -10,7 +10,10 @@ re-review with no blocking findings), and a provisional digital mechanical model
 prototype and no physical measurement. Nothing in A7 is a measured fit, part approval, fit approval, electrical result or
 manufacturing approval, and a green CI is none of those either.
 
-Last synchronised with `main` at `355999a` (2026-11-08 UTC).
+The 2026-11-09 preparation package (E1 board/export binding, E2 exact-part sources, E3 carrier-only fixture study,
+E4 procurement ledger, E5 BLOCKED readiness and blank procedures) is integrated into main through PR #44 (2026-11-11).
+Its working record is [`order-preparation-checkpoint.md`](order-preparation-checkpoint.md); integration does not
+complete the fixture, any physical gate, order eligibility or a manufacturing release.
 
 ## What A7 is
 
@@ -111,14 +114,17 @@ retrieved.
 
 ## Next actions, in order
 
-The planned digital work is done. What remains needs parts, a prototype, supplier answers or an owner decision. Any
-later board change re-runs the gate, independent review and R2 fit check.
+The preparation package (board/export binding, exact-part source recovery, carrier-only fixture study,
+active procurement ledger and blank physical procedures) is on main via PR #44. `qualification/readiness.json` reports BLOCKED.
+The fixture is incomplete, and source/supply/physical/owner gates remain. Any later board change re-runs
+the gate, independent review and R2 fit check.
 
 1. **Physical and owner gates:** PJ-324M pin functions by TS / TRS continuity test (Q2), slot sizes (Q3, the board
    still uses ASSUMED 1.6 × 0.8 mm slots), axis height (Q1, INFERRED), PCM13SMTR stock and fit (Q10, body centring
-   ASSUMED), and the owner's 2HP decision.
-2. **External evidence** listed in `../../open-questions.md` (Q0–Q11 and Q11a–Q11f; Q12 is decided). Only the JLC PET questions 1–9 are
-   drafted (`../../pet-fpc.md`; 8 and 9 are Q11e and Q11f), and they are **not sent**; the others are not drafted. Sending supplier messages is
+   ASSUMED), and the owner-approved FR-4 prototype route. The optional 2HP decision does not block FR-4 preparation.
+2. **External evidence** listed in `../../open-questions.md` (Q0–Q11 and Q11a–Q11f; Q12 is decided). The JLC PET questions 1–9 remain
+   drafted (`../../pet-fpc.md`; 8 and 9 are Q11e and Q11f). Other questions are now drafted in
+   `../../qualification/supplier-questions.md`; all are **not sent**. Sending supplier messages is
    outside the current authorisation.
 3. **Physical qualification** with [#8](https://github.com/Takazudo/zudo-led-block/issues/8) (harness, power cable,
    fit, PETG), [#10](https://github.com/Takazudo/zudo-led-block/issues/10) (power / CV / firmware / optical / thermal /
@@ -137,10 +143,10 @@ later board change re-runs the gate, independent review and R2 fit check.
 | Adapter boss and M2x18 clamp load not analysed | adapter retention | analysis and printed part | #8 |
 | PJ-324M axis height only inferred (≈3.0, band 2.6–3.4) | 2HP lead-side margin | dimensioned drawing, 3D model or measured part | Q1 |
 | PJ-324M pin functions inferred | CV_THRU vs GND mapping | bench continuity test with TS and TRS plugs | Q2, #10 |
-| PJ-324M hole sizes not on the drawing | footprint (routed board uses ASSUMED slots) | JLC/EasyEDA footprint inspection, maker answer or part | Q3 |
+| PJ-324M hole sizes not on the drawing | footprint (routed board uses ASSUMED slots) | supplier CAD inspected; maker slot/lead tolerances or measured part still needed | Q3 |
 | Nut supply and fit unknown | front retention | supplier answer or part | Q4 |
 | PCM13SMTR JLC stock 0; land fit and body centring unconfirmed | side switch sourcing and fit | stock, or a printed per-position table / bench check for an alternate | Q10 |
-| Maker-hosted drawings unavailable | any drawing fact counting as PASS | SOFNG / C&K documents | Q0 |
+| SOFNG primary drawing unavailable; PCM primary recovered | unsupported jack drawing facts | exact SOFNG document or measured evidence | Q0 |
 | PET FPC process answers missing | transparent LED leaf | JLC written answers (questions not sent) | Q11 |
 | No supplier for laminating the PC carrier with OCA after reflow | building a PET leaf at all | supplier and process | Q11a |
 | SH unmating pull and pad / OCA peel strength unsourced | PET leaf connector retention | force data and a physical test | Q11b, #10 |
@@ -156,8 +162,9 @@ later board change re-runs the gate, independent review and R2 fit check.
 - Never edit, regenerate or reformat `engineering/a5/`. Run
   `python3 scripts/verify_seed.py --manifest provenance/seed-manifest.json --repo .` before and after.
 - Never hand-edit generated files: `doc/src/content/docs/components/`, the `scripts/a5_site.py` outputs,
-  `engineering/a7/study/results.json` / `report.md`, and everything under `engineering/a7/electronics/`
-  (derived by `scripts/a7_electronics.py generate`; see `verification/source_authority.json`).
+  `engineering/a7/study/results.json` / `report.md`, and electronics paths explicitly classed derived in
+  `verification/source_authority.json`. The routed controller PCB is authoritative; normal generation never writes it.
+  Electronics README and reviewed records are authored, not generator output.
 - A7 catalog lines use `line-a7-` IDs and `component-a7-` owner bundles; they never count toward the A5
   30 / 71 / 81 reconciliation.
 - Keep facts that were not verified at their real state (`UNVERIFIED`, `UNSOURCED`, `NEEDS BENCH`, `INFERRED`,
@@ -184,3 +191,5 @@ fails about 0.4 s in with `Error: Chrome page target was not available`, in `@ta
 42505006029 and 42505981975 and passed on their re-runs and on other runs of the same code. Treat it as this
 intermittent only when the same step also passes on `main`; no retry wrapper or `continue-on-error` was added.
 Whether to report it upstream is the owner's call. Details: [#19 comment](https://github.com/Takazudo/zudo-led-block/issues/19#issuecomment-6724919062).
+
+ローカルKiCadへ進む際は [固定入力と実行手順](local-kicad-handoff.md) を使用してください。Cloudの成果と未取得native/物理証跡を分離しています。

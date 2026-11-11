@@ -43,7 +43,7 @@ This record in the catalog: [PJ-324M](/docs/components/catalog/#rec-a7-pj-324m)
 
 **Selected document:** Document unavailable
 
-**Reason:** No manufacturer-primary document for this exact orderable is retained in the evidence. Reviewed: SOFNG PJ-324M product drawing (3.5 mm 5-pin right-angle phone jack, L17.70 x W11.50 x H6.30 mm) (MANUFACTURER\_MIRROR, AVAILABLE); SOFNG-hosted PJ-324M drawing; not acquired (MANUFACTURER\_PRIMARY, SOURCE UNAVAILABLE); JLCPCB parts library listing C22355739 (HTML) (DISTRIBUTOR\_IDENTITY, AVAILABLE). Distributor listings establish order identity only, and a distributor-hosted mirror is lower authority, so neither is published as a manufacturer document.
+**Reason:** No manufacturer-primary document for this exact orderable is retained in the evidence. Reviewed: SOFNG PJ-324M product drawing (3.5 mm 5-pin right-angle phone jack, L17.70 x W11.50 x H6.30 mm) (MANUFACTURER\_MIRROR, AVAILABLE); SOFNG-hosted PJ-324M drawing; not acquired (MANUFACTURER\_PRIMARY, SOURCE UNAVAILABLE); JLCPCB parts library listing C22355739 (HTML) (DISTRIBUTOR\_IDENTITY, AVAILABLE); EasyEDA exact C22355739 symbol and footprint JSON; inspected supplier asset (DISTRIBUTOR\_IDENTITY, AVAILABLE). Distributor listings establish order identity only, and a distributor-hosted mirror is lower authority, so neither is published as a manufacturer document.
 
 No footprint or 3D model is published for this record: CAD is not enabled for this project.
 
@@ -125,17 +125,19 @@ Coverage is stated one domain at a time and is never rolled up. A domain marked 
 
 **Coverage ID:** `cov-a7-pj-324m-pinout` · **Status:** OPEN
 
-**Reason:** no manufacturer pin-function table; the A7 mapping is inferred and needs a continuity test
+**Reason:** no manufacturer pin-function table; the A7 mapping is inferred and needs a continuity test; inspected exact supplier CAD now contains contrary4/5 contact interpretation, requiring resolution before mapping approval
 
 **Facts in this domain:**
 
 - [`fact-a7-pj-324m-pin-function`](#fact-a7-pj-324m-pin-function)
 - [`fact-a7-pj-324m-pin-function-inference`](#fact-a7-pj-324m-pin-function-inference)
+- [`fact-a7-pj-324m-supplier-cad-conflict`](#fact-a7-pj-324m-supplier-cad-conflict)
 
 **Blocked by:** these facts must be resolved before the domain can close. Each is listed in full under Facts.
 
 - [`fact-a7-pj-324m-pin-function`](#fact-a7-pj-324m-pin-function)
 - [`fact-a7-pj-324m-pin-function-inference`](#fact-a7-pj-324m-pin-function-inference)
+- [`fact-a7-pj-324m-supplier-cad-conflict`](#fact-a7-pj-324m-supplier-cad-conflict)
 
 ### electrical-ratings
 
@@ -527,6 +529,20 @@ A value this project recorded about how the part is used here — a chosen opera
   **Evidence:** [`src-a7-pj-324m-sofng-drawing`](#src-a7-pj-324m-sofng-drawing) — A7 owner brief section 2 (accepted product direction), issue #15 body
 </EvidenceFact>
 
+<EvidenceFact>
+  <EvidenceAnchor id="fact-a7-pj-324m-supplier-cad-conflict" />
+
+  **Fact:** `fact-a7-pj-324m-supplier-cad-conflict`
+
+  **Value:** Supplier symbol appears to assign direct tip spring to5 and normal branch to4, contrary to current inferred mapping. · **Unit:** `NONE`
+
+  **Conditions:** Supplier CAD inspection only. Independent review and manufacturer/TS+TRS continuity required; no mapping promotion or copper correction.
+
+  **Verdict:** NEEDS BENCH · **Provenance:** UNVERIFIED
+
+  **Evidence:** [figure/row src-a7-pj-324m-easyeda-2026-11-09: result.dataStr.shape lower contact primitives](#src-a7-pj-324m-easyeda-2026-11-09)
+</EvidenceFact>
+
 ## Calculation dependencies
 
 These values were derived from other recorded facts rather than read from a document. The expression and every input are published so the number can be recomputed instead of trusted. A derived value is never stronger than the weakest fact it depends on.
@@ -635,6 +651,26 @@ Every document cited above, with its identification, when it was retrieved, and 
 | Printed page    | n/a (HTML)     |
 
 **Locator:** Attributes table: Manufacturer, MFR.Part #, JLCPCB Part #, Package, Assembly Type; Specifications table
+
+**Availability:** AVAILABLE
+
+**Document URL:** no link is published for this source
+
+### EasyEDA exact C22355739 symbol and footprint JSON; inspected supplier asset
+
+<EvidenceAnchor id="src-a7-pj-324m-easyeda-2026-11-09" />
+
+**Source ID:** `src-a7-pj-324m-easyeda-2026-11-09` · **Authority:** DISTRIBUTOR\_IDENTITY
+
+| Field           | Recorded value                               |
+| --------------- | -------------------------------------------- |
+| Document number | C22355739 / 53b3b0970c844376958f9a4872a0c6f5 |
+| Revision        | editor 6.5.51; acquired 2026-11-09           |
+| Document date   | 2026-11-09                                   |
+| Retrieved       | 2026-11-09                                   |
+| Printed page    | n/a (JSON)                                   |
+
+**Locator:** figure/row result.dataStr.shape and result.packageDetail.dataStr.shape; symbol a49c98a2f4174ffc8e7e3eff88cdb745
 
 **Availability:** AVAILABLE
 

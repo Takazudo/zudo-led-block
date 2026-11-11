@@ -72,6 +72,28 @@
         "variant": "Plugin"
       },
       "identity_extract_sha256": "b619d0e2106762db609dbb3c56902cd9b0533ce30f0e802facaf35557e94a367"
+    },
+    {
+      "source_id": "src-a7-pj-324m-easyeda-2026-11-09",
+      "record_id": "rec-a7-pj-324m",
+      "document_title": "EasyEDA exact C22355739 symbol and footprint JSON; inspected supplier asset",
+      "document_number": "C22355739 / 53b3b0970c844376958f9a4872a0c6f5",
+      "revision": "editor 6.5.51; acquired 2026-11-09",
+      "document_date": "2026-11-09",
+      "authoritative_url": "https://easyeda.com/api/products/C22355739/components?version=6.4.19.5",
+      "alternate_authoritative_url": "",
+      "retrieval_date": "2026-11-09",
+      "authority_class": "DISTRIBUTOR_IDENTITY",
+      "sha256": "0e0f2baced21804bef9b7835aa6063bf7055d1057bedd0d5ae9556137b6ac756",
+      "availability": "AVAILABLE",
+      "physical_pdf_page_index": 0,
+      "printed_page_label": "n/a (JSON)",
+      "locator": "figure/row result.dataStr.shape and result.packageDetail.dataStr.shape; symbol a49c98a2f4174ffc8e7e3eff88cdb745",
+      "evidence_extract": "Supplier-owned asset, not manufacturer proof. Pin positions agree current footprint to 0.001mm after coordinate transform. Slots1/3/4 approx1.5x0.8mm,2/5 approx1.5x0.5mm; not finished-slot acceptance. CONTRARY: supplier symbol lower direct spring connects5 and normal branch4; current inferred mapping4 TIP/5 normal disagrees. Q2 manufacturer/TS+TRS continuity evidence required. No board or footprint adoption.",
+      "refresh_policy": "HASH-LOCKED",
+      "retrieved_at": "2026-11-09",
+      "retained_bytes": ".circuit-cache/e2-20261109/easyeda-C22355739.json (ignored; not redistributed)",
+      "refresh_note": "Hash identifies this acquisition only; online bytes are not deterministic. A changed response requires a new dated observation, never silent re-pinning."
     }
   ]
 }

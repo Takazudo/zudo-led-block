@@ -29,11 +29,11 @@ This record in the catalog: [PCM13SMTR](/docs/components/catalog/#rec-a7-pcm13sm
 
 **Fit:** Fitted
 
-**Identity state:** UNRESOLVED
+**Identity state:** VERIFIED
 
-**Source state:** SOURCE UNAVAILABLE
+**Source state:** AVAILABLE
 
-**Coverage:** 6 open of 6 published
+**Coverage:** 5 open of 6 published
 
 ## Documents and package
 
@@ -41,9 +41,13 @@ This record in the catalog: [PCM13SMTR](/docs/components/catalog/#rec-a7-pcm13sm
 
 <EvidenceAnchor id="component-references" />
 
-**Selected document:** Document unavailable
+[Datasheet PDF](https://www.littelfuse.com/assetdocs/littelfuse-ck-slide-pcm-series-datasheet?assetguid=d2f6a96c-7a9a-4c4e-a5aa-4fe3075dffe5) — C\&K PCM Series Ultraminiature Surface Mount Slide Switches
 
-**Reason:** No manufacturer-primary document for this exact orderable is retained in the evidence. Reviewed: C\&K PCM Series Ultraminiature Surface Mount Slide Switches (PCM12SMTR / PCM13SMTR), pages I-46..I-48 (MANUFACTURER\_MIRROR, AVAILABLE); C\&K-hosted PCM Series datasheet; not acquired (MANUFACTURER\_PRIMARY, SOURCE UNAVAILABLE); LCSC product page C221842 (HTML) (DISTRIBUTOR\_IDENTITY, AVAILABLE); JLCPCB parts search API responses (selectSmtComponentList) for C22355739, C221842, C2921714 (DISTRIBUTOR\_IDENTITY, AVAILABLE). Distributor listings establish order identity only, and a distributor-hosted mirror is lower authority, so neither is published as a manufacturer document.
+**Selected source ID:** `src-a7-pcm13smtr-ck-site`
+
+**Authority:** MANUFACTURER\_PRIMARY
+
+**Availability:** AVAILABLE
 
 No footprint or 3D model is published for this record: CAD is not enabled for this project.
 
@@ -63,18 +67,14 @@ Coverage is stated one domain at a time and is never rolled up. A domain marked 
 
 <EvidenceAnchor id="cov-a7-pcm13smtr-identity" />
 
-**Coverage ID:** `cov-a7-pcm13smtr-identity` · **Status:** OPEN
+**Coverage ID:** `cov-a7-pcm13smtr-identity` · **Status:** COVERED
 
-**Reason:** the only manufacturer document is a lower-authority LCSC-hosted mirror and the manufacturer-hosted copy was SOURCE UNAVAILABLE; manufacturer datasheet and distributor identity retained
+**Reason:** Exact manufacturer identity/order scheme inspected in primary document; stock and assembly qualification remain separate.
 
 **Facts in this domain:**
 
 - [`fact-a7-pcm13smtr-manufacturer`](#fact-a7-pcm13smtr-manufacturer)
 - [`fact-a7-pcm13smtr-distributor-identity`](#fact-a7-pcm13smtr-distributor-identity)
-
-**Blocked by:** these facts must be resolved before the domain can close. Each is listed in full under Facts.
-
-- [`fact-a7-pcm13smtr-manufacturer`](#fact-a7-pcm13smtr-manufacturer)
 
 ### pinout
 
@@ -82,15 +82,16 @@ Coverage is stated one domain at a time and is never rolled up. A domain marked 
 
 **Coverage ID:** `cov-a7-pcm13smtr-function` · **Status:** OPEN
 
-**Reason:** the only manufacturer document is a lower-authority LCSC-hosted mirror and the manufacturer-hosted copy was SOURCE UNAVAILABLE; per-position terminal table is printed by the manufacturer
+**Reason:** Physical per-position truth table and reliable contacts on exact received PCM13SMTR units remain NOT\_MEASURED.
 
 **Facts in this domain:**
 
 - [`fact-a7-pcm13smtr-function`](#fact-a7-pcm13smtr-function)
+- [`fact-a7-pcm13smtr-physical-function`](#fact-a7-pcm13smtr-physical-function)
 
 **Blocked by:** these facts must be resolved before the domain can close. Each is listed in full under Facts.
 
-- [`fact-a7-pcm13smtr-function`](#fact-a7-pcm13smtr-function)
+- [`fact-a7-pcm13smtr-physical-function`](#fact-a7-pcm13smtr-physical-function)
 
 ### electrical-ratings
 
@@ -98,7 +99,7 @@ Coverage is stated one domain at a time and is never rolled up. A domain marked 
 
 **Coverage ID:** `cov-a7-pcm13smtr-ratings` · **Status:** OPEN
 
-**Reason:** the only manufacturer document is a lower-authority LCSC-hosted mirror and the manufacturer-hosted copy was SOURCE UNAVAILABLE; contact rating, life and temperature are printed
+**Reason:** Reliable contact at the actual 3.3 V / 10 kOhm pull-up load remains NOT\_MEASURED; the printed 0.3 A rating does not establish a minimum reliable switching load.
 
 **Facts in this domain:**
 
@@ -106,13 +107,11 @@ Coverage is stated one domain at a time and is never rolled up. A domain marked 
 - [`fact-a7-pcm13smtr-life`](#fact-a7-pcm13smtr-life)
 - [`fact-a7-pcm13smtr-operating-temperature`](#fact-a7-pcm13smtr-operating-temperature)
 - [`fact-a7-pcm13smtr-solder`](#fact-a7-pcm13smtr-solder)
+- [`fact-a7-pcm13smtr-physical-contact`](#fact-a7-pcm13smtr-physical-contact)
 
 **Blocked by:** these facts must be resolved before the domain can close. Each is listed in full under Facts.
 
-- [`fact-a7-pcm13smtr-contact-rating`](#fact-a7-pcm13smtr-contact-rating)
-- [`fact-a7-pcm13smtr-life`](#fact-a7-pcm13smtr-life)
-- [`fact-a7-pcm13smtr-operating-temperature`](#fact-a7-pcm13smtr-operating-temperature)
-- [`fact-a7-pcm13smtr-solder`](#fact-a7-pcm13smtr-solder)
+- [`fact-a7-pcm13smtr-physical-contact`](#fact-a7-pcm13smtr-physical-contact)
 
 ### mechanical
 
@@ -120,17 +119,17 @@ Coverage is stated one domain at a time and is never rolled up. A domain marked 
 
 **Coverage ID:** `cov-a7-pcm13smtr-mechanical` · **Status:** OPEN
 
-**Reason:** the only manufacturer document is a lower-authority LCSC-hosted mirror and the manufacturer-hosted copy was SOURCE UNAVAILABLE; outline and land pattern printed; actuator access is an R2 design task
+**Reason:** Actual land/peg fit, assumed body-to-peg centering and installed setup access remain NOT\_MEASURED.
 
 **Facts in this domain:**
 
 - [`fact-a7-pcm13smtr-outline`](#fact-a7-pcm13smtr-outline)
 - [`fact-a7-pcm13smtr-orientation-discrepancy`](#fact-a7-pcm13smtr-orientation-discrepancy)
+- [`fact-a7-pcm13smtr-physical-fit`](#fact-a7-pcm13smtr-physical-fit)
 
 **Blocked by:** these facts must be resolved before the domain can close. Each is listed in full under Facts.
 
-- [`fact-a7-pcm13smtr-outline`](#fact-a7-pcm13smtr-outline)
-- [`fact-a7-pcm13smtr-orientation-discrepancy`](#fact-a7-pcm13smtr-orientation-discrepancy)
+- [`fact-a7-pcm13smtr-physical-fit`](#fact-a7-pcm13smtr-physical-fit)
 
 ### sourcing
 
@@ -138,7 +137,7 @@ Coverage is stated one domain at a time and is never rolled up. A domain marked 
 
 **Coverage ID:** `cov-a7-pcm13smtr-sourcing` · **Status:** OPEN
 
-**Reason:** JLC stock 0 on 2026-11-08
+**Reason:** JLC stock and presale both 0 on 2026-11-09; assembly supply remains unresolved.
 
 **Facts in this domain:**
 
@@ -179,11 +178,11 @@ A never-exceed limit. Reaching it may damage the part; it is not an operating ta
 
   **Value:** 255 C max solder temperature · **Unit:** `NONE`
 
-  **Conditions:** solderability limit; standard lead-free reflow peaks usually 245-250 C, to be confirmed against the assembler profile; read from the LCSC-hosted mirror of the manufacturer document (MANUFACTURER\_MIRROR); value retained, not primary-source confirmed
+  **Conditions:** solderability limit; standard lead-free reflow peaks usually 245-250 C, to be confirmed against the assembler profile; manufacturer-primary VL 03/14/25 inspected; physical fit/contact qualification remains open.
 
-  **Verdict:** UNSOURCED · **Provenance:** UNVERIFIED
+  **Verdict:** PASS - primary-source confirmed · **Provenance:** PRIMARY-SPEC
 
-  **Evidence:** [src-a7-pcm13smtr-ck-datasheet: figure/row page index 0 Specifications](#src-a7-pcm13smtr-ck-datasheet)
+  **Evidence:** [src-a7-pcm13smtr-ck-site: figure/row page index 0 Specifications](#src-a7-pcm13smtr-ck-site)
 </EvidenceFact>
 
 ### RECOMMENDED\_OPERATION
@@ -197,11 +196,11 @@ The range the manufacturer intends the part to be used in. Always narrower than 
 
   **Value:** 0.3 A @ 6 VDC · **Unit:** `NONE`
 
-  **Conditions:** contact rating; A7 load is a 10 kOhm pull-up to 3.3 V (0.33 mA); read from the LCSC-hosted mirror of the manufacturer document (MANUFACTURER\_MIRROR); value retained, not primary-source confirmed
+  **Conditions:** contact rating; A7 load is a 10 kOhm pull-up to 3.3 V (0.33 mA); manufacturer-primary VL 03/14/25 inspected; physical fit/contact qualification remains open.
 
-  **Verdict:** UNSOURCED · **Provenance:** UNVERIFIED
+  **Verdict:** PASS - primary-source confirmed · **Provenance:** PRIMARY-SPEC
 
-  **Evidence:** [src-a7-pcm13smtr-ck-datasheet: figure/row page index 0 Specifications](#src-a7-pcm13smtr-ck-datasheet)
+  **Evidence:** [src-a7-pcm13smtr-ck-site: figure/row page index 0 Specifications](#src-a7-pcm13smtr-ck-site)
 </EvidenceFact>
 
 <EvidenceFact>
@@ -211,11 +210,11 @@ The range the manufacturer intends the part to be used in. Always narrower than 
 
   **Value:** 10000 · **Unit:** `cycles`
 
-  **Conditions:** electrical life; read from the LCSC-hosted mirror of the manufacturer document (MANUFACTURER\_MIRROR); value retained, not primary-source confirmed
+  **Conditions:** electrical life; manufacturer-primary VL 03/14/25 inspected; physical fit/contact qualification remains open.
 
-  **Verdict:** UNSOURCED · **Provenance:** UNVERIFIED
+  **Verdict:** PASS - primary-source confirmed · **Provenance:** PRIMARY-SPEC
 
-  **Evidence:** [src-a7-pcm13smtr-ck-datasheet: figure/row page index 0 Specifications](#src-a7-pcm13smtr-ck-datasheet)
+  **Evidence:** [src-a7-pcm13smtr-ck-site: figure/row page index 0 Specifications](#src-a7-pcm13smtr-ck-site)
 </EvidenceFact>
 
 <EvidenceFact>
@@ -223,13 +222,13 @@ The range the manufacturer intends the part to be used in. Always narrower than 
 
   **Fact:** `fact-a7-pcm13smtr-operating-temperature`
 
-  **Value:** -10 to +85 · **Unit:** `C`
+  **Value:** -40 to +85 · **Unit:** `C`
 
-  **Conditions:** PCM13SMTR; JLC lists -20..+85 C (distributor value differs; manufacturer value governs); read from the LCSC-hosted mirror of the manufacturer document (MANUFACTURER\_MIRROR); value retained, not primary-source confirmed
+  **Conditions:** 2025 manufacturer primary revision; historical 2022 mirror -10..85 C and JLC -20..85 C differ. Not physical qualification.
 
-  **Verdict:** UNSOURCED · **Provenance:** UNVERIFIED
+  **Verdict:** PASS - primary-source confirmed · **Provenance:** PRIMARY-SPEC
 
-  **Evidence:** [src-a7-pcm13smtr-ck-datasheet: figure/row page index 0 Specifications](#src-a7-pcm13smtr-ck-datasheet)
+  **Evidence:** [src-a7-pcm13smtr-ck-site: figure/row page index 0 Specifications](#src-a7-pcm13smtr-ck-site)
 </EvidenceFact>
 
 ### PROJECT\_STATE
@@ -247,7 +246,7 @@ A value this project recorded about how the part is used here — a chosen opera
 
   **Verdict:** CONFIRMED - distributor identity only · **Provenance:** DISTRIBUTOR-IDENTITY
 
-  **Evidence:** [src-a7-jlc-parts-api-2026-11-08: figure/row componentCode/componentModelEn/componentBrandEn](#src-a7-jlc-parts-api-2026-11-08)
+  **Evidence:** [`src-a7-jlc-parts-api-2026-11-08`](#src-a7-jlc-parts-api-2026-11-08) — API row C221842: componentCode, componentModelEn, componentBrandEn
 </EvidenceFact>
 
 <EvidenceFact>
@@ -257,11 +256,11 @@ A value this project recorded about how the part is used here — a chosen opera
 
   **Value:** C\&K · **Unit:** `NONE`
 
-  **Conditions:** C\&K PCM Series; How To Order: 13 = SP3T, SMT termination, R = tape & reel, no contact suffix = silver; read from the LCSC-hosted mirror of the manufacturer document (MANUFACTURER\_MIRROR); value retained, not primary-source confirmed
+  **Conditions:** C\&K PCM Series; How To Order: 13 = SP3T, SMT termination, R = tape & reel, no contact suffix = silver; manufacturer-primary VL 03/14/25 inspected; physical fit/contact qualification remains open.
 
-  **Verdict:** UNSOURCED · **Provenance:** UNVERIFIED
+  **Verdict:** PASS - primary-source confirmed · **Provenance:** PRIMARY-SPEC
 
-  **Evidence:** [src-a7-pcm13smtr-ck-datasheet: figure/row page index 0 How To Order](#src-a7-pcm13smtr-ck-datasheet)
+  **Evidence:** [src-a7-pcm13smtr-ck-site: figure/row page index 0 How To Order](#src-a7-pcm13smtr-ck-site)
 </EvidenceFact>
 
 <EvidenceFact>
@@ -271,11 +270,11 @@ A value this project recorded about how the part is used here — a chosen opera
 
   **Value:** `POS.1`=1-3; `POS.2`=2-3; `POS.3`=3-4; `common`=3 · **Unit:** `NONE`
 
-  **Conditions:** switch function table; with terminal 2 left unconnected this is electrically ON-OFF-ON for terminals 1 and 4; read from the LCSC-hosted mirror of the manufacturer document (MANUFACTURER\_MIRROR); value retained, not primary-source confirmed
+  **Conditions:** switch function table; with terminal 2 left unconnected this is electrically ON-OFF-ON for terminals 1 and 4; manufacturer-primary VL 03/14/25 inspected; physical fit/contact qualification remains open.
 
-  **Verdict:** UNSOURCED · **Provenance:** UNVERIFIED
+  **Verdict:** PASS - primary-source confirmed · **Provenance:** PRIMARY-SPEC
 
-  **Evidence:** [src-a7-pcm13smtr-ck-datasheet: page index 2 SWITCH FUNCTION table](#src-a7-pcm13smtr-ck-datasheet)
+  **Evidence:** [src-a7-pcm13smtr-ck-site: page index 2 SWITCH FUNCTION table](#src-a7-pcm13smtr-ck-site)
 </EvidenceFact>
 
 <EvidenceFact>
@@ -285,11 +284,11 @@ A value this project recorded about how the part is used here — a chosen opera
 
   **Value:** `actuator_projection_beyond_body`=1.5; `actuator_width`=1.3; `body_depth`=2.6; `body_length`=9.7; `height_above_pcb`=1.4; `land_hole_diameter_typ`=0.9; `peg_diameter`=0.8; `peg_length`=0.5; `peg_pitch`=5; `travel_per_position`=1.5 · **Unit:** `mm`
 
-  **Conditions:** outline read from the dimensioned drawing (inch primary, mm in brackets); actuator moves parallel to the PCB along the body edge (side actuation); read from the LCSC-hosted mirror of the manufacturer document (MANUFACTURER\_MIRROR); value retained, not primary-source confirmed
+  **Conditions:** outline read from the dimensioned drawing (inch primary, mm in brackets); actuator moves parallel to the PCB along the body edge (side actuation); manufacturer-primary VL 03/14/25 inspected; physical fit/contact qualification remains open.
 
-  **Verdict:** UNSOURCED · **Provenance:** UNVERIFIED
+  **Verdict:** PASS - primary-source confirmed · **Provenance:** PRIMARY-SPEC
 
-  **Evidence:** [src-a7-pcm13smtr-ck-datasheet: figure/row page index 2 outline and PC MOUNTING](#src-a7-pcm13smtr-ck-datasheet)
+  **Evidence:** [src-a7-pcm13smtr-ck-site: figure/row page index 2 outline and PC MOUNTING](#src-a7-pcm13smtr-ck-site)
 </EvidenceFact>
 
 <EvidenceFact>
@@ -299,11 +298,11 @@ A value this project recorded about how the part is used here — a chosen opera
 
   **Value:** actuator projects from the long body edge and slides parallel to the PCB (side actuation) · **Unit:** `NONE`
 
-  **Conditions:** the JLC listing describes the part as 'Surface Mount, Vertical'; the manufacturer outline governs and R2 must place the actuator at a PCB edge; read from the LCSC-hosted mirror of the manufacturer document (MANUFACTURER\_MIRROR); value retained, not primary-source confirmed
+  **Conditions:** the JLC listing describes the part as 'Surface Mount, Vertical'; the manufacturer outline governs and R2 must place the actuator at a PCB edge; manufacturer-primary VL 03/14/25 inspected; physical fit/contact qualification remains open.
 
-  **Verdict:** UNSOURCED · **Provenance:** UNVERIFIED
+  **Verdict:** PASS - primary-source confirmed · **Provenance:** PRIMARY-SPEC
 
-  **Evidence:** [src-a7-pcm13smtr-ck-datasheet: page index 2 figure outline, actuator](#src-a7-pcm13smtr-ck-datasheet)
+  **Evidence:** [src-a7-pcm13smtr-ck-site: page index 2 figure outline, actuator](#src-a7-pcm13smtr-ck-site)
 </EvidenceFact>
 
 <EvidenceFact>
@@ -311,13 +310,13 @@ A value this project recorded about how the part is used here — a chosen opera
 
   **Fact:** `fact-a7-pcm13smtr-sourcing`
 
-  **Value:** JLC stock 0 at 2026-11-08T12:36:40Z · **Unit:** `NONE`
+  **Value:** JLC stock 0, presale 0 at 2026-11-09T09:18:55Z · **Unit:** `NONE`
 
-  **Conditions:** sourcing gap: an order would need JLC global sourcing/pre-order or consignment. The 2026-11-08 alternate search (src-a7-switch-candidates-2026-11-08) found in-stock side-actuated SP3T parts (Alps Alpine SSSS812201 C160878, SHOU HAN MSK13C02 C2681567, Hroparts K3-1310S-E1 C145851, Nidec CSS-1310TB C2921714), but none prints a per-position terminal table, so none is selected
+  **Conditions:** Dated unreserved observation; no lead time or assembly acceptance obtained; procurement remains blocked.
 
   **Verdict:** UNSOURCED · **Provenance:** UNVERIFIED
 
-  **Evidence:** [src-a7-jlc-parts-api-2026-11-08: row stockCount](#src-a7-jlc-parts-api-2026-11-08)
+  **Evidence:** [figure/row src-a7-pcm13smtr-jlc-stock-2026-11-09: exact C221842 stock row](#src-a7-pcm13smtr-jlc-stock-2026-11-09)
 </EvidenceFact>
 
 <EvidenceFact>
@@ -332,6 +331,48 @@ A value this project recorded about how the part is used here — a chosen opera
   **Verdict:** NEEDS BENCH · **Provenance:** PROJECT-CHOICE
 
   **Evidence:** [`src-a7-pcm13smtr-ck-datasheet`](#src-a7-pcm13smtr-ck-datasheet) — A7 owner brief section 2 (accepted product direction), issue #15 body
+</EvidenceFact>
+
+<EvidenceFact>
+  <EvidenceAnchor id="fact-a7-pcm13smtr-physical-function" />
+
+  **Fact:** `fact-a7-pcm13smtr-physical-function`
+
+  **Value:** Physical per-position truth table and reliable contacts on exact received PCM13SMTR units remain NOT\_MEASURED. · **Unit:** `NONE`
+
+  **Conditions:** Unexecuted qualification requirement; primary document confirms specifications only, not unit observations. No bench record exists.
+
+  **Verdict:** NEEDS BENCH · **Provenance:** UNVERIFIED
+
+  **Evidence:** [src-a7-pcm13smtr-ck-site: printed page 1 Specifications; page 3 PCM13SMTR figure/table; physical observations absent](#src-a7-pcm13smtr-ck-site)
+</EvidenceFact>
+
+<EvidenceFact>
+  <EvidenceAnchor id="fact-a7-pcm13smtr-physical-contact" />
+
+  **Fact:** `fact-a7-pcm13smtr-physical-contact`
+
+  **Value:** Reliable contact at the actual 3.3 V / 10 kOhm pull-up load remains NOT\_MEASURED; the printed 0.3 A rating does not establish a minimum reliable switching load. · **Unit:** `NONE`
+
+  **Conditions:** Unexecuted qualification requirement; primary document confirms specifications only, not unit observations. No bench record exists.
+
+  **Verdict:** NEEDS BENCH · **Provenance:** UNVERIFIED
+
+  **Evidence:** [src-a7-pcm13smtr-ck-site: printed page 1 Specifications; page 3 PCM13SMTR figure/table; physical observations absent](#src-a7-pcm13smtr-ck-site)
+</EvidenceFact>
+
+<EvidenceFact>
+  <EvidenceAnchor id="fact-a7-pcm13smtr-physical-fit" />
+
+  **Fact:** `fact-a7-pcm13smtr-physical-fit`
+
+  **Value:** Actual land/peg fit, assumed body-to-peg centering and installed setup access remain NOT\_MEASURED. · **Unit:** `NONE`
+
+  **Conditions:** Unexecuted qualification requirement; primary document confirms specifications only, not unit observations. No bench record exists.
+
+  **Verdict:** NEEDS BENCH · **Provenance:** UNVERIFIED
+
+  **Evidence:** [src-a7-pcm13smtr-ck-site: printed page 1 Specifications; page 3 PCM13SMTR figure/table; physical observations absent](#src-a7-pcm13smtr-ck-site)
 </EvidenceFact>
 
 ## Pin maps
@@ -393,25 +434,25 @@ Every document cited above, with its identification, when it was retrieved, and 
 
 **Document URL:** no link is published for this source
 
-### C\&K-hosted PCM Series datasheet; not acquired
+### C\&K PCM Series Ultraminiature Surface Mount Slide Switches
 
 <EvidenceAnchor id="src-a7-pcm13smtr-ck-site" />
 
 **Source ID:** `src-a7-pcm13smtr-ck-site` · **Authority:** MANUFACTURER\_PRIMARY
 
-| Field           | Recorded value         |
-| --------------- | ---------------------- |
-| Document number | PCM Series             |
-| Revision        | unknown (not acquired) |
-| Document date   | unknown (not acquired) |
-| Retrieved       | 2026-11-08             |
-| Printed page    | n/a (not acquired)     |
+| Field           | Recorded value |
+| --------------- | -------------- |
+| Document number | PCM Series     |
+| Revision        | VL 03/14/25    |
+| Document date   | 2025-03-14     |
+| Retrieved       | 2026-11-09     |
+| Printed page    | 1              |
 
-**Locator:** intended: SWITCH FUNCTION table and specifications section for PCM13SMTR; not inspected
+**Locator:** printed 1: specifications/order scheme; printed 3 (index 2): PCM13SMTR contact table and drawing
 
-**Availability:** SOURCE UNAVAILABLE
+**Availability:** AVAILABLE
 
-**Document URL:** no link is published for this source
+**Document URL:** [https://www.littelfuse.com/assetdocs/littelfuse-ck-slide-pcm-series-datasheet?assetguid=d2f6a96c-7a9a-4c4e-a5aa-4fe3075dffe5](https://www.littelfuse.com/assetdocs/littelfuse-ck-slide-pcm-series-datasheet?assetguid=d2f6a96c-7a9a-4c4e-a5aa-4fe3075dffe5)
 
 ### LCSC product page C221842 (HTML)
 
@@ -453,6 +494,26 @@ Every document cited above, with its identification, when it was retrieved, and 
 
 **Document URL:** no link is published for this source
 
+### JLC exact C221842 stock observation
+
+<EvidenceAnchor id="src-a7-pcm13smtr-jlc-stock-2026-11-09" />
+
+**Source ID:** `src-a7-pcm13smtr-jlc-stock-2026-11-09` · **Authority:** DISTRIBUTOR\_IDENTITY
+
+| Field           | Recorded value       |
+| --------------- | -------------------- |
+| Document number | C221842 API response |
+| Revision        | live API 2026-11-09  |
+| Document date   | 2026-11-09           |
+| Retrieved       | 2026-11-09           |
+| Printed page    | n/a (JSON)           |
+
+**Locator:** figure/row componentCode C221842 row; stockCount,canPresaleNumber,minPurchaseNum,encapsulationNumber,estimateDate
+
+**Availability:** AVAILABLE
+
+**Document URL:** no link is published for this source
+
 ## Legend
 
 What the recorded terms on this page mean, in ordinary words. The exact terms above are the ones that count; these descriptions explain them and never replace them.
@@ -463,6 +524,7 @@ What the recorded terms on this page mean, in ordinary words. The exact terms ab
 | --------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------- |
 | `CONFIRMED - distributor identity only` | A distributor listing confirms which part this is, and nothing more. It carries no electrical, thermal or lifetime authority. |
 | `NEEDS BENCH`                           | Cannot be settled from documents. It needs measurement on real hardware before it can be relied on.                           |
+| `PASS - primary-source confirmed`       | Confirmed against the manufacturer's own document for this exact part.                                                        |
 | `UNSOURCED`                             | No accepted source backs this value yet. Treat it as a claim, not a fact.                                                     |
 
 ### Provenance
@@ -470,6 +532,7 @@ What the recorded terms on this page mean, in ordinary words. The exact terms ab
 | Recorded term          | What it means                                                |
 | ---------------------- | ------------------------------------------------------------ |
 | `DISTRIBUTOR-IDENTITY` | Taken from a distributor listing. Identity information only. |
+| `PRIMARY-SPEC`         | Taken from the manufacturer's own specification document.    |
 | `PROJECT-CHOICE`       | A decision made by this project. No vendor asserts it.       |
 | `UNVERIFIED`           | Recorded, but not yet backed by an accepted source.          |
 
@@ -485,14 +548,14 @@ What the recorded terms on this page mean, in ordinary words. The exact terms ab
 
 | Recorded term | What it means                                                                                                               |
 | ------------- | --------------------------------------------------------------------------------------------------------------------------- |
+| `COVERED`     | Every question this domain asks is answered by the facts listed against it.                                                 |
 | `OPEN`        | Unresolved. Open means the question has not been answered, not that the part is unsafe — the reason states what is missing. |
 
 ### Source availability
 
-| Recorded term        | What it means                                                                                                         |
-| -------------------- | --------------------------------------------------------------------------------------------------------------------- |
-| `AVAILABLE`          | The document was retrieved and is on record.                                                                          |
-| `SOURCE UNAVAILABLE` | The document could not be retrieved. It stays listed so the gap is visible; anything resting on it remains unsourced. |
+| Recorded term | What it means                                |
+| ------------- | -------------------------------------------- |
+| `AVAILABLE`   | The document was retrieved and is on record. |
 
 ### Source authority
 
@@ -504,15 +567,15 @@ What the recorded terms on this page mean, in ordinary words. The exact terms ab
 
 ### Identity state
 
-| Recorded term | What it means                                                                                                                    |
-| ------------- | -------------------------------------------------------------------------------------------------------------------------------- |
-| `UNRESOLVED`  | The exact orderable part is not yet confirmed. Substituting a same-name part from another vendor is not permitted on that basis. |
+| Recorded term | What it means                                                 |
+| ------------- | ------------------------------------------------------------- |
+| `VERIFIED`    | The exact orderable part has been confirmed against a source. |
 
 ### Source state
 
-| Recorded term        | What it means                                     |
-| -------------------- | ------------------------------------------------- |
-| `SOURCE UNAVAILABLE` | No document backing this line could be retrieved. |
+| Recorded term | What it means                                          |
+| ------------- | ------------------------------------------------------ |
+| `AVAILABLE`   | At least one document backing this line was retrieved. |
 
 ### Unit
 

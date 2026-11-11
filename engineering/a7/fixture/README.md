@@ -1,0 +1,56 @@
+# A7 SWD 治具 — 未完成のキャリア検討
+
+**BLOCKED / 加工・購入・使用の承認ではありません。** E3 の完成治具ではなく、正確な部品資料、現行基板に拘束した接点表、再生成可能な FR-4 キャリア単体の検討です。STEP を生成・検査済みでも、支持・位置決め・ストッパ・接触性能を検証したことにはなりません。
+
+- `sources.json`: INGUN 一次資料の実取得バイトの SHA-256、11/26_GB、ページ位置。原本は記載のローカルキャッシュ。再取得時はハッシュを比較する。
+- `materials.json`: 治具1台分の候補。モジュール1台分の BOM と別。未選定材料・価格を埋めない。
+- `manifest.json`: 現行 revision 2 の PCB/placement/geometry identity、B面変換、TP接続、計算と未解決事項。
+- `carrier-study.step` / `carrier-study.svg`: キャリア**単体**。組立図・完成治具モデルではない。
+
+## 再生成と検査
+
+```sh
+python3 scripts/a7_fixture.py --cad
+python3 scripts/a7_fixture.py --check --cad-check
+python3 -m unittest scripts/tests/test_a7_fixture.py
+```
+
+STEP は CadQuery **2.7.0** で生成し、再読込して1 solid、体積4980.755782 mm³、25×40×5 mm、形状妥当性を検査する。STEP の時刻ヘッダではなく形状を検査する。JSON/SVG は通常生成で一致検査する。PCB または canonical placement が変わると明示的 identity lock により失敗し、レビューなしの追随を防ぐ。E1の canonical/copy/PCB 検査を使用するが、これは fresh-native の独立検証の代替ではない。
+
+## Native CI の証拠範囲
+
+2026-11-09 に E1 の pinned native CI [run 42594178172](https://github.com/Takazudo/zudo-led-block/actions/runs/42594178172) が head `4894a6f6f21b30419d039bd6427e89553f8dee55`、同一PCB SHA-256 `4453f818ede1e6d6c56e45ef43aa6faecb90990f3755f82c6d752258cd4d628e` で PASS と確認された。この結果はその E1 head の証拠であり、未コミットの統合変更や治具形状を検証したものではない。artifact download は escalation 後も Forbidden で、raw native facts は未取得。治具が新しい外形データを消費・検査していないため、`fresh_native_verified` は **false** のままとする。
+
+2026-11-11 更新: PR #44 の準備 head `f0b1d8aa37f3967ccc8c9a6bd6ca0e7b7fc7b3a0`（base `af523f9`）の CI [run 42596523199](https://github.com/Takazudo/zudo-led-block/actions/runs/42596523199) も同一PCBで native gate PASS。同 run の `native-infrastructure-evidence` artifact（ID 13663737750、ZIP SHA-256 `33f3d9121164f364b0325540b161e9546ddf73c8b723c9166fdcd8a19867cf0e`）は今回ダウンロードできたが、A7 候補については `a7-gate/summary.json` しか保存されておらず、`board_facts.json` / `board_geometry.json` は含まれない。上の 2026-11-09 の Forbidden は当時の観測として残す。現在の不足はアクセス拒否ではなく artifact の保存範囲であり、`fresh_native_verified` は引き続き **false**。
+
+## 現時点の数値と限界
+
+GKS-050 214 050 A 1000 は先端 Ø0.5 mm、推奨ストローク4.3 mmで公称1 N、最大6.35 mm、初期荷重0.44 N。5本では公称5 N、初期2.2 N。公差は資料にないため最大荷重とは呼ばない。実PCBの露出B面丸パッド Ø1 mmとの差から、**公称**半径予算は0.25 mm。基板端→パッド、位置決め、穴位置、接触子の横遊び・同心度の最悪値が未確定なので最悪登録余裕は `null`。数値を推定して合格にしない。
+
+KS-050 E08 V-30 の一次資料は FR-4/CEM1穴 Ø0.98–1.00 mm。検討穴 Ø0.99 mm は加工要求であり、製造実績ではない。樹脂印刷穴へ転用しない。外径は図0.96 mmと表0.95 mmが不一致。資料の互換シリーズはKS-050だが、寸法差・圧入高さ・実ストロークを解決してから選定する。
+
+現行最小ピッチ1.4 mm、メーカー公称グリッド1.27 mm、カラー外径1.04 mmから公称カラー間隔0.36 mm。隣接部品の高さ・工具アクセス・圧入荷重の承認ではない。キャリアZは局所モデル座標のみで、接触高さを規定していない。
+
+## SWD 配線の検討（未実施）
+
+| Pad | 信号 | 接続意図 |
+|---|---|---|
+| TP1 | +3V3 | programmer の VTref **入力**。ターゲット給電出力に接続しない |
+| TP2 | GND | 共通GND |
+| TP3 | SWDIO | SWDIO |
+| TP4 | SWCLK | SWCLK |
+| TP5 | NRST | reset |
+
+全レセプタクルは緑線なので両端にTP識別を付ける必要がある。programmer型式・コネクタpin番号・電圧仕様は未選定。外部電源は既存の正規入力経路、極性、電流制限、rail/back-power手順を別途確定する。TP1による逆給電やprogrammerとの二重給電を承認しない。
+
+最終モジュール組立前のコントローラ単体を対象とする案。電源OFFで方向/identity/配線を照合し、支持部へ設置、ストッパまで押し込み、接触確認後に規定の電源投入、認識/書込/照合、電源OFF、解除という手順を**設計してから**実施する。現時点で実施可能な手順ではない。
+
+## 完成に必要な証拠
+
+1. 同一PCBのfresh-native F/B pad・component外形、高さ、はんだ包絡から、局所支持と全逃げを決定。PMMAやジャックはんだ部へ荷重を逃がさない。
+2. 非対称な実形状で逆挿しを阻止する位置決めと支持経路を設計し、上記0.25 mm予算内の最悪公差を出典または明示した受入測定要求で閉じる。基板の矩形外形だけでは逆向きを防げない。
+3. 実装高さ・ストローク・最大荷重を解決し、調整法と独立した機械ストッパ、ガイド、固定具、絶縁と配線保持を設計。
+4. 完成組立STEP/寸法図を再生成・干渉検査。現ファイルを完成品として流用しない。
+5. owner承認の試作ルートにより、治具/基板unit ID、測定器、raw画像・測定値付きで接触、実荷重、位置決め、ストローク、損傷を試験。観測はすべて NOT_MEASURED。
+
+関連の #8 / #10 / #19 の物理受入は未完了。部品への発注・質問送信は行っていない。

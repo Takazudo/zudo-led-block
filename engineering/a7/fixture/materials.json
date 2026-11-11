@@ -1,0 +1,40 @@
+{
+  "schema": 1,
+  "status": "BLOCKED",
+  "basis": "one fixture, separate from per-module materials",
+  "items": [
+    {
+      "id": "probe",
+      "description": "4-point crown spring probe; candidate only",
+      "quantity": 5,
+      "manufacturer": "INGUN",
+      "mpn": "GKS-050 214 050 A 1000",
+      "order_code": "GKS-050-0001",
+      "status": "CANDIDATE_NOT_SELECTED",
+      "source": "sources.json#probe"
+    },
+    {
+      "id": "receptacle",
+      "description": "Prewired 1000mm green AWG30 solid-wire receptacle; candidate only",
+      "quantity": 5,
+      "manufacturer": "INGUN",
+      "mpn": "KS-050 E08 V-30",
+      "order_code": "KS-050E08V-30",
+      "status": "CANDIDATE_NOT_SELECTED",
+      "source": "sources.json#receptacle"
+    },
+    {
+      "id": "carrier-study",
+      "description": "Machined FR4 carrier study, 25 x 40 x 5mm; bore requirement 0.98\u20131.00mm; not approved fabrication",
+      "quantity": 1,
+      "manufacturer": null,
+      "mpn": null,
+      "status": "PROVISIONAL_GEOMETRY_ONLY"
+    }
+  ],
+  "blockers": [
+    "Board support, keyed registration, travel mechanism, fasteners and connector termination are not selected.",
+    "No complete fixture BOM or supplier-upload package.",
+    "No current price, MOQ, lead time or assembly availability retrieved."
+  ]
+}

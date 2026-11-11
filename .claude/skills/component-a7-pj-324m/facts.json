@@ -349,6 +349,20 @@
       "verdict": "NEEDS BENCH",
       "depends_on": [],
       "expression": ""
+    },
+    {
+      "fact_id": "fact-a7-pj-324m-supplier-cad-conflict",
+      "record_id": "rec-a7-pj-324m",
+      "source_id": "src-a7-pj-324m-easyeda-2026-11-09",
+      "class": "PROJECT_STATE",
+      "value": "Supplier symbol appears to assign direct tip spring to5 and normal branch to4, contrary to current inferred mapping.",
+      "unit": "NONE",
+      "conditions": "Supplier CAD inspection only. Independent review and manufacturer/TS+TRS continuity required; no mapping promotion or copper correction.",
+      "locator": "figure/row src-a7-pj-324m-easyeda-2026-11-09: result.dataStr.shape lower contact primitives",
+      "provenance": "UNVERIFIED",
+      "verdict": "NEEDS BENCH",
+      "depends_on": [],
+      "expression": ""
     }
   ]
 }

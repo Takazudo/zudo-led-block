@@ -1,0 +1,2695 @@
+{
+  "schema": 1,
+  "revision": "A7-r2-3HP-FR4",
+  "status": "ENGINEERING_PREPARATION_NOT_SUPPLIER_UPLOAD",
+  "manufacturing_released": false,
+  "order_submitted": false,
+  "agreed_order_quantity": null,
+  "quantity_scenarios_only": [
+    1,
+    10,
+    100
+  ],
+  "inputs_sha256": {
+    ".claude/skills/component-a7-pcm13smtr/sources.json": "1e28c4823249057637c140a0645be87688cb89ce64ba54c2ed809aec04d3e7c0",
+    ".claude/skills/component-spec-audit/references/inventory.json": "6ebc7927f909ef59adde35b0a477bdc6570cea2cd5ba29b3a108df237f4a5fcb",
+    "engineering/a5/electronics/native/led_leaf/led_leaf.kicad_pcb": "6244280cec3efe00ca31d9c5c8878f3ed6eb59a1c6bd4e933beffedd49511df3",
+    "engineering/a5/electronics/native/power_adapter/power_adapter.kicad_pcb": "b0f071f2730afdfd3d29de2176b1cce5f90b0c0726d14fd15501e27f90d95187",
+    "engineering/a5/electronics/placement_and_connectivity.json": "086443644c29d210cdde0c712d639584c0ee52079395c7ef5f2dca1c1876c71f",
+    "engineering/a5/firmware/dist/light_block_A5.bin": "0446cb0acfa7efe86a5f6c02beb7afa482daa419ecfce204fe9169487599765e",
+    "engineering/a5/integration/harness_contract_A5.md": "563e89b7f831a6e0b828f4d5e4ec35737af7daa5030d98ef939cb61c57d5352e",
+    "engineering/a5/integration/native_schematic/led_leaf/netlist.xml": "1857eeb3e3faa65977f2e2cfff30083411db9af728b5529e53065da0c9028670",
+    "engineering/a5/integration/native_schematic/power_adapter/netlist.xml": "d995064a9945ca0516a0a2844b197fcde3a19c8e1873230def0a3899ff514d04",
+    "engineering/a7/electronics/controller/board_placement.json": "1891af356ead303127c6b7a99b8934b08aa25f465b4b2c96872f5d5d24afdc01",
+    "engineering/a7/electronics/controller/controller.kicad_pcb": "4453f818ede1e6d6c56e45ef43aa6faecb90990f3755f82c6d752258cd4d628e",
+    "engineering/a7/electronics/controller/controller.kicad_sch": "01c09e69f2623bdbb98ae6176b4b52204ae817f927ecb311242d7ac1295fbc72",
+    "engineering/a7/fixture/materials.json": "b05f46b48715ec8cdcf18a557a880d6f68f2ca7967ba932fc38ade4fef0e983e",
+    "engineering/a7/mechanical/build_a7_mechanical.py": "98f47662650732d7d8215e0f86cff404521351ca43a795bd8811fc4f452d3daa",
+    "engineering/a7/mechanical/exports/3hp/verification.json": "90d7b8c54ebb59cdc2e2ad2b66d1ba9f183759a6104865d93cc57cdfb1902c26",
+    "engineering/a7/mechanical/layout.json": "9cbc6ac99f5b05c7e3145f2016b6918cbc5d2b77170db31ed7155755cba0d591",
+    "engineering/a7/verification/schematic/netlist.xml": "a944cec8877d272637a85afae9f980d4d5e54888453f0f9652a2dd41e575b7cc"
+  },
+  "boards": [
+    {
+      "board": "controller",
+      "multiplicity": 1,
+      "pcb": "engineering/a7/electronics/controller/controller.kicad_pcb",
+      "pcb_sha256": "4453f818ede1e6d6c56e45ef43aa6faecb90990f3755f82c6d752258cd4d628e",
+      "netlist": "engineering/a7/verification/schematic/netlist.xml",
+      "netlist_sha256": "a944cec8877d272637a85afae9f980d4d5e54888453f0f9652a2dd41e575b7cc",
+      "fitted_per_board": 59,
+      "inheritance": "A7 revision 2 authority"
+    },
+    {
+      "board": "led_leaf",
+      "multiplicity": 2,
+      "pcb": "engineering/a5/electronics/native/led_leaf/led_leaf.kicad_pcb",
+      "pcb_sha256": "6244280cec3efe00ca31d9c5c8878f3ed6eb59a1c6bd4e933beffedd49511df3",
+      "netlist": "engineering/a5/integration/native_schematic/led_leaf/netlist.xml",
+      "netlist_sha256": "1857eeb3e3faa65977f2e2cfff30083411db9af728b5529e53065da0c9028670",
+      "fitted_per_board": 10,
+      "inheritance": "unchanged immutable A5 FR-4 design"
+    },
+    {
+      "board": "power_adapter",
+      "multiplicity": 1,
+      "pcb": "engineering/a5/electronics/native/power_adapter/power_adapter.kicad_pcb",
+      "pcb_sha256": "b0f071f2730afdfd3d29de2176b1cce5f90b0c0726d14fd15501e27f90d95187",
+      "netlist": "engineering/a5/integration/native_schematic/power_adapter/netlist.xml",
+      "netlist_sha256": "d995064a9945ca0516a0a2844b197fcde3a19c8e1873230def0a3899ff514d04",
+      "fitted_per_board": 2,
+      "inheritance": "unchanged immutable A5 FR-4 design"
+    }
+  ],
+  "population": [
+    {
+      "board": "controller",
+      "ref": "C1",
+      "manufacturer": "Samsung Electro-Mechanics",
+      "mpn": "CL21A106KAYNNNE",
+      "lcsc": "C15850",
+      "package": "0805",
+      "line_id": "line-cl21a106kaynnne",
+      "owner_skill": "component-cl21a106kaynnne",
+      "footprint": "LightBlock:C0805",
+      "population": "FITTED",
+      "quantity_per_board": 1,
+      "board_multiplicity": 1,
+      "quantity_per_module": 1,
+      "placement": {
+        "side": "F",
+        "at_mm": [
+          4.75,
+          1.9
+        ],
+        "angle_deg": -90.0,
+        "source": "engineering/a7/electronics/controller/board_placement.json",
+        "authority": "native export; independent fresh gate required"
+      },
+      "commercial_observation": null,
+      "supply_status": "NOT_OBTAINED: current stock, price, lead time, MOQ, packaging and assembly applicability require dated exact-part evidence"
+    },
+    {
+      "board": "controller",
+      "ref": "C10",
+      "manufacturer": "YAGEO",
+      "mpn": "CC0603KRX7R9BB104",
+      "lcsc": "C14663",
+      "package": "0603",
+      "line_id": "line-cc0603krx7r9bb104",
+      "owner_skill": "component-cc0603krx7r9bb104",
+      "footprint": "LightBlock:C0603",
+      "population": "FITTED",
+      "quantity_per_board": 1,
+      "board_multiplicity": 1,
+      "quantity_per_module": 1,
+      "placement": {
+        "side": "F",
+        "at_mm": [
+          10.25,
+          43.75
+        ],
+        "angle_deg": 0.0,
+        "source": "engineering/a7/electronics/controller/board_placement.json",
+        "authority": "native export; independent fresh gate required"
+      },
+      "commercial_observation": null,
+      "supply_status": "NOT_OBTAINED: current stock, price, lead time, MOQ, packaging and assembly applicability require dated exact-part evidence"
+    },
+    {
+      "board": "controller",
+      "ref": "C11",
+      "manufacturer": "YAGEO",
+      "mpn": "CC0603KRX7R9BB104",
+      "lcsc": "C14663",
+      "package": "0603",
+      "line_id": "line-cc0603krx7r9bb104",
+      "owner_skill": "component-cc0603krx7r9bb104",
+      "footprint": "LightBlock:C0603",
+      "population": "FITTED",
+      "quantity_per_board": 1,
+      "board_multiplicity": 1,
+      "quantity_per_module": 1,
+      "placement": {
+        "side": "F",
+        "at_mm": [
+          15.5,
+          1.5
+        ],
+        "angle_deg": -90.0,
+        "source": "engineering/a7/electronics/controller/board_placement.json",
+        "authority": "native export; independent fresh gate required"
+      },
+      "commercial_observation": null,
+      "supply_status": "NOT_OBTAINED: current stock, price, lead time, MOQ, packaging and assembly applicability require dated exact-part evidence"
+    },
+    {
+      "board": "controller",
+      "ref": "C12",
+      "manufacturer": "YAGEO",
+      "mpn": "CC0603KRX7R9BB104",
+      "lcsc": "C14663",
+      "package": "0603",
+      "line_id": "line-cc0603krx7r9bb104",
+      "owner_skill": "component-cc0603krx7r9bb104",
+      "footprint": "LightBlock:C0603",
+      "population": "FITTED",
+      "quantity_per_board": 1,
+      "board_multiplicity": 1,
+      "quantity_per_module": 1,
+      "placement": {
+        "side": "F",
+        "at_mm": [
+          9.84,
+          1.5
+        ],
+        "angle_deg": -90.0,
+        "source": "engineering/a7/electronics/controller/board_placement.json",
+        "authority": "native export; independent fresh gate required"
+      },
+      "commercial_observation": null,
+      "supply_status": "NOT_OBTAINED: current stock, price, lead time, MOQ, packaging and assembly applicability require dated exact-part evidence"
+    },
+    {
+      "board": "controller",
+      "ref": "C13",
+      "manufacturer": "FH (Guangdong Fenghua Advanced Tech)",
+      "mpn": "0603B103K500NT",
+      "lcsc": "C57112",
+      "package": "0603",
+      "line_id": "line-0603b103k500nt",
+      "owner_skill": "component-0603b103k500nt",
+      "footprint": "LightBlock:C0603",
+      "population": "FITTED",
+      "quantity_per_board": 1,
+      "board_multiplicity": 1,
+      "quantity_per_module": 1,
+      "placement": {
+        "side": "F",
+        "at_mm": [
+          9.53,
+          17.73
+        ],
+        "angle_deg": 0.0,
+        "source": "engineering/a7/electronics/controller/board_placement.json",
+        "authority": "native export; independent fresh gate required"
+      },
+      "commercial_observation": null,
+      "supply_status": "NOT_OBTAINED: current stock, price, lead time, MOQ, packaging and assembly applicability require dated exact-part evidence"
+    },
+    {
+      "board": "controller",
+      "ref": "C14",
+      "manufacturer": "YAGEO",
+      "mpn": "CC0603KRX7R9BB104",
+      "lcsc": "C14663",
+      "package": "0603",
+      "line_id": "line-cc0603krx7r9bb104",
+      "owner_skill": "component-cc0603krx7r9bb104",
+      "footprint": "LightBlock:C0603",
+      "population": "FITTED",
+      "quantity_per_board": 1,
+      "board_multiplicity": 1,
+      "quantity_per_module": 1,
+      "placement": {
+        "side": "F",
+        "at_mm": [
+          9.43,
+          24.24
+        ],
+        "angle_deg": 0.0,
+        "source": "engineering/a7/electronics/controller/board_placement.json",
+        "authority": "native export; independent fresh gate required"
+      },
+      "commercial_observation": null,
+      "supply_status": "NOT_OBTAINED: current stock, price, lead time, MOQ, packaging and assembly applicability require dated exact-part evidence"
+    },
+    {
+      "board": "controller",
+      "ref": "C15",
+      "manufacturer": "Samsung Electro-Mechanics",
+      "mpn": "CL21A106KAYNNNE",
+      "lcsc": "C15850",
+      "package": "0805",
+      "line_id": "line-cl21a106kaynnne",
+      "owner_skill": "component-cl21a106kaynnne",
+      "footprint": "LightBlock:C0805",
+      "population": "FITTED",
+      "quantity_per_board": 1,
+      "board_multiplicity": 1,
+      "quantity_per_module": 1,
+      "placement": {
+        "side": "F",
+        "at_mm": [
+          5.6,
+          14.15
+        ],
+        "angle_deg": 0.0,
+        "source": "engineering/a7/electronics/controller/board_placement.json",
+        "authority": "native export; independent fresh gate required"
+      },
+      "commercial_observation": null,
+      "supply_status": "NOT_OBTAINED: current stock, price, lead time, MOQ, packaging and assembly applicability require dated exact-part evidence"
+    },
+    {
+      "board": "controller",
+      "ref": "C16",
+      "manufacturer": "Samsung Electro-Mechanics",
+      "mpn": "CL21A106KAYNNNE",
+      "lcsc": "C15850",
+      "package": "0805",
+      "line_id": "line-cl21a106kaynnne",
+      "owner_skill": "component-cl21a106kaynnne",
+      "footprint": "LightBlock:C0805",
+      "population": "FITTED",
+      "quantity_per_board": 1,
+      "board_multiplicity": 1,
+      "quantity_per_module": 1,
+      "placement": {
+        "side": "F",
+        "at_mm": [
+          9.68,
+          16.1
+        ],
+        "angle_deg": 0.0,
+        "source": "engineering/a7/electronics/controller/board_placement.json",
+        "authority": "native export; independent fresh gate required"
+      },
+      "commercial_observation": null,
+      "supply_status": "NOT_OBTAINED: current stock, price, lead time, MOQ, packaging and assembly applicability require dated exact-part evidence"
+    },
+    {
+      "board": "controller",
+      "ref": "C17",
+      "manufacturer": "YAGEO",
+      "mpn": "CC0603KRX7R9BB104",
+      "lcsc": "C14663",
+      "package": "0603",
+      "line_id": "line-cc0603krx7r9bb104",
+      "owner_skill": "component-cc0603krx7r9bb104",
+      "footprint": "LightBlock:C0603",
+      "population": "FITTED",
+      "quantity_per_board": 1,
+      "board_multiplicity": 1,
+      "quantity_per_module": 1,
+      "placement": {
+        "side": "F",
+        "at_mm": [
+          5.3,
+          22.78
+        ],
+        "angle_deg": 0.0,
+        "source": "engineering/a7/electronics/controller/board_placement.json",
+        "authority": "native export; independent fresh gate required"
+      },
+      "commercial_observation": null,
+      "supply_status": "NOT_OBTAINED: current stock, price, lead time, MOQ, packaging and assembly applicability require dated exact-part evidence"
+    },
+    {
+      "board": "controller",
+      "ref": "C2",
+      "manufacturer": "Samsung Electro-Mechanics",
+      "mpn": "CL31A226KAHNNNE",
+      "lcsc": "C12891",
+      "package": "1206",
+      "line_id": "line-cl31a226kahnnne",
+      "owner_skill": "component-cl31a226kahnnne",
+      "footprint": "LightBlock:C1206",
+      "population": "FITTED",
+      "quantity_per_board": 1,
+      "board_multiplicity": 1,
+      "quantity_per_module": 1,
+      "placement": {
+        "side": "F",
+        "at_mm": [
+          6.3,
+          11.9
+        ],
+        "angle_deg": 0.0,
+        "source": "engineering/a7/electronics/controller/board_placement.json",
+        "authority": "native export; independent fresh gate required"
+      },
+      "commercial_observation": null,
+      "supply_status": "NOT_OBTAINED: current stock, price, lead time, MOQ, packaging and assembly applicability require dated exact-part evidence"
+    },
+    {
+      "board": "controller",
+      "ref": "C3",
+      "manufacturer": "Samsung Electro-Mechanics",
+      "mpn": "CL31A226KAHNNNE",
+      "lcsc": "C12891",
+      "package": "1206",
+      "line_id": "line-cl31a226kahnnne",
+      "owner_skill": "component-cl31a226kahnnne",
+      "footprint": "LightBlock:C1206",
+      "population": "FITTED",
+      "quantity_per_board": 1,
+      "board_multiplicity": 1,
+      "quantity_per_module": 1,
+      "placement": {
+        "side": "F",
+        "at_mm": [
+          14.95,
+          31.95
+        ],
+        "angle_deg": 90.0,
+        "source": "engineering/a7/electronics/controller/board_placement.json",
+        "authority": "native export; independent fresh gate required"
+      },
+      "commercial_observation": null,
+      "supply_status": "NOT_OBTAINED: current stock, price, lead time, MOQ, packaging and assembly applicability require dated exact-part evidence"
+    },
+    {
+      "board": "controller",
+      "ref": "C4",
+      "manufacturer": "YAGEO",
+      "mpn": "CC0603KRX7R9BB104",
+      "lcsc": "C14663",
+      "package": "0603",
+      "line_id": "line-cc0603krx7r9bb104",
+      "owner_skill": "component-cc0603krx7r9bb104",
+      "footprint": "LightBlock:C0603",
+      "population": "FITTED",
+      "quantity_per_board": 1,
+      "board_multiplicity": 1,
+      "quantity_per_module": 1,
+      "placement": {
+        "side": "F",
+        "at_mm": [
+          7.7,
+          4.45
+        ],
+        "angle_deg": 180.0,
+        "source": "engineering/a7/electronics/controller/board_placement.json",
+        "authority": "native export; independent fresh gate required"
+      },
+      "commercial_observation": null,
+      "supply_status": "NOT_OBTAINED: current stock, price, lead time, MOQ, packaging and assembly applicability require dated exact-part evidence"
+    },
+    {
+      "board": "controller",
+      "ref": "C5",
+      "manufacturer": "Samsung Electro-Mechanics",
+      "mpn": "CL10A475KO8NNNC",
+      "lcsc": "C19666",
+      "package": "0603",
+      "line_id": "line-cl10a475ko8nnnc",
+      "owner_skill": "component-cl10a475ko8nnnc",
+      "footprint": "LightBlock:C0603",
+      "population": "FITTED",
+      "quantity_per_board": 1,
+      "board_multiplicity": 1,
+      "quantity_per_module": 1,
+      "placement": {
+        "side": "F",
+        "at_mm": [
+          9.84,
+          4.95
+        ],
+        "angle_deg": -90.0,
+        "source": "engineering/a7/electronics/controller/board_placement.json",
+        "authority": "native export; independent fresh gate required"
+      },
+      "commercial_observation": null,
+      "supply_status": "NOT_OBTAINED: current stock, price, lead time, MOQ, packaging and assembly applicability require dated exact-part evidence"
+    },
+    {
+      "board": "controller",
+      "ref": "C6",
+      "manufacturer": "Samsung Electro-Mechanics",
+      "mpn": "CL10A475KO8NNNC",
+      "lcsc": "C19666",
+      "package": "0603",
+      "line_id": "line-cl10a475ko8nnnc",
+      "owner_skill": "component-cl10a475ko8nnnc",
+      "footprint": "LightBlock:C0603",
+      "population": "FITTED",
+      "quantity_per_board": 1,
+      "board_multiplicity": 1,
+      "quantity_per_module": 1,
+      "placement": {
+        "side": "F",
+        "at_mm": [
+          11.38,
+          4.95
+        ],
+        "angle_deg": -90.0,
+        "source": "engineering/a7/electronics/controller/board_placement.json",
+        "authority": "native export; independent fresh gate required"
+      },
+      "commercial_observation": null,
+      "supply_status": "NOT_OBTAINED: current stock, price, lead time, MOQ, packaging and assembly applicability require dated exact-part evidence"
+    },
+    {
+      "board": "controller",
+      "ref": "C7",
+      "manufacturer": "Samsung Electro-Mechanics",
+      "mpn": "CL10A475KO8NNNC",
+      "lcsc": "C19666",
+      "package": "0603",
+      "line_id": "line-cl10a475ko8nnnc",
+      "owner_skill": "component-cl10a475ko8nnnc",
+      "footprint": "LightBlock:C0603",
+      "population": "FITTED",
+      "quantity_per_board": 1,
+      "board_multiplicity": 1,
+      "quantity_per_module": 1,
+      "placement": {
+        "side": "F",
+        "at_mm": [
+          9.43,
+          22.84
+        ],
+        "angle_deg": 0.0,
+        "source": "engineering/a7/electronics/controller/board_placement.json",
+        "authority": "native export; independent fresh gate required"
+      },
+      "commercial_observation": null,
+      "supply_status": "NOT_OBTAINED: current stock, price, lead time, MOQ, packaging and assembly applicability require dated exact-part evidence"
+    },
+    {
+      "board": "controller",
+      "ref": "C8",
+      "manufacturer": "YAGEO",
+      "mpn": "CC0603KRX7R9BB104",
+      "lcsc": "C14663",
+      "package": "0603",
+      "line_id": "line-cc0603krx7r9bb104",
+      "owner_skill": "component-cc0603krx7r9bb104",
+      "footprint": "LightBlock:C0603",
+      "population": "FITTED",
+      "quantity_per_board": 1,
+      "board_multiplicity": 1,
+      "quantity_per_module": 1,
+      "placement": {
+        "side": "F",
+        "at_mm": [
+          1.5,
+          29.46
+        ],
+        "angle_deg": 180.0,
+        "source": "engineering/a7/electronics/controller/board_placement.json",
+        "authority": "native export; independent fresh gate required"
+      },
+      "commercial_observation": null,
+      "supply_status": "NOT_OBTAINED: current stock, price, lead time, MOQ, packaging and assembly applicability require dated exact-part evidence"
+    },
+    {
+      "board": "controller",
+      "ref": "C9",
+      "manufacturer": "YAGEO",
+      "mpn": "CC0603KRX7R9BB104",
+      "lcsc": "C14663",
+      "package": "0603",
+      "line_id": "line-cc0603krx7r9bb104",
+      "owner_skill": "component-cc0603krx7r9bb104",
+      "footprint": "LightBlock:C0603",
+      "population": "FITTED",
+      "quantity_per_board": 1,
+      "board_multiplicity": 1,
+      "quantity_per_module": 1,
+      "placement": {
+        "side": "F",
+        "at_mm": [
+          7.3,
+          43.75
+        ],
+        "angle_deg": 0.0,
+        "source": "engineering/a7/electronics/controller/board_placement.json",
+        "authority": "native export; independent fresh gate required"
+      },
+      "commercial_observation": null,
+      "supply_status": "NOT_OBTAINED: current stock, price, lead time, MOQ, packaging and assembly applicability require dated exact-part evidence"
+    },
+    {
+      "board": "controller",
+      "ref": "D1",
+      "manufacturer": "Nexperia",
+      "mpn": "PMEG4010CEJ,115",
+      "lcsc": "C50704",
+      "package": "SOD-323F",
+      "line_id": "line-pmeg4010cej-115",
+      "owner_skill": "component-pmeg4010cej-115",
+      "footprint": "LightBlock:SOD323F",
+      "population": "FITTED",
+      "quantity_per_board": 1,
+      "board_multiplicity": 1,
+      "quantity_per_module": 1,
+      "placement": {
+        "side": "F",
+        "at_mm": [
+          14.95,
+          36.0
+        ],
+        "angle_deg": 90.0,
+        "source": "engineering/a7/electronics/controller/board_placement.json",
+        "authority": "native export; independent fresh gate required"
+      },
+      "commercial_observation": null,
+      "supply_status": "NOT_OBTAINED: current stock, price, lead time, MOQ, packaging and assembly applicability require dated exact-part evidence"
+    },
+    {
+      "board": "controller",
+      "ref": "D2",
+      "manufacturer": "Nexperia",
+      "mpn": "PMEG4010CEJ,115",
+      "lcsc": "C50704",
+      "package": "SOD-323F",
+      "line_id": "line-pmeg4010cej-115",
+      "owner_skill": "component-pmeg4010cej-115",
+      "footprint": "LightBlock:SOD323F",
+      "population": "FITTED",
+      "quantity_per_board": 1,
+      "board_multiplicity": 1,
+      "quantity_per_module": 1,
+      "placement": {
+        "side": "F",
+        "at_mm": [
+          14.95,
+          39.5
+        ],
+        "angle_deg": 90.0,
+        "source": "engineering/a7/electronics/controller/board_placement.json",
+        "authority": "native export; independent fresh gate required"
+      },
+      "commercial_observation": null,
+      "supply_status": "NOT_OBTAINED: current stock, price, lead time, MOQ, packaging and assembly applicability require dated exact-part evidence"
+    },
+    {
+      "board": "controller",
+      "ref": "D3",
+      "manufacturer": "Diodes Incorporated",
+      "mpn": "BAS70-04-7-F",
+      "lcsc": "C134375",
+      "package": "SOT-23",
+      "line_id": "line-bas70-04-7-f",
+      "owner_skill": "component-bas70-04-7-f",
+      "footprint": "LightBlock:SOT23",
+      "population": "FITTED",
+      "quantity_per_board": 1,
+      "board_multiplicity": 1,
+      "quantity_per_module": 1,
+      "placement": {
+        "side": "F",
+        "at_mm": [
+          9.68,
+          20.4
+        ],
+        "angle_deg": 180.0,
+        "source": "engineering/a7/electronics/controller/board_placement.json",
+        "authority": "native export; independent fresh gate required"
+      },
+      "commercial_observation": null,
+      "supply_status": "NOT_OBTAINED: current stock, price, lead time, MOQ, packaging and assembly applicability require dated exact-part evidence"
+    },
+    {
+      "board": "controller",
+      "ref": "J1",
+      "manufacturer": "SOFNG",
+      "mpn": "PJ-324M",
+      "lcsc": "C22355739",
+      "package": "Plugin",
+      "line_id": "line-a7-pj-324m",
+      "owner_skill": "component-a7-pj-324m",
+      "footprint": "LightBlockA7:PJ324M",
+      "population": "FITTED",
+      "quantity_per_board": 1,
+      "board_multiplicity": 1,
+      "quantity_per_module": 1,
+      "placement": {
+        "side": "F",
+        "at_mm": [
+          -0.7,
+          35.8
+        ],
+        "angle_deg": 90.0,
+        "source": "engineering/a7/electronics/controller/board_placement.json",
+        "authority": "native export; independent fresh gate required"
+      },
+      "commercial_observation": null,
+      "supply_status": "NOT_OBTAINED: current stock, price, lead time, MOQ, packaging and assembly applicability require dated exact-part evidence"
+    },
+    {
+      "board": "controller",
+      "ref": "J2",
+      "manufacturer": "SOFNG",
+      "mpn": "PJ-324M",
+      "lcsc": "C22355739",
+      "package": "Plugin",
+      "line_id": "line-a7-pj-324m",
+      "owner_skill": "component-a7-pj-324m",
+      "footprint": "LightBlockA7:PJ324M",
+      "population": "FITTED",
+      "quantity_per_board": 1,
+      "board_multiplicity": 1,
+      "quantity_per_module": 1,
+      "placement": {
+        "side": "F",
+        "at_mm": [
+          -0.7,
+          50.8
+        ],
+        "angle_deg": 90.0,
+        "source": "engineering/a7/electronics/controller/board_placement.json",
+        "authority": "native export; independent fresh gate required"
+      },
+      "commercial_observation": null,
+      "supply_status": "NOT_OBTAINED: current stock, price, lead time, MOQ, packaging and assembly applicability require dated exact-part evidence"
+    },
+    {
+      "board": "controller",
+      "ref": "J3",
+      "manufacturer": "JST",
+      "mpn": "SM04B-SRSS-TB(LF)(SN)",
+      "lcsc": "C160404",
+      "package": "SMD,P=1mm,Surface Mount，Right Angle",
+      "line_id": "line-sm04b-srss-tb-lf-sn",
+      "owner_skill": "component-sm04b-srss-tb-lf-sn",
+      "footprint": "LightBlock:JST_SH4",
+      "population": "FITTED",
+      "quantity_per_board": 1,
+      "board_multiplicity": 1,
+      "quantity_per_module": 1,
+      "placement": {
+        "side": "F",
+        "at_mm": [
+          12.6,
+          10.6
+        ],
+        "angle_deg": 0.0,
+        "source": "engineering/a7/electronics/controller/board_placement.json",
+        "authority": "native export; independent fresh gate required"
+      },
+      "commercial_observation": null,
+      "supply_status": "NOT_OBTAINED: current stock, price, lead time, MOQ, packaging and assembly applicability require dated exact-part evidence"
+    },
+    {
+      "board": "controller",
+      "ref": "J5",
+      "manufacturer": "MOLEX",
+      "mpn": "530470310",
+      "lcsc": "C122442",
+      "package": "Plugin,P=1.25mm",
+      "line_id": "line-530470310",
+      "owner_skill": "component-530470310",
+      "footprint": "LightBlock:PICO3",
+      "population": "FITTED",
+      "quantity_per_board": 1,
+      "board_multiplicity": 1,
+      "quantity_per_module": 1,
+      "placement": {
+        "side": "F",
+        "at_mm": [
+          7.24,
+          27.5
+        ],
+        "angle_deg": 0.0,
+        "source": "engineering/a7/electronics/controller/board_placement.json",
+        "authority": "native export; independent fresh gate required"
+      },
+      "commercial_observation": null,
+      "supply_status": "NOT_OBTAINED: current stock, price, lead time, MOQ, packaging and assembly applicability require dated exact-part evidence"
+    },
+    {
+      "board": "controller",
+      "ref": "L1",
+      "manufacturer": "TDK",
+      "mpn": "SPM4020T-4R7M-LR",
+      "lcsc": "C694586",
+      "package": "SMD,4.4x4.1mm nominal; 4.6x4.3x2.0mm maximum envelope",
+      "line_id": "line-spm4020t-4r7m-lr",
+      "owner_skill": "component-spm4020t-4r7m-lr",
+      "footprint": "LightBlock:SPM4020_LR",
+      "population": "FITTED",
+      "quantity_per_board": 1,
+      "board_multiplicity": 1,
+      "quantity_per_module": 1,
+      "placement": {
+        "side": "F",
+        "at_mm": [
+          6.3,
+          7.93
+        ],
+        "angle_deg": -90.0,
+        "source": "engineering/a7/electronics/controller/board_placement.json",
+        "authority": "native export; independent fresh gate required"
+      },
+      "commercial_observation": null,
+      "supply_status": "NOT_OBTAINED: current stock, price, lead time, MOQ, packaging and assembly applicability require dated exact-part evidence"
+    },
+    {
+      "board": "controller",
+      "ref": "Q1",
+      "manufacturer": "Jiangsu Changjing Electronics Technology Co., Ltd.",
+      "mpn": "MMBT3904(RANGE:100-300)",
+      "lcsc": "C20526",
+      "package": "SOT-23",
+      "line_id": "line-mmbt3904-range-100-300",
+      "owner_skill": "component-mmbt3904-range-100-300",
+      "footprint": "LightBlock:SOT23",
+      "population": "FITTED",
+      "quantity_per_board": 1,
+      "board_multiplicity": 1,
+      "quantity_per_module": 1,
+      "placement": {
+        "side": "F",
+        "at_mm": [
+          14.45,
+          60.7
+        ],
+        "angle_deg": 0.0,
+        "source": "engineering/a7/electronics/controller/board_placement.json",
+        "authority": "native export; independent fresh gate required"
+      },
+      "commercial_observation": null,
+      "supply_status": "NOT_OBTAINED: current stock, price, lead time, MOQ, packaging and assembly applicability require dated exact-part evidence"
+    },
+    {
+      "board": "controller",
+      "ref": "R1",
+      "manufacturer": "UNI-ROYAL(Uniroyal Elec)",
+      "mpn": "0603WAF1005T5E",
+      "lcsc": "C7250",
+      "package": "0603",
+      "line_id": "line-0603waf1005t5e",
+      "owner_skill": "component-0603waf1005t5e",
+      "footprint": "LightBlock:R0603",
+      "population": "FITTED",
+      "quantity_per_board": 1,
+      "board_multiplicity": 1,
+      "quantity_per_module": 1,
+      "placement": {
+        "side": "B",
+        "at_mm": [
+          13.0,
+          4.0
+        ],
+        "angle_deg": 0.0,
+        "source": "engineering/a7/electronics/controller/board_placement.json",
+        "authority": "native export; independent fresh gate required"
+      },
+      "commercial_observation": null,
+      "supply_status": "NOT_OBTAINED: current stock, price, lead time, MOQ, packaging and assembly applicability require dated exact-part evidence"
+    },
+    {
+      "board": "controller",
+      "ref": "R10",
+      "manufacturer": "UNI-ROYAL(Uniroyal Elec)",
+      "mpn": "0603WAF1002T5E",
+      "lcsc": "C25804",
+      "package": "0603",
+      "line_id": "line-0603waf1002t5e",
+      "owner_skill": "component-0603waf1002t5e",
+      "footprint": "LightBlock:R0603",
+      "population": "FITTED",
+      "quantity_per_board": 1,
+      "board_multiplicity": 1,
+      "quantity_per_module": 1,
+      "placement": {
+        "side": "B",
+        "at_mm": [
+          4.5,
+          21.7
+        ],
+        "angle_deg": 90.0,
+        "source": "engineering/a7/electronics/controller/board_placement.json",
+        "authority": "native export; independent fresh gate required"
+      },
+      "commercial_observation": null,
+      "supply_status": "NOT_OBTAINED: current stock, price, lead time, MOQ, packaging and assembly applicability require dated exact-part evidence"
+    },
+    {
+      "board": "controller",
+      "ref": "R11",
+      "manufacturer": "UNI-ROYAL(Uniroyal Elec)",
+      "mpn": "0603WAF6802T5E",
+      "lcsc": "C23231",
+      "package": "0603",
+      "line_id": "line-0603waf6802t5e",
+      "owner_skill": "component-0603waf6802t5e",
+      "footprint": "LightBlock:R0603",
+      "population": "FITTED",
+      "quantity_per_board": 1,
+      "board_multiplicity": 1,
+      "quantity_per_module": 1,
+      "placement": {
+        "side": "B",
+        "at_mm": [
+          6.5,
+          17.0
+        ],
+        "angle_deg": 0.0,
+        "source": "engineering/a7/electronics/controller/board_placement.json",
+        "authority": "native export; independent fresh gate required"
+      },
+      "commercial_observation": null,
+      "supply_status": "NOT_OBTAINED: current stock, price, lead time, MOQ, packaging and assembly applicability require dated exact-part evidence"
+    },
+    {
+      "board": "controller",
+      "ref": "R12",
+      "manufacturer": "UNI-ROYAL(Uniroyal Elec)",
+      "mpn": "0603WAF1003T5E",
+      "lcsc": "C25803",
+      "package": "0603",
+      "line_id": "line-0603waf1003t5e",
+      "owner_skill": "component-0603waf1003t5e",
+      "footprint": "LightBlock:R0603",
+      "population": "FITTED",
+      "quantity_per_board": 1,
+      "board_multiplicity": 1,
+      "quantity_per_module": 1,
+      "placement": {
+        "side": "B",
+        "at_mm": [
+          14.0,
+          60.5
+        ],
+        "angle_deg": 0.0,
+        "source": "engineering/a7/electronics/controller/board_placement.json",
+        "authority": "native export; independent fresh gate required"
+      },
+      "commercial_observation": null,
+      "supply_status": "NOT_OBTAINED: current stock, price, lead time, MOQ, packaging and assembly applicability require dated exact-part evidence"
+    },
+    {
+      "board": "controller",
+      "ref": "R13",
+      "manufacturer": "UNI-ROYAL(Uniroyal Elec)",
+      "mpn": "0603WAF1002T5E",
+      "lcsc": "C25804",
+      "package": "0603",
+      "line_id": "line-0603waf1002t5e",
+      "owner_skill": "component-0603waf1002t5e",
+      "footprint": "LightBlock:R0603",
+      "population": "FITTED",
+      "quantity_per_board": 1,
+      "board_multiplicity": 1,
+      "quantity_per_module": 1,
+      "placement": {
+        "side": "B",
+        "at_mm": [
+          6.5,
+          18.5
+        ],
+        "angle_deg": 0.0,
+        "source": "engineering/a7/electronics/controller/board_placement.json",
+        "authority": "native export; independent fresh gate required"
+      },
+      "commercial_observation": null,
+      "supply_status": "NOT_OBTAINED: current stock, price, lead time, MOQ, packaging and assembly applicability require dated exact-part evidence"
+    },
+    {
+      "board": "controller",
+      "ref": "R14",
+      "manufacturer": "UNI-ROYAL(Uniroyal Elec)",
+      "mpn": "0603WAF3300T5E",
+      "lcsc": "C23138",
+      "package": "0603",
+      "line_id": "line-0603waf3300t5e",
+      "owner_skill": "component-0603waf3300t5e",
+      "footprint": "LightBlock:R0603",
+      "population": "FITTED",
+      "quantity_per_board": 1,
+      "board_multiplicity": 1,
+      "quantity_per_module": 1,
+      "placement": {
+        "side": "B",
+        "at_mm": [
+          7.6,
+          43.7
+        ],
+        "angle_deg": 0.0,
+        "source": "engineering/a7/electronics/controller/board_placement.json",
+        "authority": "native export; independent fresh gate required"
+      },
+      "commercial_observation": null,
+      "supply_status": "NOT_OBTAINED: current stock, price, lead time, MOQ, packaging and assembly applicability require dated exact-part evidence"
+    },
+    {
+      "board": "controller",
+      "ref": "R15",
+      "manufacturer": "UNI-ROYAL(Uniroyal Elec)",
+      "mpn": "0603WAF3300T5E",
+      "lcsc": "C23138",
+      "package": "0603",
+      "line_id": "line-0603waf3300t5e",
+      "owner_skill": "component-0603waf3300t5e",
+      "footprint": "LightBlock:R0603",
+      "population": "FITTED",
+      "quantity_per_board": 1,
+      "board_multiplicity": 1,
+      "quantity_per_module": 1,
+      "placement": {
+        "side": "B",
+        "at_mm": [
+          10.7,
+          43.7
+        ],
+        "angle_deg": 0.0,
+        "source": "engineering/a7/electronics/controller/board_placement.json",
+        "authority": "native export; independent fresh gate required"
+      },
+      "commercial_observation": null,
+      "supply_status": "NOT_OBTAINED: current stock, price, lead time, MOQ, packaging and assembly applicability require dated exact-part evidence"
+    },
+    {
+      "board": "controller",
+      "ref": "R16",
+      "manufacturer": "UNI-ROYAL(Uniroyal Elec)",
+      "mpn": "0603WAF1003T5E",
+      "lcsc": "C25803",
+      "package": "0603",
+      "line_id": "line-0603waf1003t5e",
+      "owner_skill": "component-0603waf1003t5e",
+      "footprint": "LightBlock:R0603",
+      "population": "FITTED",
+      "quantity_per_board": 1,
+      "board_multiplicity": 1,
+      "quantity_per_module": 1,
+      "placement": {
+        "side": "B",
+        "at_mm": [
+          13.8,
+          43.7
+        ],
+        "angle_deg": 0.0,
+        "source": "engineering/a7/electronics/controller/board_placement.json",
+        "authority": "native export; independent fresh gate required"
+      },
+      "commercial_observation": null,
+      "supply_status": "NOT_OBTAINED: current stock, price, lead time, MOQ, packaging and assembly applicability require dated exact-part evidence"
+    },
+    {
+      "board": "controller",
+      "ref": "R17",
+      "manufacturer": "UNI-ROYAL(Uniroyal Elec)",
+      "mpn": "0603WAF1003T5E",
+      "lcsc": "C25803",
+      "package": "0603",
+      "line_id": "line-0603waf1003t5e",
+      "owner_skill": "component-0603waf1003t5e",
+      "footprint": "LightBlock:R0603",
+      "population": "FITTED",
+      "quantity_per_board": 1,
+      "board_multiplicity": 1,
+      "quantity_per_module": 1,
+      "placement": {
+        "side": "B",
+        "at_mm": [
+          14.6,
+          46.0
+        ],
+        "angle_deg": 90.0,
+        "source": "engineering/a7/electronics/controller/board_placement.json",
+        "authority": "native export; independent fresh gate required"
+      },
+      "commercial_observation": null,
+      "supply_status": "NOT_OBTAINED: current stock, price, lead time, MOQ, packaging and assembly applicability require dated exact-part evidence"
+    },
+    {
+      "board": "controller",
+      "ref": "R18",
+      "manufacturer": "UNI-ROYAL(Uniroyal Elec)",
+      "mpn": "0603WAF1003T5E",
+      "lcsc": "C25803",
+      "package": "0603",
+      "line_id": "line-0603waf1003t5e",
+      "owner_skill": "component-0603waf1003t5e",
+      "footprint": "LightBlock:R0603",
+      "population": "FITTED",
+      "quantity_per_board": 1,
+      "board_multiplicity": 1,
+      "quantity_per_module": 1,
+      "placement": {
+        "side": "B",
+        "at_mm": [
+          14.6,
+          41.4
+        ],
+        "angle_deg": 90.0,
+        "source": "engineering/a7/electronics/controller/board_placement.json",
+        "authority": "native export; independent fresh gate required"
+      },
+      "commercial_observation": null,
+      "supply_status": "NOT_OBTAINED: current stock, price, lead time, MOQ, packaging and assembly applicability require dated exact-part evidence"
+    },
+    {
+      "board": "controller",
+      "ref": "R19",
+      "manufacturer": "UNI-ROYAL(Uniroyal Elec)",
+      "mpn": "0603WAF1003T5E",
+      "lcsc": "C25803",
+      "package": "0603",
+      "line_id": "line-0603waf1003t5e",
+      "owner_skill": "component-0603waf1003t5e",
+      "footprint": "LightBlock:R0603",
+      "population": "FITTED",
+      "quantity_per_board": 1,
+      "board_multiplicity": 1,
+      "quantity_per_module": 1,
+      "placement": {
+        "side": "B",
+        "at_mm": [
+          14.6,
+          49.1
+        ],
+        "angle_deg": 90.0,
+        "source": "engineering/a7/electronics/controller/board_placement.json",
+        "authority": "native export; independent fresh gate required"
+      },
+      "commercial_observation": null,
+      "supply_status": "NOT_OBTAINED: current stock, price, lead time, MOQ, packaging and assembly applicability require dated exact-part evidence"
+    },
+    {
+      "board": "controller",
+      "ref": "R2",
+      "manufacturer": "UNI-ROYAL(Uniroyal Elec)",
+      "mpn": "0603WAF1005T5E",
+      "lcsc": "C7250",
+      "package": "0603",
+      "line_id": "line-0603waf1005t5e",
+      "owner_skill": "component-0603waf1005t5e",
+      "footprint": "LightBlock:R0603",
+      "population": "FITTED",
+      "quantity_per_board": 1,
+      "board_multiplicity": 1,
+      "quantity_per_module": 1,
+      "placement": {
+        "side": "B",
+        "at_mm": [
+          13.0,
+          2.5
+        ],
+        "angle_deg": 0.0,
+        "source": "engineering/a7/electronics/controller/board_placement.json",
+        "authority": "native export; independent fresh gate required"
+      },
+      "commercial_observation": null,
+      "supply_status": "NOT_OBTAINED: current stock, price, lead time, MOQ, packaging and assembly applicability require dated exact-part evidence"
+    },
+    {
+      "board": "controller",
+      "ref": "R20",
+      "manufacturer": "UNI-ROYAL(Uniroyal Elec)",
+      "mpn": "0603WAF4701T5E",
+      "lcsc": "C23162",
+      "package": "0603",
+      "line_id": "line-0603waf4701t5e",
+      "owner_skill": "component-0603waf4701t5e",
+      "footprint": "LightBlock:R0603",
+      "population": "FITTED",
+      "quantity_per_board": 1,
+      "board_multiplicity": 1,
+      "quantity_per_module": 1,
+      "placement": {
+        "side": "B",
+        "at_mm": [
+          9.0,
+          16.0
+        ],
+        "angle_deg": 90.0,
+        "source": "engineering/a7/electronics/controller/board_placement.json",
+        "authority": "native export; independent fresh gate required"
+      },
+      "commercial_observation": null,
+      "supply_status": "NOT_OBTAINED: current stock, price, lead time, MOQ, packaging and assembly applicability require dated exact-part evidence"
+    },
+    {
+      "board": "controller",
+      "ref": "R21",
+      "manufacturer": "UNI-ROYAL(Uniroyal Elec)",
+      "mpn": "0603WAF1002T5E",
+      "lcsc": "C25804",
+      "package": "0603",
+      "line_id": "line-0603waf1002t5e",
+      "owner_skill": "component-0603waf1002t5e",
+      "footprint": "LightBlock:R0603",
+      "population": "FITTED",
+      "quantity_per_board": 1,
+      "board_multiplicity": 1,
+      "quantity_per_module": 1,
+      "placement": {
+        "side": "B",
+        "at_mm": [
+          7.5,
+          23.3
+        ],
+        "angle_deg": 90.0,
+        "source": "engineering/a7/electronics/controller/board_placement.json",
+        "authority": "native export; independent fresh gate required"
+      },
+      "commercial_observation": null,
+      "supply_status": "NOT_OBTAINED: current stock, price, lead time, MOQ, packaging and assembly applicability require dated exact-part evidence"
+    },
+    {
+      "board": "controller",
+      "ref": "R22",
+      "manufacturer": "UNI-ROYAL(Uniroyal Elec)",
+      "mpn": "0603WAF1002T5E",
+      "lcsc": "C25804",
+      "package": "0603",
+      "line_id": "line-0603waf1002t5e",
+      "owner_skill": "component-0603waf1002t5e",
+      "footprint": "LightBlock:R0603",
+      "population": "FITTED",
+      "quantity_per_board": 1,
+      "board_multiplicity": 1,
+      "quantity_per_module": 1,
+      "placement": {
+        "side": "B",
+        "at_mm": [
+          14.0,
+          62.0
+        ],
+        "angle_deg": 0.0,
+        "source": "engineering/a7/electronics/controller/board_placement.json",
+        "authority": "native export; independent fresh gate required"
+      },
+      "commercial_observation": null,
+      "supply_status": "NOT_OBTAINED: current stock, price, lead time, MOQ, packaging and assembly applicability require dated exact-part evidence"
+    },
+    {
+      "board": "controller",
+      "ref": "R23",
+      "manufacturer": "UNI-ROYAL(Uniroyal Elec)",
+      "mpn": "0603WAF1003T5E",
+      "lcsc": "C25803",
+      "package": "0603",
+      "line_id": "line-0603waf1003t5e",
+      "owner_skill": "component-0603waf1003t5e",
+      "footprint": "LightBlock:R0603",
+      "population": "FITTED",
+      "quantity_per_board": 1,
+      "board_multiplicity": 1,
+      "quantity_per_module": 1,
+      "placement": {
+        "side": "B",
+        "at_mm": [
+          5.3,
+          15.5
+        ],
+        "angle_deg": 0.0,
+        "source": "engineering/a7/electronics/controller/board_placement.json",
+        "authority": "native export; independent fresh gate required"
+      },
+      "commercial_observation": null,
+      "supply_status": "NOT_OBTAINED: current stock, price, lead time, MOQ, packaging and assembly applicability require dated exact-part evidence"
+    },
+    {
+      "board": "controller",
+      "ref": "R24",
+      "manufacturer": "UNI-ROYAL(Uniroyal Elec)",
+      "mpn": "0603WAF3300T5E",
+      "lcsc": "C23138",
+      "package": "0603",
+      "line_id": "line-0603waf3300t5e",
+      "owner_skill": "component-0603waf3300t5e",
+      "footprint": "LightBlock:R0603",
+      "population": "FITTED",
+      "quantity_per_board": 1,
+      "board_multiplicity": 1,
+      "quantity_per_module": 1,
+      "placement": {
+        "side": "B",
+        "at_mm": [
+          8.6,
+          21.0
+        ],
+        "angle_deg": 0.0,
+        "source": "engineering/a7/electronics/controller/board_placement.json",
+        "authority": "native export; independent fresh gate required"
+      },
+      "commercial_observation": null,
+      "supply_status": "NOT_OBTAINED: current stock, price, lead time, MOQ, packaging and assembly applicability require dated exact-part evidence"
+    },
+    {
+      "board": "controller",
+      "ref": "R25",
+      "manufacturer": "UNI-ROYAL(Uniroyal Elec)",
+      "mpn": "0603WAF1001T5E",
+      "lcsc": "C21190",
+      "package": "0603",
+      "line_id": "line-0603waf1001t5e",
+      "owner_skill": "component-0603waf1001t5e",
+      "footprint": "LightBlock:R0603",
+      "population": "FITTED",
+      "quantity_per_board": 1,
+      "board_multiplicity": 1,
+      "quantity_per_module": 1,
+      "placement": {
+        "side": "B",
+        "at_mm": [
+          9.1,
+          23.3
+        ],
+        "angle_deg": 90.0,
+        "source": "engineering/a7/electronics/controller/board_placement.json",
+        "authority": "native export; independent fresh gate required"
+      },
+      "commercial_observation": null,
+      "supply_status": "NOT_OBTAINED: current stock, price, lead time, MOQ, packaging and assembly applicability require dated exact-part evidence"
+    },
+    {
+      "board": "controller",
+      "ref": "R3",
+      "manufacturer": "UNI-ROYAL(Uniroyal Elec)",
+      "mpn": "0603WAF8202T5E",
+      "lcsc": "C23254",
+      "package": "0603",
+      "line_id": "line-0603waf8202t5e",
+      "owner_skill": "component-0603waf8202t5e",
+      "footprint": "LightBlock:R0603",
+      "population": "FITTED",
+      "quantity_per_board": 1,
+      "board_multiplicity": 1,
+      "quantity_per_module": 1,
+      "placement": {
+        "side": "B",
+        "at_mm": [
+          9.6,
+          19.0
+        ],
+        "angle_deg": 0.0,
+        "source": "engineering/a7/electronics/controller/board_placement.json",
+        "authority": "native export; independent fresh gate required"
+      },
+      "commercial_observation": null,
+      "supply_status": "NOT_OBTAINED: current stock, price, lead time, MOQ, packaging and assembly applicability require dated exact-part evidence"
+    },
+    {
+      "board": "controller",
+      "ref": "R4",
+      "manufacturer": "UNI-ROYAL(Uniroyal Elec)",
+      "mpn": "0603WAF8202T5E",
+      "lcsc": "C23254",
+      "package": "0603",
+      "line_id": "line-0603waf8202t5e",
+      "owner_skill": "component-0603waf8202t5e",
+      "footprint": "LightBlock:R0603",
+      "population": "FITTED",
+      "quantity_per_board": 1,
+      "board_multiplicity": 1,
+      "quantity_per_module": 1,
+      "placement": {
+        "side": "B",
+        "at_mm": [
+          10.6,
+          16.7
+        ],
+        "angle_deg": 90.0,
+        "source": "engineering/a7/electronics/controller/board_placement.json",
+        "authority": "native export; independent fresh gate required"
+      },
+      "commercial_observation": null,
+      "supply_status": "NOT_OBTAINED: current stock, price, lead time, MOQ, packaging and assembly applicability require dated exact-part evidence"
+    },
+    {
+      "board": "controller",
+      "ref": "R5",
+      "manufacturer": "UNI-ROYAL(Uniroyal Elec)",
+      "mpn": "0603WAF8202T5E",
+      "lcsc": "C23254",
+      "package": "0603",
+      "line_id": "line-0603waf8202t5e",
+      "owner_skill": "component-0603waf8202t5e",
+      "footprint": "LightBlock:R0603",
+      "population": "FITTED",
+      "quantity_per_board": 1,
+      "board_multiplicity": 1,
+      "quantity_per_module": 1,
+      "placement": {
+        "side": "B",
+        "at_mm": [
+          12.2,
+          18.0
+        ],
+        "angle_deg": 90.0,
+        "source": "engineering/a7/electronics/controller/board_placement.json",
+        "authority": "native export; independent fresh gate required"
+      },
+      "commercial_observation": null,
+      "supply_status": "NOT_OBTAINED: current stock, price, lead time, MOQ, packaging and assembly applicability require dated exact-part evidence"
+    },
+    {
+      "board": "controller",
+      "ref": "R6",
+      "manufacturer": "UNI-ROYAL(Uniroyal Elec)",
+      "mpn": "0603WAF8202T5E",
+      "lcsc": "C23254",
+      "package": "0603",
+      "line_id": "line-0603waf8202t5e",
+      "owner_skill": "component-0603waf8202t5e",
+      "footprint": "LightBlock:R0603",
+      "population": "FITTED",
+      "quantity_per_board": 1,
+      "board_multiplicity": 1,
+      "quantity_per_module": 1,
+      "placement": {
+        "side": "B",
+        "at_mm": [
+          11.7,
+          20.5
+        ],
+        "angle_deg": 0.0,
+        "source": "engineering/a7/electronics/controller/board_placement.json",
+        "authority": "native export; independent fresh gate required"
+      },
+      "commercial_observation": null,
+      "supply_status": "NOT_OBTAINED: current stock, price, lead time, MOQ, packaging and assembly applicability require dated exact-part evidence"
+    },
+    {
+      "board": "controller",
+      "ref": "R7",
+      "manufacturer": "UNI-ROYAL(Uniroyal Elec)",
+      "mpn": "0603WAF1001T5E",
+      "lcsc": "C21190",
+      "package": "0603",
+      "line_id": "line-0603waf1001t5e",
+      "owner_skill": "component-0603waf1001t5e",
+      "footprint": "LightBlock:R0603",
+      "population": "FITTED",
+      "quantity_per_board": 1,
+      "board_multiplicity": 1,
+      "quantity_per_module": 1,
+      "placement": {
+        "side": "B",
+        "at_mm": [
+          10.9,
+          22.8
+        ],
+        "angle_deg": 90.0,
+        "source": "engineering/a7/electronics/controller/board_placement.json",
+        "authority": "native export; independent fresh gate required"
+      },
+      "commercial_observation": null,
+      "supply_status": "NOT_OBTAINED: current stock, price, lead time, MOQ, packaging and assembly applicability require dated exact-part evidence"
+    },
+    {
+      "board": "controller",
+      "ref": "R8",
+      "manufacturer": "UNI-ROYAL(Uniroyal Elec)",
+      "mpn": "0603WAF1001T5E",
+      "lcsc": "C21190",
+      "package": "0603",
+      "line_id": "line-0603waf1001t5e",
+      "owner_skill": "component-0603waf1001t5e",
+      "footprint": "LightBlock:R0603",
+      "population": "FITTED",
+      "quantity_per_board": 1,
+      "board_multiplicity": 1,
+      "quantity_per_module": 1,
+      "placement": {
+        "side": "B",
+        "at_mm": [
+          10.0,
+          3.0
+        ],
+        "angle_deg": 90.0,
+        "source": "engineering/a7/electronics/controller/board_placement.json",
+        "authority": "native export; independent fresh gate required"
+      },
+      "commercial_observation": null,
+      "supply_status": "NOT_OBTAINED: current stock, price, lead time, MOQ, packaging and assembly applicability require dated exact-part evidence"
+    },
+    {
+      "board": "controller",
+      "ref": "R9",
+      "manufacturer": "UNI-ROYAL(Uniroyal Elec)",
+      "mpn": "0603WAF1002T5E",
+      "lcsc": "C25804",
+      "package": "0603",
+      "line_id": "line-0603waf1002t5e",
+      "owner_skill": "component-0603waf1002t5e",
+      "footprint": "LightBlock:R0603",
+      "population": "FITTED",
+      "quantity_per_board": 1,
+      "board_multiplicity": 1,
+      "quantity_per_module": 1,
+      "placement": {
+        "side": "B",
+        "at_mm": [
+          12.6,
+          26.0
+        ],
+        "angle_deg": 90.0,
+        "source": "engineering/a7/electronics/controller/board_placement.json",
+        "authority": "native export; independent fresh gate required"
+      },
+      "commercial_observation": null,
+      "supply_status": "NOT_OBTAINED: current stock, price, lead time, MOQ, packaging and assembly applicability require dated exact-part evidence"
+    },
+    {
+      "board": "controller",
+      "ref": "SW1",
+      "manufacturer": "C&K",
+      "mpn": "PCM13SMTR",
+      "lcsc": "C221842",
+      "package": "SMD",
+      "line_id": "line-a7-pcm13smtr",
+      "owner_skill": "component-a7-pcm13smtr",
+      "footprint": "LightBlockA7:PCM13SMTR",
+      "population": "FITTED",
+      "quantity_per_board": 1,
+      "board_multiplicity": 1,
+      "quantity_per_module": 1,
+      "placement": {
+        "side": "F",
+        "at_mm": [
+          6.8,
+          60.1
+        ],
+        "angle_deg": 0.0,
+        "source": "engineering/a7/electronics/controller/board_placement.json",
+        "authority": "native export; independent fresh gate required"
+      },
+      "commercial_observation": {
+        "source_bundle": ".claude/skills/component-a7-pcm13smtr/sources.json",
+        "source_id": "src-a7-pcm13smtr-jlc-stock-2026-11-09",
+        "url": "https://jlcpcb.com/api/overseas-pcb-order/v1/shoppingCart/smtGood/selectSmtComponentList",
+        "raw_sha256": "317f74ac9caf4556aef05b61c78dde4c6ae9b89974bf03a51cee9db51b71aa17",
+        "observed_at": "2026-11-09T09:18:55Z",
+        "supplier": "JLCPCB",
+        "stock_count": 0,
+        "presale_count": 0,
+        "minimum_purchase_quantity": 3,
+        "packaging_quantity": 3500,
+        "price": null,
+        "currency": null,
+        "lead_time": null,
+        "assembly_acceptance": null,
+        "reserved": false,
+        "scope": "Dated exact C221842 listing observation only; refresh before procurement. No currency-backed price or assembly acceptance."
+      },
+      "supply_status": "BLOCKED: dated JLC stock 0 / presale 0; price, lead time and assembly acceptance unknown"
+    },
+    {
+      "board": "controller",
+      "ref": "U1",
+      "manufacturer": "STMicroelectronics",
+      "mpn": "STM32G031G8U6TR",
+      "lcsc": "C5270180",
+      "package": "UFQFPN-28(4x4)",
+      "line_id": "line-stm32g031g8u6tr",
+      "owner_skill": "component-stm32g031g8u6tr",
+      "footprint": "LightBlock:QFN28",
+      "population": "FITTED",
+      "quantity_per_board": 1,
+      "board_multiplicity": 1,
+      "quantity_per_module": 1,
+      "placement": {
+        "side": "F",
+        "at_mm": [
+          2.62,
+          26.13
+        ],
+        "angle_deg": 90.0,
+        "source": "engineering/a7/electronics/controller/board_placement.json",
+        "authority": "native export; independent fresh gate required"
+      },
+      "commercial_observation": null,
+      "supply_status": "NOT_OBTAINED: current stock, price, lead time, MOQ, packaging and assembly applicability require dated exact-part evidence"
+    },
+    {
+      "board": "controller",
+      "ref": "U2",
+      "manufacturer": "Diodes Incorporated",
+      "mpn": "AP63205WU-7",
+      "lcsc": "C2071056",
+      "package": "TSOT-23-6",
+      "line_id": "line-ap63205wu-7",
+      "owner_skill": "component-ap63205wu-7",
+      "footprint": "LightBlock:TSOT26",
+      "population": "FITTED",
+      "quantity_per_board": 1,
+      "board_multiplicity": 1,
+      "quantity_per_module": 1,
+      "placement": {
+        "side": "F",
+        "at_mm": [
+          7.4,
+          1.9
+        ],
+        "angle_deg": -90.0,
+        "source": "engineering/a7/electronics/controller/board_placement.json",
+        "authority": "native export; independent fresh gate required"
+      },
+      "commercial_observation": null,
+      "supply_status": "NOT_OBTAINED: current stock, price, lead time, MOQ, packaging and assembly applicability require dated exact-part evidence"
+    },
+    {
+      "board": "controller",
+      "ref": "U3",
+      "manufacturer": "Texas Instruments",
+      "mpn": "TLV75533PDBVR",
+      "lcsc": "C404027",
+      "package": "SOT-23-5",
+      "line_id": "line-tlv75533pdbvr",
+      "owner_skill": "component-tlv75533pdbvr",
+      "footprint": "LightBlock:DBV5",
+      "population": "FITTED",
+      "quantity_per_board": 1,
+      "board_multiplicity": 1,
+      "quantity_per_module": 1,
+      "placement": {
+        "side": "F",
+        "at_mm": [
+          14.13,
+          5.2
+        ],
+        "angle_deg": 180.0,
+        "source": "engineering/a7/electronics/controller/board_placement.json",
+        "authority": "native export; independent fresh gate required"
+      },
+      "commercial_observation": null,
+      "supply_status": "NOT_OBTAINED: current stock, price, lead time, MOQ, packaging and assembly applicability require dated exact-part evidence"
+    },
+    {
+      "board": "controller",
+      "ref": "U4",
+      "manufacturer": "Texas Instruments",
+      "mpn": "TPS2552DBVR-1",
+      "lcsc": "C140331",
+      "package": "SOT-23-6",
+      "line_id": "line-tps2552dbvr-1",
+      "owner_skill": "component-tps2552dbvr-1",
+      "footprint": "LightBlock:DBV6",
+      "population": "FITTED",
+      "quantity_per_board": 1,
+      "board_multiplicity": 1,
+      "quantity_per_module": 1,
+      "placement": {
+        "side": "F",
+        "at_mm": [
+          5.9,
+          16.9
+        ],
+        "angle_deg": 0.0,
+        "source": "engineering/a7/electronics/controller/board_placement.json",
+        "authority": "native export; independent fresh gate required"
+      },
+      "commercial_observation": null,
+      "supply_status": "NOT_OBTAINED: current stock, price, lead time, MOQ, packaging and assembly applicability require dated exact-part evidence"
+    },
+    {
+      "board": "controller",
+      "ref": "U5",
+      "manufacturer": "Texas Instruments",
+      "mpn": "SN74LVC2T45DCUR",
+      "lcsc": "C15741",
+      "package": "VSSOP-8",
+      "line_id": "line-sn74lvc2t45dcur",
+      "owner_skill": "component-sn74lvc2t45dcur",
+      "footprint": "LightBlock:DCU8",
+      "population": "FITTED",
+      "quantity_per_board": 1,
+      "board_multiplicity": 1,
+      "quantity_per_module": 1,
+      "placement": {
+        "side": "F",
+        "at_mm": [
+          3.6,
+          43.75
+        ],
+        "angle_deg": 0.0,
+        "source": "engineering/a7/electronics/controller/board_placement.json",
+        "authority": "native export; independent fresh gate required"
+      },
+      "commercial_observation": null,
+      "supply_status": "NOT_OBTAINED: current stock, price, lead time, MOQ, packaging and assembly applicability require dated exact-part evidence"
+    },
+    {
+      "board": "controller",
+      "ref": "U6",
+      "manufacturer": "Texas Instruments",
+      "mpn": "OPA197IDBVR",
+      "lcsc": "C221351",
+      "package": "SOT-23-5",
+      "line_id": "line-opa197idbvr",
+      "owner_skill": "component-opa197idbvr",
+      "footprint": "LightBlock:DBV5",
+      "population": "FITTED",
+      "quantity_per_board": 1,
+      "board_multiplicity": 1,
+      "quantity_per_module": 1,
+      "placement": {
+        "side": "F",
+        "at_mm": [
+          12.67,
+          1.75
+        ],
+        "angle_deg": 0.0,
+        "source": "engineering/a7/electronics/controller/board_placement.json",
+        "authority": "native export; independent fresh gate required"
+      },
+      "commercial_observation": null,
+      "supply_status": "NOT_OBTAINED: current stock, price, lead time, MOQ, packaging and assembly applicability require dated exact-part evidence"
+    },
+    {
+      "board": "controller",
+      "ref": "U7",
+      "manufacturer": "Texas Instruments",
+      "mpn": "TLV9001IDBVR",
+      "lcsc": "C398363",
+      "package": "SOT-23-5",
+      "line_id": "line-tlv9001idbvr",
+      "owner_skill": "component-tlv9001idbvr",
+      "footprint": "LightBlock:DBV5",
+      "population": "FITTED",
+      "quantity_per_board": 1,
+      "board_multiplicity": 1,
+      "quantity_per_module": 1,
+      "placement": {
+        "side": "F",
+        "at_mm": [
+          5.9,
+          20.35
+        ],
+        "angle_deg": 180.0,
+        "source": "engineering/a7/electronics/controller/board_placement.json",
+        "authority": "native export; independent fresh gate required"
+      },
+      "commercial_observation": null,
+      "supply_status": "NOT_OBTAINED: current stock, price, lead time, MOQ, packaging and assembly applicability require dated exact-part evidence"
+    },
+    {
+      "board": "led_leaf",
+      "ref": "C1",
+      "manufacturer": "YAGEO",
+      "mpn": "CC0603KRX7R9BB104",
+      "lcsc": "C14663",
+      "package": "0603",
+      "line_id": "line-cc0603krx7r9bb104",
+      "owner_skill": "component-cc0603krx7r9bb104",
+      "footprint": "LightBlock:C0603",
+      "population": "FITTED",
+      "quantity_per_board": 1,
+      "board_multiplicity": 2,
+      "quantity_per_module": 2,
+      "placement": {
+        "side": "F",
+        "at_mm": [
+          3.5,
+          5.95
+        ],
+        "angle_deg": 0,
+        "source": "engineering/a5/electronics/placement_and_connectivity.json",
+        "authority": "immutable historical A5 KiCad export; not fresh placement proof"
+      },
+      "commercial_observation": null,
+      "supply_status": "NOT_OBTAINED: current stock, price, lead time, MOQ, packaging and assembly applicability require dated exact-part evidence"
+    },
+    {
+      "board": "led_leaf",
+      "ref": "C2",
+      "manufacturer": "YAGEO",
+      "mpn": "CC0603KRX7R9BB104",
+      "lcsc": "C14663",
+      "package": "0603",
+      "line_id": "line-cc0603krx7r9bb104",
+      "owner_skill": "component-cc0603krx7r9bb104",
+      "footprint": "LightBlock:C0603",
+      "population": "FITTED",
+      "quantity_per_board": 1,
+      "board_multiplicity": 2,
+      "quantity_per_module": 2,
+      "placement": {
+        "side": "F",
+        "at_mm": [
+          3.5,
+          30.95
+        ],
+        "angle_deg": 0,
+        "source": "engineering/a5/electronics/placement_and_connectivity.json",
+        "authority": "immutable historical A5 KiCad export; not fresh placement proof"
+      },
+      "commercial_observation": null,
+      "supply_status": "NOT_OBTAINED: current stock, price, lead time, MOQ, packaging and assembly applicability require dated exact-part evidence"
+    },
+    {
+      "board": "led_leaf",
+      "ref": "C3",
+      "manufacturer": "YAGEO",
+      "mpn": "CC0603KRX7R9BB104",
+      "lcsc": "C14663",
+      "package": "0603",
+      "line_id": "line-cc0603krx7r9bb104",
+      "owner_skill": "component-cc0603krx7r9bb104",
+      "footprint": "LightBlock:C0603",
+      "population": "FITTED",
+      "quantity_per_board": 1,
+      "board_multiplicity": 2,
+      "quantity_per_module": 2,
+      "placement": {
+        "side": "F",
+        "at_mm": [
+          3.5,
+          55.95
+        ],
+        "angle_deg": 0,
+        "source": "engineering/a5/electronics/placement_and_connectivity.json",
+        "authority": "immutable historical A5 KiCad export; not fresh placement proof"
+      },
+      "commercial_observation": null,
+      "supply_status": "NOT_OBTAINED: current stock, price, lead time, MOQ, packaging and assembly applicability require dated exact-part evidence"
+    },
+    {
+      "board": "led_leaf",
+      "ref": "C4",
+      "manufacturer": "YAGEO",
+      "mpn": "CC0603KRX7R9BB104",
+      "lcsc": "C14663",
+      "package": "0603",
+      "line_id": "line-cc0603krx7r9bb104",
+      "owner_skill": "component-cc0603krx7r9bb104",
+      "footprint": "LightBlock:C0603",
+      "population": "FITTED",
+      "quantity_per_board": 1,
+      "board_multiplicity": 2,
+      "quantity_per_module": 2,
+      "placement": {
+        "side": "F",
+        "at_mm": [
+          3.5,
+          80.95
+        ],
+        "angle_deg": 0,
+        "source": "engineering/a5/electronics/placement_and_connectivity.json",
+        "authority": "immutable historical A5 KiCad export; not fresh placement proof"
+      },
+      "commercial_observation": null,
+      "supply_status": "NOT_OBTAINED: current stock, price, lead time, MOQ, packaging and assembly applicability require dated exact-part evidence"
+    },
+    {
+      "board": "led_leaf",
+      "ref": "D1",
+      "manufacturer": "Worldsemi",
+      "mpn": "WS2812B-2020-V6",
+      "lcsc": "C52917434",
+      "package": "SMD2020-4P",
+      "line_id": "line-ws2812b-2020-v6",
+      "owner_skill": "component-ws2812b-2020-v6",
+      "footprint": "LightBlock:WS2812B_2020_V6",
+      "population": "FITTED",
+      "quantity_per_board": 1,
+      "board_multiplicity": 2,
+      "quantity_per_module": 2,
+      "placement": {
+        "side": "F",
+        "at_mm": [
+          4.5,
+          3.75
+        ],
+        "angle_deg": 0,
+        "source": "engineering/a5/electronics/placement_and_connectivity.json",
+        "authority": "immutable historical A5 KiCad export; not fresh placement proof"
+      },
+      "commercial_observation": null,
+      "supply_status": "NOT_OBTAINED: current stock, price, lead time, MOQ, packaging and assembly applicability require dated exact-part evidence"
+    },
+    {
+      "board": "led_leaf",
+      "ref": "D2",
+      "manufacturer": "Worldsemi",
+      "mpn": "WS2812B-2020-V6",
+      "lcsc": "C52917434",
+      "package": "SMD2020-4P",
+      "line_id": "line-ws2812b-2020-v6",
+      "owner_skill": "component-ws2812b-2020-v6",
+      "footprint": "LightBlock:WS2812B_2020_V6",
+      "population": "FITTED",
+      "quantity_per_board": 1,
+      "board_multiplicity": 2,
+      "quantity_per_module": 2,
+      "placement": {
+        "side": "F",
+        "at_mm": [
+          4.5,
+          28.75
+        ],
+        "angle_deg": 0,
+        "source": "engineering/a5/electronics/placement_and_connectivity.json",
+        "authority": "immutable historical A5 KiCad export; not fresh placement proof"
+      },
+      "commercial_observation": null,
+      "supply_status": "NOT_OBTAINED: current stock, price, lead time, MOQ, packaging and assembly applicability require dated exact-part evidence"
+    },
+    {
+      "board": "led_leaf",
+      "ref": "D3",
+      "manufacturer": "Worldsemi",
+      "mpn": "WS2812B-2020-V6",
+      "lcsc": "C52917434",
+      "package": "SMD2020-4P",
+      "line_id": "line-ws2812b-2020-v6",
+      "owner_skill": "component-ws2812b-2020-v6",
+      "footprint": "LightBlock:WS2812B_2020_V6",
+      "population": "FITTED",
+      "quantity_per_board": 1,
+      "board_multiplicity": 2,
+      "quantity_per_module": 2,
+      "placement": {
+        "side": "F",
+        "at_mm": [
+          4.5,
+          53.75
+        ],
+        "angle_deg": 0,
+        "source": "engineering/a5/electronics/placement_and_connectivity.json",
+        "authority": "immutable historical A5 KiCad export; not fresh placement proof"
+      },
+      "commercial_observation": null,
+      "supply_status": "NOT_OBTAINED: current stock, price, lead time, MOQ, packaging and assembly applicability require dated exact-part evidence"
+    },
+    {
+      "board": "led_leaf",
+      "ref": "D4",
+      "manufacturer": "Worldsemi",
+      "mpn": "WS2812B-2020-V6",
+      "lcsc": "C52917434",
+      "package": "SMD2020-4P",
+      "line_id": "line-ws2812b-2020-v6",
+      "owner_skill": "component-ws2812b-2020-v6",
+      "footprint": "LightBlock:WS2812B_2020_V6",
+      "population": "FITTED",
+      "quantity_per_board": 1,
+      "board_multiplicity": 2,
+      "quantity_per_module": 2,
+      "placement": {
+        "side": "F",
+        "at_mm": [
+          4.5,
+          78.75
+        ],
+        "angle_deg": 0,
+        "source": "engineering/a5/electronics/placement_and_connectivity.json",
+        "authority": "immutable historical A5 KiCad export; not fresh placement proof"
+      },
+      "commercial_observation": null,
+      "supply_status": "NOT_OBTAINED: current stock, price, lead time, MOQ, packaging and assembly applicability require dated exact-part evidence"
+    },
+    {
+      "board": "led_leaf",
+      "ref": "J1",
+      "manufacturer": "JST",
+      "mpn": "SM04B-SRSS-TB(LF)(SN)",
+      "lcsc": "C160404",
+      "package": "SMD,P=1mm,Surface Mount，Right Angle",
+      "line_id": "line-sm04b-srss-tb-lf-sn",
+      "owner_skill": "component-sm04b-srss-tb-lf-sn",
+      "footprint": "LightBlock:JST_SH4",
+      "population": "FITTED",
+      "quantity_per_board": 1,
+      "board_multiplicity": 2,
+      "quantity_per_module": 2,
+      "placement": {
+        "side": "F",
+        "at_mm": [
+          4.5,
+          16.5
+        ],
+        "angle_deg": 0,
+        "source": "engineering/a5/electronics/placement_and_connectivity.json",
+        "authority": "immutable historical A5 KiCad export; not fresh placement proof"
+      },
+      "commercial_observation": null,
+      "supply_status": "NOT_OBTAINED: current stock, price, lead time, MOQ, packaging and assembly applicability require dated exact-part evidence"
+    },
+    {
+      "board": "led_leaf",
+      "ref": "J2",
+      "manufacturer": "JST",
+      "mpn": "SM04B-SRSS-TB(LF)(SN)",
+      "lcsc": "C160404",
+      "package": "SMD,P=1mm,Surface Mount，Right Angle",
+      "line_id": "line-sm04b-srss-tb-lf-sn",
+      "owner_skill": "component-sm04b-srss-tb-lf-sn",
+      "footprint": "LightBlock:JST_SH4",
+      "population": "FITTED",
+      "quantity_per_board": 1,
+      "board_multiplicity": 2,
+      "quantity_per_module": 2,
+      "placement": {
+        "side": "F",
+        "at_mm": [
+          4.5,
+          66.0
+        ],
+        "angle_deg": 0,
+        "source": "engineering/a5/electronics/placement_and_connectivity.json",
+        "authority": "immutable historical A5 KiCad export; not fresh placement proof"
+      },
+      "commercial_observation": null,
+      "supply_status": "NOT_OBTAINED: current stock, price, lead time, MOQ, packaging and assembly applicability require dated exact-part evidence"
+    },
+    {
+      "board": "power_adapter",
+      "ref": "J1",
+      "manufacturer": "BOOMELE(Boom Precision Elec)",
+      "mpn": "2.54-2*5P",
+      "lcsc": "C5665",
+      "package": "Plugin,P=2.54mm",
+      "line_id": "line-boomele-2-54-2x5p",
+      "owner_skill": "component-boomele-2-54-2x5p",
+      "footprint": "LightBlock:IDC10",
+      "population": "FITTED",
+      "quantity_per_board": 1,
+      "board_multiplicity": 1,
+      "quantity_per_module": 1,
+      "placement": {
+        "side": "F",
+        "at_mm": [
+          3.13,
+          10.32
+        ],
+        "angle_deg": 0,
+        "source": "engineering/a5/electronics/placement_and_connectivity.json",
+        "authority": "immutable historical A5 KiCad export; not fresh placement proof"
+      },
+      "commercial_observation": null,
+      "supply_status": "NOT_OBTAINED: current stock, price, lead time, MOQ, packaging and assembly applicability require dated exact-part evidence"
+    },
+    {
+      "board": "power_adapter",
+      "ref": "J2",
+      "manufacturer": "MOLEX",
+      "mpn": "530470310",
+      "lcsc": "C122442",
+      "package": "Plugin,P=1.25mm",
+      "line_id": "line-530470310",
+      "owner_skill": "component-530470310",
+      "footprint": "LightBlock:PICO3",
+      "population": "FITTED",
+      "quantity_per_board": 1,
+      "board_multiplicity": 1,
+      "quantity_per_module": 1,
+      "placement": {
+        "side": "F",
+        "at_mm": [
+          3.15,
+          28.7
+        ],
+        "angle_deg": 0,
+        "source": "engineering/a5/electronics/placement_and_connectivity.json",
+        "authority": "immutable historical A5 KiCad export; not fresh placement proof"
+      },
+      "commercial_observation": null,
+      "supply_status": "NOT_OBTAINED: current stock, price, lead time, MOQ, packaging and assembly applicability require dated exact-part evidence"
+    }
+  ],
+  "excluded": [
+    {
+      "board": "controller",
+      "ref": "TP1",
+      "reason": "bare copper test pad, no purchased component"
+    },
+    {
+      "board": "controller",
+      "ref": "TP2",
+      "reason": "bare copper test pad, no purchased component"
+    },
+    {
+      "board": "controller",
+      "ref": "TP3",
+      "reason": "bare copper test pad, no purchased component"
+    },
+    {
+      "board": "controller",
+      "ref": "TP4",
+      "reason": "bare copper test pad, no purchased component"
+    },
+    {
+      "board": "controller",
+      "ref": "TP5",
+      "reason": "bare copper test pad, no purchased component"
+    }
+  ],
+  "fitted_unique_placements": 71,
+  "fitted_pieces_per_module": 81,
+  "external_materials": [
+    {
+      "id": "front_pmma_A7",
+      "quantity_per_module": 1,
+      "source": "engineering/a7/mechanical/exports/3hp/verification.json",
+      "description": "front_pmma_A7",
+      "kind": "manufacturing_artwork",
+      "bbox_mm": [
+        [
+          -0.0,
+          -0.0,
+          -2.0
+        ],
+        [
+          14.9,
+          128.5,
+          0.0
+        ]
+      ],
+      "exact_orderable": null,
+      "commercial_observation": null,
+      "status": "NEEDS SUPPLIER / PHYSICAL QUALIFICATION"
+    },
+    {
+      "id": "nut_in_M6x0.5",
+      "quantity_per_module": 1,
+      "source": "engineering/a7/mechanical/exports/3hp/verification.json",
+      "description": "nut_in_M6x0.5",
+      "kind": "standard_hardware_envelope",
+      "bbox_mm": [
+        [
+          3.45,
+          80.3,
+          -3.5
+        ],
+        [
+          11.45,
+          88.3,
+          -2.0
+        ]
+      ],
+      "exact_orderable": null,
+      "commercial_observation": null,
+      "status": "NEEDS SUPPLIER / PHYSICAL QUALIFICATION"
+    },
+    {
+      "id": "nut_thru_M6x0.5",
+      "quantity_per_module": 1,
+      "source": "engineering/a7/mechanical/exports/3hp/verification.json",
+      "description": "nut_thru_M6x0.5",
+      "kind": "standard_hardware_envelope",
+      "bbox_mm": [
+        [
+          3.45,
+          95.3,
+          -3.5
+        ],
+        [
+          11.45,
+          103.3,
+          -2.0
+        ]
+      ],
+      "exact_orderable": null,
+      "commercial_observation": null,
+      "status": "NEEDS SUPPLIER / PHYSICAL QUALIFICATION"
+    },
+    {
+      "id": "spine_PETG",
+      "quantity_per_module": 1,
+      "source": "engineering/a7/mechanical/exports/3hp/verification.json",
+      "description": "spine_PETG",
+      "kind": "printable_design",
+      "bbox_mm": [
+        [
+          0.3,
+          18.0,
+          0.0
+        ],
+        [
+          14.6,
+          72.0,
+          15.4
+        ]
+      ],
+      "exact_orderable": null,
+      "commercial_observation": null,
+      "status": "NEEDS SUPPLIER / PHYSICAL QUALIFICATION"
+    },
+    {
+      "id": "M2_front_washer_20.5",
+      "quantity_per_module": 1,
+      "source": "engineering/a7/mechanical/exports/3hp/verification.json",
+      "description": "M2_front_washer_20.5",
+      "kind": "standard_hardware_envelope",
+      "bbox_mm": [
+        [
+          5.45,
+          18.5,
+          -2.3
+        ],
+        [
+          9.45,
+          22.5,
+          -2.0
+        ]
+      ],
+      "exact_orderable": null,
+      "commercial_observation": null,
+      "status": "NEEDS SUPPLIER / PHYSICAL QUALIFICATION"
+    },
+    {
+      "id": "M2_front_screw_20.5",
+      "quantity_per_module": 1,
+      "source": "engineering/a7/mechanical/exports/3hp/verification.json",
+      "description": "M2_front_screw_20.5",
+      "kind": "standard_hardware_envelope",
+      "bbox_mm": [
+        [
+          5.55,
+          18.6,
+          -3.5
+        ],
+        [
+          9.35,
+          22.4,
+          5.7
+        ]
+      ],
+      "exact_orderable": null,
+      "commercial_observation": null,
+      "status": "NEEDS SUPPLIER / PHYSICAL QUALIFICATION"
+    },
+    {
+      "id": "M2_nut_20.5",
+      "quantity_per_module": 1,
+      "source": "engineering/a7/mechanical/exports/3hp/verification.json",
+      "description": "M2_nut_20.5",
+      "kind": "standard_hardware_envelope",
+      "bbox_mm": [
+        [
+          5.141,
+          18.5,
+          3.0
+        ],
+        [
+          9.759,
+          22.5,
+          4.6
+        ]
+      ],
+      "exact_orderable": null,
+      "commercial_observation": null,
+      "status": "NEEDS SUPPLIER / PHYSICAL QUALIFICATION"
+    },
+    {
+      "id": "M2_front_washer_60.8",
+      "quantity_per_module": 1,
+      "source": "engineering/a7/mechanical/exports/3hp/verification.json",
+      "description": "M2_front_washer_60.8",
+      "kind": "standard_hardware_envelope",
+      "bbox_mm": [
+        [
+          7.55,
+          58.8,
+          -2.3
+        ],
+        [
+          11.55,
+          62.8,
+          -2.0
+        ]
+      ],
+      "exact_orderable": null,
+      "commercial_observation": null,
+      "status": "NEEDS SUPPLIER / PHYSICAL QUALIFICATION"
+    },
+    {
+      "id": "M2_front_screw_60.8",
+      "quantity_per_module": 1,
+      "source": "engineering/a7/mechanical/exports/3hp/verification.json",
+      "description": "M2_front_screw_60.8",
+      "kind": "standard_hardware_envelope",
+      "bbox_mm": [
+        [
+          7.65,
+          58.9,
+          -3.5
+        ],
+        [
+          11.45,
+          62.7,
+          3.8
+        ]
+      ],
+      "exact_orderable": null,
+      "commercial_observation": null,
+      "status": "NEEDS SUPPLIER / PHYSICAL QUALIFICATION"
+    },
+    {
+      "id": "M2_nut_60.8",
+      "quantity_per_module": 1,
+      "source": "engineering/a7/mechanical/exports/3hp/verification.json",
+      "description": "M2_nut_60.8",
+      "kind": "standard_hardware_envelope",
+      "bbox_mm": [
+        [
+          7.241,
+          58.8,
+          1.6
+        ],
+        [
+          11.859,
+          62.8,
+          3.2
+        ]
+      ],
+      "exact_orderable": null,
+      "commercial_observation": null,
+      "status": "NEEDS SUPPLIER / PHYSICAL QUALIFICATION"
+    },
+    {
+      "id": "top_cap_screw_A7",
+      "quantity_per_module": 1,
+      "source": "engineering/a7/mechanical/exports/3hp/verification.json",
+      "description": "M2x18",
+      "kind": "standard_hardware_envelope",
+      "bbox_mm": [
+        [
+          5.55,
+          18.6,
+          9.8
+        ],
+        [
+          9.35,
+          22.4,
+          29.1
+        ]
+      ],
+      "exact_orderable": null,
+      "commercial_observation": null,
+      "status": "NEEDS SUPPLIER / PHYSICAL QUALIFICATION"
+    },
+    {
+      "id": "M2_post_nut_top",
+      "quantity_per_module": 1,
+      "source": "engineering/a7/mechanical/exports/3hp/verification.json",
+      "description": "M2_post_nut_top",
+      "kind": "standard_hardware_envelope",
+      "bbox_mm": [
+        [
+          5.141,
+          18.5,
+          12.0
+        ],
+        [
+          9.759,
+          22.5,
+          13.6
+        ]
+      ],
+      "exact_orderable": null,
+      "commercial_observation": null,
+      "status": "NEEDS SUPPLIER / PHYSICAL QUALIFICATION"
+    },
+    {
+      "id": "top_leaf_adapter_cap",
+      "quantity_per_module": 1,
+      "source": "engineering/a7/mechanical/exports/3hp/verification.json",
+      "description": "top_leaf_adapter_cap",
+      "kind": "printable_design",
+      "bbox_mm": [
+        [
+          0.3,
+          18.0,
+          19.0
+        ],
+        [
+          14.6,
+          26.0,
+          29.8
+        ]
+      ],
+      "exact_orderable": null,
+      "commercial_observation": null,
+      "status": "NEEDS SUPPLIER / PHYSICAL QUALIFICATION",
+      "integral_features": [
+        "top_cap_spacer_A7 (not a separate purchased part)"
+      ]
+    },
+    {
+      "id": "bottom_leaf_cap",
+      "quantity_per_module": 1,
+      "source": "engineering/a7/mechanical/exports/3hp/verification.json",
+      "description": "bottom_leaf_cap",
+      "kind": "printable_design",
+      "bbox_mm": [
+        [
+          0.3,
+          103.8,
+          18.0
+        ],
+        [
+          14.6,
+          107.0,
+          29.8
+        ]
+      ],
+      "exact_orderable": null,
+      "commercial_observation": null,
+      "status": "NEEDS SUPPLIER / PHYSICAL QUALIFICATION",
+      "integral_features": [
+        "bottom_cap_fork_A7 (not a separate purchased part)"
+      ]
+    },
+    {
+      "id": "left_diffuser",
+      "quantity_per_module": 1,
+      "source": "engineering/a7/mechanical/exports/3hp/verification.json",
+      "description": "left_diffuser",
+      "kind": "printable_design",
+      "bbox_mm": [
+        [
+          0.3,
+          22.0,
+          17.4
+        ],
+        [
+          6.55,
+          107.0,
+          28.0
+        ]
+      ],
+      "exact_orderable": null,
+      "commercial_observation": null,
+      "status": "NEEDS SUPPLIER / PHYSICAL QUALIFICATION"
+    },
+    {
+      "id": "right_diffuser",
+      "quantity_per_module": 1,
+      "source": "engineering/a7/mechanical/exports/3hp/verification.json",
+      "description": "right_diffuser",
+      "kind": "printable_design",
+      "bbox_mm": [
+        [
+          8.35,
+          22.0,
+          17.4
+        ],
+        [
+          14.6,
+          107.0,
+          28.0
+        ]
+      ],
+      "exact_orderable": null,
+      "commercial_observation": null,
+      "status": "NEEDS SUPPLIER / PHYSICAL QUALIFICATION"
+    },
+    {
+      "id": "M1_6x4_-1_23.5",
+      "quantity_per_module": 1,
+      "source": "engineering/a7/mechanical/exports/3hp/verification.json",
+      "description": "M1_6x4_-1_23.5",
+      "kind": "standard_hardware_envelope",
+      "bbox_mm": [
+        [
+          3.55,
+          22.0,
+          24.3
+        ],
+        [
+          6.55,
+          25.0,
+          29.6
+        ]
+      ],
+      "exact_orderable": null,
+      "commercial_observation": null,
+      "status": "NEEDS SUPPLIER / PHYSICAL QUALIFICATION"
+    },
+    {
+      "id": "M1_6_nut_-1_23.5",
+      "quantity_per_module": 1,
+      "source": "engineering/a7/mechanical/exports/3hp/verification.json",
+      "description": "M1_6_nut_-1_23.5",
+      "kind": "standard_hardware_envelope",
+      "bbox_mm": [
+        [
+          3.45,
+          21.652,
+          28.2
+        ],
+        [
+          6.65,
+          25.348,
+          29.5
+        ]
+      ],
+      "exact_orderable": null,
+      "commercial_observation": null,
+      "status": "NEEDS SUPPLIER / PHYSICAL QUALIFICATION"
+    },
+    {
+      "id": "M1_6x4_-1_105.5",
+      "quantity_per_module": 1,
+      "source": "engineering/a7/mechanical/exports/3hp/verification.json",
+      "description": "M1_6x4_-1_105.5",
+      "kind": "standard_hardware_envelope",
+      "bbox_mm": [
+        [
+          3.55,
+          104.0,
+          24.3
+        ],
+        [
+          6.55,
+          107.0,
+          29.6
+        ]
+      ],
+      "exact_orderable": null,
+      "commercial_observation": null,
+      "status": "NEEDS SUPPLIER / PHYSICAL QUALIFICATION"
+    },
+    {
+      "id": "M1_6_nut_-1_105.5",
+      "quantity_per_module": 1,
+      "source": "engineering/a7/mechanical/exports/3hp/verification.json",
+      "description": "M1_6_nut_-1_105.5",
+      "kind": "standard_hardware_envelope",
+      "bbox_mm": [
+        [
+          3.45,
+          103.652,
+          28.2
+        ],
+        [
+          6.65,
+          107.348,
+          29.5
+        ]
+      ],
+      "exact_orderable": null,
+      "commercial_observation": null,
+      "status": "NEEDS SUPPLIER / PHYSICAL QUALIFICATION"
+    },
+    {
+      "id": "M1_6x4_1_23.5",
+      "quantity_per_module": 1,
+      "source": "engineering/a7/mechanical/exports/3hp/verification.json",
+      "description": "M1_6x4_1_23.5",
+      "kind": "standard_hardware_envelope",
+      "bbox_mm": [
+        [
+          8.35,
+          22.0,
+          24.3
+        ],
+        [
+          11.35,
+          25.0,
+          29.6
+        ]
+      ],
+      "exact_orderable": null,
+      "commercial_observation": null,
+      "status": "NEEDS SUPPLIER / PHYSICAL QUALIFICATION"
+    },
+    {
+      "id": "M1_6_nut_1_23.5",
+      "quantity_per_module": 1,
+      "source": "engineering/a7/mechanical/exports/3hp/verification.json",
+      "description": "M1_6_nut_1_23.5",
+      "kind": "standard_hardware_envelope",
+      "bbox_mm": [
+        [
+          8.25,
+          21.652,
+          28.2
+        ],
+        [
+          11.45,
+          25.348,
+          29.5
+        ]
+      ],
+      "exact_orderable": null,
+      "commercial_observation": null,
+      "status": "NEEDS SUPPLIER / PHYSICAL QUALIFICATION"
+    },
+    {
+      "id": "M1_6x4_1_105.5",
+      "quantity_per_module": 1,
+      "source": "engineering/a7/mechanical/exports/3hp/verification.json",
+      "description": "M1_6x4_1_105.5",
+      "kind": "standard_hardware_envelope",
+      "bbox_mm": [
+        [
+          8.35,
+          104.0,
+          24.3
+        ],
+        [
+          11.35,
+          107.0,
+          29.6
+        ]
+      ],
+      "exact_orderable": null,
+      "commercial_observation": null,
+      "status": "NEEDS SUPPLIER / PHYSICAL QUALIFICATION"
+    },
+    {
+      "id": "M1_6_nut_1_105.5",
+      "quantity_per_module": 1,
+      "source": "engineering/a7/mechanical/exports/3hp/verification.json",
+      "description": "M1_6_nut_1_105.5",
+      "kind": "standard_hardware_envelope",
+      "bbox_mm": [
+        [
+          8.25,
+          103.652,
+          28.2
+        ],
+        [
+          11.45,
+          107.348,
+          29.5
+        ]
+      ],
+      "exact_orderable": null,
+      "commercial_observation": null,
+      "status": "NEEDS SUPPLIER / PHYSICAL QUALIFICATION"
+    },
+    {
+      "id": "finished-sh4",
+      "quantity_per_module": 2,
+      "candidate": "Adafruit 4399 / Kaweei CBH-100-04-050-A",
+      "requirement": "Finished 50 mm SH4 AWG28 1:1; controller J3 to left J1, left J2 to right J1. Incoming construction/length and real route unqualified.",
+      "source": "engineering/a5/integration/harness_contract_A5.md",
+      "commercial_observation": null
+    },
+    {
+      "id": "finished-power-cable",
+      "quantity_per_module": 1,
+      "exact_orderable": null,
+      "requirement": {
+        "finished_free_span_nominal": 57.0,
+        "tolerance": 3.0,
+        "tolerance_confidence": "ASSUMED",
+        "band": [
+          54.0,
+          60.0
+        ],
+        "stowage": "one S-fold above the spine block, fold span solved per width",
+        "stowage_length_range_both_widths": [
+          51.037,
+          78.053
+        ],
+        "short_side_margin": 2.0,
+        "fits_both_widths": true,
+        "a5_cable": {
+          "nominal": 50.0,
+          "tol": 6.0,
+          "fits": false,
+          "rule": "same as fits_both_widths: band low end >= shortest stowage + short_side_margin, band high end <= longest stowage"
+        },
+        "taut_reference": "shortest S-fold the route allows (fold span = two bend radii); the cable is never pulled tighter",
+        "physical_measurement": "MISSING: no cable has been routed or measured; plug strain relief, wire stiffness and the real fold shape are not known (#8)"
+      },
+      "source": "engineering/a7/mechanical/layout.json",
+      "pin_map": "A1→B3, A2→B2, A3→B1; controller J5 +12V/GND/-12V, adapter J2 -12V/GND/+12V",
+      "status": "BLOCKED: exact finished assembly not selected; historical Molex 151340300 50±6 mm is not the A7 cable",
+      "commercial_observation": null
+    },
+    {
+      "id": "eurorack-idc-ribbon",
+      "quantity_per_module": 1,
+      "exact_orderable": null,
+      "requirement": "Finished 16→10 pin keyed IDC; socket, strain relief, length, routing and 30 mm envelope unqualified",
+      "commercial_observation": null
+    },
+    {
+      "id": "leaf-bond-line",
+      "quantity_per_module": 1,
+      "exact_orderable": null,
+      "requirement": "FR-4 leaf bond-line material; 0.1 mm design reserve is not a selected adhesive",
+      "commercial_observation": null
+    },
+    {
+      "id": "rack-mount-hardware",
+      "quantity_per_module": null,
+      "exact_orderable": null,
+      "requirement": "Owner rack rail/thread interface and fasteners not specified",
+      "commercial_observation": null
+    },
+    {
+      "id": "right-leaf-unused-J2-cover",
+      "quantity_per_module": 1,
+      "exact_orderable": null,
+      "requirement": "Insulating cover/clearance for live unused SH4 connector; material unresolved",
+      "commercial_observation": null
+    }
+  ],
+  "fixture_materials_per_fixture_not_per_module": {
+    "schema": 1,
+    "status": "BLOCKED",
+    "basis": "one fixture, separate from per-module materials",
+    "items": [
+      {
+        "id": "probe",
+        "description": "4-point crown spring probe; candidate only",
+        "quantity": 5,
+        "manufacturer": "INGUN",
+        "mpn": "GKS-050 214 050 A 1000",
+        "order_code": "GKS-050-0001",
+        "status": "CANDIDATE_NOT_SELECTED",
+        "source": "sources.json#probe"
+      },
+      {
+        "id": "receptacle",
+        "description": "Prewired 1000mm green AWG30 solid-wire receptacle; candidate only",
+        "quantity": 5,
+        "manufacturer": "INGUN",
+        "mpn": "KS-050 E08 V-30",
+        "order_code": "KS-050E08V-30",
+        "status": "CANDIDATE_NOT_SELECTED",
+        "source": "sources.json#receptacle"
+      },
+      {
+        "id": "carrier-study",
+        "description": "Machined FR4 carrier study, 25 x 40 x 5mm; bore requirement 0.98–1.00mm; not approved fabrication",
+        "quantity": 1,
+        "manufacturer": null,
+        "mpn": null,
+        "status": "PROVISIONAL_GEOMETRY_ONLY"
+      }
+    ],
+    "blockers": [
+      "Board support, keyed registration, travel mechanism, fasteners and connector termination are not selected.",
+      "No complete fixture BOM or supplier-upload package.",
+      "No current price, MOQ, lead time or assembly availability retrieved."
+    ]
+  },
+  "services": [
+    {
+      "id": "pcba",
+      "status": "UNCONFIRMED",
+      "requirement": "Factory SMT and through-hole assembly; quote, attrition, minimums, orientation and process not approved"
+    },
+    {
+      "id": "program-calibrate",
+      "status": "UNCONFIRMED",
+      "firmware": "engineering/a5/firmware/dist/light_block_A5.bin",
+      "sha256": "0446cb0acfa7efe86a5f6c02beb7afa482daa419ecfce204fe9169487599765e",
+      "requirement": "SWD programming identity and measured calibration; +3V3 voltage reference; exact LED-lot timing discrepancy #13 open"
+    }
+  ],
+  "blockers": [
+    "Current supply and assembly eligibility not obtained for every line; stock never reserved.",
+    "PJ-324M pin/slot/axis/nut qualification and PCM13SMTR supply/land fit open.",
+    "Finished A7 power cable, PMMA pockets/tolerances, PETG and hardware qualification unresolved.",
+    "Fixture materials need E3 review and physical contact/load tests.",
+    "No physical prototype, release approval, final manufacturing package or agreed order quantity."
+  ]
+}

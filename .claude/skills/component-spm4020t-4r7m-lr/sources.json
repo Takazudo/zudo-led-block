@@ -43,20 +43,23 @@
     {
       "source_id": "src-spm4020t-4r7m-lr-catalog",
       "record_id": "rec-spm4020t-4r7m-lr",
-      "document_title": "TDK SPM4020-LR series commercial power inductor catalog (inductor_commercial_power_spm4020-lr_en), title as recorded by A5; not acquired",
-      "document_number": "inductor_commercial_power_spm4020-lr_en",
-      "revision": "unknown (not acquired)",
-      "document_date": "unknown (not acquired)",
+      "document_title": "TDK SPM4020-LR power inductor catalog",
+      "document_number": "SPM4020-LR",
+      "revision": "20260423",
+      "document_date": "2026-04-23",
       "authoritative_url": "https://product.tdk.com/system/files/dam/doc/product/inductor/inductor/smd/catalog/inductor_commercial_power_spm4020-lr_en.pdf",
       "alternate_authoritative_url": "",
-      "retrieval_date": "2026-11-08",
+      "retrieval_date": "2026-11-09",
       "authority_class": "MANUFACTURER_PRIMARY",
-      "sha256": "0000000000000000000000000000000000000000000000000000000000000000",
-      "availability": "SOURCE UNAVAILABLE",
+      "sha256": "ccd41133d18978b389e68067fb9abf4c4229f78910a6c5e074600bcd78889c1f",
+      "availability": "AVAILABLE",
       "physical_pdf_page_index": 0,
-      "printed_page_label": "n/a (not acquired)",
-      "locator": "intended: SPM4020-LR catalog characteristics table row SPM4020T-4R7M-LR and shapes and dimensions figure; not inspected",
-      "evidence_extract": "SOURCE UNAVAILABLE on 2026-11-08. Attempted: the A5 catalog URL above (HTTP 403, text/html \"Access Denied\" edge page), https://product.tdk.com/en/system/files?file=dam/doc/product/inductor/inductor/smd/catalog/inductor_commercial_power_spm4020-lr_en.pdf (403) and the TDK product page https://product.tdk.com/en/search/inductor/inductor/smd/info?part_no=SPM4020T-4R7M-LR (403). Reason: product.tdk.com returns an Akamai \"Access Denied\" HTML page (HTTP 403) for every request from this environment; no PDF bytes were received. A5 recorded sha256 17d657a765bbd1135b1619d8386dca0fadac3ee8115cbbbcef0134fa6a7f5451 (2026-11-05/06) for https://product.tdk.com/system/files/dam/doc/product/inductor/inductor/smd/catalog/inductor_commercial_power_spm4020-lr_en.pdf; no bytes inspected now, so no comparison is possible and no value is taken from A5 notes or memory."
+      "printed_page_label": "1",
+      "locator": "printed 1/4: exact SPM4020T-4R7M-LR row and footnotes",
+      "evidence_extract": "4.70 uH +/-20% at100kHz; DCR147.2 mOhm max128typ; Isat3.5Atyp at30% L drop; Itemp2.5Atyp at40 C self-heating. Rated current is smaller of Isat/Itemp. Operating -40..125 C includes self-heating. Application thermal qualification remains open.",
+      "retained_bytes": ".circuit-cache/e2-20261109/src-spm4020t-4r7m-lr-catalog.download (ignored acquisition cache; not redistributed)",
+      "retrieved_at": "2026-11-09",
+      "authority_note": "Manufacturer-primary bytes acquired and inspected. Previous acquisition failure is historical; availability does not qualify hardware."
     }
   ]
 }

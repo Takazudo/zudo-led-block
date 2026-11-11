@@ -43,20 +43,23 @@
     {
       "source_id": "src-stm32g031g8u6tr-ds",
       "record_id": "rec-stm32g031g8u6tr",
-      "document_title": "STMicroelectronics STM32G031x4/x6/x8 datasheet (DS12992), title as recorded by A5; not acquired",
+      "document_title": "STMicroelectronics STM32G031x4/x6/x8 datasheet",
       "document_number": "DS12992",
-      "revision": "unknown (not acquired)",
-      "document_date": "unknown (not acquired)",
+      "revision": "Rev 4",
+      "document_date": "2025-06",
       "authoritative_url": "https://www.st.com/resource/en/datasheet/stm32g031f8.pdf",
       "alternate_authoritative_url": "",
-      "retrieval_date": "2026-11-08",
+      "retrieval_date": "2026-11-09",
       "authority_class": "MANUFACTURER_PRIMARY",
-      "sha256": "0000000000000000000000000000000000000000000000000000000000000000",
-      "availability": "SOURCE UNAVAILABLE",
+      "sha256": "0e25cbbf2cd173845545b61b91a9a7011724b4e5bd7b00498176129d48684e99",
+      "availability": "AVAILABLE",
       "physical_pdf_page_index": 0,
-      "printed_page_label": "n/a (not acquired)",
-      "locator": "intended: UFQFPN28 pinout table rows, absolute maximum ratings section and ordering information section; not inspected",
-      "evidence_extract": "SOURCE UNAVAILABLE on 2026-11-08. Attempted: https://www.st.com/resource/en/datasheet/stm32g031f8.pdf, .../stm32g031g8.pdf and .../stm32g031c8.pdf with --http1.1 (curl 52 empty reply from server) and HTTP/2 (curl 92 stream INTERNAL_ERROR); the st.com product page https://www.st.com/en/microcontrollers-microprocessors/stm32g031g8.html failed the same way. Reason: st.com closes every connection from this environment without a response (bot/edge wall); no alternate manufacturer host found; no distributor mirror URL is recorded in the A5 snapshot (dataManualOfficialLink empty). A5 recorded sha256 0e25cbbf2cd173845545b61b91a9a7011724b4e5bd7b00498176129d48684e99 (2026-11-05/06) for https://www.st.com/resource/en/datasheet/stm32g031f8.pdf; no bytes inspected now, so no comparison is possible and no value is taken from A5 notes or memory."
+      "printed_page_label": "1",
+      "locator": "printed 33 Figure 6 UFQFPN28 top view; 104 package; 122 ordering",
+      "evidence_extract": "Figure 6: VDD3,VSS4,PF2-NRST5,PA0 pin6,PA2 pin8,PA3 pin9,PA13 pin20,PA14-BOOT0 pin21. Ordering G=28 pins,8=64KB,U=UFQFPN,6=-40..85 C,TR=tape/reel. Exact-orderable scheme applies; detailed electrical limits and as-built verification remain separate.",
+      "retained_bytes": ".circuit-cache/e2-20261109/src-stm32g031g8u6tr-ds.download (ignored acquisition cache; not redistributed)",
+      "retrieved_at": "2026-11-09",
+      "authority_note": "Manufacturer-primary bytes acquired and inspected. Previous acquisition failure is historical; availability does not qualify hardware."
     }
   ]
 }

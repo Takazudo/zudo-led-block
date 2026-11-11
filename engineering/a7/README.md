@@ -20,7 +20,7 @@ next actions and blockers, and [`docs/continuation/evidence-index.md`](docs/cont
 | `pet-fpc.md`, `open-questions.md` | R1 | capability capture and the external evidence still needed |
 | `verification/` | R3 ([#18](https://github.com/Takazudo/zudo-led-block/issues/18)) | native verification foundation; R1 does not write there |
 | `mechanical/`, `front_panel/` | R2 ([#17](https://github.com/Takazudo/zudo-led-block/issues/17)) | digital mechanical model and front artwork; see `mechanical/README.md` |
-| `electronics/`, `verification/schematic/` | R4 ([#19](https://github.com/Takazudo/zudo-led-block/issues/19)) | controller schematic (derived, `scripts/a7_electronics.py`), schematic-phase check results; board to come |
+| `electronics/`, `verification/schematic/` | R4 ([#19](https://github.com/Takazudo/zudo-led-block/issues/19)) | authoritative routed controller PCB; derived schematic/footprints/exports and verification records; see `verification/source_authority.json` |
 | `docs/continuation/` | R5 ([#20](https://github.com/Takazudo/zudo-led-block/issues/20)) | `continue-here.md` (hand-off, next actions, blockers) and `evidence-index.md` (A5 historical / A6 held / A7 digital / physical, kept apart) |
 
 The two A7 lines sit in the shared catalog beside the 30 A5 identities. `python3 scripts/a5_catalog.py check`
@@ -37,7 +37,11 @@ pnpm circuit:check                             # evidence contract for every bun
 python3 -m unittest scripts/tests/test_a7_r1_study.py
 ```
 
-## R1 findings (2026-11-08)
+## 2026-11-09 の準備作業（未リリース）
+
+E1 は基板→canonical placement→機構コピーの結合を強化。E2 は PCM/ST/TDK/Molex の一次資料を回収し、PJ-324M supplier symbol の端子4/5の不一致を記録しました。回路・銅箔は変更していません。`procurement/` は現行実装台帳、`qualification/` は未実施の評価手順と BLOCKED readiness、`fixture/` は未完成のキャリア検討です。発注適格性は未成立です。詳細は `docs/continuation/order-preparation-checkpoint.md`。
+
+## R1 findings (historical, 2026-11-08)
 
 ### Parts
 

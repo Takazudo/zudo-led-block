@@ -209,13 +209,16 @@
     "src-a7-pcm13smtr-ck-site",
     "src-a7-pcm13smtr-lcsc-listing",
     "src-a7-jlc-parts-api-2026-11-08",
+    "src-a7-pcm13smtr-jlc-stock-2026-11-09",
     "src-a7-pj-324m-sofng-drawing",
     "src-a7-pj-324m-sofng-site",
-    "src-a7-pj-324m-jlc-listing"
+    "src-a7-pj-324m-jlc-listing",
+    "src-a7-pj-324m-easyeda-2026-11-09"
   ],
   "linkableSourceIds": [
     "src-530470310-a5-netlist-controller",
     "src-530470310-a5-netlist-power-adapter",
+    "src-530470310-sd",
     "src-cl31a226kahnnne-a5-netlist-controller",
     "src-cl31a226kahnnne-ds-p1",
     "src-cl31a226kahnnne-ds-p2",
@@ -322,6 +325,7 @@
     "src-pj-3582-b-a5-netlist-controller",
     "src-pmeg4010cej-115-a5-netlist-controller",
     "src-stm32g031g8u6tr-a5-netlist-controller",
+    "src-stm32g031g8u6tr-ds",
     "src-ws2812b-2020-v6-a5-netlist-led-leaf",
     "src-ws2812b-2020-v6-ds-p0",
     "src-ws2812b-2020-v6-ds-p1",
@@ -335,15 +339,22 @@
     "src-0603b103k500nt-ds-p9",
     "src-0603b103k500nt-ds-p30",
     "src-spm4020t-4r7m-lr-a5-netlist-controller",
+    "src-spm4020t-4r7m-lr-catalog",
     "src-0603waf1005t5e-a5-netlist-controller",
     "src-0603waf1005t5e-ds-p1",
     "src-0603waf1005t5e-ds-p2",
     "src-0603waf1005t5e-ds-p4",
     "src-0603waf1005t5e-ds-p5",
     "src-0603waf1005t5e-ds-p7",
-    "src-1ms3t1b1m2qes-5-a5-netlist-controller"
+    "src-1ms3t1b1m2qes-5-a5-netlist-controller",
+    "src-a7-pcm13smtr-ck-site"
   ],
   "documentSelections": [
+    {
+      "recordId": "rec-molex-530470310",
+      "sourceId": "src-530470310-sd",
+      "documentKind": "drawing"
+    },
     {
       "recordId": "rec-cl31a226kahnnne",
       "sourceId": "src-cl31a226kahnnne-ds-p1",
@@ -440,6 +451,11 @@
       "documentKind": "datasheet"
     },
     {
+      "recordId": "rec-stm32g031g8u6tr",
+      "sourceId": "src-stm32g031g8u6tr-ds",
+      "documentKind": "datasheet"
+    },
+    {
       "recordId": "rec-ws2812b-2020-v6",
       "sourceId": "src-ws2812b-2020-v6-ds-p0",
       "documentKind": "datasheet"
@@ -450,16 +466,22 @@
       "documentKind": "datasheet"
     },
     {
+      "recordId": "rec-spm4020t-4r7m-lr",
+      "sourceId": "src-spm4020t-4r7m-lr-catalog",
+      "documentKind": "datasheet"
+    },
+    {
       "recordId": "rec-uniroyal-0603waf1005t5e",
       "sourceId": "src-0603waf1005t5e-ds-p1",
+      "documentKind": "datasheet"
+    },
+    {
+      "recordId": "rec-a7-pcm13smtr",
+      "sourceId": "src-a7-pcm13smtr-ck-site",
       "documentKind": "datasheet"
     }
   ],
   "documentExceptions": [
-    {
-      "recordId": "rec-molex-530470310",
-      "reason": "No manufacturer-primary document for this exact orderable is retained in the evidence. Reviewed: JLCPCB public product listing C122442 (A5 retained product-props snapshot) (DISTRIBUTOR_IDENTITY, AVAILABLE); Molex 530470310 sales drawing (title as recorded by A5); not acquired (MANUFACTURER_PRIMARY, SOURCE UNAVAILABLE). Distributor listings establish order identity only, and a distributor-hosted mirror is lower authority, so neither is published as a manufacturer document."
-    },
     {
       "recordId": "rec-sm04b-srss-tb-lf-sn",
       "reason": "No manufacturer-primary document for this exact orderable is retained in the evidence. Reviewed: JLCPCB public product listing C160404 (A5 retained product-props snapshot) (DISTRIBUTOR_IDENTITY, AVAILABLE); JST SH connector catalog (eSH.pdf, title as recorded by A5); not acquired (MANUFACTURER_PRIMARY, SOURCE UNAVAILABLE). Distributor listings establish order identity only, and a distributor-hosted mirror is lower authority, so neither is published as a manufacturer document."
@@ -473,33 +495,21 @@
       "reason": "No manufacturer-primary document for this exact orderable is retained in the evidence. Reviewed: JLCPCB public product listing C50704 (A5 retained product-props snapshot) (DISTRIBUTOR_IDENTITY, AVAILABLE); Nexperia PMEG4010CEJ datasheet (title as implied by the A5 URL); not acquired (MANUFACTURER_PRIMARY, SOURCE UNAVAILABLE). Distributor listings establish order identity only, and a distributor-hosted mirror is lower authority, so neither is published as a manufacturer document."
     },
     {
-      "recordId": "rec-stm32g031g8u6tr",
-      "reason": "No manufacturer-primary document for this exact orderable is retained in the evidence. Reviewed: JLCPCB public product listing C5270180 (A5 retained product-props snapshot) (DISTRIBUTOR_IDENTITY, AVAILABLE); STMicroelectronics STM32G031x4/x6/x8 datasheet (DS12992), title as recorded by A5; not acquired (MANUFACTURER_PRIMARY, SOURCE UNAVAILABLE). Distributor listings establish order identity only, and a distributor-hosted mirror is lower authority, so neither is published as a manufacturer document."
-    },
-    {
       "recordId": "rec-boomele-2-54-2x5p",
       "reason": "No manufacturer-primary document for this exact orderable is retained in the evidence. Reviewed: LCSC public product listing C5665 (DISTRIBUTOR_IDENTITY, AVAILABLE); JLCPCB public product listing C5665 (A5 retained product-props snapshot, listing-title spelling) (DISTRIBUTOR_IDENTITY, AVAILABLE); BOOMELE 2.54-2*5P box header drawing (distributor-hosted copy recorded by A5); not acquired (MANUFACTURER_MIRROR, SOURCE UNAVAILABLE). Distributor listings establish order identity only, and a distributor-hosted mirror is lower authority, so neither is published as a manufacturer document."
-    },
-    {
-      "recordId": "rec-spm4020t-4r7m-lr",
-      "reason": "No manufacturer-primary document for this exact orderable is retained in the evidence. Reviewed: LCSC public product listing C694586 (DISTRIBUTOR_IDENTITY, AVAILABLE); TDK SPM4020-LR series commercial power inductor catalog (inductor_commercial_power_spm4020-lr_en), title as recorded by A5; not acquired (MANUFACTURER_PRIMARY, SOURCE UNAVAILABLE). Distributor listings establish order identity only, and a distributor-hosted mirror is lower authority, so neither is published as a manufacturer document."
     },
     {
       "recordId": "rec-dailywell-1ms3t1b1m2qes-5",
       "reason": "No manufacturer-primary document for this exact orderable is retained in the evidence. Reviewed: JLCPCB public product listing C908270 (A5 retained product-props snapshot) (DISTRIBUTOR_IDENTITY, AVAILABLE); Dailywell 1M Series Miniature Toggle Switches (distributor-hosted copy) (MANUFACTURER_MIRROR, AVAILABLE). Distributor listings establish order identity only, and a distributor-hosted mirror is lower authority, so neither is published as a manufacturer document."
     },
     {
-      "recordId": "rec-a7-pcm13smtr",
-      "reason": "No manufacturer-primary document for this exact orderable is retained in the evidence. Reviewed: C&K PCM Series Ultraminiature Surface Mount Slide Switches (PCM12SMTR / PCM13SMTR), pages I-46..I-48 (MANUFACTURER_MIRROR, AVAILABLE); C&K-hosted PCM Series datasheet; not acquired (MANUFACTURER_PRIMARY, SOURCE UNAVAILABLE); LCSC product page C221842 (HTML) (DISTRIBUTOR_IDENTITY, AVAILABLE); JLCPCB parts search API responses (selectSmtComponentList) for C22355739, C221842, C2921714 (DISTRIBUTOR_IDENTITY, AVAILABLE). Distributor listings establish order identity only, and a distributor-hosted mirror is lower authority, so neither is published as a manufacturer document."
-    },
-    {
       "recordId": "rec-a7-pj-324m",
-      "reason": "No manufacturer-primary document for this exact orderable is retained in the evidence. Reviewed: SOFNG PJ-324M product drawing (3.5 mm 5-pin right-angle phone jack, L17.70 x W11.50 x H6.30 mm) (MANUFACTURER_MIRROR, AVAILABLE); SOFNG-hosted PJ-324M drawing; not acquired (MANUFACTURER_PRIMARY, SOURCE UNAVAILABLE); JLCPCB parts library listing C22355739 (HTML) (DISTRIBUTOR_IDENTITY, AVAILABLE). Distributor listings establish order identity only, and a distributor-hosted mirror is lower authority, so neither is published as a manufacturer document."
+      "reason": "No manufacturer-primary document for this exact orderable is retained in the evidence. Reviewed: SOFNG PJ-324M product drawing (3.5 mm 5-pin right-angle phone jack, L17.70 x W11.50 x H6.30 mm) (MANUFACTURER_MIRROR, AVAILABLE); SOFNG-hosted PJ-324M drawing; not acquired (MANUFACTURER_PRIMARY, SOURCE UNAVAILABLE); JLCPCB parts library listing C22355739 (HTML) (DISTRIBUTOR_IDENTITY, AVAILABLE); EasyEDA exact C22355739 symbol and footprint JSON; inspected supplier asset (DISTRIBUTOR_IDENTITY, AVAILABLE). Distributor listings establish order identity only, and a distributor-hosted mirror is lower authority, so neither is published as a manufacturer document."
     }
   ],
   "expect": {
     "records": 32,
-    "sources": 177,
+    "sources": 179,
     "integrationRules": 0,
     "packages": 0
   }

@@ -61,20 +61,23 @@
     {
       "source_id": "src-530470310-sd",
       "record_id": "rec-molex-530470310",
-      "document_title": "Molex 530470310 sales drawing (title as recorded by A5); not acquired",
-      "document_number": "SD-53047-*",
-      "revision": "unknown (not acquired)",
-      "document_date": "unknown (not acquired)",
+      "document_title": "Molex PicoBlade 1.25 header sales drawing",
+      "document_number": "530470000-SD PSD000",
+      "revision": "B",
+      "document_date": "2022-04-19",
       "authoritative_url": "https://www.molex.com/content/dam/molex/molex-dot-com/products/automated/en-us/salesdrawingpdf/530/53047/530470310_sd.pdf",
       "alternate_authoritative_url": "",
-      "retrieval_date": "2026-11-08",
+      "retrieval_date": "2026-11-09",
       "authority_class": "MANUFACTURER_PRIMARY",
-      "sha256": "0000000000000000000000000000000000000000000000000000000000000000",
-      "availability": "SOURCE UNAVAILABLE",
+      "sha256": "76d2a5817a01b47f4b35c0b4078d874834f1f9c233bde42d9a819ead173929c7",
+      "availability": "AVAILABLE",
       "physical_pdf_page_index": 0,
-      "printed_page_label": "n/a (not acquired)",
-      "locator": "intended: sales drawing title block (part number 530470310), circuit numbering figure and specification notes section; not inspected",
-      "evidence_extract": "SOURCE UNAVAILABLE on 2026-11-08. Attempted: https://www.molex.com/content/dam/molex/molex-dot-com/products/automated/en-us/salesdrawingpdf/530/53047/530470310_sd.pdf over HTTP/2 (curl error 92, stream INTERNAL_ERROR) and over HTTP/1.1 (curl error 52, empty reply); no PDF bytes received. A5 recorded sha256 76d2a5817a01b47f4b35c0b4078d874834f1f9c233bde42d9a819ead173929c7 (2026-11-06) for https://www.molex.com/content/dam/molex/molex-dot-com/products/automated/en-us/salesdrawingpdf/530/53047/530470310_sd.pdf; no bytes inspected now, so no comparison is possible and no value is taken from A5 notes or memory."
+      "printed_page_label": "1",
+      "locator": "sheet 1 exact530470310 row, circuit1 indicator; sheet2 mating products/specifications",
+      "evidence_extract": "530470310:3 circuits,1.25 pitch,A5.5/B2.5/C4.3/D5.5mm,tin,plastic tray. PCB hole0.5+/-0.05mm recommendation explicitly for t=0.8. Housing51021**00; terminal families500798*00/500588*00. Drawing does not establish electrical ratings or finished-cable polarity/fit.",
+      "retained_bytes": ".circuit-cache/e2-20261109/src-530470310-sd.download (ignored acquisition cache; not redistributed)",
+      "retrieved_at": "2026-11-09",
+      "authority_note": "Manufacturer-primary bytes acquired and inspected. Previous acquisition failure is historical; availability does not qualify hardware."
     }
   ]
 }

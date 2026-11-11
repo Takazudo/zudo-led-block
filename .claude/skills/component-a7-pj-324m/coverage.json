@@ -59,14 +59,16 @@
       "record_id": "rec-a7-pj-324m",
       "domain": "pinout",
       "status": "OPEN",
-      "reason": "no manufacturer pin-function table; the A7 mapping is inferred and needs a continuity test",
+      "reason": "no manufacturer pin-function table; the A7 mapping is inferred and needs a continuity test; inspected exact supplier CAD now contains contrary4/5 contact interpretation, requiring resolution before mapping approval",
       "fact_ids": [
         "fact-a7-pj-324m-pin-function",
-        "fact-a7-pj-324m-pin-function-inference"
+        "fact-a7-pj-324m-pin-function-inference",
+        "fact-a7-pj-324m-supplier-cad-conflict"
       ],
       "blocking_fact_ids": [
         "fact-a7-pj-324m-pin-function",
-        "fact-a7-pj-324m-pin-function-inference"
+        "fact-a7-pj-324m-pin-function-inference",
+        "fact-a7-pj-324m-supplier-cad-conflict"
       ]
     },
     {

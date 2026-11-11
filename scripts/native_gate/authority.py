@@ -21,6 +21,7 @@ from __future__ import annotations
 import argparse
 import hashlib
 import json
+import re
 import shutil
 import subprocess
 import sys
@@ -65,6 +66,14 @@ def check_writable(target: Path, extra_protected: list[Path] = (), authority: Pa
 
 
 def placement(board: Path, facts: dict, geom: dict) -> bytes:
+    if not isinstance(facts, dict) or not isinstance(geom, dict):
+        raise Refused('native facts and geometry must be objects')
+    for key in ('board_sha256', 'geometry_sha256', 'zone_fill_sha256'):
+        value = facts.get(key)
+        if not isinstance(value, str) or not re.fullmatch(r'[0-9a-f]{64}', value) or value == '0' * 64:
+            raise Refused(f'missing or malformed native identity: {key}')
+    if facts['board_sha256'] != sha(board):
+        raise Refused('native facts are stale: PCB bytes do not match producer identity')
     if facts.get('geometry_sha256') != hashlib.sha256(json.dumps(geom, sort_keys=True).encode()).hexdigest():
         raise Refused('facts/geometry pair inconsistent')
     if 'error' in facts:

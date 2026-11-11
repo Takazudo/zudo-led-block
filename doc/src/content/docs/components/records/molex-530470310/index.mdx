@@ -29,11 +29,11 @@ This record in the catalog: [530470310](/docs/components/catalog/#rec-molex-5304
 
 **Fit:** Fitted
 
-**Identity state:** UNRESOLVED
+**Identity state:** VERIFIED
 
-**Source state:** SOURCE UNAVAILABLE
+**Source state:** AVAILABLE
 
-**Coverage:** 5 open of 5 published
+**Coverage:** 4 open of 5 published
 
 ## Documents and package
 
@@ -41,9 +41,13 @@ This record in the catalog: [530470310](/docs/components/catalog/#rec-molex-5304
 
 <EvidenceAnchor id="component-references" />
 
-**Selected document:** Document unavailable
+[Mechanical drawing PDF](https://www.molex.com/content/dam/molex/molex-dot-com/products/automated/en-us/salesdrawingpdf/530/53047/530470310_sd.pdf) — Molex PicoBlade 1.25 header sales drawing
 
-**Reason:** No manufacturer-primary document for this exact orderable is retained in the evidence. Reviewed: JLCPCB public product listing C122442 (A5 retained product-props snapshot) (DISTRIBUTOR\_IDENTITY, AVAILABLE); Molex 530470310 sales drawing (title as recorded by A5); not acquired (MANUFACTURER\_PRIMARY, SOURCE UNAVAILABLE). Distributor listings establish order identity only, and a distributor-hosted mirror is lower authority, so neither is published as a manufacturer document.
+**Selected source ID:** `src-530470310-sd`
+
+**Authority:** MANUFACTURER\_PRIMARY
+
+**Availability:** AVAILABLE
 
 No footprint or 3D model is published for this record: CAD is not enabled for this project.
 
@@ -64,18 +68,14 @@ Coverage is stated one domain at a time and is never rolled up. A domain marked 
 
 <EvidenceAnchor id="cov-530470310-identity" />
 
-**Coverage ID:** `cov-530470310-identity` · **Status:** OPEN
+**Coverage ID:** `cov-530470310-identity` · **Status:** COVERED
 
-**Reason:** fact-530470310-manufacturer remains UNSOURCED: the Molex sales drawing is SOURCE UNAVAILABLE (connection closed on 2026-11-08); only distributor identity is retained
+**Reason:** Exact manufacturer identity/order scheme inspected in primary document; stock and assembly qualification remain separate.
 
 **Facts in this domain:**
 
 - [`fact-530470310-manufacturer`](#fact-530470310-manufacturer)
 - [`fact-530470310-distributor-identity`](#fact-530470310-distributor-identity)
-
-**Blocked by:** these facts must be resolved before the domain can close. Each is listed in full under Facts.
-
-- [`fact-530470310-manufacturer`](#fact-530470310-manufacturer)
 
 ### pinout
 
@@ -83,7 +83,7 @@ Coverage is stated one domain at a time and is never rolled up. A domain marked 
 
 **Coverage ID:** `cov-530470310-pinout` · **Status:** OPEN
 
-**Reason:** fact-530470310-pinout remains UNSOURCED: the Molex sales drawing is SOURCE UNAVAILABLE, so circuit numbering is not checked
+**Reason:** Primary document acquired on 2026-11-09. This domain remains OPEN: per-criterion electrical/mechanical/pin-map review and applicable physical qualification incomplete
 
 **Facts in this domain:**
 
@@ -99,7 +99,7 @@ Coverage is stated one domain at a time and is never rolled up. A domain marked 
 
 **Coverage ID:** `cov-530470310-ratings` · **Status:** OPEN
 
-**Reason:** fact-530470310-ratings remains UNSOURCED: the Molex sales drawing is SOURCE UNAVAILABLE, so the ratings are not recorded
+**Reason:** Primary document acquired on 2026-11-09. This domain remains OPEN: per-criterion electrical/mechanical/pin-map review and applicable physical qualification incomplete
 
 **Facts in this domain:**
 
@@ -156,7 +156,7 @@ A never-exceed limit. Reaching it may damage the part; it is not an operating ta
 
   **Value:** manufacturer current and voltage rating · **Unit:** `NONE`
 
-  **Conditions:** not read: the Molex sales drawing is SOURCE UNAVAILABLE; no value taken from A5 notes or memory
+  **Conditions:** Primary document now available; this broad fact remains unverified pending per-criterion review. Sales drawing does not provide current/voltage ratings.
 
   **Verdict:** UNSOURCED · **Provenance:** UNVERIFIED
 
@@ -174,11 +174,11 @@ A value this project recorded about how the part is used here — a chosen opera
 
   **Value:** MOLEX · **Unit:** `NONE`
 
-  **Conditions:** the Molex sales drawing is SOURCE UNAVAILABLE (molex.com closed the connection on 2026-11-08); only distributor identity is retained
+  **Conditions:** Exact part applicability inspected in acquired primary document; no stock, assembly or hardware qualification.
 
-  **Verdict:** UNSOURCED · **Provenance:** UNVERIFIED
+  **Verdict:** PASS - primary-source confirmed · **Provenance:** PRIMARY-SPEC
 
-  **Evidence:** [src-530470310-sd: intended sales drawing title block](#src-530470310-sd)
+  **Evidence:** [src-530470310-sd: sheet 1 exact530470310 row, circuit1 indicator; sheet2 mating products/specifications](#src-530470310-sd)
 </EvidenceFact>
 
 <EvidenceFact>
@@ -216,7 +216,7 @@ A value this project recorded about how the part is used here — a chosen opera
 
   **Value:** manufacturer circuit numbering for the 3-circuit 1.25 mm header · **Unit:** `NONE`
 
-  **Conditions:** not checked: the Molex sales drawing is SOURCE UNAVAILABLE; the project pin map is a historical A5 netlist projection
+  **Conditions:** Primary document now available; this broad fact remains unverified pending per-criterion review. No automatic promotion from source acquisition.
 
   **Verdict:** UNSOURCED · **Provenance:** UNVERIFIED
 
@@ -335,25 +335,25 @@ Every document cited above, with its identification, when it was retrieved, and 
 
 **Document URL:** [https://github.com/Takazudo/zudo-led-block/blob/d41cbb7fc61dc954b4affaf19527aa69f07013b6/engineering/a5/integration/native\_schematic/power\_adapter/netlist.xml](https://github.com/Takazudo/zudo-led-block/blob/d41cbb7fc61dc954b4affaf19527aa69f07013b6/engineering/a5/integration/native_schematic/power_adapter/netlist.xml)
 
-### Molex 530470310 sales drawing (title as recorded by A5); not acquired
+### Molex PicoBlade 1.25 header sales drawing
 
 <EvidenceAnchor id="src-530470310-sd" />
 
 **Source ID:** `src-530470310-sd` · **Authority:** MANUFACTURER\_PRIMARY
 
-| Field           | Recorded value         |
-| --------------- | ---------------------- |
-| Document number | SD-53047-\*            |
-| Revision        | unknown (not acquired) |
-| Document date   | unknown (not acquired) |
-| Retrieved       | 2026-11-08             |
-| Printed page    | n/a (not acquired)     |
+| Field           | Recorded value      |
+| --------------- | ------------------- |
+| Document number | 530470000-SD PSD000 |
+| Revision        | B                   |
+| Document date   | 2022-04-19          |
+| Retrieved       | 2026-11-09          |
+| Printed page    | 1                   |
 
-**Locator:** intended: sales drawing title block (part number 530470310), circuit numbering figure and specification notes section; not inspected
+**Locator:** sheet 1 exact530470310 row, circuit1 indicator; sheet2 mating products/specifications
 
-**Availability:** SOURCE UNAVAILABLE
+**Availability:** AVAILABLE
 
-**Document URL:** no link is published for this source
+**Document URL:** [https://www.molex.com/content/dam/molex/molex-dot-com/products/automated/en-us/salesdrawingpdf/530/53047/530470310\_sd.pdf](https://www.molex.com/content/dam/molex/molex-dot-com/products/automated/en-us/salesdrawingpdf/530/53047/530470310_sd.pdf)
 
 ## Legend
 
@@ -365,6 +365,7 @@ What the recorded terms on this page mean, in ordinary words. The exact terms ab
 | --------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------- |
 | `CONFIRMED - distributor identity only` | A distributor listing confirms which part this is, and nothing more. It carries no electrical, thermal or lifetime authority. |
 | `NEEDS BENCH`                           | Cannot be settled from documents. It needs measurement on real hardware before it can be relied on.                           |
+| `PASS - primary-source confirmed`       | Confirmed against the manufacturer's own document for this exact part.                                                        |
 | `UNSOURCED`                             | No accepted source backs this value yet. Treat it as a claim, not a fact.                                                     |
 
 ### Provenance
@@ -372,6 +373,7 @@ What the recorded terms on this page mean, in ordinary words. The exact terms ab
 | Recorded term          | What it means                                                |
 | ---------------------- | ------------------------------------------------------------ |
 | `DISTRIBUTOR-IDENTITY` | Taken from a distributor listing. Identity information only. |
+| `PRIMARY-SPEC`         | Taken from the manufacturer's own specification document.    |
 | `PROJECT-CHOICE`       | A decision made by this project. No vendor asserts it.       |
 | `UNVERIFIED`           | Recorded, but not yet backed by an accepted source.          |
 
@@ -386,14 +388,14 @@ What the recorded terms on this page mean, in ordinary words. The exact terms ab
 
 | Recorded term | What it means                                                                                                               |
 | ------------- | --------------------------------------------------------------------------------------------------------------------------- |
+| `COVERED`     | Every question this domain asks is answered by the facts listed against it.                                                 |
 | `OPEN`        | Unresolved. Open means the question has not been answered, not that the part is unsafe — the reason states what is missing. |
 
 ### Source availability
 
-| Recorded term        | What it means                                                                                                         |
-| -------------------- | --------------------------------------------------------------------------------------------------------------------- |
-| `AVAILABLE`          | The document was retrieved and is on record.                                                                          |
-| `SOURCE UNAVAILABLE` | The document could not be retrieved. It stays listed so the gap is visible; anything resting on it remains unsourced. |
+| Recorded term | What it means                                |
+| ------------- | -------------------------------------------- |
+| `AVAILABLE`   | The document was retrieved and is on record. |
 
 ### Source authority
 
@@ -405,15 +407,15 @@ What the recorded terms on this page mean, in ordinary words. The exact terms ab
 
 ### Identity state
 
-| Recorded term | What it means                                                                                                                    |
-| ------------- | -------------------------------------------------------------------------------------------------------------------------------- |
-| `UNRESOLVED`  | The exact orderable part is not yet confirmed. Substituting a same-name part from another vendor is not permitted on that basis. |
+| Recorded term | What it means                                                 |
+| ------------- | ------------------------------------------------------------- |
+| `VERIFIED`    | The exact orderable part has been confirmed against a source. |
 
 ### Source state
 
-| Recorded term        | What it means                                     |
-| -------------------- | ------------------------------------------------- |
-| `SOURCE UNAVAILABLE` | No document backing this line could be retrieved. |
+| Recorded term | What it means                                          |
+| ------------- | ------------------------------------------------------ |
+| `AVAILABLE`   | At least one document backing this line was retrieved. |
 
 ### Unit
 
