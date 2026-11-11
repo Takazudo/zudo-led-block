@@ -18,7 +18,7 @@
     "fixture": "775afc199d44589891ecab660e1994d08dbfb5496046641adbaed7593cb3d826",
     "assembly_manifest": "b34105182f7b6001750460f3185c5e025268b5794532dc5a330f85e478c69117"
   },
-  "plan_sha256": "4c706a65a90e1a52981a38da713da4c7229619d94c1a01b4aa8af667b510c483",
+  "plan_sha256": "0ba6d52695e056cd3ec80c0d0a8b2b19552472ee86383ead44739f0a8c4fd8a9",
   "instruments": null,
   "setup": null,
   "conditions": null,
@@ -57,6 +57,7 @@
       "bound": "reference",
       "unit": "NONE",
       "confidence": "SOURCED",
+      "proposed": false,
       "observed": null,
       "verdict": null
     },
@@ -67,6 +68,7 @@
       "bound": "min",
       "unit": "mA",
       "confidence": "SOURCED",
+      "proposed": false,
       "observed": null,
       "verdict": null
     },
@@ -77,16 +79,29 @@
       "bound": "range",
       "unit": "A",
       "confidence": "SOURCED",
+      "proposed": false,
       "observed": null,
       "verdict": null
     },
     {
-      "id": "criteria",
-      "criterion": "短絡の場所・時間・回数と、復帰/最大温度の合否",
-      "expected": null,
-      "bound": null,
+      "id": "vled-short",
+      "criterion": "VLED (J3) 短絡で U4 がラッチオフし、外しても電源再投入まで復帰しない",
+      "expected": "TPS255x-1 latch-off: on overcurrent it asserts FAULT after the deglitch period and turns off; stays off even after the overload is removed until enable is toggled or power is cycled",
+      "bound": "exact",
       "unit": "NONE",
-      "confidence": "UNRESOLVED",
+      "confidence": "SOURCED",
+      "proposed": false,
+      "observed": null,
+      "verdict": null
+    },
+    {
+      "id": "short-no-retry",
+      "criterion": "短絡後 FW は再有効化しない",
+      "expected": "No enable or retry path exists in this routine.",
+      "bound": "exact",
+      "unit": "NONE",
+      "confidence": "DESIGN",
+      "proposed": false,
       "observed": null,
       "verdict": null
     }

@@ -18,7 +18,7 @@
     "fixture": "775afc199d44589891ecab660e1994d08dbfb5496046641adbaed7593cb3d826",
     "assembly_manifest": "b34105182f7b6001750460f3185c5e025268b5794532dc5a330f85e478c69117"
   },
-  "plan_sha256": "4c706a65a90e1a52981a38da713da4c7229619d94c1a01b4aa8af667b510c483",
+  "plan_sha256": "0ba6d52695e056cd3ec80c0d0a8b2b19552472ee86383ead44739f0a8c4fd8a9",
   "instruments": null,
   "setup": null,
   "conditions": null,
@@ -47,16 +47,40 @@
       "bound": "range",
       "unit": "V",
       "confidence": "SOURCED",
+      "proposed": false,
       "observed": null,
       "verdict": null
     },
     {
-      "id": "criteria",
-      "criterion": "崩壊速度・最悪負荷・5 V 監視の要否の合否基準",
-      "expected": null,
-      "bound": null,
+      "id": "collapse-en-off",
+      "criterion": "+3V3 が vdda 下限未満になっている間の LED_EN_N（U4 オフ）",
+      "expected": 1.1,
+      "bound": "min",
+      "unit": "V",
+      "confidence": "CALCULATED",
+      "proposed": false,
+      "observed": null,
+      "verdict": null
+    },
+    {
+      "id": "collapse-threshold",
+      "criterion": "上の条件を見る +3V3 の電圧",
+      "expected": 3000,
+      "bound": "reference",
+      "unit": "mV",
+      "confidence": "CALCULATED",
+      "proposed": false,
+      "observed": null,
+      "verdict": null
+    },
+    {
+      "id": "collapse-recovery",
+      "criterion": "復帰後、バックアップ領域が残っていれば有効化しない（RESET_LOCKOUT）",
+      "expected": "return LB_BOOT_LOCKED_RETAINED;",
+      "bound": "exact",
       "unit": "NONE",
-      "confidence": "UNRESOLVED",
+      "confidence": "DESIGN",
+      "proposed": false,
       "observed": null,
       "verdict": null
     }

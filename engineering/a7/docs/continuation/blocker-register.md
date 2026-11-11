@@ -44,3 +44,13 @@ PET Q11/Q11a–fと2HPの0.8 mm再配線/公差課題は別案のブロッカー
 - 治具: J5 のリード突出長と、B 面のはんだフィレット高さに出典がない。
 - PJ-324M: SOFNG の supplier symbol は、推定対応（端子 4 = TIP）と矛盾する。symbol の読みだけでは欠陥と言えないため、ピン対応と銅箔は変えない（coordinator 判断）。**PCB を発注する前に**実物の PJ-324M で端子 4/5 のどちらが tip 接点でどちらが normal かを導通試験で確定する（jack-continuity 手順 5、オーナーチェックリスト O0）。
 - 部品証跡（#48 の後も残るもの）: PMEG4010CEJ の `,115` 包装の型番はデータシートで確定しない。SM04B-SRSS-TB の回路番号は No.1 端以外が印刷されていない。PJ-324M の推奨穴寸法・軸高さ・ナット付属は出典なし。台帳の `exact-part-evidence`（外部の証跡待ち）。
+
+## 2026-11-11 W6 更新
+
+合否基準の作業（W6）で区分が変わりました。50 ゲート / 63 理由（CLOUD_DIGITAL 2、OWNER_DECISION 12、ACCESS_EVIDENCE_HOLD 16、PHYSICAL_ONLY 20）。提案値が残る基準ゲートには「PROPOSED または UNRESOLVED が残る」という理由が付きます。7 手順の基準をコーディネーターが採用したため、その基準ゲートは解除されました（`qualification/reviews/2026-11-11-coordinator-criteria-acceptance.md`、オーナー本人の採用ではない）。
+
+- power-current、startup-reset、u7-stress: 受入値を部品資料・ネットリスト・FW 定数から導出し、生成時に再計算で照合するようにした。power-current と startup-reset はコーディネーターが採用。u7-stress は R7 電流の上限が推定に頼るため PROPOSED が残り、基準ゲートは閉じたまま。
+- コーディネーターが採用: power-current、startup-reset、cv-thru-calibration、rail-collapse、load-short、cv-noise、jack-continuity（独立レビューが導出を確認したものだけ）。jack-continuity は、端子対応の閾値（200 kΩ / 20 MΩ）と接点品質（SOFNG 掲載図面の初期接触抵抗 50 mΩ、未監査の抜粋なので UNVERIFIED）に分けてから採用した。thermal-optical は 85 °C が最低の温度上限だと確認できない（14 種の部品に温度 fact がない）ため採用していない。
+- オーナー判断の 9 手順: 出典付きの提案値（PROPOSED、21 件）を用意。採否前なのでゲートは解除しない。service-envelope の繰返し回数と thermal-optical の材料温度・見え方は提案できる出典がなく、UNRESOLVED のまま。
+- 外部証跡待ちの 7 手順: 未決の値ごとに、何の資料または測定で決まるかを `supplied_by` に記録。
+- CLOUD_DIGITAL に残る 2 ゲート（`artifact:fixture`、`assembly:fixture-materials`）は治具の作業（W5）が持つ。

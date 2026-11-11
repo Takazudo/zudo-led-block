@@ -8,15 +8,15 @@
       "title": "PJ-324M 入荷時 TS/TRS 導通・端子対応",
       "variant": "fr4-3hp",
       "issues": "Q2; #19",
-      "setup": "絶縁された未実装ジャック、TS/TRS プラグ、導通計。各挿抜状態で全端子対を測る。",
+      "setup": "絶縁された未実装ジャック、TS/TRS プラグ、導通計とミリオーム計。各挿抜状態で全端子対を測り、閉じた接点の接触抵抗を測る。",
       "expected": "J1/J2: 1=sleeve→GND, 2=ring→GND, 4=tip→CV_THRU, 3/5=NC は設計上の推定。実物対応と normal 接点を確認し、TS sleeve に CV が短絡しないこと。",
       "basis": "engineering/a7/electronics/README.md",
-      "criterion_status": "UNRESOLVED",
-      "missing_criterion": "設計推定を採否判定する導通抵抗上限は未決。計器条件と判定値のレビューが必要。",
+      "criterion_status": "REVIEWED",
+      "missing_criterion": "",
       "raw_evidence_required": "全端子対の導通表、プラグ型番、写真、ジャックロット",
       "observation": "NOT_MEASURED",
       "result": "NOT_RUN",
-      "next_action": "PCB を発注する前に、オーナー承認の試作ルートで入手した PJ-324M 実物で実施する（端子 4/5 の tip/normal を確定）。不足する判定抵抗値はレビューで決める。",
+      "next_action": "基準はコーディネーターが採用済み（オーナー本人ではない）。PCB を発注する前に実物の PJ-324M で手順を実施し、端子 4/5 を確定する（O0）。",
       "required_evidence_kinds": [
         "terminal_matrix",
         "ts_plug_identity",
@@ -31,6 +31,7 @@
       ],
       "tools": [
         "抵抗計/導通計（型番・校正記録）",
+        "ミリオーム計（4 端子法、測定電流 50 mA 以下に設定できるもの。型番・測定電流・校正記録）",
         "拡大鏡またはマクロ撮影できるカメラ"
       ],
       "preconditions": [
@@ -43,11 +44,12 @@
         "無挿入で全10端子対の抵抗を測り、表に記録する。",
         "TS プラグを最後まで挿入し、全10端子対とプラグの Tip/Sleeve 対各端子を測る。",
         "TRS プラグで同じ測定をする。プラグを抜き、無挿入の状態をもう一度測る。",
+        "TS と TRS プラグを挿入した状態で、閉じている各接点（プラグ tip–tip 端子、sleeve–sleeve 端子、TRS の ring–ring 端子）の抵抗をミリオーム計で測る。4 端子法で、測定電流は 50 mA 以下。2 端子法しか使えない場合は、測定リードとプラグを短絡して読んだ値を差し引き、その値も記録する。",
         "端子 4 と 5 のどちらが tip 接点（プラグの tip と導通）で、どちらがその normal（無挿入で tip 接点と導通し、挿入で開放）かを判定し、terminal_matrix に「tip=端子N、tip normal=端子M」と明記する。供給元 symbol は端子 5 を tip としており、現在の推定（端子 4 = tip）と矛盾する。この判定は PCB を発注する前に必須。",
         "結果を下の推定対応・基板ネットと突き合わせる。1 か所でも違えば FAIL とし、基板を変えるかどうかは別のレビューで決める（ここで設計を変えない）。"
       ],
       "record": {
-        "terminal_matrix": "無挿入/TS/TRS/再無挿入 × 全端子対と、プラグ接点対端子の抵抗表（CSV、単位 Ω、開放は OL）",
+        "terminal_matrix": "無挿入/TS/TRS/再無挿入 × 全端子対と、プラグ接点対端子の抵抗表（CSV、単位 Ω、開放は OL）。閉じた接点の接触抵抗（mΩ、測定法・測定電流・差し引いたリード抵抗）を別の列に記録",
         "ts_plug_identity": "TS プラグの型番・購入元・写真",
         "trs_plug_identity": "TRS プラグの型番・購入元・写真",
         "jack_lot": "ジャックの購入記録、ロット、数量、外観写真",
@@ -121,14 +123,125 @@
           "bound": "max"
         },
         {
-          "id": "threshold",
-          "criterion": "「導通」「開放」と判定する抵抗値",
-          "value": null,
+          "id": "mapping-closed-max",
+          "criterion": "端子対応の判定で「導通」とみなす抵抗の上限（どの端子が tip / normal かを見分けるためだけの閾値）",
+          "value": 200000,
           "unit": "ohm",
-          "confidence": "UNRESOLVED",
-          "decided_by": "部品資料に接触抵抗/絶縁抵抗の規定がない。計器条件とあわせてレビューで決める"
+          "confidence": "CALCULATED",
+          "derivation": {
+            "expression": "(R1 + R2) * DB / FS",
+            "inputs": [
+              {
+                "name": "R1",
+                "token": "10M",
+                "number": 10000000.0,
+                "source": {
+                  "path": "engineering/a7/verification/schematic/netlist.xml",
+                  "netlist_value": "R1"
+                },
+                "part": "value"
+              },
+              {
+                "name": "R2",
+                "token": "10M",
+                "number": 10000000.0,
+                "source": {
+                  "path": "engineering/a7/verification/schematic/netlist.xml",
+                  "netlist_value": "R2"
+                },
+                "part": "value"
+              },
+              {
+                "name": "DB",
+                "token": "50",
+                "number": 50.0,
+                "source": {
+                  "path": "engineering/a5/firmware/include/lb_config.h",
+                  "quote": "LB_CV_DEADBAND_MV            50"
+                },
+                "context": "LB_CV_DEADBAND_MV            50"
+              },
+              {
+                "name": "FS",
+                "token": "5000",
+                "number": 5000.0,
+                "source": {
+                  "path": "engineering/a5/firmware/include/lb_config.h",
+                  "quote": "LB_CV_FULL_SCALE_MV          5000"
+                },
+                "context": "LB_CV_FULL_SCALE_MV          5000"
+              }
+            ],
+            "round": 0
+          },
+          "bound": "max"
+        },
+        {
+          "id": "mapping-open-min",
+          "criterion": "端子対応の判定で「開放」とみなす抵抗の下限",
+          "value": 20000000,
+          "unit": "ohm",
+          "confidence": "CALCULATED",
+          "derivation": {
+            "expression": "R1 + R2",
+            "inputs": [
+              {
+                "name": "R1",
+                "token": "10M",
+                "number": 10000000.0,
+                "source": {
+                  "path": "engineering/a7/verification/schematic/netlist.xml",
+                  "netlist_value": "R1"
+                },
+                "part": "value"
+              },
+              {
+                "name": "R2",
+                "token": "10M",
+                "number": 10000000.0,
+                "source": {
+                  "path": "engineering/a7/verification/schematic/netlist.xml",
+                  "netlist_value": "R2"
+                },
+                "part": "value"
+              }
+            ],
+            "round": 0
+          },
+          "bound": "min"
+        },
+        {
+          "id": "contact-max",
+          "criterion": "閉じた接点 1 つあたりの接触抵抗の上限（新品の初期値）。4 端子法、または 2 端子法で、測定リードとプラグを短絡して読んだ値を差し引く（リード抵抗の扱いを記録）。測定電流は接点定格 50 mA 以下",
+          "value": 50,
+          "unit": "mohm",
+          "confidence": "UNVERIFIED",
+          "derivation": {
+            "expression": "Rc",
+            "inputs": [
+              {
+                "name": "Rc",
+                "token": "50",
+                "number": 50.0,
+                "source": {
+                  "path": ".claude/skills/component-a7-pj-324m/sources.json",
+                  "source_id": "src-a7-pj-324m-sofng-site",
+                  "quote": "initial contact resistance 30 / 50 mOhm max"
+                },
+                "context": "50 mOhm max"
+              }
+            ],
+            "round": 0
+          },
+          "bound": "max"
         }
-      ]
+      ],
+      "criterion_accepted_by": "PROJECT_COORDINATOR_DELEGATED",
+      "criterion_review": {
+        "path": "engineering/a7/qualification/reviews/2026-11-11-coordinator-criteria-acceptance.md",
+        "sha256": "de65e2b2ddbfb1bca68b01ca37e5222ada0f1d6ee695d191baf3516bb1abe93f"
+      },
+      "criterion_acceptance_sha256": "7df1bb0b431b95f90016b17eb77894a4cee1f90fcd25452e7060f9a83b8f0dee"
     },
     {
       "id": "jack-dimensions",
@@ -319,7 +432,11 @@
           "value": null,
           "unit": "mm",
           "confidence": "UNRESOLVED",
-          "decided_by": "メーカー公差・推奨穴寸法・適合ナット仕様（Q1/Q3/Q4、供給元への質問）"
+          "decided_by": "メーカー公差・推奨穴寸法・適合ナット仕様（Q1/Q3/Q4、供給元への質問）",
+          "supplied_by": {
+            "kind": "DOCUMENT_AND_MEASUREMENT",
+            "what": "SOFNG の公差付き図面・推奨穴寸法・適合ナット仕様（供給元への質問 Q1/Q3/Q4）。得られなければ購入ロットの実測で公差を決める"
+          }
         }
       ]
     },
@@ -454,7 +571,11 @@
           "value": null,
           "unit": "NONE",
           "confidence": "UNRESOLVED",
-          "decided_by": "メーカーの本体-ペグ基準寸法と、3.3 V / 10 kΩ 負荷での接触判定値のレビュー"
+          "decided_by": "メーカーの本体-ペグ基準寸法と、3.3 V / 10 kΩ 負荷での接触判定値のレビュー",
+          "supplied_by": {
+            "kind": "DOCUMENT_AND_MEASUREMENT",
+            "what": "C&K の本体とペグの基準寸法の公差（図面）と、実部品での 3.3 V / 10 kΩ 負荷の接触抵抗の測定"
+          }
         }
       ]
     },
@@ -597,10 +718,37 @@
         {
           "id": "bend-radius",
           "criterion": "許容最小曲げ半径",
-          "value": null,
+          "value": 2.0,
           "unit": "mm",
-          "confidence": "UNRESOLVED",
-          "decided_by": "ケーブル製造元の仕様（モデルの曲げ半径は製造元で未確認）"
+          "confidence": "PROPOSED",
+          "source": {
+            "path": "engineering/a7/mechanical/layout.json",
+            "pointer": "/variants/3hp/routes/adapter_to_controller_power/end_bend_room"
+          },
+          "bound": "min",
+          "basis_confidence": "DESIGN",
+          "rationale": "3HP の経路モデルが電源ケーブル端の曲げに残した余裕 2.0 mm（2HP では 0.9 mm で「推奨未満」とされた値）。ケーブル製造元の最小曲げ半径が分かればそちらを優先する。"
+        },
+        {
+          "id": "power-band-order",
+          "criterion": "電源ケーブル自由長の注文範囲",
+          "value": [
+            54.0,
+            60.0
+          ],
+          "unit": "mm",
+          "confidence": "PROPOSED",
+          "source": {
+            "path": "engineering/a7/mechanical/layout.json",
+            "pointer": "/power_cable_requirement/band"
+          },
+          "bound": "range",
+          "basis_confidence": "ASSUMED",
+          "rationale": "仮定の 57 ± 3 mm をそのまま完成ケーブルの注文仕様にする案。供給元が保証できる公差が分かれば置き換える。",
+          "confidence_trace": {
+            "path": "engineering/a7/mechanical/layout.json",
+            "pointer": "/power_cable_requirement/tolerance_confidence"
+          }
         }
       ]
     },
@@ -739,7 +887,11 @@
           "value": null,
           "unit": "N",
           "confidence": "UNRESOLVED",
-          "decided_by": "PMMA/PETG 加工先の公差・許容締付条件（供給元への質問）とレビュー"
+          "decided_by": "PMMA/PETG 加工先の公差・許容締付条件（供給元への質問）とレビュー",
+          "supplied_by": {
+            "kind": "DOCUMENT",
+            "what": "PMMA/PETG 加工先の加工公差と許容締付トルク（供給元への質問の回答）"
+          }
         }
       ]
     },
@@ -870,7 +1022,11 @@
           "value": null,
           "unit": "mm",
           "confidence": "UNRESOLVED",
-          "decided_by": "完成治具の設計（manifest の最悪 registration margin と計算ストローク）とプローブの製造元仕様"
+          "decided_by": "完成治具の設計（manifest の最悪 registration margin と計算ストローク）とプローブの製造元仕様",
+          "supplied_by": {
+            "kind": "DOCUMENT_AND_MEASUREMENT",
+            "what": "採用するプローブの製造元仕様（ストローク・荷重・横方向の遊び）と、完成治具の位置の実測"
+          }
         }
       ]
     },
@@ -976,12 +1132,56 @@
           "bound": "min"
         },
         {
-          "id": "t1l-decision",
-          "criterion": "T1L の合否（データシートと FW が矛盾）",
-          "value": null,
+          "id": "t1l-min",
+          "criterion": "T1L の下限",
+          "value": 580,
           "unit": "ns",
-          "confidence": "UNRESOLVED",
-          "decided_by": "#13 の判断: メーカー訂正/新資料、または購入ロット実測に基づく別レビュー"
+          "confidence": "PROPOSED",
+          "derivation": {
+            "expression": "T",
+            "inputs": [
+              {
+                "name": "T",
+                "token": "580",
+                "number": 580.0,
+                "source": {
+                  "path": ".claude/skills/component-ws2812b-2020-v6/facts.json",
+                  "fact_id": "fact-ws2812b-2020-v6-bit-timing"
+                },
+                "context": "T1L 580-1000"
+              }
+            ],
+            "round": 0
+          },
+          "bound": "min",
+          "basis_confidence": "CALCULATED",
+          "rationale": "T1L はメーカーの現行資料 V1.4（V1.0 も同じ）の値。FW の 220–420 ns はこれを満たさないので、この案を採ると現行 FW は不合格になる。メーカー訂正や購入ロットの実測で別の値にするかは #13 の判断。"
+        },
+        {
+          "id": "t1l-max",
+          "criterion": "T1L の上限",
+          "value": 1000,
+          "unit": "ns",
+          "confidence": "PROPOSED",
+          "derivation": {
+            "expression": "T",
+            "inputs": [
+              {
+                "name": "T",
+                "token": "1000",
+                "number": 1000.0,
+                "source": {
+                  "path": ".claude/skills/component-ws2812b-2020-v6/facts.json",
+                  "fact_id": "fact-ws2812b-2020-v6-bit-timing"
+                },
+                "context": "T1L 580-1000"
+              }
+            ],
+            "round": 0
+          },
+          "bound": "max",
+          "basis_confidence": "CALCULATED",
+          "rationale": "T1L はメーカーの現行資料 V1.4（V1.0 も同じ）の値。FW の 220–420 ns はこれを満たさないので、この案を採ると現行 FW は不合格になる。メーカー訂正や購入ロットの実測で別の値にするかは #13 の判断。"
         }
       ]
     },
@@ -993,19 +1193,19 @@
       "setup": "電流制限電源、全レール電圧/電流計測、左右LEDの規定負荷。",
       "expected": "各部品の推奨条件と電流制限の依存関係を exact component 証跡から試験条件ごとにレビュー。",
       "basis": "engineering/a5/integration/independent_review",
-      "criterion_status": "UNRESOLVED",
-      "missing_criterion": "試験電圧/負荷/持続時間と合否値のレビュー済み数表が未作成。",
+      "criterion_status": "REVIEWED",
+      "missing_criterion": "",
       "raw_evidence_required": "電源設定、全レール波形、電流ログ、負荷表",
       "observation": "NOT_MEASURED",
       "result": "NOT_RUN",
-      "next_action": "不足する基準をレビューし、オーナー承認の試作ルート確定後に実物で実施。",
+      "next_action": "基準はコーディネーターが採用済み（オーナー本人ではない）。実機で手順を実施して記録する。",
       "required_evidence_kinds": [
         "supply_setup",
         "rail_waveforms",
         "current_log",
         "load_matrix"
       ],
-      "criterion_class": "CLOUD_DIGITAL",
+      "criterion_class": "OWNER_DECISION",
       "inputs": [
         "組立済みモジュール（リーフ 2枚、ケーブル込み）"
       ],
@@ -1042,18 +1242,6 @@
           "source": {
             "path": ".claude/skills/component-tps2552dbvr-1/facts.json",
             "fact_id": "fact-tps2552dbvr-1-ilim-formula-max"
-          },
-          "bound": "reference"
-        },
-        {
-          "id": "rilim",
-          "criterion": "RILIM (R11)",
-          "value": 68000,
-          "unit": "ohm",
-          "confidence": "UNVERIFIED",
-          "source": {
-            "path": ".claude/skills/component-0603waf6802t5e/facts.json",
-            "fact_id": "fact-0603waf6802t5e-resistance"
           },
           "bound": "reference"
         },
@@ -1106,14 +1294,262 @@
           "bound": "max"
         },
         {
-          "id": "table",
-          "criterion": "条件ごとの許容電流・電圧の数表",
-          "value": null,
+          "id": "rilim",
+          "criterion": "RILIM (R11) の部品値（A7 ネットリスト）",
+          "value": "68k",
+          "unit": "ohm",
+          "confidence": "DESIGN",
+          "source": {
+            "path": "engineering/a7/verification/schematic/netlist.xml",
+            "netlist_value": "R11"
+          },
+          "bound": "reference"
+        },
+        {
+          "id": "ilim-min",
+          "criterion": "VLED の電流制限が働く電流の下限（式 3、R11 が +1 % の最悪側）。段階負荷で制限/FAULT に入る電流はこれ以上。R11 の温度係数 100 ppm/°C は含まない",
+          "value": 343.3,
           "unit": "mA",
-          "confidence": "UNRESOLVED",
-          "decided_by": "上記の部品値から条件付き数表を作りレビューする（クラウドで作れる）"
+          "confidence": "CALCULATED",
+          "derivation": {
+            "expression": "A / (R * (1 + tol / 100) / 1000) ** k",
+            "inputs": [
+              {
+                "name": "A",
+                "token": "25230",
+                "number": 25230.0,
+                "source": {
+                  "path": ".claude/skills/component-tps2552dbvr-1/facts.json",
+                  "fact_id": "fact-tps2552dbvr-1-ilim-formula-nom-min"
+                },
+                "context": "IOSmin(mA) = 25230 V / RILIM^1.016"
+              },
+              {
+                "name": "k",
+                "token": "1.016",
+                "number": 1.016,
+                "source": {
+                  "path": ".claude/skills/component-tps2552dbvr-1/facts.json",
+                  "fact_id": "fact-tps2552dbvr-1-ilim-formula-nom-min"
+                },
+                "context": "IOSmin(mA) = 25230 V / RILIM^1.016"
+              },
+              {
+                "name": "R",
+                "token": "68k",
+                "number": 68000.0,
+                "source": {
+                  "path": "engineering/a7/verification/schematic/netlist.xml",
+                  "netlist_value": "R11"
+                },
+                "part": "value"
+              },
+              {
+                "name": "tol",
+                "token": "1%",
+                "number": 1.0,
+                "source": {
+                  "path": "engineering/a7/verification/schematic/netlist.xml",
+                  "netlist_value": "R11"
+                },
+                "part": "tolerance"
+              }
+            ],
+            "round": 1
+          },
+          "bound": "min"
+        },
+        {
+          "id": "ilim-max",
+          "criterion": "VLED の電流制限が働く電流の上限（式 1、R11 が −1 % の最悪側）。段階負荷で制限/FAULT に入る電流はこれ以下。R11 の温度係数 100 ppm/°C は含まない",
+          "value": 439.4,
+          "unit": "mA",
+          "confidence": "CALCULATED",
+          "derivation": {
+            "expression": "B / (R * (1 - tol / 100) / 1000) ** m",
+            "inputs": [
+              {
+                "name": "B",
+                "token": "22980",
+                "number": 22980.0,
+                "source": {
+                  "path": ".claude/skills/component-tps2552dbvr-1/facts.json",
+                  "fact_id": "fact-tps2552dbvr-1-ilim-formula-max"
+                },
+                "context": "IOSmax(mA) = 22980 V / RILIM^0.94"
+              },
+              {
+                "name": "m",
+                "token": "0.94",
+                "number": 0.94,
+                "source": {
+                  "path": ".claude/skills/component-tps2552dbvr-1/facts.json",
+                  "fact_id": "fact-tps2552dbvr-1-ilim-formula-max"
+                },
+                "context": "IOSmax(mA) = 22980 V / RILIM^0.94"
+              },
+              {
+                "name": "R",
+                "token": "68k",
+                "number": 68000.0,
+                "source": {
+                  "path": "engineering/a7/verification/schematic/netlist.xml",
+                  "netlist_value": "R11"
+                },
+                "part": "value"
+              },
+              {
+                "name": "tol",
+                "token": "1%",
+                "number": 1.0,
+                "source": {
+                  "path": "engineering/a7/verification/schematic/netlist.xml",
+                  "netlist_value": "R11"
+                },
+                "part": "tolerance"
+              }
+            ],
+            "round": 1
+          },
+          "bound": "max"
+        },
+        {
+          "id": "no-trip",
+          "criterion": "全点灯（51/255 上限）の定常 VLED 電流は ilim-min 未満（通常点灯で制限に入らない）",
+          "value": 343.3,
+          "unit": "mA",
+          "confidence": "CALCULATED",
+          "derivation": {
+            "expression": "A / (R * (1 + tol / 100) / 1000) ** k",
+            "inputs": [
+              {
+                "name": "A",
+                "token": "25230",
+                "number": 25230.0,
+                "source": {
+                  "path": ".claude/skills/component-tps2552dbvr-1/facts.json",
+                  "fact_id": "fact-tps2552dbvr-1-ilim-formula-nom-min"
+                },
+                "context": "IOSmin(mA) = 25230 V / RILIM^1.016"
+              },
+              {
+                "name": "k",
+                "token": "1.016",
+                "number": 1.016,
+                "source": {
+                  "path": ".claude/skills/component-tps2552dbvr-1/facts.json",
+                  "fact_id": "fact-tps2552dbvr-1-ilim-formula-nom-min"
+                },
+                "context": "IOSmin(mA) = 25230 V / RILIM^1.016"
+              },
+              {
+                "name": "R",
+                "token": "68k",
+                "number": 68000.0,
+                "source": {
+                  "path": "engineering/a7/verification/schematic/netlist.xml",
+                  "netlist_value": "R11"
+                },
+                "part": "value"
+              },
+              {
+                "name": "tol",
+                "token": "1%",
+                "number": 1.0,
+                "source": {
+                  "path": "engineering/a7/verification/schematic/netlist.xml",
+                  "netlist_value": "R11"
+                },
+                "part": "tolerance"
+              }
+            ],
+            "round": 1
+          },
+          "bound": "max"
+        },
+        {
+          "id": "v3v3-min",
+          "criterion": "+3V3 の下限（出力精度 ±1 %。規定条件は VIN = 3.8 V・IOUT = 1 mA・TJ ≤ 85 °C で、基板の VIN = 5 V との入力変動と負荷変動は含まない。負荷時の値は別に記録）",
+          "value": 3.267,
+          "unit": "V",
+          "confidence": "CALCULATED",
+          "derivation": {
+            "expression": "V * (1 - acc / 100)",
+            "inputs": [
+              {
+                "name": "V",
+                "token": "3.3",
+                "number": 3.3,
+                "source": {
+                  "path": ".claude/skills/component-tlv75533pdbvr/facts.json",
+                  "fact_id": "fact-tlv75533pdbvr-vout-nominal"
+                }
+              },
+              {
+                "name": "acc",
+                "token": "1",
+                "number": 1.0,
+                "source": {
+                  "path": ".claude/skills/component-tlv75533pdbvr/facts.json",
+                  "fact_id": "fact-tlv75533pdbvr-output-accuracy"
+                }
+              }
+            ],
+            "round": 3
+          },
+          "bound": "min"
+        },
+        {
+          "id": "v3v3-max",
+          "criterion": "+3V3 の上限（同条件）",
+          "value": 3.333,
+          "unit": "V",
+          "confidence": "CALCULATED",
+          "derivation": {
+            "expression": "V * (1 + acc / 100)",
+            "inputs": [
+              {
+                "name": "V",
+                "token": "3.3",
+                "number": 3.3,
+                "source": {
+                  "path": ".claude/skills/component-tlv75533pdbvr/facts.json",
+                  "fact_id": "fact-tlv75533pdbvr-vout-nominal"
+                }
+              },
+              {
+                "name": "acc",
+                "token": "1",
+                "number": 1.0,
+                "source": {
+                  "path": ".claude/skills/component-tlv75533pdbvr/facts.json",
+                  "fact_id": "fact-tlv75533pdbvr-output-accuracy"
+                }
+              }
+            ],
+            "round": 3
+          },
+          "bound": "max"
+        },
+        {
+          "id": "v5",
+          "criterion": "+5 V（AP63205 の CCM 時 FB 精度）",
+          "value": "4.95 to 5.05 (typ 5.00)",
+          "unit": "V",
+          "confidence": "SOURCED",
+          "source": {
+            "path": ".claude/skills/component-ap63205wu-7/facts.json",
+            "fact_id": "fact-ap63205wu-7-vout"
+          },
+          "bound": "range"
         }
-      ]
+      ],
+      "criterion_accepted_by": "PROJECT_COORDINATOR_DELEGATED",
+      "criterion_review": {
+        "path": "engineering/a7/qualification/reviews/2026-11-11-coordinator-criteria-acceptance.md",
+        "sha256": "de65e2b2ddbfb1bca68b01ca37e5222ada0f1d6ee695d191baf3516bb1abe93f"
+      },
+      "criterion_acceptance_sha256": "5e29c26369e4904a769355f696e0a23c70be95a7bcd5b3f41aa14eb99fb43ac6"
     },
     {
       "id": "cv-thru-calibration",
@@ -1123,12 +1559,12 @@
       "setup": "校正したCV源と計測器、IN/THRU/ADCを同時測定。",
       "expected": "VADC=(100/133)*(VDD/2+CV/8)、C13→R7→U7、R24/R25、受動THRUを維持。",
       "basis": "engineering/a7/electronics/README.md",
-      "criterion_status": "UNRESOLVED",
-      "missing_criterion": "誤差/直線性/校正残差の採否値と測定不確かさが未決。",
+      "criterion_status": "REVIEWED",
+      "missing_criterion": "",
       "raw_evidence_required": "入力掃引、VDD/ADC/THRU記録、校正係数と残差",
       "observation": "NOT_MEASURED",
       "result": "NOT_RUN",
-      "next_action": "不足する基準をレビューし、オーナー承認の試作ルート確定後に実物で実施。",
+      "next_action": "基準はコーディネーターが採用済み（オーナー本人ではない）。実機で手順を実施して記録する。",
       "required_evidence_kinds": [
         "cv_sweep",
         "vdd_adc_thru_data",
@@ -1186,14 +1622,174 @@
           "bound": "max"
         },
         {
-          "id": "residual",
-          "criterion": "許容誤差・直線性・残差",
-          "value": null,
+          "id": "adc-m5-min",
+          "criterion": "CV = -5 V での未校正 V(CV_ADC) の下限",
+          "value": 0.634,
           "unit": "V",
-          "confidence": "UNRESOLVED",
-          "decided_by": "抵抗公差と VDD 精度からの誤差予算をクラウドで作り、オーナーが許容値を決める"
+          "confidence": "CALCULATED",
+          "derivation": {
+            "expression": "V",
+            "inputs": [
+              {
+                "name": "V",
+                "token": "0.6339931421446384",
+                "number": 0.6339931421446384,
+                "source": {
+                  "path": "engineering/a5/electronics/reports/electrical_margins.json",
+                  "pointer": "/cv_transfer/results/-5/ADC_V_min"
+                }
+              }
+            ],
+            "round": 3
+          },
+          "bound": "min"
+        },
+        {
+          "id": "adc-m5-max",
+          "criterion": "CV = -5 V での未校正 V(CV_ADC) の上限",
+          "value": 0.911,
+          "unit": "V",
+          "confidence": "CALCULATED",
+          "derivation": {
+            "expression": "V",
+            "inputs": [
+              {
+                "name": "V",
+                "token": "0.9108190880526671",
+                "number": 0.9108190880526671,
+                "source": {
+                  "path": "engineering/a5/electronics/reports/electrical_margins.json",
+                  "pointer": "/cv_transfer/results/-5/ADC_V_max"
+                }
+              }
+            ],
+            "round": 3
+          },
+          "bound": "max"
+        },
+        {
+          "id": "adc-0-min",
+          "criterion": "CV = 0 V での未校正 V(CV_ADC) の下限",
+          "value": 1.111,
+          "unit": "V",
+          "confidence": "CALCULATED",
+          "derivation": {
+            "expression": "V",
+            "inputs": [
+              {
+                "name": "V",
+                "token": "1.1109725685785536",
+                "number": 1.1109725685785536,
+                "source": {
+                  "path": "engineering/a5/electronics/reports/electrical_margins.json",
+                  "pointer": "/cv_transfer/results/0/ADC_V_min"
+                }
+              }
+            ],
+            "round": 3
+          },
+          "bound": "min"
+        },
+        {
+          "id": "adc-0-max",
+          "criterion": "CV = 0 V での未校正 V(CV_ADC) の上限",
+          "value": 1.374,
+          "unit": "V",
+          "confidence": "CALCULATED",
+          "derivation": {
+            "expression": "V",
+            "inputs": [
+              {
+                "name": "V",
+                "token": "1.3736664921074289",
+                "number": 1.3736664921074289,
+                "source": {
+                  "path": "engineering/a5/electronics/reports/electrical_margins.json",
+                  "pointer": "/cv_transfer/results/0/ADC_V_max"
+                }
+              }
+            ],
+            "round": 3
+          },
+          "bound": "max"
+        },
+        {
+          "id": "adc-p5-min",
+          "criterion": "CV = 5 V での未校正 V(CV_ADC) の下限",
+          "value": 1.577,
+          "unit": "V",
+          "confidence": "CALCULATED",
+          "derivation": {
+            "expression": "V",
+            "inputs": [
+              {
+                "name": "V",
+                "token": "1.5771344252434243",
+                "number": 1.5771344252434243,
+                "source": {
+                  "path": "engineering/a5/electronics/reports/electrical_margins.json",
+                  "pointer": "/cv_transfer/results/5/ADC_V_min"
+                }
+              }
+            ],
+            "round": 3
+          },
+          "bound": "min"
+        },
+        {
+          "id": "adc-p5-max",
+          "criterion": "CV = 5 V での未校正 V(CV_ADC) の上限",
+          "value": 1.846,
+          "unit": "V",
+          "confidence": "CALCULATED",
+          "derivation": {
+            "expression": "V",
+            "inputs": [
+              {
+                "name": "V",
+                "token": "1.846172835232828",
+                "number": 1.846172835232828,
+                "source": {
+                  "path": "engineering/a5/electronics/reports/electrical_margins.json",
+                  "pointer": "/cv_transfer/results/5/ADC_V_max"
+                }
+              }
+            ],
+            "round": 3
+          },
+          "bound": "max"
+        },
+        {
+          "id": "residual-max",
+          "criterion": "校正後の CV 残差の上限",
+          "value": 50,
+          "unit": "mV",
+          "confidence": "CALCULATED",
+          "derivation": {
+            "expression": "DB",
+            "inputs": [
+              {
+                "name": "DB",
+                "token": "50",
+                "number": 50.0,
+                "source": {
+                  "path": "engineering/a5/firmware/include/lb_config.h",
+                  "quote": "LB_CV_DEADBAND_MV            50"
+                },
+                "context": "LB_CV_DEADBAND_MV            50"
+              }
+            ],
+            "round": 0
+          },
+          "bound": "max"
         }
-      ]
+      ],
+      "criterion_accepted_by": "PROJECT_COORDINATOR_DELEGATED",
+      "criterion_review": {
+        "path": "engineering/a7/qualification/reviews/2026-11-11-coordinator-criteria-acceptance.md",
+        "sha256": "de65e2b2ddbfb1bca68b01ca37e5222ada0f1d6ee695d191baf3516bb1abe93f"
+      },
+      "criterion_acceptance_sha256": "e8597916ae9c3c860295c1aa8f6ae82f1181e8ec155419830721f41e0e48797e"
     },
     {
       "id": "startup-reset",
@@ -1203,18 +1799,18 @@
       "setup": "規定の電源立上り/リセット/FAULT条件を一つずつ印加し全レールとLED enableを観測。",
       "expected": "既存startup/fault動作を維持。保持reset禁止は全ての部分電源喪失を保証しない。",
       "basis": "engineering/a5/integration/independent_review",
-      "criterion_status": "UNRESOLVED",
-      "missing_criterion": "ランプ/パルス条件、観測窓、復帰合否表をレビューする必要。",
+      "criterion_status": "REVIEWED",
+      "missing_criterion": "",
       "raw_evidence_required": "リセット/FAULT/enable/全レールraw波形、設定",
       "observation": "NOT_MEASURED",
       "result": "NOT_RUN",
-      "next_action": "不足する基準をレビューし、オーナー承認の試作ルート確定後に実物で実施。",
+      "next_action": "基準はコーディネーターが採用済み（オーナー本人ではない）。実機で手順を実施して記録する。",
       "required_evidence_kinds": [
         "reset_fault_enable_waveforms",
         "rail_waveforms",
         "configuration_readback"
       ],
-      "criterion_class": "CLOUD_DIGITAL",
+      "criterion_class": "OWNER_DECISION",
       "inputs": [
         "組立済みモジュール"
       ],
@@ -1263,14 +1859,292 @@
           "bound": "range"
         },
         {
-          "id": "window",
-          "criterion": "立上り条件・観測窓・復帰の合否表",
-          "value": null,
+          "id": "en-off",
+          "criterion": "LED を無効にしている間（電源投入から FW の有効化まで、FAULT 後）の LED_EN_N。U4 の EN VIH 最小以上（active low なのでオフ）",
+          "value": 1.1,
+          "unit": "V",
+          "confidence": "CALCULATED",
+          "derivation": {
+            "expression": "VIH",
+            "inputs": [
+              {
+                "name": "VIH",
+                "token": "1.1",
+                "number": 1.1,
+                "source": {
+                  "path": ".claude/skills/component-tps2552dbvr-1/facts.json",
+                  "fact_id": "fact-tps2552dbvr-1-roc-vin"
+                },
+                "field": "conditions",
+                "context": "EN VIH min 1.1 V"
+              }
+            ],
+            "round": 2
+          },
+          "bound": "min"
+        },
+        {
+          "id": "en-on",
+          "criterion": "FW が有効化した後の LED_EN_N。EN VIL 最大以下",
+          "value": 0.66,
+          "unit": "V",
+          "confidence": "CALCULATED",
+          "derivation": {
+            "expression": "VIL",
+            "inputs": [
+              {
+                "name": "VIL",
+                "token": "0.66",
+                "number": 0.66,
+                "source": {
+                  "path": ".claude/skills/component-tps2552dbvr-1/facts.json",
+                  "fact_id": "fact-tps2552dbvr-1-roc-vin"
+                },
+                "field": "conditions",
+                "context": "VIL max 0.66 V"
+              }
+            ],
+            "round": 2
+          },
+          "bound": "max"
+        },
+        {
+          "id": "nrst-tau",
+          "criterion": "NRST の RC 時定数 R21 × C14（立上り波形の参照値。STM32 内部のプルアップは含まない）",
+          "value": 1.0,
+          "unit": "ms",
+          "confidence": "CALCULATED",
+          "derivation": {
+            "expression": "R * C * 1000",
+            "inputs": [
+              {
+                "name": "R",
+                "token": "10k",
+                "number": 10000.0,
+                "source": {
+                  "path": "engineering/a7/verification/schematic/netlist.xml",
+                  "netlist_value": "R21"
+                },
+                "part": "value"
+              },
+              {
+                "name": "C",
+                "token": "100n",
+                "number": 1.0000000000000001e-07,
+                "source": {
+                  "path": "engineering/a7/verification/schematic/netlist.xml",
+                  "netlist_value": "C14"
+                },
+                "part": "value"
+              }
+            ],
+            "round": 3
+          },
+          "bound": "reference"
+        },
+        {
+          "id": "settle",
+          "criterion": "FW 初期化から LED を有効化するまでの最短時間",
+          "value": 100,
+          "unit": "ms",
+          "confidence": "CALCULATED",
+          "derivation": {
+            "expression": "T",
+            "inputs": [
+              {
+                "name": "T",
+                "token": "100u",
+                "number": 100.0,
+                "source": {
+                  "path": "engineering/a5/firmware/include/lb_config.h",
+                  "quote": "LB_STARTUP_SETTLE_MS          100u"
+                },
+                "c_literal": true,
+                "context": "LB_STARTUP_SETTLE_MS          100u"
+              }
+            ],
+            "round": 0
+          },
+          "bound": "min"
+        },
+        {
+          "id": "adc-timeout",
+          "criterion": "この時間内に ADC 値が得られなければ FAULT（有効化しない）",
+          "value": 250,
+          "unit": "ms",
+          "confidence": "CALCULATED",
+          "derivation": {
+            "expression": "T",
+            "inputs": [
+              {
+                "name": "T",
+                "token": "250u",
+                "number": 250.0,
+                "source": {
+                  "path": "engineering/a5/firmware/include/lb_config.h",
+                  "quote": "LB_STARTUP_ADC_TIMEOUT_MS    250u"
+                },
+                "c_literal": true,
+                "context": "LB_STARTUP_ADC_TIMEOUT_MS    250u"
+              }
+            ],
+            "round": 0
+          },
+          "bound": "reference"
+        },
+        {
+          "id": "power-settle",
+          "criterion": "有効化から最初の黒フレーム送信までの最短時間",
+          "value": 5,
+          "unit": "ms",
+          "confidence": "CALCULATED",
+          "derivation": {
+            "expression": "T",
+            "inputs": [
+              {
+                "name": "T",
+                "token": "5u",
+                "number": 5.0,
+                "source": {
+                  "path": "engineering/a5/firmware/include/lb_config.h",
+                  "quote": "LB_LED_POWER_SETTLE_MS       5u"
+                },
+                "c_literal": true,
+                "context": "LB_LED_POWER_SETTLE_MS       5u"
+              }
+            ],
+            "round": 0
+          },
+          "bound": "min"
+        },
+        {
+          "id": "vdda-min",
+          "criterion": "VDDA がこれ未満なら、その取り込み（1 ms ごと）で ADC FAULT（有効化しない、有効なら停止）",
+          "value": 3000,
+          "unit": "mV",
+          "confidence": "CALCULATED",
+          "derivation": {
+            "expression": "V",
+            "inputs": [
+              {
+                "name": "V",
+                "token": "3000u",
+                "number": 3000.0,
+                "source": {
+                  "path": "engineering/a5/firmware/include/lb_config.h",
+                  "quote": "LB_VDDA_MIN_MV               3000u"
+                },
+                "c_literal": true,
+                "context": "LB_VDDA_MIN_MV               3000u"
+              }
+            ],
+            "round": 0
+          },
+          "bound": "reference"
+        },
+        {
+          "id": "vdda-max",
+          "criterion": "VDDA がこれを超えれば、その取り込み（1 ms ごと）で ADC FAULT",
+          "value": 3600,
+          "unit": "mV",
+          "confidence": "CALCULATED",
+          "derivation": {
+            "expression": "V",
+            "inputs": [
+              {
+                "name": "V",
+                "token": "3600u",
+                "number": 3600.0,
+                "source": {
+                  "path": "engineering/a5/firmware/include/lb_config.h",
+                  "quote": "LB_VDDA_MAX_MV               3600u"
+                },
+                "c_literal": true,
+                "context": "LB_VDDA_MAX_MV               3600u"
+              }
+            ],
+            "round": 0
+          },
+          "bound": "reference"
+        },
+        {
+          "id": "no-retry",
+          "criterion": "FAULT 後は電源を入れ直すまで再有効化しない（FW）",
+          "value": "No enable or retry path exists in this routine.",
           "unit": "NONE",
-          "confidence": "UNRESOLVED",
-          "decided_by": "A5 の startup/fault 動作の記述から条件表を作ってレビューする"
+          "confidence": "DESIGN",
+          "source": {
+            "path": "engineering/a5/firmware/src/light_block.c",
+            "quote": "No enable or retry path exists in this routine."
+          },
+          "bound": "exact"
+        },
+        {
+          "id": "lockout",
+          "criterion": "電源投入リセットで保持マーカーが空のときだけ通常起動する。外部リセット・ウォッチドッグ・バックアップ領域が残る BOR では消灯のまま（全電源の崩壊は電源再投入と区別できず再起動しうる。firmware/docs/reset_policy.md）",
+          "value": "return LB_BOOT_LOCKED_RETAINED;",
+          "unit": "NONE",
+          "confidence": "DESIGN",
+          "source": {
+            "path": "engineering/a5/firmware/src/light_block.c",
+            "quote": "return LB_BOOT_LOCKED_RETAINED;"
+          },
+          "bound": "exact"
+        },
+        {
+          "id": "window",
+          "criterion": "観測窓（FW 初期化から）の最短長 = ADC 待ち上限 + 電源待ち + 黒フレーム転送の上限。SW1 が有効な位置にあること（無効位置では有効化を待ち続ける）",
+          "value": 260,
+          "unit": "ms",
+          "confidence": "CALCULATED",
+          "derivation": {
+            "expression": "A + W + T",
+            "inputs": [
+              {
+                "name": "A",
+                "token": "250u",
+                "number": 250.0,
+                "source": {
+                  "path": "engineering/a5/firmware/include/lb_config.h",
+                  "quote": "LB_STARTUP_ADC_TIMEOUT_MS    250u"
+                },
+                "c_literal": true,
+                "context": "LB_STARTUP_ADC_TIMEOUT_MS    250u"
+              },
+              {
+                "name": "W",
+                "token": "5u",
+                "number": 5.0,
+                "source": {
+                  "path": "engineering/a5/firmware/include/lb_config.h",
+                  "quote": "LB_LED_POWER_SETTLE_MS       5u"
+                },
+                "c_literal": true,
+                "context": "LB_LED_POWER_SETTLE_MS       5u"
+              },
+              {
+                "name": "T",
+                "token": "5u",
+                "number": 5.0,
+                "source": {
+                  "path": "engineering/a5/firmware/include/lb_config.h",
+                  "quote": "LB_TRANSFER_TIMEOUT_MS       5u"
+                },
+                "c_literal": true,
+                "context": "LB_TRANSFER_TIMEOUT_MS       5u"
+              }
+            ],
+            "round": 0
+          },
+          "bound": "min"
         }
-      ]
+      ],
+      "criterion_accepted_by": "PROJECT_COORDINATOR_DELEGATED",
+      "criterion_review": {
+        "path": "engineering/a7/qualification/reviews/2026-11-11-coordinator-criteria-acceptance.md",
+        "sha256": "de65e2b2ddbfb1bca68b01ca37e5222ada0f1d6ee695d191baf3516bb1abe93f"
+      },
+      "criterion_acceptance_sha256": "1b4ab27ce26ac587713cd432b5df862f3a6bc49704453de2ce0739544dfd805f"
     },
     {
       "id": "rail-collapse",
@@ -1280,12 +2154,12 @@
       "setup": "承認された負荷/電源遮断条件でレール低下と制御を同時観測。",
       "expected": "5 V-only sagとバックアップ状態喪失の未解決を評価する。",
       "basis": "engineering/a5/integration/independent_review",
-      "criterion_status": "UNRESOLVED",
-      "missing_criterion": "崩壊率、最悪負荷、5 V valid monitorの必要性を判断する合否基準が未決。",
+      "criterion_status": "REVIEWED",
+      "missing_criterion": "",
       "raw_evidence_required": "全レール/enable/MCU信号raw波形、負荷と遮断条件",
       "observation": "NOT_MEASURED",
       "result": "NOT_RUN",
-      "next_action": "不足する基準をレビューし、オーナー承認の試作ルート確定後に実物で実施。",
+      "next_action": "基準はコーディネーターが採用済み（オーナー本人ではない）。実機で手順を実施して記録する。",
       "required_evidence_kinds": [
         "rail_enable_waveforms",
         "collapse_load_conditions"
@@ -1327,14 +2201,74 @@
           "bound": "range"
         },
         {
-          "id": "criteria",
-          "criterion": "崩壊速度・最悪負荷・5 V 監視の要否の合否基準",
-          "value": null,
+          "id": "collapse-en-off",
+          "criterion": "+3V3 が vdda 下限未満になっている間の LED_EN_N（U4 オフ）",
+          "value": 1.1,
+          "unit": "V",
+          "confidence": "CALCULATED",
+          "derivation": {
+            "expression": "VIH",
+            "inputs": [
+              {
+                "name": "VIH",
+                "token": "1.1",
+                "number": 1.1,
+                "source": {
+                  "path": ".claude/skills/component-tps2552dbvr-1/facts.json",
+                  "fact_id": "fact-tps2552dbvr-1-roc-vin"
+                },
+                "field": "conditions",
+                "context": "EN VIH min 1.1 V"
+              }
+            ],
+            "round": 2
+          },
+          "bound": "min"
+        },
+        {
+          "id": "collapse-threshold",
+          "criterion": "上の条件を見る +3V3 の電圧",
+          "value": 3000,
+          "unit": "mV",
+          "confidence": "CALCULATED",
+          "derivation": {
+            "expression": "V",
+            "inputs": [
+              {
+                "name": "V",
+                "token": "3000u",
+                "number": 3000.0,
+                "source": {
+                  "path": "engineering/a5/firmware/include/lb_config.h",
+                  "quote": "LB_VDDA_MIN_MV               3000u"
+                },
+                "c_literal": true,
+                "context": "LB_VDDA_MIN_MV               3000u"
+              }
+            ],
+            "round": 0
+          },
+          "bound": "reference"
+        },
+        {
+          "id": "collapse-recovery",
+          "criterion": "復帰後、バックアップ領域が残っていれば有効化しない（RESET_LOCKOUT）",
+          "value": "return LB_BOOT_LOCKED_RETAINED;",
           "unit": "NONE",
-          "confidence": "UNRESOLVED",
-          "decided_by": "オーナーの判断（5 V valid 監視を追加するかは設計判断）"
+          "confidence": "DESIGN",
+          "source": {
+            "path": "engineering/a5/firmware/src/light_block.c",
+            "quote": "return LB_BOOT_LOCKED_RETAINED;"
+          },
+          "bound": "exact"
         }
-      ]
+      ],
+      "criterion_accepted_by": "PROJECT_COORDINATOR_DELEGATED",
+      "criterion_review": {
+        "path": "engineering/a7/qualification/reviews/2026-11-11-coordinator-criteria-acceptance.md",
+        "sha256": "de65e2b2ddbfb1bca68b01ca37e5222ada0f1d6ee695d191baf3516bb1abe93f"
+      },
+      "criterion_acceptance_sha256": "79f8442e4bbfd8059e2802b4d86f77fb28aa0f4bbe1d37158f4b38b8930eced0"
     },
     {
       "id": "partial-rails",
@@ -1446,7 +2380,11 @@
           "value": null,
           "unit": "mA",
           "confidence": "UNRESOLVED",
-          "decided_by": "上記の部品値から条件表を作ってレビューする（STM32 の注入電流はカタログで未取得）"
+          "decided_by": "上記の部品値から条件表を作ってレビューする（STM32 の注入電流はカタログで未取得）",
+          "supplied_by": {
+            "kind": "DOCUMENT",
+            "what": "STM32G031 データシートの I/O 注入電流と絶対最大（カタログに fact がない）"
+          }
         }
       ]
     },
@@ -1459,17 +2397,17 @@
       "expected": "exact U7 の許容入力差動条件に条件ごと照合。",
       "basis": "engineering/a5/integration/independent_review",
       "criterion_status": "UNRESOLVED",
-      "missing_criterion": "安全な印加条件とプローブ帯域、部品限界の条件付き数表が未作成。",
+      "missing_criterion": "受入値は部品資料・ネットリスト・FW 定数から導出し、生成時に再計算で照合している。採用のレビュー記録（criterion_review）がまだない。",
       "raw_evidence_required": "両入力と電源のraw波形、最大差分計算、プローブ情報",
       "observation": "NOT_MEASURED",
       "result": "NOT_RUN",
-      "next_action": "不足する基準をレビューし、オーナー承認の試作ルート確定後に実物で実施。",
+      "next_action": "導出した受入値をレビューして採否を記録する（コーディネーターかオーナー）。その後に実機で手順を実施する。",
       "required_evidence_kinds": [
         "input_supply_waveforms",
         "differential_stress_calculation",
         "probe_identity"
       ],
-      "criterion_class": "CLOUD_DIGITAL",
+      "criterion_class": "OWNER_DECISION",
       "inputs": [
         "組立済みモジュール"
       ],
@@ -1529,12 +2467,162 @@
           "bound": "max"
         },
         {
-          "id": "conditions",
-          "criterion": "安全な印加条件と必要なプローブ帯域",
-          "value": null,
-          "unit": "NONE",
-          "confidence": "UNRESOLVED",
-          "decided_by": "上記の値から条件表を作ってレビューする"
+          "id": "supply-roc",
+          "criterion": "U7 電源 (+3V3) の推奨範囲",
+          "value": "1.8 to 5.5",
+          "unit": "V",
+          "confidence": "SOURCED",
+          "source": {
+            "path": ".claude/skills/component-tlv9001idbvr/facts.json",
+            "fact_id": "fact-tlv9001idbvr-roc-vs"
+          },
+          "bound": "range"
+        },
+        {
+          "id": "in-current-bound",
+          "criterion": "R7 を流れる電流（U7 IN+ と D3 の合計）の上限（計算）。CV_AFFINE の全抵抗（R3–R6）と +3V3 の上限を含む節点計算。測定した R7 の電圧から求めた電流はこれ以下で、U7 入力の絶対最大 10 mA より小さい",
+          "value": 0.313,
+          "unit": "mA",
+          "confidence": "PROPOSED",
+          "derivation": {
+            "expression": "(V / (R3 * (1 - t3 / 100)) + (V3 * (1 + acc / 100)) / (R4 * (1 - t4 / 100)) + (V3 * (1 + acc / 100)) / (R5 * (1 - t5 / 100))) / (1 / (R3 * (1 - t3 / 100)) + 1 / (R4 * (1 - t4 / 100)) + 1 / (R5 * (1 - t5 / 100)) + 1 / (R6 * (1 + t6 / 100)) + 1 / (R7 * (1 - t7 / 100))) / (R7 * (1 - t7 / 100)) * 1000",
+            "inputs": [
+              {
+                "name": "V",
+                "token": "20",
+                "number": 20.0,
+                "source": {
+                  "path": ".claude/skills/component-opa197idbvr/facts.json",
+                  "fact_id": "fact-opa197idbvr-ratings"
+                },
+                "field": "conditions",
+                "context": "(+/-20 V dual supply)"
+              },
+              {
+                "name": "V3",
+                "token": "3.3",
+                "number": 3.3,
+                "source": {
+                  "path": ".claude/skills/component-tlv75533pdbvr/facts.json",
+                  "fact_id": "fact-tlv75533pdbvr-vout-nominal"
+                }
+              },
+              {
+                "name": "acc",
+                "token": "1",
+                "number": 1.0,
+                "source": {
+                  "path": ".claude/skills/component-tlv75533pdbvr/facts.json",
+                  "fact_id": "fact-tlv75533pdbvr-output-accuracy"
+                }
+              },
+              {
+                "name": "R3",
+                "token": "82k",
+                "number": 82000.0,
+                "source": {
+                  "path": "engineering/a7/verification/schematic/netlist.xml",
+                  "netlist_value": "R3"
+                },
+                "part": "value"
+              },
+              {
+                "name": "t3",
+                "token": "1%",
+                "number": 1.0,
+                "source": {
+                  "path": "engineering/a7/verification/schematic/netlist.xml",
+                  "netlist_value": "R3"
+                },
+                "part": "tolerance"
+              },
+              {
+                "name": "R4",
+                "token": "82k",
+                "number": 82000.0,
+                "source": {
+                  "path": "engineering/a7/verification/schematic/netlist.xml",
+                  "netlist_value": "R4"
+                },
+                "part": "value"
+              },
+              {
+                "name": "t4",
+                "token": "1%",
+                "number": 1.0,
+                "source": {
+                  "path": "engineering/a7/verification/schematic/netlist.xml",
+                  "netlist_value": "R4"
+                },
+                "part": "tolerance"
+              },
+              {
+                "name": "R5",
+                "token": "82k",
+                "number": 82000.0,
+                "source": {
+                  "path": "engineering/a7/verification/schematic/netlist.xml",
+                  "netlist_value": "R5"
+                },
+                "part": "value"
+              },
+              {
+                "name": "t5",
+                "token": "1%",
+                "number": 1.0,
+                "source": {
+                  "path": "engineering/a7/verification/schematic/netlist.xml",
+                  "netlist_value": "R5"
+                },
+                "part": "tolerance"
+              },
+              {
+                "name": "R6",
+                "token": "82k",
+                "number": 82000.0,
+                "source": {
+                  "path": "engineering/a7/verification/schematic/netlist.xml",
+                  "netlist_value": "R6"
+                },
+                "part": "value"
+              },
+              {
+                "name": "t6",
+                "token": "1%",
+                "number": 1.0,
+                "source": {
+                  "path": "engineering/a7/verification/schematic/netlist.xml",
+                  "netlist_value": "R6"
+                },
+                "part": "tolerance"
+              },
+              {
+                "name": "R7",
+                "token": "1k",
+                "number": 1000.0,
+                "source": {
+                  "path": "engineering/a7/verification/schematic/netlist.xml",
+                  "netlist_value": "R7"
+                },
+                "part": "value"
+              },
+              {
+                "name": "t7",
+                "token": "1%",
+                "number": 1.0,
+                "source": {
+                  "path": "engineering/a7/verification/schematic/netlist.xml",
+                  "netlist_value": "R7"
+                },
+                "part": "tolerance"
+              }
+            ],
+            "round": 3,
+            "assumption": "CV_BUF (U6 出力) は U6 の電源を超えず、U6 の電源は絶対最大の ±20 V 以内とする推定。CV_FILTER を 0 V に固定して R7 の電流を大きく見積もる"
+          },
+          "bound": "max",
+          "basis_confidence": "INFERRED",
+          "rationale": "CV_BUF の上限を回路図と入力保護だけからは決められない。±12V_RAW の上限はモジュールの外（ラック電源）で決まり、D3 (BAS70-04) と U7 内部ダイオードの電流分担は資料にない。そこで U6 の絶対最大電源 ±20 V を CV_BUF の上限とする推定に頼っている。推定を外せる資料（電源の上限）が得られるまで提案のまま。"
         }
       ]
     },
@@ -1614,7 +2702,11 @@
           "value": null,
           "unit": "mA",
           "confidence": "UNRESOLVED",
-          "decided_by": "TLV75533 の逆電流の記述をメーカー資料から取得する（カタログ未記録）"
+          "decided_by": "TLV75533 の逆電流の記述をメーカー資料から取得する（カタログ未記録）",
+          "supplied_by": {
+            "kind": "DOCUMENT",
+            "what": "TLV75533 データシートの逆電流の記述（カタログに fact がない）"
+          }
         }
       ]
     },
@@ -1626,12 +2718,12 @@
       "setup": "制限電源と規定短絡負荷を使い、回復と温度を観測。",
       "expected": "現行電源保護の実動作を検証する。",
       "basis": "engineering/a5/integration/independent_review",
-      "criterion_status": "UNRESOLVED",
-      "missing_criterion": "短絡場所、時間、繰返しと復帰/最大温度基準の承認が必要。",
+      "criterion_status": "REVIEWED",
+      "missing_criterion": "",
       "raw_evidence_required": "短絡/解除波形、電流/温度/FAULTログ",
       "observation": "NOT_MEASURED",
       "result": "NOT_RUN",
-      "next_action": "不足する基準をレビューし、オーナー承認の試作ルート確定後に実物で実施。",
+      "next_action": "基準はコーディネーターが採用済み（オーナー本人ではない）。実機で手順を実施して記録する。",
       "required_evidence_kinds": [
         "short_recovery_waveforms",
         "current_temperature",
@@ -1702,14 +2794,36 @@
           "bound": "range"
         },
         {
-          "id": "criteria",
-          "criterion": "短絡の場所・時間・回数と、復帰/最大温度の合否",
-          "value": null,
+          "id": "vled-short",
+          "criterion": "VLED (J3) 短絡で U4 がラッチオフし、外しても電源再投入まで復帰しない",
+          "value": "TPS255x-1 latch-off: on overcurrent it asserts FAULT after the deglitch period and turns off; stays off even after the overload is removed until enable is toggled or power is cycled",
           "unit": "NONE",
-          "confidence": "UNRESOLVED",
-          "decided_by": "オーナーの承認（破損を許す範囲）とレビュー"
+          "confidence": "SOURCED",
+          "source": {
+            "path": ".claude/skills/component-tps2552dbvr-1/facts.json",
+            "fact_id": "fact-tps2552dbvr-1-latch-behaviour"
+          },
+          "bound": "exact"
+        },
+        {
+          "id": "short-no-retry",
+          "criterion": "短絡後 FW は再有効化しない",
+          "value": "No enable or retry path exists in this routine.",
+          "unit": "NONE",
+          "confidence": "DESIGN",
+          "source": {
+            "path": "engineering/a5/firmware/src/light_block.c",
+            "quote": "No enable or retry path exists in this routine."
+          },
+          "bound": "exact"
         }
-      ]
+      ],
+      "criterion_accepted_by": "PROJECT_COORDINATOR_DELEGATED",
+      "criterion_review": {
+        "path": "engineering/a7/qualification/reviews/2026-11-11-coordinator-criteria-acceptance.md",
+        "sha256": "de65e2b2ddbfb1bca68b01ca37e5222ada0f1d6ee695d191baf3516bb1abe93f"
+      },
+      "criterion_acceptance_sha256": "197cb2fb3ec8c9d635656c65e478cb8db344923227488dcf50cae4e71b67ccc8"
     },
     {
       "id": "effective-capacitance",
@@ -1810,7 +2924,11 @@
           "value": null,
           "unit": "NONE",
           "confidence": "UNRESOLVED",
-          "decided_by": "メーカーの DC バイアス曲線（未取得）と回路レビュー"
+          "decided_by": "メーカーの DC バイアス曲線（未取得）と回路レビュー",
+          "supplied_by": {
+            "kind": "DOCUMENT_AND_MEASUREMENT",
+            "what": "Samsung の DC バイアス特性（CL21A106KAYNNNE / CL31A226KAHNNNE / CL10A475KO8NNNC）と、回路レビューで決める必要容量"
+          }
         }
       ]
     },
@@ -1899,12 +3017,42 @@
           "bound": "range"
         },
         {
-          "id": "limits",
-          "criterion": "PETG/PMMA の温度限界、安定判定、見え方の合否",
+          "id": "part-temp-max",
+          "criterion": "安定後の部品表面温度の上限",
+          "value": 85,
+          "unit": "degC",
+          "confidence": "PROPOSED",
+          "derivation": {
+            "expression": "T",
+            "inputs": [
+              {
+                "name": "T",
+                "token": "+85",
+                "number": 85.0,
+                "source": {
+                  "path": ".claude/skills/component-a7-pcm13smtr/facts.json",
+                  "fact_id": "fact-a7-pcm13smtr-operating-temperature"
+                },
+                "context": "-40 to +85"
+              }
+            ],
+            "round": 0
+          },
+          "bound": "max",
+          "basis_confidence": "CALCULATED",
+          "rationale": "カタログの部品 fact で温度上限が分かるもののうち最も低いのは PCM13SMTR の動作上限 +85 °C（SM04B の定格条件も +85 °C）。ただし 14 種の部品（WS2812B を含む）は温度上限の fact がなく、これが基板で最も低い上限だとはまだ確認できない（WS2812B は資料の抜粋に動作温度 −40〜+85 °C とあるが fact として未記録）。表面温度は接合部より低いので、余裕をどれだけ取るかも採否で決める。"
+        },
+        {
+          "id": "materials-appearance",
+          "criterion": "PETG/PMMA の温度限界と見え方の合否",
           "value": null,
           "unit": "degC",
           "confidence": "UNRESOLVED",
-          "decided_by": "オーナーの判断（見え方）と材料資料（未取得）"
+          "decided_by": "材料の温度限界は資料（未取得）、見え方はオーナーの判断",
+          "supplied_by": {
+            "kind": "DOCUMENT",
+            "what": "使う PETG フィラメントと PMMA 板の製造元の熱変形温度（資料未取得）"
+          }
         }
       ]
     },
@@ -1916,12 +3064,12 @@
       "setup": "静的CVを印加しDATA_L/左右ストリームのパターンを切替、ADC/THRUを同期観測。",
       "expected": "記録されたCV_THRU対DATA_L_3V3/SWDIO、CV_ADC対SWCLKの結合懸念を評価。",
       "basis": "engineering/a7/verification/interface_review.md",
-      "criterion_status": "UNRESOLVED",
-      "missing_criterion": "帯域、ノイズ統計と許容誤差の採否値が未決。",
+      "criterion_status": "REVIEWED",
+      "missing_criterion": "",
       "raw_evidence_required": "同期波形、スペクトル/統計、配線/プローブ位置、パターン",
       "observation": "NOT_MEASURED",
       "result": "NOT_RUN",
-      "next_action": "不足する基準をレビューし、オーナー承認の試作ルート確定後に実物で実施。",
+      "next_action": "基準はコーディネーターが採用済み（オーナー本人ではない）。実機で手順を実施して記録する。",
       "required_evidence_kinds": [
         "synchronous_waveforms",
         "noise_statistics",
@@ -1965,14 +3113,36 @@
           "bound": "reference"
         },
         {
-          "id": "limit",
-          "criterion": "許容ノイズと帯域",
-          "value": null,
-          "unit": "V",
-          "confidence": "UNRESOLVED",
-          "decided_by": "cv-thru-calibration の誤差予算とオーナーの許容値"
+          "id": "noise-max",
+          "criterion": "LED データ送信中の CV 換算ノイズ（ピーク・ツー・ピーク）の上限",
+          "value": 50,
+          "unit": "mV",
+          "confidence": "CALCULATED",
+          "derivation": {
+            "expression": "DB",
+            "inputs": [
+              {
+                "name": "DB",
+                "token": "50",
+                "number": 50.0,
+                "source": {
+                  "path": "engineering/a5/firmware/include/lb_config.h",
+                  "quote": "LB_CV_DEADBAND_MV            50"
+                },
+                "context": "LB_CV_DEADBAND_MV            50"
+              }
+            ],
+            "round": 0
+          },
+          "bound": "max"
         }
-      ]
+      ],
+      "criterion_accepted_by": "PROJECT_COORDINATOR_DELEGATED",
+      "criterion_review": {
+        "path": "engineering/a7/qualification/reviews/2026-11-11-coordinator-criteria-acceptance.md",
+        "sha256": "de65e2b2ddbfb1bca68b01ca37e5222ada0f1d6ee695d191baf3516bb1abe93f"
+      },
+      "criterion_acceptance_sha256": "ed52279e0344626b20103633bbb0da95af82cc01c16a90a757a216277cd0063b"
     },
     {
       "id": "service-envelope",
@@ -2089,6 +3259,32 @@
           "unit": "NONE",
           "confidence": "UNRESOLVED",
           "decided_by": "オーナーの判断"
+        },
+        {
+          "id": "retention-force",
+          "criterion": "ジャック保持がずれ・割れなく受ける挿抜力",
+          "value": 10.0,
+          "unit": "N",
+          "confidence": "PROPOSED",
+          "derivation": {
+            "expression": "F",
+            "inputs": [
+              {
+                "name": "F",
+                "token": "10.0",
+                "number": 10.0,
+                "source": {
+                  "path": ".claude/skills/component-a7-pj-324m/facts.json",
+                  "fact_id": "fact-a7-pj-324m-plug-force"
+                },
+                "context": "5.0-10.0 N inward"
+              }
+            ],
+            "round": 1
+          },
+          "bound": "min",
+          "basis_confidence": "MIRROR",
+          "rationale": "PJ-324M の挿抜力の上限 10.0 N（販売店掲載の写し）。回数はオーナーが決める（cycles）。"
         }
       ]
     }
@@ -2109,29 +3305,6 @@
       ]
     },
     {
-      "id": "O1",
-      "title": "限定試作ルートを承認する",
-      "detail": "対象版（A7 r2 / 3HP / FR-4）、数量、入手する部品・基板・治具、許す工程、実施者、試験前の安全条件を決め、承認ファイルを残して `records.json` の owner_prototype_route に記録する。製造リリースとは別の承認。",
-      "unblocks": [
-        "owner_prototype_route",
-        "assembly:prototype-and-release"
-      ]
-    },
-    {
-      "id": "O2",
-      "title": "発注数量を決める",
-      "detail": "1 / 10 / 100 は比較条件だけ。数量が決まるまで、どの供給観測も「この発注に使える」と判断できない。 材料の供給観測は、決めた数量に対して「入手可能」と言える必要がある。",
-      "unblocks": [
-        "assembly:order-quantity",
-        "material:jack",
-        "material:switch",
-        "material:finished_cables",
-        "material:pmma_petg_hardware",
-        "material:fixture",
-        "material:assembly_service"
-      ]
-    },
-    {
       "id": "O3",
       "title": "供給元への質問を送るか決め、送る",
       "detail": "`engineering/a7/qualification/supplier-questions.md` は未送信の下書き。送信と回答の保存（取得日・送信先・raw・ハッシュ）はオーナーだけが行える。",
@@ -2149,6 +3322,31 @@
         "material:pmma_petg_hardware",
         "material:fixture",
         "material:assembly_service"
+      ]
+    },
+    {
+      "id": "O7",
+      "title": "合否基準を採否する（導出値と提案値）",
+      "detail": "導出した受入値（power-current / startup-reset / u7-stress）と、PROPOSED の提案値（見え方・温度、挿抜力と回数、短絡、CV の誤差とノイズ、レール崩壊、ジャック導通）を採るか決める。採った値はレビュー記録に残す。提案値のままではゲートは解除されない。",
+      "unblocks": [
+        "criterion:thermal-optical",
+        "criterion:service-envelope",
+        "criterion:load-short",
+        "criterion:cv-noise",
+        "criterion:rail-collapse",
+        "criterion:jack-continuity",
+        "criterion:cv-thru-calibration",
+        "criterion:power-current",
+        "criterion:startup-reset",
+        "criterion:u7-stress"
+      ]
+    },
+    {
+      "id": "O8",
+      "title": "LED タイミング (#13) の扱いを決める",
+      "detail": "**矛盾:** データシート V1.4 の T1L は 580–1000 ns、現行 FW は 220–420 ns。提案値（t1l-min / t1l-max = 580 / 1000 ns）を採ると現行 FW は不合格になるので、#13 が開いている間は採らない（コーディネーター判断）。メーカー訂正を待つか、購入ロットの実測で別レビューするか、FW を直すかをオーナーが決める。",
+      "unblocks": [
+        "criterion:firmware-waveforms"
       ]
     },
     {
@@ -2177,25 +3375,26 @@
       ]
     },
     {
-      "id": "O7",
-      "title": "オーナーが決める合否基準を決める",
-      "detail": "見え方・温度、繰返し回数と損傷、短絡試験で許す破損、CV の許容誤差とノイズ許容値、5 V 監視の要否。",
+      "id": "O2",
+      "title": "発注数量を決める",
+      "detail": "1 / 10 / 100 は比較条件だけ。数量が決まるまで、どの供給観測も「この発注に使える」と判断できない。 材料の供給観測は、決めた数量に対して「入手可能」と言える必要がある。",
       "unblocks": [
-        "criterion:thermal-optical",
-        "criterion:service-envelope",
-        "criterion:load-short",
-        "criterion:cv-noise",
-        "criterion:rail-collapse",
-        "criterion:jack-continuity",
-        "criterion:cv-thru-calibration"
+        "assembly:order-quantity",
+        "material:jack",
+        "material:switch",
+        "material:finished_cables",
+        "material:pmma_petg_hardware",
+        "material:fixture",
+        "material:assembly_service"
       ]
     },
     {
-      "id": "O8",
-      "title": "LED タイミング (#13) の扱いを決める",
-      "detail": "データシートの T1L 580–1000 ns と FW の 220–420 ns の矛盾。メーカー訂正を待つか、購入ロットの実測で別レビューするか。",
+      "id": "O1",
+      "title": "限定試作ルートを承認する",
+      "detail": "対象版（A7 r2 / 3HP / FR-4）、数量、入手する部品・基板・治具、許す工程、実施者、試験前の安全条件を決め、承認ファイルを残して `records.json` の owner_prototype_route に記録する。製造リリースとは別の承認。",
       "unblocks": [
-        "criterion:firmware-waveforms"
+        "owner_prototype_route",
+        "assembly:prototype-and-release"
       ]
     },
     {

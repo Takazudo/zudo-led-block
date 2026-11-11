@@ -125,3 +125,12 @@ E1 CIログでは `ENABLED` は空でした（2026-11-09T09:35:50Z）。ただ�
 - **オーナーのチェックリスト:** `doc/src/content/docs/project/order-checklist.mdx`（生成物）に、オーナーにしかできない 10 項目と、それぞれが解除するゲートを記載。
 - readiness は 57 ゲート / 58 理由（以前は区分なしの 49 理由。増えたのは台帳の未解決事項を 1 件から 10 件に分けたため）。W1（#47）と W2（#48）を取り込んで fixture → procurement → readiness の順で再生成。W2 で PJ-324M の寸法・定格が一次資料で確認され、受入値の確度は検査により MIRROR から SOURCED に変わった。order gate は BLOCKED のまま。
 - 独立レビューの指摘を修正: 出典は部品 fact（fact_id のみ）と設計記録に限定し計画・生成物は引用不可、記録が値の隣に書く確度はすべて強制、引用行の ASSUMED/INFERRED も強制、引用値は語単位で一致、比較の向き `bound` を必須化、電源ケーブル範囲 54–60 mm を ASSUMED に訂正、ねじ噛み合い手順を rear-pocket 構成に合わせた、cv-thru-calibration をオーナー判断・partial-rails と fixture-contact を外部証跡待ちに再分類、リーフ間 SH4 のピン対応もネットリストから生成。
+
+## 2026-11-11 W6: 合否基準
+
+- 基準 main: `5b9db66`（PR #49 の merge）。作業ブランチ `claude/project-thread-eroz5e`（main から作り直し）。権威基板は変更していません。
+- **導出した受入値:** power-current（VLED 電流制限 343.3–439.4 mA、通常点灯はその下限未満、+3V3 3.267–3.333 V、+5 V 4.95–5.05 V）、startup-reset（LED_EN_N ≥ 1.1 V で無効、≤ 0.66 V で有効、有効化は初期化から 100 ms 以降、黒フレームまで 5 ms 以上、ADC 待ち 250 ms、VDDA 3000–3600 mV、観測窓 260 ms 以上（SW1 が有効位置のとき）、FAULT 後の再有効化なし、保持マーカーが残るリセットでは起動しない）、u7-stress（電源 1.8–5.5 V、入力 ±0.5 V / 10 mA の絶対最大、R7 電流の計算上限 0.313 mA は PROPOSED）。すべて NOT_MEASURED。
+- **提案値と採用:** オーナー判断の手順に PROPOSED を用意し、独立レビューが確認したものをコーディネーターが採用（7 手順。オーナー本人ではない）。残る提案は 7 件。採用は受入値のダイジェストに結び付き、値を変えると基準ゲートが再び閉じる。
+- **外部証跡待ち:** 7 手順の未決値に、決め手になる資料または測定を記録。
+- **チェックリスト:** オーナーの作業を 1 つの順序付きリスト（11 項目）にし、提案値の一覧を追加。
+- readiness は 50 ゲート / 63 理由（CLOUD_DIGITAL 2、OWNER_DECISION 12、ACCESS_EVIDENCE_HOLD 16、PHYSICAL_ONLY 20）。order gate は BLOCKED のまま。

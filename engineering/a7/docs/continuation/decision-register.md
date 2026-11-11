@@ -22,3 +22,5 @@
 #11 hosting、#12 agentページ公開の判断、A6 #7/PR #14 のholdは、この作業で変更しません。
 
 2026-11-11 W3: 「基準が未決の物理試験」は、手順ごとに `criterion_class` で、クラウドで作れる条件表（power-current、startup-reset、u7-stress）、オーナーの判断（cv-thru-calibration の許容誤差を含む）、外部の証跡待ち（partial-rails の STM32 注入電流、fixture-contact のプローブ仕様など）に分けました。オーナーが決める項目は `/docs/project/order-checklist/` の O1–O10 です。エージェントは数値を創作せず、出典のない合否値は UNRESOLVED のままです。
+
+2026-11-11 W6: クラウドで作れる 3 手順（power-current、startup-reset、u7-stress）の受入値を、部品 fact・A7 ネットリスト・FW 定数からの計算として記録しました。計算は生成時に再実行して照合します。TPS2552 の電流制限 343.3–439.4 mA は A5 の履歴計算（`engineering/a5/electronics/reports/electrical_margins.json`）と一致します。u7-stress の R7 電流上限 0.313 mA は「CV_BUF が U6 の電源 ±20 V を超えない」という推定を含むので PROPOSED のままです。オーナーから判断を委ねられたコーディネーターが、独立レビューで導出が確認された 7 手順（power-current、startup-reset、cv-thru-calibration、rail-collapse、load-short、cv-noise、jack-continuity）の基準を採用しました。オーナー本人の採用とは区別して記録しています（`criterion_accepted_by`）。オーナー判断の 9 手順には PROPOSED の提案値を付けました。提案はゲートを解除しません。チェックリストはオーナーの作業を 1 つの順序付きリストにしました。

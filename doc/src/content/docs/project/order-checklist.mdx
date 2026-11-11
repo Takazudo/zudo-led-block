@@ -9,31 +9,73 @@ sidebar_position: 4.5
 発注ゲートは **BLOCKED** です。このページは準備の一覧で、発注・供給元への連絡・製造承認・通電を許可するものではありません。
 :::
 
-readiness（`engineering/a7/qualification/readiness.json`）は不足を 57 個のゲートに分け、何で解除できるかで分類しています。
+readiness（`engineering/a7/qualification/readiness.json`）は不足を 50 個のゲートに分け、何で解除できるかで分類しています。
 ゲート名は readiness のものと同じです。
 
 | 区分 | ゲート数 |
 |---|---:|
-| クラウドで進められるデジタル作業 | 5 |
-| オーナーの判断 | 16 |
+| クラウドで進められるデジタル作業 | 2 |
+| オーナーの判断 | 12 |
 | 外部の証跡・アクセス待ち | 16 |
 | 実機が必要 | 20 |
 
-## オーナーにしかできないこと
+## 残っているオーナーの作業（この順に）
 
-| # | やること | 内容 | 解除するゲート（現在の状態） |
-|---|---|---|---|
-| O0 | PCB を発注する前に PJ-324M の端子 4/5 を実物で確定する | 供給元の symbol は端子 5 を tip としており、基板の推定対応（端子 4 = tip）と矛盾する。symbol の読みだけでは欠陥とは言えないので、ピン対応と銅箔は変更していない。実物の PJ-324M を TS / TRS プラグで導通試験し（jack-continuity の手順 5）、どちらが tip 接点でどちらがその normal かを記録する。PCB 発注の前提条件。 | `run:jack-continuity`（BLOCKED）、`criterion:jack-continuity`（BLOCKED）、`assembly:jack-switch-qualification`（BLOCKED） |
-| O1 | 限定試作ルートを承認する | 対象版（A7 r2 / 3HP / FR-4）、数量、入手する部品・基板・治具、許す工程、実施者、試験前の安全条件を決め、承認ファイルを残して `records.json` の owner_prototype_route に記録する。製造リリースとは別の承認。 | `owner_prototype_route`（BLOCKED）、`assembly:prototype-and-release`（BLOCKED） |
-| O2 | 発注数量を決める | 1 / 10 / 100 は比較条件だけ。数量が決まるまで、どの供給観測も「この発注に使える」と判断できない。 材料の供給観測は、決めた数量に対して「入手可能」と言える必要がある。 | `assembly:order-quantity`（BLOCKED）、`material:jack`（BLOCKED）、`material:switch`（BLOCKED）、`material:finished_cables`（BLOCKED）、`material:pmma_petg_hardware`（BLOCKED）、`material:fixture`（BLOCKED）、`material:assembly_service`（BLOCKED） |
-| O3 | 供給元への質問を送るか決め、送る | `engineering/a7/qualification/supplier-questions.md` は未送信の下書き。送信と回答の保存（取得日・送信先・raw・ハッシュ）はオーナーだけが行える。 | `assembly:supply-observations`（BLOCKED）、`assembly:mechanical-materials`（BLOCKED）、`criterion:jack-dimensions`（BLOCKED）、`criterion:switch-fit`（BLOCKED）、`criterion:pmma-supports`（BLOCKED）、`criterion:ldo-reverse`（BLOCKED）、`criterion:effective-capacitance`（BLOCKED）、`material:jack`（BLOCKED）、`material:switch`（BLOCKED）、`material:finished_cables`（BLOCKED）、`material:pmma_petg_hardware`（BLOCKED）、`material:fixture`（BLOCKED）、`material:assembly_service`（BLOCKED） |
-| O4 | PCM13SMTR の在庫 0 への対応を決める | 入荷を待つ、別の販売店から買う、または接点表と適合を別にレビューした代替品を認める（Q10）。 | `assembly:switch-supply`（BLOCKED） |
-| O5 | 完成ケーブルを選び、電源ケーブル公差 ±3 mm（仮定）を認めるか決める | 電源 57 mm の公差は仮定。供給元が保証できる公差と組立の選択を決める。SH4 と IDC リボンも同じ。 | `assembly:finished-cables`（BLOCKED）、`criterion:harness-depth`（BLOCKED） |
-| O6 | ラック締結部品を指定する | 使うラックのレール・ねじ規格。 | `assembly:rack-hardware`（BLOCKED） |
-| O7 | オーナーが決める合否基準を決める | 見え方・温度、繰返し回数と損傷、短絡試験で許す破損、CV の許容誤差とノイズ許容値、5 V 監視の要否。 | `criterion:thermal-optical`（BLOCKED）、`criterion:service-envelope`（BLOCKED）、`criterion:load-short`（BLOCKED）、`criterion:cv-noise`（BLOCKED）、`criterion:rail-collapse`（BLOCKED）、`criterion:jack-continuity`（BLOCKED）、`criterion:cv-thru-calibration`（BLOCKED） |
-| O8 | LED タイミング (#13) の扱いを決める | データシートの T1L 580–1000 ns と FW の 220–420 ns の矛盾。メーカー訂正を待つか、購入ロットの実測で別レビューするか。 | `criterion:firmware-waveforms`（BLOCKED） |
-| O9 | 物理手順を実施して記録する | 19 手順はすべて実機が必要。`run-templates/` の雛形をコピーし、raw ファイルとハッシュを付けて `records.json` に追加する。 | `run:*`（19 手順が未実施） |
-| O10 | 製造リリースと発注を明示的に承認する | レビュー済み製造ファイル、数量、版に結び付いた承認。上のすべてが揃った後。 | `manufacturing_release`（BLOCKED）、`assembly:prototype-and-release`（BLOCKED） |
+上から順に進めると、後の作業の前提がそろいます。各作業の内容と、解除するゲートの状態は下の表にあります。
+
+1. **O0** PCB を発注する前に PJ-324M の端子 4/5 を実物で確定する
+2. **O3** 供給元への質問を送るか決め、送る
+3. **O7** 合否基準を採否する（導出値と提案値）
+4. **O8** LED タイミング (#13) の扱いを決める
+5. **O4** PCM13SMTR の在庫 0 への対応を決める
+6. **O5** 完成ケーブルを選び、電源ケーブル公差 ±3 mm（仮定）を認めるか決める
+7. **O6** ラック締結部品を指定する
+8. **O2** 発注数量を決める
+9. **O1** 限定試作ルートを承認する
+10. **O9** 物理手順を実施して記録する
+11. **O10** 製造リリースと発注を明示的に承認する
+
+## 採否を待つ提案値
+
+エージェントが出典から用意した提案です（7 件）。採るまでは該当する基準ゲートを解除しません。理由と計算は procedures.md にあります。
+
+| 手順 | ID | 基準 | 提案値 | 単位 |
+|---|---|---|---|---|
+| harness-depth | bend-radius | 許容最小曲げ半径 | `2.0` | mm |
+| harness-depth | power-band-order | 電源ケーブル自由長の注文範囲 | `[54.0, 60.0]` | mm |
+| firmware-waveforms | t1l-min | T1L の下限 | `580` | ns |
+| firmware-waveforms | t1l-max | T1L の上限 | `1000` | ns |
+| u7-stress | in-current-bound | R7 を流れる電流（U7 IN+ と D3 の合計）の上限（計算）。CV_AFFINE の全抵抗（R3–R6）と +3V3 の上限を含む節点計算。測定した R7 の電圧から求めた電流はこれ以下で、U7 入力の絶対最大 10 mA より小さい | `0.313` | mA |
+| thermal-optical | part-temp-max | 安定後の部品表面温度の上限 | `85` | degC |
+| service-envelope | retention-force | ジャック保持がずれ・割れなく受ける挿抜力 | `10.0` | N |
+
+## 採用済みの合否基準
+
+採用者を区別して示します。採用は基準の確定で、測定や合格ではありません。
+
+- jack-continuity: プロジェクトのコーディネーター（オーナーが委ねた作業方針による）（記録 `engineering/a7/qualification/reviews/2026-11-11-coordinator-criteria-acceptance.md`）
+- power-current: プロジェクトのコーディネーター（オーナーが委ねた作業方針による）（記録 `engineering/a7/qualification/reviews/2026-11-11-coordinator-criteria-acceptance.md`）
+- cv-thru-calibration: プロジェクトのコーディネーター（オーナーが委ねた作業方針による）（記録 `engineering/a7/qualification/reviews/2026-11-11-coordinator-criteria-acceptance.md`）
+- startup-reset: プロジェクトのコーディネーター（オーナーが委ねた作業方針による）（記録 `engineering/a7/qualification/reviews/2026-11-11-coordinator-criteria-acceptance.md`）
+- rail-collapse: プロジェクトのコーディネーター（オーナーが委ねた作業方針による）（記録 `engineering/a7/qualification/reviews/2026-11-11-coordinator-criteria-acceptance.md`）
+- load-short: プロジェクトのコーディネーター（オーナーが委ねた作業方針による）（記録 `engineering/a7/qualification/reviews/2026-11-11-coordinator-criteria-acceptance.md`）
+- cv-noise: プロジェクトのコーディネーター（オーナーが委ねた作業方針による）（記録 `engineering/a7/qualification/reviews/2026-11-11-coordinator-criteria-acceptance.md`）
+
+## 各作業の詳細
+
+| # | 内容 | 解除するゲート（現在の状態） |
+|---|---|---|
+| O0 | 供給元の symbol は端子 5 を tip としており、基板の推定対応（端子 4 = tip）と矛盾する。symbol の読みだけでは欠陥とは言えないので、ピン対応と銅箔は変更していない。実物の PJ-324M を TS / TRS プラグで導通試験し（jack-continuity の手順 5）、どちらが tip 接点でどちらがその normal かを記録する。PCB 発注の前提条件。 | `run:jack-continuity`（BLOCKED）、`criterion:jack-continuity`（解除済み）、`assembly:jack-switch-qualification`（BLOCKED） |
+| O3 | `engineering/a7/qualification/supplier-questions.md` は未送信の下書き。送信と回答の保存（取得日・送信先・raw・ハッシュ）はオーナーだけが行える。 | `assembly:supply-observations`（BLOCKED）、`assembly:mechanical-materials`（BLOCKED）、`criterion:jack-dimensions`（BLOCKED）、`criterion:switch-fit`（BLOCKED）、`criterion:pmma-supports`（BLOCKED）、`criterion:ldo-reverse`（BLOCKED）、`criterion:effective-capacitance`（BLOCKED）、`material:jack`（BLOCKED）、`material:switch`（BLOCKED）、`material:finished_cables`（BLOCKED）、`material:pmma_petg_hardware`（BLOCKED）、`material:fixture`（BLOCKED）、`material:assembly_service`（BLOCKED） |
+| O7 | 導出した受入値（power-current / startup-reset / u7-stress）と、PROPOSED の提案値（見え方・温度、挿抜力と回数、短絡、CV の誤差とノイズ、レール崩壊、ジャック導通）を採るか決める。採った値はレビュー記録に残す。提案値のままではゲートは解除されない。 | `criterion:thermal-optical`（BLOCKED）、`criterion:service-envelope`（BLOCKED）、`criterion:load-short`（解除済み）、`criterion:cv-noise`（解除済み）、`criterion:rail-collapse`（解除済み）、`criterion:jack-continuity`（解除済み）、`criterion:cv-thru-calibration`（解除済み）、`criterion:power-current`（解除済み）、`criterion:startup-reset`（解除済み）、`criterion:u7-stress`（BLOCKED） |
+| O8 | **矛盾:** データシート V1.4 の T1L は 580–1000 ns、現行 FW は 220–420 ns。提案値（t1l-min / t1l-max = 580 / 1000 ns）を採ると現行 FW は不合格になるので、#13 が開いている間は採らない（コーディネーター判断）。メーカー訂正を待つか、購入ロットの実測で別レビューするか、FW を直すかをオーナーが決める。 | `criterion:firmware-waveforms`（BLOCKED） |
+| O4 | 入荷を待つ、別の販売店から買う、または接点表と適合を別にレビューした代替品を認める（Q10）。 | `assembly:switch-supply`（BLOCKED） |
+| O5 | 電源 57 mm の公差は仮定。供給元が保証できる公差と組立の選択を決める。SH4 と IDC リボンも同じ。 | `assembly:finished-cables`（BLOCKED）、`criterion:harness-depth`（BLOCKED） |
+| O6 | 使うラックのレール・ねじ規格。 | `assembly:rack-hardware`（BLOCKED） |
+| O2 | 1 / 10 / 100 は比較条件だけ。数量が決まるまで、どの供給観測も「この発注に使える」と判断できない。 材料の供給観測は、決めた数量に対して「入手可能」と言える必要がある。 | `assembly:order-quantity`（BLOCKED）、`material:jack`（BLOCKED）、`material:switch`（BLOCKED）、`material:finished_cables`（BLOCKED）、`material:pmma_petg_hardware`（BLOCKED）、`material:fixture`（BLOCKED）、`material:assembly_service`（BLOCKED） |
+| O1 | 対象版（A7 r2 / 3HP / FR-4）、数量、入手する部品・基板・治具、許す工程、実施者、試験前の安全条件を決め、承認ファイルを残して `records.json` の owner_prototype_route に記録する。製造リリースとは別の承認。 | `owner_prototype_route`（BLOCKED）、`assembly:prototype-and-release`（BLOCKED） |
+| O9 | 19 手順はすべて実機が必要。`run-templates/` の雛形をコピーし、raw ファイルとハッシュを付けて `records.json` に追加する。 | `run:*`（19 手順が未実施） |
+| O10 | レビュー済み製造ファイル、数量、版に結び付いた承認。上のすべてが揃った後。 | `manufacturing_release`（BLOCKED）、`assembly:prototype-and-release`（BLOCKED） |
 
 ## オーナーの作業を待たずに進められるもの
 
@@ -41,9 +83,6 @@ readiness（`engineering/a7/qualification/readiness.json`）は不足を 57 個�
 
 - `artifact:fixture`: fixture digital design incomplete or unverified
 - `assembly:fixture-materials`: assembly_manifest: fixture-materials: Fixture design and materials incomplete (see fixture manifest); physical contact/load tests follow.
-- `criterion:power-current`: power-current: criterion unresolved or review receipt missing
-- `criterion:startup-reset`: startup-reset: criterion unresolved or review receipt missing
-- `criterion:u7-stress`: u7-stress: criterion unresolved or review receipt missing
 
 ## 物理手順
 

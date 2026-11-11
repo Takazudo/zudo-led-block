@@ -18,7 +18,7 @@
     "fixture": "775afc199d44589891ecab660e1994d08dbfb5496046641adbaed7593cb3d826",
     "assembly_manifest": "b34105182f7b6001750460f3185c5e025268b5794532dc5a330f85e478c69117"
   },
-  "plan_sha256": "4c706a65a90e1a52981a38da713da4c7229619d94c1a01b4aa8af667b510c483",
+  "plan_sha256": "0ba6d52695e056cd3ec80c0d0a8b2b19552472ee86383ead44739f0a8c4fd8a9",
   "instruments": null,
   "setup": null,
   "conditions": null,
@@ -68,6 +68,7 @@
       "bound": "exact",
       "unit": "NONE",
       "confidence": "INFERRED",
+      "proposed": false,
       "observed": null,
       "verdict": null
     },
@@ -78,6 +79,7 @@
       "bound": "reference",
       "unit": "NONE",
       "confidence": "DESIGN",
+      "proposed": false,
       "observed": null,
       "verdict": null
     },
@@ -88,6 +90,7 @@
       "bound": "reference",
       "unit": "NONE",
       "confidence": "UNVERIFIED",
+      "proposed": false,
       "observed": null,
       "verdict": null
     },
@@ -98,6 +101,7 @@
       "bound": "reference",
       "unit": "NONE",
       "confidence": "DESIGN",
+      "proposed": false,
       "observed": null,
       "verdict": null
     },
@@ -108,16 +112,40 @@
       "bound": "max",
       "unit": "NONE",
       "confidence": "SOURCED",
+      "proposed": false,
       "observed": null,
       "verdict": null
     },
     {
-      "id": "threshold",
-      "criterion": "「導通」「開放」と判定する抵抗値",
-      "expected": null,
-      "bound": null,
+      "id": "mapping-closed-max",
+      "criterion": "端子対応の判定で「導通」とみなす抵抗の上限（どの端子が tip / normal かを見分けるためだけの閾値）",
+      "expected": 200000,
+      "bound": "max",
       "unit": "ohm",
-      "confidence": "UNRESOLVED",
+      "confidence": "CALCULATED",
+      "proposed": false,
+      "observed": null,
+      "verdict": null
+    },
+    {
+      "id": "mapping-open-min",
+      "criterion": "端子対応の判定で「開放」とみなす抵抗の下限",
+      "expected": 20000000,
+      "bound": "min",
+      "unit": "ohm",
+      "confidence": "CALCULATED",
+      "proposed": false,
+      "observed": null,
+      "verdict": null
+    },
+    {
+      "id": "contact-max",
+      "criterion": "閉じた接点 1 つあたりの接触抵抗の上限（新品の初期値）。4 端子法、または 2 端子法で、測定リードとプラグを短絡して読んだ値を差し引く（リード抵抗の扱いを記録）。測定電流は接点定格 50 mA 以下",
+      "expected": 50,
+      "bound": "max",
+      "unit": "mohm",
+      "confidence": "UNVERIFIED",
+      "proposed": false,
       "observed": null,
       "verdict": null
     }

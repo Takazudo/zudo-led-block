@@ -18,7 +18,7 @@
     "fixture": "775afc199d44589891ecab660e1994d08dbfb5496046641adbaed7593cb3d826",
     "assembly_manifest": "b34105182f7b6001750460f3185c5e025268b5794532dc5a330f85e478c69117"
   },
-  "plan_sha256": "4c706a65a90e1a52981a38da713da4c7229619d94c1a01b4aa8af667b510c483",
+  "plan_sha256": "0ba6d52695e056cd3ec80c0d0a8b2b19552472ee86383ead44739f0a8c4fd8a9",
   "instruments": null,
   "setup": null,
   "conditions": null,
@@ -52,6 +52,7 @@
       "bound": "max",
       "unit": "V",
       "confidence": "SOURCED",
+      "proposed": false,
       "observed": null,
       "verdict": null
     },
@@ -62,6 +63,7 @@
       "bound": "range",
       "unit": "V",
       "confidence": "SOURCED",
+      "proposed": false,
       "observed": null,
       "verdict": null
     },
@@ -72,16 +74,29 @@
       "bound": "max",
       "unit": "mA",
       "confidence": "SOURCED",
+      "proposed": false,
       "observed": null,
       "verdict": null
     },
     {
-      "id": "conditions",
-      "criterion": "安全な印加条件と必要なプローブ帯域",
-      "expected": null,
-      "bound": null,
-      "unit": "NONE",
-      "confidence": "UNRESOLVED",
+      "id": "supply-roc",
+      "criterion": "U7 電源 (+3V3) の推奨範囲",
+      "expected": "1.8 to 5.5",
+      "bound": "range",
+      "unit": "V",
+      "confidence": "SOURCED",
+      "proposed": false,
+      "observed": null,
+      "verdict": null
+    },
+    {
+      "id": "in-current-bound",
+      "criterion": "R7 を流れる電流（U7 IN+ と D3 の合計）の上限（計算）。CV_AFFINE の全抵抗（R3–R6）と +3V3 の上限を含む節点計算。測定した R7 の電圧から求めた電流はこれ以下で、U7 入力の絶対最大 10 mA より小さい",
+      "expected": 0.313,
+      "bound": "max",
+      "unit": "mA",
+      "confidence": "PROPOSED",
+      "proposed": true,
       "observed": null,
       "verdict": null
     }
