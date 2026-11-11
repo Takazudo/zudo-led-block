@@ -42,7 +42,7 @@ class ReadinessTests(unittest.TestCase):
             self.receipts[role] = {'path': f.name, 'sha256': m.digest(f)}
         for key in ['fixture', 'assembly_manifest']:
             (self.root/m.IDENTITY_PATHS[key]).write_text(json.dumps({
-                'status': 'DIGITAL_DESIGN_VERIFIED', 'digital_fixture_complete': True, 'fresh_native_verified': True, 'inputs_sha256': {'raw.txt': m.digest(self.raw)}, 'blockers': []}))
+                'status': 'DIGITAL_DESIGN_VERIFIED', 'digital_fixture_complete': True, 'fresh_native_verified': True, 'digital_criteria_1_to_4_met': True, 'inputs_sha256': {'raw.txt': m.digest(self.raw)}, 'blockers': []}))
         self.today = dt.date(2026, 11, 9)
 
     def evaluate(self):
@@ -89,6 +89,78 @@ class ReadinessTests(unittest.TestCase):
         dst = self.root/('copy-of-'+src.name)
         dst.write_bytes(src.read_bytes())
         return {'path': dst.name, 'sha256': m.digest(dst)}
+
+    def fixture_contact(self):
+        return next(p for p in self.plan['procedures'] if p['id'] == 'fixture-contact')
+
+    def write_fixture(self, **flags):
+        path = self.root/m.IDENTITY_PATHS['fixture']
+        artifact = json.loads(path.read_text())
+        artifact.update(flags)
+        path.write_text(json.dumps(artifact))
+
+    def test_fixture_contact_waits_on_criteria_1_to_4_not_on_completion(self):
+        p = self.fixture_contact()
+        self.assertEqual(p['precondition_states'], [{'artifact': 'fixture', 'flag': 'digital_criteria_1_to_4_met', 'equals': True}])
+        self.assertFalse(any('digital_fixture_complete' in c for c in p['preconditions']))
+        self.assertEqual(m.state_flag_errors(self.plan), [])
+        # Audit of the other eighteen: none waits on a registered state.
+        self.assertEqual([q['id'] for q in self.plan['procedures'] if q['precondition_states']], ['fixture-contact'])
+
+    def test_precondition_on_a_state_only_this_procedure_produces_is_rejected(self):
+        p = self.fixture_contact()
+        p['preconditions'][-1] = '治具の manifest が digital_fixture_complete=true'
+        p['precondition_states'] = [{'artifact': 'fixture', 'flag': 'digital_fixture_complete', 'equals': True}]
+        with self.assertRaisesRegex(ValueError, 'can only be produced by this procedure'):
+            m.schema(self.plan, {'schema': 1, 'runs': [], 'material_observations': []})
+
+    def test_precondition_cycle_through_two_procedures_is_rejected(self):
+        self.plan['state_flags'] += [
+            {'artifact': 'fixture', 'flag': 'synthetic_a', 'closed_by': ['jack-continuity'], 'note': 'synthetic'},
+            {'artifact': 'fixture', 'flag': 'synthetic_b', 'closed_by': ['switch-fit'], 'note': 'synthetic'}]
+        for pid, flag in [('jack-continuity', 'synthetic_b'), ('switch-fit', 'synthetic_a')]:
+            p = next(q for q in self.plan['procedures'] if q['id'] == pid)
+            p['preconditions'].append(flag + '=true')
+            p['precondition_states'] = [{'artifact': 'fixture', 'flag': flag, 'equals': True}]
+        with self.assertRaisesRegex(ValueError, 'precondition cycle: jack-continuity -> switch-fit -> jack-continuity'):
+            m.schema(self.plan, {'schema': 1, 'runs': [], 'material_observations': []})
+
+    def test_precondition_text_must_match_its_declared_states(self):
+        p = next(q for q in self.plan['procedures'] if q['id'] == 'power-current')
+        p['preconditions'].append('治具の manifest が digital_fixture_complete=true')
+        with self.assertRaisesRegex(ValueError, 'precondition text and precondition_states disagree'):
+            m.schema(self.plan, {'schema': 1, 'runs': [], 'material_observations': []})
+        p['preconditions'].pop()
+        p['precondition_states'] = [{'artifact': 'fixture', 'flag': 'fresh_native_verified', 'equals': True}]
+        with self.assertRaisesRegex(ValueError, 'precondition text and precondition_states disagree'):
+            m.schema(self.plan, {'schema': 1, 'runs': [], 'material_observations': []})
+
+    def test_unregistered_or_unlisted_closers_are_rejected(self):
+        self.fixture_contact()['precondition_states'][0]['flag'] = 'unknown_flag'
+        with self.assertRaisesRegex(ValueError, 'unregistered state'):
+            m.schema(self.plan, {'schema': 1, 'runs': [], 'material_observations': []})
+        self.setUp()
+        self.write_fixture(completion_criteria={'5_physical_tests': {'met': False, 'basis': 'tracked by the switch-fit procedure'}})
+        with self.assertRaisesRegex(ValueError, 'close digital_fixture_complete but state_flags does not: switch-fit'):
+            self.evaluate()
+
+    def test_criteria_1_to_4_flag_is_informational_only(self):
+        self.write_fixture(digital_fixture_complete=False, digital_criteria_1_to_4_met=True)
+        r = self.evaluate()
+        self.assertIn('fixture digital design incomplete or unverified', r['blockers'])
+        flags = {x['flag']: x for x in r['state_flags']}
+        self.assertEqual((flags['digital_criteria_1_to_4_met']['value'], flags['digital_criteria_1_to_4_met']['role']), (True, 'INFORMATIONAL'))
+        self.assertEqual(flags['digital_fixture_complete']['role'], 'GATE')
+        self.assertEqual(r['order_eligibility'], 'BLOCKED')
+
+    def test_run_needs_its_precondition_state(self):
+        self.write_fixture(digital_criteria_1_to_4_met=False)
+        self.fully_recorded_synthetic_case()
+        r = self.evaluate()
+        self.assertEqual(r['blockers'], ['fixture-contact: run precondition state not met: digital_criteria_1_to_4_met'])
+        self.setUp()
+        self.fully_recorded_synthetic_case()
+        self.assertEqual(self.evaluate()['order_eligibility'], 'ELIGIBLE_FOR_RECORDED_SCOPE')
 
     def test_non_list_raw_evidence_blocks(self):
         self.fully_recorded_synthetic_case()

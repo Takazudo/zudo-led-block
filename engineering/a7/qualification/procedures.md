@@ -10,6 +10,16 @@
 
 受入値の確度: SOURCED = メーカー一次資料、MIRROR = 販売店掲載の写し、UNVERIFIED = 出典が未確認の記録、INFERRED = 推定、DESIGN = このプロジェクトの設計記録、ASSUMED = 仮定、CALCULATED = 一次資料と設計記録だけを入力にした計算、PROPOSED = レビュー用の提案（採否前。ゲートを解除しない）、UNRESOLVED = 未決（決める主体と入手先を記載）。計算値は生成時に入力の出典を照合して再計算し、計算値の確度は最も弱い入力に合わせます。各値は出典の値と一致すること、確度が出典の記載（部品 fact の provenance、記録に並ぶ確度、引用行の ASSUMED / INFERRED）を超えないことを生成時に検査します。出典は部品 fact と設計記録だけで、この計画や生成物は引用できません。範囲（min/max 等）の向きは人が出典を読んで付けたもので、自動照合していません。
 
+## 状態フラグ
+
+手順の前提と発注ゲートが読む生成物のフラグです。「ゲート」は readiness が発注ゲートで読むもの、「参考のみ」は進捗の表示でゲートを解除しません。どの手順も、自分（または自分を待つ手順）しか満たせないフラグを前提にできません（生成時に検査）。
+
+| 生成物 | フラグ | 現在値 | 役割 | 満たす手順 | 説明 |
+|---|---|---|---|---|---|
+| fixture | `digital_fixture_complete` | `false` | ゲート | fixture-contact | README の完了基準 1–5 がすべて満たされたこと。基準 5（接触・荷重・位置決め・ストローク・損傷の実機試験）は fixture-contact の観測でしか満たせないので、どの手順の前提にもできない。 |
+| fixture | `fresh_native_verified` | `false` | ゲート | —（デジタル生成物） | 治具形状の native 検証。B 面の全突起の高さに出典があることを含み、資料の入手で満たす（手順の観測では満たさない）。 |
+| fixture | `digital_criteria_1_to_4_met` | `false` | 参考のみ | —（デジタル生成物） | README の基準 1–4 がデジタルで満たされ、デジタルのブロッカーがないこと（fresh_native_verified を含む）。進捗の表示で、完了フラグでも発注適格性でもない。fixture-contact を始める前提。 |
+
 ## 未実施の手順
 
 ### jack-continuity — PJ-324M 入荷時 TS/TRS 導通・端子対応
@@ -347,7 +357,7 @@
 - `records.json` の owner_prototype_route（対象版・数量・範囲・承認）が記録済み
 - 非通電で実施する（電源・信号を接続しない）
 - `readiness.json` の identities（基板/実装/回路図/FW/設定/機構/治具/台帳の SHA-256）を run にそのまま写す
-- 治具の manifest が digital_fixture_complete=true かつ fresh_native_verified=true
+- 治具の manifest が digital_criteria_1_to_4_met=true（README 基準 1–4 のデジタル進捗。治具の完了フラグではない）
 
 手順:
 

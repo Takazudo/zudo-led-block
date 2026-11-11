@@ -446,6 +446,82 @@ def acceptance_digest(procedure):
     return hashlib.sha256(json.dumps(procedure.get('acceptance'), sort_keys=True, ensure_ascii=False).encode()).hexdigest()
 
 
+STATE_ARTIFACTS = ('fixture',)
+# Flags the order gate reads; any other registered flag is shown for progress only.
+GATING_STATE_FLAGS = frozenset(['digital_fixture_complete', 'fresh_native_verified'])
+STATE_TEXT = re.compile(r'\b([a-z][a-z0-9_]*)=(true|false)\b')
+
+
+def state_flag_errors(plan):
+    """A procedure may not wait on a state that only it, or a procedure waiting on it, can produce."""
+    procedures = plan['procedures']
+    ids = {p['id'] for p in procedures}
+    flags = plan.get('state_flags')
+    if not isinstance(flags, list) or not flags or any(not isinstance(x, dict) for x in flags):
+        return ['state_flags must be a non-empty object list']
+    errors = []
+    closers = {}
+    for x in flags:
+        if set(x) != {'artifact', 'flag', 'closed_by', 'note'} or x['artifact'] not in STATE_ARTIFACTS or not text_fields(x, ['flag', 'note']):
+            errors.append('state flag needs exactly artifact, flag, closed_by and note: ' + str(x.get('flag')))
+            continue
+        if not isinstance(x['closed_by'], list) or any(c not in ids for c in x['closed_by']):
+            errors.append('state flag ' + x['flag'] + ' names an unknown closing procedure')
+            continue
+        key = (x['artifact'], x['flag'])
+        if key in closers:
+            errors.append('duplicate state flag ' + x['flag'])
+        closers[key] = set(x['closed_by'])
+    if ('fixture', 'digital_fixture_complete') not in closers:
+        errors.append('state_flags must register the fixture completion flag digital_fixture_complete')
+    names = {f for _, f in closers}
+    edges = {p['id']: set() for p in procedures}
+    for p in procedures:
+        wanted = p.get('precondition_states')
+        if not isinstance(wanted, list) or any(not isinstance(w, dict) or set(w) != {'artifact', 'flag', 'equals'} for w in wanted):
+            errors.append(p['id'] + ': precondition_states must list {artifact, flag, equals}')
+            continue
+        declared = set()
+        for w in wanted:
+            key = (w['artifact'], w['flag'])
+            if key not in closers or not isinstance(w['equals'], bool):
+                errors.append(p['id'] + ': precondition on unregistered state ' + str(w['flag']))
+                continue
+            declared.add((w['flag'], 'true' if w['equals'] else 'false'))
+            if p['id'] in closers[key]:
+                errors.append(p['id'] + ': precondition ' + w['flag'] + ' can only be produced by this procedure')
+            edges[p['id']] |= closers[key]
+        written = {(f, v) for text in p['preconditions'] for f, v in STATE_TEXT.findall(text) if f in names}
+        if written != declared:
+            errors.append(p['id'] + ': precondition text and precondition_states disagree')
+    # A wait cycle through several procedures is the same deadlock as a self-wait.
+    state = {}
+    def visit(node, path):
+        state[node] = 'open'
+        for nxt in sorted(edges[node]):
+            if state.get(nxt) == 'open':
+                errors.append('precondition cycle: ' + ' -> '.join(path[path.index(nxt):] + [nxt]))
+            elif nxt not in state:
+                visit(nxt, path + [nxt])
+        state[node] = 'done'
+    for node in sorted(edges):
+        if node not in state:
+            visit(node, [node])
+    return errors
+
+
+def state_closers_from_artifact(plan, artifact):
+    """Procedures that the fixture manifest itself says close an unmet completion criterion."""
+    criteria = artifact.get('completion_criteria')
+    found = set()
+    if isinstance(criteria, dict):
+        for c in criteria.values():
+            basis = c.get('basis') if isinstance(c, dict) else None
+            if isinstance(basis, str):
+                found |= {p['id'] for p in plan['procedures'] if re.search(r'(?<![\w-])' + re.escape(p['id']) + r'(?![\w-])', basis)}
+    return found
+
+
 def gate_keys(plan, root=ROOT):
     manifest = root / IDENTITY_PATHS['assembly_manifest']
     pending = json.loads(manifest.read_text()).get('blockers', []) if manifest.is_file() else []
@@ -495,6 +571,9 @@ def schema(plan, records):
         errors = acceptance_errors(p, ROOT)
         if errors:
             raise ValueError('untraceable acceptance: ' + '; '.join(errors))
+    errors = state_flag_errors(plan)
+    if errors:
+        raise ValueError('precondition states: ' + '; '.join(errors))
     actions = plan.get('owner_actions')
     if not isinstance(actions, list) or not actions or any(not isinstance(a, dict) for a in actions):
         raise ValueError('owner_actions must be a non-empty object list')
@@ -531,6 +610,7 @@ def evaluate(root, plan, records, today=None):
         if v['sha256'] is None:
             block('artifact:' + k, 'CLOUD_DIGITAL', 'missing artifact: '+k)
     binding = {k: v['sha256'] for k, v in ids.items()}
+    artifacts = {}
     for key in ['fixture', 'assembly_manifest']:
         path = root / IDENTITY_PATHS[key]
         if path.is_file():
@@ -542,6 +622,15 @@ def evaluate(root, plan, records, today=None):
                 block(gate, 'CLOUD_DIGITAL', e)
             if key == 'fixture' and (artifact.get('digital_fixture_complete') is not True or artifact.get('fresh_native_verified') is not True):
                 block(gate, 'CLOUD_DIGITAL', 'fixture digital design incomplete or unverified')
+            if key == 'fixture':
+                artifacts['fixture'] = artifact
+                for x in plan['state_flags']:
+                    if x['artifact'] == key and not isinstance(artifact.get(x['flag']), bool):
+                        block(gate, 'CLOUD_DIGITAL', 'fixture: state flag '+x['flag']+' missing from the manifest')
+                complete_closers = next(set(x['closed_by']) for x in plan['state_flags'] if x['flag'] == 'digital_fixture_complete')
+                unlisted = state_closers_from_artifact(plan, artifact) - complete_closers
+                if unlisted:
+                    raise ValueError('fixture manifest names procedures that close digital_fixture_complete but state_flags does not: '+', '.join(sorted(unlisted)))
             pending = artifact.get('blockers')
             if key == 'assembly_manifest' and isinstance(pending, list) and all(
                     isinstance(b, dict) and b.get('class') in CLASSES and text_fields(b, ['id', 'text']) for b in pending):
@@ -590,6 +679,10 @@ def evaluate(root, plan, records, today=None):
                 why.append('ambiguous duplicate execution times')
             # List reordering cannot hide a newer failed/reworked run.
             r = max(dated, key=lambda item: item[0])[1] if dated else runs[-1]
+            # The run binds the current artifact bytes, so the current flags are the flags it ran under.
+            unmet = [w['flag'] for w in p['precondition_states'] if artifacts.get(w['artifact'], {}).get(w['flag']) is not w['equals']]
+            if unmet:
+                why.append('run precondition state not met: ' + ', '.join(unmet))
             if r.get('result') != 'PASS' or r.get('evidence_kind') != 'BENCH_RECORD' or r.get('synthetic') is not False:
                 why.append('latest run is not an actual passing BENCH_RECORD')
             if r.get('identities') != binding or r.get('plan_sha256') != plan_hash:
@@ -678,6 +771,8 @@ def evaluate(root, plan, records, today=None):
             'order_submitted': 'NOT_ESTABLISHED', 'identities': ids, 'plan_sha256': plan_hash,
             'procedures': outcomes, 'blockers': reasons, 'gates': list(gates.values()),
             'gate_counts': {c: sum(1 for g in gates.values() if g['class'] == c) for c in CLASSES},
+            'state_flags': [{'artifact': x['artifact'], 'flag': x['flag'], 'value': artifacts.get(x['artifact'], {}).get(x['flag']),
+                             'role': 'GATE' if x['flag'] in GATING_STATE_FLAGS else 'INFORMATIONAL', 'note': x['note']} for x in plan['state_flags']],
             'optional_variants': plan['optional_variants'],
             'limit': 'Schema validation is not measurement authenticity, hardware approval, a release authorization or an order. No order is submitted by this command.'}
 
@@ -736,7 +831,15 @@ def markdown(plan, report):
              '計算値は生成時に入力の出典を照合して再計算し、計算値の確度は最も弱い入力に合わせます。'
              '各値は出典の値と一致すること、確度が出典の記載（部品 fact の provenance、記録に並ぶ確度、引用行の ASSUMED / INFERRED）を超えないことを生成時に検査します。'
              '出典は部品 fact と設計記録だけで、この計画や生成物は引用できません。範囲（min/max 等）の向きは人が出典を読んで付けたもので、自動照合していません。', '',
-             '## 未実施の手順', '']
+             '## 状態フラグ', '',
+             '手順の前提と発注ゲートが読む生成物のフラグです。「ゲート」は readiness が発注ゲートで読むもの、「参考のみ」は進捗の表示でゲートを解除しません。'
+             'どの手順も、自分（または自分を待つ手順）しか満たせないフラグを前提にできません（生成時に検査）。', '',
+             '| 生成物 | フラグ | 現在値 | 役割 | 満たす手順 | 説明 |', '|---|---|---|---|---|---|']
+    closed = {(x['artifact'], x['flag']): x['closed_by'] for x in plan['state_flags']}
+    for x in report['state_flags']:
+        lines.append('| '+x['artifact']+' | `'+x['flag']+'` | '+show(x['value'])+' | '+('ゲート' if x['role'] == 'GATE' else '参考のみ')+' | '
+                     +('、'.join(closed[(x['artifact'], x['flag'])]) or '—（デジタル生成物）')+' | '+x['note']+' |')
+    lines += ['', '## 未実施の手順', '']
     for p in plan['procedures']:
         lines += ['### '+p['id']+' — '+p['title'], '', '- 関連: '+p['issues'], '- 概要: '+p['setup'],
                   '- 根拠: `'+p['basis']+'`', ('- 基準: 採用済み（'+ACCEPTED_JA[p['criterion_accepted_by']]+'、記録 `'+p['criterion_review']['path']+'`）' if p['criterion_status'] == 'REVIEWED'

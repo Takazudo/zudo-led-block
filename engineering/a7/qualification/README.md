@@ -10,6 +10,7 @@ Workflow F (`circuit/WORKFLOW.md`) の小さなプロジェクト専用記録で
 - 計算値は `derivation`（式、入力、丸め桁）を持ちます。各入力は出典の語（`token`、例 `68k`）と数値を持ち、生成時に出典の中にその語があること、語と数値が一致すること、式の再計算が値と一致することを検査します。式に使えるのは入力名、四則と累乗、min/max、単位換算の 1/2/10/100/1000 だけです。入力がすべて SOURCED か DESIGN なら確度は CALCULATED、推定を含む式（`assumption`）は INFERRED、弱い入力があればその確度になります。回路の定数はネットリストの部品値（`netlist_value`）から読みます。
 - `PROPOSED` はレビュー用の提案値です。`rationale` と、出典が与える確度 `basis_confidence` を持ち、値と確度は他の項目と同じく照合します。提案値が残る手順は、`criterion_status` が REVIEWED でも基準ゲートが解除されません。採るときは確度を `basis_confidence` に戻し、レビュー記録を付けます。
 - REVIEWED の手順は `criterion_accepted_by`（OWNER = オーナー本人、PROJECT_COORDINATOR_DELEGATED = オーナーが委ねた作業方針によるコーディネーター）と `criterion_acceptance_sha256`（受入値のダイジェスト）を持ちます。レビュー記録（`reviews/`）にも同じ `<手順ID> <ダイジェスト>` が書かれている必要があり、受入値を変えると基準ゲートは再び閉じます。
+- 生成物のフラグを前提にする手順は、文中の `<フラグ>=true` と同じものを `precondition_states` に書きます。フラグは `state_flags` に登録し、`closed_by` にそのフラグを満たせる手順を書きます。自分（または自分を待つ手順）しか満たせないフラグを前提にすると生成時にエラーになります。治具の `digital_fixture_complete` は実機の基準 5 を含むので fixture-contact しか満たせず、fixture-contact は進捗表示の `digital_criteria_1_to_4_met` を前提にします。readiness はこのフラグを参考として表示するだけで、発注ゲートは `digital_fixture_complete` を読みます。
 - `criterion_class` と `owner_actions` は、readiness の各ゲートを CLOUD_DIGITAL / OWNER_DECISION / ACCESS_EVIDENCE_HOLD / PHYSICAL_ONLY に分け、オーナーの作業と結び付けます。
 - `supplier-questions.md`: 未送信の質問。送信や発注の承認ではありません。
 
