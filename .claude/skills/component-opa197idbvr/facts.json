@@ -195,7 +195,7 @@
       "class": "GUARANTEED_ELECTRICAL",
       "value": 25,
       "unit": "mV",
-      "conditions": "VO voltage output swing from either rail, maximum, no load (125 mV max at RLOAD = 10 kohm, 500 mV max at 2 kohm), TA = 25 degC, VS = +/-4 V to +/-18 V: the output stays inside its own supply rails, so CV_BUF is bounded by the U6 rails; the rails themselves come from outside the module",
+      "conditions": "VO voltage output swing from either rail, maximum, no load (125 mV max at RLOAD = 10 kohm, 500 mV max at 2 kohm), TA = 25 degC, VS = +/-4 V to +/-18 V. This is how close the output can approach a rail, not a guarantee that it never exceeds one, and the absolute maximum table has no output-pin row; treating CV_BUF as bounded by the U6 rails is an engineering inference from this row, and the rails themselves come from outside the module",
       "locator": "src-opa197idbvr-ds-p8: OUTPUT table row VO voltage output swing from rail",
       "provenance": "PRIMARY-SPEC",
       "verdict": "PASS - primary-source confirmed",

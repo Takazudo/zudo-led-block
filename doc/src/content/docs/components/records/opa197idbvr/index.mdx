@@ -261,7 +261,7 @@ A parameter the manufacturer guarantees over the stated conditions, usually with
 
   **Value:** 25 · **Unit:** `mV`
 
-  **Conditions:** VO voltage output swing from either rail, maximum, no load (125 mV max at RLOAD = 10 kohm, 500 mV max at 2 kohm), TA = 25 degC, VS = +/-4 V to +/-18 V: the output stays inside its own supply rails, so CV\_BUF is bounded by the U6 rails; the rails themselves come from outside the module
+  **Conditions:** VO voltage output swing from either rail, maximum, no load (125 mV max at RLOAD = 10 kohm, 500 mV max at 2 kohm), TA = 25 degC, VS = +/-4 V to +/-18 V. This is how close the output can approach a rail, not a guarantee that it never exceeds one, and the absolute maximum table has no output-pin row; treating CV\_BUF as bounded by the U6 rails is an engineering inference from this row, and the rails themselves come from outside the module
 
   **Verdict:** PASS - primary-source confirmed · **Provenance:** PRIMARY-SPEC
 
