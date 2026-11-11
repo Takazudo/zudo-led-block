@@ -15,7 +15,7 @@ datasheet of another variant or same-name vendor data.
 - The pin map and placements are projected from the immutable historical A5 native netlists
   (`engineering/a5/integration/native_schematic/`). They are not fresh A6 design state, are not
   bound by the manual inventory provider, and are not as-built verification.
-- Manufacturer document: Nexperia PMEG4010CEJ datasheet is SOURCE UNAVAILABLE (HTTP 403 on 2026-11-08).
+- Manufacturer document: Nexperia PMEG4010CEJ product data sheet v.3 (2022-10-01), acquired 2026-11-11 through the owner's built-in browser. Pinout and ratings are primary-source confirmed; v.3 removed packing information, so the `,115` packing variant stays UNSOURCED (distributor identity only).
 - Catalog CAD is disabled (`cad.enabled = false`); the pin-asset check is SKIPPED.
 - A5 is not released for manufacture. Nothing here is hardware or manufacturing sign-off.
 

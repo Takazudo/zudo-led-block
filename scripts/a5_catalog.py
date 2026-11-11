@@ -675,7 +675,7 @@ def is_reviewed_pdf(source) -> bool:
     return (
         source["availability"] == "AVAILABLE"
         and source["authority_class"] == "MANUFACTURER_PRIMARY"
-        and source.get("document_format", "pdf") == "pdf"
+        and source.get("document_format", "pdf") in ("pdf", "png")
         and source["sha256"] != ZERO
     )
 

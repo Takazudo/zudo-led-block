@@ -29,11 +29,11 @@ This record in the catalog: [PJ-324M](/docs/components/catalog/#rec-a7-pj-324m)
 
 **Fit:** Fitted
 
-**Identity state:** UNRESOLVED
+**Identity state:** VERIFIED
 
-**Source state:** SOURCE UNAVAILABLE
+**Source state:** AVAILABLE
 
-**Coverage:** 6 open of 6 published
+**Coverage:** 5 open of 6 published
 
 ## Documents and package
 
@@ -41,9 +41,13 @@ This record in the catalog: [PJ-324M](/docs/components/catalog/#rec-a7-pj-324m)
 
 <EvidenceAnchor id="component-references" />
 
-**Selected document:** Document unavailable
+[Mechanical drawing PDF](https://www.sofng.com/uploads/allimg/230325/2-23032515031C61.png) — SOFNG PJ-324M product drawing image (PRODUCT DIMENSIONS section of the SOFNG product page)
 
-**Reason:** No manufacturer-primary document for this exact orderable is retained in the evidence. Reviewed: SOFNG PJ-324M product drawing (3.5 mm 5-pin right-angle phone jack, L17.70 x W11.50 x H6.30 mm) (MANUFACTURER\_MIRROR, AVAILABLE); SOFNG-hosted PJ-324M drawing; not acquired (MANUFACTURER\_PRIMARY, SOURCE UNAVAILABLE); JLCPCB parts library listing C22355739 (HTML) (DISTRIBUTOR\_IDENTITY, AVAILABLE); EasyEDA exact C22355739 symbol and footprint JSON; inspected supplier asset (DISTRIBUTOR\_IDENTITY, AVAILABLE). Distributor listings establish order identity only, and a distributor-hosted mirror is lower authority, so neither is published as a manufacturer document.
+**Selected source ID:** `src-a7-pj-324m-sofng-site`
+
+**Authority:** MANUFACTURER\_PRIMARY
+
+**Availability:** AVAILABLE
 
 No footprint or 3D model is published for this record: CAD is not enabled for this project.
 
@@ -64,18 +68,14 @@ Coverage is stated one domain at a time and is never rolled up. A domain marked 
 
 <EvidenceAnchor id="cov-a7-pj-324m-identity" />
 
-**Coverage ID:** `cov-a7-pj-324m-identity` · **Status:** OPEN
+**Coverage ID:** `cov-a7-pj-324m-identity` · **Status:** COVERED
 
-**Reason:** the only manufacturer document is a lower-authority LCSC-hosted mirror and the manufacturer-hosted copy was SOURCE UNAVAILABLE; manufacturer drawing and distributor identity both retained
+**Reason:** SOFNG-hosted PJ-324M drawing image (manufacturer primary, 2026-11-11) confirms the item; distributor identity agrees
 
 **Facts in this domain:**
 
 - [`fact-a7-pj-324m-manufacturer`](#fact-a7-pj-324m-manufacturer)
 - [`fact-a7-pj-324m-distributor-identity`](#fact-a7-pj-324m-distributor-identity)
-
-**Blocked by:** these facts must be resolved before the domain can close. Each is listed in full under Facts.
-
-- [`fact-a7-pj-324m-manufacturer`](#fact-a7-pj-324m-manufacturer)
 
 ### mechanical
 
@@ -83,7 +83,7 @@ Coverage is stated one domain at a time and is never rolled up. A domain marked 
 
 **Coverage ID:** `cov-a7-pj-324m-mechanical` · **Status:** OPEN
 
-**Reason:** axis height above the seating plane is not dimensioned and hole sizes are not given
+**Reason:** body, barrel, thread, bore and terminal projection are primary-source confirmed from the SOFNG-hosted drawing; axis height above the seating plane is not dimensioned, hole sizes are not given, and the footprint positions and plug force exist only on the LCSC mirror's second page
 
 **Facts in this domain:**
 
@@ -104,17 +104,7 @@ Coverage is stated one domain at a time and is never rolled up. A domain marked 
 
 **Blocked by:** these facts must be resolved before the domain can close. Each is listed in full under Facts.
 
-- [`fact-a7-pj-324m-thread`](#fact-a7-pj-324m-thread)
-- [`fact-a7-pj-324m-body-height`](#fact-a7-pj-324m-body-height)
-- [`fact-a7-pj-324m-overall-height`](#fact-a7-pj-324m-overall-height)
-- [`fact-a7-pj-324m-body-width`](#fact-a7-pj-324m-body-width)
-- [`fact-a7-pj-324m-axis-to-edge`](#fact-a7-pj-324m-axis-to-edge)
-- [`fact-a7-pj-324m-axis-to-far-edge`](#fact-a7-pj-324m-axis-to-far-edge)
-- [`fact-a7-pj-324m-body-depth`](#fact-a7-pj-324m-body-depth)
-- [`fact-a7-pj-324m-barrel-projection`](#fact-a7-pj-324m-barrel-projection)
-- [`fact-a7-pj-324m-terminal-projection`](#fact-a7-pj-324m-terminal-projection)
 - [`fact-a7-pj-324m-axis-height`](#fact-a7-pj-324m-axis-height)
-- [`fact-a7-pj-324m-bore`](#fact-a7-pj-324m-bore)
 - [`fact-a7-pj-324m-footprint-positions`](#fact-a7-pj-324m-footprint-positions)
 - [`fact-a7-pj-324m-hole-sizes`](#fact-a7-pj-324m-hole-sizes)
 - [`fact-a7-pj-324m-plug-force`](#fact-a7-pj-324m-plug-force)
@@ -125,19 +115,21 @@ Coverage is stated one domain at a time and is never rolled up. A domain marked 
 
 **Coverage ID:** `cov-a7-pj-324m-pinout` · **Status:** OPEN
 
-**Reason:** no manufacturer pin-function table; the A7 mapping is inferred and needs a continuity test; inspected exact supplier CAD now contains contrary4/5 contact interpretation, requiring resolution before mapping approval
+**Reason:** no manufacturer pin-function table; the manufacturer symbol (SOFNG-hosted, 2026-11-11) draws contact 5 with normal 4 and contact 2 with normal 3 but does not name tip or ring; this agrees with the supplier CAD reading and contradicts the current inferred 4 TIP / 5 TIP-normal mapping, so a TS/TRS continuity test is required before mapping approval
 
 **Facts in this domain:**
 
 - [`fact-a7-pj-324m-pin-function`](#fact-a7-pj-324m-pin-function)
 - [`fact-a7-pj-324m-pin-function-inference`](#fact-a7-pj-324m-pin-function-inference)
 - [`fact-a7-pj-324m-supplier-cad-conflict`](#fact-a7-pj-324m-supplier-cad-conflict)
+- [`fact-a7-pj-324m-symbol-contact-topology`](#fact-a7-pj-324m-symbol-contact-topology)
 
 **Blocked by:** these facts must be resolved before the domain can close. Each is listed in full under Facts.
 
 - [`fact-a7-pj-324m-pin-function`](#fact-a7-pj-324m-pin-function)
 - [`fact-a7-pj-324m-pin-function-inference`](#fact-a7-pj-324m-pin-function-inference)
 - [`fact-a7-pj-324m-supplier-cad-conflict`](#fact-a7-pj-324m-supplier-cad-conflict)
+- [`fact-a7-pj-324m-symbol-contact-topology`](#fact-a7-pj-324m-symbol-contact-topology)
 
 ### electrical-ratings
 
@@ -145,7 +137,7 @@ Coverage is stated one domain at a time and is never rolled up. A domain marked 
 
 **Coverage ID:** `cov-a7-pj-324m-ratings` · **Status:** OPEN
 
-**Reason:** contact rating is sourced; operating temperature field is blank on the drawing
+**Reason:** contact rating is primary-source confirmed (50 mA, 24 V DC); the operating temperature field is blank on the manufacturer drawing
 
 **Facts in this domain:**
 
@@ -154,7 +146,6 @@ Coverage is stated one domain at a time and is never rolled up. A domain marked 
 
 **Blocked by:** these facts must be resolved before the domain can close. Each is listed in full under Facts.
 
-- [`fact-a7-pj-324m-contact-rating`](#fact-a7-pj-324m-contact-rating)
 - [`fact-a7-pj-324m-operating-temperature`](#fact-a7-pj-324m-operating-temperature)
 
 ### assembly
@@ -224,11 +215,11 @@ The range the manufacturer intends the part to be used in. Always narrower than 
 
   **Value:** 50 mA, 24 V DC · **Unit:** `NONE`
 
-  **Conditions:** contact rating; A7 use is a passive +/-5 V nominal CV signal; read from the LCSC-hosted mirror of the manufacturer document (MANUFACTURER\_MIRROR); value retained, not primary-source confirmed
+  **Conditions:** contact rating; A7 use is a passive +/-5 V nominal CV signal
 
-  **Verdict:** UNSOURCED · **Provenance:** UNVERIFIED
+  **Verdict:** PASS - primary-source confirmed · **Provenance:** PRIMARY-SPEC
 
-  **Evidence:** [src-a7-pj-324m-sofng-drawing: figure/row page 0 Technical parameter, Contact Rating](#src-a7-pj-324m-sofng-drawing)
+  **Evidence:** [src-a7-pj-324m-sofng-site: Technical parameter table, Contact Rating](#src-a7-pj-324m-sofng-site)
 </EvidenceFact>
 
 <EvidenceFact>
@@ -238,11 +229,11 @@ The range the manufacturer intends the part to be used in. Always narrower than 
 
   **Value:** operating temperature range · **Unit:** `NONE`
 
-  **Conditions:** drawing gives storage -25..+75 C and leaves 'Operating Temp' blank; JLC lists -25..+75 C as operating (distributor, not primary)
+  **Conditions:** the SOFNG-hosted drawing gives storage -25..+75 C and leaves '(Operating Temp:' blank, as does the LCSC mirror; JLC lists -25..+75 C as operating (distributor, not primary)
 
   **Verdict:** UNSOURCED · **Provenance:** UNVERIFIED
 
-  **Evidence:** [src-a7-pj-324m-sofng-drawing: page 0 'Sterage temp.' row](#src-a7-pj-324m-sofng-drawing)
+  **Evidence:** [src-a7-pj-324m-sofng-site: Technical parameter table 'Sterage temp.' row](#src-a7-pj-324m-sofng-site)
 </EvidenceFact>
 
 ### PROJECT\_STATE
@@ -270,11 +261,11 @@ A value this project recorded about how the part is used here — a chosen opera
 
   **Value:** SOFNG · **Unit:** `NONE`
 
-  **Conditions:** SOFNG ELECTRONIC TECHNOLOGY Co., LTD branded drawing for item PJ-324M; no drawing revision printed; read from the LCSC-hosted mirror of the manufacturer document (MANUFACTURER\_MIRROR); value retained, not primary-source confirmed
+  **Conditions:** SOFNG-hosted product drawing image for item PJ-324M on www.sofng.com; no drawing revision printed
 
-  **Verdict:** UNSOURCED · **Provenance:** UNVERIFIED
+  **Verdict:** PASS - primary-source confirmed · **Provenance:** PRIMARY-SPEC
 
-  **Evidence:** [src-a7-pj-324m-sofng-drawing: page 0 title block 'LTEM NO.:PJ-324M'; page 1 header](#src-a7-pj-324m-sofng-drawing)
+  **Evidence:** [src-a7-pj-324m-sofng-site: figure/row title block 'LTEM NO.:PJ-324M' and www.Sofng.com header on the SOFNG product page](#src-a7-pj-324m-sofng-site)
 </EvidenceFact>
 
 <EvidenceFact>
@@ -284,11 +275,11 @@ A value this project recorded about how the part is used here — a chosen opera
 
   **Value:** M6x0.5 · **Unit:** `NONE`
 
-  **Conditions:** threaded bushing; thread class not stated; read from the LCSC-hosted mirror of the manufacturer document (MANUFACTURER\_MIRROR); value retained, not primary-source confirmed
+  **Conditions:** threaded bushing; thread class not stated
 
-  **Verdict:** UNSOURCED · **Provenance:** UNVERIFIED
+  **Verdict:** PASS - primary-source confirmed · **Provenance:** PRIMARY-SPEC
 
-  **Evidence:** [src-a7-pj-324m-sofng-drawing: figure/row page 0 side view, label 'M6x0.5'](#src-a7-pj-324m-sofng-drawing)
+  **Evidence:** [src-a7-pj-324m-sofng-site: figure/row side view label 'M6x0.5'](#src-a7-pj-324m-sofng-site)
 </EvidenceFact>
 
 <EvidenceFact>
@@ -298,11 +289,11 @@ A value this project recorded about how the part is used here — a chosen opera
 
   **Value:** 6 · **Unit:** `mm`
 
-  **Conditions:** body height normal to the PCB (front view dimension '6'); integer dimension, tolerance class not stated by the block; read from the LCSC-hosted mirror of the manufacturer document (MANUFACTURER\_MIRROR); value retained, not primary-source confirmed
+  **Conditions:** body height normal to the PCB (front view dimension '6'); integer dimension, tolerance class not stated by the block
 
-  **Verdict:** UNSOURCED · **Provenance:** UNVERIFIED
+  **Verdict:** PASS - primary-source confirmed · **Provenance:** PRIMARY-SPEC
 
-  **Evidence:** [src-a7-pj-324m-sofng-drawing: figure/row page 0 front view, vertical '6'](#src-a7-pj-324m-sofng-drawing)
+  **Evidence:** [src-a7-pj-324m-sofng-site: figure/row front view vertical '6'](#src-a7-pj-324m-sofng-site)
 </EvidenceFact>
 
 <EvidenceFact>
@@ -312,11 +303,11 @@ A value this project recorded about how the part is used here — a chosen opera
 
   **Value:** 6.3 · **Unit:** `mm`
 
-  **Conditions:** headline overall height including top features; read from the LCSC-hosted mirror of the manufacturer document (MANUFACTURER\_MIRROR); value retained, not primary-source confirmed
+  **Conditions:** headline overall height including top features
 
-  **Verdict:** UNSOURCED · **Provenance:** UNVERIFIED
+  **Verdict:** PASS - primary-source confirmed · **Provenance:** PRIMARY-SPEC
 
-  **Evidence:** [src-a7-pj-324m-sofng-drawing: figure/row page 0 title '(L17.70xW11.50xH6.30mm)'](#src-a7-pj-324m-sofng-drawing)
+  **Evidence:** [src-a7-pj-324m-sofng-site: figure/row title block '(L17.70xW11.50xH6.30mm)'](#src-a7-pj-324m-sofng-site)
 </EvidenceFact>
 
 <EvidenceFact>
@@ -326,11 +317,11 @@ A value this project recorded about how the part is used here — a chosen opera
 
   **Value:** 11.5 · **Unit:** `mm`
 
-  **Conditions:** body width along the PCB, across the jack axis; .X tolerance +/-0.20; read from the LCSC-hosted mirror of the manufacturer document (MANUFACTURER\_MIRROR); value retained, not primary-source confirmed
+  **Conditions:** body width along the PCB, across the jack axis; .X tolerance +/-0.20
 
-  **Verdict:** UNSOURCED · **Provenance:** UNVERIFIED
+  **Verdict:** PASS - primary-source confirmed · **Provenance:** PRIMARY-SPEC
 
-  **Evidence:** [src-a7-pj-324m-sofng-drawing: figure/row page 0 front view '11.5'](#src-a7-pj-324m-sofng-drawing)
+  **Evidence:** [src-a7-pj-324m-sofng-site: figure/row front view '11.5'](#src-a7-pj-324m-sofng-site)
 </EvidenceFact>
 
 <EvidenceFact>
@@ -340,11 +331,11 @@ A value this project recorded about how the part is used here — a chosen opera
 
   **Value:** 5.4 · **Unit:** `mm`
 
-  **Conditions:** jack axis to one body side edge, along the PCB; read from the LCSC-hosted mirror of the manufacturer document (MANUFACTURER\_MIRROR); value retained, not primary-source confirmed
+  **Conditions:** jack axis to one body side edge, along the PCB
 
-  **Verdict:** UNSOURCED · **Provenance:** UNVERIFIED
+  **Verdict:** PASS - primary-source confirmed · **Provenance:** PRIMARY-SPEC
 
-  **Evidence:** [src-a7-pj-324m-sofng-drawing: figure/row page 0 front view '5.4'](#src-a7-pj-324m-sofng-drawing)
+  **Evidence:** [src-a7-pj-324m-sofng-site: figure/row front view '5.4'](#src-a7-pj-324m-sofng-site)
 </EvidenceFact>
 
 <EvidenceFact>
@@ -354,11 +345,11 @@ A value this project recorded about how the part is used here — a chosen opera
 
   **Value:** 6.1 · **Unit:** `mm`
 
-  **Conditions:** jack axis to the opposite body side edge; body is asymmetric about the axis; calculated from mirror-backed inputs, so it cannot be PASS
+  **Conditions:** jack axis to the opposite body side edge; body is asymmetric about the axis; calculated from primary-source dimensions (body width and axis-to-edge)
 
-  **Verdict:** UNSOURCED · **Provenance:** CALCULATED
+  **Verdict:** PASS - primary-source confirmed · **Provenance:** CALCULATED
 
-  **Evidence:** [src-a7-pj-324m-sofng-drawing: calculated from the page 0 front view dimensions](#src-a7-pj-324m-sofng-drawing)
+  **Evidence:** [src-a7-pj-324m-sofng-site: figure/row calculated from the front view dimensions '11.5' and '5.4'](#src-a7-pj-324m-sofng-site)
 </EvidenceFact>
 
 <EvidenceFact>
@@ -368,11 +359,11 @@ A value this project recorded about how the part is used here — a chosen opera
 
   **Value:** 14.2 · **Unit:** `mm`
 
-  **Conditions:** body length behind the barrel, along the axis; read from the LCSC-hosted mirror of the manufacturer document (MANUFACTURER\_MIRROR); value retained, not primary-source confirmed
+  **Conditions:** body length behind the barrel, along the axis
 
-  **Verdict:** UNSOURCED · **Provenance:** UNVERIFIED
+  **Verdict:** PASS - primary-source confirmed · **Provenance:** PRIMARY-SPEC
 
-  **Evidence:** [src-a7-pj-324m-sofng-drawing: figure/row page 0 side view '14.2'](#src-a7-pj-324m-sofng-drawing)
+  **Evidence:** [src-a7-pj-324m-sofng-site: figure/row side view '14.2'](#src-a7-pj-324m-sofng-site)
 </EvidenceFact>
 
 <EvidenceFact>
@@ -382,11 +373,11 @@ A value this project recorded about how the part is used here — a chosen opera
 
   **Value:** 3.5 · **Unit:** `mm`
 
-  **Conditions:** threaded barrel projection forward of the body front face; .X tolerance +/-0.20; read from the LCSC-hosted mirror of the manufacturer document (MANUFACTURER\_MIRROR); value retained, not primary-source confirmed
+  **Conditions:** threaded barrel projection forward of the body front face; .X tolerance +/-0.20
 
-  **Verdict:** UNSOURCED · **Provenance:** UNVERIFIED
+  **Verdict:** PASS - primary-source confirmed · **Provenance:** PRIMARY-SPEC
 
-  **Evidence:** [src-a7-pj-324m-sofng-drawing: figure/row page 0 side view '3.5'](#src-a7-pj-324m-sofng-drawing)
+  **Evidence:** [src-a7-pj-324m-sofng-site: figure/row side view '3.5'](#src-a7-pj-324m-sofng-site)
 </EvidenceFact>
 
 <EvidenceFact>
@@ -396,11 +387,11 @@ A value this project recorded about how the part is used here — a chosen opera
 
   **Value:** 3.2 · **Unit:** `mm`
 
-  **Conditions:** untrimmed terminal projection below the body seating plane (body-bottom datum); not additional to PCB thickness; read from the LCSC-hosted mirror of the manufacturer document (MANUFACTURER\_MIRROR); value retained, not primary-source confirmed
+  **Conditions:** untrimmed terminal projection below the body seating plane (body-bottom datum); not additional to PCB thickness
 
-  **Verdict:** UNSOURCED · **Provenance:** UNVERIFIED
+  **Verdict:** PASS - primary-source confirmed · **Provenance:** PRIMARY-SPEC
 
-  **Evidence:** [src-a7-pj-324m-sofng-drawing: figure/row page 0 front view vertical '3.2'](#src-a7-pj-324m-sofng-drawing)
+  **Evidence:** [src-a7-pj-324m-sofng-site: figure/row front view vertical '3.2'](#src-a7-pj-324m-sofng-site)
 </EvidenceFact>
 
 <EvidenceFact>
@@ -424,11 +415,11 @@ A value this project recorded about how the part is used here — a chosen opera
 
   **Value:** 3.6 · **Unit:** `mm`
 
-  **Conditions:** plug bore diameter at the barrel; read from the LCSC-hosted mirror of the manufacturer document (MANUFACTURER\_MIRROR); value retained, not primary-source confirmed
+  **Conditions:** plug bore diameter at the barrel
 
-  **Verdict:** UNSOURCED · **Provenance:** UNVERIFIED
+  **Verdict:** PASS - primary-source confirmed · **Provenance:** PRIMARY-SPEC
 
-  **Evidence:** [src-a7-pj-324m-sofng-drawing: figure/row page 0 front view 'dia 3.6'](#src-a7-pj-324m-sofng-drawing)
+  **Evidence:** [src-a7-pj-324m-sofng-site: figure/row front view 'dia 3.6'](#src-a7-pj-324m-sofng-site)
 </EvidenceFact>
 
 <EvidenceFact>
@@ -466,11 +457,11 @@ A value this project recorded about how the part is used here — a chosen opera
 
   **Value:** manufacturer tip/ring/sleeve/normal identity per pin · **Unit:** `NONE`
 
-  **Conditions:** the drawing's 'Pin Definition' heading has no table; the 5/3POLE PLUG symbol numbers pins 1-5 without TIP/RING/SLEEVE text
+  **Conditions:** the SOFNG-hosted image and the LCSC mirror both number terminals 1-5 in the 5/3POLE PLUG symbol without TIP/RING/SLEEVE text; the mirror's 'Pin Definition' heading has no table
 
   **Verdict:** UNSOURCED · **Provenance:** UNVERIFIED
 
-  **Evidence:** [src-a7-pj-324m-sofng-drawing: page 0 symbol; page 1 empty 'Pin Definition'](#src-a7-pj-324m-sofng-drawing)
+  **Evidence:** [src-a7-pj-324m-sofng-site: figure/row 5/3POLE PLUG symbol; src-a7-pj-324m-sofng-drawing: page 1 empty 'Pin Definition'](#src-a7-pj-324m-sofng-drawing)
 </EvidenceFact>
 
 <EvidenceFact>
@@ -541,6 +532,20 @@ A value this project recorded about how the part is used here — a chosen opera
   **Verdict:** NEEDS BENCH · **Provenance:** UNVERIFIED
 
   **Evidence:** [figure/row src-a7-pj-324m-easyeda-2026-11-09: result.dataStr.shape lower contact primitives](#src-a7-pj-324m-easyeda-2026-11-09)
+</EvidenceFact>
+
+<EvidenceFact>
+  <EvidenceAnchor id="fact-a7-pj-324m-symbol-contact-topology" />
+
+  **Fact:** `fact-a7-pj-324m-symbol-contact-topology`
+
+  **Value:** `1`=sleeve (rectangle); `2`=upper contact (inverted triangle); `3`=arrow (normal) touching contact 2; `4`=arrow (normal) touching contact 5; `5`=lower contact (upright triangle) · **Unit:** `NONE`
+
+  **Conditions:** as drawn in the manufacturer 5/3POLE PLUG symbol; the symbol does not say which contact is tip or ring. If the lower contact is the tip, the tip spring is terminal 5 and its normal terminal 4, matching the supplier-CAD reading (fact-a7-pj-324m-supplier-cad-conflict) and contrary to the current inferred mapping (fact-a7-pj-324m-pin-function-inference: 4 TIP, 5 TIP normal). Not a pin-map change; a TS/TRS continuity test on incoming parts decides
+
+  **Verdict:** NEEDS BENCH · **Provenance:** UNVERIFIED
+
+  **Evidence:** [src-a7-pj-324m-sofng-site: figure/row 5/3POLE PLUG symbol, terminals 1-5](#src-a7-pj-324m-sofng-site)
 </EvidenceFact>
 
 ## Calculation dependencies
@@ -616,25 +621,25 @@ Every document cited above, with its identification, when it was retrieved, and 
 
 **Document URL:** no link is published for this source
 
-### SOFNG-hosted PJ-324M drawing; not acquired
+### SOFNG PJ-324M product drawing image (PRODUCT DIMENSIONS section of the SOFNG product page)
 
 <EvidenceAnchor id="src-a7-pj-324m-sofng-site" />
 
 **Source ID:** `src-a7-pj-324m-sofng-site` · **Authority:** MANUFACTURER\_PRIMARY
 
-| Field           | Recorded value         |
-| --------------- | ---------------------- |
-| Document number | PJ-324M                |
-| Revision        | unknown (not acquired) |
-| Document date   | unknown (not acquired) |
-| Retrieved       | 2026-11-08             |
-| Printed page    | n/a (not acquired)     |
+| Field           | Recorded value                                       |
+| --------------- | ---------------------------------------------------- |
+| Document number | PJ-324M                                              |
+| Revision        | no revision block printed; image uploaded 2023-03-25 |
+| Document date   | 2023-03-25                                           |
+| Retrieved       | 2026-11-11                                           |
+| Printed page    | none printed (single 1652 x 2338 px PNG image)       |
 
-**Locator:** intended: product drawing title block 'PJ-324M' and front view dimensions; not inspected
+**Locator:** single image: header 'Operation: 3.5& 插件式 5PIN 音頻插座', title block 'LTEM NO.:PJ-324M (L17.70xW11.50xH6.30mm 3.5-PHONE-JACK)', Technical parameter table, Unit:mm top/front/side views, 5/3POLE PLUG symbol, DECIMALS/ANGLES tolerance block
 
-**Availability:** SOURCE UNAVAILABLE
+**Availability:** AVAILABLE
 
-**Document URL:** no link is published for this source
+**Document URL:** [https://www.sofng.com/uploads/allimg/230325/2-23032515031C61.png](https://www.sofng.com/uploads/allimg/230325/2-23032515031C61.png)
 
 ### JLCPCB parts library listing C22355739 (HTML)
 
@@ -686,6 +691,7 @@ What the recorded terms on this page mean, in ordinary words. The exact terms ab
 | --------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------- |
 | `CONFIRMED - distributor identity only` | A distributor listing confirms which part this is, and nothing more. It carries no electrical, thermal or lifetime authority. |
 | `NEEDS BENCH`                           | Cannot be settled from documents. It needs measurement on real hardware before it can be relied on.                           |
+| `PASS - primary-source confirmed`       | Confirmed against the manufacturer's own document for this exact part.                                                        |
 | `UNSOURCED`                             | No accepted source backs this value yet. Treat it as a claim, not a fact.                                                     |
 
 ### Provenance
@@ -694,6 +700,7 @@ What the recorded terms on this page mean, in ordinary words. The exact terms ab
 | ---------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------- |
 | `CALCULATED`           | Derived arithmetically from other facts listed here. The expression and every input are shown, so the number can be recomputed rather than trusted. |
 | `DISTRIBUTOR-IDENTITY` | Taken from a distributor listing. Identity information only.                                                                                        |
+| `PRIMARY-SPEC`         | Taken from the manufacturer's own specification document.                                                                                           |
 | `PROJECT-CHOICE`       | A decision made by this project. No vendor asserts it.                                                                                              |
 | `UNVERIFIED`           | Recorded, but not yet backed by an accepted source.                                                                                                 |
 
@@ -709,14 +716,14 @@ What the recorded terms on this page mean, in ordinary words. The exact terms ab
 
 | Recorded term | What it means                                                                                                               |
 | ------------- | --------------------------------------------------------------------------------------------------------------------------- |
+| `COVERED`     | Every question this domain asks is answered by the facts listed against it.                                                 |
 | `OPEN`        | Unresolved. Open means the question has not been answered, not that the part is unsafe — the reason states what is missing. |
 
 ### Source availability
 
-| Recorded term        | What it means                                                                                                         |
-| -------------------- | --------------------------------------------------------------------------------------------------------------------- |
-| `AVAILABLE`          | The document was retrieved and is on record.                                                                          |
-| `SOURCE UNAVAILABLE` | The document could not be retrieved. It stays listed so the gap is visible; anything resting on it remains unsourced. |
+| Recorded term | What it means                                |
+| ------------- | -------------------------------------------- |
+| `AVAILABLE`   | The document was retrieved and is on record. |
 
 ### Source authority
 
@@ -728,15 +735,15 @@ What the recorded terms on this page mean, in ordinary words. The exact terms ab
 
 ### Identity state
 
-| Recorded term | What it means                                                                                                                    |
-| ------------- | -------------------------------------------------------------------------------------------------------------------------------- |
-| `UNRESOLVED`  | The exact orderable part is not yet confirmed. Substituting a same-name part from another vendor is not permitted on that basis. |
+| Recorded term | What it means                                                 |
+| ------------- | ------------------------------------------------------------- |
+| `VERIFIED`    | The exact orderable part has been confirmed against a source. |
 
 ### Source state
 
-| Recorded term        | What it means                                     |
-| -------------------- | ------------------------------------------------- |
-| `SOURCE UNAVAILABLE` | No document backing this line could be retrieved. |
+| Recorded term | What it means                                          |
+| ------------- | ------------------------------------------------------ |
+| `AVAILABLE`   | At least one document backing this line was retrieved. |
 
 ### Unit
 
