@@ -245,7 +245,8 @@ def design_inputs(lk: dict, d: dict) -> dict:
 def identities(repo: Path, profile_rel: str, p: dict) -> dict:
     ident = {'checkout_head': git(repo, 'rev-parse', 'HEAD'), 'github_sha': os.environ.get('GITHUB_SHA'),
              'github_event': os.environ.get('GITHUB_EVENT_NAME'), 'github_ref': os.environ.get('GITHUB_REF'),
-             'github_run_id': os.environ.get('GITHUB_RUN_ID'), 'workflow_ref': os.environ.get('GITHUB_WORKFLOW_REF'),
+             'github_run_id': os.environ.get('GITHUB_RUN_ID'),
+             'github_run_attempt': os.environ.get('GITHUB_RUN_ATTEMPT'), 'workflow_ref': os.environ.get('GITHUB_WORKFLOW_REF'),
              'workflow_sha': os.environ.get('GITHUB_WORKFLOW_SHA'), 'profile': profile_rel}
     evp = os.environ.get('GITHUB_EVENT_PATH')
     if evp and Path(evp).is_file():
@@ -798,6 +799,7 @@ def cmd_run(a: argparse.Namespace) -> int:
             g.summary['regeneration'] = regeneration(g, p)
             g.summary['evidence'] = copy_evidence(g, raw, p)
             shutil.copyfile(plan, out / 'plan.json')
+            g.summary['plan_sha256'] = sha(out / 'plan.json')
         for n, d in p['designs'].items():
             if sha(repo / d['dir'] / d['board']) != tested[n]:
                 g.fail(f'tested board {n} changed during the run')

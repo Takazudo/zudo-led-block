@@ -423,6 +423,18 @@ jobs:
           json.dump({'status': status, 'sha': sys.argv[3], 'source': 'native/summary.json'}, open(sys.argv[2], 'w'))
           print(status)
           PY
+      - name: A7 candidate evidence retained and bound (staged upload set; failure evidence is never a pass)
+        # Narrow allowlist: summary, plan, candidate board facts and geometry. The infrastructure
+        # receipt above is not an A7 candidate result; this record classifies the candidate set only.
+        if: always()
+        timeout-minutes: 1
+        env:
+          EXPECT_REVISION: ${{ github.event.pull_request.head.sha || github.sha }}
+        run: >-
+          python3 scripts/a7_native_artifact.py --dir "$RUNNER_TEMP"
+          --expect-revision "$EXPECT_REVISION" --expect-checkout "$GITHUB_SHA"
+          --expect-run-id "$GITHUB_RUN_ID" --expect-run-attempt "$GITHUB_RUN_ATTEMPT"
+          --out "$RUNNER_TEMP/native-receipt/a7-candidate-evidence.json"
       - uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
         if: always()
         timeout-minutes: 2
@@ -434,6 +446,9 @@ jobs:
             ${{ runner.temp }}/native/plan.json
             ${{ runner.temp }}/native/evidence/
             ${{ runner.temp }}/a7-gate/summary.json
+            ${{ runner.temp }}/a7-gate/plan.json
+            ${{ runner.temp }}/a7-gate/evidence/a7_controller/board_facts.json
+            ${{ runner.temp }}/a7-gate/evidence/a7_controller/board_geometry.json
             ${{ runner.temp }}/a7-schematic/summary.json
             ${{ runner.temp }}/a7-route-check/summary.json
             ${{ runner.temp }}/a7-pet-leaf/summary.json
@@ -442,7 +457,7 @@ jobs:
 
   deploy-gate:
     name: Deploy gate
-    needs: [a5-data, firmware-host, firmware-arm, docs, native-infrastructure]
+    needs: [a5-data, a7-mechanical, firmware-host, firmware-arm, docs, native-infrastructure]
     # Always report, including when a validation job failed (then deploy is skipped).
     if: always()
     runs-on: ubuntu-24.04
@@ -471,7 +486,7 @@ jobs:
 
   production-deploy:
     name: Production deploy
-    needs: [a5-data, firmware-host, firmware-arm, docs, native-infrastructure]
+    needs: [a5-data, a7-mechanical, firmware-host, firmware-arm, docs, native-infrastructure]
     if: >-
       github.repository == 'Takazudo/zudo-led-block' &&
       github.ref == 'refs/heads/main' &&
