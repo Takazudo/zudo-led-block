@@ -12,10 +12,10 @@
 ```sh
 python3 scripts/a7_fixture.py --cad
 python3 scripts/a7_fixture.py --check --cad-check
-python3 -m unittest scripts/tests/test_a7_fixture.py
+python3 -m unittest scripts/tests/test_a7_fixture.py scripts/tests/test_a7_fixture_relief.py
 ```
 
-STEP は CadQuery **2.7.0** で生成し、再読込して1 solid、体積4980.755782 mm³、25×40×5 mm、形状妥当性を検査する。STEP の時刻ヘッダではなく形状を検査する。JSON/SVG は通常生成で一致検査する。PCB または canonical placement が変わると明示的 identity lock により失敗し、レビューなしの追随を防ぐ。E1の canonical/copy/PCB 検査を使用するが、これは fresh-native の独立検証の代替ではない。
+STEP は CadQuery **2.7.0** で生成し、再読込して1 solid、体積4604.289782 mm³（下記の逃げを含む。CadQuery の boolean 結果を矩形和集合の体積で照合。逃げ導出そのものの検証ではない）、25×40×5 mm、形状妥当性を検査する。STEP の時刻ヘッダではなく形状を検査する。JSON/SVG は通常生成で一致検査する。PCB または canonical placement が変わると明示的 identity lock により失敗し、レビューなしの追随を防ぐ。E1の canonical/copy/PCB 検査を使用するが、これは fresh-native の独立検証の代替ではない。
 
 ## Native CI の証拠範囲
 
@@ -25,7 +25,22 @@ STEP は CadQuery **2.7.0** で生成し、再読込して1 solid、体積4980.7
 
 2026-11-11 追記（PR #46）: native gate が同一PCBから治具用の `fixture_geometry.json`（pad の形状・寸法・銅箔 bbox・回転・有効層・net、footprint の原点・面・courtyard/外形 bbox）を出力し、CI artifact に保存するようになった。[run 43077448786](https://github.com/Takazudo/zudo-led-block/actions/runs/43077448786)（head `01bc3812202c6e72f772d2568148ae5df4915be7`、artifact ZIP SHA-256 `db6d6fe101641a4176d0fad83a7fd453ee4ae09173e7fb36d26dd444284b74c4`）の artifact は VALID_PASS と分類され、`scripts/a7_fixture_geometry.py --from-zip` が `native-geometry.json` に記録した（64 footprints、変換・面・net・位置を canonical placement と照合、未知 extents 0）。`manifest.json` の `native_geometry` はこの記録で TP1–TP5 の5パッド（B面、丸 1 mm、B.Cu/B.Mask、位置、net）を照合した結果である。部品本体高さ・はんだ包絡は native facts に含まれず、キャリア検討は courtyard/外形 bbox をまだ支持・逃げ設計に使っていないため、`fresh_native_verified` と `digital_fixture_complete` は **false** のまま。記録は `python3 scripts/a7_fixture_geometry.py --check`（CI でも実行）で PCB/placement の陳腐化、pad 数、内部不整合を検査する。member hash まで再計算した改変の出所は `--check` では判定できず、`--from-zip` による作成時の検証と差分レビューで担保する。
 
+## B面の逃げと支持（2026-11-11）
+
+`scripts/a7_fixture_relief.py` が `native-geometry.json` から B面の逃げを導き、`manifest.json` の `b_side_relief` と STEP/SVG に反映する。
+
+- 0603 抵抗（B面、キャリア範囲内の13個と、範囲端に 0.175 mm だけ掛かる R12 の計14ポケット）: native の pad 銅箔 box と、資料の最大本体外形（UNI-ROYAL SMD-SP-001 V.11、物理 page index 3、0603 行 L 1.60±0.15 / W 0.80±0.10 / H 0.45±0.10 mm、SHA-256 `d27e4cdc…20d3`）の和に 0.2 mm を加えたポケット。深さは最大本体高 0.55 mm + 0.25 mm = 0.80 mm。高さは **SOURCE_DERIVED**（測定値ではない）。はんだフィレット高さの出典はなく `null`。
+- THT（J1/J2 の PJ-324M、J5 の PicoBlade）: native の pad 銅箔 box + 0.3 mm の貫通逃げ。はんだは銅箔にのみ濡れるため横方向は銅箔で抑える。貫通なので高さに依存しないが、PJ-324M の突出（端子突出 3.2±0.2 mm、ミラー資料、板厚公差は未出典）と J5 のテール長（出典なし、`null`）はキャリア下側の設計で未解決。
+- SW1 の NPTH ピン（0.5 mm、メーカー一次資料）は 1.6 mm 板を貫通しないため逃げ不要。
+- プローブ穴と逃げの最小肉厚: 研究値 0.5 mm（出典のある最小値はない）に対し、TP1/TP2/TP3/TP4/TP5 と R7/R9 の間で 0.255–0.420 mm の6組が不足。blocker として manifest に残す。基板変更は範囲外。
+- 逃げ同士・逃げとキャリア端の壁: 0.5 mm 未満の壁（R6/R7、R16/R17、R16/R18、R24/R25 など）も blocker として列挙する。
+- 基板外形より外側のキャリア張り出し部: J1/J2 の F面 courtyard が掛かるが、本体は F面側で B面より上にあるとみなし、検査していない（manifest の `overhang_not_checked`）。
+- 支持: キャリア上面が B面に接する面積の幾何計算のみ（ランド率 0.80、各プローブ半径 3 mm 内 0.54–0.72）。荷重経路・たわみ・押さえは未解析。
+
+クリアランス・最小肉厚・支持半径は PROJECT-CHOICE の検討値であり、加工公差や適合結果ではない。`fresh_native_verified` は、フィレット高さ・J5 テール・PJ-324M の一次資料/板厚公差が未出典のため **false**。`digital_fixture_complete` は下記「完成に必要な証拠」2–5 が未達のため **false**。
+
 ## 現時点の数値と限界
+
 
 GKS-050 214 050 A 1000 は先端 Ø0.5 mm、推奨ストローク4.3 mmで公称1 N、最大6.35 mm、初期荷重0.44 N。5本では公称5 N、初期2.2 N。公差は資料にないため最大荷重とは呼ばない。実PCBの露出B面丸パッド Ø1 mmとの差から、**公称**半径予算は0.25 mm。基板端→パッド、位置決め、穴位置、接触子の横遊び・同心度の最悪値が未確定なので最悪登録余裕は `null`。数値を推定して合格にしない。
 
