@@ -8,7 +8,7 @@
 | B2 | 新規子Issue: 親のhold | 最初の作成は中断され、未作成を確認済み。拒否/中断の理由が未特定。理由が明らかになるまで当該操作を再試行しない | #15、E1–E5下書き |
 | B3 | ローカルnative取得/実行: ENOSPC失敗 | digest-pinned imageが32 GBを満たした。容量回復後もローカル成功とは記録しない。E1はexact-head CI native PASSで検証済み。新しいnative出力が必要な作業は対応可能なCloud実行環境が必要 | E1/E3 |
 | B4 | E2残り資料: 未取得 | claim単位監査、独立レビュー修正、sync-states/selection/generation、公開site scanは完了。未取得一次資料と物理適用は残る。取得成功はfit/stock/service承認ではない | #9/#13/#19 |
-| B5 | E3完成治具: BLOCKED | 基板edge→pad公差、probe lateral play/concentricity、はんだフィレット高さ・J5テール長（0603本体高は資料由来、B面逃げは2026-11-11にnative geometryから導出。プローブ穴と逃げの肉厚不足6組）、逆挿入防止、PCB支持/load path、travel stopと最悪registration marginが必要。carrier STEPだけでは満たさない | #19/#10 |
+| B5 | E3完成治具: BLOCKED | 2026-11-11 W5: キャリアのデジタル設計（出典由来の最小肉厚 0.27 mm、全貫通カット、基準ピン 3 本、逆挿し防止、押さえ点と荷重経路、位置決め配分を受入測定要求で閉じる、ストロークと停止）は完了。残り: J5 テール長の出典、押さえ・付勢機構/ガイド/ベース/絶縁/配線保持の選定・設計、組立 STEP と干渉検査、加工法と業者の選定（owner）、物理試験 | #19/#10 |
 | B6 | 完成品調達: 未確定 | PJ-324M nut/washer、保証ケーブル構成と自由長、公差、PCM13SMTR供給/実装サービス、PMMA/PETG工程、fixture部材の確定。現行在庫/価格/MOQ/納期/包装は実取得分だけ有効 | #8/#9/#19 |
 | B7 | ジャック/スイッチ適合: NOT_MEASURED | TS/TRS全端子導通、軸/端子/スロット/ナット、switch真理値/ランド/設定アクセスを実部品で確認しraw記録を残す | Q1–Q4/Q10、#8/#19 |
 | B8 | 機構/ハーネス: NOT_MEASURED | PMMA公差・ポケット・締付/保持、PETG支持、完成ケーブル全長経路、M2×18 load path、挿抜/交換、全ケーブル込み30 mm奥行きの実測 | #8/#17 |

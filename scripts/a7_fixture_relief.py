@@ -1,10 +1,15 @@
-"""B-side relief and support layout of the A7 SWD carrier study, derived from native geometry.
+"""Digital design of the A7 B-side SWD carrier, derived from native geometry and recorded sources.
 
 Inputs: the validated native fixture geometry record (KiCad pad copper and courtyard boxes of the
-authoritative PCB), the canonical placement, the engineering population list, and component
-heights taken only from sources already recorded in the component evidence. Heights are
-SOURCE_DERIVED (never measured); a part without a traceable value stays null and is listed.
-Clearances and the minimum web are PROJECT-CHOICE study values, not tolerances or fit results.
+authoritative PCB), the engineering population list, the INGUN probe/receptacle documents recorded in
+engineering/a7/fixture/sources.json, and component data already recorded in the component evidence.
+
+Basis (coordinator decision, option B): the minimum FR-4 wall is derived from the receptacle and probe
+manufacturer data (1.27 mm grid with 0.98-1.00 mm FR-4 mounting holes leaves 0.27 mm between two holes);
+machining, board and probe position tolerances are closed by explicit acceptance-measurement
+requirements, not by a selected fabricator. Every relief is a through-cut, so no clearance depends on
+component body or solder-fillet height. Clearances and allocations marked PROJECT-CHOICE are design
+values, not measured results. Nothing here is a fit, contact or manufacturing approval.
 """
 from __future__ import annotations
 
@@ -15,38 +20,63 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 POPULATION = ROOT / 'engineering/a7/procurement/population.csv'
 
-CARRIER_BOARD_X = (-4.4, 20.6)  # carrier footprint in board X (the carrier is symmetric about the 16.2 mm board)
-CARRIER_Y = (20.0, 60.0)
+BOARD = (0.0, 0.0, 16.2, 62.9)
+CARRIER_BOARD_X = (-4.4, 20.6)  # carrier footprint in board X (B view: carrier x = 16.2 - board x)
+CARRIER_Y = (20.0, 66.0)        # extends past the 62.9 mm board edge to carry the Y datum stop
 CARRIER_THICKNESS = 5.0
-BORE_RADIUS = 0.99 / 2
+BORE_NOMINAL = 0.99
+BORE_MAX = 1.00
+
+INGUN = {
+    'receptacle': {'id': 'sources.json#receptacle', 'mpn': 'KS-050 E08 V-30',
+                   'sha256': 'bc016b5934c94f39c638c60416cca8d74e30e17870ae94d02f5022a8c42992b1',
+                   'facts': {'mounting_hole_fr4_mm': [0.98, 1.0], 'outer_diameter_mm': 0.95, 'collar_diameter_mm': 1.04,
+                             'collar_position_mm': 7.9, 'total_length_mm': 40.6, 'press_ring': True},
+                   'locator': 'page 1/1: Mounting hole, General data, Mechanical data; linked drawing sources.json#receptacle-0.png '
+                              '(Ø0.96 body, Ø1.04 collar 7.9 from the probe end, 40.64 overall)'},
+    'probe': {'id': 'sources.json#probe', 'mpn': 'GKS-050 214 050 A 1000',
+              'facts': {'grid_mm': 1.27, 'tip_diameter_mm': 0.5, 'spring_preload_N': 0.44, 'working_stroke_mm': 4.3,
+                        'force_at_working_stroke_N': 1.0, 'maximum_stroke_mm': 6.35},
+              'locator': 'page 1/2: General data (Grid), Mechanical data, Tip style data'},
+    'force_graph': {'id': 'sources.json#probe-4.png', 'sha256': 'e3de0b0b503cd1c09102fcb2e740a53f50671acc5cb559a2b38051b1eb37396c',
+                    'facts': {'force_at_maximum_stroke_N': 1.27},
+                    'locator': 'linear force-stroke line, 0.44 N at 0 to 1.0 N at 4.3 mm; value at 6.35 mm read from the graph'},
+}
+MIN_WALL = round(INGUN['probe']['facts']['grid_mm'] - INGUN['receptacle']['facts']['mounting_hole_fr4_mm'][1], 6)
+
 RULES = {
+    'minimum_fr4_wall_mm': MIN_WALL,
+    'minimum_fr4_wall_basis': 'SOURCE_DERIVED: INGUN 1.27 mm grid minus the 1.00 mm maximum FR-4 mounting hole; applied to every '
+                              'carrier wall (bore-to-cut, cut-to-cut, cut-to-edge, pin-to-cut)',
     'smd_outline_clearance_mm': 0.2,
+    'smd_outline_clearance_min_near_bore_mm': 0.15,
     'tht_copper_clearance_mm': 0.3,
-    'pocket_depth_clearance_mm': 0.25,
-    'minimum_web_bore_to_relief_mm': 0.5,
+    'datum_pin_diameter_mm': 2.0,
+    'datum_pin_height_above_carrier_mm': 1.0,
+    'holddown_pin_diameter_mm': 1.5,
+    'holddown_f_side_clearance_mm': 0.3,
+    'holddown_search_radius_mm': 14.0,
+    'holddown_resultant_margin_mm': 0.5,
     'support_grid_mm': 0.1,
     'support_radius_around_probe_mm': 3.0,
-    'confidence': 'PROJECT-CHOICE study values; not machining tolerances, fit results or approvals',
+    'confidence': 'PROJECT-CHOICE design values except the minimum wall; not machining tolerances, fit results or approvals',
 }
 
-R0603_HEIGHT = {
-    'nominal_mm': 0.45, 'tolerance_mm': 0.10, 'max_mm': 0.55, 'class': 'SOURCE_DERIVED',
-    'body_length_max_mm': 1.75, 'body_width_max_mm': 0.9,
+R0603 = {
+    'body_length_max_mm': 1.75, 'body_width_max_mm': 0.9, 'body_height_max_mm': 0.55, 'class': 'SOURCE_DERIVED',
     'source': {'document': 'UNI-ROYAL Thick Film Chip Resistors (Chip Series) datasheet SMD-SP-001 V.11, 2026-03-17',
                'sha256': 'd27e4cdcdf8fdb4c066ff6030cfc1f46b99efe2a38fe5673fa18a2ee4c7220d3',
                'evidence_source_ids': 'src-0603waf*-ds-p1 (component-0603waf* bundles, MANUFACTURER_PRIMARY)',
                'locator': 'physical page index 3 (printed Page 4/12), section 5 Dimension, row 0603: L 1.60±0.15, W 0.80±0.10, H 0.45±0.10 mm'},
-    'applies_to': 'body height of every 0603WAF*T5E resistor (Chip Series); solder fillet height is not given by the source',
 }
 SOURCES = {
-    'R0603': R0603_HEIGHT,
+    'R0603': R0603,
     'PJ-324M': {
         'terminal_projection_below_seating_plane_mm': 3.2, 'tolerance_mm': 0.2, 'class': 'SOURCE_DERIVED (MANUFACTURER_MIRROR)',
         'source': {'fact_id': 'fact-a7-pj-324m-terminal-projection', 'source_id': 'src-a7-pj-324m-sofng-drawing',
                    'sha256': 'c5f2f104e73244a32ed024f7a6577d260678a9b3f3cc3d496531fb930b3c7049',
                    'locator': 'page 0 front view vertical 3.2; tolerance as engineering/a7/study/parameters.json jack_terminal_projection'},
-        'protrusion_below_b_face': 'projection minus board thickness: nominal 3.2 - 1.6 = 1.6 mm; the maximum also needs the board '
-                                   'thickness tolerance, which is not sourced, and the fillet height, which is not sourced',
+        'protrusion_below_b_face_mm': {'nominal': 1.6, 'basis': '3.2 - 1.6 mm board; the board-thickness tolerance is not sourced'},
     },
     'PCM13SMTR': {
         'peg_length_mm': 0.5, 'class': 'SOURCE_DERIVED (MANUFACTURER_PRIMARY)',
@@ -81,13 +111,132 @@ def _box_point_dist(box, pt):
     return math.hypot(dx, dy)
 
 
+def _box_gap(a, b):
+    return math.hypot(max(b[0] - a[2], a[0] - b[2], 0.0), max(b[1] - a[3], a[1] - b[3], 0.0))
+
+
+def _in_box(b, x, y):
+    return b[0] <= x <= b[2] and b[1] <= y <= b[3]
+
+
 def population(path=POPULATION):
     rows = [line for line in path.read_text().splitlines() if not line.startswith('ENGINEERING ONLY')]
     return {r['ref']: r for r in csv.DictReader(rows) if r['board'] == 'controller'}
 
 
+def _smd_box(f, probes):
+    """Outline (native pads + sourced max body) plus clearance; a side facing a bore may shrink to keep the minimum wall."""
+    rot = round(f['rotation_deg']) % 180
+    if abs(f['rotation_deg'] - round(f['rotation_deg'])) > 1e-6 or rot % 90:
+        raise ValueError(f"{f['ref']}: non-orthogonal rotation; body outline box not derived")
+    hl, hw = R0603['body_length_max_mm'] / 2, R0603['body_width_max_mm'] / 2
+    dx, dy = (hl, hw) if rot == 0 else (hw, hl)
+    cx, cy = f['at_mm']
+    o = [cx - dx, cy - dy, cx + dx, cy + dy]
+    for q in f['pads']:
+        b = q['bbox_mm']
+        o = [min(o[0], b[0]), min(o[1], b[1]), max(o[2], b[2]), max(o[3], b[3])]
+    c = [RULES['smd_outline_clearance_mm']] * 4  # x0, y0, x1, y1 sides
+    lo = RULES['smd_outline_clearance_min_near_bore_mm']
+    for p in probes:
+        px, py = p['board_xy_mm']
+        for _ in range(4):
+            box = [o[0] - c[0], o[1] - c[1], o[2] + c[2], o[3] + c[3]]
+            short = MIN_WALL - (_box_point_dist(box, (px, py)) - BORE_MAX / 2)
+            if short <= 1e-9:
+                break
+            side = 0 if px < box[0] else 2 if px > box[2] else None
+            if side is None or (py < box[1] or py > box[3]):
+                side = 1 if py < box[1] else 3 if py > box[3] else side
+            if side is None:
+                break
+            c[side] = max(lo, round(c[side] - short, 6))
+            if c[side] == lo:
+                break
+    return [o[0] - c[0], o[1] - c[1], o[2] + c[2], o[3] + c[3]], c
+
+
+def _components(cuts):
+    comp = list(range(len(cuts)))
+
+    def find(i):
+        while comp[i] != i:
+            comp[i] = comp[comp[i]]
+            i = comp[i]
+        return i
+    for i in range(len(cuts)):
+        for j in range(i + 1, len(cuts)):
+            if _box_gap(cuts[i]['board_box_mm'], cuts[j]['board_box_mm']) <= 0:
+                comp[find(i)] = find(j)
+    return [find(i) for i in range(len(cuts))]
+
+
+def _union_area(boxes):
+    xs = sorted({v for q in boxes for v in (q[0], q[2])}); ys = sorted({v for q in boxes for v in (q[1], q[3])}); area = 0.0
+    for i in range(len(xs) - 1):
+        for j in range(len(ys) - 1):
+            cx, cy = (xs[i] + xs[i + 1]) / 2, (ys[j] + ys[j + 1]) / 2
+            if any(q[0] <= cx <= q[2] and q[1] <= cy <= q[3] for q in boxes):
+                area += (xs[i + 1] - xs[i]) * (ys[j + 1] - ys[j])
+    return area
+
+
+def _strip(a, b):
+    """Material between two boxes closer than the minimum, as one rectangle to cut through.
+
+    Side by side: the strip over the shared span. Diagonally offset: a strip across the narrower gap spanning both
+    boxes, so the merged opening meets each box along a full edge and leaves no point-contact pinch of material.
+    """
+    xg = (a[2], b[0]) if a[2] <= b[0] else (b[2], a[0]) if b[2] <= a[0] else None
+    yg = (a[3], b[1]) if a[3] <= b[1] else (b[3], a[1]) if b[3] <= a[1] else None
+    if xg and not yg:
+        return [xg[0], max(a[1], b[1]), xg[1], min(a[3], b[3])]
+    if yg and not xg:
+        return [max(a[0], b[0]), yg[0], min(a[2], b[2]), yg[1]]
+    if xg[1] - xg[0] <= yg[1] - yg[0]:
+        return [xg[0], min(a[1], b[1]), xg[1], max(a[3], b[3])]
+    return [min(a[0], b[0]), yg[0], max(a[2], b[2]), yg[1]]
+
+
+def _thin_walls(cuts):
+    """Every pair of cuts closer than the minimum whose material between them is not already removed by other cuts.
+
+    Checked for all pairs, including cuts already joined elsewhere, so a finger left between two cuts of one opening
+    is still found.
+    """
+    boxes = [c['board_box_mm'] for c in cuts]
+    out = []
+    for i in range(len(cuts)):
+        for j in range(i + 1, len(cuts)):
+            gap = _box_gap(boxes[i], boxes[j])
+            if not 0 < gap < MIN_WALL:
+                continue
+            st = _strip(boxes[i], boxes[j])
+            clipped = [[max(q[0], st[0]), max(q[1], st[1]), min(q[2], st[2]), min(q[3], st[3])] for q in boxes]
+            clipped = [q for q in clipped if q[0] < q[2] and q[1] < q[3]]
+            if _union_area(clipped) >= (st[2] - st[0]) * (st[3] - st[1]) - 1e-9:
+                continue
+            out.append((i, j, gap, st))
+    return out
+
+
+def _bridges(cuts):
+    """Remove every wall under the minimum between two side-by-side cuts by cutting through the strip between them."""
+    added = []
+    for _ in range(200):
+        allc = cuts + added
+        fixable = _thin_walls(allc)
+        if not fixable:
+            return added
+        i, j, gap, st = fixable[0]
+        added.append({'ref': f"bridge {allc[i]['ref']}+{allc[j]['ref']}", 'kind': 'through',
+                      'basis': f'merges a {gap:.3f} mm wall below the minimum', 'board_box_mm': [round(v, 6) for v in st],
+                      'carrier_box_mm': _to_carrier(st), 'depth_mm': CARRIER_THICKNESS})
+    raise ValueError('wall merging did not converge')
+
+
 def design(geometry: dict, probes: list[dict], pop: dict | None = None) -> dict:
-    """Relief, web and support layout from validated native geometry; raises on unclassified B-side items."""
+    """Carrier cuts, walls, datums, keying, support, hold-down, registration and stroke from native geometry and sources."""
     pop = population() if pop is None else pop
     probe_refs = {p['ref'] for p in probes}
     reliefs, unknown_heights = [], []
@@ -99,23 +248,13 @@ def design(geometry: dict, probes: list[dict], pop: dict | None = None) -> dict:
             row = pop.get(ref)
             if f['fpid'] != 'LightBlock:R0603' or row is None or row['population'] != 'FITTED' or not row['mpn'].startswith('0603WAF'):
                 raise ValueError(f'{ref}: B-side part without a classified height source')
-            rot = round(f['rotation_deg']) % 180
-            if abs(f['rotation_deg'] - round(f['rotation_deg'])) > 1e-6 or rot % 90:
-                raise ValueError(f'{ref}: non-orthogonal rotation; body outline box not derived')
-            hl, hw = R0603_HEIGHT['body_length_max_mm'] / 2, R0603_HEIGHT['body_width_max_mm'] / 2
-            dx, dy = (hl, hw) if rot == 0 else (hw, hl)
-            cx, cy = f['at_mm']
-            outline = [cx - dx, cy - dy, cx + dx, cy + dy]
-            for q in f['pads']:
-                b = q['bbox_mm']
-                outline = [min(outline[0], b[0]), min(outline[1], b[1]), max(outline[2], b[2]), max(outline[3], b[3])]
-            box = _clip(_expand(outline, RULES['smd_outline_clearance_mm']))
+            outline, clear = _smd_box(f, probes)
+            box = _clip(outline)
             if box:
-                reliefs.append({'ref': ref, 'kind': 'pocket', 'basis': 'native pad copper boxes united with the sourced maximum body outline (solder wets only copper)', 'board_box_mm': box,
-                                'carrier_box_mm': _to_carrier(box), 'body_height_max_mm': R0603_HEIGHT['max_mm'],
-                                'height_class': 'SOURCE_DERIVED', 'height_source': 'R0603',
-                                'depth_mm': round(R0603_HEIGHT['max_mm'] + RULES['pocket_depth_clearance_mm'], 6),
-                                'solder_envelope_height_mm': None})
+                reliefs.append({'ref': ref, 'kind': 'through', 'basis': 'native pad copper boxes united with the sourced maximum body outline '
+                                '(solder wets only copper); through-cut, so body and fillet height do not constrain the carrier',
+                                'board_box_mm': box, 'carrier_box_mm': _to_carrier(box), 'side_clearance_mm': clear,
+                                'height_source': 'R0603', 'height_class': 'SOURCE_DERIVED', 'depth_mm': CARRIER_THICKNESS})
             continue
         tht = [p for p in f['pads'] if p['attribute'] == 'PTH']
         npth = [p for p in f['pads'] if p['attribute'] == 'NPTH']
@@ -137,55 +276,222 @@ def design(geometry: dict, probes: list[dict], pop: dict | None = None) -> dict:
         if SOURCES[key]['class'] == 'UNKNOWN':
             unknown_heights.append(f'{ref} ({key}): lead tail below the B face')
 
+    for c in reliefs:
+        b, opened = c['board_box_mm'], []
+        for k, edge, gap in ((1, CARRIER_Y[0], b[1] - CARRIER_Y[0]), (3, CARRIER_Y[1], CARRIER_Y[1] - b[3]),
+                             (0, CARRIER_BOARD_X[0], b[0] - CARRIER_BOARD_X[0]), (2, CARRIER_BOARD_X[1], CARRIER_BOARD_X[1] - b[2])):
+            if 0 < gap < MIN_WALL:
+                b[k] = edge
+                opened.append(round(gap, 6))
+        if opened:
+            c['opened_to_carrier_edge'] = f'edge wall {min(opened):.3f} mm below the minimum: the cut is opened through the carrier edge'
+            c['carrier_box_mm'] = _to_carrier(b)
+    bridges = _bridges(reliefs)
+    cuts = reliefs + bridges
+    r = RULES['datum_pin_diameter_mm'] / 2
+    pins = [{'id': 'X1', 'role': 'X datum on the board x = 16.2 edge', 'board_xy_mm': [round(BOARD[2] + r, 6), 24.0]},
+            {'id': 'X2', 'role': 'X datum on the board x = 16.2 edge', 'board_xy_mm': [round(BOARD[2] + r, 6), 56.0]},
+            {'id': 'Y1', 'role': 'Y datum on the board y = 62.9 edge', 'board_xy_mm': [8.1, round(BOARD[3] + r, 6)]}]
+    for pin in pins:
+        pin['carrier_xy_mm'] = [round(16.2 - pin['board_xy_mm'][0], 6), pin['board_xy_mm'][1]]
+
     webs, conflicts = [], []
-    for p in probes:
-        for rl in reliefs:
-            web = round(_box_point_dist(rl['board_box_mm'], p['board_xy_mm']) - BORE_RADIUS, 6)
+    holes = [(p['ref'], p['board_xy_mm'], BORE_MAX / 2) for p in probes] + [(pin['id'], pin['board_xy_mm'], r) for pin in pins]
+    for name, xy, rad in holes:
+        for c in cuts:
+            web = round(_box_point_dist(c['board_box_mm'], xy) - rad, 6)
             if web < 2.0:
-                webs.append({'probe': p['ref'], 'relief': rl['ref'], 'web_mm': web})
-            if web < RULES['minimum_web_bore_to_relief_mm']:
-                conflicts.append(f"{p['ref']} bore to {rl['ref']} relief web {web:.3f} mm < {RULES['minimum_web_bore_to_relief_mm']} mm")
-
-    minimum = RULES['minimum_web_bore_to_relief_mm']
-    walls = []
-    for i, a in enumerate(reliefs):
-        for b in reliefs[i + 1:]:
-            A, B = a['board_box_mm'], b['board_box_mm']
-            gap = math.hypot(max(B[0] - A[2], A[0] - B[2], 0.0), max(B[1] - A[3], A[1] - B[3], 0.0))
-            if 0 < gap < minimum:
-                walls.append(f"{a['ref']}/{b['ref']} wall {gap:.3f} mm")
-        A = a['board_box_mm']
+                webs.append({'hole': name, 'cut': c['ref'], 'web_mm': web})
+            if web < MIN_WALL:
+                conflicts.append(f'{name} hole to {c["ref"]} web {web:.3f} mm < {MIN_WALL} mm')
+        for edge in (xy[1] - rad - CARRIER_Y[0], CARRIER_Y[1] - xy[1] - rad, xy[0] - rad - CARRIER_BOARD_X[0], CARRIER_BOARD_X[1] - xy[0] - rad):
+            if edge < MIN_WALL:
+                conflicts.append(f'{name} hole to carrier edge web {edge:.3f} mm < {MIN_WALL} mm')
+    for i, (n1, a, ra) in enumerate(holes):
+        for n2, b, rb in holes[i + 1:]:
+            if math.dist(a, b) - ra - rb < MIN_WALL:
+                conflicts.append(f'{n1}/{n2} hole web {math.dist(a, b) - ra - rb:.3f} mm < {MIN_WALL} mm')
+    walls = [f"{cuts[i]['ref']}/{cuts[j]['ref']} wall {gap:.3f} mm" for i, j, gap, st in _thin_walls(cuts)]
+    for i in range(len(cuts)):
+        A = cuts[i]['board_box_mm']
         for edge in (A[1] - CARRIER_Y[0], CARRIER_Y[1] - A[3], A[0] - CARRIER_BOARD_X[0], CARRIER_BOARD_X[1] - A[2]):
-            if 0 < edge < minimum:
-                walls.append(f"{a['ref']}/carrier edge wall {edge:.3f} mm")
-    overhang = sorted(f['ref'] for f in geometry['footprints'] if f['side'] == 'F' and f['courtyard_bbox_mm'].get('F')
-                      and (f['courtyard_bbox_mm']['F'][0] < 0 or f['courtyard_bbox_mm']['F'][2] > 16.2)
-                      and f['courtyard_bbox_mm']['F'][1] < CARRIER_Y[1] and f['courtyard_bbox_mm']['F'][3] > CARRIER_Y[0])
+            if 0 < edge < MIN_WALL:
+                walls.append(f"{cuts[i]['ref']}/carrier edge wall {edge:.3f} mm")
 
+    # keying: the board turned 180 degrees in plane (B face still down) must not seat on the carrier
+    def _land_at(x, y):
+        return (_in_box(_clip_strict(BOARD), x, y) and not any(_in_box(k['board_box_mm'], x, y) for k in cuts)
+                and all(math.dist((x, y), xy) > rad for _, xy, rad in holes))
+    turned = []
+    for c in reliefs:
+        if c['height_source'] != 'PJ-324M':
+            continue
+        b = c['board_box_mm']
+        tb = [16.2 - b[2], 62.9 - b[3], 16.2 - b[0], 62.9 - b[1]]
+        cx, cy = (tb[0] + tb[2]) / 2, (tb[1] + tb[3]) / 2
+        on_land = _land_at(cx, cy)
+        turned.append({'lead': c['ref'], 'turned_centre_mm': [round(cx, 6), round(cy, 6)], 'lands_on_carrier': on_land})
+    for f in sorted(geometry['footprints'], key=lambda f: f['ref']):
+        if f['side'] != 'B' or f['ref'] in probe_refs:
+            continue
+        for pd in f['pads']:
+            b = pd['bbox_mm']
+            cx, cy = 16.2 - (b[0] + b[2]) / 2, 62.9 - (b[1] + b[3]) / 2
+            on_land = _land_at(cx, cy)
+            turned.append({'lead': f"{f['ref']}.{pd['number']}", 'turned_centre_mm': [round(cx, 6), round(cy, 6)],
+                           'lands_on_carrier': on_land})
+    blocking = [t['lead'] for t in turned if t['lands_on_carrier']]
+    keying = {'method': 'B-face features stand proud of the B face: PJ-324M terminals (nominal 1.6 mm, MANUFACTURER_MIRROR) and the '
+                        'soldered R0603 terminations (body up to 0.55 mm, SOURCE_DERIVED). In the correct pose all of them fall into '
+                        'through-cuts; turned 180 degrees in plane, the listed centres land on solid carrier, hold the board off the '
+                        'land and the datum pins, and the probes miss the test pads. Face-down insertion is excluded by the F-side jacks.',
+              'turned_pose_features': turned, 'blocking_features': blocking, 'keyed': len(blocking) >= 3,
+              'acceptance_requirement': 'trial-insert the board turned 180 degrees: it must not seat (visible gap at the datum pins)'}
+
+    # support land and hold-down points over land, clear of F-side parts
     g = RULES['support_grid_mm']
-    nx, ny = round(16.2 / g), round((CARRIER_Y[1] - CARRIER_Y[0]) / g)
+    y_hi = min(CARRIER_Y[1], BOARD[3])
+    nx, ny = round(16.2 / g), round((y_hi - CARRIER_Y[0]) / g)
     land = total = 0
     near = {p['ref']: [0, 0] for p in probes}
+
+    def solid(x, y):
+        return not any(_in_box(k['board_box_mm'], x, y) for k in cuts) and all(math.dist((x, y), p['board_xy_mm']) > BORE_MAX / 2 for p in probes)
     for i in range(nx):
         x = (i + 0.5) * g
         for j in range(ny):
             y = CARRIER_Y[0] + (j + 0.5) * g
-            free = not any(b['board_box_mm'][0] <= x <= b['board_box_mm'][2] and b['board_box_mm'][1] <= y <= b['board_box_mm'][3] for b in reliefs) \
-                and all(math.dist((x, y), p['board_xy_mm']) > BORE_RADIUS for p in probes)
+            free = solid(x, y)
             total += 1
             land += free
             for p in probes:
                 if math.dist((x, y), p['board_xy_mm']) <= RULES['support_radius_around_probe_mm']:
                     near[p['ref']][1] += 1
                     near[p['ref']][0] += free
-    support = {'method': f'grid {g} mm over the board outline inside the carrier (board X 0-16.2, Y {CARRIER_Y[0]}-{CARRIER_Y[1]})',
+    fside = [f['courtyard_bbox_mm']['F'] for f in geometry['footprints'] if f['side'] == 'F' and f['courtyard_bbox_mm'].get('F')]
+    hr = RULES['holddown_pin_diameter_mm'] / 2
+    cx = sum(p['board_xy_mm'][0] for p in probes) / len(probes)
+    cy = sum(p['board_xy_mm'][1] for p in probes) / len(probes)
+    cands = []
+    step = 0.1
+    for i in range(round(16.2 / step) + 1):
+        x = round(i * step, 6)
+        for j in range(round((y_hi - CARRIER_Y[0]) / step) + 1):
+            y = round(CARRIER_Y[0] + j * step, 6)
+            if x - hr < 0 or x + hr > 16.2 or y - hr < CARRIER_Y[0] or y + hr > y_hi:
+                continue
+            if any(_box_point_dist(b, (x, y)) < hr + RULES['holddown_f_side_clearance_mm'] for b in fside):
+                continue
+            # exact: the whole pin circle lies over carrier land (no cut box or probe bore under it)
+            if any(_box_point_dist(k['board_box_mm'], (x, y)) < hr for k in cuts):
+                continue
+            if any(math.dist((x, y), p['board_xy_mm']) < hr + BORE_MAX / 2 for p in probes):
+                continue
+            d = math.dist((x, y), (cx, cy))
+            if d <= RULES['holddown_search_radius_mm']:
+                cands.append((round(d, 6), x, y))
+    cands.sort()
+    thinned = []
+    for d, x, y in cands:
+        if all(math.dist((x, y), q) >= 1.0 for q in thinned):
+            thinned.append((x, y))
+
+    def margin(tri):
+        (x1, y1), (x2, y2), (x3, y3) = tri
+        area2 = (x2 - x1) * (y3 - y1) - (x3 - x1) * (y2 - y1)
+        if abs(area2) < 1e-9:
+            return -1.0
+        out = []
+        for (ax, ay), (bx, by) in ((tri[0], tri[1]), (tri[1], tri[2]), (tri[2], tri[0])):
+            cross = (bx - ax) * (cy - ay) - (by - ay) * (cx - ax)
+            out.append(cross / math.hypot(bx - ax, by - ay) * (1 if area2 > 0 else -1))
+        return min(out)
+    best = None
+    need = RULES['holddown_resultant_margin_mm']
+    for i in range(len(thinned)):
+        for j in range(i + 1, len(thinned)):
+            for k in range(j + 1, len(thinned)):
+                tri = (thinned[i], thinned[j], thinned[k])
+                m = margin(tri)
+                if m >= need:
+                    reach = max(math.dist(q, (cx, cy)) for q in tri)
+                    if best is None or (reach, -m) < best[0]:
+                        best = ((reach, -m), tri, m)
+    chosen = list(best[1]) if best else []
+    resultant_margin = round(best[2], 6) if best else None
+    f_max = INGUN['force_graph']['facts']['force_at_maximum_stroke_N']
+    f_work = INGUN['probe']['facts']['force_at_working_stroke_N']
+    n = len(probes)
+    holddown = {'points_board_mm': [[x, y] for x, y in chosen],
+                'pin_diameter_mm': RULES['holddown_pin_diameter_mm'],
+                'rule': 'pressure pins on the F side, clear of every native F courtyard by 0.3 mm, each over solid carrier land so the '
+                        'clamp load passes straight through the board into the carrier; nothing presses on jack bodies or solder joints',
+                'probe_force_total_N': {'working_stroke': round(n * f_work, 6), 'maximum_stroke': round(n * f_max, 6)},
+                'probe_resultant_board_mm': [round(cx, 6), round(cy, 6)],
+                'resultant_margin_inside_clamp_triangle_mm': resultant_margin,
+                'required_clamp_force_N': round(n * f_max, 6),
+                'required_clamp_force_basis': 'all five probes at the 6.35 mm maximum stroke (graph value), equal probe forces so the resultant is '
+                                              'the probe centroid; it lies inside the clamp triangle by the stated margin, so the probe load is reacted '
+                                              'inside the clamped area instead of tipping the board about the clamp line (rigid-board statics; '
+                                              'board bending not analysed)',
+                'mechanism': None, 'mechanism_status': 'NOT_SELECTED (owner/supplier choice)'}
+    support = {'method': f'grid {g} mm over the board outline inside the carrier (board X 0-16.2, Y {CARRIER_Y[0]}-{y_hi})',
                'land_fraction': round(land / total, 4),
                'land_fraction_within_radius_of_probe': {k: round(a / b, 4) for k, (a, b) in near.items()},
-               'scope': 'geometric contact area of the carrier top on the B face only; no load path, deflection or hold-down analysis'}
-    return {'rules': RULES, 'height_sources': SOURCES, 'reliefs': reliefs, 'bore_to_relief_webs_below_2mm': sorted(webs, key=lambda w: (w['web_mm'], w['probe'], w['relief'])),
+               'load_path': 'clamp pins (F side) -> board -> solid carrier land under each pin -> carrier; probe forces push the board '
+                            'against the clamp only within the clamped, supported area',
+               'scope': 'geometric layout only; no deflection analysis (the clamp points sit over land, so the board is not loaded in bending '
+                        'between a clamp point and its support)'}
+
+    alloc = {'board_edge_to_test_pad_mm': 0.10, 'datum_contact_mm': 0.0, 'carrier_pin_to_bore_position_mm': 0.05,
+             'probe_tip_lateral_mm': 0.07}
+    budget = round((1.0 - INGUN['probe']['facts']['tip_diameter_mm']) / 2, 6)
+    registration = {
+        'datums': 'board pushed by the clamp/bias against X1, X2 (x = 16.2 edge) and Y1 (y = 62.9 edge); spring bias makes the datum '
+                  'contact clearance zero',
+        'radial_budget_mm': budget,
+        'allocation_mm': alloc, 'allocation_class': 'PROJECT-CHOICE, each closed by the acceptance measurement below',
+        'worst_case_margin_mm': round(budget - sum(alloc.values()), 6),
+        'acceptance_requirements': [
+            'each board: TP1-TP5 pad centres measured from the x = 16.2 and y = 62.9 edges; radial deviation from the design '
+            'position <= 0.10 mm, else the board is not tested in this fixture',
+            'carrier: bore centres measured from the datum pin contact lines; radial deviation <= 0.05 mm; bores 0.98-1.00 mm; '
+            'every cut edge within +/-0.05 mm of the design line; walls not below 0.27 mm',
+            'installed probes: tip lateral offset from the bore axis at the working stroke <= 0.07 mm',
+        ]}
+    stroke = {
+        'travel_stop': 'the board B face seats on the solid carrier land, which is independent of the probe installation height',
+        'set_installation_height': 'press-ring receptacle pressed to the depth that leaves the probe tip 4.3 mm above the carrier top '
+                                   '(recommended working stroke) with the board absent',
+        'stroke_window_mm': [0.0, INGUN['probe']['facts']['maximum_stroke_mm']],
+        'acceptance_requirement': 'each probe: free tip height above the carrier top 4.3 +/-0.3 mm (stroke 4.0-4.6 mm, inside 0-6.35 mm)',
+        'force_per_probe_N': {'at_4.0_mm': round(0.44 + (1.0 - 0.44) / 4.3 * 4.0, 3), 'at_4.6_mm': round(0.44 + (1.0 - 0.44) / 4.3 * 4.6, 3)},
+        'force_basis': 'linear INGUN force-stroke graph (0.44 N preload, 1.0 N at 4.3 mm)'}
+    free_space = {'below_carrier': 'every relief is a through-cut, so nothing on the B face touches the carrier; a part longer than the '
+                                   '5 mm carrier continues into the space below it, which the undesigned base must keep free',
+                  'unsourced': [f'{u}: the carrier does not depend on it, the base below the carrier does' for u in unknown_heights]}
+    relieved = all(any(_inside(want, c['board_box_mm']) for c in cuts)
+                   for f in geometry['footprints'] if f['ref'] not in probe_refs for pd in f['pads']
+                   if (f['side'] == 'B' or pd['attribute'] == 'PTH') for want in [_clip(pd['bbox_mm'])] if want)
+    fresh_criteria = {
+        'every_b_side_part_and_tht_lead_relieved_from_native_geometry': relieved,
+        'clearance_independent_of_unsourced_heights': all(c['depth_mm'] == CARRIER_THICKNESS for c in cuts),
+        'every_b_face_protrusion_sourced': not unknown_heights,
+        'no_wall_below_sourced_minimum': not conflicts and not walls,
+        'keyed_against_turned_insertion': keying['keyed'],
+        'holddown_points_over_land_clear_of_f_parts_and_around_probe_resultant': len(chosen) == 3,
+    }
+    return {'rules': RULES, 'manufacturer_data': INGUN, 'height_sources': SOURCES, 'reliefs': reliefs, 'bridges': bridges,
+            'datum_pins': pins, 'hole_to_cut_webs_below_2mm': sorted(webs, key=lambda w: (w['web_mm'], w['hole'], w['cut'])),
             'web_conflicts': conflicts, 'relief_wall_conflicts': walls, 'unknown_heights': unknown_heights,
-            'overhang_not_checked': {'refs': overhang, 'note': 'F-side courtyards extending past the board edge over the carrier overhang '
-                                     '(board X -4.4..0 / 16.2..20.6); their bodies sit on the F side above the B plane, so the carrier top '
-                                     'is assumed clear; no body-below-B-plane check is made'},
-            'solder_envelope': 'fillet heights are not given by any recorded source for any B-side item; SMD pockets cover the sourced body height only',
-            'support': support}
+            'solder_envelope': 'not needed for clearance: every relief is a through-cut sized from native copper and the sourced body outline',
+            'keying': keying, 'support': support, 'holddown': holddown, 'registration': registration, 'stroke': stroke,
+            'free_space': free_space, 'fresh_native_criteria': fresh_criteria}
+
+
+def _inside(inner, outer):
+    return outer[0] <= inner[0] + 1e-9 and outer[1] <= inner[1] + 1e-9 and inner[2] <= outer[2] + 1e-9 and inner[3] <= outer[3] + 1e-9
+
+
+def _clip_strict(box):
+    return [box[0], max(box[1], CARRIER_Y[0]), box[2], min(box[3], CARRIER_Y[1])]
