@@ -84,6 +84,43 @@ class ReliefTests(unittest.TestCase):
             self.assertAlmostEqual(c[0], 16.2 - b[2]); self.assertAlmostEqual(c[2], 16.2 - b[0])
             self.assertEqual((c[1], c[3]), (b[1], b[3]))
 
+    def test_relief_includes_clearance_and_r12_edge_sliver(self):
+        m = rl.RULES['smd_outline_clearance_mm']
+        for r in self.d['reliefs']:
+            fp = next((x for x in GEOM['footprints'] if x['ref'] == r['ref']), None)
+            if fp and r['kind'] == 'pocket':
+                for pd in fp['pads']:
+                    want = rl._clip(rl._expand(pd['bbox_mm'], m))
+                    if want:
+                        self.assertTrue(inside(want, r['board_box_mm']), r['ref'])
+        r12 = next(r for r in self.d['reliefs'] if r['ref'] == 'R12')
+        self.assertEqual(r12['board_box_mm'][3], rl.CARRIER_Y[1])
+
+    def test_unclassified_npth_and_f_side_b_copper_rejected(self):
+        for ref, mutate, msg in (('J3', lambda fp: fp['pads'][0].update(attribute='NPTH'), 'NPTH'),
+                                 ('U2', lambda fp: fp['pads'][0]['layers'].append('B.Cu'), 'B.Cu')):
+            g = copy.deepcopy(GEOM); mutate(next(fp for fp in g['footprints'] if fp['ref'] == ref))
+            with self.subTest(ref=ref), self.assertRaisesRegex(ValueError, msg):
+                rl.design(g, probes())
+
+    def test_dnp_or_non_orthogonal_b_side_part_rejected(self):
+        pop = rl.population(); pop['R9'] = dict(pop['R9'], population='DNP')
+        with self.assertRaisesRegex(ValueError, 'height source'):
+            rl.design(GEOM, probes(), pop)
+        g = copy.deepcopy(GEOM); next(fp for fp in g['footprints'] if fp['ref'] == 'R9')['rotation_deg'] = 45.0
+        with self.assertRaisesRegex(ValueError, 'non-orthogonal'):
+            rl.design(g, probes())
+
+    def test_thin_walls_between_reliefs_are_blockers(self):
+        self.assertIn('R6/R7 wall 0.175 mm', self.d['relief_wall_conflicts'])
+        self.assertTrue(any('wall below' in b for b in f.report()['blockers']))
+
+    def test_support_fractions_are_bounded_and_overhang_listed(self):
+        s = self.d['support']
+        self.assertTrue(0 < s['land_fraction'] < 1)
+        self.assertEqual(set(s['land_fraction_within_radius_of_probe']), {'TP1', 'TP2', 'TP3', 'TP4', 'TP5'})
+        self.assertIn('J1', self.d['overhang_not_checked']['refs'])
+
     def test_union_area(self):
         self.assertAlmostEqual(f.union_area([[0, 0, 2, 2], [1, 1, 3, 3]]), 7.0)
         self.assertEqual(f.union_area([]), 0.0)

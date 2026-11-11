@@ -119,6 +119,8 @@ def design(geometry: dict, probes: list[dict], pop: dict | None = None) -> dict:
             continue
         tht = [p for p in f['pads'] if p['attribute'] == 'PTH']
         npth = [p for p in f['pads'] if p['attribute'] == 'NPTH']
+        if any('B.Cu' in p['layers'] for p in f['pads'] if p['attribute'] not in ('PTH', 'NPTH')):
+            raise ValueError(f'{ref}: F-side pad with B.Cu copper is not classified for relief')
         if npth and f['fpid'] != 'LightBlockA7:PCM13SMTR':
             raise ValueError(f'{ref}: NPTH feature without a classified protrusion source')
         if not tht:
@@ -144,6 +146,22 @@ def design(geometry: dict, probes: list[dict], pop: dict | None = None) -> dict:
             if web < RULES['minimum_web_bore_to_relief_mm']:
                 conflicts.append(f"{p['ref']} bore to {rl['ref']} relief web {web:.3f} mm < {RULES['minimum_web_bore_to_relief_mm']} mm")
 
+    minimum = RULES['minimum_web_bore_to_relief_mm']
+    walls = []
+    for i, a in enumerate(reliefs):
+        for b in reliefs[i + 1:]:
+            A, B = a['board_box_mm'], b['board_box_mm']
+            gap = math.hypot(max(B[0] - A[2], A[0] - B[2], 0.0), max(B[1] - A[3], A[1] - B[3], 0.0))
+            if 0 < gap < minimum:
+                walls.append(f"{a['ref']}/{b['ref']} wall {gap:.3f} mm")
+        A = a['board_box_mm']
+        for edge in (A[1] - CARRIER_Y[0], CARRIER_Y[1] - A[3], A[0] - CARRIER_BOARD_X[0], CARRIER_BOARD_X[1] - A[2]):
+            if 0 < edge < minimum:
+                walls.append(f"{a['ref']}/carrier edge wall {edge:.3f} mm")
+    overhang = sorted(f['ref'] for f in geometry['footprints'] if f['side'] == 'F' and f['courtyard_bbox_mm'].get('F')
+                      and (f['courtyard_bbox_mm']['F'][0] < 0 or f['courtyard_bbox_mm']['F'][2] > 16.2)
+                      and f['courtyard_bbox_mm']['F'][1] < CARRIER_Y[1] and f['courtyard_bbox_mm']['F'][3] > CARRIER_Y[0])
+
     g = RULES['support_grid_mm']
     nx, ny = round(16.2 / g), round((CARRIER_Y[1] - CARRIER_Y[0]) / g)
     land = total = 0
@@ -165,6 +183,9 @@ def design(geometry: dict, probes: list[dict], pop: dict | None = None) -> dict:
                'land_fraction_within_radius_of_probe': {k: round(a / b, 4) for k, (a, b) in near.items()},
                'scope': 'geometric contact area of the carrier top on the B face only; no load path, deflection or hold-down analysis'}
     return {'rules': RULES, 'height_sources': SOURCES, 'reliefs': reliefs, 'bore_to_relief_webs_below_2mm': sorted(webs, key=lambda w: (w['web_mm'], w['probe'], w['relief'])),
-            'web_conflicts': conflicts, 'unknown_heights': unknown_heights,
+            'web_conflicts': conflicts, 'relief_wall_conflicts': walls, 'unknown_heights': unknown_heights,
+            'overhang_not_checked': {'refs': overhang, 'note': 'F-side courtyards extending past the board edge over the carrier overhang '
+                                     '(board X -4.4..0 / 16.2..20.6); their bodies sit on the F side above the B plane, so the carrier top '
+                                     'is assumed clear; no body-below-B-plane check is made'},
             'solder_envelope': 'fillet heights are not given by any recorded source for any B-side item; SMD pockets cover the sourced body height only',
             'support': support}

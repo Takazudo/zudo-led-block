@@ -9,8 +9,8 @@
   "inputs_sha256": {
     "engineering/a7/electronics/controller/controller.kicad_pcb": "4453f818ede1e6d6c56e45ef43aa6faecb90990f3755f82c6d752258cd4d628e",
     "engineering/a7/electronics/controller/board_placement.json": "1891af356ead303127c6b7a99b8934b08aa25f465b4b2c96872f5d5d24afdc01",
-    "scripts/a7_fixture.py": "2d3c163c4b320ae421f6a660616dc07153ada6d2c0962093c10807053063fb19",
-    "scripts/a7_fixture_relief.py": "3759df1656aba797de9500ee79d99ed5207f1b604b05ab4c755d27d4dba1d7cf",
+    "scripts/a7_fixture.py": "957609db7cb70e11cb497431555510680355a06d96446020ab2111ff4ccb76be",
+    "scripts/a7_fixture_relief.py": "42a9fcc67aa925e021a10f592ec5af1e7d5bd90ea38951f9cf9912141e847a8f",
     "engineering/a7/procurement/population.csv": "b95187cdfeabdd20f087d599a6d0cdfe17e27ed589658645cf4c3b5665e87bbd",
     "engineering/a7/fixture/sources.json": "6fde5bc90563e071ab3b302b60ec1aaf78ba6a58269b2e6726c5f8541e92f3e0",
     "engineering/a7/fixture/materials.json": "b05f46b48715ec8cdcf18a557a880d6f68f2ca7967ba932fc38ade4fef0e983e"
@@ -722,9 +722,34 @@
       "TP4 bore to R9 relief web 0.420 mm < 0.5 mm",
       "TP5 bore to R9 relief web 0.330 mm < 0.5 mm"
     ],
+    "relief_wall_conflicts": [
+      "R10/carrier edge wall 0.250 mm",
+      "R14/R15 wall 0.200 mm",
+      "R15/R16 wall 0.200 mm",
+      "R16/R17 wall 0.175 mm",
+      "R16/R18 wall 0.175 mm",
+      "R17/R19 wall 0.200 mm",
+      "R21/R24 wall 0.175 mm",
+      "R21/R25 wall 0.250 mm",
+      "R24/R25 wall 0.175 mm",
+      "R24/R6 wall 0.200 mm",
+      "R24/R7 wall 0.175 mm",
+      "R24/carrier edge wall 0.325 mm",
+      "R25/R7 wall 0.450 mm",
+      "R6/R7 wall 0.175 mm",
+      "R7/R9 wall 0.461 mm"
+    ],
     "unknown_heights": [
       "J5 (PicoBlade 530470310): lead tail below the B face"
     ],
+    "overhang_not_checked": {
+      "refs": [
+        "J1",
+        "J2",
+        "U1"
+      ],
+      "note": "F-side courtyards extending past the board edge over the carrier overhang (board X -4.4..0 / 16.2..20.6); their bodies sit on the F side above the B plane, so the carrier top is assumed clear; no body-below-B-plane check is made"
+    },
     "solder_envelope": "fillet heights are not given by any recorded source for any B-side item; SMD pockets cover the sourced body height only",
     "support": {
       "method": "grid 0.1 mm over the board outline inside the carrier (board X 0-16.2, Y 20.0-60.0)",
@@ -874,6 +899,7 @@
     "B-side relief/support layout is derived from native pad copper boxes and sourced body outlines, but fresh_native_verified stays false: solder fillet heights are unsourced for every B-side item, the PicoBlade J5 tail length is unknown, the PJ-324M protrusion rests on a manufacturer mirror and an unsourced board-thickness tolerance.",
     "Receptacle drawing diameter 0.96mm versus PDF table 0.95mm; use 0.96mm envelope only as conservative study input, resolve before selection.",
     "No physical fit, contact, insertion-force or measured stroke evidence; no prototype exists.",
-    "Probe bore to relief web below the 0.5 mm study minimum (no sourced minimum exists): TP1 bore to R7 relief web 0.330 mm < 0.5 mm; TP1 bore to R9 relief web 0.255 mm < 0.5 mm; TP2 bore to R9 relief web 0.255 mm < 0.5 mm; TP3 bore to R7 relief web 0.330 mm < 0.5 mm; TP4 bore to R9 relief web 0.420 mm < 0.5 mm; TP5 bore to R9 relief web 0.330 mm < 0.5 mm"
+    "Probe bore to relief web below the 0.5 mm study minimum (no sourced minimum exists): TP1 bore to R7 relief web 0.330 mm < 0.5 mm; TP1 bore to R9 relief web 0.255 mm < 0.5 mm; TP2 bore to R9 relief web 0.255 mm < 0.5 mm; TP3 bore to R7 relief web 0.330 mm < 0.5 mm; TP4 bore to R9 relief web 0.420 mm < 0.5 mm; TP5 bore to R9 relief web 0.330 mm < 0.5 mm",
+    "Relief-to-relief or relief-to-edge wall below the 0.5 mm study minimum: R10/carrier edge wall 0.250 mm; R14/R15 wall 0.200 mm; R15/R16 wall 0.200 mm; R16/R17 wall 0.175 mm; R16/R18 wall 0.175 mm; R17/R19 wall 0.200 mm; R21/R24 wall 0.175 mm; R21/R25 wall 0.250 mm; R24/R25 wall 0.175 mm; R24/R6 wall 0.200 mm; R24/R7 wall 0.175 mm; R24/carrier edge wall 0.325 mm; R25/R7 wall 0.450 mm; R6/R7 wall 0.175 mm; R7/R9 wall 0.461 mm"
   ]
 }
