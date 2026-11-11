@@ -52,7 +52,10 @@ def read_members(zip_path: Path | None = None, dir_path: Path | None = None) -> 
                     raise ValueError(f'unsafe member name {name}')
                 if info.file_size > MAX_MEMBER_BYTES:
                     raise ValueError(f'member too large {name}')
-                out[str(rel)] = z.read(info)
+                key = str(rel)
+                if key in out:  # duplicate or aliased ('./x') member: extractors could disagree on the bytes
+                    raise ValueError(f'duplicate member {name}')
+                out[key] = z.read(info)
     else:
         base = Path(dir_path) / PREFIX.rstrip('/')
         for rel in REQUIRED:
@@ -64,8 +67,11 @@ def read_members(zip_path: Path | None = None, dir_path: Path | None = None) -> 
 
 def classify(members: dict[str, bytes], *, board_sha: str, image: str, expect_revision: str | None = None,
              expect_checkout: str | None = None, expect_run_id: str | None = None,
-             expect_run_attempt: str | None = None, strict_members: bool = True) -> dict:
+             expect_run_attempt: str | None = None, strict_members: bool = True,
+             require_binding: bool = True) -> dict:
     reasons: list[str] = []
+    if require_binding and not (expect_revision and expect_run_id):
+        reasons.append('unbound: expected revision and run id are required to classify a candidate result')
     rejected: list[str] = []
     if 'summary.json' not in members:
         return {'status': 'INCOMPLETE', 'reasons': ['missing a7-gate/summary.json'], 'rejected': []}
@@ -76,6 +82,11 @@ def classify(members: dict[str, bytes], *, board_sha: str, image: str, expect_re
     if not isinstance(s, dict):
         return {'status': 'REJECTED', 'reasons': [], 'rejected': ['summary.json is not an object']}
 
+    for key in ('profile', 'identity', 'evidence', 'tested_board_sha256'):
+        if key in s and not isinstance(s[key], dict):
+            return {'status': 'REJECTED', 'reasons': [], 'rejected': [f'summary field {key} is not an object']}
+    if 'failures' in s and not isinstance(s['failures'], list):
+        return {'status': 'REJECTED', 'reasons': [], 'rejected': ['summary failures is not a list']}
     prof = s.get('profile') or {}
     if prof.get('kind') != 'revision' or prof.get('path') != PROFILE or s.get('board_result') != f'candidate: {CANDIDATE}':
         rejected.append('summary is not the A7 candidate revision gate (infrastructure or other profile substituted)')
@@ -108,6 +119,9 @@ def classify(members: dict[str, bytes], *, board_sha: str, image: str, expect_re
             reasons.append(f'missing a7-gate/{rel}')
 
     files = (s.get('evidence') or {}).get('files') or {}
+    if not isinstance(files, dict):
+        rejected.append('summary evidence files is not an object')
+        files = {}
     for rel in REQUIRED[2:]:
         if rel in members:
             want = files.get(rel[len('evidence/'):])
@@ -140,7 +154,7 @@ def classify(members: dict[str, bytes], *, board_sha: str, image: str, expect_re
         status = 'REJECTED'
     elif reasons:
         status = 'INCOMPLETE'
-    elif s.get('status') == 'PASS' and not s.get('failures'):
+    elif s.get('status') == 'PASS' and s.get('failures') == []:
         status = 'VALID_PASS'
     else:
         status = 'VALID_FAILURE_EVIDENCE'
@@ -171,7 +185,7 @@ def main(argv: list[str] | None = None) -> int:
         r = classify(members, board_sha=board_sha, image=image, expect_revision=a.expect_revision,
                      expect_checkout=a.expect_checkout, expect_run_id=a.expect_run_id,
                      expect_run_attempt=a.expect_run_attempt, strict_members=a.zip is not None)
-    except (OSError, ValueError, zipfile.BadZipFile) as e:
+    except (OSError, ValueError, TypeError, AttributeError, zipfile.BadZipFile) as e:
         r = {'status': 'REJECTED', 'reasons': [], 'rejected': [f'{type(e).__name__}: {e}']}
     if a.zip is not None:
         r['zip_sha256'] = sha(a.zip.read_bytes())

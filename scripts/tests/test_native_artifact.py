@@ -1,4 +1,5 @@
 """Retained A7 candidate evidence: only a consistent, correctly bound PASS is VALID_PASS."""
+import contextlib
 import hashlib
 import importlib.util
 import io
@@ -122,6 +123,36 @@ class NativeArtifactTests(unittest.TestCase):
                 z.writestr('a7-gate/../x', b'1')
             with self.assertRaises(ValueError):
                 m.read_members(zip_path=bad)
+
+    def test_duplicate_or_aliased_zip_members_rejected(self):
+        with tempfile.TemporaryDirectory() as td:
+            for alias in ('a7-gate/summary.json', 'a7-gate/./summary.json'):
+                zp = Path(td) / 'd.zip'
+                with zipfile.ZipFile(zp, 'w') as z:
+                    for k, v in artifact(status='FAIL', failures=['x']).items():
+                        z.writestr('a7-gate/' + k, v)
+                    with self.assertWarns(UserWarning) if alias == 'a7-gate/summary.json' else contextlib.nullcontext():
+                        z.writestr(alias, artifact()['summary.json'])
+                with self.subTest(alias=alias), self.assertRaises(ValueError):
+                    m.read_members(zip_path=zp)
+
+    def test_unbound_classification_is_not_a_pass(self):
+        r = m.classify(artifact(), board_sha=BOARD, image=IMAGE)
+        self.assertEqual(r['status'], 'INCOMPLETE')
+
+    def test_wrong_types_rejected_not_crashing(self):
+        for key, value in (('identity', 'x'), ('profile', []), ('evidence', 'x'), ('tested_board_sha256', 'x')):
+            with self.subTest(key=key):
+                self.assertEqual(run(artifact(**{key: value}))['status'], 'REJECTED')
+        for mutate in (lambda s: s['evidence'].update(files=[]), lambda s: s.update(failures='none')):
+            a = artifact(); s = json.loads(a['summary.json']); mutate(s)
+            a['summary.json'] = json.dumps(s).encode()
+            self.assertEqual(run(a)['status'], 'REJECTED')
+
+    def test_pass_requires_explicit_empty_failures(self):
+        a = artifact(); s = json.loads(a['summary.json']); del s['failures']
+        a['summary.json'] = json.dumps(s).encode()
+        self.assertEqual(run(a)['status'], 'VALID_FAILURE_EVIDENCE')
 
     def test_dir_reader_matches_upload_layout(self):
         with tempfile.TemporaryDirectory() as td:
