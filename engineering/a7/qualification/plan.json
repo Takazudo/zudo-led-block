@@ -16,13 +16,118 @@
       "raw_evidence_required": "全端子対の導通表、プラグ型番、写真、ジャックロット",
       "observation": "NOT_MEASURED",
       "result": "NOT_RUN",
-      "next_action": "不足する基準をレビューし、オーナー承認の試作ルート確定後に実物で実施。",
+      "next_action": "PCB を発注する前に、オーナー承認の試作ルートで入手した PJ-324M 実物で実施する（端子 4/5 の tip/normal を確定）。不足する判定抵抗値はレビューで決める。",
       "required_evidence_kinds": [
         "terminal_matrix",
         "ts_plug_identity",
         "trs_plug_identity",
         "jack_lot",
         "contact_photos"
+      ],
+      "criterion_class": "OWNER_DECISION",
+      "inputs": [
+        "PJ-324M (C22355739) 未実装品を同一ロットから2個以上（入手元・ロット・数量を記録）",
+        "TS (モノ) 3.5 mm プラグ 1本、TRS (ステレオ) 3.5 mm プラグ 1本（型番を記録）"
+      ],
+      "tools": [
+        "抵抗計/導通計（型番・校正記録）",
+        "拡大鏡またはマクロ撮影できるカメラ"
+      ],
+      "preconditions": [
+        "`records.json` の owner_prototype_route（対象版・数量・範囲・承認）が記録済み",
+        "非通電で実施する（電源・信号を接続しない）",
+        "`readiness.json` の identities（基板/実装/回路図/FW/設定/機構/治具/台帳の SHA-256）を run にそのまま写す"
+      ],
+      "steps": [
+        "端子に図面の番号 1〜5 を付け、番号が読める向きで本体を撮影する（どの面から見た番号かも写す）。",
+        "無挿入で全10端子対の抵抗を測り、表に記録する。",
+        "TS プラグを最後まで挿入し、全10端子対とプラグの Tip/Sleeve 対各端子を測る。",
+        "TRS プラグで同じ測定をする。プラグを抜き、無挿入の状態をもう一度測る。",
+        "端子 4 と 5 のどちらが tip 接点（プラグの tip と導通）で、どちらがその normal（無挿入で tip 接点と導通し、挿入で開放）かを判定し、terminal_matrix に「tip=端子N、tip normal=端子M」と明記する。供給元 symbol は端子 5 を tip としており、現在の推定（端子 4 = tip）と矛盾する。この判定は PCB を発注する前に必須。",
+        "結果を下の推定対応・基板ネットと突き合わせる。1 か所でも違えば FAIL とし、基板を変えるかどうかは別のレビューで決める（ここで設計を変えない）。"
+      ],
+      "record": {
+        "terminal_matrix": "無挿入/TS/TRS/再無挿入 × 全端子対と、プラグ接点対端子の抵抗表（CSV、単位 Ω、開放は OL）",
+        "ts_plug_identity": "TS プラグの型番・購入元・写真",
+        "trs_plug_identity": "TRS プラグの型番・購入元・写真",
+        "jack_lot": "ジャックの購入記録、ロット、数量、外観写真",
+        "contact_photos": "端子番号付けの写真と、各挿入状態の写真"
+      },
+      "acceptance": [
+        {
+          "id": "pin-function",
+          "criterion": "端子機能が推定対応と一致すること",
+          "value": {
+            "1": "SLEEVE",
+            "2": "RING",
+            "3": "RING normal",
+            "4": "TIP",
+            "5": "TIP normal"
+          },
+          "unit": "NONE",
+          "confidence": "INFERRED",
+          "source": {
+            "path": ".claude/skills/component-a7-pj-324m/facts.json",
+            "fact_id": "fact-a7-pj-324m-pin-function-inference"
+          },
+          "bound": "exact"
+        },
+        {
+          "id": "board-nets",
+          "criterion": "基板のネット割当（この対応が前提）",
+          "value": "1 SLEEVE→GND, 2 RING→GND, 3 RING normal→NC, 4 TIP→CV_THRU, 5 TIP normal→NC",
+          "unit": "NONE",
+          "confidence": "DESIGN",
+          "source": {
+            "path": "engineering/a7/electronics/README.md",
+            "quote": "1 SLEEVE→GND, 2 RING→GND, 3 RING normal→NC, 4 TIP→CV_THRU, 5 TIP normal→NC"
+          },
+          "bound": "reference"
+        },
+        {
+          "id": "supplier-cad-conflict",
+          "criterion": "供給元 CAD の端子4/5の矛盾を実物で解消すること",
+          "value": "Supplier symbol appears to assign direct tip spring to5 and normal branch to4, contrary to current inferred mapping.",
+          "unit": "NONE",
+          "confidence": "UNVERIFIED",
+          "source": {
+            "path": ".claude/skills/component-a7-pj-324m/facts.json",
+            "fact_id": "fact-a7-pj-324m-supplier-cad-conflict"
+          },
+          "bound": "reference"
+        },
+        {
+          "id": "ts-sleeve",
+          "criterion": "TS / TRS プラグでの入荷時導通試験が必須（tip/ring が入れ替わると TS プラグの sleeve が CV_THRU に触れるため）",
+          "value": "an incoming-part continuity test with TS and TRS plugs is required",
+          "unit": "NONE",
+          "confidence": "DESIGN",
+          "source": {
+            "path": "engineering/a7/README.md",
+            "quote": "an incoming-part continuity test with TS and TRS plugs is required"
+          },
+          "bound": "reference"
+        },
+        {
+          "id": "test-current",
+          "criterion": "測定電流は接点定格以下",
+          "value": "50 mA, 24 V DC",
+          "unit": "NONE",
+          "confidence": "SOURCED",
+          "source": {
+            "path": ".claude/skills/component-a7-pj-324m/facts.json",
+            "fact_id": "fact-a7-pj-324m-contact-rating"
+          },
+          "bound": "max"
+        },
+        {
+          "id": "threshold",
+          "criterion": "「導通」「開放」と判定する抵抗値",
+          "value": null,
+          "unit": "ohm",
+          "confidence": "UNRESOLVED",
+          "decided_by": "部品資料に接触抵抗/絶縁抵抗の規定がない。計器条件とあわせてレビューで決める"
+        }
       ]
     },
     {
@@ -44,6 +149,178 @@
         "slot_lead_measurements",
         "nut_washer_fit",
         "instrument_identity"
+      ],
+      "criterion_class": "ACCESS_EVIDENCE_HOLD",
+      "inputs": [
+        "PJ-324M 未実装品 2個以上（jack-continuity と同じロット）",
+        "A7 rev2 の裸基板または実装基板（基板 SHA を記録）",
+        "M6×0.5 ナット候補とワッシャ候補（型番を記録。C22355739 にナットが付属するかは未確認）",
+        "入手済みなら A7 前面 PMMA"
+      ],
+      "tools": [
+        "ノギス（分解能 0.01 mm）",
+        "ハイトゲージまたは測定顕微鏡",
+        "ピンゲージ（ボア径 3.6 mm 付近）",
+        "M6×0.5 ねじゲージ"
+      ],
+      "preconditions": [
+        "`records.json` の owner_prototype_route（対象版・数量・範囲・承認）が記録済み",
+        "非通電で実施する（電源・信号を接続しない）",
+        "`readiness.json` の identities（基板/実装/回路図/FW/設定/機構/治具/台帳の SHA-256）を run にそのまま写す"
+      ],
+      "steps": [
+        "本体の座面を定盤に置き、ボアにピンゲージを入れて上端高さを測る。軸高さ = 上端 − ピン径/2。",
+        "本体高さ・幅、軸から両側の辺、バレル突出、端子の幅/厚さ/座面からの突出を測る。",
+        "基板スロットの寸法を測り、未実装品が無理なく入るかを確認する（押し込み力が要る場合はその旨を記録）。",
+        "厚さ 2.0 mm で後面に深さ 0.5 mm のポケットを設けた板（設計どおりの rear-pocket 構成、前面ワッシャなし）にナットを締め、露出ねじ長と噛み合い長を測る。平板（plain）構成も測る場合は別の結果として記録する。",
+        "値を下の基準と比べ、外れた値は FAIL として記録する。"
+      ],
+      "record": {
+        "axis_measurements": "軸高さ・本体寸法の測定表（基準面を明記）",
+        "slot_lead_measurements": "端子寸法と基板スロット寸法、挿入可否",
+        "nut_washer_fit": "ナット/ワッシャの型番、締結後の露出ねじ長と噛み合い長、写真",
+        "instrument_identity": "計器の型番・分解能・校正記録"
+      },
+      "acceptance": [
+        {
+          "id": "axis-height",
+          "criterion": "軸高さ（図面に寸法なし。推定）",
+          "value": "approximately 3 (visually scaled 2.9-3.0 from the front view; not dimensioned)",
+          "unit": "mm",
+          "confidence": "INFERRED",
+          "source": {
+            "path": ".claude/skills/component-a7-pj-324m/facts.json",
+            "fact_id": "fact-a7-pj-324m-axis-height"
+          },
+          "bound": "reference"
+        },
+        {
+          "id": "axis-band",
+          "criterion": "設計で許容した軸高さの範囲",
+          "value": [
+            2.6,
+            3.4
+          ],
+          "unit": "mm",
+          "confidence": "INFERRED",
+          "source": {
+            "path": "engineering/a7/mechanical/layout.json",
+            "pointer": "/variants/3hp/jack_axis_height_used/band"
+          },
+          "confidence_trace": {
+            "path": "engineering/a7/mechanical/layout.json",
+            "pointer": "/variants/3hp/jack_axis_height_used/confidence"
+          },
+          "bound": "range"
+        },
+        {
+          "id": "thread",
+          "criterion": "ねじ",
+          "value": "M6x0.5",
+          "unit": "NONE",
+          "confidence": "SOURCED",
+          "source": {
+            "path": ".claude/skills/component-a7-pj-324m/facts.json",
+            "fact_id": "fact-a7-pj-324m-thread"
+          },
+          "bound": "exact"
+        },
+        {
+          "id": "axis-to-edge",
+          "criterion": "軸から端子 4/5 側の辺",
+          "value": 5.4,
+          "unit": "mm",
+          "confidence": "SOURCED",
+          "source": {
+            "path": ".claude/skills/component-a7-pj-324m/facts.json",
+            "fact_id": "fact-a7-pj-324m-axis-to-edge"
+          },
+          "bound": "reference"
+        },
+        {
+          "id": "axis-to-far-edge",
+          "criterion": "軸から反対側の辺（計算値）",
+          "value": 6.1,
+          "unit": "mm",
+          "confidence": "UNVERIFIED",
+          "source": {
+            "path": ".claude/skills/component-a7-pj-324m/facts.json",
+            "fact_id": "fact-a7-pj-324m-axis-to-far-edge"
+          },
+          "bound": "reference"
+        },
+        {
+          "id": "body-height",
+          "criterion": "本体高さ",
+          "value": 6.0,
+          "unit": "mm",
+          "confidence": "SOURCED",
+          "source": {
+            "path": ".claude/skills/component-a7-pj-324m/facts.json",
+            "fact_id": "fact-a7-pj-324m-body-height"
+          },
+          "bound": "reference"
+        },
+        {
+          "id": "slot-drill",
+          "criterion": "基板スロットのドリル（仮定）",
+          "value": "1.6×0.8 mm ドリル",
+          "unit": "NONE",
+          "confidence": "ASSUMED",
+          "source": {
+            "path": "engineering/a7/electronics/README.md",
+            "quote": "1.6×0.8 mm ドリル"
+          },
+          "confidence_trace": {
+            "path": "engineering/a7/electronics/README.md",
+            "quote": "穴径は ASSUMED"
+          },
+          "bound": "reference"
+        },
+        {
+          "id": "thread-engagement",
+          "criterion": "rear-pocket 構成の最悪条件のねじ噛み合い（設計値）",
+          "value": 1.25,
+          "unit": "mm",
+          "confidence": "DESIGN",
+          "source": {
+            "path": "engineering/a7/mechanical/layout.json",
+            "pointer": "/z_stack/thread_engagement_selected/worst_engaged"
+          },
+          "bound": "reference"
+        },
+        {
+          "id": "thread-engagement-plain",
+          "criterion": "平板構成の最悪条件のねじ噛み合い（設計値、基準未達で UNRESOLVED の案）",
+          "value": 0.85,
+          "unit": "mm",
+          "confidence": "DESIGN",
+          "source": {
+            "path": "engineering/a7/mechanical/layout.json",
+            "pointer": "/z_stack/thread_engagement_alternate/worst_engaged"
+          },
+          "bound": "reference"
+        },
+        {
+          "id": "engagement-criterion",
+          "criterion": "ねじ噛み合いの検討基準",
+          "value": "1.0 mm study criterion",
+          "unit": "NONE",
+          "confidence": "DESIGN",
+          "source": {
+            "path": "engineering/a7/README.md",
+            "quote": "below the 1.0 mm study criterion"
+          },
+          "bound": "min"
+        },
+        {
+          "id": "tolerances",
+          "criterion": "各寸法の合否公差",
+          "value": null,
+          "unit": "mm",
+          "confidence": "UNRESOLVED",
+          "decided_by": "メーカー公差・推奨穴寸法・適合ナット仕様（Q1/Q3/Q4、供給元への質問）"
+        }
       ]
     },
     {
@@ -65,6 +342,120 @@
         "land_peg_measurements",
         "setup_access",
         "switch_lot"
+      ],
+      "criterion_class": "ACCESS_EVIDENCE_HOLD",
+      "inputs": [
+        "PCM13SMTR (C221842) 未実装品 2個以上（在庫 0 のため入手経路を記録）",
+        "SW1 実装済みの A7 rev2 基板（試作ルートで入手した場合）"
+      ],
+      "tools": [
+        "抵抗計/導通計",
+        "測定顕微鏡",
+        "設定用の非導電スティック（形状を記録）"
+      ],
+      "preconditions": [
+        "`records.json` の owner_prototype_route（対象版・数量・範囲・承認）が記録済み",
+        "非通電で実施する（電源・信号を接続しない）",
+        "`readiness.json` の identities（基板/実装/回路図/FW/設定/機構/治具/台帳の SHA-256）を run にそのまま写す"
+      ],
+      "steps": [
+        "未実装品で 3 位置それぞれの全端子対（1〜4）の抵抗を測る。",
+        "実装基板では非通電で、各位置の端子 3–1 と 3–4 の導通を基板上で測る。",
+        "ペグ穴への収まりと、ランドに対する本体のずれを顕微鏡で測る。",
+        "モジュールを組んだ状態で、ラックから外して下側 (+Y) から設定スティックで 3 位置を切り替えられるか確認し、表示 ON / PGM / CV と位置が合うか確認する。"
+      ],
+      "record": {
+        "contact_truth_table": "3 位置 × 全端子対の抵抗表（未実装品と実装後）",
+        "land_peg_measurements": "ペグ・本体位置の測定と写真",
+        "setup_access": "設定アクセスの写真/動画と使った道具",
+        "switch_lot": "購入記録・ロット・数量"
+      },
+      "acceptance": [
+        {
+          "id": "function",
+          "criterion": "接点表（端子 3 が共通）",
+          "value": {
+            "POS.1": "1-3",
+            "POS.2": "2-3",
+            "POS.3": "3-4",
+            "common": "3"
+          },
+          "unit": "NONE",
+          "confidence": "SOURCED",
+          "source": {
+            "path": ".claude/skills/component-a7-pcm13smtr/facts.json",
+            "fact_id": "fact-a7-pcm13smtr-function"
+          },
+          "bound": "exact"
+        },
+        {
+          "id": "mode-map",
+          "criterion": "モード符号（POS.1=ON、POS.2=PROGRAM、POS.3=CV）",
+          "value": "POS.1 (1-3) で MODE_A=0,B=1 → ON",
+          "unit": "NONE",
+          "confidence": "DESIGN",
+          "source": {
+            "path": "engineering/a7/electronics/README.md",
+            "quote": "POS.1 (1-3) で MODE_A=0,B=1 → ON"
+          },
+          "bound": "exact"
+        },
+        {
+          "id": "contact-rating",
+          "criterion": "接点定格（測定電流はこれ以下）",
+          "value": "0.3 A @ 6 VDC",
+          "unit": "NONE",
+          "confidence": "SOURCED",
+          "source": {
+            "path": ".claude/skills/component-a7-pcm13smtr/facts.json",
+            "fact_id": "fact-a7-pcm13smtr-contact-rating"
+          },
+          "bound": "max"
+        },
+        {
+          "id": "travel",
+          "criterion": "1 位置あたりの移動量",
+          "value": 1.5,
+          "unit": "mm",
+          "confidence": "DESIGN",
+          "source": {
+            "path": "engineering/a7/mechanical/layout.json",
+            "pointer": "/switch/actuator_travel_per_position"
+          },
+          "bound": "reference"
+        },
+        {
+          "id": "peg-diameter",
+          "criterion": "ペグ径",
+          "value": 0.8,
+          "unit": "mm",
+          "confidence": "DESIGN",
+          "source": {
+            "path": "engineering/a7/mechanical/layout.json",
+            "pointer": "/switch/peg_diameter"
+          },
+          "bound": "reference"
+        },
+        {
+          "id": "access",
+          "criterion": "設定アクセスの方向",
+          "value": "+Y (below the module), module out of the rack",
+          "unit": "NONE",
+          "confidence": "DESIGN",
+          "source": {
+            "path": "engineering/a7/mechanical/layout.json",
+            "pointer": "/switch/access_from"
+          },
+          "bound": "exact"
+        },
+        {
+          "id": "fit-and-contact",
+          "criterion": "本体位置の許容ずれと導通判定抵抗",
+          "value": null,
+          "unit": "NONE",
+          "confidence": "UNRESOLVED",
+          "decided_by": "メーカーの本体-ペグ基準寸法と、3.3 V / 10 kΩ 負荷での接触判定値のレビュー"
+        }
       ]
     },
     {
@@ -87,6 +478,130 @@
         "bend_measurements",
         "installed_depth",
         "cable_identity"
+      ],
+      "criterion_class": "OWNER_DECISION",
+      "inputs": [
+        "完成電源ケーブル（PicoBlade 3P、A1→B3 / A2→B2 / A3→B1）候補",
+        "完成 SH4 ケーブル 2本",
+        "16→10 pin IDC リボン",
+        "組立済みモジュール（PMMA・スパイン・キャップ・基板）"
+      ],
+      "tools": [
+        "ノギス",
+        "導通計",
+        "曲げ半径ゲージまたは写真スケール",
+        "奥行き測定用のデプスゲージ"
+      ],
+      "preconditions": [
+        "`records.json` の owner_prototype_route（対象版・数量・範囲・承認）が記録済み",
+        "非通電で実施する（電源・信号を接続しない）",
+        "`readiness.json` の identities（基板/実装/回路図/FW/設定/機構/治具/台帳の SHA-256）を run にそのまま写す"
+      ],
+      "steps": [
+        "電源ケーブルの自由長をコネクタ嵌合面から嵌合面まで測る（測り方を記録）。",
+        "各ケーブルのピン対応を導通で確かめ、`assembly-manifest.json` の pin_map と比べる。",
+        "モジュールに組み込み、全ケーブルの経路・曲げを写真に残し、最小曲げ半径を測る。",
+        "PMMA 裏面から最も奥の点（ケーブル・コネクタ含む）までの奥行きを測る。"
+      ],
+      "record": {
+        "polarity_matrix": "各ケーブルのピン対応導通表",
+        "full_length_routing": "組込み状態の経路写真",
+        "bend_measurements": "最小曲げ半径の測定",
+        "installed_depth": "PMMA 裏面からの奥行き測定",
+        "cable_identity": "ケーブルの型番・購入記録・ラベル"
+      },
+      "acceptance": [
+        {
+          "id": "power-free-span",
+          "criterion": "電源ケーブルの自由長（公称）",
+          "value": 57.0,
+          "unit": "mm",
+          "confidence": "DESIGN",
+          "source": {
+            "path": "engineering/a7/mechanical/layout.json",
+            "pointer": "/power_cable_requirement/finished_free_span_nominal"
+          },
+          "bound": "reference"
+        },
+        {
+          "id": "power-tolerance",
+          "criterion": "自由長の公差（仮定）",
+          "value": 3.0,
+          "unit": "mm",
+          "confidence": "ASSUMED",
+          "source": {
+            "path": "engineering/a7/mechanical/layout.json",
+            "pointer": "/power_cable_requirement/tolerance"
+          },
+          "confidence_trace": {
+            "path": "engineering/a7/mechanical/layout.json",
+            "pointer": "/power_cable_requirement/tolerance_confidence"
+          },
+          "bound": "reference"
+        },
+        {
+          "id": "power-band",
+          "criterion": "自由長の許容範囲（公差が仮定なので範囲も仮定）",
+          "value": [
+            54.0,
+            60.0
+          ],
+          "unit": "mm",
+          "confidence": "ASSUMED",
+          "source": {
+            "path": "engineering/a7/mechanical/layout.json",
+            "pointer": "/power_cable_requirement/band"
+          },
+          "confidence_trace": {
+            "path": "engineering/a7/mechanical/layout.json",
+            "pointer": "/power_cable_requirement/tolerance_confidence"
+          },
+          "bound": "range"
+        },
+        {
+          "id": "a5-cable",
+          "criterion": "A5 の 50 ± 6 mm ケーブルは使えない",
+          "value": false,
+          "unit": "NONE",
+          "confidence": "DESIGN",
+          "source": {
+            "path": "engineering/a7/mechanical/layout.json",
+            "pointer": "/power_cable_requirement/a5_cable/fits"
+          },
+          "bound": "exact"
+        },
+        {
+          "id": "sh4-length",
+          "criterion": "コントローラー→左リーフ SH4 の長さ（モデル）",
+          "value": 50.0,
+          "unit": "mm",
+          "confidence": "DESIGN",
+          "source": {
+            "path": "engineering/a7/mechanical/exports/3hp/verification.json",
+            "pointer": "/cables/0/layout_length_mm"
+          },
+          "bound": "reference"
+        },
+        {
+          "id": "depth-target",
+          "criterion": "奥行き目標（PMMA 裏面から）",
+          "value": 30.0,
+          "unit": "mm",
+          "confidence": "DESIGN",
+          "source": {
+            "path": "engineering/a7/mechanical/layout.json",
+            "pointer": "/z_stack/installed_depth_target"
+          },
+          "bound": "max"
+        },
+        {
+          "id": "bend-radius",
+          "criterion": "許容最小曲げ半径",
+          "value": null,
+          "unit": "mm",
+          "confidence": "UNRESOLVED",
+          "decided_by": "ケーブル製造元の仕様（モデルの曲げ半径は製造元で未確認）"
+        }
       ]
     },
     {
@@ -109,6 +624,123 @@
         "tightening_log",
         "retention_load",
         "print_settings"
+      ],
+      "criterion_class": "ACCESS_EVIDENCE_HOLD",
+      "inputs": [
+        "A7 前面 PMMA（加工先・材料ロットを記録）",
+        "PETG で造形したスパイン・キャップ・ディフューザー（造形条件を記録）",
+        "M2×18 ねじと M2 ナット、M6×0.5 ナット",
+        "PJ-324M 実装基板"
+      ],
+      "tools": [
+        "ノギス",
+        "デプスゲージ（ポケット深さ）",
+        "トルクドライバ（設定値を記録）",
+        "プッシュプルゲージ"
+      ],
+      "preconditions": [
+        "`records.json` の owner_prototype_route（対象版・数量・範囲・承認）が記録済み",
+        "非通電で実施する（電源・信号を接続しない）",
+        "`readiness.json` の identities（基板/実装/回路図/FW/設定/機構/治具/台帳の SHA-256）を run にそのまま写す"
+      ],
+      "steps": [
+        "PMMA の板厚・穴径・後面ポケット深さと位置を測る。",
+        "造形部品の寸法と造形条件（材料、ノズル温度、層厚、向き）を記録する。",
+        "M2×18 とジャックナットを段階的に締め、各段階で割れ・白化（クレージング）を確認し、トルクを記録する。",
+        "プッシュプルゲージでプラグ挿抜方向の荷重をかけ、保持とずれを記録する。"
+      ],
+      "record": {
+        "material_identity": "PMMA と PETG の材料・ロット",
+        "pocket_tolerances": "板厚・穴・ポケットの測定表",
+        "tightening_log": "締付トルクと外観の記録",
+        "retention_load": "荷重と変位/ずれの記録",
+        "print_settings": "造形条件"
+      },
+      "acceptance": [
+        {
+          "id": "panel-thickness",
+          "criterion": "PMMA 板厚（公称）",
+          "value": 2.0,
+          "unit": "mm",
+          "confidence": "DESIGN",
+          "source": {
+            "path": "engineering/a7/study/parameters.json",
+            "pointer": "/parameters/panel_thickness/nominal"
+          },
+          "bound": "reference"
+        },
+        {
+          "id": "panel-thickness-tol",
+          "criterion": "PMMA 板厚の公差（仮定）",
+          "value": 0.2,
+          "unit": "mm",
+          "confidence": "ASSUMED",
+          "source": {
+            "path": "engineering/a7/study/parameters.json",
+            "pointer": "/parameters/panel_thickness/tol"
+          },
+          "confidence_trace": {
+            "path": "engineering/a7/study/parameters.json",
+            "pointer": "/parameters/panel_thickness/tol_confidence"
+          },
+          "bound": "reference"
+        },
+        {
+          "id": "pocket-depth",
+          "criterion": "後面ポケット深さ",
+          "value": 0.5,
+          "unit": "mm",
+          "confidence": "DESIGN",
+          "source": {
+            "path": "engineering/a7/mechanical/layout.json",
+            "pointer": "/z_stack/rear_pocket_depth"
+          },
+          "bound": "reference"
+        },
+        {
+          "id": "hole",
+          "criterion": "ジャック穴",
+          "value": "6.2 mm hole for a 6.0 mm thread major diameter",
+          "unit": "NONE",
+          "confidence": "DESIGN",
+          "source": {
+            "path": "engineering/a7/study/parameters.json",
+            "quote": "6.2 mm hole for a 6.0 mm thread major diameter"
+          },
+          "bound": "reference"
+        },
+        {
+          "id": "top-screw",
+          "criterion": "上キャップのねじ",
+          "value": "M2x18",
+          "unit": "NONE",
+          "confidence": "DESIGN",
+          "source": {
+            "path": "engineering/a7/mechanical/layout.json",
+            "pointer": "/supports/top_cap_screw/designation"
+          },
+          "bound": "exact"
+        },
+        {
+          "id": "plug-force",
+          "criterion": "保持が受けるプラグ挿抜力",
+          "value": "5.0-10.0 N inward and exiting",
+          "unit": "NONE",
+          "confidence": "MIRROR",
+          "source": {
+            "path": ".claude/skills/component-a7-pj-324m/facts.json",
+            "fact_id": "fact-a7-pj-324m-plug-force"
+          },
+          "bound": "range"
+        },
+        {
+          "id": "torque-retention",
+          "criterion": "締付トルクと保持荷重の合否",
+          "value": null,
+          "unit": "N",
+          "confidence": "UNRESOLVED",
+          "decided_by": "PMMA/PETG 加工先の公差・許容締付条件（供給元への質問）とレビュー"
+        }
       ]
     },
     {
@@ -130,6 +762,116 @@
         "contact_short_matrix",
         "stroke_force",
         "support_photos"
+      ],
+      "criterion_class": "ACCESS_EVIDENCE_HOLD",
+      "inputs": [
+        "完成した SWD 治具（`engineering/a7/fixture/manifest.json` が digital_fixture_complete=true になった版）",
+        "A7 rev2 実装基板"
+      ],
+      "tools": [
+        "測定顕微鏡",
+        "抵抗計",
+        "プッシュプルゲージ"
+      ],
+      "preconditions": [
+        "`records.json` の owner_prototype_route（対象版・数量・範囲・承認）が記録済み",
+        "非通電で実施する（電源・信号を接続しない）",
+        "`readiness.json` の identities（基板/実装/回路図/FW/設定/機構/治具/台帳の SHA-256）を run にそのまま写す",
+        "治具の manifest が digital_fixture_complete=true かつ fresh_native_verified=true"
+      ],
+      "steps": [
+        "基板を治具に置き、各プローブ先端と TP の位置ずれを顕微鏡で測る。",
+        "非通電で TP 間・TP–隣接部品間の短絡がないことを全組合せで測る。",
+        "ストロークと押付け荷重を測り、基板の支持点でたわみがないか確認する。",
+        "支持部と逆挿入防止の写真を残す。"
+      ],
+      "record": {
+        "registration_measurements": "TP ごとの位置ずれ",
+        "contact_short_matrix": "全組合せの短絡/導通表",
+        "stroke_force": "ストロークと荷重",
+        "support_photos": "支持・逆挿入防止の写真"
+      },
+      "acceptance": [
+        {
+          "id": "tp1",
+          "criterion": "TP1 のネット（B 面）",
+          "value": "/+3V3",
+          "unit": "NONE",
+          "confidence": "DESIGN",
+          "source": {
+            "path": "engineering/a7/electronics/controller/board_placement.json",
+            "pointer": "/components/52/pads/1/net"
+          },
+          "bound": "exact"
+        },
+        {
+          "id": "tp2",
+          "criterion": "TP2 のネット",
+          "value": "/GND",
+          "unit": "NONE",
+          "confidence": "DESIGN",
+          "source": {
+            "path": "engineering/a7/electronics/controller/board_placement.json",
+            "pointer": "/components/53/pads/1/net"
+          },
+          "bound": "exact"
+        },
+        {
+          "id": "tp3",
+          "criterion": "TP3 のネット",
+          "value": "/SWDIO",
+          "unit": "NONE",
+          "confidence": "DESIGN",
+          "source": {
+            "path": "engineering/a7/electronics/controller/board_placement.json",
+            "pointer": "/components/54/pads/1/net"
+          },
+          "bound": "exact"
+        },
+        {
+          "id": "tp4",
+          "criterion": "TP4 のネット",
+          "value": "/SWCLK",
+          "unit": "NONE",
+          "confidence": "DESIGN",
+          "source": {
+            "path": "engineering/a7/electronics/controller/board_placement.json",
+            "pointer": "/components/55/pads/1/net"
+          },
+          "bound": "exact"
+        },
+        {
+          "id": "tp5",
+          "criterion": "TP5 のネット",
+          "value": "/NRST",
+          "unit": "NONE",
+          "confidence": "DESIGN",
+          "source": {
+            "path": "engineering/a7/electronics/controller/board_placement.json",
+            "pointer": "/components/56/pads/1/net"
+          },
+          "bound": "exact"
+        },
+        {
+          "id": "tp-side",
+          "criterion": "テストパッドの面",
+          "value": "B",
+          "unit": "NONE",
+          "confidence": "DESIGN",
+          "source": {
+            "path": "engineering/a7/electronics/controller/board_placement.json",
+            "pointer": "/components/52/side"
+          },
+          "bound": "exact"
+        },
+        {
+          "id": "registration",
+          "criterion": "許容位置ずれ・ストローク・荷重",
+          "value": null,
+          "unit": "mm",
+          "confidence": "UNRESOLVED",
+          "decided_by": "完成治具の設計（manifest の最悪 registration margin と計算ストローク）とプローブの製造元仕様"
+        }
       ]
     },
     {
@@ -153,6 +895,94 @@
         "left_waveform",
         "right_waveform",
         "timebase_setup"
+      ],
+      "criterion_class": "OWNER_DECISION",
+      "inputs": [
+        "A7 rev2 実装基板と FR-4 リーフ 2枚、SH4 ケーブル",
+        "`light_block_A5.bin`（SHA を identities と照合）",
+        "WS2812B-2020-V6 の購入ロット"
+      ],
+      "tools": [
+        "SWD プローブ（型番記録）",
+        "オシロスコープ（帯域 ≥ 100 MHz を推奨、型番記録）",
+        "±12 V の電流制限付き電源"
+      ],
+      "preconditions": [
+        "`records.json` の owner_prototype_route（対象版・数量・範囲・承認）が記録済み",
+        "通電は owner_prototype_route が許す範囲だけ。初回通電の電流制限値は未決なので、試験前にレビューで決めて conditions に記録する",
+        "`readiness.json` の identities（基板/実装/回路図/FW/設定/機構/治具/台帳の SHA-256）を run にそのまま写す"
+      ],
+      "steps": [
+        "書込み後に読み戻し、BIN の SHA と一致するか記録する。",
+        "保存された設定（モード・校正値）を読み出して保存する。",
+        "左右の DATA 線を LED の DI ピンで測り、T0H/T0L/T1H/T1L/リセットを各 100 ビット以上で統計する。",
+        "オシロの時間軸設定とプローブ接続を記録する。"
+      ],
+      "record": {
+        "programming_readback": "書込みログと読み戻し SHA",
+        "stored_configuration": "保存設定の読み出し",
+        "led_lot": "LED のロット",
+        "left_waveform": "左ストリームの波形と統計",
+        "right_waveform": "右ストリームの波形と統計",
+        "timebase_setup": "計器設定とプローブ"
+      },
+      "acceptance": [
+        {
+          "id": "ds-timing",
+          "criterion": "データシート V1.4 のビット時間",
+          "value": "T0H 220-380; T1H 580-1000; T0L 580-1000; T1L 580-1000",
+          "unit": "ns",
+          "confidence": "SOURCED",
+          "source": {
+            "path": ".claude/skills/component-ws2812b-2020-v6/facts.json",
+            "fact_id": "fact-ws2812b-2020-v6-bit-timing"
+          },
+          "bound": "range"
+        },
+        {
+          "id": "fw-t1l",
+          "criterion": "現行 FW の T1L 設計範囲",
+          "value": "220..420",
+          "unit": "NONE",
+          "confidence": "DESIGN",
+          "source": {
+            "path": "engineering/a5/firmware/dist/timing.md",
+            "quote": "| T1L | 21 | 350.000 | 339.806 | 360.825 | 220..420 |"
+          },
+          "bound": "reference"
+        },
+        {
+          "id": "reset",
+          "criterion": "リセット時間",
+          "value": 280,
+          "unit": "us",
+          "confidence": "SOURCED",
+          "source": {
+            "path": ".claude/skills/component-ws2812b-2020-v6/facts.json",
+            "fact_id": "fact-ws2812b-2020-v6-reset-time"
+          },
+          "bound": "min_exclusive"
+        },
+        {
+          "id": "vih",
+          "criterion": "入力 High 閾値（VDD 比）",
+          "value": 0.55,
+          "unit": "fraction of VDD",
+          "confidence": "SOURCED",
+          "source": {
+            "path": ".claude/skills/component-ws2812b-2020-v6/facts.json",
+            "fact_id": "fact-ws2812b-2020-v6-vih"
+          },
+          "bound": "min"
+        },
+        {
+          "id": "t1l-decision",
+          "criterion": "T1L の合否（データシートと FW が矛盾）",
+          "value": null,
+          "unit": "ns",
+          "confidence": "UNRESOLVED",
+          "decided_by": "#13 の判断: メーカー訂正/新資料、または購入ロット実測に基づく別レビュー"
+        }
       ]
     },
     {
@@ -174,6 +1004,115 @@
         "rail_waveforms",
         "current_log",
         "load_matrix"
+      ],
+      "criterion_class": "CLOUD_DIGITAL",
+      "inputs": [
+        "組立済みモジュール（リーフ 2枚、ケーブル込み）"
+      ],
+      "tools": [
+        "±12 V の電流制限付きベンチ電源",
+        "電流計（各レール）",
+        "オシロスコープ",
+        "電子負荷（VLED 負荷試験用）"
+      ],
+      "preconditions": [
+        "`records.json` の owner_prototype_route（対象版・数量・範囲・承認）が記録済み",
+        "通電は owner_prototype_route が許す範囲だけ。初回通電の電流制限値は未決なので、試験前にレビューで決めて conditions に記録する",
+        "`readiness.json` の identities（基板/実装/回路図/FW/設定/機構/治具/台帳の SHA-256）を run にそのまま写す"
+      ],
+      "steps": [
+        "電流制限を低く設定して ±12 V を投入し、+5 V・+3V3・VLED を測る。",
+        "全消灯・通常点灯・全点灯（51/255 上限）の各状態で ±12 V 電流を記録する。",
+        "VLED に段階負荷をかけ、TPS2552 の電流制限と FAULT を観察する。",
+        "各条件のレール波形を保存する。"
+      ],
+      "record": {
+        "supply_setup": "電源設定と配線",
+        "rail_waveforms": "各レールの波形",
+        "current_log": "状態ごとの電流",
+        "load_matrix": "負荷条件の表"
+      },
+      "acceptance": [
+        {
+          "id": "ilim-formula",
+          "criterion": "TPS2552 の電流制限式（最大側）",
+          "value": "IOSmax(mA) = 22980 V / RILIM^0.94 kohm",
+          "unit": "mA",
+          "confidence": "SOURCED",
+          "source": {
+            "path": ".claude/skills/component-tps2552dbvr-1/facts.json",
+            "fact_id": "fact-tps2552dbvr-1-ilim-formula-max"
+          },
+          "bound": "reference"
+        },
+        {
+          "id": "rilim",
+          "criterion": "RILIM (R11)",
+          "value": 68000,
+          "unit": "ohm",
+          "confidence": "UNVERIFIED",
+          "source": {
+            "path": ".claude/skills/component-0603waf6802t5e/facts.json",
+            "fact_id": "fact-0603waf6802t5e-resistance"
+          },
+          "bound": "reference"
+        },
+        {
+          "id": "u4-iout",
+          "criterion": "TPS2552 の推奨出力電流",
+          "value": 1.2,
+          "unit": "A",
+          "confidence": "SOURCED",
+          "source": {
+            "path": ".claude/skills/component-tps2552dbvr-1/facts.json",
+            "fact_id": "fact-tps2552dbvr-1-roc-iout"
+          },
+          "bound": "max"
+        },
+        {
+          "id": "ldo-iout",
+          "criterion": "TLV75533 の推奨出力電流",
+          "value": 500,
+          "unit": "mA",
+          "confidence": "SOURCED",
+          "source": {
+            "path": ".claude/skills/component-tlv75533pdbvr/facts.json",
+            "fact_id": "fact-tlv75533pdbvr-roc-iout"
+          },
+          "bound": "max"
+        },
+        {
+          "id": "buck-limit",
+          "criterion": "AP63205 のピーク電流制限",
+          "value": "2.5 to 3.1 (typ 2.8)",
+          "unit": "A",
+          "confidence": "SOURCED",
+          "source": {
+            "path": ".claude/skills/component-ap63205wu-7/facts.json",
+            "fact_id": "fact-ap63205wu-7-peak-current-limit"
+          },
+          "bound": "range"
+        },
+        {
+          "id": "channel-cap",
+          "criterion": "FW の LED 上限",
+          "value": "51u",
+          "unit": "NONE",
+          "confidence": "DESIGN",
+          "source": {
+            "path": "engineering/a5/firmware/include/lb_config.h",
+            "quote": "LB_CHANNEL_CAP               51u"
+          },
+          "bound": "max"
+        },
+        {
+          "id": "table",
+          "criterion": "条件ごとの許容電流・電圧の数表",
+          "value": null,
+          "unit": "mA",
+          "confidence": "UNRESOLVED",
+          "decided_by": "上記の部品値から条件付き数表を作りレビューする（クラウドで作れる）"
+        }
       ]
     },
     {
@@ -195,6 +1134,65 @@
         "vdd_adc_thru_data",
         "calibration_coefficients",
         "residuals"
+      ],
+      "criterion_class": "OWNER_DECISION",
+      "inputs": [
+        "組立済みモジュール",
+        "CV 源（−5〜+5 V を出せる校正済み電源または DAC）"
+      ],
+      "tools": [
+        "6½ 桁 DMM",
+        "SWD プローブ（ADC 値の読み出し）"
+      ],
+      "preconditions": [
+        "`records.json` の owner_prototype_route（対象版・数量・範囲・承認）が記録済み",
+        "通電は owner_prototype_route が許す範囲だけ。初回通電の電流制限値は未決なので、試験前にレビューで決めて conditions に記録する",
+        "`readiness.json` の identities（基板/実装/回路図/FW/設定/機構/治具/台帳の SHA-256）を run にそのまま写す"
+      ],
+      "steps": [
+        "CV IN に段階電圧を入れ、各点で CV THRU 端の電圧、VDD、ADC 生値を記録する。",
+        "上昇・下降の両方向で掃引する。",
+        "校正係数を求め、残差を表にする。"
+      ],
+      "record": {
+        "cv_sweep": "入力電圧と ADC 値の表",
+        "vdd_adc_thru_data": "VDD・THRU 電圧",
+        "calibration_coefficients": "校正係数",
+        "residuals": "残差の表"
+      },
+      "acceptance": [
+        {
+          "id": "transfer",
+          "criterion": "ADC 入力の伝達式",
+          "value": "VADC=(100/133)*(VDD/2+CV/8)",
+          "unit": "NONE",
+          "confidence": "DESIGN",
+          "source": {
+            "path": "engineering/a7/electronics/README.md",
+            "quote": "VADC=(100/133)*(VDD/2+CV/8)"
+          },
+          "bound": "reference"
+        },
+        {
+          "id": "vdd-accuracy",
+          "criterion": "VDD (3.3 V LDO) の出力精度",
+          "value": 1,
+          "unit": "%",
+          "confidence": "SOURCED",
+          "source": {
+            "path": ".claude/skills/component-tlv75533pdbvr/facts.json",
+            "fact_id": "fact-tlv75533pdbvr-output-accuracy"
+          },
+          "bound": "max"
+        },
+        {
+          "id": "residual",
+          "criterion": "許容誤差・直線性・残差",
+          "value": null,
+          "unit": "V",
+          "confidence": "UNRESOLVED",
+          "decided_by": "抵抗公差と VDD 精度からの誤差予算をクラウドで作り、オーナーが許容値を決める"
+        }
       ]
     },
     {
@@ -215,6 +1213,63 @@
         "reset_fault_enable_waveforms",
         "rail_waveforms",
         "configuration_readback"
+      ],
+      "criterion_class": "CLOUD_DIGITAL",
+      "inputs": [
+        "組立済みモジュール"
+      ],
+      "tools": [
+        "オシロスコープ 4ch",
+        "±12 V 電源（立上り時間を変えられるもの）"
+      ],
+      "preconditions": [
+        "`records.json` の owner_prototype_route（対象版・数量・範囲・承認）が記録済み",
+        "通電は owner_prototype_route が許す範囲だけ。初回通電の電流制限値は未決なので、試験前にレビューで決めて conditions に記録する",
+        "`readiness.json` の identities（基板/実装/回路図/FW/設定/機構/治具/台帳の SHA-256）を run にそのまま写す"
+      ],
+      "steps": [
+        "速い/遅い立上りで ±12 V を投入し、+5 V、+3V3、NRST、LED_EN_N、LED_FAULT_N を同時に記録する。",
+        "起動後の設定を読み出し、正しいモードで動くか確認する。",
+        "短い瞬断を入れ、復帰を記録する。"
+      ],
+      "record": {
+        "reset_fault_enable_waveforms": "NRST・EN・FAULT の波形",
+        "rail_waveforms": "各レールの波形",
+        "configuration_readback": "起動後の設定読み出し"
+      },
+      "acceptance": [
+        {
+          "id": "latch",
+          "criterion": "TPS2552-1 はラッチオフ（過電流後は EN を戻すまで復帰しない）",
+          "value": "TPS2552DxVx-1: enable active low; overcurrent fault response latch off; no quick output discharge",
+          "unit": "NONE",
+          "confidence": "SOURCED",
+          "source": {
+            "path": ".claude/skills/component-tps2552dbvr-1/facts.json",
+            "fact_id": "fact-tps2552dbvr-1-variant-latch"
+          },
+          "bound": "reference"
+        },
+        {
+          "id": "ldo-vin",
+          "criterion": "TLV75533 の推奨入力範囲",
+          "value": "1.45 to 5.5",
+          "unit": "V",
+          "confidence": "SOURCED",
+          "source": {
+            "path": ".claude/skills/component-tlv75533pdbvr/facts.json",
+            "fact_id": "fact-tlv75533pdbvr-roc-vin"
+          },
+          "bound": "range"
+        },
+        {
+          "id": "window",
+          "criterion": "立上り条件・観測窓・復帰の合否表",
+          "value": null,
+          "unit": "NONE",
+          "confidence": "UNRESOLVED",
+          "decided_by": "A5 の startup/fault 動作の記述から条件表を作ってレビューする"
+        }
       ]
     },
     {
@@ -234,6 +1289,51 @@
       "required_evidence_kinds": [
         "rail_enable_waveforms",
         "collapse_load_conditions"
+      ],
+      "criterion_class": "OWNER_DECISION",
+      "inputs": [
+        "組立済みモジュール"
+      ],
+      "tools": [
+        "オシロスコープ",
+        "電子負荷",
+        "±12 V 電源"
+      ],
+      "preconditions": [
+        "`records.json` の owner_prototype_route（対象版・数量・範囲・承認）が記録済み",
+        "通電は owner_prototype_route が許す範囲だけ。初回通電の電流制限値は未決なので、試験前にレビューで決めて conditions に記録する",
+        "`readiness.json` の identities（基板/実装/回路図/FW/設定/機構/治具/台帳の SHA-256）を run にそのまま写す"
+      ],
+      "steps": [
+        "+12 V だけを段階的に落とし、+5 V・+3V3・MCU の状態を記録する。",
+        "LED 全点灯の最悪負荷で同じ試験をする。",
+        "設定・校正値が失われないか読み出す。"
+      ],
+      "record": {
+        "rail_enable_waveforms": "崩壊時のレールと EN の波形",
+        "collapse_load_conditions": "負荷と崩壊速度の条件"
+      },
+      "acceptance": [
+        {
+          "id": "ldo-vin",
+          "criterion": "TLV75533 の推奨入力範囲",
+          "value": "1.45 to 5.5",
+          "unit": "V",
+          "confidence": "SOURCED",
+          "source": {
+            "path": ".claude/skills/component-tlv75533pdbvr/facts.json",
+            "fact_id": "fact-tlv75533pdbvr-roc-vin"
+          },
+          "bound": "range"
+        },
+        {
+          "id": "criteria",
+          "criterion": "崩壊速度・最悪負荷・5 V 監視の要否の合否基準",
+          "value": null,
+          "unit": "NONE",
+          "confidence": "UNRESOLVED",
+          "decided_by": "オーナーの判断（5 V valid 監視を追加するかは設計判断）"
+        }
       ]
     },
     {
@@ -254,6 +1354,100 @@
         "rail_combination_matrix",
         "injection_reverse_current",
         "rail_waveforms"
+      ],
+      "criterion_class": "ACCESS_EVIDENCE_HOLD",
+      "inputs": [
+        "組立済みモジュール"
+      ],
+      "tools": [
+        "独立した 3 系統の電源（+12 V、−12 V、5 V）",
+        "電流計",
+        "オシロスコープ"
+      ],
+      "preconditions": [
+        "`records.json` の owner_prototype_route（対象版・数量・範囲・承認）が記録済み",
+        "通電は owner_prototype_route が許す範囲だけ。初回通電の電流制限値は未決なので、試験前にレビューで決めて conditions に記録する",
+        "`readiness.json` の identities（基板/実装/回路図/FW/設定/機構/治具/台帳の SHA-256）を run にそのまま写す",
+        "各入力ピンに流す電流は下の絶対最大定格を超えない"
+      ],
+      "steps": [
+        "+12 V のみ、−12 V のみ、片側欠けの組合せで投入し、各レールと逆流電流を測る。",
+        "CV 入力に電圧をかけたまま電源を切り、注入電流を測る。"
+      ],
+      "record": {
+        "rail_combination_matrix": "組合せごとのレール電圧",
+        "injection_reverse_current": "注入・逆流電流",
+        "rail_waveforms": "波形"
+      },
+      "acceptance": [
+        {
+          "id": "u6-input",
+          "criterion": "OPA197 入力の絶対最大",
+          "value": "(V-) - 0.5 to (V+) + 0.5",
+          "unit": "V",
+          "confidence": "SOURCED",
+          "source": {
+            "path": ".claude/skills/component-opa197idbvr/facts.json",
+            "fact_id": "fact-opa197idbvr-abs-max-input-voltage"
+          },
+          "bound": "range"
+        },
+        {
+          "id": "u6-current",
+          "criterion": "OPA197 入力電流の絶対最大",
+          "value": 10,
+          "unit": "mA",
+          "confidence": "SOURCED",
+          "source": {
+            "path": ".claude/skills/component-opa197idbvr/facts.json",
+            "fact_id": "fact-opa197idbvr-abs-max-input-current"
+          },
+          "bound": "max"
+        },
+        {
+          "id": "u7-input",
+          "criterion": "TLV9001 入力の絶対最大",
+          "value": "(V-) - 0.5 to (V+) + 0.5",
+          "unit": "V",
+          "confidence": "SOURCED",
+          "source": {
+            "path": ".claude/skills/component-tlv9001idbvr/facts.json",
+            "fact_id": "fact-tlv9001idbvr-abs-max-input-voltage"
+          },
+          "bound": "range"
+        },
+        {
+          "id": "u5-vi",
+          "criterion": "SN74LVC2T45 入力の絶対最大",
+          "value": 6.5,
+          "unit": "V",
+          "confidence": "SOURCED",
+          "source": {
+            "path": ".claude/skills/component-sn74lvc2t45dcur/facts.json",
+            "fact_id": "fact-sn74lvc2t45dcur-abs-max-vi"
+          },
+          "bound": "max"
+        },
+        {
+          "id": "led-vi",
+          "criterion": "WS2812B 入力の絶対最大",
+          "value": "-0.3 to VDD+0.7",
+          "unit": "V",
+          "confidence": "SOURCED",
+          "source": {
+            "path": ".claude/skills/component-ws2812b-2020-v6/facts.json",
+            "fact_id": "fact-ws2812b-2020-v6-input-abs-max"
+          },
+          "bound": "range"
+        },
+        {
+          "id": "limits",
+          "criterion": "許容印加値・注入電流・順序の数表",
+          "value": null,
+          "unit": "mA",
+          "confidence": "UNRESOLVED",
+          "decided_by": "上記の部品値から条件表を作ってレビューする（STM32 の注入電流はカタログで未取得）"
+        }
       ]
     },
     {
@@ -274,6 +1468,74 @@
         "input_supply_waveforms",
         "differential_stress_calculation",
         "probe_identity"
+      ],
+      "criterion_class": "CLOUD_DIGITAL",
+      "inputs": [
+        "組立済みモジュール"
+      ],
+      "tools": [
+        "オシロスコープ（帯域を記録）",
+        "差動プローブまたは 2ch 差分"
+      ],
+      "preconditions": [
+        "`records.json` の owner_prototype_route（対象版・数量・範囲・承認）が記録済み",
+        "通電は owner_prototype_route が許す範囲だけ。初回通電の電流制限値は未決なので、試験前にレビューで決めて conditions に記録する",
+        "`readiness.json` の identities（基板/実装/回路図/FW/設定/機構/治具/台帳の SHA-256）を run にそのまま写す"
+      ],
+      "steps": [
+        "CV 入力の最大/最小、電源投入・遮断時に U7 の入力ピンと電源ピンを同時に測る。",
+        "入力と電源の差を計算し、絶対最大と比べる。"
+      ],
+      "record": {
+        "input_supply_waveforms": "U7 入力と電源の波形",
+        "differential_stress_calculation": "差の計算表",
+        "probe_identity": "プローブの型番と帯域"
+      },
+      "acceptance": [
+        {
+          "id": "supply",
+          "criterion": "TLV9001 電源の絶対最大",
+          "value": 7,
+          "unit": "V",
+          "confidence": "SOURCED",
+          "source": {
+            "path": ".claude/skills/component-tlv9001idbvr/facts.json",
+            "fact_id": "fact-tlv9001idbvr-ratings"
+          },
+          "bound": "max"
+        },
+        {
+          "id": "input",
+          "criterion": "TLV9001 入力の絶対最大",
+          "value": "(V-) - 0.5 to (V+) + 0.5",
+          "unit": "V",
+          "confidence": "SOURCED",
+          "source": {
+            "path": ".claude/skills/component-tlv9001idbvr/facts.json",
+            "fact_id": "fact-tlv9001idbvr-abs-max-input-voltage"
+          },
+          "bound": "range"
+        },
+        {
+          "id": "current",
+          "criterion": "TLV9001 入力電流の絶対最大",
+          "value": 10,
+          "unit": "mA",
+          "confidence": "SOURCED",
+          "source": {
+            "path": ".claude/skills/component-tlv9001idbvr/facts.json",
+            "fact_id": "fact-tlv9001idbvr-abs-max-input-current"
+          },
+          "bound": "max"
+        },
+        {
+          "id": "conditions",
+          "criterion": "安全な印加条件と必要なプローブ帯域",
+          "value": null,
+          "unit": "NONE",
+          "confidence": "UNRESOLVED",
+          "decided_by": "上記の値から条件表を作ってレビューする"
+        }
       ]
     },
     {
@@ -295,6 +1557,65 @@
         "reverse_current",
         "temperature",
         "sequence_conditions"
+      ],
+      "criterion_class": "ACCESS_EVIDENCE_HOLD",
+      "inputs": [
+        "組立済みモジュール"
+      ],
+      "tools": [
+        "電源 2 系統",
+        "電流計",
+        "温度計"
+      ],
+      "preconditions": [
+        "`records.json` の owner_prototype_route（対象版・数量・範囲・承認）が記録済み",
+        "通電は owner_prototype_route が許す範囲だけ。初回通電の電流制限値は未決なので、試験前にレビューで決めて conditions に記録する",
+        "`readiness.json` の identities（基板/実装/回路図/FW/設定/機構/治具/台帳の SHA-256）を run にそのまま写す",
+        "+3V3 に外部電圧をかける試験は、許容逆電流が決まるまで実施しない"
+      ],
+      "steps": [
+        "+5 V を切った状態で +3V3 側に SWD プローブ等から電圧がかかる場合の電流を測る。",
+        "順序と時間を変えて記録する。"
+      ],
+      "record": {
+        "rail_waveforms": "波形",
+        "reverse_current": "逆電流",
+        "temperature": "U3 の温度",
+        "sequence_conditions": "順序と時間"
+      },
+      "acceptance": [
+        {
+          "id": "vin-max",
+          "criterion": "TLV75533 VIN の絶対最大",
+          "value": 6.0,
+          "unit": "V",
+          "confidence": "SOURCED",
+          "source": {
+            "path": ".claude/skills/component-tlv75533pdbvr/facts.json",
+            "fact_id": "fact-tlv75533pdbvr-ratings"
+          },
+          "bound": "max"
+        },
+        {
+          "id": "en-max",
+          "criterion": "TLV75533 EN の絶対最大",
+          "value": 6.0,
+          "unit": "V",
+          "confidence": "SOURCED",
+          "source": {
+            "path": ".claude/skills/component-tlv75533pdbvr/facts.json",
+            "fact_id": "fact-tlv75533pdbvr-abs-max-en"
+          },
+          "bound": "max"
+        },
+        {
+          "id": "reverse",
+          "criterion": "許容逆電流と時間",
+          "value": null,
+          "unit": "mA",
+          "confidence": "UNRESOLVED",
+          "decided_by": "TLV75533 の逆電流の記述をメーカー資料から取得する（カタログ未記録）"
+        }
       ]
     },
     {
@@ -316,6 +1637,78 @@
         "current_temperature",
         "fault_log",
         "load_conditions"
+      ],
+      "criterion_class": "OWNER_DECISION",
+      "inputs": [
+        "組立済みモジュール（交換用の予備を用意）"
+      ],
+      "tools": [
+        "短絡治具（場所ごと）",
+        "電流計",
+        "サーモカメラまたは熱電対",
+        "オシロスコープ"
+      ],
+      "preconditions": [
+        "`records.json` の owner_prototype_route（対象版・数量・範囲・承認）が記録済み",
+        "通電は owner_prototype_route が許す範囲だけ。初回通電の電流制限値は未決なので、試験前にレビューで決めて conditions に記録する",
+        "`readiness.json` の identities（基板/実装/回路図/FW/設定/機構/治具/台帳の SHA-256）を run にそのまま写す",
+        "破損の可能性がある試験なので、どのユニットを使うかを owner_prototype_route の範囲に含める"
+      ],
+      "steps": [
+        "VLED、+5 V、+3V3 の各点で短絡を入れ、電流・温度・復帰を記録する。",
+        "TPS2552 のラッチ後、EN の再投入で復帰するか確認する。"
+      ],
+      "record": {
+        "short_recovery_waveforms": "短絡と復帰の波形",
+        "current_temperature": "電流と温度",
+        "fault_log": "FAULT の記録",
+        "load_conditions": "場所・時間・回数"
+      },
+      "acceptance": [
+        {
+          "id": "latch",
+          "criterion": "TPS2552-1 のラッチオフ動作",
+          "value": "TPS2552DxVx-1: enable active low; overcurrent fault response latch off; no quick output discharge",
+          "unit": "NONE",
+          "confidence": "SOURCED",
+          "source": {
+            "path": ".claude/skills/component-tps2552dbvr-1/facts.json",
+            "fact_id": "fact-tps2552dbvr-1-variant-latch"
+          },
+          "bound": "reference"
+        },
+        {
+          "id": "ldo-limit",
+          "criterion": "TLV75533 の電流制限（最小）",
+          "value": 560,
+          "unit": "mA",
+          "confidence": "SOURCED",
+          "source": {
+            "path": ".claude/skills/component-tlv75533pdbvr/facts.json",
+            "fact_id": "fact-tlv75533pdbvr-current-limit"
+          },
+          "bound": "min"
+        },
+        {
+          "id": "buck-limit",
+          "criterion": "AP63205 のピーク電流制限",
+          "value": "2.5 to 3.1 (typ 2.8)",
+          "unit": "A",
+          "confidence": "SOURCED",
+          "source": {
+            "path": ".claude/skills/component-ap63205wu-7/facts.json",
+            "fact_id": "fact-ap63205wu-7-peak-current-limit"
+          },
+          "bound": "range"
+        },
+        {
+          "id": "criteria",
+          "criterion": "短絡の場所・時間・回数と、復帰/最大温度の合否",
+          "value": null,
+          "unit": "NONE",
+          "confidence": "UNRESOLVED",
+          "decided_by": "オーナーの承認（破損を許す範囲）とレビュー"
+        }
       ]
     },
     {
@@ -337,6 +1730,88 @@
         "bias_temperature",
         "capacitance",
         "ripple_waveforms"
+      ],
+      "criterion_class": "ACCESS_EVIDENCE_HOLD",
+      "inputs": [
+        "実装と同じロットの MLCC 単品",
+        "組立済みモジュール"
+      ],
+      "tools": [
+        "LCR メータ（DC バイアス付き）",
+        "恒温槽または温度計",
+        "オシロスコープ"
+      ],
+      "preconditions": [
+        "`records.json` の owner_prototype_route（対象版・数量・範囲・承認）が記録済み",
+        "`readiness.json` の identities（基板/実装/回路図/FW/設定/機構/治具/台帳の SHA-256）を run にそのまま写す"
+      ],
+      "steps": [
+        "各 MLCC 型番を実際の DC 電圧で測る（単品）。",
+        "回路のリップルを測る（通電試験は POWER の条件に従う）。"
+      ],
+      "record": {
+        "component_lot": "ロット",
+        "bias_temperature": "バイアスと温度の条件",
+        "capacitance": "容量測定値",
+        "ripple_waveforms": "リップル波形"
+      },
+      "acceptance": [
+        {
+          "id": "c10u",
+          "criterion": "CL21A106KAYNNNE 定格電圧",
+          "value": 25,
+          "unit": "V",
+          "confidence": "SOURCED",
+          "source": {
+            "path": ".claude/skills/component-cl21a106kaynnne/facts.json",
+            "fact_id": "fact-cl21a106kaynnne-ratings"
+          },
+          "bound": "max"
+        },
+        {
+          "id": "c22u",
+          "criterion": "CL31A226KAHNNNE 定格電圧",
+          "value": 25,
+          "unit": "V",
+          "confidence": "SOURCED",
+          "source": {
+            "path": ".claude/skills/component-cl31a226kahnnne/facts.json",
+            "fact_id": "fact-cl31a226kahnnne-ratings"
+          },
+          "bound": "max"
+        },
+        {
+          "id": "c4u7",
+          "criterion": "CL10A475KO8NNNC 定格電圧",
+          "value": 16,
+          "unit": "V",
+          "confidence": "SOURCED",
+          "source": {
+            "path": ".claude/skills/component-cl10a475ko8nnnc/facts.json",
+            "fact_id": "fact-cl10a475ko8nnnc-ratings"
+          },
+          "bound": "max"
+        },
+        {
+          "id": "dc-bias",
+          "criterion": "動作点での実効容量",
+          "value": "effective capacitance at the A5 DC operating point not established",
+          "unit": "NONE",
+          "confidence": "UNVERIFIED",
+          "source": {
+            "path": ".claude/skills/component-cl21a106kaynnne/facts.json",
+            "fact_id": "fact-cl21a106kaynnne-dc-bias"
+          },
+          "bound": "reference"
+        },
+        {
+          "id": "minimum",
+          "criterion": "必要容量の下限",
+          "value": null,
+          "unit": "NONE",
+          "confidence": "UNRESOLVED",
+          "decided_by": "メーカーの DC バイアス曲線（未取得）と回路レビュー"
+        }
       ]
     },
     {
@@ -359,6 +1834,78 @@
         "material_lot",
         "optical_photos",
         "ambient_conditions"
+      ],
+      "criterion_class": "OWNER_DECISION",
+      "inputs": [
+        "組立済みモジュール（PMMA・PETG ディフューザー込み）"
+      ],
+      "tools": [
+        "熱電対または IR カメラ（放射率補正を記録）",
+        "室温計",
+        "カメラ（露出固定）"
+      ],
+      "preconditions": [
+        "`records.json` の owner_prototype_route（対象版・数量・範囲・承認）が記録済み",
+        "通電は owner_prototype_route が許す範囲だけ。初回通電の電流制限値は未決なので、試験前にレビューで決めて conditions に記録する",
+        "`readiness.json` の identities（基板/実装/回路図/FW/設定/機構/治具/台帳の SHA-256）を run にそのまま写す"
+      ],
+      "steps": [
+        "室温を記録し、全点灯（上限 51/255）で温度が安定するまで記録する。",
+        "LED 付近、U2、U4、PETG、PMMA の温度を測る。",
+        "露出固定で点灯の見え方を撮影する（暗所と通常照明）。"
+      ],
+      "record": {
+        "temperature_series": "温度の時系列",
+        "ir_corrections": "放射率補正",
+        "material_lot": "PETG/PMMA のロット",
+        "optical_photos": "点灯写真",
+        "ambient_conditions": "周囲条件"
+      },
+      "acceptance": [
+        {
+          "id": "channel-cap",
+          "criterion": "FW の LED 上限",
+          "value": "51u",
+          "unit": "NONE",
+          "confidence": "DESIGN",
+          "source": {
+            "path": "engineering/a5/firmware/include/lb_config.h",
+            "quote": "LB_CHANNEL_CAP               51u"
+          },
+          "bound": "max"
+        },
+        {
+          "id": "switch-temp",
+          "criterion": "PCM13SMTR の動作温度",
+          "value": "-40 to +85",
+          "unit": "C",
+          "confidence": "SOURCED",
+          "source": {
+            "path": ".claude/skills/component-a7-pcm13smtr/facts.json",
+            "fact_id": "fact-a7-pcm13smtr-operating-temperature"
+          },
+          "bound": "range"
+        },
+        {
+          "id": "mlcc-temp",
+          "criterion": "X7R MLCC の動作温度",
+          "value": "-55 to +125",
+          "unit": "degC",
+          "confidence": "SOURCED",
+          "source": {
+            "path": ".claude/skills/component-cc0603krx7r9bb104/facts.json",
+            "fact_id": "fact-cc0603krx7r9bb104-operating-temperature"
+          },
+          "bound": "range"
+        },
+        {
+          "id": "limits",
+          "criterion": "PETG/PMMA の温度限界、安定判定、見え方の合否",
+          "value": null,
+          "unit": "degC",
+          "confidence": "UNRESOLVED",
+          "decided_by": "オーナーの判断（見え方）と材料資料（未取得）"
+        }
       ]
     },
     {
@@ -380,6 +1927,51 @@
         "noise_statistics",
         "probe_wiring",
         "data_patterns"
+      ],
+      "criterion_class": "OWNER_DECISION",
+      "inputs": [
+        "組立済みモジュール"
+      ],
+      "tools": [
+        "オシロスコープ（同期トリガ）",
+        "CV 源"
+      ],
+      "preconditions": [
+        "`records.json` の owner_prototype_route（対象版・数量・範囲・承認）が記録済み",
+        "通電は owner_prototype_route が許す範囲だけ。初回通電の電流制限値は未決なので、試験前にレビューで決めて conditions に記録する",
+        "`readiness.json` の identities（基板/実装/回路図/FW/設定/機構/治具/台帳の SHA-256）を run にそのまま写す"
+      ],
+      "steps": [
+        "LED データ送信中に CV_THRU と ADC 値を同期して記録する。",
+        "データパターン（全消灯/全点灯/交互）を変えて統計を取る。"
+      ],
+      "record": {
+        "synchronous_waveforms": "同期波形",
+        "noise_statistics": "ノイズ統計",
+        "probe_wiring": "プローブ配線",
+        "data_patterns": "データパターン"
+      },
+      "acceptance": [
+        {
+          "id": "layout",
+          "criterion": "同層での CV と DATA の間隔（設計）",
+          "value": "No CV node runs within 0.6 mm of DATA_L/R or ±12V_PROT on the same layer.",
+          "unit": "NONE",
+          "confidence": "DESIGN",
+          "source": {
+            "path": "engineering/a7/verification/interface_review.md",
+            "quote": "No CV node runs within 0.6 mm of DATA_L/R or ±12V_PROT on the same layer."
+          },
+          "bound": "reference"
+        },
+        {
+          "id": "limit",
+          "criterion": "許容ノイズと帯域",
+          "value": null,
+          "unit": "V",
+          "confidence": "UNRESOLVED",
+          "decided_by": "cv-thru-calibration の誤差予算とオーナーの許容値"
+        }
       ]
     },
     {
@@ -402,11 +1994,226 @@
         "replacement_record",
         "before_after_photos",
         "part_identity"
+      ],
+      "criterion_class": "OWNER_DECISION",
+      "inputs": [
+        "組立済みモジュール",
+        "ユーロラック試験ケース"
+      ],
+      "tools": [
+        "ノギス",
+        "プッシュプルゲージ",
+        "カメラ"
+      ],
+      "preconditions": [
+        "`records.json` の owner_prototype_route（対象版・数量・範囲・承認）が記録済み",
+        "`readiness.json` の identities（基板/実装/回路図/FW/設定/機構/治具/台帳の SHA-256）を run にそのまま写す"
+      ],
+      "steps": [
+        "幅・高さ・奥行きを測る。",
+        "ラックへの挿抜とジャックの挿抜を決めた回数繰り返し、力と損傷を記録する。",
+        "設定スイッチの切替えとケーブル交換を行い、前後の写真を残す。"
+      ],
+      "record": {
+        "envelope_dimensions": "外形寸法",
+        "insertion_extraction_force": "挿抜力",
+        "replacement_record": "交換記録",
+        "before_after_photos": "前後の写真",
+        "part_identity": "部品の型番"
+      },
+      "acceptance": [
+        {
+          "id": "width",
+          "criterion": "前面幅 (3HP)",
+          "value": 14.9,
+          "unit": "mm",
+          "confidence": "DESIGN",
+          "source": {
+            "path": "engineering/a7/mechanical/layout.json",
+            "pointer": "/variants/3hp/panel_width"
+          },
+          "bound": "max"
+        },
+        {
+          "id": "height",
+          "criterion": "前面高さ",
+          "value": 128.5,
+          "unit": "mm",
+          "confidence": "DESIGN",
+          "source": {
+            "path": "engineering/a7/mechanical/exports/3hp/verification.json",
+            "pointer": "/parts/0/bbox_max/1"
+          },
+          "bound": "max"
+        },
+        {
+          "id": "depth",
+          "criterion": "奥行き目標",
+          "value": 30.0,
+          "unit": "mm",
+          "confidence": "DESIGN",
+          "source": {
+            "path": "engineering/a7/mechanical/layout.json",
+            "pointer": "/z_stack/installed_depth_target"
+          },
+          "bound": "max"
+        },
+        {
+          "id": "plug-force",
+          "criterion": "プラグ挿抜力",
+          "value": "5.0-10.0 N inward and exiting",
+          "unit": "NONE",
+          "confidence": "MIRROR",
+          "source": {
+            "path": ".claude/skills/component-a7-pj-324m/facts.json",
+            "fact_id": "fact-a7-pj-324m-plug-force"
+          },
+          "bound": "range"
+        },
+        {
+          "id": "switch-life",
+          "criterion": "設定スイッチの寿命",
+          "value": 10000,
+          "unit": "cycles",
+          "confidence": "SOURCED",
+          "source": {
+            "path": ".claude/skills/component-a7-pcm13smtr/facts.json",
+            "fact_id": "fact-a7-pcm13smtr-life"
+          },
+          "bound": "reference"
+        },
+        {
+          "id": "cycles",
+          "criterion": "繰返し回数と許容損傷",
+          "value": null,
+          "unit": "NONE",
+          "confidence": "UNRESOLVED",
+          "decided_by": "オーナーの判断"
+        }
       ]
     }
   ],
   "optional_variants": {
     "pet": "Q11/Q11a–f: process, copper/vias/coverlay, lamination, force and optical tests remain separate. Reuse pet-fpc.md questions 1–9; not sent.",
     "2hp": "Parked: Q1/Q6 evidence, owner choice, 0.8 mm controller and new routing required."
-  }
+  },
+  "owner_actions": [
+    {
+      "id": "O0",
+      "title": "PCB を発注する前に PJ-324M の端子 4/5 を実物で確定する",
+      "detail": "供給元の symbol は端子 5 を tip としており、基板の推定対応（端子 4 = tip）と矛盾する。symbol の読みだけでは欠陥とは言えないので、ピン対応と銅箔は変更していない。実物の PJ-324M を TS / TRS プラグで導通試験し（jack-continuity の手順 5）、どちらが tip 接点でどちらがその normal かを記録する。PCB 発注の前提条件。",
+      "unblocks": [
+        "run:jack-continuity",
+        "criterion:jack-continuity",
+        "assembly:jack-switch-qualification"
+      ]
+    },
+    {
+      "id": "O1",
+      "title": "限定試作ルートを承認する",
+      "detail": "対象版（A7 r2 / 3HP / FR-4）、数量、入手する部品・基板・治具、許す工程、実施者、試験前の安全条件を決め、承認ファイルを残して `records.json` の owner_prototype_route に記録する。製造リリースとは別の承認。",
+      "unblocks": [
+        "owner_prototype_route",
+        "assembly:prototype-and-release"
+      ]
+    },
+    {
+      "id": "O2",
+      "title": "発注数量を決める",
+      "detail": "1 / 10 / 100 は比較条件だけ。数量が決まるまで、どの供給観測も「この発注に使える」と判断できない。 材料の供給観測は、決めた数量に対して「入手可能」と言える必要がある。",
+      "unblocks": [
+        "assembly:order-quantity",
+        "material:jack",
+        "material:switch",
+        "material:finished_cables",
+        "material:pmma_petg_hardware",
+        "material:fixture",
+        "material:assembly_service"
+      ]
+    },
+    {
+      "id": "O3",
+      "title": "供給元への質問を送るか決め、送る",
+      "detail": "`engineering/a7/qualification/supplier-questions.md` は未送信の下書き。送信と回答の保存（取得日・送信先・raw・ハッシュ）はオーナーだけが行える。",
+      "unblocks": [
+        "assembly:supply-observations",
+        "assembly:mechanical-materials",
+        "criterion:jack-dimensions",
+        "criterion:switch-fit",
+        "criterion:pmma-supports",
+        "criterion:ldo-reverse",
+        "criterion:effective-capacitance",
+        "material:jack",
+        "material:switch",
+        "material:finished_cables",
+        "material:pmma_petg_hardware",
+        "material:fixture",
+        "material:assembly_service"
+      ]
+    },
+    {
+      "id": "O4",
+      "title": "PCM13SMTR の在庫 0 への対応を決める",
+      "detail": "入荷を待つ、別の販売店から買う、または接点表と適合を別にレビューした代替品を認める（Q10）。",
+      "unblocks": [
+        "assembly:switch-supply"
+      ]
+    },
+    {
+      "id": "O5",
+      "title": "完成ケーブルを選び、電源ケーブル公差 ±3 mm（仮定）を認めるか決める",
+      "detail": "電源 57 mm の公差は仮定。供給元が保証できる公差と組立の選択を決める。SH4 と IDC リボンも同じ。",
+      "unblocks": [
+        "assembly:finished-cables",
+        "criterion:harness-depth"
+      ]
+    },
+    {
+      "id": "O6",
+      "title": "ラック締結部品を指定する",
+      "detail": "使うラックのレール・ねじ規格。",
+      "unblocks": [
+        "assembly:rack-hardware"
+      ]
+    },
+    {
+      "id": "O7",
+      "title": "オーナーが決める合否基準を決める",
+      "detail": "見え方・温度、繰返し回数と損傷、短絡試験で許す破損、CV の許容誤差とノイズ許容値、5 V 監視の要否。",
+      "unblocks": [
+        "criterion:thermal-optical",
+        "criterion:service-envelope",
+        "criterion:load-short",
+        "criterion:cv-noise",
+        "criterion:rail-collapse",
+        "criterion:jack-continuity",
+        "criterion:cv-thru-calibration"
+      ]
+    },
+    {
+      "id": "O8",
+      "title": "LED タイミング (#13) の扱いを決める",
+      "detail": "データシートの T1L 580–1000 ns と FW の 220–420 ns の矛盾。メーカー訂正を待つか、購入ロットの実測で別レビューするか。",
+      "unblocks": [
+        "criterion:firmware-waveforms"
+      ]
+    },
+    {
+      "id": "O9",
+      "title": "物理手順を実施して記録する",
+      "detail": "19 手順はすべて実機が必要。`run-templates/` の雛形をコピーし、raw ファイルとハッシュを付けて `records.json` に追加する。",
+      "unblocks": [
+        "run:*"
+      ]
+    },
+    {
+      "id": "O10",
+      "title": "製造リリースと発注を明示的に承認する",
+      "detail": "レビュー済み製造ファイル、数量、版に結び付いた承認。上のすべてが揃った後。",
+      "unblocks": [
+        "manufacturing_release",
+        "assembly:prototype-and-release"
+      ]
+    }
+  ]
 }

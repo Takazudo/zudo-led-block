@@ -96,4 +96,48 @@ class LedgerTests(unittest.TestCase):
   self.assertNotIn('top_cap_spacer_A7',ext)
   self.assertNotIn('bottom_cap_fork_A7',ext)
 
+ def test_assembly_process_from_native_pads(self):
+  process={b['board']:b['assembly_process_per_board'] for b in self.report['boards']}
+  self.assertEqual(process['controller'],{'SMD_F':31,'SMD_B':25,'THT_F':3,'THT_B':0})
+  self.assertEqual(process['led_leaf'],{'SMD_F':10,'SMD_B':0,'THT_F':0,'THT_B':0})
+  self.assertEqual(process['power_adapter'],{'SMD_F':0,'SMD_B':0,'THT_F':2,'THT_B':0})
+  rows={(r['board'],r['ref']):r for r in self.report['population']}
+  self.assertEqual({k[1] for k,r in rows.items() if r['mount']=='THT' and k[0]=='controller'},{'J1','J2','J5'})
+  self.assertEqual(rows[('controller','SW1')]['mount'],'SMD')
+  self.assertEqual(self.report['unique_fitted_identities'],30)
+
+ def test_native_geometry_bound_to_board(self):
+  with self.mutate_json(P.NATIVE_GEOMETRY,lambda d:d.update(board_sha256='0'*64)):
+   with self.assertRaisesRegex(ValueError,'stale native geometry'):P.generate()
+  def flip(d):
+   f=next(f for f in d['geometry']['footprints'] if f['ref']=='R1');f['side']='F'
+  with self.mutate_json(P.NATIVE_GEOMETRY,flip):
+   with self.assertRaisesRegex(ValueError,'side/mount'):P.generate()
+  def drop(d):
+   d['geometry']['footprints']=[f for f in d['geometry']['footprints'] if f['ref']!='U1']
+  with self.mutate_json(P.NATIVE_GEOMETRY,drop):
+   with self.assertRaisesRegex(ValueError,'side/mount'):P.generate()
+
+ def test_cable_pin_maps_follow_netlists(self):
+  ext={x['id']:x for x in self.report['external_materials']}
+  self.assertEqual([(r['a_pin'],r['b_pin'],r['a_net']) for r in ext['finished-power-cable']['pin_map']],
+                   [(1,3,'+12V_RAW'),(2,2,'GND'),(3,1,'-12V_RAW')])
+  sh4=ext['finished-sh4']['pin_maps']['controller J3 -> left leaf J1']
+  self.assertEqual([(r['a_net'],r['b_net']) for r in sh4],[('GND','GND'),('VLED','VLED'),('DATA_L','DATA_IN'),('DATA_R','DATA_OTHER')])
+  link=ext['finished-sh4']['pin_maps']['left leaf J2 -> right leaf J1']
+  self.assertEqual([(r['a_pin'],r['b_pin'],r['a_net'],r['b_net']) for r in link],
+                   [(1,1,'GND','GND'),(2,2,'VLED','VLED'),(3,3,'DATA_OTHER','DATA_IN'),(4,4,'DATA_IN','DATA_OTHER')])
+  real=P.pin_nets
+  def reversed_adapter(root,netlist,ref):
+   nets=real(root,netlist,ref)
+   return {'1':nets['3'],'2':nets['2'],'3':nets['1']} if netlist==P.BOARDS['power_adapter'][1] and ref=='J2' else nets
+  with patch.object(P,'pin_nets',side_effect=reversed_adapter):
+   with self.assertRaisesRegex(ValueError,'net'):P.generate()
+
+ def test_blockers_are_classified(self):
+  self.assertTrue(self.report['blockers'])
+  for b in self.report['blockers']:
+   self.assertIn(b['class'],P.CLASSES)
+  self.assertEqual(len({b['id'] for b in self.report['blockers']}),len(self.report['blockers']))
+
 if __name__=='__main__':unittest.main()

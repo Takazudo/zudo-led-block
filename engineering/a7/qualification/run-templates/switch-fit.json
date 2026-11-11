@@ -1,0 +1,129 @@
+{
+  "run_id": null,
+  "procedure": "switch-fit",
+  "evidence_kind": "BENCH_RECORD",
+  "synthetic": false,
+  "result": "NOT_RUN",
+  "unit_id": null,
+  "operator": null,
+  "performed_at": null,
+  "identities": {
+    "board": "4453f818ede1e6d6c56e45ef43aa6faecb90990f3755f82c6d752258cd4d628e",
+    "population": "1891af356ead303127c6b7a99b8934b08aa25f465b4b2c96872f5d5d24afdc01",
+    "schematic": "01c09e69f2623bdbb98ae6176b4b52204ae817f927ecb311242d7ac1295fbc72",
+    "firmware": "0446cb0acfa7efe86a5f6c02beb7afa482daa419ecfce204fe9169487599765e",
+    "firmware_sources": "61155c23cc8f9c05f8d5712ecd8f009673c1929a34b8437b9869c202deb85c46",
+    "configuration": "195092c88e1b9270bae22d27f4a08f4a606f9be77008f3011f06d7a975b0f6a7",
+    "mechanical": "9cbc6ac99f5b05c7e3145f2016b6918cbc5d2b77170db31ed7155755cba0d591",
+    "fixture": "fac00cc2d61cee463859a218eb00542d3b45e4099492757ff8f9ed9e36e40f1f",
+    "assembly_manifest": "0201bfaf16235df9bcf450a35842ca7b4c7316592c3de21aa92ad50041a406ce"
+  },
+  "plan_sha256": "4c706a65a90e1a52981a38da713da4c7229619d94c1a01b4aa8af667b510c483",
+  "instruments": null,
+  "setup": null,
+  "conditions": null,
+  "assembly_deviations": null,
+  "observations": "NOT_MEASURED",
+  "criterion_comparison": null,
+  "raw_evidence": [
+    {
+      "kind": "contact_truth_table",
+      "path": null,
+      "sha256": null
+    },
+    {
+      "kind": "land_peg_measurements",
+      "path": null,
+      "sha256": null
+    },
+    {
+      "kind": "setup_access",
+      "path": null,
+      "sha256": null
+    },
+    {
+      "kind": "switch_lot",
+      "path": null,
+      "sha256": null
+    }
+  ],
+  "review": null,
+  "next_action": null,
+  "acceptance_checklist": [
+    {
+      "id": "function",
+      "criterion": "接点表（端子 3 が共通）",
+      "expected": {
+        "POS.1": "1-3",
+        "POS.2": "2-3",
+        "POS.3": "3-4",
+        "common": "3"
+      },
+      "bound": "exact",
+      "unit": "NONE",
+      "confidence": "SOURCED",
+      "observed": null,
+      "verdict": null
+    },
+    {
+      "id": "mode-map",
+      "criterion": "モード符号（POS.1=ON、POS.2=PROGRAM、POS.3=CV）",
+      "expected": "POS.1 (1-3) で MODE_A=0,B=1 → ON",
+      "bound": "exact",
+      "unit": "NONE",
+      "confidence": "DESIGN",
+      "observed": null,
+      "verdict": null
+    },
+    {
+      "id": "contact-rating",
+      "criterion": "接点定格（測定電流はこれ以下）",
+      "expected": "0.3 A @ 6 VDC",
+      "bound": "max",
+      "unit": "NONE",
+      "confidence": "SOURCED",
+      "observed": null,
+      "verdict": null
+    },
+    {
+      "id": "travel",
+      "criterion": "1 位置あたりの移動量",
+      "expected": 1.5,
+      "bound": "reference",
+      "unit": "mm",
+      "confidence": "DESIGN",
+      "observed": null,
+      "verdict": null
+    },
+    {
+      "id": "peg-diameter",
+      "criterion": "ペグ径",
+      "expected": 0.8,
+      "bound": "reference",
+      "unit": "mm",
+      "confidence": "DESIGN",
+      "observed": null,
+      "verdict": null
+    },
+    {
+      "id": "access",
+      "criterion": "設定アクセスの方向",
+      "expected": "+Y (below the module), module out of the rack",
+      "bound": "exact",
+      "unit": "NONE",
+      "confidence": "DESIGN",
+      "observed": null,
+      "verdict": null
+    },
+    {
+      "id": "fit-and-contact",
+      "criterion": "本体位置の許容ずれと導通判定抵抗",
+      "expected": null,
+      "bound": null,
+      "unit": "NONE",
+      "confidence": "UNRESOLVED",
+      "observed": null,
+      "verdict": null
+    }
+  ]
+}

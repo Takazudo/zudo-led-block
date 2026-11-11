@@ -17,7 +17,7 @@
 | B11 | 試作入手: 未承認 | #10の現行release条件を保持したまま、限定sample/prototype routeのオーナー承認が必要。物理測定を捏造して依存関係を解消しない | #10 |
 | B12 | 製造リリース/注文: なし | 必要な物理・供給・版別raw証跡と基準、レビュー済み製造ファイル、数量/注文条件、明示オーナー承認が必要。NOT-A-RELEASE出力を注文ファイルに改名しない | #10 |
 
-`qualification/readiness.json` は現在49個の具体的な不足を機械可読で列挙します。資料または入力が変われば再生成が必要です。schema/reportのVALIDはこれらの解消を意味しません。
+`qualification/readiness.json` は（2026-11-09 時点で）49個の具体的な不足を機械可読で列挙します。資料または入力が変われば再生成が必要です。schema/reportのVALIDはこれらの解消を意味しません。
 
 PET Q11/Q11a–fと2HPの0.8 mm再配線/公差課題は別案のブロッカーです。FR-4/3HPの必須ゲートに混ぜません。A6 #7/PR #14は引き続きON HOLDで、そのブランチ・記録を削除しません。
 
@@ -33,3 +33,14 @@ PET Q11/Q11a–fと2HPの0.8 mm再配線/公差課題は別案のブロッカー
 - B1: 解除。main push run 43051871789 の deploy-gate で `CLOUDFLARE_DEPLOY_ENABLED` は空、Production deploy は SKIPPED。workflow は値が厳密に `true` のときだけ deploy する。変数 API 404 は保護規則の証拠として扱わない。
 - B3: Cloud VM の native 実行は引き続き行わず、既存 Actions を使う。CI artifact は 2026-11-11 に取得可能だったが、A7 候補の facts/geometry を保存していない。保存範囲の修正は別 PR。
 - B2: 維持（子 Issue は作らない）。B4–B12: 変更なし。
+
+## 2026-11-11 W3 更新
+
+`qualification/readiness.json` の `gates` が不足を 57 個のゲートに分け、解除手段で区分します（CLOUD_DIGITAL 5、OWNER_DECISION 16、ACCESS_EVIDENCE_HOLD 16、PHYSICAL_ONLY 20）。上の「49個」は区分前の数で、現在は 58 理由です。B6–B12 の内容は変わりません。B7–B9 の各手順は、実施に必要な準備物・手順・受入値を `qualification/procedures.md` に持つようになりましたが、実機での実施が必要な点は同じです。オーナーの作業は `/docs/project/order-checklist/` にまとめています。
+
+同じ日に他の作業が明らかにした未解決事項（readiness では fixture と jack-continuity のゲートに含まれる）:
+
+- 治具（#47）: 壁厚が検討用の最小 0.5 mm を下回る箇所がある（R7/R9 付近のプローブ穴で 6 か所、ポケット間で 15 か所）。最小値自体に出典はない。
+- 治具: J5 のリード突出長と、B 面のはんだフィレット高さに出典がない。
+- PJ-324M: SOFNG の supplier symbol は、推定対応（端子 4 = TIP）と矛盾する。symbol の読みだけでは欠陥と言えないため、ピン対応と銅箔は変えない（coordinator 判断）。**PCB を発注する前に**実物の PJ-324M で端子 4/5 のどちらが tip 接点でどちらが normal かを導通試験で確定する（jack-continuity 手順 5、オーナーチェックリスト O0）。
+- 部品証跡（#48 の後も残るもの）: PMEG4010CEJ の `,115` 包装の型番はデータシートで確定しない。SM04B-SRSS-TB の回路番号は No.1 端以外が印刷されていない。PJ-324M の推奨穴寸法・軸高さ・ナット付属は出典なし。台帳の `exact-part-evidence`（外部の証跡待ち）。

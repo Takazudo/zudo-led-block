@@ -216,6 +216,126 @@ class ReadinessTests(unittest.TestCase):
         self.assertTrue(any('fixture digital design incomplete' in s for s in self.evaluate()['blockers']))
 
 
+class ExecutableProcedureTests(unittest.TestCase):
+    """Acceptance values must trace to the repository; nothing here records a measurement."""
+    def setUp(self):
+        self.plan = json.loads((REPO/m.QUAL/'plan.json').read_text())
+
+    def proc(self, pid):
+        return next(p for p in self.plan['procedures'] if p['id'] == pid)
+
+    def item(self, pid, aid):
+        return next(a for a in self.proc(pid)['acceptance'] if a['id'] == aid)
+
+    def assertUntraceable(self, pattern):
+        with self.assertRaisesRegex(ValueError, pattern):
+            m.schema(self.plan, {'schema': 1, 'runs': [], 'material_observations': []})
+
+    def test_real_plan_is_traceable_and_keeps_every_procedure_unmeasured(self):
+        m.schema(self.plan, {'schema': 1, 'runs': [], 'material_observations': []})
+        for p in self.plan['procedures']:
+            self.assertEqual((p['observation'], p['result']), ('NOT_MEASURED', 'NOT_RUN'))
+            self.assertEqual(set(p['record']), set(m.REQUIRED_EVIDENCE[p['id']]))
+
+    def test_assumed_and_inferred_values_stay_labelled(self):
+        self.assertEqual(self.item('harness-depth', 'power-tolerance')['confidence'], 'ASSUMED')
+        self.assertEqual(self.item('harness-depth', 'power-tolerance')['value'], 3.0)
+        self.assertEqual(self.item('jack-dimensions', 'axis-height')['confidence'], 'INFERRED')
+        self.assertEqual(self.item('harness-depth', 'power-band')['confidence'], 'ASSUMED')
+        self.item('harness-depth', 'power-tolerance')['confidence'] = 'DESIGN'
+        self.assertUntraceable('marks this value ASSUMED')
+
+    def test_changed_fact_value_is_rejected(self):
+        self.item('switch-fit', 'contact-rating')['value'] = '1 A @ 12 VDC'
+        self.assertUntraceable('differs from the cited fact')
+
+    def test_mirror_fact_cannot_be_promoted(self):
+        self.item('pmma-supports', 'plug-force')['confidence'] = 'SOURCED'
+        self.assertUntraceable('confidence differs from the cited fact')
+
+    def test_changed_record_value_is_rejected(self):
+        self.item('harness-depth', 'power-free-span')['value'] = 50.0
+        self.assertUntraceable('differs from the cited record')
+
+    def test_invented_quote_is_rejected(self):
+        a = self.item('cv-thru-calibration', 'transfer')
+        a['value'] = a['source']['quote'] = 'VADC=CV'
+        self.assertUntraceable('quote not found')
+
+    def test_missing_source_and_valued_unresolved_are_rejected(self):
+        self.item('harness-depth', 'depth-target').pop('source')
+        self.assertUntraceable('trace')
+        self.plan = json.loads((REPO/m.QUAL/'plan.json').read_text())
+        self.item('jack-continuity', 'threshold')['value'] = 1.0
+        self.assertUntraceable('UNRESOLVED')
+
+    def test_plan_and_generated_files_cannot_be_cited(self):
+        a = self.item('harness-depth', 'depth-target')
+        a['source'] = {'path': str(m.QUAL/'plan.json'), 'quote': '30'}
+        a['value'] = '30'
+        self.assertUntraceable('not an allowed design source')
+
+    def test_component_facts_only_by_fact_id(self):
+        a = self.item('jack-dimensions', 'axis-height')
+        a['source'] = {'path': a['source']['path'], 'pointer': '/facts/0/value'}
+        a['confidence'] = 'DESIGN'
+        self.assertUntraceable('only by fact_id')
+
+    def test_any_stated_confidence_is_enforced(self):
+        a = self.item('jack-dimensions', 'axis-band')
+        a['confidence'] = 'DESIGN'
+        a.pop('confidence_trace')
+        self.assertUntraceable('marks this value INFERRED')
+
+    def test_quoted_assumption_cannot_become_design(self):
+        a = self.item('jack-dimensions', 'slot-drill')
+        a['confidence'] = 'DESIGN'
+        a.pop('confidence_trace')
+        self.assertUntraceable('quoted line marks this value ASSUMED')
+
+    def test_quote_value_must_be_a_whole_token(self):
+        self.item('jack-dimensions', 'slot-drill')['value'] = '1'
+        self.assertUntraceable('whole token')
+
+    def test_bound_is_required(self):
+        self.item('firmware-waveforms', 'reset').pop('bound')
+        self.assertUntraceable('bound must be')
+
+    def test_record_template_must_match_evidence_kinds(self):
+        self.proc('switch-fit')['record'].pop('switch_lot')
+        self.assertUntraceable('record template')
+
+    def test_owner_action_must_name_real_gates(self):
+        self.plan['owner_actions'][0]['unblocks'].append('criterion:no-such-procedure')
+        self.assertUntraceable('unknown gate')
+        self.plan = json.loads((REPO/m.QUAL/'plan.json').read_text())
+        self.plan['owner_actions'][0]['unblocks'].append('assembly:no-such-blocker')
+        self.assertUntraceable('unknown gate')
+
+    def test_gates_partition_blockers_and_owner_gates_have_actions(self):
+        report = m.evaluate(REPO, self.plan, json.loads((REPO/m.QUAL/'records.json').read_text()))
+        self.assertEqual(sum(len(g['reasons']) for g in report['gates']), len(report['blockers']))
+        self.assertTrue(all(g['class'] in m.CLASSES for g in report['gates']))
+        self.assertEqual(sum(report['gate_counts'].values()), len(report['gates']))
+        self.assertTrue(any(g['gate'].startswith('assembly:') for g in report['gates']))
+        m.checklist(self.plan, report)
+        for a in self.plan['owner_actions']:
+            a['unblocks'] = [g for g in a['unblocks'] if g != 'owner_prototype_route']
+        with self.assertRaisesRegex(ValueError, 'without an owner action'):
+            m.checklist(self.plan, report)
+
+    def test_unfilled_run_template_does_not_pass(self):
+        report = m.evaluate(REPO, self.plan, json.loads((REPO/m.QUAL/'records.json').read_text()))
+        proc = self.proc('jack-continuity')
+        run = json.loads(m.run_template(self.plan, report, proc))
+        run['run_id'] = 'template-as-is'
+        self.assertEqual(run['identities'], {k: v['sha256'] for k, v in report['identities'].items()})
+        records = {'schema': 1, 'runs': [run], 'material_observations': []}
+        outcome = next(o for o in m.evaluate(REPO, self.plan, records)['procedures'] if o['id'] == 'jack-continuity')
+        self.assertEqual(outcome['status'], 'BLOCKED')
+        self.assertIn('latest run is not an actual passing BENCH_RECORD', outcome['reasons'])
+
+
 class ProducerBindingTests(unittest.TestCase):
     def test_fake_artifact_even_with_rebound_hash_is_rejected_by_real_producer(self):
         for key in ['fixture','assembly_manifest']:

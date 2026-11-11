@@ -24,6 +24,7 @@
     "engineering/a7/electronics/controller/controller.kicad_pcb": "4453f818ede1e6d6c56e45ef43aa6faecb90990f3755f82c6d752258cd4d628e",
     "engineering/a7/electronics/controller/controller.kicad_sch": "01c09e69f2623bdbb98ae6176b4b52204ae817f927ecb311242d7ac1295fbc72",
     "engineering/a7/fixture/materials.json": "b05f46b48715ec8cdcf18a557a880d6f68f2ca7967ba932fc38ade4fef0e983e",
+    "engineering/a7/fixture/native-geometry.json": "2f372a058a24cb117d9e294d11411e84cb575e682d18f7651cbf0547d1bc7f51",
     "engineering/a7/mechanical/build_a7_mechanical.py": "98f47662650732d7d8215e0f86cff404521351ca43a795bd8811fc4f452d3daa",
     "engineering/a7/mechanical/exports/3hp/verification.json": "90d7b8c54ebb59cdc2e2ad2b66d1ba9f183759a6104865d93cc57cdfb1902c26",
     "engineering/a7/mechanical/layout.json": "9cbc6ac99f5b05c7e3145f2016b6918cbc5d2b77170db31ed7155755cba0d591",
@@ -33,6 +34,12 @@
     {
       "board": "controller",
       "multiplicity": 1,
+      "assembly_process_per_board": {
+        "SMD_F": 31,
+        "SMD_B": 25,
+        "THT_F": 3,
+        "THT_B": 0
+      },
       "pcb": "engineering/a7/electronics/controller/controller.kicad_pcb",
       "pcb_sha256": "4453f818ede1e6d6c56e45ef43aa6faecb90990f3755f82c6d752258cd4d628e",
       "netlist": "engineering/a7/verification/schematic/netlist.xml",
@@ -43,6 +50,12 @@
     {
       "board": "led_leaf",
       "multiplicity": 2,
+      "assembly_process_per_board": {
+        "SMD_F": 10,
+        "SMD_B": 0,
+        "THT_F": 0,
+        "THT_B": 0
+      },
       "pcb": "engineering/a5/electronics/native/led_leaf/led_leaf.kicad_pcb",
       "pcb_sha256": "6244280cec3efe00ca31d9c5c8878f3ed6eb59a1c6bd4e933beffedd49511df3",
       "netlist": "engineering/a5/integration/native_schematic/led_leaf/netlist.xml",
@@ -53,6 +66,12 @@
     {
       "board": "power_adapter",
       "multiplicity": 1,
+      "assembly_process_per_board": {
+        "SMD_F": 0,
+        "SMD_B": 0,
+        "THT_F": 2,
+        "THT_B": 0
+      },
       "pcb": "engineering/a5/electronics/native/power_adapter/power_adapter.kicad_pcb",
       "pcb_sha256": "b0f071f2730afdfd3d29de2176b1cce5f90b0c0726d14fd15501e27f90d95187",
       "netlist": "engineering/a5/integration/native_schematic/power_adapter/netlist.xml",
@@ -73,6 +92,7 @@
       "owner_skill": "component-cl21a106kaynnne",
       "footprint": "LightBlock:C0805",
       "population": "FITTED",
+      "mount": "SMD",
       "quantity_per_board": 1,
       "board_multiplicity": 1,
       "quantity_per_module": 1,
@@ -100,6 +120,7 @@
       "owner_skill": "component-cc0603krx7r9bb104",
       "footprint": "LightBlock:C0603",
       "population": "FITTED",
+      "mount": "SMD",
       "quantity_per_board": 1,
       "board_multiplicity": 1,
       "quantity_per_module": 1,
@@ -127,6 +148,7 @@
       "owner_skill": "component-cc0603krx7r9bb104",
       "footprint": "LightBlock:C0603",
       "population": "FITTED",
+      "mount": "SMD",
       "quantity_per_board": 1,
       "board_multiplicity": 1,
       "quantity_per_module": 1,
@@ -154,6 +176,7 @@
       "owner_skill": "component-cc0603krx7r9bb104",
       "footprint": "LightBlock:C0603",
       "population": "FITTED",
+      "mount": "SMD",
       "quantity_per_board": 1,
       "board_multiplicity": 1,
       "quantity_per_module": 1,
@@ -181,6 +204,7 @@
       "owner_skill": "component-0603b103k500nt",
       "footprint": "LightBlock:C0603",
       "population": "FITTED",
+      "mount": "SMD",
       "quantity_per_board": 1,
       "board_multiplicity": 1,
       "quantity_per_module": 1,
@@ -208,6 +232,7 @@
       "owner_skill": "component-cc0603krx7r9bb104",
       "footprint": "LightBlock:C0603",
       "population": "FITTED",
+      "mount": "SMD",
       "quantity_per_board": 1,
       "board_multiplicity": 1,
       "quantity_per_module": 1,
@@ -235,6 +260,7 @@
       "owner_skill": "component-cl21a106kaynnne",
       "footprint": "LightBlock:C0805",
       "population": "FITTED",
+      "mount": "SMD",
       "quantity_per_board": 1,
       "board_multiplicity": 1,
       "quantity_per_module": 1,
@@ -262,6 +288,7 @@
       "owner_skill": "component-cl21a106kaynnne",
       "footprint": "LightBlock:C0805",
       "population": "FITTED",
+      "mount": "SMD",
       "quantity_per_board": 1,
       "board_multiplicity": 1,
       "quantity_per_module": 1,
@@ -289,6 +316,7 @@
       "owner_skill": "component-cc0603krx7r9bb104",
       "footprint": "LightBlock:C0603",
       "population": "FITTED",
+      "mount": "SMD",
       "quantity_per_board": 1,
       "board_multiplicity": 1,
       "quantity_per_module": 1,
@@ -316,6 +344,7 @@
       "owner_skill": "component-cl31a226kahnnne",
       "footprint": "LightBlock:C1206",
       "population": "FITTED",
+      "mount": "SMD",
       "quantity_per_board": 1,
       "board_multiplicity": 1,
       "quantity_per_module": 1,
@@ -343,6 +372,7 @@
       "owner_skill": "component-cl31a226kahnnne",
       "footprint": "LightBlock:C1206",
       "population": "FITTED",
+      "mount": "SMD",
       "quantity_per_board": 1,
       "board_multiplicity": 1,
       "quantity_per_module": 1,
@@ -370,6 +400,7 @@
       "owner_skill": "component-cc0603krx7r9bb104",
       "footprint": "LightBlock:C0603",
       "population": "FITTED",
+      "mount": "SMD",
       "quantity_per_board": 1,
       "board_multiplicity": 1,
       "quantity_per_module": 1,
@@ -397,6 +428,7 @@
       "owner_skill": "component-cl10a475ko8nnnc",
       "footprint": "LightBlock:C0603",
       "population": "FITTED",
+      "mount": "SMD",
       "quantity_per_board": 1,
       "board_multiplicity": 1,
       "quantity_per_module": 1,
@@ -424,6 +456,7 @@
       "owner_skill": "component-cl10a475ko8nnnc",
       "footprint": "LightBlock:C0603",
       "population": "FITTED",
+      "mount": "SMD",
       "quantity_per_board": 1,
       "board_multiplicity": 1,
       "quantity_per_module": 1,
@@ -451,6 +484,7 @@
       "owner_skill": "component-cl10a475ko8nnnc",
       "footprint": "LightBlock:C0603",
       "population": "FITTED",
+      "mount": "SMD",
       "quantity_per_board": 1,
       "board_multiplicity": 1,
       "quantity_per_module": 1,
@@ -478,6 +512,7 @@
       "owner_skill": "component-cc0603krx7r9bb104",
       "footprint": "LightBlock:C0603",
       "population": "FITTED",
+      "mount": "SMD",
       "quantity_per_board": 1,
       "board_multiplicity": 1,
       "quantity_per_module": 1,
@@ -505,6 +540,7 @@
       "owner_skill": "component-cc0603krx7r9bb104",
       "footprint": "LightBlock:C0603",
       "population": "FITTED",
+      "mount": "SMD",
       "quantity_per_board": 1,
       "board_multiplicity": 1,
       "quantity_per_module": 1,
@@ -532,6 +568,7 @@
       "owner_skill": "component-pmeg4010cej-115",
       "footprint": "LightBlock:SOD323F",
       "population": "FITTED",
+      "mount": "SMD",
       "quantity_per_board": 1,
       "board_multiplicity": 1,
       "quantity_per_module": 1,
@@ -559,6 +596,7 @@
       "owner_skill": "component-pmeg4010cej-115",
       "footprint": "LightBlock:SOD323F",
       "population": "FITTED",
+      "mount": "SMD",
       "quantity_per_board": 1,
       "board_multiplicity": 1,
       "quantity_per_module": 1,
@@ -586,6 +624,7 @@
       "owner_skill": "component-bas70-04-7-f",
       "footprint": "LightBlock:SOT23",
       "population": "FITTED",
+      "mount": "SMD",
       "quantity_per_board": 1,
       "board_multiplicity": 1,
       "quantity_per_module": 1,
@@ -613,6 +652,7 @@
       "owner_skill": "component-a7-pj-324m",
       "footprint": "LightBlockA7:PJ324M",
       "population": "FITTED",
+      "mount": "THT",
       "quantity_per_board": 1,
       "board_multiplicity": 1,
       "quantity_per_module": 1,
@@ -640,6 +680,7 @@
       "owner_skill": "component-a7-pj-324m",
       "footprint": "LightBlockA7:PJ324M",
       "population": "FITTED",
+      "mount": "THT",
       "quantity_per_board": 1,
       "board_multiplicity": 1,
       "quantity_per_module": 1,
@@ -667,6 +708,7 @@
       "owner_skill": "component-sm04b-srss-tb-lf-sn",
       "footprint": "LightBlock:JST_SH4",
       "population": "FITTED",
+      "mount": "SMD",
       "quantity_per_board": 1,
       "board_multiplicity": 1,
       "quantity_per_module": 1,
@@ -694,6 +736,7 @@
       "owner_skill": "component-530470310",
       "footprint": "LightBlock:PICO3",
       "population": "FITTED",
+      "mount": "THT",
       "quantity_per_board": 1,
       "board_multiplicity": 1,
       "quantity_per_module": 1,
@@ -721,6 +764,7 @@
       "owner_skill": "component-spm4020t-4r7m-lr",
       "footprint": "LightBlock:SPM4020_LR",
       "population": "FITTED",
+      "mount": "SMD",
       "quantity_per_board": 1,
       "board_multiplicity": 1,
       "quantity_per_module": 1,
@@ -748,6 +792,7 @@
       "owner_skill": "component-mmbt3904-range-100-300",
       "footprint": "LightBlock:SOT23",
       "population": "FITTED",
+      "mount": "SMD",
       "quantity_per_board": 1,
       "board_multiplicity": 1,
       "quantity_per_module": 1,
@@ -775,6 +820,7 @@
       "owner_skill": "component-0603waf1005t5e",
       "footprint": "LightBlock:R0603",
       "population": "FITTED",
+      "mount": "SMD",
       "quantity_per_board": 1,
       "board_multiplicity": 1,
       "quantity_per_module": 1,
@@ -802,6 +848,7 @@
       "owner_skill": "component-0603waf1002t5e",
       "footprint": "LightBlock:R0603",
       "population": "FITTED",
+      "mount": "SMD",
       "quantity_per_board": 1,
       "board_multiplicity": 1,
       "quantity_per_module": 1,
@@ -829,6 +876,7 @@
       "owner_skill": "component-0603waf6802t5e",
       "footprint": "LightBlock:R0603",
       "population": "FITTED",
+      "mount": "SMD",
       "quantity_per_board": 1,
       "board_multiplicity": 1,
       "quantity_per_module": 1,
@@ -856,6 +904,7 @@
       "owner_skill": "component-0603waf1003t5e",
       "footprint": "LightBlock:R0603",
       "population": "FITTED",
+      "mount": "SMD",
       "quantity_per_board": 1,
       "board_multiplicity": 1,
       "quantity_per_module": 1,
@@ -883,6 +932,7 @@
       "owner_skill": "component-0603waf1002t5e",
       "footprint": "LightBlock:R0603",
       "population": "FITTED",
+      "mount": "SMD",
       "quantity_per_board": 1,
       "board_multiplicity": 1,
       "quantity_per_module": 1,
@@ -910,6 +960,7 @@
       "owner_skill": "component-0603waf3300t5e",
       "footprint": "LightBlock:R0603",
       "population": "FITTED",
+      "mount": "SMD",
       "quantity_per_board": 1,
       "board_multiplicity": 1,
       "quantity_per_module": 1,
@@ -937,6 +988,7 @@
       "owner_skill": "component-0603waf3300t5e",
       "footprint": "LightBlock:R0603",
       "population": "FITTED",
+      "mount": "SMD",
       "quantity_per_board": 1,
       "board_multiplicity": 1,
       "quantity_per_module": 1,
@@ -964,6 +1016,7 @@
       "owner_skill": "component-0603waf1003t5e",
       "footprint": "LightBlock:R0603",
       "population": "FITTED",
+      "mount": "SMD",
       "quantity_per_board": 1,
       "board_multiplicity": 1,
       "quantity_per_module": 1,
@@ -991,6 +1044,7 @@
       "owner_skill": "component-0603waf1003t5e",
       "footprint": "LightBlock:R0603",
       "population": "FITTED",
+      "mount": "SMD",
       "quantity_per_board": 1,
       "board_multiplicity": 1,
       "quantity_per_module": 1,
@@ -1018,6 +1072,7 @@
       "owner_skill": "component-0603waf1003t5e",
       "footprint": "LightBlock:R0603",
       "population": "FITTED",
+      "mount": "SMD",
       "quantity_per_board": 1,
       "board_multiplicity": 1,
       "quantity_per_module": 1,
@@ -1045,6 +1100,7 @@
       "owner_skill": "component-0603waf1003t5e",
       "footprint": "LightBlock:R0603",
       "population": "FITTED",
+      "mount": "SMD",
       "quantity_per_board": 1,
       "board_multiplicity": 1,
       "quantity_per_module": 1,
@@ -1072,6 +1128,7 @@
       "owner_skill": "component-0603waf1005t5e",
       "footprint": "LightBlock:R0603",
       "population": "FITTED",
+      "mount": "SMD",
       "quantity_per_board": 1,
       "board_multiplicity": 1,
       "quantity_per_module": 1,
@@ -1099,6 +1156,7 @@
       "owner_skill": "component-0603waf4701t5e",
       "footprint": "LightBlock:R0603",
       "population": "FITTED",
+      "mount": "SMD",
       "quantity_per_board": 1,
       "board_multiplicity": 1,
       "quantity_per_module": 1,
@@ -1126,6 +1184,7 @@
       "owner_skill": "component-0603waf1002t5e",
       "footprint": "LightBlock:R0603",
       "population": "FITTED",
+      "mount": "SMD",
       "quantity_per_board": 1,
       "board_multiplicity": 1,
       "quantity_per_module": 1,
@@ -1153,6 +1212,7 @@
       "owner_skill": "component-0603waf1002t5e",
       "footprint": "LightBlock:R0603",
       "population": "FITTED",
+      "mount": "SMD",
       "quantity_per_board": 1,
       "board_multiplicity": 1,
       "quantity_per_module": 1,
@@ -1180,6 +1240,7 @@
       "owner_skill": "component-0603waf1003t5e",
       "footprint": "LightBlock:R0603",
       "population": "FITTED",
+      "mount": "SMD",
       "quantity_per_board": 1,
       "board_multiplicity": 1,
       "quantity_per_module": 1,
@@ -1207,6 +1268,7 @@
       "owner_skill": "component-0603waf3300t5e",
       "footprint": "LightBlock:R0603",
       "population": "FITTED",
+      "mount": "SMD",
       "quantity_per_board": 1,
       "board_multiplicity": 1,
       "quantity_per_module": 1,
@@ -1234,6 +1296,7 @@
       "owner_skill": "component-0603waf1001t5e",
       "footprint": "LightBlock:R0603",
       "population": "FITTED",
+      "mount": "SMD",
       "quantity_per_board": 1,
       "board_multiplicity": 1,
       "quantity_per_module": 1,
@@ -1261,6 +1324,7 @@
       "owner_skill": "component-0603waf8202t5e",
       "footprint": "LightBlock:R0603",
       "population": "FITTED",
+      "mount": "SMD",
       "quantity_per_board": 1,
       "board_multiplicity": 1,
       "quantity_per_module": 1,
@@ -1288,6 +1352,7 @@
       "owner_skill": "component-0603waf8202t5e",
       "footprint": "LightBlock:R0603",
       "population": "FITTED",
+      "mount": "SMD",
       "quantity_per_board": 1,
       "board_multiplicity": 1,
       "quantity_per_module": 1,
@@ -1315,6 +1380,7 @@
       "owner_skill": "component-0603waf8202t5e",
       "footprint": "LightBlock:R0603",
       "population": "FITTED",
+      "mount": "SMD",
       "quantity_per_board": 1,
       "board_multiplicity": 1,
       "quantity_per_module": 1,
@@ -1342,6 +1408,7 @@
       "owner_skill": "component-0603waf8202t5e",
       "footprint": "LightBlock:R0603",
       "population": "FITTED",
+      "mount": "SMD",
       "quantity_per_board": 1,
       "board_multiplicity": 1,
       "quantity_per_module": 1,
@@ -1369,6 +1436,7 @@
       "owner_skill": "component-0603waf1001t5e",
       "footprint": "LightBlock:R0603",
       "population": "FITTED",
+      "mount": "SMD",
       "quantity_per_board": 1,
       "board_multiplicity": 1,
       "quantity_per_module": 1,
@@ -1396,6 +1464,7 @@
       "owner_skill": "component-0603waf1001t5e",
       "footprint": "LightBlock:R0603",
       "population": "FITTED",
+      "mount": "SMD",
       "quantity_per_board": 1,
       "board_multiplicity": 1,
       "quantity_per_module": 1,
@@ -1423,6 +1492,7 @@
       "owner_skill": "component-0603waf1002t5e",
       "footprint": "LightBlock:R0603",
       "population": "FITTED",
+      "mount": "SMD",
       "quantity_per_board": 1,
       "board_multiplicity": 1,
       "quantity_per_module": 1,
@@ -1450,6 +1520,7 @@
       "owner_skill": "component-a7-pcm13smtr",
       "footprint": "LightBlockA7:PCM13SMTR",
       "population": "FITTED",
+      "mount": "SMD",
       "quantity_per_board": 1,
       "board_multiplicity": 1,
       "quantity_per_module": 1,
@@ -1494,6 +1565,7 @@
       "owner_skill": "component-stm32g031g8u6tr",
       "footprint": "LightBlock:QFN28",
       "population": "FITTED",
+      "mount": "SMD",
       "quantity_per_board": 1,
       "board_multiplicity": 1,
       "quantity_per_module": 1,
@@ -1521,6 +1593,7 @@
       "owner_skill": "component-ap63205wu-7",
       "footprint": "LightBlock:TSOT26",
       "population": "FITTED",
+      "mount": "SMD",
       "quantity_per_board": 1,
       "board_multiplicity": 1,
       "quantity_per_module": 1,
@@ -1548,6 +1621,7 @@
       "owner_skill": "component-tlv75533pdbvr",
       "footprint": "LightBlock:DBV5",
       "population": "FITTED",
+      "mount": "SMD",
       "quantity_per_board": 1,
       "board_multiplicity": 1,
       "quantity_per_module": 1,
@@ -1575,6 +1649,7 @@
       "owner_skill": "component-tps2552dbvr-1",
       "footprint": "LightBlock:DBV6",
       "population": "FITTED",
+      "mount": "SMD",
       "quantity_per_board": 1,
       "board_multiplicity": 1,
       "quantity_per_module": 1,
@@ -1602,6 +1677,7 @@
       "owner_skill": "component-sn74lvc2t45dcur",
       "footprint": "LightBlock:DCU8",
       "population": "FITTED",
+      "mount": "SMD",
       "quantity_per_board": 1,
       "board_multiplicity": 1,
       "quantity_per_module": 1,
@@ -1629,6 +1705,7 @@
       "owner_skill": "component-opa197idbvr",
       "footprint": "LightBlock:DBV5",
       "population": "FITTED",
+      "mount": "SMD",
       "quantity_per_board": 1,
       "board_multiplicity": 1,
       "quantity_per_module": 1,
@@ -1656,6 +1733,7 @@
       "owner_skill": "component-tlv9001idbvr",
       "footprint": "LightBlock:DBV5",
       "population": "FITTED",
+      "mount": "SMD",
       "quantity_per_board": 1,
       "board_multiplicity": 1,
       "quantity_per_module": 1,
@@ -1683,6 +1761,7 @@
       "owner_skill": "component-cc0603krx7r9bb104",
       "footprint": "LightBlock:C0603",
       "population": "FITTED",
+      "mount": "SMD",
       "quantity_per_board": 1,
       "board_multiplicity": 2,
       "quantity_per_module": 2,
@@ -1710,6 +1789,7 @@
       "owner_skill": "component-cc0603krx7r9bb104",
       "footprint": "LightBlock:C0603",
       "population": "FITTED",
+      "mount": "SMD",
       "quantity_per_board": 1,
       "board_multiplicity": 2,
       "quantity_per_module": 2,
@@ -1737,6 +1817,7 @@
       "owner_skill": "component-cc0603krx7r9bb104",
       "footprint": "LightBlock:C0603",
       "population": "FITTED",
+      "mount": "SMD",
       "quantity_per_board": 1,
       "board_multiplicity": 2,
       "quantity_per_module": 2,
@@ -1764,6 +1845,7 @@
       "owner_skill": "component-cc0603krx7r9bb104",
       "footprint": "LightBlock:C0603",
       "population": "FITTED",
+      "mount": "SMD",
       "quantity_per_board": 1,
       "board_multiplicity": 2,
       "quantity_per_module": 2,
@@ -1791,6 +1873,7 @@
       "owner_skill": "component-ws2812b-2020-v6",
       "footprint": "LightBlock:WS2812B_2020_V6",
       "population": "FITTED",
+      "mount": "SMD",
       "quantity_per_board": 1,
       "board_multiplicity": 2,
       "quantity_per_module": 2,
@@ -1818,6 +1901,7 @@
       "owner_skill": "component-ws2812b-2020-v6",
       "footprint": "LightBlock:WS2812B_2020_V6",
       "population": "FITTED",
+      "mount": "SMD",
       "quantity_per_board": 1,
       "board_multiplicity": 2,
       "quantity_per_module": 2,
@@ -1845,6 +1929,7 @@
       "owner_skill": "component-ws2812b-2020-v6",
       "footprint": "LightBlock:WS2812B_2020_V6",
       "population": "FITTED",
+      "mount": "SMD",
       "quantity_per_board": 1,
       "board_multiplicity": 2,
       "quantity_per_module": 2,
@@ -1872,6 +1957,7 @@
       "owner_skill": "component-ws2812b-2020-v6",
       "footprint": "LightBlock:WS2812B_2020_V6",
       "population": "FITTED",
+      "mount": "SMD",
       "quantity_per_board": 1,
       "board_multiplicity": 2,
       "quantity_per_module": 2,
@@ -1899,6 +1985,7 @@
       "owner_skill": "component-sm04b-srss-tb-lf-sn",
       "footprint": "LightBlock:JST_SH4",
       "population": "FITTED",
+      "mount": "SMD",
       "quantity_per_board": 1,
       "board_multiplicity": 2,
       "quantity_per_module": 2,
@@ -1926,6 +2013,7 @@
       "owner_skill": "component-sm04b-srss-tb-lf-sn",
       "footprint": "LightBlock:JST_SH4",
       "population": "FITTED",
+      "mount": "SMD",
       "quantity_per_board": 1,
       "board_multiplicity": 2,
       "quantity_per_module": 2,
@@ -1953,6 +2041,7 @@
       "owner_skill": "component-boomele-2-54-2x5p",
       "footprint": "LightBlock:IDC10",
       "population": "FITTED",
+      "mount": "THT",
       "quantity_per_board": 1,
       "board_multiplicity": 1,
       "quantity_per_module": 1,
@@ -1980,6 +2069,7 @@
       "owner_skill": "component-530470310",
       "footprint": "LightBlock:PICO3",
       "population": "FITTED",
+      "mount": "THT",
       "quantity_per_board": 1,
       "board_multiplicity": 1,
       "quantity_per_module": 1,
@@ -2564,6 +2654,60 @@
     {
       "id": "finished-sh4",
       "quantity_per_module": 2,
+      "pin_maps": {
+        "controller J3 -> left leaf J1": [
+          {
+            "a_pin": 1,
+            "b_pin": 1,
+            "a_net": "GND",
+            "b_net": "GND"
+          },
+          {
+            "a_pin": 2,
+            "b_pin": 2,
+            "a_net": "VLED",
+            "b_net": "VLED"
+          },
+          {
+            "a_pin": 3,
+            "b_pin": 3,
+            "a_net": "DATA_L",
+            "b_net": "DATA_IN"
+          },
+          {
+            "a_pin": 4,
+            "b_pin": 4,
+            "a_net": "DATA_R",
+            "b_net": "DATA_OTHER"
+          }
+        ],
+        "left leaf J2 -> right leaf J1": [
+          {
+            "a_pin": 1,
+            "b_pin": 1,
+            "a_net": "GND",
+            "b_net": "GND"
+          },
+          {
+            "a_pin": 2,
+            "b_pin": 2,
+            "a_net": "VLED",
+            "b_net": "VLED"
+          },
+          {
+            "a_pin": 3,
+            "b_pin": 3,
+            "a_net": "DATA_OTHER",
+            "b_net": "DATA_IN"
+          },
+          {
+            "a_pin": 4,
+            "b_pin": 4,
+            "a_net": "DATA_IN",
+            "b_net": "DATA_OTHER"
+          }
+        ]
+      },
       "candidate": "Adafruit 4399 / Kaweei CBH-100-04-050-A",
       "requirement": "Finished 50 mm SH4 AWG28 1:1; controller J3 to left J1, left J2 to right J1. Incoming construction/length and real route unqualified.",
       "source": "engineering/a5/integration/harness_contract_A5.md",
@@ -2598,7 +2742,26 @@
         "physical_measurement": "MISSING: no cable has been routed or measured; plug strain relief, wire stiffness and the real fold shape are not known (#8)"
       },
       "source": "engineering/a7/mechanical/layout.json",
-      "pin_map": "A1→B3, A2→B2, A3→B1; controller J5 +12V/GND/-12V, adapter J2 -12V/GND/+12V",
+      "pin_map": [
+        {
+          "a_pin": 1,
+          "b_pin": 3,
+          "a_net": "+12V_RAW",
+          "b_net": "+12V_RAW"
+        },
+        {
+          "a_pin": 2,
+          "b_pin": 2,
+          "a_net": "GND",
+          "b_net": "GND"
+        },
+        {
+          "a_pin": 3,
+          "b_pin": 1,
+          "a_net": "-12V_RAW",
+          "b_net": "-12V_RAW"
+        }
+      ],
       "status": "BLOCKED: exact finished assembly not selected; historical Molex 151340300 50±6 mm is not the A7 cable",
       "commercial_observation": null
     },
@@ -2671,11 +2834,32 @@
       "No current price, MOQ, lead time or assembly availability retrieved."
     ]
   },
+  "unique_fitted_identities": 30,
   "services": [
     {
       "id": "pcba",
       "status": "UNCONFIRMED",
-      "requirement": "Factory SMT and through-hole assembly; quote, attrition, minimums, orientation and process not approved"
+      "process_per_board": {
+        "controller": {
+          "SMD_F": 31,
+          "SMD_B": 25,
+          "THT_F": 3,
+          "THT_B": 0
+        },
+        "led_leaf": {
+          "SMD_F": 10,
+          "SMD_B": 0,
+          "THT_F": 0,
+          "THT_B": 0
+        },
+        "power_adapter": {
+          "SMD_F": 0,
+          "SMD_B": 0,
+          "THT_F": 2,
+          "THT_B": 0
+        }
+      },
+      "requirement": "Factory assembly. Controller: SMD on both sides (F and B) plus through-hole jacks and power header on F, from native pad attributes. Leaf: one-side SMD. Adapter: through-hole only. Quote, attrition, minimums, orientation, side order and process not approved"
     },
     {
       "id": "program-calibrate",
@@ -2686,10 +2870,55 @@
     }
   ],
   "blockers": [
-    "Current supply and assembly eligibility not obtained for every line; stock never reserved.",
-    "PJ-324M pin/slot/axis/nut qualification and PCM13SMTR supply/land fit open.",
-    "Finished A7 power cable, PMMA pockets/tolerances, PETG and hardware qualification unresolved.",
-    "Fixture materials need E3 review and physical contact/load tests.",
-    "No physical prototype, release approval, final manufacturing package or agreed order quantity."
+    {
+      "id": "supply-observations",
+      "class": "ACCESS_EVIDENCE_HOLD",
+      "text": "Current stock, price, MOQ, packaging, lead time and assembly applicability not obtained for any line except the dated C221842 zero-stock observation; stock never reserved."
+    },
+    {
+      "id": "order-quantity",
+      "class": "OWNER_DECISION",
+      "text": "No agreed order quantity; 1/10/100 are comparison scenarios only, so no supply observation can be judged available for a proposed order."
+    },
+    {
+      "id": "switch-supply",
+      "class": "OWNER_DECISION",
+      "text": "PCM13SMTR (C221842) had JLC stock 0 / presale 0 at 2026-11-09; wait, buy elsewhere, or accept a reviewed alternate with its own contact table and fit review."
+    },
+    {
+      "id": "jack-switch-qualification",
+      "class": "PHYSICAL_ONLY",
+      "text": "PJ-324M pin function (which of terminals 4/5 is the tip contact and which its normal; the supplier symbol contradicts the inferred 4 = tip, so this continuity test must precede any PCB order), slot, axis height and nut fit, and PCM13SMTR truth table and land fit, need received parts (jack-continuity, jack-dimensions, switch-fit)."
+    },
+    {
+      "id": "exact-part-evidence",
+      "class": "ACCESS_EVIDENCE_HOLD",
+      "text": "Exact-part gaps after the 2026-11-11 source recovery: PMEG4010CEJ ,115 packing variant not established by the datasheet; SM04B-SRSS-TB per-circuit numbering not printed beyond the No. 1 end; PJ-324M recommended hole/slot sizes, axis height and whether a nut ships with C22355739 not sourced."
+    },
+    {
+      "id": "finished-cables",
+      "class": "OWNER_DECISION",
+      "text": "Finished A7 power cable (57 mm, +/-3 ASSUMED), SH4 cables and IDC ribbon not selected; supplier answers and the owner choice of assembly are needed before physical routing checks."
+    },
+    {
+      "id": "mechanical-materials",
+      "class": "ACCESS_EVIDENCE_HOLD",
+      "text": "PMMA sheet and pocket tolerances, PETG process and orderable fastener part numbers are not sourced; the model carries designations (M2x18, M1.6x4) and envelopes only."
+    },
+    {
+      "id": "rack-hardware",
+      "class": "OWNER_DECISION",
+      "text": "Owner rack rail/thread interface and fasteners not specified."
+    },
+    {
+      "id": "fixture-materials",
+      "class": "CLOUD_DIGITAL",
+      "text": "Fixture design and materials incomplete (see fixture manifest); physical contact/load tests follow."
+    },
+    {
+      "id": "prototype-and-release",
+      "class": "OWNER_DECISION",
+      "text": "No owner-approved prototype route, no reviewed manufacturing package and no release approval."
+    }
   ]
 }
