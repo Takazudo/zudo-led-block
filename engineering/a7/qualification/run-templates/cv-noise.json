@@ -18,7 +18,7 @@
     "fixture": "fac00cc2d61cee463859a218eb00542d3b45e4099492757ff8f9ed9e36e40f1f",
     "assembly_manifest": "0201bfaf16235df9bcf450a35842ca7b4c7316592c3de21aa92ad50041a406ce"
   },
-  "plan_sha256": "4c706a65a90e1a52981a38da713da4c7229619d94c1a01b4aa8af667b510c483",
+  "plan_sha256": "4e0888089320c114b616cf48b841a3bc9e6f6a5ba1c9d3b6b03d6be6653adae9",
   "instruments": null,
   "setup": null,
   "conditions": null,
@@ -57,16 +57,18 @@
       "bound": "reference",
       "unit": "NONE",
       "confidence": "DESIGN",
+      "proposed": false,
       "observed": null,
       "verdict": null
     },
     {
-      "id": "limit",
-      "criterion": "許容ノイズと帯域",
-      "expected": null,
-      "bound": null,
-      "unit": "V",
-      "confidence": "UNRESOLVED",
+      "id": "noise-max",
+      "criterion": "LED データ送信中の CV 換算ノイズ（ピーク・ツー・ピーク）の上限",
+      "expected": 50,
+      "bound": "max",
+      "unit": "mV",
+      "confidence": "PROPOSED",
+      "proposed": true,
       "observed": null,
       "verdict": null
     }

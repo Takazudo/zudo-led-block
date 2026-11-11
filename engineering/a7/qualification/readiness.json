@@ -43,13 +43,14 @@
       "sha256": "0201bfaf16235df9bcf450a35842ca7b4c7316592c3de21aa92ad50041a406ce"
     }
   },
-  "plan_sha256": "4c706a65a90e1a52981a38da713da4c7229619d94c1a01b4aa8af667b510c483",
+  "plan_sha256": "4e0888089320c114b616cf48b841a3bc9e6f6a5ba1c9d3b6b03d6be6653adae9",
   "procedures": [
     {
       "id": "jack-continuity",
       "status": "BLOCKED",
       "reasons": [
         "criterion unresolved or review receipt missing",
+        "criterion has PROPOSED or UNRESOLVED acceptance values: closed-max, open-min",
         "NOT_MEASURED: no run"
       ]
     },
@@ -58,6 +59,7 @@
       "status": "BLOCKED",
       "reasons": [
         "criterion unresolved or review receipt missing",
+        "criterion has PROPOSED or UNRESOLVED acceptance values: tolerances",
         "NOT_MEASURED: no run"
       ]
     },
@@ -66,6 +68,7 @@
       "status": "BLOCKED",
       "reasons": [
         "criterion unresolved or review receipt missing",
+        "criterion has PROPOSED or UNRESOLVED acceptance values: fit-and-contact",
         "NOT_MEASURED: no run"
       ]
     },
@@ -74,6 +77,7 @@
       "status": "BLOCKED",
       "reasons": [
         "criterion unresolved or review receipt missing",
+        "criterion has PROPOSED or UNRESOLVED acceptance values: bend-radius, power-band-order",
         "NOT_MEASURED: no run"
       ]
     },
@@ -82,6 +86,7 @@
       "status": "BLOCKED",
       "reasons": [
         "criterion unresolved or review receipt missing",
+        "criterion has PROPOSED or UNRESOLVED acceptance values: torque-retention",
         "NOT_MEASURED: no run"
       ]
     },
@@ -90,6 +95,7 @@
       "status": "BLOCKED",
       "reasons": [
         "criterion unresolved or review receipt missing",
+        "criterion has PROPOSED or UNRESOLVED acceptance values: registration",
         "NOT_MEASURED: no run"
       ]
     },
@@ -98,6 +104,7 @@
       "status": "BLOCKED",
       "reasons": [
         "criterion unresolved or review receipt missing",
+        "criterion has PROPOSED or UNRESOLVED acceptance values: t1l-min, t1l-max",
         "NOT_MEASURED: no run"
       ]
     },
@@ -114,6 +121,7 @@
       "status": "BLOCKED",
       "reasons": [
         "criterion unresolved or review receipt missing",
+        "criterion has PROPOSED or UNRESOLVED acceptance values: adc-m5-min, adc-m5-max, adc-0-min, adc-0-max, adc-p5-min, adc-p5-max, residual-max",
         "NOT_MEASURED: no run"
       ]
     },
@@ -130,6 +138,7 @@
       "status": "BLOCKED",
       "reasons": [
         "criterion unresolved or review receipt missing",
+        "criterion has PROPOSED or UNRESOLVED acceptance values: collapse-en-off, collapse-threshold, collapse-recovery",
         "NOT_MEASURED: no run"
       ]
     },
@@ -138,6 +147,7 @@
       "status": "BLOCKED",
       "reasons": [
         "criterion unresolved or review receipt missing",
+        "criterion has PROPOSED or UNRESOLVED acceptance values: limits",
         "NOT_MEASURED: no run"
       ]
     },
@@ -154,6 +164,7 @@
       "status": "BLOCKED",
       "reasons": [
         "criterion unresolved or review receipt missing",
+        "criterion has PROPOSED or UNRESOLVED acceptance values: reverse",
         "NOT_MEASURED: no run"
       ]
     },
@@ -162,6 +173,7 @@
       "status": "BLOCKED",
       "reasons": [
         "criterion unresolved or review receipt missing",
+        "criterion has PROPOSED or UNRESOLVED acceptance values: vled-short, short-no-retry",
         "NOT_MEASURED: no run"
       ]
     },
@@ -170,6 +182,7 @@
       "status": "BLOCKED",
       "reasons": [
         "criterion unresolved or review receipt missing",
+        "criterion has PROPOSED or UNRESOLVED acceptance values: minimum",
         "NOT_MEASURED: no run"
       ]
     },
@@ -178,6 +191,7 @@
       "status": "BLOCKED",
       "reasons": [
         "criterion unresolved or review receipt missing",
+        "criterion has PROPOSED or UNRESOLVED acceptance values: part-temp-max, materials-appearance",
         "NOT_MEASURED: no run"
       ]
     },
@@ -186,6 +200,7 @@
       "status": "BLOCKED",
       "reasons": [
         "criterion unresolved or review receipt missing",
+        "criterion has PROPOSED or UNRESOLVED acceptance values: noise-max",
         "NOT_MEASURED: no run"
       ]
     },
@@ -194,6 +209,7 @@
       "status": "BLOCKED",
       "reasons": [
         "criterion unresolved or review receipt missing",
+        "criterion has PROPOSED or UNRESOLVED acceptance values: cycles, retention-force",
         "NOT_MEASURED: no run"
       ]
     }
@@ -212,42 +228,58 @@
     "assembly_manifest: fixture-materials: Fixture design and materials incomplete (see fixture manifest); physical contact/load tests follow.",
     "assembly_manifest: prototype-and-release: No owner-approved prototype route, no reviewed manufacturing package and no release approval.",
     "jack-continuity: criterion unresolved or review receipt missing",
+    "jack-continuity: criterion has PROPOSED or UNRESOLVED acceptance values: closed-max, open-min",
     "jack-continuity: NOT_MEASURED: no run",
     "jack-dimensions: criterion unresolved or review receipt missing",
+    "jack-dimensions: criterion has PROPOSED or UNRESOLVED acceptance values: tolerances",
     "jack-dimensions: NOT_MEASURED: no run",
     "switch-fit: criterion unresolved or review receipt missing",
+    "switch-fit: criterion has PROPOSED or UNRESOLVED acceptance values: fit-and-contact",
     "switch-fit: NOT_MEASURED: no run",
     "harness-depth: criterion unresolved or review receipt missing",
+    "harness-depth: criterion has PROPOSED or UNRESOLVED acceptance values: bend-radius, power-band-order",
     "harness-depth: NOT_MEASURED: no run",
     "pmma-supports: criterion unresolved or review receipt missing",
+    "pmma-supports: criterion has PROPOSED or UNRESOLVED acceptance values: torque-retention",
     "pmma-supports: NOT_MEASURED: no run",
     "fixture-contact: criterion unresolved or review receipt missing",
+    "fixture-contact: criterion has PROPOSED or UNRESOLVED acceptance values: registration",
     "fixture-contact: NOT_MEASURED: no run",
     "firmware-waveforms: criterion unresolved or review receipt missing",
+    "firmware-waveforms: criterion has PROPOSED or UNRESOLVED acceptance values: t1l-min, t1l-max",
     "firmware-waveforms: NOT_MEASURED: no run",
     "power-current: criterion unresolved or review receipt missing",
     "power-current: NOT_MEASURED: no run",
     "cv-thru-calibration: criterion unresolved or review receipt missing",
+    "cv-thru-calibration: criterion has PROPOSED or UNRESOLVED acceptance values: adc-m5-min, adc-m5-max, adc-0-min, adc-0-max, adc-p5-min, adc-p5-max, residual-max",
     "cv-thru-calibration: NOT_MEASURED: no run",
     "startup-reset: criterion unresolved or review receipt missing",
     "startup-reset: NOT_MEASURED: no run",
     "rail-collapse: criterion unresolved or review receipt missing",
+    "rail-collapse: criterion has PROPOSED or UNRESOLVED acceptance values: collapse-en-off, collapse-threshold, collapse-recovery",
     "rail-collapse: NOT_MEASURED: no run",
     "partial-rails: criterion unresolved or review receipt missing",
+    "partial-rails: criterion has PROPOSED or UNRESOLVED acceptance values: limits",
     "partial-rails: NOT_MEASURED: no run",
     "u7-stress: criterion unresolved or review receipt missing",
     "u7-stress: NOT_MEASURED: no run",
     "ldo-reverse: criterion unresolved or review receipt missing",
+    "ldo-reverse: criterion has PROPOSED or UNRESOLVED acceptance values: reverse",
     "ldo-reverse: NOT_MEASURED: no run",
     "load-short: criterion unresolved or review receipt missing",
+    "load-short: criterion has PROPOSED or UNRESOLVED acceptance values: vled-short, short-no-retry",
     "load-short: NOT_MEASURED: no run",
     "effective-capacitance: criterion unresolved or review receipt missing",
+    "effective-capacitance: criterion has PROPOSED or UNRESOLVED acceptance values: minimum",
     "effective-capacitance: NOT_MEASURED: no run",
     "thermal-optical: criterion unresolved or review receipt missing",
+    "thermal-optical: criterion has PROPOSED or UNRESOLVED acceptance values: part-temp-max, materials-appearance",
     "thermal-optical: NOT_MEASURED: no run",
     "cv-noise: criterion unresolved or review receipt missing",
+    "cv-noise: criterion has PROPOSED or UNRESOLVED acceptance values: noise-max",
     "cv-noise: NOT_MEASURED: no run",
     "service-envelope: criterion unresolved or review receipt missing",
+    "service-envelope: criterion has PROPOSED or UNRESOLVED acceptance values: cycles, retention-force",
     "service-envelope: NOT_MEASURED: no run",
     "material assembly_service: missing or ambiguous dated observation",
     "material finished_cables: missing or ambiguous dated observation",
@@ -341,7 +373,8 @@
       "gate": "criterion:jack-continuity",
       "class": "OWNER_DECISION",
       "reasons": [
-        "jack-continuity: criterion unresolved or review receipt missing"
+        "jack-continuity: criterion unresolved or review receipt missing",
+        "jack-continuity: criterion has PROPOSED or UNRESOLVED acceptance values: closed-max, open-min"
       ]
     },
     {
@@ -355,7 +388,8 @@
       "gate": "criterion:jack-dimensions",
       "class": "ACCESS_EVIDENCE_HOLD",
       "reasons": [
-        "jack-dimensions: criterion unresolved or review receipt missing"
+        "jack-dimensions: criterion unresolved or review receipt missing",
+        "jack-dimensions: criterion has PROPOSED or UNRESOLVED acceptance values: tolerances"
       ]
     },
     {
@@ -369,7 +403,8 @@
       "gate": "criterion:switch-fit",
       "class": "ACCESS_EVIDENCE_HOLD",
       "reasons": [
-        "switch-fit: criterion unresolved or review receipt missing"
+        "switch-fit: criterion unresolved or review receipt missing",
+        "switch-fit: criterion has PROPOSED or UNRESOLVED acceptance values: fit-and-contact"
       ]
     },
     {
@@ -383,7 +418,8 @@
       "gate": "criterion:harness-depth",
       "class": "OWNER_DECISION",
       "reasons": [
-        "harness-depth: criterion unresolved or review receipt missing"
+        "harness-depth: criterion unresolved or review receipt missing",
+        "harness-depth: criterion has PROPOSED or UNRESOLVED acceptance values: bend-radius, power-band-order"
       ]
     },
     {
@@ -397,7 +433,8 @@
       "gate": "criterion:pmma-supports",
       "class": "ACCESS_EVIDENCE_HOLD",
       "reasons": [
-        "pmma-supports: criterion unresolved or review receipt missing"
+        "pmma-supports: criterion unresolved or review receipt missing",
+        "pmma-supports: criterion has PROPOSED or UNRESOLVED acceptance values: torque-retention"
       ]
     },
     {
@@ -411,7 +448,8 @@
       "gate": "criterion:fixture-contact",
       "class": "ACCESS_EVIDENCE_HOLD",
       "reasons": [
-        "fixture-contact: criterion unresolved or review receipt missing"
+        "fixture-contact: criterion unresolved or review receipt missing",
+        "fixture-contact: criterion has PROPOSED or UNRESOLVED acceptance values: registration"
       ]
     },
     {
@@ -425,7 +463,8 @@
       "gate": "criterion:firmware-waveforms",
       "class": "OWNER_DECISION",
       "reasons": [
-        "firmware-waveforms: criterion unresolved or review receipt missing"
+        "firmware-waveforms: criterion unresolved or review receipt missing",
+        "firmware-waveforms: criterion has PROPOSED or UNRESOLVED acceptance values: t1l-min, t1l-max"
       ]
     },
     {
@@ -437,7 +476,7 @@
     },
     {
       "gate": "criterion:power-current",
-      "class": "CLOUD_DIGITAL",
+      "class": "OWNER_DECISION",
       "reasons": [
         "power-current: criterion unresolved or review receipt missing"
       ]
@@ -453,7 +492,8 @@
       "gate": "criterion:cv-thru-calibration",
       "class": "OWNER_DECISION",
       "reasons": [
-        "cv-thru-calibration: criterion unresolved or review receipt missing"
+        "cv-thru-calibration: criterion unresolved or review receipt missing",
+        "cv-thru-calibration: criterion has PROPOSED or UNRESOLVED acceptance values: adc-m5-min, adc-m5-max, adc-0-min, adc-0-max, adc-p5-min, adc-p5-max, residual-max"
       ]
     },
     {
@@ -465,7 +505,7 @@
     },
     {
       "gate": "criterion:startup-reset",
-      "class": "CLOUD_DIGITAL",
+      "class": "OWNER_DECISION",
       "reasons": [
         "startup-reset: criterion unresolved or review receipt missing"
       ]
@@ -481,7 +521,8 @@
       "gate": "criterion:rail-collapse",
       "class": "OWNER_DECISION",
       "reasons": [
-        "rail-collapse: criterion unresolved or review receipt missing"
+        "rail-collapse: criterion unresolved or review receipt missing",
+        "rail-collapse: criterion has PROPOSED or UNRESOLVED acceptance values: collapse-en-off, collapse-threshold, collapse-recovery"
       ]
     },
     {
@@ -495,7 +536,8 @@
       "gate": "criterion:partial-rails",
       "class": "ACCESS_EVIDENCE_HOLD",
       "reasons": [
-        "partial-rails: criterion unresolved or review receipt missing"
+        "partial-rails: criterion unresolved or review receipt missing",
+        "partial-rails: criterion has PROPOSED or UNRESOLVED acceptance values: limits"
       ]
     },
     {
@@ -507,7 +549,7 @@
     },
     {
       "gate": "criterion:u7-stress",
-      "class": "CLOUD_DIGITAL",
+      "class": "OWNER_DECISION",
       "reasons": [
         "u7-stress: criterion unresolved or review receipt missing"
       ]
@@ -523,7 +565,8 @@
       "gate": "criterion:ldo-reverse",
       "class": "ACCESS_EVIDENCE_HOLD",
       "reasons": [
-        "ldo-reverse: criterion unresolved or review receipt missing"
+        "ldo-reverse: criterion unresolved or review receipt missing",
+        "ldo-reverse: criterion has PROPOSED or UNRESOLVED acceptance values: reverse"
       ]
     },
     {
@@ -537,7 +580,8 @@
       "gate": "criterion:load-short",
       "class": "OWNER_DECISION",
       "reasons": [
-        "load-short: criterion unresolved or review receipt missing"
+        "load-short: criterion unresolved or review receipt missing",
+        "load-short: criterion has PROPOSED or UNRESOLVED acceptance values: vled-short, short-no-retry"
       ]
     },
     {
@@ -551,7 +595,8 @@
       "gate": "criterion:effective-capacitance",
       "class": "ACCESS_EVIDENCE_HOLD",
       "reasons": [
-        "effective-capacitance: criterion unresolved or review receipt missing"
+        "effective-capacitance: criterion unresolved or review receipt missing",
+        "effective-capacitance: criterion has PROPOSED or UNRESOLVED acceptance values: minimum"
       ]
     },
     {
@@ -565,7 +610,8 @@
       "gate": "criterion:thermal-optical",
       "class": "OWNER_DECISION",
       "reasons": [
-        "thermal-optical: criterion unresolved or review receipt missing"
+        "thermal-optical: criterion unresolved or review receipt missing",
+        "thermal-optical: criterion has PROPOSED or UNRESOLVED acceptance values: part-temp-max, materials-appearance"
       ]
     },
     {
@@ -579,7 +625,8 @@
       "gate": "criterion:cv-noise",
       "class": "OWNER_DECISION",
       "reasons": [
-        "cv-noise: criterion unresolved or review receipt missing"
+        "cv-noise: criterion unresolved or review receipt missing",
+        "cv-noise: criterion has PROPOSED or UNRESOLVED acceptance values: noise-max"
       ]
     },
     {
@@ -593,7 +640,8 @@
       "gate": "criterion:service-envelope",
       "class": "OWNER_DECISION",
       "reasons": [
-        "service-envelope: criterion unresolved or review receipt missing"
+        "service-envelope: criterion unresolved or review receipt missing",
+        "service-envelope: criterion has PROPOSED or UNRESOLVED acceptance values: cycles, retention-force"
       ]
     },
     {
@@ -661,8 +709,8 @@
     }
   ],
   "gate_counts": {
-    "CLOUD_DIGITAL": 5,
-    "OWNER_DECISION": 16,
+    "CLOUD_DIGITAL": 2,
+    "OWNER_DECISION": 19,
     "ACCESS_EVIDENCE_HOLD": 16,
     "PHYSICAL_ONLY": 20
   },

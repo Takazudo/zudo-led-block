@@ -1,7 +1,9 @@
 #!/usr/bin/env python3
 """A7 Workflow F preparation: valid BLOCKED reports are not release eligibility."""
 import argparse
+import ast
 import re
+import xml.etree.ElementTree as ET
 import datetime as dt
 import hashlib
 import json
@@ -31,7 +33,17 @@ CLASSES = ('CLOUD_DIGITAL', 'OWNER_DECISION', 'ACCESS_EVIDENCE_HOLD', 'PHYSICAL_
 CLASS_JA = {'CLOUD_DIGITAL': 'クラウドで進められるデジタル作業', 'OWNER_DECISION': 'オーナーの判断',
             'ACCESS_EVIDENCE_HOLD': '外部の証跡・アクセス待ち', 'PHYSICAL_ONLY': '実機が必要'}
 # DESIGN: a project design record; SOURCED/MIRROR/UNVERIFIED/INFERRED: derived from the cited fact.
-CONFIDENCES = ('SOURCED', 'MIRROR', 'UNVERIFIED', 'INFERRED', 'DESIGN', 'ASSUMED', 'UNRESOLVED')
+# CALCULATED: recomputed here from traced inputs that are all SOURCED or DESIGN.
+# PROPOSED: a traced value offered for review; it never satisfies a criterion gate.
+CONFIDENCES = ('SOURCED', 'MIRROR', 'UNVERIFIED', 'INFERRED', 'DESIGN', 'ASSUMED', 'CALCULATED', 'PROPOSED', 'UNRESOLVED')
+BASIS = ('SOURCED', 'MIRROR', 'UNVERIFIED', 'INFERRED', 'DESIGN', 'ASSUMED', 'CALCULATED')
+# A derived value is only as strong as its weakest input; earlier entries are weaker.
+WEAKEST = ('UNVERIFIED', 'ASSUMED', 'INFERRED', 'MIRROR')
+NETLIST = 'engineering/a7/verification/schematic/netlist.xml'
+SI = {'p': 1e-12, 'n': 1e-9, 'u': 1e-6, 'µ': 1e-6, 'm': 1e-3, 'k': 1e3, 'M': 1e6, '': 1}
+# Plain numbers a derivation may write itself: unit and percent conversions and the safety factor 10.
+LITERALS = {1, 2, 10, 100, 1000}
+SUPPLIED_BY = ('DOCUMENT', 'MEASUREMENT', 'DOCUMENT_AND_MEASUREMENT')
 BOUNDS = ('exact', 'min', 'min_exclusive', 'max', 'range', 'reference')
 # Acceptance values may cite only design records and component facts, never this plan or generated outputs.
 SOURCE_ROOTS = ('engineering/a7/mechanical/', 'engineering/a7/study/', 'engineering/a7/electronics/',
@@ -106,13 +118,20 @@ def resolve(trace, root):
     if not full.is_relative_to(root.resolve()) or not full.is_file():
         raise ValueError('trace path missing: ' + trace['path'])
     rel = full.relative_to(root.resolve()).as_posix()
-    forms = [k for k in ('fact_id', 'pointer', 'quote') if k in trace]
+    forms = [k for k in ('fact_id', 'pointer', 'quote', 'netlist_value') if k in trace]
     if len(forms) != 1 or set(trace) != {'path', forms[0]}:
         raise ValueError('trace needs exactly one of fact_id, pointer or quote: ' + trace['path'])
     if bool(FACTS.match(rel)) != ('fact_id' in trace):
         raise ValueError('component facts are cited only by fact_id, and fact_id only cites component facts: ' + rel)
     if not FACTS.match(rel) and not rel.startswith(SOURCE_ROOTS):
         raise ValueError('not an allowed design source: ' + rel)
+    if 'netlist_value' in trace:
+        if rel != NETLIST:
+            raise ValueError('netlist_value cites only ' + NETLIST)
+        values = [c.findtext('value') for c in ET.parse(full).getroot().iter('comp') if c.get('ref') == trace['netlist_value']]
+        if len(values) != 1 or not values[0]:
+            raise ValueError('netlist component missing or duplicate: ' + str(trace['netlist_value']))
+        return values[0], values[0], []
     if 'quote' in trace:
         text = full.read_text()
         if not isinstance(trace['quote'], str) or not trace['quote'] or trace['quote'] not in text:
@@ -153,6 +172,156 @@ def sibling_confidence(parent, key):
     return None
 
 
+def token_number(token, c_literal=False):
+    """'68k' -> 68000.0, '100n' -> 1e-07, '1%' -> 1.0; with c_literal a C 'u' suffix means unsigned, not micro."""
+    m = re.fullmatch(r'([+-]?\d+(?:\.\d+)?)(u|U)?' if c_literal else r'([+-]?\d+(?:\.\d+)?)([pnuµmkM]?)%?', token)
+    if not m:
+        raise ValueError('not a number token: ' + token)
+    return float(m.group(1)) * (1 if c_literal else SI[m.group(2) or ''])
+
+
+def input_value(inp, root):
+    """Return (number, confidence) for one derivation input, after checking its token against the source."""
+    if not isinstance(inp, dict) or set(inp) - {'name', 'token', 'number', 'source', 'field', 'c_literal'}:
+        raise ValueError('derivation input needs name, token, number, source and optional field/c_literal')
+    if not isinstance(inp.get('name'), str) or not inp['name'].isidentifier() or not isinstance(inp.get('token'), str):
+        raise ValueError('derivation input needs an identifier name and a token string')
+    got, quote, stated = resolve(inp.get('source'), root)
+    field = inp.get('field', 'value')
+    if isinstance(got, dict) and 'fact_id' in inp['source']:
+        if field not in ('value', 'conditions'):
+            raise ValueError('fact inputs read value or conditions')
+        text, confidence = got.get(field), fact_confidence(got)
+    else:
+        if field != 'value':
+            raise ValueError('field applies only to component facts')
+        text = quote if quote is not None else got
+        if isinstance(stated, list):
+            confidence = stated[0] if len(stated) == 1 else ('DESIGN' if not stated else 'INFERRED')
+        elif stated is not None:
+            if stated not in STATED or len(STATED[stated]) != 1:
+                raise ValueError('unknown stated confidence ' + str(stated))
+            confidence = next(iter(STATED[stated]))
+        else:
+            confidence = 'DESIGN'
+    if isinstance(text, (int, float)) and not isinstance(text, bool):
+        if float(text) != float(inp['token']):
+            raise ValueError(inp['name'] + ': token differs from the cited number')
+    elif not isinstance(text, str) or not re.search(r'(?<![\w.])' + re.escape(inp['token']) + r'(?![\w.])', text):
+        raise ValueError(inp['name'] + ': token is not a whole token of the cited ' + field)
+    number = token_number(inp['token'], inp.get('c_literal') is True)
+    if inp.get('number') != number and not (isinstance(inp.get('number'), (int, float)) and abs(inp['number'] - number) <= 1e-12 * max(1, abs(number))):
+        raise ValueError(inp['name'] + ': number differs from the token')
+    return number, confidence
+
+
+def evaluate_expression(expression, names):
+    """Arithmetic only: + - * / **, unary minus, min/max, input names and a few unit literals."""
+    def walk(node):
+        if isinstance(node, ast.Expression):
+            return walk(node.body)
+        if isinstance(node, ast.BinOp) and isinstance(node.op, (ast.Add, ast.Sub, ast.Mult, ast.Div, ast.Pow)):
+            a, b = walk(node.left), walk(node.right)
+            if isinstance(node.op, ast.Div) and b == 0:
+                raise ValueError('division by zero')
+            if isinstance(node.op, ast.Add):
+                return a + b
+            if isinstance(node.op, ast.Sub):
+                return a - b
+            if isinstance(node.op, ast.Mult):
+                return a * b
+            return a / b if isinstance(node.op, ast.Div) else a ** b
+        if isinstance(node, ast.UnaryOp) and isinstance(node.op, ast.USub):
+            return -walk(node.operand)
+        if isinstance(node, ast.Call) and isinstance(node.func, ast.Name) and node.func.id in ('min', 'max') and node.args and not node.keywords:
+            return (min if node.func.id == 'min' else max)(walk(x) for x in node.args)
+        if isinstance(node, ast.Name) and node.id in names:
+            return names[node.id]
+        if isinstance(node, ast.Constant) and type(node.value) is int and node.value in LITERALS:
+            return float(node.value)
+        raise ValueError('expression may use only inputs, + - * / **, min/max and the literals ' + str(sorted(LITERALS)))
+    if not isinstance(expression, str):
+        raise ValueError('expression must be a string')
+    return walk(ast.parse(expression, mode='eval'))
+
+
+def derive(derivation, root):
+    """Recompute a derivation; return (rounded value, the confidence its inputs allow)."""
+    if not isinstance(derivation, dict) or set(derivation) - {'expression', 'inputs', 'round', 'assumption'}:
+        raise ValueError('derivation needs expression, inputs, round and optional assumption')
+    inputs = derivation.get('inputs')
+    if not isinstance(inputs, list) or not inputs:
+        raise ValueError('derivation needs inputs')
+    names, confidences = {}, set()
+    for inp in inputs:
+        number, confidence = input_value(inp, root)
+        if inp['name'] in names:
+            raise ValueError('duplicate derivation input ' + inp['name'])
+        names[inp['name']] = number
+        confidences.add(confidence)
+    digits = derivation.get('round')
+    if type(digits) is not int or not 0 <= digits <= 6:
+        raise ValueError('derivation round must be 0..6 digits')
+    value = round(evaluate_expression(derivation['expression'], names), digits)
+    weak = [c for c in WEAKEST if c in confidences]
+    if weak:
+        confidence = weak[0]
+    elif derivation.get('assumption') is not None:
+        if not text_fields(derivation, ['assumption']):
+            raise ValueError('assumption must be text')
+        confidence = 'INFERRED'
+    elif confidences <= {'SOURCED', 'DESIGN'}:
+        confidence = 'CALCULATED'
+    else:
+        raise ValueError('unexpected input confidence ' + str(sorted(confidences)))
+    return (int(value) if digits == 0 else value), confidence
+
+
+def traced_errors(a, where, root):
+    """Value and confidence checks for an item traced by source or derivation."""
+    errors = []
+    if a.get('bound') not in BOUNDS:
+        errors.append(where + 'bound must be one of ' + ', '.join(BOUNDS))
+    if ('source' in a) == ('derivation' in a):
+        return errors + [where + 'needs exactly one of source or derivation']
+    if 'derivation' in a:
+        value, confidence = derive(a['derivation'], root)
+        if a.get('value') != value:
+            errors.append(where + 'value differs from the recomputed derivation (' + str(value) + ')')
+        if a['confidence'] != confidence:
+            errors.append(where + 'derivation inputs allow only ' + confidence)
+        return errors
+    if a['confidence'] == 'CALCULATED':
+        return errors + [where + 'CALCULATED needs a derivation']
+    got, quote, stated = resolve(a.get('source'), root)
+    if isinstance(stated, list):
+        if stated and a['confidence'] not in stated:
+            errors.append(where + 'the quoted line marks this value ' + '/'.join(stated))
+    elif stated is not None:
+        if stated not in STATED:
+            errors.append(where + 'unknown stated confidence ' + stated)
+        elif a['confidence'] not in STATED[stated]:
+            errors.append(where + 'the cited record marks this value ' + stated)
+    if isinstance(got, dict) and 'fact_id' in a['source']:
+        if (got.get('value'), got.get('unit')) != (a.get('value'), a['unit']):
+            errors.append(where + 'value/unit differs from the cited fact')
+        if fact_confidence(got) != a['confidence']:
+            errors.append(where + 'confidence differs from the cited fact (' + fact_confidence(got) + ')')
+    else:
+        if quote is not None:
+            if not isinstance(a.get('value'), str) or not re.search(r'(?<![\w.])' + re.escape(a['value']) + r'(?![\w.])', quote):
+                errors.append(where + 'value is not a whole token of the cited quote')
+        elif got != a.get('value'):
+            errors.append(where + 'value differs from the cited record')
+        if a['confidence'] not in ('DESIGN', 'ASSUMED', 'INFERRED', 'MIRROR', 'UNVERIFIED'):
+            errors.append(where + 'a design record cannot make a value SOURCED')
+    if a['confidence'] in ('ASSUMED', 'INFERRED') and 'fact_id' not in a['source']:
+        marker = resolve(a.get('confidence_trace'), root)[0]
+        if a['confidence'] not in json.dumps(marker, ensure_ascii=False):
+            errors.append(where + 'confidence_trace does not say ' + a['confidence'])
+    return errors
+
+
 def acceptance_errors(procedure, root):
     """Every acceptance value must equal what its source says; confidence must match the source."""
     errors = []
@@ -168,39 +337,27 @@ def acceptance_errors(procedure, root):
             errors.append(where + 'invalid confidence, criterion or unit')
             continue
         if a['confidence'] == 'UNRESOLVED':
-            if a.get('value') is not None or not text_fields(a, ['decided_by']) or 'source' in a or 'bound' in a:
+            if (a.get('value') is not None or not text_fields(a, ['decided_by'])
+                    or {'source', 'derivation', 'bound'} & set(a)):
                 errors.append(where + 'UNRESOLVED needs value null, decided_by and no source')
+            supplied = a.get('supplied_by')
+            if procedure.get('criterion_class') == 'ACCESS_EVIDENCE_HOLD' and supplied is None:
+                errors.append(where + 'an evidence-hold criterion must say which document or measurement supplies it')
+            if supplied is not None and (not isinstance(supplied, dict) or set(supplied) != {'kind', 'what'}
+                                         or supplied.get('kind') not in SUPPLIED_BY or not text_fields(supplied, ['what'])):
+                errors.append(where + 'supplied_by needs kind (' + '/'.join(SUPPLIED_BY) + ') and what')
             continue
         try:
-            if a.get('bound') not in BOUNDS:
-                errors.append(where + 'bound must be one of ' + ', '.join(BOUNDS))
-            got, quote, stated = resolve(a.get('source'), root)
-            if isinstance(stated, list):
-                if stated and a['confidence'] not in stated:
-                    errors.append(where + 'the quoted line marks this value ' + '/'.join(stated))
-            elif stated is not None:
-                if stated not in STATED:
-                    errors.append(where + 'unknown stated confidence ' + stated)
-                elif a['confidence'] not in STATED[stated]:
-                    errors.append(where + 'the cited record marks this value ' + stated)
-            if isinstance(got, dict) and 'fact_id' in a['source']:
-                if (got.get('value'), got.get('unit')) != (a.get('value'), a['unit']):
-                    errors.append(where + 'value/unit differs from the cited fact')
-                if fact_confidence(got) != a['confidence']:
-                    errors.append(where + 'confidence differs from the cited fact (' + fact_confidence(got) + ')')
+            if a['confidence'] == 'PROPOSED':
+                if not text_fields(a, ['rationale']) or a.get('basis_confidence') not in BASIS:
+                    errors.append(where + 'PROPOSED needs a rationale and basis_confidence')
+                    continue
+                errors += traced_errors(dict(a, confidence=a['basis_confidence']), where, root)
+            elif 'basis_confidence' in a or 'rationale' in a:
+                errors.append(where + 'only PROPOSED items carry basis_confidence and rationale')
             else:
-                if quote is not None:
-                    if not isinstance(a.get('value'), str) or not re.search(r'(?<![\w.])' + re.escape(a['value']) + r'(?![\w.])', quote):
-                        errors.append(where + 'value is not a whole token of the cited quote')
-                elif got != a.get('value'):
-                    errors.append(where + 'value differs from the cited record')
-                if a['confidence'] not in ('DESIGN', 'ASSUMED', 'INFERRED', 'MIRROR', 'UNVERIFIED'):
-                    errors.append(where + 'a design record cannot make a value SOURCED')
-            if a['confidence'] in ('ASSUMED', 'INFERRED') and 'fact_id' not in a['source']:
-                marker = resolve(a.get('confidence_trace'), root)[0]
-                if a['confidence'] not in json.dumps(marker, ensure_ascii=False):
-                    errors.append(where + 'confidence_trace does not say ' + a['confidence'])
-        except (ValueError, OSError, json.JSONDecodeError) as e:
+                errors += traced_errors(a, where, root)
+        except (ValueError, OSError, json.JSONDecodeError, ET.ParseError) as e:
             errors.append(where + str(e))
     return errors
 
@@ -316,6 +473,10 @@ def evaluate(root, plan, records, today=None):
         why = []
         if p['criterion_status'] != 'REVIEWED' or p.get('missing_criterion') != '' or not raw_ok(p.get('criterion_review'), root):
             why.append('criterion unresolved or review receipt missing')
+        open_items = [a['id'] for a in p['acceptance'] if a.get('confidence') in ('PROPOSED', 'UNRESOLVED')]
+        if open_items:
+            # A proposal is offered for review; it never stands in for an accepted value.
+            why.append('criterion has PROPOSED or UNRESOLVED acceptance values: ' + ', '.join(open_items))
         runs = [r for r in records['runs'] if r.get('procedure') == p['id']]
         if not runs:
             why.append('NOT_MEASURED: no run')
@@ -432,9 +593,36 @@ def show(value):
 def trace_text(trace):
     if not trace:
         return '—'
-    form = next(k for k in ('fact_id', 'pointer', 'quote') if k in trace)
-    detail = trace[form] if form != 'quote' else '引用'
-    return '`' + trace['path'] + '` ' + ('`' + detail + '`' if form != 'quote' else detail)
+    form = next(k for k in ('fact_id', 'pointer', 'quote', 'netlist_value') if k in trace)
+    detail = {'quote': '引用', 'netlist_value': trace.get('netlist_value', '') + ' の値'}.get(form, trace[form])
+    return '`' + trace['path'] + '` ' + ('`' + detail + '`' if form in ('fact_id', 'pointer') else detail)
+
+
+SUPPLIED_JA = {'DOCUMENT': '資料', 'MEASUREMENT': '測定', 'DOCUMENT_AND_MEASUREMENT': '資料と測定'}
+
+
+def where_text(a):
+    if a['confidence'] == 'UNRESOLVED':
+        supplied = a.get('supplied_by')
+        return a['decided_by'] + ('。入手先（' + SUPPLIED_JA[supplied['kind']] + '）: ' + supplied['what'] if supplied else '')
+    if 'derivation' in a:
+        return '計算 `' + a['derivation']['expression'] + '`（内訳は下）'
+    return trace_text(a['source'])
+
+
+def confidence_text(a):
+    return 'PROPOSED（根拠 ' + a['basis_confidence'] + '）' if a['confidence'] == 'PROPOSED' else a['confidence']
+
+
+def derivation_lines(a):
+    d = a['derivation']
+    lines = ['- `' + a['id'] + '`: `' + d['expression'] + '` = ' + show(a['value']) + ' ' + a['unit'] + '（小数 ' + str(d['round']) + ' 桁に丸め）']
+    for i in d['inputs']:
+        lines.append('  - `' + i['name'] + '` = ' + repr(i['number']) + '（`' + i['token'] + '`、' + trace_text(i['source'])
+                     + ('、' + i['field'] if i.get('field') else '') + '）')
+    if d.get('assumption'):
+        lines.append('  - 推定: ' + d['assumption'])
+    return lines
 
 
 def markdown(plan, report):
@@ -444,7 +632,9 @@ def markdown(plan, report):
              '各実施は `run-templates/<手順ID>.json` をコピーし、unit、計器、条件、raw証跡（ファイルとSHA-256）、結果、次の行動を埋めて `records.json` の runs に追加します。'
              '雛形の identities と plan_sha256 は生成時点の値です。実施前に `python3 scripts/a7_readiness.py --check` が通ることを確認し、変わっていれば雛形を取り直します。'
              '失敗や再加工を上書きせず別 run として追加します。', '',
-             '受入値の確度: SOURCED = メーカー一次資料、MIRROR = 販売店掲載の写し、UNVERIFIED = 出典が未確認の記録、INFERRED = 推定、DESIGN = このプロジェクトの設計記録、ASSUMED = 仮定、UNRESOLVED = 未決（決める主体を記載）。'
+             '受入値の確度: SOURCED = メーカー一次資料、MIRROR = 販売店掲載の写し、UNVERIFIED = 出典が未確認の記録、INFERRED = 推定、DESIGN = このプロジェクトの設計記録、ASSUMED = 仮定、'
+             'CALCULATED = 一次資料と設計記録だけを入力にした計算、PROPOSED = レビュー用の提案（採否前。ゲートを解除しない）、UNRESOLVED = 未決（決める主体と入手先を記載）。'
+             '計算値は生成時に入力の出典を照合して再計算し、計算値の確度は最も弱い入力に合わせます。'
              '各値は出典の値と一致すること、確度が出典の記載（部品 fact の provenance、記録に並ぶ確度、引用行の ASSUMED / INFERRED）を超えないことを生成時に検査します。'
              '出典は部品 fact と設計記録だけで、この計画や生成物は引用できません。範囲（min/max 等）の向きは人が出典を読んで付けたもので、自動照合していません。', '',
              '## 未実施の手順', '']
@@ -460,9 +650,19 @@ def markdown(plan, report):
         lines += ['', '受入値（範囲: exact = 一致、min / max = 下限 / 上限、min_exclusive = この値を超える、range = 範囲内、reference = 比較の参照値）:', '',
                   '| ID | 基準 | 値 | 範囲 | 単位 | 確度 | 出典 / 決める主体 |', '|---|---|---|---|---|---|---|']
         for a in p['acceptance']:
-            where = a['decided_by'] if a['confidence'] == 'UNRESOLVED' else trace_text(a['source'])
-            lines.append('| '+a['id']+' | '+a['criterion']+' | '+show(a['value']).replace('|', '\\|')+' | '+a.get('bound', '—')+' | '+a['unit']+' | '+a['confidence']+' | '+where.replace('|', '\\|')+' |')
+            lines.append('| '+a['id']+' | '+a['criterion']+' | '+show(a['value']).replace('|', '\\|')+' | '+a.get('bound', '—')+' | '+a['unit']+' | '+confidence_text(a)+' | '+where_text(a).replace('|', '\\|')+' |')
         lines.append('')
+        derived = [a for a in p['acceptance'] if 'derivation' in a]
+        if derived:
+            lines += ['計算の内訳:', '']
+            for a in derived:
+                lines += derivation_lines(a)
+            lines.append('')
+        proposed = [a for a in p['acceptance'] if a['confidence'] == 'PROPOSED']
+        if proposed:
+            lines += ['提案の理由（PROPOSED は採否前で、この手順の基準ゲートを解除しません）:', '']
+            lines += ['- `'+a['id']+'`: '+a['rationale'] for a in proposed]
+            lines.append('')
     lines += ['## ゲートの区分', '', '| 区分 | ゲート数 |', '|---|---:|']
     lines += ['| '+c+'（'+CLASS_JA[c]+'） | '+str(report['gate_counts'][c])+' |' for c in CLASSES]
     lines += ['', '## 現在のブロッカー', '']+['- '+r for r in report['blockers']]
@@ -476,7 +676,8 @@ def run_template(plan, report, procedure):
                     plan_sha256=report['plan_sha256'],
                     raw_evidence=[{'kind': k, 'path': None, 'sha256': None} for k in procedure['required_evidence_kinds']],
                     acceptance_checklist=[{'id': a['id'], 'criterion': a['criterion'], 'expected': a['value'], 'bound': a.get('bound'), 'unit': a['unit'],
-                                           'confidence': a['confidence'], 'observed': None, 'verdict': None} for a in procedure['acceptance']])
+                                           'confidence': a['confidence'], 'proposed': a['confidence'] == 'PROPOSED',
+                                           'observed': None, 'verdict': None} for a in procedure['acceptance']])
     return json.dumps(template, indent=2, ensure_ascii=False)+'\n'
 
 
@@ -501,8 +702,10 @@ def checklist(plan, report):
              'readiness（`engineering/a7/qualification/readiness.json`）は不足を '+str(len(report['gates']))+' 個のゲートに分け、何で解除できるかで分類しています。',
              'ゲート名は readiness のものと同じです。', '', '| 区分 | ゲート数 |', '|---|---:|']
     lines += ['| '+CLASS_JA[c]+' | '+str(report['gate_counts'][c])+' |' for c in CLASSES]
-    lines += ['', '## オーナーにしかできないこと', '', '| # | やること | 内容 | 解除するゲート（現在の状態） |', '|---|---|---|---|']
-    for a in plan['owner_actions']:
+    lines += ['', '## 残っているオーナーの作業（この順に）', '',
+              '上から順に進めると、後の作業の前提がそろいます。各作業の内容と、解除するゲートの状態は下の表にあります。', '']
+    rows = []
+    for n, a in enumerate(plan['owner_actions'], 1):
         names = []
         for pattern in a['unblocks']:
             hit = covers(pattern)
@@ -512,7 +715,14 @@ def checklist(plan, report):
                 names.append('`run:*`（'+str(len(hit))+' 手順が未実施）')
             else:
                 names.append('`'+pattern+'`（'+('BLOCKED' if hit else '解除済み')+'）')
-        lines.append('| '+a['id']+' | '+mdx(a['title'])+' | '+mdx(a['detail'])+' | '+'、'.join(names)+' |')
+        lines.append(str(n)+'. **'+a['id']+'** '+mdx(a['title']))
+        rows.append('| '+a['id']+' | '+mdx(a['detail'])+' | '+'、'.join(names)+' |')
+    proposals = [(p['id'], a) for p in plan['procedures'] for a in p['acceptance'] if a['confidence'] == 'PROPOSED']
+    lines += ['', '## 採否を待つ提案値', '',
+              'エージェントが出典から用意した提案です（'+str(len(proposals))+' 件）。採るまでは該当する基準ゲートを解除しません。理由と計算は procedures.md にあります。', '',
+              '| 手順 | ID | 基準 | 提案値 | 単位 |', '|---|---|---|---|---|']
+    lines += ['| '+pid+' | '+a['id']+' | '+mdx(a['criterion'])+' | '+mdx(show(a['value']))+' | '+a['unit']+' |' for pid, a in proposals]
+    lines += ['', '## 各作業の詳細', '', '| # | 内容 | 解除するゲート（現在の状態） |', '|---|---|---|'] + rows
     owned = set()
     for a in plan['owner_actions']:
         for pattern in a['unblocks']:

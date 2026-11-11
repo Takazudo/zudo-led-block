@@ -18,7 +18,7 @@
     "fixture": "fac00cc2d61cee463859a218eb00542d3b45e4099492757ff8f9ed9e36e40f1f",
     "assembly_manifest": "0201bfaf16235df9bcf450a35842ca7b4c7316592c3de21aa92ad50041a406ce"
   },
-  "plan_sha256": "4c706a65a90e1a52981a38da713da4c7229619d94c1a01b4aa8af667b510c483",
+  "plan_sha256": "4e0888089320c114b616cf48b841a3bc9e6f6a5ba1c9d3b6b03d6be6653adae9",
   "instruments": null,
   "setup": null,
   "conditions": null,
@@ -57,16 +57,7 @@
       "bound": "reference",
       "unit": "mA",
       "confidence": "SOURCED",
-      "observed": null,
-      "verdict": null
-    },
-    {
-      "id": "rilim",
-      "criterion": "RILIM (R11)",
-      "expected": 68000,
-      "bound": "reference",
-      "unit": "ohm",
-      "confidence": "UNVERIFIED",
+      "proposed": false,
       "observed": null,
       "verdict": null
     },
@@ -77,6 +68,7 @@
       "bound": "max",
       "unit": "A",
       "confidence": "SOURCED",
+      "proposed": false,
       "observed": null,
       "verdict": null
     },
@@ -87,6 +79,7 @@
       "bound": "max",
       "unit": "mA",
       "confidence": "SOURCED",
+      "proposed": false,
       "observed": null,
       "verdict": null
     },
@@ -97,6 +90,7 @@
       "bound": "range",
       "unit": "A",
       "confidence": "SOURCED",
+      "proposed": false,
       "observed": null,
       "verdict": null
     },
@@ -107,16 +101,84 @@
       "bound": "max",
       "unit": "NONE",
       "confidence": "DESIGN",
+      "proposed": false,
       "observed": null,
       "verdict": null
     },
     {
-      "id": "table",
-      "criterion": "条件ごとの許容電流・電圧の数表",
-      "expected": null,
-      "bound": null,
+      "id": "rilim",
+      "criterion": "RILIM (R11) の部品値（A7 ネットリスト）",
+      "expected": "68k",
+      "bound": "reference",
+      "unit": "ohm",
+      "confidence": "DESIGN",
+      "proposed": false,
+      "observed": null,
+      "verdict": null
+    },
+    {
+      "id": "ilim-min",
+      "criterion": "VLED の電流制限が働く電流の下限（式 3、R11 が +1 % の最悪側）。段階負荷で制限/FAULT に入る電流はこれ以上",
+      "expected": 343.3,
+      "bound": "min",
       "unit": "mA",
-      "confidence": "UNRESOLVED",
+      "confidence": "CALCULATED",
+      "proposed": false,
+      "observed": null,
+      "verdict": null
+    },
+    {
+      "id": "ilim-max",
+      "criterion": "VLED の電流制限が働く電流の上限（式 1、R11 が −1 % の最悪側）。段階負荷で制限/FAULT に入る電流はこれ以下",
+      "expected": 439.4,
+      "bound": "max",
+      "unit": "mA",
+      "confidence": "CALCULATED",
+      "proposed": false,
+      "observed": null,
+      "verdict": null
+    },
+    {
+      "id": "no-trip",
+      "criterion": "全点灯（51/255 上限）の定常 VLED 電流は ilim-min 未満（通常点灯で制限に入らない）",
+      "expected": 343.3,
+      "bound": "max",
+      "unit": "mA",
+      "confidence": "CALCULATED",
+      "proposed": false,
+      "observed": null,
+      "verdict": null
+    },
+    {
+      "id": "v3v3-min",
+      "criterion": "+3V3 の下限（出力精度 ±1 %、IOUT = 1 mA 条件。負荷時の値は別に記録）",
+      "expected": 3.267,
+      "bound": "min",
+      "unit": "V",
+      "confidence": "CALCULATED",
+      "proposed": false,
+      "observed": null,
+      "verdict": null
+    },
+    {
+      "id": "v3v3-max",
+      "criterion": "+3V3 の上限（同条件）",
+      "expected": 3.333,
+      "bound": "max",
+      "unit": "V",
+      "confidence": "CALCULATED",
+      "proposed": false,
+      "observed": null,
+      "verdict": null
+    },
+    {
+      "id": "v5",
+      "criterion": "+5 V（AP63205 の CCM 時 FB 精度）",
+      "expected": "4.95 to 5.05 (typ 5.00)",
+      "bound": "range",
+      "unit": "V",
+      "confidence": "SOURCED",
+      "proposed": false,
       "observed": null,
       "verdict": null
     }
