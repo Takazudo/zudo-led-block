@@ -76,6 +76,13 @@ class AssemblyBindingTests(unittest.TestCase):
             self.assertIn(want,names)
         self.assertEqual(sum('GKS-050' in n for n in names),5)
 
+    def test_record_is_bound_to_assembly_code_and_native_record(self):
+        rec=json.loads(f.INTERFERENCE.read_text());mi=rec['model_inputs']
+        self.assertEqual(mi['assembly_code_sha256'],f.digest(Path(f.relief_assembly.__file__)))
+        self.assertEqual(mi['native_geometry_sha256'],f.digest(f.native_geom.RECORD))
+        with patch.object(f.relief_assembly,'model_inputs',side_effect=lambda r,g:dict(mi,assembly_code_sha256='d'*64)):
+            self.assertFalse(f.report()['completion_criteria']['4_assembly_step_interference_check']['met'])
+
     def test_a_recorded_interference_fails_criterion_4(self):
         rec=json.loads(f.INTERFERENCE.read_text());rec['interferences']=[{'a':'x','b':'y','common_volume_mm3':1.0}]
         real=f.json.loads

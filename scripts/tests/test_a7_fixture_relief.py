@@ -117,6 +117,18 @@ class ReliefTests(unittest.TestCase):
             self.assertTrue(all(w['web_mm'] >= rl.MIN_WALL - 1e-9 for w in webs))
         self.assertTrue(self.d['fresh_native_criteria']['no_wall_below_minimum'])
 
+    def test_no_sharp_corner_is_left_against_a_rounded_neighbour(self):
+        for w in self.d['support_carrier']['windows'] + self.d['probe_plate']['windows']:
+            boxes = [m['box_board_mm'] for m in w['members']]
+            self.assertEqual(rl._uncovered_sharp_corners(boxes, w['corner_radius_mm']), [])
+
+    def test_raster_sees_a_flake_at_a_sharp_corner(self):
+        with unittest.mock.patch.object(rl, '_uncovered_sharp_corners', return_value=[]):
+            d = rl.design(GEOM, probes())
+        win = next(w for w in d['support_carrier']['windows'] if 'R5' in w['parts'])
+        self.assertTrue(rl._uncovered_sharp_corners([m['box_board_mm'] for m in win['members']], win['corner_radius_mm']))
+        self.assertTrue(self.thin_points(d, only=win))
+
     def test_members_are_millable(self):
         for m, r in members(self.d['support_carrier']['windows']) + members(self.d['probe_plate']['windows']):
             b = m['box_board_mm']
@@ -158,8 +170,9 @@ class ReliefTests(unittest.TestCase):
         """Grid opening near every window: each solid point must lie in a disc or an axis-aligned square of the minimum wall.
 
         The disc catches walls next to round holes and rounded corners; the square keeps the sharp re-entrant corners where
-        members overlap, which a disc would round off. A wall thinner than the minimum fits neither. Grid 0.05 mm, so walls
-        below about 0.9 mm are caught here; the exact 1.0 mm limit is the analytic wall/web check.
+        members overlap, which a disc would round off. A wall thinner than the minimum fits neither. Every material grid point
+        (0.05 mm) is tested, including those right at an opening, so flakes thinner than the grid are seen too; walls below
+        about 0.9 mm are caught here and the exact 1.0 mm limit is the analytic wall/web check.
         """
         sc = d['support_carrier']
         x0, y0, x1, y1 = sc['bounds_board_mm']
@@ -209,8 +222,8 @@ class ReliefTests(unittest.TestCase):
                     dist = min(dist, math.dist((x, y), c) - rr)
             cache[key] = dist
             return dist
-        k = math.ceil(rad / h)
-        disc = [(a, c) for a in range(-k, k + 1) for c in range(-k, k + 1) if math.hypot(a * h, c * h) <= rad]
+        k = math.ceil(rad / h) + 1
+        disc = [(a, c, math.hypot(a * h, c * h)) for a in range(-k, k + 1) for c in range(-k, k + 1) if math.hypot(a * h, c * h) <= rad + h]
         sq = [(a, c) for a in range(-k, k + 1) for c in range(-k, k + 1) if max(abs(a), abs(c)) * h <= rad]
         thin = set()
         scan = [m for m, _ in members([only] if only else sc['windows'])]
@@ -219,9 +232,10 @@ class ReliefTests(unittest.TestCase):
             for i in range(math.floor((b[0] - rl.MIN_WALL) / h), math.ceil((b[2] + rl.MIN_WALL) / h) + 1):
                 for j in range(math.floor((b[1] - rl.MIN_WALL) / h), math.ceil((b[3] + rl.MIN_WALL) / h) + 1):
                     x, y = i * h, j * h
-                    if not (x0 < x < x1 and y0 < y < y1) or clear(i, j, False) <= h:
+                    if not (x0 < x < x1 and y0 < y < y1) or clear(i, j, False) <= 0:
                         continue
-                    if not any(clear(i + a, j + c, False) >= rad for a, c in disc) and not any(clear(i + a, j + c, True) for a, c in sq):
+                    # covered by a disc of radius >= rad that fits in the material, or by a fitting square of half-side rad
+                    if not any(clear(i + a, j + c, False) >= max(rad, dd - h / 2) for a, c, dd in disc) and not any(clear(i + a, j + c, True) for a, c in sq):
                         thin.add((round(x, 3), round(y, 3)))
         return sorted(thin)
 

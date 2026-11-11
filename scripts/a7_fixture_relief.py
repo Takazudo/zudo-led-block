@@ -272,6 +272,43 @@ def _covered(strip, boxes):
     return _union_area(clipped) >= (strip[2] - strip[0]) * (strip[3] - strip[1]) - 1e-9
 
 
+def _corner_flags(b, boxes, eps=1e-6):
+    """Round a member corner unless another member box reaches a neighbouring quadrant there (BL, BR, TL, TR)."""
+    out = []
+    for cxv, cyv, sx, sy in ((b[0], b[1], -1, -1), (b[2], b[1], 1, -1), (b[0], b[3], -1, 1), (b[2], b[3], 1, 1)):
+        probes_q = [(cxv + sx * eps, cyv + sy * eps), (cxv - sx * eps, cyv + sy * eps), (cxv + sx * eps, cyv - sy * eps)]
+        out.append(not any(_in_box(o, *q) for o in boxes for q in probes_q))
+    return out
+
+
+def _in_rounded(b, flags, r, x, y):
+    """Point inside a member rectangle whose flagged corners are rounded with radius r."""
+    if not _in_box(b, x, y):
+        return False
+    for (cxv, cyv, sx, sy), flag in zip(((b[0], b[1], 1, 1), (b[2], b[1], -1, 1), (b[0], b[3], 1, -1), (b[2], b[3], -1, -1)), flags):
+        ox, oy = cxv + sx * r, cyv + sy * r
+        if flag and (x - ox) * sx < 0 and (y - oy) * sy < 0 and math.dist((x, y), (ox, oy)) > r:
+            return False
+    return True
+
+
+def _uncovered_sharp_corners(boxes, r, eps=1e-6):
+    """Sharp corners whose neighbouring quadrants are reached only by another member's box, not by its rounded shape."""
+    flags = [_corner_flags(b, boxes, eps) for b in boxes]
+    bad = []
+    for i, b in enumerate(boxes):
+        for (cxv, cyv, sx, sy), flag in zip(((b[0], b[1], -1, -1), (b[2], b[1], 1, -1), (b[0], b[3], -1, 1), (b[2], b[3], 1, 1)), flags[i]):
+            if flag:
+                continue
+            probes_q = [(cxv + sx * eps, cyv + sy * eps), (cxv - sx * eps, cyv + sy * eps), (cxv + sx * eps, cyv - sy * eps)]
+            for q in probes_q:
+                in_box = [j for j, o in enumerate(boxes) if j != i and _in_box(o, *q)]
+                if in_box and not any(_in_rounded(boxes[j], flags[j], r, *q) for j in in_box):
+                    bad.append((i, (cxv, cyv)))
+                    break
+    return bad
+
+
 def _min_size(box, size):
     b = list(box)
     for lo, hi in ((0, 2), (1, 3)):
@@ -294,6 +331,20 @@ def _windows(contents, bounds, wall, radius):
     """
     allowance = math.ceil(radius * (1 - 1 / math.sqrt(2)) * 1000) / 1000
     mem = [{'ref': c['ref'], 'box': _min_size(_expand(c['box'], allowance), 2 * radius)} for c in contents]
+    for _ in range(50):
+        _merge(mem, bounds, wall, radius)
+        # a sharp corner next to a neighbour's rounded corner leaves a flake: fill the corner with a 2r square and re-merge
+        bad = _uncovered_sharp_corners([m['box'] for m in mem], radius)
+        if not bad:
+            break
+        for i, (cxv, cyv) in bad:
+            mem.append({'ref': f"fill {mem[i]['ref']}", 'box': [cxv - radius, cyv - radius, cxv + radius, cyv + radius]})
+    else:
+        raise ValueError('corner filling did not converge')
+    return _group(mem, radius), allowance
+
+
+def _merge(mem, bounds, wall, radius):
     for _ in range(400):
         boxes = [m['box'] for m in mem]
         fix = None
@@ -323,7 +374,10 @@ def _windows(contents, bounds, wall, radius):
                     br[0] -= radius; br[2] += radius
                 else:
                     br[1] -= radius; br[3] += radius
-                fix = {'ref': f"bridge {mem[i]['ref']}+{mem[j]['ref']}", 'box': _min_size(br, 2 * radius)}
+                br = _min_size(br, 2 * radius)
+                if any(_inside(br, q) for q in boxes):
+                    continue  # an existing member already removes this strip (degenerate diagonal touches)
+                fix = {'ref': f"bridge {mem[i]['ref']}+{mem[j]['ref']}", 'box': br}
                 break
             if fix:
                 break
@@ -332,6 +386,9 @@ def _windows(contents, bounds, wall, radius):
         mem.append(fix)
     else:
         raise ValueError('window merging did not converge')
+
+
+def _group(mem, radius):
     # connected components (overlap or touch)
     comp = list(range(len(mem)))
 
@@ -348,22 +405,17 @@ def _windows(contents, bounds, wall, radius):
     for i, m in enumerate(mem):
         groups.setdefault(find(i), []).append(m)
     out = []
-    eps = 1e-6
     for ms in groups.values():
         boxes = [m['box'] for m in ms]
         members = []
         for m in ms:
             b = [round(v, 6) for v in m['box']]
-            rounded = []
-            for cxv, cyv, sx, sy in ((b[0], b[1], -1, -1), (b[2], b[1], 1, -1), (b[0], b[3], -1, 1), (b[2], b[3], 1, 1)):
-                probes_q = [(cxv + sx * eps, cyv + sy * eps), (cxv - sx * eps, cyv + sy * eps), (cxv + sx * eps, cyv - sy * eps)]
-                occupied = [any(_in_box(o, *q) for o in boxes) for q in probes_q]
-                rounded.append(not any(occupied))
+            rounded = _corner_flags(b, [[round(v, 6) for v in o] for o in boxes])
             members.append({'ref': m['ref'], 'box_board_mm': b, 'box_carrier_mm': _to_carrier(b), 'rounded_corners': rounded})
         bb = [round(min(q[0] for q in boxes), 6), round(min(q[1] for q in boxes), 6), round(max(q[2] for q in boxes), 6), round(max(q[3] for q in boxes), 6)]
-        out.append({'members': sorted(members, key=lambda m: m['ref']), 'parts': sorted(m['ref'] for m in ms if not m['ref'].startswith('bridge')),
+        out.append({'members': sorted(members, key=lambda m: m['ref']), 'parts': sorted(m['ref'] for m in ms if not m['ref'].startswith(('bridge', 'fill'))),
                     'board_box_mm': bb, 'carrier_box_mm': _to_carrier(bb), 'corner_radius_mm': radius})
-    return sorted(out, key=lambda w: (w['board_box_mm'][1], w['board_box_mm'][0])), allowance
+    return sorted(out, key=lambda w: (w['board_box_mm'][1], w['board_box_mm'][0]))
 
 
 def _window_dist(w, xy):
@@ -680,9 +732,9 @@ def design(geometry: dict, probes: list[dict], pop: dict | None = None) -> dict:
     # board across the probe-field window: every window-borne contact load taken as one unbalanced point load at mid-span of a
     # simply supported strip spanning the window's longest side (conservative: probe forces would reduce it)
     contact_windows = [w for w in windows if any(_in_window(w, *pr['board_xy_mm']) for pr in probes)
-                       or any(_window_dist(w, c) < rcon for c in tri)]
+                       or any(_window_dist(w, c) <= rcon + 1e-9 for c in tri)]
     span = max((max(w['board_box_mm'][2] - w['board_box_mm'][0], w['board_box_mm'][3] - w['board_box_mm'][1]) for w in contact_windows), default=0.0)
-    f_win = round(max(p_max, sum(r for r, c in zip(react, tri) if any(_window_dist(w, c) < rcon for w in contact_windows))), 6)
+    f_win = round(max(p_max, sum(r for r, c in zip(react, tri) if any(_window_dist(w, c) <= rcon + 1e-9 for w in contact_windows))), 6)
     e_mod, strip = RULES['board_flexural_modulus_MPa'], RULES['board_strip_width_mm']
     inertia = strip * BOARD_THICKNESS ** 3 / 12
     defl = round(f_win * span ** 3 / (48 * e_mod * inertia), 6)

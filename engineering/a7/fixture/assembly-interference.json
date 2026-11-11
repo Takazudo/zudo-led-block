@@ -1,8 +1,14 @@
 {
   "schema": 1,
   "tool": "CadQuery 2.7.0",
-  "design_sha256": "16ce5d87b4e73c469502a33a845e8918f79a8f26733a42056ce7138dd60c3f77",
-  "step_sha256": "161da4ed3b6a3033f5f220174684245cb27f5e49805978ec0acc52472c1d4d06",
+  "model_inputs_sha256": "84521b2de0e092a5c1d124b98021aba48bb430c9e77a3a828f8728b585c75381",
+  "model_inputs": {
+    "design_sha256": "e5dd0560f4bea0cd14e7f4e2ff2aac9a49f80320e063f2a648b6760afda03715",
+    "assembly_code_sha256": "998c4e973492096d75e1a17745488ebbebb909e9888d58032a760dfd042ff40a",
+    "native_geometry_sha256": "2f372a058a24cb117d9e294d11411e84cb575e682d18f7651cbf0547d1bc7f51",
+    "cadquery": "2.7.0"
+  },
+  "step_sha256": "95660b42e740c77a4f4c02678373dc0faa974078066cceceb7bab9b96e2a263b",
   "method": "pairwise boolean common volume between every two solids whose bounding boxes meet (board part boxes are not checked against each other); interference above the threshold; clearances by exact BRep distance",
   "interference_threshold_mm3": 0.001,
   "modelling": "Builds every fixture part, the hardware envelopes and the board (with F-side part boxes from the recorded heights and\nB-face bodies and leads from the relief design) in board coordinates: x, y as on the PCB, z up from the board B face.\nThreads are modelled at the major diameter and press fits line to line, so a designed joint touches without overlap.\nThe J5 tail length is unsourced; it is modelled as a keep-out column from the B face down to the base plate top.",
@@ -10,7 +16,7 @@
     {
       "name": "support_carrier",
       "group": "plate",
-      "volume_mm3": 8032.4303
+      "volume_mm3": 7981.907
     },
     {
       "name": "probe_plate",

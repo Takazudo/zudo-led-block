@@ -11,17 +11,28 @@ from __future__ import annotations
 import hashlib
 import json
 import math
+from pathlib import Path
 
 TOL_MM3 = 1e-3  # common-volume threshold for an interference; OCC boolean noise on touching faces stays far below it
 
 
-def design_digest(relief):
-    return hashlib.sha256(json.dumps(relief, sort_keys=True).encode()).hexdigest()
+CADQUERY_VERSION = '2.7.0'
+
+
+def model_inputs(relief, geometry_sha256):
+    """Everything the assembly model is built from: the design, this module's code, the native record and the CAD kernel."""
+    return {'design_sha256': hashlib.sha256(json.dumps(relief, sort_keys=True).encode()).hexdigest(),
+            'assembly_code_sha256': hashlib.sha256(Path(__file__).read_bytes()).hexdigest(),
+            'native_geometry_sha256': geometry_sha256, 'cadquery': CADQUERY_VERSION}
+
+
+def design_digest(relief, geometry_sha256):
+    return hashlib.sha256(json.dumps(model_inputs(relief, geometry_sha256), sort_keys=True).encode()).hexdigest()
 
 
 def _cq():
     import cadquery as cq
-    if cq.__version__ != '2.7.0':
+    if cq.__version__ != CADQUERY_VERSION:
         raise ValueError('CadQuery 2.7.0 required')
     return cq
 

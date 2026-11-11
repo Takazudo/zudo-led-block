@@ -86,8 +86,8 @@ def assembly_status(relief):
         return False, 'no assembly STEP or interference record; run with --cad', None
     rec = json.loads(INTERFERENCE.read_text())
     problems = []
-    if rec.get('design_sha256') != relief_assembly.design_digest(relief):
-        problems.append('interference record is for a different design')
+    if rec.get('model_inputs_sha256') != relief_assembly.design_digest(relief, digest(native_geom.RECORD)):
+        problems.append('interference record is for a different design, assembly code or native record')
     if rec.get('step_sha256') != digest(ASSEMBLY_STEP):
         problems.append('assembly STEP bytes differ from the checked model')
     if rec.get('interferences'):
@@ -342,7 +342,9 @@ def cad(r, check=False):
     if not check:
         relief_assembly.export(parts, ASSEMBLY_STEP)
         inter, touching, clear, contacts = relief_assembly.check(parts)
-        rec = {'schema': 1, 'tool': 'CadQuery 2.7.0', 'design_sha256': relief_assembly.design_digest(rel), 'step_sha256': digest(ASSEMBLY_STEP),
+        gsha = digest(native_geom.RECORD)
+        rec = {'schema': 1, 'tool': 'CadQuery 2.7.0', 'model_inputs_sha256': relief_assembly.design_digest(rel, gsha),
+               'model_inputs': relief_assembly.model_inputs(rel, gsha), 'step_sha256': digest(ASSEMBLY_STEP),
                'method': 'pairwise boolean common volume between every two solids whose bounding boxes meet (board part boxes are not checked '
                          'against each other); interference above the threshold; clearances by exact BRep distance',
                'interference_threshold_mm3': relief_assembly.TOL_MM3, 'modelling': relief_assembly.__doc__.strip().split('\n\n')[1],
