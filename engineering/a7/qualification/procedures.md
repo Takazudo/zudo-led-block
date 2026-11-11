@@ -65,24 +65,28 @@
 | supplier-cad-conflict | 供給元 CAD の端子4/5の矛盾を実物で解消すること | `"Supplier symbol appears to assign direct tip spring to5 and normal branch to4, contrary to current inferred mapping."` | reference | NONE | UNVERIFIED | `.claude/skills/component-a7-pj-324m/facts.json` `fact-a7-pj-324m-supplier-cad-conflict` |
 | ts-sleeve | TS / TRS プラグでの入荷時導通試験が必須（tip/ring が入れ替わると TS プラグの sleeve が CV_THRU に触れるため） | `"an incoming-part continuity test with TS and TRS plugs is required"` | reference | NONE | DESIGN | `engineering/a7/README.md` 引用 |
 | test-current | 測定電流は接点定格以下 | `"50 mA, 24 V DC"` | max | NONE | SOURCED | `.claude/skills/component-a7-pj-324m/facts.json` `fact-a7-pj-324m-contact-rating` |
-| closed-max | 「導通」と判定する抵抗の上限 | `200000` | max | ohm | PROPOSED（根拠 CALCULATED） | 計算 `(R1 + R2) * DB / FS`（内訳は下） |
-| open-min | 「開放」と判定する抵抗の下限 | `20000000` | min | ohm | PROPOSED（根拠 CALCULATED） | 計算 `R1 + R2`（内訳は下） |
+| mapping-closed-max | 端子対応の判定で「導通」とみなす抵抗の上限（どの端子が tip / normal かを見分けるためだけの閾値） | `200000` | max | ohm | PROPOSED（根拠 CALCULATED） | 計算 `(R1 + R2) * DB / FS`（内訳は下） |
+| mapping-open-min | 端子対応の判定で「開放」とみなす抵抗の下限 | `20000000` | min | ohm | PROPOSED（根拠 CALCULATED） | 計算 `R1 + R2`（内訳は下） |
+| contact-max | 閉じた接点 1 つあたりの接触抵抗の上限（新品の初期値）。4 端子法、または 2 端子法で、測定リードとプラグを短絡して読んだ値を差し引く（リード抵抗の扱いを記録）。測定電流は接点定格 50 mA 以下 | `50` | max | mohm | PROPOSED（根拠 UNVERIFIED） | 計算 `Rc`（内訳は下） |
 
 計算の内訳:
 
-- `closed-max`: `(R1 + R2) * DB / FS` = `200000` ohm（小数 0 桁に丸め）
+- `mapping-closed-max`: `(R1 + R2) * DB / FS` = `200000` ohm（小数 0 桁に丸め）
   - `R1` = 10000000.0（`10M`、`engineering/a7/verification/schematic/netlist.xml` R1 の値、の value）
   - `R2` = 10000000.0（`10M`、`engineering/a7/verification/schematic/netlist.xml` R2 の値、の value）
   - `DB` = 50.0（`50`、`engineering/a5/firmware/include/lb_config.h` 引用、「LB_CV_DEADBAND_MV            50」）
   - `FS` = 5000.0（`5000`、`engineering/a5/firmware/include/lb_config.h` 引用、「LB_CV_FULL_SCALE_MV          5000」）
-- `open-min`: `R1 + R2` = `20000000` ohm（小数 0 桁に丸め）
+- `mapping-open-min`: `R1 + R2` = `20000000` ohm（小数 0 桁に丸め）
   - `R1` = 10000000.0（`10M`、`engineering/a7/verification/schematic/netlist.xml` R1 の値、の value）
   - `R2` = 10000000.0（`10M`、`engineering/a7/verification/schematic/netlist.xml` R2 の値、の value）
+- `contact-max`: `Rc` = `50` mohm（小数 0 桁に丸め）
+  - `Rc` = 50.0（`50`、`.claude/skills/component-a7-pj-324m/sources.json` `src-a7-pj-324m-sofng-site` の抜粋（未監査）、「50 mOhm max」）
 
 提案の理由（PROPOSED は採否前で、この手順の基準ゲートを解除しません）:
 
-- `closed-max`: 端子の対応を見分けるための閾値。この基板の入力 R1+R2 (20 MΩ) に対する誤差 Rc/(R1+R2) が FW の不感帯 50 mV / 5000 mV（1 %）を超えない上限。ただし CV_THRU は J2 から下流のモジュールも駆動し、その入力抵抗は資料がないので、接点品質の上限にはならない（独立レビュー指摘。下流 100 kΩ なら 200 kΩ で大きな誤差）。接点品質の上限は別に決める。
-- `open-min`: 開放側の漏れがモジュール自身の入力抵抗 (R1+R2 = 20 MΩ) 以上なら、CV_THRU への追加負荷は入力そのもの以下で、機能上は開放と同じ。計器のレンジがこれに届かなければ採否で下げる。
+- `mapping-closed-max`: 端子の対応を見分けるための閾値。この基板の入力 R1+R2 (20 MΩ) に対する誤差 Rc/(R1+R2) が FW の不感帯 50 mV / 5000 mV（1 %）を超えない上限。CV_THRU は J2 から下流のモジュールも駆動するので、接点品質の判定には使わない（接点品質は contact-max）。
+- `mapping-open-min`: 開放側の漏れがモジュール自身の入力抵抗 (R1+R2 = 20 MΩ) 以上なら、CV_THRU への追加負荷は入力そのもの以下で、機能上は開放と同じ。計器のレンジがこれに届かなければ採否で下げる。
+- `contact-max`: SOFNG が自社サイトに掲載した PJ-324M の図面（製造元の一次資料）の「initial contact resistance 30 / 50 mOhm max (A better / B average product)」。購入品がどちらの等級か分からないので、緩い B 側の 50 mΩ を上限にする。この値は部品 evidence の fact には未登録で、抜粋の引用なので UNVERIFIED。
 
 ### jack-dimensions — ジャック軸・スロット・端子・ナット
 
@@ -1196,7 +1200,7 @@
 - assembly_manifest: fixture-materials: Fixture design and materials incomplete (see fixture manifest); physical contact/load tests follow.
 - assembly_manifest: prototype-and-release: No owner-approved prototype route, no reviewed manufacturing package and no release approval.
 - jack-continuity: criterion unresolved or review receipt missing
-- jack-continuity: criterion has PROPOSED or UNRESOLVED acceptance values: closed-max, open-min
+- jack-continuity: criterion has PROPOSED or UNRESOLVED acceptance values: mapping-closed-max, mapping-open-min, contact-max
 - jack-continuity: NOT_MEASURED: no run
 - jack-dimensions: criterion unresolved or review receipt missing
 - jack-dimensions: criterion has PROPOSED or UNRESOLVED acceptance values: tolerances

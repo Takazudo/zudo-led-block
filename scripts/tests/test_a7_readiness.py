@@ -457,6 +457,19 @@ class ExecutableProcedureTests(unittest.TestCase):
         self.item('startup-reset', 'en-off')['derivation']['expression'] = '+'.join(['VIH'] * 3000)
         self.assertUntraceable('at most 600 characters')
 
+    def test_unaudited_source_extract_stays_unverified(self):
+        a = self.item('jack-continuity', 'contact-max')
+        self.assertEqual((a['basis_confidence'], a['value']), ('UNVERIFIED', 50))
+        a['basis_confidence'] = 'CALCULATED'
+        self.assertUntraceable('allow only UNVERIFIED')
+        self.plan = json.loads((REPO/m.QUAL/'plan.json').read_text())
+        src = self.item('jack-continuity', 'contact-max')['derivation']['inputs'][0]['source']
+        src['quote'] = 'initial contact resistance 30 / 5'
+        self.assertUntraceable('whole words')
+        self.plan = json.loads((REPO/m.QUAL/'plan.json').read_text())
+        self.item('jack-continuity', 'contact-max')['derivation']['inputs'][0]['source']['source_id'] = 'src-a7-pj-324m-jlc-listing'
+        self.assertUntraceable('not manufacturer-primary')
+
     def test_calculated_needs_a_derivation(self):
         self.item('startup-reset', 'no-retry')['confidence'] = 'CALCULATED'
         self.assertUntraceable('CALCULATED needs a derivation')

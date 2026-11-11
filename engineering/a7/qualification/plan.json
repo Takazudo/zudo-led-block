@@ -121,8 +121,8 @@
           "bound": "max"
         },
         {
-          "id": "closed-max",
-          "criterion": "「導通」と判定する抵抗の上限",
+          "id": "mapping-closed-max",
+          "criterion": "端子対応の判定で「導通」とみなす抵抗の上限（どの端子が tip / normal かを見分けるためだけの閾値）",
           "value": 200000,
           "unit": "ohm",
           "confidence": "PROPOSED",
@@ -174,11 +174,11 @@
           },
           "bound": "max",
           "basis_confidence": "CALCULATED",
-          "rationale": "端子の対応を見分けるための閾値。この基板の入力 R1+R2 (20 MΩ) に対する誤差 Rc/(R1+R2) が FW の不感帯 50 mV / 5000 mV（1 %）を超えない上限。ただし CV_THRU は J2 から下流のモジュールも駆動し、その入力抵抗は資料がないので、接点品質の上限にはならない（独立レビュー指摘。下流 100 kΩ なら 200 kΩ で大きな誤差）。接点品質の上限は別に決める。"
+          "rationale": "端子の対応を見分けるための閾値。この基板の入力 R1+R2 (20 MΩ) に対する誤差 Rc/(R1+R2) が FW の不感帯 50 mV / 5000 mV（1 %）を超えない上限。CV_THRU は J2 から下流のモジュールも駆動するので、接点品質の判定には使わない（接点品質は contact-max）。"
         },
         {
-          "id": "open-min",
-          "criterion": "「開放」と判定する抵抗の下限",
+          "id": "mapping-open-min",
+          "criterion": "端子対応の判定で「開放」とみなす抵抗の下限",
           "value": 20000000,
           "unit": "ohm",
           "confidence": "PROPOSED",
@@ -211,6 +211,33 @@
           "bound": "min",
           "basis_confidence": "CALCULATED",
           "rationale": "開放側の漏れがモジュール自身の入力抵抗 (R1+R2 = 20 MΩ) 以上なら、CV_THRU への追加負荷は入力そのもの以下で、機能上は開放と同じ。計器のレンジがこれに届かなければ採否で下げる。"
+        },
+        {
+          "id": "contact-max",
+          "criterion": "閉じた接点 1 つあたりの接触抵抗の上限（新品の初期値）。4 端子法、または 2 端子法で、測定リードとプラグを短絡して読んだ値を差し引く（リード抵抗の扱いを記録）。測定電流は接点定格 50 mA 以下",
+          "value": 50,
+          "unit": "mohm",
+          "confidence": "PROPOSED",
+          "basis_confidence": "UNVERIFIED",
+          "derivation": {
+            "expression": "Rc",
+            "inputs": [
+              {
+                "name": "Rc",
+                "token": "50",
+                "number": 50.0,
+                "source": {
+                  "path": ".claude/skills/component-a7-pj-324m/sources.json",
+                  "source_id": "src-a7-pj-324m-sofng-site",
+                  "quote": "initial contact resistance 30 / 50 mOhm max"
+                },
+                "context": "50 mOhm max"
+              }
+            ],
+            "round": 0
+          },
+          "bound": "max",
+          "rationale": "SOFNG が自社サイトに掲載した PJ-324M の図面（製造元の一次資料）の「initial contact resistance 30 / 50 mOhm max (A better / B average product)」。購入品がどちらの等級か分からないので、緩い B 側の 50 mΩ を上限にする。この値は部品 evidence の fact には未登録で、抜粋の引用なので UNVERIFIED。"
         }
       ]
     },

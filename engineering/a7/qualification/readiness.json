@@ -43,14 +43,14 @@
       "sha256": "0201bfaf16235df9bcf450a35842ca7b4c7316592c3de21aa92ad50041a406ce"
     }
   },
-  "plan_sha256": "c4ba587d7f06f591e8d4e0aa7b05f28442e7f23016cb850c91d23442a20fd2ec",
+  "plan_sha256": "8ebfed8d995969ecd7301ecc5ee6e4d11916cdea92dc7b68a5c23224ba649d5b",
   "procedures": [
     {
       "id": "jack-continuity",
       "status": "BLOCKED",
       "reasons": [
         "criterion unresolved or review receipt missing",
-        "criterion has PROPOSED or UNRESOLVED acceptance values: closed-max, open-min",
+        "criterion has PROPOSED or UNRESOLVED acceptance values: mapping-closed-max, mapping-open-min, contact-max",
         "NOT_MEASURED: no run"
       ]
     },
@@ -219,7 +219,7 @@
     "assembly_manifest: fixture-materials: Fixture design and materials incomplete (see fixture manifest); physical contact/load tests follow.",
     "assembly_manifest: prototype-and-release: No owner-approved prototype route, no reviewed manufacturing package and no release approval.",
     "jack-continuity: criterion unresolved or review receipt missing",
-    "jack-continuity: criterion has PROPOSED or UNRESOLVED acceptance values: closed-max, open-min",
+    "jack-continuity: criterion has PROPOSED or UNRESOLVED acceptance values: mapping-closed-max, mapping-open-min, contact-max",
     "jack-continuity: NOT_MEASURED: no run",
     "jack-dimensions: criterion unresolved or review receipt missing",
     "jack-dimensions: criterion has PROPOSED or UNRESOLVED acceptance values: tolerances",
@@ -356,7 +356,7 @@
       "class": "OWNER_DECISION",
       "reasons": [
         "jack-continuity: criterion unresolved or review receipt missing",
-        "jack-continuity: criterion has PROPOSED or UNRESOLVED acceptance values: closed-max, open-min"
+        "jack-continuity: criterion has PROPOSED or UNRESOLVED acceptance values: mapping-closed-max, mapping-open-min, contact-max"
       ]
     },
     {

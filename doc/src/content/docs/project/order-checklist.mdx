@@ -37,12 +37,13 @@ readiness（`engineering/a7/qualification/readiness.json`）は不足を 51 個�
 
 ## 採否を待つ提案値
 
-エージェントが出典から用意した提案です（9 件）。採るまでは該当する基準ゲートを解除しません。理由と計算は procedures.md にあります。
+エージェントが出典から用意した提案です（10 件）。採るまでは該当する基準ゲートを解除しません。理由と計算は procedures.md にあります。
 
 | 手順 | ID | 基準 | 提案値 | 単位 |
 |---|---|---|---|---|
-| jack-continuity | closed-max | 「導通」と判定する抵抗の上限 | `200000` | ohm |
-| jack-continuity | open-min | 「開放」と判定する抵抗の下限 | `20000000` | ohm |
+| jack-continuity | mapping-closed-max | 端子対応の判定で「導通」とみなす抵抗の上限（どの端子が tip / normal かを見分けるためだけの閾値） | `200000` | ohm |
+| jack-continuity | mapping-open-min | 端子対応の判定で「開放」とみなす抵抗の下限 | `20000000` | ohm |
+| jack-continuity | contact-max | 閉じた接点 1 つあたりの接触抵抗の上限（新品の初期値）。4 端子法、または 2 端子法で、測定リードとプラグを短絡して読んだ値を差し引く（リード抵抗の扱いを記録）。測定電流は接点定格 50 mA 以下 | `50` | mohm |
 | harness-depth | bend-radius | 許容最小曲げ半径 | `2.0` | mm |
 | harness-depth | power-band-order | 電源ケーブル自由長の注文範囲 | `[54.0, 60.0]` | mm |
 | firmware-waveforms | t1l-min | T1L の下限 | `580` | ns |

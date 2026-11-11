@@ -57,6 +57,8 @@ STATED = {'ASSUMED': {'ASSUMED'}, 'INFERRED': {'INFERRED'}, 'MIRROR': {'MIRROR'}
           'UNSOURCED': {'UNVERIFIED'}, 'UNVERIFIED': {'UNVERIFIED'}, 'SOURCED': {'DESIGN'}, 'PROJECT-CHOICE': {'DESIGN'},
           'A5-GEOMETRY': {'DESIGN'}, 'MANUFACTURER_PRIMARY': {'DESIGN'}}
 FACTS = re.compile(r'^\.claude/skills/component-[a-z0-9-]+/facts\.json$')
+# A manufacturer-primary source extract that has not been audited into a fact: quotable, but only as UNVERIFIED.
+SOURCES = re.compile(r'^\.claude/skills/component-[a-z0-9-]+/sources\.json$')
 RUN_TEMPLATES = QUAL / 'run-templates'
 CHECKLIST = Path('doc/src/content/docs/project/order-checklist.mdx')
 PROCEDURE_LISTS = ('inputs', 'tools', 'preconditions', 'steps')
@@ -122,6 +124,16 @@ def resolve(trace, root):
     if not full.is_relative_to(root.resolve()) or not full.is_file():
         raise ValueError('trace path missing: ' + trace['path'])
     rel = full.relative_to(root.resolve()).as_posix()
+    if SOURCES.match(rel):
+        if set(trace) != {'path', 'source_id', 'quote'} or not isinstance(trace['quote'], str) or not trace['quote']:
+            raise ValueError('component sources are cited by source_id and a quote of its evidence_extract: ' + rel)
+        entries = [x for x in json.loads(full.read_text()).get('sources', []) if x.get('source_id') == trace['source_id']]
+        if len(entries) != 1 or entries[0].get('authority_class') != 'MANUFACTURER_PRIMARY':
+            raise ValueError('source missing, duplicate or not manufacturer-primary: ' + str(trace['source_id']))
+        extract = entries[0].get('evidence_extract')
+        if not isinstance(extract, str) or not re.search(r'(?<![\w.])' + re.escape(trace['quote']) + r'(?![\w])', extract):
+            raise ValueError('quote not found as whole words in the evidence_extract of ' + trace['source_id'])
+        return trace['quote'], trace['quote'], ['UNVERIFIED']
     forms = [k for k in ('fact_id', 'pointer', 'quote', 'netlist_value') if k in trace]
     if len(forms) != 1 or set(trace) != {'path', forms[0]}:
         raise ValueError('trace needs exactly one of fact_id, pointer or quote: ' + trace['path'])
@@ -677,6 +689,8 @@ def show(value):
 def trace_text(trace):
     if not trace:
         return '—'
+    if 'source_id' in trace:
+        return '`' + trace['path'] + '` `' + trace['source_id'] + '` の抜粋（未監査）'
     form = next(k for k in ('fact_id', 'pointer', 'quote', 'netlist_value') if k in trace)
     detail = {'quote': '引用', 'netlist_value': trace.get('netlist_value', '') + ' の値'}.get(form, trace[form])
     return '`' + trace['path'] + '` ' + ('`' + detail + '`' if form in ('fact_id', 'pointer') else detail)
