@@ -24,8 +24,10 @@ def synthetic():
         for num, pd in sorted(c['pads'].items()):
             d = [pd['at_mm'][0] - c['at_mm'][0], pd['at_mm'][1] - c['at_mm'][1]]
             rel = [round(v, 6) for v in g.rotate(d, -c['angle_deg'])]
+            x, y = pd['at_mm']
             pads.append({'number': num, 'net': pd['net'], 'at_mm': pd['at_mm'], 'fp_relative_mm': rel, 'shape': 'RECTANGLE',
-                         'size_mm': [0.5, 0.6], 'rotation_deg': c['angle_deg'], 'layers': [g.CU[c['side']]],
+                         'size_mm': [0.5, 0.6], 'bbox_mm': [x - 0.3, y - 0.3, x + 0.3, y + 0.3],
+                         'rotation_deg': c['angle_deg'], 'layers': [g.CU[c['side']]],
                          'attribute': 'SMD', 'drill_mm': None})
         fps.append({'ref': c['ref'], 'fpid': c['fpid'], 'side': c['side'], 'at_mm': c['at_mm'], 'rotation_deg': c['angle_deg'],
                     'pads': pads, 'courtyard_bbox_mm': {'F': None, 'B': None, c['side']: [0, 0, 1, 1]},
@@ -58,7 +60,7 @@ class FixtureGeometryTests(unittest.TestCase):
         self.assertTrue(self.check(synthetic(), placement=stale)[0])
 
     def test_missing_required_fields_rejected(self):
-        for field in ('shape', 'size_mm', 'layers', 'fp_relative_mm', 'rotation_deg'):
+        for field in ('shape', 'size_mm', 'bbox_mm', 'layers', 'fp_relative_mm', 'rotation_deg'):
             fx = synthetic()
             del fx['footprints'][0]['pads'][0][field]
             with self.subTest(field=field):
@@ -67,6 +69,12 @@ class FixtureGeometryTests(unittest.TestCase):
         self.assertTrue(self.check(fx)[0])
         fx = synthetic(); fx['footprints'].pop()
         self.assertTrue(self.check(fx)[0])
+
+    def test_pad_box_must_contain_pad_and_layers_must_exist(self):
+        fx = synthetic(); pd = fx['footprints'][0]['pads'][0]; pd['bbox_mm'] = [100, 100, 101, 101]
+        self.assertTrue(self.check(fx)[0])
+        fx = synthetic(); fx['footprints'][0]['pads'][0]['layers'].append('In30.Cu')
+        self.assertTrue(any('copper layers' in e for e in self.check(fx)[0]))
 
     def test_extractor_errors_or_error_record_rejected(self):
         fx = synthetic(); fx['extraction_errors'] = ['C1.1 shape/size: TypeError']

@@ -38,7 +38,7 @@ PLACEMENT = BOARD.with_name('board_placement.json')
 RECORD = ROOT / 'engineering/a7/fixture/native-geometry.json'
 MEMBER = 'evidence/a7_controller/fixture_geometry.json'
 TOL_MM = 2e-4
-PAD_FIELDS = ('number', 'net', 'at_mm', 'fp_relative_mm', 'shape', 'size_mm', 'rotation_deg', 'layers', 'attribute')
+PAD_FIELDS = ('number', 'net', 'at_mm', 'fp_relative_mm', 'shape', 'size_mm', 'bbox_mm', 'rotation_deg', 'layers', 'attribute')
 CU = {'F': 'F.Cu', 'B': 'B.Cu'}
 
 
@@ -75,6 +75,7 @@ def check_geometry(fx: dict, board_sha: str, placement: dict) -> tuple[list[str]
         errors.append('canonical placement is stale for the authoritative A7 PCB')
     if fx.get('units') != 'mm' or fx.get('axes') != {'x': 'right', 'y': 'down'}:
         errors.append('unexpected units/axes convention')
+    allowed_cu = {f'In{i}.Cu' for i in range(1, max(0, int(placement.get('copper_layers') or 0) - 2) + 1)} | {'F.Cu', 'B.Cu'}
     if fx.get('extraction_errors') != []:
         errors.append(f"extraction errors recorded: {str(fx.get('extraction_errors'))[:300]}")
     fps = fx.get('footprints')
@@ -116,6 +117,10 @@ def check_geometry(fx: dict, board_sha: str, placement: dict) -> tuple[list[str]
             if not isinstance(pd['shape'], str) or pd['shape'].startswith('UNKNOWN') or not _pt(pd['size_mm']) \
                     or min(pd['size_mm']) <= 0:
                 errors.append(f'{tag}: pad shape/size missing')
+            bb = pd['bbox_mm']
+            if not (isinstance(bb, list) and len(bb) == 4 and all(_num(v) for v in bb) and bb[0] < bb[2] and bb[1] < bb[3]
+                    and bb[0] - TOL_MM <= pd['at_mm'][0] <= bb[2] + TOL_MM and bb[1] - TOL_MM <= pd['at_mm'][1] <= bb[3] + TOL_MM):
+                errors.append(f'{tag}: pad copper box missing or does not contain the pad position')
             layers = pd['layers']
             if not isinstance(layers, list) or not layers:
                 errors.append(f'{tag}: pad layers missing')
@@ -123,6 +128,8 @@ def check_geometry(fx: dict, board_sha: str, placement: dict) -> tuple[list[str]
             want = [a + b for a, b in zip(f['at_mm'], rotate(pd['fp_relative_mm'], f['rotation_deg']))]
             if math.dist(want, pd['at_mm']) > TOL_MM:
                 errors.append(f'{tag}: pad position is not origin + R(rotation) * fp_relative (transform/mirroring error)')
+            if any(l.endswith('.Cu') and l not in allowed_cu for l in layers):
+                errors.append(f'{tag}: pad lists copper layers the board does not have')
             if pd['attribute'] == 'SMD' and CU[f['side']] not in layers:
                 errors.append(f'{tag}: SMD pad copper is not on the footprint face ({f["side"]})')
             if pd['number']:

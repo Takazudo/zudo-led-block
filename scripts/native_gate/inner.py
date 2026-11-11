@@ -171,6 +171,11 @@ def fixture_geometry(pcb: Path) -> dict:
                 rec['shape'] = rec['size_mm'] = None
                 errors.append(f'{ref}.{pd.GetNumber()} shape/size: {e!r}')
             try:
+                rec['bbox_mm'] = _box(p, _call(pd, 'GetBoundingBox', (), (pd.GetPrincipalLayer(),)))
+            except Exception as e:
+                rec['bbox_mm'] = None
+                errors.append(f'{ref}.{pd.GetNumber()} bbox: {e!r}')
+            try:
                 rel = pd.GetFPRelativePosition()
                 rec['fp_relative_mm'] = [round(T(rel.x), 4), round(T(rel.y), 4)]
             except Exception as e:
@@ -182,7 +187,7 @@ def fixture_geometry(pcb: Path) -> dict:
                 rec['rotation_deg'] = None
                 errors.append(f'{ref}.{pd.GetNumber()} rotation: {e!r}')
             try:
-                rec['layers'] = sorted(b.GetLayerName(l) for l in pd.GetLayerSet().Seq())
+                rec['layers'] = sorted(b.GetLayerName(l) for l in pd.GetLayerSet().Seq() if b.IsLayerEnabled(l))
                 rec['attribute'] = _enum_name(p, 'PAD_ATTRIB_', pd.GetAttribute())
                 d = pd.GetDrillSize()
                 rec['drill_mm'] = [round(T(d.x), 4), round(T(d.y), 4)] if d.x > 0 else None
@@ -225,6 +230,8 @@ def fixture_geometry(pcb: Path) -> dict:
             'units': 'mm', 'origin': 'KiCad absolute board coordinates',
             'axes': {'x': 'right', 'y': 'down'}, 'rotation': 'degrees, counter-clockwise as displayed by KiCad',
             'back_side': 'B-side footprints and pads are reported in KiCad board coordinates as seen from the front (no extra mirroring)',
+            'pad_bbox': 'axis-aligned absolute pad copper box (covers rotation and custom-shape primitives); size_mm of a CUSTOM pad is only its anchor',
+            'layers': 'restricted to layers enabled on the board',
             'not_established': ['body_height_mm', 'solder_envelope', 'manufacturing_tolerance', 'measured_fit'],
             'footprints': fps, 'extraction_errors': errors}
 
