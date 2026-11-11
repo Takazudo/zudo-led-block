@@ -2,7 +2,7 @@
 
 自動生成。**製造承認・発注用ファイルではありません。** C221842 は 2026-11-09T09:18:55Z の JLC 観測で在庫 0・予約可能数 0・MOQ 3・包装数 3500。確保済み在庫ではなく、価格・納期・実装受入は未取得です。他の部品の現在の商取引条件も未取得で、過去の A5 価格を現在値として再掲しません。
 
-台帳 SHA-256: `b7b6fab2768610e5fa97cd54f8af3e26b4630be736dfac478822553df401ea20`。71 配置 / 81 実装点 / 台。数量 1・10・100 は比較条件だけです。
+台帳 SHA-256: `0201bfaf16235df9bcf450a35842ca7b4c7316592c3de21aa92ad50041a406ce`。71 配置 / 81 実装点 / 台。数量 1・10・100 は比較条件だけです。
 
 | 基板 | 枚数/台 | 実装点/枚 | SMD F/B | THT F/B | PCB SHA-256 |
 |---|---:|---:|---|---|---|
@@ -19,7 +19,8 @@
 | supply-observations | ACCESS_EVIDENCE_HOLD | Current stock, price, MOQ, packaging, lead time and assembly applicability not obtained for any line except the dated C221842 zero-stock observation; stock never reserved. |
 | order-quantity | OWNER_DECISION | No agreed order quantity; 1/10/100 are comparison scenarios only, so no supply observation can be judged available for a proposed order. |
 | switch-supply | OWNER_DECISION | PCM13SMTR (C221842) had JLC stock 0 / presale 0 at 2026-11-09; wait, buy elsewhere, or accept a reviewed alternate with its own contact table and fit review. |
-| jack-switch-qualification | PHYSICAL_ONLY | PJ-324M pin function, slot, axis height and nut fit, and PCM13SMTR truth table and land fit, need received parts (jack-continuity, jack-dimensions, switch-fit). |
+| jack-switch-qualification | PHYSICAL_ONLY | PJ-324M pin function (which of terminals 4/5 is the tip contact and which its normal; the supplier symbol contradicts the inferred 4 = tip, so this continuity test must precede any PCB order), slot, axis height and nut fit, and PCM13SMTR truth table and land fit, need received parts (jack-continuity, jack-dimensions, switch-fit). |
+| exact-part-evidence | ACCESS_EVIDENCE_HOLD | Exact-part gaps after the 2026-11-11 source recovery: PMEG4010CEJ ,115 packing variant not established by the datasheet; SM04B-SRSS-TB per-circuit numbering not printed beyond the No. 1 end; PJ-324M recommended hole/slot sizes, axis height and whether a nut ships with C22355739 not sourced. |
 | finished-cables | OWNER_DECISION | Finished A7 power cable (57 mm, +/-3 ASSUMED), SH4 cables and IDC ribbon not selected; supplier answers and the owner choice of assembly are needed before physical routing checks. |
 | mechanical-materials | ACCESS_EVIDENCE_HOLD | PMMA sheet and pocket tolerances, PETG process and orderable fastener part numbers are not sourced; the model carries designations (M2x18, M1.6x4) and envelopes only. |
 | rack-hardware | OWNER_DECISION | Owner rack rail/thread interface and fasteners not specified. |

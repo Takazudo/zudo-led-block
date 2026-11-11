@@ -29,11 +29,11 @@ This record in the catalog: [SM04B-SRSS-TB(LF)(SN)](/docs/components/catalog/#re
 
 **Fit:** Fitted
 
-**Identity state:** UNRESOLVED
+**Identity state:** VERIFIED
 
-**Source state:** SOURCE UNAVAILABLE
+**Source state:** AVAILABLE
 
-**Coverage:** 5 open of 5 published
+**Coverage:** 3 open of 5 published
 
 ## Documents and package
 
@@ -41,9 +41,13 @@ This record in the catalog: [SM04B-SRSS-TB(LF)(SN)](/docs/components/catalog/#re
 
 <EvidenceAnchor id="component-references" />
 
-**Selected document:** Document unavailable
+[Datasheet PDF](https://www.jst-mfg.com/product/pdf/eng/eSH.pdf) — JST SH CONNECTOR catalog (1.0 mm pitch wire-to-board, crimp style), eSH.pdf
 
-**Reason:** No manufacturer-primary document for this exact orderable is retained in the evidence. Reviewed: JLCPCB public product listing C160404 (A5 retained product-props snapshot) (DISTRIBUTOR\_IDENTITY, AVAILABLE); JST SH connector catalog (eSH.pdf, title as recorded by A5); not acquired (MANUFACTURER\_PRIMARY, SOURCE UNAVAILABLE). Distributor listings establish order identity only, and a distributor-hosted mirror is lower authority, so neither is published as a manufacturer document.
+**Selected source ID:** `src-sm04b-srss-tb-lf-sn-sh-catalog`
+
+**Authority:** MANUFACTURER\_PRIMARY
+
+**Availability:** AVAILABLE
 
 No footprint or 3D model is published for this record: CAD is not enabled for this project.
 
@@ -65,18 +69,15 @@ Coverage is stated one domain at a time and is never rolled up. A domain marked 
 
 <EvidenceAnchor id="cov-sm04b-srss-tb-lf-sn-identity" />
 
-**Coverage ID:** `cov-sm04b-srss-tb-lf-sn-identity` · **Status:** OPEN
+**Coverage ID:** `cov-sm04b-srss-tb-lf-sn-identity` · **Status:** COVERED
 
-**Reason:** fact-sm04b-srss-tb-lf-sn-manufacturer remains UNSOURCED: the JST SH catalog is SOURCE UNAVAILABLE (HTTP 403 on 2026-11-08); only distributor identity is retained
+**Reason:** manufacturer and the SM04B-SRSS-TB side-entry 4-circuit model with its (LF)(SN) label marking are read from the JST SH catalog (same bytes A5 hashed); distributor identity agrees
 
 **Facts in this domain:**
 
 - [`fact-sm04b-srss-tb-lf-sn-manufacturer`](#fact-sm04b-srss-tb-lf-sn-manufacturer)
+- [`fact-sm04b-srss-tb-lf-sn-orderable`](#fact-sm04b-srss-tb-lf-sn-orderable)
 - [`fact-sm04b-srss-tb-lf-sn-distributor-identity`](#fact-sm04b-srss-tb-lf-sn-distributor-identity)
-
-**Blocked by:** these facts must be resolved before the domain can close. Each is listed in full under Facts.
-
-- [`fact-sm04b-srss-tb-lf-sn-manufacturer`](#fact-sm04b-srss-tb-lf-sn-manufacturer)
 
 ### pinout
 
@@ -84,7 +85,7 @@ Coverage is stated one domain at a time and is never rolled up. A domain marked 
 
 **Coverage ID:** `cov-sm04b-srss-tb-lf-sn-pinout` · **Status:** OPEN
 
-**Reason:** fact-sm04b-srss-tb-lf-sn-pinout remains UNSOURCED: the JST SH catalog is SOURCE UNAVAILABLE, so circuit numbering is not checked
+**Reason:** fact-sm04b-srss-tb-lf-sn-pinout remains UNSOURCED: the JST SH catalog marks only the No. 1 circuit end and prints no per-circuit numbering for the 4-circuit side-entry header
 
 **Facts in this domain:**
 
@@ -98,15 +99,11 @@ Coverage is stated one domain at a time and is never rolled up. A domain marked 
 
 <EvidenceAnchor id="cov-sm04b-srss-tb-lf-sn-ratings" />
 
-**Coverage ID:** `cov-sm04b-srss-tb-lf-sn-ratings` · **Status:** OPEN
+**Coverage ID:** `cov-sm04b-srss-tb-lf-sn-ratings` · **Status:** COVERED
 
-**Reason:** fact-sm04b-srss-tb-lf-sn-ratings remains UNSOURCED: the JST SH catalog is SOURCE UNAVAILABLE, so the current and voltage ratings are not recorded
+**Reason:** current, voltage and temperature ratings are read from the JST SH catalog Specifications block; application current per VLED contact is not evaluated here
 
 **Facts in this domain:**
-
-- [`fact-sm04b-srss-tb-lf-sn-ratings`](#fact-sm04b-srss-tb-lf-sn-ratings)
-
-**Blocked by:** these facts must be resolved before the domain can close. Each is listed in full under Facts.
 
 - [`fact-sm04b-srss-tb-lf-sn-ratings`](#fact-sm04b-srss-tb-lf-sn-ratings)
 
@@ -155,13 +152,13 @@ A never-exceed limit. Reaching it may damage the part; it is not an operating ta
 
   **Fact:** `fact-sm04b-srss-tb-lf-sn-ratings`
 
-  **Value:** manufacturer current and voltage rating · **Unit:** `NONE`
+  **Value:** 1 · **Unit:** `A`
 
-  **Conditions:** not read: the JST SH catalog is SOURCE UNAVAILABLE; no value taken from A5 notes or memory
+  **Conditions:** current rating 1.0 A AC/DC with AWG #28 wire; voltage rating 50 V AC/DC; temperature range -25..+85 C including temperature rise under current. Catalog 'rating' values, recorded under the existing ABSOLUTE\_MAXIMUM fact class; the catalog does not distinguish rating from absolute maximum
 
-  **Verdict:** UNSOURCED · **Provenance:** UNVERIFIED
+  **Verdict:** PASS - primary-source confirmed · **Provenance:** PRIMARY-SPEC
 
-  **Evidence:** [src-sm04b-srss-tb-lf-sn-sh-catalog: intended specifications table rows current rating and voltage rating](#src-sm04b-srss-tb-lf-sn-sh-catalog)
+  **Evidence:** [src-sm04b-srss-tb-lf-sn-sh-catalog: page 1 Specifications rows current rating, voltage rating, temperature range](#src-sm04b-srss-tb-lf-sn-sh-catalog)
 </EvidenceFact>
 
 ### PROJECT\_STATE
@@ -175,11 +172,11 @@ A value this project recorded about how the part is used here — a chosen opera
 
   **Value:** JST · **Unit:** `NONE`
 
-  **Conditions:** the JST SH catalog is SOURCE UNAVAILABLE (jst-mfg.com HTTP 403 on 2026-11-08); only distributor identity is retained
+  **Conditions:** J.S.T. Mfg. SH CONNECTOR catalog eSH.pdf served from jst-mfg.com; JST logo on every page footer
 
-  **Verdict:** UNSOURCED · **Provenance:** UNVERIFIED
+  **Verdict:** PASS - primary-source confirmed · **Provenance:** PRIMARY-SPEC
 
-  **Evidence:** [src-sm04b-srss-tb-lf-sn-sh-catalog: intended catalog title block](#src-sm04b-srss-tb-lf-sn-sh-catalog)
+  **Evidence:** [src-sm04b-srss-tb-lf-sn-sh-catalog: page 1 title block 'SH CONNECTOR' and footer JST logo](#src-sm04b-srss-tb-lf-sn-sh-catalog)
 </EvidenceFact>
 
 <EvidenceFact>
@@ -217,11 +214,11 @@ A value this project recorded about how the part is used here — a chosen opera
 
   **Value:** manufacturer circuit numbering for the 4-circuit SH side-entry header · **Unit:** `NONE`
 
-  **Conditions:** not checked: the JST SH catalog is SOURCE UNAVAILABLE; the project pin map is a historical A5 netlist projection
+  **Conditions:** partially checked: the side-entry header figure marks only the 'No. 1 circuit' end at 1.0 mm pitch; the catalog prints no per-circuit numbering, so the A5 pad 1-4 projection is not confirmed beyond pin 1 location; the A5 pin map remains a historical netlist projection
 
   **Verdict:** UNSOURCED · **Provenance:** UNVERIFIED
 
-  **Evidence:** [src-sm04b-srss-tb-lf-sn-sh-catalog: intended side-entry header figure circuit numbering](#src-sm04b-srss-tb-lf-sn-sh-catalog)
+  **Evidence:** [src-sm04b-srss-tb-lf-sn-sh-catalog-p2: Side entry type figure 'No. 1 circuit' callout; src-sm04b-srss-tb-lf-sn-sh-catalog: PC board layout side entry type](#src-sm04b-srss-tb-lf-sn-sh-catalog)
 </EvidenceFact>
 
 <EvidenceFact>
@@ -236,6 +233,20 @@ A value this project recorded about how the part is used here — a chosen opera
   **Verdict:** UNSOURCED · **Provenance:** PROJECT-CHOICE
 
   **Evidence:** [src-sm04b-srss-tb-lf-sn-a5-netlist-controller: components section footprint field](#src-sm04b-srss-tb-lf-sn-a5-netlist-controller)
+</EvidenceFact>
+
+<EvidenceFact>
+  <EvidenceAnchor id="fact-sm04b-srss-tb-lf-sn-orderable" />
+
+  **Fact:** `fact-sm04b-srss-tb-lf-sn-orderable`
+
+  **Value:** SM04B-SRSS-TB · **Unit:** `NONE`
+
+  **Conditions:** 4-circuit SMT side entry header in the Model No. table (A 3.0, B 6.0 mm, 3,000/reel); Note 1 says the product displays (LF)(SN) on a label, which matches the distributor MPN suffix SM04B-SRSS-TB(LF)(SN); the suffix is a label marking, not a separate model-number field in the allocation (page 4)
+
+  **Verdict:** PASS - primary-source confirmed · **Provenance:** PRIMARY-SPEC
+
+  **Evidence:** [src-sm04b-srss-tb-lf-sn-sh-catalog-p2: Header Model No. table row 4 circuits, Note 1; src-sm04b-srss-tb-lf-sn-sh-catalog-p3: Header model number allocation](#src-sm04b-srss-tb-lf-sn-sh-catalog-p2)
 </EvidenceFact>
 
 ## Pin maps
@@ -337,25 +348,65 @@ Every document cited above, with its identification, when it was retrieved, and 
 
 **Document URL:** [https://github.com/Takazudo/zudo-led-block/blob/d41cbb7fc61dc954b4affaf19527aa69f07013b6/engineering/a5/integration/native\_schematic/led\_leaf/netlist.xml](https://github.com/Takazudo/zudo-led-block/blob/d41cbb7fc61dc954b4affaf19527aa69f07013b6/engineering/a5/integration/native_schematic/led_leaf/netlist.xml)
 
-### JST SH connector catalog (eSH.pdf, title as recorded by A5); not acquired
+### JST SH CONNECTOR catalog (1.0 mm pitch wire-to-board, crimp style), eSH.pdf
 
 <EvidenceAnchor id="src-sm04b-srss-tb-lf-sn-sh-catalog" />
 
 **Source ID:** `src-sm04b-srss-tb-lf-sn-sh-catalog` · **Authority:** MANUFACTURER\_PRIMARY
 
-| Field           | Recorded value         |
-| --------------- | ---------------------- |
-| Document number | eSH                    |
-| Revision        | unknown (not acquired) |
-| Document date   | unknown (not acquired) |
-| Retrieved       | 2026-11-08             |
-| Printed page    | n/a (not acquired)     |
+| Field           | Recorded value                               |
+| --------------- | -------------------------------------------- |
+| Document number | eSH                                          |
+| Revision        | no revision printed (PDF ModDate 2024-10-04) |
+| Document date   | 2024-10-04                                   |
+| Retrieved       | 2026-11-11                                   |
+| Printed page    | - 1 -                                        |
 
-**Locator:** intended: SH catalog specifications table, SM04B-SRSS-TB part-number row and side-entry header figure; not inspected
+**Locator:** page 1: title 'SH CONNECTOR', Specifications block; 'PC board layout and Assembly layout' side entry type figure; JST logo footer
 
-**Availability:** SOURCE UNAVAILABLE
+**Availability:** AVAILABLE
 
-**Document URL:** no link is published for this source
+**Document URL:** [https://www.jst-mfg.com/product/pdf/eng/eSH.pdf](https://www.jst-mfg.com/product/pdf/eng/eSH.pdf)
+
+### JST SH CONNECTOR catalog (1.0 mm pitch wire-to-board, crimp style), eSH.pdf
+
+<EvidenceAnchor id="src-sm04b-srss-tb-lf-sn-sh-catalog-p2" />
+
+**Source ID:** `src-sm04b-srss-tb-lf-sn-sh-catalog-p2` · **Authority:** MANUFACTURER\_PRIMARY
+
+| Field           | Recorded value                               |
+| --------------- | -------------------------------------------- |
+| Document number | eSH                                          |
+| Revision        | no revision printed (PDF ModDate 2024-10-04) |
+| Document date   | 2024-10-04                                   |
+| Retrieved       | 2026-11-11                                   |
+| Printed page    | - 3 -                                        |
+
+**Locator:** page 3: 'Header' section, Side entry type figure, Model No. table row for 4 circuits, Material and Surface finish, Notes 1-5
+
+**Availability:** AVAILABLE
+
+**Document URL:** [https://www.jst-mfg.com/product/pdf/eng/eSH.pdf](https://www.jst-mfg.com/product/pdf/eng/eSH.pdf)
+
+### JST SH CONNECTOR catalog (1.0 mm pitch wire-to-board, crimp style), eSH.pdf
+
+<EvidenceAnchor id="src-sm04b-srss-tb-lf-sn-sh-catalog-p3" />
+
+**Source ID:** `src-sm04b-srss-tb-lf-sn-sh-catalog-p3` · **Authority:** MANUFACTURER\_PRIMARY
+
+| Field           | Recorded value                               |
+| --------------- | -------------------------------------------- |
+| Document number | eSH                                          |
+| Revision        | no revision printed (PDF ModDate 2024-10-04) |
+| Document date   | 2024-10-04                                   |
+| Retrieved       | 2026-11-11                                   |
+| Printed page    | - 4 -                                        |
+
+**Locator:** page 4: 'Model number allocation' section, Header figure (model number breakdown)
+
+**Availability:** AVAILABLE
+
+**Document URL:** [https://www.jst-mfg.com/product/pdf/eng/eSH.pdf](https://www.jst-mfg.com/product/pdf/eng/eSH.pdf)
 
 ## Legend
 
@@ -367,6 +418,7 @@ What the recorded terms on this page mean, in ordinary words. The exact terms ab
 | --------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------- |
 | `CONFIRMED - distributor identity only` | A distributor listing confirms which part this is, and nothing more. It carries no electrical, thermal or lifetime authority. |
 | `NEEDS BENCH`                           | Cannot be settled from documents. It needs measurement on real hardware before it can be relied on.                           |
+| `PASS - primary-source confirmed`       | Confirmed against the manufacturer's own document for this exact part.                                                        |
 | `UNSOURCED`                             | No accepted source backs this value yet. Treat it as a claim, not a fact.                                                     |
 
 ### Provenance
@@ -374,6 +426,7 @@ What the recorded terms on this page mean, in ordinary words. The exact terms ab
 | Recorded term          | What it means                                                |
 | ---------------------- | ------------------------------------------------------------ |
 | `DISTRIBUTOR-IDENTITY` | Taken from a distributor listing. Identity information only. |
+| `PRIMARY-SPEC`         | Taken from the manufacturer's own specification document.    |
 | `PROJECT-CHOICE`       | A decision made by this project. No vendor asserts it.       |
 | `UNVERIFIED`           | Recorded, but not yet backed by an accepted source.          |
 
@@ -388,14 +441,14 @@ What the recorded terms on this page mean, in ordinary words. The exact terms ab
 
 | Recorded term | What it means                                                                                                               |
 | ------------- | --------------------------------------------------------------------------------------------------------------------------- |
+| `COVERED`     | Every question this domain asks is answered by the facts listed against it.                                                 |
 | `OPEN`        | Unresolved. Open means the question has not been answered, not that the part is unsafe — the reason states what is missing. |
 
 ### Source availability
 
-| Recorded term        | What it means                                                                                                         |
-| -------------------- | --------------------------------------------------------------------------------------------------------------------- |
-| `AVAILABLE`          | The document was retrieved and is on record.                                                                          |
-| `SOURCE UNAVAILABLE` | The document could not be retrieved. It stays listed so the gap is visible; anything resting on it remains unsourced. |
+| Recorded term | What it means                                |
+| ------------- | -------------------------------------------- |
+| `AVAILABLE`   | The document was retrieved and is on record. |
 
 ### Source authority
 
@@ -407,15 +460,15 @@ What the recorded terms on this page mean, in ordinary words. The exact terms ab
 
 ### Identity state
 
-| Recorded term | What it means                                                                                                                    |
-| ------------- | -------------------------------------------------------------------------------------------------------------------------------- |
-| `UNRESOLVED`  | The exact orderable part is not yet confirmed. Substituting a same-name part from another vendor is not permitted on that basis. |
+| Recorded term | What it means                                                 |
+| ------------- | ------------------------------------------------------------- |
+| `VERIFIED`    | The exact orderable part has been confirmed against a source. |
 
 ### Source state
 
-| Recorded term        | What it means                                     |
-| -------------------- | ------------------------------------------------- |
-| `SOURCE UNAVAILABLE` | No document backing this line could be retrieved. |
+| Recorded term | What it means                                          |
+| ------------- | ------------------------------------------------------ |
+| `AVAILABLE`   | At least one document backing this line was retrieved. |
 
 ### Unit
 

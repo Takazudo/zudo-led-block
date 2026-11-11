@@ -250,7 +250,7 @@ class ExecutableProcedureTests(unittest.TestCase):
         self.assertUntraceable('differs from the cited fact')
 
     def test_mirror_fact_cannot_be_promoted(self):
-        self.item('jack-dimensions', 'thread')['confidence'] = 'SOURCED'
+        self.item('pmma-supports', 'plug-force')['confidence'] = 'SOURCED'
         self.assertUntraceable('confidence differs from the cited fact')
 
     def test_changed_record_value_is_rejected(self):

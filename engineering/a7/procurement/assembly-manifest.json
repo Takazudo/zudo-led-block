@@ -12,7 +12,7 @@
   ],
   "inputs_sha256": {
     ".claude/skills/component-a7-pcm13smtr/sources.json": "1e28c4823249057637c140a0645be87688cb89ce64ba54c2ed809aec04d3e7c0",
-    ".claude/skills/component-spec-audit/references/inventory.json": "6ebc7927f909ef59adde35b0a477bdc6570cea2cd5ba29b3a108df237f4a5fcb",
+    ".claude/skills/component-spec-audit/references/inventory.json": "320ebb27d0ff794ab6c6861f57f21385db85f50e3cc8736b6fda49af16d5d98e",
     "engineering/a5/electronics/native/led_leaf/led_leaf.kicad_pcb": "6244280cec3efe00ca31d9c5c8878f3ed6eb59a1c6bd4e933beffedd49511df3",
     "engineering/a5/electronics/native/power_adapter/power_adapter.kicad_pcb": "b0f071f2730afdfd3d29de2176b1cce5f90b0c0726d14fd15501e27f90d95187",
     "engineering/a5/electronics/placement_and_connectivity.json": "086443644c29d210cdde0c712d639584c0ee52079395c7ef5f2dca1c1876c71f",
@@ -2888,7 +2888,12 @@
     {
       "id": "jack-switch-qualification",
       "class": "PHYSICAL_ONLY",
-      "text": "PJ-324M pin function, slot, axis height and nut fit, and PCM13SMTR truth table and land fit, need received parts (jack-continuity, jack-dimensions, switch-fit)."
+      "text": "PJ-324M pin function (which of terminals 4/5 is the tip contact and which its normal; the supplier symbol contradicts the inferred 4 = tip, so this continuity test must precede any PCB order), slot, axis height and nut fit, and PCM13SMTR truth table and land fit, need received parts (jack-continuity, jack-dimensions, switch-fit)."
+    },
+    {
+      "id": "exact-part-evidence",
+      "class": "ACCESS_EVIDENCE_HOLD",
+      "text": "Exact-part gaps after the 2026-11-11 source recovery: PMEG4010CEJ ,115 packing variant not established by the datasheet; SM04B-SRSS-TB per-circuit numbering not printed beyond the No. 1 end; PJ-324M recommended hole/slot sizes, axis height and whether a nut ships with C22355739 not sourced."
     },
     {
       "id": "finished-cables",

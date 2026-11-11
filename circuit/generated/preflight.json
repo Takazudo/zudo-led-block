@@ -43,9 +43,9 @@
     ]
   },
   "sources": {
-    "available": 179,
-    "selected": 179,
-    "linkable": 132,
+    "available": 185,
+    "selected": 185,
+    "linkable": 141,
     "ids": [
       "src-0603b103k500nt-a5-jlcpcb-snapshot",
       "src-0603b103k500nt-a5-netlist-controller",
@@ -180,10 +180,15 @@
       "src-pmeg4010cej-115-a5-jlcpcb-snapshot",
       "src-pmeg4010cej-115-a5-netlist-controller",
       "src-pmeg4010cej-115-ds",
+      "src-pmeg4010cej-115-ds-p1",
+      "src-pmeg4010cej-115-ds-p2",
+      "src-pmeg4010cej-115-ds-p5",
       "src-sm04b-srss-tb-lf-sn-a5-jlcpcb-snapshot",
       "src-sm04b-srss-tb-lf-sn-a5-netlist-controller",
       "src-sm04b-srss-tb-lf-sn-a5-netlist-led-leaf",
       "src-sm04b-srss-tb-lf-sn-sh-catalog",
+      "src-sm04b-srss-tb-lf-sn-sh-catalog-p2",
+      "src-sm04b-srss-tb-lf-sn-sh-catalog-p3",
       "src-sn74lvc2t45dcur-a5-jlcpcb-snapshot",
       "src-sn74lvc2t45dcur-a5-netlist-controller",
       "src-sn74lvc2t45dcur-ds-p15",
@@ -225,7 +230,8 @@
       "src-ws2812b-2020-v6-ds-p1",
       "src-ws2812b-2020-v6-ds-p2",
       "src-ws2812b-2020-v6-ds-p3",
-      "src-ws2812b-2020-v6-ds-p9"
+      "src-ws2812b-2020-v6-ds-p9",
+      "src-ws2812b-2020-v6-ds-v1-0-p3"
     ]
   },
   "fields": [
@@ -358,151 +364,151 @@
     {
       "key": "source.sourceId",
       "decision": "PUBLISH",
-      "emitted": 179,
+      "emitted": 185,
       "withheld": 0
     },
     {
       "key": "source.documentTitle",
       "decision": "PUBLISH",
-      "emitted": 179,
+      "emitted": 185,
       "withheld": 0
     },
     {
       "key": "source.documentNumber",
       "decision": "PUBLISH",
-      "emitted": 179,
+      "emitted": 185,
       "withheld": 0
     },
     {
       "key": "source.revision",
       "decision": "PUBLISH",
-      "emitted": 179,
+      "emitted": 185,
       "withheld": 0
     },
     {
       "key": "source.documentDate",
       "decision": "PUBLISH",
-      "emitted": 179,
+      "emitted": 185,
       "withheld": 0
     },
     {
       "key": "source.retrievalDate",
       "decision": "PUBLISH",
-      "emitted": 179,
+      "emitted": 185,
       "withheld": 0
     },
     {
       "key": "source.authorityClass",
       "decision": "PUBLISH",
-      "emitted": 179,
+      "emitted": 185,
       "withheld": 0
     },
     {
       "key": "source.availability",
       "decision": "PUBLISH",
-      "emitted": 179,
+      "emitted": 185,
       "withheld": 0
     },
     {
       "key": "source.locator",
       "decision": "PUBLISH",
-      "emitted": 179,
+      "emitted": 185,
       "withheld": 0
     },
     {
       "key": "source.printedPageLabel",
       "decision": "PUBLISH",
-      "emitted": 179,
+      "emitted": 185,
       "withheld": 0
     },
     {
       "key": "source.physicalPdfPageIndex",
       "decision": "DENY",
       "emitted": 0,
-      "withheld": 179
+      "withheld": 185
     },
     {
       "key": "source.authoritativeUrl",
       "decision": "PUBLISH",
-      "emitted": 132,
+      "emitted": 141,
       "withheld": 0
     },
     {
       "key": "source.alternateAuthoritativeUrl",
       "decision": "DENY",
       "emitted": 0,
-      "withheld": 179
+      "withheld": 185
     },
     {
       "key": "source.sha256",
       "decision": "DENY",
       "emitted": 0,
-      "withheld": 179
+      "withheld": 185
     },
     {
       "key": "source.evidenceExtract",
       "decision": "DENY",
       "emitted": 0,
-      "withheld": 179
+      "withheld": 185
     },
     {
       "key": "fact.factId",
       "decision": "PUBLISH",
-      "emitted": 361,
+      "emitted": 369,
       "withheld": 0
     },
     {
       "key": "fact.class",
       "decision": "PUBLISH",
-      "emitted": 361,
+      "emitted": 369,
       "withheld": 0
     },
     {
       "key": "fact.value",
       "decision": "PUBLISH",
-      "emitted": 361,
+      "emitted": 369,
       "withheld": 0
     },
     {
       "key": "fact.unit",
       "decision": "PUBLISH",
-      "emitted": 361,
+      "emitted": 369,
       "withheld": 0
     },
     {
       "key": "fact.conditions",
       "decision": "PUBLISH",
-      "emitted": 361,
+      "emitted": 369,
       "withheld": 0
     },
     {
       "key": "fact.locator",
       "decision": "PUBLISH",
-      "emitted": 361,
+      "emitted": 369,
       "withheld": 0
     },
     {
       "key": "fact.provenance",
       "decision": "PUBLISH",
-      "emitted": 361,
+      "emitted": 369,
       "withheld": 0
     },
     {
       "key": "fact.verdict",
       "decision": "PUBLISH",
-      "emitted": 361,
+      "emitted": 369,
       "withheld": 0
     },
     {
       "key": "fact.dependsOn",
       "decision": "PUBLISH",
-      "emitted": 361,
+      "emitted": 369,
       "withheld": 0
     },
     {
       "key": "fact.expression",
       "decision": "PUBLISH",
-      "emitted": 361,
+      "emitted": 369,
       "withheld": 0
     },
     {
@@ -706,31 +712,31 @@
     {
       "key": "reference.document.sourceId",
       "decision": "PUBLISH",
-      "emitted": 26,
+      "emitted": 29,
       "withheld": 0
     },
     {
       "key": "reference.document.documentTitle",
       "decision": "PUBLISH",
-      "emitted": 26,
+      "emitted": 29,
       "withheld": 0
     },
     {
       "key": "reference.document.label",
       "decision": "PUBLISH",
-      "emitted": 26,
+      "emitted": 29,
       "withheld": 0
     },
     {
       "key": "reference.document.authorityClass",
       "decision": "PUBLISH",
-      "emitted": 26,
+      "emitted": 29,
       "withheld": 0
     },
     {
       "key": "reference.document.url",
       "decision": "PUBLISH",
-      "emitted": 26,
+      "emitted": 29,
       "withheld": 0
     },
     {
@@ -742,7 +748,7 @@
     {
       "key": "reference.document.documentKind",
       "decision": "PUBLISH",
-      "emitted": 26,
+      "emitted": 29,
       "withheld": 0
     },
     {
@@ -802,7 +808,7 @@
     {
       "key": "asset.datasheetPdf",
       "decision": "PUBLISH",
-      "emitted": 26,
+      "emitted": 29,
       "withheld": 0
     },
     {
@@ -1301,9 +1307,9 @@
     },
     {
       "sourceId": "src-a7-pj-324m-sofng-site",
-      "url": "",
-      "decision": "DENY",
-      "reason": "SOURCE_NOT_LINKABLE"
+      "url": "https://www.sofng.com/uploads/allimg/230325/2-23032515031C61.png",
+      "decision": "ALLOW",
+      "reason": "ABSOLUTE_HTTP_URL"
     },
     {
       "sourceId": "src-ap63205wu-7-a5-jlcpcb-snapshot",
@@ -1619,9 +1625,27 @@
     },
     {
       "sourceId": "src-pmeg4010cej-115-ds",
-      "url": "",
-      "decision": "DENY",
-      "reason": "SOURCE_NOT_LINKABLE"
+      "url": "https://assets.nexperia.com/documents/data-sheet/PMEG4010CEJ.pdf",
+      "decision": "ALLOW",
+      "reason": "ABSOLUTE_HTTP_URL"
+    },
+    {
+      "sourceId": "src-pmeg4010cej-115-ds-p1",
+      "url": "https://assets.nexperia.com/documents/data-sheet/PMEG4010CEJ.pdf",
+      "decision": "ALLOW",
+      "reason": "ABSOLUTE_HTTP_URL"
+    },
+    {
+      "sourceId": "src-pmeg4010cej-115-ds-p2",
+      "url": "https://assets.nexperia.com/documents/data-sheet/PMEG4010CEJ.pdf",
+      "decision": "ALLOW",
+      "reason": "ABSOLUTE_HTTP_URL"
+    },
+    {
+      "sourceId": "src-pmeg4010cej-115-ds-p5",
+      "url": "https://assets.nexperia.com/documents/data-sheet/PMEG4010CEJ.pdf",
+      "decision": "ALLOW",
+      "reason": "ABSOLUTE_HTTP_URL"
     },
     {
       "sourceId": "src-sm04b-srss-tb-lf-sn-a5-jlcpcb-snapshot",
@@ -1643,9 +1667,21 @@
     },
     {
       "sourceId": "src-sm04b-srss-tb-lf-sn-sh-catalog",
-      "url": "",
-      "decision": "DENY",
-      "reason": "SOURCE_NOT_LINKABLE"
+      "url": "https://www.jst-mfg.com/product/pdf/eng/eSH.pdf",
+      "decision": "ALLOW",
+      "reason": "ABSOLUTE_HTTP_URL"
+    },
+    {
+      "sourceId": "src-sm04b-srss-tb-lf-sn-sh-catalog-p2",
+      "url": "https://www.jst-mfg.com/product/pdf/eng/eSH.pdf",
+      "decision": "ALLOW",
+      "reason": "ABSOLUTE_HTTP_URL"
+    },
+    {
+      "sourceId": "src-sm04b-srss-tb-lf-sn-sh-catalog-p3",
+      "url": "https://www.jst-mfg.com/product/pdf/eng/eSH.pdf",
+      "decision": "ALLOW",
+      "reason": "ABSOLUTE_HTTP_URL"
     },
     {
       "sourceId": "src-sn74lvc2t45dcur-a5-jlcpcb-snapshot",
@@ -1898,16 +1934,22 @@
       "url": "https://www.world-semi.com/downloads/datasheets/en/ws2812b-2020-v6-1.0.pdf",
       "decision": "ALLOW",
       "reason": "ABSOLUTE_HTTP_URL"
+    },
+    {
+      "sourceId": "src-ws2812b-2020-v6-ds-v1-0-p3",
+      "url": "https://www.world-semi.com/web/userfiles/productfile/WS2812B-2020-V6_V1.0_EN.pdf",
+      "decision": "ALLOW",
+      "reason": "ABSOLUTE_HTTP_URL"
     }
   ],
   "counts": {
     "generatedPages": 36,
     "publishedCoverageDomains": 169,
-    "publishedFacts": 361,
+    "publishedFacts": 369,
     "publishedIntegrationRules": 0,
     "publishedInteractions": 0,
     "publishedPinMaps": 32,
     "publishedRecords": 32,
-    "publishedSources": 179
+    "publishedSources": 185
   }
 }

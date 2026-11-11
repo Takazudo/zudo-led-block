@@ -5,22 +5,21 @@
       "coverage_id": "cov-sm04b-srss-tb-lf-sn-identity",
       "record_id": "rec-sm04b-srss-tb-lf-sn",
       "domain": "identity",
-      "status": "OPEN",
-      "reason": "fact-sm04b-srss-tb-lf-sn-manufacturer remains UNSOURCED: the JST SH catalog is SOURCE UNAVAILABLE (HTTP 403 on 2026-11-08); only distributor identity is retained",
+      "status": "COVERED",
+      "reason": "manufacturer and the SM04B-SRSS-TB side-entry 4-circuit model with its (LF)(SN) label marking are read from the JST SH catalog (same bytes A5 hashed); distributor identity agrees",
       "fact_ids": [
         "fact-sm04b-srss-tb-lf-sn-manufacturer",
+        "fact-sm04b-srss-tb-lf-sn-orderable",
         "fact-sm04b-srss-tb-lf-sn-distributor-identity"
       ],
-      "blocking_fact_ids": [
-        "fact-sm04b-srss-tb-lf-sn-manufacturer"
-      ]
+      "blocking_fact_ids": []
     },
     {
       "coverage_id": "cov-sm04b-srss-tb-lf-sn-pinout",
       "record_id": "rec-sm04b-srss-tb-lf-sn",
       "domain": "pinout",
       "status": "OPEN",
-      "reason": "fact-sm04b-srss-tb-lf-sn-pinout remains UNSOURCED: the JST SH catalog is SOURCE UNAVAILABLE, so circuit numbering is not checked",
+      "reason": "fact-sm04b-srss-tb-lf-sn-pinout remains UNSOURCED: the JST SH catalog marks only the No. 1 circuit end and prints no per-circuit numbering for the 4-circuit side-entry header",
       "fact_ids": [
         "fact-sm04b-srss-tb-lf-sn-pinout"
       ],
@@ -32,14 +31,12 @@
       "coverage_id": "cov-sm04b-srss-tb-lf-sn-ratings",
       "record_id": "rec-sm04b-srss-tb-lf-sn",
       "domain": "electrical-ratings",
-      "status": "OPEN",
-      "reason": "fact-sm04b-srss-tb-lf-sn-ratings remains UNSOURCED: the JST SH catalog is SOURCE UNAVAILABLE, so the current and voltage ratings are not recorded",
+      "status": "COVERED",
+      "reason": "current, voltage and temperature ratings are read from the JST SH catalog Specifications block; application current per VLED contact is not evaluated here",
       "fact_ids": [
         "fact-sm04b-srss-tb-lf-sn-ratings"
       ],
-      "blocking_fact_ids": [
-        "fact-sm04b-srss-tb-lf-sn-ratings"
-      ]
+      "blocking_fact_ids": []
     },
     {
       "coverage_id": "cov-sm04b-srss-tb-lf-sn-placement",

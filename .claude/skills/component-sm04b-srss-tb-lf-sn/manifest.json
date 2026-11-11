@@ -15,7 +15,9 @@
         "src-sm04b-srss-tb-lf-sn-a5-jlcpcb-snapshot",
         "src-sm04b-srss-tb-lf-sn-a5-netlist-controller",
         "src-sm04b-srss-tb-lf-sn-a5-netlist-led-leaf",
-        "src-sm04b-srss-tb-lf-sn-sh-catalog"
+        "src-sm04b-srss-tb-lf-sn-sh-catalog",
+        "src-sm04b-srss-tb-lf-sn-sh-catalog-p2",
+        "src-sm04b-srss-tb-lf-sn-sh-catalog-p3"
       ],
       "fact_ids": [
         "fact-sm04b-srss-tb-lf-sn-manufacturer",
@@ -23,13 +25,12 @@
         "fact-sm04b-srss-tb-lf-sn-a5-placements",
         "fact-sm04b-srss-tb-lf-sn-pinout",
         "fact-sm04b-srss-tb-lf-sn-ratings",
-        "fact-sm04b-srss-tb-lf-sn-cad-state"
+        "fact-sm04b-srss-tb-lf-sn-cad-state",
+        "fact-sm04b-srss-tb-lf-sn-orderable"
       ],
       "interaction_ids": [],
       "open_domains": [
-        "identity",
         "pinout",
-        "electrical-ratings",
         "placement",
         "cad-assets"
       ]

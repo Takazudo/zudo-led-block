@@ -118,6 +118,7 @@ Coverage is stated one domain at a time and is never rolled up. A domain marked 
 
 - [`fact-ws2812b-2020-v6-bit-timing`](#fact-ws2812b-2020-v6-bit-timing)
 - [`fact-ws2812b-2020-v6-reset-time`](#fact-ws2812b-2020-v6-reset-time)
+- [`fact-ws2812b-2020-v6-bit-timing-v1-0`](#fact-ws2812b-2020-v6-bit-timing-v1-0)
 
 ### placement
 
@@ -231,6 +232,20 @@ A parameter the manufacturer guarantees over the stated conditions, usually with
   **Verdict:** PASS - primary-source confirmed · **Provenance:** PRIMARY-SPEC
 
   **Evidence:** [src-ws2812b-2020-v6-ds-p3: Data Transfer Time table row RES](#src-ws2812b-2020-v6-ds-p3)
+</EvidenceFact>
+
+<EvidenceFact>
+  <EvidenceAnchor id="fact-ws2812b-2020-v6-bit-timing-v1-0" />
+
+  **Fact:** `fact-ws2812b-2020-v6-bit-timing-v1-0`
+
+  **Value:** T0H 220-380; T1H 580-1000; T0L 580-1000; T1L 580-1000 · **Unit:** `ns`
+
+  **Conditions:** as printed in the superseded V1.0 (20251021) Data Transfer Time table; identical to V1.4 (fact-ws2812b-2020-v6-bit-timing), so the T1L 580 ns-1 us row is not a one-revision artefact of V1.4. It does not settle whether the row is a datasheet error; the A5 firmware T1L bound (220-420 ns) remains in conflict with both revisions
+
+  **Verdict:** PASS - primary-source confirmed · **Provenance:** PRIMARY-SPEC
+
+  **Evidence:** [src-ws2812b-2020-v6-ds-v1-0-p3: Data Transfer Time table rows T0H, T1H, T0L, T1L](#src-ws2812b-2020-v6-ds-v1-0-p3)
 </EvidenceFact>
 
 ### PROJECT\_STATE
@@ -499,6 +514,26 @@ Every document cited above, with its identification, when it was retrieved, and 
 **Availability:** AVAILABLE
 
 **Document URL:** [https://www.world-semi.com/downloads/datasheets/en/ws2812b-2020-v6-1.0.pdf](https://www.world-semi.com/downloads/datasheets/en/ws2812b-2020-v6-1.0.pdf)
+
+### WS2812B-2020-V6 Intelligent control LED integrated light source (superseded revision V1.0)
+
+<EvidenceAnchor id="src-ws2812b-2020-v6-ds-v1-0-p3" />
+
+**Source ID:** `src-ws2812b-2020-v6-ds-v1-0-p3` · **Authority:** MANUFACTURER\_PRIMARY
+
+| Field           | Recorded value                                         |
+| --------------- | ------------------------------------------------------ |
+| Document number | WS2812B-2020-V6 datasheet (no document number printed) |
+| Revision        | V1.0 (superseded by V1.4)                              |
+| Document date   | 2025-10-21                                             |
+| Retrieved       | 2026-11-11                                             |
+| Printed page    | 4 / 9                                                  |
+
+**Locator:** page 4/9: Data Transfer Time table rows T0H, T1H, T0L, T1L, RES; page 9/9 Modify Records table
+
+**Availability:** AVAILABLE
+
+**Document URL:** [https://www.world-semi.com/web/userfiles/productfile/WS2812B-2020-V6\_V1.0\_EN.pdf](https://www.world-semi.com/web/userfiles/productfile/WS2812B-2020-V6_V1.0_EN.pdf)
 
 ## Legend
 

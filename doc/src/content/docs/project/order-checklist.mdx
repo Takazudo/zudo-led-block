@@ -9,20 +9,21 @@ sidebar_position: 4.5
 発注ゲートは **BLOCKED** です。このページは準備の一覧で、発注・供給元への連絡・製造承認・通電を許可するものではありません。
 :::
 
-readiness（`engineering/a7/qualification/readiness.json`）は不足を 56 個のゲートに分け、何で解除できるかで分類しています。
+readiness（`engineering/a7/qualification/readiness.json`）は不足を 57 個のゲートに分け、何で解除できるかで分類しています。
 ゲート名は readiness のものと同じです。
 
 | 区分 | ゲート数 |
 |---|---:|
 | クラウドで進められるデジタル作業 | 5 |
 | オーナーの判断 | 16 |
-| 外部の証跡・アクセス待ち | 15 |
+| 外部の証跡・アクセス待ち | 16 |
 | 実機が必要 | 20 |
 
 ## オーナーにしかできないこと
 
 | # | やること | 内容 | 解除するゲート（現在の状態） |
 |---|---|---|---|
+| O0 | PCB を発注する前に PJ-324M の端子 4/5 を実物で確定する | 供給元の symbol は端子 5 を tip としており、基板の推定対応（端子 4 = tip）と矛盾する。symbol の読みだけでは欠陥とは言えないので、ピン対応と銅箔は変更していない。実物の PJ-324M を TS / TRS プラグで導通試験し（jack-continuity の手順 5）、どちらが tip 接点でどちらがその normal かを記録する。PCB 発注の前提条件。 | `run:jack-continuity`（BLOCKED）、`criterion:jack-continuity`（BLOCKED）、`assembly:jack-switch-qualification`（BLOCKED） |
 | O1 | 限定試作ルートを承認する | 対象版（A7 r2 / 3HP / FR-4）、数量、入手する部品・基板・治具、許す工程、実施者、試験前の安全条件を決め、承認ファイルを残して `records.json` の owner_prototype_route に記録する。製造リリースとは別の承認。 | `owner_prototype_route`（BLOCKED）、`assembly:prototype-and-release`（BLOCKED） |
 | O2 | 発注数量を決める | 1 / 10 / 100 は比較条件だけ。数量が決まるまで、どの供給観測も「この発注に使える」と判断できない。 材料の供給観測は、決めた数量に対して「入手可能」と言える必要がある。 | `assembly:order-quantity`（BLOCKED）、`material:jack`（BLOCKED）、`material:switch`（BLOCKED）、`material:finished_cables`（BLOCKED）、`material:pmma_petg_hardware`（BLOCKED）、`material:fixture`（BLOCKED）、`material:assembly_service`（BLOCKED） |
 | O3 | 供給元への質問を送るか決め、送る | `engineering/a7/qualification/supplier-questions.md` は未送信の下書き。送信と回答の保存（取得日・送信先・raw・ハッシュ）はオーナーだけが行える。 | `assembly:supply-observations`（BLOCKED）、`assembly:mechanical-materials`（BLOCKED）、`criterion:jack-dimensions`（BLOCKED）、`criterion:switch-fit`（BLOCKED）、`criterion:pmma-supports`（BLOCKED）、`criterion:ldo-reverse`（BLOCKED）、`criterion:effective-capacitance`（BLOCKED）、`material:jack`（BLOCKED）、`material:switch`（BLOCKED）、`material:finished_cables`（BLOCKED）、`material:pmma_petg_hardware`（BLOCKED）、`material:fixture`（BLOCKED）、`material:assembly_service`（BLOCKED） |

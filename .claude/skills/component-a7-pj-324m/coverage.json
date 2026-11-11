@@ -5,22 +5,20 @@
       "coverage_id": "cov-a7-pj-324m-identity",
       "record_id": "rec-a7-pj-324m",
       "domain": "identity",
-      "status": "OPEN",
-      "reason": "the only manufacturer document is a lower-authority LCSC-hosted mirror and the manufacturer-hosted copy was SOURCE UNAVAILABLE; manufacturer drawing and distributor identity both retained",
+      "status": "COVERED",
+      "reason": "SOFNG-hosted PJ-324M drawing image (manufacturer primary, 2026-11-11) confirms the item; distributor identity agrees",
       "fact_ids": [
         "fact-a7-pj-324m-manufacturer",
         "fact-a7-pj-324m-distributor-identity"
       ],
-      "blocking_fact_ids": [
-        "fact-a7-pj-324m-manufacturer"
-      ]
+      "blocking_fact_ids": []
     },
     {
       "coverage_id": "cov-a7-pj-324m-mechanical",
       "record_id": "rec-a7-pj-324m",
       "domain": "mechanical",
       "status": "OPEN",
-      "reason": "axis height above the seating plane is not dimensioned and hole sizes are not given",
+      "reason": "body, barrel, thread, bore and terminal projection are primary-source confirmed from the SOFNG-hosted drawing; axis height above the seating plane is not dimensioned, hole sizes are not given, and the footprint positions and plug force exist only on the LCSC mirror's second page",
       "fact_ids": [
         "fact-a7-pj-324m-thread",
         "fact-a7-pj-324m-body-height",
@@ -38,17 +36,7 @@
         "fact-a7-pj-324m-plug-force"
       ],
       "blocking_fact_ids": [
-        "fact-a7-pj-324m-thread",
-        "fact-a7-pj-324m-body-height",
-        "fact-a7-pj-324m-overall-height",
-        "fact-a7-pj-324m-body-width",
-        "fact-a7-pj-324m-axis-to-edge",
-        "fact-a7-pj-324m-axis-to-far-edge",
-        "fact-a7-pj-324m-body-depth",
-        "fact-a7-pj-324m-barrel-projection",
-        "fact-a7-pj-324m-terminal-projection",
         "fact-a7-pj-324m-axis-height",
-        "fact-a7-pj-324m-bore",
         "fact-a7-pj-324m-footprint-positions",
         "fact-a7-pj-324m-hole-sizes",
         "fact-a7-pj-324m-plug-force"
@@ -59,16 +47,18 @@
       "record_id": "rec-a7-pj-324m",
       "domain": "pinout",
       "status": "OPEN",
-      "reason": "no manufacturer pin-function table; the A7 mapping is inferred and needs a continuity test; inspected exact supplier CAD now contains contrary4/5 contact interpretation, requiring resolution before mapping approval",
+      "reason": "no manufacturer pin-function table; read visually, the manufacturer symbol (SOFNG-hosted, 2026-11-11) appears to draw terminal 5 as the lower contact with terminal 4 as its normal (arrow), and terminal 2 with normal 3, without naming tip or ring; that reading agrees with the supplier CAD and contradicts the current inferred 4 TIP / 5 TIP-normal mapping, so a TS/TRS continuity test is required before mapping approval",
       "fact_ids": [
         "fact-a7-pj-324m-pin-function",
         "fact-a7-pj-324m-pin-function-inference",
-        "fact-a7-pj-324m-supplier-cad-conflict"
+        "fact-a7-pj-324m-supplier-cad-conflict",
+        "fact-a7-pj-324m-symbol-contact-topology"
       ],
       "blocking_fact_ids": [
         "fact-a7-pj-324m-pin-function",
         "fact-a7-pj-324m-pin-function-inference",
-        "fact-a7-pj-324m-supplier-cad-conflict"
+        "fact-a7-pj-324m-supplier-cad-conflict",
+        "fact-a7-pj-324m-symbol-contact-topology"
       ]
     },
     {
@@ -76,13 +66,12 @@
       "record_id": "rec-a7-pj-324m",
       "domain": "electrical-ratings",
       "status": "OPEN",
-      "reason": "contact rating is sourced; operating temperature field is blank on the drawing",
+      "reason": "contact rating is primary-source confirmed (50 mA, 24 V DC); the operating temperature field is blank on the manufacturer drawing",
       "fact_ids": [
         "fact-a7-pj-324m-contact-rating",
         "fact-a7-pj-324m-operating-temperature"
       ],
       "blocking_fact_ids": [
-        "fact-a7-pj-324m-contact-rating",
         "fact-a7-pj-324m-operating-temperature"
       ]
     },

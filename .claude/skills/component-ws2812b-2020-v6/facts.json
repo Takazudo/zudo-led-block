@@ -159,6 +159,20 @@
       "verdict": "PASS - primary-source confirmed",
       "depends_on": [],
       "expression": ""
+    },
+    {
+      "fact_id": "fact-ws2812b-2020-v6-bit-timing-v1-0",
+      "record_id": "rec-ws2812b-2020-v6",
+      "source_id": "src-ws2812b-2020-v6-ds-v1-0-p3",
+      "class": "GUARANTEED_ELECTRICAL",
+      "value": "T0H 220-380; T1H 580-1000; T0L 580-1000; T1L 580-1000",
+      "unit": "ns",
+      "conditions": "as printed in the superseded V1.0 (20251021) Data Transfer Time table; identical to V1.4 (fact-ws2812b-2020-v6-bit-timing), so the T1L 580 ns-1 us row is not a one-revision artefact of V1.4. It does not settle whether the row is a datasheet error; the A5 firmware T1L bound (220-420 ns) remains in conflict with both revisions",
+      "locator": "src-ws2812b-2020-v6-ds-v1-0-p3: Data Transfer Time table rows T0H, T1H, T0L, T1L",
+      "provenance": "PRIMARY-SPEC",
+      "verdict": "PASS - primary-source confirmed",
+      "depends_on": [],
+      "expression": ""
     }
   ]
 }

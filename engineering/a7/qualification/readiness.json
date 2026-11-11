@@ -40,10 +40,10 @@
     },
     "assembly_manifest": {
       "path": "engineering/a7/procurement/assembly-manifest.json",
-      "sha256": "b7b6fab2768610e5fa97cd54f8af3e26b4630be736dfac478822553df401ea20"
+      "sha256": "0201bfaf16235df9bcf450a35842ca7b4c7316592c3de21aa92ad50041a406ce"
     }
   },
-  "plan_sha256": "98ae97a1f8c269c39369ffe43cdcd1d12bab4647b5b5565a6567b12f4a9b22a5",
+  "plan_sha256": "4c706a65a90e1a52981a38da713da4c7229619d94c1a01b4aa8af667b510c483",
   "procedures": [
     {
       "id": "jack-continuity",
@@ -204,7 +204,8 @@
     "assembly_manifest: supply-observations: Current stock, price, MOQ, packaging, lead time and assembly applicability not obtained for any line except the dated C221842 zero-stock observation; stock never reserved.",
     "assembly_manifest: order-quantity: No agreed order quantity; 1/10/100 are comparison scenarios only, so no supply observation can be judged available for a proposed order.",
     "assembly_manifest: switch-supply: PCM13SMTR (C221842) had JLC stock 0 / presale 0 at 2026-11-09; wait, buy elsewhere, or accept a reviewed alternate with its own contact table and fit review.",
-    "assembly_manifest: jack-switch-qualification: PJ-324M pin function, slot, axis height and nut fit, and PCM13SMTR truth table and land fit, need received parts (jack-continuity, jack-dimensions, switch-fit).",
+    "assembly_manifest: jack-switch-qualification: PJ-324M pin function (which of terminals 4/5 is the tip contact and which its normal; the supplier symbol contradicts the inferred 4 = tip, so this continuity test must precede any PCB order), slot, axis height and nut fit, and PCM13SMTR truth table and land fit, need received parts (jack-continuity, jack-dimensions, switch-fit).",
+    "assembly_manifest: exact-part-evidence: Exact-part gaps after the 2026-11-11 source recovery: PMEG4010CEJ ,115 packing variant not established by the datasheet; SM04B-SRSS-TB per-circuit numbering not printed beyond the No. 1 end; PJ-324M recommended hole/slot sizes, axis height and whether a nut ships with C22355739 not sourced.",
     "assembly_manifest: finished-cables: Finished A7 power cable (57 mm, +/-3 ASSUMED), SH4 cables and IDC ribbon not selected; supplier answers and the owner choice of assembly are needed before physical routing checks.",
     "assembly_manifest: mechanical-materials: PMMA sheet and pocket tolerances, PETG process and orderable fastener part numbers are not sourced; the model carries designations (M2x18, M1.6x4) and envelopes only.",
     "assembly_manifest: rack-hardware: Owner rack rail/thread interface and fasteners not specified.",
@@ -291,7 +292,14 @@
       "gate": "assembly:jack-switch-qualification",
       "class": "PHYSICAL_ONLY",
       "reasons": [
-        "assembly_manifest: jack-switch-qualification: PJ-324M pin function, slot, axis height and nut fit, and PCM13SMTR truth table and land fit, need received parts (jack-continuity, jack-dimensions, switch-fit)."
+        "assembly_manifest: jack-switch-qualification: PJ-324M pin function (which of terminals 4/5 is the tip contact and which its normal; the supplier symbol contradicts the inferred 4 = tip, so this continuity test must precede any PCB order), slot, axis height and nut fit, and PCM13SMTR truth table and land fit, need received parts (jack-continuity, jack-dimensions, switch-fit)."
+      ]
+    },
+    {
+      "gate": "assembly:exact-part-evidence",
+      "class": "ACCESS_EVIDENCE_HOLD",
+      "reasons": [
+        "assembly_manifest: exact-part-evidence: Exact-part gaps after the 2026-11-11 source recovery: PMEG4010CEJ ,115 packing variant not established by the datasheet; SM04B-SRSS-TB per-circuit numbering not printed beyond the No. 1 end; PJ-324M recommended hole/slot sizes, axis height and whether a nut ships with C22355739 not sourced."
       ]
     },
     {
@@ -655,7 +663,7 @@
   "gate_counts": {
     "CLOUD_DIGITAL": 5,
     "OWNER_DECISION": 16,
-    "ACCESS_EVIDENCE_HOLD": 15,
+    "ACCESS_EVIDENCE_HOLD": 16,
     "PHYSICAL_ONLY": 20
   },
   "optional_variants": {

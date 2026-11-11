@@ -16,7 +16,7 @@
       "raw_evidence_required": "全端子対の導通表、プラグ型番、写真、ジャックロット",
       "observation": "NOT_MEASURED",
       "result": "NOT_RUN",
-      "next_action": "不足する基準をレビューし、オーナー承認の試作ルート確定後に実物で実施。",
+      "next_action": "PCB を発注する前に、オーナー承認の試作ルートで入手した PJ-324M 実物で実施する（端子 4/5 の tip/normal を確定）。不足する判定抵抗値はレビューで決める。",
       "required_evidence_kinds": [
         "terminal_matrix",
         "ts_plug_identity",
@@ -43,6 +43,7 @@
         "無挿入で全10端子対の抵抗を測り、表に記録する。",
         "TS プラグを最後まで挿入し、全10端子対とプラグの Tip/Sleeve 対各端子を測る。",
         "TRS プラグで同じ測定をする。プラグを抜き、無挿入の状態をもう一度測る。",
+        "端子 4 と 5 のどちらが tip 接点（プラグの tip と導通）で、どちらがその normal（無挿入で tip 接点と導通し、挿入で開放）かを判定し、terminal_matrix に「tip=端子N、tip normal=端子M」と明記する。供給元 symbol は端子 5 を tip としており、現在の推定（端子 4 = tip）と矛盾する。この判定は PCB を発注する前に必須。",
         "結果を下の推定対応・基板ネットと突き合わせる。1 か所でも違えば FAIL とし、基板を変えるかどうかは別のレビューで決める（ここで設計を変えない）。"
       ],
       "record": {
@@ -112,7 +113,7 @@
           "criterion": "測定電流は接点定格以下",
           "value": "50 mA, 24 V DC",
           "unit": "NONE",
-          "confidence": "MIRROR",
+          "confidence": "SOURCED",
           "source": {
             "path": ".claude/skills/component-a7-pj-324m/facts.json",
             "fact_id": "fact-a7-pj-324m-contact-rating"
@@ -217,7 +218,7 @@
           "criterion": "ねじ",
           "value": "M6x0.5",
           "unit": "NONE",
-          "confidence": "MIRROR",
+          "confidence": "SOURCED",
           "source": {
             "path": ".claude/skills/component-a7-pj-324m/facts.json",
             "fact_id": "fact-a7-pj-324m-thread"
@@ -229,7 +230,7 @@
           "criterion": "軸から端子 4/5 側の辺",
           "value": 5.4,
           "unit": "mm",
-          "confidence": "MIRROR",
+          "confidence": "SOURCED",
           "source": {
             "path": ".claude/skills/component-a7-pj-324m/facts.json",
             "fact_id": "fact-a7-pj-324m-axis-to-edge"
@@ -253,7 +254,7 @@
           "criterion": "本体高さ",
           "value": 6.0,
           "unit": "mm",
-          "confidence": "MIRROR",
+          "confidence": "SOURCED",
           "source": {
             "path": ".claude/skills/component-a7-pj-324m/facts.json",
             "fact_id": "fact-a7-pj-324m-body-height"
@@ -2097,6 +2098,16 @@
     "2hp": "Parked: Q1/Q6 evidence, owner choice, 0.8 mm controller and new routing required."
   },
   "owner_actions": [
+    {
+      "id": "O0",
+      "title": "PCB を発注する前に PJ-324M の端子 4/5 を実物で確定する",
+      "detail": "供給元の symbol は端子 5 を tip としており、基板の推定対応（端子 4 = tip）と矛盾する。symbol の読みだけでは欠陥とは言えないので、ピン対応と銅箔は変更していない。実物の PJ-324M を TS / TRS プラグで導通試験し（jack-continuity の手順 5）、どちらが tip 接点でどちらがその normal かを記録する。PCB 発注の前提条件。",
+      "unblocks": [
+        "run:jack-continuity",
+        "criterion:jack-continuity",
+        "assembly:jack-switch-qualification"
+      ]
+    },
     {
       "id": "O1",
       "title": "限定試作ルートを承認する",

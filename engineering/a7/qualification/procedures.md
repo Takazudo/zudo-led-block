@@ -19,7 +19,7 @@
 - 根拠: `engineering/a7/electronics/README.md`
 - 未決: 設計推定を採否判定する導通抵抗上限は未決。計器条件と判定値のレビューが必要。（区分: オーナーの判断）
 - 観測: NOT_MEASURED。結果: NOT_RUN。
-- 次: 不足する基準をレビューし、オーナー承認の試作ルート確定後に実物で実施。
+- 次: PCB を発注する前に、オーナー承認の試作ルートで入手した PJ-324M 実物で実施する（端子 4/5 の tip/normal を確定）。不足する判定抵抗値はレビューで決める。
 
 準備するもの:
 
@@ -43,7 +43,8 @@
 2. 無挿入で全10端子対の抵抗を測り、表に記録する。
 3. TS プラグを最後まで挿入し、全10端子対とプラグの Tip/Sleeve 対各端子を測る。
 4. TRS プラグで同じ測定をする。プラグを抜き、無挿入の状態をもう一度測る。
-5. 結果を下の推定対応・基板ネットと突き合わせる。1 か所でも違えば FAIL とし、基板を変えるかどうかは別のレビューで決める（ここで設計を変えない）。
+5. 端子 4 と 5 のどちらが tip 接点（プラグの tip と導通）で、どちらがその normal（無挿入で tip 接点と導通し、挿入で開放）かを判定し、terminal_matrix に「tip=端子N、tip normal=端子M」と明記する。供給元 symbol は端子 5 を tip としており、現在の推定（端子 4 = tip）と矛盾する。この判定は PCB を発注する前に必須。
+6. 結果を下の推定対応・基板ネットと突き合わせる。1 か所でも違えば FAIL とし、基板を変えるかどうかは別のレビューで決める（ここで設計を変えない）。
 
 記録する raw 証跡（種別ごとに別ファイル）:
 
@@ -63,7 +64,7 @@
 | board-nets | 基板のネット割当（この対応が前提） | `"1 SLEEVE→GND, 2 RING→GND, 3 RING normal→NC, 4 TIP→CV_THRU, 5 TIP normal→NC"` | reference | NONE | DESIGN | `engineering/a7/electronics/README.md` 引用 |
 | supplier-cad-conflict | 供給元 CAD の端子4/5の矛盾を実物で解消すること | `"Supplier symbol appears to assign direct tip spring to5 and normal branch to4, contrary to current inferred mapping."` | reference | NONE | UNVERIFIED | `.claude/skills/component-a7-pj-324m/facts.json` `fact-a7-pj-324m-supplier-cad-conflict` |
 | ts-sleeve | TS / TRS プラグでの入荷時導通試験が必須（tip/ring が入れ替わると TS プラグの sleeve が CV_THRU に触れるため） | `"an incoming-part continuity test with TS and TRS plugs is required"` | reference | NONE | DESIGN | `engineering/a7/README.md` 引用 |
-| test-current | 測定電流は接点定格以下 | `"50 mA, 24 V DC"` | max | NONE | MIRROR | `.claude/skills/component-a7-pj-324m/facts.json` `fact-a7-pj-324m-contact-rating` |
+| test-current | 測定電流は接点定格以下 | `"50 mA, 24 V DC"` | max | NONE | SOURCED | `.claude/skills/component-a7-pj-324m/facts.json` `fact-a7-pj-324m-contact-rating` |
 | threshold | 「導通」「開放」と判定する抵抗値 | — | — | ohm | UNRESOLVED | 部品資料に接触抵抗/絶縁抵抗の規定がない。計器条件とあわせてレビューで決める |
 
 ### jack-dimensions — ジャック軸・スロット・端子・ナット
@@ -118,10 +119,10 @@
 |---|---|---|---|---|---|---|
 | axis-height | 軸高さ（図面に寸法なし。推定） | `"approximately 3 (visually scaled 2.9-3.0 from the front view; not dimensioned)"` | reference | mm | INFERRED | `.claude/skills/component-a7-pj-324m/facts.json` `fact-a7-pj-324m-axis-height` |
 | axis-band | 設計で許容した軸高さの範囲 | `[2.6, 3.4]` | range | mm | INFERRED | `engineering/a7/mechanical/layout.json` `/variants/3hp/jack_axis_height_used/band` |
-| thread | ねじ | `"M6x0.5"` | exact | NONE | MIRROR | `.claude/skills/component-a7-pj-324m/facts.json` `fact-a7-pj-324m-thread` |
-| axis-to-edge | 軸から端子 4/5 側の辺 | `5.4` | reference | mm | MIRROR | `.claude/skills/component-a7-pj-324m/facts.json` `fact-a7-pj-324m-axis-to-edge` |
+| thread | ねじ | `"M6x0.5"` | exact | NONE | SOURCED | `.claude/skills/component-a7-pj-324m/facts.json` `fact-a7-pj-324m-thread` |
+| axis-to-edge | 軸から端子 4/5 側の辺 | `5.4` | reference | mm | SOURCED | `.claude/skills/component-a7-pj-324m/facts.json` `fact-a7-pj-324m-axis-to-edge` |
 | axis-to-far-edge | 軸から反対側の辺（計算値） | `6.1` | reference | mm | UNVERIFIED | `.claude/skills/component-a7-pj-324m/facts.json` `fact-a7-pj-324m-axis-to-far-edge` |
-| body-height | 本体高さ | `6.0` | reference | mm | MIRROR | `.claude/skills/component-a7-pj-324m/facts.json` `fact-a7-pj-324m-body-height` |
+| body-height | 本体高さ | `6.0` | reference | mm | SOURCED | `.claude/skills/component-a7-pj-324m/facts.json` `fact-a7-pj-324m-body-height` |
 | slot-drill | 基板スロットのドリル（仮定） | `"1.6×0.8 mm ドリル"` | reference | NONE | ASSUMED | `engineering/a7/electronics/README.md` 引用 |
 | thread-engagement | rear-pocket 構成の最悪条件のねじ噛み合い（設計値） | `1.25` | reference | mm | DESIGN | `engineering/a7/mechanical/layout.json` `/z_stack/thread_engagement_selected/worst_engaged` |
 | thread-engagement-plain | 平板構成の最悪条件のねじ噛み合い（設計値、基準未達で UNRESOLVED の案） | `0.85` | reference | mm | DESIGN | `engineering/a7/mechanical/layout.json` `/z_stack/thread_engagement_alternate/worst_engaged` |
@@ -997,7 +998,7 @@
 |---|---:|
 | CLOUD_DIGITAL（クラウドで進められるデジタル作業） | 5 |
 | OWNER_DECISION（オーナーの判断） | 16 |
-| ACCESS_EVIDENCE_HOLD（外部の証跡・アクセス待ち） | 15 |
+| ACCESS_EVIDENCE_HOLD（外部の証跡・アクセス待ち） | 16 |
 | PHYSICAL_ONLY（実機が必要） | 20 |
 
 ## 現在のブロッカー
@@ -1007,7 +1008,8 @@
 - assembly_manifest: supply-observations: Current stock, price, MOQ, packaging, lead time and assembly applicability not obtained for any line except the dated C221842 zero-stock observation; stock never reserved.
 - assembly_manifest: order-quantity: No agreed order quantity; 1/10/100 are comparison scenarios only, so no supply observation can be judged available for a proposed order.
 - assembly_manifest: switch-supply: PCM13SMTR (C221842) had JLC stock 0 / presale 0 at 2026-11-09; wait, buy elsewhere, or accept a reviewed alternate with its own contact table and fit review.
-- assembly_manifest: jack-switch-qualification: PJ-324M pin function, slot, axis height and nut fit, and PCM13SMTR truth table and land fit, need received parts (jack-continuity, jack-dimensions, switch-fit).
+- assembly_manifest: jack-switch-qualification: PJ-324M pin function (which of terminals 4/5 is the tip contact and which its normal; the supplier symbol contradicts the inferred 4 = tip, so this continuity test must precede any PCB order), slot, axis height and nut fit, and PCM13SMTR truth table and land fit, need received parts (jack-continuity, jack-dimensions, switch-fit).
+- assembly_manifest: exact-part-evidence: Exact-part gaps after the 2026-11-11 source recovery: PMEG4010CEJ ,115 packing variant not established by the datasheet; SM04B-SRSS-TB per-circuit numbering not printed beyond the No. 1 end; PJ-324M recommended hole/slot sizes, axis height and whether a nut ships with C22355739 not sourced.
 - assembly_manifest: finished-cables: Finished A7 power cable (57 mm, +/-3 ASSUMED), SH4 cables and IDC ribbon not selected; supplier answers and the owner choice of assembly are needed before physical routing checks.
 - assembly_manifest: mechanical-materials: PMMA sheet and pocket tolerances, PETG process and orderable fastener part numbers are not sourced; the model carries designations (M2x18, M1.6x4) and envelopes only.
 - assembly_manifest: rack-hardware: Owner rack rail/thread interface and fasteners not specified.

@@ -56,7 +56,7 @@
       "physical_pdf_page_index": 0,
       "printed_page_label": "1 / 10",
       "locator": "Page 1: title block (WORLDSEMI logo, part name WS2812B-2020-V6), Features and Benefits section, footer",
-      "evidence_extract": "Title block: WORLDSEMI logo, \"WS2812B-2020-V6 Intelligent control LED integrated light source\"; footer http://www.world-semi.com, V1.4. Features: working current for each channel is 12mA; send data at speeds of 800Kbps; reverse power connection will not cause damage; static power consumption is below 1uA; 3.3 V power supply is supported. A5 recorded sha256 b09737faa695f6acca16612d3da658da6692fbf4366047083dad84809d452bca (2026-11-05/06, source_provenance.json id WORLDSEMI) for https://www.world-semi.com/downloads/datasheets/en/ws2812b-2020-v6-1.0.pdf; bytes inspected now (2026-11-08): b09737faa695f6acca16612d3da658da6692fbf4366047083dad84809d452bca - identical. Despite the v1.0 URL the bytes are revision V1.4 (every page footer and the Modify Record table, V1.4 dated 20260728). Image-only PDF: values read visually from rendered pages."
+      "evidence_extract": "Title block: WORLDSEMI logo, \"WS2812B-2020-V6 Intelligent control LED integrated light source\"; footer http://www.world-semi.com, V1.4. Features: working current for each channel is 12mA; send data at speeds of 800Kbps; reverse power connection will not cause damage; static power consumption is below 1uA; 3.3 V power supply is supported. A5 recorded sha256 b09737faa695f6acca16612d3da658da6692fbf4366047083dad84809d452bca (2026-11-05/06, source_provenance.json id WORLDSEMI) for https://www.world-semi.com/downloads/datasheets/en/ws2812b-2020-v6-1.0.pdf; bytes inspected now (2026-11-08): b09737faa695f6acca16612d3da658da6692fbf4366047083dad84809d452bca - identical. Despite the v1.0 URL the bytes are revision V1.4 (every page footer and the Modify Record table, V1.4 dated 20260728). Image-only PDF: values read visually from rendered pages. Re-observed 2026-11-11 through the owner's built-in browser: the same URL served the same sha256 (1264070 bytes, Last-Modified Thu, 10 Sep 2026 02:28:58 GMT), so V1.4 is still the revision served there; no later revision was found on world-semi.com (the /downloads/ index returns 403)."
     },
     {
       "source_id": "src-ws2812b-2020-v6-ds-p1",
@@ -129,6 +129,28 @@
       "printed_page_label": "10 / 10",
       "locator": "Page 10: Modify Record table (rows V1.0 to V1.4) and Remarks",
       "evidence_extract": "Modify Record: V1.0 20251021 new; V1.1 20251201; V1.2 20260318; V1.3 20260710; V1.4 20260728 \"LED parameters update, add the data transmission rate, add dimensional tolerances\". Remarks 3: no version number is attached to Part Number. A5 recorded sha256 b09737faa695f6acca16612d3da658da6692fbf4366047083dad84809d452bca (2026-11-05/06, source_provenance.json id WORLDSEMI) for https://www.world-semi.com/downloads/datasheets/en/ws2812b-2020-v6-1.0.pdf; bytes inspected now (2026-11-08): b09737faa695f6acca16612d3da658da6692fbf4366047083dad84809d452bca - identical. Despite the v1.0 URL the bytes are revision V1.4 (every page footer and the Modify Record table, V1.4 dated 20260728). Image-only PDF: values read visually from rendered pages."
+    },
+    {
+      "source_id": "src-ws2812b-2020-v6-ds-v1-0-p3",
+      "record_id": "rec-ws2812b-2020-v6",
+      "document_title": "WS2812B-2020-V6 Intelligent control LED integrated light source (superseded revision V1.0)",
+      "document_number": "WS2812B-2020-V6 datasheet (no document number printed)",
+      "revision": "V1.0 (superseded by V1.4)",
+      "document_date": "2025-10-21",
+      "authoritative_url": "https://www.world-semi.com/web/userfiles/productfile/WS2812B-2020-V6_V1.0_EN.pdf",
+      "alternate_authoritative_url": "https://www.world-semi.com/ws2812-family/",
+      "retrieval_date": "2026-11-11",
+      "authority_class": "MANUFACTURER_PRIMARY",
+      "sha256": "1a25815d93d6597786de86bc451f50066f9f1d7ef68d69eaebb163a6b82fd917",
+      "availability": "AVAILABLE",
+      "physical_pdf_page_index": 3,
+      "printed_page_label": "4 / 9",
+      "locator": "page 4/9: Data Transfer Time table rows T0H, T1H, T0L, T1L, RES; page 9/9 Modify Records table",
+      "evidence_extract": "Data Transfer Time: T0H 0 code high 220ns~380ns; T1H 1 code high 580ns~1us; T0L 0 code low 580ns~1us; T1L 1 code low 580ns~1us; RES >280us; T0H+T0L, T1H+T1L >= 1.25us. Modify Records: V1.0, N (new), 20251021, reviser Chen Yongzhao, approved Yin HuaPing; no later rows in this file. Linked from the world-semi.com WS2812 family page. 1224606 bytes, application/pdf, Last-Modified Mon, 15 Dec 2025 15:02:43 GMT. Read visually in the browser PDF viewer.",
+      "refresh_policy": "HASH-LOCKED",
+      "retrieved_at": "2026-11-11T19:15Z",
+      "retained_bytes": "none in the repository",
+      "authority_note": "Acquired 2026-11-11 through the built-in browser of the Claude desktop app on the owner's computer (an ordinary page load, not the cloud VM that received 403/reset on 2026-11-08/11); SHA-256 computed in-page with WebCrypto over the exact response bytes. Bytes are not retained in the repository; re-download and compare the hash. Superseded revision kept as history only; the record's current timing facts stay on V1.4. The same page also links a Chinese V1.0 file (WS2812B-2020-V6-...V1.0_CN.pdf, sha256 d47631c550bf83a90585584d07c9c4731a2394c341f9553fb867a740750c56a8, 791440 bytes), which was hashed but not read."
     }
   ]
 }
