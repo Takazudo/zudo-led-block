@@ -51,6 +51,7 @@ class ReadinessTests(unittest.TestCase):
     def fully_recorded_synthetic_case(self):
         for p in self.plan['procedures']:
             p['criterion_status'] = 'REVIEWED'
+            p['criterion_accepted_by'] = 'OWNER'
             p['missing_criterion'] = ''
             p['criterion_review'] = self.receipts['criterion']
             # Synthetic acceptance review: proposals adopted at their traced basis, open items dropped.
@@ -59,6 +60,7 @@ class ReadinessTests(unittest.TestCase):
                 if a['confidence'] == 'PROPOSED':
                     a['confidence'] = a.pop('basis_confidence')
                     a.pop('rationale')
+            p['criterion_acceptance_sha256'] = m.acceptance_digest(p)
         ids = {k: v['sha256'] for k, v in m.identities(self.root).items()}
         ph = hashlib.sha256(json.dumps(self.plan, sort_keys=True, ensure_ascii=False).encode()).hexdigest()
         for p in self.plan['procedures']:
@@ -232,6 +234,15 @@ class ReadinessTests(unittest.TestCase):
         self.assertTrue(any('PROPOSED' in r for r in gates['criterion:cv-noise']['reasons']))
 
 
+    def test_accepted_values_cannot_change_after_review(self):
+        self.fully_recorded_synthetic_case()
+        self.assertFalse(self.evaluate()['blockers'])
+        a = next(a for p in self.plan['procedures'] if p['id'] == 'startup-reset' for a in p['acceptance'] if a['id'] == 'en-off')
+        a['bound'] = 'max'
+        gates = {g['gate']: g for g in self.evaluate()['gates']}
+        self.assertTrue(any('does not match' in r for r in gates['criterion:startup-reset']['reasons']))
+
+
 class ExecutableProcedureTests(unittest.TestCase):
     """Acceptance values must trace to the repository; nothing here records a measurement."""
     def setUp(self):
@@ -360,13 +371,16 @@ class ExecutableProcedureTests(unittest.TestCase):
         margins = json.loads((REPO/'engineering/a5/electronics/reports/electrical_margins.json').read_text())['TPS2552_1_RILIM_68k_1percent']
         self.assertEqual(self.item('power-current', 'ilim-min')['value'], round(margins['min_mA'], 1))
         self.assertEqual(self.item('power-current', 'ilim-max')['value'], round(margins['max_mA'], 1))
-        for pid in ('power-current', 'startup-reset', 'u7-stress'):
+        for pid in ('power-current', 'startup-reset'):
             self.assertFalse([a['id'] for a in self.proc(pid)['acceptance'] if a['confidence'] in ('UNRESOLVED', 'PROPOSED')])
+        # The U7 current bound rests on an inferred CV_BUF limit, so it stays a proposal.
+        bound = self.item('u7-stress', 'in-current-bound')
+        self.assertEqual((bound['confidence'], bound['basis_confidence']), ('PROPOSED', 'INFERRED'))
 
     def test_derivation_token_and_number_must_match_the_source(self):
         inp = self.item('power-current', 'ilim-min')['derivation']['inputs'][0]
         inp['token'], inp['number'] = '25231', 25231.0
-        self.assertUntraceable('not a whole token')
+        self.assertUntraceable('context must hold the token')
         self.plan = json.loads((REPO/m.QUAL/'plan.json').read_text())
         self.item('power-current', 'ilim-min')['derivation']['inputs'][0]['number'] = 25000.0
         self.assertUntraceable('number differs from the token')
@@ -379,15 +393,48 @@ class ExecutableProcedureTests(unittest.TestCase):
         self.assertUntraceable('expression may use only')
 
     def test_derived_confidence_follows_the_weakest_input(self):
-        self.item('u7-stress', 'in-current-bound')['confidence'] = 'CALCULATED'
+        self.item('u7-stress', 'in-current-bound')['basis_confidence'] = 'CALCULATED'
         self.assertUntraceable('allow only INFERRED')
         self.plan = json.loads((REPO/m.QUAL/'plan.json').read_text())
         self.item('service-envelope', 'retention-force')['basis_confidence'] = 'CALCULATED'
         self.assertUntraceable('allow only MIRROR')
         self.plan = json.loads((REPO/m.QUAL/'plan.json').read_text())
         self.item('u7-stress', 'in-current-bound')['derivation'].pop('assumption')
-        self.item('u7-stress', 'in-current-bound')['confidence'] = 'CALCULATED'
+        self.item('u7-stress', 'in-current-bound')['basis_confidence'] = 'CALCULATED'
         m.schema(self.plan, {'schema': 1, 'runs': [], 'material_observations': []})
+
+    def test_derivation_cannot_be_built_from_literals(self):
+        self.item('startup-reset', 'en-off')['derivation']['expression'] = 'VIH - VIH + 1'
+        self.item('startup-reset', 'en-off')['value'] = 1.0
+        self.assertUntraceable('does not depend on input VIH')
+        for expression, pattern in (('A - A + 1000', 'unused derivation inputs'), ('A / (R * (1 + tol / 100) / 1000) ** k + 2 * 1000', 'literals alone'),
+                                    ('A / R', 'unused derivation inputs'), ('R ** R', 'exponent within 4'), ('A / R * (tol - 2) ** k', 'non-negative base')):
+            self.plan = json.loads((REPO/m.QUAL/'plan.json').read_text())
+            self.item('power-current', 'ilim-min')['derivation']['expression'] = expression
+            self.assertUntraceable(pattern)
+        self.plan = json.loads((REPO/m.QUAL/'plan.json').read_text())
+        self.item('startup-reset', 'en-off')['value'] = True
+        self.assertUntraceable('recomputed derivation')
+
+    def test_token_is_bound_to_its_label(self):
+        inp = self.item('startup-reset', 'en-on')['derivation']['inputs'][0]
+        inp['token'], inp['number'] = '6.5', 6.5
+        self.assertUntraceable('context must hold the token')
+        inp['context'] = 'VIL max 6.5 V'
+        self.assertUntraceable('context must be a phrase')
+        self.plan = json.loads((REPO/m.QUAL/'plan.json').read_text())
+        r = next(i for i in self.item('power-current', 'ilim-min')['derivation']['inputs'] if i['name'] == 'R')
+        r['token'], r['number'] = '1%', 1.0
+        self.assertUntraceable('token is not the netlist value')
+
+    def test_c_literal_only_for_c_sources(self):
+        r = next(i for i in self.item('power-current', 'ilim-min')['derivation']['inputs'] if i['name'] == 'R')
+        r['c_literal'] = True
+        self.assertUntraceable('c_literal applies only')
+
+    def test_stray_keys_are_rejected(self):
+        self.item('harness-depth', 'depth-target')['supplied_by'] = {'kind': 'DOCUMENT', 'what': 'x'}
+        self.assertUntraceable('keys not valid for DESIGN')
 
     def test_calculated_needs_a_derivation(self):
         self.item('startup-reset', 'no-retry')['confidence'] = 'CALCULATED'
@@ -411,7 +458,7 @@ class ExecutableProcedureTests(unittest.TestCase):
         self.assertUntraceable('cannot make a value SOURCED')
         self.plan = json.loads((REPO/m.QUAL/'plan.json').read_text())
         self.item('harness-depth', 'depth-target')['rationale'] = 'not a proposal'
-        self.assertUntraceable('only PROPOSED items')
+        self.assertUntraceable('keys not valid for DESIGN')
 
     def test_evidence_hold_criteria_say_what_supplies_them(self):
         holds = [p for p in self.plan['procedures'] if p['criterion_class'] == 'ACCESS_EVIDENCE_HOLD']

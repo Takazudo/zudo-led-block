@@ -37,7 +37,7 @@ readiness（`engineering/a7/qualification/readiness.json`）は不足を 57 個�
 
 ## 採否を待つ提案値
 
-エージェントが出典から用意した提案です（21 件）。採るまでは該当する基準ゲートを解除しません。理由と計算は procedures.md にあります。
+エージェントが出典から用意した提案です（22 件）。採るまでは該当する基準ゲートを解除しません。理由と計算は procedures.md にあります。
 
 | 手順 | ID | 基準 | 提案値 | 単位 |
 |---|---|---|---|---|
@@ -57,6 +57,7 @@ readiness（`engineering/a7/qualification/readiness.json`）は不足を 57 個�
 | rail-collapse | collapse-en-off | +3V3 が vdda 下限未満になっている間の LED_EN_N（U4 オフ） | `1.1` | V |
 | rail-collapse | collapse-threshold | 上の条件を見る +3V3 の電圧 | `3000` | mV |
 | rail-collapse | collapse-recovery | 復帰後、バックアップ領域が残っていれば有効化しない（RESET_LOCKOUT） | `"return LB_BOOT_LOCKED_RETAINED;"` | NONE |
+| u7-stress | in-current-bound | R7 を流れる電流（U7 IN+ と D3 の合計）の上限（計算）。CV_AFFINE の全抵抗（R3–R6）と +3V3 の上限を含む節点計算。測定した R7 の電圧から求めた電流はこれ以下で、U7 入力の絶対最大 10 mA より小さい | `0.313` | mA |
 | load-short | vled-short | VLED (J3) 短絡で U4 がラッチオフし、外しても電源再投入まで復帰しない | `"TPS255x-1 latch-off: on overcurrent it asserts FAULT after the deglitch period and turns off; stays off even after the overload is removed until enable is toggled or power is cycled"` | NONE |
 | load-short | short-no-retry | 短絡後 FW は再有効化しない | `"No enable or retry path exists in this routine."` | NONE |
 | thermal-optical | part-temp-max | 安定後の部品表面温度の上限 | `85` | degC |

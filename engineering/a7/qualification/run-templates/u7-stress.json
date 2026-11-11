@@ -18,7 +18,7 @@
     "fixture": "fac00cc2d61cee463859a218eb00542d3b45e4099492757ff8f9ed9e36e40f1f",
     "assembly_manifest": "0201bfaf16235df9bcf450a35842ca7b4c7316592c3de21aa92ad50041a406ce"
   },
-  "plan_sha256": "4e0888089320c114b616cf48b841a3bc9e6f6a5ba1c9d3b6b03d6be6653adae9",
+  "plan_sha256": "c643e6597611194eb8894213488547f8fb11b66f127b1beb4d6df48bdd8e2c58",
   "instruments": null,
   "setup": null,
   "conditions": null,
@@ -91,12 +91,12 @@
     },
     {
       "id": "in-current-bound",
-      "criterion": "U7 IN+ に流れうる電流の上限（計算）。R3 + R7 の最小値で CV_BUF の最大振幅を割る。測定した R7 の電圧から求めた電流はこれ以下で、絶対最大 10 mA より小さい",
-      "expected": 0.243,
+      "criterion": "R7 を流れる電流（U7 IN+ と D3 の合計）の上限（計算）。CV_AFFINE の全抵抗（R3–R6）と +3V3 の上限を含む節点計算。測定した R7 の電圧から求めた電流はこれ以下で、U7 入力の絶対最大 10 mA より小さい",
+      "expected": 0.313,
       "bound": "max",
       "unit": "mA",
-      "confidence": "INFERRED",
-      "proposed": false,
+      "confidence": "PROPOSED",
+      "proposed": true,
       "observed": null,
       "verdict": null
     }

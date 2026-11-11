@@ -136,7 +136,8 @@
                 "source": {
                   "path": "engineering/a7/verification/schematic/netlist.xml",
                   "netlist_value": "R1"
-                }
+                },
+                "part": "value"
               },
               {
                 "name": "R2",
@@ -145,7 +146,8 @@
                 "source": {
                   "path": "engineering/a7/verification/schematic/netlist.xml",
                   "netlist_value": "R2"
-                }
+                },
+                "part": "value"
               },
               {
                 "name": "DB",
@@ -154,7 +156,8 @@
                 "source": {
                   "path": "engineering/a5/firmware/include/lb_config.h",
                   "quote": "LB_CV_DEADBAND_MV            50"
-                }
+                },
+                "context": "LB_CV_DEADBAND_MV            50"
               },
               {
                 "name": "FS",
@@ -163,7 +166,8 @@
                 "source": {
                   "path": "engineering/a5/firmware/include/lb_config.h",
                   "quote": "LB_CV_FULL_SCALE_MV          5000"
-                }
+                },
+                "context": "LB_CV_FULL_SCALE_MV          5000"
               }
             ],
             "round": 0
@@ -188,7 +192,8 @@
                 "source": {
                   "path": "engineering/a7/verification/schematic/netlist.xml",
                   "netlist_value": "R1"
-                }
+                },
+                "part": "value"
               },
               {
                 "name": "R2",
@@ -197,7 +202,8 @@
                 "source": {
                   "path": "engineering/a7/verification/schematic/netlist.xml",
                   "netlist_value": "R2"
-                }
+                },
+                "part": "value"
               }
             ],
             "round": 0
@@ -1112,7 +1118,8 @@
                 "source": {
                   "path": ".claude/skills/component-ws2812b-2020-v6/facts.json",
                   "fact_id": "fact-ws2812b-2020-v6-bit-timing"
-                }
+                },
+                "context": "T1L 580-1000"
               }
             ],
             "round": 0
@@ -1137,7 +1144,8 @@
                 "source": {
                   "path": ".claude/skills/component-ws2812b-2020-v6/facts.json",
                   "fact_id": "fact-ws2812b-2020-v6-bit-timing"
-                }
+                },
+                "context": "T1L 580-1000"
               }
             ],
             "round": 0
@@ -1270,7 +1278,7 @@
         },
         {
           "id": "ilim-min",
-          "criterion": "VLED の電流制限が働く電流の下限（式 3、R11 が +1 % の最悪側）。段階負荷で制限/FAULT に入る電流はこれ以上",
+          "criterion": "VLED の電流制限が働く電流の下限（式 3、R11 が +1 % の最悪側）。段階負荷で制限/FAULT に入る電流はこれ以上。R11 の温度係数 100 ppm/°C は含まない",
           "value": 343.3,
           "unit": "mA",
           "confidence": "CALCULATED",
@@ -1284,7 +1292,8 @@
                 "source": {
                   "path": ".claude/skills/component-tps2552dbvr-1/facts.json",
                   "fact_id": "fact-tps2552dbvr-1-ilim-formula-nom-min"
-                }
+                },
+                "context": "IOSmin(mA) = 25230 V / RILIM^1.016"
               },
               {
                 "name": "k",
@@ -1293,7 +1302,8 @@
                 "source": {
                   "path": ".claude/skills/component-tps2552dbvr-1/facts.json",
                   "fact_id": "fact-tps2552dbvr-1-ilim-formula-nom-min"
-                }
+                },
+                "context": "IOSmin(mA) = 25230 V / RILIM^1.016"
               },
               {
                 "name": "R",
@@ -1302,7 +1312,8 @@
                 "source": {
                   "path": "engineering/a7/verification/schematic/netlist.xml",
                   "netlist_value": "R11"
-                }
+                },
+                "part": "value"
               },
               {
                 "name": "tol",
@@ -1311,7 +1322,8 @@
                 "source": {
                   "path": "engineering/a7/verification/schematic/netlist.xml",
                   "netlist_value": "R11"
-                }
+                },
+                "part": "tolerance"
               }
             ],
             "round": 1
@@ -1320,7 +1332,7 @@
         },
         {
           "id": "ilim-max",
-          "criterion": "VLED の電流制限が働く電流の上限（式 1、R11 が −1 % の最悪側）。段階負荷で制限/FAULT に入る電流はこれ以下",
+          "criterion": "VLED の電流制限が働く電流の上限（式 1、R11 が −1 % の最悪側）。段階負荷で制限/FAULT に入る電流はこれ以下。R11 の温度係数 100 ppm/°C は含まない",
           "value": 439.4,
           "unit": "mA",
           "confidence": "CALCULATED",
@@ -1334,7 +1346,8 @@
                 "source": {
                   "path": ".claude/skills/component-tps2552dbvr-1/facts.json",
                   "fact_id": "fact-tps2552dbvr-1-ilim-formula-max"
-                }
+                },
+                "context": "IOSmax(mA) = 22980 V / RILIM^0.94"
               },
               {
                 "name": "m",
@@ -1343,7 +1356,8 @@
                 "source": {
                   "path": ".claude/skills/component-tps2552dbvr-1/facts.json",
                   "fact_id": "fact-tps2552dbvr-1-ilim-formula-max"
-                }
+                },
+                "context": "IOSmax(mA) = 22980 V / RILIM^0.94"
               },
               {
                 "name": "R",
@@ -1352,7 +1366,8 @@
                 "source": {
                   "path": "engineering/a7/verification/schematic/netlist.xml",
                   "netlist_value": "R11"
-                }
+                },
+                "part": "value"
               },
               {
                 "name": "tol",
@@ -1361,7 +1376,8 @@
                 "source": {
                   "path": "engineering/a7/verification/schematic/netlist.xml",
                   "netlist_value": "R11"
-                }
+                },
+                "part": "tolerance"
               }
             ],
             "round": 1
@@ -1384,7 +1400,8 @@
                 "source": {
                   "path": ".claude/skills/component-tps2552dbvr-1/facts.json",
                   "fact_id": "fact-tps2552dbvr-1-ilim-formula-nom-min"
-                }
+                },
+                "context": "IOSmin(mA) = 25230 V / RILIM^1.016"
               },
               {
                 "name": "k",
@@ -1393,7 +1410,8 @@
                 "source": {
                   "path": ".claude/skills/component-tps2552dbvr-1/facts.json",
                   "fact_id": "fact-tps2552dbvr-1-ilim-formula-nom-min"
-                }
+                },
+                "context": "IOSmin(mA) = 25230 V / RILIM^1.016"
               },
               {
                 "name": "R",
@@ -1402,7 +1420,8 @@
                 "source": {
                   "path": "engineering/a7/verification/schematic/netlist.xml",
                   "netlist_value": "R11"
-                }
+                },
+                "part": "value"
               },
               {
                 "name": "tol",
@@ -1411,7 +1430,8 @@
                 "source": {
                   "path": "engineering/a7/verification/schematic/netlist.xml",
                   "netlist_value": "R11"
-                }
+                },
+                "part": "tolerance"
               }
             ],
             "round": 1
@@ -1420,7 +1440,7 @@
         },
         {
           "id": "v3v3-min",
-          "criterion": "+3V3 の下限（出力精度 ±1 %、IOUT = 1 mA 条件。負荷時の値は別に記録）",
+          "criterion": "+3V3 の下限（出力精度 ±1 %。規定条件は VIN = 3.8 V・IOUT = 1 mA・TJ ≤ 85 °C で、基板の VIN = 5 V との入力変動と負荷変動は含まない。負荷時の値は別に記録）",
           "value": 3.267,
           "unit": "V",
           "confidence": "CALCULATED",
@@ -1732,7 +1752,8 @@
                 "source": {
                   "path": "engineering/a5/firmware/include/lb_config.h",
                   "quote": "LB_CV_DEADBAND_MV            50"
-                }
+                },
+                "context": "LB_CV_DEADBAND_MV            50"
               }
             ],
             "round": 0
@@ -1827,7 +1848,8 @@
                   "path": ".claude/skills/component-tps2552dbvr-1/facts.json",
                   "fact_id": "fact-tps2552dbvr-1-roc-vin"
                 },
-                "field": "conditions"
+                "field": "conditions",
+                "context": "EN VIH min 1.1 V"
               }
             ],
             "round": 2
@@ -1851,7 +1873,8 @@
                   "path": ".claude/skills/component-tps2552dbvr-1/facts.json",
                   "fact_id": "fact-tps2552dbvr-1-roc-vin"
                 },
-                "field": "conditions"
+                "field": "conditions",
+                "context": "VIL max 0.66 V"
               }
             ],
             "round": 2
@@ -1860,7 +1883,7 @@
         },
         {
           "id": "nrst-tau",
-          "criterion": "NRST の RC 時定数 R21 × C14（立上り波形の参照値）",
+          "criterion": "NRST の RC 時定数 R21 × C14（立上り波形の参照値。STM32 内部のプルアップは含まない）",
           "value": 1.0,
           "unit": "ms",
           "confidence": "CALCULATED",
@@ -1874,7 +1897,8 @@
                 "source": {
                   "path": "engineering/a7/verification/schematic/netlist.xml",
                   "netlist_value": "R21"
-                }
+                },
+                "part": "value"
               },
               {
                 "name": "C",
@@ -1883,7 +1907,8 @@
                 "source": {
                   "path": "engineering/a7/verification/schematic/netlist.xml",
                   "netlist_value": "C14"
-                }
+                },
+                "part": "value"
               }
             ],
             "round": 3
@@ -1907,7 +1932,8 @@
                   "path": "engineering/a5/firmware/include/lb_config.h",
                   "quote": "LB_STARTUP_SETTLE_MS          100u"
                 },
-                "c_literal": true
+                "c_literal": true,
+                "context": "LB_STARTUP_SETTLE_MS          100u"
               }
             ],
             "round": 0
@@ -1931,7 +1957,8 @@
                   "path": "engineering/a5/firmware/include/lb_config.h",
                   "quote": "LB_STARTUP_ADC_TIMEOUT_MS    250u"
                 },
-                "c_literal": true
+                "c_literal": true,
+                "context": "LB_STARTUP_ADC_TIMEOUT_MS    250u"
               }
             ],
             "round": 0
@@ -1955,7 +1982,8 @@
                   "path": "engineering/a5/firmware/include/lb_config.h",
                   "quote": "LB_LED_POWER_SETTLE_MS       5u"
                 },
-                "c_literal": true
+                "c_literal": true,
+                "context": "LB_LED_POWER_SETTLE_MS       5u"
               }
             ],
             "round": 0
@@ -1964,7 +1992,7 @@
         },
         {
           "id": "vdda-min",
-          "criterion": "VDDA がこれ未満なら ADC FAULT（有効化しない）",
+          "criterion": "VDDA がこれ未満なら、その取り込み（1 ms ごと）で ADC FAULT（有効化しない、有効なら停止）",
           "value": 3000,
           "unit": "mV",
           "confidence": "CALCULATED",
@@ -1979,7 +2007,8 @@
                   "path": "engineering/a5/firmware/include/lb_config.h",
                   "quote": "LB_VDDA_MIN_MV               3000u"
                 },
-                "c_literal": true
+                "c_literal": true,
+                "context": "LB_VDDA_MIN_MV               3000u"
               }
             ],
             "round": 0
@@ -1988,7 +2017,7 @@
         },
         {
           "id": "vdda-max",
-          "criterion": "VDDA がこれを超えれば ADC FAULT（有効化しない）",
+          "criterion": "VDDA がこれを超えれば、その取り込み（1 ms ごと）で ADC FAULT",
           "value": 3600,
           "unit": "mV",
           "confidence": "CALCULATED",
@@ -2003,7 +2032,8 @@
                   "path": "engineering/a5/firmware/include/lb_config.h",
                   "quote": "LB_VDDA_MAX_MV               3600u"
                 },
-                "c_literal": true
+                "c_literal": true,
+                "context": "LB_VDDA_MAX_MV               3600u"
               }
             ],
             "round": 0
@@ -2036,12 +2066,12 @@
         },
         {
           "id": "window",
-          "criterion": "観測窓（FW 初期化から）の最短長 = ADC 待ち上限 + 電源待ち + 1 フレーム",
-          "value": 271,
+          "criterion": "観測窓（FW 初期化から）の最短長 = ADC 待ち上限 + 電源待ち + 黒フレーム転送の上限。SW1 が有効な位置にあること（無効位置では有効化を待ち続ける）",
+          "value": 260,
           "unit": "ms",
           "confidence": "CALCULATED",
           "derivation": {
-            "expression": "A + W + F",
+            "expression": "A + W + T",
             "inputs": [
               {
                 "name": "A",
@@ -2051,7 +2081,8 @@
                   "path": "engineering/a5/firmware/include/lb_config.h",
                   "quote": "LB_STARTUP_ADC_TIMEOUT_MS    250u"
                 },
-                "c_literal": true
+                "c_literal": true,
+                "context": "LB_STARTUP_ADC_TIMEOUT_MS    250u"
               },
               {
                 "name": "W",
@@ -2061,17 +2092,19 @@
                   "path": "engineering/a5/firmware/include/lb_config.h",
                   "quote": "LB_LED_POWER_SETTLE_MS       5u"
                 },
-                "c_literal": true
+                "c_literal": true,
+                "context": "LB_LED_POWER_SETTLE_MS       5u"
               },
               {
-                "name": "F",
-                "token": "16u",
-                "number": 16.0,
+                "name": "T",
+                "token": "5u",
+                "number": 5.0,
                 "source": {
                   "path": "engineering/a5/firmware/include/lb_config.h",
-                  "quote": "LB_FRAME_INTERVAL_MS         16u"
+                  "quote": "LB_TRANSFER_TIMEOUT_MS       5u"
                 },
-                "c_literal": true
+                "c_literal": true,
+                "context": "LB_TRANSFER_TIMEOUT_MS       5u"
               }
             ],
             "round": 0
@@ -2151,14 +2184,15 @@
                   "path": ".claude/skills/component-tps2552dbvr-1/facts.json",
                   "fact_id": "fact-tps2552dbvr-1-roc-vin"
                 },
-                "field": "conditions"
+                "field": "conditions",
+                "context": "EN VIH min 1.1 V"
               }
             ],
             "round": 2
           },
           "bound": "min",
           "basis_confidence": "CALCULATED",
-          "rationale": "+12 V が落ちて MCU が動作範囲を外れても、+5 V が U4 の推奨入力下限 2.5 V 以上の間は LED_EN_N が EN VIH 以上（U4 オフ）であれば LED への給電は止まる。リセット中は Q1 のベースが R12 で引き下げられ、R23 が EN を引き上げる既定オフの設計を確かめる基準。これが満たされれば 5 V valid 監視は追加しない案。"
+          "rationale": "+12 V が落ちて MCU が動作範囲を外れても、+5 V が U4 の推奨入力下限 2.5 V 以上の間は LED_EN_N が EN VIH 以上（U4 オフ）であれば LED への給電は止まる。リセット中は Q1 のベースが R12 で引き下げられ、R23 が EN を引き上げる既定オフの設計を確かめる基準。これが満たされれば 5 V valid 監視は追加しない案。 FW は毎 1 ms の取り込みで VDDA を計算し、範囲外なら直ちに FAULT にする（lb_controller_adc）。判定は次の取り込みまでの遅れを含めて見る。MCU が動作を止める電圧（POR/PDR）より下では Q1 のベースが R12 で引き下げられる。"
         },
         {
           "id": "collapse-threshold",
@@ -2177,7 +2211,8 @@
                   "path": "engineering/a5/firmware/include/lb_config.h",
                   "quote": "LB_VDDA_MIN_MV               3000u"
                 },
-                "c_literal": true
+                "c_literal": true,
+                "context": "LB_VDDA_MIN_MV               3000u"
               }
             ],
             "round": 0
@@ -2412,12 +2447,12 @@
         },
         {
           "id": "in-current-bound",
-          "criterion": "U7 IN+ に流れうる電流の上限（計算）。R3 + R7 の最小値で CV_BUF の最大振幅を割る。測定した R7 の電圧から求めた電流はこれ以下で、絶対最大 10 mA より小さい",
-          "value": 0.243,
+          "criterion": "R7 を流れる電流（U7 IN+ と D3 の合計）の上限（計算）。CV_AFFINE の全抵抗（R3–R6）と +3V3 の上限を含む節点計算。測定した R7 の電圧から求めた電流はこれ以下で、U7 入力の絶対最大 10 mA より小さい",
+          "value": 0.313,
           "unit": "mA",
-          "confidence": "INFERRED",
+          "confidence": "PROPOSED",
           "derivation": {
-            "expression": "V / (R3 * (1 - t3 / 100) + R7 * (1 - t7 / 100)) * 1000",
+            "expression": "(V / (R3 * (1 - t3 / 100)) + (V3 * (1 + acc / 100)) / (R4 * (1 - t4 / 100)) + (V3 * (1 + acc / 100)) / (R5 * (1 - t5 / 100))) / (1 / (R3 * (1 - t3 / 100)) + 1 / (R4 * (1 - t4 / 100)) + 1 / (R5 * (1 - t5 / 100)) + 1 / (R6 * (1 + t6 / 100)) + 1 / (R7 * (1 - t7 / 100))) / (R7 * (1 - t7 / 100)) * 1000",
             "inputs": [
               {
                 "name": "V",
@@ -2427,7 +2462,26 @@
                   "path": ".claude/skills/component-opa197idbvr/facts.json",
                   "fact_id": "fact-opa197idbvr-ratings"
                 },
-                "field": "conditions"
+                "field": "conditions",
+                "context": "(+/-20 V dual supply)"
+              },
+              {
+                "name": "V3",
+                "token": "3.3",
+                "number": 3.3,
+                "source": {
+                  "path": ".claude/skills/component-tlv75533pdbvr/facts.json",
+                  "fact_id": "fact-tlv75533pdbvr-vout-nominal"
+                }
+              },
+              {
+                "name": "acc",
+                "token": "1",
+                "number": 1.0,
+                "source": {
+                  "path": ".claude/skills/component-tlv75533pdbvr/facts.json",
+                  "fact_id": "fact-tlv75533pdbvr-output-accuracy"
+                }
               },
               {
                 "name": "R3",
@@ -2436,7 +2490,8 @@
                 "source": {
                   "path": "engineering/a7/verification/schematic/netlist.xml",
                   "netlist_value": "R3"
-                }
+                },
+                "part": "value"
               },
               {
                 "name": "t3",
@@ -2445,7 +2500,68 @@
                 "source": {
                   "path": "engineering/a7/verification/schematic/netlist.xml",
                   "netlist_value": "R3"
-                }
+                },
+                "part": "tolerance"
+              },
+              {
+                "name": "R4",
+                "token": "82k",
+                "number": 82000.0,
+                "source": {
+                  "path": "engineering/a7/verification/schematic/netlist.xml",
+                  "netlist_value": "R4"
+                },
+                "part": "value"
+              },
+              {
+                "name": "t4",
+                "token": "1%",
+                "number": 1.0,
+                "source": {
+                  "path": "engineering/a7/verification/schematic/netlist.xml",
+                  "netlist_value": "R4"
+                },
+                "part": "tolerance"
+              },
+              {
+                "name": "R5",
+                "token": "82k",
+                "number": 82000.0,
+                "source": {
+                  "path": "engineering/a7/verification/schematic/netlist.xml",
+                  "netlist_value": "R5"
+                },
+                "part": "value"
+              },
+              {
+                "name": "t5",
+                "token": "1%",
+                "number": 1.0,
+                "source": {
+                  "path": "engineering/a7/verification/schematic/netlist.xml",
+                  "netlist_value": "R5"
+                },
+                "part": "tolerance"
+              },
+              {
+                "name": "R6",
+                "token": "82k",
+                "number": 82000.0,
+                "source": {
+                  "path": "engineering/a7/verification/schematic/netlist.xml",
+                  "netlist_value": "R6"
+                },
+                "part": "value"
+              },
+              {
+                "name": "t6",
+                "token": "1%",
+                "number": 1.0,
+                "source": {
+                  "path": "engineering/a7/verification/schematic/netlist.xml",
+                  "netlist_value": "R6"
+                },
+                "part": "tolerance"
               },
               {
                 "name": "R7",
@@ -2454,7 +2570,8 @@
                 "source": {
                   "path": "engineering/a7/verification/schematic/netlist.xml",
                   "netlist_value": "R7"
-                }
+                },
+                "part": "value"
               },
               {
                 "name": "t7",
@@ -2463,13 +2580,16 @@
                 "source": {
                   "path": "engineering/a7/verification/schematic/netlist.xml",
                   "netlist_value": "R7"
-                }
+                },
+                "part": "tolerance"
               }
             ],
             "round": 3,
-            "assumption": "CV_BUF (U6 出力) は U6 の電源を超えず、U6 の電源は絶対最大の ±20 V 以内とする推定。IN+ の電位を 0 V として電流を大きく見積もる"
+            "assumption": "CV_BUF (U6 出力) は U6 の電源を超えず、U6 の電源は絶対最大の ±20 V 以内とする推定。CV_FILTER を 0 V に固定して R7 の電流を大きく見積もる"
           },
-          "bound": "max"
+          "bound": "max",
+          "basis_confidence": "INFERRED",
+          "rationale": "CV_BUF の上限を回路図と入力保護だけからは決められない。±12V_RAW の上限はモジュールの外（ラック電源）で決まり、D3 (BAS70-04) と U7 内部ダイオードの電流分担は資料にない。そこで U6 の絶対最大電源 ±20 V を CV_BUF の上限とする推定に頼っている。推定を外せる資料（電源の上限）が得られるまで提案のまま。"
         }
       ]
     },
@@ -2877,14 +2997,15 @@
                 "source": {
                   "path": ".claude/skills/component-a7-pcm13smtr/facts.json",
                   "fact_id": "fact-a7-pcm13smtr-operating-temperature"
-                }
+                },
+                "context": "-40 to +85"
               }
             ],
             "round": 0
           },
           "bound": "max",
           "basis_confidence": "CALCULATED",
-          "rationale": "温度上限が資料で分かっている部品のうち最も低い PCM13SMTR の動作上限 +85 °C。表面温度は接合部より低いので、余裕をどれだけ取るかは採否で決める。"
+          "rationale": "カタログの部品 fact で温度上限が分かるもののうち最も低いのは PCM13SMTR の動作上限 +85 °C（SM04B の定格条件も +85 °C）。ただし 14 種の部品（WS2812B を含む）は温度上限の fact がなく、これが基板で最も低い上限だとはまだ確認できない（WS2812B は資料の抜粋に動作温度 −40〜+85 °C とあるが fact として未記録）。表面温度は接合部より低いので、余裕をどれだけ取るかも採否で決める。"
         },
         {
           "id": "materials-appearance",
@@ -2972,7 +3093,8 @@
                 "source": {
                   "path": "engineering/a5/firmware/include/lb_config.h",
                   "quote": "LB_CV_DEADBAND_MV            50"
-                }
+                },
+                "context": "LB_CV_DEADBAND_MV            50"
               }
             ],
             "round": 0
@@ -3115,7 +3237,8 @@
                 "source": {
                   "path": ".claude/skills/component-a7-pj-324m/facts.json",
                   "fact_id": "fact-a7-pj-324m-plug-force"
-                }
+                },
+                "context": "5.0-10.0 N inward"
               }
             ],
             "round": 1

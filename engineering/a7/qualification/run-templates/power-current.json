@@ -18,7 +18,7 @@
     "fixture": "fac00cc2d61cee463859a218eb00542d3b45e4099492757ff8f9ed9e36e40f1f",
     "assembly_manifest": "0201bfaf16235df9bcf450a35842ca7b4c7316592c3de21aa92ad50041a406ce"
   },
-  "plan_sha256": "4e0888089320c114b616cf48b841a3bc9e6f6a5ba1c9d3b6b03d6be6653adae9",
+  "plan_sha256": "c643e6597611194eb8894213488547f8fb11b66f127b1beb4d6df48bdd8e2c58",
   "instruments": null,
   "setup": null,
   "conditions": null,
@@ -118,7 +118,7 @@
     },
     {
       "id": "ilim-min",
-      "criterion": "VLED の電流制限が働く電流の下限（式 3、R11 が +1 % の最悪側）。段階負荷で制限/FAULT に入る電流はこれ以上",
+      "criterion": "VLED の電流制限が働く電流の下限（式 3、R11 が +1 % の最悪側）。段階負荷で制限/FAULT に入る電流はこれ以上。R11 の温度係数 100 ppm/°C は含まない",
       "expected": 343.3,
       "bound": "min",
       "unit": "mA",
@@ -129,7 +129,7 @@
     },
     {
       "id": "ilim-max",
-      "criterion": "VLED の電流制限が働く電流の上限（式 1、R11 が −1 % の最悪側）。段階負荷で制限/FAULT に入る電流はこれ以下",
+      "criterion": "VLED の電流制限が働く電流の上限（式 1、R11 が −1 % の最悪側）。段階負荷で制限/FAULT に入る電流はこれ以下。R11 の温度係数 100 ppm/°C は含まない",
       "expected": 439.4,
       "bound": "max",
       "unit": "mA",
@@ -151,7 +151,7 @@
     },
     {
       "id": "v3v3-min",
-      "criterion": "+3V3 の下限（出力精度 ±1 %、IOUT = 1 mA 条件。負荷時の値は別に記録）",
+      "criterion": "+3V3 の下限（出力精度 ±1 %。規定条件は VIN = 3.8 V・IOUT = 1 mA・TJ ≤ 85 °C で、基板の VIN = 5 V との入力変動と負荷変動は含まない。負荷時の値は別に記録）",
       "expected": 3.267,
       "bound": "min",
       "unit": "V",

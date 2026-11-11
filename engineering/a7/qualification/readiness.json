@@ -43,7 +43,7 @@
       "sha256": "0201bfaf16235df9bcf450a35842ca7b4c7316592c3de21aa92ad50041a406ce"
     }
   },
-  "plan_sha256": "4e0888089320c114b616cf48b841a3bc9e6f6a5ba1c9d3b6b03d6be6653adae9",
+  "plan_sha256": "c643e6597611194eb8894213488547f8fb11b66f127b1beb4d6df48bdd8e2c58",
   "procedures": [
     {
       "id": "jack-continuity",
@@ -156,6 +156,7 @@
       "status": "BLOCKED",
       "reasons": [
         "criterion unresolved or review receipt missing",
+        "criterion has PROPOSED or UNRESOLVED acceptance values: in-current-bound",
         "NOT_MEASURED: no run"
       ]
     },
@@ -262,6 +263,7 @@
     "partial-rails: criterion has PROPOSED or UNRESOLVED acceptance values: limits",
     "partial-rails: NOT_MEASURED: no run",
     "u7-stress: criterion unresolved or review receipt missing",
+    "u7-stress: criterion has PROPOSED or UNRESOLVED acceptance values: in-current-bound",
     "u7-stress: NOT_MEASURED: no run",
     "ldo-reverse: criterion unresolved or review receipt missing",
     "ldo-reverse: criterion has PROPOSED or UNRESOLVED acceptance values: reverse",
@@ -551,7 +553,8 @@
       "gate": "criterion:u7-stress",
       "class": "OWNER_DECISION",
       "reasons": [
-        "u7-stress: criterion unresolved or review receipt missing"
+        "u7-stress: criterion unresolved or review receipt missing",
+        "u7-stress: criterion has PROPOSED or UNRESOLVED acceptance values: in-current-bound"
       ]
     },
     {

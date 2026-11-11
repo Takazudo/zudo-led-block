@@ -71,13 +71,13 @@
 計算の内訳:
 
 - `closed-max`: `(R1 + R2) * DB / FS` = `200000` ohm（小数 0 桁に丸め）
-  - `R1` = 10000000.0（`10M`、`engineering/a7/verification/schematic/netlist.xml` R1 の値）
-  - `R2` = 10000000.0（`10M`、`engineering/a7/verification/schematic/netlist.xml` R2 の値）
-  - `DB` = 50.0（`50`、`engineering/a5/firmware/include/lb_config.h` 引用）
-  - `FS` = 5000.0（`5000`、`engineering/a5/firmware/include/lb_config.h` 引用）
+  - `R1` = 10000000.0（`10M`、`engineering/a7/verification/schematic/netlist.xml` R1 の値、の value）
+  - `R2` = 10000000.0（`10M`、`engineering/a7/verification/schematic/netlist.xml` R2 の値、の value）
+  - `DB` = 50.0（`50`、`engineering/a5/firmware/include/lb_config.h` 引用、「LB_CV_DEADBAND_MV            50」）
+  - `FS` = 5000.0（`5000`、`engineering/a5/firmware/include/lb_config.h` 引用、「LB_CV_FULL_SCALE_MV          5000」）
 - `open-min`: `R1 + R2` = `20000000` ohm（小数 0 桁に丸め）
-  - `R1` = 10000000.0（`10M`、`engineering/a7/verification/schematic/netlist.xml` R1 の値）
-  - `R2` = 10000000.0（`10M`、`engineering/a7/verification/schematic/netlist.xml` R2 の値）
+  - `R1` = 10000000.0（`10M`、`engineering/a7/verification/schematic/netlist.xml` R1 の値、の value）
+  - `R2` = 10000000.0（`10M`、`engineering/a7/verification/schematic/netlist.xml` R2 の値、の value）
 
 提案の理由（PROPOSED は採否前で、この手順の基準ゲートを解除しません）:
 
@@ -436,9 +436,9 @@
 計算の内訳:
 
 - `t1l-min`: `T` = `580` ns（小数 0 桁に丸め）
-  - `T` = 580.0（`580`、`.claude/skills/component-ws2812b-2020-v6/facts.json` `fact-ws2812b-2020-v6-bit-timing`）
+  - `T` = 580.0（`580`、`.claude/skills/component-ws2812b-2020-v6/facts.json` `fact-ws2812b-2020-v6-bit-timing`、「T1L 580-1000」）
 - `t1l-max`: `T` = `1000` ns（小数 0 桁に丸め）
-  - `T` = 1000.0（`1000`、`.claude/skills/component-ws2812b-2020-v6/facts.json` `fact-ws2812b-2020-v6-bit-timing`）
+  - `T` = 1000.0（`1000`、`.claude/skills/component-ws2812b-2020-v6/facts.json` `fact-ws2812b-2020-v6-bit-timing`、「T1L 580-1000」）
 
 提案の理由（PROPOSED は採否前で、この手順の基準ゲートを解除しません）:
 
@@ -497,30 +497,30 @@
 | buck-limit | AP63205 のピーク電流制限 | `"2.5 to 3.1 (typ 2.8)"` | range | A | SOURCED | `.claude/skills/component-ap63205wu-7/facts.json` `fact-ap63205wu-7-peak-current-limit` |
 | channel-cap | FW の LED 上限 | `"51u"` | max | NONE | DESIGN | `engineering/a5/firmware/include/lb_config.h` 引用 |
 | rilim | RILIM (R11) の部品値（A7 ネットリスト） | `"68k"` | reference | ohm | DESIGN | `engineering/a7/verification/schematic/netlist.xml` R11 の値 |
-| ilim-min | VLED の電流制限が働く電流の下限（式 3、R11 が +1 % の最悪側）。段階負荷で制限/FAULT に入る電流はこれ以上 | `343.3` | min | mA | CALCULATED | 計算 `A / (R * (1 + tol / 100) / 1000) ** k`（内訳は下） |
-| ilim-max | VLED の電流制限が働く電流の上限（式 1、R11 が −1 % の最悪側）。段階負荷で制限/FAULT に入る電流はこれ以下 | `439.4` | max | mA | CALCULATED | 計算 `B / (R * (1 - tol / 100) / 1000) ** m`（内訳は下） |
+| ilim-min | VLED の電流制限が働く電流の下限（式 3、R11 が +1 % の最悪側）。段階負荷で制限/FAULT に入る電流はこれ以上。R11 の温度係数 100 ppm/°C は含まない | `343.3` | min | mA | CALCULATED | 計算 `A / (R * (1 + tol / 100) / 1000) ** k`（内訳は下） |
+| ilim-max | VLED の電流制限が働く電流の上限（式 1、R11 が −1 % の最悪側）。段階負荷で制限/FAULT に入る電流はこれ以下。R11 の温度係数 100 ppm/°C は含まない | `439.4` | max | mA | CALCULATED | 計算 `B / (R * (1 - tol / 100) / 1000) ** m`（内訳は下） |
 | no-trip | 全点灯（51/255 上限）の定常 VLED 電流は ilim-min 未満（通常点灯で制限に入らない） | `343.3` | max | mA | CALCULATED | 計算 `A / (R * (1 + tol / 100) / 1000) ** k`（内訳は下） |
-| v3v3-min | +3V3 の下限（出力精度 ±1 %、IOUT = 1 mA 条件。負荷時の値は別に記録） | `3.267` | min | V | CALCULATED | 計算 `V * (1 - acc / 100)`（内訳は下） |
+| v3v3-min | +3V3 の下限（出力精度 ±1 %。規定条件は VIN = 3.8 V・IOUT = 1 mA・TJ ≤ 85 °C で、基板の VIN = 5 V との入力変動と負荷変動は含まない。負荷時の値は別に記録） | `3.267` | min | V | CALCULATED | 計算 `V * (1 - acc / 100)`（内訳は下） |
 | v3v3-max | +3V3 の上限（同条件） | `3.333` | max | V | CALCULATED | 計算 `V * (1 + acc / 100)`（内訳は下） |
 | v5 | +5 V（AP63205 の CCM 時 FB 精度） | `"4.95 to 5.05 (typ 5.00)"` | range | V | SOURCED | `.claude/skills/component-ap63205wu-7/facts.json` `fact-ap63205wu-7-vout` |
 
 計算の内訳:
 
 - `ilim-min`: `A / (R * (1 + tol / 100) / 1000) ** k` = `343.3` mA（小数 1 桁に丸め）
-  - `A` = 25230.0（`25230`、`.claude/skills/component-tps2552dbvr-1/facts.json` `fact-tps2552dbvr-1-ilim-formula-nom-min`）
-  - `k` = 1.016（`1.016`、`.claude/skills/component-tps2552dbvr-1/facts.json` `fact-tps2552dbvr-1-ilim-formula-nom-min`）
-  - `R` = 68000.0（`68k`、`engineering/a7/verification/schematic/netlist.xml` R11 の値）
-  - `tol` = 1.0（`1%`、`engineering/a7/verification/schematic/netlist.xml` R11 の値）
+  - `A` = 25230.0（`25230`、`.claude/skills/component-tps2552dbvr-1/facts.json` `fact-tps2552dbvr-1-ilim-formula-nom-min`、「IOSmin(mA) = 25230 V / RILIM^1.016」）
+  - `k` = 1.016（`1.016`、`.claude/skills/component-tps2552dbvr-1/facts.json` `fact-tps2552dbvr-1-ilim-formula-nom-min`、「IOSmin(mA) = 25230 V / RILIM^1.016」）
+  - `R` = 68000.0（`68k`、`engineering/a7/verification/schematic/netlist.xml` R11 の値、の value）
+  - `tol` = 1.0（`1%`、`engineering/a7/verification/schematic/netlist.xml` R11 の値、の tolerance）
 - `ilim-max`: `B / (R * (1 - tol / 100) / 1000) ** m` = `439.4` mA（小数 1 桁に丸め）
-  - `B` = 22980.0（`22980`、`.claude/skills/component-tps2552dbvr-1/facts.json` `fact-tps2552dbvr-1-ilim-formula-max`）
-  - `m` = 0.94（`0.94`、`.claude/skills/component-tps2552dbvr-1/facts.json` `fact-tps2552dbvr-1-ilim-formula-max`）
-  - `R` = 68000.0（`68k`、`engineering/a7/verification/schematic/netlist.xml` R11 の値）
-  - `tol` = 1.0（`1%`、`engineering/a7/verification/schematic/netlist.xml` R11 の値）
+  - `B` = 22980.0（`22980`、`.claude/skills/component-tps2552dbvr-1/facts.json` `fact-tps2552dbvr-1-ilim-formula-max`、「IOSmax(mA) = 22980 V / RILIM^0.94」）
+  - `m` = 0.94（`0.94`、`.claude/skills/component-tps2552dbvr-1/facts.json` `fact-tps2552dbvr-1-ilim-formula-max`、「IOSmax(mA) = 22980 V / RILIM^0.94」）
+  - `R` = 68000.0（`68k`、`engineering/a7/verification/schematic/netlist.xml` R11 の値、の value）
+  - `tol` = 1.0（`1%`、`engineering/a7/verification/schematic/netlist.xml` R11 の値、の tolerance）
 - `no-trip`: `A / (R * (1 + tol / 100) / 1000) ** k` = `343.3` mA（小数 1 桁に丸め）
-  - `A` = 25230.0（`25230`、`.claude/skills/component-tps2552dbvr-1/facts.json` `fact-tps2552dbvr-1-ilim-formula-nom-min`）
-  - `k` = 1.016（`1.016`、`.claude/skills/component-tps2552dbvr-1/facts.json` `fact-tps2552dbvr-1-ilim-formula-nom-min`）
-  - `R` = 68000.0（`68k`、`engineering/a7/verification/schematic/netlist.xml` R11 の値）
-  - `tol` = 1.0（`1%`、`engineering/a7/verification/schematic/netlist.xml` R11 の値）
+  - `A` = 25230.0（`25230`、`.claude/skills/component-tps2552dbvr-1/facts.json` `fact-tps2552dbvr-1-ilim-formula-nom-min`、「IOSmin(mA) = 25230 V / RILIM^1.016」）
+  - `k` = 1.016（`1.016`、`.claude/skills/component-tps2552dbvr-1/facts.json` `fact-tps2552dbvr-1-ilim-formula-nom-min`、「IOSmin(mA) = 25230 V / RILIM^1.016」）
+  - `R` = 68000.0（`68k`、`engineering/a7/verification/schematic/netlist.xml` R11 の値、の value）
+  - `tol` = 1.0（`1%`、`engineering/a7/verification/schematic/netlist.xml` R11 の値、の tolerance）
 - `v3v3-min`: `V * (1 - acc / 100)` = `3.267` V（小数 3 桁に丸め）
   - `V` = 3.3（`3.3`、`.claude/skills/component-tlv75533pdbvr/facts.json` `fact-tlv75533pdbvr-vout-nominal`）
   - `acc` = 1.0（`1`、`.claude/skills/component-tlv75533pdbvr/facts.json` `fact-tlv75533pdbvr-output-accuracy`）
@@ -597,7 +597,7 @@
 - `adc-p5-max`: `V` = `1.846` V（小数 3 桁に丸め）
   - `V` = 1.846172835232828（`1.846172835232828`、`engineering/a5/electronics/reports/electrical_margins.json` `/cv_transfer/results/5/ADC_V_max`）
 - `residual-max`: `DB` = `50` mV（小数 0 桁に丸め）
-  - `DB` = 50.0（`50`、`engineering/a5/firmware/include/lb_config.h` 引用）
+  - `DB` = 50.0（`50`、`engineering/a5/firmware/include/lb_config.h` 引用、「LB_CV_DEADBAND_MV            50」）
 
 提案の理由（PROPOSED は採否前で、この手順の基準ゲートを解除しません）:
 
@@ -655,39 +655,39 @@
 | ldo-vin | TLV75533 の推奨入力範囲 | `"1.45 to 5.5"` | range | V | SOURCED | `.claude/skills/component-tlv75533pdbvr/facts.json` `fact-tlv75533pdbvr-roc-vin` |
 | en-off | LED を無効にしている間（電源投入から FW の有効化まで、FAULT 後）の LED_EN_N。U4 の EN VIH 最小以上（active low なのでオフ） | `1.1` | min | V | CALCULATED | 計算 `VIH`（内訳は下） |
 | en-on | FW が有効化した後の LED_EN_N。EN VIL 最大以下 | `0.66` | max | V | CALCULATED | 計算 `VIL`（内訳は下） |
-| nrst-tau | NRST の RC 時定数 R21 × C14（立上り波形の参照値） | `1.0` | reference | ms | CALCULATED | 計算 `R * C * 1000`（内訳は下） |
+| nrst-tau | NRST の RC 時定数 R21 × C14（立上り波形の参照値。STM32 内部のプルアップは含まない） | `1.0` | reference | ms | CALCULATED | 計算 `R * C * 1000`（内訳は下） |
 | settle | FW 初期化から LED を有効化するまでの最短時間 | `100` | min | ms | CALCULATED | 計算 `T`（内訳は下） |
 | adc-timeout | この時間内に ADC 値が得られなければ FAULT（有効化しない） | `250` | reference | ms | CALCULATED | 計算 `T`（内訳は下） |
 | power-settle | 有効化から最初の黒フレーム送信までの最短時間 | `5` | min | ms | CALCULATED | 計算 `T`（内訳は下） |
-| vdda-min | VDDA がこれ未満なら ADC FAULT（有効化しない） | `3000` | reference | mV | CALCULATED | 計算 `V`（内訳は下） |
-| vdda-max | VDDA がこれを超えれば ADC FAULT（有効化しない） | `3600` | reference | mV | CALCULATED | 計算 `V`（内訳は下） |
+| vdda-min | VDDA がこれ未満なら、その取り込み（1 ms ごと）で ADC FAULT（有効化しない、有効なら停止） | `3000` | reference | mV | CALCULATED | 計算 `V`（内訳は下） |
+| vdda-max | VDDA がこれを超えれば、その取り込み（1 ms ごと）で ADC FAULT | `3600` | reference | mV | CALCULATED | 計算 `V`（内訳は下） |
 | no-retry | FAULT 後は電源を入れ直すまで再有効化しない（FW） | `"No enable or retry path exists in this routine."` | exact | NONE | DESIGN | `engineering/a5/firmware/src/light_block.c` 引用 |
 | lockout | 電源投入リセットで保持マーカーが空のときだけ通常起動する。外部リセット・ウォッチドッグ・バックアップ領域が残る BOR では消灯のまま（全電源の崩壊は電源再投入と区別できず再起動しうる。firmware/docs/reset_policy.md） | `"return LB_BOOT_LOCKED_RETAINED;"` | exact | NONE | DESIGN | `engineering/a5/firmware/src/light_block.c` 引用 |
-| window | 観測窓（FW 初期化から）の最短長 = ADC 待ち上限 + 電源待ち + 1 フレーム | `271` | min | ms | CALCULATED | 計算 `A + W + F`（内訳は下） |
+| window | 観測窓（FW 初期化から）の最短長 = ADC 待ち上限 + 電源待ち + 黒フレーム転送の上限。SW1 が有効な位置にあること（無効位置では有効化を待ち続ける） | `260` | min | ms | CALCULATED | 計算 `A + W + T`（内訳は下） |
 
 計算の内訳:
 
 - `en-off`: `VIH` = `1.1` V（小数 2 桁に丸め）
-  - `VIH` = 1.1（`1.1`、`.claude/skills/component-tps2552dbvr-1/facts.json` `fact-tps2552dbvr-1-roc-vin`、conditions）
+  - `VIH` = 1.1（`1.1`、`.claude/skills/component-tps2552dbvr-1/facts.json` `fact-tps2552dbvr-1-roc-vin`、conditions、「EN VIH min 1.1 V」）
 - `en-on`: `VIL` = `0.66` V（小数 2 桁に丸め）
-  - `VIL` = 0.66（`0.66`、`.claude/skills/component-tps2552dbvr-1/facts.json` `fact-tps2552dbvr-1-roc-vin`、conditions）
+  - `VIL` = 0.66（`0.66`、`.claude/skills/component-tps2552dbvr-1/facts.json` `fact-tps2552dbvr-1-roc-vin`、conditions、「VIL max 0.66 V」）
 - `nrst-tau`: `R * C * 1000` = `1.0` ms（小数 3 桁に丸め）
-  - `R` = 10000.0（`10k`、`engineering/a7/verification/schematic/netlist.xml` R21 の値）
-  - `C` = 1.0000000000000001e-07（`100n`、`engineering/a7/verification/schematic/netlist.xml` C14 の値）
+  - `R` = 10000.0（`10k`、`engineering/a7/verification/schematic/netlist.xml` R21 の値、の value）
+  - `C` = 1.0000000000000001e-07（`100n`、`engineering/a7/verification/schematic/netlist.xml` C14 の値、の value）
 - `settle`: `T` = `100` ms（小数 0 桁に丸め）
-  - `T` = 100.0（`100u`、`engineering/a5/firmware/include/lb_config.h` 引用）
+  - `T` = 100.0（`100u`、`engineering/a5/firmware/include/lb_config.h` 引用、「LB_STARTUP_SETTLE_MS          100u」）
 - `adc-timeout`: `T` = `250` ms（小数 0 桁に丸め）
-  - `T` = 250.0（`250u`、`engineering/a5/firmware/include/lb_config.h` 引用）
+  - `T` = 250.0（`250u`、`engineering/a5/firmware/include/lb_config.h` 引用、「LB_STARTUP_ADC_TIMEOUT_MS    250u」）
 - `power-settle`: `T` = `5` ms（小数 0 桁に丸め）
-  - `T` = 5.0（`5u`、`engineering/a5/firmware/include/lb_config.h` 引用）
+  - `T` = 5.0（`5u`、`engineering/a5/firmware/include/lb_config.h` 引用、「LB_LED_POWER_SETTLE_MS       5u」）
 - `vdda-min`: `V` = `3000` mV（小数 0 桁に丸め）
-  - `V` = 3000.0（`3000u`、`engineering/a5/firmware/include/lb_config.h` 引用）
+  - `V` = 3000.0（`3000u`、`engineering/a5/firmware/include/lb_config.h` 引用、「LB_VDDA_MIN_MV               3000u」）
 - `vdda-max`: `V` = `3600` mV（小数 0 桁に丸め）
-  - `V` = 3600.0（`3600u`、`engineering/a5/firmware/include/lb_config.h` 引用）
-- `window`: `A + W + F` = `271` ms（小数 0 桁に丸め）
-  - `A` = 250.0（`250u`、`engineering/a5/firmware/include/lb_config.h` 引用）
-  - `W` = 5.0（`5u`、`engineering/a5/firmware/include/lb_config.h` 引用）
-  - `F` = 16.0（`16u`、`engineering/a5/firmware/include/lb_config.h` 引用）
+  - `V` = 3600.0（`3600u`、`engineering/a5/firmware/include/lb_config.h` 引用、「LB_VDDA_MAX_MV               3600u」）
+- `window`: `A + W + T` = `260` ms（小数 0 桁に丸め）
+  - `A` = 250.0（`250u`、`engineering/a5/firmware/include/lb_config.h` 引用、「LB_STARTUP_ADC_TIMEOUT_MS    250u」）
+  - `W` = 5.0（`5u`、`engineering/a5/firmware/include/lb_config.h` 引用、「LB_LED_POWER_SETTLE_MS       5u」）
+  - `T` = 5.0（`5u`、`engineering/a5/firmware/include/lb_config.h` 引用、「LB_TRANSFER_TIMEOUT_MS       5u」）
 
 ### rail-collapse — 急速レール崩壊
 
@@ -739,13 +739,13 @@
 計算の内訳:
 
 - `collapse-en-off`: `VIH` = `1.1` V（小数 2 桁に丸め）
-  - `VIH` = 1.1（`1.1`、`.claude/skills/component-tps2552dbvr-1/facts.json` `fact-tps2552dbvr-1-roc-vin`、conditions）
+  - `VIH` = 1.1（`1.1`、`.claude/skills/component-tps2552dbvr-1/facts.json` `fact-tps2552dbvr-1-roc-vin`、conditions、「EN VIH min 1.1 V」）
 - `collapse-threshold`: `V` = `3000` mV（小数 0 桁に丸め）
-  - `V` = 3000.0（`3000u`、`engineering/a5/firmware/include/lb_config.h` 引用）
+  - `V` = 3000.0（`3000u`、`engineering/a5/firmware/include/lb_config.h` 引用、「LB_VDDA_MIN_MV               3000u」）
 
 提案の理由（PROPOSED は採否前で、この手順の基準ゲートを解除しません）:
 
-- `collapse-en-off`: +12 V が落ちて MCU が動作範囲を外れても、+5 V が U4 の推奨入力下限 2.5 V 以上の間は LED_EN_N が EN VIH 以上（U4 オフ）であれば LED への給電は止まる。リセット中は Q1 のベースが R12 で引き下げられ、R23 が EN を引き上げる既定オフの設計を確かめる基準。これが満たされれば 5 V valid 監視は追加しない案。
+- `collapse-en-off`: +12 V が落ちて MCU が動作範囲を外れても、+5 V が U4 の推奨入力下限 2.5 V 以上の間は LED_EN_N が EN VIH 以上（U4 オフ）であれば LED への給電は止まる。リセット中は Q1 のベースが R12 で引き下げられ、R23 が EN を引き上げる既定オフの設計を確かめる基準。これが満たされれば 5 V valid 監視は追加しない案。 FW は毎 1 ms の取り込みで VDDA を計算し、範囲外なら直ちに FAULT にする（lb_controller_adc）。判定は次の取り込みまでの遅れを含めて見る。MCU が動作を止める電圧（POR/PDR）より下では Q1 のベースが R12 で引き下げられる。
 - `collapse-threshold`: FW 自身が ADC FAULT とする VDDA の下限。
 - `collapse-recovery`: バックアップ領域が残る瞬断では勝手に再点灯しないことを合格条件にする。全電源が崩壊した場合は電源再投入と区別できず再起動しうる（firmware/docs/reset_policy.md の既知の境界）ので、それは不合格にしない。設定は SW1 から毎回読み、校正は工場値から計算するため、失われて困る保存値はない。
 
@@ -844,17 +844,29 @@
 | input | TLV9001 入力の絶対最大 | `"(V-) - 0.5 to (V+) + 0.5"` | range | V | SOURCED | `.claude/skills/component-tlv9001idbvr/facts.json` `fact-tlv9001idbvr-abs-max-input-voltage` |
 | current | TLV9001 入力電流の絶対最大 | `10` | max | mA | SOURCED | `.claude/skills/component-tlv9001idbvr/facts.json` `fact-tlv9001idbvr-abs-max-input-current` |
 | supply-roc | U7 電源 (+3V3) の推奨範囲 | `"1.8 to 5.5"` | range | V | SOURCED | `.claude/skills/component-tlv9001idbvr/facts.json` `fact-tlv9001idbvr-roc-vs` |
-| in-current-bound | U7 IN+ に流れうる電流の上限（計算）。R3 + R7 の最小値で CV_BUF の最大振幅を割る。測定した R7 の電圧から求めた電流はこれ以下で、絶対最大 10 mA より小さい | `0.243` | max | mA | INFERRED | 計算 `V / (R3 * (1 - t3 / 100) + R7 * (1 - t7 / 100)) * 1000`（内訳は下） |
+| in-current-bound | R7 を流れる電流（U7 IN+ と D3 の合計）の上限（計算）。CV_AFFINE の全抵抗（R3–R6）と +3V3 の上限を含む節点計算。測定した R7 の電圧から求めた電流はこれ以下で、U7 入力の絶対最大 10 mA より小さい | `0.313` | max | mA | PROPOSED（根拠 INFERRED） | 計算 `(V / (R3 * (1 - t3 / 100)) + (V3 * (1 + acc / 100)) / (R4 * (1 - t4 / 100)) + (V3 * (1 + acc / 100)) / (R5 * (1 - t5 / 100))) / (1 / (R3 * (1 - t3 / 100)) + 1 / (R4 * (1 - t4 / 100)) + 1 / (R5 * (1 - t5 / 100)) + 1 / (R6 * (1 + t6 / 100)) + 1 / (R7 * (1 - t7 / 100))) / (R7 * (1 - t7 / 100)) * 1000`（内訳は下） |
 
 計算の内訳:
 
-- `in-current-bound`: `V / (R3 * (1 - t3 / 100) + R7 * (1 - t7 / 100)) * 1000` = `0.243` mA（小数 3 桁に丸め）
-  - `V` = 20.0（`20`、`.claude/skills/component-opa197idbvr/facts.json` `fact-opa197idbvr-ratings`、conditions）
-  - `R3` = 82000.0（`82k`、`engineering/a7/verification/schematic/netlist.xml` R3 の値）
-  - `t3` = 1.0（`1%`、`engineering/a7/verification/schematic/netlist.xml` R3 の値）
-  - `R7` = 1000.0（`1k`、`engineering/a7/verification/schematic/netlist.xml` R7 の値）
-  - `t7` = 1.0（`1%`、`engineering/a7/verification/schematic/netlist.xml` R7 の値）
-  - 推定: CV_BUF (U6 出力) は U6 の電源を超えず、U6 の電源は絶対最大の ±20 V 以内とする推定。IN+ の電位を 0 V として電流を大きく見積もる
+- `in-current-bound`: `(V / (R3 * (1 - t3 / 100)) + (V3 * (1 + acc / 100)) / (R4 * (1 - t4 / 100)) + (V3 * (1 + acc / 100)) / (R5 * (1 - t5 / 100))) / (1 / (R3 * (1 - t3 / 100)) + 1 / (R4 * (1 - t4 / 100)) + 1 / (R5 * (1 - t5 / 100)) + 1 / (R6 * (1 + t6 / 100)) + 1 / (R7 * (1 - t7 / 100))) / (R7 * (1 - t7 / 100)) * 1000` = `0.313` mA（小数 3 桁に丸め）
+  - `V` = 20.0（`20`、`.claude/skills/component-opa197idbvr/facts.json` `fact-opa197idbvr-ratings`、conditions、「(+/-20 V dual supply)」）
+  - `V3` = 3.3（`3.3`、`.claude/skills/component-tlv75533pdbvr/facts.json` `fact-tlv75533pdbvr-vout-nominal`）
+  - `acc` = 1.0（`1`、`.claude/skills/component-tlv75533pdbvr/facts.json` `fact-tlv75533pdbvr-output-accuracy`）
+  - `R3` = 82000.0（`82k`、`engineering/a7/verification/schematic/netlist.xml` R3 の値、の value）
+  - `t3` = 1.0（`1%`、`engineering/a7/verification/schematic/netlist.xml` R3 の値、の tolerance）
+  - `R4` = 82000.0（`82k`、`engineering/a7/verification/schematic/netlist.xml` R4 の値、の value）
+  - `t4` = 1.0（`1%`、`engineering/a7/verification/schematic/netlist.xml` R4 の値、の tolerance）
+  - `R5` = 82000.0（`82k`、`engineering/a7/verification/schematic/netlist.xml` R5 の値、の value）
+  - `t5` = 1.0（`1%`、`engineering/a7/verification/schematic/netlist.xml` R5 の値、の tolerance）
+  - `R6` = 82000.0（`82k`、`engineering/a7/verification/schematic/netlist.xml` R6 の値、の value）
+  - `t6` = 1.0（`1%`、`engineering/a7/verification/schematic/netlist.xml` R6 の値、の tolerance）
+  - `R7` = 1000.0（`1k`、`engineering/a7/verification/schematic/netlist.xml` R7 の値、の value）
+  - `t7` = 1.0（`1%`、`engineering/a7/verification/schematic/netlist.xml` R7 の値、の tolerance）
+  - 推定: CV_BUF (U6 出力) は U6 の電源を超えず、U6 の電源は絶対最大の ±20 V 以内とする推定。CV_FILTER を 0 V に固定して R7 の電流を大きく見積もる
+
+提案の理由（PROPOSED は採否前で、この手順の基準ゲートを解除しません）:
+
+- `in-current-bound`: CV_BUF の上限を回路図と入力保護だけからは決められない。±12V_RAW の上限はモジュールの外（ラック電源）で決まり、D3 (BAS70-04) と U7 内部ダイオードの電流分担は資料にない。そこで U6 の絶対最大電源 ±20 V を CV_BUF の上限とする推定に頼っている。推定を外せる資料（電源の上限）が得られるまで提案のまま。
 
 ### ldo-reverse — LDO 逆電流
 
@@ -1063,11 +1075,11 @@
 計算の内訳:
 
 - `part-temp-max`: `T` = `85` degC（小数 0 桁に丸め）
-  - `T` = 85.0（`+85`、`.claude/skills/component-a7-pcm13smtr/facts.json` `fact-a7-pcm13smtr-operating-temperature`）
+  - `T` = 85.0（`+85`、`.claude/skills/component-a7-pcm13smtr/facts.json` `fact-a7-pcm13smtr-operating-temperature`、「-40 to +85」）
 
 提案の理由（PROPOSED は採否前で、この手順の基準ゲートを解除しません）:
 
-- `part-temp-max`: 温度上限が資料で分かっている部品のうち最も低い PCM13SMTR の動作上限 +85 °C。表面温度は接合部より低いので、余裕をどれだけ取るかは採否で決める。
+- `part-temp-max`: カタログの部品 fact で温度上限が分かるもののうち最も低いのは PCM13SMTR の動作上限 +85 °C（SM04B の定格条件も +85 °C）。ただし 14 種の部品（WS2812B を含む）は温度上限の fact がなく、これが基板で最も低い上限だとはまだ確認できない（WS2812B は資料の抜粋に動作温度 −40〜+85 °C とあるが fact として未記録）。表面温度は接合部より低いので、余裕をどれだけ取るかも採否で決める。
 
 ### cv-noise — CV ノイズと DATA_L 結合
 
@@ -1117,7 +1129,7 @@
 計算の内訳:
 
 - `noise-max`: `DB` = `50` mV（小数 0 桁に丸め）
-  - `DB` = 50.0（`50`、`engineering/a5/firmware/include/lb_config.h` 引用）
+  - `DB` = 50.0（`50`、`engineering/a5/firmware/include/lb_config.h` 引用、「LB_CV_DEADBAND_MV            50」）
 
 提案の理由（PROPOSED は採否前で、この手順の基準ゲートを解除しません）:
 
@@ -1179,7 +1191,7 @@
 計算の内訳:
 
 - `retention-force`: `F` = `10.0` N（小数 1 桁に丸め）
-  - `F` = 10.0（`10.0`、`.claude/skills/component-a7-pj-324m/facts.json` `fact-a7-pj-324m-plug-force`）
+  - `F` = 10.0（`10.0`、`.claude/skills/component-a7-pj-324m/facts.json` `fact-a7-pj-324m-plug-force`、「5.0-10.0 N inward」）
 
 提案の理由（PROPOSED は採否前で、この手順の基準ゲートを解除しません）:
 
@@ -1243,6 +1255,7 @@
 - partial-rails: criterion has PROPOSED or UNRESOLVED acceptance values: limits
 - partial-rails: NOT_MEASURED: no run
 - u7-stress: criterion unresolved or review receipt missing
+- u7-stress: criterion has PROPOSED or UNRESOLVED acceptance values: in-current-bound
 - u7-stress: NOT_MEASURED: no run
 - ldo-reverse: criterion unresolved or review receipt missing
 - ldo-reverse: criterion has PROPOSED or UNRESOLVED acceptance values: reverse

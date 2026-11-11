@@ -18,7 +18,7 @@
     "fixture": "fac00cc2d61cee463859a218eb00542d3b45e4099492757ff8f9ed9e36e40f1f",
     "assembly_manifest": "0201bfaf16235df9bcf450a35842ca7b4c7316592c3de21aa92ad50041a406ce"
   },
-  "plan_sha256": "4e0888089320c114b616cf48b841a3bc9e6f6a5ba1c9d3b6b03d6be6653adae9",
+  "plan_sha256": "c643e6597611194eb8894213488547f8fb11b66f127b1beb4d6df48bdd8e2c58",
   "instruments": null,
   "setup": null,
   "conditions": null,
@@ -91,7 +91,7 @@
     },
     {
       "id": "nrst-tau",
-      "criterion": "NRST の RC 時定数 R21 × C14（立上り波形の参照値）",
+      "criterion": "NRST の RC 時定数 R21 × C14（立上り波形の参照値。STM32 内部のプルアップは含まない）",
       "expected": 1.0,
       "bound": "reference",
       "unit": "ms",
@@ -135,7 +135,7 @@
     },
     {
       "id": "vdda-min",
-      "criterion": "VDDA がこれ未満なら ADC FAULT（有効化しない）",
+      "criterion": "VDDA がこれ未満なら、その取り込み（1 ms ごと）で ADC FAULT（有効化しない、有効なら停止）",
       "expected": 3000,
       "bound": "reference",
       "unit": "mV",
@@ -146,7 +146,7 @@
     },
     {
       "id": "vdda-max",
-      "criterion": "VDDA がこれを超えれば ADC FAULT（有効化しない）",
+      "criterion": "VDDA がこれを超えれば、その取り込み（1 ms ごと）で ADC FAULT",
       "expected": 3600,
       "bound": "reference",
       "unit": "mV",
@@ -179,8 +179,8 @@
     },
     {
       "id": "window",
-      "criterion": "観測窓（FW 初期化から）の最短長 = ADC 待ち上限 + 電源待ち + 1 フレーム",
-      "expected": 271,
+      "criterion": "観測窓（FW 初期化から）の最短長 = ADC 待ち上限 + 電源待ち + 黒フレーム転送の上限。SW1 が有効な位置にあること（無効位置では有効化を待ち続ける）",
+      "expected": 260,
       "bound": "min",
       "unit": "ms",
       "confidence": "CALCULATED",
