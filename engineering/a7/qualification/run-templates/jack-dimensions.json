@@ -1,0 +1,147 @@
+{
+  "run_id": null,
+  "procedure": "jack-dimensions",
+  "evidence_kind": "BENCH_RECORD",
+  "synthetic": false,
+  "result": "NOT_RUN",
+  "unit_id": null,
+  "operator": null,
+  "performed_at": null,
+  "identities": {
+    "board": "4453f818ede1e6d6c56e45ef43aa6faecb90990f3755f82c6d752258cd4d628e",
+    "population": "1891af356ead303127c6b7a99b8934b08aa25f465b4b2c96872f5d5d24afdc01",
+    "schematic": "01c09e69f2623bdbb98ae6176b4b52204ae817f927ecb311242d7ac1295fbc72",
+    "firmware": "0446cb0acfa7efe86a5f6c02beb7afa482daa419ecfce204fe9169487599765e",
+    "firmware_sources": "61155c23cc8f9c05f8d5712ecd8f009673c1929a34b8437b9869c202deb85c46",
+    "configuration": "195092c88e1b9270bae22d27f4a08f4a606f9be77008f3011f06d7a975b0f6a7",
+    "mechanical": "9cbc6ac99f5b05c7e3145f2016b6918cbc5d2b77170db31ed7155755cba0d591",
+    "fixture": "38dde81d2bcce1b61cc66763f3bd3f0f5bb470f4b3c08bdeedcb0c6995df81f5",
+    "assembly_manifest": "038322fc97016c67172d8ebda51d437539d28b512be0712b83796352eaea0957"
+  },
+  "plan_sha256": "9ce5f2465f0ce9361805d1cf48434f8babee63e8c1a75559ee8a2894a3935573",
+  "instruments": null,
+  "setup": null,
+  "conditions": null,
+  "assembly_deviations": null,
+  "observations": "NOT_MEASURED",
+  "criterion_comparison": null,
+  "raw_evidence": [
+    {
+      "kind": "axis_measurements",
+      "path": null,
+      "sha256": null
+    },
+    {
+      "kind": "slot_lead_measurements",
+      "path": null,
+      "sha256": null
+    },
+    {
+      "kind": "nut_washer_fit",
+      "path": null,
+      "sha256": null
+    },
+    {
+      "kind": "instrument_identity",
+      "path": null,
+      "sha256": null
+    }
+  ],
+  "review": null,
+  "next_action": null,
+  "acceptance_checklist": [
+    {
+      "id": "axis-height",
+      "criterion": "軸高さ（図面に寸法なし。推定）",
+      "expected": "approximately 3 (visually scaled 2.9-3.0 from the front view; not dimensioned)",
+      "unit": "mm",
+      "confidence": "INFERRED",
+      "observed": null,
+      "verdict": null
+    },
+    {
+      "id": "axis-band",
+      "criterion": "設計で許容した軸高さの範囲",
+      "expected": [
+        2.6,
+        3.4
+      ],
+      "unit": "mm",
+      "confidence": "INFERRED",
+      "observed": null,
+      "verdict": null
+    },
+    {
+      "id": "thread",
+      "criterion": "ねじ",
+      "expected": "M6x0.5",
+      "unit": "NONE",
+      "confidence": "MIRROR",
+      "observed": null,
+      "verdict": null
+    },
+    {
+      "id": "axis-to-edge",
+      "criterion": "軸から端子 4/5 側の辺",
+      "expected": 5.4,
+      "unit": "mm",
+      "confidence": "MIRROR",
+      "observed": null,
+      "verdict": null
+    },
+    {
+      "id": "axis-to-far-edge",
+      "criterion": "軸から反対側の辺（計算値）",
+      "expected": 6.1,
+      "unit": "mm",
+      "confidence": "MIRROR",
+      "observed": null,
+      "verdict": null
+    },
+    {
+      "id": "body-height",
+      "criterion": "本体高さ",
+      "expected": 6.0,
+      "unit": "mm",
+      "confidence": "MIRROR",
+      "observed": null,
+      "verdict": null
+    },
+    {
+      "id": "slot-drill",
+      "criterion": "基板スロットのドリル（仮定）",
+      "expected": "1.6×0.8 mm ドリル",
+      "unit": "NONE",
+      "confidence": "ASSUMED",
+      "observed": null,
+      "verdict": null
+    },
+    {
+      "id": "thread-engagement",
+      "criterion": "ポケット付き最悪条件のねじ噛み合い（設計値）",
+      "expected": 1.25,
+      "unit": "mm",
+      "confidence": "DESIGN",
+      "observed": null,
+      "verdict": null
+    },
+    {
+      "id": "engagement-criterion",
+      "criterion": "ねじ噛み合いの検討基準",
+      "expected": "1.0 mm study criterion",
+      "unit": "NONE",
+      "confidence": "DESIGN",
+      "observed": null,
+      "verdict": null
+    },
+    {
+      "id": "tolerances",
+      "criterion": "各寸法の合否公差",
+      "expected": null,
+      "unit": "mm",
+      "confidence": "UNRESOLVED",
+      "observed": null,
+      "verdict": null
+    }
+  ]
+}

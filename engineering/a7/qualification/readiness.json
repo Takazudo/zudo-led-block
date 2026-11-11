@@ -43,7 +43,7 @@
       "sha256": "038322fc97016c67172d8ebda51d437539d28b512be0712b83796352eaea0957"
     }
   },
-  "plan_sha256": "67cf8a4c8a421bf5142b158e54e3d65aa5717482f4a807398a89814d061b2e4e",
+  "plan_sha256": "9ce5f2465f0ce9361805d1cf48434f8babee63e8c1a75559ee8a2894a3935573",
   "procedures": [
     {
       "id": "jack-continuity",
@@ -201,7 +201,15 @@
   "blockers": [
     "fixture digital design incomplete or unverified",
     "fixture: unresolved preparation blockers",
-    "assembly_manifest: unresolved preparation blockers",
+    "assembly_manifest: supply-observations: Current stock, price, MOQ, packaging, lead time and assembly applicability not obtained for any line except the dated C221842 zero-stock observation; stock never reserved.",
+    "assembly_manifest: order-quantity: No agreed order quantity; 1/10/100 are comparison scenarios only, so no supply observation can be judged available for a proposed order.",
+    "assembly_manifest: switch-supply: PCM13SMTR (C221842) had JLC stock 0 / presale 0 at 2026-11-09; wait, buy elsewhere, or accept a reviewed alternate with its own contact table and fit review.",
+    "assembly_manifest: jack-switch-qualification: PJ-324M pin function, slot, axis height and nut fit, and PCM13SMTR truth table and land fit, need received parts (jack-continuity, jack-dimensions, switch-fit).",
+    "assembly_manifest: finished-cables: Finished A7 power cable (57 mm, +/-3 ASSUMED), SH4 cables and IDC ribbon not selected; supplier answers and the owner choice of assembly are needed before physical routing checks.",
+    "assembly_manifest: mechanical-materials: PMMA sheet and pocket tolerances, PETG process and orderable fastener part numbers are not sourced; the model carries designations (M2x18, M1.6x4) and envelopes only.",
+    "assembly_manifest: rack-hardware: Owner rack rail/thread interface and fasteners not specified.",
+    "assembly_manifest: fixture-materials: Fixture design and materials incomplete (see fixture manifest); physical contact/load tests follow.",
+    "assembly_manifest: prototype-and-release: No owner-approved prototype route, no reviewed manufacturing package and no release approval.",
     "jack-continuity: criterion unresolved or review receipt missing",
     "jack-continuity: NOT_MEASURED: no run",
     "jack-dimensions: criterion unresolved or review receipt missing",
@@ -249,6 +257,407 @@
     "owner-approved sample/prototype route absent for this revision and quantity",
     "reviewed manufacturing files and explicit revision-bound owner release absent"
   ],
+  "gates": [
+    {
+      "gate": "artifact:fixture",
+      "class": "CLOUD_DIGITAL",
+      "reasons": [
+        "fixture digital design incomplete or unverified",
+        "fixture: unresolved preparation blockers"
+      ]
+    },
+    {
+      "gate": "assembly:supply-observations",
+      "class": "ACCESS_EVIDENCE_HOLD",
+      "reasons": [
+        "assembly_manifest: supply-observations: Current stock, price, MOQ, packaging, lead time and assembly applicability not obtained for any line except the dated C221842 zero-stock observation; stock never reserved."
+      ]
+    },
+    {
+      "gate": "assembly:order-quantity",
+      "class": "OWNER_DECISION",
+      "reasons": [
+        "assembly_manifest: order-quantity: No agreed order quantity; 1/10/100 are comparison scenarios only, so no supply observation can be judged available for a proposed order."
+      ]
+    },
+    {
+      "gate": "assembly:switch-supply",
+      "class": "OWNER_DECISION",
+      "reasons": [
+        "assembly_manifest: switch-supply: PCM13SMTR (C221842) had JLC stock 0 / presale 0 at 2026-11-09; wait, buy elsewhere, or accept a reviewed alternate with its own contact table and fit review."
+      ]
+    },
+    {
+      "gate": "assembly:jack-switch-qualification",
+      "class": "PHYSICAL_ONLY",
+      "reasons": [
+        "assembly_manifest: jack-switch-qualification: PJ-324M pin function, slot, axis height and nut fit, and PCM13SMTR truth table and land fit, need received parts (jack-continuity, jack-dimensions, switch-fit)."
+      ]
+    },
+    {
+      "gate": "assembly:finished-cables",
+      "class": "OWNER_DECISION",
+      "reasons": [
+        "assembly_manifest: finished-cables: Finished A7 power cable (57 mm, +/-3 ASSUMED), SH4 cables and IDC ribbon not selected; supplier answers and the owner choice of assembly are needed before physical routing checks."
+      ]
+    },
+    {
+      "gate": "assembly:mechanical-materials",
+      "class": "ACCESS_EVIDENCE_HOLD",
+      "reasons": [
+        "assembly_manifest: mechanical-materials: PMMA sheet and pocket tolerances, PETG process and orderable fastener part numbers are not sourced; the model carries designations (M2x18, M1.6x4) and envelopes only."
+      ]
+    },
+    {
+      "gate": "assembly:rack-hardware",
+      "class": "OWNER_DECISION",
+      "reasons": [
+        "assembly_manifest: rack-hardware: Owner rack rail/thread interface and fasteners not specified."
+      ]
+    },
+    {
+      "gate": "assembly:fixture-materials",
+      "class": "CLOUD_DIGITAL",
+      "reasons": [
+        "assembly_manifest: fixture-materials: Fixture design and materials incomplete (see fixture manifest); physical contact/load tests follow."
+      ]
+    },
+    {
+      "gate": "assembly:prototype-and-release",
+      "class": "OWNER_DECISION",
+      "reasons": [
+        "assembly_manifest: prototype-and-release: No owner-approved prototype route, no reviewed manufacturing package and no release approval."
+      ]
+    },
+    {
+      "gate": "criterion:jack-continuity",
+      "class": "OWNER_DECISION",
+      "reasons": [
+        "jack-continuity: criterion unresolved or review receipt missing"
+      ]
+    },
+    {
+      "gate": "run:jack-continuity",
+      "class": "PHYSICAL_ONLY",
+      "reasons": [
+        "jack-continuity: NOT_MEASURED: no run"
+      ]
+    },
+    {
+      "gate": "criterion:jack-dimensions",
+      "class": "ACCESS_EVIDENCE_HOLD",
+      "reasons": [
+        "jack-dimensions: criterion unresolved or review receipt missing"
+      ]
+    },
+    {
+      "gate": "run:jack-dimensions",
+      "class": "PHYSICAL_ONLY",
+      "reasons": [
+        "jack-dimensions: NOT_MEASURED: no run"
+      ]
+    },
+    {
+      "gate": "criterion:switch-fit",
+      "class": "ACCESS_EVIDENCE_HOLD",
+      "reasons": [
+        "switch-fit: criterion unresolved or review receipt missing"
+      ]
+    },
+    {
+      "gate": "run:switch-fit",
+      "class": "PHYSICAL_ONLY",
+      "reasons": [
+        "switch-fit: NOT_MEASURED: no run"
+      ]
+    },
+    {
+      "gate": "criterion:harness-depth",
+      "class": "OWNER_DECISION",
+      "reasons": [
+        "harness-depth: criterion unresolved or review receipt missing"
+      ]
+    },
+    {
+      "gate": "run:harness-depth",
+      "class": "PHYSICAL_ONLY",
+      "reasons": [
+        "harness-depth: NOT_MEASURED: no run"
+      ]
+    },
+    {
+      "gate": "criterion:pmma-supports",
+      "class": "ACCESS_EVIDENCE_HOLD",
+      "reasons": [
+        "pmma-supports: criterion unresolved or review receipt missing"
+      ]
+    },
+    {
+      "gate": "run:pmma-supports",
+      "class": "PHYSICAL_ONLY",
+      "reasons": [
+        "pmma-supports: NOT_MEASURED: no run"
+      ]
+    },
+    {
+      "gate": "criterion:fixture-contact",
+      "class": "CLOUD_DIGITAL",
+      "reasons": [
+        "fixture-contact: criterion unresolved or review receipt missing"
+      ]
+    },
+    {
+      "gate": "run:fixture-contact",
+      "class": "PHYSICAL_ONLY",
+      "reasons": [
+        "fixture-contact: NOT_MEASURED: no run"
+      ]
+    },
+    {
+      "gate": "criterion:firmware-waveforms",
+      "class": "OWNER_DECISION",
+      "reasons": [
+        "firmware-waveforms: criterion unresolved or review receipt missing"
+      ]
+    },
+    {
+      "gate": "run:firmware-waveforms",
+      "class": "PHYSICAL_ONLY",
+      "reasons": [
+        "firmware-waveforms: NOT_MEASURED: no run"
+      ]
+    },
+    {
+      "gate": "criterion:power-current",
+      "class": "CLOUD_DIGITAL",
+      "reasons": [
+        "power-current: criterion unresolved or review receipt missing"
+      ]
+    },
+    {
+      "gate": "run:power-current",
+      "class": "PHYSICAL_ONLY",
+      "reasons": [
+        "power-current: NOT_MEASURED: no run"
+      ]
+    },
+    {
+      "gate": "criterion:cv-thru-calibration",
+      "class": "CLOUD_DIGITAL",
+      "reasons": [
+        "cv-thru-calibration: criterion unresolved or review receipt missing"
+      ]
+    },
+    {
+      "gate": "run:cv-thru-calibration",
+      "class": "PHYSICAL_ONLY",
+      "reasons": [
+        "cv-thru-calibration: NOT_MEASURED: no run"
+      ]
+    },
+    {
+      "gate": "criterion:startup-reset",
+      "class": "CLOUD_DIGITAL",
+      "reasons": [
+        "startup-reset: criterion unresolved or review receipt missing"
+      ]
+    },
+    {
+      "gate": "run:startup-reset",
+      "class": "PHYSICAL_ONLY",
+      "reasons": [
+        "startup-reset: NOT_MEASURED: no run"
+      ]
+    },
+    {
+      "gate": "criterion:rail-collapse",
+      "class": "OWNER_DECISION",
+      "reasons": [
+        "rail-collapse: criterion unresolved or review receipt missing"
+      ]
+    },
+    {
+      "gate": "run:rail-collapse",
+      "class": "PHYSICAL_ONLY",
+      "reasons": [
+        "rail-collapse: NOT_MEASURED: no run"
+      ]
+    },
+    {
+      "gate": "criterion:partial-rails",
+      "class": "CLOUD_DIGITAL",
+      "reasons": [
+        "partial-rails: criterion unresolved or review receipt missing"
+      ]
+    },
+    {
+      "gate": "run:partial-rails",
+      "class": "PHYSICAL_ONLY",
+      "reasons": [
+        "partial-rails: NOT_MEASURED: no run"
+      ]
+    },
+    {
+      "gate": "criterion:u7-stress",
+      "class": "CLOUD_DIGITAL",
+      "reasons": [
+        "u7-stress: criterion unresolved or review receipt missing"
+      ]
+    },
+    {
+      "gate": "run:u7-stress",
+      "class": "PHYSICAL_ONLY",
+      "reasons": [
+        "u7-stress: NOT_MEASURED: no run"
+      ]
+    },
+    {
+      "gate": "criterion:ldo-reverse",
+      "class": "ACCESS_EVIDENCE_HOLD",
+      "reasons": [
+        "ldo-reverse: criterion unresolved or review receipt missing"
+      ]
+    },
+    {
+      "gate": "run:ldo-reverse",
+      "class": "PHYSICAL_ONLY",
+      "reasons": [
+        "ldo-reverse: NOT_MEASURED: no run"
+      ]
+    },
+    {
+      "gate": "criterion:load-short",
+      "class": "OWNER_DECISION",
+      "reasons": [
+        "load-short: criterion unresolved or review receipt missing"
+      ]
+    },
+    {
+      "gate": "run:load-short",
+      "class": "PHYSICAL_ONLY",
+      "reasons": [
+        "load-short: NOT_MEASURED: no run"
+      ]
+    },
+    {
+      "gate": "criterion:effective-capacitance",
+      "class": "ACCESS_EVIDENCE_HOLD",
+      "reasons": [
+        "effective-capacitance: criterion unresolved or review receipt missing"
+      ]
+    },
+    {
+      "gate": "run:effective-capacitance",
+      "class": "PHYSICAL_ONLY",
+      "reasons": [
+        "effective-capacitance: NOT_MEASURED: no run"
+      ]
+    },
+    {
+      "gate": "criterion:thermal-optical",
+      "class": "OWNER_DECISION",
+      "reasons": [
+        "thermal-optical: criterion unresolved or review receipt missing"
+      ]
+    },
+    {
+      "gate": "run:thermal-optical",
+      "class": "PHYSICAL_ONLY",
+      "reasons": [
+        "thermal-optical: NOT_MEASURED: no run"
+      ]
+    },
+    {
+      "gate": "criterion:cv-noise",
+      "class": "OWNER_DECISION",
+      "reasons": [
+        "cv-noise: criterion unresolved or review receipt missing"
+      ]
+    },
+    {
+      "gate": "run:cv-noise",
+      "class": "PHYSICAL_ONLY",
+      "reasons": [
+        "cv-noise: NOT_MEASURED: no run"
+      ]
+    },
+    {
+      "gate": "criterion:service-envelope",
+      "class": "OWNER_DECISION",
+      "reasons": [
+        "service-envelope: criterion unresolved or review receipt missing"
+      ]
+    },
+    {
+      "gate": "run:service-envelope",
+      "class": "PHYSICAL_ONLY",
+      "reasons": [
+        "service-envelope: NOT_MEASURED: no run"
+      ]
+    },
+    {
+      "gate": "material:assembly_service",
+      "class": "ACCESS_EVIDENCE_HOLD",
+      "reasons": [
+        "material assembly_service: missing or ambiguous dated observation"
+      ]
+    },
+    {
+      "gate": "material:finished_cables",
+      "class": "ACCESS_EVIDENCE_HOLD",
+      "reasons": [
+        "material finished_cables: missing or ambiguous dated observation"
+      ]
+    },
+    {
+      "gate": "material:fixture",
+      "class": "ACCESS_EVIDENCE_HOLD",
+      "reasons": [
+        "material fixture: missing or ambiguous dated observation"
+      ]
+    },
+    {
+      "gate": "material:jack",
+      "class": "ACCESS_EVIDENCE_HOLD",
+      "reasons": [
+        "material jack: missing or ambiguous dated observation"
+      ]
+    },
+    {
+      "gate": "material:pmma_petg_hardware",
+      "class": "ACCESS_EVIDENCE_HOLD",
+      "reasons": [
+        "material pmma_petg_hardware: missing or ambiguous dated observation"
+      ]
+    },
+    {
+      "gate": "material:switch",
+      "class": "ACCESS_EVIDENCE_HOLD",
+      "reasons": [
+        "material switch: missing or ambiguous dated observation"
+      ]
+    },
+    {
+      "gate": "owner_prototype_route",
+      "class": "OWNER_DECISION",
+      "reasons": [
+        "owner-approved sample/prototype route absent for this revision and quantity"
+      ]
+    },
+    {
+      "gate": "manufacturing_release",
+      "class": "OWNER_DECISION",
+      "reasons": [
+        "reviewed manufacturing files and explicit revision-bound owner release absent"
+      ]
+    }
+  ],
+  "gate_counts": {
+    "CLOUD_DIGITAL": 8,
+    "OWNER_DECISION": 15,
+    "ACCESS_EVIDENCE_HOLD": 13,
+    "PHYSICAL_ONLY": 20
+  },
   "optional_variants": {
     "pet": "Q11/Q11a–f: process, copper/vias/coverlay, lamination, force and optical tests remain separate. Reuse pet-fpc.md questions 1–9; not sent.",
     "2hp": "Parked: Q1/Q6 evidence, owner choice, 0.8 mm controller and new routing required."

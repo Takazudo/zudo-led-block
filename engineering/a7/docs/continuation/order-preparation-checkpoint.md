@@ -111,3 +111,16 @@ E1 CIログでは `ENABLED` は空でした（2026-11-09T09:35:50Z）。ただ�
 | `engineering/a7/qualification/readiness.json` | `7bb5f9d8af782a5e07a81ef7d371c4afc829fee3e7a986393ee45d30f0e206df` |
 
 2026-11-11 追記: PR #45 で CI artifact が A7 候補の `plan.json` / `board_facts.json` / `board_geometry.json` を保持し、`scripts/a7_native_artifact.py` が検証するようになった（上の保存範囲の不足は解消）。PR #46 で治具用 native geometry を `fixture/native-geometry.json` に記録し、fixture manifest が TP1–TP5 を照合する。`fresh_native_verified` と `digital_fixture_complete` は false、order gate は BLOCKED のまま。この時点の fixture manifest は `38dde81d2bcce1b61cc66763f3bd3f0f5bb470f4b3c08bdeedcb0c6995df81f5`、readiness は `418ad365a774635427339019bcd05d27e001ca730e85d9df559d0c1b1b941ba2`（procurement は不変）。
+
+## 2026-11-11 W3: 発注パッケージの監査と物理手順の実行準備
+
+- 基準 main: `eccbae4`（PR #46 の merge）。作業ブランチ `claude/project-thread-eroz5e`。権威基板 `4453f818…628e` は変更していません。
+- **監査で直したもの（producer 経由）:**
+  - 実装方式と面: 台帳はコントローラーの SMD/THT と面を native geometry（`fixture/native-geometry.json`、権威基板の SHA に結合）のパッド属性から、リーフとアダプタは不変 A5 の配置データのパッド属性から取るようにした。コントローラーは F 面 SMD 31・B 面 SMD 25・F 面 THT 3（J1、J2、J5）。以前の「SMT と THT」という記述は、B 面にも SMD があることを示していなかった。
+  - ケーブルのピン対応: 電源ケーブル（A1→B3 / A2→B2 / A3→B1）と SH4（コントローラー J3 → 左リーフ J1）を手書きの文字列ではなくネットリストから生成し、ネットが合わなければ失敗するようにした。手書きの記述は正しかったが、検証されていなかった。
+  - 未解決事項を 9 件に分け、何で解除できるかの区分を付けた。
+  - 実装する型番数 30 を台帳に記録。71 配置 / 81 実装点、基板と MPN/LCSC は native board・ネットリスト・カタログと一致（不一致なし）。
+- **照合して一致したもの:** 64 footprint の ref・面・footprint・MPN/LCSC が権威基板と台帳で一致。TP1–TP5 は基板で exclude_from_bom/pos。電源ケーブルの自由長 57 ± 3 mm（±3 は ASSUMED）、M2×18、FR-4 リーフ ×2 は現行の機構記録どおり。
+- **物理手順:** 19 手順に準備物、計器、実施前の条件、手順、raw 証跡の記録項目、受入値を追加。受入値は部品 fact・設計記録・引用と照合し、確度（SOURCED / MIRROR / UNVERIFIED / INFERRED / DESIGN / ASSUMED / UNRESOLVED）が出典と違えば生成が失敗する。`qualification/run-templates/` に手順ごとの記録雛形を生成。すべて NOT_MEASURED のまま。
+- **オーナーのチェックリスト:** `doc/src/content/docs/project/order-checklist.mdx`（生成物）に、オーナーにしかできない 10 項目と、それぞれが解除するゲートを記載。
+- readiness は 56 ゲート / 57 理由（以前は区分なしの 49 理由。増えたのは台帳の未解決事項を 1 件から 9 件に分けたため）。order gate は BLOCKED のまま。

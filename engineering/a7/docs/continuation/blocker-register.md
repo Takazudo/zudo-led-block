@@ -33,3 +33,7 @@ PET Q11/Q11a–fと2HPの0.8 mm再配線/公差課題は別案のブロッカー
 - B1: 解除。main push run 43051871789 の deploy-gate で `CLOUDFLARE_DEPLOY_ENABLED` は空、Production deploy は SKIPPED。workflow は値が厳密に `true` のときだけ deploy する。変数 API 404 は保護規則の証拠として扱わない。
 - B3: Cloud VM の native 実行は引き続き行わず、既存 Actions を使う。CI artifact は 2026-11-11 に取得可能だったが、A7 候補の facts/geometry を保存していない。保存範囲の修正は別 PR。
 - B2: 維持（子 Issue は作らない）。B4–B12: 変更なし。
+
+## 2026-11-11 W3 更新
+
+`qualification/readiness.json` の `gates` が不足を 56 個のゲートに分け、解除手段で区分します（CLOUD_DIGITAL 8、OWNER_DECISION 15、ACCESS_EVIDENCE_HOLD 13、PHYSICAL_ONLY 20）。上の「49個」は区分前の数で、現在は 57 理由です。B6–B12 の内容は変わりません。B7–B9 の各手順は、実施に必要な準備物・手順・受入値を `qualification/procedures.md` に持つようになりましたが、実機での実施が必要な点は同じです。オーナーの作業は `/docs/project/order-checklist/` にまとめています。

@@ -15,6 +15,13 @@ E4 procurement ledger, E5 BLOCKED readiness and blank procedures) is integrated 
 Its working record is [`order-preparation-checkpoint.md`](order-preparation-checkpoint.md); integration does not
 complete the fixture, any physical gate, order eligibility or a manufacturing release.
 
+2026-11-11 (W3): the 19 physical procedures in `qualification/plan.json` now carry inputs, tools, preconditions,
+steps, a per-kind record template and acceptance values that `scripts/a7_readiness.py` checks against their source
+(fact, design record or quoted text; assumed and inferred values stay labelled). `readiness.json` splits the
+blockers into gates classed CLOUD_DIGITAL / OWNER_DECISION / ACCESS_EVIDENCE_HOLD / PHYSICAL_ONLY, and the generated
+site page `/docs/project/order-checklist/` lists what only the owner can do and which gate each item clears. Every
+procedure is still NOT_MEASURED and the order gate still fails.
+
 ## What A7 is
 
 Accepted direction from the owner (2026-11-08):
