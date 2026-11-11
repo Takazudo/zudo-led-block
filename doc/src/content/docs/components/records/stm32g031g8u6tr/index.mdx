@@ -104,6 +104,7 @@ Coverage is stated one domain at a time and is never rolled up. A domain marked 
 **Facts in this domain:**
 
 - [`fact-stm32g031g8u6tr-ratings`](#fact-stm32g031g8u6tr-ratings)
+- [`fact-stm32g031g8u6tr-operating-temperature`](#fact-stm32g031g8u6tr-operating-temperature)
 
 **Blocked by:** these facts must be resolved before the domain can close. Each is listed in full under Facts.
 
@@ -161,6 +162,24 @@ A never-exceed limit. Reaching it may damage the part; it is not an operating ta
   **Verdict:** UNSOURCED · **Provenance:** UNVERIFIED
 
   **Evidence:** [src-stm32g031g8u6tr-ds: absolute maximum ratings section tables (primary acquired 2026-11-09; this broad fact still requires per-criterion review)](#src-stm32g031g8u6tr-ds)
+</EvidenceFact>
+
+### RECOMMENDED\_OPERATION
+
+The range the manufacturer intends the part to be used in. Always narrower than the absolute maximum.
+
+<EvidenceFact>
+  <EvidenceAnchor id="fact-stm32g031g8u6tr-operating-temperature" />
+
+  **Fact:** `fact-stm32g031g8u6tr-operating-temperature`
+
+  **Value:** -40 to +85 · **Unit:** `degC`
+
+  **Conditions:** temperature range code 6 of the exact ordering code (ordering information scheme); the datasheet's general operating conditions table (TA/TJ rows) is not in the recorded extract; manufacturer data only; not a thermal qualification of the assembled module
+
+  **Verdict:** PASS - primary-source confirmed · **Provenance:** PRIMARY-SPEC
+
+  **Evidence:** [src-stm32g031g8u6tr-ds: printed page 122 ordering information scheme row temperature range](#src-stm32g031g8u6tr-ds)
 </EvidenceFact>
 
 ### PROJECT\_STATE
@@ -398,10 +417,11 @@ What the recorded terms on this page mean, in ordinary words. The exact terms ab
 
 ### Fact class
 
-| Recorded term      | What it means                                                                                                                                                      |
-| ------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| `ABSOLUTE_MAXIMUM` | A never-exceed limit. Reaching it may damage the part; it is not an operating target and there is no margin implied by it.                                         |
-| `PROJECT_STATE`    | A value this project recorded about how the part is used here — a chosen operating point, a net assignment, or a derived figure. Not a manufacturer specification. |
+| Recorded term           | What it means                                                                                                                                                      |
+| ----------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| `ABSOLUTE_MAXIMUM`      | A never-exceed limit. Reaching it may damage the part; it is not an operating target and there is no margin implied by it.                                         |
+| `PROJECT_STATE`         | A value this project recorded about how the part is used here — a chosen operating point, a net assignment, or a derived figure. Not a manufacturer specification. |
+| `RECOMMENDED_OPERATION` | The range the manufacturer intends the part to be used in. Always narrower than the absolute maximum.                                                              |
 
 ### Coverage status
 

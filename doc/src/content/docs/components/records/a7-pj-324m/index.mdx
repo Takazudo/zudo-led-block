@@ -143,6 +143,8 @@ Coverage is stated one domain at a time and is never rolled up. A domain marked 
 
 - [`fact-a7-pj-324m-contact-rating`](#fact-a7-pj-324m-contact-rating)
 - [`fact-a7-pj-324m-operating-temperature`](#fact-a7-pj-324m-operating-temperature)
+- [`fact-a7-pj-324m-storage-temperature`](#fact-a7-pj-324m-storage-temperature)
+- [`fact-a7-pj-324m-contact-resistance`](#fact-a7-pj-324m-contact-resistance)
 
 **Blocked by:** these facts must be resolved before the domain can close. Each is listed in full under Facts.
 
@@ -204,6 +206,20 @@ A never-exceed limit. Reaching it may damage the part; it is not an operating ta
   **Evidence:** [src-a7-pj-324m-sofng-drawing: figure/row page 1 Solder-ability](#src-a7-pj-324m-sofng-drawing)
 </EvidenceFact>
 
+<EvidenceFact>
+  <EvidenceAnchor id="fact-a7-pj-324m-storage-temperature" />
+
+  **Fact:** `fact-a7-pj-324m-storage-temperature`
+
+  **Value:** -25 to +75 · **Unit:** `degC`
+
+  **Conditions:** storage temperature from the SOFNG-hosted drawing (row printed 'Sterage temp.'); the operating temperature is left blank on the same row, so fact-a7-pj-324m-operating-temperature stays UNSOURCED; manufacturer data only; not a thermal qualification of the assembled module
+
+  **Verdict:** PASS - primary-source confirmed · **Provenance:** PRIMARY-SPEC
+
+  **Evidence:** [src-a7-pj-324m-sofng-site: Technical parameter table row 'Sterage temp.'](#src-a7-pj-324m-sofng-site)
+</EvidenceFact>
+
 ### RECOMMENDED\_OPERATION
 
 The range the manufacturer intends the part to be used in. Always narrower than the absolute maximum.
@@ -234,6 +250,24 @@ The range the manufacturer intends the part to be used in. Always narrower than 
   **Verdict:** UNSOURCED · **Provenance:** UNVERIFIED
 
   **Evidence:** [src-a7-pj-324m-sofng-site: Technical parameter table 'Sterage temp.' row](#src-a7-pj-324m-sofng-site)
+</EvidenceFact>
+
+### GUARANTEED\_ELECTRICAL
+
+A parameter the manufacturer guarantees over the stated conditions, usually with minimum, typical and maximum values.
+
+<EvidenceFact>
+  <EvidenceAnchor id="fact-a7-pj-324m-contact-resistance" />
+
+  **Fact:** `fact-a7-pj-324m-contact-resistance`
+
+  **Value:** 30 (A grade) / 50 (B grade) · **Unit:** `mOhm`
+
+  **Conditions:** initial contact resistance maximum: 30 mOhm for the 'A better' product grade, 50 mOhm for the 'B average' grade; the order code C22355739 does not say which grade is supplied, so 50 mOhm is the bound for an unidentified part; initial value only, not after durability cycling; not a bench measurement
+
+  **Verdict:** PASS - primary-source confirmed · **Provenance:** PRIMARY-SPEC
+
+  **Evidence:** [src-a7-pj-324m-sofng-site: Technical parameter table row initial contact resistance](#src-a7-pj-324m-sofng-site)
 </EvidenceFact>
 
 ### PROJECT\_STATE
@@ -709,6 +743,7 @@ What the recorded terms on this page mean, in ordinary words. The exact terms ab
 | Recorded term           | What it means                                                                                                                                                      |
 | ----------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
 | `ABSOLUTE_MAXIMUM`      | A never-exceed limit. Reaching it may damage the part; it is not an operating target and there is no margin implied by it.                                         |
+| `GUARANTEED_ELECTRICAL` | A parameter the manufacturer guarantees over the stated conditions, usually with minimum, typical and maximum values.                                              |
 | `PROJECT_STATE`         | A value this project recorded about how the part is used here — a chosen operating point, a net assignment, or a derived figure. Not a manufacturer specification. |
 | `RECOMMENDED_OPERATION` | The range the manufacturer intends the part to be used in. Always narrower than the absolute maximum.                                                              |
 

@@ -159,6 +159,20 @@
       "verdict": "NEEDS BENCH",
       "depends_on": [],
       "expression": ""
+    },
+    {
+      "fact_id": "fact-cl31a226kahnnne-temperature-range",
+      "record_id": "rec-cl31a226kahnnne",
+      "source_id": "src-cl31a226kahnnne-ds-p2",
+      "class": "GUARANTEED_ELECTRICAL",
+      "value": "-55 to +85",
+      "unit": "degC",
+      "conditions": "X5R temperature characteristic: capacitance change within +/-15% from -55 C to 85 C. The sheet prints no separate operating-temperature row; its reliability rows name 'Max./Min. operating temperature' without a value, so this is the only sourced temperature span, not a separately stated operating rating; manufacturer data only; not a thermal qualification of the assembled module",
+      "locator": "src-cl31a226kahnnne-ds-p2: Section C table row Temperature Characteristics",
+      "provenance": "PRIMARY-SPEC",
+      "verdict": "PASS - primary-source confirmed",
+      "depends_on": [],
+      "expression": ""
     }
   ]
 }

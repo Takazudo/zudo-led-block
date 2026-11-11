@@ -173,6 +173,34 @@
       "verdict": "PASS - primary-source confirmed",
       "depends_on": [],
       "expression": ""
+    },
+    {
+      "fact_id": "fact-sn74lvc2t45dcur-operating-temperature",
+      "record_id": "rec-sn74lvc2t45dcur",
+      "source_id": "src-sn74lvc2t45dcur-ds-p5",
+      "class": "RECOMMENDED_OPERATION",
+      "value": "-40 to +85",
+      "unit": "degC",
+      "conditions": "TA operating free-air temperature; manufacturer data only; not a thermal qualification of the assembled module",
+      "locator": "src-sn74lvc2t45dcur-ds-p5: Section 5.3 table row TA",
+      "provenance": "PRIMARY-SPEC",
+      "verdict": "PASS - primary-source confirmed",
+      "depends_on": [],
+      "expression": ""
+    },
+    {
+      "fact_id": "fact-sn74lvc2t45dcur-storage-temperature",
+      "record_id": "rec-sn74lvc2t45dcur",
+      "source_id": "src-sn74lvc2t45dcur-ds-p4",
+      "class": "ABSOLUTE_MAXIMUM",
+      "value": "-65 to +150",
+      "unit": "degC",
+      "conditions": "Tstg storage temperature, absolute maximum; TJ 150 degC max on the same table",
+      "locator": "src-sn74lvc2t45dcur-ds-p4: Section 5.1 table rows Tstg and TJ",
+      "provenance": "PRIMARY-SPEC",
+      "verdict": "PASS - primary-source confirmed",
+      "depends_on": [],
+      "expression": ""
     }
   ]
 }

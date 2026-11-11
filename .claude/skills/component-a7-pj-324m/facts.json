@@ -383,6 +383,34 @@
       "verdict": "NEEDS BENCH",
       "depends_on": [],
       "expression": ""
+    },
+    {
+      "fact_id": "fact-a7-pj-324m-storage-temperature",
+      "record_id": "rec-a7-pj-324m",
+      "source_id": "src-a7-pj-324m-sofng-site",
+      "class": "ABSOLUTE_MAXIMUM",
+      "value": "-25 to +75",
+      "unit": "degC",
+      "conditions": "storage temperature from the SOFNG-hosted drawing (row printed 'Sterage temp.'); the operating temperature is left blank on the same row, so fact-a7-pj-324m-operating-temperature stays UNSOURCED; manufacturer data only; not a thermal qualification of the assembled module",
+      "locator": "src-a7-pj-324m-sofng-site: Technical parameter table row 'Sterage temp.'",
+      "provenance": "PRIMARY-SPEC",
+      "verdict": "PASS - primary-source confirmed",
+      "depends_on": [],
+      "expression": ""
+    },
+    {
+      "fact_id": "fact-a7-pj-324m-contact-resistance",
+      "record_id": "rec-a7-pj-324m",
+      "source_id": "src-a7-pj-324m-sofng-site",
+      "class": "GUARANTEED_ELECTRICAL",
+      "value": "30 (A grade) / 50 (B grade)",
+      "unit": "mOhm",
+      "conditions": "initial contact resistance maximum: 30 mOhm for the 'A better' product grade, 50 mOhm for the 'B average' grade; the order code C22355739 does not say which grade is supplied, so 50 mOhm is the bound for an unidentified part; initial value only, not after durability cycling; not a bench measurement",
+      "locator": "src-a7-pj-324m-sofng-site: Technical parameter table row initial contact resistance",
+      "provenance": "PRIMARY-SPEC",
+      "verdict": "PASS - primary-source confirmed",
+      "depends_on": [],
+      "expression": ""
     }
   ]
 }

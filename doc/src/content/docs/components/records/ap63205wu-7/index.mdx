@@ -106,6 +106,8 @@ Coverage is stated one domain at a time and is never rolled up. A domain marked 
 - [`fact-ap63205wu-7-vout`](#fact-ap63205wu-7-vout)
 - [`fact-ap63205wu-7-peak-current-limit`](#fact-ap63205wu-7-peak-current-limit)
 - [`fact-ap63205wu-7-switching-frequency`](#fact-ap63205wu-7-switching-frequency)
+- [`fact-ap63205wu-7-operating-temperature`](#fact-ap63205wu-7-operating-temperature)
+- [`fact-ap63205wu-7-storage-temperature`](#fact-ap63205wu-7-storage-temperature)
 
 ### placement
 
@@ -189,6 +191,20 @@ A never-exceed limit. Reaching it may damage the part; it is not an operating ta
   **Evidence:** [src-ap63205wu-7-ds-p3: Absolute Maximum Ratings table row VFB](#src-ap63205wu-7-ds-p3)
 </EvidenceFact>
 
+<EvidenceFact>
+  <EvidenceAnchor id="fact-ap63205wu-7-storage-temperature" />
+
+  **Fact:** `fact-ap63205wu-7-storage-temperature`
+
+  **Value:** -65 to +150 · **Unit:** `degC`
+
+  **Conditions:** TST storage temperature, absolute maximum
+
+  **Verdict:** PASS - primary-source confirmed · **Provenance:** PRIMARY-SPEC
+
+  **Evidence:** [src-ap63205wu-7-ds-p3: Absolute Maximum Ratings table row TST](#src-ap63205wu-7-ds-p3)
+</EvidenceFact>
+
 ### RECOMMENDED\_OPERATION
 
 The range the manufacturer intends the part to be used in. Always narrower than the absolute maximum.
@@ -205,6 +221,20 @@ The range the manufacturer intends the part to be used in. Always narrower than 
   **Verdict:** PASS - primary-source confirmed · **Provenance:** PRIMARY-SPEC
 
   **Evidence:** [src-ap63205wu-7-ds-p3: Recommended Operating Conditions table row VIN](#src-ap63205wu-7-ds-p3)
+</EvidenceFact>
+
+<EvidenceFact>
+  <EvidenceAnchor id="fact-ap63205wu-7-operating-temperature" />
+
+  **Fact:** `fact-ap63205wu-7-operating-temperature`
+
+  **Value:** -40 to +85 · **Unit:** `degC`
+
+  **Conditions:** TA operating ambient temperature range (recommended operating conditions); absolute maximum TJ +160 C; manufacturer data only; not a thermal qualification of the assembled module
+
+  **Verdict:** PASS - primary-source confirmed · **Provenance:** PRIMARY-SPEC
+
+  **Evidence:** [src-ap63205wu-7-ds-p3: Recommended Operating Conditions table row TA](#src-ap63205wu-7-ds-p3)
 </EvidenceFact>
 
 ### GUARANTEED\_ELECTRICAL

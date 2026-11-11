@@ -201,6 +201,34 @@
       "verdict": "PASS - primary-source confirmed",
       "depends_on": [],
       "expression": ""
+    },
+    {
+      "fact_id": "fact-tps2552dbvr-1-operating-temperature",
+      "record_id": "rec-tps2552dbvr-1",
+      "source_id": "src-tps2552dbvr-1-ds-p6",
+      "class": "RECOMMENDED_OPERATION",
+      "value": "-40 to +125",
+      "unit": "degC",
+      "conditions": "TJ operating virtual junction temperature at IOUT <= 1.2 A (-40 to +105 degC at IOUT <= 1.5 A); a junction, not an ambient, limit; absolute maximum TJ -40 to 150 degC; manufacturer data only; not a thermal qualification of the assembled module",
+      "locator": "src-tps2552dbvr-1-ds-p6: Section 6.3 table row TJ",
+      "provenance": "PRIMARY-SPEC",
+      "verdict": "PASS - primary-source confirmed",
+      "depends_on": [],
+      "expression": ""
+    },
+    {
+      "fact_id": "fact-tps2552dbvr-1-storage-temperature",
+      "record_id": "rec-tps2552dbvr-1",
+      "source_id": "src-tps2552dbvr-1-ds-p5",
+      "class": "ABSOLUTE_MAXIMUM",
+      "value": "-65 to +150",
+      "unit": "degC",
+      "conditions": "Tstg storage temperature, absolute maximum (stress rating only)",
+      "locator": "src-tps2552dbvr-1-ds-p5: Section 6.1 table row Tstg",
+      "provenance": "PRIMARY-SPEC",
+      "verdict": "PASS - primary-source confirmed",
+      "depends_on": [],
+      "expression": ""
     }
   ]
 }

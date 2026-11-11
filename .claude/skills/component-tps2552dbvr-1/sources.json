@@ -92,7 +92,7 @@
       "physical_pdf_page_index": 4,
       "printed_page_label": "5",
       "locator": "SLVS841G physical PDF page 5 of 46 (index 4), printed page 5: Section 6.1 Absolute Maximum Ratings table rows voltage range on IN, OUT, EN, ILIM, FAULT and IN to OUT; Section 6.3 Recommended Operating Conditions table rows VIN, VEN, VIH, VIL, IOUT, RILIM, FAULT sink current",
-      "evidence_extract": "6.1 Abs max: IN, OUT, EN, ILIM, FAULT -0.3 to 7 V; IN to OUT -7 to 7 V; continuous FAULT sink 0 to 25 mA; ILIM source 0 to 1 mA; TJ -40 to 150 degC. 6.3 ROC: VIN 2.5 to 6.5 V; VEN 0 to 6.5 V; VIH min 1.1 V; VIL max 0.66 V; IOUT max 1.2 A (-40<=TJ<=125 degC), 1.5 A (-40<=TJ<=105 degC); RILIM 15 to 232 kohm (nominal 1%, ILIM to GND); FAULT sink 0 to 10 mA; IN decoupling min 0.1 uF. Hash comparison: A5 recorded sha256 edd76d150b073ae8d4addbf85f6845b8c722fbd0b35ef025ac3c9e704a6a3385 (2026-11-05/06 (engineering/a5/electronics/source_provenance.json), id TI_TPS255x) for https://www.ti.com/lit/ds/symlink/tps2552.pdf; bytes inspected now (2026-11-08, HTTP 200, Content-Type application/pdf, starts %PDF-): edd76d150b073ae8d4addbf85f6845b8c722fbd0b35ef025ac3c9e704a6a3385 - identical."
+      "evidence_extract": "6.1 Abs max: IN, OUT, EN, ILIM, FAULT -0.3 to 7 V; IN to OUT -7 to 7 V; continuous FAULT sink 0 to 25 mA; ILIM source 0 to 1 mA; TJ -40 to 150 degC. 6.3 ROC: VIN 2.5 to 6.5 V; VEN 0 to 6.5 V; VIH min 1.1 V; VIL max 0.66 V; IOUT max 1.2 A (-40<=TJ<=125 degC), 1.5 A (-40<=TJ<=105 degC); RILIM 15 to 232 kohm (nominal 1%, ILIM to GND); FAULT sink 0 to 10 mA; IN decoupling min 0.1 uF. Hash comparison: A5 recorded sha256 edd76d150b073ae8d4addbf85f6845b8c722fbd0b35ef025ac3c9e704a6a3385 (2026-11-05/06 (engineering/a5/electronics/source_provenance.json), id TI_TPS255x) for https://www.ti.com/lit/ds/symlink/tps2552.pdf; bytes inspected now (2026-11-08, HTTP 200, Content-Type application/pdf, starts %PDF-): edd76d150b073ae8d4addbf85f6845b8c722fbd0b35ef025ac3c9e704a6a3385 - identical. 6.1 Abs max row Tstg storage temperature -65 to 150 degC. Row added 2026-11-11 from bytes re-downloaded by the cloud VM (HTTP 200, application/pdf) whose SHA-256 is identical to this record's; text layer read with pdftotext -layout on that page."
     },
     {
       "source_id": "src-tps2552dbvr-1-ds-p16",
@@ -165,6 +165,24 @@
       "printed_page_label": "Addendum-Page 1",
       "locator": "SLVS841G physical PDF page 29 of 46 (index 28), printed page Addendum-Page 1: Package Option Addendum orderable table row TPS2552DBVR-1",
       "evidence_extract": "TPS2552DBVR-1 | Active | Production | SOT-23 (DBV) | 6 | 3000 LARGE T&R | RoHS Yes | NIPDAU | Level-1-260C-UNLIM | -40 to 125 | marking CHX. (Separate row TPS2552DBVR, marking 2552, is the auto-retry part.) Hash comparison: A5 recorded sha256 edd76d150b073ae8d4addbf85f6845b8c722fbd0b35ef025ac3c9e704a6a3385 (2026-11-05/06 (engineering/a5/electronics/source_provenance.json), id TI_TPS255x) for https://www.ti.com/lit/ds/symlink/tps2552.pdf; bytes inspected now (2026-11-08, HTTP 200, Content-Type application/pdf, starts %PDF-): edd76d150b073ae8d4addbf85f6845b8c722fbd0b35ef025ac3c9e704a6a3385 - identical."
+    },
+    {
+      "source_id": "src-tps2552dbvr-1-ds-p6",
+      "record_id": "rec-tps2552dbvr-1",
+      "document_title": "TPS255xx Precision Adjustable Current-Limited Power-Distribution Switches datasheet (TPS2552, TPS2552-1, TPS2553, TPS2553-1)",
+      "document_number": "SLVS841G",
+      "revision": "Rev. G (NOVEMBER 2008 - REVISED OCTOBER 2026)",
+      "document_date": "2026-10",
+      "authoritative_url": "https://www.ti.com/lit/ds/symlink/tps2552.pdf",
+      "alternate_authoritative_url": "https://www.ti.com/product/TPS2552-1",
+      "retrieval_date": "2026-11-11",
+      "authority_class": "MANUFACTURER_PRIMARY",
+      "sha256": "edd76d150b073ae8d4addbf85f6845b8c722fbd0b35ef025ac3c9e704a6a3385",
+      "availability": "AVAILABLE",
+      "physical_pdf_page_index": 5,
+      "printed_page_label": "6",
+      "locator": "SLVS841G physical PDF page 6 of 46 (index 5), printed page 6: Section 6.3 Recommended Operating Conditions (continued) table row TJ operating virtual junction temperature; footnote (1)",
+      "evidence_extract": "6.3 ROC (continued), over operating free-air temperature range: TJ operating virtual junction temperature -40 to 125 degC at IOUT <= 1.2 A; -40 to 105 degC at IOUT <= 1.5 A; -40 to 105 degC at IOUT <= 2.5 A (TPS25530-1 DRV only). Footnote (1): see Section 9.3.3 to calculate the maximum junction temperature for a specific application and package. Page header 'SLVS841G - NOVEMBER 2008 - REVISED OCTOBER 2026'. Bytes re-downloaded by the cloud VM on 2026-11-11 (HTTP 200, application/pdf): edd76d150b073ae8d4addbf85f6845b8c722fbd0b35ef025ac3c9e704a6a3385, identical to the A5-recorded hash; text layer read with pdftotext -layout."
     }
   ]
 }

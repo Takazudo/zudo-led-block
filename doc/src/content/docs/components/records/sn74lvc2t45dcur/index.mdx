@@ -105,6 +105,8 @@ Coverage is stated one domain at a time and is never rolled up. A domain marked 
 - [`fact-sn74lvc2t45dcur-dir-reference`](#fact-sn74lvc2t45dcur-dir-reference)
 - [`fact-sn74lvc2t45dcur-dir-function`](#fact-sn74lvc2t45dcur-dir-function)
 - [`fact-sn74lvc2t45dcur-ioff`](#fact-sn74lvc2t45dcur-ioff)
+- [`fact-sn74lvc2t45dcur-operating-temperature`](#fact-sn74lvc2t45dcur-operating-temperature)
+- [`fact-sn74lvc2t45dcur-storage-temperature`](#fact-sn74lvc2t45dcur-storage-temperature)
 
 ### placement
 
@@ -174,6 +176,20 @@ A never-exceed limit. Reaching it may damage the part; it is not an operating ta
   **Evidence:** [src-sn74lvc2t45dcur-ds-p4: Section 5.1 Absolute Maximum Ratings table row VI Input voltage](#src-sn74lvc2t45dcur-ds-p4)
 </EvidenceFact>
 
+<EvidenceFact>
+  <EvidenceAnchor id="fact-sn74lvc2t45dcur-storage-temperature" />
+
+  **Fact:** `fact-sn74lvc2t45dcur-storage-temperature`
+
+  **Value:** -65 to +150 · **Unit:** `degC`
+
+  **Conditions:** Tstg storage temperature, absolute maximum; TJ 150 degC max on the same table
+
+  **Verdict:** PASS - primary-source confirmed · **Provenance:** PRIMARY-SPEC
+
+  **Evidence:** [src-sn74lvc2t45dcur-ds-p4: Section 5.1 table rows Tstg and TJ](#src-sn74lvc2t45dcur-ds-p4)
+</EvidenceFact>
+
 ### RECOMMENDED\_OPERATION
 
 The range the manufacturer intends the part to be used in. Always narrower than the absolute maximum.
@@ -204,6 +220,20 @@ The range the manufacturer intends the part to be used in. Always narrower than 
   **Verdict:** PASS - primary-source confirmed · **Provenance:** PRIMARY-SPEC
 
   **Evidence:** [src-sn74lvc2t45dcur-ds-p4: Section 5.3 Recommended Operating Conditions table row VIH DIR (referenced to VCCA), VCCI 3V to 3.6V](#src-sn74lvc2t45dcur-ds-p4)
+</EvidenceFact>
+
+<EvidenceFact>
+  <EvidenceAnchor id="fact-sn74lvc2t45dcur-operating-temperature" />
+
+  **Fact:** `fact-sn74lvc2t45dcur-operating-temperature`
+
+  **Value:** -40 to +85 · **Unit:** `degC`
+
+  **Conditions:** TA operating free-air temperature; manufacturer data only; not a thermal qualification of the assembled module
+
+  **Verdict:** PASS - primary-source confirmed · **Provenance:** PRIMARY-SPEC
+
+  **Evidence:** [src-sn74lvc2t45dcur-ds-p5: Section 5.3 table row TA](#src-sn74lvc2t45dcur-ds-p5)
 </EvidenceFact>
 
 ### GUARANTEED\_ELECTRICAL
@@ -504,6 +534,26 @@ Every document cited above, with its identification, when it was retrieved, and 
 | Printed page    | Addendum-Page 1                            |
 
 **Locator:** SCES516N physical PDF page 22 of 35 (index 21), printed page Addendum-Page 1: Package Option Addendum orderable table row SN74LVC2T45DCUR
+
+**Availability:** AVAILABLE
+
+**Document URL:** [https://www.ti.com/lit/ds/symlink/sn74lvc2t45.pdf](https://www.ti.com/lit/ds/symlink/sn74lvc2t45.pdf)
+
+### SN74LVC2T45 Dual-Bit Dual-Supply Bus Transceiver With Configurable Voltage Translation datasheet
+
+<EvidenceAnchor id="src-sn74lvc2t45dcur-ds-p5" />
+
+**Source ID:** `src-sn74lvc2t45dcur-ds-p5` · **Authority:** MANUFACTURER\_PRIMARY
+
+| Field           | Recorded value                             |
+| --------------- | ------------------------------------------ |
+| Document number | SCES516N                                   |
+| Revision        | Rev. N (DECEMBER 2003 - REVISED JUNE 2024) |
+| Document date   | 2024-06                                    |
+| Retrieved       | 2026-11-11                                 |
+| Printed page    | 5                                          |
+
+**Locator:** SCES516N physical PDF page 5 of 35 (index 4), printed page 5: Section 5.3 Recommended Operating Conditions (continued) table row TA operating free-air temperature
 
 **Availability:** AVAILABLE
 

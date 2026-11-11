@@ -74,7 +74,7 @@
       "physical_pdf_page_index": 3,
       "printed_page_label": "4",
       "locator": "SCES516N physical PDF page 4 of 35 (index 3), printed page 4: Section 5.1 Absolute Maximum Ratings table rows VCCA/VCCB supply voltage, VI, VO; Section 5.3 Recommended Operating Conditions table rows VCCA, VCCB and VIH DIR (referenced to VCCA)",
-      "evidence_extract": "5.1 Abs max: VCCA, VCCB -0.5 to 6.5 V; VI -0.5 to 6.5 V; VO (high-Z or power-off) -0.5 to 6.5 V; IO -50 to 50 mA; VCC/GND current -100 to 100 mA. 5.3 ROC: VCCA 1.65 to 5.5 V; VCCB 1.65 to 5.5 V; VIH DIR (referenced to VCCA): VCCA 3V to 3.6V min 2 V; VCCA 4.5V to 5.5V min VCCA x 0.7. Hash comparison: A5 recorded sha256 f0dc4a7a46a5b2020117e8bec614aec33f4f15784a82ab73dc3fa5f91d5c86bc (2026-11-05/06 (engineering/a5/electronics/source_provenance.json), id TI_XLAT) for https://www.ti.com/lit/ds/symlink/sn74lvc2t45.pdf; bytes inspected now (2026-11-08, HTTP 200, Content-Type application/pdf, starts %PDF-): f0dc4a7a46a5b2020117e8bec614aec33f4f15784a82ab73dc3fa5f91d5c86bc - identical."
+      "evidence_extract": "5.1 Abs max: VCCA, VCCB -0.5 to 6.5 V; VI -0.5 to 6.5 V; VO (high-Z or power-off) -0.5 to 6.5 V; IO -50 to 50 mA; VCC/GND current -100 to 100 mA. 5.3 ROC: VCCA 1.65 to 5.5 V; VCCB 1.65 to 5.5 V; VIH DIR (referenced to VCCA): VCCA 3V to 3.6V min 2 V; VCCA 4.5V to 5.5V min VCCA x 0.7. Hash comparison: A5 recorded sha256 f0dc4a7a46a5b2020117e8bec614aec33f4f15784a82ab73dc3fa5f91d5c86bc (2026-11-05/06 (engineering/a5/electronics/source_provenance.json), id TI_XLAT) for https://www.ti.com/lit/ds/symlink/sn74lvc2t45.pdf; bytes inspected now (2026-11-08, HTTP 200, Content-Type application/pdf, starts %PDF-): f0dc4a7a46a5b2020117e8bec614aec33f4f15784a82ab73dc3fa5f91d5c86bc - identical. 5.1 Abs max rows TJ junction temperature 150 degC max; Tstg storage temperature -65 to 150 degC. Row added 2026-11-11 from bytes re-downloaded by the cloud VM (HTTP 200, application/pdf) whose SHA-256 is identical to this record's; text layer read with pdftotext -layout on that page."
     },
     {
       "source_id": "src-sn74lvc2t45dcur-ds-p6",
@@ -129,6 +129,24 @@
       "printed_page_label": "Addendum-Page 1",
       "locator": "SCES516N physical PDF page 22 of 35 (index 21), printed page Addendum-Page 1: Package Option Addendum orderable table row SN74LVC2T45DCUR",
       "evidence_extract": "SN74LVC2T45DCUR | Active | Production | VSSOP (DCU) | 8 | 3000 LARGE T&R | RoHS Yes | NIPDAU / SN | Level-1-260C-UNLIM | -40 to 85 | marking (CT2J, CT2Q, CT2R, T2) CZ. Hash comparison: A5 recorded sha256 f0dc4a7a46a5b2020117e8bec614aec33f4f15784a82ab73dc3fa5f91d5c86bc (2026-11-05/06 (engineering/a5/electronics/source_provenance.json), id TI_XLAT) for https://www.ti.com/lit/ds/symlink/sn74lvc2t45.pdf; bytes inspected now (2026-11-08, HTTP 200, Content-Type application/pdf, starts %PDF-): f0dc4a7a46a5b2020117e8bec614aec33f4f15784a82ab73dc3fa5f91d5c86bc - identical."
+    },
+    {
+      "source_id": "src-sn74lvc2t45dcur-ds-p5",
+      "record_id": "rec-sn74lvc2t45dcur",
+      "document_title": "SN74LVC2T45 Dual-Bit Dual-Supply Bus Transceiver With Configurable Voltage Translation datasheet",
+      "document_number": "SCES516N",
+      "revision": "Rev. N (DECEMBER 2003 - REVISED JUNE 2024)",
+      "document_date": "2024-06",
+      "authoritative_url": "https://www.ti.com/lit/ds/symlink/sn74lvc2t45.pdf",
+      "alternate_authoritative_url": "https://www.ti.com/product/SN74LVC2T45",
+      "retrieval_date": "2026-11-11",
+      "authority_class": "MANUFACTURER_PRIMARY",
+      "sha256": "f0dc4a7a46a5b2020117e8bec614aec33f4f15784a82ab73dc3fa5f91d5c86bc",
+      "availability": "AVAILABLE",
+      "physical_pdf_page_index": 4,
+      "printed_page_label": "5",
+      "locator": "SCES516N physical PDF page 5 of 35 (index 4), printed page 5: Section 5.3 Recommended Operating Conditions (continued) table row TA operating free-air temperature",
+      "evidence_extract": "5.3 ROC (continued), over operating free-air temperature range: VI input voltage 0 to 5.5 V; VO output voltage 0 to VCCO; TA operating free-air temperature -40 to 85 degC. Page header 'SCES516N - DECEMBER 2003 - REVISED JUNE 2024'. Bytes re-downloaded by the cloud VM on 2026-11-11 (HTTP 200, application/pdf): f0dc4a7a46a5b2020117e8bec614aec33f4f15784a82ab73dc3fa5f91d5c86bc, identical to the A5-recorded hash; text layer read with pdftotext -layout."
     }
   ]
 }

@@ -6,16 +6,32 @@
       "authority": "MANUFACTURER_PRIMARY",
       "availability": "AVAILABLE",
       "url": "https://ingun.com/media/d3/a0/71/1752228334/INGUN_GKS-050_214_050_A_1000_GKS-050-0001_EN_Datasheet.pdf?ts=1793539537",
-      "sha256": "97c354b17bac5c2e300b0e45f1ce32f574eda7f88fdcbd4a764385c8fcfadfb9",
-      "bytes": 306122,
+      "sha256": "6534467c73406bbdac65024e77c066fdbef73c7a4968b44af61d957cea6196e4",
+      "bytes": 306128,
       "file_type": "application/pdf",
       "revision": "11/26_GB",
-      "retrieved_utc": "2026-11-09",
+      "retrieved_utc": "2026-11-11",
       "pages": 2,
       "physical_pdf_page_index": 0,
       "printed_page_label": "1/2",
       "locator": "Mechanical data, tip style data and compatible receptacles",
-      "local_cache": ".circuit-cache/e3-fixture/probe.pdf"
+      "local_cache": "none retained (re-downloaded by the cloud VM on 2026-11-11; compare the hash on re-download)",
+      "observations": [
+        {
+          "retrieved_utc": "2026-11-09",
+          "sha256": "97c354b17bac5c2e300b0e45f1ce32f574eda7f88fdcbd4a764385c8fcfadfb9",
+          "bytes": 306122,
+          "local_cache": ".circuit-cache/e3-fixture/probe.pdf",
+          "status": "SUPERSEDED: the same URL now serves different bytes; this earlier observation is kept as history and its cache is not in the repository"
+        },
+        {
+          "retrieved_utc": "2026-11-11",
+          "sha256": "6534467c73406bbdac65024e77c066fdbef73c7a4968b44af61d957cea6196e4",
+          "bytes": 306128,
+          "status": "CURRENT",
+          "change_note": "Same URL, same printed revision 11/26_GB, 2 pages. PDF Info CreationDate/ModDate 2026-11-09T17:50:20/22+01:00 (Adobe InDesign 18.5 export), so INGUN re-exported the sheet after the first retrieval. The earlier bytes are not retained, so a byte diff is not possible. Every value the carrier consumes is unchanged in the new text layer: grid 1.27 mm, tip diameter 0.5 mm, spring pre-load 0.44 N, recommended working stroke 4.3 mm, spring force at working stroke 1 N, maximum stroke 6.35 mm, compatible receptacle KS-050; the sheet also prints temperature range -40 to 80 C. The receptacle PDF (bc016b59...) and the force graph PNG (e3de0b0b...) re-downloaded the same day are byte-identical to their records."
+        }
+      ]
     },
     {
       "id": "receptacle",

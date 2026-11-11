@@ -105,6 +105,7 @@ Coverage is stated one domain at a time and is never rolled up. A domain marked 
 - [`fact-cl10a475ko8nnnc-capacitance`](#fact-cl10a475ko8nnnc-capacitance)
 - [`fact-cl10a475ko8nnnc-tolerance`](#fact-cl10a475ko8nnnc-tolerance)
 - [`fact-cl10a475ko8nnnc-dielectric`](#fact-cl10a475ko8nnnc-dielectric)
+- [`fact-cl10a475ko8nnnc-temperature-range`](#fact-cl10a475ko8nnnc-temperature-range)
 
 ### dc-bias-capacitance
 
@@ -216,6 +217,20 @@ A parameter the manufacturer guarantees over the stated conditions, usually with
   **Value:** 15 · **Unit:** `%`
 
   **Conditions:** X5R dielectric: capacitance change within +/-15% from -55 degC to 85 degC (Section C temperature characteristic, no DC bias); the sheet states no separate operating-temperature row
+
+  **Verdict:** PASS - primary-source confirmed · **Provenance:** PRIMARY-SPEC
+
+  **Evidence:** [src-cl10a475ko8nnnc-ds-p2: Section C table row Temperature Characteristics](#src-cl10a475ko8nnnc-ds-p2)
+</EvidenceFact>
+
+<EvidenceFact>
+  <EvidenceAnchor id="fact-cl10a475ko8nnnc-temperature-range" />
+
+  **Fact:** `fact-cl10a475ko8nnnc-temperature-range`
+
+  **Value:** -55 to +85 · **Unit:** `degC`
+
+  **Conditions:** X5R temperature characteristic: capacitance change within +/-15% from -55 C to 85 C. The sheet prints no separate operating-temperature row; its reliability rows name 'Max./Min. operating temperature' without a value, so this is the only sourced temperature span, not a separately stated operating rating; manufacturer data only; not a thermal qualification of the assembled module
 
   **Verdict:** PASS - primary-source confirmed · **Provenance:** PRIMARY-SPEC
 

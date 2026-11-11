@@ -103,6 +103,20 @@
       "verdict": "PASS - primary-source confirmed",
       "depends_on": [],
       "expression": ""
+    },
+    {
+      "fact_id": "fact-sm04b-srss-tb-lf-sn-operating-temperature",
+      "record_id": "rec-sm04b-srss-tb-lf-sn",
+      "source_id": "src-sm04b-srss-tb-lf-sn-sh-catalog",
+      "class": "RECOMMENDED_OPERATION",
+      "value": "-25 to +85",
+      "unit": "degC",
+      "conditions": "series temperature range including the temperature rise from applied current; manufacturer data only; not a thermal qualification of the assembled module",
+      "locator": "src-sm04b-srss-tb-lf-sn-sh-catalog: Specifications table row temperature range",
+      "provenance": "PRIMARY-SPEC",
+      "verdict": "PASS - primary-source confirmed",
+      "depends_on": [],
+      "expression": ""
     }
   ]
 }
