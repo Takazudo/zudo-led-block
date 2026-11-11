@@ -192,7 +192,7 @@ class EvidenceBundles(unittest.TestCase):
 
     def test_maker_hosted_attempts_stay_visible(self):
         expected = (
-            ("pj-324m", "src-a7-pj-324m-sofng-site", "SOURCE UNAVAILABLE", "0" * 64),
+            ("pj-324m", "src-a7-pj-324m-sofng-site", "AVAILABLE", "57a6a0a03fe72467f49773252ae70093a915504ccaf701830b4d8d438dba78c4"),
             ("pcm13smtr", "src-a7-pcm13smtr-ck-site", "AVAILABLE", "6a758d151b7eee7f8cd59594bd92cfec4c9b1470e0743094f185f19e7ac2a868"),
         )
         for name, sid, availability, digest in expected:
@@ -215,7 +215,7 @@ class EvidenceBundles(unittest.TestCase):
         for name in ("pj-324m", "pcm13smtr"):
             line = lines[f"line-a7-{name}"]
             self.assertEqual(line["owner_skill"], f"component-a7-{name}")
-            self.assertEqual(line["identity_state"], "VERIFIED" if name == "pcm13smtr" else "UNRESOLVED")
+            self.assertEqual(line["identity_state"], "VERIFIED")
 
 if __name__ == "__main__":
     unittest.main()
