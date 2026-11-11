@@ -17,3 +17,7 @@ The framework workflow above is canonical for component evidence. These project 
 - The component-evidence catalog holds exactly the 30 A5 fitted identities, reconciled by `scripts/a5_catalog.py reconcile` into `provenance/a5-catalog/reconciliation.json` (30 identities / 71 placements / 81 pieces; C5665 spelling mapped in `provenance/a5-catalog/identity-crosswalk.json`). `python3 scripts/a5_catalog.py check` must pass. Lines of a later revision are allowed beside the 30 only with a `line-a<N>-` line ID and a `component-a<N>-` owner bundle (e.g. `line-a7-…`); they never count toward or relax the A5 reconciliation. Pin maps and placements are historical A5 netlist projections; keep the placement facts `NEEDS BENCH`. Do not invent source locks, facts, reviewers, pin maps or VERIFIED flags; after evidence changes run `python3 scripts/a5_catalog.py sync-states` and `python3 scripts/a5_catalog.py selection`, then review the diff.
 - Documentation is Japanese-first (`defaultLocale: "ja"`).
 - Production hosting is off until the repository variable `CLOUDFLARE_DEPLOY_ENABLED` is exactly `true`. Do not set it, deploy, or touch Cloudflare resources unless the owner asks.
+
+## 開発オーケストレーション
+
+複数セッションまたは重い検証では、[circuit/ORCHESTRATION.md](circuit/ORCHESTRATION.md)、[作業・環境・モデルの対応表](circuit/orchestration/current-plan.md)、[bounded task template](circuit/templates/orchestration-task.md) も読んでください。A5 の不変条件、A6 の保留、A7 の現在の継続記録、部品根拠・実機検証・hosting の承認境界は変更しません。既知 DNS 障害の後回しは限定的な優先順位であり、検証免除ではありません。
