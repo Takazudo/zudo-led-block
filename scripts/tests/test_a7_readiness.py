@@ -34,6 +34,11 @@ class ReadinessTests(unittest.TestCase):
         self.raw = self.root/'raw.txt'
         self.raw.write_text('SYNTHETIC TEST DATA ONLY')
         self.receipt = {'path': 'raw.txt', 'sha256': m.digest(self.raw)}
+        self.receipts = {}
+        for role in ['criterion', 'review', 'material', 'route', 'release', 'order_files']:
+            f = self.root/(role+'-receipt.txt')
+            f.write_text('SYNTHETIC '+role)
+            self.receipts[role] = {'path': f.name, 'sha256': m.digest(f)}
         for key in ['fixture', 'assembly_manifest']:
             (self.root/m.IDENTITY_PATHS[key]).write_text(json.dumps({
                 'status': 'DIGITAL_DESIGN_VERIFIED', 'digital_fixture_complete': True, 'fresh_native_verified': True, 'inputs_sha256': {'raw.txt': m.digest(self.raw)}, 'blockers': []}))
@@ -46,7 +51,7 @@ class ReadinessTests(unittest.TestCase):
         for p in self.plan['procedures']:
             p['criterion_status'] = 'REVIEWED'
             p['missing_criterion'] = ''
-            p['criterion_review'] = self.receipt
+            p['criterion_review'] = self.receipts['criterion']
         ids = {k: v['sha256'] for k, v in m.identities(self.root).items()}
         ph = hashlib.sha256(json.dumps(self.plan, sort_keys=True, ensure_ascii=False).encode()).hexdigest()
         for p in self.plan['procedures']:
@@ -59,12 +64,32 @@ class ReadinessTests(unittest.TestCase):
                 raw.append({'kind':kind, 'path':f.name, 'sha256':m.digest(f)})
             run.update(run_id=p['id']+'-synthetic', procedure=p['id'], evidence_kind='BENCH_RECORD',
                        synthetic=False, result='PASS', identities=ids, plan_sha256=ph,
-                       performed_at='2026-11-08T12:00:00Z', raw_evidence=raw, review=self.receipt)
+                       performed_at='2026-11-08T12:00:00Z', raw_evidence=raw, review=self.receipts['review'])
             self.records['runs'].append(run)
         self.records['material_observations'] = [dict(material=k, observed_on='2026-11-08',
-            valid_until='2026-11-10', identities=ids, available_for_proposed_order=True, source=self.receipt) for k in m.MATERIALS]
-        self.records['owner_prototype_route'] = dict(identities=ids, scope='synthetic', quantity='1', constraints='synthetic', approval=self.receipt)
-        self.records['manufacturing_release'] = dict(identities=ids, approval=self.receipt, reviewed_order_files=self.receipt)
+            valid_until='2026-11-10', identities=ids, available_for_proposed_order=True, source=self.receipts['material']) for k in m.MATERIALS]
+        self.records['owner_prototype_route'] = dict(identities=ids, scope='synthetic', quantity='1', constraints='synthetic', approval=self.receipts['route'])
+        self.records['manufacturing_release'] = dict(identities=ids, approval=self.receipts['release'], reviewed_order_files=self.receipts['order_files'])
+
+    def test_one_receipt_cannot_serve_several_roles(self):
+        self.fully_recorded_synthetic_case()
+        self.assertEqual(self.evaluate()['blockers'], [])
+        cases = {
+            'release approval reused as order files': lambda: self.records['manufacturing_release'].update(reviewed_order_files=self.receipts['release']),
+            'execution review reused as owner route approval': lambda: self.records['owner_prototype_route'].update(approval=self.receipts['review']),
+            'raw evidence reused by another procedure': lambda: self.records['runs'][1]['raw_evidence'].append(
+                dict(self.records['runs'][0]['raw_evidence'][0], kind='extra_kind')),
+            'criterion review reused as raw evidence': lambda: self.records['runs'][0]['raw_evidence'].append(
+                dict(self.receipts['criterion'], kind='extra_kind')),
+        }
+        base = copy.deepcopy(self.records)
+        for name, mutate in cases.items():
+            with self.subTest(name):
+                self.records = copy.deepcopy(base)
+                mutate()
+                r = self.evaluate()
+                self.assertEqual(r['order_eligibility'], 'BLOCKED')
+                self.assertTrue(any('receipt reused across roles' in b for b in r['blockers']), r['blockers'])
 
     def test_valid_blocked_report(self):
         r = self.evaluate()

@@ -59,7 +59,7 @@ re-run KiCad or CadQuery for these records.
 | Interface roles | `engineering/a7/verification/interface_roles/` | R3, filled by R4 | A5 reference roles; A7 jack / switch roles reviewed for the schematic phase |
 | Authorized delta | `engineering/a7/verification/authorized_delta.json` | R3, filled by R4 | reviewed `component_replaced` entries for J1 / J2 / SW1; lists the open physical gates |
 
-## 2026-11-09 preparation (not a release)
+## 2026-11-09 preparation (not a release; on main via PR #44)
 
 - `procurement/assembly-manifest.json`: generated current controller plus two FR-4 leaves and adapter; external hardware/cables/fixture candidates. Engineering only, not supplier upload.
 - `fixture/`: exact INGUN receipts and current B-side pad map; generated carrier-only STEP/SVG. Full registration/support/stop and tolerance qualification BLOCKED.

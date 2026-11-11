@@ -10,8 +10,10 @@ re-review with no blocking findings), and a provisional digital mechanical model
 prototype and no physical measurement. Nothing in A7 is a measured fit, part approval, fit approval, electrical result or
 manufacturing approval, and a green CI is none of those either.
 
-Main baseline: `af523f9abb74e206c27aaaa076b3b68a5c474940`. 2026-11-09 local preparation is tracked in
-[`order-preparation-checkpoint.md`](order-preparation-checkpoint.md). Draft PR #44 contains E1; later local outputs are not merged merely because they exist.
+The 2026-11-09 preparation package (E1 board/export binding, E2 exact-part sources, E3 carrier-only fixture study,
+E4 procurement ledger, E5 BLOCKED readiness and blank procedures) is integrated into main through PR #44 (2026-11-11).
+Its working record is [`order-preparation-checkpoint.md`](order-preparation-checkpoint.md); integration does not
+complete the fixture, any physical gate, order eligibility or a manufacturing release.
 
 ## What A7 is
 
@@ -112,8 +114,8 @@ retrieved.
 
 ## Next actions, in order
 
-New preparation work is in progress: board/export binding, exact-part source recovery, fixture study,
-active procurement ledger and blank physical procedures. `qualification/readiness.json` reports BLOCKED.
+The preparation package (board/export binding, exact-part source recovery, carrier-only fixture study,
+active procurement ledger and blank physical procedures) is on main via PR #44. `qualification/readiness.json` reports BLOCKED.
 The fixture is incomplete, and source/supply/physical/owner gates remain. Any later board change re-runs
 the gate, independent review and R2 fit check.
 

@@ -21,6 +21,8 @@ STEP は CadQuery **2.7.0** で生成し、再読込して1 solid、体積4980.7
 
 2026-11-09 に E1 の pinned native CI [run 42594178172](https://github.com/Takazudo/zudo-led-block/actions/runs/42594178172) が head `4894a6f6f21b30419d039bd6427e89553f8dee55`、同一PCB SHA-256 `4453f818ede1e6d6c56e45ef43aa6faecb90990f3755f82c6d752258cd4d628e` で PASS と確認された。この結果はその E1 head の証拠であり、未コミットの統合変更や治具形状を検証したものではない。artifact download は escalation 後も Forbidden で、raw native facts は未取得。治具が新しい外形データを消費・検査していないため、`fresh_native_verified` は **false** のままとする。
 
+2026-11-11 更新: PR #44 の準備 head `f0b1d8aa37f3967ccc8c9a6bd6ca0e7b7fc7b3a0`（base `af523f9`）の CI [run 42596523199](https://github.com/Takazudo/zudo-led-block/actions/runs/42596523199) も同一PCBで native gate PASS。同 run の `native-infrastructure-evidence` artifact（ID 13663737750、ZIP SHA-256 `33f3d9121164f364b0325540b161e9546ddf73c8b723c9166fdcd8a19867cf0e`）は今回ダウンロードできたが、A7 候補については `a7-gate/summary.json` しか保存されておらず、`board_facts.json` / `board_geometry.json` は含まれない。上の 2026-11-09 の Forbidden は当時の観測として残す。現在の不足はアクセス拒否ではなく artifact の保存範囲であり、`fresh_native_verified` は引き続き **false**。
+
 ## 現時点の数値と限界
 
 GKS-050 214 050 A 1000 は先端 Ø0.5 mm、推奨ストローク4.3 mmで公称1 N、最大6.35 mm、初期荷重0.44 N。5本では公称5 N、初期2.2 N。公差は資料にないため最大荷重とは呼ばない。実PCBの露出B面丸パッド Ø1 mmとの差から、**公称**半径予算は0.25 mm。基板端→パッド、位置決め、穴位置、接触子の横遊び・同心度の最悪値が未確定なので最悪登録余裕は `null`。数値を推定して合格にしない。

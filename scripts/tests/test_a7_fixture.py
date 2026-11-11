@@ -1,5 +1,6 @@
 """Negative controls for the explicitly incomplete fixture study."""
 import copy
+import json
 import importlib.util
 from pathlib import Path
 import unittest
@@ -47,5 +48,13 @@ class FixtureStudyTests(unittest.TestCase):
         for pad in f.report()['pads']:
             bx,by=pad['board_xy_mm'];fx,fy=pad['carrier_xy_mm']
             self.assertAlmostEqual(16.2-fx,bx);self.assertEqual(fy,by)
+
+class StepBindingTests(unittest.TestCase):
+    def test_step_bytes_are_bound(self):
+        self.assertEqual(f.report()['study_step_sha256'],f.digest(f.OUT/'carrier-study.step'))
+        real=f.digest
+        with patch.object(f,'digest',side_effect=lambda q:'c'*64 if Path(q).name=='carrier-study.step' else real(q)):
+            with self.assertRaisesRegex(ValueError,'canonical producer'):
+                f.validate_report(json.loads((f.OUT/'manifest.json').read_text()))
 
 if __name__=='__main__':unittest.main()

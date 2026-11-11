@@ -27,3 +27,9 @@ PET Q11/Q11a–fと2HPの0.8 mm再配線/公差課題は別案のブロッカー
 - `src-sm04b-srss-tb-lf-sn-sh-catalog`: https://www.jst-mfg.com/product/pdf/eng/eSH.pdf、2026-11-09T09:19:19.369040+00:00、HTTP 403、資料bytes未取得。別の公式配布先またはオーナー提供の原本を取得し、hash/適用型番/ページを検証する。変更のない再試行はしない。
 - `src-a7-pj-324m-sofng-site`: https://www.sofng.com/、2026-11-09T09:19:23.249215+00:00、HTTP 502、資料bytes未取得。別の公式配布先またはオーナー提供の原本を取得し、hash/適用型番/ページを検証する。変更のない再試行はしない。
 - E1 CI artifact `native-infrastructure-evidence`（run 42594178172）のダウンロードは通常/許可された昇格とも Forbidden。CIログのPASSは確認したが、fixtureのfresh-native geometry未取得を解消しない。
+
+## 2026-11-11 更新
+
+- B1: 解除。main push run 43051871789 の deploy-gate で `CLOUDFLARE_DEPLOY_ENABLED` は空、Production deploy は SKIPPED。workflow は値が厳密に `true` のときだけ deploy する。変数 API 404 は保護規則の証拠として扱わない。
+- B3: Cloud VM の native 実行は引き続き行わず、既存 Actions を使う。CI artifact は 2026-11-11 に取得可能だったが、A7 候補の facts/geometry を保存していない。保存範囲の修正は別 PR。
+- B2: 維持（子 Issue は作らない）。B4–B12: 変更なし。

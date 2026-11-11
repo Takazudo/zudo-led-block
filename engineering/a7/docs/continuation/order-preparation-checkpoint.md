@@ -26,9 +26,9 @@
 | E4 調達・組立台帳 | e4_ledger | `procurement/assembly-manifest.json`、71 unique fitted placements / 81 pieces。12 focused tests と生成チェック PASS、独立レビュー済み。工程用準備資料のみ | E2/E3 入力変更後に再生成。供給/完成ケーブル/実装サービスの未確定を残す |
 | E5 readiness・物理手順 | e5_readiness | 19 未実施手順、17 tests（normal/-O）PASS、独立レビュー済み。`--check` は VALID/BLOCKED、`--gate` は exit 1 | 最終 E2/E3/E4 入力で再生成。現在49 blocker、観測は全て NOT_MEASURED |
 
-## 現在のローカル artifact identity
+## 2026-11-09 時点の artifact identity（履歴）
 
-この表は上記 head に加えて存在するローカル生成物の記録であり、main への統合や製造承認を意味しません。入力が変わったら E3→E4→E5 の順で再生成して更新します。
+現行値は末尾の 2026-11-11 節を参照。この表は上記 head に加えて存在するローカル生成物の記録であり、main への統合や製造承認を意味しません。入力が変わったら E3→E4→E5 の順で再生成して更新します。
 
 | 成果 | SHA-256 |
 |---|---|
@@ -93,3 +93,19 @@ main の既存 CI 42508822486 は基準 SHA での履歴証跡です。新しい
 E1 CIログでは `ENABLED` は空でした（2026-11-09T09:35:50Z）。ただし設定APIは404、protected-policy accessを迂回せず、最終headのmerge条件は未確定のまま保留します。
 
 統合commit `ec75bdd40dadaaae2f8193a30b78fc1c89d92082` のCI 42595823301で、R1の古い2テストがPCM一次資料未取得を固定期待していたことを検出。ローカルでも再現し、実取得hash/authorityとidentityの期待値に更新。物理coverage OPENの負の検査は維持。最終headの結果はPR #44のchecksを参照。
+
+## 2026-11-11 統合（PR #44）
+
+- 作業: Claude Code Cloud Project の単一 manager が PR #44 を引き継ぎ、main `33457b01c5722d91b9ab5b25e8e73c097b32236b`（orchestration 文書のみ追加）を merge。E1–E5 を作り直さず、全差分を独立レビュー。
+- レビュー指摘の修正: readiness で 1 つの保持ファイルが複数の承認役割（基準レビュー、実施レビュー、材料出典、試作承認、製造リリース承認、レビュー済み発注ファイル）や複数手順の raw evidence を兼ねることを拒否（`receipt reused across roles`）。fixture manifest が `carrier-study.step` の bytes を `study_step_sha256` で結合し、STEP の差し替えを `--check` で検出。PCM13SMTR の記述の空白欠落を修正。上の「uncommitted」表現と E1 のみの記述を producer から更新。
+- 未修正として残すもの: 材料観測の `valid_until` に上限期間がない（期間の方針は未決のため数値を創作しない）。E2 で記録した資料 hash は ignored cache の bytes に依存し、CI では再計算できない。
+- native CI: 準備 head `f0b1d8aa37f3967ccc8c9a6bd6ca0e7b7fc7b3a0`（base `af523f9`、synthetic merge `f3232a4`）の [run 42596523199](https://github.com/Takazudo/zudo-led-block/actions/runs/42596523199) は全 job PASS。統合 head の結果は PR #44 の checks を参照。
+- artifact: 2026-11-09 の Forbidden は当時の観測。2026-11-11 に run 42596523199 の `native-infrastructure-evidence`（ID 13663737750、ZIP SHA-256 `33f3d9121164f364b0325540b161e9546ddf73c8b723c9166fdcd8a19867cf0e`、43 members）を取得できた。A7 候補は `a7-gate/summary.json` のみで、summary が hash を記録する `board_facts.json` / `board_geometry.json` は含まれない。これは保存範囲の不足で、別の CI 修正で扱う。`fresh_native_verified` は false のまま。
+- merge と deploy（B1/D5 の再確認）: 変数 API の 404 自体は保護規則の証拠ではない。main push の [run 43051871789](https://github.com/Takazudo/zudo-led-block/actions/runs/43051871789)（2026-11-11T15:59Z）の deploy-gate ログで `ENABLED` は空、Production deploy は SKIPPED。workflow は `CLOUDFLARE_DEPLOY_ENABLED == 'true'` の場合だけ deploy する。したがって owner が依頼した通常の merge は deploy を起動しない。hosting 設定は変更していない。
+- 子 Issue 作成の hold（B2/D6）は維持。この作業は #15 と既存 Issue を使う。
+
+| 成果（2026-11-11 統合時） | SHA-256 |
+|---|---|
+| `engineering/a7/fixture/manifest.json` | `78c002bcf49a3af8f3ba5f4394ee8fe9328c38a3f07abec6ea7b282ab95445c4` |
+| `engineering/a7/procurement/assembly-manifest.json` | `69033523efa1ec2da53093c6814c3522ef0264adbc084f1fac3c3980c86e3967` |
+| `engineering/a7/qualification/readiness.json` | `fe9bb13dba67ad8b298d57d31c50a14574a1edbc47d9ab290b263499789df48a` |

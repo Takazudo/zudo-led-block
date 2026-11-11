@@ -190,6 +190,28 @@ def evaluate(root, plan, records, today=None):
     release = records.get('manufacturing_release')
     if not isinstance(release, dict) or release.get('identities') != binding or not raw_ok(release.get('approval'), root) or not raw_ok(release.get('reviewed_order_files'), root):
         reasons.append('reviewed manufacturing files and explicit revision-bound owner release absent')
+    # One retained file cannot stand in for several approval roles, nor raw evidence for two procedures.
+    roles = {}
+    def use(item, role):
+        if isinstance(item, dict) and isinstance(item.get('path'), str):
+            roles.setdefault(str(Path(item['path'])), set()).add(role)
+    for p in plan['procedures']:
+        use(p.get('criterion_review'), 'criterion_review')
+    for run in records['runs']:
+        if isinstance(run, dict):
+            use(run.get('review'), 'execution_review')
+            for x in run.get('raw_evidence') or []:
+                use(x, 'raw:' + str(run.get('procedure')))
+    for m in observations:
+        if isinstance(m, dict):
+            use(m.get('source'), 'material_source')
+    if isinstance(route, dict):
+        use(route.get('approval'), 'prototype_approval')
+    if isinstance(release, dict):
+        use(release.get('approval'), 'release_approval')
+        use(release.get('reviewed_order_files'), 'reviewed_order_files')
+    for path in sorted(q for q, r in roles.items() if len(r) > 1):
+        reasons.append('receipt reused across roles: ' + path + ' (' + ', '.join(sorted(roles[path])) + ')')
     return {'schema': 1, 'variant': 'fr4-3hp', 'report_validation': 'VALID',
             'order_eligibility': 'BLOCKED' if reasons else 'ELIGIBLE_FOR_RECORDED_SCOPE',
             'manufacturing_release': 'NOT_ESTABLISHED' if reasons else 'RECORDED_APPROVAL_REQUIRES_HUMAN_VERIFICATION',

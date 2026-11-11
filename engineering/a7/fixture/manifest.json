@@ -9,20 +9,22 @@
   "inputs_sha256": {
     "engineering/a7/electronics/controller/controller.kicad_pcb": "4453f818ede1e6d6c56e45ef43aa6faecb90990f3755f82c6d752258cd4d628e",
     "engineering/a7/electronics/controller/board_placement.json": "1891af356ead303127c6b7a99b8934b08aa25f465b4b2c96872f5d5d24afdc01",
-    "scripts/a7_fixture.py": "9e04daf7b6503ec6cc3659b1e13556c0b1680cff09e544692eb07c34fc4981ea",
+    "scripts/a7_fixture.py": "1787ca2b65c36e29baee4b4bc595f6b6a87acb40368b56ccf2f7f12a554ad37c",
     "engineering/a7/fixture/sources.json": "6fde5bc90563e071ab3b302b60ec1aaf78ba6a58269b2e6726c5f8541e92f3e0",
     "engineering/a7/fixture/materials.json": "b05f46b48715ec8cdcf18a557a880d6f68f2ca7967ba932fc38ade4fef0e983e"
   },
+  "study_step_sha256": "6d05ae1d515ca4ab3c20ea345b50b5c102bbe08066a670ecd796a71314a7f89f",
   "fresh_native_verified": false,
   "native_ci_evidence": {
-    "observed_date_utc": "2026-11-09",
-    "run_url": "https://github.com/Takazudo/zudo-led-block/actions/runs/42594178172",
-    "head_sha": "4894a6f6f21b30419d039bd6427e89553f8dee55",
+    "observed_date_utc": "2026-11-11",
+    "run_url": "https://github.com/Takazudo/zudo-led-block/actions/runs/42596523199",
+    "head_sha": "f0b1d8aa37f3967ccc8c9a6bd6ca0e7b7fc7b3a0",
+    "base_sha": "af523f9abb74e206c27aaaa076b3b68a5c474940",
     "result": "PASS",
     "board_sha256": "4453f818ede1e6d6c56e45ef43aa6faecb90990f3755f82c6d752258cd4d628e",
-    "scope": "E1 pinned native CI on the stated head and unchanged board; not verification of the uncommitted integration or fixture geometry",
+    "scope": "Pinned native CI of the PR #44 preparation head on the unchanged board (CI log result); not verification of fixture geometry",
     "raw_facts_consumed": false,
-    "artifact_access": "Forbidden, including escalated download; raw facts unavailable"
+    "artifact_access": "2026-11-09: download Forbidden (historical). 2026-11-11: native-infrastructure-evidence artifact 13663737750 downloaded (ZIP SHA-256 33f3d9121164f364b0325540b161e9546ddf73c8b723c9166fdcd8a19867cf0e), but it retains only a7-gate/summary.json; candidate board_facts/board_geometry were not uploaded, so raw candidate facts remain unavailable"
   },
   "transform": {
     "description": "B side view: x_f = 16.2 - x_board; y_f = y_board. Carrier local Z is not an installed height.",
@@ -148,6 +150,6 @@
     "Actual fresh-native F/B component extents and solder envelopes have not been obtained for clearance/support design.",
     "Receptacle drawing diameter 0.96mm versus PDF table 0.95mm; use 0.96mm envelope only as conservative study input, resolve before selection.",
     "No physical fit, contact, insertion-force or measured stroke evidence; no prototype exists.",
-    "E1 pinned native CI passed at 4894a6f6f21b30419d039bd6427e89553f8dee55 for this unchanged board; artifact download was Forbidden. Fixture has not consumed fresh native facts and the uncommitted integration is not covered by that run."
+    "Pinned native CI passed for this unchanged board (run 42596523199, head f0b1d8aa37f3967ccc8c9a6bd6ca0e7b7fc7b3a0), but its artifact retained no candidate board_facts/board_geometry; the fixture has not consumed or validated fresh native facts."
   ]
 }
