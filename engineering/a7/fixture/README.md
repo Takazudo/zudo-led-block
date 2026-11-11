@@ -23,6 +23,8 @@ STEP は CadQuery **2.7.0** で生成し、再読込して1 solid、体積4980.7
 
 2026-11-11 更新: PR #44 の準備 head `f0b1d8aa37f3967ccc8c9a6bd6ca0e7b7fc7b3a0`（base `af523f9`）の CI [run 42596523199](https://github.com/Takazudo/zudo-led-block/actions/runs/42596523199) も同一PCBで native gate PASS。同 run の `native-infrastructure-evidence` artifact（ID 13663737750、ZIP SHA-256 `33f3d9121164f364b0325540b161e9546ddf73c8b723c9166fdcd8a19867cf0e`）は今回ダウンロードできたが、A7 候補については `a7-gate/summary.json` しか保存されておらず、`board_facts.json` / `board_geometry.json` は含まれない。上の 2026-11-09 の Forbidden は当時の観測として残す。現在の不足はアクセス拒否ではなく artifact の保存範囲であり、`fresh_native_verified` は引き続き **false**。
 
+2026-11-11 追記（PR #46）: native gate が同一PCBから治具用の `fixture_geometry.json`（pad の形状・寸法・銅箔 bbox・回転・有効層・net、footprint の原点・面・courtyard/外形 bbox）を出力し、CI artifact に保存するようになった。[run 43077448786](https://github.com/Takazudo/zudo-led-block/actions/runs/43077448786)（head `01bc3812202c6e72f772d2568148ae5df4915be7`、artifact ZIP SHA-256 `db6d6fe101641a4176d0fad83a7fd453ee4ae09173e7fb36d26dd444284b74c4`）の artifact は VALID_PASS と分類され、`scripts/a7_fixture_geometry.py --from-zip` が `native-geometry.json` に記録した（64 footprints、変換・面・net・位置を canonical placement と照合、未知 extents 0）。`manifest.json` の `native_geometry` はこの記録で TP1–TP5 の5パッド（B面、丸 1 mm、B.Cu/B.Mask、位置、net）を照合した結果である。部品本体高さ・はんだ包絡は native facts に含まれず、キャリア検討は courtyard/外形 bbox をまだ支持・逃げ設計に使っていないため、`fresh_native_verified` と `digital_fixture_complete` は **false** のまま。記録は `python3 scripts/a7_fixture_geometry.py --check` で PCB/placement の陳腐化と改変を検査する。
+
 ## 現時点の数値と限界
 
 GKS-050 214 050 A 1000 は先端 Ø0.5 mm、推奨ストローク4.3 mmで公称1 N、最大6.35 mm、初期荷重0.44 N。5本では公称5 N、初期2.2 N。公差は資料にないため最大荷重とは呼ばない。実PCBの露出B面丸パッド Ø1 mmとの差から、**公称**半径予算は0.25 mm。基板端→パッド、位置決め、穴位置、接触子の横遊び・同心度の最悪値が未確定なので最悪登録余裕は `null`。数値を推定して合格にしない。
