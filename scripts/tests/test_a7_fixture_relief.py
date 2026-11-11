@@ -170,6 +170,17 @@ class ReliefTests(unittest.TestCase):
         self.assertTrue(r2['fresh_native_verified'])
         self.assertFalse(r2['digital_fixture_complete'])
 
+    def test_candidate_fabricator_guidance_is_reference_only(self):
+        r = f.report()
+        ref = json.loads((f.OUT / 'candidate-references.json').read_text())
+        self.assertEqual(ref['status'], 'CANDIDATE_REFERENCE_NOT_SELECTED')
+        c = r['candidate_reference_checks'][0]
+        self.assertEqual(c['selection_status'], 'NOT_SELECTED')
+        self.assertFalse(c['satisfied'])
+        self.assertFalse(c['checks']['minimum_wall_mm']['met'])
+        self.assertTrue(any('manufacturability not confirmed' in b for b in r['blockers']))
+        self.assertNotIn('JLCCNC', json.dumps(json.loads((f.OUT / 'materials.json').read_text())['items']))
+
     def test_union_area(self):
         self.assertAlmostEqual(f.union_area([[0, 0, 2, 2], [1, 1, 3, 3]]), 7.0)
         self.assertEqual(f.union_area([]), 0.0)

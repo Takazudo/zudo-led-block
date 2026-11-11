@@ -104,8 +104,11 @@ def report():
         *(['Hole to cut web below the 0.27 mm sourced minimum: ' + '; '.join(relief['web_conflicts'])] if relief['web_conflicts'] else []),
         *(['Cut wall below the 0.27 mm sourced minimum: ' + '; '.join(relief['relief_wall_conflicts'])] if relief['relief_wall_conflicts'] else []),
     ]
+    candidate_checks = candidate_reference_checks(relief)
+    narrow = candidate_checks[0]['checks']['narrowest_cut_mm']['design'] if candidate_checks else None
+    blockers.append(f'Carrier manufacturability not confirmed: the narrowest through-cut is {narrow} mm and every internal corner is sharp, so the process must cut the merged shapes as drawn (or widen the bridges) and hold the 0.27 mm walls; no fabricator is selected and the captured JLCCNC guidance (candidate reference only) is not satisfied.')
     complete = all(c['met'] for c in completion.values()) and not blockers
-    files = (BOARD, CANONICAL, Path(__file__).resolve(), Path(relief_design.__file__).resolve(), relief_design.POPULATION, OUT/'sources.json', OUT/'materials.json')
+    files = (BOARD, CANONICAL, Path(__file__).resolve(), Path(relief_design.__file__).resolve(), relief_design.POPULATION, OUT/'sources.json', OUT/'materials.json', OUT/'candidate-references.json')
     return dict(
         schema=1, status='DIGITAL_DESIGN_VERIFIED' if complete else 'BLOCKED', digital_fixture_complete=complete,
         scope='Digital carrier design (reliefs, datums, keying, support, clamp points, registration and stroke allocation); not a complete fixture, fit result or fabrication approval',
@@ -119,7 +122,29 @@ def report():
         pads=pads,
         calculations={'nominal_radial_budget_mm':(1.0-0.5)/2,'worst_case_registration_margin_mm':relief['registration']['worst_case_margin_mm'],'registration_equation':'0.25 - (board edge-to-pad + datum registration + carrier bore position + probe lateral play/concentricity); all terms radial worst-case mm, each allocation closed by an acceptance measurement (b_side_relief.registration)','minimum_probe_pitch_mm':round(spacing,6),'manufacturer_nominal_grid_mm':1.27,'nominal_collar_edge_gap_mm':round(spacing-1.04,6),'recommended_working_stroke_mm':4.3,'maximum_stroke_mm':6.35,'nominal_total_force_at_working_stroke_N':5*1.0,'nominal_total_preload_N':5*0.44,'total_force_at_maximum_stroke_N':hd['probe_force_total_N']['maximum_stroke'],'force_tolerance_N':None},
         carrier={'bounds_mm':[relief_design.CARRIER_BOARD_X[0],relief_design.CARRIER_Y[0],0,relief_design.CARRIER_BOARD_X[1],relief_design.CARRIER_Y[1],relief_design.CARRIER_THICKNESS],'receptacle_bore_diameter_mm':0.99,'bore_acceptance_requirement_mm':[0.98,1.0],'bore_material':'FR4, machined; not a printed plastic tolerance claim','minimum_wall_mm':relief_design.MIN_WALL,'datum_pin_holes':[{'id':q['id'],'carrier_xy_mm':q['carrier_xy_mm'],'diameter_mm':relief_design.RULES['datum_pin_diameter_mm']} for q in relief['datum_pins']],'mounting_holes_mm':[],'mounting_diameter_mm':3.2},
+        candidate_reference_checks=candidate_checks,
         blockers=blockers)
+
+
+def candidate_reference_checks(relief):
+    """Compare the carrier with captured, NOT selected fabricator guidance; informational, never a gate or a selection."""
+    out = []
+    t = relief_design.CARRIER_THICKNESS
+    cuts = [q['board_box_mm'] for q in relief['reliefs'] + relief['bridges']]
+    narrowest = round(min(min(b[2] - b[0], b[3] - b[1]) for b in cuts), 6)
+    for ref in json.loads((OUT/'candidate-references.json').read_text())['references']:
+        rules = ref['rules_used']
+        radius, tool = round(t / 10 + 0.5, 6), round(t / 5, 6)
+        checks = {'minimum_wall_mm': {'design': relief_design.MIN_WALL, 'guidance_absolute_minimum': rules['wall_absolute_minimum_mm'],
+                                      'met': relief_design.MIN_WALL >= rules['wall_absolute_minimum_mm']},
+                  'through_cut_internal_corners': {'design': 'sharp rectangular corners', 'guidance_radius_mm': radius, 'guidance_tool_diameter_mm': tool,
+                                                   'met': False},
+                  'narrowest_cut_mm': {'design': narrowest, 'guidance_tool_diameter_mm': tool, 'met': narrowest >= tool},
+                  'registration_tolerances_mm': {'design': '0.05 carrier allocation, cut edges +/-0.05', 'guidance_standard': rules['standard_tolerance_mm'],
+                                                 'met': None, 'note': 'tighter than standard; needs an annotated 2D drawing, availability not confirmed'}}
+        out.append({'id': ref['id'], 'selection_status': ref['selection_status'], 'checks': checks,
+                    'satisfied': all(c['met'] for c in checks.values() if c['met'] is not None)})
+    return out
 
 
 def validate_report(candidate, root=ROOT):

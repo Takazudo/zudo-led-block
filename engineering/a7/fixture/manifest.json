@@ -9,13 +9,14 @@
   "inputs_sha256": {
     "engineering/a7/electronics/controller/controller.kicad_pcb": "4453f818ede1e6d6c56e45ef43aa6faecb90990f3755f82c6d752258cd4d628e",
     "engineering/a7/electronics/controller/board_placement.json": "1891af356ead303127c6b7a99b8934b08aa25f465b4b2c96872f5d5d24afdc01",
-    "scripts/a7_fixture.py": "57f4540070bc0f54bea27053080f0a1c17bae93b305a9b9b67e8cf044056e3c8",
+    "scripts/a7_fixture.py": "f1b00f9b07867192f75ade77eef4686601247aa1a4628d108906c7b4b7065dc8",
     "scripts/a7_fixture_relief.py": "879f5095dfe9ae080efda9f863a883f138c459b47cf10aaa1b96d939de2a1f1f",
     "engineering/a7/procurement/population.csv": "6ce7636d2d0cae04ccbd2dace8cd0efacafe154b5e772acaa04a5e79718b0dd8",
     "engineering/a7/fixture/sources.json": "6fde5bc90563e071ab3b302b60ec1aaf78ba6a58269b2e6726c5f8541e92f3e0",
-    "engineering/a7/fixture/materials.json": "2066c14079421fe1487c88202c9bef29fdce886c419923ea096b66d0a1ca243e"
+    "engineering/a7/fixture/materials.json": "2066c14079421fe1487c88202c9bef29fdce886c419923ea096b66d0a1ca243e",
+    "engineering/a7/fixture/candidate-references.json": "6f929c9edf3d115dc18f5cf1b055f9971ec25af64ce20948a882729250151845"
   },
-  "study_step_sha256": "304202c5fa3e5e63528ffd588c7917125ada2aa20cf1342fe825b647d3a9b926",
+  "study_step_sha256": "d4ba058b549a8080a4ffc3606ff826a3c9e583c5fc374725573b54b2213e903e",
   "fresh_native_verified": false,
   "fresh_native_criteria": {
     "every_b_side_part_and_tht_lead_relieved_from_native_geometry": true,
@@ -1868,11 +1869,43 @@
     "mounting_holes_mm": [],
     "mounting_diameter_mm": 3.2
   },
+  "candidate_reference_checks": [
+    {
+      "id": "jlccnc-fr4-guidance",
+      "selection_status": "NOT_SELECTED",
+      "checks": {
+        "minimum_wall_mm": {
+          "design": 0.27,
+          "guidance_absolute_minimum": 1.0,
+          "met": false
+        },
+        "through_cut_internal_corners": {
+          "design": "sharp rectangular corners",
+          "guidance_radius_mm": 1.0,
+          "guidance_tool_diameter_mm": 1.0,
+          "met": false
+        },
+        "narrowest_cut_mm": {
+          "design": 0.15,
+          "guidance_tool_diameter_mm": 1.0,
+          "met": false
+        },
+        "registration_tolerances_mm": {
+          "design": "0.05 carrier allocation, cut edges +/-0.05",
+          "guidance_standard": 0.1,
+          "met": null,
+          "note": "tighter than standard; needs an annotated 2D drawing, availability not confirmed"
+        }
+      },
+      "satisfied": false
+    }
+  ],
   "blockers": [
     "fresh_native_verified false: J5 (PicoBlade 530470310): lead tail below the B face is unsourced (the carrier through-cut does not depend on it; the base below the carrier does)",
     "Hold-down/bias mechanism not selected (owner/supplier choice): it must press the three listed F-side points with more than 6.35 N in total and bias the board against X1, X2 and Y1; probe guide, base fixing, insulation and wire retention are not designed.",
     "No complete assembly STEP/drawing with an interference check; the carrier STEP alone is not a finished fixture.",
     "Receptacle drawing diameter 0.96mm versus PDF table 0.95mm; use 0.96mm envelope only as conservative study input, resolve before selection.",
-    "No physical fit, contact, insertion-force or measured stroke evidence; no prototype exists; the acceptance measurements in b_side_relief are requirements, not results."
+    "No physical fit, contact, insertion-force or measured stroke evidence; no prototype exists; the acceptance measurements in b_side_relief are requirements, not results.",
+    "Carrier manufacturability not confirmed: the narrowest through-cut is 0.15 mm and every internal corner is sharp, so the process must cut the merged shapes as drawn (or widen the bridges) and hold the 0.27 mm walls; no fabricator is selected and the captured JLCCNC guidance (candidate reference only) is not satisfied."
   ]
 }
