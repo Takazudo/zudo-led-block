@@ -1,0 +1,49 @@
+{
+  "schema": 1,
+  "status": "CANDIDATE_REFERENCE_NOT_SELECTED",
+  "note": "Fabricator guidance captured for comparison only. No fabricator or fixture supplier is selected; that is the owner's choice. Nothing here is a quote, an order or a capability confirmation for this part.",
+  "references": [
+    {
+      "id": "jlccnc-fr4-guidance",
+      "supplier": "JLCCNC",
+      "selection_status": "NOT_SELECTED",
+      "retrieved_utc": "2026-11-11",
+      "retrieval": "Playwright Chromium render (built-in browser), body innerText after network idle; bytes not redistributed",
+      "pages": [
+        {
+          "url": "https://jlccnc.com/help/article/CNC-Machining-Design-Guideline",
+          "last_updated_on_page": "2025-08-20",
+          "rendered_text_sha256": "191ee599eadac0cea8f8588fd6ad919fe55c924b33eac2a77de6742007536015",
+          "extracts": [
+            "Thin walls: recommended wall thickness of metal parts 0.8 mm (absolute minimum 0.5 mm), 1.5 mm (absolute minimum 1 mm) for plastic parts.",
+            "Internal corners: R = (H/10) + 0.5 and D = H/5 (mm), H = cavity depth; minimum internal radius R0.5 at depth <= 3 mm.",
+            "If no tolerance is provided, parts will be made with standard tolerance (+/-0.1 mm or higher); other tolerances need an annotated 2D drawing."
+          ]
+        },
+        {
+          "url": "https://jlccnc.com/capabilities/cnc-machining-service",
+          "rendered_text_sha256": "1d6d5586dd968b607669f9df1cffc31d2b81fe127d7af7c6ff93d9e2307ae8ce",
+          "extracts": [
+            "General tolerances follow ISO 2768-m; tighter +/-0.1 mm or +/-0.02 mm depending on geometry; tightest up to +/-0.02 mm.",
+            "Thin walls: recommended minimum 0.8 mm for metal, 1.5 mm for plastic."
+          ]
+        },
+        {
+          "url": "https://jlccnc.com/help/article/fr4-cnc-machining",
+          "last_updated_on_page": "2025-06-14",
+          "rendered_text_sha256": "fce9f8ed3e1dda8efac41247e9926f3db00a166d96f27ebb5b5c9343d96a6e3b",
+          "extracts": [
+            "Material description and properties of FR-4 epoxy glass cloth laminate only; no FR-4-specific wall, hole or tolerance rule."
+          ]
+        }
+      ],
+      "rules_used": {
+        "wall_absolute_minimum_mm": 1.0,
+        "wall_recommended_mm": 1.5,
+        "wall_basis": "plastic-part values: the pages give no FR-4-specific wall rule, so the plastic class is the applicable published value",
+        "internal_radius_formula": "R = H/10 + 0.5; tool D = H/5 (mm)",
+        "standard_tolerance_mm": 0.1
+      }
+    }
+  ]
+}

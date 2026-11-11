@@ -15,7 +15,9 @@ class FixtureStudyTests(unittest.TestCase):
         self.assertEqual(r['status'],'BLOCKED')
         self.assertFalse(r['digital_fixture_complete'])
         self.assertFalse(r['fresh_native_verified'])
-        self.assertIsNone(r['calculations']['worst_case_registration_margin_mm'])
+        self.assertEqual(r['calculations']['worst_case_registration_margin_mm'],0.03)
+        self.assertFalse(r['completion_criteria']['5_physical_tests']['met'])
+        self.assertTrue(r['blockers'])
         self.assertEqual(r['calculations']['nominal_total_force_at_working_stroke_N'],5)
 
     def test_false_completion_rejected_by_producer(self):
