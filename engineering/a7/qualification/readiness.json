@@ -43,7 +43,7 @@
       "sha256": "5d6559807c678616e66cc18e0e960efdb00959e56611e52a68be0d19855b4941"
     }
   },
-  "plan_sha256": "0ba6d52695e056cd3ec80c0d0a8b2b19552472ee86383ead44739f0a8c4fd8a9",
+  "plan_sha256": "b82df08b101d5d0152159d0a9f6a89612778ff7df0bcf15722734f55b3254c69",
   "procedures": [
     {
       "id": "jack-continuity",
@@ -639,6 +639,29 @@
     "ACCESS_EVIDENCE_HOLD": 16,
     "PHYSICAL_ONLY": 20
   },
+  "state_flags": [
+    {
+      "artifact": "fixture",
+      "flag": "digital_fixture_complete",
+      "value": false,
+      "role": "GATE",
+      "note": "README の完了基準 1–5 がすべて満たされたこと。基準 5（接触・荷重・位置決め・ストローク・損傷の実機試験）は fixture-contact の観測でしか満たせないので、どの手順の前提にもできない。"
+    },
+    {
+      "artifact": "fixture",
+      "flag": "fresh_native_verified",
+      "value": false,
+      "role": "GATE",
+      "note": "治具形状の native 検証。B 面の全突起の高さに出典があることを含み、資料の入手で満たす（手順の観測では満たさない）。"
+    },
+    {
+      "artifact": "fixture",
+      "flag": "digital_criteria_1_to_4_met",
+      "value": false,
+      "role": "INFORMATIONAL",
+      "note": "README の基準 1–4 がデジタルで満たされ、デジタルのブロッカーがないこと（fresh_native_verified を含む）。進捗の表示で、完了フラグでも発注適格性でもない。fixture-contact を始める前提。"
+    }
+  ],
   "optional_variants": {
     "pet": "Q11/Q11a–f: process, copper/vias/coverlay, lamination, force and optical tests remain separate. Reuse pet-fpc.md questions 1–9; not sent.",
     "2hp": "Parked: Q1/Q6 evidence, owner choice, 0.8 mm controller and new routing required."

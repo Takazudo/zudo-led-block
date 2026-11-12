@@ -2,6 +2,28 @@
   "schema": 1,
   "variant": "fr4-3hp",
   "scope": "Workflow F preparation only; no physical observations",
+  "state_flags": [
+    {
+      "artifact": "fixture",
+      "flag": "digital_fixture_complete",
+      "closed_by": [
+        "fixture-contact"
+      ],
+      "note": "README の完了基準 1–5 がすべて満たされたこと。基準 5（接触・荷重・位置決め・ストローク・損傷の実機試験）は fixture-contact の観測でしか満たせないので、どの手順の前提にもできない。"
+    },
+    {
+      "artifact": "fixture",
+      "flag": "fresh_native_verified",
+      "closed_by": [],
+      "note": "治具形状の native 検証。B 面の全突起の高さに出典があることを含み、資料の入手で満たす（手順の観測では満たさない）。"
+    },
+    {
+      "artifact": "fixture",
+      "flag": "digital_criteria_1_to_4_met",
+      "closed_by": [],
+      "note": "README の基準 1–4 がデジタルで満たされ、デジタルのブロッカーがないこと（fresh_native_verified を含む）。進捗の表示で、完了フラグでも発注適格性でもない。fixture-contact を始める前提。"
+    }
+  ],
   "procedures": [
     {
       "id": "jack-continuity",
@@ -39,6 +61,7 @@
         "非通電で実施する（電源・信号を接続しない）",
         "`readiness.json` の identities（基板/実装/回路図/FW/設定/機構/治具/台帳の SHA-256）を run にそのまま写す"
       ],
+      "precondition_states": [],
       "steps": [
         "端子に図面の番号 1〜5 を付け、番号が読める向きで本体を撮影する（どの面から見た番号かも写す）。",
         "無挿入で全10端子対の抵抗を測り、表に記録する。",
@@ -281,6 +304,7 @@
         "非通電で実施する（電源・信号を接続しない）",
         "`readiness.json` の identities（基板/実装/回路図/FW/設定/機構/治具/台帳の SHA-256）を run にそのまま写す"
       ],
+      "precondition_states": [],
       "steps": [
         "本体の座面を定盤に置き、ボアにピンゲージを入れて上端高さを測る。軸高さ = 上端 − ピン径/2。",
         "本体高さ・幅、軸から両側の辺、バレル突出、端子の幅/厚さ/座面からの突出を測る。",
@@ -475,6 +499,7 @@
         "非通電で実施する（電源・信号を接続しない）",
         "`readiness.json` の identities（基板/実装/回路図/FW/設定/機構/治具/台帳の SHA-256）を run にそのまま写す"
       ],
+      "precondition_states": [],
       "steps": [
         "未実装品で 3 位置それぞれの全端子対（1〜4）の抵抗を測る。",
         "実装基板では非通電で、各位置の端子 3–1 と 3–4 の導通を基板上で測る。",
@@ -618,6 +643,7 @@
         "非通電で実施する（電源・信号を接続しない）",
         "`readiness.json` の identities（基板/実装/回路図/FW/設定/機構/治具/台帳の SHA-256）を run にそのまま写す"
       ],
+      "precondition_states": [],
       "steps": [
         "電源ケーブルの自由長をコネクタ嵌合面から嵌合面まで測る（測り方を記録）。",
         "各ケーブルのピン対応を導通で確かめ、`assembly-manifest.json` の pin_map と比べる。",
@@ -791,6 +817,7 @@
         "非通電で実施する（電源・信号を接続しない）",
         "`readiness.json` の identities（基板/実装/回路図/FW/設定/機構/治具/台帳の SHA-256）を run にそのまま写す"
       ],
+      "precondition_states": [],
       "steps": [
         "PMMA の板厚・穴径・後面ポケット深さと位置を測る。",
         "造形部品の寸法と造形条件（材料、ノズル温度、層厚、向き）を記録する。",
@@ -929,7 +956,14 @@
         "`records.json` の owner_prototype_route（対象版・数量・範囲・承認）が記録済み",
         "非通電で実施する（電源・信号を接続しない）",
         "`readiness.json` の identities（基板/実装/回路図/FW/設定/機構/治具/台帳の SHA-256）を run にそのまま写す",
-        "治具の manifest が digital_fixture_complete=true かつ fresh_native_verified=true"
+        "治具の manifest が digital_criteria_1_to_4_met=true（README 基準 1–4 のデジタル進捗。治具の完了フラグではない）"
+      ],
+      "precondition_states": [
+        {
+          "artifact": "fixture",
+          "flag": "digital_criteria_1_to_4_met",
+          "equals": true
+        }
       ],
       "steps": [
         "基板を治具に置き、各プローブ先端と TP の位置ずれを顕微鏡で測る。",
@@ -1068,6 +1102,7 @@
         "通電は owner_prototype_route が許す範囲だけ。初回通電の電流制限値は未決なので、試験前にレビューで決めて conditions に記録する",
         "`readiness.json` の identities（基板/実装/回路図/FW/設定/機構/治具/台帳の SHA-256）を run にそのまま写す"
       ],
+      "precondition_states": [],
       "steps": [
         "書込み後に読み戻し、BIN の SHA と一致するか記録する。",
         "保存された設定（モード・校正値）を読み出して保存する。",
@@ -1220,6 +1255,7 @@
         "通電は owner_prototype_route が許す範囲だけ。初回通電の電流制限値は未決なので、試験前にレビューで決めて conditions に記録する",
         "`readiness.json` の identities（基板/実装/回路図/FW/設定/機構/治具/台帳の SHA-256）を run にそのまま写す"
       ],
+      "precondition_states": [],
       "steps": [
         "電流制限を低く設定して ±12 V を投入し、+5 V・+3V3・VLED を測る。",
         "全消灯・通常点灯・全点灯（51/255 上限）の各状態で ±12 V 電流を記録する。",
@@ -1585,6 +1621,7 @@
         "通電は owner_prototype_route が許す範囲だけ。初回通電の電流制限値は未決なので、試験前にレビューで決めて conditions に記録する",
         "`readiness.json` の identities（基板/実装/回路図/FW/設定/機構/治具/台帳の SHA-256）を run にそのまま写す"
       ],
+      "precondition_states": [],
       "steps": [
         "CV IN に段階電圧を入れ、各点で CV THRU 端の電圧、VDD、ADC 生値を記録する。",
         "上昇・下降の両方向で掃引する。",
@@ -1823,6 +1860,7 @@
         "通電は owner_prototype_route が許す範囲だけ。初回通電の電流制限値は未決なので、試験前にレビューで決めて conditions に記録する",
         "`readiness.json` の identities（基板/実装/回路図/FW/設定/機構/治具/台帳の SHA-256）を run にそのまま写す"
       ],
+      "precondition_states": [],
       "steps": [
         "速い/遅い立上りで ±12 V を投入し、+5 V、+3V3、NRST、LED_EN_N、LED_FAULT_N を同時に記録する。",
         "起動後の設定を読み出し、正しいモードで動くか確認する。",
@@ -2178,6 +2216,7 @@
         "通電は owner_prototype_route が許す範囲だけ。初回通電の電流制限値は未決なので、試験前にレビューで決めて conditions に記録する",
         "`readiness.json` の identities（基板/実装/回路図/FW/設定/機構/治具/台帳の SHA-256）を run にそのまま写す"
       ],
+      "precondition_states": [],
       "steps": [
         "+12 V だけを段階的に落とし、+5 V・+3V3・MCU の状態を記録する。",
         "LED 全点灯の最悪負荷で同じ試験をする。",
@@ -2304,6 +2343,7 @@
         "`readiness.json` の identities（基板/実装/回路図/FW/設定/機構/治具/台帳の SHA-256）を run にそのまま写す",
         "各入力ピンに流す電流は下の絶対最大定格を超えない"
       ],
+      "precondition_states": [],
       "steps": [
         "+12 V のみ、−12 V のみ、片側欠けの組合せで投入し、各レールと逆流電流を測る。",
         "CV 入力に電圧をかけたまま電源を切り、注入電流を測る。"
@@ -2420,6 +2460,7 @@
         "通電は owner_prototype_route が許す範囲だけ。初回通電の電流制限値は未決なので、試験前にレビューで決めて conditions に記録する",
         "`readiness.json` の identities（基板/実装/回路図/FW/設定/機構/治具/台帳の SHA-256）を run にそのまま写す"
       ],
+      "precondition_states": [],
       "steps": [
         "CV 入力の最大/最小、電源投入・遮断時に U7 の入力ピンと電源ピンを同時に測る。",
         "入力と電源の差を計算し、絶対最大と比べる。"
@@ -2661,6 +2702,7 @@
         "`readiness.json` の identities（基板/実装/回路図/FW/設定/機構/治具/台帳の SHA-256）を run にそのまま写す",
         "+3V3 に外部電圧をかける試験は、許容逆電流が決まるまで実施しない"
       ],
+      "precondition_states": [],
       "steps": [
         "+5 V を切った状態で +3V3 側に SWD プローブ等から電圧がかかる場合の電流を測る。",
         "順序と時間を変えて記録する。"
@@ -2746,6 +2788,7 @@
         "`readiness.json` の identities（基板/実装/回路図/FW/設定/機構/治具/台帳の SHA-256）を run にそのまま写す",
         "破損の可能性がある試験なので、どのユニットを使うかを owner_prototype_route の範囲に含める"
       ],
+      "precondition_states": [],
       "steps": [
         "VLED、+5 V、+3V3 の各点で短絡を入れ、電流・温度・復帰を記録する。",
         "TPS2552 のラッチ後、EN の再投入で復帰するか確認する。"
@@ -2859,6 +2902,7 @@
         "`records.json` の owner_prototype_route（対象版・数量・範囲・承認）が記録済み",
         "`readiness.json` の identities（基板/実装/回路図/FW/設定/機構/治具/台帳の SHA-256）を run にそのまま写す"
       ],
+      "precondition_states": [],
       "steps": [
         "各 MLCC 型番を実際の DC 電圧で測る（単品）。",
         "回路のリップルを測る（通電試験は POWER の条件に従う）。"
@@ -2967,6 +3011,7 @@
         "通電は owner_prototype_route が許す範囲だけ。初回通電の電流制限値は未決なので、試験前にレビューで決めて conditions に記録する",
         "`readiness.json` の identities（基板/実装/回路図/FW/設定/機構/治具/台帳の SHA-256）を run にそのまま写す"
       ],
+      "precondition_states": [],
       "steps": [
         "室温を記録し、全点灯（上限 51/255）で温度が安定するまで記録する。",
         "LED 付近、U2、U4、PETG、PMMA の温度を測る。",
@@ -3089,6 +3134,7 @@
         "通電は owner_prototype_route が許す範囲だけ。初回通電の電流制限値は未決なので、試験前にレビューで決めて conditions に記録する",
         "`readiness.json` の identities（基板/実装/回路図/FW/設定/機構/治具/台帳の SHA-256）を run にそのまま写す"
       ],
+      "precondition_states": [],
       "steps": [
         "LED データ送信中に CV_THRU と ADC 値を同期して記録する。",
         "データパターン（全消灯/全点灯/交互）を変えて統計を取る。"
@@ -3179,6 +3225,7 @@
         "`records.json` の owner_prototype_route（対象版・数量・範囲・承認）が記録済み",
         "`readiness.json` の identities（基板/実装/回路図/FW/設定/機構/治具/台帳の SHA-256）を run にそのまま写す"
       ],
+      "precondition_states": [],
       "steps": [
         "幅・高さ・奥行きを測る。",
         "ラックへの挿抜とジャックの挿抜を決めた回数繰り返し、力と損傷を記録する。",
