@@ -1,0 +1,661 @@
+{
+  "schema": 1,
+  "status": "DRY_RUN_NOT_RELEASED",
+  "order_eligibility": "BLOCKED",
+  "modules": 2,
+  "decided_by": "OWNER",
+  "sources": "engineering/a7/jlc-package/sources.json",
+  "ledger_sha256": "6b88cd3edffabb87bec3f28848c0309980c2cd81141cb31c393ec360ee175722",
+  "sources_sha256": "06a02247f1adbd1f00542f2387b2176b1a17a91bf7e67090e60383d0c64d2526",
+  "boards": [
+    {
+      "board": "controller",
+      "pcb": "engineering/a7/electronics/controller/controller.kicad_pcb",
+      "pcb_sha256": "4453f818ede1e6d6c56e45ef43aa6faecb90990f3755f82c6d752258cd4d628e",
+      "per_module": 1,
+      "pcba_quantity": 2,
+      "copper_layers": 4,
+      "thickness_mm": 1.6,
+      "thickness_tolerance": "±10%",
+      "outline_mm": {
+        "x": [
+          0.0,
+          16.2
+        ],
+        "y": [
+          0.0,
+          62.9
+        ],
+        "width": 16.2,
+        "height": 62.9
+      },
+      "copper_finish_in_board_file": null,
+      "gerber_origin": "absolute (page) coordinates",
+      "min_drill_mm": 0.2,
+      "fiducials": [],
+      "board_only_footprints": [],
+      "assembly_sides": [
+        "Bottom",
+        "Top"
+      ],
+      "tht_refs": [
+        "J1",
+        "J2",
+        "J5"
+      ],
+      "smd_count": 56,
+      "bom_lines": 28,
+      "cpl_rows": 59,
+      "centroid_offsets": [
+        {
+          "ref": "J1",
+          "lcsc": "C22355739",
+          "anchor_to_pad_centre_mm": 7.358,
+          "pad_centre_in_footprint_mm": [
+            -0.35,
+            -7.35
+          ]
+        },
+        {
+          "ref": "J2",
+          "lcsc": "C22355739",
+          "anchor_to_pad_centre_mm": 7.358,
+          "pad_centre_in_footprint_mm": [
+            -0.35,
+            -7.35
+          ]
+        },
+        {
+          "ref": "J5",
+          "lcsc": "C122442",
+          "anchor_to_pad_centre_mm": 1.25,
+          "pad_centre_in_footprint_mm": [
+            1.25,
+            -0.0
+          ]
+        },
+        {
+          "ref": "SW1",
+          "lcsc": "C221842",
+          "anchor_to_pad_centre_mm": 0.568,
+          "pad_centre_in_footprint_mm": [
+            0.0,
+            0.568
+          ]
+        }
+      ],
+      "files": [
+        "controller_BOM_DRYRUN.csv",
+        "controller_CPL_DRYRUN.csv"
+      ],
+      "pcba_tier": {
+        "tier": "STANDARD",
+        "reasons": [
+          "parts on both sides (Economic is single-sided placement only)"
+        ],
+        "reasons_ja": [
+          "両面に部品がある（Economic は片面のみ）"
+        ],
+        "single_board_minimum_mm": 70,
+        "single_board_fits": false,
+        "edge_rails_and_fiducials_required": true
+      }
+    },
+    {
+      "board": "led_leaf",
+      "pcb": "engineering/a5/electronics/native/led_leaf/led_leaf.kicad_pcb",
+      "pcb_sha256": "6244280cec3efe00ca31d9c5c8878f3ed6eb59a1c6bd4e933beffedd49511df3",
+      "per_module": 2,
+      "pcba_quantity": 4,
+      "copper_layers": 2,
+      "thickness_mm": 0.6,
+      "thickness_tolerance": "±0.1 mm",
+      "outline_mm": {
+        "x": [
+          0.0,
+          9.0
+        ],
+        "y": [
+          0.0,
+          82.5
+        ],
+        "width": 9.0,
+        "height": 82.5
+      },
+      "copper_finish_in_board_file": null,
+      "gerber_origin": "absolute (page) coordinates",
+      "min_drill_mm": 0.3,
+      "fiducials": [],
+      "board_only_footprints": [],
+      "assembly_sides": [
+        "Top"
+      ],
+      "tht_refs": [],
+      "smd_count": 10,
+      "bom_lines": 3,
+      "cpl_rows": 10,
+      "centroid_offsets": [],
+      "files": [
+        "led_leaf_BOM_DRYRUN.csv",
+        "led_leaf_CPL_DRYRUN.csv"
+      ],
+      "pcba_tier": {
+        "tier": "STANDARD",
+        "reasons": [
+          "C52917434 listed as Standard-only PCBA in the 2026-11-06 A5 JLC audit",
+          "thickness 0.6 mm (Economic takes 0.8–1.6 mm)"
+        ],
+        "reasons_ja": [
+          "C52917434 は 2026-11-06 の A5 JLC 調査で Standard のみ",
+          "板厚 0.6 mm（Economic は 0.8–1.6 mm）"
+        ],
+        "single_board_minimum_mm": 70,
+        "single_board_fits": false,
+        "edge_rails_and_fiducials_required": true
+      }
+    },
+    {
+      "board": "power_adapter",
+      "pcb": "engineering/a5/electronics/native/power_adapter/power_adapter.kicad_pcb",
+      "pcb_sha256": "b0f071f2730afdfd3d29de2176b1cce5f90b0c0726d14fd15501e27f90d95187",
+      "per_module": 1,
+      "pcba_quantity": 2,
+      "copper_layers": 2,
+      "thickness_mm": 1.6,
+      "thickness_tolerance": "±10%",
+      "outline_mm": {
+        "x": [
+          0.0,
+          8.8
+        ],
+        "y": [
+          0.0,
+          30.0
+        ],
+        "width": 8.8,
+        "height": 30.0
+      },
+      "copper_finish_in_board_file": null,
+      "gerber_origin": "absolute (page) coordinates",
+      "min_drill_mm": 0.3,
+      "fiducials": [],
+      "board_only_footprints": [
+        "H1"
+      ],
+      "assembly_sides": [
+        "Top"
+      ],
+      "tht_refs": [
+        "J1",
+        "J2"
+      ],
+      "smd_count": 0,
+      "bom_lines": 2,
+      "cpl_rows": 2,
+      "centroid_offsets": [
+        {
+          "ref": "J1",
+          "lcsc": "C5665",
+          "anchor_to_pad_centre_mm": 5.236,
+          "pad_centre_in_footprint_mm": [
+            1.27,
+            -5.08
+          ]
+        },
+        {
+          "ref": "J2",
+          "lcsc": "C122442",
+          "anchor_to_pad_centre_mm": 1.25,
+          "pad_centre_in_footprint_mm": [
+            1.25,
+            -0.0
+          ]
+        }
+      ],
+      "files": [
+        "power_adapter_BOM_DRYRUN.csv",
+        "power_adapter_CPL_DRYRUN.csv"
+      ],
+      "pcba_tier": {
+        "tier": "ECONOMIC",
+        "reasons": [],
+        "reasons_ja": [],
+        "single_board_minimum_mm": 10,
+        "single_board_fits": false,
+        "edge_rails_and_fiducials_required": false
+      }
+    }
+  ],
+  "parts": [
+    {
+      "lcsc": "C122442",
+      "mpn": "530470310",
+      "pieces_required": 4,
+      "library": "EXTENDED",
+      "in_stock": 21090,
+      "preorder_available": 20494,
+      "route": "JLC_STOCK",
+      "observed_at": "2026-11-12T10:35:07Z"
+    },
+    {
+      "lcsc": "C12891",
+      "mpn": "CL31A226KAHNNNE",
+      "pieces_required": 4,
+      "library": "BASIC",
+      "in_stock": 2515861,
+      "preorder_available": 2105398,
+      "route": "JLC_STOCK",
+      "observed_at": "2026-11-12T10:35:10Z"
+    },
+    {
+      "lcsc": "C134375",
+      "mpn": "BAS70-04-7-F",
+      "pieces_required": 2,
+      "library": "EXTENDED",
+      "in_stock": 247,
+      "preorder_available": 124,
+      "route": "JLC_STOCK",
+      "observed_at": "2026-11-12T10:35:13Z"
+    },
+    {
+      "lcsc": "C140331",
+      "mpn": "TPS2552DBVR-1",
+      "pieces_required": 2,
+      "library": "EXTENDED",
+      "in_stock": 2228,
+      "preorder_available": 2219,
+      "route": "JLC_STOCK",
+      "observed_at": "2026-11-12T10:35:15Z"
+    },
+    {
+      "lcsc": "C14663",
+      "mpn": "CC0603KRX7R9BB104",
+      "pieces_required": 32,
+      "library": "BASIC",
+      "in_stock": 36130749,
+      "preorder_available": 18269416,
+      "route": "JLC_STOCK",
+      "observed_at": "2026-11-12T10:35:18Z"
+    },
+    {
+      "lcsc": "C15741",
+      "mpn": "SN74LVC2T45DCUR",
+      "pieces_required": 2,
+      "library": "EXTENDED",
+      "in_stock": 85166,
+      "preorder_available": 84012,
+      "route": "JLC_STOCK",
+      "observed_at": "2026-11-12T10:35:20Z"
+    },
+    {
+      "lcsc": "C15850",
+      "mpn": "CL21A106KAYNNNE",
+      "pieces_required": 6,
+      "library": "BASIC",
+      "in_stock": 8516270,
+      "preorder_available": 6708284,
+      "route": "JLC_STOCK",
+      "observed_at": "2026-11-12T10:35:23Z"
+    },
+    {
+      "lcsc": "C160404",
+      "mpn": "SM04B-SRSS-TB(LF)(SN)",
+      "pieces_required": 10,
+      "library": "EXTENDED",
+      "in_stock": 9798,
+      "preorder_available": 4021,
+      "route": "JLC_STOCK",
+      "observed_at": "2026-11-12T10:35:25Z"
+    },
+    {
+      "lcsc": "C19666",
+      "mpn": "CL10A475KO8NNNC",
+      "pieces_required": 6,
+      "library": "BASIC",
+      "in_stock": 3568082,
+      "preorder_available": 2787013,
+      "route": "JLC_STOCK",
+      "observed_at": "2026-11-12T10:35:28Z"
+    },
+    {
+      "lcsc": "C20526",
+      "mpn": "MMBT3904(RANGE:100-300)",
+      "pieces_required": 2,
+      "library": "BASIC",
+      "in_stock": 4183780,
+      "preorder_available": 4065649,
+      "route": "JLC_STOCK",
+      "observed_at": "2026-11-12T10:35:30Z"
+    },
+    {
+      "lcsc": "C2071056",
+      "mpn": "AP63205WU-7",
+      "pieces_required": 2,
+      "library": "EXTENDED",
+      "in_stock": 39904,
+      "preorder_available": 37005,
+      "route": "JLC_STOCK",
+      "observed_at": "2026-11-12T10:35:32Z"
+    },
+    {
+      "lcsc": "C21190",
+      "mpn": "0603WAF1001T5E",
+      "pieces_required": 6,
+      "library": "BASIC",
+      "in_stock": 28882373,
+      "preorder_available": 22227859,
+      "route": "JLC_STOCK",
+      "observed_at": "2026-11-12T10:35:35Z"
+    },
+    {
+      "lcsc": "C221351",
+      "mpn": "OPA197IDBVR",
+      "pieces_required": 2,
+      "library": "EXTENDED",
+      "in_stock": 76873,
+      "preorder_available": 76582,
+      "route": "JLC_STOCK",
+      "observed_at": "2026-11-12T10:35:37Z"
+    },
+    {
+      "lcsc": "C221842",
+      "mpn": "PCM13SMTR",
+      "pieces_required": 2,
+      "library": "EXTENDED",
+      "in_stock": 0,
+      "preorder_available": 0,
+      "route": "JLC_PREORDER_OR_GLOBAL_SOURCING_BLOCKED",
+      "observed_at": "2026-11-12T10:35:39Z"
+    },
+    {
+      "lcsc": "C22355739",
+      "mpn": "PJ-324M",
+      "pieces_required": 4,
+      "library": "EXTENDED",
+      "in_stock": 5954,
+      "preorder_available": 5802,
+      "route": "JLC_STOCK",
+      "observed_at": "2026-11-12T10:35:41Z"
+    },
+    {
+      "lcsc": "C23138",
+      "mpn": "0603WAF3300T5E",
+      "pieces_required": 6,
+      "library": "BASIC",
+      "in_stock": 2416605,
+      "preorder_available": 1796477,
+      "route": "JLC_STOCK",
+      "observed_at": "2026-11-12T10:35:44Z"
+    },
+    {
+      "lcsc": "C23162",
+      "mpn": "0603WAF4701T5E",
+      "pieces_required": 2,
+      "library": "BASIC",
+      "in_stock": 14660825,
+      "preorder_available": 11419063,
+      "route": "JLC_STOCK",
+      "observed_at": "2026-11-12T10:35:46Z"
+    },
+    {
+      "lcsc": "C23231",
+      "mpn": "0603WAF6802T5E",
+      "pieces_required": 2,
+      "library": "BASIC",
+      "in_stock": 787855,
+      "preorder_available": 687058,
+      "route": "JLC_STOCK",
+      "observed_at": "2026-11-12T10:35:49Z"
+    },
+    {
+      "lcsc": "C23254",
+      "mpn": "0603WAF8202T5E",
+      "pieces_required": 8,
+      "library": "BASIC",
+      "in_stock": 933289,
+      "preorder_available": 868318,
+      "route": "JLC_STOCK",
+      "observed_at": "2026-11-12T10:35:51Z"
+    },
+    {
+      "lcsc": "C25803",
+      "mpn": "0603WAF1003T5E",
+      "pieces_required": 12,
+      "library": "BASIC",
+      "in_stock": 15062647,
+      "preorder_available": 12699495,
+      "route": "JLC_STOCK",
+      "observed_at": "2026-11-12T10:35:53Z"
+    },
+    {
+      "lcsc": "C25804",
+      "mpn": "0603WAF1002T5E",
+      "pieces_required": 10,
+      "library": "BASIC",
+      "in_stock": 42898836,
+      "preorder_available": 32419078,
+      "route": "JLC_STOCK",
+      "observed_at": "2026-11-12T10:35:56Z"
+    },
+    {
+      "lcsc": "C398363",
+      "mpn": "TLV9001IDBVR",
+      "pieces_required": 2,
+      "library": "EXTENDED",
+      "in_stock": 47115,
+      "preorder_available": 45780,
+      "route": "JLC_STOCK",
+      "observed_at": "2026-11-12T10:35:58Z"
+    },
+    {
+      "lcsc": "C404027",
+      "mpn": "TLV75533PDBVR",
+      "pieces_required": 2,
+      "library": "EXTENDED",
+      "in_stock": 75642,
+      "preorder_available": 74564,
+      "route": "JLC_STOCK",
+      "observed_at": "2026-11-12T10:36:00Z"
+    },
+    {
+      "lcsc": "C50704",
+      "mpn": "PMEG4010CEJ,115",
+      "pieces_required": 4,
+      "library": "EXTENDED",
+      "in_stock": 12701,
+      "preorder_available": 12534,
+      "route": "JLC_STOCK",
+      "observed_at": "2026-11-12T10:36:03Z"
+    },
+    {
+      "lcsc": "C5270180",
+      "mpn": "STM32G031G8U6TR",
+      "pieces_required": 2,
+      "library": "EXTENDED",
+      "in_stock": 4507,
+      "preorder_available": 3777,
+      "route": "JLC_STOCK",
+      "observed_at": "2026-11-12T10:36:05Z"
+    },
+    {
+      "lcsc": "C52917434",
+      "mpn": "WS2812B-2020-V6",
+      "pieces_required": 16,
+      "library": "EXTENDED",
+      "in_stock": 879804,
+      "preorder_available": 857883,
+      "route": "JLC_STOCK",
+      "observed_at": "2026-11-12T10:36:07Z"
+    },
+    {
+      "lcsc": "C5665",
+      "mpn": "2.54-2*5P",
+      "pieces_required": 2,
+      "library": "EXTENDED",
+      "in_stock": 131245,
+      "preorder_available": 124613,
+      "route": "JLC_STOCK",
+      "observed_at": "2026-11-12T10:36:09Z"
+    },
+    {
+      "lcsc": "C57112",
+      "mpn": "0603B103K500NT",
+      "pieces_required": 2,
+      "library": "BASIC",
+      "in_stock": 5337711,
+      "preorder_available": 3755418,
+      "route": "JLC_STOCK",
+      "observed_at": "2026-11-12T10:36:12Z"
+    },
+    {
+      "lcsc": "C694586",
+      "mpn": "SPM4020T-4R7M-LR",
+      "pieces_required": 2,
+      "library": "EXTENDED",
+      "in_stock": 686,
+      "preorder_available": 678,
+      "route": "JLC_STOCK",
+      "observed_at": "2026-11-12T10:36:14Z"
+    },
+    {
+      "lcsc": "C7250",
+      "mpn": "0603WAF1005T5E",
+      "pieces_required": 4,
+      "library": "BASIC",
+      "in_stock": 795181,
+      "preorder_available": 674710,
+      "route": "JLC_STOCK",
+      "observed_at": "2026-11-12T10:36:18Z"
+    }
+  ],
+  "part_counts": {
+    "BASIC": 14,
+    "EXTENDED": 16
+  },
+  "route_counts": {
+    "JLC_PREORDER_OR_GLOBAL_SOURCING_BLOCKED": 1,
+    "JLC_STOCK": 29
+  },
+  "blockers": [
+    {
+      "id": "order-gate-blocked",
+      "board": null,
+      "text": "Readiness order gate is BLOCKED; this package is a dry run and must not be uploaded or ordered.",
+      "ja": "readiness の発注ゲートが BLOCKED。この一式は予行で、アップロード・発注しない。"
+    },
+    {
+      "id": "controller-needs-standard-pcba",
+      "board": "controller",
+      "text": "Needs Standard PCBA: parts on both sides (Economic is single-sided placement only). Standard PCBA requires edge rails and fiducials.",
+      "ja": "Standard PCBA が必要（両面に部品がある（Economic は片面のみ））。Standard PCBA は捨て基板（レール）とフィデューシャルが必須。"
+    },
+    {
+      "id": "controller-below-pcba-minimum-size",
+      "board": "controller",
+      "text": "Board is 16.2 × 62.9 mm; Standard PCBA takes single boards from 70 × 70 mm. A panel is needed with edge rails and no panel exists in the repository.",
+      "ja": "基板は 16.2 × 62.9 mm。Standard PCBA の単品は 70 × 70 mm から。面付け（レール付き）が必要で、リポジトリに面付けデータはない。JLC に面付けを頼むか、面付けデータを作るかの判断が要る。"
+    },
+    {
+      "id": "controller-no-fiducials",
+      "board": "controller",
+      "text": "No fiducials on the board; Standard PCBA needs fiducials. JLC panel guidance places 1 mm fiducials on 5 mm tooling edges, so a panel can carry them without changing the frozen board.",
+      "ja": "基板にフィデューシャルがない。Standard PCBA には必須。JLC の面付け指針では 5 mm の捨て基板に 1 mm のフィデューシャルを置くので、凍結した基板を変えずに面付け側で用意できる。"
+    },
+    {
+      "id": "controller-finish-not-specified",
+      "board": "controller",
+      "text": "Surface finish is not recorded in the board file; it must be chosen on the order form (Standard PCBA does not limit the finish).",
+      "ja": "表面処理が基板ファイルに記録されていない。注文画面で選ぶ（Standard PCBA は制限なし）。"
+    },
+    {
+      "id": "controller-centroid-offsets",
+      "board": "controller",
+      "text": "4 parts have a footprint anchor more than 0.05 mm from their pad centre (J1, J2, J5, SW1); JLC places by component centroid, so check each in the JLC placement preview.",
+      "ja": "J1, J2, J5, SW1 はフットプリント原点がパッド中心から 0.05 mm 以上離れている。JLC は部品中心で置くので、JLC の配置プレビューで 1 点ずつ確かめる。"
+    },
+    {
+      "id": "controller-rotation-unverified",
+      "board": "controller",
+      "text": "Rotations are KiCad footprint angles; JLC library orientation offsets have not been checked in the JLC placement preview (including bottom-side parts).",
+      "ja": "回転角は KiCad のフットプリント角度のまま。JLC ライブラリとの向きの差は JLC の配置プレビューで未確認（B 面の部品を含む）。"
+    },
+    {
+      "id": "led_leaf-needs-standard-pcba",
+      "board": "led_leaf",
+      "text": "Needs Standard PCBA: C52917434 listed as Standard-only PCBA in the 2026-11-06 A5 JLC audit; thickness 0.6 mm (Economic takes 0.8–1.6 mm). Standard PCBA requires edge rails and fiducials.",
+      "ja": "Standard PCBA が必要（C52917434 は 2026-11-06 の A5 JLC 調査で Standard のみ、板厚 0.6 mm（Economic は 0.8–1.6 mm））。Standard PCBA は捨て基板（レール）とフィデューシャルが必須。"
+    },
+    {
+      "id": "led_leaf-below-pcba-minimum-size",
+      "board": "led_leaf",
+      "text": "Board is 9 × 82.5 mm; Standard PCBA takes single boards from 70 × 70 mm. A panel is needed with edge rails and no panel exists in the repository.",
+      "ja": "基板は 9 × 82.5 mm。Standard PCBA の単品は 70 × 70 mm から。面付け（レール付き）が必要で、リポジトリに面付けデータはない。JLC に面付けを頼むか、面付けデータを作るかの判断が要る。"
+    },
+    {
+      "id": "led_leaf-no-fiducials",
+      "board": "led_leaf",
+      "text": "No fiducials on the board; Standard PCBA needs fiducials. JLC panel guidance places 1 mm fiducials on 5 mm tooling edges, so a panel can carry them without changing the frozen board.",
+      "ja": "基板にフィデューシャルがない。Standard PCBA には必須。JLC の面付け指針では 5 mm の捨て基板に 1 mm のフィデューシャルを置くので、凍結した基板を変えずに面付け側で用意できる。"
+    },
+    {
+      "id": "led_leaf-finish-not-specified",
+      "board": "led_leaf",
+      "text": "Surface finish is not recorded in the board file; it must be chosen on the order form (Standard PCBA does not limit the finish).",
+      "ja": "表面処理が基板ファイルに記録されていない。注文画面で選ぶ（Standard PCBA は制限なし）。"
+    },
+    {
+      "id": "led_leaf-rotation-unverified",
+      "board": "led_leaf",
+      "text": "Rotations are KiCad footprint angles; JLC library orientation offsets have not been checked in the JLC placement preview.",
+      "ja": "回転角は KiCad のフットプリント角度のまま。JLC ライブラリとの向きの差は JLC の配置プレビューで未確認。"
+    },
+    {
+      "id": "power_adapter-below-pcba-minimum-size",
+      "board": "power_adapter",
+      "text": "Board is 8.8 × 30 mm; Economic PCBA takes single boards from 10 × 10 mm. A panel is needed and no panel exists in the repository.",
+      "ja": "基板は 8.8 × 30 mm。Economic PCBA の単品は 10 × 10 mm から。面付けが必要で、リポジトリに面付けデータはない。JLC に面付けを頼むか、面付けデータを作るかの判断が要る。"
+    },
+    {
+      "id": "power_adapter-finish-not-specified",
+      "board": "power_adapter",
+      "text": "Surface finish is not recorded in the board file; it must be chosen on the order form (the Economic table lists HASL or ENIG for 1.6 mm green).",
+      "ja": "表面処理が基板ファイルに記録されていない。注文画面で選ぶ（Economic の 1.6 mm 緑は HASL か ENIG）。"
+    },
+    {
+      "id": "power_adapter-centroid-offsets",
+      "board": "power_adapter",
+      "text": "2 parts have a footprint anchor more than 0.05 mm from their pad centre (J1, J2); JLC places by component centroid, so check each in the JLC placement preview.",
+      "ja": "J1, J2 はフットプリント原点がパッド中心から 0.05 mm 以上離れている。JLC は部品中心で置くので、JLC の配置プレビューで 1 点ずつ確かめる。"
+    },
+    {
+      "id": "power_adapter-rotation-unverified",
+      "board": "power_adapter",
+      "text": "Rotations are KiCad footprint angles; JLC library orientation offsets have not been checked in the JLC placement preview.",
+      "ja": "回転角は KiCad のフットプリント角度のまま。JLC ライブラリとの向きの差は JLC の配置プレビューで未確認。"
+    },
+    {
+      "id": "part-C221842-not-in-stock",
+      "board": null,
+      "text": "PCM13SMTR (C221842): need 2, JLC in-stock 0, pre-order available 0 at 2026-11-12T10:35:39Z.",
+      "ja": "PCM13SMTR（C221842）: 必要 2 個に対し、2026-11-12T10:35:39Z の JLC 在庫 0・予約可能数 0。"
+    },
+    {
+      "id": "leaf-thickness-not-1.6",
+      "board": "led_leaf",
+      "text": "The LED leaf board file is 0.6 mm FR-4 (A5 geometry), not 1.6 mm; its JLC tolerance is ±0.1 mm, not ±10%.",
+      "ja": "LED リーフの基板ファイルは 0.6 mm の FR-4（A5 の寸法）で 1.6 mm ではない。JLC の公差は ±10% ではなく ±0.1 mm。"
+    },
+    {
+      "id": "pcb-fabrication-quantity-not-sourced",
+      "board": null,
+      "text": "The minimum bare-PCB quantity JLC fabricates per design was not read; the PCBA quantity (2 controller, 4 leaf, 2 adapter) is entered separately.",
+      "ja": "JLC が 1 設計あたり製造する基板の最小枚数は未取得。PCBA の数量（コントローラー 2・リーフ 4・電源アダプタ 2）とは別に入力する。"
+    },
+    {
+      "id": "physical-jack-switch-qualification",
+      "board": "controller",
+      "text": "PJ-324M terminal 4/5 function must be confirmed by continuity on a received part before any PCB order (procurement blocker jack-switch-qualification).",
+      "ja": "PJ-324M の端子 4/5 の機能は、PCB を発注する前に入荷した実物の導通で確かめる（調達台帳の jack-switch-qualification）。"
+    }
+  ]
+}

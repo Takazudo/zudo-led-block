@@ -56,7 +56,7 @@ class LedgerTests(unittest.TestCase):
  def test_owner_order_quantity_drives_the_order_plan(self):
   plan=self.report['order_plan']
   self.assertEqual((plan['modules'],plan['decided_by']),(2,'OWNER'))
-  self.assertEqual(plan['pcba_minimum_boards']['status'],'OWNER_REPORTED')
+  self.assertEqual(plan['pcba_minimum_boards']['status'],'SOURCED')
   self.assertEqual(plan['sourcing_preference']['status'],'PENDING_OWNER_CONFIRMATION')
   self.assertEqual([(b['board'],b['boards_needed']) for b in plan['boards']],[('controller',2),('led_leaf',4),('power_adapter',2)])
   self.assertTrue(plan['attrition'].startswith('NOT_SOURCED'))

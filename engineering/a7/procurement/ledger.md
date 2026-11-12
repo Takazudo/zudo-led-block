@@ -2,11 +2,11 @@
 
 自動生成。**製造承認・発注用ファイルではありません。** C221842 は 2026-11-09T09:18:55Z の JLC 観測で在庫 0・予約可能数 0・MOQ 3・包装数 3500。2026-11-12T08:57:07Z の JLC 掲載では購入可（Extended）・予約注文の最小 3・予約可能数 0（項目の意味はこちらの解釈）で、JLC 在庫の数値は掲載データにありませんでした。価格は通貨不明の段階価格だけです。確保済み在庫ではなく、納期・実装受入は未取得です。他の部品の現在の商取引条件も未取得で、過去の A5 価格を現在値として再掲しません。
 
-台帳 SHA-256: `a6850b34addb1294b83b0915492a0a5e56fbc5e32b505cf29b546aeb03079a88`。71 配置 / 81 実装点 / 台。
+台帳 SHA-256: `6b88cd3edffabb87bec3f28848c0309980c2cd81141cb31c393ec360ee175722`。71 配置 / 81 実装点 / 台。
 
 ## 最初の発注数量: 2 台（オーナーの判断）
 
-オーナーの言葉: 「JLCPCB accept at least 2 PCBA, so we will make 2 units first」（`engineering/a7/procurement/owner-decisions.json`）。JLC の PCBA 最小 2 枚は OWNER_REPORTED（JLC の公開条件では未確認）。この数量は発注・試作ルート・製造リリースの承認ではありません。
+オーナーの言葉: 「JLCPCB accept at least 2 PCBA, so we will make 2 units first」（`engineering/a7/procurement/owner-decisions.json`）。JLC の PCBA 最小 2 枚は SOURCED（JLC の公開能力表で確認済み）。この数量は発注・試作ルート・製造リリースの承認ではありません。
 
 必要枚数: controller 2 枚、led_leaf 4 枚、power_adapter 2 枚。PCB 製造の最小枚数と JLC のロス分（attrition）は未取得で、下の数に上乗せしていません。
 

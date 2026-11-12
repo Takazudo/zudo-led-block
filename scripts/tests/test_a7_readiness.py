@@ -245,7 +245,7 @@ class ReadinessTests(unittest.TestCase):
         page = m.checklist(self.plan, report)
         self.assertIn('## まとめて答えられる判断（14 件）', page)
         self.assertIn('## 回答済みの判断（1 件）', page)
-        self.assertIn('2 台分（オーナー報告の JLC PCBA 最小、未確認）（オーナーの回答、`assembly:order-quantity`）', page)
+        self.assertIn('2 台分（JLC の PCBA 最小 2 枚）（オーナーの回答、`assembly:order-quantity`）', page)
         self.assertNotIn('### 2. 最初の発注数量', page)
         self.assertIn('## 資料・回答待ちのゲート（14 件）', page)
         self.assertLess(page.index('`owner_prototype_route`（PCB 発注の前）'), page.index('`manufacturing_release`（製造リリースのとき）'))
