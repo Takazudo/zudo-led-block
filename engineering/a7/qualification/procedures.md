@@ -17,8 +17,8 @@
 | 生成物 | フラグ | 現在値 | 役割 | 満たす手順 | 説明 |
 |---|---|---|---|---|---|
 | fixture | `digital_fixture_complete` | `false` | ゲート | fixture-contact | README の完了基準 1–5 がすべて満たされたこと。基準 5（接触・荷重・位置決め・ストローク・損傷の実機試験）は fixture-contact の観測でしか満たせないので、どの手順の前提にもできない。 |
-| fixture | `fresh_native_verified` | `false` | ゲート | —（デジタル生成物） | 治具形状の native 検証。B 面の全突起の高さに出典があることを含み、資料の入手で満たす（手順の観測では満たさない）。 |
-| fixture | `digital_criteria_1_to_4_met` | `false` | 参考のみ | —（デジタル生成物） | README の基準 1–4 がデジタルで満たされ、デジタルのブロッカーがないこと（fresh_native_verified を含む）。進捗の表示で、完了フラグでも発注適格性でもない。fixture-contact を始める前提。 |
+| fixture | `fresh_native_verified` | `true` | ゲート | —（デジタル生成物） | 治具形状の native 検証。B 面の全突起の高さに出典があることを含み、資料の入手で満たす（手順の観測では満たさない）。 |
+| fixture | `digital_criteria_1_to_4_met` | `true` | 参考のみ | —（デジタル生成物） | README の基準 1–4 がデジタルで満たされ、デジタルのブロッカーがないこと（fresh_native_verified を含む）。進捗の表示で、完了フラグでも発注適格性でもない。fixture-contact を始める前提。 |
 
 ## 未実施の手順
 
@@ -1194,7 +1194,6 @@
 ## 現在のブロッカー
 
 - fixture digital design incomplete or unverified
-- fixture: unresolved preparation blockers
 - assembly_manifest: supply-observations: Current stock, price, MOQ, packaging, lead time and assembly applicability not obtained for any line except the dated C221842 zero-stock observation; stock never reserved.
 - assembly_manifest: order-quantity: No agreed order quantity; 1/10/100 are comparison scenarios only, so no supply observation can be judged available for a proposed order.
 - assembly_manifest: switch-supply: PCM13SMTR (C221842) had JLC stock 0 / presale 0 at 2026-11-09; wait, buy elsewhere, or accept a reviewed alternate with its own contact table and fit review.

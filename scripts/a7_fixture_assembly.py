@@ -133,7 +133,7 @@ def build(relief, pads, geometry, rl):
     contacts = relief['holddown']['contacts_board_mm']
     add('pressure_plate', 'plate', _plate(cq, pr['outline_board_mm'], q0, q1, [notch_w],
                                           [(g['board_xy_mm'], pr['guide_hole_diameter_mm']) for g in guides]
-                                          + [(c, R['contact_diameter_mm']) for c in contacts]))
+                                          + [(c, relief['holddown']['plunger_body_diameter_mm']) for c in contacts]))
 
     # plate stack hardware (threads at major diameter)
     for i, xy in enumerate(fasteners, 1):
@@ -147,18 +147,19 @@ def build(relief, pads, geometry, rl):
         add(f'D{i} dowel 2x16', 'hardware', _cyl(cq, xy, dd, p0, p0 + 16.0))
     for q in sc['datum_pins']:
         add(f"{q['id']} datum pin 2x6", 'hardware', _cyl(cq, q['board_xy_mm'], pin_d, c0, c1 + R['datum_pin_height_above_carrier_mm']))
-    g_top = st['guide_standoff_top']
+    g_top = st['stop_top']
     for g in guides:
         xy = g['board_xy_mm']
         add(f"{g['id']} M3x8 socket head screw", 'hardware', _cyl(cq, xy, 3.0, c0, c1 + 3).fuse(_cyl(cq, xy, SHCS_HEAD_MAX, c0 - 3, c0)))
-        add(f"{g['id']} M3 F-F hex standoff {g_top - c1:g}", 'hardware', _hex(cq, xy, 5.5, c1, g_top, 3.0))
-        add(f"{g['id']} M3 washer DIN 9021", 'hardware', _tube(cq, xy, 9.0, 3.2, g_top, g_top + 0.8))
-        add(f"{g['id']} M3x6 socket head screw", 'hardware', _cyl(cq, xy, 3.0, g_top + 0.8 - 6, g_top + 0.8).fuse(_cyl(cq, xy, SHCS_HEAD_MAX, g_top + 0.8, g_top + 3.8)))
-        add(f"{g['id']} compression spring envelope", 'hardware', _tube(cq, xy, R['spring_outer_diameter_max_mm'], 6.6, q1, g_top))
+        add(f"{g['id']} M3 F-F hex standoff {g_top - c1:g} (stop)", 'hardware', _hex(cq, xy, 5.5, c1, g_top, 3.0))
+        # plate screw: 8 mm under the head from the plate top, ending 1 mm above the carrier screw tip
+        add(f"{g['id']} M3x8 socket head screw (plate)", 'hardware', _cyl(cq, xy, 3.0, q1 - 8, q1).fuse(_cyl(cq, xy, SHCS_HEAD_MAX, q1, q1 + 3.0)))
+    hd = relief['holddown']
+    pl = hd['plunger_candidate']
+    body_end = rl.BOARD_THICKNESS + pl['stroke_mm'] - hd['plunger_compression_mm']['nominal']  # nominal board, nominal compression
     for i, c in enumerate(contacts, 1):
-        add(f'C{i} M2x8 nylon contact screw', 'hardware', _cyl(cq, c, 2.0, rl.BOARD_THICKNESS, rl.BOARD_THICKNESS + 8).fuse(
-            _cyl(cq, c, 4.0, rl.BOARD_THICKNESS + 8, rl.BOARD_THICKNESS + 9.3)))
-        add(f'C{i} M2 nylon nut', 'hardware', _hex(cq, c, 4.0, q1, q1 + 1.6, 2.0))
+        add(f"C{i} {pl['mpn']} POM thrust pin", 'hardware', _cyl(cq, c, pl['pin_diameter_mm'], rl.BOARD_THICKNESS, body_end))
+        add(f"C{i} {pl['mpn']} steel sleeve", 'hardware', _cyl(cq, c, pl['body_diameter_mm'], body_end, body_end + pl['length_mm']))
 
     # receptacles and probes (probes compressed to the working stroke against the B face)
     top, bottom = stroke['receptacle_top_z_mm'], stroke['receptacle_bottom_z_mm']
@@ -192,15 +193,15 @@ CLEARANCE_PAIRS = [
     ('probes and receptacles to support carrier', lambda n, g: g == 'probe', lambda n, g: n == 'support_carrier'),
     ('receptacle tails to base plate', lambda n, g: 'receptacle' in n, lambda n, g: n == 'base_plate'),
     ('F-side bodies to pressure plate', lambda n, g: 'F-side' in n, lambda n, g: n == 'pressure_plate'),
-    ('F-side bodies to contact screws', lambda n, g: 'F-side' in n, lambda n, g: 'contact screw' in n),
-    ('board to guide standoffs and springs', lambda n, g: g == 'board', lambda n, g: 'G' in n.split()[0] and ('standoff' in n or 'spring' in n)),
-    ('metal hardware to probes and receptacles', lambda n, g: g == 'hardware' and 'nylon' not in n, lambda n, g: g == 'probe'),
+    ('F-side bodies to plunger pins and sleeves', lambda n, g: 'F-side' in n, lambda n, g: 'thrust pin' in n or 'sleeve' in n),
+    ('board to the stop standoffs', lambda n, g: g == 'board', lambda n, g: 'G' in n.split()[0] and 'standoff' in n),
+    ('metal hardware to probes and receptacles', lambda n, g: g == 'hardware' and 'POM' not in n, lambda n, g: g == 'probe'),
 ]
 
 
 DESIGNED_CONTACTS = [
     ('board B face seats on the support carrier', lambda n: n == 'controller board', lambda n: n == 'support_carrier'),
-    ('nylon contact on the F face', lambda n: n == 'controller board', lambda n: 'contact screw' in n),
+    ('plunger POM pin on the F face', lambda n: n == 'controller board', lambda n: 'thrust pin' in n),
     ('probe tip on its test pad (working stroke)', lambda n: n == 'controller board', lambda n: 'GKS-050' in n),
     ('board edge on a datum pin', lambda n: n == 'controller board', lambda n: 'datum pin' in n),
 ]

@@ -43,7 +43,7 @@
     },
     {
       "id": "pressure-plate",
-      "description": "Machined FR-4 pressure plate 37.2 x 10.5 x 3 mm: J5 notch (radius 0.8 mm), 2 guide holes 6.6 mm, 3 M2 tapped holes (1.6 mm drill)",
+      "description": "Machined FR-4 pressure plate 37.2 x 15.5 x 6 mm (rigid): J5 notch (internal radius 1.1 mm), 2 stop holes 3.4 mm (G1, G2), 2 M4 tapped holes (3.3 mm drill) for the hold-down plungers",
       "quantity": 1,
       "manufacturer": null,
       "mpn": null,
@@ -123,17 +123,17 @@
       "source": "fixture-assembly.step"
     },
     {
-      "id": "guide-standoffs",
-      "description": "M3 hex standoffs female-female 20 mm, 5.5 mm across flats, 7 mm thread each end, on the carrier top (G1, G2), fixed by M3 x 8 socket head screws from below",
+      "id": "stop-standoffs",
+      "description": "M3 hex standoffs female-female 6 mm, 5.5 mm across flats, on the carrier top (G1, G2) as hard stops for the pressure plate (top at 6.0 mm above the carrier, length +/-0.05 mm acceptance), fixed by M3 x 8 socket head screws from below",
       "quantity": 2,
       "manufacturer": null,
       "mpn": null,
       "status": "REQUIRED_NOT_SELECTED",
-      "source": "manifest.json#b_side_relief.holddown.guides"
+      "source": "manifest.json#b_side_relief.holddown.stops"
     },
     {
-      "id": "guide-screws",
-      "description": "M3 x 8 socket head screws (ISO 4762) under the carrier and M3 x 6 socket head screws on the standoff tops",
+      "id": "stop-screws",
+      "description": "M3 x 8 socket head screws (ISO 4762): 2 under the carrier into the stop standoffs, 2 clamping the pressure plate onto the stop tops",
       "quantity": 4,
       "manufacturer": null,
       "mpn": null,
@@ -141,40 +141,13 @@
       "source": "fixture-assembly.step"
     },
     {
-      "id": "guide-washers",
-      "description": "DIN 9021 M3 washers, 9 mm OD, 0.8 mm",
+      "id": "hold-down-plungers",
+      "description": "M4 spring plungers with an insulating (POM) thrust pin, 1.5 mm pin, 1.5 mm stroke, 15 mm long, threaded into the pressure plate at (13.8, 22.1) and (13.7, 17.5) board mm; free pin tip set 5.39 +/-0.1 mm below the plate underside; force at 0.99 mm compression within +/-20 % of the catalogue line (5 N initial, 16 N final), total at least 12.7 N at every worst case",
       "quantity": 2,
       "manufacturer": null,
       "mpn": null,
       "status": "REQUIRED_NOT_SELECTED",
-      "source": "fixture-assembly.step"
-    },
-    {
-      "id": "clamp-springs",
-      "description": "Compression springs over the guide standoffs: work over a rod of at least 6.35 mm (hex corners) with inner diameter at least 6.6 mm, outer diameter at most 9.2 mm, 6.35-10.0 N each over installed length 12.6-13.2 mm (worst case with rate and free-length tolerances), solid length at most 12.3 mm (total at least 12.7 N = 2.0 x the 6.35 N probe force at maximum stroke; at most 20 N keeps the board bending within its limit)",
-      "quantity": 2,
-      "manufacturer": null,
-      "mpn": null,
-      "status": "REQUIRED_NOT_SELECTED",
-      "source": "manifest.json#b_side_relief.holddown.spring_requirement"
-    },
-    {
-      "id": "contact-screws",
-      "description": "M2 x 8 nylon (PA66) pan head screws in the pressure plate, tip 2.5 +/-0.1 mm below the plate, locked by an M2 nylon nut",
-      "quantity": 3,
-      "manufacturer": null,
-      "mpn": null,
-      "status": "REQUIRED_NOT_SELECTED",
-      "source": "manifest.json#b_side_relief.holddown"
-    },
-    {
-      "id": "contact-nuts",
-      "description": "M2 nylon (PA66) hex nuts",
-      "quantity": 3,
-      "manufacturer": null,
-      "mpn": null,
-      "status": "REQUIRED_NOT_SELECTED",
-      "source": "manifest.json#b_side_relief.holddown"
+      "source": "manifest.json#b_side_relief.holddown.plunger_candidate"
     },
     {
       "id": "wire-retention",
@@ -188,7 +161,6 @@
   ],
   "blockers": [
     "No fixture part is selected: plates are digital designs and hardware lines are requirements. manifest.json#hardware_proposal lists one sourced candidate per line as a proposal awaiting owner approval; fabricator and supplier are owner choices.",
-    "The hold-down does not meet its worst cases (manifest.json#b_side_relief.holddown): with each spring anywhere in 6.35-10 N, the strong-G1/weak-G2 pair moves the resultant out of the contact triangle (a contact lifts and the board net load point leaves the land), and the board deflects 0.13 mm (limit 0.1 mm) at the minimum 1.44 mm thickness. The clamp-springs, guide-standoffs and contact lines may change with the redesign.",
     "Probe-plate bores leave 0.40 mm between bores at the fixed 1.4 mm test-point pitch: within the INGUN grid, below the 1.0 mm milled-wall guidance; the chosen fabricator must confirm drilling it.",
     "No current price, MOQ, lead time or availability retrieved; no supplier-upload package."
   ]
