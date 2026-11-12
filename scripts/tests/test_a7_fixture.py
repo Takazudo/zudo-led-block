@@ -14,11 +14,11 @@ class FixtureStudyTests(unittest.TestCase):
         r=f.report()
         self.assertEqual(r['status'],'BLOCKED')
         self.assertFalse(r['digital_fixture_complete'])
-        self.assertFalse(r['fresh_native_verified'])
+        self.assertTrue(r['fresh_native_verified'])
         self.assertEqual(r['calculations']['worst_case_registration_margin_mm'],0.03)
         self.assertFalse(r['completion_criteria']['5_physical_tests']['met'])
-        self.assertTrue(r['blockers'])
         self.assertTrue(r['physical_items'])
+        self.assertTrue(r['owner_and_supplier_items'])
         self.assertEqual(r['calculations']['nominal_total_force_at_working_stroke_N'],5)
 
     def test_false_completion_rejected_by_producer(self):
@@ -111,6 +111,12 @@ class NativeGeometryBindingTests(unittest.TestCase):
             with self.assertRaisesRegex(ValueError,'record missing'):f.native_probe_pads(self.pads())
 
     def test_native_pads_do_not_set_fresh_native_verified(self):
-        self.assertFalse(f.report()['fresh_native_verified'])
+        # the pads alone do not earn it: without the sourced J5 tail the flag falls back to false
+        bare={k:v for k,v in f.relief_design.SOURCES['PicoBlade 530470310'].items() if k.startswith('mated_')};bare['class']='UNKNOWN'
+        with patch.dict(f.relief_design.SOURCES['PicoBlade 530470310'],bare,clear=True):
+            r=f.report()
+        self.assertTrue(r['native_geometry']['probe_pads_match'])
+        self.assertFalse(r['fresh_native_verified'])
+        self.assertFalse(r['digital_criteria_1_to_4_met'])
 
 if __name__=='__main__':unittest.main()

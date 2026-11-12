@@ -65,13 +65,61 @@ class ReliefTests(unittest.TestCase):
             box = rl._expand(list(p['board_xy_mm']) * 2, rl.RULES['probe_window_half_width_mm'])
             self.assertTrue(any(inside(box, b) for b in boxes), p['ref'])
 
-    def test_heights_stay_sourced_or_unknown(self):
-        self.assertEqual(self.d['unknown_heights'], ['J5 (PicoBlade 530470310): lead tail below the B face'])
-        self.assertIsNone(rl.SOURCES['PicoBlade 530470310']['tail_length_below_b_face_mm'])
-        self.assertFalse(self.d['fresh_native_criteria']['every_b_face_protrusion_sourced'])
+    def test_j5_tail_follows_the_component_fact(self):
+        bundle = ROOT / '.claude/skills/component-530470310'
+        fact = next(x for x in json.loads((bundle / 'facts.json').read_text())['facts'] if x['fact_id'] == 'fact-530470310-tail-length')
+        src = next(x for x in json.loads((bundle / 'sources.json').read_text())['sources'] if x['source_id'] == fact['source_id'])
+        j5 = rl.SOURCES['PicoBlade 530470310']
+        self.assertEqual(j5['tail_length_below_seating_plane_mm'], fact['value'])
+        self.assertIn('+/-0.5', fact['conditions'])
+        self.assertEqual(j5['tolerance_mm'], 0.5)
+        self.assertEqual(j5['source']['fact_id'], fact['fact_id'])
+        self.assertEqual(j5['source']['sha256'], src['sha256'])
+        self.assertTrue(fact['verdict'].startswith('PASS'))
+
+    def test_heights_all_sourced_and_tails_bounded(self):
+        self.assertEqual(self.d['unknown_heights'], [])
+        self.assertTrue(self.d['fresh_native_criteria']['every_b_face_protrusion_sourced'])
+        self.assertTrue(self.d['fresh_native_criteria']['every_tht_lead_ends_inside_its_carrier_window'])
         j5 = [r for r in self.d['reliefs'] if r['ref'].startswith('J5.')]
-        self.assertTrue(j5 and all(r['depth_below_b_face_mm'] is None for r in j5))
-        self.assertGreater(self.d['free_space']['j5_tail_max_without_interference_mm'], 0)
+        self.assertTrue(j5 and all(r['depth_below_b_face_mm'] == 2.8 for r in j5))
+        tails = {t['source']: t for t in self.d['lead_tails']}
+        t = tails['PicoBlade 530470310']
+        self.assertEqual(t['protrusion_worst_case_at_nominal_board_mm'], 1.2)
+        self.assertEqual(t['protrusion_bound_any_board_thickness_mm'], 2.8)
+        self.assertAlmostEqual(t['margin_to_carrier_bottom_mm'], 2.2)
+        self.assertTrue(all(x['ends_inside_carrier_window'] and x['margin_to_carrier_bottom_mm'] > 0 for x in tails.values()))
+        self.assertEqual(tails['PJ-324M']['protrusion_bound_any_board_thickness_mm'], 3.4)
+
+    def test_a_tail_longer_than_the_carrier_fails_criterion_1(self):
+        with unittest.mock.patch.dict(rl.SOURCES['PicoBlade 530470310'], {'tail_length_below_seating_plane_mm': 4.6}):
+            d = rl.design(GEOM, probes())
+        self.assertFalse(d['fresh_native_criteria']['every_tht_lead_ends_inside_its_carrier_window'])
+
+    def test_spring_candidate_meets_the_requirement_at_worst_case(self):
+        h = self.d['holddown']
+        req, cand = h['spring_requirement'], h['spring_candidate']
+        self.assertEqual(req['installed_length_range_mm'], [12.6, 13.2])
+        self.assertTrue(cand['meets_requirement'], cand['checks'])
+        lo = (0.80 - 0.08) * (23.0 - 0.79 - 13.2)
+        hi = (0.80 + 0.08) * (23.0 + 0.79 - 12.6)
+        self.assertAlmostEqual(cand['checks']['force_min_at_longest_installed_length_N'][0], lo, places=4)
+        self.assertAlmostEqual(cand['checks']['force_max_at_shortest_installed_length_N'][0], hi, places=4)
+        self.assertGreaterEqual(lo, req['force_min_over_range_N'])
+        self.assertLessEqual(hi, req['force_max_over_range_N'])
+        self.assertIn('AWAITING_OWNER_APPROVAL', cand['status'])
+        with unittest.mock.patch.dict(rl.SPRING_CANDIDATE, {'rate_N_per_mm': 0.70}):
+            self.assertFalse(rl.design(GEOM, probes())['holddown']['spring_candidate']['meets_requirement'])
+
+    def test_bending_holds_at_the_maximum_spring_force_and_sourced_moduli(self):
+        b = self.d['holddown']['board_bending_across_window']
+        self.assertEqual(b['load_N'], 2 * rl.RULES['spring_force_max_over_range_N'])
+        self.assertLessEqual(b['deflection_mm'], b['limit_mm'])
+        self.assertIn('ASSUMED', b['flexural_modulus_class'])
+        e_min = b['flexural_modulus_minimum_for_limit_MPa']
+        self.assertLessEqual(e_min, b['flexural_modulus_MPa'])
+        self.assertTrue(all(m['value_MPa'] > e_min for m in b['representative_sourced_moduli']))
+        self.assertLess(b['deflection_at_lowest_sourced_modulus_mm'], b['deflection_mm'])
 
     def test_yardstick_and_sourced_minimums(self):
         ref = json.loads((f.OUT / 'candidate-references.json').read_text())['references'][0]
@@ -303,13 +351,38 @@ class CompletionTests(unittest.TestCase):
         self.assertTrue(cc['2_keying_and_registration']['met'])
         self.assertTrue(cc['3_stroke_stop_guide_fixing_insulation_wiring']['met'])
         self.assertTrue(cc['4_assembly_step_interference_check']['met'], cc['4_assembly_step_interference_check'])
-        self.assertFalse(cc['1_native_support_and_relief']['met'])
+        self.assertTrue(cc['1_native_support_and_relief']['met'])
         self.assertFalse(cc['5_physical_tests']['met'])
         self.assertEqual(r['status'], 'BLOCKED')
+        self.assertTrue(r['fresh_native_verified'])
+        self.assertTrue(r['digital_criteria_1_to_4_met'])
         self.assertFalse(r['digital_fixture_complete'])
-        self.assertFalse(r['digital_criteria_1_to_4_met'])
-        self.assertEqual(len(r['blockers']), 1)
-        self.assertIn('J5', r['blockers'][0])
+        self.assertEqual(r['blockers'], [])
+
+    def test_hardware_proposal_covers_every_materials_line(self):
+        r = f.report()
+        items = json.loads((f.OUT / 'materials.json').read_text())['items']
+        self.assertTrue(r['hardware_proposal_complete'], r['hardware_proposal_problems'])
+        self.assertEqual({e['requirement_id'] for e in r['hardware_proposal']}, {i['id'] for i in items})
+        for e in r['hardware_proposal']:
+            self.assertEqual(set(e) >= {'requirement_id', 'manufacturer', 'mpn', 'source'}, True)
+            self.assertEqual(e['status'], 'PROPOSED_AWAITING_OWNER_APPROVAL')
+            self.assertTrue(e['manufacturer'] and e['mpn'] and e['source_authority'])
+        self.assertIn('not a selection', r['hardware_proposal_scope'])
+        self.assertTrue(all('SELECTED' not in i['status'] or 'NOT_SELECTED' in i['status'] for i in items))
+
+    def test_hardware_proposal_incomplete_without_a_line_or_a_source(self):
+        short = [e for e in f.HARDWARE_PROPOSAL if e[0] != 'clamp-springs']
+        with unittest.mock.patch.object(f, 'HARDWARE_PROPOSAL', short):
+            r = f.report()
+        self.assertFalse(r['hardware_proposal_complete'])
+        self.assertIn('clamp-springs: no proposed candidate', r['hardware_proposal_problems'])
+        bad = [e if e[0] != 'guide-washers' else (e[0], e[1], e[2], 'sources.json#absent') for e in f.HARDWARE_PROPOSAL]
+        with unittest.mock.patch.object(f, 'HARDWARE_PROPOSAL', bad):
+            self.assertFalse(f.report()['hardware_proposal_complete'])
+        with unittest.mock.patch.dict(rl.SPRING_CANDIDATE, {'free_length_mm': 20.0}):
+            r = f.report()
+        self.assertFalse(r['hardware_proposal_complete'])
 
     def test_criterion_5_keeps_gating_the_documented_flag(self):
         r = f.report()

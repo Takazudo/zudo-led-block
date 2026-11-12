@@ -4,7 +4,7 @@
 Builds every fixture part, the hardware envelopes and the board (with F-side part boxes from the recorded heights and
 B-face bodies and leads from the relief design) in board coordinates: x, y as on the PCB, z up from the board B face.
 Threads are modelled at the major diameter and press fits line to line, so a designed joint touches without overlap.
-The J5 tail length is unsourced; it is modelled as a keep-out column from the B face down to the base plate top.
+Through-hole leads are modelled at their full sourced length below the seating plane (a bound for any board thickness).
 """
 from __future__ import annotations
 
@@ -140,19 +140,19 @@ def build(relief, pads, geometry, rl):
         add(f'F{i} M3 F-F hex spacer 6', 'hardware', _hex(cq, xy, 5.5, st['plate_gap_spacers'][0], st['plate_gap_spacers'][1], 3.0))
         add(f'F{i} M3x12 stud', 'hardware', _cyl(cq, xy, 3.0, p0 - 3, p1 + 3))
         add(f'F{i} M3 F-F hex standoff 35', 'hardware', _hex(cq, xy, 5.5, st['base_standoffs'][0], st['base_standoffs'][1], 3.0))
-        add(f'F{i} M3x6 countersunk screw', 'hardware', _cone(cq, xy, 6.0, 3.0, b0, b0 + 1.5).fuse(_cyl(cq, xy, 3.0, b0 + 1.5, b0 + 6)))
+        add(f'F{i} M3x8 countersunk screw (base)', 'hardware', _cone(cq, xy, 6.0, 3.0, b0, b0 + 1.5).fuse(_cyl(cq, xy, 3.0, b0 + 1.5, b0 + 8)))
     for i, xy in enumerate(dowels, 1):
-        add(f'D{i} dowel 2x17', 'hardware', _cyl(cq, xy, dd, p0, c1))
+        add(f'D{i} dowel 2x16', 'hardware', _cyl(cq, xy, dd, p0, p0 + 16.0))
     for q in sc['datum_pins']:
         add(f"{q['id']} datum pin 2x6", 'hardware', _cyl(cq, q['board_xy_mm'], pin_d, c0, c1 + R['datum_pin_height_above_carrier_mm']))
     g_top = st['guide_standoff_top']
     for g in guides:
         xy = g['board_xy_mm']
         add(f"{g['id']} M3x8 socket head screw", 'hardware', _cyl(cq, xy, 3.0, c0, c1 + 3).fuse(_cyl(cq, xy, 5.5, c0 - 3, c0)))
-        add(f"{g['id']} M3 F-F hex standoff 12", 'hardware', _hex(cq, xy, 5.5, c1, g_top, 3.0))
+        add(f"{g['id']} M3 F-F hex standoff {g_top - c1:g}", 'hardware', _hex(cq, xy, 5.5, c1, g_top, 3.0))
         add(f"{g['id']} M3 washer DIN 9021", 'hardware', _tube(cq, xy, 9.0, 3.2, g_top, g_top + 0.8))
         add(f"{g['id']} M3x6 socket head screw", 'hardware', _cyl(cq, xy, 3.0, g_top + 0.8 - 6, g_top + 0.8).fuse(_cyl(cq, xy, 5.5, g_top + 0.8, g_top + 3.8)))
-        add(f"{g['id']} compression spring envelope", 'hardware', _tube(cq, xy, 9.0, 6.6, q1, g_top))
+        add(f"{g['id']} compression spring envelope", 'hardware', _tube(cq, xy, R['spring_outer_diameter_max_mm'], 6.6, q1, g_top))
     for i, c in enumerate(contacts, 1):
         add(f'C{i} M2x8 nylon contact screw', 'hardware', _cyl(cq, c, 2.0, rl.BOARD_THICKNESS, rl.BOARD_THICKNESS + 8).fuse(
             _cyl(cq, c, 3.8, rl.BOARD_THICKNESS + 8, rl.BOARD_THICKNESS + 9.3)))
@@ -176,15 +176,17 @@ def build(relief, pads, geometry, rl):
             add(f"{f['ref']} F-side body (courtyard x height)", 'board', _box(cq, f['courtyard_bbox_mm']['F'], rl.BOARD_THICKNESS, rl.BOARD_THICKNESS + h))
     for r in relief['reliefs']:
         depth = r['depth_below_b_face_mm']
-        z0 = st['base_plate'][1] if depth is None else -depth
-        label = 'tail keep-out column (unsourced length)' if depth is None else 'B-face body/lead'
+        if depth is None:
+            raise ValueError(f"{r['ref']}: B-face depth not sourced")
+        z0 = -depth
+        label = 'B-face body/lead'
         add(f"{r['ref']} {label}", 'board', _box(cq, r['body_board_mm'], z0, 0.0))
     return parts
 
 
 CLEARANCE_PAIRS = [
     ('B-face bodies and leads to support carrier', lambda n, g: g == 'board' and 'B-face' in n, lambda n, g: n == 'support_carrier'),
-    ('J5 tail column to carrier and probe plate', lambda n, g: 'tail keep-out' in n, lambda n, g: n in ('support_carrier', 'probe_plate')),
+    ('J5 leads at the 2.8 mm tail bound to carrier and probe plate', lambda n, g: n.startswith('J5.'), lambda n, g: n in ('support_carrier', 'probe_plate')),
     ('probes and receptacles to support carrier', lambda n, g: g == 'probe', lambda n, g: n == 'support_carrier'),
     ('receptacle tails to base plate', lambda n, g: 'receptacle' in n, lambda n, g: n == 'base_plate'),
     ('F-side bodies to pressure plate', lambda n, g: 'F-side' in n, lambda n, g: n == 'pressure_plate'),
