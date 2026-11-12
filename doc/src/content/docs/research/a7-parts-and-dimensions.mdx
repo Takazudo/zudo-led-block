@@ -60,7 +60,7 @@ PCM13SMTR はメーカーの表 (ミラー) で POS.1 = 1-3、POS.2 = 2-3、POS.
 
 位置ごとの端子表が印刷されている部品は見つかりませんでした。「端子表のない部品は選ばない」という方針に従い、PCM13SMTR を選定したまま、在庫 0 のリスクを未解決として残しています。SSSS812201 は外形 (9.7 × 2.6 × 1.4) が PCM13SMTR と同じで、資料もメーカーのサイトから取得できたため、方針を緩める場合や導通確認で代えられる場合の最有力候補です。
 
-**追記 (2026-11-12)**: オーナーが「this is backside switch, so nothing special is required for this. good if it works.」と方針を示したので、JLC 在庫のある hanxia HX MSK13C02 (C5149819、在庫 4561) に変えました。JLC が配布する Hanxia の図面 (ミラー、型番欄は空欄) に接点図 A = 1-3、B = 2-3、C = 3-4 (3 が共通) があり、PCM13SMTR と同じネット割り当てで使えます。ランドは PCM13SMTR 用のままで、Hanxia の推奨ランドとの公称値の比較は `engineering/a7/electronics/switch-land-fit.json` にあります。定格は DC 12 V 0.1 A、動作温度 −25〜+70 °C (基板上の部品で最も低い上限)、寿命 1 万回です。実物での接点表と適合は switch-fit で確認します。
+**追記 (2026-11-12)**: オーナーが「this is backside switch, so nothing special is required for this. good if it works.」と方針を示したので、JLC 在庫のある hanxia HX MSK13C02 (C5149819、在庫 4561) に変えました。JLC が配布する Hanxia の図面 (ミラー、型番欄は空欄) に接点図 A = 1-3、B = 2-3、C = 3-4 (3 が共通) があり、PCM13SMTR と同じネット割り当てで使えます。ランドは PCM13SMTR 用のままで、Hanxia の推奨ランドとの公称値の比較は `engineering/a7/electronics/switch-land-fit.json` にあります。定格は DC 12 V 0.1 A、動作温度 −25〜+70 °C (温度の資料がある基板上の部品で最も低い上限)、寿命 1 万回です。実物での接点表と適合は switch-fit で確認します。
 
 ## 寸法の結果 (机上)
 

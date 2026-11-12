@@ -186,9 +186,10 @@
 手順:
 
 1. 未実装品で 3 位置それぞれの全端子対（1〜4）の抵抗を測る。
-2. 実装基板では非通電で、各位置の端子 3–1 と 3–4 の導通を基板上で測る。
-3. ペグ穴への収まりと、ランドに対する本体と端子のずれを顕微鏡で測る（ランドは PCM13SMTR 用のまま。アクチュエータ先端は公称で基板端から 0.05 mm 出る）。
-4. モジュールを組んだ状態で、ラックから外して下側 (+Y) から設定スティックで 3 位置を切り替えられるか確認し、表示 ON / PGM / CV と位置が合うか確認する。
+2. 実装基板で最初に、非通電のまま各位置で SW1 のパッド 3（GND）とパッド 1・4 の導通を測り、端子番号の向きを確かめる。ランドの端子番号は EasyEDA の部品 CAD だけが根拠（Hanxia の図面に番号なし）で、逆向きならどの位置でも PROGRAM になる。
+3. 実装基板では非通電で、各位置の端子 3–1 と 3–4 の導通を基板上で測る。
+4. ペグ穴への収まりと、ランドに対する本体と端子のずれを顕微鏡で測る（ランドは PCM13SMTR 用のまま。アクチュエータ先端は公称で基板端から 0.05 mm 出る）。
+5. モジュールを組んだ状態で、ラックから外して下側 (+Y) から設定スティックで 3 位置を切り替えられるか確認し、表示 ON / PGM / CV と位置が合うか確認する。
 
 記録する raw 証跡（種別ごとに別ファイル）:
 
@@ -1053,7 +1054,7 @@
 - 関連:  #10
 - 概要: 最悪負荷/周囲条件でインダクタ、ホットスポット、PETG、PMMAを測定し左右照明を撮影。
 - 根拠: `engineering/a7/mechanical/README.md`
-- 未決: 部品温度の上限はオーナーが 75 °C に決めた（2026-11-12）。SW1（HX MSK13C02、2026-11-12 に変更）は動作上限 +70 °C で基板上の部品で最も低いので、SW1 だけは 70 °C で判定する。PETG/PMMA の温度限界（資料未取得）と見え方の合否（オーナー判断）が未決。（区分: オーナーの判断）
+- 未決: 部品温度の上限はオーナーが 75 °C に決めた（2026-11-12）。SW1（HX MSK13C02、2026-11-12 に変更）は動作上限 +70 °C で温度の資料がある基板上の部品で最も低いので、SW1 だけは 70 °C で判定する。PETG/PMMA の温度限界（資料未取得）と見え方の合否（オーナー判断）が未決。（区分: オーナーの判断）
 - 観測: NOT_MEASURED。結果: NOT_RUN。
 - 次: 不足する基準をレビューし、オーナー承認の試作ルート確定後に実物で実施。
 
@@ -1094,7 +1095,7 @@
 | ID | 基準 | 値 | 範囲 | 単位 | 確度 | 出典 / 決める主体 |
 |---|---|---|---|---|---|---|
 | channel-cap | FW の LED 上限 | `"51u"` | max | NONE | DESIGN | `engineering/a5/firmware/include/lb_config.h` 引用 |
-| switch-temp | SW1（HX MSK13C02）の動作温度（上限 +70 °C は基板上の部品で最も低い。SW1 はこの上限で判定する） | `"-25 to +70"` | range | C | MIRROR | `.claude/skills/component-a7-hx-msk13c02/facts.json` `fact-a7-hx-msk13c02-operating-temperature` |
+| switch-temp | SW1（HX MSK13C02）の動作温度（上限 +70 °C は温度の資料がある基板上の部品で最も低い。SW1 はこの上限で判定する） | `"-25 to +70"` | range | C | MIRROR | `.claude/skills/component-a7-hx-msk13c02/facts.json` `fact-a7-hx-msk13c02-operating-temperature` |
 | mlcc-temp | X7R MLCC の動作温度 | `"-55 to +125"` | range | degC | SOURCED | `.claude/skills/component-cc0603krx7r9bb104/facts.json` `fact-cc0603krx7r9bb104-operating-temperature` |
 | part-temp-max | 安定後の部品表面温度の上限（PJ-324M の保存温度の上限を基板全体の上限にする。SW1 は switch-temp の +70 °C で判定） | `75` | max | degC | CALCULATED | 計算 `T`（内訳は下） |
 | materials-appearance | PETG/PMMA の温度限界と見え方の合否 | — | — | degC | UNRESOLVED | 材料の温度限界は資料（未取得）、見え方はオーナーの判断。入手先（資料）: 使う PETG フィラメントと PMMA 板の製造元の熱変形温度（資料未取得） |

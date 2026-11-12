@@ -508,6 +508,7 @@
       "precondition_states": [],
       "steps": [
         "未実装品で 3 位置それぞれの全端子対（1〜4）の抵抗を測る。",
+        "実装基板で最初に、非通電のまま各位置で SW1 のパッド 3（GND）とパッド 1・4 の導通を測り、端子番号の向きを確かめる。ランドの端子番号は EasyEDA の部品 CAD だけが根拠（Hanxia の図面に番号なし）で、逆向きならどの位置でも PROGRAM になる。",
         "実装基板では非通電で、各位置の端子 3–1 と 3–4 の導通を基板上で測る。",
         "ペグ穴への収まりと、ランドに対する本体と端子のずれを顕微鏡で測る（ランドは PCM13SMTR 用のまま。アクチュエータ先端は公称で基板端から 0.05 mm 出る）。",
         "モジュールを組んだ状態で、ラックから外して下側 (+Y) から設定スティックで 3 位置を切り替えられるか確認し、表示 ON / PGM / CV と位置が合うか確認する。"
@@ -782,7 +783,7 @@
       "criterion_accepted_by": "OWNER",
       "criterion_review": {
         "path": "engineering/a7/qualification/reviews/2026-11-12-owner-criteria-acceptance.md",
-        "sha256": "18f3f4c966f935eea5178e688fe6c3bb19e06426fdc9b0d097d9e18c5beae94e"
+        "sha256": "15e3a481a4b3e3588d47d87884f5b8ec18342c425e03fb927073ee810f04c9a6"
       },
       "criterion_acceptance_sha256": "886e5fd6948d5d2c939b8ab37e668749db83307b2c78f972892713ef46071943"
     },
@@ -2717,7 +2718,7 @@
       "criterion_accepted_by": "OWNER",
       "criterion_review": {
         "path": "engineering/a7/qualification/reviews/2026-11-12-owner-criteria-acceptance.md",
-        "sha256": "18f3f4c966f935eea5178e688fe6c3bb19e06426fdc9b0d097d9e18c5beae94e"
+        "sha256": "15e3a481a4b3e3588d47d87884f5b8ec18342c425e03fb927073ee810f04c9a6"
       },
       "criterion_acceptance_sha256": "bcfdaa1b30cbf474bb7b951d87563a0cbca39e9c002293ae9a3b060b24c3d30d"
     },
@@ -2821,7 +2822,7 @@
       "criterion_accepted_by": "OWNER",
       "criterion_review": {
         "path": "engineering/a7/qualification/reviews/2026-11-12-owner-criteria-acceptance.md",
-        "sha256": "18f3f4c966f935eea5178e688fe6c3bb19e06426fdc9b0d097d9e18c5beae94e"
+        "sha256": "15e3a481a4b3e3588d47d87884f5b8ec18342c425e03fb927073ee810f04c9a6"
       },
       "criterion_acceptance_sha256": "0df9272f616326f663ecaa1ccda4866a9e00d371c0b78d5614ea51734bc5ad7a"
     },
@@ -3404,7 +3405,7 @@
       "expected": "51/255 capは温度承認ではない。約2% D2遮光はモデル推定のみ。",
       "basis": "engineering/a7/mechanical/README.md",
       "criterion_status": "UNRESOLVED",
-      "missing_criterion": "部品温度の上限はオーナーが 75 °C に決めた（2026-11-12）。SW1（HX MSK13C02、2026-11-12 に変更）は動作上限 +70 °C で基板上の部品で最も低いので、SW1 だけは 70 °C で判定する。PETG/PMMA の温度限界（資料未取得）と見え方の合否（オーナー判断）が未決。",
+      "missing_criterion": "部品温度の上限はオーナーが 75 °C に決めた（2026-11-12）。SW1（HX MSK13C02、2026-11-12 に変更）は動作上限 +70 °C で温度の資料がある基板上の部品で最も低いので、SW1 だけは 70 °C で判定する。PETG/PMMA の温度限界（資料未取得）と見え方の合否（オーナー判断）が未決。",
       "raw_evidence_required": "温度時系列、IR補正、材料ロット、露出固定写真、周囲条件",
       "observation": "NOT_MEASURED",
       "result": "NOT_RUN",
@@ -3458,7 +3459,7 @@
         },
         {
           "id": "switch-temp",
-          "criterion": "SW1（HX MSK13C02）の動作温度（上限 +70 °C は基板上の部品で最も低い。SW1 はこの上限で判定する）",
+          "criterion": "SW1（HX MSK13C02）の動作温度（上限 +70 °C は温度の資料がある基板上の部品で最も低い。SW1 はこの上限で判定する）",
           "value": "-25 to +70",
           "unit": "C",
           "confidence": "MIRROR",
@@ -3768,7 +3769,7 @@
       "criterion_accepted_by": "OWNER",
       "criterion_review": {
         "path": "engineering/a7/qualification/reviews/2026-11-12-owner-criteria-acceptance.md",
-        "sha256": "18f3f4c966f935eea5178e688fe6c3bb19e06426fdc9b0d097d9e18c5beae94e"
+        "sha256": "15e3a481a4b3e3588d47d87884f5b8ec18342c425e03fb927073ee810f04c9a6"
       },
       "criterion_acceptance_sha256": "552e46e2cca4a35149f52288dd6a716c41742aedc6f6b1a78d63c9e96c729464"
     }
@@ -3904,7 +3905,7 @@
         }
       ],
       "recommended": "approve",
-      "reason": "19 の物理手順はどれも実物が要り、試作ルートがないと部品・基板・治具を入手できない。試作ルートの承認は製造リリースではない。",
+      "reason": "オーナーは 2026-11-12 に「1 OK」でこの試作を承認済み（approvals/2026-11-12-owner-prototype-route.md）。その承認は当時の基板・回路図・機構・台帳のハッシュに結び付いていて、SW1 を HX MSK13C02 に変えたことでそれらが変わったため、この版について改めて承認が要る。変わったのは SW1 の部品（型番・LCSC）とその記録だけで、銅パターンと配置は同じ。19 の物理手順はどれも実物が要り、試作ルートがないと部品・基板・治具を入手できない。試作ルートの承認は製造リリースではない。",
       "sources": [
         {
           "path": "engineering/a7/procurement/assembly-manifest.json",
@@ -4008,7 +4009,7 @@
         "by": "OWNER",
         "record": {
           "path": "engineering/a7/procurement/owner-decisions.json",
-          "quote": "this is backside switch, so nothing special is required for this. good if it works."
+          "quote": "this is backside switch, so nothing special is required for this. good if it works. also, on this project https://github.com/Takazudo/zudo-osc-hole-field AI chose high price components for most parts, but those were all replaced. check compoents price for all items, and choose low price one on JLC parts. have man qty + low price is the best forthose"
         }
       }
     },
@@ -4647,11 +4648,11 @@
       ],
       "items": [
         {
-          "what": "C&K PCM シリーズのデータシート（Littelfuse）",
-          "value_needed": "本体とペグの基準寸法の公差",
-          "url": "https://www.littelfuse.com/assetdocs/littelfuse-ck-slide-pcm-series-datasheet?assetguid=d2f6a96c-7a9a-4c4e-a5aa-4fe3075dffe5",
-          "fallback_url": null,
-          "access": "Littelfuse のデータシート（Revised VL 03/14/25）は取得済みで、2026-11-12 にオーナーが送ったものも同じバイト列。本体とペグの寸法には公差の記載がない（公差はテープ寸法だけ）。C&K への質問か、購入品の実測で決める。接触抵抗（3.3 V / 10 kΩ 負荷）は実部品の測定"
+          "what": "Hanxia HX MSK13C02 の図面（JLC 配布、取得済み）",
+          "value_needed": "本体とペグの基準寸法の公差と、ランド上の端子番号の向き",
+          "url": "https://jlcpcb.com/partdetail/hanxia-HXMSK13C02/C5149819",
+          "fallback_url": "https://www.lcsc.com/product-detail/C5149819.html",
+          "access": "2026-11-12 に取得した図面（sha256 0acc4953…）には寸法の公差も、ランド上の端子番号もない。購入品の実測で決める。接触抵抗（3.3 V / 10 kΩ 負荷）も実部品の測定"
         }
       ]
     },
@@ -4804,6 +4805,13 @@
           "url": null,
           "fallback_url": null,
           "access": "2 台分（コントローラー 2・リーフ 4・電源アダプタ 2 枚）の製造ファイルで JLC の見積もりを取る（発注はしない）。PCBA 最小 2 枚が JLC の条件どおりかもここで確かめる"
+        },
+        {
+          "what": "JLC のリフロー条件と SW1（HX MSK13C02）の耐熱",
+          "value_needed": "JLC のリフローのピーク温度と時間が Hanxia の図面の上限 250 °C 以内か",
+          "url": null,
+          "fallback_url": null,
+          "access": "見積もりのときに JLC に確認する（Hanxia の図面は 250 °C だけで、ピークの保持時間の記載はない）"
         }
       ]
     }

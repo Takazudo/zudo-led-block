@@ -56,6 +56,8 @@ def build():
     holes = [p for p in P if p['kind'] == 'np_thru_hole']
     signal = {p['pad']: p for p in P if p['kind'] == 'smd' and p['pad']}
     retention = [p for p in P if p['kind'] == 'smd' and not p['pad']]
+    if len(holes) != 2 or sorted(signal) != ['1', '2', '3', '4'] or len(retention) != 4:
+        raise ValueError('footprint pads not read: need 2 holes, signal pads 1-4 and 4 retention pads')
     peg_y = holes[0]['y']
     side = -1 if signal['1']['y'] < peg_y else 1  # signal pads lie on this side of the peg line
     rows, ok = [], True
@@ -109,6 +111,8 @@ def build():
         'actuator_tip_from_peg_line': actuator_tip,
         'pcm13smtr_actuator_tip_from_peg_line': 2.8,
         'actuator_tip_change_toward_board_edge': r(actuator_tip - 2.8),
+        'pad_numbering': 'INFERRED: the Hanxia drawing does not number the land; terminal 1 at x -3.0 comes from the EasyEDA supplier CAD only. '
+                         'A mirrored part would put common terminal 3 on NC pad 2 (SW1 reads PROGRAM in every position); checked on the first assembled boards (switch-fit).',
     }
 
 

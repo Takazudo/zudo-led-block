@@ -6,7 +6,7 @@
   "land": "LightBlockA7:PCM13SMTR (routed SW1 land, unchanged)",
   "inputs": {
     "engineering/a7/electronics/footprints/LightBlockA7.pretty/PCM13SMTR.kicad_mod": "7b046c43c5d27a90b80c63ad0565451405da3fef277904b88df3e10609f762f9",
-    ".claude/skills/component-a7-hx-msk13c02/facts.json": "04775ee5c955f6e3ca7e879b5f07acde2e5a772258ce5c7ea894a136eea29aa2"
+    ".claude/skills/component-a7-hx-msk13c02/facts.json": "949dd726d4489575ca8cbdc276cd16d9fe601c86367d26eb7b09b00ac9917516"
   },
   "checks": [
     {
@@ -166,5 +166,6 @@
   "all_pass": true,
   "actuator_tip_from_peg_line": 2.85,
   "pcm13smtr_actuator_tip_from_peg_line": 2.8,
-  "actuator_tip_change_toward_board_edge": 0.05
+  "actuator_tip_change_toward_board_edge": 0.05,
+  "pad_numbering": "INFERRED: the Hanxia drawing does not number the land; terminal 1 at x -3.0 comes from the EasyEDA supplier CAD only. A mirrored part would put common terminal 3 on NC pad 2 (SW1 reads PROGRAM in every position); checked on the first assembled boards (switch-fit)."
 }

@@ -145,7 +145,7 @@
     "actuator_overhang_accepted": {
       "nominal": 0.05,
       "confidence": "PROJECT-CHOICE",
-      "source": "2026-11-12 (#77): the fitted HX MSK13C02 body is 2.7 deep (PCM13SMTR 2.6), centred on the same pegs, so its actuator tip passes the board edge and the inherited A5 rail-body allowance (Y 111.4) by 0.05 mm on untoleranced drawing values. Accepted to keep the routed board and the jack positions; checked physically in switch-fit. Owner: 'this is backside switch, so nothing special is required for this. good if it works.'"
+      "source": "2026-11-12 (#77): the fitted HX MSK13C02 body is 2.7 deep (PCM13SMTR 2.6), centred on the same pegs, so its actuator tip passes the board edge and the inherited A5 rail-body allowance (Y 111.4) by 0.05 mm on untoleranced drawing values. Accepted by the coordinator to keep the routed board and the jack positions, under the owner's direction for the switch ('this is backside switch, so nothing special is required for this. good if it works.'), which does not address the overhang itself; checked physically in switch-fit."
     },
     "z_centre": {
       "nominal": 7.0,

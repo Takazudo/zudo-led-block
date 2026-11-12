@@ -80,7 +80,7 @@ E1 は基板→canonical placement→機構コピーの結合を強化。E2 は 
   C = 3-4 with terminal 3 common, so the PCM13SMTR net mapping and mode codes are unchanged. It sits on the
   routed PCM13SMTR land; `scripts/a7_switch_fit.py` compares that land with the Hanxia recommended land on
   nominal values (`engineering/a7/electronics/switch-land-fit.json`). Lower ratings: DC 12 V 0.1 A,
-  -25..+70 C (the lowest part limit on the board), 10,000 cycles. The 2.7 mm body is 0.1 mm deeper, so the
+  -25..+70 C (the lowest limit among the parts with a temperature fact), 10,000 cycles. The 2.7 mm body is 0.1 mm deeper, so the
   actuator tip ends 0.05 mm past the board edge (accepted in `mechanical/design-inputs.json`). The contact
   table and land fit stay physical checks (switch-fit).
 - **MJ-3502 stays rejected** for 2HP: Same Sky's drawing gives body height 11.30 ± 0.2 and axis 6.90 ± 0.15.
