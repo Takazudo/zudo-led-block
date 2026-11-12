@@ -147,7 +147,7 @@ class ReadinessTests(unittest.TestCase):
     def test_criteria_1_to_4_flag_is_informational_only(self):
         self.write_fixture(digital_fixture_complete=False, digital_criteria_1_to_4_met=True)
         r = self.evaluate()
-        self.assertIn('fixture digital design incomplete or unverified', r['blockers'])
+        self.assertIn('fixture completion awaits the physical criterion 5 (fixture-contact)', r['blockers'])
         flags = {x['flag']: x for x in r['state_flags']}
         self.assertEqual((flags['digital_criteria_1_to_4_met']['value'], flags['digital_criteria_1_to_4_met']['role']), (True, 'INFORMATIONAL'))
         self.assertEqual(flags['digital_fixture_complete']['role'], 'GATE')
@@ -161,6 +161,47 @@ class ReadinessTests(unittest.TestCase):
         self.setUp()
         self.fully_recorded_synthetic_case()
         self.assertEqual(self.evaluate()['order_eligibility'], 'ELIGIBLE_FOR_RECORDED_SCOPE')
+
+    def test_every_owner_and_evidence_gate_has_a_prepared_entry(self):
+        report = json.loads((REPO/m.QUAL/'readiness.json').read_text())
+        self.assertEqual(m.owner_page_gaps(self.plan, report), {'OWNER_DECISION': [], 'ACCESS_EVIDENCE_HOLD': []})
+        self.assertEqual(m.owner_page_errors(self.plan), [])
+        ranks = [d['stage'] for d in self.plan['owner_decisions']]
+        # Ordered by what blocks the PCB order first.
+        self.assertEqual(ranks, sorted(ranks, key=['PCB_ORDER', 'BENCH', 'RELEASE'].index))
+
+    def test_recommendation_is_an_option_with_a_real_source(self):
+        d = self.plan['owner_decisions'][0]
+        d['recommended'] = 'not-an-option'
+        self.assertTrue(any('must be one of the options' in e for e in m.owner_page_errors(self.plan)))
+        d['recommended'] = d['options'][0]['id']
+        d['sources'] = [{'path': 'engineering/a7/procurement/assembly-manifest.json', 'quote': 'invented sentence nowhere in the file'}]
+        self.assertTrue(any('quote not found' in e for e in m.owner_page_errors(self.plan)))
+        d['sources'] = []
+        self.assertTrue(any('at least one source' in e for e in m.owner_page_errors(self.plan)))
+
+    def test_owner_download_names_its_url(self):
+        r = next(x for x in self.plan['evidence_requests'] if 'OWNER_DOWNLOAD' in x['routes'])
+        r['items'][0]['url'] = None
+        self.assertTrue(any('names its URL' in e for e in m.owner_page_errors(self.plan)))
+        r['items'][0]['url'] = 'http://insecure.example'
+        self.assertTrue(any('https url' in e for e in m.owner_page_errors(self.plan)))
+
+    def test_prepared_decision_never_closes_a_gate(self):
+        before = self.evaluate()
+        for d in self.plan['owner_decisions']:
+            d['recommended'] = d['options'][0]['id']
+        after = self.evaluate()
+        self.assertEqual([g['gate'] for g in before['gates']], [g['gate'] for g in after['gates']])
+        self.assertEqual(after['order_eligibility'], 'BLOCKED')
+
+    def test_checklist_lists_decisions_and_downloads(self):
+        report = json.loads((REPO/m.QUAL/'readiness.json').read_text())
+        page = m.checklist(self.plan, report)
+        self.assertIn('## まとめて答えられる判断（12 件）', page)
+        self.assertIn('## 資料・回答待ちのゲート（16 件）', page)
+        self.assertLess(page.index('`owner_prototype_route`（PCB 発注の前）'), page.index('`manufacturing_release`（製造リリースのとき）'))
+        self.assertNotIn('<https://', page)
 
     def test_non_list_raw_evidence_blocks(self):
         self.fully_recorded_synthetic_case()
@@ -298,7 +339,19 @@ class ReadinessTests(unittest.TestCase):
         p = self.root/m.IDENTITY_PATHS['fixture']
         a = json.loads(p.read_text()); a['status']='BLOCKED'; a['digital_fixture_complete']=False
         p.write_text(json.dumps(a))
-        self.assertTrue(any('fixture digital design incomplete' in s for s in self.evaluate()['blockers']))
+        gate = {g['gate']: g for g in self.evaluate()['gates']}['artifact:fixture']
+        # Criteria 1-4 met: only the physical criterion 5 is left, so the gate stays closed but is not cloud work.
+        self.assertEqual((gate['class'], gate['reasons']), ('PHYSICAL_ONLY', ['fixture completion awaits the physical criterion 5 (fixture-contact)']))
+        a['digital_criteria_1_to_4_met'] = False
+        p.write_text(json.dumps(a))
+        gate = {g['gate']: g for g in self.evaluate()['gates']}['artifact:fixture']
+        self.assertEqual((gate['class'], gate['reasons']), ('CLOUD_DIGITAL', ['fixture digital design incomplete or unverified']))
+        a['digital_criteria_1_to_4_met'] = True
+        a['blockers'] = ['synthetic digital blocker']
+        p.write_text(json.dumps(a))
+        gate = {g['gate']: g for g in self.evaluate()['gates']}['artifact:fixture']
+        self.assertEqual(gate['class'], 'CLOUD_DIGITAL')
+        self.assertIn('fixture digital design incomplete or unverified', gate['reasons'])
 
 
     def test_proposal_never_satisfies_a_reviewed_criterion(self):

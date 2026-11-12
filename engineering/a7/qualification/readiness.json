@@ -40,10 +40,10 @@
     },
     "assembly_manifest": {
       "path": "engineering/a7/procurement/assembly-manifest.json",
-      "sha256": "5d6559807c678616e66cc18e0e960efdb00959e56611e52a68be0d19855b4941"
+      "sha256": "c2646fda776a98640bce80d5609582f0fa29a49f0258f26c1767ea742b26088f"
     }
   },
-  "plan_sha256": "e1b814adeccdc24dba1b9d51f490df1291633ecd6ebd1799a9049ede341b86a8",
+  "plan_sha256": "5e0411729d21548257b334cfaa4d6cdacc89a833a16bae2037d74cd20aad825d",
   "procedures": [
     {
       "id": "jack-continuity",
@@ -204,8 +204,8 @@
     }
   ],
   "blockers": [
-    "fixture digital design incomplete or unverified",
     "fixture: unresolved preparation blockers",
+    "fixture digital design incomplete or unverified",
     "assembly_manifest: supply-observations: Current stock, price, MOQ, packaging, lead time and assembly applicability not obtained for any line except the dated C221842 zero-stock observation; stock never reserved.",
     "assembly_manifest: order-quantity: No agreed order quantity; 1/10/100 are comparison scenarios only, so no supply observation can be judged available for a proposed order.",
     "assembly_manifest: switch-supply: PCM13SMTR (C221842) had JLC stock 0 / presale 0 at 2026-11-09; wait, buy elsewhere, or accept a reviewed alternate with its own contact table and fit review.",
@@ -214,7 +214,7 @@
     "assembly_manifest: finished-cables: Finished A7 power cable (57 mm, +/-3 ASSUMED), SH4 cables and IDC ribbon not selected; supplier answers and the owner choice of assembly are needed before physical routing checks.",
     "assembly_manifest: mechanical-materials: PMMA sheet and pocket tolerances, PETG process and orderable fastener part numbers are not sourced; the model carries designations (M2x18, M1.6x4) and envelopes only.",
     "assembly_manifest: rack-hardware: Owner rack rail/thread interface and fasteners not specified.",
-    "assembly_manifest: fixture-materials: Fixture design and materials incomplete (see fixture manifest); physical contact/load tests follow.",
+    "assembly_manifest: fixture-materials: Fixture design and materials incomplete (fixture manifest: digital_criteria_1_to_4_met not true, hardware_proposal_complete not true); physical contact/load tests follow.",
     "assembly_manifest: prototype-and-release: No owner-approved prototype route, no reviewed manufacturing package and no release approval.",
     "jack-continuity: NOT_MEASURED: no run",
     "jack-dimensions: criterion unresolved or review receipt missing",
@@ -273,8 +273,8 @@
       "gate": "artifact:fixture",
       "class": "CLOUD_DIGITAL",
       "reasons": [
-        "fixture digital design incomplete or unverified",
-        "fixture: unresolved preparation blockers"
+        "fixture: unresolved preparation blockers",
+        "fixture digital design incomplete or unverified"
       ]
     },
     {
@@ -337,7 +337,7 @@
       "gate": "assembly:fixture-materials",
       "class": "CLOUD_DIGITAL",
       "reasons": [
-        "assembly_manifest: fixture-materials: Fixture design and materials incomplete (see fixture manifest); physical contact/load tests follow."
+        "assembly_manifest: fixture-materials: Fixture design and materials incomplete (fixture manifest: digital_criteria_1_to_4_met not true, hardware_proposal_complete not true); physical contact/load tests follow."
       ]
     },
     {
@@ -660,6 +660,13 @@
       "value": false,
       "role": "INFORMATIONAL",
       "note": "README の基準 1–4 がデジタルで満たされ、デジタルのブロッカーがないこと（fresh_native_verified を含む）。進捗の表示で、完了フラグでも発注適格性でもない。fixture-contact を始める前提。"
+    },
+    {
+      "artifact": "fixture",
+      "flag": "hardware_proposal_complete",
+      "value": null,
+      "role": "INFORMATIONAL",
+      "note": "治具の各金物要求（materials.json）に出典付きの候補（hardware_proposal）が 1 つずつあること。オーナー承認待ちの提案で、選定でも承認でもない。true かつ基準 1–4 が満たされると、調達の assembly:fixture-materials はオーナーの判断（加工先の選択と金物の承認）に移る。"
     }
   ],
   "optional_variants": {

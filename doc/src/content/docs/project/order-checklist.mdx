@@ -35,6 +35,138 @@ readiness（`engineering/a7/qualification/readiness.json`）は不足を 50 個�
 10. **O9** 物理手順を実施して記録する
 11. **O10** 製造リリースと発注を明示的に承認する
 
+## まとめて答えられる判断（12 件）
+
+オーナーの判断ゲートを、PCB 発注を先に止めるものから順に並べています。推奨は出典に基づく提案で、オーナーの回答ではありません。回答は記録（承認ファイルやレビュー記録）にしてから反映し、それまでゲートは閉じたままです。
+
+### 1. A7 r2（3HP / FR-4）の限定試作を承認しますか。
+
+- ゲート: `owner_prototype_route`（PCB 発注の前）
+- **試験目的の少数試作を承認する（推奨）**: 部品・基板・治具を試作数量だけ入手でき、19 の物理手順を実施できる。承認ファイルを records.json の owner_prototype_route に記録するとこのゲートが解除される。製造リリースではない。
+- まだ承認しない: 物理手順はすべて止まる。PJ-324M の端子 4/5 の確認（PCB 発注の前提）も実物が入手できないので進まない。
+- 推奨の理由: PJ-324M のどちらの端子が tip かは実物の導通試験でしか決まらず、その試験は PCB 発注より前に必要。試作ルートがないと PCB 発注の前提がそろわない。
+- 出典: `engineering/a7/procurement/assembly-manifest.json` 引用「this continuity test must precede any PCB order」
+
+### 2. 最初の発注数量をいくつにしますか。
+
+- ゲート: `assembly:order-quantity`（PCB 発注の前）
+- **1 台分（試作）（推奨）**: 在庫・価格の観測を最小数量で判断できる。PCM13SMTR は最小購入数 3 なので 3 個買うことになる。
+- 10 台分: 物理評価の前に 10 台分の部品と基板を買う。評価で設計変更が出ると無駄になる。
+- 100 台分: 量産相当の在庫が必要。評価前の発注で、変更時の損失が最も大きい。
+- 推奨の理由: A7 は製造リリース前で物理評価がなく、1 / 10 / 100 は比較条件にすぎない。最初は試作数量にして、量産数量は評価の後に決める。
+- 出典: `engineering/a7/procurement/assembly-manifest.json` 引用「"manufacturing_released": false」、`engineering/a7/procurement/assembly-manifest.json` 引用「"quantity_scenarios_only"」
+
+### 3. PCM13SMTR（C221842）の在庫 0 にどう対応しますか。
+
+- ゲート: `assembly:switch-supply`（PCB 発注の前）
+- **同じ型番を別の販売店で買う（推奨）**: 接点表とランドは今の設計のまま使える。実装業者が持ち込み部品を受けるか、手はんだにするかの確認が要る（未確認）。
+- JLC の入荷を待つ: 設計は変わらないが、入荷予定日が出ておらず、発注がいつまでも止まる可能性がある。
+- 代替品を認める: 別の接点表・ランド・適合のレビューが必要で、基板の変更と再検証になる。
+- 推奨の理由: 代替品は接点表・ランド・適合を別にレビューしない限り使わない方針で、同じ型番なら設計と検証をそのまま使える。
+- 出典: `engineering/a7/procurement/assembly-manifest.json` 引用「had JLC stock 0 / presale 0 at 2026-11-09」、`engineering/a7/qualification/supplier-questions.md` 引用「代替品は別の接点表・ランド・fitレビューなしには採用しません」
+
+### 4. 完成ケーブル（電源 57 mm、SH4、IDC リボン）をどう用意しますか。
+
+- ゲート: `assembly:finished-cables`（実機試験の前）
+- **ケーブル製作業者に仕様どおり注文する（推奨）**: 電源ケーブル 57 mm の公差を業者に保証してもらえ、harness-depth の注文範囲が確定する。見積もりと業者への連絡が必要。
+- 自分で圧着して作る: 圧着工具と端子が必要。長さの公差は作ったものを実測して確認する。
+- A5 の 50 ± 6 mm ケーブルを流用する: A7 の長さ要求を満たさないので使えない。
+- 推奨の理由: A7 の電源ケーブルは 57 mm（±3 は仮定）で、A5 の Molex 151340300（50 ± 6 mm）は A7 用ではない。長さの保証が要るので製作業者に頼むのが確実。
+- 出典: `engineering/a7/procurement/assembly-manifest.json` 引用「historical Molex 151340300 50±6 mm is not the A7 cable」、`engineering/a7/mechanical/layout.json` `/power_cable_requirement/band`
+
+### 5. 電源ケーブルの注文範囲 54–60 mm と、最小曲げ半径 2.0 mm を合否基準にしますか。
+
+- ゲート: `criterion:harness-depth`（実機試験の前）
+- **提案どおり採る（推奨）**: ケーブルの注文仕様と harness-depth の合否が決まる。業者がより狭い公差を保証すれば後で置き換える。
+- ケーブル業者の保証値を待つ: 業者の回答までこの基準ゲートは閉じたまま。
+- 推奨の理由: 54–60 mm は経路モデルの要求 57 ± 3 mm（±3 は仮定）、2.0 mm は 3HP の経路モデルが曲げに残した余裕。どちらも設計記録の値で、業者の回答で置き換えられる。
+- 出典: `engineering/a7/mechanical/layout.json` `/power_cable_requirement/band`、`engineering/a7/mechanical/layout.json` `/variants/3hp/routes/adapter_to_controller_power/end_bend_room`
+
+### 6. 使うケースのレールとねじは何ですか。
+
+- ゲート: `assembly:rack-hardware`（実機試験の前）
+- **手持ちのケースの型番を伝える（推奨）**: レールとねじの規格をそこから決め、パネル固定と挿抜荷重の経路（ジャック → ナット → パネル → ラックねじ）を試験できる。
+- 後で決める: PCB の発注には影響しないが、service-envelope など実機の取付が要る試験は進まない。
+- 推奨の理由: ケースのレール・ねじはどの記録にも指定がなく、オーナーの手持ちのケースで決まる。型番が分かればこちらで規格を調べられる。
+- 出典: `engineering/a5/mechanical/README.md` 引用「Actual case rails, neighboring modules and rack screws are not specified or modeled.」、`engineering/a7/mechanical/layout.json` `/supports/load_path/0`
+
+### 7. R7 を流れる電流の上限 0.313 mA（推定を含む計算）を合否基準にしますか。
+
+- ゲート: `criterion:u7-stress`（実機試験の前）
+- **採る（推奨）**: u7-stress の合否が決まる。上限は U7 入力の絶対最大 10 mA より十分小さい（約 1/32）。
+- ラック電源の上限が資料で分かるまで待つ: Doepfer の資料は ±12 V の公称値しか示さないので、資料が見つからずに閉じたままになる可能性が高い。
+- 推奨の理由: 計算は CV_BUF が U6 の電源を超えないという推定を含むが、R7 の合計電流で判定するので D3 と U7 の分担に依存せず、10 mA まで大きな余裕がある。
+- 出典: `engineering/a7/docs/continuation/evidence-index.md` 引用「gives only nominal +12 V / -12 V with no tolerance or maximum」、`engineering/a7/docs/continuation/evidence-index.md` 引用「it does not matter while the total R7 current is below 10 mA」
+
+### 8. 安定後の部品表面温度の上限を何度にしますか。
+
+- ゲート: `criterion:thermal-optical`（実機試験の前）
+- **75 °C（PJ-324M の保存温度の上限）（推奨）**: PJ-324M は動作温度の欄が空欄なので、保存温度の上限を基板全体の上限にする。最も保守的。
+- 85 °C（動作温度が分かる部品の最低値）: WS2812B などの動作上限と同じ。PJ-324M は動作温度が分からないまま 75 °C を超えうる。
+- 推奨の理由: 温度の資料がある部品の中で一番低い数値は PJ-324M の保存温度 +75 °C で、動作温度は空欄。分からない側に合わせて 75 °C を推奨する。PETG/PMMA の温度限界は資料待ち（別項目）、見え方は試験時にオーナーが判断する。
+- 出典: `.claude/skills/component-a7-pj-324m/facts.json` `fact-a7-pj-324m-storage-temperature`、`.claude/skills/component-a7-pj-324m/facts.json` `fact-a7-pj-324m-operating-temperature`
+
+### 9. ジャックの挿抜試験の回数を何回にし、保持力 10.0 N を合否基準にしますか。
+
+- ゲート: `criterion:service-envelope`（実機試験の前）
+- **100 回 + 10.0 N（推奨）**: パネルとナットの保持、割れ、ずれを確認する試験で、ジャックの寿命試験ではない。
+- 1,000 回 + 10.0 N: 摩耗の傾向も見られる。
+- 4,000 回 + 10.0 N（定格負荷での耐久回数）: メーカーの耐久回数そのもので、試作の段階では時間がかかりすぎる。
+- 推奨の理由: メーカーは定格負荷で 4,000〜5,000 回の耐久を示しており、ジャック自体の寿命はそちらに頼れる。試作で見るのはパネル側の保持なので 100 回で足りる。10.0 N は挿抜力の上限（販売店掲載の写し）。
+- 出典: `.claude/skills/component-a7-pj-324m/sources.json` `src-a7-pj-324m-sofng-site` の抜粋（未監査）「durability 6,000 / 5,000 cycles no load, 5,000 / 4,000 rated load」、`.claude/skills/component-a7-pj-324m/facts.json` `fact-a7-pj-324m-plug-force`
+
+### 10. LED の T1L（1 ビットの Low 時間）の合否を何にしますか。データシートは 580–1000 ns、現行 FW は 220–420 ns です。
+
+- ゲート: `criterion:firmware-waveforms`（実機試験の前）
+- **データシートの 580–1000 ns を採り、FW を直す（推奨）**: 現行 FW は不合格になるので、評価の前に FW のタイミングを直す。基板には影響しない。
+- メーカーの訂正を待つ: 訂正が出るまでこの基準ゲートは閉じたまま。
+- 購入ロットの実測で別にレビューする: LED を買ってオシロで測る必要があり、結果はそのロットにだけ有効。
+- 推奨の理由: 一次資料はデータシート V1.4（V1.0 も同じ）だけで、T1L は 580–1000 ns。FW の変更は基板の発注と独立に行える。
+- 出典: `.claude/skills/component-ws2812b-2020-v6/facts.json` `fact-ws2812b-2020-v6-bit-timing`、`.claude/skills/component-ws2812b-2020-v6/facts.json` `fact-ws2812b-2020-v6-bit-timing-v1-0`
+
+### 11. 製造パッケージのレビューとリリースの承認を、いつ行いますか。
+
+- ゲート: `assembly:prototype-and-release`（製造リリースのとき）
+- **物理手順がすべて終わった後に行う（推奨）**: 試作ルート（最初の質問）だけ先に承認し、リリースは評価の結果を見て決める。
+- 今行う: 評価の記録がないので、承認しても readiness の他のゲートで止まる。
+- 推奨の理由: A7 は製造リリース前で、評価がない。試作ルートの承認とリリースは別の承認。
+- 出典: `engineering/a7/procurement/assembly-manifest.json` 引用「"manufacturing_released": false」
+
+### 12. 版に結び付いた製造リリースと発注を承認しますか。
+
+- ゲート: `manufacturing_release`（製造リリースのとき）
+- **すべての手順と書類がそろった後に承認する（推奨）**: 最後の 1 回だけ判断すればよい。
+- 今承認する: レビュー済みの製造ファイルがまだないので記録できない。
+- 推奨の理由: リリースはレビュー済みの製造ファイル・数量・版に結び付けて記録する必要があり、今はそれらがない。
+- 出典: `engineering/a7/procurement/assembly-manifest.json` 引用「"order_submitted": false」
+
+次の判断（ゲートがまだ別の区分にあるもの。区分が変わるとここに並びます）: `assembly:fixture-materials`
+
+## 資料・回答待ちのゲート（16 件）
+
+ブラウザで保存してほしい資料は 5 件です。保存したファイルをそのまま渡してもらえれば、こちらで出典として記録します。それ以外は、クラウドで取得できるもの、供給元の回答、数量を決めた後の供給観測、実物の測定です。
+
+| ゲート | 入手の方法 | 何を | 必要な値 | URL | 代替 URL | 補足 |
+|---|---|---|---|---|---|---|
+| `assembly:exact-part-evidence` | オーナーがブラウザで保存 | Nexperia PMEG4010CEJ の注文情報（,115 の包装） | ,115 が何の包装（リール寸法・数量）か | [開く](https://www.nexperia.com/product/PMEG4010CEJ) | [開く](https://assets.nexperia.com/documents/packing-information/SOD323F_115.pdf) | クラウドから 403 |
+| `assembly:exact-part-evidence` | オーナーがブラウザで保存 | JST SH コネクタのカタログ（SM04B-SRSS-TB） | No. 1 以外の回路番号の位置 | [開く](https://www.jst-mfg.com/product/pdf/eng/eSH.pdf) | [開く](https://www.jst-mfg.com/product/detail_e.php?series=231) | クラウドから 403 |
+| `assembly:exact-part-evidence` | オーナーがブラウザで保存 | SOFNG PJ-324M の製品ページの図面 | 推奨穴・スロット寸法、軸の高さ、ナット付属の有無 | [開く](https://www.sofng.com/Earphonesocket/2023/0325/1752.html) | [開く](https://www.lcsc.com/product-detail/C22355739.html) | 図面画像はクラウドから取得済み。推奨穴寸法は画像に無い |
+| `criterion:jack-dimensions` | オーナーがブラウザで保存、供給元・加工先の回答、実物の測定 | SOFNG PJ-324M の公差付き図面と推奨基板寸法 | 各寸法の公差、推奨穴、適合ナット | [開く](https://www.sofng.com/Earphonesocket/2023/0325/1752.html) | [開く](https://www.lcsc.com/product-detail/C22355739.html) | 見つからなければ供給元への質問 Q1/Q3/Q4、または購入ロットの実測で決める |
+| `criterion:switch-fit` | オーナーがブラウザで保存、実物の測定 | C&K PCM シリーズのデータシート（Littelfuse） | 本体とペグの基準寸法の公差 | [開く](https://www.littelfuse.com/assetdocs/littelfuse-ck-slide-pcm-series-datasheet?assetguid=d2f6a96c-7a9a-4c4e-a5aa-4fe3075dffe5) | — | クラウドから 403。接触抵抗（3.3 V / 10 kΩ 負荷）は実部品の測定 |
+| `criterion:partial-rails` | オーナーがブラウザで保存 | STM32G031x4/x6/x8 データシート（DS12992） | I/O の注入電流と絶対最大定格 | [開く](https://www.st.com/resource/en/datasheet/stm32g031f8.pdf) | [開く](https://www.st.com/en/microcontrollers-microprocessors/stm32g031g8.html) | クラウドからは応答なし |
+| `criterion:ldo-reverse` | クラウドで取得（オーナー作業なし） | TI TLV755P データシート §7.1.4 Reverse Current | 許容逆電流（数値はなく、VOUT ≤ VIN + 0.3 V の絶対最大と外付けショットキーの推奨だけ） | [開く](https://www.ti.com/lit/ds/symlink/tlv755p.pdf) | — | クラウドから取得できる。オーナーの作業は不要 |
+| `criterion:effective-capacitance` | クラウドで取得（オーナー作業なし） | Samsung CL21A106KAYNNNE / CL31A226KAHNNNE / CL10A475KO8NNNC の DC バイアス特性 | 使用電圧での実効容量 | [開く](https://product.samsungsem.com/mlcc/CL21A106KAYNNN.do) | — | クラウドから取得できる。必要容量は回路レビューで決める |
+| `assembly:supply-observations` | 日付付きの供給観測 | 数量を決めた後の、部品ごとの在庫・価格・最小購入数・納期 | 決めた数量で各行が入手できるか（日付付き） | [開く](https://jlcpcb.com/partdetail/SOFNG-PJ324M/C22355739) | — | 発注数量（オーナーの判断）の後。各行の JLC 部品ページを日付付きで保存する（URL は例） |
+| `assembly:mechanical-materials` | 供給元・加工先の回答 | PMMA 板・PETG 加工先の公差と、ねじの注文型番 | 板厚・ポケット深さの公差、PETG の造形条件、M2×18 / M1.6×4 の型番 | — | — | supplier-questions.md の「PMMA・PETG・組立」を加工先に送って回答を保存する |
+| `criterion:pmma-supports` | 供給元・加工先の回答 | PMMA/PETG 加工先の加工公差と許容締付トルク | 締付トルクと保持荷重の合否値 | — | — | 上と同じ質問の回答 |
+| `criterion:fixture-contact` | 実物の測定 | 完成治具の位置ずれの実測 | 許容位置ずれ・ストローク・荷重 | — | — | INGUN のプローブとレセプタクルの資料は取得済み。残りは完成治具の測定 |
+| `material:jack` | 日付付きの供給観測 | PJ-324M（C22355739）の在庫と価格 | 決めた数量で入手できるか（日付付き） | [開く](https://www.lcsc.com/product-detail/C22355739.html) | [開く](https://jlcpcb.com/partdetail/SOFNG-PJ324M/C22355739) | JLC の在庫は実装専用で単品発送されないので、端子確認用の単品は LCSC から買う |
+| `material:switch` | 日付付きの供給観測 | PCM13SMTR（C221842）の在庫と価格 | 決めた数量で入手できるか（日付付き） | [開く](https://www.lcsc.com/product-detail/C221842.html) | — | 在庫 0 への対応（オーナーの判断）に合わせて販売店を選ぶ |
+| `material:finished_cables` | 供給元・加工先の回答、日付付きの供給観測 | 完成ケーブルの見積もり | 長さ公差の保証、数量、納期 | — | — | supplier-questions.md の「完成ケーブル」を製作業者に送る |
+| `material:pmma_petg_hardware` | 供給元・加工先の回答、日付付きの供給観測 | PMMA・PETG・金物の見積もり | 数量・納期・価格 | — | — | 加工先への質問の回答と一緒に保存する |
+| `material:fixture` | 日付付きの供給観測 | INGUN GKS-050 214 050 A 1000 / KS-050 E08 V-30 と FR-4 加工の見積もり | 在庫・数量・納期 | — | — | 治具の加工先と金物の承認（オーナーの判断）の後 |
+| `material:assembly_service` | 日付付きの供給観測 | 基板実装サービスの見積もり（両面 SMD + THT） | 受入可否、最小数量、納期、価格 | — | — | 発注数量の後、製造ファイルで見積もりを取る（発注はしない） |
+
 ## 採否を待つ提案値
 
 エージェントが出典から用意した提案です（7 件）。採るまでは該当する基準ゲートを解除しません。理由と計算は procedures.md にあります。
@@ -81,8 +213,8 @@ readiness（`engineering/a7/qualification/readiness.json`）は不足を 50 個�
 
 クラウドで進められるデジタル作業として分類したゲートです。
 
-- `artifact:fixture`: fixture digital design incomplete or unverified
-- `assembly:fixture-materials`: assembly_manifest: fixture-materials: Fixture design and materials incomplete (see fixture manifest); physical contact/load tests follow.
+- `artifact:fixture`: fixture: unresolved preparation blockers
+- `assembly:fixture-materials`: assembly_manifest: fixture-materials: Fixture design and materials incomplete (fixture manifest: digital_criteria_1_to_4_met not true, hardware_proposal_complete not true); physical contact/load tests follow.
 
 ## 物理手順
 
