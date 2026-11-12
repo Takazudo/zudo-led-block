@@ -3766,6 +3766,15 @@
       ]
     },
     {
+      "id": "O12",
+      "title": "JLC の注文画面かサポートで、面付けしたときの PCBA 数量と面付けの受け付けを確かめる",
+      "detail": "3 枚の基板はどれも JLC の単品 PCBA の最小寸法に届かないので面付けで注文する（`project/jlc-order-package` に基板ごとの比較。経路は `assembly:panel-route` の判断）。JLC の公開資料では決まらない点を、注文画面のプレビューか JLC サポートで確かめる。質問 1: 「With Panel by JLCPCB, does the PCBA Qty count panels or single boards, and does one panel holding 2 or more boards meet the 2-pcs PCBA minimum, or must 2 panels be assembled?」 質問 2: 「Will you assemble a customer panel that holds a single board inside a waste frame, and can individual boards on a panel be left unassembled?」 質問 3（JLC に面付けを任せる場合）: LED リーフの外形には 1 × 2 mm の切り欠きが 2 つある。この外形で Panel by JLCPCB を受けてもらえるか。電源アダプタは Economic 実装のまま Panel by JLCPCB をマウスバイトで作れるか。コントローラーの J1/J2 は外形から 4.45 mm はみ出すが、その逃げを取ってもらえるか。答えは日付・相手・原文を残して `engineering/a7/jlc-package/sources.json` に記録する。",
+      "unblocks": [
+        "material:assembly_service",
+        "assembly:panel-route"
+      ]
+    },
+    {
       "id": "O5",
       "title": "完成ケーブルを選び、電源ケーブル公差 ±3 mm（仮定）を認めるか決める",
       "detail": "電源 57 mm の公差は仮定。供給元が保証できる公差と組立の選択を決める。SH4 と IDC リボンも同じ。",
@@ -3936,6 +3945,37 @@
       "rank": 3
     },
     {
+      "gate": "assembly:panel-route",
+      "stage": "PCB_ORDER",
+      "question": "JLC で 2 台分を実装するとき、基板の面付けをどうしますか。",
+      "options": [
+        {
+          "id": "repo-panels",
+          "label": "リポジトリで必要枚数だけの面付けを作る",
+          "consequence": "コントローラー 1 枚・リーフ 2 枚・電源アダプタ 1 枚を載せた面付けを凍結基板から作り（基板は変えない）、2 シートでちょうど 2 台分を実装する。PCM13SMTR は 2 個で済む。面付けデータの作成とレビューが要り、JLC がこの面付けを受けるかは注文時に確認する。"
+        },
+        {
+          "id": "jlc-panels",
+          "label": "JLC に面付けを任せる（Panel by JLCPCB）",
+          "consequence": "リポジトリで面付けデータを作らない。PCBA 数量がシート数なら最小 2 シートでコントローラー 20・リーフ 16・電源アダプタ 4 枚が実装され、PCM13SMTR が 20 個要る（2026-11-12 の JLC 在庫 0）。リーフの切り欠き、コントローラーのジャックのはみ出し、アダプタの Economic でのマウスバイトは JLC に確認が要る。"
+        },
+        {
+          "id": "ask-jlc-first",
+          "label": "先に JLC に PCBA 数量の数え方を確かめる",
+          "consequence": "面付けを決める前に、PCBA 数量がシート数か単品数か、余る基板を実装しないで済むかを JLC の注文画面かサポートで確かめる（O12）。答えが出るまで面付けは決まらない。"
+        }
+      ],
+      "recommended": "repo-panels",
+      "reason": "3 枚とも単品では JLC の PCBA 最小寸法に届かない。JLC の面付けは 1 シートに多数載り、最小 2 シートで必要数を大きく超え、在庫 0 の PCM13SMTR が 20 個要る。必要枚数だけの面付けなら 2 シートでちょうど 2 台分で、どの部品の数も 2 台分のまま。",
+      "sources": [
+        {
+          "path": "engineering/a7/jlc-package/package.json",
+          "quote": "\"recommended\": \"REPO_PANEL\""
+        }
+      ],
+      "rank": 4
+    },
+    {
       "gate": "assembly:finished-cables",
       "stage": "BENCH",
       "question": "完成ケーブル（電源 57 mm、SH4、IDC リボン）をどう用意しますか。",
@@ -3968,7 +4008,7 @@
           "pointer": "/power_cable_requirement/band"
         }
       ],
-      "rank": 4
+      "rank": 5
     },
     {
       "gate": "criterion:harness-depth",
@@ -3998,7 +4038,7 @@
           "pointer": "/variants/3hp/routes/adapter_to_controller_power/end_bend_room"
         }
       ],
-      "rank": 5
+      "rank": 6
     },
     {
       "gate": "assembly:rack-hardware",
@@ -4028,7 +4068,7 @@
           "pointer": "/supports/load_path/0"
         }
       ],
-      "rank": 6
+      "rank": 7
     },
     {
       "gate": "criterion:u7-stress",
@@ -4058,7 +4098,7 @@
           "quote": "it does not matter while the total R7 current is below 10 mA"
         }
       ],
-      "rank": 7
+      "rank": 8
     },
     {
       "gate": "criterion:thermal-optical",
@@ -4088,7 +4128,7 @@
           "fact_id": "fact-a7-pj-324m-operating-temperature"
         }
       ],
-      "rank": 8
+      "rank": 9
     },
     {
       "gate": "criterion:service-envelope",
@@ -4124,7 +4164,7 @@
           "fact_id": "fact-a7-pj-324m-plug-force"
         }
       ],
-      "rank": 9
+      "rank": 10
     },
     {
       "gate": "criterion:firmware-waveforms",
@@ -4168,7 +4208,7 @@
           "quote": "We do not treat the low time (T0L / T1L) as a compatibility criterion."
         }
       ],
-      "rank": 10
+      "rank": 11
     },
     {
       "gate": "criterion:ldo-reverse",
@@ -4199,7 +4239,7 @@
           "fact_id": "fact-tlv75533pdbvr-reverse-current"
         }
       ],
-      "rank": 11
+      "rank": 12
     },
     {
       "gate": "criterion:effective-capacitance",
@@ -4243,7 +4283,7 @@
           "quote": "The 50 V part gains about 1.5× at the same measurement condition as the current part."
         }
       ],
-      "rank": 12
+      "rank": 13
     },
     {
       "gate": "assembly:fixture-materials",
@@ -4269,7 +4309,7 @@
           "quote": "Fabricator for the four FR-4 plates is an owner choice and not selected"
         }
       ],
-      "rank": 13
+      "rank": 14
     },
     {
       "gate": "assembly:prototype-and-release",
@@ -4295,7 +4335,7 @@
           "quote": "\"manufacturing_released\": false"
         }
       ],
-      "rank": 14
+      "rank": 15
     },
     {
       "gate": "manufacturing_release",
@@ -4321,7 +4361,7 @@
           "quote": "\"order_submitted\": false"
         }
       ],
-      "rank": 15
+      "rank": 16
     }
   ],
   "evidence_requests": [

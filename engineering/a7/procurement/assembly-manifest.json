@@ -15,8 +15,14 @@
     ],
     "pcba_minimum_boards": {
       "value": 2,
-      "status": "OWNER_REPORTED",
-      "check": "Not confirmed against JLCPCB's published terms on 2026-11-12: the help page fetched from the cloud did not render its content."
+      "status": "SOURCED",
+      "check": "Confirmed on 2026-11-12 against the JLC PCB assembly capability table: order volume 2-50 pcs (Economic) and 2-80000 pcs (Standard). The owner reported it first. Whether \"pcs\" counts single boards or panels once the boards are panelised is not sourced.",
+      "source": {
+        "url": "https://jlcpcb.com/capabilities/pcb-assembly-capabilities",
+        "retrieved_at": "2026-11-12T10:37:16Z",
+        "sha256": "3dbad283ac2f8cef16d560b17ed4500020e48f3b2867a4abe4b646402b00985f",
+        "quote": "Order Volume 2 - 50 pcs 2 - 80000 pcs"
+      }
     },
     "boards": [
       {
@@ -521,7 +527,7 @@
     "engineering/a7/mechanical/build_a7_mechanical.py": "98f47662650732d7d8215e0f86cff404521351ca43a795bd8811fc4f452d3daa",
     "engineering/a7/mechanical/exports/3hp/verification.json": "90d7b8c54ebb59cdc2e2ad2b66d1ba9f183759a6104865d93cc57cdfb1902c26",
     "engineering/a7/mechanical/layout.json": "9cbc6ac99f5b05c7e3145f2016b6918cbc5d2b77170db31ed7155755cba0d591",
-    "engineering/a7/procurement/owner-decisions.json": "7c48ad8c169200cc5b52c7da8e7f07d313fe7bf3a7c0b30b3846a9c6adb781c3",
+    "engineering/a7/procurement/owner-decisions.json": "a744c570e8c5a29c2dd2a6ba88503cde0e7b479adee74e74ebd73503c6cb80d0",
     "engineering/a7/procurement/supply-observations.json": "b7137b2dc14f7767cacb695844313b72b23123538d1d51a4205e042b5a1cef22",
     "engineering/a7/verification/schematic/netlist.xml": "a944cec8877d272637a85afae9f980d4d5e54888453f0f9652a2dd41e575b7cc"
   },
@@ -3572,6 +3578,11 @@
       "id": "switch-supply",
       "class": "OWNER_DECISION",
       "text": "PCM13SMTR (C221842): 2 needed for 2 modules. JLC stock 0 at 2026-11-09; at 2026-11-12 JLC lists it buyable (Extended) with pre-order minimum 3 and presale 0 (field meanings inferred), tier prices without currency, no lead time. The owner wants to complete on JLC: on our reading, a pre-order (presale 0 may mean none can be placed now; fill depends on LCSC stock, not observed) or a Global Sourcing quote; otherwise wait, or accept a reviewed alternate with its own contact table and fit review."
+    },
+    {
+      "id": "panel-route",
+      "class": "OWNER_DECISION",
+      "text": "None of the three boards meets JLC single-board PCBA size; the panel route is not chosen. Panel by JLCPCB puts 10 controllers, 8 leaves or 2 adapters on each panel (20 PCM13SMTR for a 2-panel minimum if the PCBA quantity counts panels, not sourced); a repo-built panel holding 1 controller, 2 leaves or 1 adapter gives exactly 2 modules but is not built. Comparison in engineering/a7/jlc-package/package.json."
     },
     {
       "id": "jack-switch-qualification",

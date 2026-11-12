@@ -114,12 +114,13 @@ jobs:
         run: python3 -m unittest -v scripts/tests/test_a7_r2_mechanical.py
       - name: A7 evidence and preparation negative controls (blocked reports remain valid)
         run: |
-          python3 -m unittest scripts/tests/test_a7_e2_evidence.py scripts/tests/test_a7_fixture.py scripts/tests/test_a7_fixture_relief.py scripts/tests/test_a7_procurement.py scripts/tests/test_a7_readiness.py
+          python3 -m unittest scripts/tests/test_a7_e2_evidence.py scripts/tests/test_a7_fixture.py scripts/tests/test_a7_fixture_relief.py scripts/tests/test_a7_procurement.py scripts/tests/test_a7_readiness.py scripts/tests/test_a7_jlc_package.py
           python3 -O -m unittest scripts/tests/test_a7_readiness.py
           python3 scripts/a7_fixture.py --check
           python3 scripts/a7_fixture_geometry.py --check
           python3 scripts/a7_procurement.py --check
           python3 scripts/a7_readiness.py --check
+          python3 scripts/a7_jlc_package.py --check
       - name: Summary
         if: always()
         run: echo "### A7 mechanical checks are a provisional digital study, not a fit approval or manufacturing release" >> "$GITHUB_STEP_SUMMARY"
@@ -337,6 +338,17 @@ jobs:
           path: ${{ runner.temp }}/a7-route-check/review-aid/
           retention-days: 7
           if-no-files-found: error
+      - name: JLC order-package dry-run export (Gerber, drill, CPL vs KiCad positions; NOT order files)
+        timeout-minutes: 6
+        run: python3 scripts/a7_jlc_package.py export --out "$RUNNER_TEMP/jlc-package-dry-run"
+      - name: Upload JLC package dry run (NOT a release, not for ordering)
+        if: success()
+        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
+        with:
+          name: jlc-package-DRY-RUN-NOT-FOR-ORDER
+          path: ${{ runner.temp }}/jlc-package-dry-run/
+          retention-days: 7
+          if-no-files-found: error
       - name: A7 bonded PET leaf profile and interface check (A5 leaf circuit and copper; not a PET approval)
         timeout-minutes: 10
         run: python3 scripts/a7_pet_leaf_check.py --out "$RUNNER_TEMP/a7-pet-leaf"
@@ -350,6 +362,7 @@ jobs:
           test -z "$(docker ps -aq --filter label=zudo-led-block.native-gate)"
           test -z "$(docker ps -aq --filter label=zudo-led-block.a7-route-check)"
           test -z "$(docker ps -aq --filter label=zudo-led-block.a7-pet-leaf-check)"
+          test -z "$(docker ps -aq --filter label=zudo-led-block.a7-jlc-package)"
       - name: Summary
         if: always()
         timeout-minutes: 1
