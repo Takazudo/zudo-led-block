@@ -3,8 +3,211 @@
   "status": "BLOCKED",
   "digital_fixture_complete": false,
   "digital_fixture_complete_scope": "README completion criteria 1-5, including the physical criterion 5",
-  "digital_criteria_1_to_4_met": false,
+  "digital_criteria_1_to_4_met": true,
   "digital_criteria_1_to_4_met_scope": "progress indicator only: README criteria 1-4 met digitally with no digital blocker; it is not digital_fixture_complete, not a fit result and not order eligibility",
+  "hardware_proposal_complete": true,
+  "hardware_proposal_scope": "one sourced candidate for every materials.json line, each PROPOSED_AWAITING_OWNER_APPROVAL: a proposal, not a selection, not an approval and not an order",
+  "hardware_proposal": [
+    {
+      "requirement_id": "probe",
+      "manufacturer": "INGUN",
+      "mpn": "GKS-050 214 050 A 1000",
+      "source": "sources.json#probe",
+      "status": "PROPOSED_AWAITING_OWNER_APPROVAL",
+      "source_authority": "MANUFACTURER_PRIMARY",
+      "source_sha256": "97c354b17bac5c2e300b0e45f1ce32f574eda7f88fdcbd4a764385c8fcfadfb9"
+    },
+    {
+      "requirement_id": "receptacle",
+      "manufacturer": "INGUN",
+      "mpn": "KS-050 E08 V-30",
+      "source": "sources.json#receptacle",
+      "status": "PROPOSED_AWAITING_OWNER_APPROVAL",
+      "source_authority": "MANUFACTURER_PRIMARY",
+      "source_sha256": "bc016b5934c94f39c638c60416cca8d74e30e17870ae94d02f5022a8c42992b1"
+    },
+    {
+      "requirement_id": "support-carrier",
+      "manufacturer": "Von Roll",
+      "mpn": "Vetronite EGS 619 sheet (EP GC 202 / FR-4), 5.0 mm, machined to fixture-assembly.step",
+      "source": "sources.json#vetronite-egs-619",
+      "status": "PROPOSED_AWAITING_OWNER_APPROVAL",
+      "source_authority": "MANUFACTURER_MIRROR",
+      "source_sha256": "76d6430338b1311689cd6e6f3772b0307e0eb9c70f55f8b5a09946e5c9007a82"
+    },
+    {
+      "requirement_id": "probe-plate",
+      "manufacturer": "Von Roll",
+      "mpn": "Vetronite EGS 619 sheet (EP GC 202 / FR-4), 6.0 mm, machined to fixture-assembly.step",
+      "source": "sources.json#vetronite-egs-619",
+      "status": "PROPOSED_AWAITING_OWNER_APPROVAL",
+      "source_authority": "MANUFACTURER_MIRROR",
+      "source_sha256": "76d6430338b1311689cd6e6f3772b0307e0eb9c70f55f8b5a09946e5c9007a82"
+    },
+    {
+      "requirement_id": "pressure-plate",
+      "manufacturer": "Von Roll",
+      "mpn": "Vetronite EGS 619 sheet (EP GC 202 / FR-4), 3.0 mm, machined to fixture-assembly.step",
+      "source": "sources.json#vetronite-egs-619",
+      "status": "PROPOSED_AWAITING_OWNER_APPROVAL",
+      "source_authority": "MANUFACTURER_MIRROR",
+      "source_sha256": "76d6430338b1311689cd6e6f3772b0307e0eb9c70f55f8b5a09946e5c9007a82"
+    },
+    {
+      "requirement_id": "base-plate",
+      "manufacturer": "Von Roll",
+      "mpn": "Vetronite EGS 619 sheet (EP GC 202 / FR-4), 3.0 mm, machined to fixture-assembly.step",
+      "source": "sources.json#vetronite-egs-619",
+      "status": "PROPOSED_AWAITING_OWNER_APPROVAL",
+      "source_authority": "MANUFACTURER_MIRROR",
+      "source_sha256": "76d6430338b1311689cd6e6f3772b0307e0eb9c70f55f8b5a09946e5c9007a82"
+    },
+    {
+      "requirement_id": "datum-pins",
+      "manufacturer": "GANTER",
+      "mpn": "DIN 6325-2M6-6-ST",
+      "source": "sources.json#ganter-din-6325",
+      "status": "PROPOSED_AWAITING_OWNER_APPROVAL",
+      "source_authority": "MANUFACTURER_MIRROR",
+      "source_sha256": "84a64ed0c8945c72474c19f99d0ce6b5d2512e7771e246ca8369a7b93a963317"
+    },
+    {
+      "requirement_id": "alignment-dowels",
+      "manufacturer": "GANTER",
+      "mpn": "DIN 6325-2M6-16-ST",
+      "source": "sources.json#ganter-din-6325",
+      "status": "PROPOSED_AWAITING_OWNER_APPROVAL",
+      "source_authority": "MANUFACTURER_MIRROR",
+      "source_sha256": "84a64ed0c8945c72474c19f99d0ce6b5d2512e7771e246ca8369a7b93a963317"
+    },
+    {
+      "requirement_id": "plate-stack-screws",
+      "manufacturer": "TR Fastenings",
+      "mpn": "M3 8 KH10MC Z100",
+      "source": "sources.json#tr-kh10mc",
+      "status": "PROPOSED_AWAITING_OWNER_APPROVAL",
+      "source_authority": "MANUFACTURER_MIRROR",
+      "source_sha256": "7026385a1142b631bd9644858b6fc0f625a40f21a5a4ebcef37a843032a4c9e7"
+    },
+    {
+      "requirement_id": "plate-stack-spacers",
+      "manufacturer": "ETTINGER",
+      "mpn": "05.03.061",
+      "source": "sources.json#ettinger-05-03-061",
+      "status": "PROPOSED_AWAITING_OWNER_APPROVAL",
+      "source_authority": "MANUFACTURER_MIRROR",
+      "source_sha256": "2b0e678aadf1d9bb6a7c97726d342bdc6e70fb7b58987a9843529874fa8d8f9e"
+    },
+    {
+      "requirement_id": "plate-stack-studs",
+      "manufacturer": "TR Fastenings",
+      "mpn": "M3 12 HS45PC S100",
+      "source": "sources.json#tr-hs45pc",
+      "status": "PROPOSED_AWAITING_OWNER_APPROVAL",
+      "source_authority": "MANUFACTURER_MIRROR",
+      "source_sha256": "89b87c45b6a32494312fd55cbf899c31b8ea574e8cc87740eb758de72552f213"
+    },
+    {
+      "requirement_id": "base-standoffs",
+      "manufacturer": "ETTINGER",
+      "mpn": "05.03.351",
+      "source": "sources.json#ettinger-05-03-351",
+      "status": "PROPOSED_AWAITING_OWNER_APPROVAL",
+      "source_authority": "MANUFACTURER_MIRROR",
+      "source_sha256": "57f22a64a55c90ed2157cf41acd1dce0fb45a9364fc8ebe38e38c842d1218877"
+    },
+    {
+      "requirement_id": "base-screws",
+      "manufacturer": "TR Fastenings",
+      "mpn": "M3 8 KH10MC Z100",
+      "source": "sources.json#tr-kh10mc",
+      "status": "PROPOSED_AWAITING_OWNER_APPROVAL",
+      "source_authority": "MANUFACTURER_MIRROR",
+      "source_sha256": "7026385a1142b631bd9644858b6fc0f625a40f21a5a4ebcef37a843032a4c9e7"
+    },
+    {
+      "requirement_id": "guide-standoffs",
+      "manufacturer": "ETTINGER",
+      "mpn": "05.03.201",
+      "source": "sources.json#ettinger-05-03-201",
+      "status": "PROPOSED_AWAITING_OWNER_APPROVAL",
+      "source_authority": "MANUFACTURER_MIRROR",
+      "source_sha256": "86966757db55f8e2d2a70f9657f9eaba42e25b75e834abe8fcecdd34bd86e8fe"
+    },
+    {
+      "requirement_id": "guide-screws",
+      "manufacturer": "TR Fastenings",
+      "mpn": "M3 8 SO12CS Z100 (2, under the carrier)",
+      "source": "sources.json#tr-so12cs",
+      "status": "PROPOSED_AWAITING_OWNER_APPROVAL",
+      "source_authority": "MANUFACTURER_MIRROR",
+      "source_sha256": "310ef2ac9f9353191969b757394d75631306fb9300af17cf7fe99e51cf647080"
+    },
+    {
+      "requirement_id": "guide-screws",
+      "manufacturer": "TR Fastenings",
+      "mpn": "M3 6 SO12CS Z100 (2, on the standoff tops)",
+      "source": "sources.json#tr-so12cs",
+      "status": "PROPOSED_AWAITING_OWNER_APPROVAL",
+      "source_authority": "MANUFACTURER_MIRROR",
+      "source_sha256": "310ef2ac9f9353191969b757394d75631306fb9300af17cf7fe99e51cf647080"
+    },
+    {
+      "requirement_id": "guide-washers",
+      "manufacturer": "Essentra Components",
+      "mpn": "347030040952",
+      "source": "sources.json#essentra-347030040952",
+      "status": "PROPOSED_AWAITING_OWNER_APPROVAL",
+      "source_authority": "MANUFACTURER_PRIMARY",
+      "source_sha256": null
+    },
+    {
+      "requirement_id": "clamp-springs",
+      "manufacturer": "Lee Spring",
+      "mpn": "LCM065E07M",
+      "source": "sources.json#lee-spring-catalog-us",
+      "status": "PROPOSED_AWAITING_OWNER_APPROVAL",
+      "source_authority": "MANUFACTURER_PRIMARY",
+      "source_sha256": "838e5f573f86321dfc17916061b2d10400584c3b4c4d629bdfff0572989f99f4"
+    },
+    {
+      "requirement_id": "contact-screws",
+      "manufacturer": "Essentra Components",
+      "mpn": "50M020040N008",
+      "source": "sources.json#essentra-50m020040n008",
+      "status": "PROPOSED_AWAITING_OWNER_APPROVAL",
+      "source_authority": "MANUFACTURER_PRIMARY",
+      "source_sha256": null
+    },
+    {
+      "requirement_id": "contact-nuts",
+      "manufacturer": "TR Fastenings",
+      "mpn": "TRNNE 34814 M2",
+      "source": "sources.json#tr-trnne-34814",
+      "status": "PROPOSED_AWAITING_OWNER_APPROVAL",
+      "source_authority": "MANUFACTURER_MIRROR",
+      "source_sha256": "e7dc13e62a8e40c12446a0c71ce879d4b8e4a3fcb528f2d8ac67458b36d3fc9f"
+    },
+    {
+      "requirement_id": "wire-retention",
+      "manufacturer": "HellermannTyton",
+      "mpn": "T18R-PA66-NA (111-00643)",
+      "source": "sources.json#hellermanntyton-111-00643",
+      "status": "PROPOSED_AWAITING_OWNER_APPROVAL",
+      "source_authority": "MANUFACTURER_PRIMARY",
+      "source_sha256": "c1ae3280e25a45aa9057a205c31c91f496145df2db296b3efaabae5af9f96795"
+    },
+    {
+      "requirement_id": "wire-retention",
+      "manufacturer": "HellermannTyton",
+      "mpn": "FTLS-PET-WH FlagTag (596-97004)",
+      "source": "sources.json#hellermanntyton-596-97004",
+      "status": "PROPOSED_AWAITING_OWNER_APPROVAL",
+      "source_authority": "MANUFACTURER_MIRROR",
+      "source_sha256": "50ddbfdd17846943917ddab28bec84d39316ceb728c5fdac5c37ce20501f489b"
+    }
+  ],
+  "hardware_proposal_problems": [],
   "scope": "Digital fixture design: support carrier, probe plate, pressure plate, base plate and hardware envelopes with the assembly STEP and interference check; not a fit result, not a selection and not a fabrication approval",
   "board_sha256": "4453f818ede1e6d6c56e45ef43aa6faecb90990f3755f82c6d752258cd4d628e",
   "placement_sha256": "1891af356ead303127c6b7a99b8934b08aa25f465b4b2c96872f5d5d24afdc01",
@@ -12,19 +215,19 @@
   "inputs_sha256": {
     "engineering/a7/electronics/controller/controller.kicad_pcb": "4453f818ede1e6d6c56e45ef43aa6faecb90990f3755f82c6d752258cd4d628e",
     "engineering/a7/electronics/controller/board_placement.json": "1891af356ead303127c6b7a99b8934b08aa25f465b4b2c96872f5d5d24afdc01",
-    "scripts/a7_fixture.py": "3ce28c13f791c2aa353ef797bf4daf07ccd612cba84a02523f01b417da320c09",
-    "scripts/a7_fixture_relief.py": "48bf617764d7ca6ad4981a55e6ab999d19cacdb8e75ffe065336edd23440f710",
-    "scripts/a7_fixture_assembly.py": "998c4e973492096d75e1a17745488ebbebb909e9888d58032a760dfd042ff40a",
+    "scripts/a7_fixture.py": "b1f6243204160d3be5d134b60abadea8d68c958859f29044c8a8f4cb0b364741",
+    "scripts/a7_fixture_relief.py": "46156755a322c94283f5ae9283d4a99e457d2cef42381335fc12bc434c17f5fa",
+    "scripts/a7_fixture_assembly.py": "bc7c9bbe59c986cd5f9ba3ff7c4ffb6cc3edbd98785624335218cf4825b27187",
     "engineering/a7/procurement/population.csv": "6ce7636d2d0cae04ccbd2dace8cd0efacafe154b5e772acaa04a5e79718b0dd8",
-    "engineering/a7/fixture/sources.json": "0f7f5966994f383dd114e37d3560d1030031d369c8947558350a8c274932442c",
-    "engineering/a7/fixture/materials.json": "1c263305b2286c2db3c36898ad48abded7bbae2ccc5edf901e9d36279ec2f433",
+    "engineering/a7/fixture/sources.json": "b015c21c417173795c4091c4ee5a8da494f44011ce0d319d7aa876a25bbc9d51",
+    "engineering/a7/fixture/materials.json": "efd5f6b5d998625ffdae70cdae8b8f512261c4e5597ed24679a4a7863d0981f3",
     "engineering/a7/fixture/candidate-references.json": "6f929c9edf3d115dc18f5cf1b055f9971ec25af64ce20948a882729250151845"
   },
   "assembly": {
     "record": "engineering/a7/fixture/assembly-interference.json",
-    "record_sha256": "9f2f21b9c8b4f974658b3bb5ede31f27e3e7cddb52635ba64a1835a7f9076d03",
+    "record_sha256": "93a320eb0925b314fc1f8775ed8bedd762662062beb0d4f2a2ebbc98685bb53e",
     "step": "engineering/a7/fixture/fixture-assembly.step",
-    "step_sha256": "95660b42e740c77a4f4c02678373dc0faa974078066cceceb7bab9b96e2a263b",
+    "step_sha256": "46ec3ec2baf2ee3a19d261aa3d1493463a9f54b45af696e15bb35bcf4571092b",
     "solids": 135,
     "interferences": 0,
     "clearances": [
@@ -37,11 +240,11 @@
         ]
       },
       {
-        "pair": "J5 tail column to carrier and probe plate",
-        "minimum_mm": 0.4254,
+        "pair": "J5 leads at the 2.8 mm tail bound to carrier and probe plate",
+        "minimum_mm": 0.4293,
         "between": [
-          "J5.1 tail keep-out column (unsourced length)",
-          "probe_plate"
+          "J5.1 B-face body/lead",
+          "support_carrier"
         ]
       },
       {
@@ -78,17 +281,17 @@
       },
       {
         "pair": "board to guide standoffs and springs",
-        "minimum_mm": 2.2855,
+        "minimum_mm": 2.2788,
         "between": [
-          "U1 F-side body (courtyard x height)",
-          "G1 M3 F-F hex standoff 12"
+          "J1 F-side body (courtyard x height)",
+          "G1 compression spring envelope"
         ]
       },
       {
         "pair": "metal hardware to probes and receptacles",
         "minimum_mm": 4.361,
         "between": [
-          "G2 M3 F-F hex standoff 12",
+          "G2 M3 F-F hex standoff 20",
           "TP4 GKS-050 probe (compressed envelope)"
         ]
       }
@@ -204,11 +407,12 @@
       }
     ]
   },
-  "fresh_native_verified": false,
+  "fresh_native_verified": true,
   "fresh_native_criteria": {
     "every_b_side_part_and_tht_lead_relieved_from_native_geometry": true,
     "clearance_independent_of_unsourced_heights": true,
-    "every_b_face_protrusion_sourced": false,
+    "every_b_face_protrusion_sourced": true,
+    "every_tht_lead_ends_inside_its_carrier_window": true,
     "no_wall_below_minimum": true,
     "keyed_against_turned_insertion": true,
     "contacts_on_f_face_clear_of_parts_and_around_both_resultants": true,
@@ -216,8 +420,8 @@
   },
   "completion_criteria": {
     "1_native_support_and_relief": {
-      "met": false,
-      "basis": "fresh_native_criteria not all met: every_b_face_protrusion_sourced"
+      "met": true,
+      "basis": "fresh_native_criteria"
     },
     "2_keying_and_registration": {
       "met": true,
@@ -272,7 +476,7 @@
       "m3_clearance_hole_mm": 3.4,
       "m3_screw_head_diameter_mm": 5.5,
       "m3_countersink_diameter_mm": 6.0,
-      "spring_outer_diameter_max_mm": 9.0,
+      "spring_outer_diameter_max_mm": 9.2,
       "contact_nut_across_corners_mm": 4.62,
       "m3_hex_across_corners_mm": 6.35,
       "contact_screw": "M2 nylon (PA66) screw, tip diameter 2.0 mm, protruding 2.5 mm below the pressure plate",
@@ -283,6 +487,8 @@
       "pressure_plate_part_clearance_mm": 0.5,
       "resultant_margin_mm": 0.5,
       "clamp_force_margin_factor": 2.0,
+      "spring_force_max_over_range_N": 10.0,
+      "spring_installed_length_tolerance_mm": 0.3,
       "wire_bend_space_factor_of_od": 10,
       "support_grid_mm": 0.1,
       "support_radius_around_probe_mm": 3.0,
@@ -393,9 +599,24 @@
         "body_height_source": "fact-a7-pcm13smtr-outline height_above_pcb (component-a7-pcm13smtr)"
       },
       "PicoBlade 530470310": {
-        "tail_length_below_b_face_mm": null,
-        "class": "UNKNOWN",
-        "reason": "no traceable tail length in the recorded evidence: the sales-drawing extract gives only A/B/C/D row dimensions; the 2.3 mm in the mechanical layout is unsourced; the KiCad library 3D model is not supplier CAD",
+        "tail_length_below_seating_plane_mm": 2.3,
+        "tolerance_mm": 0.5,
+        "class": "SOURCE_DERIVED (MANUFACTURER_PRIMARY)",
+        "source": {
+          "fact_id": "fact-530470310-tail-length",
+          "source_id": "src-530470310-sd",
+          "document": "Molex 530470000-SD rev B",
+          "sha256": "76d2a5817a01b47f4b35c0b4078d874834f1f9c233bde42d9a819ead173929c7",
+          "locator": "SECTION X-X horizontal dimension 2.3 +/-0.5 (sheet 1, zones E-F, columns 8-10); tail length from the housing seating face to the tail tip (component-530470310 facts.json)"
+        },
+        "protrusion_below_b_face_mm": {
+          "nominal": 0.7,
+          "range": [
+            0.2,
+            1.2
+          ],
+          "basis": "CALCULATION, not sourced: 2.3 +/-0.5 mm tail minus the 1.6 mm board with the housing seated flush; the board-thickness tolerance is not sourced"
+        },
         "mated_height_above_f_face_mm": 5.2,
         "mated_height_source": "A5-sourced mated height used by scripts/a7_mechanical_layout.py"
       }
@@ -425,7 +646,7 @@
         4.1,
         7.1
       ],
-      "guide_standoff_top": 12.0
+      "guide_standoff_top": 20.0
     },
     "support_carrier": {
       "bounds_board_mm": [
@@ -2697,7 +2918,7 @@
           1.55,
           36.95
         ],
-        "depth_below_b_face_mm": 1.8
+        "depth_below_b_face_mm": 3.4
       },
       {
         "ref": "J1.2",
@@ -2715,7 +2936,7 @@
           10.05,
           41.75
         ],
-        "depth_below_b_face_mm": 1.8
+        "depth_below_b_face_mm": 3.4
       },
       {
         "ref": "J1.3",
@@ -2733,7 +2954,7 @@
           9.05,
           39.05
         ],
-        "depth_below_b_face_mm": 1.8
+        "depth_below_b_face_mm": 3.4
       },
       {
         "ref": "J1.4",
@@ -2751,7 +2972,7 @@
           13.05,
           32.95
         ],
-        "depth_below_b_face_mm": 1.8
+        "depth_below_b_face_mm": 3.4
       },
       {
         "ref": "J1.5",
@@ -2769,7 +2990,7 @@
           6.05,
           32.05
         ],
-        "depth_below_b_face_mm": 1.8
+        "depth_below_b_face_mm": 3.4
       },
       {
         "ref": "J2.1",
@@ -2787,7 +3008,7 @@
           1.55,
           51.95
         ],
-        "depth_below_b_face_mm": 1.8
+        "depth_below_b_face_mm": 3.4
       },
       {
         "ref": "J2.2",
@@ -2805,7 +3026,7 @@
           10.05,
           56.75
         ],
-        "depth_below_b_face_mm": 1.8
+        "depth_below_b_face_mm": 3.4
       },
       {
         "ref": "J2.3",
@@ -2823,7 +3044,7 @@
           9.05,
           54.05
         ],
-        "depth_below_b_face_mm": 1.8
+        "depth_below_b_face_mm": 3.4
       },
       {
         "ref": "J2.4",
@@ -2841,7 +3062,7 @@
           13.05,
           47.95
         ],
-        "depth_below_b_face_mm": 1.8
+        "depth_below_b_face_mm": 3.4
       },
       {
         "ref": "J2.5",
@@ -2859,7 +3080,7 @@
           6.05,
           47.05
         ],
-        "depth_below_b_face_mm": 1.8
+        "depth_below_b_face_mm": 3.4
       },
       {
         "ref": "J5.1",
@@ -2870,14 +3091,14 @@
           28.45
         ],
         "height_source": "PicoBlade 530470310",
-        "height_class": "UNKNOWN",
+        "height_class": "SOURCE_DERIVED (MANUFACTURER_PRIMARY)",
         "body_board_mm": [
           6.84,
           26.85,
           7.64,
           28.15
         ],
-        "depth_below_b_face_mm": null
+        "depth_below_b_face_mm": 2.8
       },
       {
         "ref": "J5.2",
@@ -2888,14 +3109,14 @@
           28.45
         ],
         "height_source": "PicoBlade 530470310",
-        "height_class": "UNKNOWN",
+        "height_class": "SOURCE_DERIVED (MANUFACTURER_PRIMARY)",
         "body_board_mm": [
           8.09,
           26.85,
           8.89,
           28.15
         ],
-        "depth_below_b_face_mm": null
+        "depth_below_b_face_mm": 2.8
       },
       {
         "ref": "J5.3",
@@ -2906,14 +3127,14 @@
           28.45
         ],
         "height_source": "PicoBlade 530470310",
-        "height_class": "UNKNOWN",
+        "height_class": "SOURCE_DERIVED (MANUFACTURER_PRIMARY)",
         "body_board_mm": [
           9.34,
           26.85,
           10.14,
           28.15
         ],
-        "depth_below_b_face_mm": null
+        "depth_below_b_face_mm": 2.8
       },
       {
         "ref": "R10",
@@ -3312,10 +3533,41 @@
         "depth_below_b_face_mm": 0.55
       }
     ],
-    "unknown_heights": [
-      "J5 (PicoBlade 530470310): lead tail below the B face"
+    "unknown_heights": [],
+    "lead_tails": [
+      {
+        "refs": [
+          "J1",
+          "J2"
+        ],
+        "source": "PJ-324M",
+        "class": "SOURCE_DERIVED (MANUFACTURER_MIRROR)",
+        "protrusion_worst_case_at_nominal_board_mm": 1.8,
+        "protrusion_bound_any_board_thickness_mm": 3.4,
+        "bound_basis": "full sourced lead length below the seating plane (nominal + tolerance): the board-thickness tolerance is not sourced, and with the part seated flush or proud the protrusion cannot exceed this for any board thickness",
+        "carrier_thickness_mm": 5.0,
+        "margin_to_carrier_bottom_mm": 1.6,
+        "margin_to_probe_plate_top_mm": 7.6,
+        "ends_inside_carrier_window": true,
+        "lateral_clearance": "the lead lies inside its window member (pad box + 0.3 mm); the assembly check measures it"
+      },
+      {
+        "refs": [
+          "J5"
+        ],
+        "source": "PicoBlade 530470310",
+        "class": "SOURCE_DERIVED (MANUFACTURER_PRIMARY)",
+        "protrusion_worst_case_at_nominal_board_mm": 1.2,
+        "protrusion_bound_any_board_thickness_mm": 2.8,
+        "bound_basis": "full sourced lead length below the seating plane (nominal + tolerance): the board-thickness tolerance is not sourced, and with the part seated flush or proud the protrusion cannot exceed this for any board thickness",
+        "carrier_thickness_mm": 5.0,
+        "margin_to_carrier_bottom_mm": 2.2,
+        "margin_to_probe_plate_top_mm": 8.2,
+        "ends_inside_carrier_window": true,
+        "lateral_clearance": "the lead lies inside its window member (pad box + 0.3 mm); the assembly check measures it"
+      }
     ],
-    "solder_envelope": "not needed for clearance: every B-face feature lies in a window through the 5 mm carrier, and only the J5 tail reaches the probe plate zone, where it has its own window",
+    "solder_envelope": "not needed for clearance: every B-face feature lies in a window through the 5 mm carrier, and every through-hole lead, taken at its full sourced length below the seating plane, ends inside its carrier window",
     "keying": {
       "method": "B-face features stand proud of the B face: PJ-324M terminals (nominal 1.6 mm, MANUFACTURER_MIRROR) and the soldered R0603 terminations (body up to 0.55 mm, SOURCE_DERIVED). In the correct pose all of them fall into carrier windows; turned 180 degrees in plane, the listed centres land on solid carrier, hold the board off the land and the datum pins, and the probes miss the test pads. Face-down insertion is excluded by the F-side jacks.",
       "turned_pose_features": [
@@ -3848,7 +4100,7 @@
       "scope": "rigid-body statics plus a conservative beam estimate for the board across the window (below); plate deflection not analysed"
     },
     "holddown": {
-      "type": "screw-down FR-4 pressure plate, 3 mm, guided on two M3 hex standoffs (12 mm) standing on the carrier; a compression spring on each standoff is held by an M3 screw and washer on the standoff top; three M2 nylon screws in the plate are the contacts",
+      "type": "screw-down FR-4 pressure plate, 3 mm, guided on two M3 hex standoffs (20 mm) standing on the carrier; a compression spring on each standoff is held by an M3 screw and washer on the standoff top; three M2 nylon screws in the plate are the contacts",
       "contacts_board_mm": [
         [
           14.7,
@@ -3909,9 +4161,19 @@
         2.761201,
         6.689429
       ],
+      "maximum_total_spring_force_N": 20.0,
+      "contact_reactions_at_maximum_spring_force_N": [
+        5.117117,
+        4.348348,
+        10.534535
+      ],
       "board_net_load_point_mm": [
         3.16,
         21.76
+      ],
+      "board_net_load_point_at_maximum_spring_force_mm": [
+        5.801905,
+        22.58359
       ],
       "board_net_load_point_inside_land_hull_mm": 3.11,
       "board_bending_across_window": {
@@ -3920,10 +4182,30 @@
         "strip_width_mm": 5.0,
         "board_thickness_mm": 1.6,
         "flexural_modulus_MPa": 18000.0,
-        "flexural_modulus_class": "ASSUMED (typical FR-4 flexural modulus; the board laminate is not sourced)",
-        "load_N": 12.699999,
-        "load_basis": "larger of the total probe force at maximum stroke and the summed reactions of the contacts over the window, taken as wholly unbalanced",
-        "deflection_mm": 0.061783,
+        "flexural_modulus_class": "ASSUMED for the board: its laminate is not sourced (fabricator not selected). Bounded by the sourced FR-4 class values below, all above the assumed value and above the minimum modulus that keeps the deflection within the limit",
+        "flexural_modulus_minimum_for_limit_MPa": 17513.3,
+        "representative_sourced_moduli": [
+          {
+            "material": "Isola FR406 (IPC-4101 /21 /24 /26)",
+            "value_MPa": 21484.1,
+            "direction": "cross direction",
+            "method": "ASTM D790 (Young's modulus, 3116 ksi)",
+            "source": "sources.json#isola-fr406",
+            "locator": "physical page index 1, Young's Modulus B"
+          },
+          {
+            "material": "Von Roll Vetronite EGS 619 (EP GC 202, NEMA FR-4)",
+            "value_MPa": 23000.0,
+            "direction": "not stated",
+            "method": "ISO 178 (E-modulus)",
+            "source": "sources.json#vetronite-egs-619",
+            "locator": "Mechanical properties, E-modulus"
+          }
+        ],
+        "deflection_at_lowest_sourced_modulus_mm": 0.081517,
+        "load_N": 20.0,
+        "load_basis": "larger of the total probe force at maximum stroke and the summed reactions of the contacts over the window at the maximum allowed spring force (2 x spring_force_max_over_range_N), taken as wholly unbalanced",
+        "deflection_mm": 0.097296,
         "limit_mm": 0.1,
         "limit_basis": "PROJECT-CHOICE: small against the 2.05 mm between the 4.3 mm working stroke and the 6.35 mm maximum"
       },
@@ -3931,21 +4213,88 @@
       "spring_requirement": {
         "quantity": 2,
         "inner_diameter_min_mm": 6.6,
-        "outer_diameter_max_mm": 9.0,
-        "installed_length_nominal_mm": 4.9,
+        "works_over_rod_min_mm": 6.35,
+        "outer_diameter_max_mm": 9.2,
+        "installed_length_nominal_mm": 12.9,
         "installed_length_range_mm": [
-          4.6,
-          5.2
+          12.6,
+          13.2
         ],
         "force_min_over_range_N": 6.35,
-        "solid_length_max_mm": 4.3,
-        "free_length_max_mm": 9.4,
-        "free_length_basis": "the M3 x 6 top screw engages at least 1.5 mm of standoff thread before it starts to compress the spring (PROJECT-CHOICE)",
+        "force_max_over_range_N": 10.0,
+        "solid_length_max_mm": 12.3,
+        "free_length_basis": "not limited: the operator presses washer and screw down by hand (at most the spring force) until the M3 x 6 top screw starts in the standoff thread",
+        "force_max_basis": "keeps the board bending across the window within its limit (board_bending_across_window)",
         "basis": "each spring carries half of the required total over the installed-length range, which covers board thickness and contact-screw setting variation of +/-0.3 mm (PROJECT-CHOICE envelope)",
-        "status": "REQUIRED_NOT_SELECTED (standard compression spring; part not chosen)"
+        "status": "REQUIRED; a candidate is proposed below, awaiting owner approval, not selected"
+      },
+      "spring_candidate": {
+        "manufacturer": "Lee Spring",
+        "mpn": "LCM065E07M",
+        "stock_number": "LCM065E 07 (suffix M: music wire)",
+        "outside_diameter_mm": 9.0,
+        "outside_diameter_tolerance_mm": 0.2,
+        "work_over_rod_diameter_mm": 7.2,
+        "wire_diameter_mm": 0.65,
+        "free_length_mm": 23.0,
+        "free_length_tolerance_mm": 0.79,
+        "rate_N_per_mm": 0.8,
+        "rate_tolerance_N_per_mm": 0.08,
+        "solid_height_mm": 3.89,
+        "load_at_solid_height_N": 15.2,
+        "source": {
+          "catalogue": "sources.json#lee-spring-catalog-us",
+          "locator": "Compression Springs: Standard Series (Metric), printed page 142 (physical PDF page index 143), row LCM065E 07",
+          "tolerances": "sources.json#lee-spring-lcm065e07m-page (Outside Diameter Tolerance +/-0.2 mm, Free Length Tolerance 0.79 mm, Rate Tolerance 0.08 N/mm)"
+        },
+        "status": "PROPOSED_AWAITING_OWNER_APPROVAL (not selected)",
+        "installed_length_range_mm": [
+          12.6,
+          13.2
+        ],
+        "checks": {
+          "force_min_at_longest_installed_length_N": [
+            6.4872,
+            ">=",
+            6.35,
+            true
+          ],
+          "force_max_at_shortest_installed_length_N": [
+            9.8472,
+            "<=",
+            10.0,
+            true
+          ],
+          "outside_diameter_max_mm": [
+            9.2,
+            "<=",
+            9.2,
+            true
+          ],
+          "works_over_rod_mm": [
+            7.2,
+            ">=",
+            6.35,
+            true
+          ],
+          "inside_diameter_mm": [
+            7.7,
+            ">=",
+            6.6,
+            true
+          ],
+          "solid_height_mm": [
+            3.89,
+            "<=",
+            12.3,
+            true
+          ]
+        },
+        "meets_requirement": true,
+        "basis": "worst case over the installed-length range with the rate and free-length tolerances stacked"
       },
       "contact_setting": "each M2 nylon screw protrudes 2.5 +/-0.1 mm below the plate (acceptance measurement before use)",
-      "operation": "remove the two M3 x 6 top screws with their washers and springs and lift the plate off; insert the board and push it against X1, X2 and Y1; refit plate, springs and washers and screw down until each screw head seats on its standoff (hard stop). The spring length at the hard stop, not the screw torque, sets the clamp force"
+      "operation": "remove the two M3 x 6 top screws with their washers and springs and lift the plate off; insert the board and push it against X1, X2 and Y1; refit plate, springs and washers, press each washer down by hand until its screw starts in the standoff thread, and screw down until each screw head seats on its standoff (hard stop). The spring length at the hard stop, not the screw torque, sets the clamp force"
     },
     "registration": {
       "datums": "board pushed by hand against X1, X2 (x = 16.2 edge) and Y1 (y = 62.9 edge) before the pressure plate is screwed down; friction under the contacts then holds it. Datum contact clearance zero is an acceptance check, not a spring",
@@ -4007,7 +4356,7 @@
       "plates": "support carrier, probe plate, pressure plate and base plate are FR-4 (insulating)",
       "board_contacts": "nylon M2 contacts on the F face; datum pins touch only the board edge",
       "metal_to_probe_min_gap_mm": {
-        "gap": 2.895807,
+        "gap": 2.795807,
         "between": [
           "G2",
           "TP4"
@@ -4158,16 +4507,15 @@
       }
     },
     "free_space": {
-      "j5_tail_max_without_interference_mm": 52.0,
-      "note": "J5 tails pass carrier and probe-plate windows; only a tail longer than this would reach the base plate",
-      "unsourced": [
-        "J5 (PicoBlade 530470310): lead tail below the B face: no part of the fixture depends on it below this bound"
-      ]
+      "below_b_face_to_base_plate_mm": 52.0,
+      "note": "the carrier and probe-plate windows leave this much free space under the J5 leads; the sourced J5 tail ends inside the carrier window (lead_tails)",
+      "unsourced": []
     },
     "fresh_native_criteria": {
       "every_b_side_part_and_tht_lead_relieved_from_native_geometry": true,
       "clearance_independent_of_unsourced_heights": true,
-      "every_b_face_protrusion_sourced": false,
+      "every_b_face_protrusion_sourced": true,
+      "every_tht_lead_ends_inside_its_carrier_window": true,
       "no_wall_below_minimum": true,
       "keyed_against_turned_insertion": true,
       "contacts_on_f_face_clear_of_parts_and_around_both_resultants": true
@@ -4400,13 +4748,11 @@
       "satisfied": false
     }
   ],
-  "blockers": [
-    "fresh_native_verified false: J5 (PicoBlade 530470310): lead tail below the B face is unsourced (the carrier and probe-plate windows and the base clearance do not depend on it up to the stated bound)"
-  ],
+  "blockers": [],
   "owner_and_supplier_items": [
     "Fabricator for the four FR-4 plates is an owner choice and not selected; JLCCNC guidance is a candidate reference only. The probe-plate bores are drilled at the board test-point pitch, leaving 0.4 mm between bores: this meets the INGUN receptacle grid (0.27 mm) but not the 1.0 mm milled-wall guidance, so the chosen fabricator must confirm drilling it; the board pitch is fixed.",
     "Registration needs the bore positions within 0.05 mm of the datum pins, tighter than the +/-0.1 mm standard tolerance: an annotated 2D drawing is needed.",
-    "Springs, screws, spacers, standoffs, pins, dowels, washers and nylon contact screws are specified as requirements (materials.json); no part is selected.",
+    "Plate stock and every hardware line have one sourced candidate in hardware_proposal, awaiting owner approval; none is selected, and no price, stock or lead time was retrieved.",
     "Receptacle drawing diameter 0.96 mm versus PDF table 0.95 mm; the bore follows the 0.98-1.00 mm FR-4 mounting-hole data, resolve before selection."
   ],
   "physical_items": [

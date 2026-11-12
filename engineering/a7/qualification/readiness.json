@@ -36,11 +36,11 @@
     },
     "fixture": {
       "path": "engineering/a7/fixture/manifest.json",
-      "sha256": "462a15da400963f5122d330fc7b4bc7037d13c470e3000c86a1b55fa2f2da5b9"
+      "sha256": "7ee1b73505bc3c42b748a15b178f987920bb08d638bd458245356957e01e2e0b"
     },
     "assembly_manifest": {
       "path": "engineering/a7/procurement/assembly-manifest.json",
-      "sha256": "5d6559807c678616e66cc18e0e960efdb00959e56611e52a68be0d19855b4941"
+      "sha256": "01ef02631fbb3caead803c425f2f75fe1fe914824561d52d8a6535662f9cf9d1"
     }
   },
   "plan_sha256": "e1b814adeccdc24dba1b9d51f490df1291633ecd6ebd1799a9049ede341b86a8",
@@ -205,7 +205,6 @@
   ],
   "blockers": [
     "fixture digital design incomplete or unverified",
-    "fixture: unresolved preparation blockers",
     "assembly_manifest: supply-observations: Current stock, price, MOQ, packaging, lead time and assembly applicability not obtained for any line except the dated C221842 zero-stock observation; stock never reserved.",
     "assembly_manifest: order-quantity: No agreed order quantity; 1/10/100 are comparison scenarios only, so no supply observation can be judged available for a proposed order.",
     "assembly_manifest: switch-supply: PCM13SMTR (C221842) had JLC stock 0 / presale 0 at 2026-11-09; wait, buy elsewhere, or accept a reviewed alternate with its own contact table and fit review.",
@@ -273,8 +272,7 @@
       "gate": "artifact:fixture",
       "class": "CLOUD_DIGITAL",
       "reasons": [
-        "fixture digital design incomplete or unverified",
-        "fixture: unresolved preparation blockers"
+        "fixture digital design incomplete or unverified"
       ]
     },
     {
@@ -650,14 +648,14 @@
     {
       "artifact": "fixture",
       "flag": "fresh_native_verified",
-      "value": false,
+      "value": true,
       "role": "GATE",
       "note": "治具形状の native 検証。B 面の全突起の高さに出典があることを含み、資料の入手で満たす（手順の観測では満たさない）。"
     },
     {
       "artifact": "fixture",
       "flag": "digital_criteria_1_to_4_met",
-      "value": false,
+      "value": true,
       "role": "INFORMATIONAL",
       "note": "README の基準 1–4 がデジタルで満たされ、デジタルのブロッカーがないこと（fresh_native_verified を含む）。進捗の表示で、完了フラグでも発注適格性でもない。fixture-contact を始める前提。"
     }

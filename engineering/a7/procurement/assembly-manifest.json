@@ -23,7 +23,7 @@
     "engineering/a7/electronics/controller/board_placement.json": "1891af356ead303127c6b7a99b8934b08aa25f465b4b2c96872f5d5d24afdc01",
     "engineering/a7/electronics/controller/controller.kicad_pcb": "4453f818ede1e6d6c56e45ef43aa6faecb90990f3755f82c6d752258cd4d628e",
     "engineering/a7/electronics/controller/controller.kicad_sch": "01c09e69f2623bdbb98ae6176b4b52204ae817f927ecb311242d7ac1295fbc72",
-    "engineering/a7/fixture/materials.json": "1c263305b2286c2db3c36898ad48abded7bbae2ccc5edf901e9d36279ec2f433",
+    "engineering/a7/fixture/materials.json": "efd5f6b5d998625ffdae70cdae8b8f512261c4e5597ed24679a4a7863d0981f3",
     "engineering/a7/fixture/native-geometry.json": "2f372a058a24cb117d9e294d11411e84cb575e682d18f7651cbf0547d1bc7f51",
     "engineering/a7/mechanical/build_a7_mechanical.py": "98f47662650732d7d8215e0f86cff404521351ca43a795bd8811fc4f452d3daa",
     "engineering/a7/mechanical/exports/3hp/verification.json": "90d7b8c54ebb59cdc2e2ad2b66d1ba9f183759a6104865d93cc57cdfb1902c26",
@@ -2866,7 +2866,7 @@
       },
       {
         "id": "alignment-dowels",
-        "description": "Dowel pins 2.0 x 17 mm through carrier and probe plate (D1, D2), aligning the bores to the datum pins",
+        "description": "Dowel pins 2.0 x 16 mm, hardened steel m6, through probe plate and carrier (D1, D2) from the probe-plate underside, ending 1.0 mm below the carrier top, aligning the bores to the datum pins",
         "quantity": 2,
         "manufacturer": null,
         "mpn": null,
@@ -2911,7 +2911,7 @@
       },
       {
         "id": "base-screws",
-        "description": "M3 x 6 countersunk screws (ISO 10642 / DIN 7991), base underside flush",
+        "description": "M3 x 8 countersunk screws (DIN 7991 / ISO 10642), base underside flush, 5 mm into the 35 mm standoff thread",
         "quantity": 6,
         "manufacturer": null,
         "mpn": null,
@@ -2920,7 +2920,7 @@
       },
       {
         "id": "guide-standoffs",
-        "description": "M3 hex standoffs female-female 12 mm, 5.5 mm across flats, on the carrier top (G1, G2), fixed by M3 x 8 socket head screws from below",
+        "description": "M3 hex standoffs female-female 20 mm, 5.5 mm across flats, 7 mm thread each end, on the carrier top (G1, G2), fixed by M3 x 8 socket head screws from below",
         "quantity": 2,
         "manufacturer": null,
         "mpn": null,
@@ -2947,7 +2947,7 @@
       },
       {
         "id": "clamp-springs",
-        "description": "Compression springs over the guide standoffs: inner diameter at least 6.6 mm, outer diameter at most 9.0 mm, at least 6.35 N each over installed length 4.6-5.2 mm, solid length at most 4.3 mm, free length at most 9.4 mm (total 12.7 N = 2.0 x the 6.35 N probe force at maximum stroke)",
+        "description": "Compression springs over the guide standoffs: work over a rod of at least 6.35 mm (hex corners) with inner diameter at least 6.6 mm, outer diameter at most 9.2 mm, 6.35-10.0 N each over installed length 12.6-13.2 mm (worst case with rate and free-length tolerances), solid length at most 12.3 mm (total at least 12.7 N = 2.0 x the 6.35 N probe force at maximum stroke; at most 20 N keeps the board bending within its limit)",
         "quantity": 2,
         "manufacturer": null,
         "mpn": null,
@@ -2983,9 +2983,8 @@
       }
     ],
     "blockers": [
-      "No fixture part is selected: plates are digital designs, hardware lines are requirements; fabricator and supplier are owner choices.",
+      "No fixture part is selected: plates are digital designs and hardware lines are requirements. manifest.json#hardware_proposal lists one sourced candidate per line as a proposal awaiting owner approval; fabricator and supplier are owner choices.",
       "Probe-plate bores leave 0.40 mm between bores at the fixed 1.4 mm test-point pitch: within the INGUN grid, below the 1.0 mm milled-wall guidance; the chosen fabricator must confirm drilling it.",
-      "J5 tail length is unsourced; the windows and the 52 mm free space below the B face do not depend on it.",
       "No current price, MOQ, lead time or availability retrieved; no supplier-upload package."
     ]
   },

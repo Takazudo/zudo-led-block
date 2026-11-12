@@ -70,7 +70,7 @@
     },
     {
       "id": "alignment-dowels",
-      "description": "Dowel pins 2.0 x 17 mm through carrier and probe plate (D1, D2), aligning the bores to the datum pins",
+      "description": "Dowel pins 2.0 x 16 mm, hardened steel m6, through probe plate and carrier (D1, D2) from the probe-plate underside, ending 1.0 mm below the carrier top, aligning the bores to the datum pins",
       "quantity": 2,
       "manufacturer": null,
       "mpn": null,
@@ -115,7 +115,7 @@
     },
     {
       "id": "base-screws",
-      "description": "M3 x 6 countersunk screws (ISO 10642 / DIN 7991), base underside flush",
+      "description": "M3 x 8 countersunk screws (DIN 7991 / ISO 10642), base underside flush, 5 mm into the 35 mm standoff thread",
       "quantity": 6,
       "manufacturer": null,
       "mpn": null,
@@ -124,7 +124,7 @@
     },
     {
       "id": "guide-standoffs",
-      "description": "M3 hex standoffs female-female 12 mm, 5.5 mm across flats, on the carrier top (G1, G2), fixed by M3 x 8 socket head screws from below",
+      "description": "M3 hex standoffs female-female 20 mm, 5.5 mm across flats, 7 mm thread each end, on the carrier top (G1, G2), fixed by M3 x 8 socket head screws from below",
       "quantity": 2,
       "manufacturer": null,
       "mpn": null,
@@ -151,7 +151,7 @@
     },
     {
       "id": "clamp-springs",
-      "description": "Compression springs over the guide standoffs: inner diameter at least 6.6 mm, outer diameter at most 9.0 mm, at least 6.35 N each over installed length 4.6-5.2 mm, solid length at most 4.3 mm, free length at most 9.4 mm (total 12.7 N = 2.0 x the 6.35 N probe force at maximum stroke)",
+      "description": "Compression springs over the guide standoffs: work over a rod of at least 6.35 mm (hex corners) with inner diameter at least 6.6 mm, outer diameter at most 9.2 mm, 6.35-10.0 N each over installed length 12.6-13.2 mm (worst case with rate and free-length tolerances), solid length at most 12.3 mm (total at least 12.7 N = 2.0 x the 6.35 N probe force at maximum stroke; at most 20 N keeps the board bending within its limit)",
       "quantity": 2,
       "manufacturer": null,
       "mpn": null,
@@ -187,9 +187,8 @@
     }
   ],
   "blockers": [
-    "No fixture part is selected: plates are digital designs, hardware lines are requirements; fabricator and supplier are owner choices.",
+    "No fixture part is selected: plates are digital designs and hardware lines are requirements. manifest.json#hardware_proposal lists one sourced candidate per line as a proposal awaiting owner approval; fabricator and supplier are owner choices.",
     "Probe-plate bores leave 0.40 mm between bores at the fixed 1.4 mm test-point pitch: within the INGUN grid, below the 1.0 mm milled-wall guidance; the chosen fabricator must confirm drilling it.",
-    "J5 tail length is unsourced; the windows and the 52 mm free space below the B face do not depend on it.",
     "No current price, MOQ, lead time or availability retrieved; no supplier-upload package."
   ]
 }
