@@ -15,7 +15,16 @@
       "physical_pdf_page_index": 0,
       "printed_page_label": "1/2",
       "locator": "Mechanical data, tip style data and compatible receptacles",
-      "local_cache": ".circuit-cache/e3-fixture/probe.pdf"
+      "local_cache": ".circuit-cache/e3-fixture/probe.pdf",
+      "redownload_observations": [
+        {
+          "retrieved_utc": "2026-11-11",
+          "url": "same as url",
+          "sha256": "6534467c73406bbdac65024e77c066fdbef73c7a4968b44af61d957cea6196e4",
+          "bytes": 306128,
+          "note": "the same URL returned different bytes than the 2026-11-09 copy; the mechanical data used here (grid 1.27, tip 0.5, total length 43.2, barrel 0.78, maximum stroke 6.35, working stroke 4.3, 1 N) read identically from this copy. The recorded sha256 above stays the 2026-11-09 identity; compare again before selection."
+        }
+      ]
     },
     {
       "id": "receptacle",
@@ -58,6 +67,20 @@
       "retrieved_utc": "2026-11-09",
       "locator": "Exact-product linked force-stroke graph",
       "local_cache": ".circuit-cache/e3-fixture/probe-4.png"
+    },
+    {
+      "id": "gks-050-catalogue",
+      "authority": "MANUFACTURER_MIRROR",
+      "availability": "AVAILABLE",
+      "url": "https://www.dart.ru/cataloguenew/contact_probes/ingun/pdf/25_gks-050.pdf",
+      "sha256": "b7c14728d593de96d9e0929cf661eee483311c67e6d7d7822ae7bebd653f035d",
+      "bytes": 143862,
+      "file_type": "application/pdf",
+      "revision": "not printed (INGUN GKS-050 series catalogue pages)",
+      "retrieved_utc": "2026-11-11",
+      "locator": "page header \"Installation height with KS: 16,0 / 18,0 mm (.630 / .709) / variable\"; \"Collar height and installation height\" figure; \"To adjust the installation height, receptacles with press ring ...\" note",
+      "use": "installation height 16.0 mm with KS-050 sets the press-ring depth (b_side_relief.stroke); distributor-hosted copy of INGUN catalogue pages, not the exact-product datasheet, so it is labelled MANUFACTURER_MIRROR",
+      "local_cache": ".circuit-cache/e3-fixture/gks-050-catalogue.pdf"
     }
   ],
   "scope": "Exact candidate primary datasheets. No stock reservation, price, lead time or dimensional tolerances inferred."
