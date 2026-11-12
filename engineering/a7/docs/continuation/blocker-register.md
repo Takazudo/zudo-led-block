@@ -13,7 +13,7 @@
 | B7 | ジャック/スイッチ適合: NOT_MEASURED | TS/TRS全端子導通、軸/端子/スロット/ナット、switch真理値/ランド/設定アクセスを実部品で確認しraw記録を残す | Q1–Q4/Q10、#8/#19 |
 | B8 | 機構/ハーネス: NOT_MEASURED | PMMA公差・ポケット・締付/保持、PETG支持、完成ケーブル全長経路、M2×18 load path、挿抜/交換、全ケーブル込み30 mm奥行きの実測 | #8/#17 |
 | B9 | 電気/FW/熱/光学: NOT_MEASURED | `qualification/procedures.md` の全手順とraw evidence kinds。電源/CV/THRU/校正、reset/rail-collapse/partial-rail/back-power/U7/LDO/load/容量、熱/光学、DATA_L結合ノイズを含む | #10 |
-| B10 | LED timing判断: 未解決 | exact WS2812B-2020-V6 V1.4のT1L 580 ns–1 µsと継承FW 220–420 nsの不一致。メーカー訂正/新資料または購入ロット実測に基づく別レビュー。A5は変更しない | #13 |
+| B10 | LED timing判断: 未解決 | exact WS2812B-2020-V6 V1.4のT1L 580 ns–1 µsと継承FW 220–420 nsの不一致。#13 に Worldsemi を名乗る未確認のコメント（T1L は合否基準にしない、T0H ≤ 380 ns と周期で判断。資料は V1.4 と同一バイト）。公式窓口の書面確認、メーカー訂正/新資料、または購入ロット実測に基づく別レビュー。A5は変更しない | #13 |
 | B11 | 試作入手: 未承認 | #10の現行release条件を保持したまま、限定sample/prototype routeのオーナー承認が必要。物理測定を捏造して依存関係を解消しない | #10 |
 | B12 | 製造リリース/注文: なし | 必要な物理・供給・版別raw証跡と基準、レビュー済み製造ファイル、数量/注文条件、明示オーナー承認が必要。NOT-A-RELEASE出力を注文ファイルに改名しない | #10 |
 
