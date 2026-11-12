@@ -13,19 +13,21 @@ On the A7 controller (`engineering/a7/verification/schematic/netlist.xml`) the r
 
 ## Candidates
 
-Search: Samsung MLCC parametric search (`/mlcc/bSearch.do`, query "CL21", 1582 results, response SHA-256 `76df6c08…`, 2026-11-12T10:23Z), filtered to 0805, ≥ 10 µF, ≥ 25 V, mass production, general use. Every result has the same 2.0 × 1.25 mm 0805 body. Only parts with JLC stock and a DC-bias graph are listed.
+Search: Samsung MLCC parametric search (`/mlcc/bSearch.do`, query "CL21", 1582 results, response SHA-256 `76df6c08…`, 2026-11-12T10:23Z), filtered to 0805, ≥ 10 µF, ≥ 25 V, mass production, general use. Every result has the same 2.0 × 1.25 mm 0805 body. This search covers Samsung only. Only parts with JLC stock and a DC-bias graph are listed; the other 35 filtered Samsung parts had no meaningful JLC stock when queried on 2026-11-12 (best: CL21A106KAFN3NE C7432816 with 1,196).
+
+Other makers (JLC listing only, no DC-bias data obtained from the cloud; Murata's product pages are a JavaScript application): Murata GRM21BR61H106KE43L (10 µF 50 V X5R 0805) is **C440198, Basic, stock 1,067,133** (2026-11-12T10:30Z, response SHA-256 `1ed0551f…`). Being Basic, it would avoid the Basic-to-Extended change. Its DC-bias curve must come from Murata (SimSurfing) before it can be compared. Also listed: GRM21BR61E106KA73L C84416 (Extended, 108,876), GRM21BR61E226ME44L C86816 (Extended, 64,712), Taiyo Yuden TMK212BBJ106KG-T C386085 (Extended, 262,198); none has DC-bias data here.
 
 | Part | JLC (2026-11-12T10:24Z) | Value | Thickness | Graph condition | Typical at ~11.5 V | Typical at ~12.2 V | With tolerance and X5R −15 % |
 |---|---|---|---|---|---:|---:|---:|
 | CL21A106KAYNNNE (current) | C15850, Basic, stock 8,513,342 | 10 µF ±10 % 25 V X5R | 1.25 ± 0.20 mm | 1 kHz, 1.0 Vrms | 1.95 µF (−80.48 % at 11.569 V) | 1.84 µF (−81.60 % at 12.208 V) | 1.49 / 1.41 µF |
-| CL21A106KBYQNNE | C2932476, Extended, stock 384,053 | 10 µF ±10 % 50 V X5R | 1.25 ± 0.20 mm | 1 kHz, 1.0 Vrms | 2.98 µF (−70.16 % at 11.528 V) | 2.84 µF (−71.55 % at 12.018 V) | 2.28 / 2.18 µF |
+| CL21A106KBYQNNE | C2932476, Extended, stock 384,053 | 10 µF ±10 % 50 V X5R | 1.25 ± 0.20 mm | 1 kHz, 1.0 Vrms | 2.98 µF (−70.16 % at 11.528 V) | 2.78 µF (−72.23 % at 12.269 V) | 2.28 / 2.13 µF |
 | CL21A226MAYNNNE | C602037, Extended, stock 411,532 | 22 µF ±20 % 25 V X5R | 1.25 ± 0.20 mm | 120 Hz, 0.5 Vrms | 3.84 µF (−82.56 % at 11.569 V) | 3.62 µF (−83.55 % at 12.208 V) | 2.61 / 2.46 µF |
 
-Not listed: CL21A106KLYQNNE (35 V; no JLC listing; its graph is identical to the 50 V part), CL21K106KAYQNNE (X7R; no JLC listing), CL21X106KAYNNNE (X6S, C307560, stock 2,056; −76.78 % at 11.968 V, about 2.3 µF, less gain than the 50 V part).
+Not listed: CL21A106KLYQNNE (35 V; no JLC listing; its graph is identical to the 50 V part), CL21K106KAYQNNE (X7R(S); no JLC listing), CL21X106KAYNNNE (X6S, C307560, stock 2,056; −76.78 % at 11.968 V, about 2.3 µF, less gain than the 50 V part).
 
 The 50 V part gains about 1.5× at the same measurement condition as the current part. The 22 µF part gains about 2× typical, but its graph uses a different measurement condition and its tolerance is ±20 %, so with tolerance the two candidates are close (2.2–2.6 µF). Neither reaches 10 µF effective; that would need more capacitor footprints, which is a layout change.
 
-Retained observation hashes (live pages, not retained in the repository; bytes change on every fetch): Samsung pages CL21A106KAYNNN `6cd4bc2f…`, CL21A106KBYQNN `9595ad4b…`, CL21A226MAYNNN `835adb91…` (2026-11-12T10:23Z); JLC component-list API responses for CL21A106KAYNNNE `79cd9a27…`, CL21A106KBYQNNE `fbbbea10…`, CL21A226MAYNNNE `72cc7ce4…` (2026-11-12T10:24Z). Stock is a dated observation, not a reservation.
+Observation hashes (live pages; bytes not kept in the repository and change on every fetch): Samsung pages CL21A106KAYNNN `6cd4bc2f…`, CL21A106KBYQNN `9595ad4b…`, CL21A226MAYNNN `835adb91…` (2026-11-12T10:23Z); JLC component-list API responses for CL21A106KAYNNNE `79cd9a27…`, CL21A106KBYQNNE `fbbbea10…`, CL21A226MAYNNNE `72cc7ce4…` (2026-11-12T10:24Z). Stock is a dated observation, not a reservation.
 
 ## Height and envelopes
 
@@ -35,7 +37,7 @@ C1 is on the component face (side F) of the controller. All candidates have the 
 
 The MPN/LCSC identity is not only a BOM row in this repository:
 
-- `engineering/a7/electronics/controller/controller.kicad_pcb` carries an `LCSC` property on C1 (and on C15/C16). Editing it changes the frozen PCB SHA-256 `4453f818…`, which every native ERC/DRC, geometry, fixture-geometry and readiness identity is bound to. Those would need a fresh native run and review even though copper does not change.
+- `engineering/a7/electronics/controller/controller.kicad_pcb` carries `MPN` and `LCSC` properties on C1 (and on C15/C16). Editing it changes the frozen PCB SHA-256 `4453f818…`, which every native ERC/DRC, geometry, fixture-geometry and readiness identity is bound to. Those would need a fresh native run and review even though copper does not change.
 - The schematic and `verification/schematic/netlist.xml` carry the same fields; `scripts/a7_procurement.py` refuses a catalog identity that differs from the netlist. The 22 µF part also changes the value field from 10u to 22u.
 - The component catalog holds the 30 A5 identities; a new part needs its own `line-a7-…` line and `component-a7-…` owner bundle with sourced facts, as PCM13SMTR has.
 - `scripts/native_gate/delta.py` compares every symbol field against the A5 baseline and fails on an unlisted change, so `engineering/a7/verification/authorized_delta.json` would need reviewed `field_changed` entries for C1's MPN and LCSC fields (and the value field for the 22 µF part).

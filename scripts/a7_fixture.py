@@ -109,7 +109,7 @@ HARDWARE_PROPOSAL = [
     ('receptacle', 'INGUN', 'KS-050 E08 V-30', 'sources.json#receptacle'),
     ('support-carrier', 'Von Roll', 'Vetronite EGS 619 sheet (EP GC 202 / FR-4), 5.0 mm, machined to fixture-assembly.step', 'sources.json#vetronite-egs-619'),
     ('probe-plate', 'Von Roll', 'Vetronite EGS 619 sheet (EP GC 202 / FR-4), 6.0 mm, machined to fixture-assembly.step', 'sources.json#vetronite-egs-619'),
-    ('pressure-plate', 'Von Roll', 'Vetronite EGS 619 sheet (EP GC 202 / FR-4), 3.0 mm, machined to fixture-assembly.step', 'sources.json#vetronite-egs-619'),
+    ('pressure-plate', 'Von Roll', 'Vetronite EGS 619 sheet (EP GC 202 / FR-4), 6.0 mm, machined to fixture-assembly.step', 'sources.json#vetronite-egs-619'),
     ('base-plate', 'Von Roll', 'Vetronite EGS 619 sheet (EP GC 202 / FR-4), 3.0 mm, machined to fixture-assembly.step', 'sources.json#vetronite-egs-619'),
     ('datum-pins', 'GANTER', 'DIN 6325-2M6-6-ST', 'sources.json#ganter-din-6325'),
     ('alignment-dowels', 'GANTER', 'DIN 6325-2M6-16-ST', 'sources.json#ganter-din-6325'),
@@ -118,13 +118,9 @@ HARDWARE_PROPOSAL = [
     ('plate-stack-studs', 'TR Fastenings', 'M3 12 HS45PC S100', 'sources.json#tr-hs45pc'),
     ('base-standoffs', 'ETTINGER', '05.03.351', 'sources.json#ettinger-05-03-351'),
     ('base-screws', 'TR Fastenings', 'M3 8 KH10MC Z100', 'sources.json#tr-kh10mc'),
-    ('guide-standoffs', 'ETTINGER', '05.03.201', 'sources.json#ettinger-05-03-201'),
-    ('guide-screws', 'TR Fastenings', 'M3 8 SO12CS Z100 (2, under the carrier)', 'sources.json#tr-so12cs'),
-    ('guide-screws', 'TR Fastenings', 'M3 6 SO12CS Z100 (2, on the standoff tops)', 'sources.json#tr-so12cs'),
-    ('guide-washers', 'Essentra Components', '347030040952', 'sources.json#essentra-347030040952'),
-    ('clamp-springs', 'Lee Spring', 'LCM065E07M', 'sources.json#lee-spring-catalog-us'),
-    ('contact-screws', 'Essentra Components', '50M020040N008', 'sources.json#essentra-50m020040n008'),
-    ('contact-nuts', 'TR Fastenings', 'TRNNE 34814 M2', 'sources.json#tr-trnne-34814'),
+    ('stop-standoffs', 'ETTINGER', '05.03.061', 'sources.json#ettinger-05-03-061'),
+    ('stop-screws', 'TR Fastenings', 'M3 8 SO12CS Z100 (4: 2 under the carrier, 2 on the plate)', 'sources.json#tr-so12cs'),
+    ('hold-down-plungers', 'KIPP', 'K0318.04', 'sources.json#kipp-k0318'),
     ('wire-retention', 'HellermannTyton', 'T18R-PA66-NA (111-00643)', 'sources.json#hellermanntyton-111-00643'),
     ('wire-retention', 'HellermannTyton', 'FTLS-PET-WH FlagTag (596-97004)', 'sources.json#hellermanntyton-596-97004'),
 ]
@@ -146,8 +142,8 @@ def hardware_proposal(relief):
     covered = {e['requirement_id'] for e in entries}
     problems += [f'{r}: no proposed candidate' for r in sorted(wanted - covered)]
     problems += [f'{r}: not a materials.json line' for r in sorted(covered - wanted)]
-    if not relief['holddown']['spring_candidate']['meets_requirement']:
-        problems.append('clamp-springs: candidate does not meet the spring requirement')
+    if not relief['holddown']['plunger_candidate']['meets_requirement']:
+        problems.append('hold-down-plungers: candidate does not meet the plunger requirement')
     return entries, not problems, problems
 
 
@@ -170,8 +166,8 @@ def report():
         '2_keying_and_registration': {'met': relief['keying']['keyed'] and relief['registration']['worst_case_margin_mm'] >= 0,
                                       'basis': 'turned-pose blocking features and radial allocation closed by acceptance-measurement requirements'},
         '3_stroke_stop_guide_fixing_insulation_wiring': {'met': all(c3.values()), 'checks': c3,
-                                                         'basis': 'stroke and installation height, carrier-land travel stop, screw-down spring pressure plate on guide standoffs, '
-                                                                  'plate stack on spacers/standoffs/base with dowel alignment, FR-4 plates with nylon board contacts, wire bend space and tie slot'},
+                                                         'basis': 'stroke and installation height, carrier-land travel stop, rigid pressure plate on hard stops with spring plungers, '
+                                                                  'plate stack on spacers/standoffs/base with dowel alignment, FR-4 plates with POM board contacts, wire bend space and tie slot'},
         '4_assembly_step_interference_check': {'met': asm_ok, 'basis': asm_basis},
         '5_physical_tests': {'met': False, 'basis': 'physical; tracked by the fixture-contact procedure, all observations NOT_MEASURED'},
     }
@@ -194,7 +190,10 @@ def report():
         'and no price, stock or lead time was retrieved.',
         'Receptacle drawing diameter 0.96 mm versus PDF table 0.95 mm; the bore follows the 0.98-1.00 mm FR-4 mounting-hole data, resolve before selection.',
     ]
-    physical_items = ['No physical fit, contact, insertion-force or measured stroke evidence; no prototype exists; every acceptance measurement in b_side_relief is a requirement, not a result.']
+    physical_items = ['No physical fit, contact, insertion-force or measured stroke evidence; no prototype exists; every acceptance measurement in b_side_relief is a requirement, not a result.',
+                      'The hold-down plunger forces are catalogue approximations without a tolerance: the design takes them +/-'
+                      f"{round(relief['rules']['plunger_force_acceptance_band'] * 100)} % and each plunger must be measured against that band at both compression ends before use; "
+                      'the plunger has no thread lock, so its pin-tip setting is gauged before each session.']
     digital_met = fresh and all(completion[k]['met'] for k in digital) and not blockers
     # the documented flag keeps every criterion, including the physical criterion 5
     complete = digital_met and all(c['met'] for c in completion.values())
@@ -220,7 +219,7 @@ def report():
         native_ci_evidence={'observed_date_utc':'2026-11-11','run_url':'https://github.com/Takazudo/zudo-led-block/actions/runs/42596523199','head_sha':'f0b1d8aa37f3967ccc8c9a6bd6ca0e7b7fc7b3a0','base_sha':'af523f9abb74e206c27aaaa076b3b68a5c474940','result':'PASS','board_sha256':BOARD_SHA,'scope':'Pinned native CI of the PR #44 preparation head on the unchanged board (CI log result); not verification of fixture geometry','raw_facts_consumed':False,'artifact_access':'2026-11-09: download Forbidden (historical). 2026-11-11: native-infrastructure-evidence artifact 13663737750 downloaded (ZIP SHA-256 33f3d9121164f364b0325540b161e9546ddf73c8b723c9166fdcd8a19867cf0e), but it retains only a7-gate/summary.json; candidate board_facts/board_geometry were not uploaded, so raw candidate facts remain unavailable'},
         transform={'description':'Board coordinates for every part: x, y as on the PCB, z up from the board B face (carrier top). The B-view carrier coordinates in b_side_relief are x_c = 16.2 - x_board.','matrix_xy_b_view':[[-1,0,16.2],[0,1,0],[0,0,1]]},
         pads=pads,
-        calculations={'nominal_radial_budget_mm':(1.0-0.5)/2,'worst_case_registration_margin_mm':relief['registration']['worst_case_margin_mm'],'registration_equation':'0.25 - (board edge-to-pad + datum registration + bore position + probe lateral play/concentricity); all terms radial worst-case mm, each allocation closed by an acceptance measurement (b_side_relief.registration)','minimum_probe_pitch_mm':round(spacing,6),'manufacturer_nominal_grid_mm':1.27,'nominal_collar_edge_gap_mm':round(spacing-1.04,6),'recommended_working_stroke_mm':4.3,'maximum_stroke_mm':6.35,'nominal_total_force_at_working_stroke_N':5*1.0,'nominal_total_preload_N':5*0.44,'total_force_at_maximum_stroke_N':hd['probe_force_total_N']['maximum_stroke'],'required_total_spring_force_N':hd['required_total_spring_force_N'],'clamp_force_margin_factor':hd['clamp_force_margin_factor'],'force_tolerance_N':None},
+        calculations={'nominal_radial_budget_mm':(1.0-0.5)/2,'worst_case_registration_margin_mm':relief['registration']['worst_case_margin_mm'],'registration_equation':'0.25 - (board edge-to-pad + datum registration + bore position + probe lateral play/concentricity); all terms radial worst-case mm, each allocation closed by an acceptance measurement (b_side_relief.registration)','minimum_probe_pitch_mm':round(spacing,6),'manufacturer_nominal_grid_mm':1.27,'nominal_collar_edge_gap_mm':round(spacing-1.04,6),'recommended_working_stroke_mm':4.3,'maximum_stroke_mm':6.35,'nominal_total_force_at_working_stroke_N':5*1.0,'nominal_total_preload_N':5*0.44,'total_force_at_maximum_stroke_N':hd['probe_force_total_N']['maximum_stroke'],'required_total_hold_down_force_N':hd['required_total_force_N'],'hold_down_force_range_N':hd['total_force_N'],'clamp_force_margin_factor':hd['clamp_force_margin_factor'],'force_tolerance_N':None},
         candidate_reference_checks=candidate_checks,
         blockers=blockers, owner_and_supplier_items=owner_items, physical_items=physical_items)
 
@@ -369,16 +368,17 @@ def drawing(r):
     y = low + 30
     lines = [f'Support carrier: {sc["thickness_mm"]:g} thick, {len(sc["windows"])} windows, internal radius {sc["corner_radius_mm"]:g}; datum pins Ø2 (blue) X1, X2, Y1; '
              f'M3 countersunk Ø6 (6);',
-             'dowels Ø2 (red) D1, D2; guide standoff holes Ø3.4 (green).',
+             'dowels Ø2 (red) D1, D2; stop standoff holes Ø3.4 (green).',
              f'Probe plate: {pp["thickness_mm"]:g} thick, {len(pp["bores"])} bores Ø{pp["bores"][0]["diameter_mm"]} (finished 0.98-1.00), bore web {pp["bore_webs_mm"][0]} (drilled); '
              f'J5 window radius {pp["corner_radius_mm"]:g}; M3 Ø3.4 (6); dowels Ø2.',
-             f'Pressure plate: 3 thick, notch radius {pr["corner_radius_mm"]:g}, guide holes Ø{pr["guide_hole_diameter_mm"]}, contacts M2 nylon tapped Ø{pr["contact_tap_hole_diameter_mm"]} (green dots).',
-             f'Contacts at {hd["contacts_board_mm"]}; red cross: probe resultant, inside the contact triangle by {hd["probe_resultant_margin_mm"]:.2f}.',
+             f'Pressure plate: {st["pressure_plate"][1] - st["pressure_plate"][0]:g} thick, notch radius {pr["corner_radius_mm"]:g}, stop screw holes Ø{pr["guide_hole_diameter_mm"]}, '
+             f'plungers {pr["contact_thread"]} tapped (drill Ø{pr["contact_tap_hole_diameter_mm"]}, green dots).',
+             f'Plungers at {hd["contacts_board_mm"]}; red cross: probe resultant; board net load point at least {hd["board_net_load_point_inside_land_hull_mm"]:.2f} inside the land.',
              f'Base plate (grey): 3 thick, M3 countersunk (6), tie slot {ts}.',
              f'Stack z: carrier {st["support_carrier"]}, spacers {st["plate_gap_spacers"]}, probe plate {st["probe_plate"]}, standoffs {st["base_standoffs"]}, base {st["base_plate"]},',
-             f'pressure plate {st["pressure_plate"]}, guide standoff top {st["guide_standoff_top"]}.',
-             f'Clamp: two springs, each >= {hd["spring_requirement"]["force_min_over_range_N"]} N at {hd["spring_requirement"]["installed_length_range_mm"]} mm '
-             f'(total {hd["required_total_spring_force_N"]} N = {hd["clamp_force_margin_factor"]} x {hd["probe_force_total_N"]["maximum_stroke"]} N probe force at maximum stroke).',
+             f'pressure plate {st["pressure_plate"]}, stop top {st["stop_top"]}.',
+             f'Hold-down: {len(hd["contacts_board_mm"])} x {hd["plunger_candidate"]["mpn"]}, compression {hd["plunger_compression_mm"]["range"]} mm, '
+             f'total {hd["total_force_N"]} N >= {hd["required_total_force_N"]} N = {hd["clamp_force_margin_factor"]} x {hd["probe_force_total_N"]["maximum_stroke"]} N probe force at maximum stroke.',
              f'Registration: radial budget {reg["radial_budget_mm"]}, allocated worst-case margin {reg["worst_case_margin_mm"]} (acceptance measurements).']
     for i, line in enumerate(lines):
         s.append(f'<text x="20" y="{y + i * 22:.0f}">{line}</text>')
