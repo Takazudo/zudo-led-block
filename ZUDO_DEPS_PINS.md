@@ -48,3 +48,16 @@ Updated by `/dev-bump-zudo-deps` on every sync — keep `pinned:` accurate.
   published. Runtime peers are ^9.1.3 / ^5.2.2; integration requires strict packed-consumer
   registration, unchanged LED publication scans and browser checks. Node 24 LTS
   (>=24 <25) is required by zudo-doc 7; keep pnpm 11.5.2 and TypeScript 5.9.
+
+## zudo-circuit-doc local patch
+
+- repo: Takazudo/zudo-circuit-doc
+- what: pnpm patch `patches/@takazudo__zudo-circuit-doc@0.3.0.patch` (registered in
+  `pnpm-workspace.yaml` `patchedDependencies`): `lib/browser-smoke/chrome.js` polls `/json/list`
+  until Chrome lists its page target (10 s bound) instead of reading it once, which raced on CI
+  with "Chrome page target was not available"
+- pinned: 0.3.0
+- updated: 2026-11-12
+- sync: the patch is keyed to 0.3.0, so pnpm fails the install after a version bump until the
+  entry is removed or re-keyed; drop it once an upstream release carries the fix (PR #67 has the
+  ready-to-apply diff)
