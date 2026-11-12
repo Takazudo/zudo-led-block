@@ -43,9 +43,9 @@
     ]
   },
   "sources": {
-    "available": 193,
-    "selected": 193,
-    "linkable": 149,
+    "available": 197,
+    "selected": 197,
+    "linkable": 153,
     "ids": [
       "src-0603b103k500nt-a5-jlcpcb-snapshot",
       "src-0603b103k500nt-a5-netlist-controller",
@@ -131,6 +131,8 @@
       "src-ap63205wu-7-a5-netlist-controller",
       "src-ap63205wu-7-ds-p0",
       "src-ap63205wu-7-ds-p1",
+      "src-ap63205wu-7-ds-p12",
+      "src-ap63205wu-7-ds-p13",
       "src-ap63205wu-7-ds-p15",
       "src-ap63205wu-7-ds-p3",
       "src-ap63205wu-7-ds-p4",
@@ -210,6 +212,7 @@
       "src-tlv75533pdbvr-a5-jlcpcb-snapshot",
       "src-tlv75533pdbvr-a5-netlist-controller",
       "src-tlv75533pdbvr-ds-2026-11-11-p17",
+      "src-tlv75533pdbvr-ds-2026-11-11-p3",
       "src-tlv75533pdbvr-ds-2026-11-11-p4",
       "src-tlv75533pdbvr-ds-p23",
       "src-tlv75533pdbvr-ds-p28",
@@ -231,6 +234,7 @@
       "src-tps2552dbvr-1-ds-p3",
       "src-tps2552dbvr-1-ds-p4",
       "src-tps2552dbvr-1-ds-p5",
+      "src-tps2552dbvr-1-ds-p5-roc",
       "src-tps2552dbvr-1-ds-p6",
       "src-ws2812b-2020-v6-a5-jlcpcb-snapshot",
       "src-ws2812b-2020-v6-a5-netlist-led-leaf",
@@ -372,151 +376,151 @@
     {
       "key": "source.sourceId",
       "decision": "PUBLISH",
-      "emitted": 193,
+      "emitted": 197,
       "withheld": 0
     },
     {
       "key": "source.documentTitle",
       "decision": "PUBLISH",
-      "emitted": 193,
+      "emitted": 197,
       "withheld": 0
     },
     {
       "key": "source.documentNumber",
       "decision": "PUBLISH",
-      "emitted": 193,
+      "emitted": 197,
       "withheld": 0
     },
     {
       "key": "source.revision",
       "decision": "PUBLISH",
-      "emitted": 193,
+      "emitted": 197,
       "withheld": 0
     },
     {
       "key": "source.documentDate",
       "decision": "PUBLISH",
-      "emitted": 193,
+      "emitted": 197,
       "withheld": 0
     },
     {
       "key": "source.retrievalDate",
       "decision": "PUBLISH",
-      "emitted": 193,
+      "emitted": 197,
       "withheld": 0
     },
     {
       "key": "source.authorityClass",
       "decision": "PUBLISH",
-      "emitted": 193,
+      "emitted": 197,
       "withheld": 0
     },
     {
       "key": "source.availability",
       "decision": "PUBLISH",
-      "emitted": 193,
+      "emitted": 197,
       "withheld": 0
     },
     {
       "key": "source.locator",
       "decision": "PUBLISH",
-      "emitted": 193,
+      "emitted": 197,
       "withheld": 0
     },
     {
       "key": "source.printedPageLabel",
       "decision": "PUBLISH",
-      "emitted": 193,
+      "emitted": 197,
       "withheld": 0
     },
     {
       "key": "source.physicalPdfPageIndex",
       "decision": "DENY",
       "emitted": 0,
-      "withheld": 193
+      "withheld": 197
     },
     {
       "key": "source.authoritativeUrl",
       "decision": "PUBLISH",
-      "emitted": 149,
+      "emitted": 153,
       "withheld": 0
     },
     {
       "key": "source.alternateAuthoritativeUrl",
       "decision": "DENY",
       "emitted": 0,
-      "withheld": 193
+      "withheld": 197
     },
     {
       "key": "source.sha256",
       "decision": "DENY",
       "emitted": 0,
-      "withheld": 193
+      "withheld": 197
     },
     {
       "key": "source.evidenceExtract",
       "decision": "DENY",
       "emitted": 0,
-      "withheld": 193
+      "withheld": 197
     },
     {
       "key": "fact.factId",
       "decision": "PUBLISH",
-      "emitted": 398,
+      "emitted": 401,
       "withheld": 0
     },
     {
       "key": "fact.class",
       "decision": "PUBLISH",
-      "emitted": 398,
+      "emitted": 401,
       "withheld": 0
     },
     {
       "key": "fact.value",
       "decision": "PUBLISH",
-      "emitted": 398,
+      "emitted": 401,
       "withheld": 0
     },
     {
       "key": "fact.unit",
       "decision": "PUBLISH",
-      "emitted": 398,
+      "emitted": 401,
       "withheld": 0
     },
     {
       "key": "fact.conditions",
       "decision": "PUBLISH",
-      "emitted": 398,
+      "emitted": 401,
       "withheld": 0
     },
     {
       "key": "fact.locator",
       "decision": "PUBLISH",
-      "emitted": 398,
+      "emitted": 401,
       "withheld": 0
     },
     {
       "key": "fact.provenance",
       "decision": "PUBLISH",
-      "emitted": 398,
+      "emitted": 401,
       "withheld": 0
     },
     {
       "key": "fact.verdict",
       "decision": "PUBLISH",
-      "emitted": 398,
+      "emitted": 401,
       "withheld": 0
     },
     {
       "key": "fact.dependsOn",
       "decision": "PUBLISH",
-      "emitted": 398,
+      "emitted": 401,
       "withheld": 0
     },
     {
       "key": "fact.expression",
       "decision": "PUBLISH",
-      "emitted": 398,
+      "emitted": 401,
       "withheld": 0
     },
     {
@@ -1344,6 +1348,18 @@
       "reason": "ABSOLUTE_HTTP_URL"
     },
     {
+      "sourceId": "src-ap63205wu-7-ds-p12",
+      "url": "https://www.diodes.com/assets/Datasheets/AP63200-AP63201-AP63203-AP63205.pdf",
+      "decision": "ALLOW",
+      "reason": "ABSOLUTE_HTTP_URL"
+    },
+    {
+      "sourceId": "src-ap63205wu-7-ds-p13",
+      "url": "https://www.diodes.com/assets/Datasheets/AP63200-AP63201-AP63203-AP63205.pdf",
+      "decision": "ALLOW",
+      "reason": "ABSOLUTE_HTTP_URL"
+    },
+    {
       "sourceId": "src-ap63205wu-7-ds-p15",
       "url": "https://www.diodes.com/assets/Datasheets/AP63200-AP63201-AP63203-AP63205.pdf",
       "decision": "ALLOW",
@@ -1818,6 +1834,12 @@
       "reason": "ABSOLUTE_HTTP_URL"
     },
     {
+      "sourceId": "src-tlv75533pdbvr-ds-2026-11-11-p3",
+      "url": "https://www.ti.com/lit/ds/symlink/tlv755p.pdf",
+      "decision": "ALLOW",
+      "reason": "ABSOLUTE_HTTP_URL"
+    },
+    {
       "sourceId": "src-tlv75533pdbvr-ds-2026-11-11-p4",
       "url": "https://www.ti.com/lit/ds/symlink/tlv755p.pdf",
       "decision": "ALLOW",
@@ -1944,6 +1966,12 @@
       "reason": "ABSOLUTE_HTTP_URL"
     },
     {
+      "sourceId": "src-tps2552dbvr-1-ds-p5-roc",
+      "url": "https://www.ti.com/lit/ds/symlink/tps2552.pdf",
+      "decision": "ALLOW",
+      "reason": "ABSOLUTE_HTTP_URL"
+    },
+    {
       "sourceId": "src-tps2552dbvr-1-ds-p6",
       "url": "https://www.ti.com/lit/ds/symlink/tps2552.pdf",
       "decision": "ALLOW",
@@ -2001,11 +2029,11 @@
   "counts": {
     "generatedPages": 36,
     "publishedCoverageDomains": 170,
-    "publishedFacts": 398,
+    "publishedFacts": 401,
     "publishedIntegrationRules": 0,
     "publishedInteractions": 0,
     "publishedPinMaps": 32,
     "publishedRecords": 32,
-    "publishedSources": 193
+    "publishedSources": 197
   }
 }

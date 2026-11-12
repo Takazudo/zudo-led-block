@@ -243,7 +243,7 @@ class ReadinessTests(unittest.TestCase):
     def test_checklist_lists_decisions_and_downloads(self):
         report = json.loads((REPO/m.QUAL/'readiness.json').read_text())
         page = m.checklist(self.plan, report)
-        self.assertIn('## まとめて答えられる判断（13 件）', page)
+        self.assertIn('## まとめて答えられる判断（14 件）', page)
         self.assertIn('## 回答済みの判断（1 件）', page)
         self.assertIn('2 台分（オーナー報告の JLC PCBA 最小、未確認）（オーナーの回答、`assembly:order-quantity`）', page)
         self.assertNotIn('### 2. 最初の発注数量', page)

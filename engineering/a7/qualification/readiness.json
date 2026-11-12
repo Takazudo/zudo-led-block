@@ -36,14 +36,14 @@
     },
     "fixture": {
       "path": "engineering/a7/fixture/manifest.json",
-      "sha256": "b1011887f41a5b9cafd9a2c11a15e58244851954d0872ae5351f532d9414811e"
+      "sha256": "4af6e9440d9b31dd05f5f5e55a1f30485274a526e4066925b8ee929e7a642e23"
     },
     "assembly_manifest": {
       "path": "engineering/a7/procurement/assembly-manifest.json",
-      "sha256": "d6d24af97d2777df0260eccb5209e0254e89dcbe1fca6f49f01333116dcbcc0c"
+      "sha256": "a6850b34addb1294b83b0915492a0a5e56fbc5e32b505cf29b546aeb03079a88"
     }
   },
-  "plan_sha256": "7bf7ac7e0be4ccbe1356134a8d3127044dc756526bce2093957464fbe416a190",
+  "plan_sha256": "49b851d2f5ddeebd4a7ca60c16010c5deea7ee2505c6317c4cba9e6a1ee32b86",
   "procedures": [
     {
       "id": "jack-continuity",
@@ -173,7 +173,7 @@
       "status": "BLOCKED",
       "reasons": [
         "criterion unresolved or review receipt missing",
-        "criterion has PROPOSED or UNRESOLVED acceptance values: minimum",
+        "criterion has PROPOSED or UNRESOLVED acceptance values: buck-in",
         "NOT_MEASURED: no run"
       ]
     },
@@ -248,7 +248,7 @@
     "ldo-reverse: NOT_MEASURED: no run",
     "load-short: NOT_MEASURED: no run",
     "effective-capacitance: criterion unresolved or review receipt missing",
-    "effective-capacitance: criterion has PROPOSED or UNRESOLVED acceptance values: minimum",
+    "effective-capacitance: criterion has PROPOSED or UNRESOLVED acceptance values: buck-in",
     "effective-capacitance: NOT_MEASURED: no run",
     "thermal-optical: criterion unresolved or review receipt missing",
     "thermal-optical: criterion has PROPOSED or UNRESOLVED acceptance values: part-temp-max, materials-appearance",
@@ -516,10 +516,10 @@
     },
     {
       "gate": "criterion:effective-capacitance",
-      "class": "CLOUD_DIGITAL",
+      "class": "OWNER_DECISION",
       "reasons": [
         "effective-capacitance: criterion unresolved or review receipt missing",
-        "effective-capacitance: criterion has PROPOSED or UNRESOLVED acceptance values: minimum"
+        "effective-capacitance: criterion has PROPOSED or UNRESOLVED acceptance values: buck-in"
       ]
     },
     {
@@ -624,8 +624,8 @@
     }
   ],
   "gate_counts": {
-    "CLOUD_DIGITAL": 1,
-    "OWNER_DECISION": 13,
+    "CLOUD_DIGITAL": 0,
+    "OWNER_DECISION": 14,
     "ACCESS_EVIDENCE_HOLD": 14,
     "PHYSICAL_ONLY": 21
   },

@@ -43,7 +43,7 @@ This record in the catalog: [TLV75533PDBVR](/docs/components/catalog/#rec-tlv755
 
 [Datasheet PDF](https://www.ti.com/lit/ds/symlink/tlv755p.pdf) — TLV755P 500mA, Low-IQ, Small-Size, Low-Dropout Regulator datasheet
 
-**Selected source ID:** `src-tlv75533pdbvr-ds-p3`
+**Selected source ID:** `src-tlv75533pdbvr-ds-2026-11-11-p3`
 
 **Authority:** MANUFACTURER\_PRIMARY
 
@@ -109,6 +109,7 @@ Coverage is stated one domain at a time and is never rolled up. A domain marked 
 - [`fact-tlv75533pdbvr-operating-temperature`](#fact-tlv75533pdbvr-operating-temperature)
 - [`fact-tlv75533pdbvr-storage-temperature`](#fact-tlv75533pdbvr-storage-temperature)
 - [`fact-tlv75533pdbvr-reverse-current`](#fact-tlv75533pdbvr-reverse-current)
+- [`fact-tlv75533pdbvr-min-effective-capacitance`](#fact-tlv75533pdbvr-min-effective-capacitance)
 
 ### placement
 
@@ -250,6 +251,20 @@ The range the manufacturer intends the part to be used in. Always narrower than 
   **Verdict:** PASS - primary-source confirmed · **Provenance:** PRIMARY-SPEC
 
   **Evidence:** [src-tlv75533pdbvr-ds-2026-11-11-p4: Section 5.3 table row TJ](#src-tlv75533pdbvr-ds-2026-11-11-p4)
+</EvidenceFact>
+
+<EvidenceFact>
+  <EvidenceAnchor id="fact-tlv75533pdbvr-min-effective-capacitance" />
+
+  **Fact:** `fact-tlv75533pdbvr-min-effective-capacitance`
+
+  **Value:** 0.47 · **Unit:** `uF`
+
+  **Conditions:** effective capacitance at the IN pin and at the OUT pin each greater than 0.47 µF (Table 4-1 footnote 1); the pin rows ask for 1 µF or larger and the datasheet assumes 50 % nominal derating; a design-margin check, not a measurement of the fitted parts
+
+  **Verdict:** PASS - primary-source confirmed · **Provenance:** PRIMARY-SPEC
+
+  **Evidence:** [src-tlv75533pdbvr-ds-2026-11-11-p3: Table 4-1 Pin Functions rows IN, OUT and footnote (1)](#src-tlv75533pdbvr-ds-2026-11-11-p3)
 </EvidenceFact>
 
 ### GUARANTEED\_ELECTRICAL
@@ -601,6 +616,26 @@ Every document cited above, with its identification, when it was retrieved, and 
 | Printed page    | 17                                              |
 
 **Locator:** SBVS320D physical PDF page 17 of 51 (index 16), printed page 17 and continuation on printed page 18: Section 7.1.4 Reverse Current and Figure 7-3
+
+**Availability:** AVAILABLE
+
+**Document URL:** [https://www.ti.com/lit/ds/symlink/tlv755p.pdf](https://www.ti.com/lit/ds/symlink/tlv755p.pdf)
+
+### TLV755P 500mA, Low-IQ, Small-Size, Low-Dropout Regulator datasheet
+
+<EvidenceAnchor id="src-tlv75533pdbvr-ds-2026-11-11-p3" />
+
+**Source ID:** `src-tlv75533pdbvr-ds-2026-11-11-p3` · **Authority:** MANUFACTURER\_PRIMARY
+
+| Field           | Recorded value                                  |
+| --------------- | ----------------------------------------------- |
+| Document number | SBVS320D                                        |
+| Revision        | Rev. D (NOVEMBER 2017 - REVISED SEPTEMBER 2024) |
+| Document date   | 2024-09                                         |
+| Retrieved       | 2026-11-11                                      |
+| Printed page    | 3                                               |
+
+**Locator:** SBVS320D physical PDF page 3 of 51 (index 2), printed page 3: Section 4 Table 4-1 Pin Functions rows IN and OUT, and footnote (1)
 
 **Availability:** AVAILABLE
 

@@ -109,6 +109,7 @@ Coverage is stated one domain at a time and is never rolled up. A domain marked 
 - [`fact-tps2552dbvr-1-latch-behaviour`](#fact-tps2552dbvr-1-latch-behaviour)
 - [`fact-tps2552dbvr-1-operating-temperature`](#fact-tps2552dbvr-1-operating-temperature)
 - [`fact-tps2552dbvr-1-storage-temperature`](#fact-tps2552dbvr-1-storage-temperature)
+- [`fact-tps2552dbvr-1-input-decoupling`](#fact-tps2552dbvr-1-input-decoupling)
 
 ### placement
 
@@ -236,6 +237,20 @@ The range the manufacturer intends the part to be used in. Always narrower than 
   **Verdict:** PASS - primary-source confirmed · **Provenance:** PRIMARY-SPEC
 
   **Evidence:** [src-tps2552dbvr-1-ds-p6: Section 6.3 table row TJ](#src-tps2552dbvr-1-ds-p6)
+</EvidenceFact>
+
+<EvidenceFact>
+  <EvidenceAnchor id="fact-tps2552dbvr-1-input-decoupling" />
+
+  **Fact:** `fact-tps2552dbvr-1-input-decoupling`
+
+  **Value:** 0.1 · **Unit:** `uF`
+
+  **Conditions:** minimum input de-coupling capacitance from IN to GND (Recommended Operating Conditions); the datasheet states no minimum output capacitance
+
+  **Verdict:** PASS - primary-source confirmed · **Provenance:** PRIMARY-SPEC
+
+  **Evidence:** [src-tps2552dbvr-1-ds-p5-roc: Section 6.3 Recommended Operating Conditions row Input de-coupling capacitance, IN to GND](#src-tps2552dbvr-1-ds-p5-roc)
 </EvidenceFact>
 
 ### GUARANTEED\_ELECTRICAL
@@ -622,6 +637,26 @@ Every document cited above, with its identification, when it was retrieved, and 
 | Printed page    | 6                                             |
 
 **Locator:** SLVS841G physical PDF page 6 of 46 (index 5), printed page 6: Section 6.3 Recommended Operating Conditions (continued) table row TJ operating virtual junction temperature; footnote (1)
+
+**Availability:** AVAILABLE
+
+**Document URL:** [https://www.ti.com/lit/ds/symlink/tps2552.pdf](https://www.ti.com/lit/ds/symlink/tps2552.pdf)
+
+### TPS255xx Precision Adjustable Current-Limited Power-Distribution Switches datasheet (TPS2552, TPS2552-1, TPS2553, TPS2553-1)
+
+<EvidenceAnchor id="src-tps2552dbvr-1-ds-p5-roc" />
+
+**Source ID:** `src-tps2552dbvr-1-ds-p5-roc` · **Authority:** MANUFACTURER\_PRIMARY
+
+| Field           | Recorded value                                |
+| --------------- | --------------------------------------------- |
+| Document number | SLVS841G                                      |
+| Revision        | Rev. G (NOVEMBER 2008 - REVISED OCTOBER 2026) |
+| Document date   | 2026-10                                       |
+| Retrieved       | 2026-11-08                                    |
+| Printed page    | 5                                             |
+
+**Locator:** SLVS841G physical PDF page 5 of 46 (index 4), printed page 5: Section 6.3 Recommended Operating Conditions table row Input de-coupling capacitance, IN to GND
 
 **Availability:** AVAILABLE
 

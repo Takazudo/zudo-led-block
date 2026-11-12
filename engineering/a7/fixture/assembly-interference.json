@@ -8,7 +8,7 @@
     "native_geometry_sha256": "2f372a058a24cb117d9e294d11411e84cb575e682d18f7651cbf0547d1bc7f51",
     "cadquery": "2.7.0"
   },
-  "step_sha256": "a43855c858ea0b8e4f5b942f2a78e9119a703795a7cc5732d10750d5e0c2578d",
+  "step_sha256": "05540c9eb7beec95088932990585195e1375f165dea578359b0156c144a7fcaf",
   "method": "pairwise boolean common volume between every two solids whose bounding boxes meet (board part boxes are not checked against each other); interference above the threshold; clearances by exact BRep distance",
   "interference_threshold_mm3": 0.001,
   "modelling": "Builds every fixture part, the hardware envelopes and the board (with F-side part boxes from the recorded heights and\nB-face bodies and leads from the relief design) in board coordinates: x, y as on the PCB, z up from the board B face.\nThreads are modelled at the major diameter and press fits line to line, so a designed joint touches without overlap.\nThrough-hole leads are modelled at their full sourced length below the seating plane (a bound for any board thickness).",

@@ -2892,7 +2892,7 @@
       "expected": "各exact MLCCの条件付き有効容量と回路要求の照合。",
       "basis": "engineering/a5/integration/independent_review",
       "criterion_status": "UNRESOLVED",
-      "missing_criterion": "部品ごとの典型 DC バイアス曲線は記録済み（Samsung 製品ページ、typical data）。必要容量の下限は、レギュレータ・負荷スイッチ資料の入出力容量要件と曲線から回路レビューで決める（クラウドで実施できる）。",
+      "missing_criterion": "回路レビュー済み（W14）: U3 の 0.47 µF 下限と U4 の 0.1 µF 下限は見積りで大きな余裕がある。U2 の出力側は見積り 約 26 µF で「22–68 µF で多くの用途に十分」の範囲内（Eq. 10 の過渡条件は負荷ステップと許容オーバーシュートが未定なので未評価）。U2 の入力側（C1、10 µF 0805）は 12 V 付近で典型 約 1.8 µF、許容差と温度を含めると 約 1.4 µF で、推奨表の 10 µF を大きく下回る（表の値が公称か実効かは資料に記載がない。公称なら C1 は表の値どおり）。データシートは実効値の下限を規定しないので、扱いはオーナー判断。",
       "raw_evidence_required": "型番/ロット、バイアス/温度、容量とリップルraw記録",
       "observation": "NOT_MEASURED",
       "result": "NOT_RUN",
@@ -2903,7 +2903,7 @@
         "capacitance",
         "ripple_waveforms"
       ],
-      "criterion_class": "CLOUD_DIGITAL",
+      "criterion_class": "OWNER_DECISION",
       "inputs": [
         "実装と同じロットの MLCC 単品",
         "組立済みモジュール"
@@ -2919,8 +2919,8 @@
       ],
       "precondition_states": [],
       "steps": [
-        "各 MLCC 型番を実際の DC 電圧で測る（単品）。",
-        "回路のリップルを測る（通電試験は POWER の条件に従う）。"
+        "各 MLCC 型番を実際の DC 電圧で測る（単品）。C1 は D1 通過後の実際の +12V_PROT 電圧で測る。",
+        "回路のリップルを測る（通電試験は POWER の条件に従う）。U2 の入力（+12V_PROT）と出力（+5V）のリップルを含める。"
       ],
       "record": {
         "component_lot": "ロット",
@@ -3014,16 +3014,326 @@
           "bound": "reference"
         },
         {
-          "id": "minimum",
-          "criterion": "必要容量の下限",
+          "id": "ldo-c-min",
+          "criterion": "U3（TLV75533）の IN（+5V）と OUT（+3V3）それぞれの実効容量の下限",
+          "value": 0.47,
+          "unit": "uF",
+          "confidence": "SOURCED",
+          "source": {
+            "path": ".claude/skills/component-tlv75533pdbvr/facts.json",
+            "fact_id": "fact-tlv75533pdbvr-min-effective-capacitance"
+          },
+          "bound": "min"
+        },
+        {
+          "id": "switch-in-min",
+          "criterion": "U4（TPS2552）IN（+5V）の入力デカップリング容量の下限",
+          "value": 0.1,
+          "unit": "uF",
+          "confidence": "SOURCED",
+          "source": {
+            "path": ".claude/skills/component-tps2552dbvr-1/facts.json",
+            "fact_id": "fact-tps2552dbvr-1-input-decoupling"
+          },
+          "bound": "min"
+        },
+        {
+          "id": "buck-recommended",
+          "criterion": "U2（AP63205）推奨表の C1（入力）と C2（出力）",
+          "value": "C1 10; C2 2 x 22",
+          "unit": "uF",
+          "confidence": "SOURCED",
+          "source": {
+            "path": ".claude/skills/component-ap63205wu-7/facts.json",
+            "fact_id": "fact-ap63205wu-7-recommended-capacitors"
+          },
+          "bound": "reference"
+        },
+        {
+          "id": "eff-3v3",
+          "criterion": "+3V3（C6/C7）の実効容量の見積り（典型 DC バイアス × 許容差 −10 % × X5R −15 %、保証値ではない） 100 nF X7R（C8/C9/C17）は保守側として除外。経年変化は含まない。25 °C の典型曲線と無バイアスの温度特性の積で近似。",
+          "value": 5.0,
+          "unit": "uF",
+          "confidence": "CALCULATED",
+          "derivation": {
+            "expression": "2 * Ca * (1 + Ba / 100) * (1 - Ta / 100) * (1 - Da / 100)",
+            "inputs": [
+              {
+                "name": "Ca",
+                "token": "4.7",
+                "number": 4.7,
+                "source": {
+                  "path": ".claude/skills/component-cl10a475ko8nnnc/facts.json",
+                  "fact_id": "fact-cl10a475ko8nnnc-capacitance"
+                }
+              },
+              {
+                "name": "Ba",
+                "token": "-30.44",
+                "number": -30.44,
+                "source": {
+                  "path": ".claude/skills/component-cl10a475ko8nnnc/facts.json",
+                  "fact_id": "fact-cl10a475ko8nnnc-dc-bias-curve"
+                },
+                "context": "-30.44 % at 3.3 V"
+              },
+              {
+                "name": "Ta",
+                "token": "10",
+                "number": 10.0,
+                "source": {
+                  "path": ".claude/skills/component-cl10a475ko8nnnc/facts.json",
+                  "fact_id": "fact-cl10a475ko8nnnc-tolerance"
+                }
+              },
+              {
+                "name": "Da",
+                "token": "15",
+                "number": 15.0,
+                "source": {
+                  "path": ".claude/skills/component-cl10a475ko8nnnc/facts.json",
+                  "fact_id": "fact-cl10a475ko8nnnc-dielectric"
+                }
+              }
+            ],
+            "round": 2
+          },
+          "bound": "reference"
+        },
+        {
+          "id": "eff-5v",
+          "criterion": "+5V（C2/C3/C15/C5）の実効容量の見積り（典型 DC バイアス × 許容差 −10 % × X5R −15 %、保証値ではない） 経年変化は含まない。25 °C の典型曲線と無バイアスの温度特性の積で近似。",
+          "value": 26.48,
+          "unit": "uF",
+          "confidence": "CALCULATED",
+          "derivation": {
+            "expression": "2 * Cb * (1 + Bb / 100) * (1 - Tb / 100) * (1 - Db / 100) + Cc * (1 + Bc / 100) * (1 - Tc / 100) * (1 - Dc / 100) + Cd * (1 + Bd / 100) * (1 - Td / 100) * (1 - Dd / 100)",
+            "inputs": [
+              {
+                "name": "Cb",
+                "token": "22",
+                "number": 22.0,
+                "source": {
+                  "path": ".claude/skills/component-cl31a226kahnnne/facts.json",
+                  "fact_id": "fact-cl31a226kahnnne-capacitance"
+                }
+              },
+              {
+                "name": "Bb",
+                "token": "-37.96",
+                "number": -37.96,
+                "source": {
+                  "path": ".claude/skills/component-cl31a226kahnnne/facts.json",
+                  "fact_id": "fact-cl31a226kahnnne-dc-bias-curve"
+                },
+                "context": "-37.96 % at 5.0 V"
+              },
+              {
+                "name": "Tb",
+                "token": "10",
+                "number": 10.0,
+                "source": {
+                  "path": ".claude/skills/component-cl31a226kahnnne/facts.json",
+                  "fact_id": "fact-cl31a226kahnnne-tolerance"
+                }
+              },
+              {
+                "name": "Db",
+                "token": "15",
+                "number": 15.0,
+                "source": {
+                  "path": ".claude/skills/component-cl31a226kahnnne/facts.json",
+                  "fact_id": "fact-cl31a226kahnnne-dielectric"
+                }
+              },
+              {
+                "name": "Cc",
+                "token": "10",
+                "number": 10.0,
+                "source": {
+                  "path": ".claude/skills/component-cl21a106kaynnne/facts.json",
+                  "fact_id": "fact-cl21a106kaynnne-capacitance"
+                }
+              },
+              {
+                "name": "Bc",
+                "token": "-50.31",
+                "number": -50.31,
+                "source": {
+                  "path": ".claude/skills/component-cl21a106kaynnne/facts.json",
+                  "fact_id": "fact-cl21a106kaynnne-dc-bias-curve"
+                },
+                "context": "-50.31 % at 5.0 V"
+              },
+              {
+                "name": "Tc",
+                "token": "10",
+                "number": 10.0,
+                "source": {
+                  "path": ".claude/skills/component-cl21a106kaynnne/facts.json",
+                  "fact_id": "fact-cl21a106kaynnne-tolerance"
+                }
+              },
+              {
+                "name": "Dc",
+                "token": "15",
+                "number": 15.0,
+                "source": {
+                  "path": ".claude/skills/component-cl21a106kaynnne/facts.json",
+                  "fact_id": "fact-cl21a106kaynnne-dielectric"
+                }
+              },
+              {
+                "name": "Cd",
+                "token": "4.7",
+                "number": 4.7,
+                "source": {
+                  "path": ".claude/skills/component-cl10a475ko8nnnc/facts.json",
+                  "fact_id": "fact-cl10a475ko8nnnc-capacitance"
+                }
+              },
+              {
+                "name": "Bd",
+                "token": "-49.92",
+                "number": -49.92,
+                "source": {
+                  "path": ".claude/skills/component-cl10a475ko8nnnc/facts.json",
+                  "fact_id": "fact-cl10a475ko8nnnc-dc-bias-curve"
+                },
+                "context": "-49.92 % at 5.0 V"
+              },
+              {
+                "name": "Td",
+                "token": "10",
+                "number": 10.0,
+                "source": {
+                  "path": ".claude/skills/component-cl10a475ko8nnnc/facts.json",
+                  "fact_id": "fact-cl10a475ko8nnnc-tolerance"
+                }
+              },
+              {
+                "name": "Dd",
+                "token": "15",
+                "number": 15.0,
+                "source": {
+                  "path": ".claude/skills/component-cl10a475ko8nnnc/facts.json",
+                  "fact_id": "fact-cl10a475ko8nnnc-dielectric"
+                }
+              }
+            ],
+            "round": 2
+          },
+          "bound": "reference"
+        },
+        {
+          "id": "eff-12v",
+          "criterion": "+12V_PROT（C1）の実効容量の見積り（12.208 V の典型点 × 許容差 −10 % × X5R −15 %、保証値ではない） 100 nF X7R（C11）は保守側として除外。経年変化は含まない。25 °C の典型曲線と無バイアスの温度特性の積で近似。",
+          "value": 1.41,
+          "unit": "uF",
+          "confidence": "CALCULATED",
+          "derivation": {
+            "expression": "Ce * (1 + Be / 100) * (1 - Te / 100) * (1 - De / 100)",
+            "inputs": [
+              {
+                "name": "Ce",
+                "token": "10",
+                "number": 10.0,
+                "source": {
+                  "path": ".claude/skills/component-cl21a106kaynnne/facts.json",
+                  "fact_id": "fact-cl21a106kaynnne-capacitance"
+                }
+              },
+              {
+                "name": "Be",
+                "token": "-81.6",
+                "number": -81.6,
+                "source": {
+                  "path": ".claude/skills/component-cl21a106kaynnne/facts.json",
+                  "fact_id": "fact-cl21a106kaynnne-dc-bias-curve"
+                },
+                "context": "-81.6 % at 12.208 V"
+              },
+              {
+                "name": "Te",
+                "token": "10",
+                "number": 10.0,
+                "source": {
+                  "path": ".claude/skills/component-cl21a106kaynnne/facts.json",
+                  "fact_id": "fact-cl21a106kaynnne-tolerance"
+                }
+              },
+              {
+                "name": "De",
+                "token": "15",
+                "number": 15.0,
+                "source": {
+                  "path": ".claude/skills/component-cl21a106kaynnne/facts.json",
+                  "fact_id": "fact-cl21a106kaynnne-dielectric"
+                }
+              }
+            ],
+            "round": 2
+          },
+          "bound": "reference"
+        },
+        {
+          "id": "eff-vled",
+          "criterion": "VLED（C16）の実効容量の見積り（典型 DC バイアス × 許容差 −10 % × X5R −15 %、保証値ではない） 100 nF X7R（C10）は保守側として除外。経年変化は含まない。25 °C の典型曲線と無バイアスの温度特性の積で近似。",
+          "value": 3.8,
+          "unit": "uF",
+          "confidence": "CALCULATED",
+          "derivation": {
+            "expression": "Cf * (1 + Bf / 100) * (1 - Tf / 100) * (1 - Df / 100)",
+            "inputs": [
+              {
+                "name": "Cf",
+                "token": "10",
+                "number": 10.0,
+                "source": {
+                  "path": ".claude/skills/component-cl21a106kaynnne/facts.json",
+                  "fact_id": "fact-cl21a106kaynnne-capacitance"
+                }
+              },
+              {
+                "name": "Bf",
+                "token": "-50.31",
+                "number": -50.31,
+                "source": {
+                  "path": ".claude/skills/component-cl21a106kaynnne/facts.json",
+                  "fact_id": "fact-cl21a106kaynnne-dc-bias-curve"
+                },
+                "context": "-50.31 % at 5.0 V"
+              },
+              {
+                "name": "Tf",
+                "token": "10",
+                "number": 10.0,
+                "source": {
+                  "path": ".claude/skills/component-cl21a106kaynnne/facts.json",
+                  "fact_id": "fact-cl21a106kaynnne-tolerance"
+                }
+              },
+              {
+                "name": "Df",
+                "token": "15",
+                "number": 15.0,
+                "source": {
+                  "path": ".claude/skills/component-cl21a106kaynnne/facts.json",
+                  "fact_id": "fact-cl21a106kaynnne-dielectric"
+                }
+              }
+            ],
+            "round": 2
+          },
+          "bound": "reference"
+        },
+        {
+          "id": "buck-in",
+          "criterion": "U2（AP63205）入力（+12V_PROT）の必要実効容量",
           "value": null,
-          "unit": "NONE",
+          "unit": "uF",
           "confidence": "UNRESOLVED",
-          "decided_by": "回路レビュー（レギュレータ・負荷スイッチ資料の入出力容量要件と、記録済みの典型 DC バイアス曲線・許容差・温度特性から決める）",
-          "supplied_by": {
-            "kind": "DOCUMENT",
-            "what": "AP63205 / TLV755P / TPS2552 データシートの入出力容量要件（クラウドで取得できる）"
-          }
+          "decided_by": "オーナー判断 criterion:effective-capacitance（データシートは推奨表の 10 µF と「10 µF を超えるセラミックで多くの用途に十分」を示すだけで、実効値の下限を規定しない）"
         }
       ]
     },
@@ -3892,6 +4202,41 @@
       "rank": 11
     },
     {
+      "gate": "criterion:effective-capacitance",
+      "stage": "BENCH",
+      "question": "AP63205 の入力コンデンサ C1（10 µF、0805）は 12 V で実効 約 1.8 µF（典型）になり、推奨表の 10 µF を大きく下回ります（表の値が公称か実効かは資料に記載がない。公称なら C1 は表の値どおり）。どう扱いますか。",
+      "options": [
+        {
+          "id": "bench",
+          "label": "実機で入力リップルと動作を測って判断する",
+          "consequence": "基板は変えない。effective-capacitance の試験で C1 の 12 V での容量と U2 入力リップル・出力の安定を測り、入力リップルと出力の安定の合否値は、測定の前にレビューで決めて記録する。推奨値を満たさない状態での試作になる。"
+        },
+        {
+          "id": "accept",
+          "label": "推奨値は目安なので、このまま採る",
+          "consequence": "試験は U3 と U4 の下限だけで判定する。U2 入力側の余裕は確認されないまま残る。"
+        },
+        {
+          "id": "revise",
+          "label": "次の改版で入力容量を見直す",
+          "consequence": "次の改版（A7 r2 以外）で入力容量を見直す。今の基板には反映しない。それまでこの基準は未解決のまま。"
+        }
+      ],
+      "recommended": "bench",
+      "reason": "AP63205 のデータシートは C1 10 µF を推奨表の値と「10 µF を超えるセラミックで多くの用途に十分」として示すだけで、実効値の下限を規定しない。典型の DC バイアス曲線では 12.208 V で −81.6 % なので、C1 は 約 1.8 µF（許容差と温度を含め 約 1.4 µF）。+3V3 と +5V は U3・U4 の下限に対して見積りで余裕がある。VLED（U4 出力）は資料に下限がない。基板は今回の発注では変えないので、入力リップルを実測して影響を確かめるのが現実的。",
+      "sources": [
+        {
+          "path": ".claude/skills/component-ap63205wu-7/facts.json",
+          "fact_id": "fact-ap63205wu-7-recommended-capacitors"
+        },
+        {
+          "path": ".claude/skills/component-cl21a106kaynnne/facts.json",
+          "fact_id": "fact-cl21a106kaynnne-dc-bias-curve"
+        }
+      ],
+      "rank": 12
+    },
+    {
       "gate": "assembly:fixture-materials",
       "stage": "BENCH",
       "question": "治具の FR-4 板 4 枚の加工先と、提案された金物（スプリングプランジャ・スタンドオフ・ねじ・ピン等）を承認しますか。",
@@ -3915,7 +4260,7 @@
           "quote": "Fabricator for the four FR-4 plates is an owner choice and not selected"
         }
       ],
-      "rank": 12
+      "rank": 13
     },
     {
       "gate": "assembly:prototype-and-release",
@@ -3941,7 +4286,7 @@
           "quote": "\"manufacturing_released\": false"
         }
       ],
-      "rank": 13
+      "rank": 14
     },
     {
       "gate": "manufacturing_release",
@@ -3967,7 +4312,7 @@
           "quote": "\"order_submitted\": false"
         }
       ],
-      "rank": 14
+      "rank": 15
     }
   ],
   "evidence_requests": [
