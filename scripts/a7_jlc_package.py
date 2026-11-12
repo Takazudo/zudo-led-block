@@ -30,6 +30,7 @@ SOURCES = OUT / 'sources.json'
 PAGE = Path('doc/src/content/docs/project/jlc-order-package.mdx')
 PANELS = OUT / 'panels'
 LEDGER = 'engineering/a7/procurement/assembly-manifest.json'
+OWNER_DECISIONS = Path('engineering/a7/procurement/owner-decisions.json')
 READINESS = 'engineering/a7/qualification/readiness.json'
 PROFILE = 'engineering/a7/verification/native_gate.json'
 LAYOUT = 'engineering/a7/mechanical/layout.json'
@@ -287,7 +288,7 @@ def generate(root=ROOT, sources=None):
     report = {'schema': 1, 'status': 'DRY_RUN_NOT_RELEASED', 'order_eligibility': readiness['order_eligibility'],
               'modules': modules, 'decided_by': plan['decided_by'], 'sources': str(SOURCES),
               'ledger_sha256': sha(root / LEDGER), 'sources_sha256': sha(root / SOURCES),
-              'boards': boards, 'parts': lines, 'panel_comparison': comparison,
+              'boards': boards, 'parts': lines, 'panel_comparison': comparison, 'panel_route': panel_decision(root),
               'part_counts': {k: sum(1 for l in lines if l['library'] == k) for k in ('BASIC', 'EXTENDED')},
               'route_counts': {k: sum(1 for l in lines if l['route'] == k) for k in sorted({l['route'] for l in lines})},
               'blockers': blockers}
@@ -494,6 +495,11 @@ def named_blockers(boards, lines, pages, ledger, root):
         out.append({'id': bid, 'board': board, 'text': text, 'ja': ja})
 
     panels = load_panels(root)
+    chosen = (panel_decision(root) or {}).get('answer')
+    stated = owner_entry('jlc-questions', root)
+    jlc_en = ('owner-stated, not JLC-confirmed (the owner closed O12 without asking JLC, '
+              f"{stated['decided_on']}, jlc-questions)") if stated else 'not confirmed (O12)'
+    jlc_ja = (f"オーナーの知識による判断で、JLC の確認ではない（オーナーは JLC に聞かずに O12 を閉じた。{stated['decided_on']}、jlc-questions）") if stated else '未確認（O12）'
 
     add('order-gate-blocked', None, 'Readiness order gate is BLOCKED; this package is a dry run and must not be uploaded or ordered.',
         'readiness の発注ゲートが BLOCKED。この一式は予行で、アップロード・発注しない。')
@@ -505,15 +511,23 @@ def named_blockers(boards, lines, pages, ledger, root):
             jlc_n, repo_n = pn['boards_per_panel'] * 2, rp['assembled_at_minimum_order']
             q = ' '.join(x['text'] for x in r['open_questions'])
             qj = ''.join(x['ja'] for x in r['open_questions'])
-            add(f'{n}-panel-route', n,
-                f"Not orderable as single boards ({'; '.join(c['criterion'] + ' fails' for c in r['economic_checks'] if not c['ok'])}). "
-                f"Panel by JLCPCB ({pn['columns_x']} × {pn['rows_y']}) gives {jlc_n} assembled boards at a 2-panel minimum{(' and has open questions: ' + q) if q else ''}. "
-                f"A repo-built panel with {rp['copies']} board(s), {fmt(rp['panel_mm'][0])} × {fmt(rp['panel_mm'][1])} mm, gives {repo_n} for the {b['pcba_quantity']} needed. "
-                'The owner decides the route (assembly:panel-route); ' + ('the repo panel is prepared in engineering/a7/jlc-package/panels/, not released.' if prepared else 'the panel is not built.'),
-                f"単品では発注できない（Economic で満たさない条件: {'、'.join(c['ja'] for c in r['economic_checks'] if not c['ok'])}）。"
-                f"Panel by JLCPCB（{pn['columns_x']} × {pn['rows_y']}）は 2 シート最小で {jlc_n} 枚が実装される{('。未確認: ' + qj) if qj else '。'}"
-                f"リポジトリで {rp['copies']} 枚入りの面付け（{fmt(rp['panel_mm'][0])} × {fmt(rp['panel_mm'][1])} mm）を作れば、必要な {b['pcba_quantity']} 枚に対し {repo_n} 枚。"
-                'どちらにするかはオーナーの判断（`assembly:panel-route`）。' + ('リポジトリ面付けのデータは `engineering/a7/jlc-package/panels/` に準備した（未リリース）。' if prepared else '面付けデータはまだ作っていない。'))
+            if chosen == 'repo-panels':
+                add(f'{n}-repo-panel-acceptance', n,
+                    f"The owner chose repo panels (assembly:panel-route): {rp['copies']} board(s) on a {fmt(rp['panel_mm'][0])} × {fmt(rp['panel_mm'][1])} mm panel, "
+                    f"PCBA quantity 2, giving {repo_n} for the {b['pcba_quantity']} needed. Whether JLC assembles this customer panel is {jlc_en}; "
+                    'the panel files are prepared in engineering/a7/jlc-package/panels/ and not released.',
+                    f"オーナーはリポジトリ面付けを選んだ（`assembly:panel-route`）。{rp['copies']} 枚入りの面付け（{fmt(rp['panel_mm'][0])} × {fmt(rp['panel_mm'][1])} mm）を PCBA 数量 2 で注文し、"
+                    f"必要な {b['pcba_quantity']} 枚に対し {repo_n} 枚。JLC がこの面付けを実装するかは{jlc_ja}。面付けデータは `engineering/a7/jlc-package/panels/` に準備済み（未リリース）。")
+            else:
+                add(f'{n}-panel-route', n,
+                    f"Not orderable as single boards ({'; '.join(c['criterion'] + ' fails' for c in r['economic_checks'] if not c['ok'])}). "
+                    f"Panel by JLCPCB ({pn['columns_x']} × {pn['rows_y']}) gives {jlc_n} assembled boards at a 2-panel minimum{(' and has open questions: ' + q) if q else ''}. "
+                    f"A repo-built panel with {rp['copies']} board(s), {fmt(rp['panel_mm'][0])} × {fmt(rp['panel_mm'][1])} mm, gives {repo_n} for the {b['pcba_quantity']} needed. "
+                    'The owner decides the route (assembly:panel-route); ' + ('the repo panel is prepared in engineering/a7/jlc-package/panels/, not released.' if prepared else 'the panel is not built.'),
+                    f"単品では発注できない（Economic で満たさない条件: {'、'.join(c['ja'] for c in r['economic_checks'] if not c['ok'])}）。"
+                    f"Panel by JLCPCB（{pn['columns_x']} × {pn['rows_y']}）は 2 シート最小で {jlc_n} 枚が実装される{('。未確認: ' + qj) if qj else '。'}"
+                    f"リポジトリで {rp['copies']} 枚入りの面付け（{fmt(rp['panel_mm'][0])} × {fmt(rp['panel_mm'][1])} mm）を作れば、必要な {b['pcba_quantity']} 枚に対し {repo_n} 枚。"
+                    'どちらにするかはオーナーの判断（`assembly:panel-route`）。' + ('リポジトリ面付けのデータは `engineering/a7/jlc-package/panels/` に準備した（未リリース）。' if prepared else '面付けデータはまだ作っていない。'))
         if not b['copper_finish_in_board_file']:
             eco = t['tier'] == 'ECONOMIC'
             add(f'{n}-finish-not-specified', n, 'Surface finish is not recorded in the board file; it must be chosen on the order form'
@@ -536,13 +550,22 @@ def named_blockers(boards, lines, pages, ledger, root):
     add('pcba-quantity-unit-with-panel-not-sourced', None,
         'The PCBA minimum is "2 pcs" in the capability table. With Panel by JLCPCB the PCB quantity counts panels (JLC: 10 pcs ordered gives 10 panels);'
         ' whether the PCBA quantity also counts panels, and whether one panel holding 2 or more boards meets the 2-pcs minimum, is not sourced. '
-        'Question for the JLC order form or support: ' + PCBA_UNIT_QUESTION,
+        'Question for the JLC order form or support: ' + PCBA_UNIT_QUESTION
+        + (' The owner stated, without asking JLC, that each Gerber is ordered at PCBA quantity 2 or more (jlc-questions); this is owner-stated, not JLC-confirmed.' if stated else ''),
         'JLC 能力表の PCBA 最小は「2 pcs」。Panel by JLCPCB では PCB の数量は面付けシートの枚数（JLC の説明: 10 pcs 注文で 10 シート）。'
-        'PCBA の数量もシート数か、2 枚以上載った 1 シートで最小 2 pcs を満たすかは未取得。JLC の注文画面かサポートで確かめる質問: ' + PCBA_UNIT_QUESTION)
+        'PCBA の数量もシート数か、2 枚以上載った 1 シートで最小 2 pcs を満たすかは未取得。JLC の注文画面かサポートで確かめる質問: ' + PCBA_UNIT_QUESTION
+        + ('。オーナーは JLC に聞かずに、Gerber ごとに PCBA 数量 2 以上で注文すると述べた（jlc-questions）。オーナーの知識による判断で、JLC の確認ではない。' if stated else ''))
     add('pcb-fabrication-quantity-not-sourced', None,
         'The minimum bare-PCB quantity JLC fabricates per design was not read; the PCBA quantity (2 controller, 4 leaf, 2 adapter) is entered separately.',
         'JLC が 1 設計あたり製造する基板の最小枚数は未取得。PCBA の数量（コントローラー 2・リーフ 4・電源アダプタ 2）とは別に入力する。')
-    if any(x['id'] == 'jack-switch-qualification' for x in ledger['blockers']):
+    waiver = owner_entry('jack-tip-test-waiver', root)
+    if any(x['id'] == 'jack-switch-qualification' for x in ledger['blockers']) and waiver:
+        add('physical-jack-switch-qualification', 'controller',
+            f"PJ-324M terminal 4/5 function is not confirmed. The owner waived the pre-order continuity test and accepted the risk ({waiver['decided_on']}, jack-tip-test-waiver): "
+            'if terminal 5 is the tip, both jacks fail and the controller needs a revision. The check stays as a first-article check on the assembled boards.',
+            f"PJ-324M の端子 4/5 の機能は未確認。オーナーは発注前の導通試験を見送り、リスクを受け入れた（{waiver['decided_on']}、jack-tip-test-waiver）。"
+            '端子 5 が tip なら両方のジャックが働かず、制御基板の改版が要る。確認は組み立て済み基板の初品検査として残る。')
+    elif any(x['id'] == 'jack-switch-qualification' for x in ledger['blockers']):
         add('physical-jack-switch-qualification', 'controller',
             'PJ-324M terminal 4/5 function must be confirmed by continuity on a received part before any PCB order (procurement blocker jack-switch-qualification).',
             'PJ-324M の端子 4/5 の機能は、PCB を発注する前に入荷した実物の導通で確かめる（調達台帳の jack-switch-qualification）。')
@@ -552,6 +575,18 @@ def named_blockers(boards, lines, pages, ledger, root):
 # --- page --------------------------------------------------------------------------------------
 BOARD_JA = {'controller': 'コントローラー', 'led_leaf': 'LED リーフ', 'power_adapter': '電源アダプタ'}
 ROUTE_JA = {'JLC_STOCK': 'JLC 在庫', 'JLC_PREORDER': 'JLC 予約注文', 'JLC_PREORDER_OR_GLOBAL_SOURCING_BLOCKED': '在庫なし・予約不可（Global Sourcing か待つ）', 'EXCEPTION': '例外'}
+
+
+def owner_entry(entry_id, root=ROOT):
+    """One owner-decided entry of owner-decisions.json by id, or None."""
+    found = [d for d in json.loads((root / OWNER_DECISIONS).read_text()).get('decisions', []) if d.get('id') == entry_id and d.get('decided_by') == 'OWNER']
+    return found[0] if len(found) == 1 else None
+
+
+def panel_decision(root=ROOT):
+    """The owner's recorded panel route (owner-decisions.json, id panel-route), or None while it is open."""
+    found = [d for d in json.loads((root / OWNER_DECISIONS).read_text()).get('decisions', []) if d.get('id') == 'panel-route' and d.get('decided_by') == 'OWNER']
+    return {'answer': found[0]['answer'], 'decided_by': 'OWNER', 'decided_on': found[0]['decided_on'], 'record': str(OWNER_DECISIONS)} if found else None
 
 
 def load_panels(root=ROOT):
@@ -587,14 +622,14 @@ def page(report, panels=None):
               f"| PCB Assembly | オン。必要な完成品は単品 {b['pcba_quantity']} 枚（{b['per_module']} 枚/台 × {report['modules']} 台）。面付け時に PCBA Qty をシート数で入れるかは未確認（`pcba-quantity-unit-with-panel-not-sourced`） |",
               f"| PCBA Type | {t['tier'].title()}" + (f"（理由: {esc('、'.join(t['reasons_ja']))}）" if t['reasons_ja'] else '') + ' |',
               f"| Assembly Side | {'Top と Bottom（両面）' if len(b['assembly_sides']) > 1 else b['assembly_sides'][0]} |",
-              f"| Panel By JLCPCB | {panel_cell(b, report['panel_comparison'])} |",
+              f"| Panel By JLCPCB | {panel_cell(b, report['panel_comparison'], report['panel_route'])} |",
               f"| 実装点 | SMD {b['smd_count']}・THT {len(b['tht_refs'])}" + (f"（{', '.join(b['tht_refs'])}）" if b['tht_refs'] else '') + ' |', '',
-              *route_lines(b, report['panel_comparison'], panels.get(b['board'])),
-              'アップロードするもの' + ('（JLC 面付けの経路、または単品）' if b['board'] in panels else '') + ':', '',
+              *route_lines(b, report['panel_comparison'], panels.get(b['board']), report['panel_route']),
+              'アップロードするもの' + (('（使わない経路: JLC 面付け。参考に残す）' if (report['panel_route'] or {}).get('answer') == 'repo-panels' else '（JLC 面付けの経路、または単品）') if b['board'] in panels else '') + ':', '',
               f"1. Gerber と drill の zip: `python3 scripts/a7_jlc_package.py export --out <リポジトリ外の空ディレクトリ>` で作る `{b['board']}-gerbers-DRYRUN.zip`（Gerber 原点: {b['gerber_origin']}）",
               f"2. BOM: `engineering/a7/jlc-package/{b['board']}_BOM_DRYRUN.csv`（{b['bom_lines']} 行、列 Comment / Designator / Footprint / JLCPCB Part #）",
               f"3. CPL: `engineering/a7/jlc-package/{b['board']}_CPL_DRYRUN.csv`（{b['cpl_rows']} 行、列 Designator / Mid X / Mid Y / Rotation / Layer、mm）", '',
-              *repo_panel_upload(b, panels.get(b['board']))]
+              *repo_panel_upload(b, panels.get(b['board']), report['panel_route'])]
         if b['centroid_offsets']:
             L += ['JLC の配置プレビューで中心を確かめる部品（フットプリント原点がパッド中心から離れているもの）:', '',
                   '| Ref | LCSC | 原点からパッド中心まで |', '|---|---|---:|']
@@ -621,10 +656,12 @@ def page(report, panels=None):
     return '\n'.join(L) + '\n'
 
 
-def panel_cell(b, comparison):
+def panel_cell(b, comparison, decision=None):
     r = b['assembly_route']
     if not r['panel']:
         return 'No（単品）'
+    if (decision or {}).get('answer') == 'repo-panels':
+        return 'No（オーナーの判断でリポジトリ面付け。面付けは Gerber 側）'
     p = r['panel']
     jlc = f"JLC 面付けなら Yes・列 (X) {p['columns_x']}・行 (Y) {p['rows_y']}" + ('・Edge Rails あり' if p['edge_rails'] else '')
     repo = 'リポジトリ面付けなら No（面付けは Gerber 側）'
@@ -632,7 +669,7 @@ def panel_cell(b, comparison):
     return f"経路の判断待ち。{jlc}。{repo}。推奨は{'リポジトリ面付け' if rec == 'REPO_PANEL' else 'JLC 面付け'}"
 
 
-def route_lines(b, comparison, prepared=None):
+def route_lines(b, comparison, prepared=None, decision=None):
     r, rp, c = b['assembly_route'], b['repo_panel'], comparison['boards'][b['board']]
     L = ['Economic で単品実装できるか（2026-11-12 の JLC 能力表と部品ページで判定）:', '', '| 条件 | この基板 | 判定 |', '|---|---|---|']
     L += [f"| {esc(x['ja'])} | {esc(x['value'])} | {'満たす' if x['ok'] else '**満たさない**'} |" for x in r['economic_checks']]
@@ -650,16 +687,19 @@ def route_lines(b, comparison, prepared=None):
           f"| 分割 | {jlc_cut} | マウスバイト、タブ幅 {fmt(TAB_MIN_MM)} mm 以上 |",
           f"| フィデューシャル | {'Edge Rails をオンにすると JLC がレールに付ける' if p['edge_rails'] else '不要（Economic）'} | レールに 1 mm（縁から 3.85 mm）と 2 mm の治具穴（JLC の SMT 指針） |",
           f"| 未確認・注意 | {esc(''.join(q['ja'] for q in r['open_questions'])) or 'JLC の注文画面のプレビュー'} | {esc(''.join(rp['notes_ja']))}JLC が{' 1 枚だけの' if rp['copies'] == 1 else 'この'}面付けを受けるかは注文時に確認。 |", '',
-          f"推奨: **{'リポジトリで面付け' if c['recommended'] == 'REPO_PANEL' else 'JLC が面付け'}**（余る実装基板が最も少ない）。オーナーの判断待ち（`assembly:panel-route`）です。" + ('リポジトリ面付けのデータは準備済みですが、リリースではありません（下の「リポジトリ面付けでアップロードするもの」）。' if prepared else '面付けデータはまだ作っていません。'), '']
+          f"推奨: **{'リポジトリで面付け' if c['recommended'] == 'REPO_PANEL' else 'JLC が面付け'}**（余る実装基板が最も少ない）。" + (f"**オーナーの判断: リポジトリ面付け**（{decision['decided_on']}、`assembly:panel-route`、記録 `{decision['record']}`）。種類ごとに 1 つの Gerber を PCBA 数量 2 で注文します。JLC がこの面付けを実装するかは" + ('オーナーの知識による判断で、JLC の確認ではない（オーナーは JLC に聞かずに O12 を閉じた。jlc-questions）。' if owner_entry('jlc-questions') else '未確認（O12）。')
+          if (decision or {}).get('answer') == 'repo-panels' else 'オーナーの判断待ち（`assembly:panel-route`）です。')
+          + ('リポジトリ面付けのデータは準備済みですが、リリースではありません（下の「リポジトリ面付けでアップロードするもの」）。' if prepared else '面付けデータはまだ作っていません。'), '']
     return L
 
 
-def repo_panel_upload(b, lay):
+def repo_panel_upload(b, lay, decision=None):
     if not lay:
         return []
     n, W, H = b['board'], lay['panel_mm'][0], lay['panel_mm'][1]
     tabs = '・'.join(f"{k} 枚目 {v} か所" for k, v in lay['tabs_per_copy'].items())
-    L = ['リポジトリ面付けでアップロードするもの（準備済みの経路。オーナーが `assembly:panel-route` でこの経路を選ぶまで使いません）:', '',
+    chosen = (decision or {}).get('answer') == 'repo-panels'
+    L = ['リポジトリ面付けでアップロードするもの' + ('（オーナーが選んだ経路。製造リリースまで使いません）:' if chosen else '（準備済みの経路。オーナーが `assembly:panel-route` でこの経路を選ぶまで使いません）:'), '',
          f"1. Gerber と drill の zip: `python3 scripts/a7_panel.py build --out <リポジトリ外の空ディレクトリ>` で作る `{n}-panel-gerbers-DRYRUN.zip`"
          f"（{fmt(W)} × {fmt(H)} mm、{len(lay['copies'])} 枚載せ。注文画面の Dimensions はこのシート寸法、Panel By JLCPCB は No）",
          f"2. BOM: `engineering/a7/jlc-package/panels/{n}-panel_BOM_DRYRUN.csv`（2 枚目以降の designator は `_2` などの接尾辞）",

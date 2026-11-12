@@ -226,16 +226,82 @@ class ReadinessTests(unittest.TestCase):
 
     def test_answer_cannot_close_an_open_gate(self):
         d = next(x for x in self.plan['owner_decisions'] if x['gate'] == 'assembly:switch-supply')
-        d['answer'] = {'option': 'jlc-preorder', 'by': 'OWNER',
+        d['answer'] = {'option': 'jlc-sourcing', 'by': 'OWNER',
                        'record': {'path': m.OWNER_ANSWERS, 'quote': '"will make 2 units first"'}}
         errors = m.owner_page_errors(self.plan)
         self.assertTrue(any('still open' in e for e in errors), errors)
         self.assertTrue(any('must match one owner-decided entry' in e for e in errors), errors)
 
+    def test_accepted_plan_keeps_its_gate_open_and_is_the_recommendation(self):
+        d = next(x for x in self.plan['owner_decisions'] if x['gate'] == 'assembly:rack-hardware')
+        self.assertEqual(d['answer']['status'], m.PLAN_ACCEPTED)
+        self.assertEqual(m.owner_page_errors(self.plan), [])
+        report = json.loads((REPO/m.QUAL/'readiness.json').read_text())
+        self.assertIn('assembly:rack-hardware', [g['gate'] for g in report['gates']])
+        d['answer']['option'] = next(o['id'] for o in d['options'] if o['id'] != d['recommended'])
+        self.assertTrue(any('recommended option' in e for e in m.owner_page_errors(self.plan)))
+        self.plan = json.loads((REPO/m.QUAL/'plan.json').read_text())
+        d = next(x for x in self.plan['owner_decisions'] if x['gate'] == 'assembly:rack-hardware')
+        d['answer']['record']['quote'] = 'will make 2 units first'
+        self.assertTrue(any("accept-all entry" in e for e in m.owner_page_errors(self.plan)))
+        self.plan = json.loads((REPO/m.QUAL/'plan.json').read_text())
+        d = next(x for x in self.plan['owner_decisions'] if x['gate'] == 'assembly:rack-hardware')
+        d['answer'].pop('remains')
+        self.assertTrue(any('what remains' in e for e in m.owner_page_errors(self.plan)))
+
+    def test_accepted_criterion_needs_an_owner_review_with_every_value_decided(self):
+        proc = lambda pid: next(p for p in self.plan['procedures'] if p['id'] == pid)
+        self.assertEqual(proc('service-envelope')['criterion_accepted_by'], 'OWNER')
+        report = json.loads((REPO/m.QUAL/'readiness.json').read_text())
+        self.assertNotIn('criterion:service-envelope', [g['gate'] for g in report['gates']])
+        proc('service-envelope')['criterion_accepted_by'] = 'PROJECT_COORDINATOR_DELEGATED'
+        self.assertTrue(any('REVIEWED by the OWNER' in e for e in m.owner_page_errors(self.plan)))
+        self.plan = json.loads((REPO/m.QUAL/'plan.json').read_text())
+        cycles = next(x for x in proc('service-envelope')['acceptance'] if x['id'] == 'cycles')
+        cycles.clear()
+        cycles.update(id='cycles', criterion='回数', value=None, unit='NONE', confidence='UNRESOLVED', decided_by='オーナー')
+        self.assertTrue(any('every value decided' in e for e in m.owner_page_errors(self.plan)))
+        self.plan = json.loads((REPO/m.QUAL/'plan.json').read_text())
+        d = next(x for x in self.plan['owner_decisions'] if x['gate'] == 'criterion:firmware-waveforms')
+        d['answer'] = {k: d['answer'][k] for k in ('option', 'by', 'record')}
+        self.assertTrue(any('every value decided' in e for e in m.owner_page_errors(self.plan)))
+
+    def test_reopened_gate_cannot_carry_an_accepted_plan(self):
+        d = next(x for x in self.plan['owner_decisions'] if x['gate'] == 'assembly:switch-supply')
+        d['answer'] = {'option': d['recommended'], 'by': 'OWNER', 'record': {'path': m.OWNER_ANSWERS, 'quote': '5 accept all'},
+                       'status': m.PLAN_ACCEPTED, 'remains': 'something'}
+        self.assertTrue(any("accept-all entry" in e for e in m.owner_page_errors(self.plan)))
+
+    def test_edited_accepted_criterion_is_no_longer_answered(self):
+        report = json.loads((REPO/m.QUAL/'readiness.json').read_text())
+        question = next(d['question'] for d in self.plan['owner_decisions'] if d['gate'] == 'criterion:harness-depth')
+        page = m.checklist(self.plan, report)
+        self.assertNotIn('. ' + question, page)
+        # Once the edited values block the gate again, the decision returns to the live list and leaves the answered list.
+        report = copy.deepcopy(report)
+        report['gates'].append({'gate': 'criterion:harness-depth', 'class': 'OWNER_DECISION', 'reasons': ['criterion acceptance record does not match']})
+        page = m.checklist(self.plan, report)
+        self.assertIn('. ' + question, page)
+        self.assertNotIn('**' + question + '** → 提案どおり採る（オーナーの回答', page)
+
+    def test_owner_criteria_must_match_an_accepted_option(self):
+        real = m.owner_criteria_errors(REPO)
+        self.assertEqual(real, [])
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            for rel in (m.OWNER_CRITERIA, m.OWNER_ANSWERS):
+                (root / rel).parent.mkdir(parents=True, exist_ok=True)
+                (root / rel).write_text((REPO / rel).read_text())
+            data = json.loads((root / m.OWNER_CRITERIA).read_text())
+            data['criteria']['ldo-reverse']['reverse']['option'] = 'bounded'
+            (root / m.OWNER_CRITERIA).write_text(json.dumps(data))
+            self.assertTrue(m.owner_criteria_errors(root))
+
     def test_prepared_decision_never_closes_a_gate(self):
         before = self.evaluate()
         for d in self.plan['owner_decisions']:
-            d['recommended'] = d['options'][0]['id']
+            if 'answer' not in d:
+                d['recommended'] = d['options'][0]['id']
         after = self.evaluate()
         self.assertEqual([g['gate'] for g in before['gates']], [g['gate'] for g in after['gates']])
         self.assertEqual(after['order_eligibility'], 'BLOCKED')
@@ -243,9 +309,10 @@ class ReadinessTests(unittest.TestCase):
     def test_checklist_lists_decisions_and_downloads(self):
         report = json.loads((REPO/m.QUAL/'readiness.json').read_text())
         page = m.checklist(self.plan, report)
-        self.assertIn('## まとめて答えられる判断（15 件）', page)
+        self.assertIn('## まとめて答えられる判断（2 件）', page)
+        self.assertIn('## オーナーが方針を受け入れた判断（7 件、ゲートは開いたまま）', page)
         self.assertNotIn('限定試作を承認しますか', page)
-        self.assertIn('## 回答済みの判断（1 件）', page)
+        self.assertIn('## 回答済みの判断（7 件）', page)
         self.assertIn('2 台分（オーナー報告の JLC PCBA 最小、未確認）（オーナーの回答、`assembly:order-quantity`）', page)
         self.assertNotIn('### 2. 最初の発注数量', page)
         self.assertIn('## 資料・回答待ちのゲート（13 件）', page)
@@ -567,9 +634,10 @@ class ExecutableProcedureTests(unittest.TestCase):
         self.assertEqual(self.item('power-current', 'ilim-max')['value'], round(margins['max_mA'], 1))
         for pid in ('power-current', 'startup-reset'):
             self.assertFalse([a['id'] for a in self.proc(pid)['acceptance'] if a['confidence'] in ('UNRESOLVED', 'PROPOSED')])
-        # The U7 current bound rests on an inferred CV_BUF limit, so it stays a proposal.
+        # The owner adopted the U7 current bound; it still rests on an inferred CV_BUF limit and says so.
         bound = self.item('u7-stress', 'in-current-bound')
-        self.assertEqual((bound['confidence'], bound['basis_confidence']), ('PROPOSED', 'INFERRED'))
+        self.assertEqual(bound['confidence'], 'INFERRED')
+        self.assertEqual(self.proc('u7-stress')['criterion_accepted_by'], 'OWNER')
 
     def test_derivation_token_and_number_must_match_the_source(self):
         inp = self.item('power-current', 'ilim-min')['derivation']['inputs'][0]
@@ -587,14 +655,14 @@ class ExecutableProcedureTests(unittest.TestCase):
         self.assertUntraceable('expression may use only')
 
     def test_derived_confidence_follows_the_weakest_input(self):
-        self.item('u7-stress', 'in-current-bound')['basis_confidence'] = 'CALCULATED'
+        self.item('u7-stress', 'in-current-bound')['confidence'] = 'CALCULATED'
         self.assertUntraceable('allow only INFERRED')
         self.plan = json.loads((REPO/m.QUAL/'plan.json').read_text())
-        self.item('service-envelope', 'retention-force')['basis_confidence'] = 'CALCULATED'
+        self.item('service-envelope', 'retention-force')['confidence'] = 'CALCULATED'
         self.assertUntraceable('allow only MIRROR')
         self.plan = json.loads((REPO/m.QUAL/'plan.json').read_text())
         self.item('u7-stress', 'in-current-bound')['derivation'].pop('assumption')
-        self.item('u7-stress', 'in-current-bound')['basis_confidence'] = 'CALCULATED'
+        self.item('u7-stress', 'in-current-bound')['confidence'] = 'CALCULATED'
         m.schema(self.plan, {'schema': 1, 'runs': [], 'material_observations': []})
 
     def test_derivation_cannot_be_built_from_literals(self):
@@ -670,11 +738,19 @@ class ExecutableProcedureTests(unittest.TestCase):
         self.item('power-current', 'rilim')['source']['path'] = 'engineering/a7/README.md'
         self.assertUntraceable('netlist_value cites only')
 
+    def test_owner_chosen_values_trace_to_the_owner_criteria_record(self):
+        self.item('ldo-reverse', 'reverse')['value'] = 5
+        self.assertUntraceable('differs from the cited record')
+
     def test_proposal_needs_rationale_and_its_true_basis(self):
-        self.item('harness-depth', 'bend-radius').pop('rationale')
+        self.item('firmware-waveforms', 't1l-min').pop('rationale')
         self.assertUntraceable('PROPOSED needs a rationale')
         self.plan = json.loads((REPO/m.QUAL/'plan.json').read_text())
-        self.item('harness-depth', 'bend-radius')['basis_confidence'] = 'SOURCED'
+        self.item('firmware-waveforms', 't1l-min')['basis_confidence'] = 'SOURCED'
+        self.assertUntraceable('allow only CALCULATED')
+        self.plan = json.loads((REPO/m.QUAL/'plan.json').read_text())
+        bend = self.item('harness-depth', 'bend-radius')
+        bend.update(confidence='PROPOSED', basis_confidence='SOURCED', rationale='a proposal')
         self.assertUntraceable('cannot make a value SOURCED')
         self.plan = json.loads((REPO/m.QUAL/'plan.json').read_text())
         self.item('harness-depth', 'depth-target')['rationale'] = 'not a proposal'

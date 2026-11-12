@@ -76,6 +76,48 @@ def owner_order(root):
  return d
 
 
+# Owner decisions that retire a ledger blocker, and the answers each may carry.
+RETIRED_BY_OWNER = {'panel-route': ('repo-panels', 'jlc-panels'), 'finished-cables': ('assembler', 'diy')}
+# Blockers that stay open after the owner accepted the recommended plan, with what is still missing.
+ACCEPTED_TEXT = {'rack-hardware': 'The owner accepted naming the case (2026-11-12, accept all recommendations); the case model, and so the rail/thread interface and fasteners, is not given yet.'}
+JACK_WAIVED_TEXT = ('PJ-324M pin function (which of terminals 4/5 is the tip contact; the supplier symbol contradicts the inferred 4 = tip) is not confirmed: '
+                    'the owner waived the pre-order continuity test on 2026-11-12 and accepted the risk, so it is a first-article check on the assembled boards. '
+                    'Slot, axis height and nut fit, and PCM13SMTR truth table and land fit, also need received parts (jack-continuity, jack-dimensions, switch-fit).')
+
+
+def owner_entries(root):
+ entries = [d for d in read(root, OWNER_DECISIONS).get('decisions', []) if isinstance(d, dict)]
+ ids = [d.get('id') for d in entries]
+ if len(ids) != len(set(ids)):
+  raise ValueError('duplicate owner decision id')
+ for d in entries:
+  if d.get('decided_by') != 'OWNER' or not owner_messages(d):
+   raise ValueError('owner decision '+str(d.get('id'))+' must be owner-decided with the owner\'s own dated messages')
+ return {d['id']: d for d in entries}
+
+
+def owner_answered(root):
+ """Ledger blocker ids the owner's recorded answers retire."""
+ out = set()
+ for i, d in owner_entries(root).items():
+  if i in RETIRED_BY_OWNER:
+   if d.get('answer') not in RETIRED_BY_OWNER[i]:
+    raise ValueError('owner decision '+i+' has an answer outside '+', '.join(RETIRED_BY_OWNER[i]))
+   out.add(i)
+ return out
+
+
+def owner_accepted(root):
+ """Gate -> option for each recommendation the owner accepted as a whole ('accept all')."""
+ d = owner_entries(root).get('accept-all-recommendations')
+ return {a['gate']: a['option'] for a in d.get('accepted', [])} if d else {}
+
+
+def owner_jack_waiver(root):
+ d = owner_entries(root).get('jack-tip-test-waiver')
+ return bool(d) and d.get('answer') == 'waive-pre-order-test'
+
+
 def owner_messages(entry):
  msgs = entry.get('owner_messages')
  return (isinstance(msgs, list) and msgs and all(isinstance(m, dict) and str(m.get('message_id', '')).startswith('cmsg_') and m.get('at') and m.get('text') for m in msgs)
@@ -267,7 +309,16 @@ def generate(root=ROOT):
  if (root/fixture_path).is_file():
   fixture=read(root,fixture_path);inputs.append(fixture_path)
  firmware='engineering/a5/firmware/dist/light_block_A5.bin';inputs.append(firmware)
- blockers=BLOCKERS[:-1]+[fixture_blocker(root,inputs)]+BLOCKERS[-1:]
+ decided = owner_answered(root)
+ accepted = owner_accepted(root)
+ open_blockers = [dict(b, text=ACCEPTED_TEXT[b['id']]) if b['id'] in ACCEPTED_TEXT and accepted.get('assembly:' + b['id']) else b
+                  for b in BLOCKERS if b['id'] not in decided]
+ if owner_jack_waiver(root):
+  open_blockers = [dict(b, text=JACK_WAIVED_TEXT) if b['id'] == 'jack-switch-qualification' else b for b in open_blockers]
+ fixture = fixture_blocker(root,inputs)
+ if fixture['class'] == 'OWNER_DECISION' and accepted.get('assembly:fixture-materials') == 'approve':
+  fixture = dict(fixture, text='Fixture digital criteria 1-4 met; the owner approved the proposed hardware on 2026-11-12 (accept all recommendations). The fabricator for the four FR-4 plates is not chosen. Physical contact/load tests (criterion 5) follow.')
+ blockers=open_blockers[:-1]+[fixture]+open_blockers[-1:]
  return {'schema':1,'revision':'A7-r2-3HP-FR4','status':'ENGINEERING_PREPARATION_NOT_SUPPLIER_UPLOAD',
   'manufacturing_released':False,'order_submitted':False,'agreed_order_quantity':modules,
   'order_plan':order_plan(root, decision, listing, boards, rows),
@@ -326,10 +377,10 @@ def fixture_blocker(root, inputs):
 # Each ledger blocker names what can resolve it; readiness reports these as separate gates.
 BLOCKERS = [
  {'id':'supply-observations','class':'ACCESS_EVIDENCE_HOLD','text':'Order quantity is 2 modules (owner decision). JLC stock, price, minimum, packaging, lead time and assembly applicability at that quantity are not observed for any line except C221842 (switch-supply); JLC attrition is not sourced; stock never reserved.'},
- {'id':'switch-supply','class':'OWNER_DECISION','text':'PCM13SMTR (C221842): 2 needed for 2 modules. JLC stock 0 at 2026-11-09; at 2026-11-12 JLC lists it buyable (Extended) with pre-order minimum 3 and presale 0 (field meanings inferred), tier prices without currency, no lead time. The owner wants to complete on JLC: on our reading, a pre-order (presale 0 may mean none can be placed now; fill depends on LCSC stock, not observed) or a Global Sourcing quote; otherwise wait, or accept a reviewed alternate with its own contact table and fit review.'},
+ {'id':'switch-supply','class':'OWNER_DECISION','text':'PCM13SMTR (C221842): 2 needed for 2 modules. JLC stock 0 at 2026-11-09; at 2026-11-12 JLC lists it buyable (Extended) with pre-order minimum 3 and presale 0 (field meanings inferred), tier prices without currency, no lead time. The owner wants to complete on JLC: on our reading, a pre-order (presale 0 may mean none can be placed now; fill depends on LCSC stock, not observed) or a Global Sourcing quote; otherwise wait, or accept a reviewed alternate with its own contact table and fit review. At 2026-11-12T18:55Z the owner relayed a live check by their browsing assistant (not a first-hand capture): JLC stock 0, Extended, pre-order offered at minimum 3 with an estimated 31 days; Global Sourcing for 3 via DigiKey JPY 826 total (8-15 business days) or Element JPY 865 (8-18); parts stay in the JLC parts library. The owner accepted JLC sourcing with all recommendations, then asked to consider another switch because of the price, so this stays open until the owner picks.'},
  {'id':'panel-route','class':'OWNER_DECISION','text':'None of the three boards meets JLC single-board PCBA size; the panel route is not chosen. Panel by JLCPCB puts 10 controllers, 8 leaves or 2 adapters on each panel (20 PCM13SMTR for a 2-panel minimum if the PCBA quantity counts panels, not sourced); a repo-built panel holding 1 controller, 2 leaves or 1 adapter gives exactly 2 modules; it is prepared (not released) in engineering/a7/jlc-package/panels/. Comparison in engineering/a7/jlc-package/package.json.'},
  {'id':'jack-switch-qualification','class':'PHYSICAL_ONLY','text':'PJ-324M pin function (which of terminals 4/5 is the tip contact and which its normal; the supplier symbol contradicts the inferred 4 = tip, so this continuity test must precede any PCB order), slot, axis height and nut fit, and PCM13SMTR truth table and land fit, need received parts (jack-continuity, jack-dimensions, switch-fit).'},
- {'id':'exact-part-evidence','class':'ACCESS_EVIDENCE_HOLD','text':'Exact-part gaps after the 2026-11-11 source recovery: PMEG4010CEJ ,115 packing variant not established by the datasheet; SM04B-SRSS-TB per-circuit numbering not printed beyond the No. 1 end; PJ-324M recommended hole/slot sizes, axis height and whether a nut ships with C22355739 not sourced.'},
+ {'id':'exact-part-evidence','class':'ACCESS_EVIDENCE_HOLD','text':'Exact-part gaps after the 2026-11-11 source recovery (the PMEG4010CEJ ,115 packing is since sourced: SOD323F on a 7-inch reel, fact-pmeg4010cej-115-orderable): SM04B-SRSS-TB per-circuit numbering not printed beyond the No. 1 end; PJ-324M recommended hole/slot sizes, axis height and whether a nut ships with C22355739 not sourced.'},
  {'id':'finished-cables','class':'OWNER_DECISION','text':'Finished A7 power cable (57 mm, +/-3 ASSUMED), SH4 cables and IDC ribbon not selected; supplier answers and the owner choice of assembly are needed before physical routing checks.'},
  {'id':'mechanical-materials','class':'ACCESS_EVIDENCE_HOLD','text':'PMMA sheet and pocket tolerances, PETG process and orderable fastener part numbers are not sourced; the model carries designations (M2x18, M1.6x4) and envelopes only.'},
  {'id':'rack-hardware','class':'OWNER_DECISION','text':'Owner rack rail/thread interface and fasteners not specified.'},

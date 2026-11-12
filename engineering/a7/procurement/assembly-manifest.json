@@ -527,8 +527,8 @@
     "engineering/a7/mechanical/build_a7_mechanical.py": "98f47662650732d7d8215e0f86cff404521351ca43a795bd8811fc4f452d3daa",
     "engineering/a7/mechanical/exports/3hp/verification.json": "90d7b8c54ebb59cdc2e2ad2b66d1ba9f183759a6104865d93cc57cdfb1902c26",
     "engineering/a7/mechanical/layout.json": "9cbc6ac99f5b05c7e3145f2016b6918cbc5d2b77170db31ed7155755cba0d591",
-    "engineering/a7/procurement/owner-decisions.json": "a744c570e8c5a29c2dd2a6ba88503cde0e7b479adee74e74ebd73503c6cb80d0",
-    "engineering/a7/procurement/supply-observations.json": "b7137b2dc14f7767cacb695844313b72b23123538d1d51a4205e042b5a1cef22",
+    "engineering/a7/procurement/owner-decisions.json": "1c224f2778a8b94b79e652030b51282eb8b03febe0eb37b6dc148c1683261508",
+    "engineering/a7/procurement/supply-observations.json": "485ec1ececc7c71777f1955fdbe9bfc4181c09813ae663401cb3928aca0b806d",
     "engineering/a7/verification/schematic/netlist.xml": "a944cec8877d272637a85afae9f980d4d5e54888453f0f9652a2dd41e575b7cc"
   },
   "boards": [
@@ -3367,171 +3367,9 @@
     }
   ],
   "fixture_materials_per_fixture_not_per_module": {
-    "schema": 1,
-    "status": "BLOCKED",
-    "basis": "one fixture, separate from per-module materials",
-    "items": [
-      {
-        "id": "probe",
-        "description": "4-point crown spring probe; candidate only",
-        "quantity": 5,
-        "manufacturer": "INGUN",
-        "mpn": "GKS-050 214 050 A 1000",
-        "order_code": "GKS-050-0001",
-        "status": "CANDIDATE_NOT_SELECTED",
-        "source": "sources.json#probe"
-      },
-      {
-        "id": "receptacle",
-        "description": "Prewired 1000mm green AWG30 solid-wire receptacle; candidate only",
-        "quantity": 5,
-        "manufacturer": "INGUN",
-        "mpn": "KS-050 E08 V-30",
-        "order_code": "KS-050E08V-30",
-        "status": "CANDIDATE_NOT_SELECTED",
-        "source": "sources.json#receptacle"
-      },
-      {
-        "id": "support-carrier",
-        "description": "Machined FR-4 support carrier 36.6 x 54 x 5 mm: 7 through windows over the probe field and every B-face part and lead (internal radius 1.0 mm, walls and webs at least 1.0 mm), 3 datum pin holes 2.0 mm (press fit), 2 dowel holes 2.0 mm, 6 M3 holes countersunk 90 degrees to 6.0 mm, 2 guide-standoff holes 3.4 mm; geometry in fixture-assembly.step and manifest.json; fabricator not selected",
-        "quantity": 1,
-        "manufacturer": null,
-        "mpn": null,
-        "status": "DIGITAL_DESIGN_NOT_SELECTED",
-        "source": "manifest.json#b_side_relief.support_carrier"
-      },
-      {
-        "id": "probe-plate",
-        "description": "Machined FR-4 probe plate 36.6 x 54 x 6 mm: 5 receptacle bores 0.99 mm (finished 0.98-1.00 mm, drilled, 0.40 mm web at the 1.4 mm test-point pitch), one J5 lead window (internal radius 1.1 mm), 2 dowel holes 2.0 mm, 6 M3 holes 3.4 mm; no component pockets",
-        "quantity": 1,
-        "manufacturer": null,
-        "mpn": null,
-        "status": "DIGITAL_DESIGN_NOT_SELECTED",
-        "source": "manifest.json#b_side_relief.probe_plate"
-      },
-      {
-        "id": "pressure-plate",
-        "description": "Machined FR-4 pressure plate 37.2 x 16 x 6 mm (rigid): J5 notch (internal radius 1.1 mm), 2 stop holes 3.4 mm (G1, G2), 2 M4 tapped holes (3.3 mm drill, at least 1.0 mm web at the 4.0 mm thread) for the hold-down plungers",
-        "quantity": 1,
-        "manufacturer": null,
-        "mpn": null,
-        "status": "DIGITAL_DESIGN_NOT_SELECTED",
-        "source": "manifest.json#b_side_relief.pressure_plate"
-      },
-      {
-        "id": "base-plate",
-        "description": "Machined FR-4 base plate 36.6 x 54 x 3 mm: 6 M3 holes countersunk to 6.0 mm, cable-tie slot 4 x 2 mm (radius 0.8 mm)",
-        "quantity": 1,
-        "manufacturer": null,
-        "mpn": null,
-        "status": "DIGITAL_DESIGN_NOT_SELECTED",
-        "source": "manifest.json#b_side_relief.base_plate"
-      },
-      {
-        "id": "datum-pins",
-        "description": "Dowel pins 2.0 x 6 mm, hardened steel, press fit in the carrier, 1.0 mm above the carrier top: X1, X2 on the x = 16.2 board edge, Y1 on the y = 62.9 edge",
-        "quantity": 3,
-        "manufacturer": null,
-        "mpn": null,
-        "status": "REQUIRED_NOT_SELECTED",
-        "source": "manifest.json#b_side_relief.support_carrier.datum_pins"
-      },
-      {
-        "id": "alignment-dowels",
-        "description": "Dowel pins 2.0 x 16 mm, hardened steel m6, through probe plate and carrier (D1, D2) from the probe-plate underside, ending 1.0 mm below the carrier top, aligning the bores to the datum pins",
-        "quantity": 2,
-        "manufacturer": null,
-        "mpn": null,
-        "status": "REQUIRED_NOT_SELECTED",
-        "source": "manifest.json#b_side_relief.registration"
-      },
-      {
-        "id": "plate-stack-screws",
-        "description": "M3 x 8 countersunk screws (ISO 10642 / DIN 7991), carrier top flush",
-        "quantity": 6,
-        "manufacturer": null,
-        "mpn": null,
-        "status": "REQUIRED_NOT_SELECTED",
-        "source": "fixture-assembly.step"
-      },
-      {
-        "id": "plate-stack-spacers",
-        "description": "M3 hex spacers female-female 6 mm, 5.5 mm across flats, between carrier and probe plate",
-        "quantity": 6,
-        "manufacturer": null,
-        "mpn": null,
-        "status": "REQUIRED_NOT_SELECTED",
-        "source": "fixture-assembly.step"
-      },
-      {
-        "id": "plate-stack-studs",
-        "description": "M3 x 12 set screws used as studs through the probe plate",
-        "quantity": 6,
-        "manufacturer": null,
-        "mpn": null,
-        "status": "REQUIRED_NOT_SELECTED",
-        "source": "fixture-assembly.step"
-      },
-      {
-        "id": "base-standoffs",
-        "description": "M3 hex standoffs female-female 35 mm, 5.5 mm across flats, between probe plate and base plate",
-        "quantity": 6,
-        "manufacturer": null,
-        "mpn": null,
-        "status": "REQUIRED_NOT_SELECTED",
-        "source": "fixture-assembly.step"
-      },
-      {
-        "id": "base-screws",
-        "description": "M3 x 8 countersunk screws (DIN 7991 / ISO 10642), base underside flush, 5 mm into the 35 mm standoff thread",
-        "quantity": 6,
-        "manufacturer": null,
-        "mpn": null,
-        "status": "REQUIRED_NOT_SELECTED",
-        "source": "fixture-assembly.step"
-      },
-      {
-        "id": "stop-standoffs",
-        "description": "M3 hex standoffs female-female 6 mm, 5.5 mm across flats, on the carrier top (G1, G2) as hard stops for the pressure plate (top at 6.0 mm above the carrier, length +/-0.05 mm acceptance), fixed by M3 x 8 socket head screws from below",
-        "quantity": 2,
-        "manufacturer": null,
-        "mpn": null,
-        "status": "REQUIRED_NOT_SELECTED",
-        "source": "manifest.json#b_side_relief.holddown.stops"
-      },
-      {
-        "id": "stop-screws",
-        "description": "M3 x 8 socket head screws (ISO 4762): 2 under the carrier into the stop standoffs, 2 clamping the pressure plate onto the stop tops at 0.3 N m",
-        "quantity": 4,
-        "manufacturer": null,
-        "mpn": null,
-        "status": "REQUIRED_NOT_SELECTED",
-        "source": "fixture-assembly.step"
-      },
-      {
-        "id": "hold-down-plungers",
-        "description": "M4 spring plungers with an insulating (POM) thrust pin, 1.5 mm pin, 1.5 mm stroke, 15 mm long, threaded into the pressure plate at (14.1, 21.7) and (14.2, 16.5) board mm; free pin tip set 5.39 +/-0.1 mm below the plate underside; force at 0.62 and 1.30 mm compression each within +/-20 % of the catalogue line (5 N initial, 16 N final), total at least 12.7 N at every worst case",
-        "quantity": 2,
-        "manufacturer": null,
-        "mpn": null,
-        "status": "REQUIRED_NOT_SELECTED",
-        "source": "manifest.json#b_side_relief.holddown.plunger_candidate"
-      },
-      {
-        "id": "wire-retention",
-        "description": "Cable tie through the base-plate slot and TP1-TP5 labels on both ends of the five green receptacle leads",
-        "quantity": 1,
-        "manufacturer": null,
-        "mpn": null,
-        "status": "REQUIRED_NOT_SELECTED",
-        "source": "manifest.json#b_side_relief.wiring"
-      }
-    ],
-    "blockers": [
-      "No fixture part is selected: plates are digital designs and hardware lines are requirements. manifest.json#hardware_proposal lists one sourced candidate per line as a proposal awaiting owner approval; fabricator and supplier are owner choices.",
-      "Probe-plate bores leave 0.40 mm between bores at the fixed 1.4 mm test-point pitch: within the INGUN grid, below the 1.0 mm milled-wall guidance; the chosen fabricator must confirm drilling it.",
-      "No current price, MOQ, lead time or availability retrieved; no supplier-upload package."
-    ]
+    "id": "fixture-materials",
+    "class": "OWNER_DECISION",
+    "text": "Fixture digital criteria 1-4 met; the owner approved the proposed hardware on 2026-11-12 (accept all recommendations). The fabricator for the four FR-4 plates is not chosen. Physical contact/load tests (criterion 5) follow."
   },
   "unique_fitted_identities": 30,
   "services": [
@@ -3577,27 +3415,17 @@
     {
       "id": "switch-supply",
       "class": "OWNER_DECISION",
-      "text": "PCM13SMTR (C221842): 2 needed for 2 modules. JLC stock 0 at 2026-11-09; at 2026-11-12 JLC lists it buyable (Extended) with pre-order minimum 3 and presale 0 (field meanings inferred), tier prices without currency, no lead time. The owner wants to complete on JLC: on our reading, a pre-order (presale 0 may mean none can be placed now; fill depends on LCSC stock, not observed) or a Global Sourcing quote; otherwise wait, or accept a reviewed alternate with its own contact table and fit review."
-    },
-    {
-      "id": "panel-route",
-      "class": "OWNER_DECISION",
-      "text": "None of the three boards meets JLC single-board PCBA size; the panel route is not chosen. Panel by JLCPCB puts 10 controllers, 8 leaves or 2 adapters on each panel (20 PCM13SMTR for a 2-panel minimum if the PCBA quantity counts panels, not sourced); a repo-built panel holding 1 controller, 2 leaves or 1 adapter gives exactly 2 modules; it is prepared (not released) in engineering/a7/jlc-package/panels/. Comparison in engineering/a7/jlc-package/package.json."
+      "text": "PCM13SMTR (C221842): 2 needed for 2 modules. JLC stock 0 at 2026-11-09; at 2026-11-12 JLC lists it buyable (Extended) with pre-order minimum 3 and presale 0 (field meanings inferred), tier prices without currency, no lead time. The owner wants to complete on JLC: on our reading, a pre-order (presale 0 may mean none can be placed now; fill depends on LCSC stock, not observed) or a Global Sourcing quote; otherwise wait, or accept a reviewed alternate with its own contact table and fit review. At 2026-11-12T18:55Z the owner relayed a live check by their browsing assistant (not a first-hand capture): JLC stock 0, Extended, pre-order offered at minimum 3 with an estimated 31 days; Global Sourcing for 3 via DigiKey JPY 826 total (8-15 business days) or Element JPY 865 (8-18); parts stay in the JLC parts library. The owner accepted JLC sourcing with all recommendations, then asked to consider another switch because of the price, so this stays open until the owner picks."
     },
     {
       "id": "jack-switch-qualification",
       "class": "PHYSICAL_ONLY",
-      "text": "PJ-324M pin function (which of terminals 4/5 is the tip contact and which its normal; the supplier symbol contradicts the inferred 4 = tip, so this continuity test must precede any PCB order), slot, axis height and nut fit, and PCM13SMTR truth table and land fit, need received parts (jack-continuity, jack-dimensions, switch-fit)."
+      "text": "PJ-324M pin function (which of terminals 4/5 is the tip contact; the supplier symbol contradicts the inferred 4 = tip) is not confirmed: the owner waived the pre-order continuity test on 2026-11-12 and accepted the risk, so it is a first-article check on the assembled boards. Slot, axis height and nut fit, and PCM13SMTR truth table and land fit, also need received parts (jack-continuity, jack-dimensions, switch-fit)."
     },
     {
       "id": "exact-part-evidence",
       "class": "ACCESS_EVIDENCE_HOLD",
-      "text": "Exact-part gaps after the 2026-11-11 source recovery: PMEG4010CEJ ,115 packing variant not established by the datasheet; SM04B-SRSS-TB per-circuit numbering not printed beyond the No. 1 end; PJ-324M recommended hole/slot sizes, axis height and whether a nut ships with C22355739 not sourced."
-    },
-    {
-      "id": "finished-cables",
-      "class": "OWNER_DECISION",
-      "text": "Finished A7 power cable (57 mm, +/-3 ASSUMED), SH4 cables and IDC ribbon not selected; supplier answers and the owner choice of assembly are needed before physical routing checks."
+      "text": "Exact-part gaps after the 2026-11-11 source recovery (the PMEG4010CEJ ,115 packing is since sourced: SOD323F on a 7-inch reel, fact-pmeg4010cej-115-orderable): SM04B-SRSS-TB per-circuit numbering not printed beyond the No. 1 end; PJ-324M recommended hole/slot sizes, axis height and whether a nut ships with C22355739 not sourced."
     },
     {
       "id": "mechanical-materials",
@@ -3607,12 +3435,12 @@
     {
       "id": "rack-hardware",
       "class": "OWNER_DECISION",
-      "text": "Owner rack rail/thread interface and fasteners not specified."
+      "text": "The owner accepted naming the case (2026-11-12, accept all recommendations); the case model, and so the rail/thread interface and fasteners, is not given yet."
     },
     {
       "id": "fixture-materials",
       "class": "OWNER_DECISION",
-      "text": "Fixture digital criteria 1-4 met and a sourced hardware proposal recorded; the fabricator choice and approval of the proposed hardware are owner decisions. Physical contact/load tests (criterion 5) follow."
+      "text": "Fixture digital criteria 1-4 met; the owner approved the proposed hardware on 2026-11-12 (accept all recommendations). The fabricator for the four FR-4 plates is not chosen. Physical contact/load tests (criterion 5) follow."
     },
     {
       "id": "prototype-and-release",

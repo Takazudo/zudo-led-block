@@ -184,4 +184,33 @@ class LedgerTests(unittest.TestCase):
    self.assertIn(b['class'],P.CLASSES)
   self.assertEqual(len({b['id'] for b in self.report['blockers']}),len(self.report['blockers']))
 
+ def test_owner_decisions_retire_only_their_own_blockers(self):
+  ids={b['id'] for b in self.report['blockers']}
+  self.assertNotIn('panel-route',ids)
+  self.assertNotIn('finished-cables',ids)
+  # The owner reopened the switch supply after the live check, so it stays an owner decision.
+  self.assertIn('switch-supply',ids)
+  jack=next(b for b in self.report['blockers'] if b['id']=='jack-switch-qualification')
+  self.assertIn('waived the pre-order continuity test',jack['text'])
+  self.assertIn('first-article',jack['text'])
+  self.assertNotIn('must precede any PCB order',jack['text'])
+  rack=next(b for b in self.report['blockers'] if b['id']=='rack-hardware')
+  self.assertIn('case model',rack['text'])
+
+ def test_owner_decision_without_owner_messages_is_rejected(self):
+  def strip(d):
+   for x in d['decisions']:
+    if x['id']=='jack-tip-test-waiver':x['owner_words']=['paraphrase']
+  with self.mutate_json(P.OWNER_DECISIONS,strip):
+   with self.assertRaisesRegex(ValueError,'own dated messages'):
+    P.generate()
+
+ def test_retired_answer_must_be_a_known_option(self):
+  def bad(d):
+   for x in d['decisions']:
+    if x['id']=='finished-cables':x['answer']='whatever'
+  with self.mutate_json(P.OWNER_DECISIONS,bad):
+   with self.assertRaisesRegex(ValueError,'answer outside'):
+    P.generate()
+
 if __name__=='__main__':unittest.main()

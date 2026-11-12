@@ -36,7 +36,7 @@
       "title": "PJ-324M 入荷時 TS/TRS 導通・端子対応",
       "variant": "fr4-3hp",
       "issues": "Q2; #19",
-      "setup": "絶縁された未実装ジャック、TS/TRS プラグ、導通計とミリオーム計。各挿抜状態で全端子対を測り、閉じた接点の接触抵抗を測る。",
+      "setup": "絶縁された未実装ジャック、TS/TRS プラグ、導通計とミリオーム計。各挿抜状態で全端子対を測り、閉じた接点の接触抵抗を測る。 未実装品が手元にない場合は、組み立て済み基板の最初の 1 枚で、プラグの各接点と基板のネット（CV_THRU、GND）の導通で判定する。",
       "expected": "J1/J2: 1=sleeve→GND, 2=ring→GND, 4=tip→CV_THRU, 3/5=NC は設計上の推定。実物対応と normal 接点を確認し、TS sleeve に CV が短絡しないこと。",
       "basis": "engineering/a7/electronics/README.md",
       "criterion_status": "REVIEWED",
@@ -44,7 +44,7 @@
       "raw_evidence_required": "全端子対の導通表、プラグ型番、写真、ジャックロット",
       "observation": "NOT_MEASURED",
       "result": "NOT_RUN",
-      "next_action": "基準はコーディネーターが採用済み（オーナー本人ではない）。PCB を発注する前に実物の PJ-324M で手順を実施し、端子 4/5 を確定する（O0）。",
+      "next_action": "基準はコーディネーターが採用済み（オーナー本人ではない）。オーナーは発注前の試験を見送った（2026-11-12、リスクを受け入れた判断で、端子 4 = tip の確認ではない）。組み立て済み基板が届いたら、ジャックを使う他の試験より前に初品検査として実施する（O0）。",
       "required_evidence_kinds": [
         "terminal_matrix",
         "ts_plug_identity",
@@ -74,7 +74,7 @@
         "TS プラグを最後まで挿入し、全10端子対とプラグの Tip/Sleeve 対各端子を測る。",
         "TRS プラグで同じ測定をする。プラグを抜き、無挿入の状態をもう一度測る。",
         "TS と TRS プラグを挿入した状態で、閉じている各接点（プラグ tip–tip 端子、sleeve–sleeve 端子、TRS の ring–ring 端子）の抵抗をミリオーム計で測る。4 端子法で、測定電流は 50 mA 以下。2 端子法しか使えない場合は、測定リードとプラグを短絡して読んだ値を差し引き、その値も記録する。",
-        "端子 4 と 5 のどちらが tip 接点（プラグの tip と導通）で、どちらがその normal（無挿入で tip 接点と導通し、挿入で開放）かを判定し、terminal_matrix に「tip=端子N、tip normal=端子M」と明記する。供給元 symbol は端子 5 を tip としており、現在の推定（端子 4 = tip）と矛盾する。この判定は PCB を発注する前に必須。",
+        "端子 4 と 5 のどちらが tip 接点（プラグの tip と導通）で、どちらがその normal（無挿入で tip 接点と導通し、挿入で開放）かを判定し、terminal_matrix に「tip=端子N、tip normal=端子M」と明記する。供給元 symbol は端子 5 を tip としており、現在の推定（端子 4 = tip）と矛盾する。オーナーは発注前の判定を見送り、端子 4 = tip のまま使えるものとして進めると決めた（2026-11-12）。この判定は組み立て済み基板の初品検査として、ジャックを使う他の試験より前に行う。",
         "結果を下の推定対応・基板ネットと突き合わせる。1 か所でも違えば FAIL とし、基板を変えるかどうかは別のレビューで決める（ここで設計を変えない）。"
       ],
       "record": {
@@ -618,12 +618,12 @@
       "setup": "完成 SH4 と電源ケーブルを全長収納し、全コネクタ・ラベル・IDC を含めて組む。",
       "expected": "PMMA 裏面から30 mm以内が目標。電源自由長は mechanical/layout.json の power_cable_requirement（現時点57±3 mm、±3 ASSUMED）。A5 50±6 mmは流用不可。",
       "basis": "engineering/a7/mechanical/layout.json",
-      "criterion_status": "UNRESOLVED",
-      "missing_criterion": "現物ケーブル径、許容曲げ、自由長公差とラベル、完成品供給仕様が未確定。",
+      "criterion_status": "REVIEWED",
+      "missing_criterion": "",
       "raw_evidence_required": "配線極性表、全長/曲げ/奥行き測定、各方向写真",
       "observation": "NOT_MEASURED",
       "result": "NOT_RUN",
-      "next_action": "不足する基準をレビューし、オーナー承認の試作ルート確定後に実物で実施。",
+      "next_action": "基準はオーナーが採用済み（2026-11-12、推奨をまとめて採用）。電源ケーブル公差 ±3 mm は仮定のままで、ケーブル業者がより狭い公差を保証すれば置き換える。オーナー承認の試作ルートの範囲で実物で実施する。",
       "required_evidence_kinds": [
         "polarity_matrix",
         "full_length_routing",
@@ -752,14 +752,12 @@
           "criterion": "許容最小曲げ半径",
           "value": 2.0,
           "unit": "mm",
-          "confidence": "PROPOSED",
+          "confidence": "DESIGN",
           "source": {
             "path": "engineering/a7/mechanical/layout.json",
             "pointer": "/variants/3hp/routes/adapter_to_controller_power/end_bend_room"
           },
-          "bound": "min",
-          "basis_confidence": "DESIGN",
-          "rationale": "3HP の経路モデルが電源ケーブル端の曲げに残した余裕 2.0 mm（2HP では 0.9 mm で「推奨未満」とされた値）。ケーブル製造元の最小曲げ半径が分かればそちらを優先する。"
+          "bound": "min"
         },
         {
           "id": "power-band-order",
@@ -769,20 +767,24 @@
             60.0
           ],
           "unit": "mm",
-          "confidence": "PROPOSED",
+          "confidence": "ASSUMED",
           "source": {
             "path": "engineering/a7/mechanical/layout.json",
             "pointer": "/power_cable_requirement/band"
           },
           "bound": "range",
-          "basis_confidence": "ASSUMED",
-          "rationale": "仮定の 57 ± 3 mm をそのまま完成ケーブルの注文仕様にする案。供給元が保証できる公差が分かれば置き換える。",
           "confidence_trace": {
             "path": "engineering/a7/mechanical/layout.json",
             "pointer": "/power_cable_requirement/tolerance_confidence"
           }
         }
-      ]
+      ],
+      "criterion_accepted_by": "OWNER",
+      "criterion_review": {
+        "path": "engineering/a7/qualification/reviews/2026-11-12-owner-criteria-acceptance.md",
+        "sha256": "ab30cb00fb1077097ec6375b14acda2022632ad425557ad540ffb931a0d4b11b"
+      },
+      "criterion_acceptance_sha256": "886e5fd6948d5d2c939b8ab37e668749db83307b2c78f972892713ef46071943"
     },
     {
       "id": "pmma-supports",
@@ -2478,12 +2480,12 @@
       "setup": "CVと電源遷移中のU7両入力/電源を差動プローブで測る。",
       "expected": "exact U7 の許容入力差動条件に条件ごと照合。",
       "basis": "engineering/a5/integration/independent_review",
-      "criterion_status": "UNRESOLVED",
-      "missing_criterion": "受入値は部品資料・ネットリスト・FW 定数から導出し、生成時に再計算で照合している。採用のレビュー記録（criterion_review）がまだない。",
+      "criterion_status": "REVIEWED",
+      "missing_criterion": "",
       "raw_evidence_required": "両入力と電源のraw波形、最大差分計算、プローブ情報",
       "observation": "NOT_MEASURED",
       "result": "NOT_RUN",
-      "next_action": "導出した受入値をレビューして採否を記録する（コーディネーターかオーナー）。その後に実機で手順を実施する。",
+      "next_action": "基準はオーナーが採用済み（2026-11-12）。R7 電流の上限は推定（INFERRED）を含む計算のまま。オーナー承認の試作ルートの範囲で実物で実施する。",
       "required_evidence_kinds": [
         "input_supply_waveforms",
         "differential_stress_calculation",
@@ -2566,7 +2568,7 @@
           "criterion": "R7 を流れる電流（U7 IN+ と D3 の合計）の上限（計算）。CV_AFFINE の全抵抗（R3–R6）と +3V3 の上限を含む節点計算。測定した R7 の電圧から求めた電流はこれ以下で、U7 入力の絶対最大 10 mA より小さい",
           "value": 0.313,
           "unit": "mA",
-          "confidence": "PROPOSED",
+          "confidence": "INFERRED",
           "derivation": {
             "expression": "(V / (R3 * (1 - t3 / 100)) + (V3 * (1 + acc / 100)) / (R4 * (1 - t4 / 100)) + (V3 * (1 + acc / 100)) / (R5 * (1 - t5 / 100))) / (1 / (R3 * (1 - t3 / 100)) + 1 / (R4 * (1 - t4 / 100)) + 1 / (R5 * (1 - t5 / 100)) + 1 / (R6 * (1 + t6 / 100)) + 1 / (R7 * (1 - t7 / 100))) / (R7 * (1 - t7 / 100)) * 1000",
             "inputs": [
@@ -2703,11 +2705,15 @@
             "round": 3,
             "assumption": "CV_BUF (U6 出力) は U6 の電源を超えず、U6 の電源は絶対最大の ±20 V 以内とする推定。CV_FILTER を 0 V に固定して R7 の電流を大きく見積もる"
           },
-          "bound": "max",
-          "basis_confidence": "INFERRED",
-          "rationale": "U6 (OPA197) の出力はレールまで最大 25 mV（無負荷、25 °C）まで近づけると資料にある（fact-opa197idbvr-output-swing）。これはレールを超えない保証ではなく、絶対最大にも出力ピンの行はないが、CV_BUF は U6 の電源 +12V_PROT / −12V_PROT を超えないと推定する（資料からの推論で、資料の値ではない）。その電源の上限はモジュールの外（ラック電源）で決まり、Doepfer A-100 の技術資料は ±12 V の公称値だけで許容差も上限も示さない。D3 (BAS70-04) と U7 内部ダイオードの電流分担はどちらの資料にもない（BAS70 の VF は 1 mA で最大 410 mV、25 °C だけ。TLV9001 は電源を 0.5 V 超える入力を 10 mA 以下に制限することだけを求める）が、R7 を流れる合計がこの上限以下なら分担に関係なく U7 の 10 mA を下回る。±20 V は資料の値ではなく設計上の推定で、同じ節点計算では CV_BUF が約 845 V にならないと 10 mA に届かない。推定を外せる資料（ラック電源の上限）が得られるまで提案のまま。"
+          "bound": "max"
         }
-      ]
+      ],
+      "criterion_accepted_by": "OWNER",
+      "criterion_review": {
+        "path": "engineering/a7/qualification/reviews/2026-11-12-owner-criteria-acceptance.md",
+        "sha256": "ab30cb00fb1077097ec6375b14acda2022632ad425557ad540ffb931a0d4b11b"
+      },
+      "criterion_acceptance_sha256": "bcfdaa1b30cbf474bb7b951d87563a0cbca39e9c002293ae9a3b060b24c3d30d"
     },
     {
       "id": "ldo-reverse",
@@ -2717,12 +2723,12 @@
       "setup": "入力/出力レール遷移を承認済み制限下で独立に制御。",
       "expected": "TLV75533PDBVR の逆電流未確認を評価。",
       "basis": "engineering/a5/integration/independent_review",
-      "criterion_status": "UNRESOLVED",
-      "missing_criterion": "TLV755P は許容逆電流・時間を規定しない（§7.1.4 が挙げる 3 つの逆電流条件はいずれも絶対最大（VOUT > VIN + 0.3 V）を超えるとし、必要なら外付けショットキーを推奨）。+3V3 への外部印加を試験で許すか、許すならどの上限で行うかはオーナーのリスク判断。",
+      "criterion_status": "REVIEWED",
+      "missing_criterion": "",
       "raw_evidence_required": "両レール波形、逆電流、温度、回路条件",
       "observation": "NOT_MEASURED",
       "result": "NOT_RUN",
-      "next_action": "不足する基準をレビューし、オーナー承認の試作ルート確定後に実物で実施。",
+      "next_action": "基準はオーナーが採用済み（2026-11-12、外部印加はしない）。オーナー承認の試作ルートの範囲で実物で実施する。",
       "required_evidence_kinds": [
         "rail_waveforms",
         "reverse_current",
@@ -2742,12 +2748,12 @@
         "`records.json` の owner_prototype_route（対象版・数量・範囲・承認）が記録済み",
         "通電は owner_prototype_route が許す範囲だけ。初回通電の電流制限値は未決なので、試験前にレビューで決めて conditions に記録する",
         "`readiness.json` の identities（基板/実装/回路図/FW/設定/機構/治具/台帳の SHA-256）を run にそのまま写す",
-        "+3V3 に外部電圧をかける試験は、オーナー判断 criterion:ldo-reverse で bounded が選ばれ、上限と時間が記録されるまで実施しない"
+        "+3V3 に外部電圧をかけない（オーナー判断 criterion:ldo-reverse で prohibit。SWD プローブ等で +3V3 を外から給電しない）"
       ],
       "precondition_states": [],
       "steps": [
         "電源投入・遮断の順序を変えて +5V と +3V3 の波形を記録し、遮断時に VOUT ≤ VIN + 0.3 V が保たれるかを確かめる。",
-        "（bounded が選ばれた場合のみ）+5 V を切った状態で +3V3 側に SWD プローブ等から記録済みの上限内で電圧をかけ、電流と時間を測る。",
+        "+5 V を切った状態で +3V3 に外部から電圧をかけない（SWD プローブは給電しない設定で接続する）。",
         "順序と時間を変えて記録する。"
       ],
       "record": {
@@ -2795,13 +2801,23 @@
         },
         {
           "id": "reverse",
-          "criterion": "試験で許す逆電流と時間",
-          "value": null,
+          "criterion": "+5 V を切った状態で +3V3 に外部から流す電流（外部印加はしない）",
+          "value": 0,
           "unit": "mA",
-          "confidence": "UNRESOLVED",
-          "decided_by": "オーナー判断（メーカーは許容値を規定しないので、試験で許すかどうかと上限はプロジェクトのリスク判断）"
+          "confidence": "DESIGN",
+          "source": {
+            "path": "engineering/a7/qualification/owner-criteria.json",
+            "pointer": "/criteria/ldo-reverse/reverse/value"
+          },
+          "bound": "exact"
         }
-      ]
+      ],
+      "criterion_accepted_by": "OWNER",
+      "criterion_review": {
+        "path": "engineering/a7/qualification/reviews/2026-11-12-owner-criteria-acceptance.md",
+        "sha256": "ab30cb00fb1077097ec6375b14acda2022632ad425557ad540ffb931a0d4b11b"
+      },
+      "criterion_acceptance_sha256": "0df9272f616326f663ecaa1ccda4866a9e00d371c0b78d5614ea51734bc5ad7a"
     },
     {
       "id": "load-short",
@@ -3382,7 +3398,7 @@
       "expected": "51/255 capは温度承認ではない。約2% D2遮光はモデル推定のみ。",
       "basis": "engineering/a7/mechanical/README.md",
       "criterion_status": "UNRESOLVED",
-      "missing_criterion": "周囲条件/安定判定、部品/材料温度限界と見え方のオーナー採否が未決。",
+      "missing_criterion": "部品温度の上限はオーナーが 75 °C に決めた（2026-11-12）。PETG/PMMA の温度限界（資料未取得）と見え方の合否（オーナー判断）が未決。",
       "raw_evidence_required": "温度時系列、IR補正、材料ロット、露出固定写真、周囲条件",
       "observation": "NOT_MEASURED",
       "result": "NOT_RUN",
@@ -3460,29 +3476,27 @@
         },
         {
           "id": "part-temp-max",
-          "criterion": "安定後の部品表面温度の上限",
-          "value": 85,
+          "criterion": "安定後の部品表面温度の上限（PJ-324M の保存温度の上限を基板全体の上限にする）",
+          "value": 75,
           "unit": "degC",
-          "confidence": "PROPOSED",
+          "confidence": "CALCULATED",
           "derivation": {
             "expression": "T",
             "inputs": [
               {
                 "name": "T",
-                "token": "+85",
-                "number": 85.0,
+                "token": "+75",
+                "number": 75.0,
                 "source": {
-                  "path": ".claude/skills/component-a7-pcm13smtr/facts.json",
-                  "fact_id": "fact-a7-pcm13smtr-operating-temperature"
+                  "path": ".claude/skills/component-a7-pj-324m/facts.json",
+                  "fact_id": "fact-a7-pj-324m-storage-temperature"
                 },
-                "context": "-40 to +85"
+                "context": "-25 to +75"
               }
             ],
             "round": 0
           },
-          "bound": "max",
-          "basis_confidence": "CALCULATED",
-          "rationale": "カタログの部品 fact で動作温度の上限が分かるもののうち最も低いのは +85 °C で、複数の部品が同じ値になる（WS2812B-2020 の Topt、AP63205 と SN74LVC2T45 の周囲温度 TA、STM32G031 の温度コード 6、PCM13SMTR、SM04B（通電による温度上昇を含む）、Samsung X5R の温度特性範囲）。TPS2552 と TLV755P の上限は接合部温度（どちらも +125 °C。TPS2552 は IOUT ≤ 1.5 A なら +105 °C）。PJ-324M は保存温度が −25〜+75 °C で、動作温度の欄は資料で空欄（fact は UNSOURCED）なので、+75 °C を基板の上限とみなすかも採否で決める。温度の fact がない部品は 530470310、BOOMELE C5665、PJ-3582-B（ミラー資料だけ）。1MS3T1B1M2QES-5 はミラー資料による −40〜85 °C の fact だけで UNSOURCED。表面温度は接合部より低いので、余裕をどれだけ取るかも採否で決める。"
+          "bound": "max"
         },
         {
           "id": "materials-appearance",
@@ -3595,12 +3609,12 @@
       "setup": "全ケーブルと完成部品で挿抜、側板交換、スイッチ設定、再組立を実施。",
       "expected": "PMMA裏面を基準に30 mm目標、3HP前幅14.9 mm、高さ128.5 mm。",
       "basis": "engineering/a7/mechanical/layout.json",
-      "criterion_status": "UNRESOLVED",
-      "missing_criterion": "繰返し回数、許容力/損傷、組立ばらつきと合否基準が未決。",
+      "criterion_status": "REVIEWED",
+      "missing_criterion": "",
       "raw_evidence_required": "寸法、挿抜力、交換動画、前後写真、部品識別",
       "observation": "NOT_MEASURED",
       "result": "NOT_RUN",
-      "next_action": "不足する基準をレビューし、オーナー承認の試作ルート確定後に実物で実施。",
+      "next_action": "基準はオーナーが採用済み（2026-11-12、100 回 + 10.0 N）。オーナー承認の試作ルートの範囲で実物で実施する。",
       "required_evidence_kinds": [
         "envelope_dimensions",
         "insertion_extraction_force",
@@ -3625,7 +3639,7 @@
       "precondition_states": [],
       "steps": [
         "幅・高さ・奥行きを測る。",
-        "ラックへの挿抜とジャックの挿抜を決めた回数繰り返し、力と損傷を記録する。",
+        "ジャックの挿抜を 100 回繰り返し（挿抜力は 10.0 N まで）、パネル・ナット・ジャックの割れ・ずれ・緩みを確かめる。ラックへの挿抜も行い、力と損傷を記録する。",
         "設定スイッチの切替えとケーブル交換を行い、前後の写真を残す。"
       ],
       "record": {
@@ -3710,18 +3724,22 @@
         },
         {
           "id": "cycles",
-          "criterion": "繰返し回数と許容損傷",
-          "value": null,
-          "unit": "NONE",
-          "confidence": "UNRESOLVED",
-          "decided_by": "オーナーの判断"
+          "criterion": "ジャック挿抜の繰返し回数（パネル・ナット・ジャックに割れ・ずれ・緩みがないこと）",
+          "value": 100,
+          "unit": "cycles",
+          "confidence": "DESIGN",
+          "source": {
+            "path": "engineering/a7/qualification/owner-criteria.json",
+            "pointer": "/criteria/service-envelope/cycles/value"
+          },
+          "bound": "min"
         },
         {
           "id": "retention-force",
           "criterion": "ジャック保持がずれ・割れなく受ける挿抜力",
           "value": 10.0,
           "unit": "N",
-          "confidence": "PROPOSED",
+          "confidence": "MIRROR",
           "derivation": {
             "expression": "F",
             "inputs": [
@@ -3738,11 +3756,15 @@
             ],
             "round": 1
           },
-          "bound": "min",
-          "basis_confidence": "MIRROR",
-          "rationale": "PJ-324M の挿抜力の上限 10.0 N（販売店掲載の写し）。回数はオーナーが決める（cycles）。"
+          "bound": "min"
         }
-      ]
+      ],
+      "criterion_accepted_by": "OWNER",
+      "criterion_review": {
+        "path": "engineering/a7/qualification/reviews/2026-11-12-owner-criteria-acceptance.md",
+        "sha256": "ab30cb00fb1077097ec6375b14acda2022632ad425557ad540ffb931a0d4b11b"
+      },
+      "criterion_acceptance_sha256": "d7cb9959e4717eb0051e04bfa957a9945be72336f160c8a3740c6efaafa6bb99"
     }
   ],
   "optional_variants": {
@@ -3752,8 +3774,8 @@
   "owner_actions": [
     {
       "id": "O0",
-      "title": "PCB を発注する前に PJ-324M の端子 4/5 を実物で確定する",
-      "detail": "供給元の symbol は端子 5 を tip としており、基板の推定対応（端子 4 = tip）と矛盾する。symbol の読みだけでは欠陥とは言えないので、ピン対応と銅箔は変更していない。実物の PJ-324M を TS / TRS プラグで導通試験し（jack-continuity の手順 5）、どちらが tip 接点でどちらがその normal かを記録する。PCB 発注の前提条件。",
+      "title": "組み立て済み基板が届いたら、最初に PJ-324M の端子 4/5 を確かめる（初品検査）",
+      "detail": "供給元の symbol は端子 5 を tip としており、基板の推定対応（端子 4 = tip）と矛盾する。オーナーは発注前の導通試験を見送り、ジャックはこのまま使えるものとして進めると決めた（2026-11-12「4 skip it. handle it is usable」、記録 `engineering/a7/procurement/owner-decisions.json` の jack-tip-test-waiver）。これはリスクを受け入れた判断で、端子 4 = tip の確認ではない。端子 5 が tip なら、プラグを挿すと基板への接続が開き、CV IN と CV THRU の両方が働かず、制御基板の改版が要る。組み立て済み基板の最初の 1 枚で jack-continuity を実施し、ジャックを使う他の試験より前に判定する。",
       "unblocks": [
         "run:jack-continuity",
         "criterion:jack-continuity",
@@ -3782,8 +3804,8 @@
     },
     {
       "id": "O7",
-      "title": "合否基準を採否する（導出値と提案値）",
-      "detail": "導出した受入値（power-current / startup-reset / u7-stress）と、PROPOSED の提案値（見え方・温度、挿抜力と回数、短絡、CV の誤差とノイズ、レール崩壊、ジャック導通）と、部分電源試験を部品の絶対最大で判定する案（partial-rails）を採るか決める。採った値はレビュー記録に残す。提案値のままではゲートは解除されない。",
+      "title": "残りの合否基準を採否する（提案値）",
+      "detail": "harness-depth、u7-stress、service-envelope、ldo-reverse はオーナーが採用した（2026-11-12）。thermal-optical は上限 75 °C を採ったが、材料の温度限界と見え方が残る。部分電源試験を部品の絶対最大で判定する案（partial-rails）は「accept all」の後に出たので、オーナーの判断待ち。その他の PROPOSED の提案値は、採るまでゲートを解除しない。",
       "unblocks": [
         "criterion:thermal-optical",
         "criterion:service-envelope",
@@ -3800,50 +3822,42 @@
     },
     {
       "id": "O8",
-      "title": "LED タイミング (#13) の扱いを決める",
-      "detail": "**矛盾:** データシート V1.4 の T1L は 580–1000 ns、現行 FW の T1L は計算上 約 340–361 ns（FW の設計範囲 220–420 ns）。提案値（t1l-min / t1l-max = 580 / 1000 ns）を採ると現行 FW は不合格になるので、#13 が開いている間は採らない（コーディネーター判断）。メーカー訂正を待つか、Worldsemi を名乗る #13 のコメント（T1L は合否の基準にしない。未確認）を公式窓口の書面で確認して採るか、購入ロットの実測で別レビューするか、FW を直すかをオーナーが決める。",
+      "title": "LED タイミング (#13) を Worldsemi の公式窓口に書面で確認する",
+      "detail": "オーナーは推奨（メーカーの判定基準を書面で確認して採る）を受け入れた（2026-11-12「5 accept all」）。データシート V1.4 の T1L は 580–1000 ns、現行 FW の T1L は計算上 約 340–361 ns。Worldsemi の公式窓口から、T0H ≤ 380 ns とビット周期で判定し T1L を合否に使わないことと、周期の許容幅を書面でもらう。届くまで提案値（t1l-min / t1l-max）は採らず、基準ゲートは開いたまま。書面確認が得られなければ購入ロットの実測に戻る。",
       "unblocks": [
         "criterion:firmware-waveforms"
       ]
     },
     {
       "id": "O4",
-      "title": "PCM13SMTR の JLC 在庫切れへの対応を決める",
-      "detail": "JLC で取り寄せる（予約注文、できなければ Global Sourcing）、入荷を待つ、または接点表と適合を別にレビューした代替品を認める（Q10）。予約注文が今できるかは JLC アカウントで確かめる。",
+      "title": "モードスイッチを決める: PCM13SMTR を JLC 経由で取り寄せるか、別のスイッチにするか",
+      "detail": "オーナーは推奨（JLC 経由で取り寄せる）をいったん受け入れた後、JLC の在庫確認（2026-11-12、JLC 在庫 0、予約注文は最小 3 個で約 31 日、Global Sourcing は DigiKey で 3 個 ¥826・8〜15 営業日）を受けて、価格が少し高いので別のスイッチも検討したいと述べた。代替品の比較（同じフットプリントにそのまま載るか、基板の変更が要るか）を見てオーナーが選ぶまで、このゲートは開いたまま。",
       "unblocks": [
-        "assembly:switch-supply"
-      ]
-    },
-    {
-      "id": "O12",
-      "title": "JLC の注文画面かサポートで、面付けしたときの PCBA 数量と面付けの受け付けを確かめる",
-      "detail": "3 枚の基板はどれも JLC の単品 PCBA の最小寸法に届かないので面付けで注文する（`project/jlc-order-package` に基板ごとの比較。経路は `assembly:panel-route` の判断）。JLC の公開資料では決まらない点を、注文画面のプレビューか JLC サポートで確かめる。質問 1: 「With Panel by JLCPCB, does the PCBA Qty count panels or single boards, and does one panel holding 2 or more boards meet the 2-pcs PCBA minimum, or must 2 panels be assembled?」 質問 2: 「Will you assemble a customer panel that holds a single board inside a waste frame, and can individual boards on a panel be left unassembled?」 質問 3（JLC に面付けを任せる場合）: LED リーフの外形には 1 × 2 mm の切り欠きが 2 つある。この外形で Panel by JLCPCB を受けてもらえるか。電源アダプタは Economic 実装のまま Panel by JLCPCB をマウスバイトで作れるか。コントローラーの J1/J2 は外形から 4.45 mm はみ出すが、その逃げを取ってもらえるか。答えは日付・相手・原文を残して `engineering/a7/jlc-package/sources.json` に記録する。",
-      "unblocks": [
-        "material:assembly_service",
-        "assembly:panel-route"
+        "assembly:switch-supply",
+        "material:switch"
       ]
     },
     {
       "id": "O5",
-      "title": "完成ケーブルを選び、電源ケーブル公差 ±3 mm（仮定）を認めるか決める",
-      "detail": "電源 57 mm の公差は仮定。供給元が保証できる公差と組立の選択を決める。SH4 と IDC リボンも同じ。",
+      "title": "完成ケーブルを業者に注文仕様で頼み、長さ公差の回答をもらう",
+      "detail": "オーナーは完成ケーブルを業者に頼むこと（2026-11-12「5 accept all」）と、電源ケーブルの注文範囲 54–60 mm（57 ± 3 mm、±3 は仮定）と最小曲げ半径 2.0 mm を合否基準にすることを決めた。業者が保証できる公差の回答をもらう。SH4 と IDC リボンも同じ。",
       "unblocks": [
-        "assembly:finished-cables",
+        "material:finished_cables",
         "criterion:harness-depth"
       ]
     },
     {
       "id": "O6",
-      "title": "ラック締結部品を指定する",
-      "detail": "使うラックのレール・ねじ規格。",
+      "title": "使うケースの型番を知らせる",
+      "detail": "オーナーはケースの型番を知らせる案を採った（2026-11-12「5 accept all」）。型番からレール・ねじ規格と締結部品を決める。",
       "unblocks": [
         "assembly:rack-hardware"
       ]
     },
     {
       "id": "O11",
-      "title": "治具の加工先を選び、提案された金物を承認する",
-      "detail": "治具の FR-4 板 4 枚の加工先は未選定（JLCCNC の指針は参考のみ）。`engineering/a7/fixture/manifest.json` の hardware_proposal は全資材行に出典付きの候補を 1 つずつ載せた提案で、選定でも承認でもない。プローブ板の穴間 0.40 mm は加工先に穴あけ可否の確認が要る。",
+      "title": "治具の加工先を選ぶ",
+      "detail": "`engineering/a7/fixture/manifest.json` の hardware_proposal はオーナーが承認した（2026-11-12「5 accept all」）。治具の FR-4 板 4 枚の加工先は未選定（JLCCNC の指針は参考のみ）。プローブ板の穴間 0.40 mm は加工先に穴あけ可否の確認が要る。",
       "unblocks": [
         "assembly:fixture-materials"
       ]
@@ -3868,7 +3882,7 @@
     {
       "id": "O10",
       "title": "製造リリースと発注を明示的に承認する",
-      "detail": "レビュー済み製造ファイル、数量、版に結び付いた承認。上のすべてが揃った後。",
+      "detail": "レビュー済み製造ファイル、数量、版に結び付いた承認。オーナーは実機試験の結果を見てから判断する方針を受け入れた（2026-11-12「5 accept all」）。これは製造リリースではない。",
       "unblocks": [
         "manufacturing_release",
         "assembly:prototype-and-release"
@@ -3889,15 +3903,15 @@
         {
           "id": "wait",
           "label": "まだ承認しない",
-          "consequence": "物理手順はすべて止まる。PJ-324M の端子 4/5 の確認（PCB 発注の前提）も実物が入手できないので進まない。"
+          "consequence": "物理手順はすべて止まる。部品・基板・治具を入手できない。"
         }
       ],
       "recommended": "approve",
-      "reason": "PJ-324M のどちらの端子が tip かは実物の導通試験でしか決まらず、その試験は PCB 発注より前に必要。試作ルートがないと PCB 発注の前提がそろわない。",
+      "reason": "19 の物理手順はどれも実物が要り、試作ルートがないと部品・基板・治具を入手できない。試作ルートの承認は製造リリースではない。",
       "sources": [
         {
           "path": "engineering/a7/procurement/assembly-manifest.json",
-          "quote": "this continuity test must precede any PCB order"
+          "quote": "A prototype route, when the owner approves one, is recorded in engineering/a7/qualification/records.json and is not a release."
         }
       ],
       "rank": 1
@@ -3972,7 +3986,7 @@
         }
       ],
       "recommended": "jlc-sourcing",
-      "reason": "オーナーは JLC で完結したいと書いている（原文は owner-decisions.json）。同じ型番なら接点表・ランド・適合の検証をそのまま使える。予約注文が今できるかは、オーナーの JLC アカウントで 3 個の注文画面を開いて確かめるのが先で、できなければ Global Sourcing に回す。",
+      "reason": "オーナーは JLC で完結したいと書いている（原文は owner-decisions.json）。同じ型番なら接点表・ランド・適合の検証をそのまま使える。2026-11-12 のオーナーの確認では、予約注文は最小 3 個で約 31 日、Global Sourcing は DigiKey で 3 個 ¥826（8〜15 営業日）。オーナーは価格を見て別のスイッチも検討したいと述べたので、代替品の比較を用意してから改めて選んでもらう。",
       "sources": [
         {
           "path": "engineering/a7/procurement/supply-observations.json",
@@ -3987,8 +4001,8 @@
           "quote": "external purchase from JLC parts lib is acceptable"
         },
         {
-          "path": "engineering/a7/procurement/assembly-manifest.json",
-          "quote": "accept a reviewed alternate with its own contact table and fit review"
+          "path": "engineering/a7/procurement/supply-observations.json",
+          "quote": "DigiKey, cut tape: ¥275.19 each, ¥826 total; 8–15 business days."
         }
       ],
       "rank": 3
@@ -4022,7 +4036,15 @@
           "quote": "\"recommended\": \"REPO_PANEL\""
         }
       ],
-      "rank": 4
+      "rank": 4,
+      "answer": {
+        "option": "repo-panels",
+        "by": "OWNER",
+        "record": {
+          "path": "engineering/a7/procurement/owner-decisions.json",
+          "quote": "this is prototype phase still, so maybe just simply make multiple gerbers will be better for AI, I guess. separated PCBs looks better for AI recognization."
+        }
+      }
     },
     {
       "gate": "assembly:finished-cables",
@@ -4057,7 +4079,15 @@
           "pointer": "/power_cable_requirement/band"
         }
       ],
-      "rank": 5
+      "rank": 5,
+      "answer": {
+        "option": "assembler",
+        "by": "OWNER",
+        "record": {
+          "path": "engineering/a7/procurement/owner-decisions.json",
+          "quote": "5 accept all"
+        }
+      }
     },
     {
       "gate": "criterion:harness-depth",
@@ -4087,7 +4117,15 @@
           "pointer": "/variants/3hp/routes/adapter_to_controller_power/end_bend_room"
         }
       ],
-      "rank": 6
+      "rank": 6,
+      "answer": {
+        "option": "adopt",
+        "by": "OWNER",
+        "record": {
+          "path": "engineering/a7/procurement/owner-decisions.json",
+          "quote": "5 accept all"
+        }
+      }
     },
     {
       "gate": "assembly:rack-hardware",
@@ -4117,7 +4155,17 @@
           "pointer": "/supports/load_path/0"
         }
       ],
-      "rank": 7
+      "rank": 7,
+      "answer": {
+        "option": "name-case",
+        "by": "OWNER",
+        "record": {
+          "path": "engineering/a7/procurement/owner-decisions.json",
+          "quote": "5 accept all"
+        },
+        "status": "PLAN_ACCEPTED",
+        "remains": "使うケースの型番をオーナーが知らせる。型番が分かるまで、レール・ねじ規格と締結部品は決まらない。"
+      }
     },
     {
       "gate": "criterion:u7-stress",
@@ -4147,7 +4195,15 @@
           "quote": "it does not matter while the total R7 current is below 10 mA"
         }
       ],
-      "rank": 8
+      "rank": 8,
+      "answer": {
+        "option": "adopt",
+        "by": "OWNER",
+        "record": {
+          "path": "engineering/a7/procurement/owner-decisions.json",
+          "quote": "5 accept all"
+        }
+      }
     },
     {
       "gate": "criterion:thermal-optical",
@@ -4177,7 +4233,17 @@
           "fact_id": "fact-a7-pj-324m-operating-temperature"
         }
       ],
-      "rank": 9
+      "rank": 9,
+      "answer": {
+        "option": "75",
+        "by": "OWNER",
+        "record": {
+          "path": "engineering/a7/procurement/owner-decisions.json",
+          "quote": "5 accept all"
+        },
+        "status": "PLAN_ACCEPTED",
+        "remains": "上限 75 °C は受入値に反映済み。PETG/PMMA の温度限界（製造元の資料が未取得）と見え方の合否（試験時にオーナーが判断）が残るので、基準ゲートは開いたまま。"
+      }
     },
     {
       "gate": "criterion:service-envelope",
@@ -4213,7 +4279,15 @@
           "fact_id": "fact-a7-pj-324m-plug-force"
         }
       ],
-      "rank": 10
+      "rank": 10,
+      "answer": {
+        "option": "100",
+        "by": "OWNER",
+        "record": {
+          "path": "engineering/a7/procurement/owner-decisions.json",
+          "quote": "5 accept all"
+        }
+      }
     },
     {
       "gate": "criterion:firmware-waveforms",
@@ -4257,7 +4331,17 @@
           "quote": "We do not treat the low time (T0L / T1L) as a compatibility criterion."
         }
       ],
-      "rank": 11
+      "rank": 11,
+      "answer": {
+        "option": "maker-written",
+        "by": "OWNER",
+        "record": {
+          "path": "engineering/a7/procurement/owner-decisions.json",
+          "quote": "5 accept all"
+        },
+        "status": "PLAN_ACCEPTED",
+        "remains": "Worldsemi の公式窓口から、T0H と周期で判定し T1L を合否に使わないことと、周期の許容幅を書面でもらう（オーナー）。届くまで基準ゲートは開いたまま。購入ロットの波形測定も必要。"
+      }
     },
     {
       "gate": "criterion:ldo-reverse",
@@ -4288,7 +4372,15 @@
           "fact_id": "fact-tlv75533pdbvr-reverse-current"
         }
       ],
-      "rank": 12
+      "rank": 12,
+      "answer": {
+        "option": "prohibit",
+        "by": "OWNER",
+        "record": {
+          "path": "engineering/a7/procurement/owner-decisions.json",
+          "quote": "5 accept all"
+        }
+      }
     },
     {
       "gate": "criterion:effective-capacitance",
@@ -4332,7 +4424,17 @@
           "quote": "The 50 V part gains about 1.5× at the same measurement condition as the current part."
         }
       ],
-      "rank": 13
+      "rank": 13,
+      "answer": {
+        "option": "bench",
+        "by": "OWNER",
+        "record": {
+          "path": "engineering/a7/procurement/owner-decisions.json",
+          "quote": "5 accept all"
+        },
+        "status": "PLAN_ACCEPTED",
+        "remains": "基板は変えない。U2 入力リップルと出力の安定の合否値を、測定の前にレビューで決めて記録する。その後に実機で測る。"
+      }
     },
     {
       "gate": "criterion:partial-rails",
@@ -4397,7 +4499,17 @@
           "quote": "Fabricator for the four FR-4 plates is an owner choice and not selected"
         }
       ],
-      "rank": 15
+      "rank": 15,
+      "answer": {
+        "option": "approve",
+        "by": "OWNER",
+        "record": {
+          "path": "engineering/a7/procurement/owner-decisions.json",
+          "quote": "5 accept all"
+        },
+        "status": "PLAN_ACCEPTED",
+        "remains": "提案された治具の金物は承認済み。治具の FR-4 板の加工先がまだ選ばれていない（プローブ板の穴間 0.40 mm の可否も加工先に確認する）。"
+      }
     },
     {
       "gate": "assembly:prototype-and-release",
@@ -4423,7 +4535,17 @@
           "quote": "\"manufacturing_released\": false"
         }
       ],
-      "rank": 16
+      "rank": 16,
+      "answer": {
+        "option": "after-tests",
+        "by": "OWNER",
+        "record": {
+          "path": "engineering/a7/procurement/owner-decisions.json",
+          "quote": "5 accept all"
+        },
+        "status": "PLAN_ACCEPTED",
+        "remains": "製造リリースは実機試験の結果を見てから判断する。試作の発注と組立は承認済みの試作ルートの範囲だけ。"
+      }
     },
     {
       "gate": "manufacturing_release",
@@ -4449,7 +4571,17 @@
           "quote": "\"order_submitted\": false"
         }
       ],
-      "rank": 17
+      "rank": 17,
+      "answer": {
+        "option": "after-tests",
+        "by": "OWNER",
+        "record": {
+          "path": "engineering/a7/procurement/owner-decisions.json",
+          "quote": "5 accept all"
+        },
+        "status": "PLAN_ACCEPTED",
+        "remains": "製造リリースと量産の発注は、試作基板の実機試験の結果を見てからオーナーが改めて承認する。"
+      }
     }
   ],
   "evidence_requests": [
@@ -4578,10 +4710,10 @@
       "items": [
         {
           "what": "PJ-324M（C22355739）の JLC 在庫と価格",
-          "value_needed": "基板用 2 台分（4 個）が JLC 在庫にあるか（日付付き）。PCB 発注前の端子確認用の単品数",
+          "value_needed": "基板用 2 台分（4 個）が JLC 在庫にあるか（日付付き）",
           "url": "https://jlcpcb.com/partdetail/SOFNG-PJ324M/C22355739",
           "fallback_url": "https://www.lcsc.com/product-detail/C22355739.html",
-          "access": "基板用は JLC 在庫を優先。PCB 発注前の端子確認用の単品は実装に乗らず手元に届く必要があるため、LCSC での購入を例外として扱う"
+          "access": "基板用は JLC 在庫を優先。オーナーは発注前の端子確認を見送った（2026-11-12）ので、単品を手元に取り寄せる必要はない"
         }
       ]
     },

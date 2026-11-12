@@ -14,21 +14,21 @@ sidebar_position: 4.6
 ## 止めている項目
 
 - `order-gate-blocked`: readiness の発注ゲートが BLOCKED。この一式は予行で、アップロード・発注しない。
-- `controller-panel-route`（コントローラー）: 単品では発注できない（Economic で満たさない条件: 片面実装）。Panel by JLCPCB（5 × 2）は 2 シート最小で 20 枚が実装される。未確認: 部品のコートヤードが基板外形から 2 mm の基板間隔より大きくはみ出す（J2 4.45 mm, J1 4.45 mm）。JLC の面付けでその逃げを確保できるかは注文画面では指定できない。リポジトリで 1 枚入りの面付け（70 × 76.9 mm）を作れば、必要な 2 枚に対し 2 枚。どちらにするかはオーナーの判断（`assembly:panel-route`）。リポジトリ面付けのデータは `engineering/a7/jlc-package/panels/` に準備した（未リリース）。
+- `controller-repo-panel-acceptance`（コントローラー）: オーナーはリポジトリ面付けを選んだ（`assembly:panel-route`）。1 枚入りの面付け（70 × 76.9 mm）を PCBA 数量 2 で注文し、必要な 2 枚に対し 2 枚。JLC がこの面付けを実装するかはオーナーの知識による判断で、JLC の確認ではない（オーナーは JLC に聞かずに O12 を閉じた。2026-11-12、jlc-questions）。面付けデータは `engineering/a7/jlc-package/panels/` に準備済み（未リリース）。
 - `controller-finish-not-specified`（コントローラー）: 表面処理が基板ファイルに記録されていない。注文画面で選ぶ。
 - `controller-centroid-offsets`（コントローラー）: J1, J2, J5, SW1 はフットプリント原点がパッド中心から 0.05 mm 以上離れている。JLC は部品中心で置くので、JLC の配置プレビューで 1 点ずつ確かめる。
 - `controller-rotation-unverified`（コントローラー）: 回転角は KiCad のフットプリント角度のまま。JLC ライブラリとの向きの差は JLC の配置プレビューで未確認（B 面の部品を含む）。
-- `led_leaf-panel-route`（LED リーフ）: 単品では発注できない（Economic で満たさない条件: 全部品が JLC 部品ページで Economic 可、板厚 0.8–1.6 mm、単品 10 × 10 mm 以上）。Panel by JLCPCB（8 × 1）は 2 シート最小で 16 枚が実装される。未確認: 外形が単純な長方形ではない（Edge.Cuts 12 本）。JLC は Panel by JLCPCB には単純な外形を求め、複雑な外形は自分で面付けするよう書いている。この外形で Panel by JLCPCB を受けてもらえるか。リポジトリで 2 枚入りの面付け（70 × 96.5 mm）を作れば、必要な 4 枚に対し 4 枚。どちらにするかはオーナーの判断（`assembly:panel-route`）。リポジトリ面付けのデータは `engineering/a7/jlc-package/panels/` に準備した（未リリース）。
+- `led_leaf-repo-panel-acceptance`（LED リーフ）: オーナーはリポジトリ面付けを選んだ（`assembly:panel-route`）。2 枚入りの面付け（70 × 96.5 mm）を PCBA 数量 2 で注文し、必要な 4 枚に対し 4 枚。JLC がこの面付けを実装するかはオーナーの知識による判断で、JLC の確認ではない（オーナーは JLC に聞かずに O12 を閉じた。2026-11-12、jlc-questions）。面付けデータは `engineering/a7/jlc-package/panels/` に準備済み（未リリース）。
 - `led_leaf-finish-not-specified`（LED リーフ）: 表面処理が基板ファイルに記録されていない。注文画面で選ぶ。
 - `led_leaf-rotation-unverified`（LED リーフ）: 回転角は KiCad のフットプリント角度のまま。JLC ライブラリとの向きの差は JLC の配置プレビューで未確認。
-- `power_adapter-panel-route`（電源アダプタ）: 単品では発注できない（Economic で満たさない条件: 単品 10 × 10 mm 以上）。Panel by JLCPCB（2 × 1）は 2 シート最小で 4 枚が実装される。未確認: JLC は Panel by JLCPCB を V-cut で説明しており、V-cut は Economic 実装では使えない。Economic のまま Panel by JLCPCB をマウスバイトで作れるか。できなければ Standard で 70 × 70 mm の面付け（レールなしで 8 × 3 = 24 枚）になる。リポジトリで 1 枚入りの面付け（22.8 × 44 mm）を作れば、必要な 2 枚に対し 2 枚。どちらにするかはオーナーの判断（`assembly:panel-route`）。リポジトリ面付けのデータは `engineering/a7/jlc-package/panels/` に準備した（未リリース）。
+- `power_adapter-repo-panel-acceptance`（電源アダプタ）: オーナーはリポジトリ面付けを選んだ（`assembly:panel-route`）。1 枚入りの面付け（22.8 × 44 mm）を PCBA 数量 2 で注文し、必要な 2 枚に対し 2 枚。JLC がこの面付けを実装するかはオーナーの知識による判断で、JLC の確認ではない（オーナーは JLC に聞かずに O12 を閉じた。2026-11-12、jlc-questions）。面付けデータは `engineering/a7/jlc-package/panels/` に準備済み（未リリース）。
 - `power_adapter-finish-not-specified`（電源アダプタ）: 表面処理が基板ファイルに記録されていない。注文画面で選ぶ（Economic の 1.6 mm 緑は HASL か ENIG）。
 - `power_adapter-centroid-offsets`（電源アダプタ）: J1, J2 はフットプリント原点がパッド中心から 0.05 mm 以上離れている。JLC は部品中心で置くので、JLC の配置プレビューで 1 点ずつ確かめる。
 - `power_adapter-rotation-unverified`（電源アダプタ）: 回転角は KiCad のフットプリント角度のまま。JLC ライブラリとの向きの差は JLC の配置プレビューで未確認。
 - `part-C221842-not-in-stock`: PCM13SMTR（C221842）: 必要 2 個に対し、2026-11-12T10:35:39Z の JLC 在庫 0・予約可能数 0。
-- `pcba-quantity-unit-with-panel-not-sourced`: JLC 能力表の PCBA 最小は「2 pcs」。Panel by JLCPCB では PCB の数量は面付けシートの枚数（JLC の説明: 10 pcs 注文で 10 シート）。PCBA の数量もシート数か、2 枚以上載った 1 シートで最小 2 pcs を満たすかは未取得。JLC の注文画面かサポートで確かめる質問: "With Panel by JLCPCB, does the PCBA Qty count panels or single boards, and does one panel holding 2 or more boards meet the 2-pcs PCBA minimum, or must 2 panels be assembled?"
+- `pcba-quantity-unit-with-panel-not-sourced`: JLC 能力表の PCBA 最小は「2 pcs」。Panel by JLCPCB では PCB の数量は面付けシートの枚数（JLC の説明: 10 pcs 注文で 10 シート）。PCBA の数量もシート数か、2 枚以上載った 1 シートで最小 2 pcs を満たすかは未取得。JLC の注文画面かサポートで確かめる質問: "With Panel by JLCPCB, does the PCBA Qty count panels or single boards, and does one panel holding 2 or more boards meet the 2-pcs PCBA minimum, or must 2 panels be assembled?"。オーナーは JLC に聞かずに、Gerber ごとに PCBA 数量 2 以上で注文すると述べた（jlc-questions）。オーナーの知識による判断で、JLC の確認ではない。
 - `pcb-fabrication-quantity-not-sourced`: JLC が 1 設計あたり製造する基板の最小枚数は未取得。PCBA の数量（コントローラー 2・リーフ 4・電源アダプタ 2）とは別に入力する。
-- `physical-jack-switch-qualification`（コントローラー）: PJ-324M の端子 4/5 の機能は、PCB を発注する前に入荷した実物の導通で確かめる（調達台帳の jack-switch-qualification）。
+- `physical-jack-switch-qualification`（コントローラー）: PJ-324M の端子 4/5 の機能は未確認。オーナーは発注前の導通試験を見送り、リスクを受け入れた（2026-11-12、jack-tip-test-waiver）。端子 5 が tip なら両方のジャックが働かず、制御基板の改版が要る。確認は組み立て済み基板の初品検査として残る。
 
 ## コントローラー（`controller`）
 
@@ -45,7 +45,7 @@ PCB 注文画面に入れる値（材料以外は基板ファイル `engineering
 | PCB Assembly | オン。必要な完成品は単品 2 枚（1 枚/台 × 2 台）。面付け時に PCBA Qty をシート数で入れるかは未確認（`pcba-quantity-unit-with-panel-not-sourced`） |
 | PCBA Type | Standard（理由: 両面に部品がある（Economic は片面のみ）） |
 | Assembly Side | Top と Bottom（両面） |
-| Panel By JLCPCB | 経路の判断待ち。JLC 面付けなら Yes・列 (X) 5・行 (Y) 2・Edge Rails あり。リポジトリ面付けなら No（面付けは Gerber 側）。推奨はリポジトリ面付け |
+| Panel By JLCPCB | No（オーナーの判断でリポジトリ面付け。面付けは Gerber 側） |
 | 実装点 | SMD 56・THT 3（J1, J2, J5） |
 
 Economic で単品実装できるか（2026-11-12 の JLC 能力表と部品ページで判定）:
@@ -71,15 +71,15 @@ Economic で単品実装できるか（2026-11-12 の JLC 能力表と部品ペ�
 | フィデューシャル | Edge Rails をオンにすると JLC がレールに付ける | レールに 1 mm（縁から 3.85 mm）と 2 mm の治具穴（JLC の SMT 指針） |
 | 未確認・注意 | 部品のコートヤードが基板外形から 2 mm の基板間隔より大きくはみ出す（J2 4.45 mm, J1 4.45 mm）。JLC の面付けでその逃げを確保できるかは注文画面では指定できない。 | J2, J3, SW1, J1 のはみ出しに 1 mm（提案値）を足して枠を逃がす。タブは 2 か所以上置ける限りその部品から離し、置けない場合はパッドからだけ離す（面付けの注記を参照）。JLC が 1 枚だけの面付けを受けるかは注文時に確認。 |
 
-推奨: **リポジトリで面付け**（余る実装基板が最も少ない）。オーナーの判断待ち（`assembly:panel-route`）です。リポジトリ面付けのデータは準備済みですが、リリースではありません（下の「リポジトリ面付けでアップロードするもの」）。
+推奨: **リポジトリで面付け**（余る実装基板が最も少ない）。**オーナーの判断: リポジトリ面付け**（2026-11-12、`assembly:panel-route`、記録 `engineering/a7/procurement/owner-decisions.json`）。種類ごとに 1 つの Gerber を PCBA 数量 2 で注文します。JLC がこの面付けを実装するかはオーナーの知識による判断で、JLC の確認ではない（オーナーは JLC に聞かずに O12 を閉じた。jlc-questions）。リポジトリ面付けのデータは準備済みですが、リリースではありません（下の「リポジトリ面付けでアップロードするもの」）。
 
-アップロードするもの（JLC 面付けの経路、または単品）:
+アップロードするもの（使わない経路: JLC 面付け。参考に残す）:
 
 1. Gerber と drill の zip: `python3 scripts/a7_jlc_package.py export --out <リポジトリ外の空ディレクトリ>` で作る `controller-gerbers-DRYRUN.zip`（Gerber 原点: absolute (page) coordinates）
 2. BOM: `engineering/a7/jlc-package/controller_BOM_DRYRUN.csv`（28 行、列 Comment / Designator / Footprint / JLCPCB Part #）
 3. CPL: `engineering/a7/jlc-package/controller_CPL_DRYRUN.csv`（59 行、列 Designator / Mid X / Mid Y / Rotation / Layer、mm）
 
-リポジトリ面付けでアップロードするもの（準備済みの経路。オーナーが `assembly:panel-route` でこの経路を選ぶまで使いません）:
+リポジトリ面付けでアップロードするもの（オーナーが選んだ経路。製造リリースまで使いません）:
 
 1. Gerber と drill の zip: `python3 scripts/a7_panel.py build --out <リポジトリ外の空ディレクトリ>` で作る `controller-panel-gerbers-DRYRUN.zip`（70 × 76.9 mm、1 枚載せ。注文画面の Dimensions はこのシート寸法、Panel By JLCPCB は No）
 2. BOM: `engineering/a7/jlc-package/panels/controller-panel_BOM_DRYRUN.csv`（2 枚目以降の designator は `_2` などの接尾辞）
@@ -111,7 +111,7 @@ PCB 注文画面に入れる値（材料以外は基板ファイル `engineering
 | PCB Assembly | オン。必要な完成品は単品 4 枚（2 枚/台 × 2 台）。面付け時に PCBA Qty をシート数で入れるかは未確認（`pcba-quantity-unit-with-panel-not-sourced`） |
 | PCBA Type | Standard（理由: C52917434 は 2026-11-12 の JLC 部品ページで Standard のみ、板厚 0.6 mm（Economic は 0.8–1.6 mm）） |
 | Assembly Side | Top |
-| Panel By JLCPCB | 経路の判断待ち。JLC 面付けなら Yes・列 (X) 8・行 (Y) 1・Edge Rails あり。リポジトリ面付けなら No（面付けは Gerber 側）。推奨はリポジトリ面付け |
+| Panel By JLCPCB | No（オーナーの判断でリポジトリ面付け。面付けは Gerber 側） |
 | 実装点 | SMD 10・THT 0 |
 
 Economic で単品実装できるか（2026-11-12 の JLC 能力表と部品ページで判定）:
@@ -137,15 +137,15 @@ Economic で単品実装できるか（2026-11-12 の JLC 能力表と部品ペ�
 | フィデューシャル | Edge Rails をオンにすると JLC がレールに付ける | レールに 1 mm（縁から 3.85 mm）と 2 mm の治具穴（JLC の SMT 指針） |
 | 未確認・注意 | 外形が単純な長方形ではない（Edge.Cuts 12 本）。JLC は Panel by JLCPCB には単純な外形を求め、複雑な外形は自分で面付けするよう書いている。この外形で Panel by JLCPCB を受けてもらえるか。 | 板厚 0.6 mm: JLC は 0.4・0.6 mm の基板に印刷・実装・リフローでキャリアを使う。捨て基板の部分は抜かずに FR-4 のまま残す。JLC がこの面付けを受けるかは注文時に確認。 |
 
-推奨: **リポジトリで面付け**（余る実装基板が最も少ない）。オーナーの判断待ち（`assembly:panel-route`）です。リポジトリ面付けのデータは準備済みですが、リリースではありません（下の「リポジトリ面付けでアップロードするもの」）。
+推奨: **リポジトリで面付け**（余る実装基板が最も少ない）。**オーナーの判断: リポジトリ面付け**（2026-11-12、`assembly:panel-route`、記録 `engineering/a7/procurement/owner-decisions.json`）。種類ごとに 1 つの Gerber を PCBA 数量 2 で注文します。JLC がこの面付けを実装するかはオーナーの知識による判断で、JLC の確認ではない（オーナーは JLC に聞かずに O12 を閉じた。jlc-questions）。リポジトリ面付けのデータは準備済みですが、リリースではありません（下の「リポジトリ面付けでアップロードするもの」）。
 
-アップロードするもの（JLC 面付けの経路、または単品）:
+アップロードするもの（使わない経路: JLC 面付け。参考に残す）:
 
 1. Gerber と drill の zip: `python3 scripts/a7_jlc_package.py export --out <リポジトリ外の空ディレクトリ>` で作る `led_leaf-gerbers-DRYRUN.zip`（Gerber 原点: absolute (page) coordinates）
 2. BOM: `engineering/a7/jlc-package/led_leaf_BOM_DRYRUN.csv`（3 行、列 Comment / Designator / Footprint / JLCPCB Part #）
 3. CPL: `engineering/a7/jlc-package/led_leaf_CPL_DRYRUN.csv`（10 行、列 Designator / Mid X / Mid Y / Rotation / Layer、mm）
 
-リポジトリ面付けでアップロードするもの（準備済みの経路。オーナーが `assembly:panel-route` でこの経路を選ぶまで使いません）:
+リポジトリ面付けでアップロードするもの（オーナーが選んだ経路。製造リリースまで使いません）:
 
 1. Gerber と drill の zip: `python3 scripts/a7_panel.py build --out <リポジトリ外の空ディレクトリ>` で作る `led_leaf-panel-gerbers-DRYRUN.zip`（70 × 96.5 mm、2 枚載せ。注文画面の Dimensions はこのシート寸法、Panel By JLCPCB は No）
 2. BOM: `engineering/a7/jlc-package/panels/led_leaf-panel_BOM_DRYRUN.csv`（2 枚目以降の designator は `_2` などの接尾辞）
@@ -169,7 +169,7 @@ PCB 注文画面に入れる値（材料以外は基板ファイル `engineering
 | PCB Assembly | オン。必要な完成品は単品 2 枚（1 枚/台 × 2 台）。面付け時に PCBA Qty をシート数で入れるかは未確認（`pcba-quantity-unit-with-panel-not-sourced`） |
 | PCBA Type | Economic |
 | Assembly Side | Top |
-| Panel By JLCPCB | 経路の判断待ち。JLC 面付けなら Yes・列 (X) 2・行 (Y) 1。リポジトリ面付けなら No（面付けは Gerber 側）。推奨はリポジトリ面付け |
+| Panel By JLCPCB | No（オーナーの判断でリポジトリ面付け。面付けは Gerber 側） |
 | 実装点 | SMD 0・THT 2（J1, J2） |
 
 Economic で単品実装できるか（2026-11-12 の JLC 能力表と部品ページで判定）:
@@ -195,15 +195,15 @@ Economic で単品実装できるか（2026-11-12 の JLC 能力表と部品ペ�
 | フィデューシャル | 不要（Economic） | レールに 1 mm（縁から 3.85 mm）と 2 mm の治具穴（JLC の SMT 指針） |
 | 未確認・注意 | JLC は Panel by JLCPCB を V-cut で説明しており、V-cut は Economic 実装では使えない。Economic のまま Panel by JLCPCB をマウスバイトで作れるか。できなければ Standard で 70 × 70 mm の面付け（レールなしで 8 × 3 = 24 枚）になる。 | J2, J1 のはみ出しに 1 mm（提案値）を足して枠を逃がす。タブは 2 か所以上置ける限りその部品から離し、置けない場合はパッドからだけ離す（面付けの注記を参照）。JLC が 1 枚だけの面付けを受けるかは注文時に確認。 |
 
-推奨: **リポジトリで面付け**（余る実装基板が最も少ない）。オーナーの判断待ち（`assembly:panel-route`）です。リポジトリ面付けのデータは準備済みですが、リリースではありません（下の「リポジトリ面付けでアップロードするもの」）。
+推奨: **リポジトリで面付け**（余る実装基板が最も少ない）。**オーナーの判断: リポジトリ面付け**（2026-11-12、`assembly:panel-route`、記録 `engineering/a7/procurement/owner-decisions.json`）。種類ごとに 1 つの Gerber を PCBA 数量 2 で注文します。JLC がこの面付けを実装するかはオーナーの知識による判断で、JLC の確認ではない（オーナーは JLC に聞かずに O12 を閉じた。jlc-questions）。リポジトリ面付けのデータは準備済みですが、リリースではありません（下の「リポジトリ面付けでアップロードするもの」）。
 
-アップロードするもの（JLC 面付けの経路、または単品）:
+アップロードするもの（使わない経路: JLC 面付け。参考に残す）:
 
 1. Gerber と drill の zip: `python3 scripts/a7_jlc_package.py export --out <リポジトリ外の空ディレクトリ>` で作る `power_adapter-gerbers-DRYRUN.zip`（Gerber 原点: absolute (page) coordinates）
 2. BOM: `engineering/a7/jlc-package/power_adapter_BOM_DRYRUN.csv`（2 行、列 Comment / Designator / Footprint / JLCPCB Part #）
 3. CPL: `engineering/a7/jlc-package/power_adapter_CPL_DRYRUN.csv`（2 行、列 Designator / Mid X / Mid Y / Rotation / Layer、mm）
 
-リポジトリ面付けでアップロードするもの（準備済みの経路。オーナーが `assembly:panel-route` でこの経路を選ぶまで使いません）:
+リポジトリ面付けでアップロードするもの（オーナーが選んだ経路。製造リリースまで使いません）:
 
 1. Gerber と drill の zip: `python3 scripts/a7_panel.py build --out <リポジトリ外の空ディレクトリ>` で作る `power_adapter-panel-gerbers-DRYRUN.zip`（22.8 × 44 mm、1 枚載せ。注文画面の Dimensions はこのシート寸法、Panel By JLCPCB は No）
 2. BOM: `engineering/a7/jlc-package/panels/power_adapter-panel_BOM_DRYRUN.csv`（2 枚目以降の designator は `_2` などの接尾辞）

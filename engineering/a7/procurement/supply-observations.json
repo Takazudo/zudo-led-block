@@ -55,6 +55,84 @@
         "status": "INFERRED",
         "note": "preMinPurchaseNum, canPresaleNumber, isBuyComponent and overseasStockCount are read from an undocumented page payload; their meanings (pre-order minimum, pre-orderable quantity, buyable, overseas stock) are our reading, not a JLC definition. preMinPurchaseNum 3 is probably the same value the 2026-11-09 observation recorded as minPurchaseNum 3."
       }
+    },
+    {
+      "id": "jlc-c221842-2026-11-12-owner-relayed",
+      "lcsc": "C221842",
+      "mpn": "PCM13SMTR",
+      "supplier": "JLCPCB",
+      "url": "https://jlcpcb.com/partdetail/CK-PCM13SMTR/C221842",
+      "retrieved_at": "2026-11-12T18:55:39Z",
+      "raw_sha256": null,
+      "raw_stored": false,
+      "relayed_by": {
+        "who": "OWNER",
+        "how": "The owner pasted a summary made by their browsing assistant from the live JLC pages. Not a first-hand capture: no page, screenshot or hash was kept.",
+        "message_id": "cmsg_01LWjimMEMhCfvWjnLbPbEF33czF7FYpvLbreFd46eoQ5P",
+        "at": "2026-11-12T18:55:39Z"
+      },
+      "extract": [
+        "JLCPCB assembly stock: 0.",
+        "Part type: Extended.",
+        "Pre-order: Offered. Minimum quantity is 3 pieces; full reel is 3,500. At quantity 3, the detail page showed an estimated $3.0325 each, $9.10 total. The search page showed ¥465.59 each, ¥1,397 total, and “Est. lead time: 31 days.” No exact arrival date was shown.",
+        "DigiKey, cut tape: ¥275.19 each, ¥826 total; 8–15 business days.",
+        "Element: ¥288.52 each, ¥865 total; 8–18 business days.",
+        "RS Components would not retain a quantity of 3: the page changed it to 10 and said “10 modified as multiples of 10 are required.”",
+        "“The purchased components are stored in your JLCPCB parts library for future PCBA orders only, and cannot be shipped separately.”"
+      ],
+      "values": {
+        "jlc_stock": 0,
+        "library": "EXTENDED",
+        "preorder_offered": true,
+        "preorder_minimum": 3,
+        "packaging_quantity": 3500,
+        "preorder_estimate": {
+          "unit_price": 3.0325,
+          "total": 9.1,
+          "currency": "USD",
+          "quantity": 3,
+          "note": "Shown on the detail page in USD. The search page showed JPY instead (¥465.59 each, ¥1,397 total); displayed figures, not conversions."
+        },
+        "global_sourcing": [
+          {
+            "distributor": "DigiKey",
+            "packaging": "cut tape",
+            "quantity": 3,
+            "unit_price": 275.19,
+            "total": 826,
+            "currency": "JPY",
+            "lead_time": "8-15 business days"
+          },
+          {
+            "distributor": "Element",
+            "packaging": null,
+            "quantity": 3,
+            "unit_price": 288.52,
+            "total": 865,
+            "currency": "JPY",
+            "lead_time": "8-18 business days"
+          },
+          {
+            "distributor": "RS Components",
+            "packaging": null,
+            "quantity": null,
+            "unit_price": null,
+            "total": null,
+            "currency": null,
+            "lead_time": null,
+            "note": "Requires multiples of 10; the page changed 3 to 10."
+          }
+        ],
+        "parts_library_only": true,
+        "assembly_acceptance": null,
+        "preorder_lead_time": {
+          "days": 31,
+          "shown_on": "search page",
+          "wording": "Est. lead time: 31 days.",
+          "arrival_date": null
+        }
+      },
+      "gaps": "Owner-relayed summary without a stored page or hash. No exact pre-order arrival date. No discontinued, not-recommended or minimum-order-value warning was seen; that is an absence in the summary, not a JLC statement."
     }
   ]
 }

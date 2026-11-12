@@ -37,6 +37,210 @@
         }
       },
       "scope": "Quantity of the first build only. It does not approve a prototype route, an order, a supplier message or a manufacturing release."
+    },
+    {
+      "id": "panel-route",
+      "decided_by": "OWNER",
+      "decided_on": "2026-11-12",
+      "owner_messages": [
+        {
+          "message_id": "cmsg_01LWjimMEMhCfvWjnLbPbEF3Md6osuFkrt6zNqhZvb3C2m",
+          "at": "2026-11-12T18:13:11Z",
+          "text": "you can combine 2 or 3 board in one gerber, but anyhow we need to order at least 2 qty."
+        },
+        {
+          "message_id": "cmsg_01LWjimMEMhCfvWjnLbPbEF3Md6osuFkrt6zNqhZvb3C2m",
+          "at": "2026-11-12T18:13:11Z",
+          "text": "this is prototype phase still, so maybe just simply make multiple gerbers will be better for AI, I guess. separated PCBs looks better for AI recognization."
+        },
+        {
+          "message_id": "cmsg_01LWjimMEMhCfvWjnLbPbEF338MYM98npFaiuxCMKsm3Pd",
+          "at": "2026-11-12T18:43:20Z",
+          "text": "Chose \"Yes, our own panels\" on the decision card asking \"Use our own panels, one Gerber per board type, quantity 2 each?\""
+        }
+      ],
+      "owner_words": [
+        "you can combine 2 or 3 board in one gerber, but anyhow we need to order at least 2 qty.",
+        "this is prototype phase still, so maybe just simply make multiple gerbers will be better for AI, I guess. separated PCBs looks better for AI recognization.",
+        "Chose \"Yes, our own panels\" on the decision card asking \"Use our own panels, one Gerber per board type, quantity 2 each?\""
+      ],
+      "answer": "repo-panels",
+      "card": {
+        "message_id": "cmsg_01LWjimMEMhCfvWjnLbPbEF338MYM98npFaiuxCMKsm3Pd",
+        "question": "Use our own panels, one Gerber per board type, quantity 2 each?",
+        "options": [
+          "Yes, our own panels",
+          "Let JLC panelize",
+          "Ask JLC first"
+        ],
+        "chosen": "Yes, our own panels",
+        "note": "The third message is the platform's record of the owner's tap on the card, not text the owner typed."
+      },
+      "meaning": "One Gerber per board type, each a repo-built panel from engineering/a7/jlc-package/panels/ (controller 1-up, LED leaf 2-up, power adapter 1-up), each ordered at PCBA quantity 2; boards are not combined into one Gerber in the prototype phase.",
+      "open": "Whether JLC assembles these customer panels is owner-stated, not JLC-confirmed: the owner closed O12 without asking JLC (jlc-questions). The owner reports that each Gerber needs PCBA quantity 2 or more; not checked against JLC's pages.",
+      "scope": "Panel route of the first build only. It does not approve an order, a supplier message or a manufacturing release."
+    },
+    {
+      "id": "jlc-questions",
+      "decided_by": "OWNER",
+      "decided_on": "2026-11-12",
+      "owner_messages": [
+        {
+          "message_id": "cmsg_01LWjimMEMhCfvWjnLbPbEF3Md6osuFkrt6zNqhZvb3C2m",
+          "at": "2026-11-12T18:13:11Z",
+          "text": "you can combine 2 or 3 board in one gerber, but anyhow we need to order at least 2 qty."
+        },
+        {
+          "message_id": "cmsg_01LWjimMEMhCfvWjnLbPbEF3CNsVuGBysRztgHWLk3sETP",
+          "at": "2026-11-12T18:45:15Z",
+          "text": "2 that was not needed to ask them. I replied to the thread."
+        }
+      ],
+      "owner_words": [
+        "you can combine 2 or 3 board in one gerber, but anyhow we need to order at least 2 qty.",
+        "2 that was not needed to ask them. I replied to the thread."
+      ],
+      "answer": "not-needed",
+      "question": {
+        "message_id": "cmsg_01LWjimMEMhCfvWjnLbPbEF3Xw4vBisAbMJ1oRLf55xRGu",
+        "at": "2026-11-12T18:43:13Z",
+        "by": "PROJECT_COORDINATOR",
+        "text": "2. **Ask JLC one thing**: whether they will assemble our small panels (questions 2 and 3 in the list in that thread), then paste their reply there."
+      },
+      "basis": {
+        "status": "OWNER_STATED",
+        "note": "Closed on the owner's own knowledge of JLC ordering (one Gerber per design, PCBA quantity 2 or more). No JLC reply was obtained; JLC's acceptance of the repo panels is owner-stated, not JLC-confirmed."
+      },
+      "scope": "Closes owner action O12 only. It is not a JLC answer and not an order."
+    },
+    {
+      "id": "jack-tip-test-waiver",
+      "decided_by": "OWNER",
+      "decided_on": "2026-11-12",
+      "owner_messages": [
+        {
+          "message_id": "cmsg_01LWjimMEMhCfvWjnLbPbEF3CNsVuGBysRztgHWLk3sETP",
+          "at": "2026-11-12T18:45:15Z",
+          "text": "4 skip it. handle it is usable"
+        }
+      ],
+      "owner_words": [
+        "4 skip it. handle it is usable"
+      ],
+      "answer": "waive-pre-order-test",
+      "question": {
+        "message_id": "cmsg_01LWjimMEMhCfvWjnLbPbEF3Xw4vBisAbMJ1oRLf55xRGu",
+        "at": "2026-11-12T18:43:13Z",
+        "by": "PROJECT_COORDINATOR",
+        "text": "4. **Jack tip-terminal test** on the PJ-324M from your other module, with the steps in that thread."
+      },
+      "accepted_risk": "The PJ-324M tip terminal (4 or 5) is not confirmed: the supplier symbol suggests 5, the board uses 4. If 5 is the tip contact, plugging a cable into CV IN or CV THRU opens the connection to the board, so both jacks would not work and the controller board would need a revision.",
+      "remains": "The jack-continuity check stays required as a first-article check on the assembled boards before any other bench test that uses the jacks. The pin map stays NEEDS BENCH.",
+      "scope": "Waives only the requirement to run the continuity test before the PCB order. It is not evidence that terminal 4 is the tip."
+    },
+    {
+      "id": "accept-all-recommendations",
+      "decided_by": "OWNER",
+      "decided_on": "2026-11-12",
+      "owner_messages": [
+        {
+          "message_id": "cmsg_01LWjimMEMhCfvWjnLbPbEF3CNsVuGBysRztgHWLk3sETP",
+          "at": "2026-11-12T18:45:15Z",
+          "text": "5 accept all"
+        }
+      ],
+      "owner_words": [
+        "5 accept all"
+      ],
+      "answer": "accept-recommended",
+      "question": {
+        "message_id": "cmsg_01LWjimMEMhCfvWjnLbPbEF3Xw4vBisAbMJ1oRLf55xRGu",
+        "at": "2026-11-12T18:43:13Z",
+        "by": "PROJECT_COORDINATOR",
+        "text": "5. **The remaining decisions** on the order checklist page (`/docs/project/order-checklist/`), including the WS2812B timing, the 12 V input capacitor, and the fixture hardware and fabricator. If you'd rather accept all my recommendations at once, say so and I'll record them."
+      },
+      "accepted": [
+        {
+          "gate": "assembly:switch-supply",
+          "option": "jlc-sourcing"
+        },
+        {
+          "gate": "assembly:finished-cables",
+          "option": "assembler"
+        },
+        {
+          "gate": "criterion:harness-depth",
+          "option": "adopt"
+        },
+        {
+          "gate": "assembly:rack-hardware",
+          "option": "name-case"
+        },
+        {
+          "gate": "criterion:u7-stress",
+          "option": "adopt"
+        },
+        {
+          "gate": "criterion:thermal-optical",
+          "option": "75"
+        },
+        {
+          "gate": "criterion:service-envelope",
+          "option": "100"
+        },
+        {
+          "gate": "criterion:firmware-waveforms",
+          "option": "maker-written"
+        },
+        {
+          "gate": "criterion:ldo-reverse",
+          "option": "prohibit"
+        },
+        {
+          "gate": "criterion:effective-capacitance",
+          "option": "bench"
+        },
+        {
+          "gate": "assembly:fixture-materials",
+          "option": "approve"
+        },
+        {
+          "gate": "assembly:prototype-and-release",
+          "option": "after-tests"
+        },
+        {
+          "gate": "manufacturing_release",
+          "option": "after-tests"
+        }
+      ],
+      "scope": "Accepts the recommended option of each remaining owner decision on the order checklist as of 2026-11-12. Where the recommended option is a plan (name the case, choose a fabricator, obtain a written maker confirmation, measure on the first boards, decide after the tests), the plan is accepted and the step itself stays open. It does not release manufacturing or approve an order.",
+      "reopened": [
+        {
+          "gate": "assembly:switch-supply",
+          "message_id": "cmsg_01LWjimMEMhCfvWjnLbPbEF33czF7FYpvLbreFd46eoQ5P",
+          "at": "2026-11-12T18:55:39Z",
+          "text": "seems possible but a bit high price? might be consider another switch if there's something good? consider",
+          "meaning": "After accepting JLC sourcing, the owner relayed the live availability check and asked to consider another switch. The switch supply stays open until the owner picks; the observation is in supply-observations.json (jlc-c221842-2026-11-12-owner-relayed)."
+        }
+      ]
+    },
+    {
+      "id": "finished-cables",
+      "decided_by": "OWNER",
+      "decided_on": "2026-11-12",
+      "owner_messages": [
+        {
+          "message_id": "cmsg_01LWjimMEMhCfvWjnLbPbEF3CNsVuGBysRztgHWLk3sETP",
+          "at": "2026-11-12T18:45:15Z",
+          "text": "5 accept all"
+        }
+      ],
+      "owner_words": [
+        "5 accept all"
+      ],
+      "answer": "assembler",
+      "via": "accept-all-recommendations",
+      "meaning": "Order the finished power, SH4 and IDC cables from a cable assembler to the A7 specification. The assembler's length tolerance answer is still needed (material:finished_cables)."
     }
   ],
   "sourcing_preference": {
@@ -70,6 +274,23 @@
           "meaning": "Consigned or outside-purchased part; flagged per line with its reason"
         }
       ]
+    },
+    "part_selection": {
+      "decided_by": "OWNER",
+      "decided_on": "2026-11-12",
+      "status": "OWNER_PREFERENCE",
+      "owner_messages": [
+        {
+          "message_id": "cmsg_01LWjimMEMhCfvWjnLbPbEF3MfZBvz7KB56BWh9iFSZzmD",
+          "at": "2026-11-12T18:56:24Z",
+          "text": "basicallly choose JLC basic parts or have qty items. it's better"
+        }
+      ],
+      "owner_words": [
+        "basicallly choose JLC basic parts or have qty items. it's better"
+      ],
+      "rule": "When choosing or replacing a part, prefer JLC Basic parts, or parts JLC holds in stock in quantity.",
+      "scope": "A standing preference for proposals and new revisions. It does not change the BOM or a board by itself; each substitution still needs the owner's pick."
     }
   }
 }

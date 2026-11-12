@@ -40,10 +40,10 @@
     },
     "assembly_manifest": {
       "path": "engineering/a7/procurement/assembly-manifest.json",
-      "sha256": "e59c015af38da813387dc1be80daba67eea535c8b498a46b037ebe9d6a640281"
+      "sha256": "69bc70857332480b0115caf6eefd3ce429d3f4d5e49bb4f2505148a11792c6ca"
     }
   },
-  "plan_sha256": "501078c566ecbfa79c514a01db700f97ff531d6e8e1470ac5aba3fe043432282",
+  "plan_sha256": "e1be3470f14426c2f240ba19706f357dcaeb2ae40c302bd5e391e83292dbc24d",
   "procedures": [
     {
       "id": "jack-continuity",
@@ -74,8 +74,6 @@
       "id": "harness-depth",
       "status": "BLOCKED",
       "reasons": [
-        "criterion unresolved or review receipt missing",
-        "criterion has PROPOSED or UNRESOLVED acceptance values: bend-radius, power-band-order",
         "NOT_MEASURED: no run"
       ]
     },
@@ -146,8 +144,6 @@
       "id": "u7-stress",
       "status": "BLOCKED",
       "reasons": [
-        "criterion unresolved or review receipt missing",
-        "criterion has PROPOSED or UNRESOLVED acceptance values: in-current-bound",
         "NOT_MEASURED: no run"
       ]
     },
@@ -155,8 +151,6 @@
       "id": "ldo-reverse",
       "status": "BLOCKED",
       "reasons": [
-        "criterion unresolved or review receipt missing",
-        "criterion has PROPOSED or UNRESOLVED acceptance values: reverse",
         "NOT_MEASURED: no run"
       ]
     },
@@ -181,7 +175,7 @@
       "status": "BLOCKED",
       "reasons": [
         "criterion unresolved or review receipt missing",
-        "criterion has PROPOSED or UNRESOLVED acceptance values: part-temp-max, materials-appearance",
+        "criterion has PROPOSED or UNRESOLVED acceptance values: materials-appearance",
         "NOT_MEASURED: no run"
       ]
     },
@@ -196,8 +190,6 @@
       "id": "service-envelope",
       "status": "BLOCKED",
       "reasons": [
-        "criterion unresolved or review receipt missing",
-        "criterion has PROPOSED or UNRESOLVED acceptance values: cycles, retention-force",
         "NOT_MEASURED: no run"
       ]
     }
@@ -205,14 +197,12 @@
   "blockers": [
     "fixture completion awaits the physical criterion 5 (fixture-contact)",
     "assembly_manifest: supply-observations: Order quantity is 2 modules (owner decision). JLC stock, price, minimum, packaging, lead time and assembly applicability at that quantity are not observed for any line except C221842 (switch-supply); JLC attrition is not sourced; stock never reserved.",
-    "assembly_manifest: switch-supply: PCM13SMTR (C221842): 2 needed for 2 modules. JLC stock 0 at 2026-11-09; at 2026-11-12 JLC lists it buyable (Extended) with pre-order minimum 3 and presale 0 (field meanings inferred), tier prices without currency, no lead time. The owner wants to complete on JLC: on our reading, a pre-order (presale 0 may mean none can be placed now; fill depends on LCSC stock, not observed) or a Global Sourcing quote; otherwise wait, or accept a reviewed alternate with its own contact table and fit review.",
-    "assembly_manifest: panel-route: None of the three boards meets JLC single-board PCBA size; the panel route is not chosen. Panel by JLCPCB puts 10 controllers, 8 leaves or 2 adapters on each panel (20 PCM13SMTR for a 2-panel minimum if the PCBA quantity counts panels, not sourced); a repo-built panel holding 1 controller, 2 leaves or 1 adapter gives exactly 2 modules; it is prepared (not released) in engineering/a7/jlc-package/panels/. Comparison in engineering/a7/jlc-package/package.json.",
-    "assembly_manifest: jack-switch-qualification: PJ-324M pin function (which of terminals 4/5 is the tip contact and which its normal; the supplier symbol contradicts the inferred 4 = tip, so this continuity test must precede any PCB order), slot, axis height and nut fit, and PCM13SMTR truth table and land fit, need received parts (jack-continuity, jack-dimensions, switch-fit).",
-    "assembly_manifest: exact-part-evidence: Exact-part gaps after the 2026-11-11 source recovery: PMEG4010CEJ ,115 packing variant not established by the datasheet; SM04B-SRSS-TB per-circuit numbering not printed beyond the No. 1 end; PJ-324M recommended hole/slot sizes, axis height and whether a nut ships with C22355739 not sourced.",
-    "assembly_manifest: finished-cables: Finished A7 power cable (57 mm, +/-3 ASSUMED), SH4 cables and IDC ribbon not selected; supplier answers and the owner choice of assembly are needed before physical routing checks.",
+    "assembly_manifest: switch-supply: PCM13SMTR (C221842): 2 needed for 2 modules. JLC stock 0 at 2026-11-09; at 2026-11-12 JLC lists it buyable (Extended) with pre-order minimum 3 and presale 0 (field meanings inferred), tier prices without currency, no lead time. The owner wants to complete on JLC: on our reading, a pre-order (presale 0 may mean none can be placed now; fill depends on LCSC stock, not observed) or a Global Sourcing quote; otherwise wait, or accept a reviewed alternate with its own contact table and fit review. At 2026-11-12T18:55Z the owner relayed a live check by their browsing assistant (not a first-hand capture): JLC stock 0, Extended, pre-order offered at minimum 3 with an estimated 31 days; Global Sourcing for 3 via DigiKey JPY 826 total (8-15 business days) or Element JPY 865 (8-18); parts stay in the JLC parts library. The owner accepted JLC sourcing with all recommendations, then asked to consider another switch because of the price, so this stays open until the owner picks.",
+    "assembly_manifest: jack-switch-qualification: PJ-324M pin function (which of terminals 4/5 is the tip contact; the supplier symbol contradicts the inferred 4 = tip) is not confirmed: the owner waived the pre-order continuity test on 2026-11-12 and accepted the risk, so it is a first-article check on the assembled boards. Slot, axis height and nut fit, and PCM13SMTR truth table and land fit, also need received parts (jack-continuity, jack-dimensions, switch-fit).",
+    "assembly_manifest: exact-part-evidence: Exact-part gaps after the 2026-11-11 source recovery (the PMEG4010CEJ ,115 packing is since sourced: SOD323F on a 7-inch reel, fact-pmeg4010cej-115-orderable): SM04B-SRSS-TB per-circuit numbering not printed beyond the No. 1 end; PJ-324M recommended hole/slot sizes, axis height and whether a nut ships with C22355739 not sourced.",
     "assembly_manifest: mechanical-materials: PMMA sheet and pocket tolerances, PETG process and orderable fastener part numbers are not sourced; the model carries designations (M2x18, M1.6x4) and envelopes only.",
-    "assembly_manifest: rack-hardware: Owner rack rail/thread interface and fasteners not specified.",
-    "assembly_manifest: fixture-materials: Fixture digital criteria 1-4 met and a sourced hardware proposal recorded; the fabricator choice and approval of the proposed hardware are owner decisions. Physical contact/load tests (criterion 5) follow.",
+    "assembly_manifest: rack-hardware: The owner accepted naming the case (2026-11-12, accept all recommendations); the case model, and so the rail/thread interface and fasteners, is not given yet.",
+    "assembly_manifest: fixture-materials: Fixture digital criteria 1-4 met; the owner approved the proposed hardware on 2026-11-12 (accept all recommendations). The fabricator for the four FR-4 plates is not chosen. Physical contact/load tests (criterion 5) follow.",
     "assembly_manifest: prototype-and-release: No reviewed manufacturing package and no manufacturing release approval. A prototype route, when the owner approves one, is recorded in engineering/a7/qualification/records.json and is not a release.",
     "jack-continuity: NOT_MEASURED: no run",
     "jack-dimensions: criterion unresolved or review receipt missing",
@@ -221,8 +211,6 @@
     "switch-fit: criterion unresolved or review receipt missing",
     "switch-fit: criterion has PROPOSED or UNRESOLVED acceptance values: fit-and-contact",
     "switch-fit: NOT_MEASURED: no run",
-    "harness-depth: criterion unresolved or review receipt missing",
-    "harness-depth: criterion has PROPOSED or UNRESOLVED acceptance values: bend-radius, power-band-order",
     "harness-depth: NOT_MEASURED: no run",
     "pmma-supports: criterion unresolved or review receipt missing",
     "pmma-supports: criterion has PROPOSED or UNRESOLVED acceptance values: torque-retention",
@@ -239,22 +227,16 @@
     "rail-collapse: NOT_MEASURED: no run",
     "partial-rails: criterion unresolved or review receipt missing",
     "partial-rails: NOT_MEASURED: no run",
-    "u7-stress: criterion unresolved or review receipt missing",
-    "u7-stress: criterion has PROPOSED or UNRESOLVED acceptance values: in-current-bound",
     "u7-stress: NOT_MEASURED: no run",
-    "ldo-reverse: criterion unresolved or review receipt missing",
-    "ldo-reverse: criterion has PROPOSED or UNRESOLVED acceptance values: reverse",
     "ldo-reverse: NOT_MEASURED: no run",
     "load-short: NOT_MEASURED: no run",
     "effective-capacitance: criterion unresolved or review receipt missing",
     "effective-capacitance: criterion has PROPOSED or UNRESOLVED acceptance values: buck-in",
     "effective-capacitance: NOT_MEASURED: no run",
     "thermal-optical: criterion unresolved or review receipt missing",
-    "thermal-optical: criterion has PROPOSED or UNRESOLVED acceptance values: part-temp-max, materials-appearance",
+    "thermal-optical: criterion has PROPOSED or UNRESOLVED acceptance values: materials-appearance",
     "thermal-optical: NOT_MEASURED: no run",
     "cv-noise: NOT_MEASURED: no run",
-    "service-envelope: criterion unresolved or review receipt missing",
-    "service-envelope: criterion has PROPOSED or UNRESOLVED acceptance values: cycles, retention-force",
     "service-envelope: NOT_MEASURED: no run",
     "material assembly_service: missing or ambiguous dated observation",
     "material finished_cables: missing or ambiguous dated observation",
@@ -283,35 +265,21 @@
       "gate": "assembly:switch-supply",
       "class": "OWNER_DECISION",
       "reasons": [
-        "assembly_manifest: switch-supply: PCM13SMTR (C221842): 2 needed for 2 modules. JLC stock 0 at 2026-11-09; at 2026-11-12 JLC lists it buyable (Extended) with pre-order minimum 3 and presale 0 (field meanings inferred), tier prices without currency, no lead time. The owner wants to complete on JLC: on our reading, a pre-order (presale 0 may mean none can be placed now; fill depends on LCSC stock, not observed) or a Global Sourcing quote; otherwise wait, or accept a reviewed alternate with its own contact table and fit review."
-      ]
-    },
-    {
-      "gate": "assembly:panel-route",
-      "class": "OWNER_DECISION",
-      "reasons": [
-        "assembly_manifest: panel-route: None of the three boards meets JLC single-board PCBA size; the panel route is not chosen. Panel by JLCPCB puts 10 controllers, 8 leaves or 2 adapters on each panel (20 PCM13SMTR for a 2-panel minimum if the PCBA quantity counts panels, not sourced); a repo-built panel holding 1 controller, 2 leaves or 1 adapter gives exactly 2 modules; it is prepared (not released) in engineering/a7/jlc-package/panels/. Comparison in engineering/a7/jlc-package/package.json."
+        "assembly_manifest: switch-supply: PCM13SMTR (C221842): 2 needed for 2 modules. JLC stock 0 at 2026-11-09; at 2026-11-12 JLC lists it buyable (Extended) with pre-order minimum 3 and presale 0 (field meanings inferred), tier prices without currency, no lead time. The owner wants to complete on JLC: on our reading, a pre-order (presale 0 may mean none can be placed now; fill depends on LCSC stock, not observed) or a Global Sourcing quote; otherwise wait, or accept a reviewed alternate with its own contact table and fit review. At 2026-11-12T18:55Z the owner relayed a live check by their browsing assistant (not a first-hand capture): JLC stock 0, Extended, pre-order offered at minimum 3 with an estimated 31 days; Global Sourcing for 3 via DigiKey JPY 826 total (8-15 business days) or Element JPY 865 (8-18); parts stay in the JLC parts library. The owner accepted JLC sourcing with all recommendations, then asked to consider another switch because of the price, so this stays open until the owner picks."
       ]
     },
     {
       "gate": "assembly:jack-switch-qualification",
       "class": "PHYSICAL_ONLY",
       "reasons": [
-        "assembly_manifest: jack-switch-qualification: PJ-324M pin function (which of terminals 4/5 is the tip contact and which its normal; the supplier symbol contradicts the inferred 4 = tip, so this continuity test must precede any PCB order), slot, axis height and nut fit, and PCM13SMTR truth table and land fit, need received parts (jack-continuity, jack-dimensions, switch-fit)."
+        "assembly_manifest: jack-switch-qualification: PJ-324M pin function (which of terminals 4/5 is the tip contact; the supplier symbol contradicts the inferred 4 = tip) is not confirmed: the owner waived the pre-order continuity test on 2026-11-12 and accepted the risk, so it is a first-article check on the assembled boards. Slot, axis height and nut fit, and PCM13SMTR truth table and land fit, also need received parts (jack-continuity, jack-dimensions, switch-fit)."
       ]
     },
     {
       "gate": "assembly:exact-part-evidence",
       "class": "ACCESS_EVIDENCE_HOLD",
       "reasons": [
-        "assembly_manifest: exact-part-evidence: Exact-part gaps after the 2026-11-11 source recovery: PMEG4010CEJ ,115 packing variant not established by the datasheet; SM04B-SRSS-TB per-circuit numbering not printed beyond the No. 1 end; PJ-324M recommended hole/slot sizes, axis height and whether a nut ships with C22355739 not sourced."
-      ]
-    },
-    {
-      "gate": "assembly:finished-cables",
-      "class": "OWNER_DECISION",
-      "reasons": [
-        "assembly_manifest: finished-cables: Finished A7 power cable (57 mm, +/-3 ASSUMED), SH4 cables and IDC ribbon not selected; supplier answers and the owner choice of assembly are needed before physical routing checks."
+        "assembly_manifest: exact-part-evidence: Exact-part gaps after the 2026-11-11 source recovery (the PMEG4010CEJ ,115 packing is since sourced: SOD323F on a 7-inch reel, fact-pmeg4010cej-115-orderable): SM04B-SRSS-TB per-circuit numbering not printed beyond the No. 1 end; PJ-324M recommended hole/slot sizes, axis height and whether a nut ships with C22355739 not sourced."
       ]
     },
     {
@@ -325,14 +293,14 @@
       "gate": "assembly:rack-hardware",
       "class": "OWNER_DECISION",
       "reasons": [
-        "assembly_manifest: rack-hardware: Owner rack rail/thread interface and fasteners not specified."
+        "assembly_manifest: rack-hardware: The owner accepted naming the case (2026-11-12, accept all recommendations); the case model, and so the rail/thread interface and fasteners, is not given yet."
       ]
     },
     {
       "gate": "assembly:fixture-materials",
       "class": "OWNER_DECISION",
       "reasons": [
-        "assembly_manifest: fixture-materials: Fixture digital criteria 1-4 met and a sourced hardware proposal recorded; the fabricator choice and approval of the proposed hardware are owner decisions. Physical contact/load tests (criterion 5) follow."
+        "assembly_manifest: fixture-materials: Fixture digital criteria 1-4 met; the owner approved the proposed hardware on 2026-11-12 (accept all recommendations). The fabricator for the four FR-4 plates is not chosen. Physical contact/load tests (criterion 5) follow."
       ]
     },
     {
@@ -377,14 +345,6 @@
       "class": "PHYSICAL_ONLY",
       "reasons": [
         "switch-fit: NOT_MEASURED: no run"
-      ]
-    },
-    {
-      "gate": "criterion:harness-depth",
-      "class": "OWNER_DECISION",
-      "reasons": [
-        "harness-depth: criterion unresolved or review receipt missing",
-        "harness-depth: criterion has PROPOSED or UNRESOLVED acceptance values: bend-radius, power-band-order"
       ]
     },
     {
@@ -482,26 +442,10 @@
       ]
     },
     {
-      "gate": "criterion:u7-stress",
-      "class": "OWNER_DECISION",
-      "reasons": [
-        "u7-stress: criterion unresolved or review receipt missing",
-        "u7-stress: criterion has PROPOSED or UNRESOLVED acceptance values: in-current-bound"
-      ]
-    },
-    {
       "gate": "run:u7-stress",
       "class": "PHYSICAL_ONLY",
       "reasons": [
         "u7-stress: NOT_MEASURED: no run"
-      ]
-    },
-    {
-      "gate": "criterion:ldo-reverse",
-      "class": "OWNER_DECISION",
-      "reasons": [
-        "ldo-reverse: criterion unresolved or review receipt missing",
-        "ldo-reverse: criterion has PROPOSED or UNRESOLVED acceptance values: reverse"
       ]
     },
     {
@@ -538,7 +482,7 @@
       "class": "OWNER_DECISION",
       "reasons": [
         "thermal-optical: criterion unresolved or review receipt missing",
-        "thermal-optical: criterion has PROPOSED or UNRESOLVED acceptance values: part-temp-max, materials-appearance"
+        "thermal-optical: criterion has PROPOSED or UNRESOLVED acceptance values: materials-appearance"
       ]
     },
     {
@@ -553,14 +497,6 @@
       "class": "PHYSICAL_ONLY",
       "reasons": [
         "cv-noise: NOT_MEASURED: no run"
-      ]
-    },
-    {
-      "gate": "criterion:service-envelope",
-      "class": "OWNER_DECISION",
-      "reasons": [
-        "service-envelope: criterion unresolved or review receipt missing",
-        "service-envelope: criterion has PROPOSED or UNRESOLVED acceptance values: cycles, retention-force"
       ]
     },
     {
@@ -622,7 +558,7 @@
   ],
   "gate_counts": {
     "CLOUD_DIGITAL": 0,
-    "OWNER_DECISION": 15,
+    "OWNER_DECISION": 9,
     "ACCESS_EVIDENCE_HOLD": 13,
     "PHYSICAL_ONLY": 21
   },

@@ -26,11 +26,11 @@
 ### jack-continuity — PJ-324M 入荷時 TS/TRS 導通・端子対応
 
 - 関連: Q2; #19
-- 概要: 絶縁された未実装ジャック、TS/TRS プラグ、導通計とミリオーム計。各挿抜状態で全端子対を測り、閉じた接点の接触抵抗を測る。
+- 概要: 絶縁された未実装ジャック、TS/TRS プラグ、導通計とミリオーム計。各挿抜状態で全端子対を測り、閉じた接点の接触抵抗を測る。 未実装品が手元にない場合は、組み立て済み基板の最初の 1 枚で、プラグの各接点と基板のネット（CV_THRU、GND）の導通で判定する。
 - 根拠: `engineering/a7/electronics/README.md`
 - 基準: 採用済み（プロジェクトのコーディネーター（オーナーが委ねた作業方針による）、記録 `engineering/a7/qualification/reviews/2026-11-11-coordinator-criteria-acceptance.md`）
 - 観測: NOT_MEASURED。結果: NOT_RUN。
-- 次: 基準はコーディネーターが採用済み（オーナー本人ではない）。PCB を発注する前に実物の PJ-324M で手順を実施し、端子 4/5 を確定する（O0）。
+- 次: 基準はコーディネーターが採用済み（オーナー本人ではない）。オーナーは発注前の試験を見送った（2026-11-12、リスクを受け入れた判断で、端子 4 = tip の確認ではない）。組み立て済み基板が届いたら、ジャックを使う他の試験より前に初品検査として実施する（O0）。
 
 準備するもの:
 
@@ -56,7 +56,7 @@
 3. TS プラグを最後まで挿入し、全10端子対とプラグの Tip/Sleeve 対各端子を測る。
 4. TRS プラグで同じ測定をする。プラグを抜き、無挿入の状態をもう一度測る。
 5. TS と TRS プラグを挿入した状態で、閉じている各接点（プラグ tip–tip 端子、sleeve–sleeve 端子、TRS の ring–ring 端子）の抵抗をミリオーム計で測る。4 端子法で、測定電流は 50 mA 以下。2 端子法しか使えない場合は、測定リードとプラグを短絡して読んだ値を差し引き、その値も記録する。
-6. 端子 4 と 5 のどちらが tip 接点（プラグの tip と導通）で、どちらがその normal（無挿入で tip 接点と導通し、挿入で開放）かを判定し、terminal_matrix に「tip=端子N、tip normal=端子M」と明記する。供給元 symbol は端子 5 を tip としており、現在の推定（端子 4 = tip）と矛盾する。この判定は PCB を発注する前に必須。
+6. 端子 4 と 5 のどちらが tip 接点（プラグの tip と導通）で、どちらがその normal（無挿入で tip 接点と導通し、挿入で開放）かを判定し、terminal_matrix に「tip=端子N、tip normal=端子M」と明記する。供給元 symbol は端子 5 を tip としており、現在の推定（端子 4 = tip）と矛盾する。オーナーは発注前の判定を見送り、端子 4 = tip のまま使えるものとして進めると決めた（2026-11-12）。この判定は組み立て済み基板の初品検査として、ジャックを使う他の試験より前に行う。
 7. 結果を下の推定対応・基板ネットと突き合わせる。1 か所でも違えば FAIL とし、基板を変えるかどうかは別のレビューで決める（ここで設計を変えない）。
 
 記録する raw 証跡（種別ごとに別ファイル）:
@@ -216,9 +216,9 @@
 - 関連:  #8
 - 概要: 完成 SH4 と電源ケーブルを全長収納し、全コネクタ・ラベル・IDC を含めて組む。
 - 根拠: `engineering/a7/mechanical/layout.json`
-- 未決: 現物ケーブル径、許容曲げ、自由長公差とラベル、完成品供給仕様が未確定。（区分: オーナーの判断）
+- 基準: 採用済み（オーナー本人、記録 `engineering/a7/qualification/reviews/2026-11-12-owner-criteria-acceptance.md`）
 - 観測: NOT_MEASURED。結果: NOT_RUN。
-- 次: 不足する基準をレビューし、オーナー承認の試作ルート確定後に実物で実施。
+- 次: 基準はオーナーが採用済み（2026-11-12、推奨をまとめて採用）。電源ケーブル公差 ±3 mm は仮定のままで、ケーブル業者がより狭い公差を保証すれば置き換える。オーナー承認の試作ルートの範囲で実物で実施する。
 
 準備するもの:
 
@@ -267,13 +267,8 @@
 | a5-cable | A5 の 50 ± 6 mm ケーブルは使えない | `false` | exact | NONE | DESIGN | `engineering/a7/mechanical/layout.json` `/power_cable_requirement/a5_cable/fits` |
 | sh4-length | コントローラー→左リーフ SH4 の長さ（モデル） | `50.0` | reference | mm | DESIGN | `engineering/a7/mechanical/exports/3hp/verification.json` `/cables/0/layout_length_mm` |
 | depth-target | 奥行き目標（PMMA 裏面から） | `30.0` | max | mm | DESIGN | `engineering/a7/mechanical/layout.json` `/z_stack/installed_depth_target` |
-| bend-radius | 許容最小曲げ半径 | `2.0` | min | mm | PROPOSED（根拠 DESIGN） | `engineering/a7/mechanical/layout.json` `/variants/3hp/routes/adapter_to_controller_power/end_bend_room` |
-| power-band-order | 電源ケーブル自由長の注文範囲 | `[54.0, 60.0]` | range | mm | PROPOSED（根拠 ASSUMED） | `engineering/a7/mechanical/layout.json` `/power_cable_requirement/band` |
-
-提案の理由（PROPOSED は採否前で、この手順の基準ゲートを解除しません）:
-
-- `bend-radius`: 3HP の経路モデルが電源ケーブル端の曲げに残した余裕 2.0 mm（2HP では 0.9 mm で「推奨未満」とされた値）。ケーブル製造元の最小曲げ半径が分かればそちらを優先する。
-- `power-band-order`: 仮定の 57 ± 3 mm をそのまま完成ケーブルの注文仕様にする案。供給元が保証できる公差が分かれば置き換える。
+| bend-radius | 許容最小曲げ半径 | `2.0` | min | mm | DESIGN | `engineering/a7/mechanical/layout.json` `/variants/3hp/routes/adapter_to_controller_power/end_bend_room` |
+| power-band-order | 電源ケーブル自由長の注文範囲 | `[54.0, 60.0]` | range | mm | ASSUMED | `engineering/a7/mechanical/layout.json` `/power_cable_requirement/band` |
 
 ### pmma-supports — PMMA ポケット・締結・PETG 支持
 
@@ -802,9 +797,9 @@
 - 関連:  #10
 - 概要: CVと電源遷移中のU7両入力/電源を差動プローブで測る。
 - 根拠: `engineering/a5/integration/independent_review`
-- 未決: 受入値は部品資料・ネットリスト・FW 定数から導出し、生成時に再計算で照合している。採用のレビュー記録（criterion_review）がまだない。（区分: オーナーの判断）
+- 基準: 採用済み（オーナー本人、記録 `engineering/a7/qualification/reviews/2026-11-12-owner-criteria-acceptance.md`）
 - 観測: NOT_MEASURED。結果: NOT_RUN。
-- 次: 導出した受入値をレビューして採否を記録する（コーディネーターかオーナー）。その後に実機で手順を実施する。
+- 次: 基準はオーナーが採用済み（2026-11-12）。R7 電流の上限は推定（INFERRED）を含む計算のまま。オーナー承認の試作ルートの範囲で実物で実施する。
 
 準備するもの:
 
@@ -842,7 +837,7 @@
 | input | TLV9001 入力の絶対最大 | `"(V-) - 0.5 to (V+) + 0.5"` | range | V | SOURCED | `.claude/skills/component-tlv9001idbvr/facts.json` `fact-tlv9001idbvr-abs-max-input-voltage` |
 | current | TLV9001 入力電流の絶対最大 | `10` | max | mA | SOURCED | `.claude/skills/component-tlv9001idbvr/facts.json` `fact-tlv9001idbvr-abs-max-input-current` |
 | supply-roc | U7 電源 (+3V3) の推奨範囲 | `"1.8 to 5.5"` | range | V | SOURCED | `.claude/skills/component-tlv9001idbvr/facts.json` `fact-tlv9001idbvr-roc-vs` |
-| in-current-bound | R7 を流れる電流（U7 IN+ と D3 の合計）の上限（計算）。CV_AFFINE の全抵抗（R3–R6）と +3V3 の上限を含む節点計算。測定した R7 の電圧から求めた電流はこれ以下で、U7 入力の絶対最大 10 mA より小さい | `0.313` | max | mA | PROPOSED（根拠 INFERRED） | 計算 `(V / (R3 * (1 - t3 / 100)) + (V3 * (1 + acc / 100)) / (R4 * (1 - t4 / 100)) + (V3 * (1 + acc / 100)) / (R5 * (1 - t5 / 100))) / (1 / (R3 * (1 - t3 / 100)) + 1 / (R4 * (1 - t4 / 100)) + 1 / (R5 * (1 - t5 / 100)) + 1 / (R6 * (1 + t6 / 100)) + 1 / (R7 * (1 - t7 / 100))) / (R7 * (1 - t7 / 100)) * 1000`（内訳は下） |
+| in-current-bound | R7 を流れる電流（U7 IN+ と D3 の合計）の上限（計算）。CV_AFFINE の全抵抗（R3–R6）と +3V3 の上限を含む節点計算。測定した R7 の電圧から求めた電流はこれ以下で、U7 入力の絶対最大 10 mA より小さい | `0.313` | max | mA | INFERRED | 計算 `(V / (R3 * (1 - t3 / 100)) + (V3 * (1 + acc / 100)) / (R4 * (1 - t4 / 100)) + (V3 * (1 + acc / 100)) / (R5 * (1 - t5 / 100))) / (1 / (R3 * (1 - t3 / 100)) + 1 / (R4 * (1 - t4 / 100)) + 1 / (R5 * (1 - t5 / 100)) + 1 / (R6 * (1 + t6 / 100)) + 1 / (R7 * (1 - t7 / 100))) / (R7 * (1 - t7 / 100)) * 1000`（内訳は下） |
 
 計算の内訳:
 
@@ -862,18 +857,14 @@
   - `t7` = 1.0（`1%`、`engineering/a7/verification/schematic/netlist.xml` R7 の値、の tolerance）
   - 推定: CV_BUF (U6 出力) は U6 の電源を超えず、U6 の電源は絶対最大の ±20 V 以内とする推定。CV_FILTER を 0 V に固定して R7 の電流を大きく見積もる
 
-提案の理由（PROPOSED は採否前で、この手順の基準ゲートを解除しません）:
-
-- `in-current-bound`: U6 (OPA197) の出力はレールまで最大 25 mV（無負荷、25 °C）まで近づけると資料にある（fact-opa197idbvr-output-swing）。これはレールを超えない保証ではなく、絶対最大にも出力ピンの行はないが、CV_BUF は U6 の電源 +12V_PROT / −12V_PROT を超えないと推定する（資料からの推論で、資料の値ではない）。その電源の上限はモジュールの外（ラック電源）で決まり、Doepfer A-100 の技術資料は ±12 V の公称値だけで許容差も上限も示さない。D3 (BAS70-04) と U7 内部ダイオードの電流分担はどちらの資料にもない（BAS70 の VF は 1 mA で最大 410 mV、25 °C だけ。TLV9001 は電源を 0.5 V 超える入力を 10 mA 以下に制限することだけを求める）が、R7 を流れる合計がこの上限以下なら分担に関係なく U7 の 10 mA を下回る。±20 V は資料の値ではなく設計上の推定で、同じ節点計算では CV_BUF が約 845 V にならないと 10 mA に届かない。推定を外せる資料（ラック電源の上限）が得られるまで提案のまま。
-
 ### ldo-reverse — LDO 逆電流
 
 - 関連:  #10
 - 概要: 入力/出力レール遷移を承認済み制限下で独立に制御。
 - 根拠: `engineering/a5/integration/independent_review`
-- 未決: TLV755P は許容逆電流・時間を規定しない（§7.1.4 が挙げる 3 つの逆電流条件はいずれも絶対最大（VOUT > VIN + 0.3 V）を超えるとし、必要なら外付けショットキーを推奨）。+3V3 への外部印加を試験で許すか、許すならどの上限で行うかはオーナーのリスク判断。（区分: オーナーの判断）
+- 基準: 採用済み（オーナー本人、記録 `engineering/a7/qualification/reviews/2026-11-12-owner-criteria-acceptance.md`）
 - 観測: NOT_MEASURED。結果: NOT_RUN。
-- 次: 不足する基準をレビューし、オーナー承認の試作ルート確定後に実物で実施。
+- 次: 基準はオーナーが採用済み（2026-11-12、外部印加はしない）。オーナー承認の試作ルートの範囲で実物で実施する。
 
 準備するもの:
 
@@ -890,12 +881,12 @@
 - `records.json` の owner_prototype_route（対象版・数量・範囲・承認）が記録済み
 - 通電は owner_prototype_route が許す範囲だけ。初回通電の電流制限値は未決なので、試験前にレビューで決めて conditions に記録する
 - `readiness.json` の identities（基板/実装/回路図/FW/設定/機構/治具/台帳の SHA-256）を run にそのまま写す
-- +3V3 に外部電圧をかける試験は、オーナー判断 criterion:ldo-reverse で bounded が選ばれ、上限と時間が記録されるまで実施しない
+- +3V3 に外部電圧をかけない（オーナー判断 criterion:ldo-reverse で prohibit。SWD プローブ等で +3V3 を外から給電しない）
 
 手順:
 
 1. 電源投入・遮断の順序を変えて +5V と +3V3 の波形を記録し、遮断時に VOUT ≤ VIN + 0.3 V が保たれるかを確かめる。
-2. （bounded が選ばれた場合のみ）+5 V を切った状態で +3V3 側に SWD プローブ等から記録済みの上限内で電圧をかけ、電流と時間を測る。
+2. +5 V を切った状態で +3V3 に外部から電圧をかけない（SWD プローブは給電しない設定で接続する）。
 3. 順序と時間を変えて記録する。
 
 記録する raw 証跡（種別ごとに別ファイル）:
@@ -914,7 +905,7 @@
 | vin-max | TLV75533 VIN の絶対最大 | `6.0` | max | V | SOURCED | `.claude/skills/component-tlv75533pdbvr/facts.json` `fact-tlv75533pdbvr-ratings` |
 | en-max | TLV75533 EN の絶対最大 | `6.0` | max | V | SOURCED | `.claude/skills/component-tlv75533pdbvr/facts.json` `fact-tlv75533pdbvr-abs-max-en` |
 | reverse-spec | TLV75533 の逆電流に関するメーカー記述 | `"no allowed reverse current specified; VOUT must not exceed VIN + 0.3 V or 6.0 V, whichever is smaller"` | reference | NONE | SOURCED | `.claude/skills/component-tlv75533pdbvr/facts.json` `fact-tlv75533pdbvr-reverse-current` |
-| reverse | 試験で許す逆電流と時間 | — | — | mA | UNRESOLVED | オーナー判断（メーカーは許容値を規定しないので、試験で許すかどうかと上限はプロジェクトのリスク判断） |
+| reverse | +5 V を切った状態で +3V3 に外部から流す電流（外部印加はしない） | `0` | exact | mA | DESIGN | `engineering/a7/qualification/owner-criteria.json` `/criteria/ldo-reverse/reverse/value` |
 
 ### load-short — 負荷・短絡・保護
 
@@ -1062,7 +1053,7 @@
 - 関連:  #10
 - 概要: 最悪負荷/周囲条件でインダクタ、ホットスポット、PETG、PMMAを測定し左右照明を撮影。
 - 根拠: `engineering/a7/mechanical/README.md`
-- 未決: 周囲条件/安定判定、部品/材料温度限界と見え方のオーナー採否が未決。（区分: オーナーの判断）
+- 未決: 部品温度の上限はオーナーが 75 °C に決めた（2026-11-12）。PETG/PMMA の温度限界（資料未取得）と見え方の合否（オーナー判断）が未決。（区分: オーナーの判断）
 - 観測: NOT_MEASURED。結果: NOT_RUN。
 - 次: 不足する基準をレビューし、オーナー承認の試作ルート確定後に実物で実施。
 
@@ -1105,17 +1096,13 @@
 | channel-cap | FW の LED 上限 | `"51u"` | max | NONE | DESIGN | `engineering/a5/firmware/include/lb_config.h` 引用 |
 | switch-temp | PCM13SMTR の動作温度 | `"-40 to +85"` | range | C | SOURCED | `.claude/skills/component-a7-pcm13smtr/facts.json` `fact-a7-pcm13smtr-operating-temperature` |
 | mlcc-temp | X7R MLCC の動作温度 | `"-55 to +125"` | range | degC | SOURCED | `.claude/skills/component-cc0603krx7r9bb104/facts.json` `fact-cc0603krx7r9bb104-operating-temperature` |
-| part-temp-max | 安定後の部品表面温度の上限 | `85` | max | degC | PROPOSED（根拠 CALCULATED） | 計算 `T`（内訳は下） |
+| part-temp-max | 安定後の部品表面温度の上限（PJ-324M の保存温度の上限を基板全体の上限にする） | `75` | max | degC | CALCULATED | 計算 `T`（内訳は下） |
 | materials-appearance | PETG/PMMA の温度限界と見え方の合否 | — | — | degC | UNRESOLVED | 材料の温度限界は資料（未取得）、見え方はオーナーの判断。入手先（資料）: 使う PETG フィラメントと PMMA 板の製造元の熱変形温度（資料未取得） |
 
 計算の内訳:
 
-- `part-temp-max`: `T` = `85` degC（小数 0 桁に丸め）
-  - `T` = 85.0（`+85`、`.claude/skills/component-a7-pcm13smtr/facts.json` `fact-a7-pcm13smtr-operating-temperature`、「-40 to +85」）
-
-提案の理由（PROPOSED は採否前で、この手順の基準ゲートを解除しません）:
-
-- `part-temp-max`: カタログの部品 fact で動作温度の上限が分かるもののうち最も低いのは +85 °C で、複数の部品が同じ値になる（WS2812B-2020 の Topt、AP63205 と SN74LVC2T45 の周囲温度 TA、STM32G031 の温度コード 6、PCM13SMTR、SM04B（通電による温度上昇を含む）、Samsung X5R の温度特性範囲）。TPS2552 と TLV755P の上限は接合部温度（どちらも +125 °C。TPS2552 は IOUT ≤ 1.5 A なら +105 °C）。PJ-324M は保存温度が −25〜+75 °C で、動作温度の欄は資料で空欄（fact は UNSOURCED）なので、+75 °C を基板の上限とみなすかも採否で決める。温度の fact がない部品は 530470310、BOOMELE C5665、PJ-3582-B（ミラー資料だけ）。1MS3T1B1M2QES-5 はミラー資料による −40〜85 °C の fact だけで UNSOURCED。表面温度は接合部より低いので、余裕をどれだけ取るかも採否で決める。
+- `part-temp-max`: `T` = `75` degC（小数 0 桁に丸め）
+  - `T` = 75.0（`+75`、`.claude/skills/component-a7-pj-324m/facts.json` `fact-a7-pj-324m-storage-temperature`、「-25 to +75」）
 
 ### cv-noise — CV ノイズと DATA_L 結合
 
@@ -1172,9 +1159,9 @@
 - 関連:  #8; #10
 - 概要: 全ケーブルと完成部品で挿抜、側板交換、スイッチ設定、再組立を実施。
 - 根拠: `engineering/a7/mechanical/layout.json`
-- 未決: 繰返し回数、許容力/損傷、組立ばらつきと合否基準が未決。（区分: オーナーの判断）
+- 基準: 採用済み（オーナー本人、記録 `engineering/a7/qualification/reviews/2026-11-12-owner-criteria-acceptance.md`）
 - 観測: NOT_MEASURED。結果: NOT_RUN。
-- 次: 不足する基準をレビューし、オーナー承認の試作ルート確定後に実物で実施。
+- 次: 基準はオーナーが採用済み（2026-11-12、100 回 + 10.0 N）。オーナー承認の試作ルートの範囲で実物で実施する。
 
 準備するもの:
 
@@ -1195,7 +1182,7 @@
 手順:
 
 1. 幅・高さ・奥行きを測る。
-2. ラックへの挿抜とジャックの挿抜を決めた回数繰り返し、力と損傷を記録する。
+2. ジャックの挿抜を 100 回繰り返し（挿抜力は 10.0 N まで）、パネル・ナット・ジャックの割れ・ずれ・緩みを確かめる。ラックへの挿抜も行い、力と損傷を記録する。
 3. 設定スイッチの切替えとケーブル交換を行い、前後の写真を残す。
 
 記録する raw 証跡（種別ごとに別ファイル）:
@@ -1218,24 +1205,20 @@
 | plug-force | プラグ挿抜力 | `"5.0-10.0 N inward and exiting"` | range | NONE | MIRROR | `.claude/skills/component-a7-pj-324m/facts.json` `fact-a7-pj-324m-plug-force` |
 | switch-life | 設定スイッチの寿命 | `10000` | reference | cycles | SOURCED | `.claude/skills/component-a7-pcm13smtr/facts.json` `fact-a7-pcm13smtr-life` |
 | power-connector-life | 電源ヘッダー J5（Molex 530470310）の挿抜耐久（スズめっき） | `30` | reference | cycles | SOURCED | `.claude/skills/component-530470310/facts.json` `fact-530470310-durability` |
-| cycles | 繰返し回数と許容損傷 | — | — | NONE | UNRESOLVED | オーナーの判断 |
-| retention-force | ジャック保持がずれ・割れなく受ける挿抜力 | `10.0` | min | N | PROPOSED（根拠 MIRROR） | 計算 `F`（内訳は下） |
+| cycles | ジャック挿抜の繰返し回数（パネル・ナット・ジャックに割れ・ずれ・緩みがないこと） | `100` | min | cycles | DESIGN | `engineering/a7/qualification/owner-criteria.json` `/criteria/service-envelope/cycles/value` |
+| retention-force | ジャック保持がずれ・割れなく受ける挿抜力 | `10.0` | min | N | MIRROR | 計算 `F`（内訳は下） |
 
 計算の内訳:
 
 - `retention-force`: `F` = `10.0` N（小数 1 桁に丸め）
   - `F` = 10.0（`10.0`、`.claude/skills/component-a7-pj-324m/facts.json` `fact-a7-pj-324m-plug-force`、「5.0-10.0 N inward」）
 
-提案の理由（PROPOSED は採否前で、この手順の基準ゲートを解除しません）:
-
-- `retention-force`: PJ-324M の挿抜力の上限 10.0 N（販売店掲載の写し）。回数はオーナーが決める（cycles）。
-
 ## ゲートの区分
 
 | 区分 | ゲート数 |
 |---|---:|
 | CLOUD_DIGITAL（クラウドで進められるデジタル作業） | 0 |
-| OWNER_DECISION（オーナーの判断） | 15 |
+| OWNER_DECISION（オーナーの判断） | 9 |
 | ACCESS_EVIDENCE_HOLD（外部の証跡・アクセス待ち） | 13 |
 | PHYSICAL_ONLY（実機が必要） | 21 |
 
@@ -1243,14 +1226,12 @@
 
 - fixture completion awaits the physical criterion 5 (fixture-contact)
 - assembly_manifest: supply-observations: Order quantity is 2 modules (owner decision). JLC stock, price, minimum, packaging, lead time and assembly applicability at that quantity are not observed for any line except C221842 (switch-supply); JLC attrition is not sourced; stock never reserved.
-- assembly_manifest: switch-supply: PCM13SMTR (C221842): 2 needed for 2 modules. JLC stock 0 at 2026-11-09; at 2026-11-12 JLC lists it buyable (Extended) with pre-order minimum 3 and presale 0 (field meanings inferred), tier prices without currency, no lead time. The owner wants to complete on JLC: on our reading, a pre-order (presale 0 may mean none can be placed now; fill depends on LCSC stock, not observed) or a Global Sourcing quote; otherwise wait, or accept a reviewed alternate with its own contact table and fit review.
-- assembly_manifest: panel-route: None of the three boards meets JLC single-board PCBA size; the panel route is not chosen. Panel by JLCPCB puts 10 controllers, 8 leaves or 2 adapters on each panel (20 PCM13SMTR for a 2-panel minimum if the PCBA quantity counts panels, not sourced); a repo-built panel holding 1 controller, 2 leaves or 1 adapter gives exactly 2 modules; it is prepared (not released) in engineering/a7/jlc-package/panels/. Comparison in engineering/a7/jlc-package/package.json.
-- assembly_manifest: jack-switch-qualification: PJ-324M pin function (which of terminals 4/5 is the tip contact and which its normal; the supplier symbol contradicts the inferred 4 = tip, so this continuity test must precede any PCB order), slot, axis height and nut fit, and PCM13SMTR truth table and land fit, need received parts (jack-continuity, jack-dimensions, switch-fit).
-- assembly_manifest: exact-part-evidence: Exact-part gaps after the 2026-11-11 source recovery: PMEG4010CEJ ,115 packing variant not established by the datasheet; SM04B-SRSS-TB per-circuit numbering not printed beyond the No. 1 end; PJ-324M recommended hole/slot sizes, axis height and whether a nut ships with C22355739 not sourced.
-- assembly_manifest: finished-cables: Finished A7 power cable (57 mm, +/-3 ASSUMED), SH4 cables and IDC ribbon not selected; supplier answers and the owner choice of assembly are needed before physical routing checks.
+- assembly_manifest: switch-supply: PCM13SMTR (C221842): 2 needed for 2 modules. JLC stock 0 at 2026-11-09; at 2026-11-12 JLC lists it buyable (Extended) with pre-order minimum 3 and presale 0 (field meanings inferred), tier prices without currency, no lead time. The owner wants to complete on JLC: on our reading, a pre-order (presale 0 may mean none can be placed now; fill depends on LCSC stock, not observed) or a Global Sourcing quote; otherwise wait, or accept a reviewed alternate with its own contact table and fit review. At 2026-11-12T18:55Z the owner relayed a live check by their browsing assistant (not a first-hand capture): JLC stock 0, Extended, pre-order offered at minimum 3 with an estimated 31 days; Global Sourcing for 3 via DigiKey JPY 826 total (8-15 business days) or Element JPY 865 (8-18); parts stay in the JLC parts library. The owner accepted JLC sourcing with all recommendations, then asked to consider another switch because of the price, so this stays open until the owner picks.
+- assembly_manifest: jack-switch-qualification: PJ-324M pin function (which of terminals 4/5 is the tip contact; the supplier symbol contradicts the inferred 4 = tip) is not confirmed: the owner waived the pre-order continuity test on 2026-11-12 and accepted the risk, so it is a first-article check on the assembled boards. Slot, axis height and nut fit, and PCM13SMTR truth table and land fit, also need received parts (jack-continuity, jack-dimensions, switch-fit).
+- assembly_manifest: exact-part-evidence: Exact-part gaps after the 2026-11-11 source recovery (the PMEG4010CEJ ,115 packing is since sourced: SOD323F on a 7-inch reel, fact-pmeg4010cej-115-orderable): SM04B-SRSS-TB per-circuit numbering not printed beyond the No. 1 end; PJ-324M recommended hole/slot sizes, axis height and whether a nut ships with C22355739 not sourced.
 - assembly_manifest: mechanical-materials: PMMA sheet and pocket tolerances, PETG process and orderable fastener part numbers are not sourced; the model carries designations (M2x18, M1.6x4) and envelopes only.
-- assembly_manifest: rack-hardware: Owner rack rail/thread interface and fasteners not specified.
-- assembly_manifest: fixture-materials: Fixture digital criteria 1-4 met and a sourced hardware proposal recorded; the fabricator choice and approval of the proposed hardware are owner decisions. Physical contact/load tests (criterion 5) follow.
+- assembly_manifest: rack-hardware: The owner accepted naming the case (2026-11-12, accept all recommendations); the case model, and so the rail/thread interface and fasteners, is not given yet.
+- assembly_manifest: fixture-materials: Fixture digital criteria 1-4 met; the owner approved the proposed hardware on 2026-11-12 (accept all recommendations). The fabricator for the four FR-4 plates is not chosen. Physical contact/load tests (criterion 5) follow.
 - assembly_manifest: prototype-and-release: No reviewed manufacturing package and no manufacturing release approval. A prototype route, when the owner approves one, is recorded in engineering/a7/qualification/records.json and is not a release.
 - jack-continuity: NOT_MEASURED: no run
 - jack-dimensions: criterion unresolved or review receipt missing
@@ -1259,8 +1240,6 @@
 - switch-fit: criterion unresolved or review receipt missing
 - switch-fit: criterion has PROPOSED or UNRESOLVED acceptance values: fit-and-contact
 - switch-fit: NOT_MEASURED: no run
-- harness-depth: criterion unresolved or review receipt missing
-- harness-depth: criterion has PROPOSED or UNRESOLVED acceptance values: bend-radius, power-band-order
 - harness-depth: NOT_MEASURED: no run
 - pmma-supports: criterion unresolved or review receipt missing
 - pmma-supports: criterion has PROPOSED or UNRESOLVED acceptance values: torque-retention
@@ -1277,22 +1256,16 @@
 - rail-collapse: NOT_MEASURED: no run
 - partial-rails: criterion unresolved or review receipt missing
 - partial-rails: NOT_MEASURED: no run
-- u7-stress: criterion unresolved or review receipt missing
-- u7-stress: criterion has PROPOSED or UNRESOLVED acceptance values: in-current-bound
 - u7-stress: NOT_MEASURED: no run
-- ldo-reverse: criterion unresolved or review receipt missing
-- ldo-reverse: criterion has PROPOSED or UNRESOLVED acceptance values: reverse
 - ldo-reverse: NOT_MEASURED: no run
 - load-short: NOT_MEASURED: no run
 - effective-capacitance: criterion unresolved or review receipt missing
 - effective-capacitance: criterion has PROPOSED or UNRESOLVED acceptance values: buck-in
 - effective-capacitance: NOT_MEASURED: no run
 - thermal-optical: criterion unresolved or review receipt missing
-- thermal-optical: criterion has PROPOSED or UNRESOLVED acceptance values: part-temp-max, materials-appearance
+- thermal-optical: criterion has PROPOSED or UNRESOLVED acceptance values: materials-appearance
 - thermal-optical: NOT_MEASURED: no run
 - cv-noise: NOT_MEASURED: no run
-- service-envelope: criterion unresolved or review receipt missing
-- service-envelope: criterion has PROPOSED or UNRESOLVED acceptance values: cycles, retention-force
 - service-envelope: NOT_MEASURED: no run
 - material assembly_service: missing or ambiguous dated observation
 - material finished_cables: missing or ambiguous dated observation
