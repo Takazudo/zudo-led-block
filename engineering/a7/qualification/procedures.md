@@ -1188,7 +1188,7 @@
 | 区分 | ゲート数 |
 |---|---:|
 | CLOUD_DIGITAL（クラウドで進められるデジタル作業） | 2 |
-| OWNER_DECISION（オーナーの判断） | 12 |
+| OWNER_DECISION（オーナーの判断） | 11 |
 | ACCESS_EVIDENCE_HOLD（外部の証跡・アクセス待ち） | 16 |
 | PHYSICAL_ONLY（実機が必要） | 20 |
 
@@ -1196,9 +1196,8 @@
 
 - fixture: unresolved preparation blockers
 - fixture digital design incomplete or unverified
-- assembly_manifest: supply-observations: Current stock, price, MOQ, packaging, lead time and assembly applicability not obtained for any line except the dated C221842 zero-stock observation; stock never reserved.
-- assembly_manifest: order-quantity: No agreed order quantity; 1/10/100 are comparison scenarios only, so no supply observation can be judged available for a proposed order.
-- assembly_manifest: switch-supply: PCM13SMTR (C221842) had JLC stock 0 / presale 0 at 2026-11-09; wait, buy elsewhere, or accept a reviewed alternate with its own contact table and fit review.
+- assembly_manifest: supply-observations: Order quantity is 2 modules (owner decision). JLC stock, price, minimum, packaging, lead time and assembly applicability at that quantity are not observed for any line except C221842 (switch-supply); JLC attrition is not sourced; stock never reserved.
+- assembly_manifest: switch-supply: PCM13SMTR (C221842): 2 needed for 2 modules. JLC stock 0 at 2026-11-09; at 2026-11-12 JLC lists it buyable (Extended) with pre-order minimum 3 and presale 0, no lead time. Owner prefers JLC: pre-order (fill depends on LCSC stock, not observed) or a Global Sourcing quote; otherwise wait, or accept a reviewed alternate with its own contact table and fit review.
 - assembly_manifest: jack-switch-qualification: PJ-324M pin function (which of terminals 4/5 is the tip contact and which its normal; the supplier symbol contradicts the inferred 4 = tip, so this continuity test must precede any PCB order), slot, axis height and nut fit, and PCM13SMTR truth table and land fit, need received parts (jack-continuity, jack-dimensions, switch-fit).
 - assembly_manifest: exact-part-evidence: Exact-part gaps after the 2026-11-11 source recovery: PMEG4010CEJ ,115 packing variant not established by the datasheet; SM04B-SRSS-TB per-circuit numbering not printed beyond the No. 1 end; PJ-324M recommended hole/slot sizes, axis height and whether a nut ships with C22355739 not sourced.
 - assembly_manifest: finished-cables: Finished A7 power cable (57 mm, +/-3 ASSUMED), SH4 cables and IDC ribbon not selected; supplier answers and the owner choice of assembly are needed before physical routing checks.

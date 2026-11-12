@@ -525,6 +525,8 @@ def state_closers_from_artifact(plan, artifact):
 # Owner-decision recommendations may also cite the procurement, fixture and continuation records they summarize.
 DECISION_ROOTS = SOURCE_ROOTS + ('engineering/a7/procurement/', 'engineering/a7/fixture/', 'engineering/a7/docs/continuation/',
                                  'engineering/a7/qualification/supplier-questions.md')
+# Owner answers are recorded here, in the owner's own words; a decision marked answered must match its record.
+OWNER_ANSWERS = 'engineering/a7/procurement/owner-decisions.json'
 STAGES = {'PCB_ORDER': 'PCB 発注の前', 'BENCH': '実機試験の前', 'RELEASE': '製造リリースのとき'}
 ROUTES = {'OWNER_DOWNLOAD': 'オーナーがブラウザで保存', 'CLOUD_FETCH': 'クラウドで取得（オーナー作業なし）',
           'SUPPLIER_ANSWER': '供給元・加工先の回答', 'DATED_OBSERVATION': '日付付きの供給観測', 'MEASUREMENT': '実物の測定'}
@@ -539,16 +541,20 @@ def owner_page_errors(plan, root=ROOT):
     keys = gate_keys(plan, root)
     for name, items in (('owner decision', decisions), ('evidence request', requests)):
         gates = [x.get('gate') if isinstance(x, dict) and isinstance(x.get('gate'), str) else None for x in items]
-        if len(gates) != len(set(gates)) or any(g not in keys for g in gates):
+        answered = [isinstance(x, dict) and 'answer' in x for x in items]
+        if len(gates) != len(set(gates)) or any(g not in keys and not a for g, a in zip(gates, answered)):
             errors.append(name + 's need unique, known gates')
     if [d.get('rank') for d in decisions if isinstance(d, dict)] != list(range(1, len(decisions) + 1)):
         errors.append('owner decisions must be ranked 1..n in list order')
+    fields = {'gate', 'rank', 'stage', 'question', 'options', 'recommended', 'reason', 'sources'}
     for d in decisions:
-        if (not isinstance(d, dict) or set(d) != {'gate', 'rank', 'stage', 'question', 'options', 'recommended', 'reason', 'sources'}
+        if (not isinstance(d, dict) or set(d) - {'answer'} != fields
                 or not isinstance(d['gate'], str) or not isinstance(d['recommended'], str)):
-            errors.append('owner decision needs exactly gate, rank, stage, question, options, recommended, reason, sources')
+            errors.append('owner decision needs exactly gate, rank, stage, question, options, recommended, reason, sources (and an optional answer)')
             continue
         where = d['gate'] + ': '
+        if 'answer' in d:
+            errors += [where + e for e in answer_errors(d, keys, root)]
         if d['stage'] not in STAGES or not text_fields(d, ['question', 'reason']):
             errors.append(where + 'stage, question and reason are required')
         options = d['options']
@@ -581,6 +587,30 @@ def owner_page_errors(plan, root=ROOT):
             errors.append(where + 'each item needs what, value_needed, access and https url / fallback_url (or null)')
         elif 'OWNER_DOWNLOAD' in r['routes'] and not all(i['url'] for i in items):
             errors.append(where + 'an owner download names its URL')
+    return errors
+
+
+def answer_errors(d, keys, root):
+    """An answered decision names the owner's option, cites the owner's own recorded words, and its gate is closed."""
+    a = d['answer']
+    if not isinstance(a, dict) or set(a) != {'option', 'by', 'record'} or a['by'] != 'OWNER' or not isinstance(a['option'], str):
+        return ['an answer needs exactly option, by (OWNER) and record']
+    errors = []
+    if not isinstance(d['options'], list) or a['option'] not in {o.get('id') for o in d['options'] if isinstance(o, dict)}:
+        errors.append('the answer must be one of the options')
+    record = a['record']
+    if not isinstance(record, dict) or record.get('path') != OWNER_ANSWERS:
+        return errors + ['an answer is recorded in ' + OWNER_ANSWERS]
+    try:
+        resolve(record, root, DECISION_ROOTS)
+    except (ValueError, OSError) as e:
+        return errors + [str(e)]
+    entries = [x for x in json.loads((root / OWNER_ANSWERS).read_text()).get('decisions', [])
+               if isinstance(x, dict) and 'assembly:' + str(x.get('id')) == d['gate']]
+    if len(entries) != 1 or entries[0].get('decided_by') != 'OWNER' or entries[0].get('answer') != a['option'] or not entries[0].get('owner_words'):
+        errors.append('the answer must match one owner-decided entry with the owner\'s words in ' + OWNER_ANSWERS)
+    if d['gate'] in keys:
+        errors.append('an answered decision\'s gate is still open')
     return errors
 
 
@@ -989,7 +1019,15 @@ def owner_page_lines(plan, report):
         for o in d['options']:
             lines.append('- '+('**'+mdx(o['label'])+'（推奨）**' if o['id'] == d['recommended'] else mdx(o['label']))+': '+mdx(o['consequence']))
         lines += ['- 推奨の理由: '+mdx(d['reason']), '- 出典: '+'、'.join(trace_text(t)+('「'+mdx(t['quote'])+'」' if 'quote' in t else '') for t in d['sources']), '']
-    waiting = [d['gate'] for d in plan['owner_decisions'] if classes.get(d['gate']) not in (None, 'OWNER_DECISION')]
+    answered = [d for d in plan['owner_decisions'] if 'answer' in d]
+    if answered:
+        lines += ['## 回答済みの判断（'+str(len(answered))+' 件）', '', 'オーナーが自分の言葉で答えたもの。記録ファイルに原文があり、ゲートは閉じています。', '']
+        for d in answered:
+            words = json.loads((ROOT / OWNER_ANSWERS).read_text())
+            entry = next(x for x in words['decisions'] if 'assembly:' + x['id'] == d['gate'])
+            label = next(o['label'] for o in d['options'] if o['id'] == d['answer']['option'])
+            lines += ['- **'+mdx(d['question'])+'** → '+mdx(label)+'（オーナーの回答、`'+d['gate']+'`）。原文「'+mdx(' '.join(entry['owner_words']))+'」、記録 `'+OWNER_ANSWERS+'`', '']
+    waiting = [d['gate'] for d in plan['owner_decisions'] if 'answer' not in d and classes.get(d['gate']) not in (None, 'OWNER_DECISION')]
     if waiting:
         lines += ['次の判断（ゲートがまだ別の区分にあるもの。区分が変わるとここに並びます）: '+'、'.join('`'+g+'`' for g in waiting), '']
     if gaps['OWNER_DECISION']:
@@ -998,7 +1036,7 @@ def owner_page_lines(plan, report):
     downloads = {i['url'] for r in live if 'OWNER_DOWNLOAD' in r['routes'] for i in r['items']}
     lines += ['## 資料・回答待ちのゲート（'+str(len(live))+' 件）', '',
               'ブラウザで保存してほしい資料は '+str(len(downloads))+' 件です。保存したファイルをそのまま渡してもらえれば、こちらで出典として記録します。'
-              'それ以外は、クラウドで取得できるもの、供給元の回答、数量を決めた後の供給観測、実物の測定です。', '',
+              'それ以外は、クラウドで取得できるもの、供給元の回答、2 台分の日付付き供給観測、実物の測定です。', '',
               '| ゲート | 入手の方法 | 何を | 必要な値 | URL | 代替 URL | 補足 |', '|---|---|---|---|---|---|---|']
     for r in live:
         for i in r['items']:

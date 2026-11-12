@@ -4,12 +4,498 @@
   "status": "ENGINEERING_PREPARATION_NOT_SUPPLIER_UPLOAD",
   "manufacturing_released": false,
   "order_submitted": false,
-  "agreed_order_quantity": null,
-  "quantity_scenarios_only": [
-    1,
-    10,
-    100
-  ],
+  "agreed_order_quantity": 2,
+  "order_plan": {
+    "modules": 2,
+    "decision": "engineering/a7/procurement/owner-decisions.json",
+    "decided_by": "OWNER",
+    "owner_words": [
+      "JLCPCB accept at least 2 PCBA, so we",
+      "will make 2 units first"
+    ],
+    "pcba_minimum_boards": {
+      "value": 2,
+      "status": "OWNER_REPORTED",
+      "check": "Not confirmed against JLCPCB's published terms on 2026-11-12: the help page fetched from the cloud did not render its content."
+    },
+    "boards": [
+      {
+        "board": "controller",
+        "boards_needed": 2,
+        "meets_reported_pcba_minimum": true
+      },
+      {
+        "board": "led_leaf",
+        "boards_needed": 4,
+        "meets_reported_pcba_minimum": true
+      },
+      {
+        "board": "power_adapter",
+        "boards_needed": 2,
+        "meets_reported_pcba_minimum": true
+      }
+    ],
+    "pcb_fabrication_minimum": "NOT_SOURCED",
+    "attrition": "NOT_SOURCED: JLC extra-piece (attrition) rule not obtained; pieces_required and pieces_to_buy add none",
+    "sourcing_preference": [
+      "JLC_STOCK",
+      "JLC_PREORDER_OR_GLOBAL_SOURCING",
+      "EXCEPTION"
+    ],
+    "lines": [
+      {
+        "lcsc": "C122442",
+        "mpn": "530470310",
+        "manufacturer": "MOLEX",
+        "pieces_per_module": 2,
+        "pieces_required": 4,
+        "supplier_minimum": null,
+        "minimum_source": null,
+        "pieces_to_buy": null,
+        "sourcing": {
+          "route": "JLC_STOCK",
+          "status": "NOT_OBSERVED: preferred route; JLC stock and minimum at the order quantity not observed",
+          "exception": null
+        }
+      },
+      {
+        "lcsc": "C12891",
+        "mpn": "CL31A226KAHNNNE",
+        "manufacturer": "Samsung Electro-Mechanics",
+        "pieces_per_module": 2,
+        "pieces_required": 4,
+        "supplier_minimum": null,
+        "minimum_source": null,
+        "pieces_to_buy": null,
+        "sourcing": {
+          "route": "JLC_STOCK",
+          "status": "NOT_OBSERVED: preferred route; JLC stock and minimum at the order quantity not observed",
+          "exception": null
+        }
+      },
+      {
+        "lcsc": "C134375",
+        "mpn": "BAS70-04-7-F",
+        "manufacturer": "Diodes Incorporated",
+        "pieces_per_module": 1,
+        "pieces_required": 2,
+        "supplier_minimum": null,
+        "minimum_source": null,
+        "pieces_to_buy": null,
+        "sourcing": {
+          "route": "JLC_STOCK",
+          "status": "NOT_OBSERVED: preferred route; JLC stock and minimum at the order quantity not observed",
+          "exception": null
+        }
+      },
+      {
+        "lcsc": "C140331",
+        "mpn": "TPS2552DBVR-1",
+        "manufacturer": "Texas Instruments",
+        "pieces_per_module": 1,
+        "pieces_required": 2,
+        "supplier_minimum": null,
+        "minimum_source": null,
+        "pieces_to_buy": null,
+        "sourcing": {
+          "route": "JLC_STOCK",
+          "status": "NOT_OBSERVED: preferred route; JLC stock and minimum at the order quantity not observed",
+          "exception": null
+        }
+      },
+      {
+        "lcsc": "C14663",
+        "mpn": "CC0603KRX7R9BB104",
+        "manufacturer": "YAGEO",
+        "pieces_per_module": 16,
+        "pieces_required": 32,
+        "supplier_minimum": null,
+        "minimum_source": null,
+        "pieces_to_buy": null,
+        "sourcing": {
+          "route": "JLC_STOCK",
+          "status": "NOT_OBSERVED: preferred route; JLC stock and minimum at the order quantity not observed",
+          "exception": null
+        }
+      },
+      {
+        "lcsc": "C15741",
+        "mpn": "SN74LVC2T45DCUR",
+        "manufacturer": "Texas Instruments",
+        "pieces_per_module": 1,
+        "pieces_required": 2,
+        "supplier_minimum": null,
+        "minimum_source": null,
+        "pieces_to_buy": null,
+        "sourcing": {
+          "route": "JLC_STOCK",
+          "status": "NOT_OBSERVED: preferred route; JLC stock and minimum at the order quantity not observed",
+          "exception": null
+        }
+      },
+      {
+        "lcsc": "C15850",
+        "mpn": "CL21A106KAYNNNE",
+        "manufacturer": "Samsung Electro-Mechanics",
+        "pieces_per_module": 3,
+        "pieces_required": 6,
+        "supplier_minimum": null,
+        "minimum_source": null,
+        "pieces_to_buy": null,
+        "sourcing": {
+          "route": "JLC_STOCK",
+          "status": "NOT_OBSERVED: preferred route; JLC stock and minimum at the order quantity not observed",
+          "exception": null
+        }
+      },
+      {
+        "lcsc": "C160404",
+        "mpn": "SM04B-SRSS-TB(LF)(SN)",
+        "manufacturer": "JST",
+        "pieces_per_module": 5,
+        "pieces_required": 10,
+        "supplier_minimum": null,
+        "minimum_source": null,
+        "pieces_to_buy": null,
+        "sourcing": {
+          "route": "JLC_STOCK",
+          "status": "NOT_OBSERVED: preferred route; JLC stock and minimum at the order quantity not observed",
+          "exception": null
+        }
+      },
+      {
+        "lcsc": "C19666",
+        "mpn": "CL10A475KO8NNNC",
+        "manufacturer": "Samsung Electro-Mechanics",
+        "pieces_per_module": 3,
+        "pieces_required": 6,
+        "supplier_minimum": null,
+        "minimum_source": null,
+        "pieces_to_buy": null,
+        "sourcing": {
+          "route": "JLC_STOCK",
+          "status": "NOT_OBSERVED: preferred route; JLC stock and minimum at the order quantity not observed",
+          "exception": null
+        }
+      },
+      {
+        "lcsc": "C20526",
+        "mpn": "MMBT3904(RANGE:100-300)",
+        "manufacturer": "Jiangsu Changjing Electronics Technology Co., Ltd.",
+        "pieces_per_module": 1,
+        "pieces_required": 2,
+        "supplier_minimum": null,
+        "minimum_source": null,
+        "pieces_to_buy": null,
+        "sourcing": {
+          "route": "JLC_STOCK",
+          "status": "NOT_OBSERVED: preferred route; JLC stock and minimum at the order quantity not observed",
+          "exception": null
+        }
+      },
+      {
+        "lcsc": "C2071056",
+        "mpn": "AP63205WU-7",
+        "manufacturer": "Diodes Incorporated",
+        "pieces_per_module": 1,
+        "pieces_required": 2,
+        "supplier_minimum": null,
+        "minimum_source": null,
+        "pieces_to_buy": null,
+        "sourcing": {
+          "route": "JLC_STOCK",
+          "status": "NOT_OBSERVED: preferred route; JLC stock and minimum at the order quantity not observed",
+          "exception": null
+        }
+      },
+      {
+        "lcsc": "C21190",
+        "mpn": "0603WAF1001T5E",
+        "manufacturer": "UNI-ROYAL(Uniroyal Elec)",
+        "pieces_per_module": 3,
+        "pieces_required": 6,
+        "supplier_minimum": null,
+        "minimum_source": null,
+        "pieces_to_buy": null,
+        "sourcing": {
+          "route": "JLC_STOCK",
+          "status": "NOT_OBSERVED: preferred route; JLC stock and minimum at the order quantity not observed",
+          "exception": null
+        }
+      },
+      {
+        "lcsc": "C221351",
+        "mpn": "OPA197IDBVR",
+        "manufacturer": "Texas Instruments",
+        "pieces_per_module": 1,
+        "pieces_required": 2,
+        "supplier_minimum": null,
+        "minimum_source": null,
+        "pieces_to_buy": null,
+        "sourcing": {
+          "route": "JLC_STOCK",
+          "status": "NOT_OBSERVED: preferred route; JLC stock and minimum at the order quantity not observed",
+          "exception": null
+        }
+      },
+      {
+        "lcsc": "C221842",
+        "mpn": "PCM13SMTR",
+        "manufacturer": "C&K",
+        "pieces_per_module": 1,
+        "pieces_required": 2,
+        "supplier_minimum": 3,
+        "minimum_source": "engineering/a7/procurement/supply-observations.json#jlc-c221842-2026-11-12",
+        "pieces_to_buy": 3,
+        "sourcing": {
+          "route": "JLC_PREORDER_OR_GLOBAL_SOURCING",
+          "status": "JLC stock 0 at 2026-11-09; buyable Extended part with presale 0 at 2026-11-12, so not JLC stock. Pre-order fill depends on LCSC stock (not observed); Global Sourcing is quote-based.",
+          "exception": null
+        }
+      },
+      {
+        "lcsc": "C22355739",
+        "mpn": "PJ-324M",
+        "manufacturer": "SOFNG",
+        "pieces_per_module": 2,
+        "pieces_required": 4,
+        "supplier_minimum": null,
+        "minimum_source": null,
+        "pieces_to_buy": null,
+        "sourcing": {
+          "route": "JLC_STOCK",
+          "status": "NOT_OBSERVED: preferred route; JLC stock and minimum at the order quantity not observed",
+          "exception": null
+        }
+      },
+      {
+        "lcsc": "C23138",
+        "mpn": "0603WAF3300T5E",
+        "manufacturer": "UNI-ROYAL(Uniroyal Elec)",
+        "pieces_per_module": 3,
+        "pieces_required": 6,
+        "supplier_minimum": null,
+        "minimum_source": null,
+        "pieces_to_buy": null,
+        "sourcing": {
+          "route": "JLC_STOCK",
+          "status": "NOT_OBSERVED: preferred route; JLC stock and minimum at the order quantity not observed",
+          "exception": null
+        }
+      },
+      {
+        "lcsc": "C23162",
+        "mpn": "0603WAF4701T5E",
+        "manufacturer": "UNI-ROYAL(Uniroyal Elec)",
+        "pieces_per_module": 1,
+        "pieces_required": 2,
+        "supplier_minimum": null,
+        "minimum_source": null,
+        "pieces_to_buy": null,
+        "sourcing": {
+          "route": "JLC_STOCK",
+          "status": "NOT_OBSERVED: preferred route; JLC stock and minimum at the order quantity not observed",
+          "exception": null
+        }
+      },
+      {
+        "lcsc": "C23231",
+        "mpn": "0603WAF6802T5E",
+        "manufacturer": "UNI-ROYAL(Uniroyal Elec)",
+        "pieces_per_module": 1,
+        "pieces_required": 2,
+        "supplier_minimum": null,
+        "minimum_source": null,
+        "pieces_to_buy": null,
+        "sourcing": {
+          "route": "JLC_STOCK",
+          "status": "NOT_OBSERVED: preferred route; JLC stock and minimum at the order quantity not observed",
+          "exception": null
+        }
+      },
+      {
+        "lcsc": "C23254",
+        "mpn": "0603WAF8202T5E",
+        "manufacturer": "UNI-ROYAL(Uniroyal Elec)",
+        "pieces_per_module": 4,
+        "pieces_required": 8,
+        "supplier_minimum": null,
+        "minimum_source": null,
+        "pieces_to_buy": null,
+        "sourcing": {
+          "route": "JLC_STOCK",
+          "status": "NOT_OBSERVED: preferred route; JLC stock and minimum at the order quantity not observed",
+          "exception": null
+        }
+      },
+      {
+        "lcsc": "C25803",
+        "mpn": "0603WAF1003T5E",
+        "manufacturer": "UNI-ROYAL(Uniroyal Elec)",
+        "pieces_per_module": 6,
+        "pieces_required": 12,
+        "supplier_minimum": null,
+        "minimum_source": null,
+        "pieces_to_buy": null,
+        "sourcing": {
+          "route": "JLC_STOCK",
+          "status": "NOT_OBSERVED: preferred route; JLC stock and minimum at the order quantity not observed",
+          "exception": null
+        }
+      },
+      {
+        "lcsc": "C25804",
+        "mpn": "0603WAF1002T5E",
+        "manufacturer": "UNI-ROYAL(Uniroyal Elec)",
+        "pieces_per_module": 5,
+        "pieces_required": 10,
+        "supplier_minimum": null,
+        "minimum_source": null,
+        "pieces_to_buy": null,
+        "sourcing": {
+          "route": "JLC_STOCK",
+          "status": "NOT_OBSERVED: preferred route; JLC stock and minimum at the order quantity not observed",
+          "exception": null
+        }
+      },
+      {
+        "lcsc": "C398363",
+        "mpn": "TLV9001IDBVR",
+        "manufacturer": "Texas Instruments",
+        "pieces_per_module": 1,
+        "pieces_required": 2,
+        "supplier_minimum": null,
+        "minimum_source": null,
+        "pieces_to_buy": null,
+        "sourcing": {
+          "route": "JLC_STOCK",
+          "status": "NOT_OBSERVED: preferred route; JLC stock and minimum at the order quantity not observed",
+          "exception": null
+        }
+      },
+      {
+        "lcsc": "C404027",
+        "mpn": "TLV75533PDBVR",
+        "manufacturer": "Texas Instruments",
+        "pieces_per_module": 1,
+        "pieces_required": 2,
+        "supplier_minimum": null,
+        "minimum_source": null,
+        "pieces_to_buy": null,
+        "sourcing": {
+          "route": "JLC_STOCK",
+          "status": "NOT_OBSERVED: preferred route; JLC stock and minimum at the order quantity not observed",
+          "exception": null
+        }
+      },
+      {
+        "lcsc": "C50704",
+        "mpn": "PMEG4010CEJ,115",
+        "manufacturer": "Nexperia",
+        "pieces_per_module": 2,
+        "pieces_required": 4,
+        "supplier_minimum": null,
+        "minimum_source": null,
+        "pieces_to_buy": null,
+        "sourcing": {
+          "route": "JLC_STOCK",
+          "status": "NOT_OBSERVED: preferred route; JLC stock and minimum at the order quantity not observed",
+          "exception": null
+        }
+      },
+      {
+        "lcsc": "C5270180",
+        "mpn": "STM32G031G8U6TR",
+        "manufacturer": "STMicroelectronics",
+        "pieces_per_module": 1,
+        "pieces_required": 2,
+        "supplier_minimum": null,
+        "minimum_source": null,
+        "pieces_to_buy": null,
+        "sourcing": {
+          "route": "JLC_STOCK",
+          "status": "NOT_OBSERVED: preferred route; JLC stock and minimum at the order quantity not observed",
+          "exception": null
+        }
+      },
+      {
+        "lcsc": "C52917434",
+        "mpn": "WS2812B-2020-V6",
+        "manufacturer": "Worldsemi",
+        "pieces_per_module": 8,
+        "pieces_required": 16,
+        "supplier_minimum": null,
+        "minimum_source": null,
+        "pieces_to_buy": null,
+        "sourcing": {
+          "route": "JLC_STOCK",
+          "status": "NOT_OBSERVED: preferred route; JLC stock and minimum at the order quantity not observed",
+          "exception": null
+        }
+      },
+      {
+        "lcsc": "C5665",
+        "mpn": "2.54-2*5P",
+        "manufacturer": "BOOMELE(Boom Precision Elec)",
+        "pieces_per_module": 1,
+        "pieces_required": 2,
+        "supplier_minimum": null,
+        "minimum_source": null,
+        "pieces_to_buy": null,
+        "sourcing": {
+          "route": "JLC_STOCK",
+          "status": "NOT_OBSERVED: preferred route; JLC stock and minimum at the order quantity not observed",
+          "exception": null
+        }
+      },
+      {
+        "lcsc": "C57112",
+        "mpn": "0603B103K500NT",
+        "manufacturer": "FH (Guangdong Fenghua Advanced Tech)",
+        "pieces_per_module": 1,
+        "pieces_required": 2,
+        "supplier_minimum": null,
+        "minimum_source": null,
+        "pieces_to_buy": null,
+        "sourcing": {
+          "route": "JLC_STOCK",
+          "status": "NOT_OBSERVED: preferred route; JLC stock and minimum at the order quantity not observed",
+          "exception": null
+        }
+      },
+      {
+        "lcsc": "C694586",
+        "mpn": "SPM4020T-4R7M-LR",
+        "manufacturer": "TDK",
+        "pieces_per_module": 1,
+        "pieces_required": 2,
+        "supplier_minimum": null,
+        "minimum_source": null,
+        "pieces_to_buy": null,
+        "sourcing": {
+          "route": "JLC_STOCK",
+          "status": "NOT_OBSERVED: preferred route; JLC stock and minimum at the order quantity not observed",
+          "exception": null
+        }
+      },
+      {
+        "lcsc": "C7250",
+        "mpn": "0603WAF1005T5E",
+        "manufacturer": "UNI-ROYAL(Uniroyal Elec)",
+        "pieces_per_module": 2,
+        "pieces_required": 4,
+        "supplier_minimum": null,
+        "minimum_source": null,
+        "pieces_to_buy": null,
+        "sourcing": {
+          "route": "JLC_STOCK",
+          "status": "NOT_OBSERVED: preferred route; JLC stock and minimum at the order quantity not observed",
+          "exception": null
+        }
+      }
+    ],
+    "outside_pcba": "External materials, cables, mechanical parts and fixture items are outside the JLC parts library and not yet routed under the preference."
+  },
   "inputs_sha256": {
     ".claude/skills/component-a7-pcm13smtr/sources.json": "1e28c4823249057637c140a0645be87688cb89ce64ba54c2ed809aec04d3e7c0",
     ".claude/skills/component-spec-audit/references/inventory.json": "320ebb27d0ff794ab6c6861f57f21385db85f50e3cc8736b6fda49af16d5d98e",
@@ -29,6 +515,8 @@
     "engineering/a7/mechanical/build_a7_mechanical.py": "98f47662650732d7d8215e0f86cff404521351ca43a795bd8811fc4f452d3daa",
     "engineering/a7/mechanical/exports/3hp/verification.json": "90d7b8c54ebb59cdc2e2ad2b66d1ba9f183759a6104865d93cc57cdfb1902c26",
     "engineering/a7/mechanical/layout.json": "9cbc6ac99f5b05c7e3145f2016b6918cbc5d2b77170db31ed7155755cba0d591",
+    "engineering/a7/procurement/owner-decisions.json": "86551c02bba09cf6d69798e77b8c7f1647470f8a1c71ace16702211057f8b73f",
+    "engineering/a7/procurement/supply-observations.json": "96c05659913f6f2b48a8f1d6f55d23c10f99b29a5fbced2e78d82552a71ac543",
     "engineering/a7/verification/schematic/netlist.xml": "a944cec8877d272637a85afae9f980d4d5e54888453f0f9652a2dd41e575b7cc"
   },
   "boards": [
@@ -107,6 +595,7 @@
         "source": "engineering/a7/electronics/controller/board_placement.json",
         "authority": "native export; independent fresh gate required"
       },
+      "quantity_for_order": 2,
       "commercial_observation": null,
       "supply_status": "NOT_OBTAINED: current stock, price, lead time, MOQ, packaging and assembly applicability require dated exact-part evidence"
     },
@@ -135,6 +624,7 @@
         "source": "engineering/a7/electronics/controller/board_placement.json",
         "authority": "native export; independent fresh gate required"
       },
+      "quantity_for_order": 2,
       "commercial_observation": null,
       "supply_status": "NOT_OBTAINED: current stock, price, lead time, MOQ, packaging and assembly applicability require dated exact-part evidence"
     },
@@ -163,6 +653,7 @@
         "source": "engineering/a7/electronics/controller/board_placement.json",
         "authority": "native export; independent fresh gate required"
       },
+      "quantity_for_order": 2,
       "commercial_observation": null,
       "supply_status": "NOT_OBTAINED: current stock, price, lead time, MOQ, packaging and assembly applicability require dated exact-part evidence"
     },
@@ -191,6 +682,7 @@
         "source": "engineering/a7/electronics/controller/board_placement.json",
         "authority": "native export; independent fresh gate required"
       },
+      "quantity_for_order": 2,
       "commercial_observation": null,
       "supply_status": "NOT_OBTAINED: current stock, price, lead time, MOQ, packaging and assembly applicability require dated exact-part evidence"
     },
@@ -219,6 +711,7 @@
         "source": "engineering/a7/electronics/controller/board_placement.json",
         "authority": "native export; independent fresh gate required"
       },
+      "quantity_for_order": 2,
       "commercial_observation": null,
       "supply_status": "NOT_OBTAINED: current stock, price, lead time, MOQ, packaging and assembly applicability require dated exact-part evidence"
     },
@@ -247,6 +740,7 @@
         "source": "engineering/a7/electronics/controller/board_placement.json",
         "authority": "native export; independent fresh gate required"
       },
+      "quantity_for_order": 2,
       "commercial_observation": null,
       "supply_status": "NOT_OBTAINED: current stock, price, lead time, MOQ, packaging and assembly applicability require dated exact-part evidence"
     },
@@ -275,6 +769,7 @@
         "source": "engineering/a7/electronics/controller/board_placement.json",
         "authority": "native export; independent fresh gate required"
       },
+      "quantity_for_order": 2,
       "commercial_observation": null,
       "supply_status": "NOT_OBTAINED: current stock, price, lead time, MOQ, packaging and assembly applicability require dated exact-part evidence"
     },
@@ -303,6 +798,7 @@
         "source": "engineering/a7/electronics/controller/board_placement.json",
         "authority": "native export; independent fresh gate required"
       },
+      "quantity_for_order": 2,
       "commercial_observation": null,
       "supply_status": "NOT_OBTAINED: current stock, price, lead time, MOQ, packaging and assembly applicability require dated exact-part evidence"
     },
@@ -331,6 +827,7 @@
         "source": "engineering/a7/electronics/controller/board_placement.json",
         "authority": "native export; independent fresh gate required"
       },
+      "quantity_for_order": 2,
       "commercial_observation": null,
       "supply_status": "NOT_OBTAINED: current stock, price, lead time, MOQ, packaging and assembly applicability require dated exact-part evidence"
     },
@@ -359,6 +856,7 @@
         "source": "engineering/a7/electronics/controller/board_placement.json",
         "authority": "native export; independent fresh gate required"
       },
+      "quantity_for_order": 2,
       "commercial_observation": null,
       "supply_status": "NOT_OBTAINED: current stock, price, lead time, MOQ, packaging and assembly applicability require dated exact-part evidence"
     },
@@ -387,6 +885,7 @@
         "source": "engineering/a7/electronics/controller/board_placement.json",
         "authority": "native export; independent fresh gate required"
       },
+      "quantity_for_order": 2,
       "commercial_observation": null,
       "supply_status": "NOT_OBTAINED: current stock, price, lead time, MOQ, packaging and assembly applicability require dated exact-part evidence"
     },
@@ -415,6 +914,7 @@
         "source": "engineering/a7/electronics/controller/board_placement.json",
         "authority": "native export; independent fresh gate required"
       },
+      "quantity_for_order": 2,
       "commercial_observation": null,
       "supply_status": "NOT_OBTAINED: current stock, price, lead time, MOQ, packaging and assembly applicability require dated exact-part evidence"
     },
@@ -443,6 +943,7 @@
         "source": "engineering/a7/electronics/controller/board_placement.json",
         "authority": "native export; independent fresh gate required"
       },
+      "quantity_for_order": 2,
       "commercial_observation": null,
       "supply_status": "NOT_OBTAINED: current stock, price, lead time, MOQ, packaging and assembly applicability require dated exact-part evidence"
     },
@@ -471,6 +972,7 @@
         "source": "engineering/a7/electronics/controller/board_placement.json",
         "authority": "native export; independent fresh gate required"
       },
+      "quantity_for_order": 2,
       "commercial_observation": null,
       "supply_status": "NOT_OBTAINED: current stock, price, lead time, MOQ, packaging and assembly applicability require dated exact-part evidence"
     },
@@ -499,6 +1001,7 @@
         "source": "engineering/a7/electronics/controller/board_placement.json",
         "authority": "native export; independent fresh gate required"
       },
+      "quantity_for_order": 2,
       "commercial_observation": null,
       "supply_status": "NOT_OBTAINED: current stock, price, lead time, MOQ, packaging and assembly applicability require dated exact-part evidence"
     },
@@ -527,6 +1030,7 @@
         "source": "engineering/a7/electronics/controller/board_placement.json",
         "authority": "native export; independent fresh gate required"
       },
+      "quantity_for_order": 2,
       "commercial_observation": null,
       "supply_status": "NOT_OBTAINED: current stock, price, lead time, MOQ, packaging and assembly applicability require dated exact-part evidence"
     },
@@ -555,6 +1059,7 @@
         "source": "engineering/a7/electronics/controller/board_placement.json",
         "authority": "native export; independent fresh gate required"
       },
+      "quantity_for_order": 2,
       "commercial_observation": null,
       "supply_status": "NOT_OBTAINED: current stock, price, lead time, MOQ, packaging and assembly applicability require dated exact-part evidence"
     },
@@ -583,6 +1088,7 @@
         "source": "engineering/a7/electronics/controller/board_placement.json",
         "authority": "native export; independent fresh gate required"
       },
+      "quantity_for_order": 2,
       "commercial_observation": null,
       "supply_status": "NOT_OBTAINED: current stock, price, lead time, MOQ, packaging and assembly applicability require dated exact-part evidence"
     },
@@ -611,6 +1117,7 @@
         "source": "engineering/a7/electronics/controller/board_placement.json",
         "authority": "native export; independent fresh gate required"
       },
+      "quantity_for_order": 2,
       "commercial_observation": null,
       "supply_status": "NOT_OBTAINED: current stock, price, lead time, MOQ, packaging and assembly applicability require dated exact-part evidence"
     },
@@ -639,6 +1146,7 @@
         "source": "engineering/a7/electronics/controller/board_placement.json",
         "authority": "native export; independent fresh gate required"
       },
+      "quantity_for_order": 2,
       "commercial_observation": null,
       "supply_status": "NOT_OBTAINED: current stock, price, lead time, MOQ, packaging and assembly applicability require dated exact-part evidence"
     },
@@ -667,6 +1175,7 @@
         "source": "engineering/a7/electronics/controller/board_placement.json",
         "authority": "native export; independent fresh gate required"
       },
+      "quantity_for_order": 2,
       "commercial_observation": null,
       "supply_status": "NOT_OBTAINED: current stock, price, lead time, MOQ, packaging and assembly applicability require dated exact-part evidence"
     },
@@ -695,6 +1204,7 @@
         "source": "engineering/a7/electronics/controller/board_placement.json",
         "authority": "native export; independent fresh gate required"
       },
+      "quantity_for_order": 2,
       "commercial_observation": null,
       "supply_status": "NOT_OBTAINED: current stock, price, lead time, MOQ, packaging and assembly applicability require dated exact-part evidence"
     },
@@ -723,6 +1233,7 @@
         "source": "engineering/a7/electronics/controller/board_placement.json",
         "authority": "native export; independent fresh gate required"
       },
+      "quantity_for_order": 2,
       "commercial_observation": null,
       "supply_status": "NOT_OBTAINED: current stock, price, lead time, MOQ, packaging and assembly applicability require dated exact-part evidence"
     },
@@ -751,6 +1262,7 @@
         "source": "engineering/a7/electronics/controller/board_placement.json",
         "authority": "native export; independent fresh gate required"
       },
+      "quantity_for_order": 2,
       "commercial_observation": null,
       "supply_status": "NOT_OBTAINED: current stock, price, lead time, MOQ, packaging and assembly applicability require dated exact-part evidence"
     },
@@ -779,6 +1291,7 @@
         "source": "engineering/a7/electronics/controller/board_placement.json",
         "authority": "native export; independent fresh gate required"
       },
+      "quantity_for_order": 2,
       "commercial_observation": null,
       "supply_status": "NOT_OBTAINED: current stock, price, lead time, MOQ, packaging and assembly applicability require dated exact-part evidence"
     },
@@ -807,6 +1320,7 @@
         "source": "engineering/a7/electronics/controller/board_placement.json",
         "authority": "native export; independent fresh gate required"
       },
+      "quantity_for_order": 2,
       "commercial_observation": null,
       "supply_status": "NOT_OBTAINED: current stock, price, lead time, MOQ, packaging and assembly applicability require dated exact-part evidence"
     },
@@ -835,6 +1349,7 @@
         "source": "engineering/a7/electronics/controller/board_placement.json",
         "authority": "native export; independent fresh gate required"
       },
+      "quantity_for_order": 2,
       "commercial_observation": null,
       "supply_status": "NOT_OBTAINED: current stock, price, lead time, MOQ, packaging and assembly applicability require dated exact-part evidence"
     },
@@ -863,6 +1378,7 @@
         "source": "engineering/a7/electronics/controller/board_placement.json",
         "authority": "native export; independent fresh gate required"
       },
+      "quantity_for_order": 2,
       "commercial_observation": null,
       "supply_status": "NOT_OBTAINED: current stock, price, lead time, MOQ, packaging and assembly applicability require dated exact-part evidence"
     },
@@ -891,6 +1407,7 @@
         "source": "engineering/a7/electronics/controller/board_placement.json",
         "authority": "native export; independent fresh gate required"
       },
+      "quantity_for_order": 2,
       "commercial_observation": null,
       "supply_status": "NOT_OBTAINED: current stock, price, lead time, MOQ, packaging and assembly applicability require dated exact-part evidence"
     },
@@ -919,6 +1436,7 @@
         "source": "engineering/a7/electronics/controller/board_placement.json",
         "authority": "native export; independent fresh gate required"
       },
+      "quantity_for_order": 2,
       "commercial_observation": null,
       "supply_status": "NOT_OBTAINED: current stock, price, lead time, MOQ, packaging and assembly applicability require dated exact-part evidence"
     },
@@ -947,6 +1465,7 @@
         "source": "engineering/a7/electronics/controller/board_placement.json",
         "authority": "native export; independent fresh gate required"
       },
+      "quantity_for_order": 2,
       "commercial_observation": null,
       "supply_status": "NOT_OBTAINED: current stock, price, lead time, MOQ, packaging and assembly applicability require dated exact-part evidence"
     },
@@ -975,6 +1494,7 @@
         "source": "engineering/a7/electronics/controller/board_placement.json",
         "authority": "native export; independent fresh gate required"
       },
+      "quantity_for_order": 2,
       "commercial_observation": null,
       "supply_status": "NOT_OBTAINED: current stock, price, lead time, MOQ, packaging and assembly applicability require dated exact-part evidence"
     },
@@ -1003,6 +1523,7 @@
         "source": "engineering/a7/electronics/controller/board_placement.json",
         "authority": "native export; independent fresh gate required"
       },
+      "quantity_for_order": 2,
       "commercial_observation": null,
       "supply_status": "NOT_OBTAINED: current stock, price, lead time, MOQ, packaging and assembly applicability require dated exact-part evidence"
     },
@@ -1031,6 +1552,7 @@
         "source": "engineering/a7/electronics/controller/board_placement.json",
         "authority": "native export; independent fresh gate required"
       },
+      "quantity_for_order": 2,
       "commercial_observation": null,
       "supply_status": "NOT_OBTAINED: current stock, price, lead time, MOQ, packaging and assembly applicability require dated exact-part evidence"
     },
@@ -1059,6 +1581,7 @@
         "source": "engineering/a7/electronics/controller/board_placement.json",
         "authority": "native export; independent fresh gate required"
       },
+      "quantity_for_order": 2,
       "commercial_observation": null,
       "supply_status": "NOT_OBTAINED: current stock, price, lead time, MOQ, packaging and assembly applicability require dated exact-part evidence"
     },
@@ -1087,6 +1610,7 @@
         "source": "engineering/a7/electronics/controller/board_placement.json",
         "authority": "native export; independent fresh gate required"
       },
+      "quantity_for_order": 2,
       "commercial_observation": null,
       "supply_status": "NOT_OBTAINED: current stock, price, lead time, MOQ, packaging and assembly applicability require dated exact-part evidence"
     },
@@ -1115,6 +1639,7 @@
         "source": "engineering/a7/electronics/controller/board_placement.json",
         "authority": "native export; independent fresh gate required"
       },
+      "quantity_for_order": 2,
       "commercial_observation": null,
       "supply_status": "NOT_OBTAINED: current stock, price, lead time, MOQ, packaging and assembly applicability require dated exact-part evidence"
     },
@@ -1143,6 +1668,7 @@
         "source": "engineering/a7/electronics/controller/board_placement.json",
         "authority": "native export; independent fresh gate required"
       },
+      "quantity_for_order": 2,
       "commercial_observation": null,
       "supply_status": "NOT_OBTAINED: current stock, price, lead time, MOQ, packaging and assembly applicability require dated exact-part evidence"
     },
@@ -1171,6 +1697,7 @@
         "source": "engineering/a7/electronics/controller/board_placement.json",
         "authority": "native export; independent fresh gate required"
       },
+      "quantity_for_order": 2,
       "commercial_observation": null,
       "supply_status": "NOT_OBTAINED: current stock, price, lead time, MOQ, packaging and assembly applicability require dated exact-part evidence"
     },
@@ -1199,6 +1726,7 @@
         "source": "engineering/a7/electronics/controller/board_placement.json",
         "authority": "native export; independent fresh gate required"
       },
+      "quantity_for_order": 2,
       "commercial_observation": null,
       "supply_status": "NOT_OBTAINED: current stock, price, lead time, MOQ, packaging and assembly applicability require dated exact-part evidence"
     },
@@ -1227,6 +1755,7 @@
         "source": "engineering/a7/electronics/controller/board_placement.json",
         "authority": "native export; independent fresh gate required"
       },
+      "quantity_for_order": 2,
       "commercial_observation": null,
       "supply_status": "NOT_OBTAINED: current stock, price, lead time, MOQ, packaging and assembly applicability require dated exact-part evidence"
     },
@@ -1255,6 +1784,7 @@
         "source": "engineering/a7/electronics/controller/board_placement.json",
         "authority": "native export; independent fresh gate required"
       },
+      "quantity_for_order": 2,
       "commercial_observation": null,
       "supply_status": "NOT_OBTAINED: current stock, price, lead time, MOQ, packaging and assembly applicability require dated exact-part evidence"
     },
@@ -1283,6 +1813,7 @@
         "source": "engineering/a7/electronics/controller/board_placement.json",
         "authority": "native export; independent fresh gate required"
       },
+      "quantity_for_order": 2,
       "commercial_observation": null,
       "supply_status": "NOT_OBTAINED: current stock, price, lead time, MOQ, packaging and assembly applicability require dated exact-part evidence"
     },
@@ -1311,6 +1842,7 @@
         "source": "engineering/a7/electronics/controller/board_placement.json",
         "authority": "native export; independent fresh gate required"
       },
+      "quantity_for_order": 2,
       "commercial_observation": null,
       "supply_status": "NOT_OBTAINED: current stock, price, lead time, MOQ, packaging and assembly applicability require dated exact-part evidence"
     },
@@ -1339,6 +1871,7 @@
         "source": "engineering/a7/electronics/controller/board_placement.json",
         "authority": "native export; independent fresh gate required"
       },
+      "quantity_for_order": 2,
       "commercial_observation": null,
       "supply_status": "NOT_OBTAINED: current stock, price, lead time, MOQ, packaging and assembly applicability require dated exact-part evidence"
     },
@@ -1367,6 +1900,7 @@
         "source": "engineering/a7/electronics/controller/board_placement.json",
         "authority": "native export; independent fresh gate required"
       },
+      "quantity_for_order": 2,
       "commercial_observation": null,
       "supply_status": "NOT_OBTAINED: current stock, price, lead time, MOQ, packaging and assembly applicability require dated exact-part evidence"
     },
@@ -1395,6 +1929,7 @@
         "source": "engineering/a7/electronics/controller/board_placement.json",
         "authority": "native export; independent fresh gate required"
       },
+      "quantity_for_order": 2,
       "commercial_observation": null,
       "supply_status": "NOT_OBTAINED: current stock, price, lead time, MOQ, packaging and assembly applicability require dated exact-part evidence"
     },
@@ -1423,6 +1958,7 @@
         "source": "engineering/a7/electronics/controller/board_placement.json",
         "authority": "native export; independent fresh gate required"
       },
+      "quantity_for_order": 2,
       "commercial_observation": null,
       "supply_status": "NOT_OBTAINED: current stock, price, lead time, MOQ, packaging and assembly applicability require dated exact-part evidence"
     },
@@ -1451,6 +1987,7 @@
         "source": "engineering/a7/electronics/controller/board_placement.json",
         "authority": "native export; independent fresh gate required"
       },
+      "quantity_for_order": 2,
       "commercial_observation": null,
       "supply_status": "NOT_OBTAINED: current stock, price, lead time, MOQ, packaging and assembly applicability require dated exact-part evidence"
     },
@@ -1479,6 +2016,7 @@
         "source": "engineering/a7/electronics/controller/board_placement.json",
         "authority": "native export; independent fresh gate required"
       },
+      "quantity_for_order": 2,
       "commercial_observation": null,
       "supply_status": "NOT_OBTAINED: current stock, price, lead time, MOQ, packaging and assembly applicability require dated exact-part evidence"
     },
@@ -1507,6 +2045,7 @@
         "source": "engineering/a7/electronics/controller/board_placement.json",
         "authority": "native export; independent fresh gate required"
       },
+      "quantity_for_order": 2,
       "commercial_observation": null,
       "supply_status": "NOT_OBTAINED: current stock, price, lead time, MOQ, packaging and assembly applicability require dated exact-part evidence"
     },
@@ -1535,6 +2074,7 @@
         "source": "engineering/a7/electronics/controller/board_placement.json",
         "authority": "native export; independent fresh gate required"
       },
+      "quantity_for_order": 2,
       "commercial_observation": {
         "source_bundle": ".claude/skills/component-a7-pcm13smtr/sources.json",
         "source_id": "src-a7-pcm13smtr-jlc-stock-2026-11-09",
@@ -1553,7 +2093,7 @@
         "reserved": false,
         "scope": "Dated exact C221842 listing observation only; refresh before procurement. No currency-backed price or assembly acceptance."
       },
-      "supply_status": "BLOCKED: dated JLC stock 0 / presale 0; price, lead time and assembly acceptance unknown"
+      "supply_status": "BLOCKED: JLC stock 0 at 2026-11-09; 2026-11-12 listing buyable with pre-order minimum 3 and presale 0; fill, lead time and assembly acceptance unknown"
     },
     {
       "board": "controller",
@@ -1580,6 +2120,7 @@
         "source": "engineering/a7/electronics/controller/board_placement.json",
         "authority": "native export; independent fresh gate required"
       },
+      "quantity_for_order": 2,
       "commercial_observation": null,
       "supply_status": "NOT_OBTAINED: current stock, price, lead time, MOQ, packaging and assembly applicability require dated exact-part evidence"
     },
@@ -1608,6 +2149,7 @@
         "source": "engineering/a7/electronics/controller/board_placement.json",
         "authority": "native export; independent fresh gate required"
       },
+      "quantity_for_order": 2,
       "commercial_observation": null,
       "supply_status": "NOT_OBTAINED: current stock, price, lead time, MOQ, packaging and assembly applicability require dated exact-part evidence"
     },
@@ -1636,6 +2178,7 @@
         "source": "engineering/a7/electronics/controller/board_placement.json",
         "authority": "native export; independent fresh gate required"
       },
+      "quantity_for_order": 2,
       "commercial_observation": null,
       "supply_status": "NOT_OBTAINED: current stock, price, lead time, MOQ, packaging and assembly applicability require dated exact-part evidence"
     },
@@ -1664,6 +2207,7 @@
         "source": "engineering/a7/electronics/controller/board_placement.json",
         "authority": "native export; independent fresh gate required"
       },
+      "quantity_for_order": 2,
       "commercial_observation": null,
       "supply_status": "NOT_OBTAINED: current stock, price, lead time, MOQ, packaging and assembly applicability require dated exact-part evidence"
     },
@@ -1692,6 +2236,7 @@
         "source": "engineering/a7/electronics/controller/board_placement.json",
         "authority": "native export; independent fresh gate required"
       },
+      "quantity_for_order": 2,
       "commercial_observation": null,
       "supply_status": "NOT_OBTAINED: current stock, price, lead time, MOQ, packaging and assembly applicability require dated exact-part evidence"
     },
@@ -1720,6 +2265,7 @@
         "source": "engineering/a7/electronics/controller/board_placement.json",
         "authority": "native export; independent fresh gate required"
       },
+      "quantity_for_order": 2,
       "commercial_observation": null,
       "supply_status": "NOT_OBTAINED: current stock, price, lead time, MOQ, packaging and assembly applicability require dated exact-part evidence"
     },
@@ -1748,6 +2294,7 @@
         "source": "engineering/a7/electronics/controller/board_placement.json",
         "authority": "native export; independent fresh gate required"
       },
+      "quantity_for_order": 2,
       "commercial_observation": null,
       "supply_status": "NOT_OBTAINED: current stock, price, lead time, MOQ, packaging and assembly applicability require dated exact-part evidence"
     },
@@ -1776,6 +2323,7 @@
         "source": "engineering/a5/electronics/placement_and_connectivity.json",
         "authority": "immutable historical A5 KiCad export; not fresh placement proof"
       },
+      "quantity_for_order": 4,
       "commercial_observation": null,
       "supply_status": "NOT_OBTAINED: current stock, price, lead time, MOQ, packaging and assembly applicability require dated exact-part evidence"
     },
@@ -1804,6 +2352,7 @@
         "source": "engineering/a5/electronics/placement_and_connectivity.json",
         "authority": "immutable historical A5 KiCad export; not fresh placement proof"
       },
+      "quantity_for_order": 4,
       "commercial_observation": null,
       "supply_status": "NOT_OBTAINED: current stock, price, lead time, MOQ, packaging and assembly applicability require dated exact-part evidence"
     },
@@ -1832,6 +2381,7 @@
         "source": "engineering/a5/electronics/placement_and_connectivity.json",
         "authority": "immutable historical A5 KiCad export; not fresh placement proof"
       },
+      "quantity_for_order": 4,
       "commercial_observation": null,
       "supply_status": "NOT_OBTAINED: current stock, price, lead time, MOQ, packaging and assembly applicability require dated exact-part evidence"
     },
@@ -1860,6 +2410,7 @@
         "source": "engineering/a5/electronics/placement_and_connectivity.json",
         "authority": "immutable historical A5 KiCad export; not fresh placement proof"
       },
+      "quantity_for_order": 4,
       "commercial_observation": null,
       "supply_status": "NOT_OBTAINED: current stock, price, lead time, MOQ, packaging and assembly applicability require dated exact-part evidence"
     },
@@ -1888,6 +2439,7 @@
         "source": "engineering/a5/electronics/placement_and_connectivity.json",
         "authority": "immutable historical A5 KiCad export; not fresh placement proof"
       },
+      "quantity_for_order": 4,
       "commercial_observation": null,
       "supply_status": "NOT_OBTAINED: current stock, price, lead time, MOQ, packaging and assembly applicability require dated exact-part evidence"
     },
@@ -1916,6 +2468,7 @@
         "source": "engineering/a5/electronics/placement_and_connectivity.json",
         "authority": "immutable historical A5 KiCad export; not fresh placement proof"
       },
+      "quantity_for_order": 4,
       "commercial_observation": null,
       "supply_status": "NOT_OBTAINED: current stock, price, lead time, MOQ, packaging and assembly applicability require dated exact-part evidence"
     },
@@ -1944,6 +2497,7 @@
         "source": "engineering/a5/electronics/placement_and_connectivity.json",
         "authority": "immutable historical A5 KiCad export; not fresh placement proof"
       },
+      "quantity_for_order": 4,
       "commercial_observation": null,
       "supply_status": "NOT_OBTAINED: current stock, price, lead time, MOQ, packaging and assembly applicability require dated exact-part evidence"
     },
@@ -1972,6 +2526,7 @@
         "source": "engineering/a5/electronics/placement_and_connectivity.json",
         "authority": "immutable historical A5 KiCad export; not fresh placement proof"
       },
+      "quantity_for_order": 4,
       "commercial_observation": null,
       "supply_status": "NOT_OBTAINED: current stock, price, lead time, MOQ, packaging and assembly applicability require dated exact-part evidence"
     },
@@ -2000,6 +2555,7 @@
         "source": "engineering/a5/electronics/placement_and_connectivity.json",
         "authority": "immutable historical A5 KiCad export; not fresh placement proof"
       },
+      "quantity_for_order": 4,
       "commercial_observation": null,
       "supply_status": "NOT_OBTAINED: current stock, price, lead time, MOQ, packaging and assembly applicability require dated exact-part evidence"
     },
@@ -2028,6 +2584,7 @@
         "source": "engineering/a5/electronics/placement_and_connectivity.json",
         "authority": "immutable historical A5 KiCad export; not fresh placement proof"
       },
+      "quantity_for_order": 4,
       "commercial_observation": null,
       "supply_status": "NOT_OBTAINED: current stock, price, lead time, MOQ, packaging and assembly applicability require dated exact-part evidence"
     },
@@ -2056,6 +2613,7 @@
         "source": "engineering/a5/electronics/placement_and_connectivity.json",
         "authority": "immutable historical A5 KiCad export; not fresh placement proof"
       },
+      "quantity_for_order": 2,
       "commercial_observation": null,
       "supply_status": "NOT_OBTAINED: current stock, price, lead time, MOQ, packaging and assembly applicability require dated exact-part evidence"
     },
@@ -2084,6 +2642,7 @@
         "source": "engineering/a5/electronics/placement_and_connectivity.json",
         "authority": "immutable historical A5 KiCad export; not fresh placement proof"
       },
+      "quantity_for_order": 2,
       "commercial_observation": null,
       "supply_status": "NOT_OBTAINED: current stock, price, lead time, MOQ, packaging and assembly applicability require dated exact-part evidence"
     }
@@ -3029,17 +3588,12 @@
     {
       "id": "supply-observations",
       "class": "ACCESS_EVIDENCE_HOLD",
-      "text": "Current stock, price, MOQ, packaging, lead time and assembly applicability not obtained for any line except the dated C221842 zero-stock observation; stock never reserved."
-    },
-    {
-      "id": "order-quantity",
-      "class": "OWNER_DECISION",
-      "text": "No agreed order quantity; 1/10/100 are comparison scenarios only, so no supply observation can be judged available for a proposed order."
+      "text": "Order quantity is 2 modules (owner decision). JLC stock, price, minimum, packaging, lead time and assembly applicability at that quantity are not observed for any line except C221842 (switch-supply); JLC attrition is not sourced; stock never reserved."
     },
     {
       "id": "switch-supply",
       "class": "OWNER_DECISION",
-      "text": "PCM13SMTR (C221842) had JLC stock 0 / presale 0 at 2026-11-09; wait, buy elsewhere, or accept a reviewed alternate with its own contact table and fit review."
+      "text": "PCM13SMTR (C221842): 2 needed for 2 modules. JLC stock 0 at 2026-11-09; at 2026-11-12 JLC lists it buyable (Extended) with pre-order minimum 3 and presale 0, no lead time. Owner prefers JLC: pre-order (fill depends on LCSC stock, not observed) or a Global Sourcing quote; otherwise wait, or accept a reviewed alternate with its own contact table and fit review."
     },
     {
       "id": "jack-switch-qualification",

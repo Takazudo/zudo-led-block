@@ -1,8 +1,22 @@
 # A7 調達・組立の準備台帳
 
-自動生成。**製造承認・発注用ファイルではありません。** C221842 は 2026-11-09T09:18:55Z の JLC 観測で在庫 0・予約可能数 0・MOQ 3・包装数 3500。確保済み在庫ではなく、価格・納期・実装受入は未取得です。他の部品の現在の商取引条件も未取得で、過去の A5 価格を現在値として再掲しません。
+自動生成。**製造承認・発注用ファイルではありません。** C221842 は 2026-11-09T09:18:55Z の JLC 観測で在庫 0・予約可能数 0・MOQ 3・包装数 3500。2026-11-12T08:57:07Z の JLC 掲載では購入可（Extended）・予約注文の最小 3・予約可能数 0 で、JLC 在庫の数値は掲載データにありませんでした。確保済み在庫ではなく、納期・実装受入は未取得です。他の部品の現在の商取引条件も未取得で、過去の A5 価格を現在値として再掲しません。
 
-台帳 SHA-256: `03225f1e93c06adacb481ae246426b211a41d93ffea230ff468f071900565e29`。71 配置 / 81 実装点 / 台。数量 1・10・100 は比較条件だけです。
+台帳 SHA-256: `15b47c0fb9d63e2abef93a4974f1016bcdc797bb7c179ac59cd1e458378686b1`。71 配置 / 81 実装点 / 台。
+
+## 最初の発注数量: 2 台（オーナーの判断）
+
+オーナーの言葉: 「JLCPCB accept at least 2 PCBA, so we will make 2 units first」（`engineering/a7/procurement/owner-decisions.json`）。JLC の PCBA 最小 2 枚は OWNER_REPORTED（JLC の公開条件では未確認）。この数量は発注・試作ルート・製造リリースの承認ではありません。
+
+必要枚数: controller 2 枚、led_leaf 4 枚、power_adapter 2 枚。PCB 製造の最小枚数と JLC のロス分（attrition）は未取得で、下の数に上乗せしていません。
+
+調達の優先順（オーナーの方針）: JLC 在庫 → JLC 予約注文または Global Sourcing → それ以外は例外として行ごとに明示。
+
+| LCSC | 型番 | 必要数 | 最小購入 | 購入数 | 経路 |
+|---|---|---:|---:|---:|---|
+| C221842 | PCM13SMTR | 2 | 3 | 3 | JLC_PREORDER_OR_GLOBAL_SOURCING |
+
+ほかの 29 型番は JLC 在庫を第一候補とし、在庫と最小購入数は未観測です（行ごとの必要数は `assembly-manifest.json` の `order_plan.lines`）。
 
 | 基板 | 枚数/台 | 実装点/枚 | SMD F/B | THT F/B | PCB SHA-256 |
 |---|---:|---:|---|---|---|
@@ -16,9 +30,8 @@
 
 | ID | 区分 | 内容 |
 |---|---|---|
-| supply-observations | ACCESS_EVIDENCE_HOLD | Current stock, price, MOQ, packaging, lead time and assembly applicability not obtained for any line except the dated C221842 zero-stock observation; stock never reserved. |
-| order-quantity | OWNER_DECISION | No agreed order quantity; 1/10/100 are comparison scenarios only, so no supply observation can be judged available for a proposed order. |
-| switch-supply | OWNER_DECISION | PCM13SMTR (C221842) had JLC stock 0 / presale 0 at 2026-11-09; wait, buy elsewhere, or accept a reviewed alternate with its own contact table and fit review. |
+| supply-observations | ACCESS_EVIDENCE_HOLD | Order quantity is 2 modules (owner decision). JLC stock, price, minimum, packaging, lead time and assembly applicability at that quantity are not observed for any line except C221842 (switch-supply); JLC attrition is not sourced; stock never reserved. |
+| switch-supply | OWNER_DECISION | PCM13SMTR (C221842): 2 needed for 2 modules. JLC stock 0 at 2026-11-09; at 2026-11-12 JLC lists it buyable (Extended) with pre-order minimum 3 and presale 0, no lead time. Owner prefers JLC: pre-order (fill depends on LCSC stock, not observed) or a Global Sourcing quote; otherwise wait, or accept a reviewed alternate with its own contact table and fit review. |
 | jack-switch-qualification | PHYSICAL_ONLY | PJ-324M pin function (which of terminals 4/5 is the tip contact and which its normal; the supplier symbol contradicts the inferred 4 = tip, so this continuity test must precede any PCB order), slot, axis height and nut fit, and PCM13SMTR truth table and land fit, need received parts (jack-continuity, jack-dimensions, switch-fit). |
 | exact-part-evidence | ACCESS_EVIDENCE_HOLD | Exact-part gaps after the 2026-11-11 source recovery: PMEG4010CEJ ,115 packing variant not established by the datasheet; SM04B-SRSS-TB per-circuit numbering not printed beyond the No. 1 end; PJ-324M recommended hole/slot sizes, axis height and whether a nut ships with C22355739 not sourced. |
 | finished-cables | OWNER_DECISION | Finished A7 power cable (57 mm, +/-3 ASSUMED), SH4 cables and IDC ribbon not selected; supplier answers and the owner choice of assembly are needed before physical routing checks. |

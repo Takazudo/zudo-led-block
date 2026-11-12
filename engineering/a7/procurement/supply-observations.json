@@ -1,0 +1,56 @@
+{
+  "schema": 1,
+  "note": "Dated supplier listing observations owned by the procurement ledger. A listing is not a reservation, quote or assembly acceptance; refresh before ordering.",
+  "observations": [
+    {
+      "id": "jlc-c221842-2026-11-12",
+      "lcsc": "C221842",
+      "mpn": "PCM13SMTR",
+      "supplier": "JLCPCB",
+      "url": "https://jlcpcb.com/partdetail/CK-PCM13SMTR/C221842",
+      "retrieved_at": "2026-11-12T08:57:07Z",
+      "raw_sha256": "6c9e1e02c0f53f6529e10709c7752209d619ea618b2fce45d7d0260ccb61621b",
+      "raw_stored": false,
+      "extract": [
+        "componentCode C221842 componentModelEn PCM13SMTR",
+        "isBuyComponent \"1\"",
+        "componentLibraryType \"expand\"",
+        "preMinPurchaseNum 3",
+        "encapsulationNumber 3500",
+        "canPresaleNumber 0",
+        "overseasStockCount 0",
+        "price tiers 1-9: 3.0325, 10-29: 2.5893, 30+: 2.3112 (no currency field)"
+      ],
+      "values": {
+        "jlc_stock": null,
+        "overseas_stock": 0,
+        "presale_available": 0,
+        "buyable": true,
+        "library": "EXTENDED",
+        "preorder_minimum": 3,
+        "packaging_quantity": 3500,
+        "price_tiers": [
+          {
+            "from": 1,
+            "to": 9,
+            "unit_price": 3.0325
+          },
+          {
+            "from": 10,
+            "to": 29,
+            "unit_price": 2.5893
+          },
+          {
+            "from": 30,
+            "to": null,
+            "unit_price": 2.3112
+          }
+        ],
+        "currency": null,
+        "lead_time": null,
+        "assembly_acceptance": null
+      },
+      "gaps": "The saved page carries no JLC stock figure for C221842 itself (the last recorded value is stock 0 on 2026-11-09). Whether a pre-order is filled depends on LCSC stock, not observed. Global Sourcing is quote-based."
+    }
+  ]
+}
