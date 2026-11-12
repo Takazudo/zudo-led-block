@@ -1,14 +1,14 @@
 {
   "schema": 1,
   "tool": "CadQuery 2.7.0",
-  "model_inputs_sha256": "871f898376b2f065d8f3cbc549a1b778974611d8a4d99e2f99d688c267209b19",
+  "model_inputs_sha256": "202904df10fad0f0e500b6f7664d065dd35775e6ba4fdf0042a45a534ba0c3c6",
   "model_inputs": {
-    "design_sha256": "445f9556cfd85b5118d166f6c112b21bc1b3c1c1dde047395580c47cbf52f21a",
+    "design_sha256": "4dd97840b20d9647bca6fa298fa8e1e1b1a18720a8372c5b491a29828a4c7009",
     "assembly_code_sha256": "2b20ad77bbaca9e36623f5a548abdc75d70f5b7060e986f1cf0cb9d3ce6e1a8e",
     "native_geometry_sha256": "2f372a058a24cb117d9e294d11411e84cb575e682d18f7651cbf0547d1bc7f51",
     "cadquery": "2.7.0"
   },
-  "step_sha256": "54f12cac9212808d38104308cdd6eb12af64adca8f9e5d978fcd24726abb7e5e",
+  "step_sha256": "23557622db2fca635f6d82a2094f4df9ce342517924190cdb10940eddeafe448",
   "method": "pairwise boolean common volume between every two solids whose bounding boxes meet (board part boxes are not checked against each other); interference above the threshold; clearances by exact BRep distance",
   "interference_threshold_mm3": 0.001,
   "modelling": "Builds every fixture part, the hardware envelopes and the board (with F-side part boxes from the recorded heights and\nB-face bodies and leads from the relief design) in board coordinates: x, y as on the PCB, z up from the board B face.\nThreads are modelled at the major diameter and press fits line to line, so a designed joint touches without overlap.\nThrough-hole leads are modelled at their full sourced length below the seating plane (a bound for any board thickness).",
@@ -31,7 +31,7 @@
     {
       "name": "pressure_plate",
       "group": "plate",
-      "volume_mm3": 2970.9428
+      "volume_mm3": 3063.4247
     },
     {
       "name": "F1 M3x8 countersunk screw",
@@ -696,7 +696,7 @@
     },
     {
       "pair": "F-side bodies to pressure plate",
-      "minimum_mm": 0.2515,
+      "minimum_mm": 0.5,
       "between": [
         "J5 F-side body (courtyard x height)",
         "pressure_plate"
@@ -704,9 +704,9 @@
     },
     {
       "pair": "F-side bodies to plunger pins and sleeves",
-      "minimum_mm": 0.3201,
+      "minimum_mm": 0.575,
       "between": [
-        "C16 F-side body (courtyard x height)",
+        "J3 F-side body (courtyard x height)",
         "C2 K0318.04 steel sleeve"
       ]
     },
@@ -723,7 +723,7 @@
       "minimum_mm": 2.11,
       "between": [
         "C1 K0318.04 steel sleeve",
-        "TP1 GKS-050 probe (compressed envelope)"
+        "TP3 GKS-050 probe (compressed envelope)"
       ]
     }
   ],

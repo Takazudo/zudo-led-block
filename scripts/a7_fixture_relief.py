@@ -108,6 +108,9 @@ RULES = {
     'm3_countersink_diameter_mm': 6.0,
     'm3_hex_across_corners_mm': 6.35,
     'm4_tap_drill_mm': 3.3,
+    'm3_hex_across_flats_mm': 5.5,
+    'stop_screw_torque_N_m': 0.3,
+    'screw_nut_factor': 0.2,
     'contact_f_side_clearance_mm': 0.3,
     'pressure_plate_part_clearance_mm': 0.5,
     'resultant_margin_mm': 0.5,
@@ -192,8 +195,44 @@ DATUM_PINS = [('X1', 'X datum on the board x = 16.2 edge', (17.2, 34.0)),
               ('Y1', 'Y datum on the board y = 62.9 edge', (8.1, 63.9))]
 GUIDE_X = (-5.5, 21.7)
 STOP_Y = 23.3  # hard-stop line: the stop feet clear the F1/F2 countersinks (y >= 23.2) and the D1 dowel
-PRESSURE_PLATE = (-10.5, 14.0, 26.7, 29.5)
+PRESSURE_PLATE = (-10.5, 13.5, 26.7, 29.5)  # y0 13.5 leaves room for two M4 tapped holes 5 mm apart below the J5 notch
 TIE_SLOT = (6.1, 15.5, 10.1, 17.5)  # base-plate cable-tie slot, board coordinates
+
+
+CANTILEVER_SPAN_FACTOR = 16 ** (1 / 3)  # a cantilever of length a deflects like a simply supported span of 16^(1/3) a
+
+
+def _chord_side(land, x, y, dx, dy, step=0.02, limit=80.0):
+    """Unsupported length from (x, y) along (dx, dy) and how it ends: 'land' or 'board_edge' (a free edge)."""
+    a = 0.0
+    while a < limit:
+        nx, ny = x + (a + step) * dx, y + (a + step) * dy
+        if not _in_box(BOARD, nx, ny):
+            return round(a + step, 6), 'board_edge'
+        if land(nx, ny):
+            return round(a + step, 6), 'land'
+        a += step
+    return round(a, 6), 'board_edge'
+
+
+def board_span(land, xy):
+    """Equivalent simply supported span through a load point: the worse of the two axis-parallel chords.
+
+    Both ends on carrier land: the chord length. One end at a board edge: a cantilever from the land end, taken as
+    CANTILEVER_SPAN_FACTOR x its length. Both ends free: unsupported (inf). Returns (span, kind)."""
+    if land(*xy):
+        return 0.0, 'on_land'
+    worst = (0.0, 'on_land')
+    for dx, dy in ((1, 0), (0, 1)):
+        (a, ea), (b, eb) = _chord_side(land, *xy, dx, dy), _chord_side(land, *xy, -dx, -dy)
+        if ea == eb == 'land':
+            cand = (round(a + b, 6), 'simply_supported')
+        elif ea == eb == 'board_edge':
+            cand = (math.inf, 'unsupported')
+        else:
+            cand = (round(CANTILEVER_SPAN_FACTOR * (b if ea == 'board_edge' else a), 6), 'cantilever')
+        worst = max(worst, cand, key=lambda c: c[0])
+    return worst
 
 
 def _expand(box, m):
@@ -624,7 +663,9 @@ def design(geometry: dict, probes: list[dict], pop: dict | None = None) -> dict:
     # ---- hard stops for the pressure plate -----------------------------------------------------------------------
     fside = [f['courtyard_bbox_mm']['F'] for f in geometry['footprints'] if f['side'] == 'F' and f['courtyard_bbox_mm'].get('F')]
     j5 = next(f for f in geometry['footprints'] if f['fpid'] == 'LightBlock:PICO3')
-    notch = [round(v, 6) for v in _expand(j5['courtyard_bbox_mm']['F'], RULES['pressure_plate_part_clearance_mm'])]
+    # the notch's milled inner corners (radius r) cut into the box: grow it so the arc still keeps the clearance off the courtyard corner
+    r_notch, c_notch = corner_radius(STACK['pressure_plate'][1] - STACK['pressure_plate'][0]), RULES['pressure_plate_part_clearance_mm']
+    notch = [round(v, 6) for v in _expand(j5['courtyard_bbox_mm']['F'], max(c_notch, r_notch - (r_notch - c_notch) / math.sqrt(2)))]
     notch[3] = PRESSURE_PLATE[3]
     hole_list = ([(p['ref'], p['board_xy_mm'], hw) for p in probes] + [(q['id'], q['board_xy_mm'], r_pin) for q in pins]
                  + [(f'F{i + 1}', xy, r_m3) for i, xy in enumerate(FASTENERS)] + [(f'D{i + 1}', xy, r_dowel) for i, xy in enumerate(ALIGNMENT_DOWELS)])
@@ -740,20 +781,15 @@ def design(geometry: dict, probes: list[dict], pop: dict | None = None) -> dict:
     setting = round(pp_bottom - BOARD_THICKNESS + d_nom, 6)  # free pin tip below the plate underside
     r_tap = RULES['m4_tap_drill_mm'] / 2
     r_body = pl['body_diameter_mm'] / 2
+    r_thread = r_body  # M4 thread major diameter = body diameter: webs around a tapped hole are measured at the cut thread, not the drill
 
-    def chord(x, y, dx, dy, step=0.02):
-        if land(x, y):
-            return 0.0
-        a = b = 0.0
-        while not land(x - (a + step) * dx, y - (a + step) * dy) and a < 80:
-            a += step
-        while not land(x + (b + step) * dx, y + (b + step) * dy) and b < 80:
-            b += step
-        return round(a + b + 2 * step, 6)
+    span_cache = {}
 
     def span(xy):
-        # longest axis-parallel unsupported chord through the point (0 over land): a simply supported strip along it
-        return max(chord(*xy, 1, 0), chord(*xy, 0, 1))
+        key = (round(xy[0], 6), round(xy[1], 6))
+        if key not in span_cache:
+            span_cache[key] = board_span(land, key)
+        return span_cache[key]
 
     # plunger sites: body clear of every F-side courtyard, tapped hole in plate material clear of the J5 notch and the plate edge
     sites = []
@@ -761,9 +797,9 @@ def design(geometry: dict, probes: list[dict], pop: dict | None = None) -> dict:
         x = round(i * 0.1, 6)
         for j in range(round((PRESSURE_PLATE[3] - PRESSURE_PLATE[1]) / 0.1) + 1):
             y = round(PRESSURE_PLATE[1] + j * 0.1, 6)
-            if not (PRESSURE_PLATE[1] + r_tap + MIN_WALL <= y <= PRESSURE_PLATE[3] - r_tap - MIN_WALL) or x - r_body < 0 or x + r_body > 16.2:
+            if not (PRESSURE_PLATE[1] + r_thread + MIN_WALL <= y <= PRESSURE_PLATE[3] - r_thread - MIN_WALL) or x - r_body < 0 or x + r_body > 16.2:
                 continue
-            if _box_point_dist(notch, (x, y)) < r_tap + MIN_WALL:
+            if _box_point_dist(notch, (x, y)) < r_thread + MIN_WALL:
                 continue
             if any(_box_point_dist(b, (x, y)) < r_body + RULES['contact_f_side_clearance_mm'] for b in fside):
                 continue
@@ -779,11 +815,16 @@ def design(geometry: dict, probes: list[dict], pop: dict | None = None) -> dict:
     e_plate, w_plate = RULES['board_flexural_modulus_MPa'], RULES['board_strip_width_mm']
     plate_span = GUIDE_X[1] - GUIDE_X[0]
 
+    def deflection(f_, L, t, e):
+        return math.inf if L == math.inf else round(f_ * L ** 3 / (48 * e * w_plate * t ** 3 / 12), 6)
+
     def evaluate(sel):
         fmax_each = round(plunger_force(d_nom + d_tol) * (1 + f_band), 6)
         # the plate bends between the stops under the plunger loads and gives back some compression (conservative strip)
         plate_defl = round(len(sel) * fmax_each * plate_span ** 3 / (48 * e_plate * w_plate * (pp_top - pp_bottom) ** 3 / 12), 6)
-        d_min, d_max = round(d_nom - d_tol - plate_defl, 6), round(d_nom + d_tol, 6)
+        # the thinnest board also sags away from the pins under the full plunger load: that compression is lost too
+        sag = deflection(len(sel) * fmax_each, max(span(q)[0] for q in sel), t_min, e_plate)
+        d_min, d_max = round(d_nom - d_tol - plate_defl - sag, 6), round(d_nom + d_tol, 6)
         fmin_each = round(plunger_force(d_min) * (1 - f_band), 6)
         cases = []
         for fs in __import__('itertools').product((fmin_each, fmax_each), repeat=len(sel)):
@@ -793,10 +834,10 @@ def design(geometry: dict, probes: list[dict], pop: dict | None = None) -> dict:
                       round((sum(f * q[1] for f, q in zip(fs, sel)) - pp * cy) / (tot - pp), 6)]
                 cases.append({'plunger_forces_N': list(fs), 'probe_force_total_N': pp, 'board_net_load_point_mm': nq,
                               'board_net_load_point_margin_mm': round(_hull_margin(land_hull, nq), 6)})
-        return {'d_min': d_min, 'd_max': d_max, 'plate_defl': plate_defl, 'fmin': fmin_each, 'fmax': fmax_each, 'cases': cases,
+        return {'d_min': d_min, 'd_max': d_max, 'plate_defl': plate_defl, 'board_sag': sag, 'fmin': fmin_each, 'fmax': fmax_each, 'cases': cases,
                 'net_margin': min(c['board_net_load_point_margin_mm'] for c in cases)}
     best = None
-    pitch = 2 * r_tap + MIN_WALL
+    pitch = 2 * r_thread + MIN_WALL
     for k in (2, 3):
         for sel in __import__('itertools').combinations(thinned, k):
             if any(math.dist(a, b) < pitch for a, b in __import__('itertools').combinations(sel, 2)):
@@ -818,19 +859,19 @@ def design(geometry: dict, probes: list[dict], pop: dict | None = None) -> dict:
     # board bending, thinnest board: every plunger load at mid-span of the longest unsupported chord under any plunger, and
     # separately every probe load at mid-span of the longest chord through any probe (both taken as wholly unbalanced)
     e_mod, strip = RULES['board_flexural_modulus_MPa'], RULES['board_strip_width_mm']
-    spans_pl = [span(q) for q in tri]
-    spans_pr = [span(tuple(p['board_xy_mm'])) for p in probes]
-
-    def deflection(f_, L, t, e):
-        return round(f_ * L ** 3 / (48 * e * strip * t ** 3 / 12), 6)
+    kinds_pl = [span(q) for q in tri]
+    kinds_pr = [span(tuple(p['board_xy_mm'])) for p in probes]
+    spans_pl, spans_pr = [k[0] for k in kinds_pl], [k[0] for k in kinds_pr]
     load_pl = round(sum(ev['fmax'] for L in spans_pl if L > 0), 6)
     defl_pl = deflection(load_pl, max(spans_pl), t_min, e_mod)
     defl_pr = deflection(p_max, max(spans_pr), t_min, e_mod)
     defl = max(defl_pl, defl_pr)
     e_low = min(m['value_MPa'] for m in MODULUS_REFERENCES)
     bending = {'model': 'simply supported strip, point load at mid-span: d = F L^3 / (48 E I), I = b t^3 / 12; span = longest '
-                        'axis-parallel unsupported chord (no carrier land under the board) through the load point',
-               'plunger_spans_mm': spans_pl, 'plunger_load_N': load_pl, 'deflection_under_plungers_mm': defl_pl,
+                        'axis-parallel unsupported chord (no carrier land under the board) through the load point; a chord '
+                        'that runs off the board edge is a cantilever from its land end, taken as 16^(1/3) x its length',
+               'plunger_spans_mm': spans_pl, 'plunger_span_kinds': [k[1] for k in kinds_pl],
+               'probe_span_kinds': [k[1] for k in kinds_pr], 'plunger_load_N': load_pl, 'deflection_under_plungers_mm': defl_pl,
                'probe_spans_mm': spans_pr, 'probe_load_N': p_max, 'deflection_under_probes_mm': defl_pr,
                'strip_width_mm': strip, 'board_thickness_nominal_mm': BOARD_THICKNESS, 'board_thickness_minimum_mm': t_min,
                'board_thickness_basis': 'PROJECT-CHOICE fabrication requirement 1.6 +/-0.16 mm (+/-10 %); not sourced, the fabricator is '
@@ -839,6 +880,7 @@ def design(geometry: dict, probes: list[dict], pop: dict | None = None) -> dict:
                'flexural_modulus_class': 'ASSUMED for the board: its laminate is not sourced (fabricator not selected). The sourced values '
                                          'below are typical values of other FR-4 class laminates, given for comparison; they do not bound '
                                          'the board laminate',
+               'not_covered': 'board bow or warp; the sag under the plungers is also taken off the minimum plunger compression',
                'flexural_modulus_minimum_for_limit_MPa': round(e_mod * defl / RULES['board_deflection_limit_mm'], 1),
                'representative_sourced_moduli': MODULUS_REFERENCES,
                'deflection_at_lowest_sourced_modulus_mm': round(defl * e_mod / e_low, 6),
@@ -846,6 +888,20 @@ def design(geometry: dict, probes: list[dict], pop: dict | None = None) -> dict:
                'limit_basis': 'PROJECT-CHOICE: small against the 2.05 mm between the 4.3 mm working stroke and the 6.35 mm maximum'}
     stop_moment = round(max(abs(sum(f * (q[1] - ys) for f, q in zip(c['plunger_forces_N'], tri))) for c in ev['cases']), 6)
     body_end_min = round(pl['stroke_mm'] - ev['d_max'], 6)
+    # stop joint: the plungers push the plate up beside the stop line; the stop faces can react only within their width, so the
+    # two screws must pull the plate down with at least sum F_i (y_pivot - y_i) / (y_pivot - ys), pivot = far edge of the stop face
+    y_pivot = ys + RULES['m3_hex_across_flats_mm'] / 2
+    t_req = round(max(sum(f * abs(y_pivot - q[1]) for f, q in zip(c['plunger_forces_N'], tri)) for c in ev['cases'])
+                  / (y_pivot - ys), 6)
+    preload = round(len(guides) * RULES['stop_screw_torque_N_m'] * 1000 / (RULES['screw_nut_factor'] * 3.0), 1)
+    stop_joint = {'required_screw_tension_total_N': t_req, 'pivot': f'far edge of the stop faces, y {y_pivot}',
+                  'tightening_torque_N_m': RULES['stop_screw_torque_N_m'],
+                  'preload_total_N': preload, 'preload_margin_factor_required': RULES['clamp_force_margin_factor'],
+                  'basis': 'preload = T / (K d), K = ' f"{RULES['screw_nut_factor']}" ' ASSUMED (dry steel), torque PROJECT-CHOICE; '
+                           'each plate screw engages 2 mm (M3 x 8 through the 6 mm plate) in the steel stop thread, less if the '
+                           'plate sheet is thicker than nominal (its thickness does not change the plunger compression, which is '
+                           'set from the plate underside)',
+                  'holds': preload >= RULES['clamp_force_margin_factor'] * t_req}
     pl_checks = {
         'compression_min_mm': [ev['d_min'], '>', 0.0, ev['d_min'] > 0],
         'compression_max_mm': [ev['d_max'], '<=', round(pl['stroke_mm'] - RULES['plunger_stroke_end_margin_mm'], 6),
@@ -868,7 +924,7 @@ def design(geometry: dict, probes: list[dict], pop: dict | None = None) -> dict:
         'clamp_force_margin_factor': RULES['clamp_force_margin_factor'],
         'required_total_force_N': s_total,
         'plunger_compression_mm': {'nominal': d_nom, 'range': [ev['d_min'], ev['d_max']], 'stack_mm': d_parts,
-                                   'plate_deflection_mm': ev['plate_defl'],
+                                   'plate_deflection_mm': ev['plate_defl'], 'board_sag_under_plungers_mm': ev['board_sag'],
                                    'board_thickness_range_mm': [t_min, t_max]},
         'plunger_setting_mm': {'free_pin_tip_below_plate_underside': setting, 'tolerance': RULES['plunger_setting_tolerance_mm']},
         'plunger_force_each_N': [ev['fmin'], ev['fmax']],
@@ -877,19 +933,23 @@ def design(geometry: dict, probes: list[dict], pop: dict | None = None) -> dict:
         'statics_cases': ev['cases'],
         'board_net_load_point_inside_land_hull_mm': round(net_margin, 6),
         'stop_moment_N_mm': stop_moment,
+        'stop_joint': stop_joint,
         'board_bending_across_window': bending,
         'statics': 'board: plunger loads minus the probe load leave a net downward load whose point lies inside the convex hull of the '
                    'carrier land under the board for every plunger-force extreme and both probe-force extremes, so the board stays on '
                    'the land (rigid bodies); plate: held by two seated screws on the stop faces, which carry the plunger reaction and its '
                    'moment about the stop line',
         'plunger_candidate': plunger_candidate,
-        'plunger_acceptance': f"each plunger: force at {d_nom} mm compression within +/-{int(f_band * 100)} % of the catalogue line; free "
-                              f"pin tip set {setting} +/-{RULES['plunger_setting_tolerance_mm']} mm below the plate underside with a gauge "
-                              'before each session (the plunger has no thread lock)',
+        'plunger_acceptance': f"each plunger: force measured at {ev['d_min']} and {ev['d_max']} mm compression, each within "
+                              f"+/-{int(f_band * 100)} % of the catalogue line at that compression (one point does not fix the rate); pin "
+                              f"protrusion {pl['stroke_mm']} mm measured (no tolerance printed); free pin tip set {setting} "
+                              f"+/-{RULES['plunger_setting_tolerance_mm']} mm below the plate underside with a gauge before each session "
+                              '(the plunger has no thread lock)',
         'plate_stack_acceptance': f"stop standoff length {STACK['stop_top']} +/-{RULES['plate_stack_acceptance_tolerance_mm']} mm, measured "
                                   'before assembly; parts outside are not used',
         'operation': 'remove the two M3 x 8 screws on the stop tops and lift the plate off with its plungers; insert the board and push it '
-                     'against X1, X2 and Y1; refit the plate and screw down until both screw heads seat (the plate bears on the stops). '
+                     'against X1, X2 and Y1; refit the plate and tighten both screws to '
+                     f"{RULES['stop_screw_torque_N_m']} N m (the plate bears on the stops). "
                      'The plunger compression, not the screw torque, sets the hold-down force',
     }
 
@@ -953,9 +1013,9 @@ def design(geometry: dict, probes: list[dict], pop: dict | None = None) -> dict:
     guide_hole, tap_hole = RULES['m3_clearance_hole_mm'], RULES['m4_tap_drill_mm']
     notch_win = [{'parts': ['J5 notch'], 'members': [{'box_board_mm': notch}]}]
     q_webs, q_conf = _webs([(g['id'], g['board_xy_mm'], guide_hole / 2) for g in guides]
-                           + [(f'C{i + 1}', list(t), tap_hole / 2) for i, t in enumerate(tri)], notch_win, PRESSURE_PLATE, MIN_WALL)
-    q_conf += [f'C{i + 1} to C{j + 1} tapped-hole web {math.dist(a, b) - tap_hole:.3f} mm < {MIN_WALL} mm'
-               for i, a in enumerate(tri) for j, b in enumerate(tri) if i < j and math.dist(a, b) - tap_hole < MIN_WALL]
+                           + [(f'C{i + 1}', list(t), r_thread) for i, t in enumerate(tri)], notch_win, PRESSURE_PLATE, MIN_WALL)
+    q_conf += [f'C{i + 1} to C{j + 1} tapped-hole web {math.dist(a, b) - 2 * r_thread:.3f} mm < {MIN_WALL} mm'
+               for i, a in enumerate(tri) for j, b in enumerate(tri) if i < j and math.dist(a, b) - 2 * r_thread < MIN_WALL]
     pressure_plate = {'outline_board_mm': list(PRESSURE_PLATE), 'z_mm': [pp_bottom, pp_top], 'j5_notch_board_mm': notch,
                       'corner_radius_mm': corner_radius(pp_top - pp_bottom), 'guide_hole_diameter_mm': guide_hole,
                       'contact_tap_hole_diameter_mm': tap_hole, 'contact_thread': PLUNGER_CANDIDATE['thread'], 'parts_under_plate': sorted(under, key=lambda u: u['ref']),
@@ -1035,6 +1095,7 @@ def design(geometry: dict, probes: list[dict], pop: dict | None = None) -> dict:
         'board_stays_on_land': net_margin >= RULES['resultant_margin_mm'],
         'board_bending_across_window_within_limit': defl <= RULES['board_deflection_limit_mm'],
         'guide_and_fixing_designed': not c_conf,
+        'stop_joint_preload_holds_plate': stop_joint['holds'],
         'pressure_plate_clears_f_parts': not plate_conf,
         'insulation_metal_clear_of_probes': metal_gap[0] >= 1.0,
         'wire_bend_space': bend >= need_bend,

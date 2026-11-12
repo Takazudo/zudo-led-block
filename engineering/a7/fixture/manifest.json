@@ -179,19 +179,19 @@
   "inputs_sha256": {
     "engineering/a7/electronics/controller/controller.kicad_pcb": "4453f818ede1e6d6c56e45ef43aa6faecb90990f3755f82c6d752258cd4d628e",
     "engineering/a7/electronics/controller/board_placement.json": "1891af356ead303127c6b7a99b8934b08aa25f465b4b2c96872f5d5d24afdc01",
-    "scripts/a7_fixture.py": "97d535746ede37c7ee27d45b11a137f8161e1575a32776c9d49a81cf0c7b45b9",
-    "scripts/a7_fixture_relief.py": "ee0ff14a1a053a018e85080edfad4e7d317e94a6390695da38089e0745cf34ea",
+    "scripts/a7_fixture.py": "e047a694ef86b720b2115925241e25b9eca3e1a3e85a4ac915b55ea5fb5e884b",
+    "scripts/a7_fixture_relief.py": "02b134fb1a70f37b7de9547b7c97d2060bc53114ccd791a3267f1d596ec208ae",
     "scripts/a7_fixture_assembly.py": "2b20ad77bbaca9e36623f5a548abdc75d70f5b7060e986f1cf0cb9d3ce6e1a8e",
     "engineering/a7/procurement/population.csv": "6ce7636d2d0cae04ccbd2dace8cd0efacafe154b5e772acaa04a5e79718b0dd8",
     "engineering/a7/fixture/sources.json": "532830a205f3fbe1919ba4e17fc37cfceaa6eee524464941fad036e8345b763d",
-    "engineering/a7/fixture/materials.json": "977748a07d8ba4899ca70c5096f578af103af28c935d177e6ab1c0212d68bab0",
+    "engineering/a7/fixture/materials.json": "3a6b7cc0a5fe1df40383d489ebd793abbfcf0e03968812db7b3e6fd95962ba06",
     "engineering/a7/fixture/candidate-references.json": "6f929c9edf3d115dc18f5cf1b055f9971ec25af64ce20948a882729250151845"
   },
   "assembly": {
     "record": "engineering/a7/fixture/assembly-interference.json",
-    "record_sha256": "48598758d2da1be9bc8e86435056fd9585ddc3fb19df881d65c2fc10f6652af8",
+    "record_sha256": "5dddb691148e4748c3b4fe15995db51aa74fc1b1c5d7e011c03dd6a5a3f07b9e",
     "step": "engineering/a7/fixture/fixture-assembly.step",
-    "step_sha256": "54f12cac9212808d38104308cdd6eb12af64adca8f9e5d978fcd24726abb7e5e",
+    "step_sha256": "23557622db2fca635f6d82a2094f4df9ce342517924190cdb10940eddeafe448",
     "solids": 129,
     "interferences": 0,
     "clearances": [
@@ -229,7 +229,7 @@
       },
       {
         "pair": "F-side bodies to pressure plate",
-        "minimum_mm": 0.2515,
+        "minimum_mm": 0.5,
         "between": [
           "J5 F-side body (courtyard x height)",
           "pressure_plate"
@@ -237,9 +237,9 @@
       },
       {
         "pair": "F-side bodies to plunger pins and sleeves",
-        "minimum_mm": 0.3201,
+        "minimum_mm": 0.575,
         "between": [
-          "C16 F-side body (courtyard x height)",
+          "J3 F-side body (courtyard x height)",
           "C2 K0318.04 steel sleeve"
         ]
       },
@@ -256,7 +256,7 @@
         "minimum_mm": 2.11,
         "between": [
           "C1 K0318.04 steel sleeve",
-          "TP1 GKS-050 probe (compressed envelope)"
+          "TP3 GKS-050 probe (compressed envelope)"
         ]
       }
     ],
@@ -392,6 +392,7 @@
         "board_stays_on_land": true,
         "board_bending_across_window_within_limit": true,
         "guide_and_fixing_designed": true,
+        "stop_joint_preload_holds_plate": true,
         "pressure_plate_clears_f_parts": true,
         "insulation_metal_clear_of_probes": true,
         "wire_bend_space": true
@@ -434,6 +435,9 @@
       "m3_countersink_diameter_mm": 6.0,
       "m3_hex_across_corners_mm": 6.35,
       "m4_tap_drill_mm": 3.3,
+      "m3_hex_across_flats_mm": 5.5,
+      "stop_screw_torque_N_m": 0.3,
+      "screw_nut_factor": 0.2,
       "contact_f_side_clearance_mm": 0.3,
       "pressure_plate_part_clearance_mm": 0.5,
       "resultant_margin_mm": 0.5,
@@ -2654,7 +2658,7 @@
     "pressure_plate": {
       "outline_board_mm": [
         -10.5,
-        14.0,
+        13.5,
         26.7,
         29.5
       ],
@@ -2663,9 +2667,9 @@
         12.0
       ],
       "j5_notch_board_mm": [
-        4.695,
-        24.405,
-        12.285,
+        4.519264,
+        24.229264,
+        12.460736,
         29.5
       ],
       "corner_radius_mm": 1.1,
@@ -2722,6 +2726,12 @@
           "source": "A5 seed envelope (engineering/a5/electronics/placement_and_connectivity.json, D3, same MPN BAS70-04-7-F)"
         },
         {
+          "ref": "J3",
+          "height_mm": 2.95,
+          "clearance_to_plate_mm": 1.29,
+          "source": "A5 seed envelope (engineering/a5/electronics/placement_and_connectivity.json, J3, same MPN SM04B-SRSS-TB(LF)(SN))"
+        },
+        {
           "ref": "U1",
           "height_mm": 0.6,
           "clearance_to_plate_mm": 3.64,
@@ -2742,19 +2752,19 @@
       ],
       "smallest_webs": [
         {
+          "hole": "C2",
+          "to": "plate edge",
+          "web_mm": 1.0
+        },
+        {
           "hole": "C1",
           "to": "J5 notch",
-          "web_mm": 1.108306
+          "web_mm": 1.014028
         },
         {
           "hole": "C1",
           "to": "C2",
-          "web_mm": 1.301087
-        },
-        {
-          "hole": "C2",
-          "to": "plate edge",
-          "web_mm": 1.85
+          "web_mm": 1.200961
         },
         {
           "hole": "G1",
@@ -2769,37 +2779,37 @@
         {
           "hole": "G2",
           "to": "C1",
-          "web_mm": 4.64062
-        },
-        {
-          "hole": "C2",
-          "to": "J5 notch",
-          "web_mm": 5.398493
+          "web_mm": 4.066595
         },
         {
           "hole": "C1",
           "to": "plate edge",
-          "web_mm": 5.75
+          "web_mm": 5.8
+        },
+        {
+          "hole": "C2",
+          "to": "J5 notch",
+          "web_mm": 5.922535
         },
         {
           "hole": "G2",
           "to": "C2",
-          "web_mm": 6.531295
+          "web_mm": 6.423734
         },
         {
           "hole": "G2",
           "to": "J5 notch",
-          "web_mm": 7.779623
+          "web_mm": 7.585878
         },
         {
           "hole": "G1",
           "to": "J5 notch",
-          "web_mm": 8.554709
+          "web_mm": 8.362265
         },
         {
           "hole": "G1",
           "to": "C1",
-          "web_mm": 15.98727
+          "web_mm": 15.965198
         }
       ],
       "web_conflicts": [],
@@ -4084,12 +4094,12 @@
       "control": "displacement: each plunger compression is fixed by the stop height, the board thickness and the plunger setting, so each plunger force lies in its own band independently of the others; there is no spring balance",
       "contacts_board_mm": [
         [
-          13.8,
-          22.1
+          14.1,
+          21.7
         ],
         [
-          13.7,
-          17.5
+          14.2,
+          16.5
         ]
       ],
       "contact_diameter_mm": 1.5,
@@ -4157,7 +4167,7 @@
       "plunger_compression_mm": {
         "nominal": 0.99,
         "range": [
-          0.670973,
+          0.624896,
           1.3
         ],
         "stack_mm": {
@@ -4166,6 +4176,7 @@
           "plunger_setting": 0.1
         },
         "plate_deflection_mm": 0.009027,
+        "board_sag_under_plungers_mm": 0.046077,
         "board_thickness_range_mm": [
           1.44,
           1.76
@@ -4176,122 +4187,142 @@
         "tolerance": 0.1
       },
       "plunger_force_each_N": [
-        7.936375,
+        7.666057,
         17.44
       ],
       "plunger_force_basis": "linear between the catalogue F1 and F2 over the stroke, +/-20 % acceptance band",
       "total_force_N": [
-        15.87275,
+        15.332114,
         34.88
       ],
       "statics_cases": [
         {
           "plunger_forces_N": [
-            7.936375,
-            7.936375
+            7.666057,
+            7.666057
           ],
           "probe_force_total_N": 4.804651,
           "board_net_load_point_mm": [
-            14.05821,
-            17.612141
+            14.656595,
+            16.480309
           ],
-          "board_net_load_point_margin_mm": 2.09179
+          "board_net_load_point_margin_mm": 1.493405
         },
         {
           "plunger_forces_N": [
-            7.936375,
-            7.936375
+            7.666057,
+            7.666057
           ],
           "probe_force_total_N": 6.35,
           "board_net_load_point_mm": [
-            14.223445,
-            16.439206
+            14.934726,
+            15.042047
           ],
-          "board_net_load_point_margin_mm": 1.926555
+          "board_net_load_point_margin_mm": 1.215274
         },
         {
           "plunger_forces_N": [
-            7.936375,
+            7.666057,
             17.44
           ],
           "probe_force_total_N": 4.804651,
           "board_net_load_point_mm": [
-            13.892726,
-            17.560335
+            14.436771,
+            16.489789
           ],
-          "board_net_load_point_margin_mm": 2.257274
+          "board_net_load_point_margin_mm": 1.713229
         },
         {
           "plunger_forces_N": [
-            7.936375,
+            7.666057,
             17.44
           ],
           "probe_force_total_N": 6.35,
           "board_net_load_point_mm": [
-            13.961986,
-            16.96907
+            14.551854,
+            15.801799
           ],
-          "board_net_load_point_margin_mm": 2.188014
+          "board_net_load_point_margin_mm": 1.598146
         },
         {
           "plunger_forces_N": [
             17.44,
-            7.936375
+            7.666057
           ],
           "probe_force_total_N": 4.804651,
           "board_net_load_point_mm": [
-            13.938924,
-            19.68542
+            14.388627,
+            18.993286
           ],
-          "board_net_load_point_margin_mm": 2.211076
+          "board_net_load_point_margin_mm": 1.761373
         },
         {
           "plunger_forces_N": [
             17.44,
-            7.936375
+            7.666057
           ],
           "probe_force_total_N": 6.35,
           "board_net_load_point_mm": [
-            14.011935,
-            19.266758
+            14.499743,
+            18.511564
           ],
-          "board_net_load_point_margin_mm": 2.138065
-        },
-        {
-          "plunger_forces_N": [
-            17.44,
-            17.44
-          ],
-          "probe_force_total_N": 4.804651,
-          "board_net_load_point_mm": [
-            13.863425,
-            18.994841
-          ],
-          "board_net_load_point_margin_mm": 2.286575
+          "board_net_load_point_margin_mm": 1.650257
         },
         {
           "plunger_forces_N": [
             17.44,
             17.44
           ],
+          "probe_force_total_N": 4.804651,
+          "board_net_load_point_mm": [
+            14.327327,
+            18.183013
+          ],
+          "board_net_load_point_margin_mm": 1.822673
+        },
+        {
+          "plunger_forces_N": [
+            17.44,
+            17.44
+          ],
           "probe_force_total_N": 6.35,
           "board_net_load_point_mm": [
-            13.908027,
-            18.678233
+            14.397056,
+            17.822433
           ],
-          "board_net_load_point_margin_mm": 2.241973
+          "board_net_load_point_margin_mm": 1.752944
         }
       ],
-      "board_net_load_point_inside_land_hull_mm": 1.926555,
-      "stop_moment_N_mm": 122.08,
+      "board_net_load_point_inside_land_hull_mm": 1.215274,
+      "stop_moment_N_mm": 146.496,
+      "stop_joint": {
+        "required_screw_tension_total_N": 88.151273,
+        "pivot": "far edge of the stop faces, y 26.05",
+        "tightening_torque_N_m": 0.3,
+        "preload_total_N": 1000.0,
+        "preload_margin_factor_required": 2.0,
+        "basis": "preload = T / (K d), K = 0.2 ASSUMED (dry steel), torque PROJECT-CHOICE; each plate screw engages 2 mm (M3 x 8 through the 6 mm plate) in the steel stop thread, less if the plate sheet is thicker than nominal (its thickness does not change the plunger compression, which is set from the plate underside)",
+        "holds": true
+      },
       "board_bending_across_window": {
-        "model": "simply supported strip, point load at mid-span: d = F L^3 / (48 E I), I = b t^3 / 12; span = longest axis-parallel unsupported chord (no carrier land under the board) through the load point",
+        "model": "simply supported strip, point load at mid-span: d = F L^3 / (48 E I), I = b t^3 / 12; span = longest axis-parallel unsupported chord (no carrier land under the board) through the load point; a chord that runs off the board edge is a cantilever from its land end, taken as 16^(1/3) x its length",
         "plunger_spans_mm": [
           11.24,
-          12.06
+          0.0
         ],
-        "plunger_load_N": 34.88,
-        "deflection_under_plungers_mm": 0.056915,
+        "plunger_span_kinds": [
+          "simply_supported",
+          "on_land"
+        ],
+        "probe_span_kinds": [
+          "simply_supported",
+          "simply_supported",
+          "simply_supported",
+          "simply_supported",
+          "simply_supported"
+        ],
+        "plunger_load_N": 17.44,
+        "deflection_under_plungers_mm": 0.023039,
         "probe_spans_mm": [
           17.32,
           17.32,
@@ -4307,7 +4338,8 @@
         "board_thickness_basis": "PROJECT-CHOICE fabrication requirement 1.6 +/-0.16 mm (+/-10 %); not sourced, the fabricator is not selected. Bending uses the minimum thickness",
         "flexural_modulus_MPa": 18000.0,
         "flexural_modulus_class": "ASSUMED for the board: its laminate is not sourced (fabricator not selected). The sourced values below are typical values of other FR-4 class laminates, given for comparison; they do not bound the board laminate",
-        "flexural_modulus_minimum_for_limit_MPa": 10244.7,
+        "not_covered": "board bow or warp; the sag under the plungers is also taken off the minimum plunger compression",
+        "flexural_modulus_minimum_for_limit_MPa": 5524.6,
         "representative_sourced_moduli": [
           {
             "material": "Isola FR406 (IPC-4101 /21 /24 /26)",
@@ -4326,8 +4358,8 @@
             "locator": "Mechanical properties, E-modulus"
           }
         ],
-        "deflection_at_lowest_sourced_modulus_mm": 0.047685,
-        "deflection_mm": 0.056915,
+        "deflection_at_lowest_sourced_modulus_mm": 0.025715,
+        "deflection_mm": 0.030692,
         "limit_mm": 0.1,
         "limit_basis": "PROJECT-CHOICE: small against the 2.05 mm between the 4.3 mm working stroke and the 6.35 mm maximum"
       },
@@ -4351,7 +4383,7 @@
         "status": "PROPOSED_AWAITING_OWNER_APPROVAL (not selected)",
         "checks": {
           "compression_min_mm": [
-            0.670973,
+            0.624896,
             ">",
             0.0,
             true
@@ -4363,7 +4395,7 @@
             true
           ],
           "total_force_min_N": [
-            15.87275,
+            15.332114,
             ">=",
             12.7,
             true
@@ -4377,9 +4409,9 @@
         },
         "meets_requirement": true
       },
-      "plunger_acceptance": "each plunger: force at 0.99 mm compression within +/-20 % of the catalogue line; free pin tip set 5.39 +/-0.1 mm below the plate underside with a gauge before each session (the plunger has no thread lock)",
+      "plunger_acceptance": "each plunger: force measured at 0.624896 and 1.3 mm compression, each within +/-20 % of the catalogue line at that compression (one point does not fix the rate); pin protrusion 1.5 mm measured (no tolerance printed); free pin tip set 5.39 +/-0.1 mm below the plate underside with a gauge before each session (the plunger has no thread lock)",
       "plate_stack_acceptance": "stop standoff length 6.0 +/-0.05 mm, measured before assembly; parts outside are not used",
-      "operation": "remove the two M3 x 8 screws on the stop tops and lift the plate off with its plungers; insert the board and push it against X1, X2 and Y1; refit the plate and screw down until both screw heads seat (the plate bears on the stops). The plunger compression, not the screw torque, sets the hold-down force"
+      "operation": "remove the two M3 x 8 screws on the stop tops and lift the plate off with its plungers; insert the board and push it against X1, X2 and Y1; refit the plate and tighten both screws to 0.3 N m (the plate bears on the stops). The plunger compression, not the screw torque, sets the hold-down force"
     },
     "registration": {
       "datums": "board pushed by hand against X1, X2 (x = 16.2 edge) and Y1 (y = 62.9 edge) before the pressure plate is screwed down; friction under the contacts then holds it. Datum contact clearance zero is an acceptance check, not a spring",
@@ -4619,6 +4651,7 @@
       "board_stays_on_land": true,
       "board_bending_across_window_within_limit": true,
       "guide_and_fixing_designed": true,
+      "stop_joint_preload_holds_plate": true,
       "pressure_plate_clears_f_parts": true,
       "insulation_metal_clear_of_probes": true,
       "wire_bend_space": true
@@ -4736,7 +4769,7 @@
     "total_force_at_maximum_stroke_N": 6.35,
     "required_total_hold_down_force_N": 12.7,
     "hold_down_force_range_N": [
-      15.87275,
+      15.332114,
       34.88
     ],
     "clamp_force_margin_factor": 2.0,
@@ -4803,12 +4836,12 @@
               "met": true
             },
             "narrowest_opening_mm": {
-              "design": 5.095,
+              "design": 5.270736,
               "guidance_tool_diameter_mm": 1.2,
               "met": true
             },
             "minimum_milled_wall_mm": {
-              "design": 1.108306,
+              "design": 1.0,
               "guidance_absolute_minimum": 1.0,
               "met": true
             }
@@ -4853,6 +4886,6 @@
   ],
   "physical_items": [
     "No physical fit, contact, insertion-force or measured stroke evidence; no prototype exists; every acceptance measurement in b_side_relief is a requirement, not a result.",
-    "The hold-down plunger forces are catalogue approximations without a tolerance: the design takes them +/-20 % and each plunger must be measured against that band before use; the plunger has no thread lock, so its pin-tip setting is gauged before each session."
+    "The hold-down plunger forces are catalogue approximations without a tolerance: the design takes them +/-20 % and each plunger must be measured against that band at both compression ends before use; the plunger has no thread lock, so its pin-tip setting is gauged before each session."
   ]
 }

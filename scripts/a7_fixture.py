@@ -192,7 +192,7 @@ def report():
     ]
     physical_items = ['No physical fit, contact, insertion-force or measured stroke evidence; no prototype exists; every acceptance measurement in b_side_relief is a requirement, not a result.',
                       'The hold-down plunger forces are catalogue approximations without a tolerance: the design takes them +/-'
-                      f"{round(relief['rules']['plunger_force_acceptance_band'] * 100)} % and each plunger must be measured against that band before use; "
+                      f"{round(relief['rules']['plunger_force_acceptance_band'] * 100)} % and each plunger must be measured against that band at both compression ends before use; "
                       'the plunger has no thread lock, so its pin-tip setting is gauged before each session.']
     digital_met = fresh and all(completion[k]['met'] for k in digital) and not blockers
     # the documented flag keeps every criterion, including the physical criterion 5
