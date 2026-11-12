@@ -110,25 +110,24 @@
 <circle cx="543.00" cy="225.00" r="7.00" fill="white" stroke="#a33"/>
 <rect x="612.40" y="120.00" width="256.20" height="378.00" fill="#f2f2f2" stroke="#999"/>
 <path d="M 732.10 480.50 L 748.90 480.50 A 5.60 5.60 0 0 0 754.50 474.90 L 754.50 472.10 A 5.60 5.60 0 0 0 748.90 466.50 L 732.10 466.50 A 5.60 5.60 0 0 0 726.50 472.10 L 726.50 474.90 A 5.60 5.60 0 0 0 732.10 480.50 Z" fill="white" stroke="#999"/>
-<rect x="610.30" y="382.50" width="260.40" height="73.50" fill="#f5e6c8" stroke="black"/>
-<path d="M 722.26 418.16 L 764.19 418.16 A 5.60 5.60 0 0 0 769.79 412.56 L 769.79 382.43 L 716.66 382.43 L 716.66 412.56 A 5.60 5.60 0 0 0 722.26 418.16 Z" fill="white" stroke="none"/>
-<circle cx="645.30" cy="425.90" r="23.10" fill="white" stroke="black"/>
-<circle cx="835.70" cy="425.90" r="23.10" fill="white" stroke="black"/>
-<circle cx="786.70" cy="397.90" r="7.00" fill="#2a7a2a"/>
-<circle cx="781.10" cy="438.50" r="7.00" fill="#2a7a2a"/>
-<circle cx="701.30" cy="434.30" r="7.00" fill="#2a7a2a"/>
+<rect x="610.30" y="382.50" width="260.40" height="112.00" fill="#f5e6c8" stroke="black"/>
+<path d="M 723.13 419.40 L 763.33 419.40 A 7.70 7.70 0 0 0 771.03 411.70 L 771.03 382.43 L 715.43 382.43 L 715.43 411.70 A 7.70 7.70 0 0 0 723.13 419.40 Z" fill="white" stroke="none"/>
+<circle cx="645.30" cy="425.90" r="11.90" fill="white" stroke="black"/>
+<circle cx="835.70" cy="425.90" r="11.90" fill="white" stroke="black"/>
+<circle cx="782.50" cy="437.10" r="7.00" fill="#2a7a2a"/>
+<circle cx="783.20" cy="473.50" r="7.00" fill="#2a7a2a"/>
 <path d="M 770.08 415.12 H 780.08 M 775.08 410.12 V 420.12" stroke="#c00" stroke-width="2"/>
 <rect x="91.40" y="148.70" width="113.40" height="440.30" fill="none" stroke="#777" stroke-dasharray="4 3"/>
 <rect x="387.60" y="148.70" width="113.40" height="440.30" fill="none" stroke="#777" stroke-dasharray="4 3"/>
 <rect x="683.80" y="148.70" width="113.40" height="440.30" fill="none" stroke="#777" stroke-dasharray="4 3"/>
 <text x="20" y="619">Support carrier: 5 thick, 7 windows, internal radius 1; datum pins Ø2 (blue) X1, X2, Y1; M3 countersunk Ø6 (6);</text>
-<text x="20" y="641">dowels Ø2 (red) D1, D2; guide standoff holes Ø3.4 (green).</text>
+<text x="20" y="641">dowels Ø2 (red) D1, D2; stop standoff holes Ø3.4 (green).</text>
 <text x="20" y="663">Probe plate: 6 thick, 5 bores Ø0.99 (finished 0.98-1.00), bore web 0.4 (drilled); J5 window radius 1.1; M3 Ø3.4 (6); dowels Ø2.</text>
-<text x="20" y="685">Pressure plate: 3 thick, notch radius 0.8, guide holes Ø6.6, contacts M2 nylon tapped Ø1.6 (green dots).</text>
-<text x="20" y="707">Contacts at [[14.7, 27.3], [13.9, 21.5], [2.5, 22.1]]; red cross: probe resultant, inside the contact triangle by 1.31.</text>
+<text x="20" y="685">Pressure plate: 6 thick, notch radius 1.1, stop screw holes Ø3.4, plungers M4 tapped (drill Ø3.3, green dots).</text>
+<text x="20" y="707">Plungers at [[14.1, 21.7], [14.2, 16.5]]; red cross: probe resultant; board net load point at least 1.22 inside the land.</text>
 <text x="20" y="729">Base plate (grey): 3 thick, M3 countersunk (6), tie slot [6.1, 15.5, 10.1, 17.5].</text>
 <text x="20" y="751">Stack z: carrier [-5.0, 0.0], spacers [-11.0, -5.0], probe plate [-17.0, -11.0], standoffs [-52.0, -17.0], base [-55.0, -52.0],</text>
-<text x="20" y="773">pressure plate [4.1, 7.1], guide standoff top 20.0.</text>
-<text x="20" y="795">Clamp: two springs, each >= 6.35 N at [12.54, 13.26] mm (total 12.7 N = 2.0 x 6.35 N probe force at maximum stroke).</text>
+<text x="20" y="773">pressure plate [6.0, 12.0], stop top 6.0.</text>
+<text x="20" y="795">Hold-down: 2 x K0318.04, compression [0.624896, 1.3] mm, total [15.332114, 34.88] N >= 12.7 N = 2.0 x 6.35 N probe force at maximum stroke.</text>
 <text x="20" y="817">Registration: radial budget 0.25, allocated worst-case margin 0.03 (acceptance measurements).</text>
 </g></svg>

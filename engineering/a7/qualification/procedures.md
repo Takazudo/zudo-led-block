@@ -17,8 +17,8 @@
 | 生成物 | フラグ | 現在値 | 役割 | 満たす手順 | 説明 |
 |---|---|---|---|---|---|
 | fixture | `digital_fixture_complete` | `false` | ゲート | fixture-contact | README の完了基準 1–5 がすべて満たされたこと。基準 5（接触・荷重・位置決め・ストローク・損傷の実機試験）は fixture-contact の観測でしか満たせないので、どの手順の前提にもできない。 |
-| fixture | `fresh_native_verified` | `false` | ゲート | —（デジタル生成物） | 治具形状の native 検証。B 面の全突起の高さに出典があることを含み、資料の入手で満たす（手順の観測では満たさない）。 |
-| fixture | `digital_criteria_1_to_4_met` | `false` | 参考のみ | —（デジタル生成物） | README の基準 1–4 がデジタルで満たされ、デジタルのブロッカーがないこと（fresh_native_verified を含む）。進捗の表示で、完了フラグでも発注適格性でもない。fixture-contact を始める前提。 |
+| fixture | `fresh_native_verified` | `true` | ゲート | —（デジタル生成物） | 治具形状の native 検証。B 面の全突起の高さに出典があることを含み、資料の入手で満たす（手順の観測では満たさない）。 |
+| fixture | `digital_criteria_1_to_4_met` | `true` | 参考のみ | —（デジタル生成物） | README の基準 1–4 がデジタルで満たされ、デジタルのブロッカーがないこと（fresh_native_verified を含む）。進捗の表示で、完了フラグでも発注適格性でもない。fixture-contact を始める前提。 |
 | fixture | `hardware_proposal_complete` | `true` | 参考のみ | —（デジタル生成物） | 治具の各金物要求（materials.json）に出典付きの候補（hardware_proposal）が 1 つずつあること。オーナー承認待ちの提案で、選定でも承認でもない。true かつ基準 1–4 が満たされると、調達の assembly:fixture-materials はオーナーの判断（加工先の選択と金物の承認）に移る。 |
 
 ## 未実施の手順
@@ -1230,15 +1230,14 @@
 
 | 区分 | ゲート数 |
 |---|---:|
-| CLOUD_DIGITAL（クラウドで進められるデジタル作業） | 2 |
-| OWNER_DECISION（オーナーの判断） | 13 |
+| CLOUD_DIGITAL（クラウドで進められるデジタル作業） | 0 |
+| OWNER_DECISION（オーナーの判断） | 14 |
 | ACCESS_EVIDENCE_HOLD（外部の証跡・アクセス待ち） | 14 |
-| PHYSICAL_ONLY（実機が必要） | 20 |
+| PHYSICAL_ONLY（実機が必要） | 21 |
 
 ## 現在のブロッカー
 
-- fixture: unresolved preparation blockers
-- fixture digital design incomplete or unverified
+- fixture completion awaits the physical criterion 5 (fixture-contact)
 - assembly_manifest: supply-observations: Order quantity is 2 modules (owner decision). JLC stock, price, minimum, packaging, lead time and assembly applicability at that quantity are not observed for any line except C221842 (switch-supply); JLC attrition is not sourced; stock never reserved.
 - assembly_manifest: switch-supply: PCM13SMTR (C221842): 2 needed for 2 modules. JLC stock 0 at 2026-11-09; at 2026-11-12 JLC lists it buyable (Extended) with pre-order minimum 3 and presale 0 (field meanings inferred), tier prices without currency, no lead time. The owner wants to complete on JLC: on our reading, a pre-order (presale 0 may mean none can be placed now; fill depends on LCSC stock, not observed) or a Global Sourcing quote; otherwise wait, or accept a reviewed alternate with its own contact table and fit review.
 - assembly_manifest: jack-switch-qualification: PJ-324M pin function (which of terminals 4/5 is the tip contact and which its normal; the supplier symbol contradicts the inferred 4 = tip, so this continuity test must precede any PCB order), slot, axis height and nut fit, and PCM13SMTR truth table and land fit, need received parts (jack-continuity, jack-dimensions, switch-fit).
@@ -1246,7 +1245,7 @@
 - assembly_manifest: finished-cables: Finished A7 power cable (57 mm, +/-3 ASSUMED), SH4 cables and IDC ribbon not selected; supplier answers and the owner choice of assembly are needed before physical routing checks.
 - assembly_manifest: mechanical-materials: PMMA sheet and pocket tolerances, PETG process and orderable fastener part numbers are not sourced; the model carries designations (M2x18, M1.6x4) and envelopes only.
 - assembly_manifest: rack-hardware: Owner rack rail/thread interface and fasteners not specified.
-- assembly_manifest: fixture-materials: Fixture design and materials incomplete (fixture manifest: digital_criteria_1_to_4_met not true); physical contact/load tests follow.
+- assembly_manifest: fixture-materials: Fixture digital criteria 1-4 met and a sourced hardware proposal recorded; the fabricator choice and approval of the proposed hardware are owner decisions. Physical contact/load tests (criterion 5) follow.
 - assembly_manifest: prototype-and-release: No owner-approved prototype route, no reviewed manufacturing package and no release approval.
 - jack-continuity: NOT_MEASURED: no run
 - jack-dimensions: criterion unresolved or review receipt missing

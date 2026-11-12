@@ -96,37 +96,112 @@ class ReliefTests(unittest.TestCase):
             d = rl.design(GEOM, probes())
         self.assertFalse(d['fresh_native_criteria']['every_tht_lead_ends_inside_its_carrier_window'])
 
-    def test_spring_candidate_meets_the_requirement_at_worst_case(self):
+    def test_plunger_compression_covers_the_stack_and_board_extremes(self):
         h = self.d['holddown']
-        req, cand = h['spring_requirement'], h['spring_candidate']
-        # board +/-0.16, contact setting +/-0.1, plate thickness and standoff length +/-0.05 each
-        self.assertEqual(req['installed_length_range_mm'], [12.54, 13.26])
-        self.assertTrue(cand['meets_requirement'], cand['checks'])
-        lo = (0.80 - 0.08) * (23.0 - 0.79 - 13.26)
-        hi = (0.80 + 0.08) * (23.0 + 0.79 - 12.54)
-        self.assertAlmostEqual(cand['checks']['force_min_at_longest_installed_length_N'][0], lo, places=4)
-        self.assertAlmostEqual(cand['checks']['force_max_at_shortest_installed_length_N'][0], hi, places=4)
-        self.assertGreaterEqual(lo, req['force_min_over_range_N'])
-        self.assertLessEqual(hi, req['force_max_over_range_N'])
-        self.assertIn('AWAITING_OWNER_APPROVAL', cand['status'])
-        with unittest.mock.patch.dict(rl.SPRING_CANDIDATE, {'rate_N_per_mm': 0.70}):
-            self.assertFalse(rl.design(GEOM, probes())['holddown']['spring_candidate']['meets_requirement'])
+        pl, c = rl.PLUNGER_CANDIDATE, h['plunger_compression_mm']
+        # board +/-0.16 (1.44-1.76 mm), stop length +/-0.05, plunger setting +/-0.1; 0.2 mm kept from the stroke end
+        self.assertEqual(c['board_thickness_range_mm'], [1.44, 1.76])
+        self.assertAlmostEqual(sum(c['stack_mm'].values()), 0.31)
+        self.assertAlmostEqual(c['nominal'], pl['stroke_mm'] - 0.2 - 0.31)
+        self.assertAlmostEqual(c['range'][1], c['nominal'] + 0.31)
+        self.assertAlmostEqual(c['range'][0], c['nominal'] - 0.31 - c['plate_deflection_mm'] - c['board_sag_under_plungers_mm'])
+        self.assertGreater(c['plate_deflection_mm'], 0)
+        self.assertGreater(c['board_sag_under_plungers_mm'], 0)
+        self.assertGreater(c['range'][0], 0)
+        self.assertLessEqual(c['range'][1], pl['stroke_mm'] - 0.2 + 1e-9)
+        # the setting puts the free pin tip at the nominal compression on the nominal board
+        self.assertAlmostEqual(rl.STACK['pressure_plate'][0] - h['plunger_setting_mm']['free_pin_tip_below_plate_underside'], 1.6 - c['nominal'])
 
-    def test_bending_is_checked_at_the_minimum_board_thickness_and_exceeds_the_limit(self):
+    def test_plunger_forces_are_bounded_at_every_worst_case(self):
+        h = self.d['holddown']
+        pl, (d_min, d_max) = rl.PLUNGER_CANDIDATE, h['plunger_compression_mm']['range']
+        line = lambda d: pl['force_initial_N'] + (pl['force_final_N'] - pl['force_initial_N']) * d / pl['stroke_mm']
+        band = rl.RULES['plunger_force_acceptance_band']
+        self.assertAlmostEqual(h['plunger_force_each_N'][0], line(d_min) * (1 - band), places=5)
+        self.assertAlmostEqual(h['plunger_force_each_N'][1], line(d_max) * (1 + band), places=5)
+        k = len(h['contacts_board_mm'])
+        self.assertEqual(h['total_force_N'], [round(k * x, 6) for x in h['plunger_force_each_N']])
+        self.assertAlmostEqual(h['required_total_force_N'], 2 * 5 * 1.27)
+        self.assertGreaterEqual(h['total_force_N'][0], h['required_total_force_N'])
+        cand = h['plunger_candidate']
+        self.assertTrue(cand['meets_requirement'], cand['checks'])
+        self.assertIn('AWAITING_OWNER_APPROVAL', cand['status'])
+        self.assertIn('POM', cand['description'])
+        # the light-force series of the same leaf (2-7 N) cannot reach the required total on the free F-face area
+        with unittest.mock.patch.dict(rl.PLUNGER_CANDIDATE, {'force_initial_N': 2.0, 'force_final_N': 7.0}):
+            with self.assertRaisesRegex(ValueError, 'required total force'):
+                rl.design(GEOM, probes())
+
+    def test_a_short_body_end_clearance_fails_the_plunger_checks(self):
+        with unittest.mock.patch.dict(rl.RULES, {'plunger_body_end_clearance_min_mm': 0.3}):
+            d = rl.design(GEOM, probes())
+        self.assertFalse(d['holddown']['plunger_candidate']['meets_requirement'])
+        self.assertFalse(d['criterion_3_checks']['plungers_within_stroke'])
+
+    def test_bending_is_checked_at_the_minimum_board_thickness_and_within_the_limit(self):
         b = self.d['holddown']['board_bending_across_window']
-        self.assertAlmostEqual(b['load_N'], 2 * rl.RULES['spring_force_max_over_range_N'], places=5)
         self.assertAlmostEqual(b['board_thickness_minimum_mm'], 1.44)
-        f_, L, w, e = b['load_N'], b['span_mm'], b['strip_width_mm'], b['flexural_modulus_MPa']
-        for t, key in ((b['board_thickness_minimum_mm'], 'deflection_mm'), (1.6, 'deflection_at_nominal_thickness_mm')):
-            self.assertAlmostEqual(b[key], f_ * L ** 3 / (48 * e * w * t ** 3 / 12), places=5)
-        # nominal passes, the thinnest allowed board does not, even at the lowest sourced FR-4 class modulus
-        self.assertLessEqual(b['deflection_at_nominal_thickness_mm'], b['limit_mm'])
-        self.assertGreater(b['deflection_mm'], b['limit_mm'])
-        self.assertGreater(b['deflection_at_lowest_sourced_modulus_mm'], b['limit_mm'])
+        t, e, w = b['board_thickness_minimum_mm'], b['flexural_modulus_MPa'], b['strip_width_mm']
+        defl = lambda f_, L: f_ * L ** 3 / (48 * e * w * t ** 3 / 12)
+        # the plungers press over the window (real unsupported spans), so the bending check is not trivially zero
+        self.assertTrue(any(L > 0 for L in b['plunger_spans_mm']))
+        self.assertEqual(set(b['plunger_span_kinds'] + b['probe_span_kinds']) - {'on_land', 'simply_supported', 'cantilever'}, set())
+        hi = self.d['holddown']['plunger_force_each_N'][1]
+        self.assertAlmostEqual(b['plunger_load_N'], hi * sum(L > 0 for L in b['plunger_spans_mm']), places=5)
+        self.assertAlmostEqual(b['deflection_under_plungers_mm'], defl(b['plunger_load_N'], max(b['plunger_spans_mm'])), places=5)
+        self.assertAlmostEqual(b['deflection_under_probes_mm'], defl(b['probe_load_N'], max(b['probe_spans_mm'])), places=5)
+        self.assertEqual(b['deflection_mm'], max(b['deflection_under_plungers_mm'], b['deflection_under_probes_mm']))
+        self.assertLessEqual(b['deflection_mm'], b['limit_mm'])
+        self.assertLessEqual(b['deflection_at_lowest_sourced_modulus_mm'], b['limit_mm'])
         self.assertIn('ASSUMED', b['flexural_modulus_class'])
         self.assertIn('do not bound', b['flexural_modulus_class'])
-        self.assertFalse(self.d['criterion_3_checks']['board_bending_across_window_within_limit'])
+        self.assertTrue(self.d['criterion_3_checks']['board_bending_across_window_within_limit'])
+        with unittest.mock.patch.dict(rl.RULES, {'board_deflection_limit_mm': 0.02}):
+            self.assertFalse(rl.design(GEOM, probes())['criterion_3_checks']['board_bending_across_window_within_limit'])
 
+    def test_span_is_the_unsupported_chord_not_the_window_box(self):
+        b = self.d['holddown']['board_bending_across_window']
+        for L in b['plunger_spans_mm'] + b['probe_spans_mm']:
+            self.assertLess(L, 62.9)
+
+    def test_board_span_handles_free_board_edges(self):
+        # land everywhere except a hole x 4-12, y 20-30 (simply supported both ways)
+        hole = lambda x, y: not (4 < x < 12 and 20 < y < 30)
+        L, kind = rl.board_span(hole, (8.0, 25.0))
+        self.assertEqual(kind, 'simply_supported')
+        self.assertAlmostEqual(L, 10.0, delta=0.05)
+        # the same hole opened to the x = 16.2 board edge: a cantilever of 4 mm from x = 4, taken as 16^(1/3) x 4
+        edge = lambda x, y: not (4 < x and 20 < y < 30)
+        L, kind = rl.board_span(edge, (8.0, 25.0))
+        self.assertEqual(kind, 'cantilever')
+        self.assertAlmostEqual(L, 16 ** (1 / 3) * 4.0, delta=0.1)
+        self.assertEqual(rl.board_span(lambda x, y: False, (8.0, 25.0)), (math.inf, 'unsupported'))
+        self.assertEqual(rl.board_span(lambda x, y: True, (8.0, 25.0)), (0.0, 'on_land'))
+
+    def test_stop_screws_hold_the_plate_against_the_plunger_moment(self):
+        h = self.d['holddown']
+        sj, ys = h['stop_joint'], h['stop_line_y_mm']
+        pivot = ys + rl.RULES['m3_hex_across_flats_mm'] / 2
+        hi = h['plunger_force_each_N'][1]
+        want = sum(hi * abs(pivot - q[1]) for q in h['contacts_board_mm']) / (pivot - ys)
+        self.assertAlmostEqual(sj['required_screw_tension_total_N'], want, places=4)
+        self.assertTrue(sj['holds'])
+        self.assertIn(f"{rl.RULES['stop_screw_torque_N_m']} N m", h['operation'])
+        with unittest.mock.patch.dict(rl.RULES, {'stop_screw_torque_N_m': 0.01}):
+            self.assertFalse(rl.design(GEOM, probes())['criterion_3_checks']['stop_joint_preload_holds_plate'])
+
+    def test_plunger_acceptance_measures_both_compression_ends(self):
+        h = self.d['holddown']
+        lo, hi = h['plunger_compression_mm']['range']
+        self.assertIn(f'{lo} and {hi} mm', h['plunger_acceptance'])
+        self.assertIn('protrusion', h['plunger_acceptance'])
+
+    def test_tapped_hole_webs_are_measured_at_the_thread_major_diameter(self):
+        h, pr = self.d['holddown'], self.d['pressure_plate']
+        a, b = h['contacts_board_mm']
+        self.assertGreaterEqual(math.dist(a, b) - h['plunger_body_diameter_mm'], rl.MIN_WALL - 1e-9)
+        self.assertEqual(pr['web_conflicts'], [])
+        self.assertTrue(all(w['web_mm'] >= rl.MIN_WALL - 1e-9 for w in pr['smallest_webs']))
     def test_yardstick_and_sourced_minimums(self):
         ref = json.loads((f.OUT / 'candidate-references.json').read_text())['references'][0]
         self.assertEqual(rl.MIN_WALL, ref['rules_used']['wall_absolute_minimum_mm'])
@@ -293,46 +368,48 @@ class ReliefTests(unittest.TestCase):
                         thin.add((round(x, 3), round(y, 3)))
         return sorted(thin)
 
-    def test_contacts_on_free_f_face_around_both_resultants(self):
+    def test_plungers_on_free_f_face_in_plate_material(self):
         h = self.d['holddown']
-        self.assertEqual(len(h['contacts_board_mm']), 3)
-        need = rl.RULES['resultant_margin_mm']
-        self.assertGreaterEqual(h['probe_resultant_margin_mm'], need)
-        self.assertGreaterEqual(h['spring_resultant_margin_mm'], need)
-        self.assertAlmostEqual(h['required_total_spring_force_N'], 2 * 5 * 1.27)
-        self.assertEqual(h['spring_force_range_each_N'], [6.35, 10.0])
+        self.assertEqual(len(h['contacts_board_mm']), 2)
         fside = [fp['courtyard_bbox_mm']['F'] for fp in GEOM['footprints'] if fp['side'] == 'F' and fp['courtyard_bbox_mm'].get('F')]
-        rc = rl.RULES['contact_diameter_mm'] / 2
-        keep = rl.RULES['spring_outer_diameter_max_mm'] / 2 + rl.RULES['contact_nut_across_corners_mm'] / 2 + rl.RULES['pressure_plate_part_clearance_mm']
+        r_body = r_tap = h['plunger_body_diameter_mm'] / 2  # webs at the M4 thread major diameter
+        notch = self.d['pressure_plate']['j5_notch_board_mm']
+        x0, y0, x1, y1 = rl.PRESSURE_PLATE
         for x, y in h['contacts_board_mm']:
-            self.assertTrue(all(rl._box_point_dist(b, (x, y)) >= rc + rl.RULES['contact_f_side_clearance_mm'] - 1e-9 for b in fside))
-            self.assertTrue(rc <= x <= 16.2 - rc)
-            self.assertTrue(all(math.dist((x, y), g['board_xy_mm']) >= keep - 1e-9 for g in h['guides']))
-        # equal springs sit well inside; the strongest G1 spring against the weakest G2 spring pushes the resultant out of the triangle
-        self.assertLess(h['spring_resultant_margin_at_unequal_forces_mm'], 0)
-        self.assertFalse(self.d['fresh_native_criteria']['contacts_on_f_face_clear_of_parts_and_around_both_resultants'])
+            self.assertTrue(all(rl._box_point_dist(b, (x, y)) >= r_body + rl.RULES['contact_f_side_clearance_mm'] - 1e-9 for b in fside))
+            self.assertTrue(r_body <= x <= 16.2 - r_body)
+            self.assertTrue(y0 + r_tap + rl.MIN_WALL - 1e-9 <= y <= y1 - r_tap - rl.MIN_WALL + 1e-9)
+            self.assertGreaterEqual(rl._box_point_dist(notch, (x, y)), r_tap + rl.MIN_WALL - 1e-9)
+        a, b = h['contacts_board_mm']
+        self.assertGreaterEqual(math.dist(a, b), 2 * r_tap + rl.MIN_WALL - 1e-9)
+        self.assertTrue(self.d['fresh_native_criteria']['hold_down_plungers_on_free_f_face'])
 
-    def test_statics_cover_every_spring_force_pair(self):
+    def test_statics_cover_every_force_extreme_without_spring_balance(self):
         h = self.d['holddown']
         cases = h['statics_cases']
-        self.assertEqual(sorted(tuple(c['spring_forces_N']) for c in cases), [(6.35, 6.35), (6.35, 10.0), (10.0, 6.35), (10.0, 10.0)])
+        lo, hi = h['plunger_force_each_N']
+        pf = h['probe_force_total_N']
+        self.assertEqual(sorted((tuple(c['plunger_forces_N']), c['probe_force_total_N']) for c in cases),
+                         sorted(((a, b), p) for a in (lo, hi) for b in (lo, hi) for p in (pf['minimum_at_acceptance_stroke'], pf['maximum_stroke'])))
+        cx, cy = h['probe_resultant_board_mm']
+        q = h['contacts_board_mm']
         for c in cases:
-            self.assertAlmostEqual(sum(c['contact_reactions_N']), sum(c['spring_forces_N']), places=4)
-        equal = [c for c in cases if c['spring_forces_N'][0] == c['spring_forces_N'][1]]
-        self.assertTrue(all(min(c['contact_reactions_N']) > 0 for c in equal))
-        worst = next(c for c in cases if c['spring_forces_N'] == [10.0, 6.35])
-        self.assertLess(min(worst['contact_reactions_N']), 0)
-        self.assertLess(worst['board_net_load_point_margin_mm'], 0)
-        self.assertEqual(h['minimum_contact_reaction_N'], min(min(c['contact_reactions_N']) for c in cases))
-        self.assertFalse(self.d['criterion_3_checks']['clamp_force_sized_with_margin'])
-        self.assertFalse(self.d['criterion_3_checks']['board_stays_on_land'])
+            fs, pp = c['plunger_forces_N'], c['probe_force_total_N']
+            tot = sum(fs) - pp
+            self.assertGreater(tot, 0)
+            want = [(sum(f_ * p[0] for f_, p in zip(fs, q)) - pp * cx) / tot, (sum(f_ * p[1] for f_, p in zip(fs, q)) - pp * cy) / tot]
+            self.assertAlmostEqual(c['board_net_load_point_mm'][0], want[0], places=4)
+            self.assertAlmostEqual(c['board_net_load_point_mm'][1], want[1], places=4)
+            # unequal plunger forces included: each plunger is displacement-set, so no case depends on a matched pair
+            self.assertGreaterEqual(c['board_net_load_point_margin_mm'], rl.RULES['resultant_margin_mm'])
+        self.assertEqual(h['board_net_load_point_inside_land_hull_mm'], min(c['board_net_load_point_margin_mm'] for c in cases))
+        self.assertTrue(self.d['criterion_3_checks']['board_stays_on_land'])
+        self.assertTrue(self.d['criterion_3_checks']['clamp_force_sized_with_margin'])
 
-    def test_equal_springs_keep_the_board_on_land(self):
-        h = self.d['holddown']
-        for c in h['statics_cases']:
-            if c['spring_forces_N'][0] == c['spring_forces_N'][1]:
-                self.assertGreaterEqual(c['board_net_load_point_margin_mm'], rl.RULES['resultant_margin_mm'])
-        self.assertGreaterEqual(h['board_bending_across_window']['load_N'], h['probe_force_total_N']['maximum_stroke'])
+    def test_a_stricter_land_margin_fails_criterion_3(self):
+        with unittest.mock.patch.dict(rl.RULES, {'resultant_margin_mm': 5.0}):
+            d = rl.design(GEOM, probes())
+        self.assertFalse(d['criterion_3_checks']['board_stays_on_land'])
 
     def test_hull_margin(self):
         hull = rl._hull([(0, 0), (4, 0), (4, 4), (0, 4), (2, 2)])
@@ -358,28 +435,36 @@ class ReliefTests(unittest.TestCase):
         pr = self.d['pressure_plate']
         self.assertEqual(pr['clearance_conflicts'], [])
         self.assertTrue(all(u['clearance_to_plate_mm'] >= rl.RULES['pressure_plate_part_clearance_mm'] for u in pr['parts_under_plate']))
+        # the milled notch corners (radius r) still keep the clearance off the J5 courtyard corners
+        j5 = next(fp for fp in GEOM['footprints'] if fp['fpid'] == 'LightBlock:PICO3')['courtyard_bbox_mm']['F']
+        n, r = pr['j5_notch_board_mm'], pr['corner_radius_mm']
+        for cx_, cy_, kx, ky in ((n[0] + r, n[1] + r, j5[0], j5[1]), (n[2] - r, n[1] + r, j5[2], j5[1])):
+            self.assertGreaterEqual(r - math.dist((cx_, cy_), (kx, ky)), rl.RULES['pressure_plate_part_clearance_mm'] - 1e-6)
 
-    def test_criterion_3_fails_only_on_the_clamp_worst_cases(self):
-        failed = {k for k, v in self.d['criterion_3_checks'].items() if not v}
-        self.assertEqual(failed, {'clamp_force_sized_with_margin', 'board_stays_on_land', 'board_bending_across_window_within_limit'})
-
+    def test_criterion_3_met_at_every_worst_case(self):
+        self.assertEqual({k for k, v in self.d['criterion_3_checks'].items() if not v}, set())
+        self.assertTrue(all(self.d['fresh_native_criteria'].values()), self.d['fresh_native_criteria'])
 
 class CompletionTests(unittest.TestCase):
     def test_completion_flags_follow_criteria(self):
         r = f.report()
         cc = r['completion_criteria']
-        self.assertTrue(cc['2_keying_and_registration']['met'])
-        # the clamp worst cases (unequal springs, thinnest board) are not met
-        self.assertFalse(cc['3_stroke_stop_guide_fixing_insulation_wiring']['met'])
-        self.assertTrue(cc['4_assembly_step_interference_check']['met'], cc['4_assembly_step_interference_check'])
-        self.assertFalse(cc['1_native_support_and_relief']['met'])
-        self.assertIn('contacts_on_f_face_clear_of_parts_and_around_both_resultants', cc['1_native_support_and_relief']['basis'])
+        for k in ('1_native_support_and_relief', '2_keying_and_registration', '3_stroke_stop_guide_fixing_insulation_wiring',
+                  '4_assembly_step_interference_check'):
+            self.assertTrue(cc[k]['met'], cc[k])
         self.assertFalse(cc['5_physical_tests']['met'])
         self.assertEqual(r['status'], 'BLOCKED')
-        self.assertFalse(r['fresh_native_verified'])
-        self.assertFalse(r['digital_criteria_1_to_4_met'])
+        self.assertTrue(r['fresh_native_verified'])
+        self.assertTrue(r['digital_criteria_1_to_4_met'])
         self.assertFalse(r['digital_fixture_complete'])
-        self.assertEqual(len(r['blockers']), 2, r['blockers'])
+        self.assertEqual(r['blockers'], [])
+
+    def test_a_failing_hold_down_case_clears_the_flags(self):
+        with unittest.mock.patch.dict(rl.RULES, {'board_deflection_limit_mm': 0.02}):
+            r = f.report()
+        self.assertFalse(r['completion_criteria']['3_stroke_stop_guide_fixing_insulation_wiring']['met'])
+        self.assertFalse(r['digital_criteria_1_to_4_met'])
+        self.assertTrue(any('board_bending_across_window_within_limit' in b for b in r['blockers']), r['blockers'])
 
     def test_hardware_proposal_covers_every_materials_line(self):
         r = f.report()
@@ -394,15 +479,15 @@ class CompletionTests(unittest.TestCase):
         self.assertTrue(all('SELECTED' not in i['status'] or 'NOT_SELECTED' in i['status'] for i in items))
 
     def test_hardware_proposal_incomplete_without_a_line_or_a_source(self):
-        short = [e for e in f.HARDWARE_PROPOSAL if e[0] != 'clamp-springs']
+        short = [e for e in f.HARDWARE_PROPOSAL if e[0] != 'hold-down-plungers']
         with unittest.mock.patch.object(f, 'HARDWARE_PROPOSAL', short):
             r = f.report()
         self.assertFalse(r['hardware_proposal_complete'])
-        self.assertIn('clamp-springs: no proposed candidate', r['hardware_proposal_problems'])
-        bad = [e if e[0] != 'guide-washers' else (e[0], e[1], e[2], 'sources.json#absent') for e in f.HARDWARE_PROPOSAL]
+        self.assertIn('hold-down-plungers: no proposed candidate', r['hardware_proposal_problems'])
+        bad = [e if e[0] != 'stop-screws' else (e[0], e[1], e[2], 'sources.json#absent') for e in f.HARDWARE_PROPOSAL]
         with unittest.mock.patch.object(f, 'HARDWARE_PROPOSAL', bad):
             self.assertFalse(f.report()['hardware_proposal_complete'])
-        with unittest.mock.patch.dict(rl.SPRING_CANDIDATE, {'free_length_mm': 20.0}):
+        with unittest.mock.patch.dict(rl.RULES, {'plunger_body_end_clearance_min_mm': 0.3}):
             r = f.report()
         self.assertFalse(r['hardware_proposal_complete'])
 

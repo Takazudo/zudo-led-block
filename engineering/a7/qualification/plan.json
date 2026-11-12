@@ -3783,6 +3783,14 @@
       ]
     },
     {
+      "id": "O11",
+      "title": "治具の加工先を選び、提案された金物を承認する",
+      "detail": "治具の FR-4 板 4 枚の加工先は未選定（JLCCNC の指針は参考のみ）。`engineering/a7/fixture/manifest.json` の hardware_proposal は全資材行に出典付きの候補を 1 つずつ載せた提案で、選定でも承認でもない。プローブ板の穴間 0.40 mm は加工先に穴あけ可否の確認が要る。",
+      "unblocks": [
+        "assembly:fixture-materials"
+      ]
+    },
+    {
       "id": "O1",
       "title": "限定試作ルートを承認する",
       "detail": "対象版（A7 r2 / 3HP / FR-4）、数量、入手する部品・基板・治具、許す工程、実施者、試験前の安全条件を決め、承認ファイルを残して `records.json` の owner_prototype_route に記録する。製造リリースとは別の承認。",
@@ -4231,7 +4239,7 @@
     {
       "gate": "assembly:fixture-materials",
       "stage": "BENCH",
-      "question": "治具の FR-4 板 4 枚の加工先と、提案された金物（ばね・ねじ・ピン等）を承認しますか。",
+      "question": "治具の FR-4 板 4 枚の加工先と、提案された金物（スプリングプランジャ・スタンドオフ・ねじ・ピン等）を承認しますか。",
       "options": [
         {
           "id": "approve",

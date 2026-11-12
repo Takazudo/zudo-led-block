@@ -14,10 +14,10 @@ readiness（`engineering/a7/qualification/readiness.json`）は不足を 49 個�
 
 | 区分 | ゲート数 |
 |---|---:|
-| クラウドで進められるデジタル作業 | 2 |
-| オーナーの判断 | 13 |
+| クラウドで進められるデジタル作業 | 0 |
+| オーナーの判断 | 14 |
 | 外部の証跡・アクセス待ち | 14 |
-| 実機が必要 | 20 |
+| 実機が必要 | 21 |
 
 ## 残っているオーナーの作業（この順に）
 
@@ -30,11 +30,12 @@ readiness（`engineering/a7/qualification/readiness.json`）は不足を 49 個�
 5. **O4** PCM13SMTR の JLC 在庫切れへの対応を決める
 6. **O5** 完成ケーブルを選び、電源ケーブル公差 ±3 mm（仮定）を認めるか決める
 7. **O6** ラック締結部品を指定する
-8. **O1** 限定試作ルートを承認する
-9. **O9** 物理手順を実施して記録する
-10. **O10** 製造リリースと発注を明示的に承認する
+8. **O11** 治具の加工先を選び、提案された金物を承認する
+9. **O1** 限定試作ルートを承認する
+10. **O9** 物理手順を実施して記録する
+11. **O10** 製造リリースと発注を明示的に承認する
 
-## まとめて答えられる判断（13 件）
+## まとめて答えられる判断（14 件）
 
 オーナーの判断ゲートを、PCB 発注を先に止めるものから順に並べています。推奨は出典に基づく提案で、オーナーの回答ではありません。回答は記録（承認ファイルやレビュー記録）にしてから反映し、それまでゲートは閉じたままです。
 
@@ -133,7 +134,15 @@ readiness（`engineering/a7/qualification/readiness.json`）は不足を 49 個�
 - 推奨の理由: AP63205 のデータシートは C1 10 µF を推奨表の値と「10 µF を超えるセラミックで多くの用途に十分」として示すだけで、実効値の下限を規定しない。典型の DC バイアス曲線では 12.208 V で −81.6 % なので、C1 は 約 1.8 µF（許容差と温度を含め 約 1.4 µF）。+3V3 と +5V は U3・U4 の下限に対して見積りで余裕がある。VLED（U4 出力）は資料に下限がない。基板は今回の発注では変えないので、入力リップルを実測して影響を確かめるのが現実的。
 - 出典: `.claude/skills/component-ap63205wu-7/facts.json` `fact-ap63205wu-7-recommended-capacitors`、`.claude/skills/component-cl21a106kaynnne/facts.json` `fact-cl21a106kaynnne-dc-bias-curve`
 
-### 12. 製造パッケージのレビューとリリースの承認を、いつ行いますか。
+### 12. 治具の FR-4 板 4 枚の加工先と、提案された金物（スプリングプランジャ・スタンドオフ・ねじ・ピン等）を承認しますか。
+
+- ゲート: `assembly:fixture-materials`（実機試験の前）
+- **提案どおり承認し、加工先を選ぶ（推奨）**: 治具を発注でき、fixture-contact の実機試験に進める。
+- 金物や加工先を別に指定する: 指定に合わせて治具の設計を見直してから発注する。
+- 推奨の理由: 加工先はオーナーの選択で、金物は出典付きの候補が治具の記録に載る。プローブ板の穴間の残り幅は加工先に確認が要る。
+- 出典: `engineering/a7/fixture/manifest.json` 引用「Fabricator for the four FR-4 plates is an owner choice and not selected」
+
+### 13. 製造パッケージのレビューとリリースの承認を、いつ行いますか。
 
 - ゲート: `assembly:prototype-and-release`（製造リリースのとき）
 - **物理手順がすべて終わった後に行う（推奨）**: 試作ルート（最初の質問）だけ先に承認し、リリースは評価の結果を見て決める。
@@ -141,7 +150,7 @@ readiness（`engineering/a7/qualification/readiness.json`）は不足を 49 個�
 - 推奨の理由: A7 は製造リリース前で、評価がない。試作ルートの承認とリリースは別の承認。
 - 出典: `engineering/a7/procurement/assembly-manifest.json` 引用「"manufacturing_released": false」
 
-### 13. 版に結び付いた製造リリースと発注を承認しますか。
+### 14. 版に結び付いた製造リリースと発注を承認しますか。
 
 - ゲート: `manufacturing_release`（製造リリースのとき）
 - **すべての手順と書類がそろった後に承認する（推奨）**: 最後の 1 回だけ判断すればよい。
@@ -154,8 +163,6 @@ readiness（`engineering/a7/qualification/readiness.json`）は不足を 49 個�
 オーナーが自分の言葉で答えたもの。記録ファイルに原文があり、ゲートは閉じています。
 
 - **最初の発注数量をいくつにしますか。** → 2 台分（オーナー報告の JLC PCBA 最小、未確認）（オーナーの回答、`assembly:order-quantity`）。原文「JLCPCB accept at least 2 PCBA, so we will make 2 units first」、記録 `engineering/a7/procurement/owner-decisions.json`
-
-次の判断（ゲートがまだ別の区分にあるもの。区分が変わるとここに並びます）: `assembly:fixture-materials`
 
 ## 資料・回答待ちのゲート（14 件）
 
@@ -217,6 +224,7 @@ readiness（`engineering/a7/qualification/readiness.json`）は不足を 49 個�
 | O4 | JLC で取り寄せる（予約注文、できなければ Global Sourcing）、入荷を待つ、または接点表と適合を別にレビューした代替品を認める（Q10）。予約注文が今できるかは JLC アカウントで確かめる。 | `assembly:switch-supply`（BLOCKED） |
 | O5 | 電源 57 mm の公差は仮定。供給元が保証できる公差と組立の選択を決める。SH4 と IDC リボンも同じ。 | `assembly:finished-cables`（BLOCKED）、`criterion:harness-depth`（BLOCKED） |
 | O6 | 使うラックのレール・ねじ規格。 | `assembly:rack-hardware`（BLOCKED） |
+| O11 | 治具の FR-4 板 4 枚の加工先は未選定（JLCCNC の指針は参考のみ）。`engineering/a7/fixture/manifest.json` の hardware_proposal は全資材行に出典付きの候補を 1 つずつ載せた提案で、選定でも承認でもない。プローブ板の穴間 0.40 mm は加工先に穴あけ可否の確認が要る。 | `assembly:fixture-materials`（BLOCKED） |
 | O1 | 対象版（A7 r2 / 3HP / FR-4）、数量、入手する部品・基板・治具、許す工程、実施者、試験前の安全条件を決め、承認ファイルを残して `records.json` の owner_prototype_route に記録する。製造リリースとは別の承認。 | `owner_prototype_route`（BLOCKED）、`assembly:prototype-and-release`（BLOCKED） |
 | O9 | 19 手順はすべて実機が必要。`run-templates/` の雛形をコピーし、raw ファイルとハッシュを付けて `records.json` に追加する。 | `run:*`（19 手順が未実施） |
 | O10 | レビュー済み製造ファイル、数量、版に結び付いた承認。上のすべてが揃った後。 | `manufacturing_release`（BLOCKED）、`assembly:prototype-and-release`（BLOCKED） |
@@ -225,8 +233,6 @@ readiness（`engineering/a7/qualification/readiness.json`）は不足を 49 個�
 
 クラウドで進められるデジタル作業として分類したゲートです。
 
-- `artifact:fixture`: fixture: unresolved preparation blockers
-- `assembly:fixture-materials`: assembly_manifest: fixture-materials: Fixture design and materials incomplete (fixture manifest: digital_criteria_1_to_4_met not true); physical contact/load tests follow.
 
 ## 物理手順
 
