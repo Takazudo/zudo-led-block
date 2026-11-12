@@ -103,6 +103,54 @@ def assembly_status(relief):
     return not problems, '; '.join(problems) or 'assembly STEP of every part, hardware envelope, probe and the board; no interference', summary
 
 
+# One sourced candidate for every materials.json line: proposals awaiting owner approval, never selections.
+HARDWARE_PROPOSAL = [
+    ('probe', 'INGUN', 'GKS-050 214 050 A 1000', 'sources.json#probe'),
+    ('receptacle', 'INGUN', 'KS-050 E08 V-30', 'sources.json#receptacle'),
+    ('support-carrier', 'Von Roll', 'Vetronite EGS 619 sheet (EP GC 202 / FR-4), 5.0 mm, machined to fixture-assembly.step', 'sources.json#vetronite-egs-619'),
+    ('probe-plate', 'Von Roll', 'Vetronite EGS 619 sheet (EP GC 202 / FR-4), 6.0 mm, machined to fixture-assembly.step', 'sources.json#vetronite-egs-619'),
+    ('pressure-plate', 'Von Roll', 'Vetronite EGS 619 sheet (EP GC 202 / FR-4), 3.0 mm, machined to fixture-assembly.step', 'sources.json#vetronite-egs-619'),
+    ('base-plate', 'Von Roll', 'Vetronite EGS 619 sheet (EP GC 202 / FR-4), 3.0 mm, machined to fixture-assembly.step', 'sources.json#vetronite-egs-619'),
+    ('datum-pins', 'GANTER', 'DIN 6325-2M6-6-ST', 'sources.json#ganter-din-6325'),
+    ('alignment-dowels', 'GANTER', 'DIN 6325-2M6-16-ST', 'sources.json#ganter-din-6325'),
+    ('plate-stack-screws', 'TR Fastenings', 'M3 8 KH10MC Z100', 'sources.json#tr-kh10mc'),
+    ('plate-stack-spacers', 'ETTINGER', '05.03.061', 'sources.json#ettinger-05-03-061'),
+    ('plate-stack-studs', 'TR Fastenings', 'M3 12 HS45PC S100', 'sources.json#tr-hs45pc'),
+    ('base-standoffs', 'ETTINGER', '05.03.351', 'sources.json#ettinger-05-03-351'),
+    ('base-screws', 'TR Fastenings', 'M3 8 KH10MC Z100', 'sources.json#tr-kh10mc'),
+    ('guide-standoffs', 'ETTINGER', '05.03.201', 'sources.json#ettinger-05-03-201'),
+    ('guide-screws', 'TR Fastenings', 'M3 8 SO12CS Z100 (2, under the carrier)', 'sources.json#tr-so12cs'),
+    ('guide-screws', 'TR Fastenings', 'M3 6 SO12CS Z100 (2, on the standoff tops)', 'sources.json#tr-so12cs'),
+    ('guide-washers', 'Essentra Components', '347030040952', 'sources.json#essentra-347030040952'),
+    ('clamp-springs', 'Lee Spring', 'LCM065E07M', 'sources.json#lee-spring-catalog-us'),
+    ('contact-screws', 'Essentra Components', '50M020040N008', 'sources.json#essentra-50m020040n008'),
+    ('contact-nuts', 'TR Fastenings', 'TRNNE 34814 M2', 'sources.json#tr-trnne-34814'),
+    ('wire-retention', 'HellermannTyton', 'T18R-PA66-NA (111-00643)', 'sources.json#hellermanntyton-111-00643'),
+    ('wire-retention', 'HellermannTyton', 'FTLS-PET-WH FlagTag (596-97004)', 'sources.json#hellermanntyton-596-97004'),
+]
+HARDWARE_PROPOSAL_STATUS = 'PROPOSED_AWAITING_OWNER_APPROVAL'
+
+
+def hardware_proposal(relief):
+    """The proposal list and whether it covers every materials.json line with an available source; never a selection."""
+    items = json.loads((OUT/'materials.json').read_text())['items']
+    sources = {x['id']: x for x in json.loads((OUT/'sources.json').read_text())['sources']}
+    entries, problems = [], []
+    for req, maker, mpn, src in HARDWARE_PROPOSAL:
+        doc = sources.get(src.split('#', 1)[1])
+        if doc is None or doc.get('availability') != 'AVAILABLE':
+            problems.append(f'{req}: source {src} missing or unavailable')
+        entries.append({'requirement_id': req, 'manufacturer': maker, 'mpn': mpn, 'source': src, 'status': HARDWARE_PROPOSAL_STATUS,
+                        'source_authority': doc and doc['authority'], 'source_sha256': doc and doc.get('sha256')})
+    wanted = {x['id'] for x in items}
+    covered = {e['requirement_id'] for e in entries}
+    problems += [f'{r}: no proposed candidate' for r in sorted(wanted - covered)]
+    problems += [f'{r}: not a materials.json line' for r in sorted(covered - wanted)]
+    if not relief['holddown']['spring_candidate']['meets_requirement']:
+        problems.append('clamp-springs: candidate does not meet the spring requirement')
+    return entries, not problems, problems
+
+
 def report():
     p = bound_r4_placement()
     if digest(BOARD) != BOARD_SHA or digest(CANONICAL) != PLACEMENT_SHA:
@@ -116,6 +164,7 @@ def report():
     hd = relief['holddown']
     c3 = relief['criterion_3_checks']
     asm_ok, asm_basis, asm = assembly_status(relief)
+    proposal, proposal_complete, proposal_problems = hardware_proposal(relief)
     completion = {
         '1_native_support_and_relief': {'met': fresh, 'basis': 'fresh_native_criteria' + ('' if fresh else ' not all met: ' + ', '.join(k for k, v in criteria.items() if not v))},
         '2_keying_and_registration': {'met': relief['keying']['keyed'] and relief['registration']['worst_case_margin_mm'] >= 0,
@@ -131,7 +180,8 @@ def report():
         *([] if fresh else ['fresh_native_verified false: ' + '; '.join(
             [f'{u} is unsourced (the carrier and probe-plate windows and the base clearance do not depend on it up to the stated bound)' for u in relief['unknown_heights']]
             + [f'{k} not met' for k, v in criteria.items() if not v and k != 'every_b_face_protrusion_sourced'])]),
-        *[f'criterion {k} not met: {v["basis"]}' for k, v in completion.items() if k in digital[1:] and not v['met']],
+        *[f'criterion {k} not met: ' + (', '.join(c for c, ok in v['checks'].items() if not ok) + ' not met' if 'checks' in v else v['basis'])
+          for k, v in completion.items() if k in digital[1:] and not v['met']],
     ]
     candidate_checks = candidate_reference_checks(relief)
     owner_items = [
@@ -140,7 +190,8 @@ def report():
         f"this meets the INGUN receptacle grid ({relief['rules']['probe_bore_web_minimum_mm']} mm) but not the 1.0 mm milled-wall guidance, "
         'so the chosen fabricator must confirm drilling it; the board pitch is fixed.',
         'Registration needs the bore positions within 0.05 mm of the datum pins, tighter than the +/-0.1 mm standard tolerance: an annotated 2D drawing is needed.',
-        'Springs, screws, spacers, standoffs, pins, dowels, washers and nylon contact screws are specified as requirements (materials.json); no part is selected.',
+        'Plate stock and every hardware line have one sourced candidate in hardware_proposal, awaiting owner approval; none is selected, '
+        'and no price, stock or lead time was retrieved.',
         'Receptacle drawing diameter 0.96 mm versus PDF table 0.95 mm; the bore follows the 0.98-1.00 mm FR-4 mounting-hole data, resolve before selection.',
     ]
     physical_items = ['No physical fit, contact, insertion-force or measured stroke evidence; no prototype exists; every acceptance measurement in b_side_relief is a requirement, not a result.']
@@ -155,6 +206,10 @@ def report():
         digital_criteria_1_to_4_met=digital_met,
         digital_criteria_1_to_4_met_scope='progress indicator only: README criteria 1-4 met digitally with no digital blocker; it is not '
                                           'digital_fixture_complete, not a fit result and not order eligibility',
+        hardware_proposal_complete=proposal_complete,
+        hardware_proposal_scope=f'one sourced candidate for every materials.json line, each {HARDWARE_PROPOSAL_STATUS}: a proposal, not a '
+                                'selection, not an approval and not an order',
+        hardware_proposal=proposal, hardware_proposal_problems=proposal_problems,
         scope='Digital fixture design: support carrier, probe plate, pressure plate, base plate and hardware envelopes with the assembly STEP and '
               'interference check; not a fit result, not a selection and not a fabrication approval',
         board_sha256=digest(BOARD), placement_sha256=digest(CANONICAL), geometry_sha256=p['geometry_sha256'],

@@ -36,11 +36,11 @@
     },
     "fixture": {
       "path": "engineering/a7/fixture/manifest.json",
-      "sha256": "462a15da400963f5122d330fc7b4bc7037d13c470e3000c86a1b55fa2f2da5b9"
+      "sha256": "9040f6e5035afc3f54a8b563bfdf0d7b43ca1ed7794dc7f470372c45f2f6faae"
     },
     "assembly_manifest": {
       "path": "engineering/a7/procurement/assembly-manifest.json",
-      "sha256": "c2646fda776a98640bce80d5609582f0fa29a49f0258f26c1767ea742b26088f"
+      "sha256": "03225f1e93c06adacb481ae246426b211a41d93ffea230ff468f071900565e29"
     }
   },
   "plan_sha256": "e0de2422322efc357757e819abdf901db9dc2a7d8417a5f287becc8efac44eb5",
@@ -214,7 +214,7 @@
     "assembly_manifest: finished-cables: Finished A7 power cable (57 mm, +/-3 ASSUMED), SH4 cables and IDC ribbon not selected; supplier answers and the owner choice of assembly are needed before physical routing checks.",
     "assembly_manifest: mechanical-materials: PMMA sheet and pocket tolerances, PETG process and orderable fastener part numbers are not sourced; the model carries designations (M2x18, M1.6x4) and envelopes only.",
     "assembly_manifest: rack-hardware: Owner rack rail/thread interface and fasteners not specified.",
-    "assembly_manifest: fixture-materials: Fixture design and materials incomplete (fixture manifest: digital_criteria_1_to_4_met not true, hardware_proposal_complete not true); physical contact/load tests follow.",
+    "assembly_manifest: fixture-materials: Fixture design and materials incomplete (fixture manifest: digital_criteria_1_to_4_met not true); physical contact/load tests follow.",
     "assembly_manifest: prototype-and-release: No owner-approved prototype route, no reviewed manufacturing package and no release approval.",
     "jack-continuity: NOT_MEASURED: no run",
     "jack-dimensions: criterion unresolved or review receipt missing",
@@ -337,7 +337,7 @@
       "gate": "assembly:fixture-materials",
       "class": "CLOUD_DIGITAL",
       "reasons": [
-        "assembly_manifest: fixture-materials: Fixture design and materials incomplete (fixture manifest: digital_criteria_1_to_4_met not true, hardware_proposal_complete not true); physical contact/load tests follow."
+        "assembly_manifest: fixture-materials: Fixture design and materials incomplete (fixture manifest: digital_criteria_1_to_4_met not true); physical contact/load tests follow."
       ]
     },
     {
@@ -664,7 +664,7 @@
     {
       "artifact": "fixture",
       "flag": "hardware_proposal_complete",
-      "value": null,
+      "value": true,
       "role": "INFORMATIONAL",
       "note": "治具の各金物要求（materials.json）に出典付きの候補（hardware_proposal）が 1 つずつあること。オーナー承認待ちの提案で、選定でも承認でもない。true かつ基準 1–4 が満たされると、調達の assembly:fixture-materials はオーナーの判断（加工先の選択と金物の承認）に移る。"
     }

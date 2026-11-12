@@ -1,17 +1,17 @@
 {
   "schema": 1,
   "tool": "CadQuery 2.7.0",
-  "model_inputs_sha256": "84521b2de0e092a5c1d124b98021aba48bb430c9e77a3a828f8728b585c75381",
+  "model_inputs_sha256": "e519986109433601ac60bd26ef46e4f44f4051093a22e3ce11b5885690a0ef96",
   "model_inputs": {
-    "design_sha256": "e5dd0560f4bea0cd14e7f4e2ff2aac9a49f80320e063f2a648b6760afda03715",
-    "assembly_code_sha256": "998c4e973492096d75e1a17745488ebbebb909e9888d58032a760dfd042ff40a",
+    "design_sha256": "54a2b1d7a51daf26db7f7fed9c33538da610a4fce0e8cfa42cce1367a4aeef6d",
+    "assembly_code_sha256": "fbc0ac608cf6437376dfd3694dfdfff0d62648bec21692e6ee5f94324ae84472",
     "native_geometry_sha256": "2f372a058a24cb117d9e294d11411e84cb575e682d18f7651cbf0547d1bc7f51",
     "cadquery": "2.7.0"
   },
-  "step_sha256": "95660b42e740c77a4f4c02678373dc0faa974078066cceceb7bab9b96e2a263b",
+  "step_sha256": "849be560b3987ea82ae66afd78be0377252e6eea1fea54497a6917d3a439dc7c",
   "method": "pairwise boolean common volume between every two solids whose bounding boxes meet (board part boxes are not checked against each other); interference above the threshold; clearances by exact BRep distance",
   "interference_threshold_mm3": 0.001,
-  "modelling": "Builds every fixture part, the hardware envelopes and the board (with F-side part boxes from the recorded heights and\nB-face bodies and leads from the relief design) in board coordinates: x, y as on the PCB, z up from the board B face.\nThreads are modelled at the major diameter and press fits line to line, so a designed joint touches without overlap.\nThe J5 tail length is unsourced; it is modelled as a keep-out column from the B face down to the base plate top.",
+  "modelling": "Builds every fixture part, the hardware envelopes and the board (with F-side part boxes from the recorded heights and\nB-face bodies and leads from the relief design) in board coordinates: x, y as on the PCB, z up from the board B face.\nThreads are modelled at the major diameter and press fits line to line, so a designed joint touches without overlap.\nThrough-hole leads are modelled at their full sourced length below the seating plane (a bound for any board thickness).",
   "solids": [
     {
       "name": "support_carrier",
@@ -54,9 +54,9 @@
       "volume_mm3": 669.504
     },
     {
-      "name": "F1 M3x6 countersunk screw",
+      "name": "F1 M3x8 countersunk screw (base)",
       "group": "hardware",
-      "volume_mm3": 56.5487
+      "volume_mm3": 70.6858
     },
     {
       "name": "F2 M3x8 countersunk screw",
@@ -79,9 +79,9 @@
       "volume_mm3": 669.504
     },
     {
-      "name": "F2 M3x6 countersunk screw",
+      "name": "F2 M3x8 countersunk screw (base)",
       "group": "hardware",
-      "volume_mm3": 56.5487
+      "volume_mm3": 70.6858
     },
     {
       "name": "F3 M3x8 countersunk screw",
@@ -104,9 +104,9 @@
       "volume_mm3": 669.504
     },
     {
-      "name": "F3 M3x6 countersunk screw",
+      "name": "F3 M3x8 countersunk screw (base)",
       "group": "hardware",
-      "volume_mm3": 56.5487
+      "volume_mm3": 70.6858
     },
     {
       "name": "F4 M3x8 countersunk screw",
@@ -129,9 +129,9 @@
       "volume_mm3": 669.504
     },
     {
-      "name": "F4 M3x6 countersunk screw",
+      "name": "F4 M3x8 countersunk screw (base)",
       "group": "hardware",
-      "volume_mm3": 56.5487
+      "volume_mm3": 70.6858
     },
     {
       "name": "F5 M3x8 countersunk screw",
@@ -154,9 +154,9 @@
       "volume_mm3": 669.504
     },
     {
-      "name": "F5 M3x6 countersunk screw",
+      "name": "F5 M3x8 countersunk screw (base)",
       "group": "hardware",
-      "volume_mm3": 56.5487
+      "volume_mm3": 70.6858
     },
     {
       "name": "F6 M3x8 countersunk screw",
@@ -179,19 +179,19 @@
       "volume_mm3": 669.504
     },
     {
-      "name": "F6 M3x6 countersunk screw",
+      "name": "F6 M3x8 countersunk screw (base)",
       "group": "hardware",
-      "volume_mm3": 56.5487
+      "volume_mm3": 70.6858
     },
     {
-      "name": "D1 dowel 2x17",
+      "name": "D1 dowel 2x16",
       "group": "hardware",
-      "volume_mm3": 53.4071
+      "volume_mm3": 50.2655
     },
     {
-      "name": "D2 dowel 2x17",
+      "name": "D2 dowel 2x16",
       "group": "hardware",
-      "volume_mm3": 53.4071
+      "volume_mm3": 50.2655
     },
     {
       "name": "X1 datum pin 2x6",
@@ -211,12 +211,12 @@
     {
       "name": "G1 M3x8 socket head screw",
       "group": "hardware",
-      "volume_mm3": 127.8236
+      "volume_mm3": 132.5652
     },
     {
-      "name": "G1 M3 F-F hex standoff 12",
+      "name": "G1 M3 F-F hex standoff 20",
       "group": "hardware",
-      "volume_mm3": 229.5442
+      "volume_mm3": 382.5737
     },
     {
       "name": "G1 M3 washer DIN 9021",
@@ -226,22 +226,22 @@
     {
       "name": "G1 M3x6 socket head screw",
       "group": "hardware",
-      "volume_mm3": 113.6864
+      "volume_mm3": 118.428
     },
     {
       "name": "G1 compression spring envelope",
       "group": "hardware",
-      "volume_mm3": 144.086
+      "volume_mm3": 416.2076
     },
     {
       "name": "G2 M3x8 socket head screw",
       "group": "hardware",
-      "volume_mm3": 127.8236
+      "volume_mm3": 132.5652
     },
     {
-      "name": "G2 M3 F-F hex standoff 12",
+      "name": "G2 M3 F-F hex standoff 20",
       "group": "hardware",
-      "volume_mm3": 229.5442
+      "volume_mm3": 382.5737
     },
     {
       "name": "G2 M3 washer DIN 9021",
@@ -251,17 +251,17 @@
     {
       "name": "G2 M3x6 socket head screw",
       "group": "hardware",
-      "volume_mm3": 113.6864
+      "volume_mm3": 118.428
     },
     {
       "name": "G2 compression spring envelope",
       "group": "hardware",
-      "volume_mm3": 144.086
+      "volume_mm3": 416.2076
     },
     {
       "name": "C1 M2x8 nylon contact screw",
       "group": "hardware",
-      "volume_mm3": 39.8762
+      "volume_mm3": 41.469
     },
     {
       "name": "C1 M2 nylon nut",
@@ -271,7 +271,7 @@
     {
       "name": "C2 M2x8 nylon contact screw",
       "group": "hardware",
-      "volume_mm3": 39.8762
+      "volume_mm3": 41.469
     },
     {
       "name": "C2 M2 nylon nut",
@@ -281,7 +281,7 @@
     {
       "name": "C3 M2x8 nylon contact screw",
       "group": "hardware",
-      "volume_mm3": 39.8762
+      "volume_mm3": 41.469
     },
     {
       "name": "C3 M2 nylon nut",
@@ -516,67 +516,67 @@
     {
       "name": "J1.1 B-face body/lead",
       "group": "board",
-      "volume_mm3": 5.382
+      "volume_mm3": 10.166
     },
     {
       "name": "J1.2 B-face body/lead",
       "group": "board",
-      "volume_mm3": 6.21
+      "volume_mm3": 11.73
     },
     {
       "name": "J1.3 B-face body/lead",
       "group": "board",
-      "volume_mm3": 6.21
+      "volume_mm3": 11.73
     },
     {
       "name": "J1.4 B-face body/lead",
       "group": "board",
-      "volume_mm3": 6.21
+      "volume_mm3": 11.73
     },
     {
       "name": "J1.5 B-face body/lead",
       "group": "board",
-      "volume_mm3": 6.21
+      "volume_mm3": 11.73
     },
     {
       "name": "J2.1 B-face body/lead",
       "group": "board",
-      "volume_mm3": 5.382
+      "volume_mm3": 10.166
     },
     {
       "name": "J2.2 B-face body/lead",
       "group": "board",
-      "volume_mm3": 6.21
+      "volume_mm3": 11.73
     },
     {
       "name": "J2.3 B-face body/lead",
       "group": "board",
-      "volume_mm3": 6.21
+      "volume_mm3": 11.73
     },
     {
       "name": "J2.4 B-face body/lead",
       "group": "board",
-      "volume_mm3": 6.21
+      "volume_mm3": 11.73
     },
     {
       "name": "J2.5 B-face body/lead",
       "group": "board",
-      "volume_mm3": 6.21
+      "volume_mm3": 11.73
     },
     {
-      "name": "J5.1 tail keep-out column (unsourced length)",
+      "name": "J5.1 B-face body/lead",
       "group": "board",
-      "volume_mm3": 54.08
+      "volume_mm3": 2.912
     },
     {
-      "name": "J5.2 tail keep-out column (unsourced length)",
+      "name": "J5.2 B-face body/lead",
       "group": "board",
-      "volume_mm3": 54.08
+      "volume_mm3": 2.912
     },
     {
-      "name": "J5.3 tail keep-out column (unsourced length)",
+      "name": "J5.3 B-face body/lead",
       "group": "board",
-      "volume_mm3": 54.08
+      "volume_mm3": 2.912
     },
     {
       "name": "R10 B-face body/lead",
@@ -690,7 +690,7 @@
     }
   ],
   "interferences": [],
-  "touching_or_zero_volume_pairs": 189,
+  "touching_or_zero_volume_pairs": 175,
   "clearances": [
     {
       "pair": "B-face bodies and leads to support carrier",
@@ -701,11 +701,11 @@
       ]
     },
     {
-      "pair": "J5 tail column to carrier and probe plate",
-      "minimum_mm": 0.4254,
+      "pair": "J5 leads at their full sourced tail length to carrier and probe plate",
+      "minimum_mm": 0.4293,
       "between": [
-        "J5.1 tail keep-out column (unsourced length)",
-        "probe_plate"
+        "J5.1 B-face body/lead",
+        "support_carrier"
       ]
     },
     {
@@ -742,17 +742,17 @@
     },
     {
       "pair": "board to guide standoffs and springs",
-      "minimum_mm": 2.2855,
+      "minimum_mm": 2.2788,
       "between": [
-        "U1 F-side body (courtyard x height)",
-        "G1 M3 F-F hex standoff 12"
+        "J1 F-side body (courtyard x height)",
+        "G1 compression spring envelope"
       ]
     },
     {
       "pair": "metal hardware to probes and receptacles",
       "minimum_mm": 4.361,
       "between": [
-        "G2 M3 F-F hex standoff 12",
+        "G2 M3 F-F hex standoff 20",
         "TP4 GKS-050 probe (compressed envelope)"
       ]
     }

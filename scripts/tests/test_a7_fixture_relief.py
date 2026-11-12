@@ -65,13 +65,67 @@ class ReliefTests(unittest.TestCase):
             box = rl._expand(list(p['board_xy_mm']) * 2, rl.RULES['probe_window_half_width_mm'])
             self.assertTrue(any(inside(box, b) for b in boxes), p['ref'])
 
-    def test_heights_stay_sourced_or_unknown(self):
-        self.assertEqual(self.d['unknown_heights'], ['J5 (PicoBlade 530470310): lead tail below the B face'])
-        self.assertIsNone(rl.SOURCES['PicoBlade 530470310']['tail_length_below_b_face_mm'])
-        self.assertFalse(self.d['fresh_native_criteria']['every_b_face_protrusion_sourced'])
+    def test_j5_tail_follows_the_component_fact(self):
+        bundle = ROOT / '.claude/skills/component-530470310'
+        fact = next(x for x in json.loads((bundle / 'facts.json').read_text())['facts'] if x['fact_id'] == 'fact-530470310-tail-length')
+        src = next(x for x in json.loads((bundle / 'sources.json').read_text())['sources'] if x['source_id'] == fact['source_id'])
+        j5 = rl.SOURCES['PicoBlade 530470310']
+        self.assertEqual(j5['tail_length_below_seating_plane_mm'], fact['value'])
+        self.assertIn('+/-0.5', fact['conditions'])
+        self.assertEqual(j5['tolerance_mm'], 0.5)
+        self.assertEqual(j5['source']['fact_id'], fact['fact_id'])
+        self.assertEqual(j5['source']['sha256'], src['sha256'])
+        self.assertTrue(fact['verdict'].startswith('PASS'))
+
+    def test_heights_all_sourced_and_tails_bounded(self):
+        self.assertEqual(self.d['unknown_heights'], [])
+        self.assertTrue(self.d['fresh_native_criteria']['every_b_face_protrusion_sourced'])
+        self.assertTrue(self.d['fresh_native_criteria']['every_tht_lead_ends_inside_its_carrier_window'])
         j5 = [r for r in self.d['reliefs'] if r['ref'].startswith('J5.')]
-        self.assertTrue(j5 and all(r['depth_below_b_face_mm'] is None for r in j5))
-        self.assertGreater(self.d['free_space']['j5_tail_max_without_interference_mm'], 0)
+        self.assertTrue(j5 and all(r['depth_below_b_face_mm'] == 2.8 for r in j5))
+        tails = {t['source']: t for t in self.d['lead_tails']}
+        t = tails['PicoBlade 530470310']
+        self.assertEqual(t['protrusion_worst_case_at_nominal_board_mm'], 1.2)
+        self.assertEqual(t['protrusion_bound_any_board_thickness_mm'], 2.8)
+        self.assertAlmostEqual(t['margin_to_carrier_bottom_mm'], 2.2)
+        self.assertTrue(all(x['ends_inside_carrier_window'] and x['margin_to_carrier_bottom_mm'] > 0 for x in tails.values()))
+        self.assertEqual(tails['PJ-324M']['protrusion_bound_any_board_thickness_mm'], 3.4)
+
+    def test_a_tail_longer_than_the_carrier_fails_criterion_1(self):
+        with unittest.mock.patch.dict(rl.SOURCES['PicoBlade 530470310'], {'tail_length_below_seating_plane_mm': 4.6}):
+            d = rl.design(GEOM, probes())
+        self.assertFalse(d['fresh_native_criteria']['every_tht_lead_ends_inside_its_carrier_window'])
+
+    def test_spring_candidate_meets_the_requirement_at_worst_case(self):
+        h = self.d['holddown']
+        req, cand = h['spring_requirement'], h['spring_candidate']
+        # board +/-0.16, contact setting +/-0.1, plate thickness and standoff length +/-0.05 each
+        self.assertEqual(req['installed_length_range_mm'], [12.54, 13.26])
+        self.assertTrue(cand['meets_requirement'], cand['checks'])
+        lo = (0.80 - 0.08) * (23.0 - 0.79 - 13.26)
+        hi = (0.80 + 0.08) * (23.0 + 0.79 - 12.54)
+        self.assertAlmostEqual(cand['checks']['force_min_at_longest_installed_length_N'][0], lo, places=4)
+        self.assertAlmostEqual(cand['checks']['force_max_at_shortest_installed_length_N'][0], hi, places=4)
+        self.assertGreaterEqual(lo, req['force_min_over_range_N'])
+        self.assertLessEqual(hi, req['force_max_over_range_N'])
+        self.assertIn('AWAITING_OWNER_APPROVAL', cand['status'])
+        with unittest.mock.patch.dict(rl.SPRING_CANDIDATE, {'rate_N_per_mm': 0.70}):
+            self.assertFalse(rl.design(GEOM, probes())['holddown']['spring_candidate']['meets_requirement'])
+
+    def test_bending_is_checked_at_the_minimum_board_thickness_and_exceeds_the_limit(self):
+        b = self.d['holddown']['board_bending_across_window']
+        self.assertAlmostEqual(b['load_N'], 2 * rl.RULES['spring_force_max_over_range_N'], places=5)
+        self.assertAlmostEqual(b['board_thickness_minimum_mm'], 1.44)
+        f_, L, w, e = b['load_N'], b['span_mm'], b['strip_width_mm'], b['flexural_modulus_MPa']
+        for t, key in ((b['board_thickness_minimum_mm'], 'deflection_mm'), (1.6, 'deflection_at_nominal_thickness_mm')):
+            self.assertAlmostEqual(b[key], f_ * L ** 3 / (48 * e * w * t ** 3 / 12), places=5)
+        # nominal passes, the thinnest allowed board does not, even at the lowest sourced FR-4 class modulus
+        self.assertLessEqual(b['deflection_at_nominal_thickness_mm'], b['limit_mm'])
+        self.assertGreater(b['deflection_mm'], b['limit_mm'])
+        self.assertGreater(b['deflection_at_lowest_sourced_modulus_mm'], b['limit_mm'])
+        self.assertIn('ASSUMED', b['flexural_modulus_class'])
+        self.assertIn('do not bound', b['flexural_modulus_class'])
+        self.assertFalse(self.d['criterion_3_checks']['board_bending_across_window_within_limit'])
 
     def test_yardstick_and_sourced_minimums(self):
         ref = json.loads((f.OUT / 'candidate-references.json').read_text())['references'][0]
@@ -246,8 +300,7 @@ class ReliefTests(unittest.TestCase):
         self.assertGreaterEqual(h['probe_resultant_margin_mm'], need)
         self.assertGreaterEqual(h['spring_resultant_margin_mm'], need)
         self.assertAlmostEqual(h['required_total_spring_force_N'], 2 * 5 * 1.27)
-        self.assertTrue(all(v > 0 for v in h['contact_reactions_N']))
-        self.assertAlmostEqual(sum(h['contact_reactions_N']), h['required_total_spring_force_N'], places=4)
+        self.assertEqual(h['spring_force_range_each_N'], [6.35, 10.0])
         fside = [fp['courtyard_bbox_mm']['F'] for fp in GEOM['footprints'] if fp['side'] == 'F' and fp['courtyard_bbox_mm'].get('F')]
         rc = rl.RULES['contact_diameter_mm'] / 2
         keep = rl.RULES['spring_outer_diameter_max_mm'] / 2 + rl.RULES['contact_nut_across_corners_mm'] / 2 + rl.RULES['pressure_plate_part_clearance_mm']
@@ -255,17 +308,31 @@ class ReliefTests(unittest.TestCase):
             self.assertTrue(all(rl._box_point_dist(b, (x, y)) >= rc + rl.RULES['contact_f_side_clearance_mm'] - 1e-9 for b in fside))
             self.assertTrue(rc <= x <= 16.2 - rc)
             self.assertTrue(all(math.dist((x, y), g['board_xy_mm']) >= keep - 1e-9 for g in h['guides']))
-        self.assertTrue(self.d['fresh_native_criteria']['contacts_on_f_face_clear_of_parts_and_around_both_resultants'])
+        # equal springs sit well inside; the strongest G1 spring against the weakest G2 spring pushes the resultant out of the triangle
+        self.assertLess(h['spring_resultant_margin_at_unequal_forces_mm'], 0)
+        self.assertFalse(self.d['fresh_native_criteria']['contacts_on_f_face_clear_of_parts_and_around_both_resultants'])
 
-    def test_board_stays_on_land_and_bending_is_small(self):
+    def test_statics_cover_every_spring_force_pair(self):
         h = self.d['holddown']
-        self.assertGreaterEqual(h['board_net_load_point_inside_land_hull_mm'], rl.RULES['resultant_margin_mm'])
-        bend = h['board_bending_across_window']
-        self.assertIn('ASSUMED', bend['flexural_modulus_class'])
-        f_, L, b, t, e = bend['load_N'], bend['span_mm'], bend['strip_width_mm'], bend['board_thickness_mm'], bend['flexural_modulus_MPa']
-        self.assertAlmostEqual(bend['deflection_mm'], f_ * L ** 3 / (48 * e * b * t ** 3 / 12), places=5)
-        self.assertGreaterEqual(f_, h['probe_force_total_N']['maximum_stroke'])
-        self.assertLessEqual(bend['deflection_mm'], bend['limit_mm'])
+        cases = h['statics_cases']
+        self.assertEqual(sorted(tuple(c['spring_forces_N']) for c in cases), [(6.35, 6.35), (6.35, 10.0), (10.0, 6.35), (10.0, 10.0)])
+        for c in cases:
+            self.assertAlmostEqual(sum(c['contact_reactions_N']), sum(c['spring_forces_N']), places=4)
+        equal = [c for c in cases if c['spring_forces_N'][0] == c['spring_forces_N'][1]]
+        self.assertTrue(all(min(c['contact_reactions_N']) > 0 for c in equal))
+        worst = next(c for c in cases if c['spring_forces_N'] == [10.0, 6.35])
+        self.assertLess(min(worst['contact_reactions_N']), 0)
+        self.assertLess(worst['board_net_load_point_margin_mm'], 0)
+        self.assertEqual(h['minimum_contact_reaction_N'], min(min(c['contact_reactions_N']) for c in cases))
+        self.assertFalse(self.d['criterion_3_checks']['clamp_force_sized_with_margin'])
+        self.assertFalse(self.d['criterion_3_checks']['board_stays_on_land'])
+
+    def test_equal_springs_keep_the_board_on_land(self):
+        h = self.d['holddown']
+        for c in h['statics_cases']:
+            if c['spring_forces_N'][0] == c['spring_forces_N'][1]:
+                self.assertGreaterEqual(c['board_net_load_point_margin_mm'], rl.RULES['resultant_margin_mm'])
+        self.assertGreaterEqual(h['board_bending_across_window']['load_N'], h['probe_force_total_N']['maximum_stroke'])
 
     def test_hull_margin(self):
         hull = rl._hull([(0, 0), (4, 0), (4, 4), (0, 4), (2, 2)])
@@ -292,8 +359,9 @@ class ReliefTests(unittest.TestCase):
         self.assertEqual(pr['clearance_conflicts'], [])
         self.assertTrue(all(u['clearance_to_plate_mm'] >= rl.RULES['pressure_plate_part_clearance_mm'] for u in pr['parts_under_plate']))
 
-    def test_criterion_3_checks_all_met(self):
-        self.assertTrue(all(self.d['criterion_3_checks'].values()), self.d['criterion_3_checks'])
+    def test_criterion_3_fails_only_on_the_clamp_worst_cases(self):
+        failed = {k for k, v in self.d['criterion_3_checks'].items() if not v}
+        self.assertEqual(failed, {'clamp_force_sized_with_margin', 'board_stays_on_land', 'board_bending_across_window_within_limit'})
 
 
 class CompletionTests(unittest.TestCase):
@@ -301,20 +369,53 @@ class CompletionTests(unittest.TestCase):
         r = f.report()
         cc = r['completion_criteria']
         self.assertTrue(cc['2_keying_and_registration']['met'])
-        self.assertTrue(cc['3_stroke_stop_guide_fixing_insulation_wiring']['met'])
+        # the clamp worst cases (unequal springs, thinnest board) are not met
+        self.assertFalse(cc['3_stroke_stop_guide_fixing_insulation_wiring']['met'])
         self.assertTrue(cc['4_assembly_step_interference_check']['met'], cc['4_assembly_step_interference_check'])
         self.assertFalse(cc['1_native_support_and_relief']['met'])
+        self.assertIn('contacts_on_f_face_clear_of_parts_and_around_both_resultants', cc['1_native_support_and_relief']['basis'])
         self.assertFalse(cc['5_physical_tests']['met'])
         self.assertEqual(r['status'], 'BLOCKED')
-        self.assertFalse(r['digital_fixture_complete'])
+        self.assertFalse(r['fresh_native_verified'])
         self.assertFalse(r['digital_criteria_1_to_4_met'])
-        self.assertEqual(len(r['blockers']), 1)
-        self.assertIn('J5', r['blockers'][0])
+        self.assertFalse(r['digital_fixture_complete'])
+        self.assertEqual(len(r['blockers']), 2, r['blockers'])
+
+    def test_hardware_proposal_covers_every_materials_line(self):
+        r = f.report()
+        items = json.loads((f.OUT / 'materials.json').read_text())['items']
+        self.assertTrue(r['hardware_proposal_complete'], r['hardware_proposal_problems'])
+        self.assertEqual({e['requirement_id'] for e in r['hardware_proposal']}, {i['id'] for i in items})
+        for e in r['hardware_proposal']:
+            self.assertEqual(set(e) >= {'requirement_id', 'manufacturer', 'mpn', 'source'}, True)
+            self.assertEqual(e['status'], 'PROPOSED_AWAITING_OWNER_APPROVAL')
+            self.assertTrue(e['manufacturer'] and e['mpn'] and e['source_authority'])
+        self.assertIn('not a selection', r['hardware_proposal_scope'])
+        self.assertTrue(all('SELECTED' not in i['status'] or 'NOT_SELECTED' in i['status'] for i in items))
+
+    def test_hardware_proposal_incomplete_without_a_line_or_a_source(self):
+        short = [e for e in f.HARDWARE_PROPOSAL if e[0] != 'clamp-springs']
+        with unittest.mock.patch.object(f, 'HARDWARE_PROPOSAL', short):
+            r = f.report()
+        self.assertFalse(r['hardware_proposal_complete'])
+        self.assertIn('clamp-springs: no proposed candidate', r['hardware_proposal_problems'])
+        bad = [e if e[0] != 'guide-washers' else (e[0], e[1], e[2], 'sources.json#absent') for e in f.HARDWARE_PROPOSAL]
+        with unittest.mock.patch.object(f, 'HARDWARE_PROPOSAL', bad):
+            self.assertFalse(f.report()['hardware_proposal_complete'])
+        with unittest.mock.patch.dict(rl.SPRING_CANDIDATE, {'free_length_mm': 20.0}):
+            r = f.report()
+        self.assertFalse(r['hardware_proposal_complete'])
 
     def test_criterion_5_keeps_gating_the_documented_flag(self):
         r = f.report()
+        real = rl.design
+
+        def all_met(*a, **k):
+            d = real(*a, **k)
+            return dict(d, fresh_native_criteria={c: True for c in d['fresh_native_criteria']},
+                        criterion_3_checks={c: True for c in d['criterion_3_checks']})
         with unittest.mock.patch.object(f, 'assembly_status', return_value=(True, 'ok', None)), \
-                unittest.mock.patch.dict(rl.SOURCES['PicoBlade 530470310'], {'class': 'SOURCE_DERIVED'}):
+                unittest.mock.patch.object(f.relief_design, 'design', side_effect=all_met):
             r2 = f.report()
         self.assertTrue(r2['digital_criteria_1_to_4_met'])
         self.assertFalse(r2['completion_criteria']['5_physical_tests']['met'])
@@ -325,7 +426,6 @@ class CompletionTests(unittest.TestCase):
     def test_a_design_change_invalidates_the_assembly_check(self):
         with unittest.mock.patch.dict(rl.SOURCES['PicoBlade 530470310'], {'class': 'SOURCE_DERIVED'}):
             r = f.report()
-        self.assertTrue(r['fresh_native_verified'])
         self.assertFalse(r['completion_criteria']['4_assembly_step_interference_check']['met'])
         self.assertIn('different design', r['completion_criteria']['4_assembly_step_interference_check']['basis'])
         self.assertFalse(r['digital_fixture_complete'])

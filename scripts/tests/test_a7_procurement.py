@@ -30,7 +30,7 @@ class LedgerTests(unittest.TestCase):
   # Digital design or the hardware proposal still open: cloud work.
   self.assertEqual(cls(digital_criteria_1_to_4_met=False,hardware_proposal_complete=True)['class'],'CLOUD_DIGITAL')
   self.assertEqual(cls(digital_criteria_1_to_4_met=True,hardware_proposal_complete=False)['class'],'CLOUD_DIGITAL')
-  self.assertIn('hardware_proposal_complete not true',cls(digital_criteria_1_to_4_met=True)['text'])
+  self.assertIn('hardware_proposal_complete not true',cls(digital_criteria_1_to_4_met=True,hardware_proposal_complete=False)['text'])
   # Both met: only the fabricator choice and hardware approval remain, which are the owner's.
   self.assertEqual(cls(digital_criteria_1_to_4_met=True,hardware_proposal_complete=True)['class'],'OWNER_DECISION')
   self.assertIn(P.FIXTURE_MANIFEST,self.report['inputs_sha256'])
