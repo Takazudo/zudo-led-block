@@ -530,7 +530,7 @@ DECISION_ROOTS = SOURCE_ROOTS + ('engineering/a7/procurement/', 'engineering/a7/
 # Owner answers are recorded here, in the owner's own words; a decision marked answered must match its record.
 OWNER_ANSWERS = 'engineering/a7/procurement/owner-decisions.json'
 # Gates the owner has answered and the procurement ledger has retired; only these may carry an answer.
-ANSWERED_GATES = {'assembly:order-quantity', 'assembly:panel-route', 'assembly:finished-cables'}
+ANSWERED_GATES = {'assembly:order-quantity', 'assembly:panel-route', 'assembly:finished-cables', 'assembly:switch-supply'}
 # An owner may accept a recommended plan whose step stays open (name the case, choose a fabricator, decide after tests);
 # such an answer is recorded in the owner's 'accept all' entry and its gate stays open.
 PLAN_ACCEPTED = 'PLAN_ACCEPTED'

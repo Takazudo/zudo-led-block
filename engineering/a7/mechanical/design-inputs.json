@@ -3,7 +3,7 @@
   "title": "A7 R2 mechanical layout inputs (project choices only)",
   "units": "mm",
   "datum": "Same as engineering/a7/study/parameters.json: X across the panel (0 = left panel edge), Y down the panel (0 = top edge), Z into the rack with the PMMA rear surface at Z=0. The controller PCB lies in a Y-Z plane; jack bodies and SMD parts sit on its +X (component) face; THT terminals pass to its -X (solder) face.",
-  "authority": "Jack, nut, panel, PCB-thickness, trim and tolerance inputs come only from engineering/a7/study/parameters.json (R1). Switch dimensions come only from the R1 owner bundle .claude/skills/component-a7-pcm13smtr/facts.json (R1). A5 optical, adapter, leaf, rail and cable facts come from engineering/a5 (read-only). This file holds R2's own choices; every value carries a confidence label from parameters.json.",
+  "authority": "Jack, nut, panel, PCB-thickness, trim and tolerance inputs come only from engineering/a7/study/parameters.json (R1). Switch dimensions come only from the owner bundle of the fitted switch, .claude/skills/component-a7-hx-msk13c02/facts.json (was component-a7-pcm13smtr until 2026-11-12). A5 optical, adapter, leaf, rail and cable facts come from engineering/a5 (read-only). This file holds R2's own choices; every value carries a confidence label from parameters.json.",
   "status": "Provisional digital study. Not a fit approval, not a part approval, not a manufacturing release.",
   "width_decision": {
     "working_candidate": "3hp",
@@ -60,10 +60,10 @@
     "near_edge_note": "The 5.4 mm axis-to-edge side is the pin-4/pin-5 side and pin 2 is on the 6.1 mm side (independent #24 review reading of the SOFNG drawing, MIRROR source). Pins sit at Y = axis - across, so pin 2 and the 6.1 mm edge face +Y toward the setting switch; both jacks share one orientation so one footprint serves both. The drawing-view sign still has to be re-checked against the component side.",
     "y_round_down_to": 0.1,
     "body_to_switch_gap": {
-      "nominal": 1.5,
+      "nominal": 1.45,
       "basis": "worst case: switch body to the lower jack body tolerance envelope",
       "confidence": "PROJECT-CHOICE",
-      "source": "R4 (#19) request: PCM13SMTR terminals protrude 0.66 toward the jack and their pads need room clear of J2; 0.5 left the pads under J2"
+      "source": "R4 (#19) request: PCM13SMTR terminals protrude 0.66 toward the jack and their pads need room clear of J2; 0.5 left the pads under J2; 2026-11-12 (#77): 1.45 for the HX MSK13C02 body (2.7 deep, 0.05 mm nearer J2 than the 2.6 mm PCM13SMTR on the same pegs). The switch pads, whose clearance from J2 set the 1.5, are unchanged"
     },
     "label_cap_height": {
       "nominal": 1.8,
@@ -135,9 +135,18 @@
     }
   },
   "setting_switch": {
-    "part": "C&K PCM13SMTR (R1 selection; JLC stock 0, R1 Q10)",
+    "part": "hanxia HX MSK13C02 (C5149819; replaced C&K PCM13SMTR, JLC stock 0, on 2026-11-12 by owner direction)",
     "placement": "controller component face, bottom PCB edge, actuator projecting toward +Y and sliding along Z",
-    "actuator_tip_y": "controller y_bottom",
+    "peg_line_from_board_edge": {
+      "nominal": 2.8,
+      "confidence": "PROJECT-CHOICE",
+      "source": "routed SW1 peg line (R4 placement, unchanged); 2.8 = 1.3 half-depth + 1.5 actuator, set when the C&K PCM13SMTR actuator was flush with the board edge"
+    },
+    "actuator_overhang_accepted": {
+      "nominal": 0.05,
+      "confidence": "PROJECT-CHOICE",
+      "source": "2026-11-12 (#77): the fitted HX MSK13C02 body is 2.7 deep (PCM13SMTR 2.6), centred on the same pegs, so its actuator tip passes the board edge and the inherited A5 rail-body allowance (Y 111.4) by 0.05 mm on untoleranced drawing values. Accepted by the coordinator to keep the routed board and the jack positions, under the owner's direction for the switch ('this is backside switch, so nothing special is required for this. good if it works.'), which does not address the overhang itself; checked physically in switch-fit."
+    },
     "z_centre": {
       "nominal": 7.0,
       "confidence": "PROJECT-CHOICE"

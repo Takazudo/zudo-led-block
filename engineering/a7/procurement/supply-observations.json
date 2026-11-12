@@ -133,6 +133,78 @@
         }
       },
       "gaps": "Owner-relayed summary without a stored page or hash. No exact pre-order arrival date. No discontinued, not-recommended or minimum-order-value warning was seen; that is an absence in the summary, not a JLC statement."
+    },
+    {
+      "id": "jlc-c5149819-2026-11-12",
+      "lcsc": "C5149819",
+      "mpn": "HX MSK13C02",
+      "supplier": "JLCPCB",
+      "url": "https://jlcpcb.com/api/overseas-pcb-order/v1/shoppingCart/smtGood/selectSmtComponentList",
+      "retrieved_at": "2026-11-12T19:35:14Z",
+      "raw_sha256": "f6e3f19ec6c129eb50209701f98ea079945f5eb4dbe17b9c711ab6d5006d1ab9",
+      "raw_stored": false,
+      "source": ".claude/skills/component-a7-hx-msk13c02/sources.json#src-a7-hx-msk13c02-jlc-api-2026-11-12",
+      "extract": [
+        "componentCode C5149819 componentModelEn HX MSK13C02 componentBrandEn hanxia",
+        "componentLibraryType \"expand\"",
+        "stockCount 4561",
+        "canPresaleNumber 4552",
+        "minPurchaseNum 1",
+        "leastPatchNumber 0",
+        "lossNumber 0",
+        "encapsulationNumber 3000",
+        "price tiers 1-49: 0.1069, 50-149: 0.0848, 150-499: 0.0738, 500-2999: 0.0656, 3000-5999: 0.0571, 6000+: 0.0539 (no currency field)"
+      ],
+      "values": {
+        "jlc_stock": 4561,
+        "presale_available": 4552,
+        "buyable": true,
+        "library": "EXTENDED",
+        "minimum_purchase": 1,
+        "least_patch": 0,
+        "attrition_pieces": 0,
+        "packaging_quantity": 3000,
+        "price_tiers": [
+          {
+            "from": 1,
+            "to": 49,
+            "unit_price": 0.1069
+          },
+          {
+            "from": 50,
+            "to": 149,
+            "unit_price": 0.0848
+          },
+          {
+            "from": 150,
+            "to": 499,
+            "unit_price": 0.0738
+          },
+          {
+            "from": 500,
+            "to": 2999,
+            "unit_price": 0.0656
+          },
+          {
+            "from": 3000,
+            "to": 5999,
+            "unit_price": 0.0571
+          },
+          {
+            "from": 6000,
+            "to": null,
+            "unit_price": 0.0539
+          }
+        ],
+        "currency": null,
+        "lead_time": null,
+        "assembly_acceptance": null
+      },
+      "gaps": "Point-in-time stock, not a reservation; refresh before ordering. Prices carry no currency field. Assembly acceptance and the per-type Extended fee are not part of this response.",
+      "field_meanings": {
+        "status": "INFERRED",
+        "note": "stockCount, canPresaleNumber, minPurchaseNum, leastPatchNumber and lossNumber come from an undocumented JLC parts API; their meanings (JLC stock, pre-orderable quantity, minimum purchase, minimum patch quantity, attrition pieces) are our reading, not a JLC definition."
+      }
     }
   ]
 }

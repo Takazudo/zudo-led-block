@@ -20,7 +20,9 @@ exports. The A7 map (`interface_roles/a7_controller.json`, `status: reviewed`) f
 evidence (#16). The independent electrical review of the schematic phase approved those pin identities
 ([PR #24 review 5818088400](https://github.com/Takazudo/zudo-led-block/pull/24#pullrequestreview-5818088400), head
 `1a2f31a`). That approval covers the intended connectivity only. The PJ-324M pin functions stay INFERRED, and PCM13SMTR
-centring is ASSUMED, until the physical gates listed in the map's `review.open_physical_gates` are passed.
+centring is ASSUMED, until the physical gates listed in the map's `review.open_physical_gates` are passed. On
+2026-11-12 SW1 changed to hanxia HX MSK13C02 (C5149819) by the owner's direction; its Hanxia drawing (mirror) prints
+the same 1-3 / 2-3 / 3-4 contact schematic with terminal 3 common, so the role map and nets are unchanged.
 
 ## Controller board layout dispositions (R4 #19, layout review of PR #30, board revision 2)
 

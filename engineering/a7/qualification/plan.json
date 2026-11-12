@@ -472,14 +472,14 @@
     },
     {
       "id": "switch-fit",
-      "title": "PCM13SMTR 真理値・ランド・設定アクセス",
+      "title": "HX MSK13C02 真理値・ランド・設定アクセス",
       "variant": "fr4-3hp",
       "issues": "Q10; #19",
       "setup": "未実装品の全接点を測定後、基板ランドとペグを照合。モジュールを外して設定工具を確認。",
       "expected": "端子3共通GND、1→MODE_A、4→MODE_B、2→NC。1–3/2–3/3–4→ON/PROGRAM/CV。0/0はinvalid/dark。",
       "basis": "engineering/a7/electronics/README.md",
       "criterion_status": "UNRESOLVED",
-      "missing_criterion": "ランド/本体位置公差、導通判定抵抗、設定工具と保持条件の採否値が未決。",
+      "missing_criterion": "ランド/本体位置公差、導通判定抵抗、設定工具と保持条件の採否値が未決。ランドは PCM13SMTR 用のまま（メーカー推奨ランドとの公称値比較は engineering/a7/electronics/switch-land-fit.json、実物での適合は未確認）。",
       "raw_evidence_required": "接点表、寸法、実装写真、アクセス動画",
       "observation": "NOT_MEASURED",
       "result": "NOT_RUN",
@@ -492,7 +492,7 @@
       ],
       "criterion_class": "ACCESS_EVIDENCE_HOLD",
       "inputs": [
-        "PCM13SMTR (C221842) 未実装品 2個以上（在庫 0 のため入手経路を記録）",
+        "HX MSK13C02 (C5149819) 未実装品 2個以上（購入記録を残す）",
         "SW1 実装済みの A7 rev2 基板（試作ルートで入手した場合）"
       ],
       "tools": [
@@ -508,8 +508,9 @@
       "precondition_states": [],
       "steps": [
         "未実装品で 3 位置それぞれの全端子対（1〜4）の抵抗を測る。",
+        "実装基板で最初に、非通電のまま各位置で SW1 のパッド 3（GND）とパッド 1・4 の導通を測り、端子番号の向きを確かめる。ランドの端子番号は EasyEDA の部品 CAD だけが根拠（Hanxia の図面に番号なし）で、逆向きならどの位置でも PROGRAM になる。",
         "実装基板では非通電で、各位置の端子 3–1 と 3–4 の導通を基板上で測る。",
-        "ペグ穴への収まりと、ランドに対する本体のずれを顕微鏡で測る。",
+        "ペグ穴への収まりと、ランドに対する本体と端子のずれを顕微鏡で測る（ランドは PCM13SMTR 用のまま。アクチュエータ先端は公称で基板端から 0.05 mm 出る）。",
         "モジュールを組んだ状態で、ラックから外して下側 (+Y) から設定スティックで 3 位置を切り替えられるか確認し、表示 ON / PGM / CV と位置が合うか確認する。"
       ],
       "record": {
@@ -521,18 +522,18 @@
       "acceptance": [
         {
           "id": "function",
-          "criterion": "接点表（端子 3 が共通）",
+          "criterion": "接点表（端子 3 が共通。A/B/C は図面の位置名）",
           "value": {
-            "POS.1": "1-3",
-            "POS.2": "2-3",
-            "POS.3": "3-4",
+            "A": "1-3",
+            "B": "2-3",
+            "C": "3-4",
             "common": "3"
           },
           "unit": "NONE",
-          "confidence": "SOURCED",
+          "confidence": "MIRROR",
           "source": {
-            "path": ".claude/skills/component-a7-pcm13smtr/facts.json",
-            "fact_id": "fact-a7-pcm13smtr-function"
+            "path": ".claude/skills/component-a7-hx-msk13c02/facts.json",
+            "fact_id": "fact-a7-hx-msk13c02-function"
           },
           "bound": "exact"
         },
@@ -551,12 +552,12 @@
         {
           "id": "contact-rating",
           "criterion": "接点定格（測定電流はこれ以下）",
-          "value": "0.3 A @ 6 VDC",
+          "value": "DC 12 V 0.1 A",
           "unit": "NONE",
-          "confidence": "SOURCED",
+          "confidence": "MIRROR",
           "source": {
-            "path": ".claude/skills/component-a7-pcm13smtr/facts.json",
-            "fact_id": "fact-a7-pcm13smtr-contact-rating"
+            "path": ".claude/skills/component-a7-hx-msk13c02/facts.json",
+            "fact_id": "fact-a7-hx-msk13c02-contact-rating"
           },
           "bound": "max"
         },
@@ -575,7 +576,7 @@
         {
           "id": "peg-diameter",
           "criterion": "ペグ径",
-          "value": 0.8,
+          "value": 0.73,
           "unit": "mm",
           "confidence": "DESIGN",
           "source": {
@@ -605,7 +606,7 @@
           "decided_by": "メーカーの本体-ペグ基準寸法と、3.3 V / 10 kΩ 負荷での接触判定値のレビュー",
           "supplied_by": {
             "kind": "DOCUMENT_AND_MEASUREMENT",
-            "what": "C&K の本体とペグの基準寸法の公差（図面）と、実部品での 3.3 V / 10 kΩ 負荷の接触抵抗の測定"
+            "what": "Hanxia の本体とペグの基準寸法の公差（図面に公差の記載なし）と、実部品での 3.3 V / 10 kΩ 負荷の接触抵抗の測定"
           }
         }
       ]
@@ -782,7 +783,7 @@
       "criterion_accepted_by": "OWNER",
       "criterion_review": {
         "path": "engineering/a7/qualification/reviews/2026-11-12-owner-criteria-acceptance.md",
-        "sha256": "ab30cb00fb1077097ec6375b14acda2022632ad425557ad540ffb931a0d4b11b"
+        "sha256": "15e3a481a4b3e3588d47d87884f5b8ec18342c425e03fb927073ee810f04c9a6"
       },
       "criterion_acceptance_sha256": "886e5fd6948d5d2c939b8ab37e668749db83307b2c78f972892713ef46071943"
     },
@@ -2717,7 +2718,7 @@
       "criterion_accepted_by": "OWNER",
       "criterion_review": {
         "path": "engineering/a7/qualification/reviews/2026-11-12-owner-criteria-acceptance.md",
-        "sha256": "ab30cb00fb1077097ec6375b14acda2022632ad425557ad540ffb931a0d4b11b"
+        "sha256": "15e3a481a4b3e3588d47d87884f5b8ec18342c425e03fb927073ee810f04c9a6"
       },
       "criterion_acceptance_sha256": "bcfdaa1b30cbf474bb7b951d87563a0cbca39e9c002293ae9a3b060b24c3d30d"
     },
@@ -2821,7 +2822,7 @@
       "criterion_accepted_by": "OWNER",
       "criterion_review": {
         "path": "engineering/a7/qualification/reviews/2026-11-12-owner-criteria-acceptance.md",
-        "sha256": "ab30cb00fb1077097ec6375b14acda2022632ad425557ad540ffb931a0d4b11b"
+        "sha256": "15e3a481a4b3e3588d47d87884f5b8ec18342c425e03fb927073ee810f04c9a6"
       },
       "criterion_acceptance_sha256": "0df9272f616326f663ecaa1ccda4866a9e00d371c0b78d5614ea51734bc5ad7a"
     },
@@ -3404,7 +3405,7 @@
       "expected": "51/255 capは温度承認ではない。約2% D2遮光はモデル推定のみ。",
       "basis": "engineering/a7/mechanical/README.md",
       "criterion_status": "UNRESOLVED",
-      "missing_criterion": "部品温度の上限はオーナーが 75 °C に決めた（2026-11-12）。PETG/PMMA の温度限界（資料未取得）と見え方の合否（オーナー判断）が未決。",
+      "missing_criterion": "部品温度の上限はオーナーが 75 °C に決めた（2026-11-12）。SW1（HX MSK13C02、2026-11-12 に変更）は動作上限 +70 °C で温度の資料がある基板上の部品で最も低いので、SW1 だけは 70 °C で判定する。PETG/PMMA の温度限界（資料未取得）と見え方の合否（オーナー判断）が未決。",
       "raw_evidence_required": "温度時系列、IR補正、材料ロット、露出固定写真、周囲条件",
       "observation": "NOT_MEASURED",
       "result": "NOT_RUN",
@@ -3433,7 +3434,7 @@
       "precondition_states": [],
       "steps": [
         "室温を記録し、全点灯（上限 51/255）で温度が安定するまで記録する。",
-        "LED 付近、U2、U4、PETG、PMMA の温度を測る。",
+        "LED 付近、U2、U4、SW1（動作上限 +70 °C）、PETG、PMMA の温度を測る。",
         "露出固定で点灯の見え方を撮影する（暗所と通常照明）。"
       ],
       "record": {
@@ -3458,13 +3459,13 @@
         },
         {
           "id": "switch-temp",
-          "criterion": "PCM13SMTR の動作温度",
-          "value": "-40 to +85",
+          "criterion": "SW1（HX MSK13C02）の動作温度（上限 +70 °C は温度の資料がある基板上の部品で最も低い。SW1 はこの上限で判定する）",
+          "value": "-25 to +70",
           "unit": "C",
-          "confidence": "SOURCED",
+          "confidence": "MIRROR",
           "source": {
-            "path": ".claude/skills/component-a7-pcm13smtr/facts.json",
-            "fact_id": "fact-a7-pcm13smtr-operating-temperature"
+            "path": ".claude/skills/component-a7-hx-msk13c02/facts.json",
+            "fact_id": "fact-a7-hx-msk13c02-operating-temperature"
           },
           "bound": "range"
         },
@@ -3482,7 +3483,7 @@
         },
         {
           "id": "part-temp-max",
-          "criterion": "安定後の部品表面温度の上限（PJ-324M の保存温度の上限を基板全体の上限にする）",
+          "criterion": "安定後の部品表面温度の上限（PJ-324M の保存温度の上限を基板全体の上限にする。SW1 は switch-temp の +70 °C で判定）",
           "value": 75,
           "unit": "degC",
           "confidence": "CALCULATED",
@@ -3709,10 +3710,10 @@
           "criterion": "設定スイッチの寿命",
           "value": 10000,
           "unit": "cycles",
-          "confidence": "SOURCED",
+          "confidence": "MIRROR",
           "source": {
-            "path": ".claude/skills/component-a7-pcm13smtr/facts.json",
-            "fact_id": "fact-a7-pcm13smtr-life"
+            "path": ".claude/skills/component-a7-hx-msk13c02/facts.json",
+            "fact_id": "fact-a7-hx-msk13c02-life"
           },
           "bound": "reference"
         },
@@ -3768,9 +3769,9 @@
       "criterion_accepted_by": "OWNER",
       "criterion_review": {
         "path": "engineering/a7/qualification/reviews/2026-11-12-owner-criteria-acceptance.md",
-        "sha256": "ab30cb00fb1077097ec6375b14acda2022632ad425557ad540ffb931a0d4b11b"
+        "sha256": "15e3a481a4b3e3588d47d87884f5b8ec18342c425e03fb927073ee810f04c9a6"
       },
-      "criterion_acceptance_sha256": "d7cb9959e4717eb0051e04bfa957a9945be72336f160c8a3740c6efaafa6bb99"
+      "criterion_acceptance_sha256": "552e46e2cca4a35149f52288dd6a716c41742aedc6f6b1a78d63c9e96c729464"
     }
   ],
   "optional_variants": {
@@ -3832,15 +3833,6 @@
       "detail": "オーナーは推奨（メーカーの判定基準を書面で確認して採る）を受け入れた（2026-11-12「5 accept all」）。データシート V1.4 の T1L は 580–1000 ns、現行 FW の T1L は計算上 約 340–361 ns。Worldsemi の公式窓口から、T0H ≤ 380 ns とビット周期で判定し T1L を合否に使わないことと、周期の許容幅を書面でもらう。届くまで提案値（t1l-min / t1l-max）は採らず、基準ゲートは開いたまま。書面確認が得られなければ購入ロットの実測に戻る。",
       "unblocks": [
         "criterion:firmware-waveforms"
-      ]
-    },
-    {
-      "id": "O4",
-      "title": "モードスイッチを決める: PCM13SMTR を JLC 経由で取り寄せるか、別のスイッチにするか",
-      "detail": "オーナーは推奨（JLC 経由で取り寄せる）をいったん受け入れた後、JLC の在庫確認（2026-11-12、JLC 在庫 0、予約注文は最小 3 個で約 31 日、Global Sourcing は DigiKey で 3 個 ¥826・8〜15 営業日）を受けて、価格が少し高いので別のスイッチも検討したいと述べた。代替品の比較（同じフットプリントにそのまま載るか、基板の変更が要るか）を見てオーナーが選ぶまで、このゲートは開いたまま。",
-      "unblocks": [
-        "assembly:switch-supply",
-        "material:switch"
       ]
     },
     {
@@ -3913,7 +3905,7 @@
         }
       ],
       "recommended": "approve",
-      "reason": "19 の物理手順はどれも実物が要り、試作ルートがないと部品・基板・治具を入手できない。試作ルートの承認は製造リリースではない。",
+      "reason": "オーナーは 2026-11-12 に「1 OK」でこの試作を承認済み（approvals/2026-11-12-owner-prototype-route.md）。その承認は当時の基板・回路図・機構・台帳のハッシュに結び付いていて、SW1 を HX MSK13C02 に変えたことでそれらが変わったため、この版について改めて承認が要る。変わったのは SW1 の部品（型番・LCSC）とその記録だけで、銅パターンと配置は同じ。19 の物理手順はどれも実物が要り、試作ルートがないと部品・基板・治具を入手できない。試作ルートの承認は製造リリースではない。",
       "sources": [
         {
           "path": "engineering/a7/procurement/assembly-manifest.json",
@@ -4011,7 +4003,15 @@
           "quote": "DigiKey, cut tape: ¥275.19 each, ¥826 total; 8–15 business days."
         }
       ],
-      "rank": 3
+      "rank": 3,
+      "answer": {
+        "option": "alternate",
+        "by": "OWNER",
+        "record": {
+          "path": "engineering/a7/procurement/owner-decisions.json",
+          "quote": "this is backside switch, so nothing special is required for this. good if it works. also, on this project https://github.com/Takazudo/zudo-osc-hole-field AI chose high price components for most parts, but those were all replaced. check compoents price for all items, and choose low price one on JLC parts. have man qty + low price is the best forthose"
+        }
+      }
     },
     {
       "gate": "assembly:panel-route",
@@ -4648,11 +4648,11 @@
       ],
       "items": [
         {
-          "what": "C&K PCM シリーズのデータシート（Littelfuse）",
-          "value_needed": "本体とペグの基準寸法の公差",
-          "url": "https://www.littelfuse.com/assetdocs/littelfuse-ck-slide-pcm-series-datasheet?assetguid=d2f6a96c-7a9a-4c4e-a5aa-4fe3075dffe5",
-          "fallback_url": null,
-          "access": "Littelfuse のデータシート（Revised VL 03/14/25）は取得済みで、2026-11-12 にオーナーが送ったものも同じバイト列。本体とペグの寸法には公差の記載がない（公差はテープ寸法だけ）。C&K への質問か、購入品の実測で決める。接触抵抗（3.3 V / 10 kΩ 負荷）は実部品の測定"
+          "what": "Hanxia HX MSK13C02 の図面（JLC 配布、取得済み）",
+          "value_needed": "本体とペグの基準寸法の公差と、ランド上の端子番号の向き",
+          "url": "https://jlcpcb.com/partdetail/hanxia-HXMSK13C02/C5149819",
+          "fallback_url": "https://www.lcsc.com/product-detail/C5149819.html",
+          "access": "2026-11-12 に取得した図面（sha256 0acc4953…）には寸法の公差も、ランド上の端子番号もない。購入品の実測で決める。接触抵抗（3.3 V / 10 kΩ 負荷）も実部品の測定"
         }
       ]
     },
@@ -4738,11 +4738,11 @@
       ],
       "items": [
         {
-          "what": "PCM13SMTR（C221842）の JLC 在庫・予約注文の可否",
-          "value_needed": "2 台分（2 個、予約注文なら最小 3 個）が JLC で手に入るか（日付付き）",
-          "url": "https://jlcpcb.com/partdetail/CK-PCM13SMTR/C221842",
-          "fallback_url": "https://www.lcsc.com/product-detail/C221842.html",
-          "access": "JLC 在庫 → 予約注文 → Global Sourcing の順（こちらの解釈、オーナー未確認）。2026-11-12 の観測は supply-observations.json"
+          "what": "HX MSK13C02（C5149819）の JLC 在庫",
+          "value_needed": "2 台分（2 個）が発注時に JLC 在庫にあるか（日付付き）。2026-11-12T19:35:14Z の観測は在庫 4561（Extended、確保ではない）",
+          "url": "https://jlcpcb.com/partdetail/hanxia-HXMSK13C02/C5149819",
+          "fallback_url": "https://www.lcsc.com/product-detail/C5149819.html",
+          "access": "発注直前に JLC 在庫を確認する。2026-11-12 の観測は supply-observations.json（jlc-c5149819-2026-11-12）"
         }
       ]
     },
@@ -4805,6 +4805,13 @@
           "url": null,
           "fallback_url": null,
           "access": "2 台分（コントローラー 2・リーフ 4・電源アダプタ 2 枚）の製造ファイルで JLC の見積もりを取る（発注はしない）。PCBA 最小 2 枚が JLC の条件どおりかもここで確かめる"
+        },
+        {
+          "what": "JLC のリフロー条件と SW1（HX MSK13C02）の耐熱",
+          "value_needed": "JLC のリフローのピーク温度と時間が Hanxia の図面の上限 250 °C 以内か",
+          "url": null,
+          "fallback_url": null,
+          "access": "見積もりのときに JLC に確認する（Hanxia の図面は 250 °C だけで、ピークの保持時間の記載はない）"
         }
       ]
     }

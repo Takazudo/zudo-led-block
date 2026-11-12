@@ -5,13 +5,13 @@
   "modules": 2,
   "decided_by": "OWNER",
   "sources": "engineering/a7/jlc-package/sources.json",
-  "ledger_sha256": "a3f8912d058453184950626077bbcd4cabbf5bdee4852c692d0c2fbabcb12a3d",
-  "sources_sha256": "2b47184875f40d4189144008c1cea2bf1500e89cdf68401551caa17e08c509be",
+  "ledger_sha256": "c12c964ac3ea0c012bb03fbd11f1fac22d0f769a5cacdf2daf1b289f1493e865",
+  "sources_sha256": "6fc3789723a99d5f6eaeca12b9f057ebb407ef84b7a8657ee224129c262f05d5",
   "boards": [
     {
       "board": "controller",
       "pcb": "engineering/a7/electronics/controller/controller.kicad_pcb",
-      "pcb_sha256": "4453f818ede1e6d6c56e45ef43aa6faecb90990f3755f82c6d752258cd4d628e",
+      "pcb_sha256": "89310d539b3c28096775cee821e46c14fdba42a87809c82f1fd7f0751704e727",
       "per_module": 1,
       "pcba_quantity": 2,
       "copper_layers": 4,
@@ -76,7 +76,7 @@
         },
         {
           "ref": "SW1",
-          "lcsc": "C221842",
+          "lcsc": "C5149819",
           "anchor_to_pad_centre_mm": 0.568,
           "pad_centre_in_footprint_mm": [
             0.0,
@@ -844,16 +844,6 @@
       "observed_at": "2026-11-12T10:35:37Z"
     },
     {
-      "lcsc": "C221842",
-      "mpn": "PCM13SMTR",
-      "pieces_required": 2,
-      "library": "EXTENDED",
-      "in_stock": 0,
-      "preorder_available": 0,
-      "route": "JLC_PREORDER_OR_GLOBAL_SOURCING_BLOCKED",
-      "observed_at": "2026-11-12T10:35:39Z"
-    },
-    {
       "lcsc": "C22355739",
       "mpn": "PJ-324M",
       "pieces_required": 4,
@@ -952,6 +942,16 @@
       "preorder_available": 12534,
       "route": "JLC_STOCK",
       "observed_at": "2026-11-12T10:36:03Z"
+    },
+    {
+      "lcsc": "C5149819",
+      "mpn": "HX MSK13C02",
+      "pieces_required": 2,
+      "library": "EXTENDED",
+      "in_stock": 4561,
+      "preorder_available": 4552,
+      "route": "JLC_STOCK",
+      "observed_at": "2026-11-12T19:56:55Z"
     },
     {
       "lcsc": "C5270180",
@@ -1182,17 +1182,6 @@
         "repo_panel_short": false
       },
       {
-        "lcsc": "C221842",
-        "mpn": "PCM13SMTR",
-        "needed": 2,
-        "jlc_panel": 20,
-        "repo_panel": 2,
-        "in_stock": 0,
-        "preorder_available": 0,
-        "jlc_panel_short": true,
-        "repo_panel_short": true
-      },
-      {
         "lcsc": "C22355739",
         "mpn": "PJ-324M",
         "needed": 4,
@@ -1303,6 +1292,17 @@
         "repo_panel_short": false
       },
       {
+        "lcsc": "C5149819",
+        "mpn": "HX MSK13C02",
+        "needed": 2,
+        "jlc_panel": 20,
+        "repo_panel": 2,
+        "in_stock": 4561,
+        "preorder_available": 4552,
+        "jlc_panel_short": false,
+        "repo_panel_short": false
+      },
+      {
         "lcsc": "C5270180",
         "mpn": "STM32G031G8U6TR",
         "needed": 2,
@@ -1381,8 +1381,7 @@
     "EXTENDED": 16
   },
   "route_counts": {
-    "JLC_PREORDER_OR_GLOBAL_SOURCING_BLOCKED": 1,
-    "JLC_STOCK": 29
+    "JLC_STOCK": 30
   },
   "blockers": [
     {
@@ -1456,12 +1455,6 @@
       "board": "power_adapter",
       "text": "Rotations are KiCad footprint angles; JLC library orientation offsets have not been checked in the JLC placement preview.",
       "ja": "回転角は KiCad のフットプリント角度のまま。JLC ライブラリとの向きの差は JLC の配置プレビューで未確認。"
-    },
-    {
-      "id": "part-C221842-not-in-stock",
-      "board": null,
-      "text": "PCM13SMTR (C221842): need 2, JLC in-stock 0, pre-order available 0 at 2026-11-12T10:35:39Z.",
-      "ja": "PCM13SMTR（C221842）: 必要 2 個に対し、2026-11-12T10:35:39Z の JLC 在庫 0・予約可能数 0。"
     },
     {
       "id": "pcba-quantity-unit-with-panel-not-sourced",

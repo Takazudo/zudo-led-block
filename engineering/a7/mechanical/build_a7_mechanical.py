@@ -61,12 +61,13 @@ CABLE_KINDS = ("cable_route_scenario", "conditional_cable_scenario")
 # Scopes allowed outside the panel width / rail-body envelope only as reported conditions.
 CONDITIONAL = ("conditional_harness", "conditional_socket", "conditional_ribbon")
 STALE_INPUTS = ("engineering/a7/mechanical/layout.json", "engineering/a7/mechanical/build_a7_mechanical.py", "engineering/a7/front_panel/build_a7_front.py")
+SWITCH = "setting_switch_HX_MSK13C02"
 CABLE_ENTRY_LIMIT_MM = 4.0  # tube length allowed inside its own mated connector envelope
 # Expected rigid contacts and the most overlap each may have (mm3); any other value is a collision.
 CONTACT_LIMITS_MM3 = {frozenset(k): v for k, v in {
     ("jack_in_PJ-324M", "jack_in_solder_fillets"): 1.5, ("jack_thru_PJ-324M", "jack_thru_solder_fillets"): 1.5,
     ("nut_in_M6x0.5", "jack_in_PJ-324M"): 0.0, ("nut_thru_M6x0.5", "jack_thru_PJ-324M"): 0.0,
-    ("setting_switch_PCM13SMTR", "controller_pcb_A7"): 0.0,
+    ("setting_switch_HX_MSK13C02", "controller_pcb_A7"): 0.0,
     ("controller_PicoBlade_mated", "controller_pcb_A7"): 0.7,  # three THT tails through the board (no holes cut)
     ("adapter_C5665_keyed_header", "power_adapter_pcb_A5"): 7.0, ("adapter_PicoBlade_mated", "power_adapter_pcb_A5"): 0.7,
     # A5 reference socket / ribbon scenario envelopes, moved unchanged with the adapter; their A5 overlaps stay bounded here
@@ -172,9 +173,9 @@ def build(name, out, leaf="fr4"):
     act = box(x1 + 0.1, x1 + SW["height_above_pcb"] - 0.1, SW["actuator_y"][0], SW["actuator_y"][1], za - SW["actuator_width_z"] / 2, za + SW["actuator_width_z"] / 2)
     for zz in ((swz[0] + swz[1]) / 2 - SW["peg_pitch"] / 2, (swz[0] + swz[1]) / 2 + SW["peg_pitch"] / 2):
         sw = sw.fuse(cylinder(0.4, 0, 0.5).rotate((0, 0, 0), (0, 1, 0), -90).translate((x1, swyc, zz)))
-    add("setting_switch_PCM13SMTR", union(sw, act), "switch", "manufacturer_dimensioned_envelope",
-        "C&K PCM13SMTR body 9.7 x 2.6 x 1.4, actuator 1.3 wide projecting 1.5 to the board edge, centre (PGM) position shown", "src-a7-pcm13smtr-ck-datasheet", group="controller")
-    contacts.append(("setting_switch_PCM13SMTR", "controller_pcb_A7"))
+    add("setting_switch_HX_MSK13C02", union(sw, act), "switch", "manufacturer_dimensioned_envelope",
+        f"hanxia HX MSK13C02 body 9.7 x {r3(SW['body_y'][1] - SW['body_y'][0])} x 1.4 centred on the routed peg line, actuator 1.3 wide projecting 1.5, tip {SW['actuator_tip_past_board_edge']} mm past the board edge, centre (PGM) position shown", "src-a7-hx-msk13c02-hanxia-spec", group="controller")
+    contacts.append(("setting_switch_HX_MSK13C02", "controller_pcb_A7"))
     # controller connectors (A5-sourced envelopes, rotated onto the Y-Z board)
     ph, lh = C["power_header"], C["led_header"]
     pico = box(x1, x1 + 5.2, ph["y_extent"][0], ph["y_extent"][1], ph["z_extent"][0], ph["z_extent"][1])
@@ -443,7 +444,9 @@ def validate(parts, contacts, name):
             probs.append("side_clearance_0.3")
         if bb["max"][2] > L["z_stack"]["installed_depth_target"] + 1e-4:
             probs.append("rear_depth_30")
-        if p.scope != "front_panel" and bb["max"][2] > 0 and p.group != "hardware" and (bb["min"][1] < 17.1 - 1e-4 or bb["max"][1] > 111.4 + 1e-4):
+        # The setting switch alone may pass the rail-body bottom by the actuator overhang accepted in design-inputs (layout.json switch).
+        y_max = 111.4 + (L["switch"]["actuator_overhang_accepted"] if p.name == SWITCH else 0.0)
+        if p.scope != "front_panel" and bb["max"][2] > 0 and p.group != "hardware" and (bb["min"][1] < 17.1 - 1e-4 or bb["max"][1] > y_max + 1e-4):
             probs.append("rail_body_y")
         if probs:
             env.append({"part": p.name, "scope": p.scope, "checks": probs, "x": [r3(bb["min"][0]), r3(bb["max"][0])], "z_max": r3(bb["max"][2])})
@@ -605,7 +608,7 @@ def tool_access(parts, name):
     corridor = box(x1, x1 + SW["height_above_pcb"] + 0.5, SW["actuator_y"][0], 140.0, z[0] - SW["actuator_width_z"] / 2 - 1.0, z[2] + SW["actuator_width_z"] / 2 + 1.0)
     hits = []
     for p in parts:
-        if p.name == "setting_switch_PCM13SMTR":
+        if p.name == "setting_switch_HX_MSK13C02":
             continue
         v = p.shape.intersect(corridor).Volume()
         if v > 1e-4:
@@ -778,6 +781,10 @@ def main():
             "envelope_findings": env,
             "retained_envelope_findings": [x for x in env if x["scope"] not in CONDITIONAL],
             "optical_obstruction": opt, "optical_shading_estimate": opt_est, "switch_tool_access": acc,
+            "switch_actuator_overhang": {"part": SWITCH, "y_max": next(x["bbox_max"][1] for x in rows if x["part"] == SWITCH),
+                                         "past_rail_body_allowance": L["switch"]["actuator_tip_past_board_edge"],
+                                         "accepted": L["switch"]["actuator_overhang_accepted"],
+                                         "note": "untoleranced drawing values; design-inputs setting_switch.actuator_overhang_accepted; physical check in switch-fit"},
             "parts": rows,
             "manufacturing_release": False,
         }

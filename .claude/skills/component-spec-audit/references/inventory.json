@@ -2,8 +2,8 @@
   "schema_version": 1,
   "generator_specs": [],
   "assertions": {
-    "orderable_lines": 32,
-    "fitted_lines": 32,
+    "orderable_lines": 33,
+    "fitted_lines": 33,
     "dnp_or_hand_fit_lines": 0,
     "fitted_placements": 74,
     "dnp_placements": 0
@@ -1082,7 +1082,7 @@
       "owner_skill": "component-a7-pcm13smtr",
       "identity_state": "VERIFIED",
       "source_state": "AVAILABLE",
-      "function": "A7 side mode setting switch",
+      "function": "A7 side mode setting switch (superseded on SW1 by line-a7-hx-msk13c02, 2026-11-12; no placement)",
       "suppliers": [
         {
           "supplier": "JLCPCB",
@@ -1091,6 +1091,29 @@
         {
           "supplier": "LCSC",
           "order_code": "C221842"
+        }
+      ],
+      "placements": []
+    },
+    {
+      "line_id": "line-a7-hx-msk13c02",
+      "mpn": "HX MSK13C02",
+      "manufacturer": "hanxia",
+      "lcsc": "C5149819",
+      "package": "SMD",
+      "dnp": false,
+      "owner_skill": "component-a7-hx-msk13c02",
+      "identity_state": "UNRESOLVED",
+      "source_state": "AVAILABLE",
+      "function": "A7 side mode setting switch",
+      "suppliers": [
+        {
+          "supplier": "JLCPCB",
+          "order_code": "C5149819"
+        },
+        {
+          "supplier": "LCSC",
+          "order_code": "C5149819"
         }
       ],
       "placements": [

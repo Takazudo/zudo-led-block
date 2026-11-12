@@ -72,7 +72,11 @@ Run the front build before the mechanical build (the assembly imports the panel)
 - **Load path:** insertion goes through the nut to the PMMA front, withdrawal through the body to the pocket
   floor, and torque into the pocket walls. The controller hangs on the two clamped jacks and a printed spine
   slot (Y 50–72). The solder joints carry no primary load.
-- **Setting switch:** C&K PCM13SMTR at the bottom PCB edge. The actuator reaches Y 111.4 and slides along Z.
+- **Setting switch:** hanxia HX MSK13C02 (C5149819; replaced C&K PCM13SMTR on 2026-11-12 by owner direction) at
+  the bottom PCB edge, on the routed PCM13SMTR pegs. Its 2.7 mm body is 0.1 mm deeper than the 2.6 mm PCM13SMTR,
+  so with the pegs fixed the actuator reaches Y 111.45, 0.05 mm past the board edge (recorded and accepted in
+  `design-inputs.json`), and the body clears the lower jack by 1.45 mm worst case. The actuator slides along Z.
+  The figures in the next lines are from the PCM13SMTR model and are kept for history:
   It is reached from below with the module out of the rack. The tool corridor (actuator root to the board
   edge and below) is clear of every modelled part in both widths; rails, case and neighbours are not modelled.
   The switch body clears the lower jack envelope by 1.5 mm worst case (1.9 nominal); with the corrected R4

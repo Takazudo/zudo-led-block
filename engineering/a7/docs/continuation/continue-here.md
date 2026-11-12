@@ -70,7 +70,8 @@ retrieved.
 | Revision | Board SHA-256 | Merged | What changed | Review |
 |---|---|---|---|---|
 | 1 | `ec810aecd9e67e2806f8886e43f3944bf35c1051dcc4a52f23332216025e74f2` | PR #30, `eb8adeb` | first placement and routing | requested changes on `493155e`, approved on `e2a2219`; four non-blocking polish items left |
-| 2 (current) | `4453f818ede1e6d6c56e45ef43aa6faecb90990f3755f82c6d752258cd4d628e` | PR #37, `edf98c2` (head `ae5aa3c`) | the four polish items, PTH-to-track 0.35 mm rule and control, 1 nm courtyard comparison | requested changes on `eb5d833` (no gate run on that head), no blocking findings on `ae5aa3c` |
+| 2 | `4453f818ede1e6d6c56e45ef43aa6faecb90990f3755f82c6d752258cd4d628e` | PR #37, `edf98c2` (head `ae5aa3c`) | the four polish items, PTH-to-track 0.35 mm rule and control, 1 nm courtyard comparison | requested changes on `eb5d833` (no gate run on that head), no blocking findings on `ae5aa3c` |
+| 2, SW1 part fields (current) | `89310d539b3c28096775cee821e46c14fdba42a87809c82f1fd7f0751704e727` | #77 | SW1 MPN / LCSC properties changed to HX MSK13C02 / C5149819; footprint, copper and placement unchanged | board gate PASS in CI run 43294571723 on `8e71317`; independent review on the #77 PR |
 
 - **Current board (revision 2).** `electronics/controller/controller.kicad_pcb`, 16.2 × 62.9 mm, 4 layers, 1.6 mm,
   In1 solid GND. Fresh KiCad 10.0.8 gate PASS on the committed board (CI run 42503602665 on `ae5aa3c`, whose summary's

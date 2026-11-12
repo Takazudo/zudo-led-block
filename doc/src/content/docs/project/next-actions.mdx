@@ -28,7 +28,7 @@ JLCPCB の注文画面に基板ごとに何を入れ、何をアップロード�
 
 | 順 | 作業 | 完了条件 |
 |---:|---|---|
-| 1 | **物理ゲートとオーナーの判断**。PJ-324M のピン機能 (TS / TRS プラグでの導通確認、Q2)、穴径 (Q3)、軸高さ (Q1)、PCM13SMTR の在庫と適合 (Q10)、2HP を選ぶかどうか (選ぶなら 0.8 mm 基板で再配線) | 部品・実測・オーナーの回答の記録。デジタルの作業では完了にできない |
+| 1 | **物理ゲートとオーナーの判断**。PJ-324M のピン機能 (TS / TRS プラグでの導通確認、Q2)、穴径 (Q3)、軸高さ (Q1)、SW1 (HX MSK13C02) の接点表と適合 (Q10)、2HP を選ぶかどうか (選ぶなら 0.8 mm 基板で再配線) | 部品・実測・オーナーの回答の記録。デジタルの作業では完了にできない |
 | 2 | **外部の証跡** (`engineering/a7/open-questions.md` の Q0〜Q11 と Q11a〜Q11f。Q12 は決定済み)。SOFNG の一次資料と supplier symbol の端子4/5不一致、ナット、端子カット、PMMA の公差とポケット、JLC の PET の回答、PC 支持板の貼り合わせの供給元 (Q11a)、2 層の透明 PET のめっきビア (Q11e)、カバーレイのブリッジ (Q11f)。Q11d〜Q11f は PET 案だけを止め、FR-4 には影響しない | 事実を 1 件ずつ更新。JLC への PET の質問 (`engineering/a7/pet-fpc.md` の 1〜9。8 と 9 が Q11e と Q11f) は下書き済みで、**未送信**。ほかの未送信質問は `engineering/a7/qualification/supplier-questions.md` に準備しました。供給元への送信は現在の作業範囲外 |
 | 3 | **物理評価** ([#8](https://github.com/Takazudo/zudo-led-block/issues/8)、[#10](https://github.com/Takazudo/zudo-led-block/issues/10)、[#13](https://github.com/Takazudo/zudo-led-block/issues/13))。ハーネス、57 ± 3 mm の電源ケーブル (±3 は仮定)、PETG の造形、電源・CV・FW・光学・温度・荷重、CV ノイズ (DATA_L との結合)、PET を進める場合は SH の挿抜力 (Q11b) と点灯時の見え方 | 測定記録 |
 | 4 | **製造ファイルとリリースの判断** (Gerber・ドリル・基板別 BOM / CPL・組立注記) | オーナーの判断。製造リリース・発注は現在の作業範囲外 |

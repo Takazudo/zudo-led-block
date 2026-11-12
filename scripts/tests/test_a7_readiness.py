@@ -225,8 +225,8 @@ class ReadinessTests(unittest.TestCase):
         self.assertTrue(any('unique, known gates' in e for e in m.owner_page_errors(self.plan)))
 
     def test_answer_cannot_close_an_open_gate(self):
-        d = next(x for x in self.plan['owner_decisions'] if x['gate'] == 'assembly:switch-supply')
-        d['answer'] = {'option': 'jlc-sourcing', 'by': 'OWNER',
+        d = next(x for x in self.plan['owner_decisions'] if x['gate'] == 'owner_prototype_route')
+        d['answer'] = {'option': 'approve', 'by': 'OWNER',
                        'record': {'path': m.OWNER_ANSWERS, 'quote': '"will make 2 units first"'}}
         errors = m.owner_page_errors(self.plan)
         self.assertTrue(any('still open' in e for e in errors), errors)
@@ -331,12 +331,13 @@ class ReadinessTests(unittest.TestCase):
         page = m.checklist(self.plan, report)
         self.assertIn('## まとめて答えられる判断（1 件）', page)
         self.assertIn('## オーナーが方針を受け入れた判断（7 件、ゲートは開いたまま）', page)
-        self.assertNotIn('限定試作を承認しますか', page)
-        self.assertIn('## 回答済みの判断（8 件）', page)
+        # The SW1 change unbound the owner's prototype-route approval, so it is asked again.
+        self.assertIn('限定試作を承認しますか', page)
+        self.assertIn('## 回答済みの判断（9 件）', page)
         self.assertIn('2 台分（オーナー報告の JLC PCBA 最小、未確認）（オーナーの回答、`assembly:order-quantity`）', page)
         self.assertNotIn('### 2. 最初の発注数量', page)
         self.assertIn('## 資料・回答待ちのゲート（13 件）', page)
-        self.assertIn('`owner_prototype_route`（解除済み）', page)
+        self.assertIn('`owner_prototype_route`（BLOCKED）', page)
         self.assertNotIn('<https://', page)
 
     def test_non_list_raw_evidence_blocks(self):
@@ -611,13 +612,17 @@ class ExecutableProcedureTests(unittest.TestCase):
     def test_recorded_owner_prototype_route_is_bound_and_not_a_release(self):
         records = json.loads((REPO/m.QUAL/'records.json').read_text())
         report = m.evaluate(REPO, self.plan, records)
-        self.assertNotIn('owner_prototype_route', [g['gate'] for g in report['gates']])
-        self.assertIn('manufacturing_release', [g['gate'] for g in report['gates']])
-        self.assertEqual(report['order_eligibility'], 'BLOCKED')
+        # The owner's "1 OK" was bound to the board before the SW1 change (HX MSK13C02), so it does not cover this revision.
+        self.assertIn('owner_prototype_route', [g['gate'] for g in report['gates']])
         route = records['owner_prototype_route']
         self.assertIn('1 OK', (REPO/route['approval']['path']).read_text())
         self.assertIn('panel route and switch supply not covered', route['constraints'])
-        records['owner_prototype_route']['identities'] = dict(route['identities'], board='0' * 64)
+        records['owner_prototype_route']['identities'] = {k: v['sha256'] for k, v in report['identities'].items()}
+        rebound = m.evaluate(REPO, self.plan, records)
+        self.assertNotIn('owner_prototype_route', [g['gate'] for g in rebound['gates']])
+        self.assertIn('manufacturing_release', [g['gate'] for g in rebound['gates']])
+        self.assertEqual(rebound['order_eligibility'], 'BLOCKED')
+        records['owner_prototype_route']['identities'] = dict(records['owner_prototype_route']['identities'], board='0' * 64)
         self.assertIn('owner_prototype_route', [g['gate'] for g in m.evaluate(REPO, self.plan, records)['gates']])
 
     def test_gates_partition_blockers_and_owner_gates_have_actions(self):

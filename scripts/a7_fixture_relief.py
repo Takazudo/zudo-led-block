@@ -147,12 +147,13 @@ SOURCES = {
         'protrusion_below_b_face_mm': {'nominal': 1.6, 'basis': '3.2 - 1.6 mm board; the board-thickness tolerance is not sourced'},
         'body_height_mm': 6.3, 'body_height_source': 'fact-a7-pj-324m-overall-height (component-a7-pj-324m)',
     },
+    # Keyed by the land (LightBlockA7:PCM13SMTR); the fitted part is the hanxia HX MSK13C02 since 2026-11-12 (#77).
     'PCM13SMTR': {
-        'peg_length_mm': 0.5, 'class': 'SOURCE_DERIVED (MANUFACTURER_PRIMARY)',
-        'source': {'fact_id': 'fact-a7-pcm13smtr-outline', 'source_id': 'src-a7-pcm13smtr-ck-site',
-                   'sha256': '6a758d151b7eee7f8cd59594bd92cfec4c9b1470e0743094f185f19e7ac2a868', 'locator': 'page index 2 outline and PC MOUNTING'},
+        'peg_length_mm': 0.5, 'class': 'SOURCE_DERIVED (MANUFACTURER_MIRROR)',
+        'source': {'fact_id': 'fact-a7-hx-msk13c02-outline', 'source_id': 'src-a7-hx-msk13c02-hanxia-spec',
+                   'sha256': '0acc4953f3bab055a1b9d89de0b41108b0f68a0cbd92718ed3faf42a1d17aef8', 'locator': 'page index 3 figure side, end and top views'},
         'protrusion_below_b_face': 'none: 0.5 mm pegs are shorter than the 1.6 mm board',
-        'body_height_mm': 1.4, 'body_height_source': 'fact-a7-pcm13smtr-outline height_above_pcb (component-a7-pcm13smtr)',
+        'body_height_mm': 1.4, 'body_height_source': 'fact-a7-hx-msk13c02-outline height_above_pcb (component-a7-hx-msk13c02)',
     },
     'PicoBlade 530470310': {
         'tail_length_below_seating_plane_mm': 2.3, 'tolerance_mm': 0.5, 'class': 'SOURCE_DERIVED (MANUFACTURER_PRIMARY)',

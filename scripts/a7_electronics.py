@@ -47,8 +47,8 @@ A5_NS = uuid.UUID('99c06823-a7e1-4d4e-a538-d1579ee671e1')
 A7_NS = uuid.uuid5(A5_NS, 'light-block-a7-controller')
 
 # ---------------------------------------------------------------- A7 changes
-# Pin numbers are the exact parts' own (SOFNG PJ-324M drawing, C&K PCM13SMTR function
-# table), never PJ-3582-B or 1MS3T1B1M2QES numbers. Status words follow the R1 bundles
+# Pin numbers are the exact parts' own (SOFNG PJ-324M drawing; C&K PCM13SMTR function table,
+# which the fitted hanxia HX MSK13C02 drawing repeats), never PJ-3582-B or 1MS3T1B1M2QES numbers. Status words follow the R1 bundles
 # in .claude/skills/component-a7-*/ (PR #23).
 PIN_DEFS_A7 = {
     'JACK_PJ324M': [('1', 'SLEEVE', 'passive'), ('2', 'RING', 'passive'), ('3', 'RING_NORMAL', 'passive'),
@@ -62,13 +62,15 @@ A7_CHANGES = {
     'J2': dict(type='JACK_PJ324M', key='JACK_A7', mpn='PJ-324M', c_code='C22355739', footprint='PJ324M',
                fp_lib='LightBlockA7', nets={'1': 'GND', '2': 'GND', '3': None, '4': 'CV_THRU', '5': None}),
     # POS.1 1-3 -> MODE_A low (ON); POS.2 2-3 with 2 open -> both high (PROGRAM); POS.3 3-4 -> MODE_B low (CV)
-    'SW1': dict(type='SW_PCM13', key='SW_A7', mpn='PCM13SMTR', c_code='C221842', footprint='PCM13SMTR',
+    # SW1 is the hanxia HX MSK13C02 on the routed PCM13SMTR land (owner direction 2026-11-12;
+    # fit compared in engineering/a7/electronics/switch-land-fit.json).
+    'SW1': dict(type='SW_PCM13', key='SW_A7', mpn='HX MSK13C02', c_code='C5149819', footprint='PCM13SMTR',
                 fp_lib='LightBlockA7', nets={'1': 'MODE_A', '2': None, '3': 'GND', '4': 'MODE_B'}),
 }
 A7_NOTES = ('Identical net labels are connected. U6 senses through 20 Mohm; U7 buffers the ADC.\n'
             'ADC=(100/133)*(VDD/2+CV/8). TPS2552-1 uses active-low EN; PA5 HIGH enables via NPN.\n'
             'J1/J2 SOFNG PJ-324M (pin identities INFERRED, R1 #16): 1 sleeve + 2 ring = GND, 4 TIP = CV_THRU, normals 3/5 unused.\n'
-            'SW1 C&K PCM13SMTR side switch: 3 common = GND. POS1 1-3 ON (A=0,B=1); POS2 open PROGRAM (1,1); POS3 3-4 CV (1,0).\n'
+            'SW1 hanxia HX MSK13C02 side switch on the PCM13SMTR land: 3 common = GND. POS1 1-3 ON (A=0,B=1); POS2 open PROGRAM (1,1); POS3 3-4 CV (1,0).\n'
             'Power transients, MLCC bias, fault heat and connector continuity require hardware tests.')
 
 
@@ -264,6 +266,7 @@ FOOTPRINT_SOURCES = {
         'body_position': 'ASSUMED: body centred on the peg line; the drawing does not dimension it',
         'body_outline': 'MIRROR: 9.7 x 2.6 x 1.4 mm, actuator 1.3 wide projecting 1.5 mm from the long edge opposite the terminals',
         'function': 'MIRROR: POS.1 1-3, POS.2 2-3, POS.3 3-4 (common 3)',
+        'fitted_part': 'hanxia HX MSK13C02, LCSC C5149819 (from 2026-11-12): same contact table (A 1-3, B 2-3, C 3-4) on its MIRROR drawing; land unchanged; its recommended land and leads are compared in engineering/a7/electronics/switch-land-fit.json (digital comparison only)',
     },
 }
 

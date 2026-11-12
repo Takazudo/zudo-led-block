@@ -72,6 +72,17 @@ E1 は基板→canonical placement→機構コピーの結合を強化。E2 は 
   sketch. Under the "printed contact table" rule none is selected, and PCM13SMTR stays the documented choice
   with its zero-stock risk. SSSS812201 is the strongest fallback if that rule is relaxed or a bench continuity
   check is accepted (Q10).
+- **Side switch, fitted from 2026-11-12: hanxia HX MSK13C02, LCSC C5149819**
+  (`.claude/skills/component-a7-hx-msk13c02/`). The owner directed a switch that works, low price and in stock
+  ("this is backside switch, so nothing special is required for this. good if it works.";
+  `engineering/a7/procurement/owner-decisions.json`, switch-supply). JLC stock 4561 (Extended) on 2026-11-12.
+  The Hanxia drawing served by JLC (mirror, Part No. blank) prints the contact schematic A = 1-3, B = 2-3,
+  C = 3-4 with terminal 3 common, so the PCM13SMTR net mapping and mode codes are unchanged. It sits on the
+  routed PCM13SMTR land; `scripts/a7_switch_fit.py` compares that land with the Hanxia recommended land on
+  nominal values (`engineering/a7/electronics/switch-land-fit.json`). Lower ratings: DC 12 V 0.1 A,
+  -25..+70 C (the lowest limit among the parts with a temperature fact), 10,000 cycles. The 2.7 mm body is 0.1 mm deeper, so the
+  actuator tip ends 0.05 mm past the board edge (accepted in `mechanical/design-inputs.json`). The contact
+  table and land fit stay physical checks (switch-fit).
 - **MJ-3502 stays rejected** for 2HP: Same Sky's drawing gives body height 11.30 ± 0.2 and axis 6.90 ± 0.15.
 
 ### Dimensions (`study/report.md`)
