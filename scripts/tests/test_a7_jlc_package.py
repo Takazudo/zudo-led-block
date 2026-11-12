@@ -52,7 +52,7 @@ class PackageTests(unittest.TestCase):
         self.assertEqual(self.board('controller')['pcba_tier']['tier'], 'STANDARD')
         self.assertEqual(self.board('led_leaf')['pcba_tier']['tier'], 'STANDARD')
         self.assertEqual(self.board('power_adapter')['pcba_tier']['tier'], 'ECONOMIC')
-        for blocker in ('controller-jlc-panel', 'led_leaf-jlc-panel', 'power_adapter-jlc-panel', 'part-C221842-not-in-stock',
+        for blocker in ('controller-panel-route', 'led_leaf-panel-route', 'power_adapter-panel-route', 'part-C221842-not-in-stock',
                         'pcba-quantity-unit-with-panel-not-sourced'):
             self.assertIn(blocker, self.ids())
         # 0.6 mm is a JLC FR-4 option, so the leaf thickness is a note, not a blocker
@@ -62,8 +62,9 @@ class PackageTests(unittest.TestCase):
     def test_assembly_route_per_board(self):
         routes = {b['board']: b['assembly_route'] for b in self.report['boards']}
         self.assertEqual({n: r['route'] for n, r in routes.items()},
-                         {'controller': 'PANEL_BY_JLCPCB', 'led_leaf': 'PANEL_BY_JLCPCB_TO_CONFIRM', 'power_adapter': 'PANEL_BY_JLCPCB_TO_CONFIRM'})
+                         {'controller': 'PANEL_BY_JLCPCB_TO_CONFIRM', 'led_leaf': 'PANEL_BY_JLCPCB_TO_CONFIRM', 'power_adapter': 'PANEL_BY_JLCPCB_TO_CONFIRM'})
         self.assertEqual([q['id'] for q in routes['led_leaf']['open_questions']], ['outline'])
+        self.assertEqual([q['id'] for q in routes['controller']['open_questions']], ['overhang'])
         self.assertEqual([q['id'] for q in routes['power_adapter']['open_questions']], ['economic-panel-separation'])
         # the adapter misses Economic single-board assembly on size alone
         self.assertEqual([c['criterion'] for c in routes['power_adapter']['economic_checks'] if not c['ok']], ['single board 10 × 10 mm or larger'])
@@ -73,7 +74,26 @@ class PackageTests(unittest.TestCase):
             self.assertTrue(p['within_250_mm'])
             self.assertGreaterEqual(min(p['size_without_rails_mm']), p['panel_minimum_mm'])
         self.assertEqual(self.board('led_leaf')['thickness_mm'], 0.6)
-        self.assertIn('Panel by JLCPCB', ' '.join(b['text'] for b in self.report['blockers'] if b['id'] == 'controller-jlc-panel'))
+        self.assertIn('Panel by JLCPCB', ' '.join(b['text'] for b in self.report['blockers'] if b['id'] == 'controller-panel-route'))
+
+    def test_panel_comparison_counts_boards_and_parts(self):
+        c = self.report['panel_comparison']
+        self.assertEqual({n: (v['needed'], v['jlc_panel'], v['repo_panel'], v['recommended']) for n, v in c['boards'].items()},
+                         {'controller': (2, 20, 2, 'REPO_PANEL'), 'led_leaf': (4, 16, 4, 'REPO_PANEL'), 'power_adapter': (2, 4, 2, 'REPO_PANEL')})
+        sw = next(x for x in c['parts'] if x['lcsc'] == 'C221842')
+        self.assertEqual((sw['needed'], sw['jlc_panel'], sw['repo_panel']), (2, 20, 2))
+        # the repo panel never asks for more parts than the 2 units need
+        self.assertTrue(all(x['repo_panel'] == x['needed'] for x in c['parts']))
+
+    def test_repo_panel_clears_overhanging_parts_and_meets_the_panel_minimum(self):
+        jacks = {o['ref']: o for o in self.board('controller')['overhangs']}
+        self.assertAlmostEqual(jacks['J1']['left'], 4.45)
+        for name in ('controller', 'led_leaf', 'power_adapter'):
+            rp = self.board(name)['repo_panel']
+            self.assertGreaterEqual(min(rp['panel_mm']), rp['panel_minimum_mm'])
+            self.assertTrue(rp['within_250_mm'])
+        self.assertGreaterEqual(self.board('controller')['repo_panel']['edge_gap_mm']['left'], 4.45 + J.OVERHANG_MARGIN_MM)
+        self.assertIn('carrier', ' '.join(self.board('led_leaf')['repo_panel']['notes']))
 
     def test_part_routes_follow_stock(self):
         sw = next(l for l in self.report['parts'] if l['lcsc'] == 'C221842')
@@ -179,7 +199,7 @@ class SyntheticBoardTests(unittest.TestCase):
         return J.pcba_tier(facts, list(sides), layers, fitted, parts, quantity), facts
 
     def route(self, tier, facts):
-        return J.assembly_route({'pcba_tier': tier, 'outline_mm': facts['outline_mm']}, facts)
+        return J.assembly_route({'pcba_tier': tier, 'outline_mm': facts['outline_mm'], 'overhangs': []}, facts)
 
     def test_tier_criteria(self):
         ok = [footprint('U1', 'lib:SOT-23-6', '5 5 0', [PAD.format(n=n, x=x, y=0, a=0, w=0.3, h=1) for n, x in enumerate((0, 0.95, 1.9, 2.85))])]

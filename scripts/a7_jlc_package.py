@@ -124,10 +124,21 @@ def board_facts(path):
             c, s = abs(math.cos(math.radians(rel))), abs(math.sin(math.radians(rel)))
             hw, hh = (w * c + h * s) / 2, (w * s + h * c) / 2
             pads.append((pat[0] - hw, pat[1] - hh, pat[0] + hw, pat[1] + hh, pad[2]))
-        footprints.append({'ref': props.get('Reference'), 'value': props.get('Value'), 'footprint': fp[1],
+        crt = []
+        for g in fp[1:]:
+            if isinstance(g, list) and g and g[0] in ('fp_line', 'fp_rect', 'fp_poly', 'fp_circle', 'fp_arc') and kid(g, 'layer') and str(kid(g, 'layer')[1]).endswith('CrtYd'):
+                crt += [nums(kid(g, k))[:2] for k in ('start', 'end', 'mid', 'center') if kid(g, k)]
+                if kid(g, 'pts'):
+                    crt += [nums(xy)[:2] for xy in kids(kid(g, 'pts'), 'xy')]
+        footprints.append({'ref': props.get('Reference'), 'value': props.get('Value'), 'footprint': fp[1], 'courtyard': [to_board(at, x, y) for x, y in crt],
                            'lcsc': props.get('LCSC'), 'mpn': props.get('MPN'), 'layer': kid(fp, 'layer')[1],
                            'x': at[0], 'y': at[1], 'rot': at[2] if len(at) > 2 else 0.0, 'flags': sorted(flags),
                            'dnp': bool(kid(fp, 'dnp')) or 'dnp' in flags, 'pads': pads})
+    xr, yr = (min(xs), max(xs)), (min(ys), max(ys))
+    for f in footprints:
+        if f['courtyard']:
+            cx, cy = [c[0] for c in f['courtyard']], [c[1] for c in f['courtyard']]
+            f['overhang_mm'] = {'left': round(xr[0] - min(cx), 3), 'right': round(max(cx) - xr[1], 3), 'top': round(yr[0] - min(cy), 3), 'bottom': round(max(cy) - yr[1], 3)}
     for via in kids(tree, 'via'):
         d = nums(kid(via, 'drill'))
         if d:
@@ -141,6 +152,22 @@ def board_facts(path):
             'aux_axis_origin': nums(aux) if aux else None, 'min_drill_mm': min(drills) if drills else None,
             'fiducials': [f['ref'] for f in footprints if 'fiducial' in (f['footprint'] + str(f['value'])).lower()],
             'footprints': footprints}
+
+
+def to_board(at, x, y):
+    """Footprint-local point to board coordinates (KiCad: Y down, angle counter-clockwise; B-side graphics are stored already flipped)."""
+    a = math.radians(at[2] if len(at) > 2 else 0.0)
+    return (at[0] + x * math.cos(a) + y * math.sin(a), at[1] - x * math.sin(a) + y * math.cos(a))
+
+
+def overhangs(facts, fitted):
+    """Fitted parts whose courtyard reaches past the board outline, per edge (mm)."""
+    out = []
+    for f in facts['footprints']:
+        o = f.get('overhang_mm')
+        if f['ref'] in fitted and o and max(o.values()) > 0.01:
+            out.append({'ref': f['ref'], **{k: v for k, v in o.items() if v > 0.01}})
+    return out
 
 
 def is_rectangle(edges, xr, yr):
@@ -231,10 +258,11 @@ def generate(root=ROOT, sources=None):
             'assembly_sides': sides, 'tht_refs': tht, 'smd_count': sum(1 for r in fitted.values() if r['mount'] == 'SMD'),
             'bom_lines': len(bom_rows), 'cpl_rows': len(cpl), 'centroid_offsets': centroid,
             'files': [f'{name}_BOM_DRYRUN.csv', f'{name}_CPL_DRYRUN.csv'],
-            'base_material': base_material(name, layout),
+            'base_material': base_material(name, layout), 'overhangs': overhangs(facts, fitted),
             'pcba_tier': pcba_tier(facts, sides, layers, fitted, parts, needed),
         })
         boards[-1]['assembly_route'] = assembly_route(boards[-1], facts)
+        boards[-1]['repo_panel'] = repo_panel(boards[-1], basis['value'])
     lines = []
     for l in plan['lines']:
         p = parts.get(l['lcsc'])
@@ -252,12 +280,13 @@ def generate(root=ROOT, sources=None):
         lines.append({'lcsc': l['lcsc'], 'mpn': l['mpn'], 'pieces_required': need, 'library': p['library'],
                       'in_stock': p['in_stock'], 'preorder_available': p['preorder_available'], 'route': route,
                       'observed_at': p['retrieved_at']})
+    comparison = compare_routes(boards, ledger, lines, basis['value'])
     blockers = named_blockers(boards, lines, pages, ledger, root)
     readiness = json.loads((root / READINESS).read_text())
     report = {'schema': 1, 'status': 'DRY_RUN_NOT_RELEASED', 'order_eligibility': readiness['order_eligibility'],
               'modules': modules, 'decided_by': plan['decided_by'], 'sources': str(SOURCES),
               'ledger_sha256': sha(root / LEDGER), 'sources_sha256': sha(root / SOURCES),
-              'boards': boards, 'parts': lines,
+              'boards': boards, 'parts': lines, 'panel_comparison': comparison,
               'part_counts': {k: sum(1 for l in lines if l['library'] == k) for k in ('BASIC', 'EXTENDED')},
               'route_counts': {k: sum(1 for l in lines if l['route'] == k) for k in sorted({l['route'] for l in lines})},
               'blockers': blockers}
@@ -378,6 +407,11 @@ def assembly_route(b, facts):
     if not facts['outline_is_rectangle']:
         questions.append({'id': 'outline', 'text': f"The outline is not a plain rectangle ({facts['outline_edges']} Edge.Cuts segments). JLC asks for a simple outline for Panel by JLCPCB and says complex outlines must be panelised by the customer: does JLC accept this outline for Panel by JLCPCB?",
                           'ja': f"外形が単純な長方形ではない（Edge.Cuts {facts['outline_edges']} 本）。JLC は Panel by JLCPCB には単純な外形を求め、複雑な外形は自分で面付けするよう書いている。この外形で Panel by JLCPCB を受けてもらえるか。"})
+    over = [o for o in b['overhangs'] if max(v for k, v in o.items() if k != 'ref') > PANEL_GAP_MM]
+    if over:
+        txt = ', '.join(f"{o['ref']} {max(v for k, v in o.items() if k != 'ref'):g} mm" for o in over)
+        questions.append({'id': 'overhang', 'text': f'Courtyards reach past the outline by more than the {PANEL_GAP_MM:g} mm board spacing ({txt}); a JLC panel must leave room for them, which the order form does not let us specify.',
+                          'ja': f'部品のコートヤードが基板外形から {PANEL_GAP_MM:g} mm の基板間隔より大きくはみ出す（{txt}）。JLC の面付けでその逃げを確保できるかは注文画面では指定できない。'})
     if t['tier'] == 'ECONOMIC':
         sc, sr = math.ceil(70 / w), math.ceil(70 / h)
         questions.append({'id': 'economic-panel-separation', 'text': 'JLC describes Panel by JLCPCB with V-cut, and V-cut is not supported with Economic assembly: can Panel by JLCPCB use mouse bites so the board stays on Economic assembly?'
@@ -387,6 +421,68 @@ def assembly_route(b, facts):
     out.update(route='PANEL_BY_JLCPCB' if not questions else 'PANEL_BY_JLCPCB_TO_CONFIRM', tier=t['tier'], panel=panel, open_questions=questions,
                repo_panel_needed_if=[q['id'] for q in questions])
     return out
+
+
+PANEL_GAP_MM = 2.0         # jlc-pcb-capabilities: spacing between boards should be >= 2 mm
+PANEL_RAIL_MM = 5.0        # jlc-pcb-capabilities: use 5 mm tooling edges for SMT assembly (minimum 3 mm)
+TAB_MIN_MM = 5.0           # jlc-pcb-capabilities: breakaway with mouse-bites, minimum width 5 mm
+OVERHANG_MARGIN_MM = 1.0   # PROPOSED clearance past a courtyard that leaves the outline; not a JLC rule
+
+
+def repo_panel(b, minimum_pcs):
+    """A customer panel holding only the boards the owner needs, sized to the tier's panel minimum. Evaluated, not built."""
+    t = b['pcba_tier']
+    w, h = b['outline_mm']['width'], b['outline_mm']['height']
+    copies = math.ceil(b['pcba_quantity'] / minimum_pcs)
+    edge = {e: max([o.get(e, 0) for o in b['overhangs']] or [0]) for e in ('left', 'right', 'top', 'bottom')}
+    gap = {e: max(PANEL_GAP_MM, round(v + OVERHANG_MARGIN_MM, 3) if v > 0 else 0) for e, v in edge.items()}
+    between = max(PANEL_GAP_MM, round(edge['left'] + edge['right'] + OVERHANG_MARGIN_MM, 3) if edge['left'] + edge['right'] > 0 else 0)
+    content = (copies * w + (copies - 1) * between + gap['left'] + gap['right'], h + gap['top'] + gap['bottom'])
+    minimum = 70 if t['tier'] == 'STANDARD' else 10
+    size = [round(max(minimum, c + 2 * PANEL_RAIL_MM), 3) for c in content]
+    notes, notes_ja = [], []
+    if b['thickness_mm'] < 0.8:
+        notes.append(f"{fmt(b['thickness_mm'])} mm board: JLC uses a carrier for 0.4 and 0.6 mm boards in printing, placement and reflow; keep the waste area solid FR-4, not an open window.")
+        notes_ja.append(f"板厚 {fmt(b['thickness_mm'])} mm: JLC は 0.4・0.6 mm の基板に印刷・実装・リフローでキャリアを使う。捨て基板の部分は抜かずに FR-4 のまま残す。")
+    if b['overhangs']:
+        refs = ', '.join(o['ref'] for o in b['overhangs'])
+        notes.append(f'Frame cut back by the courtyard overhang plus {OVERHANG_MARGIN_MM:g} mm (proposed) at {refs}; tabs away from those parts.')
+        notes_ja.append(f'{refs} のはみ出しに {OVERHANG_MARGIN_MM:g} mm（提案値）を足して枠を逃がす。タブはその部品から離して置く。')
+    return {'copies': copies, 'tier': t['tier'], 'panel_mm': size, 'panel_minimum_mm': minimum, 'within_250_mm': max(size) <= 250,
+            'rail_mm': PANEL_RAIL_MM, 'edge_gap_mm': gap, 'between_copies_mm': between if copies > 1 else None,
+            'fiducials': '1 mm fiducials centred 3.85 mm from the panel edges, 2 mm tooling holes, on the rails (JLC SMT guidance)',
+            'separation': f'mouse bites; tabs at least {TAB_MIN_MM:g} mm wide', 'assembled_at_minimum_order': copies * minimum_pcs,
+            'notes': notes, 'notes_ja': notes_ja}
+
+
+def compare_routes(boards, ledger, lines, minimum_pcs):
+    """Assembled boards and part quantities for the minimum PCBA order (2 panels if the PCBA quantity counts panels) per route."""
+    per_board = {}
+    for r in ledger['population']:
+        if r['population'] == 'FITTED':
+            per_board.setdefault(r['board'], {}).setdefault(r['lcsc'], 0)
+            per_board[r['board']][r['lcsc']] += r['quantity_per_board']
+    routes = {}
+    for b in boards:
+        jlc = b['assembly_route']['panel']
+        routes[b['board']] = {'needed': b['pcba_quantity'],
+                              'jlc_panel': jlc['boards_per_panel'] * minimum_pcs if jlc else b['pcba_quantity'],
+                              'repo_panel': b['repo_panel']['assembled_at_minimum_order']}
+        r = routes[b['board']]
+        r['recommended'] = 'REPO_PANEL' if r['repo_panel'] < r['jlc_panel'] else 'JLC_PANEL'
+    def totals(key):
+        out = {}
+        for board, parts in per_board.items():
+            for lcsc, n in parts.items():
+                out[lcsc] = out.get(lcsc, 0) + n * routes[board][key]
+        return out
+    jt, rt = totals('jlc_panel'), totals('repo_panel')
+    parts = [{'lcsc': l['lcsc'], 'mpn': l['mpn'], 'needed': l['pieces_required'], 'jlc_panel': jt[l['lcsc']], 'repo_panel': rt[l['lcsc']],
+              'in_stock': l['in_stock'], 'preorder_available': l['preorder_available'],
+              'jlc_panel_short': jt[l['lcsc']] > l['in_stock'], 'repo_panel_short': rt[l['lcsc']] > l['in_stock']} for l in lines]
+    return {'assumption': f'The PCBA quantity counts panels and the minimum is {minimum_pcs}; not sourced (pcba-quantity-unit-with-panel-not-sourced).',
+            'assumption_ja': f'PCBA 数量はシート数で、最小 {minimum_pcs} シートと仮定。未確認（`pcba-quantity-unit-with-panel-not-sourced`）',
+            'boards': routes, 'parts': parts}
 
 
 def named_blockers(boards, lines, pages, ledger, root):
@@ -401,18 +497,19 @@ def named_blockers(boards, lines, pages, ledger, root):
     for b in boards:
         t, n, r = b['pcba_tier'], b['board'], b['assembly_route']
         if r['panel']:
-            pn = r['panel']
+            pn, rp = r['panel'], b['repo_panel']
+            jlc_n, repo_n = pn['boards_per_panel'] * 2, rp['assembled_at_minimum_order']
             q = ' '.join(x['text'] for x in r['open_questions'])
             qj = ''.join(x['ja'] for x in r['open_questions'])
-            add(f'{n}-jlc-panel', n,
-                f"Not orderable as single boards ({'Economic: ' + '; '.join(c['criterion'] + ' fails' for c in r['economic_checks'] if not c['ok'])}). "
-                f"Route: {r['tier'].title()} PCBA with Panel by JLCPCB, {pn['columns_x']} columns × {pn['rows_y']} rows "
-                f"({fmt(pn['size_without_rails_mm'][0])} × {fmt(pn['size_without_rails_mm'][1])} mm before rails, minimum {pn['panel_minimum_mm']} × {pn['panel_minimum_mm']} mm)"
-                + ('; edge rails on, JLC adds fiducials to the rails' if pn['edge_rails'] else '') + '. ' + (q or 'The JLC order-form preview must confirm the panel.'),
+            add(f'{n}-panel-route', n,
+                f"Not orderable as single boards ({'; '.join(c['criterion'] + ' fails' for c in r['economic_checks'] if not c['ok'])}). "
+                f"Panel by JLCPCB ({pn['columns_x']} × {pn['rows_y']}) gives {jlc_n} assembled boards at a 2-panel minimum{(' and has open questions: ' + q) if q else ''}. "
+                f"A repo-built panel with {rp['copies']} board(s), {fmt(rp['panel_mm'][0])} × {fmt(rp['panel_mm'][1])} mm, gives {repo_n} for the {b['pcba_quantity']} needed. "
+                'The owner decides the route (assembly:panel-route); the panel is not built.',
                 f"単品では発注できない（Economic で満たさない条件: {'、'.join(c['ja'] for c in r['economic_checks'] if not c['ok'])}）。"
-                f"経路: {r['tier'].title()} PCBA で Panel by JLCPCB、{pn['columns_x']} 列 × {pn['rows_y']} 行"
-                f"（レールなしで {fmt(pn['size_without_rails_mm'][0])} × {fmt(pn['size_without_rails_mm'][1])} mm、最小 {pn['panel_minimum_mm']} × {pn['panel_minimum_mm']} mm）"
-                + ('。Edge Rails をオンにし、フィデューシャルは JLC がレールに付ける' if pn['edge_rails'] else '') + '。' + (qj or 'JLC の注文画面のプレビューで面付けを確かめる。'))
+                f"Panel by JLCPCB（{pn['columns_x']} × {pn['rows_y']}）は 2 シート最小で {jlc_n} 枚が実装される{('。未確認: ' + qj) if qj else '。'}"
+                f"リポジトリで {rp['copies']} 枚入りの面付け（{fmt(rp['panel_mm'][0])} × {fmt(rp['panel_mm'][1])} mm）を作れば、必要な {b['pcba_quantity']} 枚に対し {repo_n} 枚。"
+                'どちらにするかはオーナーの判断（`assembly:panel-route`）。面付けデータはまだ作っていない。')
         if not b['copper_finish_in_board_file']:
             eco = t['tier'] == 'ECONOMIC'
             add(f'{n}-finish-not-specified', n, 'Surface finish is not recorded in the board file; it must be chosen on the order form'
@@ -479,9 +576,9 @@ def page(report):
               f"| PCB Assembly | オン。必要な完成品は単品 {b['pcba_quantity']} 枚（{b['per_module']} 枚/台 × {report['modules']} 台）。面付け時に PCBA Qty をシート数で入れるかは未確認（`pcba-quantity-unit-with-panel-not-sourced`） |",
               f"| PCBA Type | {t['tier'].title()}" + (f"（理由: {esc('、'.join(t['reasons_ja']))}）" if t['reasons_ja'] else '') + ' |',
               f"| Assembly Side | {'Top と Bottom（両面）' if len(b['assembly_sides']) > 1 else b['assembly_sides'][0]} |",
-              f"| Panel By JLCPCB | {panel_cell(b['assembly_route'])} |",
+              f"| Panel By JLCPCB | {panel_cell(b, report['panel_comparison'])} |",
               f"| 実装点 | SMD {b['smd_count']}・THT {len(b['tht_refs'])}" + (f"（{', '.join(b['tht_refs'])}）" if b['tht_refs'] else '') + ' |', '',
-              *route_lines(b['assembly_route']),
+              *route_lines(b, report['panel_comparison']),
               'アップロードするもの:', '',
               f"1. Gerber と drill の zip: `python3 scripts/a7_jlc_package.py export --out <リポジトリ外の空ディレクトリ>` で作る `{b['board']}-gerbers-DRYRUN.zip`（Gerber 原点: {b['gerber_origin']}）",
               f"2. BOM: `engineering/a7/jlc-package/{b['board']}_BOM_DRYRUN.csv`（{b['bom_lines']} 行、列 Comment / Designator / Footprint / JLCPCB Part #）",
@@ -490,6 +587,20 @@ def page(report):
             L += ['JLC の配置プレビューで中心を確かめる部品（フットプリント原点がパッド中心から離れているもの）:', '',
                   '| Ref | LCSC | 原点からパッド中心まで |', '|---|---|---:|']
             L += [f"| {c['ref']} | {c['lcsc']} | {fmt(c['anchor_to_pad_centre_mm'])} mm |" for c in b['centroid_offsets']]
+    c = report['panel_comparison']
+    L += ['', '## 面付けの経路と部品数（2 台分を最小の余りで）', '',
+          f"JLC が面付けすると 1 シートに何枚も載り、最小 2 シートを実装すると必要数を大きく超えます（{c['assumption_ja']}）。"
+          'リポジトリで必要枚数だけを載せた面付けを作ると、2 シートでちょうど 2 台分です。', '',
+          '| 基板 | 必要 | JLC 面付け 2 シート | リポジトリ面付け 2 シート | 推奨 |', '|---|---:|---:|---:|---|']
+    L += [f"| {BOARD_JA[n]} | {v['needed']} | {v['jlc_panel']} | {v['repo_panel']} | {'リポジトリ面付け' if v['recommended'] == 'REPO_PANEL' else 'JLC 面付け'} |" for n, v in c['boards'].items()]
+    short = [x for x in c['parts'] if x['jlc_panel_short'] or x['repo_panel_short']]
+    L += ['', '部品ごとの数（JLC 在庫は 2026-11-12 の観測値）:', '', '| LCSC | 型番 | 2 台分 | JLC 面付け | リポジトリ面付け | JLC 在庫 | 予約可能数 |', '|---|---|---:|---:|---:|---:|---:|']
+    L += [f"| {x['lcsc']} | {esc(x['mpn'])} | {x['needed']} | {('**' + str(x['jlc_panel']) + '**') if x['jlc_panel_short'] else x['jlc_panel']} | "
+          f"{('**' + str(x['repo_panel']) + '**') if x['repo_panel_short'] else x['repo_panel']} | {x['in_stock']} | {x['preorder_available']} |" for x in c['parts']]
+    L += ['', 'JLC の部品照合で Do Not Place を選んだ designator は実装されません（JLC の部品照合ガイド）。ただし JLC 面付けで余る基板だけを未実装にできるかは取得していないので、上の表は全数実装で数えています。'
+          'JLC の FAQ では、フィデューシャルは JLC が SMT 用に付けるので自分で付けなくてよいとされています。', '']
+    L += ['太字は JLC 在庫を超える数です。' + (f"{'、'.join(x['mpn'] for x in short)} はどちらの経路でも在庫が足りず、JLC 面付けでは "
+          + '、'.join(f"{x['jlc_panel']} 個" for x in short) + ' が必要になります。' if short else ''), '']
     L += ['', '## 部品の区分（2026-11-12 の JLC 部品ページ）', '',
           f"Basic {report['part_counts']['BASIC']} 種・Extended {report['part_counts']['EXTENDED']} 種。必要数は 2 台分です。在庫数は観測時点の値で、確保ではありません。", '',
           '| LCSC | 型番 | 区分 | 必要数 | JLC 在庫 | 予約可能数 | 経路 |', '|---|---|---|---:|---:|---:|---|']
@@ -498,32 +609,36 @@ def page(report):
     return '\n'.join(L) + '\n'
 
 
-def panel_cell(r):
+def panel_cell(b, comparison):
+    r = b['assembly_route']
     if not r['panel']:
         return 'No（単品）'
     p = r['panel']
-    return (f"Yes。列 (X) {p['columns_x']}・行 (Y) {p['rows_y']}（1 シート {p['boards_per_panel']} 枚）" + ('・Edge Rails あり' if p['edge_rails'] else '')
-            + ('。確認待ちあり' if r['open_questions'] else ''))
+    jlc = f"JLC 面付けなら Yes・列 (X) {p['columns_x']}・行 (Y) {p['rows_y']}" + ('・Edge Rails あり' if p['edge_rails'] else '')
+    repo = 'リポジトリ面付けなら No（面付けは Gerber 側）'
+    rec = comparison['boards'][b['board']]['recommended']
+    return f"経路の判断待ち。{jlc}。{repo}。推奨は{'リポジトリ面付け' if rec == 'REPO_PANEL' else 'JLC 面付け'}"
 
 
-def route_lines(r):
+def route_lines(b, comparison):
+    r, rp, c = b['assembly_route'], b['repo_panel'], comparison['boards'][b['board']]
     L = ['Economic で単品実装できるか（2026-11-12 の JLC 能力表と部品ページで判定）:', '', '| 条件 | この基板 | 判定 |', '|---|---|---|']
-    L += [f"| {esc(c['ja'])} | {esc(c['value'])} | {'満たす' if c['ok'] else '**満たさない**'} |" for c in r['economic_checks']]
+    L += [f"| {esc(x['ja'])} | {esc(x['value'])} | {'満たす' if x['ok'] else '**満たさない**'} |" for x in r['economic_checks']]
     L.append('')
     if not r['panel']:
         L += [f"結論: **単品で {r['tier'].title()} PCBA**。", '']
         return L
     p = r['panel']
-    L += [f"結論: 単品では受けてもらえないので **{r['tier'].title()} PCBA + Panel by JLCPCB**" + ('（下の確認が取れればリポジトリで面付けデータは作らない）。' if r['open_questions'] else '（リポジトリで面付けデータは作らない）。')
-          + f"{p['columns_x']} 列 × {p['rows_y']} 行で、レールを除いても {fmt(p['size_without_rails_mm'][0])} × {fmt(p['size_without_rails_mm'][1])} mm と"
-          f"最小 {p['panel_minimum_mm']} × {p['panel_minimum_mm']} mm に届きます（JLC は既定で {JLC_RAIL_MM} mm の縁を足すので、注文画面のプレビューで少ない列数でも届くかもしれません）。"
-          f"分割: {'マウスバイト（Economic では V-cut 不可）' if r['tier'] == 'ECONOMIC' else 'V-cut かマウスバイト'}"
-          + ('。辺が 15 mm 未満なので V-cut は追加料金' if p['vcut_extra_cost'] else '')
-          + ('。Edge Rails をオンにすると JLC がレールにフィデューシャルと治具穴を付けます（基板ごとには付かない）' if p['edge_rails'] else '') + '。', '']
-    if r['open_questions']:
-        L += ['JLC に確かめること（だめならリポジトリで面付けデータを作る）:', '']
-        L += [f"- {esc(q['ja'])}" for q in r['open_questions']]
-        L.append('')
+    jlc_cut = ('マウスバイト（Economic では V-cut 不可）' if r['tier'] == 'ECONOMIC' else 'V-cut かマウスバイト') + ('。辺が 15 mm 未満なので V-cut は追加料金' if p['vcut_extra_cost'] else '')
+    L += [f"結論: 単品では受けてもらえません。{r['tier'].title()} PCBA で、面付けの経路を 2 つ比べました（PCBA 数量がシート数で最小 2 シートと仮定。未確認）。", '',
+          '| | JLC が面付け（Panel by JLCPCB） | リポジトリで面付け（未作成） |', '|---|---|---|',
+          f"| 1 シート | {p['columns_x']} 列 × {p['rows_y']} 行 = {p['boards_per_panel']} 枚（レールなしで {fmt(p['size_without_rails_mm'][0])} × {fmt(p['size_without_rails_mm'][1])} mm。JLC は既定で {JLC_RAIL_MM} mm の縁を足す） | "
+          f"{rp['copies']} 枚、{fmt(rp['panel_mm'][0])} × {fmt(rp['panel_mm'][1])} mm（{fmt(rp['rail_mm'])} mm レール込み、最小 {rp['panel_minimum_mm']} × {rp['panel_minimum_mm']} mm） |",
+          f"| 2 シートで実装される枚数（必要 {c['needed']}） | {c['jlc_panel']} | {c['repo_panel']} |",
+          f"| 分割 | {jlc_cut} | マウスバイト、タブ幅 {fmt(TAB_MIN_MM)} mm 以上 |",
+          f"| フィデューシャル | {'Edge Rails をオンにすると JLC がレールに付ける' if p['edge_rails'] else '不要（Economic）'} | レールに 1 mm（縁から 3.85 mm）と 2 mm の治具穴（JLC の SMT 指針） |",
+          f"| 未確認・注意 | {esc(''.join(q['ja'] for q in r['open_questions'])) or 'JLC の注文画面のプレビュー'} | {esc(''.join(rp['notes_ja']))}JLC が{' 1 枚だけの' if rp['copies'] == 1 else 'この'}面付けを受けるかは注文時に確認。 |", '',
+          f"推奨: **{'リポジトリで面付け' if c['recommended'] == 'REPO_PANEL' else 'JLC が面付け'}**（余る実装基板が最も少ない）。オーナーの判断待ち（`assembly:panel-route`）で、面付けデータはまだ作っていません。", '']
     return L
 
 

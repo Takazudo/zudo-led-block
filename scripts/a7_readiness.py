@@ -523,7 +523,7 @@ def state_closers_from_artifact(plan, artifact):
 
 
 # Owner-decision recommendations may also cite the procurement, fixture and continuation records they summarize.
-DECISION_ROOTS = SOURCE_ROOTS + ('engineering/a7/procurement/', 'engineering/a7/fixture/', 'engineering/a7/docs/continuation/',
+DECISION_ROOTS = SOURCE_ROOTS + ('engineering/a7/procurement/', 'engineering/a7/fixture/', 'engineering/a7/docs/continuation/', 'engineering/a7/jlc-package/',
                                  'engineering/a7/qualification/supplier-questions.md')
 # Owner answers are recorded here, in the owner's own words; a decision marked answered must match its record.
 OWNER_ANSWERS = 'engineering/a7/procurement/owner-decisions.json'

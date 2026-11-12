@@ -32,7 +32,10 @@
         "Thickness Tolerance (Thickness ± 0.1mm e.g. For the 0.8mm board thickness, the finished board thickness ranges from 0.7mm(T-0.1) to 0.9mm(T+0.1).",
         "Surface Finish HASL (leaded / lead-free), ENlG, OSP",
         "Panelization is recommended for small-sized boards.",
-        "For SMT assembly at JLCPCB, use 5 mm tooling edges, 2 mm tooling holes, and 1 mm fiducials centered at 3.85 mm from the"
+        "For SMT assembly at JLCPCB, use 5 mm tooling edges, 2 mm tooling holes, and 1 mm fiducials centered at 3.85 mm from the",
+        "⑤ Minimum tooling edge width: 3 mm. For SMT assembly at JLCPCB, use 5 mm tooling edges, 2 mm tooling holes, and 1 mm fiducials centered at 3.85 mm from the panel edges.",
+        "For breakaway with mouse-bites, the minimum width is 5mm.",
+        "The spacing between boards should be ≥ 2 mm, as narrow spacing results in difficulties for routing and V-cut."
       ]
     },
     {
@@ -79,6 +82,44 @@
         "The panel size needs to be 70*70mm at least to do v-cut process.",
         "V-cut is not supported in Economic Assembly. If V-cut and assembly is required, please select Standard Assembly.",
         "Please kindly note that if you select \"Panel by JLCPCB\" with the Edge Rails, fiducial marks and tooling holes will be added to the Edge Rails by default. Fiducial marks will not be added to each small piece in the panel."
+      ]
+    },
+    {
+      "id": "jlc-pcba-faqs",
+      "url": "https://jlcpcb.com/help/article/pcb-assembly-faqs",
+      "retrieved_at": "2026-11-12T11:05:06Z",
+      "raw_sha256": "a2e716212e75c9c6d31b7cd71f03fb6b9569db815b1520a35525157386b69a0e",
+      "extracts": [
+        "Mouse-bites and V-cut are available, for Economic assembly, please panelize your boards with mouse-bites. for Standard assembly, you can panelize with mouse-bites or V-cut.",
+        "12. Do I need to add fiducial marks myself? No, you don't have to. We'll add fiducial marks for SMT assembly."
+      ]
+    },
+    {
+      "id": "jlc-pcba-fixtures",
+      "url": "https://jlcpcb.com/help/article/pcb-assembly-fixtures",
+      "retrieved_at": "2026-11-12T11:05:06Z",
+      "raw_sha256": "b0a082ee22a1c1802070d78177dc8366122695f038a3e9295edc0a913b408b2e",
+      "extracts": [
+        "If the board thickness is 0.4mm or 0.6mm, the carrier shall be used for printing and component placement.",
+        "However, for PCB with a thickness of 0.8mm or more, a carrier is also required because there is a risk of board breakage resulting from unreasonable paneling."
+      ]
+    },
+    {
+      "id": "jlc-component-matching",
+      "url": "https://jlcpcb.com/help/article/component-matching-guidelines-for-pcba-orders",
+      "retrieved_at": "2026-11-12T11:05:07Z",
+      "raw_sha256": "aba0ec3cb2f7c6996b2aab1783b7fdc4d074d0e846af870a029879b4444fc324",
+      "extracts": [
+        "If Do Not Place is selected, those designators will be left unpopulated by default, meaning no components will be assembled."
+      ]
+    },
+    {
+      "id": "jlc-panelizing-for-assembly",
+      "url": "https://jlcpcb.com/help/article/Panelizing-your-PCB-for-Assembly",
+      "retrieved_at": "2026-11-12T11:05:04Z",
+      "raw_sha256": "d3369930ab6e5b2b25589f2694e145854a467e18e12394ed36b8e083c3efe744",
+      "extracts": [
+        "Panel method: V-cut , Mouse-bites, Bridge-even Suggested length of each side for panel board: 150 -200mm Suggested No.of single board per panel：2-6"
       ]
     }
   ],

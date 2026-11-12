@@ -5,8 +5,8 @@
   "modules": 2,
   "decided_by": "OWNER",
   "sources": "engineering/a7/jlc-package/sources.json",
-  "ledger_sha256": "325c0f4bbb68fc191e183bee65700bb9750d147cb737a06dc9cc63cd7e56e47b",
-  "sources_sha256": "d08e5eb1bb123bb0946997862c8b4603275558068d53e5ccf7f4f9df49b634a6",
+  "ledger_sha256": "626d595caebbfbc064492d3ec1823c1fe74bdee26151db9214d0e08e9dc6a329",
+  "sources_sha256": "2b47184875f40d4189144008c1cea2bf1500e89cdf68401551caa17e08c509be",
   "boards": [
     {
       "board": "controller",
@@ -92,6 +92,24 @@
         "value": "FR-4",
         "source": "engineering/a7/mechanical/layout.json decision.working_candidate"
       },
+      "overhangs": [
+        {
+          "ref": "J2",
+          "left": 4.45
+        },
+        {
+          "ref": "J3",
+          "right": 0.3
+        },
+        {
+          "ref": "SW1",
+          "bottom": 0.25
+        },
+        {
+          "ref": "J1",
+          "left": 4.45
+        }
+      ],
       "pcba_tier": {
         "tier": "STANDARD",
         "reasons": [
@@ -197,7 +215,7 @@
           }
         ],
         "economic_single_board": false,
-        "route": "PANEL_BY_JLCPCB",
+        "route": "PANEL_BY_JLCPCB_TO_CONFIRM",
         "tier": "STANDARD",
         "panel": {
           "columns_x": 5,
@@ -214,8 +232,43 @@
           "separation": "V-cut or mouse bites",
           "fiducials": "added to the edge rails by JLC (Panel by JLCPCB with Edge Rails)"
         },
-        "open_questions": [],
-        "repo_panel_needed_if": []
+        "open_questions": [
+          {
+            "id": "overhang",
+            "text": "Courtyards reach past the outline by more than the 2 mm board spacing (J2 4.45 mm, J1 4.45 mm); a JLC panel must leave room for them, which the order form does not let us specify.",
+            "ja": "部品のコートヤードが基板外形から 2 mm の基板間隔より大きくはみ出す（J2 4.45 mm, J1 4.45 mm）。JLC の面付けでその逃げを確保できるかは注文画面では指定できない。"
+          }
+        ],
+        "repo_panel_needed_if": [
+          "overhang"
+        ]
+      },
+      "repo_panel": {
+        "copies": 1,
+        "tier": "STANDARD",
+        "panel_mm": [
+          70,
+          76.9
+        ],
+        "panel_minimum_mm": 70,
+        "within_250_mm": true,
+        "rail_mm": 5.0,
+        "edge_gap_mm": {
+          "left": 5.45,
+          "right": 2.0,
+          "top": 2.0,
+          "bottom": 2.0
+        },
+        "between_copies_mm": null,
+        "fiducials": "1 mm fiducials centred 3.85 mm from the panel edges, 2 mm tooling holes, on the rails (JLC SMT guidance)",
+        "separation": "mouse bites; tabs at least 5 mm wide",
+        "assembled_at_minimum_order": 2,
+        "notes": [
+          "Frame cut back by the courtyard overhang plus 1 mm (proposed) at J2, J3, SW1, J1; tabs away from those parts."
+        ],
+        "notes_ja": [
+          "J2, J3, SW1, J1 のはみ出しに 1 mm（提案値）を足して枠を逃がす。タブはその部品から離して置く。"
+        ]
       }
     },
     {
@@ -260,6 +313,7 @@
         "value": "FR-4",
         "source": "engineering/a7/mechanical/layout.json leaf_comparison.default"
       },
+      "overhangs": [],
       "pcba_tier": {
         "tier": "STANDARD",
         "reasons": [
@@ -394,6 +448,33 @@
         "repo_panel_needed_if": [
           "outline"
         ]
+      },
+      "repo_panel": {
+        "copies": 2,
+        "tier": "STANDARD",
+        "panel_mm": [
+          70,
+          96.5
+        ],
+        "panel_minimum_mm": 70,
+        "within_250_mm": true,
+        "rail_mm": 5.0,
+        "edge_gap_mm": {
+          "left": 2.0,
+          "right": 2.0,
+          "top": 2.0,
+          "bottom": 2.0
+        },
+        "between_copies_mm": 2.0,
+        "fiducials": "1 mm fiducials centred 3.85 mm from the panel edges, 2 mm tooling holes, on the rails (JLC SMT guidance)",
+        "separation": "mouse bites; tabs at least 5 mm wide",
+        "assembled_at_minimum_order": 4,
+        "notes": [
+          "0.6 mm board: JLC uses a carrier for 0.4 and 0.6 mm boards in printing, placement and reflow; keep the waste area solid FR-4, not an open window."
+        ],
+        "notes_ja": [
+          "板厚 0.6 mm: JLC は 0.4・0.6 mm の基板に印刷・実装・リフローでキャリアを使う。捨て基板の部分は抜かずに FR-4 のまま残す。"
+        ]
       }
     },
     {
@@ -462,6 +543,17 @@
         "value": null,
         "source": null
       },
+      "overhangs": [
+        {
+          "ref": "J2",
+          "bottom": 0.35
+        },
+        {
+          "ref": "J1",
+          "left": 0.55,
+          "right": 0.55
+        }
+      ],
       "pcba_tier": {
         "tier": "ECONOMIC",
         "reasons": [],
@@ -589,6 +681,33 @@
         ],
         "repo_panel_needed_if": [
           "economic-panel-separation"
+        ]
+      },
+      "repo_panel": {
+        "copies": 1,
+        "tier": "ECONOMIC",
+        "panel_mm": [
+          22.8,
+          44.0
+        ],
+        "panel_minimum_mm": 10,
+        "within_250_mm": true,
+        "rail_mm": 5.0,
+        "edge_gap_mm": {
+          "left": 2.0,
+          "right": 2.0,
+          "top": 2.0,
+          "bottom": 2.0
+        },
+        "between_copies_mm": null,
+        "fiducials": "1 mm fiducials centred 3.85 mm from the panel edges, 2 mm tooling holes, on the rails (JLC SMT guidance)",
+        "separation": "mouse bites; tabs at least 5 mm wide",
+        "assembled_at_minimum_order": 2,
+        "notes": [
+          "Frame cut back by the courtyard overhang plus 1 mm (proposed) at J2, J1; tabs away from those parts."
+        ],
+        "notes_ja": [
+          "J2, J1 のはみ出しに 1 mm（提案値）を足して枠を逃がす。タブはその部品から離して置く。"
         ]
       }
     }
@@ -895,6 +1014,362 @@
       "observed_at": "2026-11-12T10:36:18Z"
     }
   ],
+  "panel_comparison": {
+    "assumption": "The PCBA quantity counts panels and the minimum is 2; not sourced (pcba-quantity-unit-with-panel-not-sourced).",
+    "assumption_ja": "PCBA 数量はシート数で、最小 2 シートと仮定。未確認（`pcba-quantity-unit-with-panel-not-sourced`）",
+    "boards": {
+      "controller": {
+        "needed": 2,
+        "jlc_panel": 20,
+        "repo_panel": 2,
+        "recommended": "REPO_PANEL"
+      },
+      "led_leaf": {
+        "needed": 4,
+        "jlc_panel": 16,
+        "repo_panel": 4,
+        "recommended": "REPO_PANEL"
+      },
+      "power_adapter": {
+        "needed": 2,
+        "jlc_panel": 4,
+        "repo_panel": 2,
+        "recommended": "REPO_PANEL"
+      }
+    },
+    "parts": [
+      {
+        "lcsc": "C122442",
+        "mpn": "530470310",
+        "needed": 4,
+        "jlc_panel": 24,
+        "repo_panel": 4,
+        "in_stock": 21090,
+        "preorder_available": 20494,
+        "jlc_panel_short": false,
+        "repo_panel_short": false
+      },
+      {
+        "lcsc": "C12891",
+        "mpn": "CL31A226KAHNNNE",
+        "needed": 4,
+        "jlc_panel": 40,
+        "repo_panel": 4,
+        "in_stock": 2515861,
+        "preorder_available": 2105398,
+        "jlc_panel_short": false,
+        "repo_panel_short": false
+      },
+      {
+        "lcsc": "C134375",
+        "mpn": "BAS70-04-7-F",
+        "needed": 2,
+        "jlc_panel": 20,
+        "repo_panel": 2,
+        "in_stock": 247,
+        "preorder_available": 124,
+        "jlc_panel_short": false,
+        "repo_panel_short": false
+      },
+      {
+        "lcsc": "C140331",
+        "mpn": "TPS2552DBVR-1",
+        "needed": 2,
+        "jlc_panel": 20,
+        "repo_panel": 2,
+        "in_stock": 2228,
+        "preorder_available": 2219,
+        "jlc_panel_short": false,
+        "repo_panel_short": false
+      },
+      {
+        "lcsc": "C14663",
+        "mpn": "CC0603KRX7R9BB104",
+        "needed": 32,
+        "jlc_panel": 224,
+        "repo_panel": 32,
+        "in_stock": 36130749,
+        "preorder_available": 18269416,
+        "jlc_panel_short": false,
+        "repo_panel_short": false
+      },
+      {
+        "lcsc": "C15741",
+        "mpn": "SN74LVC2T45DCUR",
+        "needed": 2,
+        "jlc_panel": 20,
+        "repo_panel": 2,
+        "in_stock": 85166,
+        "preorder_available": 84012,
+        "jlc_panel_short": false,
+        "repo_panel_short": false
+      },
+      {
+        "lcsc": "C15850",
+        "mpn": "CL21A106KAYNNNE",
+        "needed": 6,
+        "jlc_panel": 60,
+        "repo_panel": 6,
+        "in_stock": 8516270,
+        "preorder_available": 6708284,
+        "jlc_panel_short": false,
+        "repo_panel_short": false
+      },
+      {
+        "lcsc": "C160404",
+        "mpn": "SM04B-SRSS-TB(LF)(SN)",
+        "needed": 10,
+        "jlc_panel": 52,
+        "repo_panel": 10,
+        "in_stock": 9798,
+        "preorder_available": 4021,
+        "jlc_panel_short": false,
+        "repo_panel_short": false
+      },
+      {
+        "lcsc": "C19666",
+        "mpn": "CL10A475KO8NNNC",
+        "needed": 6,
+        "jlc_panel": 60,
+        "repo_panel": 6,
+        "in_stock": 3568082,
+        "preorder_available": 2787013,
+        "jlc_panel_short": false,
+        "repo_panel_short": false
+      },
+      {
+        "lcsc": "C20526",
+        "mpn": "MMBT3904(RANGE:100-300)",
+        "needed": 2,
+        "jlc_panel": 20,
+        "repo_panel": 2,
+        "in_stock": 4183780,
+        "preorder_available": 4065649,
+        "jlc_panel_short": false,
+        "repo_panel_short": false
+      },
+      {
+        "lcsc": "C2071056",
+        "mpn": "AP63205WU-7",
+        "needed": 2,
+        "jlc_panel": 20,
+        "repo_panel": 2,
+        "in_stock": 39904,
+        "preorder_available": 37005,
+        "jlc_panel_short": false,
+        "repo_panel_short": false
+      },
+      {
+        "lcsc": "C21190",
+        "mpn": "0603WAF1001T5E",
+        "needed": 6,
+        "jlc_panel": 60,
+        "repo_panel": 6,
+        "in_stock": 28882373,
+        "preorder_available": 22227859,
+        "jlc_panel_short": false,
+        "repo_panel_short": false
+      },
+      {
+        "lcsc": "C221351",
+        "mpn": "OPA197IDBVR",
+        "needed": 2,
+        "jlc_panel": 20,
+        "repo_panel": 2,
+        "in_stock": 76873,
+        "preorder_available": 76582,
+        "jlc_panel_short": false,
+        "repo_panel_short": false
+      },
+      {
+        "lcsc": "C221842",
+        "mpn": "PCM13SMTR",
+        "needed": 2,
+        "jlc_panel": 20,
+        "repo_panel": 2,
+        "in_stock": 0,
+        "preorder_available": 0,
+        "jlc_panel_short": true,
+        "repo_panel_short": true
+      },
+      {
+        "lcsc": "C22355739",
+        "mpn": "PJ-324M",
+        "needed": 4,
+        "jlc_panel": 40,
+        "repo_panel": 4,
+        "in_stock": 5954,
+        "preorder_available": 5802,
+        "jlc_panel_short": false,
+        "repo_panel_short": false
+      },
+      {
+        "lcsc": "C23138",
+        "mpn": "0603WAF3300T5E",
+        "needed": 6,
+        "jlc_panel": 60,
+        "repo_panel": 6,
+        "in_stock": 2416605,
+        "preorder_available": 1796477,
+        "jlc_panel_short": false,
+        "repo_panel_short": false
+      },
+      {
+        "lcsc": "C23162",
+        "mpn": "0603WAF4701T5E",
+        "needed": 2,
+        "jlc_panel": 20,
+        "repo_panel": 2,
+        "in_stock": 14660825,
+        "preorder_available": 11419063,
+        "jlc_panel_short": false,
+        "repo_panel_short": false
+      },
+      {
+        "lcsc": "C23231",
+        "mpn": "0603WAF6802T5E",
+        "needed": 2,
+        "jlc_panel": 20,
+        "repo_panel": 2,
+        "in_stock": 787855,
+        "preorder_available": 687058,
+        "jlc_panel_short": false,
+        "repo_panel_short": false
+      },
+      {
+        "lcsc": "C23254",
+        "mpn": "0603WAF8202T5E",
+        "needed": 8,
+        "jlc_panel": 80,
+        "repo_panel": 8,
+        "in_stock": 933289,
+        "preorder_available": 868318,
+        "jlc_panel_short": false,
+        "repo_panel_short": false
+      },
+      {
+        "lcsc": "C25803",
+        "mpn": "0603WAF1003T5E",
+        "needed": 12,
+        "jlc_panel": 120,
+        "repo_panel": 12,
+        "in_stock": 15062647,
+        "preorder_available": 12699495,
+        "jlc_panel_short": false,
+        "repo_panel_short": false
+      },
+      {
+        "lcsc": "C25804",
+        "mpn": "0603WAF1002T5E",
+        "needed": 10,
+        "jlc_panel": 100,
+        "repo_panel": 10,
+        "in_stock": 42898836,
+        "preorder_available": 32419078,
+        "jlc_panel_short": false,
+        "repo_panel_short": false
+      },
+      {
+        "lcsc": "C398363",
+        "mpn": "TLV9001IDBVR",
+        "needed": 2,
+        "jlc_panel": 20,
+        "repo_panel": 2,
+        "in_stock": 47115,
+        "preorder_available": 45780,
+        "jlc_panel_short": false,
+        "repo_panel_short": false
+      },
+      {
+        "lcsc": "C404027",
+        "mpn": "TLV75533PDBVR",
+        "needed": 2,
+        "jlc_panel": 20,
+        "repo_panel": 2,
+        "in_stock": 75642,
+        "preorder_available": 74564,
+        "jlc_panel_short": false,
+        "repo_panel_short": false
+      },
+      {
+        "lcsc": "C50704",
+        "mpn": "PMEG4010CEJ,115",
+        "needed": 4,
+        "jlc_panel": 40,
+        "repo_panel": 4,
+        "in_stock": 12701,
+        "preorder_available": 12534,
+        "jlc_panel_short": false,
+        "repo_panel_short": false
+      },
+      {
+        "lcsc": "C5270180",
+        "mpn": "STM32G031G8U6TR",
+        "needed": 2,
+        "jlc_panel": 20,
+        "repo_panel": 2,
+        "in_stock": 4507,
+        "preorder_available": 3777,
+        "jlc_panel_short": false,
+        "repo_panel_short": false
+      },
+      {
+        "lcsc": "C52917434",
+        "mpn": "WS2812B-2020-V6",
+        "needed": 16,
+        "jlc_panel": 64,
+        "repo_panel": 16,
+        "in_stock": 879804,
+        "preorder_available": 857883,
+        "jlc_panel_short": false,
+        "repo_panel_short": false
+      },
+      {
+        "lcsc": "C5665",
+        "mpn": "2.54-2*5P",
+        "needed": 2,
+        "jlc_panel": 4,
+        "repo_panel": 2,
+        "in_stock": 131245,
+        "preorder_available": 124613,
+        "jlc_panel_short": false,
+        "repo_panel_short": false
+      },
+      {
+        "lcsc": "C57112",
+        "mpn": "0603B103K500NT",
+        "needed": 2,
+        "jlc_panel": 20,
+        "repo_panel": 2,
+        "in_stock": 5337711,
+        "preorder_available": 3755418,
+        "jlc_panel_short": false,
+        "repo_panel_short": false
+      },
+      {
+        "lcsc": "C694586",
+        "mpn": "SPM4020T-4R7M-LR",
+        "needed": 2,
+        "jlc_panel": 20,
+        "repo_panel": 2,
+        "in_stock": 686,
+        "preorder_available": 678,
+        "jlc_panel_short": false,
+        "repo_panel_short": false
+      },
+      {
+        "lcsc": "C7250",
+        "mpn": "0603WAF1005T5E",
+        "needed": 4,
+        "jlc_panel": 40,
+        "repo_panel": 4,
+        "in_stock": 795181,
+        "preorder_available": 674710,
+        "jlc_panel_short": false,
+        "repo_panel_short": false
+      }
+    ]
+  },
   "part_counts": {
     "BASIC": 14,
     "EXTENDED": 16
@@ -911,10 +1386,10 @@
       "ja": "readiness の発注ゲートが BLOCKED。この一式は予行で、アップロード・発注しない。"
     },
     {
-      "id": "controller-jlc-panel",
+      "id": "controller-panel-route",
       "board": "controller",
-      "text": "Not orderable as single boards (Economic: single-sided placement fails). Route: Standard PCBA with Panel by JLCPCB, 5 columns × 2 rows (81 × 125.8 mm before rails, minimum 70 × 70 mm); edge rails on, JLC adds fiducials to the rails. The JLC order-form preview must confirm the panel.",
-      "ja": "単品では発注できない（Economic で満たさない条件: 片面実装）。経路: Standard PCBA で Panel by JLCPCB、5 列 × 2 行（レールなしで 81 × 125.8 mm、最小 70 × 70 mm）。Edge Rails をオンにし、フィデューシャルは JLC がレールに付ける。JLC の注文画面のプレビューで面付けを確かめる。"
+      "text": "Not orderable as single boards (single-sided placement fails). Panel by JLCPCB (5 × 2) gives 20 assembled boards at a 2-panel minimum and has open questions: Courtyards reach past the outline by more than the 2 mm board spacing (J2 4.45 mm, J1 4.45 mm); a JLC panel must leave room for them, which the order form does not let us specify.. A repo-built panel with 1 board(s), 70 × 76.9 mm, gives 2 for the 2 needed. The owner decides the route (assembly:panel-route); the panel is not built.",
+      "ja": "単品では発注できない（Economic で満たさない条件: 片面実装）。Panel by JLCPCB（5 × 2）は 2 シート最小で 20 枚が実装される。未確認: 部品のコートヤードが基板外形から 2 mm の基板間隔より大きくはみ出す（J2 4.45 mm, J1 4.45 mm）。JLC の面付けでその逃げを確保できるかは注文画面では指定できない。リポジトリで 1 枚入りの面付け（70 × 76.9 mm）を作れば、必要な 2 枚に対し 2 枚。どちらにするかはオーナーの判断（`assembly:panel-route`）。面付けデータはまだ作っていない。"
     },
     {
       "id": "controller-finish-not-specified",
@@ -935,10 +1410,10 @@
       "ja": "回転角は KiCad のフットプリント角度のまま。JLC ライブラリとの向きの差は JLC の配置プレビューで未確認（B 面の部品を含む）。"
     },
     {
-      "id": "led_leaf-jlc-panel",
+      "id": "led_leaf-panel-route",
       "board": "led_leaf",
-      "text": "Not orderable as single boards (Economic: every part allowed for Economic on its JLC part page fails; thickness 0.8–1.6 mm fails; single board 10 × 10 mm or larger fails). Route: Standard PCBA with Panel by JLCPCB, 8 columns × 1 rows (72 × 82.5 mm before rails, minimum 70 × 70 mm); edge rails on, JLC adds fiducials to the rails. The outline is not a plain rectangle (12 Edge.Cuts segments). JLC asks for a simple outline for Panel by JLCPCB and says complex outlines must be panelised by the customer: does JLC accept this outline for Panel by JLCPCB?",
-      "ja": "単品では発注できない（Economic で満たさない条件: 全部品が JLC 部品ページで Economic 可、板厚 0.8–1.6 mm、単品 10 × 10 mm 以上）。経路: Standard PCBA で Panel by JLCPCB、8 列 × 1 行（レールなしで 72 × 82.5 mm、最小 70 × 70 mm）。Edge Rails をオンにし、フィデューシャルは JLC がレールに付ける。外形が単純な長方形ではない（Edge.Cuts 12 本）。JLC は Panel by JLCPCB には単純な外形を求め、複雑な外形は自分で面付けするよう書いている。この外形で Panel by JLCPCB を受けてもらえるか。"
+      "text": "Not orderable as single boards (every part allowed for Economic on its JLC part page fails; thickness 0.8–1.6 mm fails; single board 10 × 10 mm or larger fails). Panel by JLCPCB (8 × 1) gives 16 assembled boards at a 2-panel minimum and has open questions: The outline is not a plain rectangle (12 Edge.Cuts segments). JLC asks for a simple outline for Panel by JLCPCB and says complex outlines must be panelised by the customer: does JLC accept this outline for Panel by JLCPCB?. A repo-built panel with 2 board(s), 70 × 96.5 mm, gives 4 for the 4 needed. The owner decides the route (assembly:panel-route); the panel is not built.",
+      "ja": "単品では発注できない（Economic で満たさない条件: 全部品が JLC 部品ページで Economic 可、板厚 0.8–1.6 mm、単品 10 × 10 mm 以上）。Panel by JLCPCB（8 × 1）は 2 シート最小で 16 枚が実装される。未確認: 外形が単純な長方形ではない（Edge.Cuts 12 本）。JLC は Panel by JLCPCB には単純な外形を求め、複雑な外形は自分で面付けするよう書いている。この外形で Panel by JLCPCB を受けてもらえるか。リポジトリで 2 枚入りの面付け（70 × 96.5 mm）を作れば、必要な 4 枚に対し 4 枚。どちらにするかはオーナーの判断（`assembly:panel-route`）。面付けデータはまだ作っていない。"
     },
     {
       "id": "led_leaf-finish-not-specified",
@@ -953,10 +1428,10 @@
       "ja": "回転角は KiCad のフットプリント角度のまま。JLC ライブラリとの向きの差は JLC の配置プレビューで未確認。"
     },
     {
-      "id": "power_adapter-jlc-panel",
+      "id": "power_adapter-panel-route",
       "board": "power_adapter",
-      "text": "Not orderable as single boards (Economic: single board 10 × 10 mm or larger fails). Route: Economic PCBA with Panel by JLCPCB, 2 columns × 1 rows (17.6 × 30 mm before rails, minimum 10 × 10 mm). JLC describes Panel by JLCPCB with V-cut, and V-cut is not supported with Economic assembly: can Panel by JLCPCB use mouse bites so the board stays on Economic assembly? If not, Standard needs a 70 × 70 mm panel (8 × 3 = 24 boards before rails).",
-      "ja": "単品では発注できない（Economic で満たさない条件: 単品 10 × 10 mm 以上）。経路: Economic PCBA で Panel by JLCPCB、2 列 × 1 行（レールなしで 17.6 × 30 mm、最小 10 × 10 mm）。JLC は Panel by JLCPCB を V-cut で説明しており、V-cut は Economic 実装では使えない。Economic のまま Panel by JLCPCB をマウスバイトで作れるか。できなければ Standard で 70 × 70 mm の面付け（レールなしで 8 × 3 = 24 枚）になる。"
+      "text": "Not orderable as single boards (single board 10 × 10 mm or larger fails). Panel by JLCPCB (2 × 1) gives 4 assembled boards at a 2-panel minimum and has open questions: JLC describes Panel by JLCPCB with V-cut, and V-cut is not supported with Economic assembly: can Panel by JLCPCB use mouse bites so the board stays on Economic assembly? If not, Standard needs a 70 × 70 mm panel (8 × 3 = 24 boards before rails).. A repo-built panel with 1 board(s), 22.8 × 44 mm, gives 2 for the 2 needed. The owner decides the route (assembly:panel-route); the panel is not built.",
+      "ja": "単品では発注できない（Economic で満たさない条件: 単品 10 × 10 mm 以上）。Panel by JLCPCB（2 × 1）は 2 シート最小で 4 枚が実装される。未確認: JLC は Panel by JLCPCB を V-cut で説明しており、V-cut は Economic 実装では使えない。Economic のまま Panel by JLCPCB をマウスバイトで作れるか。できなければ Standard で 70 × 70 mm の面付け（レールなしで 8 × 3 = 24 枚）になる。リポジトリで 1 枚入りの面付け（22.8 × 44 mm）を作れば、必要な 2 枚に対し 2 枚。どちらにするかはオーナーの判断（`assembly:panel-route`）。面付けデータはまだ作っていない。"
     },
     {
       "id": "power_adapter-finish-not-specified",
