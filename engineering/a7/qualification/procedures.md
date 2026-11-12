@@ -868,7 +868,7 @@
 - 関連:  #10
 - 概要: 入力/出力レール遷移を承認済み制限下で独立に制御。
 - 根拠: `engineering/a5/integration/independent_review`
-- 未決: TLV755P は許容逆電流・時間を規定しない（§7.1.4 は VOUT > VIN + 0.3 V となる条件をすべて絶対最大超えとし、必要なら外付けショットキーを推奨）。+3V3 への外部印加を試験で許すか、許すならどの上限で行うかはオーナーのリスク判断。（区分: オーナーの判断）
+- 未決: TLV755P は許容逆電流・時間を規定しない（§7.1.4 が挙げる 3 つの逆電流条件はいずれも絶対最大（VOUT > VIN + 0.3 V）を超えるとし、必要なら外付けショットキーを推奨）。+3V3 への外部印加を試験で許すか、許すならどの上限で行うかはオーナーのリスク判断。（区分: オーナーの判断）
 - 観測: NOT_MEASURED。結果: NOT_RUN。
 - 次: 不足する基準をレビューし、オーナー承認の試作ルート確定後に実物で実施。
 
@@ -887,12 +887,13 @@
 - `records.json` の owner_prototype_route（対象版・数量・範囲・承認）が記録済み
 - 通電は owner_prototype_route が許す範囲だけ。初回通電の電流制限値は未決なので、試験前にレビューで決めて conditions に記録する
 - `readiness.json` の identities（基板/実装/回路図/FW/設定/機構/治具/台帳の SHA-256）を run にそのまま写す
-- +3V3 に外部電圧をかける試験は、許容逆電流が決まるまで実施しない
+- +3V3 に外部電圧をかける試験は、オーナー判断 criterion:ldo-reverse で bounded が選ばれ、上限と時間が記録されるまで実施しない
 
 手順:
 
-1. +5 V を切った状態で +3V3 側に SWD プローブ等から電圧がかかる場合の電流を測る。
-2. 順序と時間を変えて記録する。
+1. 電源投入・遮断の順序を変えて +5V と +3V3 の波形を記録し、遮断時に VOUT ≤ VIN + 0.3 V が保たれるかを確かめる。
+2. （bounded が選ばれた場合のみ）+5 V を切った状態で +3V3 側に SWD プローブ等から記録済みの上限内で電圧をかけ、電流と時間を測る。
+3. 順序と時間を変えて記録する。
 
 記録する raw 証跡（種別ごとに別ファイル）:
 
@@ -968,7 +969,7 @@
 - 関連:  #10
 - 概要: 実装型番/ロットのDCバイアスと温度条件を記録して容量/リップルを測る。
 - 根拠: `engineering/a5/integration/independent_review`
-- 未決: 部品ごとの典型 DC バイアス曲線は記録済み（Samsung 製品ページ、typical data）。必要容量の下限は、レギュレータ資料の入出力容量要件と曲線から回路レビューで決める（クラウドで実施できる）。（区分: クラウドで進められるデジタル作業）
+- 未決: 部品ごとの典型 DC バイアス曲線は記録済み（Samsung 製品ページ、typical data）。必要容量の下限は、レギュレータ・負荷スイッチ資料の入出力容量要件と曲線から回路レビューで決める（クラウドで実施できる）。（区分: クラウドで進められるデジタル作業）
 - 観測: NOT_MEASURED。結果: NOT_RUN。
 - 次: 不足する基準をレビューし、オーナー承認の試作ルート確定後に実物で実施。
 
@@ -1013,7 +1014,7 @@
 | dc-bias-c10u | CL21A106KAYNNNE の典型 DC バイアス特性（保証値ではない） | `"-50.31 % at 5.0 V; -81.6 % at 12.208 V"` | reference | % | SOURCED | `.claude/skills/component-cl21a106kaynnne/facts.json` `fact-cl21a106kaynnne-dc-bias-curve` |
 | dc-bias-c22u | CL31A226KAHNNNE の典型 DC バイアス特性（保証値ではない） | `"-37.96 % at 5.0 V"` | reference | % | SOURCED | `.claude/skills/component-cl31a226kahnnne/facts.json` `fact-cl31a226kahnnne-dc-bias-curve` |
 | dc-bias-c4u7 | CL10A475KO8NNNC の典型 DC バイアス特性（保証値ではない） | `"-30.44 % at 3.3 V; -49.92 % at 5.0 V"` | reference | % | SOURCED | `.claude/skills/component-cl10a475ko8nnnc/facts.json` `fact-cl10a475ko8nnnc-dc-bias-curve` |
-| minimum | 必要容量の下限 | — | — | NONE | UNRESOLVED | 回路レビュー（レギュレータ資料の入出力容量要件と、記録済みの典型 DC バイアス曲線・許容差・温度特性から決める）。入手先（資料）: AP63205 / TLV755P データシートの入出力容量要件（クラウドで取得できる） |
+| minimum | 必要容量の下限 | — | — | NONE | UNRESOLVED | 回路レビュー（レギュレータ・負荷スイッチ資料の入出力容量要件と、記録済みの典型 DC バイアス曲線・許容差・温度特性から決める）。入手先（資料）: AP63205 / TLV755P / TPS2552 データシートの入出力容量要件（クラウドで取得できる） |
 
 ### thermal-optical — 温度・光学・Kumiko照明
 

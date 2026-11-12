@@ -2682,7 +2682,7 @@
       "expected": "TLV75533PDBVR の逆電流未確認を評価。",
       "basis": "engineering/a5/integration/independent_review",
       "criterion_status": "UNRESOLVED",
-      "missing_criterion": "TLV755P は許容逆電流・時間を規定しない（§7.1.4 は VOUT > VIN + 0.3 V となる条件をすべて絶対最大超えとし、必要なら外付けショットキーを推奨）。+3V3 への外部印加を試験で許すか、許すならどの上限で行うかはオーナーのリスク判断。",
+      "missing_criterion": "TLV755P は許容逆電流・時間を規定しない（§7.1.4 が挙げる 3 つの逆電流条件はいずれも絶対最大（VOUT > VIN + 0.3 V）を超えるとし、必要なら外付けショットキーを推奨）。+3V3 への外部印加を試験で許すか、許すならどの上限で行うかはオーナーのリスク判断。",
       "raw_evidence_required": "両レール波形、逆電流、温度、回路条件",
       "observation": "NOT_MEASURED",
       "result": "NOT_RUN",
@@ -2706,11 +2706,12 @@
         "`records.json` の owner_prototype_route（対象版・数量・範囲・承認）が記録済み",
         "通電は owner_prototype_route が許す範囲だけ。初回通電の電流制限値は未決なので、試験前にレビューで決めて conditions に記録する",
         "`readiness.json` の identities（基板/実装/回路図/FW/設定/機構/治具/台帳の SHA-256）を run にそのまま写す",
-        "+3V3 に外部電圧をかける試験は、許容逆電流が決まるまで実施しない"
+        "+3V3 に外部電圧をかける試験は、オーナー判断 criterion:ldo-reverse で bounded が選ばれ、上限と時間が記録されるまで実施しない"
       ],
       "precondition_states": [],
       "steps": [
-        "+5 V を切った状態で +3V3 側に SWD プローブ等から電圧がかかる場合の電流を測る。",
+        "電源投入・遮断の順序を変えて +5V と +3V3 の波形を記録し、遮断時に VOUT ≤ VIN + 0.3 V が保たれるかを確かめる。",
+        "（bounded が選ばれた場合のみ）+5 V を切った状態で +3V3 側に SWD プローブ等から記録済みの上限内で電圧をかけ、電流と時間を測る。",
         "順序と時間を変えて記録する。"
       ],
       "record": {
@@ -2891,7 +2892,7 @@
       "expected": "各exact MLCCの条件付き有効容量と回路要求の照合。",
       "basis": "engineering/a5/integration/independent_review",
       "criterion_status": "UNRESOLVED",
-      "missing_criterion": "部品ごとの典型 DC バイアス曲線は記録済み（Samsung 製品ページ、typical data）。必要容量の下限は、レギュレータ資料の入出力容量要件と曲線から回路レビューで決める（クラウドで実施できる）。",
+      "missing_criterion": "部品ごとの典型 DC バイアス曲線は記録済み（Samsung 製品ページ、typical data）。必要容量の下限は、レギュレータ・負荷スイッチ資料の入出力容量要件と曲線から回路レビューで決める（クラウドで実施できる）。",
       "raw_evidence_required": "型番/ロット、バイアス/温度、容量とリップルraw記録",
       "observation": "NOT_MEASURED",
       "result": "NOT_RUN",
@@ -3018,10 +3019,10 @@
           "value": null,
           "unit": "NONE",
           "confidence": "UNRESOLVED",
-          "decided_by": "回路レビュー（レギュレータ資料の入出力容量要件と、記録済みの典型 DC バイアス曲線・許容差・温度特性から決める）",
+          "decided_by": "回路レビュー（レギュレータ・負荷スイッチ資料の入出力容量要件と、記録済みの典型 DC バイアス曲線・許容差・温度特性から決める）",
           "supplied_by": {
             "kind": "DOCUMENT",
-            "what": "AP63205 / TLV755P データシートの入出力容量要件（クラウドで取得できる）"
+            "what": "AP63205 / TLV755P / TPS2552 データシートの入出力容量要件（クラウドで取得できる）"
           }
         }
       ]
@@ -3842,13 +3843,13 @@
       "options": [
         {
           "id": "prohibit",
-          "label": "外部印加はしない（逆電流ゼロを前提にする）",
-          "consequence": "試験は電源投入・遮断の順序で VOUT が VIN + 0.3 V を超えないことの確認だけにする。SWD プローブ等で +3V3 を外から給電する使い方は手順で禁止する。メーカー記述の範囲内に留まる。"
+          "label": "外部印加はしない（外から逆電流を流さない）",
+          "consequence": "試験は電源投入・遮断の順序の確認だけにし、SWD プローブ等で +3V3 を外から給電する使い方は手順で禁止する。外部印加でメーカー記述を超えることはない。遮断時に VOUT ≤ VIN + 0.3 V が保たれるかはこの試験で確かめる。"
         },
         {
           "id": "bounded",
           "label": "上限を決めて外部印加を試す",
-          "consequence": "メーカーが許容値を規定しない状態での試験になり、上限と時間はプロジェクトの判断として記録する。試験品は損傷の可能性がある前提で扱う。"
+          "consequence": "+5 V を切った状態の外部印加は VOUT ≤ VIN + 0.3 V の絶対最大定格を意図的に超える試験になる。メーカーは許容値を規定しないので、上限と時間はプロジェクトの判断として記録し、試験品は損傷の可能性がある前提で扱う。"
         },
         {
           "id": "defer",
