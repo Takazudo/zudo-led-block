@@ -243,12 +243,13 @@ class ReadinessTests(unittest.TestCase):
     def test_checklist_lists_decisions_and_downloads(self):
         report = json.loads((REPO/m.QUAL/'readiness.json').read_text())
         page = m.checklist(self.plan, report)
-        self.assertIn('## まとめて答えられる判断（15 件）', page)
+        self.assertIn('## まとめて答えられる判断（14 件）', page)
+        self.assertNotIn('限定試作を承認しますか', page)
         self.assertIn('## 回答済みの判断（1 件）', page)
         self.assertIn('2 台分（オーナー報告の JLC PCBA 最小、未確認）（オーナーの回答、`assembly:order-quantity`）', page)
         self.assertNotIn('### 2. 最初の発注数量', page)
         self.assertIn('## 資料・回答待ちのゲート（14 件）', page)
-        self.assertLess(page.index('`owner_prototype_route`（PCB 発注の前）'), page.index('`manufacturing_release`（製造リリースのとき）'))
+        self.assertIn('`owner_prototype_route`（解除済み）', page)
         self.assertNotIn('<https://', page)
 
     def test_non_list_raw_evidence_blocks(self):
@@ -520,6 +521,18 @@ class ExecutableProcedureTests(unittest.TestCase):
         self.plan['owner_actions'][0]['unblocks'].append('assembly:no-such-blocker')
         self.assertUntraceable('unknown gate')
 
+    def test_recorded_owner_prototype_route_is_bound_and_not_a_release(self):
+        records = json.loads((REPO/m.QUAL/'records.json').read_text())
+        report = m.evaluate(REPO, self.plan, records)
+        self.assertNotIn('owner_prototype_route', [g['gate'] for g in report['gates']])
+        self.assertIn('manufacturing_release', [g['gate'] for g in report['gates']])
+        self.assertEqual(report['order_eligibility'], 'BLOCKED')
+        route = records['owner_prototype_route']
+        self.assertIn('1 OK', (REPO/route['approval']['path']).read_text())
+        self.assertIn('panel route and switch supply not covered', route['constraints'])
+        records['owner_prototype_route']['identities'] = dict(route['identities'], board='0' * 64)
+        self.assertIn('owner_prototype_route', [g['gate'] for g in m.evaluate(REPO, self.plan, records)['gates']])
+
     def test_gates_partition_blockers_and_owner_gates_have_actions(self):
         report = m.evaluate(REPO, self.plan, json.loads((REPO/m.QUAL/'records.json').read_text()))
         self.assertEqual(sum(len(g['reasons']) for g in report['gates']), len(report['blockers']))
@@ -528,7 +541,7 @@ class ExecutableProcedureTests(unittest.TestCase):
         self.assertTrue(any(g['gate'].startswith('assembly:') for g in report['gates']))
         m.checklist(self.plan, report)
         for a in self.plan['owner_actions']:
-            a['unblocks'] = [g for g in a['unblocks'] if g != 'owner_prototype_route']
+            a['unblocks'] = [g for g in a['unblocks'] if g != 'manufacturing_release']
         with self.assertRaisesRegex(ValueError, 'without an owner action'):
             m.checklist(self.plan, report)
 
