@@ -106,6 +106,7 @@ Coverage is stated one domain at a time and is never rolled up. A domain marked 
 - [`fact-ws2812b-2020-v6-input-abs-max`](#fact-ws2812b-2020-v6-input-abs-max)
 - [`fact-ws2812b-2020-v6-vih`](#fact-ws2812b-2020-v6-vih)
 - [`fact-ws2812b-2020-v6-operating-temperature`](#fact-ws2812b-2020-v6-operating-temperature)
+- [`fact-ws2812b-2020-v6-storage-temperature`](#fact-ws2812b-2020-v6-storage-temperature)
 
 ### signal-timing
 
@@ -201,6 +202,20 @@ A never-exceed limit. Reaching it may damage the part; it is not an operating ta
   **Verdict:** PASS - primary-source confirmed · **Provenance:** PRIMARY-SPEC
 
   **Evidence:** [src-ws2812b-2020-v6-ds-p2: Absolute Maximum Ratings table row Topt](#src-ws2812b-2020-v6-ds-p2)
+</EvidenceFact>
+
+<EvidenceFact>
+  <EvidenceAnchor id="fact-ws2812b-2020-v6-storage-temperature" />
+
+  **Fact:** `fact-ws2812b-2020-v6-storage-temperature`
+
+  **Value:** -40 to +70 · **Unit:** `degC`
+
+  **Conditions:** Tstg storage temperature for a whole reel; bulk material -40 to +105 C; printed in the Absolute Maximum Ratings table of the V1.4 bytes; image-only PDF read visually
+
+  **Verdict:** PASS - primary-source confirmed · **Provenance:** PRIMARY-SPEC
+
+  **Evidence:** [src-ws2812b-2020-v6-ds-p2: Absolute Maximum Ratings table rows Tstg (bulk material, Whole reel)](#src-ws2812b-2020-v6-ds-p2)
 </EvidenceFact>
 
 ### GUARANTEED\_ELECTRICAL
@@ -484,7 +499,7 @@ Every document cited above, with its identification, when it was retrieved, and 
 | Retrieved       | 2026-11-08                                             |
 | Printed page    | 3 / 10                                                 |
 
-**Locator:** Page 3: PIN Function table (rows 1 to 4), Absolute Maximum Ratings table (rows VDD, VI, Topt) and Electrical Characteristics table (rows VIH, VIL)
+**Locator:** Page 3: PIN Function table (rows 1 to 4), Absolute Maximum Ratings table (rows VDD, VI, Topt, Tstg bulk material, Tstg whole reel) and Electrical Characteristics table (rows VIH, VIL)
 
 **Availability:** AVAILABLE
 

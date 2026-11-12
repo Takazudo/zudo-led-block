@@ -243,11 +243,11 @@ class ReadinessTests(unittest.TestCase):
     def test_checklist_lists_decisions_and_downloads(self):
         report = json.loads((REPO/m.QUAL/'readiness.json').read_text())
         page = m.checklist(self.plan, report)
-        self.assertIn('## まとめて答えられる判断（11 件）', page)
+        self.assertIn('## まとめて答えられる判断（12 件）', page)
         self.assertIn('## 回答済みの判断（1 件）', page)
         self.assertIn('2 台分（オーナー報告の JLC PCBA 最小、未確認）（オーナーの回答、`assembly:order-quantity`）', page)
         self.assertNotIn('### 2. 最初の発注数量', page)
-        self.assertIn('## 資料・回答待ちのゲート（16 件）', page)
+        self.assertIn('## 資料・回答待ちのゲート（14 件）', page)
         self.assertLess(page.index('`owner_prototype_route`（PCB 発注の前）'), page.index('`manufacturing_release`（製造リリースのとき）'))
         self.assertNotIn('<https://', page)
 
@@ -669,13 +669,13 @@ class ExecutableProcedureTests(unittest.TestCase):
 
     def test_evidence_hold_criteria_say_what_supplies_them(self):
         holds = [p for p in self.plan['procedures'] if p['criterion_class'] == 'ACCESS_EVIDENCE_HOLD']
-        self.assertEqual(len(holds), 7)
+        self.assertEqual(len(holds), 5)
         for p in holds:
             self.assertTrue(all(a['supplied_by']['what'] for a in p['acceptance'] if a['confidence'] == 'UNRESOLVED'))
-        self.item('ldo-reverse', 'reverse').pop('supplied_by')
+        self.item('partial-rails', 'limits').pop('supplied_by')
         self.assertUntraceable('which document or measurement')
         self.plan = json.loads((REPO/m.QUAL/'plan.json').read_text())
-        self.item('ldo-reverse', 'reverse')['supplied_by']['kind'] = 'GUESS'
+        self.item('partial-rails', 'limits')['supplied_by']['kind'] = 'GUESS'
         self.assertUntraceable('supplied_by needs kind')
 
     def test_checklist_is_one_ordered_list_with_proposals(self):

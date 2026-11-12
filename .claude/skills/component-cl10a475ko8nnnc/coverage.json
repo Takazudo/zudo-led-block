@@ -45,9 +45,10 @@
       "record_id": "rec-cl10a475ko8nnnc",
       "domain": "dc-bias-capacitance",
       "status": "OPEN",
-      "reason": "fact-cl10a475ko8nnnc-dc-bias NEEDS BENCH: effective MLCC capacitance under the A5 DC bias, temperature and ageing is not established; the manufacturer document gives no part-specific DC-bias curve and A5 never qualified it",
+      "reason": "fact-cl10a475ko8nnnc-dc-bias NEEDS BENCH: the manufacturer's typical DC-bias curve is recorded (fact-cl10a475ko8nnnc-dc-bias-curve), but the fitted lot's effective capacitance with tolerance, temperature and ageing is not measured",
       "fact_ids": [
-        "fact-cl10a475ko8nnnc-dc-bias"
+        "fact-cl10a475ko8nnnc-dc-bias",
+        "fact-cl10a475ko8nnnc-dc-bias-curve"
       ],
       "blocking_fact_ids": [
         "fact-cl10a475ko8nnnc-dc-bias"
