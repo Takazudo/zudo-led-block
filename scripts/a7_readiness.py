@@ -116,7 +116,7 @@ def fact_confidence(fact):
     return 'UNVERIFIED'
 
 
-def resolve(trace, root):
+def resolve(trace, root, roots=None):
     """Return (value, quote, stated confidence) a trace points at; raise ValueError when it does not resolve."""
     if not isinstance(trace, dict) or not isinstance(trace.get('path'), str):
         raise ValueError('trace needs a repository path')
@@ -139,7 +139,7 @@ def resolve(trace, root):
         raise ValueError('trace needs exactly one of fact_id, pointer or quote: ' + trace['path'])
     if bool(FACTS.match(rel)) != ('fact_id' in trace):
         raise ValueError('component facts are cited only by fact_id, and fact_id only cites component facts: ' + rel)
-    if not FACTS.match(rel) and not rel.startswith(SOURCE_ROOTS):
+    if not FACTS.match(rel) and not rel.startswith(roots or SOURCE_ROOTS):
         raise ValueError('not an allowed design source: ' + rel)
     if 'netlist_value' in trace:
         if rel != NETLIST:
@@ -522,6 +522,68 @@ def state_closers_from_artifact(plan, artifact):
     return found
 
 
+# Owner-decision recommendations may also cite the procurement, fixture and continuation records they summarize.
+DECISION_ROOTS = SOURCE_ROOTS + ('engineering/a7/procurement/', 'engineering/a7/fixture/', 'engineering/a7/docs/continuation/',
+                                 'engineering/a7/qualification/supplier-questions.md')
+STAGES = {'PCB_ORDER': 'PCB 発注の前', 'BENCH': '実機試験の前', 'RELEASE': '製造リリースのとき'}
+ROUTES = {'OWNER_DOWNLOAD': 'オーナーがブラウザで保存', 'CLOUD_FETCH': 'クラウドで取得（オーナー作業なし）',
+          'SUPPLIER_ANSWER': '供給元・加工先の回答', 'DATED_OBSERVATION': '日付付きの供給観測', 'MEASUREMENT': '実物の測定'}
+
+
+def owner_page_errors(plan, root=ROOT):
+    """Prepared owner decisions and evidence requests: well formed, traced, and never an acceptance."""
+    errors = []
+    decisions, requests = plan.get('owner_decisions'), plan.get('evidence_requests')
+    if not isinstance(decisions, list) or not isinstance(requests, list):
+        return ['owner_decisions and evidence_requests must be lists']
+    keys = gate_keys(plan, root)
+    for name, items in (('owner decision', decisions), ('evidence request', requests)):
+        gates = [x.get('gate') if isinstance(x, dict) and isinstance(x.get('gate'), str) else None for x in items]
+        if len(gates) != len(set(gates)) or any(g not in keys for g in gates):
+            errors.append(name + 's need unique, known gates')
+    if [d.get('rank') for d in decisions if isinstance(d, dict)] != list(range(1, len(decisions) + 1)):
+        errors.append('owner decisions must be ranked 1..n in list order')
+    for d in decisions:
+        if (not isinstance(d, dict) or set(d) != {'gate', 'rank', 'stage', 'question', 'options', 'recommended', 'reason', 'sources'}
+                or not isinstance(d['gate'], str) or not isinstance(d['recommended'], str)):
+            errors.append('owner decision needs exactly gate, rank, stage, question, options, recommended, reason, sources')
+            continue
+        where = d['gate'] + ': '
+        if d['stage'] not in STAGES or not text_fields(d, ['question', 'reason']):
+            errors.append(where + 'stage, question and reason are required')
+        options = d['options']
+        if (not isinstance(options, list) or not 2 <= len(options) <= 4
+                or any(not isinstance(o, dict) or set(o) != {'id', 'label', 'consequence'} or not text_fields(o, ['id', 'label', 'consequence']) for o in options)
+                or len({o['id'] for o in options}) != len(options)):
+            errors.append(where + '2-4 options, each with a unique id, a label and a consequence')
+        elif d['recommended'] not in {o['id'] for o in options}:
+            errors.append(where + 'the recommendation must be one of the options')
+        if not isinstance(d['sources'], list) or not d['sources']:
+            errors.append(where + 'a recommendation needs at least one source')
+        else:
+            for t in d['sources']:
+                try:
+                    resolve(t, root, DECISION_ROOTS)
+                except (ValueError, OSError) as e:
+                    errors.append(where + str(e))
+    for r in requests:
+        if not isinstance(r, dict) or set(r) != {'gate', 'routes', 'items'} or not isinstance(r['gate'], str):
+            errors.append('evidence request needs exactly gate, routes, items')
+            continue
+        where = r['gate'] + ': '
+        if not isinstance(r['routes'], list) or not r['routes'] or any(x not in ROUTES for x in r['routes']):
+            errors.append(where + 'routes must name ' + ', '.join(ROUTES))
+        items = r['items']
+        if not isinstance(items, list) or not items or any(
+                not isinstance(i, dict) or set(i) != {'what', 'value_needed', 'url', 'fallback_url', 'access'}
+                or not text_fields(i, ['what', 'value_needed', 'access'])
+                or any(i[k] is not None and not (isinstance(i[k], str) and re.fullmatch(r'https://[^\s()<>{}|`\[\]]+', i[k])) for k in ('url', 'fallback_url')) for i in items):
+            errors.append(where + 'each item needs what, value_needed, access and https url / fallback_url (or null)')
+        elif 'OWNER_DOWNLOAD' in r['routes'] and not all(i['url'] for i in items):
+            errors.append(where + 'an owner download names its URL')
+    return errors
+
+
 def gate_keys(plan, root=ROOT):
     manifest = root / IDENTITY_PATHS['assembly_manifest']
     pending = json.loads(manifest.read_text()).get('blockers', []) if manifest.is_file() else []
@@ -574,6 +636,9 @@ def schema(plan, records):
     errors = state_flag_errors(plan)
     if errors:
         raise ValueError('precondition states: ' + '; '.join(errors))
+    errors = owner_page_errors(plan)
+    if errors:
+        raise ValueError('owner page: ' + '; '.join(errors))
     actions = plan.get('owner_actions')
     if not isinstance(actions, list) or not actions or any(not isinstance(a, dict) for a in actions):
         raise ValueError('owner_actions must be a non-empty object list')
@@ -620,11 +685,13 @@ def evaluate(root, plan, records, today=None):
             gate = 'artifact:' + key
             for e in artifact_errors(key, artifact, root):
                 block(gate, 'CLOUD_DIGITAL', e)
-            if key == 'fixture' and (artifact.get('digital_fixture_complete') is not True or artifact.get('fresh_native_verified') is not True):
-                block(gate, 'CLOUD_DIGITAL', 'fixture digital design incomplete or unverified')
             if key == 'fixture':
                 artifacts['fixture'] = artifact
+                waited_on = {w['flag'] for q in plan['procedures'] for w in q['precondition_states'] if w['artifact'] == key}
                 for x in plan['state_flags']:
+                    # A progress-only flag that nothing waits on may be absent; it then shows as unknown.
+                    if x['flag'] not in GATING_STATE_FLAGS | waited_on:
+                        continue
                     if x['artifact'] == key and not isinstance(artifact.get(x['flag']), bool):
                         block(gate, 'CLOUD_DIGITAL', 'fixture: state flag '+x['flag']+' missing from the manifest')
                 complete_closers = next(set(x['closed_by']) for x in plan['state_flags'] if x['flag'] == 'digital_fixture_complete')
@@ -643,6 +710,13 @@ def evaluate(root, plan, records, today=None):
                 block(gate, 'CLOUD_DIGITAL', key+': input identity binding missing')
             elif not all(raw_ok({'path': p, 'sha256': h}, root) for p, h in inputs.items()):
                 block(gate, 'CLOUD_DIGITAL', key+': stale input identity binding')
+            if key == 'fixture' and (artifact.get('digital_fixture_complete') is not True or artifact.get('fresh_native_verified') is not True):
+                # Still gated on completion; once only the physical criterion 5 is left, no cloud work can close it.
+                physical_only = (gate not in gates and artifact.get('fresh_native_verified') is True
+                                 and artifact.get('digital_criteria_1_to_4_met') is True)
+                block(gate, 'PHYSICAL_ONLY' if physical_only else 'CLOUD_DIGITAL',
+                      'fixture completion awaits the physical criterion 5 (fixture-contact)' if physical_only
+                      else 'fixture digital design incomplete or unverified')
     # A file name or asserted digest is not evidence: retained bytes must match.
     plan_hash = hashlib.sha256(json.dumps(plan, sort_keys=True, ensure_ascii=False).encode()).hexdigest()
     outcomes = []
@@ -892,6 +966,49 @@ def mdx(text):
     return '`'.join(out)
 
 
+def owner_page_gaps(plan, report):
+    """Gates of each class that have no prepared entry; the page lists them rather than hiding them."""
+    current = {c: {g['gate'] for g in report['gates'] if g['class'] == c} for c in ('OWNER_DECISION', 'ACCESS_EVIDENCE_HOLD')}
+    return {'OWNER_DECISION': sorted(current['OWNER_DECISION'] - {d['gate'] for d in plan['owner_decisions']}),
+            'ACCESS_EVIDENCE_HOLD': sorted(current['ACCESS_EVIDENCE_HOLD'] - {r['gate'] for r in plan['evidence_requests']})}
+
+
+def link(url):
+    return '[開く]('+url+')' if url else '—'
+
+
+def owner_page_lines(plan, report):
+    classes = {g['gate']: g['class'] for g in report['gates']}
+    gaps = owner_page_gaps(plan, report)
+    live = [d for d in plan['owner_decisions'] if classes.get(d['gate']) == 'OWNER_DECISION']
+    lines = ['', '## まとめて答えられる判断（'+str(len(live))+' 件）', '',
+             'オーナーの判断ゲートを、PCB 発注を先に止めるものから順に並べています。推奨は出典に基づく提案で、オーナーの回答ではありません。'
+             '回答は記録（承認ファイルやレビュー記録）にしてから反映し、それまでゲートは閉じたままです。', '']
+    for n, d in enumerate(live, 1):
+        lines += ['### '+str(n)+'. '+mdx(d['question']), '', '- ゲート: `'+d['gate']+'`（'+STAGES[d['stage']]+'）']
+        for o in d['options']:
+            lines.append('- '+('**'+mdx(o['label'])+'（推奨）**' if o['id'] == d['recommended'] else mdx(o['label']))+': '+mdx(o['consequence']))
+        lines += ['- 推奨の理由: '+mdx(d['reason']), '- 出典: '+'、'.join(trace_text(t)+('「'+mdx(t['quote'])+'」' if 'quote' in t else '') for t in d['sources']), '']
+    waiting = [d['gate'] for d in plan['owner_decisions'] if classes.get(d['gate']) not in (None, 'OWNER_DECISION')]
+    if waiting:
+        lines += ['次の判断（ゲートがまだ別の区分にあるもの。区分が変わるとここに並びます）: '+'、'.join('`'+g+'`' for g in waiting), '']
+    if gaps['OWNER_DECISION']:
+        lines += ['判断の準備がまだないゲート: '+'、'.join('`'+g+'`' for g in gaps['OWNER_DECISION']), '']
+    live = [r for r in plan['evidence_requests'] if classes.get(r['gate']) == 'ACCESS_EVIDENCE_HOLD']
+    downloads = {i['url'] for r in live if 'OWNER_DOWNLOAD' in r['routes'] for i in r['items']}
+    lines += ['## 資料・回答待ちのゲート（'+str(len(live))+' 件）', '',
+              'ブラウザで保存してほしい資料は '+str(len(downloads))+' 件です。保存したファイルをそのまま渡してもらえれば、こちらで出典として記録します。'
+              'それ以外は、クラウドで取得できるもの、供給元の回答、数量を決めた後の供給観測、実物の測定です。', '',
+              '| ゲート | 入手の方法 | 何を | 必要な値 | URL | 代替 URL | 補足 |', '|---|---|---|---|---|---|---|']
+    for r in live:
+        for i in r['items']:
+            lines.append('| `'+r['gate']+'` | '+'、'.join(ROUTES[x] for x in r['routes'])+' | '+mdx(i['what'])+' | '+mdx(i['value_needed'])+' | '
+                         +link(i['url'])+' | '+link(i['fallback_url'])+' | '+mdx(i['access'])+' |')
+    if gaps['ACCESS_EVIDENCE_HOLD']:
+        lines += ['', '入手方法の準備がまだないゲート: '+'、'.join('`'+g+'`' for g in gaps['ACCESS_EVIDENCE_HOLD'])]
+    return lines
+
+
 def checklist(plan, report):
     gates = {g['gate']: g for g in report['gates']}
     known = gate_keys(plan)
@@ -921,6 +1038,7 @@ def checklist(plan, report):
         lines.append(str(n)+'. **'+a['id']+'** '+mdx(a['title']))
         rows.append('| '+a['id']+' | '+mdx(a['detail'])+' | '+'、'.join(names)+' |')
     proposals = [(p['id'], a) for p in plan['procedures'] for a in p['acceptance'] if a['confidence'] == 'PROPOSED']
+    lines += owner_page_lines(plan, report)
     lines += ['', '## 採否を待つ提案値', '',
               'エージェントが出典から用意した提案です（'+str(len(proposals))+' 件）。採るまでは該当する基準ゲートを解除しません。理由と計算は procedures.md にあります。', '',
               '| 手順 | ID | 基準 | 提案値 | 単位 |', '|---|---|---|---|---|']

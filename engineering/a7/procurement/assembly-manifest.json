@@ -23,6 +23,7 @@
     "engineering/a7/electronics/controller/board_placement.json": "1891af356ead303127c6b7a99b8934b08aa25f465b4b2c96872f5d5d24afdc01",
     "engineering/a7/electronics/controller/controller.kicad_pcb": "4453f818ede1e6d6c56e45ef43aa6faecb90990f3755f82c6d752258cd4d628e",
     "engineering/a7/electronics/controller/controller.kicad_sch": "01c09e69f2623bdbb98ae6176b4b52204ae817f927ecb311242d7ac1295fbc72",
+    "engineering/a7/fixture/manifest.json": "ee83f6bd0551d62ca33ec7070e1dcf58a01f21c4df713bfae953ad0af613f043",
     "engineering/a7/fixture/materials.json": "3a6b7cc0a5fe1df40383d489ebd793abbfcf0e03968812db7b3e6fd95962ba06",
     "engineering/a7/fixture/native-geometry.json": "2f372a058a24cb117d9e294d11411e84cb575e682d18f7651cbf0547d1bc7f51",
     "engineering/a7/mechanical/build_a7_mechanical.py": "98f47662650732d7d8215e0f86cff404521351ca43a795bd8811fc4f452d3daa",
@@ -3039,8 +3040,8 @@
     },
     {
       "id": "fixture-materials",
-      "class": "CLOUD_DIGITAL",
-      "text": "Fixture design and materials incomplete (see fixture manifest); physical contact/load tests follow."
+      "class": "OWNER_DECISION",
+      "text": "Fixture digital criteria 1-4 met and a sourced hardware proposal recorded; the fabricator choice and approval of the proposed hardware are owner decisions. Physical contact/load tests (criterion 5) follow."
     },
     {
       "id": "prototype-and-release",

@@ -40,10 +40,10 @@
     },
     "assembly_manifest": {
       "path": "engineering/a7/procurement/assembly-manifest.json",
-      "sha256": "09d0bad7c2797ac29cbac63ec99a5e4beb0d7d1eca0e1f672a2de1e1212fbcea"
+      "sha256": "55315650dd1cc1617081e705532ddd89f92d3079dd22b6dc31d3499746d19d74"
     }
   },
-  "plan_sha256": "e1b814adeccdc24dba1b9d51f490df1291633ecd6ebd1799a9049ede341b86a8",
+  "plan_sha256": "cd178f06ae0bd7e92875246d3ca872157d956020dd84273a207ee81da8cfbf62",
   "procedures": [
     {
       "id": "jack-continuity",
@@ -204,7 +204,7 @@
     }
   ],
   "blockers": [
-    "fixture digital design incomplete or unverified",
+    "fixture completion awaits the physical criterion 5 (fixture-contact)",
     "assembly_manifest: supply-observations: Current stock, price, MOQ, packaging, lead time and assembly applicability not obtained for any line except the dated C221842 zero-stock observation; stock never reserved.",
     "assembly_manifest: order-quantity: No agreed order quantity; 1/10/100 are comparison scenarios only, so no supply observation can be judged available for a proposed order.",
     "assembly_manifest: switch-supply: PCM13SMTR (C221842) had JLC stock 0 / presale 0 at 2026-11-09; wait, buy elsewhere, or accept a reviewed alternate with its own contact table and fit review.",
@@ -213,7 +213,7 @@
     "assembly_manifest: finished-cables: Finished A7 power cable (57 mm, +/-3 ASSUMED), SH4 cables and IDC ribbon not selected; supplier answers and the owner choice of assembly are needed before physical routing checks.",
     "assembly_manifest: mechanical-materials: PMMA sheet and pocket tolerances, PETG process and orderable fastener part numbers are not sourced; the model carries designations (M2x18, M1.6x4) and envelopes only.",
     "assembly_manifest: rack-hardware: Owner rack rail/thread interface and fasteners not specified.",
-    "assembly_manifest: fixture-materials: Fixture design and materials incomplete (see fixture manifest); physical contact/load tests follow.",
+    "assembly_manifest: fixture-materials: Fixture digital criteria 1-4 met and a sourced hardware proposal recorded; the fabricator choice and approval of the proposed hardware are owner decisions. Physical contact/load tests (criterion 5) follow.",
     "assembly_manifest: prototype-and-release: No owner-approved prototype route, no reviewed manufacturing package and no release approval.",
     "jack-continuity: NOT_MEASURED: no run",
     "jack-dimensions: criterion unresolved or review receipt missing",
@@ -270,9 +270,9 @@
   "gates": [
     {
       "gate": "artifact:fixture",
-      "class": "CLOUD_DIGITAL",
+      "class": "PHYSICAL_ONLY",
       "reasons": [
-        "fixture digital design incomplete or unverified"
+        "fixture completion awaits the physical criterion 5 (fixture-contact)"
       ]
     },
     {
@@ -333,9 +333,9 @@
     },
     {
       "gate": "assembly:fixture-materials",
-      "class": "CLOUD_DIGITAL",
+      "class": "OWNER_DECISION",
       "reasons": [
-        "assembly_manifest: fixture-materials: Fixture design and materials incomplete (see fixture manifest); physical contact/load tests follow."
+        "assembly_manifest: fixture-materials: Fixture digital criteria 1-4 met and a sourced hardware proposal recorded; the fabricator choice and approval of the proposed hardware are owner decisions. Physical contact/load tests (criterion 5) follow."
       ]
     },
     {
@@ -632,10 +632,10 @@
     }
   ],
   "gate_counts": {
-    "CLOUD_DIGITAL": 2,
-    "OWNER_DECISION": 12,
+    "CLOUD_DIGITAL": 0,
+    "OWNER_DECISION": 13,
     "ACCESS_EVIDENCE_HOLD": 16,
-    "PHYSICAL_ONLY": 20
+    "PHYSICAL_ONLY": 21
   },
   "state_flags": [
     {
@@ -658,6 +658,13 @@
       "value": true,
       "role": "INFORMATIONAL",
       "note": "README の基準 1–4 がデジタルで満たされ、デジタルのブロッカーがないこと（fresh_native_verified を含む）。進捗の表示で、完了フラグでも発注適格性でもない。fixture-contact を始める前提。"
+    },
+    {
+      "artifact": "fixture",
+      "flag": "hardware_proposal_complete",
+      "value": true,
+      "role": "INFORMATIONAL",
+      "note": "治具の各金物要求（materials.json）に出典付きの候補（hardware_proposal）が 1 つずつあること。オーナー承認待ちの提案で、選定でも承認でもない。true かつ基準 1–4 が満たされると、調達の assembly:fixture-materials はオーナーの判断（加工先の選択と金物の承認）に移る。"
     }
   ],
   "optional_variants": {

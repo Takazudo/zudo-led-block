@@ -22,6 +22,12 @@
       "flag": "digital_criteria_1_to_4_met",
       "closed_by": [],
       "note": "README の基準 1–4 がデジタルで満たされ、デジタルのブロッカーがないこと（fresh_native_verified を含む）。進捗の表示で、完了フラグでも発注適格性でもない。fixture-contact を始める前提。"
+    },
+    {
+      "artifact": "fixture",
+      "flag": "hardware_proposal_complete",
+      "closed_by": [],
+      "note": "治具の各金物要求（materials.json）に出典付きの候補（hardware_proposal）が 1 つずつあること。オーナー承認待ちの提案で、選定でも承認でもない。true かつ基準 1–4 が満たされると、調達の assembly:fixture-materials はオーナーの判断（加工先の選択と金物の承認）に移る。"
     }
   ],
   "procedures": [
@@ -3422,6 +3428,14 @@
       ]
     },
     {
+      "id": "O11",
+      "title": "治具の加工先を選び、提案された金物を承認する",
+      "detail": "治具の FR-4 板 4 枚の加工先は未選定（JLCCNC の指針は参考のみ）。`engineering/a7/fixture/manifest.json` の hardware_proposal は全資材行に出典付きの候補を 1 つずつ載せた提案で、選定でも承認でもない。プローブ板の穴間 0.40 mm は加工先に穴あけ可否の確認が要る。",
+      "unblocks": [
+        "assembly:fixture-materials"
+      ]
+    },
+    {
       "id": "O2",
       "title": "発注数量を決める",
       "detail": "1 / 10 / 100 は比較条件だけ。数量が決まるまで、どの供給観測も「この発注に使える」と判断できない。 材料の供給観測は、決めた数量に対して「入手可能」と言える必要がある。",
@@ -3459,6 +3473,669 @@
       "unblocks": [
         "manufacturing_release",
         "assembly:prototype-and-release"
+      ]
+    }
+  ],
+  "owner_decisions": [
+    {
+      "gate": "owner_prototype_route",
+      "stage": "PCB_ORDER",
+      "question": "A7 r2（3HP / FR-4）の限定試作を承認しますか。",
+      "options": [
+        {
+          "id": "approve",
+          "label": "試験目的の少数試作を承認する",
+          "consequence": "部品・基板・治具を試作数量だけ入手でき、19 の物理手順を実施できる。承認ファイルを records.json の owner_prototype_route に記録するとこのゲートが解除される。製造リリースではない。"
+        },
+        {
+          "id": "wait",
+          "label": "まだ承認しない",
+          "consequence": "物理手順はすべて止まる。PJ-324M の端子 4/5 の確認（PCB 発注の前提）も実物が入手できないので進まない。"
+        }
+      ],
+      "recommended": "approve",
+      "reason": "PJ-324M のどちらの端子が tip かは実物の導通試験でしか決まらず、その試験は PCB 発注より前に必要。試作ルートがないと PCB 発注の前提がそろわない。",
+      "sources": [
+        {
+          "path": "engineering/a7/procurement/assembly-manifest.json",
+          "quote": "this continuity test must precede any PCB order"
+        }
+      ],
+      "rank": 1
+    },
+    {
+      "gate": "assembly:order-quantity",
+      "stage": "PCB_ORDER",
+      "question": "最初の発注数量をいくつにしますか。",
+      "options": [
+        {
+          "id": "1",
+          "label": "1 台分（試作）",
+          "consequence": "在庫・価格の観測を最小数量で判断できる。PCM13SMTR は JLC の掲載では最小購入数 3（別の販売店では異なる場合がある）。"
+        },
+        {
+          "id": "10",
+          "label": "10 台分",
+          "consequence": "物理評価の前に 10 台分の部品と基板を買う。評価で設計変更が出ると無駄になる。"
+        },
+        {
+          "id": "100",
+          "label": "100 台分",
+          "consequence": "量産相当の在庫が必要。評価前の発注で、変更時の損失が最も大きい。"
+        }
+      ],
+      "recommended": "1",
+      "reason": "A7 は製造リリース前で物理評価がなく、1 / 10 / 100 は比較条件にすぎない。最初は試作数量にして、量産数量は評価の後に決める。",
+      "sources": [
+        {
+          "path": "engineering/a7/procurement/assembly-manifest.json",
+          "quote": "\"manufacturing_released\": false"
+        },
+        {
+          "path": "engineering/a7/procurement/assembly-manifest.json",
+          "quote": "\"quantity_scenarios_only\""
+        }
+      ],
+      "rank": 2
+    },
+    {
+      "gate": "assembly:switch-supply",
+      "stage": "PCB_ORDER",
+      "question": "PCM13SMTR（C221842）の在庫 0 にどう対応しますか。",
+      "options": [
+        {
+          "id": "buy-elsewhere",
+          "label": "同じ型番を別の販売店で買う",
+          "consequence": "接点表とランドは今の設計のまま使える。実装業者が持ち込み部品を受けるか、手はんだにするかの確認が要る（未確認）。"
+        },
+        {
+          "id": "wait",
+          "label": "JLC の入荷を待つ",
+          "consequence": "設計は変わらないが、入荷予定日が出ておらず、発注がいつまでも止まる可能性がある。"
+        },
+        {
+          "id": "alternate",
+          "label": "代替品を認める",
+          "consequence": "別の接点表・ランド・適合のレビューが必要で、基板の変更と再検証になる。"
+        }
+      ],
+      "recommended": "buy-elsewhere",
+      "reason": "同じ型番なら接点表・ランド・適合の検証をそのまま使える。代替品は、接点表と適合を別にレビューすることが条件になっている。",
+      "sources": [
+        {
+          "path": "engineering/a7/procurement/assembly-manifest.json",
+          "quote": "had JLC stock 0 / presale 0 at 2026-11-09"
+        },
+        {
+          "path": "engineering/a7/procurement/assembly-manifest.json",
+          "quote": "accept a reviewed alternate with its own contact table and fit review"
+        }
+      ],
+      "rank": 3
+    },
+    {
+      "gate": "assembly:finished-cables",
+      "stage": "BENCH",
+      "question": "完成ケーブル（電源 57 mm、SH4、IDC リボン）をどう用意しますか。",
+      "options": [
+        {
+          "id": "assembler",
+          "label": "ケーブル製作業者に仕様どおり注文する",
+          "consequence": "電源ケーブル 57 mm の公差の保証を業者に求められる（回答は未取得）。保証が得られれば harness-depth の注文範囲が確定する。見積もりと業者への連絡が必要。"
+        },
+        {
+          "id": "diy",
+          "label": "自分で圧着して作る",
+          "consequence": "圧着工具と端子が必要。長さの公差は作ったものを実測して確認する。"
+        },
+        {
+          "id": "a5-cable",
+          "label": "A5 の 50 ± 6 mm ケーブルを流用する",
+          "consequence": "A7 の長さ要求を満たさないので使えない。"
+        }
+      ],
+      "recommended": "assembler",
+      "reason": "A7 の電源ケーブルは 57 mm（±3 は仮定）で、A5 の Molex 151340300（50 ± 6 mm）は A7 用ではない。長さの公差を確かめられるのは製作業者なので、業者に頼むのが確実。",
+      "sources": [
+        {
+          "path": "engineering/a7/procurement/assembly-manifest.json",
+          "quote": "historical Molex 151340300 50±6 mm is not the A7 cable"
+        },
+        {
+          "path": "engineering/a7/mechanical/layout.json",
+          "pointer": "/power_cable_requirement/band"
+        }
+      ],
+      "rank": 4
+    },
+    {
+      "gate": "criterion:harness-depth",
+      "stage": "BENCH",
+      "question": "電源ケーブルの注文範囲 54–60 mm と、最小曲げ半径 2.0 mm を合否基準にしますか。",
+      "options": [
+        {
+          "id": "adopt",
+          "label": "提案どおり採る",
+          "consequence": "ケーブルの注文仕様と harness-depth の合否が決まる。業者がより狭い公差を保証すれば後で置き換える。"
+        },
+        {
+          "id": "wait",
+          "label": "ケーブル業者の保証値を待つ",
+          "consequence": "業者の回答までこの基準ゲートは閉じたまま。"
+        }
+      ],
+      "recommended": "adopt",
+      "reason": "54–60 mm は経路モデルの要求 57 ± 3 mm（±3 は仮定）、2.0 mm は 3HP の経路モデルが曲げに残した余裕。どちらも設計記録の値で、業者の回答で置き換えられる。",
+      "sources": [
+        {
+          "path": "engineering/a7/mechanical/layout.json",
+          "pointer": "/power_cable_requirement/band"
+        },
+        {
+          "path": "engineering/a7/mechanical/layout.json",
+          "pointer": "/variants/3hp/routes/adapter_to_controller_power/end_bend_room"
+        }
+      ],
+      "rank": 5
+    },
+    {
+      "gate": "assembly:rack-hardware",
+      "stage": "BENCH",
+      "question": "使うケースのレールとねじは何ですか。",
+      "options": [
+        {
+          "id": "name-case",
+          "label": "手持ちのケースの型番を伝える",
+          "consequence": "レールとねじの規格をそこから決め、パネル固定と挿抜荷重の経路（ジャック → ナット → パネル → ラックねじ）を試験できる。"
+        },
+        {
+          "id": "later",
+          "label": "後で決める",
+          "consequence": "PCB の発注には影響しないが、service-envelope など実機の取付が要る試験は進まない。"
+        }
+      ],
+      "recommended": "name-case",
+      "reason": "ケースのレール・ねじはどの記録にも指定がなく、オーナーの手持ちのケースで決まる。型番が分かればこちらで規格を調べられる。",
+      "sources": [
+        {
+          "path": "engineering/a5/mechanical/README.md",
+          "quote": "Actual case rails, neighboring modules and rack screws are not specified or modeled."
+        },
+        {
+          "path": "engineering/a7/mechanical/layout.json",
+          "pointer": "/supports/load_path/0"
+        }
+      ],
+      "rank": 6
+    },
+    {
+      "gate": "criterion:u7-stress",
+      "stage": "BENCH",
+      "question": "R7 を流れる電流の上限 0.313 mA（推定を含む計算）を合否基準にしますか。",
+      "options": [
+        {
+          "id": "adopt",
+          "label": "採る",
+          "consequence": "u7-stress の合否が決まる。上限は U7 入力の絶対最大 10 mA より十分小さい（約 1/32）。"
+        },
+        {
+          "id": "wait",
+          "label": "ラック電源の上限が資料で分かるまで待つ",
+          "consequence": "Doepfer の資料は ±12 V の公称値しか示さないので、資料が見つからずに閉じたままになる可能性が高い。"
+        }
+      ],
+      "recommended": "adopt",
+      "reason": "計算は CV_BUF が U6 の電源を超えないという推定を含むが、R7 の合計電流で判定するので D3 と U7 の分担に依存せず、10 mA まで大きな余裕がある。",
+      "sources": [
+        {
+          "path": "engineering/a7/docs/continuation/evidence-index.md",
+          "quote": "gives only nominal +12 V / -12 V with no tolerance or maximum"
+        },
+        {
+          "path": "engineering/a7/docs/continuation/evidence-index.md",
+          "quote": "it does not matter while the total R7 current is below 10 mA"
+        }
+      ],
+      "rank": 7
+    },
+    {
+      "gate": "criterion:thermal-optical",
+      "stage": "BENCH",
+      "question": "安定後の部品表面温度の上限を何度にしますか。",
+      "options": [
+        {
+          "id": "75",
+          "label": "提案値を 75 °C に改めて採る（PJ-324M の保存温度の上限）",
+          "consequence": "今の提案値 85 °C を 75 °C に改めてから採る（受入値の変更としてレビュー記録に残す）。PJ-324M は動作温度の欄が空欄なので、保存温度の上限を基板全体の上限にする。最も保守的。"
+        },
+        {
+          "id": "85",
+          "label": "今の提案値 85 °C のまま採る（動作温度が分かる部品の最低値）",
+          "consequence": "WS2812B などの動作上限と同じ。PJ-324M は動作温度が分からないまま 75 °C を超えうる。"
+        }
+      ],
+      "recommended": "75",
+      "reason": "温度の資料がある部品の中で一番低い数値は PJ-324M の保存温度 +75 °C で、動作温度は空欄。分からない側に合わせて 75 °C を推奨する。PETG/PMMA の温度限界は資料待ち（別項目）、見え方は試験時にオーナーが判断する。",
+      "sources": [
+        {
+          "path": ".claude/skills/component-a7-pj-324m/facts.json",
+          "fact_id": "fact-a7-pj-324m-storage-temperature"
+        },
+        {
+          "path": ".claude/skills/component-a7-pj-324m/facts.json",
+          "fact_id": "fact-a7-pj-324m-operating-temperature"
+        }
+      ],
+      "rank": 8
+    },
+    {
+      "gate": "criterion:service-envelope",
+      "stage": "BENCH",
+      "question": "ジャックの挿抜試験の回数を何回にし、保持力 10.0 N を合否基準にしますか。",
+      "options": [
+        {
+          "id": "100",
+          "label": "100 回 + 10.0 N",
+          "consequence": "パネルとナットの保持、割れ、ずれを確認する試験で、ジャックの寿命試験ではない。"
+        },
+        {
+          "id": "1000",
+          "label": "1,000 回 + 10.0 N",
+          "consequence": "摩耗の傾向も見られる。"
+        },
+        {
+          "id": "4000",
+          "label": "4,000 回 + 10.0 N（定格負荷での耐久回数）",
+          "consequence": "メーカーの耐久回数そのもので、試作の段階では時間がかかりすぎる。"
+        }
+      ],
+      "recommended": "100",
+      "reason": "メーカーは定格負荷で 4,000〜5,000 回の耐久を示しており、ジャック自体の寿命はそちらに頼れる。試作で見るのはパネル側の保持なので 100 回で足りる。10.0 N は挿抜力の上限（販売店掲載の写し）。",
+      "sources": [
+        {
+          "path": ".claude/skills/component-a7-pj-324m/sources.json",
+          "source_id": "src-a7-pj-324m-sofng-site",
+          "quote": "durability 6,000 / 5,000 cycles no load, 5,000 / 4,000 rated load"
+        },
+        {
+          "path": ".claude/skills/component-a7-pj-324m/facts.json",
+          "fact_id": "fact-a7-pj-324m-plug-force"
+        }
+      ],
+      "rank": 9
+    },
+    {
+      "gate": "criterion:firmware-waveforms",
+      "stage": "BENCH",
+      "question": "LED の T1L（1 ビットの Low 時間）の合否を何にしますか。データシートは 580–1000 ns、現行 FW は 220–420 ns です。",
+      "options": [
+        {
+          "id": "datasheet-fix-fw",
+          "label": "データシートの 580–1000 ns を採り、FW を直す",
+          "consequence": "現行 FW は不合格になる。A5 の FW は変更しない取り込みなので、直すには A7 用の新しい FW を作る必要がある。データシートの行が誤記だった場合は不要な変更になる。基板には影響しない。"
+        },
+        {
+          "id": "wait",
+          "label": "メーカーの訂正を待つ",
+          "consequence": "訂正が出るまでこの基準ゲートは閉じたまま。"
+        },
+        {
+          "id": "measure-lot",
+          "label": "購入ロットの実測で別にレビューする",
+          "consequence": "LED を買い、現行 FW の波形で正しく点灯するかと実際の T1L の許容をオシロで確かめる。結果はそのロットにだけ有効で、合否値はそのレビューで決める。"
+        }
+      ],
+      "recommended": "measure-lot",
+      "reason": "データシート V1.4 と V1.0 はどちらも T1L 580–1000 ns だが、記録はこの行が資料の誤記かどうかを決めていない（#13）。誤記かもしれない値で A7 用の FW を新しく作る前に、購入ロットで現行 FW の波形が通るかを確かめるのが安全。",
+      "sources": [
+        {
+          "path": ".claude/skills/component-ws2812b-2020-v6/facts.json",
+          "fact_id": "fact-ws2812b-2020-v6-bit-timing"
+        },
+        {
+          "path": ".claude/skills/component-ws2812b-2020-v6/facts.json",
+          "fact_id": "fact-ws2812b-2020-v6-bit-timing-v1-0"
+        }
+      ],
+      "rank": 10
+    },
+    {
+      "gate": "assembly:fixture-materials",
+      "stage": "BENCH",
+      "question": "治具の FR-4 板 4 枚の加工先と、提案された金物（スプリングプランジャ・スタンドオフ・ねじ・ピン等）を承認しますか。",
+      "options": [
+        {
+          "id": "approve",
+          "label": "提案どおり承認し、加工先を選ぶ",
+          "consequence": "治具を発注でき、fixture-contact の実機試験に進める。"
+        },
+        {
+          "id": "change",
+          "label": "金物や加工先を別に指定する",
+          "consequence": "指定に合わせて治具の設計を見直してから発注する。"
+        }
+      ],
+      "recommended": "approve",
+      "reason": "加工先はオーナーの選択で、金物は出典付きの候補が治具の記録に載る。プローブ板の穴間の残り幅は加工先に確認が要る。",
+      "sources": [
+        {
+          "path": "engineering/a7/fixture/manifest.json",
+          "quote": "Fabricator for the four FR-4 plates is an owner choice and not selected"
+        }
+      ],
+      "rank": 11
+    },
+    {
+      "gate": "assembly:prototype-and-release",
+      "stage": "RELEASE",
+      "question": "製造パッケージのレビューとリリースの承認を、いつ行いますか。",
+      "options": [
+        {
+          "id": "after-tests",
+          "label": "物理手順がすべて終わった後に行う",
+          "consequence": "試作ルート（最初の質問）だけ先に承認し、リリースは評価の結果を見て決める。"
+        },
+        {
+          "id": "now",
+          "label": "今行う",
+          "consequence": "評価の記録がないので、承認しても readiness の他のゲートで止まる。"
+        }
+      ],
+      "recommended": "after-tests",
+      "reason": "A7 は製造リリース前で、評価がない。試作ルートの承認とリリースは別の承認。",
+      "sources": [
+        {
+          "path": "engineering/a7/procurement/assembly-manifest.json",
+          "quote": "\"manufacturing_released\": false"
+        }
+      ],
+      "rank": 12
+    },
+    {
+      "gate": "manufacturing_release",
+      "stage": "RELEASE",
+      "question": "版に結び付いた製造リリースと発注を承認しますか。",
+      "options": [
+        {
+          "id": "after-tests",
+          "label": "すべての手順と書類がそろった後に承認する",
+          "consequence": "最後の 1 回だけ判断すればよい。"
+        },
+        {
+          "id": "now",
+          "label": "今承認する",
+          "consequence": "レビュー済みの製造ファイルがまだないので記録できない。"
+        }
+      ],
+      "recommended": "after-tests",
+      "reason": "リリースはレビュー済みの製造ファイル・数量・版に結び付けて記録する必要があり、今はそれらがない。",
+      "sources": [
+        {
+          "path": "engineering/a7/procurement/assembly-manifest.json",
+          "quote": "\"order_submitted\": false"
+        }
+      ],
+      "rank": 13
+    }
+  ],
+  "evidence_requests": [
+    {
+      "gate": "assembly:exact-part-evidence",
+      "routes": [
+        "OWNER_DOWNLOAD"
+      ],
+      "items": [
+        {
+          "what": "Nexperia PMEG4010CEJ の注文情報（,115 の包装）",
+          "value_needed": ",115 が何の包装（リール寸法・数量）か",
+          "url": "https://www.nexperia.com/product/PMEG4010CEJ",
+          "fallback_url": "https://assets.nexperia.com/documents/packing-information/SOD323F_115.pdf",
+          "access": "クラウドから 403"
+        },
+        {
+          "what": "JST SH コネクタのカタログ（SM04B-SRSS-TB）",
+          "value_needed": "No. 1 以外の回路番号の位置",
+          "url": "https://www.jst-mfg.com/product/pdf/eng/eSH.pdf",
+          "fallback_url": "https://www.jst-mfg.com/product/detail_e.php?series=231",
+          "access": "クラウドから 403"
+        },
+        {
+          "what": "SOFNG PJ-324M の製品ページの図面",
+          "value_needed": "推奨穴・スロット寸法、軸の高さ、ナット付属の有無",
+          "url": "https://www.sofng.com/Earphonesocket/2023/0325/1752.html",
+          "fallback_url": "https://www.lcsc.com/product-detail/C22355739.html",
+          "access": "図面画像はクラウドから取得済み。推奨穴寸法は画像に無い"
+        }
+      ]
+    },
+    {
+      "gate": "criterion:jack-dimensions",
+      "routes": [
+        "OWNER_DOWNLOAD",
+        "SUPPLIER_ANSWER",
+        "MEASUREMENT"
+      ],
+      "items": [
+        {
+          "what": "SOFNG PJ-324M の公差付き図面と推奨基板寸法",
+          "value_needed": "各寸法の公差、推奨穴、適合ナット",
+          "url": "https://www.sofng.com/Earphonesocket/2023/0325/1752.html",
+          "fallback_url": "https://www.lcsc.com/product-detail/C22355739.html",
+          "access": "見つからなければ供給元への質問 Q1/Q3/Q4、または購入ロットの実測で決める"
+        }
+      ]
+    },
+    {
+      "gate": "criterion:switch-fit",
+      "routes": [
+        "OWNER_DOWNLOAD",
+        "MEASUREMENT"
+      ],
+      "items": [
+        {
+          "what": "C&K PCM シリーズのデータシート（Littelfuse）",
+          "value_needed": "本体とペグの基準寸法の公差",
+          "url": "https://www.littelfuse.com/assetdocs/littelfuse-ck-slide-pcm-series-datasheet?assetguid=d2f6a96c-7a9a-4c4e-a5aa-4fe3075dffe5",
+          "fallback_url": null,
+          "access": "クラウドから 403。接触抵抗（3.3 V / 10 kΩ 負荷）は実部品の測定"
+        }
+      ]
+    },
+    {
+      "gate": "criterion:partial-rails",
+      "routes": [
+        "OWNER_DOWNLOAD"
+      ],
+      "items": [
+        {
+          "what": "STM32G031x4/x6/x8 データシート（DS12992）",
+          "value_needed": "I/O の注入電流と絶対最大定格",
+          "url": "https://www.st.com/resource/en/datasheet/stm32g031f8.pdf",
+          "fallback_url": "https://www.st.com/en/microcontrollers-microprocessors/stm32g031g8.html",
+          "access": "クラウドからは応答なし"
+        }
+      ]
+    },
+    {
+      "gate": "criterion:ldo-reverse",
+      "routes": [
+        "CLOUD_FETCH"
+      ],
+      "items": [
+        {
+          "what": "TI TLV755P データシート §7.1.4 Reverse Current",
+          "value_needed": "許容逆電流（数値はなく、VOUT ≤ VIN + 0.3 V の絶対最大と外付けショットキーの推奨だけ）",
+          "url": "https://www.ti.com/lit/ds/symlink/tlv755p.pdf",
+          "fallback_url": null,
+          "access": "クラウドから取得できる。オーナーの作業は不要"
+        }
+      ]
+    },
+    {
+      "gate": "criterion:effective-capacitance",
+      "routes": [
+        "CLOUD_FETCH"
+      ],
+      "items": [
+        {
+          "what": "Samsung CL21A106KAYNNNE / CL31A226KAHNNNE / CL10A475KO8NNNC の DC バイアス特性",
+          "value_needed": "使用電圧での実効容量",
+          "url": "https://product.samsungsem.com/mlcc/CL21A106KAYNNN.do",
+          "fallback_url": null,
+          "access": "クラウドから取得できる。必要容量は回路レビューで決める"
+        }
+      ]
+    },
+    {
+      "gate": "assembly:supply-observations",
+      "routes": [
+        "DATED_OBSERVATION"
+      ],
+      "items": [
+        {
+          "what": "数量を決めた後の、部品ごとの在庫・価格・最小購入数・納期",
+          "value_needed": "決めた数量で各行が入手できるか（日付付き）",
+          "url": "https://jlcpcb.com/partdetail/SOFNG-PJ324M/C22355739",
+          "fallback_url": null,
+          "access": "発注数量（オーナーの判断）の後。各行の JLC 部品ページを日付付きで保存する（URL は例）"
+        }
+      ]
+    },
+    {
+      "gate": "assembly:mechanical-materials",
+      "routes": [
+        "SUPPLIER_ANSWER"
+      ],
+      "items": [
+        {
+          "what": "PMMA 板・PETG 加工先の公差と、ねじの注文型番",
+          "value_needed": "板厚・ポケット深さの公差、PETG の造形条件、M2×18 / M1.6×4 の型番",
+          "url": null,
+          "fallback_url": null,
+          "access": "supplier-questions.md の「PMMA・PETG・組立」を加工先に送って回答を保存する"
+        }
+      ]
+    },
+    {
+      "gate": "criterion:pmma-supports",
+      "routes": [
+        "SUPPLIER_ANSWER"
+      ],
+      "items": [
+        {
+          "what": "PMMA/PETG 加工先の加工公差と許容締付トルク",
+          "value_needed": "締付トルクと保持荷重の合否値",
+          "url": null,
+          "fallback_url": null,
+          "access": "上と同じ質問の回答"
+        }
+      ]
+    },
+    {
+      "gate": "criterion:fixture-contact",
+      "routes": [
+        "MEASUREMENT"
+      ],
+      "items": [
+        {
+          "what": "完成治具の位置ずれの実測",
+          "value_needed": "許容位置ずれ・ストローク・荷重",
+          "url": null,
+          "fallback_url": null,
+          "access": "INGUN のプローブとレセプタクルの資料は取得済み。残りは完成治具の測定"
+        }
+      ]
+    },
+    {
+      "gate": "material:jack",
+      "routes": [
+        "DATED_OBSERVATION"
+      ],
+      "items": [
+        {
+          "what": "PJ-324M（C22355739）の在庫と価格",
+          "value_needed": "決めた数量で入手できるか（日付付き）",
+          "url": "https://www.lcsc.com/product-detail/C22355739.html",
+          "fallback_url": "https://jlcpcb.com/partdetail/SOFNG-PJ324M/C22355739",
+          "access": "JLC の在庫は実装専用で単品発送されないので、端子確認用の単品は LCSC から買う"
+        }
+      ]
+    },
+    {
+      "gate": "material:switch",
+      "routes": [
+        "DATED_OBSERVATION"
+      ],
+      "items": [
+        {
+          "what": "PCM13SMTR（C221842）の在庫と価格",
+          "value_needed": "決めた数量で入手できるか（日付付き）",
+          "url": "https://www.lcsc.com/product-detail/C221842.html",
+          "fallback_url": null,
+          "access": "在庫 0 への対応（オーナーの判断）に合わせて販売店を選ぶ"
+        }
+      ]
+    },
+    {
+      "gate": "material:finished_cables",
+      "routes": [
+        "SUPPLIER_ANSWER",
+        "DATED_OBSERVATION"
+      ],
+      "items": [
+        {
+          "what": "完成ケーブルの見積もり",
+          "value_needed": "長さ公差の保証、数量、納期",
+          "url": null,
+          "fallback_url": null,
+          "access": "supplier-questions.md の「完成ケーブル」を製作業者に送る"
+        }
+      ]
+    },
+    {
+      "gate": "material:pmma_petg_hardware",
+      "routes": [
+        "SUPPLIER_ANSWER",
+        "DATED_OBSERVATION"
+      ],
+      "items": [
+        {
+          "what": "PMMA・PETG・金物の見積もり",
+          "value_needed": "数量・納期・価格",
+          "url": null,
+          "fallback_url": null,
+          "access": "加工先への質問の回答と一緒に保存する"
+        }
+      ]
+    },
+    {
+      "gate": "material:fixture",
+      "routes": [
+        "DATED_OBSERVATION"
+      ],
+      "items": [
+        {
+          "what": "INGUN GKS-050 214 050 A 1000 / KS-050 E08 V-30 と FR-4 加工の見積もり",
+          "value_needed": "在庫・数量・納期",
+          "url": null,
+          "fallback_url": null,
+          "access": "治具の加工先と金物の承認（オーナーの判断）の後"
+        }
+      ]
+    },
+    {
+      "gate": "material:assembly_service",
+      "routes": [
+        "DATED_OBSERVATION"
+      ],
+      "items": [
+        {
+          "what": "基板実装サービスの見積もり（両面 SMD + THT）",
+          "value_needed": "受入可否、最小数量、納期、価格",
+          "url": null,
+          "fallback_url": null,
+          "access": "発注数量の後、製造ファイルで見積もりを取る（発注はしない）"
+        }
       ]
     }
   ]

@@ -11,6 +11,7 @@ Workflow F (`circuit/WORKFLOW.md`) の小さなプロジェクト専用記録で
 - `PROPOSED` はレビュー用の提案値です。`rationale` と、出典が与える確度 `basis_confidence` を持ち、値と確度は他の項目と同じく照合します。提案値が残る手順は、`criterion_status` が REVIEWED でも基準ゲートが解除されません。採るときは確度を `basis_confidence` に戻し、レビュー記録を付けます。
 - REVIEWED の手順は `criterion_accepted_by`（OWNER = オーナー本人、PROJECT_COORDINATOR_DELEGATED = オーナーが委ねた作業方針によるコーディネーター）と `criterion_acceptance_sha256`（受入値のダイジェスト）を持ちます。レビュー記録（`reviews/`）にも同じ `<手順ID> <ダイジェスト>` が書かれている必要があり、受入値を変えると基準ゲートは再び閉じます。
 - 生成物のフラグを前提にする手順は、文中の `<フラグ>=true` と同じものを `precondition_states` に書きます。フラグは `state_flags` に登録し、`closed_by` にそのフラグを満たせる手順を書きます。自分（または自分を待つ手順）しか満たせないフラグを前提にすると生成時にエラーになります。治具の `digital_fixture_complete` は実機の基準 5 を含むので fixture-contact しか満たせず、fixture-contact は進捗表示の `digital_criteria_1_to_4_met` を前提にします。readiness はこのフラグを参考として表示するだけで、発注ゲートは `digital_fixture_complete` を読みます。
+- `owner_decisions` は、オーナーの判断ゲートごとの質問・選択肢・各選択の結果・出典付きの推奨で、PCB 発注を先に止めるものから順に並べます（`stage`: PCB_ORDER → BENCH → RELEASE）。推奨は提案で、ゲートを解除しません。`evidence_requests` は資料・回答待ちのゲートごとに、入手の方法（オーナーのブラウザ保存 / クラウド取得 / 供給元の回答 / 日付付きの供給観測 / 実測）と URL を書きます。どちらも生成時に形と出典を検査し、現在のゲートに準備がないものは発注チェックリストに「準備がない」と表示します。
 - `criterion_class` と `owner_actions` は、readiness の各ゲートを CLOUD_DIGITAL / OWNER_DECISION / ACCESS_EVIDENCE_HOLD / PHYSICAL_ONLY に分け、オーナーの作業と結び付けます。
 - `supplier-questions.md`: 未送信の質問。送信や発注の承認ではありません。
 
