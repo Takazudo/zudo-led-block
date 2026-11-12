@@ -215,6 +215,20 @@
       "verdict": "PASS - primary-source confirmed",
       "depends_on": [],
       "expression": ""
+    },
+    {
+      "fact_id": "fact-tlv75533pdbvr-reverse-current",
+      "record_id": "rec-tlv75533pdbvr",
+      "source_id": "src-tlv75533pdbvr-ds-2026-11-11-p17",
+      "class": "ABSOLUTE_MAXIMUM",
+      "value": "no allowed reverse current specified; VOUT must not exceed VIN + 0.3 V",
+      "unit": "NONE",
+      "conditions": "the datasheet gives no reverse current or duration that is allowed; it says every reverse-current condition exceeds the absolute maximum VOUT > VIN + 0.3 V and recommends external protection (Schottky OUT to IN, Figure 7-3) if reverse current is expected; any reverse-current acceptance value would be a project choice, not a manufacturer limit",
+      "locator": "src-tlv75533pdbvr-ds-2026-11-11-p17: section 7.1.4 Reverse Current and Figure 7-3",
+      "provenance": "PRIMARY-SPEC",
+      "verdict": "PASS - primary-source confirmed",
+      "depends_on": [],
+      "expression": ""
     }
   ]
 }

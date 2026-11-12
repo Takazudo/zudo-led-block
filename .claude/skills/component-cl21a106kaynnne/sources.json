@@ -93,6 +93,29 @@
       "printed_page_label": "none printed (MLCC Product Manual page)",
       "locator": "MLCC Product Manual section 2-7 DC & AC Voltage Characteristics, row 2-7-1 and the Example of DC Bias characteristics figure",
       "evidence_extract": "2-7-1: capacitance of Class II MLCC changes with applied DC voltage; design must consider DC voltage, temperature and ageing characteristics. The figure is a generic example only (Sample: X5R 10uF, rated voltage 6.3V), not a curve for this part number. Hash comparison: A5 baseline: none. A5 recorded no datasheet URL or SHA-256 for C15850 (engineering/a5/passive_evidence/C15850.snapshot.json carries no dataManualUrl/dataManualOfficialLink and engineering/a5/electronics/source_provenance.json has no entry), so there is no A5 hash to compare; bytes inspected now (2026-11-08, HTTP 200, Content-Type application/download, 3011022 bytes, starts %PDF-, 38 pages; GET and the product page's POST form return identical bytes): f0fc85a253cc95f38950a4406c88834f52c4b7697226692cafbb98fbb7c5727a - no A5 baseline."
+    },
+    {
+      "source_id": "src-cl21a106kaynnne-samsung-dc-bias-2026-11-12",
+      "record_id": "rec-cl21a106kaynnne",
+      "document_title": "Samsung Electro-Mechanics MLCC product page CL21A106KAYNNN (DC Bias characteristic graph data)",
+      "document_number": "CL21A106KAYNNN",
+      "revision": "observed 2026-11-12T07:01Z",
+      "document_date": "2026-11-12",
+      "authoritative_url": "https://product.samsungsem.com/mlcc/CL21A106KAYNNN.do",
+      "alternate_authoritative_url": "",
+      "retrieval_date": "2026-11-12",
+      "authority_class": "MANUFACTURER_PRIMARY",
+      "sha256": "e2874998645b2a1fe094e57a3304307031251ceb79d90c8ef3e4eadf7601a8d0",
+      "availability": "AVAILABLE",
+      "physical_pdf_page_index": 0,
+      "printed_page_label": "n/a (HTML page)",
+      "document_format": "html",
+      "locator": "figure DC Bias graph: embedded chart JSON object graphType 'DCBias', chartList data rows (x = DC voltage in V, y = capacitance change in %)",
+      "evidence_extract": "DCBias graph for partsName CL21A106KAYNNN: conditions degC 25.0, measuring frequency 1 kHz, signal 1.0 Vrms (fields dsDcFre / dsDcSign), axis 'DeltaC'. Tabulated points used: -50.31 % at 5.0 V; -81.6 % at 12.208 V; A7 placements: C1 on +12V_PROT, C15 on +5V, C16 on VLED; 3.3368 V point -30.95 %; curve 0 to 25 V ends at -92.71 % at 25 V; no tabulated point at exactly 12 V (nearest 12.208 V). Page text: 'This page includes the typical data for design reference only.' The HTML was fetched by the cloud VM (HTTP 200, text/html); values were read from the embedded chart JSON, sorted by voltage, at tabulated points without interpolation.",
+      "refresh_policy": "HASH-LOCKED",
+      "retrieved_at": "2026-11-12T07:01Z",
+      "retained_bytes": "none in the repository",
+      "authority_note": "Samsung Electro-Mechanics is the manufacturer; the page itself labels the graph data as typical and for design reference only, so it is a typical curve, not a guaranteed minimum. The page is generated live, so a later fetch may return different bytes; the hash pins the 2026-11-12 observation only, and a re-check should compare the chart data, not only the hash."
     }
   ]
 }
