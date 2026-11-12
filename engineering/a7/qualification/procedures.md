@@ -1231,7 +1231,7 @@
 | 区分 | ゲート数 |
 |---|---:|
 | CLOUD_DIGITAL（クラウドで進められるデジタル作業） | 0 |
-| OWNER_DECISION（オーナーの判断） | 15 |
+| OWNER_DECISION（オーナーの判断） | 14 |
 | ACCESS_EVIDENCE_HOLD（外部の証跡・アクセス待ち） | 14 |
 | PHYSICAL_ONLY（実機が必要） | 21 |
 
@@ -1240,14 +1240,14 @@
 - fixture completion awaits the physical criterion 5 (fixture-contact)
 - assembly_manifest: supply-observations: Order quantity is 2 modules (owner decision). JLC stock, price, minimum, packaging, lead time and assembly applicability at that quantity are not observed for any line except C221842 (switch-supply); JLC attrition is not sourced; stock never reserved.
 - assembly_manifest: switch-supply: PCM13SMTR (C221842): 2 needed for 2 modules. JLC stock 0 at 2026-11-09; at 2026-11-12 JLC lists it buyable (Extended) with pre-order minimum 3 and presale 0 (field meanings inferred), tier prices without currency, no lead time. The owner wants to complete on JLC: on our reading, a pre-order (presale 0 may mean none can be placed now; fill depends on LCSC stock, not observed) or a Global Sourcing quote; otherwise wait, or accept a reviewed alternate with its own contact table and fit review.
-- assembly_manifest: panel-route: None of the three boards meets JLC single-board PCBA size; the panel route is not chosen. Panel by JLCPCB puts 10 controllers, 8 leaves or 2 adapters on each panel (20 PCM13SMTR for a 2-panel minimum if the PCBA quantity counts panels, not sourced); a repo-built panel holding 1 controller, 2 leaves or 1 adapter gives exactly 2 modules but is not built. Comparison in engineering/a7/jlc-package/package.json.
+- assembly_manifest: panel-route: None of the three boards meets JLC single-board PCBA size; the panel route is not chosen. Panel by JLCPCB puts 10 controllers, 8 leaves or 2 adapters on each panel (20 PCM13SMTR for a 2-panel minimum if the PCBA quantity counts panels, not sourced); a repo-built panel holding 1 controller, 2 leaves or 1 adapter gives exactly 2 modules; it is prepared (not released) in engineering/a7/jlc-package/panels/. Comparison in engineering/a7/jlc-package/package.json.
 - assembly_manifest: jack-switch-qualification: PJ-324M pin function (which of terminals 4/5 is the tip contact and which its normal; the supplier symbol contradicts the inferred 4 = tip, so this continuity test must precede any PCB order), slot, axis height and nut fit, and PCM13SMTR truth table and land fit, need received parts (jack-continuity, jack-dimensions, switch-fit).
 - assembly_manifest: exact-part-evidence: Exact-part gaps after the 2026-11-11 source recovery: PMEG4010CEJ ,115 packing variant not established by the datasheet; SM04B-SRSS-TB per-circuit numbering not printed beyond the No. 1 end; PJ-324M recommended hole/slot sizes, axis height and whether a nut ships with C22355739 not sourced.
 - assembly_manifest: finished-cables: Finished A7 power cable (57 mm, +/-3 ASSUMED), SH4 cables and IDC ribbon not selected; supplier answers and the owner choice of assembly are needed before physical routing checks.
 - assembly_manifest: mechanical-materials: PMMA sheet and pocket tolerances, PETG process and orderable fastener part numbers are not sourced; the model carries designations (M2x18, M1.6x4) and envelopes only.
 - assembly_manifest: rack-hardware: Owner rack rail/thread interface and fasteners not specified.
 - assembly_manifest: fixture-materials: Fixture digital criteria 1-4 met and a sourced hardware proposal recorded; the fabricator choice and approval of the proposed hardware are owner decisions. Physical contact/load tests (criterion 5) follow.
-- assembly_manifest: prototype-and-release: No owner-approved prototype route, no reviewed manufacturing package and no release approval.
+- assembly_manifest: prototype-and-release: No reviewed manufacturing package and no manufacturing release approval. A prototype route, when the owner approves one, is recorded in engineering/a7/qualification/records.json and is not a release.
 - jack-continuity: NOT_MEASURED: no run
 - jack-dimensions: criterion unresolved or review receipt missing
 - jack-dimensions: criterion has PROPOSED or UNRESOLVED acceptance values: tolerances
@@ -1297,7 +1297,6 @@
 - material jack: missing or ambiguous dated observation
 - material pmma_petg_hardware: missing or ambiguous dated observation
 - material switch: missing or ambiguous dated observation
-- owner-approved sample/prototype route absent for this revision and quantity
 - reviewed manufacturing files and explicit revision-bound owner release absent
 
 ## 別案
