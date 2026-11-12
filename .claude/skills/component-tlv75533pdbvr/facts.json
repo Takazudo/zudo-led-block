@@ -229,6 +229,20 @@
       "verdict": "PASS - primary-source confirmed",
       "depends_on": [],
       "expression": ""
+    },
+    {
+      "fact_id": "fact-tlv75533pdbvr-min-effective-capacitance",
+      "record_id": "rec-tlv75533pdbvr",
+      "source_id": "src-tlv75533pdbvr-ds-2026-11-11-p3",
+      "class": "RECOMMENDED_OPERATION",
+      "value": 0.47,
+      "unit": "uF",
+      "conditions": "effective capacitance at the IN pin and at the OUT pin each greater than 0.47 µF (Table 4-1 footnote 1); the pin rows ask for 1 µF or larger and the datasheet assumes 50 % nominal derating; a design-margin check, not a measurement of the fitted parts",
+      "locator": "src-tlv75533pdbvr-ds-2026-11-11-p3: Table 4-1 Pin Functions rows IN, OUT and footnote (1)",
+      "provenance": "PRIMARY-SPEC",
+      "verdict": "PASS - primary-source confirmed",
+      "depends_on": [],
+      "expression": ""
     }
   ]
 }

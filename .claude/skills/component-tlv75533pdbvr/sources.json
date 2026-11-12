@@ -167,6 +167,25 @@
       "locator": "SBVS320D physical PDF page 17 of 51 (index 16), printed page 17 and continuation on printed page 18: Section 7.1.4 Reverse Current and Figure 7-3",
       "evidence_extract": "7.1.4 Reverse Current: 'As with most LDOs, excessive reverse current potentially damages this device.' Reverse current flows through the pass-transistor body diode and at high magnitude degrades long-term reliability (electromigration, excessive heat dissipation, potential latch-up). Listed conditions (large COUT with collapsing input and little load; output biased while the input is not established; output biased above the input) 'all of which exceed the absolute maximum rating of VOUT > VIN + 0.3V'. Printed page 18: 'If reverse current flow is expected in the application, use external protection to protect the device.' Figure 7-3: example protection with a Schottky diode from OUT to IN. No allowed reverse current or duration is given. Text layer read with pdftotext -layout from the 2026-11-11 bytes (43ff53fb...).",
       "authority_note": "Second observation of the same URL. On 2026-11-11 the cloud VM received HTTP 200 application/pdf, 3073114 bytes, 51 pages, PDF ModDate 2026-11-09T06:30:46Z, SHA-256 43ff53fb1eca7df105c4b3c26017052aef20bf5eae154c45b175dbd9e71dca0c; this differs from the 96e2706d... bytes recorded by A5 and inspected on 2026-11-08 (kept unchanged in src-tlv75533pdbvr-ds-p3/p4/p5/p23/p28 as the earlier observation). Document number and revision letter are unchanged (SBVS320D, revised September 2024); the earlier bytes are not retained, so what changed is not diffable beyond the newer PDF ModDate. From these bytes, the p4 entry cites the temperature rows and this entry cites Section 7.1.4 Reverse Current and Figure 7-3."
+    },
+    {
+      "source_id": "src-tlv75533pdbvr-ds-2026-11-11-p3",
+      "record_id": "rec-tlv75533pdbvr",
+      "document_title": "TLV755P 500mA, Low-IQ, Small-Size, Low-Dropout Regulator datasheet",
+      "document_number": "SBVS320D",
+      "revision": "Rev. D (NOVEMBER 2017 - REVISED SEPTEMBER 2024)",
+      "document_date": "2024-09",
+      "authoritative_url": "https://www.ti.com/lit/ds/symlink/tlv755p.pdf",
+      "alternate_authoritative_url": "https://www.ti.com/product/TLV755P",
+      "retrieval_date": "2026-11-11",
+      "authority_class": "MANUFACTURER_PRIMARY",
+      "sha256": "43ff53fb1eca7df105c4b3c26017052aef20bf5eae154c45b175dbd9e71dca0c",
+      "availability": "AVAILABLE",
+      "physical_pdf_page_index": 2,
+      "printed_page_label": "3",
+      "locator": "SBVS320D physical PDF page 3 of 51 (index 2), printed page 3: Section 4 Table 4-1 Pin Functions rows IN and OUT, and footnote (1)",
+      "evidence_extract": "Table 4-1 Pin Functions: IN 'Input pin. A capacitor with a value of 1µF or larger is required from this pin to ground.(1)'; OUT 'Regulated output voltage pin. A capacitor with a value of 1µF or larger is required from this pin to ground.(1)'. Footnote (1): 'Make sure the nominal input and output capacitance is greater than 0.47µF. Throughout this document the nominal derating on these capacitors is 50%. Make sure the effective capacitance at the pin is greater than 0.47µF.' Text layer read with pdftotext -layout from the 2026-11-11 bytes (43ff53fb...).",
+      "authority_note": "Same bytes as the 2026-11-11 observation (43ff53fb...); this entry cites Table 4-1 and its footnote (1). Section 7.1.1 (printed page 15) repeats 0.47µF for output stability, 50 % derating, a 200µF maximum for best performance and a 1µF or greater input capacitor, but Section 7 is marked 'not part of the TI component specification', so it is not cited as a limit."
     }
   ]
 }

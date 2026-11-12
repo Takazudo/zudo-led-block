@@ -108,6 +108,7 @@ Coverage is stated one domain at a time and is never rolled up. A domain marked 
 - [`fact-ap63205wu-7-switching-frequency`](#fact-ap63205wu-7-switching-frequency)
 - [`fact-ap63205wu-7-operating-temperature`](#fact-ap63205wu-7-operating-temperature)
 - [`fact-ap63205wu-7-storage-temperature`](#fact-ap63205wu-7-storage-temperature)
+- [`fact-ap63205wu-7-recommended-capacitors`](#fact-ap63205wu-7-recommended-capacitors)
 
 ### placement
 
@@ -235,6 +236,20 @@ The range the manufacturer intends the part to be used in. Always narrower than 
   **Verdict:** PASS - primary-source confirmed · **Provenance:** PRIMARY-SPEC
 
   **Evidence:** [src-ap63205wu-7-ds-p3: Recommended Operating Conditions table row TA](#src-ap63205wu-7-ds-p3)
+</EvidenceFact>
+
+<EvidenceFact>
+  <EvidenceAnchor id="fact-ap63205wu-7-recommended-capacitors" />
+
+  **Fact:** `fact-ap63205wu-7-recommended-capacitors`
+
+  **Value:** C1 10; C2 2 x 22 · **Unit:** `uF`
+
+  **Conditions:** Table 3 nominal component values for the fixed 5 V AP63205 (C1 input, C2 output); the datasheet does not say whether these are nominal or effective values and states no minimum effective capacitance; Section 11 says a ceramic input capacitor greater than 10 µF is sufficient for most applications, and Section 12 (src-ap63205wu-7-ds-p13) says 22 µF to 68 µF output is sufficient for most applications, with Eq. 10 giving a load-transient lower bound that needs a load step and an allowed overshoot chosen by the project
+
+  **Verdict:** PASS - primary-source confirmed · **Provenance:** PRIMARY-SPEC
+
+  **Evidence:** [src-ap63205wu-7-ds-p12: Table 3 Recommended Component Selections for AP63205 row 5 V](#src-ap63205wu-7-ds-p12)
 </EvidenceFact>
 
 ### GUARANTEED\_ELECTRICAL
@@ -551,6 +566,46 @@ Every document cited above, with its identification, when it was retrieved, and 
 | Printed page    | 16 of 18       |
 
 **Locator:** Page 16: Ordering Information table, row AP63205WU-7
+
+**Availability:** AVAILABLE
+
+**Document URL:** [https://www.diodes.com/assets/Datasheets/AP63200-AP63201-AP63203-AP63205.pdf](https://www.diodes.com/assets/Datasheets/AP63200-AP63201-AP63203-AP63205.pdf)
+
+### AP63200/AP63201/AP63203/AP63205 3.8V to 32V input, 2A low IQ synchronous buck with enhanced EMI reduction
+
+<EvidenceAnchor id="src-ap63205wu-7-ds-p12" />
+
+**Source ID:** `src-ap63205wu-7-ds-p12` · **Authority:** MANUFACTURER\_PRIMARY
+
+| Field           | Recorded value |
+| --------------- | -------------- |
+| Document number | DS41326        |
+| Revision        | Rev. 3 - 2     |
+| Document date   | 2024-11        |
+| Retrieved       | 2026-11-08     |
+| Printed page    | 13 of 18       |
+
+**Locator:** Page 13: Table 3 Recommended Component Selections for AP63205 (row 5 V) and Section 11 Input Capacitor
+
+**Availability:** AVAILABLE
+
+**Document URL:** [https://www.diodes.com/assets/Datasheets/AP63200-AP63201-AP63203-AP63205.pdf](https://www.diodes.com/assets/Datasheets/AP63200-AP63201-AP63203-AP63205.pdf)
+
+### AP63200/AP63201/AP63203/AP63205 3.8V to 32V input, 2A low IQ synchronous buck with enhanced EMI reduction
+
+<EvidenceAnchor id="src-ap63205wu-7-ds-p13" />
+
+**Source ID:** `src-ap63205wu-7-ds-p13` · **Authority:** MANUFACTURER\_PRIMARY
+
+| Field           | Recorded value |
+| --------------- | -------------- |
+| Document number | DS41326        |
+| Revision        | Rev. 3 - 2     |
+| Document date   | 2024-11        |
+| Retrieved       | 2026-11-08     |
+| Printed page    | 14 of 18       |
+
+**Locator:** Page 14: Section 12 Output Capacitor, Eq. 9 and Eq. 10
 
 **Availability:** AVAILABLE
 
