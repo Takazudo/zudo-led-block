@@ -40,10 +40,10 @@
     },
     "assembly_manifest": {
       "path": "engineering/a7/procurement/assembly-manifest.json",
-      "sha256": "626d595caebbfbc064492d3ec1823c1fe74bdee26151db9214d0e08e9dc6a329"
+      "sha256": "9fcf9581b16de4f7f0b7fcbf2e18f28bbbbfcc0efeb224ab06f70a6632740d16"
     }
   },
-  "plan_sha256": "6f2c12b10cba9c073184aaf39af087fbc5162eb106d8215c3ba36011499c5f0b",
+  "plan_sha256": "f398da88f3169e36fd3dd990e2b92e65c0c8e1627211c38c540edbc08c6e26e2",
   "procedures": [
     {
       "id": "jack-continuity",
@@ -214,7 +214,7 @@
     "assembly_manifest: mechanical-materials: PMMA sheet and pocket tolerances, PETG process and orderable fastener part numbers are not sourced; the model carries designations (M2x18, M1.6x4) and envelopes only.",
     "assembly_manifest: rack-hardware: Owner rack rail/thread interface and fasteners not specified.",
     "assembly_manifest: fixture-materials: Fixture digital criteria 1-4 met and a sourced hardware proposal recorded; the fabricator choice and approval of the proposed hardware are owner decisions. Physical contact/load tests (criterion 5) follow.",
-    "assembly_manifest: prototype-and-release: No owner-approved prototype route, no reviewed manufacturing package and no release approval.",
+    "assembly_manifest: prototype-and-release: No reviewed manufacturing package and no manufacturing release approval. A prototype route, when the owner approves one, is recorded in engineering/a7/qualification/records.json and is not a release.",
     "jack-continuity: NOT_MEASURED: no run",
     "jack-dimensions: criterion unresolved or review receipt missing",
     "jack-dimensions: criterion has PROPOSED or UNRESOLVED acceptance values: tolerances",
@@ -264,7 +264,6 @@
     "material jack: missing or ambiguous dated observation",
     "material pmma_petg_hardware: missing or ambiguous dated observation",
     "material switch: missing or ambiguous dated observation",
-    "owner-approved sample/prototype route absent for this revision and quantity",
     "reviewed manufacturing files and explicit revision-bound owner release absent"
   ],
   "gates": [
@@ -342,7 +341,7 @@
       "gate": "assembly:prototype-and-release",
       "class": "OWNER_DECISION",
       "reasons": [
-        "assembly_manifest: prototype-and-release: No owner-approved prototype route, no reviewed manufacturing package and no release approval."
+        "assembly_manifest: prototype-and-release: No reviewed manufacturing package and no manufacturing release approval. A prototype route, when the owner approves one, is recorded in engineering/a7/qualification/records.json and is not a release."
       ]
     },
     {
@@ -617,13 +616,6 @@
       ]
     },
     {
-      "gate": "owner_prototype_route",
-      "class": "OWNER_DECISION",
-      "reasons": [
-        "owner-approved sample/prototype route absent for this revision and quantity"
-      ]
-    },
-    {
       "gate": "manufacturing_release",
       "class": "OWNER_DECISION",
       "reasons": [
@@ -633,7 +625,7 @@
   ],
   "gate_counts": {
     "CLOUD_DIGITAL": 0,
-    "OWNER_DECISION": 15,
+    "OWNER_DECISION": 14,
     "ACCESS_EVIDENCE_HOLD": 14,
     "PHYSICAL_ONLY": 21
   },

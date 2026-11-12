@@ -1231,7 +1231,7 @@
 | 区分 | ゲート数 |
 |---|---:|
 | CLOUD_DIGITAL（クラウドで進められるデジタル作業） | 0 |
-| OWNER_DECISION（オーナーの判断） | 15 |
+| OWNER_DECISION（オーナーの判断） | 14 |
 | ACCESS_EVIDENCE_HOLD（外部の証跡・アクセス待ち） | 14 |
 | PHYSICAL_ONLY（実機が必要） | 21 |
 
@@ -1247,7 +1247,7 @@
 - assembly_manifest: mechanical-materials: PMMA sheet and pocket tolerances, PETG process and orderable fastener part numbers are not sourced; the model carries designations (M2x18, M1.6x4) and envelopes only.
 - assembly_manifest: rack-hardware: Owner rack rail/thread interface and fasteners not specified.
 - assembly_manifest: fixture-materials: Fixture digital criteria 1-4 met and a sourced hardware proposal recorded; the fabricator choice and approval of the proposed hardware are owner decisions. Physical contact/load tests (criterion 5) follow.
-- assembly_manifest: prototype-and-release: No owner-approved prototype route, no reviewed manufacturing package and no release approval.
+- assembly_manifest: prototype-and-release: No reviewed manufacturing package and no manufacturing release approval. A prototype route, when the owner approves one, is recorded in engineering/a7/qualification/records.json and is not a release.
 - jack-continuity: NOT_MEASURED: no run
 - jack-dimensions: criterion unresolved or review receipt missing
 - jack-dimensions: criterion has PROPOSED or UNRESOLVED acceptance values: tolerances
@@ -1297,7 +1297,6 @@
 - material jack: missing or ambiguous dated observation
 - material pmma_petg_hardware: missing or ambiguous dated observation
 - material switch: missing or ambiguous dated observation
-- owner-approved sample/prototype route absent for this revision and quantity
 - reviewed manufacturing files and explicit revision-bound owner release absent
 
 ## 別案

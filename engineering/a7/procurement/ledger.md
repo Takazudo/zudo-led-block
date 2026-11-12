@@ -2,7 +2,7 @@
 
 自動生成。**製造承認・発注用ファイルではありません。** C221842 は 2026-11-09T09:18:55Z の JLC 観測で在庫 0・予約可能数 0・MOQ 3・包装数 3500。2026-11-12T08:57:07Z の JLC 掲載では購入可（Extended）・予約注文の最小 3・予約可能数 0（項目の意味はこちらの解釈）で、JLC 在庫の数値は掲載データにありませんでした。価格は通貨不明の段階価格だけです。確保済み在庫ではなく、納期・実装受入は未取得です。他の部品の現在の商取引条件も未取得で、過去の A5 価格を現在値として再掲しません。
 
-台帳 SHA-256: `626d595caebbfbc064492d3ec1823c1fe74bdee26151db9214d0e08e9dc6a329`。71 配置 / 81 実装点 / 台。
+台帳 SHA-256: `9fcf9581b16de4f7f0b7fcbf2e18f28bbbbfcc0efeb224ab06f70a6632740d16`。71 配置 / 81 実装点 / 台。
 
 ## 最初の発注数量: 2 台（オーナーの判断）
 
@@ -39,6 +39,6 @@
 | mechanical-materials | ACCESS_EVIDENCE_HOLD | PMMA sheet and pocket tolerances, PETG process and orderable fastener part numbers are not sourced; the model carries designations (M2x18, M1.6x4) and envelopes only. |
 | rack-hardware | OWNER_DECISION | Owner rack rail/thread interface and fasteners not specified. |
 | fixture-materials | OWNER_DECISION | Fixture digital criteria 1-4 met and a sourced hardware proposal recorded; the fabricator choice and approval of the proposed hardware are owner decisions. Physical contact/load tests (criterion 5) follow. |
-| prototype-and-release | OWNER_DECISION | No owner-approved prototype route, no reviewed manufacturing package and no release approval. |
+| prototype-and-release | OWNER_DECISION | No reviewed manufacturing package and no manufacturing release approval. A prototype route, when the owner approves one, is recorded in engineering/a7/qualification/records.json and is not a release. |
 
 外部部材・ケーブル・治具・サービスの詳細は `assembly-manifest.json` を参照してください。TP1–TP5 は購入部品に数えません。治具数量は台数に掛けません。B面・角度・位置は元の KiCad 出力とハッシュに追跡できますが、この台帳だけでは新規 native 検証や実装方向の承認になりません。

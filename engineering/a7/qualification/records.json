@@ -2,7 +2,26 @@
   "schema": 1,
   "runs": [],
   "material_observations": [],
-  "owner_prototype_route": null,
+  "owner_prototype_route": {
+    "identities": {
+      "board": "4453f818ede1e6d6c56e45ef43aa6faecb90990f3755f82c6d752258cd4d628e",
+      "population": "1891af356ead303127c6b7a99b8934b08aa25f465b4b2c96872f5d5d24afdc01",
+      "schematic": "01c09e69f2623bdbb98ae6176b4b52204ae817f927ecb311242d7ac1295fbc72",
+      "firmware": "0446cb0acfa7efe86a5f6c02beb7afa482daa419ecfce204fe9169487599765e",
+      "firmware_sources": "61155c23cc8f9c05f8d5712ecd8f009673c1929a34b8437b9869c202deb85c46",
+      "configuration": "195092c88e1b9270bae22d27f4a08f4a606f9be77008f3011f06d7a975b0f6a7",
+      "mechanical": "9cbc6ac99f5b05c7e3145f2016b6918cbc5d2b77170db31ed7155755cba0d591",
+      "fixture": "4af6e9440d9b31dd05f5f5e55a1f30485274a526e4066925b8ee929e7a642e23",
+      "assembly_manifest": "9fcf9581b16de4f7f0b7fcbf2e18f28bbbbfcc0efeb224ab06f70a6632740d16"
+    },
+    "scope": "Test-only prototype of A7 r2 (3HP / FR-4) to run the physical procedures in qualification/plan.json; the PJ-324M tip-terminal check runs before any PCB order. Not a manufacturing release.",
+    "quantity": "2 modules (owner decision order-quantity): 2 controller, 4 LED leaf, 2 power adapter boards with their parts, fixture and cables",
+    "constraints": "Owner words \"1 OK\" (2026-11-12) read as approve for owner_prototype_route only; panel route and switch supply not covered. No order, purchase or supplier message is made by this record; manufacturing_release needs a separate explicit owner approval. Procedure preconditions and safety conditions apply.",
+    "approval": {
+      "path": "engineering/a7/qualification/approvals/2026-11-12-owner-prototype-route.md",
+      "sha256": "b0795495e6235308253779da783a21421dc73f7a18bae8372416317f983318ab"
+    }
+  },
   "manufacturing_release": null,
   "order": null
 }
