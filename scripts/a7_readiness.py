@@ -538,13 +538,14 @@ def owner_page_errors(plan, root=ROOT):
         return ['owner_decisions and evidence_requests must be lists']
     keys = gate_keys(plan, root)
     for name, items in (('owner decision', decisions), ('evidence request', requests)):
-        gates = [x.get('gate') if isinstance(x, dict) else None for x in items]
+        gates = [x.get('gate') if isinstance(x, dict) and isinstance(x.get('gate'), str) else None for x in items]
         if len(gates) != len(set(gates)) or any(g not in keys for g in gates):
             errors.append(name + 's need unique, known gates')
     if [d.get('rank') for d in decisions if isinstance(d, dict)] != list(range(1, len(decisions) + 1)):
         errors.append('owner decisions must be ranked 1..n in list order')
     for d in decisions:
-        if not isinstance(d, dict) or set(d) != {'gate', 'rank', 'stage', 'question', 'options', 'recommended', 'reason', 'sources'}:
+        if (not isinstance(d, dict) or set(d) != {'gate', 'rank', 'stage', 'question', 'options', 'recommended', 'reason', 'sources'}
+                or not isinstance(d['gate'], str) or not isinstance(d['recommended'], str)):
             errors.append('owner decision needs exactly gate, rank, stage, question, options, recommended, reason, sources')
             continue
         where = d['gate'] + ': '
@@ -566,7 +567,7 @@ def owner_page_errors(plan, root=ROOT):
                 except (ValueError, OSError) as e:
                     errors.append(where + str(e))
     for r in requests:
-        if not isinstance(r, dict) or set(r) != {'gate', 'routes', 'items'}:
+        if not isinstance(r, dict) or set(r) != {'gate', 'routes', 'items'} or not isinstance(r['gate'], str):
             errors.append('evidence request needs exactly gate, routes, items')
             continue
         where = r['gate'] + ': '
@@ -576,7 +577,7 @@ def owner_page_errors(plan, root=ROOT):
         if not isinstance(items, list) or not items or any(
                 not isinstance(i, dict) or set(i) != {'what', 'value_needed', 'url', 'fallback_url', 'access'}
                 or not text_fields(i, ['what', 'value_needed', 'access'])
-                or any(i[k] is not None and not (isinstance(i[k], str) and i[k].startswith('https://')) for k in ('url', 'fallback_url')) for i in items):
+                or any(i[k] is not None and not (isinstance(i[k], str) and re.fullmatch(r'https://[^\s()<>{}|`\[\]]+', i[k])) for k in ('url', 'fallback_url')) for i in items):
             errors.append(where + 'each item needs what, value_needed, access and https url / fallback_url (or null)')
         elif 'OWNER_DOWNLOAD' in r['routes'] and not all(i['url'] for i in items):
             errors.append(where + 'an owner download names its URL')

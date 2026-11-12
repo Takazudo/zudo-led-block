@@ -3503,7 +3503,7 @@
         {
           "id": "1",
           "label": "1 台分（試作）",
-          "consequence": "在庫・価格の観測を最小数量で判断できる。PCM13SMTR は最小購入数 3 なので 3 個買うことになる。"
+          "consequence": "在庫・価格の観測を最小数量で判断できる。PCM13SMTR は JLC の掲載では最小購入数 3（別の販売店では異なる場合がある）。"
         },
         {
           "id": "10",
@@ -3552,15 +3552,15 @@
         }
       ],
       "recommended": "buy-elsewhere",
-      "reason": "代替品は接点表・ランド・適合を別にレビューしない限り使わない方針で、同じ型番なら設計と検証をそのまま使える。",
+      "reason": "同じ型番なら接点表・ランド・適合の検証をそのまま使える。代替品は、接点表と適合を別にレビューすることが条件になっている。",
       "sources": [
         {
           "path": "engineering/a7/procurement/assembly-manifest.json",
           "quote": "had JLC stock 0 / presale 0 at 2026-11-09"
         },
         {
-          "path": "engineering/a7/qualification/supplier-questions.md",
-          "quote": "代替品は別の接点表・ランド・fitレビューなしには採用しません"
+          "path": "engineering/a7/procurement/assembly-manifest.json",
+          "quote": "accept a reviewed alternate with its own contact table and fit review"
         }
       ],
       "rank": 3
@@ -3573,7 +3573,7 @@
         {
           "id": "assembler",
           "label": "ケーブル製作業者に仕様どおり注文する",
-          "consequence": "電源ケーブル 57 mm の公差を業者に保証してもらえ、harness-depth の注文範囲が確定する。見積もりと業者への連絡が必要。"
+          "consequence": "電源ケーブル 57 mm の公差の保証を業者に求められる（回答は未取得）。保証が得られれば harness-depth の注文範囲が確定する。見積もりと業者への連絡が必要。"
         },
         {
           "id": "diy",
@@ -3587,7 +3587,7 @@
         }
       ],
       "recommended": "assembler",
-      "reason": "A7 の電源ケーブルは 57 mm（±3 は仮定）で、A5 の Molex 151340300（50 ± 6 mm）は A7 用ではない。長さの保証が要るので製作業者に頼むのが確実。",
+      "reason": "A7 の電源ケーブルは 57 mm（±3 は仮定）で、A5 の Molex 151340300（50 ± 6 mm）は A7 用ではない。長さの公差を確かめられるのは製作業者なので、業者に頼むのが確実。",
       "sources": [
         {
           "path": "engineering/a7/procurement/assembly-manifest.json",
@@ -3697,12 +3697,12 @@
       "options": [
         {
           "id": "75",
-          "label": "75 °C（PJ-324M の保存温度の上限）",
-          "consequence": "PJ-324M は動作温度の欄が空欄なので、保存温度の上限を基板全体の上限にする。最も保守的。"
+          "label": "提案値を 75 °C に改めて採る（PJ-324M の保存温度の上限）",
+          "consequence": "今の提案値 85 °C を 75 °C に改めてから採る（受入値の変更としてレビュー記録に残す）。PJ-324M は動作温度の欄が空欄なので、保存温度の上限を基板全体の上限にする。最も保守的。"
         },
         {
           "id": "85",
-          "label": "85 °C（動作温度が分かる部品の最低値）",
+          "label": "今の提案値 85 °C のまま採る（動作温度が分かる部品の最低値）",
           "consequence": "WS2812B などの動作上限と同じ。PJ-324M は動作温度が分からないまま 75 °C を超えうる。"
         }
       ],
@@ -3764,7 +3764,7 @@
         {
           "id": "datasheet-fix-fw",
           "label": "データシートの 580–1000 ns を採り、FW を直す",
-          "consequence": "現行 FW は不合格になるので、評価の前に FW のタイミングを直す。基板には影響しない。"
+          "consequence": "現行 FW は不合格になる。A5 の FW は変更しない取り込みなので、直すには A7 用の新しい FW を作る必要がある。データシートの行が誤記だった場合は不要な変更になる。基板には影響しない。"
         },
         {
           "id": "wait",
@@ -3774,11 +3774,11 @@
         {
           "id": "measure-lot",
           "label": "購入ロットの実測で別にレビューする",
-          "consequence": "LED を買ってオシロで測る必要があり、結果はそのロットにだけ有効。"
+          "consequence": "LED を買い、現行 FW の波形で正しく点灯するかと実際の T1L の許容をオシロで確かめる。結果はそのロットにだけ有効で、合否値はそのレビューで決める。"
         }
       ],
-      "recommended": "datasheet-fix-fw",
-      "reason": "一次資料はデータシート V1.4（V1.0 も同じ）だけで、T1L は 580–1000 ns。FW の変更は基板の発注と独立に行える。",
+      "recommended": "measure-lot",
+      "reason": "データシート V1.4 と V1.0 はどちらも T1L 580–1000 ns だが、記録はこの行が資料の誤記かどうかを決めていない（#13）。誤記かもしれない値で A7 用の FW を新しく作る前に、購入ロットで現行 FW の波形が通るかを確かめるのが安全。",
       "sources": [
         {
           "path": ".claude/skills/component-ws2812b-2020-v6/facts.json",

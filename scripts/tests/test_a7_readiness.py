@@ -186,6 +186,16 @@ class ReadinessTests(unittest.TestCase):
         self.assertTrue(any('names its URL' in e for e in m.owner_page_errors(self.plan)))
         r['items'][0]['url'] = 'http://insecure.example'
         self.assertTrue(any('https url' in e for e in m.owner_page_errors(self.plan)))
+        r['items'][0]['url'] = 'https://example.com/a)b'
+        self.assertTrue(any('https url' in e for e in m.owner_page_errors(self.plan)))
+
+    def test_malformed_owner_entries_are_rejected_not_crashed(self):
+        self.plan['owner_decisions'][0]['gate'] = ['owner_prototype_route']
+        self.plan['owner_decisions'][1]['recommended'] = ['1']
+        self.plan['evidence_requests'][0]['gate'] = 7
+        errors = m.owner_page_errors(self.plan)
+        self.assertTrue(any('unique, known gates' in e for e in errors))
+        self.assertTrue(any('needs exactly gate' in e for e in errors))
 
     def test_prepared_decision_never_closes_a_gate(self):
         before = self.evaluate()
