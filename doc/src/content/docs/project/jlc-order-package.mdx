@@ -9,38 +9,38 @@ sidebar_position: 4.6
 発注ゲートは **BLOCKED** です。このページと `engineering/a7/jlc-package/` のファイルは、JLC の注文画面に何が必要かを確かめる予行で、リリースされた製造データではありません。下の「止めている項目」がすべて解消し、製造リリースが承認されるまで使いません。
 :::
 
-数量はオーナーの判断で **2 台**です。JLC の PCBA は 2 枚から受け付けます（2026-11-12 取得の JLC 公開能力表: Economic 2–50 枚、Standard 2–80000 枚）。
+数量はオーナーの判断で **2 台**です。JLC の PCBA 最小は 2 pcs です（2026-11-12 取得の JLC 公開能力表: Economic 2–50 pcs、Standard 2–80000 pcs。面付けした場合に pcs が単品か面付けシートかは未確認）。
 
 ## 止めている項目
 
 - `order-gate-blocked`: readiness の発注ゲートが BLOCKED。この一式は予行で、アップロード・発注しない。
 - `controller-needs-standard-pcba`（コントローラー）: Standard PCBA が必要（両面に部品がある（Economic は片面のみ））。Standard PCBA は捨て基板（レール）とフィデューシャルが必須。
-- `controller-below-pcba-minimum-size`（コントローラー）: 基板は 16.2 × 62.9 mm。Standard PCBA の単品は 70 × 70 mm から。面付け（レール付き）が必要で、リポジトリに面付けデータはない。JLC に面付けを頼むか、面付けデータを作るかの判断が要る。
+- `controller-below-pcba-minimum-size`（コントローラー）: 基板は 16.2 × 62.9 mm。Standard PCBA の単品は 70 × 70 mm から。最小寸法に届かせるには面付けかレールが要るが、JLC の能力表はどちらを受け付けるかを書いておらず、リポジトリに面付けデータはない。JLC に面付けを頼むか、面付けデータを作るかの判断が要る。
 - `controller-no-fiducials`（コントローラー）: 基板にフィデューシャルがない。Standard PCBA には必須。JLC の面付け指針では 5 mm の捨て基板に 1 mm のフィデューシャルを置くので、凍結した基板を変えずに面付け側で用意できる。
-- `controller-finish-not-specified`（コントローラー）: 表面処理が基板ファイルに記録されていない。注文画面で選ぶ（Standard PCBA は制限なし）。
+- `controller-finish-not-specified`（コントローラー）: 表面処理が基板ファイルに記録されていない。注文画面で選ぶ。
 - `controller-centroid-offsets`（コントローラー）: J1, J2, J5, SW1 はフットプリント原点がパッド中心から 0.05 mm 以上離れている。JLC は部品中心で置くので、JLC の配置プレビューで 1 点ずつ確かめる。
 - `controller-rotation-unverified`（コントローラー）: 回転角は KiCad のフットプリント角度のまま。JLC ライブラリとの向きの差は JLC の配置プレビューで未確認（B 面の部品を含む）。
-- `led_leaf-needs-standard-pcba`（LED リーフ）: Standard PCBA が必要（C52917434 は 2026-11-06 の A5 JLC 調査で Standard のみ、板厚 0.6 mm（Economic は 0.8–1.6 mm））。Standard PCBA は捨て基板（レール）とフィデューシャルが必須。
-- `led_leaf-below-pcba-minimum-size`（LED リーフ）: 基板は 9 × 82.5 mm。Standard PCBA の単品は 70 × 70 mm から。面付け（レール付き）が必要で、リポジトリに面付けデータはない。JLC に面付けを頼むか、面付けデータを作るかの判断が要る。
+- `led_leaf-needs-standard-pcba`（LED リーフ）: Standard PCBA が必要（C52917434 は 2026-11-12 の JLC 部品ページで Standard のみ、板厚 0.6 mm（Economic は 0.8–1.6 mm））。Standard PCBA は捨て基板（レール）とフィデューシャルが必須。
+- `led_leaf-below-pcba-minimum-size`（LED リーフ）: 基板は 9 × 82.5 mm。Standard PCBA の単品は 70 × 70 mm から。最小寸法に届かせるには面付けかレールが要るが、JLC の能力表はどちらを受け付けるかを書いておらず、リポジトリに面付けデータはない。JLC に面付けを頼むか、面付けデータを作るかの判断が要る。
 - `led_leaf-no-fiducials`（LED リーフ）: 基板にフィデューシャルがない。Standard PCBA には必須。JLC の面付け指針では 5 mm の捨て基板に 1 mm のフィデューシャルを置くので、凍結した基板を変えずに面付け側で用意できる。
-- `led_leaf-finish-not-specified`（LED リーフ）: 表面処理が基板ファイルに記録されていない。注文画面で選ぶ（Standard PCBA は制限なし）。
+- `led_leaf-finish-not-specified`（LED リーフ）: 表面処理が基板ファイルに記録されていない。注文画面で選ぶ。
 - `led_leaf-rotation-unverified`（LED リーフ）: 回転角は KiCad のフットプリント角度のまま。JLC ライブラリとの向きの差は JLC の配置プレビューで未確認。
-- `power_adapter-below-pcba-minimum-size`（電源アダプタ）: 基板は 8.8 × 30 mm。Economic PCBA の単品は 10 × 10 mm から。面付けが必要で、リポジトリに面付けデータはない。JLC に面付けを頼むか、面付けデータを作るかの判断が要る。
+- `power_adapter-below-pcba-minimum-size`（電源アダプタ）: 基板は 8.8 × 30 mm。Economic PCBA の単品は 10 × 10 mm から。最小寸法に届かせるには面付けかレールが要るが、JLC の能力表はどちらを受け付けるかを書いておらず、リポジトリに面付けデータはない。JLC に面付けを頼むか、面付けデータを作るかの判断が要る。
 - `power_adapter-finish-not-specified`（電源アダプタ）: 表面処理が基板ファイルに記録されていない。注文画面で選ぶ（Economic の 1.6 mm 緑は HASL か ENIG）。
 - `power_adapter-centroid-offsets`（電源アダプタ）: J1, J2 はフットプリント原点がパッド中心から 0.05 mm 以上離れている。JLC は部品中心で置くので、JLC の配置プレビューで 1 点ずつ確かめる。
 - `power_adapter-rotation-unverified`（電源アダプタ）: 回転角は KiCad のフットプリント角度のまま。JLC ライブラリとの向きの差は JLC の配置プレビューで未確認。
 - `part-C221842-not-in-stock`: PCM13SMTR（C221842）: 必要 2 個に対し、2026-11-12T10:35:39Z の JLC 在庫 0・予約可能数 0。
-- `leaf-thickness-not-1.6`（LED リーフ）: LED リーフの基板ファイルは 0.6 mm の FR-4（A5 の寸法）で 1.6 mm ではない。JLC の公差は ±10% ではなく ±0.1 mm。
+- `pcba-quantity-unit-with-panel-not-sourced`: JLC 能力表の PCBA 最小は「2 pcs」。面付けした場合に pcs が単品か面付けシートかは未取得なので、PCBA 数量（コントローラー 2・リーフ 4・電源アダプタ 2）は単品の枚数で、注文画面が求める数とは違うかもしれない。
 - `pcb-fabrication-quantity-not-sourced`: JLC が 1 設計あたり製造する基板の最小枚数は未取得。PCBA の数量（コントローラー 2・リーフ 4・電源アダプタ 2）とは別に入力する。
 - `physical-jack-switch-qualification`（コントローラー）: PJ-324M の端子 4/5 の機能は、PCB を発注する前に入荷した実物の導通で確かめる（調達台帳の jack-switch-qualification）。
 
 ## コントローラー（`controller`）
 
-PCB 注文画面に入れる値（基板ファイル `engineering/a7/electronics/controller/controller.kicad_pcb` から読んだもの）:
+PCB 注文画面に入れる値（材料以外は基板ファイル `engineering/a7/electronics/controller/controller.kicad_pcb` から読んだもの）:
 
 | 項目 | 値 |
 |---|---|
-| Base Material | FR-4 |
+| Base Material | FR-4（`engineering/a7/mechanical/layout.json decision.working_candidate`。基板ファイルには材料の記録なし） |
 | Layers | 4 |
 | Dimensions | 16.2 × 62.9 mm |
 | PCB Thickness | 1.6 mm（JLC 公差 ±10%） |
@@ -68,18 +68,18 @@ JLC の配置プレビューで中心を確かめる部品（フットプリン�
 
 ## LED リーフ（`led_leaf`）
 
-PCB 注文画面に入れる値（基板ファイル `engineering/a5/electronics/native/led_leaf/led_leaf.kicad_pcb` から読んだもの）:
+PCB 注文画面に入れる値（材料以外は基板ファイル `engineering/a5/electronics/native/led_leaf/led_leaf.kicad_pcb` から読んだもの）:
 
 | 項目 | 値 |
 |---|---|
-| Base Material | FR-4 |
+| Base Material | FR-4（`engineering/a7/mechanical/layout.json leaf_comparison.default`。基板ファイルには材料の記録なし） |
 | Layers | 2 |
 | Dimensions | 9 × 82.5 mm |
-| PCB Thickness | 0.6 mm（JLC 公差 ±0.1 mm） |
+| PCB Thickness | 0.6 mm（JLC 公差 ±0.1 mm。A5 の寸法を引き継いだ値で、0.6 mm は JLC の FR-4 の選択肢にある） |
 | Surface Finish | 基板ファイルに指定なし（注文時に選ぶ） |
 | 最小穴径 | 0.3 mm |
 | PCB Assembly | オン。PCBA Qty 4（2 枚/台 × 2 台） |
-| PCBA Type | Standard（理由: C52917434 は 2026-11-06 の A5 JLC 調査で Standard のみ、板厚 0.6 mm（Economic は 0.8–1.6 mm）） |
+| PCBA Type | Standard（理由: C52917434 は 2026-11-12 の JLC 部品ページで Standard のみ、板厚 0.6 mm（Economic は 0.8–1.6 mm）） |
 | Assembly Side | Top |
 | 実装点 | SMD 10・THT 0 |
 
@@ -92,11 +92,11 @@ PCB 注文画面に入れる値（基板ファイル `engineering/a5/electronics
 
 ## 電源アダプタ（`power_adapter`）
 
-PCB 注文画面に入れる値（基板ファイル `engineering/a5/electronics/native/power_adapter/power_adapter.kicad_pcb` から読んだもの）:
+PCB 注文画面に入れる値（材料以外は基板ファイル `engineering/a5/electronics/native/power_adapter/power_adapter.kicad_pcb` から読んだもの）:
 
 | 項目 | 値 |
 |---|---|
-| Base Material | FR-4 |
+| Base Material | 基板ファイルにもレイアウト記録にも材料の記録なし（注文画面で選ぶ） |
 | Layers | 2 |
 | Dimensions | 8.8 × 30 mm |
 | PCB Thickness | 1.6 mm（JLC 公差 ±10%） |
@@ -157,5 +157,5 @@ Basic 14 種・Extended 16 種。必要数は 2 台分です。在庫数は観�
 | C694586 | SPM4020T-4R7M-LR | Extended | 2 | 686 | 678 | JLC 在庫 |
 | C7250 | 0603WAF1005T5E | Basic | 4 | 795181 | 674710 | JLC 在庫 |
 
-区分と在庫は `engineering/a7/jlc-package/sources.json` の日付付き記録です（項目の意味はこちらの解釈で、JLC の定義ではありません）。Extended 部品は JLC で追加料金がかかる区分です（金額は未取得）。
+区分と在庫は `engineering/a7/jlc-package/sources.json` の日付付き記録です（項目の意味はこちらの解釈で、JLC の定義ではありません）。
 

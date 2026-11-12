@@ -7,6 +7,8 @@ import tempfile
 import unittest
 from unittest.mock import patch
 
+PAD = '(pad "{n}" smd rect (at {x} {y} {a}) (size {w} {h}) (layers "F.Cu"))'
+
 ROOT = Path(__file__).resolve().parents[2]
 spec = importlib.util.spec_from_file_location('jlc', ROOT / 'scripts/a7_jlc_package.py')
 J = importlib.util.module_from_spec(spec)
@@ -51,8 +53,13 @@ class PackageTests(unittest.TestCase):
         self.assertEqual(self.board('led_leaf')['pcba_tier']['tier'], 'STANDARD')
         self.assertEqual(self.board('power_adapter')['pcba_tier']['tier'], 'ECONOMIC')
         for blocker in ('controller-below-pcba-minimum-size', 'led_leaf-below-pcba-minimum-size', 'power_adapter-below-pcba-minimum-size',
-                        'controller-no-fiducials', 'led_leaf-no-fiducials', 'leaf-thickness-not-1.6', 'part-C221842-not-in-stock'):
+                        'controller-no-fiducials', 'led_leaf-no-fiducials', 'part-C221842-not-in-stock',
+                        'pcba-quantity-unit-with-panel-not-sourced'):
             self.assertIn(blocker, self.ids())
+        # 0.6 mm is a JLC FR-4 option, so the leaf thickness is a note, not a blocker
+        self.assertFalse(any('thickness' in i for i in self.ids()))
+        self.assertIn('C52917434', ' '.join(self.board('led_leaf')['pcba_tier']['reasons']))
+        self.assertIn('panel size 250 × 250 mm (no panel exists)', self.board('power_adapter')['pcba_tier']['criteria_not_evaluated'])
 
     def test_part_routes_follow_stock(self):
         sw = next(l for l in self.report['parts'] if l['lcsc'] == 'C221842')
@@ -60,19 +67,17 @@ class PackageTests(unittest.TestCase):
         self.assertEqual(len(self.report['parts']), 30)
 
     def test_stock_shortfall_becomes_a_named_blocker(self):
-        original = J.json.loads
-
-        def low_stock(text, *a, **k):
-            data = original(text, *a, **k)
-            if isinstance(data, dict) and 'parts' in data and 'pages' in data:
-                for p in data['parts']:
-                    if p['lcsc'] == 'C5270180':
-                        p['in_stock'] = 1
-                        p['preorder_available'] = 0
-            return data
-        with patch.object(J.json, 'loads', side_effect=low_stock):
-            report, _ = J.generate()
+        sources = json.loads((ROOT / J.SOURCES).read_text())
+        part = next(p for p in sources['parts'] if p['lcsc'] == 'C5270180')
+        part.update(in_stock=1, preorder_available=0)
+        report, _ = J.generate(sources=sources)
         self.assertIn('part-C5270180-not-in-stock', {b['id'] for b in report['blockers']})
+
+    def test_a_part_without_a_recorded_pcba_type_is_refused(self):
+        sources = json.loads((ROOT / J.SOURCES).read_text())
+        del next(p for p in sources['parts'] if p['lcsc'] == 'C5665')['pcba_type']
+        with self.assertRaisesRegex(ValueError, 'no recorded JLC PCBA type'):
+            J.generate(sources=sources)
 
     def test_changed_board_is_rejected(self):
         original = J.sha
@@ -96,9 +101,83 @@ class PackageTests(unittest.TestCase):
             self.assertEqual((ROOT / J.OUT / name).read_text(), text, name)
         self.assertEqual((ROOT / J.PAGE).read_text(), J.page(self.report))
 
+    def test_sourced_minimum_needs_a_quote_from_the_receipt(self):
+        basis = copy.deepcopy(json.loads((ROOT / J.LEDGER).read_text())['order_plan']['pcba_minimum_boards'])
+        cap = next(p for p in json.loads((ROOT / J.SOURCES).read_text())['pages'] if p['id'] == 'jlc-pcba-capabilities')
+        J.check_pcba_basis(basis, cap)
+        for quote in ('', '  ', None, 'Order Volume 1 - 50 pcs'):
+            bad = copy.deepcopy(basis)
+            bad['source']['quote'] = quote
+            with self.assertRaisesRegex(ValueError, 'quote is empty or not in'):
+                J.check_pcba_basis(bad, cap)
+        # an owner-reported minimum has no source to check, and must not trip the quote guard
+        J.check_pcba_basis({'status': 'OWNER_REPORTED', 'source': None}, cap)
+
     def test_export_refuses_a_directory_inside_the_repository(self):
         with self.assertRaises(SystemExit):
             J.export(ROOT / 'engineering')
+
+
+def synthetic_board(footprints, thickness=1.6, extra=''):
+    edge = ''.join(f'(gr_line (start {a}) (end {b}) (layer "Edge.Cuts"))' for a, b in (('0 0', '20 0'), ('20 0', '20 10'), ('20 10', '0 10'), ('0 10', '0 0')))
+    return (f'(kicad_pcb (general (thickness {thickness})) (layers (0 "F.Cu" signal) (31 "B.Cu" signal)) (setup (pcbplotparams (useauxorigin no)))'
+            f'{edge}{"".join(footprints)}{extra})')
+
+
+def footprint(ref, name, at, pads, layer='F.Cu'):
+    return f'(footprint "{name}" (layer "{layer}") (at {at}) (property "Reference" "{ref}") (property "Value" "v") {"".join(pads)})'
+
+
+class SyntheticBoardTests(unittest.TestCase):
+    def facts(self, text, **kw):
+        with tempfile.TemporaryDirectory() as d:
+            path = Path(d) / 'b.kicad_pcb'
+            path.write_text(synthetic_board(text, **kw))
+            with patch.object(J, 'ROOT', Path(d)):
+                return J.board_facts('b.kicad_pcb')
+
+    def centre(self, f):
+        return ((min(p[0] for p in f['pads']) + max(p[2] for p in f['pads'])) / 2, (min(p[1] for p in f['pads']) + max(p[3] for p in f['pads'])) / 2)
+
+    def test_centroid_of_an_off_centre_anchor_follows_the_pads_under_rotation_and_side(self):
+        # two 1 x 2 mm pads at x = 1 and x = 3 in the footprint frame: the pad centre is (2, 0) from the anchor
+        for at, layer in (('5 5 0', 'F.Cu'), ('5 5 90', 'F.Cu'), ('5 5 180', 'B.Cu'), ('5 5 270', 'B.Cu')):
+            angle = float(at.split()[2])
+            pads = [PAD.format(n=n, x=x, y=0, a=angle, w=1, h=2) for n, x in ((1, 1), (2, 3))]
+            f = self.facts([footprint('U1', 'lib:X', at, pads, layer)])['footprints'][0]
+            cx, cy = self.centre(f)
+            self.assertAlmostEqual(cx, 2.0)
+            self.assertAlmostEqual(cy, 0.0)
+            # the pad box keeps the 1 x 2 mm pad unrotated in the footprint frame whatever the footprint angle
+            self.assertAlmostEqual(f['pads'][0][2] - f['pads'][0][0], 1.0)
+            self.assertAlmostEqual(f['pads'][0][3] - f['pads'][0][1], 2.0)
+            self.assertEqual(f['layer'], layer)
+
+    def test_a_pad_turned_inside_its_footprint_swaps_its_box(self):
+        f = self.facts([footprint('R1', 'lib:R', '0 0 90', [PAD.format(n=1, x=0, y=0, a=180, w=1, h=2)])])['footprints'][0]
+        self.assertAlmostEqual(f['pads'][0][2] - f['pads'][0][0], 2.0)
+        self.assertAlmostEqual(f['pads'][0][3] - f['pads'][0][1], 1.0)
+
+    def tier(self, fps, sides=('Top',), thickness=1.6, layers=2, quantity=2, types=None):
+        facts = self.facts(fps, thickness=thickness)
+        fitted = {f['ref']: {'lcsc': 'C1', 'mount': 'SMD'} for f in facts['footprints']}
+        parts = {'C1': {'pcba_type': types or 'Economic and Standard'}}
+        return J.pcba_tier(facts, list(sides), layers, fitted, parts, quantity)
+
+    def test_tier_criteria(self):
+        ok = [footprint('U1', 'lib:SOT-23-6', '5 5 0', [PAD.format(n=n, x=x, y=0, a=0, w=0.3, h=1) for n, x in enumerate((0, 0.95, 1.9, 2.85))])]
+        self.assertEqual(self.tier(ok)['tier'], 'ECONOMIC')
+        fine = [footprint('U1', 'lib:QFN', '5 5 0', [PAD.format(n=n, x=x, y=0, a=0, w=0.2, h=1) for n, x in enumerate((0, 0.35, 0.7, 1.05))])]
+        small = [footprint('C1', 'lib:C_0201_0603Metric', '5 5 0', [PAD.format(n=1, x=0, y=0, a=0, w=0.3, h=0.3)])]
+        cases = {'both sides': self.tier(ok, sides=('Bottom', 'Top')), 'thickness': self.tier(ok, thickness=0.6),
+                 'layers': self.tier(ok, layers=1), 'quantity': self.tier(ok, quantity=51), 'pitch': self.tier(fine),
+                 'package': self.tier(small), 'standard-only part': self.tier(ok, types='Standard Only')}
+        for name, t in cases.items():
+            self.assertEqual(t['tier'], 'STANDARD', name)
+            self.assertEqual(len(t['reasons']), 1, (name, t['reasons']))
+            self.assertTrue(t['edge_rails_and_fiducials_required'])
+            self.assertFalse(t['single_board_fits'])
+        self.assertTrue(self.tier(ok)['single_board_fits'])
 
 
 if __name__ == '__main__':

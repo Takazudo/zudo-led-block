@@ -31,6 +31,7 @@ PAGE = Path('doc/src/content/docs/project/jlc-order-package.mdx')
 LEDGER = 'engineering/a7/procurement/assembly-manifest.json'
 READINESS = 'engineering/a7/qualification/readiness.json'
 PROFILE = 'engineering/a7/verification/native_gate.json'
+LAYOUT = 'engineering/a7/mechanical/layout.json'
 LABEL = 'zudo-led-block.a7-jlc-package'
 # Gerber layers JLC needs for a board; KiCad names. Inner layers are added for 4-layer boards.
 FAB_LAYERS = ['F.Cu', 'B.Cu', 'F.Paste', 'B.Paste', 'F.SilkS', 'B.SilkS', 'F.Mask', 'B.Mask', 'Edge.Cuts']
@@ -150,21 +151,21 @@ def norm_rot(r):
 
 
 # --- generate ------------------------------------------------------------------------------------
-def generate(root=ROOT):
+def generate(root=ROOT, sources=None):
+    """sources: an already-loaded sources.json (tests pass a modified copy); read from the repository when None."""
     proc = load_procurement()
     ledger = json.loads((root / LEDGER).read_text())
     if ledger != proc.generate(root):
         raise ValueError('procurement ledger is stale; run scripts/a7_procurement.py first')
-    sources = json.loads((root / SOURCES).read_text())
+    if sources is None:
+        sources = json.loads((root / SOURCES).read_text())
+    layout = json.loads((root / LAYOUT).read_text())
     parts = {p['lcsc']: p for p in sources['parts']}
     pages = {p['id']: p for p in sources['pages']}
     plan = ledger['order_plan']
     modules = plan['modules']
     basis = plan['pcba_minimum_boards']
-    if basis['status'] == 'SOURCED' and (basis['source']['sha256'], basis['source']['url']) != (pages['jlc-pcba-capabilities']['raw_sha256'], pages['jlc-pcba-capabilities']['url']):
-        raise ValueError('PCBA minimum source differs from the dated capability receipt in sources.json')
-    if not any(basis['source'] and basis['source'].get('quote', '') in e for e in pages['jlc-pcba-capabilities']['extracts']):
-        raise ValueError('PCBA minimum quote is not in the capability receipt extracts')
+    check_pcba_basis(basis, pages['jlc-pcba-capabilities'])
     rows_by_board = {}
     for r in ledger['population']:
         rows_by_board.setdefault(r['board'], {})[r['ref']] = r
@@ -217,7 +218,8 @@ def generate(root=ROOT):
             'assembly_sides': sides, 'tht_refs': tht, 'smd_count': sum(1 for r in fitted.values() if r['mount'] == 'SMD'),
             'bom_lines': len(bom_rows), 'cpl_rows': len(cpl), 'centroid_offsets': centroid,
             'files': [f'{name}_BOM_DRYRUN.csv', f'{name}_CPL_DRYRUN.csv'],
-            'pcba_tier': pcba_tier(facts, sides, layers, fitted, parts),
+            'base_material': base_material(name, layout),
+            'pcba_tier': pcba_tier(facts, sides, layers, fitted, parts, needed),
         })
     lines = []
     for l in plan['lines']:
@@ -249,6 +251,18 @@ def generate(root=ROOT):
     return report, files
 
 
+def check_pcba_basis(basis, cap):
+    """A SOURCED PCBA minimum must cite the dated capability receipt and quote one of its extracts."""
+    if basis['status'] != 'SOURCED':
+        return
+    src = basis.get('source') or {}
+    if (src.get('sha256'), src.get('url')) != (cap['raw_sha256'], cap['url']):
+        raise ValueError('PCBA minimum source differs from the dated capability receipt in sources.json')
+    quote = (src.get('quote') or '').strip()
+    if not quote or not any(quote in e for e in cap['extracts']):
+        raise ValueError('PCBA minimum quote is empty or not in the capability receipt extracts')
+
+
 def to_csv(header, rows):
     s = io.StringIO()
     w = csv.DictWriter(s, fieldnames=header, lineterminator='\n')
@@ -257,22 +271,43 @@ def to_csv(header, rows):
     return s.getvalue()
 
 
-# The 2026-11-06 A5 JLC audit recorded each part's PCBA type; parts listed there as Standard only force Standard PCBA.
-A5_AUDIT = 'engineering/a5/research_jlc_electronics.json'
+# Economic PCBA limits from the 2026-11-12 capability table extracts in sources.json.
+ECONOMIC_MAX_ORDER = 50
+ECONOMIC_MIN_PITCH_MM = 0.4
+SMALLER_THAN_0402 = re.compile(r'(?<!\d)(0201|01005|008004)(?!\d)')
 
 
-def standard_only_parts(root=ROOT):
-    audit = json.loads((root / A5_AUDIT).read_text())
-    return {p['code'] for p in audit['parts_audited'] if p.get('pcba_type') == 'Standard Only'}
+def base_material(name, layout):
+    """Laminate as recorded in the A7 mechanical layout; the board files carry no stackup material."""
+    if name == 'led_leaf' and layout['leaf_comparison']['default'] == 'fr4':
+        return {'value': 'FR-4', 'source': f'{LAYOUT} leaf_comparison.default'}
+    if name == 'controller' and 'FR-4' in layout['decision']['working_candidate']:
+        return {'value': 'FR-4', 'source': f'{LAYOUT} decision.working_candidate'}
+    return {'value': None, 'source': None}
 
 
-def pcba_tier(facts, sides, layers, fitted, parts):
-    """Which JLC PCBA tier the board needs, from the 2026-11-12 capability table (sources.json)."""
+def min_pad_pitch(footprint):
+    """Smallest pad-centre spacing in a footprint with four or more pads (the IC pin-spacing proxy), in mm."""
+    centres = [((p[0] + p[2]) / 2, (p[1] + p[3]) / 2) for p in footprint['pads']]
+    if len(centres) < 4:
+        return None
+    gaps = [math.dist(a, b) for i, a in enumerate(centres) for b in centres[i + 1:]]
+    gaps = [g for g in gaps if g > 1e-6]
+    return min(gaps) if gaps else None
+
+
+def pcba_tier(facts, sides, layers, fitted, parts, quantity):
+    """Which JLC PCBA tier the board needs, from the 2026-11-12 capability table and part pages (sources.json).
+
+    Lists every criterion it evaluated; the panel-size limit is not evaluated because no panel exists."""
     reasons, ja = [], []
-    only = sorted({r['lcsc'] for r in fitted.values()} & standard_only_parts())
+    missing = sorted({r['lcsc'] for r in fitted.values() if not parts.get(r['lcsc'], {}).get('pcba_type')})
+    if missing:
+        raise ValueError(f'no recorded JLC PCBA type for {missing}')
+    only = sorted({r['lcsc'] for r in fitted.values() if parts[r['lcsc']]['pcba_type'] == 'Standard Only'})
     if only:
-        reasons.append(', '.join(only) + ' listed as Standard-only PCBA in the 2026-11-06 A5 JLC audit')
-        ja.append(', '.join(only) + ' は 2026-11-06 の A5 JLC 調査で Standard のみ')
+        reasons.append(', '.join(only) + ' is "Standard Only" on its 2026-11-12 JLC part page')
+        ja.append(', '.join(only) + ' は 2026-11-12 の JLC 部品ページで Standard のみ')
     if len(sides) > 1:
         reasons.append('parts on both sides (Economic is single-sided placement only)')
         ja.append('両面に部品がある（Economic は片面のみ）')
@@ -282,12 +317,27 @@ def pcba_tier(facts, sides, layers, fitted, parts):
     if layers not in (2, 4, 6):
         reasons.append(f'{layers} copper layers (Economic takes 2, 4 or 6)')
         ja.append(f'銅層 {layers}（Economic は 2・4・6 層）')
+    small = sorted(f['ref'] for f in facts['footprints'] if f['ref'] in fitted and SMALLER_THAN_0402.search(f['footprint']))
+    if small:
+        reasons.append(f"packages smaller than 0402 ({', '.join(small)}; Economic minimum package 0402)")
+        ja.append(f"0402 より小さい部品（{', '.join(small)}。Economic の最小は 0402）")
+    pitches = {f['ref']: min_pad_pitch(f) for f in facts['footprints'] if f['ref'] in fitted and fitted[f['ref']]['mount'] == 'SMD'}
+    fine = sorted(ref for ref, g in pitches.items() if g is not None and g < ECONOMIC_MIN_PITCH_MM - 1e-6)
+    if fine:
+        reasons.append(f"pad spacing below 0.4 mm ({', '.join(fine)}; Economic minimum IC pin spacing 0.4 mm)")
+        ja.append(f"パッド間隔 0.4 mm 未満（{', '.join(fine)}。Economic の IC ピン間隔は 0.4 mm から）")
+    if quantity > ECONOMIC_MAX_ORDER:
+        reasons.append(f'quantity {quantity} (Economic takes 2–50)')
+        ja.append(f'数量 {quantity}（Economic は 2–50）')
     tier = 'STANDARD' if reasons else 'ECONOMIC'
     w, h = facts['outline_mm']['width'], facts['outline_mm']['height']
     minimum = 70 if tier == 'STANDARD' else 10
     return {'tier': tier, 'reasons': reasons, 'reasons_ja': ja, 'single_board_minimum_mm': minimum,
             'single_board_fits': w >= minimum and h >= minimum,
-            'edge_rails_and_fiducials_required': tier == 'STANDARD'}
+            'edge_rails_and_fiducials_required': tier == 'STANDARD',
+            'criteria_evaluated': ['part PCBA type', 'assembly sides', 'thickness', 'copper layers', 'package size (footprint name)',
+                                   'pad-centre spacing (SMD footprints with 4+ pads)', 'order quantity'],
+            'criteria_not_evaluated': ['panel size 250 × 250 mm (no panel exists)']}
 
 
 def named_blockers(boards, lines, pages, ledger, root):
@@ -308,18 +358,18 @@ def named_blockers(boards, lines, pages, ledger, root):
         if not t['single_board_fits']:
             m = t['single_board_minimum_mm']
             add(f'{n}-below-pcba-minimum-size', n,
-                f"Board is {size}; {t['tier'].title()} PCBA takes single boards from {m} × {m} mm. A panel is needed"
-                + (' with edge rails' if t['tier'] == 'STANDARD' else '') + ' and no panel exists in the repository.',
-                f"基板は {size}。{t['tier'].title()} PCBA の単品は {m} × {m} mm から。面付け" + ('（レール付き）' if t['tier'] == 'STANDARD' else '')
-                + 'が必要で、リポジトリに面付けデータはない。JLC に面付けを頼むか、面付けデータを作るかの判断が要る。')
+                f"Board is {size}; {t['tier'].title()} PCBA takes single boards from {m} × {m} mm. Reaching the minimum needs a panel or rails;"
+                ' the capability table does not say which JLC accepts, and no panel exists in the repository.',
+                f"基板は {size}。{t['tier'].title()} PCBA の単品は {m} × {m} mm から。最小寸法に届かせるには面付けかレールが要るが、"
+                'JLC の能力表はどちらを受け付けるかを書いておらず、リポジトリに面付けデータはない。JLC に面付けを頼むか、面付けデータを作るかの判断が要る。')
         if t['edge_rails_and_fiducials_required'] and not b['fiducials']:
             add(f'{n}-no-fiducials', n, 'No fiducials on the board; Standard PCBA needs fiducials. JLC panel guidance places 1 mm fiducials on 5 mm tooling edges, so a panel can carry them without changing the frozen board.',
                 '基板にフィデューシャルがない。Standard PCBA には必須。JLC の面付け指針では 5 mm の捨て基板に 1 mm のフィデューシャルを置くので、凍結した基板を変えずに面付け側で用意できる。')
         if not b['copper_finish_in_board_file']:
             eco = t['tier'] == 'ECONOMIC'
             add(f'{n}-finish-not-specified', n, 'Surface finish is not recorded in the board file; it must be chosen on the order form'
-                + (' (the Economic table lists HASL or ENIG for 1.6 mm green).' if eco else ' (Standard PCBA does not limit the finish).'),
-                '表面処理が基板ファイルに記録されていない。注文画面で選ぶ' + ('（Economic の 1.6 mm 緑は HASL か ENIG）。' if eco else '（Standard PCBA は制限なし）。'))
+                + (' (the Economic table lists HASL or ENIG for 1.6 mm green).' if eco else '.'),
+                '表面処理が基板ファイルに記録されていない。注文画面で選ぶ' + ('（Economic の 1.6 mm 緑は HASL か ENIG）。' if eco else '。'))
         if b['centroid_offsets']:
             refs = ', '.join(c['ref'] for c in b['centroid_offsets'])
             add(f'{n}-centroid-offsets', n, f"{len(b['centroid_offsets'])} parts have a footprint anchor more than {CENTROID_TOLERANCE_MM} mm from their pad centre ({refs}); "
@@ -334,11 +384,11 @@ def named_blockers(boards, lines, pages, ledger, root):
             add(f"part-{l['lcsc']}-not-in-stock", None,
                 f"{l['mpn']} ({l['lcsc']}): need {l['pieces_required']}, JLC in-stock {l['in_stock']}, pre-order available {l['preorder_available']} at {l['observed_at']}.",
                 f"{l['mpn']}（{l['lcsc']}）: 必要 {l['pieces_required']} 個に対し、{l['observed_at']} の JLC 在庫 {l['in_stock']}・予約可能数 {l['preorder_available']}。")
-    leaf = next((b for b in boards if b['board'] == 'led_leaf'), None)
-    if leaf and leaf['thickness_mm'] != 1.6:
-        th = fmt(leaf['thickness_mm'])
-        add('leaf-thickness-not-1.6', 'led_leaf', f'The LED leaf board file is {th} mm FR-4 (A5 geometry), not 1.6 mm; its JLC tolerance is ±0.1 mm, not ±10%.',
-            f'LED リーフの基板ファイルは {th} mm の FR-4（A5 の寸法）で 1.6 mm ではない。JLC の公差は ±10% ではなく ±0.1 mm。')
+    add('pcba-quantity-unit-with-panel-not-sourced', None,
+        'The PCBA minimum is "2 pcs" in the capability table; whether pcs counts single boards or panels once the boards are panelised is not sourced,'
+        ' so the PCBA quantities (2 controller, 4 leaf, 2 adapter) are single-board counts that may not be what the form asks for.',
+        'JLC 能力表の PCBA 最小は「2 pcs」。面付けした場合に pcs が単品か面付けシートかは未取得なので、PCBA 数量（コントローラー 2・リーフ 4・電源アダプタ 2）は'
+        '単品の枚数で、注文画面が求める数とは違うかもしれない。')
     add('pcb-fabrication-quantity-not-sourced', None,
         'The minimum bare-PCB quantity JLC fabricates per design was not read; the PCBA quantity (2 controller, 4 leaf, 2 adapter) is entered separately.',
         'JLC が 1 設計あたり製造する基板の最小枚数は未取得。PCBA の数量（コントローラー 2・リーフ 4・電源アダプタ 2）とは別に入力する。')
@@ -361,19 +411,20 @@ def page(report):
          'sidebar_position: 4.6', '---', '', ':::danger[予行です。アップロード・発注しないでください]',
          f"発注ゲートは **{report['order_eligibility']}** です。このページと `engineering/a7/jlc-package/` のファイルは、JLC の注文画面に何が必要かを確かめる予行で、"
          'リリースされた製造データではありません。下の「止めている項目」がすべて解消し、製造リリースが承認されるまで使いません。', ':::', '',
-         f"数量はオーナーの判断で **{report['modules']} 台**です。JLC の PCBA は 2 枚から受け付けます（2026-11-12 取得の JLC 公開能力表: Economic 2–50 枚、Standard 2–80000 枚）。", '',
+         f"数量はオーナーの判断で **{report['modules']} 台**です。JLC の PCBA 最小は 2 pcs です（2026-11-12 取得の JLC 公開能力表: Economic 2–50 pcs、Standard 2–80000 pcs。"
+         '面付けした場合に pcs が単品か面付けシートかは未確認）。', '',
          '## 止めている項目', '']
     for b in report['blockers']:
         L.append(f"- `{b['id']}`" + (f"（{BOARD_JA[b['board']]}）" if b['board'] else '') + ': ' + esc(b['ja']))
     for b in report['boards']:
         t = b['pcba_tier']
         L += ['', f"## {BOARD_JA[b['board']]}（`{b['board']}`）", '',
-              f"PCB 注文画面に入れる値（基板ファイル `{b['pcb']}` から読んだもの）:", '',
+              f"PCB 注文画面に入れる値（材料以外は基板ファイル `{b['pcb']}` から読んだもの）:", '',
               '| 項目 | 値 |', '|---|---|',
-              f"| Base Material | FR-4 |",
+              f"| Base Material | {base_row(b['base_material'])} |",
               f"| Layers | {b['copper_layers']} |",
               f"| Dimensions | {fmt(b['outline_mm']['width'])} × {fmt(b['outline_mm']['height'])} mm |",
-              f"| PCB Thickness | {fmt(b['thickness_mm'])} mm（JLC 公差 {b['thickness_tolerance']}） |",
+              f"| PCB Thickness | {fmt(b['thickness_mm'])} mm（JLC 公差 {b['thickness_tolerance']}" + ('。A5 の寸法を引き継いだ値で、0.6 mm は JLC の FR-4 の選択肢にある' if b['board'] == 'led_leaf' and b['thickness_mm'] < 1.0 else '') + '） |',
               f"| Surface Finish | {b['copper_finish_in_board_file'] or '基板ファイルに指定なし（注文時に選ぶ）'} |",
               f"| 最小穴径 | {fmt(b['min_drill_mm'])} mm |" if b['min_drill_mm'] else '| 最小穴径 | — |',
               f"| PCB Assembly | オン。PCBA Qty {b['pcba_quantity']}（{b['per_module']} 枚/台 × {report['modules']} 台） |",
@@ -392,9 +443,12 @@ def page(report):
           f"Basic {report['part_counts']['BASIC']} 種・Extended {report['part_counts']['EXTENDED']} 種。必要数は 2 台分です。在庫数は観測時点の値で、確保ではありません。", '',
           '| LCSC | 型番 | 区分 | 必要数 | JLC 在庫 | 予約可能数 | 経路 |', '|---|---|---|---:|---:|---:|---|']
     L += [f"| {l['lcsc']} | {esc(l['mpn'])} | {l['library'].title()} | {l['pieces_required']} | {l['in_stock']} | {l['preorder_available']} | {ROUTE_JA[l['route']]} |" for l in report['parts']]
-    L += ['', '区分と在庫は `engineering/a7/jlc-package/sources.json` の日付付き記録です（項目の意味はこちらの解釈で、JLC の定義ではありません）。'
-          'Extended 部品は JLC で追加料金がかかる区分です（金額は未取得）。', '']
+    L += ['', '区分と在庫は `engineering/a7/jlc-package/sources.json` の日付付き記録です（項目の意味はこちらの解釈で、JLC の定義ではありません）。', '']
     return '\n'.join(L) + '\n'
+
+
+def base_row(m):
+    return f"{m['value']}（`{m['source']}`。基板ファイルには材料の記録なし）" if m['value'] else '基板ファイルにもレイアウト記録にも材料の記録なし（注文画面で選ぶ）'
 
 
 def esc(text):

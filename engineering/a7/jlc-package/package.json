@@ -5,8 +5,8 @@
   "modules": 2,
   "decided_by": "OWNER",
   "sources": "engineering/a7/jlc-package/sources.json",
-  "ledger_sha256": "6b88cd3edffabb87bec3f28848c0309980c2cd81141cb31c393ec360ee175722",
-  "sources_sha256": "06a02247f1adbd1f00542f2387b2176b1a17a91bf7e67090e60383d0c64d2526",
+  "ledger_sha256": "325c0f4bbb68fc191e183bee65700bb9750d147cb737a06dc9cc63cd7e56e47b",
+  "sources_sha256": "d35ff2733426cea8b1dc88598e54a5a42d4abdcbdb44daafa6bfbefaf9e58135",
   "boards": [
     {
       "board": "controller",
@@ -88,6 +88,10 @@
         "controller_BOM_DRYRUN.csv",
         "controller_CPL_DRYRUN.csv"
       ],
+      "base_material": {
+        "value": "FR-4",
+        "source": "engineering/a7/mechanical/layout.json decision.working_candidate"
+      },
       "pcba_tier": {
         "tier": "STANDARD",
         "reasons": [
@@ -98,7 +102,19 @@
         ],
         "single_board_minimum_mm": 70,
         "single_board_fits": false,
-        "edge_rails_and_fiducials_required": true
+        "edge_rails_and_fiducials_required": true,
+        "criteria_evaluated": [
+          "part PCBA type",
+          "assembly sides",
+          "thickness",
+          "copper layers",
+          "package size (footprint name)",
+          "pad-centre spacing (SMD footprints with 4+ pads)",
+          "order quantity"
+        ],
+        "criteria_not_evaluated": [
+          "panel size 250 × 250 mm (no panel exists)"
+        ]
       }
     },
     {
@@ -139,19 +155,35 @@
         "led_leaf_BOM_DRYRUN.csv",
         "led_leaf_CPL_DRYRUN.csv"
       ],
+      "base_material": {
+        "value": "FR-4",
+        "source": "engineering/a7/mechanical/layout.json leaf_comparison.default"
+      },
       "pcba_tier": {
         "tier": "STANDARD",
         "reasons": [
-          "C52917434 listed as Standard-only PCBA in the 2026-11-06 A5 JLC audit",
+          "C52917434 is \"Standard Only\" on its 2026-11-12 JLC part page",
           "thickness 0.6 mm (Economic takes 0.8–1.6 mm)"
         ],
         "reasons_ja": [
-          "C52917434 は 2026-11-06 の A5 JLC 調査で Standard のみ",
+          "C52917434 は 2026-11-12 の JLC 部品ページで Standard のみ",
           "板厚 0.6 mm（Economic は 0.8–1.6 mm）"
         ],
         "single_board_minimum_mm": 70,
         "single_board_fits": false,
-        "edge_rails_and_fiducials_required": true
+        "edge_rails_and_fiducials_required": true,
+        "criteria_evaluated": [
+          "part PCBA type",
+          "assembly sides",
+          "thickness",
+          "copper layers",
+          "package size (footprint name)",
+          "pad-centre spacing (SMD footprints with 4+ pads)",
+          "order quantity"
+        ],
+        "criteria_not_evaluated": [
+          "panel size 250 × 250 mm (no panel exists)"
+        ]
       }
     },
     {
@@ -216,13 +248,29 @@
         "power_adapter_BOM_DRYRUN.csv",
         "power_adapter_CPL_DRYRUN.csv"
       ],
+      "base_material": {
+        "value": null,
+        "source": null
+      },
       "pcba_tier": {
         "tier": "ECONOMIC",
         "reasons": [],
         "reasons_ja": [],
         "single_board_minimum_mm": 10,
         "single_board_fits": false,
-        "edge_rails_and_fiducials_required": false
+        "edge_rails_and_fiducials_required": false,
+        "criteria_evaluated": [
+          "part PCBA type",
+          "assembly sides",
+          "thickness",
+          "copper layers",
+          "package size (footprint name)",
+          "pad-centre spacing (SMD footprints with 4+ pads)",
+          "order quantity"
+        ],
+        "criteria_not_evaluated": [
+          "panel size 250 × 250 mm (no panel exists)"
+        ]
       }
     }
   ],
@@ -552,8 +600,8 @@
     {
       "id": "controller-below-pcba-minimum-size",
       "board": "controller",
-      "text": "Board is 16.2 × 62.9 mm; Standard PCBA takes single boards from 70 × 70 mm. A panel is needed with edge rails and no panel exists in the repository.",
-      "ja": "基板は 16.2 × 62.9 mm。Standard PCBA の単品は 70 × 70 mm から。面付け（レール付き）が必要で、リポジトリに面付けデータはない。JLC に面付けを頼むか、面付けデータを作るかの判断が要る。"
+      "text": "Board is 16.2 × 62.9 mm; Standard PCBA takes single boards from 70 × 70 mm. Reaching the minimum needs a panel or rails; the capability table does not say which JLC accepts, and no panel exists in the repository.",
+      "ja": "基板は 16.2 × 62.9 mm。Standard PCBA の単品は 70 × 70 mm から。最小寸法に届かせるには面付けかレールが要るが、JLC の能力表はどちらを受け付けるかを書いておらず、リポジトリに面付けデータはない。JLC に面付けを頼むか、面付けデータを作るかの判断が要る。"
     },
     {
       "id": "controller-no-fiducials",
@@ -564,8 +612,8 @@
     {
       "id": "controller-finish-not-specified",
       "board": "controller",
-      "text": "Surface finish is not recorded in the board file; it must be chosen on the order form (Standard PCBA does not limit the finish).",
-      "ja": "表面処理が基板ファイルに記録されていない。注文画面で選ぶ（Standard PCBA は制限なし）。"
+      "text": "Surface finish is not recorded in the board file; it must be chosen on the order form.",
+      "ja": "表面処理が基板ファイルに記録されていない。注文画面で選ぶ。"
     },
     {
       "id": "controller-centroid-offsets",
@@ -582,14 +630,14 @@
     {
       "id": "led_leaf-needs-standard-pcba",
       "board": "led_leaf",
-      "text": "Needs Standard PCBA: C52917434 listed as Standard-only PCBA in the 2026-11-06 A5 JLC audit; thickness 0.6 mm (Economic takes 0.8–1.6 mm). Standard PCBA requires edge rails and fiducials.",
-      "ja": "Standard PCBA が必要（C52917434 は 2026-11-06 の A5 JLC 調査で Standard のみ、板厚 0.6 mm（Economic は 0.8–1.6 mm））。Standard PCBA は捨て基板（レール）とフィデューシャルが必須。"
+      "text": "Needs Standard PCBA: C52917434 is \"Standard Only\" on its 2026-11-12 JLC part page; thickness 0.6 mm (Economic takes 0.8–1.6 mm). Standard PCBA requires edge rails and fiducials.",
+      "ja": "Standard PCBA が必要（C52917434 は 2026-11-12 の JLC 部品ページで Standard のみ、板厚 0.6 mm（Economic は 0.8–1.6 mm））。Standard PCBA は捨て基板（レール）とフィデューシャルが必須。"
     },
     {
       "id": "led_leaf-below-pcba-minimum-size",
       "board": "led_leaf",
-      "text": "Board is 9 × 82.5 mm; Standard PCBA takes single boards from 70 × 70 mm. A panel is needed with edge rails and no panel exists in the repository.",
-      "ja": "基板は 9 × 82.5 mm。Standard PCBA の単品は 70 × 70 mm から。面付け（レール付き）が必要で、リポジトリに面付けデータはない。JLC に面付けを頼むか、面付けデータを作るかの判断が要る。"
+      "text": "Board is 9 × 82.5 mm; Standard PCBA takes single boards from 70 × 70 mm. Reaching the minimum needs a panel or rails; the capability table does not say which JLC accepts, and no panel exists in the repository.",
+      "ja": "基板は 9 × 82.5 mm。Standard PCBA の単品は 70 × 70 mm から。最小寸法に届かせるには面付けかレールが要るが、JLC の能力表はどちらを受け付けるかを書いておらず、リポジトリに面付けデータはない。JLC に面付けを頼むか、面付けデータを作るかの判断が要る。"
     },
     {
       "id": "led_leaf-no-fiducials",
@@ -600,8 +648,8 @@
     {
       "id": "led_leaf-finish-not-specified",
       "board": "led_leaf",
-      "text": "Surface finish is not recorded in the board file; it must be chosen on the order form (Standard PCBA does not limit the finish).",
-      "ja": "表面処理が基板ファイルに記録されていない。注文画面で選ぶ（Standard PCBA は制限なし）。"
+      "text": "Surface finish is not recorded in the board file; it must be chosen on the order form.",
+      "ja": "表面処理が基板ファイルに記録されていない。注文画面で選ぶ。"
     },
     {
       "id": "led_leaf-rotation-unverified",
@@ -612,8 +660,8 @@
     {
       "id": "power_adapter-below-pcba-minimum-size",
       "board": "power_adapter",
-      "text": "Board is 8.8 × 30 mm; Economic PCBA takes single boards from 10 × 10 mm. A panel is needed and no panel exists in the repository.",
-      "ja": "基板は 8.8 × 30 mm。Economic PCBA の単品は 10 × 10 mm から。面付けが必要で、リポジトリに面付けデータはない。JLC に面付けを頼むか、面付けデータを作るかの判断が要る。"
+      "text": "Board is 8.8 × 30 mm; Economic PCBA takes single boards from 10 × 10 mm. Reaching the minimum needs a panel or rails; the capability table does not say which JLC accepts, and no panel exists in the repository.",
+      "ja": "基板は 8.8 × 30 mm。Economic PCBA の単品は 10 × 10 mm から。最小寸法に届かせるには面付けかレールが要るが、JLC の能力表はどちらを受け付けるかを書いておらず、リポジトリに面付けデータはない。JLC に面付けを頼むか、面付けデータを作るかの判断が要る。"
     },
     {
       "id": "power_adapter-finish-not-specified",
@@ -640,10 +688,10 @@
       "ja": "PCM13SMTR（C221842）: 必要 2 個に対し、2026-11-12T10:35:39Z の JLC 在庫 0・予約可能数 0。"
     },
     {
-      "id": "leaf-thickness-not-1.6",
-      "board": "led_leaf",
-      "text": "The LED leaf board file is 0.6 mm FR-4 (A5 geometry), not 1.6 mm; its JLC tolerance is ±0.1 mm, not ±10%.",
-      "ja": "LED リーフの基板ファイルは 0.6 mm の FR-4（A5 の寸法）で 1.6 mm ではない。JLC の公差は ±10% ではなく ±0.1 mm。"
+      "id": "pcba-quantity-unit-with-panel-not-sourced",
+      "board": null,
+      "text": "The PCBA minimum is \"2 pcs\" in the capability table; whether pcs counts single boards or panels once the boards are panelised is not sourced, so the PCBA quantities (2 controller, 4 leaf, 2 adapter) are single-board counts that may not be what the form asks for.",
+      "ja": "JLC 能力表の PCBA 最小は「2 pcs」。面付けした場合に pcs が単品か面付けシートかは未取得なので、PCBA 数量（コントローラー 2・リーフ 4・電源アダプタ 2）は単品の枚数で、注文画面が求める数とは違うかもしれない。"
     },
     {
       "id": "pcb-fabrication-quantity-not-sourced",
