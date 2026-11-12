@@ -14,23 +14,19 @@ sidebar_position: 4.6
 ## 止めている項目
 
 - `order-gate-blocked`: readiness の発注ゲートが BLOCKED。この一式は予行で、アップロード・発注しない。
-- `controller-needs-standard-pcba`（コントローラー）: Standard PCBA が必要（両面に部品がある（Economic は片面のみ））。Standard PCBA は捨て基板（レール）とフィデューシャルが必須。
-- `controller-below-pcba-minimum-size`（コントローラー）: 基板は 16.2 × 62.9 mm。Standard PCBA の単品は 70 × 70 mm から。最小寸法に届かせるには面付けかレールが要るが、JLC の能力表はどちらを受け付けるかを書いておらず、リポジトリに面付けデータはない。JLC に面付けを頼むか、面付けデータを作るかの判断が要る。
-- `controller-no-fiducials`（コントローラー）: 基板にフィデューシャルがない。Standard PCBA には必須。JLC の面付け指針では 5 mm の捨て基板に 1 mm のフィデューシャルを置くので、凍結した基板を変えずに面付け側で用意できる。
+- `controller-jlc-panel`（コントローラー）: 単品では発注できない（Economic で満たさない条件: 片面実装）。経路: Standard PCBA で Panel by JLCPCB、5 列 × 2 行（レールなしで 81 × 125.8 mm、最小 70 × 70 mm）。Edge Rails をオンにし、フィデューシャルは JLC がレールに付ける。JLC の注文画面のプレビューで面付けを確かめる。
 - `controller-finish-not-specified`（コントローラー）: 表面処理が基板ファイルに記録されていない。注文画面で選ぶ。
 - `controller-centroid-offsets`（コントローラー）: J1, J2, J5, SW1 はフットプリント原点がパッド中心から 0.05 mm 以上離れている。JLC は部品中心で置くので、JLC の配置プレビューで 1 点ずつ確かめる。
 - `controller-rotation-unverified`（コントローラー）: 回転角は KiCad のフットプリント角度のまま。JLC ライブラリとの向きの差は JLC の配置プレビューで未確認（B 面の部品を含む）。
-- `led_leaf-needs-standard-pcba`（LED リーフ）: Standard PCBA が必要（C52917434 は 2026-11-12 の JLC 部品ページで Standard のみ、板厚 0.6 mm（Economic は 0.8–1.6 mm））。Standard PCBA は捨て基板（レール）とフィデューシャルが必須。
-- `led_leaf-below-pcba-minimum-size`（LED リーフ）: 基板は 9 × 82.5 mm。Standard PCBA の単品は 70 × 70 mm から。最小寸法に届かせるには面付けかレールが要るが、JLC の能力表はどちらを受け付けるかを書いておらず、リポジトリに面付けデータはない。JLC に面付けを頼むか、面付けデータを作るかの判断が要る。
-- `led_leaf-no-fiducials`（LED リーフ）: 基板にフィデューシャルがない。Standard PCBA には必須。JLC の面付け指針では 5 mm の捨て基板に 1 mm のフィデューシャルを置くので、凍結した基板を変えずに面付け側で用意できる。
+- `led_leaf-jlc-panel`（LED リーフ）: 単品では発注できない（Economic で満たさない条件: 全部品が JLC 部品ページで Economic 可、板厚 0.8–1.6 mm、単品 10 × 10 mm 以上）。経路: Standard PCBA で Panel by JLCPCB、8 列 × 1 行（レールなしで 72 × 82.5 mm、最小 70 × 70 mm）。Edge Rails をオンにし、フィデューシャルは JLC がレールに付ける。外形が単純な長方形ではない（Edge.Cuts 12 本）。JLC は Panel by JLCPCB には単純な外形を求め、複雑な外形は自分で面付けするよう書いている。この外形で Panel by JLCPCB を受けてもらえるか。
 - `led_leaf-finish-not-specified`（LED リーフ）: 表面処理が基板ファイルに記録されていない。注文画面で選ぶ。
 - `led_leaf-rotation-unverified`（LED リーフ）: 回転角は KiCad のフットプリント角度のまま。JLC ライブラリとの向きの差は JLC の配置プレビューで未確認。
-- `power_adapter-below-pcba-minimum-size`（電源アダプタ）: 基板は 8.8 × 30 mm。Economic PCBA の単品は 10 × 10 mm から。最小寸法に届かせるには面付けかレールが要るが、JLC の能力表はどちらを受け付けるかを書いておらず、リポジトリに面付けデータはない。JLC に面付けを頼むか、面付けデータを作るかの判断が要る。
+- `power_adapter-jlc-panel`（電源アダプタ）: 単品では発注できない（Economic で満たさない条件: 単品 10 × 10 mm 以上）。経路: Economic PCBA で Panel by JLCPCB、2 列 × 1 行（レールなしで 17.6 × 30 mm、最小 10 × 10 mm）。JLC は Panel by JLCPCB を V-cut で説明しており、V-cut は Economic 実装では使えない。Economic のまま Panel by JLCPCB をマウスバイトで作れるか。できなければ Standard で 70 × 70 mm の面付け（レールなしで 8 × 3 = 24 枚）になる。
 - `power_adapter-finish-not-specified`（電源アダプタ）: 表面処理が基板ファイルに記録されていない。注文画面で選ぶ（Economic の 1.6 mm 緑は HASL か ENIG）。
 - `power_adapter-centroid-offsets`（電源アダプタ）: J1, J2 はフットプリント原点がパッド中心から 0.05 mm 以上離れている。JLC は部品中心で置くので、JLC の配置プレビューで 1 点ずつ確かめる。
 - `power_adapter-rotation-unverified`（電源アダプタ）: 回転角は KiCad のフットプリント角度のまま。JLC ライブラリとの向きの差は JLC の配置プレビューで未確認。
 - `part-C221842-not-in-stock`: PCM13SMTR（C221842）: 必要 2 個に対し、2026-11-12T10:35:39Z の JLC 在庫 0・予約可能数 0。
-- `pcba-quantity-unit-with-panel-not-sourced`: JLC 能力表の PCBA 最小は「2 pcs」。面付けした場合に pcs が単品か面付けシートかは未取得なので、PCBA 数量（コントローラー 2・リーフ 4・電源アダプタ 2）は単品の枚数で、注文画面が求める数とは違うかもしれない。
+- `pcba-quantity-unit-with-panel-not-sourced`: JLC 能力表の PCBA 最小は「2 pcs」。Panel by JLCPCB では PCB の数量は面付けシートの枚数（JLC の説明: 10 pcs 注文で 10 シート）。PCBA の数量もシート数か、2 枚以上載った 1 シートで最小 2 pcs を満たすかは未取得。JLC の注文画面かサポートで確かめる質問: "With Panel by JLCPCB, does the PCBA Qty count panels or single boards, and does one panel holding 2 or more boards meet the 2-pcs PCBA minimum, or must 2 panels be assembled?"
 - `pcb-fabrication-quantity-not-sourced`: JLC が 1 設計あたり製造する基板の最小枚数は未取得。PCBA の数量（コントローラー 2・リーフ 4・電源アダプタ 2）とは別に入力する。
 - `physical-jack-switch-qualification`（コントローラー）: PJ-324M の端子 4/5 の機能は、PCB を発注する前に入荷した実物の導通で確かめる（調達台帳の jack-switch-qualification）。
 
@@ -46,10 +42,26 @@ PCB 注文画面に入れる値（材料以外は基板ファイル `engineering
 | PCB Thickness | 1.6 mm（JLC 公差 ±10%） |
 | Surface Finish | 基板ファイルに指定なし（注文時に選ぶ） |
 | 最小穴径 | 0.2 mm |
-| PCB Assembly | オン。PCBA Qty 2（1 枚/台 × 2 台） |
+| PCB Assembly | オン。必要な完成品は単品 2 枚（1 枚/台 × 2 台）。面付け時に PCBA Qty をシート数で入れるかは未確認（`pcba-quantity-unit-with-panel-not-sourced`） |
 | PCBA Type | Standard（理由: 両面に部品がある（Economic は片面のみ）） |
 | Assembly Side | Top と Bottom（両面） |
+| Panel By JLCPCB | Yes。列 (X) 5・行 (Y) 2（1 シート 10 枚）・Edge Rails あり |
 | 実装点 | SMD 56・THT 3（J1, J2, J5） |
+
+Economic で単品実装できるか（2026-11-12 の JLC 能力表と部品ページで判定）:
+
+| 条件 | この基板 | 判定 |
+|---|---|---|
+| 全部品が JLC 部品ページで Economic 可 | all "Economic and Standard" | 満たす |
+| 片面実装 | Bottom + Top | **満たさない** |
+| 板厚 0.8–1.6 mm | 1.6 mm | 満たす |
+| 銅層 2・4・6 | 4 | 満たす |
+| 0402 より小さい部品なし（フットプリント名） | none | 満たす |
+| パッド中心間隔 0.4 mm 以上（4 パッド以上の SMD） | 0.5 mm min | 満たす |
+| 数量 2–50 | 2 | 満たす |
+| 単品 10 × 10 mm 以上 | 16.2 × 62.9 mm | 満たす |
+
+結論: 単品では受けてもらえないので **Standard PCBA + Panel by JLCPCB**（リポジトリで面付けデータは作らない）。5 列 × 2 行で、レールを除いても 81 × 125.8 mm と最小 70 × 70 mm に届きます（JLC は既定で 5 mm の縁を足すので、注文画面のプレビューで少ない列数でも届くかもしれません）。分割: V-cut かマウスバイト。Edge Rails をオンにすると JLC がレールにフィデューシャルと治具穴を付けます（基板ごとには付かない）。
 
 アップロードするもの:
 
@@ -75,13 +87,33 @@ PCB 注文画面に入れる値（材料以外は基板ファイル `engineering
 | Base Material | FR-4（`engineering/a7/mechanical/layout.json leaf_comparison.default`。基板ファイルには材料の記録なし） |
 | Layers | 2 |
 | Dimensions | 9 × 82.5 mm |
-| PCB Thickness | 0.6 mm（JLC 公差 ±0.1 mm。A5 の寸法を引き継いだ値で、0.6 mm は JLC の FR-4 の選択肢にある） |
+| PCB Thickness | 0.6 mm（JLC 公差 ±0.1 mm。A5 の寸法を引き継いだ凍結値で、1.6 mm ではない。0.6 mm は JLC の FR-4 の選択肢にある） |
 | Surface Finish | 基板ファイルに指定なし（注文時に選ぶ） |
 | 最小穴径 | 0.3 mm |
-| PCB Assembly | オン。PCBA Qty 4（2 枚/台 × 2 台） |
+| PCB Assembly | オン。必要な完成品は単品 4 枚（2 枚/台 × 2 台）。面付け時に PCBA Qty をシート数で入れるかは未確認（`pcba-quantity-unit-with-panel-not-sourced`） |
 | PCBA Type | Standard（理由: C52917434 は 2026-11-12 の JLC 部品ページで Standard のみ、板厚 0.6 mm（Economic は 0.8–1.6 mm）） |
 | Assembly Side | Top |
+| Panel By JLCPCB | Yes。列 (X) 8・行 (Y) 1（1 シート 8 枚）・Edge Rails あり。確認待ちあり |
 | 実装点 | SMD 10・THT 0 |
+
+Economic で単品実装できるか（2026-11-12 の JLC 能力表と部品ページで判定）:
+
+| 条件 | この基板 | 判定 |
+|---|---|---|
+| 全部品が JLC 部品ページで Economic 可 | "Standard Only": C52917434 | **満たさない** |
+| 片面実装 | Top | 満たす |
+| 板厚 0.8–1.6 mm | 0.6 mm | **満たさない** |
+| 銅層 2・4・6 | 2 | 満たす |
+| 0402 より小さい部品なし（フットプリント名） | none | 満たす |
+| パッド中心間隔 0.4 mm 以上（4 パッド以上の SMD） | 1 mm min | 満たす |
+| 数量 2–50 | 4 | 満たす |
+| 単品 10 × 10 mm 以上 | 9 × 82.5 mm | **満たさない** |
+
+結論: 単品では受けてもらえないので **Standard PCBA + Panel by JLCPCB**（下の確認が取れればリポジトリで面付けデータは作らない）。8 列 × 1 行で、レールを除いても 72 × 82.5 mm と最小 70 × 70 mm に届きます（JLC は既定で 5 mm の縁を足すので、注文画面のプレビューで少ない列数でも届くかもしれません）。分割: V-cut かマウスバイト。辺が 15 mm 未満なので V-cut は追加料金。Edge Rails をオンにすると JLC がレールにフィデューシャルと治具穴を付けます（基板ごとには付かない）。
+
+JLC に確かめること（だめならリポジトリで面付けデータを作る）:
+
+- 外形が単純な長方形ではない（Edge.Cuts 12 本）。JLC は Panel by JLCPCB には単純な外形を求め、複雑な外形は自分で面付けするよう書いている。この外形で Panel by JLCPCB を受けてもらえるか。
 
 アップロードするもの:
 
@@ -102,10 +134,30 @@ PCB 注文画面に入れる値（材料以外は基板ファイル `engineering
 | PCB Thickness | 1.6 mm（JLC 公差 ±10%） |
 | Surface Finish | 基板ファイルに指定なし（注文時に選ぶ） |
 | 最小穴径 | 0.3 mm |
-| PCB Assembly | オン。PCBA Qty 2（1 枚/台 × 2 台） |
+| PCB Assembly | オン。必要な完成品は単品 2 枚（1 枚/台 × 2 台）。面付け時に PCBA Qty をシート数で入れるかは未確認（`pcba-quantity-unit-with-panel-not-sourced`） |
 | PCBA Type | Economic |
 | Assembly Side | Top |
+| Panel By JLCPCB | Yes。列 (X) 2・行 (Y) 1（1 シート 2 枚）。確認待ちあり |
 | 実装点 | SMD 0・THT 2（J1, J2） |
+
+Economic で単品実装できるか（2026-11-12 の JLC 能力表と部品ページで判定）:
+
+| 条件 | この基板 | 判定 |
+|---|---|---|
+| 全部品が JLC 部品ページで Economic 可 | all "Economic and Standard" | 満たす |
+| 片面実装 | Top | 満たす |
+| 板厚 0.8–1.6 mm | 1.6 mm | 満たす |
+| 銅層 2・4・6 | 2 | 満たす |
+| 0402 より小さい部品なし（フットプリント名） | none | 満たす |
+| パッド中心間隔 0.4 mm 以上（4 パッド以上の SMD） | no SMD footprint with 4+ pads | 満たす |
+| 数量 2–50 | 2 | 満たす |
+| 単品 10 × 10 mm 以上 | 8.8 × 30 mm | **満たさない** |
+
+結論: 単品では受けてもらえないので **Economic PCBA + Panel by JLCPCB**（下の確認が取れればリポジトリで面付けデータは作らない）。2 列 × 1 行で、レールを除いても 17.6 × 30 mm と最小 10 × 10 mm に届きます（JLC は既定で 5 mm の縁を足すので、注文画面のプレビューで少ない列数でも届くかもしれません）。分割: マウスバイト（Economic では V-cut 不可）。
+
+JLC に確かめること（だめならリポジトリで面付けデータを作る）:
+
+- JLC は Panel by JLCPCB を V-cut で説明しており、V-cut は Economic 実装では使えない。Economic のまま Panel by JLCPCB をマウスバイトで作れるか。できなければ Standard で 70 × 70 mm の面付け（レールなしで 8 × 3 = 24 枚）になる。
 
 アップロードするもの:
 

@@ -6,7 +6,7 @@
   "decided_by": "OWNER",
   "sources": "engineering/a7/jlc-package/sources.json",
   "ledger_sha256": "325c0f4bbb68fc191e183bee65700bb9750d147cb737a06dc9cc63cd7e56e47b",
-  "sources_sha256": "d35ff2733426cea8b1dc88598e54a5a42d4abdcbdb44daafa6bfbefaf9e58135",
+  "sources_sha256": "d08e5eb1bb123bb0946997862c8b4603275558068d53e5ccf7f4f9df49b634a6",
   "boards": [
     {
       "board": "controller",
@@ -100,21 +100,122 @@
         "reasons_ja": [
           "両面に部品がある（Economic は片面のみ）"
         ],
-        "single_board_minimum_mm": 70,
-        "single_board_fits": false,
-        "edge_rails_and_fiducials_required": true,
-        "criteria_evaluated": [
-          "part PCBA type",
-          "assembly sides",
-          "thickness",
-          "copper layers",
-          "package size (footprint name)",
-          "pad-centre spacing (SMD footprints with 4+ pads)",
-          "order quantity"
-        ],
-        "criteria_not_evaluated": [
-          "panel size 250 × 250 mm (no panel exists)"
+        "economic_checks": [
+          {
+            "criterion": "every part allowed for Economic on its JLC part page",
+            "ja": "全部品が JLC 部品ページで Economic 可",
+            "ok": true,
+            "value": "all \"Economic and Standard\""
+          },
+          {
+            "criterion": "single-sided placement",
+            "ja": "片面実装",
+            "ok": false,
+            "value": "Bottom + Top"
+          },
+          {
+            "criterion": "thickness 0.8–1.6 mm",
+            "ja": "板厚 0.8–1.6 mm",
+            "ok": true,
+            "value": "1.6 mm"
+          },
+          {
+            "criterion": "2, 4 or 6 copper layers",
+            "ja": "銅層 2・4・6",
+            "ok": true,
+            "value": "4"
+          },
+          {
+            "criterion": "no package smaller than 0402 (footprint name)",
+            "ja": "0402 より小さい部品なし（フットプリント名）",
+            "ok": true,
+            "value": "none"
+          },
+          {
+            "criterion": "pad-centre spacing 0.4 mm or more (SMD footprints with 4+ pads)",
+            "ja": "パッド中心間隔 0.4 mm 以上（4 パッド以上の SMD）",
+            "ok": true,
+            "value": "0.5 mm min"
+          },
+          {
+            "criterion": "quantity 2–50",
+            "ja": "数量 2–50",
+            "ok": true,
+            "value": "2"
+          }
         ]
+      },
+      "assembly_route": {
+        "economic_checks": [
+          {
+            "criterion": "every part allowed for Economic on its JLC part page",
+            "ja": "全部品が JLC 部品ページで Economic 可",
+            "ok": true,
+            "value": "all \"Economic and Standard\""
+          },
+          {
+            "criterion": "single-sided placement",
+            "ja": "片面実装",
+            "ok": false,
+            "value": "Bottom + Top"
+          },
+          {
+            "criterion": "thickness 0.8–1.6 mm",
+            "ja": "板厚 0.8–1.6 mm",
+            "ok": true,
+            "value": "1.6 mm"
+          },
+          {
+            "criterion": "2, 4 or 6 copper layers",
+            "ja": "銅層 2・4・6",
+            "ok": true,
+            "value": "4"
+          },
+          {
+            "criterion": "no package smaller than 0402 (footprint name)",
+            "ja": "0402 より小さい部品なし（フットプリント名）",
+            "ok": true,
+            "value": "none"
+          },
+          {
+            "criterion": "pad-centre spacing 0.4 mm or more (SMD footprints with 4+ pads)",
+            "ja": "パッド中心間隔 0.4 mm 以上（4 パッド以上の SMD）",
+            "ok": true,
+            "value": "0.5 mm min"
+          },
+          {
+            "criterion": "quantity 2–50",
+            "ja": "数量 2–50",
+            "ok": true,
+            "value": "2"
+          },
+          {
+            "criterion": "single board 10 × 10 mm or larger",
+            "ja": "単品 10 × 10 mm 以上",
+            "ok": true,
+            "value": "16.2 × 62.9 mm"
+          }
+        ],
+        "economic_single_board": false,
+        "route": "PANEL_BY_JLCPCB",
+        "tier": "STANDARD",
+        "panel": {
+          "columns_x": 5,
+          "rows_y": 2,
+          "boards_per_panel": 10,
+          "size_without_rails_mm": [
+            81.0,
+            125.8
+          ],
+          "panel_minimum_mm": 70,
+          "within_250_mm": true,
+          "edge_rails": true,
+          "vcut_extra_cost": false,
+          "separation": "V-cut or mouse bites",
+          "fiducials": "added to the edge rails by JLC (Panel by JLCPCB with Edge Rails)"
+        },
+        "open_questions": [],
+        "repo_panel_needed_if": []
       }
     },
     {
@@ -169,20 +270,129 @@
           "C52917434 は 2026-11-12 の JLC 部品ページで Standard のみ",
           "板厚 0.6 mm（Economic は 0.8–1.6 mm）"
         ],
-        "single_board_minimum_mm": 70,
-        "single_board_fits": false,
-        "edge_rails_and_fiducials_required": true,
-        "criteria_evaluated": [
-          "part PCBA type",
-          "assembly sides",
-          "thickness",
-          "copper layers",
-          "package size (footprint name)",
-          "pad-centre spacing (SMD footprints with 4+ pads)",
-          "order quantity"
+        "economic_checks": [
+          {
+            "criterion": "every part allowed for Economic on its JLC part page",
+            "ja": "全部品が JLC 部品ページで Economic 可",
+            "ok": false,
+            "value": "\"Standard Only\": C52917434"
+          },
+          {
+            "criterion": "single-sided placement",
+            "ja": "片面実装",
+            "ok": true,
+            "value": "Top"
+          },
+          {
+            "criterion": "thickness 0.8–1.6 mm",
+            "ja": "板厚 0.8–1.6 mm",
+            "ok": false,
+            "value": "0.6 mm"
+          },
+          {
+            "criterion": "2, 4 or 6 copper layers",
+            "ja": "銅層 2・4・6",
+            "ok": true,
+            "value": "2"
+          },
+          {
+            "criterion": "no package smaller than 0402 (footprint name)",
+            "ja": "0402 より小さい部品なし（フットプリント名）",
+            "ok": true,
+            "value": "none"
+          },
+          {
+            "criterion": "pad-centre spacing 0.4 mm or more (SMD footprints with 4+ pads)",
+            "ja": "パッド中心間隔 0.4 mm 以上（4 パッド以上の SMD）",
+            "ok": true,
+            "value": "1 mm min"
+          },
+          {
+            "criterion": "quantity 2–50",
+            "ja": "数量 2–50",
+            "ok": true,
+            "value": "4"
+          }
+        ]
+      },
+      "assembly_route": {
+        "economic_checks": [
+          {
+            "criterion": "every part allowed for Economic on its JLC part page",
+            "ja": "全部品が JLC 部品ページで Economic 可",
+            "ok": false,
+            "value": "\"Standard Only\": C52917434"
+          },
+          {
+            "criterion": "single-sided placement",
+            "ja": "片面実装",
+            "ok": true,
+            "value": "Top"
+          },
+          {
+            "criterion": "thickness 0.8–1.6 mm",
+            "ja": "板厚 0.8–1.6 mm",
+            "ok": false,
+            "value": "0.6 mm"
+          },
+          {
+            "criterion": "2, 4 or 6 copper layers",
+            "ja": "銅層 2・4・6",
+            "ok": true,
+            "value": "2"
+          },
+          {
+            "criterion": "no package smaller than 0402 (footprint name)",
+            "ja": "0402 より小さい部品なし（フットプリント名）",
+            "ok": true,
+            "value": "none"
+          },
+          {
+            "criterion": "pad-centre spacing 0.4 mm or more (SMD footprints with 4+ pads)",
+            "ja": "パッド中心間隔 0.4 mm 以上（4 パッド以上の SMD）",
+            "ok": true,
+            "value": "1 mm min"
+          },
+          {
+            "criterion": "quantity 2–50",
+            "ja": "数量 2–50",
+            "ok": true,
+            "value": "4"
+          },
+          {
+            "criterion": "single board 10 × 10 mm or larger",
+            "ja": "単品 10 × 10 mm 以上",
+            "ok": false,
+            "value": "9 × 82.5 mm"
+          }
         ],
-        "criteria_not_evaluated": [
-          "panel size 250 × 250 mm (no panel exists)"
+        "economic_single_board": false,
+        "route": "PANEL_BY_JLCPCB_TO_CONFIRM",
+        "tier": "STANDARD",
+        "panel": {
+          "columns_x": 8,
+          "rows_y": 1,
+          "boards_per_panel": 8,
+          "size_without_rails_mm": [
+            72.0,
+            82.5
+          ],
+          "panel_minimum_mm": 70,
+          "within_250_mm": true,
+          "edge_rails": true,
+          "vcut_extra_cost": true,
+          "separation": "V-cut or mouse bites",
+          "fiducials": "added to the edge rails by JLC (Panel by JLCPCB with Edge Rails)"
+        },
+        "open_questions": [
+          {
+            "id": "outline",
+            "text": "The outline is not a plain rectangle (12 Edge.Cuts segments). JLC asks for a simple outline for Panel by JLCPCB and says complex outlines must be panelised by the customer: does JLC accept this outline for Panel by JLCPCB?",
+            "ja": "外形が単純な長方形ではない（Edge.Cuts 12 本）。JLC は Panel by JLCPCB には単純な外形を求め、複雑な外形は自分で面付けするよう書いている。この外形で Panel by JLCPCB を受けてもらえるか。"
+          }
+        ],
+        "repo_panel_needed_if": [
+          "outline"
         ]
       }
     },
@@ -256,20 +466,129 @@
         "tier": "ECONOMIC",
         "reasons": [],
         "reasons_ja": [],
-        "single_board_minimum_mm": 10,
-        "single_board_fits": false,
-        "edge_rails_and_fiducials_required": false,
-        "criteria_evaluated": [
-          "part PCBA type",
-          "assembly sides",
-          "thickness",
-          "copper layers",
-          "package size (footprint name)",
-          "pad-centre spacing (SMD footprints with 4+ pads)",
-          "order quantity"
+        "economic_checks": [
+          {
+            "criterion": "every part allowed for Economic on its JLC part page",
+            "ja": "全部品が JLC 部品ページで Economic 可",
+            "ok": true,
+            "value": "all \"Economic and Standard\""
+          },
+          {
+            "criterion": "single-sided placement",
+            "ja": "片面実装",
+            "ok": true,
+            "value": "Top"
+          },
+          {
+            "criterion": "thickness 0.8–1.6 mm",
+            "ja": "板厚 0.8–1.6 mm",
+            "ok": true,
+            "value": "1.6 mm"
+          },
+          {
+            "criterion": "2, 4 or 6 copper layers",
+            "ja": "銅層 2・4・6",
+            "ok": true,
+            "value": "2"
+          },
+          {
+            "criterion": "no package smaller than 0402 (footprint name)",
+            "ja": "0402 より小さい部品なし（フットプリント名）",
+            "ok": true,
+            "value": "none"
+          },
+          {
+            "criterion": "pad-centre spacing 0.4 mm or more (SMD footprints with 4+ pads)",
+            "ja": "パッド中心間隔 0.4 mm 以上（4 パッド以上の SMD）",
+            "ok": true,
+            "value": "no SMD footprint with 4+ pads"
+          },
+          {
+            "criterion": "quantity 2–50",
+            "ja": "数量 2–50",
+            "ok": true,
+            "value": "2"
+          }
+        ]
+      },
+      "assembly_route": {
+        "economic_checks": [
+          {
+            "criterion": "every part allowed for Economic on its JLC part page",
+            "ja": "全部品が JLC 部品ページで Economic 可",
+            "ok": true,
+            "value": "all \"Economic and Standard\""
+          },
+          {
+            "criterion": "single-sided placement",
+            "ja": "片面実装",
+            "ok": true,
+            "value": "Top"
+          },
+          {
+            "criterion": "thickness 0.8–1.6 mm",
+            "ja": "板厚 0.8–1.6 mm",
+            "ok": true,
+            "value": "1.6 mm"
+          },
+          {
+            "criterion": "2, 4 or 6 copper layers",
+            "ja": "銅層 2・4・6",
+            "ok": true,
+            "value": "2"
+          },
+          {
+            "criterion": "no package smaller than 0402 (footprint name)",
+            "ja": "0402 より小さい部品なし（フットプリント名）",
+            "ok": true,
+            "value": "none"
+          },
+          {
+            "criterion": "pad-centre spacing 0.4 mm or more (SMD footprints with 4+ pads)",
+            "ja": "パッド中心間隔 0.4 mm 以上（4 パッド以上の SMD）",
+            "ok": true,
+            "value": "no SMD footprint with 4+ pads"
+          },
+          {
+            "criterion": "quantity 2–50",
+            "ja": "数量 2–50",
+            "ok": true,
+            "value": "2"
+          },
+          {
+            "criterion": "single board 10 × 10 mm or larger",
+            "ja": "単品 10 × 10 mm 以上",
+            "ok": false,
+            "value": "8.8 × 30 mm"
+          }
         ],
-        "criteria_not_evaluated": [
-          "panel size 250 × 250 mm (no panel exists)"
+        "economic_single_board": false,
+        "route": "PANEL_BY_JLCPCB_TO_CONFIRM",
+        "tier": "ECONOMIC",
+        "panel": {
+          "columns_x": 2,
+          "rows_y": 1,
+          "boards_per_panel": 2,
+          "size_without_rails_mm": [
+            17.6,
+            30.0
+          ],
+          "panel_minimum_mm": 10,
+          "within_250_mm": true,
+          "edge_rails": false,
+          "vcut_extra_cost": false,
+          "separation": "mouse bites (V-cut is not supported with Economic assembly)",
+          "fiducials": "not required (Economic)"
+        },
+        "open_questions": [
+          {
+            "id": "economic-panel-separation",
+            "text": "JLC describes Panel by JLCPCB with V-cut, and V-cut is not supported with Economic assembly: can Panel by JLCPCB use mouse bites so the board stays on Economic assembly? If not, Standard needs a 70 × 70 mm panel (8 × 3 = 24 boards before rails).",
+            "ja": "JLC は Panel by JLCPCB を V-cut で説明しており、V-cut は Economic 実装では使えない。Economic のまま Panel by JLCPCB をマウスバイトで作れるか。できなければ Standard で 70 × 70 mm の面付け（レールなしで 8 × 3 = 24 枚）になる。"
+          }
+        ],
+        "repo_panel_needed_if": [
+          "economic-panel-separation"
         ]
       }
     }
@@ -592,22 +911,10 @@
       "ja": "readiness の発注ゲートが BLOCKED。この一式は予行で、アップロード・発注しない。"
     },
     {
-      "id": "controller-needs-standard-pcba",
+      "id": "controller-jlc-panel",
       "board": "controller",
-      "text": "Needs Standard PCBA: parts on both sides (Economic is single-sided placement only). Standard PCBA requires edge rails and fiducials.",
-      "ja": "Standard PCBA が必要（両面に部品がある（Economic は片面のみ））。Standard PCBA は捨て基板（レール）とフィデューシャルが必須。"
-    },
-    {
-      "id": "controller-below-pcba-minimum-size",
-      "board": "controller",
-      "text": "Board is 16.2 × 62.9 mm; Standard PCBA takes single boards from 70 × 70 mm. Reaching the minimum needs a panel or rails; the capability table does not say which JLC accepts, and no panel exists in the repository.",
-      "ja": "基板は 16.2 × 62.9 mm。Standard PCBA の単品は 70 × 70 mm から。最小寸法に届かせるには面付けかレールが要るが、JLC の能力表はどちらを受け付けるかを書いておらず、リポジトリに面付けデータはない。JLC に面付けを頼むか、面付けデータを作るかの判断が要る。"
-    },
-    {
-      "id": "controller-no-fiducials",
-      "board": "controller",
-      "text": "No fiducials on the board; Standard PCBA needs fiducials. JLC panel guidance places 1 mm fiducials on 5 mm tooling edges, so a panel can carry them without changing the frozen board.",
-      "ja": "基板にフィデューシャルがない。Standard PCBA には必須。JLC の面付け指針では 5 mm の捨て基板に 1 mm のフィデューシャルを置くので、凍結した基板を変えずに面付け側で用意できる。"
+      "text": "Not orderable as single boards (Economic: single-sided placement fails). Route: Standard PCBA with Panel by JLCPCB, 5 columns × 2 rows (81 × 125.8 mm before rails, minimum 70 × 70 mm); edge rails on, JLC adds fiducials to the rails. The JLC order-form preview must confirm the panel.",
+      "ja": "単品では発注できない（Economic で満たさない条件: 片面実装）。経路: Standard PCBA で Panel by JLCPCB、5 列 × 2 行（レールなしで 81 × 125.8 mm、最小 70 × 70 mm）。Edge Rails をオンにし、フィデューシャルは JLC がレールに付ける。JLC の注文画面のプレビューで面付けを確かめる。"
     },
     {
       "id": "controller-finish-not-specified",
@@ -628,22 +935,10 @@
       "ja": "回転角は KiCad のフットプリント角度のまま。JLC ライブラリとの向きの差は JLC の配置プレビューで未確認（B 面の部品を含む）。"
     },
     {
-      "id": "led_leaf-needs-standard-pcba",
+      "id": "led_leaf-jlc-panel",
       "board": "led_leaf",
-      "text": "Needs Standard PCBA: C52917434 is \"Standard Only\" on its 2026-11-12 JLC part page; thickness 0.6 mm (Economic takes 0.8–1.6 mm). Standard PCBA requires edge rails and fiducials.",
-      "ja": "Standard PCBA が必要（C52917434 は 2026-11-12 の JLC 部品ページで Standard のみ、板厚 0.6 mm（Economic は 0.8–1.6 mm））。Standard PCBA は捨て基板（レール）とフィデューシャルが必須。"
-    },
-    {
-      "id": "led_leaf-below-pcba-minimum-size",
-      "board": "led_leaf",
-      "text": "Board is 9 × 82.5 mm; Standard PCBA takes single boards from 70 × 70 mm. Reaching the minimum needs a panel or rails; the capability table does not say which JLC accepts, and no panel exists in the repository.",
-      "ja": "基板は 9 × 82.5 mm。Standard PCBA の単品は 70 × 70 mm から。最小寸法に届かせるには面付けかレールが要るが、JLC の能力表はどちらを受け付けるかを書いておらず、リポジトリに面付けデータはない。JLC に面付けを頼むか、面付けデータを作るかの判断が要る。"
-    },
-    {
-      "id": "led_leaf-no-fiducials",
-      "board": "led_leaf",
-      "text": "No fiducials on the board; Standard PCBA needs fiducials. JLC panel guidance places 1 mm fiducials on 5 mm tooling edges, so a panel can carry them without changing the frozen board.",
-      "ja": "基板にフィデューシャルがない。Standard PCBA には必須。JLC の面付け指針では 5 mm の捨て基板に 1 mm のフィデューシャルを置くので、凍結した基板を変えずに面付け側で用意できる。"
+      "text": "Not orderable as single boards (Economic: every part allowed for Economic on its JLC part page fails; thickness 0.8–1.6 mm fails; single board 10 × 10 mm or larger fails). Route: Standard PCBA with Panel by JLCPCB, 8 columns × 1 rows (72 × 82.5 mm before rails, minimum 70 × 70 mm); edge rails on, JLC adds fiducials to the rails. The outline is not a plain rectangle (12 Edge.Cuts segments). JLC asks for a simple outline for Panel by JLCPCB and says complex outlines must be panelised by the customer: does JLC accept this outline for Panel by JLCPCB?",
+      "ja": "単品では発注できない（Economic で満たさない条件: 全部品が JLC 部品ページで Economic 可、板厚 0.8–1.6 mm、単品 10 × 10 mm 以上）。経路: Standard PCBA で Panel by JLCPCB、8 列 × 1 行（レールなしで 72 × 82.5 mm、最小 70 × 70 mm）。Edge Rails をオンにし、フィデューシャルは JLC がレールに付ける。外形が単純な長方形ではない（Edge.Cuts 12 本）。JLC は Panel by JLCPCB には単純な外形を求め、複雑な外形は自分で面付けするよう書いている。この外形で Panel by JLCPCB を受けてもらえるか。"
     },
     {
       "id": "led_leaf-finish-not-specified",
@@ -658,10 +953,10 @@
       "ja": "回転角は KiCad のフットプリント角度のまま。JLC ライブラリとの向きの差は JLC の配置プレビューで未確認。"
     },
     {
-      "id": "power_adapter-below-pcba-minimum-size",
+      "id": "power_adapter-jlc-panel",
       "board": "power_adapter",
-      "text": "Board is 8.8 × 30 mm; Economic PCBA takes single boards from 10 × 10 mm. Reaching the minimum needs a panel or rails; the capability table does not say which JLC accepts, and no panel exists in the repository.",
-      "ja": "基板は 8.8 × 30 mm。Economic PCBA の単品は 10 × 10 mm から。最小寸法に届かせるには面付けかレールが要るが、JLC の能力表はどちらを受け付けるかを書いておらず、リポジトリに面付けデータはない。JLC に面付けを頼むか、面付けデータを作るかの判断が要る。"
+      "text": "Not orderable as single boards (Economic: single board 10 × 10 mm or larger fails). Route: Economic PCBA with Panel by JLCPCB, 2 columns × 1 rows (17.6 × 30 mm before rails, minimum 10 × 10 mm). JLC describes Panel by JLCPCB with V-cut, and V-cut is not supported with Economic assembly: can Panel by JLCPCB use mouse bites so the board stays on Economic assembly? If not, Standard needs a 70 × 70 mm panel (8 × 3 = 24 boards before rails).",
+      "ja": "単品では発注できない（Economic で満たさない条件: 単品 10 × 10 mm 以上）。経路: Economic PCBA で Panel by JLCPCB、2 列 × 1 行（レールなしで 17.6 × 30 mm、最小 10 × 10 mm）。JLC は Panel by JLCPCB を V-cut で説明しており、V-cut は Economic 実装では使えない。Economic のまま Panel by JLCPCB をマウスバイトで作れるか。できなければ Standard で 70 × 70 mm の面付け（レールなしで 8 × 3 = 24 枚）になる。"
     },
     {
       "id": "power_adapter-finish-not-specified",
@@ -690,8 +985,8 @@
     {
       "id": "pcba-quantity-unit-with-panel-not-sourced",
       "board": null,
-      "text": "The PCBA minimum is \"2 pcs\" in the capability table; whether pcs counts single boards or panels once the boards are panelised is not sourced, so the PCBA quantities (2 controller, 4 leaf, 2 adapter) are single-board counts that may not be what the form asks for.",
-      "ja": "JLC 能力表の PCBA 最小は「2 pcs」。面付けした場合に pcs が単品か面付けシートかは未取得なので、PCBA 数量（コントローラー 2・リーフ 4・電源アダプタ 2）は単品の枚数で、注文画面が求める数とは違うかもしれない。"
+      "text": "The PCBA minimum is \"2 pcs\" in the capability table. With Panel by JLCPCB the PCB quantity counts panels (JLC: 10 pcs ordered gives 10 panels); whether the PCBA quantity also counts panels, and whether one panel holding 2 or more boards meets the 2-pcs minimum, is not sourced. Question for the JLC order form or support: \"With Panel by JLCPCB, does the PCBA Qty count panels or single boards, and does one panel holding 2 or more boards meet the 2-pcs PCBA minimum, or must 2 panels be assembled?\"",
+      "ja": "JLC 能力表の PCBA 最小は「2 pcs」。Panel by JLCPCB では PCB の数量は面付けシートの枚数（JLC の説明: 10 pcs 注文で 10 シート）。PCBA の数量もシート数か、2 枚以上載った 1 シートで最小 2 pcs を満たすかは未取得。JLC の注文画面かサポートで確かめる質問: \"With Panel by JLCPCB, does the PCBA Qty count panels or single boards, and does one panel holding 2 or more boards meet the 2-pcs PCBA minimum, or must 2 panels be assembled?\""
     },
     {
       "id": "pcb-fabrication-quantity-not-sourced",

@@ -28,12 +28,13 @@ readiness（`engineering/a7/qualification/readiness.json`）は不足を 49 個�
 3. **O7** 合否基準を採否する（導出値と提案値）
 4. **O8** LED タイミング (#13) の扱いを決める
 5. **O4** PCM13SMTR の JLC 在庫切れへの対応を決める
-6. **O5** 完成ケーブルを選び、電源ケーブル公差 ±3 mm（仮定）を認めるか決める
-7. **O6** ラック締結部品を指定する
-8. **O11** 治具の加工先を選び、提案された金物を承認する
-9. **O1** 限定試作ルートを承認する
-10. **O9** 物理手順を実施して記録する
-11. **O10** 製造リリースと発注を明示的に承認する
+6. **O12** JLC の注文画面かサポートで、面付けしたときの PCBA 数量と面付けの可否を確かめる
+7. **O5** 完成ケーブルを選び、電源ケーブル公差 ±3 mm（仮定）を認めるか決める
+8. **O6** ラック締結部品を指定する
+9. **O11** 治具の加工先を選び、提案された金物を承認する
+10. **O1** 限定試作ルートを承認する
+11. **O9** 物理手順を実施して記録する
+12. **O10** 製造リリースと発注を明示的に承認する
 
 ## まとめて答えられる判断（14 件）
 
@@ -222,6 +223,7 @@ readiness（`engineering/a7/qualification/readiness.json`）は不足を 49 個�
 | O7 | 導出した受入値（power-current / startup-reset / u7-stress）と、PROPOSED の提案値（見え方・温度、挿抜力と回数、短絡、CV の誤差とノイズ、レール崩壊、ジャック導通）を採るか決める。採った値はレビュー記録に残す。提案値のままではゲートは解除されない。 | `criterion:thermal-optical`（BLOCKED）、`criterion:service-envelope`（BLOCKED）、`criterion:load-short`（解除済み）、`criterion:cv-noise`（解除済み）、`criterion:rail-collapse`（解除済み）、`criterion:jack-continuity`（解除済み）、`criterion:cv-thru-calibration`（解除済み）、`criterion:power-current`（解除済み）、`criterion:startup-reset`（解除済み）、`criterion:u7-stress`（BLOCKED） |
 | O8 | **矛盾:** データシート V1.4 の T1L は 580–1000 ns、現行 FW の T1L は計算上 約 340–361 ns（FW の設計範囲 220–420 ns）。提案値（t1l-min / t1l-max = 580 / 1000 ns）を採ると現行 FW は不合格になるので、#13 が開いている間は採らない（コーディネーター判断）。メーカー訂正を待つか、Worldsemi を名乗る #13 のコメント（T1L は合否の基準にしない。未確認）を公式窓口の書面で確認して採るか、購入ロットの実測で別レビューするか、FW を直すかをオーナーが決める。 | `criterion:firmware-waveforms`（BLOCKED） |
 | O4 | JLC で取り寄せる（予約注文、できなければ Global Sourcing）、入荷を待つ、または接点表と適合を別にレビューした代替品を認める（Q10）。予約注文が今できるかは JLC アカウントで確かめる。 | `assembly:switch-supply`（BLOCKED） |
+| O12 | 3 枚の基板はどれも JLC の単品 PCBA の最小寸法に届かないので、Panel by JLCPCB で注文する予定（`project/jlc-order-package` に基板ごとの判定）。JLC の公開資料では決まらない点を、注文画面のプレビューか JLC サポートで確かめる。質問 1: 「With Panel by JLCPCB, does the PCBA Qty count panels or single boards, and does one panel holding 2 or more boards meet the 2-pcs PCBA minimum, or must 2 panels be assembled?」 質問 2（LED リーフ）: 外形に 1 × 2 mm の切り欠きが 2 つある。この外形で Panel by JLCPCB を受けてもらえるか。質問 3（電源アダプタ）: Economic 実装のまま Panel by JLCPCB をマウスバイトで作れるか（V-cut は Economic 実装で使えない）。答えは日付・相手・原文を残して `engineering/a7/jlc-package/sources.json` に記録する。だめな基板だけリポジトリで面付けデータを作る。 | `material:assembly_service`（BLOCKED） |
 | O5 | 電源 57 mm の公差は仮定。供給元が保証できる公差と組立の選択を決める。SH4 と IDC リボンも同じ。 | `assembly:finished-cables`（BLOCKED）、`criterion:harness-depth`（BLOCKED） |
 | O6 | 使うラックのレール・ねじ規格。 | `assembly:rack-hardware`（BLOCKED） |
 | O11 | 治具の FR-4 板 4 枚の加工先は未選定（JLCCNC の指針は参考のみ）。`engineering/a7/fixture/manifest.json` の hardware_proposal は全資材行に出典付きの候補を 1 つずつ載せた提案で、選定でも承認でもない。プローブ板の穴間 0.40 mm は加工先に穴あけ可否の確認が要る。 | `assembly:fixture-materials`（BLOCKED） |

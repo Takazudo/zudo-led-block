@@ -90,7 +90,7 @@ def board_facts(path):
     finish = kid(stackup, 'copper_finish') if stackup else None
     plot = kid(setup, 'pcbplotparams') if setup else None
     aux = kid(setup, 'aux_axis_origin') if setup else None
-    xs, ys = [], []
+    xs, ys, edges = [], [], []
     for g in tree[1:]:
         if isinstance(g, list) and g and g[0] in ('gr_line', 'gr_rect', 'gr_arc', 'gr_poly', 'gr_circle') and kid(g, 'layer') and kid(g, 'layer')[1] == 'Edge.Cuts':
             for key in ('start', 'end', 'mid'):
@@ -98,6 +98,7 @@ def board_facts(path):
                     x, y = nums(kid(g, key))[:2]
                     xs.append(x)
                     ys.append(y)
+            edges.append((g[0], tuple(nums(kid(g, 'start'))[:2]) if kid(g, 'start') else None, tuple(nums(kid(g, 'end'))[:2]) if kid(g, 'end') else None))
             if kid(g, 'pts'):
                 for xy in kids(kid(g, 'pts'), 'xy'):
                     x, y = nums(xy)[:2]
@@ -135,10 +136,22 @@ def board_facts(path):
             'copper_layers': copper, 'copper_finish': finish[1] if finish else None,
             'outline_mm': {'x': [min(xs), max(xs)], 'y': [min(ys), max(ys)],
                            'width': round(max(xs) - min(xs), 3), 'height': round(max(ys) - min(ys), 3)},
+            'outline_is_rectangle': is_rectangle(edges, (min(xs), max(xs)), (min(ys), max(ys))), 'outline_edges': len(edges),
             'gerber_uses_aux_origin': bool(plot and kid(plot, 'useauxorigin') and kid(plot, 'useauxorigin')[1] == 'yes'),
             'aux_axis_origin': nums(aux) if aux else None, 'min_drill_mm': min(drills) if drills else None,
             'fiducials': [f['ref'] for f in footprints if 'fiducial' in (f['footprint'] + str(f['value'])).lower()],
             'footprints': footprints}
+
+
+def is_rectangle(edges, xr, yr):
+    """True when Edge.Cuts is one rectangle: a gr_rect, or four axis-aligned lines lying on the bounding box."""
+    if len(edges) == 1 and edges[0][0] == 'gr_rect':
+        return True
+    if len(edges) != 4 or any(e[0] != 'gr_line' or e[1] is None or e[2] is None for e in edges):
+        return False
+    on_box = all((a[0] == b[0] and a[0] in xr) or (a[1] == b[1] and a[1] in yr) for _, a, b in edges)
+    return on_box and {tuple(sorted((a, b))) for _, a, b in edges} == {
+        ((xr[0], yr[0]), (xr[1], yr[0])), ((xr[0], yr[0]), (xr[0], yr[1])), ((xr[1], yr[0]), (xr[1], yr[1])), ((xr[0], yr[1]), (xr[1], yr[1]))}
 
 
 def fmt(v):
@@ -221,6 +234,7 @@ def generate(root=ROOT, sources=None):
             'base_material': base_material(name, layout),
             'pcba_tier': pcba_tier(facts, sides, layers, fitted, parts, needed),
         })
+        boards[-1]['assembly_route'] = assembly_route(boards[-1], facts)
     lines = []
     for l in plan['lines']:
         p = parts.get(l['lcsc'])
@@ -299,45 +313,80 @@ def min_pad_pitch(footprint):
 def pcba_tier(facts, sides, layers, fitted, parts, quantity):
     """Which JLC PCBA tier the board needs, from the 2026-11-12 capability table and part pages (sources.json).
 
-    Lists every criterion it evaluated; the panel-size limit is not evaluated because no panel exists."""
-    reasons, ja = [], []
+    economic_checks lists every Economic constraint evaluated except single-board size, which assembly_route adds;
+    the panel-size limit is checked there against the panel it proposes."""
     missing = sorted({r['lcsc'] for r in fitted.values() if not parts.get(r['lcsc'], {}).get('pcba_type')})
     if missing:
         raise ValueError(f'no recorded JLC PCBA type for {missing}')
     only = sorted({r['lcsc'] for r in fitted.values() if parts[r['lcsc']]['pcba_type'] == 'Standard Only'})
-    if only:
-        reasons.append(', '.join(only) + ' is "Standard Only" on its 2026-11-12 JLC part page')
-        ja.append(', '.join(only) + ' は 2026-11-12 の JLC 部品ページで Standard のみ')
-    if len(sides) > 1:
-        reasons.append('parts on both sides (Economic is single-sided placement only)')
-        ja.append('両面に部品がある（Economic は片面のみ）')
-    if not 0.8 <= facts['thickness_mm'] <= 1.6:
-        reasons.append(f"thickness {fmt(facts['thickness_mm'])} mm (Economic takes 0.8–1.6 mm)")
-        ja.append(f"板厚 {fmt(facts['thickness_mm'])} mm（Economic は 0.8–1.6 mm）")
-    if layers not in (2, 4, 6):
-        reasons.append(f'{layers} copper layers (Economic takes 2, 4 or 6)')
-        ja.append(f'銅層 {layers}（Economic は 2・4・6 層）')
     small = sorted(f['ref'] for f in facts['footprints'] if f['ref'] in fitted and SMALLER_THAN_0402.search(f['footprint']))
-    if small:
-        reasons.append(f"packages smaller than 0402 ({', '.join(small)}; Economic minimum package 0402)")
-        ja.append(f"0402 より小さい部品（{', '.join(small)}。Economic の最小は 0402）")
     pitches = {f['ref']: min_pad_pitch(f) for f in facts['footprints'] if f['ref'] in fitted and fitted[f['ref']]['mount'] == 'SMD'}
     fine = sorted(ref for ref, g in pitches.items() if g is not None and g < ECONOMIC_MIN_PITCH_MM - 1e-6)
-    if fine:
-        reasons.append(f"pad spacing below 0.4 mm ({', '.join(fine)}; Economic minimum IC pin spacing 0.4 mm)")
-        ja.append(f"パッド間隔 0.4 mm 未満（{', '.join(fine)}。Economic の IC ピン間隔は 0.4 mm から）")
-    if quantity > ECONOMIC_MAX_ORDER:
-        reasons.append(f'quantity {quantity} (Economic takes 2–50)')
-        ja.append(f'数量 {quantity}（Economic は 2–50）')
-    tier = 'STANDARD' if reasons else 'ECONOMIC'
-    w, h = facts['outline_mm']['width'], facts['outline_mm']['height']
-    minimum = 70 if tier == 'STANDARD' else 10
-    return {'tier': tier, 'reasons': reasons, 'reasons_ja': ja, 'single_board_minimum_mm': minimum,
-            'single_board_fits': w >= minimum and h >= minimum,
-            'edge_rails_and_fiducials_required': tier == 'STANDARD',
-            'criteria_evaluated': ['part PCBA type', 'assembly sides', 'thickness', 'copper layers', 'package size (footprint name)',
-                                   'pad-centre spacing (SMD footprints with 4+ pads)', 'order quantity'],
-            'criteria_not_evaluated': ['panel size 250 × 250 mm (no panel exists)']}
+    th = fmt(facts['thickness_mm'])
+    checks = [
+        {'criterion': 'every part allowed for Economic on its JLC part page', 'ja': '全部品が JLC 部品ページで Economic 可',
+         'ok': not only, 'value': ('"Standard Only": ' + ', '.join(only)) if only else 'all "Economic and Standard"',
+         'reason': ', '.join(only) + ' is "Standard Only" on its 2026-11-12 JLC part page', 'reason_ja': ', '.join(only) + ' は 2026-11-12 の JLC 部品ページで Standard のみ'},
+        {'criterion': 'single-sided placement', 'ja': '片面実装', 'ok': len(sides) == 1, 'value': ' + '.join(sides),
+         'reason': 'parts on both sides (Economic is single-sided placement only)', 'reason_ja': '両面に部品がある（Economic は片面のみ）'},
+        {'criterion': 'thickness 0.8–1.6 mm', 'ja': '板厚 0.8–1.6 mm', 'ok': 0.8 <= facts['thickness_mm'] <= 1.6, 'value': f'{th} mm',
+         'reason': f'thickness {th} mm (Economic takes 0.8–1.6 mm)', 'reason_ja': f'板厚 {th} mm（Economic は 0.8–1.6 mm）'},
+        {'criterion': '2, 4 or 6 copper layers', 'ja': '銅層 2・4・6', 'ok': layers in (2, 4, 6), 'value': str(layers),
+         'reason': f'{layers} copper layers (Economic takes 2, 4 or 6)', 'reason_ja': f'銅層 {layers}（Economic は 2・4・6 層）'},
+        {'criterion': 'no package smaller than 0402 (footprint name)', 'ja': '0402 より小さい部品なし（フットプリント名）', 'ok': not small, 'value': ', '.join(small) or 'none',
+         'reason': f"packages smaller than 0402 ({', '.join(small)}; Economic minimum package 0402)", 'reason_ja': f"0402 より小さい部品（{', '.join(small)}。Economic の最小は 0402）"},
+        {'criterion': 'pad-centre spacing 0.4 mm or more (SMD footprints with 4+ pads)', 'ja': 'パッド中心間隔 0.4 mm 以上（4 パッド以上の SMD）', 'ok': not fine,
+         'value': fmt(min([g for g in pitches.values() if g] or [0])) + ' mm min' if any(pitches.values()) else 'no SMD footprint with 4+ pads',
+         'reason': f"pad spacing below 0.4 mm ({', '.join(fine)}; Economic minimum IC pin spacing 0.4 mm)", 'reason_ja': f"パッド間隔 0.4 mm 未満（{', '.join(fine)}。Economic の IC ピン間隔は 0.4 mm から）"},
+        {'criterion': 'quantity 2–50', 'ja': '数量 2–50', 'ok': quantity <= ECONOMIC_MAX_ORDER, 'value': str(quantity),
+         'reason': f'quantity {quantity} (Economic takes 2–50)', 'reason_ja': f'数量 {quantity}（Economic は 2–50）'},
+    ]
+    failed = [c for c in checks if not c['ok']]
+    tier = 'STANDARD' if failed else 'ECONOMIC'
+    return {'tier': tier, 'reasons': [c['reason'] for c in failed], 'reasons_ja': [c['reason_ja'] for c in failed],
+            'economic_checks': [{k: c[k] for k in ('criterion', 'ja', 'ok', 'value')} for c in checks]}
+
+
+PCBA_UNIT_QUESTION = ('"With Panel by JLCPCB, does the PCBA Qty count panels or single boards, and does one panel holding 2 or more boards '
+                      'meet the 2-pcs PCBA minimum, or must 2 panels be assembled?"')
+JLC_RAIL_MM = 5          # jlc-order-a-panel: "By default, we will add a 5mm board edge"
+VCUT_EXTRA_COST_BELOW_MM = 15  # jlc-order-a-panel: extra V-cut cost if either side is within 15 mm
+
+
+def assembly_route(b, facts):
+    """Per board: single boards under Economic when every Economic constraint holds; otherwise Panel by JLCPCB;
+    a panel built in the repository only where JLC's panel cannot take the board (decision order set by the coordinator)."""
+    t = b['pcba_tier']
+    w, h = b['outline_mm']['width'], b['outline_mm']['height']
+    eco_size = w >= 10 and h >= 10
+    checks = [dict(c) for c in t['economic_checks']] + [{'criterion': 'single board 10 × 10 mm or larger', 'ja': '単品 10 × 10 mm 以上',
+                                                       'ok': eco_size, 'value': f'{fmt(w)} × {fmt(h)} mm'}]
+    economic_single = all(c['ok'] for c in checks)
+    standard_single = t['tier'] == 'STANDARD' and w >= 70 and h >= 70
+    out = {'economic_checks': checks, 'economic_single_board': economic_single}
+    if economic_single or standard_single:
+        out.update(route='SINGLE_BOARDS', tier=t['tier'], panel=None, open_questions=[])
+        return out
+    minimum = 70 if t['tier'] == 'STANDARD' else 10
+    cols, rows = max(1, math.ceil(minimum / w)), max(1, math.ceil(minimum / h))
+    panel = {'columns_x': cols, 'rows_y': rows, 'boards_per_panel': cols * rows,
+             'size_without_rails_mm': [round(cols * w, 3), round(rows * h, 3)], 'panel_minimum_mm': minimum,
+             'within_250_mm': max(cols * w, rows * h) <= 250, 'edge_rails': t['tier'] == 'STANDARD', 'vcut_extra_cost': t['tier'] == 'STANDARD' and min(w, h) < VCUT_EXTRA_COST_BELOW_MM,
+             'separation': 'mouse bites (V-cut is not supported with Economic assembly)' if t['tier'] == 'ECONOMIC' else 'V-cut or mouse bites',
+             'fiducials': 'added to the edge rails by JLC (Panel by JLCPCB with Edge Rails)' if t['tier'] == 'STANDARD' else 'not required (Economic)'}
+    questions = []
+    if not facts['outline_is_rectangle']:
+        questions.append({'id': 'outline', 'text': f"The outline is not a plain rectangle ({facts['outline_edges']} Edge.Cuts segments). JLC asks for a simple outline for Panel by JLCPCB and says complex outlines must be panelised by the customer: does JLC accept this outline for Panel by JLCPCB?",
+                          'ja': f"外形が単純な長方形ではない（Edge.Cuts {facts['outline_edges']} 本）。JLC は Panel by JLCPCB には単純な外形を求め、複雑な外形は自分で面付けするよう書いている。この外形で Panel by JLCPCB を受けてもらえるか。"})
+    if t['tier'] == 'ECONOMIC':
+        sc, sr = math.ceil(70 / w), math.ceil(70 / h)
+        questions.append({'id': 'economic-panel-separation', 'text': 'JLC describes Panel by JLCPCB with V-cut, and V-cut is not supported with Economic assembly: can Panel by JLCPCB use mouse bites so the board stays on Economic assembly?'
+                          f' If not, Standard needs a 70 × 70 mm panel ({sc} × {sr} = {sc * sr} boards before rails).',
+                          'ja': 'JLC は Panel by JLCPCB を V-cut で説明しており、V-cut は Economic 実装では使えない。Economic のまま Panel by JLCPCB をマウスバイトで作れるか。'
+                          f'できなければ Standard で 70 × 70 mm の面付け（レールなしで {sc} × {sr} = {sc * sr} 枚）になる。'})
+    out.update(route='PANEL_BY_JLCPCB' if not questions else 'PANEL_BY_JLCPCB_TO_CONFIRM', tier=t['tier'], panel=panel, open_questions=questions,
+               repo_panel_needed_if=[q['id'] for q in questions])
+    return out
 
 
 def named_blockers(boards, lines, pages, ledger, root):
@@ -350,21 +399,20 @@ def named_blockers(boards, lines, pages, ledger, root):
     add('order-gate-blocked', None, 'Readiness order gate is BLOCKED; this package is a dry run and must not be uploaded or ordered.',
         'readiness の発注ゲートが BLOCKED。この一式は予行で、アップロード・発注しない。')
     for b in boards:
-        t, n = b['pcba_tier'], b['board']
-        size = f"{fmt(b['outline_mm']['width'])} × {fmt(b['outline_mm']['height'])} mm"
-        if t['tier'] == 'STANDARD':
-            add(f'{n}-needs-standard-pcba', n, 'Needs Standard PCBA: ' + '; '.join(t['reasons']) + '. Standard PCBA requires edge rails and fiducials.',
-                'Standard PCBA が必要（' + '、'.join(t['reasons_ja']) + '）。Standard PCBA は捨て基板（レール）とフィデューシャルが必須。')
-        if not t['single_board_fits']:
-            m = t['single_board_minimum_mm']
-            add(f'{n}-below-pcba-minimum-size', n,
-                f"Board is {size}; {t['tier'].title()} PCBA takes single boards from {m} × {m} mm. Reaching the minimum needs a panel or rails;"
-                ' the capability table does not say which JLC accepts, and no panel exists in the repository.',
-                f"基板は {size}。{t['tier'].title()} PCBA の単品は {m} × {m} mm から。最小寸法に届かせるには面付けかレールが要るが、"
-                'JLC の能力表はどちらを受け付けるかを書いておらず、リポジトリに面付けデータはない。JLC に面付けを頼むか、面付けデータを作るかの判断が要る。')
-        if t['edge_rails_and_fiducials_required'] and not b['fiducials']:
-            add(f'{n}-no-fiducials', n, 'No fiducials on the board; Standard PCBA needs fiducials. JLC panel guidance places 1 mm fiducials on 5 mm tooling edges, so a panel can carry them without changing the frozen board.',
-                '基板にフィデューシャルがない。Standard PCBA には必須。JLC の面付け指針では 5 mm の捨て基板に 1 mm のフィデューシャルを置くので、凍結した基板を変えずに面付け側で用意できる。')
+        t, n, r = b['pcba_tier'], b['board'], b['assembly_route']
+        if r['panel']:
+            pn = r['panel']
+            q = ' '.join(x['text'] for x in r['open_questions'])
+            qj = ''.join(x['ja'] for x in r['open_questions'])
+            add(f'{n}-jlc-panel', n,
+                f"Not orderable as single boards ({'Economic: ' + '; '.join(c['criterion'] + ' fails' for c in r['economic_checks'] if not c['ok'])}). "
+                f"Route: {r['tier'].title()} PCBA with Panel by JLCPCB, {pn['columns_x']} columns × {pn['rows_y']} rows "
+                f"({fmt(pn['size_without_rails_mm'][0])} × {fmt(pn['size_without_rails_mm'][1])} mm before rails, minimum {pn['panel_minimum_mm']} × {pn['panel_minimum_mm']} mm)"
+                + ('; edge rails on, JLC adds fiducials to the rails' if pn['edge_rails'] else '') + '. ' + (q or 'The JLC order-form preview must confirm the panel.'),
+                f"単品では発注できない（Economic で満たさない条件: {'、'.join(c['ja'] for c in r['economic_checks'] if not c['ok'])}）。"
+                f"経路: {r['tier'].title()} PCBA で Panel by JLCPCB、{pn['columns_x']} 列 × {pn['rows_y']} 行"
+                f"（レールなしで {fmt(pn['size_without_rails_mm'][0])} × {fmt(pn['size_without_rails_mm'][1])} mm、最小 {pn['panel_minimum_mm']} × {pn['panel_minimum_mm']} mm）"
+                + ('。Edge Rails をオンにし、フィデューシャルは JLC がレールに付ける' if pn['edge_rails'] else '') + '。' + (qj or 'JLC の注文画面のプレビューで面付けを確かめる。'))
         if not b['copper_finish_in_board_file']:
             eco = t['tier'] == 'ECONOMIC'
             add(f'{n}-finish-not-specified', n, 'Surface finish is not recorded in the board file; it must be chosen on the order form'
@@ -385,10 +433,11 @@ def named_blockers(boards, lines, pages, ledger, root):
                 f"{l['mpn']} ({l['lcsc']}): need {l['pieces_required']}, JLC in-stock {l['in_stock']}, pre-order available {l['preorder_available']} at {l['observed_at']}.",
                 f"{l['mpn']}（{l['lcsc']}）: 必要 {l['pieces_required']} 個に対し、{l['observed_at']} の JLC 在庫 {l['in_stock']}・予約可能数 {l['preorder_available']}。")
     add('pcba-quantity-unit-with-panel-not-sourced', None,
-        'The PCBA minimum is "2 pcs" in the capability table; whether pcs counts single boards or panels once the boards are panelised is not sourced,'
-        ' so the PCBA quantities (2 controller, 4 leaf, 2 adapter) are single-board counts that may not be what the form asks for.',
-        'JLC 能力表の PCBA 最小は「2 pcs」。面付けした場合に pcs が単品か面付けシートかは未取得なので、PCBA 数量（コントローラー 2・リーフ 4・電源アダプタ 2）は'
-        '単品の枚数で、注文画面が求める数とは違うかもしれない。')
+        'The PCBA minimum is "2 pcs" in the capability table. With Panel by JLCPCB the PCB quantity counts panels (JLC: 10 pcs ordered gives 10 panels);'
+        ' whether the PCBA quantity also counts panels, and whether one panel holding 2 or more boards meets the 2-pcs minimum, is not sourced. '
+        'Question for the JLC order form or support: ' + PCBA_UNIT_QUESTION,
+        'JLC 能力表の PCBA 最小は「2 pcs」。Panel by JLCPCB では PCB の数量は面付けシートの枚数（JLC の説明: 10 pcs 注文で 10 シート）。'
+        'PCBA の数量もシート数か、2 枚以上載った 1 シートで最小 2 pcs を満たすかは未取得。JLC の注文画面かサポートで確かめる質問: ' + PCBA_UNIT_QUESTION)
     add('pcb-fabrication-quantity-not-sourced', None,
         'The minimum bare-PCB quantity JLC fabricates per design was not read; the PCBA quantity (2 controller, 4 leaf, 2 adapter) is entered separately.',
         'JLC が 1 設計あたり製造する基板の最小枚数は未取得。PCBA の数量（コントローラー 2・リーフ 4・電源アダプタ 2）とは別に入力する。')
@@ -424,13 +473,15 @@ def page(report):
               f"| Base Material | {base_row(b['base_material'])} |",
               f"| Layers | {b['copper_layers']} |",
               f"| Dimensions | {fmt(b['outline_mm']['width'])} × {fmt(b['outline_mm']['height'])} mm |",
-              f"| PCB Thickness | {fmt(b['thickness_mm'])} mm（JLC 公差 {b['thickness_tolerance']}" + ('。A5 の寸法を引き継いだ値で、0.6 mm は JLC の FR-4 の選択肢にある' if b['board'] == 'led_leaf' and b['thickness_mm'] < 1.0 else '') + '） |',
+              f"| PCB Thickness | {fmt(b['thickness_mm'])} mm（JLC 公差 {b['thickness_tolerance']}" + ('。A5 の寸法を引き継いだ凍結値で、1.6 mm ではない。0.6 mm は JLC の FR-4 の選択肢にある' if b['board'] == 'led_leaf' and b['thickness_mm'] < 1.0 else '') + '） |',
               f"| Surface Finish | {b['copper_finish_in_board_file'] or '基板ファイルに指定なし（注文時に選ぶ）'} |",
               f"| 最小穴径 | {fmt(b['min_drill_mm'])} mm |" if b['min_drill_mm'] else '| 最小穴径 | — |',
-              f"| PCB Assembly | オン。PCBA Qty {b['pcba_quantity']}（{b['per_module']} 枚/台 × {report['modules']} 台） |",
+              f"| PCB Assembly | オン。必要な完成品は単品 {b['pcba_quantity']} 枚（{b['per_module']} 枚/台 × {report['modules']} 台）。面付け時に PCBA Qty をシート数で入れるかは未確認（`pcba-quantity-unit-with-panel-not-sourced`） |",
               f"| PCBA Type | {t['tier'].title()}" + (f"（理由: {esc('、'.join(t['reasons_ja']))}）" if t['reasons_ja'] else '') + ' |',
               f"| Assembly Side | {'Top と Bottom（両面）' if len(b['assembly_sides']) > 1 else b['assembly_sides'][0]} |",
+              f"| Panel By JLCPCB | {panel_cell(b['assembly_route'])} |",
               f"| 実装点 | SMD {b['smd_count']}・THT {len(b['tht_refs'])}" + (f"（{', '.join(b['tht_refs'])}）" if b['tht_refs'] else '') + ' |', '',
+              *route_lines(b['assembly_route']),
               'アップロードするもの:', '',
               f"1. Gerber と drill の zip: `python3 scripts/a7_jlc_package.py export --out <リポジトリ外の空ディレクトリ>` で作る `{b['board']}-gerbers-DRYRUN.zip`（Gerber 原点: {b['gerber_origin']}）",
               f"2. BOM: `engineering/a7/jlc-package/{b['board']}_BOM_DRYRUN.csv`（{b['bom_lines']} 行、列 Comment / Designator / Footprint / JLCPCB Part #）",
@@ -445,6 +496,35 @@ def page(report):
     L += [f"| {l['lcsc']} | {esc(l['mpn'])} | {l['library'].title()} | {l['pieces_required']} | {l['in_stock']} | {l['preorder_available']} | {ROUTE_JA[l['route']]} |" for l in report['parts']]
     L += ['', '区分と在庫は `engineering/a7/jlc-package/sources.json` の日付付き記録です（項目の意味はこちらの解釈で、JLC の定義ではありません）。', '']
     return '\n'.join(L) + '\n'
+
+
+def panel_cell(r):
+    if not r['panel']:
+        return 'No（単品）'
+    p = r['panel']
+    return (f"Yes。列 (X) {p['columns_x']}・行 (Y) {p['rows_y']}（1 シート {p['boards_per_panel']} 枚）" + ('・Edge Rails あり' if p['edge_rails'] else '')
+            + ('。確認待ちあり' if r['open_questions'] else ''))
+
+
+def route_lines(r):
+    L = ['Economic で単品実装できるか（2026-11-12 の JLC 能力表と部品ページで判定）:', '', '| 条件 | この基板 | 判定 |', '|---|---|---|']
+    L += [f"| {esc(c['ja'])} | {esc(c['value'])} | {'満たす' if c['ok'] else '**満たさない**'} |" for c in r['economic_checks']]
+    L.append('')
+    if not r['panel']:
+        L += [f"結論: **単品で {r['tier'].title()} PCBA**。", '']
+        return L
+    p = r['panel']
+    L += [f"結論: 単品では受けてもらえないので **{r['tier'].title()} PCBA + Panel by JLCPCB**" + ('（下の確認が取れればリポジトリで面付けデータは作らない）。' if r['open_questions'] else '（リポジトリで面付けデータは作らない）。')
+          + f"{p['columns_x']} 列 × {p['rows_y']} 行で、レールを除いても {fmt(p['size_without_rails_mm'][0])} × {fmt(p['size_without_rails_mm'][1])} mm と"
+          f"最小 {p['panel_minimum_mm']} × {p['panel_minimum_mm']} mm に届きます（JLC は既定で {JLC_RAIL_MM} mm の縁を足すので、注文画面のプレビューで少ない列数でも届くかもしれません）。"
+          f"分割: {'マウスバイト（Economic では V-cut 不可）' if r['tier'] == 'ECONOMIC' else 'V-cut かマウスバイト'}"
+          + ('。辺が 15 mm 未満なので V-cut は追加料金' if p['vcut_extra_cost'] else '')
+          + ('。Edge Rails をオンにすると JLC がレールにフィデューシャルと治具穴を付けます（基板ごとには付かない）' if p['edge_rails'] else '') + '。', '']
+    if r['open_questions']:
+        L += ['JLC に確かめること（だめならリポジトリで面付けデータを作る）:', '']
+        L += [f"- {esc(q['ja'])}" for q in r['open_questions']]
+        L.append('')
+    return L
 
 
 def base_row(m):

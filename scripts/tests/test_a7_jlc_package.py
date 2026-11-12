@@ -52,14 +52,28 @@ class PackageTests(unittest.TestCase):
         self.assertEqual(self.board('controller')['pcba_tier']['tier'], 'STANDARD')
         self.assertEqual(self.board('led_leaf')['pcba_tier']['tier'], 'STANDARD')
         self.assertEqual(self.board('power_adapter')['pcba_tier']['tier'], 'ECONOMIC')
-        for blocker in ('controller-below-pcba-minimum-size', 'led_leaf-below-pcba-minimum-size', 'power_adapter-below-pcba-minimum-size',
-                        'controller-no-fiducials', 'led_leaf-no-fiducials', 'part-C221842-not-in-stock',
+        for blocker in ('controller-jlc-panel', 'led_leaf-jlc-panel', 'power_adapter-jlc-panel', 'part-C221842-not-in-stock',
                         'pcba-quantity-unit-with-panel-not-sourced'):
             self.assertIn(blocker, self.ids())
         # 0.6 mm is a JLC FR-4 option, so the leaf thickness is a note, not a blocker
         self.assertFalse(any('thickness' in i for i in self.ids()))
         self.assertIn('C52917434', ' '.join(self.board('led_leaf')['pcba_tier']['reasons']))
-        self.assertIn('panel size 250 × 250 mm (no panel exists)', self.board('power_adapter')['pcba_tier']['criteria_not_evaluated'])
+
+    def test_assembly_route_per_board(self):
+        routes = {b['board']: b['assembly_route'] for b in self.report['boards']}
+        self.assertEqual({n: r['route'] for n, r in routes.items()},
+                         {'controller': 'PANEL_BY_JLCPCB', 'led_leaf': 'PANEL_BY_JLCPCB_TO_CONFIRM', 'power_adapter': 'PANEL_BY_JLCPCB_TO_CONFIRM'})
+        self.assertEqual([q['id'] for q in routes['led_leaf']['open_questions']], ['outline'])
+        self.assertEqual([q['id'] for q in routes['power_adapter']['open_questions']], ['economic-panel-separation'])
+        # the adapter misses Economic single-board assembly on size alone
+        self.assertEqual([c['criterion'] for c in routes['power_adapter']['economic_checks'] if not c['ok']], ['single board 10 × 10 mm or larger'])
+        for r in routes.values():
+            self.assertFalse(r['economic_single_board'])
+            p = r['panel']
+            self.assertTrue(p['within_250_mm'])
+            self.assertGreaterEqual(min(p['size_without_rails_mm']), p['panel_minimum_mm'])
+        self.assertEqual(self.board('led_leaf')['thickness_mm'], 0.6)
+        self.assertIn('Panel by JLCPCB', ' '.join(b['text'] for b in self.report['blockers'] if b['id'] == 'controller-jlc-panel'))
 
     def test_part_routes_follow_stock(self):
         sw = next(l for l in self.report['parts'] if l['lcsc'] == 'C221842')
@@ -162,23 +176,49 @@ class SyntheticBoardTests(unittest.TestCase):
         facts = self.facts(fps, thickness=thickness)
         fitted = {f['ref']: {'lcsc': 'C1', 'mount': 'SMD'} for f in facts['footprints']}
         parts = {'C1': {'pcba_type': types or 'Economic and Standard'}}
-        return J.pcba_tier(facts, list(sides), layers, fitted, parts, quantity)
+        return J.pcba_tier(facts, list(sides), layers, fitted, parts, quantity), facts
+
+    def route(self, tier, facts):
+        return J.assembly_route({'pcba_tier': tier, 'outline_mm': facts['outline_mm']}, facts)
 
     def test_tier_criteria(self):
         ok = [footprint('U1', 'lib:SOT-23-6', '5 5 0', [PAD.format(n=n, x=x, y=0, a=0, w=0.3, h=1) for n, x in enumerate((0, 0.95, 1.9, 2.85))])]
-        self.assertEqual(self.tier(ok)['tier'], 'ECONOMIC')
+        t, facts = self.tier(ok)
+        self.assertEqual(t['tier'], 'ECONOMIC')
+        self.assertTrue(all(c['ok'] for c in t['economic_checks']))
+        self.assertEqual(self.route(t, facts)['route'], 'SINGLE_BOARDS')
         fine = [footprint('U1', 'lib:QFN', '5 5 0', [PAD.format(n=n, x=x, y=0, a=0, w=0.2, h=1) for n, x in enumerate((0, 0.35, 0.7, 1.05))])]
         small = [footprint('C1', 'lib:C_0201_0603Metric', '5 5 0', [PAD.format(n=1, x=0, y=0, a=0, w=0.3, h=0.3)])]
         cases = {'both sides': self.tier(ok, sides=('Bottom', 'Top')), 'thickness': self.tier(ok, thickness=0.6),
                  'layers': self.tier(ok, layers=1), 'quantity': self.tier(ok, quantity=51), 'pitch': self.tier(fine),
                  'package': self.tier(small), 'standard-only part': self.tier(ok, types='Standard Only')}
-        for name, t in cases.items():
+        for name, (t, facts) in cases.items():
             self.assertEqual(t['tier'], 'STANDARD', name)
             self.assertEqual(len(t['reasons']), 1, (name, t['reasons']))
-            self.assertTrue(t['edge_rails_and_fiducials_required'])
-            self.assertFalse(t['single_board_fits'])
-        self.assertTrue(self.tier(ok)['single_board_fits'])
+            r = self.route(t, facts)
+            # a 20 x 10 mm board under Standard needs a 70 x 70 mm JLC panel with rails
+            self.assertEqual(r['route'], 'PANEL_BY_JLCPCB', name)
+            self.assertEqual((r['panel']['columns_x'], r['panel']['rows_y']), (4, 7))
+            self.assertTrue(r['panel']['edge_rails'])
 
+    def test_outline_shape(self):
+        box = ((0.0, 20.0), (0.0, 10.0))
+        lines = [('gr_line', (0.0, 0.0), (20.0, 0.0)), ('gr_line', (20.0, 0.0), (20.0, 10.0)), ('gr_line', (20.0, 10.0), (0.0, 10.0)), ('gr_line', (0.0, 10.0), (0.0, 0.0))]
+        self.assertTrue(J.is_rectangle(lines, *box))
+        self.assertTrue(J.is_rectangle([('gr_rect', (0.0, 0.0), (20.0, 10.0))], *box))
+        notched = lines[:3] + [('gr_line', (0.0, 10.0), (0.0, 6.0)), ('gr_line', (0.0, 6.0), (1.0, 6.0)), ('gr_line', (1.0, 6.0), (1.0, 4.0)),
+                                ('gr_line', (1.0, 4.0), (0.0, 4.0)), ('gr_line', (0.0, 4.0), (0.0, 0.0))]
+        self.assertFalse(J.is_rectangle(notched, *box))
+
+    def test_small_economic_board_gets_a_jlc_panel_with_a_separation_question(self):
+        ok = [footprint('J1', 'lib:Header', '4 4 0', [PAD.format(n=1, x=0, y=0, a=0, w=1, h=1)])]
+        t, facts = self.tier(ok)
+        facts['outline_mm'].update(width=8.0, height=30.0)
+        r = self.route(t, facts)
+        self.assertEqual(r['route'], 'PANEL_BY_JLCPCB_TO_CONFIRM')
+        self.assertEqual((r['panel']['columns_x'], r['panel']['rows_y']), (2, 1))
+        self.assertFalse(r['panel']['edge_rails'])
+        self.assertEqual([q['id'] for q in r['open_questions']], ['economic-panel-separation'])
 
 if __name__ == '__main__':
     unittest.main()

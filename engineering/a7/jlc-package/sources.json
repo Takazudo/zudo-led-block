@@ -17,7 +17,8 @@
         "1.6 Green Lead-Free:HASL / ENIG Leaded:HASL / ENIG 2-50",
         "JLCPCB supports Through-Hole Technology (THT) component assembly and mixed-technology (SMD + THT) PCB assembly within a single PCBA order.",
         "This service is available under both the Economic and Standard PCBA.",
-        "Assembled PCBs are typically shipped with manufacturing rails (tooling edges) attached by default."
+        "Assembled PCBs are typically shipped with manufacturing rails (tooling edges) attached by default.",
+        "Delivery Format Single PCB, Panel with mouse bites Single PCB, Panel with mouse bites, Panel with V-cut"
       ]
     },
     {
@@ -54,6 +55,30 @@
         "Mid X/Mid Y - The X/Y coordinate of the component centroid. Required units: Metric(mm).",
         "Layer - Top / Bottom, the board side where the component should be placed.",
         "Rotation - The rotation of the component given in degrees. Positive values are counter clockwise."
+      ]
+    },
+    {
+      "id": "jlc-order-a-panel",
+      "url": "https://jlcpcb.com/help/article/how-do-i-order-a-panel",
+      "retrieved_at": "2026-11-12T10:57:55Z",
+      "raw_sha256": "54f261b5b864cd1e0f3a340c124be77ccfbc523c05f47959fd005859218399b9",
+      "extracts": [
+        "When you have only one design in your PCB Gerber file and you need JLCPCB to help you duplicate multiple copies onto one panel, you can select the ' Panel By JLCPCB ' option. Simply check ' Yes ' in the ' Panel By JLCPCB ' section and fill in the number of rows (Y) and columns (X) of PCBs you want to place on one panel.",
+        "If you order 10pcs PCBs, you will receive a total of 10 big panels, with each panel containing 6 PCBs, resulting in a total of 60 individual PCBs.",
+        "By default, we will add a 5mm board edge",
+        "Note: If either side of the single PCB is within 15mm, there will be extra cost for v-cut process since it is more difficult to apply v-cut on small PCBs.",
+        "Please ensure that the board outline is simple. For complex board outlines, you will need to panelize them yourself."
+      ]
+    },
+    {
+      "id": "jlc-pcb-panelization",
+      "url": "https://jlcpcb.com/help/article/pcb-panelization",
+      "retrieved_at": "2026-11-12T10:57:55Z",
+      "raw_sha256": "8b399b2be3298b140b1aa6c96fe0b2abc7fdc0c5c1df529cd7c79a2fd15c6bc9",
+      "extracts": [
+        "The panel size needs to be 70*70mm at least to do v-cut process.",
+        "V-cut is not supported in Economic Assembly. If V-cut and assembly is required, please select Standard Assembly.",
+        "Please kindly note that if you select \"Panel by JLCPCB\" with the Edge Rails, fiducial marks and tooling holes will be added to the Edge Rails by default. Fiducial marks will not be added to each small piece in the panel."
       ]
     }
   ],

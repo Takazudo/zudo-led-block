@@ -3766,6 +3766,14 @@
       ]
     },
     {
+      "id": "O12",
+      "title": "JLC の注文画面かサポートで、面付けしたときの PCBA 数量と面付けの可否を確かめる",
+      "detail": "3 枚の基板はどれも JLC の単品 PCBA の最小寸法に届かないので、Panel by JLCPCB で注文する予定（`project/jlc-order-package` に基板ごとの判定）。JLC の公開資料では決まらない点を、注文画面のプレビューか JLC サポートで確かめる。質問 1: 「With Panel by JLCPCB, does the PCBA Qty count panels or single boards, and does one panel holding 2 or more boards meet the 2-pcs PCBA minimum, or must 2 panels be assembled?」 質問 2（LED リーフ）: 外形に 1 × 2 mm の切り欠きが 2 つある。この外形で Panel by JLCPCB を受けてもらえるか。質問 3（電源アダプタ）: Economic 実装のまま Panel by JLCPCB をマウスバイトで作れるか（V-cut は Economic 実装で使えない）。答えは日付・相手・原文を残して `engineering/a7/jlc-package/sources.json` に記録する。だめな基板だけリポジトリで面付けデータを作る。",
+      "unblocks": [
+        "material:assembly_service"
+      ]
+    },
+    {
       "id": "O5",
       "title": "完成ケーブルを選び、電源ケーブル公差 ±3 mm（仮定）を認めるか決める",
       "detail": "電源 57 mm の公差は仮定。供給元が保証できる公差と組立の選択を決める。SH4 と IDC リボンも同じ。",
