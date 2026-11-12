@@ -16,9 +16,9 @@
     "configuration": "195092c88e1b9270bae22d27f4a08f4a606f9be77008f3011f06d7a975b0f6a7",
     "mechanical": "9cbc6ac99f5b05c7e3145f2016b6918cbc5d2b77170db31ed7155755cba0d591",
     "fixture": "4af6e9440d9b31dd05f5f5e55a1f30485274a526e4066925b8ee929e7a642e23",
-    "assembly_manifest": "07a3adb154514511eb9f743541e94e6fc61a05347d62682d2f084a31a9e00b47"
+    "assembly_manifest": "69bc70857332480b0115caf6eefd3ce429d3f4d5e49bb4f2505148a11792c6ca"
   },
-  "plan_sha256": "b9b416768864d29f37cdac95d59d1969595ce011cbcb4499bd7a9d30338f68fc",
+  "plan_sha256": "e1be3470f14426c2f240ba19706f357dcaeb2ae40c302bd5e391e83292dbc24d",
   "instruments": null,
   "setup": null,
   "conditions": null,
@@ -101,12 +101,45 @@
       "verdict": null
     },
     {
-      "id": "limits",
-      "criterion": "許容印加値・注入電流・順序の数表",
-      "expected": null,
-      "bound": null,
+      "id": "mcu-vin",
+      "criterion": "STM32 の FT_xx 入力電圧の絶対最大（ADC に使う FT_a は 4 V まで）",
+      "expected": "-0.3 to VDD + 4.0",
+      "bound": "range",
+      "unit": "V",
+      "confidence": "SOURCED",
+      "proposed": false,
+      "observed": null,
+      "verdict": null
+    },
+    {
+      "id": "mcu-iinj-pin",
+      "criterion": "STM32 の 1 ピンあたりの注入電流（負方向。FT_xx は正方向の注入が起きない）",
+      "expected": -5,
+      "bound": "min",
       "unit": "mA",
-      "confidence": "UNRESOLVED",
+      "confidence": "SOURCED",
+      "proposed": false,
+      "observed": null,
+      "verdict": null
+    },
+    {
+      "id": "mcu-iinj-total",
+      "criterion": "STM32 の全ピンの注入電流の絶対値の合計",
+      "expected": 25,
+      "bound": "max",
+      "unit": "mA",
+      "confidence": "SOURCED",
+      "proposed": false,
+      "observed": null,
+      "verdict": null
+    },
+    {
+      "id": "mcu-vdd",
+      "criterion": "STM32 の VDD の絶対最大",
+      "expected": "-0.3 to 4.0",
+      "bound": "range",
+      "unit": "V",
+      "confidence": "SOURCED",
       "proposed": false,
       "observed": null,
       "verdict": null

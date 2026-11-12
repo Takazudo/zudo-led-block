@@ -31,15 +31,17 @@
       "coverage_id": "cov-stm32g031g8u6tr-ratings",
       "record_id": "rec-stm32g031g8u6tr",
       "domain": "electrical-ratings",
-      "status": "OPEN",
-      "reason": "Primary document acquired on 2026-11-09. This domain remains OPEN: per-criterion electrical/mechanical/pin-map review and applicable physical qualification incomplete",
+      "status": "COVERED",
+      "reason": "VDD and I/O absolute maxima, injected-current limits and operating VDD are read from DS12992 Rev 4 Tables 18-21 in the owner's text conversion of the ST datasheet; application margins and partial-power behaviour are not qualified",
       "fact_ids": [
         "fact-stm32g031g8u6tr-ratings",
+        "fact-stm32g031g8u6tr-abs-max-vin-ft",
+        "fact-stm32g031g8u6tr-iinj-pin",
+        "fact-stm32g031g8u6tr-iinj-total",
+        "fact-stm32g031g8u6tr-vdd-operating",
         "fact-stm32g031g8u6tr-operating-temperature"
       ],
-      "blocking_fact_ids": [
-        "fact-stm32g031g8u6tr-ratings"
-      ]
+      "blocking_fact_ids": []
     },
     {
       "coverage_id": "cov-stm32g031g8u6tr-placement",

@@ -744,7 +744,7 @@
 - 関連:  #10
 - 概要: 許可された全レール組合せと無電源CV入力を電流制限下で試す。
 - 根拠: `engineering/a5/integration/independent_review`
-- 未決: 最大印加値、注入電流制限、順序、許容逆流値を部品資料から承認する必要。（区分: 外部の証跡・アクセス待ち）
+- 未決: 部品資料の値はそろった（STM32 の注入電流と入力電圧は DS12992 Rev 4 のテキスト変換から、ほかは各データシートから）。これらの絶対最大をどのピンでも超えないことを合否とするかはオーナー判断。初回通電の電流制限値は試験前のレビューで決める。逆電流の扱いは ldo-reverse で別に決める。STM32 のデータシートは電源投入の順序を規定しない（Table 19 注 1 は全電源・GND ピンを常に許容範囲の電源につなぐことを求める）ので、順序は試験条件として記録するだけで合否の値は置かない。CV 入力（PA0、ADC に使う FT_a）は VDD に関係なく 4 V が上限。（区分: オーナーの判断）
 - 観測: NOT_MEASURED。結果: NOT_RUN。
 - 次: 不足する基準をレビューし、オーナー承認の試作ルート確定後に実物で実施。
 
@@ -787,7 +787,10 @@
 | u7-input | TLV9001 入力の絶対最大 | `"(V-) - 0.5 to (V+) + 0.5"` | range | V | SOURCED | `.claude/skills/component-tlv9001idbvr/facts.json` `fact-tlv9001idbvr-abs-max-input-voltage` |
 | u5-vi | SN74LVC2T45 入力の絶対最大 | `6.5` | max | V | SOURCED | `.claude/skills/component-sn74lvc2t45dcur/facts.json` `fact-sn74lvc2t45dcur-abs-max-vi` |
 | led-vi | WS2812B 入力の絶対最大 | `"-0.3 to VDD+0.7"` | range | V | SOURCED | `.claude/skills/component-ws2812b-2020-v6/facts.json` `fact-ws2812b-2020-v6-input-abs-max` |
-| limits | 許容印加値・注入電流・順序の数表 | — | — | mA | UNRESOLVED | 上記の部品値から条件表を作ってレビューする（STM32 の注入電流はカタログで未取得）。入手先（資料）: STM32G031 データシートの I/O 注入電流と絶対最大（カタログに fact がない） |
+| mcu-vin | STM32 の FT_xx 入力電圧の絶対最大（ADC に使う FT_a は 4 V まで） | `"-0.3 to VDD + 4.0"` | range | V | SOURCED | `.claude/skills/component-stm32g031g8u6tr/facts.json` `fact-stm32g031g8u6tr-abs-max-vin-ft` |
+| mcu-iinj-pin | STM32 の 1 ピンあたりの注入電流（負方向。FT_xx は正方向の注入が起きない） | `-5` | min | mA | SOURCED | `.claude/skills/component-stm32g031g8u6tr/facts.json` `fact-stm32g031g8u6tr-iinj-pin` |
+| mcu-iinj-total | STM32 の全ピンの注入電流の絶対値の合計 | `25` | max | mA | SOURCED | `.claude/skills/component-stm32g031g8u6tr/facts.json` `fact-stm32g031g8u6tr-iinj-total` |
+| mcu-vdd | STM32 の VDD の絶対最大 | `"-0.3 to 4.0"` | range | V | SOURCED | `.claude/skills/component-stm32g031g8u6tr/facts.json` `fact-stm32g031g8u6tr-ratings` |
 
 ### u7-stress — U7 差動ストレス
 
@@ -1201,6 +1204,7 @@
 | depth | 奥行き目標 | `30.0` | max | mm | DESIGN | `engineering/a7/mechanical/layout.json` `/z_stack/installed_depth_target` |
 | plug-force | プラグ挿抜力 | `"5.0-10.0 N inward and exiting"` | range | NONE | MIRROR | `.claude/skills/component-a7-pj-324m/facts.json` `fact-a7-pj-324m-plug-force` |
 | switch-life | 設定スイッチの寿命 | `10000` | reference | cycles | SOURCED | `.claude/skills/component-a7-pcm13smtr/facts.json` `fact-a7-pcm13smtr-life` |
+| power-connector-life | 電源ヘッダー J5（Molex 530470310）の挿抜耐久（スズめっき） | `30` | reference | cycles | SOURCED | `.claude/skills/component-530470310/facts.json` `fact-530470310-durability` |
 | cycles | ジャック挿抜の繰返し回数（パネル・ナット・ジャックに割れ・ずれ・緩みがないこと） | `100` | min | cycles | DESIGN | `engineering/a7/qualification/owner-criteria.json` `/criteria/service-envelope/cycles/value` |
 | retention-force | ジャック保持がずれ・割れなく受ける挿抜力 | `10.0` | min | N | MIRROR | 計算 `F`（内訳は下） |
 
@@ -1214,8 +1218,8 @@
 | 区分 | ゲート数 |
 |---|---:|
 | CLOUD_DIGITAL（クラウドで進められるデジタル作業） | 0 |
-| OWNER_DECISION（オーナーの判断） | 8 |
-| ACCESS_EVIDENCE_HOLD（外部の証跡・アクセス待ち） | 14 |
+| OWNER_DECISION（オーナーの判断） | 9 |
+| ACCESS_EVIDENCE_HOLD（外部の証跡・アクセス待ち） | 13 |
 | PHYSICAL_ONLY（実機が必要） | 21 |
 
 ## 現在のブロッカー
@@ -1224,7 +1228,7 @@
 - assembly_manifest: supply-observations: Order quantity is 2 modules (owner decision). JLC stock, price, minimum, packaging, lead time and assembly applicability at that quantity are not observed for any line except C221842 (switch-supply); JLC attrition is not sourced; stock never reserved.
 - assembly_manifest: switch-supply: PCM13SMTR (C221842): 2 needed for 2 modules. JLC stock 0 at 2026-11-09; at 2026-11-12 JLC lists it buyable (Extended) with pre-order minimum 3 and presale 0 (field meanings inferred), tier prices without currency, no lead time. The owner wants to complete on JLC: on our reading, a pre-order (presale 0 may mean none can be placed now; fill depends on LCSC stock, not observed) or a Global Sourcing quote; otherwise wait, or accept a reviewed alternate with its own contact table and fit review. At 2026-11-12T18:55Z the owner relayed a live check by their browsing assistant (not a first-hand capture): JLC stock 0, Extended, pre-order offered at minimum 3 with an estimated 31 days; Global Sourcing for 3 via DigiKey JPY 826 total (8-15 business days) or Element JPY 865 (8-18); parts stay in the JLC parts library. The owner accepted JLC sourcing with all recommendations, then asked to consider another switch because of the price, so this stays open until the owner picks.
 - assembly_manifest: jack-switch-qualification: PJ-324M pin function (which of terminals 4/5 is the tip contact; the supplier symbol contradicts the inferred 4 = tip) is not confirmed: the owner waived the pre-order continuity test on 2026-11-12 and accepted the risk, so it is a first-article check on the assembled boards. Slot, axis height and nut fit, and PCM13SMTR truth table and land fit, also need received parts (jack-continuity, jack-dimensions, switch-fit).
-- assembly_manifest: exact-part-evidence: Exact-part gaps after the 2026-11-11 source recovery: PMEG4010CEJ ,115 packing variant not established by the datasheet; SM04B-SRSS-TB per-circuit numbering not printed beyond the No. 1 end; PJ-324M recommended hole/slot sizes, axis height and whether a nut ships with C22355739 not sourced.
+- assembly_manifest: exact-part-evidence: Exact-part gaps after the 2026-11-11 source recovery (the PMEG4010CEJ ,115 packing is since sourced: SOD323F on a 7-inch reel, fact-pmeg4010cej-115-orderable): SM04B-SRSS-TB per-circuit numbering not printed beyond the No. 1 end; PJ-324M recommended hole/slot sizes, axis height and whether a nut ships with C22355739 not sourced.
 - assembly_manifest: mechanical-materials: PMMA sheet and pocket tolerances, PETG process and orderable fastener part numbers are not sourced; the model carries designations (M2x18, M1.6x4) and envelopes only.
 - assembly_manifest: rack-hardware: The owner accepted naming the case (2026-11-12, accept all recommendations); the case model, and so the rail/thread interface and fasteners, is not given yet.
 - assembly_manifest: fixture-materials: Fixture digital criteria 1-4 met; the owner approved the proposed hardware on 2026-11-12 (accept all recommendations). The fabricator for the four FR-4 plates is not chosen. Physical contact/load tests (criterion 5) follow.
@@ -1251,7 +1255,6 @@
 - startup-reset: NOT_MEASURED: no run
 - rail-collapse: NOT_MEASURED: no run
 - partial-rails: criterion unresolved or review receipt missing
-- partial-rails: criterion has PROPOSED or UNRESOLVED acceptance values: limits
 - partial-rails: NOT_MEASURED: no run
 - u7-stress: NOT_MEASURED: no run
 - ldo-reverse: NOT_MEASURED: no run

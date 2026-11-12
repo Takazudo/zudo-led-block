@@ -650,12 +650,6 @@ def criterion_answer_errors(d, root, plan):
     if (p.get('criterion_status') != 'REVIEWED' or p.get('criterion_accepted_by') != 'OWNER' or p.get('missing_criterion') != ''
             or any(x.get('confidence') in ('PROPOSED', 'UNRESOLVED') for x in p.get('acceptance', []))):
         errors.append('an accepted criterion\'s procedure must be REVIEWED by the OWNER with every value decided')
-    # The same receipt test evaluate() uses: an edited value reopens the gate, so the page must not show it as answered.
-    receipt = p.get('criterion_review')
-    digest_now = acceptance_digest(p)
-    if (not raw_ok(receipt, root) or p.get('criterion_acceptance_sha256') != digest_now
-            or (p['id'] + ' ' + digest_now) not in (root / receipt['path']).read_text(errors='replace')):
-        errors.append('an accepted criterion\'s review record must name its current acceptance digest')
     return errors
 
 
@@ -1122,7 +1116,9 @@ def link(url):
 def owner_page_lines(plan, report, root=ROOT):
     classes = {g['gate']: g['class'] for g in report['gates']}
     gaps = owner_page_gaps(plan, report)
-    live = [d for d in plan['owner_decisions'] if classes.get(d['gate']) == 'OWNER_DECISION' and 'answer' not in d]
+    # An answered criterion whose gate is blocked again (its values changed after the owner's review) is live, not answered.
+    reopened = {d['gate'] for d in plan['owner_decisions'] if 'answer' in d and d['answer'].get('status') != PLAN_ACCEPTED and d['gate'] in classes}
+    live = [d for d in plan['owner_decisions'] if classes.get(d['gate']) == 'OWNER_DECISION' and ('answer' not in d or d['gate'] in reopened)]
     lines = ['', '## まとめて答えられる判断（'+str(len(live))+' 件）', '',
              'オーナーの判断ゲートを、PCB 発注を先に止めるものから順に並べています。推奨は出典に基づく提案で、オーナーの回答ではありません。'
              '回答は記録（承認ファイルやレビュー記録）にしてから反映し、それまでゲートは閉じたままです。', '']
@@ -1131,7 +1127,7 @@ def owner_page_lines(plan, report, root=ROOT):
         for o in d['options']:
             lines.append('- '+('**'+mdx(o['label'])+'（推奨）**' if o['id'] == d['recommended'] else mdx(o['label']))+': '+mdx(o['consequence']))
         lines += ['- 推奨の理由: '+mdx(d['reason']), '- 出典: '+'、'.join(trace_text(t)+('「'+mdx(t['quote'])+'」' if 'quote' in t else '') for t in d['sources']), '']
-    answered = [d for d in plan['owner_decisions'] if 'answer' in d and d['answer'].get('status') != PLAN_ACCEPTED]
+    answered = [d for d in plan['owner_decisions'] if 'answer' in d and d['answer'].get('status') != PLAN_ACCEPTED and d['gate'] not in reopened]
     planned = [d for d in plan['owner_decisions'] if 'answer' in d and d['answer'].get('status') == PLAN_ACCEPTED]
     if planned:
         lines += ['## オーナーが方針を受け入れた判断（'+str(len(planned))+' 件、ゲートは開いたまま）', '',

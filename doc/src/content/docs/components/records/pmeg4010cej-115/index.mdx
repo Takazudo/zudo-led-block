@@ -33,7 +33,7 @@ This record in the catalog: [PMEG4010CEJ,115](/docs/components/catalog/#rec-pmeg
 
 **Source state:** AVAILABLE
 
-**Coverage:** 3 open of 5 published
+**Coverage:** 2 open of 5 published
 
 ## Documents and package
 
@@ -68,19 +68,15 @@ Coverage is stated one domain at a time and is never rolled up. A domain marked 
 
 <EvidenceAnchor id="cov-pmeg4010cej-115-identity" />
 
-**Coverage ID:** `cov-pmeg4010cej-115-identity` · **Status:** OPEN
+**Coverage ID:** `cov-pmeg4010cej-115-identity` · **Status:** COVERED
 
-**Reason:** manufacturer is confirmed by Nexperia PMEG4010CEJ v.3; the exact ',115' packing variant stays UNSOURCED because v.3 removed packing information (distributor identity only)
+**Reason:** manufacturer is confirmed by Nexperia PMEG4010CEJ v.3 and the ',115' packing (SOD323F 7-inch reel) by the Nexperia SOD323F\_115 packing document; stock and assembly qualification remain separate
 
 **Facts in this domain:**
 
 - [`fact-pmeg4010cej-115-manufacturer`](#fact-pmeg4010cej-115-manufacturer)
 - [`fact-pmeg4010cej-115-orderable`](#fact-pmeg4010cej-115-orderable)
 - [`fact-pmeg4010cej-115-distributor-identity`](#fact-pmeg4010cej-115-distributor-identity)
-
-**Blocked by:** these facts must be resolved before the domain can close. Each is listed in full under Facts.
-
-- [`fact-pmeg4010cej-115-orderable`](#fact-pmeg4010cej-115-orderable)
 
 ### pinout
 
@@ -303,13 +299,13 @@ A value this project recorded about how the part is used here — a chosen opera
 
   **Fact:** `fact-pmeg4010cej-115-orderable`
 
-  **Value:** PMEG4010CEJ,115 (packing suffix ,115) · **Unit:** `NONE`
+  **Value:** PMEG4010CEJ,115 = SOD323F on a 7-inch reel (180 mm diameter, 8 mm tape) · **Unit:** `NONE`
 
-  **Conditions:** the type number PMEG4010CEJ is in Table 3 (src-pmeg4010cej-115-ds-p1), but v.3 states 'Packing information removed', so the ',115' packing variant is not established by this document; it is supported by distributor identity only
+  **Conditions:** Nexperia SOD323F\_115 Rev. 3.0 Table 1 gives the ,115 ending as the 7-inch reel pack (180 x 8 mm); the table's SPQ of 3000 pcs is for the package, and its note 2 says the packing quantity depends on the specific product type. The package SOD323F comes from the PMEG4010CEJ v.3 data sheet (src-pmeg4010cej-115-ds-p1), which itself removed packing information (src-pmeg4010cej-115-ds-p5). Packing identity only; not stock or assembly qualification.
 
-  **Verdict:** UNSOURCED · **Provenance:** UNVERIFIED
+  **Verdict:** PASS - primary-source confirmed · **Provenance:** PRIMARY-SPEC
 
-  **Evidence:** [src-pmeg4010cej-115-ds-p5: Table 8 Revision history, v.3 modifications; src-pmeg4010cej-115-ds-p1: Table 3 Ordering information](#src-pmeg4010cej-115-ds-p5)
+  **Evidence:** [src-pmeg4010cej-115-packing: Table 1 Dimensions and quantities, row SOD323F / 115; src-pmeg4010cej-115-ds-p1: package SOD323F](#src-pmeg4010cej-115-packing)
 </EvidenceFact>
 
 ## Pin maps
@@ -469,6 +465,26 @@ Every document cited above, with its identification, when it was retrieved, and 
 
 **Document URL:** [https://assets.nexperia.com/documents/data-sheet/PMEG4010CEJ.pdf](https://assets.nexperia.com/documents/data-sheet/PMEG4010CEJ.pdf)
 
+### SOD323F Reel pack for SMD, 7''; Q1/T1-Q2/T3 product orientation (Nexperia packing information)
+
+<EvidenceAnchor id="src-pmeg4010cej-115-packing" />
+
+**Source ID:** `src-pmeg4010cej-115-packing` · **Authority:** MANUFACTURER\_PRIMARY
+
+| Field           | Recorded value                                           |
+| --------------- | -------------------------------------------------------- |
+| Document number | SOD323F\_115                                             |
+| Revision        | Rev. 3.0                                                 |
+| Document date   | 2024-08-26                                               |
+| Retrieved       | 2026-11-12                                               |
+| Printed page    | none printed (first page; pages 2-6 carry an n/6 footer) |
+
+**Locator:** page 1: section 1 Packing method, Table 1 Dimensions and quantities
+
+**Availability:** AVAILABLE
+
+**Document URL:** [https://assets.nexperia.com/documents/packing-information/SOD323F\_115.pdf](https://assets.nexperia.com/documents/packing-information/SOD323F_115.pdf)
+
 ## Legend
 
 What the recorded terms on this page mean, in ordinary words. The exact terms above are the ones that count; these descriptions explain them and never replace them.
@@ -489,7 +505,6 @@ What the recorded terms on this page mean, in ordinary words. The exact terms ab
 | `DISTRIBUTOR-IDENTITY` | Taken from a distributor listing. Identity information only. |
 | `PRIMARY-SPEC`         | Taken from the manufacturer's own specification document.    |
 | `PROJECT-CHOICE`       | A decision made by this project. No vendor asserts it.       |
-| `UNVERIFIED`           | Recorded, but not yet backed by an accepted source.          |
 
 ### Fact class
 

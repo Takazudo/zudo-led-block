@@ -273,11 +273,16 @@ class ReadinessTests(unittest.TestCase):
         self.assertTrue(any("accept-all entry" in e for e in m.owner_page_errors(self.plan)))
 
     def test_edited_accepted_criterion_is_no_longer_answered(self):
-        p = next(x for x in self.plan['procedures'] if x['id'] == 'harness-depth')
-        bend = next(a for a in p['acceptance'] if a['id'] == 'bend-radius')
-        bend['source']['pointer'] = '/variants/3hp/panel_width'
-        bend['value'] = 14.9
-        self.assertTrue(any('current acceptance digest' in e for e in m.owner_page_errors(self.plan)))
+        report = json.loads((REPO/m.QUAL/'readiness.json').read_text())
+        question = next(d['question'] for d in self.plan['owner_decisions'] if d['gate'] == 'criterion:harness-depth')
+        page = m.checklist(self.plan, report)
+        self.assertNotIn('. ' + question, page)
+        # Once the edited values block the gate again, the decision returns to the live list and leaves the answered list.
+        report = copy.deepcopy(report)
+        report['gates'].append({'gate': 'criterion:harness-depth', 'class': 'OWNER_DECISION', 'reasons': ['criterion acceptance record does not match']})
+        page = m.checklist(self.plan, report)
+        self.assertIn('. ' + question, page)
+        self.assertNotIn('**' + question + '** → 提案どおり採る（オーナーの回答', page)
 
     def test_owner_criteria_must_match_an_accepted_option(self):
         real = m.owner_criteria_errors(REPO)
@@ -304,13 +309,13 @@ class ReadinessTests(unittest.TestCase):
     def test_checklist_lists_decisions_and_downloads(self):
         report = json.loads((REPO/m.QUAL/'readiness.json').read_text())
         page = m.checklist(self.plan, report)
-        self.assertIn('## まとめて答えられる判断（1 件）', page)
+        self.assertIn('## まとめて答えられる判断（2 件）', page)
         self.assertIn('## オーナーが方針を受け入れた判断（7 件、ゲートは開いたまま）', page)
         self.assertNotIn('限定試作を承認しますか', page)
         self.assertIn('## 回答済みの判断（7 件）', page)
         self.assertIn('2 台分（オーナー報告の JLC PCBA 最小、未確認）（オーナーの回答、`assembly:order-quantity`）', page)
         self.assertNotIn('### 2. 最初の発注数量', page)
-        self.assertIn('## 資料・回答待ちのゲート（14 件）', page)
+        self.assertIn('## 資料・回答待ちのゲート（13 件）', page)
         self.assertIn('`owner_prototype_route`（解除済み）', page)
         self.assertNotIn('<https://', page)
 
@@ -753,13 +758,13 @@ class ExecutableProcedureTests(unittest.TestCase):
 
     def test_evidence_hold_criteria_say_what_supplies_them(self):
         holds = [p for p in self.plan['procedures'] if p['criterion_class'] == 'ACCESS_EVIDENCE_HOLD']
-        self.assertEqual(len(holds), 5)
+        self.assertEqual(len(holds), 4)
         for p in holds:
             self.assertTrue(all(a['supplied_by']['what'] for a in p['acceptance'] if a['confidence'] == 'UNRESOLVED'))
-        self.item('partial-rails', 'limits').pop('supplied_by')
+        self.item('switch-fit', 'fit-and-contact').pop('supplied_by')
         self.assertUntraceable('which document or measurement')
         self.plan = json.loads((REPO/m.QUAL/'plan.json').read_text())
-        self.item('partial-rails', 'limits')['supplied_by']['kind'] = 'GUESS'
+        self.item('switch-fit', 'fit-and-contact')['supplied_by']['kind'] = 'GUESS'
         self.assertUntraceable('supplied_by needs kind')
 
     def test_checklist_is_one_ordered_list_with_proposals(self):

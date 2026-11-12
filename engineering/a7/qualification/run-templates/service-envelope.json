@@ -16,9 +16,9 @@
     "configuration": "195092c88e1b9270bae22d27f4a08f4a606f9be77008f3011f06d7a975b0f6a7",
     "mechanical": "9cbc6ac99f5b05c7e3145f2016b6918cbc5d2b77170db31ed7155755cba0d591",
     "fixture": "4af6e9440d9b31dd05f5f5e55a1f30485274a526e4066925b8ee929e7a642e23",
-    "assembly_manifest": "07a3adb154514511eb9f743541e94e6fc61a05347d62682d2f084a31a9e00b47"
+    "assembly_manifest": "69bc70857332480b0115caf6eefd3ce429d3f4d5e49bb4f2505148a11792c6ca"
   },
-  "plan_sha256": "b9b416768864d29f37cdac95d59d1969595ce011cbcb4499bd7a9d30338f68fc",
+  "plan_sha256": "e1be3470f14426c2f240ba19706f357dcaeb2ae40c302bd5e391e83292dbc24d",
   "instruments": null,
   "setup": null,
   "conditions": null,
@@ -103,6 +103,17 @@
       "id": "switch-life",
       "criterion": "設定スイッチの寿命",
       "expected": 10000,
+      "bound": "reference",
+      "unit": "cycles",
+      "confidence": "SOURCED",
+      "proposed": false,
+      "observed": null,
+      "verdict": null
+    },
+    {
+      "id": "power-connector-life",
+      "criterion": "電源ヘッダー J5（Molex 530470310）の挿抜耐久（スズめっき）",
+      "expected": 30,
       "bound": "reference",
       "unit": "cycles",
       "confidence": "SOURCED",

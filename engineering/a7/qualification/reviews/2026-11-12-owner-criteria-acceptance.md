@@ -13,14 +13,14 @@
 
 harness-depth 886e5fd6948d5d2c939b8ab37e668749db83307b2c78f972892713ef46071943
 u7-stress bcfdaa1b30cbf474bb7b951d87563a0cbca39e9c002293ae9a3b060b24c3d30d
-service-envelope cdde947562ab8dfe327d7067bd01de8e6aa4f4e5668b49af3fd163773e5b92e5
+service-envelope d7cb9959e4717eb0051e04bfa957a9945be72336f160c8a3740c6efaafa6bb99
 ldo-reverse 0df9272f616326f663ecaa1ccda4866a9e00d371c0b78d5614ea51734bc5ad7a
 
 ## 採用した内容
 
 - harness-depth（推奨 adopt）: 電源ケーブル自由長の注文範囲 54–60 mm（57 ± 3 mm。±3 は仮定のまま ASSUMED）と最小曲げ半径 2.0 mm（3HP の経路モデルの設計値）。ケーブル業者がより狭い公差を保証すれば、新しい採用記録で置き換える。
 - u7-stress（推奨 adopt）: R7 を流れる電流の上限 0.313 mA。CV_BUF が U6 の電源を超えないという推定を含む計算（INFERRED）のまま採る。
-- service-envelope（推奨 100）: ジャック挿抜 100 回で割れ・ずれ・緩みがないこと、挿抜力 10.0 N（販売店掲載の写し、MIRROR）。ジャックの寿命試験ではない。
+- service-envelope（推奨 100）: ジャック挿抜 100 回で割れ・ずれ・緩みがないこと、挿抜力 10.0 N（販売店掲載の写し、MIRROR）。ジャックの寿命試験ではない。 このダイジェストには、オーナーのメッセージの後に別の変更（W19、#72）で加わった参照行 power-connector-life（電源ヘッダー J5 Molex 530470310 の挿抜耐久 30 回、メーカー資料の SOURCED、bound reference）が含まれます。合否の線ではなく参照値で、オーナーが選んだ 100 回はジャックの挿抜に対するもの（電源ヘッダーを 100 回挿抜する試験ではない）です。
 - ldo-reverse（推奨 prohibit）: +5 V を切った状態で +3V3 に外部から電圧をかけない（0 mA）。試験は電源投入・遮断の順序と、遮断時に VOUT ≤ VIN + 0.3 V が保たれるかの確認だけ。
 
 ## 基準ゲートを解除しないもの（方針だけ採用）

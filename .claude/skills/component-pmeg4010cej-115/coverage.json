@@ -5,16 +5,14 @@
       "coverage_id": "cov-pmeg4010cej-115-identity",
       "record_id": "rec-pmeg4010cej-115",
       "domain": "identity",
-      "status": "OPEN",
-      "reason": "manufacturer is confirmed by Nexperia PMEG4010CEJ v.3; the exact ',115' packing variant stays UNSOURCED because v.3 removed packing information (distributor identity only)",
+      "status": "COVERED",
+      "reason": "manufacturer is confirmed by Nexperia PMEG4010CEJ v.3 and the ',115' packing (SOD323F 7-inch reel) by the Nexperia SOD323F_115 packing document; stock and assembly qualification remain separate",
       "fact_ids": [
         "fact-pmeg4010cej-115-manufacturer",
         "fact-pmeg4010cej-115-orderable",
         "fact-pmeg4010cej-115-distributor-identity"
       ],
-      "blocking_fact_ids": [
-        "fact-pmeg4010cej-115-orderable"
-      ]
+      "blocking_fact_ids": []
     },
     {
       "coverage_id": "cov-pmeg4010cej-115-pinout",
