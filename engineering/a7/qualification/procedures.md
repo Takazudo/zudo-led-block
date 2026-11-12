@@ -744,9 +744,9 @@
 - 関連:  #10
 - 概要: 許可された全レール組合せと無電源CV入力を電流制限下で試す。
 - 根拠: `engineering/a5/integration/independent_review`
-- 未決: 部品資料の値はそろった（STM32 の注入電流と入力電圧は DS12992 Rev 4 のテキスト変換から、ほかは各データシートから）。これらの絶対最大をどのピンでも超えないことを合否とするかはオーナー判断。初回通電の電流制限値は試験前のレビューで決める。逆電流の扱いは ldo-reverse で別に決める。STM32 のデータシートは電源投入の順序を規定しない（Table 19 注 1 は全電源・GND ピンを常に許容範囲の電源につなぐことを求める）ので、順序は試験条件として記録するだけで合否の値は置かない。CV 入力（PA0、ADC に使う FT_a）は VDD に関係なく 4 V が上限。（区分: オーナーの判断）
+- 基準: 採用済み（オーナー本人、記録 `engineering/a7/qualification/reviews/2026-11-12-owner-partial-rails-acceptance.md`）
 - 観測: NOT_MEASURED。結果: NOT_RUN。
-- 次: 不足する基準をレビューし、オーナー承認の試作ルート確定後に実物で実施。
+- 次: 基準はオーナーが採用済み（2026-11-12、部品の絶対最大を合否の線にする）。初回通電の電流制限値を試験前のレビューで決め、オーナー承認の試作ルートの範囲で実物で実施する。
 
 準備するもの:
 
@@ -1218,7 +1218,7 @@
 | 区分 | ゲート数 |
 |---|---:|
 | CLOUD_DIGITAL（クラウドで進められるデジタル作業） | 0 |
-| OWNER_DECISION（オーナーの判断） | 9 |
+| OWNER_DECISION（オーナーの判断） | 8 |
 | ACCESS_EVIDENCE_HOLD（外部の証跡・アクセス待ち） | 13 |
 | PHYSICAL_ONLY（実機が必要） | 21 |
 
@@ -1254,7 +1254,6 @@
 - cv-thru-calibration: NOT_MEASURED: no run
 - startup-reset: NOT_MEASURED: no run
 - rail-collapse: NOT_MEASURED: no run
-- partial-rails: criterion unresolved or review receipt missing
 - partial-rails: NOT_MEASURED: no run
 - u7-stress: NOT_MEASURED: no run
 - ldo-reverse: NOT_MEASURED: no run

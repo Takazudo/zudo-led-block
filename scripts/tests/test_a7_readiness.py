@@ -284,6 +284,26 @@ class ReadinessTests(unittest.TestCase):
         self.assertIn('. ' + question, page)
         self.assertNotIn('**' + question + '** → 提案どおり採る（オーナーの回答', page)
 
+    def test_criterion_answered_on_its_own_card_is_bound_to_that_entry(self):
+        d = next(x for x in self.plan['owner_decisions'] if x['gate'] == 'criterion:partial-rails')
+        self.assertEqual(d['answer']['option'], 'accept')
+        self.assertTrue(d['answer']['record']['quote'].startswith('Chose "Yes'))
+        self.assertEqual(m.owner_page_errors(self.plan), [])
+        d['answer']['record']['quote'] = '5 accept all'
+        self.assertTrue(any("owner's entry" in e for e in m.owner_page_errors(self.plan)))
+
+    def test_criterion_card_answer_must_be_the_recommended_option(self):
+        d = next(x for x in self.plan['owner_decisions'] if x['gate'] == 'criterion:partial-rails')
+        self.assertEqual(m.criterion_answer_errors(d, REPO, self.plan), [])
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            (root / m.OWNER_ANSWERS).parent.mkdir(parents=True, exist_ok=True)
+            data = json.loads((REPO / m.OWNER_ANSWERS).read_text())
+            entry = next(x for x in data['decisions'] if x.get('gate') == 'criterion:partial-rails')
+            entry['card']['chosen'] = entry['card']['options'][1]
+            (root / m.OWNER_ANSWERS).write_text(json.dumps(data))
+            self.assertTrue(any('recommended option' in e for e in m.criterion_answer_errors(d, root, self.plan)))
+
     def test_owner_criteria_must_match_an_accepted_option(self):
         real = m.owner_criteria_errors(REPO)
         self.assertEqual(real, [])
@@ -309,10 +329,10 @@ class ReadinessTests(unittest.TestCase):
     def test_checklist_lists_decisions_and_downloads(self):
         report = json.loads((REPO/m.QUAL/'readiness.json').read_text())
         page = m.checklist(self.plan, report)
-        self.assertIn('## まとめて答えられる判断（2 件）', page)
+        self.assertIn('## まとめて答えられる判断（1 件）', page)
         self.assertIn('## オーナーが方針を受け入れた判断（7 件、ゲートは開いたまま）', page)
         self.assertNotIn('限定試作を承認しますか', page)
-        self.assertIn('## 回答済みの判断（7 件）', page)
+        self.assertIn('## 回答済みの判断（8 件）', page)
         self.assertIn('2 台分（オーナー報告の JLC PCBA 最小、未確認）（オーナーの回答、`assembly:order-quantity`）', page)
         self.assertNotIn('### 2. 最初の発注数量', page)
         self.assertIn('## 資料・回答待ちのゲート（13 件）', page)

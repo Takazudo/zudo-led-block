@@ -2325,12 +2325,12 @@
       "setup": "許可された全レール組合せと無電源CV入力を電流制限下で試す。",
       "expected": "部分電源/バックパワーを未確認として扱う。",
       "basis": "engineering/a5/integration/independent_review",
-      "criterion_status": "UNRESOLVED",
-      "missing_criterion": "部品資料の値はそろった（STM32 の注入電流と入力電圧は DS12992 Rev 4 のテキスト変換から、ほかは各データシートから）。これらの絶対最大をどのピンでも超えないことを合否とするかはオーナー判断。初回通電の電流制限値は試験前のレビューで決める。逆電流の扱いは ldo-reverse で別に決める。STM32 のデータシートは電源投入の順序を規定しない（Table 19 注 1 は全電源・GND ピンを常に許容範囲の電源につなぐことを求める）ので、順序は試験条件として記録するだけで合否の値は置かない。CV 入力（PA0、ADC に使う FT_a）は VDD に関係なく 4 V が上限。",
+      "criterion_status": "REVIEWED",
+      "missing_criterion": "",
       "raw_evidence_required": "組合せ表、電圧/注入/逆流記録、raw波形",
       "observation": "NOT_MEASURED",
       "result": "NOT_RUN",
-      "next_action": "不足する基準をレビューし、オーナー承認の試作ルート確定後に実物で実施。",
+      "next_action": "基準はオーナーが採用済み（2026-11-12、部品の絶対最大を合否の線にする）。初回通電の電流制限値を試験前のレビューで決め、オーナー承認の試作ルートの範囲で実物で実施する。",
       "required_evidence_kinds": [
         "rail_combination_matrix",
         "injection_reverse_current",
@@ -2470,7 +2470,13 @@
           },
           "bound": "range"
         }
-      ]
+      ],
+      "criterion_accepted_by": "OWNER",
+      "criterion_review": {
+        "path": "engineering/a7/qualification/reviews/2026-11-12-owner-partial-rails-acceptance.md",
+        "sha256": "55a0a61aaff09a23897cdd9f23e6a32a9efc081ddd3ed5d86a560e65ec333df3"
+      },
+      "criterion_acceptance_sha256": "4cd52a8a77ed13aa6357c0636263ce016e36608d85670c7eefa09f3e69f910ba"
     },
     {
       "id": "u7-stress",
@@ -3805,7 +3811,7 @@
     {
       "id": "O7",
       "title": "残りの合否基準を採否する（提案値）",
-      "detail": "harness-depth、u7-stress、service-envelope、ldo-reverse はオーナーが採用した（2026-11-12）。thermal-optical は上限 75 °C を採ったが、材料の温度限界と見え方が残る。部分電源試験を部品の絶対最大で判定する案（partial-rails）は「accept all」の後に出たので、オーナーの判断待ち。その他の PROPOSED の提案値は、採るまでゲートを解除しない。",
+      "detail": "harness-depth、u7-stress、service-envelope、ldo-reverse はオーナーが採用した（2026-11-12）。thermal-optical は上限 75 °C を採ったが、材料の温度限界と見え方が残る。部分電源試験（partial-rails）は「accept all」の後に別に尋ね、オーナーが部品の絶対最大を合否の線に採った（2026-11-12）。その他の PROPOSED の提案値は、採るまでゲートを解除しない。",
       "unblocks": [
         "criterion:thermal-optical",
         "criterion:service-envelope",
@@ -4473,7 +4479,15 @@
           "fact_id": "fact-opa197idbvr-abs-max-input-current"
         }
       ],
-      "rank": 14
+      "rank": 14,
+      "answer": {
+        "option": "accept",
+        "by": "OWNER",
+        "record": {
+          "path": "engineering/a7/procurement/owner-decisions.json",
+          "quote": "Chose \"Yes, maker's maximum is the line\" on the decision card asking \"Fail the partial-power test if any chip goes past its maker's maximum?\""
+        }
+      }
     },
     {
       "gate": "assembly:fixture-materials",
