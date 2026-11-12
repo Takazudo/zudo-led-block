@@ -18,7 +18,7 @@
     "fixture": "9040f6e5035afc3f54a8b563bfdf0d7b43ca1ed7794dc7f470372c45f2f6faae",
     "assembly_manifest": "03225f1e93c06adacb481ae246426b211a41d93ffea230ff468f071900565e29"
   },
-  "plan_sha256": "e0de2422322efc357757e819abdf901db9dc2a7d8417a5f287becc8efac44eb5",
+  "plan_sha256": "44fdd553b29ca635f45c36ec8b599af6c5095285f981110f0e78a8307aeaaec2",
   "instruments": null,
   "setup": null,
   "conditions": null,
@@ -90,6 +90,39 @@
       "bound": "reference",
       "unit": "NONE",
       "confidence": "UNVERIFIED",
+      "proposed": false,
+      "observed": null,
+      "verdict": null
+    },
+    {
+      "id": "dc-bias-c10u",
+      "criterion": "CL21A106KAYNNNE の典型 DC バイアス特性（保証値ではない）",
+      "expected": "-50.31 % at 5.0 V; -81.6 % at 12.208 V",
+      "bound": "reference",
+      "unit": "%",
+      "confidence": "SOURCED",
+      "proposed": false,
+      "observed": null,
+      "verdict": null
+    },
+    {
+      "id": "dc-bias-c22u",
+      "criterion": "CL31A226KAHNNNE の典型 DC バイアス特性（保証値ではない）",
+      "expected": "-37.96 % at 5.0 V",
+      "bound": "reference",
+      "unit": "%",
+      "confidence": "SOURCED",
+      "proposed": false,
+      "observed": null,
+      "verdict": null
+    },
+    {
+      "id": "dc-bias-c4u7",
+      "criterion": "CL10A475KO8NNNC の典型 DC バイアス特性（保証値ではない）",
+      "expected": "-30.44 % at 3.3 V; -49.92 % at 5.0 V",
+      "bound": "reference",
+      "unit": "%",
+      "confidence": "SOURCED",
       "proposed": false,
       "observed": null,
       "verdict": null

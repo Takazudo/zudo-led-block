@@ -43,7 +43,7 @@
       "sha256": "03225f1e93c06adacb481ae246426b211a41d93ffea230ff468f071900565e29"
     }
   },
-  "plan_sha256": "e0de2422322efc357757e819abdf901db9dc2a7d8417a5f287becc8efac44eb5",
+  "plan_sha256": "44fdd553b29ca635f45c36ec8b599af6c5095285f981110f0e78a8307aeaaec2",
   "procedures": [
     {
       "id": "jack-continuity",
@@ -504,7 +504,7 @@
     },
     {
       "gate": "criterion:ldo-reverse",
-      "class": "ACCESS_EVIDENCE_HOLD",
+      "class": "OWNER_DECISION",
       "reasons": [
         "ldo-reverse: criterion unresolved or review receipt missing",
         "ldo-reverse: criterion has PROPOSED or UNRESOLVED acceptance values: reverse"
@@ -526,7 +526,7 @@
     },
     {
       "gate": "criterion:effective-capacitance",
-      "class": "ACCESS_EVIDENCE_HOLD",
+      "class": "CLOUD_DIGITAL",
       "reasons": [
         "effective-capacitance: criterion unresolved or review receipt missing",
         "effective-capacitance: criterion has PROPOSED or UNRESOLVED acceptance values: minimum"
@@ -634,9 +634,9 @@
     }
   ],
   "gate_counts": {
-    "CLOUD_DIGITAL": 2,
-    "OWNER_DECISION": 12,
-    "ACCESS_EVIDENCE_HOLD": 16,
+    "CLOUD_DIGITAL": 3,
+    "OWNER_DECISION": 13,
+    "ACCESS_EVIDENCE_HOLD": 14,
     "PHYSICAL_ONLY": 20
   },
   "state_flags": [

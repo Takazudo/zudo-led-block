@@ -18,7 +18,7 @@
     "fixture": "9040f6e5035afc3f54a8b563bfdf0d7b43ca1ed7794dc7f470372c45f2f6faae",
     "assembly_manifest": "03225f1e93c06adacb481ae246426b211a41d93ffea230ff468f071900565e29"
   },
-  "plan_sha256": "e0de2422322efc357757e819abdf901db9dc2a7d8417a5f287becc8efac44eb5",
+  "plan_sha256": "44fdd553b29ca635f45c36ec8b599af6c5095285f981110f0e78a8307aeaaec2",
   "instruments": null,
   "setup": null,
   "conditions": null,
@@ -73,8 +73,19 @@
       "verdict": null
     },
     {
+      "id": "reverse-spec",
+      "criterion": "TLV75533 の逆電流に関するメーカー記述",
+      "expected": "no allowed reverse current specified; VOUT must not exceed VIN + 0.3 V or 6.0 V, whichever is smaller",
+      "bound": "reference",
+      "unit": "NONE",
+      "confidence": "SOURCED",
+      "proposed": false,
+      "observed": null,
+      "verdict": null
+    },
+    {
       "id": "reverse",
-      "criterion": "許容逆電流と時間",
+      "criterion": "試験で許す逆電流と時間",
       "expected": null,
       "bound": null,
       "unit": "mA",
