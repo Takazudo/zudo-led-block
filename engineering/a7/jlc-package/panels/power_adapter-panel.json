@@ -1,0 +1,278 @@
+{
+  "board": "power_adapter",
+  "pcb": "engineering/a5/electronics/native/power_adapter/power_adapter.kicad_pcb",
+  "pcb_sha256": "b0f071f2730afdfd3d29de2176b1cce5f90b0c0726d14fd15501e27f90d95187",
+  "tier": "ECONOMIC",
+  "panel_mm": [
+    22.8,
+    44.0
+  ],
+  "copies": [
+    {
+      "copy": 1,
+      "suffix": "",
+      "offset_mm": [
+        7.0,
+        7.0
+      ],
+      "outline_mm": [
+        7.0,
+        7.0,
+        15.8,
+        37.0
+      ],
+      "slot_mm": [
+        5.0,
+        5.0,
+        17.8,
+        39.0
+      ]
+    }
+  ],
+  "tabs": [
+    {
+      "copy": 1,
+      "edge": "top",
+      "rect_mm": [
+        8.9,
+        5.0,
+        13.9,
+        7.0
+      ]
+    },
+    {
+      "copy": 1,
+      "edge": "left",
+      "rect_mm": [
+        5.0,
+        10.5,
+        7.0,
+        15.5
+      ]
+    },
+    {
+      "copy": 1,
+      "edge": "left",
+      "rect_mm": [
+        5.0,
+        28.5,
+        7.0,
+        33.5
+      ]
+    },
+    {
+      "copy": 1,
+      "edge": "right",
+      "rect_mm": [
+        15.8,
+        10.5,
+        17.8,
+        15.5
+      ]
+    },
+    {
+      "copy": 1,
+      "edge": "right",
+      "rect_mm": [
+        15.8,
+        28.5,
+        17.8,
+        33.5
+      ]
+    }
+  ],
+  "tabs_per_copy": {
+    "1": 5
+  },
+  "mouse_bites": {
+    "diameter_mm": 0.6,
+    "gap_mm": 0.25,
+    "centres_mm": [
+      [
+        9.275,
+        6.7
+      ],
+      [
+        10.125,
+        6.7
+      ],
+      [
+        10.975,
+        6.7
+      ],
+      [
+        11.825,
+        6.7
+      ],
+      [
+        12.675,
+        6.7
+      ],
+      [
+        13.525,
+        6.7
+      ],
+      [
+        6.7,
+        10.875
+      ],
+      [
+        6.7,
+        11.725
+      ],
+      [
+        6.7,
+        12.575
+      ],
+      [
+        6.7,
+        13.425
+      ],
+      [
+        6.7,
+        14.275
+      ],
+      [
+        6.7,
+        15.125
+      ],
+      [
+        6.7,
+        28.875
+      ],
+      [
+        6.7,
+        29.725
+      ],
+      [
+        6.7,
+        30.575
+      ],
+      [
+        6.7,
+        31.425
+      ],
+      [
+        6.7,
+        32.275
+      ],
+      [
+        6.7,
+        33.125
+      ],
+      [
+        16.1,
+        10.875
+      ],
+      [
+        16.1,
+        11.725
+      ],
+      [
+        16.1,
+        12.575
+      ],
+      [
+        16.1,
+        13.425
+      ],
+      [
+        16.1,
+        14.275
+      ],
+      [
+        16.1,
+        15.125
+      ],
+      [
+        16.1,
+        28.875
+      ],
+      [
+        16.1,
+        29.725
+      ],
+      [
+        16.1,
+        30.575
+      ],
+      [
+        16.1,
+        31.425
+      ],
+      [
+        16.1,
+        32.275
+      ],
+      [
+        16.1,
+        33.125
+      ]
+    ]
+  },
+  "fiducials": {
+    "diameter_mm": 1.0,
+    "mask_opening_mm": 2.0,
+    "sides": [
+      "F"
+    ],
+    "centres_mm": [
+      [
+        6.84,
+        3.85
+      ],
+      [
+        15.96,
+        3.85
+      ],
+      [
+        6.84,
+        40.15
+      ]
+    ]
+  },
+  "tooling_holes": {
+    "diameter_mm": 2.0,
+    "centres_mm": [
+      [
+        3.5,
+        2.5
+      ],
+      [
+        19.3,
+        2.5
+      ],
+      [
+        3.5,
+        41.5
+      ]
+    ]
+  },
+  "rules": {
+    "rail_mm": 5.0,
+    "edge_gap_mm": {
+      "left": 2.0,
+      "right": 2.0,
+      "top": 2.0,
+      "bottom": 2.0
+    },
+    "between_copies_mm": null,
+    "tab_mm": 5.0,
+    "tab_part_clearance_mm": 1.0,
+    "proposed": [
+      "fiducial mask opening",
+      "fiducial x positions (0.3 / 0.7 of the panel width)",
+      "tooling-hole inset",
+      "tab positions and count",
+      "tab part clearance",
+      "overhang margin"
+    ]
+  },
+  "drc_waivers": {
+    "npth_inside_courtyard": "mouse-bite holes of a pad-placed tab lie inside the courtyard of a part body that overhangs the board edge; the holes are outside the frozen board outline"
+  },
+  "notes": [
+    "Frame cut back by the courtyard overhang plus 1 mm (proposed) at J2, J1; tabs away from those parts where at least 2 tabs fit, otherwise kept clear of pads only (see the panel notes).",
+    "Copy 1: fewer than 2 tabs fit outside the part courtyards, so its tabs keep 1 mm from pads only and may sit under a part body that overhangs the edge."
+  ]
+}
