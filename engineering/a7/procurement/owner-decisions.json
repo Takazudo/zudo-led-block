@@ -241,6 +241,36 @@
       "answer": "assembler",
       "via": "accept-all-recommendations",
       "meaning": "Order the finished power, SH4 and IDC cables from a cable assembler to the A7 specification. The assembler's length tolerance answer is still needed (material:finished_cables)."
+    },
+    {
+      "id": "partial-rails-criterion",
+      "gate": "criterion:partial-rails",
+      "decided_by": "OWNER",
+      "decided_on": "2026-11-12",
+      "owner_messages": [
+        {
+          "message_id": "cmsg_01LWjimMEMhCfvWjnLbPbEF3N78jfTUP3TvL6STtf934m6",
+          "at": "2026-11-12T19:15:57Z",
+          "text": "Chose \"Yes, maker's maximum is the line\" on the decision card asking \"Fail the partial-power test if any chip goes past its maker's maximum?\""
+        }
+      ],
+      "owner_words": [
+        "Chose \"Yes, maker's maximum is the line\" on the decision card asking \"Fail the partial-power test if any chip goes past its maker's maximum?\""
+      ],
+      "answer": "accept",
+      "card": {
+        "message_id": "cmsg_01LWjimMEMhCfvWjnLbPbEF3N78jfTUP3TvL6STtf934m6",
+        "question": "Fail the partial-power test if any chip goes past its maker's maximum?",
+        "options": [
+          "Yes, maker's maximum is the line",
+          "Stricter: keep a safety margin",
+          "Decide later"
+        ],
+        "chosen": "Yes, maker's maximum is the line",
+        "explained_in": "cmsg_01LWjimMEMhCfvWjnLbPbEF3275UCBrNq6bpyEMHqSmtHr"
+      },
+      "meaning": "partial-rails passes only if no pin of any part exceeds its manufacturer absolute maximum rating during the partial-power and unpowered-CV tests. Absolute maxima are stress limits, so staying inside them does not guarantee margin.",
+      "scope": "Pass/fail line of partial-rails only. Asked separately because it arose after \"accept all\". The first-power current limit is still decided in review before the test."
     }
   ],
   "sourcing_preference": {

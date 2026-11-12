@@ -40,10 +40,10 @@
     },
     "assembly_manifest": {
       "path": "engineering/a7/procurement/assembly-manifest.json",
-      "sha256": "69bc70857332480b0115caf6eefd3ce429d3f4d5e49bb4f2505148a11792c6ca"
+      "sha256": "a95d6f11ba95bc86ba69eadee2347773a7261168e6ef332d21b10edd1eab3b78"
     }
   },
-  "plan_sha256": "e1be3470f14426c2f240ba19706f357dcaeb2ae40c302bd5e391e83292dbc24d",
+  "plan_sha256": "d9308dd691ae09b4eed5967e3411ca18854161205ca40fbf4209cc7fe90ffb27",
   "procedures": [
     {
       "id": "jack-continuity",
@@ -136,7 +136,6 @@
       "id": "partial-rails",
       "status": "BLOCKED",
       "reasons": [
-        "criterion unresolved or review receipt missing",
         "NOT_MEASURED: no run"
       ]
     },
@@ -225,7 +224,6 @@
     "cv-thru-calibration: NOT_MEASURED: no run",
     "startup-reset: NOT_MEASURED: no run",
     "rail-collapse: NOT_MEASURED: no run",
-    "partial-rails: criterion unresolved or review receipt missing",
     "partial-rails: NOT_MEASURED: no run",
     "u7-stress: NOT_MEASURED: no run",
     "ldo-reverse: NOT_MEASURED: no run",
@@ -428,13 +426,6 @@
       ]
     },
     {
-      "gate": "criterion:partial-rails",
-      "class": "OWNER_DECISION",
-      "reasons": [
-        "partial-rails: criterion unresolved or review receipt missing"
-      ]
-    },
-    {
       "gate": "run:partial-rails",
       "class": "PHYSICAL_ONLY",
       "reasons": [
@@ -558,7 +549,7 @@
   ],
   "gate_counts": {
     "CLOUD_DIGITAL": 0,
-    "OWNER_DECISION": 9,
+    "OWNER_DECISION": 8,
     "ACCESS_EVIDENCE_HOLD": 13,
     "PHYSICAL_ONLY": 21
   },
