@@ -645,6 +645,12 @@ def criterion_answer_errors(d, root, plan):
     option = entry and (entry.get('option') or entry.get('answer'))
     if not entry or option != a['option'] or unquote(record.get('quote', '')) not in entry['owner_words']:
         errors.append('the accepted criterion must match the owner\'s entry in ' + OWNER_ANSWERS + ' and quote its owner_words')
+    card = (entry or {}).get('card')
+    if card is not None and not (isinstance(card, dict) and isinstance(card.get('recommended'), int)
+                                 and 0 <= card['recommended'] < len(card.get('options') or [])
+                                 and card.get('chosen') == card['options'][card['recommended']]
+                                 and any(card['chosen'] in w for w in entry['owner_words'])):
+        errors.append('an owner\'s card answer accepts the criterion only if the owner chose the card\'s recommended option')
     procedures = [p for p in (plan or {}).get('procedures', []) if 'criterion:' + str(p.get('id')) == d['gate']]
     if len(procedures) != 1:
         return errors + ['an accepted criterion names one procedure']

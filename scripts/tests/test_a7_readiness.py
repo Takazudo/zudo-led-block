@@ -292,6 +292,18 @@ class ReadinessTests(unittest.TestCase):
         d['answer']['record']['quote'] = '5 accept all'
         self.assertTrue(any("owner's entry" in e for e in m.owner_page_errors(self.plan)))
 
+    def test_criterion_card_answer_must_be_the_recommended_option(self):
+        d = next(x for x in self.plan['owner_decisions'] if x['gate'] == 'criterion:partial-rails')
+        self.assertEqual(m.criterion_answer_errors(d, REPO, self.plan), [])
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            (root / m.OWNER_ANSWERS).parent.mkdir(parents=True, exist_ok=True)
+            data = json.loads((REPO / m.OWNER_ANSWERS).read_text())
+            entry = next(x for x in data['decisions'] if x.get('gate') == 'criterion:partial-rails')
+            entry['card']['chosen'] = entry['card']['options'][1]
+            (root / m.OWNER_ANSWERS).write_text(json.dumps(data))
+            self.assertTrue(any('recommended option' in e for e in m.criterion_answer_errors(d, root, self.plan)))
+
     def test_owner_criteria_must_match_an_accepted_option(self):
         real = m.owner_criteria_errors(REPO)
         self.assertEqual(real, [])
