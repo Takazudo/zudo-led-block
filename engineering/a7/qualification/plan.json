@@ -2682,7 +2682,7 @@
       "expected": "TLV75533PDBVR の逆電流未確認を評価。",
       "basis": "engineering/a5/integration/independent_review",
       "criterion_status": "UNRESOLVED",
-      "missing_criterion": "印加順序/上限と許容逆電流/時間のexact-part根拠が必要。",
+      "missing_criterion": "TLV755P は許容逆電流・時間を規定しない（§7.1.4 が挙げる 3 つの逆電流条件はいずれも絶対最大（VOUT > VIN + 0.3 V）を超えるとし、必要なら外付けショットキーを推奨）。+3V3 への外部印加を試験で許すか、許すならどの上限で行うかはオーナーのリスク判断。",
       "raw_evidence_required": "両レール波形、逆電流、温度、回路条件",
       "observation": "NOT_MEASURED",
       "result": "NOT_RUN",
@@ -2693,7 +2693,7 @@
         "temperature",
         "sequence_conditions"
       ],
-      "criterion_class": "ACCESS_EVIDENCE_HOLD",
+      "criterion_class": "OWNER_DECISION",
       "inputs": [
         "組立済みモジュール"
       ],
@@ -2706,11 +2706,12 @@
         "`records.json` の owner_prototype_route（対象版・数量・範囲・承認）が記録済み",
         "通電は owner_prototype_route が許す範囲だけ。初回通電の電流制限値は未決なので、試験前にレビューで決めて conditions に記録する",
         "`readiness.json` の identities（基板/実装/回路図/FW/設定/機構/治具/台帳の SHA-256）を run にそのまま写す",
-        "+3V3 に外部電圧をかける試験は、許容逆電流が決まるまで実施しない"
+        "+3V3 に外部電圧をかける試験は、オーナー判断 criterion:ldo-reverse で bounded が選ばれ、上限と時間が記録されるまで実施しない"
       ],
       "precondition_states": [],
       "steps": [
-        "+5 V を切った状態で +3V3 側に SWD プローブ等から電圧がかかる場合の電流を測る。",
+        "電源投入・遮断の順序を変えて +5V と +3V3 の波形を記録し、遮断時に VOUT ≤ VIN + 0.3 V が保たれるかを確かめる。",
+        "（bounded が選ばれた場合のみ）+5 V を切った状態で +3V3 側に SWD プローブ等から記録済みの上限内で電圧をかけ、電流と時間を測る。",
         "順序と時間を変えて記録する。"
       ],
       "record": {
@@ -2745,16 +2746,24 @@
           "bound": "max"
         },
         {
+          "id": "reverse-spec",
+          "criterion": "TLV75533 の逆電流に関するメーカー記述",
+          "value": "no allowed reverse current specified; VOUT must not exceed VIN + 0.3 V or 6.0 V, whichever is smaller",
+          "unit": "NONE",
+          "confidence": "SOURCED",
+          "source": {
+            "path": ".claude/skills/component-tlv75533pdbvr/facts.json",
+            "fact_id": "fact-tlv75533pdbvr-reverse-current"
+          },
+          "bound": "reference"
+        },
+        {
           "id": "reverse",
-          "criterion": "許容逆電流と時間",
+          "criterion": "試験で許す逆電流と時間",
           "value": null,
           "unit": "mA",
           "confidence": "UNRESOLVED",
-          "decided_by": "TLV75533 の逆電流の記述をメーカー資料から取得する（カタログ未記録）",
-          "supplied_by": {
-            "kind": "DOCUMENT",
-            "what": "TLV75533 データシートの逆電流の記述（カタログに fact がない）"
-          }
+          "decided_by": "オーナー判断（メーカーは許容値を規定しないので、試験で許すかどうかと上限はプロジェクトのリスク判断）"
         }
       ]
     },
@@ -2883,7 +2892,7 @@
       "expected": "各exact MLCCの条件付き有効容量と回路要求の照合。",
       "basis": "engineering/a5/integration/independent_review",
       "criterion_status": "UNRESOLVED",
-      "missing_criterion": "必要容量下限と測定法を部品曲線と回路レビューで決める。",
+      "missing_criterion": "部品ごとの典型 DC バイアス曲線は記録済み（Samsung 製品ページ、typical data）。必要容量の下限は、レギュレータ・負荷スイッチ資料の入出力容量要件と曲線から回路レビューで決める（クラウドで実施できる）。",
       "raw_evidence_required": "型番/ロット、バイアス/温度、容量とリップルraw記録",
       "observation": "NOT_MEASURED",
       "result": "NOT_RUN",
@@ -2894,7 +2903,7 @@
         "capacitance",
         "ripple_waveforms"
       ],
-      "criterion_class": "ACCESS_EVIDENCE_HOLD",
+      "criterion_class": "CLOUD_DIGITAL",
       "inputs": [
         "実装と同じロットの MLCC 単品",
         "組立済みモジュール"
@@ -2969,15 +2978,51 @@
           "bound": "reference"
         },
         {
+          "id": "dc-bias-c10u",
+          "criterion": "CL21A106KAYNNNE の典型 DC バイアス特性（保証値ではない）",
+          "value": "-50.31 % at 5.0 V; -81.6 % at 12.208 V",
+          "unit": "%",
+          "confidence": "SOURCED",
+          "source": {
+            "path": ".claude/skills/component-cl21a106kaynnne/facts.json",
+            "fact_id": "fact-cl21a106kaynnne-dc-bias-curve"
+          },
+          "bound": "reference"
+        },
+        {
+          "id": "dc-bias-c22u",
+          "criterion": "CL31A226KAHNNNE の典型 DC バイアス特性（保証値ではない）",
+          "value": "-37.96 % at 5.0 V",
+          "unit": "%",
+          "confidence": "SOURCED",
+          "source": {
+            "path": ".claude/skills/component-cl31a226kahnnne/facts.json",
+            "fact_id": "fact-cl31a226kahnnne-dc-bias-curve"
+          },
+          "bound": "reference"
+        },
+        {
+          "id": "dc-bias-c4u7",
+          "criterion": "CL10A475KO8NNNC の典型 DC バイアス特性（保証値ではない）",
+          "value": "-30.44 % at 3.3 V; -49.92 % at 5.0 V",
+          "unit": "%",
+          "confidence": "SOURCED",
+          "source": {
+            "path": ".claude/skills/component-cl10a475ko8nnnc/facts.json",
+            "fact_id": "fact-cl10a475ko8nnnc-dc-bias-curve"
+          },
+          "bound": "reference"
+        },
+        {
           "id": "minimum",
           "criterion": "必要容量の下限",
           "value": null,
           "unit": "NONE",
           "confidence": "UNRESOLVED",
-          "decided_by": "メーカーの DC バイアス曲線（未取得）と回路レビュー",
+          "decided_by": "回路レビュー（レギュレータ・負荷スイッチ資料の入出力容量要件と、記録済みの典型 DC バイアス曲線・許容差・温度特性から決める）",
           "supplied_by": {
-            "kind": "DOCUMENT_AND_MEASUREMENT",
-            "what": "Samsung の DC バイアス特性（CL21A106KAYNNNE / CL31A226KAHNNNE / CL10A475KO8NNNC）と、回路レビューで決める必要容量"
+            "kind": "DOCUMENT",
+            "what": "AP63205 / TLV755P / TPS2552 データシートの入出力容量要件（クラウドで取得できる）"
           }
         }
       ]
@@ -3792,6 +3837,37 @@
       "rank": 10
     },
     {
+      "gate": "criterion:ldo-reverse",
+      "stage": "BENCH",
+      "question": "LDO（TLV75533）の逆電流試験で、+5 V を切った状態の +3V3 への外部印加を許しますか。",
+      "options": [
+        {
+          "id": "prohibit",
+          "label": "外部印加はしない（外から逆電流を流さない）",
+          "consequence": "試験は電源投入・遮断の順序の確認だけにし、SWD プローブ等で +3V3 を外から給電する使い方は手順で禁止する。外部印加でメーカー記述を超えることはない。遮断時に VOUT ≤ VIN + 0.3 V が保たれるかはこの試験で確かめる。"
+        },
+        {
+          "id": "bounded",
+          "label": "上限を決めて外部印加を試す",
+          "consequence": "+5 V を切った状態の外部印加は VOUT ≤ VIN + 0.3 V の絶対最大定格を意図的に超える試験になる。メーカーは許容値を規定しないので、上限と時間はプロジェクトの判断として記録し、試験品は損傷の可能性がある前提で扱う。"
+        },
+        {
+          "id": "defer",
+          "label": "今は決めない",
+          "consequence": "ldo-reverse の基準ゲートは閉じたまま残り、この手順は実施しない。"
+        }
+      ],
+      "recommended": "prohibit",
+      "reason": "TLV755P のデータシートは許容逆電流も時間も示さず、挙げた逆電流条件はすべて絶対最大（VOUT > VIN + 0.3 V）を超えるとしている。許容値の根拠がないので、外部印加をしない運用がメーカー記述に沿う。",
+      "sources": [
+        {
+          "path": ".claude/skills/component-tlv75533pdbvr/facts.json",
+          "fact_id": "fact-tlv75533pdbvr-reverse-current"
+        }
+      ],
+      "rank": 11
+    },
+    {
       "gate": "assembly:fixture-materials",
       "stage": "BENCH",
       "question": "治具の FR-4 板 4 枚の加工先と、提案された金物（ばね・ねじ・ピン等）を承認しますか。",
@@ -3815,7 +3891,7 @@
           "quote": "Fabricator for the four FR-4 plates is an owner choice and not selected"
         }
       ],
-      "rank": 11
+      "rank": 12
     },
     {
       "gate": "assembly:prototype-and-release",
@@ -3841,7 +3917,7 @@
           "quote": "\"manufacturing_released\": false"
         }
       ],
-      "rank": 12
+      "rank": 13
     },
     {
       "gate": "manufacturing_release",
@@ -3867,7 +3943,7 @@
           "quote": "\"order_submitted\": false"
         }
       ],
-      "rank": 13
+      "rank": 14
     }
   ],
   "evidence_requests": [
@@ -3945,36 +4021,6 @@
           "url": "https://www.st.com/resource/en/datasheet/stm32g031f8.pdf",
           "fallback_url": "https://www.st.com/en/microcontrollers-microprocessors/stm32g031g8.html",
           "access": "クラウドからは応答なし"
-        }
-      ]
-    },
-    {
-      "gate": "criterion:ldo-reverse",
-      "routes": [
-        "CLOUD_FETCH"
-      ],
-      "items": [
-        {
-          "what": "TI TLV755P データシート §7.1.4 Reverse Current",
-          "value_needed": "許容逆電流（数値はなく、VOUT ≤ VIN + 0.3 V の絶対最大と外付けショットキーの推奨だけ）",
-          "url": "https://www.ti.com/lit/ds/symlink/tlv755p.pdf",
-          "fallback_url": null,
-          "access": "クラウドから取得できる。オーナーの作業は不要"
-        }
-      ]
-    },
-    {
-      "gate": "criterion:effective-capacitance",
-      "routes": [
-        "CLOUD_FETCH"
-      ],
-      "items": [
-        {
-          "what": "Samsung CL21A106KAYNNNE / CL31A226KAHNNNE / CL10A475KO8NNNC の DC バイアス特性",
-          "value_needed": "使用電圧での実効容量",
-          "url": "https://product.samsungsem.com/mlcc/CL21A106KAYNNN.do",
-          "fallback_url": null,
-          "access": "クラウドから取得できる。必要容量は回路レビューで決める"
         }
       ]
     },
