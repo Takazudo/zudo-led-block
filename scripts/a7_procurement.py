@@ -221,6 +221,7 @@ def generate(root=ROOT):
  if (root/fixture_path).is_file():
   fixture=read(root,fixture_path);inputs.append(fixture_path)
  firmware='engineering/a5/firmware/dist/light_block_A5.bin';inputs.append(firmware)
+ blockers=BLOCKERS[:-1]+[fixture_blocker(root,inputs)]+BLOCKERS[-1:]
  return {'schema':1,'revision':'A7-r2-3HP-FR4','status':'ENGINEERING_PREPARATION_NOT_SUPPLIER_UPLOAD',
   'manufacturing_released':False,'order_submitted':False,'agreed_order_quantity':None,'quantity_scenarios_only':[1,10,100],
   'inputs_sha256':{p:sha(root,p) for p in sorted(set(inputs))},'boards':boards,'population':rows,'excluded':excluded,
@@ -230,7 +231,21 @@ def generate(root=ROOT):
   'services':[{'id':'pcba','status':'UNCONFIRMED','process_per_board':{b['board']:b['assembly_process_per_board'] for b in boards},
     'requirement':'Factory assembly. Controller: SMD on both sides (F and B) plus through-hole jacks and power header on F, from native pad attributes. Leaf: one-side SMD. Adapter: through-hole only. Quote, attrition, minimums, orientation, side order and process not approved'},
    {'id':'program-calibrate','status':'UNCONFIRMED','firmware':firmware,'sha256':sha(root,firmware),'requirement':'SWD programming identity and measured calibration; +3V3 voltage reference; exact LED-lot timing discrepancy #13 open'}],
-  'blockers':BLOCKERS}
+  'blockers':blockers}
+
+
+FIXTURE_MANIFEST = 'engineering/a7/fixture/manifest.json'
+
+
+def fixture_blocker(root, inputs):
+ # The fixture manifest decides who can act next: digital design work, or the owner's choice of fabricator and hardware.
+ manifest = read(root, FIXTURE_MANIFEST) if (root/FIXTURE_MANIFEST).is_file() else {}
+ if (root/FIXTURE_MANIFEST).is_file():
+  inputs.append(FIXTURE_MANIFEST)
+ if manifest.get('digital_criteria_1_to_4_met') is True and manifest.get('hardware_proposal_complete') is True:
+  return {'id':'fixture-materials','class':'OWNER_DECISION','text':'Fixture digital criteria 1-4 met and a sourced hardware proposal recorded; the fabricator choice and approval of the proposed hardware are owner decisions. Physical contact/load tests (criterion 5) follow.'}
+ missing = [k for k in ('digital_criteria_1_to_4_met','hardware_proposal_complete') if manifest.get(k) is not True]
+ return {'id':'fixture-materials','class':'CLOUD_DIGITAL','text':'Fixture design and materials incomplete (fixture manifest: '+', '.join(k+' not true' for k in missing)+'); physical contact/load tests follow.'}
 
 
 # Each ledger blocker names what can resolve it; readiness reports these as separate gates.
@@ -243,7 +258,6 @@ BLOCKERS = [
  {'id':'finished-cables','class':'OWNER_DECISION','text':'Finished A7 power cable (57 mm, +/-3 ASSUMED), SH4 cables and IDC ribbon not selected; supplier answers and the owner choice of assembly are needed before physical routing checks.'},
  {'id':'mechanical-materials','class':'ACCESS_EVIDENCE_HOLD','text':'PMMA sheet and pocket tolerances, PETG process and orderable fastener part numbers are not sourced; the model carries designations (M2x18, M1.6x4) and envelopes only.'},
  {'id':'rack-hardware','class':'OWNER_DECISION','text':'Owner rack rail/thread interface and fasteners not specified.'},
- {'id':'fixture-materials','class':'CLOUD_DIGITAL','text':'Fixture design and materials incomplete (see fixture manifest); physical contact/load tests follow.'},
  {'id':'prototype-and-release','class':'OWNER_DECISION','text':'No owner-approved prototype route, no reviewed manufacturing package and no release approval.'},
 ]
 

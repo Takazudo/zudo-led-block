@@ -23,6 +23,18 @@ class LedgerTests(unittest.TestCase):
    return data
   return patch.object(P,'read',side_effect=changed)
 
+ def test_fixture_materials_class_follows_the_fixture_manifest(self):
+  def cls(**flags):
+   with self.mutate_json(P.FIXTURE_MANIFEST,lambda d:d.update(flags)):
+    return next(b for b in P.generate()['blockers'] if b['id']=='fixture-materials')
+  # Digital design or the hardware proposal still open: cloud work.
+  self.assertEqual(cls(digital_criteria_1_to_4_met=False,hardware_proposal_complete=True)['class'],'CLOUD_DIGITAL')
+  self.assertEqual(cls(digital_criteria_1_to_4_met=True,hardware_proposal_complete=False)['class'],'CLOUD_DIGITAL')
+  self.assertIn('hardware_proposal_complete not true',cls(digital_criteria_1_to_4_met=True,hardware_proposal_complete=False)['text'])
+  # Both met: only the fabricator choice and hardware approval remain, which are the owner's.
+  self.assertEqual(cls(digital_criteria_1_to_4_met=True,hardware_proposal_complete=True)['class'],'OWNER_DECISION')
+  self.assertIn(P.FIXTURE_MANIFEST,self.report['inputs_sha256'])
+
  def test_accounting_and_baseline(self):
   self.assertEqual(self.report['fitted_unique_placements'],71)
   self.assertEqual(self.report['fitted_pieces_per_module'],81)
