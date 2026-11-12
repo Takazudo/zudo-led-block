@@ -157,7 +157,7 @@ A never-exceed limit. Reaching it may damage the part; it is not an operating ta
 
   **Value:** -0.3 to 4.0 · **Unit:** `V`
 
-  **Conditions:** VDD external supply voltage absolute maximum (Table 18). I/O input voltage, injected current and operating VDD are separate facts. Read from the owner's text conversion of DS12992 Rev 4 (see the source's authority note), not from a PDF render.
+  **Conditions:** VDD external supply voltage absolute maximum (Table 18); Table 19 note 1: all VDD/VDDA, VBAT and VSS/VSSA pins must always be connected to the external supplies, in the permitted range. I/O input voltage, injected current and operating VDD are separate facts. Read from the owner's text conversion of DS12992 Rev 4 (see the source's authority note), not from a PDF render.
 
   **Verdict:** PASS - primary-source confirmed · **Provenance:** PRIMARY-SPEC
 
@@ -185,7 +185,7 @@ A never-exceed limit. Reaching it may damage the part; it is not an operating ta
 
   **Value:** -5 · **Unit:** `mA`
 
-  **Conditions:** injected current on a FT\_xx pin, negative injection (VIN \< VSS); positive injection is NA: not possible on these I/Os and does not occur below the maximum VIN (Table 19 notes 2-3); IINJ(PIN) must never be exceeded. Read from the owner's text conversion of DS12992 Rev 4 (see the source's authority note), not from a PDF render.
+  **Conditions:** injected current on a FT\_xx pin, negative injection (VIN \< VSS); positive injection is NA: not possible on these I/Os and does not occur below the maximum VIN (Table 19 notes 2-3); IINJ(PIN) must never be exceeded. Separately, FT\_e pins with the switchable diode to VDDIO1 enabled in software accept up to 5 mA positive injection (Table 52, printed page 72; not read into a fact here); A5 uses FT\_e-capable pins such as PA3, PA5, PA6 and PA13. Read from the owner's text conversion of DS12992 Rev 4 (see the source's authority note), not from a PDF render.
 
   **Verdict:** PASS - primary-source confirmed · **Provenance:** PRIMARY-SPEC
 
@@ -231,7 +231,7 @@ The range the manufacturer intends the part to be used in. Always narrower than 
 
   **Value:** 1.7 to 3.6 · **Unit:** `V`
 
-  **Conditions:** standard operating VDD (Table 21); VDDA 1.62 to 3.6 V for ADC operation; I/O input voltage in operation -0.3 to Min(VDD + 3.6, 5.5) V except RST. Read from the owner's text conversion of DS12992 Rev 4 (see the source's authority note), not from a PDF render.
+  **Conditions:** standard operating VDD (Table 21); VDDA 1.62 to 3.6 V for ADC operation; I/O input voltage in operation -0.3 to Min(VDD + 3.6, 5.5) V except RST; note 1: after RESET is released, functionality is guaranteed down to VPDR min; note 2: above VDD + 0.3 V the internal pull-up and pull-down must be disabled. Read from the owner's text conversion of DS12992 Rev 4 (see the source's authority note), not from a PDF render.
 
   **Verdict:** PASS - primary-source confirmed · **Provenance:** PRIMARY-SPEC
 

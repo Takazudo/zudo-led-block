@@ -137,7 +137,7 @@ readiness（`engineering/a7/qualification/readiness.json`）は不足を 49 個�
 - 推奨の理由: AP63205 のデータシートは C1 10 µF を推奨表の値と「10 µF を超えるセラミックで多くの用途に十分」として示すだけで、実効値の下限を規定しない。典型の DC バイアス曲線では 12.208 V で −81.6 % なので、C1 は 約 1.8 µF（許容差と温度を含め 約 1.4 µF）。+3V3 と +5V は U3・U4 の下限に対して見積りで余裕がある。VLED（U4 出力）は資料に下限がない。基板は今回の発注では変えないので、入力リップルを実測して影響を確かめるのが現実的。 同じ 0805 で替えられる Samsung の候補（JLC 在庫あり）は 50 V の CL21A106KBYQNNE で 約 1.5 倍（Murata の 50 V Basic 品 C440198 は曲線未取得）、22 µF の CL21A226MAYNNNE で典型 約 2 倍（測定条件が違い ±20 %、許容差込みでは 2.2–2.6 µF で同程度）。どちらも 10 µF には届かず、基板ファイルの識別子と検証のやり直しが伴うので、推奨は実測のまま。入力コンデンサの RMS 電流（データシートの目安は最大負荷電流の半分、約 1 A）はどの候補でも余裕がある。+12V_PROT には C1 以外に 100 nF（C11）しかなく、電源アダプタ基板にもコンデンサはない。
 - 出典: `.claude/skills/component-ap63205wu-7/facts.json` `fact-ap63205wu-7-recommended-capacitors`、`.claude/skills/component-cl21a106kaynnne/facts.json` `fact-cl21a106kaynnne-dc-bias-curve`、`engineering/a7/docs/continuation/c1-input-capacitor-options.md` 引用「The 50 V part gains about 1.5× at the same measurement condition as the current part.」
 
-### 12. 部分電源・無電源 CV の試験（片側の電源だけ、CV をかけたまま電源断）の合否を、部品の絶対最大（STM32 の注入電流 −5 mA/ピン・合計 25 mA、FT 入力 VDD + 4.0 V、OPA197・TLV9001 の入力は電源の 0.5 V 外まで（OPA197 は入力電流 10 mA まで）、SN74LVC2T45 6.5 V、WS2812B VDD + 0.7 V）をどのピンでも超えないこと、としますか。
+### 12. 部分電源・無電源 CV の試験（片側の電源だけ、CV をかけたまま電源断）の合否を、部品の絶対最大（STM32 の注入電流 −5 mA/ピン・合計 25 mA、FT 入力 VDD + 4.0 V（ADC に使う CV 入力 PA0 は 4 V）、OPA197・TLV9001 の入力は電源の 0.5 V 外まで（OPA197 は入力電流 10 mA まで）、SN74LVC2T45 6.5 V、WS2812B VDD + 0.7 V）をどのピンでも超えないこと、としますか。
 
 - ゲート: `criterion:partial-rails`（実機試験の前）
 - **部品の絶対最大を合否の線にする（推奨）**: partial-rails の基準が決まり、試作ルートの範囲で実機試験に進める。絶対最大はストレス限界なので、超えなくても余裕は保証されない。初回通電の電流制限値は試験前のレビューで決めて記録する。

@@ -2324,7 +2324,7 @@
       "expected": "部分電源/バックパワーを未確認として扱う。",
       "basis": "engineering/a5/integration/independent_review",
       "criterion_status": "UNRESOLVED",
-      "missing_criterion": "部品資料の値はそろった（STM32 の注入電流と入力電圧は DS12992 Rev 4 のテキスト変換から、ほかは各データシートから）。これらの絶対最大をどのピンでも超えないことを合否とするかはオーナー判断。初回通電の電流制限値は試験前のレビューで決める。逆電流の扱いは ldo-reverse で別に決める。",
+      "missing_criterion": "部品資料の値はそろった（STM32 の注入電流と入力電圧は DS12992 Rev 4 のテキスト変換から、ほかは各データシートから）。これらの絶対最大をどのピンでも超えないことを合否とするかはオーナー判断。初回通電の電流制限値は試験前のレビューで決める。逆電流の扱いは ldo-reverse で別に決める。STM32 のデータシートは電源投入の順序を規定しない（Table 19 注 1 は全電源・GND ピンを常に許容範囲の電源につなぐことを求める）ので、順序は試験条件として記録するだけで合否の値は置かない。CV 入力（PA0、ADC に使う FT_a）は VDD に関係なく 4 V が上限。",
       "raw_evidence_required": "組合せ表、電圧/注入/逆流記録、raw波形",
       "observation": "NOT_MEASURED",
       "result": "NOT_RUN",
@@ -4337,7 +4337,7 @@
     {
       "gate": "criterion:partial-rails",
       "stage": "BENCH",
-      "question": "部分電源・無電源 CV の試験（片側の電源だけ、CV をかけたまま電源断）の合否を、部品の絶対最大（STM32 の注入電流 −5 mA/ピン・合計 25 mA、FT 入力 VDD + 4.0 V、OPA197・TLV9001 の入力は電源の 0.5 V 外まで（OPA197 は入力電流 10 mA まで）、SN74LVC2T45 6.5 V、WS2812B VDD + 0.7 V）をどのピンでも超えないこと、としますか。",
+      "question": "部分電源・無電源 CV の試験（片側の電源だけ、CV をかけたまま電源断）の合否を、部品の絶対最大（STM32 の注入電流 −5 mA/ピン・合計 25 mA、FT 入力 VDD + 4.0 V（ADC に使う CV 入力 PA0 は 4 V）、OPA197・TLV9001 の入力は電源の 0.5 V 外まで（OPA197 は入力電流 10 mA まで）、SN74LVC2T45 6.5 V、WS2812B VDD + 0.7 V）をどのピンでも超えないこと、としますか。",
       "options": [
         {
           "id": "accept",
