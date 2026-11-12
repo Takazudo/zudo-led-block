@@ -3,7 +3,7 @@
   "generator": "scripts/a7_mechanical_layout.py",
   "inputs": [
     "engineering/a7/study/parameters.json",
-    ".claude/skills/component-a7-pcm13smtr/facts.json",
+    ".claude/skills/component-a7-hx-msk13c02/facts.json",
     ".claude/skills/component-a7-pj-324m/facts.json",
     "engineering/a7/mechanical/design-inputs.json",
     "engineering/a5/mechanical/geometry.json",
@@ -3109,10 +3109,10 @@
     ]
   },
   "switch": {
-    "part": "C&K PCM13SMTR (R1 selection; JLC stock 0, R1 Q10)",
+    "part": "hanxia HX MSK13C02 (C5149819; replaced C&K PCM13SMTR, JLC stock 0, on 2026-11-12 by owner direction)",
     "body_y": [
-      107.3,
-      109.9
+      107.25,
+      109.95
     ],
     "body_z": [
       2.15,
@@ -3121,9 +3121,11 @@
     "height_above_pcb": 1.4,
     "actuator_width_z": 1.3,
     "actuator_y": [
-      109.9,
-      111.4
+      109.95,
+      111.45
     ],
+    "actuator_tip_past_board_edge": 0.05,
+    "actuator_overhang_accepted": 0.05,
     "actuator_travel_per_position": 1.5,
     "actuator_positions_z": [
       5.5,
@@ -3131,11 +3133,11 @@
       8.5
     ],
     "peg_pitch": 5.0,
-    "peg_diameter": 0.8,
+    "peg_diameter": 0.73,
     "access_from": "+Y (below the module), module out of the rack",
     "label": "ON / PGM / CV on the controller silkscreen next to the actuator (R4); position-to-mode order follows the R1 pin table, not the physical direction",
-    "gap_to_lower_jack_body": 1.5,
-    "gap_to_lower_jack_body_nominal": 1.9,
+    "gap_to_lower_jack_body": 1.45,
+    "gap_to_lower_jack_body_nominal": 1.85,
     "footprint_y": [
       106.1,
       111.4
@@ -3244,7 +3246,7 @@
           1.35,
           12.65
         ],
-        "reason": "PCM13SMTR body, actuator and its signal/retention pads at the bottom edge"
+        "reason": "setting-switch (HX MSK13C02) body, actuator and its signal/retention pads at the bottom edge"
       },
       {
         "id": "switch-access",
@@ -3252,7 +3254,7 @@
           "+X"
         ],
         "y": [
-          109.9,
+          109.95,
           111.4
         ],
         "z": [
@@ -4130,7 +4132,7 @@
     },
     {
       "id": "Q10",
-      "item": "PCM13SMTR sourcing",
+      "item": "setting-switch sourcing (PCM13SMTR stock 0; HX MSK13C02 fitted 2026-11-12, JLC stock 4561)",
       "decides": "setting switch part"
     },
     {

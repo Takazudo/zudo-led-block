@@ -1,0 +1,34 @@
+{
+  "schema_version": 1,
+  "routes": [
+    {
+      "route_id": "route-a7-hx-msk13c02",
+      "record_id": "rec-a7-hx-msk13c02",
+      "aliases": {
+        "mpn": [
+          "HX MSK13C02",
+          "MSK13C02"
+        ],
+        "lcsc": [
+          "C5149819"
+        ],
+        "manufacturer": [
+          "hanxia",
+          "Shenzhen Hanxia Electronic"
+        ],
+        "function": [
+          "A7 side mode setting switch"
+        ]
+      },
+      "positive": [
+        "check HX MSK13C02 switch function",
+        "audit C5149819"
+      ],
+      "negative": [
+        "check PCM13SMTR switch",
+        "check 1MS3T1B1M2QES-5 toggle",
+        "check SHOU HAN MSK13C02 C2681567"
+      ]
+    }
+  ]
+}

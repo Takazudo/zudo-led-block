@@ -101,8 +101,8 @@
     }
    },
    "to": {
-    "mpn": "PCM13SMTR",
-    "lcsc": "C221842",
+    "mpn": "HX MSK13C02",
+    "lcsc": "C5149819",
     "footprint": "LightBlockA7:PCM13SMTR",
     "pins": {
      "1": "MODE_A",
@@ -112,8 +112,8 @@
     }
    },
    "reason": "Accepted A7 redesign moves ON/PROGRAM/CV from the front toggle to a PCB-side slide switch. Mode encoding is unchanged: grounded common, MODE_A/MODE_B pulled up by R9/R10. POS.1 (1-3) MODE_A=0,B=1 ON; POS.2 (2-3, terminal 2 open) 1,1 PROGRAM; POS.3 (3-4) 1,0 CV; 0,0 unreachable.",
-   "issue": "#19 (R4), evidence #16 (R1, .claude/skills/component-a7-pcm13smtr)",
-   "evidence_status": "Function table MIRROR (C&K document via LCSC, sha256 1c2ca483...). Land pattern read from the same drawing, unreviewed. JLC stock 0 (Q10); an in-stock alternate would be a new component_replaced review.",
+   "issue": "#19 (R4), evidence #16 (R1, .claude/skills/component-a7-pcm13smtr); part changed to hanxia HX MSK13C02 in #77 (.claude/skills/component-a7-hx-msk13c02)",
+   "evidence_status": "2026-11-12 (#77): the fitted part is hanxia HX MSK13C02 (C5149819, JLC stock 4561) on the unchanged PCM13SMTR land, by owner direction (any switch that works, low price, in stock). Its contact table A 1-3, B 2-3, C 3-4 is MIRROR (Hanxia document served by JLC/LCSC, sha256 0acc4953..., Part No. blank), the same as PCM13SMTR, so pins, nets and the mode truth table are unchanged. Land fit against the Hanxia recommended land and leads: engineering/a7/electronics/switch-land-fit.json (digital only). Earlier: C&K PCM13SMTR (C221842, JLC stock 0, Q10), function table MIRROR sha256 1c2ca483....",
    "carried_by": "interface assertions sw.* / switch_positions / mode truth table"
   }
  ],

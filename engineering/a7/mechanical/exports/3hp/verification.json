@@ -5,10 +5,10 @@
   "status": "PROVISIONAL_DIGITAL_STUDY_NOT_FIT_APPROVAL",
   "selection": "FEASIBLE ON PAPER",
   "default_variant": true,
-  "layout_sha256": "9cbc6ac99f5b05c7e3145f2016b6918cbc5d2b77170db31ed7155755cba0d591",
+  "layout_sha256": "89f548a52d8ce907fb351519bfdcabc411e3389d1261056e1319582b03a4437a",
   "input_sha256": {
-    "engineering/a7/mechanical/layout.json": "9cbc6ac99f5b05c7e3145f2016b6918cbc5d2b77170db31ed7155755cba0d591",
-    "engineering/a7/mechanical/build_a7_mechanical.py": "98f47662650732d7d8215e0f86cff404521351ca43a795bd8811fc4f452d3daa",
+    "engineering/a7/mechanical/layout.json": "89f548a52d8ce907fb351519bfdcabc411e3389d1261056e1319582b03a4437a",
+    "engineering/a7/mechanical/build_a7_mechanical.py": "8789aeb3493cc8a95f7406938a3d382367e536d863ee45d183246c7bae89d99f",
     "engineering/a7/front_panel/build_a7_front.py": "248a7704eca8dabbcfbf2ad7d7bf541b5099ea706e3eff1932cdf8cd0d4bf67e"
   },
   "part_count": 69,
@@ -818,7 +818,7 @@
     }
   },
   "switch_tool_access": {
-    "corridor": "actuator travel from its root (Y 109.9) to the board edge and the probe space below it to Y 140, across all three positions plus 1.0 mm; every modelled part except the switch is tested. Rails, case and neighbouring modules are not modelled",
+    "corridor": "actuator travel from its root (Y 109.95) to the board edge and the probe space below it to Y 140, across all three positions plus 1.0 mm; every modelled part except the switch is tested. Rails, case and neighbouring modules are not modelled",
     "x": [
       4.45,
       6.35
@@ -829,6 +829,13 @@
     ],
     "blocking_parts": [],
     "clear": true
+  },
+  "switch_actuator_overhang": {
+    "part": "setting_switch_HX_MSK13C02",
+    "y_max": 111.45,
+    "past_rail_body_allowance": 0.05,
+    "accepted": 0.05,
+    "note": "untoleranced drawing values; design-inputs setting_switch.actuator_overhang_accepted; physical check in switch-fit"
   },
   "parts": [
     {
@@ -994,18 +1001,18 @@
       "kind": "assembly_allowance"
     },
     {
-      "part": "setting_switch_PCM13SMTR",
+      "part": "setting_switch_HX_MSK13C02",
       "valid": true,
       "solids": 1,
-      "volume_mm3": 38.151,
+      "volume_mm3": 39.509,
       "bbox_min": [
         3.95,
-        107.3,
+        107.25,
         2.15
       ],
       "bbox_max": [
         5.85,
-        111.4,
+        111.45,
         11.85
       ],
       "scope": "retained_module",

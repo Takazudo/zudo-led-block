@@ -1,0 +1,170 @@
+{
+  "schema": "a7-switch-land-fit/1",
+  "status": "DIGITAL_COMPARISON_ONLY",
+  "meaning": "Nominal, untoleranced drawing values compared with the routed land. Not a fit approval; switch-fit (physical) stays NOT_RUN.",
+  "part": "hanxia HX MSK13C02 (C5149819)",
+  "land": "LightBlockA7:PCM13SMTR (routed SW1 land, unchanged)",
+  "inputs": {
+    "engineering/a7/electronics/footprints/LightBlockA7.pretty/PCM13SMTR.kicad_mod": "7b046c43c5d27a90b80c63ad0565451405da3fef277904b88df3e10609f762f9",
+    ".claude/skills/component-a7-hx-msk13c02/facts.json": "2421cc0dd6b9477a0820e40010ba41495e509bce71ad867bc8db603b21cefb0d"
+  },
+  "checks": [
+    {
+      "check": "hole positions and diameter",
+      "value": {
+        "a7": [
+          -2.5,
+          2.5,
+          0.9
+        ],
+        "maker": [
+          -2.5,
+          2.5,
+          0.9
+        ]
+      },
+      "pass": true,
+      "note": "pegs dia 0.73 in dia 0.90 holes"
+    },
+    {
+      "check": "signal pad 1",
+      "value": {
+        "a7_from_peg_line": [
+          1.0,
+          2.5
+        ],
+        "maker_from_peg_line": [
+          1.05,
+          2.65
+        ],
+        "maker_area_covered": 0.9063,
+        "toe": 0.15,
+        "heel": 0.35
+      },
+      "pass": true,
+      "note": "maker pad centre inside the A7 pad; terminal 1.35..2.35 off the peg line wholly on the pad"
+    },
+    {
+      "check": "signal pad 2",
+      "value": {
+        "a7_from_peg_line": [
+          1.0,
+          2.5
+        ],
+        "maker_from_peg_line": [
+          1.05,
+          2.65
+        ],
+        "maker_area_covered": 0.9063,
+        "toe": 0.15,
+        "heel": 0.35
+      },
+      "pass": true,
+      "note": "maker pad centre inside the A7 pad; terminal 1.35..2.35 off the peg line wholly on the pad"
+    },
+    {
+      "check": "signal pad 3",
+      "value": {
+        "a7_from_peg_line": [
+          1.0,
+          2.5
+        ],
+        "maker_from_peg_line": [
+          1.05,
+          2.65
+        ],
+        "maker_area_covered": 0.9063,
+        "toe": 0.15,
+        "heel": 0.35
+      },
+      "pass": true,
+      "note": "maker pad centre inside the A7 pad; terminal 1.35..2.35 off the peg line wholly on the pad"
+    },
+    {
+      "check": "signal pad 4",
+      "value": {
+        "a7_from_peg_line": [
+          1.0,
+          2.5
+        ],
+        "maker_from_peg_line": [
+          1.05,
+          2.65
+        ],
+        "maker_area_covered": 0.9063,
+        "toe": 0.15,
+        "heel": 0.35
+      },
+      "pass": true,
+      "note": "maker pad centre inside the A7 pad; terminal 1.35..2.35 off the peg line wholly on the pad"
+    },
+    {
+      "check": "retention pad at x -5.15 y -0.965",
+      "value": {
+        "a7_abs_from_peg_line": [
+          0.565,
+          1.365
+        ],
+        "maker_abs_from_peg_line": [
+          0.7,
+          1.6
+        ],
+        "maker_area_covered": 0.7389
+      },
+      "pass": true,
+      "note": "maker pad centre inside the A7 pad"
+    },
+    {
+      "check": "retention pad at x -5.15 y 0.965",
+      "value": {
+        "a7_abs_from_peg_line": [
+          0.565,
+          1.365
+        ],
+        "maker_abs_from_peg_line": [
+          0.7,
+          1.6
+        ],
+        "maker_area_covered": 0.7389
+      },
+      "pass": true,
+      "note": "maker pad centre inside the A7 pad"
+    },
+    {
+      "check": "retention pad at x 5.15 y -0.965",
+      "value": {
+        "a7_abs_from_peg_line": [
+          0.565,
+          1.365
+        ],
+        "maker_abs_from_peg_line": [
+          0.7,
+          1.6
+        ],
+        "maker_area_covered": 0.7389
+      },
+      "pass": true,
+      "note": "maker pad centre inside the A7 pad"
+    },
+    {
+      "check": "retention pad at x 5.15 y 0.965",
+      "value": {
+        "a7_abs_from_peg_line": [
+          0.565,
+          1.365
+        ],
+        "maker_abs_from_peg_line": [
+          0.7,
+          1.6
+        ],
+        "maker_area_covered": 0.7389
+      },
+      "pass": true,
+      "note": "maker pad centre inside the A7 pad"
+    }
+  ],
+  "all_pass": true,
+  "actuator_tip_from_peg_line": 2.85,
+  "pcm13smtr_actuator_tip_from_peg_line": 2.8,
+  "actuator_tip_change_toward_board_edge": 0.05
+}

@@ -131,7 +131,7 @@
         57.6,
         62.9
       ],
-      "reason": "PCM13SMTR body, actuator and its signal/retention pads at the bottom edge"
+      "reason": "setting-switch (HX MSK13C02) body, actuator and its signal/retention pads at the bottom edge"
     },
     {
       "id": "switch-access",
@@ -139,7 +139,7 @@
         "component face (KiCad F)"
       ],
       "assembly_y": [
-        109.9,
+        109.95,
         111.4
       ],
       "assembly_z": [
@@ -151,7 +151,7 @@
         9.45
       ],
       "board_y": [
-        61.4,
+        61.45,
         62.9
       ],
       "reason": "actuator travel plus tool clearance; nothing taller than the switch between actuator and board edge"
@@ -467,12 +467,12 @@
   ],
   "jack_notes": "Pin positions follow the R1 drawing reading; pin functions are INFERRED (R1 Q2) and hole/slot sizes are not sourced (R1 Q3). The jack body seats on the component face; the axis height above that face is INFERRED 3.0 (band [2.6, 3.4]).",
   "setting_switch": {
-    "part": "C&K PCM13SMTR (R1 selection; JLC stock 0, R1 Q10)",
+    "part": "hanxia HX MSK13C02 (C5149819; replaced C&K PCM13SMTR, JLC stock 0, on 2026-11-12 by owner direction)",
     "face": "component face (KiCad F)",
     "body": {
       "assembly_y": [
-        107.3,
-        109.9
+        107.25,
+        109.95
       ],
       "assembly_z": [
         2.15,
@@ -483,14 +483,14 @@
         11.65
       ],
       "board_y": [
-        58.8,
-        61.4
+        58.75,
+        61.45
       ]
     },
     "actuator": {
       "assembly_y": [
-        109.9,
-        111.4
+        109.95,
+        111.45
       ],
       "assembly_z": [
         4.85,
@@ -501,8 +501,8 @@
         8.95
       ],
       "board_y": [
-        61.4,
-        62.9
+        61.45,
+        62.95
       ]
     },
     "pegs": [
@@ -511,17 +511,18 @@
         "assembly_z": 4.5,
         "board_x": 4.3,
         "board_y": 60.1,
-        "diameter": 0.8
+        "diameter": 0.73
       },
       {
         "assembly_y": 108.6,
         "assembly_z": 9.5,
         "board_x": 9.3,
         "board_y": 60.1,
-        "diameter": 0.8
+        "diameter": 0.73
       }
     ],
-    "rule": "actuator flush with the bottom board edge; pads from the C&K land pattern, not given here",
+    "rule": "body centred on the routed peg line; the actuator tip passes the bottom board edge by actuator_tip_past_board_edge (accepted in design-inputs); pads from the C&K PCM13SMTR land pattern, not given here",
+    "actuator_tip_past_board_edge": 0.05,
     "label": "ON / PGM / CV on the controller silkscreen next to the actuator (R4); position-to-mode order follows the R1 pin table, not the physical direction"
   },
   "headers": {

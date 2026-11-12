@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """A7 R2 mechanical layout: candidate selection, transverse/axial/depth stack and placements.
 
-Reads the R1 inputs (engineering/a7/study/parameters.json and the PCM13SMTR facts), the A5
+Reads the R1 inputs (engineering/a7/study/parameters.json and the fitted setting-switch facts, HX MSK13C02), the A5
 mechanical and front-panel geometry (read-only), and R2's own choices in
 engineering/a7/mechanical/design-inputs.json. Writes layout.json and layout.md beside the
 design inputs. `--check` recomputes and fails if the committed outputs differ.
@@ -41,7 +41,7 @@ R4_PLACEMENT_SOURCE = {"path": "engineering/a7/electronics/controller/board_plac
                        "snapshot": "engineering/a7/mechanical/inputs/r4-board-placement-routed.json",
                        "status": "Canonical export bound to current PCB bytes; retained snapshot byte-identical. Geometry requires independent fresh native gate comparison."}
 SKILLS = REPO / ".claude" / "skills"
-SWITCH_FACTS = SKILLS / "component-a7-pcm13smtr" / "facts.json"
+SWITCH_FACTS = SKILLS / "component-a7-hx-msk13c02" / "facts.json"
 JACK_FACTS = SKILLS / "component-a7-pj-324m" / "facts.json"
 
 
@@ -381,7 +381,7 @@ def build():
     g5 = json.loads((A5 / "mechanical" / "geometry.json").read_text())
     f5 = json.loads((A5 / "front_panel" / "geometry.json").read_text())
     e5 = json.loads((A5 / "electronics" / "placement_and_connectivity.json").read_text())
-    sw = fact(SWITCH_FACTS, "fact-a7-pcm13smtr-outline")
+    sw = fact(SWITCH_FACTS, "fact-a7-hx-msk13c02-outline")
     raw = fact(JACK_FACTS, "fact-a7-pj-324m-footprint-positions")
     pins = {f"pin_{n}": {"along": raw[f"pin_{n}_along"], "across": raw[f"pin_{n}_across"]}
             for n in sorted({k.split("_")[1] for k in raw if k.startswith("pin_") and k.endswith("_along")})}
@@ -444,7 +444,12 @@ def build():
     # ---- Y layout ------------------------------------------------------------------------
     y_bottom = g5["rail_body_y"][1]
     y_top = c["y_top"]["nominal"]
-    sw_body_y = [r(y_bottom - sw["actuator_projection_beyond_body"] - sw["body_depth"]), r(y_bottom - sw["actuator_projection_beyond_body"])]
+    # The peg line is fixed by the routed SW1 position; the fitted switch body is centred on it (pegs on the body
+    # mid-depth per its drawing), so a deeper body moves the actuator tip past the board edge by the recorded overhang.
+    sw_in = d["setting_switch"]
+    sw_peg_y = y_bottom - sw_in["peg_line_from_board_edge"]["nominal"]
+    sw_body_y = [r(sw_peg_y - sw["body_depth"] / 2), r(sw_peg_y + sw["body_depth"] / 2)]
+    sw_tip_y = r(sw_body_y[1] + sw["actuator_projection_beyond_body"])
     j = d["jacks"]
     near_nom, far_nom = P["jack_axis_to_edge_near"]["nominal"], P["jack_axis_to_edge_far"]["nominal"]
     # Y clearances use the body tolerance envelope about the axis (R1: near 5.4 +/-0.2 MIRROR, far 6.1 +/-0.4 DERIVED-MIRROR).
@@ -473,7 +478,8 @@ def build():
         "part": d["setting_switch"]["part"], "body_y": sw_body_y,
         "body_z": [r(sw_zc - sw["body_length"] / 2), r(sw_zc + sw["body_length"] / 2)],
         "height_above_pcb": sw["height_above_pcb"], "actuator_width_z": sw["actuator_width"],
-        "actuator_y": [sw_body_y[1], r(y_bottom)], "actuator_travel_per_position": sw["travel_per_position"],
+        "actuator_y": [sw_body_y[1], sw_tip_y], "actuator_tip_past_board_edge": r(sw_tip_y - y_bottom),
+        "actuator_overhang_accepted": sw_in["actuator_overhang_accepted"]["nominal"], "actuator_travel_per_position": sw["travel_per_position"],
         "actuator_positions_z": [r(sw_zc - sw["travel_per_position"]), r(sw_zc), r(sw_zc + sw["travel_per_position"])],
         "peg_pitch": sw["peg_pitch"], "peg_diameter": sw["peg_diameter"],
         "access_from": "+Y (below the module), module out of the rack", "label": d["setting_switch"]["label"],
@@ -634,7 +640,7 @@ def build():
     keepouts = [
         {"id": "spine-slot", "faces": ["+X", "-X"], "y": [y_top, sv[1]], "z": [pcb_z0, sup["controller_slot_height"]["nominal"]], "reason": "printed spine slot captures the PCB front edge"},
         {"id": "optical-fork", "faces": ["+X", "-X"], "y": fy, "z": [fork_z0, pcb_z1], "reason": "bottom optical cap tongue straddles the rear edge"},
-        {"id": "setting-switch", "faces": ["+X"], "y": switch["footprint_y"], "z": switch["footprint_z"], "reason": "PCM13SMTR body, actuator and its signal/retention pads at the bottom edge"},
+        {"id": "setting-switch", "faces": ["+X"], "y": switch["footprint_y"], "z": switch["footprint_z"], "reason": "setting-switch (HX MSK13C02) body, actuator and its signal/retention pads at the bottom edge"},
         {"id": "switch-access", "faces": ["+X"], "y": [sw_body_y[1], y_bottom], "z": [r(switch["actuator_positions_z"][0] - sw["actuator_width"] / 2 - 0.5), r(switch["actuator_positions_z"][2] + sw["actuator_width"] / 2 + 0.5)], "reason": "actuator travel plus tool clearance; nothing taller than the switch between actuator and board edge"},
     ]
     lhd = c["led_header"]
@@ -703,7 +709,7 @@ def build():
     }
     return {
         "schema_version": 1, "generator": "scripts/a7_mechanical_layout.py",
-        "inputs": ["engineering/a7/study/parameters.json", ".claude/skills/component-a7-pcm13smtr/facts.json",
+        "inputs": ["engineering/a7/study/parameters.json", ".claude/skills/component-a7-hx-msk13c02/facts.json",
                    ".claude/skills/component-a7-pj-324m/facts.json", "engineering/a7/mechanical/design-inputs.json",
                    "engineering/a5/mechanical/geometry.json", "engineering/a5/front_panel/geometry.json",
                    "engineering/a5/electronics/placement_and_connectivity.json"],
@@ -748,7 +754,7 @@ def build():
             {"id": "Q4", "item": "nut fit on the SOFNG barrel", "decides": "front retention"},
             {"id": "Q8", "item": "rear pocket depth tolerance, appearance and strength", "decides": "selected axial option"},
             {"id": "Q9", "item": "PMMA clamp load / nut torque", "decides": "jack load path"},
-            {"id": "Q10", "item": "PCM13SMTR sourcing", "decides": "setting switch part"},
+            {"id": "Q10", "item": "setting-switch sourcing (PCM13SMTR stock 0; HX MSK13C02 fitted 2026-11-12, JLC stock 4561)", "decides": "setting switch part"},
             {"id": "R2-C1", "item": "PicoBlade on the perpendicular board in 2HP: wires leave the mated plug along +X with only the end-bend room shown per variant, and the 2.3 mm tails must be cut like the jack leads", "decides": "power connector choice (R4) and 2HP power route"},
             {"id": "R2-C5", "item": f"A7 power cable: digital requirement {power_cable['finished_free_span_nominal']} +/- {power_cable['tolerance']} mm free span (tolerance {power_cable['tolerance_confidence']}) for the S-fold stowage ({power_cable['stowage_length_range_both_widths'][0]}-{power_cable['stowage_length_range_both_widths'][1]} mm across both widths); the A5 {power_cable['a5_cable']['nominal']:g} +/- {power_cable['a5_cable']['tol']:g} cable {'fits' if power_cable['a5_cable']['fits'] else 'does not fit'}. No cable has been routed or measured", "decides": "power harness part and its length (#8)"},
             {"id": "R2-C6", "item": f"controller-to-leaf SH4 harness: route B moves the unchanged A5 adapter {adapter['z_shift']} mm in Z so the harness S-steps at the leaf plug mouth into a {adapter['gap_rear_to_leaf_front']} mm gap behind the adapter; ray-sampled shading per LED is in verification.json (optical_shading_estimate). Real bend radius, insulation diameter and the lit appearance are not checked", "decides": "harness and adapter mounting (#8), optics"},
@@ -808,7 +814,7 @@ def envelopes(L):
         "jack_notes": "Pin positions follow the R1 drawing reading; pin functions are INFERRED (R1 Q2) and hole/slot sizes are not sourced (R1 Q3). The jack body seats on the component face; the axis height above that face is INFERRED " + str(L["variants"]["3hp"]["jack_axis_height_used"]["value"]) + " (band " + str(L["variants"]["3hp"]["jack_axis_height_used"]["band"]) + ").",
         "setting_switch": {"part": sw["part"], "face": layer["+X"], "body": rect(sw["body_y"], sw["body_z"]), "actuator": rect(sw["actuator_y"], [r(sw["actuator_positions_z"][0] - sw["actuator_width_z"] / 2), r(sw["actuator_positions_z"][2] + sw["actuator_width_z"] / 2)]),
                            "pegs": [{"assembly_y": swyc, "assembly_z": r(swzc + s_ * sw["peg_pitch"] / 2), "board_x": bx(swzc + s_ * sw["peg_pitch"] / 2), "board_y": by(swyc), "diameter": sw["peg_diameter"]} for s_ in (-1, 1)],
-                           "rule": "actuator flush with the bottom board edge; pads from the C&K land pattern, not given here", "label": sw["label"]},
+                           "rule": "body centred on the routed peg line; the actuator tip passes the bottom board edge by actuator_tip_past_board_edge (accepted in design-inputs); pads from the C&K PCM13SMTR land pattern, not given here", "actuator_tip_past_board_edge": sw["actuator_tip_past_board_edge"], "label": sw["label"]},
         "headers": hdr,
         "solder_face_low_profile_zone": c["solder_face_low_profile_zone"],
         "solder_side_rule": c["solder_side_rule"],
@@ -928,7 +934,7 @@ def report(L):
             "", "## Y layout", "",
             f"- Jacks IN / THRU at Y {y['jack_y'][0]} / {y['jack_y'][1]} (A5: {y['a5_jack_y'][0]} / {y['a5_jack_y'][1]}), pitch {y['jack_y'][1]-y['jack_y'][0]}; body gap {y['body_gap']}, nut gap {y['nut_gap']}.",
             f"- Labels: " + ", ".join(f"{q['text']} at Y {q['y']}" for q in y["labels"]) + ". MODE and ON/PGM/CV are removed from the front.",
-            f"- Setting switch body Y {sw['body_y'][0]}..{sw['body_y'][1]}, Z {sw['body_z'][0]}..{sw['body_z'][1]}; actuator reaches the controller bottom edge Y {sw['actuator_y'][1]} and is reached from below with the module out of the rack. Gap to the lower jack body {sw['gap_to_lower_jack_body']}.",
+            f"- Setting switch body Y {sw['body_y'][0]}..{sw['body_y'][1]}, Z {sw['body_z'][0]}..{sw['body_z'][1]}; actuator tip Y {sw['actuator_y'][1]}, {sw['actuator_tip_past_board_edge']} mm past the controller bottom edge (accepted overhang {sw['actuator_overhang_accepted']}; body centred on the routed peg line), reached from below with the module out of the rack. Gap to the lower jack body {sw['gap_to_lower_jack_body']}.",
             "", "## Controller (Y-Z board, common to both widths)", "",
             f"- Outline Y {c['outline_y'][0]}..{c['outline_y'][1]} x Z {c['outline_z'][0]}..{c['outline_z'][1]} = {c['outline_area_mm2']} mm2 (A5 board {c['a5_controller_board_area_mm2']} mm2; A5 small-part body area {c['a5_small_component_body_area_mm2']} mm2). Free component-face area after keep-outs about {c['component_face_free_area_mm2_approx']} mm2.",
             f"- {c['why_separate_adapter']}.",

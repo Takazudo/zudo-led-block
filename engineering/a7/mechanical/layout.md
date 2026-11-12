@@ -73,7 +73,7 @@ Provisional digital study. Jack-axis height INFERRED; tolerances marked ASSUMED 
 
 - Jacks IN / THRU at Y 84.3 / 99.3 (A5: 90.0 / 104.0), pitch 15.0; body gap 2.9, nut gap 7.0.
 - Labels: IN at Y 77.3, THRU at Y 92.3. MODE and ON/PGM/CV are removed from the front.
-- Setting switch body Y 107.3..109.9, Z 2.15..11.85; actuator reaches the controller bottom edge Y 111.4 and is reached from below with the module out of the rack. Gap to the lower jack body 1.5.
+- Setting switch body Y 107.25..109.95, Z 2.15..11.85; actuator tip Y 111.45, 0.05 mm past the controller bottom edge (accepted overhang 0.05; body centred on the routed peg line), reached from below with the module out of the rack. Gap to the lower jack body 1.45.
 
 ## Controller (Y-Z board, common to both widths)
 
@@ -84,8 +84,8 @@ Provisional digital study. Jack-axis height INFERRED; tolerances marked ASSUMED 
 |---|---|---|---|---|
 | spine-slot | +X, -X | 48.5..72.0 | 0.2..4.0 | printed spine slot captures the PCB front edge |
 | optical-fork | +X, -X | 104.0..107.0 | 14.6..16.4 | bottom optical cap tongue straddles the rear edge |
-| setting-switch | +X | 106.1..111.4 | 1.35..12.65 | PCM13SMTR body, actuator and its signal/retention pads at the bottom edge |
-| switch-access | +X | 109.9..111.4 | 4.35..9.65 | actuator travel plus tool clearance; nothing taller than the switch between actuator and board edge |
+| setting-switch | +X | 106.1..111.4 | 1.35..12.65 | setting-switch (HX MSK13C02) body, actuator and its signal/retention pads at the bottom edge |
+| switch-access | +X | 109.95..111.4 | 4.35..9.65 | actuator travel plus tool clearance; nothing taller than the switch between actuator and board edge |
 | sh4-header | +X | 57.425..63.675 | 9.3..16.4 | SH4 side-entry housing and its mated plug handle |
 | picoblade-header | +X | 73.95..77.15 | 5.94..11.44 | PicoBlade vertical header and mated plug |
 | picoblade-tails | -X | 73.95..77.15 | 5.94..11.44 | PicoBlade THT tails and fillets on the solder face (cut to the jack trim rule in 2HP) |
@@ -171,7 +171,7 @@ Digital comparison only; FR-4 stays the default leaf. Values marked INFERRED are
 | Q4 | nut fit on the SOFNG barrel | front retention |
 | Q8 | rear pocket depth tolerance, appearance and strength | selected axial option |
 | Q9 | PMMA clamp load / nut torque | jack load path |
-| Q10 | PCM13SMTR sourcing | setting switch part |
+| Q10 | setting-switch sourcing (PCM13SMTR stock 0; HX MSK13C02 fitted 2026-11-12, JLC stock 4561) | setting switch part |
 | R2-C1 | PicoBlade on the perpendicular board in 2HP: wires leave the mated plug along +X with only the end-bend room shown per variant, and the 2.3 mm tails must be cut like the jack leads | power connector choice (R4) and 2HP power route |
 | R2-C5 | A7 power cable: digital requirement 57.0 +/- 3.0 mm free span (tolerance ASSUMED) for the S-fold stowage (51.037-78.053 mm across both widths); the A5 50 +/- 6 cable does not fit. No cable has been routed or measured | power harness part and its length (#8) |
 | R2-C6 | controller-to-leaf SH4 harness: route B moves the unchanged A5 adapter -2.0 mm in Z so the harness S-steps at the leaf plug mouth into a 2.4 mm gap behind the adapter; ray-sampled shading per LED is in verification.json (optical_shading_estimate). Real bend radius, insulation diameter and the lit appearance are not checked | harness and adapter mounting (#8), optics |

@@ -1,0 +1,110 @@
+{
+  "schema_version": 1,
+  "coverage": [
+    {
+      "coverage_id": "cov-a7-hx-msk13c02-identity",
+      "record_id": "rec-a7-hx-msk13c02",
+      "domain": "identity",
+      "status": "OPEN",
+      "reason": "distributor identity is confirmed; the only datasheet is a distributor-served Hanxia document whose Part No. field is blank, so the manufacturer binding is unverified",
+      "fact_ids": [
+        "fact-a7-hx-msk13c02-manufacturer",
+        "fact-a7-hx-msk13c02-distributor-identity",
+        "fact-a7-hx-msk13c02-document-binding"
+      ],
+      "blocking_fact_ids": [
+        "fact-a7-hx-msk13c02-manufacturer",
+        "fact-a7-hx-msk13c02-document-binding"
+      ]
+    },
+    {
+      "coverage_id": "cov-a7-hx-msk13c02-pinout",
+      "record_id": "rec-a7-hx-msk13c02",
+      "domain": "pinout",
+      "status": "OPEN",
+      "reason": "contact table A 1-3, B 2-3, C 3-4 is read from a mirror drawing and the per-position truth table on received units is NOT_MEASURED",
+      "fact_ids": [
+        "fact-a7-hx-msk13c02-function",
+        "fact-a7-hx-msk13c02-physical-function"
+      ],
+      "blocking_fact_ids": [
+        "fact-a7-hx-msk13c02-function",
+        "fact-a7-hx-msk13c02-physical-function"
+      ]
+    },
+    {
+      "coverage_id": "cov-a7-hx-msk13c02-electrical-ratings",
+      "record_id": "rec-a7-hx-msk13c02",
+      "domain": "electrical-ratings",
+      "status": "OPEN",
+      "reason": "ratings come only from the mirror document; reliable contact at 0.33 mA is NOT_MEASURED",
+      "fact_ids": [
+        "fact-a7-hx-msk13c02-contact-rating",
+        "fact-a7-hx-msk13c02-contact-resistance",
+        "fact-a7-hx-msk13c02-insulation",
+        "fact-a7-hx-msk13c02-life",
+        "fact-a7-hx-msk13c02-operating-temperature",
+        "fact-a7-hx-msk13c02-solder",
+        "fact-a7-hx-msk13c02-operation",
+        "fact-a7-hx-msk13c02-physical-contact"
+      ],
+      "blocking_fact_ids": [
+        "fact-a7-hx-msk13c02-contact-rating",
+        "fact-a7-hx-msk13c02-contact-resistance",
+        "fact-a7-hx-msk13c02-insulation",
+        "fact-a7-hx-msk13c02-life",
+        "fact-a7-hx-msk13c02-operating-temperature",
+        "fact-a7-hx-msk13c02-solder",
+        "fact-a7-hx-msk13c02-operation",
+        "fact-a7-hx-msk13c02-physical-contact"
+      ]
+    },
+    {
+      "coverage_id": "cov-a7-hx-msk13c02-mechanical",
+      "record_id": "rec-a7-hx-msk13c02",
+      "domain": "mechanical",
+      "status": "OPEN",
+      "reason": "outline and recommended land come from the mirror drawing; land fit is a digital comparison and the 0.05 mm actuator overhang and physical fit need the first-article check",
+      "fact_ids": [
+        "fact-a7-hx-msk13c02-outline",
+        "fact-a7-hx-msk13c02-recommended-land",
+        "fact-a7-hx-msk13c02-land-fit",
+        "fact-a7-hx-msk13c02-edge-overhang",
+        "fact-a7-hx-msk13c02-physical-fit"
+      ],
+      "blocking_fact_ids": [
+        "fact-a7-hx-msk13c02-outline",
+        "fact-a7-hx-msk13c02-recommended-land",
+        "fact-a7-hx-msk13c02-land-fit",
+        "fact-a7-hx-msk13c02-edge-overhang",
+        "fact-a7-hx-msk13c02-physical-fit"
+      ]
+    },
+    {
+      "coverage_id": "cov-a7-hx-msk13c02-sourcing",
+      "record_id": "rec-a7-hx-msk13c02",
+      "domain": "sourcing",
+      "status": "OPEN",
+      "reason": "JLC stock 4561 on 2026-11-12 is an unreserved observation; no order or assembly acceptance",
+      "fact_ids": [
+        "fact-a7-hx-msk13c02-sourcing"
+      ],
+      "blocking_fact_ids": [
+        "fact-a7-hx-msk13c02-sourcing"
+      ]
+    },
+    {
+      "coverage_id": "cov-a7-hx-msk13c02-placement",
+      "record_id": "rec-a7-hx-msk13c02",
+      "domain": "placement",
+      "status": "OPEN",
+      "reason": "SW1 on the A7 controller is project state; physical placement is not verified",
+      "fact_ids": [
+        "fact-a7-hx-msk13c02-a7-placements"
+      ],
+      "blocking_fact_ids": [
+        "fact-a7-hx-msk13c02-a7-placements"
+      ]
+    }
+  ]
+}

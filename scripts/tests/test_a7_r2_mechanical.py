@@ -189,8 +189,13 @@ class Stack(unittest.TestCase):
 
     def test_y_layout(self):
         y, sw = L["y_layout"], L["switch"]
-        self.assertEqual(sw["actuator_y"][1], G5["rail_body_y"][1])
         D = json.loads((MECH / "design-inputs.json").read_text())
+        # Body centred on the routed peg line; the tip may pass the board edge only by the overhang accepted in design-inputs.
+        peg_y = G5["rail_body_y"][1] - D["setting_switch"]["peg_line_from_board_edge"]["nominal"]
+        self.assertAlmostEqual((sw["body_y"][0] + sw["body_y"][1]) / 2, peg_y, places=6)
+        self.assertAlmostEqual(sw["actuator_y"][1] - G5["rail_body_y"][1], sw["actuator_tip_past_board_edge"], places=6)
+        self.assertGreaterEqual(sw["actuator_tip_past_board_edge"], 0)
+        self.assertLessEqual(sw["actuator_tip_past_board_edge"], D["setting_switch"]["actuator_overhang_accepted"]["nominal"] + 1e-9)
         self.assertGreaterEqual(sw["gap_to_lower_jack_body"], D["jacks"]["body_to_switch_gap"]["nominal"] - 1e-9)
         tn, tf = P["jack_axis_to_edge_near"].get("tol", 0), P["jack_axis_to_edge_far"].get("tol", 0)
         for yc, (e0, e1), (n0, n1) in zip(y["jack_y"], y["jack_body_y"], y["jack_body_y_nominal"]):

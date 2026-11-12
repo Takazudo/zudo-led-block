@@ -31,6 +31,7 @@
     "rec-spm4020t-4r7m-lr",
     "rec-uniroyal-0603waf1005t5e",
     "rec-dailywell-1ms3t1b1m2qes-5",
+    "rec-a7-hx-msk13c02",
     "rec-a7-pcm13smtr",
     "rec-a7-pj-324m"
   ],
@@ -228,6 +229,9 @@
     "src-1ms3t1b1m2qes-5-cat-p0",
     "src-1ms3t1b1m2qes-5-cat-p1",
     "src-1ms3t1b1m2qes-5-cat-p10",
+    "src-a7-hx-msk13c02-hanxia-spec",
+    "src-a7-hx-msk13c02-jlc-api-2026-11-12",
+    "src-a7-hx-msk13c02-easyeda-2026-11-12",
     "src-a7-pcm13smtr-ck-datasheet",
     "src-a7-pcm13smtr-ck-site",
     "src-a7-pcm13smtr-lcsc-listing",
@@ -557,11 +561,15 @@
     {
       "recordId": "rec-dailywell-1ms3t1b1m2qes-5",
       "reason": "No manufacturer-primary document for this exact orderable is retained in the evidence. Reviewed: JLCPCB public product listing C908270 (A5 retained product-props snapshot) (DISTRIBUTOR_IDENTITY, AVAILABLE); Dailywell 1M Series Miniature Toggle Switches (distributor-hosted copy) (MANUFACTURER_MIRROR, AVAILABLE). Distributor listings establish order identity only, and a distributor-hosted mirror is lower authority, so neither is published as a manufacturer document."
+    },
+    {
+      "recordId": "rec-a7-hx-msk13c02",
+      "reason": "No manufacturer-primary document for this exact orderable is retained in the evidence. Reviewed: Shenzhen Hanxia Electronic Co., Ltd slide switch SPECIFICATION FOR APPROVAL (承认书), served by JLCPCB for C5149819 (MANUFACTURER_MIRROR, AVAILABLE); JLCPCB parts search API response (selectSmtComponentList) for C5149819 (DISTRIBUTOR_IDENTITY, AVAILABLE); EasyEDA/LCSC supplier CAD record for C5149819 (footprint SW-SMD_MSK13C02-BB) (DISTRIBUTOR_IDENTITY, AVAILABLE). Distributor listings establish order identity only, and a distributor-hosted mirror is lower authority, so neither is published as a manufacturer document."
     }
   ],
   "expect": {
-    "records": 32,
-    "sources": 202,
+    "records": 33,
+    "sources": 205,
     "integrationRules": 0,
     "packages": 0
   }
