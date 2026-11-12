@@ -111,7 +111,7 @@ Coverage is stated one domain at a time and is never rolled up. A domain marked 
 
 **Coverage ID:** `cov-530470310-ratings` · **Status:** COVERED
 
-**Reason:** voltage, per-circuit current, ambient temperature and mating durability are primary-source confirmed from Molex 510211110-PS rev A; finished-cable and installed temperature rise are not qualified
+**Reason:** voltage, rated current by wire gauge, ambient temperature and mating durability are primary-source confirmed from Molex 510211110-PS rev A; finished-cable and installed temperature rise are not qualified
 
 **Facts in this domain:**
 
@@ -155,27 +155,23 @@ Coverage is stated one domain at a time and is never rolled up. A domain marked 
 
 Each fact keeps its value, its unit, the conditions it holds under, where it came from and how far it has been confirmed as separate fields, because they are separate claims. A value without its conditions is not the same fact, and a verdict is about the evidence for the value, not about the part.
 
-### ABSOLUTE\_MAXIMUM
+### RECOMMENDED\_OPERATION
 
-A never-exceed limit. Reaching it may damage the part; it is not an operating target and there is no margin implied by it.
+The range the manufacturer intends the part to be used in. Always narrower than the absolute maximum.
 
 <EvidenceFact>
   <EvidenceAnchor id="fact-530470310-ratings" />
 
   **Fact:** `fact-530470310-ratings`
 
-  **Value:** 125 V AC rms / DC; 1.0 A max per circuit with AWG 26-30 wire, 0.8 A with AWG 32 · **Unit:** `NONE`
+  **Value:** 125 V AC rms / DC; rated current (max.) 1.0 A with AWG 26-30 wire, 0.8 A with AWG 32 · **Unit:** `NONE`
 
-  **Conditions:** Molex 510211110-PS rev A (covers 53047\*\*10). The rated current depends on the crimped wire gauge of the mating receptacle; the derating table (reference only, 30 C rise, all circuits powered) has no 3-circuit column. Ratings of the connector system, not of the finished cable, the board or the installed temperature rise.
+  **Conditions:** Molex 510211110-PS rev A (covers 53047\*\*10). The table states the rated current by wire size only; reading it as a per-circuit (per-terminal) value is the usual interpretation, not printed text. The rated current depends on the crimped wire gauge of the mating receptacle; the derating table (reference only, 30 C rise, all circuits powered) has no 3-circuit column. Ratings of the connector system, not of the finished cable, the board or the installed temperature rise.
 
   **Verdict:** PASS - primary-source confirmed · **Provenance:** PRIMARY-SPEC
 
   **Evidence:** [src-530470310-ps-p3: sections 4.1 VOLTAGE and 4.2 RATED CURRENT AND APPLICABLE WIRES](#src-530470310-ps-p3)
 </EvidenceFact>
-
-### RECOMMENDED\_OPERATION
-
-The range the manufacturer intends the part to be used in. Always narrower than the absolute maximum.
 
 <EvidenceFact>
   <EvidenceAnchor id="fact-530470310-operating-temperature" />
@@ -477,7 +473,6 @@ What the recorded terms on this page mean, in ordinary words. The exact terms ab
 
 | Recorded term           | What it means                                                                                                                                                      |
 | ----------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| `ABSOLUTE_MAXIMUM`      | A never-exceed limit. Reaching it may damage the part; it is not an operating target and there is no margin implied by it.                                         |
 | `PROJECT_STATE`         | A value this project recorded about how the part is used here — a chosen operating point, a net assignment, or a derived figure. Not a manufacturer specification. |
 | `RECOMMENDED_OPERATION` | The range the manufacturer intends the part to be used in. Always narrower than the absolute maximum.                                                              |
 
