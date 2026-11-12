@@ -10,3 +10,5 @@ allowBuilds:
   # Cloudflare local runtime used by cf/wrangler (doc/); its postinstall only
   # verifies the platform binary from an optional dependency.
   workerd: true
+patchedDependencies:
+  '@takazudo/zudo-circuit-doc@0.3.0': patches/@takazudo__zudo-circuit-doc@0.3.0.patch
