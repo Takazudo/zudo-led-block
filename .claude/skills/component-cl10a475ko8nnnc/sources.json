@@ -111,11 +111,11 @@
       "printed_page_label": "n/a (HTML page)",
       "document_format": "html",
       "locator": "figure DC Bias graph: embedded chart JSON object graphType 'DCBias', chartList data rows (x = DC voltage in V, y = capacitance change in %)",
-      "evidence_extract": "DCBias graph for partsName CL10A475KO8NNN: conditions degC 25.0, measuring frequency 1 kHz, signal 1.0 Vrms (fields dsDcFre / dsDcSign), axis 'DeltaC'. Tabulated points used: -30.44 % at 3.3 V; -49.92 % at 5.0 V; A7 placements: C5 on +5V, C6/C7 on +3V3; 12.112 V point -79.75 %; curve 0 to 16 V ends at -86.64 % at 16 V. Page text: 'This page includes the typical data for design reference only.' The HTML was fetched by the cloud VM (HTTP 200, text/html); values were read from the embedded chart JSON, sorted by voltage, at tabulated points without interpolation.",
+      "evidence_extract": "DCBias graph for partsName CL10A475KO8NNN: conditions degC 25.0, measuring frequency 1 kHz, signal 1.0 Vrms (fields dsDcFre / dsDcSign), axis 'DeltaC'. Tabulated points used: -30.44 % at 3.3 V; -49.92 % at 5.0 V; 12.112 V point -79.75 %; curve 0 to 16 V ends at -86.64 % at 16 V. Page text: 'This page includes the typical data for design reference only.' The HTML was fetched by the cloud VM (HTTP 200, text/html); values were read from the embedded chart JSON, sorted by voltage, at tabulated points without interpolation.",
       "refresh_policy": "HASH-LOCKED",
       "retrieved_at": "2026-11-12T07:01Z",
       "retained_bytes": "none in the repository",
-      "authority_note": "Samsung Electro-Mechanics is the manufacturer; the page itself labels the graph data as typical and for design reference only, so it is a typical curve, not a guaranteed minimum. The page is generated live, so a later fetch may return different bytes; the hash pins the 2026-11-12 observation only, and a re-check should compare the chart data, not only the hash."
+      "authority_note": "Samsung Electro-Mechanics is the manufacturer; the page itself labels the graph data as typical and for design reference only, so it is a typical curve, not a guaranteed minimum. The page is generated live and embeds a server timestamp and a dt= cache-buster, so every re-fetch returns different bytes and an online hash re-check of this entry will always report a stale hash. The hash pins the retained 2026-11-12 snapshot only; it is HASH-LOCKED because the framework allows VOLATILE-HTML only for distributor identity pages. A re-check must compare the embedded DCBias chart data, which was identical across two fetches on 2026-11-12."
     }
   ]
 }
