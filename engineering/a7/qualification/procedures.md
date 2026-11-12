@@ -868,7 +868,7 @@
 - 関連:  #10
 - 概要: 入力/出力レール遷移を承認済み制限下で独立に制御。
 - 根拠: `engineering/a5/integration/independent_review`
-- 未決: 印加順序/上限と許容逆電流/時間のexact-part根拠が必要。（区分: 外部の証跡・アクセス待ち）
+- 未決: TLV755P は許容逆電流・時間を規定しない（§7.1.4 が挙げる 3 つの逆電流条件はいずれも絶対最大（VOUT > VIN + 0.3 V）を超えるとし、必要なら外付けショットキーを推奨）。+3V3 への外部印加を試験で許すか、許すならどの上限で行うかはオーナーのリスク判断。（区分: オーナーの判断）
 - 観測: NOT_MEASURED。結果: NOT_RUN。
 - 次: 不足する基準をレビューし、オーナー承認の試作ルート確定後に実物で実施。
 
@@ -887,12 +887,13 @@
 - `records.json` の owner_prototype_route（対象版・数量・範囲・承認）が記録済み
 - 通電は owner_prototype_route が許す範囲だけ。初回通電の電流制限値は未決なので、試験前にレビューで決めて conditions に記録する
 - `readiness.json` の identities（基板/実装/回路図/FW/設定/機構/治具/台帳の SHA-256）を run にそのまま写す
-- +3V3 に外部電圧をかける試験は、許容逆電流が決まるまで実施しない
+- +3V3 に外部電圧をかける試験は、オーナー判断 criterion:ldo-reverse で bounded が選ばれ、上限と時間が記録されるまで実施しない
 
 手順:
 
-1. +5 V を切った状態で +3V3 側に SWD プローブ等から電圧がかかる場合の電流を測る。
-2. 順序と時間を変えて記録する。
+1. 電源投入・遮断の順序を変えて +5V と +3V3 の波形を記録し、遮断時に VOUT ≤ VIN + 0.3 V が保たれるかを確かめる。
+2. （bounded が選ばれた場合のみ）+5 V を切った状態で +3V3 側に SWD プローブ等から記録済みの上限内で電圧をかけ、電流と時間を測る。
+3. 順序と時間を変えて記録する。
 
 記録する raw 証跡（種別ごとに別ファイル）:
 
@@ -909,7 +910,8 @@
 |---|---|---|---|---|---|---|
 | vin-max | TLV75533 VIN の絶対最大 | `6.0` | max | V | SOURCED | `.claude/skills/component-tlv75533pdbvr/facts.json` `fact-tlv75533pdbvr-ratings` |
 | en-max | TLV75533 EN の絶対最大 | `6.0` | max | V | SOURCED | `.claude/skills/component-tlv75533pdbvr/facts.json` `fact-tlv75533pdbvr-abs-max-en` |
-| reverse | 許容逆電流と時間 | — | — | mA | UNRESOLVED | TLV75533 の逆電流の記述をメーカー資料から取得する（カタログ未記録）。入手先（資料）: TLV75533 データシートの逆電流の記述（カタログに fact がない） |
+| reverse-spec | TLV75533 の逆電流に関するメーカー記述 | `"no allowed reverse current specified; VOUT must not exceed VIN + 0.3 V or 6.0 V, whichever is smaller"` | reference | NONE | SOURCED | `.claude/skills/component-tlv75533pdbvr/facts.json` `fact-tlv75533pdbvr-reverse-current` |
+| reverse | 試験で許す逆電流と時間 | — | — | mA | UNRESOLVED | オーナー判断（メーカーは許容値を規定しないので、試験で許すかどうかと上限はプロジェクトのリスク判断） |
 
 ### load-short — 負荷・短絡・保護
 
@@ -967,7 +969,7 @@
 - 関連:  #10
 - 概要: 実装型番/ロットのDCバイアスと温度条件を記録して容量/リップルを測る。
 - 根拠: `engineering/a5/integration/independent_review`
-- 未決: 必要容量下限と測定法を部品曲線と回路レビューで決める。（区分: 外部の証跡・アクセス待ち）
+- 未決: 部品ごとの典型 DC バイアス曲線は記録済み（Samsung 製品ページ、typical data）。必要容量の下限は、レギュレータ・負荷スイッチ資料の入出力容量要件と曲線から回路レビューで決める（クラウドで実施できる）。（区分: クラウドで進められるデジタル作業）
 - 観測: NOT_MEASURED。結果: NOT_RUN。
 - 次: 不足する基準をレビューし、オーナー承認の試作ルート確定後に実物で実施。
 
@@ -1009,7 +1011,10 @@
 | c22u | CL31A226KAHNNNE 定格電圧 | `25` | max | V | SOURCED | `.claude/skills/component-cl31a226kahnnne/facts.json` `fact-cl31a226kahnnne-ratings` |
 | c4u7 | CL10A475KO8NNNC 定格電圧 | `16` | max | V | SOURCED | `.claude/skills/component-cl10a475ko8nnnc/facts.json` `fact-cl10a475ko8nnnc-ratings` |
 | dc-bias | 動作点での実効容量 | `"effective capacitance at the A5 DC operating point not established"` | reference | NONE | UNVERIFIED | `.claude/skills/component-cl21a106kaynnne/facts.json` `fact-cl21a106kaynnne-dc-bias` |
-| minimum | 必要容量の下限 | — | — | NONE | UNRESOLVED | メーカーの DC バイアス曲線（未取得）と回路レビュー。入手先（資料と測定）: Samsung の DC バイアス特性（CL21A106KAYNNNE / CL31A226KAHNNNE / CL10A475KO8NNNC）と、回路レビューで決める必要容量 |
+| dc-bias-c10u | CL21A106KAYNNNE の典型 DC バイアス特性（保証値ではない） | `"-50.31 % at 5.0 V; -81.6 % at 12.208 V"` | reference | % | SOURCED | `.claude/skills/component-cl21a106kaynnne/facts.json` `fact-cl21a106kaynnne-dc-bias-curve` |
+| dc-bias-c22u | CL31A226KAHNNNE の典型 DC バイアス特性（保証値ではない） | `"-37.96 % at 5.0 V"` | reference | % | SOURCED | `.claude/skills/component-cl31a226kahnnne/facts.json` `fact-cl31a226kahnnne-dc-bias-curve` |
+| dc-bias-c4u7 | CL10A475KO8NNNC の典型 DC バイアス特性（保証値ではない） | `"-30.44 % at 3.3 V; -49.92 % at 5.0 V"` | reference | % | SOURCED | `.claude/skills/component-cl10a475ko8nnnc/facts.json` `fact-cl10a475ko8nnnc-dc-bias-curve` |
+| minimum | 必要容量の下限 | — | — | NONE | UNRESOLVED | 回路レビュー（レギュレータ・負荷スイッチ資料の入出力容量要件と、記録済みの典型 DC バイアス曲線・許容差・温度特性から決める）。入手先（資料）: AP63205 / TLV755P / TPS2552 データシートの入出力容量要件（クラウドで取得できる） |
 
 ### thermal-optical — 温度・光学・Kumiko照明
 
@@ -1187,17 +1192,16 @@
 
 | 区分 | ゲート数 |
 |---|---:|
-| CLOUD_DIGITAL（クラウドで進められるデジタル作業） | 0 |
+| CLOUD_DIGITAL（クラウドで進められるデジタル作業） | 1 |
 | OWNER_DECISION（オーナーの判断） | 13 |
-| ACCESS_EVIDENCE_HOLD（外部の証跡・アクセス待ち） | 16 |
+| ACCESS_EVIDENCE_HOLD（外部の証跡・アクセス待ち） | 14 |
 | PHYSICAL_ONLY（実機が必要） | 21 |
 
 ## 現在のブロッカー
 
 - fixture completion awaits the physical criterion 5 (fixture-contact)
-- assembly_manifest: supply-observations: Current stock, price, MOQ, packaging, lead time and assembly applicability not obtained for any line except the dated C221842 zero-stock observation; stock never reserved.
-- assembly_manifest: order-quantity: No agreed order quantity; 1/10/100 are comparison scenarios only, so no supply observation can be judged available for a proposed order.
-- assembly_manifest: switch-supply: PCM13SMTR (C221842) had JLC stock 0 / presale 0 at 2026-11-09; wait, buy elsewhere, or accept a reviewed alternate with its own contact table and fit review.
+- assembly_manifest: supply-observations: Order quantity is 2 modules (owner decision). JLC stock, price, minimum, packaging, lead time and assembly applicability at that quantity are not observed for any line except C221842 (switch-supply); JLC attrition is not sourced; stock never reserved.
+- assembly_manifest: switch-supply: PCM13SMTR (C221842): 2 needed for 2 modules. JLC stock 0 at 2026-11-09; at 2026-11-12 JLC lists it buyable (Extended) with pre-order minimum 3 and presale 0 (field meanings inferred), tier prices without currency, no lead time. The owner wants to complete on JLC: on our reading, a pre-order (presale 0 may mean none can be placed now; fill depends on LCSC stock, not observed) or a Global Sourcing quote; otherwise wait, or accept a reviewed alternate with its own contact table and fit review.
 - assembly_manifest: jack-switch-qualification: PJ-324M pin function (which of terminals 4/5 is the tip contact and which its normal; the supplier symbol contradicts the inferred 4 = tip, so this continuity test must precede any PCB order), slot, axis height and nut fit, and PCM13SMTR truth table and land fit, need received parts (jack-continuity, jack-dimensions, switch-fit).
 - assembly_manifest: exact-part-evidence: Exact-part gaps after the 2026-11-11 source recovery: PMEG4010CEJ ,115 packing variant not established by the datasheet; SM04B-SRSS-TB per-circuit numbering not printed beyond the No. 1 end; PJ-324M recommended hole/slot sizes, axis height and whether a nut ships with C22355739 not sourced.
 - assembly_manifest: finished-cables: Finished A7 power cable (57 mm, +/-3 ASSUMED), SH4 cables and IDC ribbon not selected; supplier answers and the owner choice of assembly are needed before physical routing checks.

@@ -113,11 +113,12 @@ Coverage is stated one domain at a time and is never rolled up. A domain marked 
 
 **Coverage ID:** `cov-cl10a475ko8nnnc-dc-bias-capacitance` · **Status:** OPEN
 
-**Reason:** fact-cl10a475ko8nnnc-dc-bias NEEDS BENCH: effective MLCC capacitance under the A5 DC bias, temperature and ageing is not established; the manufacturer document gives no part-specific DC-bias curve and A5 never qualified it
+**Reason:** fact-cl10a475ko8nnnc-dc-bias NEEDS BENCH: the manufacturer's typical DC-bias curve is recorded (fact-cl10a475ko8nnnc-dc-bias-curve), but the fitted lot's effective capacitance with tolerance, temperature and ageing is not measured
 
 **Facts in this domain:**
 
 - [`fact-cl10a475ko8nnnc-dc-bias`](#fact-cl10a475ko8nnnc-dc-bias)
+- [`fact-cl10a475ko8nnnc-dc-bias-curve`](#fact-cl10a475ko8nnnc-dc-bias-curve)
 
 **Blocked by:** these facts must be resolved before the domain can close. Each is listed in full under Facts.
 
@@ -248,11 +249,25 @@ A representative figure read from a characteristic curve. Typical values are not
 
   **Value:** effective capacitance at the A5 DC operating point not established · **Unit:** `NONE`
 
-  **Conditions:** the document only warns that Class II capacitance falls with DC bias and shows a generic example curve for a different part (X5R 10uF 6.3V); no curve for this part was inspected and A5 never qualified DC bias, temperature, tolerance and ageing together; needs a bench measurement or a part-specific manufacturer curve
+  **Conditions:** the part-specific typical DC-bias curve is now recorded as fact-cl10a475ko8nnnc-dc-bias-curve (manufacturer product page, typical data); the effective capacitance of the fitted lot at the A5 or A7 DC operating point combined with tolerance, temperature and ageing is still not established and needs a bench measurement; the value names A5 because acceptance criteria cite it verbatim, and the same gap holds at the A7 operating point
 
   **Verdict:** NEEDS BENCH · **Provenance:** UNVERIFIED
 
   **Evidence:** [src-cl10a475ko8nnnc-ds-p16: MLCC Product Manual section 2-7, row 2-7-1 and Example of DC Bias characteristics figure](#src-cl10a475ko8nnnc-ds-p16)
+</EvidenceFact>
+
+<EvidenceFact>
+  <EvidenceAnchor id="fact-cl10a475ko8nnnc-dc-bias-curve" />
+
+  **Fact:** `fact-cl10a475ko8nnnc-dc-bias-curve`
+
+  **Value:** -30.44 % at 3.3 V; -49.92 % at 5.0 V · **Unit:** `%`
+
+  **Conditions:** typical capacitance change versus DC bias at 25 C, 1 kHz, 1.0 Vrms, from the manufacturer's product-page graph data (labelled 'typical data for design reference only'); A7 placements (project data from engineering/a7/verification/schematic/netlist.xml, not stated by the page): C5 on +5V, C6/C7 on +3V3; 12.112 V point -79.75 %; curve 0 to 16 V ends at -86.64 % at 16 V; excludes tolerance (+/-10 %), temperature (X5R up to +/-15 %) and ageing, so it is not a guaranteed minimum
+
+  **Verdict:** PASS - primary-source confirmed · **Provenance:** PRIMARY-SPEC
+
+  **Evidence:** [src-cl10a475ko8nnnc-samsung-dc-bias-2026-11-12: figure DC Bias graph data rows at the stated voltages](#src-cl10a475ko8nnnc-samsung-dc-bias-2026-11-12)
 </EvidenceFact>
 
 ### PROJECT\_STATE
@@ -479,6 +494,26 @@ Every document cited above, with its identification, when it was retrieved, and 
 **Availability:** AVAILABLE
 
 **Document URL:** [https://product.samsungsem.com/part/download.do?masterKey=CL10A475KO8NNN\&type=specsheet](https://product.samsungsem.com/part/download.do?masterKey=CL10A475KO8NNN\&type=specsheet)
+
+### Samsung Electro-Mechanics MLCC product page CL10A475KO8NNN (DC Bias characteristic graph data)
+
+<EvidenceAnchor id="src-cl10a475ko8nnnc-samsung-dc-bias-2026-11-12" />
+
+**Source ID:** `src-cl10a475ko8nnnc-samsung-dc-bias-2026-11-12` · **Authority:** MANUFACTURER\_PRIMARY
+
+| Field           | Recorded value             |
+| --------------- | -------------------------- |
+| Document number | CL10A475KO8NNN             |
+| Revision        | observed 2026-11-12T07:01Z |
+| Document date   | 2026-11-12                 |
+| Retrieved       | 2026-11-12                 |
+| Printed page    | n/a (HTML page)            |
+
+**Locator:** figure DC Bias graph: embedded chart JSON object graphType 'DCBias', chartList data rows (x = DC voltage in V, y = capacitance change in %)
+
+**Availability:** AVAILABLE
+
+**Document URL:** [https://product.samsungsem.com/mlcc/CL10A475KO8NNN.do](https://product.samsungsem.com/mlcc/CL10A475KO8NNN.do)
 
 ## Legend
 

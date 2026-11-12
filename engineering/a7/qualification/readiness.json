@@ -36,14 +36,14 @@
     },
     "fixture": {
       "path": "engineering/a7/fixture/manifest.json",
-      "sha256": "ee83f6bd0551d62ca33ec7070e1dcf58a01f21c4df713bfae953ad0af613f043"
+      "sha256": "96c60d512e4abb6fc15f44496d1753cef01f84d3fdd152ec4f3eafd67b64df4b"
     },
     "assembly_manifest": {
       "path": "engineering/a7/procurement/assembly-manifest.json",
-      "sha256": "55315650dd1cc1617081e705532ddd89f92d3079dd22b6dc31d3499746d19d74"
+      "sha256": "f08d14a6d344884f784fd45c58651146f7399ef615d820ba40c4fd6bad2c8356"
     }
   },
-  "plan_sha256": "cd178f06ae0bd7e92875246d3ca872157d956020dd84273a207ee81da8cfbf62",
+  "plan_sha256": "b36496009aad6ceb701100d57873ede8ba6c0938703a6f7d629e798f71946d42",
   "procedures": [
     {
       "id": "jack-continuity",
@@ -205,9 +205,8 @@
   ],
   "blockers": [
     "fixture completion awaits the physical criterion 5 (fixture-contact)",
-    "assembly_manifest: supply-observations: Current stock, price, MOQ, packaging, lead time and assembly applicability not obtained for any line except the dated C221842 zero-stock observation; stock never reserved.",
-    "assembly_manifest: order-quantity: No agreed order quantity; 1/10/100 are comparison scenarios only, so no supply observation can be judged available for a proposed order.",
-    "assembly_manifest: switch-supply: PCM13SMTR (C221842) had JLC stock 0 / presale 0 at 2026-11-09; wait, buy elsewhere, or accept a reviewed alternate with its own contact table and fit review.",
+    "assembly_manifest: supply-observations: Order quantity is 2 modules (owner decision). JLC stock, price, minimum, packaging, lead time and assembly applicability at that quantity are not observed for any line except C221842 (switch-supply); JLC attrition is not sourced; stock never reserved.",
+    "assembly_manifest: switch-supply: PCM13SMTR (C221842): 2 needed for 2 modules. JLC stock 0 at 2026-11-09; at 2026-11-12 JLC lists it buyable (Extended) with pre-order minimum 3 and presale 0 (field meanings inferred), tier prices without currency, no lead time. The owner wants to complete on JLC: on our reading, a pre-order (presale 0 may mean none can be placed now; fill depends on LCSC stock, not observed) or a Global Sourcing quote; otherwise wait, or accept a reviewed alternate with its own contact table and fit review.",
     "assembly_manifest: jack-switch-qualification: PJ-324M pin function (which of terminals 4/5 is the tip contact and which its normal; the supplier symbol contradicts the inferred 4 = tip, so this continuity test must precede any PCB order), slot, axis height and nut fit, and PCM13SMTR truth table and land fit, need received parts (jack-continuity, jack-dimensions, switch-fit).",
     "assembly_manifest: exact-part-evidence: Exact-part gaps after the 2026-11-11 source recovery: PMEG4010CEJ ,115 packing variant not established by the datasheet; SM04B-SRSS-TB per-circuit numbering not printed beyond the No. 1 end; PJ-324M recommended hole/slot sizes, axis height and whether a nut ships with C22355739 not sourced.",
     "assembly_manifest: finished-cables: Finished A7 power cable (57 mm, +/-3 ASSUMED), SH4 cables and IDC ribbon not selected; supplier answers and the owner choice of assembly are needed before physical routing checks.",
@@ -279,21 +278,14 @@
       "gate": "assembly:supply-observations",
       "class": "ACCESS_EVIDENCE_HOLD",
       "reasons": [
-        "assembly_manifest: supply-observations: Current stock, price, MOQ, packaging, lead time and assembly applicability not obtained for any line except the dated C221842 zero-stock observation; stock never reserved."
-      ]
-    },
-    {
-      "gate": "assembly:order-quantity",
-      "class": "OWNER_DECISION",
-      "reasons": [
-        "assembly_manifest: order-quantity: No agreed order quantity; 1/10/100 are comparison scenarios only, so no supply observation can be judged available for a proposed order."
+        "assembly_manifest: supply-observations: Order quantity is 2 modules (owner decision). JLC stock, price, minimum, packaging, lead time and assembly applicability at that quantity are not observed for any line except C221842 (switch-supply); JLC attrition is not sourced; stock never reserved."
       ]
     },
     {
       "gate": "assembly:switch-supply",
       "class": "OWNER_DECISION",
       "reasons": [
-        "assembly_manifest: switch-supply: PCM13SMTR (C221842) had JLC stock 0 / presale 0 at 2026-11-09; wait, buy elsewhere, or accept a reviewed alternate with its own contact table and fit review."
+        "assembly_manifest: switch-supply: PCM13SMTR (C221842): 2 needed for 2 modules. JLC stock 0 at 2026-11-09; at 2026-11-12 JLC lists it buyable (Extended) with pre-order minimum 3 and presale 0 (field meanings inferred), tier prices without currency, no lead time. The owner wants to complete on JLC: on our reading, a pre-order (presale 0 may mean none can be placed now; fill depends on LCSC stock, not observed) or a Global Sourcing quote; otherwise wait, or accept a reviewed alternate with its own contact table and fit review."
       ]
     },
     {
@@ -502,7 +494,7 @@
     },
     {
       "gate": "criterion:ldo-reverse",
-      "class": "ACCESS_EVIDENCE_HOLD",
+      "class": "OWNER_DECISION",
       "reasons": [
         "ldo-reverse: criterion unresolved or review receipt missing",
         "ldo-reverse: criterion has PROPOSED or UNRESOLVED acceptance values: reverse"
@@ -524,7 +516,7 @@
     },
     {
       "gate": "criterion:effective-capacitance",
-      "class": "ACCESS_EVIDENCE_HOLD",
+      "class": "CLOUD_DIGITAL",
       "reasons": [
         "effective-capacitance: criterion unresolved or review receipt missing",
         "effective-capacitance: criterion has PROPOSED or UNRESOLVED acceptance values: minimum"
@@ -632,9 +624,9 @@
     }
   ],
   "gate_counts": {
-    "CLOUD_DIGITAL": 0,
+    "CLOUD_DIGITAL": 1,
     "OWNER_DECISION": 13,
-    "ACCESS_EVIDENCE_HOLD": 16,
+    "ACCESS_EVIDENCE_HOLD": 14,
     "PHYSICAL_ONLY": 21
   },
   "state_flags": [
