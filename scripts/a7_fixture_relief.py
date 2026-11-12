@@ -117,7 +117,9 @@ RULES = {
     'resultant_margin_mm': 0.5,
     'clamp_force_margin_factor': 2.0,
     'spring_force_max_over_range_N': 10.0,
-    'spring_installed_length_tolerance_mm': 0.3,
+    'board_thickness_tolerance_mm': 0.16,
+    'contact_setting_tolerance_mm': 0.1,
+    'plate_stack_acceptance_tolerance_mm': 0.05,
     'wire_bend_space_factor_of_od': 10,
     'support_grid_mm': 0.1,
     'support_radius_around_probe_mm': 3.0,
@@ -651,6 +653,17 @@ def design(geometry: dict, probes: list[dict], pop: dict | None = None) -> dict:
                 PRESSURE_PLATE[3] - RULES['m3_hex_across_corners_mm'] / 2 - 0.125 - MIN_WALL)
     ys_grid = [round(ys_range[0] + 0.1 * k, 6) for k in range(int((ys_range[1] - ys_range[0]) / 0.1) + 1)]
     gx_mid = (GUIDE_X[0] + GUIDE_X[1]) / 2
+    f_lo = round(RULES['clamp_force_margin_factor'] * len(probes) * INGUN['force_graph']['facts']['force_at_maximum_stroke_N'] / 2, 6)
+    f_hi = RULES['spring_force_max_over_range_N']
+    corners = [(a, b) for a in (f_lo, f_hi) for b in (f_lo, f_hi)]
+
+    def spring_point(f1, f2, y):
+        return (round((f1 * GUIDE_X[0] + f2 * GUIDE_X[1]) / (f1 + f2), 6), y)
+
+    def spring_margin(tri, y):
+        # each spring independently anywhere in [f_lo, f_hi]: the resultant runs along G1-G2 between the two unequal extremes,
+        # and the distance to the edge of a convex triangle is smallest at a segment end
+        return min(_tri_margin(tri, spring_point(f_hi, f_lo, y)), _tri_margin(tri, spring_point(f_lo, f_hi, y)))
     # above the plate, a contact nut must clear the spring and washer on each guide
     spring_keep = RULES['spring_outer_diameter_max_mm'] / 2 + RULES['contact_nut_across_corners_mm'] / 2 + RULES['pressure_plate_part_clearance_mm']
     best = None
@@ -662,6 +675,7 @@ def design(geometry: dict, probes: list[dict], pop: dict | None = None) -> dict:
                 ok = [v for v in ys_grid if all(math.dist(t, (gx, v)) >= spring_keep for t in tri for gx in GUIDE_X)]
                 if not ok:
                     continue
+                # design point: equal spring forces at the guide midpoint; the unequal-force extremes are checked below
                 ys = max(ok, key=lambda v: _tri_margin(tri, (gx_mid, v)))
                 mq = _tri_margin(tri, (gx_mid, ys))
                 if mq < need:
@@ -675,6 +689,7 @@ def design(geometry: dict, probes: list[dict], pop: dict | None = None) -> dict:
     if best is None:
         raise ValueError(f'no pressure-plate contact triangle over land encloses both the probe and the spring resultants ({len(cands)} candidates, {len(thinned)} thinned)')
     _, tri, ys, mr, mq = best
+    mq_worst = spring_margin(tri, ys)
     guides = [{'id': f'G{i + 1}', 'board_xy_mm': [gx, ys], 'carrier_xy_mm': _to_carrier_xy((gx, ys))} for i, gx in enumerate(GUIDE_X)]
     hole_list += [(g['id'], g['board_xy_mm'], r_m3) for g in guides]
 
@@ -768,29 +783,38 @@ def design(geometry: dict, probes: list[dict], pop: dict | None = None) -> dict:
     n = len(probes)
     p_max = round(n * f_max, 6)
     s_total = round(RULES['clamp_force_margin_factor'] * p_max, 6)
-    s_max = round(2 * RULES['spring_force_max_over_range_N'], 6)
-    q = (gx_mid, ys)
-    shares = _barycentric(tri, q)
-    react = [round(v * s_total, 6) for v in shares]
-    react_max = [round(v * s_max, 6) for v in shares]
+    s_max = round(2 * f_hi, 6)
     land_hull = _hull(land_pts)
 
-    def net_point(s):
-        return [round((s * q[0] - p_max * cx) / (s - p_max), 6), round((s * q[1] - p_max * cy) / (s - p_max), 6)]
-    # the net load point moves along a straight line towards q as the spring force grows: both ends inside the convex hull keep all inside
-    net, net_at_max = net_point(s_total), net_point(s_max)
-    net_margin = min(_hull_margin(land_hull, net), _hull_margin(land_hull, net_at_max))
+    def net_point(f1, f2):
+        q1 = spring_point(f1, f2, ys)
+        s_ = f1 + f2
+        return [round((s_ * q1[0] - p_max * cx) / (s_ - p_max), 6), round((s_ * q1[1] - p_max * cy) / (s_ - p_max), 6)]
+    # every spring-force pair inside [f_lo, f_hi] x [f_lo, f_hi]: the plate resultant, the reactions and the board net load point
+    # are linear-fractional in (f1, f2), so the four corners bound them (convex images of the force box)
+    statics_cases = []
+    for f1, f2 in corners:
+        q1 = spring_point(f1, f2, ys)
+        rr = [round(v * (f1 + f2), 6) for v in _barycentric(tri, q1)]
+        nq = net_point(f1, f2)
+        statics_cases.append({'spring_forces_N': [f1, f2], 'plate_resultant_board_mm': list(q1),
+                              'plate_resultant_margin_mm': round(_tri_margin(tri, q1), 6), 'contact_reactions_N': rr,
+                              'board_net_load_point_mm': nq, 'board_net_load_point_margin_mm': round(_hull_margin(land_hull, nq), 6)})
+    react_min = min(min(c['contact_reactions_N']) for c in statics_cases)
+    net_margin = min(c['board_net_load_point_margin_mm'] for c in statics_cases)
     pp_bottom, pp_top = STACK['pressure_plate']
     l_nom = round(STACK['guide_standoff_top'] - pp_top, 6)
-    l_tol = RULES['spring_installed_length_tolerance_mm']
+    l_parts = {'board_thickness': RULES['board_thickness_tolerance_mm'], 'contact_screw_setting': RULES['contact_setting_tolerance_mm'],
+               'pressure_plate_thickness': RULES['plate_stack_acceptance_tolerance_mm'],
+               'guide_standoff_length': RULES['plate_stack_acceptance_tolerance_mm']}
+    l_tol = round(sum(l_parts.values()), 6)
     l_lo, l_hi = round(l_nom - l_tol, 6), round(l_nom + l_tol, 6)
     sp = SPRING_CANDIDATE
     sp_f_min = round((sp['rate_N_per_mm'] - sp['rate_tolerance_N_per_mm']) * (sp['free_length_mm'] - sp['free_length_tolerance_mm'] - l_hi), 6)
     sp_f_max = round((sp['rate_N_per_mm'] + sp['rate_tolerance_N_per_mm']) * (sp['free_length_mm'] + sp['free_length_tolerance_mm'] - l_lo), 6)
     sp_checks = {
-        'force_min_at_longest_installed_length_N': [sp_f_min, '>=', round(s_total / 2, 6), sp_f_min >= s_total / 2],
-        'force_max_at_shortest_installed_length_N': [sp_f_max, '<=', RULES['spring_force_max_over_range_N'],
-                                                     sp_f_max <= RULES['spring_force_max_over_range_N']],
+        'force_min_at_longest_installed_length_N': [sp_f_min, '>=', f_lo, sp_f_min >= f_lo],
+        'force_max_at_shortest_installed_length_N': [sp_f_max, '<=', f_hi, sp_f_max <= f_hi],
         'outside_diameter_max_mm': [round(sp['outside_diameter_mm'] + sp['outside_diameter_tolerance_mm'], 6), '<=',
                                     RULES['spring_outer_diameter_max_mm'],
                                     sp['outside_diameter_mm'] + sp['outside_diameter_tolerance_mm'] <= RULES['spring_outer_diameter_max_mm'] + 1e-9],
@@ -802,29 +826,38 @@ def design(geometry: dict, probes: list[dict], pop: dict | None = None) -> dict:
     }
     spring_candidate = dict(sp, status='PROPOSED_AWAITING_OWNER_APPROVAL (not selected)',
                             installed_length_range_mm=[l_lo, l_hi], checks=sp_checks, meets_requirement=all(v[3] for v in sp_checks.values()),
-                            basis='worst case over the installed-length range with the rate and free-length tolerances stacked')
+                            basis='worst case over the installed-length range with the rate and free-length tolerances stacked; each '
+                                  'spring varies independently, which the statics cover through the force box')
     # board across the probe-field window: every window-borne contact load taken as one unbalanced point load at mid-span of a
     # simply supported strip spanning the window's longest side (conservative: probe forces would reduce it)
     contact_windows = [w for w in windows if any(_in_window(w, *pr['board_xy_mm']) for pr in probes)
                        or any(_window_dist(w, c) <= rcon + 1e-9 for c in tri)]
     span = max((max(w['board_box_mm'][2] - w['board_box_mm'][0], w['board_box_mm'][3] - w['board_box_mm'][1]) for w in contact_windows), default=0.0)
-    f_win = round(max(p_max, sum(r for r, c in zip(react_max, tri) if any(_window_dist(w, c) <= rcon + 1e-9 for w in contact_windows))), 6)
+    on_window = [any(_window_dist(w, c) <= rcon + 1e-9 for w in contact_windows) for c in tri]
+    f_win = round(max([p_max] + [sum(r for r, hit in zip(c['contact_reactions_N'], on_window) if hit) for c in statics_cases]), 6)
     e_mod, strip = RULES['board_flexural_modulus_MPa'], RULES['board_strip_width_mm']
-    inertia = strip * BOARD_THICKNESS ** 3 / 12
-    defl = round(f_win * span ** 3 / (48 * e_mod * inertia), 6)
+    t_min = round(BOARD_THICKNESS - RULES['board_thickness_tolerance_mm'], 6)
+
+    def deflection(t, e):
+        return round(f_win * span ** 3 / (48 * e * strip * t ** 3 / 12), 6)
+    defl_nom, defl = deflection(BOARD_THICKNESS, e_mod), deflection(t_min, e_mod)
+    e_low = min(m['value_MPa'] for m in MODULUS_REFERENCES)
     bending = {'model': 'simply supported strip, point load at mid-span: d = F L^3 / (48 E I), I = b t^3 / 12',
-               'span_mm': round(span, 6), 'strip_width_mm': strip, 'board_thickness_mm': BOARD_THICKNESS,
+               'span_mm': round(span, 6), 'strip_width_mm': strip, 'board_thickness_nominal_mm': BOARD_THICKNESS,
+               'board_thickness_minimum_mm': t_min,
+               'board_thickness_basis': 'PROJECT-CHOICE fabrication requirement 1.6 +/-0.16 mm (+/-10 %); not sourced, the fabricator is '
+                                        'not selected. The check uses the minimum thickness, the worst case for bending',
                'flexural_modulus_MPa': e_mod,
-               'flexural_modulus_class': 'ASSUMED for the board: its laminate is not sourced (fabricator not selected). Bounded by the sourced '
-                                         'FR-4 class values below, all above the assumed value and above the minimum modulus that keeps the '
-                                         'deflection within the limit',
+               'flexural_modulus_class': 'ASSUMED for the board: its laminate is not sourced (fabricator not selected). The sourced values '
+                                         'below are typical values of other FR-4 class laminates, given for comparison; they do not bound '
+                                         'the board laminate',
                'flexural_modulus_minimum_for_limit_MPa': round(e_mod * defl / RULES['board_deflection_limit_mm'], 1),
                'representative_sourced_moduli': MODULUS_REFERENCES,
-               'deflection_at_lowest_sourced_modulus_mm': round(defl * e_mod / min(m['value_MPa'] for m in MODULUS_REFERENCES), 6),
-               'load_N': f_win, 'load_basis': 'larger of the total probe force at maximum stroke and the summed reactions of the contacts '
-                                              'over the window at the maximum allowed spring force (2 x spring_force_max_over_range_N), '
-                                              'taken as wholly unbalanced',
-               'deflection_mm': defl, 'limit_mm': RULES['board_deflection_limit_mm'],
+               'deflection_at_lowest_sourced_modulus_mm': deflection(t_min, e_low),
+               'load_N': f_win, 'load_basis': 'larger of the total probe force at maximum stroke and the largest summed reaction of the '
+                                              'contacts over a window, over every spring-force pair in the force box, taken as wholly '
+                                              'unbalanced',
+               'deflection_at_nominal_thickness_mm': defl_nom, 'deflection_mm': defl, 'limit_mm': RULES['board_deflection_limit_mm'],
                'limit_basis': 'PROJECT-CHOICE: small against the 2.05 mm between the 4.3 mm working stroke and the 6.35 mm maximum'}
     holddown = {
         'type': 'screw-down FR-4 pressure plate, 3 mm, guided on two M3 hex standoffs (20 mm) standing on the carrier; a compression '
@@ -832,34 +865,42 @@ def design(geometry: dict, probes: list[dict], pop: dict | None = None) -> dict:
                 'the contacts',
         'contacts_board_mm': [list(t) for t in tri], 'contact_diameter_mm': RULES['contact_diameter_mm'],
         'probe_resultant_board_mm': [round(cx, 6), round(cy, 6)], 'probe_resultant_margin_mm': round(mr, 6),
-        'guides': guides, 'spring_resultant_board_mm': [gx_mid, ys], 'spring_resultant_margin_mm': round(mq, 6),
+        'guides': guides, 'spring_resultant_board_mm': [gx_mid, ys],
+        'spring_resultant_range_board_mm': [list(spring_point(f_hi, f_lo, ys)), list(spring_point(f_lo, f_hi, ys))],
+        'spring_resultant_margin_mm': round(mq, 6),
+        'spring_resultant_margin_at_unequal_forces_mm': round(mq_worst, 6),
+        'spring_resultant_margin_basis': 'design point with equal spring forces; the second value is the smallest margin over the resultant '
+                                         'range with each spring anywhere in its force range (negative: outside the contact triangle)',
         'probe_force_total_N': {'working_stroke': round(n * f_work, 6), 'maximum_stroke': p_max},
         'clamp_force_margin_factor': RULES['clamp_force_margin_factor'],
         'required_total_spring_force_N': s_total,
-        'contact_reactions_N': react,
+        'spring_force_range_each_N': [f_lo, f_hi],
         'maximum_total_spring_force_N': s_max,
-        'contact_reactions_at_maximum_spring_force_N': react_max,
-        'board_net_load_point_mm': net,
-        'board_net_load_point_at_maximum_spring_force_mm': net_at_max,
+        'statics_cases': statics_cases,
+        'minimum_contact_reaction_N': react_min,
         'board_net_load_point_inside_land_hull_mm': round(net_margin, 6),
         'board_bending_across_window': bending,
-        'statics': 'plate: equal spring forces at G1 and G2 act at their midpoint, inside the contact triangle, so all three contacts '
-                   'carry load (barycentric shares); board: contact loads minus the probe load at maximum stroke leave a net downward '
-                   'load whose point lies inside the convex hull of the carrier land under the board, so the board stays on the land '
-                   '(rigid bodies)',
+        'statics': 'plate: each spring force anywhere in its range, independently; the resultant moves along G1-G2 and stays inside '
+                   'the contact triangle at both extremes, so all three contacts carry load (barycentric shares) in every case; board: contact loads minus the probe load at maximum stroke leave a net downward '
+                   'load whose point lies inside the convex hull of the carrier land under the board in every case, so the board stays '
+                   'on the land (rigid bodies)',
         'spring_requirement': {'quantity': 2, 'inner_diameter_min_mm': 6.6, 'works_over_rod_min_mm': RULES['m3_hex_across_corners_mm'],
                                'outer_diameter_max_mm': RULES['spring_outer_diameter_max_mm'],
                                'installed_length_nominal_mm': l_nom, 'installed_length_range_mm': [l_lo, l_hi],
-                               'force_min_over_range_N': round(s_total / 2, 6), 'force_max_over_range_N': RULES['spring_force_max_over_range_N'],
+                               'force_min_over_range_N': f_lo, 'force_max_over_range_N': f_hi,
                                'solid_length_max_mm': round(l_nom - 2 * l_tol, 6),
                                'free_length_basis': 'not limited: the operator presses washer and screw down by hand (at most the spring force) '
                                                     'until the M3 x 6 top screw starts in the standoff thread',
                                'force_max_basis': 'keeps the board bending across the window within its limit (board_bending_across_window)',
-                               'basis': 'each spring carries half of the required total over the installed-length range, which covers board '
-                                        'thickness and contact-screw setting variation of +/-0.3 mm (PROJECT-CHOICE envelope)',
+                               'installed_length_tolerance_parts_mm': l_parts,
+                               'basis': 'each spring carries at least half of the required total over the installed-length range; the range '
+                                        'stacks the board thickness requirement (+/-0.16), the contact-screw setting (+/-0.1) and the '
+                                        'pressure-plate thickness and guide-standoff length (+/-0.05 each, acceptance measurements)',
                                'status': 'REQUIRED; a candidate is proposed below, awaiting owner approval, not selected'},
         'spring_candidate': spring_candidate,
         'contact_setting': 'each M2 nylon screw protrudes 2.5 +/-0.1 mm below the plate (acceptance measurement before use)',
+        'plate_stack_acceptance': 'pressure-plate thickness 3.0 +/-0.05 mm and guide-standoff length 20.0 +/-0.05 mm, measured before '
+                                  'assembly; parts outside are not used',
         'operation': 'remove the two M3 x 6 top screws with their washers and springs and lift the plate off; insert the board and push it '
                      'against X1, X2 and Y1; refit plate, springs and washers, press each washer down by hand until its screw starts in the '
                      'standoff thread, and screw down until each screw head seats on its standoff (hard stop). The spring length at the hard '
@@ -989,12 +1030,12 @@ def design(geometry: dict, probes: list[dict], pop: dict | None = None) -> dict:
         'every_tht_lead_ends_inside_its_carrier_window': bool(lead_tails) and all(t['ends_inside_carrier_window'] for t in lead_tails),
         'no_wall_below_minimum': not (c_conf or c_walls or p_conf or q_conf or b_conf),
         'keyed_against_turned_insertion': keying['keyed'],
-        'contacts_on_f_face_clear_of_parts_and_around_both_resultants': len(tri) == 3 and mr >= need and mq >= need,
+        'contacts_on_f_face_clear_of_parts_and_around_both_resultants': len(tri) == 3 and mr >= need and mq >= need and mq_worst >= need,
     }
     criterion3 = {
         'installation_height_and_stroke_resolved': stroke['accommodated_installation_height_mm'][0] <= h_inst <= stroke['accommodated_installation_height_mm'][1],
         'travel_stop_independent_of_adjustment': True,
-        'clamp_force_sized_with_margin': s_total >= RULES['clamp_force_margin_factor'] * p_max and min(react) > 0 and s_max >= s_total,
+        'clamp_force_sized_with_margin': 2 * f_lo >= RULES['clamp_force_margin_factor'] * p_max and react_min > 0 and f_hi >= f_lo,
         'board_stays_on_land': net_margin >= RULES['resultant_margin_mm'],
         'board_bending_across_window_within_limit': defl <= RULES['board_deflection_limit_mm'],
         'guide_and_fixing_designed': not c_conf,

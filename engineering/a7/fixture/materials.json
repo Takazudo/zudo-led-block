@@ -188,6 +188,7 @@
   ],
   "blockers": [
     "No fixture part is selected: plates are digital designs and hardware lines are requirements. manifest.json#hardware_proposal lists one sourced candidate per line as a proposal awaiting owner approval; fabricator and supplier are owner choices.",
+    "The hold-down does not meet its worst cases (manifest.json#b_side_relief.holddown): with each spring anywhere in 6.35-10 N, the strong-G1/weak-G2 pair moves the resultant out of the contact triangle (a contact lifts and the board net load point leaves the land), and the board deflects 0.13 mm (limit 0.1 mm) at the minimum 1.44 mm thickness. The clamp-springs, guide-standoffs and contact lines may change with the redesign.",
     "Probe-plate bores leave 0.40 mm between bores at the fixed 1.4 mm test-point pitch: within the INGUN grid, below the 1.0 mm milled-wall guidance; the chosen fabricator must confirm drilling it.",
     "No current price, MOQ, lead time or availability retrieved; no supplier-upload package."
   ]

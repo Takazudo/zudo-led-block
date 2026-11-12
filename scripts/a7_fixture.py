@@ -180,7 +180,8 @@ def report():
         *([] if fresh else ['fresh_native_verified false: ' + '; '.join(
             [f'{u} is unsourced (the carrier and probe-plate windows and the base clearance do not depend on it up to the stated bound)' for u in relief['unknown_heights']]
             + [f'{k} not met' for k, v in criteria.items() if not v and k != 'every_b_face_protrusion_sourced'])]),
-        *[f'criterion {k} not met: {v["basis"]}' for k, v in completion.items() if k in digital[1:] and not v['met']],
+        *[f'criterion {k} not met: ' + (', '.join(c for c, ok in v['checks'].items() if not ok) + ' not met' if 'checks' in v else v['basis'])
+          for k, v in completion.items() if k in digital[1:] and not v['met']],
     ]
     candidate_checks = candidate_reference_checks(relief)
     owner_items = [

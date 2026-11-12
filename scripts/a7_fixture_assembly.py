@@ -17,6 +17,7 @@ TOL_MM3 = 1e-3  # common-volume threshold for an interference; OCC boolean noise
 
 
 CADQUERY_VERSION = '2.7.0'
+SHCS_HEAD_MAX = 5.68  # TR Fastenings SO12CS drawing (tr-so12cs), M3 head diameter max
 
 
 def model_inputs(relief, geometry_sha256):
@@ -138,7 +139,8 @@ def build(relief, pads, geometry, rl):
     for i, xy in enumerate(fasteners, 1):
         add(f'F{i} M3x8 countersunk screw', 'hardware', _cone(cq, xy, csk_d, 3.0, c1, c1 - (csk_d - 3.0) / 2).fuse(_cyl(cq, xy, 3.0, c1 - 8, c1 - (csk_d - 3.0) / 2)))
         add(f'F{i} M3 F-F hex spacer 6', 'hardware', _hex(cq, xy, 5.5, st['plate_gap_spacers'][0], st['plate_gap_spacers'][1], 3.0))
-        add(f'F{i} M3x12 stud', 'hardware', _cyl(cq, xy, 3.0, p0 - 3, p1 + 3))
+        # set 4 mm into the base standoff and 2 mm into the spacer, leaving a 1 mm gap to the 8 mm countersunk screw above
+        add(f'F{i} M3x12 stud', 'hardware', _cyl(cq, xy, 3.0, p0 - 4, p1 + 2))
         add(f'F{i} M3 F-F hex standoff 35', 'hardware', _hex(cq, xy, 5.5, st['base_standoffs'][0], st['base_standoffs'][1], 3.0))
         add(f'F{i} M3x8 countersunk screw (base)', 'hardware', _cone(cq, xy, 6.0, 3.0, b0, b0 + 1.5).fuse(_cyl(cq, xy, 3.0, b0 + 1.5, b0 + 8)))
     for i, xy in enumerate(dowels, 1):
@@ -148,14 +150,14 @@ def build(relief, pads, geometry, rl):
     g_top = st['guide_standoff_top']
     for g in guides:
         xy = g['board_xy_mm']
-        add(f"{g['id']} M3x8 socket head screw", 'hardware', _cyl(cq, xy, 3.0, c0, c1 + 3).fuse(_cyl(cq, xy, 5.5, c0 - 3, c0)))
+        add(f"{g['id']} M3x8 socket head screw", 'hardware', _cyl(cq, xy, 3.0, c0, c1 + 3).fuse(_cyl(cq, xy, SHCS_HEAD_MAX, c0 - 3, c0)))
         add(f"{g['id']} M3 F-F hex standoff {g_top - c1:g}", 'hardware', _hex(cq, xy, 5.5, c1, g_top, 3.0))
         add(f"{g['id']} M3 washer DIN 9021", 'hardware', _tube(cq, xy, 9.0, 3.2, g_top, g_top + 0.8))
-        add(f"{g['id']} M3x6 socket head screw", 'hardware', _cyl(cq, xy, 3.0, g_top + 0.8 - 6, g_top + 0.8).fuse(_cyl(cq, xy, 5.5, g_top + 0.8, g_top + 3.8)))
+        add(f"{g['id']} M3x6 socket head screw", 'hardware', _cyl(cq, xy, 3.0, g_top + 0.8 - 6, g_top + 0.8).fuse(_cyl(cq, xy, SHCS_HEAD_MAX, g_top + 0.8, g_top + 3.8)))
         add(f"{g['id']} compression spring envelope", 'hardware', _tube(cq, xy, R['spring_outer_diameter_max_mm'], 6.6, q1, g_top))
     for i, c in enumerate(contacts, 1):
         add(f'C{i} M2x8 nylon contact screw', 'hardware', _cyl(cq, c, 2.0, rl.BOARD_THICKNESS, rl.BOARD_THICKNESS + 8).fuse(
-            _cyl(cq, c, 3.8, rl.BOARD_THICKNESS + 8, rl.BOARD_THICKNESS + 9.3)))
+            _cyl(cq, c, 4.0, rl.BOARD_THICKNESS + 8, rl.BOARD_THICKNESS + 9.3)))
         add(f'C{i} M2 nylon nut', 'hardware', _hex(cq, c, 4.0, q1, q1 + 1.6, 2.0))
 
     # receptacles and probes (probes compressed to the working stroke against the B face)
@@ -186,7 +188,7 @@ def build(relief, pads, geometry, rl):
 
 CLEARANCE_PAIRS = [
     ('B-face bodies and leads to support carrier', lambda n, g: g == 'board' and 'B-face' in n, lambda n, g: n == 'support_carrier'),
-    ('J5 leads at the 2.8 mm tail bound to carrier and probe plate', lambda n, g: n.startswith('J5.'), lambda n, g: n in ('support_carrier', 'probe_plate')),
+    ('J5 leads at their full sourced tail length to carrier and probe plate', lambda n, g: n.startswith('J5.'), lambda n, g: n in ('support_carrier', 'probe_plate')),
     ('probes and receptacles to support carrier', lambda n, g: g == 'probe', lambda n, g: n == 'support_carrier'),
     ('receptacle tails to base plate', lambda n, g: 'receptacle' in n, lambda n, g: n == 'base_plate'),
     ('F-side bodies to pressure plate', lambda n, g: 'F-side' in n, lambda n, g: n == 'pressure_plate'),

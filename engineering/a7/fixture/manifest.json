@@ -3,7 +3,7 @@
   "status": "BLOCKED",
   "digital_fixture_complete": false,
   "digital_fixture_complete_scope": "README completion criteria 1-5, including the physical criterion 5",
-  "digital_criteria_1_to_4_met": true,
+  "digital_criteria_1_to_4_met": false,
   "digital_criteria_1_to_4_met_scope": "progress indicator only: README criteria 1-4 met digitally with no digital blocker; it is not digital_fixture_complete, not a fit result and not order eligibility",
   "hardware_proposal_complete": true,
   "hardware_proposal_scope": "one sourced candidate for every materials.json line, each PROPOSED_AWAITING_OWNER_APPROVAL: a proposal, not a selection, not an approval and not an order",
@@ -215,19 +215,19 @@
   "inputs_sha256": {
     "engineering/a7/electronics/controller/controller.kicad_pcb": "4453f818ede1e6d6c56e45ef43aa6faecb90990f3755f82c6d752258cd4d628e",
     "engineering/a7/electronics/controller/board_placement.json": "1891af356ead303127c6b7a99b8934b08aa25f465b4b2c96872f5d5d24afdc01",
-    "scripts/a7_fixture.py": "b1f6243204160d3be5d134b60abadea8d68c958859f29044c8a8f4cb0b364741",
-    "scripts/a7_fixture_relief.py": "46156755a322c94283f5ae9283d4a99e457d2cef42381335fc12bc434c17f5fa",
-    "scripts/a7_fixture_assembly.py": "bc7c9bbe59c986cd5f9ba3ff7c4ffb6cc3edbd98785624335218cf4825b27187",
+    "scripts/a7_fixture.py": "6b23f52f5534670e7ba26076c624e12ad0a8ae8acea516652c8a07e4a09dc853",
+    "scripts/a7_fixture_relief.py": "da2ffacb537b892208c3a3e7e300201ad5e73601d50bd6a63b1e7955f330fa03",
+    "scripts/a7_fixture_assembly.py": "fbc0ac608cf6437376dfd3694dfdfff0d62648bec21692e6ee5f94324ae84472",
     "engineering/a7/procurement/population.csv": "6ce7636d2d0cae04ccbd2dace8cd0efacafe154b5e772acaa04a5e79718b0dd8",
     "engineering/a7/fixture/sources.json": "b015c21c417173795c4091c4ee5a8da494f44011ce0d319d7aa876a25bbc9d51",
-    "engineering/a7/fixture/materials.json": "efd5f6b5d998625ffdae70cdae8b8f512261c4e5597ed24679a4a7863d0981f3",
+    "engineering/a7/fixture/materials.json": "2ffb1911d9707a83125d2bd7def682da81d2e8021679479acd5a460cbab47e79",
     "engineering/a7/fixture/candidate-references.json": "6f929c9edf3d115dc18f5cf1b055f9971ec25af64ce20948a882729250151845"
   },
   "assembly": {
     "record": "engineering/a7/fixture/assembly-interference.json",
-    "record_sha256": "93a320eb0925b314fc1f8775ed8bedd762662062beb0d4f2a2ebbc98685bb53e",
+    "record_sha256": "9c5a1c6fa03296e4b2743e119a102642ce44de47099d0e45b45af51c88cc5c3c",
     "step": "engineering/a7/fixture/fixture-assembly.step",
-    "step_sha256": "46ec3ec2baf2ee3a19d261aa3d1493463a9f54b45af696e15bb35bcf4571092b",
+    "step_sha256": "849be560b3987ea82ae66afd78be0377252e6eea1fea54497a6917d3a439dc7c",
     "solids": 135,
     "interferences": 0,
     "clearances": [
@@ -240,7 +240,7 @@
         ]
       },
       {
-        "pair": "J5 leads at the 2.8 mm tail bound to carrier and probe plate",
+        "pair": "J5 leads at their full sourced tail length to carrier and probe plate",
         "minimum_mm": 0.4293,
         "between": [
           "J5.1 B-face body/lead",
@@ -407,7 +407,7 @@
       }
     ]
   },
-  "fresh_native_verified": true,
+  "fresh_native_verified": false,
   "fresh_native_criteria": {
     "every_b_side_part_and_tht_lead_relieved_from_native_geometry": true,
     "clearance_independent_of_unsourced_heights": true,
@@ -415,26 +415,26 @@
     "every_tht_lead_ends_inside_its_carrier_window": true,
     "no_wall_below_minimum": true,
     "keyed_against_turned_insertion": true,
-    "contacts_on_f_face_clear_of_parts_and_around_both_resultants": true,
+    "contacts_on_f_face_clear_of_parts_and_around_both_resultants": false,
     "native_record_valid_and_probe_pads_confirmed": true
   },
   "completion_criteria": {
     "1_native_support_and_relief": {
-      "met": true,
-      "basis": "fresh_native_criteria"
+      "met": false,
+      "basis": "fresh_native_criteria not all met: contacts_on_f_face_clear_of_parts_and_around_both_resultants"
     },
     "2_keying_and_registration": {
       "met": true,
       "basis": "turned-pose blocking features and radial allocation closed by acceptance-measurement requirements"
     },
     "3_stroke_stop_guide_fixing_insulation_wiring": {
-      "met": true,
+      "met": false,
       "checks": {
         "installation_height_and_stroke_resolved": true,
         "travel_stop_independent_of_adjustment": true,
-        "clamp_force_sized_with_margin": true,
-        "board_stays_on_land": true,
-        "board_bending_across_window_within_limit": true,
+        "clamp_force_sized_with_margin": false,
+        "board_stays_on_land": false,
+        "board_bending_across_window_within_limit": false,
         "guide_and_fixing_designed": true,
         "pressure_plate_clears_f_parts": true,
         "insulation_metal_clear_of_probes": true,
@@ -488,7 +488,9 @@
       "resultant_margin_mm": 0.5,
       "clamp_force_margin_factor": 2.0,
       "spring_force_max_over_range_N": 10.0,
-      "spring_installed_length_tolerance_mm": 0.3,
+      "board_thickness_tolerance_mm": 0.16,
+      "contact_setting_tolerance_mm": 0.1,
+      "plate_stack_acceptance_tolerance_mm": 0.05,
       "wire_bend_space_factor_of_od": 10,
       "support_grid_mm": 0.1,
       "support_radius_around_probe_mm": 3.0,
@@ -4149,41 +4151,128 @@
         8.1,
         23.3
       ],
+      "spring_resultant_range_board_mm": [
+        [
+          5.063914,
+          23.3
+        ],
+        [
+          11.136086,
+          23.3
+        ]
+      ],
       "spring_resultant_margin_mm": 1.091843,
+      "spring_resultant_margin_at_unequal_forces_mm": -0.098601,
+      "spring_resultant_margin_basis": "design point with equal spring forces; the second value is the smallest margin over the resultant range with each spring anywhere in its force range (negative: outside the contact triangle)",
       "probe_force_total_N": {
         "working_stroke": 5.0,
         "maximum_stroke": 6.35
       },
       "clamp_force_margin_factor": 2.0,
       "required_total_spring_force_N": 12.7,
-      "contact_reactions_N": [
-        3.249369,
-        2.761201,
-        6.689429
+      "spring_force_range_each_N": [
+        6.35,
+        10.0
       ],
       "maximum_total_spring_force_N": 20.0,
-      "contact_reactions_at_maximum_spring_force_N": [
-        5.117117,
-        4.348348,
-        10.534535
+      "statics_cases": [
+        {
+          "spring_forces_N": [
+            6.35,
+            6.35
+          ],
+          "plate_resultant_board_mm": [
+            8.1,
+            23.3
+          ],
+          "plate_resultant_margin_mm": 1.091843,
+          "contact_reactions_N": [
+            3.249369,
+            2.761201,
+            6.689429
+          ],
+          "board_net_load_point_mm": [
+            3.16,
+            21.76
+          ],
+          "board_net_load_point_margin_mm": 3.11
+        },
+        {
+          "spring_forces_N": [
+            6.35,
+            10.0
+          ],
+          "plate_resultant_board_mm": [
+            11.136086,
+            23.3
+          ],
+          "plate_resultant_margin_mm": 1.652244,
+          "contact_reactions_N": [
+            4.630451,
+            7.430571,
+            4.288978
+          ],
+          "board_net_load_point_mm": [
+            9.927101,
+            22.3221
+          ],
+          "board_net_load_point_margin_mm": 6.222899
+        },
+        {
+          "spring_forces_N": [
+            10.0,
+            6.35
+          ],
+          "plate_resultant_board_mm": [
+            5.063914,
+            23.3
+          ],
+          "plate_resultant_margin_mm": -0.098601,
+          "contact_reactions_N": [
+            3.736036,
+            -0.321021,
+            12.934986
+          ],
+          "board_net_load_point_mm": [
+            -0.000901,
+            22.3221
+          ],
+          "board_net_load_point_margin_mm": -0.050901
+        },
+        {
+          "spring_forces_N": [
+            10.0,
+            10.0
+          ],
+          "plate_resultant_board_mm": [
+            8.1,
+            23.3
+          ],
+          "plate_resultant_margin_mm": 1.091843,
+          "contact_reactions_N": [
+            5.117117,
+            4.348348,
+            10.534535
+          ],
+          "board_net_load_point_mm": [
+            5.801905,
+            22.58359
+          ],
+          "board_net_load_point_margin_mm": 5.751905
+        }
       ],
-      "board_net_load_point_mm": [
-        3.16,
-        21.76
-      ],
-      "board_net_load_point_at_maximum_spring_force_mm": [
-        5.801905,
-        22.58359
-      ],
-      "board_net_load_point_inside_land_hull_mm": 3.11,
+      "minimum_contact_reaction_N": -0.321021,
+      "board_net_load_point_inside_land_hull_mm": -0.050901,
       "board_bending_across_window": {
         "model": "simply supported strip, point load at mid-span: d = F L^3 / (48 E I), I = b t^3 / 12",
         "span_mm": 19.286,
         "strip_width_mm": 5.0,
-        "board_thickness_mm": 1.6,
+        "board_thickness_nominal_mm": 1.6,
+        "board_thickness_minimum_mm": 1.44,
+        "board_thickness_basis": "PROJECT-CHOICE fabrication requirement 1.6 +/-0.16 mm (+/-10 %); not sourced, the fabricator is not selected. The check uses the minimum thickness, the worst case for bending",
         "flexural_modulus_MPa": 18000.0,
-        "flexural_modulus_class": "ASSUMED for the board: its laminate is not sourced (fabricator not selected). Bounded by the sourced FR-4 class values below, all above the assumed value and above the minimum modulus that keeps the deflection within the limit",
-        "flexural_modulus_minimum_for_limit_MPa": 17513.3,
+        "flexural_modulus_class": "ASSUMED for the board: its laminate is not sourced (fabricator not selected). The sourced values below are typical values of other FR-4 class laminates, given for comparison; they do not bound the board laminate",
+        "flexural_modulus_minimum_for_limit_MPa": 24023.7,
         "representative_sourced_moduli": [
           {
             "material": "Isola FR406 (IPC-4101 /21 /24 /26)",
@@ -4202,14 +4291,15 @@
             "locator": "Mechanical properties, E-modulus"
           }
         ],
-        "deflection_at_lowest_sourced_modulus_mm": 0.081517,
+        "deflection_at_lowest_sourced_modulus_mm": 0.111821,
         "load_N": 20.0,
-        "load_basis": "larger of the total probe force at maximum stroke and the summed reactions of the contacts over the window at the maximum allowed spring force (2 x spring_force_max_over_range_N), taken as wholly unbalanced",
-        "deflection_mm": 0.097296,
+        "load_basis": "larger of the total probe force at maximum stroke and the largest summed reaction of the contacts over a window, over every spring-force pair in the force box, taken as wholly unbalanced",
+        "deflection_at_nominal_thickness_mm": 0.097296,
+        "deflection_mm": 0.133465,
         "limit_mm": 0.1,
         "limit_basis": "PROJECT-CHOICE: small against the 2.05 mm between the 4.3 mm working stroke and the 6.35 mm maximum"
       },
-      "statics": "plate: equal spring forces at G1 and G2 act at their midpoint, inside the contact triangle, so all three contacts carry load (barycentric shares); board: contact loads minus the probe load at maximum stroke leave a net downward load whose point lies inside the convex hull of the carrier land under the board, so the board stays on the land (rigid bodies)",
+      "statics": "plate: each spring force anywhere in its range, independently; the resultant moves along G1-G2 and stays inside the contact triangle at both extremes, so all three contacts carry load (barycentric shares) in every case; board: contact loads minus the probe load at maximum stroke leave a net downward load whose point lies inside the convex hull of the carrier land under the board in every case, so the board stays on the land (rigid bodies)",
       "spring_requirement": {
         "quantity": 2,
         "inner_diameter_min_mm": 6.6,
@@ -4217,15 +4307,21 @@
         "outer_diameter_max_mm": 9.2,
         "installed_length_nominal_mm": 12.9,
         "installed_length_range_mm": [
-          12.6,
-          13.2
+          12.54,
+          13.26
         ],
         "force_min_over_range_N": 6.35,
         "force_max_over_range_N": 10.0,
-        "solid_length_max_mm": 12.3,
+        "solid_length_max_mm": 12.18,
         "free_length_basis": "not limited: the operator presses washer and screw down by hand (at most the spring force) until the M3 x 6 top screw starts in the standoff thread",
         "force_max_basis": "keeps the board bending across the window within its limit (board_bending_across_window)",
-        "basis": "each spring carries half of the required total over the installed-length range, which covers board thickness and contact-screw setting variation of +/-0.3 mm (PROJECT-CHOICE envelope)",
+        "installed_length_tolerance_parts_mm": {
+          "board_thickness": 0.16,
+          "contact_screw_setting": 0.1,
+          "pressure_plate_thickness": 0.05,
+          "guide_standoff_length": 0.05
+        },
+        "basis": "each spring carries at least half of the required total over the installed-length range; the range stacks the board thickness requirement (+/-0.16), the contact-screw setting (+/-0.1) and the pressure-plate thickness and guide-standoff length (+/-0.05 each, acceptance measurements)",
         "status": "REQUIRED; a candidate is proposed below, awaiting owner approval, not selected"
       },
       "spring_candidate": {
@@ -4249,18 +4345,18 @@
         },
         "status": "PROPOSED_AWAITING_OWNER_APPROVAL (not selected)",
         "installed_length_range_mm": [
-          12.6,
-          13.2
+          12.54,
+          13.26
         ],
         "checks": {
           "force_min_at_longest_installed_length_N": [
-            6.4872,
+            6.444,
             ">=",
             6.35,
             true
           ],
           "force_max_at_shortest_installed_length_N": [
-            9.8472,
+            9.9,
             "<=",
             10.0,
             true
@@ -4286,14 +4382,15 @@
           "solid_height_mm": [
             3.89,
             "<=",
-            12.3,
+            12.18,
             true
           ]
         },
         "meets_requirement": true,
-        "basis": "worst case over the installed-length range with the rate and free-length tolerances stacked"
+        "basis": "worst case over the installed-length range with the rate and free-length tolerances stacked; each spring varies independently, which the statics cover through the force box"
       },
       "contact_setting": "each M2 nylon screw protrudes 2.5 +/-0.1 mm below the plate (acceptance measurement before use)",
+      "plate_stack_acceptance": "pressure-plate thickness 3.0 +/-0.05 mm and guide-standoff length 20.0 +/-0.05 mm, measured before assembly; parts outside are not used",
       "operation": "remove the two M3 x 6 top screws with their washers and springs and lift the plate off; insert the board and push it against X1, X2 and Y1; refit plate, springs and washers, press each washer down by hand until its screw starts in the standoff thread, and screw down until each screw head seats on its standoff (hard stop). The spring length at the hard stop, not the screw torque, sets the clamp force"
     },
     "registration": {
@@ -4518,14 +4615,14 @@
       "every_tht_lead_ends_inside_its_carrier_window": true,
       "no_wall_below_minimum": true,
       "keyed_against_turned_insertion": true,
-      "contacts_on_f_face_clear_of_parts_and_around_both_resultants": true
+      "contacts_on_f_face_clear_of_parts_and_around_both_resultants": false
     },
     "criterion_3_checks": {
       "installation_height_and_stroke_resolved": true,
       "travel_stop_independent_of_adjustment": true,
-      "clamp_force_sized_with_margin": true,
-      "board_stays_on_land": true,
-      "board_bending_across_window_within_limit": true,
+      "clamp_force_sized_with_margin": false,
+      "board_stays_on_land": false,
+      "board_bending_across_window_within_limit": false,
       "guide_and_fixing_designed": true,
       "pressure_plate_clears_f_parts": true,
       "insulation_metal_clear_of_probes": true,
@@ -4748,7 +4845,10 @@
       "satisfied": false
     }
   ],
-  "blockers": [],
+  "blockers": [
+    "fresh_native_verified false: contacts_on_f_face_clear_of_parts_and_around_both_resultants not met",
+    "criterion 3_stroke_stop_guide_fixing_insulation_wiring not met: clamp_force_sized_with_margin, board_stays_on_land, board_bending_across_window_within_limit not met"
+  ],
   "owner_and_supplier_items": [
     "Fabricator for the four FR-4 plates is an owner choice and not selected; JLCCNC guidance is a candidate reference only. The probe-plate bores are drilled at the board test-point pitch, leaving 0.4 mm between bores: this meets the INGUN receptacle grid (0.27 mm) but not the 1.0 mm milled-wall guidance, so the chosen fabricator must confirm drilling it; the board pitch is fixed.",
     "Registration needs the bore positions within 0.05 mm of the datum pins, tighter than the +/-0.1 mm standard tolerance: an annotated 2D drawing is needed.",

@@ -14,7 +14,7 @@ class FixtureStudyTests(unittest.TestCase):
         r=f.report()
         self.assertEqual(r['status'],'BLOCKED')
         self.assertFalse(r['digital_fixture_complete'])
-        self.assertTrue(r['fresh_native_verified'])
+        self.assertFalse(r['fresh_native_verified'])
         self.assertEqual(r['calculations']['worst_case_registration_margin_mm'],0.03)
         self.assertFalse(r['completion_criteria']['5_physical_tests']['met'])
         self.assertTrue(r['physical_items'])
