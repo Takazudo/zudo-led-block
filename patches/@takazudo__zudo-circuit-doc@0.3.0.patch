@@ -1,5 +1,5 @@
 diff --git a/lib/browser-smoke/chrome.js b/lib/browser-smoke/chrome.js
-index b3d9b9db59fb3ee9d53dad0d973c97c70a9babfa..aec12550b3fa3d1c614df3794f8cfe8a5501e3a3 100644
+index b3d9b9db59fb3ee9d53dad0d973c97c70a9babfa..d5c6f9c4ddc59222eadb910e6c51a2cd6b39cd94 100644
 --- a/lib/browser-smoke/chrome.js
 +++ b/lib/browser-smoke/chrome.js
 @@ -70,10 +70,7 @@ export async function launchChrome(bin) {
@@ -10,11 +10,11 @@ index b3d9b9db59fb3ee9d53dad0d973c97c70a9babfa..aec12550b3fa3d1c614df3794f8cfe8a
 -        const page = targets.find((target) => target.type === "page");
 -        if (page?.webSocketDebuggerUrl === undefined)
 -            throw new Error("Chrome page target was not available");
-+        const page = await waitForPageTarget(`http://127.0.0.1:${debuggingPort}/json/list`);
++        const page = await waitForPageTarget(chrome, `http://127.0.0.1:${debuggingPort}/json/list`);
          cdp = await connectCdp(page.webSocketDebuggerUrl);
          await cdp.send("Page.enable");
          // Background rAF/timer throttling in headless made the idle assertion flaky; this matches the legacy zudo-pd harness (#108).
-@@ -135,17 +132,32 @@ async function readDebuggingPort(chrome) {
+@@ -135,17 +132,35 @@ async function readDebuggingPort(chrome) {
          chrome.stderr.on("end", onEnd);
      });
  }
@@ -25,14 +25,17 @@ index b3d9b9db59fb3ee9d53dad0d973c97c70a9babfa..aec12550b3fa3d1c614df3794f8cfe8a
 + * listening before the initial about:blank page is registered, so the first
 + * successful response can be an empty list; one read raced on CI.
 + */
-+async function waitForPageTarget(url, timeoutMs = 10_000) {
++async function waitForPageTarget(chrome, url, timeoutMs = 10_000) {
 +    const deadline = Date.now() + timeoutMs;
 +    let last = "debugging endpoint not listening";
 +    while (Date.now() < deadline) {
++        if (chrome.exitCode !== null || chrome.signalCode !== null)
++            throw new Error(`Chrome exited (${chrome.exitCode ?? chrome.signalCode}) before listing a page target`);
          try {
-             const response = await fetch(url);
+-            const response = await fetch(url);
 -            if (response.ok)
 -                return await response.json();
++            const response = await fetch(url, { signal: AbortSignal.timeout(Math.max(1, deadline - Date.now())) });
 +            if (response.ok) {
 +                const targets = (await response.json());
 +                const page = targets.find((target) => target.type === "page" && target.webSocketDebuggerUrl !== undefined);
@@ -44,8 +47,11 @@ index b3d9b9db59fb3ee9d53dad0d973c97c70a9babfa..aec12550b3fa3d1c614df3794f8cfe8a
 +                last = `HTTP ${response.status}`;
 +            }
          }
-         catch {
-             // Chrome's debugging endpoint is not listening yet; keep polling.
+-        catch {
+-            // Chrome's debugging endpoint is not listening yet; keep polling.
++        catch (error) {
++            // Chrome's debugging endpoint is not answering yet; keep polling.
++            last = String(error);
          }
          await delay(50);
      }
