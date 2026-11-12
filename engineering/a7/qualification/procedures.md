@@ -1214,6 +1214,7 @@
 | depth | 奥行き目標 | `30.0` | max | mm | DESIGN | `engineering/a7/mechanical/layout.json` `/z_stack/installed_depth_target` |
 | plug-force | プラグ挿抜力 | `"5.0-10.0 N inward and exiting"` | range | NONE | MIRROR | `.claude/skills/component-a7-pj-324m/facts.json` `fact-a7-pj-324m-plug-force` |
 | switch-life | 設定スイッチの寿命 | `10000` | reference | cycles | SOURCED | `.claude/skills/component-a7-pcm13smtr/facts.json` `fact-a7-pcm13smtr-life` |
+| power-connector-life | 電源ヘッダー J5（Molex 530470310）の挿抜耐久（スズめっき） | `30` | reference | cycles | SOURCED | `.claude/skills/component-530470310/facts.json` `fact-530470310-durability` |
 | cycles | 繰返し回数と許容損傷 | — | — | NONE | UNRESOLVED | オーナーの判断 |
 | retention-force | ジャック保持がずれ・割れなく受ける挿抜力 | `10.0` | min | N | PROPOSED（根拠 MIRROR） | 計算 `F`（内訳は下） |
 

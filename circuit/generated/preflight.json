@@ -43,9 +43,9 @@
     ]
   },
   "sources": {
-    "available": 197,
-    "selected": 197,
-    "linkable": 153,
+    "available": 199,
+    "selected": 199,
+    "linkable": 155,
     "ids": [
       "src-0603b103k500nt-a5-jlcpcb-snapshot",
       "src-0603b103k500nt-a5-netlist-controller",
@@ -117,6 +117,8 @@
       "src-530470310-a5-jlcpcb-snapshot",
       "src-530470310-a5-netlist-controller",
       "src-530470310-a5-netlist-power-adapter",
+      "src-530470310-ps-p3",
+      "src-530470310-ps-p4",
       "src-530470310-sd",
       "src-a7-jlc-parts-api-2026-11-08",
       "src-a7-pcm13smtr-ck-datasheet",
@@ -376,151 +378,151 @@
     {
       "key": "source.sourceId",
       "decision": "PUBLISH",
-      "emitted": 197,
+      "emitted": 199,
       "withheld": 0
     },
     {
       "key": "source.documentTitle",
       "decision": "PUBLISH",
-      "emitted": 197,
+      "emitted": 199,
       "withheld": 0
     },
     {
       "key": "source.documentNumber",
       "decision": "PUBLISH",
-      "emitted": 197,
+      "emitted": 199,
       "withheld": 0
     },
     {
       "key": "source.revision",
       "decision": "PUBLISH",
-      "emitted": 197,
+      "emitted": 199,
       "withheld": 0
     },
     {
       "key": "source.documentDate",
       "decision": "PUBLISH",
-      "emitted": 197,
+      "emitted": 199,
       "withheld": 0
     },
     {
       "key": "source.retrievalDate",
       "decision": "PUBLISH",
-      "emitted": 197,
+      "emitted": 199,
       "withheld": 0
     },
     {
       "key": "source.authorityClass",
       "decision": "PUBLISH",
-      "emitted": 197,
+      "emitted": 199,
       "withheld": 0
     },
     {
       "key": "source.availability",
       "decision": "PUBLISH",
-      "emitted": 197,
+      "emitted": 199,
       "withheld": 0
     },
     {
       "key": "source.locator",
       "decision": "PUBLISH",
-      "emitted": 197,
+      "emitted": 199,
       "withheld": 0
     },
     {
       "key": "source.printedPageLabel",
       "decision": "PUBLISH",
-      "emitted": 197,
+      "emitted": 199,
       "withheld": 0
     },
     {
       "key": "source.physicalPdfPageIndex",
       "decision": "DENY",
       "emitted": 0,
-      "withheld": 197
+      "withheld": 199
     },
     {
       "key": "source.authoritativeUrl",
       "decision": "PUBLISH",
-      "emitted": 153,
+      "emitted": 155,
       "withheld": 0
     },
     {
       "key": "source.alternateAuthoritativeUrl",
       "decision": "DENY",
       "emitted": 0,
-      "withheld": 197
+      "withheld": 199
     },
     {
       "key": "source.sha256",
       "decision": "DENY",
       "emitted": 0,
-      "withheld": 197
+      "withheld": 199
     },
     {
       "key": "source.evidenceExtract",
       "decision": "DENY",
       "emitted": 0,
-      "withheld": 197
+      "withheld": 199
     },
     {
       "key": "fact.factId",
       "decision": "PUBLISH",
-      "emitted": 401,
+      "emitted": 403,
       "withheld": 0
     },
     {
       "key": "fact.class",
       "decision": "PUBLISH",
-      "emitted": 401,
+      "emitted": 403,
       "withheld": 0
     },
     {
       "key": "fact.value",
       "decision": "PUBLISH",
-      "emitted": 401,
+      "emitted": 403,
       "withheld": 0
     },
     {
       "key": "fact.unit",
       "decision": "PUBLISH",
-      "emitted": 401,
+      "emitted": 403,
       "withheld": 0
     },
     {
       "key": "fact.conditions",
       "decision": "PUBLISH",
-      "emitted": 401,
+      "emitted": 403,
       "withheld": 0
     },
     {
       "key": "fact.locator",
       "decision": "PUBLISH",
-      "emitted": 401,
+      "emitted": 403,
       "withheld": 0
     },
     {
       "key": "fact.provenance",
       "decision": "PUBLISH",
-      "emitted": 401,
+      "emitted": 403,
       "withheld": 0
     },
     {
       "key": "fact.verdict",
       "decision": "PUBLISH",
-      "emitted": 401,
+      "emitted": 403,
       "withheld": 0
     },
     {
       "key": "fact.dependsOn",
       "decision": "PUBLISH",
-      "emitted": 401,
+      "emitted": 403,
       "withheld": 0
     },
     {
       "key": "fact.expression",
       "decision": "PUBLISH",
-      "emitted": 401,
+      "emitted": 403,
       "withheld": 0
     },
     {
@@ -1260,6 +1262,18 @@
     {
       "sourceId": "src-530470310-a5-netlist-power-adapter",
       "url": "https://github.com/Takazudo/zudo-led-block/blob/d41cbb7fc61dc954b4affaf19527aa69f07013b6/engineering/a5/integration/native_schematic/power_adapter/netlist.xml",
+      "decision": "ALLOW",
+      "reason": "ABSOLUTE_HTTP_URL"
+    },
+    {
+      "sourceId": "src-530470310-ps-p3",
+      "url": "https://www.molex.com/en-us/products/part-detail/530470310",
+      "decision": "ALLOW",
+      "reason": "ABSOLUTE_HTTP_URL"
+    },
+    {
+      "sourceId": "src-530470310-ps-p4",
+      "url": "https://www.molex.com/en-us/products/part-detail/530470310",
       "decision": "ALLOW",
       "reason": "ABSOLUTE_HTTP_URL"
     },
@@ -2029,11 +2043,11 @@
   "counts": {
     "generatedPages": 36,
     "publishedCoverageDomains": 170,
-    "publishedFacts": 401,
+    "publishedFacts": 403,
     "publishedIntegrationRules": 0,
     "publishedInteractions": 0,
     "publishedPinMaps": 32,
     "publishedRecords": 32,
-    "publishedSources": 197
+    "publishedSources": 199
   }
 }

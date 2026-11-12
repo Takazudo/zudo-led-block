@@ -33,7 +33,7 @@ This record in the catalog: [530470310](/docs/components/catalog/#rec-molex-5304
 
 **Source state:** AVAILABLE
 
-**Coverage:** 4 open of 6 published
+**Coverage:** 3 open of 6 published
 
 ## Documents and package
 
@@ -109,17 +109,15 @@ Coverage is stated one domain at a time and is never rolled up. A domain marked 
 
 <EvidenceAnchor id="cov-530470310-ratings" />
 
-**Coverage ID:** `cov-530470310-ratings` · **Status:** OPEN
+**Coverage ID:** `cov-530470310-ratings` · **Status:** COVERED
 
-**Reason:** Primary document acquired on 2026-11-09. This domain remains OPEN: per-criterion electrical/mechanical/pin-map review and applicable physical qualification incomplete
+**Reason:** voltage, per-circuit current, ambient temperature and mating durability are primary-source confirmed from Molex 510211110-PS rev A; finished-cable and installed temperature rise are not qualified
 
 **Facts in this domain:**
 
 - [`fact-530470310-ratings`](#fact-530470310-ratings)
-
-**Blocked by:** these facts must be resolved before the domain can close. Each is listed in full under Facts.
-
-- [`fact-530470310-ratings`](#fact-530470310-ratings)
+- [`fact-530470310-operating-temperature`](#fact-530470310-operating-temperature)
+- [`fact-530470310-durability`](#fact-530470310-durability)
 
 ### placement
 
@@ -166,13 +164,45 @@ A never-exceed limit. Reaching it may damage the part; it is not an operating ta
 
   **Fact:** `fact-530470310-ratings`
 
-  **Value:** manufacturer current and voltage rating · **Unit:** `NONE`
+  **Value:** 125 V AC rms / DC; 1.0 A max per circuit with AWG 26-30 wire, 0.8 A with AWG 32 · **Unit:** `NONE`
 
-  **Conditions:** Primary document now available; this broad fact remains unverified pending per-criterion review. Sales drawing does not provide current/voltage ratings.
+  **Conditions:** Molex 510211110-PS rev A (covers 53047\*\*10). The rated current depends on the crimped wire gauge of the mating receptacle; the derating table (reference only, 30 C rise, all circuits powered) has no 3-circuit column. Ratings of the connector system, not of the finished cable, the board or the installed temperature rise.
 
-  **Verdict:** UNSOURCED · **Provenance:** UNVERIFIED
+  **Verdict:** PASS - primary-source confirmed · **Provenance:** PRIMARY-SPEC
 
-  **Evidence:** [src-530470310-sd: intended specification notes section](#src-530470310-sd)
+  **Evidence:** [src-530470310-ps-p3: sections 4.1 VOLTAGE and 4.2 RATED CURRENT AND APPLICABLE WIRES](#src-530470310-ps-p3)
+</EvidenceFact>
+
+### RECOMMENDED\_OPERATION
+
+The range the manufacturer intends the part to be used in. Always narrower than the absolute maximum.
+
+<EvidenceFact>
+  <EvidenceAnchor id="fact-530470310-operating-temperature" />
+
+  **Fact:** `fact-530470310-operating-temperature`
+
+  **Value:** -40 to +85 · **Unit:** `C`
+
+  **Conditions:** ambient temperature range including terminal temperature rise; the mating wires must also meet it; Molex 510211110-PS rev A. Not physical qualification.
+
+  **Verdict:** PASS - primary-source confirmed · **Provenance:** PRIMARY-SPEC
+
+  **Evidence:** [src-530470310-ps-p4: section 4.4 TEMPERATURE](#src-530470310-ps-p4)
+</EvidenceFact>
+
+<EvidenceFact>
+  <EvidenceAnchor id="fact-530470310-durability" />
+
+  **Fact:** `fact-530470310-durability`
+
+  **Value:** 30 · **Unit:** `cycles`
+
+  **Conditions:** mating durability for tin plating; Molex 510211110-PS rev A. Not a measured lot result.
+
+  **Verdict:** PASS - primary-source confirmed · **Provenance:** PRIMARY-SPEC
+
+  **Evidence:** [src-530470310-ps-p4: section 4.5 DURABILITY](#src-530470310-ps-p4)
 </EvidenceFact>
 
 ### PROJECT\_STATE
@@ -381,6 +411,46 @@ Every document cited above, with its identification, when it was retrieved, and 
 
 **Document URL:** [https://www.molex.com/content/dam/molex/molex-dot-com/products/automated/en-us/salesdrawingpdf/530/53047/530470310\_sd.pdf](https://www.molex.com/content/dam/molex/molex-dot-com/products/automated/en-us/salesdrawingpdf/530/53047/530470310_sd.pdf)
 
+### Molex PicoBlade 1.25 wire-to-board connector system product specification (single-row vertical TH, tin plating)
+
+<EvidenceAnchor id="src-530470310-ps-p3" />
+
+**Source ID:** `src-530470310-ps-p3` · **Authority:** MANUFACTURER\_PRIMARY
+
+| Field           | Recorded value |
+| --------------- | -------------- |
+| Document number | 510211110-PS   |
+| Revision        | A              |
+| Document date   | 2022-04-19     |
+| Retrieved       | 2026-11-12     |
+| Printed page    | 4 OF 16        |
+
+**Locator:** 510211110-PS sheet 4 of 16, section 4.1 VOLTAGE, 4.2 RATED CURRENT AND APPLICABLE WIRES, 4.3 CURRENT DERATING
+
+**Availability:** AVAILABLE
+
+**Document URL:** [https://www.molex.com/en-us/products/part-detail/530470310](https://www.molex.com/en-us/products/part-detail/530470310)
+
+### Molex PicoBlade 1.25 wire-to-board connector system product specification (single-row vertical TH, tin plating)
+
+<EvidenceAnchor id="src-530470310-ps-p4" />
+
+**Source ID:** `src-530470310-ps-p4` · **Authority:** MANUFACTURER\_PRIMARY
+
+| Field           | Recorded value |
+| --------------- | -------------- |
+| Document number | 510211110-PS   |
+| Revision        | A              |
+| Document date   | 2022-04-19     |
+| Retrieved       | 2026-11-12     |
+| Printed page    | 5 OF 16        |
+
+**Locator:** 510211110-PS sheet 5 of 16, section 4.4 TEMPERATURE and 4.5 DURABILITY
+
+**Availability:** AVAILABLE
+
+**Document URL:** [https://www.molex.com/en-us/products/part-detail/530470310](https://www.molex.com/en-us/products/part-detail/530470310)
+
 ## Legend
 
 What the recorded terms on this page mean, in ordinary words. The exact terms above are the ones that count; these descriptions explain them and never replace them.
@@ -405,10 +475,11 @@ What the recorded terms on this page mean, in ordinary words. The exact terms ab
 
 ### Fact class
 
-| Recorded term      | What it means                                                                                                                                                      |
-| ------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| `ABSOLUTE_MAXIMUM` | A never-exceed limit. Reaching it may damage the part; it is not an operating target and there is no margin implied by it.                                         |
-| `PROJECT_STATE`    | A value this project recorded about how the part is used here — a chosen operating point, a net assignment, or a derived figure. Not a manufacturer specification. |
+| Recorded term           | What it means                                                                                                                                                      |
+| ----------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| `ABSOLUTE_MAXIMUM`      | A never-exceed limit. Reaching it may damage the part; it is not an operating target and there is no margin implied by it.                                         |
+| `PROJECT_STATE`         | A value this project recorded about how the part is used here — a chosen operating point, a net assignment, or a derived figure. Not a manufacturer specification. |
+| `RECOMMENDED_OPERATION` | The range the manufacturer intends the part to be used in. Always narrower than the absolute maximum.                                                              |
 
 ### Coverage status
 

@@ -61,9 +61,11 @@ class E2EvidenceTests(unittest.TestCase):
 
     def test_recovered_drawing_does_not_claim_electrical_ratings(self):
         facts = bundle('530470310', 'facts.json')['facts']
+        sources = {s['source_id']: s for s in bundle('530470310', 'sources.json')['sources']}
         ratings = next(f for f in facts if f['fact_id'].endswith('-ratings'))
-        self.assertEqual(ratings['verdict'], 'UNSOURCED')
-        self.assertEqual(ratings['provenance'], 'UNVERIFIED')
+        self.assertNotEqual(ratings['source_id'], 'src-530470310-sd')
+        self.assertEqual(sources[ratings['source_id']]['document_number'], '510211110-PS')
+        self.assertEqual(ratings['verdict'], 'PASS - primary-source confirmed')
 
 
 if __name__ == '__main__':

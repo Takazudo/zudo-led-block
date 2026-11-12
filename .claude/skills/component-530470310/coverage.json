@@ -41,14 +41,14 @@
       "coverage_id": "cov-530470310-ratings",
       "record_id": "rec-molex-530470310",
       "domain": "electrical-ratings",
-      "status": "OPEN",
-      "reason": "Primary document acquired on 2026-11-09. This domain remains OPEN: per-criterion electrical/mechanical/pin-map review and applicable physical qualification incomplete",
+      "status": "COVERED",
+      "reason": "voltage, per-circuit current, ambient temperature and mating durability are primary-source confirmed from Molex 510211110-PS rev A; finished-cable and installed temperature rise are not qualified",
       "fact_ids": [
-        "fact-530470310-ratings"
+        "fact-530470310-ratings",
+        "fact-530470310-operating-temperature",
+        "fact-530470310-durability"
       ],
-      "blocking_fact_ids": [
-        "fact-530470310-ratings"
-      ]
+      "blocking_fact_ids": []
     },
     {
       "coverage_id": "cov-530470310-placement",
