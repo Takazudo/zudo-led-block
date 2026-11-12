@@ -196,7 +196,7 @@ def layout(b, facts, fitted):
             'fiducials': {'diameter_mm': FIDUCIAL_MM, 'mask_opening_mm': FIDUCIAL_MASK_MM, 'sides': sorted({'F', 'B'} if 'Bottom' in b['assembly_sides'] else {'F'}), 'centres_mm': fiducials},
             'tooling_holes': {'diameter_mm': TOOLING_HOLE_MM, 'centres_mm': tooling},
             'rules': {'rail_mm': rail, 'edge_gap_mm': g, 'between_copies_mm': rp['between_copies_mm'], 'tab_mm': TAB_MM,
-                      'tab_part_clearance_mm': TAB_PART_CLEARANCE_MM, 'proposed': ['fiducial mask opening', 'tooling-hole inset', 'tab part clearance', 'overhang margin']},
+                      'tab_part_clearance_mm': TAB_PART_CLEARANCE_MM, 'proposed': ['fiducial mask opening', 'fiducial x positions (0.3 / 0.7 of the panel width)', 'tooling-hole inset', 'tab positions and count', 'tab part clearance', 'overhang margin']},
             'drc_waivers': waivers, 'notes': notes}
 
 
@@ -326,15 +326,6 @@ for side in spec['fiducials']['sides']:
         feature(f'FID{side}{i}', x, y, 'FIDUCIAL', spec['fiducials']['diameter_mm'], spec['fiducials']['mask_opening_mm'], p.F_Cu if side == 'F' else p.B_Cu)
 p.SaveBoard(out, b)
 
-# Panel-material outline check: (slot rect - slots - tabs) must equal each shifted source outline.
-res = {'outline': []}
-for c in copies:
-    o = p.SHAPE_POLY_SET(src_outline); o.Move(V(*c['offset_mm']))
-    m = rect_poly(c['slot_mm']); m.BooleanSubtract(slots)
-    for t in spec['tabs']: m.BooleanSubtract(rect_poly(t['rect_mm']))
-    x = p.SHAPE_POLY_SET(m); x.BooleanXor(o)
-    res['outline'].append({'copy': c['copy'], 'xor_area_mm2': x.Area() / 1e12, 'source_area_mm2': o.Area() / 1e12})
-json.dump(res, open(out + '.outline.json', 'w'))
 '''
 
 # Items of one board, relative to a copy offset, in integer nm: what must be identical between the frozen board and each copy.
@@ -351,7 +342,31 @@ def which(x, y):
 out = {}
 def net(item, c):
     n = item.GetNetname()
-    return n[:-len(c['suffix'])] if c['suffix'] and n.endswith(c['suffix']) else n
+    if not c['suffix'] or not n:
+        return n
+    # a further copy must carry its own suffixed nets; an item left on copy 1's net must not compare equal
+    return n[:-len(c['suffix'])] if n.endswith(c['suffix']) else '!unsuffixed:' + n
+def polys(ps, dx, dy):
+    return sorted([sorted([ps.COutline(i).CPoint(k).x - dx, ps.COutline(i).CPoint(k).y - dy] for k in range(ps.COutline(i).PointCount())) for i in range(ps.OutlineCount())]
+              + [sorted([ps.CHole(i, h).CPoint(k).x - dx, ps.CHole(i, h).CPoint(k).y - dy] for k in range(ps.CHole(i, h).PointCount()))
+                 for i in range(ps.OutlineCount()) for h in range(ps.HoleCount(i))])
+def opt(v):
+    if v is None or isinstance(v, (int, float)):
+        return v
+    return v.value() if hasattr(v, 'has_value') and v.has_value() else None if hasattr(v, 'has_value') else repr(type(v))
+def text_of(d):
+    return d.GetText() if hasattr(d, 'GetText') else None
+def geom(d, dx, dy):
+    row = [d.GetClass(), d.GetLayerName(), text_of(d)]
+    if hasattr(d, 'GetShape') and hasattr(d, 'GetStart'):
+        row += [int(d.GetShape()), d.GetStart().x - dx, d.GetStart().y - dy, d.GetEnd().x - dx, d.GetEnd().y - dy, d.GetWidth()]
+        if d.GetShape() == p.SHAPE_T_POLY:
+            row.append(polys(d.GetPolyShape(), dx, dy))
+    if text_of(d) is not None:
+        # position, size and angle, not the bounding box: a ${REFERENCE} text grows with the copy suffix (J1 -> J1_2)
+        return row + [d.GetTextPos().x - dx, d.GetTextPos().y - dy, d.GetTextWidth(), d.GetTextHeight(), d.GetTextAngleDegrees(), d.IsVisible()]
+    bb = d.GetBoundingBox()
+    return row + [bb.GetX() - dx, bb.GetY() - dy, bb.GetWidth(), bb.GetHeight()]
 def put(c, kind, row):
     dx, dy = p.FromMM(c['offset_mm'][0]), p.FromMM(c['offset_mm'][1])
     out.setdefault(str(c['copy']), {}).setdefault(kind, []).append(row(dx, dy))
@@ -360,10 +375,13 @@ for fp in b.GetFootprints():
     if fp.GetValue() in ('MOUSEBITE', 'TOOLING', 'FIDUCIAL') and spec: continue
     c = next((c for c in sorted(copies, key=lambda c: -len(c['suffix'])) if not c['suffix'] or ref.endswith(c['suffix'])), None) if spec else copies[0]
     base = ref[:-len(c['suffix'])] if c['suffix'] else ref
-    put(c, 'footprints', lambda dx, dy: [base, fp.GetFPIDAsString(), fp.GetLayerName(), fp.GetPosition().x - dx, fp.GetPosition().y - dy, fp.GetOrientationDegrees()])
+    put(c, 'footprints', lambda dx, dy: [base, fp.GetFPIDAsString(), fp.GetLayerName(), fp.GetPosition().x - dx, fp.GetPosition().y - dy, fp.GetOrientationDegrees(),
+                                         fp.GetAttributes(), fp.GetValue(), sorted(geom(g, dx, dy) for g in fp.GraphicalItems())])
     for pad in fp.Pads():
-        put(c, 'pads', lambda dx, dy: [base, pad.GetNumber(), net(pad, c), pad.GetPosition().x - dx, pad.GetPosition().y - dy, pad.GetSize(p.F_Cu).x, pad.GetSize(p.F_Cu).y,
-                                       pad.GetOrientationDegrees(), int(pad.GetShape(p.F_Cu)), int(pad.GetAttribute()), pad.GetDrillSize().x, pad.GetDrillSize().y, pad.GetLayerSet().FmtHex()])
+        put(c, 'pads', lambda dx, dy: [base, pad.GetNumber(), net(pad, c), pad.GetPosition().x - dx, pad.GetPosition().y - dy, pad.GetOrientationDegrees(),
+                                       int(pad.GetAttribute()), pad.GetDrillSize().x, pad.GetDrillSize().y, int(pad.GetDrillShape()), pad.GetLayerSet().FmtHex(),
+                                       [[l, pad.GetSize(l).x, pad.GetSize(l).y, int(pad.GetShape(l)), pad.GetOffset(l).x, pad.GetOffset(l).y] for l in (p.F_Cu, p.In1_Cu, p.In2_Cu, p.B_Cu)],
+                                       opt(pad.GetLocalSolderMaskMargin()), opt(pad.GetLocalSolderPasteMargin()), opt(pad.GetLocalClearance())])
 for t in b.GetTracks():
     c = which(t.GetStart().x, t.GetStart().y)
     if t.GetClass() == 'PCB_VIA':
@@ -374,14 +392,37 @@ for z in b.Zones():
     bb = z.GetBoundingBox(); c = which(bb.GetX(), bb.GetY())
     def zrow(dx, dy):
         pts = [[z.Outline().CVertex(i).x - dx, z.Outline().CVertex(i).y - dy] for i in range(z.Outline().TotalVertices())]
-        fill = sum(z.GetFilledPolysList(l).Area() for l in z.GetLayerSet().Seq())
+        fill = [[p.LayerName(l), polys(z.GetFilledPolysList(l), dx, dy)] for l in z.GetLayerSet().Seq()]
         return [net(z, c), z.GetLayerSet().FmtHex(), pts, fill]
     put(c, 'zones', zrow)
 for d in b.GetDrawings():
     if d.GetLayer() == p.Edge_Cuts: continue
     bb = d.GetBoundingBox(); c = which(bb.GetX(), bb.GetY())
-    put(c, 'drawings', lambda dx, dy: [d.GetClass(), d.GetLayerName(), bb.GetX() - dx, bb.GetY() - dy, bb.GetWidth(), bb.GetHeight()])
+    put(c, 'drawings', lambda dx, dy: geom(d, dx, dy))
 json.dump(out, open(sys.argv[3], 'w'))
+if spec:
+    # read back the saved panel: board material per copy (from KiCad's own Edge.Cuts outline) minus the tabs must equal
+    # the frozen outline; panel features (bites, tooling holes, fiducials) as placed
+    mm = p.FromMM
+    def rect_poly(r):
+        s = p.SHAPE_POLY_SET(); s.NewOutline()
+        for x, y in ((r[0], r[1]), (r[2], r[1]), (r[2], r[3]), (r[0], r[3])): s.Append(mm(x), mm(y))
+        return s
+    src = p.SHAPE_POLY_SET(); p.LoadBoard('/repo/' + spec['pcb']).GetBoardPolygonOutlines(src, False)
+    pan = p.SHAPE_POLY_SET(); b.GetBoardPolygonOutlines(pan, False)
+    check = {'outline': [], 'features': []}
+    for c in copies:
+        o = p.SHAPE_POLY_SET(src); o.Move(p.VECTOR2I(mm(c['offset_mm'][0]), mm(c['offset_mm'][1])))
+        m = rect_poly(c['slot_mm']); m.BooleanIntersection(pan)
+        for t in spec['tabs']: m.BooleanSubtract(rect_poly(t['rect_mm']))
+        x = p.SHAPE_POLY_SET(m); x.BooleanXor(o)
+        check['outline'].append({'copy': c['copy'], 'xor_area_mm2': x.Area() / 1e12, 'source_area_mm2': o.Area() / 1e12, 'panel_area_mm2': m.Area() / 1e12})
+    for fp in b.GetFootprints():
+        if fp.GetValue() in ('MOUSEBITE', 'TOOLING', 'FIDUCIAL'):
+            for pad in fp.Pads():
+                check['features'].append([fp.GetValue(), 'B' if fp.IsFlipped() else 'F', round(p.ToMM(pad.GetPosition().x), 4), round(p.ToMM(pad.GetPosition().y), 4),
+                                          round(p.ToMM(pad.GetSize(p.F_Cu if not fp.IsFlipped() else p.B_Cu).x), 4)])
+    json.dump(check, open(sys.argv[3] + '.panel-check.json', 'w'))
 '''
 
 
@@ -393,7 +434,7 @@ def docker(image, out, script, timeout=1200):
 
 
 def drill_holes(path):
-    """(plated, diameter_mm, x_mm, y_mm) for every hole in an Excellon file in metric units (KiCad export)."""
+    """(plated, diameter_mm, x_mm, y_mm[, x2_mm, y2_mm for a slot]) for every hole in an Excellon file in metric units (KiCad export)."""
     tools, holes, cur, plated = {}, [], None, 'NPTH' not in path.name
     for line in path.read_text().splitlines():
         m = re.fullmatch(r'T(\d+)C([\d.]+)', line.strip())
@@ -404,9 +445,12 @@ def drill_holes(path):
         if m:
             cur = m.group(1)
             continue
-        m = re.fullmatch(r'X(-?[\d.]+)Y(-?[\d.]+)', line.strip())
+        m = re.fullmatch(r'X(-?[\d.]+)Y(-?[\d.]+)(?:G85X(-?[\d.]+)Y(-?[\d.]+))?', line.strip())
         if m and cur:
-            holes.append((plated, round(tools[cur], 4), round(float(m.group(1)), 4), round(float(m.group(2)), 4)))
+            # a slot (G85) is kept with both end points
+            holes.append((plated, round(tools[cur], 4)) + tuple(round(float(v), 4) for v in m.groups() if v is not None))
+        elif re.match(r'[XY]', line.strip()):
+            raise ValueError(f'unparsed drill line in {path.name}: {line.strip()}')
     return holes
 
 
@@ -435,6 +479,9 @@ def build(out, write_receipt=False):
         if (ROOT / OUT / name).read_text() != text:
             raise SystemExit(f'stale: {OUT / name}; run scripts/a7_panel.py')
     image = json.loads((ROOT / PROFILE).read_text())['image']
+    for n in sorted(files):
+        if n.endswith('-panel.json'):
+            netclass_guard(json.loads(files[n]))
     (out / 'build.py').write_text(BUILD_PY)
     (out / 'items.py').write_text(ITEMS_PY)
     lines = ['set -u']
@@ -481,11 +528,12 @@ def build(out, write_receipt=False):
         r['files'] = names
     receipt = ROOT / OUT / 'build-receipt.json'
     recorded = {n: v.get('files') for n, v in summary['boards'].items()}
+    waived = {n: v.get('drc', {}).get('waived') for n, v in summary['boards'].items()}
     if write_receipt and not fails:
-        receipt.write_text(json.dumps({'what': 'File names from the last panel build (pinned KiCad image) after every check passed. NOT order files.',
-                                       'image': image, 'files': recorded}, indent=2) + '\n')
-    elif not receipt.is_file() or json.loads(receipt.read_text()) != {**json.loads(receipt.read_text()), 'image': image, 'files': recorded}:
-        fails.append('panel file set differs from engineering/a7/jlc-package/panels/build-receipt.json')
+        receipt.write_text(json.dumps({'what': 'File names and waived panel-DRC counts from the last panel build (pinned KiCad image) after every check '
+                                               'passed. NOT order files.', 'image': image, 'files': recorded, 'drc_waived': waived}, indent=2) + '\n')
+    elif not receipt.is_file() or json.loads(receipt.read_text()) != {**json.loads(receipt.read_text()), 'image': image, 'files': recorded, 'drc_waived': waived}:
+        fails.append('panel file set or waived DRC counts differ from engineering/a7/jlc-package/panels/build-receipt.json')
     summary['failures'] = fails
     summary['status'] = 'FAIL' if fails else 'PASS'
     (out / 'summary.json').write_text(json.dumps(summary, indent=2) + '\n')
@@ -495,6 +543,19 @@ def build(out, write_receipt=False):
         'See doc/src/content/docs/project/jlc-order-package.mdx.\n')
     print(json.dumps({k: summary[k] for k in ('status', 'failures')}, indent=2))
     return 1 if fails else 0
+
+
+def netclass_guard(lay):
+    """Further copies get suffixed net names, so net-name based netclasses or custom rules would silently not apply to them."""
+    if len(lay['copies']) < 2:
+        return
+    stem = ROOT / lay['pcb'].rsplit('.', 1)[0]
+    ns = json.loads(stem.with_suffix('.kicad_pro').read_text()).get('net_settings', {})
+    if [c['name'] for c in ns.get('classes', [])] not in ([], ['Default']) or ns.get('netclass_patterns') or ns.get('netclass_assignments'):
+        raise SystemExit(f"refusing: {lay['board']} has net classes; suffixed copy nets would lose them")
+    dru = stem.with_suffix('.kicad_dru')
+    if dru.is_file() and re.search(r'Net(Name|Class)|\.Net\b', dru.read_text()):
+        raise SystemExit(f"refusing: {lay['board']} custom rules match net names; suffixed copy nets would escape them")
 
 
 def layers(lay):
@@ -519,21 +580,29 @@ def verify(lay, d, files):
     extra = sorted(set(pan) - {str(c['copy']) for c in lay['copies']})
     if extra:
         fails.append(f'items outside every copy: {extra}')
-    outline = json.loads((d / 'panel' / f"{lay['board']}-panel.kicad_pcb.outline.json").read_text())['outline']
+    check = json.loads((d / 'panel-items.json.panel-check.json').read_text())
+    outline = check['outline']
     r['outline'] = outline
     for o in outline:
         if o['xor_area_mm2'] > 1e-6:
             fails.append(f"copy {o['copy']} outline differs from the frozen board by {o['xor_area_mm2']} mm2")
+    want_f = collections.Counter([('MOUSEBITE', 'F', x, y, lay['mouse_bites']['diameter_mm']) for x, y in lay['mouse_bites']['centres_mm']]
+                                 + [('TOOLING', 'F', x, y, lay['tooling_holes']['diameter_mm']) for x, y in lay['tooling_holes']['centres_mm']]
+                                 + [('FIDUCIAL', s, x, y, lay['fiducials']['diameter_mm']) for s in lay['fiducials']['sides'] for x, y in lay['fiducials']['centres_mm']])
+    got_f = collections.Counter(tuple(f) for f in check['features'])
+    r['features'] = {'panel': sum(got_f.values()), 'equal': got_f == want_f}
+    if got_f != want_f:
+        fails.append(f'panel features differ from the layout: only panel {sorted((got_f - want_f).elements())[:3]}, missing {sorted((want_f - got_f).elements())[:3]}')
     # drills: panel holes = shifted source holes per copy + mouse bites + tooling holes (mm, Y up in Excellon)
     src_holes = [h for f in sorted((d / 'src/drill').glob('*.drl')) for h in drill_holes(f)]
     pan_holes = collections.Counter(h for f in sorted((d / 'panel/drill').glob('*.drl')) for h in drill_holes(f))
     want = collections.Counter()
     for c in lay['copies']:
         dx, dy = c['offset_mm']
-        want.update((pl, dia, round(x + dx, 4), round(y - dy, 4)) for pl, dia, x, y in src_holes)
+        want.update((pl, dia) + tuple(round(v + (dx if i % 2 == 0 else -dy), 4) for i, v in enumerate(pts)) for pl, dia, *pts in src_holes)
     want.update((False, lay['mouse_bites']['diameter_mm'], round(x, 4), round(-y, 4)) for x, y in lay['mouse_bites']['centres_mm'])
     want.update((False, lay['tooling_holes']['diameter_mm'], round(x, 4), round(-y, 4)) for x, y in lay['tooling_holes']['centres_mm'])
-    r['drills'] = {'panel': sum(pan_holes.values()), 'expected': sum(want.values()), 'equal': pan_holes == want}
+    r['drills'] = {'panel': sum(pan_holes.values()), 'expected': sum(want.values()), 'slots': sum(1 for h in want.elements() if len(h) == 6), 'equal': pan_holes == want}
     if pan_holes != want:
         fails.append(f'drills differ: only panel {sorted((pan_holes - want).elements())[:3]}, missing {sorted((want - pan_holes).elements())[:3]}')
     # DRC: the panel may only repeat the source's own violations, once per copy
@@ -541,10 +610,10 @@ def verify(lay, d, files):
     n = len(lay['copies'])
     added = {k: pc[k] - n * sc[k] for k in set(sc) | set(pc) if pc[k] != n * sc[k]}
     r['drc'] = {'source': dict(sc), 'panel': dict(pc), 'added_by_panel': added}
-    unwaived = {k: v for k, v in added.items() if v > 0 and k not in lay['drc_waivers']}
+    unwaived = {k: v for k, v in added.items() if k not in lay['drc_waivers']}
     r['drc']['waived'] = {k: v for k, v in added.items() if k in lay['drc_waivers']}
     if unwaived:
-        fails.append(f'panel DRC adds violations: {unwaived}')
+        fails.append(f'panel DRC differs from copies x source: {unwaived}')
     # CPL vs KiCad's position export of the panel
     k = {row['Ref']: row for row in csv.DictReader((d / 'panel-pos.csv').read_text().splitlines())}
     cpl = {row['Designator']: row for row in csv.DictReader(files[f"{lay['board']}-panel_CPL_DRYRUN.csv"].splitlines())}

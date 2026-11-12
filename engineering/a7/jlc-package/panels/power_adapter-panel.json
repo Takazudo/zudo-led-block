@@ -261,7 +261,9 @@
     "tab_part_clearance_mm": 1.0,
     "proposed": [
       "fiducial mask opening",
+      "fiducial x positions (0.3 / 0.7 of the panel width)",
       "tooling-hole inset",
+      "tab positions and count",
       "tab part clearance",
       "overhang margin"
     ]
@@ -270,7 +272,7 @@
     "npth_inside_courtyard": "mouse-bite holes of a pad-placed tab lie inside the courtyard of a part body that overhangs the board edge; the holes are outside the frozen board outline"
   },
   "notes": [
-    "Frame cut back by the courtyard overhang plus 1 mm (proposed) at J2, J1; tabs away from those parts.",
+    "Frame cut back by the courtyard overhang plus 1 mm (proposed) at J2, J1; tabs away from those parts where at least 2 tabs fit, otherwise kept clear of pads only (see the panel notes).",
     "Copy 1: fewer than 2 tabs fit outside the part courtyards, so its tabs keep 1 mm from pads only and may sit under a part body that overhangs the edge."
   ]
 }

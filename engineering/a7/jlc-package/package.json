@@ -264,10 +264,10 @@
         "separation": "mouse bites; tabs at least 5 mm wide",
         "assembled_at_minimum_order": 2,
         "notes": [
-          "Frame cut back by the courtyard overhang plus 1 mm (proposed) at J2, J3, SW1, J1; tabs away from those parts."
+          "Frame cut back by the courtyard overhang plus 1 mm (proposed) at J2, J3, SW1, J1; tabs away from those parts where at least 2 tabs fit, otherwise kept clear of pads only (see the panel notes)."
         ],
         "notes_ja": [
-          "J2, J3, SW1, J1 のはみ出しに 1 mm（提案値）を足して枠を逃がす。タブはその部品から離して置く。"
+          "J2, J3, SW1, J1 のはみ出しに 1 mm（提案値）を足して枠を逃がす。タブは 2 か所以上置ける限りその部品から離し、置けない場合はパッドからだけ離す（面付けの注記を参照）。"
         ]
       }
     },
@@ -704,10 +704,10 @@
         "separation": "mouse bites; tabs at least 5 mm wide",
         "assembled_at_minimum_order": 2,
         "notes": [
-          "Frame cut back by the courtyard overhang plus 1 mm (proposed) at J2, J1; tabs away from those parts."
+          "Frame cut back by the courtyard overhang plus 1 mm (proposed) at J2, J1; tabs away from those parts where at least 2 tabs fit, otherwise kept clear of pads only (see the panel notes)."
         ],
         "notes_ja": [
-          "J2, J1 のはみ出しに 1 mm（提案値）を足して枠を逃がす。タブはその部品から離して置く。"
+          "J2, J1 のはみ出しに 1 mm（提案値）を足して枠を逃がす。タブは 2 か所以上置ける限りその部品から離し、置けない場合はパッドからだけ離す（面付けの注記を参照）。"
         ]
       }
     }
@@ -1388,8 +1388,8 @@
     {
       "id": "controller-panel-route",
       "board": "controller",
-      "text": "Not orderable as single boards (single-sided placement fails). Panel by JLCPCB (5 × 2) gives 20 assembled boards at a 2-panel minimum and has open questions: Courtyards reach past the outline by more than the 2 mm board spacing (J2 4.45 mm, J1 4.45 mm); a JLC panel must leave room for them, which the order form does not let us specify.. A repo-built panel with 1 board(s), 70 × 76.9 mm, gives 2 for the 2 needed. The owner decides the route (assembly:panel-route); the panel is not built.",
-      "ja": "単品では発注できない（Economic で満たさない条件: 片面実装）。Panel by JLCPCB（5 × 2）は 2 シート最小で 20 枚が実装される。未確認: 部品のコートヤードが基板外形から 2 mm の基板間隔より大きくはみ出す（J2 4.45 mm, J1 4.45 mm）。JLC の面付けでその逃げを確保できるかは注文画面では指定できない。リポジトリで 1 枚入りの面付け（70 × 76.9 mm）を作れば、必要な 2 枚に対し 2 枚。どちらにするかはオーナーの判断（`assembly:panel-route`）。面付けデータはまだ作っていない。"
+      "text": "Not orderable as single boards (single-sided placement fails). Panel by JLCPCB (5 × 2) gives 20 assembled boards at a 2-panel minimum and has open questions: Courtyards reach past the outline by more than the 2 mm board spacing (J2 4.45 mm, J1 4.45 mm); a JLC panel must leave room for them, which the order form does not let us specify.. A repo-built panel with 1 board(s), 70 × 76.9 mm, gives 2 for the 2 needed. The owner decides the route (assembly:panel-route); the repo panel is prepared in engineering/a7/jlc-package/panels/, not released.",
+      "ja": "単品では発注できない（Economic で満たさない条件: 片面実装）。Panel by JLCPCB（5 × 2）は 2 シート最小で 20 枚が実装される。未確認: 部品のコートヤードが基板外形から 2 mm の基板間隔より大きくはみ出す（J2 4.45 mm, J1 4.45 mm）。JLC の面付けでその逃げを確保できるかは注文画面では指定できない。リポジトリで 1 枚入りの面付け（70 × 76.9 mm）を作れば、必要な 2 枚に対し 2 枚。どちらにするかはオーナーの判断（`assembly:panel-route`）。リポジトリ面付けのデータは `engineering/a7/jlc-package/panels/` に準備した（未リリース）。"
     },
     {
       "id": "controller-finish-not-specified",
@@ -1412,8 +1412,8 @@
     {
       "id": "led_leaf-panel-route",
       "board": "led_leaf",
-      "text": "Not orderable as single boards (every part allowed for Economic on its JLC part page fails; thickness 0.8–1.6 mm fails; single board 10 × 10 mm or larger fails). Panel by JLCPCB (8 × 1) gives 16 assembled boards at a 2-panel minimum and has open questions: The outline is not a plain rectangle (12 Edge.Cuts segments). JLC asks for a simple outline for Panel by JLCPCB and says complex outlines must be panelised by the customer: does JLC accept this outline for Panel by JLCPCB?. A repo-built panel with 2 board(s), 70 × 96.5 mm, gives 4 for the 4 needed. The owner decides the route (assembly:panel-route); the panel is not built.",
-      "ja": "単品では発注できない（Economic で満たさない条件: 全部品が JLC 部品ページで Economic 可、板厚 0.8–1.6 mm、単品 10 × 10 mm 以上）。Panel by JLCPCB（8 × 1）は 2 シート最小で 16 枚が実装される。未確認: 外形が単純な長方形ではない（Edge.Cuts 12 本）。JLC は Panel by JLCPCB には単純な外形を求め、複雑な外形は自分で面付けするよう書いている。この外形で Panel by JLCPCB を受けてもらえるか。リポジトリで 2 枚入りの面付け（70 × 96.5 mm）を作れば、必要な 4 枚に対し 4 枚。どちらにするかはオーナーの判断（`assembly:panel-route`）。面付けデータはまだ作っていない。"
+      "text": "Not orderable as single boards (every part allowed for Economic on its JLC part page fails; thickness 0.8–1.6 mm fails; single board 10 × 10 mm or larger fails). Panel by JLCPCB (8 × 1) gives 16 assembled boards at a 2-panel minimum and has open questions: The outline is not a plain rectangle (12 Edge.Cuts segments). JLC asks for a simple outline for Panel by JLCPCB and says complex outlines must be panelised by the customer: does JLC accept this outline for Panel by JLCPCB?. A repo-built panel with 2 board(s), 70 × 96.5 mm, gives 4 for the 4 needed. The owner decides the route (assembly:panel-route); the repo panel is prepared in engineering/a7/jlc-package/panels/, not released.",
+      "ja": "単品では発注できない（Economic で満たさない条件: 全部品が JLC 部品ページで Economic 可、板厚 0.8–1.6 mm、単品 10 × 10 mm 以上）。Panel by JLCPCB（8 × 1）は 2 シート最小で 16 枚が実装される。未確認: 外形が単純な長方形ではない（Edge.Cuts 12 本）。JLC は Panel by JLCPCB には単純な外形を求め、複雑な外形は自分で面付けするよう書いている。この外形で Panel by JLCPCB を受けてもらえるか。リポジトリで 2 枚入りの面付け（70 × 96.5 mm）を作れば、必要な 4 枚に対し 4 枚。どちらにするかはオーナーの判断（`assembly:panel-route`）。リポジトリ面付けのデータは `engineering/a7/jlc-package/panels/` に準備した（未リリース）。"
     },
     {
       "id": "led_leaf-finish-not-specified",
@@ -1430,8 +1430,8 @@
     {
       "id": "power_adapter-panel-route",
       "board": "power_adapter",
-      "text": "Not orderable as single boards (single board 10 × 10 mm or larger fails). Panel by JLCPCB (2 × 1) gives 4 assembled boards at a 2-panel minimum and has open questions: JLC describes Panel by JLCPCB with V-cut, and V-cut is not supported with Economic assembly: can Panel by JLCPCB use mouse bites so the board stays on Economic assembly? If not, Standard needs a 70 × 70 mm panel (8 × 3 = 24 boards before rails).. A repo-built panel with 1 board(s), 22.8 × 44 mm, gives 2 for the 2 needed. The owner decides the route (assembly:panel-route); the panel is not built.",
-      "ja": "単品では発注できない（Economic で満たさない条件: 単品 10 × 10 mm 以上）。Panel by JLCPCB（2 × 1）は 2 シート最小で 4 枚が実装される。未確認: JLC は Panel by JLCPCB を V-cut で説明しており、V-cut は Economic 実装では使えない。Economic のまま Panel by JLCPCB をマウスバイトで作れるか。できなければ Standard で 70 × 70 mm の面付け（レールなしで 8 × 3 = 24 枚）になる。リポジトリで 1 枚入りの面付け（22.8 × 44 mm）を作れば、必要な 2 枚に対し 2 枚。どちらにするかはオーナーの判断（`assembly:panel-route`）。面付けデータはまだ作っていない。"
+      "text": "Not orderable as single boards (single board 10 × 10 mm or larger fails). Panel by JLCPCB (2 × 1) gives 4 assembled boards at a 2-panel minimum and has open questions: JLC describes Panel by JLCPCB with V-cut, and V-cut is not supported with Economic assembly: can Panel by JLCPCB use mouse bites so the board stays on Economic assembly? If not, Standard needs a 70 × 70 mm panel (8 × 3 = 24 boards before rails).. A repo-built panel with 1 board(s), 22.8 × 44 mm, gives 2 for the 2 needed. The owner decides the route (assembly:panel-route); the repo panel is prepared in engineering/a7/jlc-package/panels/, not released.",
+      "ja": "単品では発注できない（Economic で満たさない条件: 単品 10 × 10 mm 以上）。Panel by JLCPCB（2 × 1）は 2 シート最小で 4 枚が実装される。未確認: JLC は Panel by JLCPCB を V-cut で説明しており、V-cut は Economic 実装では使えない。Economic のまま Panel by JLCPCB をマウスバイトで作れるか。できなければ Standard で 70 × 70 mm の面付け（レールなしで 8 × 3 = 24 枚）になる。リポジトリで 1 枚入りの面付け（22.8 × 44 mm）を作れば、必要な 2 枚に対し 2 枚。どちらにするかはオーナーの判断（`assembly:panel-route`）。リポジトリ面付けのデータは `engineering/a7/jlc-package/panels/` に準備した（未リリース）。"
     },
     {
       "id": "power_adapter-finish-not-specified",

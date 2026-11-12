@@ -74,6 +74,15 @@ class PanelTests(unittest.TestCase):
         self.assertEqual(self.lay['led_leaf']['drc_waivers'], {})
         self.assertEqual(list(self.lay['power_adapter']['drc_waivers']), ['npth_inside_courtyard'])
 
+    def test_bites_lie_in_a_tab_and_outside_every_board(self):
+        for n, lay in self.lay.items():
+            r = P.BITE_D_MM / 2
+            for x, y in lay['mouse_bites']['centres_mm']:
+                self.assertTrue(any(t[0] - 1e-6 <= x <= t[2] + 1e-6 and t[1] - 1e-6 <= y <= t[3] + 1e-6 for t in (q['rect_mm'] for q in lay['tabs'])), (n, x, y))
+                for c in lay['copies']:
+                    x0, y0, x1, y1 = c['outline_mm']
+                    self.assertFalse(x0 - r + 1e-6 < x < x1 + r - 1e-6 and y0 - r + 1e-6 < y < y1 + r - 1e-6, (n, x, y))
+
     def test_place_tabs_avoids_blocked_spans(self):
         self.assertEqual(P.free_spans(10, [(2, 4), (3, 6)]), [(0.0, 2), (6, 10)])
         tabs = P.place_tabs(30, [(10, 20)], [0.5])
@@ -113,6 +122,8 @@ class PanelTests(unittest.TestCase):
             g = Path(d) / 'x-PTH.drl'
             g.write_text('T1C0.300\nT1\nX1Y1\n')
             self.assertEqual(P.drill_holes(g), [(True, 0.3, 1.0, 1.0)])
+            g.write_text('T1C0.800\nT1\nX0.9Y-36.2G85X0.9Y-35.4\n')
+            self.assertEqual(P.drill_holes(g), [(True, 0.8, 0.9, -36.2, 0.9, -35.4)])
 
     def test_build_refuses_output_inside_the_repository(self):
         with self.assertRaises(SystemExit):
@@ -126,15 +137,85 @@ class PanelTests(unittest.TestCase):
             self.assertIn(f'{n}-panel-gerbers-DRYRUN.zip', text)
         self.assertIn('リポジトリで面付け（準備済み・未リリース）', text)
         self.assertIn('`assembly:panel-route`', text)
+        self.assertNotIn('まだ作っていない', text)
+        self.assertNotIn('まだ作っていません', text)
 
     def test_receipt_covers_gerbers_and_drills_for_every_board(self):
         r = json.loads((ROOT / P.OUT / 'build-receipt.json').read_text())
         self.assertIn('NOT order files', r['what'])
+        self.assertEqual(r['drc_waived'], {'controller': {}, 'led_leaf': {}, 'power_adapter': {'npth_inside_courtyard': 22}})
         for n in BOARDS:
             names = r['files'][n]
             for layer in ('F_Cu.gtl', 'B_Cu.gbl', 'Edge_Cuts.gm1', 'PTH.drl', 'NPTH.drl'):
                 self.assertIn(f'{n}-panel-{layer}', names)
         self.assertIn('controller-panel-In1_Cu.g1', r['files']['controller'])
+
+
+
+class VerifyNegativeControls(unittest.TestCase):
+    """verify() must fail on each kind of panel defect; one consistent synthetic panel passes."""
+    LAY = {'board': 'x', 'copies': [{'copy': 1, 'suffix': '', 'offset_mm': [10.0, 5.0]}, {'copy': 2, 'suffix': '_2', 'offset_mm': [30.0, 5.0]}],
+           'mouse_bites': {'diameter_mm': 0.6, 'centres_mm': [[12.0, 4.7]]}, 'tooling_holes': {'diameter_mm': 2.0, 'centres_mm': [[3.5, 2.5]]},
+           'fiducials': {'diameter_mm': 1.0, 'sides': ['F'], 'centres_mm': [[20.0, 3.85]]}, 'drc_waivers': {}}
+
+    def fixture(self, d, mutate=None):
+        items = {'pads': [['R1', '1', 'GND', 1000, 2000]], 'tracks': [['GND', 'F.Cu', 0, 0, 1000, 0, 200]]}
+        pan = {'1': json.loads(json.dumps(items)), '2': json.loads(json.dumps(items))}
+        check = {'outline': [{'copy': 1, 'xor_area_mm2': 0.0}, {'copy': 2, 'xor_area_mm2': 0.0}],
+                 'features': [['MOUSEBITE', 'F', 12.0, 4.7, 0.6], ['TOOLING', 'F', 3.5, 2.5, 2.0], ['FIDUCIAL', 'F', 20.0, 3.85, 1.0]]}
+        src_drl = 'T1C0.300\nT2C0.800\nT1\nX1Y-2\nT2\nX1Y-3G85X1Y-4\n'
+        pan_drl = 'T1C0.300\nT2C0.800\nT1\nX11Y-7\nX31Y-7\nT2\nX11Y-8G85X11Y-9\nX31Y-8G85X31Y-9\n'
+        npth = 'T1C0.600\nT2C2.000\nT1\nX12Y-4.7\nT2\nX3.5Y-2.5\n'
+        drc_src, drc_pan = {'violations': [{'type': 'lib_footprint_issues'}]}, {'violations': [{'type': 'lib_footprint_issues'}] * 2}
+        pos = 'Ref,Val,Package,PosX,PosY,Rot,Side\n"R1",a,b,11,-7,90,top\n"R1_2",a,b,31,-7,90,top\n'
+        cpl = 'Designator,Mid X,Mid Y,Rotation,Layer\nR1,11,-7,90,Top\nR1_2,31,-7,90,Top\n'
+        parts = {'pan': pan, 'check': check, 'pan_drl': pan_drl, 'npth': npth, 'drc_pan': drc_pan, 'pos': pos}
+        if mutate:
+            mutate(parts)
+        (d / 'src/drill').mkdir(parents=True)
+        (d / 'panel/drill').mkdir(parents=True)
+        (d / 'src-items.json').write_text(json.dumps({'1': items}))
+        (d / 'panel-items.json').write_text(json.dumps(parts['pan']))
+        (d / 'panel-items.json.panel-check.json').write_text(json.dumps(parts['check']))
+        (d / 'src/drill/s-PTH.drl').write_text(src_drl)
+        (d / 'panel/drill/p-PTH.drl').write_text(parts['pan_drl'])
+        (d / 'panel/drill/p-NPTH.drl').write_text(parts['npth'])
+        (d / 'src-drc.json').write_text(json.dumps(drc_src))
+        (d / 'panel-drc.json').write_text(json.dumps(parts['drc_pan']))
+        (d / 'panel-pos.csv').write_text(parts['pos'])
+        return P.verify(self.LAY, d, {'x-panel_CPL_DRYRUN.csv': cpl})['failures']
+
+    def run_case(self, mutate=None):
+        with tempfile.TemporaryDirectory() as t:
+            return self.fixture(Path(t), mutate)
+
+    def test_consistent_panel_passes(self):
+        self.assertEqual(self.run_case(), [])
+
+    def test_each_defect_fails(self):
+        cases = {
+            'shifted pad': lambda q: q['pan']['2']['pads'][0].__setitem__(3, 1001),
+            'copy-2 net left on copy 1': lambda q: q['pan']['2']['tracks'][0].__setitem__(0, '!unsuffixed:GND'),
+            'outline': lambda q: q['check']['outline'][1].__setitem__('xor_area_mm2', 0.01),
+            'missing slot': lambda q: q.__setitem__('pan_drl', q['pan_drl'].replace('X31Y-8G85X31Y-9\n', '')),
+            'moved slot end': lambda q: q.__setitem__('pan_drl', q['pan_drl'].replace('G85X31Y-9', 'G85X31Y-9.5')),
+            'missing tooling hole': lambda q: q.__setitem__('npth', q['npth'].replace('X3.5Y-2.5\n', '')),
+            'moved fiducial': lambda q: q['check']['features'][2].__setitem__(2, 20.5),
+            'added DRC violation': lambda q: q['drc_pan']['violations'].append({'type': 'clearance'}),
+            'lost DRC violation': lambda q: q['drc_pan']['violations'].pop(),
+            'CPL off by 0.1 mm': lambda q: q.__setitem__('pos', q['pos'].replace('31,-7', '31.1,-7')),
+            'item outside every copy': lambda q: q['pan'].__setitem__('3', {'tracks': []}),
+        }
+        for name, m in cases.items():
+            with self.subTest(name):
+                self.assertTrue(self.run_case(m), name)
+
+    def test_unparsed_drill_line_is_an_error(self):
+        with tempfile.TemporaryDirectory() as t:
+            f = Path(t) / 'a-PTH.drl'
+            f.write_text('T1C0.3\nT1\nX1Y1G00X2Y2\n')
+            with self.assertRaises(ValueError):
+                P.drill_holes(f)
 
 
 if __name__ == '__main__':

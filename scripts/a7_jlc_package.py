@@ -447,8 +447,8 @@ def repo_panel(b, minimum_pcs):
         notes_ja.append(f"板厚 {fmt(b['thickness_mm'])} mm: JLC は 0.4・0.6 mm の基板に印刷・実装・リフローでキャリアを使う。捨て基板の部分は抜かずに FR-4 のまま残す。")
     if b['overhangs']:
         refs = ', '.join(o['ref'] for o in b['overhangs'])
-        notes.append(f'Frame cut back by the courtyard overhang plus {OVERHANG_MARGIN_MM:g} mm (proposed) at {refs}; tabs away from those parts.')
-        notes_ja.append(f'{refs} のはみ出しに {OVERHANG_MARGIN_MM:g} mm（提案値）を足して枠を逃がす。タブはその部品から離して置く。')
+        notes.append(f'Frame cut back by the courtyard overhang plus {OVERHANG_MARGIN_MM:g} mm (proposed) at {refs}; tabs away from those parts where at least 2 tabs fit, otherwise kept clear of pads only (see the panel notes).')
+        notes_ja.append(f'{refs} のはみ出しに {OVERHANG_MARGIN_MM:g} mm（提案値）を足して枠を逃がす。タブは 2 か所以上置ける限りその部品から離し、置けない場合はパッドからだけ離す（面付けの注記を参照）。')
     return {'copies': copies, 'tier': t['tier'], 'panel_mm': size, 'panel_minimum_mm': minimum, 'within_250_mm': max(size) <= 250,
             'rail_mm': PANEL_RAIL_MM, 'edge_gap_mm': gap, 'between_copies_mm': between if copies > 1 else None,
             'fiducials': '1 mm fiducials centred 3.85 mm from the panel edges, 2 mm tooling holes, on the rails (JLC SMT guidance)',
@@ -493,12 +493,15 @@ def named_blockers(boards, lines, pages, ledger, root):
     def add(bid, board, text, ja):
         out.append({'id': bid, 'board': board, 'text': text, 'ja': ja})
 
+    panels = load_panels(root)
+
     add('order-gate-blocked', None, 'Readiness order gate is BLOCKED; this package is a dry run and must not be uploaded or ordered.',
         'readiness の発注ゲートが BLOCKED。この一式は予行で、アップロード・発注しない。')
     for b in boards:
         t, n, r = b['pcba_tier'], b['board'], b['assembly_route']
         if r['panel']:
             pn, rp = r['panel'], b['repo_panel']
+            prepared = n in panels
             jlc_n, repo_n = pn['boards_per_panel'] * 2, rp['assembled_at_minimum_order']
             q = ' '.join(x['text'] for x in r['open_questions'])
             qj = ''.join(x['ja'] for x in r['open_questions'])
@@ -506,11 +509,11 @@ def named_blockers(boards, lines, pages, ledger, root):
                 f"Not orderable as single boards ({'; '.join(c['criterion'] + ' fails' for c in r['economic_checks'] if not c['ok'])}). "
                 f"Panel by JLCPCB ({pn['columns_x']} × {pn['rows_y']}) gives {jlc_n} assembled boards at a 2-panel minimum{(' and has open questions: ' + q) if q else ''}. "
                 f"A repo-built panel with {rp['copies']} board(s), {fmt(rp['panel_mm'][0])} × {fmt(rp['panel_mm'][1])} mm, gives {repo_n} for the {b['pcba_quantity']} needed. "
-                'The owner decides the route (assembly:panel-route); the panel is not built.',
+                'The owner decides the route (assembly:panel-route); ' + ('the repo panel is prepared in engineering/a7/jlc-package/panels/, not released.' if prepared else 'the panel is not built.'),
                 f"単品では発注できない（Economic で満たさない条件: {'、'.join(c['ja'] for c in r['economic_checks'] if not c['ok'])}）。"
                 f"Panel by JLCPCB（{pn['columns_x']} × {pn['rows_y']}）は 2 シート最小で {jlc_n} 枚が実装される{('。未確認: ' + qj) if qj else '。'}"
                 f"リポジトリで {rp['copies']} 枚入りの面付け（{fmt(rp['panel_mm'][0])} × {fmt(rp['panel_mm'][1])} mm）を作れば、必要な {b['pcba_quantity']} 枚に対し {repo_n} 枚。"
-                'どちらにするかはオーナーの判断（`assembly:panel-route`）。面付けデータはまだ作っていない。')
+                'どちらにするかはオーナーの判断（`assembly:panel-route`）。' + ('リポジトリ面付けのデータは `engineering/a7/jlc-package/panels/` に準備した（未リリース）。' if prepared else '面付けデータはまだ作っていない。'))
         if not b['copper_finish_in_board_file']:
             eco = t['tier'] == 'ECONOMIC'
             add(f'{n}-finish-not-specified', n, 'Surface finish is not recorded in the board file; it must be chosen on the order form'
@@ -665,9 +668,13 @@ def repo_panel_upload(b, lay):
          f"{fmt(lay['rules']['tab_mm'])} mm のマウスバイトタブ（{tabs}、穴 {fmt(lay['mouse_bites']['diameter_mm'])} mm・間隔 {fmt(lay['mouse_bites']['gap_mm'])} mm）、"
          f"{fmt(lay['fiducials']['diameter_mm'])} mm フィデューシャル 3 個（{'両面' if len(lay['fiducials']['sides']) > 1 else '表面'}）、"
          f"{fmt(lay['tooling_holes']['diameter_mm'])} mm 治具穴 3 個。"
-         '生成時に、各基板が凍結ファイルと一致すること（パッド・配線・ビア・ゾーン・穴・外形）、面付け DRC が元の基板にない違反を足さないこと、CPL が KiCad の位置出力と一致することを確かめます。']
+         'フィデューシャルの横位置（シート幅の 30 %・70 %）とタブの位置・数は提案で、JLC の規則ではありません。'
+         '`a7_panel.py build`（CI の native ジョブで毎回実行）が、保存した面付け基板を読み直して次を確かめます: 各基板の部品・パッド（各層の寸法・形・マスク/ペースト余白）・配線・ビア・ゾーン（塗りつぶし形状）・図形・文字が凍結ファイルと移動量を除いて一致すること、'
+         '面付けの Edge.Cuts から求めた各基板の外形が凍結ファイルの外形と一致すること、穴（長穴を含む）が凍結ファイルの穴＋マウスバイト穴＋治具穴と一致すること、フィデューシャルが計画どおりの位置にあること、'
+         '面付け DRC の違反数が元の基板の違反数（×枚数）と種類ごとに一致すること（記録した例外は件数も固定）、CPL が KiCad の位置出力と一致すること。'
+         'Gerber どうしの比較はしていません。マウスバイト穴は基板の縁の外に置くので、分割後は各タブの位置に最大約 0.3 mm の突起が残り、実物の外形は凍結ファイルの外形より少し出ます。']
     if lay['drc_waivers']:
-        L.append('面付け DRC の例外: ' + '、'.join(f"`{k}`" for k in lay['drc_waivers']) + '（基板の外にあるマウスバイト穴が、基板の縁からはみ出す部品の外形枠の内側に入る）。')
+        L.append('面付け DRC の例外: ' + '、'.join(f"`{k}`" for k in lay['drc_waivers']) + '（コートヤードの外に 2 か所のタブを置けないので、タブをはみ出した部品の下に置いた。基板の外にあるマウスバイト穴がその部品の外形枠の内側に入る。件数は `build-receipt.json` に固定）。')
     L.append('')
     return L
 

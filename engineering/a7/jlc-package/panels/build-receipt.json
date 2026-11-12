@@ -1,5 +1,5 @@
 {
-  "what": "File names from the last panel build (pinned KiCad image) after every check passed. NOT order files.",
+  "what": "File names and waived panel-DRC counts from the last panel build (pinned KiCad image) after every check passed. NOT order files.",
   "image": "kicad/kicad:10.0.8@sha256:3f4a01786dfbe803a65f345c3342b765db9add913f5e9448f8356793714ddc34",
   "files": {
     "controller": [
@@ -46,5 +46,12 @@
       "power_adapter-panel-PTH.drl",
       "power_adapter-panel-job.gbrjob"
     ]
+  },
+  "drc_waived": {
+    "controller": {},
+    "led_leaf": {},
+    "power_adapter": {
+      "npth_inside_courtyard": 22
+    }
   }
 }
