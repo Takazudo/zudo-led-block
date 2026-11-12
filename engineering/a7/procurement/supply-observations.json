@@ -50,7 +50,11 @@
         "lead_time": null,
         "assembly_acceptance": null
       },
-      "gaps": "The saved page carries no JLC stock figure for C221842 itself (the last recorded value is stock 0 on 2026-11-09). Whether a pre-order is filled depends on LCSC stock, not observed. Global Sourcing is quote-based."
+      "gaps": "The saved page carries no JLC stock figure for C221842 itself (the last recorded value is stock 0 on 2026-11-09). Whether a pre-order is filled depends on LCSC stock, not observed. Global Sourcing is quote-based. presale 0 may mean a pre-order cannot be placed now. Prices are tier values with no currency field.",
+      "field_meanings": {
+        "status": "INFERRED",
+        "note": "preMinPurchaseNum, canPresaleNumber, isBuyComponent and overseasStockCount are read from an undocumented page payload; their meanings (pre-order minimum, pre-orderable quantity, buyable, overseas stock) are our reading, not a JLC definition. preMinPurchaseNum 3 is probably the same value the 2026-11-09 observation recorded as minPurchaseNum 3."
+      }
     }
   ]
 }

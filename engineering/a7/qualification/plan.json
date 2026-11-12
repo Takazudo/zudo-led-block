@@ -3405,7 +3405,7 @@
     {
       "id": "O4",
       "title": "PCM13SMTR の JLC 在庫切れへの対応を決める",
-      "detail": "JLC で予約注文する（最小 3 個）、JLC Global Sourcing で見積もる、入荷を待つ、または接点表と適合を別にレビューした代替品を認める（Q10）。",
+      "detail": "JLC で取り寄せる（予約注文、できなければ Global Sourcing）、入荷を待つ、または接点表と適合を別にレビューした代替品を認める（Q10）。予約注文が今できるかは JLC アカウントで確かめる。",
       "unblocks": [
         "assembly:switch-supply"
       ]
@@ -3487,9 +3487,14 @@
       "question": "最初の発注数量をいくつにしますか。",
       "options": [
         {
+          "id": "1",
+          "label": "1 台分（試作）",
+          "consequence": "在庫・価格の観測を最小数量で判断できる。PCM13SMTR は JLC の掲載では最小購入数 3（別の販売店では異なる場合がある）。"
+        },
+        {
           "id": "2",
-          "label": "2 台分（JLC の実装最小数）",
-          "consequence": "オーナーの報告では JLC の PCBA は最小 2 枚（JLC の公開条件では未確認）。コントローラー 2・リーフ 4・電源アダプタ 2 枚。PCM13SMTR は 2 個必要で、予約注文の最小 3 なので 3 個買う。"
+          "label": "2 台分（オーナー報告の JLC PCBA 最小、未確認）",
+          "consequence": "オーナーの報告では JLC の PCBA は最小 2 枚（JLC の公開条件では未確認）。その場合はコントローラー 2・リーフ 4・電源アダプタ 2 枚。PCM13SMTR は 2 個必要で、予約注文の最小 3 なら 3 個買う。"
         },
         {
           "id": "10",
@@ -3502,8 +3507,8 @@
           "consequence": "量産相当の在庫が必要。評価前の発注で、変更時の損失が最も大きい。"
         }
       ],
-      "recommended": "2",
-      "reason": "A7 は製造リリース前で物理評価がない。最初は JLC が実装を受ける最小の試作数量にして、量産数量は評価の後に決める。",
+      "recommended": "1",
+      "reason": "（回答前の推奨を履歴として残す）A7 は製造リリース前で物理評価がない。最初は試作数量にして、量産数量は評価の後に決める。オーナーは推奨と違う 2 台を選んだ。JLC の PCBA 最小が 2 枚なら、1 台分は実装を受けてもらえない。",
       "sources": [
         {
           "path": "engineering/a7/procurement/assembly-manifest.json",
@@ -3520,7 +3525,7 @@
         "by": "OWNER",
         "record": {
           "path": "engineering/a7/procurement/owner-decisions.json",
-          "quote": "\"JLCPCB accept at least 2 PCBA, so we\""
+          "quote": "\"will make 2 units first\""
         }
       }
     },
@@ -3530,14 +3535,9 @@
       "question": "PCM13SMTR（C221842）の JLC 在庫切れにどう対応しますか。",
       "options": [
         {
-          "id": "jlc-preorder",
-          "label": "JLC で予約注文する（3 個）",
-          "consequence": "JLC の中で完結し、接点表とランドは今の設計のまま。2026-11-12 の掲載では購入可・予約注文の最小 3・予約可能数 0。LCSC の在庫次第で入荷し、納期は表示されていない（未確認）。"
-        },
-        {
-          "id": "jlc-global-sourcing",
-          "label": "JLC Global Sourcing で見積もる",
-          "consequence": "JLC の中で完結し、設計は変わらない。見積を依頼して初めて価格と納期がわかる。"
+          "id": "jlc-sourcing",
+          "label": "JLC で取り寄せる（予約注文、できなければ Global Sourcing）",
+          "consequence": "JLC の中で完結し、接点表とランドは今の設計のまま。2026-11-12 の掲載は購入可・予約注文の最小 3・予約可能数 0（項目の意味はこちらの解釈）で、今は予約注文できない可能性がある。その場合は Global Sourcing の見積で価格と納期を得る。どちらも納期は未確認。"
         },
         {
           "id": "wait",
@@ -3550,12 +3550,16 @@
           "consequence": "別の接点表・ランド・適合のレビューが必要で、基板の変更と再検証になる。"
         }
       ],
-      "recommended": "jlc-preorder",
-      "reason": "オーナーの方針は JLC で完結すること（JLC 在庫 → 予約注文または Global Sourcing）。同じ型番なら接点表・ランド・適合の検証をそのまま使える。予約注文は掲載された最小数 3 で手順が決まっており、入荷しなければ Global Sourcing に切り替えられる。",
+      "recommended": "jlc-sourcing",
+      "reason": "オーナーは JLC で完結したいと書いている（原文は owner-decisions.json）。同じ型番なら接点表・ランド・適合の検証をそのまま使える。予約注文が今できるかは、オーナーの JLC アカウントで 3 個の注文画面を開いて確かめるのが先で、できなければ Global Sourcing に回す。",
       "sources": [
         {
           "path": "engineering/a7/procurement/supply-observations.json",
           "quote": "\"preorder_minimum\": 3"
+        },
+        {
+          "path": "engineering/a7/procurement/supply-observations.json",
+          "quote": "presale 0 may mean a pre-order cannot be placed now"
         },
         {
           "path": "engineering/a7/procurement/owner-decisions.json",
@@ -4067,7 +4071,7 @@
           "value_needed": "2 台分（2 個、予約注文なら最小 3 個）が JLC で手に入るか（日付付き）",
           "url": "https://jlcpcb.com/partdetail/CK-PCM13SMTR/C221842",
           "fallback_url": "https://www.lcsc.com/product-detail/C221842.html",
-          "access": "JLC 在庫 → 予約注文 → Global Sourcing の順。2026-11-12 の観測は supply-observations.json"
+          "access": "JLC 在庫 → 予約注文 → Global Sourcing の順（こちらの解釈、オーナー未確認）。2026-11-12 の観測は supply-observations.json"
         }
       ]
     },

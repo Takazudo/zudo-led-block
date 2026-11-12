@@ -51,7 +51,7 @@ def unique(rows, key):
 SWITCH_SOURCES = '.claude/skills/component-a7-pcm13smtr/sources.json'
 OWNER_DECISIONS = 'engineering/a7/procurement/owner-decisions.json'
 SUPPLY_OBSERVATIONS = 'engineering/a7/procurement/supply-observations.json'
-# The owner's sourcing preference (owner-decisions.json), in order; anything else is an exception named per line.
+# Our reading (pending owner confirmation) of the owner's sourcing words in owner-decisions.json; anything else is an exception named per line.
 SOURCING_ROUTES = ('JLC_STOCK', 'JLC_PREORDER_OR_GLOBAL_SOURCING', 'EXCEPTION')
 
 
@@ -62,14 +62,24 @@ def owner_order(root):
   raise ValueError('owner order-quantity decision missing or duplicated')
  d = found[0]
  modules, basis = d.get('modules'), d.get('basis') or {}
- if (d.get('decided_by') != 'OWNER' or not d.get('owner_words') or type(modules) is not int or modules < 1
-     or d.get('answer') != str(modules) or basis.get('status') not in ('OWNER_REPORTED', 'SOURCED')
+ sourced = basis.get('status') != 'SOURCED' or all(isinstance((basis.get('source') or {}).get(k), str) and basis['source'][k] for k in ('url', 'retrieved_at', 'sha256'))
+ if (d.get('decided_by') != 'OWNER' or not owner_messages(d) or type(modules) is not int or modules < 1
+     or d.get('answer') != str(modules) or str(modules) not in ' '.join(d['owner_words']).split()
+     or basis.get('status') not in ('OWNER_REPORTED', 'SOURCED') or not sourced or not basis.get('check')
      or type(basis.get('pcba_minimum_boards')) is not int or basis['pcba_minimum_boards'] < 1):
-  raise ValueError('owner order-quantity decision must be the owner\'s own words with a whole module count and a labelled PCBA minimum')
+  raise ValueError('owner order-quantity decision must be the owner\'s own dated messages naming a whole module count, with a labelled PCBA minimum')
  pref = record.get('sourcing_preference') or {}
- if pref.get('decided_by') != 'OWNER' or not pref.get('owner_words') or [o.get('route') for o in pref.get('order', [])] != list(SOURCING_ROUTES):
-  raise ValueError('sourcing preference must be the owner\'s, ordered ' + ' > '.join(SOURCING_ROUTES))
+ reading = pref.get('interpretation') or {}
+ if (pref.get('decided_by') != 'OWNER' or not owner_messages(pref) or (reading.get('interpreted_by'), reading.get('status')) != ('AGENT', 'PENDING_OWNER_CONFIRMATION')
+     or [o.get('route') for o in reading.get('order', [])] != list(SOURCING_ROUTES)):
+  raise ValueError('sourcing preference must be the owner\'s messages plus our reading, ordered ' + ' > '.join(SOURCING_ROUTES) + ', pending owner confirmation')
  return d
+
+
+def owner_messages(entry):
+ msgs = entry.get('owner_messages')
+ return (isinstance(msgs, list) and msgs and all(isinstance(m, dict) and str(m.get('message_id', '')).startswith('cmsg_') and m.get('at') and m.get('text') for m in msgs)
+         and entry.get('owner_words') == [m['text'] for m in msgs])
 
 
 def switch_listing(root):
@@ -218,7 +228,7 @@ def generate(root=ROOT):
      'source':PLACEMENT if name=='controller' else A5POS,
      'authority':'native export; independent fresh gate required' if name=='controller' else 'immutable historical A5 KiCad export; not fresh placement proof'},
     'quantity_for_order':(0 if dnp else mult)*modules,
-    'commercial_observation':observation if line['lcsc']=='C221842' else None,'supply_status':('BLOCKED: JLC stock 0 at 2026-11-09; 2026-11-12 listing buyable with pre-order minimum 3 and presale 0; fill, lead time and assembly acceptance unknown' if line['lcsc']=='C221842' else 'NOT_OBTAINED: current stock, price, lead time, MOQ, packaging and assembly applicability require dated exact-part evidence')})
+    'commercial_observation':observation if line['lcsc']=='C221842' else None,'supply_status':('BLOCKED: JLC stock 0 at 2026-11-09; 2026-11-12 listing buyable with pre-order minimum 3 and presale 0 (field meanings inferred); price tiers only, currency unknown; fill, lead time and assembly acceptance unknown' if line['lcsc']=='C221842' else 'NOT_OBTAINED: current stock, price, lead time, MOQ, packaging and assembly applicability require dated exact-part evidence')})
   fitted = [r for r in rows if r['board']==name and r['population']=='FITTED']
   process = {f'{m}_{side}': sum(1 for r in fitted if (r['mount'], r['placement']['side'])==(m, side))
              for m in ('SMD', 'THT') for side in ('F', 'B')}
@@ -260,7 +270,7 @@ def generate(root=ROOT):
  blockers=BLOCKERS[:-1]+[fixture_blocker(root,inputs)]+BLOCKERS[-1:]
  return {'schema':1,'revision':'A7-r2-3HP-FR4','status':'ENGINEERING_PREPARATION_NOT_SUPPLIER_UPLOAD',
   'manufacturing_released':False,'order_submitted':False,'agreed_order_quantity':modules,
-  'order_plan':order_plan(decision, listing, boards, rows),
+  'order_plan':order_plan(root, decision, listing, boards, rows),
   'inputs_sha256':{p:sha(root,p) for p in sorted(set(inputs))},'boards':boards,'population':rows,'excluded':excluded,
   'fitted_unique_placements':sum(r['quantity_per_board'] for r in rows),'fitted_pieces_per_module':sum(r['quantity_per_module'] for r in rows),
   'external_materials':external,'fixture_materials_per_fixture_not_per_module':fixture,
@@ -271,7 +281,7 @@ def generate(root=ROOT):
   'blockers':blockers}
 
 
-def order_plan(decision, listing, boards, rows):
+def order_plan(root, decision, listing, boards, rows):
  modules, minimum = decision['modules'], decision['basis']['pcba_minimum_boards']
  lines = {}
  for r in rows:
@@ -285,7 +295,7 @@ def order_plan(decision, listing, boards, rows):
   if lcsc == listing['lcsc']:
    least = listing['values']['preorder_minimum']
    line.update({'pieces_required':required,'supplier_minimum':least,'minimum_source':SUPPLY_OBSERVATIONS+'#'+listing['id'],'pieces_to_buy':max(required, least),
-    'sourcing':{'route':'JLC_PREORDER_OR_GLOBAL_SOURCING','status':'JLC stock 0 at 2026-11-09; buyable Extended part with presale 0 at 2026-11-12, so not JLC stock. Pre-order fill depends on LCSC stock (not observed); Global Sourcing is quote-based.','exception':None}})
+    'sourcing':{'route':'JLC_PREORDER_OR_GLOBAL_SOURCING','status':'JLC stock 0 at 2026-11-09; buyable Extended part with presale 0 at 2026-11-12 (field meanings inferred), so not JLC stock. Presale 0 may mean a pre-order cannot be placed now; fill depends on LCSC stock (not observed); Global Sourcing is quote-based.','exception':None}})
   else:
    line.update({'pieces_required':required,'supplier_minimum':None,'minimum_source':None,'pieces_to_buy':None,
     'sourcing':{'route':'JLC_STOCK','status':'NOT_OBSERVED: preferred route; JLC stock and minimum at the order quantity not observed','exception':None}})
@@ -294,7 +304,7 @@ def order_plan(decision, listing, boards, rows):
   'pcba_minimum_boards':{'value':minimum,'status':decision['basis']['status'],'check':decision['basis']['check']},
   'boards':[{'board':b['board'],'boards_needed':b['multiplicity']*modules,'meets_reported_pcba_minimum':b['multiplicity']*modules>=minimum} for b in boards],
   'pcb_fabrication_minimum':'NOT_SOURCED','attrition':'NOT_SOURCED: JLC extra-piece (attrition) rule not obtained; pieces_required and pieces_to_buy add none',
-  'sourcing_preference':list(SOURCING_ROUTES),
+  'sourcing_preference':{'owner_words':read(root, OWNER_DECISIONS)['sourcing_preference']['owner_words'],'our_reading':list(SOURCING_ROUTES),'status':'PENDING_OWNER_CONFIRMATION'},
   'lines':order_lines,
   'outside_pcba':'External materials, cables, mechanical parts and fixture items are outside the JLC parts library and not yet routed under the preference.'}
 
@@ -316,7 +326,7 @@ def fixture_blocker(root, inputs):
 # Each ledger blocker names what can resolve it; readiness reports these as separate gates.
 BLOCKERS = [
  {'id':'supply-observations','class':'ACCESS_EVIDENCE_HOLD','text':'Order quantity is 2 modules (owner decision). JLC stock, price, minimum, packaging, lead time and assembly applicability at that quantity are not observed for any line except C221842 (switch-supply); JLC attrition is not sourced; stock never reserved.'},
- {'id':'switch-supply','class':'OWNER_DECISION','text':'PCM13SMTR (C221842): 2 needed for 2 modules. JLC stock 0 at 2026-11-09; at 2026-11-12 JLC lists it buyable (Extended) with pre-order minimum 3 and presale 0, no lead time. Owner prefers JLC: pre-order (fill depends on LCSC stock, not observed) or a Global Sourcing quote; otherwise wait, or accept a reviewed alternate with its own contact table and fit review.'},
+ {'id':'switch-supply','class':'OWNER_DECISION','text':'PCM13SMTR (C221842): 2 needed for 2 modules. JLC stock 0 at 2026-11-09; at 2026-11-12 JLC lists it buyable (Extended) with pre-order minimum 3 and presale 0 (field meanings inferred), tier prices without currency, no lead time. The owner wants to complete on JLC: on our reading, a pre-order (presale 0 may mean none can be placed now; fill depends on LCSC stock, not observed) or a Global Sourcing quote; otherwise wait, or accept a reviewed alternate with its own contact table and fit review.'},
  {'id':'jack-switch-qualification','class':'PHYSICAL_ONLY','text':'PJ-324M pin function (which of terminals 4/5 is the tip contact and which its normal; the supplier symbol contradicts the inferred 4 = tip, so this continuity test must precede any PCB order), slot, axis height and nut fit, and PCM13SMTR truth table and land fit, need received parts (jack-continuity, jack-dimensions, switch-fit).'},
  {'id':'exact-part-evidence','class':'ACCESS_EVIDENCE_HOLD','text':'Exact-part gaps after the 2026-11-11 source recovery: PMEG4010CEJ ,115 packing variant not established by the datasheet; SM04B-SRSS-TB per-circuit numbering not printed beyond the No. 1 end; PJ-324M recommended hole/slot sizes, axis height and whether a nut ships with C22355739 not sourced.'},
  {'id':'finished-cables','class':'OWNER_DECISION','text':'Finished A7 power cable (57 mm, +/-3 ASSUMED), SH4 cables and IDC ribbon not selected; supplier answers and the owner choice of assembly are needed before physical routing checks.'},
@@ -333,11 +343,11 @@ def outputs(report):
  for r in report['population']:
   writer.writerow([r[k] for k in ['board','ref','manufacturer','mpn','lcsc','population','mount','quantity_per_board','board_multiplicity','quantity_per_module']]+[r['placement']['side']])
  op=report['order_plan']
- md='# A7 調達・組立の準備台帳\n\n自動生成。**製造承認・発注用ファイルではありません。** C221842 は 2026-11-09T09:18:55Z の JLC 観測で在庫 0・予約可能数 0・MOQ 3・包装数 3500。2026-11-12T08:57:07Z の JLC 掲載では購入可（Extended）・予約注文の最小 3・予約可能数 0 で、JLC 在庫の数値は掲載データにありませんでした。確保済み在庫ではなく、納期・実装受入は未取得です。他の部品の現在の商取引条件も未取得で、過去の A5 価格を現在値として再掲しません。\n\n'
+ md='# A7 調達・組立の準備台帳\n\n自動生成。**製造承認・発注用ファイルではありません。** C221842 は 2026-11-09T09:18:55Z の JLC 観測で在庫 0・予約可能数 0・MOQ 3・包装数 3500。2026-11-12T08:57:07Z の JLC 掲載では購入可（Extended）・予約注文の最小 3・予約可能数 0（項目の意味はこちらの解釈）で、JLC 在庫の数値は掲載データにありませんでした。価格は通貨不明の段階価格だけです。確保済み在庫ではなく、納期・実装受入は未取得です。他の部品の現在の商取引条件も未取得で、過去の A5 価格を現在値として再掲しません。\n\n'
  md+=f"台帳 SHA-256: `{hashlib.sha256(raw.encode()).hexdigest()}`。{report['fitted_unique_placements']} 配置 / {report['fitted_pieces_per_module']} 実装点 / 台。\n\n"
  md+=f"## 最初の発注数量: {op['modules']} 台（オーナーの判断）\n\nオーナーの言葉: 「{' '.join(op['owner_words'])}」（`{op['decision']}`）。JLC の PCBA 最小 {op['pcba_minimum_boards']['value']} 枚は {op['pcba_minimum_boards']['status']}（JLC の公開条件では未確認）。この数量は発注・試作ルート・製造リリースの承認ではありません。\n\n"
  md+="必要枚数: "+'、'.join(f"{b['board']} {b['boards_needed']} 枚" for b in op['boards'])+"。PCB 製造の最小枚数と JLC のロス分（attrition）は未取得で、下の数に上乗せしていません。\n\n"
- md+="調達の優先順（オーナーの方針）: JLC 在庫 → JLC 予約注文または Global Sourcing → それ以外は例外として行ごとに明示。\n\n| LCSC | 型番 | 必要数 | 最小購入 | 購入数 | 経路 |\n|---|---|---:|---:|---:|---|\n"
+ md+=f"オーナーの方針（原文）: 「{' '.join(op['sourcing_preference']['owner_words'])}」。こちらの解釈（オーナー未確認）: JLC 在庫 → JLC 予約注文または Global Sourcing → それ以外は例外として行ごとに明示。\n\n| LCSC | 型番 | 必要数 | 最小購入 | 購入数 | 経路 |\n|---|---|---:|---:|---:|---|\n"
  for l in op['lines']:
   if l['supplier_minimum'] is not None or l['sourcing']['exception']:
    md+=f"| {l['lcsc']} | {l['mpn']} | {l['pieces_required']} | {l['supplier_minimum']} | {l['pieces_to_buy']} | {l['sourcing']['route']} |\n"

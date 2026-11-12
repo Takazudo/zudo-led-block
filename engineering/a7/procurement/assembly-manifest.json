@@ -37,11 +37,17 @@
     ],
     "pcb_fabrication_minimum": "NOT_SOURCED",
     "attrition": "NOT_SOURCED: JLC extra-piece (attrition) rule not obtained; pieces_required and pieces_to_buy add none",
-    "sourcing_preference": [
-      "JLC_STOCK",
-      "JLC_PREORDER_OR_GLOBAL_SOURCING",
-      "EXCEPTION"
-    ],
+    "sourcing_preference": {
+      "owner_words": [
+        "basically I want to complete it on JLCPCB, external purchase from JLC parts lib is acceptable"
+      ],
+      "our_reading": [
+        "JLC_STOCK",
+        "JLC_PREORDER_OR_GLOBAL_SOURCING",
+        "EXCEPTION"
+      ],
+      "status": "PENDING_OWNER_CONFIRMATION"
+    },
     "lines": [
       {
         "lcsc": "C122442",
@@ -249,7 +255,7 @@
         "pieces_to_buy": 3,
         "sourcing": {
           "route": "JLC_PREORDER_OR_GLOBAL_SOURCING",
-          "status": "JLC stock 0 at 2026-11-09; buyable Extended part with presale 0 at 2026-11-12, so not JLC stock. Pre-order fill depends on LCSC stock (not observed); Global Sourcing is quote-based.",
+          "status": "JLC stock 0 at 2026-11-09; buyable Extended part with presale 0 at 2026-11-12 (field meanings inferred), so not JLC stock. Presale 0 may mean a pre-order cannot be placed now; fill depends on LCSC stock (not observed); Global Sourcing is quote-based.",
           "exception": null
         }
       },
@@ -515,8 +521,8 @@
     "engineering/a7/mechanical/build_a7_mechanical.py": "98f47662650732d7d8215e0f86cff404521351ca43a795bd8811fc4f452d3daa",
     "engineering/a7/mechanical/exports/3hp/verification.json": "90d7b8c54ebb59cdc2e2ad2b66d1ba9f183759a6104865d93cc57cdfb1902c26",
     "engineering/a7/mechanical/layout.json": "9cbc6ac99f5b05c7e3145f2016b6918cbc5d2b77170db31ed7155755cba0d591",
-    "engineering/a7/procurement/owner-decisions.json": "86551c02bba09cf6d69798e77b8c7f1647470f8a1c71ace16702211057f8b73f",
-    "engineering/a7/procurement/supply-observations.json": "96c05659913f6f2b48a8f1d6f55d23c10f99b29a5fbced2e78d82552a71ac543",
+    "engineering/a7/procurement/owner-decisions.json": "7c48ad8c169200cc5b52c7da8e7f07d313fe7bf3a7c0b30b3846a9c6adb781c3",
+    "engineering/a7/procurement/supply-observations.json": "b7137b2dc14f7767cacb695844313b72b23123538d1d51a4205e042b5a1cef22",
     "engineering/a7/verification/schematic/netlist.xml": "a944cec8877d272637a85afae9f980d4d5e54888453f0f9652a2dd41e575b7cc"
   },
   "boards": [
@@ -2093,7 +2099,7 @@
         "reserved": false,
         "scope": "Dated exact C221842 listing observation only; refresh before procurement. No currency-backed price or assembly acceptance."
       },
-      "supply_status": "BLOCKED: JLC stock 0 at 2026-11-09; 2026-11-12 listing buyable with pre-order minimum 3 and presale 0; fill, lead time and assembly acceptance unknown"
+      "supply_status": "BLOCKED: JLC stock 0 at 2026-11-09; 2026-11-12 listing buyable with pre-order minimum 3 and presale 0 (field meanings inferred); price tiers only, currency unknown; fill, lead time and assembly acceptance unknown"
     },
     {
       "board": "controller",
@@ -3593,7 +3599,7 @@
     {
       "id": "switch-supply",
       "class": "OWNER_DECISION",
-      "text": "PCM13SMTR (C221842): 2 needed for 2 modules. JLC stock 0 at 2026-11-09; at 2026-11-12 JLC lists it buyable (Extended) with pre-order minimum 3 and presale 0, no lead time. Owner prefers JLC: pre-order (fill depends on LCSC stock, not observed) or a Global Sourcing quote; otherwise wait, or accept a reviewed alternate with its own contact table and fit review."
+      "text": "PCM13SMTR (C221842): 2 needed for 2 modules. JLC stock 0 at 2026-11-09; at 2026-11-12 JLC lists it buyable (Extended) with pre-order minimum 3 and presale 0 (field meanings inferred), tier prices without currency, no lead time. The owner wants to complete on JLC: on our reading, a pre-order (presale 0 may mean none can be placed now; fill depends on LCSC stock, not observed) or a Global Sourcing quote; otherwise wait, or accept a reviewed alternate with its own contact table and fit review."
     },
     {
       "id": "jack-switch-qualification",

@@ -6,6 +6,18 @@
       "id": "order-quantity",
       "decided_by": "OWNER",
       "decided_on": "2026-11-12",
+      "owner_messages": [
+        {
+          "message_id": "cmsg_01LWjimMEMhCfvWjnLbPbEF3VCcpWnNEXg4SM79jd9oQK4",
+          "at": "2026-11-12T08:55:49Z",
+          "text": "JLCPCB accept at least 2 PCBA, so we"
+        },
+        {
+          "message_id": "cmsg_01LWjimMEMhCfvWjnLbPbEF377uYEgSWK3myqiMvMH9NPR",
+          "at": "2026-11-12T08:55:58Z",
+          "text": "will make 2 units first"
+        }
+      ],
       "owner_words": [
         "JLCPCB accept at least 2 PCBA, so we",
         "will make 2 units first"
@@ -16,7 +28,8 @@
         "claim": "JLCPCB assembles at least 2 boards per PCBA order",
         "pcba_minimum_boards": 2,
         "status": "OWNER_REPORTED",
-        "check": "Not confirmed against JLCPCB's published terms on 2026-11-12: the help page fetched from the cloud did not render its content."
+        "check": "Not confirmed against JLCPCB's published terms on 2026-11-12: the help page fetched from the cloud did not render its content.",
+        "source": null
       },
       "scope": "Quantity of the first build only. It does not approve a prototype route, an order, a supplier message or a manufacturing release."
     }
@@ -24,22 +37,34 @@
   "sourcing_preference": {
     "decided_by": "OWNER",
     "decided_on": "2026-11-12",
+    "owner_messages": [
+      {
+        "message_id": "cmsg_01LWjimMEMhCfvWjnLbPbEF3Wz7yuKh5J2G7pPGUZJzjmV",
+        "at": "2026-11-12T08:56:45Z",
+        "text": "basically I want to complete it on JLCPCB, external purchase from JLC parts lib is acceptable"
+      }
+    ],
     "owner_words": [
       "basically I want to complete it on JLCPCB, external purchase from JLC parts lib is acceptable"
     ],
-    "order": [
-      {
-        "route": "JLC_STOCK",
-        "meaning": "Part in JLC's assembly parts inventory at order time"
-      },
-      {
-        "route": "JLC_PREORDER_OR_GLOBAL_SOURCING",
-        "meaning": "JLC pre-order from LCSC or a JLC Global Sourcing quote into the owner's JLC parts library"
-      },
-      {
-        "route": "EXCEPTION",
-        "meaning": "Consigned or outside-purchased part; flagged per line with its reason"
-      }
-    ]
+    "interpretation": {
+      "interpreted_by": "AGENT",
+      "status": "PENDING_OWNER_CONFIRMATION",
+      "note": "Our reading of the owner words above; the route names and their order are not the owner's wording.",
+      "order": [
+        {
+          "route": "JLC_STOCK",
+          "meaning": "Part in JLC's assembly parts inventory at order time"
+        },
+        {
+          "route": "JLC_PREORDER_OR_GLOBAL_SOURCING",
+          "meaning": "JLC pre-order from LCSC or a JLC Global Sourcing quote into the owner's JLC parts library"
+        },
+        {
+          "route": "EXCEPTION",
+          "meaning": "Consigned or outside-purchased part; flagged per line with its reason"
+        }
+      ]
+    }
   }
 }

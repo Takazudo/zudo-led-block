@@ -49,12 +49,11 @@ readiness（`engineering/a7/qualification/readiness.json`）は不足を 49 個�
 ### 2. PCM13SMTR（C221842）の JLC 在庫切れにどう対応しますか。
 
 - ゲート: `assembly:switch-supply`（PCB 発注の前）
-- **JLC で予約注文する（3 個）（推奨）**: JLC の中で完結し、接点表とランドは今の設計のまま。2026-11-12 の掲載では購入可・予約注文の最小 3・予約可能数 0。LCSC の在庫次第で入荷し、納期は表示されていない（未確認）。
-- JLC Global Sourcing で見積もる: JLC の中で完結し、設計は変わらない。見積を依頼して初めて価格と納期がわかる。
+- **JLC で取り寄せる（予約注文、できなければ Global Sourcing）（推奨）**: JLC の中で完結し、接点表とランドは今の設計のまま。2026-11-12 の掲載は購入可・予約注文の最小 3・予約可能数 0（項目の意味はこちらの解釈）で、今は予約注文できない可能性がある。その場合は Global Sourcing の見積で価格と納期を得る。どちらも納期は未確認。
 - JLC の入荷を待つ: 設計は変わらないが、入荷予定日が出ておらず、発注がいつまでも止まる可能性がある。
 - 代替品を認める: 別の接点表・ランド・適合のレビューが必要で、基板の変更と再検証になる。
-- 推奨の理由: オーナーの方針は JLC で完結すること（JLC 在庫 → 予約注文または Global Sourcing）。同じ型番なら接点表・ランド・適合の検証をそのまま使える。予約注文は掲載された最小数 3 で手順が決まっており、入荷しなければ Global Sourcing に切り替えられる。
-- 出典: `engineering/a7/procurement/supply-observations.json` 引用「"preorder_minimum": 3」、`engineering/a7/procurement/owner-decisions.json` 引用「external purchase from JLC parts lib is acceptable」、`engineering/a7/procurement/assembly-manifest.json` 引用「accept a reviewed alternate with its own contact table and fit review」
+- 推奨の理由: オーナーは JLC で完結したいと書いている（原文は owner-decisions.json）。同じ型番なら接点表・ランド・適合の検証をそのまま使える。予約注文が今できるかは、オーナーの JLC アカウントで 3 個の注文画面を開いて確かめるのが先で、できなければ Global Sourcing に回す。
+- 出典: `engineering/a7/procurement/supply-observations.json` 引用「"preorder_minimum": 3」、`engineering/a7/procurement/supply-observations.json` 引用「presale 0 may mean a pre-order cannot be placed now」、`engineering/a7/procurement/owner-decisions.json` 引用「external purchase from JLC parts lib is acceptable」、`engineering/a7/procurement/assembly-manifest.json` 引用「accept a reviewed alternate with its own contact table and fit review」
 
 ### 3. 完成ケーブル（電源 57 mm、SH4、IDC リボン）をどう用意しますか。
 
@@ -135,7 +134,7 @@ readiness（`engineering/a7/qualification/readiness.json`）は不足を 49 個�
 
 オーナーが自分の言葉で答えたもの。記録ファイルに原文があり、ゲートは閉じています。
 
-- **最初の発注数量をいくつにしますか。** → 2 台分（JLC の実装最小数）（オーナーの回答、`assembly:order-quantity`）。原文「JLCPCB accept at least 2 PCBA, so we will make 2 units first」、記録 `engineering/a7/procurement/owner-decisions.json`
+- **最初の発注数量をいくつにしますか。** → 2 台分（オーナー報告の JLC PCBA 最小、未確認）（オーナーの回答、`assembly:order-quantity`）。原文「JLCPCB accept at least 2 PCBA, so we will make 2 units first」、記録 `engineering/a7/procurement/owner-decisions.json`
 
 次の判断（ゲートがまだ別の区分にあるもの。区分が変わるとここに並びます）: `assembly:fixture-materials`
 
@@ -158,7 +157,7 @@ readiness（`engineering/a7/qualification/readiness.json`）は不足を 49 個�
 | `criterion:pmma-supports` | 供給元・加工先の回答 | PMMA/PETG 加工先の加工公差と許容締付トルク | 締付トルクと保持荷重の合否値 | — | — | 上と同じ質問の回答 |
 | `criterion:fixture-contact` | 実物の測定 | 完成治具の位置ずれの実測 | 許容位置ずれ・ストローク・荷重 | — | — | INGUN のプローブとレセプタクルの資料は取得済み。残りは完成治具の測定 |
 | `material:jack` | 日付付きの供給観測 | PJ-324M（C22355739）の JLC 在庫と価格 | 基板用 2 台分（4 個）が JLC 在庫にあるか（日付付き）。PCB 発注前の端子確認用の単品数 | [開く](https://jlcpcb.com/partdetail/SOFNG-PJ324M/C22355739) | [開く](https://www.lcsc.com/product-detail/C22355739.html) | 基板用は JLC 在庫を優先。PCB 発注前の端子確認用の単品は実装に乗らず手元に届く必要があるため、LCSC での購入を例外として扱う |
-| `material:switch` | 日付付きの供給観測 | PCM13SMTR（C221842）の JLC 在庫・予約注文の可否 | 2 台分（2 個、予約注文なら最小 3 個）が JLC で手に入るか（日付付き） | [開く](https://jlcpcb.com/partdetail/CK-PCM13SMTR/C221842) | [開く](https://www.lcsc.com/product-detail/C221842.html) | JLC 在庫 → 予約注文 → Global Sourcing の順。2026-11-12 の観測は supply-observations.json |
+| `material:switch` | 日付付きの供給観測 | PCM13SMTR（C221842）の JLC 在庫・予約注文の可否 | 2 台分（2 個、予約注文なら最小 3 個）が JLC で手に入るか（日付付き） | [開く](https://jlcpcb.com/partdetail/CK-PCM13SMTR/C221842) | [開く](https://www.lcsc.com/product-detail/C221842.html) | JLC 在庫 → 予約注文 → Global Sourcing の順（こちらの解釈、オーナー未確認）。2026-11-12 の観測は supply-observations.json |
 | `material:finished_cables` | 供給元・加工先の回答、日付付きの供給観測 | 完成ケーブルの見積もり | 長さ公差の保証、数量、納期 | — | — | supplier-questions.md の「完成ケーブル」を製作業者に送る |
 | `material:pmma_petg_hardware` | 供給元・加工先の回答、日付付きの供給観測 | PMMA・PETG・金物の見積もり | 数量・納期・価格 | — | — | 加工先への質問の回答と一緒に保存する |
 | `material:fixture` | 日付付きの供給観測 | INGUN GKS-050 214 050 A 1000 / KS-050 E08 V-30 と FR-4 加工の見積もり | 在庫・数量・納期 | — | — | 治具の加工先と金物の承認（オーナーの判断）の後 |
@@ -198,7 +197,7 @@ readiness（`engineering/a7/qualification/readiness.json`）は不足を 49 個�
 | O3 | `engineering/a7/qualification/supplier-questions.md` は未送信の下書き。送信と回答の保存（取得日・送信先・raw・ハッシュ）はオーナーだけが行える。 | `assembly:supply-observations`（BLOCKED）、`assembly:mechanical-materials`（BLOCKED）、`criterion:jack-dimensions`（BLOCKED）、`criterion:switch-fit`（BLOCKED）、`criterion:pmma-supports`（BLOCKED）、`criterion:ldo-reverse`（BLOCKED）、`criterion:effective-capacitance`（BLOCKED）、`material:jack`（BLOCKED）、`material:switch`（BLOCKED）、`material:finished_cables`（BLOCKED）、`material:pmma_petg_hardware`（BLOCKED）、`material:fixture`（BLOCKED）、`material:assembly_service`（BLOCKED） |
 | O7 | 導出した受入値（power-current / startup-reset / u7-stress）と、PROPOSED の提案値（見え方・温度、挿抜力と回数、短絡、CV の誤差とノイズ、レール崩壊、ジャック導通）を採るか決める。採った値はレビュー記録に残す。提案値のままではゲートは解除されない。 | `criterion:thermal-optical`（BLOCKED）、`criterion:service-envelope`（BLOCKED）、`criterion:load-short`（解除済み）、`criterion:cv-noise`（解除済み）、`criterion:rail-collapse`（解除済み）、`criterion:jack-continuity`（解除済み）、`criterion:cv-thru-calibration`（解除済み）、`criterion:power-current`（解除済み）、`criterion:startup-reset`（解除済み）、`criterion:u7-stress`（BLOCKED） |
 | O8 | **矛盾:** データシート V1.4 の T1L は 580–1000 ns、現行 FW は 220–420 ns。提案値（t1l-min / t1l-max = 580 / 1000 ns）を採ると現行 FW は不合格になるので、#13 が開いている間は採らない（コーディネーター判断）。メーカー訂正を待つか、購入ロットの実測で別レビューするか、FW を直すかをオーナーが決める。 | `criterion:firmware-waveforms`（BLOCKED） |
-| O4 | JLC で予約注文する（最小 3 個）、JLC Global Sourcing で見積もる、入荷を待つ、または接点表と適合を別にレビューした代替品を認める（Q10）。 | `assembly:switch-supply`（BLOCKED） |
+| O4 | JLC で取り寄せる（予約注文、できなければ Global Sourcing）、入荷を待つ、または接点表と適合を別にレビューした代替品を認める（Q10）。予約注文が今できるかは JLC アカウントで確かめる。 | `assembly:switch-supply`（BLOCKED） |
 | O5 | 電源 57 mm の公差は仮定。供給元が保証できる公差と組立の選択を決める。SH4 と IDC リボンも同じ。 | `assembly:finished-cables`（BLOCKED）、`criterion:harness-depth`（BLOCKED） |
 | O6 | 使うラックのレール・ねじ規格。 | `assembly:rack-hardware`（BLOCKED） |
 | O1 | 対象版（A7 r2 / 3HP / FR-4）、数量、入手する部品・基板・治具、許す工程、実施者、試験前の安全条件を決め、承認ファイルを残して `records.json` の owner_prototype_route に記録する。製造リリースとは別の承認。 | `owner_prototype_route`（BLOCKED）、`assembly:prototype-and-release`（BLOCKED） |

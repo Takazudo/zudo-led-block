@@ -527,6 +527,8 @@ DECISION_ROOTS = SOURCE_ROOTS + ('engineering/a7/procurement/', 'engineering/a7/
                                  'engineering/a7/qualification/supplier-questions.md')
 # Owner answers are recorded here, in the owner's own words; a decision marked answered must match its record.
 OWNER_ANSWERS = 'engineering/a7/procurement/owner-decisions.json'
+# Gates the owner has answered and the procurement ledger has retired; only these may carry an answer.
+ANSWERED_GATES = {'assembly:order-quantity'}
 STAGES = {'PCB_ORDER': 'PCB 発注の前', 'BENCH': '実機試験の前', 'RELEASE': '製造リリースのとき'}
 ROUTES = {'OWNER_DOWNLOAD': 'オーナーがブラウザで保存', 'CLOUD_FETCH': 'クラウドで取得（オーナー作業なし）',
           'SUPPLIER_ANSWER': '供給元・加工先の回答', 'DATED_OBSERVATION': '日付付きの供給観測', 'MEASUREMENT': '実物の測定'}
@@ -542,7 +544,7 @@ def owner_page_errors(plan, root=ROOT):
     for name, items in (('owner decision', decisions), ('evidence request', requests)):
         gates = [x.get('gate') if isinstance(x, dict) and isinstance(x.get('gate'), str) else None for x in items]
         answered = [isinstance(x, dict) and 'answer' in x for x in items]
-        if len(gates) != len(set(gates)) or any(g not in keys and not a for g, a in zip(gates, answered)):
+        if len(gates) != len(set(gates)) or any(g not in keys and not (a and g in ANSWERED_GATES) for g, a in zip(gates, answered)):
             errors.append(name + 's need unique, known gates')
     if [d.get('rank') for d in decisions if isinstance(d, dict)] != list(range(1, len(decisions) + 1)):
         errors.append('owner decisions must be ranked 1..n in list order')
@@ -605,13 +607,22 @@ def answer_errors(d, keys, root):
         resolve(record, root, DECISION_ROOTS)
     except (ValueError, OSError) as e:
         return errors + [str(e)]
-    entries = [x for x in json.loads((root / OWNER_ANSWERS).read_text()).get('decisions', [])
-               if isinstance(x, dict) and 'assembly:' + str(x.get('id')) == d['gate']]
-    if len(entries) != 1 or entries[0].get('decided_by') != 'OWNER' or entries[0].get('answer') != a['option'] or not entries[0].get('owner_words'):
-        errors.append('the answer must match one owner-decided entry with the owner\'s words in ' + OWNER_ANSWERS)
+    entry = owner_answer(d['gate'], root)
+    if not entry or entry.get('answer') != a['option'] or record.get('quote', '').strip('"') not in entry['owner_words']:
+        errors.append('the answer must match one owner-decided entry in ' + OWNER_ANSWERS + ' and quote one of its owner_words')
+    if d['gate'] not in ANSWERED_GATES:
+        errors.append('only a retired gate (' + ', '.join(sorted(ANSWERED_GATES)) + ') can carry an answer')
     if d['gate'] in keys:
         errors.append('an answered decision\'s gate is still open')
     return errors
+
+
+def owner_answer(gate, root):
+    entries = [x for x in json.loads((root / OWNER_ANSWERS).read_text()).get('decisions', [])
+               if isinstance(x, dict) and 'assembly:' + str(x.get('id')) == gate]
+    if len(entries) != 1 or entries[0].get('decided_by') != 'OWNER' or not isinstance(entries[0].get('owner_words'), list) or not entries[0]['owner_words']:
+        return None
+    return entries[0]
 
 
 def gate_keys(plan, root=ROOT):
@@ -1007,7 +1018,7 @@ def link(url):
     return '[開く]('+url+')' if url else '—'
 
 
-def owner_page_lines(plan, report):
+def owner_page_lines(plan, report, root=ROOT):
     classes = {g['gate']: g['class'] for g in report['gates']}
     gaps = owner_page_gaps(plan, report)
     live = [d for d in plan['owner_decisions'] if classes.get(d['gate']) == 'OWNER_DECISION']
@@ -1023,8 +1034,9 @@ def owner_page_lines(plan, report):
     if answered:
         lines += ['## 回答済みの判断（'+str(len(answered))+' 件）', '', 'オーナーが自分の言葉で答えたもの。記録ファイルに原文があり、ゲートは閉じています。', '']
         for d in answered:
-            words = json.loads((ROOT / OWNER_ANSWERS).read_text())
-            entry = next(x for x in words['decisions'] if 'assembly:' + x['id'] == d['gate'])
+            entry = owner_answer(d['gate'], root)
+            if entry is None:
+                raise ValueError(d['gate'] + ': answered decision has no owner record')
             label = next(o['label'] for o in d['options'] if o['id'] == d['answer']['option'])
             lines += ['- **'+mdx(d['question'])+'** → '+mdx(label)+'（オーナーの回答、`'+d['gate']+'`）。原文「'+mdx(' '.join(entry['owner_words']))+'」、記録 `'+OWNER_ANSWERS+'`', '']
     waiting = [d['gate'] for d in plan['owner_decisions'] if 'answer' not in d and classes.get(d['gate']) not in (None, 'OWNER_DECISION')]
@@ -1047,9 +1059,9 @@ def owner_page_lines(plan, report):
     return lines
 
 
-def checklist(plan, report):
+def checklist(plan, report, root=ROOT):
     gates = {g['gate']: g for g in report['gates']}
-    known = gate_keys(plan)
+    known = gate_keys(plan, root)
     def covers(pattern):
         return [g for k, g in gates.items() if k == pattern or (pattern == 'run:*' and k.startswith('run:'))]
     lines = ['---', '# GENERATED by scripts/a7_readiness.py from engineering/a7/qualification/ — do not edit; run `python3 scripts/a7_readiness.py`',
@@ -1076,7 +1088,7 @@ def checklist(plan, report):
         lines.append(str(n)+'. **'+a['id']+'** '+mdx(a['title']))
         rows.append('| '+a['id']+' | '+mdx(a['detail'])+' | '+'、'.join(names)+' |')
     proposals = [(p['id'], a) for p in plan['procedures'] for a in p['acceptance'] if a['confidence'] == 'PROPOSED']
-    lines += owner_page_lines(plan, report)
+    lines += owner_page_lines(plan, report, root)
     lines += ['', '## 採否を待つ提案値', '',
               'エージェントが出典から用意した提案です（'+str(len(proposals))+' 件）。採るまでは該当する基準ゲートを解除しません。理由と計算は procedures.md にあります。', '',
               '| 手順 | ID | 基準 | 提案値 | 単位 |', '|---|---|---|---|---|']

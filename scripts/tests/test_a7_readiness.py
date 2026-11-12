@@ -206,6 +206,8 @@ class ReadinessTests(unittest.TestCase):
             'answer differs from the record': lambda a: a.update(option='10'),
             'answer outside the record file': lambda a: a.update(record={'path': 'engineering/a7/procurement/ledger.md', 'quote': '2 台'}),
             'invented owner quote': lambda a: a['record'].update(quote='we will make 100 units'),
+            'quote that is not the owner words': lambda a: a['record'].update(quote='"decided_by": "OWNER"'),
+            'quote of a different owner message': lambda a: a['record'].update(quote='external purchase from JLC parts lib is acceptable'),
         }
         base = copy.deepcopy(d['answer'])
         for name, mutate in cases.items():
@@ -217,10 +219,15 @@ class ReadinessTests(unittest.TestCase):
         del d['answer']
         self.assertTrue(any('unique, known gates' in e for e in m.owner_page_errors(self.plan)))
 
+    def test_answer_cannot_name_an_unretired_gate(self):
+        d = next(x for x in self.plan['owner_decisions'] if 'answer' in x)
+        d['gate'] = 'assembly:foo'
+        self.assertTrue(any('unique, known gates' in e for e in m.owner_page_errors(self.plan)))
+
     def test_answer_cannot_close_an_open_gate(self):
         d = next(x for x in self.plan['owner_decisions'] if x['gate'] == 'assembly:switch-supply')
         d['answer'] = {'option': 'jlc-preorder', 'by': 'OWNER',
-                       'record': {'path': m.OWNER_ANSWERS, 'quote': '"JLCPCB accept at least 2 PCBA, so we"'}}
+                       'record': {'path': m.OWNER_ANSWERS, 'quote': '"will make 2 units first"'}}
         errors = m.owner_page_errors(self.plan)
         self.assertTrue(any('still open' in e for e in errors), errors)
         self.assertTrue(any('must match one owner-decided entry' in e for e in errors), errors)
@@ -238,7 +245,7 @@ class ReadinessTests(unittest.TestCase):
         page = m.checklist(self.plan, report)
         self.assertIn('## まとめて答えられる判断（11 件）', page)
         self.assertIn('## 回答済みの判断（1 件）', page)
-        self.assertIn('2 台分（JLC の実装最小数）（オーナーの回答、`assembly:order-quantity`）', page)
+        self.assertIn('2 台分（オーナー報告の JLC PCBA 最小、未確認）（オーナーの回答、`assembly:order-quantity`）', page)
         self.assertNotIn('### 2. 最初の発注数量', page)
         self.assertIn('## 資料・回答待ちのゲート（16 件）', page)
         self.assertLess(page.index('`owner_prototype_route`（PCB 発注の前）'), page.index('`manufacturing_release`（製造リリースのとき）'))
