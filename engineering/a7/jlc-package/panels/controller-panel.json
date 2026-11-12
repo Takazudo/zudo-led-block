@@ -1,0 +1,240 @@
+{
+  "board": "controller",
+  "pcb": "engineering/a7/electronics/controller/controller.kicad_pcb",
+  "pcb_sha256": "4453f818ede1e6d6c56e45ef43aa6faecb90990f3755f82c6d752258cd4d628e",
+  "tier": "STANDARD",
+  "panel_mm": [
+    70,
+    76.9
+  ],
+  "copies": [
+    {
+      "copy": 1,
+      "suffix": "",
+      "offset_mm": [
+        10.45,
+        7.0
+      ],
+      "outline_mm": [
+        10.45,
+        7.0,
+        26.65,
+        69.9
+      ],
+      "slot_mm": [
+        5.0,
+        5.0,
+        28.65,
+        71.9
+      ]
+    }
+  ],
+  "tabs": [
+    {
+      "copy": 1,
+      "edge": "left",
+      "rect_mm": [
+        5.0,
+        17.08,
+        10.45,
+        22.08
+      ]
+    },
+    {
+      "copy": 1,
+      "edge": "left",
+      "rect_mm": [
+        5.0,
+        24.51,
+        10.45,
+        29.51
+      ]
+    },
+    {
+      "copy": 1,
+      "edge": "right",
+      "rect_mm": [
+        26.65,
+        21.88,
+        28.65,
+        26.88
+      ]
+    },
+    {
+      "copy": 1,
+      "edge": "right",
+      "rect_mm": [
+        26.65,
+        58.55,
+        28.65,
+        63.55
+      ]
+    }
+  ],
+  "tabs_per_copy": {
+    "1": 4
+  },
+  "mouse_bites": {
+    "diameter_mm": 0.6,
+    "gap_mm": 0.25,
+    "centres_mm": [
+      [
+        10.15,
+        17.455
+      ],
+      [
+        10.15,
+        18.305
+      ],
+      [
+        10.15,
+        19.155
+      ],
+      [
+        10.15,
+        20.005
+      ],
+      [
+        10.15,
+        20.855
+      ],
+      [
+        10.15,
+        21.705
+      ],
+      [
+        10.15,
+        24.885
+      ],
+      [
+        10.15,
+        25.735
+      ],
+      [
+        10.15,
+        26.585
+      ],
+      [
+        10.15,
+        27.435
+      ],
+      [
+        10.15,
+        28.285
+      ],
+      [
+        10.15,
+        29.135
+      ],
+      [
+        26.95,
+        22.255
+      ],
+      [
+        26.95,
+        23.105
+      ],
+      [
+        26.95,
+        23.955
+      ],
+      [
+        26.95,
+        24.805
+      ],
+      [
+        26.95,
+        25.655
+      ],
+      [
+        26.95,
+        26.505
+      ],
+      [
+        26.95,
+        58.925
+      ],
+      [
+        26.95,
+        59.775
+      ],
+      [
+        26.95,
+        60.625
+      ],
+      [
+        26.95,
+        61.475
+      ],
+      [
+        26.95,
+        62.325
+      ],
+      [
+        26.95,
+        63.175
+      ]
+    ]
+  },
+  "fiducials": {
+    "diameter_mm": 1.0,
+    "mask_opening_mm": 2.0,
+    "sides": [
+      "B",
+      "F"
+    ],
+    "centres_mm": [
+      [
+        21.0,
+        3.85
+      ],
+      [
+        49.0,
+        3.85
+      ],
+      [
+        21.0,
+        73.05
+      ]
+    ]
+  },
+  "tooling_holes": {
+    "diameter_mm": 2.0,
+    "centres_mm": [
+      [
+        3.5,
+        2.5
+      ],
+      [
+        66.5,
+        2.5
+      ],
+      [
+        3.5,
+        74.4
+      ]
+    ]
+  },
+  "rules": {
+    "rail_mm": 5.0,
+    "edge_gap_mm": {
+      "left": 5.45,
+      "right": 2.0,
+      "top": 2.0,
+      "bottom": 2.0
+    },
+    "between_copies_mm": null,
+    "tab_mm": 5.0,
+    "tab_part_clearance_mm": 1.0,
+    "proposed": [
+      "fiducial mask opening",
+      "tooling-hole inset",
+      "tab part clearance",
+      "overhang margin"
+    ]
+  },
+  "drc_waivers": {},
+  "notes": [
+    "Frame cut back by the courtyard overhang plus 1 mm (proposed) at J2, J3, SW1, J1; tabs away from those parts."
+  ]
+}
