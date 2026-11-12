@@ -159,6 +159,34 @@
       "verdict": "PASS - primary-source confirmed",
       "depends_on": [],
       "expression": ""
+    },
+    {
+      "fact_id": "fact-tlv9001idbvr-operating-temperature",
+      "record_id": "rec-tlv9001idbvr",
+      "source_id": "src-tlv9001idbvr-ds-p14",
+      "class": "RECOMMENDED_OPERATION",
+      "value": "-40 to +125",
+      "unit": "degC",
+      "conditions": "TA specified temperature (recommended operating conditions); absolute maximum operating TA -55 to 150 degC, TJ 150 degC max; manufacturer data only; not a thermal qualification of the assembled module",
+      "locator": "src-tlv9001idbvr-ds-p14: Section 7.3 table row TA Specified temperature",
+      "provenance": "PRIMARY-SPEC",
+      "verdict": "PASS - primary-source confirmed",
+      "depends_on": [],
+      "expression": ""
+    },
+    {
+      "fact_id": "fact-tlv9001idbvr-storage-temperature",
+      "record_id": "rec-tlv9001idbvr",
+      "source_id": "src-tlv9001idbvr-ds-p14",
+      "class": "ABSOLUTE_MAXIMUM",
+      "value": "-65 to +150",
+      "unit": "degC",
+      "conditions": "Tstg storage temperature, absolute maximum",
+      "locator": "src-tlv9001idbvr-ds-p14: Section 7.1 table row Storage Tstg",
+      "provenance": "PRIMARY-SPEC",
+      "verdict": "PASS - primary-source confirmed",
+      "depends_on": [],
+      "expression": ""
     }
   ]
 }

@@ -106,6 +106,8 @@ Coverage is stated one domain at a time and is never rolled up. A domain marked 
 - [`fact-tlv75533pdbvr-roc-iout`](#fact-tlv75533pdbvr-roc-iout)
 - [`fact-tlv75533pdbvr-output-accuracy`](#fact-tlv75533pdbvr-output-accuracy)
 - [`fact-tlv75533pdbvr-current-limit`](#fact-tlv75533pdbvr-current-limit)
+- [`fact-tlv75533pdbvr-operating-temperature`](#fact-tlv75533pdbvr-operating-temperature)
+- [`fact-tlv75533pdbvr-storage-temperature`](#fact-tlv75533pdbvr-storage-temperature)
 
 ### placement
 
@@ -175,6 +177,20 @@ A never-exceed limit. Reaching it may damage the part; it is not an operating ta
   **Evidence:** [src-tlv75533pdbvr-ds-p4: Section 5.1 Absolute Maximum Ratings table row Enable voltage VEN](#src-tlv75533pdbvr-ds-p4)
 </EvidenceFact>
 
+<EvidenceFact>
+  <EvidenceAnchor id="fact-tlv75533pdbvr-storage-temperature" />
+
+  **Fact:** `fact-tlv75533pdbvr-storage-temperature`
+
+  **Value:** -65 to +150 · **Unit:** `degC`
+
+  **Conditions:** Tstg storage temperature, absolute maximum
+
+  **Verdict:** PASS - primary-source confirmed · **Provenance:** PRIMARY-SPEC
+
+  **Evidence:** [src-tlv75533pdbvr-ds-2026-11-11-p4: Section 5.1 table row Tstg](#src-tlv75533pdbvr-ds-2026-11-11-p4)
+</EvidenceFact>
+
 ### RECOMMENDED\_OPERATION
 
 The range the manufacturer intends the part to be used in. Always narrower than the absolute maximum.
@@ -205,6 +221,20 @@ The range the manufacturer intends the part to be used in. Always narrower than 
   **Verdict:** PASS - primary-source confirmed · **Provenance:** PRIMARY-SPEC
 
   **Evidence:** [src-tlv75533pdbvr-ds-p4: Section 5.3 Recommended Operating Conditions table row IOUT Output current](#src-tlv75533pdbvr-ds-p4)
+</EvidenceFact>
+
+<EvidenceFact>
+  <EvidenceAnchor id="fact-tlv75533pdbvr-operating-temperature" />
+
+  **Fact:** `fact-tlv75533pdbvr-operating-temperature`
+
+  **Value:** -40 to +125 · **Unit:** `degC`
+
+  **Conditions:** TJ junction temperature (recommended operating conditions); a junction, not an ambient, limit; absolute maximum operating TJ -40 to 150 degC; the same ROC TJ row is in the 2026-11-08 extract of src-tlv75533pdbvr-ds-p4; manufacturer data only; not a thermal qualification of the assembled module
+
+  **Verdict:** PASS - primary-source confirmed · **Provenance:** PRIMARY-SPEC
+
+  **Evidence:** [src-tlv75533pdbvr-ds-2026-11-11-p4: Section 5.3 table row TJ](#src-tlv75533pdbvr-ds-2026-11-11-p4)
 </EvidenceFact>
 
 ### GUARANTEED\_ELECTRICAL
@@ -516,6 +546,26 @@ Every document cited above, with its identification, when it was retrieved, and 
 | Printed page    | Addendum-Page 4                                 |
 
 **Locator:** SBVS320D physical PDF page 28 of 51 (index 27), printed page Addendum-Page 4: Package Option Addendum (dated 22-Oct-2026 inside the document) orderable table row TLV75533PDBVR
+
+**Availability:** AVAILABLE
+
+**Document URL:** [https://www.ti.com/lit/ds/symlink/tlv755p.pdf](https://www.ti.com/lit/ds/symlink/tlv755p.pdf)
+
+### TLV755P 500mA, Low-IQ, Small-Size, Low-Dropout Regulator datasheet
+
+<EvidenceAnchor id="src-tlv75533pdbvr-ds-2026-11-11-p4" />
+
+**Source ID:** `src-tlv75533pdbvr-ds-2026-11-11-p4` · **Authority:** MANUFACTURER\_PRIMARY
+
+| Field           | Recorded value                                  |
+| --------------- | ----------------------------------------------- |
+| Document number | SBVS320D                                        |
+| Revision        | Rev. D (NOVEMBER 2017 - REVISED SEPTEMBER 2024) |
+| Document date   | 2024-09                                         |
+| Retrieved       | 2026-11-11                                      |
+| Printed page    | 4                                               |
+
+**Locator:** SBVS320D physical PDF page 4 of 51 (index 3), printed page 4: Section 5.1 Absolute Maximum Ratings table rows TJ and Tstg; Section 5.3 Recommended Operating Conditions table row TJ
 
 **Availability:** AVAILABLE
 

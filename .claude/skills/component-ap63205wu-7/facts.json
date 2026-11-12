@@ -187,6 +187,34 @@
       "verdict": "PASS - primary-source confirmed",
       "depends_on": [],
       "expression": ""
+    },
+    {
+      "fact_id": "fact-ap63205wu-7-operating-temperature",
+      "record_id": "rec-ap63205wu-7",
+      "source_id": "src-ap63205wu-7-ds-p3",
+      "class": "RECOMMENDED_OPERATION",
+      "value": "-40 to +85",
+      "unit": "degC",
+      "conditions": "TA operating ambient temperature range (recommended operating conditions); absolute maximum TJ +160 C; manufacturer data only; not a thermal qualification of the assembled module",
+      "locator": "src-ap63205wu-7-ds-p3: Recommended Operating Conditions table row TA",
+      "provenance": "PRIMARY-SPEC",
+      "verdict": "PASS - primary-source confirmed",
+      "depends_on": [],
+      "expression": ""
+    },
+    {
+      "fact_id": "fact-ap63205wu-7-storage-temperature",
+      "record_id": "rec-ap63205wu-7",
+      "source_id": "src-ap63205wu-7-ds-p3",
+      "class": "ABSOLUTE_MAXIMUM",
+      "value": "-65 to +150",
+      "unit": "degC",
+      "conditions": "TST storage temperature, absolute maximum",
+      "locator": "src-ap63205wu-7-ds-p3: Absolute Maximum Ratings table row TST",
+      "provenance": "PRIMARY-SPEC",
+      "verdict": "PASS - primary-source confirmed",
+      "depends_on": [],
+      "expression": ""
     }
   ]
 }

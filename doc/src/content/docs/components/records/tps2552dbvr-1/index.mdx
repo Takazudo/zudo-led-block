@@ -107,6 +107,8 @@ Coverage is stated one domain at a time and is never rolled up. A domain marked 
 - [`fact-tps2552dbvr-1-ilim-formula-max`](#fact-tps2552dbvr-1-ilim-formula-max)
 - [`fact-tps2552dbvr-1-ilim-formula-nom-min`](#fact-tps2552dbvr-1-ilim-formula-nom-min)
 - [`fact-tps2552dbvr-1-latch-behaviour`](#fact-tps2552dbvr-1-latch-behaviour)
+- [`fact-tps2552dbvr-1-operating-temperature`](#fact-tps2552dbvr-1-operating-temperature)
+- [`fact-tps2552dbvr-1-storage-temperature`](#fact-tps2552dbvr-1-storage-temperature)
 
 ### placement
 
@@ -162,6 +164,20 @@ A never-exceed limit. Reaching it may damage the part; it is not an operating ta
   **Evidence:** [src-tps2552dbvr-1-ds-p5: Section 6.1 Absolute Maximum Ratings table row Voltage range on IN, OUT, EN or EN, ILIM, FAULT](#src-tps2552dbvr-1-ds-p5)
 </EvidenceFact>
 
+<EvidenceFact>
+  <EvidenceAnchor id="fact-tps2552dbvr-1-storage-temperature" />
+
+  **Fact:** `fact-tps2552dbvr-1-storage-temperature`
+
+  **Value:** -65 to +150 · **Unit:** `degC`
+
+  **Conditions:** Tstg storage temperature, absolute maximum (stress rating only)
+
+  **Verdict:** PASS - primary-source confirmed · **Provenance:** PRIMARY-SPEC
+
+  **Evidence:** [src-tps2552dbvr-1-ds-p5: Section 6.1 table row Tstg](#src-tps2552dbvr-1-ds-p5)
+</EvidenceFact>
+
 ### RECOMMENDED\_OPERATION
 
 The range the manufacturer intends the part to be used in. Always narrower than the absolute maximum.
@@ -206,6 +222,20 @@ The range the manufacturer intends the part to be used in. Always narrower than 
   **Verdict:** PASS - primary-source confirmed · **Provenance:** PRIMARY-SPEC
 
   **Evidence:** [src-tps2552dbvr-1-ds-p5: Section 6.3 Recommended Operating Conditions table row RILIM Current-limit threshold resistor range](#src-tps2552dbvr-1-ds-p5)
+</EvidenceFact>
+
+<EvidenceFact>
+  <EvidenceAnchor id="fact-tps2552dbvr-1-operating-temperature" />
+
+  **Fact:** `fact-tps2552dbvr-1-operating-temperature`
+
+  **Value:** -40 to +125 · **Unit:** `degC`
+
+  **Conditions:** TJ operating virtual junction temperature at IOUT \<= 1.2 A (-40 to +105 degC at IOUT \<= 1.5 A); a junction, not an ambient, limit; absolute maximum TJ -40 to 150 degC; manufacturer data only; not a thermal qualification of the assembled module
+
+  **Verdict:** PASS - primary-source confirmed · **Provenance:** PRIMARY-SPEC
+
+  **Evidence:** [src-tps2552dbvr-1-ds-p6: Section 6.3 table row TJ](#src-tps2552dbvr-1-ds-p6)
 </EvidenceFact>
 
 ### GUARANTEED\_ELECTRICAL
@@ -572,6 +602,26 @@ Every document cited above, with its identification, when it was retrieved, and 
 | Printed page    | Addendum-Page 1                               |
 
 **Locator:** SLVS841G physical PDF page 29 of 46 (index 28), printed page Addendum-Page 1: Package Option Addendum orderable table row TPS2552DBVR-1
+
+**Availability:** AVAILABLE
+
+**Document URL:** [https://www.ti.com/lit/ds/symlink/tps2552.pdf](https://www.ti.com/lit/ds/symlink/tps2552.pdf)
+
+### TPS255xx Precision Adjustable Current-Limited Power-Distribution Switches datasheet (TPS2552, TPS2552-1, TPS2553, TPS2553-1)
+
+<EvidenceAnchor id="src-tps2552dbvr-1-ds-p6" />
+
+**Source ID:** `src-tps2552dbvr-1-ds-p6` · **Authority:** MANUFACTURER\_PRIMARY
+
+| Field           | Recorded value                                |
+| --------------- | --------------------------------------------- |
+| Document number | SLVS841G                                      |
+| Revision        | Rev. G (NOVEMBER 2008 - REVISED OCTOBER 2026) |
+| Document date   | 2026-10                                       |
+| Retrieved       | 2026-11-11                                    |
+| Printed page    | 6                                             |
+
+**Locator:** SLVS841G physical PDF page 6 of 46 (index 5), printed page 6: Section 6.3 Recommended Operating Conditions (continued) table row TJ operating virtual junction temperature; footnote (1)
 
 **Availability:** AVAILABLE
 

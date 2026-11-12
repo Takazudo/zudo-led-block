@@ -129,6 +129,25 @@
       "printed_page_label": "Addendum-Page 4",
       "locator": "SBVS320D physical PDF page 28 of 51 (index 27), printed page Addendum-Page 4: Package Option Addendum (dated 22-Oct-2026 inside the document) orderable table row TLV75533PDBVR",
       "evidence_extract": "TLV75533PDBVR | Active | Production | SOT-23 (DBV) | 5 | 3000 LARGE T&R | RoHS Yes | SN | Level-1-260C-UNLIM | -40 to 125 | marking 1FWF. Hash comparison: A5 recorded sha256 96e2706d4b13656d2d550fdbb5be9861c56b058822109bb39a906d4ad1beb019 (2026-11-05/06 (engineering/a5/electronics/source_provenance.json), id TI_TLV755P) for https://www.ti.com/lit/ds/symlink/tlv755p.pdf; bytes inspected now (2026-11-08, HTTP 200, Content-Type application/pdf, starts %PDF-): 96e2706d4b13656d2d550fdbb5be9861c56b058822109bb39a906d4ad1beb019 - identical."
+    },
+    {
+      "source_id": "src-tlv75533pdbvr-ds-2026-11-11-p4",
+      "record_id": "rec-tlv75533pdbvr",
+      "document_title": "TLV755P 500mA, Low-IQ, Small-Size, Low-Dropout Regulator datasheet",
+      "document_number": "SBVS320D",
+      "revision": "Rev. D (NOVEMBER 2017 - REVISED SEPTEMBER 2024)",
+      "document_date": "2024-09",
+      "authoritative_url": "https://www.ti.com/lit/ds/symlink/tlv755p.pdf",
+      "alternate_authoritative_url": "https://www.ti.com/product/TLV755P",
+      "retrieval_date": "2026-11-11",
+      "authority_class": "MANUFACTURER_PRIMARY",
+      "sha256": "43ff53fb1eca7df105c4b3c26017052aef20bf5eae154c45b175dbd9e71dca0c",
+      "availability": "AVAILABLE",
+      "physical_pdf_page_index": 3,
+      "printed_page_label": "4",
+      "locator": "SBVS320D physical PDF page 4 of 51 (index 3), printed page 4: Section 5.1 Absolute Maximum Ratings table rows TJ and Tstg; Section 5.3 Recommended Operating Conditions table row TJ",
+      "evidence_extract": "5.1 Abs max: VIN -0.3 to 6.0 V; VEN -0.3 to 6.0 V; VOUT -0.3 to VIN+0.3 V; operating junction temperature TJ -40 to 150 degC; storage temperature Tstg -65 to 150 degC. 5.3 ROC: VIN 1.45 to 5.5 V; VOUT 0.6 to 5.0 V; VEN 0 to 5.5 V; TJ junction temperature -40 to 125 degC. First-page header 'SBVS320D - NOVEMBER 2017 - REVISED SEPTEMBER 2024' (same document revision as the 2026-11-08 observation). Text layer read with pdftotext -layout.",
+      "authority_note": "Second observation of the same URL. On 2026-11-11 the cloud VM received HTTP 200 application/pdf, 3073114 bytes, 51 pages, PDF ModDate 2026-11-09T06:30:46Z, SHA-256 43ff53fb1eca7df105c4b3c26017052aef20bf5eae154c45b175dbd9e71dca0c; this differs from the 96e2706d... bytes recorded by A5 and inspected on 2026-11-08 (kept unchanged in src-tlv75533pdbvr-ds-p3/p4/p5/p23/p28 as the earlier observation). Document number and revision letter are unchanged (SBVS320D, revised September 2024); the earlier bytes are not retained, so what changed is not diffable beyond the newer PDF ModDate. Only the temperature rows are cited from these bytes."
     }
   ]
 }

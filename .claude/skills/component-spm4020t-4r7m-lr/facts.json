@@ -103,6 +103,20 @@
       "verdict": "PASS - primary-source confirmed",
       "depends_on": [],
       "expression": ""
+    },
+    {
+      "fact_id": "fact-spm4020t-4r7m-lr-operating-temperature",
+      "record_id": "rec-spm4020t-4r7m-lr",
+      "source_id": "src-spm4020t-4r7m-lr-catalog",
+      "class": "RECOMMENDED_OPERATION",
+      "value": "-40 to +125",
+      "unit": "degC",
+      "conditions": "operating temperature range including self-heating (Itemp 2.5 A typ at 40 C rise); manufacturer data only; not a thermal qualification of the assembled module",
+      "locator": "src-spm4020t-4r7m-lr-catalog: printed page 1/4 table footnote row operating temperature",
+      "provenance": "PRIMARY-SPEC",
+      "verdict": "PASS - primary-source confirmed",
+      "depends_on": [],
+      "expression": ""
     }
   ]
 }

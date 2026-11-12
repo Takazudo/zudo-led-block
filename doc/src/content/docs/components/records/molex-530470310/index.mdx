@@ -33,7 +33,7 @@ This record in the catalog: [530470310](/docs/components/catalog/#rec-molex-5304
 
 **Source state:** AVAILABLE
 
-**Coverage:** 4 open of 5 published
+**Coverage:** 4 open of 6 published
 
 ## Documents and package
 
@@ -76,6 +76,18 @@ Coverage is stated one domain at a time and is never rolled up. A domain marked 
 
 - [`fact-530470310-manufacturer`](#fact-530470310-manufacturer)
 - [`fact-530470310-distributor-identity`](#fact-530470310-distributor-identity)
+
+### mechanical
+
+<EvidenceAnchor id="cov-530470310-mechanical" />
+
+**Coverage ID:** `cov-530470310-mechanical` · **Status:** COVERED
+
+**Reason:** terminal tail length below the housing seating plane is primary-source confirmed from the Molex sales drawing; fit, solder fillet and fixture clearance are not qualified
+
+**Facts in this domain:**
+
+- [`fact-530470310-tail-length`](#fact-530470310-tail-length)
 
 ### pinout
 
@@ -235,6 +247,20 @@ A value this project recorded about how the part is used here — a chosen opera
   **Verdict:** UNSOURCED · **Provenance:** PROJECT-CHOICE
 
   **Evidence:** [src-530470310-a5-netlist-controller: components section footprint field](#src-530470310-a5-netlist-controller)
+</EvidenceFact>
+
+<EvidenceFact>
+  <EvidenceAnchor id="fact-530470310-tail-length" />
+
+  **Fact:** `fact-530470310-tail-length`
+
+  **Value:** 2.3 · **Unit:** `mm`
+
+  **Conditions:** terminal tail length from the housing bottom (seating) face to the tail tip, tolerance +/-0.5 mm (1.8 to 2.8 mm); this is the total tail length, not the protrusion below a board: protrusion depends on the board thickness (and its tolerance) and on the housing seating flush, neither of which this drawing gives; the recommended PCB hole is stated for t=0.8
+
+  **Verdict:** PASS - primary-source confirmed · **Provenance:** PRIMARY-SPEC
+
+  **Evidence:** [src-530470310-sd: figure SECTION X-X horizontal dimension 2.3 +/-0.5 (sheet 1, zones E-F, columns 8-10)](#src-530470310-sd)
 </EvidenceFact>
 
 ## Pin maps

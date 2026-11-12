@@ -187,6 +187,34 @@
       "verdict": "PASS - primary-source confirmed",
       "depends_on": [],
       "expression": ""
+    },
+    {
+      "fact_id": "fact-tlv75533pdbvr-operating-temperature",
+      "record_id": "rec-tlv75533pdbvr",
+      "source_id": "src-tlv75533pdbvr-ds-2026-11-11-p4",
+      "class": "RECOMMENDED_OPERATION",
+      "value": "-40 to +125",
+      "unit": "degC",
+      "conditions": "TJ junction temperature (recommended operating conditions); a junction, not an ambient, limit; absolute maximum operating TJ -40 to 150 degC; the same ROC TJ row is in the 2026-11-08 extract of src-tlv75533pdbvr-ds-p4; manufacturer data only; not a thermal qualification of the assembled module",
+      "locator": "src-tlv75533pdbvr-ds-2026-11-11-p4: Section 5.3 table row TJ",
+      "provenance": "PRIMARY-SPEC",
+      "verdict": "PASS - primary-source confirmed",
+      "depends_on": [],
+      "expression": ""
+    },
+    {
+      "fact_id": "fact-tlv75533pdbvr-storage-temperature",
+      "record_id": "rec-tlv75533pdbvr",
+      "source_id": "src-tlv75533pdbvr-ds-2026-11-11-p4",
+      "class": "ABSOLUTE_MAXIMUM",
+      "value": "-65 to +150",
+      "unit": "degC",
+      "conditions": "Tstg storage temperature, absolute maximum",
+      "locator": "src-tlv75533pdbvr-ds-2026-11-11-p4: Section 5.1 table row Tstg",
+      "provenance": "PRIMARY-SPEC",
+      "verdict": "PASS - primary-source confirmed",
+      "depends_on": [],
+      "expression": ""
     }
   ]
 }

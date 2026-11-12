@@ -159,6 +159,48 @@
       "verdict": "PASS - primary-source confirmed",
       "depends_on": [],
       "expression": ""
+    },
+    {
+      "fact_id": "fact-opa197idbvr-operating-temperature",
+      "record_id": "rec-opa197idbvr",
+      "source_id": "src-opa197idbvr-ds-p5",
+      "class": "RECOMMENDED_OPERATION",
+      "value": "-40 to +125",
+      "unit": "degC",
+      "conditions": "TA operating temperature (recommended); absolute maximum operating TA -55 to 150 degC and TJ 150 degC max; manufacturer data only; not a thermal qualification of the assembled module",
+      "locator": "src-opa197idbvr-ds-p5: Section 6.3 table row Operating temperature TA",
+      "provenance": "PRIMARY-SPEC",
+      "verdict": "PASS - primary-source confirmed",
+      "depends_on": [],
+      "expression": ""
+    },
+    {
+      "fact_id": "fact-opa197idbvr-storage-temperature",
+      "record_id": "rec-opa197idbvr",
+      "source_id": "src-opa197idbvr-ds-p5",
+      "class": "ABSOLUTE_MAXIMUM",
+      "value": "-65 to +150",
+      "unit": "degC",
+      "conditions": "Tstg storage temperature, absolute maximum",
+      "locator": "src-opa197idbvr-ds-p5: Section 6.1 table row Storage Tstg",
+      "provenance": "PRIMARY-SPEC",
+      "verdict": "PASS - primary-source confirmed",
+      "depends_on": [],
+      "expression": ""
+    },
+    {
+      "fact_id": "fact-opa197idbvr-output-swing",
+      "record_id": "rec-opa197idbvr",
+      "source_id": "src-opa197idbvr-ds-p8",
+      "class": "GUARANTEED_ELECTRICAL",
+      "value": 25,
+      "unit": "mV",
+      "conditions": "VO voltage output swing from either rail, maximum, no load (125 mV max at RLOAD = 10 kohm, 500 mV max at 2 kohm), TA = 25 degC, VS = +/-4 V to +/-18 V. This is how close the output can approach a rail, not a guarantee that it never exceeds one, and the absolute maximum table has no output-pin row; treating CV_BUF as bounded by the U6 rails is an engineering inference from this row, and the rails themselves come from outside the module",
+      "locator": "src-opa197idbvr-ds-p8: OUTPUT table row VO voltage output swing from rail",
+      "provenance": "PRIMARY-SPEC",
+      "verdict": "PASS - primary-source confirmed",
+      "depends_on": [],
+      "expression": ""
     }
   ]
 }

@@ -159,6 +159,20 @@
       "verdict": "PASS - primary-source confirmed",
       "depends_on": [],
       "expression": ""
+    },
+    {
+      "fact_id": "fact-bas70-04-7-f-storage-temperature",
+      "record_id": "rec-bas70-04-7-f",
+      "source_id": "src-bas70-04-7-f-ds-p1",
+      "class": "ABSOLUTE_MAXIMUM",
+      "value": "-65 to +150",
+      "unit": "degC",
+      "conditions": "TSTG storage temperature range",
+      "locator": "src-bas70-04-7-f-ds-p1: Thermal Characteristics table row TSTG",
+      "provenance": "PRIMARY-SPEC",
+      "verdict": "PASS - primary-source confirmed",
+      "depends_on": [],
+      "expression": ""
     }
   ]
 }

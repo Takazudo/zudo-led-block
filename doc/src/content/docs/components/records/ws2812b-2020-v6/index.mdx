@@ -105,6 +105,7 @@ Coverage is stated one domain at a time and is never rolled up. A domain marked 
 - [`fact-ws2812b-2020-v6-ratings`](#fact-ws2812b-2020-v6-ratings)
 - [`fact-ws2812b-2020-v6-input-abs-max`](#fact-ws2812b-2020-v6-input-abs-max)
 - [`fact-ws2812b-2020-v6-vih`](#fact-ws2812b-2020-v6-vih)
+- [`fact-ws2812b-2020-v6-operating-temperature`](#fact-ws2812b-2020-v6-operating-temperature)
 
 ### signal-timing
 
@@ -186,6 +187,20 @@ A never-exceed limit. Reaching it may damage the part; it is not an operating ta
   **Verdict:** PASS - primary-source confirmed · **Provenance:** PRIMARY-SPEC
 
   **Evidence:** [src-ws2812b-2020-v6-ds-p2: Absolute Maximum Ratings table row logical input voltage VI](#src-ws2812b-2020-v6-ds-p2)
+</EvidenceFact>
+
+<EvidenceFact>
+  <EvidenceAnchor id="fact-ws2812b-2020-v6-operating-temperature" />
+
+  **Fact:** `fact-ws2812b-2020-v6-operating-temperature`
+
+  **Value:** -40 to +85 · **Unit:** `degC`
+
+  **Conditions:** Topt working temperature, printed in the Absolute Maximum Ratings table (TA=25C, VSS=0V) of the V1.4 bytes; no storage temperature is in the recorded extract; image-only PDF read visually; manufacturer data only; not a thermal qualification of the assembled module
+
+  **Verdict:** PASS - primary-source confirmed · **Provenance:** PRIMARY-SPEC
+
+  **Evidence:** [src-ws2812b-2020-v6-ds-p2: Absolute Maximum Ratings table row Topt](#src-ws2812b-2020-v6-ds-p2)
 </EvidenceFact>
 
 ### GUARANTEED\_ELECTRICAL

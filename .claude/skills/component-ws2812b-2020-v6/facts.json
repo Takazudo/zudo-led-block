@@ -173,6 +173,20 @@
       "verdict": "PASS - primary-source confirmed",
       "depends_on": [],
       "expression": ""
+    },
+    {
+      "fact_id": "fact-ws2812b-2020-v6-operating-temperature",
+      "record_id": "rec-ws2812b-2020-v6",
+      "source_id": "src-ws2812b-2020-v6-ds-p2",
+      "class": "ABSOLUTE_MAXIMUM",
+      "value": "-40 to +85",
+      "unit": "degC",
+      "conditions": "Topt working temperature, printed in the Absolute Maximum Ratings table (TA=25C, VSS=0V) of the V1.4 bytes; no storage temperature is in the recorded extract; image-only PDF read visually; manufacturer data only; not a thermal qualification of the assembled module",
+      "locator": "src-ws2812b-2020-v6-ds-p2: Absolute Maximum Ratings table row Topt",
+      "provenance": "PRIMARY-SPEC",
+      "verdict": "PASS - primary-source confirmed",
+      "depends_on": [],
+      "expression": ""
     }
   ]
 }

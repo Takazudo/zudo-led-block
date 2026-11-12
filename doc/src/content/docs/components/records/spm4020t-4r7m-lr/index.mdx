@@ -104,6 +104,7 @@ Coverage is stated one domain at a time and is never rolled up. A domain marked 
 **Facts in this domain:**
 
 - [`fact-spm4020t-4r7m-lr-ratings`](#fact-spm4020t-4r7m-lr-ratings)
+- [`fact-spm4020t-4r7m-lr-operating-temperature`](#fact-spm4020t-4r7m-lr-operating-temperature)
 
 **Blocked by:** these facts must be resolved before the domain can close. Each is listed in full under Facts.
 
@@ -144,6 +145,24 @@ Coverage is stated one domain at a time and is never rolled up. A domain marked 
 ## Facts
 
 Each fact keeps its value, its unit, the conditions it holds under, where it came from and how far it has been confirmed as separate fields, because they are separate claims. A value without its conditions is not the same fact, and a verdict is about the evidence for the value, not about the part.
+
+### RECOMMENDED\_OPERATION
+
+The range the manufacturer intends the part to be used in. Always narrower than the absolute maximum.
+
+<EvidenceFact>
+  <EvidenceAnchor id="fact-spm4020t-4r7m-lr-operating-temperature" />
+
+  **Fact:** `fact-spm4020t-4r7m-lr-operating-temperature`
+
+  **Value:** -40 to +125 · **Unit:** `degC`
+
+  **Conditions:** operating temperature range including self-heating (Itemp 2.5 A typ at 40 C rise); manufacturer data only; not a thermal qualification of the assembled module
+
+  **Verdict:** PASS - primary-source confirmed · **Provenance:** PRIMARY-SPEC
+
+  **Evidence:** [src-spm4020t-4r7m-lr-catalog: printed page 1/4 table footnote row operating temperature](#src-spm4020t-4r7m-lr-catalog)
+</EvidenceFact>
 
 ### GUARANTEED\_ELECTRICAL
 
@@ -376,6 +395,7 @@ What the recorded terms on this page mean, in ordinary words. The exact terms ab
 | ----------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
 | `GUARANTEED_ELECTRICAL` | A parameter the manufacturer guarantees over the stated conditions, usually with minimum, typical and maximum values.                                              |
 | `PROJECT_STATE`         | A value this project recorded about how the part is used here — a chosen operating point, a net assignment, or a derived figure. Not a manufacturer specification. |
+| `RECOMMENDED_OPERATION` | The range the manufacturer intends the part to be used in. Always narrower than the absolute maximum.                                                              |
 
 ### Coverage status
 

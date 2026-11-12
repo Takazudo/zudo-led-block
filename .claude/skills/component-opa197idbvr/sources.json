@@ -74,7 +74,7 @@
       "physical_pdf_page_index": 4,
       "printed_page_label": "5",
       "locator": "SBOS737C physical PDF page 5 of 56 (index 4), printed page 5: Section 6.1 Absolute Maximum Ratings table rows supply voltage, signal input pins voltage (common-mode, differential) and current; Section 6.3 Recommended Operating Conditions table row supply voltage",
-      "evidence_extract": "6.1 Abs max: VS=(V+)-(V-) dual +/-20 V, single 40 V; signal input pins common-mode (V-)-0.5 to (V+)+0.5 V; differential (V+)-(V-)+0.2 V; input current +/-10 mA; output short circuit continuous (to ground, one amplifier). 6.3 ROC: VS dual +/-2.25 to +/-18 V, single 4.5 to 36 V; TA -40 to 125 degC. Hash comparison: A5 recorded sha256 27653a7d5e965cbb2d23f7998919ebd774efd5cd3e126b8f0881469ae91166fd (2026-11-05/06 (engineering/a5/electronics/source_provenance.json), id TI_OPA197) for https://www.ti.com/lit/ds/symlink/opa197.pdf; bytes inspected now (2026-11-08, HTTP 200, Content-Type application/pdf, starts %PDF-): 27653a7d5e965cbb2d23f7998919ebd774efd5cd3e126b8f0881469ae91166fd - identical."
+      "evidence_extract": "6.1 Abs max: VS=(V+)-(V-) dual +/-20 V, single 40 V; signal input pins common-mode (V-)-0.5 to (V+)+0.5 V; differential (V+)-(V-)+0.2 V; input current +/-10 mA; output short circuit continuous (to ground, one amplifier). 6.3 ROC: VS dual +/-2.25 to +/-18 V, single 4.5 to 36 V; TA -40 to 125 degC. Hash comparison: A5 recorded sha256 27653a7d5e965cbb2d23f7998919ebd774efd5cd3e126b8f0881469ae91166fd (2026-11-05/06 (engineering/a5/electronics/source_provenance.json), id TI_OPA197) for https://www.ti.com/lit/ds/symlink/opa197.pdf; bytes inspected now (2026-11-08, HTTP 200, Content-Type application/pdf, starts %PDF-): 27653a7d5e965cbb2d23f7998919ebd774efd5cd3e126b8f0881469ae91166fd - identical. 6.1 Abs max Temperature rows: operating TA -55 to 150 degC; junction TJ 150 degC max; storage Tstg -65 to 150 degC. 6.3 row 'Operating temperature, TA' -40 to 125 degC. Row added 2026-11-11 from bytes re-downloaded by the cloud VM (HTTP 200, application/pdf) whose SHA-256 is identical to this record's; text layer read with pdftotext -layout on that page."
     },
     {
       "source_id": "src-opa197idbvr-ds-p7",
@@ -111,6 +111,24 @@
       "printed_page_label": "Addendum-Page 1",
       "locator": "SBOS737C physical PDF page 34 of 56 (index 33), printed page Addendum-Page 1: Package Option Addendum orderable table row OPA197IDBVR",
       "evidence_extract": "OPA197IDBVR | Active | Production | SOT-23 (DBV) | 5 | 3000 LARGE T&R | RoHS Yes | NIPDAU | Level-2-260C-1 YEAR | -40 to 125 | marking 12MV. Hash comparison: A5 recorded sha256 27653a7d5e965cbb2d23f7998919ebd774efd5cd3e126b8f0881469ae91166fd (2026-11-05/06 (engineering/a5/electronics/source_provenance.json), id TI_OPA197) for https://www.ti.com/lit/ds/symlink/opa197.pdf; bytes inspected now (2026-11-08, HTTP 200, Content-Type application/pdf, starts %PDF-): 27653a7d5e965cbb2d23f7998919ebd774efd5cd3e126b8f0881469ae91166fd - identical."
+    },
+    {
+      "source_id": "src-opa197idbvr-ds-p8",
+      "record_id": "rec-opa197idbvr",
+      "document_title": "OPAx197 36-V, Precision, Rail-to-Rail Input/Output, Low Offset Voltage, Operational Amplifiers datasheet (OPA197, OPA2197, OPA4197)",
+      "document_number": "SBOS737C",
+      "revision": "Rev. C (JANUARY 2016 - REVISED MARCH 2018)",
+      "document_date": "2018-03",
+      "authoritative_url": "https://www.ti.com/lit/ds/symlink/opa197.pdf",
+      "alternate_authoritative_url": "https://www.ti.com/product/OPA197",
+      "retrieval_date": "2026-11-11",
+      "authority_class": "MANUFACTURER_PRIMARY",
+      "sha256": "27653a7d5e965cbb2d23f7998919ebd774efd5cd3e126b8f0881469ae91166fd",
+      "availability": "AVAILABLE",
+      "physical_pdf_page_index": 7,
+      "printed_page_label": "8",
+      "locator": "SBOS737C physical PDF page 8 of 56 (index 7), printed page 8: Electrical Characteristics: VS = +/-4 V to +/-18 V (continued) table, OUTPUT rows VO voltage output swing from rail and ISC",
+      "evidence_extract": "Electrical Characteristics: VS = +/-4 V to +/-18 V (VS = 8 V to 36 V) (continued), at TA = 25 degC, VCM = VOUT = VS/2, RLOAD = 10 kohm to VS/2 unless noted. OUTPUT: VO voltage output swing from rail, positive rail and negative rail each: no load typ 5 / max 25 mV; RLOAD = 10 kohm typ 95 / max 125 mV; RLOAD = 2 kohm typ 430 / max 500 mV. ISC short-circuit current +/-65 mA typ at VS = +/-18 V. Page header 'SBOS737C - JANUARY 2016 - REVISED MARCH 2018'. Bytes re-downloaded by the cloud VM on 2026-11-11 (HTTP 200, application/pdf): 27653a7d5e965cbb2d23f7998919ebd774efd5cd3e126b8f0881469ae91166fd, identical to the A5-recorded hash; text layer read with pdftotext -layout."
     }
   ]
 }

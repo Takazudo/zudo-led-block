@@ -108,6 +108,7 @@ Coverage is stated one domain at a time and is never rolled up. A domain marked 
 - [`fact-bas70-04-7-f-forward-voltage`](#fact-bas70-04-7-f-forward-voltage)
 - [`fact-bas70-04-7-f-reverse-current`](#fact-bas70-04-7-f-reverse-current)
 - [`fact-bas70-04-7-f-junction-temperature`](#fact-bas70-04-7-f-junction-temperature)
+- [`fact-bas70-04-7-f-storage-temperature`](#fact-bas70-04-7-f-storage-temperature)
 
 ### placement
 
@@ -189,6 +190,20 @@ A never-exceed limit. Reaching it may damage the part; it is not an operating ta
   **Verdict:** PASS - primary-source confirmed · **Provenance:** PRIMARY-SPEC
 
   **Evidence:** [src-bas70-04-7-f-ds-p1: Thermal Characteristics table row TJ](#src-bas70-04-7-f-ds-p1)
+</EvidenceFact>
+
+<EvidenceFact>
+  <EvidenceAnchor id="fact-bas70-04-7-f-storage-temperature" />
+
+  **Fact:** `fact-bas70-04-7-f-storage-temperature`
+
+  **Value:** -65 to +150 · **Unit:** `degC`
+
+  **Conditions:** TSTG storage temperature range
+
+  **Verdict:** PASS - primary-source confirmed · **Provenance:** PRIMARY-SPEC
+
+  **Evidence:** [src-bas70-04-7-f-ds-p1: Thermal Characteristics table row TSTG](#src-bas70-04-7-f-ds-p1)
 </EvidenceFact>
 
 ### GUARANTEED\_ELECTRICAL
