@@ -41,7 +41,7 @@ class LedgerTests(unittest.TestCase):
   self.assertEqual([(b['multiplicity'],b['fitted_per_board']) for b in self.report['boards']],[(1,59),(2,10),(1,2)])
   self.assertEqual(len(self.report['excluded']),5)
   self.assertFalse(self.report['manufacturing_released'])
-  self.assertIsNone(self.report['agreed_order_quantity'])
+  self.assertEqual(self.report['agreed_order_quantity'],2)
   self.assertFalse(any(r['lcsc'] in ('C500090','C908270') for r in self.report['population']))
 
  def test_dated_switch_observation(self):
@@ -52,6 +52,38 @@ class LedgerTests(unittest.TestCase):
   self.assertIsNone(obs['assembly_acceptance'])
   with self.mutate_json(P.SWITCH_SOURCES,lambda d:d['sources'][-1].update(sha256='0'*64)):
    with self.assertRaisesRegex(ValueError,'receipt changed'):P.generate()
+
+ def test_owner_order_quantity_drives_the_order_plan(self):
+  plan=self.report['order_plan']
+  self.assertEqual((plan['modules'],plan['decided_by']),(2,'OWNER'))
+  self.assertEqual(plan['pcba_minimum_boards']['status'],'OWNER_REPORTED')
+  self.assertEqual(plan['sourcing_preference']['status'],'PENDING_OWNER_CONFIRMATION')
+  self.assertEqual([(b['board'],b['boards_needed']) for b in plan['boards']],[('controller',2),('led_leaf',4),('power_adapter',2)])
+  self.assertTrue(plan['attrition'].startswith('NOT_SOURCED'))
+  self.assertEqual(sum(l['pieces_required'] for l in plan['lines']),2*self.report['fitted_pieces_per_module'])
+  switch=next(l for l in plan['lines'] if l['lcsc']=='C221842')
+  self.assertEqual((switch['pieces_required'],switch['supplier_minimum'],switch['pieces_to_buy']),(2,3,3))
+  self.assertEqual(switch['sourcing']['route'],'JLC_PREORDER_OR_GLOBAL_SOURCING')
+  self.assertTrue(all(l['sourcing']['route']=='JLC_STOCK' and l['pieces_to_buy'] is None for l in plan['lines'] if l['lcsc']!='C221842'))
+  self.assertNotIn('order-quantity',[b['id'] for b in self.report['blockers']])
+
+ def test_order_quantity_must_be_the_owners_own_record(self):
+  cases=({'decided_by':'AGENT'},{'owner_words':[]},{'owner_words':['we will make 3 units']},{'owner_messages':[]},
+   {'modules':3,'answer':'3'},{'modules':0,'answer':'0'},{'answer':'3'},{'basis':{'claim':'x','pcba_minimum_boards':2,'status':'SOURCED','check':'x','source':None}})
+  for change in cases:
+   with self.subTest(change):
+    with self.mutate_json(P.OWNER_DECISIONS,lambda d:d['decisions'][0].update(change)):
+     with self.assertRaisesRegex(ValueError,'order-quantity decision'):P.generate()
+  for name,fn in {'reordered':lambda d:d['sourcing_preference']['interpretation']['order'].reverse(),
+                  'reading claimed as the owner':lambda d:d['sourcing_preference']['interpretation'].update(interpreted_by='OWNER'),
+                  'reading marked confirmed':lambda d:d['sourcing_preference']['interpretation'].update(status='CONFIRMED')}.items():
+   with self.subTest(name):
+    with self.mutate_json(P.OWNER_DECISIONS,fn):
+     with self.assertRaisesRegex(ValueError,'sourcing preference'):P.generate()
+
+ def test_changed_switch_listing_is_rejected(self):
+  with self.mutate_json(P.SUPPLY_OBSERVATIONS,lambda d:d['observations'][0]['values'].update(preorder_minimum=5)):
+   with self.assertRaisesRegex(ValueError,'switch listing observation changed'):P.generate()
 
  def test_omitted_inventory_reference(self):
   with self.mutate_json(P.INV,lambda d:d['lines'][0]['placements'].pop(0)):

@@ -3449,8 +3449,8 @@
     },
     {
       "id": "O4",
-      "title": "PCM13SMTR の在庫 0 への対応を決める",
-      "detail": "入荷を待つ、別の販売店から買う、または接点表と適合を別にレビューした代替品を認める（Q10）。",
+      "title": "PCM13SMTR の JLC 在庫切れへの対応を決める",
+      "detail": "JLC で取り寄せる（予約注文、できなければ Global Sourcing）、入荷を待つ、または接点表と適合を別にレビューした代替品を認める（Q10）。予約注文が今できるかは JLC アカウントで確かめる。",
       "unblocks": [
         "assembly:switch-supply"
       ]
@@ -3470,20 +3470,6 @@
       "detail": "使うラックのレール・ねじ規格。",
       "unblocks": [
         "assembly:rack-hardware"
-      ]
-    },
-    {
-      "id": "O2",
-      "title": "発注数量を決める",
-      "detail": "1 / 10 / 100 は比較条件だけ。数量が決まるまで、どの供給観測も「この発注に使える」と判断できない。 材料の供給観測は、決めた数量に対して「入手可能」と言える必要がある。",
-      "unblocks": [
-        "assembly:order-quantity",
-        "material:jack",
-        "material:switch",
-        "material:finished_cables",
-        "material:pmma_petg_hardware",
-        "material:fixture",
-        "material:assembly_service"
       ]
     },
     {
@@ -3551,6 +3537,11 @@
           "consequence": "在庫・価格の観測を最小数量で判断できる。PCM13SMTR は JLC の掲載では最小購入数 3（別の販売店では異なる場合がある）。"
         },
         {
+          "id": "2",
+          "label": "2 台分（オーナー報告の JLC PCBA 最小、未確認）",
+          "consequence": "オーナーの報告では JLC の PCBA は最小 2 枚（JLC の公開条件では未確認）。その場合はコントローラー 2・リーフ 4・電源アダプタ 2 枚。PCM13SMTR は 2 個必要で、予約注文の最小 3 なら 3 個買う。"
+        },
+        {
           "id": "10",
           "label": "10 台分",
           "consequence": "物理評価の前に 10 台分の部品と基板を買う。評価で設計変更が出ると無駄になる。"
@@ -3562,28 +3553,36 @@
         }
       ],
       "recommended": "1",
-      "reason": "A7 は製造リリース前で物理評価がなく、1 / 10 / 100 は比較条件にすぎない。最初は試作数量にして、量産数量は評価の後に決める。",
+      "reason": "（回答前の推奨を履歴として残す）A7 は製造リリース前で物理評価がない。最初は試作数量にして、量産数量は評価の後に決める。オーナーは推奨と違う 2 台を選んだ。JLC の PCBA 最小が 2 枚なら、1 台分は実装を受けてもらえない。",
       "sources": [
         {
           "path": "engineering/a7/procurement/assembly-manifest.json",
           "quote": "\"manufacturing_released\": false"
         },
         {
-          "path": "engineering/a7/procurement/assembly-manifest.json",
-          "quote": "\"quantity_scenarios_only\""
+          "path": "engineering/a7/procurement/owner-decisions.json",
+          "quote": "\"pcba_minimum_boards\": 2"
         }
       ],
-      "rank": 2
+      "rank": 2,
+      "answer": {
+        "option": "2",
+        "by": "OWNER",
+        "record": {
+          "path": "engineering/a7/procurement/owner-decisions.json",
+          "quote": "\"will make 2 units first\""
+        }
+      }
     },
     {
       "gate": "assembly:switch-supply",
       "stage": "PCB_ORDER",
-      "question": "PCM13SMTR（C221842）の在庫 0 にどう対応しますか。",
+      "question": "PCM13SMTR（C221842）の JLC 在庫切れにどう対応しますか。",
       "options": [
         {
-          "id": "buy-elsewhere",
-          "label": "同じ型番を別の販売店で買う",
-          "consequence": "接点表とランドは今の設計のまま使える。実装業者が持ち込み部品を受けるか、手はんだにするかの確認が要る（未確認）。"
+          "id": "jlc-sourcing",
+          "label": "JLC で取り寄せる（予約注文、できなければ Global Sourcing）",
+          "consequence": "JLC の中で完結し、接点表とランドは今の設計のまま。2026-11-12 の掲載は購入可・予約注文の最小 3・予約可能数 0（項目の意味はこちらの解釈）で、今は予約注文できない可能性がある。その場合は Global Sourcing の見積で価格と納期を得る。どちらも納期は未確認。"
         },
         {
           "id": "wait",
@@ -3596,12 +3595,20 @@
           "consequence": "別の接点表・ランド・適合のレビューが必要で、基板の変更と再検証になる。"
         }
       ],
-      "recommended": "buy-elsewhere",
-      "reason": "同じ型番なら接点表・ランド・適合の検証をそのまま使える。代替品は、接点表と適合を別にレビューすることが条件になっている。",
+      "recommended": "jlc-sourcing",
+      "reason": "オーナーは JLC で完結したいと書いている（原文は owner-decisions.json）。同じ型番なら接点表・ランド・適合の検証をそのまま使える。予約注文が今できるかは、オーナーの JLC アカウントで 3 個の注文画面を開いて確かめるのが先で、できなければ Global Sourcing に回す。",
       "sources": [
         {
-          "path": "engineering/a7/procurement/assembly-manifest.json",
-          "quote": "had JLC stock 0 / presale 0 at 2026-11-09"
+          "path": "engineering/a7/procurement/supply-observations.json",
+          "quote": "\"preorder_minimum\": 3"
+        },
+        {
+          "path": "engineering/a7/procurement/supply-observations.json",
+          "quote": "presale 0 may mean a pre-order cannot be placed now"
+        },
+        {
+          "path": "engineering/a7/procurement/owner-decisions.json",
+          "quote": "external purchase from JLC parts lib is acceptable"
         },
         {
           "path": "engineering/a7/procurement/assembly-manifest.json",
@@ -4040,11 +4047,11 @@
       ],
       "items": [
         {
-          "what": "数量を決めた後の、部品ごとの在庫・価格・最小購入数・納期",
-          "value_needed": "決めた数量で各行が入手できるか（日付付き）",
+          "what": "2 台分の、部品ごとの JLC 在庫・価格・最小購入数・納期",
+          "value_needed": "各行が JLC 在庫で 2 台分（必要数は assembly-manifest.json の order_plan.lines）入手できるか（日付付き）。JLC のロス分（attrition）の規則も",
           "url": "https://jlcpcb.com/partdetail/SOFNG-PJ324M/C22355739",
           "fallback_url": null,
-          "access": "発注数量（オーナーの判断）の後。各行の JLC 部品ページを日付付きで保存する（URL は例）"
+          "access": "JLC の部品ページを日付付きで保存する（URL は例）。JLC 在庫になければ予約注文または Global Sourcing、それ以外は例外として記録"
         }
       ]
     },
@@ -4100,11 +4107,11 @@
       ],
       "items": [
         {
-          "what": "PJ-324M（C22355739）の在庫と価格",
-          "value_needed": "決めた数量で入手できるか（日付付き）",
-          "url": "https://www.lcsc.com/product-detail/C22355739.html",
-          "fallback_url": "https://jlcpcb.com/partdetail/SOFNG-PJ324M/C22355739",
-          "access": "JLC の在庫は実装専用で単品発送されないので、端子確認用の単品は LCSC から買う"
+          "what": "PJ-324M（C22355739）の JLC 在庫と価格",
+          "value_needed": "基板用 2 台分（4 個）が JLC 在庫にあるか（日付付き）。PCB 発注前の端子確認用の単品数",
+          "url": "https://jlcpcb.com/partdetail/SOFNG-PJ324M/C22355739",
+          "fallback_url": "https://www.lcsc.com/product-detail/C22355739.html",
+          "access": "基板用は JLC 在庫を優先。PCB 発注前の端子確認用の単品は実装に乗らず手元に届く必要があるため、LCSC での購入を例外として扱う"
         }
       ]
     },
@@ -4115,11 +4122,11 @@
       ],
       "items": [
         {
-          "what": "PCM13SMTR（C221842）の在庫と価格",
-          "value_needed": "決めた数量で入手できるか（日付付き）",
-          "url": "https://www.lcsc.com/product-detail/C221842.html",
-          "fallback_url": null,
-          "access": "在庫 0 への対応（オーナーの判断）に合わせて販売店を選ぶ"
+          "what": "PCM13SMTR（C221842）の JLC 在庫・予約注文の可否",
+          "value_needed": "2 台分（2 個、予約注文なら最小 3 個）が JLC で手に入るか（日付付き）",
+          "url": "https://jlcpcb.com/partdetail/CK-PCM13SMTR/C221842",
+          "fallback_url": "https://www.lcsc.com/product-detail/C221842.html",
+          "access": "JLC 在庫 → 予約注文 → Global Sourcing の順（こちらの解釈、オーナー未確認）。2026-11-12 の観測は supply-observations.json"
         }
       ]
     },
@@ -4181,7 +4188,7 @@
           "value_needed": "受入可否、最小数量、納期、価格",
           "url": null,
           "fallback_url": null,
-          "access": "発注数量の後、製造ファイルで見積もりを取る（発注はしない）"
+          "access": "2 台分（コントローラー 2・リーフ 4・電源アダプタ 2 枚）の製造ファイルで JLC の見積もりを取る（発注はしない）。PCBA 最小 2 枚が JLC の条件どおりかもここで確かめる"
         }
       ]
     }
