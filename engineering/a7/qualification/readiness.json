@@ -43,7 +43,7 @@
       "sha256": "7fc97fae23d03df62997d824e1a59fa6578384fbb6fc79631f5205f35d39d7b7"
     }
   },
-  "plan_sha256": "46598a0d1a017b8501048ff9f800551bc977d5d797c2ab1887a0d61cb5c4634f",
+  "plan_sha256": "45234ce13496a9105438581531c55ac7a5181cffa8e163663fd8f4cac6a1d7d2",
   "procedures": [
     {
       "id": "jack-continuity",
@@ -173,7 +173,7 @@
       "status": "BLOCKED",
       "reasons": [
         "criterion unresolved or review receipt missing",
-        "criterion has PROPOSED or UNRESOLVED acceptance values: minimum",
+        "criterion has PROPOSED or UNRESOLVED acceptance values: buck-in",
         "NOT_MEASURED: no run"
       ]
     },
@@ -249,7 +249,7 @@
     "ldo-reverse: NOT_MEASURED: no run",
     "load-short: NOT_MEASURED: no run",
     "effective-capacitance: criterion unresolved or review receipt missing",
-    "effective-capacitance: criterion has PROPOSED or UNRESOLVED acceptance values: minimum",
+    "effective-capacitance: criterion has PROPOSED or UNRESOLVED acceptance values: buck-in",
     "effective-capacitance: NOT_MEASURED: no run",
     "thermal-optical: criterion unresolved or review receipt missing",
     "thermal-optical: criterion has PROPOSED or UNRESOLVED acceptance values: part-temp-max, materials-appearance",
@@ -518,10 +518,10 @@
     },
     {
       "gate": "criterion:effective-capacitance",
-      "class": "CLOUD_DIGITAL",
+      "class": "OWNER_DECISION",
       "reasons": [
         "effective-capacitance: criterion unresolved or review receipt missing",
-        "effective-capacitance: criterion has PROPOSED or UNRESOLVED acceptance values: minimum"
+        "effective-capacitance: criterion has PROPOSED or UNRESOLVED acceptance values: buck-in"
       ]
     },
     {
@@ -626,8 +626,8 @@
     }
   ],
   "gate_counts": {
-    "CLOUD_DIGITAL": 3,
-    "OWNER_DECISION": 12,
+    "CLOUD_DIGITAL": 2,
+    "OWNER_DECISION": 13,
     "ACCESS_EVIDENCE_HOLD": 14,
     "PHYSICAL_ONLY": 20
   },

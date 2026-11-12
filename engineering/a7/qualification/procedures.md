@@ -969,7 +969,7 @@
 - 関連:  #10
 - 概要: 実装型番/ロットのDCバイアスと温度条件を記録して容量/リップルを測る。
 - 根拠: `engineering/a5/integration/independent_review`
-- 未決: 部品ごとの典型 DC バイアス曲線は記録済み（Samsung 製品ページ、typical data）。必要容量の下限は、レギュレータ・負荷スイッチ資料の入出力容量要件と曲線から回路レビューで決める（クラウドで実施できる）。（区分: クラウドで進められるデジタル作業）
+- 未決: 回路レビュー済み（W14）: U3 の 0.47 µF 下限と U4 の 0.1 µF 下限は見積りで大きな余裕がある。U2 の出力側は見積り 約 26 µF で「22–68 µF で多くの用途に十分」の範囲内（Eq. 10 の過渡条件は負荷ステップと許容オーバーシュートが未定なので未評価）。U2 の入力側（C1、10 µF 0805）は 12 V 付近で典型 約 1.8 µF、許容差と温度を含めると 約 1.4 µF で、推奨表の 10 µF を大きく下回る（表の値が公称か実効かは資料に記載がない。公称なら C1 は表の値どおり）。データシートは実効値の下限を規定しないので、扱いはオーナー判断。（区分: オーナーの判断）
 - 観測: NOT_MEASURED。結果: NOT_RUN。
 - 次: 不足する基準をレビューし、オーナー承認の試作ルート確定後に実物で実施。
 
@@ -991,8 +991,8 @@
 
 手順:
 
-1. 各 MLCC 型番を実際の DC 電圧で測る（単品）。
-2. 回路のリップルを測る（通電試験は POWER の条件に従う）。
+1. 各 MLCC 型番を実際の DC 電圧で測る（単品）。C1 は D1 通過後の実際の +12V_PROT 電圧で測る。
+2. 回路のリップルを測る（通電試験は POWER の条件に従う）。U2 の入力（+12V_PROT）と出力（+5V）のリップルを含める。
 
 記録する raw 証跡（種別ごとに別ファイル）:
 
@@ -1014,7 +1014,45 @@
 | dc-bias-c10u | CL21A106KAYNNNE の典型 DC バイアス特性（保証値ではない） | `"-50.31 % at 5.0 V; -81.6 % at 12.208 V"` | reference | % | SOURCED | `.claude/skills/component-cl21a106kaynnne/facts.json` `fact-cl21a106kaynnne-dc-bias-curve` |
 | dc-bias-c22u | CL31A226KAHNNNE の典型 DC バイアス特性（保証値ではない） | `"-37.96 % at 5.0 V"` | reference | % | SOURCED | `.claude/skills/component-cl31a226kahnnne/facts.json` `fact-cl31a226kahnnne-dc-bias-curve` |
 | dc-bias-c4u7 | CL10A475KO8NNNC の典型 DC バイアス特性（保証値ではない） | `"-30.44 % at 3.3 V; -49.92 % at 5.0 V"` | reference | % | SOURCED | `.claude/skills/component-cl10a475ko8nnnc/facts.json` `fact-cl10a475ko8nnnc-dc-bias-curve` |
-| minimum | 必要容量の下限 | — | — | NONE | UNRESOLVED | 回路レビュー（レギュレータ・負荷スイッチ資料の入出力容量要件と、記録済みの典型 DC バイアス曲線・許容差・温度特性から決める）。入手先（資料）: AP63205 / TLV755P / TPS2552 データシートの入出力容量要件（クラウドで取得できる） |
+| ldo-c-min | U3（TLV75533）の IN（+5V）と OUT（+3V3）それぞれの実効容量の下限 | `0.47` | min | uF | SOURCED | `.claude/skills/component-tlv75533pdbvr/facts.json` `fact-tlv75533pdbvr-min-effective-capacitance` |
+| switch-in-min | U4（TPS2552）IN（+5V）の入力デカップリング容量の下限 | `0.1` | min | uF | SOURCED | `.claude/skills/component-tps2552dbvr-1/facts.json` `fact-tps2552dbvr-1-input-decoupling` |
+| buck-recommended | U2（AP63205）推奨表の C1（入力）と C2（出力） | `"C1 10; C2 2 x 22"` | reference | uF | SOURCED | `.claude/skills/component-ap63205wu-7/facts.json` `fact-ap63205wu-7-recommended-capacitors` |
+| eff-3v3 | +3V3（C6/C7）の実効容量の見積り（典型 DC バイアス × 許容差 −10 % × X5R −15 %、保証値ではない） 100 nF X7R（C8/C9/C17）は保守側として除外。経年変化は含まない。25 °C の典型曲線と無バイアスの温度特性の積で近似。 | `5.0` | reference | uF | CALCULATED | 計算 `2 * Ca * (1 + Ba / 100) * (1 - Ta / 100) * (1 - Da / 100)`（内訳は下） |
+| eff-5v | +5V（C2/C3/C15/C5）の実効容量の見積り（典型 DC バイアス × 許容差 −10 % × X5R −15 %、保証値ではない） 経年変化は含まない。25 °C の典型曲線と無バイアスの温度特性の積で近似。 | `26.48` | reference | uF | CALCULATED | 計算 `2 * Cb * (1 + Bb / 100) * (1 - Tb / 100) * (1 - Db / 100) + Cc * (1 + Bc / 100) * (1 - Tc / 100) * (1 - Dc / 100) + Cd * (1 + Bd / 100) * (1 - Td / 100) * (1 - Dd / 100)`（内訳は下） |
+| eff-12v | +12V_PROT（C1）の実効容量の見積り（12.208 V の典型点 × 許容差 −10 % × X5R −15 %、保証値ではない） 100 nF X7R（C11）は保守側として除外。経年変化は含まない。25 °C の典型曲線と無バイアスの温度特性の積で近似。 | `1.41` | reference | uF | CALCULATED | 計算 `Ce * (1 + Be / 100) * (1 - Te / 100) * (1 - De / 100)`（内訳は下） |
+| eff-vled | VLED（C16）の実効容量の見積り（典型 DC バイアス × 許容差 −10 % × X5R −15 %、保証値ではない） 100 nF X7R（C10）は保守側として除外。経年変化は含まない。25 °C の典型曲線と無バイアスの温度特性の積で近似。 | `3.8` | reference | uF | CALCULATED | 計算 `Cf * (1 + Bf / 100) * (1 - Tf / 100) * (1 - Df / 100)`（内訳は下） |
+| buck-in | U2（AP63205）入力（+12V_PROT）の必要実効容量 | — | — | uF | UNRESOLVED | オーナー判断 criterion:effective-capacitance（データシートは推奨表の 10 µF と「10 µF を超えるセラミックで多くの用途に十分」を示すだけで、実効値の下限を規定しない） |
+
+計算の内訳:
+
+- `eff-3v3`: `2 * Ca * (1 + Ba / 100) * (1 - Ta / 100) * (1 - Da / 100)` = `5.0` uF（小数 2 桁に丸め）
+  - `Ca` = 4.7（`4.7`、`.claude/skills/component-cl10a475ko8nnnc/facts.json` `fact-cl10a475ko8nnnc-capacitance`）
+  - `Ba` = -30.44（`-30.44`、`.claude/skills/component-cl10a475ko8nnnc/facts.json` `fact-cl10a475ko8nnnc-dc-bias-curve`、「-30.44 % at 3.3 V」）
+  - `Ta` = 10.0（`10`、`.claude/skills/component-cl10a475ko8nnnc/facts.json` `fact-cl10a475ko8nnnc-tolerance`）
+  - `Da` = 15.0（`15`、`.claude/skills/component-cl10a475ko8nnnc/facts.json` `fact-cl10a475ko8nnnc-dielectric`）
+- `eff-5v`: `2 * Cb * (1 + Bb / 100) * (1 - Tb / 100) * (1 - Db / 100) + Cc * (1 + Bc / 100) * (1 - Tc / 100) * (1 - Dc / 100) + Cd * (1 + Bd / 100) * (1 - Td / 100) * (1 - Dd / 100)` = `26.48` uF（小数 2 桁に丸め）
+  - `Cb` = 22.0（`22`、`.claude/skills/component-cl31a226kahnnne/facts.json` `fact-cl31a226kahnnne-capacitance`）
+  - `Bb` = -37.96（`-37.96`、`.claude/skills/component-cl31a226kahnnne/facts.json` `fact-cl31a226kahnnne-dc-bias-curve`、「-37.96 % at 5.0 V」）
+  - `Tb` = 10.0（`10`、`.claude/skills/component-cl31a226kahnnne/facts.json` `fact-cl31a226kahnnne-tolerance`）
+  - `Db` = 15.0（`15`、`.claude/skills/component-cl31a226kahnnne/facts.json` `fact-cl31a226kahnnne-dielectric`）
+  - `Cc` = 10.0（`10`、`.claude/skills/component-cl21a106kaynnne/facts.json` `fact-cl21a106kaynnne-capacitance`）
+  - `Bc` = -50.31（`-50.31`、`.claude/skills/component-cl21a106kaynnne/facts.json` `fact-cl21a106kaynnne-dc-bias-curve`、「-50.31 % at 5.0 V」）
+  - `Tc` = 10.0（`10`、`.claude/skills/component-cl21a106kaynnne/facts.json` `fact-cl21a106kaynnne-tolerance`）
+  - `Dc` = 15.0（`15`、`.claude/skills/component-cl21a106kaynnne/facts.json` `fact-cl21a106kaynnne-dielectric`）
+  - `Cd` = 4.7（`4.7`、`.claude/skills/component-cl10a475ko8nnnc/facts.json` `fact-cl10a475ko8nnnc-capacitance`）
+  - `Bd` = -49.92（`-49.92`、`.claude/skills/component-cl10a475ko8nnnc/facts.json` `fact-cl10a475ko8nnnc-dc-bias-curve`、「-49.92 % at 5.0 V」）
+  - `Td` = 10.0（`10`、`.claude/skills/component-cl10a475ko8nnnc/facts.json` `fact-cl10a475ko8nnnc-tolerance`）
+  - `Dd` = 15.0（`15`、`.claude/skills/component-cl10a475ko8nnnc/facts.json` `fact-cl10a475ko8nnnc-dielectric`）
+- `eff-12v`: `Ce * (1 + Be / 100) * (1 - Te / 100) * (1 - De / 100)` = `1.41` uF（小数 2 桁に丸め）
+  - `Ce` = 10.0（`10`、`.claude/skills/component-cl21a106kaynnne/facts.json` `fact-cl21a106kaynnne-capacitance`）
+  - `Be` = -81.6（`-81.6`、`.claude/skills/component-cl21a106kaynnne/facts.json` `fact-cl21a106kaynnne-dc-bias-curve`、「-81.6 % at 12.208 V」）
+  - `Te` = 10.0（`10`、`.claude/skills/component-cl21a106kaynnne/facts.json` `fact-cl21a106kaynnne-tolerance`）
+  - `De` = 15.0（`15`、`.claude/skills/component-cl21a106kaynnne/facts.json` `fact-cl21a106kaynnne-dielectric`）
+- `eff-vled`: `Cf * (1 + Bf / 100) * (1 - Tf / 100) * (1 - Df / 100)` = `3.8` uF（小数 2 桁に丸め）
+  - `Cf` = 10.0（`10`、`.claude/skills/component-cl21a106kaynnne/facts.json` `fact-cl21a106kaynnne-capacitance`）
+  - `Bf` = -50.31（`-50.31`、`.claude/skills/component-cl21a106kaynnne/facts.json` `fact-cl21a106kaynnne-dc-bias-curve`、「-50.31 % at 5.0 V」）
+  - `Tf` = 10.0（`10`、`.claude/skills/component-cl21a106kaynnne/facts.json` `fact-cl21a106kaynnne-tolerance`）
+  - `Df` = 15.0（`15`、`.claude/skills/component-cl21a106kaynnne/facts.json` `fact-cl21a106kaynnne-dielectric`）
 
 ### thermal-optical — 温度・光学・Kumiko照明
 
@@ -1192,8 +1230,8 @@
 
 | 区分 | ゲート数 |
 |---|---:|
-| CLOUD_DIGITAL（クラウドで進められるデジタル作業） | 3 |
-| OWNER_DECISION（オーナーの判断） | 12 |
+| CLOUD_DIGITAL（クラウドで進められるデジタル作業） | 2 |
+| OWNER_DECISION（オーナーの判断） | 13 |
 | ACCESS_EVIDENCE_HOLD（外部の証跡・アクセス待ち） | 14 |
 | PHYSICAL_ONLY（実機が必要） | 20 |
 
@@ -1244,7 +1282,7 @@
 - ldo-reverse: NOT_MEASURED: no run
 - load-short: NOT_MEASURED: no run
 - effective-capacitance: criterion unresolved or review receipt missing
-- effective-capacitance: criterion has PROPOSED or UNRESOLVED acceptance values: minimum
+- effective-capacitance: criterion has PROPOSED or UNRESOLVED acceptance values: buck-in
 - effective-capacitance: NOT_MEASURED: no run
 - thermal-optical: criterion unresolved or review receipt missing
 - thermal-optical: criterion has PROPOSED or UNRESOLVED acceptance values: part-temp-max, materials-appearance

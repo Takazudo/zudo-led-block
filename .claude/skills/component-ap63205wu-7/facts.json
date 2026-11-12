@@ -215,6 +215,20 @@
       "verdict": "PASS - primary-source confirmed",
       "depends_on": [],
       "expression": ""
+    },
+    {
+      "fact_id": "fact-ap63205wu-7-recommended-capacitors",
+      "record_id": "rec-ap63205wu-7",
+      "source_id": "src-ap63205wu-7-ds-p12",
+      "class": "RECOMMENDED_OPERATION",
+      "value": "C1 10; C2 2 x 22",
+      "unit": "uF",
+      "conditions": "Table 3 component values for the fixed 5 V AP63205 (C1 input, C2 output); the datasheet does not say whether these are nominal or effective values and states no minimum effective capacitance; Section 11 says a ceramic input capacitor greater than 10 µF is sufficient for most applications, and Section 12 (src-ap63205wu-7-ds-p13) says 22 µF to 68 µF output is sufficient for most applications, with Eq. 10 giving a load-transient lower bound that needs a load step and an allowed overshoot chosen by the project",
+      "locator": "src-ap63205wu-7-ds-p12: Table 3 Recommended Component Selections for AP63205 row 5 V",
+      "provenance": "PRIMARY-SPEC",
+      "verdict": "PASS - primary-source confirmed",
+      "depends_on": [],
+      "expression": ""
     }
   ]
 }

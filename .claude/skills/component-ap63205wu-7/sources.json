@@ -129,6 +129,42 @@
       "printed_page_label": "16 of 18",
       "locator": "Page 16: Ordering Information table, row AP63205WU-7",
       "evidence_extract": "Ordering Information: part-number key 5: AP63205, WU: TSOT26, 7: Tape & Reel. Row \"AP63205WU-7 | TSOT26 | PWM/PFM | 1100kHz | 5V | WU | 3000 | 7in Tape & Reel\". A5 recorded no sha256 for this URL (engineering/a5/electronics/source_provenance.json id AP63205 lists the URL and retrieval refs only, observed 2026-11-05/06); bytes inspected now (2026-11-08): ef99daa3789d835bc025dfcb4c605c5c2e6d3e7223e86d40b33e6b497ea5a722, 18 pages, Content-Type application/pdf, Last-Modified Fri, 15 Nov 2024; identity with A5's bytes cannot be established, the hash is not comparable."
+    },
+    {
+      "source_id": "src-ap63205wu-7-ds-p12",
+      "record_id": "rec-ap63205wu-7",
+      "document_title": "AP63200/AP63201/AP63203/AP63205 3.8V to 32V input, 2A low IQ synchronous buck with enhanced EMI reduction",
+      "document_number": "DS41326",
+      "revision": "Rev. 3 - 2",
+      "document_date": "2024-11",
+      "authoritative_url": "https://www.diodes.com/assets/Datasheets/AP63200-AP63201-AP63203-AP63205.pdf",
+      "alternate_authoritative_url": "",
+      "retrieval_date": "2026-11-08",
+      "authority_class": "MANUFACTURER_PRIMARY",
+      "sha256": "ef99daa3789d835bc025dfcb4c605c5c2e6d3e7223e86d40b33e6b497ea5a722",
+      "availability": "AVAILABLE",
+      "physical_pdf_page_index": 12,
+      "printed_page_label": "13 of 18",
+      "locator": "Page 13: Table 3 Recommended Component Selections for AP63205 (row 5 V) and Section 11 Input Capacitor",
+      "evidence_extract": "Table 3 Recommended Component Selections for AP63205 (referencing Figure 21): output 5 V, L 4.7 µH, C1 10 µF, C2 2 x 22 µF, C3 100 nF. Section 11 Input Capacitor: the RMS current rating must be higher than the RMS input current (rule of thumb greater than half the maximum load current); electrolytic or low-ESR ceramics; 'Using a ceramic capacitor greater than 10µF is sufficient for most applications.' No minimum effective input capacitance is stated. Text layer read with pdftotext -layout from the ef99daa3... bytes recorded on 2026-11-08."
+    },
+    {
+      "source_id": "src-ap63205wu-7-ds-p13",
+      "record_id": "rec-ap63205wu-7",
+      "document_title": "AP63200/AP63201/AP63203/AP63205 3.8V to 32V input, 2A low IQ synchronous buck with enhanced EMI reduction",
+      "document_number": "DS41326",
+      "revision": "Rev. 3 - 2",
+      "document_date": "2024-11",
+      "authoritative_url": "https://www.diodes.com/assets/Datasheets/AP63200-AP63201-AP63203-AP63205.pdf",
+      "alternate_authoritative_url": "",
+      "retrieval_date": "2026-11-08",
+      "authority_class": "MANUFACTURER_PRIMARY",
+      "sha256": "ef99daa3789d835bc025dfcb4c605c5c2e6d3e7223e86d40b33e6b497ea5a722",
+      "availability": "AVAILABLE",
+      "physical_pdf_page_index": 13,
+      "printed_page_label": "14 of 18",
+      "locator": "Page 14: Section 12 Output Capacitor, Eq. 9 and Eq. 10",
+      "evidence_extract": "Section 12 Output Capacitor: the output capacitor keeps ripple small, ensures feedback loop stability and limits load-transient overshoot/undershoot; Eq. 9 ripple = delta IL x ESR; 'For most applications, a 22µF to 68µF ceramic capacitor is sufficient.' Eq. 10: to meet the load-transient requirement COUT > L x (IOUT + delta IL/2)^2 / ((delta V + VOUT)^2 - VOUT^2), where delta V is the maximum output overshoot voltage. No minimum effective output capacitance is stated. Text layer read with pdftotext -layout from the ef99daa3... bytes recorded on 2026-11-08."
     }
   ]
 }

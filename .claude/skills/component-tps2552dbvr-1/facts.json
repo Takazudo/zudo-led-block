@@ -229,6 +229,20 @@
       "verdict": "PASS - primary-source confirmed",
       "depends_on": [],
       "expression": ""
+    },
+    {
+      "fact_id": "fact-tps2552dbvr-1-input-decoupling",
+      "record_id": "rec-tps2552dbvr-1",
+      "source_id": "src-tps2552dbvr-1-ds-p5-roc",
+      "class": "RECOMMENDED_OPERATION",
+      "value": 0.1,
+      "unit": "uF",
+      "conditions": "minimum input de-coupling capacitance from IN to GND (Recommended Operating Conditions); the datasheet states no minimum output capacitance",
+      "locator": "src-tps2552dbvr-1-ds-p5-roc: Section 6.3 Recommended Operating Conditions row Input de-coupling capacitance, IN to GND",
+      "provenance": "PRIMARY-SPEC",
+      "verdict": "PASS - primary-source confirmed",
+      "depends_on": [],
+      "expression": ""
     }
   ]
 }
