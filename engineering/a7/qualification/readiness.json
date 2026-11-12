@@ -8,15 +8,15 @@
   "identities": {
     "board": {
       "path": "engineering/a7/electronics/controller/controller.kicad_pcb",
-      "sha256": "4453f818ede1e6d6c56e45ef43aa6faecb90990f3755f82c6d752258cd4d628e"
+      "sha256": "89310d539b3c28096775cee821e46c14fdba42a87809c82f1fd7f0751704e727"
     },
     "population": {
       "path": "engineering/a7/electronics/controller/board_placement.json",
-      "sha256": "1891af356ead303127c6b7a99b8934b08aa25f465b4b2c96872f5d5d24afdc01"
+      "sha256": "5ba26c3c25b4d31a36d324f47db21b24afa3cad67b6f0f2b4fcf9580024448e0"
     },
     "schematic": {
       "path": "engineering/a7/electronics/controller/controller.kicad_sch",
-      "sha256": "01c09e69f2623bdbb98ae6176b4b52204ae817f927ecb311242d7ac1295fbc72"
+      "sha256": "b027715b278a17d9af9c5791f107cbaf07ee218647601622164d33b344015e1d"
     },
     "firmware": {
       "path": "engineering/a5/firmware/dist/light_block_A5.bin",
@@ -32,18 +32,18 @@
     },
     "mechanical": {
       "path": "engineering/a7/mechanical/layout.json",
-      "sha256": "9cbc6ac99f5b05c7e3145f2016b6918cbc5d2b77170db31ed7155755cba0d591"
+      "sha256": "89f548a52d8ce907fb351519bfdcabc411e3389d1261056e1319582b03a4437a"
     },
     "fixture": {
       "path": "engineering/a7/fixture/manifest.json",
-      "sha256": "4af6e9440d9b31dd05f5f5e55a1f30485274a526e4066925b8ee929e7a642e23"
+      "sha256": "471978cfdb4a0b5d096e72f32780025880eec91d076a29e87351cdbde8ba0be1"
     },
     "assembly_manifest": {
       "path": "engineering/a7/procurement/assembly-manifest.json",
-      "sha256": "a3f8912d058453184950626077bbcd4cabbf5bdee4852c692d0c2fbabcb12a3d"
+      "sha256": "3f418594564fca0f747c03b9d72e935b4f3f9b34c85108ca209509f64f6090fa"
     }
   },
-  "plan_sha256": "d9308dd691ae09b4eed5967e3411ca18854161205ca40fbf4209cc7fe90ffb27",
+  "plan_sha256": "ee7ea3ef625a9eaeac97234549d320c2042b8a6026362c3d532d9457d113594c",
   "procedures": [
     {
       "id": "jack-continuity",
@@ -195,9 +195,8 @@
   ],
   "blockers": [
     "fixture completion awaits the physical criterion 5 (fixture-contact)",
-    "assembly_manifest: supply-observations: Order quantity is 2 modules (owner decision). JLC stock, price, minimum, packaging, lead time and assembly applicability at that quantity are not observed for any line except C221842 (switch-supply); JLC attrition is not sourced; stock never reserved.",
-    "assembly_manifest: switch-supply: PCM13SMTR (C221842): 2 needed for 2 modules. JLC stock 0 at 2026-11-09; at 2026-11-12 JLC lists it buyable (Extended) with pre-order minimum 3 and presale 0 (field meanings inferred), tier prices without currency, no lead time. The owner wants to complete on JLC: on our reading, a pre-order (presale 0 may mean none can be placed now; fill depends on LCSC stock, not observed) or a Global Sourcing quote; otherwise wait, or accept a reviewed alternate with its own contact table and fit review. At 2026-11-12T18:55Z the owner relayed a live check by their browsing assistant (not a first-hand capture): JLC stock 0, Extended, pre-order offered at minimum 3 with an estimated 31 days; Global Sourcing for 3 via DigiKey JPY 826 total (8-15 business days) or Element JPY 865 (8-18); parts stay in the JLC parts library. The owner accepted JLC sourcing with all recommendations, then asked to consider another switch because of the price, so this stays open until the owner picks.",
-    "assembly_manifest: jack-switch-qualification: PJ-324M pin function (which of terminals 4/5 is the tip contact; the supplier symbol contradicts the inferred 4 = tip) is not confirmed: the owner waived the pre-order continuity test on 2026-11-12 and accepted the risk, so it is a first-article check on the assembled boards. Slot, axis height and nut fit, and PCM13SMTR truth table and land fit, also need received parts (jack-continuity, jack-dimensions, switch-fit).",
+    "assembly_manifest: supply-observations: Order quantity is 2 modules (owner decision). JLC stock, price, minimum, packaging, lead time and assembly applicability at that quantity are not observed for any line except the C5149819 switch (stock 4561 at 2026-11-12); JLC attrition is not sourced; stock never reserved.",
+    "assembly_manifest: jack-switch-qualification: PJ-324M pin function (which of terminals 4/5 is the tip contact; the supplier symbol contradicts the inferred 4 = tip) is not confirmed: the owner waived the pre-order continuity test on 2026-11-12 and accepted the risk, so it is a first-article check on the assembled boards. Slot, axis height and nut fit, and the HX MSK13C02 truth table and land/peg fit, also need received parts (jack-continuity, jack-dimensions, switch-fit).",
     "assembly_manifest: exact-part-evidence: Exact-part gaps after the 2026-11-11 source recovery (the PMEG4010CEJ ,115 packing is since sourced: SOD323F on a 7-inch reel, fact-pmeg4010cej-115-orderable): SM04B-SRSS-TB per-circuit numbering not printed beyond the No. 1 end; PJ-324M recommended hole/slot sizes, axis height and whether a nut ships with C22355739 not sourced.",
     "assembly_manifest: mechanical-materials: PMMA sheet and pocket tolerances, PETG process and orderable fastener part numbers are not sourced; the model carries designations (M2x18, M1.6x4) and envelopes only.",
     "assembly_manifest: rack-hardware: The owner accepted naming the case (2026-11-12, accept all recommendations); the case model, and so the rail/thread interface and fasteners, is not given yet.",
@@ -242,6 +241,7 @@
     "material jack: missing or ambiguous dated observation",
     "material pmma_petg_hardware: missing or ambiguous dated observation",
     "material switch: missing or ambiguous dated observation",
+    "owner-approved sample/prototype route absent for this revision and quantity",
     "reviewed manufacturing files and explicit revision-bound owner release absent"
   ],
   "gates": [
@@ -256,21 +256,14 @@
       "gate": "assembly:supply-observations",
       "class": "ACCESS_EVIDENCE_HOLD",
       "reasons": [
-        "assembly_manifest: supply-observations: Order quantity is 2 modules (owner decision). JLC stock, price, minimum, packaging, lead time and assembly applicability at that quantity are not observed for any line except C221842 (switch-supply); JLC attrition is not sourced; stock never reserved."
-      ]
-    },
-    {
-      "gate": "assembly:switch-supply",
-      "class": "OWNER_DECISION",
-      "reasons": [
-        "assembly_manifest: switch-supply: PCM13SMTR (C221842): 2 needed for 2 modules. JLC stock 0 at 2026-11-09; at 2026-11-12 JLC lists it buyable (Extended) with pre-order minimum 3 and presale 0 (field meanings inferred), tier prices without currency, no lead time. The owner wants to complete on JLC: on our reading, a pre-order (presale 0 may mean none can be placed now; fill depends on LCSC stock, not observed) or a Global Sourcing quote; otherwise wait, or accept a reviewed alternate with its own contact table and fit review. At 2026-11-12T18:55Z the owner relayed a live check by their browsing assistant (not a first-hand capture): JLC stock 0, Extended, pre-order offered at minimum 3 with an estimated 31 days; Global Sourcing for 3 via DigiKey JPY 826 total (8-15 business days) or Element JPY 865 (8-18); parts stay in the JLC parts library. The owner accepted JLC sourcing with all recommendations, then asked to consider another switch because of the price, so this stays open until the owner picks."
+        "assembly_manifest: supply-observations: Order quantity is 2 modules (owner decision). JLC stock, price, minimum, packaging, lead time and assembly applicability at that quantity are not observed for any line except the C5149819 switch (stock 4561 at 2026-11-12); JLC attrition is not sourced; stock never reserved."
       ]
     },
     {
       "gate": "assembly:jack-switch-qualification",
       "class": "PHYSICAL_ONLY",
       "reasons": [
-        "assembly_manifest: jack-switch-qualification: PJ-324M pin function (which of terminals 4/5 is the tip contact; the supplier symbol contradicts the inferred 4 = tip) is not confirmed: the owner waived the pre-order continuity test on 2026-11-12 and accepted the risk, so it is a first-article check on the assembled boards. Slot, axis height and nut fit, and PCM13SMTR truth table and land fit, also need received parts (jack-continuity, jack-dimensions, switch-fit)."
+        "assembly_manifest: jack-switch-qualification: PJ-324M pin function (which of terminals 4/5 is the tip contact; the supplier symbol contradicts the inferred 4 = tip) is not confirmed: the owner waived the pre-order continuity test on 2026-11-12 and accepted the risk, so it is a first-article check on the assembled boards. Slot, axis height and nut fit, and the HX MSK13C02 truth table and land/peg fit, also need received parts (jack-continuity, jack-dimensions, switch-fit)."
       ]
     },
     {
@@ -537,6 +530,13 @@
       "class": "ACCESS_EVIDENCE_HOLD",
       "reasons": [
         "material switch: missing or ambiguous dated observation"
+      ]
+    },
+    {
+      "gate": "owner_prototype_route",
+      "class": "OWNER_DECISION",
+      "reasons": [
+        "owner-approved sample/prototype route absent for this revision and quantity"
       ]
     },
     {

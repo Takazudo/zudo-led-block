@@ -45,12 +45,14 @@ class LedgerTests(unittest.TestCase):
   self.assertFalse(any(r['lcsc'] in ('C500090','C908270') for r in self.report['population']))
 
  def test_dated_switch_observation(self):
-  row=next(r for r in self.report['population'] if r['lcsc']=='C221842')
+  row=next(r for r in self.report['population'] if r['lcsc']=='C5149819')
   obs=row['commercial_observation']
-  self.assertEqual((obs['stock_count'],obs['minimum_purchase_quantity'],obs['packaging_quantity']),(0,3,3500))
-  self.assertIsNone(obs['price'])
+  self.assertEqual((obs['stock_count'],obs['minimum_purchase_quantity'],obs['packaging_quantity']),(4561,1,3000))
+  self.assertIsNone(obs['currency'])
   self.assertIsNone(obs['assembly_acceptance'])
-  with self.mutate_json(P.SWITCH_SOURCES,lambda d:d['sources'][-1].update(sha256='0'*64)):
+  self.assertFalse(obs['reserved'])
+  self.assertIsNone(next(r for r in self.report['population'] if r['lcsc']!='C5149819')['commercial_observation'])
+  with self.mutate_json(P.SWITCH_SOURCES,lambda d:next(s for s in d['sources'] if s['source_id'].endswith('jlc-api-2026-11-12')).update(sha256='0'*64)):
    with self.assertRaisesRegex(ValueError,'receipt changed'):P.generate()
 
  def test_owner_order_quantity_drives_the_order_plan(self):
@@ -61,10 +63,11 @@ class LedgerTests(unittest.TestCase):
   self.assertEqual([(b['board'],b['boards_needed']) for b in plan['boards']],[('controller',2),('led_leaf',4),('power_adapter',2)])
   self.assertTrue(plan['attrition'].startswith('NOT_SOURCED'))
   self.assertEqual(sum(l['pieces_required'] for l in plan['lines']),2*self.report['fitted_pieces_per_module'])
-  switch=next(l for l in plan['lines'] if l['lcsc']=='C221842')
-  self.assertEqual((switch['pieces_required'],switch['supplier_minimum'],switch['pieces_to_buy']),(2,3,3))
-  self.assertEqual(switch['sourcing']['route'],'JLC_PREORDER_OR_GLOBAL_SOURCING')
-  self.assertTrue(all(l['sourcing']['route']=='JLC_STOCK' and l['pieces_to_buy'] is None for l in plan['lines'] if l['lcsc']!='C221842'))
+  self.assertNotIn('C221842',[l['lcsc'] for l in plan['lines']])
+  switch=next(l for l in plan['lines'] if l['lcsc']=='C5149819')
+  self.assertEqual((switch['pieces_required'],switch['supplier_minimum'],switch['pieces_to_buy']),(2,1,2))
+  self.assertEqual(switch['sourcing']['route'],'JLC_STOCK')
+  self.assertTrue(all(l['sourcing']['route']=='JLC_STOCK' and l['pieces_to_buy'] is None for l in plan['lines'] if l['lcsc']!='C5149819'))
   self.assertNotIn('order-quantity',[b['id'] for b in self.report['blockers']])
 
  def test_order_quantity_must_be_the_owners_own_record(self):
@@ -82,7 +85,7 @@ class LedgerTests(unittest.TestCase):
      with self.assertRaisesRegex(ValueError,'sourcing preference'):P.generate()
 
  def test_changed_switch_listing_is_rejected(self):
-  with self.mutate_json(P.SUPPLY_OBSERVATIONS,lambda d:d['observations'][0]['values'].update(preorder_minimum=5)):
+  with self.mutate_json(P.SUPPLY_OBSERVATIONS,lambda d:next(o for o in d['observations'] if o['lcsc']=='C5149819')['values'].update(jlc_stock=5)):
    with self.assertRaisesRegex(ValueError,'switch listing observation changed'):P.generate()
 
  def test_omitted_inventory_reference(self):
@@ -188,8 +191,10 @@ class LedgerTests(unittest.TestCase):
   ids={b['id'] for b in self.report['blockers']}
   self.assertNotIn('panel-route',ids)
   self.assertNotIn('finished-cables',ids)
-  # The owner reopened the switch supply after the live check, so it stays an owner decision.
-  self.assertIn('switch-supply',ids)
+  # The owner directed a working, low-price, in-stock switch, which retires the switch supply decision.
+  self.assertNotIn('switch-supply',ids)
+  with self.mutate_json(P.OWNER_DECISIONS,lambda d:next(x for x in d['decisions'] if x['id']=='switch-supply').update(answer='wait')):
+   with self.assertRaisesRegex(ValueError,'answer outside'):P.generate()
   jack=next(b for b in self.report['blockers'] if b['id']=='jack-switch-qualification')
   self.assertIn('waived the pre-order continuity test',jack['text'])
   self.assertIn('first-article',jack['text'])

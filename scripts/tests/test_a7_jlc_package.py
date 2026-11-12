@@ -52,9 +52,11 @@ class PackageTests(unittest.TestCase):
         self.assertEqual(self.board('controller')['pcba_tier']['tier'], 'STANDARD')
         self.assertEqual(self.board('led_leaf')['pcba_tier']['tier'], 'STANDARD')
         self.assertEqual(self.board('power_adapter')['pcba_tier']['tier'], 'ECONOMIC')
-        for blocker in ('controller-repo-panel-acceptance', 'led_leaf-repo-panel-acceptance', 'power_adapter-repo-panel-acceptance', 'part-C221842-not-in-stock',
+        for blocker in ('controller-repo-panel-acceptance', 'led_leaf-repo-panel-acceptance', 'power_adapter-repo-panel-acceptance',
                         'pcba-quantity-unit-with-panel-not-sourced'):
             self.assertIn(blocker, self.ids())
+        # SW1 is now the in-stock HX MSK13C02, so no part is short at the order quantity
+        self.assertFalse([i for i in self.ids() if i.startswith('part-')])
         # 0.6 mm is a JLC FR-4 option, so the leaf thickness is a note, not a blocker
         self.assertFalse(any('thickness' in i for i in self.ids()))
         self.assertIn('C52917434', ' '.join(self.board('led_leaf')['pcba_tier']['reasons']))
@@ -88,7 +90,7 @@ class PackageTests(unittest.TestCase):
         c = self.report['panel_comparison']
         self.assertEqual({n: (v['needed'], v['jlc_panel'], v['repo_panel'], v['recommended']) for n, v in c['boards'].items()},
                          {'controller': (2, 20, 2, 'REPO_PANEL'), 'led_leaf': (4, 16, 4, 'REPO_PANEL'), 'power_adapter': (2, 4, 2, 'REPO_PANEL')})
-        sw = next(x for x in c['parts'] if x['lcsc'] == 'C221842')
+        sw = next(x for x in c['parts'] if x['lcsc'] == 'C5149819')
         self.assertEqual((sw['needed'], sw['jlc_panel'], sw['repo_panel']), (2, 20, 2))
         # the repo panel never asks for more parts than the 2 units need
         self.assertTrue(all(x['repo_panel'] == x['needed'] for x in c['parts']))
@@ -104,8 +106,13 @@ class PackageTests(unittest.TestCase):
         self.assertIn('carrier', ' '.join(self.board('led_leaf')['repo_panel']['notes']))
 
     def test_part_routes_follow_stock(self):
-        sw = next(l for l in self.report['parts'] if l['lcsc'] == 'C221842')
-        self.assertNotEqual(sw['route'], 'JLC_STOCK')
+        self.assertNotIn('C221842', [l['lcsc'] for l in self.report['parts']])
+        sw = next(l for l in self.report['parts'] if l['lcsc'] == 'C5149819')
+        self.assertEqual(sw['route'], 'JLC_STOCK')
+        sources = json.loads((ROOT / J.SOURCES).read_text())
+        next(p for p in sources['parts'] if p['lcsc'] == 'C5149819').update(in_stock=0, preorder_available=0)
+        report, _ = J.generate(sources=sources)
+        self.assertNotEqual(next(l for l in report['parts'] if l['lcsc'] == 'C5149819')['route'], 'JLC_STOCK')
         self.assertEqual(len(self.report['parts']), 30)
 
     def test_stock_shortfall_becomes_a_named_blocker(self):

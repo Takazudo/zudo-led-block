@@ -23,7 +23,7 @@ OUT = ROOT / 'engineering/a7/fixture'
 BOARD = ROOT / 'engineering/a7/electronics/controller/controller.kicad_pcb'
 CANONICAL = BOARD.with_name('board_placement.json')
 BOARD_SHA = '89310d539b3c28096775cee821e46c14fdba42a87809c82f1fd7f0751704e727'
-PLACEMENT_SHA = '1891af356ead303127c6b7a99b8934b08aa25f465b4b2c96872f5d5d24afdc01'
+PLACEMENT_SHA = '5ba26c3c25b4d31a36d324f47db21b24afa3cad67b6f0f2b4fcf9580024448e0'
 ROLES = {'TP1': '+3V3', 'TP2': 'GND', 'TP3': 'SWDIO', 'TP4': 'SWCLK', 'TP5': 'NRST'}
 
 

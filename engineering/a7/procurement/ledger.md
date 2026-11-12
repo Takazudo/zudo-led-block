@@ -1,8 +1,8 @@
 # A7 調達・組立の準備台帳
 
-自動生成。**製造承認・発注用ファイルではありません。** C221842 は 2026-11-09T09:18:55Z の JLC 観測で在庫 0・予約可能数 0・MOQ 3・包装数 3500。2026-11-12T08:57:07Z の JLC 掲載では購入可（Extended）・予約注文の最小 3・予約可能数 0（項目の意味はこちらの解釈）で、JLC 在庫の数値は掲載データにありませんでした。価格は通貨不明の段階価格だけです。確保済み在庫ではなく、納期・実装受入は未取得です。他の部品の現在の商取引条件も未取得で、過去の A5 価格を現在値として再掲しません。
+自動生成。**製造承認・発注用ファイルではありません。** SW1 はオーナーの方針（動けばよい・安く・JLC 在庫あり）により 2026-11-12 に PCM13SMTR（C221842、JLC 在庫 0）から HX MSK13C02（C5149819）へ変更しました。C5149819 は 2026-11-12T19:35:14Z の JLC 観測で在庫 4561（Extended）・最小購入 1・包装数 3000、1〜49 個の段階価格 0.1069（通貨の項目なし）です（項目の意味はこちらの解釈）。確保済み在庫ではなく、納期・実装受入は未取得です。他の部品の現在の商取引条件も未取得で、過去の A5 価格を現在値として再掲しません。
 
-台帳 SHA-256: `a3f8912d058453184950626077bbcd4cabbf5bdee4852c692d0c2fbabcb12a3d`。71 配置 / 81 実装点 / 台。
+台帳 SHA-256: `3f418594564fca0f747c03b9d72e935b4f3f9b34c85108ca209509f64f6090fa`。71 配置 / 81 実装点 / 台。
 
 ## 最初の発注数量: 2 台（オーナーの判断）
 
@@ -14,13 +14,13 @@
 
 | LCSC | 型番 | 必要数 | 最小購入 | 購入数 | 経路 |
 |---|---|---:|---:|---:|---|
-| C221842 | PCM13SMTR | 2 | 3 | 3 | JLC_PREORDER_OR_GLOBAL_SOURCING |
+| C5149819 | HX MSK13C02 | 2 | 1 | 2 | JLC_STOCK |
 
 ほかの 29 型番は JLC 在庫を第一候補とし、在庫と最小購入数は未観測です（行ごとの必要数は `assembly-manifest.json` の `order_plan.lines`）。
 
 | 基板 | 枚数/台 | 実装点/枚 | SMD F/B | THT F/B | PCB SHA-256 |
 |---|---:|---:|---|---|---|
-| controller | 1 | 59 | 31/25 | 3/0 | `4453f818ede1e6d6c56e45ef43aa6faecb90990f3755f82c6d752258cd4d628e` |
+| controller | 1 | 59 | 31/25 | 3/0 | `89310d539b3c28096775cee821e46c14fdba42a87809c82f1fd7f0751704e727` |
 | led_leaf | 2 | 10 | 10/0 | 0/0 | `6244280cec3efe00ca31d9c5c8878f3ed6eb59a1c6bd4e933beffedd49511df3` |
 | power_adapter | 1 | 2 | 0/0 | 2/0 | `b0f071f2730afdfd3d29de2176b1cce5f90b0c0726d14fd15501e27f90d95187` |
 
@@ -30,9 +30,8 @@
 
 | ID | 区分 | 内容 |
 |---|---|---|
-| supply-observations | ACCESS_EVIDENCE_HOLD | Order quantity is 2 modules (owner decision). JLC stock, price, minimum, packaging, lead time and assembly applicability at that quantity are not observed for any line except C221842 (switch-supply); JLC attrition is not sourced; stock never reserved. |
-| switch-supply | OWNER_DECISION | PCM13SMTR (C221842): 2 needed for 2 modules. JLC stock 0 at 2026-11-09; at 2026-11-12 JLC lists it buyable (Extended) with pre-order minimum 3 and presale 0 (field meanings inferred), tier prices without currency, no lead time. The owner wants to complete on JLC: on our reading, a pre-order (presale 0 may mean none can be placed now; fill depends on LCSC stock, not observed) or a Global Sourcing quote; otherwise wait, or accept a reviewed alternate with its own contact table and fit review. At 2026-11-12T18:55Z the owner relayed a live check by their browsing assistant (not a first-hand capture): JLC stock 0, Extended, pre-order offered at minimum 3 with an estimated 31 days; Global Sourcing for 3 via DigiKey JPY 826 total (8-15 business days) or Element JPY 865 (8-18); parts stay in the JLC parts library. The owner accepted JLC sourcing with all recommendations, then asked to consider another switch because of the price, so this stays open until the owner picks. |
-| jack-switch-qualification | PHYSICAL_ONLY | PJ-324M pin function (which of terminals 4/5 is the tip contact; the supplier symbol contradicts the inferred 4 = tip) is not confirmed: the owner waived the pre-order continuity test on 2026-11-12 and accepted the risk, so it is a first-article check on the assembled boards. Slot, axis height and nut fit, and PCM13SMTR truth table and land fit, also need received parts (jack-continuity, jack-dimensions, switch-fit). |
+| supply-observations | ACCESS_EVIDENCE_HOLD | Order quantity is 2 modules (owner decision). JLC stock, price, minimum, packaging, lead time and assembly applicability at that quantity are not observed for any line except the C5149819 switch (stock 4561 at 2026-11-12); JLC attrition is not sourced; stock never reserved. |
+| jack-switch-qualification | PHYSICAL_ONLY | PJ-324M pin function (which of terminals 4/5 is the tip contact; the supplier symbol contradicts the inferred 4 = tip) is not confirmed: the owner waived the pre-order continuity test on 2026-11-12 and accepted the risk, so it is a first-article check on the assembled boards. Slot, axis height and nut fit, and the HX MSK13C02 truth table and land/peg fit, also need received parts (jack-continuity, jack-dimensions, switch-fit). |
 | exact-part-evidence | ACCESS_EVIDENCE_HOLD | Exact-part gaps after the 2026-11-11 source recovery (the PMEG4010CEJ ,115 packing is since sourced: SOD323F on a 7-inch reel, fact-pmeg4010cej-115-orderable): SM04B-SRSS-TB per-circuit numbering not printed beyond the No. 1 end; PJ-324M recommended hole/slot sizes, axis height and whether a nut ships with C22355739 not sourced. |
 | mechanical-materials | ACCESS_EVIDENCE_HOLD | PMMA sheet and pocket tolerances, PETG process and orderable fastener part numbers are not sourced; the model carries designations (M2x18, M1.6x4) and envelopes only. |
 | rack-hardware | OWNER_DECISION | The owner accepted naming the case (2026-11-12, accept all recommendations); the case model, and so the rail/thread interface and fasteners, is not given yet. |

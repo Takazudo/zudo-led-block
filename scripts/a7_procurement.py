@@ -48,7 +48,7 @@ def unique(rows, key):
  return result
 
 
-SWITCH_SOURCES = '.claude/skills/component-a7-pcm13smtr/sources.json'
+SWITCH_SOURCES = '.claude/skills/component-a7-hx-msk13c02/sources.json'
 OWNER_DECISIONS = 'engineering/a7/procurement/owner-decisions.json'
 SUPPLY_OBSERVATIONS = 'engineering/a7/procurement/supply-observations.json'
 # Our reading (pending owner confirmation) of the owner's sourcing words in owner-decisions.json; anything else is an exception named per line.
@@ -77,12 +77,12 @@ def owner_order(root):
 
 
 # Owner decisions that retire a ledger blocker, and the answers each may carry.
-RETIRED_BY_OWNER = {'panel-route': ('repo-panels', 'jlc-panels'), 'finished-cables': ('assembler', 'diy')}
+RETIRED_BY_OWNER = {'panel-route': ('repo-panels', 'jlc-panels'), 'finished-cables': ('assembler', 'diy'), 'switch-supply': ('alternate',)}
 # Blockers that stay open after the owner accepted the recommended plan, with what is still missing.
 ACCEPTED_TEXT = {'rack-hardware': 'The owner accepted naming the case (2026-11-12, accept all recommendations); the case model, and so the rail/thread interface and fasteners, is not given yet.'}
 JACK_WAIVED_TEXT = ('PJ-324M pin function (which of terminals 4/5 is the tip contact; the supplier symbol contradicts the inferred 4 = tip) is not confirmed: '
                     'the owner waived the pre-order continuity test on 2026-11-12 and accepted the risk, so it is a first-article check on the assembled boards. '
-                    'Slot, axis height and nut fit, and PCM13SMTR truth table and land fit, also need received parts (jack-continuity, jack-dimensions, switch-fit).')
+                    'Slot, axis height and nut fit, and the HX MSK13C02 truth table and land/peg fit, also need received parts (jack-continuity, jack-dimensions, switch-fit).')
 
 
 def owner_entries(root):
@@ -125,13 +125,13 @@ def owner_messages(entry):
 
 
 def switch_listing(root):
- found = [o for o in read(root, SUPPLY_OBSERVATIONS)['observations'] if o.get('id') == 'jlc-c221842-2026-11-12']
+ found = [o for o in read(root, SUPPLY_OBSERVATIONS)['observations'] if o.get('id') == 'jlc-c5149819-2026-11-12']
  if len(found) != 1:
-  raise ValueError('C221842 2026-11-12 listing observation missing or duplicated')
+  raise ValueError('C5149819 2026-11-12 listing observation missing or duplicated')
  o = found[0]
  v = o['values']
- if (o['lcsc'], o['supplier'], o['retrieved_at'], o['raw_sha256']) != ('C221842', 'JLCPCB', '2026-11-12T08:57:07Z', '6c9e1e02c0f53f6529e10709c7752209d619ea618b2fce45d7d0260ccb61621b') \
-   or (v['buyable'], v['preorder_minimum'], v['presale_available'], v['overseas_stock'], v['jlc_stock'], v['currency'], v['lead_time']) != (True, 3, 0, 0, None, None, None):
+ if (o['lcsc'], o['supplier'], o['retrieved_at'], o['raw_sha256']) != ('C5149819', 'JLCPCB', '2026-11-12T19:35:14Z', 'f6e3f19ec6c129eb50209701f98ea079945f5eb4dbe17b9c711ab6d5006d1ab9') \
+   or (v['buyable'], v['jlc_stock'], v['minimum_purchase'], v['least_patch'], v['attrition_pieces'], v['currency'], v['lead_time']) != (True, 4561, 1, 0, 0, None, None):
   raise ValueError('switch listing observation changed; re-review the switch-supply decision')
  return o
 
@@ -185,17 +185,17 @@ def cable_pin_map(root, a_net, a_ref, b_net, b_ref, crossed, aliases=None):
 
 def switch_observation(root):
  sources = read(root, SWITCH_SOURCES)['sources']
- source = next(s for s in sources if s['source_id']=='src-a7-pcm13smtr-jlc-stock-2026-11-09')
- if source['sha256']!='317f74ac9caf4556aef05b61c78dde4c6ae9b89974bf03a51cee9db51b71aa17' or source['retrieved_at']!='2026-11-09T09:18:55Z' or source['availability']!='AVAILABLE':
+ source = next(s for s in sources if s['source_id']=='src-a7-hx-msk13c02-jlc-api-2026-11-12')
+ if source['sha256']!='f6e3f19ec6c129eb50209701f98ea079945f5eb4dbe17b9c711ab6d5006d1ab9' or source['retrieved_at']!='2026-11-12T19:35:14Z' or source['availability']!='AVAILABLE':
   raise ValueError('switch supply receipt changed; re-review observation')
- for term in ('C221842 PCM13SMTR C&K', 'stockCount0', 'canPresaleNumber0', 'minPurchaseNum3', 'encapsulationNumber3500', 'estimateDate null'):
+ for term in ("C5149819 'HX MSK13C02' hanxia", 'stockCount 4561', 'canPresaleNumber 4552', 'minPurchaseNum 1', 'encapsulationNumber 3000', 'tier 1-49 0.1069'):
   if term not in source['evidence_extract']:
    raise ValueError('switch supply extract changed; re-review observation')
  return {'source_bundle':SWITCH_SOURCES,'source_id':source['source_id'],'url':source['authoritative_url'],
   'raw_sha256':source['sha256'],'observed_at':source['retrieved_at'],'supplier':'JLCPCB',
-  'stock_count':0,'presale_count':0,'minimum_purchase_quantity':3,'packaging_quantity':3500,
-  'price':None,'currency':None,'lead_time':None,'assembly_acceptance':None,'reserved':False,
-  'scope':'Dated exact C221842 listing observation only; refresh before procurement. No currency-backed price or assembly acceptance.'}
+  'stock_count':4561,'presale_count':4552,'minimum_purchase_quantity':1,'packaging_quantity':3000,
+  'price':0.1069,'currency':None,'lead_time':None,'assembly_acceptance':None,'reserved':False,
+  'scope':'Dated exact C5149819 listing observation only; refresh before procurement. Price is the 1-49 tier with no currency field; no assembly acceptance.'}
 
 
 def generate(root=ROOT):
@@ -270,7 +270,7 @@ def generate(root=ROOT):
      'source':PLACEMENT if name=='controller' else A5POS,
      'authority':'native export; independent fresh gate required' if name=='controller' else 'immutable historical A5 KiCad export; not fresh placement proof'},
     'quantity_for_order':(0 if dnp else mult)*modules,
-    'commercial_observation':observation if line['lcsc']=='C221842' else None,'supply_status':('BLOCKED: JLC stock 0 at 2026-11-09; 2026-11-12 listing buyable with pre-order minimum 3 and presale 0 (field meanings inferred); price tiers only, currency unknown; fill, lead time and assembly acceptance unknown' if line['lcsc']=='C221842' else 'NOT_OBTAINED: current stock, price, lead time, MOQ, packaging and assembly applicability require dated exact-part evidence')})
+    'commercial_observation':observation if line['lcsc']=='C5149819' else None,'supply_status':('OBSERVED: JLC stock 4561 at 2026-11-12T19:35:14Z (Extended, not reserved); 1-49 tier 0.1069 without currency; lead time and assembly acceptance unknown' if line['lcsc']=='C5149819' else 'NOT_OBTAINED: current stock, price, lead time, MOQ, packaging and assembly applicability require dated exact-part evidence')})
   fitted = [r for r in rows if r['board']==name and r['population']=='FITTED']
   process = {f'{m}_{side}': sum(1 for r in fitted if (r['mount'], r['placement']['side'])==(m, side))
              for m in ('SMD', 'THT') for side in ('F', 'B')}
@@ -344,9 +344,9 @@ def order_plan(root, decision, listing, boards, rows):
  for (mpn, lcsc), line in sorted(lines.items(), key=lambda kv: kv[0][1]):
   required = line['pieces_per_module'] * modules
   if lcsc == listing['lcsc']:
-   least = listing['values']['preorder_minimum']
+   least = listing['values']['minimum_purchase']
    line.update({'pieces_required':required,'supplier_minimum':least,'minimum_source':SUPPLY_OBSERVATIONS+'#'+listing['id'],'pieces_to_buy':max(required, least),
-    'sourcing':{'route':'JLC_PREORDER_OR_GLOBAL_SOURCING','status':'JLC stock 0 at 2026-11-09; buyable Extended part with presale 0 at 2026-11-12 (field meanings inferred), so not JLC stock. Presale 0 may mean a pre-order cannot be placed now; fill depends on LCSC stock (not observed); Global Sourcing is quote-based.','exception':None}})
+    'sourcing':{'route':'JLC_STOCK','status':'JLC stock 4561 at 2026-11-12T19:35:14Z (Extended part, point-in-time, not reserved; field meanings inferred). Refresh before ordering.','exception':None}})
   else:
    line.update({'pieces_required':required,'supplier_minimum':None,'minimum_source':None,'pieces_to_buy':None,
     'sourcing':{'route':'JLC_STOCK','status':'NOT_OBSERVED: preferred route; JLC stock and minimum at the order quantity not observed','exception':None}})
@@ -376,10 +376,10 @@ def fixture_blocker(root, inputs):
 
 # Each ledger blocker names what can resolve it; readiness reports these as separate gates.
 BLOCKERS = [
- {'id':'supply-observations','class':'ACCESS_EVIDENCE_HOLD','text':'Order quantity is 2 modules (owner decision). JLC stock, price, minimum, packaging, lead time and assembly applicability at that quantity are not observed for any line except C221842 (switch-supply); JLC attrition is not sourced; stock never reserved.'},
+ {'id':'supply-observations','class':'ACCESS_EVIDENCE_HOLD','text':'Order quantity is 2 modules (owner decision). JLC stock, price, minimum, packaging, lead time and assembly applicability at that quantity are not observed for any line except the C5149819 switch (stock 4561 at 2026-11-12); JLC attrition is not sourced; stock never reserved.'},
  {'id':'switch-supply','class':'OWNER_DECISION','text':'PCM13SMTR (C221842): 2 needed for 2 modules. JLC stock 0 at 2026-11-09; at 2026-11-12 JLC lists it buyable (Extended) with pre-order minimum 3 and presale 0 (field meanings inferred), tier prices without currency, no lead time. The owner wants to complete on JLC: on our reading, a pre-order (presale 0 may mean none can be placed now; fill depends on LCSC stock, not observed) or a Global Sourcing quote; otherwise wait, or accept a reviewed alternate with its own contact table and fit review. At 2026-11-12T18:55Z the owner relayed a live check by their browsing assistant (not a first-hand capture): JLC stock 0, Extended, pre-order offered at minimum 3 with an estimated 31 days; Global Sourcing for 3 via DigiKey JPY 826 total (8-15 business days) or Element JPY 865 (8-18); parts stay in the JLC parts library. The owner accepted JLC sourcing with all recommendations, then asked to consider another switch because of the price, so this stays open until the owner picks.'},
- {'id':'panel-route','class':'OWNER_DECISION','text':'None of the three boards meets JLC single-board PCBA size; the panel route is not chosen. Panel by JLCPCB puts 10 controllers, 8 leaves or 2 adapters on each panel (20 PCM13SMTR for a 2-panel minimum if the PCBA quantity counts panels, not sourced); a repo-built panel holding 1 controller, 2 leaves or 1 adapter gives exactly 2 modules; it is prepared (not released) in engineering/a7/jlc-package/panels/. Comparison in engineering/a7/jlc-package/package.json.'},
- {'id':'jack-switch-qualification','class':'PHYSICAL_ONLY','text':'PJ-324M pin function (which of terminals 4/5 is the tip contact and which its normal; the supplier symbol contradicts the inferred 4 = tip, so this continuity test must precede any PCB order), slot, axis height and nut fit, and PCM13SMTR truth table and land fit, need received parts (jack-continuity, jack-dimensions, switch-fit).'},
+ {'id':'panel-route','class':'OWNER_DECISION','text':'None of the three boards meets JLC single-board PCBA size; the panel route is not chosen. Panel by JLCPCB puts 10 controllers, 8 leaves or 2 adapters on each panel (20 SW1 switches for a 2-panel minimum if the PCBA quantity counts panels, not sourced); a repo-built panel holding 1 controller, 2 leaves or 1 adapter gives exactly 2 modules; it is prepared (not released) in engineering/a7/jlc-package/panels/. Comparison in engineering/a7/jlc-package/package.json.'},
+ {'id':'jack-switch-qualification','class':'PHYSICAL_ONLY','text':'PJ-324M pin function (which of terminals 4/5 is the tip contact and which its normal; the supplier symbol contradicts the inferred 4 = tip, so this continuity test must precede any PCB order), slot, axis height and nut fit, and the HX MSK13C02 truth table and land/peg fit, need received parts (jack-continuity, jack-dimensions, switch-fit).'},
  {'id':'exact-part-evidence','class':'ACCESS_EVIDENCE_HOLD','text':'Exact-part gaps after the 2026-11-11 source recovery (the PMEG4010CEJ ,115 packing is since sourced: SOD323F on a 7-inch reel, fact-pmeg4010cej-115-orderable): SM04B-SRSS-TB per-circuit numbering not printed beyond the No. 1 end; PJ-324M recommended hole/slot sizes, axis height and whether a nut ships with C22355739 not sourced.'},
  {'id':'finished-cables','class':'OWNER_DECISION','text':'Finished A7 power cable (57 mm, +/-3 ASSUMED), SH4 cables and IDC ribbon not selected; supplier answers and the owner choice of assembly are needed before physical routing checks.'},
  {'id':'mechanical-materials','class':'ACCESS_EVIDENCE_HOLD','text':'PMMA sheet and pocket tolerances, PETG process and orderable fastener part numbers are not sourced; the model carries designations (M2x18, M1.6x4) and envelopes only.'},
@@ -395,7 +395,7 @@ def outputs(report):
  for r in report['population']:
   writer.writerow([r[k] for k in ['board','ref','manufacturer','mpn','lcsc','population','mount','quantity_per_board','board_multiplicity','quantity_per_module']]+[r['placement']['side']])
  op=report['order_plan']
- md='# A7 調達・組立の準備台帳\n\n自動生成。**製造承認・発注用ファイルではありません。** C221842 は 2026-11-09T09:18:55Z の JLC 観測で在庫 0・予約可能数 0・MOQ 3・包装数 3500。2026-11-12T08:57:07Z の JLC 掲載では購入可（Extended）・予約注文の最小 3・予約可能数 0（項目の意味はこちらの解釈）で、JLC 在庫の数値は掲載データにありませんでした。価格は通貨不明の段階価格だけです。確保済み在庫ではなく、納期・実装受入は未取得です。他の部品の現在の商取引条件も未取得で、過去の A5 価格を現在値として再掲しません。\n\n'
+ md='# A7 調達・組立の準備台帳\n\n自動生成。**製造承認・発注用ファイルではありません。** SW1 はオーナーの方針（動けばよい・安く・JLC 在庫あり）により 2026-11-12 に PCM13SMTR（C221842、JLC 在庫 0）から HX MSK13C02（C5149819）へ変更しました。C5149819 は 2026-11-12T19:35:14Z の JLC 観測で在庫 4561（Extended）・最小購入 1・包装数 3000、1〜49 個の段階価格 0.1069（通貨の項目なし）です（項目の意味はこちらの解釈）。確保済み在庫ではなく、納期・実装受入は未取得です。他の部品の現在の商取引条件も未取得で、過去の A5 価格を現在値として再掲しません。\n\n'
  md+=f"台帳 SHA-256: `{hashlib.sha256(raw.encode()).hexdigest()}`。{report['fitted_unique_placements']} 配置 / {report['fitted_pieces_per_module']} 実装点 / 台。\n\n"
  md+=f"## 最初の発注数量: {op['modules']} 台（オーナーの判断）\n\nオーナーの言葉: 「{' '.join(op['owner_words'])}」（`{op['decision']}`）。JLC の PCBA 最小 {op['pcba_minimum_boards']['value']} 枚は {op['pcba_minimum_boards']['status']}（{'JLC の公開能力表で確認済み' if op['pcba_minimum_boards']['status']=='SOURCED' else 'JLC の公開条件では未確認'}）。この数量は発注・試作ルート・製造リリースの承認ではありません。\n\n"
  md+="必要枚数: "+'、'.join(f"{b['board']} {b['boards_needed']} 枚" for b in op['boards'])+"。PCB 製造の最小枚数と JLC のロス分（attrition）は未取得で、下の数に上乗せしていません。\n\n"

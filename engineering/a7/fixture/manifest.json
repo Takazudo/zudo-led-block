@@ -173,25 +173,25 @@
   ],
   "hardware_proposal_problems": [],
   "scope": "Digital fixture design: support carrier, probe plate, pressure plate, base plate and hardware envelopes with the assembly STEP and interference check; not a fit result, not a selection and not a fabrication approval",
-  "board_sha256": "4453f818ede1e6d6c56e45ef43aa6faecb90990f3755f82c6d752258cd4d628e",
-  "placement_sha256": "1891af356ead303127c6b7a99b8934b08aa25f465b4b2c96872f5d5d24afdc01",
+  "board_sha256": "89310d539b3c28096775cee821e46c14fdba42a87809c82f1fd7f0751704e727",
+  "placement_sha256": "5ba26c3c25b4d31a36d324f47db21b24afa3cad67b6f0f2b4fcf9580024448e0",
   "geometry_sha256": "1522f0aa2bf4907a39e51d8ef0e58eab9256cc961b0bc897c37ea0dae41870c2",
   "inputs_sha256": {
-    "engineering/a7/electronics/controller/controller.kicad_pcb": "4453f818ede1e6d6c56e45ef43aa6faecb90990f3755f82c6d752258cd4d628e",
-    "engineering/a7/electronics/controller/board_placement.json": "1891af356ead303127c6b7a99b8934b08aa25f465b4b2c96872f5d5d24afdc01",
-    "scripts/a7_fixture.py": "e047a694ef86b720b2115925241e25b9eca3e1a3e85a4ac915b55ea5fb5e884b",
-    "scripts/a7_fixture_relief.py": "02b134fb1a70f37b7de9547b7c97d2060bc53114ccd791a3267f1d596ec208ae",
+    "engineering/a7/electronics/controller/controller.kicad_pcb": "89310d539b3c28096775cee821e46c14fdba42a87809c82f1fd7f0751704e727",
+    "engineering/a7/electronics/controller/board_placement.json": "5ba26c3c25b4d31a36d324f47db21b24afa3cad67b6f0f2b4fcf9580024448e0",
+    "scripts/a7_fixture.py": "40b631386de42c8650df6b8fb3e3b923d202b83ebc664f9744640a62576f29d5",
+    "scripts/a7_fixture_relief.py": "5aee3bf21be848d266e0c1971827281f0f978f671bc452d76a16a2059b32cb12",
     "scripts/a7_fixture_assembly.py": "2b20ad77bbaca9e36623f5a548abdc75d70f5b7060e986f1cf0cb9d3ce6e1a8e",
-    "engineering/a7/procurement/population.csv": "6ce7636d2d0cae04ccbd2dace8cd0efacafe154b5e772acaa04a5e79718b0dd8",
+    "engineering/a7/procurement/population.csv": "6195a072b3882abf8d9212f0e778fa1cbb784d3f60929921558f95031c8276ff",
     "engineering/a7/fixture/sources.json": "532830a205f3fbe1919ba4e17fc37cfceaa6eee524464941fad036e8345b763d",
     "engineering/a7/fixture/materials.json": "3a6b7cc0a5fe1df40383d489ebd793abbfcf0e03968812db7b3e6fd95962ba06",
     "engineering/a7/fixture/candidate-references.json": "6f929c9edf3d115dc18f5cf1b055f9971ec25af64ce20948a882729250151845"
   },
   "assembly": {
     "record": "engineering/a7/fixture/assembly-interference.json",
-    "record_sha256": "5bf3dd4d6bc119da6e48fca741111336559da774f72cd8fd3ab7288856956397",
+    "record_sha256": "c3f0be4d3be0e6858d743989590d7157c284ce799f0b006bec2f167512731c43",
     "step": "engineering/a7/fixture/fixture-assembly.step",
-    "step_sha256": "05540c9eb7beec95088932990585195e1375f165dea578359b0156c144a7fcaf",
+    "step_sha256": "32e4d6e45bcb757141077d59596e717481a93df9ecae8fd0178cc94151589475",
     "solids": 129,
     "interferences": 0,
     "clearances": [
@@ -410,11 +410,11 @@
   },
   "native_geometry": {
     "record": "engineering/a7/fixture/native-geometry.json",
-    "record_sha256": "2f372a058a24cb117d9e294d11411e84cb575e682d18f7651cbf0547d1bc7f51",
+    "record_sha256": "820689fa1bc4dcb4bdc3a801380349e6cfec18768cfb4a27a215bda79a15a619",
     "status": "NATIVE_GEOMETRY_VALIDATED",
-    "github_run_id": "43077448786",
-    "tested_revision": "01bc3812202c6e72f772d2568148ae5df4915be7",
-    "artifact_zip_sha256": "db6d6fe101641a4176d0fad83a7fd453ee4ae09173e7fb36d26dd444284b74c4",
+    "github_run_id": "43294571723",
+    "tested_revision": "8e71317f585da698b30af7a3e8ea115d0ff590ed",
+    "artifact_zip_sha256": "e9cc74e591cdbff56068e79da25c1439704fc7a803ace309f4af9091228ad6f0",
     "probe_pads_match": true,
     "scope": "Native KiCad pad facts confirm the five probe pads (B side, round 1 mm, B.Cu/B.Mask, position, net). Native pad copper boxes set the carrier cuts and native F courtyards bound the clamp points (b_side_relief); body heights and solder envelopes are not native facts."
   },
@@ -546,16 +546,16 @@
       },
       "PCM13SMTR": {
         "peg_length_mm": 0.5,
-        "class": "SOURCE_DERIVED (MANUFACTURER_PRIMARY)",
+        "class": "SOURCE_DERIVED (MANUFACTURER_MIRROR)",
         "source": {
-          "fact_id": "fact-a7-pcm13smtr-outline",
-          "source_id": "src-a7-pcm13smtr-ck-site",
-          "sha256": "6a758d151b7eee7f8cd59594bd92cfec4c9b1470e0743094f185f19e7ac2a868",
-          "locator": "page index 2 outline and PC MOUNTING"
+          "fact_id": "fact-a7-hx-msk13c02-outline",
+          "source_id": "src-a7-hx-msk13c02-hanxia-spec",
+          "sha256": "0acc4953f3bab055a1b9d89de0b41108b0f68a0cbd92718ed3faf42a1d17aef8",
+          "locator": "page index 3 figure side, end and top views"
         },
         "protrusion_below_b_face": "none: 0.5 mm pegs are shorter than the 1.6 mm board",
         "body_height_mm": 1.4,
-        "body_height_source": "fact-a7-pcm13smtr-outline height_above_pcb (component-a7-pcm13smtr)"
+        "body_height_source": "fact-a7-hx-msk13c02-outline height_above_pcb (component-a7-hx-msk13c02)"
       },
       "PicoBlade 530470310": {
         "tail_length_below_seating_plane_mm": 2.3,
@@ -4598,7 +4598,7 @@
       },
       "SW1": {
         "height_mm": 1.4,
-        "source": "fact-a7-pcm13smtr-outline height_above_pcb (component-a7-pcm13smtr)"
+        "source": "fact-a7-hx-msk13c02-outline height_above_pcb (component-a7-hx-msk13c02)"
       },
       "U1": {
         "height_mm": 0.6,
@@ -4663,7 +4663,7 @@
     "head_sha": "f0b1d8aa37f3967ccc8c9a6bd6ca0e7b7fc7b3a0",
     "base_sha": "af523f9abb74e206c27aaaa076b3b68a5c474940",
     "result": "PASS",
-    "board_sha256": "4453f818ede1e6d6c56e45ef43aa6faecb90990f3755f82c6d752258cd4d628e",
+    "board_sha256": "89310d539b3c28096775cee821e46c14fdba42a87809c82f1fd7f0751704e727",
     "scope": "Pinned native CI of the PR #44 preparation head on the unchanged board (CI log result); not verification of fixture geometry",
     "raw_facts_consumed": false,
     "artifact_access": "2026-11-09: download Forbidden (historical). 2026-11-11: native-infrastructure-evidence artifact 13663737750 downloaded (ZIP SHA-256 33f3d9121164f364b0325540b161e9546ddf73c8b723c9166fdcd8a19867cf0e), but it retains only a7-gate/summary.json; candidate board_facts/board_geometry were not uploaded, so raw candidate facts remain unavailable"

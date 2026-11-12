@@ -25,7 +25,6 @@ sidebar_position: 4.6
 - `power_adapter-finish-not-specified`（電源アダプタ）: 表面処理が基板ファイルに記録されていない。注文画面で選ぶ（Economic の 1.6 mm 緑は HASL か ENIG）。
 - `power_adapter-centroid-offsets`（電源アダプタ）: J1, J2 はフットプリント原点がパッド中心から 0.05 mm 以上離れている。JLC は部品中心で置くので、JLC の配置プレビューで 1 点ずつ確かめる。
 - `power_adapter-rotation-unverified`（電源アダプタ）: 回転角は KiCad のフットプリント角度のまま。JLC ライブラリとの向きの差は JLC の配置プレビューで未確認。
-- `part-C221842-not-in-stock`: PCM13SMTR（C221842）: 必要 2 個に対し、2026-11-12T10:35:39Z の JLC 在庫 0・予約可能数 0。
 - `pcba-quantity-unit-with-panel-not-sourced`: JLC 能力表の PCBA 最小は「2 pcs」。Panel by JLCPCB では PCB の数量は面付けシートの枚数（JLC の説明: 10 pcs 注文で 10 シート）。PCBA の数量もシート数か、2 枚以上載った 1 シートで最小 2 pcs を満たすかは未取得。JLC の注文画面かサポートで確かめる質問: "With Panel by JLCPCB, does the PCBA Qty count panels or single boards, and does one panel holding 2 or more boards meet the 2-pcs PCBA minimum, or must 2 panels be assembled?"。オーナーは JLC に聞かずに、Gerber ごとに PCBA 数量 2 以上で注文すると述べた（jlc-questions）。オーナーの知識による判断で、JLC の確認ではない。
 - `pcb-fabrication-quantity-not-sourced`: JLC が 1 設計あたり製造する基板の最小枚数は未取得。PCBA の数量（コントローラー 2・リーフ 4・電源アダプタ 2）とは別に入力する。
 - `physical-jack-switch-qualification`（コントローラー）: PJ-324M の端子 4/5 の機能は未確認。オーナーは発注前の導通試験を見送り、リスクを受け入れた（2026-11-12、jack-tip-test-waiver）。端子 5 が tip なら両方のジャックが働かず、制御基板の改版が要る。確認は組み立て済み基板の初品検査として残る。
@@ -94,7 +93,7 @@ JLC の配置プレビューで中心を確かめる部品（フットプリン�
 | J1 | C22355739 | 7.358 mm |
 | J2 | C22355739 | 7.358 mm |
 | J5 | C122442 | 1.25 mm |
-| SW1 | C221842 | 0.568 mm |
+| SW1 | C5149819 | 0.568 mm |
 
 ## LED リーフ（`led_leaf`）
 
@@ -246,7 +245,6 @@ JLC が面付けすると 1 シートに何枚も載り、最小 2 シートを�
 | C2071056 | AP63205WU-7 | 2 | 20 | 2 | 39904 | 37005 |
 | C21190 | 0603WAF1001T5E | 6 | 60 | 6 | 28882373 | 22227859 |
 | C221351 | OPA197IDBVR | 2 | 20 | 2 | 76873 | 76582 |
-| C221842 | PCM13SMTR | 2 | **20** | **2** | 0 | 0 |
 | C22355739 | PJ-324M | 4 | 40 | 4 | 5954 | 5802 |
 | C23138 | 0603WAF3300T5E | 6 | 60 | 6 | 2416605 | 1796477 |
 | C23162 | 0603WAF4701T5E | 2 | 20 | 2 | 14660825 | 11419063 |
@@ -257,6 +255,7 @@ JLC が面付けすると 1 シートに何枚も載り、最小 2 シートを�
 | C398363 | TLV9001IDBVR | 2 | 20 | 2 | 47115 | 45780 |
 | C404027 | TLV75533PDBVR | 2 | 20 | 2 | 75642 | 74564 |
 | C50704 | PMEG4010CEJ,115 | 4 | 40 | 4 | 12701 | 12534 |
+| C5149819 | HX MSK13C02 | 2 | 20 | 2 | 4561 | 4552 |
 | C5270180 | STM32G031G8U6TR | 2 | 20 | 2 | 4507 | 3777 |
 | C52917434 | WS2812B-2020-V6 | 16 | 64 | 16 | 879804 | 857883 |
 | C5665 | 2.54-2*5P | 2 | 4 | 2 | 131245 | 124613 |
@@ -266,7 +265,7 @@ JLC が面付けすると 1 シートに何枚も載り、最小 2 シートを�
 
 JLC の部品照合で Do Not Place を選んだ designator は実装されません（JLC の部品照合ガイド）。ただし JLC 面付けで余る基板だけを未実装にできるかは取得していないので、上の表は全数実装で数えています。JLC の FAQ では、フィデューシャルは JLC が SMT 用に付けるので自分で付けなくてよいとされています。
 
-太字は JLC 在庫を超える数です。PCM13SMTR はどちらの経路でも在庫が足りず、JLC 面付けでは 20 個 が必要になります。
+太字は JLC 在庫を超える数です。
 
 
 ## 部品の区分（2026-11-12 の JLC 部品ページ）
@@ -288,7 +287,6 @@ Basic 14 種・Extended 16 種。必要数は 2 台分です。在庫数は観�
 | C2071056 | AP63205WU-7 | Extended | 2 | 39904 | 37005 | JLC 在庫 |
 | C21190 | 0603WAF1001T5E | Basic | 6 | 28882373 | 22227859 | JLC 在庫 |
 | C221351 | OPA197IDBVR | Extended | 2 | 76873 | 76582 | JLC 在庫 |
-| C221842 | PCM13SMTR | Extended | 2 | 0 | 0 | 在庫なし・予約不可（Global Sourcing か待つ） |
 | C22355739 | PJ-324M | Extended | 4 | 5954 | 5802 | JLC 在庫 |
 | C23138 | 0603WAF3300T5E | Basic | 6 | 2416605 | 1796477 | JLC 在庫 |
 | C23162 | 0603WAF4701T5E | Basic | 2 | 14660825 | 11419063 | JLC 在庫 |
@@ -299,6 +297,7 @@ Basic 14 種・Extended 16 種。必要数は 2 台分です。在庫数は観�
 | C398363 | TLV9001IDBVR | Extended | 2 | 47115 | 45780 | JLC 在庫 |
 | C404027 | TLV75533PDBVR | Extended | 2 | 75642 | 74564 | JLC 在庫 |
 | C50704 | PMEG4010CEJ,115 | Extended | 4 | 12701 | 12534 | JLC 在庫 |
+| C5149819 | HX MSK13C02 | Extended | 2 | 4561 | 4552 | JLC 在庫 |
 | C5270180 | STM32G031G8U6TR | Extended | 2 | 4507 | 3777 | JLC 在庫 |
 | C52917434 | WS2812B-2020-V6 | Extended | 16 | 879804 | 857883 | JLC 在庫 |
 | C5665 | 2.54-2*5P | Extended | 2 | 131245 | 124613 | JLC 在庫 |

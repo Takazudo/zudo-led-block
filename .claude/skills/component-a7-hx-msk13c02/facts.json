@@ -202,24 +202,16 @@
       "source_id": "src-a7-hx-msk13c02-hanxia-spec",
       "class": "PROJECT_STATE",
       "value": {
-        "signal_pad": [
-          0.7,
-          1.6
-        ],
-        "signal_pad_x": [
-          -3.0,
-          -1.5,
-          1.5,
-          3.0
-        ],
-        "signal_pad_from_peg_line": [
-          1.05,
-          2.65
-        ],
-        "retention_pad": [
-          1.0,
-          0.9
-        ],
+        "signal_pad_width": 0.7,
+        "signal_pad_length": 1.6,
+        "signal_pad_1_x": -3.0,
+        "signal_pad_2_x": -1.5,
+        "signal_pad_3_x": 1.5,
+        "signal_pad_4_x": 3.0,
+        "signal_pad_near_edge_from_peg_line": 1.05,
+        "signal_pad_far_edge_from_peg_line": 2.65,
+        "retention_pad_width_x": 1.0,
+        "retention_pad_height_y": 0.9,
         "retention_pad_inner_span_x": 9.3,
         "retention_pad_centre_x": 5.15,
         "retention_pad_gap_y": 1.4,

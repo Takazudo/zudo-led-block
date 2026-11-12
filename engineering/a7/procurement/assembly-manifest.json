@@ -251,21 +251,6 @@
         }
       },
       {
-        "lcsc": "C221842",
-        "mpn": "PCM13SMTR",
-        "manufacturer": "C&K",
-        "pieces_per_module": 1,
-        "pieces_required": 2,
-        "supplier_minimum": 3,
-        "minimum_source": "engineering/a7/procurement/supply-observations.json#jlc-c221842-2026-11-12",
-        "pieces_to_buy": 3,
-        "sourcing": {
-          "route": "JLC_PREORDER_OR_GLOBAL_SOURCING",
-          "status": "JLC stock 0 at 2026-11-09; buyable Extended part with presale 0 at 2026-11-12 (field meanings inferred), so not JLC stock. Presale 0 may mean a pre-order cannot be placed now; fill depends on LCSC stock (not observed); Global Sourcing is quote-based.",
-          "exception": null
-        }
-      },
-      {
         "lcsc": "C22355739",
         "mpn": "PJ-324M",
         "manufacturer": "SOFNG",
@@ -416,6 +401,21 @@
         }
       },
       {
+        "lcsc": "C5149819",
+        "mpn": "HX MSK13C02",
+        "manufacturer": "hanxia",
+        "pieces_per_module": 1,
+        "pieces_required": 2,
+        "supplier_minimum": 1,
+        "minimum_source": "engineering/a7/procurement/supply-observations.json#jlc-c5149819-2026-11-12",
+        "pieces_to_buy": 2,
+        "sourcing": {
+          "route": "JLC_STOCK",
+          "status": "JLC stock 4561 at 2026-11-12T19:35:14Z (Extended part, point-in-time, not reserved; field meanings inferred). Refresh before ordering.",
+          "exception": null
+        }
+      },
+      {
         "lcsc": "C5270180",
         "mpn": "STM32G031G8U6TR",
         "manufacturer": "STMicroelectronics",
@@ -509,8 +509,8 @@
     "outside_pcba": "External materials, cables, mechanical parts and fixture items are outside the JLC parts library and not yet routed under the preference."
   },
   "inputs_sha256": {
-    ".claude/skills/component-a7-pcm13smtr/sources.json": "1e28c4823249057637c140a0645be87688cb89ce64ba54c2ed809aec04d3e7c0",
-    ".claude/skills/component-spec-audit/references/inventory.json": "320ebb27d0ff794ab6c6861f57f21385db85f50e3cc8736b6fda49af16d5d98e",
+    ".claude/skills/component-a7-hx-msk13c02/sources.json": "6e18377d098e3d9744a3fa3b6d3ea553e17f409fab86359ff6639216e5a2f940",
+    ".claude/skills/component-spec-audit/references/inventory.json": "79383151bfc70c847aa1fd3699a345a15763d81e844c0bb4e603f541ea6d9995",
     "engineering/a5/electronics/native/led_leaf/led_leaf.kicad_pcb": "6244280cec3efe00ca31d9c5c8878f3ed6eb59a1c6bd4e933beffedd49511df3",
     "engineering/a5/electronics/native/power_adapter/power_adapter.kicad_pcb": "b0f071f2730afdfd3d29de2176b1cce5f90b0c0726d14fd15501e27f90d95187",
     "engineering/a5/electronics/placement_and_connectivity.json": "086443644c29d210cdde0c712d639584c0ee52079395c7ef5f2dca1c1876c71f",
@@ -518,18 +518,18 @@
     "engineering/a5/integration/harness_contract_A5.md": "563e89b7f831a6e0b828f4d5e4ec35737af7daa5030d98ef939cb61c57d5352e",
     "engineering/a5/integration/native_schematic/led_leaf/netlist.xml": "1857eeb3e3faa65977f2e2cfff30083411db9af728b5529e53065da0c9028670",
     "engineering/a5/integration/native_schematic/power_adapter/netlist.xml": "d995064a9945ca0516a0a2844b197fcde3a19c8e1873230def0a3899ff514d04",
-    "engineering/a7/electronics/controller/board_placement.json": "1891af356ead303127c6b7a99b8934b08aa25f465b4b2c96872f5d5d24afdc01",
-    "engineering/a7/electronics/controller/controller.kicad_pcb": "4453f818ede1e6d6c56e45ef43aa6faecb90990f3755f82c6d752258cd4d628e",
-    "engineering/a7/electronics/controller/controller.kicad_sch": "01c09e69f2623bdbb98ae6176b4b52204ae817f927ecb311242d7ac1295fbc72",
-    "engineering/a7/fixture/manifest.json": "4af6e9440d9b31dd05f5f5e55a1f30485274a526e4066925b8ee929e7a642e23",
+    "engineering/a7/electronics/controller/board_placement.json": "5ba26c3c25b4d31a36d324f47db21b24afa3cad67b6f0f2b4fcf9580024448e0",
+    "engineering/a7/electronics/controller/controller.kicad_pcb": "89310d539b3c28096775cee821e46c14fdba42a87809c82f1fd7f0751704e727",
+    "engineering/a7/electronics/controller/controller.kicad_sch": "b027715b278a17d9af9c5791f107cbaf07ee218647601622164d33b344015e1d",
+    "engineering/a7/fixture/manifest.json": "471978cfdb4a0b5d096e72f32780025880eec91d076a29e87351cdbde8ba0be1",
     "engineering/a7/fixture/materials.json": "3a6b7cc0a5fe1df40383d489ebd793abbfcf0e03968812db7b3e6fd95962ba06",
-    "engineering/a7/fixture/native-geometry.json": "2f372a058a24cb117d9e294d11411e84cb575e682d18f7651cbf0547d1bc7f51",
-    "engineering/a7/mechanical/build_a7_mechanical.py": "98f47662650732d7d8215e0f86cff404521351ca43a795bd8811fc4f452d3daa",
-    "engineering/a7/mechanical/exports/3hp/verification.json": "90d7b8c54ebb59cdc2e2ad2b66d1ba9f183759a6104865d93cc57cdfb1902c26",
-    "engineering/a7/mechanical/layout.json": "9cbc6ac99f5b05c7e3145f2016b6918cbc5d2b77170db31ed7155755cba0d591",
-    "engineering/a7/procurement/owner-decisions.json": "cb28ee9493cecc0cfad49170029f69a3302e08bf1e80a97234cae281823d3adf",
-    "engineering/a7/procurement/supply-observations.json": "485ec1ececc7c71777f1955fdbe9bfc4181c09813ae663401cb3928aca0b806d",
-    "engineering/a7/verification/schematic/netlist.xml": "a944cec8877d272637a85afae9f980d4d5e54888453f0f9652a2dd41e575b7cc"
+    "engineering/a7/fixture/native-geometry.json": "820689fa1bc4dcb4bdc3a801380349e6cfec18768cfb4a27a215bda79a15a619",
+    "engineering/a7/mechanical/build_a7_mechanical.py": "8789aeb3493cc8a95f7406938a3d382367e536d863ee45d183246c7bae89d99f",
+    "engineering/a7/mechanical/exports/3hp/verification.json": "a1674803d8cfd0d19bbf7189bbe759f91cdbf6f167e98073bc71e2836c077434",
+    "engineering/a7/mechanical/layout.json": "89f548a52d8ce907fb351519bfdcabc411e3389d1261056e1319582b03a4437a",
+    "engineering/a7/procurement/owner-decisions.json": "ef1b9fbdfb0de11f7575644b37f41599a88ebbb2adc8e12e5bde8b57090315b4",
+    "engineering/a7/procurement/supply-observations.json": "64c642078850f2f9263b825e7bf762bb136f3fd72897ceca47d06aa32b4a6591",
+    "engineering/a7/verification/schematic/netlist.xml": "2541a0119e4ad3fb3cf811e88ace6fe344e8a4516cbd443fc36198f0809c2139"
   },
   "boards": [
     {
@@ -542,9 +542,9 @@
         "THT_B": 0
       },
       "pcb": "engineering/a7/electronics/controller/controller.kicad_pcb",
-      "pcb_sha256": "4453f818ede1e6d6c56e45ef43aa6faecb90990f3755f82c6d752258cd4d628e",
+      "pcb_sha256": "89310d539b3c28096775cee821e46c14fdba42a87809c82f1fd7f0751704e727",
       "netlist": "engineering/a7/verification/schematic/netlist.xml",
-      "netlist_sha256": "a944cec8877d272637a85afae9f980d4d5e54888453f0f9652a2dd41e575b7cc",
+      "netlist_sha256": "2541a0119e4ad3fb3cf811e88ace6fe344e8a4516cbd443fc36198f0809c2139",
       "fitted_per_board": 59,
       "inheritance": "A7 revision 2 authority"
     },
@@ -2064,12 +2064,12 @@
     {
       "board": "controller",
       "ref": "SW1",
-      "manufacturer": "C&K",
-      "mpn": "PCM13SMTR",
-      "lcsc": "C221842",
+      "manufacturer": "hanxia",
+      "mpn": "HX MSK13C02",
+      "lcsc": "C5149819",
       "package": "SMD",
-      "line_id": "line-a7-pcm13smtr",
-      "owner_skill": "component-a7-pcm13smtr",
+      "line_id": "line-a7-hx-msk13c02",
+      "owner_skill": "component-a7-hx-msk13c02",
       "footprint": "LightBlockA7:PCM13SMTR",
       "population": "FITTED",
       "mount": "SMD",
@@ -2088,24 +2088,24 @@
       },
       "quantity_for_order": 2,
       "commercial_observation": {
-        "source_bundle": ".claude/skills/component-a7-pcm13smtr/sources.json",
-        "source_id": "src-a7-pcm13smtr-jlc-stock-2026-11-09",
+        "source_bundle": ".claude/skills/component-a7-hx-msk13c02/sources.json",
+        "source_id": "src-a7-hx-msk13c02-jlc-api-2026-11-12",
         "url": "https://jlcpcb.com/api/overseas-pcb-order/v1/shoppingCart/smtGood/selectSmtComponentList",
-        "raw_sha256": "317f74ac9caf4556aef05b61c78dde4c6ae9b89974bf03a51cee9db51b71aa17",
-        "observed_at": "2026-11-09T09:18:55Z",
+        "raw_sha256": "f6e3f19ec6c129eb50209701f98ea079945f5eb4dbe17b9c711ab6d5006d1ab9",
+        "observed_at": "2026-11-12T19:35:14Z",
         "supplier": "JLCPCB",
-        "stock_count": 0,
-        "presale_count": 0,
-        "minimum_purchase_quantity": 3,
-        "packaging_quantity": 3500,
-        "price": null,
+        "stock_count": 4561,
+        "presale_count": 4552,
+        "minimum_purchase_quantity": 1,
+        "packaging_quantity": 3000,
+        "price": 0.1069,
         "currency": null,
         "lead_time": null,
         "assembly_acceptance": null,
         "reserved": false,
-        "scope": "Dated exact C221842 listing observation only; refresh before procurement. No currency-backed price or assembly acceptance."
+        "scope": "Dated exact C5149819 listing observation only; refresh before procurement. Price is the 1-49 tier with no currency field; no assembly acceptance."
       },
-      "supply_status": "BLOCKED: JLC stock 0 at 2026-11-09; 2026-11-12 listing buyable with pre-order minimum 3 and presale 0 (field meanings inferred); price tiers only, currency unknown; fill, lead time and assembly acceptance unknown"
+      "supply_status": "OBSERVED: JLC stock 4561 at 2026-11-12T19:35:14Z (Extended, not reserved); 1-49 tier 0.1069 without currency; lead time and assembly acceptance unknown"
     },
     {
       "board": "controller",
@@ -3410,17 +3410,12 @@
     {
       "id": "supply-observations",
       "class": "ACCESS_EVIDENCE_HOLD",
-      "text": "Order quantity is 2 modules (owner decision). JLC stock, price, minimum, packaging, lead time and assembly applicability at that quantity are not observed for any line except C221842 (switch-supply); JLC attrition is not sourced; stock never reserved."
-    },
-    {
-      "id": "switch-supply",
-      "class": "OWNER_DECISION",
-      "text": "PCM13SMTR (C221842): 2 needed for 2 modules. JLC stock 0 at 2026-11-09; at 2026-11-12 JLC lists it buyable (Extended) with pre-order minimum 3 and presale 0 (field meanings inferred), tier prices without currency, no lead time. The owner wants to complete on JLC: on our reading, a pre-order (presale 0 may mean none can be placed now; fill depends on LCSC stock, not observed) or a Global Sourcing quote; otherwise wait, or accept a reviewed alternate with its own contact table and fit review. At 2026-11-12T18:55Z the owner relayed a live check by their browsing assistant (not a first-hand capture): JLC stock 0, Extended, pre-order offered at minimum 3 with an estimated 31 days; Global Sourcing for 3 via DigiKey JPY 826 total (8-15 business days) or Element JPY 865 (8-18); parts stay in the JLC parts library. The owner accepted JLC sourcing with all recommendations, then asked to consider another switch because of the price, so this stays open until the owner picks."
+      "text": "Order quantity is 2 modules (owner decision). JLC stock, price, minimum, packaging, lead time and assembly applicability at that quantity are not observed for any line except the C5149819 switch (stock 4561 at 2026-11-12); JLC attrition is not sourced; stock never reserved."
     },
     {
       "id": "jack-switch-qualification",
       "class": "PHYSICAL_ONLY",
-      "text": "PJ-324M pin function (which of terminals 4/5 is the tip contact; the supplier symbol contradicts the inferred 4 = tip) is not confirmed: the owner waived the pre-order continuity test on 2026-11-12 and accepted the risk, so it is a first-article check on the assembled boards. Slot, axis height and nut fit, and PCM13SMTR truth table and land fit, also need received parts (jack-continuity, jack-dimensions, switch-fit)."
+      "text": "PJ-324M pin function (which of terminals 4/5 is the tip contact; the supplier symbol contradicts the inferred 4 = tip) is not confirmed: the owner waived the pre-order continuity test on 2026-11-12 and accepted the risk, so it is a first-article check on the assembled boards. Slot, axis height and nut fit, and the HX MSK13C02 truth table and land/peg fit, also need received parts (jack-continuity, jack-dimensions, switch-fit)."
     },
     {
       "id": "exact-part-evidence",

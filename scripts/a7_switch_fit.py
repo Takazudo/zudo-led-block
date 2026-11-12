@@ -70,12 +70,13 @@ def build():
           sorted(r(h['x']) for h in holes) == [-land['hole_pitch'] / 2, land['hole_pitch'] / 2]
           and all(h['w'] == land['hole_diameter'] for h in holes) and all(h['y'] == peg_y for h in holes),
           'pegs dia %.2f in dia %.2f holes' % (outline['peg_diameter'], land['hole_diameter']))
-    mk_sig = land['signal_pad_from_peg_line']
-    for num, x in zip('1234', land['signal_pad_x']):
+    mk_sig = [land['signal_pad_near_edge_from_peg_line'], land['signal_pad_far_edge_from_peg_line']]
+    for num in '1234':
+        x = land[f'signal_pad_{num}_x']
         p = signal[num]
         a7 = tuple(sorted(side * (v - peg_y) for v in span(p['y'], p['h'])))
         cover_y = overlap(a7, mk_sig) / (mk_sig[1] - mk_sig[0])
-        cover_x = overlap(span(p['x'], p['w']), span(x, land['signal_pad'][0])) / land['signal_pad'][0]
+        cover_x = overlap(span(p['x'], p['w']), span(x, land['signal_pad_width'])) / land['signal_pad_width']
         centre = (mk_sig[0] + mk_sig[1]) / 2
         lead = (outline['peg_line_to_body_edges'], outline['peg_line_to_body_edges'] + outline['terminal_protrusion_beyond_body'])
         lead_x = span(x, outline['terminal_width'])
@@ -85,11 +86,11 @@ def build():
               a7[0] <= centre <= a7[1] and abs(p['x'] - x) < 1e-6 and on_pad,
               'maker pad centre inside the A7 pad; terminal %.2f..%.2f off the peg line wholly on the pad' % lead)
     cy = land['retention_pad_centre_y']
-    mk_ret_y = span(cy, land['retention_pad'][1])
+    mk_ret_y = span(cy, land['retention_pad_height_y'])
     for p in sorted(retention, key=lambda q: (q['x'], q['y'])):
         a7 = tuple(sorted(abs(v - peg_y) for v in span(p['y'], p['h'])))
-        mk_x = span(land['retention_pad_centre_x'] * (1 if p['x'] > 0 else -1), land['retention_pad'][0])
-        cover = overlap(a7, mk_ret_y) / land['retention_pad'][1] * overlap(span(p['x'], p['w']), mk_x) / land['retention_pad'][0]
+        mk_x = span(land['retention_pad_centre_x'] * (1 if p['x'] > 0 else -1), land['retention_pad_width_x'])
+        cover = overlap(a7, mk_ret_y) / land['retention_pad_height_y'] * overlap(span(p['x'], p['w']), mk_x) / land['retention_pad_width_x']
         check(f'retention pad at x {r(p["x"])} y {r(p["y"])}', {'a7_abs_from_peg_line': [r(v) for v in a7], 'maker_abs_from_peg_line': list(mk_ret_y),
                                                               'maker_area_covered': r(cover)},
               a7[0] <= cy <= a7[1] and abs(abs(p['x']) - land['retention_pad_centre_x']) < 1e-6,

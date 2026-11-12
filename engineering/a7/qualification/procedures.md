@@ -157,18 +157,18 @@
 | engagement-criterion | ねじ噛み合いの検討基準 | `"1.0 mm study criterion"` | min | NONE | DESIGN | `engineering/a7/README.md` 引用 |
 | tolerances | 各寸法の合否公差 | — | — | mm | UNRESOLVED | メーカー公差・推奨穴寸法・適合ナット仕様（Q1/Q3/Q4、供給元への質問）。入手先（資料と測定）: SOFNG の公差付き図面・推奨穴寸法・適合ナット仕様（供給元への質問 Q1/Q3/Q4）。得られなければ購入ロットの実測で公差を決める |
 
-### switch-fit — PCM13SMTR 真理値・ランド・設定アクセス
+### switch-fit — HX MSK13C02 真理値・ランド・設定アクセス
 
 - 関連: Q10; #19
 - 概要: 未実装品の全接点を測定後、基板ランドとペグを照合。モジュールを外して設定工具を確認。
 - 根拠: `engineering/a7/electronics/README.md`
-- 未決: ランド/本体位置公差、導通判定抵抗、設定工具と保持条件の採否値が未決。（区分: 外部の証跡・アクセス待ち）
+- 未決: ランド/本体位置公差、導通判定抵抗、設定工具と保持条件の採否値が未決。ランドは PCM13SMTR 用のまま（メーカー推奨ランドとの公称値比較は engineering/a7/electronics/switch-land-fit.json、実物での適合は未確認）。（区分: 外部の証跡・アクセス待ち）
 - 観測: NOT_MEASURED。結果: NOT_RUN。
 - 次: 不足する基準をレビューし、オーナー承認の試作ルート確定後に実物で実施。
 
 準備するもの:
 
-- PCM13SMTR (C221842) 未実装品 2個以上（在庫 0 のため入手経路を記録）
+- HX MSK13C02 (C5149819) 未実装品 2個以上（購入記録を残す）
 - SW1 実装済みの A7 rev2 基板（試作ルートで入手した場合）
 
 計器・道具:
@@ -187,7 +187,7 @@
 
 1. 未実装品で 3 位置それぞれの全端子対（1〜4）の抵抗を測る。
 2. 実装基板では非通電で、各位置の端子 3–1 と 3–4 の導通を基板上で測る。
-3. ペグ穴への収まりと、ランドに対する本体のずれを顕微鏡で測る。
+3. ペグ穴への収まりと、ランドに対する本体と端子のずれを顕微鏡で測る（ランドは PCM13SMTR 用のまま。アクチュエータ先端は公称で基板端から 0.05 mm 出る）。
 4. モジュールを組んだ状態で、ラックから外して下側 (+Y) から設定スティックで 3 位置を切り替えられるか確認し、表示 ON / PGM / CV と位置が合うか確認する。
 
 記録する raw 証跡（種別ごとに別ファイル）:
@@ -203,13 +203,13 @@
 
 | ID | 基準 | 値 | 範囲 | 単位 | 確度 | 出典 / 決める主体 |
 |---|---|---|---|---|---|---|
-| function | 接点表（端子 3 が共通） | `{"POS.1": "1-3", "POS.2": "2-3", "POS.3": "3-4", "common": "3"}` | exact | NONE | SOURCED | `.claude/skills/component-a7-pcm13smtr/facts.json` `fact-a7-pcm13smtr-function` |
+| function | 接点表（端子 3 が共通。A/B/C は図面の位置名） | `{"A": "1-3", "B": "2-3", "C": "3-4", "common": "3"}` | exact | NONE | MIRROR | `.claude/skills/component-a7-hx-msk13c02/facts.json` `fact-a7-hx-msk13c02-function` |
 | mode-map | モード符号（POS.1=ON、POS.2=PROGRAM、POS.3=CV） | `"POS.1 (1-3) で MODE_A=0,B=1 → ON"` | exact | NONE | DESIGN | `engineering/a7/electronics/README.md` 引用 |
-| contact-rating | 接点定格（測定電流はこれ以下） | `"0.3 A @ 6 VDC"` | max | NONE | SOURCED | `.claude/skills/component-a7-pcm13smtr/facts.json` `fact-a7-pcm13smtr-contact-rating` |
+| contact-rating | 接点定格（測定電流はこれ以下） | `"DC 12 V 0.1 A"` | max | NONE | MIRROR | `.claude/skills/component-a7-hx-msk13c02/facts.json` `fact-a7-hx-msk13c02-contact-rating` |
 | travel | 1 位置あたりの移動量 | `1.5` | reference | mm | DESIGN | `engineering/a7/mechanical/layout.json` `/switch/actuator_travel_per_position` |
-| peg-diameter | ペグ径 | `0.8` | reference | mm | DESIGN | `engineering/a7/mechanical/layout.json` `/switch/peg_diameter` |
+| peg-diameter | ペグ径 | `0.73` | reference | mm | DESIGN | `engineering/a7/mechanical/layout.json` `/switch/peg_diameter` |
 | access | 設定アクセスの方向 | `"+Y (below the module), module out of the rack"` | exact | NONE | DESIGN | `engineering/a7/mechanical/layout.json` `/switch/access_from` |
-| fit-and-contact | 本体位置の許容ずれと導通判定抵抗 | — | — | NONE | UNRESOLVED | メーカーの本体-ペグ基準寸法と、3.3 V / 10 kΩ 負荷での接触判定値のレビュー。入手先（資料と測定）: C&K の本体とペグの基準寸法の公差（図面）と、実部品での 3.3 V / 10 kΩ 負荷の接触抵抗の測定 |
+| fit-and-contact | 本体位置の許容ずれと導通判定抵抗 | — | — | NONE | UNRESOLVED | メーカーの本体-ペグ基準寸法と、3.3 V / 10 kΩ 負荷での接触判定値のレビュー。入手先（資料と測定）: Hanxia の本体とペグの基準寸法の公差（図面に公差の記載なし）と、実部品での 3.3 V / 10 kΩ 負荷の接触抵抗の測定 |
 
 ### harness-depth — 完成ハーネスの全長経路・極性・奥行き
 
@@ -1053,7 +1053,7 @@
 - 関連:  #10
 - 概要: 最悪負荷/周囲条件でインダクタ、ホットスポット、PETG、PMMAを測定し左右照明を撮影。
 - 根拠: `engineering/a7/mechanical/README.md`
-- 未決: 部品温度の上限はオーナーが 75 °C に決めた（2026-11-12）。PETG/PMMA の温度限界（資料未取得）と見え方の合否（オーナー判断）が未決。（区分: オーナーの判断）
+- 未決: 部品温度の上限はオーナーが 75 °C に決めた（2026-11-12）。SW1（HX MSK13C02、2026-11-12 に変更）は動作上限 +70 °C で基板上の部品で最も低いので、SW1 だけは 70 °C で判定する。PETG/PMMA の温度限界（資料未取得）と見え方の合否（オーナー判断）が未決。（区分: オーナーの判断）
 - 観測: NOT_MEASURED。結果: NOT_RUN。
 - 次: 不足する基準をレビューし、オーナー承認の試作ルート確定後に実物で実施。
 
@@ -1076,7 +1076,7 @@
 手順:
 
 1. 室温を記録し、全点灯（上限 51/255）で温度が安定するまで記録する。
-2. LED 付近、U2、U4、PETG、PMMA の温度を測る。
+2. LED 付近、U2、U4、SW1（動作上限 +70 °C）、PETG、PMMA の温度を測る。
 3. 露出固定で点灯の見え方を撮影する（暗所と通常照明）。
 
 記録する raw 証跡（種別ごとに別ファイル）:
@@ -1094,9 +1094,9 @@
 | ID | 基準 | 値 | 範囲 | 単位 | 確度 | 出典 / 決める主体 |
 |---|---|---|---|---|---|---|
 | channel-cap | FW の LED 上限 | `"51u"` | max | NONE | DESIGN | `engineering/a5/firmware/include/lb_config.h` 引用 |
-| switch-temp | PCM13SMTR の動作温度 | `"-40 to +85"` | range | C | SOURCED | `.claude/skills/component-a7-pcm13smtr/facts.json` `fact-a7-pcm13smtr-operating-temperature` |
+| switch-temp | SW1（HX MSK13C02）の動作温度（上限 +70 °C は基板上の部品で最も低い。SW1 はこの上限で判定する） | `"-25 to +70"` | range | C | MIRROR | `.claude/skills/component-a7-hx-msk13c02/facts.json` `fact-a7-hx-msk13c02-operating-temperature` |
 | mlcc-temp | X7R MLCC の動作温度 | `"-55 to +125"` | range | degC | SOURCED | `.claude/skills/component-cc0603krx7r9bb104/facts.json` `fact-cc0603krx7r9bb104-operating-temperature` |
-| part-temp-max | 安定後の部品表面温度の上限（PJ-324M の保存温度の上限を基板全体の上限にする） | `75` | max | degC | CALCULATED | 計算 `T`（内訳は下） |
+| part-temp-max | 安定後の部品表面温度の上限（PJ-324M の保存温度の上限を基板全体の上限にする。SW1 は switch-temp の +70 °C で判定） | `75` | max | degC | CALCULATED | 計算 `T`（内訳は下） |
 | materials-appearance | PETG/PMMA の温度限界と見え方の合否 | — | — | degC | UNRESOLVED | 材料の温度限界は資料（未取得）、見え方はオーナーの判断。入手先（資料）: 使う PETG フィラメントと PMMA 板の製造元の熱変形温度（資料未取得） |
 
 計算の内訳:
@@ -1203,7 +1203,7 @@
 | height | 前面高さ | `128.5` | max | mm | DESIGN | `engineering/a7/mechanical/exports/3hp/verification.json` `/parts/0/bbox_max/1` |
 | depth | 奥行き目標 | `30.0` | max | mm | DESIGN | `engineering/a7/mechanical/layout.json` `/z_stack/installed_depth_target` |
 | plug-force | プラグ挿抜力 | `"5.0-10.0 N inward and exiting"` | range | NONE | MIRROR | `.claude/skills/component-a7-pj-324m/facts.json` `fact-a7-pj-324m-plug-force` |
-| switch-life | 設定スイッチの寿命 | `10000` | reference | cycles | SOURCED | `.claude/skills/component-a7-pcm13smtr/facts.json` `fact-a7-pcm13smtr-life` |
+| switch-life | 設定スイッチの寿命 | `10000` | reference | cycles | MIRROR | `.claude/skills/component-a7-hx-msk13c02/facts.json` `fact-a7-hx-msk13c02-life` |
 | power-connector-life | 電源ヘッダー J5（Molex 530470310）の挿抜耐久（スズめっき） | `30` | reference | cycles | SOURCED | `.claude/skills/component-530470310/facts.json` `fact-530470310-durability` |
 | cycles | ジャック挿抜の繰返し回数（パネル・ナット・ジャックに割れ・ずれ・緩みがないこと） | `100` | min | cycles | DESIGN | `engineering/a7/qualification/owner-criteria.json` `/criteria/service-envelope/cycles/value` |
 | retention-force | ジャック保持がずれ・割れなく受ける挿抜力 | `10.0` | min | N | MIRROR | 計算 `F`（内訳は下） |
@@ -1225,9 +1225,8 @@
 ## 現在のブロッカー
 
 - fixture completion awaits the physical criterion 5 (fixture-contact)
-- assembly_manifest: supply-observations: Order quantity is 2 modules (owner decision). JLC stock, price, minimum, packaging, lead time and assembly applicability at that quantity are not observed for any line except C221842 (switch-supply); JLC attrition is not sourced; stock never reserved.
-- assembly_manifest: switch-supply: PCM13SMTR (C221842): 2 needed for 2 modules. JLC stock 0 at 2026-11-09; at 2026-11-12 JLC lists it buyable (Extended) with pre-order minimum 3 and presale 0 (field meanings inferred), tier prices without currency, no lead time. The owner wants to complete on JLC: on our reading, a pre-order (presale 0 may mean none can be placed now; fill depends on LCSC stock, not observed) or a Global Sourcing quote; otherwise wait, or accept a reviewed alternate with its own contact table and fit review. At 2026-11-12T18:55Z the owner relayed a live check by their browsing assistant (not a first-hand capture): JLC stock 0, Extended, pre-order offered at minimum 3 with an estimated 31 days; Global Sourcing for 3 via DigiKey JPY 826 total (8-15 business days) or Element JPY 865 (8-18); parts stay in the JLC parts library. The owner accepted JLC sourcing with all recommendations, then asked to consider another switch because of the price, so this stays open until the owner picks.
-- assembly_manifest: jack-switch-qualification: PJ-324M pin function (which of terminals 4/5 is the tip contact; the supplier symbol contradicts the inferred 4 = tip) is not confirmed: the owner waived the pre-order continuity test on 2026-11-12 and accepted the risk, so it is a first-article check on the assembled boards. Slot, axis height and nut fit, and PCM13SMTR truth table and land fit, also need received parts (jack-continuity, jack-dimensions, switch-fit).
+- assembly_manifest: supply-observations: Order quantity is 2 modules (owner decision). JLC stock, price, minimum, packaging, lead time and assembly applicability at that quantity are not observed for any line except the C5149819 switch (stock 4561 at 2026-11-12); JLC attrition is not sourced; stock never reserved.
+- assembly_manifest: jack-switch-qualification: PJ-324M pin function (which of terminals 4/5 is the tip contact; the supplier symbol contradicts the inferred 4 = tip) is not confirmed: the owner waived the pre-order continuity test on 2026-11-12 and accepted the risk, so it is a first-article check on the assembled boards. Slot, axis height and nut fit, and the HX MSK13C02 truth table and land/peg fit, also need received parts (jack-continuity, jack-dimensions, switch-fit).
 - assembly_manifest: exact-part-evidence: Exact-part gaps after the 2026-11-11 source recovery (the PMEG4010CEJ ,115 packing is since sourced: SOD323F on a 7-inch reel, fact-pmeg4010cej-115-orderable): SM04B-SRSS-TB per-circuit numbering not printed beyond the No. 1 end; PJ-324M recommended hole/slot sizes, axis height and whether a nut ships with C22355739 not sourced.
 - assembly_manifest: mechanical-materials: PMMA sheet and pocket tolerances, PETG process and orderable fastener part numbers are not sourced; the model carries designations (M2x18, M1.6x4) and envelopes only.
 - assembly_manifest: rack-hardware: The owner accepted naming the case (2026-11-12, accept all recommendations); the case model, and so the rail/thread interface and fasteners, is not given yet.
@@ -1272,6 +1271,7 @@
 - material jack: missing or ambiguous dated observation
 - material pmma_petg_hardware: missing or ambiguous dated observation
 - material switch: missing or ambiguous dated observation
+- owner-approved sample/prototype route absent for this revision and quantity
 - reviewed manufacturing files and explicit revision-bound owner release absent
 
 ## 別案

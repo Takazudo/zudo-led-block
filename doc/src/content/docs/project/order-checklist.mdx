@@ -27,26 +27,24 @@ readiness（`engineering/a7/qualification/readiness.json`）は不足を 42 個�
 2. **O3** 供給元への質問を送るか決め、送る
 3. **O7** 残りの合否基準を採否する（提案値）
 4. **O8** LED タイミング (#13) を Worldsemi の公式窓口に書面で確認する
-5. **O4** モードスイッチを決める: PCM13SMTR を JLC 経由で取り寄せるか、別のスイッチにするか
-6. **O5** 完成ケーブルを業者に注文仕様で頼み、長さ公差の回答をもらう
-7. **O6** 使うケースの型番を知らせる
-8. **O11** 治具の加工先を選ぶ
-9. **O1** 限定試作ルートを承認する
-10. **O9** 物理手順を実施して記録する
-11. **O10** 製造リリースと発注を明示的に承認する
+5. **O5** 完成ケーブルを業者に注文仕様で頼み、長さ公差の回答をもらう
+6. **O6** 使うケースの型番を知らせる
+7. **O11** 治具の加工先を選ぶ
+8. **O1** 限定試作ルートを承認する
+9. **O9** 物理手順を実施して記録する
+10. **O10** 製造リリースと発注を明示的に承認する
 
 ## まとめて答えられる判断（1 件）
 
 オーナーの判断ゲートを、PCB 発注を先に止めるものから順に並べています。推奨は出典に基づく提案で、オーナーの回答ではありません。回答は記録（承認ファイルやレビュー記録）にしてから反映し、それまでゲートは閉じたままです。
 
-### 1. PCM13SMTR（C221842）の JLC 在庫切れにどう対応しますか。
+### 1. A7 r2（3HP / FR-4）の限定試作を承認しますか。
 
-- ゲート: `assembly:switch-supply`（PCB 発注の前）
-- **JLC で取り寄せる（予約注文、できなければ Global Sourcing）（推奨）**: JLC の中で完結し、接点表とランドは今の設計のまま。2026-11-12 の掲載は購入可・予約注文の最小 3・予約可能数 0（項目の意味はこちらの解釈）で、今は予約注文できない可能性がある。その場合は Global Sourcing の見積で価格と納期を得る。どちらも納期は未確認。
-- JLC の入荷を待つ: 設計は変わらないが、入荷予定日が出ておらず、発注がいつまでも止まる可能性がある。
-- 代替品を認める: 別の接点表・ランド・適合のレビューが必要で、基板の変更と再検証になる。
-- 推奨の理由: オーナーは JLC で完結したいと書いている（原文は owner-decisions.json）。同じ型番なら接点表・ランド・適合の検証をそのまま使える。2026-11-12 のオーナーの確認では、予約注文は最小 3 個で約 31 日、Global Sourcing は DigiKey で 3 個 ¥826（8〜15 営業日）。オーナーは価格を見て別のスイッチも検討したいと述べたので、代替品の比較を用意してから改めて選んでもらう。
-- 出典: `engineering/a7/procurement/supply-observations.json` 引用「"preorder_minimum": 3」、`engineering/a7/procurement/supply-observations.json` 引用「presale 0 may mean a pre-order cannot be placed now」、`engineering/a7/procurement/owner-decisions.json` 引用「external purchase from JLC parts lib is acceptable」、`engineering/a7/procurement/supply-observations.json` 引用「DigiKey, cut tape: ¥275.19 each, ¥826 total; 8–15 business days.」
+- ゲート: `owner_prototype_route`（PCB 発注の前）
+- **試験目的の少数試作を承認する（推奨）**: 部品・基板・治具を試作数量だけ入手でき、19 の物理手順を実施できる。承認ファイルを records.json の owner_prototype_route に記録するとこのゲートが解除される。製造リリースではない。
+- まだ承認しない: 物理手順はすべて止まる。部品・基板・治具を入手できない。
+- 推奨の理由: 19 の物理手順はどれも実物が要り、試作ルートがないと部品・基板・治具を入手できない。試作ルートの承認は製造リリースではない。
+- 出典: `engineering/a7/procurement/assembly-manifest.json` 引用「A prototype route, when the owner approves one, is recorded in engineering/a7/qualification/records.json and is not a release.」
 
 ## オーナーが方針を受け入れた判断（7 件、ゲートは開いたまま）
 
@@ -66,11 +64,13 @@ readiness（`engineering/a7/qualification/readiness.json`）は不足を 42 個�
 
 - **版に結び付いた製造リリースと発注を承認しますか。** → すべての手順と書類がそろった後に承認する（`manufacturing_release`）。残り: 製造リリースと量産の発注は、試作基板の実機試験の結果を見てからオーナーが改めて承認する。
 
-## 回答済みの判断（8 件）
+## 回答済みの判断（9 件）
 
 オーナーが自分の言葉で答えたもの。記録ファイルに原文があり、ゲートは閉じています。
 
 - **最初の発注数量をいくつにしますか。** → 2 台分（オーナー報告の JLC PCBA 最小、未確認）（オーナーの回答、`assembly:order-quantity`）。原文「JLCPCB accept at least 2 PCBA, so we will make 2 units first」、記録 `engineering/a7/procurement/owner-decisions.json`
+
+- **PCM13SMTR（C221842）の JLC 在庫切れにどう対応しますか。** → 代替品を認める（オーナーの回答、`assembly:switch-supply`）。原文「seems possible but a bit high price? might be consider another switch if there's something good? consider basicallly choose JLC basic parts or have qty items. it's better this is backside switch, so nothing special is required for this. good if it works. check compoents price for all items, and choose low price one on JLC parts. have man qty + low price is the best forthose」、記録 `engineering/a7/procurement/owner-decisions.json`
 
 - **JLC で 2 台分を実装するとき、基板の面付けをどうしますか。** → リポジトリで必要枚数だけの面付けを作る（オーナーの回答、`assembly:panel-route`）。原文「you can combine 2 or 3 board in one gerber, but anyhow we need to order at least 2 qty. this is prototype phase still, so maybe just simply make multiple gerbers will be better for AI, I guess. separated PCBs looks better for AI recognization. Chose "Yes, our own panels" on the decision card asking "Use our own panels, one Gerber per board type, quantity 2 each?"」、記録 `engineering/a7/procurement/owner-decisions.json`
 
@@ -101,7 +101,7 @@ readiness（`engineering/a7/qualification/readiness.json`）は不足を 42 個�
 | `criterion:pmma-supports` | 供給元・加工先の回答 | PMMA/PETG 加工先の加工公差と許容締付トルク | 締付トルクと保持荷重の合否値 | — | — | 上と同じ質問の回答 |
 | `criterion:fixture-contact` | 実物の測定 | 完成治具の位置ずれの実測 | 許容位置ずれ・ストローク・荷重 | — | — | INGUN のプローブとレセプタクルの資料は取得済み。残りは完成治具の測定 |
 | `material:jack` | 日付付きの供給観測 | PJ-324M（C22355739）の JLC 在庫と価格 | 基板用 2 台分（4 個）が JLC 在庫にあるか（日付付き） | [開く](https://jlcpcb.com/partdetail/SOFNG-PJ324M/C22355739) | [開く](https://www.lcsc.com/product-detail/C22355739.html) | 基板用は JLC 在庫を優先。オーナーは発注前の端子確認を見送った（2026-11-12）ので、単品を手元に取り寄せる必要はない |
-| `material:switch` | 日付付きの供給観測 | PCM13SMTR（C221842）の JLC 在庫・予約注文の可否 | 2 台分（2 個、予約注文なら最小 3 個）が JLC で手に入るか（日付付き） | [開く](https://jlcpcb.com/partdetail/CK-PCM13SMTR/C221842) | [開く](https://www.lcsc.com/product-detail/C221842.html) | JLC 在庫 → 予約注文 → Global Sourcing の順（こちらの解釈、オーナー未確認）。2026-11-12 の観測は supply-observations.json |
+| `material:switch` | 日付付きの供給観測 | HX MSK13C02（C5149819）の JLC 在庫 | 2 台分（2 個）が発注時に JLC 在庫にあるか（日付付き）。2026-11-12T19:35:14Z の観測は在庫 4561（Extended、確保ではない） | [開く](https://jlcpcb.com/partdetail/hanxia-HXMSK13C02/C5149819) | [開く](https://www.lcsc.com/product-detail/C5149819.html) | 発注直前に JLC 在庫を確認する。2026-11-12 の観測は supply-observations.json（jlc-c5149819-2026-11-12） |
 | `material:finished_cables` | 供給元・加工先の回答、日付付きの供給観測 | 完成ケーブルの見積もり | 長さ公差の保証、数量、納期 | — | — | supplier-questions.md の「完成ケーブル」を製作業者に送る |
 | `material:pmma_petg_hardware` | 供給元・加工先の回答、日付付きの供給観測 | PMMA・PETG・金物の見積もり | 数量・納期・価格 | — | — | 加工先への質問の回答と一緒に保存する |
 | `material:fixture` | 日付付きの供給観測 | INGUN GKS-050 214 050 A 1000 / KS-050 E08 V-30 と FR-4 加工の見積もり | 在庫・数量・納期 | — | — | 治具の加工先と金物の承認（オーナーの判断）の後 |
@@ -141,11 +141,10 @@ readiness（`engineering/a7/qualification/readiness.json`）は不足を 42 個�
 | O3 | `engineering/a7/qualification/supplier-questions.md` は未送信の下書き。送信と回答の保存（取得日・送信先・raw・ハッシュ）はオーナーだけが行える。 | `assembly:supply-observations`（BLOCKED）、`assembly:mechanical-materials`（BLOCKED）、`criterion:jack-dimensions`（BLOCKED）、`criterion:switch-fit`（BLOCKED）、`criterion:pmma-supports`（BLOCKED）、`criterion:ldo-reverse`（解除済み）、`criterion:effective-capacitance`（BLOCKED）、`material:jack`（BLOCKED）、`material:switch`（BLOCKED）、`material:finished_cables`（BLOCKED）、`material:pmma_petg_hardware`（BLOCKED）、`material:fixture`（BLOCKED）、`material:assembly_service`（BLOCKED） |
 | O7 | harness-depth、u7-stress、service-envelope、ldo-reverse はオーナーが採用した（2026-11-12）。thermal-optical は上限 75 °C を採ったが、材料の温度限界と見え方が残る。部分電源試験（partial-rails）は「accept all」の後に別に尋ね、オーナーが部品の絶対最大を合否の線に採った（2026-11-12）。その他の PROPOSED の提案値は、採るまでゲートを解除しない。 | `criterion:thermal-optical`（BLOCKED）、`criterion:service-envelope`（解除済み）、`criterion:load-short`（解除済み）、`criterion:cv-noise`（解除済み）、`criterion:rail-collapse`（解除済み）、`criterion:jack-continuity`（解除済み）、`criterion:cv-thru-calibration`（解除済み）、`criterion:power-current`（解除済み）、`criterion:startup-reset`（解除済み）、`criterion:u7-stress`（解除済み）、`criterion:partial-rails`（解除済み） |
 | O8 | オーナーは推奨（メーカーの判定基準を書面で確認して採る）を受け入れた（2026-11-12「5 accept all」）。データシート V1.4 の T1L は 580–1000 ns、現行 FW の T1L は計算上 約 340–361 ns。Worldsemi の公式窓口から、T0H ≤ 380 ns とビット周期で判定し T1L を合否に使わないことと、周期の許容幅を書面でもらう。届くまで提案値（t1l-min / t1l-max）は採らず、基準ゲートは開いたまま。書面確認が得られなければ購入ロットの実測に戻る。 | `criterion:firmware-waveforms`（BLOCKED） |
-| O4 | オーナーは推奨（JLC 経由で取り寄せる）をいったん受け入れた後、JLC の在庫確認（2026-11-12、JLC 在庫 0、予約注文は最小 3 個で約 31 日、Global Sourcing は DigiKey で 3 個 ¥826・8〜15 営業日）を受けて、価格が少し高いので別のスイッチも検討したいと述べた。代替品の比較（同じフットプリントにそのまま載るか、基板の変更が要るか）を見てオーナーが選ぶまで、このゲートは開いたまま。 | `assembly:switch-supply`（BLOCKED）、`material:switch`（BLOCKED） |
 | O5 | オーナーは完成ケーブルを業者に頼むこと（2026-11-12「5 accept all」）と、電源ケーブルの注文範囲 54–60 mm（57 ± 3 mm、±3 は仮定）と最小曲げ半径 2.0 mm を合否基準にすることを決めた。業者が保証できる公差の回答をもらう。SH4 と IDC リボンも同じ。 | `material:finished_cables`（BLOCKED）、`criterion:harness-depth`（解除済み） |
 | O6 | オーナーはケースの型番を知らせる案を採った（2026-11-12「5 accept all」）。型番からレール・ねじ規格と締結部品を決める。 | `assembly:rack-hardware`（BLOCKED） |
 | O11 | `engineering/a7/fixture/manifest.json` の hardware_proposal はオーナーが承認した（2026-11-12「5 accept all」）。治具の FR-4 板 4 枚の加工先は未選定（JLCCNC の指針は参考のみ）。プローブ板の穴間 0.40 mm は加工先に穴あけ可否の確認が要る。 | `assembly:fixture-materials`（BLOCKED） |
-| O1 | 対象版（A7 r2 / 3HP / FR-4）、数量、入手する部品・基板・治具、許す工程、実施者、試験前の安全条件を決め、承認ファイルを残して `records.json` の owner_prototype_route に記録する。製造リリースとは別の承認。 | `owner_prototype_route`（解除済み）、`assembly:prototype-and-release`（BLOCKED） |
+| O1 | 対象版（A7 r2 / 3HP / FR-4）、数量、入手する部品・基板・治具、許す工程、実施者、試験前の安全条件を決め、承認ファイルを残して `records.json` の owner_prototype_route に記録する。製造リリースとは別の承認。 | `owner_prototype_route`（BLOCKED）、`assembly:prototype-and-release`（BLOCKED） |
 | O9 | 19 手順はすべて実機が必要。`run-templates/` の雛形をコピーし、raw ファイルとハッシュを付けて `records.json` に追加する。 | `run:*`（19 手順が未実施） |
 | O10 | レビュー済み製造ファイル、数量、版に結び付いた承認。オーナーは実機試験の結果を見てから判断する方針を受け入れた（2026-11-12「5 accept all」）。これは製造リリースではない。 | `manufacturing_release`（BLOCKED）、`assembly:prototype-and-release`（BLOCKED） |
 

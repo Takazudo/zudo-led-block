@@ -220,7 +220,7 @@
           "message_id": "cmsg_01LWjimMEMhCfvWjnLbPbEF33czF7FYpvLbreFd46eoQ5P",
           "at": "2026-11-12T18:55:39Z",
           "text": "seems possible but a bit high price? might be consider another switch if there's something good? consider",
-          "meaning": "After accepting JLC sourcing, the owner relayed the live availability check and asked to consider another switch. The switch supply stays open until the owner picks; the observation is in supply-observations.json (jlc-c221842-2026-11-12-owner-relayed)."
+          "meaning": "After accepting JLC sourcing, the owner relayed the live availability check and asked to consider another switch. The switch supply stays open until the owner picks; the observation is in supply-observations.json (jlc-c221842-2026-11-12-owner-relayed). The owner then directed a working, low-price, in-stock switch; the answer is the switch-supply entry."
         }
       ]
     },
@@ -272,6 +272,53 @@
       },
       "meaning": "partial-rails passes only if no pin of any part exceeds its manufacturer absolute maximum rating during the partial-power and unpowered-CV tests. Absolute maxima are stress limits, so staying inside them does not guarantee margin.",
       "scope": "Pass/fail line of partial-rails only. Asked separately because it arose after \"accept all\". The first-power current limit is still decided in review before the test."
+    },
+    {
+      "id": "switch-supply",
+      "decided_by": "OWNER",
+      "decided_on": "2026-11-12",
+      "owner_messages": [
+        {
+          "message_id": "cmsg_01LWjimMEMhCfvWjnLbPbEF33czF7FYpvLbreFd46eoQ5P",
+          "at": "2026-11-12T18:55:39Z",
+          "text": "seems possible but a bit high price? might be consider another switch if there's something good? consider"
+        },
+        {
+          "message_id": "cmsg_01LWjimMEMhCfvWjnLbPbEF3MfZBvz7KB56BWh9iFSZzmD",
+          "at": "2026-11-12T18:56:24Z",
+          "text": "basicallly choose JLC basic parts or have qty items. it's better"
+        },
+        {
+          "message_id": "cmsg_01LWjimMEMhCfvWjnLbPbEF3229hBTBKkor6PVWduK92Mz",
+          "at": "2026-11-12T18:57:51Z",
+          "text": "this is backside switch, so nothing special is required for this. good if it works."
+        },
+        {
+          "message_id": "cmsg_01LWjimMEMhCfvWjnLbPbEF3229hBTBKkor6PVWduK92Mz",
+          "at": "2026-11-12T18:57:51Z",
+          "text": "check compoents price for all items, and choose low price one on JLC parts. have man qty + low price is the best forthose"
+        }
+      ],
+      "owner_words": [
+        "seems possible but a bit high price? might be consider another switch if there's something good? consider",
+        "basicallly choose JLC basic parts or have qty items. it's better",
+        "this is backside switch, so nothing special is required for this. good if it works.",
+        "check compoents price for all items, and choose low price one on JLC parts. have man qty + low price is the best forthose"
+      ],
+      "answer": "alternate",
+      "selection": {
+        "selected_by": "PROJECT_COORDINATOR",
+        "under": "the owner's direction above (a switch that works, low price, in stock on JLC)",
+        "part": "hanxia HX MSK13C02 (C5149819)",
+        "line_id": "line-a7-hx-msk13c02",
+        "basis": "JLC Extended, stock 4561 at 2026-11-12T19:35:14Z (point-in-time, not reserved); same SP3T contact arrangement (A 1-3, B 2-3, C 3-4); fits the routed PCM13SMTR land on nominal drawing values (engineering/a7/electronics/switch-land-fit.json). The owner did not name this part; the coordinator picked it under the owner's direction."
+      },
+      "accepted_consequences": [
+        "Lower ratings than PCM13SMTR: DC 12 V 0.1 A, -25..+70 C, 10,000 cycles. +70 C becomes the lowest part temperature limit on the board (qualification thermal-optical).",
+        "The 0.1 mm deeper body puts the actuator tip 0.05 mm past the board edge with the routed pegs kept (engineering/a7/mechanical/design-inputs.json)."
+      ],
+      "remains": "switch-fit (contact truth table and land/peg fit on received parts) stays a physical check. The facts come from a distributor-served Hanxia drawing and stay UNVERIFIED.",
+      "scope": "Chooses the SW1 part for the first build only. It does not approve an order, a supplier message or a manufacturing release."
     }
   ],
   "sourcing_preference": {
