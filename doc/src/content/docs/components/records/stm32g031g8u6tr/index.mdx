@@ -33,7 +33,7 @@ This record in the catalog: [STM32G031G8U6TR](/docs/components/catalog/#rec-stm3
 
 **Source state:** AVAILABLE
 
-**Coverage:** 4 open of 5 published
+**Coverage:** 3 open of 5 published
 
 ## Documents and package
 
@@ -97,18 +97,18 @@ Coverage is stated one domain at a time and is never rolled up. A domain marked 
 
 <EvidenceAnchor id="cov-stm32g031g8u6tr-ratings" />
 
-**Coverage ID:** `cov-stm32g031g8u6tr-ratings` · **Status:** OPEN
+**Coverage ID:** `cov-stm32g031g8u6tr-ratings` · **Status:** COVERED
 
-**Reason:** Primary document acquired on 2026-11-09. This domain remains OPEN: per-criterion electrical/mechanical/pin-map review and applicable physical qualification incomplete
+**Reason:** VDD and I/O absolute maxima, injected-current limits and operating VDD are read from DS12992 Rev 4 Tables 18-21 in the owner's text conversion of the ST datasheet; application margins and partial-power behaviour are not qualified
 
 **Facts in this domain:**
 
 - [`fact-stm32g031g8u6tr-ratings`](#fact-stm32g031g8u6tr-ratings)
+- [`fact-stm32g031g8u6tr-abs-max-vin-ft`](#fact-stm32g031g8u6tr-abs-max-vin-ft)
+- [`fact-stm32g031g8u6tr-iinj-pin`](#fact-stm32g031g8u6tr-iinj-pin)
+- [`fact-stm32g031g8u6tr-iinj-total`](#fact-stm32g031g8u6tr-iinj-total)
+- [`fact-stm32g031g8u6tr-vdd-operating`](#fact-stm32g031g8u6tr-vdd-operating)
 - [`fact-stm32g031g8u6tr-operating-temperature`](#fact-stm32g031g8u6tr-operating-temperature)
-
-**Blocked by:** these facts must be resolved before the domain can close. Each is listed in full under Facts.
-
-- [`fact-stm32g031g8u6tr-ratings`](#fact-stm32g031g8u6tr-ratings)
 
 ### placement
 
@@ -155,13 +155,55 @@ A never-exceed limit. Reaching it may damage the part; it is not an operating ta
 
   **Fact:** `fact-stm32g031g8u6tr-ratings`
 
-  **Value:** manufacturer absolute-maximum and recommended operating limits (VDD, I/O injection, ADC input range) · **Unit:** `NONE`
+  **Value:** -0.3 to 4.0 · **Unit:** `V`
 
-  **Conditions:** Primary document now available; this broad fact remains unverified pending per-criterion review. No automatic promotion from source acquisition.
+  **Conditions:** VDD external supply voltage absolute maximum (Table 18). I/O input voltage, injected current and operating VDD are separate facts. Read from the owner's text conversion of DS12992 Rev 4 (see the source's authority note), not from a PDF render.
 
-  **Verdict:** UNSOURCED · **Provenance:** UNVERIFIED
+  **Verdict:** PASS - primary-source confirmed · **Provenance:** PRIMARY-SPEC
 
-  **Evidence:** [src-stm32g031g8u6tr-ds: absolute maximum ratings section tables (primary acquired 2026-11-09; this broad fact still requires per-criterion review)](#src-stm32g031g8u6tr-ds)
+  **Evidence:** [src-stm32g031g8u6tr-ds-text-p45: Table 18 Voltage characteristics, row VDD](#src-stm32g031g8u6tr-ds-text-p45)
+</EvidenceFact>
+
+<EvidenceFact>
+  <EvidenceAnchor id="fact-stm32g031g8u6tr-abs-max-vin-ft" />
+
+  **Fact:** `fact-stm32g031g8u6tr-abs-max-vin-ft`
+
+  **Value:** -0.3 to VDD + 4.0 · **Unit:** `V`
+
+  **Conditions:** input voltage on FT\_xx pins (Table 18); any other pin -0.3 to 4.0 V; above 4 V the internal pull-up/pull-down must be disabled; when an FT\_a pin is used by an analog peripheral such as the ADC the maximum is 4 V. Read from the owner's text conversion of DS12992 Rev 4 (see the source's authority note), not from a PDF render.
+
+  **Verdict:** PASS - primary-source confirmed · **Provenance:** PRIMARY-SPEC
+
+  **Evidence:** [src-stm32g031g8u6tr-ds-text-p45: Table 18 row VIN and notes 2-3](#src-stm32g031g8u6tr-ds-text-p45)
+</EvidenceFact>
+
+<EvidenceFact>
+  <EvidenceAnchor id="fact-stm32g031g8u6tr-iinj-pin" />
+
+  **Fact:** `fact-stm32g031g8u6tr-iinj-pin`
+
+  **Value:** -5 · **Unit:** `mA`
+
+  **Conditions:** injected current on a FT\_xx pin, negative injection (VIN \< VSS); positive injection is NA: not possible on these I/Os and does not occur below the maximum VIN (Table 19 notes 2-3); IINJ(PIN) must never be exceeded. Read from the owner's text conversion of DS12992 Rev 4 (see the source's authority note), not from a PDF render.
+
+  **Verdict:** PASS - primary-source confirmed · **Provenance:** PRIMARY-SPEC
+
+  **Evidence:** [src-stm32g031g8u6tr-ds-text-p46: Table 19 (continued) row IINJ(PIN), notes 2-3](#src-stm32g031g8u6tr-ds-text-p46)
+</EvidenceFact>
+
+<EvidenceFact>
+  <EvidenceAnchor id="fact-stm32g031g8u6tr-iinj-total" />
+
+  **Fact:** `fact-stm32g031g8u6tr-iinj-total`
+
+  **Value:** 25 · **Unit:** `mA`
+
+  **Conditions:** total injected current, the absolute sum of the negative injected currents of all I/Os and control pins, instantaneous (Table 19 note 4). Read from the owner's text conversion of DS12992 Rev 4 (see the source's authority note), not from a PDF render.
+
+  **Verdict:** PASS - primary-source confirmed · **Provenance:** PRIMARY-SPEC
+
+  **Evidence:** [src-stm32g031g8u6tr-ds-text-p46: Table 19 (continued) row sum |IINJ(PIN)|, note 4](#src-stm32g031g8u6tr-ds-text-p46)
 </EvidenceFact>
 
 ### RECOMMENDED\_OPERATION
@@ -180,6 +222,20 @@ The range the manufacturer intends the part to be used in. Always narrower than 
   **Verdict:** PASS - primary-source confirmed · **Provenance:** PRIMARY-SPEC
 
   **Evidence:** [src-stm32g031g8u6tr-ds: printed page 122 ordering information scheme row temperature range](#src-stm32g031g8u6tr-ds)
+</EvidenceFact>
+
+<EvidenceFact>
+  <EvidenceAnchor id="fact-stm32g031g8u6tr-vdd-operating" />
+
+  **Fact:** `fact-stm32g031g8u6tr-vdd-operating`
+
+  **Value:** 1.7 to 3.6 · **Unit:** `V`
+
+  **Conditions:** standard operating VDD (Table 21); VDDA 1.62 to 3.6 V for ADC operation; I/O input voltage in operation -0.3 to Min(VDD + 3.6, 5.5) V except RST. Read from the owner's text conversion of DS12992 Rev 4 (see the source's authority note), not from a PDF render.
+
+  **Verdict:** PASS - primary-source confirmed · **Provenance:** PRIMARY-SPEC
+
+  **Evidence:** [src-stm32g031g8u6tr-ds-text-p46: Table 21 General operating conditions, rows VDD, VDDA, VIN](#src-stm32g031g8u6tr-ds-text-p46)
 </EvidenceFact>
 
 ### PROJECT\_STATE
@@ -388,6 +444,46 @@ Every document cited above, with its identification, when it was retrieved, and 
 | Printed page    | 1              |
 
 **Locator:** printed 33 Figure 6 UFQFPN28 top view; 104 package; 122 ordering
+
+**Availability:** AVAILABLE
+
+**Document URL:** [https://www.st.com/resource/en/datasheet/stm32g031f8.pdf](https://www.st.com/resource/en/datasheet/stm32g031f8.pdf)
+
+### STMicroelectronics STM32G031x4/x6/x8 datasheet (owner download, delivered as a text conversion)
+
+<EvidenceAnchor id="src-stm32g031g8u6tr-ds-text-p45" />
+
+**Source ID:** `src-stm32g031g8u6tr-ds-text-p45` · **Authority:** MANUFACTURER\_PRIMARY
+
+| Field           | Recorded value |
+| --------------- | -------------- |
+| Document number | DS12992        |
+| Revision        | Rev 4          |
+| Document date   | 2025-06        |
+| Retrieved       | 2026-11-12     |
+| Printed page    | 45/126         |
+
+**Locator:** printed page 45 (text extraction): section 5.2 Absolute maximum ratings, Table 18 Voltage characteristics and Table 19 Current characteristics (first part)
+
+**Availability:** AVAILABLE
+
+**Document URL:** [https://www.st.com/resource/en/datasheet/stm32g031f8.pdf](https://www.st.com/resource/en/datasheet/stm32g031f8.pdf)
+
+### STMicroelectronics STM32G031x4/x6/x8 datasheet (owner download, delivered as a text conversion)
+
+<EvidenceAnchor id="src-stm32g031g8u6tr-ds-text-p46" />
+
+**Source ID:** `src-stm32g031g8u6tr-ds-text-p46` · **Authority:** MANUFACTURER\_PRIMARY
+
+| Field           | Recorded value |
+| --------------- | -------------- |
+| Document number | DS12992        |
+| Revision        | Rev 4          |
+| Document date   | 2025-06        |
+| Retrieved       | 2026-11-12     |
+| Printed page    | 46/126         |
+
+**Locator:** printed page 46 (text extraction): Table 19 Current characteristics (continued), Table 20 Thermal characteristics, Table 21 General operating conditions
 
 **Availability:** AVAILABLE
 

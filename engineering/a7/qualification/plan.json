@@ -2324,7 +2324,7 @@
       "expected": "部分電源/バックパワーを未確認として扱う。",
       "basis": "engineering/a5/integration/independent_review",
       "criterion_status": "UNRESOLVED",
-      "missing_criterion": "最大印加値、注入電流制限、順序、許容逆流値を部品資料から承認する必要。",
+      "missing_criterion": "部品資料の値はそろった（STM32 の注入電流と入力電圧は DS12992 Rev 4 のテキスト変換から、ほかは各データシートから）。これらの絶対最大をどのピンでも超えないことを合否とするかはオーナー判断。初回通電の電流制限値は試験前のレビューで決める。逆電流の扱いは ldo-reverse で別に決める。",
       "raw_evidence_required": "組合せ表、電圧/注入/逆流記録、raw波形",
       "observation": "NOT_MEASURED",
       "result": "NOT_RUN",
@@ -2334,7 +2334,7 @@
         "injection_reverse_current",
         "rail_waveforms"
       ],
-      "criterion_class": "ACCESS_EVIDENCE_HOLD",
+      "criterion_class": "OWNER_DECISION",
       "inputs": [
         "組立済みモジュール"
       ],
@@ -2421,16 +2421,52 @@
           "bound": "range"
         },
         {
-          "id": "limits",
-          "criterion": "許容印加値・注入電流・順序の数表",
-          "value": null,
+          "id": "mcu-vin",
+          "criterion": "STM32 の FT_xx 入力電圧の絶対最大（ADC に使う FT_a は 4 V まで）",
+          "value": "-0.3 to VDD + 4.0",
+          "unit": "V",
+          "confidence": "SOURCED",
+          "source": {
+            "path": ".claude/skills/component-stm32g031g8u6tr/facts.json",
+            "fact_id": "fact-stm32g031g8u6tr-abs-max-vin-ft"
+          },
+          "bound": "range"
+        },
+        {
+          "id": "mcu-iinj-pin",
+          "criterion": "STM32 の 1 ピンあたりの注入電流（負方向。FT_xx は正方向の注入が起きない）",
+          "value": -5,
           "unit": "mA",
-          "confidence": "UNRESOLVED",
-          "decided_by": "上記の部品値から条件表を作ってレビューする（STM32 の注入電流はカタログで未取得）",
-          "supplied_by": {
-            "kind": "DOCUMENT",
-            "what": "STM32G031 データシートの I/O 注入電流と絶対最大（カタログに fact がない）"
-          }
+          "confidence": "SOURCED",
+          "source": {
+            "path": ".claude/skills/component-stm32g031g8u6tr/facts.json",
+            "fact_id": "fact-stm32g031g8u6tr-iinj-pin"
+          },
+          "bound": "min"
+        },
+        {
+          "id": "mcu-iinj-total",
+          "criterion": "STM32 の全ピンの注入電流の絶対値の合計",
+          "value": 25,
+          "unit": "mA",
+          "confidence": "SOURCED",
+          "source": {
+            "path": ".claude/skills/component-stm32g031g8u6tr/facts.json",
+            "fact_id": "fact-stm32g031g8u6tr-iinj-total"
+          },
+          "bound": "max"
+        },
+        {
+          "id": "mcu-vdd",
+          "criterion": "STM32 の VDD の絶対最大",
+          "value": "-0.3 to 4.0",
+          "unit": "V",
+          "confidence": "SOURCED",
+          "source": {
+            "path": ".claude/skills/component-stm32g031g8u6tr/facts.json",
+            "fact_id": "fact-stm32g031g8u6tr-ratings"
+          },
+          "bound": "range"
         }
       ]
     },
@@ -3747,7 +3783,7 @@
     {
       "id": "O7",
       "title": "合否基準を採否する（導出値と提案値）",
-      "detail": "導出した受入値（power-current / startup-reset / u7-stress）と、PROPOSED の提案値（見え方・温度、挿抜力と回数、短絡、CV の誤差とノイズ、レール崩壊、ジャック導通）を採るか決める。採った値はレビュー記録に残す。提案値のままではゲートは解除されない。",
+      "detail": "導出した受入値（power-current / startup-reset / u7-stress）と、PROPOSED の提案値（見え方・温度、挿抜力と回数、短絡、CV の誤差とノイズ、レール崩壊、ジャック導通）と、部分電源試験を部品の絶対最大で判定する案（partial-rails）を採るか決める。採った値はレビュー記録に残す。提案値のままではゲートは解除されない。",
       "unblocks": [
         "criterion:thermal-optical",
         "criterion:service-envelope",
@@ -3758,7 +3794,8 @@
         "criterion:cv-thru-calibration",
         "criterion:power-current",
         "criterion:startup-reset",
-        "criterion:u7-stress"
+        "criterion:u7-stress",
+        "criterion:partial-rails"
       ]
     },
     {
@@ -4298,6 +4335,45 @@
       "rank": 13
     },
     {
+      "gate": "criterion:partial-rails",
+      "stage": "BENCH",
+      "question": "部分電源・無電源 CV の試験（片側の電源だけ、CV をかけたまま電源断）の合否を、部品の絶対最大（STM32 の注入電流 −5 mA/ピン・合計 25 mA、FT 入力 VDD + 4.0 V、OPA197・TLV9001 の入力は電源の 0.5 V 外まで（OPA197 は入力電流 10 mA まで）、SN74LVC2T45 6.5 V、WS2812B VDD + 0.7 V）をどのピンでも超えないこと、としますか。",
+      "options": [
+        {
+          "id": "accept",
+          "label": "部品の絶対最大を合否の線にする",
+          "consequence": "partial-rails の基準が決まり、試作ルートの範囲で実機試験に進める。絶対最大はストレス限界なので、超えなくても余裕は保証されない。初回通電の電流制限値は試験前のレビューで決めて記録する。"
+        },
+        {
+          "id": "margin",
+          "label": "絶対最大に余裕（例：半分）を取った値を合否にする",
+          "consequence": "余裕の取り方をレビューで決めて plan.json に書き直す。基準が厳しくなる分、回路の変更が要る結果になりうる。決めるまでゲートは開かない。"
+        },
+        {
+          "id": "defer",
+          "label": "今は決めない",
+          "consequence": "partial-rails は判断待ちのまま。試作の他の試験には影響しないが、部分電源での安全は未確認のまま残る。"
+        }
+      ],
+      "recommended": "accept",
+      "reason": "STM32 の値は DS12992 Rev 4 の Table 18・19 から取れた（オーナーのダウンロードがテキスト変換で届いたので、その旨を出典に明記）。他の部品の絶対最大はすでにカタログにある。試験の目的は部分電源で壊れないことの確認なので、絶対最大を超えたら不合格という線は資料どおりで、追加の仮定が要らない。逆電流（U3）は ldo-reverse で別に判断する。",
+      "sources": [
+        {
+          "path": ".claude/skills/component-stm32g031g8u6tr/facts.json",
+          "fact_id": "fact-stm32g031g8u6tr-iinj-pin"
+        },
+        {
+          "path": ".claude/skills/component-stm32g031g8u6tr/facts.json",
+          "fact_id": "fact-stm32g031g8u6tr-iinj-total"
+        },
+        {
+          "path": ".claude/skills/component-opa197idbvr/facts.json",
+          "fact_id": "fact-opa197idbvr-abs-max-input-current"
+        }
+      ],
+      "rank": 14
+    },
+    {
       "gate": "assembly:fixture-materials",
       "stage": "BENCH",
       "question": "治具の FR-4 板 4 枚の加工先と、提案された金物（スプリングプランジャ・スタンドオフ・ねじ・ピン等）を承認しますか。",
@@ -4321,7 +4397,7 @@
           "quote": "Fabricator for the four FR-4 plates is an owner choice and not selected"
         }
       ],
-      "rank": 14
+      "rank": 15
     },
     {
       "gate": "assembly:prototype-and-release",
@@ -4347,7 +4423,7 @@
           "quote": "\"manufacturing_released\": false"
         }
       ],
-      "rank": 15
+      "rank": 16
     },
     {
       "gate": "manufacturing_release",
@@ -4373,25 +4449,18 @@
           "quote": "\"order_submitted\": false"
         }
       ],
-      "rank": 16
+      "rank": 17
     }
   ],
   "evidence_requests": [
     {
       "gate": "assembly:exact-part-evidence",
       "routes": [
-        "OWNER_DOWNLOAD",
         "SUPPLIER_ANSWER",
-        "MEASUREMENT"
+        "MEASUREMENT",
+        "OWNER_DOWNLOAD"
       ],
       "items": [
-        {
-          "what": "Nexperia PMEG4010CEJ の注文情報（,115 の包装）",
-          "value_needed": ",115 が何の包装（リール寸法・数量）か",
-          "url": "https://www.nexperia.com/product/PMEG4010CEJ",
-          "fallback_url": "https://assets.nexperia.com/documents/packing-information/SOD323F_115.pdf",
-          "access": "クラウドから 403。2026-11-12 にオーナーが送ったのはデータシート PMEG4010CEJ（v.3、記録済みと同じバイト列）で、包装の情報は載っていない。必要なのは fallback_url の包装資料（SOD323F_115.pdf）"
-        },
         {
           "what": "JST SH コネクタのカタログ（SM04B-SRSS-TB）",
           "value_needed": "No. 1 以外の回路番号の位置",
@@ -4438,21 +4507,6 @@
           "url": "https://www.littelfuse.com/assetdocs/littelfuse-ck-slide-pcm-series-datasheet?assetguid=d2f6a96c-7a9a-4c4e-a5aa-4fe3075dffe5",
           "fallback_url": null,
           "access": "Littelfuse のデータシート（Revised VL 03/14/25）は取得済みで、2026-11-12 にオーナーが送ったものも同じバイト列。本体とペグの寸法には公差の記載がない（公差はテープ寸法だけ）。C&K への質問か、購入品の実測で決める。接触抵抗（3.3 V / 10 kΩ 負荷）は実部品の測定"
-        }
-      ]
-    },
-    {
-      "gate": "criterion:partial-rails",
-      "routes": [
-        "OWNER_DOWNLOAD"
-      ],
-      "items": [
-        {
-          "what": "STM32G031x4/x6/x8 データシート（DS12992）",
-          "value_needed": "I/O の注入電流と絶対最大定格",
-          "url": "https://www.st.com/resource/en/datasheet/stm32g031f8.pdf",
-          "fallback_url": "https://www.st.com/en/microcontrollers-microprocessors/stm32g031g8.html",
-          "access": "クラウドからは応答なし。2026-11-12 にオーナーが送ったのは DS12992 Rev 4 のテキスト抽出（.txt）で PDF ではない。記録済みの PDF（Rev 4、SHA-256 0e25cbbf…）と同じバイト列か確かめられないので、PDF そのもの（製品ページの Datasheet から保存）が必要"
         }
       ]
     },

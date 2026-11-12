@@ -749,7 +749,7 @@
 - 関連:  #10
 - 概要: 許可された全レール組合せと無電源CV入力を電流制限下で試す。
 - 根拠: `engineering/a5/integration/independent_review`
-- 未決: 最大印加値、注入電流制限、順序、許容逆流値を部品資料から承認する必要。（区分: 外部の証跡・アクセス待ち）
+- 未決: 部品資料の値はそろった（STM32 の注入電流と入力電圧は DS12992 Rev 4 のテキスト変換から、ほかは各データシートから）。これらの絶対最大をどのピンでも超えないことを合否とするかはオーナー判断。初回通電の電流制限値は試験前のレビューで決める。逆電流の扱いは ldo-reverse で別に決める。（区分: オーナーの判断）
 - 観測: NOT_MEASURED。結果: NOT_RUN。
 - 次: 不足する基準をレビューし、オーナー承認の試作ルート確定後に実物で実施。
 
@@ -792,7 +792,10 @@
 | u7-input | TLV9001 入力の絶対最大 | `"(V-) - 0.5 to (V+) + 0.5"` | range | V | SOURCED | `.claude/skills/component-tlv9001idbvr/facts.json` `fact-tlv9001idbvr-abs-max-input-voltage` |
 | u5-vi | SN74LVC2T45 入力の絶対最大 | `6.5` | max | V | SOURCED | `.claude/skills/component-sn74lvc2t45dcur/facts.json` `fact-sn74lvc2t45dcur-abs-max-vi` |
 | led-vi | WS2812B 入力の絶対最大 | `"-0.3 to VDD+0.7"` | range | V | SOURCED | `.claude/skills/component-ws2812b-2020-v6/facts.json` `fact-ws2812b-2020-v6-input-abs-max` |
-| limits | 許容印加値・注入電流・順序の数表 | — | — | mA | UNRESOLVED | 上記の部品値から条件表を作ってレビューする（STM32 の注入電流はカタログで未取得）。入手先（資料）: STM32G031 データシートの I/O 注入電流と絶対最大（カタログに fact がない） |
+| mcu-vin | STM32 の FT_xx 入力電圧の絶対最大（ADC に使う FT_a は 4 V まで） | `"-0.3 to VDD + 4.0"` | range | V | SOURCED | `.claude/skills/component-stm32g031g8u6tr/facts.json` `fact-stm32g031g8u6tr-abs-max-vin-ft` |
+| mcu-iinj-pin | STM32 の 1 ピンあたりの注入電流（負方向。FT_xx は正方向の注入が起きない） | `-5` | min | mA | SOURCED | `.claude/skills/component-stm32g031g8u6tr/facts.json` `fact-stm32g031g8u6tr-iinj-pin` |
+| mcu-iinj-total | STM32 の全ピンの注入電流の絶対値の合計 | `25` | max | mA | SOURCED | `.claude/skills/component-stm32g031g8u6tr/facts.json` `fact-stm32g031g8u6tr-iinj-total` |
+| mcu-vdd | STM32 の VDD の絶対最大 | `"-0.3 to 4.0"` | range | V | SOURCED | `.claude/skills/component-stm32g031g8u6tr/facts.json` `fact-stm32g031g8u6tr-ratings` |
 
 ### u7-stress — U7 差動ストレス
 
@@ -1232,8 +1235,8 @@
 | 区分 | ゲート数 |
 |---|---:|
 | CLOUD_DIGITAL（クラウドで進められるデジタル作業） | 0 |
-| OWNER_DECISION（オーナーの判断） | 14 |
-| ACCESS_EVIDENCE_HOLD（外部の証跡・アクセス待ち） | 14 |
+| OWNER_DECISION（オーナーの判断） | 15 |
+| ACCESS_EVIDENCE_HOLD（外部の証跡・アクセス待ち） | 13 |
 | PHYSICAL_ONLY（実機が必要） | 21 |
 
 ## 現在のブロッカー
@@ -1273,7 +1276,6 @@
 - startup-reset: NOT_MEASURED: no run
 - rail-collapse: NOT_MEASURED: no run
 - partial-rails: criterion unresolved or review receipt missing
-- partial-rails: criterion has PROPOSED or UNRESOLVED acceptance values: limits
 - partial-rails: NOT_MEASURED: no run
 - u7-stress: criterion unresolved or review receipt missing
 - u7-stress: criterion has PROPOSED or UNRESOLVED acceptance values: in-current-bound
