@@ -1,30 +1,217 @@
 {
-  "schema": 1,
+  "schema": 2,
   "status": "BLOCKED",
   "digital_fixture_complete": false,
-  "scope": "Digital carrier design (reliefs, datums, keying, support, clamp points, registration and stroke allocation); not a complete fixture, fit result or fabrication approval",
+  "digital_fixture_complete_scope": "README completion criteria 1-5, including the physical criterion 5",
+  "digital_criteria_1_to_4_met": false,
+  "digital_criteria_1_to_4_met_scope": "progress indicator only: README criteria 1-4 met digitally with no digital blocker; it is not digital_fixture_complete, not a fit result and not order eligibility",
+  "scope": "Digital fixture design: support carrier, probe plate, pressure plate, base plate and hardware envelopes with the assembly STEP and interference check; not a fit result, not a selection and not a fabrication approval",
   "board_sha256": "4453f818ede1e6d6c56e45ef43aa6faecb90990f3755f82c6d752258cd4d628e",
   "placement_sha256": "1891af356ead303127c6b7a99b8934b08aa25f465b4b2c96872f5d5d24afdc01",
   "geometry_sha256": "1522f0aa2bf4907a39e51d8ef0e58eab9256cc961b0bc897c37ea0dae41870c2",
   "inputs_sha256": {
     "engineering/a7/electronics/controller/controller.kicad_pcb": "4453f818ede1e6d6c56e45ef43aa6faecb90990f3755f82c6d752258cd4d628e",
     "engineering/a7/electronics/controller/board_placement.json": "1891af356ead303127c6b7a99b8934b08aa25f465b4b2c96872f5d5d24afdc01",
-    "scripts/a7_fixture.py": "d272c09d7ebedf1bdb7b83ce55b01b1e4bd89be9f9404a10f38b465fcfe77553",
-    "scripts/a7_fixture_relief.py": "a06860ee30da43a5e63bd297c3b35eda2bafd3be05c5e423550f0b396494808a",
+    "scripts/a7_fixture.py": "3ce28c13f791c2aa353ef797bf4daf07ccd612cba84a02523f01b417da320c09",
+    "scripts/a7_fixture_relief.py": "48bf617764d7ca6ad4981a55e6ab999d19cacdb8e75ffe065336edd23440f710",
+    "scripts/a7_fixture_assembly.py": "998c4e973492096d75e1a17745488ebbebb909e9888d58032a760dfd042ff40a",
     "engineering/a7/procurement/population.csv": "6ce7636d2d0cae04ccbd2dace8cd0efacafe154b5e772acaa04a5e79718b0dd8",
-    "engineering/a7/fixture/sources.json": "9018837b1eceb1b8393885cb42c0332dc25cb5bf0e62bc7e5d4cfcb425ffaab1",
-    "engineering/a7/fixture/materials.json": "2066c14079421fe1487c88202c9bef29fdce886c419923ea096b66d0a1ca243e",
+    "engineering/a7/fixture/sources.json": "0f7f5966994f383dd114e37d3560d1030031d369c8947558350a8c274932442c",
+    "engineering/a7/fixture/materials.json": "1c263305b2286c2db3c36898ad48abded7bbae2ccc5edf901e9d36279ec2f433",
     "engineering/a7/fixture/candidate-references.json": "6f929c9edf3d115dc18f5cf1b055f9971ec25af64ce20948a882729250151845"
   },
-  "study_step_sha256": "2de0595bf1d33a3029229a87ab0cb7e461c462fd4445a3c81254dbf6c2c126a2",
+  "assembly": {
+    "record": "engineering/a7/fixture/assembly-interference.json",
+    "record_sha256": "9f2f21b9c8b4f974658b3bb5ede31f27e3e7cddb52635ba64a1835a7f9076d03",
+    "step": "engineering/a7/fixture/fixture-assembly.step",
+    "step_sha256": "95660b42e740c77a4f4c02678373dc0faa974078066cceceb7bab9b96e2a263b",
+    "solids": 135,
+    "interferences": 0,
+    "clearances": [
+      {
+        "pair": "B-face bodies and leads to support carrier",
+        "minimum_mm": 0.3053,
+        "between": [
+          "R4 B-face body/lead",
+          "support_carrier"
+        ]
+      },
+      {
+        "pair": "J5 tail column to carrier and probe plate",
+        "minimum_mm": 0.4254,
+        "between": [
+          "J5.1 tail keep-out column (unsourced length)",
+          "probe_plate"
+        ]
+      },
+      {
+        "pair": "probes and receptacles to support carrier",
+        "minimum_mm": 0.773,
+        "between": [
+          "TP2 KS-050 receptacle",
+          "support_carrier"
+        ]
+      },
+      {
+        "pair": "receptacle tails to base plate",
+        "minimum_mm": 7.6,
+        "between": [
+          "TP1 KS-050 receptacle",
+          "base_plate"
+        ]
+      },
+      {
+        "pair": "F-side bodies to pressure plate",
+        "minimum_mm": 0.3757,
+        "between": [
+          "J5 F-side body (courtyard x height)",
+          "pressure_plate"
+        ]
+      },
+      {
+        "pair": "F-side bodies to contact screws",
+        "minimum_mm": 0.305,
+        "between": [
+          "C17 F-side body (courtyard x height)",
+          "C3 M2x8 nylon contact screw"
+        ]
+      },
+      {
+        "pair": "board to guide standoffs and springs",
+        "minimum_mm": 2.2855,
+        "between": [
+          "U1 F-side body (courtyard x height)",
+          "G1 M3 F-F hex standoff 12"
+        ]
+      },
+      {
+        "pair": "metal hardware to probes and receptacles",
+        "minimum_mm": 4.361,
+        "between": [
+          "G2 M3 F-F hex standoff 12",
+          "TP4 GKS-050 probe (compressed envelope)"
+        ]
+      }
+    ],
+    "designed_contacts": [
+      {
+        "contact": "board B face seats on the support carrier",
+        "between": [
+          "controller board",
+          "support_carrier"
+        ],
+        "distance_mm": 0.0,
+        "touching": true
+      },
+      {
+        "contact": "nylon contact on the F face",
+        "between": [
+          "controller board",
+          "C1 M2x8 nylon contact screw"
+        ],
+        "distance_mm": 0.0,
+        "touching": true
+      },
+      {
+        "contact": "nylon contact on the F face",
+        "between": [
+          "controller board",
+          "C2 M2x8 nylon contact screw"
+        ],
+        "distance_mm": 0.0,
+        "touching": true
+      },
+      {
+        "contact": "nylon contact on the F face",
+        "between": [
+          "controller board",
+          "C3 M2x8 nylon contact screw"
+        ],
+        "distance_mm": 0.0,
+        "touching": true
+      },
+      {
+        "contact": "probe tip on its test pad (working stroke)",
+        "between": [
+          "controller board",
+          "TP1 GKS-050 probe (compressed envelope)"
+        ],
+        "distance_mm": 0.0,
+        "touching": true
+      },
+      {
+        "contact": "probe tip on its test pad (working stroke)",
+        "between": [
+          "controller board",
+          "TP2 GKS-050 probe (compressed envelope)"
+        ],
+        "distance_mm": 0.0,
+        "touching": true
+      },
+      {
+        "contact": "probe tip on its test pad (working stroke)",
+        "between": [
+          "controller board",
+          "TP3 GKS-050 probe (compressed envelope)"
+        ],
+        "distance_mm": 0.0,
+        "touching": true
+      },
+      {
+        "contact": "probe tip on its test pad (working stroke)",
+        "between": [
+          "controller board",
+          "TP4 GKS-050 probe (compressed envelope)"
+        ],
+        "distance_mm": 0.0,
+        "touching": true
+      },
+      {
+        "contact": "probe tip on its test pad (working stroke)",
+        "between": [
+          "controller board",
+          "TP5 GKS-050 probe (compressed envelope)"
+        ],
+        "distance_mm": 0.0,
+        "touching": true
+      },
+      {
+        "contact": "board edge on a datum pin",
+        "between": [
+          "controller board",
+          "X1 datum pin 2x6"
+        ],
+        "distance_mm": 0.0,
+        "touching": true
+      },
+      {
+        "contact": "board edge on a datum pin",
+        "between": [
+          "controller board",
+          "X2 datum pin 2x6"
+        ],
+        "distance_mm": 0.0,
+        "touching": true
+      },
+      {
+        "contact": "board edge on a datum pin",
+        "between": [
+          "controller board",
+          "Y1 datum pin 2x6"
+        ],
+        "distance_mm": 0.0,
+        "touching": true
+      }
+    ]
+  },
   "fresh_native_verified": false,
   "fresh_native_criteria": {
     "every_b_side_part_and_tht_lead_relieved_from_native_geometry": true,
     "clearance_independent_of_unsourced_heights": true,
     "every_b_face_protrusion_sourced": false,
-    "no_wall_below_sourced_minimum": true,
+    "no_wall_below_minimum": true,
     "keyed_against_turned_insertion": true,
-    "holddown_points_over_land_clear_of_f_parts_and_around_probe_resultant": true,
+    "contacts_on_f_face_clear_of_parts_and_around_both_resultants": true,
     "native_record_valid_and_probe_pads_confirmed": true
   },
   "completion_criteria": {
@@ -37,12 +224,23 @@
       "basis": "turned-pose blocking features and radial allocation closed by acceptance-measurement requirements"
     },
     "3_stroke_stop_guide_fixing_insulation_wiring": {
-      "met": false,
-      "basis": "stroke, travel stop and clamp points/force are designed; the hold-down/bias mechanism, probe guide plate, base fixing, insulation and wire retention are not selected or designed"
+      "met": true,
+      "checks": {
+        "installation_height_and_stroke_resolved": true,
+        "travel_stop_independent_of_adjustment": true,
+        "clamp_force_sized_with_margin": true,
+        "board_stays_on_land": true,
+        "board_bending_across_window_within_limit": true,
+        "guide_and_fixing_designed": true,
+        "pressure_plate_clears_f_parts": true,
+        "insulation_metal_clear_of_probes": true,
+        "wire_bend_space": true
+      },
+      "basis": "stroke and installation height, carrier-land travel stop, screw-down spring pressure plate on guide standoffs, plate stack on spacers/standoffs/base with dowel alignment, FR-4 plates with nylon board contacts, wire bend space and tie slot"
     },
     "4_assembly_step_interference_check": {
-      "met": false,
-      "basis": "only the carrier STEP exists; no complete assembly STEP or interference check"
+      "met": true,
+      "basis": "assembly STEP of every part, hardware envelope, probe and the board; no interference"
     },
     "5_physical_tests": {
       "met": false,
@@ -61,20 +259,43 @@
   },
   "b_side_relief": {
     "rules": {
-      "minimum_fr4_wall_mm": 0.27,
-      "minimum_fr4_wall_basis": "SOURCE_DERIVED: INGUN 1.27 mm grid minus the 1.00 mm maximum FR-4 mounting hole; applied to every carrier wall (bore-to-cut, cut-to-cut, cut-to-edge, pin-to-cut)",
+      "minimum_milled_wall_mm": 1.0,
+      "minimum_milled_wall_basis": "captured JLCCNC guidance (candidate reference, NOT selected): absolute minimum 1.0 mm for plastic parts; applied to every milled wall and to every web around a milled hole",
+      "probe_bore_web_minimum_mm": 0.27,
+      "probe_bore_web_basis": "INGUN grid >= 1.27 mm with 0.98-1.00 mm FR-4 mounting holes; drilled bores at the board test-point pitch",
       "smd_outline_clearance_mm": 0.2,
-      "smd_outline_clearance_min_near_bore_mm": 0.15,
       "tht_copper_clearance_mm": 0.3,
+      "probe_window_half_width_mm": 1.0,
       "datum_pin_diameter_mm": 2.0,
       "datum_pin_height_above_carrier_mm": 1.0,
-      "holddown_pin_diameter_mm": 1.5,
-      "holddown_f_side_clearance_mm": 0.3,
-      "holddown_search_radius_mm": 14.0,
-      "holddown_resultant_margin_mm": 0.5,
+      "alignment_dowel_diameter_mm": 2.0,
+      "m3_clearance_hole_mm": 3.4,
+      "m3_screw_head_diameter_mm": 5.5,
+      "m3_countersink_diameter_mm": 6.0,
+      "spring_outer_diameter_max_mm": 9.0,
+      "contact_nut_across_corners_mm": 4.62,
+      "m3_hex_across_corners_mm": 6.35,
+      "contact_screw": "M2 nylon (PA66) screw, tip diameter 2.0 mm, protruding 2.5 mm below the pressure plate",
+      "contact_diameter_mm": 2.0,
+      "contact_f_side_clearance_mm": 0.3,
+      "contact_land_margin_mm": 0.5,
+      "pressure_plate_edge_margin_mm": 1.5,
+      "pressure_plate_part_clearance_mm": 0.5,
+      "resultant_margin_mm": 0.5,
+      "clamp_force_margin_factor": 2.0,
+      "wire_bend_space_factor_of_od": 10,
       "support_grid_mm": 0.1,
       "support_radius_around_probe_mm": 3.0,
-      "confidence": "PROJECT-CHOICE design values except the minimum wall; not machining tolerances, fit results or approvals"
+      "board_flexural_modulus_MPa": 18000.0,
+      "board_strip_width_mm": 5.0,
+      "board_deflection_limit_mm": 0.1,
+      "confidence": "PROJECT-CHOICE design values except the sourced minimums; not machining tolerances, fit results or approvals"
+    },
+    "yardstick": {
+      "id": "jlccnc-fr4-guidance",
+      "selection_status": "NOT_SELECTED",
+      "wall_absolute_minimum_mm": 1.0,
+      "standard_tolerance_mm": 0.1
     },
     "manufacturer_data": {
       "receptacle": {
@@ -88,11 +309,12 @@
           ],
           "outer_diameter_mm": 0.95,
           "collar_diameter_mm": 1.04,
-          "collar_position_mm": 7.9,
+          "collar_height_mm": 7.9,
           "total_length_mm": 40.6,
-          "press_ring": true
+          "press_ring": true,
+          "wire_outer_diameter_mm": 0.55
         },
-        "locator": "page 1/1: Mounting hole, General data, Mechanical data; linked drawing sources.json#receptacle-0.png (\u00d80.96 body, \u00d81.04 collar 7.9 from the probe end, 40.64 overall)"
+        "locator": "page 1/1: Mounting hole, Mechanical data (collar height 7.9), Wiring data; press ring pressed to a defined depth adjusts the installation height"
       },
       "probe": {
         "id": "sources.json#probe",
@@ -103,9 +325,11 @@
           "spring_preload_N": 0.44,
           "working_stroke_mm": 4.3,
           "force_at_working_stroke_N": 1.0,
-          "maximum_stroke_mm": 6.35
+          "maximum_stroke_mm": 6.35,
+          "total_length_mm": 43.2,
+          "barrel_diameter_mm": 0.78
         },
-        "locator": "page 1/2: General data (Grid), Mechanical data, Tip style data"
+        "locator": "page 1/2: General data (Grid), Mechanical data (total length, barrel diameter, strokes, forces), Tip style data"
       },
       "force_graph": {
         "id": "sources.json#probe-4.png",
@@ -114,6 +338,15 @@
           "force_at_maximum_stroke_N": 1.27
         },
         "locator": "linear force-stroke line, 0.44 N at 0 to 1.0 N at 4.3 mm; value at 6.35 mm read from the graph"
+      },
+      "catalogue": {
+        "id": "sources.json#gks-050-catalogue",
+        "sha256": "b7c14728d593de96d9e0929cf661eee483311c67e6d7d7822ae7bebd653f035d",
+        "facts": {
+          "installation_height_with_ks_mm": 16.0
+        },
+        "class": "MANUFACTURER_MIRROR",
+        "locator": "GKS-050 catalogue page header: \"Installation height with KS: 16,0 / 18,0 mm / variable\" (16.0 for GKS-050..., collar stop at the press ring)"
       }
     },
     "height_sources": {
@@ -142,7 +375,9 @@
         "protrusion_below_b_face_mm": {
           "nominal": 1.6,
           "basis": "3.2 - 1.6 mm board; the board-thickness tolerance is not sourced"
-        }
+        },
+        "body_height_mm": 6.3,
+        "body_height_source": "fact-a7-pj-324m-overall-height (component-a7-pj-324m)"
       },
       "PCM13SMTR": {
         "peg_length_mm": 0.5,
@@ -153,1083 +388,2947 @@
           "sha256": "6a758d151b7eee7f8cd59594bd92cfec4c9b1470e0743094f185f19e7ac2a868",
           "locator": "page index 2 outline and PC MOUNTING"
         },
-        "protrusion_below_b_face": "none: 0.5 mm pegs are shorter than the 1.6 mm board"
+        "protrusion_below_b_face": "none: 0.5 mm pegs are shorter than the 1.6 mm board",
+        "body_height_mm": 1.4,
+        "body_height_source": "fact-a7-pcm13smtr-outline height_above_pcb (component-a7-pcm13smtr)"
       },
       "PicoBlade 530470310": {
         "tail_length_below_b_face_mm": null,
         "class": "UNKNOWN",
-        "reason": "no traceable tail length in the recorded evidence: the sales-drawing extract gives only A/B/C/D row dimensions; the 2.3 mm in the mechanical layout is unsourced; the KiCad library 3D model is not supplier CAD"
+        "reason": "no traceable tail length in the recorded evidence: the sales-drawing extract gives only A/B/C/D row dimensions; the 2.3 mm in the mechanical layout is unsourced; the KiCad library 3D model is not supplier CAD",
+        "mated_height_above_f_face_mm": 5.2,
+        "mated_height_source": "A5-sourced mated height used by scripts/a7_mechanical_layout.py"
       }
+    },
+    "stack_z_mm": {
+      "support_carrier": [
+        -5.0,
+        0.0
+      ],
+      "plate_gap_spacers": [
+        -11.0,
+        -5.0
+      ],
+      "probe_plate": [
+        -17.0,
+        -11.0
+      ],
+      "base_standoffs": [
+        -52.0,
+        -17.0
+      ],
+      "base_plate": [
+        -55.0,
+        -52.0
+      ],
+      "pressure_plate": [
+        4.1,
+        7.1
+      ],
+      "guide_standoff_top": 12.0
+    },
+    "support_carrier": {
+      "bounds_board_mm": [
+        -10.2,
+        13.0,
+        26.4,
+        67.0
+      ],
+      "thickness_mm": 5.0,
+      "corner_radius_mm": 1.0,
+      "corner_allowance_mm": 0.293,
+      "windows": [
+        {
+          "members": [
+            {
+              "ref": "J1.4",
+              "box_board_mm": [
+                10.957,
+                30.057,
+                13.643,
+                33.543
+              ],
+              "box_carrier_mm": [
+                2.557,
+                30.057,
+                5.243,
+                33.543
+              ],
+              "rounded_corners": [
+                true,
+                false,
+                true,
+                true
+              ]
+            },
+            {
+              "ref": "J5.1",
+              "box_board_mm": [
+                6.24,
+                26.257,
+                8.24,
+                28.743
+              ],
+              "box_carrier_mm": [
+                7.96,
+                26.257,
+                9.96,
+                28.743
+              ],
+              "rounded_corners": [
+                true,
+                false,
+                true,
+                false
+              ]
+            },
+            {
+              "ref": "J5.2",
+              "box_board_mm": [
+                7.49,
+                26.257,
+                9.49,
+                28.743
+              ],
+              "box_carrier_mm": [
+                6.71,
+                26.257,
+                8.71,
+                28.743
+              ],
+              "rounded_corners": [
+                false,
+                false,
+                false,
+                false
+              ]
+            },
+            {
+              "ref": "J5.3",
+              "box_board_mm": [
+                8.74,
+                26.257,
+                10.74,
+                28.743
+              ],
+              "box_carrier_mm": [
+                5.46,
+                26.257,
+                7.46,
+                28.743
+              ],
+              "rounded_corners": [
+                false,
+                false,
+                false,
+                false
+              ]
+            },
+            {
+              "ref": "R10",
+              "box_board_mm": [
+                3.5,
+                19.957,
+                5.5,
+                23.443
+              ],
+              "box_carrier_mm": [
+                10.7,
+                19.957,
+                12.7,
+                23.443
+              ],
+              "rounded_corners": [
+                true,
+                false,
+                true,
+                false
+              ]
+            },
+            {
+              "ref": "R11",
+              "box_board_mm": [
+                4.757,
+                16.0,
+                8.243,
+                18.0
+              ],
+              "box_carrier_mm": [
+                7.957,
+                16.0,
+                11.443,
+                18.0
+              ],
+              "rounded_corners": [
+                false,
+                false,
+                false,
+                false
+              ]
+            },
+            {
+              "ref": "R13",
+              "box_board_mm": [
+                4.757,
+                17.5,
+                8.243,
+                19.5
+              ],
+              "box_carrier_mm": [
+                7.957,
+                17.5,
+                11.443,
+                19.5
+              ],
+              "rounded_corners": [
+                false,
+                false,
+                false,
+                false
+              ]
+            },
+            {
+              "ref": "R20",
+              "box_board_mm": [
+                8.0,
+                14.257,
+                10.0,
+                17.743
+              ],
+              "box_carrier_mm": [
+                6.2,
+                14.257,
+                8.2,
+                17.743
+              ],
+              "rounded_corners": [
+                false,
+                true,
+                false,
+                false
+              ]
+            },
+            {
+              "ref": "R21",
+              "box_board_mm": [
+                6.5,
+                21.557,
+                8.5,
+                25.043
+              ],
+              "box_carrier_mm": [
+                7.7,
+                21.557,
+                9.7,
+                25.043
+              ],
+              "rounded_corners": [
+                false,
+                false,
+                false,
+                false
+              ]
+            },
+            {
+              "ref": "R23",
+              "box_board_mm": [
+                3.557,
+                14.5,
+                7.043,
+                16.5
+              ],
+              "box_carrier_mm": [
+                9.157,
+                14.5,
+                12.643,
+                16.5
+              ],
+              "rounded_corners": [
+                true,
+                false,
+                false,
+                false
+              ]
+            },
+            {
+              "ref": "R24",
+              "box_board_mm": [
+                6.857,
+                20.0,
+                10.343,
+                22.0
+              ],
+              "box_carrier_mm": [
+                5.857,
+                20.0,
+                9.343,
+                22.0
+              ],
+              "rounded_corners": [
+                false,
+                false,
+                false,
+                false
+              ]
+            },
+            {
+              "ref": "R25",
+              "box_board_mm": [
+                8.1,
+                21.557,
+                10.1,
+                25.043
+              ],
+              "box_carrier_mm": [
+                6.1,
+                21.557,
+                8.1,
+                25.043
+              ],
+              "rounded_corners": [
+                false,
+                false,
+                false,
+                false
+              ]
+            },
+            {
+              "ref": "R3",
+              "box_board_mm": [
+                7.857,
+                18.0,
+                11.343,
+                20.0
+              ],
+              "box_carrier_mm": [
+                4.857,
+                18.0,
+                8.343,
+                20.0
+              ],
+              "rounded_corners": [
+                false,
+                false,
+                false,
+                false
+              ]
+            },
+            {
+              "ref": "R4",
+              "box_board_mm": [
+                9.6,
+                14.957,
+                11.6,
+                18.443
+              ],
+              "box_carrier_mm": [
+                4.6,
+                14.957,
+                6.6,
+                18.443
+              ],
+              "rounded_corners": [
+                false,
+                true,
+                false,
+                false
+              ]
+            },
+            {
+              "ref": "R5",
+              "box_board_mm": [
+                11.2,
+                16.257,
+                13.2,
+                19.743
+              ],
+              "box_carrier_mm": [
+                3.0,
+                16.257,
+                5.0,
+                19.743
+              ],
+              "rounded_corners": [
+                false,
+                true,
+                false,
+                false
+              ]
+            },
+            {
+              "ref": "R6",
+              "box_board_mm": [
+                9.957,
+                19.5,
+                13.443,
+                21.5
+              ],
+              "box_carrier_mm": [
+                2.757,
+                19.5,
+                6.243,
+                21.5
+              ],
+              "rounded_corners": [
+                false,
+                false,
+                false,
+                false
+              ]
+            },
+            {
+              "ref": "R7",
+              "box_board_mm": [
+                9.9,
+                21.057,
+                11.9,
+                24.543
+              ],
+              "box_carrier_mm": [
+                4.3,
+                21.057,
+                6.3,
+                24.543
+              ],
+              "rounded_corners": [
+                false,
+                false,
+                false,
+                false
+              ]
+            },
+            {
+              "ref": "R9",
+              "box_board_mm": [
+                11.6,
+                24.257,
+                13.6,
+                27.743
+              ],
+              "box_carrier_mm": [
+                2.6,
+                24.257,
+                4.6,
+                27.743
+              ],
+              "rounded_corners": [
+                false,
+                false,
+                false,
+                false
+              ]
+            },
+            {
+              "ref": "TP1",
+              "box_board_mm": [
+                11.107,
+                22.507,
+                13.693,
+                25.093
+              ],
+              "box_carrier_mm": [
+                2.507,
+                22.507,
+                5.093,
+                25.093
+              ],
+              "rounded_corners": [
+                false,
+                false,
+                false,
+                false
+              ]
+            },
+            {
+              "ref": "TP2",
+              "box_board_mm": [
+                11.207,
+                26.907,
+                13.793,
+                29.493
+              ],
+              "box_carrier_mm": [
+                2.407,
+                26.907,
+                4.993,
+                29.493
+              ],
+              "rounded_corners": [
+                false,
+                false,
+                false,
+                true
+              ]
+            },
+            {
+              "ref": "TP3",
+              "box_board_mm": [
+                11.107,
+                21.107,
+                13.693,
+                23.693
+              ],
+              "box_carrier_mm": [
+                2.507,
+                21.107,
+                5.093,
+                23.693
+              ],
+              "rounded_corners": [
+                false,
+                false,
+                false,
+                false
+              ]
+            },
+            {
+              "ref": "TP4",
+              "box_board_mm": [
+                12.507,
+                22.507,
+                15.093,
+                25.093
+              ],
+              "box_carrier_mm": [
+                1.107,
+                22.507,
+                3.693,
+                25.093
+              ],
+              "rounded_corners": [
+                false,
+                true,
+                false,
+                false
+              ]
+            },
+            {
+              "ref": "TP5",
+              "box_board_mm": [
+                12.807,
+                24.707,
+                15.393,
+                27.293
+              ],
+              "box_carrier_mm": [
+                0.807,
+                24.707,
+                3.393,
+                27.293
+              ],
+              "rounded_corners": [
+                false,
+                false,
+                false,
+                true
+              ]
+            },
+            {
+              "ref": "bridge J1.4+TP2",
+              "box_board_mm": [
+                11.207,
+                28.493,
+                13.643,
+                31.057
+              ],
+              "box_carrier_mm": [
+                2.557,
+                28.493,
+                4.993,
+                31.057
+              ],
+              "rounded_corners": [
+                false,
+                false,
+                false,
+                false
+              ]
+            },
+            {
+              "ref": "bridge J5.3+R9",
+              "box_board_mm": [
+                9.74,
+                26.0,
+                12.6,
+                28.0
+              ],
+              "box_carrier_mm": [
+                3.6,
+                26.0,
+                6.46,
+                28.0
+              ],
+              "rounded_corners": [
+                false,
+                false,
+                false,
+                false
+              ]
+            },
+            {
+              "ref": "bridge J5.3+TP2",
+              "box_board_mm": [
+                9.74,
+                26.825,
+                12.207,
+                28.825
+              ],
+              "box_carrier_mm": [
+                3.993,
+                26.825,
+                6.46,
+                28.825
+              ],
+              "rounded_corners": [
+                false,
+                false,
+                true,
+                false
+              ]
+            },
+            {
+              "ref": "bridge R10+R13",
+              "box_board_mm": [
+                4.1285,
+                18.5,
+                6.1285,
+                20.957
+              ],
+              "box_carrier_mm": [
+                10.0715,
+                18.5,
+                12.0715,
+                20.957
+              ],
+              "rounded_corners": [
+                false,
+                false,
+                false,
+                false
+              ]
+            },
+            {
+              "ref": "bridge R13+R24",
+              "box_board_mm": [
+                6.55,
+                18.5,
+                8.55,
+                21.0
+              ],
+              "box_carrier_mm": [
+                7.65,
+                18.5,
+                9.65,
+                21.0
+              ],
+              "rounded_corners": [
+                false,
+                false,
+                false,
+                false
+              ]
+            },
+            {
+              "ref": "bridge R20+R23",
+              "box_board_mm": [
+                6.043,
+                14.5,
+                9.0,
+                16.5
+              ],
+              "box_carrier_mm": [
+                7.2,
+                14.5,
+                10.157,
+                16.5
+              ],
+              "rounded_corners": [
+                false,
+                false,
+                false,
+                false
+              ]
+            },
+            {
+              "ref": "bridge R20+R3",
+              "box_board_mm": [
+                8.0,
+                16.743,
+                10.0,
+                19.0
+              ],
+              "box_carrier_mm": [
+                6.2,
+                16.743,
+                8.2,
+                19.0
+              ],
+              "rounded_corners": [
+                false,
+                false,
+                false,
+                false
+              ]
+            },
+            {
+              "ref": "bridge R20+bridge R21+bridge R10+R13",
+              "box_board_mm": [
+                6.5,
+                14.257,
+                9.0,
+                25.043
+              ],
+              "box_carrier_mm": [
+                7.2,
+                14.257,
+                9.7,
+                25.043
+              ],
+              "rounded_corners": [
+                true,
+                false,
+                false,
+                false
+              ]
+            },
+            {
+              "ref": "bridge R21+bridge R10+R13",
+              "box_board_mm": [
+                5.1285,
+                18.5,
+                7.5,
+                25.043
+              ],
+              "box_carrier_mm": [
+                8.7,
+                18.5,
+                11.0715,
+                25.043
+              ],
+              "rounded_corners": [
+                false,
+                false,
+                true,
+                false
+              ]
+            },
+            {
+              "ref": "bridge R23+bridge R20+R3",
+              "box_board_mm": [
+                3.557,
+                15.5,
+                10.0,
+                17.743
+              ],
+              "box_carrier_mm": [
+                6.2,
+                15.5,
+                12.643,
+                17.743
+              ],
+              "rounded_corners": [
+                false,
+                false,
+                true,
+                false
+              ]
+            },
+            {
+              "ref": "bridge R25+bridge J5.3+R9",
+              "box_board_mm": [
+                8.92,
+                24.043,
+                10.92,
+                27.0
+              ],
+              "box_carrier_mm": [
+                5.28,
+                24.043,
+                7.28,
+                27.0
+              ],
+              "rounded_corners": [
+                false,
+                false,
+                false,
+                false
+              ]
+            },
+            {
+              "ref": "bridge R4+fill R5",
+              "box_board_mm": [
+                9.6,
+                17.443,
+                14.2,
+                19.743
+              ],
+              "box_carrier_mm": [
+                2.0,
+                17.443,
+                6.6,
+                19.743
+              ],
+              "rounded_corners": [
+                false,
+                true,
+                false,
+                false
+              ]
+            },
+            {
+              "ref": "bridge R7+TP5",
+              "box_board_mm": [
+                9.9,
+                23.543,
+                15.393,
+                25.707
+              ],
+              "box_carrier_mm": [
+                0.807,
+                23.543,
+                6.3,
+                25.707
+              ],
+              "rounded_corners": [
+                false,
+                true,
+                false,
+                false
+              ]
+            },
+            {
+              "ref": "bridge R9+bridge R25+bridge J5.3+R9",
+              "box_board_mm": [
+                9.92,
+                24.257,
+                12.6,
+                27.0
+              ],
+              "box_carrier_mm": [
+                3.6,
+                24.257,
+                6.28,
+                27.0
+              ],
+              "rounded_corners": [
+                false,
+                false,
+                false,
+                false
+              ]
+            },
+            {
+              "ref": "bridge TP3+fill R5",
+              "box_board_mm": [
+                11.9465,
+                19.743,
+                13.9465,
+                22.107
+              ],
+              "box_carrier_mm": [
+                2.2535,
+                19.743,
+                4.2535,
+                22.107
+              ],
+              "rounded_corners": [
+                false,
+                false,
+                false,
+                false
+              ]
+            },
+            {
+              "ref": "bridge TP4+bridge TP3+fill R5",
+              "box_board_mm": [
+                12.22675,
+                21.107,
+                14.22675,
+                23.507
+              ],
+              "box_carrier_mm": [
+                1.97325,
+                21.107,
+                3.97325,
+                23.507
+              ],
+              "rounded_corners": [
+                false,
+                false,
+                false,
+                false
+              ]
+            },
+            {
+              "ref": "bridge TP4+bridge bridge TP4+bridge TP3+fill R5+fill bridge R4+fill R5",
+              "box_board_mm": [
+                12.713375,
+                21.107,
+                14.713375,
+                23.507
+              ],
+              "box_carrier_mm": [
+                1.486625,
+                21.107,
+                3.486625,
+                23.507
+              ],
+              "rounded_corners": [
+                false,
+                false,
+                false,
+                false
+              ]
+            },
+            {
+              "ref": "bridge bridge R10+R13+bridge R23+bridge R20+R3",
+              "box_board_mm": [
+                4.1285,
+                16.743,
+                6.1285,
+                19.5
+              ],
+              "box_carrier_mm": [
+                10.0715,
+                16.743,
+                12.0715,
+                19.5
+              ],
+              "rounded_corners": [
+                false,
+                false,
+                false,
+                false
+              ]
+            },
+            {
+              "ref": "bridge bridge TP4+bridge TP3+fill R5+fill bridge R4+fill R5",
+              "box_board_mm": [
+                12.713375,
+                19.743,
+                14.713375,
+                22.107
+              ],
+              "box_carrier_mm": [
+                1.486625,
+                19.743,
+                3.486625,
+                22.107
+              ],
+              "rounded_corners": [
+                false,
+                false,
+                false,
+                false
+              ]
+            },
+            {
+              "ref": "bridge fill R5+bridge TP4+bridge TP3+fill R5",
+              "box_board_mm": [
+                12.213375,
+                19.743,
+                14.213375,
+                22.107
+              ],
+              "box_carrier_mm": [
+                1.986625,
+                19.743,
+                3.986625,
+                22.107
+              ],
+              "rounded_corners": [
+                false,
+                false,
+                false,
+                false
+              ]
+            },
+            {
+              "ref": "fill R5",
+              "box_board_mm": [
+                12.2,
+                18.743,
+                14.2,
+                20.743
+              ],
+              "box_carrier_mm": [
+                2.0,
+                18.743,
+                4.0,
+                20.743
+              ],
+              "rounded_corners": [
+                false,
+                false,
+                false,
+                false
+              ]
+            },
+            {
+              "ref": "fill bridge R4+fill R5",
+              "box_board_mm": [
+                13.2,
+                18.743,
+                15.2,
+                20.743
+              ],
+              "box_carrier_mm": [
+                1.0,
+                18.743,
+                3.0,
+                20.743
+              ],
+              "rounded_corners": [
+                false,
+                true,
+                false,
+                true
+              ]
+            }
+          ],
+          "parts": [
+            "J1.4",
+            "J5.1",
+            "J5.2",
+            "J5.3",
+            "R10",
+            "R11",
+            "R13",
+            "R20",
+            "R21",
+            "R23",
+            "R24",
+            "R25",
+            "R3",
+            "R4",
+            "R5",
+            "R6",
+            "R7",
+            "R9",
+            "TP1",
+            "TP2",
+            "TP3",
+            "TP4",
+            "TP5"
+          ],
+          "board_box_mm": [
+            3.5,
+            14.257,
+            15.393,
+            33.543
+          ],
+          "carrier_box_mm": [
+            0.807,
+            14.257,
+            12.7,
+            33.543
+          ],
+          "corner_radius_mm": 1.0
+        },
+        {
+          "members": [
+            {
+              "ref": "J1.5",
+              "box_board_mm": [
+                3.157,
+                29.957,
+                6.643,
+                32.643
+              ],
+              "box_carrier_mm": [
+                9.557,
+                29.957,
+                13.043,
+                32.643
+              ],
+              "rounded_corners": [
+                true,
+                true,
+                true,
+                true
+              ]
+            }
+          ],
+          "parts": [
+            "J1.5"
+          ],
+          "board_box_mm": [
+            3.157,
+            29.957,
+            6.643,
+            32.643
+          ],
+          "carrier_box_mm": [
+            9.557,
+            29.957,
+            13.043,
+            32.643
+          ],
+          "corner_radius_mm": 1.0
+        },
+        {
+          "members": [
+            {
+              "ref": "J1.1",
+              "box_board_mm": [
+                -0.343,
+                34.057,
+                2.143,
+                37.543
+              ],
+              "box_carrier_mm": [
+                14.057,
+                34.057,
+                16.543,
+                37.543
+              ],
+              "rounded_corners": [
+                true,
+                true,
+                true,
+                true
+              ]
+            }
+          ],
+          "parts": [
+            "J1.1"
+          ],
+          "board_box_mm": [
+            -0.343,
+            34.057,
+            2.143,
+            37.543
+          ],
+          "carrier_box_mm": [
+            14.057,
+            34.057,
+            16.543,
+            37.543
+          ],
+          "corner_radius_mm": 1.0
+        },
+        {
+          "members": [
+            {
+              "ref": "J1.2",
+              "box_board_mm": [
+                7.157,
+                39.657,
+                10.643,
+                42.343
+              ],
+              "box_carrier_mm": [
+                5.557,
+                39.657,
+                9.043,
+                42.343
+              ],
+              "rounded_corners": [
+                false,
+                true,
+                false,
+                false
+              ]
+            },
+            {
+              "ref": "J1.3",
+              "box_board_mm": [
+                6.157,
+                36.957,
+                9.643,
+                39.643
+              ],
+              "box_carrier_mm": [
+                6.557,
+                36.957,
+                10.043,
+                39.643
+              ],
+              "rounded_corners": [
+                true,
+                true,
+                true,
+                false
+              ]
+            },
+            {
+              "ref": "J2.4",
+              "box_board_mm": [
+                10.957,
+                45.057,
+                13.643,
+                48.543
+              ],
+              "box_carrier_mm": [
+                2.557,
+                45.057,
+                5.243,
+                48.543
+              ],
+              "rounded_corners": [
+                false,
+                false,
+                true,
+                false
+              ]
+            },
+            {
+              "ref": "J2.5",
+              "box_board_mm": [
+                3.157,
+                44.957,
+                6.643,
+                47.643
+              ],
+              "box_carrier_mm": [
+                9.557,
+                44.957,
+                13.043,
+                47.643
+              ],
+              "rounded_corners": [
+                true,
+                false,
+                true,
+                true
+              ]
+            },
+            {
+              "ref": "R14",
+              "box_board_mm": [
+                5.857,
+                42.7,
+                9.343,
+                44.7
+              ],
+              "box_carrier_mm": [
+                6.857,
+                42.7,
+                10.343,
+                44.7
+              ],
+              "rounded_corners": [
+                true,
+                false,
+                false,
+                false
+              ]
+            },
+            {
+              "ref": "R15",
+              "box_board_mm": [
+                8.957,
+                42.7,
+                12.443,
+                44.7
+              ],
+              "box_carrier_mm": [
+                3.757,
+                42.7,
+                7.243,
+                44.7
+              ],
+              "rounded_corners": [
+                false,
+                false,
+                false,
+                false
+              ]
+            },
+            {
+              "ref": "R16",
+              "box_board_mm": [
+                12.057,
+                42.7,
+                15.543,
+                44.7
+              ],
+              "box_carrier_mm": [
+                0.657,
+                42.7,
+                4.143,
+                44.7
+              ],
+              "rounded_corners": [
+                false,
+                false,
+                false,
+                false
+              ]
+            },
+            {
+              "ref": "R17",
+              "box_board_mm": [
+                13.6,
+                44.257,
+                15.6,
+                47.743
+              ],
+              "box_carrier_mm": [
+                0.6,
+                44.257,
+                2.6,
+                47.743
+              ],
+              "rounded_corners": [
+                false,
+                false,
+                false,
+                false
+              ]
+            },
+            {
+              "ref": "R18",
+              "box_board_mm": [
+                13.6,
+                39.657,
+                15.6,
+                43.143
+              ],
+              "box_carrier_mm": [
+                0.6,
+                39.657,
+                2.6,
+                43.143
+              ],
+              "rounded_corners": [
+                true,
+                true,
+                false,
+                false
+              ]
+            },
+            {
+              "ref": "R19",
+              "box_board_mm": [
+                13.6,
+                47.357,
+                15.6,
+                50.843
+              ],
+              "box_carrier_mm": [
+                0.6,
+                47.357,
+                2.6,
+                50.843
+              ],
+              "rounded_corners": [
+                false,
+                false,
+                true,
+                true
+              ]
+            },
+            {
+              "ref": "bridge J1.2+J1.3",
+              "box_board_mm": [
+                7.157,
+                38.643,
+                9.643,
+                40.657
+              ],
+              "box_carrier_mm": [
+                6.557,
+                38.643,
+                9.043,
+                40.657
+              ],
+              "rounded_corners": [
+                false,
+                false,
+                false,
+                false
+              ]
+            },
+            {
+              "ref": "bridge J1.2+R14",
+              "box_board_mm": [
+                7.157,
+                41.343,
+                9.343,
+                43.7
+              ],
+              "box_carrier_mm": [
+                6.857,
+                41.343,
+                9.043,
+                43.7
+              ],
+              "rounded_corners": [
+                false,
+                false,
+                false,
+                false
+              ]
+            },
+            {
+              "ref": "bridge J1.2+R15",
+              "box_board_mm": [
+                8.8,
+                41.343,
+                10.8,
+                43.7
+              ],
+              "box_carrier_mm": [
+                5.4,
+                41.343,
+                7.4,
+                43.7
+              ],
+              "rounded_corners": [
+                false,
+                true,
+                false,
+                false
+              ]
+            },
+            {
+              "ref": "bridge J2.4+R15",
+              "box_board_mm": [
+                10.7,
+                43.7,
+                12.7,
+                46.057
+              ],
+              "box_carrier_mm": [
+                3.5,
+                43.7,
+                5.5,
+                46.057
+              ],
+              "rounded_corners": [
+                false,
+                false,
+                true,
+                false
+              ]
+            },
+            {
+              "ref": "bridge J2.4+R16",
+              "box_board_mm": [
+                11.85,
+                43.7,
+                13.85,
+                46.057
+              ],
+              "box_carrier_mm": [
+                2.35,
+                43.7,
+                4.35,
+                46.057
+              ],
+              "rounded_corners": [
+                false,
+                false,
+                false,
+                false
+              ]
+            },
+            {
+              "ref": "bridge J2.5+R14",
+              "box_board_mm": [
+                5.25,
+                43.7,
+                7.25,
+                45.957
+              ],
+              "box_carrier_mm": [
+                8.95,
+                43.7,
+                10.95,
+                45.957
+              ],
+              "rounded_corners": [
+                true,
+                false,
+                false,
+                true
+              ]
+            },
+            {
+              "ref": "bridge bridge J2.4+R16+fill R16",
+              "box_board_mm": [
+                11.85,
+                42.7,
+                16.543,
+                44.7
+              ],
+              "box_carrier_mm": [
+                -0.343,
+                42.7,
+                4.35,
+                44.7
+              ],
+              "rounded_corners": [
+                false,
+                false,
+                false,
+                false
+              ]
+            },
+            {
+              "ref": "fill R16",
+              "box_board_mm": [
+                14.543,
+                41.7,
+                16.543,
+                43.7
+              ],
+              "box_carrier_mm": [
+                -0.343,
+                41.7,
+                1.657,
+                43.7
+              ],
+              "rounded_corners": [
+                false,
+                true,
+                false,
+                false
+              ]
+            },
+            {
+              "ref": "fill R16",
+              "box_board_mm": [
+                14.543,
+                43.7,
+                16.543,
+                45.7
+              ],
+              "box_carrier_mm": [
+                -0.343,
+                43.7,
+                1.657,
+                45.7
+              ],
+              "rounded_corners": [
+                false,
+                false,
+                false,
+                true
+              ]
+            }
+          ],
+          "parts": [
+            "J1.2",
+            "J1.3",
+            "J2.4",
+            "J2.5",
+            "R14",
+            "R15",
+            "R16",
+            "R17",
+            "R18",
+            "R19"
+          ],
+          "board_box_mm": [
+            3.157,
+            36.957,
+            16.543,
+            50.843
+          ],
+          "carrier_box_mm": [
+            -0.343,
+            36.957,
+            13.043,
+            50.843
+          ],
+          "corner_radius_mm": 1.0
+        },
+        {
+          "members": [
+            {
+              "ref": "J2.1",
+              "box_board_mm": [
+                -0.343,
+                49.057,
+                2.143,
+                52.543
+              ],
+              "box_carrier_mm": [
+                14.057,
+                49.057,
+                16.543,
+                52.543
+              ],
+              "rounded_corners": [
+                true,
+                true,
+                true,
+                true
+              ]
+            }
+          ],
+          "parts": [
+            "J2.1"
+          ],
+          "board_box_mm": [
+            -0.343,
+            49.057,
+            2.143,
+            52.543
+          ],
+          "carrier_box_mm": [
+            14.057,
+            49.057,
+            16.543,
+            52.543
+          ],
+          "corner_radius_mm": 1.0
+        },
+        {
+          "members": [
+            {
+              "ref": "J2.2",
+              "box_board_mm": [
+                7.157,
+                54.657,
+                10.643,
+                57.343
+              ],
+              "box_carrier_mm": [
+                5.557,
+                54.657,
+                9.043,
+                57.343
+              ],
+              "rounded_corners": [
+                false,
+                true,
+                true,
+                true
+              ]
+            },
+            {
+              "ref": "J2.3",
+              "box_board_mm": [
+                6.157,
+                51.957,
+                9.643,
+                54.643
+              ],
+              "box_carrier_mm": [
+                6.557,
+                51.957,
+                10.043,
+                54.643
+              ],
+              "rounded_corners": [
+                true,
+                true,
+                true,
+                false
+              ]
+            },
+            {
+              "ref": "bridge J2.2+J2.3",
+              "box_board_mm": [
+                7.157,
+                53.643,
+                9.643,
+                55.657
+              ],
+              "box_carrier_mm": [
+                6.557,
+                53.643,
+                9.043,
+                55.657
+              ],
+              "rounded_corners": [
+                false,
+                false,
+                false,
+                false
+              ]
+            }
+          ],
+          "parts": [
+            "J2.2",
+            "J2.3"
+          ],
+          "board_box_mm": [
+            6.157,
+            51.957,
+            10.643,
+            57.343
+          ],
+          "carrier_box_mm": [
+            5.557,
+            51.957,
+            10.043,
+            57.343
+          ],
+          "corner_radius_mm": 1.0
+        },
+        {
+          "members": [
+            {
+              "ref": "R12",
+              "box_board_mm": [
+                12.257,
+                59.5,
+                15.743,
+                61.5
+              ],
+              "box_carrier_mm": [
+                0.457,
+                59.5,
+                3.943,
+                61.5
+              ],
+              "rounded_corners": [
+                true,
+                true,
+                false,
+                false
+              ]
+            },
+            {
+              "ref": "R22",
+              "box_board_mm": [
+                12.257,
+                61.0,
+                15.743,
+                63.0
+              ],
+              "box_carrier_mm": [
+                0.457,
+                61.0,
+                3.943,
+                63.0
+              ],
+              "rounded_corners": [
+                false,
+                false,
+                true,
+                true
+              ]
+            }
+          ],
+          "parts": [
+            "R12",
+            "R22"
+          ],
+          "board_box_mm": [
+            12.257,
+            59.5,
+            15.743,
+            63.0
+          ],
+          "carrier_box_mm": [
+            0.457,
+            59.5,
+            3.943,
+            63.0
+          ],
+          "corner_radius_mm": 1.0
+        }
+      ],
+      "datum_pins": [
+        {
+          "id": "X1",
+          "role": "X datum on the board x = 16.2 edge",
+          "board_xy_mm": [
+            17.2,
+            34.0
+          ],
+          "carrier_xy_mm": [
+            -1.0,
+            34.0
+          ]
+        },
+        {
+          "id": "X2",
+          "role": "X datum on the board x = 16.2 edge",
+          "board_xy_mm": [
+            17.2,
+            56.0
+          ],
+          "carrier_xy_mm": [
+            -1.0,
+            56.0
+          ]
+        },
+        {
+          "id": "Y1",
+          "role": "Y datum on the board y = 62.9 edge",
+          "board_xy_mm": [
+            8.1,
+            63.9
+          ],
+          "carrier_xy_mm": [
+            8.1,
+            63.9
+          ]
+        }
+      ],
+      "guides": [
+        {
+          "id": "G1",
+          "board_xy_mm": [
+            -5.5,
+            23.3
+          ],
+          "carrier_xy_mm": [
+            21.7,
+            23.3
+          ]
+        },
+        {
+          "id": "G2",
+          "board_xy_mm": [
+            21.7,
+            23.3
+          ],
+          "carrier_xy_mm": [
+            -5.5,
+            23.3
+          ]
+        }
+      ],
+      "fasteners_board_mm": [
+        [
+          -6.0,
+          17.0
+        ],
+        [
+          22.2,
+          17.0
+        ],
+        [
+          -6.0,
+          43.6
+        ],
+        [
+          22.2,
+          43.6
+        ],
+        [
+          -6.0,
+          63.0
+        ],
+        [
+          22.2,
+          63.0
+        ]
+      ],
+      "alignment_dowels_board_mm": [
+        [
+          -6.0,
+          30.0
+        ],
+        [
+          22.2,
+          52.0
+        ]
+      ],
+      "smallest_webs": [
+        {
+          "hole": "F1",
+          "to": "plate edge",
+          "web_mm": 1.0
+        },
+        {
+          "hole": "F2",
+          "to": "plate edge",
+          "web_mm": 1.0
+        },
+        {
+          "hole": "F5",
+          "to": "plate edge",
+          "web_mm": 1.0
+        },
+        {
+          "hole": "F6",
+          "to": "plate edge",
+          "web_mm": 1.0
+        },
+        {
+          "hole": "F3",
+          "to": "plate edge",
+          "web_mm": 1.2
+        },
+        {
+          "hole": "F4",
+          "to": "plate edge",
+          "web_mm": 1.2
+        },
+        {
+          "hole": "F1",
+          "to": "G1",
+          "web_mm": 1.61981
+        },
+        {
+          "hole": "F2",
+          "to": "G2",
+          "web_mm": 1.61981
+        },
+        {
+          "hole": "Y1",
+          "to": "plate edge",
+          "web_mm": 2.1
+        },
+        {
+          "hole": "X1",
+          "to": "J1.4+J5.1+J5.2...",
+          "web_mm": 2.586237
+        },
+        {
+          "hole": "F4",
+          "to": "J1.2+J1.3+J2.4...",
+          "web_mm": 2.657
+        },
+        {
+          "hole": "X2",
+          "to": "R12+R22",
+          "web_mm": 2.791154
+        }
+      ],
+      "web_conflicts": [],
+      "wall_conflicts": []
+    },
+    "probe_plate": {
+      "z_mm": [
+        -17.0,
+        -11.0
+      ],
+      "thickness_mm": 6.0,
+      "corner_radius_mm": 1.1,
+      "windows": [
+        {
+          "members": [
+            {
+              "ref": "J5 leads",
+              "box_board_mm": [
+                6.217,
+                26.227,
+                10.763,
+                28.773
+              ],
+              "box_carrier_mm": [
+                5.437,
+                26.227,
+                9.983,
+                28.773
+              ],
+              "rounded_corners": [
+                true,
+                true,
+                true,
+                true
+              ]
+            }
+          ],
+          "parts": [
+            "J5 leads"
+          ],
+          "board_box_mm": [
+            6.217,
+            26.227,
+            10.763,
+            28.773
+          ],
+          "carrier_box_mm": [
+            5.437,
+            26.227,
+            9.983,
+            28.773
+          ],
+          "corner_radius_mm": 1.1
+        }
+      ],
+      "bores": [
+        {
+          "ref": "TP1",
+          "board_xy_mm": [
+            12.4,
+            23.8
+          ],
+          "carrier_xy_mm": [
+            3.8,
+            23.8
+          ],
+          "diameter_mm": 0.99
+        },
+        {
+          "ref": "TP2",
+          "board_xy_mm": [
+            12.5,
+            28.2
+          ],
+          "carrier_xy_mm": [
+            3.7,
+            28.2
+          ],
+          "diameter_mm": 0.99
+        },
+        {
+          "ref": "TP3",
+          "board_xy_mm": [
+            12.4,
+            22.4
+          ],
+          "carrier_xy_mm": [
+            3.8,
+            22.4
+          ],
+          "diameter_mm": 0.99
+        },
+        {
+          "ref": "TP4",
+          "board_xy_mm": [
+            13.8,
+            23.8
+          ],
+          "carrier_xy_mm": [
+            2.4,
+            23.8
+          ],
+          "diameter_mm": 0.99
+        },
+        {
+          "ref": "TP5",
+          "board_xy_mm": [
+            14.1,
+            26.0
+          ],
+          "carrier_xy_mm": [
+            2.1,
+            26.0
+          ],
+          "diameter_mm": 0.99
+        }
+      ],
+      "bore_webs_mm": [
+        0.4,
+        0.4,
+        0.979899,
+        1.22036,
+        1.720294,
+        1.780288,
+        2.981206,
+        3.401136,
+        3.588028,
+        4.800862
+      ],
+      "smallest_webs": [
+        {
+          "hole": "F1",
+          "to": "plate edge",
+          "web_mm": 2.3
+        },
+        {
+          "hole": "F2",
+          "to": "plate edge",
+          "web_mm": 2.3
+        },
+        {
+          "hole": "F5",
+          "to": "plate edge",
+          "web_mm": 2.3
+        },
+        {
+          "hole": "F6",
+          "to": "plate edge",
+          "web_mm": 2.3
+        },
+        {
+          "hole": "F3",
+          "to": "plate edge",
+          "web_mm": 2.5
+        },
+        {
+          "hole": "F4",
+          "to": "plate edge",
+          "web_mm": 2.5
+        },
+        {
+          "hole": "D1",
+          "to": "plate edge",
+          "web_mm": 3.2
+        },
+        {
+          "hole": "D2",
+          "to": "plate edge",
+          "web_mm": 3.2
+        },
+        {
+          "hole": "F4",
+          "to": "D2",
+          "web_mm": 5.7
+        },
+        {
+          "hole": "F6",
+          "to": "D2",
+          "web_mm": 8.3
+        },
+        {
+          "hole": "F1",
+          "to": "D1",
+          "web_mm": 10.3
+        },
+        {
+          "hole": "F3",
+          "to": "D1",
+          "web_mm": 10.9
+        }
+      ],
+      "conflicts": []
+    },
+    "pressure_plate": {
+      "outline_board_mm": [
+        -10.5,
+        19.0,
+        26.7,
+        29.5
+      ],
+      "z_mm": [
+        4.1,
+        7.1
+      ],
+      "j5_notch_board_mm": [
+        4.695,
+        24.405,
+        12.285,
+        29.5
+      ],
+      "corner_radius_mm": 0.8,
+      "guide_hole_diameter_mm": 6.6,
+      "contact_tap_hole_diameter_mm": 1.6,
+      "parts_under_plate": [
+        {
+          "ref": "C14",
+          "height_mm": 0.9,
+          "clearance_to_plate_mm": 1.6,
+          "source": "A5 seed envelope (engineering/a5/electronics/placement_and_connectivity.json, C14, same MPN CC0603KRX7R9BB104)"
+        },
+        {
+          "ref": "C17",
+          "height_mm": 0.9,
+          "clearance_to_plate_mm": 1.6,
+          "source": "A5 seed envelope (engineering/a5/electronics/placement_and_connectivity.json, C17, same MPN CC0603KRX7R9BB104)"
+        },
+        {
+          "ref": "C7",
+          "height_mm": 0.9,
+          "clearance_to_plate_mm": 1.6,
+          "source": "A5 seed envelope (engineering/a5/electronics/placement_and_connectivity.json, C7, same MPN CL10A475KO8NNNC)"
+        },
+        {
+          "ref": "C8",
+          "height_mm": 0.9,
+          "clearance_to_plate_mm": 1.6,
+          "source": "A5 seed envelope (engineering/a5/electronics/placement_and_connectivity.json, C8, same MPN CC0603KRX7R9BB104)"
+        },
+        {
+          "ref": "D3",
+          "height_mm": 1.1,
+          "clearance_to_plate_mm": 1.4,
+          "source": "A5 seed envelope (engineering/a5/electronics/placement_and_connectivity.json, D3, same MPN BAS70-04-7-F)"
+        },
+        {
+          "ref": "U1",
+          "height_mm": 0.6,
+          "clearance_to_plate_mm": 1.9,
+          "source": "A5 seed envelope (engineering/a5/electronics/placement_and_connectivity.json, U1, same MPN STM32G031G8U6TR)"
+        },
+        {
+          "ref": "U7",
+          "height_mm": 1.45,
+          "clearance_to_plate_mm": 1.05,
+          "source": "A5 seed envelope (engineering/a5/electronics/placement_and_connectivity.json, U7, same MPN TLV9001IDBVR)"
+        }
+      ],
+      "smallest_webs": [
+        {
+          "hole": "G1",
+          "to": "plate edge",
+          "web_mm": 1.0
+        },
+        {
+          "hole": "G2",
+          "to": "plate edge",
+          "web_mm": 1.0
+        },
+        {
+          "hole": "C1",
+          "to": "plate edge",
+          "web_mm": 1.4
+        },
+        {
+          "hole": "C1",
+          "to": "J5 notch",
+          "web_mm": 1.615
+        },
+        {
+          "hole": "C2",
+          "to": "plate edge",
+          "web_mm": 1.7
+        },
+        {
+          "hole": "C3",
+          "to": "plate edge",
+          "web_mm": 2.3
+        },
+        {
+          "hole": "C3",
+          "to": "J5 notch",
+          "web_mm": 2.382931
+        },
+        {
+          "hole": "C2",
+          "to": "J5 notch",
+          "web_mm": 2.52374
+        },
+        {
+          "hole": "G2",
+          "to": "C2",
+          "web_mm": 3.904998
+        },
+        {
+          "hole": "G2",
+          "to": "C1",
+          "web_mm": 3.962258
+        },
+        {
+          "hole": "G1",
+          "to": "C3",
+          "web_mm": 3.989499
+        },
+        {
+          "hole": "C1",
+          "to": "C2",
+          "web_mm": 4.254912
+        }
+      ],
+      "web_conflicts": [],
+      "clearance_conflicts": []
+    },
+    "base_plate": {
+      "z_mm": [
+        -55.0,
+        -52.0
+      ],
+      "corner_radius_mm": 0.8,
+      "tie_slot_board_mm": [
+        6.1,
+        15.5,
+        10.1,
+        17.5
+      ],
+      "smallest_webs": [
+        {
+          "hole": "F1",
+          "to": "plate edge",
+          "web_mm": 1.0
+        },
+        {
+          "hole": "F2",
+          "to": "plate edge",
+          "web_mm": 1.0
+        },
+        {
+          "hole": "F5",
+          "to": "plate edge",
+          "web_mm": 1.0
+        },
+        {
+          "hole": "F6",
+          "to": "plate edge",
+          "web_mm": 1.0
+        },
+        {
+          "hole": "F3",
+          "to": "plate edge",
+          "web_mm": 1.2
+        },
+        {
+          "hole": "F4",
+          "to": "plate edge",
+          "web_mm": 1.2
+        },
+        {
+          "hole": "F1",
+          "to": "tie slot",
+          "web_mm": 9.1
+        },
+        {
+          "hole": "F2",
+          "to": "tie slot",
+          "web_mm": 9.1
+        },
+        {
+          "hole": "F3",
+          "to": "F5",
+          "web_mm": 13.4
+        },
+        {
+          "hole": "F4",
+          "to": "F6",
+          "web_mm": 13.4
+        },
+        {
+          "hole": "F1",
+          "to": "F3",
+          "web_mm": 20.6
+        },
+        {
+          "hole": "F2",
+          "to": "F4",
+          "web_mm": 20.6
+        }
+      ],
+      "web_conflicts": []
     },
     "reliefs": [
       {
         "ref": "J1.1",
-        "kind": "through",
-        "basis": "native pad copper box (solder wets only copper)",
         "board_box_mm": [
           -0.05,
           34.35,
           1.85,
           37.25
         ],
-        "carrier_box_mm": [
-          14.35,
-          34.35,
-          16.25,
-          37.25
-        ],
         "height_source": "PJ-324M",
         "height_class": "SOURCE_DERIVED (MANUFACTURER_MIRROR)",
-        "depth_mm": 5.0
+        "body_board_mm": [
+          0.25,
+          34.65,
+          1.55,
+          36.95
+        ],
+        "depth_below_b_face_mm": 1.8
       },
       {
         "ref": "J1.2",
-        "kind": "through",
-        "basis": "native pad copper box (solder wets only copper)",
         "board_box_mm": [
           7.45,
           39.95,
           10.35,
           42.05
         ],
-        "carrier_box_mm": [
-          5.85,
-          39.95,
-          8.75,
-          42.05
-        ],
         "height_source": "PJ-324M",
         "height_class": "SOURCE_DERIVED (MANUFACTURER_MIRROR)",
-        "depth_mm": 5.0
+        "body_board_mm": [
+          7.75,
+          40.25,
+          10.05,
+          41.75
+        ],
+        "depth_below_b_face_mm": 1.8
       },
       {
         "ref": "J1.3",
-        "kind": "through",
-        "basis": "native pad copper box (solder wets only copper)",
         "board_box_mm": [
           6.45,
           37.25,
           9.35,
           39.35
         ],
-        "carrier_box_mm": [
-          6.85,
-          37.25,
-          9.75,
-          39.35
-        ],
         "height_source": "PJ-324M",
         "height_class": "SOURCE_DERIVED (MANUFACTURER_MIRROR)",
-        "depth_mm": 5.0
+        "body_board_mm": [
+          6.75,
+          37.55,
+          9.05,
+          39.05
+        ],
+        "depth_below_b_face_mm": 1.8
       },
       {
         "ref": "J1.4",
-        "kind": "through",
-        "basis": "native pad copper box (solder wets only copper)",
         "board_box_mm": [
           11.25,
           30.35,
           13.35,
           33.25
         ],
-        "carrier_box_mm": [
-          2.85,
-          30.35,
-          4.95,
-          33.25
-        ],
         "height_source": "PJ-324M",
         "height_class": "SOURCE_DERIVED (MANUFACTURER_MIRROR)",
-        "depth_mm": 5.0
+        "body_board_mm": [
+          11.55,
+          30.65,
+          13.05,
+          32.95
+        ],
+        "depth_below_b_face_mm": 1.8
       },
       {
         "ref": "J1.5",
-        "kind": "through",
-        "basis": "native pad copper box (solder wets only copper)",
         "board_box_mm": [
           3.45,
           30.25,
           6.35,
           32.35
         ],
-        "carrier_box_mm": [
-          9.85,
-          30.25,
-          12.75,
-          32.35
-        ],
         "height_source": "PJ-324M",
         "height_class": "SOURCE_DERIVED (MANUFACTURER_MIRROR)",
-        "depth_mm": 5.0
+        "body_board_mm": [
+          3.75,
+          30.55,
+          6.05,
+          32.05
+        ],
+        "depth_below_b_face_mm": 1.8
       },
       {
         "ref": "J2.1",
-        "kind": "through",
-        "basis": "native pad copper box (solder wets only copper)",
         "board_box_mm": [
           -0.05,
           49.35,
           1.85,
           52.25
         ],
-        "carrier_box_mm": [
-          14.35,
-          49.35,
-          16.25,
-          52.25
-        ],
         "height_source": "PJ-324M",
         "height_class": "SOURCE_DERIVED (MANUFACTURER_MIRROR)",
-        "depth_mm": 5.0
+        "body_board_mm": [
+          0.25,
+          49.65,
+          1.55,
+          51.95
+        ],
+        "depth_below_b_face_mm": 1.8
       },
       {
         "ref": "J2.2",
-        "kind": "through",
-        "basis": "native pad copper box (solder wets only copper)",
         "board_box_mm": [
           7.45,
           54.95,
           10.35,
           57.05
         ],
-        "carrier_box_mm": [
-          5.85,
-          54.95,
-          8.75,
-          57.05
-        ],
         "height_source": "PJ-324M",
         "height_class": "SOURCE_DERIVED (MANUFACTURER_MIRROR)",
-        "depth_mm": 5.0
+        "body_board_mm": [
+          7.75,
+          55.25,
+          10.05,
+          56.75
+        ],
+        "depth_below_b_face_mm": 1.8
       },
       {
         "ref": "J2.3",
-        "kind": "through",
-        "basis": "native pad copper box (solder wets only copper)",
         "board_box_mm": [
           6.45,
           52.25,
           9.35,
           54.35
         ],
-        "carrier_box_mm": [
-          6.85,
-          52.25,
-          9.75,
-          54.35
-        ],
         "height_source": "PJ-324M",
         "height_class": "SOURCE_DERIVED (MANUFACTURER_MIRROR)",
-        "depth_mm": 5.0
+        "body_board_mm": [
+          6.75,
+          52.55,
+          9.05,
+          54.05
+        ],
+        "depth_below_b_face_mm": 1.8
       },
       {
         "ref": "J2.4",
-        "kind": "through",
-        "basis": "native pad copper box (solder wets only copper)",
         "board_box_mm": [
           11.25,
           45.35,
           13.35,
           48.25
         ],
-        "carrier_box_mm": [
-          2.85,
-          45.35,
-          4.95,
-          48.25
-        ],
         "height_source": "PJ-324M",
         "height_class": "SOURCE_DERIVED (MANUFACTURER_MIRROR)",
-        "depth_mm": 5.0
+        "body_board_mm": [
+          11.55,
+          45.65,
+          13.05,
+          47.95
+        ],
+        "depth_below_b_face_mm": 1.8
       },
       {
         "ref": "J2.5",
-        "kind": "through",
-        "basis": "native pad copper box (solder wets only copper)",
         "board_box_mm": [
           3.45,
           45.25,
           6.35,
           47.35
         ],
-        "carrier_box_mm": [
-          9.85,
-          45.25,
-          12.75,
-          47.35
-        ],
         "height_source": "PJ-324M",
         "height_class": "SOURCE_DERIVED (MANUFACTURER_MIRROR)",
-        "depth_mm": 5.0
+        "body_board_mm": [
+          3.75,
+          45.55,
+          6.05,
+          47.05
+        ],
+        "depth_below_b_face_mm": 1.8
       },
       {
         "ref": "J5.1",
-        "kind": "through",
-        "basis": "native pad copper box (solder wets only copper)",
         "board_box_mm": [
           6.54,
           26.55,
           7.94,
           28.45
         ],
-        "carrier_box_mm": [
-          8.26,
-          26.55,
-          9.66,
-          28.45
-        ],
         "height_source": "PicoBlade 530470310",
         "height_class": "UNKNOWN",
-        "depth_mm": 5.0
+        "body_board_mm": [
+          6.84,
+          26.85,
+          7.64,
+          28.15
+        ],
+        "depth_below_b_face_mm": null
       },
       {
         "ref": "J5.2",
-        "kind": "through",
-        "basis": "native pad copper box (solder wets only copper)",
         "board_box_mm": [
           7.79,
           26.55,
           9.19,
           28.45
         ],
-        "carrier_box_mm": [
-          7.01,
-          26.55,
-          8.41,
-          28.45
-        ],
         "height_source": "PicoBlade 530470310",
         "height_class": "UNKNOWN",
-        "depth_mm": 5.0
+        "body_board_mm": [
+          8.09,
+          26.85,
+          8.89,
+          28.15
+        ],
+        "depth_below_b_face_mm": null
       },
       {
         "ref": "J5.3",
-        "kind": "through",
-        "basis": "native pad copper box (solder wets only copper)",
         "board_box_mm": [
           9.04,
           26.55,
           10.44,
           28.45
         ],
-        "carrier_box_mm": [
-          5.76,
-          26.55,
-          7.16,
-          28.45
-        ],
         "height_source": "PicoBlade 530470310",
         "height_class": "UNKNOWN",
-        "depth_mm": 5.0
+        "body_board_mm": [
+          9.34,
+          26.85,
+          10.14,
+          28.15
+        ],
+        "depth_below_b_face_mm": null
       },
       {
         "ref": "R10",
-        "kind": "through",
-        "basis": "native pad copper boxes united with the sourced maximum body outline (solder wets only copper); through-cut, so body and fillet height do not constrain the carrier",
         "board_box_mm": [
           3.825,
-          20.0,
+          20.25,
           5.175,
           23.15
         ],
-        "carrier_box_mm": [
-          11.025,
-          20.0,
-          12.375,
-          23.15
+        "height_source": "R0603",
+        "height_class": "SOURCE_DERIVED",
+        "body_board_mm": [
+          4.025,
+          20.45,
+          4.975,
+          22.95
         ],
-        "side_clearance_mm": [
-          0.2,
-          0.2,
-          0.2,
-          0.2
+        "depth_below_b_face_mm": 0.55
+      },
+      {
+        "ref": "R11",
+        "board_box_mm": [
+          5.05,
+          16.325,
+          7.95,
+          17.675
         ],
         "height_source": "R0603",
         "height_class": "SOURCE_DERIVED",
-        "depth_mm": 5.0,
-        "opened_to_carrier_edge": "edge wall 0.250 mm below the minimum: the cut is opened through the carrier edge"
+        "body_board_mm": [
+          5.25,
+          16.525,
+          7.75,
+          17.475
+        ],
+        "depth_below_b_face_mm": 0.55
       },
       {
         "ref": "R12",
-        "kind": "through",
-        "basis": "native pad copper boxes united with the sourced maximum body outline (solder wets only copper); through-cut, so body and fillet height do not constrain the carrier",
         "board_box_mm": [
           12.55,
           59.825,
           15.45,
           61.175
         ],
-        "carrier_box_mm": [
-          0.75,
-          59.825,
-          3.65,
-          61.175
+        "height_source": "R0603",
+        "height_class": "SOURCE_DERIVED",
+        "body_board_mm": [
+          12.75,
+          60.025,
+          15.25,
+          60.975
         ],
-        "side_clearance_mm": [
-          0.2,
-          0.2,
-          0.2,
-          0.2
+        "depth_below_b_face_mm": 0.55
+      },
+      {
+        "ref": "R13",
+        "board_box_mm": [
+          5.05,
+          17.825,
+          7.95,
+          19.175
         ],
         "height_source": "R0603",
         "height_class": "SOURCE_DERIVED",
-        "depth_mm": 5.0
+        "body_board_mm": [
+          5.25,
+          18.025,
+          7.75,
+          18.975
+        ],
+        "depth_below_b_face_mm": 0.55
       },
       {
         "ref": "R14",
-        "kind": "through",
-        "basis": "native pad copper boxes united with the sourced maximum body outline (solder wets only copper); through-cut, so body and fillet height do not constrain the carrier",
         "board_box_mm": [
           6.15,
           43.025,
           9.05,
           44.375
         ],
-        "carrier_box_mm": [
-          7.15,
-          43.025,
-          10.05,
-          44.375
-        ],
-        "side_clearance_mm": [
-          0.2,
-          0.2,
-          0.2,
-          0.2
-        ],
         "height_source": "R0603",
         "height_class": "SOURCE_DERIVED",
-        "depth_mm": 5.0
+        "body_board_mm": [
+          6.35,
+          43.225,
+          8.85,
+          44.175
+        ],
+        "depth_below_b_face_mm": 0.55
       },
       {
         "ref": "R15",
-        "kind": "through",
-        "basis": "native pad copper boxes united with the sourced maximum body outline (solder wets only copper); through-cut, so body and fillet height do not constrain the carrier",
         "board_box_mm": [
           9.25,
           43.025,
           12.15,
           44.375
         ],
-        "carrier_box_mm": [
-          4.05,
-          43.025,
-          6.95,
-          44.375
-        ],
-        "side_clearance_mm": [
-          0.2,
-          0.2,
-          0.2,
-          0.2
-        ],
         "height_source": "R0603",
         "height_class": "SOURCE_DERIVED",
-        "depth_mm": 5.0
+        "body_board_mm": [
+          9.45,
+          43.225,
+          11.95,
+          44.175
+        ],
+        "depth_below_b_face_mm": 0.55
       },
       {
         "ref": "R16",
-        "kind": "through",
-        "basis": "native pad copper boxes united with the sourced maximum body outline (solder wets only copper); through-cut, so body and fillet height do not constrain the carrier",
         "board_box_mm": [
           12.35,
           43.025,
           15.25,
           44.375
         ],
-        "carrier_box_mm": [
-          0.95,
-          43.025,
-          3.85,
-          44.375
-        ],
-        "side_clearance_mm": [
-          0.2,
-          0.2,
-          0.2,
-          0.2
-        ],
         "height_source": "R0603",
         "height_class": "SOURCE_DERIVED",
-        "depth_mm": 5.0
+        "body_board_mm": [
+          12.55,
+          43.225,
+          15.05,
+          44.175
+        ],
+        "depth_below_b_face_mm": 0.55
       },
       {
         "ref": "R17",
-        "kind": "through",
-        "basis": "native pad copper boxes united with the sourced maximum body outline (solder wets only copper); through-cut, so body and fillet height do not constrain the carrier",
         "board_box_mm": [
           13.925,
           44.55,
           15.275,
           47.45
         ],
-        "carrier_box_mm": [
-          0.925,
-          44.55,
-          2.275,
-          47.45
-        ],
-        "side_clearance_mm": [
-          0.2,
-          0.2,
-          0.2,
-          0.2
-        ],
         "height_source": "R0603",
         "height_class": "SOURCE_DERIVED",
-        "depth_mm": 5.0
+        "body_board_mm": [
+          14.125,
+          44.75,
+          15.075,
+          47.25
+        ],
+        "depth_below_b_face_mm": 0.55
       },
       {
         "ref": "R18",
-        "kind": "through",
-        "basis": "native pad copper boxes united with the sourced maximum body outline (solder wets only copper); through-cut, so body and fillet height do not constrain the carrier",
         "board_box_mm": [
           13.925,
           39.95,
           15.275,
           42.85
         ],
-        "carrier_box_mm": [
-          0.925,
-          39.95,
-          2.275,
-          42.85
-        ],
-        "side_clearance_mm": [
-          0.2,
-          0.2,
-          0.2,
-          0.2
-        ],
         "height_source": "R0603",
         "height_class": "SOURCE_DERIVED",
-        "depth_mm": 5.0
+        "body_board_mm": [
+          14.125,
+          40.15,
+          15.075,
+          42.65
+        ],
+        "depth_below_b_face_mm": 0.55
       },
       {
         "ref": "R19",
-        "kind": "through",
-        "basis": "native pad copper boxes united with the sourced maximum body outline (solder wets only copper); through-cut, so body and fillet height do not constrain the carrier",
         "board_box_mm": [
           13.925,
           47.65,
           15.275,
           50.55
         ],
-        "carrier_box_mm": [
-          0.925,
-          47.65,
-          2.275,
-          50.55
+        "height_source": "R0603",
+        "height_class": "SOURCE_DERIVED",
+        "body_board_mm": [
+          14.125,
+          47.85,
+          15.075,
+          50.35
         ],
-        "side_clearance_mm": [
-          0.2,
-          0.2,
-          0.2,
-          0.2
+        "depth_below_b_face_mm": 0.55
+      },
+      {
+        "ref": "R20",
+        "board_box_mm": [
+          8.325,
+          14.55,
+          9.675,
+          17.45
         ],
         "height_source": "R0603",
         "height_class": "SOURCE_DERIVED",
-        "depth_mm": 5.0
+        "body_board_mm": [
+          8.525,
+          14.75,
+          9.475,
+          17.25
+        ],
+        "depth_below_b_face_mm": 0.55
       },
       {
         "ref": "R21",
-        "kind": "through",
-        "basis": "native pad copper boxes united with the sourced maximum body outline (solder wets only copper); through-cut, so body and fillet height do not constrain the carrier",
         "board_box_mm": [
           6.825,
           21.85,
           8.175,
           24.75
         ],
-        "carrier_box_mm": [
-          8.025,
-          21.85,
-          9.375,
-          24.75
-        ],
-        "side_clearance_mm": [
-          0.2,
-          0.2,
-          0.2,
-          0.2
-        ],
         "height_source": "R0603",
         "height_class": "SOURCE_DERIVED",
-        "depth_mm": 5.0
+        "body_board_mm": [
+          7.025,
+          22.05,
+          7.975,
+          24.55
+        ],
+        "depth_below_b_face_mm": 0.55
       },
       {
         "ref": "R22",
-        "kind": "through",
-        "basis": "native pad copper boxes united with the sourced maximum body outline (solder wets only copper); through-cut, so body and fillet height do not constrain the carrier",
         "board_box_mm": [
           12.55,
           61.325,
           15.45,
           62.675
         ],
-        "carrier_box_mm": [
-          0.75,
-          61.325,
-          3.65,
-          62.675
+        "height_source": "R0603",
+        "height_class": "SOURCE_DERIVED",
+        "body_board_mm": [
+          12.75,
+          61.525,
+          15.25,
+          62.475
         ],
-        "side_clearance_mm": [
-          0.2,
-          0.2,
-          0.2,
-          0.2
+        "depth_below_b_face_mm": 0.55
+      },
+      {
+        "ref": "R23",
+        "board_box_mm": [
+          3.85,
+          14.825,
+          6.75,
+          16.175
         ],
         "height_source": "R0603",
         "height_class": "SOURCE_DERIVED",
-        "depth_mm": 5.0
+        "body_board_mm": [
+          4.05,
+          15.025,
+          6.55,
+          15.975
+        ],
+        "depth_below_b_face_mm": 0.55
       },
       {
         "ref": "R24",
-        "kind": "through",
-        "basis": "native pad copper boxes united with the sourced maximum body outline (solder wets only copper); through-cut, so body and fillet height do not constrain the carrier",
         "board_box_mm": [
           7.15,
           20.325,
           10.05,
           21.675
         ],
-        "carrier_box_mm": [
-          6.15,
-          20.325,
-          9.05,
-          21.675
-        ],
-        "side_clearance_mm": [
-          0.2,
-          0.2,
-          0.2,
-          0.2
-        ],
         "height_source": "R0603",
         "height_class": "SOURCE_DERIVED",
-        "depth_mm": 5.0
+        "body_board_mm": [
+          7.35,
+          20.525,
+          9.85,
+          21.475
+        ],
+        "depth_below_b_face_mm": 0.55
       },
       {
         "ref": "R25",
-        "kind": "through",
-        "basis": "native pad copper boxes united with the sourced maximum body outline (solder wets only copper); through-cut, so body and fillet height do not constrain the carrier",
         "board_box_mm": [
           8.425,
           21.85,
           9.775,
           24.75
         ],
-        "carrier_box_mm": [
-          6.425,
-          21.85,
-          7.775,
-          24.75
+        "height_source": "R0603",
+        "height_class": "SOURCE_DERIVED",
+        "body_board_mm": [
+          8.625,
+          22.05,
+          9.575,
+          24.55
         ],
-        "side_clearance_mm": [
-          0.2,
-          0.2,
-          0.2,
-          0.2
+        "depth_below_b_face_mm": 0.55
+      },
+      {
+        "ref": "R3",
+        "board_box_mm": [
+          8.15,
+          18.325,
+          11.05,
+          19.675
         ],
         "height_source": "R0603",
         "height_class": "SOURCE_DERIVED",
-        "depth_mm": 5.0
+        "body_board_mm": [
+          8.35,
+          18.525,
+          10.85,
+          19.475
+        ],
+        "depth_below_b_face_mm": 0.55
+      },
+      {
+        "ref": "R4",
+        "board_box_mm": [
+          9.925,
+          15.25,
+          11.275,
+          18.15
+        ],
+        "height_source": "R0603",
+        "height_class": "SOURCE_DERIVED",
+        "body_board_mm": [
+          10.125,
+          15.45,
+          11.075,
+          17.95
+        ],
+        "depth_below_b_face_mm": 0.55
+      },
+      {
+        "ref": "R5",
+        "board_box_mm": [
+          11.525,
+          16.55,
+          12.875,
+          19.45
+        ],
+        "height_source": "R0603",
+        "height_class": "SOURCE_DERIVED",
+        "body_board_mm": [
+          11.725,
+          16.75,
+          12.675,
+          19.25
+        ],
+        "depth_below_b_face_mm": 0.55
       },
       {
         "ref": "R6",
-        "kind": "through",
-        "basis": "native pad copper boxes united with the sourced maximum body outline (solder wets only copper); through-cut, so body and fillet height do not constrain the carrier",
         "board_box_mm": [
           10.25,
-          20.0,
+          19.825,
           13.15,
           21.175
         ],
-        "carrier_box_mm": [
-          3.05,
-          20.0,
-          5.95,
-          21.175
-        ],
-        "side_clearance_mm": [
-          0.2,
-          0.2,
-          0.2,
-          0.2
-        ],
         "height_source": "R0603",
         "height_class": "SOURCE_DERIVED",
-        "depth_mm": 5.0
+        "body_board_mm": [
+          10.45,
+          20.025,
+          12.95,
+          20.975
+        ],
+        "depth_below_b_face_mm": 0.55
       },
       {
         "ref": "R7",
-        "kind": "through",
-        "basis": "native pad copper boxes united with the sourced maximum body outline (solder wets only copper); through-cut, so body and fillet height do not constrain the carrier",
         "board_box_mm": [
           10.225,
           21.35,
           11.575,
           24.25
         ],
-        "carrier_box_mm": [
-          4.625,
-          21.35,
-          5.975,
-          24.25
-        ],
-        "side_clearance_mm": [
-          0.2,
-          0.2,
-          0.2,
-          0.2
-        ],
         "height_source": "R0603",
         "height_class": "SOURCE_DERIVED",
-        "depth_mm": 5.0
+        "body_board_mm": [
+          10.425,
+          21.55,
+          11.375,
+          24.05
+        ],
+        "depth_below_b_face_mm": 0.55
       },
       {
         "ref": "R9",
-        "kind": "through",
-        "basis": "native pad copper boxes united with the sourced maximum body outline (solder wets only copper); through-cut, so body and fillet height do not constrain the carrier",
         "board_box_mm": [
           11.925,
-          24.57,
+          24.55,
           13.275,
-          27.43
-        ],
-        "carrier_box_mm": [
-          2.925,
-          24.57,
-          4.275,
-          27.43
-        ],
-        "side_clearance_mm": [
-          0.2,
-          0.18,
-          0.2,
-          0.18
+          27.45
         ],
         "height_source": "R0603",
         "height_class": "SOURCE_DERIVED",
-        "depth_mm": 5.0
+        "body_board_mm": [
+          12.125,
+          24.75,
+          13.075,
+          27.25
+        ],
+        "depth_below_b_face_mm": 0.55
       }
     ],
-    "bridges": [
-      {
-        "ref": "bridge R12+R22",
-        "kind": "through",
-        "basis": "merges a 0.150 mm wall below the minimum",
-        "board_box_mm": [
-          12.55,
-          61.175,
-          15.45,
-          61.325
-        ],
-        "carrier_box_mm": [
-          0.75,
-          61.175,
-          3.65,
-          61.325
-        ],
-        "depth_mm": 5.0
-      },
-      {
-        "ref": "bridge R14+R15",
-        "kind": "through",
-        "basis": "merges a 0.200 mm wall below the minimum",
-        "board_box_mm": [
-          9.05,
-          43.025,
-          9.25,
-          44.375
-        ],
-        "carrier_box_mm": [
-          6.95,
-          43.025,
-          7.15,
-          44.375
-        ],
-        "depth_mm": 5.0
-      },
-      {
-        "ref": "bridge R15+R16",
-        "kind": "through",
-        "basis": "merges a 0.200 mm wall below the minimum",
-        "board_box_mm": [
-          12.15,
-          43.025,
-          12.35,
-          44.375
-        ],
-        "carrier_box_mm": [
-          3.85,
-          43.025,
-          4.05,
-          44.375
-        ],
-        "depth_mm": 5.0
-      },
-      {
-        "ref": "bridge R16+R17",
-        "kind": "through",
-        "basis": "merges a 0.175 mm wall below the minimum",
-        "board_box_mm": [
-          13.925,
-          44.375,
-          15.25,
-          44.55
-        ],
-        "carrier_box_mm": [
-          0.95,
-          44.375,
-          2.275,
-          44.55
-        ],
-        "depth_mm": 5.0
-      },
-      {
-        "ref": "bridge R16+R18",
-        "kind": "through",
-        "basis": "merges a 0.175 mm wall below the minimum",
-        "board_box_mm": [
-          13.925,
-          42.85,
-          15.25,
-          43.025
-        ],
-        "carrier_box_mm": [
-          0.95,
-          42.85,
-          2.275,
-          43.025
-        ],
-        "depth_mm": 5.0
-      },
-      {
-        "ref": "bridge R17+R19",
-        "kind": "through",
-        "basis": "merges a 0.200 mm wall below the minimum",
-        "board_box_mm": [
-          13.925,
-          47.45,
-          15.275,
-          47.65
-        ],
-        "carrier_box_mm": [
-          0.925,
-          47.45,
-          2.275,
-          47.65
-        ],
-        "depth_mm": 5.0
-      },
-      {
-        "ref": "bridge R21+R24",
-        "kind": "through",
-        "basis": "merges a 0.175 mm wall below the minimum",
-        "board_box_mm": [
-          7.15,
-          21.675,
-          8.175,
-          21.85
-        ],
-        "carrier_box_mm": [
-          8.025,
-          21.675,
-          9.05,
-          21.85
-        ],
-        "depth_mm": 5.0
-      },
-      {
-        "ref": "bridge R21+R25",
-        "kind": "through",
-        "basis": "merges a 0.250 mm wall below the minimum",
-        "board_box_mm": [
-          8.175,
-          21.85,
-          8.425,
-          24.75
-        ],
-        "carrier_box_mm": [
-          7.775,
-          21.85,
-          8.025,
-          24.75
-        ],
-        "depth_mm": 5.0
-      },
-      {
-        "ref": "bridge R24+R25",
-        "kind": "through",
-        "basis": "merges a 0.175 mm wall below the minimum",
-        "board_box_mm": [
-          8.425,
-          21.675,
-          9.775,
-          21.85
-        ],
-        "carrier_box_mm": [
-          6.425,
-          21.675,
-          7.775,
-          21.85
-        ],
-        "depth_mm": 5.0
-      },
-      {
-        "ref": "bridge R24+R6",
-        "kind": "through",
-        "basis": "merges a 0.200 mm wall below the minimum",
-        "board_box_mm": [
-          10.05,
-          20.325,
-          10.25,
-          21.175
-        ],
-        "carrier_box_mm": [
-          5.95,
-          20.325,
-          6.15,
-          21.175
-        ],
-        "depth_mm": 5.0
-      },
-      {
-        "ref": "bridge R24+R7",
-        "kind": "through",
-        "basis": "merges a 0.175 mm wall below the minimum",
-        "board_box_mm": [
-          10.05,
-          21.35,
-          10.225,
-          21.675
-        ],
-        "carrier_box_mm": [
-          5.975,
-          21.35,
-          6.15,
-          21.675
-        ],
-        "depth_mm": 5.0
-      },
-      {
-        "ref": "bridge R24+bridge R21+R25",
-        "kind": "through",
-        "basis": "merges a 0.175 mm wall below the minimum",
-        "board_box_mm": [
-          8.175,
-          21.675,
-          8.425,
-          21.85
-        ],
-        "carrier_box_mm": [
-          7.775,
-          21.675,
-          8.025,
-          21.85
-        ],
-        "depth_mm": 5.0
-      },
-      {
-        "ref": "bridge R6+R7",
-        "kind": "through",
-        "basis": "merges a 0.175 mm wall below the minimum",
-        "board_box_mm": [
-          10.25,
-          21.175,
-          11.575,
-          21.35
-        ],
-        "carrier_box_mm": [
-          4.625,
-          21.175,
-          5.95,
-          21.35
-        ],
-        "depth_mm": 5.0
-      },
-      {
-        "ref": "bridge R24+bridge R6+R7",
-        "kind": "through",
-        "basis": "merges a 0.200 mm wall below the minimum",
-        "board_box_mm": [
-          10.05,
-          21.175,
-          10.25,
-          21.35
-        ],
-        "carrier_box_mm": [
-          5.95,
-          21.175,
-          6.15,
-          21.35
-        ],
-        "depth_mm": 5.0
-      },
-      {
-        "ref": "bridge R6+bridge R24+R7",
-        "kind": "through",
-        "basis": "merges a 0.177 mm wall below the minimum",
-        "board_box_mm": [
-          10.225,
-          20.0,
-          10.25,
-          21.675
-        ],
-        "carrier_box_mm": [
-          5.95,
-          20.0,
-          5.975,
-          21.675
-        ],
-        "depth_mm": 5.0
-      }
-    ],
-    "datum_pins": [
-      {
-        "id": "X1",
-        "role": "X datum on the board x = 16.2 edge",
-        "board_xy_mm": [
-          17.2,
-          24.0
-        ],
-        "carrier_xy_mm": [
-          -1.0,
-          24.0
-        ]
-      },
-      {
-        "id": "X2",
-        "role": "X datum on the board x = 16.2 edge",
-        "board_xy_mm": [
-          17.2,
-          56.0
-        ],
-        "carrier_xy_mm": [
-          -1.0,
-          56.0
-        ]
-      },
-      {
-        "id": "Y1",
-        "role": "Y datum on the board y = 62.9 edge",
-        "board_xy_mm": [
-          8.1,
-          63.9
-        ],
-        "carrier_xy_mm": [
-          8.1,
-          63.9
-        ]
-      }
-    ],
-    "hole_to_cut_webs_below_2mm": [
-      {
-        "hole": "TP1",
-        "cut": "R9",
-        "web_mm": 0.27
-      },
-      {
-        "hole": "TP2",
-        "cut": "R9",
-        "web_mm": 0.27
-      },
-      {
-        "hole": "TP1",
-        "cut": "R7",
-        "web_mm": 0.325
-      },
-      {
-        "hole": "TP3",
-        "cut": "R7",
-        "web_mm": 0.325
-      },
-      {
-        "hole": "TP5",
-        "cut": "R9",
-        "web_mm": 0.325
-      },
-      {
-        "hole": "TP4",
-        "cut": "R9",
-        "web_mm": 0.431947
-      },
-      {
-        "hole": "TP3",
-        "cut": "R6",
-        "web_mm": 0.725
-      },
-      {
-        "hole": "TP3",
-        "cut": "bridge R6+R7",
-        "web_mm": 0.835337
-      },
-      {
-        "hole": "TP2",
-        "cut": "J5.3",
-        "web_mm": 1.56
-      },
-      {
-        "hole": "TP2",
-        "cut": "J1.4",
-        "web_mm": 1.65
-      },
-      {
-        "hole": "TP3",
-        "cut": "R9",
-        "web_mm": 1.67
-      },
-      {
-        "hole": "TP4",
-        "cut": "R7",
-        "web_mm": 1.725
-      },
-      {
-        "hole": "TP3",
-        "cut": "bridge R6+bridge R24+R7",
-        "web_mm": 1.768948
-      },
-      {
-        "hole": "TP3",
-        "cut": "bridge R24+R7",
-        "web_mm": 1.792651
-      },
-      {
-        "hole": "TP3",
-        "cut": "bridge R24+bridge R6+R7",
-        "web_mm": 1.892697
-      },
-      {
-        "hole": "TP3",
-        "cut": "R24",
-        "web_mm": 1.959294
-      },
-      {
-        "hole": "TP3",
-        "cut": "bridge R24+R6",
-        "web_mm": 1.974495
-      }
-    ],
-    "web_conflicts": [],
-    "relief_wall_conflicts": [],
     "unknown_heights": [
       "J5 (PicoBlade 530470310): lead tail below the B face"
     ],
-    "solder_envelope": "not needed for clearance: every relief is a through-cut sized from native copper and the sourced body outline",
+    "solder_envelope": "not needed for clearance: every B-face feature lies in a window through the 5 mm carrier, and only the J5 tail reaches the probe plate zone, where it has its own window",
     "keying": {
-      "method": "B-face features stand proud of the B face: PJ-324M terminals (nominal 1.6 mm, MANUFACTURER_MIRROR) and the soldered R0603 terminations (body up to 0.55 mm, SOURCE_DERIVED). In the correct pose all of them fall into through-cuts; turned 180 degrees in plane, the listed centres land on solid carrier, hold the board off the land and the datum pins, and the probes miss the test pads. Face-down insertion is excluded by the F-side jacks.",
+      "method": "B-face features stand proud of the B face: PJ-324M terminals (nominal 1.6 mm, MANUFACTURER_MIRROR) and the soldered R0603 terminations (body up to 0.55 mm, SOURCE_DERIVED). In the correct pose all of them fall into carrier windows; turned 180 degrees in plane, the listed centres land on solid carrier, hold the board off the land and the datum pins, and the probes miss the test pads. Face-down insertion is excluded by the F-side jacks.",
       "turned_pose_features": [
         {
-          "lead": "J1.1",
+          "feature": "J1.1",
           "turned_centre_mm": [
             15.3,
             27.1
           ],
-          "lands_on_carrier": true
+          "lands_on_carrier": false
         },
         {
-          "lead": "J1.2",
+          "feature": "J1.2",
           "turned_centre_mm": [
             7.3,
             21.9
@@ -1237,7 +3336,7 @@
           "lands_on_carrier": false
         },
         {
-          "lead": "J1.3",
+          "feature": "J1.3",
           "turned_centre_mm": [
             8.3,
             24.6
@@ -1245,7 +3344,7 @@
           "lands_on_carrier": false
         },
         {
-          "lead": "J1.4",
+          "feature": "J1.4",
           "turned_centre_mm": [
             3.9,
             31.1
@@ -1253,7 +3352,7 @@
           "lands_on_carrier": false
         },
         {
-          "lead": "J1.5",
+          "feature": "J1.5",
           "turned_centre_mm": [
             11.3,
             31.6
@@ -1261,7 +3360,7 @@
           "lands_on_carrier": false
         },
         {
-          "lead": "J2.1",
+          "feature": "J2.1",
           "turned_centre_mm": [
             15.3,
             12.1
@@ -1269,7 +3368,7 @@
           "lands_on_carrier": false
         },
         {
-          "lead": "J2.2",
+          "feature": "J2.2",
           "turned_centre_mm": [
             7.3,
             6.9
@@ -1277,7 +3376,7 @@
           "lands_on_carrier": false
         },
         {
-          "lead": "J2.3",
+          "feature": "J2.3",
           "turned_centre_mm": [
             8.3,
             9.6
@@ -1285,7 +3384,7 @@
           "lands_on_carrier": false
         },
         {
-          "lead": "J2.4",
+          "feature": "J2.4",
           "turned_centre_mm": [
             3.9,
             16.1
@@ -1293,7 +3392,7 @@
           "lands_on_carrier": false
         },
         {
-          "lead": "J2.5",
+          "feature": "J2.5",
           "turned_centre_mm": [
             11.3,
             16.6
@@ -1301,7 +3400,7 @@
           "lands_on_carrier": false
         },
         {
-          "lead": "R1.1",
+          "feature": "R1.1",
           "turned_centre_mm": [
             4.0,
             58.9
@@ -1309,7 +3408,7 @@
           "lands_on_carrier": true
         },
         {
-          "lead": "R1.2",
+          "feature": "R1.2",
           "turned_centre_mm": [
             2.4,
             58.9
@@ -1317,7 +3416,7 @@
           "lands_on_carrier": true
         },
         {
-          "lead": "R10.1",
+          "feature": "R10.1",
           "turned_centre_mm": [
             11.7,
             40.4
@@ -1325,7 +3424,7 @@
           "lands_on_carrier": true
         },
         {
-          "lead": "R10.2",
+          "feature": "R10.2",
           "turned_centre_mm": [
             11.7,
             42.0
@@ -1333,7 +3432,7 @@
           "lands_on_carrier": true
         },
         {
-          "lead": "R11.1",
+          "feature": "R11.1",
           "turned_centre_mm": [
             10.5,
             45.9
@@ -1341,7 +3440,7 @@
           "lands_on_carrier": true
         },
         {
-          "lead": "R11.2",
+          "feature": "R11.2",
           "turned_centre_mm": [
             8.9,
             45.9
@@ -1349,7 +3448,7 @@
           "lands_on_carrier": true
         },
         {
-          "lead": "R12.1",
+          "feature": "R12.1",
           "turned_centre_mm": [
             3.0,
             2.4
@@ -1357,7 +3456,7 @@
           "lands_on_carrier": false
         },
         {
-          "lead": "R12.2",
+          "feature": "R12.2",
           "turned_centre_mm": [
             1.4,
             2.4
@@ -1365,23 +3464,23 @@
           "lands_on_carrier": false
         },
         {
-          "lead": "R13.1",
+          "feature": "R13.1",
           "turned_centre_mm": [
             10.5,
             44.4
           ],
-          "lands_on_carrier": true
+          "lands_on_carrier": false
         },
         {
-          "lead": "R13.2",
+          "feature": "R13.2",
           "turned_centre_mm": [
             8.9,
             44.4
           ],
-          "lands_on_carrier": true
+          "lands_on_carrier": false
         },
         {
-          "lead": "R14.1",
+          "feature": "R14.1",
           "turned_centre_mm": [
             9.4,
             19.2
@@ -1389,7 +3488,7 @@
           "lands_on_carrier": false
         },
         {
-          "lead": "R14.2",
+          "feature": "R14.2",
           "turned_centre_mm": [
             7.8,
             19.2
@@ -1397,7 +3496,7 @@
           "lands_on_carrier": false
         },
         {
-          "lead": "R15.1",
+          "feature": "R15.1",
           "turned_centre_mm": [
             6.3,
             19.2
@@ -1405,7 +3504,7 @@
           "lands_on_carrier": false
         },
         {
-          "lead": "R15.2",
+          "feature": "R15.2",
           "turned_centre_mm": [
             4.7,
             19.2
@@ -1413,39 +3512,39 @@
           "lands_on_carrier": false
         },
         {
-          "lead": "R16.1",
+          "feature": "R16.1",
           "turned_centre_mm": [
             3.2,
             19.2
           ],
-          "lands_on_carrier": false
+          "lands_on_carrier": true
         },
         {
-          "lead": "R16.2",
+          "feature": "R16.2",
           "turned_centre_mm": [
             1.6,
             19.2
           ],
-          "lands_on_carrier": false
+          "lands_on_carrier": true
         },
         {
-          "lead": "R17.1",
+          "feature": "R17.1",
           "turned_centre_mm": [
             1.6,
             16.1
           ],
-          "lands_on_carrier": false
+          "lands_on_carrier": true
         },
         {
-          "lead": "R17.2",
+          "feature": "R17.2",
           "turned_centre_mm": [
             1.6,
             17.7
           ],
-          "lands_on_carrier": false
+          "lands_on_carrier": true
         },
         {
-          "lead": "R18.1",
+          "feature": "R18.1",
           "turned_centre_mm": [
             1.6,
             20.7
@@ -1453,7 +3552,7 @@
           "lands_on_carrier": true
         },
         {
-          "lead": "R18.2",
+          "feature": "R18.2",
           "turned_centre_mm": [
             1.6,
             22.3
@@ -1461,7 +3560,7 @@
           "lands_on_carrier": true
         },
         {
-          "lead": "R19.1",
+          "feature": "R19.1",
           "turned_centre_mm": [
             1.6,
             13.0
@@ -1469,15 +3568,15 @@
           "lands_on_carrier": false
         },
         {
-          "lead": "R19.2",
+          "feature": "R19.2",
           "turned_centre_mm": [
             1.6,
             14.6
           ],
-          "lands_on_carrier": false
+          "lands_on_carrier": true
         },
         {
-          "lead": "R2.1",
+          "feature": "R2.1",
           "turned_centre_mm": [
             4.0,
             60.4
@@ -1485,7 +3584,7 @@
           "lands_on_carrier": true
         },
         {
-          "lead": "R2.2",
+          "feature": "R2.2",
           "turned_centre_mm": [
             2.4,
             60.4
@@ -1493,7 +3592,7 @@
           "lands_on_carrier": true
         },
         {
-          "lead": "R20.1",
+          "feature": "R20.1",
           "turned_centre_mm": [
             7.2,
             46.1
@@ -1501,7 +3600,7 @@
           "lands_on_carrier": true
         },
         {
-          "lead": "R20.2",
+          "feature": "R20.2",
           "turned_centre_mm": [
             7.2,
             47.7
@@ -1509,7 +3608,7 @@
           "lands_on_carrier": true
         },
         {
-          "lead": "R21.1",
+          "feature": "R21.1",
           "turned_centre_mm": [
             8.7,
             38.8
@@ -1517,7 +3616,7 @@
           "lands_on_carrier": false
         },
         {
-          "lead": "R21.2",
+          "feature": "R21.2",
           "turned_centre_mm": [
             8.7,
             40.4
@@ -1525,7 +3624,7 @@
           "lands_on_carrier": false
         },
         {
-          "lead": "R22.1",
+          "feature": "R22.1",
           "turned_centre_mm": [
             3.0,
             0.9
@@ -1533,7 +3632,7 @@
           "lands_on_carrier": false
         },
         {
-          "lead": "R22.2",
+          "feature": "R22.2",
           "turned_centre_mm": [
             1.4,
             0.9
@@ -1541,7 +3640,7 @@
           "lands_on_carrier": false
         },
         {
-          "lead": "R23.1",
+          "feature": "R23.1",
           "turned_centre_mm": [
             11.7,
             47.4
@@ -1549,7 +3648,7 @@
           "lands_on_carrier": false
         },
         {
-          "lead": "R23.2",
+          "feature": "R23.2",
           "turned_centre_mm": [
             10.1,
             47.4
@@ -1557,7 +3656,7 @@
           "lands_on_carrier": true
         },
         {
-          "lead": "R24.1",
+          "feature": "R24.1",
           "turned_centre_mm": [
             8.4,
             41.9
@@ -1565,7 +3664,7 @@
           "lands_on_carrier": false
         },
         {
-          "lead": "R24.2",
+          "feature": "R24.2",
           "turned_centre_mm": [
             6.8,
             41.9
@@ -1573,7 +3672,7 @@
           "lands_on_carrier": true
         },
         {
-          "lead": "R25.1",
+          "feature": "R25.1",
           "turned_centre_mm": [
             7.1,
             38.8
@@ -1581,7 +3680,7 @@
           "lands_on_carrier": false
         },
         {
-          "lead": "R25.2",
+          "feature": "R25.2",
           "turned_centre_mm": [
             7.1,
             40.4
@@ -1589,7 +3688,7 @@
           "lands_on_carrier": true
         },
         {
-          "lead": "R3.1",
+          "feature": "R3.1",
           "turned_centre_mm": [
             7.4,
             43.9
@@ -1597,15 +3696,15 @@
           "lands_on_carrier": false
         },
         {
-          "lead": "R3.2",
+          "feature": "R3.2",
           "turned_centre_mm": [
             5.8,
             43.9
           ],
-          "lands_on_carrier": true
+          "lands_on_carrier": false
         },
         {
-          "lead": "R4.1",
+          "feature": "R4.1",
           "turned_centre_mm": [
             5.6,
             45.4
@@ -1613,7 +3712,7 @@
           "lands_on_carrier": false
         },
         {
-          "lead": "R4.2",
+          "feature": "R4.2",
           "turned_centre_mm": [
             5.6,
             47.0
@@ -1621,7 +3720,7 @@
           "lands_on_carrier": false
         },
         {
-          "lead": "R5.1",
+          "feature": "R5.1",
           "turned_centre_mm": [
             4.0,
             44.1
@@ -1629,7 +3728,7 @@
           "lands_on_carrier": true
         },
         {
-          "lead": "R5.2",
+          "feature": "R5.2",
           "turned_centre_mm": [
             4.0,
             45.7
@@ -1637,7 +3736,7 @@
           "lands_on_carrier": false
         },
         {
-          "lead": "R6.1",
+          "feature": "R6.1",
           "turned_centre_mm": [
             5.3,
             42.4
@@ -1645,7 +3744,7 @@
           "lands_on_carrier": true
         },
         {
-          "lead": "R6.2",
+          "feature": "R6.2",
           "turned_centre_mm": [
             3.7,
             42.4
@@ -1653,7 +3752,7 @@
           "lands_on_carrier": true
         },
         {
-          "lead": "R7.1",
+          "feature": "R7.1",
           "turned_centre_mm": [
             5.3,
             39.3
@@ -1661,7 +3760,7 @@
           "lands_on_carrier": true
         },
         {
-          "lead": "R7.2",
+          "feature": "R7.2",
           "turned_centre_mm": [
             5.3,
             40.9
@@ -1669,7 +3768,7 @@
           "lands_on_carrier": true
         },
         {
-          "lead": "R8.1",
+          "feature": "R8.1",
           "turned_centre_mm": [
             6.2,
             59.1
@@ -1677,7 +3776,7 @@
           "lands_on_carrier": true
         },
         {
-          "lead": "R8.2",
+          "feature": "R8.2",
           "turned_centre_mm": [
             6.2,
             60.7
@@ -1685,7 +3784,7 @@
           "lands_on_carrier": true
         },
         {
-          "lead": "R9.1",
+          "feature": "R9.1",
           "turned_centre_mm": [
             3.6,
             36.1
@@ -1693,7 +3792,7 @@
           "lands_on_carrier": true
         },
         {
-          "lead": "R9.2",
+          "feature": "R9.2",
           "turned_centre_mm": [
             3.6,
             37.7
@@ -1702,17 +3801,19 @@
         }
       ],
       "blocking_features": [
-        "J1.1",
         "R1.1",
         "R1.2",
         "R10.1",
         "R10.2",
         "R11.1",
         "R11.2",
-        "R13.1",
-        "R13.2",
+        "R16.1",
+        "R16.2",
+        "R17.1",
+        "R17.2",
         "R18.1",
         "R18.2",
+        "R19.2",
         "R2.1",
         "R2.2",
         "R20.1",
@@ -1720,7 +3821,6 @@
         "R23.2",
         "R24.2",
         "R25.2",
-        "R3.2",
         "R5.1",
         "R6.1",
         "R6.2",
@@ -1735,69 +3835,149 @@
       "acceptance_requirement": "trial-insert the board turned 180 degrees: it must not seat (visible gap at the datum pins)"
     },
     "support": {
-      "method": "grid 0.1 mm over the board outline inside the carrier (board X 0-16.2, Y 20.0-62.9)",
-      "land_fraction": 0.8013,
+      "method": "grid 0.1 mm over the board outline inside the carrier (board X 0-16.2, Y 13.0-62.9)",
+      "land_fraction": 0.6512,
       "land_fraction_within_radius_of_probe": {
-        "TP1": 0.588,
-        "TP2": 0.7295,
-        "TP3": 0.5302,
-        "TP4": 0.7181,
-        "TP5": 0.735
+        "TP1": 0.011,
+        "TP2": 0.2557,
+        "TP3": 0.0421,
+        "TP4": 0.1808,
+        "TP5": 0.258
       },
-      "load_path": "clamp pins (F side) -> board -> solid carrier land under each pin -> carrier; probe forces push the board against the clamp only within the clamped, supported area",
-      "scope": "geometric layout only; no deflection analysis (the clamp points sit over land, so the board is not loaded in bending between a clamp point and its support)"
+      "load_path": "springs -> pressure plate -> three nylon contacts on the F face; two contacts sit over the probe field and oppose the probe forces through the board locally; the remaining load goes through the board to the carrier land around the windows -> spacers -> probe plate -> standoffs -> base",
+      "scope": "rigid-body statics plus a conservative beam estimate for the board across the window (below); plate deflection not analysed"
     },
     "holddown": {
-      "points_board_mm": [
+      "type": "screw-down FR-4 pressure plate, 3 mm, guided on two M3 hex standoffs (12 mm) standing on the carrier; a compression spring on each standoff is held by an M3 screw and washer on the standoff top; three M2 nylon screws in the plate are the contacts",
+      "contacts_board_mm": [
         [
-          14.8,
-          28.6
+          14.7,
+          27.3
         ],
         [
-          15.4,
-          21.4
+          13.9,
+          21.5
         ],
         [
-          2.7,
-          22.4
+          2.5,
+          22.1
         ]
       ],
-      "pin_diameter_mm": 1.5,
-      "rule": "pressure pins on the F side, clear of every native F courtyard by 0.3 mm, each over solid carrier land so the clamp load passes straight through the board into the carrier; nothing presses on jack bodies or solder joints",
-      "probe_force_total_N": {
-        "working_stroke": 5.0,
-        "maximum_stroke": 6.35
-      },
+      "contact_diameter_mm": 2.0,
       "probe_resultant_board_mm": [
         13.04,
         24.84
       ],
-      "resultant_margin_inside_clamp_triangle_mm": 2.066172,
-      "required_clamp_force_N": 6.35,
-      "required_clamp_force_basis": "all five probes at the 6.35 mm maximum stroke (graph value), equal probe forces so the resultant is the probe centroid; it lies inside the clamp triangle by the stated margin, so the probe load is reacted inside the clamped area instead of tipping the board about the clamp line (rigid-board statics; board bending not analysed)",
-      "mechanism": null,
-      "mechanism_status": "NOT_SELECTED (owner/supplier choice)"
+      "probe_resultant_margin_mm": 1.308303,
+      "guides": [
+        {
+          "id": "G1",
+          "board_xy_mm": [
+            -5.5,
+            23.3
+          ],
+          "carrier_xy_mm": [
+            21.7,
+            23.3
+          ]
+        },
+        {
+          "id": "G2",
+          "board_xy_mm": [
+            21.7,
+            23.3
+          ],
+          "carrier_xy_mm": [
+            -5.5,
+            23.3
+          ]
+        }
+      ],
+      "spring_resultant_board_mm": [
+        8.1,
+        23.3
+      ],
+      "spring_resultant_margin_mm": 1.091843,
+      "probe_force_total_N": {
+        "working_stroke": 5.0,
+        "maximum_stroke": 6.35
+      },
+      "clamp_force_margin_factor": 2.0,
+      "required_total_spring_force_N": 12.7,
+      "contact_reactions_N": [
+        3.249369,
+        2.761201,
+        6.689429
+      ],
+      "board_net_load_point_mm": [
+        3.16,
+        21.76
+      ],
+      "board_net_load_point_inside_land_hull_mm": 3.11,
+      "board_bending_across_window": {
+        "model": "simply supported strip, point load at mid-span: d = F L^3 / (48 E I), I = b t^3 / 12",
+        "span_mm": 19.286,
+        "strip_width_mm": 5.0,
+        "board_thickness_mm": 1.6,
+        "flexural_modulus_MPa": 18000.0,
+        "flexural_modulus_class": "ASSUMED (typical FR-4 flexural modulus; the board laminate is not sourced)",
+        "load_N": 12.699999,
+        "load_basis": "larger of the total probe force at maximum stroke and the summed reactions of the contacts over the window, taken as wholly unbalanced",
+        "deflection_mm": 0.061783,
+        "limit_mm": 0.1,
+        "limit_basis": "PROJECT-CHOICE: small against the 2.05 mm between the 4.3 mm working stroke and the 6.35 mm maximum"
+      },
+      "statics": "plate: equal spring forces at G1 and G2 act at their midpoint, inside the contact triangle, so all three contacts carry load (barycentric shares); board: contact loads minus the probe load at maximum stroke leave a net downward load whose point lies inside the convex hull of the carrier land under the board, so the board stays on the land (rigid bodies)",
+      "spring_requirement": {
+        "quantity": 2,
+        "inner_diameter_min_mm": 6.6,
+        "outer_diameter_max_mm": 9.0,
+        "installed_length_nominal_mm": 4.9,
+        "installed_length_range_mm": [
+          4.6,
+          5.2
+        ],
+        "force_min_over_range_N": 6.35,
+        "solid_length_max_mm": 4.3,
+        "free_length_max_mm": 9.4,
+        "free_length_basis": "the M3 x 6 top screw engages at least 1.5 mm of standoff thread before it starts to compress the spring (PROJECT-CHOICE)",
+        "basis": "each spring carries half of the required total over the installed-length range, which covers board thickness and contact-screw setting variation of +/-0.3 mm (PROJECT-CHOICE envelope)",
+        "status": "REQUIRED_NOT_SELECTED (standard compression spring; part not chosen)"
+      },
+      "contact_setting": "each M2 nylon screw protrudes 2.5 +/-0.1 mm below the plate (acceptance measurement before use)",
+      "operation": "remove the two M3 x 6 top screws with their washers and springs and lift the plate off; insert the board and push it against X1, X2 and Y1; refit plate, springs and washers and screw down until each screw head seats on its standoff (hard stop). The spring length at the hard stop, not the screw torque, sets the clamp force"
     },
     "registration": {
-      "datums": "board pushed by the clamp/bias against X1, X2 (x = 16.2 edge) and Y1 (y = 62.9 edge); spring bias makes the datum contact clearance zero",
+      "datums": "board pushed by hand against X1, X2 (x = 16.2 edge) and Y1 (y = 62.9 edge) before the pressure plate is screwed down; friction under the contacts then holds it. Datum contact clearance zero is an acceptance check, not a spring",
+      "plate_alignment": "two 2 mm dowels (D1, D2) through carrier and probe plate align the bores to the datum pins; the M3 fasteners only clamp",
       "radial_budget_mm": 0.25,
       "allocation_mm": {
         "board_edge_to_test_pad_mm": 0.1,
         "datum_contact_mm": 0.0,
-        "carrier_pin_to_bore_position_mm": 0.05,
+        "datum_pin_to_bore_assembled_mm": 0.05,
         "probe_tip_lateral_mm": 0.07
       },
       "allocation_class": "PROJECT-CHOICE, each closed by the acceptance measurement below",
       "worst_case_margin_mm": 0.03,
       "acceptance_requirements": [
         "each board: TP1-TP5 pad centres measured from the x = 16.2 and y = 62.9 edges; radial deviation from the design position <= 0.10 mm, else the board is not tested in this fixture",
-        "carrier: bore centres measured from the datum pin contact lines; radial deviation <= 0.05 mm; bores 0.98-1.00 mm; every cut edge within +/-0.05 mm of the design line; walls not below 0.27 mm",
-        "installed probes: tip lateral offset from the bore axis at the working stroke <= 0.07 mm"
+        "assembled carrier and probe plate: bore centres measured through the probe window from the datum pin contact lines; radial deviation <= 0.05 mm; bores 0.98-1.00 mm; windows and walls as drawn, walls not below 1.0 mm",
+        "installed probes: tip lateral offset from the bore axis at the working stroke <= 0.07 mm",
+        "clamped board: a 0.02 mm feeler does not enter between the board edge and X1, X2 or Y1"
       ]
     },
     "stroke": {
-      "travel_stop": "the board B face seats on the solid carrier land, which is independent of the probe installation height",
-      "set_installation_height": "press-ring receptacle pressed to the depth that leaves the probe tip 4.3 mm above the carrier top (recommended working stroke) with the board absent",
+      "travel_stop": "the board B face seats on the solid carrier land, which is independent of the receptacle press depth",
+      "installation_height_mm": 16.0,
+      "installation_height_class": "MANUFACTURER_MIRROR",
+      "press_ring_depth_mm": 0.7,
+      "set_installation_height": "receptacle press ring pressed 0.7 mm into the probe-plate bore so the free probe tip stands 4.3 mm above the carrier top",
+      "accommodated_installation_height_mm": [
+        15.3,
+        21.3
+      ],
+      "receptacle_top_z_mm": -3.8,
+      "receptacle_bottom_z_mm": -44.4,
       "stroke_window_mm": [
         0.0,
         6.35
@@ -1809,19 +3989,199 @@
       },
       "force_basis": "linear INGUN force-stroke graph (0.44 N preload, 1.0 N at 4.3 mm)"
     },
+    "wiring": {
+      "receptacle_bottom_z_mm": -44.4,
+      "base_plate_top_z_mm": -52.0,
+      "wire_bend_space_mm": 7.6,
+      "required_bend_space_mm": 5.5,
+      "basis": "10 x the 0.55 mm Tefzel wire outer diameter (PROJECT-CHOICE bend allowance)",
+      "retention": "the five prewired leads leave the receptacle tails, are sleeved with TP1-TP5 labels and tied through the base-plate slot (cable tie); no solder joint on the receptacle (INGUN note: crimp points must not be soldered)",
+      "tie_slot_board_mm": [
+        6.1,
+        15.5,
+        10.1,
+        17.5
+      ]
+    },
+    "insulation": {
+      "plates": "support carrier, probe plate, pressure plate and base plate are FR-4 (insulating)",
+      "board_contacts": "nylon M2 contacts on the F face; datum pins touch only the board edge",
+      "metal_to_probe_min_gap_mm": {
+        "gap": 2.895807,
+        "between": [
+          "G2",
+          "TP4"
+        ]
+      },
+      "datum_contact_to_nearest_copper_mm": {
+        "X1": 0.3,
+        "X2": 4.07707,
+        "Y1": 2.466779
+      }
+    },
+    "f_side_heights": {
+      "C1": {
+        "height_mm": 1.35,
+        "source": "A5 seed envelope (engineering/a5/electronics/placement_and_connectivity.json, C1, same MPN CL21A106KAYNNNE)"
+      },
+      "C10": {
+        "height_mm": 0.9,
+        "source": "A5 seed envelope (engineering/a5/electronics/placement_and_connectivity.json, C10, same MPN CC0603KRX7R9BB104)"
+      },
+      "C11": {
+        "height_mm": 0.9,
+        "source": "A5 seed envelope (engineering/a5/electronics/placement_and_connectivity.json, C11, same MPN CC0603KRX7R9BB104)"
+      },
+      "C12": {
+        "height_mm": 0.9,
+        "source": "A5 seed envelope (engineering/a5/electronics/placement_and_connectivity.json, C12, same MPN CC0603KRX7R9BB104)"
+      },
+      "C13": {
+        "height_mm": 0.9,
+        "source": "A5 seed envelope (engineering/a5/electronics/placement_and_connectivity.json, C13, same MPN 0603B103K500NT)"
+      },
+      "C14": {
+        "height_mm": 0.9,
+        "source": "A5 seed envelope (engineering/a5/electronics/placement_and_connectivity.json, C14, same MPN CC0603KRX7R9BB104)"
+      },
+      "C15": {
+        "height_mm": 1.35,
+        "source": "A5 seed envelope (engineering/a5/electronics/placement_and_connectivity.json, C15, same MPN CL21A106KAYNNNE)"
+      },
+      "C16": {
+        "height_mm": 1.35,
+        "source": "A5 seed envelope (engineering/a5/electronics/placement_and_connectivity.json, C16, same MPN CL21A106KAYNNNE)"
+      },
+      "C17": {
+        "height_mm": 0.9,
+        "source": "A5 seed envelope (engineering/a5/electronics/placement_and_connectivity.json, C17, same MPN CC0603KRX7R9BB104)"
+      },
+      "C2": {
+        "height_mm": 1.8,
+        "source": "A5 seed envelope (engineering/a5/electronics/placement_and_connectivity.json, C2, same MPN CL31A226KAHNNNE)"
+      },
+      "C3": {
+        "height_mm": 1.8,
+        "source": "A5 seed envelope (engineering/a5/electronics/placement_and_connectivity.json, C3, same MPN CL31A226KAHNNNE)"
+      },
+      "C4": {
+        "height_mm": 0.9,
+        "source": "A5 seed envelope (engineering/a5/electronics/placement_and_connectivity.json, C4, same MPN CC0603KRX7R9BB104)"
+      },
+      "C5": {
+        "height_mm": 0.9,
+        "source": "A5 seed envelope (engineering/a5/electronics/placement_and_connectivity.json, C5, same MPN CL10A475KO8NNNC)"
+      },
+      "C6": {
+        "height_mm": 0.9,
+        "source": "A5 seed envelope (engineering/a5/electronics/placement_and_connectivity.json, C6, same MPN CL10A475KO8NNNC)"
+      },
+      "C7": {
+        "height_mm": 0.9,
+        "source": "A5 seed envelope (engineering/a5/electronics/placement_and_connectivity.json, C7, same MPN CL10A475KO8NNNC)"
+      },
+      "C8": {
+        "height_mm": 0.9,
+        "source": "A5 seed envelope (engineering/a5/electronics/placement_and_connectivity.json, C8, same MPN CC0603KRX7R9BB104)"
+      },
+      "C9": {
+        "height_mm": 0.9,
+        "source": "A5 seed envelope (engineering/a5/electronics/placement_and_connectivity.json, C9, same MPN CC0603KRX7R9BB104)"
+      },
+      "D1": {
+        "height_mm": 0.7,
+        "source": "A5 seed envelope (engineering/a5/electronics/placement_and_connectivity.json, D1, same MPN PMEG4010CEJ,115)"
+      },
+      "D2": {
+        "height_mm": 0.7,
+        "source": "A5 seed envelope (engineering/a5/electronics/placement_and_connectivity.json, D2, same MPN PMEG4010CEJ,115)"
+      },
+      "D3": {
+        "height_mm": 1.1,
+        "source": "A5 seed envelope (engineering/a5/electronics/placement_and_connectivity.json, D3, same MPN BAS70-04-7-F)"
+      },
+      "J1": {
+        "height_mm": 6.3,
+        "source": "fact-a7-pj-324m-overall-height (component-a7-pj-324m)"
+      },
+      "J2": {
+        "height_mm": 6.3,
+        "source": "fact-a7-pj-324m-overall-height (component-a7-pj-324m)"
+      },
+      "J3": {
+        "height_mm": 2.95,
+        "source": "A5 seed envelope (engineering/a5/electronics/placement_and_connectivity.json, J3, same MPN SM04B-SRSS-TB(LF)(SN))"
+      },
+      "J5": {
+        "height_mm": 5.2,
+        "source": "A5-sourced mated height used by scripts/a7_mechanical_layout.py (mated; the cable leaves through the plate notch)"
+      },
+      "L1": {
+        "height_mm": 2.0,
+        "source": "A5 seed envelope (engineering/a5/electronics/placement_and_connectivity.json, L1, same MPN SPM4020T-4R7M-LR)"
+      },
+      "Q1": {
+        "height_mm": 1.1,
+        "source": "A5 seed envelope (engineering/a5/electronics/placement_and_connectivity.json, Q1, same MPN MMBT3904(RANGE:100-300))"
+      },
+      "SW1": {
+        "height_mm": 1.4,
+        "source": "fact-a7-pcm13smtr-outline height_above_pcb (component-a7-pcm13smtr)"
+      },
+      "U1": {
+        "height_mm": 0.6,
+        "source": "A5 seed envelope (engineering/a5/electronics/placement_and_connectivity.json, U1, same MPN STM32G031G8U6TR)"
+      },
+      "U2": {
+        "height_mm": 1.0,
+        "source": "A5 seed envelope (engineering/a5/electronics/placement_and_connectivity.json, U2, same MPN AP63205WU-7)"
+      },
+      "U3": {
+        "height_mm": 1.45,
+        "source": "A5 seed envelope (engineering/a5/electronics/placement_and_connectivity.json, U3, same MPN TLV75533PDBVR)"
+      },
+      "U4": {
+        "height_mm": 1.45,
+        "source": "A5 seed envelope (engineering/a5/electronics/placement_and_connectivity.json, U4, same MPN TPS2552DBVR-1)"
+      },
+      "U5": {
+        "height_mm": 0.9,
+        "source": "A5 seed envelope (engineering/a5/electronics/placement_and_connectivity.json, U5, same MPN SN74LVC2T45DCUR)"
+      },
+      "U6": {
+        "height_mm": 1.45,
+        "source": "A5 seed envelope (engineering/a5/electronics/placement_and_connectivity.json, U6, same MPN OPA197IDBVR)"
+      },
+      "U7": {
+        "height_mm": 1.45,
+        "source": "A5 seed envelope (engineering/a5/electronics/placement_and_connectivity.json, U7, same MPN TLV9001IDBVR)"
+      }
+    },
     "free_space": {
-      "below_carrier": "every relief is a through-cut, so nothing on the B face touches the carrier; a part longer than the 5 mm carrier continues into the space below it, which the undesigned base must keep free",
+      "j5_tail_max_without_interference_mm": 52.0,
+      "note": "J5 tails pass carrier and probe-plate windows; only a tail longer than this would reach the base plate",
       "unsourced": [
-        "J5 (PicoBlade 530470310): lead tail below the B face: the carrier does not depend on it, the base below the carrier does"
+        "J5 (PicoBlade 530470310): lead tail below the B face: no part of the fixture depends on it below this bound"
       ]
     },
     "fresh_native_criteria": {
       "every_b_side_part_and_tht_lead_relieved_from_native_geometry": true,
       "clearance_independent_of_unsourced_heights": true,
       "every_b_face_protrusion_sourced": false,
-      "no_wall_below_sourced_minimum": true,
+      "no_wall_below_minimum": true,
       "keyed_against_turned_insertion": true,
-      "holddown_points_over_land_clear_of_f_parts_and_around_probe_resultant": true
+      "contacts_on_f_face_clear_of_parts_and_around_both_resultants": true
+    },
+    "criterion_3_checks": {
+      "installation_height_and_stroke_resolved": true,
+      "travel_stop_independent_of_adjustment": true,
+      "clamp_force_sized_with_margin": true,
+      "board_stays_on_land": true,
+      "board_bending_across_window_within_limit": true,
+      "guide_and_fixing_designed": true,
+      "pressure_plate_clears_f_parts": true,
+      "insulation_metal_clear_of_probes": true,
+      "wire_bend_space": true
     }
   },
   "native_ci_evidence": {
@@ -1836,8 +4196,8 @@
     "artifact_access": "2026-11-09: download Forbidden (historical). 2026-11-11: native-infrastructure-evidence artifact 13663737750 downloaded (ZIP SHA-256 33f3d9121164f364b0325540b161e9546ddf73c8b723c9166fdcd8a19867cf0e), but it retains only a7-gate/summary.json; candidate board_facts/board_geometry were not uploaded, so raw candidate facts remain unavailable"
   },
   "transform": {
-    "description": "B side view: x_f = 16.2 - x_board; y_f = y_board. Carrier local Z is not an installed height.",
-    "matrix_xy": [
+    "description": "Board coordinates for every part: x, y as on the PCB, z up from the board B face (carrier top). The B-view carrier coordinates in b_side_relief are x_c = 16.2 - x_board.",
+    "matrix_xy_b_view": [
       [
         -1,
         0,
@@ -1925,7 +4285,7 @@
   "calculations": {
     "nominal_radial_budget_mm": 0.25,
     "worst_case_registration_margin_mm": 0.03,
-    "registration_equation": "0.25 - (board edge-to-pad + datum registration + carrier bore position + probe lateral play/concentricity); all terms radial worst-case mm, each allocation closed by an acceptance measurement (b_side_relief.registration)",
+    "registration_equation": "0.25 - (board edge-to-pad + datum registration + bore position + probe lateral play/concentricity); all terms radial worst-case mm, each allocation closed by an acceptance measurement (b_side_relief.registration)",
     "minimum_probe_pitch_mm": 1.4,
     "manufacturer_nominal_grid_mm": 1.27,
     "nominal_collar_edge_gap_mm": 0.36,
@@ -1934,91 +4294,122 @@
     "nominal_total_force_at_working_stroke_N": 5.0,
     "nominal_total_preload_N": 2.2,
     "total_force_at_maximum_stroke_N": 6.35,
+    "required_total_spring_force_N": 12.7,
+    "clamp_force_margin_factor": 2.0,
     "force_tolerance_N": null
-  },
-  "carrier": {
-    "bounds_mm": [
-      -4.4,
-      20.0,
-      0,
-      20.6,
-      66.0,
-      5.0
-    ],
-    "receptacle_bore_diameter_mm": 0.99,
-    "bore_acceptance_requirement_mm": [
-      0.98,
-      1.0
-    ],
-    "bore_material": "FR4, machined; not a printed plastic tolerance claim",
-    "minimum_wall_mm": 0.27,
-    "datum_pin_holes": [
-      {
-        "id": "X1",
-        "carrier_xy_mm": [
-          -1.0,
-          24.0
-        ],
-        "diameter_mm": 2.0
-      },
-      {
-        "id": "X2",
-        "carrier_xy_mm": [
-          -1.0,
-          56.0
-        ],
-        "diameter_mm": 2.0
-      },
-      {
-        "id": "Y1",
-        "carrier_xy_mm": [
-          8.1,
-          63.9
-        ],
-        "diameter_mm": 2.0
-      }
-    ],
-    "mounting_holes_mm": [],
-    "mounting_diameter_mm": 3.2
   },
   "candidate_reference_checks": [
     {
       "id": "jlccnc-fr4-guidance",
       "selection_status": "NOT_SELECTED",
-      "checks": {
-        "minimum_wall_mm": {
-          "design": 0.27,
-          "guidance_absolute_minimum": 1.0,
-          "met": false
+      "plates": {
+        "support_carrier": {
+          "thickness_mm": 5.0,
+          "checks": {
+            "internal_corner_radius_mm": {
+              "design": 1.0,
+              "guidance": 1.0,
+              "met": true
+            },
+            "narrowest_opening_mm": {
+              "design": 2.0,
+              "guidance_tool_diameter_mm": 1.0,
+              "met": true
+            },
+            "minimum_milled_wall_mm": {
+              "design": 1.0,
+              "guidance_absolute_minimum": 1.0,
+              "met": true
+            }
+          }
         },
-        "through_cut_internal_corners": {
-          "design": "sharp rectangular corners",
-          "guidance_radius_mm": 1.0,
-          "guidance_tool_diameter_mm": 1.0,
-          "met": false
+        "probe_plate": {
+          "thickness_mm": 6.0,
+          "checks": {
+            "internal_corner_radius_mm": {
+              "design": 1.1,
+              "guidance": 1.1,
+              "met": true
+            },
+            "narrowest_opening_mm": {
+              "design": 2.546,
+              "guidance_tool_diameter_mm": 1.2,
+              "met": true
+            },
+            "minimum_milled_wall_mm": {
+              "design": 2.3,
+              "guidance_absolute_minimum": 1.0,
+              "met": true
+            },
+            "drilled_bore_web_mm": {
+              "design": 0.4,
+              "guidance_absolute_minimum": 1.0,
+              "manufacturer_grid_minimum": 0.27,
+              "met": false,
+              "note": "drilled at the fixed board test-point pitch (1.4 mm); meets the INGUN grid, needs fabricator confirmation"
+            }
+          }
         },
-        "narrowest_cut_rectangle_mm": {
-          "design": 0.025,
-          "guidance_tool_diameter_mm": 1.0,
-          "met": false,
-          "note": "rectangles merge into larger openings; several bridges between parts (0.15-0.25 mm) are genuine narrow slots"
+        "pressure_plate": {
+          "thickness_mm": 3.0,
+          "checks": {
+            "internal_corner_radius_mm": {
+              "design": 0.8,
+              "guidance": 0.8,
+              "met": true
+            },
+            "narrowest_opening_mm": {
+              "design": 5.095,
+              "guidance_tool_diameter_mm": 0.6,
+              "met": true
+            },
+            "minimum_milled_wall_mm": {
+              "design": 1.0,
+              "guidance_absolute_minimum": 1.0,
+              "met": true
+            }
+          }
         },
-        "registration_tolerances_mm": {
-          "design": "0.05 carrier allocation, cut edges +/-0.05",
-          "guidance_standard": 0.1,
-          "met": null,
-          "note": "tighter than standard; needs an annotated 2D drawing, availability not confirmed"
+        "base_plate": {
+          "thickness_mm": 3.0,
+          "checks": {
+            "internal_corner_radius_mm": {
+              "design": 0.8,
+              "guidance": 0.8,
+              "met": true
+            },
+            "narrowest_opening_mm": {
+              "design": 2.0,
+              "guidance_tool_diameter_mm": 0.6,
+              "met": true
+            },
+            "minimum_milled_wall_mm": {
+              "design": 1.0,
+              "guidance_absolute_minimum": 1.0,
+              "met": true
+            }
+          }
         }
+      },
+      "registration_tolerance_mm": {
+        "design": "0.05 bore position to datum pins",
+        "guidance_standard": 0.1,
+        "met": null,
+        "note": "tighter than standard; needs an annotated 2D drawing, availability not confirmed"
       },
       "satisfied": false
     }
   ],
   "blockers": [
-    "fresh_native_verified false: J5 (PicoBlade 530470310): lead tail below the B face is unsourced (the carrier through-cut does not depend on it; the base below the carrier does)",
-    "Hold-down/bias mechanism not selected (owner/supplier choice): it must press the three listed F-side points with more than 6.35 N in total and bias the board against X1, X2 and Y1; probe guide, base fixing, insulation and wire retention are not designed.",
-    "No complete assembly STEP/drawing with an interference check; the carrier STEP alone is not a finished fixture.",
-    "Receptacle drawing diameter 0.96mm versus PDF table 0.95mm; use 0.96mm envelope only as conservative study input, resolve before selection.",
-    "No physical fit, contact, insertion-force or measured stroke evidence; no prototype exists; the acceptance measurements in b_side_relief are requirements, not results.",
-    "Carrier manufacturability not confirmed: the narrowest cut rectangle is 0.025 mm, merge bridges are 0.025-0.25 mm wide and every internal corner is sharp, so the process must cut the merged shapes as drawn (or widen the bridges) and hold the 0.27 mm walls; no fabricator is selected and the captured JLCCNC guidance (candidate reference only) is not satisfied."
+    "fresh_native_verified false: J5 (PicoBlade 530470310): lead tail below the B face is unsourced (the carrier and probe-plate windows and the base clearance do not depend on it up to the stated bound)"
+  ],
+  "owner_and_supplier_items": [
+    "Fabricator for the four FR-4 plates is an owner choice and not selected; JLCCNC guidance is a candidate reference only. The probe-plate bores are drilled at the board test-point pitch, leaving 0.4 mm between bores: this meets the INGUN receptacle grid (0.27 mm) but not the 1.0 mm milled-wall guidance, so the chosen fabricator must confirm drilling it; the board pitch is fixed.",
+    "Registration needs the bore positions within 0.05 mm of the datum pins, tighter than the +/-0.1 mm standard tolerance: an annotated 2D drawing is needed.",
+    "Springs, screws, spacers, standoffs, pins, dowels, washers and nylon contact screws are specified as requirements (materials.json); no part is selected.",
+    "Receptacle drawing diameter 0.96 mm versus PDF table 0.95 mm; the bore follows the 0.98-1.00 mm FR-4 mounting-hole data, resolve before selection."
+  ],
+  "physical_items": [
+    "No physical fit, contact, insertion-force or measured stroke evidence; no prototype exists; every acceptance measurement in b_side_relief is a requirement, not a result."
   ]
 }

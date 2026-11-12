@@ -18,6 +18,7 @@ class FixtureStudyTests(unittest.TestCase):
         self.assertEqual(r['calculations']['worst_case_registration_margin_mm'],0.03)
         self.assertFalse(r['completion_criteria']['5_physical_tests']['met'])
         self.assertTrue(r['blockers'])
+        self.assertTrue(r['physical_items'])
         self.assertEqual(r['calculations']['nominal_total_force_at_working_stroke_N'],5)
 
     def test_false_completion_rejected_by_producer(self):
@@ -51,13 +52,43 @@ class FixtureStudyTests(unittest.TestCase):
             bx,by=pad['board_xy_mm'];fx,fy=pad['carrier_xy_mm']
             self.assertAlmostEqual(16.2-fx,bx);self.assertEqual(fy,by)
 
-class StepBindingTests(unittest.TestCase):
-    def test_step_bytes_are_bound(self):
-        self.assertEqual(f.report()['study_step_sha256'],f.digest(f.OUT/'carrier-study.step'))
+class AssemblyBindingTests(unittest.TestCase):
+    def test_assembly_step_and_interference_record_are_bound(self):
+        r=f.report()
+        self.assertEqual(r['assembly']['step_sha256'],f.digest(f.ASSEMBLY_STEP))
+        self.assertEqual(r['assembly']['record_sha256'],f.digest(f.INTERFERENCE))
+        self.assertTrue(r['completion_criteria']['4_assembly_step_interference_check']['met'])
         real=f.digest
-        with patch.object(f,'digest',side_effect=lambda q:'c'*64 if Path(q).name=='carrier-study.step' else real(q)):
+        with patch.object(f,'digest',side_effect=lambda q:'c'*64 if Path(q).name=='fixture-assembly.step' else real(q)):
+            self.assertFalse(f.report()['completion_criteria']['4_assembly_step_interference_check']['met'])
             with self.assertRaisesRegex(ValueError,'canonical producer'):
                 f.validate_report(json.loads((f.OUT/'manifest.json').read_text()))
+
+    def test_interference_record_has_no_interference_and_the_designed_contacts_touch(self):
+        rec=json.loads(f.INTERFERENCE.read_text())
+        self.assertEqual(rec['interferences'],[])
+        self.assertTrue(all(c['minimum_mm']>0 for c in rec['clearances']))
+        kinds={c['contact'] for c in rec['designed_contacts']}
+        self.assertEqual(len(kinds),4)
+        self.assertTrue(all(c['touching'] for c in rec['designed_contacts']))
+        names={s['name'] for s in rec['solids']}
+        for want in ('support_carrier','probe_plate','pressure_plate','base_plate','controller board'):
+            self.assertIn(want,names)
+        self.assertEqual(sum('GKS-050' in n for n in names),5)
+
+    def test_record_is_bound_to_assembly_code_and_native_record(self):
+        rec=json.loads(f.INTERFERENCE.read_text());mi=rec['model_inputs']
+        self.assertEqual(mi['assembly_code_sha256'],f.digest(Path(f.relief_assembly.__file__)))
+        self.assertEqual(mi['native_geometry_sha256'],f.digest(f.native_geom.RECORD))
+        with patch.object(f.relief_assembly,'model_inputs',side_effect=lambda r,g:dict(mi,assembly_code_sha256='d'*64)):
+            self.assertFalse(f.report()['completion_criteria']['4_assembly_step_interference_check']['met'])
+
+    def test_a_recorded_interference_fails_criterion_4(self):
+        rec=json.loads(f.INTERFERENCE.read_text());rec['interferences']=[{'a':'x','b':'y','common_volume_mm3':1.0}]
+        real=f.json.loads
+        with patch.object(f.json,'loads',side_effect=lambda t:rec if t==f.INTERFERENCE.read_text() else real(t)):
+            ok,basis,_=f.assembly_status(f.report()['b_side_relief'])
+        self.assertFalse(ok);self.assertIn('interference',basis)
 
 class NativeGeometryBindingTests(unittest.TestCase):
     def pads(self):

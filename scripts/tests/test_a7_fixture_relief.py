@@ -1,4 +1,4 @@
-"""B-side relief/support layout: derived from validated native geometry, sourced heights only."""
+"""Fixture design: derived from validated native geometry, sourced heights only, checked against the 1.0 mm yardstick."""
 import copy
 import importlib.util
 import json
@@ -14,44 +14,73 @@ SPEC = importlib.util.spec_from_file_location('fixture_r', ROOT / 'scripts/a7_fi
 f = importlib.util.module_from_spec(SPEC); SPEC.loader.exec_module(f)
 rl = f.relief_design
 GEOM = json.loads(f.native_geom.RECORD.read_text())['geometry']
+DESIGN = None
 
 
 def probes():
     return f.probe_map(f.bound_r4_placement(), f.BOARD.read_text())
 
 
+def design():
+    global DESIGN
+    if DESIGN is None:
+        DESIGN = rl.design(GEOM, probes())
+    return copy.deepcopy(DESIGN)
+
+
 def inside(inner, outer):
-    return outer[0] <= inner[0] and outer[1] <= inner[1] and inner[2] <= outer[2] and inner[3] <= outer[3]
+    return outer[0] <= inner[0] + 1e-9 and outer[1] <= inner[1] + 1e-9 and inner[2] <= outer[2] + 1e-9 and inner[3] <= outer[3] + 1e-9
+
+
+def members(windows):
+    return [(m, w['corner_radius_mm']) for w in windows for m in w['members']]
+
+
+def rounded_pieces(m, r):
+    """A member with flagged rounded corners as three rectangles plus corner discs (exact union)."""
+    x0, y0, x1, y1 = m['box_board_mm']
+    bl, br, tl, tr = [r if q else 0.0 for q in m['rounded_corners']]
+    rects = [[x0 + bl, y0, x1 - br, y0 + r], [x0, y0 + r, x1, y1 - r], [x0 + tl, y1 - r, x1 - tr, y1]]
+    discs = [((cx, cy), r) for (cx, cy), q in zip(((x0 + r, y0 + r), (x1 - r, y0 + r), (x0 + r, y1 - r), (x1 - r, y1 - r)), m['rounded_corners']) if q]
+    return rects, discs
 
 
 class ReliefTests(unittest.TestCase):
     def setUp(self):
-        self.d = rl.design(GEOM, probes())
+        self.d = design()
 
-    def test_every_b_side_part_and_tht_lead_in_the_carrier_is_relieved(self):
+    def test_every_b_side_part_and_tht_lead_lies_in_a_carrier_window(self):
+        boxes = [m['box_board_mm'] for m, _ in members(self.d['support_carrier']['windows'])]
         refs = {r['ref'] for r in self.d['reliefs']}
         for fp in GEOM['footprints']:
             if fp['ref'].startswith('TP'):
                 continue
             for pd in fp['pads']:
-                if (fp['side'] == 'B' or pd['attribute'] == 'PTH') and rl._clip(pd['bbox_mm']):
+                want = rl._clip(pd['bbox_mm'], self.d['support_carrier']['bounds_board_mm'])
+                if (fp['side'] == 'B' or pd['attribute'] == 'PTH') and want:
                     ref = fp['ref'] if fp['side'] == 'B' else f"{fp['ref']}.{pd['number']}"
                     self.assertIn(ref, refs)
-                    box = next(r['board_box_mm'] for r in self.d['reliefs'] if r['ref'] == ref)
-                    self.assertTrue(inside(rl._clip(pd['bbox_mm']), box), ref)
+                    self.assertTrue(any(inside(want, b) for b in boxes), ref)
+        for p in probes():
+            box = rl._expand(list(p['board_xy_mm']) * 2, rl.RULES['probe_window_half_width_mm'])
+            self.assertTrue(any(inside(box, b) for b in boxes), p['ref'])
 
-    def test_every_cut_is_through_and_heights_stay_sourced_or_unknown(self):
-        for r in self.d['reliefs'] + self.d['bridges']:
-            self.assertEqual(r['kind'], 'through')
-            self.assertEqual(r['depth_mm'], rl.CARRIER_THICKNESS)
+    def test_heights_stay_sourced_or_unknown(self):
         self.assertEqual(self.d['unknown_heights'], ['J5 (PicoBlade 530470310): lead tail below the B face'])
         self.assertIsNone(rl.SOURCES['PicoBlade 530470310']['tail_length_below_b_face_mm'])
         self.assertFalse(self.d['fresh_native_criteria']['every_b_face_protrusion_sourced'])
-        self.assertFalse(f.report()['fresh_native_verified'])
+        j5 = [r for r in self.d['reliefs'] if r['ref'].startswith('J5.')]
+        self.assertTrue(j5 and all(r['depth_below_b_face_mm'] is None for r in j5))
+        self.assertGreater(self.d['free_space']['j5_tail_max_without_interference_mm'], 0)
 
-    def test_minimum_wall_is_derived_from_the_ingun_grid_and_hole(self):
-        self.assertAlmostEqual(rl.MIN_WALL, 1.27 - 1.00)
-        self.assertEqual(rl.RULES['minimum_fr4_wall_mm'], rl.MIN_WALL)
+    def test_yardstick_and_sourced_minimums(self):
+        ref = json.loads((f.OUT / 'candidate-references.json').read_text())['references'][0]
+        self.assertEqual(rl.MIN_WALL, ref['rules_used']['wall_absolute_minimum_mm'])
+        self.assertEqual(rl.MIN_WALL, 1.0)
+        self.assertAlmostEqual(rl.INGUN_HOLE_WEB, 1.27 - 1.00)
+        self.assertEqual(self.d['support_carrier']['corner_radius_mm'], rl.CARRIER_THICKNESS / 10 + 0.5)
+        self.assertEqual(self.d['probe_plate']['corner_radius_mm'], 6.0 / 10 + 0.5)
+        self.assertEqual(self.d['yardstick']['selection_status'], 'NOT_SELECTED')
 
     def test_unclassified_b_side_part_rejected(self):
         g = copy.deepcopy(GEOM)
@@ -62,48 +91,11 @@ class ReliefTests(unittest.TestCase):
         with self.assertRaisesRegex(ValueError, 'height source'):
             rl.design(GEOM, probes(), pop)
 
-    def test_unclassified_through_hole_part_rejected(self):
+    def test_unclassified_through_hole_npth_and_b_copper_rejected(self):
         g = copy.deepcopy(GEOM)
         next(fp for fp in g['footprints'] if fp['ref'] == 'J5')['fpid'] = 'LightBlock:OTHER'
         with self.assertRaisesRegex(ValueError, 'through-hole'):
             rl.design(g, probes())
-
-    def test_no_web_or_wall_below_the_minimum_and_none_in_blockers(self):
-        self.assertEqual(self.d['web_conflicts'], [])
-        self.assertEqual(self.d['relief_wall_conflicts'], [])
-        self.assertTrue(all(w['web_mm'] >= rl.MIN_WALL for w in self.d['hole_to_cut_webs_below_2mm']))
-        r = f.report()
-        self.assertFalse(any('below the 0.27' in b for b in r['blockers']))
-        self.assertFalse(r['digital_fixture_complete'])
-
-    def test_moving_a_probe_onto_a_relief_is_detected(self):
-        p = probes(); r9 = next(x for x in self.d['reliefs'] if x['ref'] == 'R9')['board_box_mm']
-        p[0]['board_xy_mm'] = [r9[2] + 0.1, (r9[1] + r9[3]) / 2]
-        d = rl.design(GEOM, p)
-        self.assertTrue(any(w['web_mm'] < 0 for w in d['hole_to_cut_webs_below_2mm']))
-        self.assertTrue(d['web_conflicts'])
-        self.assertFalse(d['fresh_native_criteria']['no_wall_below_sourced_minimum'])
-
-    def test_carrier_coordinates_are_mirrored(self):
-        for r in self.d['reliefs']:
-            b, c = r['board_box_mm'], r['carrier_box_mm']
-            self.assertAlmostEqual(c[0], 16.2 - b[2]); self.assertAlmostEqual(c[2], 16.2 - b[0])
-            self.assertEqual((c[1], c[3]), (b[1], b[3]))
-
-    def test_relief_includes_clearance_and_thin_edge_walls_are_opened(self):
-        lo = rl.RULES['smd_outline_clearance_min_near_bore_mm']
-        for r in self.d['reliefs']:
-            fp = next((x for x in GEOM['footprints'] if x['ref'] == r['ref']), None)
-            if fp:
-                for pd in fp['pads']:
-                    want = rl._clip(rl._expand(pd['bbox_mm'], lo))
-                    if want:
-                        self.assertTrue(inside(want, r['board_box_mm']), r['ref'])
-        r10 = next(r for r in self.d['reliefs'] if r['ref'] == 'R10')
-        self.assertEqual(r10['board_box_mm'][1], rl.CARRIER_Y[0])
-        self.assertIn('opened through the carrier edge', r10['opened_to_carrier_edge'])
-
-    def test_unclassified_npth_and_f_side_b_copper_rejected(self):
         for ref, mutate, msg in (('J3', lambda fp: fp['pads'][0].update(attribute='NPTH'), 'NPTH'),
                                  ('U2', lambda fp: fp['pads'][0]['layers'].append('B.Cu'), 'B.Cu')):
             g = copy.deepcopy(GEOM); mutate(next(fp for fp in g['footprints'] if fp['ref'] == ref))
@@ -118,112 +110,225 @@ class ReliefTests(unittest.TestCase):
         with self.assertRaisesRegex(ValueError, 'non-orthogonal'):
             rl.design(g, probes())
 
-    def test_thin_walls_between_reliefs_are_bridged(self):
-        cuts = self.d['reliefs'] + self.d['bridges']
-        groups = rl._components(cuts)
-        idx = {c['ref']: i for i, c in enumerate(cuts)}
-        self.assertEqual(groups[idx['R6']], groups[idx['R7']])
-        for i in range(len(cuts)):
-            for j in range(i + 1, len(cuts)):
-                if groups[i] != groups[j]:
-                    self.assertGreaterEqual(rl._box_gap(cuts[i]['board_box_mm'], cuts[j]['board_box_mm']), rl.MIN_WALL - 1e-9)
+    def test_no_wall_or_web_below_the_minimum_on_any_plate(self):
+        sc, pp, pr, bp = (self.d[k] for k in ('support_carrier', 'probe_plate', 'pressure_plate', 'base_plate'))
+        self.assertEqual((sc['web_conflicts'], sc['wall_conflicts'], pp['conflicts'], pr['web_conflicts'], bp['web_conflicts']), ([], [], [], [], []))
+        for webs in (sc['smallest_webs'], pp['smallest_webs'], pr['smallest_webs'], bp['smallest_webs']):
+            self.assertTrue(all(w['web_mm'] >= rl.MIN_WALL - 1e-9 for w in webs))
+        self.assertTrue(self.d['fresh_native_criteria']['no_wall_below_minimum'])
 
-    def test_independent_raster_finds_no_material_thinner_than_the_minimum(self):
-        """Grid opening near every cut: each solid point must lie in a disc or an axis-aligned square of the minimum wall.
+    def test_no_sharp_corner_is_left_against_a_rounded_neighbour(self):
+        for w in self.d['support_carrier']['windows'] + self.d['probe_plate']['windows']:
+            boxes = [m['box_board_mm'] for m in w['members']]
+            self.assertEqual(rl._uncovered_sharp_corners(boxes, w['corner_radius_mm']), [])
 
-        The disc catches walls next to round bores and pins; the square keeps the square corners of rectangular cuts,
-        which a disc opening would round off. A wall thinner than the minimum fits neither.
+    def test_raster_sees_a_flake_at_a_sharp_corner(self):
+        with unittest.mock.patch.object(rl, '_uncovered_sharp_corners', return_value=[]):
+            d = rl.design(GEOM, probes())
+        win = next(w for w in d['support_carrier']['windows'] if 'R5' in w['parts'])
+        self.assertTrue(rl._uncovered_sharp_corners([m['box_board_mm'] for m in win['members']], win['corner_radius_mm']))
+        self.assertTrue(self.thin_points(d, only=win))
+
+    def test_members_are_millable(self):
+        for m, r in members(self.d['support_carrier']['windows']) + members(self.d['probe_plate']['windows']):
+            b = m['box_board_mm']
+            self.assertGreaterEqual(min(b[2] - b[0], b[3] - b[1]), 2 * r - 1e-9, m['ref'])
+
+    def test_datum_pin_near_the_probe_window_is_detected(self):
+        pins = [('X1', 'moved next to the probe window', (17.2, 26.0))] + rl.DATUM_PINS[1:]
+        with unittest.mock.patch.object(rl, 'DATUM_PINS', pins):
+            d = rl.design(GEOM, probes())
+        self.assertTrue(any(c.startswith('X1') for c in d['support_carrier']['web_conflicts']))
+        self.assertFalse(d['fresh_native_criteria']['no_wall_below_minimum'])
+
+    def test_probe_bores_meet_the_ingun_grid_and_stay_off_the_j5_window(self):
+        pp = self.d['probe_plate']
+        self.assertEqual(pp['bore_webs_mm'][0], 0.4)
+        self.assertGreaterEqual(pp['bore_webs_mm'][0], rl.INGUN_HOLE_WEB)
+        p = probes(); p[0]['board_xy_mm'] = [11.6, 27.5]
+        d = rl.design(GEOM, p)
+        self.assertTrue(any('J5 window' in c for c in d['probe_plate']['conflicts']))
+
+    def test_window_coordinates_are_mirrored(self):
+        for m, _ in members(self.d['support_carrier']['windows']):
+            b, c = m['box_board_mm'], m['box_carrier_mm']
+            self.assertAlmostEqual(c[0], 16.2 - b[2]); self.assertAlmostEqual(c[2], 16.2 - b[0])
+            self.assertEqual((c[1], c[3]), (b[1], b[3]))
+
+    def test_independent_raster_finds_no_carrier_material_thinner_than_the_minimum(self):
+        self.assertEqual(self.thin_points(self.d), [])
+
+    def test_raster_sees_a_wall_left_by_a_missing_bridge(self):
+        d = copy.deepcopy(self.d)
+        win = next(w for w in d['support_carrier']['windows'] if any(m['ref'].startswith('bridge') for m in w['members']))
+        bridges = [m for m in win['members'] if m['ref'].startswith('bridge')]
+        win['members'] = [m for m in win['members'] if not m['ref'].startswith('bridge')]
+        self.assertTrue(bridges)
+        self.assertTrue(self.thin_points(d, only=win))
+
+    def thin_points(self, d, only=None):
+        """Grid opening near every window: each solid point must lie in a disc or an axis-aligned square of the minimum wall.
+
+        The disc catches walls next to round holes and rounded corners; the square keeps the sharp re-entrant corners where
+        members overlap, which a disc would round off. A wall thinner than the minimum fits neither. Every material grid point
+        (0.05 mm) is tested, including those right at an opening, so flakes thinner than the grid are seen too; walls below
+        about 0.9 mm are caught here and the exact 1.0 mm limit is the analytic wall/web check.
         """
-        cuts = [c['board_box_mm'] for c in self.d['reliefs'] + self.d['bridges']]
-        holes = [(p['board_xy_mm'], rl.BORE_MAX / 2) for p in probes()] + [(q['board_xy_mm'], 1.0) for q in self.d['datum_pins']]
-        x0, y0, x1, y1 = rl.CARRIER_BOARD_X[0], rl.CARRIER_Y[0], rl.CARRIER_BOARD_X[1], rl.CARRIER_Y[1]
-        h, r = 0.02, rl.MIN_WALL / 2 - 0.03  # grid allowance; a 0.175 mm wall has half-width 0.0875 < r
-
-        def clear(x, y, square):
-            d = min(x - x0, x1 - x, y - y0, y1 - y)
-            for b in cuts:
-                if rl._in_box(b, x, y):
-                    return -1
-                dx, dy = max(b[0] - x, 0.0, x - b[2]), max(b[1] - y, 0.0, y - b[3])
-                d = min(d, max(dx, dy) if square else math.hypot(dx, dy))
-            for c, rr in holes:
-                d = min(d, (math.dist((x, y), c) - rr) / (math.sqrt(2) if square else 1))
-            return d
-        k = math.ceil(r / h)
-        disc = [(i, j) for i in range(-k, k + 1) for j in range(-k, k + 1) if math.hypot(i * h, j * h) <= r]
-        sq = [(i, j) for i in range(-k, k + 1) for j in range(-k, k + 1) if max(abs(i), abs(j)) * h <= r]
+        sc = d['support_carrier']
+        x0, y0, x1, y1 = sc['bounds_board_mm']
+        rects, discs = [], []
+        for m, r in members(sc['windows']):
+            a, b = rounded_pieces(m, r)
+            rects += a; discs += b
+        r_csk = rl.RULES['m3_countersink_diameter_mm'] / 2
+        discs += [(q['board_xy_mm'], rl.RULES['datum_pin_diameter_mm'] / 2) for q in sc['datum_pins']]
+        discs += [(xy, r_csk) for xy in sc['fasteners_board_mm']] + [(xy, 1.0) for xy in sc['alignment_dowels_board_mm']]
+        discs += [(g['board_xy_mm'], rl.RULES['m3_clearance_hole_mm'] / 2) for g in sc['guides']]
+        h, rad = 0.05, rl.MIN_WALL / 2 - 0.05
+        cell = 1.0
+        buckets = {}
+        for b in rects:
+            for cx in range(math.floor((b[0] - 2) / cell), math.floor((b[2] + 2) / cell) + 1):
+                for cy in range(math.floor((b[1] - 2) / cell), math.floor((b[3] + 2) / cell) + 1):
+                    buckets.setdefault((cx, cy), [[], []])[0].append(b)
+        for c, rr in discs:
+            for cx in range(math.floor((c[0] - rr - 2) / cell), math.floor((c[0] + rr + 2) / cell) + 1):
+                for cy in range(math.floor((c[1] - rr - 2) / cell), math.floor((c[1] + rr + 2) / cell) + 1):
+                    buckets.setdefault((cx, cy), [[], []])[1].append((c, rr))
         cache = {}
 
-        def core(i, j, square):
-            if (i, j, square) not in cache:
-                cache[(i, j, square)] = clear(i * h, j * h, square) >= r
-            return cache[(i, j, square)]
-        thin = []
-        for b in cuts:  # thin material can only sit next to a cut
+        def clear(i, j, square):
+            """Disc mode: distance to the nearest opening or edge. Square mode: whether the square of half-side rad fits."""
+            key = (i, j, square)
+            if key in cache:
+                return cache[key]
+            x, y = i * h, j * h
+            rs, ds = buckets.get((math.floor(x / cell), math.floor(y / cell)), ([], []))
+            if square:
+                s = rad
+                ok = min(x - x0, x1 - x, y - y0, y1 - y) >= s
+                ok = ok and all(max(b[0] - x, x - b[2]) >= s or max(b[1] - y, y - b[3]) >= s for b in rs)
+                ok = ok and all(math.hypot(max(abs(c[0] - x) - s, 0.0), max(abs(c[1] - y) - s, 0.0)) >= rr for c, rr in ds)
+                cache[key] = ok
+                return ok
+            dist = min(x - x0, x1 - x, y - y0, y1 - y)
+            for b in rs:
+                if b[0] < x < b[2] and b[1] < y < b[3]:
+                    dist = -1.0
+                    break
+                dist = min(dist, math.hypot(max(b[0] - x, 0.0, x - b[2]), max(b[1] - y, 0.0, y - b[3])))
+            else:
+                for c, rr in ds:
+                    dist = min(dist, math.dist((x, y), c) - rr)
+            cache[key] = dist
+            return dist
+        k = math.ceil(rad / h) + 1
+        disc = [(a, c, math.hypot(a * h, c * h)) for a in range(-k, k + 1) for c in range(-k, k + 1) if math.hypot(a * h, c * h) <= rad + h]
+        sq = [(a, c) for a in range(-k, k + 1) for c in range(-k, k + 1) if max(abs(a), abs(c)) * h <= rad]
+        thin = set()
+        scan = [m for m, _ in members([only] if only else sc['windows'])]
+        for m in scan:
+            b = m['box_board_mm']
             for i in range(math.floor((b[0] - rl.MIN_WALL) / h), math.ceil((b[2] + rl.MIN_WALL) / h) + 1):
                 for j in range(math.floor((b[1] - rl.MIN_WALL) / h), math.ceil((b[3] + rl.MIN_WALL) / h) + 1):
                     x, y = i * h, j * h
-                    if not (x0 < x < x1 and y0 < y < y1) or clear(x, y, False) <= h:
+                    if not (x0 < x < x1 and y0 < y < y1) or clear(i, j, False) <= 0:
                         continue
-                    if not any(core(i + a, j + c, False) for a, c in disc) and not any(core(i + a, j + c, True) for a, c in sq):
-                        thin.append((round(x, 3), round(y, 3)))
-        self.assertEqual(sorted(set(thin)), [])
+                    # covered by a disc of radius >= rad that fits in the material, or by a fitting square of half-side rad
+                    if not any(clear(i + a, j + c, False) >= max(rad, dd - h / 2) for a, c, dd in disc) and not any(clear(i + a, j + c, True) for a, c in sq):
+                        thin.add((round(x, 3), round(y, 3)))
+        return sorted(thin)
 
-    def test_raster_check_sees_the_fingers_bridges_removed(self):
-        d = dict(self.d)
-        d['bridges'] = [b for b in self.d['bridges'] if b['ref'] not in ('bridge R24+R25', 'bridge R6+R7')]
-        saved, self.d = self.d, d
-        try:
-            with self.assertRaises(AssertionError):
-                self.test_independent_raster_finds_no_material_thinner_than_the_minimum()
-        finally:
-            self.d = saved
-
-    def test_bridging_is_detected_when_removed(self):
-        with unittest.mock.patch.object(rl, '_bridges', return_value=[]):
-            d = rl.design(GEOM, probes())
-        self.assertTrue(any('R6/R7 wall' in w for w in d['relief_wall_conflicts']))
-        self.assertFalse(d['fresh_native_criteria']['no_wall_below_sourced_minimum'])
-
-    def test_support_holddown_and_load_path(self):
-        s = self.d['support']
-        self.assertTrue(0 < s['land_fraction'] < 1)
-        self.assertEqual(set(s['land_fraction_within_radius_of_probe']), {'TP1', 'TP2', 'TP3', 'TP4', 'TP5'})
+    def test_contacts_on_free_f_face_around_both_resultants(self):
         h = self.d['holddown']
-        self.assertEqual(len(h['points_board_mm']), 3)
-        self.assertGreaterEqual(h['resultant_margin_inside_clamp_triangle_mm'], rl.RULES['holddown_resultant_margin_mm'])
-        bores = [p['board_xy_mm'] for p in probes()]
-        self.assertAlmostEqual(h['required_clamp_force_N'], 5 * 1.27)
-        self.assertIsNone(h['mechanism'])
+        self.assertEqual(len(h['contacts_board_mm']), 3)
+        need = rl.RULES['resultant_margin_mm']
+        self.assertGreaterEqual(h['probe_resultant_margin_mm'], need)
+        self.assertGreaterEqual(h['spring_resultant_margin_mm'], need)
+        self.assertAlmostEqual(h['required_total_spring_force_N'], 2 * 5 * 1.27)
+        self.assertTrue(all(v > 0 for v in h['contact_reactions_N']))
+        self.assertAlmostEqual(sum(h['contact_reactions_N']), h['required_total_spring_force_N'], places=4)
         fside = [fp['courtyard_bbox_mm']['F'] for fp in GEOM['footprints'] if fp['side'] == 'F' and fp['courtyard_bbox_mm'].get('F')]
-        cuts = self.d['reliefs'] + self.d['bridges']
-        for x, y in h['points_board_mm']:
-            self.assertTrue(all(rl._box_point_dist(b, (x, y)) >= 0.75 + 0.3 - 1e-9 for b in fside))
-            self.assertTrue(all(rl._box_point_dist(c['board_box_mm'], (x, y)) >= 0.75 - 1e-9 for c in cuts))
-            self.assertTrue(all(math.dist((x, y), b) >= 0.75 + rl.BORE_MAX / 2 - 1e-9 for b in bores))
+        rc = rl.RULES['contact_diameter_mm'] / 2
+        keep = rl.RULES['spring_outer_diameter_max_mm'] / 2 + rl.RULES['contact_nut_across_corners_mm'] / 2 + rl.RULES['pressure_plate_part_clearance_mm']
+        for x, y in h['contacts_board_mm']:
+            self.assertTrue(all(rl._box_point_dist(b, (x, y)) >= rc + rl.RULES['contact_f_side_clearance_mm'] - 1e-9 for b in fside))
+            self.assertTrue(rc <= x <= 16.2 - rc)
+            self.assertTrue(all(math.dist((x, y), g['board_xy_mm']) >= keep - 1e-9 for g in h['guides']))
+        self.assertTrue(self.d['fresh_native_criteria']['contacts_on_f_face_clear_of_parts_and_around_both_resultants'])
+
+    def test_board_stays_on_land_and_bending_is_small(self):
+        h = self.d['holddown']
+        self.assertGreaterEqual(h['board_net_load_point_inside_land_hull_mm'], rl.RULES['resultant_margin_mm'])
+        bend = h['board_bending_across_window']
+        self.assertIn('ASSUMED', bend['flexural_modulus_class'])
+        f_, L, b, t, e = bend['load_N'], bend['span_mm'], bend['strip_width_mm'], bend['board_thickness_mm'], bend['flexural_modulus_MPa']
+        self.assertAlmostEqual(bend['deflection_mm'], f_ * L ** 3 / (48 * e * b * t ** 3 / 12), places=5)
+        self.assertGreaterEqual(f_, h['probe_force_total_N']['maximum_stroke'])
+        self.assertLessEqual(bend['deflection_mm'], bend['limit_mm'])
+
+    def test_hull_margin(self):
+        hull = rl._hull([(0, 0), (4, 0), (4, 4), (0, 4), (2, 2)])
+        self.assertEqual(len(hull), 4)
+        self.assertAlmostEqual(rl._hull_margin(hull, (1, 2)), 1.0)
+        self.assertLess(rl._hull_margin(hull, (5, 2)), 0)
 
     def test_keying_registration_and_stroke(self):
         k = self.d['keying']
         self.assertTrue(k['keyed'])
-        self.assertIn('J1.1', k['blocking_features'])
+        self.assertGreaterEqual(len(k['blocking_features']), 3)
         reg = self.d['registration']
         self.assertAlmostEqual(reg['radial_budget_mm'], 0.25)
         self.assertGreaterEqual(reg['worst_case_margin_mm'], 0)
-        self.assertEqual(len(reg['acceptance_requirements']), 3)
-        self.assertEqual(self.d['stroke']['stroke_window_mm'], [0.0, 6.35])
-        for pin in self.d['datum_pins']:
-            self.assertAlmostEqual(pin['carrier_xy_mm'][0], 16.2 - pin['board_xy_mm'][0])
+        self.assertEqual(len(reg['acceptance_requirements']), 4)
+        st = self.d['stroke']
+        self.assertEqual(st['stroke_window_mm'], [0.0, 6.35])
+        lo, hi = st['accommodated_installation_height_mm']
+        self.assertTrue(lo <= st['installation_height_mm'] <= hi)
+        self.assertGreaterEqual(self.d['wiring']['wire_bend_space_mm'], self.d['wiring']['required_bend_space_mm'])
 
+    def test_pressure_plate_clears_f_parts(self):
+        pr = self.d['pressure_plate']
+        self.assertEqual(pr['clearance_conflicts'], [])
+        self.assertTrue(all(u['clearance_to_plate_mm'] >= rl.RULES['pressure_plate_part_clearance_mm'] for u in pr['parts_under_plate']))
+
+    def test_criterion_3_checks_all_met(self):
+        self.assertTrue(all(self.d['criterion_3_checks'].values()), self.d['criterion_3_checks'])
+
+
+class CompletionTests(unittest.TestCase):
     def test_completion_flags_follow_criteria(self):
         r = f.report()
-        self.assertTrue(r['completion_criteria']['2_keying_and_registration']['met'])
-        for k in ('1_native_support_and_relief', '3_stroke_stop_guide_fixing_insulation_wiring', '4_assembly_step_interference_check', '5_physical_tests'):
-            self.assertFalse(r['completion_criteria'][k]['met'], k)
+        cc = r['completion_criteria']
+        self.assertTrue(cc['2_keying_and_registration']['met'])
+        self.assertTrue(cc['3_stroke_stop_guide_fixing_insulation_wiring']['met'])
+        self.assertTrue(cc['4_assembly_step_interference_check']['met'], cc['4_assembly_step_interference_check'])
+        self.assertFalse(cc['1_native_support_and_relief']['met'])
+        self.assertFalse(cc['5_physical_tests']['met'])
         self.assertEqual(r['status'], 'BLOCKED')
-        with unittest.mock.patch.dict(rl.SOURCES['PicoBlade 530470310'], {'class': 'SOURCE_DERIVED'}):
+        self.assertFalse(r['digital_fixture_complete'])
+        self.assertFalse(r['digital_criteria_1_to_4_met'])
+        self.assertEqual(len(r['blockers']), 1)
+        self.assertIn('J5', r['blockers'][0])
+
+    def test_criterion_5_keeps_gating_the_documented_flag(self):
+        r = f.report()
+        with unittest.mock.patch.object(f, 'assembly_status', return_value=(True, 'ok', None)), \
+                unittest.mock.patch.dict(rl.SOURCES['PicoBlade 530470310'], {'class': 'SOURCE_DERIVED'}):
             r2 = f.report()
-        self.assertTrue(r2['fresh_native_verified'])
+        self.assertTrue(r2['digital_criteria_1_to_4_met'])
+        self.assertFalse(r2['completion_criteria']['5_physical_tests']['met'])
         self.assertFalse(r2['digital_fixture_complete'])
+        self.assertEqual(r2['status'], 'BLOCKED')
+        self.assertIn('not order eligibility', r['digital_criteria_1_to_4_met_scope'])
+
+    def test_a_design_change_invalidates_the_assembly_check(self):
+        with unittest.mock.patch.dict(rl.SOURCES['PicoBlade 530470310'], {'class': 'SOURCE_DERIVED'}):
+            r = f.report()
+        self.assertTrue(r['fresh_native_verified'])
+        self.assertFalse(r['completion_criteria']['4_assembly_step_interference_check']['met'])
+        self.assertIn('different design', r['completion_criteria']['4_assembly_step_interference_check']['basis'])
+        self.assertFalse(r['digital_fixture_complete'])
 
     def test_candidate_fabricator_guidance_is_reference_only(self):
         r = f.report()
@@ -231,14 +336,14 @@ class ReliefTests(unittest.TestCase):
         self.assertEqual(ref['status'], 'CANDIDATE_REFERENCE_NOT_SELECTED')
         c = r['candidate_reference_checks'][0]
         self.assertEqual(c['selection_status'], 'NOT_SELECTED')
+        for name, plate in c['plates'].items():
+            for key, chk in plate['checks'].items():
+                if key != 'drilled_bore_web_mm':
+                    self.assertIn(chk['met'], (True, None), (name, key))
+        self.assertFalse(c['plates']['probe_plate']['checks']['drilled_bore_web_mm']['met'])
         self.assertFalse(c['satisfied'])
-        self.assertFalse(c['checks']['minimum_wall_mm']['met'])
-        self.assertTrue(any('manufacturability not confirmed' in b for b in r['blockers']))
+        self.assertTrue(any('fabricator must confirm' in b for b in r['owner_and_supplier_items']))
         self.assertNotIn('JLCCNC', json.dumps(json.loads((f.OUT / 'materials.json').read_text())['items']))
-
-    def test_union_area(self):
-        self.assertAlmostEqual(f.union_area([[0, 0, 2, 2], [1, 1, 3, 3]]), 7.0)
-        self.assertEqual(f.union_area([]), 0.0)
 
 
 if __name__ == '__main__':

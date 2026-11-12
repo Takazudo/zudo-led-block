@@ -1,0 +1,871 @@
+{
+  "schema": 1,
+  "tool": "CadQuery 2.7.0",
+  "model_inputs_sha256": "84521b2de0e092a5c1d124b98021aba48bb430c9e77a3a828f8728b585c75381",
+  "model_inputs": {
+    "design_sha256": "e5dd0560f4bea0cd14e7f4e2ff2aac9a49f80320e063f2a648b6760afda03715",
+    "assembly_code_sha256": "998c4e973492096d75e1a17745488ebbebb909e9888d58032a760dfd042ff40a",
+    "native_geometry_sha256": "2f372a058a24cb117d9e294d11411e84cb575e682d18f7651cbf0547d1bc7f51",
+    "cadquery": "2.7.0"
+  },
+  "step_sha256": "95660b42e740c77a4f4c02678373dc0faa974078066cceceb7bab9b96e2a263b",
+  "method": "pairwise boolean common volume between every two solids whose bounding boxes meet (board part boxes are not checked against each other); interference above the threshold; clearances by exact BRep distance",
+  "interference_threshold_mm3": 0.001,
+  "modelling": "Builds every fixture part, the hardware envelopes and the board (with F-side part boxes from the recorded heights and\nB-face bodies and leads from the relief design) in board coordinates: x, y as on the PCB, z up from the board B face.\nThreads are modelled at the major diameter and press fits line to line, so a designed joint touches without overlap.\nThe J5 tail length is unsourced; it is modelled as a keep-out column from the B face down to the base plate top.",
+  "solids": [
+    {
+      "name": "support_carrier",
+      "group": "plate",
+      "volume_mm3": 7981.907
+    },
+    {
+      "name": "probe_plate",
+      "group": "plate",
+      "volume_mm3": 11407.5439
+    },
+    {
+      "name": "base_plate",
+      "group": "plate",
+      "volume_mm3": 5675.4636
+    },
+    {
+      "name": "pressure_plate",
+      "group": "plate",
+      "volume_mm3": 823.0649
+    },
+    {
+      "name": "F1 M3x8 countersunk screw",
+      "group": "hardware",
+      "volume_mm3": 70.6858
+    },
+    {
+      "name": "F1 M3 F-F hex spacer 6",
+      "group": "hardware",
+      "volume_mm3": 114.7721
+    },
+    {
+      "name": "F1 M3x12 stud",
+      "group": "hardware",
+      "volume_mm3": 84.823
+    },
+    {
+      "name": "F1 M3 F-F hex standoff 35",
+      "group": "hardware",
+      "volume_mm3": 669.504
+    },
+    {
+      "name": "F1 M3x6 countersunk screw",
+      "group": "hardware",
+      "volume_mm3": 56.5487
+    },
+    {
+      "name": "F2 M3x8 countersunk screw",
+      "group": "hardware",
+      "volume_mm3": 70.6858
+    },
+    {
+      "name": "F2 M3 F-F hex spacer 6",
+      "group": "hardware",
+      "volume_mm3": 114.7721
+    },
+    {
+      "name": "F2 M3x12 stud",
+      "group": "hardware",
+      "volume_mm3": 84.823
+    },
+    {
+      "name": "F2 M3 F-F hex standoff 35",
+      "group": "hardware",
+      "volume_mm3": 669.504
+    },
+    {
+      "name": "F2 M3x6 countersunk screw",
+      "group": "hardware",
+      "volume_mm3": 56.5487
+    },
+    {
+      "name": "F3 M3x8 countersunk screw",
+      "group": "hardware",
+      "volume_mm3": 70.6858
+    },
+    {
+      "name": "F3 M3 F-F hex spacer 6",
+      "group": "hardware",
+      "volume_mm3": 114.7721
+    },
+    {
+      "name": "F3 M3x12 stud",
+      "group": "hardware",
+      "volume_mm3": 84.823
+    },
+    {
+      "name": "F3 M3 F-F hex standoff 35",
+      "group": "hardware",
+      "volume_mm3": 669.504
+    },
+    {
+      "name": "F3 M3x6 countersunk screw",
+      "group": "hardware",
+      "volume_mm3": 56.5487
+    },
+    {
+      "name": "F4 M3x8 countersunk screw",
+      "group": "hardware",
+      "volume_mm3": 70.6858
+    },
+    {
+      "name": "F4 M3 F-F hex spacer 6",
+      "group": "hardware",
+      "volume_mm3": 114.7721
+    },
+    {
+      "name": "F4 M3x12 stud",
+      "group": "hardware",
+      "volume_mm3": 84.823
+    },
+    {
+      "name": "F4 M3 F-F hex standoff 35",
+      "group": "hardware",
+      "volume_mm3": 669.504
+    },
+    {
+      "name": "F4 M3x6 countersunk screw",
+      "group": "hardware",
+      "volume_mm3": 56.5487
+    },
+    {
+      "name": "F5 M3x8 countersunk screw",
+      "group": "hardware",
+      "volume_mm3": 70.6858
+    },
+    {
+      "name": "F5 M3 F-F hex spacer 6",
+      "group": "hardware",
+      "volume_mm3": 114.7721
+    },
+    {
+      "name": "F5 M3x12 stud",
+      "group": "hardware",
+      "volume_mm3": 84.823
+    },
+    {
+      "name": "F5 M3 F-F hex standoff 35",
+      "group": "hardware",
+      "volume_mm3": 669.504
+    },
+    {
+      "name": "F5 M3x6 countersunk screw",
+      "group": "hardware",
+      "volume_mm3": 56.5487
+    },
+    {
+      "name": "F6 M3x8 countersunk screw",
+      "group": "hardware",
+      "volume_mm3": 70.6858
+    },
+    {
+      "name": "F6 M3 F-F hex spacer 6",
+      "group": "hardware",
+      "volume_mm3": 114.7721
+    },
+    {
+      "name": "F6 M3x12 stud",
+      "group": "hardware",
+      "volume_mm3": 84.823
+    },
+    {
+      "name": "F6 M3 F-F hex standoff 35",
+      "group": "hardware",
+      "volume_mm3": 669.504
+    },
+    {
+      "name": "F6 M3x6 countersunk screw",
+      "group": "hardware",
+      "volume_mm3": 56.5487
+    },
+    {
+      "name": "D1 dowel 2x17",
+      "group": "hardware",
+      "volume_mm3": 53.4071
+    },
+    {
+      "name": "D2 dowel 2x17",
+      "group": "hardware",
+      "volume_mm3": 53.4071
+    },
+    {
+      "name": "X1 datum pin 2x6",
+      "group": "hardware",
+      "volume_mm3": 18.8496
+    },
+    {
+      "name": "X2 datum pin 2x6",
+      "group": "hardware",
+      "volume_mm3": 18.8496
+    },
+    {
+      "name": "Y1 datum pin 2x6",
+      "group": "hardware",
+      "volume_mm3": 18.8496
+    },
+    {
+      "name": "G1 M3x8 socket head screw",
+      "group": "hardware",
+      "volume_mm3": 127.8236
+    },
+    {
+      "name": "G1 M3 F-F hex standoff 12",
+      "group": "hardware",
+      "volume_mm3": 229.5442
+    },
+    {
+      "name": "G1 M3 washer DIN 9021",
+      "group": "hardware",
+      "volume_mm3": 44.4598
+    },
+    {
+      "name": "G1 M3x6 socket head screw",
+      "group": "hardware",
+      "volume_mm3": 113.6864
+    },
+    {
+      "name": "G1 compression spring envelope",
+      "group": "hardware",
+      "volume_mm3": 144.086
+    },
+    {
+      "name": "G2 M3x8 socket head screw",
+      "group": "hardware",
+      "volume_mm3": 127.8236
+    },
+    {
+      "name": "G2 M3 F-F hex standoff 12",
+      "group": "hardware",
+      "volume_mm3": 229.5442
+    },
+    {
+      "name": "G2 M3 washer DIN 9021",
+      "group": "hardware",
+      "volume_mm3": 44.4598
+    },
+    {
+      "name": "G2 M3x6 socket head screw",
+      "group": "hardware",
+      "volume_mm3": 113.6864
+    },
+    {
+      "name": "G2 compression spring envelope",
+      "group": "hardware",
+      "volume_mm3": 144.086
+    },
+    {
+      "name": "C1 M2x8 nylon contact screw",
+      "group": "hardware",
+      "volume_mm3": 39.8762
+    },
+    {
+      "name": "C1 M2 nylon nut",
+      "group": "hardware",
+      "volume_mm3": 17.1437
+    },
+    {
+      "name": "C2 M2x8 nylon contact screw",
+      "group": "hardware",
+      "volume_mm3": 39.8762
+    },
+    {
+      "name": "C2 M2 nylon nut",
+      "group": "hardware",
+      "volume_mm3": 17.1437
+    },
+    {
+      "name": "C3 M2x8 nylon contact screw",
+      "group": "hardware",
+      "volume_mm3": 39.8762
+    },
+    {
+      "name": "C3 M2 nylon nut",
+      "group": "hardware",
+      "volume_mm3": 17.1437
+    },
+    {
+      "name": "TP1 KS-050 receptacle",
+      "group": "probe",
+      "volume_mm3": 29.8336
+    },
+    {
+      "name": "TP1 GKS-050 probe (compressed envelope)",
+      "group": "probe",
+      "volume_mm3": 1.8158
+    },
+    {
+      "name": "TP2 KS-050 receptacle",
+      "group": "probe",
+      "volume_mm3": 29.8336
+    },
+    {
+      "name": "TP2 GKS-050 probe (compressed envelope)",
+      "group": "probe",
+      "volume_mm3": 1.8158
+    },
+    {
+      "name": "TP3 KS-050 receptacle",
+      "group": "probe",
+      "volume_mm3": 29.8336
+    },
+    {
+      "name": "TP3 GKS-050 probe (compressed envelope)",
+      "group": "probe",
+      "volume_mm3": 1.8158
+    },
+    {
+      "name": "TP4 KS-050 receptacle",
+      "group": "probe",
+      "volume_mm3": 29.8336
+    },
+    {
+      "name": "TP4 GKS-050 probe (compressed envelope)",
+      "group": "probe",
+      "volume_mm3": 1.8158
+    },
+    {
+      "name": "TP5 KS-050 receptacle",
+      "group": "probe",
+      "volume_mm3": 29.8336
+    },
+    {
+      "name": "TP5 GKS-050 probe (compressed envelope)",
+      "group": "probe",
+      "volume_mm3": 1.8158
+    },
+    {
+      "name": "controller board",
+      "group": "board",
+      "volume_mm3": 1630.368
+    },
+    {
+      "name": "C1 F-side body (courtyard x height)",
+      "group": "board",
+      "volume_mm3": 8.9047
+    },
+    {
+      "name": "C10 F-side body (courtyard x height)",
+      "group": "board",
+      "volume_mm3": 3.875
+    },
+    {
+      "name": "C11 F-side body (courtyard x height)",
+      "group": "board",
+      "volume_mm3": 3.875
+    },
+    {
+      "name": "C12 F-side body (courtyard x height)",
+      "group": "board",
+      "volume_mm3": 3.875
+    },
+    {
+      "name": "C13 F-side body (courtyard x height)",
+      "group": "board",
+      "volume_mm3": 3.875
+    },
+    {
+      "name": "C14 F-side body (courtyard x height)",
+      "group": "board",
+      "volume_mm3": 3.875
+    },
+    {
+      "name": "C15 F-side body (courtyard x height)",
+      "group": "board",
+      "volume_mm3": 8.9047
+    },
+    {
+      "name": "C16 F-side body (courtyard x height)",
+      "group": "board",
+      "volume_mm3": 8.9047
+    },
+    {
+      "name": "C17 F-side body (courtyard x height)",
+      "group": "board",
+      "volume_mm3": 3.875
+    },
+    {
+      "name": "C2 F-side body (courtyard x height)",
+      "group": "board",
+      "volume_mm3": 19.7462
+    },
+    {
+      "name": "C3 F-side body (courtyard x height)",
+      "group": "board",
+      "volume_mm3": 19.7462
+    },
+    {
+      "name": "C4 F-side body (courtyard x height)",
+      "group": "board",
+      "volume_mm3": 3.875
+    },
+    {
+      "name": "C5 F-side body (courtyard x height)",
+      "group": "board",
+      "volume_mm3": 3.875
+    },
+    {
+      "name": "C6 F-side body (courtyard x height)",
+      "group": "board",
+      "volume_mm3": 3.875
+    },
+    {
+      "name": "C7 F-side body (courtyard x height)",
+      "group": "board",
+      "volume_mm3": 3.875
+    },
+    {
+      "name": "C8 F-side body (courtyard x height)",
+      "group": "board",
+      "volume_mm3": 3.875
+    },
+    {
+      "name": "C9 F-side body (courtyard x height)",
+      "group": "board",
+      "volume_mm3": 3.875
+    },
+    {
+      "name": "D1 F-side body (courtyard x height)",
+      "group": "board",
+      "volume_mm3": 4.2508
+    },
+    {
+      "name": "D2 F-side body (courtyard x height)",
+      "group": "board",
+      "volume_mm3": 4.2508
+    },
+    {
+      "name": "D3 F-side body (courtyard x height)",
+      "group": "board",
+      "volume_mm3": 13.5517
+    },
+    {
+      "name": "J1 F-side body (courtyard x height)",
+      "group": "board",
+      "volume_mm3": 1393.0944
+    },
+    {
+      "name": "J2 F-side body (courtyard x height)",
+      "group": "board",
+      "volume_mm3": 1393.0944
+    },
+    {
+      "name": "J3 F-side body (courtyard x height)",
+      "group": "board",
+      "volume_mm3": 154.7821
+    },
+    {
+      "name": "J5 F-side body (courtyard x height)",
+      "group": "board",
+      "volume_mm3": 147.0097
+    },
+    {
+      "name": "L1 F-side body (courtyard x height)",
+      "group": "board",
+      "volume_mm3": 54.1812
+    },
+    {
+      "name": "Q1 F-side body (courtyard x height)",
+      "group": "board",
+      "volume_mm3": 13.5517
+    },
+    {
+      "name": "SW1 F-side body (courtyard x height)",
+      "group": "board",
+      "volume_mm3": 98.0449
+    },
+    {
+      "name": "U1 F-side body (courtyard x height)",
+      "group": "board",
+      "volume_mm3": 17.0453
+    },
+    {
+      "name": "U2 F-side body (courtyard x height)",
+      "group": "board",
+      "volume_mm3": 12.8781
+    },
+    {
+      "name": "U3 F-side body (courtyard x height)",
+      "group": "board",
+      "volume_mm3": 21.2035
+    },
+    {
+      "name": "U4 F-side body (courtyard x height)",
+      "group": "board",
+      "volume_mm3": 21.2035
+    },
+    {
+      "name": "U5 F-side body (courtyard x height)",
+      "group": "board",
+      "volume_mm3": 11.5484
+    },
+    {
+      "name": "U6 F-side body (courtyard x height)",
+      "group": "board",
+      "volume_mm3": 21.2035
+    },
+    {
+      "name": "U7 F-side body (courtyard x height)",
+      "group": "board",
+      "volume_mm3": 21.2035
+    },
+    {
+      "name": "J1.1 B-face body/lead",
+      "group": "board",
+      "volume_mm3": 5.382
+    },
+    {
+      "name": "J1.2 B-face body/lead",
+      "group": "board",
+      "volume_mm3": 6.21
+    },
+    {
+      "name": "J1.3 B-face body/lead",
+      "group": "board",
+      "volume_mm3": 6.21
+    },
+    {
+      "name": "J1.4 B-face body/lead",
+      "group": "board",
+      "volume_mm3": 6.21
+    },
+    {
+      "name": "J1.5 B-face body/lead",
+      "group": "board",
+      "volume_mm3": 6.21
+    },
+    {
+      "name": "J2.1 B-face body/lead",
+      "group": "board",
+      "volume_mm3": 5.382
+    },
+    {
+      "name": "J2.2 B-face body/lead",
+      "group": "board",
+      "volume_mm3": 6.21
+    },
+    {
+      "name": "J2.3 B-face body/lead",
+      "group": "board",
+      "volume_mm3": 6.21
+    },
+    {
+      "name": "J2.4 B-face body/lead",
+      "group": "board",
+      "volume_mm3": 6.21
+    },
+    {
+      "name": "J2.5 B-face body/lead",
+      "group": "board",
+      "volume_mm3": 6.21
+    },
+    {
+      "name": "J5.1 tail keep-out column (unsourced length)",
+      "group": "board",
+      "volume_mm3": 54.08
+    },
+    {
+      "name": "J5.2 tail keep-out column (unsourced length)",
+      "group": "board",
+      "volume_mm3": 54.08
+    },
+    {
+      "name": "J5.3 tail keep-out column (unsourced length)",
+      "group": "board",
+      "volume_mm3": 54.08
+    },
+    {
+      "name": "R10 B-face body/lead",
+      "group": "board",
+      "volume_mm3": 1.3062
+    },
+    {
+      "name": "R11 B-face body/lead",
+      "group": "board",
+      "volume_mm3": 1.3063
+    },
+    {
+      "name": "R12 B-face body/lead",
+      "group": "board",
+      "volume_mm3": 1.3063
+    },
+    {
+      "name": "R13 B-face body/lead",
+      "group": "board",
+      "volume_mm3": 1.3063
+    },
+    {
+      "name": "R14 B-face body/lead",
+      "group": "board",
+      "volume_mm3": 1.3062
+    },
+    {
+      "name": "R15 B-face body/lead",
+      "group": "board",
+      "volume_mm3": 1.3062
+    },
+    {
+      "name": "R16 B-face body/lead",
+      "group": "board",
+      "volume_mm3": 1.3062
+    },
+    {
+      "name": "R17 B-face body/lead",
+      "group": "board",
+      "volume_mm3": 1.3062
+    },
+    {
+      "name": "R18 B-face body/lead",
+      "group": "board",
+      "volume_mm3": 1.3062
+    },
+    {
+      "name": "R19 B-face body/lead",
+      "group": "board",
+      "volume_mm3": 1.3062
+    },
+    {
+      "name": "R20 B-face body/lead",
+      "group": "board",
+      "volume_mm3": 1.3062
+    },
+    {
+      "name": "R21 B-face body/lead",
+      "group": "board",
+      "volume_mm3": 1.3062
+    },
+    {
+      "name": "R22 B-face body/lead",
+      "group": "board",
+      "volume_mm3": 1.3063
+    },
+    {
+      "name": "R23 B-face body/lead",
+      "group": "board",
+      "volume_mm3": 1.3062
+    },
+    {
+      "name": "R24 B-face body/lead",
+      "group": "board",
+      "volume_mm3": 1.3063
+    },
+    {
+      "name": "R25 B-face body/lead",
+      "group": "board",
+      "volume_mm3": 1.3062
+    },
+    {
+      "name": "R3 B-face body/lead",
+      "group": "board",
+      "volume_mm3": 1.3063
+    },
+    {
+      "name": "R4 B-face body/lead",
+      "group": "board",
+      "volume_mm3": 1.3062
+    },
+    {
+      "name": "R5 B-face body/lead",
+      "group": "board",
+      "volume_mm3": 1.3063
+    },
+    {
+      "name": "R6 B-face body/lead",
+      "group": "board",
+      "volume_mm3": 1.3063
+    },
+    {
+      "name": "R7 B-face body/lead",
+      "group": "board",
+      "volume_mm3": 1.3062
+    },
+    {
+      "name": "R9 B-face body/lead",
+      "group": "board",
+      "volume_mm3": 1.3062
+    }
+  ],
+  "interferences": [],
+  "touching_or_zero_volume_pairs": 189,
+  "clearances": [
+    {
+      "pair": "B-face bodies and leads to support carrier",
+      "minimum_mm": 0.3053,
+      "between": [
+        "R4 B-face body/lead",
+        "support_carrier"
+      ]
+    },
+    {
+      "pair": "J5 tail column to carrier and probe plate",
+      "minimum_mm": 0.4254,
+      "between": [
+        "J5.1 tail keep-out column (unsourced length)",
+        "probe_plate"
+      ]
+    },
+    {
+      "pair": "probes and receptacles to support carrier",
+      "minimum_mm": 0.773,
+      "between": [
+        "TP2 KS-050 receptacle",
+        "support_carrier"
+      ]
+    },
+    {
+      "pair": "receptacle tails to base plate",
+      "minimum_mm": 7.6,
+      "between": [
+        "TP1 KS-050 receptacle",
+        "base_plate"
+      ]
+    },
+    {
+      "pair": "F-side bodies to pressure plate",
+      "minimum_mm": 0.3757,
+      "between": [
+        "J5 F-side body (courtyard x height)",
+        "pressure_plate"
+      ]
+    },
+    {
+      "pair": "F-side bodies to contact screws",
+      "minimum_mm": 0.305,
+      "between": [
+        "C17 F-side body (courtyard x height)",
+        "C3 M2x8 nylon contact screw"
+      ]
+    },
+    {
+      "pair": "board to guide standoffs and springs",
+      "minimum_mm": 2.2855,
+      "between": [
+        "U1 F-side body (courtyard x height)",
+        "G1 M3 F-F hex standoff 12"
+      ]
+    },
+    {
+      "pair": "metal hardware to probes and receptacles",
+      "minimum_mm": 4.361,
+      "between": [
+        "G2 M3 F-F hex standoff 12",
+        "TP4 GKS-050 probe (compressed envelope)"
+      ]
+    }
+  ],
+  "designed_contacts": [
+    {
+      "contact": "board B face seats on the support carrier",
+      "between": [
+        "controller board",
+        "support_carrier"
+      ],
+      "distance_mm": 0.0,
+      "touching": true
+    },
+    {
+      "contact": "nylon contact on the F face",
+      "between": [
+        "controller board",
+        "C1 M2x8 nylon contact screw"
+      ],
+      "distance_mm": 0.0,
+      "touching": true
+    },
+    {
+      "contact": "nylon contact on the F face",
+      "between": [
+        "controller board",
+        "C2 M2x8 nylon contact screw"
+      ],
+      "distance_mm": 0.0,
+      "touching": true
+    },
+    {
+      "contact": "nylon contact on the F face",
+      "between": [
+        "controller board",
+        "C3 M2x8 nylon contact screw"
+      ],
+      "distance_mm": 0.0,
+      "touching": true
+    },
+    {
+      "contact": "probe tip on its test pad (working stroke)",
+      "between": [
+        "controller board",
+        "TP1 GKS-050 probe (compressed envelope)"
+      ],
+      "distance_mm": 0.0,
+      "touching": true
+    },
+    {
+      "contact": "probe tip on its test pad (working stroke)",
+      "between": [
+        "controller board",
+        "TP2 GKS-050 probe (compressed envelope)"
+      ],
+      "distance_mm": 0.0,
+      "touching": true
+    },
+    {
+      "contact": "probe tip on its test pad (working stroke)",
+      "between": [
+        "controller board",
+        "TP3 GKS-050 probe (compressed envelope)"
+      ],
+      "distance_mm": 0.0,
+      "touching": true
+    },
+    {
+      "contact": "probe tip on its test pad (working stroke)",
+      "between": [
+        "controller board",
+        "TP4 GKS-050 probe (compressed envelope)"
+      ],
+      "distance_mm": 0.0,
+      "touching": true
+    },
+    {
+      "contact": "probe tip on its test pad (working stroke)",
+      "between": [
+        "controller board",
+        "TP5 GKS-050 probe (compressed envelope)"
+      ],
+      "distance_mm": 0.0,
+      "touching": true
+    },
+    {
+      "contact": "board edge on a datum pin",
+      "between": [
+        "controller board",
+        "X1 datum pin 2x6"
+      ],
+      "distance_mm": 0.0,
+      "touching": true
+    },
+    {
+      "contact": "board edge on a datum pin",
+      "between": [
+        "controller board",
+        "X2 datum pin 2x6"
+      ],
+      "distance_mm": 0.0,
+      "touching": true
+    },
+    {
+      "contact": "board edge on a datum pin",
+      "between": [
+        "controller board",
+        "Y1 datum pin 2x6"
+      ],
+      "distance_mm": 0.0,
+      "touching": true
+    }
+  ],
+  "scope": "digital interference check of the modelled envelopes; not a fit result"
+}

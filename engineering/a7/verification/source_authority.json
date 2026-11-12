@@ -146,13 +146,19 @@
    "generator": "python3 scripts/a7_fixture.py --cad"
   },
   {
-   "path": "engineering/a7/fixture/carrier-study.svg",
+   "path": "engineering/a7/fixture/fixture-drawing.svg",
    "class": "derived",
    "rule": "Engineering preparation only; no physical observation or release approval is implied.",
    "generator": "python3 scripts/a7_fixture.py --cad"
   },
   {
-   "path": "engineering/a7/fixture/carrier-study.step",
+   "path": "engineering/a7/fixture/fixture-assembly.step",
+   "class": "derived",
+   "rule": "Engineering preparation only; no physical observation or release approval is implied.",
+   "generator": "python3 scripts/a7_fixture.py --cad"
+  },
+  {
+   "path": "engineering/a7/fixture/assembly-interference.json",
    "class": "derived",
    "rule": "Engineering preparation only; no physical observation or release approval is implied.",
    "generator": "python3 scripts/a7_fixture.py --cad"

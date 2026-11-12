@@ -24,46 +24,172 @@
       "source": "sources.json#receptacle"
     },
     {
-      "id": "carrier",
-      "description": "Machined FR4 B-side carrier, 25 x 46 x 5 mm: 5 receptacle bores 0.98-1.00 mm, 3 datum pin holes 2.0 mm, 28 part through-cuts and 10 merge bridges, every wall at least 0.27 mm (INGUN-derived); geometry in carrier-study.step and manifest.json; fabricator not selected",
+      "id": "support-carrier",
+      "description": "Machined FR-4 support carrier 36.6 x 54 x 5 mm: 7 through windows over the probe field and every B-face part and lead (internal radius 1.0 mm, walls and webs at least 1.0 mm), 3 datum pin holes 2.0 mm (press fit), 2 dowel holes 2.0 mm, 6 M3 holes countersunk 90 degrees to 6.0 mm, 2 guide-standoff holes 3.4 mm; geometry in fixture-assembly.step and manifest.json; fabricator not selected",
       "quantity": 1,
       "manufacturer": null,
       "mpn": null,
       "status": "DIGITAL_DESIGN_NOT_SELECTED",
-      "source": "manifest.json#b_side_relief"
+      "source": "manifest.json#b_side_relief.support_carrier"
+    },
+    {
+      "id": "probe-plate",
+      "description": "Machined FR-4 probe plate 36.6 x 54 x 6 mm: 5 receptacle bores 0.99 mm (finished 0.98-1.00 mm, drilled, 0.40 mm web at the 1.4 mm test-point pitch), one J5 lead window (internal radius 1.1 mm), 2 dowel holes 2.0 mm, 6 M3 holes 3.4 mm; no component pockets",
+      "quantity": 1,
+      "manufacturer": null,
+      "mpn": null,
+      "status": "DIGITAL_DESIGN_NOT_SELECTED",
+      "source": "manifest.json#b_side_relief.probe_plate"
+    },
+    {
+      "id": "pressure-plate",
+      "description": "Machined FR-4 pressure plate 37.2 x 10.5 x 3 mm: J5 notch (radius 0.8 mm), 2 guide holes 6.6 mm, 3 M2 tapped holes (1.6 mm drill)",
+      "quantity": 1,
+      "manufacturer": null,
+      "mpn": null,
+      "status": "DIGITAL_DESIGN_NOT_SELECTED",
+      "source": "manifest.json#b_side_relief.pressure_plate"
+    },
+    {
+      "id": "base-plate",
+      "description": "Machined FR-4 base plate 36.6 x 54 x 3 mm: 6 M3 holes countersunk to 6.0 mm, cable-tie slot 4 x 2 mm (radius 0.8 mm)",
+      "quantity": 1,
+      "manufacturer": null,
+      "mpn": null,
+      "status": "DIGITAL_DESIGN_NOT_SELECTED",
+      "source": "manifest.json#b_side_relief.base_plate"
     },
     {
       "id": "datum-pins",
-      "description": "Dowel pins 2.0 mm diameter, 1.0 mm above the carrier top (below the 1.6 mm board edge), press fit in the carrier: X1, X2 on the x = 16.2 board edge, Y1 on the y = 62.9 edge",
+      "description": "Dowel pins 2.0 x 6 mm, hardened steel, press fit in the carrier, 1.0 mm above the carrier top: X1, X2 on the x = 16.2 board edge, Y1 on the y = 62.9 edge",
       "quantity": 3,
       "manufacturer": null,
       "mpn": null,
       "status": "REQUIRED_NOT_SELECTED",
-      "source": "manifest.json#b_side_relief.datum_pins"
+      "source": "manifest.json#b_side_relief.support_carrier.datum_pins"
     },
     {
-      "id": "holddown-bias",
-      "description": "F-side hold-down with 1.5 mm pressure pins at the three listed board points (over carrier land, clear of F courtyards by 0.3 mm), total clamp force above 6.35 N, plus a spring bias pushing the board against X1, X2 and Y1",
-      "quantity": 1,
+      "id": "alignment-dowels",
+      "description": "Dowel pins 2.0 x 17 mm through carrier and probe plate (D1, D2), aligning the bores to the datum pins",
+      "quantity": 2,
+      "manufacturer": null,
+      "mpn": null,
+      "status": "REQUIRED_NOT_SELECTED",
+      "source": "manifest.json#b_side_relief.registration"
+    },
+    {
+      "id": "plate-stack-screws",
+      "description": "M3 x 8 countersunk screws (ISO 10642 / DIN 7991), carrier top flush",
+      "quantity": 6,
+      "manufacturer": null,
+      "mpn": null,
+      "status": "REQUIRED_NOT_SELECTED",
+      "source": "fixture-assembly.step"
+    },
+    {
+      "id": "plate-stack-spacers",
+      "description": "M3 hex spacers female-female 6 mm, 5.5 mm across flats, between carrier and probe plate",
+      "quantity": 6,
+      "manufacturer": null,
+      "mpn": null,
+      "status": "REQUIRED_NOT_SELECTED",
+      "source": "fixture-assembly.step"
+    },
+    {
+      "id": "plate-stack-studs",
+      "description": "M3 x 12 set screws used as studs through the probe plate",
+      "quantity": 6,
+      "manufacturer": null,
+      "mpn": null,
+      "status": "REQUIRED_NOT_SELECTED",
+      "source": "fixture-assembly.step"
+    },
+    {
+      "id": "base-standoffs",
+      "description": "M3 hex standoffs female-female 35 mm, 5.5 mm across flats, between probe plate and base plate",
+      "quantity": 6,
+      "manufacturer": null,
+      "mpn": null,
+      "status": "REQUIRED_NOT_SELECTED",
+      "source": "fixture-assembly.step"
+    },
+    {
+      "id": "base-screws",
+      "description": "M3 x 6 countersunk screws (ISO 10642 / DIN 7991), base underside flush",
+      "quantity": 6,
+      "manufacturer": null,
+      "mpn": null,
+      "status": "REQUIRED_NOT_SELECTED",
+      "source": "fixture-assembly.step"
+    },
+    {
+      "id": "guide-standoffs",
+      "description": "M3 hex standoffs female-female 12 mm, 5.5 mm across flats, on the carrier top (G1, G2), fixed by M3 x 8 socket head screws from below",
+      "quantity": 2,
+      "manufacturer": null,
+      "mpn": null,
+      "status": "REQUIRED_NOT_SELECTED",
+      "source": "manifest.json#b_side_relief.holddown.guides"
+    },
+    {
+      "id": "guide-screws",
+      "description": "M3 x 8 socket head screws (ISO 4762) under the carrier and M3 x 6 socket head screws on the standoff tops",
+      "quantity": 4,
+      "manufacturer": null,
+      "mpn": null,
+      "status": "REQUIRED_NOT_SELECTED",
+      "source": "fixture-assembly.step"
+    },
+    {
+      "id": "guide-washers",
+      "description": "DIN 9021 M3 washers, 9 mm OD, 0.8 mm",
+      "quantity": 2,
+      "manufacturer": null,
+      "mpn": null,
+      "status": "REQUIRED_NOT_SELECTED",
+      "source": "fixture-assembly.step"
+    },
+    {
+      "id": "clamp-springs",
+      "description": "Compression springs over the guide standoffs: inner diameter at least 6.6 mm, outer diameter at most 9.0 mm, at least 6.35 N each over installed length 4.6-5.2 mm, solid length at most 4.3 mm, free length at most 9.4 mm (total 12.7 N = 2.0 x the 6.35 N probe force at maximum stroke)",
+      "quantity": 2,
+      "manufacturer": null,
+      "mpn": null,
+      "status": "REQUIRED_NOT_SELECTED",
+      "source": "manifest.json#b_side_relief.holddown.spring_requirement"
+    },
+    {
+      "id": "contact-screws",
+      "description": "M2 x 8 nylon (PA66) pan head screws in the pressure plate, tip 2.5 +/-0.1 mm below the plate, locked by an M2 nylon nut",
+      "quantity": 3,
       "manufacturer": null,
       "mpn": null,
       "status": "REQUIRED_NOT_SELECTED",
       "source": "manifest.json#b_side_relief.holddown"
     },
     {
-      "id": "base-and-guide",
-      "description": "Base under the carrier keeping free the receptacle tails and the J5 tail, probe guide, fixing to the carrier, insulation and wire retention for the 5 prewired receptacle leads",
+      "id": "contact-nuts",
+      "description": "M2 nylon (PA66) hex nuts",
+      "quantity": 3,
+      "manufacturer": null,
+      "mpn": null,
+      "status": "REQUIRED_NOT_SELECTED",
+      "source": "manifest.json#b_side_relief.holddown"
+    },
+    {
+      "id": "wire-retention",
+      "description": "Cable tie through the base-plate slot and TP1-TP5 labels on both ends of the five green receptacle leads",
       "quantity": 1,
       "manufacturer": null,
       "mpn": null,
-      "status": "NOT_DESIGNED",
-      "source": "README.md#\u5b8c\u6210\u306b\u5fc5\u8981\u306a\u8a3c\u62e0"
+      "status": "REQUIRED_NOT_SELECTED",
+      "source": "manifest.json#b_side_relief.wiring"
     }
   ],
   "blockers": [
-    "Hold-down/bias mechanism, datum pins, base, guide, fixing, insulation and wire retention are not selected or designed.",
-    "Fixture supplier and carrier fabricator are owner choices and are not selected; JLCCNC guidance is a candidate reference only.",
-    "No complete fixture BOM or supplier-upload package.",
-    "No current price, MOQ, lead time or assembly availability retrieved."
+    "No fixture part is selected: plates are digital designs, hardware lines are requirements; fabricator and supplier are owner choices.",
+    "Probe-plate bores leave 0.40 mm between bores at the fixed 1.4 mm test-point pitch: within the INGUN grid, below the 1.0 mm milled-wall guidance; the chosen fabricator must confirm drilling it.",
+    "J5 tail length is unsourced; the windows and the 52 mm free space below the B face do not depend on it.",
+    "No current price, MOQ, lead time or availability retrieved; no supplier-upload package."
   ]
 }
