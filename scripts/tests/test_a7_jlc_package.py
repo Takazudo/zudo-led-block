@@ -52,7 +52,7 @@ class PackageTests(unittest.TestCase):
         self.assertEqual(self.board('controller')['pcba_tier']['tier'], 'STANDARD')
         self.assertEqual(self.board('led_leaf')['pcba_tier']['tier'], 'STANDARD')
         self.assertEqual(self.board('power_adapter')['pcba_tier']['tier'], 'ECONOMIC')
-        for blocker in ('controller-panel-route', 'led_leaf-panel-route', 'power_adapter-panel-route', 'part-C221842-not-in-stock',
+        for blocker in ('controller-repo-panel-acceptance', 'led_leaf-repo-panel-acceptance', 'power_adapter-repo-panel-acceptance', 'part-C221842-not-in-stock',
                         'pcba-quantity-unit-with-panel-not-sourced'):
             self.assertIn(blocker, self.ids())
         # 0.6 mm is a JLC FR-4 option, so the leaf thickness is a note, not a blocker
@@ -74,7 +74,15 @@ class PackageTests(unittest.TestCase):
             self.assertTrue(p['within_250_mm'])
             self.assertGreaterEqual(min(p['size_without_rails_mm']), p['panel_minimum_mm'])
         self.assertEqual(self.board('led_leaf')['thickness_mm'], 0.6)
-        self.assertIn('Panel by JLCPCB', ' '.join(b['text'] for b in self.report['blockers'] if b['id'] == 'controller-panel-route'))
+        self.assertIn('owner chose repo panels', ' '.join(b['text'] for b in self.report['blockers'] if b['id'] == 'controller-repo-panel-acceptance'))
+        self.assertEqual(self.report['panel_route']['answer'], 'repo-panels')
+        # while the owner's route is not recorded, each board carries the open route question instead
+        with patch.object(J, 'panel_decision', return_value=None):
+            report, _ = J.generate()
+        ids = {b['id'] for b in report['blockers']}
+        self.assertIn('controller-panel-route', ids)
+        self.assertNotIn('controller-repo-panel-acceptance', ids)
+        self.assertIn('Panel by JLCPCB', ' '.join(b['text'] for b in report['blockers'] if b['id'] == 'controller-panel-route'))
 
     def test_panel_comparison_counts_boards_and_parts(self):
         c = self.report['panel_comparison']

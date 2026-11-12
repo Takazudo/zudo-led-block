@@ -50,8 +50,10 @@ ACCEPTED_BY = ('OWNER', 'PROJECT_COORDINATOR_DELEGATED')
 ACCEPTED_JA = {'OWNER': 'オーナー本人', 'PROJECT_COORDINATOR_DELEGATED': 'プロジェクトのコーディネーター（オーナーが委ねた作業方針による）'}
 BOUNDS = ('exact', 'min', 'min_exclusive', 'max', 'range', 'reference')
 # Acceptance values may cite only design records and component facts, never this plan or generated outputs.
+# owner-criteria.json is the hand-written record of values the owner chose (PROJECT-CHOICE), with the owner's words.
 SOURCE_ROOTS = ('engineering/a7/mechanical/', 'engineering/a7/study/', 'engineering/a7/electronics/',
-                'engineering/a7/verification/', 'engineering/a7/README.md', 'engineering/a5/')
+                'engineering/a7/verification/', 'engineering/a7/README.md', 'engineering/a5/',
+                'engineering/a7/qualification/owner-criteria.json')
 # Confidence words that JSON design records write beside a value, mapped to the label an acceptance item must use.
 STATED = {'ASSUMED': {'ASSUMED'}, 'INFERRED': {'INFERRED'}, 'MIRROR': {'MIRROR'}, 'DERIVED-MIRROR': {'MIRROR'},
           'UNSOURCED': {'UNVERIFIED'}, 'UNVERIFIED': {'UNVERIFIED'}, 'SOURCED': {'DESIGN'}, 'PROJECT-CHOICE': {'DESIGN'},
@@ -528,7 +530,11 @@ DECISION_ROOTS = SOURCE_ROOTS + ('engineering/a7/procurement/', 'engineering/a7/
 # Owner answers are recorded here, in the owner's own words; a decision marked answered must match its record.
 OWNER_ANSWERS = 'engineering/a7/procurement/owner-decisions.json'
 # Gates the owner has answered and the procurement ledger has retired; only these may carry an answer.
-ANSWERED_GATES = {'assembly:order-quantity'}
+ANSWERED_GATES = {'assembly:order-quantity', 'assembly:panel-route', 'assembly:finished-cables'}
+# An owner may accept a recommended plan whose step stays open (name the case, choose a fabricator, decide after tests);
+# such an answer is recorded in the owner's 'accept all' entry and its gate stays open.
+PLAN_ACCEPTED = 'PLAN_ACCEPTED'
+ACCEPT_ALL = 'accept-all-recommendations'
 STAGES = {'PCB_ORDER': 'PCB 発注の前', 'BENCH': '実機試験の前', 'RELEASE': '製造リリースのとき'}
 ROUTES = {'OWNER_DOWNLOAD': 'オーナーがブラウザで保存', 'CLOUD_FETCH': 'クラウドで取得（オーナー作業なし）',
           'SUPPLIER_ANSWER': '供給元・加工先の回答', 'DATED_OBSERVATION': '日付付きの供給観測', 'MEASUREMENT': '実物の測定'}
@@ -556,7 +562,7 @@ def owner_page_errors(plan, root=ROOT):
             continue
         where = d['gate'] + ': '
         if 'answer' in d:
-            errors += [where + e for e in answer_errors(d, keys, root)]
+            errors += [where + e for e in answer_errors(d, keys, root, plan)]
         if d['stage'] not in STAGES or not text_fields(d, ['question', 'reason']):
             errors.append(where + 'stage, question and reason are required')
         options = d['options']
@@ -592,9 +598,13 @@ def owner_page_errors(plan, root=ROOT):
     return errors
 
 
-def answer_errors(d, keys, root):
+def answer_errors(d, keys, root, plan=None):
     """An answered decision names the owner's option, cites the owner's own recorded words, and its gate is closed."""
     a = d['answer']
+    if isinstance(a, dict) and a.get('status') == PLAN_ACCEPTED:
+        return plan_accepted_errors(d, keys, root)
+    if isinstance(d.get('gate'), str) and d['gate'].startswith('criterion:'):
+        return criterion_answer_errors(d, root, plan)
     if not isinstance(a, dict) or set(a) != {'option', 'by', 'record'} or a['by'] != 'OWNER' or not isinstance(a['option'], str):
         return ['an answer needs exactly option, by (OWNER) and record']
     errors = []
@@ -614,6 +624,64 @@ def answer_errors(d, keys, root):
         errors.append('only a retired gate (' + ', '.join(sorted(ANSWERED_GATES)) + ') can carry an answer')
     if d['gate'] in keys:
         errors.append('an answered decision\'s gate is still open')
+    return errors
+
+
+def criterion_answer_errors(d, root, plan):
+    """An accepted criterion: the owner's accept-all entry names this option, and the procedure is REVIEWED by the owner
+    with every acceptance value decided, so the criterion gate itself is closed."""
+    a = d['answer']
+    if not isinstance(a, dict) or set(a) != {'option', 'by', 'record'} or a['by'] != 'OWNER' or not isinstance(a['option'], str):
+        return ['an answer needs exactly option, by (OWNER) and record']
+    errors = []
+    if a['option'] != d.get('recommended'):
+        errors.append('an accepted criterion is the recommended option')
+    record = a['record']
+    if not isinstance(record, dict) or record.get('path') != OWNER_ANSWERS:
+        return errors + ['an answer is recorded in ' + OWNER_ANSWERS]
+    entry = accepted_plan(d['gate'], root)
+    if not entry or entry['option'] != a['option'] or record.get('quote', '').strip('"') not in entry['owner_words']:
+        errors.append('the accepted criterion must match the owner\'s accept-all entry in ' + OWNER_ANSWERS + ' and quote its owner_words')
+    procedures = [p for p in (plan or {}).get('procedures', []) if 'criterion:' + str(p.get('id')) == d['gate']]
+    if len(procedures) != 1:
+        return errors + ['an accepted criterion names one procedure']
+    p = procedures[0]
+    if (p.get('criterion_status') != 'REVIEWED' or p.get('criterion_accepted_by') != 'OWNER' or p.get('missing_criterion') != ''
+            or any(x.get('confidence') in ('PROPOSED', 'UNRESOLVED') for x in p.get('acceptance', []))):
+        errors.append('an accepted criterion\'s procedure must be REVIEWED by the OWNER with every value decided')
+    return errors
+
+
+def answer_entry(gate, root):
+    """The owner record behind an answered decision: its own entry, or the accept-all entry for a criterion."""
+    return accepted_plan(gate, root) if gate.startswith('criterion:') else owner_answer(gate, root)
+
+
+def accepted_plan(gate, root):
+    """The owner's 'accept all' entry when it names this gate, or None."""
+    entries = [x for x in json.loads((root / OWNER_ANSWERS).read_text()).get('decisions', []) if isinstance(x, dict) and x.get('id') == ACCEPT_ALL]
+    if len(entries) != 1 or entries[0].get('decided_by') != 'OWNER' or not entries[0].get('owner_words'):
+        return None
+    options = [x.get('option') for x in entries[0].get('accepted', []) if isinstance(x, dict) and x.get('gate') == gate]
+    return dict(entries[0], option=options[0]) if len(options) == 1 else None
+
+
+def plan_accepted_errors(d, keys, root):
+    """An accepted plan names the owner's option and quote, and its gate is still open (the step it plans is not done)."""
+    a = d['answer']
+    if set(a) != {'option', 'by', 'record', 'status', 'remains'} or a['by'] != 'OWNER' or not text_fields(a, ['remains']):
+        return ['an accepted plan needs exactly option, by (OWNER), record, status and what remains']
+    errors = []
+    if a['option'] != d.get('recommended'):
+        errors.append('an accepted plan is the recommended option')
+    record = a['record']
+    if not isinstance(record, dict) or record.get('path') != OWNER_ANSWERS:
+        return errors + ['an accepted plan is recorded in ' + OWNER_ANSWERS]
+    entry = accepted_plan(d['gate'], root)
+    if not entry or entry['option'] != a['option'] or record.get('quote', '').strip('"') not in entry['owner_words']:
+        errors.append('the accepted plan must match the owner\'s accept-all entry in ' + OWNER_ANSWERS + ' and quote its owner_words')
+    if d['gate'] not in keys:
+        errors.append('an accepted plan\'s gate must still be known; a closed gate takes a plain answer')
     return errors
 
 
@@ -1021,7 +1089,7 @@ def link(url):
 def owner_page_lines(plan, report, root=ROOT):
     classes = {g['gate']: g['class'] for g in report['gates']}
     gaps = owner_page_gaps(plan, report)
-    live = [d for d in plan['owner_decisions'] if classes.get(d['gate']) == 'OWNER_DECISION']
+    live = [d for d in plan['owner_decisions'] if classes.get(d['gate']) == 'OWNER_DECISION' and 'answer' not in d]
     lines = ['', '## まとめて答えられる判断（'+str(len(live))+' 件）', '',
              'オーナーの判断ゲートを、PCB 発注を先に止めるものから順に並べています。推奨は出典に基づく提案で、オーナーの回答ではありません。'
              '回答は記録（承認ファイルやレビュー記録）にしてから反映し、それまでゲートは閉じたままです。', '']
@@ -1030,11 +1098,19 @@ def owner_page_lines(plan, report, root=ROOT):
         for o in d['options']:
             lines.append('- '+('**'+mdx(o['label'])+'（推奨）**' if o['id'] == d['recommended'] else mdx(o['label']))+': '+mdx(o['consequence']))
         lines += ['- 推奨の理由: '+mdx(d['reason']), '- 出典: '+'、'.join(trace_text(t)+('「'+mdx(t['quote'])+'」' if 'quote' in t else '') for t in d['sources']), '']
-    answered = [d for d in plan['owner_decisions'] if 'answer' in d]
+    answered = [d for d in plan['owner_decisions'] if 'answer' in d and d['answer'].get('status') != PLAN_ACCEPTED]
+    planned = [d for d in plan['owner_decisions'] if 'answer' in d and d['answer'].get('status') == PLAN_ACCEPTED]
+    if planned:
+        lines += ['## オーナーが方針を受け入れた判断（'+str(len(planned))+' 件、ゲートは開いたまま）', '',
+                  'オーナーは推奨をまとめて受け入れました（原文「'+mdx(' '.join(accepted_plan(planned[0]['gate'], root)['owner_words']))+'」、記録 `'+OWNER_ANSWERS+'`）。'
+                  '方針は決まりましたが、その方針の作業が残っているのでゲートは閉じていません。', '']
+        for d in planned:
+            label = next(o['label'] for o in d['options'] if o['id'] == d['answer']['option'])
+            lines += ['- **'+mdx(d['question'])+'** → '+mdx(label)+'（`'+d['gate']+'`）。残り: '+mdx(d['answer']['remains']), '']
     if answered:
         lines += ['## 回答済みの判断（'+str(len(answered))+' 件）', '', 'オーナーが自分の言葉で答えたもの。記録ファイルに原文があり、ゲートは閉じています。', '']
         for d in answered:
-            entry = owner_answer(d['gate'], root)
+            entry = answer_entry(d['gate'], root)
             if entry is None:
                 raise ValueError(d['gate'] + ': answered decision has no owner record')
             label = next(o['label'] for o in d['options'] if o['id'] == d['answer']['option'])

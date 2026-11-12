@@ -8,7 +8,7 @@
 
 手で書く入力（生成物ではありません）:
 
-- `owner-decisions.json`: オーナーの判断と原文。発注数量（2 台）と調達の優先順（JLC 在庫 → JLC 予約注文または Global Sourcing → 例外）。推奨ではなく、オーナー自身の回答だけを記録します。
+- `owner-decisions.json`: オーナーの判断と原文。発注数量（2 台）と調達の優先順（JLC 在庫 → JLC 予約注文または Global Sourcing → 例外）。推奨ではなく、オーナー自身の回答だけを記録します。部品選定のオーナーの方針（2026-11-12「basicallly choose JLC basic parts or have qty items. it's better」）: 部品を選ぶ・替えるときは、JLC の Basic 部品か、JLC が十分な在庫を持つ部品を優先する（`sourcing_preference.part_selection`）。方針であり、BOM や基板をそれだけで変えるものではありません。
 - `supply-observations.json`: 日付付きの供給元掲載の観測（取得時刻・URL・raw の SHA-256・抜粋）。在庫確保・見積・実装受入ではありません。
 
 上記 3 ファイルは `python3 scripts/a7_procurement.py` が生成します。手編集せず、入力を修正して再生成してください。`--check` は現在入力との完全一致を確認し、古い識別、点数、二重計上や省略を拒否します。`python3 -m unittest scripts/tests/test_a7_procurement.py` が負の対照を実行します。

@@ -5,7 +5,7 @@
   "modules": 2,
   "decided_by": "OWNER",
   "sources": "engineering/a7/jlc-package/sources.json",
-  "ledger_sha256": "e59c015af38da813387dc1be80daba67eea535c8b498a46b037ebe9d6a640281",
+  "ledger_sha256": "07a3adb154514511eb9f743541e94e6fc61a05347d62682d2f084a31a9e00b47",
   "sources_sha256": "2b47184875f40d4189144008c1cea2bf1500e89cdf68401551caa17e08c509be",
   "boards": [
     {
@@ -1370,6 +1370,12 @@
       }
     ]
   },
+  "panel_route": {
+    "answer": "repo-panels",
+    "decided_by": "OWNER",
+    "decided_on": "2026-11-12",
+    "record": "engineering/a7/procurement/owner-decisions.json"
+  },
   "part_counts": {
     "BASIC": 14,
     "EXTENDED": 16
@@ -1386,10 +1392,10 @@
       "ja": "readiness の発注ゲートが BLOCKED。この一式は予行で、アップロード・発注しない。"
     },
     {
-      "id": "controller-panel-route",
+      "id": "controller-repo-panel-acceptance",
       "board": "controller",
-      "text": "Not orderable as single boards (single-sided placement fails). Panel by JLCPCB (5 × 2) gives 20 assembled boards at a 2-panel minimum and has open questions: Courtyards reach past the outline by more than the 2 mm board spacing (J2 4.45 mm, J1 4.45 mm); a JLC panel must leave room for them, which the order form does not let us specify.. A repo-built panel with 1 board(s), 70 × 76.9 mm, gives 2 for the 2 needed. The owner decides the route (assembly:panel-route); the repo panel is prepared in engineering/a7/jlc-package/panels/, not released.",
-      "ja": "単品では発注できない（Economic で満たさない条件: 片面実装）。Panel by JLCPCB（5 × 2）は 2 シート最小で 20 枚が実装される。未確認: 部品のコートヤードが基板外形から 2 mm の基板間隔より大きくはみ出す（J2 4.45 mm, J1 4.45 mm）。JLC の面付けでその逃げを確保できるかは注文画面では指定できない。リポジトリで 1 枚入りの面付け（70 × 76.9 mm）を作れば、必要な 2 枚に対し 2 枚。どちらにするかはオーナーの判断（`assembly:panel-route`）。リポジトリ面付けのデータは `engineering/a7/jlc-package/panels/` に準備した（未リリース）。"
+      "text": "The owner chose repo panels (assembly:panel-route): 1 board(s) on a 70 × 76.9 mm panel, PCBA quantity 2, giving 2 for the 2 needed. Whether JLC assembles this customer panel is owner-stated, not JLC-confirmed (the owner closed O12 without asking JLC, 2026-11-12, jlc-questions); the panel files are prepared in engineering/a7/jlc-package/panels/ and not released.",
+      "ja": "オーナーはリポジトリ面付けを選んだ（`assembly:panel-route`）。1 枚入りの面付け（70 × 76.9 mm）を PCBA 数量 2 で注文し、必要な 2 枚に対し 2 枚。JLC がこの面付けを実装するかはオーナーの知識による判断で、JLC の確認ではない（オーナーは JLC に聞かずに O12 を閉じた。2026-11-12、jlc-questions）。面付けデータは `engineering/a7/jlc-package/panels/` に準備済み（未リリース）。"
     },
     {
       "id": "controller-finish-not-specified",
@@ -1410,10 +1416,10 @@
       "ja": "回転角は KiCad のフットプリント角度のまま。JLC ライブラリとの向きの差は JLC の配置プレビューで未確認（B 面の部品を含む）。"
     },
     {
-      "id": "led_leaf-panel-route",
+      "id": "led_leaf-repo-panel-acceptance",
       "board": "led_leaf",
-      "text": "Not orderable as single boards (every part allowed for Economic on its JLC part page fails; thickness 0.8–1.6 mm fails; single board 10 × 10 mm or larger fails). Panel by JLCPCB (8 × 1) gives 16 assembled boards at a 2-panel minimum and has open questions: The outline is not a plain rectangle (12 Edge.Cuts segments). JLC asks for a simple outline for Panel by JLCPCB and says complex outlines must be panelised by the customer: does JLC accept this outline for Panel by JLCPCB?. A repo-built panel with 2 board(s), 70 × 96.5 mm, gives 4 for the 4 needed. The owner decides the route (assembly:panel-route); the repo panel is prepared in engineering/a7/jlc-package/panels/, not released.",
-      "ja": "単品では発注できない（Economic で満たさない条件: 全部品が JLC 部品ページで Economic 可、板厚 0.8–1.6 mm、単品 10 × 10 mm 以上）。Panel by JLCPCB（8 × 1）は 2 シート最小で 16 枚が実装される。未確認: 外形が単純な長方形ではない（Edge.Cuts 12 本）。JLC は Panel by JLCPCB には単純な外形を求め、複雑な外形は自分で面付けするよう書いている。この外形で Panel by JLCPCB を受けてもらえるか。リポジトリで 2 枚入りの面付け（70 × 96.5 mm）を作れば、必要な 4 枚に対し 4 枚。どちらにするかはオーナーの判断（`assembly:panel-route`）。リポジトリ面付けのデータは `engineering/a7/jlc-package/panels/` に準備した（未リリース）。"
+      "text": "The owner chose repo panels (assembly:panel-route): 2 board(s) on a 70 × 96.5 mm panel, PCBA quantity 2, giving 4 for the 4 needed. Whether JLC assembles this customer panel is owner-stated, not JLC-confirmed (the owner closed O12 without asking JLC, 2026-11-12, jlc-questions); the panel files are prepared in engineering/a7/jlc-package/panels/ and not released.",
+      "ja": "オーナーはリポジトリ面付けを選んだ（`assembly:panel-route`）。2 枚入りの面付け（70 × 96.5 mm）を PCBA 数量 2 で注文し、必要な 4 枚に対し 4 枚。JLC がこの面付けを実装するかはオーナーの知識による判断で、JLC の確認ではない（オーナーは JLC に聞かずに O12 を閉じた。2026-11-12、jlc-questions）。面付けデータは `engineering/a7/jlc-package/panels/` に準備済み（未リリース）。"
     },
     {
       "id": "led_leaf-finish-not-specified",
@@ -1428,10 +1434,10 @@
       "ja": "回転角は KiCad のフットプリント角度のまま。JLC ライブラリとの向きの差は JLC の配置プレビューで未確認。"
     },
     {
-      "id": "power_adapter-panel-route",
+      "id": "power_adapter-repo-panel-acceptance",
       "board": "power_adapter",
-      "text": "Not orderable as single boards (single board 10 × 10 mm or larger fails). Panel by JLCPCB (2 × 1) gives 4 assembled boards at a 2-panel minimum and has open questions: JLC describes Panel by JLCPCB with V-cut, and V-cut is not supported with Economic assembly: can Panel by JLCPCB use mouse bites so the board stays on Economic assembly? If not, Standard needs a 70 × 70 mm panel (8 × 3 = 24 boards before rails).. A repo-built panel with 1 board(s), 22.8 × 44 mm, gives 2 for the 2 needed. The owner decides the route (assembly:panel-route); the repo panel is prepared in engineering/a7/jlc-package/panels/, not released.",
-      "ja": "単品では発注できない（Economic で満たさない条件: 単品 10 × 10 mm 以上）。Panel by JLCPCB（2 × 1）は 2 シート最小で 4 枚が実装される。未確認: JLC は Panel by JLCPCB を V-cut で説明しており、V-cut は Economic 実装では使えない。Economic のまま Panel by JLCPCB をマウスバイトで作れるか。できなければ Standard で 70 × 70 mm の面付け（レールなしで 8 × 3 = 24 枚）になる。リポジトリで 1 枚入りの面付け（22.8 × 44 mm）を作れば、必要な 2 枚に対し 2 枚。どちらにするかはオーナーの判断（`assembly:panel-route`）。リポジトリ面付けのデータは `engineering/a7/jlc-package/panels/` に準備した（未リリース）。"
+      "text": "The owner chose repo panels (assembly:panel-route): 1 board(s) on a 22.8 × 44 mm panel, PCBA quantity 2, giving 2 for the 2 needed. Whether JLC assembles this customer panel is owner-stated, not JLC-confirmed (the owner closed O12 without asking JLC, 2026-11-12, jlc-questions); the panel files are prepared in engineering/a7/jlc-package/panels/ and not released.",
+      "ja": "オーナーはリポジトリ面付けを選んだ（`assembly:panel-route`）。1 枚入りの面付け（22.8 × 44 mm）を PCBA 数量 2 で注文し、必要な 2 枚に対し 2 枚。JLC がこの面付けを実装するかはオーナーの知識による判断で、JLC の確認ではない（オーナーは JLC に聞かずに O12 を閉じた。2026-11-12、jlc-questions）。面付けデータは `engineering/a7/jlc-package/panels/` に準備済み（未リリース）。"
     },
     {
       "id": "power_adapter-finish-not-specified",
@@ -1460,8 +1466,8 @@
     {
       "id": "pcba-quantity-unit-with-panel-not-sourced",
       "board": null,
-      "text": "The PCBA minimum is \"2 pcs\" in the capability table. With Panel by JLCPCB the PCB quantity counts panels (JLC: 10 pcs ordered gives 10 panels); whether the PCBA quantity also counts panels, and whether one panel holding 2 or more boards meets the 2-pcs minimum, is not sourced. Question for the JLC order form or support: \"With Panel by JLCPCB, does the PCBA Qty count panels or single boards, and does one panel holding 2 or more boards meet the 2-pcs PCBA minimum, or must 2 panels be assembled?\"",
-      "ja": "JLC 能力表の PCBA 最小は「2 pcs」。Panel by JLCPCB では PCB の数量は面付けシートの枚数（JLC の説明: 10 pcs 注文で 10 シート）。PCBA の数量もシート数か、2 枚以上載った 1 シートで最小 2 pcs を満たすかは未取得。JLC の注文画面かサポートで確かめる質問: \"With Panel by JLCPCB, does the PCBA Qty count panels or single boards, and does one panel holding 2 or more boards meet the 2-pcs PCBA minimum, or must 2 panels be assembled?\""
+      "text": "The PCBA minimum is \"2 pcs\" in the capability table. With Panel by JLCPCB the PCB quantity counts panels (JLC: 10 pcs ordered gives 10 panels); whether the PCBA quantity also counts panels, and whether one panel holding 2 or more boards meets the 2-pcs minimum, is not sourced. Question for the JLC order form or support: \"With Panel by JLCPCB, does the PCBA Qty count panels or single boards, and does one panel holding 2 or more boards meet the 2-pcs PCBA minimum, or must 2 panels be assembled?\" The owner stated, without asking JLC, that each Gerber is ordered at PCBA quantity 2 or more (jlc-questions); this is owner-stated, not JLC-confirmed.",
+      "ja": "JLC 能力表の PCBA 最小は「2 pcs」。Panel by JLCPCB では PCB の数量は面付けシートの枚数（JLC の説明: 10 pcs 注文で 10 シート）。PCBA の数量もシート数か、2 枚以上載った 1 シートで最小 2 pcs を満たすかは未取得。JLC の注文画面かサポートで確かめる質問: \"With Panel by JLCPCB, does the PCBA Qty count panels or single boards, and does one panel holding 2 or more boards meet the 2-pcs PCBA minimum, or must 2 panels be assembled?\"。オーナーは JLC に聞かずに、Gerber ごとに PCBA 数量 2 以上で注文すると述べた（jlc-questions）。オーナーの知識による判断で、JLC の確認ではない。"
     },
     {
       "id": "pcb-fabrication-quantity-not-sourced",
@@ -1472,8 +1478,8 @@
     {
       "id": "physical-jack-switch-qualification",
       "board": "controller",
-      "text": "PJ-324M terminal 4/5 function must be confirmed by continuity on a received part before any PCB order (procurement blocker jack-switch-qualification).",
-      "ja": "PJ-324M の端子 4/5 の機能は、PCB を発注する前に入荷した実物の導通で確かめる（調達台帳の jack-switch-qualification）。"
+      "text": "PJ-324M terminal 4/5 function is not confirmed. The owner waived the pre-order continuity test and accepted the risk (2026-11-12, jack-tip-test-waiver): if terminal 5 is the tip, both jacks fail and the controller needs a revision. The check stays as a first-article check on the assembled boards.",
+      "ja": "PJ-324M の端子 4/5 の機能は未確認。オーナーは発注前の導通試験を見送り、リスクを受け入れた（2026-11-12、jack-tip-test-waiver）。端子 5 が tip なら両方のジャックが働かず、制御基板の改版が要る。確認は組み立て済み基板の初品検査として残る。"
     }
   ]
 }

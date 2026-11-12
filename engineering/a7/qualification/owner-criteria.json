@@ -1,0 +1,33 @@
+{
+  "schema": 1,
+  "purpose": "Acceptance values the owner chose for A7 qualification procedures. Hand-written, not generated. Each value is a project choice (PROJECT-CHOICE), not a measurement or a manufacturer limit.",
+  "decided_by": "OWNER",
+  "decided_on": "2026-11-12",
+  "owner_record": {
+    "path": "engineering/a7/procurement/owner-decisions.json",
+    "entry": "accept-all-recommendations",
+    "message_id": "cmsg_01LWjimMEMhCfvWjnLbPbEF3CNsVuGBysRztgHWLk3sETP",
+    "at": "2026-11-12T18:45:15Z",
+    "owner_words": "5 accept all"
+  },
+  "criteria": {
+    "service-envelope": {
+      "cycles": {
+        "value": 100,
+        "unit": "cycles",
+        "confidence": "PROJECT-CHOICE",
+        "option": "100",
+        "meaning": "Insert and extract each jack 100 times at up to 10.0 N with no crack, shift or loosening of the panel, nut or jack. This checks the panel-side retention, not the jack's life (the maker states 4,000-5,000 cycles at rated load)."
+      }
+    },
+    "ldo-reverse": {
+      "reverse": {
+        "value": 0,
+        "unit": "mA",
+        "confidence": "PROJECT-CHOICE",
+        "option": "prohibit",
+        "meaning": "No external voltage is applied to +3V3 while +5 V is off (no SWD-probe or other back-powering). The test checks only power-up and power-down sequencing, and that VOUT <= VIN + 0.3 V holds at power-down."
+      }
+    }
+  }
+}
