@@ -14,7 +14,7 @@
       "fixture": "4af6e9440d9b31dd05f5f5e55a1f30485274a526e4066925b8ee929e7a642e23",
       "assembly_manifest": "07a3adb154514511eb9f743541e94e6fc61a05347d62682d2f084a31a9e00b47"
     },
-    "scope": "Test-only prototype of A7 r2 (3HP / FR-4) to run the physical procedures in qualification/plan.json; the PJ-324M tip-terminal check runs before any PCB order. Not a manufacturing release.",
+    "scope": "Test-only prototype of A7 r2 (3HP / FR-4) to run the physical procedures in qualification/plan.json; the PJ-324M tip-terminal check was to run before any PCB order; on 2026-11-12 the owner waived that (procurement/owner-decisions.json, jack-tip-test-waiver), so it runs as a first-article check on the assembled boards. Not a manufacturing release.",
     "quantity": "2 modules (owner decision order-quantity): 2 controller, 4 LED leaf, 2 power adapter boards with their parts, fixture and cables",
     "constraints": "Owner words \"1 OK\" (2026-11-12) read as approve for owner_prototype_route only; panel route and switch supply not covered. No order, purchase or supplier message is made by this record; manufacturing_release needs a separate explicit owner approval. Procedure preconditions and safety conditions apply.",
     "approval": {

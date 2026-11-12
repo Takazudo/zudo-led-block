@@ -266,6 +266,32 @@ class ReadinessTests(unittest.TestCase):
         d['answer'] = {k: d['answer'][k] for k in ('option', 'by', 'record')}
         self.assertTrue(any('every value decided' in e for e in m.owner_page_errors(self.plan)))
 
+    def test_reopened_gate_cannot_carry_an_accepted_plan(self):
+        d = next(x for x in self.plan['owner_decisions'] if x['gate'] == 'assembly:switch-supply')
+        d['answer'] = {'option': d['recommended'], 'by': 'OWNER', 'record': {'path': m.OWNER_ANSWERS, 'quote': '5 accept all'},
+                       'status': m.PLAN_ACCEPTED, 'remains': 'something'}
+        self.assertTrue(any("accept-all entry" in e for e in m.owner_page_errors(self.plan)))
+
+    def test_edited_accepted_criterion_is_no_longer_answered(self):
+        p = next(x for x in self.plan['procedures'] if x['id'] == 'harness-depth')
+        bend = next(a for a in p['acceptance'] if a['id'] == 'bend-radius')
+        bend['source']['pointer'] = '/variants/3hp/panel_width'
+        bend['value'] = 14.9
+        self.assertTrue(any('current acceptance digest' in e for e in m.owner_page_errors(self.plan)))
+
+    def test_owner_criteria_must_match_an_accepted_option(self):
+        real = m.owner_criteria_errors(REPO)
+        self.assertEqual(real, [])
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            for rel in (m.OWNER_CRITERIA, m.OWNER_ANSWERS):
+                (root / rel).parent.mkdir(parents=True, exist_ok=True)
+                (root / rel).write_text((REPO / rel).read_text())
+            data = json.loads((root / m.OWNER_CRITERIA).read_text())
+            data['criteria']['ldo-reverse']['reverse']['option'] = 'bounded'
+            (root / m.OWNER_CRITERIA).write_text(json.dumps(data))
+            self.assertTrue(m.owner_criteria_errors(root))
+
     def test_prepared_decision_never_closes_a_gate(self):
         before = self.evaluate()
         for d in self.plan['owner_decisions']:

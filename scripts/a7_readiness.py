@@ -547,6 +547,7 @@ def owner_page_errors(plan, root=ROOT):
     if not isinstance(decisions, list) or not isinstance(requests, list):
         return ['owner_decisions and evidence_requests must be lists']
     keys = gate_keys(plan, root)
+    errors += owner_criteria_errors(root)
     for name, items in (('owner decision', decisions), ('evidence request', requests)):
         gates = [x.get('gate') if isinstance(x, dict) and isinstance(x.get('gate'), str) else None for x in items]
         answered = [isinstance(x, dict) and 'answer' in x for x in items]
@@ -649,6 +650,35 @@ def criterion_answer_errors(d, root, plan):
     if (p.get('criterion_status') != 'REVIEWED' or p.get('criterion_accepted_by') != 'OWNER' or p.get('missing_criterion') != ''
             or any(x.get('confidence') in ('PROPOSED', 'UNRESOLVED') for x in p.get('acceptance', []))):
         errors.append('an accepted criterion\'s procedure must be REVIEWED by the OWNER with every value decided')
+    # The same receipt test evaluate() uses: an edited value reopens the gate, so the page must not show it as answered.
+    receipt = p.get('criterion_review')
+    digest_now = acceptance_digest(p)
+    if (not raw_ok(receipt, root) or p.get('criterion_acceptance_sha256') != digest_now
+            or (p['id'] + ' ' + digest_now) not in (root / receipt['path']).read_text(errors='replace')):
+        errors.append('an accepted criterion\'s review record must name its current acceptance digest')
+    return errors
+
+
+OWNER_CRITERIA = 'engineering/a7/qualification/owner-criteria.json'
+
+
+def owner_criteria_errors(root):
+    """The owner-chosen values record names the owner and the owner's accept-all words it rests on."""
+    path = root / OWNER_CRITERIA
+    if not path.is_file():
+        return []
+    data = json.loads(path.read_text())
+    rec = data.get('owner_record') or {}
+    entries = [x for x in json.loads((root / OWNER_ANSWERS).read_text()).get('decisions', []) if isinstance(x, dict) and x.get('id') == rec.get('entry')]
+    if (data.get('decided_by') != 'OWNER' or rec.get('path') != OWNER_ANSWERS or len(entries) != 1
+            or entries[0].get('decided_by') != 'OWNER' or rec.get('owner_words') not in entries[0].get('owner_words', [])):
+        return [OWNER_CRITERIA + ': must be decided by the OWNER and quote an owner entry of ' + OWNER_ANSWERS]
+    accepted = {(x.get('gate'), x.get('option')) for x in entries[0].get('accepted', []) if isinstance(x, dict)}
+    errors = []
+    for pid, values in (data.get('criteria') or {}).items():
+        for key, v in values.items():
+            if not isinstance(v, dict) or v.get('confidence') != 'PROJECT-CHOICE' or ('criterion:' + pid, v.get('option')) not in accepted:
+                errors.append(OWNER_CRITERIA + ': ' + pid + '/' + key + ' must be a PROJECT-CHOICE for an option the owner accepted')
     return errors
 
 
@@ -663,6 +693,9 @@ def accepted_plan(gate, root):
     if len(entries) != 1 or entries[0].get('decided_by') != 'OWNER' or not entries[0].get('owner_words'):
         return None
     options = [x.get('option') for x in entries[0].get('accepted', []) if isinstance(x, dict) and x.get('gate') == gate]
+    # A gate the owner reopened after accepting all is a live decision again.
+    if any(isinstance(x, dict) and x.get('gate') == gate for x in entries[0].get('reopened', [])):
+        return None
     return dict(entries[0], option=options[0]) if len(options) == 1 else None
 
 
