@@ -78,6 +78,48 @@
       "retained_bytes": ".circuit-cache/e2-20261109/src-530470310-sd.download (ignored acquisition cache; not redistributed)",
       "retrieved_at": "2026-11-09",
       "authority_note": "Manufacturer-primary bytes acquired and inspected. Previous acquisition failure is historical; availability does not qualify hardware."
+    },
+    {
+      "source_id": "src-530470310-ps-p3",
+      "record_id": "rec-molex-530470310",
+      "document_title": "Molex PicoBlade 1.25 wire-to-board connector system product specification (single-row vertical TH, tin plating)",
+      "document_number": "510211110-PS",
+      "revision": "A",
+      "document_date": "2022-04-19",
+      "authoritative_url": "https://www.molex.com/en-us/products/part-detail/530470310",
+      "alternate_authoritative_url": "",
+      "retrieval_date": "2026-11-12",
+      "authority_class": "MANUFACTURER_PRIMARY",
+      "sha256": "31fe5251428258b073d09c694c4ab989282888cd98d288486f3bc4afacaef03e",
+      "availability": "AVAILABLE",
+      "retained_bytes": "none in the repository (713285 bytes, 16 pages, file name 510211110-PS-000.pdf); re-download and compare the hash",
+      "retrieved_at": "2026-11-12",
+      "authority_note": "Downloaded by the owner from molex.com in their own browser and attached in the project thread on 2026-11-12; the exact download URL was not recorded, so the Molex part page that links the specification is given. The cloud VM could not fetch molex.com (HTTP/2 stream reset). Scope (sheet 3 of 16): the specification covers Plug Assembly (Vertical Type) 53047**10, drawing 530470000-SD, which includes 530470310 (3 circuits). The owner also attached 510211010-PS rev B (2021-06-25, SHA-256 1b2a28845d4bad6663889edc99de8ddb9df1b2cedc7f81d98f15ab55cf76e9a0), an older single-row TH specification that also lists 53047**10 and prints the same voltage, current, temperature and durability values; this record uses the newer vertical-only revision. Ratings do not qualify the finished cable or the board.",
+      "physical_pdf_page_index": 3,
+      "printed_page_label": "4 OF 16",
+      "locator": "510211110-PS sheet 4 of 16, section 4.1 VOLTAGE, 4.2 RATED CURRENT AND APPLICABLE WIRES, 4.3 CURRENT DERATING",
+      "evidence_extract": "4.1 VOLTAGE: 125 V AC rms / DC. 4.2 Rated current (MAX.): AWG #26 1.0 A, AWG #28 1.0 A, AWG #30 1.0 A, AWG #32 0.8 A; insulation O.D. 500588001 0.5-1.0 mm, 500798001 0.5-1.04 mm. 4.3 Current derating (reference only, 30 C temperature rise, all circuits powered) for 2 / 8 / 15 circuits: AWG26 2.5 / 1.5 / 1.0 A; AWG28 2.0 / 1.5 / 1.0 A; AWG30 1.5 / 1.0 / 1.0 A; AWG32 1.5 / 1.0 / 0.8 A; no 3-circuit column. Scope on sheet 3: 53047**10 Plug Assembly (Vertical Type), drawing 530470000-SD."
+    },
+    {
+      "source_id": "src-530470310-ps-p4",
+      "record_id": "rec-molex-530470310",
+      "document_title": "Molex PicoBlade 1.25 wire-to-board connector system product specification (single-row vertical TH, tin plating)",
+      "document_number": "510211110-PS",
+      "revision": "A",
+      "document_date": "2022-04-19",
+      "authoritative_url": "https://www.molex.com/en-us/products/part-detail/530470310",
+      "alternate_authoritative_url": "",
+      "retrieval_date": "2026-11-12",
+      "authority_class": "MANUFACTURER_PRIMARY",
+      "sha256": "31fe5251428258b073d09c694c4ab989282888cd98d288486f3bc4afacaef03e",
+      "availability": "AVAILABLE",
+      "retained_bytes": "none in the repository (713285 bytes, 16 pages, file name 510211110-PS-000.pdf); re-download and compare the hash",
+      "retrieved_at": "2026-11-12",
+      "authority_note": "Downloaded by the owner from molex.com in their own browser and attached in the project thread on 2026-11-12; the exact download URL was not recorded, so the Molex part page that links the specification is given. The cloud VM could not fetch molex.com (HTTP/2 stream reset). Scope (sheet 3 of 16): the specification covers Plug Assembly (Vertical Type) 53047**10, drawing 530470000-SD, which includes 530470310 (3 circuits). The owner also attached 510211010-PS rev B (2021-06-25, SHA-256 1b2a28845d4bad6663889edc99de8ddb9df1b2cedc7f81d98f15ab55cf76e9a0), an older single-row TH specification that also lists 53047**10 and prints the same voltage, current, temperature and durability values; this record uses the newer vertical-only revision. Ratings do not qualify the finished cable or the board.",
+      "physical_pdf_page_index": 4,
+      "printed_page_label": "5 OF 16",
+      "locator": "510211110-PS sheet 5 of 16, section 4.4 TEMPERATURE and 4.5 DURABILITY",
+      "evidence_extract": "4.4 TEMPERATURE: Ambient Temperature Range -40 C ~ +85 C (not freeze to low temperature); notes: non-operating connectors after reflow must follow the operating range; includes terminal temperature rise; applicable wires must also meet the range. 4.5 DURABILITY: tin plated, 30 cycles."
     }
   ]
 }

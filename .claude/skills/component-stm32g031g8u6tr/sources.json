@@ -60,6 +60,48 @@
       "retained_bytes": ".circuit-cache/e2-20261109/src-stm32g031g8u6tr-ds.download (ignored acquisition cache; not redistributed)",
       "retrieved_at": "2026-11-09",
       "authority_note": "Manufacturer-primary bytes acquired and inspected. Previous acquisition failure is historical; availability does not qualify hardware."
+    },
+    {
+      "source_id": "src-stm32g031g8u6tr-ds-text-p45",
+      "record_id": "rec-stm32g031g8u6tr",
+      "document_title": "STMicroelectronics STM32G031x4/x6/x8 datasheet (owner download, delivered as a text conversion)",
+      "document_number": "DS12992",
+      "revision": "Rev 4",
+      "document_date": "2025-06",
+      "authoritative_url": "https://www.st.com/resource/en/datasheet/stm32g031f8.pdf",
+      "alternate_authoritative_url": "https://www.st.com/en/microcontrollers-microprocessors/stm32g031g8.html",
+      "retrieval_date": "2026-11-12",
+      "authority_class": "MANUFACTURER_PRIMARY",
+      "sha256": "bda824042045c6d265e21b065e8aeb08a0e69b1d22b12392f8eb46cfa56f71bf",
+      "availability": "AVAILABLE",
+      "physical_pdf_page_index": 44,
+      "printed_page_label": "45/126",
+      "locator": "printed page 45 (text extraction): section 5.2 Absolute maximum ratings, Table 18 Voltage characteristics and Table 19 Current characteristics (first part)",
+      "evidence_extract": "Table 18 (min/max, V, w.r.t. VSS): VDD -0.3 / 4.0; VBAT -0.3 / 4.0; VREF+ -0.3 / Min(VDD + 0.4, 4.0); VIN on FT_xx -0.3 / VDD + 4.0, any other pin -0.3 / 4.0. Notes: (1) see Table 19 for injected current; (2) to sustain more than 4 V the internal pull-up/pull-down must be disabled; (3) when an FT_a pin is used by an analog peripheral such as the ADC, maximum VIN is 4 V. Table 19 begins: IVDD/VDDA 100 mA, IVSS/VSSA 100 mA, IIO(PIN) sunk 15 mA (FT_f 20 mA), sourced 15 mA.",
+      "retained_bytes": "none in the repository (213733 bytes of UTF-8 text, uploaded three times as 'DS_stm32g031f8*.pdf.txt' with identical hashes); the hash is of this text, not of ST's PDF",
+      "retrieved_at": "2026-11-12",
+      "authority_note": "The owner downloaded the ST datasheet from st.com in their own browser on 2026-11-12; the project upload path delivered it as a text conversion of the PDF (file name ending .pdf.txt), three times with the same SHA-256. The hash therefore identifies the text, not ST's PDF bytes. Identity: the text carries 'DS12992 Rev 4', 'June 2025' and page footers 'n/126', the same document and revision as src-stm32g031g8u6tr-ds (PDF SHA-256 0e25cbbf..., acquired 2026-11-09, bytes not available in this session). Values were read from the text, where table layout is flattened; each value used was checked against its row and footnotes in the text. Re-check against a PDF render when the bytes are available."
+    },
+    {
+      "source_id": "src-stm32g031g8u6tr-ds-text-p46",
+      "record_id": "rec-stm32g031g8u6tr",
+      "document_title": "STMicroelectronics STM32G031x4/x6/x8 datasheet (owner download, delivered as a text conversion)",
+      "document_number": "DS12992",
+      "revision": "Rev 4",
+      "document_date": "2025-06",
+      "authoritative_url": "https://www.st.com/resource/en/datasheet/stm32g031f8.pdf",
+      "alternate_authoritative_url": "https://www.st.com/en/microcontrollers-microprocessors/stm32g031g8.html",
+      "retrieval_date": "2026-11-12",
+      "authority_class": "MANUFACTURER_PRIMARY",
+      "sha256": "bda824042045c6d265e21b065e8aeb08a0e69b1d22b12392f8eb46cfa56f71bf",
+      "availability": "AVAILABLE",
+      "physical_pdf_page_index": 45,
+      "printed_page_label": "46/126",
+      "locator": "printed page 46 (text extraction): Table 19 Current characteristics (continued), Table 20 Thermal characteristics, Table 21 General operating conditions",
+      "evidence_extract": "Table 19 (cont.): sum IIO(PIN) sunk 80 mA, sourced 80 mA; IINJ(PIN) injected current on a FT_xx pin -5 / NA mA; sum |IINJ(PIN)| total injected current (all I/Os and control pins) 25 mA. Notes: (1) all VDD/VDDA, VBAT and VSS/VSSA pins must always be connected to supplies in the permitted range; (2) positive injection is VIN > VDDIO1, negative is VIN < VSS; IINJ(PIN) must never be exceeded; (3) positive injection is not possible on these I/Os and does not occur below the maximum VIN; (4) the total is the absolute sum of the negative injected currents (instantaneous). Table 20: TSTG -65 to +150 C, TJ 150 C. Table 21: VDD 1.7 to 3.6 V; VDDA 1.62 to 3.6 V for ADC; VIN all except RST -0.3 to Min(VDD + 3.6, 5.5) V, RST -0.3 to VDD + 0.3 V (continues on page 47).",
+      "retained_bytes": "none in the repository (213733 bytes of UTF-8 text, uploaded three times as 'DS_stm32g031f8*.pdf.txt' with identical hashes); the hash is of this text, not of ST's PDF",
+      "retrieved_at": "2026-11-12",
+      "authority_note": "The owner downloaded the ST datasheet from st.com in their own browser on 2026-11-12; the project upload path delivered it as a text conversion of the PDF (file name ending .pdf.txt), three times with the same SHA-256. The hash therefore identifies the text, not ST's PDF bytes. Identity: the text carries 'DS12992 Rev 4', 'June 2025' and page footers 'n/126', the same document and revision as src-stm32g031g8u6tr-ds (PDF SHA-256 0e25cbbf..., acquired 2026-11-09, bytes not available in this session). Values were read from the text, where table layout is flattened; each value used was checked against its row and footnotes in the text. Re-check against a PDF render when the bytes are available."
     }
   ]
 }

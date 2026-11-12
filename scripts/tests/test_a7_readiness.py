@@ -243,12 +243,12 @@ class ReadinessTests(unittest.TestCase):
     def test_checklist_lists_decisions_and_downloads(self):
         report = json.loads((REPO/m.QUAL/'readiness.json').read_text())
         page = m.checklist(self.plan, report)
-        self.assertIn('## まとめて答えられる判断（14 件）', page)
+        self.assertIn('## まとめて答えられる判断（15 件）', page)
         self.assertNotIn('限定試作を承認しますか', page)
         self.assertIn('## 回答済みの判断（1 件）', page)
         self.assertIn('2 台分（オーナー報告の JLC PCBA 最小、未確認）（オーナーの回答、`assembly:order-quantity`）', page)
         self.assertNotIn('### 2. 最初の発注数量', page)
-        self.assertIn('## 資料・回答待ちのゲート（14 件）', page)
+        self.assertIn('## 資料・回答待ちのゲート（13 件）', page)
         self.assertIn('`owner_prototype_route`（解除済み）', page)
         self.assertNotIn('<https://', page)
 
@@ -682,13 +682,13 @@ class ExecutableProcedureTests(unittest.TestCase):
 
     def test_evidence_hold_criteria_say_what_supplies_them(self):
         holds = [p for p in self.plan['procedures'] if p['criterion_class'] == 'ACCESS_EVIDENCE_HOLD']
-        self.assertEqual(len(holds), 5)
+        self.assertEqual(len(holds), 4)
         for p in holds:
             self.assertTrue(all(a['supplied_by']['what'] for a in p['acceptance'] if a['confidence'] == 'UNRESOLVED'))
-        self.item('partial-rails', 'limits').pop('supplied_by')
+        self.item('switch-fit', 'fit-and-contact').pop('supplied_by')
         self.assertUntraceable('which document or measurement')
         self.plan = json.loads((REPO/m.QUAL/'plan.json').read_text())
-        self.item('partial-rails', 'limits')['supplied_by']['kind'] = 'GUESS'
+        self.item('switch-fit', 'fit-and-contact')['supplied_by']['kind'] = 'GUESS'
         self.assertUntraceable('supplied_by needs kind')
 
     def test_checklist_is_one_ordered_list_with_proposals(self):

@@ -14,7 +14,9 @@
       "source_ids": [
         "src-stm32g031g8u6tr-a5-jlcpcb-snapshot",
         "src-stm32g031g8u6tr-a5-netlist-controller",
-        "src-stm32g031g8u6tr-ds"
+        "src-stm32g031g8u6tr-ds",
+        "src-stm32g031g8u6tr-ds-text-p45",
+        "src-stm32g031g8u6tr-ds-text-p46"
       ],
       "fact_ids": [
         "fact-stm32g031g8u6tr-manufacturer",
@@ -24,12 +26,15 @@
         "fact-stm32g031g8u6tr-ratings",
         "fact-stm32g031g8u6tr-cad-state",
         "fact-stm32g031g8u6tr-orderable",
-        "fact-stm32g031g8u6tr-operating-temperature"
+        "fact-stm32g031g8u6tr-operating-temperature",
+        "fact-stm32g031g8u6tr-abs-max-vin-ft",
+        "fact-stm32g031g8u6tr-iinj-pin",
+        "fact-stm32g031g8u6tr-iinj-total",
+        "fact-stm32g031g8u6tr-vdd-operating"
       ],
       "interaction_ids": [],
       "open_domains": [
         "pinout",
-        "electrical-ratings",
         "placement",
         "cad-assets"
       ]

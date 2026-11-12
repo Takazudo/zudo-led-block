@@ -149,14 +149,14 @@
     {
       "fact_id": "fact-pmeg4010cej-115-orderable",
       "record_id": "rec-pmeg4010cej-115",
-      "source_id": "src-pmeg4010cej-115-ds-p5",
+      "source_id": "src-pmeg4010cej-115-packing",
       "class": "PROJECT_STATE",
-      "value": "PMEG4010CEJ,115 (packing suffix ,115)",
+      "value": "PMEG4010CEJ,115 = SOD323F on a 7-inch reel (180 mm diameter, 8 mm tape)",
       "unit": "NONE",
-      "conditions": "the type number PMEG4010CEJ is in Table 3 (src-pmeg4010cej-115-ds-p1), but v.3 states 'Packing information removed', so the ',115' packing variant is not established by this document; it is supported by distributor identity only",
-      "locator": "src-pmeg4010cej-115-ds-p5: Table 8 Revision history, v.3 modifications; src-pmeg4010cej-115-ds-p1: Table 3 Ordering information",
-      "provenance": "UNVERIFIED",
-      "verdict": "UNSOURCED",
+      "conditions": "Nexperia SOD323F_115 Rev. 3.0 Table 1 gives the ,115 ending as the 7-inch reel pack (180 x 8 mm); the table's SPQ of 3000 pcs is for the package, and its note 2 says the packing quantity depends on the specific product type. The package SOD323F comes from the PMEG4010CEJ v.3 data sheet (src-pmeg4010cej-115-ds-p1), which itself removed packing information (src-pmeg4010cej-115-ds-p5). Packing identity only; not stock or assembly qualification.",
+      "locator": "src-pmeg4010cej-115-packing: Table 1 Dimensions and quantities, row SOD323F / 115; src-pmeg4010cej-115-ds-p1: package SOD323F",
+      "provenance": "PRIMARY-SPEC",
+      "verdict": "PASS - primary-source confirmed",
       "depends_on": [],
       "expression": ""
     }

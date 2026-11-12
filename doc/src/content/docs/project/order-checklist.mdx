@@ -15,8 +15,8 @@ readiness（`engineering/a7/qualification/readiness.json`）は不足を 49 個�
 | 区分 | ゲート数 |
 |---|---:|
 | クラウドで進められるデジタル作業 | 0 |
-| オーナーの判断 | 14 |
-| 外部の証跡・アクセス待ち | 14 |
+| オーナーの判断 | 15 |
+| 外部の証跡・アクセス待ち | 13 |
 | 実機が必要 | 21 |
 
 ## 残っているオーナーの作業（この順に）
@@ -36,7 +36,7 @@ readiness（`engineering/a7/qualification/readiness.json`）は不足を 49 個�
 11. **O9** 物理手順を実施して記録する
 12. **O10** 製造リリースと発注を明示的に承認する
 
-## まとめて答えられる判断（14 件）
+## まとめて答えられる判断（15 件）
 
 オーナーの判断ゲートを、PCB 発注を先に止めるものから順に並べています。推奨は出典に基づく提案で、オーナーの回答ではありません。回答は記録（承認ファイルやレビュー記録）にしてから反映し、それまでゲートは閉じたままです。
 
@@ -137,7 +137,16 @@ readiness（`engineering/a7/qualification/readiness.json`）は不足を 49 個�
 - 推奨の理由: AP63205 のデータシートは C1 10 µF を推奨表の値と「10 µF を超えるセラミックで多くの用途に十分」として示すだけで、実効値の下限を規定しない。典型の DC バイアス曲線では 12.208 V で −81.6 % なので、C1 は 約 1.8 µF（許容差と温度を含め 約 1.4 µF）。+3V3 と +5V は U3・U4 の下限に対して見積りで余裕がある。VLED（U4 出力）は資料に下限がない。基板は今回の発注では変えないので、入力リップルを実測して影響を確かめるのが現実的。 同じ 0805 で替えられる Samsung の候補（JLC 在庫あり）は 50 V の CL21A106KBYQNNE で 約 1.5 倍（Murata の 50 V Basic 品 C440198 は曲線未取得）、22 µF の CL21A226MAYNNNE で典型 約 2 倍（測定条件が違い ±20 %、許容差込みでは 2.2–2.6 µF で同程度）。どちらも 10 µF には届かず、基板ファイルの識別子と検証のやり直しが伴うので、推奨は実測のまま。入力コンデンサの RMS 電流（データシートの目安は最大負荷電流の半分、約 1 A）はどの候補でも余裕がある。+12V_PROT には C1 以外に 100 nF（C11）しかなく、電源アダプタ基板にもコンデンサはない。
 - 出典: `.claude/skills/component-ap63205wu-7/facts.json` `fact-ap63205wu-7-recommended-capacitors`、`.claude/skills/component-cl21a106kaynnne/facts.json` `fact-cl21a106kaynnne-dc-bias-curve`、`engineering/a7/docs/continuation/c1-input-capacitor-options.md` 引用「The 50 V part gains about 1.5× at the same measurement condition as the current part.」
 
-### 12. 治具の FR-4 板 4 枚の加工先と、提案された金物（スプリングプランジャ・スタンドオフ・ねじ・ピン等）を承認しますか。
+### 12. 部分電源・無電源 CV の試験（片側の電源だけ、CV をかけたまま電源断）の合否を、部品の絶対最大（STM32 の注入電流 −5 mA/ピン・合計 25 mA、FT 入力 VDD + 4.0 V（ADC に使う CV 入力 PA0 は 4 V）、OPA197・TLV9001 の入力は電源の 0.5 V 外まで（OPA197 は入力電流 10 mA まで）、SN74LVC2T45 6.5 V、WS2812B VDD + 0.7 V）をどのピンでも超えないこと、としますか。
+
+- ゲート: `criterion:partial-rails`（実機試験の前）
+- **部品の絶対最大を合否の線にする（推奨）**: partial-rails の基準が決まり、試作ルートの範囲で実機試験に進める。絶対最大はストレス限界なので、超えなくても余裕は保証されない。初回通電の電流制限値は試験前のレビューで決めて記録する。
+- 絶対最大に余裕（例：半分）を取った値を合否にする: 余裕の取り方をレビューで決めて plan.json に書き直す。基準が厳しくなる分、回路の変更が要る結果になりうる。決めるまでゲートは開かない。
+- 今は決めない: partial-rails は判断待ちのまま。試作の他の試験には影響しないが、部分電源での安全は未確認のまま残る。
+- 推奨の理由: STM32 の値は DS12992 Rev 4 の Table 18・19 から取れた（オーナーのダウンロードがテキスト変換で届いたので、その旨を出典に明記）。他の部品の絶対最大はすでにカタログにある。試験の目的は部分電源で壊れないことの確認なので、絶対最大を超えたら不合格という線は資料どおりで、追加の仮定が要らない。逆電流（U3）は ldo-reverse で別に判断する。
+- 出典: `.claude/skills/component-stm32g031g8u6tr/facts.json` `fact-stm32g031g8u6tr-iinj-pin`、`.claude/skills/component-stm32g031g8u6tr/facts.json` `fact-stm32g031g8u6tr-iinj-total`、`.claude/skills/component-opa197idbvr/facts.json` `fact-opa197idbvr-abs-max-input-current`
+
+### 13. 治具の FR-4 板 4 枚の加工先と、提案された金物（スプリングプランジャ・スタンドオフ・ねじ・ピン等）を承認しますか。
 
 - ゲート: `assembly:fixture-materials`（実機試験の前）
 - **提案どおり承認し、加工先を選ぶ（推奨）**: 治具を発注でき、fixture-contact の実機試験に進める。
@@ -145,7 +154,7 @@ readiness（`engineering/a7/qualification/readiness.json`）は不足を 49 個�
 - 推奨の理由: 加工先はオーナーの選択で、金物は出典付きの候補が治具の記録に載る。プローブ板の穴間の残り幅は加工先に確認が要る。
 - 出典: `engineering/a7/fixture/manifest.json` 引用「Fabricator for the four FR-4 plates is an owner choice and not selected」
 
-### 13. 製造パッケージのレビューとリリースの承認を、いつ行いますか。
+### 14. 製造パッケージのレビューとリリースの承認を、いつ行いますか。
 
 - ゲート: `assembly:prototype-and-release`（製造リリースのとき）
 - **物理手順がすべて終わった後に行う（推奨）**: 試作ルート（2026-11-12 にオーナーが承認、`owner_prototype_route`）を先に承認し、リリースは評価の結果を見て決める。
@@ -153,7 +162,7 @@ readiness（`engineering/a7/qualification/readiness.json`）は不足を 49 個�
 - 推奨の理由: A7 は製造リリース前で、評価がない。試作ルートの承認とリリースは別の承認。
 - 出典: `engineering/a7/procurement/assembly-manifest.json` 引用「"manufacturing_released": false」
 
-### 14. 版に結び付いた製造リリースと発注を承認しますか。
+### 15. 版に結び付いた製造リリースと発注を承認しますか。
 
 - ゲート: `manufacturing_release`（製造リリースのとき）
 - **すべての手順と書類がそろった後に承認する（推奨）**: 最後の 1 回だけ判断すればよい。
@@ -167,18 +176,16 @@ readiness（`engineering/a7/qualification/readiness.json`）は不足を 49 個�
 
 - **最初の発注数量をいくつにしますか。** → 2 台分（オーナー報告の JLC PCBA 最小、未確認）（オーナーの回答、`assembly:order-quantity`）。原文「JLCPCB accept at least 2 PCBA, so we will make 2 units first」、記録 `engineering/a7/procurement/owner-decisions.json`
 
-## 資料・回答待ちのゲート（14 件）
+## 資料・回答待ちのゲート（13 件）
 
-ブラウザで保存してほしい資料は 5 件です。保存したファイルをそのまま渡してもらえれば、こちらで出典として記録します。それ以外は、クラウドで取得できるもの、供給元の回答、2 台分の日付付き供給観測、実物の測定です。
+ブラウザで保存してほしい資料は 2 件です。保存したファイルをそのまま渡してもらえれば、こちらで出典として記録します。それ以外は、クラウドで取得できるもの、供給元の回答、2 台分の日付付き供給観測、実物の測定です。
 
 | ゲート | 入手の方法 | 何を | 必要な値 | URL | 代替 URL | 補足 |
 |---|---|---|---|---|---|---|
-| `assembly:exact-part-evidence` | オーナーがブラウザで保存 | Nexperia PMEG4010CEJ の注文情報（,115 の包装） | ,115 が何の包装（リール寸法・数量）か | [開く](https://www.nexperia.com/product/PMEG4010CEJ) | [開く](https://assets.nexperia.com/documents/packing-information/SOD323F_115.pdf) | クラウドから 403 |
-| `assembly:exact-part-evidence` | オーナーがブラウザで保存 | JST SH コネクタのカタログ（SM04B-SRSS-TB） | No. 1 以外の回路番号の位置 | [開く](https://www.jst-mfg.com/product/pdf/eng/eSH.pdf) | [開く](https://www.jst-mfg.com/product/detail_e.php?series=231) | クラウドから 403 |
-| `assembly:exact-part-evidence` | オーナーがブラウザで保存 | SOFNG PJ-324M の製品ページの図面 | 推奨穴・スロット寸法、軸の高さ、ナット付属の有無 | [開く](https://www.sofng.com/Earphonesocket/2023/0325/1752.html) | [開く](https://www.lcsc.com/product-detail/C22355739.html) | 図面画像はクラウドから取得済み。推奨穴寸法は画像に無い |
+| `assembly:exact-part-evidence` | 供給元・加工先の回答、実物の測定、オーナーがブラウザで保存 | JST SH コネクタのカタログ（SM04B-SRSS-TB） | No. 1 以外の回路番号の位置 | [開く](https://www.jst-mfg.com/product/pdf/eng/eSH.pdf) | [開く](https://www.jst-mfg.com/product/detail_e.php?series=231) | クラウドから 403。2026-11-12 にオーナーが送った eSH.pdf は記録済みと同じバイト列で、No. 1 の位置しか示さない。カタログ以外の資料（SM04B-SRSS-TB 単品の図面）か、購入品の目視で決める |
+| `assembly:exact-part-evidence` | 供給元・加工先の回答、実物の測定、オーナーがブラウザで保存 | SOFNG PJ-324M の製品ページの図面 | 推奨穴・スロット寸法、軸の高さ、ナット付属の有無 | [開く](https://www.sofng.com/Earphonesocket/2023/0325/1752.html) | [開く](https://www.lcsc.com/product-detail/C22355739.html) | 図面画像は記録済み（2026-11-12 にオーナーが送った画像も同じ内容）。推奨穴寸法・軸の高さ・ナットの有無は画像に無いので、供給元への質問 Q1/Q3/Q4 か購入品の実測で決める |
 | `criterion:jack-dimensions` | オーナーがブラウザで保存、供給元・加工先の回答、実物の測定 | SOFNG PJ-324M の公差付き図面と推奨基板寸法 | 各寸法の公差、推奨穴、適合ナット | [開く](https://www.sofng.com/Earphonesocket/2023/0325/1752.html) | [開く](https://www.lcsc.com/product-detail/C22355739.html) | 見つからなければ供給元への質問 Q1/Q3/Q4、または購入ロットの実測で決める |
-| `criterion:switch-fit` | オーナーがブラウザで保存、実物の測定 | C&K PCM シリーズのデータシート（Littelfuse） | 本体とペグの基準寸法の公差 | [開く](https://www.littelfuse.com/assetdocs/littelfuse-ck-slide-pcm-series-datasheet?assetguid=d2f6a96c-7a9a-4c4e-a5aa-4fe3075dffe5) | — | クラウドから 403。接触抵抗（3.3 V / 10 kΩ 負荷）は実部品の測定 |
-| `criterion:partial-rails` | オーナーがブラウザで保存 | STM32G031x4/x6/x8 データシート（DS12992） | I/O の注入電流と絶対最大定格 | [開く](https://www.st.com/resource/en/datasheet/stm32g031f8.pdf) | [開く](https://www.st.com/en/microcontrollers-microprocessors/stm32g031g8.html) | クラウドからは応答なし |
+| `criterion:switch-fit` | 供給元・加工先の回答、実物の測定 | C&K PCM シリーズのデータシート（Littelfuse） | 本体とペグの基準寸法の公差 | [開く](https://www.littelfuse.com/assetdocs/littelfuse-ck-slide-pcm-series-datasheet?assetguid=d2f6a96c-7a9a-4c4e-a5aa-4fe3075dffe5) | — | Littelfuse のデータシート（Revised VL 03/14/25）は取得済みで、2026-11-12 にオーナーが送ったものも同じバイト列。本体とペグの寸法には公差の記載がない（公差はテープ寸法だけ）。C&K への質問か、購入品の実測で決める。接触抵抗（3.3 V / 10 kΩ 負荷）は実部品の測定 |
 | `assembly:supply-observations` | 日付付きの供給観測 | 2 台分の、部品ごとの JLC 在庫・価格・最小購入数・納期 | 各行が JLC 在庫で 2 台分（必要数は assembly-manifest.json の order_plan.lines）入手できるか（日付付き）。JLC のロス分（attrition）の規則も | [開く](https://jlcpcb.com/partdetail/SOFNG-PJ324M/C22355739) | — | JLC の部品ページを日付付きで保存する（URL は例）。JLC 在庫になければ予約注文または Global Sourcing、それ以外は例外として記録 |
 | `assembly:mechanical-materials` | 供給元・加工先の回答 | PMMA 板・PETG 加工先の公差と、ねじの注文型番 | 板厚・ポケット深さの公差、PETG の造形条件、M2×18 / M1.6×4 の型番 | — | — | supplier-questions.md の「PMMA・PETG・組立」を加工先に送って回答を保存する |
 | `criterion:pmma-supports` | 供給元・加工先の回答 | PMMA/PETG 加工先の加工公差と許容締付トルク | 締付トルクと保持荷重の合否値 | — | — | 上と同じ質問の回答 |
@@ -222,7 +229,7 @@ readiness（`engineering/a7/qualification/readiness.json`）は不足を 49 個�
 |---|---|---|
 | O0 | 供給元の symbol は端子 5 を tip としており、基板の推定対応（端子 4 = tip）と矛盾する。symbol の読みだけでは欠陥とは言えないので、ピン対応と銅箔は変更していない。実物の PJ-324M を TS / TRS プラグで導通試験し（jack-continuity の手順 5）、どちらが tip 接点でどちらがその normal かを記録する。PCB 発注の前提条件。 | `run:jack-continuity`（BLOCKED）、`criterion:jack-continuity`（解除済み）、`assembly:jack-switch-qualification`（BLOCKED） |
 | O3 | `engineering/a7/qualification/supplier-questions.md` は未送信の下書き。送信と回答の保存（取得日・送信先・raw・ハッシュ）はオーナーだけが行える。 | `assembly:supply-observations`（BLOCKED）、`assembly:mechanical-materials`（BLOCKED）、`criterion:jack-dimensions`（BLOCKED）、`criterion:switch-fit`（BLOCKED）、`criterion:pmma-supports`（BLOCKED）、`criterion:ldo-reverse`（BLOCKED）、`criterion:effective-capacitance`（BLOCKED）、`material:jack`（BLOCKED）、`material:switch`（BLOCKED）、`material:finished_cables`（BLOCKED）、`material:pmma_petg_hardware`（BLOCKED）、`material:fixture`（BLOCKED）、`material:assembly_service`（BLOCKED） |
-| O7 | 導出した受入値（power-current / startup-reset / u7-stress）と、PROPOSED の提案値（見え方・温度、挿抜力と回数、短絡、CV の誤差とノイズ、レール崩壊、ジャック導通）を採るか決める。採った値はレビュー記録に残す。提案値のままではゲートは解除されない。 | `criterion:thermal-optical`（BLOCKED）、`criterion:service-envelope`（BLOCKED）、`criterion:load-short`（解除済み）、`criterion:cv-noise`（解除済み）、`criterion:rail-collapse`（解除済み）、`criterion:jack-continuity`（解除済み）、`criterion:cv-thru-calibration`（解除済み）、`criterion:power-current`（解除済み）、`criterion:startup-reset`（解除済み）、`criterion:u7-stress`（BLOCKED） |
+| O7 | 導出した受入値（power-current / startup-reset / u7-stress）と、PROPOSED の提案値（見え方・温度、挿抜力と回数、短絡、CV の誤差とノイズ、レール崩壊、ジャック導通）と、部分電源試験を部品の絶対最大で判定する案（partial-rails）を採るか決める。採った値はレビュー記録に残す。提案値のままではゲートは解除されない。 | `criterion:thermal-optical`（BLOCKED）、`criterion:service-envelope`（BLOCKED）、`criterion:load-short`（解除済み）、`criterion:cv-noise`（解除済み）、`criterion:rail-collapse`（解除済み）、`criterion:jack-continuity`（解除済み）、`criterion:cv-thru-calibration`（解除済み）、`criterion:power-current`（解除済み）、`criterion:startup-reset`（解除済み）、`criterion:u7-stress`（BLOCKED）、`criterion:partial-rails`（BLOCKED） |
 | O8 | **矛盾:** データシート V1.4 の T1L は 580–1000 ns、現行 FW の T1L は計算上 約 340–361 ns（FW の設計範囲 220–420 ns）。提案値（t1l-min / t1l-max = 580 / 1000 ns）を採ると現行 FW は不合格になるので、#13 が開いている間は採らない（コーディネーター判断）。メーカー訂正を待つか、Worldsemi を名乗る #13 のコメント（T1L は合否の基準にしない。未確認）を公式窓口の書面で確認して採るか、購入ロットの実測で別レビューするか、FW を直すかをオーナーが決める。 | `criterion:firmware-waveforms`（BLOCKED） |
 | O4 | JLC で取り寄せる（予約注文、できなければ Global Sourcing）、入荷を待つ、または接点表と適合を別にレビューした代替品を認める（Q10）。予約注文が今できるかは JLC アカウントで確かめる。 | `assembly:switch-supply`（BLOCKED） |
 | O12 | 3 枚の基板はどれも JLC の単品 PCBA の最小寸法に届かないので面付けで注文する（`project/jlc-order-package` に基板ごとの比較。経路は `assembly:panel-route` の判断）。JLC の公開資料では決まらない点を、注文画面のプレビューか JLC サポートで確かめる。質問 1: 「With Panel by JLCPCB, does the PCBA Qty count panels or single boards, and does one panel holding 2 or more boards meet the 2-pcs PCBA minimum, or must 2 panels be assembled?」 質問 2: 「Will you assemble a customer panel that holds a single board inside a waste frame, and can individual boards on a panel be left unassembled?」 質問 3（JLC に面付けを任せる場合）: LED リーフの外形には 1 × 2 mm の切り欠きが 2 つある。この外形で Panel by JLCPCB を受けてもらえるか。電源アダプタは Economic 実装のまま Panel by JLCPCB をマウスバイトで作れるか。コントローラーの J1/J2 は外形から 4.45 mm はみ出すが、その逃げを取ってもらえるか。答えは日付・相手・原文を残して `engineering/a7/jlc-package/sources.json` に記録する。 | `material:assembly_service`（BLOCKED）、`assembly:panel-route`（BLOCKED） |
