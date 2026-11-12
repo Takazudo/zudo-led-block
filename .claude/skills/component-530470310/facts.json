@@ -89,6 +89,20 @@
       "verdict": "UNSOURCED",
       "depends_on": [],
       "expression": ""
+    },
+    {
+      "fact_id": "fact-530470310-tail-length",
+      "record_id": "rec-molex-530470310",
+      "source_id": "src-530470310-sd",
+      "class": "PROJECT_STATE",
+      "value": 2.3,
+      "unit": "mm",
+      "conditions": "terminal tail length from the housing bottom face (seating plane) to the tail tip, tolerance +/-0.5 mm (1.8 to 2.8 mm); total length, not protrusion below the board: on a 1.6 mm board it leaves 0.7 mm nominal (0.2 to 1.2 mm) below the B face, board-thickness tolerance not sourced; the recommended PCB hole is stated for t=0.8",
+      "locator": "src-530470310-sd: figure SECTION X-X horizontal dimension 2.3 +/-0.5 (sheet 1 zone E-F)",
+      "provenance": "PRIMARY-SPEC",
+      "verdict": "PASS - primary-source confirmed",
+      "depends_on": [],
+      "expression": ""
     }
   ]
 }
