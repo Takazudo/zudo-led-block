@@ -3,7 +3,7 @@
 Workflow F (`circuit/WORKFLOW.md`) の小さなプロジェクト専用記録です。現在、実機、測定、製造承認、発注はありません。
 
 - `plan.json`: 手書きの手順と未決の判定基準。受入値は既存の部品 fact と設計記録からの引用だけで、新しい仮定は追加していません（引用元が仮定としている値は ASSUMED と表示します）。
-- `records.json`: 実施記録の追記先。`runs` はまだ空です。`owner_prototype_route` にはオーナーの試作ルート承認（2026-11-12、HX 版は 2026-11-13 に再承認、`approvals/`）を識別付きで記録しています。識別のどれかが変わると readiness はこの承認を現在の版に効かないものとして止めます（2026-11-13 に #80 で `assembly-manifest.json` が変わった）。試験結果を入力する前に根拠付き基準をレビューします。
+- `records.json`: 実施記録の追記先。`runs` はまだ空です。`owner_prototype_route` にはオーナーの試作ルート承認（2026-11-12、HX 版は 2026-11-13 に再承認、#80 で `assembly-manifest.json` が変わった版も同日に再承認、`approvals/`）を識別付きで記録しています。識別のどれかが変わると readiness はこの承認を現在の版に効かないものとして止めます。試験結果を入力する前に根拠付き基準をレビューします。
 - `run-template.json`: 未実施テンプレート。コピー先でunit/基板/実装/FW/設定、計器、条件、raw、結果と次の行動を埋めます。
 - `readiness.json`, `procedures.md`, `run-templates/<手順ID>.json`, `doc/src/content/docs/project/order-checklist.mdx`: `python3 scripts/a7_readiness.py` の生成物。手編集しません。
 - `plan.json` の各手順は inputs / tools / preconditions / steps / record / acceptance を持ちます。acceptance の値は `source`（部品 fact の `fact_id`、JSON の `pointer`、文書の `quote`）と一致しなければならず、確度は出典の記載を超えられません（部品 fact の provenance と verdict、JSON 記録で値の隣にある確度、引用行の ASSUMED / INFERRED）。出典は部品 fact（`fact_id` だけ）と設計記録（`engineering/a7/` の mechanical / study / electronics / verification と README、`engineering/a5/`）に限り、この計画や生成物は引用できません。`bound`（exact / min / min_exclusive / max / range / reference）は人が出典を読んで付けた比較の向きで、自動照合はしていません。ASSUMED / INFERRED は `confidence_trace` でその記載を示します。出典のない合否値は `UNRESOLVED` とし、`decided_by` に決める主体を書きます。外部の証跡待ちの手順では、さらに `supplied_by`（資料 / 測定 / 両方と、その中身）で何がその値を与えるかを書きます。
@@ -29,7 +29,7 @@ Workflow F (`circuit/WORKFLOW.md`) の小さなプロジェクト専用記録で
 
 オーナーが明示する必要があるのは、**評価用サンプル/統合試作を入手する限定ルート**です。対象版と数量、入手する部品/基板/治具、許す工程、未解決事項、実施者、試験前安全条件、製造リリースとは異なる承認範囲を記録してください。既存 #10 の条件に例外が必要なら、オーナーが明示してレビューする必要があり、現在のコードは例外を推定しません。承認後も通常の製造リリース・発注には別の明示承認が必要です。
 
-2026-11-12 にオーナーがこのルートを承認し、SW1 を HX MSK13C02 にした版を 2026-11-13 に再承認しました（`approvals/2026-11-13-owner-prototype-route-hx-switch.md`、PR #79）。試作のための日付付き注文ファイルは `../jlc-package/order/2026-11-13/` にあります（CI のレビュー補助 Gerber とは別に、`a7_panel.py build` で作り照合したもの）。どちらも発注・製造リリースではありません。
+2026-11-12 にオーナーがこのルートを承認し、SW1 を HX MSK13C02 にした版を 2026-11-13 に再承認しました（`approvals/2026-11-13-owner-prototype-route-hx-switch.md`、PR #79）。#80 で調達台帳が変わった版（`557d5e48…`）も同日に再承認しています（`approvals/2026-11-13-owner-prototype-route-sourcing-manifest.md`）。試作のための日付付き注文ファイルは `../jlc-package/order/2026-11-13/` にあります（CI のレビュー補助 Gerber とは別に、`a7_panel.py build` で作り照合したもの）。どちらも発注・製造リリースではありません。
 
 `owner_prototype_route` はscope/quantity/constraints、identities、approval(path/hash)を記録します。`manufacturing_release` はidentities、approval(path/hash)、reviewed_order_files(path/hash)を必要とします。NOT-A-RELEASE のレビュー用Gerberや省略された `.gbrjob` を注文用に転用しません。
 
