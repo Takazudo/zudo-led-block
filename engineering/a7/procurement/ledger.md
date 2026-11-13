@@ -2,9 +2,9 @@
 
 自動生成。**製造承認・発注用ファイルではありません。** SW1 はオーナーの方針（動けばよい・安く・JLC 在庫あり）により 2026-11-12 に PCM13SMTR（C221842）から HX MSK13C02（C5149819）へ変更しました。PCM13SMTR は現在の実装部品ではなく、その観測は履歴として残すだけです。
 
-実装する 30 型番すべてについて、2026-11-12 の JLC 掲載情報を保存しています（`engineering/a7/procurement/sourcing-projection.json`）。部品ページの記録（2026-11-12T10:35:07Z〜2026-11-12T19:56:55Z、SHA-256 のみ保存）と、その後の部品 API による価格点検（2026-11-12T19:09:52Z、行を再整形・raw なし）は別々の読み取りで、同時点のスナップショットではありません（在庫の数字が 25 型番で異なります）。Basic 14 / Extended 16。項目の意味と通貨（USD）はこちらの解釈です。**現在の在庫・見積・在庫確保・実装受入ではありません。** 納期・確定見積・在庫確保・実装受入はどの型番も未取得です。発注前に取り直してください。
+実装する 30 型番すべてについて、2026-11-12 の JLC 掲載情報を保存しています（`engineering/a7/procurement/sourcing-projection.json`）。部品ページの記録（2026-11-12T10:35:07Z〜2026-11-12T19:56:55Z、SHA-256 のみ保存）と、部品 API による価格点検（2026-11-12T19:09:52Z、行を再整形・raw なし）は別々の読み取りで、同時点のスナップショットではありません（在庫の数字が 25 型番で異なります）。Basic 14 / Extended 16。項目の意味と通貨（USD）はこちらの解釈です。**現在の在庫・見積・在庫確保・実装受入ではありません。** 納期・確定見積・在庫確保・実装受入はどの型番も未取得です。発注前に取り直してください。
 
-台帳 SHA-256: `ea30c8a71c8a0d2f2d4eae0e6302881c6bb9067902d6d8b21254c5f4d1725755`。71 配置 / 81 実装点 / 台。
+台帳 SHA-256: `557d5e48045b60bb4a8f91dc55f9fae2988d4494082c42532679032da2c8502c`。71 配置 / 81 実装点 / 台。
 
 ## 最初の発注数量: 2 台（オーナーの判断）
 
@@ -61,7 +61,7 @@
 
 | ID | 区分 | 内容 |
 |---|---|---|
-| supply-observations | ACCESS_EVIDENCE_HOLD | Order quantity is 2 modules (owner decision), 162 fitted pieces before attrition. 30 of 30 fitted identities have dated 2026-11-12 JLC listing observations from both the rendered part pages and the later parts-API audit (separate reads, raw bytes not committed, field meanings and currency inferred; engineering/a7/procurement/sourcing-projection.json). Not obtained for any line: lead time, confirmed quote, stock reservation and assembly acceptance. JLC attrition is not sourced as a rule; the audit's buy quantities are our inference. Refresh before ordering. |
+| supply-observations | ACCESS_EVIDENCE_HOLD | Order quantity is 2 modules (owner decision), 162 fitted pieces before attrition. 30 of 30 fitted identities have dated 2026-11-12 JLC listing observations from both the rendered part pages and the parts-API audit (separate reads, raw bytes not committed, field meanings and currency inferred; engineering/a7/procurement/sourcing-projection.json). Not obtained for any line: lead time, confirmed quote, stock reservation and assembly acceptance. JLC attrition is not sourced as a rule; the audit's buy quantities are our inference. Refresh before ordering. |
 | jack-switch-qualification | PHYSICAL_ONLY | PJ-324M pin function (which of terminals 4/5 is the tip contact; the supplier symbol contradicts the inferred 4 = tip) is not confirmed: the owner waived the pre-order continuity test on 2026-11-12 and accepted the risk, so it is a first-article check on the assembled boards. Slot, axis height and nut fit, and the HX MSK13C02 truth table and land/peg fit, also need received parts (jack-continuity, jack-dimensions, switch-fit). |
 | exact-part-evidence | ACCESS_EVIDENCE_HOLD | Exact-part gaps after the 2026-11-11 source recovery (the PMEG4010CEJ ,115 packing is since sourced: SOD323F on a 7-inch reel, fact-pmeg4010cej-115-orderable): SM04B-SRSS-TB per-circuit numbering not printed beyond the No. 1 end; PJ-324M recommended hole/slot sizes, axis height and whether a nut ships with C22355739 not sourced. |
 | mechanical-materials | ACCESS_EVIDENCE_HOLD | PMMA sheet and pocket tolerances, PETG process and orderable fastener part numbers are not sourced; the model carries designations (M2x18, M1.6x4) and envelopes only. |

@@ -59,14 +59,14 @@ A5 の部品証跡カタログ (30 型番) は PR #21 で入りました。メ�
 |---|---|---|---|
 | 1 | `ec810aec…74f2` | PR #30 (`eb8adeb`) | 最初の配置・配線。独立レビューで承認。非ブロッキングの改善 4 項目が残った |
 | 2 | `4453f818…628e` (履歴) | PR #37 (`edf98c2`、head `ae5aa3c`) | 改善 4 項目を反映し、PTH–配線間 0.35 mm の規則を追加。独立した再レビューでブロッキングの指摘なし |
-| 2、SW1 の部品欄 (現在) | `89310d53…e727` | #77 | SW1 の MPN / LCSC を HX MSK13C02 / C5149819 に変更。フットプリント・銅パターン・配置は同じ。ゲート `PASS` ([CI run 43294571723](https://github.com/Takazudo/zudo-led-block/actions/runs/43294571723)、`8e71317`) |
+| 2、SW1 の部品欄 (現在) | `89310d53…e727` | #77 | SW1 の MPN / LCSC を HX MSK13C02 / C5149819 に変更。フットプリント・銅パターン・配置は同じ。[CI run 43294571723](https://github.com/Takazudo/zudo-led-block/actions/runs/43294571723) (`8e71317`) の基板ゲートの手順は `PASS` (その実行は後の JLC 出力の手順で失敗) |
 
 ### 現在の基板 (リビジョン 2、SW1 = HX MSK13C02)
 
 | 項目 | 内容 |
 |---|---|
 | 基板 | `engineering/a7/electronics/controller/controller.kicad_pcb` (SHA-256 `89310d53…e727`。リビジョン 2 として入った時点は `4453f818…628e`)。外形 16.2 × 62.9 mm、4 層 1.6 mm。In1 は GND のベタ、F・In2・B にも GND の塗りつぶし。B 面は 0603 抵抗とテストパッドだけ |
-| ゲート | ピン留めの KiCad 10.0.8 で新規実行して **`PASS`**: ERC 0、回路図–基板パリティ 0、DRC 0、未接続 0、ゾーン再充填が一致、再生成で基板が変わらない、振る舞いアサーションと差分チェックに失敗なし、負の対照 (経路の切断・誤接続・塗りつぶしのずれ・PTH–配線・タイムアウトなど) をすべて検出。CI の実行: 現在の基板は [`8e71317`](https://github.com/Takazudo/zudo-led-block/actions/runs/43294571723)。リビジョン 2 (`4453f818…`) は [PR #37 の head `ae5aa3c`](https://github.com/Takazudo/zudo-led-block/actions/runs/42503602665)、[`main` の `edf98c2`](https://github.com/Takazudo/zudo-led-block/actions/runs/42503992506)、[`main` の `8bd064b`](https://github.com/Takazudo/zudo-led-block/actions/runs/42504705390)、[`main` の `355999a`](https://github.com/Takazudo/zudo-led-block/actions/runs/42507029674) |
+| ゲート | ピン留めの KiCad 10.0.8 で新規実行して **`PASS`**: ERC 0、回路図–基板パリティ 0、DRC 0、未接続 0、ゾーン再充填が一致、再生成で基板が変わらない、振る舞いアサーションと差分チェックに失敗なし、負の対照 (経路の切断・誤接続・塗りつぶしのずれ・PTH–配線・タイムアウトなど) をすべて検出。CI の実行: 現在の基板は [`8e71317`](https://github.com/Takazudo/zudo-led-block/actions/runs/43294571723) の基板ゲートの手順 (実行全体は後の手順で失敗)。リビジョン 2 (`4453f818…`) は [PR #37 の head `ae5aa3c`](https://github.com/Takazudo/zudo-led-block/actions/runs/42503602665)、[`main` の `edf98c2`](https://github.com/Takazudo/zudo-led-block/actions/runs/42503992506)、[`main` の `8bd064b`](https://github.com/Takazudo/zudo-led-block/actions/runs/42504705390)、[`main` の `355999a`](https://github.com/Takazudo/zudo-led-block/actions/runs/42507029674) |
 | 設計ルールの差分 | ビアを 0.6 / 0.3 mm から 0.5 / 0.2 mm に変更し、それに合わせて基板全体の最小スルーホール径も 0.3 mm から 0.2 mm に下げた (MCU U1 の QFN28 と U5 の VSSOP-8 の引き出しのため)。根拠は JLCPCB の公開能力 (多層で最小 0.15 mm 穴 / 0.25 mm 径、推奨最小穴 0.2 mm) で、`engineering/a7/verification/fab/jlcpcb_capabilities.json` に URL・取得時のハッシュ・引用した行を記録。`native_gate.json` の `design_rule_delta` に理由と証拠を記録。配線幅・クリアランス・アニュラーリング 0.15 mm・層数は A5 のまま |
 | PTH–配線の規則 (リビジョン 2 で追加) | 厳しくする方向だけのカスタム規則 `a7_pth_to_track` (`controller.kicad_dru`): スルーホールの穴から他ネットの配線まで **0.35 mm** 以上 (JLCPCB の推奨値。最小は 0.28 mm)。負の対照 `control_pth_to_track` が穴から 0.32 mm の配線を足し、この規則名で検出されることを毎回確かめる。現在の基板の最小値は 0.386 mm |
 | コートヤードの比較 | KiCad の内部単位 (1 nm) に丸めて比較。必要な隙間は 0 mm のままで、緩めていない |

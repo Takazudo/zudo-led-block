@@ -15,14 +15,14 @@ approval, fit approval, electrical result or manufacturing approval, and a green
 
 Each stage below is taken from an existing record; this list does not add a gate or change `--gate`.
 
-1. **Digital implementation: complete.** Schematic, routed board `89310d53…e727` (CI run 43294571723), mechanical model,
+1. **Digital implementation: complete.** Schematic, routed board `89310d53…e727` (board-gate step PASS in CI run 43294571723; that run failed in a later export step), mechanical model,
    and the fixture's digital criteria 1–4 with fresh native verification (`fixture/manifest.json`). #16–#19 are closed.
 2. **Test-prototype route: approved by the owner, now held by its binding.** Approved 2026-11-12 and re-approved for the
    HX version on 2026-11-13 (PR #79, `qualification/approvals/2026-11-13-owner-prototype-route-hx-switch.md`). The approval
    binds the SHA-256 of board, population, schematic, firmware, configuration, mechanical layout, fixture manifest and
    assembly manifest (`qualification/records.json` → `owner_prototype_route.identities`). The sourcing reconciliation (#80)
-   changed `procurement/assembly-manifest.json` from `c12c964a…e865` to `ea30c8a7…5755` (sourcing observation fields and the
-   supply-blocker text only; no part, quantity, board or placement change), so readiness shows the `owner_prototype_route`
+   changed `procurement/assembly-manifest.json` from `c12c964a…e865` to `557d5e48…502c` (sourcing fields only:
+   order_plan line fields and attrition text, population sourcing pointers, the supply-blocker text and three added input hashes; no part, quantity, board or placement change), so readiness shows the `owner_prototype_route`
    gate again. The approval record is unchanged; re-approving the new identity set is an owner action.
 3. **Panel exports: prepared and verified.** Own repo panels (owner decision `panel-route`). Dated set
    `jlc-package/order/2026-11-13/` exported from `db0ca95` with KiCad 10.0.8: one Gerber zip, BOM and CPL per board type and
@@ -45,11 +45,11 @@ Upload lifecycle: files directly under `jlc-package/` and in `jlc-package/panels
 uploaded. The dated `order/<date>/` copy is what the owner uploads for the approved prototype route. Neither is a release.
 
 Sourcing: all 30 fitted identities have dated 2026-11-12 JLC listing observations (`procurement/sourcing-projection.json`):
-rendered part pages (10:35–19:56Z) and a later parts-API audit (19:09:52Z), separate reads that disagree on stock for 25
+rendered part pages (10:35–19:56Z) and the parts-API audit (19:09:52Z; the C5149819 row 19:35:14Z), separate reads that disagree on stock for 25
 lines. Field meanings, currency and buy quantities are our inference. Lead time, confirmed quote, stock reservation and
 assembly acceptance are not obtained for any line. PCM13SMTR (C221842) is retired evidence only.
 
-Optional 2HP, transparent PET and hosting (#11/#12) do not block the FR-4 prototype order.
+Optional 2HP, transparent PET, hosting (#11) and the agent-page publication decision (#12) do not block the FR-4 prototype order.
 
 History: the 2026-11-09 preparation package (E1 board/export binding, E2 exact-part sources, E3 fixture study, at that
 date carrier-only, E4 procurement ledger, E5 BLOCKED readiness and blank procedures) is integrated into main through PR #44 (2026-11-11).
@@ -116,7 +116,7 @@ retrieved.
 | 2, SW1 part fields (current) | `89310d539b3c28096775cee821e46c14fdba42a87809c82f1fd7f0751704e727` | #77 | SW1 MPN / LCSC properties changed to HX MSK13C02 / C5149819; footprint, copper and placement unchanged | board gate PASS in CI run 43294571723 on `8e71317`; independent review on the #77 PR |
 
 - **Current board (revision 2 + SW1 part fields).** `electronics/controller/controller.kicad_pcb` (`89310d53…e727`),
-  16.2 × 62.9 mm, 4 layers, 1.6 mm, In1 solid GND. Fresh KiCad 10.0.8 gate PASS on it in CI run 43294571723 (`8e71317`).
+  16.2 × 62.9 mm, 4 layers, 1.6 mm, In1 solid GND. Fresh KiCad 10.0.8 board-gate step PASS on it in CI run 43294571723 (`8e71317`; the run itself failed later in the JLC export step).
   Historical: revision 2 as merged (`4453f818…628e`) passed in run 42503602665 on `ae5aa3c` (main runs 42503992506 on
   `edf98c2` and 42504705390 on `8bd064b`): ERC 0, parity 0, DRC 0, unconnected 0, zone refill identical, regeneration
   preserves the board, every negative control detected.

@@ -58,8 +58,8 @@ Regenerate: `python3 scripts/a7_panel.py build --out <empty dir outside the repo
 ## Later note (2026-11-13, after #80; the export above is unchanged)
 
 The files and hashes above are unchanged. The sourcing reconciliation (#80) changed
-`engineering/a7/procurement/assembly-manifest.json` from `c12c964a…e865` to `ea30c8a7…5755` (sourcing observation fields
-and the supply-blocker text only: no part, quantity, board or placement change; the panel BOM/CPL here still equal
+`engineering/a7/procurement/assembly-manifest.json` from `c12c964a…e865` to `557d5e48…502c` (sourcing fields only: order_plan line fields
+and attrition text, population sourcing pointers, the supply-blocker text and three added input hashes; no part, quantity, board or placement change; the panel BOM/CPL here still equal
 `engineering/a7/jlc-package/panels/` byte for byte). The owner's prototype-route approval is bound to the old manifest
 digest, so `readiness.json` shows the `owner_prototype_route` gate again until the owner re-approves the current identity
 set. The approval record itself is unchanged. The stage-by-stage state is at the top of

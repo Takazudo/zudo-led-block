@@ -338,7 +338,7 @@ def build(root=ROOT):
  blockers = [dict(b, text=supply_text(projection)) if b['id'] == 'supply-observations' else b for b in blockers]
  return {'schema':1,'revision':'A7-r2-3HP-FR4','status':'ENGINEERING_PREPARATION_NOT_SUPPLIER_UPLOAD',
   'manufacturing_released':False,'order_submitted':False,'agreed_order_quantity':modules,
-  'order_plan':order_plan(root, decision, listing, boards, rows, projection),
+  'order_plan':order_plan(root, decision, boards, rows, projection),
   'inputs_sha256':{p:sha(root,p) for p in sorted(set(inputs))},'boards':boards,'population':rows,'excluded':excluded,
   'fitted_unique_placements':sum(r['quantity_per_board'] for r in rows),'fitted_pieces_per_module':sum(r['quantity_per_module'] for r in rows),
   'external_materials':external,'fixture_materials_per_fixture_not_per_module':fixture,
@@ -349,7 +349,7 @@ def build(root=ROOT):
   'blockers':blockers}, projection
 
 
-def order_plan(root, decision, listing, boards, rows, projection):
+def order_plan(root, decision, boards, rows, projection):
  modules, minimum = decision['modules'], decision['basis']['pcba_minimum_boards']
  order_lines = []
  for l in projection['lines']:
@@ -439,6 +439,10 @@ def sourcing_projection(root, rows, modules):
    check_identity(root, lcsc, ident, row['mpn'], row['manufacturer'], PRICE_AUDIT)
    if row['pieces_required'] != required:
     raise ValueError(f'{lcsc}: audit pieces_required {row["pieces_required"]} differs from the ledger {required} (quantity semantics changed)')
+   # The audit's own stated rule, recomputed so a copied buy quantity or cost cannot drift from it.
+   if row['pieces_to_buy'] != max(required + row['loss_number'], row['least_patch_number'], row['min_purchase']) \
+      or abs(row['line_cost'] - row['pieces_to_buy'] * row['unit_price']) > 1e-6:
+    raise ValueError(f'{lcsc}: audit pieces_to_buy or line_cost does not follow its cost_rule')
    # A row is either from the audit's own API read (no raw digest) or reused from a hash-bound supply receipt of the same time.
    reused = [o for o in receipts.get(lcsc, []) if o['retrieved_at'] == row['retrieved_at'] and o.get('raw_sha256')]
    if row['retrieved_at'] != api_time and len(reused) != 1:
@@ -496,7 +500,7 @@ def supply_text(projection):
  n, gaps = projection['active_identities'], projection['gaps']
  both = n - len(set(gaps['listing_page']) | set(gaps['parts_api']))
  text = (f"Order quantity is {projection['modules']} modules (owner decision), {projection['pieces_required_total']} fitted pieces before attrition. "
-         f"{both} of {n} fitted identities have dated {projection['observation_date']} JLC listing observations from both the rendered part pages and the later parts-API audit "
+         f"{both} of {n} fitted identities have dated {projection['observation_date']} JLC listing observations from both the rendered part pages and the parts-API audit "
          f"(separate reads, raw bytes not committed, field meanings and currency inferred; {PROJECTION}).")
  for k, label in (('listing_page', 'rendered-page receipt'), ('parts_api', 'parts-API row')):
   if gaps[k]:
@@ -542,7 +546,7 @@ def outputs(report, projection):
  op,pj=report['order_plan'],projection
  lib=pj['library_counts']['listing_page']
  md='# A7 調達・組立の準備台帳\n\n自動生成。**製造承認・発注用ファイルではありません。** SW1 はオーナーの方針（動けばよい・安く・JLC 在庫あり）により 2026-11-12 に PCM13SMTR（C221842）から HX MSK13C02（C5149819）へ変更しました。PCM13SMTR は現在の実装部品ではなく、その観測は履歴として残すだけです。\n\n'
- md+=f"実装する {pj['active_identities']} 型番すべてについて、{pj['observation_date']} の JLC 掲載情報を保存しています（`{PROJECTION}`）。部品ページの記録（{pj['sources']['listing_pages']['observed_between'][0]}〜{pj['sources']['listing_pages']['observed_between'][1]}、SHA-256 のみ保存）と、その後の部品 API による価格点検（{pj['sources']['parts_api']['observed_at']}、行を再整形・raw なし）は別々の読み取りで、同時点のスナップショットではありません（在庫の数字が {len(pj['stock_differs_between_reads'])} 型番で異なります）。Basic {lib['BASIC']} / Extended {lib['EXTENDED']}。項目の意味と通貨（USD）はこちらの解釈です。**現在の在庫・見積・在庫確保・実装受入ではありません。** 納期・確定見積・在庫確保・実装受入はどの型番も未取得です。発注前に取り直してください。\n\n"
+ md+=f"実装する {pj['active_identities']} 型番すべてについて、{pj['observation_date']} の JLC 掲載情報を保存しています（`{PROJECTION}`）。部品ページの記録（{pj['sources']['listing_pages']['observed_between'][0]}〜{pj['sources']['listing_pages']['observed_between'][1]}、SHA-256 のみ保存）と、部品 API による価格点検（{pj['sources']['parts_api']['observed_at']}、行を再整形・raw なし）は別々の読み取りで、同時点のスナップショットではありません（在庫の数字が {len(pj['stock_differs_between_reads'])} 型番で異なります）。Basic {lib['BASIC']} / Extended {lib['EXTENDED']}。項目の意味と通貨（USD）はこちらの解釈です。**現在の在庫・見積・在庫確保・実装受入ではありません。** 納期・確定見積・在庫確保・実装受入はどの型番も未取得です。発注前に取り直してください。\n\n"
  md+=f"台帳 SHA-256: `{hashlib.sha256(raw.encode()).hexdigest()}`。{report['fitted_unique_placements']} 配置 / {report['fitted_pieces_per_module']} 実装点 / 台。\n\n"
  md+=f"## 最初の発注数量: {op['modules']} 台（オーナーの判断）\n\nオーナーの言葉: 「{' '.join(op['owner_words'])}」（`{op['decision']}`）。JLC の PCBA 最小 {op['pcba_minimum_boards']['value']} 枚は {op['pcba_minimum_boards']['status']}（{'JLC の公開能力表で確認済み' if op['pcba_minimum_boards']['status']=='SOURCED' else 'JLC の公開条件では未確認'}）。この数量は発注・試作ルート・製造リリースの承認ではありません。\n\n"
  md+="必要枚数: "+'、'.join(f"{b['board']} {b['boards_needed']} 枚" for b in op['boards'])+f"。必要数は実装点数 × {op['modules']} 台で計 {pj['pieces_required_total']} 個（ロス分を含まない）。PCB 製造の最小枚数と JLC のロス分（attrition）の規則は未取得です。下の「購入数（推定）」は価格点検が API の項目（loss_number / least_patch_number / min_purchase、意味はこちらの解釈）から計算した値です。\n\n"
