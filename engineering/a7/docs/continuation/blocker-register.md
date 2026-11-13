@@ -2,6 +2,8 @@
 
 2026-11-09。判断は [decision-register.md](decision-register.md)、exact-head検証と成果identityは [checkpoint](order-preparation-checkpoint.md) を参照してください。以下は合格でも製品判断でもなく、未取得の証跡・未完実装・アクセス条件です。
 
+**2026-11-13 の現状（下の 2026-11-09 の表は履歴として残す）:** B5 の治具はデジタル基準 1–4 と native の新規検証を満たし、提案した金物はオーナーが 2026-11-12 に承認済み（`accept-all-recommendations`）。残るのは FR-4 プレートの加工業者の選定と物理の基準 5。B11 の試作ルートは 2026-11-12 に承認、HX 版を 2026-11-13 に再承認（PR #79）。#80 で `assembly-manifest.json` が `c12c964a…` から `ea30c8a7…` に変わったため、readiness は `owner_prototype_route` を再び止めており、新しい識別での再承認はオーナーの作業。B12 について、日付付きの注文ファイル `jlc-package/order/2026-11-13/` は試作ルートでオーナーがアップロードする写しで、ファイル名の `DRYRUN` はツールの名前のまま（改名していない）。製造リリースではない。下の PJ-324M の「PCB を発注する前に」の導通試験は 2026-11-12 にオーナーが免除し（`jack-tip-test-waiver`）、初品で確認する。免除はピン対応の確認ではない。段階ごとの説明は [continue-here.md](continue-here.md) の冒頭。
+
 | ID | 止まる範囲 / 状態 | 不足・解除条件 | 関連 |
 |---|---|---|---|
 | B1 | E1 merge: 保留 | リポジトリ変数APIはHTTP404。現在のmain mergeが無許可デプロイを起動しないことを、許可された方法で確認する必要。PR runのSKIPだけでは足りない | PR #44 |

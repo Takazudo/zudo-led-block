@@ -12,7 +12,7 @@ A7 は **製造用にリリースしていません**。`main` には A7 の回�
 A7 は [#15](https://github.com/Takazudo/zudo-led-block/issues/15) で追跡している構造変更です。
 作業を引き継ぐときは、リポジトリの [`engineering/a7/docs/continuation/continue-here.md`](https://github.com/Takazudo/zudo-led-block/blob/main/engineering/a7/docs/continuation/continue-here.md) と
 [証跡の一覧 (`evidence-index.md`)](https://github.com/Takazudo/zudo-led-block/blob/main/engineering/a7/docs/continuation/evidence-index.md) を読んでください。
-このページの内容は 2026-11-08 (UTC) 時点の `main` (`355999a`) に合わせています。
+このページの内容は 2026-11-13 (UTC) 時点の `main` (`f4c0627`) と、調達観測・文書の整合 ([#80](https://github.com/Takazudo/zudo-led-block/issues/80)、[#20](https://github.com/Takazudo/zudo-led-block/issues/20)) に合わせています。発注前の段階ごとの状態は [次の作業](/docs/project/next-actions/) の「試作から製造リリースまでの段階」にあります。
 
 ## 版の位置づけ
 
@@ -42,9 +42,9 @@ A7 は [#15](https://github.com/Takazudo/zudo-led-block/issues/15) で追跡し�
 | 作業 | Issue | `main` での状態 |
 |---|---|---|
 | R1 部品と寸法の検討 | [#16](https://github.com/Takazudo/zudo-led-block/issues/16) | **完了** (PR #23)。[A7 部品と寸法の検討](/docs/research/a7-parts-and-dimensions/) |
-| R2 機構モデルと前面アートワーク | [#17](https://github.com/Takazudo/zudo-led-block/issues/17) | **デジタルモデルが `main` に入った** (PR [#25](https://github.com/Takazudo/zudo-led-block/pull/25)、ハーネス経路の修正は PR [#27](https://github.com/Takazudo/zudo-led-block/pull/27)、基板との照合は PR #33 と #38、PET と FR-4 のリーフの比較は PR [#35](https://github.com/Takazudo/zudo-led-block/pull/35))。暫定のデジタル検討で、実測の適合ではない。#17 は開いたまま |
+| R2 機構モデルと前面アートワーク | [#17](https://github.com/Takazudo/zudo-led-block/issues/17) | **デジタルモデルが `main` に入った** (PR [#25](https://github.com/Takazudo/zudo-led-block/pull/25)、ハーネス経路の修正は PR [#27](https://github.com/Takazudo/zudo-led-block/pull/27)、基板との照合は PR #33 と #38、PET と FR-4 のリーフの比較は PR [#35](https://github.com/Takazudo/zudo-led-block/pull/35))。暫定のデジタル検討で、実測の適合ではない。#17 はデジタルの範囲を終えて閉じた (2HP は任意の別検討) |
 | R3 ネイティブ検証の基盤 | [#18](https://github.com/Takazudo/zudo-led-block/issues/18) | **完了** (PR #22)。A7 の基板が無い間、A7 のゲートは `NO_CANDIDATE` で止まっていた。フィクスチャでの合格は検証機構の確認で、A7 基板の合格ではない |
-| R4 回路図・配置・配線 | [#19](https://github.com/Takazudo/zudo-led-block/issues/19) | **回路図と配線済み基板が `main` に入った** (回路図 PR [#24](https://github.com/Takazudo/zudo-led-block/pull/24)、基板リビジョン 1 は PR [#30](https://github.com/Takazudo/zudo-led-block/pull/30) `eb8adeb`、リビジョン 2 は PR [#37](https://github.com/Takazudo/zudo-led-block/pull/37) `edf98c2`)。A7 のゲートは権威基板を `candidate` として `PASS`。独立したレイアウト・電気レビューはどちらのリビジョンも、1 回目で修正を求め、2 回目でブロッキングの指摘なし。デジタル検証だけの結果で、物理評価・製造リリースではない。#19 は開いたまま |
+| R4 回路図・配置・配線 | [#19](https://github.com/Takazudo/zudo-led-block/issues/19) | **回路図と配線済み基板が `main` に入った** (回路図 PR [#24](https://github.com/Takazudo/zudo-led-block/pull/24)、基板リビジョン 1 は PR [#30](https://github.com/Takazudo/zudo-led-block/pull/30) `eb8adeb`、リビジョン 2 は PR [#37](https://github.com/Takazudo/zudo-led-block/pull/37) `edf98c2`)。A7 のゲートは権威基板を `candidate` として `PASS`。独立したレイアウト・電気レビューはどちらのリビジョンも、1 回目で修正を求め、2 回目でブロッキングの指摘なし。SW1 の部品欄を HX MSK13C02 にした現在の基板は #77 (`89310d53…e727`、ゲート `PASS`)。デジタル検証だけの結果で、物理評価・製造リリースではない。#19 はデジタルの範囲を終えて閉じ、物理の確認は #8・#10・#13 で続ける |
 | R5 ドキュメントと引継ぎ | [#20](https://github.com/Takazudo/zudo-led-block/issues/20) | このページ。統合したデジタル結果を反映 |
 
 A5 の部品証跡カタログ (30 型番) は PR #21 で入りました。メーカー資料を取得できなかった項目のため [#9](https://github.com/Takazudo/zudo-led-block/issues/9) は開いたままです。
@@ -58,14 +58,15 @@ A5 の部品証跡カタログ (30 型番) は PR #21 で入りました。メ�
 | リビジョン | 基板 (SHA-256) | `main` へのマージ | 内容 |
 |---|---|---|---|
 | 1 | `ec810aec…74f2` | PR #30 (`eb8adeb`) | 最初の配置・配線。独立レビューで承認。非ブロッキングの改善 4 項目が残った |
-| 2 (現在) | `4453f818…628e` | PR #37 (`edf98c2`、head `ae5aa3c`) | 改善 4 項目を反映し、PTH–配線間 0.35 mm の規則を追加。独立した再レビューでブロッキングの指摘なし |
+| 2 | `4453f818…628e` (履歴) | PR #37 (`edf98c2`、head `ae5aa3c`) | 改善 4 項目を反映し、PTH–配線間 0.35 mm の規則を追加。独立した再レビューでブロッキングの指摘なし |
+| 2、SW1 の部品欄 (現在) | `89310d53…e727` | #77 | SW1 の MPN / LCSC を HX MSK13C02 / C5149819 に変更。フットプリント・銅パターン・配置は同じ。ゲート `PASS` ([CI run 43294571723](https://github.com/Takazudo/zudo-led-block/actions/runs/43294571723)、`8e71317`) |
 
-### 現在の基板 (リビジョン 2)
+### 現在の基板 (リビジョン 2、SW1 = HX MSK13C02)
 
 | 項目 | 内容 |
 |---|---|
-| 基板 | `engineering/a7/electronics/controller/controller.kicad_pcb` (SHA-256 `4453f818…628e`)。外形 16.2 × 62.9 mm、4 層 1.6 mm。In1 は GND のベタ、F・In2・B にも GND の塗りつぶし。B 面は 0603 抵抗とテストパッドだけ |
-| ゲート | ピン留めの KiCad 10.0.8 で新規実行して **`PASS`**: ERC 0、回路図–基板パリティ 0、DRC 0、未接続 0、ゾーン再充填が一致、再生成で基板が変わらない、振る舞いアサーションと差分チェックに失敗なし、負の対照 (経路の切断・誤接続・塗りつぶしのずれ・PTH–配線・タイムアウトなど) をすべて検出。CI の実行: [PR #37 の head `ae5aa3c`](https://github.com/Takazudo/zudo-led-block/actions/runs/42503602665) (試験した基板のハッシュがコミットした基板と一致)、[`main` の `edf98c2`](https://github.com/Takazudo/zudo-led-block/actions/runs/42503992506)、[`main` の `8bd064b`](https://github.com/Takazudo/zudo-led-block/actions/runs/42504705390)、[`main` の `355999a`](https://github.com/Takazudo/zudo-led-block/actions/runs/42507029674) |
+| 基板 | `engineering/a7/electronics/controller/controller.kicad_pcb` (SHA-256 `89310d53…e727`。リビジョン 2 として入った時点は `4453f818…628e`)。外形 16.2 × 62.9 mm、4 層 1.6 mm。In1 は GND のベタ、F・In2・B にも GND の塗りつぶし。B 面は 0603 抵抗とテストパッドだけ |
+| ゲート | ピン留めの KiCad 10.0.8 で新規実行して **`PASS`**: ERC 0、回路図–基板パリティ 0、DRC 0、未接続 0、ゾーン再充填が一致、再生成で基板が変わらない、振る舞いアサーションと差分チェックに失敗なし、負の対照 (経路の切断・誤接続・塗りつぶしのずれ・PTH–配線・タイムアウトなど) をすべて検出。CI の実行: 現在の基板は [`8e71317`](https://github.com/Takazudo/zudo-led-block/actions/runs/43294571723)。リビジョン 2 (`4453f818…`) は [PR #37 の head `ae5aa3c`](https://github.com/Takazudo/zudo-led-block/actions/runs/42503602665)、[`main` の `edf98c2`](https://github.com/Takazudo/zudo-led-block/actions/runs/42503992506)、[`main` の `8bd064b`](https://github.com/Takazudo/zudo-led-block/actions/runs/42504705390)、[`main` の `355999a`](https://github.com/Takazudo/zudo-led-block/actions/runs/42507029674) |
 | 設計ルールの差分 | ビアを 0.6 / 0.3 mm から 0.5 / 0.2 mm に変更し、それに合わせて基板全体の最小スルーホール径も 0.3 mm から 0.2 mm に下げた (MCU U1 の QFN28 と U5 の VSSOP-8 の引き出しのため)。根拠は JLCPCB の公開能力 (多層で最小 0.15 mm 穴 / 0.25 mm 径、推奨最小穴 0.2 mm) で、`engineering/a7/verification/fab/jlcpcb_capabilities.json` に URL・取得時のハッシュ・引用した行を記録。`native_gate.json` の `design_rule_delta` に理由と証拠を記録。配線幅・クリアランス・アニュラーリング 0.15 mm・層数は A5 のまま |
 | PTH–配線の規則 (リビジョン 2 で追加) | 厳しくする方向だけのカスタム規則 `a7_pth_to_track` (`controller.kicad_dru`): スルーホールの穴から他ネットの配線まで **0.35 mm** 以上 (JLCPCB の推奨値。最小は 0.28 mm)。負の対照 `control_pth_to_track` が穴から 0.32 mm の配線を足し、この規則名で検出されることを毎回確かめる。現在の基板の最小値は 0.386 mm |
 | コートヤードの比較 | KiCad の内部単位 (1 nm) に丸めて比較。必要な隙間は 0 mm のままで、緩めていない |
@@ -111,7 +112,7 @@ A5 の部品証跡カタログ (30 型番) は PR #21 で入りました。メ�
 
 ## 部品の変更案 (A5 の BOM との差分)
 
-A7 の回路図 (PR #24) は A5 の制御基板の回路から **J1・J2・SW1 の 3 部品だけ** を差し替え、ほかの部品と接続は A5 のままです (差分チェックで他の接続変化は 0)。配線済みの基板の部品は回路図と一致していますが (パリティ 0)、ナット・電源ケーブル・LED 基板が未決定で、基板ごとの BOM / CPL もまだ作っていないので、**A7 の BOM は確定していません**。[部品表 (A5 BOM)](/docs/architecture/bom/) は A5 の記録のまま変えていません。
+A7 の回路図 (PR #24) は A5 の制御基板の回路から **J1・J2・SW1 の 3 部品だけ** を差し替え、ほかの部品と接続は A5 のままです (差分チェックで他の接続変化は 0)。配線済みの基板の部品は回路図と一致していますが (パリティ 0)、試作用の基板ごとの BOM / CPL は面付けした注文ファイルとして準備済みです (`engineering/a7/jlc-package/order/2026-11-13/`、製造リリースではない)。ナットと完成ケーブルが未決定なので、外部部材を含めた **A7 の部品一式は確定していません**。実装する 30 型番すべてに 2026-11-12 の JLC 掲載観測があります (`engineering/a7/procurement/sourcing-projection.json`。現在の在庫・見積ではない)。[部品表 (A5 BOM)](/docs/architecture/bom/) は A5 の記録のまま変えていません。
 
 | 役割 | A5 | A7 の候補 | 状態 |
 |---|---|---|---|
@@ -128,12 +129,13 @@ A7 の部品は `line-a7-` の行として部品カタログに登録してい�
 
 | 未解決 | 影響するもの | 必要なもの | 追跡 |
 |---|---|---|---|
-| 製造ファイルが無い (Gerber・ドリル・基板別 BOM / CPL) | 試作の発注 | 物理ゲートの解消と、オーナーの製造リリース判断 (現在の作業範囲外) | #10 |
-| 2HP を選ぶかどうか | 幅、0.8 mm 基板での再配線 | 軸高さ (Q1) か端子カット長 (Q6) の証拠と、オーナーの判断 | #17 |
+| 試作の注文 | 試作基板の入手 | 日付付きの注文ファイルは準備済み。オーナーによる試作ルートの再承認 (調達台帳が変わり、承認の識別の結び付きが外れた)、注文画面での配置プレビュー (中心・回転)・PCBA 数量の単位・自前パネルの受入・基材・表面処理の確認、発注 | `order/2026-11-13/README.md` |
+| 製造リリースが無い | 量産・配布 | 物理評価と、オーナーの製造リリース判断 (現在の作業範囲外) | #10 |
+| 2HP を選ぶかどうか (任意。FR-4 試作の発注を止めない) | 幅、0.8 mm 基板での再配線 | 軸高さ (Q1) か端子カット長 (Q6) の証拠と、オーナーの判断 | 任意の別検討 |
 | 電源ケーブル 57 ± 3 mm | 電源の配線 | ケーブルの入手と実測、±3 の根拠 | #8 |
 | 上キャップのボスと M2x18 の締め付け | アダプタの固定 | 荷重と強度の評価、造形 | #8 |
 | PJ-324M の軸高さが推定 (約 3.0、2.6〜3.4) | 2HP の端子側の余裕 | 寸法入りの図面、3D モデル、実測 | Q1 |
-| PJ-324M のピン機能が推定 | CV_THRU と GND の割り当て | TS / TRS プラグでの導通確認 | Q2、#10 |
+| PJ-324M のピン機能が推定 | CV_THRU と GND の割り当て | TS / TRS プラグでの導通確認。発注前の試験はオーナーが 2026-11-12 に免除し、組立後の初品で確認 (免除はピン対応の確認ではない) | Q2、#10 |
 | PJ-324M の穴径が無い | フットプリント。配線済み基板も仮定値の長穴 (ドリル 1.6 × 0.8 mm) のまま | JLC / EasyEDA のフットプリント確認、実物 | Q3 |
 | ナットの供給と適合 | 前面の固定 | 供給元の回答、部品 | Q4 |
 | SW1 (HX MSK13C02) の実物での接点表と適合 | 設定スイッチの動作、ランドと本体位置 (公称値の比較のみ) | 実物での導通確認と適合確認 (switch-fit) | Q10 |

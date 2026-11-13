@@ -4,14 +4,55 @@ Durable hand-off for the A7 structural redesign ([#15](https://github.com/Takazu
 Read this first, then [`evidence-index.md`](evidence-index.md). The Japanese status pages on the docs site
 (`doc/src/content/docs/project/a7.mdx`, `next-actions.mdx`) say the same thing for readers.
 
-**A7 is a design study. It is not released for manufacture.** The integrated digital result is on `main`: the
-reviewed controller schematic, the routed controller board at revision 2 (native gate PASS, independent layout/electrical
-re-review with no blocking findings), and a provisional digital mechanical model and front artwork checked against that board. There is no
-prototype and no physical measurement. Nothing in A7 is a measured fit, part approval, fit approval, electrical result or
-manufacturing approval, and a green CI is none of those either.
+**A7 is not released for manufacture.** The integrated digital result is on `main`: the reviewed controller schematic,
+the routed controller board at revision 2 with SW1 = HX MSK13C02 / C5149819 (board `89310d53…e727`, native gate PASS,
+independent layout/electrical re-review with no blocking findings), and a provisional digital mechanical model and front
+artwork checked against that board. The first build is two modules (2 controllers, 4 FR-4 LED leaves, 2 power adapters)
+on the 3HP working candidate. There is no prototype and no physical measurement. Nothing in A7 is a measured fit, part
+approval, fit approval, electrical result or manufacturing approval, and a green CI is none of those either.
 
-The 2026-11-09 preparation package (E1 board/export binding, E2 exact-part sources, E3 carrier-only fixture study,
-E4 procurement ledger, E5 BLOCKED readiness and blank procedures) is integrated into main through PR #44 (2026-11-11).
+## Current pre-order state (2026-11-13)
+
+Each stage below is taken from an existing record; this list does not add a gate or change `--gate`.
+
+1. **Digital implementation: complete.** Schematic, routed board `89310d53…e727` (CI run 43294571723), mechanical model,
+   and the fixture's digital criteria 1–4 with fresh native verification (`fixture/manifest.json`). #16–#19 are closed.
+2. **Test-prototype route: approved by the owner, now held by its binding.** Approved 2026-11-12 and re-approved for the
+   HX version on 2026-11-13 (PR #79, `qualification/approvals/2026-11-13-owner-prototype-route-hx-switch.md`). The approval
+   binds the SHA-256 of board, population, schematic, firmware, configuration, mechanical layout, fixture manifest and
+   assembly manifest (`qualification/records.json` → `owner_prototype_route.identities`). The sourcing reconciliation (#80)
+   changed `procurement/assembly-manifest.json` from `c12c964a…e865` to `ea30c8a7…5755` (sourcing observation fields and the
+   supply-blocker text only; no part, quantity, board or placement change), so readiness shows the `owner_prototype_route`
+   gate again. The approval record is unchanged; re-approving the new identity set is an owner action.
+3. **Panel exports: prepared and verified.** Own repo panels (owner decision `panel-route`). Dated set
+   `jlc-package/order/2026-11-13/` exported from `db0ca95` with KiCad 10.0.8: one Gerber zip, BOM and CPL per board type and
+   `SHA256SUMS`; `a7_panel.py build` and the single-board export check PASS (`panel-build-summary.json`,
+   `single-board-export-summary.json`). Its BOM/CPL equal `jlc-package/panels/` byte for byte.
+4. **Order-form review: not done.** From the dated README and `jlc-package/package.json`: placement-preview centroids and
+   rotations of controller J1/J2/J5/SW1 and power_adapter J1/J2 (KiCad angles, never checked against JLC's library);
+   whether the PCBA quantity counts sheets (2); whether JLC assembles the customer panels (the owner's acceptance in
+   `jlc-questions` is not a JLC confirmation); power_adapter base material (FR-4 assumed, not recorded); surface finish;
+   and the actual assembly terms (quote, attrition, lead time).
+5. **Order: not submitted.** Upload, payment and order are the owner's; the repository has no order record
+   (`readiness.json` → `order_submitted: NOT_ESTABLISHED`).
+6. **First article and release: open.** PJ-324M terminal 4/5 (pre-order continuity test waived by the owner 2026-11-12,
+   `jack-tip-test-waiver`; the waiver does not confirm the pin map), HX MSK13C02 truth table and land fit, fixture
+   criterion 5, and the #8/#10/#13 qualification come after the boards exist. A manufacturing release is a separate owner
+   approval. `readiness.json` stays BLOCKED because it counts every condition up to that release; it does not mean the
+   first prototype boards need all release tests first.
+
+Upload lifecycle: files directly under `jlc-package/` and in `jlc-package/panels/` are generator reference sets and are not
+uploaded. The dated `order/<date>/` copy is what the owner uploads for the approved prototype route. Neither is a release.
+
+Sourcing: all 30 fitted identities have dated 2026-11-12 JLC listing observations (`procurement/sourcing-projection.json`):
+rendered part pages (10:35–19:56Z) and a later parts-API audit (19:09:52Z), separate reads that disagree on stock for 25
+lines. Field meanings, currency and buy quantities are our inference. Lead time, confirmed quote, stock reservation and
+assembly acceptance are not obtained for any line. PCM13SMTR (C221842) is retired evidence only.
+
+Optional 2HP, transparent PET and hosting (#11/#12) do not block the FR-4 prototype order.
+
+History: the 2026-11-09 preparation package (E1 board/export binding, E2 exact-part sources, E3 fixture study, at that
+date carrier-only, E4 procurement ledger, E5 BLOCKED readiness and blank procedures) is integrated into main through PR #44 (2026-11-11).
 Its working record is [`order-preparation-checkpoint.md`](order-preparation-checkpoint.md); integration does not
 complete the fixture, any physical gate, order eligibility or a manufacturing release.
 
@@ -54,10 +95,11 @@ Accepted direction from the owner (2026-11-08):
 | Task | Issue | State on `main` | Where |
 |---|---|---|---|
 | R1 parts and dimension study | [#16](https://github.com/Takazudo/zudo-led-block/issues/16) | merged in PR #23 (`54bda11`), issue closed | `study/`, `evidence/`, `pet-fpc.md`, `open-questions.md`, `.claude/skills/component-a7-*` |
-| R2 mechanical model and artwork | [#17](https://github.com/Takazudo/zudo-led-block/issues/17) | merged in PR [#25](https://github.com/Takazudo/zudo-led-block/pull/25) (`64bd3b7`), the harness follow-up PR [#27](https://github.com/Takazudo/zudo-led-block/pull/27) (`d27f578`), PR #29, and the placement checks against R4's board PRs #31–#33 (`dd45ed5`) and #38 (`2a76cae`, revision 2), and the PET versus FR-4 leaf comparison PR [#35](https://github.com/Takazudo/zudo-led-block/pull/35) (`1b9d02d`); provisional digital study, issue open | `mechanical/`, `front_panel/`, `scripts/a7_mechanical_layout.py` |
+| R2 mechanical model and artwork | [#17](https://github.com/Takazudo/zudo-led-block/issues/17) | merged in PR [#25](https://github.com/Takazudo/zudo-led-block/pull/25) (`64bd3b7`), the harness follow-up PR [#27](https://github.com/Takazudo/zudo-led-block/pull/27) (`d27f578`), PR #29, and the placement checks against R4's board PRs #31–#33 (`dd45ed5`) and #38 (`2a76cae`, revision 2), and the PET versus FR-4 leaf comparison PR [#35](https://github.com/Takazudo/zudo-led-block/pull/35) (`1b9d02d`); provisional digital study; issue closed after the digital scope (2HP stays an optional separate decision) | `mechanical/`, `front_panel/`, `scripts/a7_mechanical_layout.py` |
 | R3 native verification foundation | [#18](https://github.com/Takazudo/zudo-led-block/issues/18) | merged in PR #22 (`02992fa`), issue closed | `verification/`, `scripts/native_gate/` |
-| R4 schematic, placement, routing | [#19](https://github.com/Takazudo/zudo-led-block/issues/19) | schematic merged in PR [#24](https://github.com/Takazudo/zudo-led-block/pull/24) (`5f6865b`); routed board merged in PR [#30](https://github.com/Takazudo/zudo-led-block/pull/30) (`eb8adeb`, revision 1, board `ec810aec…74f2`), revision 2 in PR [#37](https://github.com/Takazudo/zudo-led-block/pull/37) (`edf98c2`, board `4453f818…628e`, gate PASS, re-review with no blocking findings); issue open for the physical gates | `electronics/`, `verification/`, `scripts/a7_electronics.py`, `scripts/a7_board.py`, `scripts/a7_route.py` |
-| R5 docs, status, continuation | [#20](https://github.com/Takazudo/zudo-led-block/issues/20) | this document; reflects the integrated digital result | `docs/continuation/`, Japanese site pages |
+| R4 schematic, placement, routing | [#19](https://github.com/Takazudo/zudo-led-block/issues/19) | schematic merged in PR [#24](https://github.com/Takazudo/zudo-led-block/pull/24) (`5f6865b`); routed board merged in PR [#30](https://github.com/Takazudo/zudo-led-block/pull/30) (`eb8adeb`, revision 1, board `ec810aec…74f2`), revision 2 in PR [#37](https://github.com/Takazudo/zudo-led-block/pull/37) (`edf98c2`, board `4453f818…628e`, gate PASS, re-review with no blocking findings); SW1 part fields in #77 (board `89310d53…e727`); issue closed after the digital scope, physical gates continue in #8/#10/#13 | `electronics/`, `verification/`, `scripts/a7_electronics.py`, `scripts/a7_board.py`, `scripts/a7_route.py` |
+| R5 docs, status, continuation | [#20](https://github.com/Takazudo/zudo-led-block/issues/20) | this document; reflects the integrated digital result and the 2026-11-13 pre-order state | `docs/continuation/`, Japanese site pages |
+| Sourcing projection | [#80](https://github.com/Takazudo/zudo-led-block/issues/80) | dated observations for all 30 fitted identities | `procurement/sourcing-projection.json`, `scripts/a7_procurement.py` |
 
 The A5 component catalog (30 identities) merged in PR #21 (`20b2f8f`); issue
 [#9](https://github.com/Takazudo/zudo-led-block/issues/9) stays open for manufacturer sources that could not be
@@ -73,10 +115,11 @@ retrieved.
 | 2 | `4453f818ede1e6d6c56e45ef43aa6faecb90990f3755f82c6d752258cd4d628e` | PR #37, `edf98c2` (head `ae5aa3c`) | the four polish items, PTH-to-track 0.35 mm rule and control, 1 nm courtyard comparison | requested changes on `eb5d833` (no gate run on that head), no blocking findings on `ae5aa3c` |
 | 2, SW1 part fields (current) | `89310d539b3c28096775cee821e46c14fdba42a87809c82f1fd7f0751704e727` | #77 | SW1 MPN / LCSC properties changed to HX MSK13C02 / C5149819; footprint, copper and placement unchanged | board gate PASS in CI run 43294571723 on `8e71317`; independent review on the #77 PR |
 
-- **Current board (revision 2).** `electronics/controller/controller.kicad_pcb`, 16.2 × 62.9 mm, 4 layers, 1.6 mm,
-  In1 solid GND. Fresh KiCad 10.0.8 gate PASS on the committed board (CI run 42503602665 on `ae5aa3c`, whose summary's
-  `tested_board_sha256` matches the committed board; main runs 42503992506 on `edf98c2` and 42504705390 on `8bd064b`): ERC 0, parity 0, DRC 0, unconnected 0, zone refill identical,
-  regeneration preserves the board, every negative control detected.
+- **Current board (revision 2 + SW1 part fields).** `electronics/controller/controller.kicad_pcb` (`89310d53…e727`),
+  16.2 × 62.9 mm, 4 layers, 1.6 mm, In1 solid GND. Fresh KiCad 10.0.8 gate PASS on it in CI run 43294571723 (`8e71317`).
+  Historical: revision 2 as merged (`4453f818…628e`) passed in run 42503602665 on `ae5aa3c` (main runs 42503992506 on
+  `edf98c2` and 42504705390 on `8bd064b`): ERC 0, parity 0, DRC 0, unconnected 0, zone refill identical, regeneration
+  preserves the board, every negative control detected.
 - **Polish items applied:** C11 1.53 mm from U6.5 (was 5.8); GND vias at U7.2 / C17.2 0.52 / 0.66 mm (was 1.5–2);
   C15 1.8 mm from U4.1 (nearest +5 V cap was C2 at 4.1); CV_FILTER all on F.Cu, nearest same-layer VLED 3.65 mm
   (was about 0.9). Dispositions in `verification/interface_review.md`.
@@ -122,47 +165,51 @@ retrieved.
 
 ## Next actions, in order
 
-The preparation package (board/export binding, exact-part source recovery, carrier-only fixture study,
-active procurement ledger and blank physical procedures) is on main via PR #44. `qualification/readiness.json` reports BLOCKED.
-The fixture is incomplete, and source/supply/physical/owner gates remain. Any later board change re-runs
-the gate, independent review and R2 fit check.
+The stage list at the top is the current state. `qualification/readiness.json` reports BLOCKED. Any later board change
+re-runs the gate, independent review and R2 fit check.
 
-1. **Physical and owner gates:** PJ-324M pin functions by TS / TRS continuity test (Q2), slot sizes (Q3, the board
-   still uses ASSUMED 1.6 × 0.8 mm slots), axis height (Q1, INFERRED), PCM13SMTR stock and fit (Q10, body centring
-   ASSUMED), and the owner-approved FR-4 prototype route. The optional 2HP decision does not block FR-4 preparation.
-2. **External evidence** listed in `../../open-questions.md` (Q0–Q11 and Q11a–Q11f; Q12 is decided). The JLC PET questions 1–9 remain
+1. **Owner actions before ordering:** re-approve the prototype route for the current identity set (stage 2), review the
+   JLC order form (stage 4), then order. Choose the fabricator for the four fixture FR-4 plates (the proposed fixture
+   hardware is already accepted).
+2. **First-article and physical gates:** PJ-324M pin functions by TS / TRS continuity (Q2, waived before ordering, done on
+   the assembled boards), slot sizes (Q3, the board still uses ASSUMED 1.6 × 0.8 mm slots), axis height (Q1, INFERRED),
+   HX MSK13C02 truth table and land fit (Q10, switch-fit), fixture criterion 5. The optional 2HP and PET decisions do not
+   block FR-4 preparation.
+3. **External evidence** listed in `../../open-questions.md` (Q0–Q11 and Q11a–Q11f; Q12 is decided). The JLC PET questions 1–9 remain
    drafted (`../../pet-fpc.md`; 8 and 9 are Q11e and Q11f). Other questions are now drafted in
    `../../qualification/supplier-questions.md`; all are **not sent**. Sending supplier messages is
    outside the current authorisation.
-3. **Physical qualification** with [#8](https://github.com/Takazudo/zudo-led-block/issues/8) (harness, power cable,
+4. **Physical qualification** with [#8](https://github.com/Takazudo/zudo-led-block/issues/8) (harness, power cable,
    fit, PETG), [#10](https://github.com/Takazudo/zudo-led-block/issues/10) (power / CV / firmware / optical / thermal /
    load, manufacturing files, CV noise with DATA_L coupling, and if PET is pursued the SH mating / unmating force
    and lit appearance) and [#13](https://github.com/Takazudo/zudo-led-block/issues/13) (WS2812B T1L timing).
-4. **Manufacturing files and release** are an owner decision and outside the current authorisation.
+5. **Manufacturing release** is a separate owner decision after qualification and outside the current authorisation.
 
 ## Blockers
 
 | Blocker | Blocks | Needs | Tracked in |
 |---|---|---|---|
-| No manufacturing files (Gerber, drill, per-board BOM / CPL) | prototype order | physical gates and an owner release decision (out of scope) | #10 |
-| Board is 1.6 mm (3HP only) | a 2HP build | owner 2HP decision, then a 0.8 mm board and new routing | #17, #19 |
-| 2HP unresolved at the worst corner | width choice | Q1 axis height or Q6 trim evidence (break-even values in `mechanical/layout.md`) | #17 |
+| Prototype-route approval bound to the old assembly-manifest digest | readiness `owner_prototype_route` | owner re-approval of the current identities | records.json |
+| Order-form checks not done (centroids / rotations, PCBA sheet unit, customer-panel acceptance, base material, finish, assembly terms) | ordering | owner review on the JLC form | `jlc-package/order/2026-11-13/README.md` |
+| No manufacturing release package or approval | manufacturing | qualification, then an owner release decision (out of scope) | #10 |
+| Board is 1.6 mm (3HP only) | an optional 2HP build | owner 2HP decision, then a 0.8 mm board and new routing | optional |
+| 2HP unresolved at the worst corner | optional width choice | Q1 axis height or Q6 trim evidence (break-even values in `mechanical/layout.md`) | optional |
 | A7 power cable 57 ± 3 mm (±3 ASSUMED), not routed or measured | power harness | cable sourcing and measurement | #8 |
 | Adapter boss and M2x18 clamp load not analysed | adapter retention | analysis and printed part | #8 |
 | PJ-324M axis height only inferred (≈3.0, band 2.6–3.4) | 2HP lead-side margin | dimensioned drawing, 3D model or measured part | Q1 |
-| PJ-324M pin functions inferred | CV_THRU vs GND mapping | bench continuity test with TS and TRS plugs | Q2, #10 |
+| PJ-324M pin functions inferred | CV_THRU vs GND mapping | first-article continuity test with TS and TRS plugs (pre-order test waived 2026-11-12; the waiver is not a confirmation) | Q2, #10 |
 | PJ-324M hole sizes not on the drawing | footprint (routed board uses ASSUMED slots) | supplier CAD inspected; maker slot/lead tolerances or measured part still needed | Q3 |
 | Nut supply and fit unknown | front retention | supplier answer or part | Q4 |
-| PCM13SMTR JLC stock 0; land fit and body centring unconfirmed | side switch sourcing and fit | stock, or a printed per-position table / bench check for an alternate | Q10 |
+| HX MSK13C02 truth table and land / peg fit unconfirmed (dated JLC stock 4561 on 2026-11-12, not reserved) | side switch fit | first-article switch-fit check | Q10 |
 | SOFNG primary drawing unavailable; PCM primary recovered | unsupported jack drawing facts | exact SOFNG document or measured evidence | Q0 |
-| PET FPC process answers missing | transparent LED leaf | JLC written answers (questions not sent) | Q11 |
+| PET FPC process answers missing | optional transparent LED leaf | JLC written answers (questions not sent) | Q11 |
 | No supplier for laminating the PC carrier with OCA after reflow | building a PET leaf at all | supplier and process | Q11a |
 | SH unmating pull and pad / OCA peel strength unsourced | PET leaf connector retention | force data and a physical test | Q11b, #10 |
 | 1-layer PET film cannot carry the A5 leaf copper | PET variant only | a new single-layer leaf layout or the 2-layer film | Q11d |
 | 2-layer clear PET plated vias not stated by JLC; PTH ring 0.18 mm may apply to vias (A5 vias have 0.15 mm) | PET variant only | JLC answer (not sent) | Q11e |
 | Coverlay bridges 0.2 mm, JLC minimum 0.5 mm | PET variant only (SMT bridging risk) | JLC answer on bridge-less openings or a clear solder mask | Q11f |
 | PET leaf built for 3HP only | 2HP with PET | 2HP decision first (X stack differs by 0.02 mm, so 3HP carries over) | Q11c |
-| No physical prototype | every fit, electrical, optical, thermal result | owner-approved build | #8, #10 |
+| No physical prototype | every fit, electrical, optical, thermal result | the ordered prototype boards | #8, #10 |
 | Agent-instruction pages on the site | publication scope | owner decision | #12 |
 
 ## Rules that do not change
@@ -193,11 +240,12 @@ python3 -m unittest discover -s scripts/tests -p 'test_native_*.py'
 pnpm build && pnpm check && pnpm check:site && pnpm test:browser
 ```
 
-**Known intermittent CI failure (owner decision pending).** The docs job's "Framework check-browser" step sometimes
-fails about 0.4 s in with `Error: Chrome page target was not available`, in `@takazudo/zudo-circuit-doc@0.3.0`
-`lib/browser-smoke/chrome.js:76` (launchChrome). The cause is outside this repository. It failed on attempt 1 of runs
-42505006029 and 42505981975 and passed on their re-runs and on other runs of the same code. Treat it as this
-intermittent only when the same step also passes on `main`; no retry wrapper or `continue-on-error` was added.
-Whether to report it upstream is the owner's call. Details: [#19 comment](https://github.com/Takazudo/zudo-led-block/issues/19#issuecomment-6724919062).
+**Browser smoke startup (PR #67).** The docs job's "Framework check-browser" step used to fail about 0.4 s in with
+`Error: Chrome page target was not available`, because `@takazudo/zudo-circuit-doc@0.3.0` `lib/browser-smoke/chrome.js`
+read Chrome's page target once. PR #67 installed a pnpm patch (`patches/@takazudo__zudo-circuit-doc@0.3.0.patch`,
+registered in `pnpm-workspace.yaml` → `patchedDependencies`) that polls `/json/list` for up to 10 s and fails at once if
+Chrome exits. It is not a retry wrapper or `continue-on-error`. Maintenance: the patch is pinned to 0.3.0; when the
+dependency is bumped, check that the patch still applies and drop it once an upstream release carries the fix
+(`ZUDO_DEPS_PINS.md`).
 
 ローカルKiCadへ進む際は [固定入力と実行手順](local-kicad-handoff.md) を使用してください。Cloudの成果と未取得native/物理証跡を分離しています。

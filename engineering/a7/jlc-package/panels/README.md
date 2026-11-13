@@ -1,6 +1,6 @@
-# リポジトリ面付け（準備済みの経路・未リリース）
+# リポジトリ面付け（オーナーが選んだ経路・製造リリースではない）
 
-**アップロード・発注しないでください。** readiness の発注ゲートは BLOCKED で、面付けの経路（リポジトリ面付けか Panel by JLCPCB か）はオーナーの判断 `assembly:panel-route` で未決です。ここにあるのは、リポジトリ面付けを選んだ場合に必要なものを先に作って確かめた準備です。
+オーナーは 2026-11-12 に面付けの経路としてリポジトリ面付けを選びました（`engineering/a7/procurement/owner-decisions.json` の `panel-route`）。ここにあるのは生成器の基準セットで、**ここから直接アップロードしません。** 試験用試作ルートでアップロードする写しは日付付きの `../order/2026-11-13/`（Gerber zip・BOM・CPL・`SHA256SUMS`）で、その BOM / CPL はここのファイルとバイト単位で同じです。どちらも製造リリースではなく、readiness の発注ゲートは BLOCKED のままです。段階ごとの状態は `doc/src/content/docs/project/next-actions.mdx` を参照してください。
 
 - `<board>-panel.json`（生成）: シート寸法、各基板の位置（凍結ファイルからの移動量）、切り溝、マウスバイトタブと穴、フィデューシャル、治具穴、DRC の例外。
 - `<board>-panel_BOM_DRYRUN.csv` / `<board>-panel_CPL_DRYRUN.csv`（生成）: 単品の BOM / CPL を基板ごとに移動したもの。2 枚目以降の designator は `_2` などの接尾辞。CPL の原点はシートの左上の外形角（mm、Y は下向きが負）。

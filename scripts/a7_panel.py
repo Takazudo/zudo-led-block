@@ -538,8 +538,9 @@ def build(out, write_receipt=False):
     summary['status'] = 'FAIL' if fails else 'PASS'
     (out / 'summary.json').write_text(json.dumps(summary, indent=2) + '\n')
     (out / 'README-PREPARED-ROUTE-NOT-FOR-ORDER.txt').write_text(
-        'PREPARED ROUTE - NOT RELEASED - DO NOT UPLOAD OR ORDER FROM THESE FILES\n'
-        'The readiness order gate is BLOCKED and the panel route is an open owner decision (assembly:panel-route).\n'
+        'PANEL EXPORT - NOT A MANUFACTURING RELEASE - THIS BUILD DIRECTORY IS NOT AN UPLOAD SET\n'
+        'The readiness order gate is BLOCKED. Only a dated copy committed under engineering/a7/jlc-package/order/<date>/ (with SHA256SUMS)\n'
+        'is uploaded by the owner for an owner-approved prototype route, after the order-form checks in that README.\n'
         'See doc/src/content/docs/project/jlc-order-package.mdx.\n')
     print(json.dumps({k: summary[k] for k in ('status', 'failures')}, indent=2))
     return 1 if fails else 0
