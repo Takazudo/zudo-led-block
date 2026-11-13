@@ -1,0 +1,263 @@
+{
+  "what": "Repo-built JLC assembly panels: prepared route, NOT released, NOT order files",
+  "image": "kicad/kicad:10.0.8@sha256:3f4a01786dfbe803a65f345c3342b765db9add913f5e9448f8356793714ddc34",
+  "docker_exit": 0,
+  "stderr_tail": "",
+  "boards": {
+    "controller": {
+      "code": "0",
+      "copies": {
+        "1": {
+          "footprints": {
+            "source": 64,
+            "panel": 64,
+            "equal": true
+          },
+          "pads": {
+            "source": 193,
+            "panel": 193,
+            "equal": true
+          },
+          "tracks": {
+            "source": 1337,
+            "panel": 1337,
+            "equal": true
+          },
+          "vias": {
+            "source": 118,
+            "panel": 118,
+            "equal": true
+          },
+          "zones": {
+            "source": 4,
+            "panel": 4,
+            "equal": true
+          }
+        }
+      },
+      "outline": [
+        {
+          "copy": 1,
+          "xor_area_mm2": 0.0,
+          "source_area_mm2": 1018.98,
+          "panel_area_mm2": 1018.98
+        }
+      ],
+      "features": {
+        "panel": 33,
+        "equal": true
+      },
+      "drills": {
+        "panel": 160,
+        "expected": 160,
+        "slots": 10,
+        "equal": true
+      },
+      "drc": {
+        "source": {
+          "lib_footprint_issues": 64
+        },
+        "panel": {
+          "lib_footprint_issues": 64
+        },
+        "added_by_panel": {},
+        "waived": {}
+      },
+      "cpl_vs_kicad": "MATCH",
+      "failures": [],
+      "files": [
+        "controller-panel-B_Cu.gbl",
+        "controller-panel-B_Mask.gbs",
+        "controller-panel-B_Paste.gbp",
+        "controller-panel-B_Silkscreen.gbo",
+        "controller-panel-Edge_Cuts.gm1",
+        "controller-panel-F_Cu.gtl",
+        "controller-panel-F_Mask.gts",
+        "controller-panel-F_Paste.gtp",
+        "controller-panel-F_Silkscreen.gto",
+        "controller-panel-In1_Cu.g1",
+        "controller-panel-In2_Cu.g2",
+        "controller-panel-NPTH.drl",
+        "controller-panel-PTH.drl",
+        "controller-panel-job.gbrjob"
+      ]
+    },
+    "led_leaf": {
+      "code": "0",
+      "copies": {
+        "1": {
+          "footprints": {
+            "source": 10,
+            "panel": 10,
+            "equal": true
+          },
+          "pads": {
+            "source": 36,
+            "panel": 36,
+            "equal": true
+          },
+          "tracks": {
+            "source": 62,
+            "panel": 62,
+            "equal": true
+          },
+          "vias": {
+            "source": 11,
+            "panel": 11,
+            "equal": true
+          }
+        },
+        "2": {
+          "footprints": {
+            "source": 10,
+            "panel": 10,
+            "equal": true
+          },
+          "pads": {
+            "source": 36,
+            "panel": 36,
+            "equal": true
+          },
+          "tracks": {
+            "source": 62,
+            "panel": 62,
+            "equal": true
+          },
+          "vias": {
+            "source": 11,
+            "panel": 11,
+            "equal": true
+          }
+        }
+      },
+      "outline": [
+        {
+          "copy": 1,
+          "xor_area_mm2": 0.0,
+          "source_area_mm2": 738.5,
+          "panel_area_mm2": 738.5
+        },
+        {
+          "copy": 2,
+          "xor_area_mm2": 0.0,
+          "source_area_mm2": 738.5,
+          "panel_area_mm2": 738.5
+        }
+      ],
+      "features": {
+        "panel": 42,
+        "equal": true
+      },
+      "drills": {
+        "panel": 61,
+        "expected": 61,
+        "slots": 0,
+        "equal": true
+      },
+      "drc": {
+        "source": {
+          "lib_footprint_issues": 10
+        },
+        "panel": {
+          "lib_footprint_issues": 20
+        },
+        "added_by_panel": {},
+        "waived": {}
+      },
+      "cpl_vs_kicad": "MATCH",
+      "failures": [],
+      "files": [
+        "led_leaf-panel-B_Cu.gbl",
+        "led_leaf-panel-B_Mask.gbs",
+        "led_leaf-panel-B_Paste.gbp",
+        "led_leaf-panel-B_Silkscreen.gbo",
+        "led_leaf-panel-Edge_Cuts.gm1",
+        "led_leaf-panel-F_Cu.gtl",
+        "led_leaf-panel-F_Mask.gts",
+        "led_leaf-panel-F_Paste.gtp",
+        "led_leaf-panel-F_Silkscreen.gto",
+        "led_leaf-panel-NPTH.drl",
+        "led_leaf-panel-PTH.drl",
+        "led_leaf-panel-job.gbrjob"
+      ]
+    },
+    "power_adapter": {
+      "code": "0",
+      "copies": {
+        "1": {
+          "footprints": {
+            "source": 3,
+            "panel": 3,
+            "equal": true
+          },
+          "pads": {
+            "source": 14,
+            "panel": 14,
+            "equal": true
+          },
+          "tracks": {
+            "source": 19,
+            "panel": 19,
+            "equal": true
+          },
+          "vias": {
+            "source": 1,
+            "panel": 1,
+            "equal": true
+          }
+        }
+      },
+      "outline": [
+        {
+          "copy": 1,
+          "xor_area_mm2": 0.0,
+          "source_area_mm2": 264.0,
+          "panel_area_mm2": 264.0
+        }
+      ],
+      "features": {
+        "panel": 36,
+        "equal": true
+      },
+      "drills": {
+        "panel": 48,
+        "expected": 48,
+        "slots": 0,
+        "equal": true
+      },
+      "drc": {
+        "source": {
+          "lib_footprint_issues": 2
+        },
+        "panel": {
+          "npth_inside_courtyard": 22,
+          "lib_footprint_issues": 2
+        },
+        "added_by_panel": {
+          "npth_inside_courtyard": 22
+        },
+        "waived": {
+          "npth_inside_courtyard": 22
+        }
+      },
+      "cpl_vs_kicad": "MATCH",
+      "failures": [],
+      "files": [
+        "power_adapter-panel-B_Cu.gbl",
+        "power_adapter-panel-B_Mask.gbs",
+        "power_adapter-panel-B_Paste.gbp",
+        "power_adapter-panel-B_Silkscreen.gbo",
+        "power_adapter-panel-Edge_Cuts.gm1",
+        "power_adapter-panel-F_Cu.gtl",
+        "power_adapter-panel-F_Mask.gts",
+        "power_adapter-panel-F_Paste.gtp",
+        "power_adapter-panel-F_Silkscreen.gto",
+        "power_adapter-panel-NPTH.drl",
+        "power_adapter-panel-PTH.drl",
+        "power_adapter-panel-job.gbrjob"
+      ]
+    }
+  },
+  "failures": [],
+  "status": "PASS"
+}
