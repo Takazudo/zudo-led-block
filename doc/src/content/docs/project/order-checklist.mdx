@@ -9,13 +9,13 @@ sidebar_position: 4.5
 発注ゲートは **BLOCKED** です。このページは準備の一覧で、発注・供給元への連絡・製造承認・通電を許可するものではありません。
 :::
 
-readiness（`engineering/a7/qualification/readiness.json`）は不足を 42 個のゲートに分け、何で解除できるかで分類しています。
+readiness（`engineering/a7/qualification/readiness.json`）は不足を 41 個のゲートに分け、何で解除できるかで分類しています。
 ゲート名は readiness のものと同じです。
 
 | 区分 | ゲート数 |
 |---|---:|
 | クラウドで進められるデジタル作業 | 0 |
-| オーナーの判断 | 8 |
+| オーナーの判断 | 7 |
 | 外部の証跡・アクセス待ち | 13 |
 | 実機が必要 | 21 |
 
@@ -34,17 +34,9 @@ readiness（`engineering/a7/qualification/readiness.json`）は不足を 42 個�
 9. **O9** 物理手順を実施して記録する
 10. **O10** 製造リリースと発注を明示的に承認する
 
-## まとめて答えられる判断（1 件）
+## まとめて答えられる判断（0 件）
 
 オーナーの判断ゲートを、PCB 発注を先に止めるものから順に並べています。推奨は出典に基づく提案で、オーナーの回答ではありません。回答は記録（承認ファイルやレビュー記録）にしてから反映し、それまでゲートは閉じたままです。
-
-### 1. A7 r2（3HP / FR-4）の限定試作を承認しますか。
-
-- ゲート: `owner_prototype_route`（PCB 発注の前）
-- **試験目的の少数試作を承認する（推奨）**: 部品・基板・治具を試作数量だけ入手でき、19 の物理手順を実施できる。承認ファイルを records.json の owner_prototype_route に記録するとこのゲートが解除される。製造リリースではない。
-- まだ承認しない: 物理手順はすべて止まる。部品・基板・治具を入手できない。
-- 推奨の理由: オーナーは 2026-11-12 に「1 OK」でこの試作を承認済み（approvals/2026-11-12-owner-prototype-route.md）。その承認は当時の基板・回路図・機構・台帳のハッシュに結び付いていて、SW1 を HX MSK13C02 に変えたことでそれらが変わったため、この版について改めて承認が要る。変わったのは SW1 の部品（型番・LCSC）とその記録だけで、銅パターンと配置は同じ。19 の物理手順はどれも実物が要り、試作ルートがないと部品・基板・治具を入手できない。試作ルートの承認は製造リリースではない。
-- 出典: `engineering/a7/procurement/assembly-manifest.json` 引用「A prototype route, when the owner approves one, is recorded in engineering/a7/qualification/records.json and is not a release.」
 
 ## オーナーが方針を受け入れた判断（7 件、ゲートは開いたまま）
 
@@ -145,7 +137,7 @@ readiness（`engineering/a7/qualification/readiness.json`）は不足を 42 個�
 | O5 | オーナーは完成ケーブルを業者に頼むこと（2026-11-12「5 accept all」）と、電源ケーブルの注文範囲 54–60 mm（57 ± 3 mm、±3 は仮定）と最小曲げ半径 2.0 mm を合否基準にすることを決めた。業者が保証できる公差の回答をもらう。SH4 と IDC リボンも同じ。 | `material:finished_cables`（BLOCKED）、`criterion:harness-depth`（解除済み） |
 | O6 | オーナーはケースの型番を知らせる案を採った（2026-11-12「5 accept all」）。型番からレール・ねじ規格と締結部品を決める。 | `assembly:rack-hardware`（BLOCKED） |
 | O11 | `engineering/a7/fixture/manifest.json` の hardware_proposal はオーナーが承認した（2026-11-12「5 accept all」）。治具の FR-4 板 4 枚の加工先は未選定（JLCCNC の指針は参考のみ）。プローブ板の穴間 0.40 mm は加工先に穴あけ可否の確認が要る。 | `assembly:fixture-materials`（BLOCKED） |
-| O1 | 対象版（A7 r2 / 3HP / FR-4）、数量、入手する部品・基板・治具、許す工程、実施者、試験前の安全条件を決め、承認ファイルを残して `records.json` の owner_prototype_route に記録する。製造リリースとは別の承認。 | `owner_prototype_route`（BLOCKED）、`assembly:prototype-and-release`（BLOCKED） |
+| O1 | 対象版（A7 r2 / 3HP / FR-4）、数量、入手する部品・基板・治具、許す工程、実施者、試験前の安全条件を決め、承認ファイルを残して `records.json` の owner_prototype_route に記録する。製造リリースとは別の承認。 | `owner_prototype_route`（解除済み）、`assembly:prototype-and-release`（BLOCKED） |
 | O9 | 19 手順はすべて実機が必要。`run-templates/` の雛形をコピーし、raw ファイルとハッシュを付けて `records.json` に追加する。 | `run:*`（19 手順が未実施） |
 | O10 | レビュー済み製造ファイル、数量、版に結び付いた承認。オーナーは実機試験の結果を見てから判断する方針を受け入れた（2026-11-12「5 accept all」）。これは製造リリースではない。 | `manufacturing_release`（BLOCKED）、`assembly:prototype-and-release`（BLOCKED） |
 

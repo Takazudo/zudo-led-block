@@ -1219,7 +1219,7 @@
 | 区分 | ゲート数 |
 |---|---:|
 | CLOUD_DIGITAL（クラウドで進められるデジタル作業） | 0 |
-| OWNER_DECISION（オーナーの判断） | 8 |
+| OWNER_DECISION（オーナーの判断） | 7 |
 | ACCESS_EVIDENCE_HOLD（外部の証跡・アクセス待ち） | 13 |
 | PHYSICAL_ONLY（実機が必要） | 21 |
 
@@ -1272,7 +1272,6 @@
 - material jack: missing or ambiguous dated observation
 - material pmma_petg_hardware: missing or ambiguous dated observation
 - material switch: missing or ambiguous dated observation
-- owner-approved sample/prototype route absent for this revision and quantity
 - reviewed manufacturing files and explicit revision-bound owner release absent
 
 ## 別案
