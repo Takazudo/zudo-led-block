@@ -43,7 +43,7 @@ readiness（`engineering/a7/qualification/readiness.json`）は不足を 42 個�
 - ゲート: `owner_prototype_route`（PCB 発注の前）
 - **試験目的の少数試作を承認する（推奨）**: 部品・基板・治具を試作数量だけ入手でき、19 の物理手順を実施できる。承認ファイルを records.json の owner_prototype_route に記録するとこのゲートが解除される。製造リリースではない。
 - まだ承認しない: 物理手順はすべて止まる。部品・基板・治具を入手できない。
-- 推奨の理由: オーナーは 2026-11-12 に「1 OK」でこの試作を承認済み（approvals/2026-11-12-owner-prototype-route.md）。その承認は当時の基板・回路図・機構・台帳のハッシュに結び付いていて、SW1 を HX MSK13C02 に変えたことでそれらが変わったため、この版について改めて承認が要る。変わったのは SW1 の部品（型番・LCSC）とその記録だけで、銅パターンと配置は同じ。19 の物理手順はどれも実物が要り、試作ルートがないと部品・基板・治具を入手できない。試作ルートの承認は製造リリースではない。
+- 推奨の理由: オーナーは 2026-11-12 に「1 OK」でこの試作を承認し、SW1 を HX MSK13C02 にした版を 2026-11-13 に再承認した（approvals/2026-11-13-owner-prototype-route-hx-switch.md）。その承認は当時の基板・回路図・機構・治具・調達台帳のハッシュに結び付いている。#80 で調達台帳 assembly-manifest.json の観測欄と未解決事項の文面を直して台帳のハッシュが変わったため（c12c964a… → ea30c8a7…）、この識別について改めて承認が要る。部品・数量・基板・配置・注文ファイルは変わっていない。19 の物理手順はどれも実物が要り、試作ルートがないと部品・基板・治具を入手できない。試作ルートの承認は製造リリースではない。
 - 出典: `engineering/a7/procurement/assembly-manifest.json` 引用「A prototype route, when the owner approves one, is recorded in engineering/a7/qualification/records.json and is not a release.」
 
 ## オーナーが方針を受け入れた判断（7 件、ゲートは開いたまま）
