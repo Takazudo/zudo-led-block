@@ -64,3 +64,8 @@ and attrition text, population sourcing pointers, the supply-blocker text and th
 digest, so `readiness.json` shows the `owner_prototype_route` gate again until the owner re-approves the current identity
 set. The approval record itself is unchanged. The stage-by-stage state is at the top of
 `engineering/a7/docs/continuation/continue-here.md`.
+
+Later note (2026-11-13, after the re-approval): the owner re-approved the prototype route for the current identity set
+(reply "approve", 2026-11-13T19:44:23Z; `engineering/a7/qualification/approvals/2026-11-13-owner-prototype-route-sourcing-manifest.md`).
+`records.json` now binds `557d5e48…502c`, and readiness no longer shows the `owner_prototype_route` gate. The order-form
+checks above still apply. This is not an order or a manufacturing release.

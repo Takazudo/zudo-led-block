@@ -12,14 +12,14 @@
       "configuration": "195092c88e1b9270bae22d27f4a08f4a606f9be77008f3011f06d7a975b0f6a7",
       "mechanical": "89f548a52d8ce907fb351519bfdcabc411e3389d1261056e1319582b03a4437a",
       "fixture": "471978cfdb4a0b5d096e72f32780025880eec91d076a29e87351cdbde8ba0be1",
-      "assembly_manifest": "c12c964ac3ea0c012bb03fbd11f1fac22d0f769a5cacdf2daf1b289f1493e865"
+      "assembly_manifest": "557d5e48045b60bb4a8f91dc55f9fae2988d4494082c42532679032da2c8502c"
     },
     "scope": "Test-only prototype of A7 r2 (3HP / FR-4) to run the physical procedures in qualification/plan.json; the PJ-324M tip-terminal check was to run before any PCB order; on 2026-11-12 the owner waived that (procurement/owner-decisions.json, jack-tip-test-waiver), so it runs as a first-article check on the assembled boards. Not a manufacturing release.",
     "quantity": "2 modules (owner decision order-quantity): 2 controller, 4 LED leaf, 2 power adapter boards with their parts, fixture and cables",
-    "constraints": "Owner words \"1 OK\" (2026-11-12) read as approve for owner_prototype_route only; panel route and switch supply not covered. Re-approved by the owner on 2026-11-13 for the revision with SW1 = HX MSK13C02 (card \"Yes, approve this version\"), since the switch change altered the bound identities. No order, purchase or supplier message is made by this record; manufacturing_release needs a separate explicit owner approval. Procedure preconditions and safety conditions apply.",
+    "constraints": "Owner words \"1 OK\" (2026-11-12) read as approve for owner_prototype_route only; panel route and switch supply not covered. Re-approved by the owner on 2026-11-13 for the revision with SW1 = HX MSK13C02 (card \"Yes, approve this version\"), since the switch change altered the bound identities. Re-approved again by the owner on 2026-11-13 (reply \"approve\" to the project-chat question) for the revision whose assembly manifest changed in #80 (sourcing fields only). No order, purchase or supplier message is made by this record; manufacturing_release needs a separate explicit owner approval. Procedure preconditions and safety conditions apply.",
     "approval": {
-      "path": "engineering/a7/qualification/approvals/2026-11-13-owner-prototype-route-hx-switch.md",
-      "sha256": "ffba85ce1568d19268a658580118ac931418412470647a7cc559fd20d3c0036c"
+      "path": "engineering/a7/qualification/approvals/2026-11-13-owner-prototype-route-sourcing-manifest.md",
+      "sha256": "1bd2cd2793f6f1119cb7820ae120d58aa6050786ac45a2f55b30edfa7f8ba575"
     }
   },
   "manufacturing_release": null,

@@ -17,13 +17,15 @@ Each stage below is taken from an existing record; this list does not add a gate
 
 1. **Digital implementation: complete.** Schematic, routed board `89310d53…e727` (board-gate step PASS in CI run 43294571723; that run failed in a later export step), mechanical model,
    and the fixture's digital criteria 1–4 with fresh native verification (`fixture/manifest.json`). #16–#19 are closed.
-2. **Test-prototype route: approved by the owner, now held by its binding.** Approved 2026-11-12 and re-approved for the
-   HX version on 2026-11-13 (PR #79, `qualification/approvals/2026-11-13-owner-prototype-route-hx-switch.md`). The approval
+2. **Test-prototype route: approved by the owner and bound to the current identities.** Approved 2026-11-12, re-approved for the
+   HX version on 2026-11-13 (PR #79, `qualification/approvals/2026-11-13-owner-prototype-route-hx-switch.md`), and
+   re-approved again on 2026-11-13 after #80 (`qualification/approvals/2026-11-13-owner-prototype-route-sourcing-manifest.md`). The approval
    binds the SHA-256 of board, population, schematic, firmware, configuration, mechanical layout, fixture manifest and
    assembly manifest (`qualification/records.json` → `owner_prototype_route.identities`). The sourcing reconciliation (#80)
    changed `procurement/assembly-manifest.json` from `c12c964a…e865` to `557d5e48…502c` (sourcing fields only:
-   order_plan line fields and attrition text, population sourcing pointers, the supply-blocker text and three added input hashes; no part, quantity, board or placement change), so readiness shows the `owner_prototype_route`
-   gate again. The approval record is unchanged; re-approving the new identity set is an owner action.
+   order_plan line fields and attrition text, population sourcing pointers, the supply-blocker text and three added input hashes; no part, quantity, board or placement change), which unbound the earlier approval. The owner
+   re-approved the new identity set (reply "approve", 2026-11-13T19:44:23Z); `records.json` now binds `557d5e48…502c` and
+   readiness no longer shows the `owner_prototype_route` gate. The two earlier approval records stay as history.
 3. **Panel exports: prepared and verified.** Own repo panels (owner decision `panel-route`). Dated set
    `jlc-package/order/2026-11-13/` exported from `db0ca95` with KiCad 10.0.8: one Gerber zip, BOM and CPL per board type and
    `SHA256SUMS`; `a7_panel.py build` and the single-board export check PASS (`panel-build-summary.json`,
@@ -168,7 +170,7 @@ retrieved.
 The stage list at the top is the current state. `qualification/readiness.json` reports BLOCKED. Any later board change
 re-runs the gate, independent review and R2 fit check.
 
-1. **Owner actions before ordering:** re-approve the prototype route for the current identity set (stage 2), review the
+1. **Owner actions before ordering:** review the
    JLC order form (stage 4), then order. Choose the fabricator for the four fixture FR-4 plates (the proposed fixture
    hardware is already accepted).
 2. **First-article and physical gates:** PJ-324M pin functions by TS / TRS continuity (Q2, waived before ordering, done on
@@ -189,7 +191,6 @@ re-runs the gate, independent review and R2 fit check.
 
 | Blocker | Blocks | Needs | Tracked in |
 |---|---|---|---|
-| Prototype-route approval bound to the old assembly-manifest digest | readiness `owner_prototype_route` | owner re-approval of the current identities | records.json |
 | Order-form checks not done (centroids / rotations, PCBA sheet unit, customer-panel acceptance, base material, finish, assembly terms) | ordering | owner review on the JLC form | `jlc-package/order/2026-11-13/README.md` |
 | No manufacturing release package or approval | manufacturing | qualification, then an owner release decision (out of scope) | #10 |
 | Board is 1.6 mm (3HP only) | an optional 2HP build | owner 2HP decision, then a 0.8 mm board and new routing | optional |

@@ -329,15 +329,14 @@ class ReadinessTests(unittest.TestCase):
     def test_checklist_lists_decisions_and_downloads(self):
         report = json.loads((REPO/m.QUAL/'readiness.json').read_text())
         page = m.checklist(self.plan, report)
-        self.assertIn('## まとめて答えられる判断（1 件）', page)
+        self.assertIn('## まとめて答えられる判断（0 件）', page)
         self.assertIn('## オーナーが方針を受け入れた判断（7 件、ゲートは開いたまま）', page)
-        # The #80 sourcing fix changed the assembly manifest the owner's route approval is bound to, so it is asked again.
-        self.assertIn('限定試作を承認しますか', page)
+        self.assertNotIn('限定試作を承認しますか', page)
         self.assertIn('## 回答済みの判断（9 件）', page)
         self.assertIn('2 台分（オーナー報告の JLC PCBA 最小、未確認）（オーナーの回答、`assembly:order-quantity`）', page)
         self.assertNotIn('### 2. 最初の発注数量', page)
         self.assertIn('## 資料・回答待ちのゲート（13 件）', page)
-        self.assertIn('`owner_prototype_route`（BLOCKED）', page)
+        self.assertIn('`owner_prototype_route`（解除済み）', page)
         self.assertNotIn('<https://', page)
 
     def test_non_list_raw_evidence_blocks(self):
@@ -612,23 +611,23 @@ class ExecutableProcedureTests(unittest.TestCase):
     def test_recorded_owner_prototype_route_is_bound_and_not_a_release(self):
         records = json.loads((REPO/m.QUAL/'records.json').read_text())
         report = m.evaluate(REPO, self.plan, records)
-        # The owner re-approved the route on 2026-11-13 for the HX version; #80 then changed the assembly manifest
-        # (sourcing fields only), so the recorded approval no longer matches and the gate is open again.
-        self.assertIn('owner_prototype_route', [g['gate'] for g in report['gates']])
+        # The owner re-approved the route again on 2026-11-13 for the assembly manifest #80 changed (sourcing fields only).
+        self.assertNotIn('owner_prototype_route', [g['gate'] for g in report['gates']])
+        self.assertIn('manufacturing_release', [g['gate'] for g in report['gates']])
+        self.assertEqual(report['order_eligibility'], 'BLOCKED')
         route = records['owner_prototype_route']
-        stale = {k for k, v in route['identities'].items() if v != report['identities'][k]['sha256']}
-        self.assertEqual(stale, {'assembly_manifest'})
-        self.assertEqual(route['identities']['assembly_manifest'], 'c12c964ac3ea0c012bb03fbd11f1fac22d0f769a5cacdf2daf1b289f1493e865')
+        self.assertEqual(route['identities'], {k: v['sha256'] for k, v in report['identities'].items()})
+        self.assertEqual(route['identities']['assembly_manifest'], '557d5e48045b60bb4a8f91dc55f9fae2988d4494082c42532679032da2c8502c')
         approval = (REPO/route['approval']['path']).read_text()
-        self.assertIn('1 OK', approval)
-        self.assertIn('Yes, approve this version', approval)
+        self.assertIn('> approve', approval)
+        self.assertIn('2026-11-13-owner-prototype-route-hx-switch.md', approval)
+        self.assertIn('2026-11-12-owner-prototype-route.md', approval)
+        for earlier in ('2026-11-12-owner-prototype-route.md', '2026-11-13-owner-prototype-route-hx-switch.md'):
+            self.assertTrue((REPO/m.QUAL/'approvals'/earlier).is_file())
         self.assertIn('panel route and switch supply not covered', route['constraints'])
-        rebound = json.loads(json.dumps(records))
-        rebound['owner_prototype_route']['identities'] = {k: v['sha256'] for k, v in report['identities'].items()}
-        rebound_report = m.evaluate(REPO, self.plan, rebound)
-        self.assertNotIn('owner_prototype_route', [g['gate'] for g in rebound_report['gates']])
-        self.assertIn('manufacturing_release', [g['gate'] for g in rebound_report['gates']])
-        self.assertEqual(rebound_report['order_eligibility'], 'BLOCKED')
+        stale = json.loads(json.dumps(records))
+        stale['owner_prototype_route']['identities'] = dict(route['identities'], assembly_manifest='c12c964ac3ea0c012bb03fbd11f1fac22d0f769a5cacdf2daf1b289f1493e865')
+        self.assertIn('owner_prototype_route', [g['gate'] for g in m.evaluate(REPO, self.plan, stale)['gates']])
         records['owner_prototype_route']['identities'] = dict(records['owner_prototype_route']['identities'], board='0' * 64)
         self.assertIn('owner_prototype_route', [g['gate'] for g in m.evaluate(REPO, self.plan, records)['gates']])
 

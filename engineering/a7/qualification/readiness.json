@@ -43,7 +43,7 @@
       "sha256": "557d5e48045b60bb4a8f91dc55f9fae2988d4494082c42532679032da2c8502c"
     }
   },
-  "plan_sha256": "9e0a4c1745165eafb14429ecb4367c380cc31b64beb485b6e02064289d001416",
+  "plan_sha256": "75465ee1e14955b22adb764024f646fda3bdf097f15767a255b8fa0362e9c385",
   "procedures": [
     {
       "id": "jack-continuity",
@@ -241,7 +241,6 @@
     "material jack: missing or ambiguous dated observation",
     "material pmma_petg_hardware: missing or ambiguous dated observation",
     "material switch: missing or ambiguous dated observation",
-    "owner-approved sample/prototype route absent for this revision and quantity",
     "reviewed manufacturing files and explicit revision-bound owner release absent"
   ],
   "gates": [
@@ -533,13 +532,6 @@
       ]
     },
     {
-      "gate": "owner_prototype_route",
-      "class": "OWNER_DECISION",
-      "reasons": [
-        "owner-approved sample/prototype route absent for this revision and quantity"
-      ]
-    },
-    {
       "gate": "manufacturing_release",
       "class": "OWNER_DECISION",
       "reasons": [
@@ -549,7 +541,7 @@
   ],
   "gate_counts": {
     "CLOUD_DIGITAL": 0,
-    "OWNER_DECISION": 8,
+    "OWNER_DECISION": 7,
     "ACCESS_EVIDENCE_HOLD": 13,
     "PHYSICAL_ONLY": 21
   },
