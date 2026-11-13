@@ -11,6 +11,8 @@
 | D5 | E1 mergeを保留 | PR CIでproductionがSKIPPEDでもmain merge時の設定は証明されない。リポジトリ変数404を迂回せず、非デプロイ条件の確認を待つ |
 | D6 | 子Issue作成を保留 | 中断した最初のIssueは親が未作成と確認。原因不明の拒否/中断操作を繰り返さず、許可された独立ローカル作業を進める |
 
+2026-11-13: D3 の「完成治具と呼ばない」は維持（物理の基準 5 が未実施）。ただし carrier-only の段階は過ぎ、4 枚プレートの設計がデジタル基準 1–4 と native の新規検証を満たし、金物はオーナーが承認済み、加工業者は未選定。現在の試作ルート承認は `qualification/approvals/2026-11-13-owner-prototype-route-hx-switch.md`（基板 `89310d53…e727`）で、#80 の台帳変更により識別の結び付きが外れている（[continue-here.md](continue-here.md) の冒頭）。
+
 2026-11-11: D5 は解除。owner が通常の merge 完了を依頼し、main push の deploy-gate で deploy 変数が空・Production deploy SKIPPED を確認した（[checkpoint](order-preparation-checkpoint.md) の 2026-11-11 節）。
 
 ## オーナーの判断が必要なもの

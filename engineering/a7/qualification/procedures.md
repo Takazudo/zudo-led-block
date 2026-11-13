@@ -1219,14 +1219,14 @@
 | 区分 | ゲート数 |
 |---|---:|
 | CLOUD_DIGITAL（クラウドで進められるデジタル作業） | 0 |
-| OWNER_DECISION（オーナーの判断） | 7 |
+| OWNER_DECISION（オーナーの判断） | 8 |
 | ACCESS_EVIDENCE_HOLD（外部の証跡・アクセス待ち） | 13 |
 | PHYSICAL_ONLY（実機が必要） | 21 |
 
 ## 現在のブロッカー
 
 - fixture completion awaits the physical criterion 5 (fixture-contact)
-- assembly_manifest: supply-observations: Order quantity is 2 modules (owner decision). JLC stock, price, minimum, packaging, lead time and assembly applicability at that quantity are not observed for any line except the C5149819 switch (stock 4561 at 2026-11-12); JLC attrition is not sourced; stock never reserved.
+- assembly_manifest: supply-observations: Order quantity is 2 modules (owner decision), 162 fitted pieces before attrition. 30 of 30 fitted identities have dated 2026-11-12 JLC listing observations from both the rendered part pages and the parts-API audit (separate reads, raw bytes not committed, field meanings and currency inferred; engineering/a7/procurement/sourcing-projection.json). Not obtained for any line: lead time, confirmed quote, stock reservation and assembly acceptance. JLC attrition is not sourced as a rule; the audit's buy quantities are our inference. Refresh before ordering.
 - assembly_manifest: jack-switch-qualification: PJ-324M pin function (which of terminals 4/5 is the tip contact; the supplier symbol contradicts the inferred 4 = tip) is not confirmed: the owner waived the pre-order continuity test on 2026-11-12 and accepted the risk, so it is a first-article check on the assembled boards. Slot, axis height and nut fit, and the HX MSK13C02 truth table and land/peg fit, also need received parts (jack-continuity, jack-dimensions, switch-fit).
 - assembly_manifest: exact-part-evidence: Exact-part gaps after the 2026-11-11 source recovery (the PMEG4010CEJ ,115 packing is since sourced: SOD323F on a 7-inch reel, fact-pmeg4010cej-115-orderable): SM04B-SRSS-TB per-circuit numbering not printed beyond the No. 1 end; PJ-324M recommended hole/slot sizes, axis height and whether a nut ships with C22355739 not sourced.
 - assembly_manifest: mechanical-materials: PMMA sheet and pocket tolerances, PETG process and orderable fastener part numbers are not sourced; the model carries designations (M2x18, M1.6x4) and envelopes only.
@@ -1272,6 +1272,7 @@
 - material jack: missing or ambiguous dated observation
 - material pmma_petg_hardware: missing or ambiguous dated observation
 - material switch: missing or ambiguous dated observation
+- owner-approved sample/prototype route absent for this revision and quantity
 - reviewed manufacturing files and explicit revision-bound owner release absent
 
 ## 別案

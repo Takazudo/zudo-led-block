@@ -45,13 +45,13 @@ class LedgerTests(unittest.TestCase):
   self.assertFalse(any(r['lcsc'] in ('C500090','C908270') for r in self.report['population']))
 
  def test_dated_switch_observation(self):
-  row=next(r for r in self.report['population'] if r['lcsc']=='C5149819')
-  obs=row['commercial_observation']
-  self.assertEqual((obs['stock_count'],obs['minimum_purchase_quantity'],obs['packaging_quantity']),(4561,1,3000))
-  self.assertIsNone(obs['currency'])
-  self.assertIsNone(obs['assembly_acceptance'])
-  self.assertFalse(obs['reserved'])
-  self.assertIsNone(next(r for r in self.report['population'] if r['lcsc']!='C5149819')['commercial_observation'])
+  line=next(l for l in P.build()[1]['lines'] if l['lcsc']=='C5149819')
+  api=line['parts_api']
+  self.assertEqual((api['observed']['jlc_stock'],api['observed']['min_purchase'],api['calculated']['pieces_to_buy']),(4561,1,2))
+  self.assertEqual(api['raw_sha256'],'f6e3f19ec6c129eb50209701f98ea079945f5eb4dbe17b9c711ab6d5006d1ab9')
+  self.assertEqual(line['listing_page']['observed']['packaging_quantity'],3000)
+  self.assertEqual(api['currency']['status'],'INFERRED')
+  self.assertIn('assembly_acceptance',line['not_obtained'])
   with self.mutate_json(P.SWITCH_SOURCES,lambda d:next(s for s in d['sources'] if s['source_id'].endswith('jlc-api-2026-11-12')).update(sha256='0'*64)):
    with self.assertRaisesRegex(ValueError,'receipt changed'):P.generate()
 
@@ -63,12 +63,11 @@ class LedgerTests(unittest.TestCase):
   self.assertEqual([(b['board'],b['boards_needed']) for b in plan['boards']],[('controller',2),('led_leaf',4),('power_adapter',2)])
   self.assertTrue(plan['attrition'].startswith('NOT_SOURCED'))
   self.assertEqual(sum(l['pieces_required'] for l in plan['lines']),2*self.report['fitted_pieces_per_module'])
+  self.assertEqual(sum(l['pieces_required'] for l in plan['lines']),162)
   self.assertNotIn('C221842',[l['lcsc'] for l in plan['lines']])
-  switch=next(l for l in plan['lines'] if l['lcsc']=='C5149819')
-  self.assertEqual((switch['pieces_required'],switch['supplier_minimum'],switch['pieces_to_buy']),(2,1,2))
-  self.assertEqual(switch['sourcing']['route'],'JLC_STOCK')
-  self.assertTrue(all(l['sourcing']['route']=='JLC_STOCK' and l['pieces_to_buy'] is None for l in plan['lines'] if l['lcsc']!='C5149819'))
+  self.assertTrue(all(l['sourcing']['route']=='JLC_STOCK' and l['sourcing']['status'].startswith('DATED_LISTING_OBSERVED') for l in plan['lines']))
   self.assertNotIn('order-quantity',[b['id'] for b in self.report['blockers']])
+
 
  def test_order_quantity_must_be_the_owners_own_record(self):
   cases=({'decided_by':'AGENT'},{'owner_words':[]},{'owner_words':['we will make 3 units']},{'owner_messages':[]},
@@ -217,5 +216,125 @@ class LedgerTests(unittest.TestCase):
   with self.mutate_json(P.OWNER_DECISIONS,bad):
    with self.assertRaisesRegex(ValueError,'answer outside'):
     P.generate()
+
+class SourcingProjectionTests(unittest.TestCase):
+ """Every active fitted identity reconciles to dated evidence or an explicit gap; nothing is promoted to a quote or current stock."""
+ def setUp(self):
+  self.report,self.projection=P.build()
+
+ mutate_json=LedgerTests.mutate_json
+
+ def test_active_population_is_the_30_fitted_identities(self):
+  pj=self.projection
+  self.assertEqual(pj['active_identities'],30)
+  self.assertEqual(len({l['lcsc'] for l in pj['lines']}),30)
+  self.assertEqual({l['lcsc'] for l in pj['lines']},{r['lcsc'] for r in self.report['population'] if r['population']=='FITTED'})
+  self.assertEqual(pj['gaps'],{'listing_page':[],'parts_api':[]})
+  self.assertEqual(pj['library_counts']['listing_page'],{'BASIC':14,'EXTENDED':16})
+  self.assertEqual(pj['pieces_required_total'],162)
+
+ def test_retired_switch_is_evidence_only(self):
+  pj=self.projection
+  self.assertNotIn('C221842',[l['lcsc'] for l in pj['lines']])
+  self.assertEqual([r['lcsc'] for r in pj['retired']],['C221842'])
+  self.assertTrue(all('C221842' not in l['lcsc'] for l in self.report['order_plan']['lines']))
+  # The retired part cannot come back into the price audit's current lines.
+  def add_retired(d):
+   d['after']['lines'].append(dict(d['before']['lines'][0],lcsc='C221842',mpn='PCM13SMTR',manufacturer='C&K'))
+  with self.mutate_json(P.PRICE_AUDIT,add_retired):
+   with self.assertRaisesRegex(ValueError,'only the current fitted identities'):P.build()
+
+ def test_unknown_or_ambiguous_evidence_is_rejected(self):
+  with self.mutate_json(P.LISTING_PAGES,lambda d:d['parts'].append(dict(d['parts'][0]))):
+   with self.assertRaisesRegex(ValueError,'ambiguous evidence'):P.build()
+  with self.mutate_json(P.LISTING_PAGES,lambda d:d['parts'].append(dict(d['parts'][0],lcsc='C999999'))):
+   with self.assertRaisesRegex(ValueError,'outside the fitted population'):P.build()
+  with self.mutate_json(P.PRICE_AUDIT,lambda d:d['after']['lines'].append(dict(d['after']['lines'][1]))):
+   with self.assertRaisesRegex(ValueError,'ambiguous evidence'):P.build()
+
+ def test_identity_must_match_exactly(self):
+  def mpn(d):next(p for p in d['parts'] if p['lcsc']=='C7250')['model']='0603WAF1005T5'
+  with self.mutate_json(P.LISTING_PAGES,mpn):
+   with self.assertRaisesRegex(ValueError,'names MPN'):P.build()
+  def maker(d):next(l for l in d['after']['lines'] if l['lcsc']=='C7250')['manufacturer']='UNI-ROYAL'
+  with self.mutate_json(P.PRICE_AUDIT,maker):
+   with self.assertRaisesRegex(ValueError,'names manufacturer'):P.build()
+  # The reviewed crosswalk spelling is allowed only for the sources it names, not for this receipt file.
+  def long_form(d):next(p for p in d['parts'] if p['lcsc']=='C5665')['model']='2.54-2*5P2.54 mm pitch 2×5 pin IDC box header'
+  with self.mutate_json(P.LISTING_PAGES,long_form):
+   with self.assertRaisesRegex(ValueError,'names MPN'):P.build()
+
+ def test_missing_evidence_becomes_an_explicit_gap(self):
+  with self.mutate_json(P.LISTING_PAGES,lambda d:d.update(parts=[p for p in d['parts'] if p['lcsc']!='C7250'])):
+   report,pj=P.build()
+  line=next(l for l in pj['lines'] if l['lcsc']=='C7250')
+  self.assertEqual(line['listing_page']['status'],'GAP')
+  self.assertEqual(line['parts_api']['status'],'OBSERVED')
+  self.assertEqual(pj['gaps']['listing_page'],['C7250'])
+  supply=next(b for b in report['blockers'] if b['id']=='supply-observations')
+  self.assertIn('No rendered-page receipt: C7250',supply['text'])
+  self.assertEqual(supply['class'],'ACCESS_EVIDENCE_HOLD')
+  def no_api(d):d['after']['lines']=[l for l in d['after']['lines'] if l['lcsc']!='C7250']
+  with self.mutate_json(P.PRICE_AUDIT,no_api):
+   _,pj=P.build()
+  self.assertEqual(pj['gaps']['parts_api'],['C7250'])
+  self.assertEqual(next(l for l in P.build()[0]['order_plan']['lines'] if l['lcsc']=='C7250')['sourcing']['route'],'JLC_STOCK')
+
+ def test_quantity_semantics_are_not_multiplied_twice(self):
+  # The audit's pieces_required must equal fitted pieces x modules; a doubled leaf count is rejected.
+  def doubled(d):
+   l=next(l for l in d['after']['lines'] if l['lcsc']=='C52917434');l['pieces_required']*=2
+  with self.mutate_json(P.PRICE_AUDIT,doubled):
+   with self.assertRaisesRegex(ValueError,'quantity semantics'):P.build()
+  ws=next(l for l in self.projection['lines'] if l['lcsc']=='C52917434')
+  self.assertEqual((ws['pieces_per_module'],ws['pieces_required']),(8,16))
+
+ def test_audit_buy_quantity_follows_its_stated_rule(self):
+  def wrong(d):next(l for l in d['after']['lines'] if l['lcsc']=='C134375')['pieces_to_buy']=2
+  with self.mutate_json(P.PRICE_AUDIT,wrong):
+   with self.assertRaisesRegex(ValueError,'cost_rule'):P.build()
+  d3=next(l for l in self.projection['lines'] if l['lcsc']=='C134375')['parts_api']['calculated']
+  self.assertEqual(d3['pieces_to_buy'],7)
+
+ def test_provenance_and_times_are_kept_per_source(self):
+  for l in self.projection['lines']:
+   pg,api=l['listing_page'],l['parts_api']
+   self.assertRegex(pg['raw_sha256'],'^[0-9a-f]{64}$')
+   self.assertFalse(pg['raw_stored'])
+   self.assertTrue(pg['observed_at'].startswith('2026-11-12T'))
+   self.assertTrue(pg['field_meanings'].startswith('INFERRED'))
+   self.assertEqual(api['calculated']['confidence'],'INFERRED')
+   self.assertEqual(api['currency']['status'],'INFERRED')
+   if l['lcsc']!='C5149819':
+    self.assertIsNone(api['raw_sha256'])
+    self.assertEqual(api['observed_at'],'2026-11-12T19:09:52Z')
+   self.assertEqual(l['not_obtained'],['lead_time','confirmed_quote','stock_reservation','assembly_acceptance'])
+  self.assertTrue(self.projection['stock_differs_between_reads'])
+  # An audit row time that matches neither the API read nor a hash-bound receipt is rejected.
+  def moved(d):next(l for l in d['after']['lines'] if l['lcsc']=='C7250')['retrieved_at']='2026-11-12T23:00:00Z'
+  with self.mutate_json(P.PRICE_AUDIT,moved):
+   with self.assertRaisesRegex(ValueError,'audit row time'):P.build()
+
+ def test_reports_never_claim_current_stock_quote_or_release(self):
+  text=json.dumps(self.report,ensure_ascii=False)
+  self.assertNotIn('NOT_OBSERVED',text)
+  self.assertNotIn('not observed for any line except',text)
+  supply=next(b for b in self.report['blockers'] if b['id']=='supply-observations')
+  self.assertEqual(supply['class'],'ACCESS_EVIDENCE_HOLD')
+  self.assertIn('30 of 30',supply['text'])
+  self.assertIn('lead time, confirmed quote, stock reservation and assembly acceptance',supply['text'])
+  self.assertEqual(self.projection['status'],'DATED_OBSERVATIONS_NOT_CURRENT_STOCK_OR_QUOTE')
+  self.assertFalse(self.report['manufacturing_released'])
+  self.assertFalse(self.report['order_submitted'])
+  for name in (P.LISTING_PAGES,P.PRICE_AUDIT,P.SUPPLY_OBSERVATIONS):
+   self.assertIn(name,self.report['inputs_sha256'])
+  self.assertNotIn('engineering/a7/jlc-package/package.json',self.report['inputs_sha256'])
+
+ def test_outputs_are_reproducible(self):
+  a=P.outputs(*P.build());b=P.outputs(*P.build())
+  self.assertEqual(a,b)
+  for name,contents in a.items():
+   self.assertEqual((ROOT/P.OUT/name).read_text(),contents,name)
+
 
 if __name__=='__main__':unittest.main()

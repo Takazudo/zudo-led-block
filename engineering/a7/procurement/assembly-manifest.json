@@ -42,7 +42,7 @@
       }
     ],
     "pcb_fabrication_minimum": "NOT_SOURCED",
-    "attrition": "NOT_SOURCED: JLC extra-piece (attrition) rule not obtained; pieces_required and pieces_to_buy add none",
+    "attrition": "NOT_SOURCED as a JLC rule: pieces_required adds none. The 2026-11-12 parts-API audit calculates pieces_to_buy from loss_number / least_patch_number / min_purchase, whose meanings are our inference (engineering/a7/procurement/sourcing-projection.json, confidence INFERRED).",
     "sourcing_preference": {
       "owner_words": [
         "basically I want to complete it on JLCPCB, external purchase from JLC parts lib is acceptable"
@@ -61,14 +61,12 @@
         "manufacturer": "MOLEX",
         "pieces_per_module": 2,
         "pieces_required": 4,
-        "supplier_minimum": null,
-        "minimum_source": null,
-        "pieces_to_buy": null,
         "sourcing": {
           "route": "JLC_STOCK",
-          "status": "NOT_OBSERVED: preferred route; JLC stock and minimum at the order quantity not observed",
+          "status": "DATED_LISTING_OBSERVED: preferred route; listing_page and parts_api observations dated 2026-11-12 (not current stock, a quote, a reservation or assembly acceptance; refresh before ordering)",
           "exception": null
-        }
+        },
+        "evidence": "engineering/a7/procurement/sourcing-projection.json#C122442"
       },
       {
         "lcsc": "C12891",
@@ -76,14 +74,12 @@
         "manufacturer": "Samsung Electro-Mechanics",
         "pieces_per_module": 2,
         "pieces_required": 4,
-        "supplier_minimum": null,
-        "minimum_source": null,
-        "pieces_to_buy": null,
         "sourcing": {
           "route": "JLC_STOCK",
-          "status": "NOT_OBSERVED: preferred route; JLC stock and minimum at the order quantity not observed",
+          "status": "DATED_LISTING_OBSERVED: preferred route; listing_page and parts_api observations dated 2026-11-12 (not current stock, a quote, a reservation or assembly acceptance; refresh before ordering)",
           "exception": null
-        }
+        },
+        "evidence": "engineering/a7/procurement/sourcing-projection.json#C12891"
       },
       {
         "lcsc": "C134375",
@@ -91,14 +87,12 @@
         "manufacturer": "Diodes Incorporated",
         "pieces_per_module": 1,
         "pieces_required": 2,
-        "supplier_minimum": null,
-        "minimum_source": null,
-        "pieces_to_buy": null,
         "sourcing": {
           "route": "JLC_STOCK",
-          "status": "NOT_OBSERVED: preferred route; JLC stock and minimum at the order quantity not observed",
+          "status": "DATED_LISTING_OBSERVED: preferred route; listing_page and parts_api observations dated 2026-11-12 (not current stock, a quote, a reservation or assembly acceptance; refresh before ordering)",
           "exception": null
-        }
+        },
+        "evidence": "engineering/a7/procurement/sourcing-projection.json#C134375"
       },
       {
         "lcsc": "C140331",
@@ -106,14 +100,12 @@
         "manufacturer": "Texas Instruments",
         "pieces_per_module": 1,
         "pieces_required": 2,
-        "supplier_minimum": null,
-        "minimum_source": null,
-        "pieces_to_buy": null,
         "sourcing": {
           "route": "JLC_STOCK",
-          "status": "NOT_OBSERVED: preferred route; JLC stock and minimum at the order quantity not observed",
+          "status": "DATED_LISTING_OBSERVED: preferred route; listing_page and parts_api observations dated 2026-11-12 (not current stock, a quote, a reservation or assembly acceptance; refresh before ordering)",
           "exception": null
-        }
+        },
+        "evidence": "engineering/a7/procurement/sourcing-projection.json#C140331"
       },
       {
         "lcsc": "C14663",
@@ -121,14 +113,12 @@
         "manufacturer": "YAGEO",
         "pieces_per_module": 16,
         "pieces_required": 32,
-        "supplier_minimum": null,
-        "minimum_source": null,
-        "pieces_to_buy": null,
         "sourcing": {
           "route": "JLC_STOCK",
-          "status": "NOT_OBSERVED: preferred route; JLC stock and minimum at the order quantity not observed",
+          "status": "DATED_LISTING_OBSERVED: preferred route; listing_page and parts_api observations dated 2026-11-12 (not current stock, a quote, a reservation or assembly acceptance; refresh before ordering)",
           "exception": null
-        }
+        },
+        "evidence": "engineering/a7/procurement/sourcing-projection.json#C14663"
       },
       {
         "lcsc": "C15741",
@@ -136,14 +126,12 @@
         "manufacturer": "Texas Instruments",
         "pieces_per_module": 1,
         "pieces_required": 2,
-        "supplier_minimum": null,
-        "minimum_source": null,
-        "pieces_to_buy": null,
         "sourcing": {
           "route": "JLC_STOCK",
-          "status": "NOT_OBSERVED: preferred route; JLC stock and minimum at the order quantity not observed",
+          "status": "DATED_LISTING_OBSERVED: preferred route; listing_page and parts_api observations dated 2026-11-12 (not current stock, a quote, a reservation or assembly acceptance; refresh before ordering)",
           "exception": null
-        }
+        },
+        "evidence": "engineering/a7/procurement/sourcing-projection.json#C15741"
       },
       {
         "lcsc": "C15850",
@@ -151,14 +139,12 @@
         "manufacturer": "Samsung Electro-Mechanics",
         "pieces_per_module": 3,
         "pieces_required": 6,
-        "supplier_minimum": null,
-        "minimum_source": null,
-        "pieces_to_buy": null,
         "sourcing": {
           "route": "JLC_STOCK",
-          "status": "NOT_OBSERVED: preferred route; JLC stock and minimum at the order quantity not observed",
+          "status": "DATED_LISTING_OBSERVED: preferred route; listing_page and parts_api observations dated 2026-11-12 (not current stock, a quote, a reservation or assembly acceptance; refresh before ordering)",
           "exception": null
-        }
+        },
+        "evidence": "engineering/a7/procurement/sourcing-projection.json#C15850"
       },
       {
         "lcsc": "C160404",
@@ -166,14 +152,12 @@
         "manufacturer": "JST",
         "pieces_per_module": 5,
         "pieces_required": 10,
-        "supplier_minimum": null,
-        "minimum_source": null,
-        "pieces_to_buy": null,
         "sourcing": {
           "route": "JLC_STOCK",
-          "status": "NOT_OBSERVED: preferred route; JLC stock and minimum at the order quantity not observed",
+          "status": "DATED_LISTING_OBSERVED: preferred route; listing_page and parts_api observations dated 2026-11-12 (not current stock, a quote, a reservation or assembly acceptance; refresh before ordering)",
           "exception": null
-        }
+        },
+        "evidence": "engineering/a7/procurement/sourcing-projection.json#C160404"
       },
       {
         "lcsc": "C19666",
@@ -181,14 +165,12 @@
         "manufacturer": "Samsung Electro-Mechanics",
         "pieces_per_module": 3,
         "pieces_required": 6,
-        "supplier_minimum": null,
-        "minimum_source": null,
-        "pieces_to_buy": null,
         "sourcing": {
           "route": "JLC_STOCK",
-          "status": "NOT_OBSERVED: preferred route; JLC stock and minimum at the order quantity not observed",
+          "status": "DATED_LISTING_OBSERVED: preferred route; listing_page and parts_api observations dated 2026-11-12 (not current stock, a quote, a reservation or assembly acceptance; refresh before ordering)",
           "exception": null
-        }
+        },
+        "evidence": "engineering/a7/procurement/sourcing-projection.json#C19666"
       },
       {
         "lcsc": "C20526",
@@ -196,14 +178,12 @@
         "manufacturer": "Jiangsu Changjing Electronics Technology Co., Ltd.",
         "pieces_per_module": 1,
         "pieces_required": 2,
-        "supplier_minimum": null,
-        "minimum_source": null,
-        "pieces_to_buy": null,
         "sourcing": {
           "route": "JLC_STOCK",
-          "status": "NOT_OBSERVED: preferred route; JLC stock and minimum at the order quantity not observed",
+          "status": "DATED_LISTING_OBSERVED: preferred route; listing_page and parts_api observations dated 2026-11-12 (not current stock, a quote, a reservation or assembly acceptance; refresh before ordering)",
           "exception": null
-        }
+        },
+        "evidence": "engineering/a7/procurement/sourcing-projection.json#C20526"
       },
       {
         "lcsc": "C2071056",
@@ -211,14 +191,12 @@
         "manufacturer": "Diodes Incorporated",
         "pieces_per_module": 1,
         "pieces_required": 2,
-        "supplier_minimum": null,
-        "minimum_source": null,
-        "pieces_to_buy": null,
         "sourcing": {
           "route": "JLC_STOCK",
-          "status": "NOT_OBSERVED: preferred route; JLC stock and minimum at the order quantity not observed",
+          "status": "DATED_LISTING_OBSERVED: preferred route; listing_page and parts_api observations dated 2026-11-12 (not current stock, a quote, a reservation or assembly acceptance; refresh before ordering)",
           "exception": null
-        }
+        },
+        "evidence": "engineering/a7/procurement/sourcing-projection.json#C2071056"
       },
       {
         "lcsc": "C21190",
@@ -226,14 +204,12 @@
         "manufacturer": "UNI-ROYAL(Uniroyal Elec)",
         "pieces_per_module": 3,
         "pieces_required": 6,
-        "supplier_minimum": null,
-        "minimum_source": null,
-        "pieces_to_buy": null,
         "sourcing": {
           "route": "JLC_STOCK",
-          "status": "NOT_OBSERVED: preferred route; JLC stock and minimum at the order quantity not observed",
+          "status": "DATED_LISTING_OBSERVED: preferred route; listing_page and parts_api observations dated 2026-11-12 (not current stock, a quote, a reservation or assembly acceptance; refresh before ordering)",
           "exception": null
-        }
+        },
+        "evidence": "engineering/a7/procurement/sourcing-projection.json#C21190"
       },
       {
         "lcsc": "C221351",
@@ -241,14 +217,12 @@
         "manufacturer": "Texas Instruments",
         "pieces_per_module": 1,
         "pieces_required": 2,
-        "supplier_minimum": null,
-        "minimum_source": null,
-        "pieces_to_buy": null,
         "sourcing": {
           "route": "JLC_STOCK",
-          "status": "NOT_OBSERVED: preferred route; JLC stock and minimum at the order quantity not observed",
+          "status": "DATED_LISTING_OBSERVED: preferred route; listing_page and parts_api observations dated 2026-11-12 (not current stock, a quote, a reservation or assembly acceptance; refresh before ordering)",
           "exception": null
-        }
+        },
+        "evidence": "engineering/a7/procurement/sourcing-projection.json#C221351"
       },
       {
         "lcsc": "C22355739",
@@ -256,14 +230,12 @@
         "manufacturer": "SOFNG",
         "pieces_per_module": 2,
         "pieces_required": 4,
-        "supplier_minimum": null,
-        "minimum_source": null,
-        "pieces_to_buy": null,
         "sourcing": {
           "route": "JLC_STOCK",
-          "status": "NOT_OBSERVED: preferred route; JLC stock and minimum at the order quantity not observed",
+          "status": "DATED_LISTING_OBSERVED: preferred route; listing_page and parts_api observations dated 2026-11-12 (not current stock, a quote, a reservation or assembly acceptance; refresh before ordering)",
           "exception": null
-        }
+        },
+        "evidence": "engineering/a7/procurement/sourcing-projection.json#C22355739"
       },
       {
         "lcsc": "C23138",
@@ -271,14 +243,12 @@
         "manufacturer": "UNI-ROYAL(Uniroyal Elec)",
         "pieces_per_module": 3,
         "pieces_required": 6,
-        "supplier_minimum": null,
-        "minimum_source": null,
-        "pieces_to_buy": null,
         "sourcing": {
           "route": "JLC_STOCK",
-          "status": "NOT_OBSERVED: preferred route; JLC stock and minimum at the order quantity not observed",
+          "status": "DATED_LISTING_OBSERVED: preferred route; listing_page and parts_api observations dated 2026-11-12 (not current stock, a quote, a reservation or assembly acceptance; refresh before ordering)",
           "exception": null
-        }
+        },
+        "evidence": "engineering/a7/procurement/sourcing-projection.json#C23138"
       },
       {
         "lcsc": "C23162",
@@ -286,14 +256,12 @@
         "manufacturer": "UNI-ROYAL(Uniroyal Elec)",
         "pieces_per_module": 1,
         "pieces_required": 2,
-        "supplier_minimum": null,
-        "minimum_source": null,
-        "pieces_to_buy": null,
         "sourcing": {
           "route": "JLC_STOCK",
-          "status": "NOT_OBSERVED: preferred route; JLC stock and minimum at the order quantity not observed",
+          "status": "DATED_LISTING_OBSERVED: preferred route; listing_page and parts_api observations dated 2026-11-12 (not current stock, a quote, a reservation or assembly acceptance; refresh before ordering)",
           "exception": null
-        }
+        },
+        "evidence": "engineering/a7/procurement/sourcing-projection.json#C23162"
       },
       {
         "lcsc": "C23231",
@@ -301,14 +269,12 @@
         "manufacturer": "UNI-ROYAL(Uniroyal Elec)",
         "pieces_per_module": 1,
         "pieces_required": 2,
-        "supplier_minimum": null,
-        "minimum_source": null,
-        "pieces_to_buy": null,
         "sourcing": {
           "route": "JLC_STOCK",
-          "status": "NOT_OBSERVED: preferred route; JLC stock and minimum at the order quantity not observed",
+          "status": "DATED_LISTING_OBSERVED: preferred route; listing_page and parts_api observations dated 2026-11-12 (not current stock, a quote, a reservation or assembly acceptance; refresh before ordering)",
           "exception": null
-        }
+        },
+        "evidence": "engineering/a7/procurement/sourcing-projection.json#C23231"
       },
       {
         "lcsc": "C23254",
@@ -316,14 +282,12 @@
         "manufacturer": "UNI-ROYAL(Uniroyal Elec)",
         "pieces_per_module": 4,
         "pieces_required": 8,
-        "supplier_minimum": null,
-        "minimum_source": null,
-        "pieces_to_buy": null,
         "sourcing": {
           "route": "JLC_STOCK",
-          "status": "NOT_OBSERVED: preferred route; JLC stock and minimum at the order quantity not observed",
+          "status": "DATED_LISTING_OBSERVED: preferred route; listing_page and parts_api observations dated 2026-11-12 (not current stock, a quote, a reservation or assembly acceptance; refresh before ordering)",
           "exception": null
-        }
+        },
+        "evidence": "engineering/a7/procurement/sourcing-projection.json#C23254"
       },
       {
         "lcsc": "C25803",
@@ -331,14 +295,12 @@
         "manufacturer": "UNI-ROYAL(Uniroyal Elec)",
         "pieces_per_module": 6,
         "pieces_required": 12,
-        "supplier_minimum": null,
-        "minimum_source": null,
-        "pieces_to_buy": null,
         "sourcing": {
           "route": "JLC_STOCK",
-          "status": "NOT_OBSERVED: preferred route; JLC stock and minimum at the order quantity not observed",
+          "status": "DATED_LISTING_OBSERVED: preferred route; listing_page and parts_api observations dated 2026-11-12 (not current stock, a quote, a reservation or assembly acceptance; refresh before ordering)",
           "exception": null
-        }
+        },
+        "evidence": "engineering/a7/procurement/sourcing-projection.json#C25803"
       },
       {
         "lcsc": "C25804",
@@ -346,14 +308,12 @@
         "manufacturer": "UNI-ROYAL(Uniroyal Elec)",
         "pieces_per_module": 5,
         "pieces_required": 10,
-        "supplier_minimum": null,
-        "minimum_source": null,
-        "pieces_to_buy": null,
         "sourcing": {
           "route": "JLC_STOCK",
-          "status": "NOT_OBSERVED: preferred route; JLC stock and minimum at the order quantity not observed",
+          "status": "DATED_LISTING_OBSERVED: preferred route; listing_page and parts_api observations dated 2026-11-12 (not current stock, a quote, a reservation or assembly acceptance; refresh before ordering)",
           "exception": null
-        }
+        },
+        "evidence": "engineering/a7/procurement/sourcing-projection.json#C25804"
       },
       {
         "lcsc": "C398363",
@@ -361,14 +321,12 @@
         "manufacturer": "Texas Instruments",
         "pieces_per_module": 1,
         "pieces_required": 2,
-        "supplier_minimum": null,
-        "minimum_source": null,
-        "pieces_to_buy": null,
         "sourcing": {
           "route": "JLC_STOCK",
-          "status": "NOT_OBSERVED: preferred route; JLC stock and minimum at the order quantity not observed",
+          "status": "DATED_LISTING_OBSERVED: preferred route; listing_page and parts_api observations dated 2026-11-12 (not current stock, a quote, a reservation or assembly acceptance; refresh before ordering)",
           "exception": null
-        }
+        },
+        "evidence": "engineering/a7/procurement/sourcing-projection.json#C398363"
       },
       {
         "lcsc": "C404027",
@@ -376,14 +334,12 @@
         "manufacturer": "Texas Instruments",
         "pieces_per_module": 1,
         "pieces_required": 2,
-        "supplier_minimum": null,
-        "minimum_source": null,
-        "pieces_to_buy": null,
         "sourcing": {
           "route": "JLC_STOCK",
-          "status": "NOT_OBSERVED: preferred route; JLC stock and minimum at the order quantity not observed",
+          "status": "DATED_LISTING_OBSERVED: preferred route; listing_page and parts_api observations dated 2026-11-12 (not current stock, a quote, a reservation or assembly acceptance; refresh before ordering)",
           "exception": null
-        }
+        },
+        "evidence": "engineering/a7/procurement/sourcing-projection.json#C404027"
       },
       {
         "lcsc": "C50704",
@@ -391,14 +347,12 @@
         "manufacturer": "Nexperia",
         "pieces_per_module": 2,
         "pieces_required": 4,
-        "supplier_minimum": null,
-        "minimum_source": null,
-        "pieces_to_buy": null,
         "sourcing": {
           "route": "JLC_STOCK",
-          "status": "NOT_OBSERVED: preferred route; JLC stock and minimum at the order quantity not observed",
+          "status": "DATED_LISTING_OBSERVED: preferred route; listing_page and parts_api observations dated 2026-11-12 (not current stock, a quote, a reservation or assembly acceptance; refresh before ordering)",
           "exception": null
-        }
+        },
+        "evidence": "engineering/a7/procurement/sourcing-projection.json#C50704"
       },
       {
         "lcsc": "C5149819",
@@ -406,14 +360,12 @@
         "manufacturer": "hanxia",
         "pieces_per_module": 1,
         "pieces_required": 2,
-        "supplier_minimum": 1,
-        "minimum_source": "engineering/a7/procurement/supply-observations.json#jlc-c5149819-2026-11-12",
-        "pieces_to_buy": 2,
         "sourcing": {
           "route": "JLC_STOCK",
-          "status": "JLC stock 4561 at 2026-11-12T19:35:14Z (Extended part, point-in-time, not reserved; field meanings inferred). Refresh before ordering.",
+          "status": "DATED_LISTING_OBSERVED: preferred route; listing_page and parts_api observations dated 2026-11-12 (not current stock, a quote, a reservation or assembly acceptance; refresh before ordering)",
           "exception": null
-        }
+        },
+        "evidence": "engineering/a7/procurement/sourcing-projection.json#C5149819"
       },
       {
         "lcsc": "C5270180",
@@ -421,14 +373,12 @@
         "manufacturer": "STMicroelectronics",
         "pieces_per_module": 1,
         "pieces_required": 2,
-        "supplier_minimum": null,
-        "minimum_source": null,
-        "pieces_to_buy": null,
         "sourcing": {
           "route": "JLC_STOCK",
-          "status": "NOT_OBSERVED: preferred route; JLC stock and minimum at the order quantity not observed",
+          "status": "DATED_LISTING_OBSERVED: preferred route; listing_page and parts_api observations dated 2026-11-12 (not current stock, a quote, a reservation or assembly acceptance; refresh before ordering)",
           "exception": null
-        }
+        },
+        "evidence": "engineering/a7/procurement/sourcing-projection.json#C5270180"
       },
       {
         "lcsc": "C52917434",
@@ -436,14 +386,12 @@
         "manufacturer": "Worldsemi",
         "pieces_per_module": 8,
         "pieces_required": 16,
-        "supplier_minimum": null,
-        "minimum_source": null,
-        "pieces_to_buy": null,
         "sourcing": {
           "route": "JLC_STOCK",
-          "status": "NOT_OBSERVED: preferred route; JLC stock and minimum at the order quantity not observed",
+          "status": "DATED_LISTING_OBSERVED: preferred route; listing_page and parts_api observations dated 2026-11-12 (not current stock, a quote, a reservation or assembly acceptance; refresh before ordering)",
           "exception": null
-        }
+        },
+        "evidence": "engineering/a7/procurement/sourcing-projection.json#C52917434"
       },
       {
         "lcsc": "C5665",
@@ -451,14 +399,12 @@
         "manufacturer": "BOOMELE(Boom Precision Elec)",
         "pieces_per_module": 1,
         "pieces_required": 2,
-        "supplier_minimum": null,
-        "minimum_source": null,
-        "pieces_to_buy": null,
         "sourcing": {
           "route": "JLC_STOCK",
-          "status": "NOT_OBSERVED: preferred route; JLC stock and minimum at the order quantity not observed",
+          "status": "DATED_LISTING_OBSERVED: preferred route; listing_page and parts_api observations dated 2026-11-12 (not current stock, a quote, a reservation or assembly acceptance; refresh before ordering)",
           "exception": null
-        }
+        },
+        "evidence": "engineering/a7/procurement/sourcing-projection.json#C5665"
       },
       {
         "lcsc": "C57112",
@@ -466,14 +412,12 @@
         "manufacturer": "FH (Guangdong Fenghua Advanced Tech)",
         "pieces_per_module": 1,
         "pieces_required": 2,
-        "supplier_minimum": null,
-        "minimum_source": null,
-        "pieces_to_buy": null,
         "sourcing": {
           "route": "JLC_STOCK",
-          "status": "NOT_OBSERVED: preferred route; JLC stock and minimum at the order quantity not observed",
+          "status": "DATED_LISTING_OBSERVED: preferred route; listing_page and parts_api observations dated 2026-11-12 (not current stock, a quote, a reservation or assembly acceptance; refresh before ordering)",
           "exception": null
-        }
+        },
+        "evidence": "engineering/a7/procurement/sourcing-projection.json#C57112"
       },
       {
         "lcsc": "C694586",
@@ -481,14 +425,12 @@
         "manufacturer": "TDK",
         "pieces_per_module": 1,
         "pieces_required": 2,
-        "supplier_minimum": null,
-        "minimum_source": null,
-        "pieces_to_buy": null,
         "sourcing": {
           "route": "JLC_STOCK",
-          "status": "NOT_OBSERVED: preferred route; JLC stock and minimum at the order quantity not observed",
+          "status": "DATED_LISTING_OBSERVED: preferred route; listing_page and parts_api observations dated 2026-11-12 (not current stock, a quote, a reservation or assembly acceptance; refresh before ordering)",
           "exception": null
-        }
+        },
+        "evidence": "engineering/a7/procurement/sourcing-projection.json#C694586"
       },
       {
         "lcsc": "C7250",
@@ -496,14 +438,12 @@
         "manufacturer": "UNI-ROYAL(Uniroyal Elec)",
         "pieces_per_module": 2,
         "pieces_required": 4,
-        "supplier_minimum": null,
-        "minimum_source": null,
-        "pieces_to_buy": null,
         "sourcing": {
           "route": "JLC_STOCK",
-          "status": "NOT_OBSERVED: preferred route; JLC stock and minimum at the order quantity not observed",
+          "status": "DATED_LISTING_OBSERVED: preferred route; listing_page and parts_api observations dated 2026-11-12 (not current stock, a quote, a reservation or assembly acceptance; refresh before ordering)",
           "exception": null
-        }
+        },
+        "evidence": "engineering/a7/procurement/sourcing-projection.json#C7250"
       }
     ],
     "outside_pcba": "External materials, cables, mechanical parts and fixture items are outside the JLC parts library and not yet routed under the preference."
@@ -524,12 +464,15 @@
     "engineering/a7/fixture/manifest.json": "471978cfdb4a0b5d096e72f32780025880eec91d076a29e87351cdbde8ba0be1",
     "engineering/a7/fixture/materials.json": "3a6b7cc0a5fe1df40383d489ebd793abbfcf0e03968812db7b3e6fd95962ba06",
     "engineering/a7/fixture/native-geometry.json": "820689fa1bc4dcb4bdc3a801380349e6cfec18768cfb4a27a215bda79a15a619",
+    "engineering/a7/jlc-package/sources.json": "6fc3789723a99d5f6eaeca12b9f057ebb407ef84b7a8657ee224129c262f05d5",
     "engineering/a7/mechanical/build_a7_mechanical.py": "8789aeb3493cc8a95f7406938a3d382367e536d863ee45d183246c7bae89d99f",
     "engineering/a7/mechanical/exports/3hp/verification.json": "a1674803d8cfd0d19bbf7189bbe759f91cdbf6f167e98073bc71e2836c077434",
     "engineering/a7/mechanical/layout.json": "89f548a52d8ce907fb351519bfdcabc411e3389d1261056e1319582b03a4437a",
     "engineering/a7/procurement/owner-decisions.json": "7f72c6b04cf6a433e5ad0a292de9b9499dbca987ec80d69f298bd4a5bdfb48b9",
+    "engineering/a7/procurement/price-audit/2026-11-12.json": "40fe7045238d80aae2f779da601c3270dfb0ca4a4c1fada72052722d231f2af3",
     "engineering/a7/procurement/supply-observations.json": "64c642078850f2f9263b825e7bf762bb136f3fd72897ceca47d06aa32b4a6591",
-    "engineering/a7/verification/schematic/netlist.xml": "2541a0119e4ad3fb3cf811e88ace6fe344e8a4516cbd443fc36198f0809c2139"
+    "engineering/a7/verification/schematic/netlist.xml": "2541a0119e4ad3fb3cf811e88ace6fe344e8a4516cbd443fc36198f0809c2139",
+    "provenance/a5-catalog/identity-crosswalk.json": "9915b9200d7ce3eef4af46213f3f4ff5b434f5e17756a8f91b9bd05e87e02f3e"
   },
   "boards": [
     {
@@ -608,8 +551,8 @@
         "authority": "native export; independent fresh gate required"
       },
       "quantity_for_order": 2,
-      "commercial_observation": null,
-      "supply_status": "NOT_OBTAINED: current stock, price, lead time, MOQ, packaging and assembly applicability require dated exact-part evidence"
+      "sourcing_evidence": "engineering/a7/procurement/sourcing-projection.json#C15850",
+      "supply_status": "DATED_OBSERVATIONS_ONLY: see the order_plan line and engineering/a7/procurement/sourcing-projection.json; not current stock, a quote, a reservation or assembly acceptance"
     },
     {
       "board": "controller",
@@ -637,8 +580,8 @@
         "authority": "native export; independent fresh gate required"
       },
       "quantity_for_order": 2,
-      "commercial_observation": null,
-      "supply_status": "NOT_OBTAINED: current stock, price, lead time, MOQ, packaging and assembly applicability require dated exact-part evidence"
+      "sourcing_evidence": "engineering/a7/procurement/sourcing-projection.json#C14663",
+      "supply_status": "DATED_OBSERVATIONS_ONLY: see the order_plan line and engineering/a7/procurement/sourcing-projection.json; not current stock, a quote, a reservation or assembly acceptance"
     },
     {
       "board": "controller",
@@ -666,8 +609,8 @@
         "authority": "native export; independent fresh gate required"
       },
       "quantity_for_order": 2,
-      "commercial_observation": null,
-      "supply_status": "NOT_OBTAINED: current stock, price, lead time, MOQ, packaging and assembly applicability require dated exact-part evidence"
+      "sourcing_evidence": "engineering/a7/procurement/sourcing-projection.json#C14663",
+      "supply_status": "DATED_OBSERVATIONS_ONLY: see the order_plan line and engineering/a7/procurement/sourcing-projection.json; not current stock, a quote, a reservation or assembly acceptance"
     },
     {
       "board": "controller",
@@ -695,8 +638,8 @@
         "authority": "native export; independent fresh gate required"
       },
       "quantity_for_order": 2,
-      "commercial_observation": null,
-      "supply_status": "NOT_OBTAINED: current stock, price, lead time, MOQ, packaging and assembly applicability require dated exact-part evidence"
+      "sourcing_evidence": "engineering/a7/procurement/sourcing-projection.json#C14663",
+      "supply_status": "DATED_OBSERVATIONS_ONLY: see the order_plan line and engineering/a7/procurement/sourcing-projection.json; not current stock, a quote, a reservation or assembly acceptance"
     },
     {
       "board": "controller",
@@ -724,8 +667,8 @@
         "authority": "native export; independent fresh gate required"
       },
       "quantity_for_order": 2,
-      "commercial_observation": null,
-      "supply_status": "NOT_OBTAINED: current stock, price, lead time, MOQ, packaging and assembly applicability require dated exact-part evidence"
+      "sourcing_evidence": "engineering/a7/procurement/sourcing-projection.json#C57112",
+      "supply_status": "DATED_OBSERVATIONS_ONLY: see the order_plan line and engineering/a7/procurement/sourcing-projection.json; not current stock, a quote, a reservation or assembly acceptance"
     },
     {
       "board": "controller",
@@ -753,8 +696,8 @@
         "authority": "native export; independent fresh gate required"
       },
       "quantity_for_order": 2,
-      "commercial_observation": null,
-      "supply_status": "NOT_OBTAINED: current stock, price, lead time, MOQ, packaging and assembly applicability require dated exact-part evidence"
+      "sourcing_evidence": "engineering/a7/procurement/sourcing-projection.json#C14663",
+      "supply_status": "DATED_OBSERVATIONS_ONLY: see the order_plan line and engineering/a7/procurement/sourcing-projection.json; not current stock, a quote, a reservation or assembly acceptance"
     },
     {
       "board": "controller",
@@ -782,8 +725,8 @@
         "authority": "native export; independent fresh gate required"
       },
       "quantity_for_order": 2,
-      "commercial_observation": null,
-      "supply_status": "NOT_OBTAINED: current stock, price, lead time, MOQ, packaging and assembly applicability require dated exact-part evidence"
+      "sourcing_evidence": "engineering/a7/procurement/sourcing-projection.json#C15850",
+      "supply_status": "DATED_OBSERVATIONS_ONLY: see the order_plan line and engineering/a7/procurement/sourcing-projection.json; not current stock, a quote, a reservation or assembly acceptance"
     },
     {
       "board": "controller",
@@ -811,8 +754,8 @@
         "authority": "native export; independent fresh gate required"
       },
       "quantity_for_order": 2,
-      "commercial_observation": null,
-      "supply_status": "NOT_OBTAINED: current stock, price, lead time, MOQ, packaging and assembly applicability require dated exact-part evidence"
+      "sourcing_evidence": "engineering/a7/procurement/sourcing-projection.json#C15850",
+      "supply_status": "DATED_OBSERVATIONS_ONLY: see the order_plan line and engineering/a7/procurement/sourcing-projection.json; not current stock, a quote, a reservation or assembly acceptance"
     },
     {
       "board": "controller",
@@ -840,8 +783,8 @@
         "authority": "native export; independent fresh gate required"
       },
       "quantity_for_order": 2,
-      "commercial_observation": null,
-      "supply_status": "NOT_OBTAINED: current stock, price, lead time, MOQ, packaging and assembly applicability require dated exact-part evidence"
+      "sourcing_evidence": "engineering/a7/procurement/sourcing-projection.json#C14663",
+      "supply_status": "DATED_OBSERVATIONS_ONLY: see the order_plan line and engineering/a7/procurement/sourcing-projection.json; not current stock, a quote, a reservation or assembly acceptance"
     },
     {
       "board": "controller",
@@ -869,8 +812,8 @@
         "authority": "native export; independent fresh gate required"
       },
       "quantity_for_order": 2,
-      "commercial_observation": null,
-      "supply_status": "NOT_OBTAINED: current stock, price, lead time, MOQ, packaging and assembly applicability require dated exact-part evidence"
+      "sourcing_evidence": "engineering/a7/procurement/sourcing-projection.json#C12891",
+      "supply_status": "DATED_OBSERVATIONS_ONLY: see the order_plan line and engineering/a7/procurement/sourcing-projection.json; not current stock, a quote, a reservation or assembly acceptance"
     },
     {
       "board": "controller",
@@ -898,8 +841,8 @@
         "authority": "native export; independent fresh gate required"
       },
       "quantity_for_order": 2,
-      "commercial_observation": null,
-      "supply_status": "NOT_OBTAINED: current stock, price, lead time, MOQ, packaging and assembly applicability require dated exact-part evidence"
+      "sourcing_evidence": "engineering/a7/procurement/sourcing-projection.json#C12891",
+      "supply_status": "DATED_OBSERVATIONS_ONLY: see the order_plan line and engineering/a7/procurement/sourcing-projection.json; not current stock, a quote, a reservation or assembly acceptance"
     },
     {
       "board": "controller",
@@ -927,8 +870,8 @@
         "authority": "native export; independent fresh gate required"
       },
       "quantity_for_order": 2,
-      "commercial_observation": null,
-      "supply_status": "NOT_OBTAINED: current stock, price, lead time, MOQ, packaging and assembly applicability require dated exact-part evidence"
+      "sourcing_evidence": "engineering/a7/procurement/sourcing-projection.json#C14663",
+      "supply_status": "DATED_OBSERVATIONS_ONLY: see the order_plan line and engineering/a7/procurement/sourcing-projection.json; not current stock, a quote, a reservation or assembly acceptance"
     },
     {
       "board": "controller",
@@ -956,8 +899,8 @@
         "authority": "native export; independent fresh gate required"
       },
       "quantity_for_order": 2,
-      "commercial_observation": null,
-      "supply_status": "NOT_OBTAINED: current stock, price, lead time, MOQ, packaging and assembly applicability require dated exact-part evidence"
+      "sourcing_evidence": "engineering/a7/procurement/sourcing-projection.json#C19666",
+      "supply_status": "DATED_OBSERVATIONS_ONLY: see the order_plan line and engineering/a7/procurement/sourcing-projection.json; not current stock, a quote, a reservation or assembly acceptance"
     },
     {
       "board": "controller",
@@ -985,8 +928,8 @@
         "authority": "native export; independent fresh gate required"
       },
       "quantity_for_order": 2,
-      "commercial_observation": null,
-      "supply_status": "NOT_OBTAINED: current stock, price, lead time, MOQ, packaging and assembly applicability require dated exact-part evidence"
+      "sourcing_evidence": "engineering/a7/procurement/sourcing-projection.json#C19666",
+      "supply_status": "DATED_OBSERVATIONS_ONLY: see the order_plan line and engineering/a7/procurement/sourcing-projection.json; not current stock, a quote, a reservation or assembly acceptance"
     },
     {
       "board": "controller",
@@ -1014,8 +957,8 @@
         "authority": "native export; independent fresh gate required"
       },
       "quantity_for_order": 2,
-      "commercial_observation": null,
-      "supply_status": "NOT_OBTAINED: current stock, price, lead time, MOQ, packaging and assembly applicability require dated exact-part evidence"
+      "sourcing_evidence": "engineering/a7/procurement/sourcing-projection.json#C19666",
+      "supply_status": "DATED_OBSERVATIONS_ONLY: see the order_plan line and engineering/a7/procurement/sourcing-projection.json; not current stock, a quote, a reservation or assembly acceptance"
     },
     {
       "board": "controller",
@@ -1043,8 +986,8 @@
         "authority": "native export; independent fresh gate required"
       },
       "quantity_for_order": 2,
-      "commercial_observation": null,
-      "supply_status": "NOT_OBTAINED: current stock, price, lead time, MOQ, packaging and assembly applicability require dated exact-part evidence"
+      "sourcing_evidence": "engineering/a7/procurement/sourcing-projection.json#C14663",
+      "supply_status": "DATED_OBSERVATIONS_ONLY: see the order_plan line and engineering/a7/procurement/sourcing-projection.json; not current stock, a quote, a reservation or assembly acceptance"
     },
     {
       "board": "controller",
@@ -1072,8 +1015,8 @@
         "authority": "native export; independent fresh gate required"
       },
       "quantity_for_order": 2,
-      "commercial_observation": null,
-      "supply_status": "NOT_OBTAINED: current stock, price, lead time, MOQ, packaging and assembly applicability require dated exact-part evidence"
+      "sourcing_evidence": "engineering/a7/procurement/sourcing-projection.json#C14663",
+      "supply_status": "DATED_OBSERVATIONS_ONLY: see the order_plan line and engineering/a7/procurement/sourcing-projection.json; not current stock, a quote, a reservation or assembly acceptance"
     },
     {
       "board": "controller",
@@ -1101,8 +1044,8 @@
         "authority": "native export; independent fresh gate required"
       },
       "quantity_for_order": 2,
-      "commercial_observation": null,
-      "supply_status": "NOT_OBTAINED: current stock, price, lead time, MOQ, packaging and assembly applicability require dated exact-part evidence"
+      "sourcing_evidence": "engineering/a7/procurement/sourcing-projection.json#C50704",
+      "supply_status": "DATED_OBSERVATIONS_ONLY: see the order_plan line and engineering/a7/procurement/sourcing-projection.json; not current stock, a quote, a reservation or assembly acceptance"
     },
     {
       "board": "controller",
@@ -1130,8 +1073,8 @@
         "authority": "native export; independent fresh gate required"
       },
       "quantity_for_order": 2,
-      "commercial_observation": null,
-      "supply_status": "NOT_OBTAINED: current stock, price, lead time, MOQ, packaging and assembly applicability require dated exact-part evidence"
+      "sourcing_evidence": "engineering/a7/procurement/sourcing-projection.json#C50704",
+      "supply_status": "DATED_OBSERVATIONS_ONLY: see the order_plan line and engineering/a7/procurement/sourcing-projection.json; not current stock, a quote, a reservation or assembly acceptance"
     },
     {
       "board": "controller",
@@ -1159,8 +1102,8 @@
         "authority": "native export; independent fresh gate required"
       },
       "quantity_for_order": 2,
-      "commercial_observation": null,
-      "supply_status": "NOT_OBTAINED: current stock, price, lead time, MOQ, packaging and assembly applicability require dated exact-part evidence"
+      "sourcing_evidence": "engineering/a7/procurement/sourcing-projection.json#C134375",
+      "supply_status": "DATED_OBSERVATIONS_ONLY: see the order_plan line and engineering/a7/procurement/sourcing-projection.json; not current stock, a quote, a reservation or assembly acceptance"
     },
     {
       "board": "controller",
@@ -1188,8 +1131,8 @@
         "authority": "native export; independent fresh gate required"
       },
       "quantity_for_order": 2,
-      "commercial_observation": null,
-      "supply_status": "NOT_OBTAINED: current stock, price, lead time, MOQ, packaging and assembly applicability require dated exact-part evidence"
+      "sourcing_evidence": "engineering/a7/procurement/sourcing-projection.json#C22355739",
+      "supply_status": "DATED_OBSERVATIONS_ONLY: see the order_plan line and engineering/a7/procurement/sourcing-projection.json; not current stock, a quote, a reservation or assembly acceptance"
     },
     {
       "board": "controller",
@@ -1217,8 +1160,8 @@
         "authority": "native export; independent fresh gate required"
       },
       "quantity_for_order": 2,
-      "commercial_observation": null,
-      "supply_status": "NOT_OBTAINED: current stock, price, lead time, MOQ, packaging and assembly applicability require dated exact-part evidence"
+      "sourcing_evidence": "engineering/a7/procurement/sourcing-projection.json#C22355739",
+      "supply_status": "DATED_OBSERVATIONS_ONLY: see the order_plan line and engineering/a7/procurement/sourcing-projection.json; not current stock, a quote, a reservation or assembly acceptance"
     },
     {
       "board": "controller",
@@ -1246,8 +1189,8 @@
         "authority": "native export; independent fresh gate required"
       },
       "quantity_for_order": 2,
-      "commercial_observation": null,
-      "supply_status": "NOT_OBTAINED: current stock, price, lead time, MOQ, packaging and assembly applicability require dated exact-part evidence"
+      "sourcing_evidence": "engineering/a7/procurement/sourcing-projection.json#C160404",
+      "supply_status": "DATED_OBSERVATIONS_ONLY: see the order_plan line and engineering/a7/procurement/sourcing-projection.json; not current stock, a quote, a reservation or assembly acceptance"
     },
     {
       "board": "controller",
@@ -1275,8 +1218,8 @@
         "authority": "native export; independent fresh gate required"
       },
       "quantity_for_order": 2,
-      "commercial_observation": null,
-      "supply_status": "NOT_OBTAINED: current stock, price, lead time, MOQ, packaging and assembly applicability require dated exact-part evidence"
+      "sourcing_evidence": "engineering/a7/procurement/sourcing-projection.json#C122442",
+      "supply_status": "DATED_OBSERVATIONS_ONLY: see the order_plan line and engineering/a7/procurement/sourcing-projection.json; not current stock, a quote, a reservation or assembly acceptance"
     },
     {
       "board": "controller",
@@ -1304,8 +1247,8 @@
         "authority": "native export; independent fresh gate required"
       },
       "quantity_for_order": 2,
-      "commercial_observation": null,
-      "supply_status": "NOT_OBTAINED: current stock, price, lead time, MOQ, packaging and assembly applicability require dated exact-part evidence"
+      "sourcing_evidence": "engineering/a7/procurement/sourcing-projection.json#C694586",
+      "supply_status": "DATED_OBSERVATIONS_ONLY: see the order_plan line and engineering/a7/procurement/sourcing-projection.json; not current stock, a quote, a reservation or assembly acceptance"
     },
     {
       "board": "controller",
@@ -1333,8 +1276,8 @@
         "authority": "native export; independent fresh gate required"
       },
       "quantity_for_order": 2,
-      "commercial_observation": null,
-      "supply_status": "NOT_OBTAINED: current stock, price, lead time, MOQ, packaging and assembly applicability require dated exact-part evidence"
+      "sourcing_evidence": "engineering/a7/procurement/sourcing-projection.json#C20526",
+      "supply_status": "DATED_OBSERVATIONS_ONLY: see the order_plan line and engineering/a7/procurement/sourcing-projection.json; not current stock, a quote, a reservation or assembly acceptance"
     },
     {
       "board": "controller",
@@ -1362,8 +1305,8 @@
         "authority": "native export; independent fresh gate required"
       },
       "quantity_for_order": 2,
-      "commercial_observation": null,
-      "supply_status": "NOT_OBTAINED: current stock, price, lead time, MOQ, packaging and assembly applicability require dated exact-part evidence"
+      "sourcing_evidence": "engineering/a7/procurement/sourcing-projection.json#C7250",
+      "supply_status": "DATED_OBSERVATIONS_ONLY: see the order_plan line and engineering/a7/procurement/sourcing-projection.json; not current stock, a quote, a reservation or assembly acceptance"
     },
     {
       "board": "controller",
@@ -1391,8 +1334,8 @@
         "authority": "native export; independent fresh gate required"
       },
       "quantity_for_order": 2,
-      "commercial_observation": null,
-      "supply_status": "NOT_OBTAINED: current stock, price, lead time, MOQ, packaging and assembly applicability require dated exact-part evidence"
+      "sourcing_evidence": "engineering/a7/procurement/sourcing-projection.json#C25804",
+      "supply_status": "DATED_OBSERVATIONS_ONLY: see the order_plan line and engineering/a7/procurement/sourcing-projection.json; not current stock, a quote, a reservation or assembly acceptance"
     },
     {
       "board": "controller",
@@ -1420,8 +1363,8 @@
         "authority": "native export; independent fresh gate required"
       },
       "quantity_for_order": 2,
-      "commercial_observation": null,
-      "supply_status": "NOT_OBTAINED: current stock, price, lead time, MOQ, packaging and assembly applicability require dated exact-part evidence"
+      "sourcing_evidence": "engineering/a7/procurement/sourcing-projection.json#C23231",
+      "supply_status": "DATED_OBSERVATIONS_ONLY: see the order_plan line and engineering/a7/procurement/sourcing-projection.json; not current stock, a quote, a reservation or assembly acceptance"
     },
     {
       "board": "controller",
@@ -1449,8 +1392,8 @@
         "authority": "native export; independent fresh gate required"
       },
       "quantity_for_order": 2,
-      "commercial_observation": null,
-      "supply_status": "NOT_OBTAINED: current stock, price, lead time, MOQ, packaging and assembly applicability require dated exact-part evidence"
+      "sourcing_evidence": "engineering/a7/procurement/sourcing-projection.json#C25803",
+      "supply_status": "DATED_OBSERVATIONS_ONLY: see the order_plan line and engineering/a7/procurement/sourcing-projection.json; not current stock, a quote, a reservation or assembly acceptance"
     },
     {
       "board": "controller",
@@ -1478,8 +1421,8 @@
         "authority": "native export; independent fresh gate required"
       },
       "quantity_for_order": 2,
-      "commercial_observation": null,
-      "supply_status": "NOT_OBTAINED: current stock, price, lead time, MOQ, packaging and assembly applicability require dated exact-part evidence"
+      "sourcing_evidence": "engineering/a7/procurement/sourcing-projection.json#C25804",
+      "supply_status": "DATED_OBSERVATIONS_ONLY: see the order_plan line and engineering/a7/procurement/sourcing-projection.json; not current stock, a quote, a reservation or assembly acceptance"
     },
     {
       "board": "controller",
@@ -1507,8 +1450,8 @@
         "authority": "native export; independent fresh gate required"
       },
       "quantity_for_order": 2,
-      "commercial_observation": null,
-      "supply_status": "NOT_OBTAINED: current stock, price, lead time, MOQ, packaging and assembly applicability require dated exact-part evidence"
+      "sourcing_evidence": "engineering/a7/procurement/sourcing-projection.json#C23138",
+      "supply_status": "DATED_OBSERVATIONS_ONLY: see the order_plan line and engineering/a7/procurement/sourcing-projection.json; not current stock, a quote, a reservation or assembly acceptance"
     },
     {
       "board": "controller",
@@ -1536,8 +1479,8 @@
         "authority": "native export; independent fresh gate required"
       },
       "quantity_for_order": 2,
-      "commercial_observation": null,
-      "supply_status": "NOT_OBTAINED: current stock, price, lead time, MOQ, packaging and assembly applicability require dated exact-part evidence"
+      "sourcing_evidence": "engineering/a7/procurement/sourcing-projection.json#C23138",
+      "supply_status": "DATED_OBSERVATIONS_ONLY: see the order_plan line and engineering/a7/procurement/sourcing-projection.json; not current stock, a quote, a reservation or assembly acceptance"
     },
     {
       "board": "controller",
@@ -1565,8 +1508,8 @@
         "authority": "native export; independent fresh gate required"
       },
       "quantity_for_order": 2,
-      "commercial_observation": null,
-      "supply_status": "NOT_OBTAINED: current stock, price, lead time, MOQ, packaging and assembly applicability require dated exact-part evidence"
+      "sourcing_evidence": "engineering/a7/procurement/sourcing-projection.json#C25803",
+      "supply_status": "DATED_OBSERVATIONS_ONLY: see the order_plan line and engineering/a7/procurement/sourcing-projection.json; not current stock, a quote, a reservation or assembly acceptance"
     },
     {
       "board": "controller",
@@ -1594,8 +1537,8 @@
         "authority": "native export; independent fresh gate required"
       },
       "quantity_for_order": 2,
-      "commercial_observation": null,
-      "supply_status": "NOT_OBTAINED: current stock, price, lead time, MOQ, packaging and assembly applicability require dated exact-part evidence"
+      "sourcing_evidence": "engineering/a7/procurement/sourcing-projection.json#C25803",
+      "supply_status": "DATED_OBSERVATIONS_ONLY: see the order_plan line and engineering/a7/procurement/sourcing-projection.json; not current stock, a quote, a reservation or assembly acceptance"
     },
     {
       "board": "controller",
@@ -1623,8 +1566,8 @@
         "authority": "native export; independent fresh gate required"
       },
       "quantity_for_order": 2,
-      "commercial_observation": null,
-      "supply_status": "NOT_OBTAINED: current stock, price, lead time, MOQ, packaging and assembly applicability require dated exact-part evidence"
+      "sourcing_evidence": "engineering/a7/procurement/sourcing-projection.json#C25803",
+      "supply_status": "DATED_OBSERVATIONS_ONLY: see the order_plan line and engineering/a7/procurement/sourcing-projection.json; not current stock, a quote, a reservation or assembly acceptance"
     },
     {
       "board": "controller",
@@ -1652,8 +1595,8 @@
         "authority": "native export; independent fresh gate required"
       },
       "quantity_for_order": 2,
-      "commercial_observation": null,
-      "supply_status": "NOT_OBTAINED: current stock, price, lead time, MOQ, packaging and assembly applicability require dated exact-part evidence"
+      "sourcing_evidence": "engineering/a7/procurement/sourcing-projection.json#C25803",
+      "supply_status": "DATED_OBSERVATIONS_ONLY: see the order_plan line and engineering/a7/procurement/sourcing-projection.json; not current stock, a quote, a reservation or assembly acceptance"
     },
     {
       "board": "controller",
@@ -1681,8 +1624,8 @@
         "authority": "native export; independent fresh gate required"
       },
       "quantity_for_order": 2,
-      "commercial_observation": null,
-      "supply_status": "NOT_OBTAINED: current stock, price, lead time, MOQ, packaging and assembly applicability require dated exact-part evidence"
+      "sourcing_evidence": "engineering/a7/procurement/sourcing-projection.json#C7250",
+      "supply_status": "DATED_OBSERVATIONS_ONLY: see the order_plan line and engineering/a7/procurement/sourcing-projection.json; not current stock, a quote, a reservation or assembly acceptance"
     },
     {
       "board": "controller",
@@ -1710,8 +1653,8 @@
         "authority": "native export; independent fresh gate required"
       },
       "quantity_for_order": 2,
-      "commercial_observation": null,
-      "supply_status": "NOT_OBTAINED: current stock, price, lead time, MOQ, packaging and assembly applicability require dated exact-part evidence"
+      "sourcing_evidence": "engineering/a7/procurement/sourcing-projection.json#C23162",
+      "supply_status": "DATED_OBSERVATIONS_ONLY: see the order_plan line and engineering/a7/procurement/sourcing-projection.json; not current stock, a quote, a reservation or assembly acceptance"
     },
     {
       "board": "controller",
@@ -1739,8 +1682,8 @@
         "authority": "native export; independent fresh gate required"
       },
       "quantity_for_order": 2,
-      "commercial_observation": null,
-      "supply_status": "NOT_OBTAINED: current stock, price, lead time, MOQ, packaging and assembly applicability require dated exact-part evidence"
+      "sourcing_evidence": "engineering/a7/procurement/sourcing-projection.json#C25804",
+      "supply_status": "DATED_OBSERVATIONS_ONLY: see the order_plan line and engineering/a7/procurement/sourcing-projection.json; not current stock, a quote, a reservation or assembly acceptance"
     },
     {
       "board": "controller",
@@ -1768,8 +1711,8 @@
         "authority": "native export; independent fresh gate required"
       },
       "quantity_for_order": 2,
-      "commercial_observation": null,
-      "supply_status": "NOT_OBTAINED: current stock, price, lead time, MOQ, packaging and assembly applicability require dated exact-part evidence"
+      "sourcing_evidence": "engineering/a7/procurement/sourcing-projection.json#C25804",
+      "supply_status": "DATED_OBSERVATIONS_ONLY: see the order_plan line and engineering/a7/procurement/sourcing-projection.json; not current stock, a quote, a reservation or assembly acceptance"
     },
     {
       "board": "controller",
@@ -1797,8 +1740,8 @@
         "authority": "native export; independent fresh gate required"
       },
       "quantity_for_order": 2,
-      "commercial_observation": null,
-      "supply_status": "NOT_OBTAINED: current stock, price, lead time, MOQ, packaging and assembly applicability require dated exact-part evidence"
+      "sourcing_evidence": "engineering/a7/procurement/sourcing-projection.json#C25803",
+      "supply_status": "DATED_OBSERVATIONS_ONLY: see the order_plan line and engineering/a7/procurement/sourcing-projection.json; not current stock, a quote, a reservation or assembly acceptance"
     },
     {
       "board": "controller",
@@ -1826,8 +1769,8 @@
         "authority": "native export; independent fresh gate required"
       },
       "quantity_for_order": 2,
-      "commercial_observation": null,
-      "supply_status": "NOT_OBTAINED: current stock, price, lead time, MOQ, packaging and assembly applicability require dated exact-part evidence"
+      "sourcing_evidence": "engineering/a7/procurement/sourcing-projection.json#C23138",
+      "supply_status": "DATED_OBSERVATIONS_ONLY: see the order_plan line and engineering/a7/procurement/sourcing-projection.json; not current stock, a quote, a reservation or assembly acceptance"
     },
     {
       "board": "controller",
@@ -1855,8 +1798,8 @@
         "authority": "native export; independent fresh gate required"
       },
       "quantity_for_order": 2,
-      "commercial_observation": null,
-      "supply_status": "NOT_OBTAINED: current stock, price, lead time, MOQ, packaging and assembly applicability require dated exact-part evidence"
+      "sourcing_evidence": "engineering/a7/procurement/sourcing-projection.json#C21190",
+      "supply_status": "DATED_OBSERVATIONS_ONLY: see the order_plan line and engineering/a7/procurement/sourcing-projection.json; not current stock, a quote, a reservation or assembly acceptance"
     },
     {
       "board": "controller",
@@ -1884,8 +1827,8 @@
         "authority": "native export; independent fresh gate required"
       },
       "quantity_for_order": 2,
-      "commercial_observation": null,
-      "supply_status": "NOT_OBTAINED: current stock, price, lead time, MOQ, packaging and assembly applicability require dated exact-part evidence"
+      "sourcing_evidence": "engineering/a7/procurement/sourcing-projection.json#C23254",
+      "supply_status": "DATED_OBSERVATIONS_ONLY: see the order_plan line and engineering/a7/procurement/sourcing-projection.json; not current stock, a quote, a reservation or assembly acceptance"
     },
     {
       "board": "controller",
@@ -1913,8 +1856,8 @@
         "authority": "native export; independent fresh gate required"
       },
       "quantity_for_order": 2,
-      "commercial_observation": null,
-      "supply_status": "NOT_OBTAINED: current stock, price, lead time, MOQ, packaging and assembly applicability require dated exact-part evidence"
+      "sourcing_evidence": "engineering/a7/procurement/sourcing-projection.json#C23254",
+      "supply_status": "DATED_OBSERVATIONS_ONLY: see the order_plan line and engineering/a7/procurement/sourcing-projection.json; not current stock, a quote, a reservation or assembly acceptance"
     },
     {
       "board": "controller",
@@ -1942,8 +1885,8 @@
         "authority": "native export; independent fresh gate required"
       },
       "quantity_for_order": 2,
-      "commercial_observation": null,
-      "supply_status": "NOT_OBTAINED: current stock, price, lead time, MOQ, packaging and assembly applicability require dated exact-part evidence"
+      "sourcing_evidence": "engineering/a7/procurement/sourcing-projection.json#C23254",
+      "supply_status": "DATED_OBSERVATIONS_ONLY: see the order_plan line and engineering/a7/procurement/sourcing-projection.json; not current stock, a quote, a reservation or assembly acceptance"
     },
     {
       "board": "controller",
@@ -1971,8 +1914,8 @@
         "authority": "native export; independent fresh gate required"
       },
       "quantity_for_order": 2,
-      "commercial_observation": null,
-      "supply_status": "NOT_OBTAINED: current stock, price, lead time, MOQ, packaging and assembly applicability require dated exact-part evidence"
+      "sourcing_evidence": "engineering/a7/procurement/sourcing-projection.json#C23254",
+      "supply_status": "DATED_OBSERVATIONS_ONLY: see the order_plan line and engineering/a7/procurement/sourcing-projection.json; not current stock, a quote, a reservation or assembly acceptance"
     },
     {
       "board": "controller",
@@ -2000,8 +1943,8 @@
         "authority": "native export; independent fresh gate required"
       },
       "quantity_for_order": 2,
-      "commercial_observation": null,
-      "supply_status": "NOT_OBTAINED: current stock, price, lead time, MOQ, packaging and assembly applicability require dated exact-part evidence"
+      "sourcing_evidence": "engineering/a7/procurement/sourcing-projection.json#C21190",
+      "supply_status": "DATED_OBSERVATIONS_ONLY: see the order_plan line and engineering/a7/procurement/sourcing-projection.json; not current stock, a quote, a reservation or assembly acceptance"
     },
     {
       "board": "controller",
@@ -2029,8 +1972,8 @@
         "authority": "native export; independent fresh gate required"
       },
       "quantity_for_order": 2,
-      "commercial_observation": null,
-      "supply_status": "NOT_OBTAINED: current stock, price, lead time, MOQ, packaging and assembly applicability require dated exact-part evidence"
+      "sourcing_evidence": "engineering/a7/procurement/sourcing-projection.json#C21190",
+      "supply_status": "DATED_OBSERVATIONS_ONLY: see the order_plan line and engineering/a7/procurement/sourcing-projection.json; not current stock, a quote, a reservation or assembly acceptance"
     },
     {
       "board": "controller",
@@ -2058,8 +2001,8 @@
         "authority": "native export; independent fresh gate required"
       },
       "quantity_for_order": 2,
-      "commercial_observation": null,
-      "supply_status": "NOT_OBTAINED: current stock, price, lead time, MOQ, packaging and assembly applicability require dated exact-part evidence"
+      "sourcing_evidence": "engineering/a7/procurement/sourcing-projection.json#C25804",
+      "supply_status": "DATED_OBSERVATIONS_ONLY: see the order_plan line and engineering/a7/procurement/sourcing-projection.json; not current stock, a quote, a reservation or assembly acceptance"
     },
     {
       "board": "controller",
@@ -2087,25 +2030,8 @@
         "authority": "native export; independent fresh gate required"
       },
       "quantity_for_order": 2,
-      "commercial_observation": {
-        "source_bundle": ".claude/skills/component-a7-hx-msk13c02/sources.json",
-        "source_id": "src-a7-hx-msk13c02-jlc-api-2026-11-12",
-        "url": "https://jlcpcb.com/api/overseas-pcb-order/v1/shoppingCart/smtGood/selectSmtComponentList",
-        "raw_sha256": "f6e3f19ec6c129eb50209701f98ea079945f5eb4dbe17b9c711ab6d5006d1ab9",
-        "observed_at": "2026-11-12T19:35:14Z",
-        "supplier": "JLCPCB",
-        "stock_count": 4561,
-        "presale_count": 4552,
-        "minimum_purchase_quantity": 1,
-        "packaging_quantity": 3000,
-        "price": 0.1069,
-        "currency": null,
-        "lead_time": null,
-        "assembly_acceptance": null,
-        "reserved": false,
-        "scope": "Dated exact C5149819 listing observation only; refresh before procurement. Price is the 1-49 tier with no currency field; no assembly acceptance."
-      },
-      "supply_status": "OBSERVED: JLC stock 4561 at 2026-11-12T19:35:14Z (Extended, not reserved); 1-49 tier 0.1069 without currency; lead time and assembly acceptance unknown"
+      "sourcing_evidence": "engineering/a7/procurement/sourcing-projection.json#C5149819",
+      "supply_status": "DATED_OBSERVATIONS_ONLY: see the order_plan line and engineering/a7/procurement/sourcing-projection.json; not current stock, a quote, a reservation or assembly acceptance"
     },
     {
       "board": "controller",
@@ -2133,8 +2059,8 @@
         "authority": "native export; independent fresh gate required"
       },
       "quantity_for_order": 2,
-      "commercial_observation": null,
-      "supply_status": "NOT_OBTAINED: current stock, price, lead time, MOQ, packaging and assembly applicability require dated exact-part evidence"
+      "sourcing_evidence": "engineering/a7/procurement/sourcing-projection.json#C5270180",
+      "supply_status": "DATED_OBSERVATIONS_ONLY: see the order_plan line and engineering/a7/procurement/sourcing-projection.json; not current stock, a quote, a reservation or assembly acceptance"
     },
     {
       "board": "controller",
@@ -2162,8 +2088,8 @@
         "authority": "native export; independent fresh gate required"
       },
       "quantity_for_order": 2,
-      "commercial_observation": null,
-      "supply_status": "NOT_OBTAINED: current stock, price, lead time, MOQ, packaging and assembly applicability require dated exact-part evidence"
+      "sourcing_evidence": "engineering/a7/procurement/sourcing-projection.json#C2071056",
+      "supply_status": "DATED_OBSERVATIONS_ONLY: see the order_plan line and engineering/a7/procurement/sourcing-projection.json; not current stock, a quote, a reservation or assembly acceptance"
     },
     {
       "board": "controller",
@@ -2191,8 +2117,8 @@
         "authority": "native export; independent fresh gate required"
       },
       "quantity_for_order": 2,
-      "commercial_observation": null,
-      "supply_status": "NOT_OBTAINED: current stock, price, lead time, MOQ, packaging and assembly applicability require dated exact-part evidence"
+      "sourcing_evidence": "engineering/a7/procurement/sourcing-projection.json#C404027",
+      "supply_status": "DATED_OBSERVATIONS_ONLY: see the order_plan line and engineering/a7/procurement/sourcing-projection.json; not current stock, a quote, a reservation or assembly acceptance"
     },
     {
       "board": "controller",
@@ -2220,8 +2146,8 @@
         "authority": "native export; independent fresh gate required"
       },
       "quantity_for_order": 2,
-      "commercial_observation": null,
-      "supply_status": "NOT_OBTAINED: current stock, price, lead time, MOQ, packaging and assembly applicability require dated exact-part evidence"
+      "sourcing_evidence": "engineering/a7/procurement/sourcing-projection.json#C140331",
+      "supply_status": "DATED_OBSERVATIONS_ONLY: see the order_plan line and engineering/a7/procurement/sourcing-projection.json; not current stock, a quote, a reservation or assembly acceptance"
     },
     {
       "board": "controller",
@@ -2249,8 +2175,8 @@
         "authority": "native export; independent fresh gate required"
       },
       "quantity_for_order": 2,
-      "commercial_observation": null,
-      "supply_status": "NOT_OBTAINED: current stock, price, lead time, MOQ, packaging and assembly applicability require dated exact-part evidence"
+      "sourcing_evidence": "engineering/a7/procurement/sourcing-projection.json#C15741",
+      "supply_status": "DATED_OBSERVATIONS_ONLY: see the order_plan line and engineering/a7/procurement/sourcing-projection.json; not current stock, a quote, a reservation or assembly acceptance"
     },
     {
       "board": "controller",
@@ -2278,8 +2204,8 @@
         "authority": "native export; independent fresh gate required"
       },
       "quantity_for_order": 2,
-      "commercial_observation": null,
-      "supply_status": "NOT_OBTAINED: current stock, price, lead time, MOQ, packaging and assembly applicability require dated exact-part evidence"
+      "sourcing_evidence": "engineering/a7/procurement/sourcing-projection.json#C221351",
+      "supply_status": "DATED_OBSERVATIONS_ONLY: see the order_plan line and engineering/a7/procurement/sourcing-projection.json; not current stock, a quote, a reservation or assembly acceptance"
     },
     {
       "board": "controller",
@@ -2307,8 +2233,8 @@
         "authority": "native export; independent fresh gate required"
       },
       "quantity_for_order": 2,
-      "commercial_observation": null,
-      "supply_status": "NOT_OBTAINED: current stock, price, lead time, MOQ, packaging and assembly applicability require dated exact-part evidence"
+      "sourcing_evidence": "engineering/a7/procurement/sourcing-projection.json#C398363",
+      "supply_status": "DATED_OBSERVATIONS_ONLY: see the order_plan line and engineering/a7/procurement/sourcing-projection.json; not current stock, a quote, a reservation or assembly acceptance"
     },
     {
       "board": "led_leaf",
@@ -2336,8 +2262,8 @@
         "authority": "immutable historical A5 KiCad export; not fresh placement proof"
       },
       "quantity_for_order": 4,
-      "commercial_observation": null,
-      "supply_status": "NOT_OBTAINED: current stock, price, lead time, MOQ, packaging and assembly applicability require dated exact-part evidence"
+      "sourcing_evidence": "engineering/a7/procurement/sourcing-projection.json#C14663",
+      "supply_status": "DATED_OBSERVATIONS_ONLY: see the order_plan line and engineering/a7/procurement/sourcing-projection.json; not current stock, a quote, a reservation or assembly acceptance"
     },
     {
       "board": "led_leaf",
@@ -2365,8 +2291,8 @@
         "authority": "immutable historical A5 KiCad export; not fresh placement proof"
       },
       "quantity_for_order": 4,
-      "commercial_observation": null,
-      "supply_status": "NOT_OBTAINED: current stock, price, lead time, MOQ, packaging and assembly applicability require dated exact-part evidence"
+      "sourcing_evidence": "engineering/a7/procurement/sourcing-projection.json#C14663",
+      "supply_status": "DATED_OBSERVATIONS_ONLY: see the order_plan line and engineering/a7/procurement/sourcing-projection.json; not current stock, a quote, a reservation or assembly acceptance"
     },
     {
       "board": "led_leaf",
@@ -2394,8 +2320,8 @@
         "authority": "immutable historical A5 KiCad export; not fresh placement proof"
       },
       "quantity_for_order": 4,
-      "commercial_observation": null,
-      "supply_status": "NOT_OBTAINED: current stock, price, lead time, MOQ, packaging and assembly applicability require dated exact-part evidence"
+      "sourcing_evidence": "engineering/a7/procurement/sourcing-projection.json#C14663",
+      "supply_status": "DATED_OBSERVATIONS_ONLY: see the order_plan line and engineering/a7/procurement/sourcing-projection.json; not current stock, a quote, a reservation or assembly acceptance"
     },
     {
       "board": "led_leaf",
@@ -2423,8 +2349,8 @@
         "authority": "immutable historical A5 KiCad export; not fresh placement proof"
       },
       "quantity_for_order": 4,
-      "commercial_observation": null,
-      "supply_status": "NOT_OBTAINED: current stock, price, lead time, MOQ, packaging and assembly applicability require dated exact-part evidence"
+      "sourcing_evidence": "engineering/a7/procurement/sourcing-projection.json#C14663",
+      "supply_status": "DATED_OBSERVATIONS_ONLY: see the order_plan line and engineering/a7/procurement/sourcing-projection.json; not current stock, a quote, a reservation or assembly acceptance"
     },
     {
       "board": "led_leaf",
@@ -2452,8 +2378,8 @@
         "authority": "immutable historical A5 KiCad export; not fresh placement proof"
       },
       "quantity_for_order": 4,
-      "commercial_observation": null,
-      "supply_status": "NOT_OBTAINED: current stock, price, lead time, MOQ, packaging and assembly applicability require dated exact-part evidence"
+      "sourcing_evidence": "engineering/a7/procurement/sourcing-projection.json#C52917434",
+      "supply_status": "DATED_OBSERVATIONS_ONLY: see the order_plan line and engineering/a7/procurement/sourcing-projection.json; not current stock, a quote, a reservation or assembly acceptance"
     },
     {
       "board": "led_leaf",
@@ -2481,8 +2407,8 @@
         "authority": "immutable historical A5 KiCad export; not fresh placement proof"
       },
       "quantity_for_order": 4,
-      "commercial_observation": null,
-      "supply_status": "NOT_OBTAINED: current stock, price, lead time, MOQ, packaging and assembly applicability require dated exact-part evidence"
+      "sourcing_evidence": "engineering/a7/procurement/sourcing-projection.json#C52917434",
+      "supply_status": "DATED_OBSERVATIONS_ONLY: see the order_plan line and engineering/a7/procurement/sourcing-projection.json; not current stock, a quote, a reservation or assembly acceptance"
     },
     {
       "board": "led_leaf",
@@ -2510,8 +2436,8 @@
         "authority": "immutable historical A5 KiCad export; not fresh placement proof"
       },
       "quantity_for_order": 4,
-      "commercial_observation": null,
-      "supply_status": "NOT_OBTAINED: current stock, price, lead time, MOQ, packaging and assembly applicability require dated exact-part evidence"
+      "sourcing_evidence": "engineering/a7/procurement/sourcing-projection.json#C52917434",
+      "supply_status": "DATED_OBSERVATIONS_ONLY: see the order_plan line and engineering/a7/procurement/sourcing-projection.json; not current stock, a quote, a reservation or assembly acceptance"
     },
     {
       "board": "led_leaf",
@@ -2539,8 +2465,8 @@
         "authority": "immutable historical A5 KiCad export; not fresh placement proof"
       },
       "quantity_for_order": 4,
-      "commercial_observation": null,
-      "supply_status": "NOT_OBTAINED: current stock, price, lead time, MOQ, packaging and assembly applicability require dated exact-part evidence"
+      "sourcing_evidence": "engineering/a7/procurement/sourcing-projection.json#C52917434",
+      "supply_status": "DATED_OBSERVATIONS_ONLY: see the order_plan line and engineering/a7/procurement/sourcing-projection.json; not current stock, a quote, a reservation or assembly acceptance"
     },
     {
       "board": "led_leaf",
@@ -2568,8 +2494,8 @@
         "authority": "immutable historical A5 KiCad export; not fresh placement proof"
       },
       "quantity_for_order": 4,
-      "commercial_observation": null,
-      "supply_status": "NOT_OBTAINED: current stock, price, lead time, MOQ, packaging and assembly applicability require dated exact-part evidence"
+      "sourcing_evidence": "engineering/a7/procurement/sourcing-projection.json#C160404",
+      "supply_status": "DATED_OBSERVATIONS_ONLY: see the order_plan line and engineering/a7/procurement/sourcing-projection.json; not current stock, a quote, a reservation or assembly acceptance"
     },
     {
       "board": "led_leaf",
@@ -2597,8 +2523,8 @@
         "authority": "immutable historical A5 KiCad export; not fresh placement proof"
       },
       "quantity_for_order": 4,
-      "commercial_observation": null,
-      "supply_status": "NOT_OBTAINED: current stock, price, lead time, MOQ, packaging and assembly applicability require dated exact-part evidence"
+      "sourcing_evidence": "engineering/a7/procurement/sourcing-projection.json#C160404",
+      "supply_status": "DATED_OBSERVATIONS_ONLY: see the order_plan line and engineering/a7/procurement/sourcing-projection.json; not current stock, a quote, a reservation or assembly acceptance"
     },
     {
       "board": "power_adapter",
@@ -2626,8 +2552,8 @@
         "authority": "immutable historical A5 KiCad export; not fresh placement proof"
       },
       "quantity_for_order": 2,
-      "commercial_observation": null,
-      "supply_status": "NOT_OBTAINED: current stock, price, lead time, MOQ, packaging and assembly applicability require dated exact-part evidence"
+      "sourcing_evidence": "engineering/a7/procurement/sourcing-projection.json#C5665",
+      "supply_status": "DATED_OBSERVATIONS_ONLY: see the order_plan line and engineering/a7/procurement/sourcing-projection.json; not current stock, a quote, a reservation or assembly acceptance"
     },
     {
       "board": "power_adapter",
@@ -2655,8 +2581,8 @@
         "authority": "immutable historical A5 KiCad export; not fresh placement proof"
       },
       "quantity_for_order": 2,
-      "commercial_observation": null,
-      "supply_status": "NOT_OBTAINED: current stock, price, lead time, MOQ, packaging and assembly applicability require dated exact-part evidence"
+      "sourcing_evidence": "engineering/a7/procurement/sourcing-projection.json#C122442",
+      "supply_status": "DATED_OBSERVATIONS_ONLY: see the order_plan line and engineering/a7/procurement/sourcing-projection.json; not current stock, a quote, a reservation or assembly acceptance"
     }
   ],
   "excluded": [
@@ -3410,7 +3336,7 @@
     {
       "id": "supply-observations",
       "class": "ACCESS_EVIDENCE_HOLD",
-      "text": "Order quantity is 2 modules (owner decision). JLC stock, price, minimum, packaging, lead time and assembly applicability at that quantity are not observed for any line except the C5149819 switch (stock 4561 at 2026-11-12); JLC attrition is not sourced; stock never reserved."
+      "text": "Order quantity is 2 modules (owner decision), 162 fitted pieces before attrition. 30 of 30 fitted identities have dated 2026-11-12 JLC listing observations from both the rendered part pages and the parts-API audit (separate reads, raw bytes not committed, field meanings and currency inferred; engineering/a7/procurement/sourcing-projection.json). Not obtained for any line: lead time, confirmed quote, stock reservation and assembly acceptance. JLC attrition is not sourced as a rule; the audit's buy quantities are our inference. Refresh before ordering."
     },
     {
       "id": "jack-switch-qualification",

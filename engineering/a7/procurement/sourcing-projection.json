@@ -1,0 +1,2179 @@
+{
+  "schema": 1,
+  "status": "DATED_OBSERVATIONS_NOT_CURRENT_STOCK_OR_QUOTE",
+  "revision": "A7-r2-3HP-FR4",
+  "modules": 2,
+  "observation_date": "2026-11-12",
+  "scope": "Saved JLC listing observations for the active fitted identities. Not current stock, a quote, a reservation, a lead time or assembly acceptance; refresh before ordering. Quantities are fitted pieces x modules before attrition.",
+  "sources": {
+    "listing_pages": {
+      "path": "engineering/a7/jlc-package/sources.json",
+      "sha256": "6fc3789723a99d5f6eaeca12b9f057ebb407ef84b7a8657ee224129c262f05d5",
+      "observed_between": [
+        "2026-11-12T10:35:07Z",
+        "2026-11-12T19:56:55Z"
+      ],
+      "field_meanings": {
+        "status": "INFERRED",
+        "note": "Fields read from each part page payload (componentInfo). library from componentLibraryType (base = Basic, expand = Extended); in_stock from overseasStockCount, which the 2026-11-06 A5 audit mapped to the UI \"In Stock\"; preorder_available from canPresaleNumber; preorder_minimum from preMinPurchaseNum. loss_number and least_patch_number are recorded without an established meaning. pcba_type and assembly_type are the \"PCBA Type\" and \"Assembly Type\" labels shown on the same rendered part pages (raw_sha256 covers that HTML)."
+      }
+    },
+    "parts_api": {
+      "path": "engineering/a7/procurement/price-audit/2026-11-12.json",
+      "sha256": "40fe7045238d80aae2f779da601c3270dfb0ca4a4c1fada72052722d231f2af3",
+      "observed_at": "2026-11-12T19:09:52Z"
+    },
+    "supply_observations": {
+      "path": "engineering/a7/procurement/supply-observations.json",
+      "sha256": "64c642078850f2f9263b825e7bf762bb136f3fd72897ceca47d06aa32b4a6591"
+    }
+  },
+  "not_one_snapshot": "Rendered part pages and the parts-API audit are separate reads at different times; their stock figures differ for 25 identities and neither is a simultaneous supplier snapshot.",
+  "stock_differs_between_reads": [
+    "C12891",
+    "C140331",
+    "C14663",
+    "C15741",
+    "C15850",
+    "C160404",
+    "C19666",
+    "C20526",
+    "C2071056",
+    "C21190",
+    "C221351",
+    "C22355739",
+    "C23138",
+    "C23162",
+    "C23231",
+    "C23254",
+    "C25803",
+    "C25804",
+    "C398363",
+    "C404027",
+    "C50704",
+    "C52917434",
+    "C5665",
+    "C57112",
+    "C7250"
+  ],
+  "active_identities": 30,
+  "pieces_required_total": 162,
+  "library_counts": {
+    "listing_page": {
+      "BASIC": 14,
+      "EXTENDED": 16
+    },
+    "parts_api": {
+      "BASIC": 14,
+      "EXTENDED": 16
+    }
+  },
+  "parts_api_calculated_total": {
+    "value": 23.08,
+    "currency": "USD (INFERRED)",
+    "confidence": "INFERRED",
+    "excludes": "Setup, stencil, joints, hand soldering, handling, PCB fabrication, shipping and taxes. Whether through-hole parts (J1, J2, J5, adapter J1/J2) count toward feeder loading is not stated on the fee page."
+  },
+  "gaps": {
+    "listing_page": [],
+    "parts_api": []
+  },
+  "not_obtained_for_any_line": [
+    "lead_time",
+    "confirmed_quote",
+    "stock_reservation",
+    "assembly_acceptance"
+  ],
+  "retired": [
+    {
+      "lcsc": "C221842",
+      "mpn": "PCM13SMTR",
+      "reason": "SW1 replaced by HX MSK13C02 (C5149819) on 2026-11-12 (owner decision switch-supply); historical evidence only",
+      "evidence": [
+        "engineering/a7/jlc-package/sources.json#C221842",
+        "engineering/a7/procurement/supply-observations.json#jlc-c221842-2026-11-12",
+        "engineering/a7/procurement/supply-observations.json#jlc-c221842-2026-11-12-owner-relayed"
+      ]
+    }
+  ],
+  "lines": [
+    {
+      "lcsc": "C122442",
+      "mpn": "530470310",
+      "manufacturer": "MOLEX",
+      "pieces_per_module": 2,
+      "pieces_required": 4,
+      "listing_page": {
+        "status": "OBSERVED",
+        "source": "engineering/a7/jlc-package/sources.json",
+        "url": "https://jlcpcb.com/partdetail/C122442",
+        "observed_at": "2026-11-12T10:35:07Z",
+        "raw_sha256": "1055748e8422ac35c729c83dc8766c1b248960904819a1e507e76f57763f8b21",
+        "raw_stored": false,
+        "identity_matched": "LCSC code and MPN (the receipt carries no manufacturer field)",
+        "observed": {
+          "library": "EXTENDED",
+          "in_stock": 21090,
+          "preorder_available": 20494,
+          "preorder_minimum": 89,
+          "packaging_quantity": 2500,
+          "loss_number": 2,
+          "least_patch_number": 2,
+          "buyable": true
+        },
+        "displayed_labels": {
+          "pcba_type": "Economic and Standard",
+          "assembly_type": "Wave Soldering"
+        },
+        "field_meanings": "INFERRED (sources.listing_pages.field_meanings)"
+      },
+      "parts_api": {
+        "status": "OBSERVED",
+        "source": "engineering/a7/procurement/price-audit/2026-11-12.json#after.lines",
+        "url": "https://jlcpcb.com/api/overseas-pcb-order/v1/shoppingCart/smtGood/selectSmtComponentList",
+        "observed_at": "2026-11-12T19:09:52Z",
+        "raw_sha256": null,
+        "raw_stored": false,
+        "identity_matched": "LCSC code, MPN and manufacturer",
+        "row_origin": "parts-API read 2026-11-12T19:09:52Z",
+        "observed": {
+          "library": "EXTENDED",
+          "jlc_stock": 21090,
+          "min_purchase": 1,
+          "least_patch_number": 2,
+          "loss_number": 2,
+          "unit_price": 0.1314
+        },
+        "currency": {
+          "value": "USD",
+          "status": "INFERRED",
+          "basis": "JLC API price rows carry no currency field. We read them as USD because the C221842 tier price 3.0325 is the figure the owner's live check saw in USD on the JLC detail page (supply-observations.json). Fee figures are USD as printed on the JLC fee page."
+        },
+        "calculated": {
+          "pieces_to_buy": 6,
+          "line_cost": 0.7884,
+          "rule": "pieces_to_buy = max(pieces_required + loss_number, least_patch_number, min_purchase); line_cost = pieces_to_buy x the price tier for that quantity. Field meanings are our reading of an undocumented API.",
+          "confidence": "INFERRED"
+        },
+        "field_meanings": "INFERRED: undocumented API fields read as JLC stock, minimum purchase, minimum patch and attrition"
+      },
+      "supply_receipts": [],
+      "raw_bytes": "NOT_COMMITTED: receipts keep only their SHA-256; this parts-API audit row was re-serialised without a raw digest",
+      "not_obtained": [
+        "lead_time",
+        "confirmed_quote",
+        "stock_reservation",
+        "assembly_acceptance"
+      ]
+    },
+    {
+      "lcsc": "C12891",
+      "mpn": "CL31A226KAHNNNE",
+      "manufacturer": "Samsung Electro-Mechanics",
+      "pieces_per_module": 2,
+      "pieces_required": 4,
+      "listing_page": {
+        "status": "OBSERVED",
+        "source": "engineering/a7/jlc-package/sources.json",
+        "url": "https://jlcpcb.com/partdetail/C12891",
+        "observed_at": "2026-11-12T10:35:10Z",
+        "raw_sha256": "7a1f5107d27ad95b1bd85cf5ef0d18640005f644b8f16085bd829d8d77f88180",
+        "raw_stored": false,
+        "identity_matched": "LCSC code and MPN (the receipt carries no manufacturer field)",
+        "observed": {
+          "library": "BASIC",
+          "in_stock": 2515861,
+          "preorder_available": 2105398,
+          "preorder_minimum": 88,
+          "packaging_quantity": 2000,
+          "loss_number": 4,
+          "least_patch_number": 5,
+          "buyable": true
+        },
+        "displayed_labels": {
+          "pcba_type": "Economic and Standard",
+          "assembly_type": "SMT Assembly"
+        },
+        "field_meanings": "INFERRED (sources.listing_pages.field_meanings)"
+      },
+      "parts_api": {
+        "status": "OBSERVED",
+        "source": "engineering/a7/procurement/price-audit/2026-11-12.json#after.lines",
+        "url": "https://jlcpcb.com/api/overseas-pcb-order/v1/shoppingCart/smtGood/selectSmtComponentList",
+        "observed_at": "2026-11-12T19:09:52Z",
+        "raw_sha256": null,
+        "raw_stored": false,
+        "identity_matched": "LCSC code, MPN and manufacturer",
+        "row_origin": "parts-API read 2026-11-12T19:09:52Z",
+        "observed": {
+          "library": "BASIC",
+          "jlc_stock": 2504817,
+          "min_purchase": 1,
+          "least_patch_number": 5,
+          "loss_number": 4,
+          "unit_price": 0.1028
+        },
+        "currency": {
+          "value": "USD",
+          "status": "INFERRED",
+          "basis": "JLC API price rows carry no currency field. We read them as USD because the C221842 tier price 3.0325 is the figure the owner's live check saw in USD on the JLC detail page (supply-observations.json). Fee figures are USD as printed on the JLC fee page."
+        },
+        "calculated": {
+          "pieces_to_buy": 8,
+          "line_cost": 0.8224,
+          "rule": "pieces_to_buy = max(pieces_required + loss_number, least_patch_number, min_purchase); line_cost = pieces_to_buy x the price tier for that quantity. Field meanings are our reading of an undocumented API.",
+          "confidence": "INFERRED"
+        },
+        "field_meanings": "INFERRED: undocumented API fields read as JLC stock, minimum purchase, minimum patch and attrition"
+      },
+      "supply_receipts": [],
+      "raw_bytes": "NOT_COMMITTED: receipts keep only their SHA-256; this parts-API audit row was re-serialised without a raw digest",
+      "not_obtained": [
+        "lead_time",
+        "confirmed_quote",
+        "stock_reservation",
+        "assembly_acceptance"
+      ]
+    },
+    {
+      "lcsc": "C134375",
+      "mpn": "BAS70-04-7-F",
+      "manufacturer": "Diodes Incorporated",
+      "pieces_per_module": 1,
+      "pieces_required": 2,
+      "listing_page": {
+        "status": "OBSERVED",
+        "source": "engineering/a7/jlc-package/sources.json",
+        "url": "https://jlcpcb.com/partdetail/C134375",
+        "observed_at": "2026-11-12T10:35:13Z",
+        "raw_sha256": "8eb4e1dbfa7c6ab0009f45b32f4f6bb15ddf8222b6fb45fec8ff6f05fb636545",
+        "raw_stored": false,
+        "identity_matched": "LCSC code and MPN (the receipt carries no manufacturer field)",
+        "observed": {
+          "library": "EXTENDED",
+          "in_stock": 247,
+          "preorder_available": 124,
+          "preorder_minimum": 149,
+          "packaging_quantity": 3000,
+          "loss_number": 5,
+          "least_patch_number": 5,
+          "buyable": true
+        },
+        "displayed_labels": {
+          "pcba_type": "Economic and Standard",
+          "assembly_type": "SMT Assembly"
+        },
+        "field_meanings": "INFERRED (sources.listing_pages.field_meanings)"
+      },
+      "parts_api": {
+        "status": "OBSERVED",
+        "source": "engineering/a7/procurement/price-audit/2026-11-12.json#after.lines",
+        "url": "https://jlcpcb.com/api/overseas-pcb-order/v1/shoppingCart/smtGood/selectSmtComponentList",
+        "observed_at": "2026-11-12T19:09:52Z",
+        "raw_sha256": null,
+        "raw_stored": false,
+        "identity_matched": "LCSC code, MPN and manufacturer",
+        "row_origin": "parts-API read 2026-11-12T19:09:52Z",
+        "observed": {
+          "library": "EXTENDED",
+          "jlc_stock": 247,
+          "min_purchase": 1,
+          "least_patch_number": 5,
+          "loss_number": 5,
+          "unit_price": 0.0723
+        },
+        "currency": {
+          "value": "USD",
+          "status": "INFERRED",
+          "basis": "JLC API price rows carry no currency field. We read them as USD because the C221842 tier price 3.0325 is the figure the owner's live check saw in USD on the JLC detail page (supply-observations.json). Fee figures are USD as printed on the JLC fee page."
+        },
+        "calculated": {
+          "pieces_to_buy": 7,
+          "line_cost": 0.5061,
+          "rule": "pieces_to_buy = max(pieces_required + loss_number, least_patch_number, min_purchase); line_cost = pieces_to_buy x the price tier for that quantity. Field meanings are our reading of an undocumented API.",
+          "confidence": "INFERRED"
+        },
+        "field_meanings": "INFERRED: undocumented API fields read as JLC stock, minimum purchase, minimum patch and attrition"
+      },
+      "supply_receipts": [],
+      "raw_bytes": "NOT_COMMITTED: receipts keep only their SHA-256; this parts-API audit row was re-serialised without a raw digest",
+      "not_obtained": [
+        "lead_time",
+        "confirmed_quote",
+        "stock_reservation",
+        "assembly_acceptance"
+      ]
+    },
+    {
+      "lcsc": "C140331",
+      "mpn": "TPS2552DBVR-1",
+      "manufacturer": "Texas Instruments",
+      "pieces_per_module": 1,
+      "pieces_required": 2,
+      "listing_page": {
+        "status": "OBSERVED",
+        "source": "engineering/a7/jlc-package/sources.json",
+        "url": "https://jlcpcb.com/partdetail/C140331",
+        "observed_at": "2026-11-12T10:35:15Z",
+        "raw_sha256": "03ae7f6072a684a1246b3db4c566052a07d3bbbd9c96431cad0199772887f18f",
+        "raw_stored": false,
+        "identity_matched": "LCSC code and MPN (the receipt carries no manufacturer field)",
+        "observed": {
+          "library": "EXTENDED",
+          "in_stock": 2228,
+          "preorder_available": 2219,
+          "preorder_minimum": 13,
+          "packaging_quantity": 3000,
+          "loss_number": 0,
+          "least_patch_number": 2,
+          "buyable": true
+        },
+        "displayed_labels": {
+          "pcba_type": "Economic and Standard",
+          "assembly_type": "SMT Assembly"
+        },
+        "field_meanings": "INFERRED (sources.listing_pages.field_meanings)"
+      },
+      "parts_api": {
+        "status": "OBSERVED",
+        "source": "engineering/a7/procurement/price-audit/2026-11-12.json#after.lines",
+        "url": "https://jlcpcb.com/api/overseas-pcb-order/v1/shoppingCart/smtGood/selectSmtComponentList",
+        "observed_at": "2026-11-12T19:09:52Z",
+        "raw_sha256": null,
+        "raw_stored": false,
+        "identity_matched": "LCSC code, MPN and manufacturer",
+        "row_origin": "parts-API read 2026-11-12T19:09:52Z",
+        "observed": {
+          "library": "EXTENDED",
+          "jlc_stock": 2218,
+          "min_purchase": 1,
+          "least_patch_number": 2,
+          "loss_number": 0,
+          "unit_price": 0.8964
+        },
+        "currency": {
+          "value": "USD",
+          "status": "INFERRED",
+          "basis": "JLC API price rows carry no currency field. We read them as USD because the C221842 tier price 3.0325 is the figure the owner's live check saw in USD on the JLC detail page (supply-observations.json). Fee figures are USD as printed on the JLC fee page."
+        },
+        "calculated": {
+          "pieces_to_buy": 2,
+          "line_cost": 1.7928,
+          "rule": "pieces_to_buy = max(pieces_required + loss_number, least_patch_number, min_purchase); line_cost = pieces_to_buy x the price tier for that quantity. Field meanings are our reading of an undocumented API.",
+          "confidence": "INFERRED"
+        },
+        "field_meanings": "INFERRED: undocumented API fields read as JLC stock, minimum purchase, minimum patch and attrition"
+      },
+      "supply_receipts": [],
+      "raw_bytes": "NOT_COMMITTED: receipts keep only their SHA-256; this parts-API audit row was re-serialised without a raw digest",
+      "not_obtained": [
+        "lead_time",
+        "confirmed_quote",
+        "stock_reservation",
+        "assembly_acceptance"
+      ]
+    },
+    {
+      "lcsc": "C14663",
+      "mpn": "CC0603KRX7R9BB104",
+      "manufacturer": "YAGEO",
+      "pieces_per_module": 16,
+      "pieces_required": 32,
+      "listing_page": {
+        "status": "OBSERVED",
+        "source": "engineering/a7/jlc-package/sources.json",
+        "url": "https://jlcpcb.com/partdetail/C14663",
+        "observed_at": "2026-11-12T10:35:18Z",
+        "raw_sha256": "bc4d415d39a4325644d0c9cbea16d96d42d621853dc1364c24ed822c981ee88e",
+        "raw_stored": false,
+        "identity_matched": "LCSC code and MPN (the receipt carries no manufacturer field)",
+        "observed": {
+          "library": "BASIC",
+          "in_stock": 36130749,
+          "preorder_available": 18269416,
+          "preorder_minimum": 1920,
+          "packaging_quantity": 4000,
+          "loss_number": 15,
+          "least_patch_number": 20,
+          "buyable": true
+        },
+        "displayed_labels": {
+          "pcba_type": "Economic and Standard",
+          "assembly_type": "SMT Assembly"
+        },
+        "field_meanings": "INFERRED (sources.listing_pages.field_meanings)"
+      },
+      "parts_api": {
+        "status": "OBSERVED",
+        "source": "engineering/a7/procurement/price-audit/2026-11-12.json#after.lines",
+        "url": "https://jlcpcb.com/api/overseas-pcb-order/v1/shoppingCart/smtGood/selectSmtComponentList",
+        "observed_at": "2026-11-12T19:09:52Z",
+        "raw_sha256": null,
+        "raw_stored": false,
+        "identity_matched": "LCSC code, MPN and manufacturer",
+        "row_origin": "parts-API read 2026-11-12T19:09:52Z",
+        "observed": {
+          "library": "BASIC",
+          "jlc_stock": 36497856,
+          "min_purchase": 1,
+          "least_patch_number": 20,
+          "loss_number": 15,
+          "unit_price": 0.006
+        },
+        "currency": {
+          "value": "USD",
+          "status": "INFERRED",
+          "basis": "JLC API price rows carry no currency field. We read them as USD because the C221842 tier price 3.0325 is the figure the owner's live check saw in USD on the JLC detail page (supply-observations.json). Fee figures are USD as printed on the JLC fee page."
+        },
+        "calculated": {
+          "pieces_to_buy": 47,
+          "line_cost": 0.282,
+          "rule": "pieces_to_buy = max(pieces_required + loss_number, least_patch_number, min_purchase); line_cost = pieces_to_buy x the price tier for that quantity. Field meanings are our reading of an undocumented API.",
+          "confidence": "INFERRED"
+        },
+        "field_meanings": "INFERRED: undocumented API fields read as JLC stock, minimum purchase, minimum patch and attrition"
+      },
+      "supply_receipts": [],
+      "raw_bytes": "NOT_COMMITTED: receipts keep only their SHA-256; this parts-API audit row was re-serialised without a raw digest",
+      "not_obtained": [
+        "lead_time",
+        "confirmed_quote",
+        "stock_reservation",
+        "assembly_acceptance"
+      ]
+    },
+    {
+      "lcsc": "C15741",
+      "mpn": "SN74LVC2T45DCUR",
+      "manufacturer": "Texas Instruments",
+      "pieces_per_module": 1,
+      "pieces_required": 2,
+      "listing_page": {
+        "status": "OBSERVED",
+        "source": "engineering/a7/jlc-package/sources.json",
+        "url": "https://jlcpcb.com/partdetail/C15741",
+        "observed_at": "2026-11-12T10:35:20Z",
+        "raw_sha256": "050ca154227dea15ea4f830f394163f9dd563b9ec8140415ca0ebd66f10317dd",
+        "raw_stored": false,
+        "identity_matched": "LCSC code and MPN (the receipt carries no manufacturer field)",
+        "observed": {
+          "library": "EXTENDED",
+          "in_stock": 85166,
+          "preorder_available": 84012,
+          "preorder_minimum": 44,
+          "packaging_quantity": 3000,
+          "loss_number": 1,
+          "least_patch_number": 5,
+          "buyable": true
+        },
+        "displayed_labels": {
+          "pcba_type": "Economic and Standard",
+          "assembly_type": "SMT Assembly"
+        },
+        "field_meanings": "INFERRED (sources.listing_pages.field_meanings)"
+      },
+      "parts_api": {
+        "status": "OBSERVED",
+        "source": "engineering/a7/procurement/price-audit/2026-11-12.json#after.lines",
+        "url": "https://jlcpcb.com/api/overseas-pcb-order/v1/shoppingCart/smtGood/selectSmtComponentList",
+        "observed_at": "2026-11-12T19:09:52Z",
+        "raw_sha256": null,
+        "raw_stored": false,
+        "identity_matched": "LCSC code, MPN and manufacturer",
+        "row_origin": "parts-API read 2026-11-12T19:09:52Z",
+        "observed": {
+          "library": "EXTENDED",
+          "jlc_stock": 85126,
+          "min_purchase": 1,
+          "least_patch_number": 5,
+          "loss_number": 1,
+          "unit_price": 0.2079
+        },
+        "currency": {
+          "value": "USD",
+          "status": "INFERRED",
+          "basis": "JLC API price rows carry no currency field. We read them as USD because the C221842 tier price 3.0325 is the figure the owner's live check saw in USD on the JLC detail page (supply-observations.json). Fee figures are USD as printed on the JLC fee page."
+        },
+        "calculated": {
+          "pieces_to_buy": 5,
+          "line_cost": 1.0395,
+          "rule": "pieces_to_buy = max(pieces_required + loss_number, least_patch_number, min_purchase); line_cost = pieces_to_buy x the price tier for that quantity. Field meanings are our reading of an undocumented API.",
+          "confidence": "INFERRED"
+        },
+        "field_meanings": "INFERRED: undocumented API fields read as JLC stock, minimum purchase, minimum patch and attrition"
+      },
+      "supply_receipts": [],
+      "raw_bytes": "NOT_COMMITTED: receipts keep only their SHA-256; this parts-API audit row was re-serialised without a raw digest",
+      "not_obtained": [
+        "lead_time",
+        "confirmed_quote",
+        "stock_reservation",
+        "assembly_acceptance"
+      ]
+    },
+    {
+      "lcsc": "C15850",
+      "mpn": "CL21A106KAYNNNE",
+      "manufacturer": "Samsung Electro-Mechanics",
+      "pieces_per_module": 3,
+      "pieces_required": 6,
+      "listing_page": {
+        "status": "OBSERVED",
+        "source": "engineering/a7/jlc-package/sources.json",
+        "url": "https://jlcpcb.com/partdetail/C15850",
+        "observed_at": "2026-11-12T10:35:23Z",
+        "raw_sha256": "84853cf031bd9c1db39315ad7591f3ef03e11765a93f09c2f0fb7440fc6aee79",
+        "raw_stored": false,
+        "identity_matched": "LCSC code and MPN (the receipt carries no manufacturer field)",
+        "observed": {
+          "library": "BASIC",
+          "in_stock": 8516270,
+          "preorder_available": 6708284,
+          "preorder_minimum": 383,
+          "packaging_quantity": 2000,
+          "loss_number": 10,
+          "least_patch_number": 20,
+          "buyable": true
+        },
+        "displayed_labels": {
+          "pcba_type": "Economic and Standard",
+          "assembly_type": "SMT Assembly"
+        },
+        "field_meanings": "INFERRED (sources.listing_pages.field_meanings)"
+      },
+      "parts_api": {
+        "status": "OBSERVED",
+        "source": "engineering/a7/procurement/price-audit/2026-11-12.json#after.lines",
+        "url": "https://jlcpcb.com/api/overseas-pcb-order/v1/shoppingCart/smtGood/selectSmtComponentList",
+        "observed_at": "2026-11-12T19:09:52Z",
+        "raw_sha256": null,
+        "raw_stored": false,
+        "identity_matched": "LCSC code, MPN and manufacturer",
+        "row_origin": "parts-API read 2026-11-12T19:09:52Z",
+        "observed": {
+          "library": "BASIC",
+          "jlc_stock": 8590360,
+          "min_purchase": 1,
+          "least_patch_number": 20,
+          "loss_number": 10,
+          "unit_price": 0.0315
+        },
+        "currency": {
+          "value": "USD",
+          "status": "INFERRED",
+          "basis": "JLC API price rows carry no currency field. We read them as USD because the C221842 tier price 3.0325 is the figure the owner's live check saw in USD on the JLC detail page (supply-observations.json). Fee figures are USD as printed on the JLC fee page."
+        },
+        "calculated": {
+          "pieces_to_buy": 20,
+          "line_cost": 0.63,
+          "rule": "pieces_to_buy = max(pieces_required + loss_number, least_patch_number, min_purchase); line_cost = pieces_to_buy x the price tier for that quantity. Field meanings are our reading of an undocumented API.",
+          "confidence": "INFERRED"
+        },
+        "field_meanings": "INFERRED: undocumented API fields read as JLC stock, minimum purchase, minimum patch and attrition"
+      },
+      "supply_receipts": [],
+      "raw_bytes": "NOT_COMMITTED: receipts keep only their SHA-256; this parts-API audit row was re-serialised without a raw digest",
+      "not_obtained": [
+        "lead_time",
+        "confirmed_quote",
+        "stock_reservation",
+        "assembly_acceptance"
+      ]
+    },
+    {
+      "lcsc": "C160404",
+      "mpn": "SM04B-SRSS-TB(LF)(SN)",
+      "manufacturer": "JST",
+      "pieces_per_module": 5,
+      "pieces_required": 10,
+      "listing_page": {
+        "status": "OBSERVED",
+        "source": "engineering/a7/jlc-package/sources.json",
+        "url": "https://jlcpcb.com/partdetail/C160404",
+        "observed_at": "2026-11-12T10:35:25Z",
+        "raw_sha256": "deb00082c451a5ee71a8876cdc99d1a07ee48a126fed593f2199c8b1767a231b",
+        "raw_stored": false,
+        "identity_matched": "LCSC code and MPN (the receipt carries no manufacturer field)",
+        "observed": {
+          "library": "EXTENDED",
+          "in_stock": 9798,
+          "preorder_available": 4021,
+          "preorder_minimum": 43,
+          "packaging_quantity": 3000,
+          "loss_number": 0,
+          "least_patch_number": 5,
+          "buyable": true
+        },
+        "displayed_labels": {
+          "pcba_type": "Economic and Standard",
+          "assembly_type": "SMT Assembly"
+        },
+        "field_meanings": "INFERRED (sources.listing_pages.field_meanings)"
+      },
+      "parts_api": {
+        "status": "OBSERVED",
+        "source": "engineering/a7/procurement/price-audit/2026-11-12.json#after.lines",
+        "url": "https://jlcpcb.com/api/overseas-pcb-order/v1/shoppingCart/smtGood/selectSmtComponentList",
+        "observed_at": "2026-11-12T19:09:52Z",
+        "raw_sha256": null,
+        "raw_stored": false,
+        "identity_matched": "LCSC code, MPN and manufacturer",
+        "row_origin": "parts-API read 2026-11-12T19:09:52Z",
+        "observed": {
+          "library": "EXTENDED",
+          "jlc_stock": 7443,
+          "min_purchase": 1,
+          "least_patch_number": 5,
+          "loss_number": 0,
+          "unit_price": 0.2146
+        },
+        "currency": {
+          "value": "USD",
+          "status": "INFERRED",
+          "basis": "JLC API price rows carry no currency field. We read them as USD because the C221842 tier price 3.0325 is the figure the owner's live check saw in USD on the JLC detail page (supply-observations.json). Fee figures are USD as printed on the JLC fee page."
+        },
+        "calculated": {
+          "pieces_to_buy": 10,
+          "line_cost": 2.146,
+          "rule": "pieces_to_buy = max(pieces_required + loss_number, least_patch_number, min_purchase); line_cost = pieces_to_buy x the price tier for that quantity. Field meanings are our reading of an undocumented API.",
+          "confidence": "INFERRED"
+        },
+        "field_meanings": "INFERRED: undocumented API fields read as JLC stock, minimum purchase, minimum patch and attrition"
+      },
+      "supply_receipts": [],
+      "raw_bytes": "NOT_COMMITTED: receipts keep only their SHA-256; this parts-API audit row was re-serialised without a raw digest",
+      "not_obtained": [
+        "lead_time",
+        "confirmed_quote",
+        "stock_reservation",
+        "assembly_acceptance"
+      ]
+    },
+    {
+      "lcsc": "C19666",
+      "mpn": "CL10A475KO8NNNC",
+      "manufacturer": "Samsung Electro-Mechanics",
+      "pieces_per_module": 3,
+      "pieces_required": 6,
+      "listing_page": {
+        "status": "OBSERVED",
+        "source": "engineering/a7/jlc-package/sources.json",
+        "url": "https://jlcpcb.com/partdetail/C19666",
+        "observed_at": "2026-11-12T10:35:28Z",
+        "raw_sha256": "30c71d97cea9da70df18c1fc829328815296bea7ab758f9fb57cd24e472f55fb",
+        "raw_stored": false,
+        "identity_matched": "LCSC code and MPN (the receipt carries no manufacturer field)",
+        "observed": {
+          "library": "BASIC",
+          "in_stock": 3568082,
+          "preorder_available": 2787013,
+          "preorder_minimum": 950,
+          "packaging_quantity": 4000,
+          "loss_number": 10,
+          "least_patch_number": 20,
+          "buyable": true
+        },
+        "displayed_labels": {
+          "pcba_type": "Economic and Standard",
+          "assembly_type": "SMT Assembly"
+        },
+        "field_meanings": "INFERRED (sources.listing_pages.field_meanings)"
+      },
+      "parts_api": {
+        "status": "OBSERVED",
+        "source": "engineering/a7/procurement/price-audit/2026-11-12.json#after.lines",
+        "url": "https://jlcpcb.com/api/overseas-pcb-order/v1/shoppingCart/smtGood/selectSmtComponentList",
+        "observed_at": "2026-11-12T19:09:52Z",
+        "raw_sha256": null,
+        "raw_stored": false,
+        "identity_matched": "LCSC code, MPN and manufacturer",
+        "row_origin": "parts-API read 2026-11-12T19:09:52Z",
+        "observed": {
+          "library": "BASIC",
+          "jlc_stock": 3674763,
+          "min_purchase": 1,
+          "least_patch_number": 20,
+          "loss_number": 10,
+          "unit_price": 0.015
+        },
+        "currency": {
+          "value": "USD",
+          "status": "INFERRED",
+          "basis": "JLC API price rows carry no currency field. We read them as USD because the C221842 tier price 3.0325 is the figure the owner's live check saw in USD on the JLC detail page (supply-observations.json). Fee figures are USD as printed on the JLC fee page."
+        },
+        "calculated": {
+          "pieces_to_buy": 20,
+          "line_cost": 0.3,
+          "rule": "pieces_to_buy = max(pieces_required + loss_number, least_patch_number, min_purchase); line_cost = pieces_to_buy x the price tier for that quantity. Field meanings are our reading of an undocumented API.",
+          "confidence": "INFERRED"
+        },
+        "field_meanings": "INFERRED: undocumented API fields read as JLC stock, minimum purchase, minimum patch and attrition"
+      },
+      "supply_receipts": [],
+      "raw_bytes": "NOT_COMMITTED: receipts keep only their SHA-256; this parts-API audit row was re-serialised without a raw digest",
+      "not_obtained": [
+        "lead_time",
+        "confirmed_quote",
+        "stock_reservation",
+        "assembly_acceptance"
+      ]
+    },
+    {
+      "lcsc": "C20526",
+      "mpn": "MMBT3904(RANGE:100-300)",
+      "manufacturer": "Jiangsu Changjing Electronics Technology Co., Ltd.",
+      "pieces_per_module": 1,
+      "pieces_required": 2,
+      "listing_page": {
+        "status": "OBSERVED",
+        "source": "engineering/a7/jlc-package/sources.json",
+        "url": "https://jlcpcb.com/partdetail/C20526",
+        "observed_at": "2026-11-12T10:35:30Z",
+        "raw_sha256": "2c83ebd2345bf4e0ddb92ef4230bd26817782c6399c995bbec1e1140d98ae57d",
+        "raw_stored": false,
+        "identity_matched": "LCSC code and MPN (the receipt carries no manufacturer field)",
+        "observed": {
+          "library": "BASIC",
+          "in_stock": 4183780,
+          "preorder_available": 4065649,
+          "preorder_minimum": 1143,
+          "packaging_quantity": 3000,
+          "loss_number": 5,
+          "least_patch_number": 10,
+          "buyable": true
+        },
+        "displayed_labels": {
+          "pcba_type": "Economic and Standard",
+          "assembly_type": "SMT Assembly"
+        },
+        "field_meanings": "INFERRED (sources.listing_pages.field_meanings)"
+      },
+      "parts_api": {
+        "status": "OBSERVED",
+        "source": "engineering/a7/procurement/price-audit/2026-11-12.json#after.lines",
+        "url": "https://jlcpcb.com/api/overseas-pcb-order/v1/shoppingCart/smtGood/selectSmtComponentList",
+        "observed_at": "2026-11-12T19:09:52Z",
+        "raw_sha256": null,
+        "raw_stored": false,
+        "identity_matched": "LCSC code, MPN and manufacturer",
+        "row_origin": "parts-API read 2026-11-12T19:09:52Z",
+        "observed": {
+          "library": "BASIC",
+          "jlc_stock": 4184311,
+          "min_purchase": 1,
+          "least_patch_number": 10,
+          "loss_number": 5,
+          "unit_price": 0.0103
+        },
+        "currency": {
+          "value": "USD",
+          "status": "INFERRED",
+          "basis": "JLC API price rows carry no currency field. We read them as USD because the C221842 tier price 3.0325 is the figure the owner's live check saw in USD on the JLC detail page (supply-observations.json). Fee figures are USD as printed on the JLC fee page."
+        },
+        "calculated": {
+          "pieces_to_buy": 10,
+          "line_cost": 0.103,
+          "rule": "pieces_to_buy = max(pieces_required + loss_number, least_patch_number, min_purchase); line_cost = pieces_to_buy x the price tier for that quantity. Field meanings are our reading of an undocumented API.",
+          "confidence": "INFERRED"
+        },
+        "field_meanings": "INFERRED: undocumented API fields read as JLC stock, minimum purchase, minimum patch and attrition"
+      },
+      "supply_receipts": [],
+      "raw_bytes": "NOT_COMMITTED: receipts keep only their SHA-256; this parts-API audit row was re-serialised without a raw digest",
+      "not_obtained": [
+        "lead_time",
+        "confirmed_quote",
+        "stock_reservation",
+        "assembly_acceptance"
+      ]
+    },
+    {
+      "lcsc": "C2071056",
+      "mpn": "AP63205WU-7",
+      "manufacturer": "Diodes Incorporated",
+      "pieces_per_module": 1,
+      "pieces_required": 2,
+      "listing_page": {
+        "status": "OBSERVED",
+        "source": "engineering/a7/jlc-package/sources.json",
+        "url": "https://jlcpcb.com/partdetail/C2071056",
+        "observed_at": "2026-11-12T10:35:32Z",
+        "raw_sha256": "0668c6ad275514b58fc1945be1ecc930827648326eac9db6cf9519f89b68ad1e",
+        "raw_stored": false,
+        "identity_matched": "LCSC code and MPN (the receipt carries no manufacturer field)",
+        "observed": {
+          "library": "EXTENDED",
+          "in_stock": 39904,
+          "preorder_available": 37005,
+          "preorder_minimum": 25,
+          "packaging_quantity": 3000,
+          "loss_number": 0,
+          "least_patch_number": 2,
+          "buyable": true
+        },
+        "displayed_labels": {
+          "pcba_type": "Economic and Standard",
+          "assembly_type": "SMT Assembly"
+        },
+        "field_meanings": "INFERRED (sources.listing_pages.field_meanings)"
+      },
+      "parts_api": {
+        "status": "OBSERVED",
+        "source": "engineering/a7/procurement/price-audit/2026-11-12.json#after.lines",
+        "url": "https://jlcpcb.com/api/overseas-pcb-order/v1/shoppingCart/smtGood/selectSmtComponentList",
+        "observed_at": "2026-11-12T19:09:52Z",
+        "raw_sha256": null,
+        "raw_stored": false,
+        "identity_matched": "LCSC code, MPN and manufacturer",
+        "row_origin": "parts-API read 2026-11-12T19:09:52Z",
+        "observed": {
+          "library": "EXTENDED",
+          "jlc_stock": 39789,
+          "min_purchase": 1,
+          "least_patch_number": 2,
+          "loss_number": 0,
+          "unit_price": 0.4629
+        },
+        "currency": {
+          "value": "USD",
+          "status": "INFERRED",
+          "basis": "JLC API price rows carry no currency field. We read them as USD because the C221842 tier price 3.0325 is the figure the owner's live check saw in USD on the JLC detail page (supply-observations.json). Fee figures are USD as printed on the JLC fee page."
+        },
+        "calculated": {
+          "pieces_to_buy": 2,
+          "line_cost": 0.9258,
+          "rule": "pieces_to_buy = max(pieces_required + loss_number, least_patch_number, min_purchase); line_cost = pieces_to_buy x the price tier for that quantity. Field meanings are our reading of an undocumented API.",
+          "confidence": "INFERRED"
+        },
+        "field_meanings": "INFERRED: undocumented API fields read as JLC stock, minimum purchase, minimum patch and attrition"
+      },
+      "supply_receipts": [],
+      "raw_bytes": "NOT_COMMITTED: receipts keep only their SHA-256; this parts-API audit row was re-serialised without a raw digest",
+      "not_obtained": [
+        "lead_time",
+        "confirmed_quote",
+        "stock_reservation",
+        "assembly_acceptance"
+      ]
+    },
+    {
+      "lcsc": "C21190",
+      "mpn": "0603WAF1001T5E",
+      "manufacturer": "UNI-ROYAL(Uniroyal Elec)",
+      "pieces_per_module": 3,
+      "pieces_required": 6,
+      "listing_page": {
+        "status": "OBSERVED",
+        "source": "engineering/a7/jlc-package/sources.json",
+        "url": "https://jlcpcb.com/partdetail/C21190",
+        "observed_at": "2026-11-12T10:35:35Z",
+        "raw_sha256": "bc75d0dcb5a70a185505fd3136dbec0860ac2c93a6267b4b8b3afbe8a180f36a",
+        "raw_stored": false,
+        "identity_matched": "LCSC code and MPN (the receipt carries no manufacturer field)",
+        "observed": {
+          "library": "BASIC",
+          "in_stock": 28882373,
+          "preorder_available": 22227859,
+          "preorder_minimum": 5000,
+          "packaging_quantity": 5000,
+          "loss_number": 10,
+          "least_patch_number": 20,
+          "buyable": true
+        },
+        "displayed_labels": {
+          "pcba_type": "Economic and Standard",
+          "assembly_type": "SMT Assembly"
+        },
+        "field_meanings": "INFERRED (sources.listing_pages.field_meanings)"
+      },
+      "parts_api": {
+        "status": "OBSERVED",
+        "source": "engineering/a7/procurement/price-audit/2026-11-12.json#after.lines",
+        "url": "https://jlcpcb.com/api/overseas-pcb-order/v1/shoppingCart/smtGood/selectSmtComponentList",
+        "observed_at": "2026-11-12T19:09:52Z",
+        "raw_sha256": null,
+        "raw_stored": false,
+        "identity_matched": "LCSC code, MPN and manufacturer",
+        "row_origin": "parts-API read 2026-11-12T19:09:52Z",
+        "observed": {
+          "library": "BASIC",
+          "jlc_stock": 28789506,
+          "min_purchase": 1,
+          "least_patch_number": 20,
+          "loss_number": 10,
+          "unit_price": 0.0017
+        },
+        "currency": {
+          "value": "USD",
+          "status": "INFERRED",
+          "basis": "JLC API price rows carry no currency field. We read them as USD because the C221842 tier price 3.0325 is the figure the owner's live check saw in USD on the JLC detail page (supply-observations.json). Fee figures are USD as printed on the JLC fee page."
+        },
+        "calculated": {
+          "pieces_to_buy": 20,
+          "line_cost": 0.034,
+          "rule": "pieces_to_buy = max(pieces_required + loss_number, least_patch_number, min_purchase); line_cost = pieces_to_buy x the price tier for that quantity. Field meanings are our reading of an undocumented API.",
+          "confidence": "INFERRED"
+        },
+        "field_meanings": "INFERRED: undocumented API fields read as JLC stock, minimum purchase, minimum patch and attrition"
+      },
+      "supply_receipts": [],
+      "raw_bytes": "NOT_COMMITTED: receipts keep only their SHA-256; this parts-API audit row was re-serialised without a raw digest",
+      "not_obtained": [
+        "lead_time",
+        "confirmed_quote",
+        "stock_reservation",
+        "assembly_acceptance"
+      ]
+    },
+    {
+      "lcsc": "C221351",
+      "mpn": "OPA197IDBVR",
+      "manufacturer": "Texas Instruments",
+      "pieces_per_module": 1,
+      "pieces_required": 2,
+      "listing_page": {
+        "status": "OBSERVED",
+        "source": "engineering/a7/jlc-package/sources.json",
+        "url": "https://jlcpcb.com/partdetail/C221351",
+        "observed_at": "2026-11-12T10:35:37Z",
+        "raw_sha256": "cf0ecb4ff19b146f9dc0cd445f125d8746c0e6b8a979710390e99119816a1269",
+        "raw_stored": false,
+        "identity_matched": "LCSC code and MPN (the receipt carries no manufacturer field)",
+        "observed": {
+          "library": "EXTENDED",
+          "in_stock": 76873,
+          "preorder_available": 76582,
+          "preorder_minimum": 13,
+          "packaging_quantity": 3000,
+          "loss_number": 0,
+          "least_patch_number": 0,
+          "buyable": true
+        },
+        "displayed_labels": {
+          "pcba_type": "Economic and Standard",
+          "assembly_type": "SMT Assembly"
+        },
+        "field_meanings": "INFERRED (sources.listing_pages.field_meanings)"
+      },
+      "parts_api": {
+        "status": "OBSERVED",
+        "source": "engineering/a7/procurement/price-audit/2026-11-12.json#after.lines",
+        "url": "https://jlcpcb.com/api/overseas-pcb-order/v1/shoppingCart/smtGood/selectSmtComponentList",
+        "observed_at": "2026-11-12T19:09:52Z",
+        "raw_sha256": null,
+        "raw_stored": false,
+        "identity_matched": "LCSC code, MPN and manufacturer",
+        "row_origin": "parts-API read 2026-11-12T19:09:52Z",
+        "observed": {
+          "library": "EXTENDED",
+          "jlc_stock": 76583,
+          "min_purchase": 1,
+          "least_patch_number": 0,
+          "loss_number": 0,
+          "unit_price": 0.8424
+        },
+        "currency": {
+          "value": "USD",
+          "status": "INFERRED",
+          "basis": "JLC API price rows carry no currency field. We read them as USD because the C221842 tier price 3.0325 is the figure the owner's live check saw in USD on the JLC detail page (supply-observations.json). Fee figures are USD as printed on the JLC fee page."
+        },
+        "calculated": {
+          "pieces_to_buy": 2,
+          "line_cost": 1.6848,
+          "rule": "pieces_to_buy = max(pieces_required + loss_number, least_patch_number, min_purchase); line_cost = pieces_to_buy x the price tier for that quantity. Field meanings are our reading of an undocumented API.",
+          "confidence": "INFERRED"
+        },
+        "field_meanings": "INFERRED: undocumented API fields read as JLC stock, minimum purchase, minimum patch and attrition"
+      },
+      "supply_receipts": [],
+      "raw_bytes": "NOT_COMMITTED: receipts keep only their SHA-256; this parts-API audit row was re-serialised without a raw digest",
+      "not_obtained": [
+        "lead_time",
+        "confirmed_quote",
+        "stock_reservation",
+        "assembly_acceptance"
+      ]
+    },
+    {
+      "lcsc": "C22355739",
+      "mpn": "PJ-324M",
+      "manufacturer": "SOFNG",
+      "pieces_per_module": 2,
+      "pieces_required": 4,
+      "listing_page": {
+        "status": "OBSERVED",
+        "source": "engineering/a7/jlc-package/sources.json",
+        "url": "https://jlcpcb.com/partdetail/C22355739",
+        "observed_at": "2026-11-12T10:35:41Z",
+        "raw_sha256": "43c0b61b277d861c137ca03bac53982bee67c885204bbd3990706b17b6a8712a",
+        "raw_stored": false,
+        "identity_matched": "LCSC code and MPN (the receipt carries no manufacturer field)",
+        "observed": {
+          "library": "EXTENDED",
+          "in_stock": 5954,
+          "preorder_available": 5802,
+          "preorder_minimum": 53,
+          "packaging_quantity": 500,
+          "loss_number": 0,
+          "least_patch_number": 2,
+          "buyable": true
+        },
+        "displayed_labels": {
+          "pcba_type": "Economic and Standard",
+          "assembly_type": "Wave Soldering"
+        },
+        "field_meanings": "INFERRED (sources.listing_pages.field_meanings)"
+      },
+      "parts_api": {
+        "status": "OBSERVED",
+        "source": "engineering/a7/procurement/price-audit/2026-11-12.json#after.lines",
+        "url": "https://jlcpcb.com/api/overseas-pcb-order/v1/shoppingCart/smtGood/selectSmtComponentList",
+        "observed_at": "2026-11-12T19:09:52Z",
+        "raw_sha256": null,
+        "raw_stored": false,
+        "identity_matched": "LCSC code, MPN and manufacturer",
+        "row_origin": "parts-API read 2026-11-12T19:09:52Z",
+        "observed": {
+          "library": "EXTENDED",
+          "jlc_stock": 4454,
+          "min_purchase": 1,
+          "least_patch_number": 2,
+          "loss_number": 0,
+          "unit_price": 0.2495
+        },
+        "currency": {
+          "value": "USD",
+          "status": "INFERRED",
+          "basis": "JLC API price rows carry no currency field. We read them as USD because the C221842 tier price 3.0325 is the figure the owner's live check saw in USD on the JLC detail page (supply-observations.json). Fee figures are USD as printed on the JLC fee page."
+        },
+        "calculated": {
+          "pieces_to_buy": 4,
+          "line_cost": 0.998,
+          "rule": "pieces_to_buy = max(pieces_required + loss_number, least_patch_number, min_purchase); line_cost = pieces_to_buy x the price tier for that quantity. Field meanings are our reading of an undocumented API.",
+          "confidence": "INFERRED"
+        },
+        "field_meanings": "INFERRED: undocumented API fields read as JLC stock, minimum purchase, minimum patch and attrition"
+      },
+      "supply_receipts": [],
+      "raw_bytes": "NOT_COMMITTED: receipts keep only their SHA-256; this parts-API audit row was re-serialised without a raw digest",
+      "not_obtained": [
+        "lead_time",
+        "confirmed_quote",
+        "stock_reservation",
+        "assembly_acceptance"
+      ]
+    },
+    {
+      "lcsc": "C23138",
+      "mpn": "0603WAF3300T5E",
+      "manufacturer": "UNI-ROYAL(Uniroyal Elec)",
+      "pieces_per_module": 3,
+      "pieces_required": 6,
+      "listing_page": {
+        "status": "OBSERVED",
+        "source": "engineering/a7/jlc-package/sources.json",
+        "url": "https://jlcpcb.com/partdetail/C23138",
+        "observed_at": "2026-11-12T10:35:44Z",
+        "raw_sha256": "ff71c26bbe462e709ed483a9f41d8284606ad531bc899f21511b0b4ad72ea749",
+        "raw_stored": false,
+        "identity_matched": "LCSC code and MPN (the receipt carries no manufacturer field)",
+        "observed": {
+          "library": "BASIC",
+          "in_stock": 2416605,
+          "preorder_available": 1796477,
+          "preorder_minimum": 5000,
+          "packaging_quantity": 5000,
+          "loss_number": 10,
+          "least_patch_number": 20,
+          "buyable": true
+        },
+        "displayed_labels": {
+          "pcba_type": "Economic and Standard",
+          "assembly_type": "SMT Assembly"
+        },
+        "field_meanings": "INFERRED (sources.listing_pages.field_meanings)"
+      },
+      "parts_api": {
+        "status": "OBSERVED",
+        "source": "engineering/a7/procurement/price-audit/2026-11-12.json#after.lines",
+        "url": "https://jlcpcb.com/api/overseas-pcb-order/v1/shoppingCart/smtGood/selectSmtComponentList",
+        "observed_at": "2026-11-12T19:09:52Z",
+        "raw_sha256": null,
+        "raw_stored": false,
+        "identity_matched": "LCSC code, MPN and manufacturer",
+        "row_origin": "parts-API read 2026-11-12T19:09:52Z",
+        "observed": {
+          "library": "BASIC",
+          "jlc_stock": 2413677,
+          "min_purchase": 1,
+          "least_patch_number": 20,
+          "loss_number": 10,
+          "unit_price": 0.002
+        },
+        "currency": {
+          "value": "USD",
+          "status": "INFERRED",
+          "basis": "JLC API price rows carry no currency field. We read them as USD because the C221842 tier price 3.0325 is the figure the owner's live check saw in USD on the JLC detail page (supply-observations.json). Fee figures are USD as printed on the JLC fee page."
+        },
+        "calculated": {
+          "pieces_to_buy": 20,
+          "line_cost": 0.04,
+          "rule": "pieces_to_buy = max(pieces_required + loss_number, least_patch_number, min_purchase); line_cost = pieces_to_buy x the price tier for that quantity. Field meanings are our reading of an undocumented API.",
+          "confidence": "INFERRED"
+        },
+        "field_meanings": "INFERRED: undocumented API fields read as JLC stock, minimum purchase, minimum patch and attrition"
+      },
+      "supply_receipts": [],
+      "raw_bytes": "NOT_COMMITTED: receipts keep only their SHA-256; this parts-API audit row was re-serialised without a raw digest",
+      "not_obtained": [
+        "lead_time",
+        "confirmed_quote",
+        "stock_reservation",
+        "assembly_acceptance"
+      ]
+    },
+    {
+      "lcsc": "C23162",
+      "mpn": "0603WAF4701T5E",
+      "manufacturer": "UNI-ROYAL(Uniroyal Elec)",
+      "pieces_per_module": 1,
+      "pieces_required": 2,
+      "listing_page": {
+        "status": "OBSERVED",
+        "source": "engineering/a7/jlc-package/sources.json",
+        "url": "https://jlcpcb.com/partdetail/C23162",
+        "observed_at": "2026-11-12T10:35:46Z",
+        "raw_sha256": "26a269e3ba9b02cfb4a22c4cc34eca1a2fe8341e8594e70c8cc386dbeed8267a",
+        "raw_stored": false,
+        "identity_matched": "LCSC code and MPN (the receipt carries no manufacturer field)",
+        "observed": {
+          "library": "BASIC",
+          "in_stock": 14660825,
+          "preorder_available": 11419063,
+          "preorder_minimum": 4102,
+          "packaging_quantity": 5000,
+          "loss_number": 10,
+          "least_patch_number": 20,
+          "buyable": true
+        },
+        "displayed_labels": {
+          "pcba_type": "Economic and Standard",
+          "assembly_type": "SMT Assembly"
+        },
+        "field_meanings": "INFERRED (sources.listing_pages.field_meanings)"
+      },
+      "parts_api": {
+        "status": "OBSERVED",
+        "source": "engineering/a7/procurement/price-audit/2026-11-12.json#after.lines",
+        "url": "https://jlcpcb.com/api/overseas-pcb-order/v1/shoppingCart/smtGood/selectSmtComponentList",
+        "observed_at": "2026-11-12T19:09:52Z",
+        "raw_sha256": null,
+        "raw_stored": false,
+        "identity_matched": "LCSC code, MPN and manufacturer",
+        "row_origin": "parts-API read 2026-11-12T19:09:52Z",
+        "observed": {
+          "library": "BASIC",
+          "jlc_stock": 14582556,
+          "min_purchase": 1,
+          "least_patch_number": 20,
+          "loss_number": 10,
+          "unit_price": 0.0028
+        },
+        "currency": {
+          "value": "USD",
+          "status": "INFERRED",
+          "basis": "JLC API price rows carry no currency field. We read them as USD because the C221842 tier price 3.0325 is the figure the owner's live check saw in USD on the JLC detail page (supply-observations.json). Fee figures are USD as printed on the JLC fee page."
+        },
+        "calculated": {
+          "pieces_to_buy": 20,
+          "line_cost": 0.056,
+          "rule": "pieces_to_buy = max(pieces_required + loss_number, least_patch_number, min_purchase); line_cost = pieces_to_buy x the price tier for that quantity. Field meanings are our reading of an undocumented API.",
+          "confidence": "INFERRED"
+        },
+        "field_meanings": "INFERRED: undocumented API fields read as JLC stock, minimum purchase, minimum patch and attrition"
+      },
+      "supply_receipts": [],
+      "raw_bytes": "NOT_COMMITTED: receipts keep only their SHA-256; this parts-API audit row was re-serialised without a raw digest",
+      "not_obtained": [
+        "lead_time",
+        "confirmed_quote",
+        "stock_reservation",
+        "assembly_acceptance"
+      ]
+    },
+    {
+      "lcsc": "C23231",
+      "mpn": "0603WAF6802T5E",
+      "manufacturer": "UNI-ROYAL(Uniroyal Elec)",
+      "pieces_per_module": 1,
+      "pieces_required": 2,
+      "listing_page": {
+        "status": "OBSERVED",
+        "source": "engineering/a7/jlc-package/sources.json",
+        "url": "https://jlcpcb.com/partdetail/C23231",
+        "observed_at": "2026-11-12T10:35:49Z",
+        "raw_sha256": "8abb0f6e5f0c55d4d2c2909d3ea73376af801cfaed939b7ae88ce20d13b9b9fa",
+        "raw_stored": false,
+        "identity_matched": "LCSC code and MPN (the receipt carries no manufacturer field)",
+        "observed": {
+          "library": "BASIC",
+          "in_stock": 787855,
+          "preorder_available": 687058,
+          "preorder_minimum": 5000,
+          "packaging_quantity": 5000,
+          "loss_number": 10,
+          "least_patch_number": 20,
+          "buyable": true
+        },
+        "displayed_labels": {
+          "pcba_type": "Economic and Standard",
+          "assembly_type": "SMT Assembly"
+        },
+        "field_meanings": "INFERRED (sources.listing_pages.field_meanings)"
+      },
+      "parts_api": {
+        "status": "OBSERVED",
+        "source": "engineering/a7/procurement/price-audit/2026-11-12.json#after.lines",
+        "url": "https://jlcpcb.com/api/overseas-pcb-order/v1/shoppingCart/smtGood/selectSmtComponentList",
+        "observed_at": "2026-11-12T19:09:52Z",
+        "raw_sha256": null,
+        "raw_stored": false,
+        "identity_matched": "LCSC code, MPN and manufacturer",
+        "row_origin": "parts-API read 2026-11-12T19:09:52Z",
+        "observed": {
+          "library": "BASIC",
+          "jlc_stock": 786565,
+          "min_purchase": 1,
+          "least_patch_number": 20,
+          "loss_number": 10,
+          "unit_price": 0.0016
+        },
+        "currency": {
+          "value": "USD",
+          "status": "INFERRED",
+          "basis": "JLC API price rows carry no currency field. We read them as USD because the C221842 tier price 3.0325 is the figure the owner's live check saw in USD on the JLC detail page (supply-observations.json). Fee figures are USD as printed on the JLC fee page."
+        },
+        "calculated": {
+          "pieces_to_buy": 20,
+          "line_cost": 0.032,
+          "rule": "pieces_to_buy = max(pieces_required + loss_number, least_patch_number, min_purchase); line_cost = pieces_to_buy x the price tier for that quantity. Field meanings are our reading of an undocumented API.",
+          "confidence": "INFERRED"
+        },
+        "field_meanings": "INFERRED: undocumented API fields read as JLC stock, minimum purchase, minimum patch and attrition"
+      },
+      "supply_receipts": [],
+      "raw_bytes": "NOT_COMMITTED: receipts keep only their SHA-256; this parts-API audit row was re-serialised without a raw digest",
+      "not_obtained": [
+        "lead_time",
+        "confirmed_quote",
+        "stock_reservation",
+        "assembly_acceptance"
+      ]
+    },
+    {
+      "lcsc": "C23254",
+      "mpn": "0603WAF8202T5E",
+      "manufacturer": "UNI-ROYAL(Uniroyal Elec)",
+      "pieces_per_module": 4,
+      "pieces_required": 8,
+      "listing_page": {
+        "status": "OBSERVED",
+        "source": "engineering/a7/jlc-package/sources.json",
+        "url": "https://jlcpcb.com/partdetail/C23254",
+        "observed_at": "2026-11-12T10:35:51Z",
+        "raw_sha256": "a5bb3eea40873347bcfc4938abaa8b2d77477f4db0e5c8699ed02bc1dda35270",
+        "raw_stored": false,
+        "identity_matched": "LCSC code and MPN (the receipt carries no manufacturer field)",
+        "observed": {
+          "library": "BASIC",
+          "in_stock": 933289,
+          "preorder_available": 868318,
+          "preorder_minimum": 4297,
+          "packaging_quantity": 5000,
+          "loss_number": 10,
+          "least_patch_number": 20,
+          "buyable": true
+        },
+        "displayed_labels": {
+          "pcba_type": "Economic and Standard",
+          "assembly_type": "SMT Assembly"
+        },
+        "field_meanings": "INFERRED (sources.listing_pages.field_meanings)"
+      },
+      "parts_api": {
+        "status": "OBSERVED",
+        "source": "engineering/a7/procurement/price-audit/2026-11-12.json#after.lines",
+        "url": "https://jlcpcb.com/api/overseas-pcb-order/v1/shoppingCart/smtGood/selectSmtComponentList",
+        "observed_at": "2026-11-12T19:09:52Z",
+        "raw_sha256": null,
+        "raw_stored": false,
+        "identity_matched": "LCSC code, MPN and manufacturer",
+        "row_origin": "parts-API read 2026-11-12T19:09:52Z",
+        "observed": {
+          "library": "BASIC",
+          "jlc_stock": 934045,
+          "min_purchase": 1,
+          "least_patch_number": 20,
+          "loss_number": 10,
+          "unit_price": 0.0027
+        },
+        "currency": {
+          "value": "USD",
+          "status": "INFERRED",
+          "basis": "JLC API price rows carry no currency field. We read them as USD because the C221842 tier price 3.0325 is the figure the owner's live check saw in USD on the JLC detail page (supply-observations.json). Fee figures are USD as printed on the JLC fee page."
+        },
+        "calculated": {
+          "pieces_to_buy": 20,
+          "line_cost": 0.054,
+          "rule": "pieces_to_buy = max(pieces_required + loss_number, least_patch_number, min_purchase); line_cost = pieces_to_buy x the price tier for that quantity. Field meanings are our reading of an undocumented API.",
+          "confidence": "INFERRED"
+        },
+        "field_meanings": "INFERRED: undocumented API fields read as JLC stock, minimum purchase, minimum patch and attrition"
+      },
+      "supply_receipts": [],
+      "raw_bytes": "NOT_COMMITTED: receipts keep only their SHA-256; this parts-API audit row was re-serialised without a raw digest",
+      "not_obtained": [
+        "lead_time",
+        "confirmed_quote",
+        "stock_reservation",
+        "assembly_acceptance"
+      ]
+    },
+    {
+      "lcsc": "C25803",
+      "mpn": "0603WAF1003T5E",
+      "manufacturer": "UNI-ROYAL(Uniroyal Elec)",
+      "pieces_per_module": 6,
+      "pieces_required": 12,
+      "listing_page": {
+        "status": "OBSERVED",
+        "source": "engineering/a7/jlc-package/sources.json",
+        "url": "https://jlcpcb.com/partdetail/C25803",
+        "observed_at": "2026-11-12T10:35:53Z",
+        "raw_sha256": "1ff9d6a6b948c7bb49e4b46e7a56776682d18ba5a257d4863e967a7fb7094d60",
+        "raw_stored": false,
+        "identity_matched": "LCSC code and MPN (the receipt carries no manufacturer field)",
+        "observed": {
+          "library": "BASIC",
+          "in_stock": 15062647,
+          "preorder_available": 12699495,
+          "preorder_minimum": 3923,
+          "packaging_quantity": 5000,
+          "loss_number": 10,
+          "least_patch_number": 20,
+          "buyable": true
+        },
+        "displayed_labels": {
+          "pcba_type": "Economic and Standard",
+          "assembly_type": "SMT Assembly"
+        },
+        "field_meanings": "INFERRED (sources.listing_pages.field_meanings)"
+      },
+      "parts_api": {
+        "status": "OBSERVED",
+        "source": "engineering/a7/procurement/price-audit/2026-11-12.json#after.lines",
+        "url": "https://jlcpcb.com/api/overseas-pcb-order/v1/shoppingCart/smtGood/selectSmtComponentList",
+        "observed_at": "2026-11-12T19:09:52Z",
+        "raw_sha256": null,
+        "raw_stored": false,
+        "identity_matched": "LCSC code, MPN and manufacturer",
+        "row_origin": "parts-API read 2026-11-12T19:09:52Z",
+        "observed": {
+          "library": "BASIC",
+          "jlc_stock": 15162637,
+          "min_purchase": 1,
+          "least_patch_number": 20,
+          "loss_number": 10,
+          "unit_price": 0.0029
+        },
+        "currency": {
+          "value": "USD",
+          "status": "INFERRED",
+          "basis": "JLC API price rows carry no currency field. We read them as USD because the C221842 tier price 3.0325 is the figure the owner's live check saw in USD on the JLC detail page (supply-observations.json). Fee figures are USD as printed on the JLC fee page."
+        },
+        "calculated": {
+          "pieces_to_buy": 22,
+          "line_cost": 0.0638,
+          "rule": "pieces_to_buy = max(pieces_required + loss_number, least_patch_number, min_purchase); line_cost = pieces_to_buy x the price tier for that quantity. Field meanings are our reading of an undocumented API.",
+          "confidence": "INFERRED"
+        },
+        "field_meanings": "INFERRED: undocumented API fields read as JLC stock, minimum purchase, minimum patch and attrition"
+      },
+      "supply_receipts": [],
+      "raw_bytes": "NOT_COMMITTED: receipts keep only their SHA-256; this parts-API audit row was re-serialised without a raw digest",
+      "not_obtained": [
+        "lead_time",
+        "confirmed_quote",
+        "stock_reservation",
+        "assembly_acceptance"
+      ]
+    },
+    {
+      "lcsc": "C25804",
+      "mpn": "0603WAF1002T5E",
+      "manufacturer": "UNI-ROYAL(Uniroyal Elec)",
+      "pieces_per_module": 5,
+      "pieces_required": 10,
+      "listing_page": {
+        "status": "OBSERVED",
+        "source": "engineering/a7/jlc-package/sources.json",
+        "url": "https://jlcpcb.com/partdetail/C25804",
+        "observed_at": "2026-11-12T10:35:56Z",
+        "raw_sha256": "5cf94f46a9bbd5e8a7d88f04ba7aa385d1e0e479149351191d661cf55493ea32",
+        "raw_stored": false,
+        "identity_matched": "LCSC code and MPN (the receipt carries no manufacturer field)",
+        "observed": {
+          "library": "BASIC",
+          "in_stock": 42898836,
+          "preorder_available": 32419078,
+          "preorder_minimum": 5000,
+          "packaging_quantity": 5000,
+          "loss_number": 10,
+          "least_patch_number": 20,
+          "buyable": true
+        },
+        "displayed_labels": {
+          "pcba_type": "Economic and Standard",
+          "assembly_type": "SMT Assembly"
+        },
+        "field_meanings": "INFERRED (sources.listing_pages.field_meanings)"
+      },
+      "parts_api": {
+        "status": "OBSERVED",
+        "source": "engineering/a7/procurement/price-audit/2026-11-12.json#after.lines",
+        "url": "https://jlcpcb.com/api/overseas-pcb-order/v1/shoppingCart/smtGood/selectSmtComponentList",
+        "observed_at": "2026-11-12T19:09:52Z",
+        "raw_sha256": null,
+        "raw_stored": false,
+        "identity_matched": "LCSC code, MPN and manufacturer",
+        "row_origin": "parts-API read 2026-11-12T19:09:52Z",
+        "observed": {
+          "library": "BASIC",
+          "jlc_stock": 42847861,
+          "min_purchase": 1,
+          "least_patch_number": 20,
+          "loss_number": 10,
+          "unit_price": 0.0022
+        },
+        "currency": {
+          "value": "USD",
+          "status": "INFERRED",
+          "basis": "JLC API price rows carry no currency field. We read them as USD because the C221842 tier price 3.0325 is the figure the owner's live check saw in USD on the JLC detail page (supply-observations.json). Fee figures are USD as printed on the JLC fee page."
+        },
+        "calculated": {
+          "pieces_to_buy": 20,
+          "line_cost": 0.044,
+          "rule": "pieces_to_buy = max(pieces_required + loss_number, least_patch_number, min_purchase); line_cost = pieces_to_buy x the price tier for that quantity. Field meanings are our reading of an undocumented API.",
+          "confidence": "INFERRED"
+        },
+        "field_meanings": "INFERRED: undocumented API fields read as JLC stock, minimum purchase, minimum patch and attrition"
+      },
+      "supply_receipts": [],
+      "raw_bytes": "NOT_COMMITTED: receipts keep only their SHA-256; this parts-API audit row was re-serialised without a raw digest",
+      "not_obtained": [
+        "lead_time",
+        "confirmed_quote",
+        "stock_reservation",
+        "assembly_acceptance"
+      ]
+    },
+    {
+      "lcsc": "C398363",
+      "mpn": "TLV9001IDBVR",
+      "manufacturer": "Texas Instruments",
+      "pieces_per_module": 1,
+      "pieces_required": 2,
+      "listing_page": {
+        "status": "OBSERVED",
+        "source": "engineering/a7/jlc-package/sources.json",
+        "url": "https://jlcpcb.com/partdetail/C398363",
+        "observed_at": "2026-11-12T10:35:58Z",
+        "raw_sha256": "b6545a303605bf6f023574cbc7abee7b61ab4989cfc2c271be0057986618311b",
+        "raw_stored": false,
+        "identity_matched": "LCSC code and MPN (the receipt carries no manufacturer field)",
+        "observed": {
+          "library": "EXTENDED",
+          "in_stock": 47115,
+          "preorder_available": 45780,
+          "preorder_minimum": 144,
+          "packaging_quantity": 3000,
+          "loss_number": 2,
+          "least_patch_number": 5,
+          "buyable": true
+        },
+        "displayed_labels": {
+          "pcba_type": "Economic and Standard",
+          "assembly_type": "SMT Assembly"
+        },
+        "field_meanings": "INFERRED (sources.listing_pages.field_meanings)"
+      },
+      "parts_api": {
+        "status": "OBSERVED",
+        "source": "engineering/a7/procurement/price-audit/2026-11-12.json#after.lines",
+        "url": "https://jlcpcb.com/api/overseas-pcb-order/v1/shoppingCart/smtGood/selectSmtComponentList",
+        "observed_at": "2026-11-12T19:09:52Z",
+        "raw_sha256": null,
+        "raw_stored": false,
+        "identity_matched": "LCSC code, MPN and manufacturer",
+        "row_origin": "parts-API read 2026-11-12T19:09:52Z",
+        "observed": {
+          "library": "EXTENDED",
+          "jlc_stock": 47025,
+          "min_purchase": 1,
+          "least_patch_number": 5,
+          "loss_number": 2,
+          "unit_price": 0.0792
+        },
+        "currency": {
+          "value": "USD",
+          "status": "INFERRED",
+          "basis": "JLC API price rows carry no currency field. We read them as USD because the C221842 tier price 3.0325 is the figure the owner's live check saw in USD on the JLC detail page (supply-observations.json). Fee figures are USD as printed on the JLC fee page."
+        },
+        "calculated": {
+          "pieces_to_buy": 5,
+          "line_cost": 0.396,
+          "rule": "pieces_to_buy = max(pieces_required + loss_number, least_patch_number, min_purchase); line_cost = pieces_to_buy x the price tier for that quantity. Field meanings are our reading of an undocumented API.",
+          "confidence": "INFERRED"
+        },
+        "field_meanings": "INFERRED: undocumented API fields read as JLC stock, minimum purchase, minimum patch and attrition"
+      },
+      "supply_receipts": [],
+      "raw_bytes": "NOT_COMMITTED: receipts keep only their SHA-256; this parts-API audit row was re-serialised without a raw digest",
+      "not_obtained": [
+        "lead_time",
+        "confirmed_quote",
+        "stock_reservation",
+        "assembly_acceptance"
+      ]
+    },
+    {
+      "lcsc": "C404027",
+      "mpn": "TLV75533PDBVR",
+      "manufacturer": "Texas Instruments",
+      "pieces_per_module": 1,
+      "pieces_required": 2,
+      "listing_page": {
+        "status": "OBSERVED",
+        "source": "engineering/a7/jlc-package/sources.json",
+        "url": "https://jlcpcb.com/partdetail/C404027",
+        "observed_at": "2026-11-12T10:36:00Z",
+        "raw_sha256": "f6bed450977294fcd6e4ed3d1b192d16601005a7372ec719c58023d670335dcc",
+        "raw_stored": false,
+        "identity_matched": "LCSC code and MPN (the receipt carries no manufacturer field)",
+        "observed": {
+          "library": "EXTENDED",
+          "in_stock": 75642,
+          "preorder_available": 74564,
+          "preorder_minimum": 95,
+          "packaging_quantity": 3000,
+          "loss_number": 1,
+          "least_patch_number": 5,
+          "buyable": true
+        },
+        "displayed_labels": {
+          "pcba_type": "Economic and Standard",
+          "assembly_type": "SMT Assembly"
+        },
+        "field_meanings": "INFERRED (sources.listing_pages.field_meanings)"
+      },
+      "parts_api": {
+        "status": "OBSERVED",
+        "source": "engineering/a7/procurement/price-audit/2026-11-12.json#after.lines",
+        "url": "https://jlcpcb.com/api/overseas-pcb-order/v1/shoppingCart/smtGood/selectSmtComponentList",
+        "observed_at": "2026-11-12T19:09:52Z",
+        "raw_sha256": null,
+        "raw_stored": false,
+        "identity_matched": "LCSC code, MPN and manufacturer",
+        "row_origin": "parts-API read 2026-11-12T19:09:52Z",
+        "observed": {
+          "library": "EXTENDED",
+          "jlc_stock": 75351,
+          "min_purchase": 1,
+          "least_patch_number": 5,
+          "loss_number": 1,
+          "unit_price": 0.1216
+        },
+        "currency": {
+          "value": "USD",
+          "status": "INFERRED",
+          "basis": "JLC API price rows carry no currency field. We read them as USD because the C221842 tier price 3.0325 is the figure the owner's live check saw in USD on the JLC detail page (supply-observations.json). Fee figures are USD as printed on the JLC fee page."
+        },
+        "calculated": {
+          "pieces_to_buy": 5,
+          "line_cost": 0.608,
+          "rule": "pieces_to_buy = max(pieces_required + loss_number, least_patch_number, min_purchase); line_cost = pieces_to_buy x the price tier for that quantity. Field meanings are our reading of an undocumented API.",
+          "confidence": "INFERRED"
+        },
+        "field_meanings": "INFERRED: undocumented API fields read as JLC stock, minimum purchase, minimum patch and attrition"
+      },
+      "supply_receipts": [],
+      "raw_bytes": "NOT_COMMITTED: receipts keep only their SHA-256; this parts-API audit row was re-serialised without a raw digest",
+      "not_obtained": [
+        "lead_time",
+        "confirmed_quote",
+        "stock_reservation",
+        "assembly_acceptance"
+      ]
+    },
+    {
+      "lcsc": "C50704",
+      "mpn": "PMEG4010CEJ,115",
+      "manufacturer": "Nexperia",
+      "pieces_per_module": 2,
+      "pieces_required": 4,
+      "listing_page": {
+        "status": "OBSERVED",
+        "source": "engineering/a7/jlc-package/sources.json",
+        "url": "https://jlcpcb.com/partdetail/C50704",
+        "observed_at": "2026-11-12T10:36:03Z",
+        "raw_sha256": "0d8e43cb5a7d30b52f987e3b3ada24ebc038a3ddeafc8f91ef5b1cffb6878341",
+        "raw_stored": false,
+        "identity_matched": "LCSC code and MPN (the receipt carries no manufacturer field)",
+        "observed": {
+          "library": "EXTENDED",
+          "in_stock": 12701,
+          "preorder_available": 12534,
+          "preorder_minimum": 26,
+          "packaging_quantity": 3000,
+          "loss_number": 2,
+          "least_patch_number": 5,
+          "buyable": true
+        },
+        "displayed_labels": {
+          "pcba_type": "Economic and Standard",
+          "assembly_type": "SMT Assembly"
+        },
+        "field_meanings": "INFERRED (sources.listing_pages.field_meanings)"
+      },
+      "parts_api": {
+        "status": "OBSERVED",
+        "source": "engineering/a7/procurement/price-audit/2026-11-12.json#after.lines",
+        "url": "https://jlcpcb.com/api/overseas-pcb-order/v1/shoppingCart/smtGood/selectSmtComponentList",
+        "observed_at": "2026-11-12T19:09:52Z",
+        "raw_sha256": null,
+        "raw_stored": false,
+        "identity_matched": "LCSC code, MPN and manufacturer",
+        "row_origin": "parts-API read 2026-11-12T19:09:52Z",
+        "observed": {
+          "library": "EXTENDED",
+          "jlc_stock": 12689,
+          "min_purchase": 1,
+          "least_patch_number": 5,
+          "loss_number": 2,
+          "unit_price": 0.3537
+        },
+        "currency": {
+          "value": "USD",
+          "status": "INFERRED",
+          "basis": "JLC API price rows carry no currency field. We read them as USD because the C221842 tier price 3.0325 is the figure the owner's live check saw in USD on the JLC detail page (supply-observations.json). Fee figures are USD as printed on the JLC fee page."
+        },
+        "calculated": {
+          "pieces_to_buy": 6,
+          "line_cost": 2.1222,
+          "rule": "pieces_to_buy = max(pieces_required + loss_number, least_patch_number, min_purchase); line_cost = pieces_to_buy x the price tier for that quantity. Field meanings are our reading of an undocumented API.",
+          "confidence": "INFERRED"
+        },
+        "field_meanings": "INFERRED: undocumented API fields read as JLC stock, minimum purchase, minimum patch and attrition"
+      },
+      "supply_receipts": [],
+      "raw_bytes": "NOT_COMMITTED: receipts keep only their SHA-256; this parts-API audit row was re-serialised without a raw digest",
+      "not_obtained": [
+        "lead_time",
+        "confirmed_quote",
+        "stock_reservation",
+        "assembly_acceptance"
+      ]
+    },
+    {
+      "lcsc": "C5149819",
+      "mpn": "HX MSK13C02",
+      "manufacturer": "hanxia",
+      "pieces_per_module": 1,
+      "pieces_required": 2,
+      "listing_page": {
+        "status": "OBSERVED",
+        "source": "engineering/a7/jlc-package/sources.json",
+        "url": "https://jlcpcb.com/partdetail/C5149819",
+        "observed_at": "2026-11-12T19:56:55Z",
+        "raw_sha256": "50438e91d35f70b81b122f482a9fe9de09ca5dfbd1a0178933ad481e9bfa3f6e",
+        "raw_stored": false,
+        "identity_matched": "LCSC code and MPN (the receipt carries no manufacturer field)",
+        "observed": {
+          "library": "EXTENDED",
+          "in_stock": 4561,
+          "preorder_available": 4552,
+          "preorder_minimum": 107,
+          "packaging_quantity": 3000,
+          "loss_number": 0,
+          "least_patch_number": 0,
+          "buyable": true
+        },
+        "displayed_labels": {
+          "pcba_type": "Economic and Standard",
+          "assembly_type": "SMT Assembly"
+        },
+        "field_meanings": "INFERRED (sources.listing_pages.field_meanings)"
+      },
+      "parts_api": {
+        "status": "OBSERVED",
+        "source": "engineering/a7/procurement/price-audit/2026-11-12.json#after.lines",
+        "url": "https://jlcpcb.com/api/overseas-pcb-order/v1/shoppingCart/smtGood/selectSmtComponentList",
+        "observed_at": "2026-11-12T19:35:14Z",
+        "raw_sha256": "f6e3f19ec6c129eb50209701f98ea079945f5eb4dbe17b9c711ab6d5006d1ab9",
+        "raw_stored": false,
+        "identity_matched": "LCSC code, MPN and manufacturer",
+        "row_origin": "engineering/a7/procurement/supply-observations.json#jlc-c5149819-2026-11-12",
+        "observed": {
+          "library": "EXTENDED",
+          "jlc_stock": 4561,
+          "min_purchase": 1,
+          "least_patch_number": 0,
+          "loss_number": 0,
+          "unit_price": 0.1069
+        },
+        "currency": {
+          "value": "USD",
+          "status": "INFERRED",
+          "basis": "JLC API price rows carry no currency field. We read them as USD because the C221842 tier price 3.0325 is the figure the owner's live check saw in USD on the JLC detail page (supply-observations.json). Fee figures are USD as printed on the JLC fee page."
+        },
+        "calculated": {
+          "pieces_to_buy": 2,
+          "line_cost": 0.2138,
+          "rule": "pieces_to_buy = max(pieces_required + loss_number, least_patch_number, min_purchase); line_cost = pieces_to_buy x the price tier for that quantity. Field meanings are our reading of an undocumented API.",
+          "confidence": "INFERRED"
+        },
+        "field_meanings": "INFERRED: undocumented API fields read as JLC stock, minimum purchase, minimum patch and attrition"
+      },
+      "supply_receipts": [
+        {
+          "id": "jlc-c5149819-2026-11-12",
+          "observed_at": "2026-11-12T19:35:14Z",
+          "raw_sha256": "f6e3f19ec6c129eb50209701f98ea079945f5eb4dbe17b9c711ab6d5006d1ab9",
+          "raw_stored": false,
+          "source": ".claude/skills/component-a7-hx-msk13c02/sources.json#src-a7-hx-msk13c02-jlc-api-2026-11-12"
+        }
+      ],
+      "raw_bytes": "NOT_COMMITTED: receipts keep only their SHA-256",
+      "not_obtained": [
+        "lead_time",
+        "confirmed_quote",
+        "stock_reservation",
+        "assembly_acceptance"
+      ]
+    },
+    {
+      "lcsc": "C5270180",
+      "mpn": "STM32G031G8U6TR",
+      "manufacturer": "STMicroelectronics",
+      "pieces_per_module": 1,
+      "pieces_required": 2,
+      "listing_page": {
+        "status": "OBSERVED",
+        "source": "engineering/a7/jlc-package/sources.json",
+        "url": "https://jlcpcb.com/partdetail/C5270180",
+        "observed_at": "2026-11-12T10:36:05Z",
+        "raw_sha256": "306bb012859bb81a878ca191635f8fef9f17a8d3c1524c91b6ad68c526915816",
+        "raw_stored": false,
+        "identity_matched": "LCSC code and MPN (the receipt carries no manufacturer field)",
+        "observed": {
+          "library": "EXTENDED",
+          "in_stock": 4507,
+          "preorder_available": 3777,
+          "preorder_minimum": 6,
+          "packaging_quantity": 3000,
+          "loss_number": 0,
+          "least_patch_number": 0,
+          "buyable": true
+        },
+        "displayed_labels": {
+          "pcba_type": "Economic and Standard",
+          "assembly_type": "SMT Assembly"
+        },
+        "field_meanings": "INFERRED (sources.listing_pages.field_meanings)"
+      },
+      "parts_api": {
+        "status": "OBSERVED",
+        "source": "engineering/a7/procurement/price-audit/2026-11-12.json#after.lines",
+        "url": "https://jlcpcb.com/api/overseas-pcb-order/v1/shoppingCart/smtGood/selectSmtComponentList",
+        "observed_at": "2026-11-12T19:09:52Z",
+        "raw_sha256": null,
+        "raw_stored": false,
+        "identity_matched": "LCSC code, MPN and manufacturer",
+        "row_origin": "parts-API read 2026-11-12T19:09:52Z",
+        "observed": {
+          "library": "EXTENDED",
+          "jlc_stock": 4507,
+          "min_purchase": 1,
+          "least_patch_number": 0,
+          "loss_number": 0,
+          "unit_price": 1.7453
+        },
+        "currency": {
+          "value": "USD",
+          "status": "INFERRED",
+          "basis": "JLC API price rows carry no currency field. We read them as USD because the C221842 tier price 3.0325 is the figure the owner's live check saw in USD on the JLC detail page (supply-observations.json). Fee figures are USD as printed on the JLC fee page."
+        },
+        "calculated": {
+          "pieces_to_buy": 2,
+          "line_cost": 3.4906,
+          "rule": "pieces_to_buy = max(pieces_required + loss_number, least_patch_number, min_purchase); line_cost = pieces_to_buy x the price tier for that quantity. Field meanings are our reading of an undocumented API.",
+          "confidence": "INFERRED"
+        },
+        "field_meanings": "INFERRED: undocumented API fields read as JLC stock, minimum purchase, minimum patch and attrition"
+      },
+      "supply_receipts": [],
+      "raw_bytes": "NOT_COMMITTED: receipts keep only their SHA-256; this parts-API audit row was re-serialised without a raw digest",
+      "not_obtained": [
+        "lead_time",
+        "confirmed_quote",
+        "stock_reservation",
+        "assembly_acceptance"
+      ]
+    },
+    {
+      "lcsc": "C52917434",
+      "mpn": "WS2812B-2020-V6",
+      "manufacturer": "Worldsemi",
+      "pieces_per_module": 8,
+      "pieces_required": 16,
+      "listing_page": {
+        "status": "OBSERVED",
+        "source": "engineering/a7/jlc-package/sources.json",
+        "url": "https://jlcpcb.com/partdetail/C52917434",
+        "observed_at": "2026-11-12T10:36:07Z",
+        "raw_sha256": "8b239addfbf3fe441f4460614b74bb263d8f2a36926982f5faf0441500b453e7",
+        "raw_stored": false,
+        "identity_matched": "LCSC code and MPN (the receipt carries no manufacturer field)",
+        "observed": {
+          "library": "EXTENDED",
+          "in_stock": 879804,
+          "preorder_available": 857883,
+          "preorder_minimum": 133,
+          "packaging_quantity": 4500,
+          "loss_number": 2,
+          "least_patch_number": 5,
+          "buyable": true
+        },
+        "displayed_labels": {
+          "pcba_type": "Standard Only",
+          "assembly_type": "SMT Assembly"
+        },
+        "field_meanings": "INFERRED (sources.listing_pages.field_meanings)"
+      },
+      "parts_api": {
+        "status": "OBSERVED",
+        "source": "engineering/a7/procurement/price-audit/2026-11-12.json#after.lines",
+        "url": "https://jlcpcb.com/api/overseas-pcb-order/v1/shoppingCart/smtGood/selectSmtComponentList",
+        "observed_at": "2026-11-12T19:09:52Z",
+        "raw_sha256": null,
+        "raw_stored": false,
+        "identity_matched": "LCSC code, MPN and manufacturer",
+        "row_origin": "parts-API read 2026-11-12T19:09:52Z",
+        "observed": {
+          "library": "EXTENDED",
+          "jlc_stock": 876136,
+          "min_purchase": 1,
+          "least_patch_number": 5,
+          "loss_number": 2,
+          "unit_price": 0.0859
+        },
+        "currency": {
+          "value": "USD",
+          "status": "INFERRED",
+          "basis": "JLC API price rows carry no currency field. We read them as USD because the C221842 tier price 3.0325 is the figure the owner's live check saw in USD on the JLC detail page (supply-observations.json). Fee figures are USD as printed on the JLC fee page."
+        },
+        "calculated": {
+          "pieces_to_buy": 18,
+          "line_cost": 1.5462,
+          "rule": "pieces_to_buy = max(pieces_required + loss_number, least_patch_number, min_purchase); line_cost = pieces_to_buy x the price tier for that quantity. Field meanings are our reading of an undocumented API.",
+          "confidence": "INFERRED"
+        },
+        "field_meanings": "INFERRED: undocumented API fields read as JLC stock, minimum purchase, minimum patch and attrition"
+      },
+      "supply_receipts": [],
+      "raw_bytes": "NOT_COMMITTED: receipts keep only their SHA-256; this parts-API audit row was re-serialised without a raw digest",
+      "not_obtained": [
+        "lead_time",
+        "confirmed_quote",
+        "stock_reservation",
+        "assembly_acceptance"
+      ]
+    },
+    {
+      "lcsc": "C5665",
+      "mpn": "2.54-2*5P",
+      "manufacturer": "BOOMELE(Boom Precision Elec)",
+      "pieces_per_module": 1,
+      "pieces_required": 2,
+      "listing_page": {
+        "status": "OBSERVED",
+        "source": "engineering/a7/jlc-package/sources.json",
+        "url": "https://jlcpcb.com/partdetail/C5665",
+        "observed_at": "2026-11-12T10:36:09Z",
+        "raw_sha256": "0ab6bfdd4010302aef69d8bf559b4e3902c505f56b38d3473bdd2bb07fea38db",
+        "raw_stored": false,
+        "identity_matched": "LCSC code and MPN (the receipt carries no manufacturer field)",
+        "observed": {
+          "library": "EXTENDED",
+          "in_stock": 131245,
+          "preorder_available": 124613,
+          "preorder_minimum": 106,
+          "packaging_quantity": 280,
+          "loss_number": 0,
+          "least_patch_number": 2,
+          "buyable": true
+        },
+        "displayed_labels": {
+          "pcba_type": "Economic and Standard",
+          "assembly_type": "Wave Soldering"
+        },
+        "field_meanings": "INFERRED (sources.listing_pages.field_meanings)"
+      },
+      "parts_api": {
+        "status": "OBSERVED",
+        "source": "engineering/a7/procurement/price-audit/2026-11-12.json#after.lines",
+        "url": "https://jlcpcb.com/api/overseas-pcb-order/v1/shoppingCart/smtGood/selectSmtComponentList",
+        "observed_at": "2026-11-12T19:09:52Z",
+        "raw_sha256": null,
+        "raw_stored": false,
+        "identity_matched": "LCSC code, MPN and manufacturer",
+        "row_origin": "parts-API read 2026-11-12T19:09:52Z",
+        "observed": {
+          "library": "EXTENDED",
+          "jlc_stock": 130239,
+          "min_purchase": 1,
+          "least_patch_number": 2,
+          "loss_number": 0,
+          "unit_price": 0.1041
+        },
+        "currency": {
+          "value": "USD",
+          "status": "INFERRED",
+          "basis": "JLC API price rows carry no currency field. We read them as USD because the C221842 tier price 3.0325 is the figure the owner's live check saw in USD on the JLC detail page (supply-observations.json). Fee figures are USD as printed on the JLC fee page."
+        },
+        "calculated": {
+          "pieces_to_buy": 2,
+          "line_cost": 0.2082,
+          "rule": "pieces_to_buy = max(pieces_required + loss_number, least_patch_number, min_purchase); line_cost = pieces_to_buy x the price tier for that quantity. Field meanings are our reading of an undocumented API.",
+          "confidence": "INFERRED"
+        },
+        "field_meanings": "INFERRED: undocumented API fields read as JLC stock, minimum purchase, minimum patch and attrition"
+      },
+      "supply_receipts": [],
+      "raw_bytes": "NOT_COMMITTED: receipts keep only their SHA-256; this parts-API audit row was re-serialised without a raw digest",
+      "not_obtained": [
+        "lead_time",
+        "confirmed_quote",
+        "stock_reservation",
+        "assembly_acceptance"
+      ]
+    },
+    {
+      "lcsc": "C57112",
+      "mpn": "0603B103K500NT",
+      "manufacturer": "FH (Guangdong Fenghua Advanced Tech)",
+      "pieces_per_module": 1,
+      "pieces_required": 2,
+      "listing_page": {
+        "status": "OBSERVED",
+        "source": "engineering/a7/jlc-package/sources.json",
+        "url": "https://jlcpcb.com/partdetail/C57112",
+        "observed_at": "2026-11-12T10:36:12Z",
+        "raw_sha256": "4ee02e4def9df40e5d194165fc4d84e509ceeab2212d7b9f23d440e886dd44b3",
+        "raw_stored": false,
+        "identity_matched": "LCSC code and MPN (the receipt carries no manufacturer field)",
+        "observed": {
+          "library": "BASIC",
+          "in_stock": 5337711,
+          "preorder_available": 3755418,
+          "preorder_minimum": 876,
+          "packaging_quantity": 4000,
+          "loss_number": 10,
+          "least_patch_number": 20,
+          "buyable": true
+        },
+        "displayed_labels": {
+          "pcba_type": "Economic and Standard",
+          "assembly_type": "SMT Assembly"
+        },
+        "field_meanings": "INFERRED (sources.listing_pages.field_meanings)"
+      },
+      "parts_api": {
+        "status": "OBSERVED",
+        "source": "engineering/a7/procurement/price-audit/2026-11-12.json#after.lines",
+        "url": "https://jlcpcb.com/api/overseas-pcb-order/v1/shoppingCart/smtGood/selectSmtComponentList",
+        "observed_at": "2026-11-12T19:09:52Z",
+        "raw_sha256": null,
+        "raw_stored": false,
+        "identity_matched": "LCSC code, MPN and manufacturer",
+        "row_origin": "parts-API read 2026-11-12T19:09:52Z",
+        "observed": {
+          "library": "BASIC",
+          "jlc_stock": 5396447,
+          "min_purchase": 1,
+          "least_patch_number": 20,
+          "loss_number": 10,
+          "unit_price": 0.0103
+        },
+        "currency": {
+          "value": "USD",
+          "status": "INFERRED",
+          "basis": "JLC API price rows carry no currency field. We read them as USD because the C221842 tier price 3.0325 is the figure the owner's live check saw in USD on the JLC detail page (supply-observations.json). Fee figures are USD as printed on the JLC fee page."
+        },
+        "calculated": {
+          "pieces_to_buy": 20,
+          "line_cost": 0.206,
+          "rule": "pieces_to_buy = max(pieces_required + loss_number, least_patch_number, min_purchase); line_cost = pieces_to_buy x the price tier for that quantity. Field meanings are our reading of an undocumented API.",
+          "confidence": "INFERRED"
+        },
+        "field_meanings": "INFERRED: undocumented API fields read as JLC stock, minimum purchase, minimum patch and attrition"
+      },
+      "supply_receipts": [],
+      "raw_bytes": "NOT_COMMITTED: receipts keep only their SHA-256; this parts-API audit row was re-serialised without a raw digest",
+      "not_obtained": [
+        "lead_time",
+        "confirmed_quote",
+        "stock_reservation",
+        "assembly_acceptance"
+      ]
+    },
+    {
+      "lcsc": "C694586",
+      "mpn": "SPM4020T-4R7M-LR",
+      "manufacturer": "TDK",
+      "pieces_per_module": 1,
+      "pieces_required": 2,
+      "listing_page": {
+        "status": "OBSERVED",
+        "source": "engineering/a7/jlc-package/sources.json",
+        "url": "https://jlcpcb.com/partdetail/C694586",
+        "observed_at": "2026-11-12T10:36:14Z",
+        "raw_sha256": "e0fc42d64c73c9f4100958ea5d68db96bf0ca22df432cae8dd49a473061b7a0f",
+        "raw_stored": false,
+        "identity_matched": "LCSC code and MPN (the receipt carries no manufacturer field)",
+        "observed": {
+          "library": "EXTENDED",
+          "in_stock": 686,
+          "preorder_available": 678,
+          "preorder_minimum": 24,
+          "packaging_quantity": 500,
+          "loss_number": 0,
+          "least_patch_number": 5,
+          "buyable": true
+        },
+        "displayed_labels": {
+          "pcba_type": "Economic and Standard",
+          "assembly_type": "SMT Assembly"
+        },
+        "field_meanings": "INFERRED (sources.listing_pages.field_meanings)"
+      },
+      "parts_api": {
+        "status": "OBSERVED",
+        "source": "engineering/a7/procurement/price-audit/2026-11-12.json#after.lines",
+        "url": "https://jlcpcb.com/api/overseas-pcb-order/v1/shoppingCart/smtGood/selectSmtComponentList",
+        "observed_at": "2026-11-12T19:09:52Z",
+        "raw_sha256": null,
+        "raw_stored": false,
+        "identity_matched": "LCSC code, MPN and manufacturer",
+        "row_origin": "parts-API read 2026-11-12T19:09:52Z",
+        "observed": {
+          "library": "EXTENDED",
+          "jlc_stock": 686,
+          "min_purchase": 1,
+          "least_patch_number": 5,
+          "loss_number": 0,
+          "unit_price": 0.3798
+        },
+        "currency": {
+          "value": "USD",
+          "status": "INFERRED",
+          "basis": "JLC API price rows carry no currency field. We read them as USD because the C221842 tier price 3.0325 is the figure the owner's live check saw in USD on the JLC detail page (supply-observations.json). Fee figures are USD as printed on the JLC fee page."
+        },
+        "calculated": {
+          "pieces_to_buy": 5,
+          "line_cost": 1.899,
+          "rule": "pieces_to_buy = max(pieces_required + loss_number, least_patch_number, min_purchase); line_cost = pieces_to_buy x the price tier for that quantity. Field meanings are our reading of an undocumented API.",
+          "confidence": "INFERRED"
+        },
+        "field_meanings": "INFERRED: undocumented API fields read as JLC stock, minimum purchase, minimum patch and attrition"
+      },
+      "supply_receipts": [],
+      "raw_bytes": "NOT_COMMITTED: receipts keep only their SHA-256; this parts-API audit row was re-serialised without a raw digest",
+      "not_obtained": [
+        "lead_time",
+        "confirmed_quote",
+        "stock_reservation",
+        "assembly_acceptance"
+      ]
+    },
+    {
+      "lcsc": "C7250",
+      "mpn": "0603WAF1005T5E",
+      "manufacturer": "UNI-ROYAL(Uniroyal Elec)",
+      "pieces_per_module": 2,
+      "pieces_required": 4,
+      "listing_page": {
+        "status": "OBSERVED",
+        "source": "engineering/a7/jlc-package/sources.json",
+        "url": "https://jlcpcb.com/partdetail/C7250",
+        "observed_at": "2026-11-12T10:36:18Z",
+        "raw_sha256": "9ca24525e5e49b8fd72e28b4909518232504c04095062baad765f9ea981f19d6",
+        "raw_stored": false,
+        "identity_matched": "LCSC code and MPN (the receipt carries no manufacturer field)",
+        "observed": {
+          "library": "BASIC",
+          "in_stock": 795181,
+          "preorder_available": 674710,
+          "preorder_minimum": 5000,
+          "packaging_quantity": 5000,
+          "loss_number": 10,
+          "least_patch_number": 20,
+          "buyable": true
+        },
+        "displayed_labels": {
+          "pcba_type": "Economic and Standard",
+          "assembly_type": "SMT Assembly"
+        },
+        "field_meanings": "INFERRED (sources.listing_pages.field_meanings)"
+      },
+      "parts_api": {
+        "status": "OBSERVED",
+        "source": "engineering/a7/procurement/price-audit/2026-11-12.json#after.lines",
+        "url": "https://jlcpcb.com/api/overseas-pcb-order/v1/shoppingCart/smtGood/selectSmtComponentList",
+        "observed_at": "2026-11-12T19:09:52Z",
+        "raw_sha256": null,
+        "raw_stored": false,
+        "identity_matched": "LCSC code, MPN and manufacturer",
+        "row_origin": "parts-API read 2026-11-12T19:09:52Z",
+        "observed": {
+          "library": "BASIC",
+          "jlc_stock": 1022909,
+          "min_purchase": 1,
+          "least_patch_number": 20,
+          "loss_number": 10,
+          "unit_price": 0.0022
+        },
+        "currency": {
+          "value": "USD",
+          "status": "INFERRED",
+          "basis": "JLC API price rows carry no currency field. We read them as USD because the C221842 tier price 3.0325 is the figure the owner's live check saw in USD on the JLC detail page (supply-observations.json). Fee figures are USD as printed on the JLC fee page."
+        },
+        "calculated": {
+          "pieces_to_buy": 20,
+          "line_cost": 0.044,
+          "rule": "pieces_to_buy = max(pieces_required + loss_number, least_patch_number, min_purchase); line_cost = pieces_to_buy x the price tier for that quantity. Field meanings are our reading of an undocumented API.",
+          "confidence": "INFERRED"
+        },
+        "field_meanings": "INFERRED: undocumented API fields read as JLC stock, minimum purchase, minimum patch and attrition"
+      },
+      "supply_receipts": [],
+      "raw_bytes": "NOT_COMMITTED: receipts keep only their SHA-256; this parts-API audit row was re-serialised without a raw digest",
+      "not_obtained": [
+        "lead_time",
+        "confirmed_quote",
+        "stock_reservation",
+        "assembly_acceptance"
+      ]
+    }
+  ]
+}

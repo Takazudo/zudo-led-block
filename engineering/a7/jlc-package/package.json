@@ -2,10 +2,14 @@
   "schema": 1,
   "status": "DRY_RUN_NOT_RELEASED",
   "order_eligibility": "BLOCKED",
+  "prototype_route_binding": "HOLD: readiness gate owner_prototype_route (the recorded approval does not match the current identities)",
+  "dated_order_exports": [
+    "engineering/a7/jlc-package/order/2026-11-13"
+  ],
   "modules": 2,
   "decided_by": "OWNER",
   "sources": "engineering/a7/jlc-package/sources.json",
-  "ledger_sha256": "c12c964ac3ea0c012bb03fbd11f1fac22d0f769a5cacdf2daf1b289f1493e865",
+  "ledger_sha256": "557d5e48045b60bb4a8f91dc55f9fae2988d4494082c42532679032da2c8502c",
   "sources_sha256": "6fc3789723a99d5f6eaeca12b9f057ebb407ef84b7a8657ee224129c262f05d5",
   "boards": [
     {
@@ -1387,8 +1391,8 @@
     {
       "id": "order-gate-blocked",
       "board": null,
-      "text": "Readiness order gate is BLOCKED; this package is a dry run and must not be uploaded or ordered.",
-      "ja": "readiness の発注ゲートが BLOCKED。この一式は予行で、アップロード・発注しない。"
+      "text": "Readiness order gate is BLOCKED (it counts every condition up to a manufacturing release). These generator reference files are not uploaded directly; an owner uploads only a dated copy under engineering/a7/jlc-package/order/ for an owner-approved prototype route, after the order-form checks in its README. None of this is a manufacturing release.",
+      "ja": "readiness の発注ゲートが BLOCKED（製造リリースまでの全条件を数えている）。この基準セットからは直接アップロードしない。オーナーが試作ルートでアップロードするのは `engineering/a7/jlc-package/order/` の日付付きの写しで、その README の注文画面の確認の後。どれも製造リリースではない。"
     },
     {
       "id": "controller-repo-panel-acceptance",

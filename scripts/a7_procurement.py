@@ -53,6 +53,14 @@ OWNER_DECISIONS = 'engineering/a7/procurement/owner-decisions.json'
 SUPPLY_OBSERVATIONS = 'engineering/a7/procurement/supply-observations.json'
 # Our reading (pending owner confirmation) of the owner's sourcing words in owner-decisions.json; anything else is an exception named per line.
 SOURCING_ROUTES = ('JLC_STOCK', 'JLC_PREORDER_OR_GLOBAL_SOURCING', 'EXCEPTION')
+# Authored dated evidence for the sourcing projection. Never the generated jlc-package/package.json: it reads this ledger.
+LISTING_PAGES = 'engineering/a7/jlc-package/sources.json'
+PRICE_AUDIT = 'engineering/a7/procurement/price-audit/2026-11-12.json'
+CROSSWALK = 'provenance/a5-catalog/identity-crosswalk.json'
+PROJECTION = 'engineering/a7/procurement/sourcing-projection.json'
+# Parts with saved evidence that are no longer fitted; anything else outside the active population is rejected.
+RETIRED = {'C221842': {'mpn': 'PCM13SMTR', 'reason': 'SW1 replaced by HX MSK13C02 (C5149819) on 2026-11-12 (owner decision switch-supply); historical evidence only'}}
+NOT_OBTAINED = ('lead_time', 'confirmed_quote', 'stock_reservation', 'assembly_acceptance')
 
 
 def owner_order(root):
@@ -199,6 +207,11 @@ def switch_observation(root):
 
 
 def generate(root=ROOT):
+ return build(root)[0]
+
+
+def build(root=ROOT):
+ """(assembly manifest, sourcing projection). The projection is a separate output so a later re-observation does not rewrite approval-bound bytes beyond the summary it changes."""
  inv = read(root, INV)
  unique(inv['lines'], 'line_id')
  assigned = {b: {} for b in BOARDS}
@@ -221,8 +234,9 @@ def generate(root=ROOT):
  native_mounts = controller_mounts(root, placement['board_sha256'])
  inherited = {b['name']: b for b in read(root, A5POS)['boards']}
  inputs = [SWITCH_SOURCES, INV, PLACEMENT, LAYOUT, MECH, A5POS, 'engineering/a7/electronics/controller/controller.kicad_sch',
-           HARNESS, 'engineering/a7/mechanical/build_a7_mechanical.py', NATIVE_GEOMETRY, OWNER_DECISIONS, SUPPLY_OBSERVATIONS]
- observation = switch_observation(root)
+           HARNESS, 'engineering/a7/mechanical/build_a7_mechanical.py', NATIVE_GEOMETRY, OWNER_DECISIONS, SUPPLY_OBSERVATIONS,
+           LISTING_PAGES, PRICE_AUDIT, CROSSWALK]
+ switch_observation(root)
  decision, listing = owner_order(root), switch_listing(root)
  modules = decision['modules']
  rows, excluded, boards = [], [], []
@@ -270,7 +284,8 @@ def generate(root=ROOT):
      'source':PLACEMENT if name=='controller' else A5POS,
      'authority':'native export; independent fresh gate required' if name=='controller' else 'immutable historical A5 KiCad export; not fresh placement proof'},
     'quantity_for_order':(0 if dnp else mult)*modules,
-    'commercial_observation':observation if line['lcsc']=='C5149819' else None,'supply_status':('OBSERVED: JLC stock 4561 at 2026-11-12T19:35:14Z (Extended, not reserved); 1-49 tier 0.1069 without currency; lead time and assembly acceptance unknown' if line['lcsc']=='C5149819' else 'NOT_OBTAINED: current stock, price, lead time, MOQ, packaging and assembly applicability require dated exact-part evidence')})
+    'sourcing_evidence':None if dnp else PROJECTION+'#'+line['lcsc'],
+    'supply_status':'NOT_PURCHASED: DNP' if dnp else 'DATED_OBSERVATIONS_ONLY: see the order_plan line and '+PROJECTION+'; not current stock, a quote, a reservation or assembly acceptance'})
   fitted = [r for r in rows if r['board']==name and r['population']=='FITTED']
   process = {f'{m}_{side}': sum(1 for r in fitted if (r['mount'], r['placement']['side'])==(m, side))
              for m in ('SMD', 'THT') for side in ('F', 'B')}
@@ -319,9 +334,11 @@ def generate(root=ROOT):
  if fixture['class'] == 'OWNER_DECISION' and accepted.get('assembly:fixture-materials') == 'approve':
   fixture = dict(fixture, text='Fixture digital criteria 1-4 met; the owner approved the proposed hardware on 2026-11-12 (accept all recommendations). The fabricator for the four FR-4 plates is not chosen. Physical contact/load tests (criterion 5) follow.')
  blockers=open_blockers[:-1]+[fixture]+open_blockers[-1:]
+ projection = sourcing_projection(root, rows, modules)
+ blockers = [dict(b, text=supply_text(projection)) if b['id'] == 'supply-observations' else b for b in blockers]
  return {'schema':1,'revision':'A7-r2-3HP-FR4','status':'ENGINEERING_PREPARATION_NOT_SUPPLIER_UPLOAD',
   'manufacturing_released':False,'order_submitted':False,'agreed_order_quantity':modules,
-  'order_plan':order_plan(root, decision, listing, boards, rows),
+  'order_plan':order_plan(root, decision, boards, rows, projection),
   'inputs_sha256':{p:sha(root,p) for p in sorted(set(inputs))},'boards':boards,'population':rows,'excluded':excluded,
   'fitted_unique_placements':sum(r['quantity_per_board'] for r in rows),'fitted_pieces_per_module':sum(r['quantity_per_module'] for r in rows),
   'external_materials':external,'fixture_materials_per_fixture_not_per_module':fixture,
@@ -329,35 +346,167 @@ def generate(root=ROOT):
   'services':[{'id':'pcba','status':'UNCONFIRMED','process_per_board':{b['board']:b['assembly_process_per_board'] for b in boards},
     'requirement':'Factory assembly. Controller: SMD on both sides (F and B) plus through-hole jacks and power header on F, from native pad attributes. Leaf: one-side SMD. Adapter: through-hole only. Quote, attrition, minimums, orientation, side order and process not approved'},
    {'id':'program-calibrate','status':'UNCONFIRMED','firmware':firmware,'sha256':sha(root,firmware),'requirement':'SWD programming identity and measured calibration; +3V3 voltage reference; exact LED-lot timing discrepancy #13 open'}],
-  'blockers':blockers}
+  'blockers':blockers}, projection
 
 
-def order_plan(root, decision, listing, boards, rows):
+def order_plan(root, decision, boards, rows, projection):
  modules, minimum = decision['modules'], decision['basis']['pcba_minimum_boards']
- lines = {}
- for r in rows:
-  if r['population'] != 'FITTED':
-   continue
-  line = lines.setdefault((r['mpn'], r['lcsc']), {'lcsc':r['lcsc'],'mpn':r['mpn'],'manufacturer':r['manufacturer'],'pieces_per_module':0})
-  line['pieces_per_module'] += r['quantity_per_module']
  order_lines = []
- for (mpn, lcsc), line in sorted(lines.items(), key=lambda kv: kv[0][1]):
-  required = line['pieces_per_module'] * modules
-  if lcsc == listing['lcsc']:
-   least = listing['values']['minimum_purchase']
-   line.update({'pieces_required':required,'supplier_minimum':least,'minimum_source':SUPPLY_OBSERVATIONS+'#'+listing['id'],'pieces_to_buy':max(required, least),
-    'sourcing':{'route':'JLC_STOCK','status':'JLC stock 4561 at 2026-11-12T19:35:14Z (Extended part, point-in-time, not reserved; field meanings inferred). Refresh before ordering.','exception':None}})
-  else:
-   line.update({'pieces_required':required,'supplier_minimum':None,'minimum_source':None,'pieces_to_buy':None,
-    'sourcing':{'route':'JLC_STOCK','status':'NOT_OBSERVED: preferred route; JLC stock and minimum at the order quantity not observed','exception':None}})
-  order_lines.append(line)
+ for l in projection['lines']:
+  observed = [k for k in ('listing_page', 'parts_api') if l[k]['status'] == 'OBSERVED']
+  order_lines.append({'lcsc':l['lcsc'],'mpn':l['mpn'],'manufacturer':l['manufacturer'],'pieces_per_module':l['pieces_per_module'],
+   'pieces_required':l['pieces_required'],
+   'sourcing':{'route':'JLC_STOCK','status':('DATED_LISTING_OBSERVED: preferred route; '+' and '.join(observed)+' observations dated '+projection['observation_date']
+     +' (not current stock, a quote, a reservation or assembly acceptance; refresh before ordering)') if observed else
+     'NO_DATED_OBSERVATION: preferred route; no saved listing evidence for this identity','exception':None},
+   'evidence':PROJECTION+'#'+l['lcsc']})
  return {'modules':modules,'decision':OWNER_DECISIONS,'decided_by':decision['decided_by'],'owner_words':decision['owner_words'],
   'pcba_minimum_boards':{'value':minimum,'status':decision['basis']['status'],'check':decision['basis']['check'],'source':decision['basis'].get('source')},
   'boards':[{'board':b['board'],'boards_needed':b['multiplicity']*modules,'meets_reported_pcba_minimum':b['multiplicity']*modules>=minimum} for b in boards],
-  'pcb_fabrication_minimum':'NOT_SOURCED','attrition':'NOT_SOURCED: JLC extra-piece (attrition) rule not obtained; pieces_required and pieces_to_buy add none',
+  'pcb_fabrication_minimum':'NOT_SOURCED',
+  'attrition':'NOT_SOURCED as a JLC rule: pieces_required adds none. The 2026-11-12 parts-API audit calculates pieces_to_buy from loss_number / least_patch_number / min_purchase, whose meanings are our inference ('+PROJECTION+', confidence INFERRED).',
   'sourcing_preference':{'owner_words':read(root, OWNER_DECISIONS)['sourcing_preference']['owner_words'],'our_reading':list(SOURCING_ROUTES),'status':'PENDING_OWNER_CONFIRMATION'},
   'lines':order_lines,
   'outside_pcba':'External materials, cables, mechanical parts and fixture items are outside the JLC parts library and not yet routed under the preference.'}
+
+
+def spellings(root, lcsc, source):
+ """Observed spellings the reviewed crosswalk allows for this LCSC code in this exact source file; no other equivalence is guessed."""
+ out = set()
+ for entry in read(root, CROSSWALK).get('spelling_crosswalk', []):
+  if entry['lcsc'] == lcsc:
+   out |= {o['spelling'] for o in entry['observed_spellings'] if source in o['sources']}
+ return out
+
+
+def by_lcsc(items, source):
+ result = {}
+ for item in items:
+  if item['lcsc'] in result:
+   raise ValueError(f"ambiguous evidence: {item['lcsc']} appears twice in {source}")
+  result[item['lcsc']] = item
+ return result
+
+
+def check_identity(root, lcsc, ident, mpn, manufacturer, source):
+ if mpn != ident['mpn'] and mpn not in spellings(root, lcsc, source):
+  raise ValueError(f'{lcsc}: {source} names MPN {mpn!r}, the fitted identity is {ident["mpn"]!r}')
+ if manufacturer is not None and manufacturer != ident['manufacturer']:
+  raise ValueError(f'{lcsc}: {source} names manufacturer {manufacturer!r}, the fitted identity is {ident["manufacturer"]!r}')
+
+
+def sourcing_projection(root, rows, modules):
+ """Per fitted identity: what the saved dated evidence observed, what is our inference, and what was never obtained."""
+ active = {}
+ for r in rows:
+  if r['population'] != 'FITTED':
+   continue
+  ident = {'manufacturer': r['manufacturer'], 'mpn': r['mpn']}
+  if active.setdefault(r['lcsc'], dict(ident, pieces_per_module=0))['mpn'] != r['mpn'] or active[r['lcsc']]['manufacturer'] != r['manufacturer']:
+   raise ValueError(f"{r['lcsc']}: two fitted identities share one LCSC code")
+  active[r['lcsc']]['pieces_per_module'] += r['quantity_per_module']
+ retired_active = set(active) & set(RETIRED)
+ if retired_active:
+  raise ValueError(f'retired part fitted again: {sorted(retired_active)}; review RETIRED')
+ pages_doc, audit, supply = read(root, LISTING_PAGES), read(root, PRICE_AUDIT), read(root, SUPPLY_OBSERVATIONS)
+ pages = by_lcsc(pages_doc['parts'], LISTING_PAGES)
+ api = by_lcsc(audit['after']['lines'], PRICE_AUDIT)
+ receipts = {}
+ for o in supply['observations']:
+  receipts.setdefault(o['lcsc'], []).append(o)
+ for source, codes in ((LISTING_PAGES, pages), (PRICE_AUDIT, api), (SUPPLY_OBSERVATIONS, receipts)):
+  unknown = sorted(set(codes) - set(active) - set(RETIRED))
+  if unknown:
+   raise ValueError(f'{source}: evidence for parts outside the fitted population and the retired list: {unknown}')
+ if set(api) & set(RETIRED):
+  raise ValueError(f'{PRICE_AUDIT}: after.lines must hold only the current fitted identities')
+ api_time = audit['sources']['parts_api']['retrieved_at']
+ lines = []
+ for lcsc, ident in sorted(active.items()):
+  required = ident['pieces_per_module'] * modules
+  page, row = pages.get(lcsc), api.get(lcsc)
+  line = {'lcsc': lcsc, 'mpn': ident['mpn'], 'manufacturer': ident['manufacturer'], 'pieces_per_module': ident['pieces_per_module'], 'pieces_required': required}
+  if page:
+   check_identity(root, lcsc, ident, page['model'], None, LISTING_PAGES)
+   line['listing_page'] = {'status': 'OBSERVED', 'source': LISTING_PAGES, 'url': page['url'], 'observed_at': page['retrieved_at'],
+    'raw_sha256': page['raw_sha256'], 'raw_stored': False, 'identity_matched': 'LCSC code and MPN (the receipt carries no manufacturer field)',
+    'observed': {k: page[k] for k in ('library', 'in_stock', 'preorder_available', 'preorder_minimum', 'packaging_quantity', 'loss_number', 'least_patch_number', 'buyable')},
+    'displayed_labels': {'pcba_type': page['pcba_type'], 'assembly_type': page['assembly_type']},
+    'field_meanings': 'INFERRED (sources.listing_pages.field_meanings)'}
+  else:
+   line['listing_page'] = {'status': 'GAP', 'reason': 'no dated rendered-page receipt for this identity'}
+  if row:
+   check_identity(root, lcsc, ident, row['mpn'], row['manufacturer'], PRICE_AUDIT)
+   if row['pieces_required'] != required:
+    raise ValueError(f'{lcsc}: audit pieces_required {row["pieces_required"]} differs from the ledger {required} (quantity semantics changed)')
+   # The audit's own stated rule, recomputed so a copied buy quantity or cost cannot drift from it.
+   if row['pieces_to_buy'] != max(required + row['loss_number'], row['least_patch_number'], row['min_purchase']) \
+      or abs(row['line_cost'] - row['pieces_to_buy'] * row['unit_price']) > 1e-6:
+    raise ValueError(f'{lcsc}: audit pieces_to_buy or line_cost does not follow its cost_rule')
+   # A row is either from the audit's own API read (no raw digest) or reused from a hash-bound supply receipt of the same time.
+   reused = [o for o in receipts.get(lcsc, []) if o['retrieved_at'] == row['retrieved_at'] and o.get('raw_sha256')]
+   if row['retrieved_at'] != api_time and len(reused) != 1:
+    raise ValueError(f'{lcsc}: audit row time matches neither the parts-API read nor one hash-bound supply receipt')
+   line['parts_api'] = {'status': 'OBSERVED', 'source': PRICE_AUDIT+'#after.lines', 'url': audit['sources']['parts_api']['url'], 'observed_at': row['retrieved_at'],
+    'raw_sha256': reused[0]['raw_sha256'] if row['retrieved_at'] != api_time else None, 'raw_stored': False, 'identity_matched': 'LCSC code, MPN and manufacturer',
+    'row_origin': SUPPLY_OBSERVATIONS+'#'+reused[0]['id'] if row['retrieved_at'] != api_time else 'parts-API read '+api_time,
+    'observed': {k: row[k] for k in ('library', 'jlc_stock', 'min_purchase', 'least_patch_number', 'loss_number', 'unit_price')},
+    'currency': {'value': 'USD', 'status': 'INFERRED', 'basis': audit['currency_note']},
+    'calculated': {'pieces_to_buy': row['pieces_to_buy'], 'line_cost': row['line_cost'], 'rule': audit['cost_rule'], 'confidence': 'INFERRED'},
+    'field_meanings': 'INFERRED: undocumented API fields read as JLC stock, minimum purchase, minimum patch and attrition'}
+  else:
+   line['parts_api'] = {'status': 'GAP', 'reason': 'no row in the dated parts-API audit for this identity'}
+  hashed = []
+  for o in receipts.get(lcsc, []):
+   check_identity(root, lcsc, ident, o['mpn'], None, SUPPLY_OBSERVATIONS)
+   hashed.append({'id': o['id'], 'observed_at': o['retrieved_at'], 'raw_sha256': o['raw_sha256'], 'raw_stored': o['raw_stored'], 'source': o.get('source')})
+  line['supply_receipts'] = hashed
+  line['raw_bytes'] = 'NOT_COMMITTED: receipts keep only their SHA-256' + ('' if line['parts_api'].get('raw_sha256') else '; this parts-API audit row was re-serialised without a raw digest')
+  line['not_obtained'] = list(NOT_OBTAINED)
+  lines.append(line)
+ if sum(l['pieces_required'] for l in lines) != modules * sum(l['pieces_per_module'] for l in lines):
+  raise ValueError('pieces_required total is not modules x fitted pieces per module')
+ api_total = round(sum(l['parts_api']['calculated']['line_cost'] for l in lines if l['parts_api']['status'] == 'OBSERVED'), 2)
+ if all(l['parts_api']['status'] == 'OBSERVED' for l in lines) and api_total != audit['after']['parts_total']:
+  raise ValueError('audit parts_total differs from the sum of its lines')
+ retired = []
+ for lcsc, info in sorted(RETIRED.items()):
+  if lcsc in pages:
+   check_identity(root, lcsc, info, pages[lcsc]['model'], None, LISTING_PAGES)
+  retired.append({'lcsc': lcsc, 'mpn': info['mpn'], 'reason': info['reason'],
+   'evidence': ([LISTING_PAGES+'#'+lcsc] if lcsc in pages else []) + [SUPPLY_OBSERVATIONS+'#'+o['id'] for o in receipts.get(lcsc, [])]})
+ counts = lambda k: {lib: sum(1 for l in lines if l[k]['status'] == 'OBSERVED' and l[k]['observed']['library'] == lib) for lib in ('BASIC', 'EXTENDED')}
+ page_times = sorted(l['listing_page']['observed_at'] for l in lines if l['listing_page']['status'] == 'OBSERVED')
+ differs = sorted(l['lcsc'] for l in lines if l['listing_page']['status'] == l['parts_api']['status'] == 'OBSERVED'
+                  and l['listing_page']['observed']['in_stock'] != l['parts_api']['observed']['jlc_stock'])
+ return {'schema': 1, 'status': 'DATED_OBSERVATIONS_NOT_CURRENT_STOCK_OR_QUOTE', 'revision': 'A7-r2-3HP-FR4', 'modules': modules,
+  'observation_date': audit['date'],
+  'scope': 'Saved JLC listing observations for the active fitted identities. Not current stock, a quote, a reservation, a lead time or assembly acceptance; refresh before ordering. Quantities are fitted pieces x modules before attrition.',
+  'sources': {'listing_pages': {'path': LISTING_PAGES, 'sha256': sha(root, LISTING_PAGES), 'observed_between': [page_times[0], page_times[-1]] if page_times else None,
+                                'field_meanings': {'status': pages_doc['part_field_meanings']['status'], 'note': pages_doc['part_field_meanings']['note']}},
+              'parts_api': {'path': PRICE_AUDIT, 'sha256': sha(root, PRICE_AUDIT), 'observed_at': api_time},
+              'supply_observations': {'path': SUPPLY_OBSERVATIONS, 'sha256': sha(root, SUPPLY_OBSERVATIONS)}},
+  'not_one_snapshot': 'Rendered part pages and the parts-API audit are separate reads at different times; their stock figures differ for '+str(len(differs))+' identities and neither is a simultaneous supplier snapshot.',
+  'stock_differs_between_reads': differs,
+  'active_identities': len(lines), 'pieces_required_total': sum(l['pieces_required'] for l in lines),
+  'library_counts': {'listing_page': counts('listing_page'), 'parts_api': counts('parts_api')},
+  'parts_api_calculated_total': {'value': api_total, 'currency': 'USD (INFERRED)', 'confidence': 'INFERRED', 'excludes': audit['not_included']},
+  'gaps': {k: sorted(l['lcsc'] for l in lines if l[k]['status'] == 'GAP') for k in ('listing_page', 'parts_api')},
+  'not_obtained_for_any_line': list(NOT_OBTAINED),
+  'retired': retired, 'lines': lines}
+
+
+def supply_text(projection):
+ n, gaps = projection['active_identities'], projection['gaps']
+ both = n - len(set(gaps['listing_page']) | set(gaps['parts_api']))
+ text = (f"Order quantity is {projection['modules']} modules (owner decision), {projection['pieces_required_total']} fitted pieces before attrition. "
+         f"{both} of {n} fitted identities have dated {projection['observation_date']} JLC listing observations from both the rendered part pages and the parts-API audit "
+         f"(separate reads, raw bytes not committed, field meanings and currency inferred; {PROJECTION}).")
+ for k, label in (('listing_page', 'rendered-page receipt'), ('parts_api', 'parts-API row')):
+  if gaps[k]:
+   text += f" No {label}: {', '.join(gaps[k])}."
+ return text + (' Not obtained for any line: lead time, confirmed quote, stock reservation and assembly acceptance. '
+                'JLC attrition is not sourced as a rule; the audit\'s buy quantities are our inference. Refresh before ordering.')
 
 
 FIXTURE_MANIFEST = 'engineering/a7/fixture/manifest.json'
@@ -376,7 +525,7 @@ def fixture_blocker(root, inputs):
 
 # Each ledger blocker names what can resolve it; readiness reports these as separate gates.
 BLOCKERS = [
- {'id':'supply-observations','class':'ACCESS_EVIDENCE_HOLD','text':'Order quantity is 2 modules (owner decision). JLC stock, price, minimum, packaging, lead time and assembly applicability at that quantity are not observed for any line except the C5149819 switch (stock 4561 at 2026-11-12); JLC attrition is not sourced; stock never reserved.'},
+ {'id':'supply-observations','class':'ACCESS_EVIDENCE_HOLD','text':'(generated from the sourcing projection)'},
  {'id':'switch-supply','class':'OWNER_DECISION','text':'PCM13SMTR (C221842): 2 needed for 2 modules. JLC stock 0 at 2026-11-09; at 2026-11-12 JLC lists it buyable (Extended) with pre-order minimum 3 and presale 0 (field meanings inferred), tier prices without currency, no lead time. The owner wants to complete on JLC: on our reading, a pre-order (presale 0 may mean none can be placed now; fill depends on LCSC stock, not observed) or a Global Sourcing quote; otherwise wait, or accept a reviewed alternate with its own contact table and fit review. At 2026-11-12T18:55Z the owner relayed a live check by their browsing assistant (not a first-hand capture): JLC stock 0, Extended, pre-order offered at minimum 3 with an estimated 31 days; Global Sourcing for 3 via DigiKey JPY 826 total (8-15 business days) or Element JPY 865 (8-18); parts stay in the JLC parts library. The owner accepted JLC sourcing with all recommendations, then asked to consider another switch because of the price, so this stays open until the owner picks.'},
  {'id':'panel-route','class':'OWNER_DECISION','text':'None of the three boards meets JLC single-board PCBA size; the panel route is not chosen. Panel by JLCPCB puts 10 controllers, 8 leaves or 2 adapters on each panel (20 SW1 switches for a 2-panel minimum if the PCBA quantity counts panels, not sourced); a repo-built panel holding 1 controller, 2 leaves or 1 adapter gives exactly 2 modules; it is prepared (not released) in engineering/a7/jlc-package/panels/. Comparison in engineering/a7/jlc-package/package.json.'},
  {'id':'jack-switch-qualification','class':'PHYSICAL_ONLY','text':'PJ-324M pin function (which of terminals 4/5 is the tip contact and which its normal; the supplier symbol contradicts the inferred 4 = tip, so this continuity test must precede any PCB order), slot, axis height and nut fit, and the HX MSK13C02 truth table and land/peg fit, need received parts (jack-continuity, jack-dimensions, switch-fit).'},
@@ -388,22 +537,26 @@ BLOCKERS = [
 ]
 
 
-def outputs(report):
+def outputs(report, projection):
  raw=json.dumps(report,indent=2,ensure_ascii=False)+'\n'
  stream=io.StringIO();writer=csv.writer(stream,lineterminator="\n");writer.writerow(['ENGINEERING ONLY - NOT SUPPLIER UPLOAD'])
  writer.writerow(['board','ref','manufacturer','mpn','lcsc','population','mount','per_board','board_multiplicity','per_module','side'])
  for r in report['population']:
   writer.writerow([r[k] for k in ['board','ref','manufacturer','mpn','lcsc','population','mount','quantity_per_board','board_multiplicity','quantity_per_module']]+[r['placement']['side']])
- op=report['order_plan']
- md='# A7 調達・組立の準備台帳\n\n自動生成。**製造承認・発注用ファイルではありません。** SW1 はオーナーの方針（動けばよい・安く・JLC 在庫あり）により 2026-11-12 に PCM13SMTR（C221842、JLC 在庫 0）から HX MSK13C02（C5149819）へ変更しました。C5149819 は 2026-11-12T19:35:14Z の JLC 観測で在庫 4561（Extended）・最小購入 1・包装数 3000、1〜49 個の段階価格 0.1069（通貨の項目なし）です（項目の意味はこちらの解釈）。確保済み在庫ではなく、納期・実装受入は未取得です。他の部品の現在の商取引条件も未取得で、過去の A5 価格を現在値として再掲しません。\n\n'
+ op,pj=report['order_plan'],projection
+ lib=pj['library_counts']['listing_page']
+ md='# A7 調達・組立の準備台帳\n\n自動生成。**製造承認・発注用ファイルではありません。** SW1 はオーナーの方針（動けばよい・安く・JLC 在庫あり）により 2026-11-12 に PCM13SMTR（C221842）から HX MSK13C02（C5149819）へ変更しました。PCM13SMTR は現在の実装部品ではなく、その観測は履歴として残すだけです。\n\n'
+ md+=f"実装する {pj['active_identities']} 型番すべてについて、{pj['observation_date']} の JLC 掲載情報を保存しています（`{PROJECTION}`）。部品ページの記録（{pj['sources']['listing_pages']['observed_between'][0]}〜{pj['sources']['listing_pages']['observed_between'][1]}、SHA-256 のみ保存）と、部品 API による価格点検（{pj['sources']['parts_api']['observed_at']}、行を再整形・raw なし）は別々の読み取りで、同時点のスナップショットではありません（在庫の数字が {len(pj['stock_differs_between_reads'])} 型番で異なります）。Basic {lib['BASIC']} / Extended {lib['EXTENDED']}。項目の意味と通貨（USD）はこちらの解釈です。**現在の在庫・見積・在庫確保・実装受入ではありません。** 納期・確定見積・在庫確保・実装受入はどの型番も未取得です。発注前に取り直してください。\n\n"
  md+=f"台帳 SHA-256: `{hashlib.sha256(raw.encode()).hexdigest()}`。{report['fitted_unique_placements']} 配置 / {report['fitted_pieces_per_module']} 実装点 / 台。\n\n"
  md+=f"## 最初の発注数量: {op['modules']} 台（オーナーの判断）\n\nオーナーの言葉: 「{' '.join(op['owner_words'])}」（`{op['decision']}`）。JLC の PCBA 最小 {op['pcba_minimum_boards']['value']} 枚は {op['pcba_minimum_boards']['status']}（{'JLC の公開能力表で確認済み' if op['pcba_minimum_boards']['status']=='SOURCED' else 'JLC の公開条件では未確認'}）。この数量は発注・試作ルート・製造リリースの承認ではありません。\n\n"
- md+="必要枚数: "+'、'.join(f"{b['board']} {b['boards_needed']} 枚" for b in op['boards'])+"。PCB 製造の最小枚数と JLC のロス分（attrition）は未取得で、下の数に上乗せしていません。\n\n"
- md+=f"オーナーの方針（原文）: 「{' '.join(op['sourcing_preference']['owner_words'])}」。こちらの解釈（オーナー未確認）: JLC 在庫 → JLC 予約注文または Global Sourcing → それ以外は例外として行ごとに明示。\n\n| LCSC | 型番 | 必要数 | 最小購入 | 購入数 | 経路 |\n|---|---|---:|---:|---:|---|\n"
- for l in op['lines']:
-  if l['supplier_minimum'] is not None or l['sourcing']['exception']:
-   md+=f"| {l['lcsc']} | {l['mpn']} | {l['pieces_required']} | {l['supplier_minimum']} | {l['pieces_to_buy']} | {l['sourcing']['route']} |\n"
- md+=f"\nほかの {sum(1 for l in op['lines'] if l['supplier_minimum'] is None and not l['sourcing']['exception'])} 型番は JLC 在庫を第一候補とし、在庫と最小購入数は未観測です（行ごとの必要数は `assembly-manifest.json` の `order_plan.lines`）。\n\n"
+ md+="必要枚数: "+'、'.join(f"{b['board']} {b['boards_needed']} 枚" for b in op['boards'])+f"。必要数は実装点数 × {op['modules']} 台で計 {pj['pieces_required_total']} 個（ロス分を含まない）。PCB 製造の最小枚数と JLC のロス分（attrition）の規則は未取得です。下の「購入数（推定）」は価格点検が API の項目（loss_number / least_patch_number / min_purchase、意味はこちらの解釈）から計算した値です。\n\n"
+ md+=f"オーナーの方針（原文）: 「{' '.join(op['sourcing_preference']['owner_words'])}」。こちらの解釈（オーナー未確認）: JLC 在庫 → JLC 予約注文または Global Sourcing → それ以外は例外として行ごとに明示。\n\n"
+ md+="| LCSC | 型番 | 区分 | 必要数 | ページ在庫 | API 在庫 | 購入数（推定） | 単価（USD と推定） |\n|---|---|---|---:|---:|---:|---:|---:|\n"
+ for l in pj['lines']:
+  pg,ap=l['listing_page'],l['parts_api']
+  cell=lambda o,k:o['observed'][k] if o['status']=='OBSERVED' else '未取得'
+  md+=f"| {l['lcsc']} | {l['mpn']} | {cell(pg,'library') if pg['status']=='OBSERVED' else cell(ap,'library')} | {l['pieces_required']} | {cell(pg,'in_stock')} | {cell(ap,'jlc_stock')} | {ap['calculated']['pieces_to_buy'] if ap['status']=='OBSERVED' else '未取得'} | {cell(ap,'unit_price')} |\n"
+ md+=f"\n部品代の計算値（推定、USD と推定）: {pj['parts_api_calculated_total']['value']}。段取り料金・PCB 製造・送料・税などは含みません。外された PCM13SMTR（C221842）は `retired` に履歴として残し、必要数に含めません。\n\n"
  md+=f"| 基板 | 枚数/台 | 実装点/枚 | SMD F/B | THT F/B | PCB SHA-256 |\n|---|---:|---:|---|---|---|\n"
  for b in report['boards']:
   pr=b['assembly_process_per_board']
@@ -411,7 +564,8 @@ def outputs(report):
  md+=f"\n実装する型番は {report['unique_fitted_identities']} 種類。SMD / THT の区別はコントローラーが native geometry のパッド属性、リーフとアダプタが不変 A5 の配置データのパッド属性から生成しています。コントローラーは両面 SMD と F 面 THT の組合せで、実装サービスの受入は未確認です。\n\n## 未解決事項\n\n| ID | 区分 | 内容 |\n|---|---|---|\n"
  for b in report['blockers']:md+=f"| {b['id']} | {b['class']} | {b['text']} |\n"
  md+='\n外部部材・ケーブル・治具・サービスの詳細は `assembly-manifest.json` を参照してください。TP1–TP5 は購入部品に数えません。治具数量は台数に掛けません。B面・角度・位置は元の KiCad 出力とハッシュに追跡できますが、この台帳だけでは新規 native 検証や実装方向の承認になりません。\n'
- return {'assembly-manifest.json':raw,'population.csv':stream.getvalue(),'ledger.md':md}
+ return {'assembly-manifest.json':raw,'population.csv':stream.getvalue(),'ledger.md':md,
+         'sourcing-projection.json':json.dumps(projection,indent=2,ensure_ascii=False)+'\n'}
 
 
 def validate_report(report, root=ROOT):
@@ -421,11 +575,11 @@ def validate_report(report, root=ROOT):
 
 def main():
  ap=argparse.ArgumentParser();ap.add_argument('--check',action='store_true');args=ap.parse_args()
- for name,contents in outputs(generate()).items():
+ for name,contents in outputs(*build()).items():
   path=ROOT/OUT/name
   if args.check:
    if not path.exists() or path.read_text()!=contents:raise ValueError(f'stale ledger: {path}')
   else:path.parent.mkdir(parents=True,exist_ok=True);path.write_text(contents)
- print('PASS: A7 engineering ledger accounted; NOT order/release eligibility')
+ print('PASS: A7 engineering ledger and sourcing projection accounted; dated observations only; NOT order/release eligibility')
 
 if __name__=='__main__':main()
