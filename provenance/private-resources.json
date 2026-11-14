@@ -1,0 +1,399 @@
+{
+  "schema_version": 1,
+  "note": "Index of datasheet-like files stored in the private repository Takazudo/circuit-dev-resources. This public repository keeps only the path and SHA-256; the bytes are the manufacturers' copyrighted material and are not redistributed here. A record's sha256 stays authoritative; this index says where matching bytes are kept. Checked by scripts/tests/test_private_resources.py.",
+  "repository": "Takazudo/circuit-dev-resources",
+  "repository_url": "https://github.com/Takazudo/circuit-dev-resources",
+  "visibility": "private",
+  "stored_at_commit": "a9173952e44d9962f5a5dbba9836743d108d37f9",
+  "documents": [
+    {
+      "path": "worldsemi/ws2812b-2020-v6/ws2812b-2020-v6-datasheet-v1.4.pdf",
+      "part": "WS2812B-2020-V6",
+      "what": "Datasheet",
+      "revision": "V1.4",
+      "origin": "owner upload in the zudo-led-block project thread",
+      "sha256": "b09737faa695f6acca16612d3da658da6692fbf4366047083dad84809d452bca",
+      "bytes": 1264070,
+      "cited_by": [
+        ".claude/skills/component-ws2812b-2020-v6/sources.json",
+        "engineering/a5/electronics/source_provenance.json",
+        "engineering/a5/firmware/sources.json",
+        "engineering/a7/docs/continuation/ws2812b-maker-statement.md"
+      ]
+    },
+    {
+      "path": "worldsemi/ws2812b-2020-v6/ws2812b-2020-v6-datasheet-v1.0.pdf",
+      "part": "WS2812B-2020-V6",
+      "what": "Datasheet (superseded by V1.4)",
+      "revision": "V1.0",
+      "origin": "re-downloaded 2026-11-14 from the cited URL; hash matches the record",
+      "sha256": "1a25815d93d6597786de86bc451f50066f9f1d7ef68d69eaebb163a6b82fd917",
+      "bytes": 1224606,
+      "cited_by": [
+        ".claude/skills/component-ws2812b-2020-v6/sources.json"
+      ]
+    },
+    {
+      "path": "molex/530470310/530470310-sales-drawing-530470000-sd-rev-b.pdf",
+      "part": "530470310 (PicoBlade header)",
+      "what": "Sales drawing",
+      "revision": "530470000-SD PSD000 rev B",
+      "origin": "owner upload in the zudo-led-block project thread",
+      "sha256": "76d2a5817a01b47f4b35c0b4078d874834f1f9c233bde42d9a819ead173929c7",
+      "bytes": 199246,
+      "cited_by": [
+        ".claude/skills/component-530470310/sources.json",
+        "engineering/a5/electronics/source_provenance.json",
+        "engineering/a5/io_service_audit.json",
+        "engineering/a5/mechanical/evidence/downloads_initial.json",
+        "engineering/a5/mechanical/manufacturer_source_metadata.json",
+        "engineering/a7/fixture/manifest.json",
+        "scripts/a7_fixture_relief.py",
+        "scripts/tests/test_a7_e2_evidence.py"
+      ]
+    },
+    {
+      "path": "molex/530470310/530470310-product-specification-510211110-ps-rev-a.pdf",
+      "part": "530470310 (PicoBlade header)",
+      "what": "Product specification",
+      "revision": "510211110-PS rev A",
+      "origin": "owner upload in the zudo-led-block project thread",
+      "sha256": "31fe5251428258b073d09c694c4ab989282888cd98d288486f3bc4afacaef03e",
+      "bytes": 713285,
+      "cited_by": [
+        ".claude/skills/component-530470310/sources.json"
+      ]
+    },
+    {
+      "path": "molex/530470310/530470310-product-specification-510211010-ps-rev-b.pdf",
+      "part": "530470310 (PicoBlade header)",
+      "what": "Product specification (older single-row TH)",
+      "revision": "510211010-PS rev B",
+      "origin": "owner upload in the zudo-led-block project thread",
+      "sha256": "1b2a28845d4bad6663889edc99de8ddb9df1b2cedc7f81d98f15ab55cf76e9a0",
+      "bytes": 804312,
+      "cited_by": [
+        ".claude/skills/component-530470310/sources.json"
+      ]
+    },
+    {
+      "path": "nexperia/pmeg4010cej/pmeg4010cej-datasheet-v3.pdf",
+      "part": "PMEG4010CEJ",
+      "what": "Datasheet",
+      "revision": "v.3 (20221001)",
+      "origin": "owner upload in the zudo-led-block project thread",
+      "sha256": "378861b96f1aa490dca0818999999db0b460da2441fb7170b3c75699c156524f",
+      "bytes": 248222,
+      "cited_by": [
+        ".claude/skills/component-pmeg4010cej-115/sources.json"
+      ]
+    },
+    {
+      "path": "nexperia/pmeg4010cej/pmeg4010cej-packing-sod323f-115-rev-3.0.pdf",
+      "part": "PMEG4010CEJ (SOD323F)",
+      "what": "Packing information",
+      "revision": "SOD323F_115 Rev. 3.0",
+      "origin": "owner upload in the zudo-led-block project thread",
+      "sha256": "2ed9548b0c309d0db41716d71ae1383a0f952933cb9833d4fabc767e8732ce4a",
+      "bytes": 229003,
+      "cited_by": [
+        ".claude/skills/component-pmeg4010cej-115/sources.json"
+      ]
+    },
+    {
+      "path": "xkb/pj-3582-b/pj-3582-b-drawing-a1-lcsc-mirror.pdf",
+      "part": "PJ-3582-B",
+      "what": "Drawing (LCSC-hosted copy)",
+      "revision": "A1",
+      "origin": "owner upload in the zudo-led-block project thread",
+      "sha256": "64b258ff58fd929e1324d2fe50d81b987af162d086a513d6b5fd70758f922ad6",
+      "bytes": 66506,
+      "cited_by": [
+        ".claude/skills/component-pj-3582-b/sources.json",
+        "engineering/a5/electronics/source_provenance.json",
+        "engineering/a5/mechanical/manufacturer_source_metadata.json"
+      ]
+    },
+    {
+      "path": "dailywell/1ms3t1b1m2qes-5/1m-series-datasheet-unrevised-lcsc-mirror.pdf",
+      "part": "1MS3T1B1M2QES-5 (1M series)",
+      "what": "Series datasheet (LCSC-hosted copy)",
+      "revision": "not printed",
+      "origin": "owner upload in the zudo-led-block project thread",
+      "sha256": "2cf95e7fd41ab5de2fb8e1fd93f6cb08a25c4772c5eaeba38e1a45774b6dc274",
+      "bytes": 414010,
+      "cited_by": [
+        ".claude/skills/component-1ms3t1b1m2qes-5/sources.json",
+        "engineering/a5/electronics/source_provenance.json",
+        "engineering/a5/front_panel/sources/sources.json",
+        "engineering/a5/io_service_audit.json",
+        "engineering/a5/mechanical/evidence/downloads_switch_jack.json",
+        "engineering/a5/mechanical/manufacturer_source_metadata.json"
+      ]
+    },
+    {
+      "path": "c-and-k/pcm13smtr/pcm-series-datasheet-vl-2025-03-14.pdf",
+      "part": "PCM13SMTR (PCM series)",
+      "what": "Series datasheet",
+      "revision": "VL 03/14/25",
+      "origin": "owner upload in the zudo-led-block project thread",
+      "sha256": "6a758d151b7eee7f8cd59594bd92cfec4c9b1470e0743094f185f19e7ac2a868",
+      "bytes": 498359,
+      "cited_by": [
+        ".claude/skills/component-a7-pcm13smtr/sources.json",
+        "scripts/tests/test_a7_e2_evidence.py",
+        "scripts/tests/test_a7_r1_study.py"
+      ]
+    },
+    {
+      "path": "c-and-k/pcm13smtr/pcm-series-datasheet-2022-03-16-lcsc-mirror.pdf",
+      "part": "PCM13SMTR (PCM series)",
+      "what": "Series datasheet (LCSC-hosted copy)",
+      "revision": "16 Mar 22",
+      "origin": "re-downloaded 2026-11-14 from the cited URL; hash matches the record",
+      "sha256": "1c2ca483dd7a2399181d55c75a0352ecf0e76f002516d1d6ecd5e5bdaa26ed69",
+      "bytes": 324372,
+      "cited_by": [
+        ".claude/skills/component-a7-pcm13smtr/sources.json",
+        "engineering/a7/evidence/sources.json"
+      ]
+    },
+    {
+      "path": "st/stm32g031g8u6tr/stm32g031-datasheet-ds12992-rev-4-text-conversion.txt",
+      "part": "STM32G031x4/x6/x8",
+      "what": "Datasheet, owner text conversion (not ST's PDF bytes)",
+      "revision": "DS12992 Rev 4",
+      "origin": "owner upload in the zudo-led-block project thread",
+      "sha256": "bda824042045c6d265e21b065e8aeb08a0e69b1d22b12392f8eb46cfa56f71bf",
+      "bytes": 213733,
+      "cited_by": [
+        ".claude/skills/component-stm32g031g8u6tr/sources.json"
+      ]
+    },
+    {
+      "path": "jst/sm04b-srss-tb-lf-sn/sh-series-catalog-esh.pdf",
+      "part": "SM04B-SRSS-TB(LF)(SN) (SH series)",
+      "what": "Series catalog",
+      "revision": "eSH, no revision printed",
+      "origin": "owner upload in the zudo-led-block project thread",
+      "sha256": "ea3071ca5ee5a6069eba534fa39a10f34c9fb742ee42135a69ab4156bfa0f5de",
+      "bytes": 84427,
+      "cited_by": [
+        ".claude/skills/component-sm04b-srss-tb-lf-sn/sources.json",
+        "engineering/a5/electronics/source_provenance.json",
+        "engineering/a5/integration/independent_review/review.json",
+        "engineering/a5/mechanical/evidence/downloads_initial.json",
+        "engineering/a5/mechanical/manufacturer_source_metadata.json"
+      ]
+    },
+    {
+      "path": "sofng/pj-324m/pj-324m-drawing-owner-upload-png.png",
+      "part": "PJ-324M",
+      "what": "Product drawing image (not cited by a record)",
+      "revision": "no revision printed",
+      "origin": "owner upload in the zudo-led-block project thread",
+      "sha256": "1d47fd48ada3de583213c8902b61a53e0216f1e482478eb128cda48878e606d2",
+      "bytes": 598563,
+      "cited_by": []
+    },
+    {
+      "path": "sofng/pj-324m/pj-324m-drawing-lcsc-mirror.pdf",
+      "part": "PJ-324M",
+      "what": "Product drawing (LCSC-hosted copy)",
+      "revision": "no revision printed",
+      "origin": "re-downloaded 2026-11-14 from the cited URL; hash matches the record",
+      "sha256": "c5f2f104e73244a32ed024f7a6577d260678a9b3f3cc3d496531fb930b3c7049",
+      "bytes": 759371,
+      "cited_by": [
+        ".claude/skills/component-a7-pj-324m/sources.json",
+        "engineering/a7/evidence/sources.json",
+        "engineering/a7/fixture/manifest.json",
+        "scripts/a7_fixture_relief.py"
+      ]
+    },
+    {
+      "path": "fenghua/0603b103k500nt/general-type-mlcc-specification-a0006.pdf",
+      "part": "0603B103K500NT (general-type MLCC)",
+      "what": "Series specification",
+      "revision": "A0006",
+      "origin": "re-downloaded 2026-11-14 from the cited URL; hash matches the record",
+      "sha256": "fcbcad908c6c321869c5ef7948315c2fe84700c50cf2e2e415e12de023482b2a",
+      "bytes": 1049175,
+      "cited_by": [
+        ".claude/skills/component-0603b103k500nt/sources.json"
+      ]
+    },
+    {
+      "path": "uni-royal/0603waf/thick-film-chip-resistors-datasheet-smd-sp-001-v11.pdf",
+      "part": "0603WAF series resistors",
+      "what": "Series datasheet",
+      "revision": "SMD-SP-001 V.11",
+      "origin": "re-downloaded 2026-11-14 from the cited URL; hash matches the record",
+      "sha256": "d27e4cdcdf8fdb4c066ff6030cfc1f46b99efe2a38fe5673fa18a2ee4c7220d3",
+      "bytes": 736886,
+      "cited_by": [
+        ".claude/skills/component-0603waf1001t5e/sources.json",
+        ".claude/skills/component-0603waf1002t5e/sources.json",
+        ".claude/skills/component-0603waf1003t5e/sources.json",
+        ".claude/skills/component-0603waf1005t5e/sources.json",
+        ".claude/skills/component-0603waf3300t5e/sources.json",
+        ".claude/skills/component-0603waf4701t5e/sources.json",
+        ".claude/skills/component-0603waf6802t5e/sources.json",
+        ".claude/skills/component-0603waf8202t5e/sources.json",
+        "engineering/a7/fixture/manifest.json",
+        "scripts/a7_fixture_relief.py"
+      ]
+    },
+    {
+      "path": "diodes/ap63205wu-7/ap6320x-datasheet-ds41326-rev-3-2.pdf",
+      "part": "AP63205WU-7",
+      "what": "Datasheet",
+      "revision": "DS41326 Rev. 3 - 2",
+      "origin": "re-downloaded 2026-11-14 from the cited URL; hash matches the record",
+      "sha256": "ef99daa3789d835bc025dfcb4c605c5c2e6d3e7223e86d40b33e6b497ea5a722",
+      "bytes": 1226090,
+      "cited_by": [
+        ".claude/skills/component-ap63205wu-7/sources.json"
+      ]
+    },
+    {
+      "path": "diodes/bas70-04-7-f/bas70-datasheet-ds11007-rev-27-2.pdf",
+      "part": "BAS70-04-7-F",
+      "what": "Datasheet",
+      "revision": "DS11007 Rev. 27 - 2",
+      "origin": "re-downloaded 2026-11-14 from the cited URL; hash matches the record",
+      "sha256": "f512dac149186bf0c0a3d454d19c3e09d802116dd7f19eb62ee5384d89100896",
+      "bytes": 523519,
+      "cited_by": [
+        ".claude/skills/component-bas70-04-7-f/sources.json"
+      ]
+    },
+    {
+      "path": "samsung-em/cl10a475ko8nnnc/cl10a475ko8nnn-specsheet-2024-05-09.pdf",
+      "part": "CL10A475KO8NNNC",
+      "what": "Specification (reference sheet)",
+      "revision": "issued 2024-05-09",
+      "origin": "re-downloaded 2026-11-14 from the cited URL; hash matches the record",
+      "sha256": "b2081b0b0d43033ef3aca53f8c56f782c170ac3913a91aa847b74e5f7e6557a9",
+      "bytes": 3011801,
+      "cited_by": [
+        ".claude/skills/component-cl10a475ko8nnnc/sources.json"
+      ]
+    },
+    {
+      "path": "samsung-em/cl21a106kaynnne/cl21a106kaynnn-specsheet-2025-11-13.pdf",
+      "part": "CL21A106KAYNNNE",
+      "what": "Specification (reference sheet)",
+      "revision": "issued 2025-11-13",
+      "origin": "re-downloaded 2026-11-14 from the cited URL; hash matches the record",
+      "sha256": "f0fc85a253cc95f38950a4406c88834f52c4b7697226692cafbb98fbb7c5727a",
+      "bytes": 3011022,
+      "cited_by": [
+        ".claude/skills/component-cl21a106kaynnne/sources.json"
+      ]
+    },
+    {
+      "path": "samsung-em/cl31a226kahnnne/cl31a226kahnnn-specsheet-2024-05-09.pdf",
+      "part": "CL31A226KAHNNNE",
+      "what": "Specification (reference sheet)",
+      "revision": "issued 2024-05-09",
+      "origin": "re-downloaded 2026-11-14 from the cited URL; hash matches the record",
+      "sha256": "494f80f330a87c3824749772750a3a781eb2838f9eb5766439eb7c6f30b9ffb8",
+      "bytes": 3029554,
+      "cited_by": [
+        ".claude/skills/component-cl31a226kahnnne/sources.json"
+      ]
+    },
+    {
+      "path": "jscj/mmbt3904/mmbt3904-sot-23-datasheet-rev-2.0.pdf",
+      "part": "MMBT3904 (SOT-23)",
+      "what": "Datasheet",
+      "revision": "Rev. 2.0",
+      "origin": "re-downloaded 2026-11-14 from the cited URL; hash matches the record",
+      "sha256": "573f0ec7b7c05ca0e1336f5bd4cad8c5560b84f50b036a12a969cafdbb6926ae",
+      "bytes": 677951,
+      "cited_by": [
+        ".claude/skills/component-mmbt3904-range-100-300/sources.json"
+      ]
+    },
+    {
+      "path": "texas-instruments/opa197/opa197-datasheet-sbos737c.pdf",
+      "part": "OPA197",
+      "what": "Datasheet",
+      "revision": "SBOS737C",
+      "origin": "re-downloaded 2026-11-14 from the cited URL; hash matches the record",
+      "sha256": "27653a7d5e965cbb2d23f7998919ebd774efd5cd3e126b8f0881469ae91166fd",
+      "bytes": 2174683,
+      "cited_by": [
+        ".claude/skills/component-opa197idbvr/sources.json",
+        "engineering/a5/electronics/source_provenance.json"
+      ]
+    },
+    {
+      "path": "texas-instruments/sn74lvc2t45/sn74lvc2t45-datasheet-sces516n.pdf",
+      "part": "SN74LVC2T45",
+      "what": "Datasheet",
+      "revision": "SCES516N",
+      "origin": "re-downloaded 2026-11-14 from the cited URL; hash matches the record",
+      "sha256": "f0dc4a7a46a5b2020117e8bec614aec33f4f15784a82ab73dc3fa5f91d5c86bc",
+      "bytes": 1350026,
+      "cited_by": [
+        ".claude/skills/component-sn74lvc2t45dcur/sources.json",
+        "engineering/a5/electronics/source_provenance.json",
+        "engineering/a5/integration/independent_review/review.json"
+      ]
+    },
+    {
+      "path": "texas-instruments/tlv9001/tlv900x-datasheet-sbos833r.pdf",
+      "part": "TLV9001",
+      "what": "Datasheet",
+      "revision": "SBOS833R",
+      "origin": "re-downloaded 2026-11-14 from the cited URL; hash matches the record",
+      "sha256": "01a8a8c85d59bf49e80986f30c70b550b5056138737edabbf9775c86db868fbb",
+      "bytes": 8043521,
+      "cited_by": [
+        ".claude/skills/component-tlv9001idbvr/sources.json",
+        "engineering/a5/electronics/source_provenance.json",
+        "engineering/a5/integration/independent_review/review.json"
+      ]
+    },
+    {
+      "path": "nidec/css/css-catalog-lcsc-mirror-2404021211.pdf",
+      "part": "Nidec CSS series (A7 switch study)",
+      "what": "Series catalog (LCSC-hosted copy)",
+      "revision": "LCSC 2404021211",
+      "origin": "re-downloaded 2026-11-14 from the cited URL; hash matches the record",
+      "sha256": "0615f8d343ceb41408c9dacacb557046f5e18092dc2f8770cb059f42e21267d5",
+      "bytes": 1277042,
+      "cited_by": [
+        "engineering/a7/evidence/sources.json"
+      ]
+    },
+    {
+      "path": "alps-alpine/ssss8/ssss8-catalog-update-2510.pdf",
+      "part": "Alps Alpine SSSS8 (A7 switch study)",
+      "what": "Series catalog",
+      "revision": "Update 2510",
+      "origin": "re-downloaded 2026-11-14 from the cited URL; hash matches the record",
+      "sha256": "61c5ae0ab4e4f41008b9bf299c69148a100aec8e8cfebbdf51372dcaa87442dd",
+      "bytes": 485912,
+      "cited_by": [
+        "engineering/a7/evidence/sources.json"
+      ]
+    }
+  ],
+  "captures": [
+    {
+      "path": "distributor-captures/jlcpcb-lcsc/zudo-led-block-a5/SHA256SUMS",
+      "what": "Byte copy of the A5 JLCPCB/LCSC listing snapshots; the originals stay in the immutable engineering/a5/ import",
+      "source_dirs": [
+        "engineering/a5/ic_led_evidence",
+        "engineering/a5/mechanical_evidence",
+        "engineering/a5/passive_evidence",
+        "engineering/a5/evidence_refresh"
+      ],
+      "files": 88,
+      "sha256": "56c99b09d394c9c14690702ef7ad3b557a06b9511ae8a6f972334810445d0a34"
+    }
+  ]
+}
