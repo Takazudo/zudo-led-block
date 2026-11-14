@@ -207,6 +207,7 @@ The validator recomputes the arithmetic. **Arithmetic is not dimensional proof:*
 | --- | --- | --- | --- |
 | Working cache | `.circuit-cache/sources/<SOURCE_ID>/` | No (git-ignored) | Convenient local bytes; reproducible only while the URL still serves the same bytes (compare the recorded hash) |
 | Project-retained archive | A committed directory the project chooses, for example `circuit/source-archive/` | Yes | Durable bytes, only when the project decides to keep them and the source's terms allow it |
+| Private resource store | `Takazudo/circuit-dev-resources` (private repository), indexed in `provenance/private-resources.json` | Yes, in the private repository only | Default home for retained datasheet bytes in this project: hash-matched copies kept for later sessions without redistributing them here |
 | Public selected asset | `doc/public/...`, listed in `circuit/publication/assets.json` | Yes | A deliberate documentation download; requires permission to redistribute |
 
 The evidence record, not the cached file, is authoritative. Nothing under `.circuit-cache/` is published or relied on by the build.
