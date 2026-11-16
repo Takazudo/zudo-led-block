@@ -11,9 +11,11 @@ export function createViewer({ onError }) {
   renderer.outputColorSpace = T.SRGBColorSpace;
   host.append(renderer.domElement);
   const scene = new T.Scene();
-  const camera = new T.PerspectiveCamera(35, 1, 0.1, 3000);
+  const camera = new T.OrthographicCamera(-70, 70, 70, -70, 0.1, 3000);
   const controls = new OrbitControls(camera, renderer.domElement);
   controls.enableDamping = false;
+  controls.minZoom = 0.2;
+  controls.maxZoom = 20;
   controls.minDistance = 3;
   controls.maxDistance = 1800;
   const parent = new T.Group();
@@ -34,7 +36,7 @@ export function createViewer({ onError }) {
   }
   function resize() {
     const w = host.clientWidth, h = host.clientHeight;
-    renderer.setSize(w, h); camera.aspect = w / h; camera.updateProjectionMatrix();
+    renderer.setSize(w, h); camera.updateProjectionMatrix();
     if (model) fit(); else render();
   }
   const observer = new ResizeObserver(resize); observer.observe(host);
@@ -61,19 +63,23 @@ export function createViewer({ onError }) {
     dir.normalize();
     const right = new T.Vector3().crossVectors(camera.up, dir).normalize();
     const up = new T.Vector3().crossVectors(dir, right).normalize();
-    const tan = Math.tan(T.MathUtils.degToRad(camera.fov / 2));
-    let distance = 1;
+    const aspect = host.clientWidth / host.clientHeight;
+    let halfHeight = 1;
     for (const x of [box.min.x, box.max.x]) for (const y of [box.min.y, box.max.y]) for (const z of [box.min.z, box.max.z]) {
       const p = new T.Vector3(x,y,z).sub(center);
-      distance = Math.max(distance, Math.max(Math.abs(p.dot(up)) / tan, Math.abs(p.dot(right)) / (tan * camera.aspect)) + p.dot(dir));
+      halfHeight = Math.max(halfHeight, Math.abs(p.dot(up)), Math.abs(p.dot(right)) / aspect);
     }
-    controls.target.copy(center); camera.position.copy(center).addScaledVector(dir, distance * 1.15);
+    halfHeight *= 1.15;
+    camera.left = -halfHeight * aspect; camera.right = halfHeight * aspect;
+    camera.top = halfHeight; camera.bottom = -halfHeight; camera.zoom = 1;
+    const distance = box.getSize(new T.Vector3()).length() * 2 + 10;
+    controls.target.copy(center); camera.position.copy(center).addScaledVector(dir, distance);
     camera.near = .1; camera.far = Math.max(3000, distance * 5); camera.updateProjectionMatrix();
     controls.update(); ready(); render();
   }
   function preset(name) {
     view = name;
-    const directions = { iso: [1,.35,1.35], front: [0,0,1], side: [1,0,0], rear: [0,0,-1] };
+    const directions = { iso: [1,1,1], front: [0,0,1], side: [1,0,0], rear: [0,0,-1] };
     fit(new T.Vector3(...directions[name]));
     for (const b of document.querySelectorAll('[data-view]')) b.setAttribute('aria-pressed', String(b.dataset.view === name));
   }
@@ -141,7 +147,7 @@ export function createViewer({ onError }) {
   on(host, 'keydown', (e) => {
     if (!model) return;
     const offset = camera.position.clone().sub(controls.target);
-    if (['+','=','-'].includes(e.key)) offset.multiplyScalar(e.key === '-' ? 1.1 : 1/1.1);
+    if (['+','=','-'].includes(e.key)) { camera.zoom = T.MathUtils.clamp(camera.zoom * (e.key === '-' ? 1/1.1 : 1.1), controls.minZoom, controls.maxZoom); camera.updateProjectionMatrix(); }
     else if (e.key.startsWith('Arrow')) {
       const x = e.key === 'ArrowLeft' ? -1 : e.key === 'ArrowRight' ? 1 : 0;
       const y = e.key === 'ArrowUp' ? 1 : e.key === 'ArrowDown' ? -1 : 0;
@@ -173,6 +179,8 @@ export function createViewer({ onError }) {
       if (disposed || request.signal.aborted) { free(gltf.scene); return; }
       free(model); if (model) parent.remove(model);
       model = gltf.scene; parent.add(model); variant = next; parts = new Map();
+      const importedMaterials = new Set();
+      model.traverse((o) => { if(o.material) for(const m of [].concat(o.material)) importedMaterials.add(m); });
       model.traverse((object) => {
         const index = gltf.parser.associations.get(object)?.nodes;
         const name = index === undefined ? null : gltf.parser.json.nodes[index].name;
@@ -184,6 +192,7 @@ export function createViewer({ onError }) {
         }});
         parts.set(name, {name, object, original: object.position.clone(), group: next.nodes[name].group});
       });
+      for (const material of importedMaterials) material.dispose();
       if (parts.size !== Object.keys(next.nodes).length) throw new Error('部品対応表とモデルが一致しません');
       $('groups').replaceChildren();
       for (const [key, group] of Object.entries(manifest.groups)) {
