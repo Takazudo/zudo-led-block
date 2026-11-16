@@ -1,0 +1,25 @@
+# A7 preview/status — issue 85
+
+Manager: Codex Cloud delegated from parent thread `6afb1f7f-4754-8191-a429-d7231953e0ee`; no incumbent preview task found. Selected VM only. Session model routing not independently observable. Single writer/integrator, one local heavy job; no compute fan-out or manual Actions dispatch. Shared account quota/peer occupancy unknown; ordinary repository PR/main CI only.
+
+Initial: fresh clone `/workspace/zudo-led-block`, clean `main` at `0c19fea8afe356fc993570e969742e774b7a9914`; one worktree, no prior local branches/work. Remote pre-existing branches retained, notably A6 `claude/project-thread-391rx3` / draft PR 14 at `7e96380be4fbea2bfcc4a5bd1d5721272a5a141f`. Only open PR 14. Open issues 7–13 and 15. Task branch `codex/a7-assembly-preview-85`.
+
+Environment startup: host workspace instructions supplied portable paths; explicit loader verified snapshot `d49195e0…6661`, source `67f64089…4317`. Runtime restoration skipped; native registration not claimed. Loader stdout recovered in chunks after truncation. Node 24.19.0, Corepack pnpm 11.5.2 (shell fallback 11.19.0 not used), frozen lock installed, Playwright 1.63.0. Corepack default cache missing; task cache `/tmp/a7-corepack`. No HOME/CODEX_HOME changes. Referenced css-wisdom absent from bundled/project skills; no substitute skill claimed.
+
+Resources observed: cgroup RAM 16 GiB, initial current 1.1 GiB; CPU quota 4; 30 GiB disk free; no swap. Budget: one heavy run, 900 seconds each, target <4 GiB plus >8 GiB reserve; one transient retry only when diagnosed. Heavy/browser guards from installed portable profile use shared VM directories `/tmp/agent-guard/heavy` and `/tmp/agent-guard/playwright` (native home directory unavailable); no other launched worker processes. Evidence in local ignored `test-results/`, temporary logs `/tmp/a7-*`; browser CI artifacts use existing retention 3 days.
+
+Baseline circuit:check PASS: manual inventory 33 lines / 74 declared placements unverified; CAD disabled, pin-asset SKIP. Baseline CI run 43569596410 passed on main; production skipped. Current-head results required separately.
+
+Implementation: source GLBs untouched, 3HP hash `b6718dbdcc0eb8c50cb0e452331a2972f2cfd6adb3626d4783a634ac24c006d4`, 1,662,464 bytes. Separate A7 selection and generated manifest; publication producer extended, no A5 page/seed changes. Three.js 0.180.0 / esbuild 0.28.2 pinned, licence copied locally, no runtime CDN. GLB mm coordinates + export rotation explicitly handled. Native iframe requires no message protocol; renderer lazy, close/pagehide disposes. #15 corrected with dated post-#82 status; readback verified.
+
+First focused test caught an erroneous expected asset count (10 actual, corrected); first build caught CSS-spelled style requirement (`border-radius`, corrected). Neither failure is a baseline or infrastructure failure.
+
+Hosting: existing PR/main workflow inspected. Deployment condition requires main push/dispatch, successful checks and CLOUDFLARE_DEPLOY_ENABLED=true. `gh variable list` returned HTTP 403 Resource not accessible by integration; setting not changed or retried. Latest observed main production job skipped. Existing automatic effects disclosed; no separate deploy or hosting activation authorized/performed. Physical/order/manufacturing work excluded.
+
+Verification completed 2026-11-16: circuit:check, a5:check, preview:check, build, check, check:site, full test:browser and Cloudflare build/output/dry-run all PASS (197 seconds, guard verdict PASS). 102 pages / 155 public files. Final orthographic camera delta separately passed build, site, actual desktop/mobile/fallback browser acceptance and Cloudflare packaging (123 seconds, guard PASS). Logs `/tmp/a7-final-*.log` and `/tmp/a7-camera-*.log`; assembled/exploded desktop/mobile screenshots in ignored `test-results/screenshots/a7-*.png`, also uploaded by ordinary browser CI. Final rendered isometric screenshot inspected upright. No physical qualification claimed.
+
+Independent read-only worker review (requested gpt-6-sol medium; actual routing not independently observable) found no blockers in source identity, transforms, lifecycle, publication or status; final orthographic visible-bounds fitting reviewed separately. Gesture baseline strengthened following review. All imported materials now disposed after cloning. Browser asynchronous iframe mount fixed after initial PR run 43905747744 failed that assertion on 865c535; all other jobs passed. Full local browser suite and final camera browser checks pass with the fix.
+
+Tracker https://github.com/Takazudo/zudo-led-block/issues/85; PR https://github.com/Takazudo/zudo-led-block/pull/86. Epic correction https://github.com/Takazudo/zudo-led-block/issues/15#issuecomment-6922012196. No engineering files or qualification identities changed.
+
+Remaining: final current-head CI, policy-eligible merge, post-merge outcome and terminal cleanup audit. Issue 85 alone may close on verified integration. All existing held/hardware/publication issues remain open.

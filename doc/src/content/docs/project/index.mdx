@@ -4,10 +4,11 @@ description: "Zudo LED Block の目的・設計条件・現在の状態。A5 チ
 sidebar_position: 1
 ---
 
-:::danger[A5 も A7 も製造リリースではありません]
-A5 の制御基板は **未配線** です。A7 は設計検討の段階で、回路図と配線済みの制御基板はデジタル検証とレビューまで、機構モデルは暫定のデジタル検討で、物理評価はまだありません。ハーネス配線と装着適合は未解決で、電気・光学・温度・造形・荷重の物理評価はまだ行っていません。
-このサイトのビルドや CI が通っても、電子回路や製造の承認にはなりません。
+:::caution[A7 はデジタル実装完了。製造リリースではありません]
+現在の候補は **3HP・FR-4 リーフ、最初の試作は 2 台**です。回路図・配線済み制御基板・機構のデジタル実装は完了し、注文ファイルは準備済み。試作ルートは PR #82 で現在の識別に再承認済みです。注文画面の確認・発注・物理評価は未実施です。
 :::
+
+**[A7 の組立を 3D で見る](/docs/project/a7-preview/)** · [単独ビューア](/a7-preview/) · [次の作業](/docs/project/next-actions/)
 
 Zudo LED Block は、Kumiko のブランクパネルの横に置く細い Eurorack 用の「光るブロック」です。
 透明アクリルの前面に彫った文字が光り、左右の半透明 PETG 側板から隣の Kumiko へ光を当てます。
@@ -15,7 +16,7 @@ Zudo LED Block は、Kumiko のブランクパネルの横に置く細い Eurora
 その内容をこのサイトで説明しています。
 現在は、その A5 を基準にした構造変更 **A7** を進めています ([A7 の現状](/docs/project/a7/))。
 
-**現在の状態: A5 の設計と部品表 (BOM) を取り込み済み。30 型番すべてを部品証跡カタログ (component-evidence catalog) に移行しました。**
+**履歴資料の状態: A5 の設計と部品表 (BOM) を取り込み済み。30 型番すべてを部品証跡カタログ (component-evidence catalog) に移行しました。**
 30 型番・81 点の部品表は [部品表 (A5 BOM)](/docs/architecture/bom/) にすべて掲載し、各行から [Components](/docs/components/) の記録ページへリンクしています。
 カタログに載っていることは「製造に使える」という意味ではありません。各記録には、メーカー一次資料で確認した事実と、未確認のまま残る項目 (`OPEN`・`UNSOURCED`・`NEEDS BENCH`・`SOURCE UNAVAILABLE`) がそのまま表示されます。
 照合の方法と限界は [部品証跡カタログの照合](/docs/verification/component-catalog/) を参照してください。
@@ -55,7 +56,7 @@ A7 ([#15](https://github.com/Takazudo/zudo-led-block/issues/15)) では次の点
 - MCU は STM32G031G8U6TR。ファームウェアは A5 の CV 回路専用で、旧 A4.1 の回路には使えません。
 - 詳しくは [システム構成](/docs/architecture/overview/)、[電子回路とインターフェース](/docs/architecture/electronics/)、[機構](/docs/architecture/mechanical/)、[ファームウェア](/docs/architecture/firmware/)、[前面アートワーク](/docs/architecture/front-panel/) を参照してください。
 
-## 現在の設計状態
+## A5 の履歴と A7 の現在
 
 | 項目 | 状態 |
 |---|---|
@@ -67,7 +68,7 @@ A7 ([#15](https://github.com/Takazudo/zudo-led-block/issues/15)) では次の点
 | 物理試作 | なし |
 | 製造リリース | **なし** |
 
-A7 の状態は次のとおりです (2026-11-13)。
+A5 の制御基板は未配線の履歴資料として保存しています。A7 の状態は次のとおりです (PR #82 反映後、2026-11-16 確認)。
 
 | 項目 | 状態 |
 |---|---|
