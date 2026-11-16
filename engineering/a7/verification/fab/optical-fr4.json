@@ -1,0 +1,144 @@
+{
+ "schema": 1,
+ "revision": "A7 optical R3 / issue87 / 2026-11-17 JST",
+ "status": "design inputs; not manufacturing release or physical qualification",
+ "nominal_finished_thickness_mm": 0.8,
+ "finished_thickness_tolerance_mm": 0.1,
+ "surface_finish": "ENIG",
+ "surface_finish_reason": "project choice for exposed copper and fine-pitch assembly; final factory DFM/order configuration remains unconfirmed",
+ "controller": {
+  "board": "engineering/a7/electronics/controller/controller.kicad_pcb",
+  "layers": 4,
+  "stackup_name": "JLC04081H-3313",
+  "impedance_template_code": "20211110052748",
+  "stackup": [
+   {
+    "kind": "copper",
+    "layer": "F.Cu",
+    "thickness_mm": 0.035
+   },
+   {
+    "kind": "prepreg",
+    "material": "FR4 3313",
+    "thickness_mm": 0.0994,
+    "epsilon_r": 4.1
+   },
+   {
+    "kind": "copper",
+    "layer": "In1.Cu",
+    "thickness_mm": 0.0152
+   },
+   {
+    "kind": "core",
+    "material": "FR4",
+    "thickness_mm": 0.5,
+    "epsilon_r": 4.6
+   },
+   {
+    "kind": "copper",
+    "layer": "In2.Cu",
+    "thickness_mm": 0.0152
+   },
+   {
+    "kind": "prepreg",
+    "material": "FR4 3313",
+    "thickness_mm": 0.0994,
+    "epsilon_r": 4.1
+   },
+   {
+    "kind": "copper",
+    "layer": "B.Cu",
+    "thickness_mm": 0.035
+   }
+  ],
+  "laminate_sum_mm": 0.7992,
+  "sum_note": "manufacturer compressionThickness .7992mm; order nominal .8 +/- .1mm, do not rescale dielectric to force sum .8",
+  "local_copper": [
+   {
+    "id": "buck-return-thermal",
+    "net": "/GND",
+    "layer": "B.Cu",
+    "rect_mm": [
+     4,
+     0.4,
+     8.8,
+     4.9
+    ],
+    "reason": "localized return/thermal spreading below U2/C1; DS41326 Rev3-2 page15 recommends bottom GND copper; no whole-board plane; thermal performance still needs bench",
+    "max_outline_area_mm2": 21.6
+   }
+  ]
+ },
+ "led_leaf": {
+  "board": "engineering/a7/electronics/led_leaf/led_leaf.kicad_pcb",
+  "layers": 2,
+  "stackup": [
+   {
+    "kind": "copper",
+    "layer": "F.Cu",
+    "thickness_mm": 0.035
+   },
+   {
+    "kind": "core",
+    "material": "FR4",
+    "thickness_mm": 0.73,
+    "epsilon_r": 4.5
+   },
+   {
+    "kind": "copper",
+    "layer": "B.Cu",
+    "thickness_mm": 0.035
+   }
+  ],
+  "laminate_sum_mm": 0.8,
+  "core_status": "calculated manufacturing target .8-2*.035; ordinary 2-layer FR4, exact core/finish construction to be reconciled at final factory DFM; not a measured manufacturer core value",
+  "local_copper": []
+ },
+ "mask": {
+  "semantics": "F.Mask and B.Mask graphics are openings, not retained mask",
+  "pad_margin_mm": 0.15,
+  "via_margin_mm": 0.2,
+  "silk_margin_mm": 0.15,
+  "reason": "retain only pad solder dams/wicking barriers, via tents and polarity/assembly silk backing; exact rectangles recorded per board",
+  "paste": "normal footprint apertures only; no new paste graphics",
+  "verification": "compare exported positive mask Gerbers to these protected rectangles and pad apertures; fail if opening crosses a protected via hole",
+  "ink_thickness_mm": 0.01,
+  "ink_thickness_status": "JLC published minimum, used only as preview/stackup convention; local coating not measured"
+ },
+ "sources": [
+  {
+   "url": "https://jlcpcb.com/impedance",
+   "retrieved_utc": "2026-11-16T21:02:55.057425+00:00",
+   "api_url": "https://jlcpcb.com/api/overseas-core-platform/shoppingCart/getImpedanceTemplateSettings",
+   "method": "POST; public read-only stackup query, same as 0.8mm selector in manufacturer page",
+   "request": {
+    "stencilLayer": 4,
+    "stencilPly": 0.8,
+    "cuprumThickness": 1,
+    "insideCuprumThickness": 0.5
+   },
+   "response_sha256": "35d22daab40c3a7a66cc6cc3310933ef8bafddb804c5bb7fe41c99aa2b906d17",
+   "locator": "data item templateName/showName JLC04081H-3313, code20211110052748; iaminationList ordered by sort",
+   "normalized_extract": "1oz outer35um; 3313 prepreg99.4um each side; inner15.2um each; core500um; compressionThickness799.2um",
+   "raw_retention": "not committed to public repository; local retrieval cache only; source metadata and inspected values retained here"
+  },
+  {
+   "url": "https://jlcpcb.com/capabilities/Capabilities",
+   "locator": "Thickness Tolerance(Thickness<1.0mm); copper; soldermask; drill/via rows",
+   "normalized_extract": "0.8mm finished .7-.9mm; multilayer outer1oz/default inner0.5oz; mask opening-to-neighbor trace .09mm, green1oz mask bridge .10mm; prefer via drill .2mm; 0.5/.2mm via is within published capability; mask ink>=10um"
+  },
+  {
+   "url": "https://www.diodes.com/assets/Datasheets/AP63200-AP63201-AP63203-AP63205.pdf",
+   "document": "DS41326 Rev3-2 November2024",
+   "physical_pdf_page_index": 14,
+   "printed_page": "15 of18",
+   "sha256": "ef99daa3789d835bc025dfcb4c605c5c2e6d3e7223e86d40b33e6b497ea5a722",
+   "normalized_extract": "bottom GND copper and ground-side capacitor vias recommended for thermal spreading; minimize VIN-cap distance"
+  }
+ ],
+ "remaining": [
+  "Actual FR4 translucency and diffusion are unmeasured.",
+  "No optical throughput, temperature, electrical hardware, assembly, or factory DFM PASS is claimed.",
+  "Loss tangent .02 in native stackup is an explicit modelling assumption; not a guarantee or controlled impedance acceptance."
+ ]
+}

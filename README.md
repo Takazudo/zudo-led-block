@@ -5,7 +5,7 @@ A narrow Eurorack art light that sits beside Kumiko blank panels: a clear cast-P
 Documentation (Japanese): https://zudo-led-block.zudolab.dev/ — **not live yet**; production hosting is configured but disabled until activated (see [hosting](doc/src/content/docs/project/hosting.mdx)).
 
 > [!IMPORTANT]
-> **A7 is a provisional digital design, not a manufacturing release.** Digital implementation is complete: the controller is routed and digitally checked, with SW1 HX MSK13C02 / C5149819. The approved first prototype is **two 3HP FR-4 modules**; dated order exports are prepared under `engineering/a7/jlc-package/order/2026-11-13/`. Order-form review, ordering and physical qualification remain. PR #82 records approval bound to the current identities. 2HP and transparent PET are optional unresolved studies.
+> **A7 is being redesigned under [#87](https://github.com/Takazudo/zudo-led-block/issues/87), not released for manufacture.** The owner’s 2026-11-17 JST direction withdraws transparent PET/FPC and uses **0.8 mm rigid FR-4** for LED leaves and controller, with both-side mask openings except necessary protection and no broad GND planes on any layer. Evaluate 2HP first; use 3HP if defensible tolerance/assembly evidence is unavailable, retaining the 0.8 mm policy. The previous 0.6 mm leaf / 1.6 mm controller, their digital checks and `order/2026-11-13/` approvals are historical identities, not validation or ordering authority for this redesign. Optical transmission and all physical qualification remain unmeasured.
 >
 > **Historical A5 is not released for manufacture.** The controller PCB is placed but **unrouted** (130 unconnected items, courtyard overlaps J3-H1 and J3-C7). Harness routing and installed fit are unresolved, and no physical electrical, optical, thermal, print or load qualification has happened. Passing CI is not an electronics or manufacturing approval.
 
@@ -15,7 +15,7 @@ Documentation (Japanese): https://zudo-led-block.zudolab.dev/ — **not live yet
 
 Run `pnpm dev`, then open `/docs/project/a7-preview/` (embedded) or `/a7-preview/` (standalone). For the built site: `pnpm build && pnpm --dir doc preview`. No live preview is claimed while hosting is disabled.
 
-The viewer uses the existing GLBs with camera presets, orbit/pan/zoom, presentation-only explosion, visibility and named-part inspection. Sources and licences: [preview/a7/README.md](preview/a7/README.md). The [current A7 status](doc/src/content/docs/project/a7.mdx) and [next actions](doc/src/content/docs/project/next-actions.mdx) distinguish digital completion from remaining hardware work.
+The viewer uses the existing GLBs with camera presets, orbit/pan/zoom, presentation-only explosion, visibility and named-part inspection. Sources and licences: [preview/a7/README.md](preview/a7/README.md). The [current A7 status](doc/src/content/docs/project/a7.mdx) and [next actions](doc/src/content/docs/project/next-actions.mdx) distinguish the new redesign, historical digital results and remaining physical work.
 
 ## Repository map
 

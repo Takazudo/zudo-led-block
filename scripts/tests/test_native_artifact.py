@@ -14,6 +14,7 @@ m = importlib.util.module_from_spec(SPEC)
 SPEC.loader.exec_module(m)
 
 BOARD = 'b' * 64
+LEAF = 'a' * 64
 IMAGE = 'kicad/kicad:10.0.8@sha256:' + 'c' * 64
 HEAD, MERGE = '1' * 40, '2' * 40
 
@@ -29,23 +30,26 @@ def artifact(status='PASS', failures=(), **over):
     xb = b'{"schema": "zudo-led-block/a7-fixture-geometry/1"}'
     s = {'status': status, 'failures': list(failures), 'board_result': 'candidate: a7_controller',
          'profile': {'kind': 'revision', 'path': m.PROFILE, 'name': 'a7-controller'}, 'image': IMAGE,
-         'tested_board_sha256': {'a7_controller': BOARD}, 'plan_sha256': h(pb),
+         'tested_board_sha256': {'a7_controller': BOARD, 'a7_led_leaf': LEAF}, 'plan_sha256': h(pb),
          'identity': {'pr_head_sha': HEAD, 'checkout_head': MERGE, 'github_run_id': '7', 'github_run_attempt': '1',
                       'workflow_ref': 'x/ci.yml@refs/pull/1/merge', 'workflow_sha': MERGE, 'tool_sha256': {'ci': 'd'}},
          'evidence': {'files': {'a7_controller/board_facts.json': h(fb), 'a7_controller/board_geometry.json': h(gb),
                                 'a7_controller/fixture_geometry.json': h(xb)}}}
+    lf = json.dumps(dict(facts, board_sha256=LEAF)).encode()
+    s['evidence']['files'].update({'a7_led_leaf/board_facts.json': h(lf), 'a7_led_leaf/board_geometry.json': h(gb)})
     for k, v in over.items():
         s[k] = v
     return {'summary.json': json.dumps(s).encode(), 'plan.json': pb,
             'evidence/a7_controller/board_facts.json': fb, 'evidence/a7_controller/board_geometry.json': gb,
-            'evidence/a7_controller/fixture_geometry.json': xb}
+            'evidence/a7_controller/fixture_geometry.json': xb,
+            'evidence/a7_led_leaf/board_facts.json': lf, 'evidence/a7_led_leaf/board_geometry.json': gb}
 
 
 def run(members, **kw):
     kw.setdefault('expect_revision', HEAD)
     kw.setdefault('expect_run_id', '7')
     kw.setdefault('expect_run_attempt', '1')
-    return m.classify(members, board_sha=BOARD, image=IMAGE, **kw)
+    return m.classify(members, board_sha=BOARD, image=IMAGE, leaf_sha=LEAF, **kw)
 
 
 class NativeArtifactTests(unittest.TestCase):
@@ -88,6 +92,13 @@ class NativeArtifactTests(unittest.TestCase):
         a = artifact(profile={'kind': 'infrastructure', 'path': 'scripts/tests/fixtures/native/profile.json'},
                      board_result='NONE: infrastructure run on fixtures; this is not an A7 (or any) board result',
                      status='INFRASTRUCTURE_PASS')
+        self.assertEqual(run(a)['status'], 'REJECTED')
+
+    def test_old_leaf_substitution_rejected(self):
+        a = artifact()
+        s = json.loads(a['summary.json'])
+        s['tested_board_sha256']['a7_led_leaf'] = 'f' * 64
+        a['summary.json'] = json.dumps(s).encode()
         self.assertEqual(run(a)['status'], 'REJECTED')
 
     def test_wrong_image_rejected(self):

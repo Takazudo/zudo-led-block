@@ -30,7 +30,7 @@ CANDIDATES = ROOT / 'engineering/a7/fixture/candidate-references.json'
 A5_ENVELOPES = ROOT / 'engineering/a5/electronics/placement_and_connectivity.json'
 
 BOARD = (0.0, 0.0, 16.2, 62.9)
-BOARD_THICKNESS = 1.6
+BOARD_THICKNESS = 0.8
 CARRIER_BOARD_X = (-10.2, 26.4)  # plate footprint in board X (B view: carrier x = 16.2 - board x)
 CARRIER_Y = (13.0, 67.0)
 CARRIER_THICKNESS = 5.0
@@ -115,7 +115,7 @@ RULES = {
     'pressure_plate_part_clearance_mm': 0.5,
     'resultant_margin_mm': 0.5,
     'clamp_force_margin_factor': 2.0,
-    'board_thickness_tolerance_mm': 0.16,
+    'board_thickness_tolerance_mm': 0.1,
     'plunger_setting_tolerance_mm': 0.1,
     'plate_stack_acceptance_tolerance_mm': 0.05,
     'plunger_force_acceptance_band': 0.2,
@@ -598,7 +598,7 @@ def lead_depth(key):
 
 
 def lead_protrusion_at_nominal_board(key):
-    """Worst-case protrusion below the B face for the nominal 1.6 mm board (calculation; board tolerance not sourced)."""
+    """Worst-case protrusion below the B face for the nominal 0.8 mm board (calculation; JLCPCB finished thickness +/-0.1 mm)."""
     m = lead_projection_max(key)
     return None if m is None else round(m - BOARD_THICKNESS, 6)
 
@@ -838,6 +838,7 @@ def design(geometry: dict, probes: list[dict], pop: dict | None = None) -> dict:
         return {'d_min': d_min, 'd_max': d_max, 'plate_defl': plate_defl, 'board_sag': sag, 'fmin': fmin_each, 'fmax': fmax_each, 'cases': cases,
                 'net_margin': min(c['board_net_load_point_margin_mm'] for c in cases)}
     best = None
+    rejected = None
     pitch = 2 * r_thread + MIN_WALL
     for k in (2, 3):
         for sel in __import__('itertools').combinations(thinned, k):
@@ -845,13 +846,20 @@ def design(geometry: dict, probes: list[dict], pop: dict | None = None) -> dict:
                 continue
             ev = evaluate(sel)
             if k * ev['fmin'] < s_total:
+                # Keep the least deficient candidate for a FAILED diagnostic design.
+                # A failed redesign must not silently reuse the previous board's PASS.
+                if rejected is None or k * ev['fmin'] > len(rejected[0]) * rejected[1]['fmin']:
+                    rejected = (sel, ev)
                 continue
             if best is None or ev['net_margin'] > best[1]['net_margin'] + 1e-9:
                 best = (sel, ev)
         if best is not None and best[1]['net_margin'] >= RULES['resultant_margin_mm']:
             break
+    force_feasible = best is not None
     if best is None:
-        raise ValueError(f'no plunger layout on free F-face area reaches the required total force ({len(sites)} sites)')
+        best = rejected
+    if best is None:
+        raise ValueError(f'no geometrically legal plunger layout ({len(sites)} sites)')
     tri, ev = [list(q) for q in best[0]], best[1]
     hold_n = len(tri)
     f_min_total = round(hold_n * ev['fmin'], 6)
@@ -875,8 +883,9 @@ def design(geometry: dict, probes: list[dict], pop: dict | None = None) -> dict:
                'probe_span_kinds': [k[1] for k in kinds_pr], 'plunger_load_N': load_pl, 'deflection_under_plungers_mm': defl_pl,
                'probe_spans_mm': spans_pr, 'probe_load_N': p_max, 'deflection_under_probes_mm': defl_pr,
                'strip_width_mm': strip, 'board_thickness_nominal_mm': BOARD_THICKNESS, 'board_thickness_minimum_mm': t_min,
-               'board_thickness_basis': 'PROJECT-CHOICE fabrication requirement 1.6 +/-0.16 mm (+/-10 %); not sourced, the fabricator is '
-                                        'not selected. Bending uses the minimum thickness',
+               'board_thickness_basis': 'JLCPCB published finished thickness tolerance: 0.8 +/-0.1 mm; '
+                                        'https://jlcpcb.com/capabilities/Capabilities. Bending uses 0.7 mm; '
+                                        'final order specification and material modulus still require confirmation',
                'flexural_modulus_MPa': e_mod,
                'flexural_modulus_class': 'ASSUMED for the board: its laminate is not sourced (fabricator not selected). The sourced values '
                                          'below are typical values of other FR-4 class laminates, given for comparison; they do not bound '
@@ -918,6 +927,8 @@ def design(geometry: dict, probes: list[dict], pop: dict | None = None) -> dict:
                 f"{hold_n} spring plungers with POM thrust pins, threaded into the plate, press the free F-face area beside the probe field",
         'control': 'displacement: each plunger compression is fixed by the stop height, the board thickness and the plunger setting, so each '
                    'plunger force lies in its own band independently of the others; there is no spring balance',
+        'layout_status': 'FORCE_FEASIBLE' if force_feasible else 'REJECTED_INSUFFICIENT_FORCE',
+        'search_free_sites': len(sites),
         'contacts_board_mm': tri, 'contact_diameter_mm': pl['pin_diameter_mm'], 'plunger_body_diameter_mm': pl['body_diameter_mm'],
         'probe_resultant_board_mm': [round(cx, 6), round(cy, 6)],
         'guides': guides, 'stops': guides, 'stop_line_y_mm': ys,

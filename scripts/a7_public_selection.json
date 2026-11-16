@@ -30,11 +30,6 @@
       "source": "engineering/a7/mechanical/exports/2hp/verification.json",
       "sha256": "63cf1224e915fde60cdf6e4dc7c3b9b87f45cb2f5dae2ac3023c545f202e73d8",
       "bytes": 43873
-    },
-    {
-      "source": "engineering/a7/mechanical/exports/3hp_pet/verification.json",
-      "sha256": "1df0297f7d40091febfdb71ece967ec8012bbe004c4af4990524552f8f2ff956",
-      "bytes": 44071
     }
   ],
   "files": [
@@ -44,7 +39,7 @@
       "bytes": 1662464,
       "target": "3hp.glb",
       "variant": "3hp",
-      "label": "3HP FR-4 — 現在の試作候補"
+      "label": "3HP 0.8 mm rigid FR-4 — 採用案（実物未評価）"
     },
     {
       "source": "engineering/a7/mechanical/exports/2hp/zudo_led_block_A7_2hp_assembled.glb",
@@ -52,15 +47,7 @@
       "bytes": 1656012,
       "target": "2hp.glb",
       "variant": "2hp",
-      "label": "2HP — unresolved study"
-    },
-    {
-      "source": "engineering/a7/mechanical/exports/3hp_pet/zudo_led_block_A7_3hp_pet_assembled.glb",
-      "sha256": "fa519aafad4a351a1680765dd393e8db95ccb3da168e8205465111487f8511e0",
-      "bytes": 1678056,
-      "target": "3hp_pet.glb",
-      "variant": "3hp_pet",
-      "label": "3HP PET — exploratory study"
+      "label": "2HP 0.8 mm — 未採用・公差/組立条件未成立"
     },
     {
       "source": "engineering/a7/mechanical/exports/3hp/view_A7_3hp_side.png",
@@ -138,7 +125,6 @@
     "setting_switch_HX_MSK13C02": "controller",
     "controller_PicoBlade_mated": "controller",
     "controller_SH4_mated": "controller",
-    "spine_PETG": "supports",
     "M2_front_washer_20.5": "supports",
     "M2_front_screw_20.5": "supports",
     "M2_nut_20.5": "supports",
@@ -152,8 +138,6 @@
     "IDC_socket_REFERENCE_overlap6": "harness",
     "adapter_PicoBlade_mated": "harness",
     "IDC_ribbon_R3_side_exit_SCENARIO": "harness",
-    "left_leaf_pcb_A5": "leaves",
-    "right_leaf_pcb_A5": "leaves",
     "leaf_bond_line_reserve": "leaves",
     "left_J1_SH4_mated": "leaves",
     "left_J2_SH4_mated": "leaves",
@@ -195,10 +179,7 @@
     "leaf_link_pin_2_A5": "harness",
     "leaf_link_pin_3_A5": "harness",
     "leaf_link_pin_4_A5": "harness",
-    "left_leaf_film_PET": "leaves",
-    "left_leaf_OCA": "leaves",
-    "right_leaf_film_PET": "leaves",
-    "right_leaf_OCA": "leaves",
-    "leaf_carrier_PC": "supports"
+    "left_leaf_pcb_A7": "leaves",
+    "right_leaf_pcb_A7": "leaves"
   }
 }

@@ -5,10 +5,10 @@ Input is the copper geometry that `a7_board.py build` reads back from pcbnew (ge
 Output is routes.json (tracks and vias) for `a7_board.py apply`. Nothing here touches the repository;
 the result is a routing proposal that the native DRC in the pinned KiCad image accepts or rejects.
 
-Model: 0.1 mm grid; routing layers F.Cu, In2.Cu and B.Cu (In1.Cu is the solid GND plane); 45-degree
+Model: 0.1 mm grid; routing layers F.Cu, In1.Cu, In2.Cu and B.Cu (no global planes); 45-degree
 moves; vias only where the via disk clears every other net on every layer. Clearances are the board
-rules (0.15 copper, 0.2 hole and edge) plus ROUTER_MARGIN for grid discretisation. GND SMD pads each get
-a short stub to a via into the In1 plane; every other net is routed as a tree by repeated A* from the
+rules (0.15 copper, 0.2 hole and edge) plus ROUTER_MARGIN for grid discretisation. All nets, including
+every SMD and THT GND pad, are routed as a tree by repeated A* from the
 connected part to the nearest unconnected pad.
 
 Congestion is resolved by negotiation (PathFinder): pads, holes and the board edge are hard, but another
@@ -41,8 +41,7 @@ VIA_D, VIA_DRILL = 0.5, 0.2
 W_SIGNAL, W_POWER = 0.2, 0.3
 POWER = {'/+5V', '/VLED', '/+12V_RAW', '/+12V_PROT', '/-12V_RAW', '/-12V_PROT', '/BUCK_SW', '/+3V3', '/GND'}
 GND = '/GND'
-PLANE = 'In1.Cu'
-ROUTE_LAYERS = ['F.Cu', 'In2.Cu', 'B.Cu']
+ROUTE_LAYERS = ['F.Cu', 'In1.Cu', 'In2.Cu', 'B.Cu']
 VIA_COST = 6.0
 INNER_COST = 1.0
 HARD = -1
@@ -51,19 +50,14 @@ HARD = -1
 ESCAPE_PARTS = {'U1': 1.2, 'U5': 0.8}
 ESCAPE_COST = 3.0
 # Layout review (PR #30): no signal vias between the pads under U1's body (half-size of the via-free square around
-# its centre; U1.4 GND may stitch to the plane there), and the ADC input stays out of U1's footprint on every layer
+# its centre; U1.4 GND may connect locally there), and the ADC input stays out of U1's footprint on every layer
 # except its own pad.
 NO_VIA_UNDER = {'U1': 1.6}
 KEEP_OUT_OF = {'/CV_ADC': ('U1', -0.2)}
-# Buck hot-loop GND pads get more than one via into the In1 plane.
-GND_VIAS = {('U2', '4'): 2, ('C1', '2'): 2, ('C2', '2'): 2}
-# Revision 2 review: these GND pads stitch to the plane within this radius (pad centre to via centre, mm).
-GND_VIA_NEAR = {('U7', '2'): 0.9, ('C17', '2'): 0.9}
-# Revision 2 review: routed copper of these net pairs keeps this edge-to-edge distance (mm) in plan view wherever the
-# layers couple, so the filtered ADC input does not run beside the switched LED supply. F.Cu is shielded from In2/B by
-# the In1 GND plane; In2 and B have no plane between them. Vias span every layer.
+# Without a shielding plane every copper layer couples in plan view. Preserve the
+# reviewed 1.2mm separation also across layers; native connectivity is a separate gate.
 SEPARATE = {('/CV_FILTER', '/VLED'): 1.2}
-COUPLED = {'F.Cu': {'F.Cu'}, 'In2.Cu': {'In2.Cu', 'B.Cu'}, 'B.Cu': {'In2.Cu', 'B.Cu'}}
+COUPLED = {layer: set(ROUTE_LAYERS) for layer in ROUTE_LAYERS}
 PRES0, PRES_MULT, HIST_INC = 0.5, 1.6, 1.0
 MAX_ITER = 60
 MAX_POPS = 2000000
@@ -438,50 +432,30 @@ class Router:
             if cls not in facs:
                 facs[cls] = self.factors(net, cls)
             return facs[cls]
-        classes = (('p', W_POWER), ('s', W_SIGNAL)) if net in POWER else (('s', W_SIGNAL),)
-        if net == GND:
-            for p in self.pads:
-                if p['net'] != GND or p['drill']:
-                    continue
-                near = GND_VIA_NEAR.get((p['ref'], p['pad']))
-                vt = None
-                if near is not None:
-                    X, Y = np.meshgrid(self.g.xs, self.g.ys)
-                    vt = np.hypot(X - p['at'][0], Y - p['at'][1]) <= near
-                for k in range(GND_VIAS.get((p['ref'], p['pad']), 1)):
-                    for cls, w in classes:
-                        src = self.pad_cells(p, cls, nid)
-                        path = self.search(GND, src, [], cls, fac(cls), want_via_target=True, reuse_vias=k == 0,
-                                           via_target=vt) if src else None
-                        if path is not None:
-                            self.commit(GND, path, w, cls, end_via=True)
-                            break
-                    else:
-                        fails.append(f"{GND}: {p['ref']}.{p['pad']} has no via site ({k + 1})")
-        else:
-            pads = sorted((p for p in self.pads if p['net'] == net), key=lambda p: (p['at'][1], p['at'][0], p['ref'], p['pad']))
-            cells = {c: [self.pad_cells(p, c, nid) for p in pads] for c in ('p', 's')}
-            tree = set(cells['s'][0]) | set(cells['p'][0])
-            todo = list(range(1, len(pads)))
-            while todo:
-                path = None
-                for cls, w in classes:
-                    targets = [c for k in todo for c in cells[cls][k]]
-                    pas = [self.passable(cls, l, nid) for l in ROUTE_LAYERS]
-                    src = sorted(c for c in tree if pas[c[0]][c[1], c[2]])
-                    if targets and src:
-                        path = self.search(net, src, targets, cls, fac(cls))
-                    if path is not None:
-                        break
-                if path is None:
-                    fails.append(f"{net}: cannot reach {[pads[k]['ref'] + '.' + pads[k]['pad'] for k in todo]}")
+        classes = (('p', W_POWER),) if net == GND else ((('p', W_POWER), ('s', W_SIGNAL)) if net in POWER else (('s', W_SIGNAL),))
+        pads = sorted((p for p in self.pads if p['net'] == net), key=lambda p: (p['at'][1], p['at'][0], p['ref'], p['pad']))
+        cells = {c: [self.pad_cells(p, c, nid) for p in pads] for c in ('p', 's')}
+        tree = set(cells['s'][0]) | set(cells['p'][0])
+        todo = list(range(1, len(pads)))
+        while todo:
+            path = None
+            for cls, w in classes:
+                targets = [c for k in todo for c in cells[cls][k]]
+                pas = [self.passable(cls, l, nid) for l in ROUTE_LAYERS]
+                src = sorted(c for c in tree if pas[c[0]][c[1], c[2]])
+                if targets and src:
+                    path = self.search(net, src, targets, cls, fac(cls))
+                if path is not None:
                     break
-                self.commit(net, path, w, cls)
-                end = path[-1]
-                for k in [k for k in todo if end in set(cells['s'][k]) or end in set(cells['p'][k])]:
-                    todo.remove(k)
-                    tree |= set(cells['s'][k]) | set(cells['p'][k])
-                tree |= set(path)
+            if path is None:
+                fails.append(f"{net}: cannot reach {[pads[k]['ref'] + '.' + pads[k]['pad'] for k in todo]}")
+                break
+            self.commit(net, path, w, cls)
+            end = path[-1]
+            for k in [k for k in todo if end in set(cells['s'][k]) or end in set(cells['p'][k])]:
+                todo.remove(k)
+                tree |= set(cells['s'][k]) | set(cells['p'][k])
+            tree |= set(path)
         self.place(net)
         return fails
 

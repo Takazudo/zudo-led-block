@@ -9,7 +9,7 @@
   },
   "default_variant": "3hp",
   "width_decision": {
-    "working_candidate": "3hp centred, 1.6 mm FR-4, untrimmed leads",
+    "working_candidate": "3hp centred, 0.8 mm FR-4, untrimmed leads",
     "working_verdict": "FEASIBLE ON PAPER",
     "open_candidate": "2hp offset 0.6 mm toward the body side, 0.8 mm FR-4, trimmed leads",
     "open_verdict": "UNRESOLVED",
@@ -50,10 +50,10 @@
     },
     "3hp": {
       "panel_width": 14.9,
-      "pcb_thickness": 1.6,
+      "pcb_thickness": 0.8,
       "leads": "untrimmed",
       "pcb_assembly_x": [
-        2.85,
+        3.65,
         4.45
       ],
       "component_face_height_budget": 10.15,
@@ -232,7 +232,7 @@
       ],
       "assembly_y": [
         57.425,
-        78.193
+        78.178
       ],
       "assembly_z": [
         11.6,
@@ -244,7 +244,7 @@
       ],
       "board_y": [
         8.925,
-        29.693
+        29.678
       ],
       "reason": "SH4 header and the returning LED harness lie over the component face"
     },
@@ -594,14 +594,14 @@
     ],
     "margins": {
       "2hp": {
-        "worst": 0.07,
+        "worst": 0.05,
         "nominal": 0.8,
-        "jack_lead_worst": -0.33,
+        "jack_lead_worst": -0.35,
         "never_beyond_jack_lead_tips": true
       },
       "3hp": {
-        "worst": 1.14,
-        "nominal": 1.95,
+        "worst": 2.0,
+        "nominal": 2.75,
         "jack_lead_worst": 0.1,
         "never_beyond_jack_lead_tips": true
       }

@@ -114,7 +114,7 @@ jobs:
         run: python3 -m unittest -v scripts/tests/test_a7_r2_mechanical.py
       - name: A7 evidence and preparation negative controls (blocked reports remain valid)
         run: |
-          python3 -m unittest scripts/tests/test_private_resources.py scripts/tests/test_a7_e2_evidence.py scripts/tests/test_a7_fixture.py scripts/tests/test_a7_fixture_relief.py scripts/tests/test_a7_procurement.py scripts/tests/test_a7_readiness.py scripts/tests/test_a7_jlc_package.py scripts/tests/test_a7_panel.py
+          python3 -m unittest scripts/tests/test_private_resources.py scripts/tests/test_a7_e2_evidence.py scripts/tests/test_a7_fixture.py scripts/tests/test_a7_fixture_relief.py scripts/tests/test_a7_procurement.py scripts/tests/test_a7_readiness.py scripts/tests/test_a7_jlc_package.py scripts/tests/test_a7_panel.py scripts/tests/test_a7_optical_manufacturing.py scripts/tests/test_a7_optical_pcb.py scripts/tests/test_a7_optical_geometry.py
           python3 -O -m unittest scripts/tests/test_a7_readiness.py
           python3 scripts/a7_fixture.py --check
           python3 scripts/a7_fixture_geometry.py --check
@@ -364,9 +364,9 @@ jobs:
             ${{ runner.temp }}/a7-panels/README-PREPARED-ROUTE-NOT-FOR-ORDER.txt
           retention-days: 7
           if-no-files-found: error
-      - name: A7 bonded PET leaf profile and interface check (A5 leaf circuit and copper; not a PET approval)
-        timeout-minutes: 10
-        run: python3 scripts/a7_pet_leaf_check.py --out "$RUNNER_TEMP/a7-pet-leaf"
+      - name: A7 optical FR4 source identity, stackup, mask and local copper
+        timeout-minutes: 2
+        run: python3 scripts/a7_optical_check.py
       - name: Checkpoint and fixtures left unmodified, no owned container left
         if: always()
         timeout-minutes: 1
@@ -376,7 +376,6 @@ jobs:
           test ! -s "$RUNNER_TEMP/native-receipt/status.txt"
           test -z "$(docker ps -aq --filter label=zudo-led-block.native-gate)"
           test -z "$(docker ps -aq --filter label=zudo-led-block.a7-route-check)"
-          test -z "$(docker ps -aq --filter label=zudo-led-block.a7-pet-leaf-check)"
           test -z "$(docker ps -aq --filter label=zudo-led-block.a7-jlc-package)"
           test -z "$(docker ps -aq --filter label=zudo-led-block.a7-panel)"
       - name: Summary
@@ -427,19 +426,6 @@ jobs:
               print(f"  - FAIL: {f}")
           print("The review-aid artifact (Gerber, drill, positions) is not a release output and must not be ordered from.")
           PY
-          python3 - "$RUNNER_TEMP/a7-pet-leaf/summary.json" >> "$GITHUB_STEP_SUMMARY" <<'PY'
-          import json, sys
-          try:
-              s = json.load(open(sys.argv[1]))
-          except (OSError, ValueError) as e:
-              print(f"### A7 bonded PET leaf check: NO SUMMARY ({e}) - treated as failure"); sys.exit(0)
-          print(f"### A7 bonded PET leaf profile and interface check: {s.get('status')}")
-          for k, v in (s.get('verdicts') or {}).items():
-              print(f"- {k}: {v}")
-          for f in s.get('failures', [])[:20]:
-              print(f"  - FAIL: {f}")
-          print("NOT_MET is a finding about the PET variant. FR-4 stays the default leaf; this is not a PET approval or a manufacturing release.")
-          PY
       - name: Final receipt (replaces STARTED_INCOMPLETE with the gate's own final status)
         if: always()
         timeout-minutes: 1
@@ -480,9 +466,10 @@ jobs:
             ${{ runner.temp }}/a7-gate/evidence/a7_controller/board_facts.json
             ${{ runner.temp }}/a7-gate/evidence/a7_controller/board_geometry.json
             ${{ runner.temp }}/a7-gate/evidence/a7_controller/fixture_geometry.json
+            ${{ runner.temp }}/a7-gate/evidence/a7_led_leaf/board_facts.json
+            ${{ runner.temp }}/a7-gate/evidence/a7_led_leaf/board_geometry.json
             ${{ runner.temp }}/a7-schematic/summary.json
             ${{ runner.temp }}/a7-route-check/summary.json
-            ${{ runner.temp }}/a7-pet-leaf/summary.json
           retention-days: 7
           if-no-files-found: warn
 

@@ -1,5 +1,30 @@
 # A7: continue here
 
+## 現行方針: 0.8 mm rigid FR-4 への設計変更（2026-11-17 JST）
+
+親 [#15](https://github.com/Takazudo/zudo-led-block/issues/15) の新しい変更を [#87](https://github.com/Takazudo/zudo-led-block/issues/87) で追跡します。透明PCBをrigid FR-4の代替と考えていましたが、実際は薄いflex PCBだったため、透明PET/FPC案は撤回しました。普通のrigid FR-4基材のくすんだ半透明性を試します。透過率、拡散、実物の見え方は未測定です。
+
+- LED leafとcontrollerは公称 **0.8 mm**。完成板厚の評価範囲は **0.7–0.9 mm**。両面maskは必要箇所以外を開口し、内層も含め広いGND面を撤去します。必要な配線、pad、via、局所銅とmaskの位置・理由を記録し、全銅層と表裏maskのGerberを確認します。
+- **2HP（9.8 mm）を優先**して公差・配線・組立条件を評価し、成立根拠を確保できなければ **3HP（14.9 mm）**へ進みます。3HPでも0.8 mm、最小mask、広いGND面なしを維持します。旧「最も厚い成立板」の規則は適用しません。
+- 8 RGB LED、左右各4個の独立2stream、共通電流制限VLED、passive CV IN→THRU、MCUのpin/伝達関数/既存mode、前面128.5 mm・cast PMMA 2 mm・奥行30 mm目標、工場実装と完成ケーブルを維持します。
+- 新leafの正本はA5外に設けます。旧leaf 0.6 mm、新leaf 0.8 mm、旧controller 1.6 mmを混同しません。leaf積層は0.8×2＋bond 0.1＝**1.70 mm nominal**で、公差・支持・治具・機構・製造入力・プレビューを再検証します。
+- この指示は設計方針の承認です。旧PCBのnative PASS、治具PASS、試作ルート承認、`order/2026-11-13/`は旧identityに限る履歴で、新設計に付け替えません。新設計の統合検証と製造releaseは未完了です。
+
+PET供給元への質問は履歴として保管し、現行FR-4案の前提条件・次作業から外します。実機の透過性・熱・電気動作・組立・治具接触・収まりは別の物理作業です。A5は不変、A6 #7 / draft PR #14は保留。発注、supplier連絡、書込み・通電、別deploy、hosting/security設定変更は行いません。
+
+## 次に進める順序
+
+1. #87 のbranchでPCB、実stackup、全層GND接続、mask保護領域を確定し、2HP/3HPの選定根拠を記録する。
+2. 新leafをnative gate/interfaceに追加し、ERC/parity/DRC/未接続/refill/再生成保護とrouting再現を検証する。旧In1 GND面を前提にした電気レビューは引き継がない。
+3. 新PCBから機構・治具を再生成し、荷重・たわみ・接触・支持・干渉を再評価する。電源adapterの変更要否を光路と収まりで判断する。
+4. BOM/CPL、panel、Gerber/drill、procurement/readiness、プレビューの全層銅形状とhashを同じ最終版へ揃える。過去の承認の対象を明示する。
+5. 独立レビューとcurrent-head CIを完了し、repository policyを満たしたPRをmainへmergeする。発注・物理評価・製造releaseは未実施として残す。
+
+以下は**変更前の旧設計の履歴**です。記述中の「current」「complete」「次作業」「承認」は当時の版に限ります。新設計の状態は上の方針と#87のrevision付き証跡で判断します。
+
+## 旧設計の継続記録（2026-11-13〜16）
+
+
 Durable hand-off for the A7 structural redesign ([#15](https://github.com/Takazudo/zudo-led-block/issues/15)).
 Read this first, then [`evidence-index.md`](evidence-index.md). The Japanese status pages on the docs site
 (`doc/src/content/docs/project/a7.mdx`, `next-actions.mdx`) say the same thing for readers.

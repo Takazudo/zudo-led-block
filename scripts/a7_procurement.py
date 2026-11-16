@@ -26,7 +26,7 @@ LEAF_LINK_NET_ROLES = {'DATA_OTHER': 'DATA_IN', 'DATA_IN': 'DATA_OTHER'}
 CLASSES = ('CLOUD_DIGITAL', 'OWNER_DECISION', 'ACCESS_EVIDENCE_HOLD', 'PHYSICAL_ONLY')
 BOARDS = {
  'controller': (1, 'engineering/a7/verification/schematic/netlist.xml', 'engineering/a7/electronics/controller/controller.kicad_pcb'),
- 'led_leaf': (2, 'engineering/a5/integration/native_schematic/led_leaf/netlist.xml', 'engineering/a5/electronics/native/led_leaf/led_leaf.kicad_pcb'),
+ 'led_leaf': (2, 'engineering/a7/verification/led_leaf/netlist.xml', 'engineering/a7/electronics/led_leaf/led_leaf.kicad_pcb'),
  'power_adapter': (1, 'engineering/a5/integration/native_schematic/power_adapter/netlist.xml', 'engineering/a5/electronics/native/power_adapter/power_adapter.kicad_pcb'),
 }
 
@@ -233,7 +233,7 @@ def build(root=ROOT):
  pmap = unique(placement['components'], 'ref')
  native_mounts = controller_mounts(root, placement['board_sha256'])
  inherited = {b['name']: b for b in read(root, A5POS)['boards']}
- inputs = [SWITCH_SOURCES, INV, PLACEMENT, LAYOUT, MECH, A5POS, 'engineering/a7/electronics/controller/controller.kicad_sch',
+ inputs = ['engineering/a7/verification/fab/optical-fr4.json', 'engineering/a7/electronics/led_leaf/led_leaf.kicad_sch', SWITCH_SOURCES, INV, PLACEMENT, LAYOUT, MECH, A5POS, 'engineering/a7/electronics/controller/controller.kicad_sch',
            HARNESS, 'engineering/a7/mechanical/build_a7_mechanical.py', NATIVE_GEOMETRY, OWNER_DECISIONS, SUPPLY_OBSERVATIONS,
            LISTING_PAGES, PRICE_AUDIT, CROSSWALK]
  switch_observation(root)
@@ -291,7 +291,7 @@ def build(root=ROOT):
              for m in ('SMD', 'THT') for side in ('F', 'B')}
   boards.append({'board':name,'multiplicity':mult,'assembly_process_per_board':process,'pcb':pcb,'pcb_sha256':sha(root,pcb),'netlist':netlist,'netlist_sha256':sha(root,netlist),
    'fitted_per_board':sum(r['quantity_per_board'] for r in rows if r['board']==name),
-   'inheritance':'A7 revision 2 authority' if name=='controller' else 'unchanged immutable A5 FR-4 design'})
+   'inheritance':'A7 optical R3 authority; historical approvals do not transfer' if name in ('controller', 'led_leaf') else 'unchanged immutable A5 FR-4 adapter design'})
  controller_process = boards[0]['assembly_process_per_board']
  if controller_process['THT_B'] or not (controller_process['SMD_F'] and controller_process['SMD_B']):
   raise ValueError('controller assembly sides changed; review the PCBA service requirement wording')

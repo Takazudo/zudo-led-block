@@ -18,7 +18,7 @@
       "3hp",
       "2hp"
     ],
-    "working_candidate": "3hp centred, 1.6 mm FR-4, untrimmed leads",
+    "working_candidate": "3hp centred, 0.8 mm FR-4, untrimmed leads",
     "working_verdict": "FEASIBLE ON PAPER",
     "open_candidate": "2hp offset 0.6 mm toward the body side, 0.8 mm FR-4, trimmed leads",
     "open_verdict": "UNRESOLVED",
@@ -27,12 +27,12 @@
       "body_side"
     ],
     "open_worst_margins": {
-      "lead_side": -0.33,
+      "lead_side": -0.35,
       "body_side": -0.15,
       "nut_front": 0.0
     },
     "confidence": "PROJECT-DECISION",
-    "source": "Width decision relayed by the project coordinator on 2026-11-08 after the R2 layout (PR #25, issue #17). Not a fit approval.",
+    "source": "Owner redesign 2026-11-17 JST, issue #87: prefer 2HP only when tolerance and assembly evidence establishes it; otherwise 3HP, retaining 0.8 mm rigid FR-4.",
     "reasons": [
       "selected 2HP arrangement has negative worst-corner lead-side and body-side margins",
       "PJ-324M jack-axis height is INFERRED, not manufacturer-confirmed (R1 Q1)",
@@ -49,12 +49,12 @@
       "pcb_thickness": 0.8,
       "worst_min": -0.25
     },
-    "statement": "3HP is the working candidate and the default for the generated artwork, supports and CAD. 2HP is not declared infeasible: the selected 2HP arrangement clears every nominal transverse margin, but its worst-corner margins stay negative, driven by the INFERRED jack-axis height and the ASSUMED lead trim and hole tolerances. It stays a fully parameterized open candidate and reopens on the evidence in the break-even table. The controller outline in Y-Z is common to both widths."
+    "statement": "3HP is the working candidate and the default for the generated artwork, supports and CAD. 2HP is not declared infeasible: the selected 2HP arrangement clears every nominal transverse margin, but its worst-corner margins stay negative, driven by the INFERRED jack-axis height and the ASSUMED lead trim and hole tolerances. It is an unadopted comparison; 3HP is selected under the 2026-11-17 JST owner fallback with 0.8 mm retained. The controller outline in Y-Z is common to both widths."
   },
   "candidates": {
-    "selection_rule_2hp": "Among 2HP offsets x PCB thicknesses with trimmed leads, keep only rows whose nominal margins are all >= 0 and whose nominal nut edge margin meets the R1 preferred 0.3 mm; pick the row with the largest worst-corner minimum hard margin, then the largest nominal minimum margin, then the thicker PCB.",
-    "selection_rule_3hp": "3HP centred with the thickest PCB option that is FEASIBLE ON PAPER with untrimmed leads (no factory trim dependency).",
-    "rows_meeting_2hp_filter": 31,
+    "selection_rule_2hp": "At fixed 0.8 mm, filter nominal margins >=0 and nominal nut edge >=0.3 mm, then maximize worst-corner minimum and nominal minimum; results retain unresolved source limitations.",
+    "selection_rule_3hp": "Fixed 0.8 mm rigid FR-4, centred 3HP with untrimmed leads; require FEASIBLE ON PAPER. Never select a thicker PCB.",
+    "rows_meeting_2hp_filter": 13,
     "selected_2hp": {
       "width_key": "panel_width_2hp",
       "panel_width": 9.8,
@@ -66,10 +66,10 @@
         "lead_side",
         "body_side"
       ],
-      "worst_min": -0.33,
+      "worst_min": -0.35,
       "nominal_min": 0.3,
       "worst": {
-        "lead_side": -0.33,
+        "lead_side": -0.35,
         "body_side": -0.15,
         "nut_front": 0.0,
         "panel_hole_web": 1.05
@@ -87,7 +87,7 @@
       "width_key": "panel_width_3hp",
       "panel_width": 14.9,
       "offset": 0.0,
-      "pcb_thickness": 1.6,
+      "pcb_thickness": 0.8,
       "leads": "untrimmed",
       "verdict": "FEASIBLE ON PAPER",
       "failing_at_worst": [],
@@ -112,7 +112,7 @@
         "width_key": "panel_width_3hp",
         "panel_width": 14.9,
         "offset": 0.0,
-        "pcb_thickness": 1.6,
+        "pcb_thickness": 0.8,
         "leads": "untrimmed",
         "verdict": "FEASIBLE ON PAPER",
         "failing_at_worst": [],
@@ -144,10 +144,10 @@
         "failing_at_worst": [
           "lead_side"
         ],
-        "worst_min": -0.93,
+        "worst_min": -0.95,
         "nominal_min": 0.1,
         "worst": {
-          "lead_side": -0.93,
+          "lead_side": -0.95,
           "body_side": 0.45,
           "nut_front": 0.6,
           "panel_hole_web": 1.65
@@ -171,10 +171,10 @@
         "failing_at_worst": [
           "lead_side"
         ],
-        "worst_min": -0.88,
+        "worst_min": -0.9,
         "nominal_min": 0.15,
         "worst": {
-          "lead_side": -0.88,
+          "lead_side": -0.9,
           "body_side": 0.4,
           "nut_front": 0.55,
           "panel_hole_web": 1.6
@@ -198,10 +198,10 @@
         "failing_at_worst": [
           "lead_side"
         ],
-        "worst_min": -0.83,
+        "worst_min": -0.85,
         "nominal_min": 0.2,
         "worst": {
-          "lead_side": -0.83,
+          "lead_side": -0.85,
           "body_side": 0.35,
           "nut_front": 0.5,
           "panel_hole_web": 1.55
@@ -225,10 +225,10 @@
         "failing_at_worst": [
           "lead_side"
         ],
-        "worst_min": -0.78,
+        "worst_min": -0.8,
         "nominal_min": 0.25,
         "worst": {
-          "lead_side": -0.78,
+          "lead_side": -0.8,
           "body_side": 0.3,
           "nut_front": 0.45,
           "panel_hole_web": 1.5
@@ -252,10 +252,10 @@
         "failing_at_worst": [
           "lead_side"
         ],
-        "worst_min": -0.73,
+        "worst_min": -0.75,
         "nominal_min": 0.3,
         "worst": {
-          "lead_side": -0.73,
+          "lead_side": -0.75,
           "body_side": 0.25,
           "nut_front": 0.4,
           "panel_hole_web": 1.45
@@ -279,10 +279,10 @@
         "failing_at_worst": [
           "lead_side"
         ],
-        "worst_min": -0.68,
+        "worst_min": -0.7,
         "nominal_min": 0.35,
         "worst": {
-          "lead_side": -0.68,
+          "lead_side": -0.7,
           "body_side": 0.2,
           "nut_front": 0.35,
           "panel_hole_web": 1.4
@@ -306,10 +306,10 @@
         "failing_at_worst": [
           "lead_side"
         ],
-        "worst_min": -0.63,
+        "worst_min": -0.65,
         "nominal_min": 0.4,
         "worst": {
-          "lead_side": -0.63,
+          "lead_side": -0.65,
           "body_side": 0.15,
           "nut_front": 0.3,
           "panel_hole_web": 1.35
@@ -333,10 +333,10 @@
         "failing_at_worst": [
           "lead_side"
         ],
-        "worst_min": -0.58,
+        "worst_min": -0.6,
         "nominal_min": 0.45,
         "worst": {
-          "lead_side": -0.58,
+          "lead_side": -0.6,
           "body_side": 0.1,
           "nut_front": 0.25,
           "panel_hole_web": 1.3
@@ -360,10 +360,10 @@
         "failing_at_worst": [
           "lead_side"
         ],
-        "worst_min": -0.53,
+        "worst_min": -0.55,
         "nominal_min": 0.5,
         "worst": {
-          "lead_side": -0.53,
+          "lead_side": -0.55,
           "body_side": 0.05,
           "nut_front": 0.2,
           "panel_hole_web": 1.25
@@ -387,10 +387,10 @@
         "failing_at_worst": [
           "lead_side"
         ],
-        "worst_min": -0.48,
+        "worst_min": -0.5,
         "nominal_min": 0.45,
         "worst": {
-          "lead_side": -0.48,
+          "lead_side": -0.5,
           "body_side": -0.0,
           "nut_front": 0.15,
           "panel_hole_web": 1.2
@@ -415,10 +415,10 @@
           "lead_side",
           "body_side"
         ],
-        "worst_min": -0.43,
+        "worst_min": -0.45,
         "nominal_min": 0.4,
         "worst": {
-          "lead_side": -0.43,
+          "lead_side": -0.45,
           "body_side": -0.05,
           "nut_front": 0.1,
           "panel_hole_web": 1.15
@@ -443,10 +443,10 @@
           "lead_side",
           "body_side"
         ],
-        "worst_min": -0.38,
+        "worst_min": -0.4,
         "nominal_min": 0.35,
         "worst": {
-          "lead_side": -0.38,
+          "lead_side": -0.4,
           "body_side": -0.1,
           "nut_front": 0.05,
           "panel_hole_web": 1.1
@@ -471,10 +471,10 @@
           "lead_side",
           "body_side"
         ],
-        "worst_min": -0.33,
+        "worst_min": -0.35,
         "nominal_min": 0.3,
         "worst": {
-          "lead_side": -0.33,
+          "lead_side": -0.35,
           "body_side": -0.15,
           "nut_front": 0.0,
           "panel_hole_web": 1.05
@@ -500,10 +500,10 @@
           "body_side",
           "nut_front"
         ],
-        "worst_min": -0.28,
+        "worst_min": -0.3,
         "nominal_min": 0.25,
         "worst": {
-          "lead_side": -0.28,
+          "lead_side": -0.3,
           "body_side": -0.2,
           "nut_front": -0.05,
           "panel_hole_web": 1.0
@@ -531,7 +531,7 @@
         "worst_min": -0.25,
         "nominal_min": 0.2,
         "worst": {
-          "lead_side": -0.23,
+          "lead_side": -0.25,
           "body_side": -0.25,
           "nut_front": -0.1,
           "panel_hole_web": 0.95
@@ -559,7 +559,7 @@
         "worst_min": -0.3,
         "nominal_min": 0.15,
         "worst": {
-          "lead_side": -0.18,
+          "lead_side": -0.2,
           "body_side": -0.3,
           "nut_front": -0.15,
           "panel_hole_web": 0.9
@@ -587,7 +587,7 @@
         "worst_min": -0.35,
         "nominal_min": 0.1,
         "worst": {
-          "lead_side": -0.13,
+          "lead_side": -0.15,
           "body_side": -0.35,
           "nut_front": -0.2,
           "panel_hole_web": 0.85
@@ -615,7 +615,7 @@
         "worst_min": -0.4,
         "nominal_min": 0.05,
         "worst": {
-          "lead_side": -0.08,
+          "lead_side": -0.1,
           "body_side": -0.4,
           "nut_front": -0.25,
           "panel_hole_web": 0.8
@@ -643,7 +643,7 @@
         "worst_min": -0.45,
         "nominal_min": 0.0,
         "worst": {
-          "lead_side": -0.03,
+          "lead_side": -0.05,
           "body_side": -0.45,
           "nut_front": -0.3,
           "panel_hole_web": 0.75
@@ -670,7 +670,7 @@
         "worst_min": -0.5,
         "nominal_min": -0.05,
         "worst": {
-          "lead_side": 0.02,
+          "lead_side": 0.0,
           "body_side": -0.5,
           "nut_front": -0.35,
           "panel_hole_web": 0.7
@@ -697,7 +697,7 @@
         "worst_min": -0.55,
         "nominal_min": -0.1,
         "worst": {
-          "lead_side": 0.07,
+          "lead_side": 0.05,
           "body_side": -0.55,
           "nut_front": -0.4,
           "panel_hole_web": 0.65
@@ -724,7 +724,7 @@
         "worst_min": -0.6,
         "nominal_min": -0.15,
         "worst": {
-          "lead_side": 0.12,
+          "lead_side": 0.1,
           "body_side": -0.6,
           "nut_front": -0.45,
           "panel_hole_web": 0.6
@@ -751,7 +751,7 @@
         "worst_min": -0.65,
         "nominal_min": -0.2,
         "worst": {
-          "lead_side": 0.17,
+          "lead_side": 0.15,
           "body_side": -0.65,
           "nut_front": -0.5,
           "panel_hole_web": 0.55
@@ -778,7 +778,7 @@
         "worst_min": -0.7,
         "nominal_min": -0.25,
         "worst": {
-          "lead_side": 0.22,
+          "lead_side": 0.2,
           "body_side": -0.7,
           "nut_front": -0.55,
           "panel_hole_web": 0.5
@@ -804,7 +804,7 @@
         "worst_min": -0.75,
         "nominal_min": -0.3,
         "worst": {
-          "lead_side": 0.27,
+          "lead_side": 0.25,
           "body_side": -0.75,
           "nut_front": -0.6,
           "panel_hole_web": 0.45
@@ -816,2121 +816,43 @@
           "panel_hole_web": 0.6
         },
         "lead_long_enough_for_trim": true
-      },
-      {
-        "width_key": "panel_width_2hp",
-        "panel_width": 9.8,
-        "offset": 0.0,
-        "pcb_thickness": 1.0,
-        "leads": "trimmed",
-        "verdict": "UNRESOLVED",
-        "failing_at_worst": [
-          "lead_side"
-        ],
-        "worst_min": -1.15,
-        "nominal_min": -0.1,
-        "worst": {
-          "lead_side": -1.15,
-          "body_side": 0.45,
-          "nut_front": 0.6,
-          "panel_hole_web": 1.65
-        },
-        "nominal": {
-          "lead_side": -0.1,
-          "body_side": 1.3,
-          "nut_front": 0.9,
-          "panel_hole_web": 1.8
-        },
-        "lead_long_enough_for_trim": true
-      },
-      {
-        "width_key": "panel_width_2hp",
-        "panel_width": 9.8,
-        "offset": 0.05,
-        "pcb_thickness": 1.0,
-        "leads": "trimmed",
-        "verdict": "UNRESOLVED",
-        "failing_at_worst": [
-          "lead_side"
-        ],
-        "worst_min": -1.1,
-        "nominal_min": -0.05,
-        "worst": {
-          "lead_side": -1.1,
-          "body_side": 0.4,
-          "nut_front": 0.55,
-          "panel_hole_web": 1.6
-        },
-        "nominal": {
-          "lead_side": -0.05,
-          "body_side": 1.25,
-          "nut_front": 0.85,
-          "panel_hole_web": 1.75
-        },
-        "lead_long_enough_for_trim": true
-      },
-      {
-        "width_key": "panel_width_2hp",
-        "panel_width": 9.8,
-        "offset": 0.1,
-        "pcb_thickness": 1.0,
-        "leads": "trimmed",
-        "verdict": "UNRESOLVED",
-        "failing_at_worst": [
-          "lead_side"
-        ],
-        "worst_min": -1.05,
-        "nominal_min": 0.0,
-        "worst": {
-          "lead_side": -1.05,
-          "body_side": 0.35,
-          "nut_front": 0.5,
-          "panel_hole_web": 1.55
-        },
-        "nominal": {
-          "lead_side": 0.0,
-          "body_side": 1.2,
-          "nut_front": 0.8,
-          "panel_hole_web": 1.7
-        },
-        "lead_long_enough_for_trim": true,
-        "nut_preference_met_at_worst": true
-      },
-      {
-        "width_key": "panel_width_2hp",
-        "panel_width": 9.8,
-        "offset": 0.15,
-        "pcb_thickness": 1.0,
-        "leads": "trimmed",
-        "verdict": "UNRESOLVED",
-        "failing_at_worst": [
-          "lead_side"
-        ],
-        "worst_min": -1.0,
-        "nominal_min": 0.05,
-        "worst": {
-          "lead_side": -1.0,
-          "body_side": 0.3,
-          "nut_front": 0.45,
-          "panel_hole_web": 1.5
-        },
-        "nominal": {
-          "lead_side": 0.05,
-          "body_side": 1.15,
-          "nut_front": 0.75,
-          "panel_hole_web": 1.65
-        },
-        "lead_long_enough_for_trim": true,
-        "nut_preference_met_at_worst": true
-      },
-      {
-        "width_key": "panel_width_2hp",
-        "panel_width": 9.8,
-        "offset": 0.2,
-        "pcb_thickness": 1.0,
-        "leads": "trimmed",
-        "verdict": "UNRESOLVED",
-        "failing_at_worst": [
-          "lead_side"
-        ],
-        "worst_min": -0.95,
-        "nominal_min": 0.1,
-        "worst": {
-          "lead_side": -0.95,
-          "body_side": 0.25,
-          "nut_front": 0.4,
-          "panel_hole_web": 1.45
-        },
-        "nominal": {
-          "lead_side": 0.1,
-          "body_side": 1.1,
-          "nut_front": 0.7,
-          "panel_hole_web": 1.6
-        },
-        "lead_long_enough_for_trim": true,
-        "nut_preference_met_at_worst": true
-      },
-      {
-        "width_key": "panel_width_2hp",
-        "panel_width": 9.8,
-        "offset": 0.25,
-        "pcb_thickness": 1.0,
-        "leads": "trimmed",
-        "verdict": "UNRESOLVED",
-        "failing_at_worst": [
-          "lead_side"
-        ],
-        "worst_min": -0.9,
-        "nominal_min": 0.15,
-        "worst": {
-          "lead_side": -0.9,
-          "body_side": 0.2,
-          "nut_front": 0.35,
-          "panel_hole_web": 1.4
-        },
-        "nominal": {
-          "lead_side": 0.15,
-          "body_side": 1.05,
-          "nut_front": 0.65,
-          "panel_hole_web": 1.55
-        },
-        "lead_long_enough_for_trim": true,
-        "nut_preference_met_at_worst": true
-      },
-      {
-        "width_key": "panel_width_2hp",
-        "panel_width": 9.8,
-        "offset": 0.3,
-        "pcb_thickness": 1.0,
-        "leads": "trimmed",
-        "verdict": "UNRESOLVED",
-        "failing_at_worst": [
-          "lead_side"
-        ],
-        "worst_min": -0.85,
-        "nominal_min": 0.2,
-        "worst": {
-          "lead_side": -0.85,
-          "body_side": 0.15,
-          "nut_front": 0.3,
-          "panel_hole_web": 1.35
-        },
-        "nominal": {
-          "lead_side": 0.2,
-          "body_side": 1.0,
-          "nut_front": 0.6,
-          "panel_hole_web": 1.5
-        },
-        "lead_long_enough_for_trim": true,
-        "nut_preference_met_at_worst": true
-      },
-      {
-        "width_key": "panel_width_2hp",
-        "panel_width": 9.8,
-        "offset": 0.35,
-        "pcb_thickness": 1.0,
-        "leads": "trimmed",
-        "verdict": "UNRESOLVED",
-        "failing_at_worst": [
-          "lead_side"
-        ],
-        "worst_min": -0.8,
-        "nominal_min": 0.25,
-        "worst": {
-          "lead_side": -0.8,
-          "body_side": 0.1,
-          "nut_front": 0.25,
-          "panel_hole_web": 1.3
-        },
-        "nominal": {
-          "lead_side": 0.25,
-          "body_side": 0.95,
-          "nut_front": 0.55,
-          "panel_hole_web": 1.45
-        },
-        "lead_long_enough_for_trim": true,
-        "nut_preference_met_at_worst": false
-      },
-      {
-        "width_key": "panel_width_2hp",
-        "panel_width": 9.8,
-        "offset": 0.4,
-        "pcb_thickness": 1.0,
-        "leads": "trimmed",
-        "verdict": "UNRESOLVED",
-        "failing_at_worst": [
-          "lead_side"
-        ],
-        "worst_min": -0.75,
-        "nominal_min": 0.3,
-        "worst": {
-          "lead_side": -0.75,
-          "body_side": 0.05,
-          "nut_front": 0.2,
-          "panel_hole_web": 1.25
-        },
-        "nominal": {
-          "lead_side": 0.3,
-          "body_side": 0.9,
-          "nut_front": 0.5,
-          "panel_hole_web": 1.4
-        },
-        "lead_long_enough_for_trim": true,
-        "nut_preference_met_at_worst": false
-      },
-      {
-        "width_key": "panel_width_2hp",
-        "panel_width": 9.8,
-        "offset": 0.45,
-        "pcb_thickness": 1.0,
-        "leads": "trimmed",
-        "verdict": "UNRESOLVED",
-        "failing_at_worst": [
-          "lead_side"
-        ],
-        "worst_min": -0.7,
-        "nominal_min": 0.35,
-        "worst": {
-          "lead_side": -0.7,
-          "body_side": -0.0,
-          "nut_front": 0.15,
-          "panel_hole_web": 1.2
-        },
-        "nominal": {
-          "lead_side": 0.35,
-          "body_side": 0.85,
-          "nut_front": 0.45,
-          "panel_hole_web": 1.35
-        },
-        "lead_long_enough_for_trim": true,
-        "nut_preference_met_at_worst": false
-      },
-      {
-        "width_key": "panel_width_2hp",
-        "panel_width": 9.8,
-        "offset": 0.5,
-        "pcb_thickness": 1.0,
-        "leads": "trimmed",
-        "verdict": "UNRESOLVED",
-        "failing_at_worst": [
-          "lead_side",
-          "body_side"
-        ],
-        "worst_min": -0.65,
-        "nominal_min": 0.4,
-        "worst": {
-          "lead_side": -0.65,
-          "body_side": -0.05,
-          "nut_front": 0.1,
-          "panel_hole_web": 1.15
-        },
-        "nominal": {
-          "lead_side": 0.4,
-          "body_side": 0.8,
-          "nut_front": 0.4,
-          "panel_hole_web": 1.3
-        },
-        "lead_long_enough_for_trim": true,
-        "nut_preference_met_at_worst": false
-      },
-      {
-        "width_key": "panel_width_2hp",
-        "panel_width": 9.8,
-        "offset": 0.55,
-        "pcb_thickness": 1.0,
-        "leads": "trimmed",
-        "verdict": "UNRESOLVED",
-        "failing_at_worst": [
-          "lead_side",
-          "body_side"
-        ],
-        "worst_min": -0.6,
-        "nominal_min": 0.35,
-        "worst": {
-          "lead_side": -0.6,
-          "body_side": -0.1,
-          "nut_front": 0.05,
-          "panel_hole_web": 1.1
-        },
-        "nominal": {
-          "lead_side": 0.45,
-          "body_side": 0.75,
-          "nut_front": 0.35,
-          "panel_hole_web": 1.25
-        },
-        "lead_long_enough_for_trim": true,
-        "nut_preference_met_at_worst": false
-      },
-      {
-        "width_key": "panel_width_2hp",
-        "panel_width": 9.8,
-        "offset": 0.6,
-        "pcb_thickness": 1.0,
-        "leads": "trimmed",
-        "verdict": "UNRESOLVED",
-        "failing_at_worst": [
-          "lead_side",
-          "body_side"
-        ],
-        "worst_min": -0.55,
-        "nominal_min": 0.3,
-        "worst": {
-          "lead_side": -0.55,
-          "body_side": -0.15,
-          "nut_front": 0.0,
-          "panel_hole_web": 1.05
-        },
-        "nominal": {
-          "lead_side": 0.5,
-          "body_side": 0.7,
-          "nut_front": 0.3,
-          "panel_hole_web": 1.2
-        },
-        "lead_long_enough_for_trim": true,
-        "nut_preference_met_at_worst": false
-      },
-      {
-        "width_key": "panel_width_2hp",
-        "panel_width": 9.8,
-        "offset": 0.65,
-        "pcb_thickness": 1.0,
-        "leads": "trimmed",
-        "verdict": "UNRESOLVED",
-        "failing_at_worst": [
-          "lead_side",
-          "body_side",
-          "nut_front"
-        ],
-        "worst_min": -0.5,
-        "nominal_min": 0.25,
-        "worst": {
-          "lead_side": -0.5,
-          "body_side": -0.2,
-          "nut_front": -0.05,
-          "panel_hole_web": 1.0
-        },
-        "nominal": {
-          "lead_side": 0.55,
-          "body_side": 0.65,
-          "nut_front": 0.25,
-          "panel_hole_web": 1.15
-        },
-        "lead_long_enough_for_trim": true
-      },
-      {
-        "width_key": "panel_width_2hp",
-        "panel_width": 9.8,
-        "offset": 0.7,
-        "pcb_thickness": 1.0,
-        "leads": "trimmed",
-        "verdict": "UNRESOLVED",
-        "failing_at_worst": [
-          "lead_side",
-          "body_side",
-          "nut_front"
-        ],
-        "worst_min": -0.45,
-        "nominal_min": 0.2,
-        "worst": {
-          "lead_side": -0.45,
-          "body_side": -0.25,
-          "nut_front": -0.1,
-          "panel_hole_web": 0.95
-        },
-        "nominal": {
-          "lead_side": 0.6,
-          "body_side": 0.6,
-          "nut_front": 0.2,
-          "panel_hole_web": 1.1
-        },
-        "lead_long_enough_for_trim": true
-      },
-      {
-        "width_key": "panel_width_2hp",
-        "panel_width": 9.8,
-        "offset": 0.75,
-        "pcb_thickness": 1.0,
-        "leads": "trimmed",
-        "verdict": "UNRESOLVED",
-        "failing_at_worst": [
-          "lead_side",
-          "body_side",
-          "nut_front"
-        ],
-        "worst_min": -0.4,
-        "nominal_min": 0.15,
-        "worst": {
-          "lead_side": -0.4,
-          "body_side": -0.3,
-          "nut_front": -0.15,
-          "panel_hole_web": 0.9
-        },
-        "nominal": {
-          "lead_side": 0.65,
-          "body_side": 0.55,
-          "nut_front": 0.15,
-          "panel_hole_web": 1.05
-        },
-        "lead_long_enough_for_trim": true
-      },
-      {
-        "width_key": "panel_width_2hp",
-        "panel_width": 9.8,
-        "offset": 0.8,
-        "pcb_thickness": 1.0,
-        "leads": "trimmed",
-        "verdict": "UNRESOLVED",
-        "failing_at_worst": [
-          "lead_side",
-          "body_side",
-          "nut_front"
-        ],
-        "worst_min": -0.35,
-        "nominal_min": 0.1,
-        "worst": {
-          "lead_side": -0.35,
-          "body_side": -0.35,
-          "nut_front": -0.2,
-          "panel_hole_web": 0.85
-        },
-        "nominal": {
-          "lead_side": 0.7,
-          "body_side": 0.5,
-          "nut_front": 0.1,
-          "panel_hole_web": 1.0
-        },
-        "lead_long_enough_for_trim": true
-      },
-      {
-        "width_key": "panel_width_2hp",
-        "panel_width": 9.8,
-        "offset": 0.85,
-        "pcb_thickness": 1.0,
-        "leads": "trimmed",
-        "verdict": "UNRESOLVED",
-        "failing_at_worst": [
-          "lead_side",
-          "body_side",
-          "nut_front"
-        ],
-        "worst_min": -0.4,
-        "nominal_min": 0.05,
-        "worst": {
-          "lead_side": -0.3,
-          "body_side": -0.4,
-          "nut_front": -0.25,
-          "panel_hole_web": 0.8
-        },
-        "nominal": {
-          "lead_side": 0.75,
-          "body_side": 0.45,
-          "nut_front": 0.05,
-          "panel_hole_web": 0.95
-        },
-        "lead_long_enough_for_trim": true
-      },
-      {
-        "width_key": "panel_width_2hp",
-        "panel_width": 9.8,
-        "offset": 0.9,
-        "pcb_thickness": 1.0,
-        "leads": "trimmed",
-        "verdict": "UNRESOLVED",
-        "failing_at_worst": [
-          "lead_side",
-          "body_side",
-          "nut_front"
-        ],
-        "worst_min": -0.45,
-        "nominal_min": 0.0,
-        "worst": {
-          "lead_side": -0.25,
-          "body_side": -0.45,
-          "nut_front": -0.3,
-          "panel_hole_web": 0.75
-        },
-        "nominal": {
-          "lead_side": 0.8,
-          "body_side": 0.4,
-          "nut_front": 0.0,
-          "panel_hole_web": 0.9
-        },
-        "lead_long_enough_for_trim": true
-      },
-      {
-        "width_key": "panel_width_2hp",
-        "panel_width": 9.8,
-        "offset": 0.95,
-        "pcb_thickness": 1.0,
-        "leads": "trimmed",
-        "verdict": "UNRESOLVED",
-        "failing_at_worst": [
-          "lead_side",
-          "body_side",
-          "nut_front"
-        ],
-        "worst_min": -0.5,
-        "nominal_min": -0.05,
-        "worst": {
-          "lead_side": -0.2,
-          "body_side": -0.5,
-          "nut_front": -0.35,
-          "panel_hole_web": 0.7
-        },
-        "nominal": {
-          "lead_side": 0.85,
-          "body_side": 0.35,
-          "nut_front": -0.05,
-          "panel_hole_web": 0.85
-        },
-        "lead_long_enough_for_trim": true
-      },
-      {
-        "width_key": "panel_width_2hp",
-        "panel_width": 9.8,
-        "offset": 1.0,
-        "pcb_thickness": 1.0,
-        "leads": "trimmed",
-        "verdict": "UNRESOLVED",
-        "failing_at_worst": [
-          "lead_side",
-          "body_side",
-          "nut_front"
-        ],
-        "worst_min": -0.55,
-        "nominal_min": -0.1,
-        "worst": {
-          "lead_side": -0.15,
-          "body_side": -0.55,
-          "nut_front": -0.4,
-          "panel_hole_web": 0.65
-        },
-        "nominal": {
-          "lead_side": 0.9,
-          "body_side": 0.3,
-          "nut_front": -0.1,
-          "panel_hole_web": 0.8
-        },
-        "lead_long_enough_for_trim": true
-      },
-      {
-        "width_key": "panel_width_2hp",
-        "panel_width": 9.8,
-        "offset": 1.05,
-        "pcb_thickness": 1.0,
-        "leads": "trimmed",
-        "verdict": "UNRESOLVED",
-        "failing_at_worst": [
-          "lead_side",
-          "body_side",
-          "nut_front"
-        ],
-        "worst_min": -0.6,
-        "nominal_min": -0.15,
-        "worst": {
-          "lead_side": -0.1,
-          "body_side": -0.6,
-          "nut_front": -0.45,
-          "panel_hole_web": 0.6
-        },
-        "nominal": {
-          "lead_side": 0.95,
-          "body_side": 0.25,
-          "nut_front": -0.15,
-          "panel_hole_web": 0.75
-        },
-        "lead_long_enough_for_trim": true
-      },
-      {
-        "width_key": "panel_width_2hp",
-        "panel_width": 9.8,
-        "offset": 1.1,
-        "pcb_thickness": 1.0,
-        "leads": "trimmed",
-        "verdict": "UNRESOLVED",
-        "failing_at_worst": [
-          "lead_side",
-          "body_side",
-          "nut_front"
-        ],
-        "worst_min": -0.65,
-        "nominal_min": -0.2,
-        "worst": {
-          "lead_side": -0.05,
-          "body_side": -0.65,
-          "nut_front": -0.5,
-          "panel_hole_web": 0.55
-        },
-        "nominal": {
-          "lead_side": 1.0,
-          "body_side": 0.2,
-          "nut_front": -0.2,
-          "panel_hole_web": 0.7
-        },
-        "lead_long_enough_for_trim": true
-      },
-      {
-        "width_key": "panel_width_2hp",
-        "panel_width": 9.8,
-        "offset": 1.15,
-        "pcb_thickness": 1.0,
-        "leads": "trimmed",
-        "verdict": "UNRESOLVED",
-        "failing_at_worst": [
-          "body_side",
-          "nut_front"
-        ],
-        "worst_min": -0.7,
-        "nominal_min": -0.25,
-        "worst": {
-          "lead_side": 0.0,
-          "body_side": -0.7,
-          "nut_front": -0.55,
-          "panel_hole_web": 0.5
-        },
-        "nominal": {
-          "lead_side": 1.05,
-          "body_side": 0.15,
-          "nut_front": -0.25,
-          "panel_hole_web": 0.65
-        },
-        "lead_long_enough_for_trim": true
-      },
-      {
-        "width_key": "panel_width_2hp",
-        "panel_width": 9.8,
-        "offset": 1.2,
-        "pcb_thickness": 1.0,
-        "leads": "trimmed",
-        "verdict": "INFEASIBLE WITHIN STATED RANGES",
-        "failing_at_worst": [
-          "nut_front"
-        ],
-        "worst_min": -0.75,
-        "nominal_min": -0.3,
-        "worst": {
-          "lead_side": 0.05,
-          "body_side": -0.75,
-          "nut_front": -0.6,
-          "panel_hole_web": 0.45
-        },
-        "nominal": {
-          "lead_side": 1.1,
-          "body_side": 0.1,
-          "nut_front": -0.3,
-          "panel_hole_web": 0.6
-        },
-        "lead_long_enough_for_trim": true
-      },
-      {
-        "width_key": "panel_width_2hp",
-        "panel_width": 9.8,
-        "offset": 0.0,
-        "pcb_thickness": 1.2,
-        "leads": "trimmed",
-        "verdict": "UNRESOLVED",
-        "failing_at_worst": [
-          "lead_side"
-        ],
-        "worst_min": -1.37,
-        "nominal_min": -0.3,
-        "worst": {
-          "lead_side": -1.37,
-          "body_side": 0.45,
-          "nut_front": 0.6,
-          "panel_hole_web": 1.65
-        },
-        "nominal": {
-          "lead_side": -0.3,
-          "body_side": 1.3,
-          "nut_front": 0.9,
-          "panel_hole_web": 1.8
-        },
-        "lead_long_enough_for_trim": true
-      },
-      {
-        "width_key": "panel_width_2hp",
-        "panel_width": 9.8,
-        "offset": 0.05,
-        "pcb_thickness": 1.2,
-        "leads": "trimmed",
-        "verdict": "UNRESOLVED",
-        "failing_at_worst": [
-          "lead_side"
-        ],
-        "worst_min": -1.32,
-        "nominal_min": -0.25,
-        "worst": {
-          "lead_side": -1.32,
-          "body_side": 0.4,
-          "nut_front": 0.55,
-          "panel_hole_web": 1.6
-        },
-        "nominal": {
-          "lead_side": -0.25,
-          "body_side": 1.25,
-          "nut_front": 0.85,
-          "panel_hole_web": 1.75
-        },
-        "lead_long_enough_for_trim": true
-      },
-      {
-        "width_key": "panel_width_2hp",
-        "panel_width": 9.8,
-        "offset": 0.1,
-        "pcb_thickness": 1.2,
-        "leads": "trimmed",
-        "verdict": "UNRESOLVED",
-        "failing_at_worst": [
-          "lead_side"
-        ],
-        "worst_min": -1.27,
-        "nominal_min": -0.2,
-        "worst": {
-          "lead_side": -1.27,
-          "body_side": 0.35,
-          "nut_front": 0.5,
-          "panel_hole_web": 1.55
-        },
-        "nominal": {
-          "lead_side": -0.2,
-          "body_side": 1.2,
-          "nut_front": 0.8,
-          "panel_hole_web": 1.7
-        },
-        "lead_long_enough_for_trim": true
-      },
-      {
-        "width_key": "panel_width_2hp",
-        "panel_width": 9.8,
-        "offset": 0.15,
-        "pcb_thickness": 1.2,
-        "leads": "trimmed",
-        "verdict": "UNRESOLVED",
-        "failing_at_worst": [
-          "lead_side"
-        ],
-        "worst_min": -1.22,
-        "nominal_min": -0.15,
-        "worst": {
-          "lead_side": -1.22,
-          "body_side": 0.3,
-          "nut_front": 0.45,
-          "panel_hole_web": 1.5
-        },
-        "nominal": {
-          "lead_side": -0.15,
-          "body_side": 1.15,
-          "nut_front": 0.75,
-          "panel_hole_web": 1.65
-        },
-        "lead_long_enough_for_trim": true
-      },
-      {
-        "width_key": "panel_width_2hp",
-        "panel_width": 9.8,
-        "offset": 0.2,
-        "pcb_thickness": 1.2,
-        "leads": "trimmed",
-        "verdict": "UNRESOLVED",
-        "failing_at_worst": [
-          "lead_side"
-        ],
-        "worst_min": -1.17,
-        "nominal_min": -0.1,
-        "worst": {
-          "lead_side": -1.17,
-          "body_side": 0.25,
-          "nut_front": 0.4,
-          "panel_hole_web": 1.45
-        },
-        "nominal": {
-          "lead_side": -0.1,
-          "body_side": 1.1,
-          "nut_front": 0.7,
-          "panel_hole_web": 1.6
-        },
-        "lead_long_enough_for_trim": true
-      },
-      {
-        "width_key": "panel_width_2hp",
-        "panel_width": 9.8,
-        "offset": 0.25,
-        "pcb_thickness": 1.2,
-        "leads": "trimmed",
-        "verdict": "UNRESOLVED",
-        "failing_at_worst": [
-          "lead_side"
-        ],
-        "worst_min": -1.12,
-        "nominal_min": -0.05,
-        "worst": {
-          "lead_side": -1.12,
-          "body_side": 0.2,
-          "nut_front": 0.35,
-          "panel_hole_web": 1.4
-        },
-        "nominal": {
-          "lead_side": -0.05,
-          "body_side": 1.05,
-          "nut_front": 0.65,
-          "panel_hole_web": 1.55
-        },
-        "lead_long_enough_for_trim": true
-      },
-      {
-        "width_key": "panel_width_2hp",
-        "panel_width": 9.8,
-        "offset": 0.3,
-        "pcb_thickness": 1.2,
-        "leads": "trimmed",
-        "verdict": "UNRESOLVED",
-        "failing_at_worst": [
-          "lead_side"
-        ],
-        "worst_min": -1.07,
-        "nominal_min": 0.0,
-        "worst": {
-          "lead_side": -1.07,
-          "body_side": 0.15,
-          "nut_front": 0.3,
-          "panel_hole_web": 1.35
-        },
-        "nominal": {
-          "lead_side": 0.0,
-          "body_side": 1.0,
-          "nut_front": 0.6,
-          "panel_hole_web": 1.5
-        },
-        "lead_long_enough_for_trim": true,
-        "nut_preference_met_at_worst": true
-      },
-      {
-        "width_key": "panel_width_2hp",
-        "panel_width": 9.8,
-        "offset": 0.35,
-        "pcb_thickness": 1.2,
-        "leads": "trimmed",
-        "verdict": "UNRESOLVED",
-        "failing_at_worst": [
-          "lead_side"
-        ],
-        "worst_min": -1.02,
-        "nominal_min": 0.05,
-        "worst": {
-          "lead_side": -1.02,
-          "body_side": 0.1,
-          "nut_front": 0.25,
-          "panel_hole_web": 1.3
-        },
-        "nominal": {
-          "lead_side": 0.05,
-          "body_side": 0.95,
-          "nut_front": 0.55,
-          "panel_hole_web": 1.45
-        },
-        "lead_long_enough_for_trim": true,
-        "nut_preference_met_at_worst": false
-      },
-      {
-        "width_key": "panel_width_2hp",
-        "panel_width": 9.8,
-        "offset": 0.4,
-        "pcb_thickness": 1.2,
-        "leads": "trimmed",
-        "verdict": "UNRESOLVED",
-        "failing_at_worst": [
-          "lead_side"
-        ],
-        "worst_min": -0.97,
-        "nominal_min": 0.1,
-        "worst": {
-          "lead_side": -0.97,
-          "body_side": 0.05,
-          "nut_front": 0.2,
-          "panel_hole_web": 1.25
-        },
-        "nominal": {
-          "lead_side": 0.1,
-          "body_side": 0.9,
-          "nut_front": 0.5,
-          "panel_hole_web": 1.4
-        },
-        "lead_long_enough_for_trim": true,
-        "nut_preference_met_at_worst": false
-      },
-      {
-        "width_key": "panel_width_2hp",
-        "panel_width": 9.8,
-        "offset": 0.45,
-        "pcb_thickness": 1.2,
-        "leads": "trimmed",
-        "verdict": "UNRESOLVED",
-        "failing_at_worst": [
-          "lead_side"
-        ],
-        "worst_min": -0.92,
-        "nominal_min": 0.15,
-        "worst": {
-          "lead_side": -0.92,
-          "body_side": -0.0,
-          "nut_front": 0.15,
-          "panel_hole_web": 1.2
-        },
-        "nominal": {
-          "lead_side": 0.15,
-          "body_side": 0.85,
-          "nut_front": 0.45,
-          "panel_hole_web": 1.35
-        },
-        "lead_long_enough_for_trim": true,
-        "nut_preference_met_at_worst": false
-      },
-      {
-        "width_key": "panel_width_2hp",
-        "panel_width": 9.8,
-        "offset": 0.5,
-        "pcb_thickness": 1.2,
-        "leads": "trimmed",
-        "verdict": "UNRESOLVED",
-        "failing_at_worst": [
-          "lead_side",
-          "body_side"
-        ],
-        "worst_min": -0.87,
-        "nominal_min": 0.2,
-        "worst": {
-          "lead_side": -0.87,
-          "body_side": -0.05,
-          "nut_front": 0.1,
-          "panel_hole_web": 1.15
-        },
-        "nominal": {
-          "lead_side": 0.2,
-          "body_side": 0.8,
-          "nut_front": 0.4,
-          "panel_hole_web": 1.3
-        },
-        "lead_long_enough_for_trim": true,
-        "nut_preference_met_at_worst": false
-      },
-      {
-        "width_key": "panel_width_2hp",
-        "panel_width": 9.8,
-        "offset": 0.55,
-        "pcb_thickness": 1.2,
-        "leads": "trimmed",
-        "verdict": "UNRESOLVED",
-        "failing_at_worst": [
-          "lead_side",
-          "body_side"
-        ],
-        "worst_min": -0.82,
-        "nominal_min": 0.25,
-        "worst": {
-          "lead_side": -0.82,
-          "body_side": -0.1,
-          "nut_front": 0.05,
-          "panel_hole_web": 1.1
-        },
-        "nominal": {
-          "lead_side": 0.25,
-          "body_side": 0.75,
-          "nut_front": 0.35,
-          "panel_hole_web": 1.25
-        },
-        "lead_long_enough_for_trim": true,
-        "nut_preference_met_at_worst": false
-      },
-      {
-        "width_key": "panel_width_2hp",
-        "panel_width": 9.8,
-        "offset": 0.6,
-        "pcb_thickness": 1.2,
-        "leads": "trimmed",
-        "verdict": "UNRESOLVED",
-        "failing_at_worst": [
-          "lead_side",
-          "body_side"
-        ],
-        "worst_min": -0.77,
-        "nominal_min": 0.3,
-        "worst": {
-          "lead_side": -0.77,
-          "body_side": -0.15,
-          "nut_front": 0.0,
-          "panel_hole_web": 1.05
-        },
-        "nominal": {
-          "lead_side": 0.3,
-          "body_side": 0.7,
-          "nut_front": 0.3,
-          "panel_hole_web": 1.2
-        },
-        "lead_long_enough_for_trim": true,
-        "nut_preference_met_at_worst": false
-      },
-      {
-        "width_key": "panel_width_2hp",
-        "panel_width": 9.8,
-        "offset": 0.65,
-        "pcb_thickness": 1.2,
-        "leads": "trimmed",
-        "verdict": "UNRESOLVED",
-        "failing_at_worst": [
-          "lead_side",
-          "body_side",
-          "nut_front"
-        ],
-        "worst_min": -0.72,
-        "nominal_min": 0.25,
-        "worst": {
-          "lead_side": -0.72,
-          "body_side": -0.2,
-          "nut_front": -0.05,
-          "panel_hole_web": 1.0
-        },
-        "nominal": {
-          "lead_side": 0.35,
-          "body_side": 0.65,
-          "nut_front": 0.25,
-          "panel_hole_web": 1.15
-        },
-        "lead_long_enough_for_trim": true
-      },
-      {
-        "width_key": "panel_width_2hp",
-        "panel_width": 9.8,
-        "offset": 0.7,
-        "pcb_thickness": 1.2,
-        "leads": "trimmed",
-        "verdict": "UNRESOLVED",
-        "failing_at_worst": [
-          "lead_side",
-          "body_side",
-          "nut_front"
-        ],
-        "worst_min": -0.67,
-        "nominal_min": 0.2,
-        "worst": {
-          "lead_side": -0.67,
-          "body_side": -0.25,
-          "nut_front": -0.1,
-          "panel_hole_web": 0.95
-        },
-        "nominal": {
-          "lead_side": 0.4,
-          "body_side": 0.6,
-          "nut_front": 0.2,
-          "panel_hole_web": 1.1
-        },
-        "lead_long_enough_for_trim": true
-      },
-      {
-        "width_key": "panel_width_2hp",
-        "panel_width": 9.8,
-        "offset": 0.75,
-        "pcb_thickness": 1.2,
-        "leads": "trimmed",
-        "verdict": "UNRESOLVED",
-        "failing_at_worst": [
-          "lead_side",
-          "body_side",
-          "nut_front"
-        ],
-        "worst_min": -0.62,
-        "nominal_min": 0.15,
-        "worst": {
-          "lead_side": -0.62,
-          "body_side": -0.3,
-          "nut_front": -0.15,
-          "panel_hole_web": 0.9
-        },
-        "nominal": {
-          "lead_side": 0.45,
-          "body_side": 0.55,
-          "nut_front": 0.15,
-          "panel_hole_web": 1.05
-        },
-        "lead_long_enough_for_trim": true
-      },
-      {
-        "width_key": "panel_width_2hp",
-        "panel_width": 9.8,
-        "offset": 0.8,
-        "pcb_thickness": 1.2,
-        "leads": "trimmed",
-        "verdict": "UNRESOLVED",
-        "failing_at_worst": [
-          "lead_side",
-          "body_side",
-          "nut_front"
-        ],
-        "worst_min": -0.57,
-        "nominal_min": 0.1,
-        "worst": {
-          "lead_side": -0.57,
-          "body_side": -0.35,
-          "nut_front": -0.2,
-          "panel_hole_web": 0.85
-        },
-        "nominal": {
-          "lead_side": 0.5,
-          "body_side": 0.5,
-          "nut_front": 0.1,
-          "panel_hole_web": 1.0
-        },
-        "lead_long_enough_for_trim": true
-      },
-      {
-        "width_key": "panel_width_2hp",
-        "panel_width": 9.8,
-        "offset": 0.85,
-        "pcb_thickness": 1.2,
-        "leads": "trimmed",
-        "verdict": "UNRESOLVED",
-        "failing_at_worst": [
-          "lead_side",
-          "body_side",
-          "nut_front"
-        ],
-        "worst_min": -0.52,
-        "nominal_min": 0.05,
-        "worst": {
-          "lead_side": -0.52,
-          "body_side": -0.4,
-          "nut_front": -0.25,
-          "panel_hole_web": 0.8
-        },
-        "nominal": {
-          "lead_side": 0.55,
-          "body_side": 0.45,
-          "nut_front": 0.05,
-          "panel_hole_web": 0.95
-        },
-        "lead_long_enough_for_trim": true
-      },
-      {
-        "width_key": "panel_width_2hp",
-        "panel_width": 9.8,
-        "offset": 0.9,
-        "pcb_thickness": 1.2,
-        "leads": "trimmed",
-        "verdict": "UNRESOLVED",
-        "failing_at_worst": [
-          "lead_side",
-          "body_side",
-          "nut_front"
-        ],
-        "worst_min": -0.47,
-        "nominal_min": 0.0,
-        "worst": {
-          "lead_side": -0.47,
-          "body_side": -0.45,
-          "nut_front": -0.3,
-          "panel_hole_web": 0.75
-        },
-        "nominal": {
-          "lead_side": 0.6,
-          "body_side": 0.4,
-          "nut_front": 0.0,
-          "panel_hole_web": 0.9
-        },
-        "lead_long_enough_for_trim": true
-      },
-      {
-        "width_key": "panel_width_2hp",
-        "panel_width": 9.8,
-        "offset": 0.95,
-        "pcb_thickness": 1.2,
-        "leads": "trimmed",
-        "verdict": "UNRESOLVED",
-        "failing_at_worst": [
-          "lead_side",
-          "body_side",
-          "nut_front"
-        ],
-        "worst_min": -0.5,
-        "nominal_min": -0.05,
-        "worst": {
-          "lead_side": -0.42,
-          "body_side": -0.5,
-          "nut_front": -0.35,
-          "panel_hole_web": 0.7
-        },
-        "nominal": {
-          "lead_side": 0.65,
-          "body_side": 0.35,
-          "nut_front": -0.05,
-          "panel_hole_web": 0.85
-        },
-        "lead_long_enough_for_trim": true
-      },
-      {
-        "width_key": "panel_width_2hp",
-        "panel_width": 9.8,
-        "offset": 1.0,
-        "pcb_thickness": 1.2,
-        "leads": "trimmed",
-        "verdict": "UNRESOLVED",
-        "failing_at_worst": [
-          "lead_side",
-          "body_side",
-          "nut_front"
-        ],
-        "worst_min": -0.55,
-        "nominal_min": -0.1,
-        "worst": {
-          "lead_side": -0.37,
-          "body_side": -0.55,
-          "nut_front": -0.4,
-          "panel_hole_web": 0.65
-        },
-        "nominal": {
-          "lead_side": 0.7,
-          "body_side": 0.3,
-          "nut_front": -0.1,
-          "panel_hole_web": 0.8
-        },
-        "lead_long_enough_for_trim": true
-      },
-      {
-        "width_key": "panel_width_2hp",
-        "panel_width": 9.8,
-        "offset": 1.05,
-        "pcb_thickness": 1.2,
-        "leads": "trimmed",
-        "verdict": "UNRESOLVED",
-        "failing_at_worst": [
-          "lead_side",
-          "body_side",
-          "nut_front"
-        ],
-        "worst_min": -0.6,
-        "nominal_min": -0.15,
-        "worst": {
-          "lead_side": -0.32,
-          "body_side": -0.6,
-          "nut_front": -0.45,
-          "panel_hole_web": 0.6
-        },
-        "nominal": {
-          "lead_side": 0.75,
-          "body_side": 0.25,
-          "nut_front": -0.15,
-          "panel_hole_web": 0.75
-        },
-        "lead_long_enough_for_trim": true
-      },
-      {
-        "width_key": "panel_width_2hp",
-        "panel_width": 9.8,
-        "offset": 1.1,
-        "pcb_thickness": 1.2,
-        "leads": "trimmed",
-        "verdict": "UNRESOLVED",
-        "failing_at_worst": [
-          "lead_side",
-          "body_side",
-          "nut_front"
-        ],
-        "worst_min": -0.65,
-        "nominal_min": -0.2,
-        "worst": {
-          "lead_side": -0.27,
-          "body_side": -0.65,
-          "nut_front": -0.5,
-          "panel_hole_web": 0.55
-        },
-        "nominal": {
-          "lead_side": 0.8,
-          "body_side": 0.2,
-          "nut_front": -0.2,
-          "panel_hole_web": 0.7
-        },
-        "lead_long_enough_for_trim": true
-      },
-      {
-        "width_key": "panel_width_2hp",
-        "panel_width": 9.8,
-        "offset": 1.15,
-        "pcb_thickness": 1.2,
-        "leads": "trimmed",
-        "verdict": "UNRESOLVED",
-        "failing_at_worst": [
-          "lead_side",
-          "body_side",
-          "nut_front"
-        ],
-        "worst_min": -0.7,
-        "nominal_min": -0.25,
-        "worst": {
-          "lead_side": -0.22,
-          "body_side": -0.7,
-          "nut_front": -0.55,
-          "panel_hole_web": 0.5
-        },
-        "nominal": {
-          "lead_side": 0.85,
-          "body_side": 0.15,
-          "nut_front": -0.25,
-          "panel_hole_web": 0.65
-        },
-        "lead_long_enough_for_trim": true
-      },
-      {
-        "width_key": "panel_width_2hp",
-        "panel_width": 9.8,
-        "offset": 1.2,
-        "pcb_thickness": 1.2,
-        "leads": "trimmed",
-        "verdict": "INFEASIBLE WITHIN STATED RANGES",
-        "failing_at_worst": [
-          "nut_front"
-        ],
-        "worst_min": -0.75,
-        "nominal_min": -0.3,
-        "worst": {
-          "lead_side": -0.17,
-          "body_side": -0.75,
-          "nut_front": -0.6,
-          "panel_hole_web": 0.45
-        },
-        "nominal": {
-          "lead_side": 0.9,
-          "body_side": 0.1,
-          "nut_front": -0.3,
-          "panel_hole_web": 0.6
-        },
-        "lead_long_enough_for_trim": true
-      },
-      {
-        "width_key": "panel_width_2hp",
-        "panel_width": 9.8,
-        "offset": 0.0,
-        "pcb_thickness": 1.6,
-        "leads": "trimmed",
-        "verdict": "UNRESOLVED",
-        "failing_at_worst": [
-          "lead_side"
-        ],
-        "worst_min": -1.81,
-        "nominal_min": -0.7,
-        "worst": {
-          "lead_side": -1.81,
-          "body_side": 0.45,
-          "nut_front": 0.6,
-          "panel_hole_web": 1.65
-        },
-        "nominal": {
-          "lead_side": -0.7,
-          "body_side": 1.3,
-          "nut_front": 0.9,
-          "panel_hole_web": 1.8
-        },
-        "lead_long_enough_for_trim": true
-      },
-      {
-        "width_key": "panel_width_2hp",
-        "panel_width": 9.8,
-        "offset": 0.05,
-        "pcb_thickness": 1.6,
-        "leads": "trimmed",
-        "verdict": "UNRESOLVED",
-        "failing_at_worst": [
-          "lead_side"
-        ],
-        "worst_min": -1.76,
-        "nominal_min": -0.65,
-        "worst": {
-          "lead_side": -1.76,
-          "body_side": 0.4,
-          "nut_front": 0.55,
-          "panel_hole_web": 1.6
-        },
-        "nominal": {
-          "lead_side": -0.65,
-          "body_side": 1.25,
-          "nut_front": 0.85,
-          "panel_hole_web": 1.75
-        },
-        "lead_long_enough_for_trim": true
-      },
-      {
-        "width_key": "panel_width_2hp",
-        "panel_width": 9.8,
-        "offset": 0.1,
-        "pcb_thickness": 1.6,
-        "leads": "trimmed",
-        "verdict": "UNRESOLVED",
-        "failing_at_worst": [
-          "lead_side"
-        ],
-        "worst_min": -1.71,
-        "nominal_min": -0.6,
-        "worst": {
-          "lead_side": -1.71,
-          "body_side": 0.35,
-          "nut_front": 0.5,
-          "panel_hole_web": 1.55
-        },
-        "nominal": {
-          "lead_side": -0.6,
-          "body_side": 1.2,
-          "nut_front": 0.8,
-          "panel_hole_web": 1.7
-        },
-        "lead_long_enough_for_trim": true
-      },
-      {
-        "width_key": "panel_width_2hp",
-        "panel_width": 9.8,
-        "offset": 0.15,
-        "pcb_thickness": 1.6,
-        "leads": "trimmed",
-        "verdict": "UNRESOLVED",
-        "failing_at_worst": [
-          "lead_side"
-        ],
-        "worst_min": -1.66,
-        "nominal_min": -0.55,
-        "worst": {
-          "lead_side": -1.66,
-          "body_side": 0.3,
-          "nut_front": 0.45,
-          "panel_hole_web": 1.5
-        },
-        "nominal": {
-          "lead_side": -0.55,
-          "body_side": 1.15,
-          "nut_front": 0.75,
-          "panel_hole_web": 1.65
-        },
-        "lead_long_enough_for_trim": true
-      },
-      {
-        "width_key": "panel_width_2hp",
-        "panel_width": 9.8,
-        "offset": 0.2,
-        "pcb_thickness": 1.6,
-        "leads": "trimmed",
-        "verdict": "UNRESOLVED",
-        "failing_at_worst": [
-          "lead_side"
-        ],
-        "worst_min": -1.61,
-        "nominal_min": -0.5,
-        "worst": {
-          "lead_side": -1.61,
-          "body_side": 0.25,
-          "nut_front": 0.4,
-          "panel_hole_web": 1.45
-        },
-        "nominal": {
-          "lead_side": -0.5,
-          "body_side": 1.1,
-          "nut_front": 0.7,
-          "panel_hole_web": 1.6
-        },
-        "lead_long_enough_for_trim": true
-      },
-      {
-        "width_key": "panel_width_2hp",
-        "panel_width": 9.8,
-        "offset": 0.25,
-        "pcb_thickness": 1.6,
-        "leads": "trimmed",
-        "verdict": "UNRESOLVED",
-        "failing_at_worst": [
-          "lead_side"
-        ],
-        "worst_min": -1.56,
-        "nominal_min": -0.45,
-        "worst": {
-          "lead_side": -1.56,
-          "body_side": 0.2,
-          "nut_front": 0.35,
-          "panel_hole_web": 1.4
-        },
-        "nominal": {
-          "lead_side": -0.45,
-          "body_side": 1.05,
-          "nut_front": 0.65,
-          "panel_hole_web": 1.55
-        },
-        "lead_long_enough_for_trim": true
-      },
-      {
-        "width_key": "panel_width_2hp",
-        "panel_width": 9.8,
-        "offset": 0.3,
-        "pcb_thickness": 1.6,
-        "leads": "trimmed",
-        "verdict": "UNRESOLVED",
-        "failing_at_worst": [
-          "lead_side"
-        ],
-        "worst_min": -1.51,
-        "nominal_min": -0.4,
-        "worst": {
-          "lead_side": -1.51,
-          "body_side": 0.15,
-          "nut_front": 0.3,
-          "panel_hole_web": 1.35
-        },
-        "nominal": {
-          "lead_side": -0.4,
-          "body_side": 1.0,
-          "nut_front": 0.6,
-          "panel_hole_web": 1.5
-        },
-        "lead_long_enough_for_trim": true
-      },
-      {
-        "width_key": "panel_width_2hp",
-        "panel_width": 9.8,
-        "offset": 0.35,
-        "pcb_thickness": 1.6,
-        "leads": "trimmed",
-        "verdict": "UNRESOLVED",
-        "failing_at_worst": [
-          "lead_side"
-        ],
-        "worst_min": -1.46,
-        "nominal_min": -0.35,
-        "worst": {
-          "lead_side": -1.46,
-          "body_side": 0.1,
-          "nut_front": 0.25,
-          "panel_hole_web": 1.3
-        },
-        "nominal": {
-          "lead_side": -0.35,
-          "body_side": 0.95,
-          "nut_front": 0.55,
-          "panel_hole_web": 1.45
-        },
-        "lead_long_enough_for_trim": true
-      },
-      {
-        "width_key": "panel_width_2hp",
-        "panel_width": 9.8,
-        "offset": 0.4,
-        "pcb_thickness": 1.6,
-        "leads": "trimmed",
-        "verdict": "UNRESOLVED",
-        "failing_at_worst": [
-          "lead_side"
-        ],
-        "worst_min": -1.41,
-        "nominal_min": -0.3,
-        "worst": {
-          "lead_side": -1.41,
-          "body_side": 0.05,
-          "nut_front": 0.2,
-          "panel_hole_web": 1.25
-        },
-        "nominal": {
-          "lead_side": -0.3,
-          "body_side": 0.9,
-          "nut_front": 0.5,
-          "panel_hole_web": 1.4
-        },
-        "lead_long_enough_for_trim": true
-      },
-      {
-        "width_key": "panel_width_2hp",
-        "panel_width": 9.8,
-        "offset": 0.45,
-        "pcb_thickness": 1.6,
-        "leads": "trimmed",
-        "verdict": "UNRESOLVED",
-        "failing_at_worst": [
-          "lead_side"
-        ],
-        "worst_min": -1.36,
-        "nominal_min": -0.25,
-        "worst": {
-          "lead_side": -1.36,
-          "body_side": -0.0,
-          "nut_front": 0.15,
-          "panel_hole_web": 1.2
-        },
-        "nominal": {
-          "lead_side": -0.25,
-          "body_side": 0.85,
-          "nut_front": 0.45,
-          "panel_hole_web": 1.35
-        },
-        "lead_long_enough_for_trim": true
-      },
-      {
-        "width_key": "panel_width_2hp",
-        "panel_width": 9.8,
-        "offset": 0.5,
-        "pcb_thickness": 1.6,
-        "leads": "trimmed",
-        "verdict": "UNRESOLVED",
-        "failing_at_worst": [
-          "lead_side",
-          "body_side"
-        ],
-        "worst_min": -1.31,
-        "nominal_min": -0.2,
-        "worst": {
-          "lead_side": -1.31,
-          "body_side": -0.05,
-          "nut_front": 0.1,
-          "panel_hole_web": 1.15
-        },
-        "nominal": {
-          "lead_side": -0.2,
-          "body_side": 0.8,
-          "nut_front": 0.4,
-          "panel_hole_web": 1.3
-        },
-        "lead_long_enough_for_trim": true
-      },
-      {
-        "width_key": "panel_width_2hp",
-        "panel_width": 9.8,
-        "offset": 0.55,
-        "pcb_thickness": 1.6,
-        "leads": "trimmed",
-        "verdict": "UNRESOLVED",
-        "failing_at_worst": [
-          "lead_side",
-          "body_side"
-        ],
-        "worst_min": -1.26,
-        "nominal_min": -0.15,
-        "worst": {
-          "lead_side": -1.26,
-          "body_side": -0.1,
-          "nut_front": 0.05,
-          "panel_hole_web": 1.1
-        },
-        "nominal": {
-          "lead_side": -0.15,
-          "body_side": 0.75,
-          "nut_front": 0.35,
-          "panel_hole_web": 1.25
-        },
-        "lead_long_enough_for_trim": true
-      },
-      {
-        "width_key": "panel_width_2hp",
-        "panel_width": 9.8,
-        "offset": 0.6,
-        "pcb_thickness": 1.6,
-        "leads": "trimmed",
-        "verdict": "UNRESOLVED",
-        "failing_at_worst": [
-          "lead_side",
-          "body_side"
-        ],
-        "worst_min": -1.21,
-        "nominal_min": -0.1,
-        "worst": {
-          "lead_side": -1.21,
-          "body_side": -0.15,
-          "nut_front": 0.0,
-          "panel_hole_web": 1.05
-        },
-        "nominal": {
-          "lead_side": -0.1,
-          "body_side": 0.7,
-          "nut_front": 0.3,
-          "panel_hole_web": 1.2
-        },
-        "lead_long_enough_for_trim": true
-      },
-      {
-        "width_key": "panel_width_2hp",
-        "panel_width": 9.8,
-        "offset": 0.65,
-        "pcb_thickness": 1.6,
-        "leads": "trimmed",
-        "verdict": "UNRESOLVED",
-        "failing_at_worst": [
-          "lead_side",
-          "body_side",
-          "nut_front"
-        ],
-        "worst_min": -1.16,
-        "nominal_min": -0.05,
-        "worst": {
-          "lead_side": -1.16,
-          "body_side": -0.2,
-          "nut_front": -0.05,
-          "panel_hole_web": 1.0
-        },
-        "nominal": {
-          "lead_side": -0.05,
-          "body_side": 0.65,
-          "nut_front": 0.25,
-          "panel_hole_web": 1.15
-        },
-        "lead_long_enough_for_trim": true
-      },
-      {
-        "width_key": "panel_width_2hp",
-        "panel_width": 9.8,
-        "offset": 0.7,
-        "pcb_thickness": 1.6,
-        "leads": "trimmed",
-        "verdict": "UNRESOLVED",
-        "failing_at_worst": [
-          "lead_side",
-          "body_side",
-          "nut_front"
-        ],
-        "worst_min": -1.11,
-        "nominal_min": 0.0,
-        "worst": {
-          "lead_side": -1.11,
-          "body_side": -0.25,
-          "nut_front": -0.1,
-          "panel_hole_web": 0.95
-        },
-        "nominal": {
-          "lead_side": 0.0,
-          "body_side": 0.6,
-          "nut_front": 0.2,
-          "panel_hole_web": 1.1
-        },
-        "lead_long_enough_for_trim": true
-      },
-      {
-        "width_key": "panel_width_2hp",
-        "panel_width": 9.8,
-        "offset": 0.75,
-        "pcb_thickness": 1.6,
-        "leads": "trimmed",
-        "verdict": "UNRESOLVED",
-        "failing_at_worst": [
-          "lead_side",
-          "body_side",
-          "nut_front"
-        ],
-        "worst_min": -1.06,
-        "nominal_min": 0.05,
-        "worst": {
-          "lead_side": -1.06,
-          "body_side": -0.3,
-          "nut_front": -0.15,
-          "panel_hole_web": 0.9
-        },
-        "nominal": {
-          "lead_side": 0.05,
-          "body_side": 0.55,
-          "nut_front": 0.15,
-          "panel_hole_web": 1.05
-        },
-        "lead_long_enough_for_trim": true
-      },
-      {
-        "width_key": "panel_width_2hp",
-        "panel_width": 9.8,
-        "offset": 0.8,
-        "pcb_thickness": 1.6,
-        "leads": "trimmed",
-        "verdict": "UNRESOLVED",
-        "failing_at_worst": [
-          "lead_side",
-          "body_side",
-          "nut_front"
-        ],
-        "worst_min": -1.01,
-        "nominal_min": 0.1,
-        "worst": {
-          "lead_side": -1.01,
-          "body_side": -0.35,
-          "nut_front": -0.2,
-          "panel_hole_web": 0.85
-        },
-        "nominal": {
-          "lead_side": 0.1,
-          "body_side": 0.5,
-          "nut_front": 0.1,
-          "panel_hole_web": 1.0
-        },
-        "lead_long_enough_for_trim": true
-      },
-      {
-        "width_key": "panel_width_2hp",
-        "panel_width": 9.8,
-        "offset": 0.85,
-        "pcb_thickness": 1.6,
-        "leads": "trimmed",
-        "verdict": "UNRESOLVED",
-        "failing_at_worst": [
-          "lead_side",
-          "body_side",
-          "nut_front"
-        ],
-        "worst_min": -0.96,
-        "nominal_min": 0.05,
-        "worst": {
-          "lead_side": -0.96,
-          "body_side": -0.4,
-          "nut_front": -0.25,
-          "panel_hole_web": 0.8
-        },
-        "nominal": {
-          "lead_side": 0.15,
-          "body_side": 0.45,
-          "nut_front": 0.05,
-          "panel_hole_web": 0.95
-        },
-        "lead_long_enough_for_trim": true
-      },
-      {
-        "width_key": "panel_width_2hp",
-        "panel_width": 9.8,
-        "offset": 0.9,
-        "pcb_thickness": 1.6,
-        "leads": "trimmed",
-        "verdict": "UNRESOLVED",
-        "failing_at_worst": [
-          "lead_side",
-          "body_side",
-          "nut_front"
-        ],
-        "worst_min": -0.91,
-        "nominal_min": 0.0,
-        "worst": {
-          "lead_side": -0.91,
-          "body_side": -0.45,
-          "nut_front": -0.3,
-          "panel_hole_web": 0.75
-        },
-        "nominal": {
-          "lead_side": 0.2,
-          "body_side": 0.4,
-          "nut_front": 0.0,
-          "panel_hole_web": 0.9
-        },
-        "lead_long_enough_for_trim": true
-      },
-      {
-        "width_key": "panel_width_2hp",
-        "panel_width": 9.8,
-        "offset": 0.95,
-        "pcb_thickness": 1.6,
-        "leads": "trimmed",
-        "verdict": "UNRESOLVED",
-        "failing_at_worst": [
-          "lead_side",
-          "body_side",
-          "nut_front"
-        ],
-        "worst_min": -0.86,
-        "nominal_min": -0.05,
-        "worst": {
-          "lead_side": -0.86,
-          "body_side": -0.5,
-          "nut_front": -0.35,
-          "panel_hole_web": 0.7
-        },
-        "nominal": {
-          "lead_side": 0.25,
-          "body_side": 0.35,
-          "nut_front": -0.05,
-          "panel_hole_web": 0.85
-        },
-        "lead_long_enough_for_trim": true
-      },
-      {
-        "width_key": "panel_width_2hp",
-        "panel_width": 9.8,
-        "offset": 1.0,
-        "pcb_thickness": 1.6,
-        "leads": "trimmed",
-        "verdict": "UNRESOLVED",
-        "failing_at_worst": [
-          "lead_side",
-          "body_side",
-          "nut_front"
-        ],
-        "worst_min": -0.81,
-        "nominal_min": -0.1,
-        "worst": {
-          "lead_side": -0.81,
-          "body_side": -0.55,
-          "nut_front": -0.4,
-          "panel_hole_web": 0.65
-        },
-        "nominal": {
-          "lead_side": 0.3,
-          "body_side": 0.3,
-          "nut_front": -0.1,
-          "panel_hole_web": 0.8
-        },
-        "lead_long_enough_for_trim": true
-      },
-      {
-        "width_key": "panel_width_2hp",
-        "panel_width": 9.8,
-        "offset": 1.05,
-        "pcb_thickness": 1.6,
-        "leads": "trimmed",
-        "verdict": "UNRESOLVED",
-        "failing_at_worst": [
-          "lead_side",
-          "body_side",
-          "nut_front"
-        ],
-        "worst_min": -0.76,
-        "nominal_min": -0.15,
-        "worst": {
-          "lead_side": -0.76,
-          "body_side": -0.6,
-          "nut_front": -0.45,
-          "panel_hole_web": 0.6
-        },
-        "nominal": {
-          "lead_side": 0.35,
-          "body_side": 0.25,
-          "nut_front": -0.15,
-          "panel_hole_web": 0.75
-        },
-        "lead_long_enough_for_trim": true
-      },
-      {
-        "width_key": "panel_width_2hp",
-        "panel_width": 9.8,
-        "offset": 1.1,
-        "pcb_thickness": 1.6,
-        "leads": "trimmed",
-        "verdict": "UNRESOLVED",
-        "failing_at_worst": [
-          "lead_side",
-          "body_side",
-          "nut_front"
-        ],
-        "worst_min": -0.71,
-        "nominal_min": -0.2,
-        "worst": {
-          "lead_side": -0.71,
-          "body_side": -0.65,
-          "nut_front": -0.5,
-          "panel_hole_web": 0.55
-        },
-        "nominal": {
-          "lead_side": 0.4,
-          "body_side": 0.2,
-          "nut_front": -0.2,
-          "panel_hole_web": 0.7
-        },
-        "lead_long_enough_for_trim": true
-      },
-      {
-        "width_key": "panel_width_2hp",
-        "panel_width": 9.8,
-        "offset": 1.15,
-        "pcb_thickness": 1.6,
-        "leads": "trimmed",
-        "verdict": "UNRESOLVED",
-        "failing_at_worst": [
-          "lead_side",
-          "body_side",
-          "nut_front"
-        ],
-        "worst_min": -0.7,
-        "nominal_min": -0.25,
-        "worst": {
-          "lead_side": -0.66,
-          "body_side": -0.7,
-          "nut_front": -0.55,
-          "panel_hole_web": 0.5
-        },
-        "nominal": {
-          "lead_side": 0.45,
-          "body_side": 0.15,
-          "nut_front": -0.25,
-          "panel_hole_web": 0.65
-        },
-        "lead_long_enough_for_trim": true
-      },
-      {
-        "width_key": "panel_width_2hp",
-        "panel_width": 9.8,
-        "offset": 1.2,
-        "pcb_thickness": 1.6,
-        "leads": "trimmed",
-        "verdict": "INFEASIBLE WITHIN STATED RANGES",
-        "failing_at_worst": [
-          "nut_front"
-        ],
-        "worst_min": -0.75,
-        "nominal_min": -0.3,
-        "worst": {
-          "lead_side": -0.61,
-          "body_side": -0.75,
-          "nut_front": -0.6,
-          "panel_hole_web": 0.45
-        },
-        "nominal": {
-          "lead_side": 0.5,
-          "body_side": 0.1,
-          "nut_front": -0.3,
-          "panel_hole_web": 0.6
-        },
-        "lead_long_enough_for_trim": true
       }
     ],
     "r1_verdicts": {
       "2hp-centred|0.8|untrimmed": "INFEASIBLE WITHIN STATED RANGES",
       "2hp-centred|0.8|trimmed": "UNRESOLVED",
-      "2hp-centred|1.0|untrimmed": "INFEASIBLE WITHIN STATED RANGES",
-      "2hp-centred|1.0|trimmed": "UNRESOLVED",
-      "2hp-centred|1.2|untrimmed": "INFEASIBLE WITHIN STATED RANGES",
-      "2hp-centred|1.2|trimmed": "UNRESOLVED",
-      "2hp-centred|1.6|untrimmed": "INFEASIBLE WITHIN STATED RANGES",
-      "2hp-centred|1.6|trimmed": "UNRESOLVED",
       "2hp-offset-0.3|0.8|untrimmed": "INFEASIBLE WITHIN STATED RANGES",
       "2hp-offset-0.3|0.8|trimmed": "UNRESOLVED",
-      "2hp-offset-0.3|1.0|untrimmed": "INFEASIBLE WITHIN STATED RANGES",
-      "2hp-offset-0.3|1.0|trimmed": "UNRESOLVED",
-      "2hp-offset-0.3|1.2|untrimmed": "INFEASIBLE WITHIN STATED RANGES",
-      "2hp-offset-0.3|1.2|trimmed": "UNRESOLVED",
-      "2hp-offset-0.3|1.6|untrimmed": "INFEASIBLE WITHIN STATED RANGES",
-      "2hp-offset-0.3|1.6|trimmed": "UNRESOLVED",
       "2hp-offset-0.6|0.8|untrimmed": "INFEASIBLE WITHIN STATED RANGES",
       "2hp-offset-0.6|0.8|trimmed": "UNRESOLVED",
-      "2hp-offset-0.6|1.0|untrimmed": "INFEASIBLE WITHIN STATED RANGES",
-      "2hp-offset-0.6|1.0|trimmed": "UNRESOLVED",
-      "2hp-offset-0.6|1.2|untrimmed": "INFEASIBLE WITHIN STATED RANGES",
-      "2hp-offset-0.6|1.2|trimmed": "UNRESOLVED",
-      "2hp-offset-0.6|1.6|untrimmed": "INFEASIBLE WITHIN STATED RANGES",
-      "2hp-offset-0.6|1.6|trimmed": "UNRESOLVED",
       "2hp-offset-0.9|0.8|untrimmed": "UNRESOLVED",
       "2hp-offset-0.9|0.8|trimmed": "UNRESOLVED",
-      "2hp-offset-0.9|1.0|untrimmed": "UNRESOLVED",
-      "2hp-offset-0.9|1.0|trimmed": "UNRESOLVED",
-      "2hp-offset-0.9|1.2|untrimmed": "UNRESOLVED",
-      "2hp-offset-0.9|1.2|trimmed": "UNRESOLVED",
-      "2hp-offset-0.9|1.6|untrimmed": "UNRESOLVED",
-      "2hp-offset-0.9|1.6|trimmed": "UNRESOLVED",
       "3hp-centred|0.8|untrimmed": "FEASIBLE ON PAPER",
       "3hp-centred|0.8|trimmed": "FEASIBLE ON PAPER",
-      "3hp-centred|1.0|untrimmed": "FEASIBLE ON PAPER",
-      "3hp-centred|1.0|trimmed": "FEASIBLE ON PAPER",
-      "3hp-centred|1.2|untrimmed": "FEASIBLE ON PAPER",
-      "3hp-centred|1.2|trimmed": "FEASIBLE ON PAPER",
-      "3hp-centred|1.6|untrimmed": "FEASIBLE ON PAPER",
-      "3hp-centred|1.6|trimmed": "FEASIBLE ON PAPER",
       "3hp-offset-1.5|0.8|untrimmed": "FEASIBLE ON PAPER",
-      "3hp-offset-1.5|0.8|trimmed": "FEASIBLE ON PAPER",
-      "3hp-offset-1.5|1.0|untrimmed": "FEASIBLE ON PAPER",
-      "3hp-offset-1.5|1.0|trimmed": "FEASIBLE ON PAPER",
-      "3hp-offset-1.5|1.2|untrimmed": "FEASIBLE ON PAPER",
-      "3hp-offset-1.5|1.2|trimmed": "FEASIBLE ON PAPER",
-      "3hp-offset-1.5|1.6|untrimmed": "FEASIBLE ON PAPER",
-      "3hp-offset-1.5|1.6|trimmed": "FEASIBLE ON PAPER"
+      "3hp-offset-1.5|0.8|trimmed": "FEASIBLE ON PAPER"
     },
     "break_even_2hp": [
       {
         "margin": "lead_side",
         "input": "jack_axis_height.max (INFERRED, R1 Q1)",
-        "worst_margin_now": -0.33,
-        "break_even_value": 3.07,
+        "worst_margin_now": -0.35,
+        "break_even_value": 3.05,
         "closes_within_search": true,
         "note": "largest axis height that still clears the lead side"
       },
       {
         "margin": "lead_side",
         "input": "lead_protrusion_trimmed.max (ASSUMED, R1 Q6)",
-        "worst_margin_now": -0.33,
-        "break_even_value": 0.67,
+        "worst_margin_now": -0.35,
+        "break_even_value": 0.65,
         "closes_within_search": true,
         "note": "largest guaranteed trimmed protrusion"
       },
       {
         "margin": "lead_side",
         "input": "panel_hole_position_tol (ASSUMED, R1 Q7)",
-        "worst_margin_now": -0.33,
+        "worst_margin_now": -0.35,
         "closes_within_search": false,
         "search": [
           0.0,
@@ -3160,7 +1082,7 @@
       16.4
     ],
     "outline_area_mm2": 1018.98,
-    "component_face_free_area_mm2_approx": 401.189,
+    "component_face_free_area_mm2_approx": 401.261,
     "a5_controller_board_area_mm2": 553.52,
     "a5_small_component_body_area_mm2": 144.182,
     "power_header": {
@@ -3315,7 +1237,7 @@
         ],
         "y": [
           57.425,
-          78.193
+          78.178
         ],
         "z": [
           11.6,
@@ -3404,14 +1326,14 @@
       ],
       "margins": {
         "2hp": {
-          "worst": 0.07,
+          "worst": 0.05,
           "nominal": 0.8,
-          "jack_lead_worst": -0.33,
+          "jack_lead_worst": -0.35,
           "never_beyond_jack_lead_tips": true
         },
         "3hp": {
-          "worst": 1.14,
-          "nominal": 1.95,
+          "worst": 2.0,
+          "nominal": 2.75,
           "jack_lead_worst": 0.1,
           "never_beyond_jack_lead_tips": true
         }
@@ -3447,19 +1369,26 @@
     "physical_measurement": "MISSING: no cable has been routed or measured; plug strain relief, wire stiffness and the real fold shape are not known (#8)"
   },
   "leaf_comparison": {
-    "status": "Digital comparison only; FR-4 stays the default leaf. Values marked INFERRED are typical material figures, not supplier data.",
+    "status": "Current 0.8 mm rigid FR-4 design calculation; bond/slot allowances and modulus are assumptions, not fit or optical qualification.",
     "default": "fr4",
+    "current_variants": [
+      "fr4"
+    ],
     "inputs": {
       "fr4": {
         "board_thickness": {
-          "nominal": 0.6,
-          "confidence": "A5-GEOMETRY",
-          "source": "engineering/a5/mechanical/geometry.json leaf.thickness"
+          "nominal": 0.8,
+          "tol": 0.1,
+          "confidence": "PROJECT-CHOICE",
+          "tol_confidence": "SOURCED",
+          "source": "Owner 2026-11-17 JST; JLCPCB Capabilities finished thickness below 1 mm +/-0.1 mm; final order review required."
         },
         "bond_line": {
           "nominal": 0.1,
-          "confidence": "A5-GEOMETRY",
-          "source": "engineering/a5/mechanical/geometry.json leaf.bond_line"
+          "tol": 0.05,
+          "confidence": "PROJECT-CHOICE",
+          "tol_confidence": "ASSUMED",
+          "source": "Prototype design allowance; adhesive product, cured bond tolerance and shear transfer are unqualified."
         },
         "flexural_modulus_mpa": {
           "nominal": 20000,
@@ -3467,54 +1396,13 @@
           "note": "typical FR-4 laminate flexural modulus (about 18-24 GPa); not a supplier value"
         }
       },
-      "pet": {
-        "film": {
-          "layers": 1,
-          "finished_thickness": {
-            "nominal": 0.14,
-            "confidence": "MANUFACTURER_PRIMARY",
-            "source": "src-a7-jlc-flex-capabilities (1-layer transparent FPC finished thickness, excluding stiffeners)"
-          },
-          "core": "PET 36 um (src-a7-jlc-flex-capabilities)",
-          "coverlay": "PET 25 um + adhesive 25 um (src-a7-jlc-flex-capabilities)",
-          "transmittance": "up to 85 % (film figure, src-a7-jlc-transparent-fpc-news)",
-          "modulus_mpa": {
-            "nominal": 4000,
-            "confidence": "INFERRED",
-            "note": "typical biaxially oriented PET film tensile modulus (about 2-5 GPa); JLC gives no modulus"
-          },
-          "min_static_bend_radius_factor": {
-            "nominal": 6,
-            "confidence": "MANUFACTURER_PRIMARY",
-            "source": "src-a7-jlc-flex-capabilities (>= 6x total thickness, 1 layer)"
-          }
-        },
-        "adhesive": {
-          "type": "optically clear adhesive (OCA) film",
-          "thickness": {
-            "nominal": 0.1,
-            "confidence": "INFERRED",
-            "note": "typical OCA film thickness (50-175 um ranges exist); no product selected; clarity after reflow is R1 Q11 item 5"
-          },
-          "composite_action": "not counted: a soft OCA transmits little shear, so the films are treated as non-composite for stiffness (lower bound); the fully bonded value is given as an upper bound"
-        },
-        "carrier": {
-          "material": "clear polycarbonate sheet",
-          "thickness": {
-            "nominal": 0.8,
-            "confidence": "INFERRED",
-            "note": "common clear PC sheet thickness; not sourced to a supplier"
-          },
-          "modulus_mpa": {
-            "nominal": 2300,
-            "confidence": "INFERRED",
-            "note": "typical PC tensile/flexural modulus"
-          },
-          "role": "single clear carrier between the two films (replaces the A5 back-to-back bond); takes the SH mating load and holds the outline in the cap slots"
-        },
-        "connector_backing": {
-          "note": "the SH header pads sit on film over the carrier; whether a JLC stiffener (PI/FR-4) can be bonded to transparent PET is R1 Q11 item 3, so no stiffener is modelled"
-        }
+      "cap_slot_width": 2.15,
+      "cap_slot": {
+        "nominal": 2.15,
+        "tol": 0.05,
+        "confidence": "PROJECT-CHOICE",
+        "tol_confidence": "ASSUMED",
+        "note": "Finished slot acceptance target, not demonstrated fabrication capability. Worst slot2.10 minus max leaf pair1.95 gives0.075 mm per side. Physical retention/bond/fit not verified."
       },
       "sh_header_span_to_cap": 16.5,
       "sh_mating_force_n": {
@@ -3522,68 +1410,43 @@
         "confidence": "UNSOURCED",
         "note": "the SM04B-SRSS-TB owner bundle carries no insertion-force fact; the comparison reports the buckling load each stack can take instead"
       },
-      "leaf_depth": 9.0,
-      "cap_slot_width": 1.6
+      "leaf_depth": 9.0
     },
     "fr4": {
-      "total_thickness": 1.3,
-      "outer_face_offset_from_centre": 0.65,
-      "rigidity_per_mm_bonded_nmm": 3660.0,
-      "rigidity_per_mm_lower_bound_nmm": 3660.0,
+      "total_thickness": 1.7,
+      "thickness_range": [
+        1.45,
+        1.95
+      ],
+      "outer_face_offset_from_centre": 0.85,
+      "outer_face_shift_from_a5": 0.2,
+      "rigidity_per_mm_bonded_nmm": 8186.667,
+      "rigidity_per_mm_lower_bound_nmm": 1706.667,
+      "cap_slot_clearance_per_side": 0.225,
+      "cap_slot_clearance_worst_per_side": 0.075,
+      "old_cap_slot_clearance_nominal_per_side": -0.05,
       "buckling_load_lower_bound_n": {
-        "fixed_free_K2": 298.535,
-        "fixed_pinned_K0.7": 2437.022
+        "fixed_free_K2": 139.208,
+        "fixed_pinned_K0.7": 1136.389
       },
       "buckling_load_bonded_n": {
-        "fixed_free_K2": 298.535,
-        "fixed_pinned_K0.7": 2437.022
-      },
-      "cap_slot_clearance_per_side": 0.15
+        "fixed_free_K2": 667.762,
+        "fixed_pinned_K0.7": 5451.116
+      }
     },
-    "pet": {
-      "total_thickness": 1.28,
-      "outer_face_offset_from_centre": 0.64,
-      "rigidity_per_mm_bonded_nmm": 463.851,
-      "rigidity_per_mm_lower_bound_nmm": 99.963,
-      "buckling_load_lower_bound_n": {
-        "fixed_free_K2": 8.154,
-        "fixed_pinned_K0.7": 66.56
-      },
-      "buckling_load_bonded_n": {
-        "fixed_free_K2": 37.835,
-        "fixed_pinned_K0.7": 308.856
-      },
-      "cap_slot_clearance_per_side": 0.16
-    },
-    "pet_film_alone_buckling_load_fixed_free_n": 0.075,
-    "rigidity_ratio_fr4_to_pet": {
-      "lower_bound": 36.614,
-      "bonded": 7.89
-    },
-    "outer_face_shift_pet_minus_fr4": -0.01,
+    "withdrawn_variants": [
+      "pet"
+    ],
     "optical": {
-      "leaf_outline_unchanged": true,
       "leaf_z": [
         19.4,
         28.4
       ],
-      "led_and_connector_shift_toward_centre": 0.01,
-      "corridor_unchanged": "A5 corridor X limits (xc +/- 1.25 to the diffuser) are kept; the LED emitting faces move by the face shift",
-      "transmittance": "up to 85 % (film figure, src-a7-jlc-transparent-fpc-news)"
+      "transmittance": null,
+      "measured": false,
+      "led_and_connector_shift_outward": 0.2
     },
-    "rear_pocket": {
-      "pmma_rear_z": 0.0,
-      "rear_pocket_depth": 0.5,
-      "leaf_front_z": 19.4,
-      "z_gap_leaf_to_pmma_rear": 19.4,
-      "interaction": "none: the leaf variant changes only the X stack, not the leaf Z range, so the 0.5 mm jack pockets and the 30 mm depth budget are unchanged"
-    },
-    "harness": {
-      "sh4_plug_shift_toward_centre": 0.01,
-      "note": "the SH4 plug sits on the film outer face, so the R2-C6 route start moves by the face shift; the CAD re-check is in exports/3hp_pet/verification.json"
-    },
-    "min_static_bend_radius_mm": 0.84,
-    "recommendation": "Keep FR-4 as the default and fallback. A clear PET leaf is mechanically feasible only as film laminated to a clear carrier: the film alone buckles at about 0.07 N under the SH mating push, so it cannot stand on its own. With a 0.8 mm PC carrier the stack is 1.28 mm (FR-4 1.30 mm), fits the A5 cap slots and keeps every LED, connector, corridor and harness position within 0.01 mm, but it is 8-37x less stiff: its worst-case buckling load under the SH push is about 8 N (FR-4 299 N), and the SH mating force is unsourced. Pursue PET only after JLC answers reflow/paste, PET-compatible stiffeners and OCA clarity (Q11), and after a physical mating-force and lit-appearance test (#10)."
+    "recommendation": "Use the new 0.8 mm rigid FR-4 leaf pair and resized cap slots. Rebuild CAD, harness and all-layer copper shading; verify bond/retention and translucency physically. PET/FPC withdrawn by owner 2026-11-17 JST."
   },
   "variants": {
     "2hp": {
@@ -3596,17 +1459,17 @@
         "controller_to_left_leaf_sh4": {
           "points": [
             [
-              2.55,
+              2.35,
               43.575,
               23.9
             ],
             [
-              2.55,
+              2.35,
               46.575,
               23.9
             ],
             [
-              2.55,
+              2.35,
               46.575,
               18.2
             ],
@@ -3617,12 +1480,12 @@
             ],
             [
               3.975,
-              75.139,
+              75.115,
               18.2
             ],
             [
               3.975,
-              75.139,
+              75.115,
               12.8
             ],
             [
@@ -3634,11 +1497,11 @@
           "radius": 2.5,
           "length": 50.0,
           "min_radius": 2.5,
-          "fold_y": 75.139,
+          "fold_y": 75.115,
           "descent_y": 46.575,
           "length_range_of_this_stowage": [
-            38.072,
-            119.722
+            38.12,
+            119.77
           ],
           "bundle_radius": 1.0,
           "status": "solved for the nominal finished length"
@@ -3727,10 +1590,10 @@
           "lead_side",
           "body_side"
         ],
-        "worst_min": -0.33,
+        "worst_min": -0.35,
         "nominal_min": 0.3,
         "worst": {
-          "lead_side": -0.33,
+          "lead_side": -0.35,
           "body_side": -0.15,
           "nut_front": 0.0,
           "panel_hole_web": 1.05
@@ -3766,7 +1629,7 @@
       ],
       "front_screw_x": {
         "20.5": 4.9,
-        "60.8": 6.025
+        "60.8": 6.075
       },
       "checks": {
         "lead_tip_x_nominal": 1.0,
@@ -3782,14 +1645,14 @@
         "picoblade_wire_bend_room": 1.8,
         "picoblade_untrimmed_tail_margin": -0.1,
         "picoblade_tail_needs_trim": true,
-        "spine_screw_nut_clear_of_pcb": 1.166,
-        "spine_screw_nut_clear_of_side": 1.166,
-        "solder_side_room_for_fork_wall": 1.35,
+        "spine_screw_nut_clear_of_pcb": 1.116,
+        "spine_screw_nut_clear_of_side": 1.116,
+        "solder_side_room_for_fork_wall": 1.25,
         "fork_wall_fits_solder_side": true,
         "nut_edge_nominal": 0.3,
         "pcb_x_within_inner": true,
         "solder_face_zone_height": 0.6,
-        "solder_face_zone_margin_worst": 0.07,
+        "solder_face_zone_margin_worst": 0.05,
         "solder_face_zone_margin_nominal": 0.8,
         "solder_face_zone_below_lead_tips": true,
         "power_route_end_bend_room": 0.9,
@@ -3810,17 +1673,17 @@
         "controller_to_left_leaf_sh4": {
           "points": [
             [
-              5.1,
+              4.9,
               43.575,
               23.9
             ],
             [
-              5.1,
+              4.9,
               46.575,
               23.9
             ],
             [
-              5.1,
+              4.9,
               46.575,
               18.2
             ],
@@ -3831,12 +1694,12 @@
             ],
             [
               5.925,
-              75.193,
+              75.178,
               18.2
             ],
             [
               5.925,
-              75.193,
+              75.178,
               12.8
             ],
             [
@@ -3848,11 +1711,11 @@
           "radius": 2.5,
           "length": 50.0,
           "min_radius": 2.5,
-          "fold_y": 75.193,
+          "fold_y": 75.178,
           "descent_y": 46.575,
           "length_range_of_this_stowage": [
-            37.964,
-            119.614
+            37.994,
+            119.644
           ],
           "bundle_radius": 1.0,
           "status": "solved for the nominal finished length"
@@ -3934,7 +1797,7 @@
         "width_key": "panel_width_3hp",
         "panel_width": 14.9,
         "offset": 0.0,
-        "pcb_thickness": 1.6,
+        "pcb_thickness": 0.8,
         "leads": "untrimmed",
         "verdict": "FEASIBLE ON PAPER",
         "failing_at_worst": [],
@@ -3965,10 +1828,10 @@
       },
       "jack_seat_x": 4.45,
       "controller_pcb_x": [
-        2.85,
+        3.65,
         4.45
       ],
-      "pcb_thickness": 1.6,
+      "pcb_thickness": 0.8,
       "leads": "untrimmed",
       "inner_envelope_x": [
         0.3,
@@ -3976,7 +1839,7 @@
       ],
       "front_screw_x": {
         "20.5": 7.45,
-        "60.8": 9.55
+        "60.8": 9.6
       },
       "checks": {
         "lead_tip_x_nominal": 1.25,
@@ -3992,15 +1855,15 @@
         "picoblade_wire_bend_room": 4.95,
         "picoblade_untrimmed_tail_margin": 1.85,
         "picoblade_tail_needs_trim": false,
-        "spine_screw_nut_clear_of_pcb": 2.741,
-        "spine_screw_nut_clear_of_side": 2.741,
-        "solder_side_room_for_fork_wall": 2.5,
+        "spine_screw_nut_clear_of_pcb": 2.691,
+        "spine_screw_nut_clear_of_side": 2.691,
+        "solder_side_room_for_fork_wall": 3.2,
         "fork_wall_fits_solder_side": true,
         "nut_edge_nominal": 3.45,
         "pcb_x_within_inner": true,
         "solder_face_zone_height": 0.6,
-        "solder_face_zone_margin_worst": 1.14,
-        "solder_face_zone_margin_nominal": 1.95,
+        "solder_face_zone_margin_worst": 2.0,
+        "solder_face_zone_margin_nominal": 2.75,
         "solder_face_zone_below_lead_tips": true,
         "power_route_end_bend_room": 2.0,
         "power_route_min_radius": 2.0,
@@ -4035,7 +1898,9 @@
         72.0
       ],
       "slot_height": 4.0,
-      "slot_clearance": 0.05,
+      "slot_clearance": 0.15,
+      "slot_width_tolerance": 0.05,
+      "slot_clearance_worst_per_side": 0.075,
       "post_radius": 2.5,
       "post_top_z": 15.4,
       "post_nut_z": [

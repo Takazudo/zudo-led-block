@@ -6,21 +6,21 @@ Provisional digital study. Jack-axis height INFERRED; tolerances marked ASSUMED 
 
 ## Width decision: 3HP is the working candidate, 2HP stays open
 
-- Working candidate (default variant): **3hp centred, 1.6 mm FR-4, untrimmed leads**, verdict **FEASIBLE ON PAPER**.
-- Open candidate: **2hp offset 0.6 mm toward the body side, 0.8 mm FR-4, trimmed leads**, verdict **UNRESOLVED** (worst corner: lead_side -0.33, body_side -0.15, nut_front +0.00).
-- Decision (PROJECT-DECISION): Width decision relayed by the project coordinator on 2026-11-08 after the R2 layout (PR #25, issue #17). Not a fit approval. Reasons: selected 2HP arrangement has negative worst-corner lead-side and body-side margins; PJ-324M jack-axis height is INFERRED, not manufacturer-confirmed (R1 Q1); guaranteed trimmed lead protrusion is ASSUMED, not confirmed (R1 Q6).
+- Working candidate (default variant): **3hp centred, 0.8 mm FR-4, untrimmed leads**, verdict **FEASIBLE ON PAPER**.
+- Open candidate: **2hp offset 0.6 mm toward the body side, 0.8 mm FR-4, trimmed leads**, verdict **UNRESOLVED** (worst corner: lead_side -0.35, body_side -0.15, nut_front +0.00).
+- Decision (PROJECT-DECISION): Owner redesign 2026-11-17 JST, issue #87: prefer 2HP only when tolerance and assembly evidence establishes it; otherwise 3HP, retaining 0.8 mm rigid FR-4. Reasons: selected 2HP arrangement has negative worst-corner lead-side and body-side margins; PJ-324M jack-axis height is INFERRED, not manufacturer-confirmed (R1 Q1); guaranteed trimmed lead protrusion is ASSUMED, not confirmed (R1 Q6).
 - 2HP reopens when: manufacturer axis-height evidence (drawing, 3D model or measured part) puts the axis inside the break-even band in layout.md; confirmed lead-trim data meets the break-even protrusion in layout.md; either makes every worst-corner hard margin of a 2HP row >= 0.
 - No 2HP row in the sweep passes the worst corner (best worst-corner minimum -0.25 at offset 0.7, 0.8 mm).
 
-3HP is the working candidate and the default for the generated artwork, supports and CAD. 2HP is not declared infeasible: the selected 2HP arrangement clears every nominal transverse margin, but its worst-corner margins stay negative, driven by the INFERRED jack-axis height and the ASSUMED lead trim and hole tolerances. It stays a fully parameterized open candidate and reopens on the evidence in the break-even table. The controller outline in Y-Z is common to both widths.
+3HP is the working candidate and the default for the generated artwork, supports and CAD. 2HP is not declared infeasible: the selected 2HP arrangement clears every nominal transverse margin, but its worst-corner margins stay negative, driven by the INFERRED jack-axis height and the ASSUMED lead trim and hole tolerances. It is an unadopted comparison; 3HP is selected under the 2026-11-17 JST owner fallback with 0.8 mm retained. The controller outline in Y-Z is common to both widths.
 
 ## What would close 2HP (one input at a time, sensitivity only)
 
 | Margin | Input | Worst margin now | Break-even value |
 |---|---|---|---|
-| lead_side | jack_axis_height.max (INFERRED, R1 Q1) | -0.33 | 3.07 |
-| lead_side | lead_protrusion_trimmed.max (ASSUMED, R1 Q6) | -0.33 | 0.67 |
-| lead_side | panel_hole_position_tol (ASSUMED, R1 Q7) | -0.33 | does not close alone |
+| lead_side | jack_axis_height.max (INFERRED, R1 Q1) | -0.35 | 3.05 |
+| lead_side | lead_protrusion_trimmed.max (ASSUMED, R1 Q6) | -0.35 | 0.65 |
+| lead_side | panel_hole_position_tol (ASSUMED, R1 Q7) | -0.35 | does not close alone |
 | body_side | jack_axis_height.min (INFERRED, R1 Q1) | -0.15 | 2.75 |
 | body_side | jack_overall_height.tol (ASSUMED tol band) | -0.15 | 0.05 |
 | body_side | panel_hole_position_tol (ASSUMED, R1 Q7) | -0.15 | does not close alone |
@@ -29,38 +29,38 @@ Provisional digital study. Jack-axis height INFERRED; tolerances marked ASSUMED 
 
 | Variant | Offset | PCB | Leads | Lead side (worst / nominal) | Body side (worst / nominal) | Nut edge (worst / nominal) | Verdict |
 |---|---|---|---|---|---|---|---|
-| 2hp | 0.6 | 0.8 | trimmed | -0.33 / +0.70 | -0.15 / +0.70 | +0.00 / +0.30 | UNRESOLVED |
-| 3hp | 0.0 | 1.6 | untrimmed | +0.10 / +0.95 | +3.00 / +3.85 | +3.15 / +3.45 | FEASIBLE ON PAPER |
+| 2hp | 0.6 | 0.8 | trimmed | -0.35 / +0.70 | -0.15 / +0.70 | +0.00 / +0.30 | UNRESOLVED |
+| 3hp | 0.0 | 0.8 | untrimmed | +0.10 / +0.95 | +3.00 / +3.85 | +3.15 / +3.45 | FEASIBLE ON PAPER |
 
 ## 2HP offset sweep (trimmed leads, worst-corner minimum hard margin)
 
-| Offset | 0.8 mm | 1.0 mm | 1.2 mm | 1.6 mm |
-|---|---|---|---|---|
-| 0.0 | -0.93 | -1.15 | -1.37 | -1.81 |
-| 0.05 | -0.88 | -1.10 | -1.32 | -1.76 |
-| 0.1 | -0.83 | -1.05 | -1.27 | -1.71 |
-| 0.15 | -0.78 | -1.00 | -1.22 | -1.66 |
-| 0.2 | -0.73 | -0.95 | -1.17 | -1.61 |
-| 0.25 | -0.68 | -0.90 | -1.12 | -1.56 |
-| 0.3 | -0.63 | -0.85 | -1.07 | -1.51 |
-| 0.35 | -0.58 | -0.80 | -1.02 | -1.46 |
-| 0.4 | -0.53 | -0.75 | -0.97 | -1.41 |
-| 0.45 | -0.48 | -0.70 | -0.92 | -1.36 |
-| 0.5 | -0.43 | -0.65 | -0.87 | -1.31 |
-| 0.55 | -0.38 | -0.60 | -0.82 | -1.26 |
-| 0.6 | -0.33 | -0.55 | -0.77 | -1.21 |
-| 0.65 | -0.28 | -0.50 | -0.72 | -1.16 |
-| 0.7 | -0.25 | -0.45 | -0.67 | -1.11 |
-| 0.75 | -0.30 | -0.40 | -0.62 | -1.06 |
-| 0.8 | -0.35 | -0.35 | -0.57 | -1.01 |
-| 0.85 | -0.40 | -0.40 | -0.52 | -0.96 |
-| 0.9 | -0.45 | -0.45 | -0.47 | -0.91 |
-| 0.95 | -0.50 | -0.50 | -0.50 | -0.86 |
-| 1.0 | -0.55 | -0.55 | -0.55 | -0.81 |
-| 1.05 | -0.60 | -0.60 | -0.60 | -0.76 |
-| 1.1 | -0.65 | -0.65 | -0.65 | -0.71 |
-| 1.15 | -0.70 | -0.70 | -0.70 | -0.70 |
-| 1.2 | -0.75 | -0.75 | -0.75 | -0.75 |
+| Offset | 0.8 mm |
+|---|---|
+| 0.0 | -0.95 |
+| 0.05 | -0.90 |
+| 0.1 | -0.85 |
+| 0.15 | -0.80 |
+| 0.2 | -0.75 |
+| 0.25 | -0.70 |
+| 0.3 | -0.65 |
+| 0.35 | -0.60 |
+| 0.4 | -0.55 |
+| 0.45 | -0.50 |
+| 0.5 | -0.45 |
+| 0.55 | -0.40 |
+| 0.6 | -0.35 |
+| 0.65 | -0.30 |
+| 0.7 | -0.25 |
+| 0.75 | -0.30 |
+| 0.8 | -0.35 |
+| 0.85 | -0.40 |
+| 0.9 | -0.45 |
+| 0.95 | -0.50 |
+| 1.0 | -0.55 |
+| 1.05 | -0.60 |
+| 1.1 | -0.65 |
+| 1.15 | -0.70 |
+| 1.2 | -0.75 |
 
 ## Depth stack (Z, from the PMMA rear)
 
@@ -77,7 +77,7 @@ Provisional digital study. Jack-axis height INFERRED; tolerances marked ASSUMED 
 
 ## Controller (Y-Z board, common to both widths)
 
-- Outline Y 48.5..111.4 x Z 0.2..16.4 = 1018.98 mm2 (A5 board 553.52 mm2; A5 small-part body area 144.182 mm2). Free component-face area after keep-outs about 401.189 mm2.
+- Outline Y 48.5..111.4 x Z 0.2..16.4 = 1018.98 mm2 (A5 board 553.52 mm2; A5 small-part body area 144.182 mm2). Free component-face area after keep-outs about 401.261 mm2.
 - a vertical keyed IDC10 header body is 8.9 mm tall (A5 C5665 maximum envelope); on the perpendicular board it would need 8.9 mm of X but the 2HP component face offers 7.0 mm.
 
 | Keep-out | Faces | Y | Z | Reason |
@@ -89,7 +89,7 @@ Provisional digital study. Jack-axis height INFERRED; tolerances marked ASSUMED 
 | sh4-header | +X | 57.425..63.675 | 9.3..16.4 | SH4 side-entry housing and its mated plug handle |
 | picoblade-header | +X | 73.95..77.15 | 5.94..11.44 | PicoBlade vertical header and mated plug |
 | picoblade-tails | -X | 73.95..77.15 | 5.94..11.44 | PicoBlade THT tails and fillets on the solder face (cut to the jack trim rule in 2HP) |
-| led-cable-lane | +X | 57.425..78.193 | 11.6..16.4 | SH4 header and the returning LED harness lie over the component face |
+| led-cable-lane | +X | 57.425..78.178 | 11.6..16.4 | SH4 header and the returning LED harness lie over the component face |
 | jack-in | +X | 78.7..90.8 | 0.2..13.9 | PJ-324M body footprint |
 | jack-in-leads | -X | 78.8..90.5 | 0.2..13.5 | terminal fillets only on the solder face (2HP lead-side margin) |
 | jack-thru | +X | 93.7..105.8 | 0.2..13.9 | PJ-324M body footprint |
@@ -112,15 +112,15 @@ Provisional digital study. Jack-axis height INFERRED; tolerances marked ASSUMED 
 | picoblade_wire_bend_room | +1.80 | +4.95 |
 | picoblade_untrimmed_tail_margin | -0.10 | +1.85 |
 | picoblade_tail_needs_trim | True | False |
-| spine_screw_nut_clear_of_pcb | +1.17 | +2.74 |
-| spine_screw_nut_clear_of_side | +1.17 | +2.74 |
-| solder_side_room_for_fork_wall | +1.35 | +2.50 |
+| spine_screw_nut_clear_of_pcb | +1.12 | +2.69 |
+| spine_screw_nut_clear_of_side | +1.12 | +2.69 |
+| solder_side_room_for_fork_wall | +1.25 | +3.20 |
 | fork_wall_fits_solder_side | True | True |
 | nut_edge_nominal | +0.30 | +3.45 |
 | pcb_x_within_inner | True | True |
 | solder_face_zone_height | +0.60 | +0.60 |
-| solder_face_zone_margin_worst | +0.07 | +1.14 |
-| solder_face_zone_margin_nominal | +0.80 | +1.95 |
+| solder_face_zone_margin_worst | +0.05 | +2.00 |
+| solder_face_zone_margin_nominal | +0.80 | +2.75 |
 | solder_face_zone_below_lead_tips | True | True |
 | power_route_end_bend_room | +0.90 | +2.00 |
 | power_route_min_radius | +0.90 | +2.00 |
@@ -130,8 +130,8 @@ Provisional digital study. Jack-axis height INFERRED; tolerances marked ASSUMED 
 | rear_pocket_wall_to_panel_edge | +0.20 | +3.35 |
 | x_axis | 5.5 | 7.45 |
 | jack_seat_x | 2.5 | 4.45 |
-| controller_pcb_x | [1.7, 2.5] | [2.85, 4.45] |
-| front_screw_x | {'20.5': 4.9, '60.8': 6.025} | {'20.5': 7.45, '60.8': 9.55} |
+| controller_pcb_x | [1.7, 2.5] | [3.65, 4.45] |
+| front_screw_x | {'20.5': 4.9, '60.8': 6.075} | {'20.5': 7.45, '60.8': 9.6} |
 
 ## Load path
 
@@ -143,22 +143,17 @@ Provisional digital study. Jack-axis height INFERRED; tolerances marked ASSUMED 
 - Setting switch: actuation force along Z into the SMD body and its two pegs -> PCB; force not sourced.
 - Optical stack: top cap -> M2 into the spine post at Y20.5 (A5 topology); bottom cap located by its fork on the controller rear edge; no jack load enters the optics.
 
-## LED leaf: FR-4 (default) versus clear PET FPC on a clear carrier
+## LED leaf: 0.8 mm rigid FR-4
 
-Digital comparison only; FR-4 stays the default leaf. Values marked INFERRED are typical material figures, not supplier data.
+Current 0.8 mm rigid FR-4 design calculation; bond/slot allowances and modulus are assumptions, not fit or optical qualification.
 
-| | FR-4 (A5) | PET film + OCA + PC carrier |
-|---|---|---|
-| Stack thickness (mm) | 1.3 | 1.28 |
-| Outer face from centre (mm) | 0.65 | 0.64 |
-| Flexural rigidity per mm, bonded / lower bound (N mm) | 3660 | 463.851 / 99.963 |
-| Buckling under the SH push, fixed-free, lower bound (N) | 298.535 | 8.154 |
-| Cap slot clearance per side (mm) | 0.15 | 0.16 |
+- Stack 1.7 mm, tolerance range [1.45, 1.95] mm including the ASSUMED bond tolerance.
+- Cap slot 2.15 mm; worst per-side clearance 0.075 mm under ASSUMED finished-slot tolerance.
+- Old 1.6 mm slot clearance -0.05 mm per side: incompatible even nominally.
+- LED/connector/harness starts move outward 0.2 mm; leaf Z [19.4, 28.4] unchanged.
+- No optical transmittance measurement. Bond shear transfer is not assumed for the lower-bound stiffness.
 
-- PET film alone buckles at 0.075 N; minimum static bend radius 0.84 mm (JLC 6x rule).
-- LED, connector and harness start move 0.01 mm toward the centre; leaf Z [19.4, 28.4] unchanged; rear pocket: none: the leaf variant changes only the X stack, not the leaf Z range, so the 0.5 mm jack pockets and the 30 mm depth budget are unchanged.
-
-**Recommendation.** Keep FR-4 as the default and fallback. A clear PET leaf is mechanically feasible only as film laminated to a clear carrier: the film alone buckles at about 0.07 N under the SH mating push, so it cannot stand on its own. With a 0.8 mm PC carrier the stack is 1.28 mm (FR-4 1.30 mm), fits the A5 cap slots and keeps every LED, connector, corridor and harness position within 0.01 mm, but it is 8-37x less stiff: its worst-case buckling load under the SH push is about 8 N (FR-4 299 N), and the SH mating force is unsourced. Pursue PET only after JLC answers reflow/paste, PET-compatible stiffeners and OCA clarity (Q11), and after a physical mating-force and lit-appearance test (#10).
+Use the new 0.8 mm rigid FR-4 leaf pair and resized cap slots. Rebuild CAD, harness and all-layer copper shading; verify bond/retention and translucency physically. PET/FPC withdrawn by owner 2026-11-17 JST.
 
 ## Unresolved inputs
 
