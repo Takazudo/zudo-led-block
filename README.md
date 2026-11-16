@@ -1,13 +1,21 @@
 # Zudo LED Block
 
-A narrow Eurorack art light that sits beside Kumiko blank panels: a clear cast-PMMA front with engraved, light-carrying letters and replaceable translucent PETG sides lit by eight individually addressable RGB LEDs. This repository holds the **Light Block A5** engineering checkpoint and its documentation site.
+A narrow Eurorack art light that sits beside Kumiko blank panels: a clear cast-PMMA front with engraved, light-carrying letters and replaceable translucent PETG sides lit by eight individually addressable RGB LEDs. The active design is **A7**, alongside the immutable historical **Light Block A5** checkpoint and a Japanese documentation site.
 
 Documentation (Japanese): https://zudo-led-block.zudolab.dev/ — **not live yet**; production hosting is configured but disabled until activated (see [hosting](doc/src/content/docs/project/hosting.mdx)).
 
 > [!IMPORTANT]
-> **A5 is not released for manufacture.** The controller PCB is placed but **unrouted** (130 unconnected items, courtyard overlaps J3-H1 and J3-C7). Harness routing and installed fit are unresolved, and no physical electrical, optical, thermal, print or load qualification has happened. Passing CI is not an electronics or manufacturing approval.
+> **A7 is a provisional digital design, not a manufacturing release.** Digital implementation is complete: the controller is routed and digitally checked, with SW1 HX MSK13C02 / C5149819. The approved first prototype is **two 3HP FR-4 modules**; dated order exports are prepared under `engineering/a7/jlc-package/order/2026-11-13/`. Order-form review, ordering and physical qualification remain. PR #82 records approval bound to the current identities. 2HP and transparent PET are optional unresolved studies.
+>
+> **Historical A5 is not released for manufacture.** The controller PCB is placed but **unrouted** (130 unconnected items, courtyard overlaps J3-H1 and J3-C7). Harness routing and installed fit are unresolved, and no physical electrical, optical, thermal, print or load qualification has happened. Passing CI is not an electronics or manufacturing approval.
 
-**Status:** A5 design and BOM imported; all 30 fitted identities are migrated into the component-evidence catalog (`/docs/components/`), with explicit open gaps. The complete 30-type / 81-piece BOM is published on the site's [BOM page](doc/src/content/docs/architecture/bom.mdx) (generated from the A5 ledger and native netlists) and links each row to its catalog record. The reconciliation (30 identities / 71 placements / 81 pieces) is `provenance/a5-catalog/reconciliation.json`, built and checked by `scripts/a5_catalog.py`.
+**Historical A5 catalog status:** A5 design and BOM imported; all 30 fitted identities are migrated into the component-evidence catalog (`/docs/components/`), with explicit open gaps. The complete 30-type / 81-piece BOM is published on the site's [BOM page](doc/src/content/docs/architecture/bom.mdx) (generated from the A5 ledger and native netlists) and links each row to its catalog record. The reconciliation (30 identities / 71 placements / 81 pieces) is `provenance/a5-catalog/reconciliation.json`, built and checked by `scripts/a5_catalog.py`.
+
+## A7 assembly preview
+
+Run `pnpm dev`, then open `/docs/project/a7-preview/` (embedded) or `/a7-preview/` (standalone). For the built site: `pnpm build && pnpm --dir doc preview`. No live preview is claimed while hosting is disabled.
+
+The viewer uses the existing GLBs with camera presets, orbit/pan/zoom, presentation-only explosion, visibility and named-part inspection. Sources and licences: [preview/a7/README.md](preview/a7/README.md). The [current A7 status](doc/src/content/docs/project/a7.mdx) and [next actions](doc/src/content/docs/project/next-actions.mdx) distinguish digital completion from remaining hardware work.
 
 ## Repository map
 

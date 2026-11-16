@@ -8,7 +8,7 @@ import { zudoDoc } from "@takazudo/zudo-doc/config";
 const site = zudoDoc({
   siteName: "Zudo LED Block",
   siteDescription:
-    "Zudo LED Block (Light Block A5): Kumiko の横に置く細い Eurorack 用ライトの設計資料。A5 は開発チェックポイントで、製造リリースではありません。",
+    "Zudo LED Block A7: 3HP FR-4 の試作候補。デジタル実装完了、初回2台の注文ファイル準備済み。注文確認・発注・物理評価は未実施。製造リリースではありません。",
   // Canonical production origin (sitemap / canonical / og:url). Served from
   // Cloudflare Workers Static Assets once production is activated (see
   // doc/src/content/docs/project/hosting.mdx); the site itself is static.
