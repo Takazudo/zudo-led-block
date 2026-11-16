@@ -25,11 +25,6 @@
       "source": "engineering/a7/mechanical/exports/3hp/verification.json",
       "sha256": "a1674803d8cfd0d19bbf7189bbe759f91cdbf6f167e98073bc71e2836c077434",
       "bytes": 43528
-    },
-    {
-      "source": "engineering/a7/mechanical/exports/2hp/verification.json",
-      "sha256": "63cf1224e915fde60cdf6e4dc7c3b9b87f45cb2f5dae2ac3023c545f202e73d8",
-      "bytes": 43873
     }
   ],
   "files": [
@@ -40,14 +35,6 @@
       "target": "3hp.glb",
       "variant": "3hp",
       "label": "3HP 0.8 mm rigid FR-4 — 採用案（実物未評価）"
-    },
-    {
-      "source": "engineering/a7/mechanical/exports/2hp/zudo_led_block_A7_2hp_assembled.glb",
-      "sha256": "ae8ccac8900755368a87c2b2bcf3134d43919399a35c5cb1089b3f258024ca9a",
-      "bytes": 1656012,
-      "target": "2hp.glb",
-      "variant": "2hp",
-      "label": "2HP 0.8 mm — 未採用・公差/組立条件未成立"
     },
     {
       "source": "engineering/a7/mechanical/exports/3hp/view_A7_3hp_side.png",
@@ -86,7 +73,7 @@
     },
     "leaves": {
       "label": "LED リーフ",
-      "role": "左右各4画素の LED 基板と実装部品。発光・熱のシミュレーションではありません。",
+      "role": "左右各4画素の0.8 mm FR-4基板と実装部品。基材の半透明性は仮定、全層銅箔と残すレジストは不透明。光学性能は未測定。",
       "explode": [
         14,
         0,

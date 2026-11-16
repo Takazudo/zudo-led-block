@@ -101,6 +101,7 @@ def build(name, out, leaf="fr4"):
     t = V["pcb_thickness"]
     Z, Y, C, SW, S = L["z_stack"], L["y_layout"], L["controller"], L["switch"], L["supports"]
     side = P1["side_clearance_required"]["nominal"]
+    leaf_fastener_offset = S["leaf_fasteners"]["variants"][name]["centre_offset"]
     parts, contacts = [], []
 
     def add(pname, shape, color, kind="design_geometry", note="", source=None, scope="retained_module", group="module", printed=False, meta=None):
@@ -315,8 +316,13 @@ def build(name, out, leaf="fr4"):
         for a_, b_ in ((side, xc - .9), (xc + .9, w - side)):
             shp = shp.cut(box(a_, b_, 21.8, 107.2, 25.4, 27))
         for yy in (23.5, 105.5):
-            for xx in (xc - 2.4, xc + 2.4):
+            for xx in (xc - leaf_fastener_offset, xc + leaf_fastener_offset):
                 shp = shp.cut(cylinder(.9, 24, 30, xx, yy)).cut(hexagon(3.4, 28.2, 30, xx, yy, rotation=30)).cut(cylinder(1.72, 24.2, 25.6, xx, yy))
+                if name == "3hp":
+                    # Open the nonstructural lip to the leaf slot for nut access.
+                    # Rear bridge Z28.6..29.8 is 1.2 nominal, not a universal web guarantee.
+                    inner = xc + (slot_half - .02) * (-1 if xx < xc else 1)
+                    shp = shp.cut(box(min(inner, xx), max(inner, xx), yy - 2.0, yy + 2.0, 28.2, 28.6))
         for p_ in small:
             pb = p_.shape.BoundingBox()
             pocket = box(pb.xmin - .2, pb.xmax + .2, pb.ymin - .2, pb.ymax + .2, pb.zmin - .2, pb.zmax + .2)
@@ -356,11 +362,11 @@ def build(name, out, leaf="fr4"):
         if s_ == "right" and name == "3hp":
             skin = skin.cut(box(xc + 5.85, w + .1, 26.7, 40.1, 16.9, 28.6))
         for yy in (23.5, 105.5):
-            xx = xc + (-2.4 if s_ == "left" else 2.4)
+            xx = xc + (-leaf_fastener_offset if s_ == "left" else leaf_fastener_offset)
             skin = skin.cut(cylinder(.9, 25.5, 26.9, xx, yy)).cut(cylinder(1.6, 24.2, 25.6, xx, yy))
         add(f"{s_}_diffuser", skin.clean(), "diffuser", "printable_design", "PETG L-section diffuser (A5)", printed=True, group="optics")
     for sg in (-1, 1):
-        xx = xc + sg * 2.4
+        xx = xc + sg * leaf_fastener_offset
         for yy in (23.5, 105.5):
             add(f"M1_6x4_{sg}_{yy}", union(cylinder(.8, 25.6, 29.6, xx, yy), cylinder(1.5, 24.3, 25.6, xx, yy)), "metal", "standard_hardware_envelope", group="hardware")
             add(f"M1_6_nut_{sg}_{yy}", hexagon(3.2, 28.2, 29.5, xx, yy, 1.6, 30), "metal", "standard_hardware_envelope", group="hardware")
@@ -795,11 +801,13 @@ def export(parts, out, name, overlays):
     step = out / f"zudo_led_block_A7_{name}_assembled.step"
     assy.export(str(step))
     stls = []
-    for part in parts:
-        if part.printed:
-            target = out / f"{part.name}.stl"
-            cq.exporters.export(part.shape, str(target), tolerance=.05, angularTolerance=.3)
-            stls.append(target.name)
+    printed_by_name = {part.name: part.shape for part in parts if part.printed}
+    for cap, extension in [('top_leaf_adapter_cap', 'top_cap_spacer_A7'), ('bottom_leaf_cap', 'bottom_cap_fork_A7')]:
+        printed_by_name[cap] = printed_by_name[cap].fuse(printed_by_name.pop(extension)).clean()
+    for part_name, shape in printed_by_name.items():
+        target = out / f"{part_name}.stl"
+        cq.exporters.export(shape, str(target), tolerance=.05, angularTolerance=.3)
+        stls.append(target.name)
     glb = out / f"zudo_led_block_A7_{name}_assembled.glb"
     for p in overlays:
         assy.add(p.shape, name=p.name, color=cq.Color(*p.color))
@@ -812,8 +820,9 @@ def export(parts, out, name, overlays):
 
 def main():
     ap = argparse.ArgumentParser()
-    ap.add_argument("--variant", choices=["2hp", "3hp", "all"], default="all")
+    ap.add_argument("--variant", choices=["2hp", "3hp", "all"], default="3hp")
     ap.add_argument("--no-export", action="store_true", help="skip STEP/GLB/views (checks only)")
+    ap.add_argument("--out-root", type=Path, default=HERE / "exports", help="staging output root; review outputs before adoption")
     ap.add_argument("--leaf", choices=["fr4"], default="fr4", help="current 0.8 mm rigid FR-4 candidate; PET withdrawn")
     a = ap.parse_args()
     default = L["decision"]["default_variant"]
@@ -821,7 +830,7 @@ def main():
     jobs = [(n, "fr4") for n in names]
     for name, leaf in jobs:
         label = name if leaf == "fr4" else f"{name}_pet"
-        out = HERE / "exports" / label
+        out = a.out_root / label
         out.mkdir(parents=True, exist_ok=True)
         print(f"Building {label}", flush=True)
         parts, contacts, cables = build(name, out, leaf)
@@ -846,6 +855,10 @@ def main():
                                          "accepted": L["switch"]["actuator_overhang_accepted"],
                                          "note": "untoleranced drawing values; design-inputs setting_switch.actuator_overhang_accepted; physical check in switch-fit"},
             "parts": rows,
+            "leaf_fastener_support": {"budget": L["supports"]["leaf_fasteners"]["variants"][name],
+                                      "nut_access_channel_z_mm": [28.2, 28.6] if name == "3hp" else None,
+                                      "rear_bridge_z_mm": [28.6, 29.8], "rear_bridge_nominal_mm": 1.2,
+                                      "status": "Nominal access geometry only; no full-web minimum assertion. Printed tolerance, nut retention and strength require physical qualification."},
             "manufacturing_release": False,
         }
         if not a.no_export:

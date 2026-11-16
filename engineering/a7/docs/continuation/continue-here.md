@@ -20,6 +20,8 @@ PET供給元への質問は履歴として保管し、現行FR-4案の前提条�
 4. BOM/CPL、panel、Gerber/drill、procurement/readiness、プレビューの全層銅形状とhashを同じ最終版へ揃える。過去の承認の対象を明示する。
 5. 独立レビューとcurrent-head CIを完了し、repository policyを満たしたPRをmainへmergeする。発注・物理評価・製造releaseは未実施として残す。
 
+現在の機構入力の根拠は[機構判断記録](../../mechanical/optical-redesign-review.md)を参照してください。0.8 mmの3HPを選定し、adapterはA5原点Z17.4 mmに−4 mmを適用したZ13.4–15.0 mm、spacer4 mm・M2x20・電源cable55±3 mmへ更新しています。最終CAD/製造入力との照合と物理確認は別に残します。
+
 以下は**変更前の旧設計の履歴**です。記述中の「current」「complete」「次作業」「承認」は当時の版に限ります。新設計の状態は上の方針と#87のrevision付き証跡で判断します。
 
 ## 旧設計の継続記録（2026-11-13〜16）

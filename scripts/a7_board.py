@@ -446,7 +446,12 @@ def cmd_regen_check(raw: Path) -> int:
              [py, 'scripts/a7_optical_check.py'],
              [py, 'scripts/native_gate/authority.py', 'export-placement', '--check', '--board', str(BOARD.relative_to(REPO)),
               '--facts', str(facts / 'board_facts.json'), '--geometry', str(facts / 'board_geometry.json'),
-              '--out', str(BOARD_EXPORT.relative_to(REPO))]]
+              '--out', str(BOARD_EXPORT.relative_to(REPO))],
+             [py, 'scripts/native_gate/authority.py', 'export-placement', '--check',
+              '--board', 'engineering/a7/electronics/led_leaf/led_leaf.kicad_pcb',
+              '--facts', str(raw / 'a7_led_leaf/board_facts.json'),
+              '--geometry', str(raw / 'a7_led_leaf/board_geometry.json'),
+              '--out', 'engineering/a7/electronics/led_leaf/board_placement.json']]
     code = 0
     for c in steps:
         r = subprocess.run(c, cwd=REPO, capture_output=True, text=True)

@@ -4,8 +4,8 @@
 <body>
 <header><a href="/docs/project/a7-preview/">Zudo LED Block / A7</a><span>構造を読む · DIGITAL ASSEMBLY</span></header>
 <main>
-<div class="heading"><div><p class="eyebrow">現在の試作候補</p><h1>細い前面の、その奥へ。</h1><p>3HP · FR-4 リーフ · 最初の試作は 2 台</p></div><span class="badge">デジタル実装完了 / 実機未評価</span></div>
-<p class="notice">暫定のデジタル設計。製造リリースではありません。発注用ファイルは準備済み、注文画面の確認・発注・物理評価は未実施です。</p>
+<div class="heading"><div><p class="eyebrow">現在の試作候補</p><h1>細い前面の、その奥へ。</h1><p>3HP · 0.8 mm rigid FR-4 · 実物の透け具合は未評価</p></div><span class="badge">デジタル試作設計 / 実機未評価</span></div>
+<p class="notice">暫定のデジタル設計。製造リリースではありません。旧版の発注入力・承認は新設計へ引き継ぎません。製造条件の最終確認・発注・物理評価は未実施です。</p>
 <div class="workspace">
 <section class="stage-column" aria-label="3D表示">
 <div id="stage" tabindex="0" aria-label="組立モデル。矢印で回転、Shift と矢印で移動、プラス・マイナスで拡大縮小。">
@@ -17,7 +17,7 @@
 <p class="help">ドラッグ: 回転 · 右ドラッグ: 移動 · ホイール: 拡大。タッチ: 1 本指で回転、2 本指で移動・拡大。モデルをクリックして部品を確認。</p>
 </section>
 <aside>
-<label for="variant">設計案</label><select id="variant" disabled><option value="3hp">3HP FR-4 — 現在の試作候補</option><option value="2hp">2HP — unresolved study</option><option value="3hp_pet">3HP PET — exploratory study</option></select>
+<label for="variant">設計案</label><select id="variant" disabled><option value="3hp">3HP 0.8 mm FR-4 — 採用案</option></select>
 <p id="dimensions">前面 14.9 × 128.5 mm / PMMA 2 mm<br>奥行き目標 30 mm（PMMA 裏面から）</p>
 <fieldset id="controls" disabled><legend>見る方向・構成</legend><div class="buttons"><button data-view="iso">等角</button><button data-view="front">正面</button><button data-view="side">側面</button><button data-view="rear">背面</button><button id="fit">表示部品に合わせる</button><button id="reset">全体をリセット</button></div>
 <label class="check"><input id="explode" type="checkbox">分解して見る</label><p class="fine">間隔は構造を読むための表示です。実際の分解手順ではありません。</p>
@@ -27,5 +27,5 @@
 <div class="buttons"><button id="isolate" disabled>選択グループだけ</button><button id="show-all">すべて表示</button></div>
 </fieldset>
 </aside></div>
-<details><summary>モデルの出典と表示の限界</summary><p id="source">モデル出典: main 0c19fea8。<a href="./manifest.json">ハッシュ・座標・部品対応表</a></p><p>寸法は設計値です。ケーブルや参照包絡を含むモデルの外接寸法を、実測した装着寸法とは扱いません。部品形状・クリアランス包絡・配線シナリオを含み、銅配線の詳細モデルではありません。LED の明るさ・拡散・温度はシミュレーションしません。</p><p><a href="./poster.png">3D を使わず側面図を見る</a> · <a href="/docs/project/a7/">A7 の現状</a> · <a href="/docs/project/next-actions/">次の作業</a> · <a href="./THREE-LICENSE.txt">Three.js MIT licence</a></p></details>
+<details><summary>モデルの出典と表示の限界</summary><p id="source">モデル出典: 下記 manifest の正本ハッシュ。<a href="./manifest.json">ハッシュ・座標・部品対応表</a></p><p>寸法は設計値です。ケーブルや参照包絡を含むモデルの外接寸法を、実測した装着寸法とは扱いません。部品形状・クリアランス包絡・配線シナリオを含みます。2HP は公差と締結部の成立を確認できず、現行表示には含めません。基材の色と半透明表示は未測定の仮定です。銅箔は実PCBの全層形状を両面へ投影した不透明な遮光表示で、物理的な積層断面ではありません。残すレジストは実開口から求めています。LED の明るさ・拡散・温度はシミュレーションしません。</p><p><a href="./poster.png">3D を使わず側面図を見る</a> · <a href="/docs/project/a7/">A7 の現状</a> · <a href="/docs/project/next-actions/">次の作業</a> · <a href="./THREE-LICENSE.txt">Three.js MIT licence</a></p></details>
 </main><script type="module" src="./boot.js"></script></body></html>

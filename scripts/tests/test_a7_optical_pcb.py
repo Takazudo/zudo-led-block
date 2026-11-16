@@ -61,7 +61,8 @@ class OpticalConstruction(unittest.TestCase):
         shapes = '\n'.join(f'(gr_rect (start 0 0) (end 10 10) (fill solid) (layer "{side}"))'
                            for side in ('F.Mask', 'B.Mask'))
         text = '''(kicad_pcb (general (thickness 0.8))
-          (layers (0 "F.Cu" signal) (2 "B.Cu" signal)) (setup %s) %s)''' % (stackup_text('led_leaf'), shapes)
+          (layers (0 "F.Cu" signal) (2 "B.Cu" signal)) (setup %s) %s
+          (via (at 5 5) (size 0.5) (drill 0.2) (layers "F.Cu" "B.Cu") (uuid "actual-via")))''' % (stackup_text('led_leaf'), shapes)
         with tempfile.TemporaryDirectory(prefix='a7-mask-negative-') as d:
             p = Path(d) / 'board.kicad_pcb'
             p.write_text(text)
@@ -73,6 +74,34 @@ class OpticalConstruction(unittest.TestCase):
             errors = check_board(p, 'led_leaf')
             self.assertTrue(any('F.Mask opening overrides protected via1' in e for e in errors))
             self.assertTrue(any('B.Mask opening overrides protected via1' in e for e in errors))
+            self.assertTrue(any('missing or altered native-derived protection actual-via' in e for e in errors))
+
+    def test_graphical_mask_and_copper_cannot_bypass_zone_or_rectangle_checks(self):
+        import tempfile
+        additions = [('(gr_poly (pts (xy 0 0) (xy 10 0) (xy 10 10)) (fill yes) (layer "F.Mask"))',
+                      'unsupported mask primitive gr_poly'),
+                     ('(gr_circle (center 5 5) (end 10 5) (fill yes) (layer "B.Mask"))',
+                      'unsupported mask primitive gr_circle'),
+                     ('(gr_rect (start 0 0) (end 10 10) (fill yes) (layer "F.Cu"))',
+                      'unsupported graphical copper gr_rect')]
+        for extra, message in additions:
+            with self.subTest(message=message), tempfile.TemporaryDirectory(prefix='a7-shape-negative-') as d:
+                p = Path(d)/'board.kicad_pcb'
+                p.write_text('(kicad_pcb (general (thickness 0.8)) '
+                             '(layers (0 "F.Cu" signal) (2 "B.Cu" signal)) '
+                             '(setup '+stackup_text('led_leaf')+') '+extra+')')
+                self.assertTrue(any(message in e for e in check_board(p,'led_leaf')))
+
+    def test_kicad10_zone_net_is_required(self):
+        import tempfile
+        with tempfile.TemporaryDirectory(prefix='a7-zone-net-negative-') as d:
+            p = Path(d)/'board.kicad_pcb'
+            p.write_text('(kicad_pcb (general (thickness 0.8)) '
+                         '(layers (0 "F.Cu" signal) (4 "In1.Cu" signal) (6 "In2.Cu" signal) (2 "B.Cu" signal)) '
+                         '(setup '+stackup_text('controller')+') '
+                         '(zone (name "buck-return-thermal") (net "/VLED") (layer "B.Cu") '
+                         '(polygon (pts (xy 4 0.4) (xy 8.8 0.4) (xy 8.8 4.9) (xy 4 4.9)))))')
+            self.assertIn('local copper buck-return-thermal wrong net',check_board(p,'controller'))
 
 
 if __name__ == '__main__':

@@ -8,8 +8,8 @@ p = importlib.util.module_from_spec(spec); spec.loader.exec_module(p)
 class PreviewIdentity(unittest.TestCase):
     def test_manifest_binds_every_real_node_and_dimensions(self):
         m = p.make_manifest()
-        self.assertEqual([v['variant'] for v in m['variants']], ['3hp', '2hp'])
-        self.assertEqual([v['width_mm'] for v in m['variants']], [14.9, 9.8])
+        self.assertEqual([v['variant'] for v in m['variants']], ['3hp'])
+        self.assertEqual([v['width_mm'] for v in m['variants']], [14.9])
         self.assertEqual((m['height_mm'],m['pmma_mm'],m['depth_target_mm']), (128.5,2,30))
         for v in m['variants']:
             self.assertGreater(len(v['nodes']), 60)
@@ -52,8 +52,33 @@ class PreviewIdentity(unittest.TestCase):
             with self.assertRaisesRegex(ValueError,'Source changed'):
                 p.make_manifest()
 
+    def test_retired_public_glb_cleanup_preserves_modified_files(self):
+        import hashlib
+        import json
+        import tempfile
+        from unittest.mock import patch
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            public = root / 'public'
+            source = root / 'preview/a7'
+            public.mkdir(); source.mkdir(parents=True)
+            for name in ['manifest.json', 'index.html', 'viewer.css', 'boot.js']:
+                (source / name).write_text('{}')
+            old = b'known generated model'
+            manifest = {'variants': [{'target': '2hp.glb', 'sha256': hashlib.sha256(old).hexdigest()}]}
+            with patch.object(p, 'ROOT', root), patch.object(p, 'PUBLIC', public), patch.object(p, 'generate'), patch.object(p, 'selection', return_value={'files': []}):
+                (public / 'manifest.json').write_text(json.dumps(manifest))
+                (public / '2hp.glb').write_bytes(old)
+                p.sync()
+                self.assertFalse((public / '2hp.glb').exists())
+                (public / 'manifest.json').write_text(json.dumps(manifest))
+                (public / '2hp.glb').write_bytes(b'modified by someone else')
+                with self.assertRaisesRegex(ValueError, 'Modified retired'):
+                    p.sync()
+                self.assertEqual((public / '2hp.glb').read_bytes(), b'modified by someone else')
+
     def test_publication_is_bounded(self):
         paths=[x['path'] for x in p.publication_assets()]
         self.assertEqual(len(paths),len(set(paths)))
-        self.assertEqual(len(paths),9)
+        self.assertEqual(len(paths),8)
         self.assertTrue(all(x.startswith('a7-preview/') and '..' not in x and 'vendor' not in x for x in paths))

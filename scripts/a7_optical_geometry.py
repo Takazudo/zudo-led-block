@@ -19,13 +19,19 @@ def polygons(poly):
             for i in range(poly.OutlineCount())]
 
 
+def area_mm2(polygons):
+    def ring(points):
+        return abs(sum(a[0]*b[1]-a[1]*b[0] for a, b in zip(points, points[1:]+points[:1]))) / 2
+    return sum(ring(p["outer"])-sum(ring(h) for h in p["holes"]) for p in polygons)
+
+
 def export(board_path, output):
     import pcbnew as p
     if not p.Version().startswith('10.0.8'):
         raise RuntimeError('Optical source export requires pinned KiCad 10.0.8')
     b = p.LoadBoard(str(board_path))
     outline = p.SHAPE_POLY_SET()
-    if not b.GetBoardPolygonOutlines(outline):
+    if not b.GetBoardPolygonOutlines(outline, False):
         raise ValueError('Invalid native board outline')
     holes = p.SHAPE_POLY_SET()
     for footprint in b.GetFootprints():
@@ -45,9 +51,11 @@ def export(board_path, output):
         else:
             actual.BooleanIntersection(outline)
         actual.BooleanSubtract(holes)
+        contours = polygons(actual)
         layers.append({'layer': b.GetLayerName(layer),
+                       'area_mm2': area_mm2(contours),
                        'material': 'mask' if layer in (p.F_Mask, p.B_Mask) else 'copper',
-                       'polygons': polygons(actual)})
+                       'polygons': contours})
     result = {'schema_version': 1, 'native_version': p.Version(),
               'exporter_sha256': hashlib.sha256(Path(__file__).read_bytes()).hexdigest(),
               'board_sha256': hashlib.sha256(board_path.read_bytes()).hexdigest(),

@@ -98,7 +98,7 @@ jobs:
   a7-mechanical:
     name: A7 mechanical layout and geometry tests
     runs-on: ubuntu-24.04
-    timeout-minutes: 5
+    timeout-minutes: 10
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
@@ -106,15 +106,21 @@ jobs:
       - uses: actions/setup-python@6d4fd22b20465ccc0f7354476588e8df7c9ca0e0 # v7.1.0
         with:
           python-version: ${{ env.PYTHON_VERSION }}
-      # Standard library only: the CadQuery build is not re-run here; the tests compare the
-      # committed CAD verification and front artwork records against the current layout.
+      # CadQuery exports are reviewed artifacts; fixture plate benchmarks use a
+      # separate hash-pinned numerical environment, not the router's NumPy version.
+      - name: Install exact fixture numerical tools
+        timeout-minutes: 2
+        run: python3 -m pip install --require-hashes --only-binary=:all: --no-deps -r scripts/requirements-fixture-plate.txt
+      - name: Fixture plate analytical benchmarks and optical thickness controls
+        timeout-minutes: 2
+        run: python3 -m unittest scripts/tests/test_a7_fixture_plate.py scripts/tests/test_a7_fixture_optical.py
       - name: A7 layout, layout.md and placement envelopes are current
         run: python3 scripts/a7_mechanical_layout.py --check
       - name: A7 R2 geometry tests (stack, candidates, keep-outs, routes, CAD/front records)
         run: python3 -m unittest -v scripts/tests/test_a7_r2_mechanical.py
       - name: A7 evidence and preparation negative controls (blocked reports remain valid)
         run: |
-          python3 -m unittest scripts/tests/test_private_resources.py scripts/tests/test_a7_e2_evidence.py scripts/tests/test_a7_fixture.py scripts/tests/test_a7_fixture_relief.py scripts/tests/test_a7_procurement.py scripts/tests/test_a7_readiness.py scripts/tests/test_a7_jlc_package.py scripts/tests/test_a7_panel.py scripts/tests/test_a7_optical_manufacturing.py scripts/tests/test_a7_optical_pcb.py scripts/tests/test_a7_optical_geometry.py
+          python3 -m unittest scripts/tests/test_private_resources.py scripts/tests/test_a7_e2_evidence.py scripts/tests/test_a7_fixture.py scripts/tests/test_a7_fixture_relief.py scripts/tests/test_a7_procurement.py scripts/tests/test_a7_readiness.py scripts/tests/test_a7_jlc_package.py scripts/tests/test_a7_panel.py scripts/tests/test_a7_optical_manufacturing.py scripts/tests/test_a7_optical_pcb.py scripts/tests/test_a7_optical_geometry.py scripts/tests/test_a7_gerber_review.py
           python3 -O -m unittest scripts/tests/test_a7_readiness.py
           python3 scripts/a7_fixture.py --check
           python3 scripts/a7_fixture_geometry.py --check
@@ -366,7 +372,9 @@ jobs:
           if-no-files-found: error
       - name: A7 optical FR4 source identity, stackup, mask and local copper
         timeout-minutes: 2
-        run: python3 scripts/a7_optical_check.py
+        run: |
+          python3 scripts/a7_optical_check.py
+          python3 scripts/a7_gerber_review.py --verify-receipt engineering/a7/verification/optical/led_leaf/export-receipt.json
       - name: Checkpoint and fixtures left unmodified, no owned container left
         if: always()
         timeout-minutes: 1

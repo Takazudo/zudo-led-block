@@ -1,5 +1,21 @@
 # engineering/a7/mechanical — A7 R2 digital mechanical model
 
+## Current optical redesign #87 (2026-11-17 JST)
+
+The current prototype selects **3HP, 0.8 mm rigid FR-4 controller and leaf**. The 2HP tolerance sweep did not establish fit; this is not proof that every physical 2HP construction is impossible. Both PCB faces minimize retained mask, and broad GND planes are removed on every layer. Transparent PET/FPC is withdrawn from current variants, default generation and next actions. Its supplier questions are not prerequisites.
+
+See [the authored mechanical rationale](optical-redesign-review.md) and current `design-inputs.json` / generated `layout.json`. The leaf stack is 1.70 mm nominal, 1.45–1.95 mm including the assumed bond tolerance; its cap slot is 2.15 mm. Controller slot is 1.10 mm. Slot/bond tolerances are manufacturing acceptance requirements, not measured capabilities.
+
+The unchanged 1.6 mm, two-layer A5 adapter has no copper zones. Its new shift −4 mm is relative to the **A5 front Z17.4 mm**, giving Z13.4–15.0 mm. It is not another −4 mm from the former A7 position. Current inputs use a 4 mm spacer, M2x20 top-cap screw and power-cable free length **55±3 mm**. The adapter remains outside the direct lateral leaf corridor; this is not a claim of zero shadowing or measured optical suitability.
+
+The fastener offset is 3.4 mm. The current cap nut-access channel uses Z28.2–28.6 mm with a nominal 1.2 mm rear bridge; strength, tool use and fit are unmeasured. Final CAD export and verification must bind the final controller/leaf, builder and layout hashes. Interim digital results are not final-revision acceptance. Cable scenario contacts and installed routing remain physical work under #8; they must be reported separately from rigid-body intersections.
+
+The final generated STEP/STL/GLB/verification and preview must be regenerated for the selected current inputs. Do not transfer old CAD PASS, fixture PASS or dated order approval to the new PCB identity. A5 is immutable and A6 remains held.
+
+## Historical R2 model and results (before #87)
+
+Everything below describes the old 1.6 mm controller / 0.6 mm leaf model. Its dimensions, optical ray study, PET comparison, PASS claims, “current/default” labels and next actions are historical, not the present design contract. Consult the current inputs and #87 evidence for the new revision.
+
 **Status: provisional digital study.** Nothing here is a measured fit, a part approval or a manufacturing
 release. The PJ-324M jack-axis height is INFERRED (≈3.0, band 2.6–3.4); tolerances marked ASSUMED are
 unsourced. Tracked in [#17](https://github.com/Takazudo/zudo-led-block/issues/17) (epic #15).
@@ -30,7 +46,7 @@ python3 -m unittest scripts/tests/test_a7_r2_mechanical.py # geometry tests; fai
 Run the front build before the mechanical build (the assembly imports the panel). Both read
 `engineering/a5` only through imports and JSON reads; they never write there.
 
-## Result: 3HP is the working candidate, 2HP stays open
+## Historical result: old 3HP candidate and 2HP study
 
 - **3HP working candidate (default):** centred, 1.6 mm FR-4, untrimmed leads. **FEASIBLE ON PAPER** at the
   worst corner. The front artwork, supports, CAD build and placement envelopes all treat it as the default
@@ -105,7 +121,7 @@ Run the front build before the mechanical build (the assembly imports the panel)
   (below the preferred 2.0), the PicoBlade wires have only 0.9 mm of bend room above the mated plug, and the
   2.3 mm tails must be cut like the jack leads (R2-C1).
 
-## LED leaf: FR-4 stays the default; clear PET is feasible only on a clear carrier
+## Withdrawn PET comparison (historical)
 
 `layout.md` → *LED leaf* and `layout.json` → `leaf_comparison` compare the A5 FR-4 leaf with a clear PET FPC
 leaf. `exports/3hp_pet/` is the 3HP assembly built with the PET leaf (`--leaf pet`). FR-4 is not replaced.

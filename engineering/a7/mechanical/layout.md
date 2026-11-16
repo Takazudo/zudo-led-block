@@ -125,7 +125,7 @@ Provisional digital study. Jack-axis height INFERRED; tolerances marked ASSUMED 
 | power_route_end_bend_room | +0.90 | +2.00 |
 | power_route_min_radius | +0.90 | +2.00 |
 | power_route_bend_at_least_preferred | False | True |
-| power_route_a5_cable_nominal_reaches | False | False |
+| power_route_a5_cable_nominal_reaches | True | True |
 | led_route_min_radius | +2.50 | +2.50 |
 | rear_pocket_wall_to_panel_edge | +0.20 | +3.35 |
 | x_axis | 5.5 | 7.45 |
@@ -168,8 +168,8 @@ Use the new 0.8 mm rigid FR-4 leaf pair and resized cap slots. Rebuild CAD, harn
 | Q9 | PMMA clamp load / nut torque | jack load path |
 | Q10 | setting-switch sourcing (PCM13SMTR stock 0; HX MSK13C02 fitted 2026-11-12, JLC stock 4561) | setting switch part |
 | R2-C1 | PicoBlade on the perpendicular board in 2HP: wires leave the mated plug along +X with only the end-bend room shown per variant, and the 2.3 mm tails must be cut like the jack leads | power connector choice (R4) and 2HP power route |
-| R2-C5 | A7 power cable: digital requirement 57.0 +/- 3.0 mm free span (tolerance ASSUMED) for the S-fold stowage (51.037-78.053 mm across both widths); the A5 50 +/- 6 cable does not fit. No cable has been routed or measured | power harness part and its length (#8) |
-| R2-C6 | controller-to-leaf SH4 harness: route B moves the unchanged A5 adapter -2.0 mm in Z so the harness S-steps at the leaf plug mouth into a 2.4 mm gap behind the adapter; ray-sampled shading per LED is in verification.json (optical_shading_estimate). Real bend radius, insulation diameter and the lit appearance are not checked | harness and adapter mounting (#8), optics |
+| R2-C5 | A7 power cable: digital requirement 55.0 +/- 3.0 mm free span (tolerance ASSUMED) for the S-fold stowage (49.037-76.053 mm across both widths); the A5 50 +/- 6 cable does not fit. No cable has been routed or measured | power harness part and its length (#8) |
+| R2-C6 | controller-to-leaf SH4 harness: route B moves the unchanged A5 adapter -4.0 mm in Z so the harness S-steps at the leaf plug mouth into a 4.4 mm gap behind the adapter; ray-sampled shading per LED is in verification.json (optical_shading_estimate). Real bend radius, insulation diameter and the lit appearance are not checked | harness and adapter mounting (#8), optics |
 | R2-C2 | finished SH/PicoBlade cable bend radius, insulation, slack storage and label | harness route scenarios (#8) |
 | R2-C3 | IDC ribbon side exit beyond the 2HP outline (carried over from A5) | 2HP neighbour clearance |
 | R2-C4 | switch actuation force and tool access with real parts | setting switch support |

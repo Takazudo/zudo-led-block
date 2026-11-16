@@ -1,0 +1,133 @@
+{
+  "status": "EXPERIMENTAL_NOT_ACCEPTED",
+  "old_strip_criteria": {
+    "installation_height_and_stroke_resolved": true,
+    "travel_stop_independent_of_adjustment": true,
+    "clamp_force_sized_with_margin": false,
+    "plungers_within_stroke": true,
+    "board_stays_on_land": false,
+    "board_bending_across_window_within_limit": false,
+    "guide_and_fixing_designed": true,
+    "stop_joint_preload_holds_plate": true,
+    "pressure_plate_clears_f_parts": true,
+    "insulation_metal_clear_of_probes": true,
+    "wire_bend_space": true
+  },
+  "post_checks": [
+    {
+      "id": "S1",
+      "xy_mm": [
+        14.1,
+        21.7
+      ],
+      "diameter_mm": 1.5,
+      "component_relief_margin_mm": 0.335415,
+      "nearest_component": "R6",
+      "probe_collar_clearance_mm": 0.568478,
+      "nearest_probe": "TP3",
+      "geometry_clear": true
+    },
+    {
+      "id": "S2",
+      "xy_mm": [
+        10.8,
+        25.6
+      ],
+      "diameter_mm": 1.5,
+      "component_relief_margin_mm": 0.265923,
+      "nearest_component": "J5.3",
+      "probe_collar_clearance_mm": 1.138319,
+      "nearest_probe": "TP1",
+      "geometry_clear": true
+    },
+    {
+      "id": "S3",
+      "xy_mm": [
+        14.8,
+        28.5
+      ],
+      "diameter_mm": 1.5,
+      "component_relief_margin_mm": 1.10152,
+      "nearest_component": "R9",
+      "probe_collar_clearance_mm": 1.049483,
+      "nearest_probe": "TP2",
+      "geometry_clear": true
+    }
+  ],
+  "contact_checks": [
+    {
+      "xy_mm": [
+        14.1,
+        21.4
+      ],
+      "body_to_courtyard_mm": 0.675,
+      "nearest": "D3",
+      "clear": true
+    },
+    {
+      "xy_mm": [
+        14.1,
+        26.5
+      ],
+      "body_to_courtyard_mm": 0.315,
+      "nearest": "J5",
+      "clear": true
+    }
+  ],
+  "base_box_mm": [
+    6.5,
+    18.0,
+    16.2,
+    30.0
+  ],
+  "base_z_mm": [
+    -11.0,
+    -8.0
+  ],
+  "post_z_mm": [
+    -8.0,
+    0.0
+  ],
+  "fixings_xy_mm": [
+    [
+      8.0,
+      19.5
+    ],
+    [
+      8.0,
+      24.0
+    ]
+  ],
+  "attachment": "two M2x8 screws from base top into new tapped probe-plate holes; 3mm base, 5mm nominal engagement in existing 6mm plate; locating/retention only, compressive post loads seat the base directly on the probe plate",
+  "fixing_source_status": "dimensional purchasing requirement, exact screw manufacturer/source not selected; head diameter <=3.8mm and height <=1.6mm required",
+  "post_model": {
+    "load_per_post_N": 34.88,
+    "assumed_E_MPa": 18000.0,
+    "length_mm": 8.0,
+    "axial_compression_mm": 0.00877246327315802,
+    "compressive_stress_MPa": 19.738042364605548,
+    "fixed_free_euler_load_N": 172.45159683180668,
+    "buckling_margin": 4.94413981742565,
+    "assumed_minimum_compressive_strength_MPa": 50.0,
+    "strength_requirement_not_sourced": true
+  },
+  "pressure_plate_z_mm": [
+    8.0,
+    14.0
+  ],
+  "stop_shim_height_mm": 2.0,
+  "stop_shim_tolerance_mm": 0.05,
+  "connector_clearance_mm": 1.8999999999999995,
+  "cable_access": "existing cable leaves under raised plate; finished cable insulation/bend envelope is unresolved and must be checked before removing J5 notch from accepted CAD",
+  "manufacturing": "3mm FR-4 base with integral 8mm high \u00d81.5mm posts, cutter-foot fillets below z=-6.7mm; post tip surfaces coplanar with carrier within +/-0.02mm, assumed acceptance requirement; machining capability/strength/abrasion not confirmed. Probe openings drilled after milling.",
+  "blockers": [
+    "native current-board binding",
+    "mounted CAD/interference and cutter access",
+    "finished cable envelope",
+    "post material allowable strength and machining capability",
+    "post/land coplanarity and exposed-copper height tolerance",
+    "all spring-force corners and mesh/support geometry convergence",
+    "independent final review"
+  ],
+  "historical_geometry_sha256": "820689fa1bc4dcb4bdc3a801380349e6cfec18768cfb4a27a215bda79a15a619"
+}

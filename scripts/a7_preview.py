@@ -85,6 +85,18 @@ def generate(check=False):
 def sync():
     generate(True)
     PUBLIC.mkdir(parents=True, exist_ok=True)
+    previous_path = PUBLIC / 'manifest.json'
+    if previous_path.exists():
+        previous = json.loads(previous_path.read_text())
+        selected = {f['target'] for f in selection()['files']}
+        for variant in previous.get('variants', []):
+            target = variant['target']
+            if target not in selected and target in {'2hp.glb', '3hp_pet.glb'}:
+                retired = PUBLIC / target
+                if retired.exists():
+                    if digest(retired) != variant['sha256']:
+                        raise ValueError('Modified retired preview asset; preserve and inspect: ' + str(retired))
+                    retired.unlink()
     for f in selection()['files']:
         shutil.copyfile(ROOT / f['source'], PUBLIC / f['target'])
     for name in ['manifest.json','index.html','viewer.css','boot.js']:

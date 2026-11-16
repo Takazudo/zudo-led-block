@@ -1345,17 +1345,17 @@
     "why_separate_adapter": "a vertical keyed IDC10 header body is 8.9 mm tall (A5 C5665 maximum envelope); on the perpendicular board it would need 8.9 mm of X but the 2HP component face offers 7.0 mm"
   },
   "power_cable_requirement": {
-    "finished_free_span_nominal": 57.0,
+    "finished_free_span_nominal": 55.0,
     "tolerance": 3.0,
     "tolerance_confidence": "ASSUMED",
     "band": [
-      54.0,
-      60.0
+      52.0,
+      58.0
     ],
     "stowage": "one S-fold above the spine block, fold span solved per width",
     "stowage_length_range_both_widths": [
-      51.037,
-      78.053
+      49.037,
+      76.053
     ],
     "short_side_margin": 2.0,
     "fits_both_widths": true,
@@ -1471,17 +1471,17 @@
             [
               2.35,
               46.575,
-              18.2
+              17.9
             ],
             [
               3.975,
               52.575,
-              18.2
+              17.9
             ],
             [
               3.975,
               75.115,
-              18.2
+              17.9
             ],
             [
               3.975,
@@ -1511,7 +1511,7 @@
             [
               4.9,
               46.7,
-              10.2
+              8.2
             ],
             [
               4.9,
@@ -1560,21 +1560,21 @@
             ]
           ],
           "radius": 2.0,
-          "length": 57.001,
+          "length": 55.001,
           "min_radius": 0.9,
           "fold_span": 7.474,
           "status": "solved for the nominal finished length",
           "end_bend_room": 0.9,
           "length_range_of_this_stowage": [
-            50.053,
-            78.053
+            48.053,
+            76.053
           ],
           "bundle_radius": 0.9,
-          "a5_cable_nominal_reaches": false,
+          "a5_cable_nominal_reaches": true,
           "a5_cable_band_fits": false,
           "cable_band_lengths": [
-            54.001,
-            60.001
+            52.001,
+            58.001
           ]
         }
       },
@@ -1658,7 +1658,7 @@
         "power_route_end_bend_room": 0.9,
         "power_route_min_radius": 0.9,
         "power_route_bend_at_least_preferred": false,
-        "power_route_a5_cable_nominal_reaches": false,
+        "power_route_a5_cable_nominal_reaches": true,
         "led_route_min_radius": 2.5,
         "rear_pocket_wall_to_panel_edge": 0.2
       }
@@ -1685,17 +1685,17 @@
             [
               4.9,
               46.575,
-              18.2
+              17.9
             ],
             [
               5.925,
               52.575,
-              18.2
+              17.9
             ],
             [
               5.925,
               75.178,
-              18.2
+              17.9
             ],
             [
               5.925,
@@ -1725,7 +1725,7 @@
             [
               7.45,
               46.7,
-              10.2
+              8.2
             ],
             [
               7.45,
@@ -1774,21 +1774,21 @@
             ]
           ],
           "radius": 2.0,
-          "length": 56.999,
+          "length": 54.999,
           "min_radius": 2.0,
           "fold_span": 6.981,
           "status": "solved for the nominal finished length",
           "end_bend_room": 2.0,
           "length_range_of_this_stowage": [
-            51.037,
-            79.037
+            49.037,
+            77.037
           ],
           "bundle_radius": 0.9,
-          "a5_cable_nominal_reaches": false,
+          "a5_cable_nominal_reaches": true,
           "a5_cable_band_fits": false,
           "cable_band_lengths": [
-            53.999,
-            59.999
+            51.999,
+            57.999
           ]
         }
       },
@@ -1868,7 +1868,7 @@
         "power_route_end_bend_room": 2.0,
         "power_route_min_radius": 2.0,
         "power_route_bend_at_least_preferred": true,
-        "power_route_a5_cable_nominal_reaches": false,
+        "power_route_a5_cable_nominal_reaches": true,
         "led_route_min_radius": 2.5,
         "rear_pocket_wall_to_panel_edge": 3.35
       }
@@ -1890,6 +1890,49 @@
       "confidence": "SOURCED",
       "source": "A5 front_panel front_washers.m2 and A5 mechanical hardware envelopes"
     },
+    "leaf_fasteners": {
+      "inputs": {
+        "centre_offset_mm": {
+          "3hp": 3.4,
+          "2hp": 2.4
+        },
+        "nut_across_flats_nominal_mm": 3.2,
+        "nut_across_flats_tol_mm": 0.1,
+        "pocket_across_flats_nominal_mm": 3.4,
+        "pocket_across_flats_tol_mm": 0.1,
+        "hole_pocket_position_tol_mm": 0.1,
+        "nut_in_pocket_float_mm": 0.1,
+        "leaf_centre_position_tol_mm": 0.05,
+        "cap_outer_edge_tol_mm": 0.1,
+        "minimum_leaf_clearance_mm": 0.15,
+        "minimum_outer_edge_clearance_mm": 0.3,
+        "confidence": "PROJECT-CHOICE",
+        "tolerance_confidence": "ASSUMED acceptance requirements, not manufacturer-guaranteed or measured",
+        "rotation_basis": "Use maximum nut circumradius (AF/sqrt(3)) for arbitrary rotation, not only nominal CAD orientation.",
+        "scope": "Hardware-to-leaf and transverse cap-outline budget. Pocket/slot local web and complete cap load path require CAD review; no strength PASS. 2HP retains historical comparison offset and is unadopted."
+      },
+      "variants": {
+        "2hp": {
+          "centre_offset": 2.4,
+          "nut_envelope_radius_max": 1.905,
+          "leaf_half_max": 0.975,
+          "leaf_clearance_worst": -0.73,
+          "cap_outer_edge_clearance_worst": -0.005,
+          "transverse_budget_pass": false,
+          "status": "unadopted comparison"
+        },
+        "3hp": {
+          "centre_offset": 3.4,
+          "nut_envelope_radius_max": 1.905,
+          "leaf_half_max": 0.975,
+          "leaf_clearance_worst": 0.27,
+          "cap_outer_edge_clearance_worst": 1.545,
+          "transverse_budget_pass": true,
+          "status": "selected candidate"
+        }
+      },
+      "structural_status": "NOT VERIFIED: pocket/slot webs, retention and full cap load path need separate review"
+    },
     "spine": {
       "rib_width": 3.0,
       "rib_height": 1.6,
@@ -1902,17 +1945,17 @@
       "slot_width_tolerance": 0.05,
       "slot_clearance_worst_per_side": 0.075,
       "post_radius": 2.5,
-      "post_top_z": 15.4,
+      "post_top_z": 13.4,
       "post_nut_z": [
-        12.0,
-        13.6
+        10.0,
+        11.6
       ]
     },
     "top_cap_screw": {
       "head_seat_z": 27.8,
-      "tip_z": 9.8,
-      "length": 18.0,
-      "designation": "M2x18",
+      "tip_z": 7.8,
+      "length": 20.0,
+      "designation": "M2x20",
       "protrusion_past_nut": 2.2,
       "note": "A5 used M2x16 with the nut at Z 14.0; the nut moves with the adapter, so the screw grows by -z_shift"
     },
@@ -1925,17 +1968,38 @@
       "thickness": 1.6,
       "power_pinrow_y": 46.7,
       "a5_front_z": 17.4,
-      "z_shift": -2.0,
-      "front_z": 15.4,
-      "rear_z": 17.0,
-      "gap_rear_to_leaf_front": 2.4,
+      "z_shift": -4.0,
+      "front_z": 13.4,
+      "rear_z": 15.0,
+      "gap_rear_to_leaf_front": 4.4,
       "cap_spacer_z": [
-        17.0,
+        15.0,
         19.0
       ],
       "cap_spacer_radius": 2.75,
-      "reason": "moves the unchanged A5 power adapter 2.0 mm toward the PMMA so a 2.4 mm gap opens between its rear face and the leaf front edge; the controller-to-leaf SH4 harness leaves the emission corridor at the leaf plug mouth and runs in that gap instead of descending beside LED D2 (R2-C6)",
-      "confidence": "PROJECT-CHOICE"
+      "reason": "Retain 1.6mm two-layer A5 adapter outside the direct lateral LED corridor; move it 4mm forward for an explicit SH harness clearance budget including board thickness and assembly allowances. No new adapter PCB is needed for this nominal optical topology.",
+      "confidence": "PROJECT-CHOICE",
+      "harness_gap_budget": {
+        "inputs": {
+          "adapter_finished_thickness_tol_mm": 0.16,
+          "adapter_finished_thickness_tol_basis": "JLCPCB Capabilities thickness >=1mm +/-10%; final factory order review required",
+          "adapter_mount_z_tol_mm": 0.1,
+          "leaf_front_z_tol_mm": 0.1,
+          "harness_centre_z_tol_mm": 0.1,
+          "sh_bundle_radius_max_mm": 1.1,
+          "minimum_gap_mm": 0.2,
+          "allowance_confidence": "ASSUMED acceptance requirements: assembly locations and bundle envelope are not measured or supplier guaranteed; validate fixture/support/cable process physically."
+        },
+        "adapter_rear_max": 15.26,
+        "leaf_front_min": 19.3,
+        "harness_z_envelope": [
+          16.7,
+          19.1
+        ],
+        "adapter_clearance_worst": 1.44,
+        "leaf_clearance_worst": 0.2,
+        "scope": "Z interval of the gap-run segment only; whole swept route and hardware require fresh CAD, physical fit remains unverified"
+      }
     },
     "bottom_fork": {
       "y": [
@@ -2007,12 +2071,12 @@
     },
     {
       "id": "R2-C5",
-      "item": "A7 power cable: digital requirement 57.0 +/- 3.0 mm free span (tolerance ASSUMED) for the S-fold stowage (51.037-78.053 mm across both widths); the A5 50 +/- 6 cable does not fit. No cable has been routed or measured",
+      "item": "A7 power cable: digital requirement 55.0 +/- 3.0 mm free span (tolerance ASSUMED) for the S-fold stowage (49.037-76.053 mm across both widths); the A5 50 +/- 6 cable does not fit. No cable has been routed or measured",
       "decides": "power harness part and its length (#8)"
     },
     {
       "id": "R2-C6",
-      "item": "controller-to-leaf SH4 harness: route B moves the unchanged A5 adapter -2.0 mm in Z so the harness S-steps at the leaf plug mouth into a 2.4 mm gap behind the adapter; ray-sampled shading per LED is in verification.json (optical_shading_estimate). Real bend radius, insulation diameter and the lit appearance are not checked",
+      "item": "controller-to-leaf SH4 harness: route B moves the unchanged A5 adapter -4.0 mm in Z so the harness S-steps at the leaf plug mouth into a 4.4 mm gap behind the adapter; ray-sampled shading per LED is in verification.json (optical_shading_estimate). Real bend radius, insulation diameter and the lit appearance are not checked",
       "decides": "harness and adapter mounting (#8), optics"
     },
     {

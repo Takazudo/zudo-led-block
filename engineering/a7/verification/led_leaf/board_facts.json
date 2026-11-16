@@ -1,0 +1,68 @@
+{
+ "board_only": [],
+ "board_sha256": "bcf2e35d767221f5a9db0cd16769a2e503a672f522fd4f32f78012cdeb494cf9",
+ "footprint_count": 10,
+ "geometry_sha256": "0fbd4d039fff87e3d4fbbee9adaef0827c1f0b62d8f3ea65d1a54d4ec343665e",
+ "pad_nets": {
+  "C1": {
+   "1": "VLED",
+   "2": "GND"
+  },
+  "C2": {
+   "1": "VLED",
+   "2": "GND"
+  },
+  "C3": {
+   "1": "VLED",
+   "2": "GND"
+  },
+  "C4": {
+   "1": "VLED",
+   "2": "GND"
+  },
+  "D1": {
+   "1": "DATA_1_2",
+   "2": "GND",
+   "3": "DATA_IN",
+   "4": "VLED"
+  },
+  "D2": {
+   "1": "DATA_2_3",
+   "2": "GND",
+   "3": "DATA_1_2",
+   "4": "VLED"
+  },
+  "D3": {
+   "1": "DATA_3_4",
+   "2": "GND",
+   "3": "DATA_2_3",
+   "4": "VLED"
+  },
+  "D4": {
+   "1": "",
+   "2": "GND",
+   "3": "DATA_3_4",
+   "4": "VLED"
+  },
+  "J1": {
+   "1": "GND",
+   "2": "VLED",
+   "3": "DATA_IN",
+   "4": "DATA_OTHER",
+   "MP": ""
+  },
+  "J2": {
+   "1": "GND",
+   "2": "VLED",
+   "3": "DATA_OTHER",
+   "4": "DATA_IN",
+   "MP": ""
+  }
+ },
+ "track_count": 62,
+ "unconnected_pcbnew": 0,
+ "via_count": 11,
+ "zone_count": 0,
+ "zone_fill_sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+ "zone_fill_summary": []
+}

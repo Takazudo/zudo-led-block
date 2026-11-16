@@ -244,6 +244,26 @@
       "nominal": 0.05,
       "confidence": "ASSUMED",
       "note": "Fabricator capability not confirmed; acceptance requirement for finished slot width."
+    },
+    "leaf_fasteners": {
+      "centre_offset_mm": {
+        "3hp": 3.4,
+        "2hp": 2.4
+      },
+      "nut_across_flats_nominal_mm": 3.2,
+      "nut_across_flats_tol_mm": 0.1,
+      "pocket_across_flats_nominal_mm": 3.4,
+      "pocket_across_flats_tol_mm": 0.1,
+      "hole_pocket_position_tol_mm": 0.1,
+      "nut_in_pocket_float_mm": 0.1,
+      "leaf_centre_position_tol_mm": 0.05,
+      "cap_outer_edge_tol_mm": 0.1,
+      "minimum_leaf_clearance_mm": 0.15,
+      "minimum_outer_edge_clearance_mm": 0.3,
+      "confidence": "PROJECT-CHOICE",
+      "tolerance_confidence": "ASSUMED acceptance requirements, not manufacturer-guaranteed or measured",
+      "rotation_basis": "Use maximum nut circumradius (AF/sqrt(3)) for arbitrary rotation, not only nominal CAD orientation.",
+      "scope": "Hardware-to-leaf and transverse cap-outline budget. Pocket/slot local web and complete cap load path require CAD review; no strength PASS. 2HP retains historical comparison offset and is unadopted."
     }
   },
   "cables": {
@@ -280,10 +300,10 @@
       "note": "design target only; no manufacturer bend radius is retained"
     },
     "led_route": {
-      "gap_run_z": 18.2,
+      "gap_run_z": 17.9,
       "return_z": 12.8,
       "confidence": "PROJECT-CHOICE",
-      "note": "S-step at the leaf SH4 plug mouth down into the gap between the moved adapter PCB rear (Z 17.0) and the leaf front edge (Z 19.4), run +Y in that gap and in front of the leaves, fold once and return to the controller SH4 (R2-C6 route B)",
+      "note": "S-step into retained-adapter/leaf gap; new center Z17.9 with explicit +/-0.1 positioning and1.1mm maximum bundle-radius assumptions (adapter_relocation.tolerance_budget). Revalidate full CAD swept path and real harness.",
       "exit_straight": 0.5,
       "step_radius": 2.5,
       "step_radius_note": "bundle centreline bend radius 2.5 (inner radius 1.5 for the r=1.0 bundle model); no manufacturer bend radius is retained"
@@ -415,16 +435,26 @@
   },
   "adapter_relocation": {
     "z_shift": {
-      "nominal": -2.0,
+      "nominal": -4.0,
       "confidence": "PROJECT-CHOICE"
     },
-    "reason": "moves the unchanged A5 power adapter 2.0 mm toward the PMMA so a 2.4 mm gap opens between its rear face and the leaf front edge; the controller-to-leaf SH4 harness leaves the emission corridor at the leaf plug mouth and runs in that gap instead of descending beside LED D2 (R2-C6)",
+    "reason": "Retain 1.6mm two-layer A5 adapter outside the direct lateral LED corridor; move it 4mm forward for an explicit SH harness clearance budget including board thickness and assembly allowances. No new adapter PCB is needed for this nominal optical topology.",
     "cap_spacer": {
-      "height": 2.0,
+      "height": 4.0,
       "radius": 2.75,
       "confidence": "PROJECT-CHOICE",
-      "note": "printed boss on the top cap around the Y20.5 screw fills the new 2.0 mm gap between the adapter and the cap (height must equal -z_shift; the layout asserts it). Wall 1.65 mm around the 2.2 mm hole. The post nut sits 2.0 mm lower, so the top-cap screw grows from M2x16 to M2x18 to keep the A5 2.2 mm protrusion past the nut. Clamp load and boss strength are not analysed"
+      "note": "4.0 mm boss fills the adapter forward move; top screw becomes standard M2x20 retaining nominal2.2mm past nut. Strength and physical fit remain unverified."
     },
-    "a5_adapter_unchanged": true
+    "a5_adapter_unchanged": true,
+    "tolerance_budget": {
+      "adapter_finished_thickness_tol_mm": 0.16,
+      "adapter_finished_thickness_tol_basis": "JLCPCB Capabilities thickness >=1mm +/-10%; final factory order review required",
+      "adapter_mount_z_tol_mm": 0.1,
+      "leaf_front_z_tol_mm": 0.1,
+      "harness_centre_z_tol_mm": 0.1,
+      "sh_bundle_radius_max_mm": 1.1,
+      "minimum_gap_mm": 0.2,
+      "allowance_confidence": "ASSUMED acceptance requirements: assembly locations and bundle envelope are not measured or supplier guaranteed; validate fixture/support/cable process physically."
+    }
   }
 }

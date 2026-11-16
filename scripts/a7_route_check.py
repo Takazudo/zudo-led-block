@@ -36,6 +36,7 @@ PROPOSAL = 'engineering/a7/verification/routing/route_proposal_seed0.json'
 BOARD = 'engineering/a7/electronics/controller/controller.kicad_pcb'
 NETLIST = 'engineering/a7/verification/schematic/netlist.xml'
 LABEL = 'zudo-led-block.a7-route-check'
+OPTICAL_BOARDS = ('controller', 'led_leaf')
 REVIEW_AID_NOTE = """REVIEW AID ONLY - NOT A RELEASE OUTPUT - DO NOT ORDER FROM THESE FILES
 
 Exported by scripts/a7_route_check.py --review-aid from the committed A7 controller board
@@ -110,6 +111,24 @@ def nonempty_failures(proposal: dict, copper: dict) -> list[str]:
     return fails
 
 
+def optical_comparison(out: Path, repo: Path = REPO) -> tuple[dict, list[str]]:
+    result = {}
+    fails = []
+    for name in OPTICAL_BOARDS:
+        fresh = out / f'optical-{name}.json'
+        retained = repo / f'engineering/a7/electronics/{name}/optical-geometry.json'
+        code = out / f'optical-{name}.code'
+        equal = (code.is_file() and code.read_text().strip() == '0'
+                 and fresh.is_file() and retained.is_file()
+                 and fresh.read_bytes() == retained.read_bytes())
+        result[name] = {'equal': equal,
+             'fresh_sha256': sha(fresh) if fresh.is_file() else None,
+             'retained_sha256': sha(retained) if retained.is_file() else None}
+        if not equal:
+            fails.append(f'{name}: retained optical contours differ from fresh pinned native export')
+    return result, fails
+
+
 def main() -> int:
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     ap.add_argument('--out', type=Path, required=True)
@@ -133,6 +152,11 @@ def main() -> int:
         f'python3 -I /repo/scripts/a7_board.py build --out /out/stage --netlist /repo/{NETLIST} > /out/build.log 2>&1; echo $? > /out/build.code',
         f'python3 -I /out/copper.py /repo/{BOARD} /repo/{PROPOSAL} /out/copper_nm.json > /out/copper.log 2>&1; echo $? > /out/copper.code',
     ])
+    for name in OPTICAL_BOARDS:
+        board = f'engineering/a7/electronics/{name}/{name}.kicad_pcb'
+        script += ('\npython3 /repo/scripts/a7_optical_geometry.py '
+                   f'--board /repo/{board} --out /out/optical-{name}.json '
+                   f'> /out/optical-{name}.log 2>&1; echo $? > /out/optical-{name}.code')
     if a.review_aid:
         ra = '/out/review-aid'
         script += '\n' + '\n'.join([
@@ -148,6 +172,8 @@ def main() -> int:
     s['native'] = {'docker_exit': p.returncode, 'codes': codes, 'stderr_tail': p.stderr[-1000:]}
     if p.returncode != 0 or codes['build'] != '0' or codes['copper'] != '0':
         fails.append(f'native steps failed: docker exit {p.returncode}, codes {codes}')
+    s['fresh_optical_geometry'], optical_failures = optical_comparison(out)
+    fails += optical_failures
     geo = out / 'stage/geometry.json'
     routes = out / 'routes_seed0.json'
     if geo.is_file():

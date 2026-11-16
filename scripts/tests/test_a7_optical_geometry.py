@@ -27,6 +27,7 @@ class OpticalGeometryTest(unittest.TestCase):
         result = optical.polygons(Polygons())
         self.assertEqual(result[0]['outer'], [[0, 0], [2, 0], [2, 3]])
         self.assertEqual(result[0]['holes'], [[[.2, .2], [.4, .2], [.4, .4]]])
+        self.assertAlmostEqual(optical.area_mm2(result), 2.98)
 
 
 if __name__ == '__main__': unittest.main()

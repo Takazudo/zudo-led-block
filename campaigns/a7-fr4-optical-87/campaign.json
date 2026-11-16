@@ -1,7 +1,7 @@
 {
   "issue": "https://github.com/Takazudo/zudo-led-block/issues/87",
   "parent": 15,
-  "manager": "Codex Cloud root; delegated source thread6afb1f7f-4754-8191-a429-d7231953e0ee",
+  "manager": "Codex Cloud root integration coordinator",
   "base_sha": "e8fabd0d4dead06624463221e9cd159a1a694ee8",
   "branch": "codex/a7-fr4-optical-87",
   "initial_checkout": "main, clean, one worktree /workspace/zudo-led-block",
@@ -33,5 +33,17 @@
     "A6#7/PR14 held",
     "No supplier messages/order/release/manual deploy/flash/power",
     "Old results not new-design evidence"
-  ]
+  ],
+  "pr": "https://github.com/Takazudo/zudo-led-block/pull/88",
+  "status": "draft implementation; optical leaf adopted from verified staging, controller/fixture/CAD pending",
+  "native_staging": {
+    "method": "digest-verified OCI layers flattened once and isolated bwrap execution; NOT the final Docker native gate",
+    "index_digest": "sha256:3f4a01786dfbe803a65f345c3342b765db9add913f5e9448f8356793714ddc34",
+    "amd64_manifest_digest": "sha256:05f6ac957e351bbbd9e1f9c996be997f61948ed9f94e0c3cab336bfcaf60161c",
+    "config_digest": "sha256:435c07bf74fcd24dcb5ad20540c96451ae3d6f8cd1abffea796981acc9921c02",
+    "provenance_sha256": "d176735d8a21de6ca4a2d7f745fbc61bd5805815d5cd7b8cb93db8dbdbfe8ba0",
+    "version_checks": "kicad-cli and pcbnew 10.0.8; all13 compressed layer digests verified",
+    "capacity": "Docker vfs expanded to root32GB full; task-owned unused image removed; flattened rootfs2.5GB held locally, no global Docker changes",
+    "acceptance": "Existing pinned Docker Actions gate still mandatory"
+  }
 }

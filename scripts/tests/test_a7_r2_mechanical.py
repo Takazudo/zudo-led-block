@@ -292,6 +292,37 @@ class Harness(unittest.TestCase):
         wider = LAY.leaf_comparison(d, G5["leaf"], L["z_stack"])
         self.assertLess(wider["fr4"]["cap_slot_clearance_worst_per_side"], 0)
 
+    def test_retained_adapter_gap_includes_thickness_and_assembly_tolerances(self):
+        b = L["supports"]["adapter"]["harness_gap_budget"]
+        self.assertEqual(b["adapter_rear_max"], 15.26)
+        self.assertEqual(b["harness_z_envelope"], [16.7, 19.1])
+        self.assertEqual(b["leaf_front_min"], 19.3)
+        self.assertGreaterEqual(b["adapter_clearance_worst"], .2)
+        self.assertGreaterEqual(b["leaf_clearance_worst"], .2)
+        self.assertIn("ASSUMED", b["inputs"]["allowance_confidence"])
+
+    def test_old_adapter_position_fails_new_assembly_budget(self):
+        d = json.loads((MECH / "design-inputs.json").read_text())
+        d["adapter_relocation"]["z_shift"]["nominal"] = -2.0
+        d["adapter_relocation"]["cap_spacer"]["height"] = 2.0
+        with tempfile.TemporaryDirectory() as td:
+            path = Path(td) / "inputs.json"
+            path.write_text(json.dumps(d))
+            with patch.object(LAY, "INPUTS", path):
+                with self.assertRaisesRegex(ValueError, "tolerance budget"):
+                    LAY.build()
+
+    def test_leaf_fasteners_include_assembly_and_rotation_envelopes(self):
+        b = L["supports"]["leaf_fasteners"]
+        self.assertEqual(b["variants"]["3hp"]["centre_offset"], 3.4)
+        self.assertGreaterEqual(b["variants"]["3hp"]["leaf_clearance_worst"], .15)
+        self.assertGreaterEqual(b["variants"]["3hp"]["cap_outer_edge_clearance_worst"], .3)
+        self.assertFalse(b["variants"]["2hp"]["transverse_budget_pass"])
+        q = copy.deepcopy(b["inputs"])
+        q["centre_offset_mm"]["3hp"] = 2.7
+        with self.assertRaisesRegex(ValueError, "leaf fastener clearance"):
+            LAY.leaf_fastener_budget(q, L["leaf_comparison"], {"3hp":14.9,"2hp":9.8}, "3hp")
+
     def test_harness_start_follows_new_leaf_face(self):
         for v in L["variants"].values():
             start = v["routes"]["controller_to_left_leaf_sh4"]["points"][0][0]
@@ -324,7 +355,7 @@ class Harness(unittest.TestCase):
         self.assertAlmostEqual(ad["cap_spacer_z"][1] - ad["cap_spacer_z"][0], -ad["z_shift"], places=6)
         self.assertAlmostEqual(ad["cap_spacer_z"][0], ad["rear_z"], places=6)
         self.assertAlmostEqual(sp["post_nut_z"][0] - scr["tip_z"], 2.2, places=6, msg="A5 thread protrusion past the post nut")
-        self.assertEqual(scr["designation"], "M2x18")
+        self.assertEqual(scr["designation"], "M2x20")
         self.assertGreaterEqual(ad["cap_spacer_radius"] - 1.1, 1.5, "printed boss wall")
 
 

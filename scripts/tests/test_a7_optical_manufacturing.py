@@ -4,6 +4,7 @@ import importlib.util
 import json
 from pathlib import Path
 import unittest
+from unittest.mock import patch
 
 ROOT = Path(__file__).resolve().parents[2]
 def load(name):
@@ -47,6 +48,26 @@ class OpticalManufacturingTests(unittest.TestCase):
             J.kid(core, field)[1] = value
             with self.subTest(field=field), self.assertRaisesRegex(ValueError, 'stackup differs'):
                 J.optical_manufacturing('led_leaf', facts)
+
+    def test_leaf_positions_reject_stale_native_identity(self):
+        facts = P.read(ROOT, 'engineering/a7/verification/led_leaf/board_facts.json')
+        geometry = P.read(ROOT, 'engineering/a7/verification/led_leaf/board_geometry.json')
+        placement = {'board': P.BOARDS['led_leaf'][2], 'board_sha256': facts['board_sha256'],
+                     'geometry_sha256': facts['geometry_sha256'],
+                     'components': [dict(ref=f['ref'], fpid=f['fpid'], side=f['side'],
+                                         at_mm=[f['x'], f['y']], angle_deg=f['rot'])
+                                    for f in geometry['footprints']]}
+        original_read = P.read
+        def read(root, path):
+            return placement if path == P.LEAF_PLACEMENT else original_read(root, path)
+        with patch.object(P, 'read', side_effect=read):
+            self.assertEqual(set(P.leaf_positions(ROOT)), {f['ref'] for f in geometry['footprints']})
+            placement['components'][0]['at_mm'][0] += .1
+            with self.assertRaisesRegex(ValueError, 'differs from native geometry'):
+                P.leaf_positions(ROOT)
+            placement['board_sha256'] = '0' * 64
+            with self.assertRaisesRegex(ValueError, 'stale leaf placement'):
+                P.leaf_positions(ROOT)
 
     def test_controller_sourced_lamination(self):
         facts = dict(self.facts, path=self.spec['controller']['board'],

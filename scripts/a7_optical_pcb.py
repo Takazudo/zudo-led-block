@@ -10,6 +10,7 @@ from __future__ import annotations
 import argparse
 import hashlib
 import json
+import math
 from pathlib import Path
 import re
 import shutil
@@ -53,6 +54,24 @@ def complement_rectangles(bounds, protected):
         result.extend(active.values())
         active = now
     return sorted(result + list(active.values()))
+
+
+def trace_corridors(start, end, width, margin, step):
+    """Conservative narrow mask around real surface copper, in integer nm.
+
+    Cardinal traces need one rectangle; subdividing diagonals avoids masking the
+    empty corners of one large diagonal bounding box. Copper plus 0.10mm margin
+    prevents a substrate aperture exposing/bridging tracks of different nets.
+    """
+    x,y = start
+    u,v = end
+    count = math.ceil(max(abs(u-x),abs(v-y))/step) if x != u and y != v else 1
+    half = width/2 + margin
+    for i in range(max(1,count)):
+        a,b = x+(u-x)*i/count, y+(v-y)*i/count
+        c,d = x+(u-x)*(i+1)/count, y+(v-y)*(i+1)/count
+        yield [math.floor(min(a,c)-half), math.floor(min(b,d)-half),
+               math.ceil(max(a,c)+half), math.ceil(max(b,d)+half)]
 
 
 def stackup_text(kind):
@@ -133,6 +152,21 @@ def apply_mask(board, kind):
             if t.GetClass() == 'PCB_VIA':
                 protected.append({'id': str(t.m_Uuid.AsString()), 'reason': 'via tenting; opening must not expose hole',
                                   'rect_nm': bbox(t, p.FromMM(settings['via_margin_mm']))})
+            elif t.GetLayer() == copper:
+                if t.GetClass() != 'PCB_TRACK':
+                    raise ValueError('optical mask needs a reviewed corridor rule for nonstraight tracks')
+                a,b = t.GetStart(),t.GetEnd()
+                for i, rect in enumerate(trace_corridors((a.x,a.y),(b.x,b.y),t.GetWidth(),
+                                                        p.FromMM(settings['trace_margin_mm']),
+                                                        p.FromMM(settings['diagonal_step_mm']))):
+                    protected.append({'id': t.m_Uuid.AsString()+f'.trace.{i}',
+                                      'net': t.GetNetname(), 'reason': 'narrow solder isolation over opaque copper; prevents different-net aperture bridges',
+                                      'rect_nm': rect})
+        for z in board.Zones():
+            if z.IsOnLayer(copper):
+                protected.append({'id': z.GetZoneName()+'.local-copper', 'net': z.GetNetname(),
+                                  'reason': 'solder isolation on justified local copper',
+                                  'rect_nm': bbox(z,p.FromMM(settings['trace_margin_mm']))})
         for item in board.GetDrawings():
             if item.GetLayer() == silk:
                 protected.append({'id': 'board.silk', 'reason': 'retain board polarity/assembly legend backing',

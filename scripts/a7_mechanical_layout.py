@@ -340,6 +340,27 @@ def break_even(p, row):
     return out
 
 
+def leaf_fastener_budget(inputs, leaf, panel_widths, selected):
+    """Conservative transverse hardware envelope; no cap structural approval."""
+    radius = (inputs["nut_across_flats_nominal_mm"] + inputs["nut_across_flats_tol_mm"]) / math.sqrt(3)
+    position = inputs["hole_pocket_position_tol_mm"] + inputs["nut_in_pocket_float_mm"]
+    leaf_half = leaf["fr4"]["thickness_range"][1] / 2
+    variants = {}
+    for name, width in panel_widths.items():
+        offset = inputs["centre_offset_mm"][name]
+        leaf_gap = offset - position - radius - leaf_half - inputs["leaf_centre_position_tol_mm"]
+        edge_gap = width / 2 - .3 - inputs["cap_outer_edge_tol_mm"] - offset - position - radius
+        passed = leaf_gap >= inputs["minimum_leaf_clearance_mm"] and edge_gap >= inputs["minimum_outer_edge_clearance_mm"]
+        variants[name] = {"centre_offset": offset, "nut_envelope_radius_max": r(radius),
+                          "leaf_half_max": r(leaf_half), "leaf_clearance_worst": r(leaf_gap),
+                          "cap_outer_edge_clearance_worst": r(edge_gap), "transverse_budget_pass": passed,
+                          "status": "selected candidate" if name == selected else "unadopted comparison"}
+        if name == selected and not passed:
+            raise ValueError("selected leaf fastener clearance fails tolerance budget")
+    return {"inputs": inputs, "variants": variants,
+            "structural_status": "NOT VERIFIED: pocket/slot webs, retention and full cap load path need separate review"}
+
+
 def build():
     p = json.loads((A7 / "study" / "parameters.json").read_text())
     d = json.loads(INPUTS.read_text())
@@ -491,6 +512,19 @@ def build():
                "cap_spacer_radius": ar["cap_spacer"]["radius"], "reason": ar["reason"], "confidence": ar["z_shift"]["confidence"]}
     h_nom = P["jack_axis_height"]["nominal"]
     m2 = sup["m2"]
+    budget = ar["tolerance_budget"]
+    gap_z = d["cables"]["led_route"]["gap_run_z"]
+    adapter_rear_max = adapter["rear_z"] + budget["adapter_finished_thickness_tol_mm"] + budget["adapter_mount_z_tol_mm"]
+    leaf_front_min = l5["z"][0] - budget["leaf_front_z_tol_mm"]
+    bundle_low = gap_z - budget["harness_centre_z_tol_mm"] - budget["sh_bundle_radius_max_mm"]
+    bundle_high = gap_z + budget["harness_centre_z_tol_mm"] + budget["sh_bundle_radius_max_mm"]
+    adapter["harness_gap_budget"] = {"inputs": budget, "adapter_rear_max": r(adapter_rear_max),
+        "leaf_front_min": r(leaf_front_min), "harness_z_envelope": [r(bundle_low), r(bundle_high)],
+        "adapter_clearance_worst": r(bundle_low - adapter_rear_max),
+        "leaf_clearance_worst": r(leaf_front_min - bundle_high),
+        "scope": "Z interval of the gap-run segment only; whole swept route and hardware require fresh CAD, physical fit remains unverified"}
+    if min(bundle_low - adapter_rear_max, leaf_front_min - bundle_high) < budget["minimum_gap_mm"] - 1e-9:
+        raise ValueError("adapter/leaf SH gap fails the stated tolerance budget")
     variants = {}
     for name, row in (("2hp", sel2), ("3hp", sel3)):
         w = row["panel_width"]
@@ -650,6 +684,10 @@ def build():
         "why_separate_adapter": f"a vertical keyed IDC10 header body is 8.9 mm tall (A5 C5665 maximum envelope); on the perpendicular board it would need {8.9} mm of X but the 2HP component face offers {variants['2hp']['checks']['component_face_height_budget']} mm",
     }
 
+    leaf_stack = leaf_comparison(d, l5, z_stack)
+    fasteners = leaf_fastener_budget(sup["leaf_fasteners"], leaf_stack,
+                                    {k: v["panel_width"] for k, v in variants.items()}, d["width_decision"]["working_candidate"])
+
     # ---- verdicts -----------------------------------------------------------------------
     wd = d["width_decision"]
     working, open_ = wd["working_candidate"], wd["open_candidate"]
@@ -690,10 +728,11 @@ def build():
             "break_even_2hp": break_even(p, sel2),
         },
         "z_stack": z_stack, "y_layout": y_layout, "switch": switch, "controller": controller, "power_cable_requirement": power_cable,
-        "leaf_comparison": leaf_comparison(d, l5, z_stack),
+        "leaf_comparison": leaf_stack,
         "variants": variants,
         "supports": {
             "front_screw_y": sup["front_screw_y"]["values"], "m2": m2,
+            "leaf_fasteners": fasteners,
             "spine": {"rib_width": sup["spine_rib_width"]["nominal"], "rib_height": sup["spine_rib_height"]["nominal"],
                       "slot_y": sv, "slot_height": sup["controller_slot_height"]["nominal"], "slot_clearance": sup["slot_clearance"]["nominal"],
                       "slot_width_tolerance": sup["slot_width_tolerance"]["nominal"],

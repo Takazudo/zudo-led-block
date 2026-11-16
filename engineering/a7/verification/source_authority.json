@@ -226,13 +226,13 @@
   {
    "path": "engineering/a7/electronics/led_leaf/led_leaf.kicad_pcb",
    "class": "authoritative",
-   "present": false,
+   "present": true,
    "rule": "Issue87 optical R3: staged fork of immutable A5 leaf with 0.8mm rigid FR4 stackup and minimum both-side mask. Adopt only reviewed native-verified candidate. Normal generation never writes this PCB."
   },
   {
    "path": "engineering/a7/electronics/led_leaf/led_leaf.kicad_sch",
    "class": "authoritative",
-   "present": false,
+   "present": true,
    "rule": "Issue87 unchanged electrical contract fork of A5 schematic. Independent current native leaf design; never regenerate over this source."
   },
   {
@@ -269,6 +269,29 @@
    "path": "engineering/a7/verification/fab/optical-fr4.json",
    "class": "authored",
    "rule": "Issue87 manufacturer sourced lamination and project optical copper/mask inputs; source distinctions and final DFM gaps explicit. Used by staging helpers; no direct canonical PCB overwrite."
+  },
+  {
+   "path": "engineering/a7/verification/led_leaf",
+   "class": "authored",
+   "rule": "Reviewed actual10.0.8 staged optical leaf adoption evidence, new design not historical A5 result; final CI native gate remains mandatory."
+  },
+  {
+   "path": "engineering/a7/electronics/led_leaf/board_placement.json",
+   "class": "derived",
+   "generator": "python3 scripts/native_gate/authority.py export-placement (from fresh native facts of the authoritative optical leaf)",
+   "rule": "Current optical R3 placement/connectivity export. Must match adopted leaf board SHA and fresh board_facts/board_geometry; never substitute historical A5 placement."
+  },
+  {
+   "path": "engineering/a7/electronics/controller/optical-geometry.json",
+   "class": "derived",
+   "generator": "scripts/a7_optical_geometry.py in pinned native KiCad10.0.8; staged and reviewed adoption",
+   "rule": "All-layer actual copper and effective residual mask contours; must match current authoritative PCB SHA. Display geometry only, not optical measurement or manufacturing release."
+  },
+  {
+   "path": "engineering/a7/electronics/led_leaf/optical-geometry.json",
+   "class": "derived",
+   "generator": "scripts/a7_optical_geometry.py in pinned native KiCad10.0.8; staged and reviewed adoption",
+   "rule": "All-layer actual copper and effective residual mask contours; must match current authoritative PCB SHA. Display geometry only, not optical measurement or manufacturing release."
   }
  ],
  "regeneration_rules": [

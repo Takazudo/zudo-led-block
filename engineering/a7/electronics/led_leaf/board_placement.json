@@ -1,0 +1,457 @@
+{
+ "board": "engineering/a7/electronics/led_leaf/led_leaf.kicad_pcb",
+ "board_sha256": "bcf2e35d767221f5a9db0cd16769a2e503a672f522fd4f32f78012cdeb494cf9",
+ "components": [
+  {
+   "angle_deg": 0.0,
+   "at_mm": [
+    3.5,
+    5.95
+   ],
+   "board_only": false,
+   "fpid": "LightBlock:C0603",
+   "pads": {
+    "1": {
+     "at_mm": [
+      2.7,
+      5.95
+     ],
+     "net": "VLED"
+    },
+    "2": {
+     "at_mm": [
+      4.3,
+      5.95
+     ],
+     "net": "GND"
+    }
+   },
+   "ref": "C1",
+   "side": "F"
+  },
+  {
+   "angle_deg": 0.0,
+   "at_mm": [
+    3.5,
+    30.95
+   ],
+   "board_only": false,
+   "fpid": "LightBlock:C0603",
+   "pads": {
+    "1": {
+     "at_mm": [
+      2.7,
+      30.95
+     ],
+     "net": "VLED"
+    },
+    "2": {
+     "at_mm": [
+      4.3,
+      30.95
+     ],
+     "net": "GND"
+    }
+   },
+   "ref": "C2",
+   "side": "F"
+  },
+  {
+   "angle_deg": 0.0,
+   "at_mm": [
+    3.5,
+    55.95
+   ],
+   "board_only": false,
+   "fpid": "LightBlock:C0603",
+   "pads": {
+    "1": {
+     "at_mm": [
+      2.7,
+      55.95
+     ],
+     "net": "VLED"
+    },
+    "2": {
+     "at_mm": [
+      4.3,
+      55.95
+     ],
+     "net": "GND"
+    }
+   },
+   "ref": "C3",
+   "side": "F"
+  },
+  {
+   "angle_deg": 0.0,
+   "at_mm": [
+    3.5,
+    80.95
+   ],
+   "board_only": false,
+   "fpid": "LightBlock:C0603",
+   "pads": {
+    "1": {
+     "at_mm": [
+      2.7,
+      80.95
+     ],
+     "net": "VLED"
+    },
+    "2": {
+     "at_mm": [
+      4.3,
+      80.95
+     ],
+     "net": "GND"
+    }
+   },
+   "ref": "C4",
+   "side": "F"
+  },
+  {
+   "angle_deg": 0.0,
+   "at_mm": [
+    4.5,
+    3.75
+   ],
+   "board_only": false,
+   "fpid": "LightBlock:WS2812B_2020_V6",
+   "pads": {
+    "1": {
+     "at_mm": [
+      5.415,
+      4.3
+     ],
+     "net": "DATA_1_2"
+    },
+    "2": {
+     "at_mm": [
+      5.415,
+      3.2
+     ],
+     "net": "GND"
+    },
+    "3": {
+     "at_mm": [
+      3.585,
+      3.2
+     ],
+     "net": "DATA_IN"
+    },
+    "4": {
+     "at_mm": [
+      3.585,
+      4.3
+     ],
+     "net": "VLED"
+    }
+   },
+   "ref": "D1",
+   "side": "F"
+  },
+  {
+   "angle_deg": 0.0,
+   "at_mm": [
+    4.5,
+    28.75
+   ],
+   "board_only": false,
+   "fpid": "LightBlock:WS2812B_2020_V6",
+   "pads": {
+    "1": {
+     "at_mm": [
+      5.415,
+      29.3
+     ],
+     "net": "DATA_2_3"
+    },
+    "2": {
+     "at_mm": [
+      5.415,
+      28.2
+     ],
+     "net": "GND"
+    },
+    "3": {
+     "at_mm": [
+      3.585,
+      28.2
+     ],
+     "net": "DATA_1_2"
+    },
+    "4": {
+     "at_mm": [
+      3.585,
+      29.3
+     ],
+     "net": "VLED"
+    }
+   },
+   "ref": "D2",
+   "side": "F"
+  },
+  {
+   "angle_deg": 0.0,
+   "at_mm": [
+    4.5,
+    53.75
+   ],
+   "board_only": false,
+   "fpid": "LightBlock:WS2812B_2020_V6",
+   "pads": {
+    "1": {
+     "at_mm": [
+      5.415,
+      54.3
+     ],
+     "net": "DATA_3_4"
+    },
+    "2": {
+     "at_mm": [
+      5.415,
+      53.2
+     ],
+     "net": "GND"
+    },
+    "3": {
+     "at_mm": [
+      3.585,
+      53.2
+     ],
+     "net": "DATA_2_3"
+    },
+    "4": {
+     "at_mm": [
+      3.585,
+      54.3
+     ],
+     "net": "VLED"
+    }
+   },
+   "ref": "D3",
+   "side": "F"
+  },
+  {
+   "angle_deg": 0.0,
+   "at_mm": [
+    4.5,
+    78.75
+   ],
+   "board_only": false,
+   "fpid": "LightBlock:WS2812B_2020_V6",
+   "pads": {
+    "1": {
+     "at_mm": [
+      5.415,
+      79.3
+     ],
+     "net": ""
+    },
+    "2": {
+     "at_mm": [
+      5.415,
+      78.2
+     ],
+     "net": "GND"
+    },
+    "3": {
+     "at_mm": [
+      3.585,
+      78.2
+     ],
+     "net": "DATA_3_4"
+    },
+    "4": {
+     "at_mm": [
+      3.585,
+      79.3
+     ],
+     "net": "VLED"
+    }
+   },
+   "ref": "D4",
+   "side": "F"
+  },
+  {
+   "angle_deg": 0.0,
+   "at_mm": [
+    4.5,
+    16.5
+   ],
+   "board_only": false,
+   "fpid": "LightBlock:JST_SH4",
+   "pads": {
+    "1": {
+     "at_mm": [
+      3.0,
+      14.5
+     ],
+     "net": "GND"
+    },
+    "2": {
+     "at_mm": [
+      4.0,
+      14.5
+     ],
+     "net": "VLED"
+    },
+    "3": {
+     "at_mm": [
+      5.0,
+      14.5
+     ],
+     "net": "DATA_IN"
+    },
+    "4": {
+     "at_mm": [
+      6.0,
+      14.5
+     ],
+     "net": "DATA_OTHER"
+    },
+    "MP": {
+     "at_mm": [
+      7.3,
+      18.375
+     ],
+     "net": ""
+    }
+   },
+   "ref": "J1",
+   "side": "F"
+  },
+  {
+   "angle_deg": 0.0,
+   "at_mm": [
+    4.5,
+    66.0
+   ],
+   "board_only": false,
+   "fpid": "LightBlock:JST_SH4",
+   "pads": {
+    "1": {
+     "at_mm": [
+      3.0,
+      64.0
+     ],
+     "net": "GND"
+    },
+    "2": {
+     "at_mm": [
+      4.0,
+      64.0
+     ],
+     "net": "VLED"
+    },
+    "3": {
+     "at_mm": [
+      5.0,
+      64.0
+     ],
+     "net": "DATA_OTHER"
+    },
+    "4": {
+     "at_mm": [
+      6.0,
+      64.0
+     ],
+     "net": "DATA_IN"
+    },
+    "MP": {
+     "at_mm": [
+      7.3,
+      67.875
+     ],
+     "net": ""
+    }
+   },
+   "ref": "J2",
+   "side": "F"
+  }
+ ],
+ "copper_layers": 2,
+ "edges_mm": [
+  [
+   0.0,
+   0.0,
+   9.0,
+   0.0
+  ],
+  [
+   0.0,
+   23.2,
+   0.0,
+   0.0
+  ],
+  [
+   0.0,
+   25.2,
+   1.0,
+   25.2
+  ],
+  [
+   0.0,
+   57.3,
+   0.0,
+   25.2
+  ],
+  [
+   0.0,
+   59.3,
+   1.0,
+   59.3
+  ],
+  [
+   0.0,
+   82.5,
+   0.0,
+   59.3
+  ],
+  [
+   1.0,
+   23.2,
+   0.0,
+   23.2
+  ],
+  [
+   1.0,
+   25.2,
+   1.0,
+   23.2
+  ],
+  [
+   1.0,
+   57.3,
+   0.0,
+   57.3
+  ],
+  [
+   1.0,
+   59.3,
+   1.0,
+   57.3
+  ],
+  [
+   9.0,
+   0.0,
+   9.0,
+   82.5
+  ],
+  [
+   9.0,
+   82.5,
+   0.0,
+   82.5
+  ]
+ ],
+ "generator": "scripts/native_gate/authority.py export-placement (from fresh native board facts)",
+ "geometry_sha256": "0fbd4d039fff87e3d4fbbee9adaef0827c1f0b62d8f3ea65d1a54d4ec343665e",
+ "thickness_mm": 0.8,
+ "track_count": 62,
+ "unconnected_pcbnew": 0,
+ "via_count": 11,
+ "zone_count": 0,
+ "zone_fill_sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+}
