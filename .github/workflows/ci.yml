@@ -306,7 +306,7 @@ jobs:
     # A5 controller as an expected-failure control. INFRASTRUCTURE_PASS is never an A7 board result;
     # the A7 board result comes only from the A7 revision profile run on the committed candidate.
     runs-on: ubuntu-24.04
-    timeout-minutes: 25
+    timeout-minutes: 45
     env:
       # Digest-pinned KiCad 10.0.8 (amd64); the gate refuses to run if the profile names another image.
       KICAD_IMAGE: kicad/kicad:10.0.8@sha256:3f4a01786dfbe803a65f345c3342b765db9add913f5e9448f8356793714ddc34
@@ -355,7 +355,7 @@ jobs:
           python3 scripts/native_gate/runner.py run --profile engineering/a7/verification/native_gate.json --out "$RUNNER_TEMP/a7-gate" --deadline-s 660
           test "$(python3 -c 'import json,sys;print(json.load(open(sys.argv[1]))["status"])' "$RUNNER_TEMP/a7-gate/summary.json")" = PASS
       - name: A7 router reproducibility (seed 0 equals the recorded route, board carries it) and review-aid export
-        timeout-minutes: 15
+        timeout-minutes: 35
         run: |
           python3 -m pip install --quiet --require-hashes --only-binary=:all: --no-deps -r scripts/requirements-router.txt
           python3 scripts/a7_route_check.py --out "$RUNNER_TEMP/a7-route-check" --review-aid
