@@ -83,6 +83,31 @@ ACCEPTANCE = {
 CV_WEIGHTS = {'R2.2': 1.0, 'R6.2': 2.0, 'R25.2': CV_PER_ADC_V * (1 - GAIN), 'U1.4': -(CV_PER_ADC_V - 4)}
 CV_SLEEVE_WEIGHT = 1.0
 
+# Patched ground loop. A patched CV cable joins the board ground to the source ground at the CV IN sleeve, in
+# parallel with the power-cable ground, so a share of the J5.2 current returns through J1.1 and the sleeve spur.
+# The source then holds CV against the sleeve, not against the J5.2 pin. Only the PJ-324M contact maximum is a
+# retained fact; every other resistance is an ASSUMED range (nothing in the repository measures it), so the
+# derived fraction is ASSUMED and the result is also reported as a function of the fraction.
+PATCH_LOOP = {
+    'sleeve': 'J1.1',
+    'thru_sleeve': 'J2.1',
+    'power_return_ohm': {
+        'power cable ground conductor': {'min': 0.011, 'max': 0.013, 'basis': 'ASSUMED 28 AWG, 0.213 ohm/m, 50-60 mm '
+                                         '(A7 length is 57 mm with an assumed tolerance; the finished cable is not selected)'},
+        'two 1.25 mm header contacts': {'min': 0.010, 'max': 0.040, 'basis': 'ASSUMED 5-20 mohm each; no contact resistance '
+                                        'is retained for Molex 530470310 or the cable housing'},
+        'adapter copper, 2x5 header and rack bus cable': {'min': 0.005, 'max': 0.030, 'basis': 'ASSUMED'},
+    },
+    'sleeve_return_ohm': {
+        'CV IN sleeve contact': {'min': 0.005, 'max': 0.050, 'basis': 'maximum is fact-a7-pj-324m-contact-resistance '
+                                 '(50 mohm initial, grade unidentified); minimum ASSUMED'},
+        'patch cable shield': {'min': 0.030, 'max': 0.200, 'basis': 'ASSUMED'},
+        'far-end jack sleeve contact': {'min': 0.005, 'max': 0.050, 'basis': 'ASSUMED'},
+        'source module return to the rack ground': {'min': 0.020, 'max': 0.080, 'basis': 'ASSUMED'},
+    },
+    'fractions': [0.0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.75, 1.0],
+}
+
 
 def polygon_contact(a, b):
     """Containment or edge intersection, including touching boundaries."""
@@ -419,6 +444,56 @@ def reference_errors(graph, injections):
     return worst, cases
 
 
+def patched_fraction_bounds(spur_ohm):
+    """Share of the J5.2 current taken by the sleeve: two parallel returns to one rack ground (current divider)."""
+    ra = {k: sum(r[k] for r in PATCH_LOOP['power_return_ohm'].values()) for k in ('min', 'max')}
+    rb = {k: spur_ohm + sum(r[k] for r in PATCH_LOOP['sleeve_return_ohm'].values()) for k in ('min', 'max')}
+    return {'power_return_ohm': ra, 'sleeve_return_ohm_with_spur': rb,
+            'min': ra['min'] / (ra['min'] + rb['max']), 'max': ra['max'] / (ra['max'] + rb['min'])}
+
+
+def patched_loop_error(graph, injections, sleeve_A):
+    """ADC-pin error (V) with sleeve_A leaving through the CV IN sleeve and the source referenced to that sleeve."""
+    sleeve = PATCH_LOOP['sleeve']
+    currents = dict(injections)
+    currents[sleeve] = currents.get(sleeve, 0.0) - sleeve_A
+    worst = 0.0
+    for face in (STAR_LAYER[False], STAR_LAYER[True]):
+        v = graph.solve(currents, reference=STAR + '@' + face)
+        worst = max(worst, abs(sum(w * v[k] for k, w in CV_WEIGHTS.items()) + CV_SLEEVE_WEIGHT * v[sleeve]))
+    return worst / CV_PER_ADC_V
+
+
+def patched_ground_loop(geometry, proposal, injections, total_A, shared_pin_V):
+    """LED-dependent error of the patched ground loop per corner, per fraction, and at the derived fraction bound."""
+    sleeve, thru = PATCH_LOOP['sleeve'], PATCH_LOOP['thru_sleeve']
+    rows = {}
+    for cname, corner in CORNERS.items():
+        g = Graph(geometry, proposal, corner=corner)
+        spur = max(g.shortest(sleeve, STAR + '@' + face) for face in (STAR_LAYER[False], STAR_LAYER[True]))
+        v = g.solve({thru: 1.0}, reference=STAR + '@' + STAR_LAYER[False])
+        bounds = patched_fraction_bounds(spur)
+        external = sum(PATCH_LOOP['sleeve_return_ohm'][k]['min'] for k in
+                       ('CV IN sleeve contact', 'patch cable shield', 'far-end jack sleeve contact'))
+
+        def lsb(fraction):
+            return (patched_loop_error(g, injections, fraction * total_A) + shared_pin_V[cname]) / ADC_LSB
+        slope = lsb(1.0) - lsb(0.0)
+        rows[cname] = {
+            'sleeve_to_star_ohm': spur,
+            'thru_sleeve_to_star_ohm': g.shortest(thru, STAR + '@' + STAR_LAYER[False]),
+            'thru_to_cv_in_sleeve_transfer_ohm': v[sleeve],
+            'LSB_by_fraction': {f'{f:g}': lsb(f) for f in PATCH_LOOP['fractions']},
+            'LSB_per_unit_fraction': slope,
+            'LSB_per_A_of_sleeve_current': slope / total_A,
+            'fraction_at_allocation': ((ACCEPTANCE['led_incremental_LSB'] - lsb(0.0)) / slope) if slope > 0 else None,
+            'fraction_bounds_ASSUMED': bounds,
+            'LSB_at_fraction_bound': lsb(bounds['max']),
+            'external_share_LSB_at_fraction_bound_not_in_allocation':
+                bounds['max'] * total_A * external / CV_PER_ADC_V / ADC_LSB}
+    return rows
+
+
 def star_pin_bound(geometry, corner):
     """Whole J5.2 barrel plating taken as shared by the LED return and the CV reference (conservative)."""
     pad = next(p for p in geometry['pads'] if p['ref'] + '.' + p['pad'] == STAR)
@@ -634,6 +709,27 @@ def review(geometry, proposal, board):
         'resistance_scale_margin': ACCEPTANCE['combined_LSB'] / nom['combined']['LSB'] if nom['combined']['LSB'] else None,
         'pass': acc['combined']['LSB'] <= ACCEPTANCE['combined_LSB']}
 
+    patched = patched_ground_loop(geometry, proposal, scenarios['led_physical_dc'], input_current,
+                                  {c: budget[c]['star_pin_shared_bound_V'] for c in CORNERS})
+    out['patched_ground_loop'] = {
+        'scenario': f'led_physical_dc with a fraction of the {input_current:.3f} A J5.2 current leaving through '
+                    f"{PATCH_LOOP['sleeve']} instead; CV source referenced to that sleeve (weight {CV_SLEEVE_WEIGHT}); "
+                    'the whole J5.2 barrel bound is kept on top',
+        'loop_model': PATCH_LOOP, 'J5.2_current_A': input_current,
+        'allocation_LSB': ACCEPTANCE['led_incremental_LSB'], 'corner': ACCEPTANCE_CORNER,
+        'corners': patched,
+        'bound_LSB': patched[ACCEPTANCE_CORNER]['LSB_at_fraction_bound'],
+        'nominal_bound_LSB': patched['nominal_20C']['LSB_at_fraction_bound'],
+        'fraction_bound_ASSUMED': patched[ACCEPTANCE_CORNER]['fraction_bounds_ASSUMED']['max'],
+        'fraction_at_allocation': patched[ACCEPTANCE_CORNER]['fraction_at_allocation'],
+        'pass': patched[ACCEPTANCE_CORNER]['LSB_at_fraction_bound'] <= ACCEPTANCE['led_incremental_LSB'],
+        'note': 'Board copper only. The fraction is set by cable and contact resistances outside the board, all ASSUMED '
+                'except the PJ-324M contact maximum; the pass is conditional on that range and NEEDS BENCH (#10). The '
+                'patch-cable shield and contact drop of the same current is a larger, layout-independent CV error '
+                '(external_share, sleeve contact + shield + far contact at their minima) and is outside the allocation. '
+                'A current entering the THRU sleeve from a downstream module shifts the CV IN sleeve by the transfer '
+                'resistance.'}
+
     # -- power paths, drops, loops
     hot = CORNERS[ACCEPTANCE_CORNER]
     graphs = {}
@@ -727,7 +823,7 @@ def review(geometry, proposal, board):
     # -- coupling
     victims = ['/CV_SENSE', '/CV_THRU', '/CV_BUF', '/CV_AFFINE', '/CV_FILTER', '/CV_DRIVE', '/CV_ADC']
     aggressors = ['/BUCK_SW', '/BUCK_BST', '/DATA_L', '/DATA_R', '/DATA_L_5V', '/DATA_R_5V', '/DATA_L_3V3', '/DATA_R_3V3',
-                  '/VLED', '/SWCLK', '/SWDIO']
+                  '/VLED', '/SWCLK', '/SWDIO', '/+12V_PROT', '/-12V_PROT']
     table = {v: {a: separation(geometry, proposal, v, a) for a in aggressors} for v in victims}
     failures = []
     for (a, b), need in SEPARATE.items():
@@ -752,6 +848,16 @@ def review(geometry, proposal, board):
         fF, mm = coupling_capacitance_fF(geometry, proposal, '/CV_THRU', agg)
         open_input[agg] = {'coupling_fF_estimate': fF, 'victim_track_mm_within_5mm': mm,
                            'fraction_of_aggressor_swing_on_open_tip': round(fF * 1e-15 / (fF * 1e-15 + node_c), 4)}
+    held_F = {'/CV_AFFINE': 10e-9}    # C13 in the kept schematic
+    close = {}
+    for v in victims:
+        for agg in aggressors:
+            row = table[v][agg]
+            if row['track_mm_of_first_within_0.5mm'] or (row['same_layer_mm'] is not None and row['same_layer_mm'] < 0.6):
+                fF, _ = coupling_capacitance_fF(geometry, proposal, v, agg)
+                close[v + ' / ' + agg] = {**row, 'coupling_fF_estimate': fF,
+                                          **({'fraction_of_aggressor_swing_on_held_node': fF * 1e-15 / (fF * 1e-15 + held_F[v])}
+                                             if v in held_F else {})}
     out['coupling'] = {
         'CV_THRU_open_input': {
             'rows': open_input, 'assumed_open_node_pF': node_c * 1e12,
@@ -759,12 +865,20 @@ def review(geometry, proposal, board):
                     'shown (zero mean, decays with about 0.1 ms, then the 776 Hz filter and the firmware 1/8 IIR). A patched '
                     'source of 1 kohm or less reduces it by more than 1e4. The former In1 plane no longer shields this run; '
                     'whether the unpatched reading stays inside the +/-50 mV deadband NEEDS BENCH (#10). Not an acceptance gate.'},
+        'close_pairs': {
+            'rows': close,
+            'note': 'Every CV-chain / aggressor pair with a same-layer gap under 0.6 mm or any track within 0.5 mm in plan. '
+                    'Only the pairs under required carry a routing rule; the old 1.6 mm statement that no CV node runs '
+                    'within 0.6 mm of DATA_L/R or +/-12V_PROT on the same layer does not hold on this board. CV_AFFINE is held '
+                    'by C13 (10 nF), CV_ADC is driven through 250 ohm, CV_BUF and CV_DRIVE are op-amp outputs; the effect '
+                    'on the reading NEEDS BENCH (#10).'},
         'separation_mm': table, 'required': {a + ' / ' + b: d for (a, b), d in SEPARATE.items()}, 'failures': failures,
         'CV_SENSE_capacitive_estimate': estimates,
         'note': 'Plan-view copper gaps over all layers (no plane shields one layer from another). CV_SENSE is the only '
                 'megohm node; CV_AFFINE is held by C13 (10 nF) and CV_ADC by 250 ohm. The capacitance figures are order-of-'
                 'magnitude estimates with ASSUMED coupled length and node capacitance; bench CV-noise work stays in #10.'}
     out['status'] = {'pass': bool(out['incremental_LED_DC_budget']['pass'] and out['combined_DC_budget']['pass']
+                                  and out['patched_ground_loop']['pass']
                                   and not out['filled_star_audit']['failures'] and not failures
                                   and not out['kelvin_audit']['failures']
                                   and out['power_DC_screen']['buck_switch_net_vias'] == 0
@@ -786,6 +900,9 @@ def main():
                      for name, p in [('geometry', args.geometry), ('routes', args.routes), ('board', args.board)]}
     args.out.write_text(json.dumps(out, indent=1) + '\n')
     print(json.dumps({'incremental_LED': out['incremental_LED_DC_budget'], 'combined': out['combined_DC_budget'],
+'patched_ground_loop': {k: out['patched_ground_loop'][k] for k in
+                                              ('bound_LSB', 'nominal_bound_LSB', 'fraction_bound_ASSUMED',
+                                               'fraction_at_allocation', 'pass')},
                       'star_audit_failures': out['filled_star_audit']['failures'],
                       'coupling_failures': out['coupling']['failures'],
                       'kelvin_failures': out['kelvin_audit']['failures'], 'status': out['status']}, indent=1))

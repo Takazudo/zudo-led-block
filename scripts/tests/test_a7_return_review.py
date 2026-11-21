@@ -7,7 +7,8 @@ import unittest
 
 sys.path.insert(0,str(Path(__file__).resolve().parents[1]))
 from a7_return_review import (ACCEPTANCE, ALPHA, CORNERS, CV_PER_ADC_V, CV_SLEEVE_WEIGHT, CV_WEIGHTS, GAIN,
-                              LAYERS, Graph, RHO, kelvin_audit, verify_board_route)
+                              LAYERS, PATCH_LOOP, Graph, RHO, kelvin_audit, patched_fraction_bounds,
+                              patched_loop_error, verify_board_route)
 
 REPO = Path(__file__).resolve().parents[2]
 
@@ -124,6 +125,55 @@ class ReturnReview(unittest.TestCase):
         self.assertTrue(kelvin_audit({'pads': pads}, bad)['failures'])
 
 
+class PatchedGroundLoop(unittest.TestCase):
+    """A patched CV cable shares the supply return; the source is then referenced to the CV IN sleeve."""
+    TAPS = {'R2.2': 1, 'R6.2': 2, 'R25.2': 3, 'U1.4': 4}
+
+    def board(self, sleeve_at, spur):
+        square = lambda x, y, h: [[x-h, y-h], [x+h, y-h], [x+h, y+h], [x-h, y+h]]
+        smd = lambda name, layer, x, y: {'ref': name.split('.')[0], 'pad': name.split('.')[1], 'net': '/GND',
+                                         'polys': {layer: [square(x, y, .05)]}, 'drill': None}
+        pads = [{'ref': 'J5', 'pad': '2', 'net': '/GND', 'polys': {l: [square(0, 0, .4)] for l in LAYERS},
+                 'drill': {'at': [0, 0], 'size': [.5, .5]}},
+                smd('J3.1', 'F.Cu', 0, 5), smd('J1.1', 'B.Cu', *sleeve_at)]
+        pads += [smd(name, 'B.Cu', x, 0) for name, x in self.TAPS.items()]
+        track = lambda layer, a, b: {'net': '/GND', 'layer': layer, 'start': list(a), 'end': list(b), 'width': .3}
+        route = {'tracks': [track('F.Cu', (0, 0), (0, 5)), track('B.Cu', (0, 0), (4, 0)), track('B.Cu', *spur)], 'vias': []}
+        return Graph({'pads': pads}, route)
+
+    def test_sleeve_current_on_its_own_spur_shifts_the_source_by_the_spur_drop(self):
+        graph = self.board((0, -5), ((0, 0), (0, -5)))
+        spur = graph.shortest('J1.1', 'J5.2@B.Cu')
+        self.assertGreater(spur, 0)
+        self.assertAlmostEqual(patched_loop_error(graph, {}, 0.0), 0, places=15)
+        for led in (0.0, .44):
+            self.assertAlmostEqual(patched_loop_error(graph, {'J3.1': led}, .1), .1 * spur / CV_PER_ADC_V, places=12)
+
+    def test_sleeve_current_through_the_reference_trunk_is_weighted_per_tap(self):
+        # negative control for the topology: the sleeve hangs on the end of the CV reference trunk
+        graph = self.board((6, 0), ((4, 0), (6, 0)))
+        per_mm = RHO / (.3 * .035)
+        # pad copper is ideal: each 0.1 mm pad shorts its own length of the trunk
+        reach = lambda x, passed: x - .05 - .1 * passed
+        expected = abs(sum(CV_WEIGHTS[k] * reach(x, x - 1) for k, x in self.TAPS.items())
+                       + CV_SLEEVE_WEIGHT * reach(6, 4)) * .1 * per_mm
+        self.assertAlmostEqual(patched_loop_error(graph, {}, .1), expected / CV_PER_ADC_V, places=10)
+        self.assertGreater(expected, .1 * graph.shortest('J1.1', 'J5.2@B.Cu'))
+
+    def test_fraction_is_the_divider_of_the_two_returns(self):
+        power = {k: sum(r[k] for r in PATCH_LOOP['power_return_ohm'].values()) for k in ('min', 'max')}
+        sleeve = {k: sum(r[k] for r in PATCH_LOOP['sleeve_return_ohm'].values()) for k in ('min', 'max')}
+        got = patched_fraction_bounds(.025)
+        self.assertAlmostEqual(got['max'], power['max'] / (power['max'] + sleeve['min'] + .025), places=12)
+        self.assertAlmostEqual(got['min'], power['min'] / (power['min'] + sleeve['max'] + .025), places=12)
+        self.assertLess(got['min'], got['max'])
+        # less spur copper resistance draws more of the current: the bound must not be credited twice
+        self.assertGreater(patched_fraction_bounds(.010)['max'], got['max'])
+        for rows in (PATCH_LOOP['power_return_ohm'], PATCH_LOOP['sleeve_return_ohm']):
+            for row in rows.values():
+                self.assertTrue('ASSUMED' in row['basis'] or 'fact-' in row['basis'])
+
+
 class RetainedRecord(unittest.TestCase):
     """The committed review record must belong to the committed board, route and thresholds."""
 
@@ -138,6 +188,12 @@ class RetainedRecord(unittest.TestCase):
         for name in ('incremental_LED_DC_budget', 'combined_DC_budget'):
             self.assertEqual(record[name]['corner'], ACCEPTANCE['corner'])
             self.assertLessEqual(record[name]['bound_LSB'], record[name]['allocation_LSB'])
+        loop = record['patched_ground_loop']
+        self.assertEqual(loop['loop_model'], PATCH_LOOP)
+        self.assertEqual((loop['corner'], loop['allocation_LSB']), (ACCEPTANCE['corner'], ACCEPTANCE['led_incremental_LSB']))
+        self.assertEqual(loop['bound_LSB'], loop['corners'][ACCEPTANCE['corner']]['LSB_at_fraction_bound'])
+        self.assertLessEqual(loop['bound_LSB'], loop['allocation_LSB'])
+        self.assertGreater(loop['fraction_at_allocation'], loop['fraction_bound_ASSUMED'])
         self.assertEqual(record['filled_star_audit']['failures'], [])
         self.assertEqual(record['kelvin_audit']['failures'], [])
         self.assertEqual(record['coupling']['failures'], [])

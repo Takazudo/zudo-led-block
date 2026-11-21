@@ -582,7 +582,7 @@ class Router:
         """Two return branches that meet only at the J5.2 pin, on opposite pad faces.
 
         Quiet branch (B.Cu at the pin): 0.6 mm trunk to the MCU ground via, the CV/ADC
-        island taken from that via (Kelvin), jack sleeves on their own spur from the pin.
+        island taken from that via (Kelvin), the CV IN sleeve on its own 0.6 mm spur from the pin.
         Power branch (F.Cu at the pin): trunk to the buck input capacitor, stitch vias,
         then the remaining power pads by nearest-first tree growth.
         """
@@ -662,7 +662,9 @@ class Router:
                             ('R8.2','trunk','p',False,['top']),('U3.2','top','p',False,['top']),
                             ('C6.2','top','p',False,['top']),('C5.2','top','p',False,['top']),
                             ('R2.2','top','p',False,['top']),
-                            ('J1.2','star','p',False,['jack']),('J1.1','jack','p',False,['jack']),
+                            # a patched CV cable returns part of the supply current through the CV IN
+                            # sleeve (electrical_review.md, patched ground loop): wide outer copper from the pin
+                            ('J1.1','star','g',True,['jack']),('J1.2','jack','p',False,['jack']),
                             ('J2.2','jack','p',False,['jack']),('J2.1','jack','p',False,['jack'])]
             while pending:
                 target,source,cls,outer,joins = priority.pop(0) if priority else (None,None,'p',power,[])
