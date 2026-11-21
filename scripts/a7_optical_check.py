@@ -233,6 +233,71 @@ def check_board(path, kind, settings=None):
     return errors
 
 
+def effective_via_tent_errors(path, settings=None, geometry=None):
+    """Every via stays tented in the EFFECTIVE native mask, on both faces.
+
+    optical-geometry.json holds the residual mask (outline minus every native opening, generated
+    rectangles and ordinary pad apertures alike) of exactly these PCB bytes. A via passes when the disk
+    of its copper plus the mask web lies inside one residual polygon, so a component pad aperture that
+    overrides a via tent fails here even though the generated rectangles respect their islands.
+    """
+    settings = settings or spec()
+    web = settings['mask']['via_web_mm']
+    path = Path(path)
+    geometry = geometry or path.with_name('optical-geometry.json')
+    if not Path(geometry).is_file():
+        return ['effective mask geometry (optical-geometry.json) missing']
+    g = json.loads(Path(geometry).read_text())
+    if g.get('board_sha256') != hashlib.sha256(path.read_bytes()).hexdigest():
+        return ['effective mask geometry is bound to different PCB bytes']
+    tree = parse_sexp(path.read_text())
+    vias = [(kid(v, 'uuid')[1], float(kid(v, 'at')[1]), float(kid(v, 'at')[2]), float(kid(v, 'size')[1]))
+            for v in kids(tree, 'via')]
+    errors = []
+
+    def edge_distance(px, py, ring):
+        best = math.inf
+        for (ax, ay), (bx, by) in zip(ring, ring[1:] + ring[:1]):
+            dx, dy = bx - ax, by - ay
+            length = dx * dx + dy * dy
+            t = 0.0 if length == 0 else max(0.0, min(1.0, ((px - ax) * dx + (py - ay) * dy) / length))
+            best = min(best, math.hypot(px - ax - t * dx, py - ay - t * dy))
+        return best
+
+    def inside(px, py, ring):
+        hit = False
+        for (ax, ay), (bx, by) in zip(ring, ring[1:] + ring[:1]):
+            if (ay > py) != (by > py) and px < ax + (py - ay) * (bx - ax) / (by - ay):
+                hit = not hit
+        return hit
+
+    for name in ('F.Mask', 'B.Mask'):
+        layers = [l for l in g['layers'] if l['layer'] == name and l['material'] == 'mask']
+        if len(layers) != 1:
+            errors.append(f'{name} residual mask missing from effective geometry')
+            continue
+        polygons = []
+        for polygon in layers[0]['polygons']:
+            xs, ys = [p[0] for p in polygon['outer']], [p[1] for p in polygon['outer']]
+            polygons.append((min(xs), min(ys), max(xs), max(ys), polygon))
+        for uuid, x, y, size in vias:
+            need = size / 2 + web
+            # The exporter also cuts drilled holes out of the contour. The via's own drill is not a
+            # mask opening, so probe on its copper ring and ignore that one hole.
+            probe = (x + size / 2 - 1e-4, y)
+            home = [p for a, b, c, d, p in polygons if a <= probe[0] <= c and b <= probe[1] <= d
+                    and inside(*probe, p['outer']) and not any(inside(*probe, h) for h in p['holes'])]
+            if not home:
+                errors.append(f'{name} effective opening exposes via {uuid} at ({x}, {y})')
+                continue
+            rings = [home[0]['outer']] + [h for h in home[0]['holes']
+                                          if max(math.hypot(q[0] - x, q[1] - y) for q in h) > size / 2]
+            gap = min(edge_distance(x, y, ring) for ring in rings) - size / 2
+            if gap < web - 1e-6:
+                errors.append(f'{name} effective opening leaves {gap:.4f} mm of mask at via {uuid} at ({x}, {y}); need {web}')
+    return errors
+
+
 def main():
     s = spec()
     failures = []
@@ -242,6 +307,7 @@ def main():
             failures.append(f'{kind}: candidate missing at {p}')
         else:
             failures.extend(f'{kind}: {x}' for x in check_board(p, kind, s))
+            failures.extend(f'{kind}: {x}' for x in effective_via_tent_errors(p, s))
     profile = json.loads((ROOT / 'engineering/a7/verification/native_gate.json').read_text())
     if profile['interface']['netlists']['led_leaf'] != 'a7_led_leaf':
         failures.append('native interface still uses A5 leaf instead of optical candidate')

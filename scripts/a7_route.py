@@ -56,19 +56,44 @@ NO_VIA_UNDER = {'U1': 1.6}
 KEEP_OUT_OF = {'/CV_ADC': ('U1', -0.2)}
 # Without a shielding plane every copper layer couples in plan view. Preserve the
 # reviewed 1.2mm separation also across layers; native connectivity is a separate gate.
-SEPARATE = {('/CV_FILTER', '/VLED'): 1.2}
+SEPARATE = {('/CV_FILTER', '/VLED'): 1.2,
+            # CV_THRU is the jack tip: 20 Mohm to ground when nothing is patched. Keep the LED data lines off it.
+            ('/CV_THRU', '/DATA_L'): 1.2, ('/CV_THRU', '/DATA_R'): 1.2,
+            ('/CV_THRU', '/DATA_L_3V3'): 0.9, ('/CV_THRU', '/DATA_R_3V3'): 0.9,
+            # CV_SENSE is the 5 Mohm divider node at U6.3; with no plane it keeps distance from the
+            # switch node and the LED data lines on every layer.
+            ('/CV_SENSE', '/BUCK_SW'): 2.5, ('/CV_SENSE', '/DATA_L'): 1.5, ('/CV_SENSE', '/DATA_R'): 1.5}
 COUPLED = {layer: set(ROUTE_LAYERS) for layer in ROUTE_LAYERS}
 PRES0, PRES_MULT, HIST_INC = 0.5, 1.6, 1.0
 MAX_ITER = 60
 MAX_POPS = 2000000
 HOLE_TO_HOLE = 0.25  # KiCad default board rule, also between holes of one net
 # Separate the pulsed/LED return branch from CV/MCU returns, meeting only
-# inside J5.2's actual copper. This is routing topology, not a new logical net.
-GND_POWER_REFS = {'C1','C2','C3','C11','C12','C15','R2','U2','U4','J3','__BUCK_GND'}
-GND_LOCAL_STITCH = (5.7, 3.0)
-ADC_STAR_GUIDE = (3.5, 29.0)
+# at the J5.2 connector pin. This is routing topology, not a new logical net.
+# Power branch: buck, load switch, LED header, VLED/+5V/rail decoupling and the
+# 5 V level shifter with its pull-downs (LED data edge return). Everything else,
+# including the CV divider reference R2, is the quiet branch.
+GND_POWER_REFS = {'C1','C2','C3','C9','C10','C11','C12','C15','C16','R11','R16','R17','R18','R19','R20',
+                  'U2','U4','U5','J3','__BUCK_GND'}
+# Real stitch vias from the buck ground into the local B.Cu copper; each clears
+# every pad mask aperture (no via-in-pad, see MASK_WEB).
+GND_LOCAL_STITCH = [(5.0, 3.9), (5.8, 3.9)]
+# U1.4 is ring-locked on F.Cu: its one via under the body is the Kelvin point of
+# the CV/ADC reference (trunk in, analog island out).
+MCU_GND_VIA = (2.6, 27.0)
 W_GND_STAR = 0.6
-HIGH_CURRENT = {'/+5V','/VLED','/BUCK_SW'}
+# The branches use opposite faces of the plated J5.2 pad, so neither shares
+# annulus copper with the other: quiet branch B.Cu, power branch F.Cu.
+STAR_LAYER = {False: 'B.Cu', True: 'F.Cu'}
+# JLC minimum solder-mask bridge (fab/jlcpcb_capabilities.json). Via copper keeps
+# this web from every pad mask aperture, also of its own net.
+MASK_WEB = 0.1
+# Continuous supply current (buck input 0.2 A, LED 0.44 A): 0.3 mm on the 35 um outer copper only.
+HIGH_CURRENT = {'/+5V','/VLED','/BUCK_SW','/+12V_RAW','/+12V_PROT'}
+# Reference taps that carry no load current are taken from one pad, apart from the rest of their net, so the
+# supply drop of the load does not appear in the reference: the CV affine divider (R4, R5) senses +3V3 at the
+# MCU supply decoupler C8.1, 0.5 mm from VDD/VDDA (U1.3), because the firmware measures that same VDDA.
+KELVIN = {'/+3V3': {'source': 'C8.1', 'pads': ['R4.1', 'R5.1']}}
 
 
 def seg_dist(px, py, ax, ay, bx, by):
@@ -165,17 +190,16 @@ class Router:
                 self.net_ids[p['net']] = len(self.net_ids) + 1
         self.nid_net = {v: k for k, v in self.net_ids.items()}
         self.pads = list(geo['pads'])
-        x,y = GND_LOCAL_STITCH
-        poly = [[x+VIA_D/2*math.cos(k*math.pi/16), y+VIA_D/2*math.sin(k*math.pi/16)] for k in range(32)]
-        # A routing terminal for a real output via, not an extra schematic pad.
-        self.pads.append({'ref':'__BUCK_GND','pad':'1','net':GND,'at':[x,y],
-                          'polys':{l:[poly] for l in ROUTE_LAYERS},'smd_layer':None,
-                          'drill':{'at':[x,y],'size':[VIA_DRILL,VIA_DRILL],'angle':0,'plated':True}})
-        x,y = ADC_STAR_GUIDE
-        poly = [[x+W_GND_STAR/2*math.cos(k*math.pi/16),y+W_GND_STAR/2*math.sin(k*math.pi/16)] for k in range(32)]
-        self.pads.append({'ref':'__ADC_STAR','pad':'1','net':GND,'at':[x,y],
-                          'polys':{'F.Cu':[poly]},'smd_layer':'F.Cu','drill':None})
+        # Routing terminals for real vias, not extra schematic pads.
+        guides = [('__BUCK_GND', str(k + 1), xy) for k, xy in enumerate(GND_LOCAL_STITCH)] + [('__MCU_GND', '1', MCU_GND_VIA)]
+        self.guide_vias = {ref + '.' + pad: xy for ref, pad, xy in guides}
+        for ref, pad, (x, y) in guides:
+            poly = [[x+VIA_D/2*math.cos(k*math.pi/16), y+VIA_D/2*math.sin(k*math.pi/16)] for k in range(32)]
+            self.pads.append({'ref':ref,'pad':pad,'net':GND,'at':[x,y],
+                              'polys':{l:[poly] for l in ROUTE_LAYERS},'smd_layer':None,
+                              'drill':{'at':[x,y],'size':[VIA_DRILL,VIA_DRILL],'angle':0,'plated':True}})
         self.branch_forbidden = None
+        self.branch_net = GND
         self.power_ground = False
         for p in self.pads:
             nid = self.net_ids.get(p['net'], HARD)
@@ -217,6 +241,16 @@ class Router:
             x1, y1, x2, y2 = geo['courtyards'][ref]
             cx, cy = (x1 + x2) / 2, (y1 + y2) / 2
             self.no_via |= (np.abs(X - cx) < h) & (np.abs(Y - cy) < h)
+        # Pad mask apertures are pad copper (pad_to_mask_clearance 0). A via whose
+        # copper came within MASK_WEB of one would lose its tent to that aperture.
+        self.pad_via_block = np.zeros(shape, bool)
+        r = VIA_D / 2 + MASK_WEB + ROUTER_MARGIN
+        for p in geo['pads']:
+            for l in ('F.Cu', 'B.Cu'):
+                for poly in p['polys'].get(l, []):
+                    sj, si = self.g.window(bbox_of(poly), r)
+                    PX, PY = np.meshgrid(self.g.xs[si], self.g.ys[sj])
+                    self.pad_via_block[sj, si] |= poly_dist(PX, PY, poly) < r
         self.keep_out = {}
         for net, (ref, m) in KEEP_OUT_OF.items():
             x1, y1, x2, y2 = geo['courtyards'][ref]
@@ -235,12 +269,13 @@ class Router:
         if net in self.keep_out:
             # own pad copper stays reachable (g == nid); everything else in the footprint is closed to this net
             ok &= ~self.keep_out[net] | (g == nid) & (layer == 'F.Cu')
-        if net == GND and self.branch_forbidden is not None:
+        if net == self.branch_net and self.branch_forbidden is not None:
             ok &= ~self.branch_forbidden[(cls,layer)]
         return ok
 
     def via_ok(self, nid):
         ok = np.ones((self.g.ny, self.g.nx), bool) if self.nid_net.get(nid) == GND else ~self.no_via
+        ok &= ~self.pad_via_block
         for l in self.g.layers:
             ok &= self.passable('v', l, nid)
         return ok
@@ -471,7 +506,9 @@ class Router:
                 facs[cls] = self.factors(net, cls)
             return facs[cls]
         classes = (('p', W_POWER),) if net in HIGH_CURRENT else ((('p', W_POWER), ('s', W_SIGNAL)) if net in POWER else (('s', W_SIGNAL),))
-        pads = sorted((p for p in self.pads if p['net'] == net), key=lambda p: (p['at'][1], p['at'][0], p['ref'], p['pad']))
+        kelvin = KELVIN.get(net, {'source': None, 'pads': []})
+        every = sorted((p for p in self.pads if p['net'] == net), key=lambda p: (p['at'][1], p['at'][0], p['ref'], p['pad']))
+        pads = [p for p in every if p['ref'] + '.' + p['pad'] not in kelvin['pads']]
         cells = {c: [self.pad_cells(p, c, nid) for p in pads] for c in ('p', 's')}
         tree = set(cells['s'][0]) | set(cells['p'][0])
         todo = list(range(1, len(pads)))
@@ -494,27 +531,81 @@ class Router:
                 todo.remove(k)
                 tree |= set(cells['s'][k]) | set(cells['p'][k])
             tree |= set(path)
+        if kelvin['pads'] and not fails:
+            fails += self.route_kelvin(net, every, kelvin, classes)
         self.place(net)
         return fails
 
+    def route_kelvin(self, net, every, kelvin, classes):
+        """Connect the reference taps to their source pad only, clear of the rest of the net's copper."""
+        nid = self.net_ids[net]
+        name = lambda p: p['ref'] + '.' + p['pad']
+        self.place(net)
+        blocked = {k: v.copy() for k, v in self.mask[net].items()}
+        X, Y = np.meshgrid(self.g.xs, self.g.ys)
+        for p in every:
+            for l, polys in p['polys'].items():
+                for poly in polys:
+                    if name(p) == kelvin['source'] or name(p) in kelvin['pads']:
+                        inside = poly_dist(X, Y, poly) <= 1e-9
+                        for cls in self.g.classes:
+                            blocked[(cls, l)][inside] = False
+                    else:
+                        self.region(blocked, [l], bbox_of(poly), lambda X, Y, poly=poly: poly_dist(X, Y, poly), 0)
+        for k in self.keys:
+            self.cnt[k] -= self.mask[net][k]
+        del self.mask[net]
+        self.branch_net, self.branch_forbidden = net, blocked
+        fails = []
+        by = {name(p): p for p in every}
+        tree = set(self.pad_cells(by[kelvin['source']], 'p', nid)) | set(self.pad_cells(by[kelvin['source']], 's', nid))
+        # vias of the main tree stay closed to the taps: reuse would join the two again
+        for ref in kelvin['pads']:
+            path = None
+            for cls, w in classes[::-1]:
+                targets = self.pad_cells(by[ref], cls, nid)
+                pas = [self.passable(cls, l, nid) for l in ROUTE_LAYERS]
+                src = sorted(c for c in tree if pas[c[0]][c[1], c[2]])
+                if targets and src:
+                    path = self.search(net, src, targets, cls, self.factors(net, cls), reuse_vias=False)
+                if path is not None:
+                    break
+            if path is None:
+                fails.append(f'{net}: reference tap {ref} cannot reach {kelvin["source"]}')
+                break
+            self.commit(net, path, w, cls)
+            tree |= set(path) | set(self.pad_cells(by[ref], 'p', nid)) | set(self.pad_cells(by[ref], 's', nid))
+        self.branch_net, self.branch_forbidden = GND, None
+        return fails
+
     def route_ground(self):
-        """Two explicit return branches; local capacitor pairs before free tree growth."""
+        """Two return branches that meet only at the J5.2 pin, on opposite pad faces.
+
+        Quiet branch (B.Cu at the pin): 0.6 mm trunk to the MCU ground via, the CV/ADC
+        island taken from that via (Kelvin), jack sleeves on their own spur from the pin.
+        Power branch (F.Cu at the pin): trunk to the buck input capacitor, stitch vias,
+        then the remaining power pads by nearest-first tree growth.
+        """
         net,nid = GND,self.net_ids[GND]
-        self.branch_forbidden = None
+        self.branch_net, self.branch_forbidden = GND, None
         pads = {p['ref']+'.'+p['pad']:p for p in self.pads if p['net']==GND}
         star = pads['J5.2']
         fails = []
+        X,Y = np.meshgrid(self.g.xs,self.g.ys)
+
+        def pad_region(blocked, p):
+            for l,polys in p['polys'].items():
+                for poly in polys:
+                    self.region(blocked,[l],bbox_of(poly),lambda X,Y,poly=poly:poly_dist(X,Y,poly),0)
+
         for power in (False,True):
             self.power_ground = power
             members = {k:p for k,p in pads.items() if k!='J5.2' and (p['ref'] in GND_POWER_REFS)==power}
             if not power:
                 blocked = {k:np.zeros((self.g.ny,self.g.nx),bool) for k in self.keys}
                 for p in pads.values():
-                    if p['ref'] not in GND_POWER_REFS:
-                        continue
-                    for l,polys in p['polys'].items():
-                        for poly in polys:
-                            self.region(blocked,[l],bbox_of(poly),lambda X,Y,poly=poly:poly_dist(X,Y,poly),0)
+                    if p['ref'] in GND_POWER_REFS:
+                        pad_region(blocked, p)
                 optical = json.loads((Path(__file__).resolve().parents[1] /
                                       'engineering/a7/verification/fab/optical-fr4.json').read_text())
                 for zone in optical['controller']['local_copper']:
@@ -527,50 +618,62 @@ class Router:
                     # native refill. via_ok checks this on every layer too.
                     self.region(blocked,[zone['layer']],bbox_of(poly),
                                 lambda X,Y,poly=poly:poly_dist(X,Y,poly),0)
-                self.branch_forbidden = blocked
-            if power:
+            else:
                 # Use the same conservative trace/via clearance model between
                 # branches. Foreign ground copper cannot become an accidental
-                # shared high-current return outside the connector pad.
+                # shared high-current return outside the connector pin.
                 self.place(net)
                 blocked = {k:v.copy() for k,v in self.mask[net].items()}
                 for p in pads.values():
-                    if p['ref'] in GND_POWER_REFS or p is star:
-                        continue
-                    for l,polys in p['polys'].items():
-                        for poly in polys:
-                            self.region(blocked,[l],bbox_of(poly),lambda X,Y,poly=poly:poly_dist(X,Y,poly),0)
-                X,Y = np.meshgrid(self.g.xs,self.g.ys)
-                for l,polys in star['polys'].items():
+                    if p['ref'] not in GND_POWER_REFS and p is not star:
+                        pad_region(blocked, p)
+                for k in self.keys:self.cnt[k]-=self.mask[net][k]
+                del self.mask[net]
+            own = STAR_LAYER[power]
+            for l,polys in star['polys'].items():
+                if l == own:
                     inside = np.zeros(X.shape,bool)
                     for poly in polys:inside |= poly_dist(X,Y,poly)<=1e-9
                     for cls in self.g.classes:blocked[(cls,l)][inside]=False
-                for k in self.keys:self.cnt[k]-=self.mask[net][k]
-                del self.mask[net]
-                self.branch_forbidden = blocked
-                self.vias[net].append({'net':GND,'at':list(GND_LOCAL_STITCH),'size':VIA_D,'drill':VIA_DRILL})
-                i,j = self.g.cell(*GND_LOCAL_STITCH)
-                self.cells[net].append(('v',None,j,i))
+                else:
+                    for poly in polys:
+                        self.region(blocked,[l],bbox_of(poly),lambda X,Y,poly=poly:poly_dist(X,Y,poly),0)
+            self.branch_forbidden = blocked
+            for name,(x,y) in sorted(self.guide_vias.items()):
+                if name in members:
+                    self.vias[net].append({'net':GND,'at':[x,y],'size':VIA_D,'drill':VIA_DRILL})
+                    i,j = self.g.cell(x,y)
+                    self.cells[net].append(('v',None,j,i))
             cells = {k:set(self.pad_cells(p,'p',nid)) for k,p in pads.items()}
-            i,j = self.g.cell(*ADC_STAR_GUIDE)
-            cells['__ADC_STAR.1'] = {(0,j,i)} if self.passable('p','F.Cu',nid)[j,i] else set()
-            tree = set(cells['J5.2'])
+            tree = {c for c in cells['J5.2'] if ROUTE_LAYERS[c[0]]==own}
+            groups = {'star':set(tree)}
             pending = set(members)
-            priority = [('C1.2',None),('U2.4','C1.2'),('__BUCK_GND.1','U2.4')] if power else [('__ADC_STAR.1',None),('U1.4','__ADC_STAR.1'),('C8.2','U1.4'),('U7.2',None),('C17.2','U7.2')]
+            # (target, source group, class, outer copper only, groups the new copper joins)
+            if power:
+                priority = [('C1.2','star','p',True,['trunk']),('U2.4','C1.2','p',True,[]),
+                            ('__BUCK_GND.1','C1.2','p',True,[]),('__BUCK_GND.2','U2.4','p',True,[])]
+            else:
+                priority = [('__MCU_GND.1','star','g',True,['trunk']),('U1.4','__MCU_GND.1','p',True,[]),
+                            ('C8.2','__MCU_GND.1','p',False,[]),('R25.2','__MCU_GND.1','p',False,['island']),
+                            ('R6.2','island','p',False,['island']),('U7.2','island','p',False,['island']),
+                            ('C17.2','island','p',False,['island']),('C13.2','island','p',False,['island']),
+                            ('D3.1','island','p',False,['island']),
+                            # the 3.3 mA bleeder and the LDO cluster return on their own spur, not through the island
+                            ('R8.2','trunk','p',False,['top']),('U3.2','top','p',False,['top']),
+                            ('C6.2','top','p',False,['top']),('C5.2','top','p',False,['top']),
+                            ('R2.2','top','p',False,['top']),
+                            ('J1.2','star','p',False,['jack']),('J1.1','jack','p',False,['jack']),
+                            ('J2.2','jack','p',False,['jack']),('J2.1','jack','p',False,['jack'])]
             while pending:
-                target,source = priority.pop(0) if priority else (None,None)
+                target,source,cls,outer,joins = priority.pop(0) if priority else (None,None,'p',power,[])
                 wanted = [target] if target else sorted(pending)
-                cls,width = ('g',W_GND_STAR) if target=='__ADC_STAR.1' else ('p',W_POWER)
-                targets = sorted(set().union(*(cells[k] for k in wanted)))
-                sources = sorted(cells[source] if source else tree)
-                if target in ('__ADC_STAR.1','U1.4','C8.2'):
-                    self.power_ground = True
-                    targets = [c for c in targets if c[0] in (0,3)]
-                    sources = [c for c in sources if c[0] in (0,3)]
-                if cls=='g':
-                    pas = [self.passable(cls,l,nid) for l in ROUTE_LAYERS]
-                    targets = [c for c in targets if pas[c[0]][c[1],c[2]]]
-                    sources = [c for c in sources if pas[c[0]][c[1],c[2]]]
+                width = W_GND_STAR if cls=='g' else W_POWER
+                targets = set().union(*(cells[k] for k in wanted))
+                sources = tree if source is None else groups[source] if source in groups else cells[source]
+                self.power_ground = outer
+                pas = [self.passable(cls,l,nid) for l in ROUTE_LAYERS]
+                targets = sorted(c for c in targets if pas[c[0]][c[1],c[2]])
+                sources = sorted(c for c in sources if pas[c[0]][c[1],c[2]])
                 path = self.search(net,sources,targets,cls,self.factors(net,cls)) if sources and targets else None
                 self.power_ground = power
                 if path is None:
@@ -578,7 +681,10 @@ class Router:
                     break
                 self.commit(net,path,width,cls)
                 for k in sorted(pending):
-                    if path[-1] in cells[k]:pending.remove(k);tree |= cells[k]
+                    if path[-1] in cells[k]:
+                        pending.remove(k);tree |= cells[k]
+                        for name in joins:groups.setdefault(name,set()).update(cells[k])
+                for name in joins:groups.setdefault(name,set()).update(path)
                 tree |= set(path)
         self.branch_forbidden = None
         self.power_ground = False
@@ -639,6 +745,10 @@ def main() -> int:
         print(f'iter {it}: pres {r.pres:.2f} conflicts {ncells} in {sorted(bad)} fails {fails}', file=sys.stderr, flush=True)
         if not bad and not fails:
             break
+        # Negotiation only resolves congestion. With no conflict left, an unreachable pad stays
+        # unreachable: stop and report the failure instead of repeating the same pass.
+        if not bad and len(history) > 1 and history[-2]['conflict_cells'] == 0 and history[-2]['unroutable'] == fails:
+            break
         for net, cells in bad.items():
             for L, j, i in cells:
                 if L == 'v':
@@ -652,7 +762,7 @@ def main() -> int:
     vias = [v for n in order for v in r.vias.get(n, [])]
     failures = fails + [f'{n}: {len(c)} cells in conflict' for n, c in sorted(bad.items())]
     out = {'generator': 'scripts/a7_route.py', 'seed': a.seed, 'pitch_mm': PITCH, 'router_margin_mm': ROUTER_MARGIN,
-           'widths_mm': {'signal': W_SIGNAL, 'power': W_POWER,'ADC_ground_star':W_GND_STAR}, 'via': {'size': VIA_D, 'drill': VIA_DRILL},
+           'widths_mm': {'signal': W_SIGNAL, 'power': W_POWER, 'ground_star_trunk': W_GND_STAR}, 'via': {'size': VIA_D, 'drill': VIA_DRILL},
            'order': order, 'history': history, 'tracks': tracks, 'vias': vias, 'failures': failures}
     a.out.write_text(json.dumps(out, indent=0) + '\n')
     print(json.dumps({'tracks': len(tracks), 'vias': len(vias), 'failures': failures}, indent=1))
