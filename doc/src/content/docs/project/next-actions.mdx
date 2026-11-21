@@ -4,14 +4,13 @@ description: "0.8 mm rigid FR-4設計変更の実装・検証・統合と、残�
 sidebar_position: 4
 ---
 
-**現在の作業は [#87](https://github.com/Takazudo/zudo-led-block/issues/87) の0.8 mm rigid FR-4設計変更です。** 旧設計の注文作業をそのまま進める段階ではありません。透明PET/FPCとその供給元質問は現行候補・次作業から撤回しました。
+**0.8 mm rigid FR-4のデジタル設計は [#87](https://github.com/Takazudo/zudo-led-block/issues/87) / PR [#88](https://github.com/Takazudo/zudo-led-block/pull/88) で統合しました。次に残るのは実物と owner 判断が必要な作業です。** 旧設計の注文作業をそのまま進める段階ではありません。透明PET/FPCとその供給元質問は現行候補・次作業から撤回しました。
 
-1. A5外の新leaf正本とcontrollerを0.8 mmへ変更し、実stackup、全層GND実配線、両面mask開口と必要な保護領域を整えます。電源アダプタの光路・収まりへの影響も確認します。
-2. ±0.1 mmの板厚公差、jack軸・端子・穴・nut/washer・支持・隣接module・ハーネス・工具アクセス・奥行で2HPを評価します。根拠が足りなければ0.8 mmの3HPへ進み、寸法不成立と資料不足を区別します。
-3. 新leafを含むnative ERC/parity/DRC/未接続/refill/再生成保護、routing再現と全銅層・表裏mask Gerberを確認します。旧GND面を前提とした電源return/CV/LED干渉評価をやり直します。
-4. 新板厚から機構・治具・CAD・製造入力を再生成します。旧治具PASSや注文ファイルのhashを付け替えて再利用しません。
-5. 全層銅の遮光と未測定のFR-4半透明表現を分けたpreviewを生成し、manifest・選択・PCB・CAD・panelを同じrevisionへ揃えます。
-6. 電気・機構の独立レビューとcurrent-head CIを通過し、repository policyを満たした統合PRをmainへmergeします。残作業中はdraftを維持します。
+1. 新しい識別子（制御基板 `710ed801…`、リーフ `bcf2e35d…`）に対する試作ルートを owner が承認するまで、注文の準備は進みません。旧 `order/2026-11-13/` と旧承認は旧 identity 専用の履歴です。
+2. 電源ケーブル自由長 55 ± 3 mm（52–58 mm）の基準を owner が改めて受け入れるまで、harness-depth の基準は未決です。
+3. 治具の段付き先端ピンは購入品の改造案です。調達と、接触・荷重の実測（criterion 5）が必要です。
+4. 実物の透過性・熱・電気動作・組立・治具接触・実機収まりは未実測です。`/CV_THRU` 開放時の容量性の拾いは実機で確認します（#10）。
+5. 製造先での露出銅の表面処理、局所 mask、PCBA 適合、最終注文条件の確認が必要です。
 
 [設計方針](/docs/project/a7/) · [プレビューと限界](/docs/project/a7-preview/) · [継続記録](https://github.com/Takazudo/zudo-led-block/blob/main/engineering/a7/docs/continuation/continue-here.md)
 

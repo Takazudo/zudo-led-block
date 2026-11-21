@@ -4,9 +4,21 @@ description: "0.8 mm rigid FR-4への光学設計変更と、デジタル検証�
 sidebar_position: 3
 ---
 
-**A7は0.8 mm rigid FR-4への設計変更中です。** 2026-11-17 JSTのowner指示を、親 [#15](https://github.com/Takazudo/zudo-led-block/issues/15) と新しい子 [#87](https://github.com/Takazudo/zudo-led-block/issues/87) で追跡します。旧設計のデジタル完了・注文承認は、新設計の完了や製造releaseを意味しません。
+**A7は0.8 mm rigid FR-4のデジタル設計を統合しました（3HP 14.9 mm、親 [#15](https://github.com/Takazudo/zudo-led-block/issues/15) / 子 [#87](https://github.com/Takazudo/zudo-led-block/issues/87)、PR [#88](https://github.com/Takazudo/zudo-led-block/pull/88)）。** デジタル設計の完了は、実機評価・製造release・発注承認ではありません。旧設計（1.6 mm controller）のデジタル完了・注文承認は新設計へ引き継ぎません。
 
 [組立プレビュー](/docs/project/a7-preview/) · [次の作業](/docs/project/next-actions/)
+
+## デジタル設計の状態（0.8 mm FR-4）
+
+| 対象 | 状態 | 根拠 |
+| --- | --- | --- |
+| 制御基板 | 0.8 mm・JLC04081H-3313 の4層、全層で広いGND面なし。SHA-256 `710ed801…7bab5e` | KiCad 10.0.8 で ERC / DRC / 未接続 / parity 0、配線の再現性一致。局所銅は buck 下の1箇所（B.Cu、/GND） |
+| CV 基準誤差 | LED依存 0.0375 LSB（配分 0.5）、合計 0.265 LSB（配分 1.0）、85 °C・銅/幅 ×0.8 の角 | `engineering/a7/verification/electrical_review.md`。抵抗網の計算で、実測ではありません |
+| LED リーフ | 0.8 mm 2層。SHA-256 `bcf2e35d…94cf9` | native 検証と実 Gerber の確認 |
+| ソルダーレジスト | 両面とも必要箇所以外を開口。via の保護 web 0.135 / 0.139 mm（規則 0.100 mm）、paste は pad のみ | 出力した Gerber を計測 |
+| 幅 | 3HP を採用。2HP は最悪角がマイナスで成立根拠なし（不採用、記録は保持） | 機構 CAD と公差の有限評価 |
+| 治具 | 0.7–0.9 mm で計算上の候補あり（EXPERIMENTAL_CALCULATED_NOT_VALIDATED）。段付き先端ピンは購入品の改造案で未調達 | `engineering/a7/fixture/condition-matrix.json` |
+| ハーネス奥行き基準 | 電源ケーブル自由長 55 ± 3 mm。旧 57 ± 3 mm の owner 受入は旧設計の履歴で、新しい値は未受入 | `qualification/plan.json` |
 
 ## 採用した設計方針
 
@@ -14,7 +26,7 @@ sidebar_position: 3
 
 - LED leafとcontrollerを公称0.8 mmにします。板厚公差は±0.1 mmを評価に使い、実stackupと製造条件を照合します。
 - 両面のソルダーレジストは必要箇所以外を開口します。配線・pad・via・必要な局所銅は残し、全層の広いGND面を撤去します。残すmaskと銅の位置・理由をGerberと照合します。
-- 2HP（前面9.8 mm）を優先します。公差・配線・組立の成立根拠を確保できなければ3HP（14.9 mm）へ進みます。3HPでも0.8 mmとmask/copper方針は変わりません。
+- 2HP（前面9.8 mm）を優先して評価しましたが、公差込みの最悪角がマイナスのため3HP（14.9 mm）を採用しました。3HPでも0.8 mmとmask/copper方針は変わりません。
 - 8個のRGB LED、左右各4個の独立2stream、共通の電流制限付きVLED、passive CV IN→THRU、MCU pin・CV伝達関数・modeを維持します。
 - 前面高さ128.5 mm、cast PMMA 2 mm、奥行30 mm目標、工場実装と完成ケーブルを用いる組立方針を維持します。
 
