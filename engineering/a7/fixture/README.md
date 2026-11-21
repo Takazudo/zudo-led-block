@@ -32,7 +32,7 @@ python3 -m unittest scripts/tests/test_a7_fixture_contact.py scripts/tests/test_
 
 ## 0.8 mm コントローラへの再束縛（2026-11-21, #87）
 
-採用された配線済み 0.8 mm コントローラ（PCB SHA-256 `710ed8019126944272a52fe0b162826c09088d70e363fce3cc184df93e7bab5e`）に
+採用された配線済み 0.8 mm コントローラ（PCB SHA-256 `d83691d6590e013b2a66957b61d76ba2f68bedaaec04789326e1215b2d1bdb2b`。旧 710ed801… と部品配置・外形は同じで、CV IN スリーブ帰路の規則変更により再配線した版）に
 `native-geometry.json`・`manifest.json`・`assembly-interference.json`・`fixture-assembly.step`・`condition-matrix.json` を束縛し直した。
 native geometry は**開発機で固定 KiCad イメージを回したゲート**の出力で、`provenance_class` = `LOCAL_PINNED_IMAGE_RUN`、
 `ci_retained_artifact` = false、GitHub run id なし。CI は毎回ゲート自体を回すので、記録の現行性は `--check` で担保される。

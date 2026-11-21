@@ -22,8 +22,8 @@ import a7_fixture_assembly as relief_assembly
 OUT = ROOT / 'engineering/a7/fixture'
 BOARD = ROOT / 'engineering/a7/electronics/controller/controller.kicad_pcb'
 CANONICAL = BOARD.with_name('board_placement.json')
-BOARD_SHA = '710ed8019126944272a52fe0b162826c09088d70e363fce3cc184df93e7bab5e'
-PLACEMENT_SHA = '94ef69822e706aee1730cf7feddf9a6a86e884d780c043c18abb71611764d0f7'
+BOARD_SHA = 'd83691d6590e013b2a66957b61d76ba2f68bedaaec04789326e1215b2d1bdb2b'
+PLACEMENT_SHA = '2d32b2ab76735dbf4ff7f2c959de4398b8215983be9a4fd33fde50c7015212f5'
 ROLES = {'TP1': '+3V3', 'TP2': 'GND', 'TP3': 'SWDIO', 'TP4': 'SWCLK', 'TP5': 'NRST'}
 
 

@@ -175,13 +175,13 @@
     "hold-down-plungers: candidate does not meet the plunger requirement"
   ],
   "scope": "Digital fixture design: support carrier, probe plate, pressure plate, base plate and hardware envelopes with the assembly STEP and interference check; not a fit result, not a selection and not a fabrication approval",
-  "board_sha256": "710ed8019126944272a52fe0b162826c09088d70e363fce3cc184df93e7bab5e",
-  "placement_sha256": "94ef69822e706aee1730cf7feddf9a6a86e884d780c043c18abb71611764d0f7",
-  "geometry_sha256": "8673e0dcaa3388002de38b2f06b6d8aa85236f398d5e14fd867b9a48eaf563e6",
+  "board_sha256": "d83691d6590e013b2a66957b61d76ba2f68bedaaec04789326e1215b2d1bdb2b",
+  "placement_sha256": "2d32b2ab76735dbf4ff7f2c959de4398b8215983be9a4fd33fde50c7015212f5",
+  "geometry_sha256": "f6ed9c6eccd7591c285a77505062c54146cbe5facce02bba3e76e66f66440283",
   "inputs_sha256": {
-    "engineering/a7/electronics/controller/controller.kicad_pcb": "710ed8019126944272a52fe0b162826c09088d70e363fce3cc184df93e7bab5e",
-    "engineering/a7/electronics/controller/board_placement.json": "94ef69822e706aee1730cf7feddf9a6a86e884d780c043c18abb71611764d0f7",
-    "scripts/a7_fixture.py": "db5e400a46d7a3ff068acba12fa230fb7911998147347b6360e3a978a0a12ac3",
+    "engineering/a7/electronics/controller/controller.kicad_pcb": "d83691d6590e013b2a66957b61d76ba2f68bedaaec04789326e1215b2d1bdb2b",
+    "engineering/a7/electronics/controller/board_placement.json": "2d32b2ab76735dbf4ff7f2c959de4398b8215983be9a4fd33fde50c7015212f5",
+    "scripts/a7_fixture.py": "c40fc70a7990917a37263d84706d874a6a8d185158f17caaded9bd863c0fd4e4",
     "scripts/a7_fixture_relief.py": "ccec9957aa992d676b43680216662d7709f029056b4b9f45b05a4e9af535ac9c",
     "scripts/a7_fixture_assembly.py": "cf4ffa4d32d162df92dc400358ee66655adb89725cc671ffb1b24fff19fe8507",
     "engineering/a7/procurement/population.csv": "6195a072b3882abf8d9212f0e778fa1cbb784d3f60929921558f95031c8276ff",
@@ -403,8 +403,8 @@
       "basis": "stroke and installation height, carrier-land travel stop, rigid pressure plate on hard stops with spring plungers, plate stack on spacers/standoffs/base with dowel alignment, FR-4 plates with POM board contacts, wire bend space and tie slot"
     },
     "4_assembly_step_interference_check": {
-      "met": true,
-      "basis": "assembly STEP of every part, hardware envelope, probe and the board; no interference"
+      "met": false,
+      "basis": "interference record is for a different design, assembly code or native record"
     },
     "5_physical_tests": {
       "met": false,
@@ -413,10 +413,10 @@
   },
   "native_geometry": {
     "record": "engineering/a7/fixture/native-geometry.json",
-    "record_sha256": "668e9366f78299bb48d23b5424d2676e1eba01e64897048b773f8328b5621fbd",
+    "record_sha256": "90e9f9cf07007889be9947432c0451f9820d8020223bbbd7d6df73219bc6ac6b",
     "status": "NATIVE_GEOMETRY_VALIDATED",
     "github_run_id": null,
-    "tested_revision": "d6f6fa0a632f826138b43eac30c1dc71c815d369",
+    "tested_revision": "873fa2a907124622472c707dcdb2ddd128dce3e3",
     "provenance_class": "LOCAL_PINNED_IMAGE_RUN",
     "ci_retained_artifact": false,
     "artifact_zip_sha256": null,
@@ -4889,7 +4889,8 @@
     }
   ],
   "blockers": [
-    "criterion 3_stroke_stop_guide_fixing_insulation_wiring not met: clamp_force_sized_with_margin, board_stays_on_land, board_bending_across_window_within_limit not met"
+    "criterion 3_stroke_stop_guide_fixing_insulation_wiring not met: clamp_force_sized_with_margin, board_stays_on_land, board_bending_across_window_within_limit not met",
+    "criterion 4_assembly_step_interference_check not met: interference record is for a different design, assembly code or native record"
   ],
   "owner_and_supplier_items": [
     "Fabricator for the four FR-4 plates is an owner choice and not selected; JLCCNC guidance is a candidate reference only. The probe-plate bores are drilled at the board test-point pitch, leaving 0.4 mm between bores: this meets the INGUN receptacle grid (0.27 mm) but not the 1.0 mm milled-wall guidance, so the chosen fabricator must confirm drilling it; the board pitch is fixed.",

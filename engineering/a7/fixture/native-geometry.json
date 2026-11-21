@@ -1,12 +1,12 @@
 {
- "board_sha256": "710ed8019126944272a52fe0b162826c09088d70e363fce3cc184df93e7bab5e",
+ "board_sha256": "d83691d6590e013b2a66957b61d76ba2f68bedaaec04789326e1215b2d1bdb2b",
  "geometry": {
   "axes": {
    "x": "right",
    "y": "down"
   },
   "back_side": "B-side footprints and pads are reported in KiCad board coordinates as seen from the front (no extra mirroring)",
-  "board_sha256": "710ed8019126944272a52fe0b162826c09088d70e363fce3cc184df93e7bab5e",
+  "board_sha256": "d83691d6590e013b2a66957b61d76ba2f68bedaaec04789326e1215b2d1bdb2b",
   "extraction_errors": [],
   "footprints": [
    {
@@ -7954,11 +7954,11 @@
   "schema": "zudo-led-block/a7-fixture-geometry/1",
   "units": "mm"
  },
- "placement_sha256": "94ef69822e706aee1730cf7feddf9a6a86e884d780c043c18abb71611764d0f7",
+ "placement_sha256": "2d32b2ab76735dbf4ff7f2c959de4398b8215983be9a4fd33fde50c7015212f5",
  "provenance": {
   "ci_retained_artifact": false,
   "identity": {
-   "checkout_head": "d6f6fa0a632f826138b43eac30c1dc71c815d369",
+   "checkout_head": "873fa2a907124622472c707dcdb2ddd128dce3e3",
    "checkout_is_synthetic_merge": null,
    "github_run_attempt": null,
    "github_run_id": null,
@@ -7968,13 +7968,13 @@
   },
   "image": "kicad/kicad:10.0.8@sha256:3f4a01786dfbe803a65f345c3342b765db9add913f5e9448f8356793714ddc34",
   "members_sha256": {
-   "evidence/a7_controller/board_facts.json": "a9a821cec3ec58a0ef14246ca0293650e29d85551d6d12c552b90aeeb03957c4",
-   "evidence/a7_controller/board_geometry.json": "051ab593286df4010b39407d03f2a30472bb448bb84c67902153bc34e1e67234",
-   "evidence/a7_controller/fixture_geometry.json": "5011b05721e983c94b8e341e3e2807f8ba3e6747e43c72e3f29c1d50feef4d88",
+   "evidence/a7_controller/board_facts.json": "8eac33ef457ca3529d7d28e284808449fbad62921875c6d65bbacab4d9e9722e",
+   "evidence/a7_controller/board_geometry.json": "7d20de810c35a75b64bef51c1739b6d8f0851bbc06ed379dd80b0c2fb0a78ff5",
+   "evidence/a7_controller/fixture_geometry.json": "af6dda7bcb902d94a32bdb146cad5efbc62fc2c0d9ac8598ec5cc648d57fa046",
    "evidence/a7_led_leaf/board_facts.json": "f2559a416645b17779ddedc78e9ff6bc792d61baab3a603b0f3094f39d4dbd5d",
    "evidence/a7_led_leaf/board_geometry.json": "1d3f3e42fc7ca931b27c9cb3e0100d9c45be06f2ae3ef9b641b9cd307f026bfb",
    "plan.json": "018e67f542809033d9c9e7871bc897c23494a8bb9f70a7d52e446d19bed6dade",
-   "summary.json": "668e7770ca0ef5a88ab7bd4189d0e005dbbd32fc5888a63dc7a8a6f213967a40"
+   "summary.json": "6e231b2e0278e7f454b9f6881eb2f1304db1ab3c0c54b1964a03750bfbd1a31f"
   },
   "note": "Gate run in the pinned KiCad image on a development machine during issue #87; there is no GitHub run id and no CI-retained artifact for it. Provenance of these bytes rests on this record, the gate summary hashes and review of the record diff, not on CI retention.",
   "provenance_class": "LOCAL_PINNED_IMAGE_RUN"

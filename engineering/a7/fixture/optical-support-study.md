@@ -3,7 +3,7 @@
 Status: **NOT ACCEPTED**. This is a digital exploration, not fixture release or
 physical contact verification. Since 2026-11-21 the saved native geometry and the
 assembly STEP are rebound to the adopted routed 0.8 mm controller
-(`710ed801…`): the geometry record comes from a gate run in the pinned KiCad
+(`d83691d6…`, same placement and outline as `710ed801…`, re-routed for the CV IN sleeve return): the geometry record comes from a gate run in the pinned KiCad
 image (`provenance_class` `LOCAL_PINNED_IMAGE_RUN`, no CI run id — CI re-runs the
 gate itself), and the STEP/interference record were rebuilt from it with
 CadQuery 2.7.0. Rebinding is an identity change, not an acceptance.
