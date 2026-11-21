@@ -303,7 +303,7 @@ def build(name, out):
 
     # ---- optical supports (A5 topology, 0.3 mm side inset) -----------------------------------
     o5 = G5["optical"]
-    slot_half = LC["inputs"]["cap_slot_width"] / 2
+    slot_half = L["leaf_comparison"]["inputs"]["cap_slot_width"] / 2
     top = union(box(side, w - side, 18, 23.7, 19, 29.8), box(side, w - side, 23.7, 26, 25.4, 29.8))
     top = top.cut(box(xc - slot_half, xc + slot_half, 22.3, 26.1, 18.8, 28.6)).cut(cylinder(1.1, 18.9, 29.9, xc, 20.5)).cut(cylinder(2.1, 27.8, 29.9, xc, 20.5))
     bottom = box(side, w - side, 103.8, 107, 18, 29.8).cut(box(xc - slot_half, xc + slot_half, 103.7, 105.2, 19.2, 28.6))

@@ -14,6 +14,27 @@ The fastener offset is 3.4 mm. The current cap nut-access channel uses Z28.2–2
 
 The final generated STEP/STL/GLB/verification and preview must be regenerated for the selected current inputs. Do not transfer old CAD PASS, fixture PASS or dated order approval to the new PCB identity. A5 is immutable and A6 remains held.
 
+## Open: four R2 assertions the staged FR-4 redesign fails closed (2026-11-21, #87)
+
+The CAD exports were regenerated for the adopted 0.8 mm controller and the 1.70 mm FR-4 leaf stack, so
+`exports/*/verification.json` is current again (its `layout_sha256` and builder/front hashes match). Four
+assertions in `scripts/tests/test_a7_r2_mechanical.py::Exports::test_cad_verification_current_and_clean`
+now fail on the content of those current records. All four are measured consequences of the redesign, not
+test or tooling faults, and **none of them is resolved here**: each needs an owner or reviewer decision,
+or a geometry change, and three of them come from one deliberate choice in `480bd0c` — every retained A5
+part that A7 re-poses or re-dimensions (leaf PCBs, leaf caps, leaf-link wires) is now classified `a7`
+provenance, while the R2 assertions were written when those parts were classified `a5` and therefore exempt.
+
+| Finding | Measured now | Why it fails | Resolution needed |
+|---|---|---|---|
+| 2HP leaf PCB against the retained M1.6 leaf-fastener nuts | 4 overlaps: 0.019 / 0.004 mm³ per side | the 0.8 mm leaf stack sits where the nuts are; 3HP is clean | 2HP is recorded UNRESOLVED with negative worst-corner margins and the width is not being reopened, so either the nut/fastener detail changes or the assertion must stop requiring both widths to be clean |
+| Optical corridor: the two leaf support caps | 2 obstructions per side per width, 31.5 and 10.8 mm² of a 742.5 mm² corridor (4.2 % / 1.5 %), each ≥ 1.475 mm from the nearest emitter | the caps stand in the corridor as they did in A5, but count as A7 supports since `480bd0c`; the invariant demands zero | decide whether a re-posed A5-topology support in the corridor is held to the harness rule (≥ 1.0 mm from an emitter plus a recorded shading bound) or must be redesigned out of the corridor |
+| Ray-sampled shading estimate | max `blocked_by_a7_harness` 0.299 against the R2 guard 0.05 (0.019 before) | same re-classification: the caps' shading is now counted as A7 | the guard's own comment calls it a regression guard on an estimate, so it needs a value that matches what A7 is now responsible for — not a silent raise |
+| A5 leaf-link wire scenario overlaps | centreline clearances −0.15 … −0.78 mm, no longer carrying the "carried-over scenario" note | the wires are re-posed by the new leaf faces, so `carried` is false and the overlaps are reported as current findings | decide whether a re-posed A5 wire scenario is still "carried over" (note restored, geometry re-recorded) or a finding A7 owns |
+
+Nothing above is a fit, optical or manufacturing approval, and `manufacturing_release` stays false in every
+record. The 2HP overlaps and the corridor numbers must stay visible whichever way the assertions are settled.
+
 ## Historical R2 model and results (before #87)
 
 Everything below describes the old 1.6 mm controller / 0.6 mm leaf model. Its dimensions, optical ray study, PET comparison, PASS claims, “current/default” labels and next actions are historical, not the present design contract. Consult the current inputs and #87 evidence for the new revision.
