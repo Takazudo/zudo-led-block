@@ -20,11 +20,11 @@
     },
     "board": {
       "path": "engineering/a7/electronics/controller/controller.kicad_pcb",
-      "sha256": "710ed8019126944272a52fe0b162826c09088d70e363fce3cc184df93e7bab5e"
+      "sha256": "d83691d6590e013b2a66957b61d76ba2f68bedaaec04789326e1215b2d1bdb2b"
     },
     "population": {
       "path": "engineering/a7/electronics/controller/board_placement.json",
-      "sha256": "94ef69822e706aee1730cf7feddf9a6a86e884d780c043c18abb71611764d0f7"
+      "sha256": "2d32b2ab76735dbf4ff7f2c959de4398b8215983be9a4fd33fde50c7015212f5"
     },
     "schematic": {
       "path": "engineering/a7/electronics/controller/controller.kicad_sch",
@@ -48,14 +48,14 @@
     },
     "fixture": {
       "path": "engineering/a7/fixture/manifest.json",
-      "sha256": "60cad2902af4e10c255f5055d3807bab1c27b85ec381610b930cec243f6c6483"
+      "sha256": "a8a8a8cbde68c0d7cf9e2ff5e62202697bbef39e1fcdffb330560f515e650b70"
     },
     "assembly_manifest": {
       "path": "engineering/a7/procurement/assembly-manifest.json",
-      "sha256": "b896a03c1ee700f4e84500833640fed229f562275eeef6edc0bb3d01ceec8857"
+      "sha256": "9225919ce1a44ca70be6c66e081c3d53c23b25421848ac243a6c991215bb320d"
     }
   },
-  "plan_sha256": "af8f393b2523c70b3b78523ede1ce89f4698b3e7d373bf2ea41fc0d1a521feb8",
+  "plan_sha256": "650dbe95b752736ba44b146c911ed65e676643e318c72847f13a7dad11b637f3",
   "procedures": [
     {
       "id": "jack-continuity",
@@ -195,6 +195,7 @@
       "id": "cv-noise",
       "status": "BLOCKED",
       "reasons": [
+        "criterion unresolved or review receipt missing",
         "NOT_MEASURED: no run"
       ]
     },
@@ -248,6 +249,7 @@
     "thermal-optical: criterion unresolved or review receipt missing",
     "thermal-optical: criterion has PROPOSED or UNRESOLVED acceptance values: materials-appearance",
     "thermal-optical: NOT_MEASURED: no run",
+    "cv-noise: criterion unresolved or review receipt missing",
     "cv-noise: NOT_MEASURED: no run",
     "service-envelope: NOT_MEASURED: no run",
     "material assembly_service: missing or ambiguous dated observation",
@@ -500,6 +502,13 @@
       ]
     },
     {
+      "gate": "criterion:cv-noise",
+      "class": "OWNER_DECISION",
+      "reasons": [
+        "cv-noise: criterion unresolved or review receipt missing"
+      ]
+    },
+    {
       "gate": "run:cv-noise",
       "class": "PHYSICAL_ONLY",
       "reasons": [
@@ -572,7 +581,7 @@
   ],
   "gate_counts": {
     "CLOUD_DIGITAL": 2,
-    "OWNER_DECISION": 8,
+    "OWNER_DECISION": 9,
     "ACCESS_EVIDENCE_HOLD": 13,
     "PHYSICAL_ONLY": 20
   },

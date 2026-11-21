@@ -9,14 +9,14 @@
   "modules": 2,
   "decided_by": "OWNER",
   "sources": "engineering/a7/jlc-package/sources.json",
-  "ledger_sha256": "b896a03c1ee700f4e84500833640fed229f562275eeef6edc0bb3d01ceec8857",
+  "ledger_sha256": "9225919ce1a44ca70be6c66e081c3d53c23b25421848ac243a6c991215bb320d",
   "sources_sha256": "6fc3789723a99d5f6eaeca12b9f057ebb407ef84b7a8657ee224129c262f05d5",
   "optical_fab_sha256": "d974daffc20c4aabaa1d754f4b7393315388246b93433bb77750a4100237c6e5",
   "boards": [
     {
       "board": "controller",
       "pcb": "engineering/a7/electronics/controller/controller.kicad_pcb",
-      "pcb_sha256": "710ed8019126944272a52fe0b162826c09088d70e363fce3cc184df93e7bab5e",
+      "pcb_sha256": "d83691d6590e013b2a66957b61d76ba2f68bedaaec04789326e1215b2d1bdb2b",
       "per_module": 1,
       "pcba_quantity": 2,
       "copper_layers": 4,
@@ -376,16 +376,16 @@
       },
       "overhangs": [
         {
-          "ref": "J3",
-          "right": 0.3
-        },
-        {
           "ref": "J1",
           "left": 4.45
         },
         {
           "ref": "SW1",
           "bottom": 0.25
+        },
+        {
+          "ref": "J3",
+          "right": 0.3
         },
         {
           "ref": "J2",
@@ -546,10 +546,10 @@
         "separation": "mouse bites; tabs at least 5 mm wide",
         "assembled_at_minimum_order": 2,
         "notes": [
-          "Frame cut back by the courtyard overhang plus 1 mm (proposed) at J3, J1, SW1, J2; tabs away from those parts where at least 2 tabs fit, otherwise kept clear of pads only (see the panel notes)."
+          "Frame cut back by the courtyard overhang plus 1 mm (proposed) at J1, SW1, J3, J2; tabs away from those parts where at least 2 tabs fit, otherwise kept clear of pads only (see the panel notes)."
         ],
         "notes_ja": [
-          "J3, J1, SW1, J2 のはみ出しに 1 mm（提案値）を足して枠を逃がす。タブは 2 か所以上置ける限りその部品から離し、置けない場合はパッドからだけ離す（面付けの注記を参照）。"
+          "J1, SW1, J3, J2 のはみ出しに 1 mm（提案値）を足して枠を逃がす。タブは 2 か所以上置ける限りその部品から離し、置けない場合はパッドからだけ離す（面付けの注記を参照）。"
         ]
       }
     },

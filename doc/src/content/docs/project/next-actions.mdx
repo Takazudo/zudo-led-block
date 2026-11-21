@@ -6,11 +6,12 @@ sidebar_position: 4
 
 **0.8 mm rigid FR-4のデジタル設計は [#87](https://github.com/Takazudo/zudo-led-block/issues/87) / PR [#88](https://github.com/Takazudo/zudo-led-block/pull/88) で統合しました。次に残るのは実物と owner 判断が必要な作業です。** 旧設計の注文作業をそのまま進める段階ではありません。透明PET/FPCとその供給元質問は現行候補・次作業から撤回しました。
 
-1. 新しい識別子（制御基板 `710ed801…`、リーフ `bcf2e35d…`）に対する試作ルートを owner が承認するまで、注文の準備は進みません。旧 `order/2026-11-13/` と旧承認は旧 identity 専用の履歴です。
+1. 新しい識別子（制御基板 `d83691d6…`、リーフ `bcf2e35d…`）に対する試作ルートを owner が承認するまで、注文の準備は進みません。旧 `order/2026-11-13/` と旧承認は旧 identity 専用の履歴です。
 2. 電源ケーブル自由長 55 ± 3 mm（52–58 mm）の基準を owner が改めて受け入れるまで、harness-depth の基準は未決です。
 3. 治具の段付き先端ピンは購入品の改造案です。調達と、接触・荷重の実測（criterion 5）が必要です。
-4. 実物の透過性・熱・電気動作・組立・治具接触・実機収まりは未実測です。`/CV_THRU` 開放時の容量性の拾いは実機で確認します（#10）。
-5. 製造先での露出銅の表面処理、局所 mask、PCBA 適合、最終注文条件の確認が必要です。
+4. 実物の透過性・熱・電気動作・組立・治具接触・実機収まりは未実測です。`/CV_THRU` 開放時の容量性の拾いと、グラウンドを共有する外部源をパッチしたときの誤差は実機で確認します（#10）。
+5. CV ノイズ（cv-noise）の基準は、旧根拠の配線記述が 0.8 mm 基板で成り立たないため未決に戻しました。`electrical_review.md` を根拠にした新しい基準を owner が採否する必要があります。
+6. 製造先での露出銅の表面処理、局所 mask、PCBA 適合、最終注文条件の確認が必要です。
 
 [設計方針](/docs/project/a7/) · [プレビューと限界](/docs/project/a7-preview/) · [継続記録](https://github.com/Takazudo/zudo-led-block/blob/main/engineering/a7/docs/continuation/continue-here.md)
 

@@ -12,8 +12,8 @@ sidebar_position: 3
 
 | 対象 | 状態 | 根拠 |
 | --- | --- | --- |
-| 制御基板 | 0.8 mm・JLC04081H-3313 の4層、全層で広いGND面なし。SHA-256 `710ed801…7bab5e` | KiCad 10.0.8 で ERC / DRC / 未接続 / parity 0、配線の再現性一致。局所銅は buck 下の1箇所（B.Cu、/GND） |
-| CV 基準誤差 | LED依存 0.0375 LSB（配分 0.5）、合計 0.265 LSB（配分 1.0）、85 °C・銅/幅 ×0.8 の角 | `engineering/a7/verification/electrical_review.md`。抵抗網の計算で、実測ではありません |
+| 制御基板 | 0.8 mm・JLC04081H-3313 の4層、全層で広いGND面なし。SHA-256 `d83691d6…1bdb2b` | KiCad 10.0.8 で ERC / DRC / 未接続 / parity 0、配線の再現性一致。局所銅は buck 下の1箇所（B.Cu、/GND） |
+| CV 基準誤差 | LED依存 0.0375 LSB（配分 0.5）、合計 0.369 LSB（配分 1.0）、85 °C・銅/幅 ×0.8 の角。グラウンドを共有する外部源をパッチした場合の基板内の誤差上限は 0.254 LSB（配分 0.5、ケーブル等の抵抗は仮定）。基板外のスリーブ・パッチケーブルでの電圧降下は配置と無関係で、別に実測が必要 | `engineering/a7/verification/electrical_review.md`。抵抗網の計算で、実測ではありません |
 | LED リーフ | 0.8 mm 2層。SHA-256 `bcf2e35d…94cf9` | native 検証と実 Gerber の確認 |
 | ソルダーレジスト | 両面とも必要箇所以外を開口。via の保護 web 0.135 / 0.139 mm（規則 0.100 mm）、paste は pad のみ | 出力した Gerber を計測 |
 | 幅 | 3HP を採用。2HP は最悪角がマイナスで成立根拠なし（不採用、記録は保持） | 機構 CAD と公差の有限評価 |

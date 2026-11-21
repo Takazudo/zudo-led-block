@@ -1108,11 +1108,11 @@
 ### cv-noise — CV ノイズと DATA_L 結合
 
 - 関連:  #10
-- 概要: 静的CVを印加しDATA_L/左右ストリームのパターンを切替、ADC/THRUを同期観測。
-- 根拠: `engineering/a7/verification/interface_review.md`
-- 基準: 採用済み（プロジェクトのコーディネーター（オーナーが委ねた作業方針による）、記録 `engineering/a7/qualification/reviews/2026-11-11-coordinator-criteria-acceptance.md`）
+- 概要: 静的CVを印加しDATA_L/左右ストリームのパターンを切替、ADC/THRUを同期観測。加えて (1) CV IN 未接続（開放チップ）と (2) 電源グラウンドを共有する外部源をパッチしLED輝度を段階的に変える状態でも観測する。
+- 根拠: `engineering/a7/verification/electrical_review.md`
+- 未決: 旧基準の layout 記述（interface_review.md「No CV node runs within 0.6 mm of DATA_L/R or ±12V_PROT on the same layer.」）は 0.8 mm 基板（d83691d6…）では成り立たず、710ed801… でも成り立っていなかった。2026-11-11 の採用はその誤った根拠に基づくため引き継がない。開放入力とパッチ時グラウンドループの条件も旧手順になかった。（区分: オーナーの判断）
 - 観測: NOT_MEASURED。結果: NOT_RUN。
-- 次: 基準はコーディネーターが採用済み（オーナー本人ではない）。実機で手順を実施して記録する。
+- 次: 根拠を electrical_review.md と return-review.json に置き換えた新しい基準（ノイズ上限 50 mV は不感帯から据え置きの提案）をオーナーが採否するまで未決。実機では未接続入力とグラウンド共有源パッチ（LED輝度段階）を含めて #10 で測る。
 
 準備するもの:
 
@@ -1133,6 +1133,8 @@
 
 1. LED データ送信中に CV_THRU と ADC 値を同期して記録する。
 2. データパターン（全消灯/全点灯/交互）を変えて統計を取る。
+3. CV IN を未接続（開放チップ）にして同じ記録を取り、±50 mV 不感帯と比べる。
+4. 電源グラウンドを共有する外部 CV 源をパッチし、LED 輝度を段階的に変えて CV 誤差を記録する（パッチ時グラウンドループ）。
 
 記録する raw 証跡（種別ごとに別ファイル）:
 
@@ -1147,7 +1149,7 @@
 
 | ID | 基準 | 値 | 範囲 | 単位 | 確度 | 出典 / 決める主体 |
 |---|---|---|---|---|---|---|
-| layout | 同層での CV と DATA の間隔（設計） | `"No CV node runs within 0.6 mm of DATA_L/R or ±12V_PROT on the same layer."` | reference | NONE | DESIGN | `engineering/a7/verification/interface_review.md` 引用 |
+| layout | 規則付きの CV–スイッチング/データ間隔（設計、全層） | `"No CV track runs within 0.5 mm of any aggressor in that table anywhere on any layer."` | reference | NONE | DESIGN | `engineering/a7/verification/electrical_review.md` 引用 |
 | noise-max | LED データ送信中の CV 換算ノイズ（ピーク・ツー・ピーク）の上限 | `50` | max | mV | CALCULATED | 計算 `DB`（内訳は下） |
 
 計算の内訳:
@@ -1219,7 +1221,7 @@
 | 区分 | ゲート数 |
 |---|---:|
 | CLOUD_DIGITAL（クラウドで進められるデジタル作業） | 2 |
-| OWNER_DECISION（オーナーの判断） | 8 |
+| OWNER_DECISION（オーナーの判断） | 9 |
 | ACCESS_EVIDENCE_HOLD（外部の証跡・アクセス待ち） | 13 |
 | PHYSICAL_ONLY（実機が必要） | 20 |
 
@@ -1266,6 +1268,7 @@
 - thermal-optical: criterion unresolved or review receipt missing
 - thermal-optical: criterion has PROPOSED or UNRESOLVED acceptance values: materials-appearance
 - thermal-optical: NOT_MEASURED: no run
+- cv-noise: criterion unresolved or review receipt missing
 - cv-noise: NOT_MEASURED: no run
 - service-envelope: NOT_MEASURED: no run
 - material assembly_service: missing or ambiguous dated observation

@@ -1,7 +1,7 @@
 {
   "board": "controller",
   "pcb": "engineering/a7/electronics/controller/controller.kicad_pcb",
-  "pcb_sha256": "710ed8019126944272a52fe0b162826c09088d70e363fce3cc184df93e7bab5e",
+  "pcb_sha256": "d83691d6590e013b2a66957b61d76ba2f68bedaaec04789326e1215b2d1bdb2b",
   "tier": "STANDARD",
   "panel_mm": [
     70,
@@ -237,6 +237,6 @@
   },
   "drc_waivers": {},
   "notes": [
-    "Frame cut back by the courtyard overhang plus 1 mm (proposed) at J3, J1, SW1, J2; tabs away from those parts where at least 2 tabs fit, otherwise kept clear of pads only (see the panel notes)."
+    "Frame cut back by the courtyard overhang plus 1 mm (proposed) at J1, SW1, J3, J2; tabs away from those parts where at least 2 tabs fit, otherwise kept clear of pads only (see the panel notes)."
   ]
 }
