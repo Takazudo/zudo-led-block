@@ -14,29 +14,51 @@ The fastener offset is 3.4 mm. The current cap nut-access channel uses Z28.2–2
 
 The final generated STEP/STL/GLB/verification and preview must be regenerated for the selected current inputs. Do not transfer old CAD PASS, fixture PASS or dated order approval to the new PCB identity. A5 is immutable and A6 remains held.
 
-## Open: five R2 assertions the staged FR-4 redesign fails closed (2026-11-21, #87)
+## R2 assertions after the #87 redesign: 3HP has one left open, 2HP is reported and not selected (2026-11-21)
 
 The CAD exports were regenerated for the adopted 0.8 mm controller and the 1.70 mm FR-4 leaf stack, so
-`exports/*/verification.json` is current again (its `layout_sha256` and builder/front hashes match). Five
-assertions in `scripts/tests/test_a7_r2_mechanical.py::Exports::test_cad_verification_current_and_clean`
-now fail on the content of those current records. `unittest` reports the method once and stops at the first
-of them, so the table below is the enumerated result of evaluating each assertion separately against both
-variants — not five separate test failures. All five are consequences of the redesign, not test or tooling
-faults, and **none of them is resolved here**: each needs an owner or reviewer decision, or a geometry
-change, and four of them come from one deliberate choice in `480bd0c` — every retained A5 part that A7
-re-poses or re-dimensions (leaf PCBs, leaf caps, leaf-link wires) is now classified `a7` provenance, while
-the R2 assertions were written when those parts were classified `a5` and therefore exempt.
+`exports/*/verification.json` is current (its `layout_sha256` and builder/front hashes match). The first
+regeneration failed five assertions in
+`scripts/tests/test_a7_r2_mechanical.py::Exports::test_cad_verification_current_and_clean`. `unittest` stops at
+the first failing assertion of a method, so the table is the result of evaluating each assertion separately
+against both widths. No assertion, threshold or corridor definition was changed.
 
-| Finding | Measured now | Why it fails | Resolution needed |
-|---|---|---|---|
-| 2HP leaf PCB against the retained M1.6 leaf-fastener nuts | 4 overlaps: 0.019 / 0.004 mm³ per side | the 0.8 mm leaf stack sits where the nuts are; 3HP is clean | 2HP is recorded UNRESOLVED with negative worst-corner margins and the width is not being reopened, so either the nut/fastener detail changes or the assertion must stop requiring both widths to be clean |
-| Optical corridor: the two leaf support caps | 2 obstructions per side per width, 31.5 and 10.8 mm² of a 742.5 mm² corridor (4.2 % / 1.5 %), each ≥ 1.475 mm from the nearest emitter | the caps stand in the corridor as they did in A5, but count as A7 supports since `480bd0c`; the invariant demands zero | decide whether a re-posed A5-topology support in the corridor is held to the harness rule (≥ 1.0 mm from an emitter plus a recorded shading bound) or must be redesigned out of the corridor |
-| Harness-to-emitter distance in the corridor | `leaf_link_pin_4_A5` 0.165 mm from the nearest emitter on the right side of both widths, against the ≥ 1.0 mm rule (left side is clear at 2.306 mm) | the A5 leaf-link bundle is re-posed by the new leaf faces and now counts as A7 harness, and pin 4 runs closest to the right D2 emitter | either re-route the leaf-link bundle away from the right emitter row or record an owner decision that a re-posed A5 wire keeps the A5 exemption; the 0.165 mm figure must stay visible either way |
-| Ray-sampled shading estimate | max `blocked_by_a7_harness` 0.299 at `right_D2` against the R2 guard 0.05 (0.019 before) | same re-classification, and the 0.165 mm pin-4 pose drives it: the caps' and the leaf-link bundle's shading is now counted as A7 | the guard's own comment calls it a regression guard on an estimate, so it needs a value that matches what A7 is now responsible for — not a silent raise |
-| A5 leaf-link wire scenario overlaps | 8 findings in 3HP, 9 in 2HP, all below the 0.05 mm floor and no longer carrying the "carried-over scenario" note. Two kinds: wire against diffuser (−0.196 / −0.200, plus 2HP-only `controller_to_left_leaf_sh4` −0.150) and the four leaf-link wires against each other (−0.436 … −0.784) | the wires are re-posed by the new leaf faces, so `carried` is false and the overlaps are reported as current findings | the wire-to-wire set is the bundle modelled on near-coincident centrelines, so it needs a bundle model (or a stated exemption) rather than a geometry change; the diffuser overlaps are a real fit question for the owner. Do not settle both with one note |
+| Assertion | 3HP (selected) now | How it was settled, or why it is open |
+|---|---|---|
+| Harness ≥ 1.0 mm from every emitter | met: leaf link 3.327 mm (left) / 2.863 mm (right), controller link 2.809 mm | **Geometry.** The leaf-to-leaf link is re-routed (`leaf_link_route` in `build_a7_mechanical.py`): it no longer rises through the right corridor past D2 (was 0.165 mm). The slack is stowed at Z 16.6 in front of the leaf front edge, with the hairpin under the bottom leaf cap, and the rise into the right header stays 2.9 mm below it |
+| Ray-sampled shading ≤ 0.05 per LED | met: max 0.028 (`right_D1`); `right_D2` 0.011 (was 0.299) | **Geometry**, same re-route. The guard value is unchanged |
+| Leaf-link wires overlapping each other (−0.436 … −0.784) | gone | **Bundle model.** The link is one SH4 assembly, so it is one bundle with the controller link's radius (1.0 mm, ASSUMED) and its own clearance check against every other part, not four wires posed on near-coincident centrelines. No exemption note was added; the unused "carried-over leaf-link" note branch was removed |
+| Wire against diffuser (−0.196 / −0.200) | gone | **Geometry.** The bundle leaves each header at the wire-row centre (top Z 24.9), 0.7 mm in front of the diffuser flange (Z 25.6) |
+| Cable centreline findings ≥ 0.05 mm | met: one finding left, `spine_PETG` / power cable at +0.100 mm | unchanged pre-existing finding |
+| No A7 support in an emission corridor | **OPEN: 2 per side** — `top_leaf_adapter_cap` 31.5 mm² and `bottom_leaf_cap` 10.8 mm² of the 742.5 mm² corridor (4.2 % / 1.5 %), each 1.475 mm from the nearest emitter | **Not settled, and not reachable by reshaping the caps alone.** See below |
+| No unexpected rigid intersection | met in 3HP | 2HP only, see below |
+
+**Why the cap assertion stays open.** The corridor is the box from 0.6 mm outside each leaf face to the
+diffuser skin over the *whole* leaf (Y 22.5–105.0, Z 19.4–28.4). The caps are inside it at the two leaf ends
+for three reasons that are the A5 retention concept itself (`engineering/a5/mechanical/geometry.json`
+`optical.mid_guide`: "top/bottom end caps and L-section diffuser flanges retain bonded leaves"):
+the leaf-end slot (Y 22.3–26.1 and 103.7–105.2) whose walls hold the leaf pair; the clamp face at Z 27.0
+that each diffuser flange is screwed against by the M1.6 leaf fasteners at Y 23.5 / 105.5; and the cap body
+itself between Y 22.5 and 23.7. Cutting the corridor out of the caps would leave 0.375 mm slot walls
+(slot half-width 1.075, corridor from 1.45) and move the diffuser clamp face to Z 28.4, 1.6 mm behind the
+flange — the leaf would no longer be held and the diffuser no longer clamped. A zero count therefore needs
+a different leaf-end retention and diffuser mount (or a shorter leaf), which is a design change beyond this
+model, or a decision on how a retained A5-topology end support is counted. The cap geometry inside the
+corridor is the A5 geometry (the A7 changes — the 2.15 mm slot and the 3HP nut-access lip — only remove
+material, and outside the corridor); it counts as A7 since `480bd0c` classified re-dimensioned parts as A7.
+That derivation is recorded here as input for the decision; it is **not** used to reclassify the parts or
+to redefine the corridor.
+
+**2HP (not selected).** 2HP keeps reporting: the 4 leaf-PCB / M1.6-nut overlaps (0.019 / 0.004 mm³ per
+side), the same two caps per side, `left_diffuser` / controller link −0.150 mm, and — because 2HP has no
+room for the stowage used in 3HP — the leaf-link bundle against the controller rear edge (−0.763 mm), the
+bottom-cap fork (−0.833 mm), the solder-face zone (−0.052 mm) and both diffuser skins (0.000 mm). None of
+that is tuned away; the test still requires both widths to be clean, so it fails on 2HP as long as 2HP is
+generated and checked like a selected width.
 
 Nothing above is a fit, optical or manufacturing approval, and `manufacturing_release` stays false in every
-record. The 2HP overlaps and the corridor numbers must stay visible whichever way the assertions are settled.
+record. The leaf-link route is a PROJECT-CHOICE scenario: bend radius (2.4 mm centreline), the real bundle
+section and the stowage are not qualified (#8), and the 50 mm finished length is the A5-sourced SH4 length.
 
 ## Historical R2 model and results (before #87)
 

@@ -34,7 +34,9 @@ import numpy as np
 from scipy.sparse.linalg import splu
 
 GAP_TOL_MM = 1e-9
-REACTION_TOL_N = 1e-7  # relative to the total applied load (see load_scale)
+# relative to the total applied load (see load_scale); small enough that a node the solver keeps in contact stays inside
+# the absolute -1e-6 N the condition matrix requires of every recorded case at these loads (about 22 N)
+REACTION_TOL_N = 2e-8
 VERIFY_SLACK = 10.0
 
 

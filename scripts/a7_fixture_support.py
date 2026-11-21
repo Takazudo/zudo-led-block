@@ -91,9 +91,49 @@ def edge_contact(radius=.75, edge_offset=.65):
             'centroid_shift_x_mm':-(2/3)*chord**3/area}
 
 
+# Second clamp pin, stepped tip: the catalogue Ø1.5 POM thrust pin keeps only 0.025 mm of worst-case board-edge
+# margin at the adopted site, so its board-contact end is turned down. The Ø1.5 shank stays the catalogue part and
+# stands tip_length above the F face; only the tip touches the board. A modified purchased part is a fabrication and
+# incoming-gauge REQUIREMENT, not a sourced or selected item.
+STEPPED_TIP={'clamp_index':1,'contact_diameter_max_mm':1.2,'tip_length_mm':0.5,
+             'status':'PROPOSED modification of the K0318.04 POM thrust pin (turned tip); not sourced, not selected, '
+                      'awaiting owner approval and fabrication review',
+             'gauge_requirement':'swept tip envelope at board-contact height <=1.2 mm diameter including play, runout '
+                                 'and tilt; tip face flat and square; tip length 0.5 mm so the 1.5 mm shank never '
+                                 'touches the board'}
+# No POM grade is printed on the KIPP leaf and no datasheet is held for the pin material, so the allowable is a class
+# value, not a source: compressive stress of unfilled POM at about 1 % nominal strain. It must be replaced by a
+# sourced value (or a measured indentation check) before the tip is accepted.
+POM_CONTACT_ALLOWABLE={'value_MPa':20.0,'class':'ASSUMED',
+                       'basis':'typical unfilled POM compressive stress at about 1 % nominal strain; class value from '
+                               'general engineering-plastics practice, NOT sourced; pin grade unknown',
+                       'modulus_MPa':2800.0,'modulus_class':'ASSUMED'}
+CONTACTS_DIAGONAL=((1.2,20.8),(15.325,26.375))
+
+
+def stepped_tip_contacts(pin_diameter):
+    """Board-contact diameter of each clamp pin of the adopted candidate (catalogue pin, stepped tip on one)."""
+    return [STEPPED_TIP['contact_diameter_max_mm'] if i==STEPPED_TIP['clamp_index'] else pin_diameter
+            for i in range(len(CONTACTS_DIAGONAL))]
+
+
+def contact_stress(diameter,force_max):
+    """Mean bearing pressure of a flat pin end against the ASSUMED POM allowable, and the tip's elastic shortening."""
+    area=math.pi*(diameter/2)**2
+    pressure=force_max/area
+    return {'contact_diameter_mm':diameter,'contact_area_mm2':round(area,6),'force_max_N':force_max,
+            'mean_contact_pressure_MPa':round(pressure,6),'allowable_MPa':POM_CONTACT_ALLOWABLE['value_MPa'],
+            'allowable_class':POM_CONTACT_ALLOWABLE['class'],
+            'utilisation':round(pressure/POM_CONTACT_ALLOWABLE['value_MPa'],6),
+            'within_assumed_allowable':pressure<=POM_CONTACT_ALLOWABLE['value_MPa'],
+            'tip_elastic_shortening_mm':round(pressure*STEPPED_TIP['tip_length_mm']/POM_CONTACT_ALLOWABLE['modulus_MPa'],6),
+            'model':'uniform pressure on a flat end; edge stress concentration, creep, abrasion and the solder-mask '
+                    'surface are not modelled and remain physical checks'}
+
+
 def diagonal_proposal(geometry):
     """Full-pin candidate; geometric requirements do not certify manufactured parts."""
-    contacts=((1.2,20.8),(15.325,26.375))
+    contacts=CONTACTS_DIAGONAL
     notch=(4.695,23.2,12.20,29.5)
     front=[(f['ref'],f['courtyard_bbox_mm']['F']) for f in geometry['footprints']
            if f['side']=='F' and f['courtyard_bbox_mm'].get('F')]

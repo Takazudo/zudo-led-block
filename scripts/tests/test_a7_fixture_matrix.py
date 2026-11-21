@@ -96,8 +96,11 @@ class CurrentCandidate(unittest.TestCase):
         self.assertEqual(fi['probe_count'], 5)
 
     def test_every_thickness_and_force_corner_is_present(self):
-        layout = RECORD['layouts']['optical_full_pin']
         self.assertEqual(RECORD['thicknesses_mm'], [0.7, 0.8, 0.9])
+        for name in ('optical_full_pin', matrix.ADOPTED_LAYOUT):
+            self._corners_present(RECORD['layouts'][name])
+
+    def _corners_present(self, layout):
         for thickness in RECORD['thicknesses_mm']:
             rows = [r for r in layout['cases'] if r['thickness_mm'] == thickness]
             self.assertEqual(len(rows), 8, thickness)  # 2 clamps x {min, max} x probe {min, max}
@@ -135,6 +138,90 @@ class CurrentCandidate(unittest.TestCase):
             self.assertNotEqual(cross['flexibility_method'], cross['stiffness_method'])
             self.assertLess(cross['max_displacement_difference_mm'], 1e-7, name)
             self.assertEqual(cross['contact_node_difference'], 0, name)
+
+
+class AdoptedCandidate(unittest.TestCase):
+    """The stepped-tip candidate must meet every recorded rule with the recorded limits, and claim no more than that."""
+    A = RECORD['adopted_candidate']
+
+    def test_no_recorded_limit_was_moved_to_adopt_it(self):
+        self.assertEqual(self.A['pin_edge_margin_required_mm'], 0.15)
+        self.assertEqual(matrix.PIN_EDGE_MARGIN_REQUIRED_MM, 0.15)
+        self.assertEqual(RECORD['limits']['deflection_limit_mm'], 0.1)
+        self.assertEqual(RECORD['limits']['land_lift_limit_mm'], 0.1)
+        self.assertAlmostEqual(RECORD['limits']['required_total_clamp_force_N'], 12.7, places=6)
+
+    def test_same_sites_and_plungers_only_the_second_contact_is_smaller(self):
+        layout = RECORD['layouts'][matrix.ADOPTED_LAYOUT]
+        self.assertEqual(self.A['layout'], matrix.ADOPTED_LAYOUT)
+        self.assertEqual(layout['clamps_board_mm'], RECORD['layouts']['optical_full_pin']['clamps_board_mm'])
+        self.assertEqual(layout['clamp_contact_diameters_mm'], [1.5, 1.2])
+        self.assertEqual(RECORD['layouts']['optical_full_pin']['clamp_contact_diameters_mm'], [1.5, 1.5])
+        self.assertEqual([c['stepped_tip'] for c in self.A['clamps']], [False, True])
+
+    def test_every_contact_keeps_the_required_edge_margin(self):
+        for clamp in self.A['clamps']:
+            x = clamp['centre_mm'][0]
+            # independent re-derivation: nearer long edge, minus the contact radius, the 0.10 mm relative pin tolerance
+            # and, on the low-x side only, the 0.20 mm board-profile allowance
+            expected = min(x, 16.2 - x) - clamp['contact_diameter_mm'] / 2 - 0.10 - (0.20 if x < 8.1 else 0.0)
+            self.assertAlmostEqual(clamp['contact_edge_margin_worst_mm'], expected, places=6)
+            self.assertGreaterEqual(clamp['contact_edge_margin_worst_mm'], 0.15 - 1e-9)
+            self.assertTrue(clamp['meets_recorded_site_rules'])
+            self.assertTrue(clamp['shank_inside_board_outline_worst_case'])
+        # the shank of the stepped pin is still the 0.025 mm case: reported, not hidden
+        self.assertAlmostEqual(self.A['clamps'][1]['shank_edge_margin_worst_mm'], 0.025, places=6)
+
+    def test_every_load_corner_meets_the_recorded_limits(self):
+        layout = RECORD['layouts'][matrix.ADOPTED_LAYOUT]
+        self.assertEqual(len(layout['cases']), 24)
+        for row in layout['cases']:
+            self.assertLessEqual(row['probe_displacement_max_abs_mm'], RECORD['limits']['deflection_limit_mm'])
+            self.assertLessEqual(row['land_lift_max_mm'], RECORD['limits']['land_lift_limit_mm'])
+        for band in layout['force_band_per_thickness']:
+            self.assertGreaterEqual(band['total_minimum_N'], RECORD['limits']['required_total_clamp_force_N'])
+            self.assertTrue(band['within_stroke'] and band['compression_positive'])
+        self.assertTrue(layout['verdict']['all_recorded_limits_met'])
+        self.assertTrue(self.A['all_recorded_rules_met'])
+
+    def test_contact_pressure_is_checked_against_an_allowable_labelled_assumed(self):
+        self.assertEqual(self.A['contact_allowable']['class'], 'ASSUMED')
+        self.assertIn('NOT sourced', self.A['contact_allowable']['basis'])
+        for clamp in self.A['clamps']:
+            stress = clamp['contact_stress']
+            area = 3.141592653589793 * (clamp['contact_diameter_mm'] / 2) ** 2
+            self.assertAlmostEqual(stress['mean_contact_pressure_MPa'], stress['force_max_N'] / area, places=4)
+            self.assertEqual(stress['force_max_N'], max(b['clamp_force_each_N'][1] for b in
+                                                        RECORD['layouts'][matrix.ADOPTED_LAYOUT]['force_band_per_thickness']))
+            self.assertLessEqual(stress['mean_contact_pressure_MPa'], self.A['contact_allowable']['value_MPa'])
+
+    def test_it_is_a_candidate_not_an_acceptance(self):
+        self.assertIn('NOT ACCEPTED', self.A['status'])
+        self.assertIn('PROPOSED', self.A['stepped_tip']['status'])
+        self.assertIn('that the modified pin can be made or bought', self.A['not_shown_by_this'])
+        self.assertEqual([o['option'] for o in self.A['options_considered']], ['a', 'b', 'c'])
+
+    def test_a_tampered_adopted_block_is_rejected(self):
+        for mutate in (
+            lambda a: a['clamps'][1].__setitem__('contact_edge_margin_worst_mm', 0.3),
+            lambda a: a['clamps'][1]['contact_stress'].__setitem__('mean_contact_pressure_MPa', 1.0),
+            lambda a: a['contact_allowable'].__setitem__('value_MPa', 200.0),
+            lambda a: a.__setitem__('pin_edge_margin_required_mm', 0.02),
+            lambda a: a.__setitem__('layout', 'optical_full_pin'),
+        ):
+            tampered = copy.deepcopy(RECORD)
+            mutate(tampered['adopted_candidate'])
+            problems = matrix.check(tampered, matrix.LEVELS[:1], rerun=False)
+            self.assertTrue(any('adopted candidate' in p for p in problems), problems)
+
+    def test_a_contact_wider_than_the_margin_allows_would_fail_the_site_rule(self):
+        # sensitivity control on the rule itself: the catalogue 1.5 mm end at the second site is the recorded failure
+        native, geometry, probes = matrix.geometry_and_probes()
+        rules = matrix.SiteRules(geometry, probes)
+        centre = tuple(self.A['clamps'][1]['centre_mm'])
+        self.assertFalse(rules.row(centre, 1.5)['meets_recorded_site_rules'])
+        self.assertFalse(rules.row(centre, 1.3)['meets_recorded_site_rules'])
+        self.assertTrue(rules.row(centre, 1.2)['meets_recorded_site_rules'])
 
 
 class ClaimLimits(unittest.TestCase):
