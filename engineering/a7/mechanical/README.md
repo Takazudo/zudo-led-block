@@ -49,6 +49,29 @@ material, and outside the corridor); it counts as A7 since `480bd0c` classified 
 That derivation is recorded here as input for the decision; it is **not** used to reclassify the parts or
 to redefine the corridor.
 
+**What the caps shade, as a number (3HP, 2026-11-21).** `optical_shading_estimate` now tests the same rays
+against the CAD solid of every part that `optical_obstruction` lists in the corridor, and reports it beside
+the unchanged harness figure. Fractions of 4000 rays per LED; the columns overlap and do not add up.
+
+| LED | A7 harness (guard ≤ 0.05, unchanged) | A7 supports (`blocked_by_supports`) | A5 hardware (M1.6 leaf screw + nut) | Leaf-mounted (SH4 headers) | Any corridor solid or harness |
+|---|---|---|---|---|---|
+| `left_D1` | 0.001 | 0.245 (`top_leaf_adapter_cap` 0.245) | 0.109 | 0.003 | 0.264 |
+| `left_D2` | 0.018 | 0.002 (`top_leaf_adapter_cap` 0.002) | 0.001 | 0.006 | 0.021 |
+| `left_D3` | 0.004 | 0.001 (`top_leaf_adapter_cap` 0.001) | 0.001 | 0.003 | 0.006 |
+| `left_D4` | 0.010 | 0.198 (`bottom_leaf_cap` 0.198) | 0.052 | 0.007 | 0.215 |
+| `right_D1` | 0.028 | 0.202 (`bottom_leaf_cap` 0.201) | 0.051 | 0.002 | 0.239 |
+| `right_D2` | 0.011 | 0.001 (`top_leaf_adapter_cap` 0.001) | 0.000 | 0.005 | 0.013 |
+| `right_D3` | 0.000 | 0.002 (`top_leaf_adapter_cap` 0.002) | 0.001 | 0.004 | 0.004 |
+| `right_D4` | 0.000 | 0.242 (`top_leaf_adapter_cap` 0.242) | 0.109 | 0.003 | 0.263 |
+
+Ray model, all of it ASSUMED: Lambertian (cosine-weighted) emission from points uniform over the LED body's
+outer face; a ray is delivered when it reaches the diffuser skin inner plane, taken as unbounded in Y and Z,
+so a ray leaving past the leaf end still counts as delivered unless a solid stops it; no reflection,
+scattering, transmission, diffuser behaviour or LED angular data. The end LEDs sit beside a cap (the top cap spans part of the top
+LED's own Y range), so about a fifth to a quarter of their rays meet it; the inner LEDs are essentially unaffected. The solid
+figures carry **no pass/fail threshold** and are input for the owner's decision on the caps, not an optical
+result. The ray/solid test agrees with an analytic box on 20000 rays (0 mismatches).
+
 **2HP (not selected).** 2HP keeps reporting: the 4 leaf-PCB / M1.6-nut overlaps (0.019 / 0.004 mm³ per
 side), the same two caps per side, `left_diffuser` / controller link −0.150 mm, and — because 2HP has no
 room for the stowage used in 3HP — the leaf-link bundle against the controller rear edge (−0.763 mm), the

@@ -458,6 +458,25 @@ class Exports(unittest.TestCase):
             self.assertFalse(v["manufacturing_release"])
             self.assertEqual(v["default_variant"], name == L["decision"]["default_variant"])
 
+    def test_shading_estimate_reports_every_corridor_solid_without_a_threshold(self):
+        for name in ("2hp", "3hp"):
+            v = json.loads((MECH / "exports" / name / "verification.json").read_text())
+            est = v["optical_shading_estimate"]
+            self.assertIn("Lambertian", est["assumptions"]["emission"])
+            self.assertIn("unbounded", est["assumptions"]["target_plane"])
+            self.assertIn("no pass/fail", est["acceptance"])
+            for s_, rows in est["per_side"].items():
+                listed = {x["part"]: x["origin"] for x in v["optical_obstruction"][s_]["obstructions"] if x["origin"] != "a7_harness"}
+                for row in rows:
+                    self.assertLessEqual(set(row["blocked_by_solid"]), set(listed), (name, row["led"]))
+                    self.assertEqual(set(row["blocked_by_origin"]), set(listed.values()), (name, row["led"]))
+                    self.assertEqual(row["blocked_by_supports"], row["blocked_by_origin"].get("a7_controller_or_support", 0))
+                    worst = max([row["blocked_by_a7_harness"], *row["blocked_by_origin"].values()])
+                    self.assertGreaterEqual(row["blocked_by_any_corridor_solid_or_harness"], worst, (name, row["led"]))
+                # the caps the obstruction audit counts must show up in the numbers, whatever they are
+                for cap in (p for p, o in listed.items() if o == "a7_controller_or_support"):
+                    self.assertTrue(any(row["blocked_by_solid"].get(cap, 0) > 0 for row in rows), (name, s_, cap))
+
     def test_leaf_link_is_one_bundle_of_the_sh4_length_stowed_off_the_emitters(self):
         """The leaf-to-leaf link is one SH4 assembly: one bundle, the finished SH4 length, never four posed wires.
 
