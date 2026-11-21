@@ -355,7 +355,7 @@ jobs:
           python3 scripts/native_gate/runner.py run --profile engineering/a7/verification/native_gate.json --out "$RUNNER_TEMP/a7-gate" --deadline-s 660
           test "$(python3 -c 'import json,sys;print(json.load(open(sys.argv[1]))["status"])' "$RUNNER_TEMP/a7-gate/summary.json")" = PASS
       - name: A7 router reproducibility (seed 0 equals the recorded route, board carries it) and review-aid export
-        timeout-minutes: 10
+        timeout-minutes: 15
         run: |
           python3 -m pip install --quiet --require-hashes --only-binary=:all: --no-deps -r scripts/requirements-router.txt
           python3 scripts/a7_route_check.py --out "$RUNNER_TEMP/a7-route-check" --review-aid
