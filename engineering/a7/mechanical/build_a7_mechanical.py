@@ -7,9 +7,10 @@ assembled STEP and GLB, three dimensioned views, and verification.json with pair
 rigid-collision volumes, cable centreline clearances, envelope checks, the optical-
 obstruction check of the A5 leaf emission corridors, and the switch tool-access check.
 
-Optical parts, leaves, the power adapter, its IDC header/socket/ribbon scenario and the
-leaf-link harness follow the A5 build (engineering/a5/mechanical/build_mechanical.py); A5
-helpers are imported read-only. Provisional digital study: not measured fit approval.
+Optical parts, leaves, the power adapter and its IDC header/socket/ribbon scenario follow the
+A5 build (engineering/a5/mechanical/build_mechanical.py); A5 helpers are imported read-only.
+The leaf-to-leaf link is an A7 bundle route (leaf_link_route). Provisional digital study: not
+measured fit approval.
 """
 from __future__ import annotations
 
@@ -90,6 +91,43 @@ def edges_from(points, radius):
         else:
             edges.append(cq.Edge.makeThreePointArc(cq.Vector(*s[1]), cq.Vector(*s[2]), cq.Vector(*s[3])))
     return cq.Wire.assembleEdges(edges), length, rmin
+
+
+LEAF_LINK = {
+    # left J2 mating face (wires leave towards +Y) and right J1 mating face (wires arrive from -Y), wire row centre in Z
+    "left_exit_y": 93.075, "right_entry_y": 83.925, "row_centre_z": 23.9, "exit_offset_from_leaf_face": 1.55,
+    "exit_straight": 0.5, "bend_radius": 2.4,
+    # stowage level: in front of the leaf front edge (Z 19.4) and under the bottom leaf cap (Z >= 18.0), above the jack
+    # bodies (Z <= 13.7) and beside the controller rear edge (Z <= 16.4, cleared by the 0.7 mm lean of the descent)
+    "stow_z": 16.6, "descent_lean_x": 0.7, "hairpin_inner_offset_from_centre": -0.4, "side_skin_inner": 1.5, "skin_clearance": 0.1,
+    "return_lane_y": [92.0, 87.0], "hairpin_y_search": [98.0, 112.0],
+    "confidence": "PROJECT-CHOICE route scenario; bend radius, real bundle section and stowage are not qualified (#8)",
+}
+
+
+def leaf_link_route(xc, w, half, target_length, bundle_radius):
+    """Leaf-link bundle polyline: S-step down at the left header, hairpin under the bottom cap, U-turn up into the right header.
+
+    Both low legs run at stow_z, at least 3.9 mm in front of every emitter, and the rise into the right header stays
+    exit_straight + bend_radius below the header, which keeps it clear of the right D2 emitter. The hairpin Y is solved
+    so the centreline has the finished cable length; nothing here is a measured or qualified harness.
+    """
+    k = LEAF_LINK
+    rb, zc, zs = k["bend_radius"], k["row_centre_z"], k["stow_z"]
+    xl, xr = xc - (half + k["exit_offset_from_leaf_face"]), xc + (half + k["exit_offset_from_leaf_face"])
+    x_out = min(xc + k["hairpin_inner_offset_from_centre"] + 2 * rb, w - k["side_skin_inner"] - bundle_radius - k["skin_clearance"])
+    x_in = x_out - 2 * rb
+    y1 = k["left_exit_y"] + k["exit_straight"] + rb
+    y2 = k["right_entry_y"] - k["exit_straight"] - rb
+
+    def points(yt):
+        return [[xl, k["left_exit_y"], zc], [xl, y1, zc], [xl + k["descent_lean_x"], y1, zs], [x_in, yt, zs], [x_out, yt, zs],
+                [x_out, k["return_lane_y"][0], zs], [xr, k["return_lane_y"][1], zs], [xr, y2, zs], [xr, y2, zc], [xr, k["right_entry_y"], zc]]
+
+    yt = LAYM.solve(lambda v: LAYM.fillet_path(points(v), rb)[1], *k["hairpin_y_search"], target_length)
+    if yt is None:
+        raise ValueError("leaf-link bundle: no hairpin position gives the finished cable length")
+    return points(yt), rb
 
 
 def build(name, out):
@@ -387,36 +425,17 @@ def build(name, out):
         rt = V["routes"][key]
         path, length, rmin = edges_from(rt["points"], rt["radius"])
         cable(key, path, rt["bundle_radius"], ends, {"layout_length_mm": rt["length"], "fillet_min_radius_mm": r3(rmin), "bundle_model": True})
-    # Leaf-to-leaf link: same four-wire cable scenario, endpoints shifted with new leaf faces
-    def lin(a, b):
-        return cq.Edge.makeLine(cq.Vector(*a), cq.Vector(*b))
-
-    def arc(a, b, c):
-        return cq.Edge.makeThreePointArc(cq.Vector(*a), cq.Vector(*b), cq.Vector(*c))
-    for i in range(4):
-        xl_, xr_ = xc - (half + 1.55), xc + (half + 1.55)
-        zl = zr = 22.4 + i
-        ra = 1.75 + i
-        ybend = 93.075 + ra
-        zturn = 20.65
-        zb = 17.9 if i < 2 else 18.8
-        xb = xc + (1.5 if i % 2 == 0 else 2.5)
-        rb = 1.5
-        rc = (zr - zb) / 2
-        constant = math.pi * ra / 2 + (zturn - zb - rb) + math.pi * rb + (xb - xl_ - 2 * rb) + (ybend - rb) + math.pi * rc + 83.925
-        yu = (constant - 50) / 2
-        a = (xl_, 93.075, zl); b = (xl_, ybend, zturn); c = (xl_, ybend, zb + rb)
-        d = (xl_ + rb, ybend, zb); e = (xb - rb, ybend, zb); f = (xb, ybend - rb, zb); h = (xb, yu, zb); j = (xr_, yu, zr); k = (xr_, 83.925, zr)
-        q = math.sqrt(.5)
-        edges = [arc(a, (xl_, 93.075 + ra * q, zturn + ra * q), b), lin(b, c), arc(c, (xl_ + rb - rb * q, ybend, zb + rb - rb * q), d), lin(d, e),
-                 arc(e, (xb - rb + rb * q, ybend - rb + rb * q, zb), f), lin(f, h)]
-        pts_ = []
-        for n in range(25):
-            tt_ = n / 24
-            aa = math.pi * tt_
-            pts_.append(cq.Vector(xb + (xr_ - xb) * (3 * tt_ * tt_ - 2 * tt_ ** 3), yu - rc * math.sin(aa), zb + rc * (1 - math.cos(aa))))
-        edges += [cq.Edge.makeSpline(pts_, tangents=(cq.Vector(0, -1, 0), cq.Vector(0, 1, 0))), lin(j, k)]
-        cable(f"leaf_link_pin_{i + 1}_A5", cq.Wire.assembleEdges(edges), 0.4, ("left_J2_SH4_mated", "right_J1_SH4_mated"), {"carried_over_from": "A5"})
+    # Leaf-to-leaf link (left J2 -> right J1): the same SH4 1:1 assembly as the controller link, so it is one bundle with
+    # that route's radius, not four separately posed wires. The A5 pose ran the wires through the right emission corridor
+    # past D2; here the slack is stowed in front of the leaf front edge instead (see leaf_link_route).
+    sh = V["routes"]["controller_to_left_leaf_sh4"]
+    pts, bend = leaf_link_route(xc, w, half, sh["length"], sh["bundle_radius"])
+    path, length, rmin = edges_from(pts, bend)
+    cable("leaf_link_sh4_A7", path, sh["bundle_radius"], ("left_J2_SH4_mated", "right_J1_SH4_mated"),
+          {"layout_length_mm": sh["length"], "fillet_min_radius_mm": r3(rmin), "bundle_model": True, "wires": 4, "bend_radius_mm": bend,
+           "points": [[r3(v) for v in q] for q in pts],
+           "length_solved_in": "build_a7_mechanical.leaf_link_route (hairpin position solved for the finished SH4 length)",
+           "replaces": "four separately posed A5 leaf_link_pin wires"})
 
     # ---- checks -----------------------------------------------------------------------------
     return parts, contacts, cable_rows
@@ -473,8 +492,6 @@ def validate(parts, contacts, name):
                     row = {"a": a.name, "b": b.name, "centreline_distance_mm": r3(dist), "required_mm": r3(need), "clearance_mm": r3(dist - need)}
                     if pair in expected:
                         permitted.append(row)
-                    elif (a.name.startswith("leaf_link") or b.name.startswith("leaf_link")) and carried:
-                        cable_findings.append(dict(row, note="A5 leaf-link wires: carried-over scenario"))
                     else:
                         cable_findings.append(row)
                 continue

@@ -458,6 +458,37 @@ class Exports(unittest.TestCase):
             self.assertFalse(v["manufacturing_release"])
             self.assertEqual(v["default_variant"], name == L["decision"]["default_variant"])
 
+    def test_leaf_link_is_one_bundle_of_the_sh4_length_stowed_off_the_emitters(self):
+        """The leaf-to-leaf link is one SH4 assembly: one bundle, the finished SH4 length, never four posed wires.
+
+        Checked on the selected width. The emitter distance and shading thresholds are the ones asserted for every
+        harness in test_cad_verification_current_and_clean; this test only pins what the bundle is.
+        """
+        name = L["decision"]["default_variant"]
+        v = json.loads((MECH / "exports" / name / "verification.json").read_text())
+        names = {p["part"] for p in v["parts"]}
+        self.assertFalse([n for n in names if n.startswith("leaf_link_pin")], "four separately posed wires are not a cable model")
+        links = [c for c in v["cables"] if c["name"].startswith("leaf_link")]
+        self.assertEqual(len(links), 1)
+        link, sh = links[0], L["variants"][name]["routes"]["controller_to_left_leaf_sh4"]
+        self.assertTrue(link["bundle_model"])
+        self.assertEqual(link["tube_radius_mm"], sh["bundle_radius"])
+        self.assertAlmostEqual(link["centerline_length_mm"], sh["length"], delta=0.01)
+        self.assertAlmostEqual(LAY.fillet_path(link["points"], link["bend_radius_mm"])[1], link["centerline_length_mm"], places=2)
+        self.assertGreaterEqual(link["sampled_minimum_centerline_radius_mm"], 2.0 - 1e-6, "preferred bend radius")
+        self.assertFalse(link["minimum_radius_is_manufacturer_qualified"])
+        # both ends are the mated leaf headers, entered without burying the bundle in the housing
+        ends = {frozenset((r["a"], r["b"])): r for r in v["explicitly_expected_contacts"]}
+        for header in ("left_J2_SH4_mated", "right_J1_SH4_mated"):
+            row = ends[frozenset((header, link["name"]))]
+            self.assertLessEqual(row["volume_mm3"], row["limit_mm3"])
+        # no finding of this bundle is waved through with a note
+        self.assertFalse([f for f in v["cable_findings"] if link["name"] in (f["a"], f["b"]) and "note" in f])
+        for side in v["optical_obstruction"].values():
+            for h in side["a7_harness_obstructions"]:
+                if h["part"] == link["name"]:
+                    self.assertGreaterEqual(h["min_distance_to_emitter_mm"], 1.0)
+
     def test_front_artwork(self):
         g = json.loads((A7 / "front_panel" / "geometry.json").read_text())
         val = json.loads((A7 / "front_panel" / "exports" / "validation_A7.json").read_text())
