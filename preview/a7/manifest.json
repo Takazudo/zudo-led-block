@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "source_revision": "0c19fea8afe356fc993570e969742e774b7a9914",
+  "source_revision": "00bad3bc91a0505f9e256ea2930cab0aa639c646",
   "status": "Provisional digital study; no manufacturing release or measured qualification.",
   "units": "mm (GLB numeric coordinates are millimetres, not glTF metre convention)",
   "cad_datum": "Same as engineering/a7/study/parameters.json: X across the panel (0 = left panel edge), Y down the panel (0 = top edge), Z into the rack with the PMMA rear surface at Z=0. The controller PCB lies in a Y-Z plane; jack bodies and SMD parts sit on its +X (component) face; THT terminals pass to its -X (solder) face.",
@@ -39,7 +39,7 @@
     },
     "leaves": {
       "label": "LED リーフ",
-      "role": "左右各4画素の LED 基板と実装部品。発光・熱のシミュレーションではありません。",
+      "role": "左右各4画素の0.8 mm FR-4基板と実装部品。基材の半透明性は仮定、全層銅箔と残すレジストは不透明。光学性能は未測定。",
       "explode": [
         14,
         0,
@@ -68,11 +68,11 @@
   "variants": [
     {
       "source": "engineering/a7/mechanical/exports/3hp/zudo_led_block_A7_3hp_assembled.glb",
-      "sha256": "b6718dbdcc0eb8c50cb0e452331a2972f2cfd6adb3626d4783a634ac24c006d4",
-      "bytes": 1662464,
+      "sha256": "7c90650a3785bde3ca0a6452b4cd10dc9621f5e3bb8847e535eb7ef744a1c9c2",
+      "bytes": 54218916,
       "target": "3hp.glb",
       "variant": "3hp",
-      "label": "3HP FR-4 — 現在の試作候補",
+      "label": "3HP 0.8 mm rigid FR-4 — 採用案（実物未評価）",
       "width_mm": 14.9,
       "nodes": {
         "front_pmma_A7": {
@@ -205,475 +205,119 @@
           "role": "電源変換基板、コネクタとケーブル経路の検討モデル。実ケーブルの適合は未確認。",
           "kind": "conditional_cable_scenario"
         },
-        "left_leaf_pcb_A5": {
+        "left_leaf_pcb_A7": {
           "group": "leaves",
-          "role": "左右各4画素の LED 基板と実装部品。発光・熱のシミュレーションではありません。",
+          "role": "左右各4画素の0.8 mm FR-4基板と実装部品。基材の半透明性は仮定、全層銅箔と残すレジストは不透明。光学性能は未測定。",
           "kind": "native_pcb_envelope"
         },
-        "right_leaf_pcb_A5": {
+        "right_leaf_pcb_A7": {
           "group": "leaves",
-          "role": "左右各4画素の LED 基板と実装部品。発光・熱のシミュレーションではありません。",
-          "kind": "native_pcb_envelope"
-        },
-        "leaf_bond_line_reserve": {
-          "group": "leaves",
-          "role": "左右各4画素の LED 基板と実装部品。発光・熱のシミュレーションではありません。",
-          "kind": "assembly_allowance"
-        },
-        "left_J1_SH4_mated": {
-          "group": "leaves",
-          "role": "左右各4画素の LED 基板と実装部品。発光・熱のシミュレーションではありません。",
-          "kind": "manufacturer_dimensioned_envelope"
-        },
-        "left_J2_SH4_mated": {
-          "group": "leaves",
-          "role": "左右各4画素の LED 基板と実装部品。発光・熱のシミュレーションではありません。",
-          "kind": "manufacturer_dimensioned_envelope"
-        },
-        "right_J1_SH4_mated": {
-          "group": "leaves",
-          "role": "左右各4画素の LED 基板と実装部品。発光・熱のシミュレーションではありません。",
-          "kind": "manufacturer_dimensioned_envelope"
-        },
-        "right_J2_SH4_unmated": {
-          "group": "leaves",
-          "role": "左右各4画素の LED 基板と実装部品。発光・熱のシミュレーションではありません。",
-          "kind": "manufacturer_dimensioned_envelope"
-        },
-        "left_D1": {
-          "group": "leaves",
-          "role": "左右各4画素の LED 基板と実装部品。発光・熱のシミュレーションではありません。",
-          "kind": "native_component_max_envelope"
-        },
-        "right_D1": {
-          "group": "leaves",
-          "role": "左右各4画素の LED 基板と実装部品。発光・熱のシミュレーションではありません。",
-          "kind": "native_component_max_envelope"
-        },
-        "left_C1": {
-          "group": "leaves",
-          "role": "左右各4画素の LED 基板と実装部品。発光・熱のシミュレーションではありません。",
-          "kind": "native_component_max_envelope"
-        },
-        "right_C1": {
-          "group": "leaves",
-          "role": "左右各4画素の LED 基板と実装部品。発光・熱のシミュレーションではありません。",
-          "kind": "native_component_max_envelope"
-        },
-        "left_D2": {
-          "group": "leaves",
-          "role": "左右各4画素の LED 基板と実装部品。発光・熱のシミュレーションではありません。",
-          "kind": "native_component_max_envelope"
-        },
-        "right_D2": {
-          "group": "leaves",
-          "role": "左右各4画素の LED 基板と実装部品。発光・熱のシミュレーションではありません。",
-          "kind": "native_component_max_envelope"
-        },
-        "left_C2": {
-          "group": "leaves",
-          "role": "左右各4画素の LED 基板と実装部品。発光・熱のシミュレーションではありません。",
-          "kind": "native_component_max_envelope"
-        },
-        "right_C2": {
-          "group": "leaves",
-          "role": "左右各4画素の LED 基板と実装部品。発光・熱のシミュレーションではありません。",
-          "kind": "native_component_max_envelope"
-        },
-        "left_D3": {
-          "group": "leaves",
-          "role": "左右各4画素の LED 基板と実装部品。発光・熱のシミュレーションではありません。",
-          "kind": "native_component_max_envelope"
-        },
-        "right_D3": {
-          "group": "leaves",
-          "role": "左右各4画素の LED 基板と実装部品。発光・熱のシミュレーションではありません。",
-          "kind": "native_component_max_envelope"
-        },
-        "left_C3": {
-          "group": "leaves",
-          "role": "左右各4画素の LED 基板と実装部品。発光・熱のシミュレーションではありません。",
-          "kind": "native_component_max_envelope"
-        },
-        "right_C3": {
-          "group": "leaves",
-          "role": "左右各4画素の LED 基板と実装部品。発光・熱のシミュレーションではありません。",
-          "kind": "native_component_max_envelope"
-        },
-        "left_D4": {
-          "group": "leaves",
-          "role": "左右各4画素の LED 基板と実装部品。発光・熱のシミュレーションではありません。",
-          "kind": "native_component_max_envelope"
-        },
-        "right_D4": {
-          "group": "leaves",
-          "role": "左右各4画素の LED 基板と実装部品。発光・熱のシミュレーションではありません。",
-          "kind": "native_component_max_envelope"
-        },
-        "left_C4": {
-          "group": "leaves",
-          "role": "左右各4画素の LED 基板と実装部品。発光・熱のシミュレーションではありません。",
-          "kind": "native_component_max_envelope"
-        },
-        "right_C4": {
-          "group": "leaves",
-          "role": "左右各4画素の LED 基板と実装部品。発光・熱のシミュレーションではありません。",
-          "kind": "native_component_max_envelope"
-        },
-        "top_cap_spacer_A7": {
-          "group": "supports",
-          "role": "スパイン、上下キャップ、ねじ・ナット。造形と荷重は実機未確認。",
-          "kind": "printable_design"
-        },
-        "top_leaf_adapter_cap": {
-          "group": "supports",
-          "role": "スパイン、上下キャップ、ねじ・ナット。造形と荷重は実機未確認。",
-          "kind": "printable_design"
-        },
-        "bottom_leaf_cap": {
-          "group": "supports",
-          "role": "スパイン、上下キャップ、ねじ・ナット。造形と荷重は実機未確認。",
-          "kind": "printable_design"
-        },
-        "bottom_cap_fork_A7": {
-          "group": "supports",
-          "role": "スパイン、上下キャップ、ねじ・ナット。造形と荷重は実機未確認。",
-          "kind": "printable_design"
-        },
-        "left_diffuser": {
-          "group": "diffusers",
-          "role": "光を側面へ広げる半透明 PETG 板。光学挙動は表示しません。",
-          "kind": "printable_design"
-        },
-        "right_diffuser": {
-          "group": "diffusers",
-          "role": "光を側面へ広げる半透明 PETG 板。光学挙動は表示しません。",
-          "kind": "printable_design"
-        },
-        "M1_6x4_-1_23.5": {
-          "group": "supports",
-          "role": "スパイン、上下キャップ、ねじ・ナット。造形と荷重は実機未確認。",
-          "kind": "standard_hardware_envelope"
-        },
-        "M1_6_nut_-1_23.5": {
-          "group": "supports",
-          "role": "スパイン、上下キャップ、ねじ・ナット。造形と荷重は実機未確認。",
-          "kind": "standard_hardware_envelope"
-        },
-        "M1_6x4_-1_105.5": {
-          "group": "supports",
-          "role": "スパイン、上下キャップ、ねじ・ナット。造形と荷重は実機未確認。",
-          "kind": "standard_hardware_envelope"
-        },
-        "M1_6_nut_-1_105.5": {
-          "group": "supports",
-          "role": "スパイン、上下キャップ、ねじ・ナット。造形と荷重は実機未確認。",
-          "kind": "standard_hardware_envelope"
-        },
-        "M1_6x4_1_23.5": {
-          "group": "supports",
-          "role": "スパイン、上下キャップ、ねじ・ナット。造形と荷重は実機未確認。",
-          "kind": "standard_hardware_envelope"
-        },
-        "M1_6_nut_1_23.5": {
-          "group": "supports",
-          "role": "スパイン、上下キャップ、ねじ・ナット。造形と荷重は実機未確認。",
-          "kind": "standard_hardware_envelope"
-        },
-        "M1_6x4_1_105.5": {
-          "group": "supports",
-          "role": "スパイン、上下キャップ、ねじ・ナット。造形と荷重は実機未確認。",
-          "kind": "standard_hardware_envelope"
-        },
-        "M1_6_nut_1_105.5": {
-          "group": "supports",
-          "role": "スパイン、上下キャップ、ねじ・ナット。造形と荷重は実機未確認。",
-          "kind": "standard_hardware_envelope"
-        },
-        "controller_to_left_leaf_sh4": {
-          "group": "harness",
-          "role": "電源変換基板、コネクタとケーブル経路の検討モデル。実ケーブルの適合は未確認。",
-          "kind": "cable_route_scenario"
-        },
-        "adapter_to_controller_power": {
-          "group": "harness",
-          "role": "電源変換基板、コネクタとケーブル経路の検討モデル。実ケーブルの適合は未確認。",
-          "kind": "cable_route_scenario"
-        },
-        "leaf_link_pin_1_A5": {
-          "group": "harness",
-          "role": "電源変換基板、コネクタとケーブル経路の検討モデル。実ケーブルの適合は未確認。",
-          "kind": "cable_route_scenario"
-        },
-        "leaf_link_pin_2_A5": {
-          "group": "harness",
-          "role": "電源変換基板、コネクタとケーブル経路の検討モデル。実ケーブルの適合は未確認。",
-          "kind": "cable_route_scenario"
-        },
-        "leaf_link_pin_3_A5": {
-          "group": "harness",
-          "role": "電源変換基板、コネクタとケーブル経路の検討モデル。実ケーブルの適合は未確認。",
-          "kind": "cable_route_scenario"
-        },
-        "leaf_link_pin_4_A5": {
-          "group": "harness",
-          "role": "電源変換基板、コネクタとケーブル経路の検討モデル。実ケーブルの適合は未確認。",
-          "kind": "cable_route_scenario"
-        }
-      }
-    },
-    {
-      "source": "engineering/a7/mechanical/exports/2hp/zudo_led_block_A7_2hp_assembled.glb",
-      "sha256": "ae8ccac8900755368a87c2b2bcf3134d43919399a35c5cb1089b3f258024ca9a",
-      "bytes": 1656012,
-      "target": "2hp.glb",
-      "variant": "2hp",
-      "label": "2HP — unresolved study",
-      "width_mm": 9.8,
-      "nodes": {
-        "front_pmma_A7": {
-          "group": "front",
-          "role": "透明 PMMA の前面。文字と IN / THRU の開口。",
-          "kind": "manufacturing_artwork"
-        },
-        "jack_in_PJ-324M": {
-          "group": "controller",
-          "role": "前面に垂直な制御基板、CV IN / THRU、側面設定スイッチ。簡略形状・部品包絡を含みます。",
-          "kind": "manufacturer_dimensioned_envelope"
-        },
-        "jack_in_solder_fillets": {
-          "group": "controller",
-          "role": "前面に垂直な制御基板、CV IN / THRU、側面設定スイッチ。簡略形状・部品包絡を含みます。",
-          "kind": "assembly_allowance"
-        },
-        "nut_in_M6x0.5": {
-          "group": "controller",
-          "role": "前面に垂直な制御基板、CV IN / THRU、側面設定スイッチ。簡略形状・部品包絡を含みます。",
-          "kind": "standard_hardware_envelope"
-        },
-        "jack_thru_PJ-324M": {
-          "group": "controller",
-          "role": "前面に垂直な制御基板、CV IN / THRU、側面設定スイッチ。簡略形状・部品包絡を含みます。",
-          "kind": "manufacturer_dimensioned_envelope"
-        },
-        "jack_thru_solder_fillets": {
-          "group": "controller",
-          "role": "前面に垂直な制御基板、CV IN / THRU、側面設定スイッチ。簡略形状・部品包絡を含みます。",
-          "kind": "assembly_allowance"
-        },
-        "nut_thru_M6x0.5": {
-          "group": "controller",
-          "role": "前面に垂直な制御基板、CV IN / THRU、側面設定スイッチ。簡略形状・部品包絡を含みます。",
-          "kind": "standard_hardware_envelope"
-        },
-        "controller_pcb_A7": {
-          "group": "controller",
-          "role": "前面に垂直な制御基板、CV IN / THRU、側面設定スイッチ。簡略形状・部品包絡を含みます。",
-          "kind": "design_geometry"
-        },
-        "solder_face_low_profile_zone": {
-          "group": "controller",
-          "role": "前面に垂直な制御基板、CV IN / THRU、側面設定スイッチ。簡略形状・部品包絡を含みます。",
-          "kind": "assembly_allowance"
-        },
-        "setting_switch_HX_MSK13C02": {
-          "group": "controller",
-          "role": "前面に垂直な制御基板、CV IN / THRU、側面設定スイッチ。簡略形状・部品包絡を含みます。",
-          "kind": "manufacturer_dimensioned_envelope"
-        },
-        "controller_PicoBlade_mated": {
-          "group": "controller",
-          "role": "前面に垂直な制御基板、CV IN / THRU、側面設定スイッチ。簡略形状・部品包絡を含みます。",
-          "kind": "manufacturer_dimensioned_envelope"
-        },
-        "controller_SH4_mated": {
-          "group": "controller",
-          "role": "前面に垂直な制御基板、CV IN / THRU、側面設定スイッチ。簡略形状・部品包絡を含みます。",
-          "kind": "manufacturer_dimensioned_envelope"
-        },
-        "spine_PETG": {
-          "group": "supports",
-          "role": "スパイン、上下キャップ、ねじ・ナット。造形と荷重は実機未確認。",
-          "kind": "printable_design"
-        },
-        "M2_front_washer_20.5": {
-          "group": "supports",
-          "role": "スパイン、上下キャップ、ねじ・ナット。造形と荷重は実機未確認。",
-          "kind": "standard_hardware_envelope"
-        },
-        "M2_front_screw_20.5": {
-          "group": "supports",
-          "role": "スパイン、上下キャップ、ねじ・ナット。造形と荷重は実機未確認。",
-          "kind": "standard_hardware_envelope"
-        },
-        "M2_nut_20.5": {
-          "group": "supports",
-          "role": "スパイン、上下キャップ、ねじ・ナット。造形と荷重は実機未確認。",
-          "kind": "standard_hardware_envelope"
-        },
-        "M2_front_washer_60.8": {
-          "group": "supports",
-          "role": "スパイン、上下キャップ、ねじ・ナット。造形と荷重は実機未確認。",
-          "kind": "standard_hardware_envelope"
-        },
-        "M2_front_screw_60.8": {
-          "group": "supports",
-          "role": "スパイン、上下キャップ、ねじ・ナット。造形と荷重は実機未確認。",
-          "kind": "standard_hardware_envelope"
-        },
-        "M2_nut_60.8": {
-          "group": "supports",
-          "role": "スパイン、上下キャップ、ねじ・ナット。造形と荷重は実機未確認。",
-          "kind": "standard_hardware_envelope"
-        },
-        "top_cap_screw_A7": {
-          "group": "supports",
-          "role": "スパイン、上下キャップ、ねじ・ナット。造形と荷重は実機未確認。",
-          "kind": "standard_hardware_envelope"
-        },
-        "M2_post_nut_top": {
-          "group": "supports",
-          "role": "スパイン、上下キャップ、ねじ・ナット。造形と荷重は実機未確認。",
-          "kind": "standard_hardware_envelope"
-        },
-        "power_adapter_pcb_A5": {
-          "group": "harness",
-          "role": "電源変換基板、コネクタとケーブル経路の検討モデル。実ケーブルの適合は未確認。",
-          "kind": "native_pcb_envelope"
-        },
-        "adapter_C5665_keyed_header": {
-          "group": "harness",
-          "role": "電源変換基板、コネクタとケーブル経路の検討モデル。実ケーブルの適合は未確認。",
-          "kind": "manufacturer_dimensioned_envelope"
-        },
-        "IDC_socket_REFERENCE_overlap6": {
-          "group": "harness",
-          "role": "電源変換基板、コネクタとケーブル経路の検討モデル。実ケーブルの適合は未確認。",
-          "kind": "conditional_reference_envelope"
-        },
-        "adapter_PicoBlade_mated": {
-          "group": "harness",
-          "role": "電源変換基板、コネクタとケーブル経路の検討モデル。実ケーブルの適合は未確認。",
-          "kind": "manufacturer_dimensioned_envelope"
-        },
-        "IDC_ribbon_R3_side_exit_SCENARIO": {
-          "group": "harness",
-          "role": "電源変換基板、コネクタとケーブル経路の検討モデル。実ケーブルの適合は未確認。",
-          "kind": "conditional_cable_scenario"
-        },
-        "left_leaf_pcb_A5": {
-          "group": "leaves",
-          "role": "左右各4画素の LED 基板と実装部品。発光・熱のシミュレーションではありません。",
-          "kind": "native_pcb_envelope"
-        },
-        "right_leaf_pcb_A5": {
-          "group": "leaves",
-          "role": "左右各4画素の LED 基板と実装部品。発光・熱のシミュレーションではありません。",
+          "role": "左右各4画素の0.8 mm FR-4基板と実装部品。基材の半透明性は仮定、全層銅箔と残すレジストは不透明。光学性能は未測定。",
           "kind": "native_pcb_envelope"
         },
         "leaf_bond_line_reserve": {
           "group": "leaves",
-          "role": "左右各4画素の LED 基板と実装部品。発光・熱のシミュレーションではありません。",
+          "role": "左右各4画素の0.8 mm FR-4基板と実装部品。基材の半透明性は仮定、全層銅箔と残すレジストは不透明。光学性能は未測定。",
           "kind": "assembly_allowance"
         },
         "left_J1_SH4_mated": {
           "group": "leaves",
-          "role": "左右各4画素の LED 基板と実装部品。発光・熱のシミュレーションではありません。",
+          "role": "左右各4画素の0.8 mm FR-4基板と実装部品。基材の半透明性は仮定、全層銅箔と残すレジストは不透明。光学性能は未測定。",
           "kind": "manufacturer_dimensioned_envelope"
         },
         "left_J2_SH4_mated": {
           "group": "leaves",
-          "role": "左右各4画素の LED 基板と実装部品。発光・熱のシミュレーションではありません。",
+          "role": "左右各4画素の0.8 mm FR-4基板と実装部品。基材の半透明性は仮定、全層銅箔と残すレジストは不透明。光学性能は未測定。",
           "kind": "manufacturer_dimensioned_envelope"
         },
         "right_J1_SH4_mated": {
           "group": "leaves",
-          "role": "左右各4画素の LED 基板と実装部品。発光・熱のシミュレーションではありません。",
+          "role": "左右各4画素の0.8 mm FR-4基板と実装部品。基材の半透明性は仮定、全層銅箔と残すレジストは不透明。光学性能は未測定。",
           "kind": "manufacturer_dimensioned_envelope"
         },
         "right_J2_SH4_unmated": {
           "group": "leaves",
-          "role": "左右各4画素の LED 基板と実装部品。発光・熱のシミュレーションではありません。",
+          "role": "左右各4画素の0.8 mm FR-4基板と実装部品。基材の半透明性は仮定、全層銅箔と残すレジストは不透明。光学性能は未測定。",
           "kind": "manufacturer_dimensioned_envelope"
         },
         "left_D1": {
           "group": "leaves",
-          "role": "左右各4画素の LED 基板と実装部品。発光・熱のシミュレーションではありません。",
+          "role": "左右各4画素の0.8 mm FR-4基板と実装部品。基材の半透明性は仮定、全層銅箔と残すレジストは不透明。光学性能は未測定。",
           "kind": "native_component_max_envelope"
         },
         "right_D1": {
           "group": "leaves",
-          "role": "左右各4画素の LED 基板と実装部品。発光・熱のシミュレーションではありません。",
+          "role": "左右各4画素の0.8 mm FR-4基板と実装部品。基材の半透明性は仮定、全層銅箔と残すレジストは不透明。光学性能は未測定。",
           "kind": "native_component_max_envelope"
         },
         "left_C1": {
           "group": "leaves",
-          "role": "左右各4画素の LED 基板と実装部品。発光・熱のシミュレーションではありません。",
+          "role": "左右各4画素の0.8 mm FR-4基板と実装部品。基材の半透明性は仮定、全層銅箔と残すレジストは不透明。光学性能は未測定。",
           "kind": "native_component_max_envelope"
         },
         "right_C1": {
           "group": "leaves",
-          "role": "左右各4画素の LED 基板と実装部品。発光・熱のシミュレーションではありません。",
+          "role": "左右各4画素の0.8 mm FR-4基板と実装部品。基材の半透明性は仮定、全層銅箔と残すレジストは不透明。光学性能は未測定。",
           "kind": "native_component_max_envelope"
         },
         "left_D2": {
           "group": "leaves",
-          "role": "左右各4画素の LED 基板と実装部品。発光・熱のシミュレーションではありません。",
+          "role": "左右各4画素の0.8 mm FR-4基板と実装部品。基材の半透明性は仮定、全層銅箔と残すレジストは不透明。光学性能は未測定。",
           "kind": "native_component_max_envelope"
         },
         "right_D2": {
           "group": "leaves",
-          "role": "左右各4画素の LED 基板と実装部品。発光・熱のシミュレーションではありません。",
+          "role": "左右各4画素の0.8 mm FR-4基板と実装部品。基材の半透明性は仮定、全層銅箔と残すレジストは不透明。光学性能は未測定。",
           "kind": "native_component_max_envelope"
         },
         "left_C2": {
           "group": "leaves",
-          "role": "左右各4画素の LED 基板と実装部品。発光・熱のシミュレーションではありません。",
+          "role": "左右各4画素の0.8 mm FR-4基板と実装部品。基材の半透明性は仮定、全層銅箔と残すレジストは不透明。光学性能は未測定。",
           "kind": "native_component_max_envelope"
         },
         "right_C2": {
           "group": "leaves",
-          "role": "左右各4画素の LED 基板と実装部品。発光・熱のシミュレーションではありません。",
+          "role": "左右各4画素の0.8 mm FR-4基板と実装部品。基材の半透明性は仮定、全層銅箔と残すレジストは不透明。光学性能は未測定。",
           "kind": "native_component_max_envelope"
         },
         "left_D3": {
           "group": "leaves",
-          "role": "左右各4画素の LED 基板と実装部品。発光・熱のシミュレーションではありません。",
+          "role": "左右各4画素の0.8 mm FR-4基板と実装部品。基材の半透明性は仮定、全層銅箔と残すレジストは不透明。光学性能は未測定。",
           "kind": "native_component_max_envelope"
         },
         "right_D3": {
           "group": "leaves",
-          "role": "左右各4画素の LED 基板と実装部品。発光・熱のシミュレーションではありません。",
+          "role": "左右各4画素の0.8 mm FR-4基板と実装部品。基材の半透明性は仮定、全層銅箔と残すレジストは不透明。光学性能は未測定。",
           "kind": "native_component_max_envelope"
         },
         "left_C3": {
           "group": "leaves",
-          "role": "左右各4画素の LED 基板と実装部品。発光・熱のシミュレーションではありません。",
+          "role": "左右各4画素の0.8 mm FR-4基板と実装部品。基材の半透明性は仮定、全層銅箔と残すレジストは不透明。光学性能は未測定。",
           "kind": "native_component_max_envelope"
         },
         "right_C3": {
           "group": "leaves",
-          "role": "左右各4画素の LED 基板と実装部品。発光・熱のシミュレーションではありません。",
+          "role": "左右各4画素の0.8 mm FR-4基板と実装部品。基材の半透明性は仮定、全層銅箔と残すレジストは不透明。光学性能は未測定。",
           "kind": "native_component_max_envelope"
         },
         "left_D4": {
           "group": "leaves",
-          "role": "左右各4画素の LED 基板と実装部品。発光・熱のシミュレーションではありません。",
+          "role": "左右各4画素の0.8 mm FR-4基板と実装部品。基材の半透明性は仮定、全層銅箔と残すレジストは不透明。光学性能は未測定。",
           "kind": "native_component_max_envelope"
         },
         "right_D4": {
           "group": "leaves",
-          "role": "左右各4画素の LED 基板と実装部品。発光・熱のシミュレーションではありません。",
+          "role": "左右各4画素の0.8 mm FR-4基板と実装部品。基材の半透明性は仮定、全層銅箔と残すレジストは不透明。光学性能は未測定。",
           "kind": "native_component_max_envelope"
         },
         "left_C4": {
           "group": "leaves",
-          "role": "左右各4画素の LED 基板と実装部品。発光・熱のシミュレーションではありません。",
+          "role": "左右各4画素の0.8 mm FR-4基板と実装部品。基材の半透明性は仮定、全層銅箔と残すレジストは不透明。光学性能は未測定。",
           "kind": "native_component_max_envelope"
         },
         "right_C4": {
           "group": "leaves",
-          "role": "左右各4画素の LED 基板と実装部品。発光・熱のシミュレーションではありません。",
+          "role": "左右各4画素の0.8 mm FR-4基板と実装部品。基材の半透明性は仮定、全層銅箔と残すレジストは不透明。光学性能は未測定。",
           "kind": "native_component_max_envelope"
         },
         "top_cap_spacer_A7": {
@@ -756,393 +400,137 @@
           "role": "電源変換基板、コネクタとケーブル経路の検討モデル。実ケーブルの適合は未確認。",
           "kind": "cable_route_scenario"
         },
-        "leaf_link_pin_1_A5": {
+        "leaf_link_sh4_A7": {
           "group": "harness",
           "role": "電源変換基板、コネクタとケーブル経路の検討モデル。実ケーブルの適合は未確認。",
           "kind": "cable_route_scenario"
         },
-        "leaf_link_pin_2_A5": {
-          "group": "harness",
-          "role": "電源変換基板、コネクタとケーブル経路の検討モデル。実ケーブルの適合は未確認。",
-          "kind": "cable_route_scenario"
+        "controller_F_Cu_front_optical": {
+          "group": "controller",
+          "role": "前面に垂直な制御基板、CV IN / THRU、側面設定スイッチ。簡略形状・部品包絡を含みます。",
+          "kind": "native_optical_projection"
         },
-        "leaf_link_pin_3_A5": {
-          "group": "harness",
-          "role": "電源変換基板、コネクタとケーブル経路の検討モデル。実ケーブルの適合は未確認。",
-          "kind": "cable_route_scenario"
+        "controller_F_Cu_back_optical": {
+          "group": "controller",
+          "role": "前面に垂直な制御基板、CV IN / THRU、側面設定スイッチ。簡略形状・部品包絡を含みます。",
+          "kind": "native_optical_projection"
         },
-        "leaf_link_pin_4_A5": {
-          "group": "harness",
-          "role": "電源変換基板、コネクタとケーブル経路の検討モデル。実ケーブルの適合は未確認。",
-          "kind": "cable_route_scenario"
+        "controller_In1_Cu_front_optical": {
+          "group": "controller",
+          "role": "前面に垂直な制御基板、CV IN / THRU、側面設定スイッチ。簡略形状・部品包絡を含みます。",
+          "kind": "native_optical_projection"
+        },
+        "controller_In1_Cu_back_optical": {
+          "group": "controller",
+          "role": "前面に垂直な制御基板、CV IN / THRU、側面設定スイッチ。簡略形状・部品包絡を含みます。",
+          "kind": "native_optical_projection"
+        },
+        "controller_In2_Cu_front_optical": {
+          "group": "controller",
+          "role": "前面に垂直な制御基板、CV IN / THRU、側面設定スイッチ。簡略形状・部品包絡を含みます。",
+          "kind": "native_optical_projection"
+        },
+        "controller_In2_Cu_back_optical": {
+          "group": "controller",
+          "role": "前面に垂直な制御基板、CV IN / THRU、側面設定スイッチ。簡略形状・部品包絡を含みます。",
+          "kind": "native_optical_projection"
+        },
+        "controller_B_Cu_front_optical": {
+          "group": "controller",
+          "role": "前面に垂直な制御基板、CV IN / THRU、側面設定スイッチ。簡略形状・部品包絡を含みます。",
+          "kind": "native_optical_projection"
+        },
+        "controller_B_Cu_back_optical": {
+          "group": "controller",
+          "role": "前面に垂直な制御基板、CV IN / THRU、側面設定スイッチ。簡略形状・部品包絡を含みます。",
+          "kind": "native_optical_projection"
+        },
+        "controller_F_Mask_front_optical": {
+          "group": "controller",
+          "role": "前面に垂直な制御基板、CV IN / THRU、側面設定スイッチ。簡略形状・部品包絡を含みます。",
+          "kind": "native_optical_projection"
+        },
+        "controller_B_Mask_back_optical": {
+          "group": "controller",
+          "role": "前面に垂直な制御基板、CV IN / THRU、側面設定スイッチ。簡略形状・部品包絡を含みます。",
+          "kind": "native_optical_projection"
+        },
+        "left_leaf_F_Cu_front_optical": {
+          "group": "leaves",
+          "role": "左右各4画素の0.8 mm FR-4基板と実装部品。基材の半透明性は仮定、全層銅箔と残すレジストは不透明。光学性能は未測定。",
+          "kind": "native_optical_projection"
+        },
+        "left_leaf_F_Cu_back_optical": {
+          "group": "leaves",
+          "role": "左右各4画素の0.8 mm FR-4基板と実装部品。基材の半透明性は仮定、全層銅箔と残すレジストは不透明。光学性能は未測定。",
+          "kind": "native_optical_projection"
+        },
+        "right_leaf_F_Cu_front_optical": {
+          "group": "leaves",
+          "role": "左右各4画素の0.8 mm FR-4基板と実装部品。基材の半透明性は仮定、全層銅箔と残すレジストは不透明。光学性能は未測定。",
+          "kind": "native_optical_projection"
+        },
+        "right_leaf_F_Cu_back_optical": {
+          "group": "leaves",
+          "role": "左右各4画素の0.8 mm FR-4基板と実装部品。基材の半透明性は仮定、全層銅箔と残すレジストは不透明。光学性能は未測定。",
+          "kind": "native_optical_projection"
+        },
+        "left_leaf_B_Cu_front_optical": {
+          "group": "leaves",
+          "role": "左右各4画素の0.8 mm FR-4基板と実装部品。基材の半透明性は仮定、全層銅箔と残すレジストは不透明。光学性能は未測定。",
+          "kind": "native_optical_projection"
+        },
+        "left_leaf_B_Cu_back_optical": {
+          "group": "leaves",
+          "role": "左右各4画素の0.8 mm FR-4基板と実装部品。基材の半透明性は仮定、全層銅箔と残すレジストは不透明。光学性能は未測定。",
+          "kind": "native_optical_projection"
+        },
+        "right_leaf_B_Cu_front_optical": {
+          "group": "leaves",
+          "role": "左右各4画素の0.8 mm FR-4基板と実装部品。基材の半透明性は仮定、全層銅箔と残すレジストは不透明。光学性能は未測定。",
+          "kind": "native_optical_projection"
+        },
+        "right_leaf_B_Cu_back_optical": {
+          "group": "leaves",
+          "role": "左右各4画素の0.8 mm FR-4基板と実装部品。基材の半透明性は仮定、全層銅箔と残すレジストは不透明。光学性能は未測定。",
+          "kind": "native_optical_projection"
+        },
+        "left_leaf_F_Mask_front_optical": {
+          "group": "leaves",
+          "role": "左右各4画素の0.8 mm FR-4基板と実装部品。基材の半透明性は仮定、全層銅箔と残すレジストは不透明。光学性能は未測定。",
+          "kind": "native_optical_projection"
+        },
+        "right_leaf_F_Mask_front_optical": {
+          "group": "leaves",
+          "role": "左右各4画素の0.8 mm FR-4基板と実装部品。基材の半透明性は仮定、全層銅箔と残すレジストは不透明。光学性能は未測定。",
+          "kind": "native_optical_projection"
+        },
+        "left_leaf_B_Mask_back_optical": {
+          "group": "leaves",
+          "role": "左右各4画素の0.8 mm FR-4基板と実装部品。基材の半透明性は仮定、全層銅箔と残すレジストは不透明。光学性能は未測定。",
+          "kind": "native_optical_projection"
+        },
+        "right_leaf_B_Mask_back_optical": {
+          "group": "leaves",
+          "role": "左右各4画素の0.8 mm FR-4基板と実装部品。基材の半透明性は仮定、全層銅箔と残すレジストは不透明。光学性能は未測定。",
+          "kind": "native_optical_projection"
         }
-      }
-    },
-    {
-      "source": "engineering/a7/mechanical/exports/3hp_pet/zudo_led_block_A7_3hp_pet_assembled.glb",
-      "sha256": "fa519aafad4a351a1680765dd393e8db95ccb3da168e8205465111487f8511e0",
-      "bytes": 1678056,
-      "target": "3hp_pet.glb",
-      "variant": "3hp_pet",
-      "label": "3HP PET — exploratory study",
-      "width_mm": 14.9,
-      "nodes": {
-        "front_pmma_A7": {
-          "group": "front",
-          "role": "透明 PMMA の前面。文字と IN / THRU の開口。",
-          "kind": "manufacturing_artwork"
-        },
-        "jack_in_PJ-324M": {
-          "group": "controller",
-          "role": "前面に垂直な制御基板、CV IN / THRU、側面設定スイッチ。簡略形状・部品包絡を含みます。",
-          "kind": "manufacturer_dimensioned_envelope"
-        },
-        "jack_in_solder_fillets": {
-          "group": "controller",
-          "role": "前面に垂直な制御基板、CV IN / THRU、側面設定スイッチ。簡略形状・部品包絡を含みます。",
-          "kind": "assembly_allowance"
-        },
-        "nut_in_M6x0.5": {
-          "group": "controller",
-          "role": "前面に垂直な制御基板、CV IN / THRU、側面設定スイッチ。簡略形状・部品包絡を含みます。",
-          "kind": "standard_hardware_envelope"
-        },
-        "jack_thru_PJ-324M": {
-          "group": "controller",
-          "role": "前面に垂直な制御基板、CV IN / THRU、側面設定スイッチ。簡略形状・部品包絡を含みます。",
-          "kind": "manufacturer_dimensioned_envelope"
-        },
-        "jack_thru_solder_fillets": {
-          "group": "controller",
-          "role": "前面に垂直な制御基板、CV IN / THRU、側面設定スイッチ。簡略形状・部品包絡を含みます。",
-          "kind": "assembly_allowance"
-        },
-        "nut_thru_M6x0.5": {
-          "group": "controller",
-          "role": "前面に垂直な制御基板、CV IN / THRU、側面設定スイッチ。簡略形状・部品包絡を含みます。",
-          "kind": "standard_hardware_envelope"
-        },
-        "controller_pcb_A7": {
-          "group": "controller",
-          "role": "前面に垂直な制御基板、CV IN / THRU、側面設定スイッチ。簡略形状・部品包絡を含みます。",
-          "kind": "design_geometry"
-        },
-        "solder_face_low_profile_zone": {
-          "group": "controller",
-          "role": "前面に垂直な制御基板、CV IN / THRU、側面設定スイッチ。簡略形状・部品包絡を含みます。",
-          "kind": "assembly_allowance"
-        },
-        "setting_switch_HX_MSK13C02": {
-          "group": "controller",
-          "role": "前面に垂直な制御基板、CV IN / THRU、側面設定スイッチ。簡略形状・部品包絡を含みます。",
-          "kind": "manufacturer_dimensioned_envelope"
-        },
-        "controller_PicoBlade_mated": {
-          "group": "controller",
-          "role": "前面に垂直な制御基板、CV IN / THRU、側面設定スイッチ。簡略形状・部品包絡を含みます。",
-          "kind": "manufacturer_dimensioned_envelope"
-        },
-        "controller_SH4_mated": {
-          "group": "controller",
-          "role": "前面に垂直な制御基板、CV IN / THRU、側面設定スイッチ。簡略形状・部品包絡を含みます。",
-          "kind": "manufacturer_dimensioned_envelope"
-        },
-        "spine_PETG": {
-          "group": "supports",
-          "role": "スパイン、上下キャップ、ねじ・ナット。造形と荷重は実機未確認。",
-          "kind": "printable_design"
-        },
-        "M2_front_washer_20.5": {
-          "group": "supports",
-          "role": "スパイン、上下キャップ、ねじ・ナット。造形と荷重は実機未確認。",
-          "kind": "standard_hardware_envelope"
-        },
-        "M2_front_screw_20.5": {
-          "group": "supports",
-          "role": "スパイン、上下キャップ、ねじ・ナット。造形と荷重は実機未確認。",
-          "kind": "standard_hardware_envelope"
-        },
-        "M2_nut_20.5": {
-          "group": "supports",
-          "role": "スパイン、上下キャップ、ねじ・ナット。造形と荷重は実機未確認。",
-          "kind": "standard_hardware_envelope"
-        },
-        "M2_front_washer_60.8": {
-          "group": "supports",
-          "role": "スパイン、上下キャップ、ねじ・ナット。造形と荷重は実機未確認。",
-          "kind": "standard_hardware_envelope"
-        },
-        "M2_front_screw_60.8": {
-          "group": "supports",
-          "role": "スパイン、上下キャップ、ねじ・ナット。造形と荷重は実機未確認。",
-          "kind": "standard_hardware_envelope"
-        },
-        "M2_nut_60.8": {
-          "group": "supports",
-          "role": "スパイン、上下キャップ、ねじ・ナット。造形と荷重は実機未確認。",
-          "kind": "standard_hardware_envelope"
-        },
-        "top_cap_screw_A7": {
-          "group": "supports",
-          "role": "スパイン、上下キャップ、ねじ・ナット。造形と荷重は実機未確認。",
-          "kind": "standard_hardware_envelope"
-        },
-        "M2_post_nut_top": {
-          "group": "supports",
-          "role": "スパイン、上下キャップ、ねじ・ナット。造形と荷重は実機未確認。",
-          "kind": "standard_hardware_envelope"
-        },
-        "power_adapter_pcb_A5": {
-          "group": "harness",
-          "role": "電源変換基板、コネクタとケーブル経路の検討モデル。実ケーブルの適合は未確認。",
-          "kind": "native_pcb_envelope"
-        },
-        "adapter_C5665_keyed_header": {
-          "group": "harness",
-          "role": "電源変換基板、コネクタとケーブル経路の検討モデル。実ケーブルの適合は未確認。",
-          "kind": "manufacturer_dimensioned_envelope"
-        },
-        "IDC_socket_REFERENCE_overlap6": {
-          "group": "harness",
-          "role": "電源変換基板、コネクタとケーブル経路の検討モデル。実ケーブルの適合は未確認。",
-          "kind": "conditional_reference_envelope"
-        },
-        "adapter_PicoBlade_mated": {
-          "group": "harness",
-          "role": "電源変換基板、コネクタとケーブル経路の検討モデル。実ケーブルの適合は未確認。",
-          "kind": "manufacturer_dimensioned_envelope"
-        },
-        "IDC_ribbon_R3_side_exit_SCENARIO": {
-          "group": "harness",
-          "role": "電源変換基板、コネクタとケーブル経路の検討モデル。実ケーブルの適合は未確認。",
-          "kind": "conditional_cable_scenario"
-        },
-        "left_leaf_film_PET": {
-          "group": "leaves",
-          "role": "左右各4画素の LED 基板と実装部品。発光・熱のシミュレーションではありません。",
-          "kind": "design_geometry"
-        },
-        "left_leaf_OCA": {
-          "group": "leaves",
-          "role": "左右各4画素の LED 基板と実装部品。発光・熱のシミュレーションではありません。",
-          "kind": "assembly_allowance"
-        },
-        "right_leaf_film_PET": {
-          "group": "leaves",
-          "role": "左右各4画素の LED 基板と実装部品。発光・熱のシミュレーションではありません。",
-          "kind": "design_geometry"
-        },
-        "right_leaf_OCA": {
-          "group": "leaves",
-          "role": "左右各4画素の LED 基板と実装部品。発光・熱のシミュレーションではありません。",
-          "kind": "assembly_allowance"
-        },
-        "leaf_carrier_PC": {
-          "group": "supports",
-          "role": "スパイン、上下キャップ、ねじ・ナット。造形と荷重は実機未確認。",
-          "kind": "design_geometry"
-        },
-        "left_J1_SH4_mated": {
-          "group": "leaves",
-          "role": "左右各4画素の LED 基板と実装部品。発光・熱のシミュレーションではありません。",
-          "kind": "manufacturer_dimensioned_envelope"
-        },
-        "left_J2_SH4_mated": {
-          "group": "leaves",
-          "role": "左右各4画素の LED 基板と実装部品。発光・熱のシミュレーションではありません。",
-          "kind": "manufacturer_dimensioned_envelope"
-        },
-        "right_J1_SH4_mated": {
-          "group": "leaves",
-          "role": "左右各4画素の LED 基板と実装部品。発光・熱のシミュレーションではありません。",
-          "kind": "manufacturer_dimensioned_envelope"
-        },
-        "right_J2_SH4_unmated": {
-          "group": "leaves",
-          "role": "左右各4画素の LED 基板と実装部品。発光・熱のシミュレーションではありません。",
-          "kind": "manufacturer_dimensioned_envelope"
-        },
-        "left_D1": {
-          "group": "leaves",
-          "role": "左右各4画素の LED 基板と実装部品。発光・熱のシミュレーションではありません。",
-          "kind": "native_component_max_envelope"
-        },
-        "right_D1": {
-          "group": "leaves",
-          "role": "左右各4画素の LED 基板と実装部品。発光・熱のシミュレーションではありません。",
-          "kind": "native_component_max_envelope"
-        },
-        "left_C1": {
-          "group": "leaves",
-          "role": "左右各4画素の LED 基板と実装部品。発光・熱のシミュレーションではありません。",
-          "kind": "native_component_max_envelope"
-        },
-        "right_C1": {
-          "group": "leaves",
-          "role": "左右各4画素の LED 基板と実装部品。発光・熱のシミュレーションではありません。",
-          "kind": "native_component_max_envelope"
-        },
-        "left_D2": {
-          "group": "leaves",
-          "role": "左右各4画素の LED 基板と実装部品。発光・熱のシミュレーションではありません。",
-          "kind": "native_component_max_envelope"
-        },
-        "right_D2": {
-          "group": "leaves",
-          "role": "左右各4画素の LED 基板と実装部品。発光・熱のシミュレーションではありません。",
-          "kind": "native_component_max_envelope"
-        },
-        "left_C2": {
-          "group": "leaves",
-          "role": "左右各4画素の LED 基板と実装部品。発光・熱のシミュレーションではありません。",
-          "kind": "native_component_max_envelope"
-        },
-        "right_C2": {
-          "group": "leaves",
-          "role": "左右各4画素の LED 基板と実装部品。発光・熱のシミュレーションではありません。",
-          "kind": "native_component_max_envelope"
-        },
-        "left_D3": {
-          "group": "leaves",
-          "role": "左右各4画素の LED 基板と実装部品。発光・熱のシミュレーションではありません。",
-          "kind": "native_component_max_envelope"
-        },
-        "right_D3": {
-          "group": "leaves",
-          "role": "左右各4画素の LED 基板と実装部品。発光・熱のシミュレーションではありません。",
-          "kind": "native_component_max_envelope"
-        },
-        "left_C3": {
-          "group": "leaves",
-          "role": "左右各4画素の LED 基板と実装部品。発光・熱のシミュレーションではありません。",
-          "kind": "native_component_max_envelope"
-        },
-        "right_C3": {
-          "group": "leaves",
-          "role": "左右各4画素の LED 基板と実装部品。発光・熱のシミュレーションではありません。",
-          "kind": "native_component_max_envelope"
-        },
-        "left_D4": {
-          "group": "leaves",
-          "role": "左右各4画素の LED 基板と実装部品。発光・熱のシミュレーションではありません。",
-          "kind": "native_component_max_envelope"
-        },
-        "right_D4": {
-          "group": "leaves",
-          "role": "左右各4画素の LED 基板と実装部品。発光・熱のシミュレーションではありません。",
-          "kind": "native_component_max_envelope"
-        },
-        "left_C4": {
-          "group": "leaves",
-          "role": "左右各4画素の LED 基板と実装部品。発光・熱のシミュレーションではありません。",
-          "kind": "native_component_max_envelope"
-        },
-        "right_C4": {
-          "group": "leaves",
-          "role": "左右各4画素の LED 基板と実装部品。発光・熱のシミュレーションではありません。",
-          "kind": "native_component_max_envelope"
-        },
-        "top_cap_spacer_A7": {
-          "group": "supports",
-          "role": "スパイン、上下キャップ、ねじ・ナット。造形と荷重は実機未確認。",
-          "kind": "printable_design"
-        },
-        "top_leaf_adapter_cap": {
-          "group": "supports",
-          "role": "スパイン、上下キャップ、ねじ・ナット。造形と荷重は実機未確認。",
-          "kind": "printable_design"
-        },
-        "bottom_leaf_cap": {
-          "group": "supports",
-          "role": "スパイン、上下キャップ、ねじ・ナット。造形と荷重は実機未確認。",
-          "kind": "printable_design"
-        },
-        "bottom_cap_fork_A7": {
-          "group": "supports",
-          "role": "スパイン、上下キャップ、ねじ・ナット。造形と荷重は実機未確認。",
-          "kind": "printable_design"
-        },
-        "left_diffuser": {
-          "group": "diffusers",
-          "role": "光を側面へ広げる半透明 PETG 板。光学挙動は表示しません。",
-          "kind": "printable_design"
-        },
-        "right_diffuser": {
-          "group": "diffusers",
-          "role": "光を側面へ広げる半透明 PETG 板。光学挙動は表示しません。",
-          "kind": "printable_design"
-        },
-        "M1_6x4_-1_23.5": {
-          "group": "supports",
-          "role": "スパイン、上下キャップ、ねじ・ナット。造形と荷重は実機未確認。",
-          "kind": "standard_hardware_envelope"
-        },
-        "M1_6_nut_-1_23.5": {
-          "group": "supports",
-          "role": "スパイン、上下キャップ、ねじ・ナット。造形と荷重は実機未確認。",
-          "kind": "standard_hardware_envelope"
-        },
-        "M1_6x4_-1_105.5": {
-          "group": "supports",
-          "role": "スパイン、上下キャップ、ねじ・ナット。造形と荷重は実機未確認。",
-          "kind": "standard_hardware_envelope"
-        },
-        "M1_6_nut_-1_105.5": {
-          "group": "supports",
-          "role": "スパイン、上下キャップ、ねじ・ナット。造形と荷重は実機未確認。",
-          "kind": "standard_hardware_envelope"
-        },
-        "M1_6x4_1_23.5": {
-          "group": "supports",
-          "role": "スパイン、上下キャップ、ねじ・ナット。造形と荷重は実機未確認。",
-          "kind": "standard_hardware_envelope"
-        },
-        "M1_6_nut_1_23.5": {
-          "group": "supports",
-          "role": "スパイン、上下キャップ、ねじ・ナット。造形と荷重は実機未確認。",
-          "kind": "standard_hardware_envelope"
-        },
-        "M1_6x4_1_105.5": {
-          "group": "supports",
-          "role": "スパイン、上下キャップ、ねじ・ナット。造形と荷重は実機未確認。",
-          "kind": "standard_hardware_envelope"
-        },
-        "M1_6_nut_1_105.5": {
-          "group": "supports",
-          "role": "スパイン、上下キャップ、ねじ・ナット。造形と荷重は実機未確認。",
-          "kind": "standard_hardware_envelope"
-        },
-        "controller_to_left_leaf_sh4": {
-          "group": "harness",
-          "role": "電源変換基板、コネクタとケーブル経路の検討モデル。実ケーブルの適合は未確認。",
-          "kind": "cable_route_scenario"
-        },
-        "adapter_to_controller_power": {
-          "group": "harness",
-          "role": "電源変換基板、コネクタとケーブル経路の検討モデル。実ケーブルの適合は未確認。",
-          "kind": "cable_route_scenario"
-        },
-        "leaf_link_pin_1_A5": {
-          "group": "harness",
-          "role": "電源変換基板、コネクタとケーブル経路の検討モデル。実ケーブルの適合は未確認。",
-          "kind": "cable_route_scenario"
-        },
-        "leaf_link_pin_2_A5": {
-          "group": "harness",
-          "role": "電源変換基板、コネクタとケーブル経路の検討モデル。実ケーブルの適合は未確認。",
-          "kind": "cable_route_scenario"
-        },
-        "leaf_link_pin_3_A5": {
-          "group": "harness",
-          "role": "電源変換基板、コネクタとケーブル経路の検討モデル。実ケーブルの適合は未確認。",
-          "kind": "cable_route_scenario"
-        },
-        "leaf_link_pin_4_A5": {
-          "group": "harness",
-          "role": "電源変換基板、コネクタとケーブル経路の検討モデル。実ケーブルの適合は未確認。",
-          "kind": "cable_route_scenario"
+      },
+      "optical_display": "Opaque all-layer copper silhouettes projected onto both substrate faces; residual native mask; FR4 alpha is an unmeasured visual assumption.",
+      "optical_sources": [
+        {
+          "source": "engineering/a7/electronics/controller/optical-geometry.json",
+          "sha256": "cf775c524f2cc8e254b0155c54ab971d08c48d062276bf856a64e805fcacb9f8",
+          "board": "engineering/a7/electronics/controller/controller.kicad_pcb",
+          "board_sha256": "710ed8019126944272a52fe0b162826c09088d70e363fce3cc184df93e7bab5e"
+        },
+        {
+          "source": "engineering/a7/electronics/led_leaf/optical-geometry.json",
+          "sha256": "1af8af54f9589f898532130f9b1b4057f45f9ac40fae67bf6dff269a8352df57",
+          "board": "engineering/a7/electronics/led_leaf/led_leaf.kicad_pcb",
+          "board_sha256": "bcf2e35d767221f5a9db0cd16769a2e503a672f522fd4f32f78012cdeb494cf9"
         }
-      }
+      ]
     }
   ]
 }

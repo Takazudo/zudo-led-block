@@ -1,45 +1,45 @@
 {
-  "source_revision": "0c19fea8afe356fc993570e969742e774b7a9914",
+  "source_revision": "00bad3bc91a0505f9e256ea2930cab0aa639c646",
   "inputs": [
     {
       "source": "engineering/a7/mechanical/layout.json",
-      "sha256": "89f548a52d8ce907fb351519bfdcabc411e3389d1261056e1319582b03a4437a",
-      "bytes": 114261
+      "sha256": "8b24ec83fd805c4efcaba92f885e49531826f8945063b74fd5019bc1221e040e",
+      "bytes": 59350
     },
     {
       "source": "engineering/a7/mechanical/design-inputs.json",
-      "sha256": "efdda1550e80367efe8f9fe4090509752de390e18c32feb5b8a203dfdc94950c",
-      "bytes": 18723
+      "sha256": "4361d3fc7a79f081e44bfe1412cbcc1558f9fef45cb0674cf348edfbbe3c7f37",
+      "bytes": 21538
     },
     {
       "source": "engineering/a7/front_panel/geometry.json",
-      "sha256": "f6df69b594bd232a3ca3f6a2461b008d080b790cfbfc8a5631b2011688e355d9",
-      "bytes": 4491
+      "sha256": "d1196b1b0fd0533d942e86869dd32403c18971a94d23c1ccf5b8f8a3ad0a527d",
+      "bytes": 4490
     },
     {
       "source": "engineering/a7/mechanical/build_a7_mechanical.py",
-      "sha256": "8789aeb3493cc8a95f7406938a3d382367e536d863ee45d183246c7bae89d99f",
-      "bytes": 50864
+      "sha256": "b566fd87aaf4c703096647843c0708f7ba4d5de7d50647bcd371163e522c5bd3",
+      "bytes": 57661
     },
     {
       "source": "engineering/a7/mechanical/exports/3hp/verification.json",
-      "sha256": "a1674803d8cfd0d19bbf7189bbe759f91cdbf6f167e98073bc71e2836c077434",
-      "bytes": 43528
+      "sha256": "9302169ce87657c6c79e1d635e01925c5804085cf61275e13b23ecf6a246655f",
+      "bytes": 45185
     }
   ],
   "files": [
     {
       "source": "engineering/a7/mechanical/exports/3hp/zudo_led_block_A7_3hp_assembled.glb",
-      "sha256": "b6718dbdcc0eb8c50cb0e452331a2972f2cfd6adb3626d4783a634ac24c006d4",
-      "bytes": 1662464,
+      "sha256": "7c90650a3785bde3ca0a6452b4cd10dc9621f5e3bb8847e535eb7ef744a1c9c2",
+      "bytes": 54218916,
       "target": "3hp.glb",
       "variant": "3hp",
       "label": "3HP 0.8 mm rigid FR-4 — 採用案（実物未評価）"
     },
     {
       "source": "engineering/a7/mechanical/exports/3hp/view_A7_3hp_side.png",
-      "sha256": "f56e2e07d09663c45e2e764c250b1ccbffc93b5153dcdc0c895fe4ddf2c0d19e",
-      "bytes": 300656,
+      "sha256": "2a2f4ce88e5aa493a9816c52266aaec1c943680ac271c4cae5651d553db23542",
+      "bytes": 300007,
       "target": "poster.png"
     }
   ],
@@ -162,11 +162,9 @@
     "M1_6_nut_1_105.5": "supports",
     "controller_to_left_leaf_sh4": "harness",
     "adapter_to_controller_power": "harness",
-    "leaf_link_pin_1_A5": "harness",
-    "leaf_link_pin_2_A5": "harness",
-    "leaf_link_pin_3_A5": "harness",
-    "leaf_link_pin_4_A5": "harness",
     "left_leaf_pcb_A7": "leaves",
-    "right_leaf_pcb_A7": "leaves"
+    "right_leaf_pcb_A7": "leaves",
+    "leaf_link_sh4_A7": "harness",
+    "spine_PETG": "supports"
   }
 }
