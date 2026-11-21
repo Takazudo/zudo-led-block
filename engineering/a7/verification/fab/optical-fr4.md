@@ -43,7 +43,7 @@ every pad aperture, so no via sits in or against a pad. Two independent checks
 enforce it on the adopted bytes: `scripts/a7_optical_check.py` on the native
 residual-mask geometry of `optical-geometry.json`, and
 `scripts/a7_gerber_inspect.py` on the plotted Gerber primitives. The controller's
-measured worst case is 0.135 mm front and 0.139 mm back over all 115 vias
+measured worst case is 0.135 mm front and 0.139 mm back over all 116 vias
 (`verification/optical/controller/`).
 
 The leaf has no zones. The controller permits only the named, bounded bottom
