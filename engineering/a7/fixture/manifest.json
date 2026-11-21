@@ -191,9 +191,9 @@
   },
   "assembly": {
     "record": "engineering/a7/fixture/assembly-interference.json",
-    "record_sha256": "507ab714bdd72534a42206ffbb34abfa578ed81fcfc4875ab5d0123a46e32c82",
+    "record_sha256": "ff99258d1f91d1fc76183cbce8ecb66f67d1dd0ac28de877156b238f47488c0c",
     "step": "engineering/a7/fixture/fixture-assembly.step",
-    "step_sha256": "8af0027f740019a06c1479261f1f04256c7d4a12070b0429c1b5fc70954ce326",
+    "step_sha256": "036dec98c1d1d7977004f1cfb04e2629849cb488f15973146618fae0b9129429",
     "solids": 129,
     "interferences": 0,
     "clearances": [
@@ -403,8 +403,8 @@
       "basis": "stroke and installation height, carrier-land travel stop, rigid pressure plate on hard stops with spring plungers, plate stack on spacers/standoffs/base with dowel alignment, FR-4 plates with POM board contacts, wire bend space and tie slot"
     },
     "4_assembly_step_interference_check": {
-      "met": false,
-      "basis": "interference record is for a different design, assembly code or native record"
+      "met": true,
+      "basis": "assembly STEP of every part, hardware envelope, probe and the board; no interference"
     },
     "5_physical_tests": {
       "met": false,
@@ -4889,8 +4889,7 @@
     }
   ],
   "blockers": [
-    "criterion 3_stroke_stop_guide_fixing_insulation_wiring not met: clamp_force_sized_with_margin, board_stays_on_land, board_bending_across_window_within_limit not met",
-    "criterion 4_assembly_step_interference_check not met: interference record is for a different design, assembly code or native record"
+    "criterion 3_stroke_stop_guide_fixing_insulation_wiring not met: clamp_force_sized_with_margin, board_stays_on_land, board_bending_across_window_within_limit not met"
   ],
   "owner_and_supplier_items": [
     "Fabricator for the four FR-4 plates is an owner choice and not selected; JLCCNC guidance is a candidate reference only. The probe-plate bores are drilled at the board test-point pitch, leaving 0.4 mm between bores: this meets the INGUN receptacle grid (0.27 mm) but not the 1.0 mm milled-wall guidance, so the chosen fabricator must confirm drilling it; the board pitch is fixed.",

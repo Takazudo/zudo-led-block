@@ -1,14 +1,14 @@
 {
   "schema": 1,
   "tool": "CadQuery 2.7.0",
-  "model_inputs_sha256": "c0636a9789b1160ed26c98776fdcf366cba44d75bd514df7563f3dd04b9ccfb5",
+  "model_inputs_sha256": "570fed83ca6d93c84295ffe1b2eff1fe508a7a1168e8153bf864d91b1850f6c0",
   "model_inputs": {
     "design_sha256": "3098f31f93a13c9eeab8e4052885f21dd76cfc4abc0082d7c5eba8950a088338",
     "assembly_code_sha256": "cf4ffa4d32d162df92dc400358ee66655adb89725cc671ffb1b24fff19fe8507",
-    "native_geometry_sha256": "668e9366f78299bb48d23b5424d2676e1eba01e64897048b773f8328b5621fbd",
+    "native_geometry_sha256": "90e9f9cf07007889be9947432c0451f9820d8020223bbbd7d6df73219bc6ac6b",
     "cadquery": "2.7.0"
   },
-  "step_sha256": "8af0027f740019a06c1479261f1f04256c7d4a12070b0429c1b5fc70954ce326",
+  "step_sha256": "036dec98c1d1d7977004f1cfb04e2629849cb488f15973146618fae0b9129429",
   "method": "pairwise boolean common volume between every two solids whose bounding boxes meet (board part boxes are not checked against each other); interference above the threshold; clearances by exact BRep distance",
   "interference_threshold_mm3": 0.001,
   "modelling": "Builds every fixture part, the hardware envelopes and the board (with F-side part boxes from the recorded heights and\nB-face bodies and leads from the relief design) in board coordinates: x, y as on the PCB, z up from the board B face.\nThreads are modelled at the major diameter and press fits line to line, so a designed joint touches without overlap.\nThrough-hole leads are modelled at their full sourced length below the seating plane (a bound for any board thickness).",
