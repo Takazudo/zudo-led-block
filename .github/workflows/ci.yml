@@ -115,6 +115,19 @@ jobs:
       - name: Fixture plate analytical benchmarks and optical thickness controls
         timeout-minutes: 2
         run: python3 -m unittest scripts/tests/test_a7_fixture_plate.py scripts/tests/test_a7_fixture_optical.py
+      # The exported Gerbers are the last word on mask webs and paste: source rectangles
+      # alone cannot prove that pad apertures and plotting settings preserved them.
+      - name: Install the pinned Gerber inspection tool chain
+        timeout-minutes: 2
+        run: |
+          python3 -m pip install --require-hashes --only-binary=:all: --no-deps -r engineering/a7/verification/optical/tools/requirements.lock
+      - name: Plotted Gerber geometry of both boards (via tents, paste flashes, coverage)
+        timeout-minutes: 3
+        run: |
+          python3 scripts/a7_gerber_inspect.py --board engineering/a7/electronics/controller/controller.kicad_pcb \
+            --gerbers engineering/a7/verification/optical/controller/gerbers --out "$RUNNER_TEMP/a7-gerber-controller"
+          python3 scripts/a7_gerber_inspect.py --board engineering/a7/electronics/led_leaf/led_leaf.kicad_pcb \
+            --gerbers engineering/a7/verification/optical/led_leaf/gerbers --out "$RUNNER_TEMP/a7-gerber-led-leaf"
       - name: A7 layout, layout.md and placement envelopes are current
         run: python3 scripts/a7_mechanical_layout.py --check
       - name: A7 R2 geometry tests (stack, candidates, keep-outs, routes, CAD/front records)
