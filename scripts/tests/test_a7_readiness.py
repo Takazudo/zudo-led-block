@@ -330,10 +330,10 @@ class ReadinessTests(unittest.TestCase):
     def test_checklist_lists_decisions_and_downloads(self):
         report = json.loads((REPO/m.QUAL/'readiness.json').read_text())
         page = m.checklist(self.plan, report)
-        self.assertIn('## まとめて答えられる判断（2 件）', page)
+        self.assertIn('## まとめて答えられる判断（3 件）', page)
         self.assertIn('## オーナーが方針を受け入れた判断（7 件、ゲートは開いたまま）', page)
         # The 1.6 mm prototype-route approvals are history; the 0.8 mm identities need a new approval.
-        self.assertIn('A7 0.8 mm FR-4（3HP、制御基板 710ed801… / リーフ bcf2e35d…）の限定試作を承認しますか', page)
+        self.assertIn('A7 0.8 mm FR-4（3HP、制御基板 d83691d6… / リーフ bcf2e35d…）の限定試作を承認しますか', page)
         self.assertIn('## 回答済みの判断（8 件）', page)
         self.assertIn('2 台分（オーナー報告の JLC PCBA 最小、未確認）（オーナーの回答、`assembly:order-quantity`）', page)
         self.assertNotIn('### 2. 最初の発注数量', page)

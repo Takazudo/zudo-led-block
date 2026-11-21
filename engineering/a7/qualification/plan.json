@@ -3518,15 +3518,15 @@
       "title": "CV ノイズと DATA_L 結合",
       "variant": "fr4-3hp",
       "issues": " #10",
-      "setup": "静的CVを印加しDATA_L/左右ストリームのパターンを切替、ADC/THRUを同期観測。",
-      "expected": "記録されたCV_THRU対DATA_L_3V3/SWDIO、CV_ADC対SWCLKの結合懸念を評価。",
-      "basis": "engineering/a7/verification/interface_review.md",
-      "criterion_status": "REVIEWED",
-      "missing_criterion": "",
+      "setup": "静的CVを印加しDATA_L/左右ストリームのパターンを切替、ADC/THRUを同期観測。加えて (1) CV IN 未接続（開放チップ）と (2) 電源グラウンドを共有する外部源をパッチしLED輝度を段階的に変える状態でも観測する。",
+      "expected": "electrical_review.md「CV and data coupling」と return-review.json（coupling.close_pairs、coupling.CV_THRU_open_input、patched_ground_loop）が挙げる結合を評価する。規則のない近接（/CV_THRU–/VLED 同層 0.25 mm、/CV_AFFINE–/DATA_L 0.25 mm、/CV_ADC–/DATA_R_3V3 0.19 mm、/CV_BUF–/DATA_L 隣接層重なり）と、パッチ時のスリーブ電流による誤差（基板内 0.254 LSB 上限、基板外は未拘束）を含む。",
+      "basis": "engineering/a7/verification/electrical_review.md",
+      "criterion_status": "UNRESOLVED",
+      "missing_criterion": "旧基準の layout 記述（interface_review.md「No CV node runs within 0.6 mm of DATA_L/R or ±12V_PROT on the same layer.」）は 0.8 mm 基板（d83691d6…）では成り立たず、710ed801… でも成り立っていなかった。2026-11-11 の採用はその誤った根拠に基づくため引き継がない。開放入力とパッチ時グラウンドループの条件も旧手順になかった。",
       "raw_evidence_required": "同期波形、スペクトル/統計、配線/プローブ位置、パターン",
       "observation": "NOT_MEASURED",
       "result": "NOT_RUN",
-      "next_action": "基準はコーディネーターが採用済み（オーナー本人ではない）。実機で手順を実施して記録する。",
+      "next_action": "根拠を electrical_review.md と return-review.json に置き換えた新しい基準（ノイズ上限 50 mV は不感帯から据え置きの提案）をオーナーが採否するまで未決。実機では未接続入力とグラウンド共有源パッチ（LED輝度段階）を含めて #10 で測る。",
       "required_evidence_kinds": [
         "synchronous_waveforms",
         "noise_statistics",
@@ -3549,7 +3549,9 @@
       "precondition_states": [],
       "steps": [
         "LED データ送信中に CV_THRU と ADC 値を同期して記録する。",
-        "データパターン（全消灯/全点灯/交互）を変えて統計を取る。"
+        "データパターン（全消灯/全点灯/交互）を変えて統計を取る。",
+        "CV IN を未接続（開放チップ）にして同じ記録を取り、±50 mV 不感帯と比べる。",
+        "電源グラウンドを共有する外部 CV 源をパッチし、LED 輝度を段階的に変えて CV 誤差を記録する（パッチ時グラウンドループ）。"
       ],
       "record": {
         "synchronous_waveforms": "同期波形",
@@ -3560,13 +3562,13 @@
       "acceptance": [
         {
           "id": "layout",
-          "criterion": "同層での CV と DATA の間隔（設計）",
-          "value": "No CV node runs within 0.6 mm of DATA_L/R or ±12V_PROT on the same layer.",
+          "criterion": "規則付きの CV–スイッチング/データ間隔（設計、全層）",
+          "value": "No CV track runs within 0.5 mm of any aggressor in that table anywhere on any layer.",
           "unit": "NONE",
           "confidence": "DESIGN",
           "source": {
-            "path": "engineering/a7/verification/interface_review.md",
-            "quote": "No CV node runs within 0.6 mm of DATA_L/R or ±12V_PROT on the same layer."
+            "path": "engineering/a7/verification/electrical_review.md",
+            "quote": "No CV track runs within 0.5 mm of any aggressor in that table anywhere on any layer."
           },
           "bound": "reference"
         },
@@ -3594,13 +3596,7 @@
           },
           "bound": "max"
         }
-      ],
-      "criterion_accepted_by": "PROJECT_COORDINATOR_DELEGATED",
-      "criterion_review": {
-        "path": "engineering/a7/qualification/reviews/2026-11-11-coordinator-criteria-acceptance.md",
-        "sha256": "de65e2b2ddbfb1bca68b01ca37e5222ada0f1d6ee695d191baf3516bb1abe93f"
-      },
-      "criterion_acceptance_sha256": "ed52279e0344626b20103633bbb0da95af82cc01c16a90a757a216277cd0063b"
+      ]
     },
     {
       "id": "service-envelope",
@@ -3806,7 +3802,7 @@
     {
       "id": "O7",
       "title": "残りの合否基準を採否する（提案値）",
-      "detail": "u7-stress、service-envelope、ldo-reverse はオーナーが採用した（2026-11-12）。harness-depth の旧受入（57 ± 3 mm）は旧1.6 mm設計の履歴で、0.8 mm設計の 55 ± 3 mm は未受入。thermal-optical は上限 75 °C を採ったが、材料の温度限界と見え方が残る。部分電源試験（partial-rails）は「accept all」の後に別に尋ね、オーナーが部品の絶対最大を合否の線に採った（2026-11-12）。その他の PROPOSED の提案値は、採るまでゲートを解除しない。",
+      "detail": "u7-stress、service-envelope、ldo-reverse はオーナーが採用した（2026-11-12）。harness-depth の旧受入（57 ± 3 mm）は旧1.6 mm設計の履歴で、0.8 mm設計の 55 ± 3 mm は未受入。cv-noise の 2026-11-11 採用は、0.8 mm 基板で成り立たない layout 記述に基づいていたため引き継がず、electrical_review.md を根拠に再提案した（未決）。thermal-optical は上限 75 °C を採ったが、材料の温度限界と見え方が残る。部分電源試験（partial-rails）は「accept all」の後に別に尋ね、オーナーが部品の絶対最大を合否の線に採った（2026-11-12）。その他の PROPOSED の提案値は、採るまでゲートを解除しない。",
       "unblocks": [
         "criterion:thermal-optical",
         "criterion:service-envelope",
@@ -3857,7 +3853,7 @@
     {
       "id": "O1",
       "title": "限定試作ルートを承認する",
-      "detail": "対象版（A7 0.8 mm / 3HP / FR-4、制御基板 710ed801… / リーフ bcf2e35d…）、数量、入手する部品・基板・治具、許す工程、実施者、試験前の安全条件を決め、承認ファイルを残して `records.json` の owner_prototype_route に記録する。製造リリースとは別の承認。",
+      "detail": "対象版（A7 0.8 mm / 3HP / FR-4、制御基板 d83691d6… / リーフ bcf2e35d…）、数量、入手する部品・基板・治具、許す工程、実施者、試験前の安全条件を決め、承認ファイルを残して `records.json` の owner_prototype_route に記録する。製造リリースとは別の承認。",
       "unblocks": [
         "owner_prototype_route",
         "assembly:prototype-and-release"
@@ -3885,7 +3881,7 @@
     {
       "gate": "owner_prototype_route",
       "stage": "PCB_ORDER",
-      "question": "A7 0.8 mm FR-4（3HP、制御基板 710ed801… / リーフ bcf2e35d…）の限定試作を承認しますか。",
+      "question": "A7 0.8 mm FR-4（3HP、制御基板 d83691d6… / リーフ bcf2e35d…）の限定試作を承認しますか。",
       "options": [
         {
           "id": "approve",
@@ -4512,6 +4508,36 @@
       }
     },
     {
+      "gate": "criterion:cv-noise",
+      "stage": "BENCH",
+      "question": "CV ノイズの合否を、0.8 mm 基板の結合記録を根拠に、LED データ送信中・CV IN 未接続・グラウンド共有源パッチの3条件で 50 mV p-p 以下にしますか。",
+      "options": [
+        {
+          "id": "adopt",
+          "label": "提案どおり採る",
+          "consequence": "cv-noise の合否が決まり、#10 で3条件を測る。旧 2026-11-11 の採用は誤った配線記述に基づくので引き継がない。"
+        },
+        {
+          "id": "revise",
+          "label": "条件か上限を変える",
+          "consequence": "変更を記録するまでこの基準ゲートは閉じたまま。"
+        }
+      ],
+      "recommended": "adopt",
+      "reason": "50 mV は既存ファームウェアの CV 不感帯（LB_CV_DEADBAND_MV）。規則のない近接（/CV_THRU–/VLED など）と、パッチ時の基板内誤差上限 0.254 LSB は electrical_review.md と return-review.json の計算値で、実測ではない。",
+      "sources": [
+        {
+          "path": "engineering/a7/verification/controller/return-review.json",
+          "pointer": "/coupling/close_pairs"
+        },
+        {
+          "path": "engineering/a7/verification/controller/return-review.json",
+          "pointer": "/patched_ground_loop"
+        }
+      ],
+      "rank": 16
+    },
+    {
       "gate": "assembly:prototype-and-release",
       "stage": "RELEASE",
       "question": "製造パッケージのレビューとリリースの承認を、いつ行いますか。",
@@ -4535,7 +4561,7 @@
           "quote": "\"manufacturing_released\": false"
         }
       ],
-      "rank": 16,
+      "rank": 17,
       "answer": {
         "option": "after-tests",
         "by": "OWNER",
@@ -4571,7 +4597,7 @@
           "quote": "\"order_submitted\": false"
         }
       ],
-      "rank": 17,
+      "rank": 18,
       "answer": {
         "option": "after-tests",
         "by": "OWNER",
