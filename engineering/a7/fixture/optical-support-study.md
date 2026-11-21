@@ -15,10 +15,14 @@ remaining physical work in [`condition-matrix.md`](condition-matrix.md). That re
 bound to one PCB identity and re-runs on a new controller with
 `python3 scripts/a7_fixture_matrix.py --rebind`. It does not retract anything below:
 the strip-model failure values, the rejected plunger pair and the open blockers stay
-as recorded, and the matrix states the one shortfall it could not close — the current
-candidate's second pin keeps 0.025 mm of worst-case board-edge margin against a
+as recorded, and the matrix keeps the full-pin shortfall visible — with the catalogue
+Ø1.5 mm end the second pin keeps 0.025 mm of worst-case board-edge margin against a
 0.15 mm requirement, and no pair that satisfies the planar rules can straddle the
-probe field. Nothing in either record is a fixture acceptance.
+probe field. The current candidate (`optical_stepped_tip`, 2026-11-21 round 2) keeps
+both sites and turns the second pin's board-contact end down to Ø1.2 mm, which gives
+0.175 mm at the contact without changing the requirement; it is a PROPOSED part
+modification checked against an ASSUMED POM allowable, not a sourced or accepted
+part. Nothing in either record is a fixture acceptance.
 
 The adopted board range is 0.7–0.9 mm (0.8 mm ±0.1 mm published JLCPCB finished
 thickness tolerance). Using the historical carrier with the original conservative

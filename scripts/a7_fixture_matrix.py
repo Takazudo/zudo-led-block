@@ -41,7 +41,8 @@ sys.path.insert(0, str(Path(__file__).resolve().parent))
 import a7_fixture_relief as relief  # noqa: E402
 from a7_fixture_contact import ContactModel, land_dofs, patch_load, solve_reference  # noqa: E402
 from a7_fixture_plate import Plate  # noqa: E402
-from a7_fixture_support import diagonal_proposal  # noqa: E402
+from a7_fixture_support import (POM_CONTACT_ALLOWABLE, STEPPED_TIP, contact_stress, diagonal_proposal,  # noqa: E402
+                                stepped_tip_contacts)
 
 ROOT = Path(__file__).resolve().parents[1]
 BOARD = ROOT / 'engineering/a7/electronics/controller/controller.kicad_pcb'
@@ -62,8 +63,26 @@ LAYOUTS = {
     'historical_plunger_pair': {'candidate': None,
                                 'role': 'layout carried from the 1.6 mm fixture; REJECTED_INSUFFICIENT_FORCE in a7_fixture_relief'},
     'optical_full_pin': {'candidate': 'optical_full_pin',
-                         'role': 'current candidate: full-diameter POM pins on opposite corners of the probe field, no support insert'},
+                         'role': 'previous candidate, kept visible: full-diameter POM pins on opposite corners of the probe '
+                                 'field, no support insert. Meets the load limits but its second pin keeps 0.025 mm of '
+                                 'worst-case board-edge margin against the 0.15 mm requirement'},
+    'optical_stepped_tip': {'candidate': 'optical_full_pin', 'contact': 'stepped_tip',
+                            'role': 'current candidate: the same two sites and catalogue plungers, with the board-contact '
+                                    'end of the second POM pin turned down to a stepped tip so the contact keeps the '
+                                    'required board-edge margin; no support insert'},
 }
+ADOPTED_LAYOUT = 'optical_stepped_tip'
+
+
+def contact_diameters(spec, n_clamps):
+    """Board-contact diameter of each clamp pin for a layout."""
+    pin = relief.PLUNGER_CANDIDATE['pin_diameter_mm']
+    if spec.get('contact') == 'stepped_tip':
+        diameters = stepped_tip_contacts(pin)
+        if len(diameters) != n_clamps:
+            raise ValueError('stepped-tip contact list does not match the clamp count')
+        return diameters
+    return [pin] * n_clamps
 RELATIVE_CONVERGENCE_LIMIT = 0.05  # recorded requirement on the finest mesh step of the governing quantity
 
 
@@ -143,16 +162,16 @@ def compression_band(sag_mm, plate_deflection_mm):
 class Case:
     """One mesh and thickness; solves any force corner of one clamp layout."""
 
-    def __init__(self, nx, ny, thickness, land, probes, clamps, modulus):
+    def __init__(self, nx, ny, thickness, land, probes, clamps, modulus, clamp_diameters=None):
         self.plate = Plate(16.2, 62.9, nx, ny, thickness, modulus, POISSON)
         self.land = land_dofs(self.plate, land)
         self.model = ContactModel(self.plate, self.land)
         self.probes = probes
         self.clamps = clamps
         self.probe_radius = relief.INGUN['probe']['facts']['tip_diameter_mm'] / 2
-        self.clamp_radius = relief.PLUNGER_CANDIDATE['pin_diameter_mm'] / 2
+        self.clamp_radii = [d / 2 for d in (clamp_diameters or [relief.PLUNGER_CANDIDATE['pin_diameter_mm']] * len(clamps))]
         self.probe_vectors = [patch_load(self.plate, tuple(p['board_xy_mm']), self.probe_radius, 1.0) for p in probes]
-        self.clamp_vectors = [patch_load(self.plate, tuple(q), self.clamp_radius, -1.0) for q in clamps]
+        self.clamp_vectors = [patch_load(self.plate, tuple(q), rad, -1.0) for q, rad in zip(clamps, self.clamp_radii)]
 
     def solve(self, clamp_forces, probe_force):
         force = np.zeros(self.plate.size)
@@ -193,12 +212,13 @@ def evaluate_layout(name, spec, geometry, probes, levels, modulus, limits, cross
     design = relief.design(geometry, probes, candidate=spec['candidate'])
     land, _ = land_predicate(design)
     clamps = [list(q) for q in design['holddown']['contacts_board_mm']]
+    diameters = contact_diameters(spec, len(clamps))
     plate_deflection = design['holddown']['plunger_compression_mm']['plate_deflection_mm']
     probe_min, probe_max = probe_force_band(design, probes)
     required = limits['required_total_clamp_force_N']
     rows, thickness_rows, cross = [], [], None
     for thickness in THICKNESSES:
-        case = Case(*levels[0], thickness, land, probes, clamps, modulus)
+        case = Case(*levels[0], thickness, land, probes, clamps, modulus, diameters)
         # the sag that is lost from the plunger compression is largest at the maximum plunger force
         # and the minimum probe force; the force band therefore follows from one bounding solve
         probe_sag = case.solve([relief.PLUNGER_CANDIDATE['force_final_N'] * (1 + limits['plunger_band'])] * len(clamps), probe_min)
@@ -246,7 +266,7 @@ def evaluate_layout(name, spec, geometry, probes, levels, modulus, limits, cross
                    'min_gap_mm': governing['min_gap_mm'], 'equilibrium_residual_max_N': governing['equilibrium_residual_max_N']}]
         wanted = levels[1:] if thickness == THICKNESSES[0] else levels[1:2]
         for index, mesh in enumerate(wanted, start=1):
-            case = Case(*mesh, thickness, land, probes, clamps, modulus)
+            case = Case(*mesh, thickness, land, probes, clamps, modulus, diameters)
             res = case.solve(governing['clamp_forces_N'], governing['probe_force_each_N'])
             series.append({'level': index, 'mesh': list(mesh), 'probe_displacement_max_abs_mm': res['probe_displacement_max_abs_mm'],
                            'clamp_sag_max_mm': res['clamp_sag_max_mm'], 'contact_nodes': res['contact_nodes'],
@@ -278,6 +298,7 @@ def evaluate_layout(name, spec, geometry, probes, levels, modulus, limits, cross
     verdict['all_recorded_limits_met'] = all(v is True for k, v in verdict.items() if isinstance(v, bool))
     return {'role': spec['role'], 'relief_layout_status': design['holddown']['layout_status'],
             'clamps_board_mm': clamps, 'clamp_pin_diameter_mm': relief.PLUNGER_CANDIDATE['pin_diameter_mm'],
+            'clamp_contact_diameters_mm': diameters,
             'pressure_plate_deflection_mm': plate_deflection,
             'strip_model_comparison': {'deflection_mm': design['holddown']['board_bending_across_window']['deflection_mm'],
                                        'limit_mm': design['holddown']['board_bending_across_window']['limit_mm'],
@@ -314,10 +335,10 @@ class SiteRules:
         self.profile = self.proposal['opposite_edge_board_profile_allowance_mm']
         self.plate = relief.PRESSURE_PLATE
 
-    def row(self, centre):
+    def row(self, centre, contact_diameter=None):
         x, y = centre
         body_gap, body_ref = min((relief._box_point_dist(b, centre) - self.body_r, ref) for ref, b in self.front)
-        edge = min(x, 16.2 - x) - self.pin_r
+        edge = min(x, 16.2 - x) - (self.pin_r if contact_diameter is None else contact_diameter / 2)
         edge_worst = edge - self.pos_tol - (self.profile if x < 8.1 else 0.0)
         notch_web = relief._box_point_dist(self.notch, centre) - self.thread_r - self.pos_tol
         plate_web = min(x - self.plate[0], self.plate[2] - x, y - self.plate[1], self.plate[3] - y) - self.thread_r - self.pos_tol
@@ -369,6 +390,68 @@ def geometric_checks(geometry, probes):
             'every_clamp_meets_recorded_site_rules': all(r['meets_recorded_site_rules'] for r in rows),
             'scope': 'planar requirements from the native pad/courtyard record and the recorded tolerance budget; not a CAD '
                      'interference run, not a measured fit, and not a component height or solder envelope check'}
+
+
+def adopted_candidate(geometry, probes, layouts, limits):
+    """The stepped-tip candidate against every recorded rule: site rules at the contact, load limits, contact stress.
+
+    The contact is what the board-edge margin protects (a pin end overhanging the edge loses contact area and tips), so
+    the 0.15 mm requirement is taken at the board-contact diameter. The 1.5 mm shank above the tip is reported beside
+    it: it never touches the board, and it must still stay inside the board outline in plan at worst case.
+    """
+    spec = LAYOUTS[ADOPTED_LAYOUT]
+    layout = layouts[ADOPTED_LAYOUT]
+    rules = SiteRules(geometry, probes)
+    clamps = [tuple(c['centre_mm']) for c in rules.proposal['clamps']]
+    diameters = contact_diameters(spec, len(clamps))
+    force_max = max(t['clamp_force_each_N'][1] for t in layout['force_band_per_thickness'])
+    rows = []
+    for i, (centre, diameter) in enumerate(zip(clamps, diameters)):
+        contact, shank = rules.row(centre, diameter), rules.row(centre)
+        rows.append({'clamp': f'C{i + 1}', 'centre_mm': list(centre), 'contact_diameter_mm': diameter,
+                     'stepped_tip': diameter < relief.PLUNGER_CANDIDATE['pin_diameter_mm'],
+                     'contact_edge_margin_worst_mm': contact['pin_edge_margin_worst_mm'],
+                     'shank_diameter_mm': relief.PLUNGER_CANDIDATE['pin_diameter_mm'],
+                     'shank_edge_margin_worst_mm': shank['pin_edge_margin_worst_mm'],
+                     'shank_inside_board_outline_worst_case': shank['pin_edge_margin_worst_mm'] >= -1e-9,
+                     'plunger_body_to_courtyard_mm': contact['plunger_body_to_courtyard_mm'],
+                     'thread_web_to_notch_worst_mm': contact['thread_web_to_notch_worst_mm'],
+                     'plate_edge_thread_web_worst_mm': contact['plate_edge_thread_web_worst_mm'],
+                     'meets_recorded_site_rules': contact['meets_recorded_site_rules'],
+                     'contact_stress': contact_stress(diameter, force_max)})
+    verdict = layout['verdict']
+    checks = {
+        'every_contact_meets_recorded_site_rules': all(r['meets_recorded_site_rules'] for r in rows),
+        'every_shank_inside_board_outline_worst_case': all(r['shank_inside_board_outline_worst_case'] for r in rows),
+        'all_recorded_load_limits_met': verdict['all_recorded_limits_met'],
+        'contact_pressure_within_assumed_allowable': all(r['contact_stress']['within_assumed_allowable'] for r in rows),
+    }
+    return {'layout': ADOPTED_LAYOUT, 'status': 'CALCULATED CANDIDATE, NOT ACCEPTED: proposed part modification awaiting owner '
+                                                'approval, fabrication review and the physical contact/load validation',
+            'pin_edge_margin_required_mm': PIN_EDGE_MARGIN_REQUIRED_MM,
+            'edge_margin_basis': 'the recorded 0.15 mm worst-case requirement is applied to the board-contact diameter; the '
+                                 'limit itself is unchanged',
+            'stepped_tip': STEPPED_TIP, 'contact_allowable': POM_CONTACT_ALLOWABLE, 'clamps': rows,
+            'minimum_contact_edge_margin_worst_mm': r9(min(r['contact_edge_margin_worst_mm'] for r in rows)),
+            'worst_probe_displacement_mm': verdict['worst_probe_displacement_mm'],
+            'worst_land_lift_mm': verdict['worst_land_lift_mm'],
+            'minimum_force_margin_N': verdict['minimum_force_margin_N'],
+            'maximum_contact_pressure_MPa': max(r['contact_stress']['mean_contact_pressure_MPa'] for r in rows),
+            'checks': checks, 'all_recorded_rules_met': all(checks.values()),
+            'options_considered': [
+                {'option': 'a', 'description': 'stepped tip (1.2 mm contact on the 1.5 mm pin) on the second clamp, same site',
+                 'result': 'ADOPTED AS CANDIDATE: every recorded rule met in this record'},
+                {'option': 'b', 'description': 'non-circular foot (1.2 x 1.8 mm obround) on the second clamp, same site',
+                 'result': 'NOT ADOPTED: the numbers pass (contact edge margin 0.175 mm, about 9.4 MPa), but the foot must '
+                           'keep its orientation to the board edge and a spring-plunger thrust pin is free to rotate; it '
+                           'would need a keyed part that is not sourced. Scratch calculation, not part of this record'},
+                {'option': 'c', 'description': 'third hold-down with every pin on a site that satisfies the planar rules',
+                 'result': 'REJECTED: no rule-satisfying site lies beyond the probe centroid, so a third pin does not stop '
+                           'the tipping; the best of the admissible triples lifts the board 0.576 mm at the governing '
+                           'corner (0.7 mm board, level-0 mesh) against the 0.1 mm limit. Scratch calculation, not part '
+                           'of this record'}],
+            'not_shown_by_this': ['that the modified pin can be made or bought', 'tip wear, creep or abrasion of the solder mask',
+                                  'the real contact patch of a turned POM tip', 'CAD interference of the candidate pressure plate']}
 
 
 def net_load_point(clamps, clamp_forces, probes, probe_force):
@@ -493,7 +576,9 @@ def search_alternatives(geometry, probes, design, land, levels, modulus, limits,
         f"{scans[0]['probe_field_y_mm']}, so no admissible pair straddles it and the board tips. Closing the shortfall "
         f"needs an input this "
         f"calculation cannot supply: a smaller sourced plunger body, a narrower J5 notch, a larger pressure plate, or an "
-        f"owner decision to accept a smaller edge margin as a gauged incoming-acceptance requirement.")
+        f"owner decision to accept a smaller edge margin as a gauged incoming-acceptance requirement. This paragraph is "
+        f"about moving full-diameter pins; the adopted candidate instead keeps the sites and reduces the contact diameter "
+        f"of the second pin (see adopted_candidate).")
     return {'current_candidate': current_row, 'scans': scans,
             'ranking_force_band_N': list(band),
             'ranking': 'planar rules, then the rigid-body net-load-point margin over every force corner of the ranking '
@@ -565,8 +650,9 @@ def build(levels, cross_check=True, alternatives=True):
             'solvers': 'flexibility-form primal active set (scripts/a7_fixture_contact.ContactModel) with an independent '
                        'stiffness-form active set used as a cross-check; both verify the contact conditions and the '
                        'equilibrium residual from K u - f after the solve and raise instead of returning a violated state',
-            'loads': 'uniform pressure patches: probe tip 0.5 mm diameter (INGUN tip style), clamp pin 1.5 mm diameter (POM '
-                     'thrust pin); total force exact per patch',
+            'loads': 'uniform pressure patches: probe tip 0.5 mm diameter (INGUN tip style), clamp pin at the board-contact '
+                     'diameter of each layout (1.5 mm POM thrust pin; 1.2 mm on the stepped tip, see '
+                     'clamp_contact_diameters_mm); total force exact per patch',
             'material': {'flexural_modulus_MPa': modulus, 'modulus_class': 'ASSUMED (laminate not sourced)',
                          'poisson_ratio': POISSON, 'poisson_class': 'ASSUMED',
                          'sourced_comparison': relief.MODULUS_REFERENCES},
@@ -580,6 +666,7 @@ def build(levels, cross_check=True, alternatives=True):
         'mesh_levels': [list(m) for m in levels],
         'geometry': geometric_checks(geometry, probes),
         'layouts': layouts,
+        'adopted_candidate': adopted_candidate(geometry, probes, layouts, limits),
         'alternative_clamp_sites': alternative_sites,
         'assumptions': [
             'Finished thickness 0.8 +/-0.1 mm is the JLCPCB published tolerance for boards below 1.0 mm '
@@ -655,6 +742,15 @@ def check(record, levels, rerun=True):
         if verdict['all_recorded_limits_met'] is not all(v is True for k, v in verdict.items() if isinstance(v, bool)
                                                          and k != 'all_recorded_limits_met'):
             problems.append(f'{name}: verdict summary disagrees with its own flags')
+    adopted = record.get('adopted_candidate', {})
+    if adopted.get('layout') != ADOPTED_LAYOUT or ADOPTED_LAYOUT not in record['layouts']:
+        problems.append('adopted candidate layout missing or renamed')
+    else:
+        again = adopted_candidate(geometry, probes, record['layouts'], record['limits'])
+        if json.loads(json.dumps(again)) != adopted:
+            problems.append('adopted candidate block disagrees with the rules, sites and layout verdict it is derived from')
+        if adopted['all_recorded_rules_met'] is not all(adopted['checks'].values()):
+            problems.append('adopted candidate summary disagrees with its own checks')
     if not rerun:
         return problems
     for row in [record['alternative_clamp_sites'].get('current_candidate')] + \
@@ -690,6 +786,11 @@ def summary(record):
                      f"{v['worst_probe_displacement_mm']} mm (limit {record['limits']['deflection_limit_mm']}); "
                      f"minimum force margin {v['minimum_force_margin_N']} N; "
                      f"mesh converged {v['mesh_converged_within_recorded_limit']}")
+    a = record.get('adopted_candidate')
+    if a:
+        lines.append(f"adopted candidate {a['layout']}: every recorded rule met {a['all_recorded_rules_met']}; contact edge margin "
+                     f"{a['minimum_contact_edge_margin_worst_mm']} mm (required {a['pin_edge_margin_required_mm']}); max contact "
+                     f"pressure {a['maximum_contact_pressure_MPa']} MPa (ASSUMED allowable {a['contact_allowable']['value_MPa']})")
     return '\n'.join(lines)
 
 

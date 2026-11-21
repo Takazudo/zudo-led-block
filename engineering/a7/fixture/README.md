@@ -11,7 +11,7 @@
 - `fixture-assembly.step`: 治具全体（4 プレート、金物の外形、5 組のレセプタクルとプローブ、基板と部品箱）の組立 STEP。
 - `assembly-interference.json`: 組立 STEP の干渉検査記録。`manifest.json` が設計ハッシュと STEP のバイトで束縛する。
 - `fixture-drawing.svg`: プレートの平面図（寸法要約付き）。加工図面ではない。
-- `condition-matrix.json` / `condition-matrix.md`: 0.7–0.9 mm 基板の全荷重コーナーを、収束した片側接触モデルで解いた計算記録と方法。**受入ではない**。PCB バイト列・native geometry・プローブ manifest に束縛され、`python3 scripts/a7_fixture_matrix.py --rebind` の 1 コマンドで最終基板へ再実行する。閉じられなかった幾何学的不足（2 本目のピンの板端余裕 0.025 mm）も記録に残す。
+- `condition-matrix.json` / `condition-matrix.md`: 0.7–0.9 mm 基板の全荷重コーナーを、収束した片側接触モデルで解いた計算記録と方法。**受入ではない**。PCB バイト列・native geometry・プローブ manifest に束縛され、`python3 scripts/a7_fixture_matrix.py --rebind` の 1 コマンドで最終基板へ再実行する。現候補は 2 本目のピンを Ø1.2 mm の段付き先端にする案（`adopted_candidate`、**PROPOSED・NOT ACCEPTED**、接触圧の許容値は ASSUMED）で、全径ピンの幾何学的不足（板端余裕 0.025 mm）も記録に残す。
 - `optical-support-study.md` / `optical-support-candidate.json` / `optical-diagonal-candidate.json`: 支持再設計の探索記録。**NOT ACCEPTED**。旧ストリップモデルの失敗値はそのまま保持する。
 
 ## 再生成と検査
