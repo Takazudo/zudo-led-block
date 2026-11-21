@@ -362,6 +362,8 @@ def geom(d, dx, dy):
         row += [int(d.GetShape()), d.GetStart().x - dx, d.GetStart().y - dy, d.GetEnd().x - dx, d.GetEnd().y - dy, d.GetWidth()]
         if d.GetShape() == p.SHAPE_T_POLY:
             row.append(polys(d.GetPolyShape(), dx, dy))
+        # A mask polygon with identical vertices but changed fill changes exposed copper.
+        row.append(bool(d.IsFilled()) if hasattr(d, 'IsFilled') else None)
     if text_of(d) is not None:
         # position, size and angle, not the bounding box: a ${REFERENCE} text grows with the copy suffix (J1 -> J1_2)
         return row + [d.GetTextPos().x - dx, d.GetTextPos().y - dy, d.GetTextWidth(), d.GetTextHeight(), d.GetTextAngleDegrees(), d.IsVisible()]

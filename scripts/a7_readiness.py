@@ -15,6 +15,9 @@ ROOT = Path(__file__).resolve().parents[1]
 QUAL = Path('engineering/a7/qualification')
 REQUIRED = frozenset('jack-continuity jack-dimensions switch-fit harness-depth pmma-supports fixture-contact firmware-waveforms power-current cv-thru-calibration startup-reset rail-collapse partial-rails u7-stress ldo-reverse load-short effective-capacitance thermal-optical cv-noise service-envelope'.split())
 IDENTITY_PATHS = {
+    'led_leaf_board': 'engineering/a7/electronics/led_leaf/led_leaf.kicad_pcb',
+    'led_leaf_schematic': 'engineering/a7/electronics/led_leaf/led_leaf.kicad_sch',
+    'optical_fabrication': 'engineering/a7/verification/fab/optical-fr4.json',
     'board': 'engineering/a7/electronics/controller/controller.kicad_pcb',
     'population': 'engineering/a7/electronics/controller/board_placement.json',
     'schematic': 'engineering/a7/electronics/controller/controller.kicad_sch',

@@ -1,0 +1,26 @@
+{
+ "ok": true,
+ "failures": [],
+ "facts": {
+  "erc_violations": 0,
+  "drc_violations": 0,
+  "drc_residuals_matched": [],
+  "unconnected": 0,
+  "parity_items": 42,
+  "parity_classes": {
+   "missing_field": 10,
+   "net_prefix_only": 31,
+   "no_connect_unnamed": 1
+  },
+  "unconnected_pcbnew": 0,
+  "independent_parity_errors": 0,
+  "geometry_sha256": "0fbd4d039fff87e3d4fbbee9adaef0827c1f0b62d8f3ea65d1a54d4ec343665e",
+  "zone_fill_sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+  "report_sha256": {
+   "erc.json": "452fb44773204b15d6780ac914b2dff7da9d79e5b752c8f7aed72ee216414491",
+   "drc.json": "3339603185efcb263eeb5021b71f14b270058d7af7336a0502b0684bf10ea812",
+   "netlist.xml": "1c163f9fdd5ac78e2a564e15c345e5ab0d1e49a5f5dc782c39f06a01295e9ac1",
+   "board_facts.json": "f2559a416645b17779ddedc78e9ff6bc792d61baab3a603b0f3094f39d4dbd5d"
+  }
+ }
+}

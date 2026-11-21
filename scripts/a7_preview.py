@@ -43,15 +43,23 @@ def make_manifest():
         variant = entry['variant']
         nodes = glb_nodes(ROOT / entry['source'])
         report = json.loads((ROOT / Path(entry['source']).parent / 'verification.json').read_text())
-        parts = {p['part']: p for p in report['parts']}
+        required_boards = {'engineering/a7/electronics/controller/controller.kicad_pcb', 'engineering/a7/electronics/led_leaf/led_leaf.kicad_pcb'}
+        if {x['board'] for x in report.get('optical_sources', [])} != required_boards:
+            raise ValueError('Current preview requires new A7 controller and leaf optical geometry')
+        if not report.get('display_parts'):
+            raise ValueError('Current preview lacks opaque copper/mask meshes')
+        parts = {p['part']: p for p in report['parts'] + report.get('display_parts', [])}
+        for source in report.get('optical_sources', []):
+            if digest(ROOT / source['source']) != source['sha256'] or digest(ROOT / source['board']) != source['board_sha256']:
+                raise ValueError('Stale optical source: ' + source['source'])
         names = [n['name'] for n in nodes if 'mesh' in n]
         if set(names) != set(parts) or len(names) != len(set(names)):
             raise ValueError('GLB / verification node mismatch')
         mapped = {}
         for name in names:
-            group = s['node_groups'][name]
+            group = parts[name].get('group') or s['node_groups'][name]
             mapped[name] = {'group': group, 'role': s['groups'][group]['role'], 'kind': parts[name]['kind']}
-        variants.append({**entry, 'width_mm': front['variants']['2hp' if variant == '2hp' else '3hp']['width'], 'nodes': mapped})
+        variants.append({**entry, 'width_mm': front['variants']['2hp' if variant == '2hp' else '3hp']['width'], 'nodes': mapped, 'optical_display': report.get('optical_display'), 'optical_sources': report.get('optical_sources', [])})
     return {'schema_version': 1, 'source_revision': s['source_revision'],
             'status': 'Provisional digital study; no manufacturing release or measured qualification.',
             'units': 'mm (GLB numeric coordinates are millimetres, not glTF metre convention)',
@@ -77,6 +85,18 @@ def generate(check=False):
 def sync():
     generate(True)
     PUBLIC.mkdir(parents=True, exist_ok=True)
+    previous_path = PUBLIC / 'manifest.json'
+    if previous_path.exists():
+        previous = json.loads(previous_path.read_text())
+        selected = {f['target'] for f in selection()['files']}
+        for variant in previous.get('variants', []):
+            target = variant['target']
+            if target not in selected and target in {'2hp.glb', '3hp_pet.glb'}:
+                retired = PUBLIC / target
+                if retired.exists():
+                    if digest(retired) != variant['sha256']:
+                        raise ValueError('Modified retired preview asset; preserve and inspect: ' + str(retired))
+                    retired.unlink()
     for f in selection()['files']:
         shutil.copyfile(ROOT / f['source'], PUBLIC / f['target'])
     for name in ['manifest.json','index.html','viewer.css','boot.js']:

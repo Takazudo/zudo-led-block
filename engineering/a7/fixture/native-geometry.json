@@ -1,12 +1,12 @@
 {
- "board_sha256": "89310d539b3c28096775cee821e46c14fdba42a87809c82f1fd7f0751704e727",
+ "board_sha256": "710ed8019126944272a52fe0b162826c09088d70e363fce3cc184df93e7bab5e",
  "geometry": {
   "axes": {
    "x": "right",
    "y": "down"
   },
   "back_side": "B-side footprints and pads are reported in KiCad board coordinates as seen from the front (no extra mirroring)",
-  "board_sha256": "89310d539b3c28096775cee821e46c14fdba42a87809c82f1fd7f0751704e727",
+  "board_sha256": "710ed8019126944272a52fe0b162826c09088d70e363fce3cc184df93e7bab5e",
   "extraction_errors": [],
   "footprints": [
    {
@@ -7954,26 +7954,30 @@
   "schema": "zudo-led-block/a7-fixture-geometry/1",
   "units": "mm"
  },
- "placement_sha256": "5ba26c3c25b4d31a36d324f47db21b24afa3cad67b6f0f2b4fcf9580024448e0",
+ "placement_sha256": "94ef69822e706aee1730cf7feddf9a6a86e884d780c043c18abb71611764d0f7",
  "provenance": {
-  "artifact_zip_sha256": "e9cc74e591cdbff56068e79da25c1439704fc7a803ace309f4af9091228ad6f0",
+  "ci_retained_artifact": false,
   "identity": {
-   "checkout_head": "81511d32c0a73c364cb07096731e9e9a2708372c",
-   "checkout_is_synthetic_merge": true,
-   "github_run_attempt": "1",
-   "github_run_id": "43294571723",
-   "pr_base_sha": "9ebdc5e56cf3c929a5e359286e1a5300c2e7375b",
-   "pr_head_sha": "8e71317f585da698b30af7a3e8ea115d0ff590ed",
-   "workflow_sha": "81511d32c0a73c364cb07096731e9e9a2708372c"
+   "checkout_head": "d6f6fa0a632f826138b43eac30c1dc71c815d369",
+   "checkout_is_synthetic_merge": null,
+   "github_run_attempt": null,
+   "github_run_id": null,
+   "pr_base_sha": null,
+   "pr_head_sha": null,
+   "workflow_sha": null
   },
   "image": "kicad/kicad:10.0.8@sha256:3f4a01786dfbe803a65f345c3342b765db9add913f5e9448f8356793714ddc34",
   "members_sha256": {
-   "evidence/a7_controller/board_facts.json": "dfb78a596163fd65889fe71832ce6aea9b04dc64114e2b1411bf9bcb1f445b8b",
-   "evidence/a7_controller/board_geometry.json": "e3c39782a55a882dc7f6ae98ecf97334ee8a6420d141a7dc79eed94e52fa2751",
-   "evidence/a7_controller/fixture_geometry.json": "241e5a2d6233a7bb8290e08290b099d86551989caf9c9f0d59f9d5038d5d5cd6",
-   "plan.json": "1c617f0e7578215d3d1a93067f5b121e35ad7937d1f8126fbde759bf7e755187",
-   "summary.json": "a5768d6d88f29e606da11280b301cf9732e9a92cd085b4340d599efecd6985c6"
-  }
+   "evidence/a7_controller/board_facts.json": "a9a821cec3ec58a0ef14246ca0293650e29d85551d6d12c552b90aeeb03957c4",
+   "evidence/a7_controller/board_geometry.json": "051ab593286df4010b39407d03f2a30472bb448bb84c67902153bc34e1e67234",
+   "evidence/a7_controller/fixture_geometry.json": "5011b05721e983c94b8e341e3e2807f8ba3e6747e43c72e3f29c1d50feef4d88",
+   "evidence/a7_led_leaf/board_facts.json": "f2559a416645b17779ddedc78e9ff6bc792d61baab3a603b0f3094f39d4dbd5d",
+   "evidence/a7_led_leaf/board_geometry.json": "1d3f3e42fc7ca931b27c9cb3e0100d9c45be06f2ae3ef9b641b9cd307f026bfb",
+   "plan.json": "018e67f542809033d9c9e7871bc897c23494a8bb9f70a7d52e446d19bed6dade",
+   "summary.json": "668e7770ca0ef5a88ab7bd4189d0e005dbbd32fc5888a63dc7a8a6f213967a40"
+  },
+  "note": "Gate run in the pinned KiCad image on a development machine during issue #87; there is no GitHub run id and no CI-retained artifact for it. Provenance of these bytes rests on this record, the gate summary hashes and review of the record diff, not on CI retention.",
+  "provenance_class": "LOCAL_PINNED_IMAGE_RUN"
  },
  "schema": "zudo-led-block/a7-fixture-native-geometry-record/1",
  "scope": "Native CAD pad/footprint geometry for fixture design only. Not body height, solder envelope, tolerance, measured fit, a completed fixture or a manufacturing approval.",

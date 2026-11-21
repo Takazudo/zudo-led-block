@@ -1,0 +1,63 @@
+{
+  "status": "EXPERIMENTAL_NOT_ACCEPTED",
+  "support_insert": "NOT_REQUIRED_BY_THIS_CANDIDATE",
+  "pressure_plate_z_mm": [
+    6,
+    12
+  ],
+  "existing_standoffs_retained": true,
+  "notch_mm": [
+    4.695,
+    23.2,
+    12.2,
+    29.5
+  ],
+  "notch_radius_mm": 1.1,
+  "j5_expanded_clearance_contained": true,
+  "local_notch_clearance_requirement_mm": 0.3,
+  "local_notch_clearance_worst_mm": 0.31499999999999917,
+  "local_clearance_change_basis": "replace former uniform 0.50mm opening allowance with a local 0.30mm minimum plus explicit tolerance budget; same native component courtyard, same open cable exit; no PCB courtyard or DRC changes",
+  "clamps": [
+    {
+      "centre_mm": [
+        1.2,
+        20.8
+      ],
+      "body_courtyard_gap_mm": 0.6050000000000004,
+      "nearest": "U7",
+      "thread_web_to_notch_mm": 2.239696333465404,
+      "thread_web_worst_mm": 2.139696333465404,
+      "pin_edge_margin_mm": 0.44999999999999996,
+      "pin_edge_margin_worst_mm": 0.35
+    },
+    {
+      "centre_mm": [
+        15.3,
+        26.5
+      ],
+      "body_courtyard_gap_mm": 1.1550000000000011,
+      "nearest": "C3",
+      "thread_web_to_notch_mm": 1.1000000000000014,
+      "thread_web_worst_mm": 1.0000000000000013,
+      "pin_edge_margin_mm": 0.14999999999999858,
+      "pin_edge_margin_worst_mm": 0.04999999999999857
+    }
+  ],
+  "pin_maximum_accepted_diameter_mm": 1.5,
+  "relative_pin_edge_tolerance_mm": 0.1,
+  "tolerance_budget_mm": {
+    "notch_edge": 0.05,
+    "tap_position": 0.05,
+    "board_registration": 0.05
+  },
+  "tolerance_status": "fabrication and incoming-acceptance REQUIREMENTS, not manufacturer guarantees or measurements. The KIPP D1=1.5mm is nominal without tolerance; every pin must fit the maximum diameter gauge.",
+  "sleeve_overhang": "allowed above F face: sleeve end >=0.2mm above board; entire POM pin envelope remains on board",
+  "contact_patch": "not inferred from pin diameter; actual tip profile/contact stress/abrasion remain physical checks",
+  "remaining": [
+    "fabrication/datum tolerance evidence",
+    "pressure-plate load path/deflection around revised notch",
+    "native CAD interference",
+    "force-corner and mesh convergence",
+    "independent acceptance review"
+  ]
+}

@@ -20,6 +20,10 @@
 | `source_authority.json` | authored | 所有区分と再生成ルール |
 | `fab/jlcpcb_capabilities.json` | authored | ルール差分の根拠となる JLCPCB の公開能力 (URL・取得ハッシュ・該当行) |
 | `routing/route_proposal_seed0.json` | authored | 権威基板の配線を作ったルーター出力の記録 (基板が正、これから基板は再生成しない) |
+| `routing/README.md` | authored | ルーター記録の読み方と、CI の再現性チェック (配線案の一致・基板の銅箔一致・電気レビュー) の内容 |
+| `electrical_review.md` | authored | 0.8 mm・ベタ GND なし制御基板の電気レビュー (#87)。リターン構成、受け入れ余裕と結果、バックのループ、デカップリング、電圧降下・発熱スクリーン、CV/データ結合、残課題。`interface_review.md` の旧 1.6 mm 時代のリターン/シールド結論を置き換えます |
+| `controller/` | authored | 採用した 0.8 mm 制御基板のネイティブ結果 (ERC/DRC/パリティ/未接続/再充填) と電気レビュー記録 `return-review.json`。実行の記録であって、物理評価ではありません |
+| `optical/controller/` | authored | 実際に書き出した Gerber のレビュー用サブセットと測定結果 (`raster-inspection.json`)。発注用パッケージではありません |
 | `pet_leaf/profile.json` | authored | 貼り合わせ型 PET LED リーフの電気プロファイルと判定の期待値（R4 項目 5）。`scripts/a7_pet_leaf_check.py` が A5 リーフの回路と銅箔に対して確認します。リーフの設計ではなく、PET の承認でもありません |
 
 ## ルール

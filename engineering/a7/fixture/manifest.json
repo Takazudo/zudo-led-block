@@ -3,9 +3,9 @@
   "status": "BLOCKED",
   "digital_fixture_complete": false,
   "digital_fixture_complete_scope": "README completion criteria 1-5, including the physical criterion 5",
-  "digital_criteria_1_to_4_met": true,
+  "digital_criteria_1_to_4_met": false,
   "digital_criteria_1_to_4_met_scope": "progress indicator only: README criteria 1-4 met digitally with no digital blocker; it is not digital_fixture_complete, not a fit result and not order eligibility",
-  "hardware_proposal_complete": true,
+  "hardware_proposal_complete": false,
   "hardware_proposal_scope": "one sourced candidate for every materials.json line, each PROPOSED_AWAITING_OWNER_APPROVAL: a proposal, not a selection, not an approval and not an order",
   "hardware_proposal": [
     {
@@ -171,27 +171,29 @@
       "source_sha256": "50ddbfdd17846943917ddab28bec84d39316ceb728c5fdac5c37ce20501f489b"
     }
   ],
-  "hardware_proposal_problems": [],
+  "hardware_proposal_problems": [
+    "hold-down-plungers: candidate does not meet the plunger requirement"
+  ],
   "scope": "Digital fixture design: support carrier, probe plate, pressure plate, base plate and hardware envelopes with the assembly STEP and interference check; not a fit result, not a selection and not a fabrication approval",
-  "board_sha256": "89310d539b3c28096775cee821e46c14fdba42a87809c82f1fd7f0751704e727",
-  "placement_sha256": "5ba26c3c25b4d31a36d324f47db21b24afa3cad67b6f0f2b4fcf9580024448e0",
-  "geometry_sha256": "1522f0aa2bf4907a39e51d8ef0e58eab9256cc961b0bc897c37ea0dae41870c2",
+  "board_sha256": "710ed8019126944272a52fe0b162826c09088d70e363fce3cc184df93e7bab5e",
+  "placement_sha256": "94ef69822e706aee1730cf7feddf9a6a86e884d780c043c18abb71611764d0f7",
+  "geometry_sha256": "8673e0dcaa3388002de38b2f06b6d8aa85236f398d5e14fd867b9a48eaf563e6",
   "inputs_sha256": {
-    "engineering/a7/electronics/controller/controller.kicad_pcb": "89310d539b3c28096775cee821e46c14fdba42a87809c82f1fd7f0751704e727",
-    "engineering/a7/electronics/controller/board_placement.json": "5ba26c3c25b4d31a36d324f47db21b24afa3cad67b6f0f2b4fcf9580024448e0",
-    "scripts/a7_fixture.py": "40b631386de42c8650df6b8fb3e3b923d202b83ebc664f9744640a62576f29d5",
-    "scripts/a7_fixture_relief.py": "5aee3bf21be848d266e0c1971827281f0f978f671bc452d76a16a2059b32cb12",
-    "scripts/a7_fixture_assembly.py": "2b20ad77bbaca9e36623f5a548abdc75d70f5b7060e986f1cf0cb9d3ce6e1a8e",
+    "engineering/a7/electronics/controller/controller.kicad_pcb": "710ed8019126944272a52fe0b162826c09088d70e363fce3cc184df93e7bab5e",
+    "engineering/a7/electronics/controller/board_placement.json": "94ef69822e706aee1730cf7feddf9a6a86e884d780c043c18abb71611764d0f7",
+    "scripts/a7_fixture.py": "db5e400a46d7a3ff068acba12fa230fb7911998147347b6360e3a978a0a12ac3",
+    "scripts/a7_fixture_relief.py": "ccec9957aa992d676b43680216662d7709f029056b4b9f45b05a4e9af535ac9c",
+    "scripts/a7_fixture_assembly.py": "cf4ffa4d32d162df92dc400358ee66655adb89725cc671ffb1b24fff19fe8507",
     "engineering/a7/procurement/population.csv": "6195a072b3882abf8d9212f0e778fa1cbb784d3f60929921558f95031c8276ff",
     "engineering/a7/fixture/sources.json": "532830a205f3fbe1919ba4e17fc37cfceaa6eee524464941fad036e8345b763d",
-    "engineering/a7/fixture/materials.json": "3a6b7cc0a5fe1df40383d489ebd793abbfcf0e03968812db7b3e6fd95962ba06",
+    "engineering/a7/fixture/materials.json": "e4c1c94966a46db75f8fc72eb00cf26719da38117fa4003fd05beb7c4d37d5c6",
     "engineering/a7/fixture/candidate-references.json": "6f929c9edf3d115dc18f5cf1b055f9971ec25af64ce20948a882729250151845"
   },
   "assembly": {
     "record": "engineering/a7/fixture/assembly-interference.json",
-    "record_sha256": "c3f0be4d3be0e6858d743989590d7157c284ce799f0b006bec2f167512731c43",
+    "record_sha256": "507ab714bdd72534a42206ffbb34abfa578ed81fcfc4875ab5d0123a46e32c82",
     "step": "engineering/a7/fixture/fixture-assembly.step",
-    "step_sha256": "32e4d6e45bcb757141077d59596e717481a93df9ecae8fd0178cc94151589475",
+    "step_sha256": "8af0027f740019a06c1479261f1f04256c7d4a12070b0429c1b5fc70954ce326",
     "solids": 129,
     "interferences": 0,
     "clearances": [
@@ -253,7 +255,7 @@
       },
       {
         "pair": "metal hardware to probes and receptacles",
-        "minimum_mm": 2.11,
+        "minimum_mm": 1.25,
         "between": [
           "C1 K0318.04 steel sleeve",
           "TP3 GKS-050 probe (compressed envelope)"
@@ -371,6 +373,7 @@
     "no_wall_below_minimum": true,
     "keyed_against_turned_insertion": true,
     "hold_down_plungers_on_free_f_face": true,
+    "datum_pins_stay_below_the_thinnest_board_f_face": true,
     "native_record_valid_and_probe_pads_confirmed": true
   },
   "completion_criteria": {
@@ -383,14 +386,14 @@
       "basis": "turned-pose blocking features and radial allocation closed by acceptance-measurement requirements"
     },
     "3_stroke_stop_guide_fixing_insulation_wiring": {
-      "met": true,
+      "met": false,
       "checks": {
         "installation_height_and_stroke_resolved": true,
         "travel_stop_independent_of_adjustment": true,
-        "clamp_force_sized_with_margin": true,
+        "clamp_force_sized_with_margin": false,
         "plungers_within_stroke": true,
-        "board_stays_on_land": true,
-        "board_bending_across_window_within_limit": true,
+        "board_stays_on_land": false,
+        "board_bending_across_window_within_limit": false,
         "guide_and_fixing_designed": true,
         "stop_joint_preload_holds_plate": true,
         "pressure_plate_clears_f_parts": true,
@@ -410,15 +413,18 @@
   },
   "native_geometry": {
     "record": "engineering/a7/fixture/native-geometry.json",
-    "record_sha256": "820689fa1bc4dcb4bdc3a801380349e6cfec18768cfb4a27a215bda79a15a619",
+    "record_sha256": "668e9366f78299bb48d23b5424d2676e1eba01e64897048b773f8328b5621fbd",
     "status": "NATIVE_GEOMETRY_VALIDATED",
-    "github_run_id": "43294571723",
-    "tested_revision": "8e71317f585da698b30af7a3e8ea115d0ff590ed",
-    "artifact_zip_sha256": "e9cc74e591cdbff56068e79da25c1439704fc7a803ace309f4af9091228ad6f0",
+    "github_run_id": null,
+    "tested_revision": "d6f6fa0a632f826138b43eac30c1dc71c815d369",
+    "provenance_class": "LOCAL_PINNED_IMAGE_RUN",
+    "ci_retained_artifact": false,
+    "artifact_zip_sha256": null,
     "probe_pads_match": true,
     "scope": "Native KiCad pad facts confirm the five probe pads (B side, round 1 mm, B.Cu/B.Mask, position, net). Native pad copper boxes set the carrier cuts and native F courtyards bound the clamp points (b_side_relief); body heights and solder envelopes are not native facts."
   },
   "b_side_relief": {
+    "candidate_geometry": null,
     "rules": {
       "minimum_milled_wall_mm": 1.0,
       "minimum_milled_wall_basis": "captured JLCCNC guidance (candidate reference, NOT selected): absolute minimum 1.0 mm for plastic parts; applied to every milled wall and to every web around a milled hole",
@@ -428,7 +434,8 @@
       "tht_copper_clearance_mm": 0.3,
       "probe_window_half_width_mm": 1.0,
       "datum_pin_diameter_mm": 2.0,
-      "datum_pin_height_above_carrier_mm": 1.0,
+      "datum_pin_length_mm": 6.0,
+      "datum_pin_height_above_carrier_mm": 0.5,
       "alignment_dowel_diameter_mm": 2.0,
       "m3_clearance_hole_mm": 3.4,
       "m3_screw_head_diameter_mm": 5.5,
@@ -442,7 +449,7 @@
       "pressure_plate_part_clearance_mm": 0.5,
       "resultant_margin_mm": 0.5,
       "clamp_force_margin_factor": 2.0,
-      "board_thickness_tolerance_mm": 0.16,
+      "board_thickness_tolerance_mm": 0.1,
       "plunger_setting_tolerance_mm": 0.1,
       "plate_stack_acceptance_tolerance_mm": 0.05,
       "plunger_force_acceptance_band": 0.2,
@@ -553,7 +560,7 @@
           "sha256": "0acc4953f3bab055a1b9d89de0b41108b0f68a0cbd92718ed3faf42a1d17aef8",
           "locator": "page index 3 figure side, end and top views"
         },
-        "protrusion_below_b_face": "none: 0.5 mm pegs are shorter than the 1.6 mm board",
+        "protrusion_below_b_face": "none: 0.5 mm pegs are shorter than the 0.7 mm minimum board",
         "body_height_mm": 1.4,
         "body_height_source": "fact-a7-hx-msk13c02-outline height_above_pcb (component-a7-hx-msk13c02)"
       },
@@ -569,12 +576,12 @@
           "locator": "SECTION X-X horizontal dimension 2.3 +/-0.5 (sheet 1, zones E-F, columns 8-10); tail length from the housing seating face to the tail tip (component-530470310 facts.json)"
         },
         "protrusion_below_b_face_mm": {
-          "nominal": 0.7,
+          "nominal": 1.5,
           "range": [
-            0.2,
-            1.2
+            0.9,
+            2.1
           ],
-          "basis": "CALCULATION, not sourced: 2.3 +/-0.5 mm tail minus the 1.6 mm board with the housing seated flush; the board-thickness tolerance is not sourced"
+          "basis": "CALCULATION: 2.3 +/-0.5 mm tail minus the 0.8 +/-0.1 mm finished board, housing seated flush"
         },
         "mated_height_above_f_face_mm": 5.2,
         "mated_height_source": "A5-sourced mated height used by scripts/a7_mechanical_layout.py"
@@ -2680,73 +2687,73 @@
         {
           "ref": "C13",
           "height_mm": 0.9,
-          "clearance_to_plate_mm": 3.34,
+          "clearance_to_plate_mm": 4.2,
           "source": "A5 seed envelope (engineering/a5/electronics/placement_and_connectivity.json, C13, same MPN 0603B103K500NT)"
         },
         {
           "ref": "C14",
           "height_mm": 0.9,
-          "clearance_to_plate_mm": 3.34,
+          "clearance_to_plate_mm": 4.2,
           "source": "A5 seed envelope (engineering/a5/electronics/placement_and_connectivity.json, C14, same MPN CC0603KRX7R9BB104)"
         },
         {
           "ref": "C15",
           "height_mm": 1.35,
-          "clearance_to_plate_mm": 2.89,
+          "clearance_to_plate_mm": 3.75,
           "source": "A5 seed envelope (engineering/a5/electronics/placement_and_connectivity.json, C15, same MPN CL21A106KAYNNNE)"
         },
         {
           "ref": "C16",
           "height_mm": 1.35,
-          "clearance_to_plate_mm": 2.89,
+          "clearance_to_plate_mm": 3.75,
           "source": "A5 seed envelope (engineering/a5/electronics/placement_and_connectivity.json, C16, same MPN CL21A106KAYNNNE)"
         },
         {
           "ref": "C17",
           "height_mm": 0.9,
-          "clearance_to_plate_mm": 3.34,
+          "clearance_to_plate_mm": 4.2,
           "source": "A5 seed envelope (engineering/a5/electronics/placement_and_connectivity.json, C17, same MPN CC0603KRX7R9BB104)"
         },
         {
           "ref": "C7",
           "height_mm": 0.9,
-          "clearance_to_plate_mm": 3.34,
+          "clearance_to_plate_mm": 4.2,
           "source": "A5 seed envelope (engineering/a5/electronics/placement_and_connectivity.json, C7, same MPN CL10A475KO8NNNC)"
         },
         {
           "ref": "C8",
           "height_mm": 0.9,
-          "clearance_to_plate_mm": 3.34,
+          "clearance_to_plate_mm": 4.2,
           "source": "A5 seed envelope (engineering/a5/electronics/placement_and_connectivity.json, C8, same MPN CC0603KRX7R9BB104)"
         },
         {
           "ref": "D3",
           "height_mm": 1.1,
-          "clearance_to_plate_mm": 3.14,
+          "clearance_to_plate_mm": 4.0,
           "source": "A5 seed envelope (engineering/a5/electronics/placement_and_connectivity.json, D3, same MPN BAS70-04-7-F)"
         },
         {
           "ref": "J3",
           "height_mm": 2.95,
-          "clearance_to_plate_mm": 1.29,
+          "clearance_to_plate_mm": 2.15,
           "source": "A5 seed envelope (engineering/a5/electronics/placement_and_connectivity.json, J3, same MPN SM04B-SRSS-TB(LF)(SN))"
         },
         {
           "ref": "U1",
           "height_mm": 0.6,
-          "clearance_to_plate_mm": 3.64,
+          "clearance_to_plate_mm": 4.5,
           "source": "A5 seed envelope (engineering/a5/electronics/placement_and_connectivity.json, U1, same MPN STM32G031G8U6TR)"
         },
         {
           "ref": "U4",
           "height_mm": 1.45,
-          "clearance_to_plate_mm": 2.79,
+          "clearance_to_plate_mm": 3.65,
           "source": "A5 seed envelope (engineering/a5/electronics/placement_and_connectivity.json, U4, same MPN TPS2552DBVR-1)"
         },
         {
           "ref": "U7",
           "height_mm": 1.45,
-          "clearance_to_plate_mm": 2.79,
+          "clearance_to_plate_mm": 3.65,
           "source": "A5 seed envelope (engineering/a5/electronics/placement_and_connectivity.json, U7, same MPN TLV9001IDBVR)"
         }
       ],
@@ -3532,9 +3539,9 @@
         ],
         "source": "PJ-324M",
         "class": "SOURCE_DERIVED (MANUFACTURER_MIRROR)",
-        "protrusion_worst_case_at_nominal_board_mm": 1.8,
+        "protrusion_worst_case_at_nominal_board_mm": 2.6,
         "protrusion_bound_any_board_thickness_mm": 3.4,
-        "bound_basis": "full sourced lead length below the seating plane (nominal + tolerance): the board-thickness tolerance is not sourced, and with the part seated flush or proud the protrusion cannot exceed this for any board thickness",
+        "bound_basis": "full sourced lead length below the seating plane (nominal + tolerance), a conservative bound independent of the adopted board range; with the part seated flush or proud the protrusion cannot exceed this",
         "carrier_thickness_mm": 5.0,
         "margin_to_carrier_bottom_mm": 1.6,
         "margin_to_probe_plate_top_mm": 7.6,
@@ -3547,9 +3554,9 @@
         ],
         "source": "PicoBlade 530470310",
         "class": "SOURCE_DERIVED (MANUFACTURER_PRIMARY)",
-        "protrusion_worst_case_at_nominal_board_mm": 1.2,
+        "protrusion_worst_case_at_nominal_board_mm": 2.0,
         "protrusion_bound_any_board_thickness_mm": 2.8,
-        "bound_basis": "full sourced lead length below the seating plane (nominal + tolerance): the board-thickness tolerance is not sourced, and with the part seated flush or proud the protrusion cannot exceed this for any board thickness",
+        "bound_basis": "full sourced lead length below the seating plane (nominal + tolerance), a conservative bound independent of the adopted board range; with the part seated flush or proud the protrusion cannot exceed this",
         "carrier_thickness_mm": 5.0,
         "margin_to_carrier_bottom_mm": 2.2,
         "margin_to_probe_plate_top_mm": 8.2,
@@ -3559,7 +3566,7 @@
     ],
     "solder_envelope": "not needed for clearance: every B-face feature lies in a window through the 5 mm carrier, and every through-hole lead, taken at its full sourced length below the seating plane, ends inside its carrier window",
     "keying": {
-      "method": "B-face features stand proud of the B face: PJ-324M terminals (nominal 1.6 mm, MANUFACTURER_MIRROR) and the soldered R0603 terminations (body up to 0.55 mm, SOURCE_DERIVED). In the correct pose all of them fall into carrier windows; turned 180 degrees in plane, the listed centres land on solid carrier, hold the board off the land and the datum pins, and the probes miss the test pads. Face-down insertion is excluded by the F-side jacks.",
+      "method": "B-face features stand proud of the B face: PJ-324M terminals (nominal 2.4 mm, MANUFACTURER_MIRROR) and the soldered R0603 terminations (body up to 0.55 mm, SOURCE_DERIVED). In the correct pose all of them fall into carrier windows; turned 180 degrees in plane, the listed centres land on solid carrier, hold the board off the land and the datum pins, and the probes miss the test pads. Face-down insertion is excluded by the F-side jacks.",
       "turned_pose_features": [
         {
           "feature": "J1.1",
@@ -4092,6 +4099,8 @@
     "holddown": {
       "type": "rigid 6 mm FR-4 pressure plate screwed down onto two M3 hex standoffs (6 mm hard stops) on the carrier; 2 spring plungers with POM thrust pins, threaded into the plate, press the free F-face area beside the probe field",
       "control": "displacement: each plunger compression is fixed by the stop height, the board thickness and the plunger setting, so each plunger force lies in its own band independently of the others; there is no spring balance",
+      "layout_status": "REJECTED_INSUFFICIENT_FORCE",
+      "search_free_sites": 270,
       "contacts_board_mm": [
         [
           14.1,
@@ -4165,108 +4174,108 @@
       "clamp_force_margin_factor": 2.0,
       "required_total_force_N": 12.7,
       "plunger_compression_mm": {
-        "nominal": 0.99,
+        "nominal": 1.05,
         "range": [
-          0.624896,
+          0.389849,
           1.3
         ],
         "stack_mm": {
-          "board_thickness": 0.16,
+          "board_thickness": 0.1,
           "stop_length": 0.05,
           "plunger_setting": 0.1
         },
         "plate_deflection_mm": 0.009027,
-        "board_sag_under_plungers_mm": 0.046077,
+        "board_sag_under_plungers_mm": 0.401124,
         "board_thickness_range_mm": [
-          1.44,
-          1.76
+          0.7,
+          0.9
         ]
       },
       "plunger_setting_mm": {
-        "free_pin_tip_below_plate_underside": 5.39,
+        "free_pin_tip_below_plate_underside": 6.25,
         "tolerance": 0.1
       },
       "plunger_force_each_N": [
-        7.666057,
+        6.287114,
         17.44
       ],
       "plunger_force_basis": "linear between the catalogue F1 and F2 over the stroke, +/-20 % acceptance band",
       "total_force_N": [
-        15.332114,
+        12.574228,
         34.88
       ],
       "statics_cases": [
         {
           "plunger_forces_N": [
-            7.666057,
-            7.666057
+            6.287114,
+            6.287114
           ],
           "probe_force_total_N": 4.804651,
           "board_net_load_point_mm": [
-            14.656595,
-            16.480309
+            14.836416,
+            15.550425
           ],
-          "board_net_load_point_margin_mm": 1.493405
+          "board_net_load_point_margin_mm": 1.313584
         },
         {
           "plunger_forces_N": [
-            7.666057,
-            7.666057
+            6.287114,
+            6.287114
           ],
           "probe_force_total_N": 6.35,
           "board_net_load_point_mm": [
-            14.934726,
-            15.042047
+            15.28243,
+            13.244013
           ],
-          "board_net_load_point_margin_mm": 1.215274
+          "board_net_load_point_margin_mm": 0.194013
         },
         {
           "plunger_forces_N": [
-            7.666057,
+            6.287114,
             17.44
           ],
           "probe_force_total_N": 4.804651,
           "board_net_load_point_mm": [
-            14.436771,
-            16.489789
+            14.461313,
+            16.110104
           ],
-          "board_net_load_point_margin_mm": 1.713229
+          "board_net_load_point_margin_mm": 1.688687
         },
         {
           "plunger_forces_N": [
-            7.666057,
+            6.287114,
             17.44
           ],
           "probe_force_total_N": 6.35,
           "board_net_load_point_mm": [
-            14.551854,
-            15.801799
+            14.58771,
+            15.333753
           ],
-          "board_net_load_point_margin_mm": 1.598146
+          "board_net_load_point_margin_mm": 1.56229
         },
         {
           "plunger_forces_N": [
             17.44,
-            7.666057
+            6.287114
           ],
           "probe_force_total_N": 4.804651,
           "board_net_load_point_mm": [
-            14.388627,
-            18.993286
+            14.402373,
+            19.17498
           ],
-          "board_net_load_point_margin_mm": 1.761373
+          "board_net_load_point_margin_mm": 1.747627
         },
         {
           "plunger_forces_N": [
             17.44,
-            7.666057
+            6.287114
           ],
           "probe_force_total_N": 6.35,
           "board_net_load_point_mm": [
-            14.499743,
-            18.511564
+            14.523529,
+            18.671189
           ],
-          "board_net_load_point_margin_mm": 1.650257
+          "board_net_load_point_margin_mm": 1.626471
         },
         {
           "plunger_forces_N": [
@@ -4293,7 +4302,7 @@
           "board_net_load_point_margin_mm": 1.752944
         }
       ],
-      "board_net_load_point_inside_land_hull_mm": 1.215274,
+      "board_net_load_point_inside_land_hull_mm": 0.194013,
       "stop_moment_N_mm": 146.496,
       "stop_joint": {
         "required_screw_tension_total_N": 88.151273,
@@ -4322,7 +4331,7 @@
           "simply_supported"
         ],
         "plunger_load_N": 17.44,
-        "deflection_under_plungers_mm": 0.023039,
+        "deflection_under_plungers_mm": 0.200562,
         "probe_spans_mm": [
           17.32,
           17.32,
@@ -4331,15 +4340,15 @@
           9.86
         ],
         "probe_load_N": 6.35,
-        "deflection_under_probes_mm": 0.030692,
+        "deflection_under_probes_mm": 0.26719,
         "strip_width_mm": 5.0,
-        "board_thickness_nominal_mm": 1.6,
-        "board_thickness_minimum_mm": 1.44,
-        "board_thickness_basis": "PROJECT-CHOICE fabrication requirement 1.6 +/-0.16 mm (+/-10 %); not sourced, the fabricator is not selected. Bending uses the minimum thickness",
+        "board_thickness_nominal_mm": 0.8,
+        "board_thickness_minimum_mm": 0.7,
+        "board_thickness_basis": "JLCPCB published finished thickness tolerance: 0.8 +/-0.1 mm; https://jlcpcb.com/capabilities/Capabilities. Bending uses 0.7 mm; final order specification and material modulus still require confirmation",
         "flexural_modulus_MPa": 18000.0,
         "flexural_modulus_class": "ASSUMED for the board: its laminate is not sourced (fabricator not selected). The sourced values below are typical values of other FR-4 class laminates, given for comparison; they do not bound the board laminate",
         "not_covered": "board bow or warp; the sag under the plungers is also taken off the minimum plunger compression",
-        "flexural_modulus_minimum_for_limit_MPa": 5524.6,
+        "flexural_modulus_minimum_for_limit_MPa": 48094.2,
         "representative_sourced_moduli": [
           {
             "material": "Isola FR406 (IPC-4101 /21 /24 /26)",
@@ -4358,8 +4367,8 @@
             "locator": "Mechanical properties, E-modulus"
           }
         ],
-        "deflection_at_lowest_sourced_modulus_mm": 0.025715,
-        "deflection_mm": 0.030692,
+        "deflection_at_lowest_sourced_modulus_mm": 0.22386,
+        "deflection_mm": 0.26719,
         "limit_mm": 0.1,
         "limit_basis": "PROJECT-CHOICE: small against the 2.05 mm between the 4.3 mm working stroke and the 6.35 mm maximum"
       },
@@ -4383,7 +4392,7 @@
         "status": "PROPOSED_AWAITING_OWNER_APPROVAL (not selected)",
         "checks": {
           "compression_min_mm": [
-            0.624896,
+            0.389849,
             ">",
             0.0,
             true
@@ -4395,10 +4404,10 @@
             true
           ],
           "total_force_min_N": [
-            15.332114,
+            12.574228,
             ">=",
             12.7,
-            true
+            false
           ],
           "body_end_above_f_face_min_mm": [
             0.2,
@@ -4407,9 +4416,9 @@
             true
           ]
         },
-        "meets_requirement": true
+        "meets_requirement": false
       },
-      "plunger_acceptance": "each plunger: force measured at 0.624896 and 1.3 mm compression, each within +/-20 % of the catalogue line at that compression (one point does not fix the rate); pin protrusion 1.5 mm measured (no tolerance printed); free pin tip set 5.39 +/-0.1 mm below the plate underside with a gauge before each session (the plunger has no thread lock)",
+      "plunger_acceptance": "each plunger: force measured at 0.389849 and 1.3 mm compression, each within +/-20 % of the catalogue line at that compression (one point does not fix the rate); pin protrusion 1.5 mm measured (no tolerance printed); free pin tip set 6.25 +/-0.1 mm below the plate underside with a gauge before each session (the plunger has no thread lock)",
       "plate_stack_acceptance": "stop standoff length 6.0 +/-0.05 mm, measured before assembly; parts outside are not used",
       "operation": "remove the two M3 x 8 screws on the stop tops and lift the plate off with its plungers; insert the board and push it against X1, X2 and Y1; refit the plate and tighten both screws to 0.3 N m (the plate bears on the stops). The plunger compression, not the screw torque, sets the hold-down force"
     },
@@ -4482,7 +4491,7 @@
       },
       "plunger_sleeves_to_probes": {
         "side": "F, above the board; the probes are on the B side",
-        "vertical_separation_min_mm": 1.64,
+        "vertical_separation_min_mm": 0.9,
         "basis": "thinnest board plus the smallest sleeve-end gap above the F face; the assembly record gives the 3D distance"
       },
       "datum_contact_to_nearest_copper_mm": {
@@ -4641,15 +4650,16 @@
       "every_tht_lead_ends_inside_its_carrier_window": true,
       "no_wall_below_minimum": true,
       "keyed_against_turned_insertion": true,
-      "hold_down_plungers_on_free_f_face": true
+      "hold_down_plungers_on_free_f_face": true,
+      "datum_pins_stay_below_the_thinnest_board_f_face": true
     },
     "criterion_3_checks": {
       "installation_height_and_stroke_resolved": true,
       "travel_stop_independent_of_adjustment": true,
-      "clamp_force_sized_with_margin": true,
+      "clamp_force_sized_with_margin": false,
       "plungers_within_stroke": true,
-      "board_stays_on_land": true,
-      "board_bending_across_window_within_limit": true,
+      "board_stays_on_land": false,
+      "board_bending_across_window_within_limit": false,
       "guide_and_fixing_designed": true,
       "stop_joint_preload_holds_plate": true,
       "pressure_plate_clears_f_parts": true,
@@ -4664,7 +4674,8 @@
     "base_sha": "af523f9abb74e206c27aaaa076b3b68a5c474940",
     "result": "PASS",
     "board_sha256": "89310d539b3c28096775cee821e46c14fdba42a87809c82f1fd7f0751704e727",
-    "scope": "Pinned native CI of the PR #44 preparation head on the unchanged board (CI log result); not verification of fixture geometry",
+    "applies_to_current_board": false,
+    "scope": "Pinned native CI of the PR #44 preparation head on the 1.6 mm board it names (CI log result); not verification of fixture geometry and NOT a result for the current 0.8 mm board. The current board's native result is the pinned-image gate recorded in native-geometry.json (provenance_class LOCAL_PINNED_IMAGE_RUN, no CI run id); CI re-runs the gate itself on every push",
     "raw_facts_consumed": false,
     "artifact_access": "2026-11-09: download Forbidden (historical). 2026-11-11: native-infrastructure-evidence artifact 13663737750 downloaded (ZIP SHA-256 33f3d9121164f364b0325540b161e9546ddf73c8b723c9166fdcd8a19867cf0e), but it retains only a7-gate/summary.json; candidate board_facts/board_geometry were not uploaded, so raw candidate facts remain unavailable"
   },
@@ -4769,7 +4780,7 @@
     "total_force_at_maximum_stroke_N": 6.35,
     "required_total_hold_down_force_N": 12.7,
     "hold_down_force_range_N": [
-      15.332114,
+      12.574228,
       34.88
     ],
     "clamp_force_margin_factor": 2.0,
@@ -4877,7 +4888,9 @@
       "satisfied": false
     }
   ],
-  "blockers": [],
+  "blockers": [
+    "criterion 3_stroke_stop_guide_fixing_insulation_wiring not met: clamp_force_sized_with_margin, board_stays_on_land, board_bending_across_window_within_limit not met"
+  ],
   "owner_and_supplier_items": [
     "Fabricator for the four FR-4 plates is an owner choice and not selected; JLCCNC guidance is a candidate reference only. The probe-plate bores are drilled at the board test-point pitch, leaving 0.4 mm between bores: this meets the INGUN receptacle grid (0.27 mm) but not the 1.0 mm milled-wall guidance, so the chosen fabricator must confirm drilling it; the board pitch is fixed.",
     "Registration needs the bore positions within 0.05 mm of the datum pins, tighter than the +/-0.1 mm standard tolerance: an annotated 2D drawing is needed.",

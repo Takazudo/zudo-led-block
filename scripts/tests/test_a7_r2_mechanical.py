@@ -119,6 +119,14 @@ class LayoutCurrent(unittest.TestCase):
 
 
 class Candidates(unittest.TestCase):
+    def test_fallback_never_selects_old_1_6_mm_board(self):
+        q = copy.deepcopy(PARAMS)
+        q["parameters"]["pcb_thickness_options"]["values"] = [.8, 1.0, 1.6]
+        selected, tried = LAY.select_3hp(q)
+        self.assertEqual(selected["pcb_thickness"], .8)
+        self.assertEqual([row["pcb_thickness"] for row in tried], [.8])
+        self.assertTrue(all(v["pcb_thickness"] == .8 for v in L["variants"].values()))
+
     def test_selected_rows_match_r1_calculation(self):
         for name, key in (("2hp", "panel_width_2hp"), ("3hp", "panel_width_3hp")):
             s = L["variants"][name]["selection"]
@@ -263,33 +271,62 @@ class Harness(unittest.TestCase):
             self.assertGreaterEqual(sh["min_radius"], json.loads((MECH / "design-inputs.json").read_text())["cables"]["led_route"]["step_radius"] - 1e-9)
         self.assertAlmostEqual(L["controller"]["led_header"]["z_centre"], 12.8)
 
-    def test_pet_leaf_comparison(self):
+    def test_current_leaf_stack_and_slot_account_for_tolerances(self):
         lc = L["leaf_comparison"]
         self.assertEqual(lc["default"], "fr4")
-        self.assertEqual(lc["inputs"]["pet"]["film"]["finished_thickness"]["confidence"], "MANUFACTURER_PRIMARY")
-        for k in ("adhesive", "carrier"):
-            self.assertEqual(lc["inputs"]["pet"][k]["thickness"]["confidence"], "INFERRED")
-        self.assertIsNone(lc["inputs"]["sh_mating_force_n"]["nominal"], "SH mating force stays UNSOURCED")
-        self.assertLess(lc["pet"]["total_thickness"], lc["inputs"]["cap_slot_width"])
-        self.assertLessEqual(abs(lc["outer_face_shift_pet_minus_fr4"]), 0.05)
-        self.assertGreaterEqual(lc["pet"]["rigidity_per_mm_bonded_nmm"], lc["pet"]["rigidity_per_mm_lower_bound_nmm"])
-        self.assertLess(lc["pet_film_alone_buckling_load_fixed_free_n"], lc["pet"]["buckling_load_lower_bound_n"]["fixed_free_K2"])
-        self.assertTrue(lc["recommendation"].startswith("Keep FR-4 as the default"))
-        v = json.loads((MECH / "exports" / "3hp_pet" / "verification.json").read_text())
-        self.assertEqual(v["leaf"], "pet")
-        self.assertEqual(v["layout_sha256"], hashlib.sha256((MECH / "layout.json").read_bytes()).hexdigest(), "3hp_pet CAD export is stale")
-        for f, h in v["input_sha256"].items():
-            self.assertEqual(hashlib.sha256((REPO / f).read_bytes()).hexdigest(), h, f"3hp_pet: {f} changed")
-        self.assertEqual(v["unexpected_rigid_intersections"], [])
-        self.assertTrue(v["all_shapes_valid"])
-        self.assertIn("leaf_carrier_PC", {p["part"] for p in v["parts"]})
-        for o in v["optical_obstruction"].values():
-            self.assertEqual(o["a7_controller_or_support_obstructions"], 0)
-            for h in o["a7_harness_obstructions"]:
-                self.assertGreaterEqual(h["min_distance_to_emitter_mm"], 1.0)
-        self.assertTrue(all(f["clearance_mm"] >= 0.05 - 1e-9 for f in v["cable_findings"] if "note" not in f))
-        self.assertTrue(v["export"]["valid"])
-        self.assertEqual(v["export"]["source_solids"], v["export"]["imported_solids"])
+        self.assertEqual(lc["current_variants"], ["fr4"])
+        self.assertNotIn("pet", lc)
+        self.assertNotIn("pet", lc["inputs"])
+        self.assertEqual(lc["fr4"]["total_thickness"], 1.7)
+        self.assertEqual(lc["fr4"]["thickness_range"], [1.45, 1.95])
+        self.assertLess(lc["fr4"]["old_cap_slot_clearance_nominal_per_side"], 0)
+        self.assertGreaterEqual(lc["fr4"]["cap_slot_clearance_worst_per_side"], .075)
+        self.assertEqual(lc["optical"]["led_and_connector_shift_outward"], .2)
+        self.assertIsNone(lc["optical"]["transmittance"])
+        self.assertFalse(lc["optical"]["measured"])
+        self.assertIsNone(lc["inputs"]["sh_mating_force_n"]["nominal"])
+        self.assertLess(lc["fr4"]["rigidity_per_mm_lower_bound_nmm"], lc["fr4"]["rigidity_per_mm_bonded_nmm"])
+        # A widened tolerance must reduce clearance; the old nominal-only calculation misses this.
+        d = json.loads((MECH / "design-inputs.json").read_text())
+        d["leaf_variants"]["fr4"]["board_thickness"]["tol"] = .2
+        wider = LAY.leaf_comparison(d, G5["leaf"], L["z_stack"])
+        self.assertLess(wider["fr4"]["cap_slot_clearance_worst_per_side"], 0)
+
+    def test_retained_adapter_gap_includes_thickness_and_assembly_tolerances(self):
+        b = L["supports"]["adapter"]["harness_gap_budget"]
+        self.assertEqual(b["adapter_rear_max"], 15.26)
+        self.assertEqual(b["harness_z_envelope"], [16.7, 19.1])
+        self.assertEqual(b["leaf_front_min"], 19.3)
+        self.assertGreaterEqual(b["adapter_clearance_worst"], .2)
+        self.assertGreaterEqual(b["leaf_clearance_worst"], .2)
+        self.assertIn("ASSUMED", b["inputs"]["allowance_confidence"])
+
+    def test_old_adapter_position_fails_new_assembly_budget(self):
+        d = json.loads((MECH / "design-inputs.json").read_text())
+        d["adapter_relocation"]["z_shift"]["nominal"] = -2.0
+        d["adapter_relocation"]["cap_spacer"]["height"] = 2.0
+        with tempfile.TemporaryDirectory() as td:
+            path = Path(td) / "inputs.json"
+            path.write_text(json.dumps(d))
+            with patch.object(LAY, "INPUTS", path):
+                with self.assertRaisesRegex(ValueError, "tolerance budget"):
+                    LAY.build()
+
+    def test_leaf_fasteners_include_assembly_and_rotation_envelopes(self):
+        b = L["supports"]["leaf_fasteners"]
+        self.assertEqual(b["variants"]["3hp"]["centre_offset"], 3.4)
+        self.assertGreaterEqual(b["variants"]["3hp"]["leaf_clearance_worst"], .15)
+        self.assertGreaterEqual(b["variants"]["3hp"]["cap_outer_edge_clearance_worst"], .3)
+        self.assertFalse(b["variants"]["2hp"]["transverse_budget_pass"])
+        q = copy.deepcopy(b["inputs"])
+        q["centre_offset_mm"]["3hp"] = 2.7
+        with self.assertRaisesRegex(ValueError, "leaf fastener clearance"):
+            LAY.leaf_fastener_budget(q, L["leaf_comparison"], {"3hp":14.9,"2hp":9.8}, "3hp")
+
+    def test_harness_start_follows_new_leaf_face(self):
+        for v in L["variants"].values():
+            start = v["routes"]["controller_to_left_leaf_sh4"]["points"][0][0]
+            self.assertAlmostEqual(start, v["panel_width"] / 2 - .85 - 1.7)
 
     def test_r4_routed_placement_matches_envelopes(self):
         chk = json.loads((MECH / "r4-placement-check.json").read_text())
@@ -318,7 +355,7 @@ class Harness(unittest.TestCase):
         self.assertAlmostEqual(ad["cap_spacer_z"][1] - ad["cap_spacer_z"][0], -ad["z_shift"], places=6)
         self.assertAlmostEqual(ad["cap_spacer_z"][0], ad["rear_z"], places=6)
         self.assertAlmostEqual(sp["post_nut_z"][0] - scr["tip_z"], 2.2, places=6, msg="A5 thread protrusion past the post nut")
-        self.assertEqual(scr["designation"], "M2x18")
+        self.assertEqual(scr["designation"], "M2x20")
         self.assertGreaterEqual(ad["cap_spacer_radius"] - 1.1, 1.5, "printed boss wall")
 
 
@@ -420,6 +457,37 @@ class Exports(unittest.TestCase):
                     self.assertAlmostEqual(c["centerline_length_mm"], c["layout_length_mm"], delta=0.01)
             self.assertFalse(v["manufacturing_release"])
             self.assertEqual(v["default_variant"], name == L["decision"]["default_variant"])
+
+    def test_leaf_link_is_one_bundle_of_the_sh4_length_stowed_off_the_emitters(self):
+        """The leaf-to-leaf link is one SH4 assembly: one bundle, the finished SH4 length, never four posed wires.
+
+        Checked on the selected width. The emitter distance and shading thresholds are the ones asserted for every
+        harness in test_cad_verification_current_and_clean; this test only pins what the bundle is.
+        """
+        name = L["decision"]["default_variant"]
+        v = json.loads((MECH / "exports" / name / "verification.json").read_text())
+        names = {p["part"] for p in v["parts"]}
+        self.assertFalse([n for n in names if n.startswith("leaf_link_pin")], "four separately posed wires are not a cable model")
+        links = [c for c in v["cables"] if c["name"].startswith("leaf_link")]
+        self.assertEqual(len(links), 1)
+        link, sh = links[0], L["variants"][name]["routes"]["controller_to_left_leaf_sh4"]
+        self.assertTrue(link["bundle_model"])
+        self.assertEqual(link["tube_radius_mm"], sh["bundle_radius"])
+        self.assertAlmostEqual(link["centerline_length_mm"], sh["length"], delta=0.01)
+        self.assertAlmostEqual(LAY.fillet_path(link["points"], link["bend_radius_mm"])[1], link["centerline_length_mm"], places=2)
+        self.assertGreaterEqual(link["sampled_minimum_centerline_radius_mm"], 2.0 - 1e-6, "preferred bend radius")
+        self.assertFalse(link["minimum_radius_is_manufacturer_qualified"])
+        # both ends are the mated leaf headers, entered without burying the bundle in the housing
+        ends = {frozenset((r["a"], r["b"])): r for r in v["explicitly_expected_contacts"]}
+        for header in ("left_J2_SH4_mated", "right_J1_SH4_mated"):
+            row = ends[frozenset((header, link["name"]))]
+            self.assertLessEqual(row["volume_mm3"], row["limit_mm3"])
+        # no finding of this bundle is waved through with a note
+        self.assertFalse([f for f in v["cable_findings"] if link["name"] in (f["a"], f["b"]) and "note" in f])
+        for side in v["optical_obstruction"].values():
+            for h in side["a7_harness_obstructions"]:
+                if h["part"] == link["name"]:
+                    self.assertGreaterEqual(h["min_distance_to_emitter_mm"], 1.0)
 
     def test_front_artwork(self):
         g = json.loads((A7 / "front_panel" / "geometry.json").read_text())

@@ -145,8 +145,11 @@ def build(relief, pads, geometry, rl):
         add(f'F{i} M3x8 countersunk screw (base)', 'hardware', _cone(cq, xy, 6.0, 3.0, b0, b0 + 1.5).fuse(_cyl(cq, xy, 3.0, b0 + 1.5, b0 + 8)))
     for i, xy in enumerate(dowels, 1):
         add(f'D{i} dowel 2x16', 'hardware', _cyl(cq, xy, dd, p0, p0 + 16.0))
+    pin_len = R['datum_pin_length_mm']
     for q in sc['datum_pins']:
-        add(f"{q['id']} datum pin 2x6", 'hardware', _cyl(cq, q['board_xy_mm'], pin_d, c0, c1 + R['datum_pin_height_above_carrier_mm']))
+        # pressed through the carrier; it stands a little proud of the carrier top and the rest below it
+        top = c1 + R['datum_pin_height_above_carrier_mm']
+        add(f"{q['id']} datum pin {pin_d:g}x{pin_len:g}", 'hardware', _cyl(cq, q['board_xy_mm'], pin_d, top - pin_len, top))
     g_top = st['stop_top']
     for g in guides:
         xy = g['board_xy_mm']

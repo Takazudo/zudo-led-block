@@ -1,5 +1,16 @@
 # A7 evidence index
 
+## 現行変更の証跡入口（2026-11-17 JST）
+
+[Issue #87](https://github.com/Takazudo/zudo-led-block/issues/87) が0.8 mm rigid FR-4再設計を追跡します。[判断記録](decision-register.md)にPET撤回・mask/銅・幅方針、[継続手順](continue-here.md)に必要な統合検証を記録しています。新しいPCB/native/routing/CAD/fixture/preview/製造入力の最終revisionとhashの結合は、旧記録から推定せず#87の証跡を確認してください。
+
+現在の[機構判断・adapter保持の根拠](../../mechanical/optical-redesign-review.md)は、0.8±0.1 mmでの2HP未確認と3HP選定、leaf積層・溝、adapterの直接光路非交差を記録します。adapterはA5原点Z17.4 mmにshift−4 mmを加えたZ13.4–15.0 mm、spacer4 mm、M2x20、電源cable55±3 mm（52–58 mm）です。旧57±3 mmや旧CAD/fixture結果は適用せず、最終PCB/CAD/製造入力との照合と物理確認を残します。
+
+以下は変更前baselineの索引です。特に1.6 mm controllerのnative/fixture PASS、0.6 mm leaf、旧製造ファイルと承認は旧identity限定です。PET資料・結果は撤回した案の履歴で、現行供給条件でも次作業でもありません。
+
+## 変更前baselineの索引
+
+
 Every evidence set the A7 work relies on, sorted by what kind of evidence it is. The four classes are kept
 apart on purpose: an A5 historical record is not an A7 result, held A6 work is not A7 progress, and no
 digital result stands in for physical qualification.

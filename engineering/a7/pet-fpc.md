@@ -1,4 +1,6 @@
-# A7 transparent LED board: JLC PET FPC capability capture (R1)
+# Withdrawn A7 PET FPC study: historical capability capture (R1)
+
+**Withdrawn 2026-11-17 JST by the owner ([#87](https://github.com/Takazudo/zudo-led-block/issues/87)).** The transparent PCB had been understood as a rigid FR-4 alternative but is thin flex. The active direction uses ordinary 0.8 mm rigid FR-4, minimal both-side mask and no broad GND planes. This file preserves the previous study and unsent supplier questions only; none is a prerequisite or next action for the active design.
 
 Status: capability capture and open questions only. No PET process, stackup or material is approved,
 and nothing has been ordered. The existing A5 FR-4 LED leaf design stays the reference and fallback
@@ -78,5 +80,4 @@ They are ranges for planning, not a design.
 
 ## Decision held for the owner
 
-Whether to keep pursuing PET once JLC answers is a product decision. The default stays: FR-4 leaf as reference
-and fallback, PET objective visible and unresolved.
+Historical disposition: PET was left optional and unresolved. That disposition is superseded by the withdrawal above; no supplier response is needed to implement the current FR-4 direction.

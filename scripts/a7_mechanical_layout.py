@@ -158,73 +158,41 @@ def solve(fn, lo, hi, target, n=80):
 
 
 def leaf_comparison(d, l5, z_stack):
-    """FR-4 (A5) leaf versus a clear PET FPC leaf on a clear carrier: stack, stiffness, buckling under the SH mating push, fit in the A5 caps."""
+    """Current rigid leaf stack; historical PET is never a generated candidate."""
     lv = d["leaf_variants"]
-    f4, pe = lv["fr4"], lv["pet"]
-    depth = l5["depth"]
-    span = lv["sh_header_span_to_cap"]["nominal"]
-    slot_width = 1.6  # A5 cap slot cut xc +/- 0.8 (build_mechanical.py, kept in A7)
-
-    def layers_fr4():
-        t, b, e = f4["board_thickness"]["nominal"], f4["bond_line"]["nominal"], f4["flexural_modulus_mpa"]["nominal"]
-        return [(b / 2, b / 2 + t, e, "FR-4")], b / 2 + t
-
-    def layers_pet():
-        tc, ec = pe["carrier"]["thickness"]["nominal"], pe["carrier"]["modulus_mpa"]["nominal"]
-        ta, tf, ef = pe["adhesive"]["thickness"]["nominal"], pe["film"]["finished_thickness"]["nominal"], pe["film"]["modulus_mpa"]["nominal"]
-        z0 = tc / 2 + ta
-        return [(0.0, tc / 2, ec, "carrier"), (z0, z0 + tf, ef, "PET film")], z0 + tf
-
-    def stack(layers, half, composite_layers):
-        # flexural rigidity per mm of leaf depth (N mm), symmetric about the bond/carrier mid-plane
-        bonded = sum(2 * e * (z1 ** 3 - z0 ** 3) / 3 for z0, z1, e, _ in layers)
-        loose = sum((2 if z0 > 0 else 1) * e * ((z1 - z0) * (2 if z0 == 0 else 1)) ** 3 / 12 for z0, z1, e, _ in layers)
-        d_low = bonded if composite_layers else loose
-        out = {"total_thickness": r(2 * half), "outer_face_offset_from_centre": r(half),
-               "rigidity_per_mm_bonded_nmm": r(bonded), "rigidity_per_mm_lower_bound_nmm": r(d_low)}
-        for tag, dd in (("lower_bound", d_low), ("bonded", bonded)):
-            ei = dd * depth
-            out[f"buckling_load_{tag}_n"] = {"fixed_free_K2": r(math.pi ** 2 * ei / (2 * span) ** 2), "fixed_pinned_K0.7": r(math.pi ** 2 * ei / (0.7 * span) ** 2)}
-        out["cap_slot_clearance_per_side"] = r((slot_width - 2 * half) / 2)
-        return out
-
-    lf, hf = layers_fr4()
-    lp, hp = layers_pet()
-    fr4 = stack(lf, hf, True)  # the A5 FR-4 boards are bonded rigidly enough to count as one section
-    pet = stack(lp, hp, False)
-    tf, ef = pe["film"]["finished_thickness"]["nominal"], pe["film"]["modulus_mpa"]["nominal"]
-    film_alone = math.pi ** 2 * ef * depth * tf ** 3 / 12 / (2 * span) ** 2
-    shift = r(hp - hf)
-    return {
-        "status": "Digital comparison only; FR-4 stays the default leaf. Values marked INFERRED are typical material figures, not supplier data.",
-        "default": lv["default"],
-        "inputs": {"fr4": f4, "pet": pe, "sh_header_span_to_cap": span, "sh_mating_force_n": lv["sh_mating_force_n"], "leaf_depth": depth,
-                   "cap_slot_width": slot_width},
-        "fr4": fr4, "pet": pet,
-        "pet_film_alone_buckling_load_fixed_free_n": r(film_alone),
-        "rigidity_ratio_fr4_to_pet": {"lower_bound": r(fr4["rigidity_per_mm_bonded_nmm"] / pet["rigidity_per_mm_lower_bound_nmm"]),
-                                      "bonded": r(fr4["rigidity_per_mm_bonded_nmm"] / pet["rigidity_per_mm_bonded_nmm"])},
-        "outer_face_shift_pet_minus_fr4": shift,
-        "optical": {"leaf_outline_unchanged": True, "leaf_z": l5["z"], "led_and_connector_shift_toward_centre": r(-shift),
-                    "corridor_unchanged": "A5 corridor X limits (xc +/- 1.25 to the diffuser) are kept; the LED emitting faces move by the face shift",
-                    "transmittance": pe["film"]["transmittance"]},
-        "rear_pocket": {"pmma_rear_z": z_stack["pmma_rear_z"], "rear_pocket_depth": z_stack["rear_pocket_depth"], "leaf_front_z": l5["z"][0],
-                        "z_gap_leaf_to_pmma_rear": r(l5["z"][0] - z_stack["pmma_rear_z"]),
-                        "interaction": "none: the leaf variant changes only the X stack, not the leaf Z range, so the 0.5 mm jack pockets and the 30 mm depth budget are unchanged"},
-        "harness": {"sh4_plug_shift_toward_centre": r(-shift), "note": "the SH4 plug sits on the film outer face, so the R2-C6 route start moves by the face shift; the CAD re-check is in exports/3hp_pet/verification.json"},
-        "min_static_bend_radius_mm": r(pe["film"]["min_static_bend_radius_factor"]["nominal"] * tf),
-        "recommendation": ("Keep FR-4 as the default and fallback. A clear PET leaf is mechanically feasible only as film laminated to a clear carrier: "
-                           f"the film alone buckles at about {film_alone:.2f} N under the SH mating push, so it cannot stand on its own. "
-                           f"With a {pe['carrier']['thickness']['nominal']} mm PC carrier the stack is {2 * hp:.2f} mm (FR-4 {2 * hf:.2f} mm), fits the A5 cap slots and keeps every LED, connector, corridor and harness position within {abs(shift):.2f} mm, "
-                           f"but it is {fr4['rigidity_per_mm_bonded_nmm'] / pet['rigidity_per_mm_bonded_nmm']:.0f}-{fr4['rigidity_per_mm_bonded_nmm'] / pet['rigidity_per_mm_lower_bound_nmm']:.0f}x less stiff: "
-                           f"its worst-case buckling load under the SH push is about {pet['buckling_load_lower_bound_n']['fixed_free_K2']:.0f} N (FR-4 {fr4['buckling_load_lower_bound_n']['fixed_free_K2']:.0f} N), and the SH mating force is unsourced. "
-                           "Pursue PET only after JLC answers reflow/paste, PET-compatible stiffeners and OCA clarity (Q11), and after a physical mating-force and lit-appearance test (#10)."),
-    }
+    f4 = lv["fr4"]
+    board, bond, slot = f4["board_thickness"], f4["bond_line"], lv["cap_slot"]
+    t, b = board["nominal"], bond["nominal"]
+    half = t + b / 2
+    low = 2 * (t - board["tol"]) + b - bond["tol"]
+    high = 2 * (t + board["tol"]) + b + bond["tol"]
+    e = f4["flexural_modulus_mpa"]["nominal"]
+    bonded = 2 * e * (half ** 3 - (b / 2) ** 3) / 3
+    loose = 2 * e * t ** 3 / 12
+    span, depth = lv["sh_header_span_to_cap"]["nominal"], l5["depth"]
+    fr4 = {"total_thickness": r(2 * half), "thickness_range": [r(low), r(high)],
+           "outer_face_offset_from_centre": r(half),
+           "outer_face_shift_from_a5": r(half - (l5["thickness"] + l5["bond_line"] / 2)),
+           "rigidity_per_mm_bonded_nmm": r(bonded), "rigidity_per_mm_lower_bound_nmm": r(loose),
+           "cap_slot_clearance_per_side": r((slot["nominal"] - 2 * half) / 2),
+           "cap_slot_clearance_worst_per_side": r((slot["nominal"] - slot["tol"] - high) / 2),
+           "old_cap_slot_clearance_nominal_per_side": r((1.6 - 2 * half) / 2)}
+    for tag, rigidity in (("lower_bound", loose), ("bonded", bonded)):
+        fr4[f"buckling_load_{tag}_n"] = {"fixed_free_K2": r(math.pi ** 2 * rigidity * depth / (2 * span) ** 2),
+                                        "fixed_pinned_K0.7": r(math.pi ** 2 * rigidity * depth / (.7 * span) ** 2)}
+    return {"status": "Current 0.8 mm rigid FR-4 design calculation; bond/slot allowances and modulus are assumptions, not fit or optical qualification.",
+            "default": "fr4", "current_variants": ["fr4"],
+            "inputs": {"fr4": f4, "cap_slot_width": slot["nominal"], "cap_slot": slot,
+                       "sh_header_span_to_cap": span, "sh_mating_force_n": lv["sh_mating_force_n"], "leaf_depth": depth},
+            "fr4": fr4, "withdrawn_variants": ["pet"],
+            "optical": {"leaf_z": l5["z"], "transmittance": None, "measured": False,
+                        "led_and_connector_shift_outward": fr4["outer_face_shift_from_a5"]},
+            "recommendation": "Use the new 0.8 mm rigid FR-4 leaf pair and resized cap slots. Rebuild CAD, harness and all-layer copper shading; verify bond/retention and translucency physically. PET/FPC withdrawn by owner 2026-11-17 JST."}
 
 
-def led_route(xc, x1, cfg, leaf_exit_y, leaf_exit_z, yp_end, target):
+def led_route(xc, x1, cfg, leaf_exit_y, leaf_exit_z, yp_end, target, leaf_face_offset):
     """Leaf J1 plug mouth -> S-step down into the adapter/leaf gap -> run +Y -> one fold -> back to the controller SH4."""
-    xl = r(xc - 2.35)
+    xl = r(xc - leaf_face_offset - 1.7)
     xp = r(x1 + 1.475)
     ro = cfg["led_route"]
     radius = ro["step_radius"]
@@ -307,13 +275,11 @@ def select_2hp(p, rows):
 
 
 def select_3hp(p):
-    out = []
-    for t in sorted(p["parameters"]["pcb_thickness_options"]["values"], reverse=True):
-        row = row_for(p, "panel_width_3hp", 0.0, t, "untrimmed")
-        out.append(row)
-        if row["verdict"] == S.FEASIBLE:
-            return row, out
-    raise RuntimeError("no 3HP row feasible")
+    # Width fallback never changes the owner's fixed board thickness.
+    row = row_for(p, "panel_width_3hp", 0.0, 0.8, "untrimmed")
+    if row["verdict"] != S.FEASIBLE:
+        raise RuntimeError("fixed 0.8 mm 3HP candidate fails stated tolerance ranges")
+    return row, [row]
 
 
 def break_even(p, row):
@@ -372,6 +338,27 @@ def break_even(p, row):
     solve("body_side", set_hole, 0.0, 0.1, "panel_hole_position_tol (ASSUMED, R1 Q7)", "largest hole position tolerance")
     solve("nut_front", set_hole, 0.0, 0.1, "panel_hole_position_tol (ASSUMED, R1 Q7)", "largest hole position tolerance")
     return out
+
+
+def leaf_fastener_budget(inputs, leaf, panel_widths, selected):
+    """Conservative transverse hardware envelope; no cap structural approval."""
+    radius = (inputs["nut_across_flats_nominal_mm"] + inputs["nut_across_flats_tol_mm"]) / math.sqrt(3)
+    position = inputs["hole_pocket_position_tol_mm"] + inputs["nut_in_pocket_float_mm"]
+    leaf_half = leaf["fr4"]["thickness_range"][1] / 2
+    variants = {}
+    for name, width in panel_widths.items():
+        offset = inputs["centre_offset_mm"][name]
+        leaf_gap = offset - position - radius - leaf_half - inputs["leaf_centre_position_tol_mm"]
+        edge_gap = width / 2 - .3 - inputs["cap_outer_edge_tol_mm"] - offset - position - radius
+        passed = leaf_gap >= inputs["minimum_leaf_clearance_mm"] and edge_gap >= inputs["minimum_outer_edge_clearance_mm"]
+        variants[name] = {"centre_offset": offset, "nut_envelope_radius_max": r(radius),
+                          "leaf_half_max": r(leaf_half), "leaf_clearance_worst": r(leaf_gap),
+                          "cap_outer_edge_clearance_worst": r(edge_gap), "transverse_budget_pass": passed,
+                          "status": "selected candidate" if name == selected else "unadopted comparison"}
+        if name == selected and not passed:
+            raise ValueError("selected leaf fastener clearance fails tolerance budget")
+    return {"inputs": inputs, "variants": variants,
+            "structural_status": "NOT VERIFIED: pocket/slot webs, retention and full cap load path need separate review"}
 
 
 def build():
@@ -525,6 +512,19 @@ def build():
                "cap_spacer_radius": ar["cap_spacer"]["radius"], "reason": ar["reason"], "confidence": ar["z_shift"]["confidence"]}
     h_nom = P["jack_axis_height"]["nominal"]
     m2 = sup["m2"]
+    budget = ar["tolerance_budget"]
+    gap_z = d["cables"]["led_route"]["gap_run_z"]
+    adapter_rear_max = adapter["rear_z"] + budget["adapter_finished_thickness_tol_mm"] + budget["adapter_mount_z_tol_mm"]
+    leaf_front_min = l5["z"][0] - budget["leaf_front_z_tol_mm"]
+    bundle_low = gap_z - budget["harness_centre_z_tol_mm"] - budget["sh_bundle_radius_max_mm"]
+    bundle_high = gap_z + budget["harness_centre_z_tol_mm"] + budget["sh_bundle_radius_max_mm"]
+    adapter["harness_gap_budget"] = {"inputs": budget, "adapter_rear_max": r(adapter_rear_max),
+        "leaf_front_min": r(leaf_front_min), "harness_z_envelope": [r(bundle_low), r(bundle_high)],
+        "adapter_clearance_worst": r(bundle_low - adapter_rear_max),
+        "leaf_clearance_worst": r(leaf_front_min - bundle_high),
+        "scope": "Z interval of the gap-run segment only; whole swept route and hardware require fresh CAD, physical fit remains unverified"}
+    if min(bundle_low - adapter_rear_max, leaf_front_min - bundle_high) < budget["minimum_gap_mm"] - 1e-9:
+        raise ValueError("adapter/leaf SH gap fails the stated tolerance budget")
     variants = {}
     for name, row in (("2hp", sel2), ("3hp", sel3)):
         w = row["panel_width"]
@@ -570,7 +570,8 @@ def build():
         power_args = (w / 2, x_pcb[1], w, side, cab, [r(w / 2), g5["adapter"]["power_pinrow_y"], r(adapter["front_z"] - 5.2)], ph["y"], ph["z_centre"])
         routes = {
             "controller_to_left_leaf_sh4": led_route(w / 2, x_pcb[1], cab, r(l5["y"][0] + l5["header_origins_local_v"][0] + 4.575), r(l5["z"][0] + 4.5),
-                                                     r(lh["y"] + 1.675 + 2.0), cab["sh_finished_length"]["nominal"]),
+                                                     r(lh["y"] + 1.675 + 2.0), cab["sh_finished_length"]["nominal"],
+                                                     d["leaf_variants"]["fr4"]["board_thickness"]["nominal"] + d["leaf_variants"]["fr4"]["bond_line"]["nominal"] / 2),
             "adapter_to_controller_power": power_route(w / 2, x_pcb[1], w, side, cab, [r(w / 2), g5["adapter"]["power_pinrow_y"], r(adapter["front_z"] - 5.2)],
                                                        ph["y"], ph["z_centre"], cab["power_finished_free_span"]["nominal"], cab["preferred_bend_radius"]["nominal"], cab["power_bundle_radius"]["nominal"]),
         }
@@ -683,6 +684,10 @@ def build():
         "why_separate_adapter": f"a vertical keyed IDC10 header body is 8.9 mm tall (A5 C5665 maximum envelope); on the perpendicular board it would need {8.9} mm of X but the 2HP component face offers {variants['2hp']['checks']['component_face_height_budget']} mm",
     }
 
+    leaf_stack = leaf_comparison(d, l5, z_stack)
+    fasteners = leaf_fastener_budget(sup["leaf_fasteners"], leaf_stack,
+                                    {k: v["panel_width"] for k, v in variants.items()}, d["width_decision"]["working_candidate"])
+
     # ---- verdicts -----------------------------------------------------------------------
     wd = d["width_decision"]
     working, open_ = wd["working_candidate"], wd["open_candidate"]
@@ -704,7 +709,7 @@ def build():
         "statement": ("3HP is the working candidate and the default for the generated artwork, supports and CAD. "
                       "2HP is not declared infeasible: the selected 2HP arrangement clears every nominal transverse margin, "
                       "but its worst-corner margins stay negative, driven by the INFERRED jack-axis height and the ASSUMED lead trim and hole tolerances. "
-                      "It stays a fully parameterized open candidate and reopens on the evidence in the break-even table. "
+                      "It is an unadopted comparison; 3HP is selected under the 2026-11-17 JST owner fallback with 0.8 mm retained. "
                       "The controller outline in Y-Z is common to both widths."),
     }
     return {
@@ -723,12 +728,15 @@ def build():
             "break_even_2hp": break_even(p, sel2),
         },
         "z_stack": z_stack, "y_layout": y_layout, "switch": switch, "controller": controller, "power_cable_requirement": power_cable,
-        "leaf_comparison": leaf_comparison(d, l5, z_stack),
+        "leaf_comparison": leaf_stack,
         "variants": variants,
         "supports": {
             "front_screw_y": sup["front_screw_y"]["values"], "m2": m2,
+            "leaf_fasteners": fasteners,
             "spine": {"rib_width": sup["spine_rib_width"]["nominal"], "rib_height": sup["spine_rib_height"]["nominal"],
                       "slot_y": sv, "slot_height": sup["controller_slot_height"]["nominal"], "slot_clearance": sup["slot_clearance"]["nominal"],
+                      "slot_width_tolerance": sup["slot_width_tolerance"]["nominal"],
+                      "slot_clearance_worst_per_side": r((2 * sup["slot_clearance"]["nominal"] - sup["slot_width_tolerance"]["nominal"] - S.board_thickness_tolerance(p, 0.8)) / 2),
                       "post_radius": sup["adapter_post_radius"]["nominal"], "post_top_z": adapter["front_z"], "post_nut_z": [r(adapter["front_z"] - 3.4), r(adapter["front_z"] - 1.8)]},
             # A5 seats the top-cap screw head at Z 27.8 and leaves 2.2 mm of thread past the post nut; A7 keeps both.
             "top_cap_screw": {"head_seat_z": 27.8, "tip_z": r(adapter["front_z"] - 3.4 - 2.2), "length": r(27.8 - (adapter["front_z"] - 3.4 - 2.2)),
@@ -951,16 +959,13 @@ def report(L):
 
     def num(v):
         return f"{v:g}"
-    out += ["", "## LED leaf: FR-4 (default) versus clear PET FPC on a clear carrier", "", lc["status"], "",
-            "| | FR-4 (A5) | PET film + OCA + PC carrier |", "|---|---|---|",
-            f"| Stack thickness (mm) | {num(lc['fr4']['total_thickness'])} | {num(lc['pet']['total_thickness'])} |",
-            f"| Outer face from centre (mm) | {num(lc['fr4']['outer_face_offset_from_centre'])} | {num(lc['pet']['outer_face_offset_from_centre'])} |",
-            f"| Flexural rigidity per mm, bonded / lower bound (N mm) | {num(lc['fr4']['rigidity_per_mm_bonded_nmm'])} | {num(lc['pet']['rigidity_per_mm_bonded_nmm'])} / {num(lc['pet']['rigidity_per_mm_lower_bound_nmm'])} |",
-            f"| Buckling under the SH push, fixed-free, lower bound (N) | {num(lc['fr4']['buckling_load_lower_bound_n']['fixed_free_K2'])} | {num(lc['pet']['buckling_load_lower_bound_n']['fixed_free_K2'])} |",
-            f"| Cap slot clearance per side (mm) | {num(lc['fr4']['cap_slot_clearance_per_side'])} | {num(lc['pet']['cap_slot_clearance_per_side'])} |",
-            "", f"- PET film alone buckles at {num(lc['pet_film_alone_buckling_load_fixed_free_n'])} N; minimum static bend radius {num(lc['min_static_bend_radius_mm'])} mm (JLC 6x rule).",
-            f"- LED, connector and harness start move {num(lc['optical']['led_and_connector_shift_toward_centre'])} mm toward the centre; leaf Z {lc['optical']['leaf_z']} unchanged; rear pocket: {lc['rear_pocket']['interaction']}.",
-            "", "**Recommendation.** " + lc["recommendation"]]
+    out += ["", "## LED leaf: 0.8 mm rigid FR-4", "", lc["status"], "",
+            f"- Stack {lc['fr4']['total_thickness']} mm, tolerance range {lc['fr4']['thickness_range']} mm including the ASSUMED bond tolerance.",
+            f"- Cap slot {lc['inputs']['cap_slot_width']} mm; worst per-side clearance {lc['fr4']['cap_slot_clearance_worst_per_side']} mm under ASSUMED finished-slot tolerance.",
+            f"- Old 1.6 mm slot clearance {lc['fr4']['old_cap_slot_clearance_nominal_per_side']} mm per side: incompatible even nominally.",
+            f"- LED/connector/harness starts move outward {lc['optical']['led_and_connector_shift_outward']} mm; leaf Z {lc['optical']['leaf_z']} unchanged.",
+            "- No optical transmittance measurement. Bond shear transfer is not assumed for the lower-bound stiffness.",
+            "", lc["recommendation"]]
     out += ["", "## Unresolved inputs", "", "| ID | Item | Decides |", "|---|---|---|"] + [f"| {u['id']} | {u['item']} | {u['decides']} |" for u in L["unresolved"]]
     return "\n".join(out) + "\n"
 

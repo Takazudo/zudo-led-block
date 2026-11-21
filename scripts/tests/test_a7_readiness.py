@@ -608,15 +608,17 @@ class ExecutableProcedureTests(unittest.TestCase):
         self.plan['owner_actions'][0]['unblocks'].append('assembly:no-such-blocker')
         self.assertUntraceable('unknown gate')
 
-    def test_recorded_owner_prototype_route_is_bound_and_not_a_release(self):
+    def test_recorded_owner_prototype_route_is_historical_for_optical_r3(self):
         records = json.loads((REPO/m.QUAL/'records.json').read_text())
         report = m.evaluate(REPO, self.plan, records)
-        # The owner re-approved the route again on 2026-11-13 for the assembly manifest #80 changed (sourcing fields only).
-        self.assertNotIn('owner_prototype_route', [g['gate'] for g in report['gates']])
+        # The old approval is retained byte-for-byte but is not approval for optical R3.
+        self.assertIn('owner_prototype_route', [g['gate'] for g in report['gates']])
         self.assertIn('manufacturing_release', [g['gate'] for g in report['gates']])
         self.assertEqual(report['order_eligibility'], 'BLOCKED')
         route = records['owner_prototype_route']
-        self.assertEqual(route['identities'], {k: v['sha256'] for k, v in report['identities'].items()})
+        self.assertNotEqual(route['identities'], {k: v['sha256'] for k, v in report['identities'].items()})
+        self.assertNotIn('led_leaf_board', route['identities'])
+        self.assertIn('led_leaf_board', report['identities'])
         self.assertEqual(route['identities']['assembly_manifest'], '557d5e48045b60bb4a8f91dc55f9fae2988d4494082c42532679032da2c8502c')
         approval = (REPO/route['approval']['path']).read_text()
         self.assertIn('> approve', approval)

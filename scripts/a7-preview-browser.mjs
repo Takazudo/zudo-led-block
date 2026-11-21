@@ -61,7 +61,8 @@ try {
   } else {await page.mouse.move(box.x+box.width/2,box.y+box.height/2);await page.mouse.down();await page.mouse.move(box.x+box.width/2+60,box.y+box.height/2+30,{steps:5});await page.mouse.up();await page.mouse.wheel(0,-100);}
   await page.waitForTimeout(100);assert.ok(!(await canvas.screenshot()).equals(beforeGesture),'orbit/touch changes rendered geometry');
   await page.locator('#stage').focus();for(const key of ['ArrowRight','Shift+ArrowUp','+']){const before=await canvas.screenshot();await page.keyboard.press(key);await page.waitForTimeout(80);assert.ok(!(await canvas.screenshot()).equals(before),`keyboard ${key} changes scene`);}
-  for(const [id,width] of [['2hp','9.8'],['3hp_pet','14.9'],['3hp','14.9']]){await page.locator('#variant').selectOption(id);await ready(page);assert.ok((await page.locator('#dimensions').innerText()).includes(width));}
+  assert.deepEqual(await page.locator('#variant option').evaluateAll(options=>options.map(o=>o.value)), ['3hp']);
+  await page.locator('#variant').selectOption('3hp');await ready(page);assert.ok((await page.locator('#dimensions').innerText()).includes('14.9'));
   await page.locator('#close').click();assert.equal(await page.locator('canvas').count(),0);await page.locator('#start').click();await ready(page);assert.equal(await page.locator('canvas').count(),1);
   assert.equal(await page.evaluate(()=>document.documentElement.scrollWidth>innerWidth),false);
   assert.deepEqual(errors,[]);assert.deepEqual(bad,[]);

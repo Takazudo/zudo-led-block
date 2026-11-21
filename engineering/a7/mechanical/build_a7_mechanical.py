@@ -1,15 +1,16 @@
 #!/usr/bin/env python3
 """A7 digital mechanical assembly: perpendicular controller, PJ-324M jacks, side setting switch.
 
-Builds one assembly per width (3HP working candidate and default, 2HP open candidate) from layout.json, which
+Builds one assembly per width (3HP 0.8 mm selected, 2HP unadopted comparison) from layout.json, which
 scripts/a7_mechanical_layout.py derives from the R1 inputs and A5 geometry. Exports an
 assembled STEP and GLB, three dimensioned views, and verification.json with pairwise
 rigid-collision volumes, cable centreline clearances, envelope checks, the optical-
 obstruction check of the A5 leaf emission corridors, and the switch tool-access check.
 
-Optical parts, leaves, the power adapter, its IDC header/socket/ribbon scenario and the
-leaf-link harness follow the A5 build (engineering/a5/mechanical/build_mechanical.py); A5
-helpers are imported read-only. Provisional digital study: not measured fit approval.
+Optical parts, leaves, the power adapter and its IDC header/socket/ribbon scenario follow the
+A5 build (engineering/a5/mechanical/build_mechanical.py); A5 helpers are imported read-only.
+The leaf-to-leaf link is an A7 bundle route (leaf_link_route). Provisional digital study: not
+measured fit approval.
 """
 from __future__ import annotations
 
@@ -56,7 +57,7 @@ P1 = json.loads((REPO / "engineering" / "a7" / "study" / "parameters.json").read
 BOARDS = {b["name"]: b for b in E5["boards"]}
 COL = {"frame": (.20, .23, .28, 1), "diffuser": (.78, .89, .94, .58), "pcb": (.06, .39, .24, 1), "led": (.97, .83, .28, 1),
        "body": (.17, .18, .2, 1), "connector": (.89, .85, .73, 1), "metal": (.64, .68, .72, 1), "wire": (.72, .24, .13, 1),
-       "ribbon": (.74, .40, .68, .8), "acrylic": (.75, .88, .96, .42), "switch": (.15, .35, .75, 1), "pcb_a7": (.10, .45, .30, 1)}
+       "ribbon": (.74, .40, .68, .8), "acrylic": (.75, .88, .96, .42), "switch": (.15, .35, .75, 1), "pcb_a7": (.65, .61, .36, .45)}
 CABLE_KINDS = ("cable_route_scenario", "conditional_cable_scenario")
 # Scopes allowed outside the panel width / rail-body envelope only as reported conditions.
 CONDITIONAL = ("conditional_harness", "conditional_socket", "conditional_ribbon")
@@ -92,7 +93,44 @@ def edges_from(points, radius):
     return cq.Wire.assembleEdges(edges), length, rmin
 
 
-def build(name, out, leaf="fr4"):
+LEAF_LINK = {
+    # left J2 mating face (wires leave towards +Y) and right J1 mating face (wires arrive from -Y), wire row centre in Z
+    "left_exit_y": 93.075, "right_entry_y": 83.925, "row_centre_z": 23.9, "exit_offset_from_leaf_face": 1.55,
+    "exit_straight": 0.5, "bend_radius": 2.4,
+    # stowage level: in front of the leaf front edge (Z 19.4) and under the bottom leaf cap (Z >= 18.0), above the jack
+    # bodies (Z <= 13.7) and beside the controller rear edge (Z <= 16.4, cleared by the 0.7 mm lean of the descent)
+    "stow_z": 16.6, "descent_lean_x": 0.7, "hairpin_inner_offset_from_centre": -0.4, "side_skin_inner": 1.5, "skin_clearance": 0.1,
+    "return_lane_y": [92.0, 87.0], "hairpin_y_search": [98.0, 112.0],
+    "confidence": "PROJECT-CHOICE route scenario; bend radius, real bundle section and stowage are not qualified (#8)",
+}
+
+
+def leaf_link_route(xc, w, half, target_length, bundle_radius):
+    """Leaf-link bundle polyline: S-step down at the left header, hairpin under the bottom cap, U-turn up into the right header.
+
+    Both low legs run at stow_z, at least 3.9 mm in front of every emitter, and the rise into the right header stays
+    exit_straight + bend_radius below the header, which keeps it clear of the right D2 emitter. The hairpin Y is solved
+    so the centreline has the finished cable length; nothing here is a measured or qualified harness.
+    """
+    k = LEAF_LINK
+    rb, zc, zs = k["bend_radius"], k["row_centre_z"], k["stow_z"]
+    xl, xr = xc - (half + k["exit_offset_from_leaf_face"]), xc + (half + k["exit_offset_from_leaf_face"])
+    x_out = min(xc + k["hairpin_inner_offset_from_centre"] + 2 * rb, w - k["side_skin_inner"] - bundle_radius - k["skin_clearance"])
+    x_in = x_out - 2 * rb
+    y1 = k["left_exit_y"] + k["exit_straight"] + rb
+    y2 = k["right_entry_y"] - k["exit_straight"] - rb
+
+    def points(yt):
+        return [[xl, k["left_exit_y"], zc], [xl, y1, zc], [xl + k["descent_lean_x"], y1, zs], [x_in, yt, zs], [x_out, yt, zs],
+                [x_out, k["return_lane_y"][0], zs], [xr, k["return_lane_y"][1], zs], [xr, y2, zs], [xr, y2, zc], [xr, k["right_entry_y"], zc]]
+
+    yt = LAYM.solve(lambda v: LAYM.fillet_path(points(v), rb)[1], *k["hairpin_y_search"], target_length)
+    if yt is None:
+        raise ValueError("leaf-link bundle: no hairpin position gives the finished cable length")
+    return points(yt), rb
+
+
+def build(name, out):
     V = L["variants"][name]
     w = V["panel_width"]
     xc = w / 2
@@ -101,6 +139,7 @@ def build(name, out, leaf="fr4"):
     t = V["pcb_thickness"]
     Z, Y, C, SW, S = L["z_stack"], L["y_layout"], L["controller"], L["switch"], L["supports"]
     side = P1["side_clearance_required"]["nominal"]
+    leaf_fastener_offset = S["leaf_fasteners"]["variants"][name]["centre_offset"]
     parts, contacts = [], []
 
     def add(pname, shape, color, kind="design_geometry", note="", source=None, scope="retained_module", group="module", printed=False, meta=None):
@@ -158,14 +197,14 @@ def build(name, out, leaf="fr4"):
     for zz in ((swz[0] + swz[1]) / 2 - SW["peg_pitch"] / 2, (swz[0] + swz[1]) / 2 + SW["peg_pitch"] / 2):
         pcb = pcb.cut(cylinder(0.45, 0, x1 - x0 + 0.2).rotate((0, 0, 0), (0, 1, 0), 90).translate((x0 - 0.1, swyc, zz)))
     add("controller_pcb_A7", pcb, "pcb_a7", "design_geometry",
-        f"{t} mm FR-4, Y{cy0}-{cy1} x Z{cz0}-{cz1}; unrouted outline for R4; THT slots 0.9 x 1.3 ASSUMED (R1 Q3)", group="controller")
+        f"{t} mm FR-4, Y{cy0}-{cy1} x Z{cz0}-{cz1}; native optical source bound separately; mechanical envelope; THT slots 0.9 x 1.3 ASSUMED (R1 Q3)", group="controller")
     # solder-face low-profile zone (R4 0603 resistors): an envelope so the rigid checks cover it
     zc = C["solder_face_low_profile_zone"]
     zone = box(x0 - zc["max_height"], x0, cy0, cy1, cz0, cz1)
     for k in C["keepouts"]:
         if "-X" in k["faces"]:
             zone = zone.cut(box(x0 - zc["max_height"] - 0.1, x0 + 0.1, k["y"][0], k["y"][1], k["z"][0] - 0.1 if k["z"][0] <= cz0 else k["z"][0], k["z"][1] + 0.1 if k["z"][1] >= cz1 else k["z"][1]))
-    add("solder_face_low_profile_zone", zone.clean(), "metal", "assembly_allowance",
+    add("solder_face_low_profile_zone", zone.clean(), (.64, .68, .72, .12), "assembly_allowance",
         f"R4 solder-face zone, parts <= {zc['max_height']} mm outside every -X keep-out (envelope, not parts)", group="controller")
     # setting switch
     sw = box(x1, x1 + SW["height_above_pcb"], SW["body_y"][0], SW["body_y"][1], swz[0], swz[1])
@@ -261,8 +300,7 @@ def build(name, out, leaf="fr4"):
         p_.note += f"; moved {adz} mm in Z with the adapter (A7)"
 
     # ---- A5 leaves, leaf parts, leaf connectors (retained) ---------------------------------
-    LC = L["leaf_comparison"]
-    half = LC[leaf]["outer_face_offset_from_centre"]
+    half = L["leaf_comparison"]["fr4"]["outer_face_offset_from_centre"]
 
     def notched(t):
         sheet = box(0, 9, 0, 82.5, -t, 0)
@@ -271,23 +309,12 @@ def build(name, out, leaf="fr4"):
         return sheet
 
     poses = {"left": ((xc - half, 22.5, 19.4), (0, 0, 1), (0, 1, 0), (-1, 0, 0)), "right": ((xc + half, 105, 19.4), (0, 0, 1), (0, -1, 0), (1, 0, 0))}
-    if leaf == "fr4":
-        for s_, pose in poses.items():
-            add(f"{s_}_leaf_pcb_A5", transformed(notched(.6), *pose), "pcb", "native_pcb_envelope", "A5 FR-4 leaf (default; reference/fallback)", group=f"{s_}_leaf")
-        bond = box(xc - .05, xc + .05, 22.5, 105, 19.4, 28.4)
-        for ny in (46.7, 80.8):
-            bond = bond.cut(box(xc - .1, xc + .1, ny - 1, ny + 1, 19.3, 20.4))
-        add("leaf_bond_line_reserve", bond, "frame", "assembly_allowance", "A5 0.1 mm bond-line reserve", group="leaves")
-    else:
-        pe = LC["inputs"]["pet"]
-        tf, ta, tc = pe["film"]["finished_thickness"]["nominal"], pe["adhesive"]["thickness"]["nominal"], pe["carrier"]["thickness"]["nominal"]
-        for s_, pose in poses.items():
-            add(f"{s_}_leaf_film_PET", transformed(notched(tf), *pose), "pcb", "design_geometry", "clear PET FPC leaf film, 1 layer 0.14 mm (JLC); comparison variant", group=f"{s_}_leaf")
-            add(f"{s_}_leaf_OCA", transformed(notched(ta).translate((0, 0, -tf)), *pose), "frame", "assembly_allowance", "optically clear adhesive film (thickness INFERRED)", group="leaves")
-        carrier = box(xc - tc / 2, xc + tc / 2, 22.5, 105, 19.4, 28.4)
-        for ny in (46.7, 80.8):
-            carrier = carrier.cut(box(xc - tc / 2 - .01, xc + tc / 2 + .01, ny - 1, ny + 1, 19.3, 20.4))
-        add("leaf_carrier_PC", carrier, "frame", "design_geometry", "clear PC carrier between the two films (thickness and modulus INFERRED)", group="leaves")
+    for s_, pose in poses.items():
+        add(f"{s_}_leaf_pcb_A7", transformed(notched(.8), *pose), "pcb_a7", "native_pcb_envelope", "A7 0.8 mm FR-4; display colour/opacity assumed, not measured", group=f"{s_}_leaf")
+    bond = box(xc - .05, xc + .05, 22.5, 105, 19.4, 28.4)
+    for ny in (46.7, 80.8):
+        bond = bond.cut(box(xc - .1, xc + .1, ny - 1, ny + 1, 19.3, 20.4))
+    add("leaf_bond_line_reserve", bond, "frame", "assembly_allowance", "A5 0.1 mm bond-line reserve", group="leaves")
     jst_local = union(box(-3, 3, -1.675, 2.575, 0, 2.95), box(-3.5, 3.5, 2.575, 4.575, .15, 2.95))
     jst = {"left": [], "right": []}
     for s_, pose in poses.items():
@@ -314,9 +341,10 @@ def build(name, out, leaf="fr4"):
 
     # ---- optical supports (A5 topology, 0.3 mm side inset) -----------------------------------
     o5 = G5["optical"]
+    slot_half = L["leaf_comparison"]["inputs"]["cap_slot_width"] / 2
     top = union(box(side, w - side, 18, 23.7, 19, 29.8), box(side, w - side, 23.7, 26, 25.4, 29.8))
-    top = top.cut(box(xc - .8, xc + .8, 22.3, 26.1, 18.8, 28.6)).cut(cylinder(1.1, 18.9, 29.9, xc, 20.5)).cut(cylinder(2.1, 27.8, 29.9, xc, 20.5))
-    bottom = box(side, w - side, 103.8, 107, 18, 29.8).cut(box(xc - .8, xc + .8, 103.7, 105.2, 19.2, 28.6))
+    top = top.cut(box(xc - slot_half, xc + slot_half, 22.3, 26.1, 18.8, 28.6)).cut(cylinder(1.1, 18.9, 29.9, xc, 20.5)).cut(cylinder(2.1, 27.8, 29.9, xc, 20.5))
+    bottom = box(side, w - side, 103.8, 107, 18, 29.8).cut(box(xc - slot_half, xc + slot_half, 103.7, 105.2, 19.2, 28.6))
     supports = {"top_leaf_adapter_cap": top, "bottom_leaf_cap": bottom}
     for nm, shp in list(supports.items()):
         for a_, b_ in ((side, 1.7), (w - 1.7, w - side)):
@@ -324,8 +352,13 @@ def build(name, out, leaf="fr4"):
         for a_, b_ in ((side, xc - .9), (xc + .9, w - side)):
             shp = shp.cut(box(a_, b_, 21.8, 107.2, 25.4, 27))
         for yy in (23.5, 105.5):
-            for xx in (xc - 2.4, xc + 2.4):
+            for xx in (xc - leaf_fastener_offset, xc + leaf_fastener_offset):
                 shp = shp.cut(cylinder(.9, 24, 30, xx, yy)).cut(hexagon(3.4, 28.2, 30, xx, yy, rotation=30)).cut(cylinder(1.72, 24.2, 25.6, xx, yy))
+                if name == "3hp":
+                    # Open the nonstructural lip to the leaf slot for nut access.
+                    # Rear bridge Z28.6..29.8 is 1.2 nominal, not a universal web guarantee.
+                    inner = xc + (slot_half - .02) * (-1 if xx < xc else 1)
+                    shp = shp.cut(box(min(inner, xx), max(inner, xx), yy - 2.0, yy + 2.0, 28.2, 28.6))
         for p_ in small:
             pb = p_.shape.BoundingBox()
             pocket = box(pb.xmin - .2, pb.xmax + .2, pb.ymin - .2, pb.ymax + .2, pb.zmin - .2, pb.zmax + .2)
@@ -365,11 +398,11 @@ def build(name, out, leaf="fr4"):
         if s_ == "right" and name == "3hp":
             skin = skin.cut(box(xc + 5.85, w + .1, 26.7, 40.1, 16.9, 28.6))
         for yy in (23.5, 105.5):
-            xx = xc + (-2.4 if s_ == "left" else 2.4)
+            xx = xc + (-leaf_fastener_offset if s_ == "left" else leaf_fastener_offset)
             skin = skin.cut(cylinder(.9, 25.5, 26.9, xx, yy)).cut(cylinder(1.6, 24.2, 25.6, xx, yy))
         add(f"{s_}_diffuser", skin.clean(), "diffuser", "printable_design", "PETG L-section diffuser (A5)", printed=True, group="optics")
     for sg in (-1, 1):
-        xx = xc + sg * 2.4
+        xx = xc + sg * leaf_fastener_offset
         for yy in (23.5, 105.5):
             add(f"M1_6x4_{sg}_{yy}", union(cylinder(.8, 25.6, 29.6, xx, yy), cylinder(1.5, 24.3, 25.6, xx, yy)), "metal", "standard_hardware_envelope", group="hardware")
             add(f"M1_6_nut_{sg}_{yy}", hexagon(3.2, 28.2, 29.5, xx, yy, 1.6, 30), "metal", "standard_hardware_envelope", group="hardware")
@@ -392,36 +425,17 @@ def build(name, out, leaf="fr4"):
         rt = V["routes"][key]
         path, length, rmin = edges_from(rt["points"], rt["radius"])
         cable(key, path, rt["bundle_radius"], ends, {"layout_length_mm": rt["length"], "fillet_min_radius_mm": r3(rmin), "bundle_model": True})
-    # A5 leaf-to-leaf link, carried over unchanged (four separate wires)
-    def lin(a, b):
-        return cq.Edge.makeLine(cq.Vector(*a), cq.Vector(*b))
-
-    def arc(a, b, c):
-        return cq.Edge.makeThreePointArc(cq.Vector(*a), cq.Vector(*b), cq.Vector(*c))
-    for i in range(4):
-        xl_, xr_ = xc - 2.2, xc + 2.2
-        zl = zr = 22.4 + i
-        ra = 1.75 + i
-        ybend = 93.075 + ra
-        zturn = 20.65
-        zb = 17.9 if i < 2 else 18.8
-        xb = xc + (1.5 if i % 2 == 0 else 2.5)
-        rb = 1.5
-        rc = (zr - zb) / 2
-        constant = math.pi * ra / 2 + (zturn - zb - rb) + math.pi * rb + (xb - xl_ - 2 * rb) + (ybend - rb) + math.pi * rc + 83.925
-        yu = (constant - 50) / 2
-        a = (xl_, 93.075, zl); b = (xl_, ybend, zturn); c = (xl_, ybend, zb + rb)
-        d = (xl_ + rb, ybend, zb); e = (xb - rb, ybend, zb); f = (xb, ybend - rb, zb); h = (xb, yu, zb); j = (xr_, yu, zr); k = (xr_, 83.925, zr)
-        q = math.sqrt(.5)
-        edges = [arc(a, (xl_, 93.075 + ra * q, zturn + ra * q), b), lin(b, c), arc(c, (xl_ + rb - rb * q, ybend, zb + rb - rb * q), d), lin(d, e),
-                 arc(e, (xb - rb + rb * q, ybend - rb + rb * q, zb), f), lin(f, h)]
-        pts_ = []
-        for n in range(25):
-            tt_ = n / 24
-            aa = math.pi * tt_
-            pts_.append(cq.Vector(xb + (xr_ - xb) * (3 * tt_ * tt_ - 2 * tt_ ** 3), yu - rc * math.sin(aa), zb + rc * (1 - math.cos(aa))))
-        edges += [cq.Edge.makeSpline(pts_, tangents=(cq.Vector(0, -1, 0), cq.Vector(0, 1, 0))), lin(j, k)]
-        cable(f"leaf_link_pin_{i + 1}_A5", cq.Wire.assembleEdges(edges), 0.4, ("left_J2_SH4_mated", "right_J1_SH4_mated"), {"carried_over_from": "A5"})
+    # Leaf-to-leaf link (left J2 -> right J1): the same SH4 1:1 assembly as the controller link, so it is one bundle with
+    # that route's radius, not four separately posed wires. The A5 pose ran the wires through the right emission corridor
+    # past D2; here the slack is stowed in front of the leaf front edge instead (see leaf_link_route).
+    sh = V["routes"]["controller_to_left_leaf_sh4"]
+    pts, bend = leaf_link_route(xc, w, half, sh["length"], sh["bundle_radius"])
+    path, length, rmin = edges_from(pts, bend)
+    cable("leaf_link_sh4_A7", path, sh["bundle_radius"], ("left_J2_SH4_mated", "right_J1_SH4_mated"),
+          {"layout_length_mm": sh["length"], "fillet_min_radius_mm": r3(rmin), "bundle_model": True, "wires": 4, "bend_radius_mm": bend,
+           "points": [[r3(v) for v in q] for q in pts],
+           "length_solved_in": "build_a7_mechanical.leaf_link_route (hairpin position solved for the finished SH4 length)",
+           "replaces": "four separately posed A5 leaf_link_pin wires"})
 
     # ---- checks -----------------------------------------------------------------------------
     return parts, contacts, cable_rows
@@ -478,8 +492,6 @@ def validate(parts, contacts, name):
                     row = {"a": a.name, "b": b.name, "centreline_distance_mm": r3(dist), "required_mm": r3(need), "clearance_mm": r3(dist - need)}
                     if pair in expected:
                         permitted.append(row)
-                    elif (a.name.startswith("leaf_link") or b.name.startswith("leaf_link")) and carried:
-                        cable_findings.append(dict(row, note="A5 leaf-link wires: carried-over scenario"))
                     else:
                         cable_findings.append(row)
                 continue
@@ -500,13 +512,13 @@ def validate(parts, contacts, name):
     return rows, collisions, permitted, cable_findings, env
 
 
-A5_GROUPS = ("left_leaf", "right_leaf", "leaves", "optics")  # the power adapter group and its post nut / screw moved in A7
-A5_NAMES = ("top_leaf_adapter_cap", "bottom_leaf_cap")
+A5_GROUPS = ("optics",)  # the power adapter group and its post nut / screw moved in A7
+A5_NAMES = ()
 
 
 def origin(p):
     """'a5' for parts carried over from the A5 build, 'a7' for parts this model adds or moves."""
-    if p.group in A5_GROUPS or p.name in A5_NAMES or p.name.startswith(("leaf_link", "M1_6")):
+    if p.group in A5_GROUPS or p.name in A5_NAMES or p.name.startswith("M1_6"):
         return "a5"
     return "a7"
 
@@ -516,15 +528,15 @@ def optical(parts, name):
     V = L["variants"][name]
     xc = V["panel_width"] / 2
     leaf_y, leaf_z = G5["leaf"]["y"], G5["leaf"]["z"]
-    corridors = {"left": box(1.5, xc - 1.25, leaf_y[0], leaf_y[1], leaf_z[0], leaf_z[1]),
-                 "right": box(xc + 1.25, V["panel_width"] - 1.5, leaf_y[0], leaf_y[1], leaf_z[0], leaf_z[1])}
+    corridors = {"left": box(1.5, xc - (L["leaf_comparison"]["fr4"]["outer_face_offset_from_centre"] + .6), leaf_y[0], leaf_y[1], leaf_z[0], leaf_z[1]),
+                 "right": box(xc + (L["leaf_comparison"]["fr4"]["outer_face_offset_from_centre"] + .6), V["panel_width"] - 1.5, leaf_y[0], leaf_y[1], leaf_z[0], leaf_z[1])}
     area = (leaf_y[1] - leaf_y[0]) * (leaf_z[1] - leaf_z[0])
     emitters = {s_: [p for p in parts if p.name.startswith(s_ + "_D")] for s_ in corridors}
     out = {}
     for s_, cor in corridors.items():
         rows = []
         for p in parts:
-            if p.group == "optics" or p.name.endswith(("_leaf_pcb_A5", "_leaf_film_PET", "_leaf_OCA")) or p.name in ("leaf_bond_line_reserve", "leaf_carrier_PC"):
+            if p.group == "optics" or p.name.endswith(("_leaf_pcb_A7", "_leaf_pcb_A5")) or p.name in ("leaf_bond_line_reserve", "leaf_carrier_PC"):
                 continue
             if p.name.startswith(s_ + "_D"):
                 continue  # the emitters themselves
@@ -535,7 +547,7 @@ def optical(parts, name):
                     org = ("a5_leaf_mounted" if p.group.endswith("_leaf") else "a5_power_adapter" if p.group == "power_adapter" else
                            "a5_leaf_link_harness" if p.name.startswith("leaf_link") else "a5_hardware" if p.group == "hardware" else "a5_optical_support")
                 else:
-                    org = "a7_harness" if p.group == "cables" else "a7_controller_or_support"
+                    org = ("a7_leaf_mounted" if p.group.endswith("_leaf") else "a7_harness" if p.group == "cables" else "a7_controller_or_support")
                 row = {"part": p.name, "origin": org, "volume_mm3": r3(v.Volume()), "projected_yz_bbox_mm2": r3(b.ylen * b.zlen),
                        "y": [r3(b.ymin), r3(b.ymax)], "z": [r3(b.zmin), r3(b.zmax)]}
                 if org.startswith("a7"):
@@ -736,41 +748,115 @@ def views(parts, name, out):
     return files
 
 
-def export(parts, out, name):
+def display_layers(name):
+    """Native-derived opaque coatings, kept separate from mechanical collision solids.
+
+    Copper layer silhouettes are projected to the two substrate faces. This makes
+    all internal copper optically opaque without inventing a measured FR4 model.
+    Layer identity is retained; this is an occlusion projection, not a stackup CAD.
+    """
+    V = L['variants'][name]
+    half = L['leaf_comparison']['fr4']['outer_face_offset_from_centre']
+    xc = V['panel_width'] / 2
+    poses = {
+        'controller': ((V['controller_pcb_x'][1], 48.5, .2), (0, 0, 1), (0, 1, 0), (-1, 0, 0)),
+        'left_leaf': ((xc-half, 22.5, 19.4), (0, 0, 1), (0, 1, 0), (-1, 0, 0)),
+        'right_leaf': ((xc+half, 105, 19.4), (0, 0, 1), (0, -1, 0), (1, 0, 0)),
+    }
+    parts, evidence = [], []
+    for board, instances in [('controller', ['controller']), ('led_leaf', ['left_leaf', 'right_leaf'])]:
+        directory = REPO / 'engineering/a7/electronics' / board
+        native = directory / f'{board}.kicad_pcb'
+        source = directory / 'optical-geometry.json'
+        data = json.loads(source.read_text())
+        if data['exporter_sha256'] != hashlib.sha256((REPO / 'scripts/a7_optical_geometry.py').read_bytes()).hexdigest():
+            raise ValueError(f'Stale optical exporter: {source}')
+        if data['board_sha256'] != hashlib.sha256(native.read_bytes()).hexdigest():
+            raise ValueError(f'Stale optical geometry: {source}')
+        if not data['native_version'].startswith('10.0.8') or data['thickness_mm'] != .8:
+            raise ValueError(f'Wrong optical candidate/toolchain: {source}')
+        copper = [x for x in data['layers'] if x['material'] == 'copper']
+        if len(copper) != (4 if board == 'controller' else 2):
+            raise ValueError(f'Missing copper layer: {source}')
+        evidence.append({'source': str(source.relative_to(REPO)), 'sha256': hashlib.sha256(source.read_bytes()).hexdigest(),
+                         'board': str(native.relative_to(REPO)), 'board_sha256': data['board_sha256']})
+        # Display depth of each copper layer below the front face, from the recorded stackup (mm).
+        depth = {'F.Cu': -.004, 'B.Cu': .804, 'F.Mask': -.007, 'B.Mask': .807}
+        stack = json.loads((REPO / 'engineering/a7/verification/fab/optical-fr4.json').read_text())
+        if board == 'controller':
+            z_acc = 0.0
+            for row in stack['controller']['stackup']:
+                if row['kind'] == 'copper' and row['layer'] in ('In1.Cu', 'In2.Cu'):
+                    depth[row['layer']] = z_acc + row['thickness_mm'] / 2
+                z_acc += row['thickness_mm']
+        for layer in data['layers']:
+            faces = []
+            # Each contour includes native holes; no rectangle/envelope approximation. Planar faces, display only.
+            for poly in layer['polygons']:
+                def wire(points):
+                    return cq.Wire.makePolygon([cq.Vector(x, y, 0) for x, y in points], close=True)
+                faces.append(cq.Face.makeFromWires(wire(poly['outer']), [wire(h) for h in poly['holes']]))
+            if not faces:
+                continue
+            shape = cq.Compound.makeCompound(faces)
+            d = depth[layer['layer']]
+            for instance in instances:
+                # local substrate occupies -0.8..0 with the front face at 0; controller pose normal is reversed.
+                z = d if instance == 'controller' else -d
+                label = f"{instance}_{layer['layer'].replace('.', '_')}_optical"
+                color = (.62, .37, .12, 1) if layer['material'] == 'copper' else (.08, .23, .12, 1)
+                parts.append(Part(label, transformed(shape.translate((0, 0, z)), *poses[instance]), color,
+                                  'native_optical_projection', 'Opaque native layer geometry at its stackup depth; display only, not mechanical clearance solid',
+                                  str(source.relative_to(REPO)), 'display_only', False, None, 'controller' if instance == 'controller' else 'leaves', {'material': layer['material']}))
+    return parts, evidence
+
+
+def export(parts, out, name, overlays):
     assy = cq.Assembly(name=f"zudo_led_block_A7_{name}")
     for p in parts:
         assy.add(p.shape, name=p.name, color=cq.Color(*p.color))
     step = out / f"zudo_led_block_A7_{name}_assembled.step"
     assy.export(str(step))
+    stls = []
+    printed_by_name = {part.name: part.shape for part in parts if part.printed}
+    for cap, extension in [('top_leaf_adapter_cap', 'top_cap_spacer_A7'), ('bottom_leaf_cap', 'bottom_cap_fork_A7')]:
+        printed_by_name[cap] = printed_by_name[cap].fuse(printed_by_name.pop(extension)).clean()
+    for part_name, shape in printed_by_name.items():
+        target = out / f"{part_name}.stl"
+        cq.exporters.export(shape, str(target), tolerance=.05, angularTolerance=.3)
+        stls.append(target.name)
     glb = out / f"zudo_led_block_A7_{name}_assembled.glb"
+    for p in overlays:
+        assy.add(p.shape, name=p.name, color=cq.Color(*p.color))
     assy.export(str(glb), tolerance=0.08, angularTolerance=0.4)
     imported = cq.importers.importStep(str(step)).val()
     original = cq.Compound.makeCompound([p.shape for p in parts])
-    return {"step": step.name, "glb": glb.name, "valid": imported.isValid(), "source_solids": len(original.Solids()),
+    return {"step": step.name, "glb": glb.name, "printed_stl": stls, "valid": imported.isValid(), "source_solids": len(original.Solids()),
             "imported_solids": len(imported.Solids()), "volume_difference_mm3": r3(abs(original.Volume() - imported.Volume()))}
 
 
 def main():
     ap = argparse.ArgumentParser()
-    ap.add_argument("--variant", choices=["2hp", "3hp", "all"], default="all")
+    ap.add_argument("--variant", choices=["2hp", "3hp", "all"], default="3hp")
     ap.add_argument("--no-export", action="store_true", help="skip STEP/GLB/views (checks only)")
-    ap.add_argument("--leaf", choices=["fr4", "pet", "all"], default="all", help="pet builds the PET leaf comparison on the default variant only")
+    ap.add_argument("--out-root", type=Path, default=HERE / "exports", help="staging output root; review outputs before adoption")
     a = ap.parse_args()
     default = L["decision"]["default_variant"]
     names = [default] + [v for v in L["decision"]["variants_generated"] if v != default] if a.variant == "all" else [a.variant]
-    jobs = ([(n, "fr4") for n in names] if a.leaf in ("fr4", "all") else []) + ([(default, "pet")] if a.leaf in ("pet", "all") else [])
-    for name, leaf in jobs:
-        label = name if leaf == "fr4" else f"{name}_pet"
-        out = HERE / "exports" / label
+    # The clear-PET leaf was withdrawn by the owner on 2026-11-17: there is no leaf option any more, and the
+    # historical exports/3hp_pet export is kept as history (see its HISTORICAL.md), never regenerated.
+    for name in names:
+        label = name
+        out = a.out_root / label
         out.mkdir(parents=True, exist_ok=True)
         print(f"Building {label}", flush=True)
-        parts, contacts, cables = build(name, out, leaf)
+        parts, contacts, cables = build(name, out)
         rows, collisions, permitted, cable_findings, env = validate(parts, contacts, name)
         opt = optical(parts, name)
         opt_est = optical_estimate(parts, name, opt)
         acc = tool_access(parts, name)
         res = {
-            "revision": "A7", "variant": name, "leaf": leaf, "status": "PROVISIONAL_DIGITAL_STUDY_NOT_FIT_APPROVAL",
+            "revision": "A7", "variant": name, "leaf": "fr4", "status": "PROVISIONAL_DIGITAL_STUDY_NOT_FIT_APPROVAL",
             "selection": L["variants"][name]["selection"]["verdict"],
             "default_variant": name == default,
             "layout_sha256": hashlib.sha256((HERE / "layout.json").read_bytes()).hexdigest(),
@@ -786,11 +872,19 @@ def main():
                                          "accepted": L["switch"]["actuator_overhang_accepted"],
                                          "note": "untoleranced drawing values; design-inputs setting_switch.actuator_overhang_accepted; physical check in switch-fit"},
             "parts": rows,
+            "leaf_fastener_support": {"budget": L["supports"]["leaf_fasteners"]["variants"][name],
+                                      "nut_access_channel_z_mm": [28.2, 28.6] if name == "3hp" else None,
+                                      "rear_bridge_z_mm": [28.6, 29.8], "rear_bridge_nominal_mm": 1.2,
+                                      "status": "Nominal access geometry only; no full-web minimum assertion. Printed tolerance, nut retention and strength require physical qualification."},
             "manufacturing_release": False,
         }
         if not a.no_export:
-            res["export"] = export(parts, out, label)
-            res["views"] = views(parts, name, out) if leaf == "fr4" else {}
+            overlays, optical_sources = display_layers(name)
+            res["display_parts"] = [{"part": p.name, "kind": p.kind, "group": p.group, "material": p.metadata["material"]} for p in overlays]
+            res["optical_sources"] = optical_sources
+            res["optical_display"] = "Opaque all-layer copper silhouettes projected onto both substrate faces; residual native mask; FR4 alpha is an unmeasured visual assumption."
+            res["export"] = export(parts, out, label, overlays)
+            res["views"] = views(parts, name, out)
         (out / "verification.json").write_text(json.dumps(res, indent=2) + "\n")
         print(json.dumps({"variant": label, "parts": len(parts), "collisions": collisions, "cable_findings": len(cable_findings),
                           "retained_envelope": res["retained_envelope_findings"],

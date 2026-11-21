@@ -10,7 +10,7 @@ Commands:
   place [--check]                 deterministic courtyard packer -> engineering/a7/electronics/controller/placement.json
   check                           courtyard overlap, keep-out and side rules for the committed placement
   build --out DIR --netlist N     (pinned KiCad image) unrouted staging board + Specctra DSN, in an empty DIR outside the repo
-  apply --board B --routes R      (pinned KiCad image) add a7_route.py tracks/vias and GND pours to a staging board, refill
+  apply --board B --routes R      (pinned KiCad image) add a7_route.py tracks/vias and justified local copper to a staging board, refill
   regen-check --raw RAW           normal regeneration --check (schematic, footprints, seed placement) plus the
                                   board placement export --check against fresh native facts in RAW/a7_controller
 
@@ -30,6 +30,7 @@ REPO = Path(__file__).resolve().parents[1]
 sys.dont_write_bytecode = True
 sys.path.insert(0, str(REPO / 'scripts'))
 import a7_electronics as a7  # noqa: E402
+import a7_optical_pcb as optical  # noqa: E402
 sys.path.pop(0)
 
 PLACEMENT = a7.A7_CTRL / 'placement.json'
@@ -85,7 +86,7 @@ GAP = 0.15
 # D3 at U7.3 (CV_FILTER), C13 on CV_AFFINE beside R7 and C17 at U7.5, so the long CV run is U6's low-impedance
 # output. MCU 100 n (C8) right under VDD (U1.3/U1.4), C7/C14 at the MCU's upper right. Q1 (DC enable for U4) in
 # the free corner beside the switch; 1206/SOD323 bulk parts in the strip behind the jack bodies; U5 between jacks.
-GND_STITCH_SITES = {'U7.2': (6.4, 20.35, 0.7), 'C17.2': (6.1, 22.85, 0.7)}  # board x, y, half-size (mm)
+GND_RETURN_RESERVES = {'U7.2': (6.4, 20.35, 0.7), 'C17.2': (6.1, 22.85, 0.7)}  # board x, y, half-size (mm)
 MANUAL_F = {
     'C1': (4.75, 1.9, 270), 'U2': (7.4, 1.9, 270), 'C4': (7.7, 4.45, 180), 'L1': (6.3, 7.93, 270), 'C2': (6.3, 11.9, 0),
     'U6': (12.67, 1.75, 0), 'U3': (14.13, 5.2, 180),
@@ -204,9 +205,9 @@ def pack() -> dict:
     for r in VIA_FIELDS:
         x1, y1, x2, y2 = footprint_rect(comps[r], placement[r])
         blocks['B'].append((x1 - 0.3, y1 - 0.3, x2 + 0.3, y2 + 0.3))
-    # revision 2 review: keep the solder face clear where these GND pads stitch to the plane (scripts/a7_route.py
-    # GND_VIA_NEAR), so a via fits within 0.9 mm of the pad
-    for x, y, h in GND_STITCH_SITES.values():
+    # Keep the previously reviewed analog GND escape space free on the back.
+    # Optical R3 uses real return traces; this reservation alone is not return-path proof.
+    for x, y, h in GND_RETURN_RESERVES.values():
         blocks['B'].append((x - h, y - h, x + h, y + h))
     todo = [r for r in comps if r not in placement]
     size = {r: (lambda q: (q[2] - q[0]) * (q[3] - q[1]))(courtyard(comps[r]['footprint'], comps[r].get('fp_lib', 'LightBlock')))
@@ -251,7 +252,6 @@ def placement_doc(pl: dict) -> str:
 
 
 # ------------------------------------------------------------- staging board (pinned KiCad image)
-GND_PLANE = 'In1.Cu'
 
 
 def stage_tree(o: Path) -> Path:
@@ -311,8 +311,8 @@ def cmd_build(out: Path, netlist: Path) -> int:
     b = a7.a7_controller()
     board = p.BOARD()
     board.SetCopperLayerCount(4)
-    board.GetDesignSettings().SetBoardThickness(p.FromMM(1.6))
-    board.SetLayerType(p.In1_Cu, p.LT_POWER)
+    board.GetDesignSettings().SetBoardThickness(p.FromMM(0.8))
+    board.SetLayerType(p.In1_Cu, p.LT_SIGNAL)
     for (x1, y1), (x2, y2) in (((0, 0), (W, 0)), ((W, 0), (W, H)), ((W, H), (0, H)), ((0, H), (0, 0))):
         e = p.PCB_SHAPE(board)
         e.SetShape(p.SHAPE_T_SEGMENT)
@@ -360,29 +360,17 @@ def cmd_build(out: Path, netlist: Path) -> int:
             net = pin_nets.get((c['ref'], z.GetNumber()))
             if net:
                 z.SetNet(nets[net])
-    z = p.ZONE(board)
-    z.SetLayer(p.In1_Cu)
-    z.SetNet(nets['/GND'])
-    z.SetIsRuleArea(False)
-    z.SetMinThickness(p.FromMM(0.2))
-    z.SetLocalClearance(p.FromMM(0.2))
-    z.SetPadConnection(p.ZONE_CONNECTION_THERMAL)
-    z.SetAssignedPriority(0)
-    ol = z.Outline()
-    ol.NewOutline()
-    for x, y in ((0, 0), (W, 0), (W, H), (0, H)):
-        ol.Append(p.FromMM(x), p.FromMM(y))
-    board.Add(z)
     board.BuildConnectivity()
     pcb = ctrl / 'controller.kicad_pcb'
     p.SaveBoard(str(pcb), board)
+    optical.install_stackup(pcb, 'controller')
     geo = pad_geometry(board)
     (o / 'geometry.json').write_text(json.dumps(geo, indent=0) + '\n')
     print(json.dumps({'staging_board': str(pcb), 'geometry': str(o / 'geometry.json'), 'pads': len(geo['pads'])}))
     return 0
 
 
-def add_zone(board, p, layer, net, priority):
+def add_zone(board, p, layer, net, priority, region):
     z = p.ZONE(board)
     z.SetLayer(layer)
     z.SetNet(net)
@@ -392,14 +380,16 @@ def add_zone(board, p, layer, net, priority):
     z.SetAssignedPriority(priority)
     ol = z.Outline()
     ol.NewOutline()
-    for x, y in ((0, 0), (W, 0), (W, H), (0, H)):
+    x1, y1, x2, y2 = region['rect_mm']
+    z.SetZoneName(region['id'])
+    for x, y in ((x1, y1), (x2, y1), (x2, y2), (x1, y2)):
         ol.Append(p.FromMM(x), p.FromMM(y))
     board.Add(z)
     return z
 
 
 def cmd_apply(pcb: Path, routes: Path) -> int:
-    """Add a router proposal (tracks, vias) and the GND pours to a staging board, refill, save in place."""
+    """Add a router proposal (tracks, vias) and documented local copper to a staging board, refill, save in place."""
     import pcbnew as p
     if a7.REPO in pcb.resolve().parents:
         raise a7.authority.Refused('apply works on a staging board outside the repository')
@@ -423,11 +413,10 @@ def cmd_apply(pcb: Path, routes: Path) -> int:
         via.SetLayerPair(p.F_Cu, p.B_Cu)
         via.SetNet(nets[v['net']])
         board.Add(via)
-    for z in list(board.Zones()):
-        z.SetPadConnection(p.ZONE_CONNECTION_FULL)
-    gnd = nets['/GND']
-    for layer in (p.F_Cu, p.In2_Cu, p.B_Cu):
-        add_zone(board, p, layer, gnd, 0)
+    if list(board.Zones()):
+        raise ValueError('staging board unexpectedly has zones; broad planes must not be inherited')
+    for region in optical.spec()['controller']['local_copper']:
+        add_zone(board, p, lid[region['layer']], nets[region['net']], 0, region)
     board.BuildConnectivity()
     p.ZONE_FILLER(board).Fill(board.Zones())
     board.BuildConnectivity()
@@ -437,6 +426,12 @@ def cmd_apply(pcb: Path, routes: Path) -> int:
     p.ZONE_FILLER(board).Fill(board.Zones())
     board.BuildConnectivity()
     p.SaveBoard(str(pcb), board)
+    mask = optical.apply_mask(board, 'controller')
+    p.SaveBoard(str(pcb), board)
+    optical.install_stackup(pcb, 'controller')
+    import hashlib
+    mask['board_sha256'] = hashlib.sha256(pcb.read_bytes()).hexdigest()
+    (pcb.parent / 'optical-mask.json').write_text(json.dumps(mask, indent=1) + '\n')
     print(json.dumps({'board': str(pcb), 'tracks': len(r['tracks']), 'vias': len(r['vias']),
                       'unconnected_pcbnew': board.GetConnectivity().GetUnconnectedCount(True)}))
     return 0
@@ -448,9 +443,15 @@ def cmd_regen_check(raw: Path) -> int:
     facts = raw / 'a7_controller'
     steps = [[py, 'scripts/a7_electronics.py', 'generate', '--check'],
              [py, 'scripts/a7_board.py', 'place', '--check'],
+             [py, 'scripts/a7_optical_check.py'],
              [py, 'scripts/native_gate/authority.py', 'export-placement', '--check', '--board', str(BOARD.relative_to(REPO)),
               '--facts', str(facts / 'board_facts.json'), '--geometry', str(facts / 'board_geometry.json'),
-              '--out', str(BOARD_EXPORT.relative_to(REPO))]]
+              '--out', str(BOARD_EXPORT.relative_to(REPO))],
+             [py, 'scripts/native_gate/authority.py', 'export-placement', '--check',
+              '--board', 'engineering/a7/electronics/led_leaf/led_leaf.kicad_pcb',
+              '--facts', str(raw / 'a7_led_leaf/board_facts.json'),
+              '--geometry', str(raw / 'a7_led_leaf/board_geometry.json'),
+              '--out', 'engineering/a7/electronics/led_leaf/board_placement.json']]
     code = 0
     for c in steps:
         r = subprocess.run(c, cwd=REPO, capture_output=True, text=True)

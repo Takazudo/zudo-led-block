@@ -1,5 +1,69 @@
 # engineering/a7/mechanical — A7 R2 digital mechanical model
 
+## Current optical redesign #87 (2026-11-17 JST)
+
+The current prototype selects **3HP, 0.8 mm rigid FR-4 controller and leaf**. The 2HP tolerance sweep did not establish fit; this is not proof that every physical 2HP construction is impossible. Both PCB faces minimize retained mask, and broad GND planes are removed on every layer. Transparent PET/FPC is withdrawn from current variants, default generation and next actions. Its supplier questions are not prerequisites.
+
+See [the authored mechanical rationale](optical-redesign-review.md) and current `design-inputs.json` / generated `layout.json`. The leaf stack is 1.70 mm nominal, 1.45–1.95 mm including the assumed bond tolerance; its cap slot is 2.15 mm. Controller slot is 1.10 mm. Slot/bond tolerances are manufacturing acceptance requirements, not measured capabilities.
+
+The unchanged 1.6 mm, two-layer A5 adapter has no copper zones. Its new shift −4 mm is relative to the **A5 front Z17.4 mm**, giving Z13.4–15.0 mm. It is not another −4 mm from the former A7 position. Current inputs use a 4 mm spacer and an M2x20 top-cap screw. The adapter remains outside the direct lateral leaf corridor; this is not a claim of zero shadowing or measured optical suitability.
+
+Current **A7 power cable** requirement, copied from `layout.json` → `power_cable_requirement` (a test fails if these drift): a **55 ± 3 mm free span**, i.e. 52–58 mm, against an S-fold stowage of 49.0–76.1 mm across both widths, keeping 2 mm off the shortest fold. The ±3 mm is ASSUMED and the A5 50 ± 6 mm cable does not fit. No cable has been routed or measured (#8), so this is a digital requirement, not a verified length. The former 57 ± 3 mm figure belongs to the old adapter position and is historical.
+
+The fastener offset is 3.4 mm. The current cap nut-access channel uses Z28.2–28.6 mm with a nominal 1.2 mm rear bridge; strength, tool use and fit are unmeasured. Final CAD export and verification must bind the final controller/leaf, builder and layout hashes. Interim digital results are not final-revision acceptance. Cable scenario contacts and installed routing remain physical work under #8; they must be reported separately from rigid-body intersections.
+
+The final generated STEP/STL/GLB/verification and preview must be regenerated for the selected current inputs. Do not transfer old CAD PASS, fixture PASS or dated order approval to the new PCB identity. A5 is immutable and A6 remains held.
+
+## R2 assertions after the #87 redesign: 3HP has one left open, 2HP is reported and not selected (2026-11-21)
+
+The CAD exports were regenerated for the adopted 0.8 mm controller and the 1.70 mm FR-4 leaf stack, so
+`exports/*/verification.json` is current (its `layout_sha256` and builder/front hashes match). The first
+regeneration failed five assertions in
+`scripts/tests/test_a7_r2_mechanical.py::Exports::test_cad_verification_current_and_clean`. `unittest` stops at
+the first failing assertion of a method, so the table is the result of evaluating each assertion separately
+against both widths. No assertion, threshold or corridor definition was changed.
+
+| Assertion | 3HP (selected) now | How it was settled, or why it is open |
+|---|---|---|
+| Harness ≥ 1.0 mm from every emitter | met: leaf link 3.327 mm (left) / 2.863 mm (right), controller link 2.809 mm | **Geometry.** The leaf-to-leaf link is re-routed (`leaf_link_route` in `build_a7_mechanical.py`): it no longer rises through the right corridor past D2 (was 0.165 mm). The slack is stowed at Z 16.6 in front of the leaf front edge, with the hairpin under the bottom leaf cap, and the rise into the right header stays 2.9 mm below it |
+| Ray-sampled shading ≤ 0.05 per LED | met: max 0.028 (`right_D1`); `right_D2` 0.011 (was 0.299) | **Geometry**, same re-route. The guard value is unchanged |
+| Leaf-link wires overlapping each other (−0.436 … −0.784) | gone | **Bundle model.** The link is one SH4 assembly, so it is one bundle with the controller link's radius (1.0 mm, ASSUMED) and its own clearance check against every other part, not four wires posed on near-coincident centrelines. No exemption note was added; the unused "carried-over leaf-link" note branch was removed |
+| Wire against diffuser (−0.196 / −0.200) | gone | **Geometry.** The bundle leaves each header at the wire-row centre (top Z 24.9), 0.7 mm in front of the diffuser flange (Z 25.6) |
+| Cable centreline findings ≥ 0.05 mm | met: one finding left, `spine_PETG` / power cable at +0.100 mm | unchanged pre-existing finding |
+| No A7 support in an emission corridor | **OPEN: 2 per side** — `top_leaf_adapter_cap` 31.5 mm² and `bottom_leaf_cap` 10.8 mm² of the 742.5 mm² corridor (4.2 % / 1.5 %), each 1.475 mm from the nearest emitter | **Not settled, and not reachable by reshaping the caps alone.** See below |
+| No unexpected rigid intersection | met in 3HP | 2HP only, see below |
+
+**Why the cap assertion stays open.** The corridor is the box from 0.6 mm outside each leaf face to the
+diffuser skin over the *whole* leaf (Y 22.5–105.0, Z 19.4–28.4). The caps are inside it at the two leaf ends
+for three reasons that are the A5 retention concept itself (`engineering/a5/mechanical/geometry.json`
+`optical.mid_guide`: "top/bottom end caps and L-section diffuser flanges retain bonded leaves"):
+the leaf-end slot (Y 22.3–26.1 and 103.7–105.2) whose walls hold the leaf pair; the clamp face at Z 27.0
+that each diffuser flange is screwed against by the M1.6 leaf fasteners at Y 23.5 / 105.5; and the cap body
+itself between Y 22.5 and 23.7. Cutting the corridor out of the caps would leave 0.375 mm slot walls
+(slot half-width 1.075, corridor from 1.45) and move the diffuser clamp face to Z 28.4, 1.6 mm behind the
+flange — the leaf would no longer be held and the diffuser no longer clamped. A zero count therefore needs
+a different leaf-end retention and diffuser mount (or a shorter leaf), which is a design change beyond this
+model, or a decision on how a retained A5-topology end support is counted. The cap geometry inside the
+corridor is the A5 geometry (the A7 changes — the 2.15 mm slot and the 3HP nut-access lip — only remove
+material, and outside the corridor); it counts as A7 since `480bd0c` classified re-dimensioned parts as A7.
+That derivation is recorded here as input for the decision; it is **not** used to reclassify the parts or
+to redefine the corridor.
+
+**2HP (not selected).** 2HP keeps reporting: the 4 leaf-PCB / M1.6-nut overlaps (0.019 / 0.004 mm³ per
+side), the same two caps per side, `left_diffuser` / controller link −0.150 mm, and — because 2HP has no
+room for the stowage used in 3HP — the leaf-link bundle against the controller rear edge (−0.763 mm), the
+bottom-cap fork (−0.833 mm), the solder-face zone (−0.052 mm) and both diffuser skins (0.000 mm). None of
+that is tuned away; the test still requires both widths to be clean, so it fails on 2HP as long as 2HP is
+generated and checked like a selected width.
+
+Nothing above is a fit, optical or manufacturing approval, and `manufacturing_release` stays false in every
+record. The leaf-link route is a PROJECT-CHOICE scenario: bend radius (2.4 mm centreline), the real bundle
+section and the stowage are not qualified (#8), and the 50 mm finished length is the A5-sourced SH4 length.
+
+## Historical R2 model and results (before #87)
+
+Everything below describes the old 1.6 mm controller / 0.6 mm leaf model. Its dimensions, optical ray study, PET comparison, PASS claims, “current/default” labels and next actions are historical, not the present design contract. Consult the current inputs and #87 evidence for the new revision.
+
 **Status: provisional digital study.** Nothing here is a measured fit, a part approval or a manufacturing
 release. The PJ-324M jack-axis height is INFERRED (≈3.0, band 2.6–3.4); tolerances marked ASSUMED are
 unsourced. Tracked in [#17](https://github.com/Takazudo/zudo-led-block/issues/17) (epic #15).
@@ -11,7 +75,7 @@ unsourced. Tracked in [#17](https://github.com/Takazudo/zudo-led-block/issues/17
 | `design-inputs.json` | R2's own choices (each with a confidence label). Jack, nut, panel, PCB and tolerance inputs come only from `../study/parameters.json` (R1); switch and jack facts from the R1 owner bundles `.claude/skills/component-a7-{pcm13smtr,pj-324m}/facts.json`. |
 | `layout.json`, `layout.md` | Generated by `scripts/a7_mechanical_layout.py` (pure Python): width decision, candidate sweep and selection, break-even values, Z/Y stack, per-width X placement, controller outline and keep-outs, load path, cable routes, unresolved inputs. |
 | `placement-envelopes.json` | Generated with the layout for R4 routing (#19): controller outline, keep-outs, jack bodies and pin positions, switch body/actuator/pegs and header housings, each in the assembly frame and in a KiCad board frame seen from the component face. No hole or pad sizes. |
-| `inputs/r4-board-placement-routed.json`, `r4-placement-check.json` | R4's **routed-board revision 2** export (PR #37 head eb5d833, merged at edf98c2, `authority.py export-placement`, board SHA-256 4453f818…, copied unchanged and byte-identical to main's export. Revision 1 was PR #30, merged at eb8adeb with board ec810aec and checked in #33) and the generated comparison with the envelopes: outline, fixed parts (J1/J2 axis and all five pin pads, J3, J5, SW1) by position, every other part's origin and pad centres against foreign keep-outs, solder-face parts. Courtyards, pad extents, heights and copper are R4's DRC, not checked here. The export is a 1.6 mm board, i.e. the 3HP working candidate; 2HP would need the 0.8 mm board. |
+| `inputs/r4-board-placement-routed.json`, `r4-placement-check.json` | R4's **routed-board revision 2** export (PR #37 head eb5d833, merged at edf98c2, `authority.py export-placement`, board SHA-256 4453f818…, copied unchanged and byte-identical to main's export. Revision 1 was PR #30, merged at eb8adeb with board ec810aec and checked in #33) and the generated comparison with the envelopes: outline, fixed parts (J1/J2 axis and all five pin pads, J3, J5, SW1) by position, every other part's origin and pad centres against foreign keep-outs, solder-face parts. Courtyards, pad extents, heights and copper are R4's DRC, not checked here. Rebound in #87 to the adopted routed 0.8 mm controller (board SHA-256 710ed801…, `thickness_mm` 0.8); the retained snapshot is byte-identical to the canonical export. Geometry still needs an independent fresh native gate comparison. |
 | `build_a7_mechanical.py` | CadQuery 2.7.0 assembly from `layout.json`. |
 | `exports/<width>/zudo_led_block_A7_<width>_assembled.step` / `.glb` | Inspectable assembly (STEP for CAD, GLB for a browser viewer). |
 | `exports/<width>/view_A7_<width>_{front,transverse,side}.png` | Dimensioned views generated from the solids. |
@@ -30,7 +94,7 @@ python3 -m unittest scripts/tests/test_a7_r2_mechanical.py # geometry tests; fai
 Run the front build before the mechanical build (the assembly imports the panel). Both read
 `engineering/a5` only through imports and JSON reads; they never write there.
 
-## Result: 3HP is the working candidate, 2HP stays open
+## Historical result: old 3HP candidate and 2HP study
 
 - **3HP working candidate (default):** centred, 1.6 mm FR-4, untrimmed leads. **FEASIBLE ON PAPER** at the
   worst corner. The front artwork, supports, CAD build and placement envelopes all treat it as the default
@@ -105,7 +169,7 @@ Run the front build before the mechanical build (the assembly imports the panel)
   (below the preferred 2.0), the PicoBlade wires have only 0.9 mm of bend room above the mated plug, and the
   2.3 mm tails must be cut like the jack leads (R2-C1).
 
-## LED leaf: FR-4 stays the default; clear PET is feasible only on a clear carrier
+## Withdrawn PET comparison (historical)
 
 `layout.md` → *LED leaf* and `layout.json` → `leaf_comparison` compare the A5 FR-4 leaf with a clear PET FPC
 leaf. `exports/3hp_pet/` is the 3HP assembly built with the PET leaf (`--leaf pet`). FR-4 is not replaced.

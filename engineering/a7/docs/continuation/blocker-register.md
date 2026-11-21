@@ -1,5 +1,24 @@
 # A7 発注準備の未解決記録
 
+## 0.8 mm再設計の未完項目（2026-11-17 JST、#87）
+
+現在の作業は [#87](https://github.com/Takazudo/zudo-led-block/issues/87)。新方針は [decision-register.md](decision-register.md) を参照してください。設計変更の再承認待ちではありません。
+
+| 範囲 | 必要な作業・証跡 |
+|---|---|
+| PCB/製造条件 | 新leaf正本、controller 0.8 mm実stackup、広域GND撤去後の実接続・局所銅・両面mask、露出銅finishとPCBA条件 |
+| 幅選定 | 0.8±0.1 mmで2HPの公差・配線・組立根拠を評価。不足なら0.8 mmの3HP。推定軸寸法を実測扱いしない |
+| 機構/治具 | 1.70 mm nominal leaf stackと薄いcontrollerから支持・cap・実装面・ハーネス、治具荷重/たわみ/接触/干渉を再生成。旧PASS流用禁止 |
+| 統合証跡 | 新leafのnative、routing、Gerber全層、製造入力、CAD、previewを同じ最終revisionへ結合して独立レビューとCI |
+| 物理/製造 | #8/#10/#13の未測定項目、最終製造条件照合とrelease。今回のデジタル作業で完了扱いにしない |
+
+透明PET/FPCは撤回済みで、Q11/Q11a–fは現行FR-4案のblockerではありません。旧order/2026-11-13/と旧承認は当時のidentity限定です。
+
+## 旧設計のblocker履歴
+
+以下の「現状」「current」「PASS」「解除」は旧設計についての記録です。新設計の状態には流用しません。
+
+
 2026-11-09。判断は [decision-register.md](decision-register.md)、exact-head検証と成果identityは [checkpoint](order-preparation-checkpoint.md) を参照してください。以下は合格でも製品判断でもなく、未取得の証跡・未完実装・アクセス条件です。
 
 **2026-11-13 の現状（下の 2026-11-09 の表は履歴として残す）:** B5 の治具はデジタル基準 1–4 と native の新規検証を満たし、提案した金物はオーナーが 2026-11-12 に承認済み（`accept-all-recommendations`）。残るのは FR-4 プレートの加工業者の選定と物理の基準 5。B11 の試作ルートは 2026-11-12 に承認、HX 版を 2026-11-13 に再承認（PR #79）。#80 で `assembly-manifest.json` が `c12c964a…` から `557d5e48…` に変わったため、前の承認は効かなくなったが、オーナーが同日に新しい識別で再承認した（`qualification/approvals/2026-11-13-owner-prototype-route-sourcing-manifest.md`）。B12 について、日付付きの注文ファイル `jlc-package/order/2026-11-13/` は試作ルートでオーナーがアップロードする写しで、ファイル名の `DRYRUN` はツールの名前のまま（改名していない）。製造リリースではない。下の PJ-324M の「PCB を発注する前に」の導通試験は 2026-11-12 にオーナーが免除し（`jack-tip-test-waiver`）、初品で確認する。免除はピン対応の確認ではない。段階ごとの説明は [continue-here.md](continue-here.md) の冒頭。

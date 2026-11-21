@@ -27,9 +27,11 @@ ROOT = Path(__file__).resolve().parents[1]
 PROFILE = 'engineering/a7/verification/native_gate.json'
 BOARD = 'engineering/a7/electronics/controller/controller.kicad_pcb'
 CANDIDATE = 'a7_controller'
+LEAF = 'engineering/a7/electronics/led_leaf/led_leaf.kicad_pcb'
 PREFIX = 'a7-gate/'
 REQUIRED = ('summary.json', 'plan.json', f'evidence/{CANDIDATE}/board_facts.json',
-            f'evidence/{CANDIDATE}/board_geometry.json', f'evidence/{CANDIDATE}/fixture_geometry.json')
+            f'evidence/{CANDIDATE}/board_geometry.json', f'evidence/{CANDIDATE}/fixture_geometry.json',
+            'evidence/a7_led_leaf/board_facts.json', 'evidence/a7_led_leaf/board_geometry.json')
 ALLOWED = set(REQUIRED)
 MAX_MEMBER_BYTES = 8 * 1024 * 1024
 
@@ -65,7 +67,7 @@ def read_members(zip_path: Path | None = None, dir_path: Path | None = None) -> 
     return out
 
 
-def classify(members: dict[str, bytes], *, board_sha: str, image: str, expect_revision: str | None = None,
+def classify(members: dict[str, bytes], *, board_sha: str, image: str, leaf_sha: str | None = None, expect_revision: str | None = None,
              expect_checkout: str | None = None, expect_run_id: str | None = None,
              expect_run_attempt: str | None = None, strict_members: bool = True,
              require_binding: bool = True) -> dict:
@@ -135,20 +137,28 @@ def classify(members: dict[str, bytes], *, board_sha: str, image: str, expect_re
         elif sha(members['plan.json']) != s['plan_sha256']:
             rejected.append('plan.json SHA-256 differs from summary')
 
-    facts_rel, geom_rel = REQUIRED[2], REQUIRED[3]
-    if facts_rel in members and geom_rel in members:
-        try:
-            facts, geom = json.loads(members[facts_rel]), json.loads(members[geom_rel])
-        except ValueError:
-            rejected.append('board facts/geometry are not JSON')
-        else:
-            if not isinstance(facts, dict):
-                rejected.append('board facts are not an object')
+    if leaf_sha is None:
+        reasons.append('unbound: expected current A7 leaf hash is required')
+    for design, expected in ((CANDIDATE, board_sha), ('a7_led_leaf', leaf_sha)):
+        if expected is None:
+            continue
+        if (s.get('tested_board_sha256') or {}).get(design) != expected:
+            rejected.append(f'{design} tested hash differs from authoritative PCB')
+        facts_rel = f'evidence/{design}/board_facts.json'
+        geom_rel = f'evidence/{design}/board_geometry.json'
+        if facts_rel in members and geom_rel in members:
+            try:
+                facts, geom = json.loads(members[facts_rel]), json.loads(members[geom_rel])
+            except ValueError:
+                rejected.append(f'{design} facts/geometry are not JSON')
             else:
-                if facts.get('board_sha256') != board_sha:
-                    rejected.append('board_facts.board_sha256 differs from the authoritative A7 PCB')
-                if facts.get('geometry_sha256') != sha(json.dumps(geom, sort_keys=True).encode()):
-                    rejected.append('board facts/geometry pair inconsistent')
+                if not isinstance(facts, dict):
+                    rejected.append(f'{design} facts are not an object')
+                else:
+                    if facts.get('board_sha256') != expected:
+                        rejected.append(f'{design} facts differ from authoritative PCB')
+                    if facts.get('geometry_sha256') != sha(json.dumps(geom, sort_keys=True).encode()):
+                        rejected.append(f'{design} facts/geometry pair inconsistent')
 
     if rejected:
         status = 'REJECTED'
@@ -182,7 +192,7 @@ def main(argv: list[str] | None = None) -> int:
     image = json.loads((ROOT / PROFILE).read_text())['image']
     try:
         members = read_members(a.zip, a.dir)
-        r = classify(members, board_sha=board_sha, image=image, expect_revision=a.expect_revision,
+        r = classify(members, board_sha=board_sha, image=image, leaf_sha=sha((ROOT / LEAF).read_bytes()), expect_revision=a.expect_revision,
                      expect_checkout=a.expect_checkout, expect_run_id=a.expect_run_id,
                      expect_run_attempt=a.expect_run_attempt, strict_members=a.zip is not None)
     except (OSError, ValueError, TypeError, AttributeError, zipfile.BadZipFile) as e:

@@ -1,10 +1,10 @@
 ---
 title: "A7 組立プレビュー"
-description: "現在の 3HP FR-4 試作候補を、実際の GLB 形状で見る。前面・制御基板・LED リーフ・支持部・配線の位置関係。"
+description: "A7の組立構造と、0.8 mm rigid FR-4設計変更の表示・検証の境界。前面・制御基板・LED リーフ・支持部・配線の位置関係。"
 sidebar_position: 2
 ---
 
-**現在の候補は A7・3HP・FR-4 リーフ、最初の試作は 2 台です。** デジタル実装は完了し、試作用の注文ファイルは準備済みです。試作ルートは [PR #82](https://github.com/Takazudo/zudo-led-block/pull/82) で現在の識別に再承認済み。注文画面の確認・発注・物理評価は未実施で、製造リリースではありません。
+**0.8 mm rigid FR-4への設計変更を [#87](https://github.com/Takazudo/zudo-led-block/issues/87) で進めています。** 透明PET/FPCは現行候補から撤回しました。2HPを優先評価し、成立根拠を確保できなければ0.8 mmの3HPへ進みます。旧モデル・注文承認を新設計の検証済み表示として扱いません。
 
 [組立ビューアを単独で開く](/a7-preview/) — 広い画面で操作できます。
 
@@ -31,14 +31,12 @@ sidebar_position: 2
 
 正面は PMMA 側、背面はラック内部側です。「表示部品に合わせる」は現在表示している形状に合わせます。「分解して見る」の間隔は構造を読むためだけのもので、実際の分解・組立手順ではありません。「全体をリセット」で元の組立位置へ戻ります。
 
-- **3HP FR-4**: 現在の試作候補。初期表示。
-- **2HP — unresolved study**: 公差条件の解決を待つ任意の検討。
-- **3HP PET — exploratory study**: 透明 PET と支持板の探索案。供給条件・電気的な未達・物理評価が残る。FR-4 の採用を置き換えない。
+新しい通常表示は選定したFR-4案を既定とし、PETを候補選択から外します。2HP比較を残す場合は採用済み・未採用・未確認を区別します。モデル更新と最終hashの確認が済むまでは、旧3HP表示を新0.8 mm設計の証跡に使えません。
 
 ## 出典と限界
 
-モデルは `engineering/a7/mechanical/exports/` の既存 GLB をそのまま使っています。確認したソースは `0c19fea8afe356fc993570e969742e774b7a9914`。寸法と座標は `mechanical/layout.json`、`design-inputs.json`、`front_panel/geometry.json`、部品名と形状区分は各 `verification.json` に基づきます。[プレビューの manifest](/a7-preview/manifest.json) にファイル単位の SHA-256、座標変換、部品対応を記録しています。
+旧プレビューは `engineering/a7/mechanical/exports/` のGLBに基づきます。変更前に確認したソースは `0c19fea8afe356fc993570e969742e774b7a9914`。寸法と座標は `mechanical/layout.json`、`design-inputs.json`、`front_panel/geometry.json`、部品名と形状区分は各 `verification.json` に基づきます。[プレビューの manifest](/a7-preview/manifest.json) にファイル単位の SHA-256、座標変換、部品対応を記録しています。
 
-部品の簡略形状、クリアランスの包絡、配線シナリオが含まれます。銅配線の詳細表示でも、LED の明るさ・拡散・熱のシミュレーションでもありません。表示の分解・非表示は元の工学モデルや承認の識別を変えません。
+部品の簡略形状、クリアランスの包絡、配線シナリオが含まれます。旧表示の緑色PCBは基板envelopeで、銅箔・maskの実形状ではありません。新表示では基材のくすんだ半透明性と、不透明な全層銅箔・部品・残すmaskを区別する必要があります。基材の色・透過・拡散は未測定の見え方の仮定であり、LEDの明るさ・光学性能・熱の試験結果ではありません。表示の分解・非表示は元の工学モデルや承認の識別を変えません。
 
-[A7 の現状](/docs/project/a7/) と [次の作業](/docs/project/next-actions/) に、デジタル完了と残る実機確認を分けて記録しています。A5 は不変の履歴資料、A6 は保留のままです。
+[A7 の現状](/docs/project/a7/) と [次の作業](/docs/project/next-actions/) に、新設計のデジタル作業と残る実機確認を分けて記録しています。A5 は不変の履歴資料、A6 は保留のままです。

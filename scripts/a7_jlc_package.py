@@ -33,6 +33,7 @@ LEDGER = 'engineering/a7/procurement/assembly-manifest.json'
 OWNER_DECISIONS = Path('engineering/a7/procurement/owner-decisions.json')
 READINESS = 'engineering/a7/qualification/readiness.json'
 PROFILE = 'engineering/a7/verification/native_gate.json'
+OPTICAL_FAB = 'engineering/a7/verification/fab/optical-fr4.json'
 LAYOUT = 'engineering/a7/mechanical/layout.json'
 LABEL = 'zudo-led-block.a7-jlc-package'
 # Gerber layers JLC needs for a board; KiCad names. Inner layers are added for 4-layer boards.
@@ -147,6 +148,7 @@ def board_facts(path):
             drills.append(d[0])
     return {'path': str(path), 'sha256': sha(ROOT / path), 'thickness_mm': nums(kid(general, 'thickness'))[0],
             'copper_layers': copper, 'copper_finish': finish[1] if finish else None,
+            'stackup': stackup,
             'outline_mm': {'x': [min(xs), max(xs)], 'y': [min(ys), max(ys)],
                            'width': round(max(xs) - min(xs), 3), 'height': round(max(ys) - min(ys), 3)},
             'outline_is_rectangle': is_rectangle(edges, (min(xs), max(xs)), (min(ys), max(ys))), 'outline_edges': len(edges),
@@ -260,6 +262,7 @@ def generate(root=ROOT, sources=None):
             'assembly_sides': sides, 'tht_refs': tht, 'smd_count': sum(1 for r in fitted.values() if r['mount'] == 'SMD'),
             'bom_lines': len(bom_rows), 'cpl_rows': len(cpl), 'centroid_offsets': centroid,
             'files': [f'{name}_BOM_DRYRUN.csv', f'{name}_CPL_DRYRUN.csv'],
+            'optical_manufacturing': optical_manufacturing(name, facts, root),
             'base_material': base_material(name, layout), 'overhangs': overhangs(facts, fitted),
             'pcba_tier': pcba_tier(facts, sides, layers, fitted, parts, needed),
         })
@@ -292,13 +295,53 @@ def generate(root=ROOT, sources=None):
                                          if 'owner_prototype_route' in gates else 'MATCHES the current readiness identities',
               'dated_order_exports': sorted(str(OUT / 'order' / d.name) for d in order_dir.iterdir() if d.is_dir()) if order_dir.is_dir() else [],
               'modules': modules, 'decided_by': plan['decided_by'], 'sources': str(SOURCES),
-              'ledger_sha256': sha(root / LEDGER), 'sources_sha256': sha(root / SOURCES),
+              'ledger_sha256': sha(root / LEDGER), 'sources_sha256': sha(root / SOURCES), 'optical_fab_sha256': sha(root / OPTICAL_FAB),
               'boards': boards, 'parts': lines, 'panel_comparison': comparison, 'panel_route': panel_decision(root),
               'part_counts': {k: sum(1 for l in lines if l['library'] == k) for k in ('BASIC', 'EXTENDED')},
               'route_counts': {k: sum(1 for l in lines if l['route'] == k) for k in sorted({l['route'] for l in lines})},
               'blockers': blockers}
     files['package.json'] = json.dumps(report, indent=2, ensure_ascii=False) + '\n'
     return report, files
+
+
+def optical_manufacturing(name, facts, root=ROOT):
+    """Bind optical manufacturing notes to native construction, never to old approvals."""
+    if name not in ('controller', 'led_leaf'):
+        return {'status': 'UNCHANGED_ADAPTER; optical/fit assessment recorded separately'}
+    spec = json.loads((root / OPTICAL_FAB).read_text())
+    target = spec[name]
+    if facts['path'] != target['board'] or facts['thickness_mm'] != spec['nominal_finished_thickness_mm']:
+        raise ValueError(f'{name}: optical manufacturing board/thickness mismatch')
+    if len(facts['copper_layers']) != target['layers'] or facts['copper_finish'] != spec['surface_finish']:
+        raise ValueError(f'{name}: optical manufacturing layers/finish mismatch')
+    if not facts.get('stackup'):
+        raise ValueError(f'{name}: missing native stackup')
+    construction = []
+    for layer in kids(facts['stackup'], 'layer'):
+        typ = kid(layer, 'type')
+        if not typ or typ[1] not in ('copper', 'core', 'prepreg'):
+            continue
+        thickness = kid(layer, 'thickness')
+        if not thickness:
+            raise ValueError(f'{name}: native stackup thickness missing')
+        row = {'kind': typ[1], 'thickness_mm': float(thickness[1])}
+        if typ[1] == 'copper':
+            row['layer'] = layer[1]
+        else:
+            material, epsilon = kid(layer, 'material'), kid(layer, 'epsilon_r')
+            if not material or not epsilon:
+                raise ValueError(f'{name}: native dielectric material/epsilon missing')
+            row.update(material=material[1], epsilon_r=float(epsilon[1]))
+        construction.append(row)
+    if construction != target['stackup']:
+        raise ValueError(f'{name}: native stackup differs from optical fabrication construction')
+    return {'spec': OPTICAL_FAB, 'spec_sha256': sha(root / OPTICAL_FAB),
+            'revision': spec['revision'], 'finished_thickness_tolerance_mm': spec['finished_thickness_tolerance_mm'],
+            'native_stackup': facts['stackup'], 'construction_target': target,
+            'surface_finish': spec['surface_finish'], 'surface_finish_status': spec['surface_finish_reason'],
+            'mask_policy': spec['mask'],
+            'acceptance': 'NOT_FACTORY_ACCEPTED: exposed ENIG copper, local mask dams/tenting, thin board support, panel and assembly service require final DFM; thickness alone does not qualify PCBA',
+            'historical_approvals': '2026-11-13 order exports and approvals apply only to their recorded old identities; not this revision'}
 
 
 def check_pcba_basis(basis, cap):
@@ -534,6 +577,10 @@ def named_blockers(boards, lines, pages, ledger, root):
                     f"Panel by JLCPCB（{pn['columns_x']} × {pn['rows_y']}）は 2 シート最小で {jlc_n} 枚が実装される{('。未確認: ' + qj) if qj else '。'}"
                     f"リポジトリで {rp['copies']} 枚入りの面付け（{fmt(rp['panel_mm'][0])} × {fmt(rp['panel_mm'][1])} mm）を作れば、必要な {b['pcba_quantity']} 枚に対し {repo_n} 枚。"
                     'どちらにするかはオーナーの判断（`assembly:panel-route`）。' + ('リポジトリ面付けのデータは `engineering/a7/jlc-package/panels/` に準備した（未リリース）。' if prepared else '面付けデータはまだ作っていない。'))
+        if n in ('controller', 'led_leaf'):
+            add(f'{n}-optical-fabrication-dfm', n,
+                'Optical R3 uses 0.8 ±0.1 mm FR-4, local solder-mask dams/via tents and exposed ENIG copper. Final stackup, mask process, thin-board support and PCBA service acceptance require factory DFM; old dated order approvals do not transfer.',
+                'Optical R3 は 0.8 ±0.1 mm FR-4、局所レジスト dam・via 保護、露出 ENIG 銅を使用。最終積層・レジスト工程・薄板保持・PCBA 受入は工場 DFM 未確認。旧発注承認は適用しない。')
         if not b['copper_finish_in_board_file']:
             eco = t['tier'] == 'ECONOMIC'
             add(f'{n}-finish-not-specified', n, 'Surface finish is not recorded in the board file; it must be chosen on the order form'
@@ -627,8 +674,9 @@ def page(report, panels=None):
               f"| Base Material | {base_row(b['base_material'])} |",
               f"| Layers | {b['copper_layers']} |",
               f"| Dimensions | {fmt(b['outline_mm']['width'])} × {fmt(b['outline_mm']['height'])} mm |",
-              f"| PCB Thickness | {fmt(b['thickness_mm'])} mm（JLC 公差 {b['thickness_tolerance']}" + ('。A5 の寸法を引き継いだ凍結値で、1.6 mm ではない。0.6 mm は JLC の FR-4 の選択肢にある' if b['board'] == 'led_leaf' and b['thickness_mm'] < 1.0 else '') + '） |',
+              f"| PCB Thickness | {fmt(b['thickness_mm'])} mm（JLC 公差 {b['thickness_tolerance']}" + ('。A7 optical R3 の正本。旧 A5 基板・旧発注承認は流用しない' if b['board'] in ('led_leaf', 'controller') else '') + '） |',
               f"| Surface Finish | {b['copper_finish_in_board_file'] or '基板ファイルに指定なし（注文時に選ぶ）'} |",
+              f"| Optical fabrication | {'0.8 ±0.1 mm / 局所レジスト・露出 ENIG 銅。積層、dam、via 保護、薄板保持と PCBA は最終工場 DFM 未確認。旧承認は適用不可。' if b['board'] in ('controller', 'led_leaf') else '既存アダプタ。光路・収まりの評価は別記。'} |",
               f"| 最小穴径 | {fmt(b['min_drill_mm'])} mm |" if b['min_drill_mm'] else '| 最小穴径 | — |',
               f"| PCB Assembly | オン。必要な完成品は単品 {b['pcba_quantity']} 枚（{b['per_module']} 枚/台 × {report['modules']} 台）。面付け時に PCBA Qty をシート数で入れるかは未確認（`pcba-quantity-unit-with-panel-not-sourced`） |",
               f"| PCBA Type | {t['tier'].title()}" + (f"（理由: {esc('、'.join(t['reasons_ja']))}）" if t['reasons_ja'] else '') + ' |',

@@ -1,0 +1,49 @@
+{
+  "issue": "https://github.com/Takazudo/zudo-led-block/issues/87",
+  "parent": 15,
+  "manager": "Codex Cloud root integration coordinator",
+  "base_sha": "e8fabd0d4dead06624463221e9cd159a1a694ee8",
+  "branch": "codex/a7-fr4-optical-87",
+  "initial_checkout": "main, clean, one worktree /workspace/zudo-led-block",
+  "cpu_quota_cores": 4,
+  "memory_limit_GiB": 16,
+  "workspace_free_GB_before_native": 30,
+  "worker_resources": "Shared VM; no additional CPU or RAM",
+  "heavy_jobs_max": 1,
+  "heavy_guard": "portable profile scripts/heavy-guard.sh; common default home lock",
+  "native_deadline_s": 600,
+  "native_cleanup_reserve_s": 60,
+  "routing_budget_s": 1500,
+  "retry_policy": "At most one demonstrated transient retry; deterministic failures need candidate changes",
+  "actions_allocation": "No explicit heavy dispatch allocated. Repository in_progress query empty at resume. Three historical queued runs observed at first entry; do not cancel foreign jobs. Ordinary PR CI reserved, one candidate PR only. Account headroom unknown: no fan-out.",
+  "roles": {
+    "root": "integration, tracker, CI/native profiles",
+    "electrical_design": "PCB,stackup,router,optical native helper",
+    "mechanical_assessment": "dimension/layout selection and tolerances",
+    "fixture": "fixture support/load/geometry",
+    "preview_cad": "CAD and optical copper preview",
+    "policy_docs": "authored current policy",
+    "manufacturing_inputs": "procurement/readiness/package/panel"
+  },
+  "model_reporting": "Electrical and mechanical workers explicitly gpt-6-astra high per repository role requirement. Others inherit parent; no inference about opaque routing.",
+  "initial_checks": "See preflight.md; all refer to old design only",
+  "denial": "Initial Issue create rejected for missing trusted authorization; resumed with owner continuity and original attachment authorization; single reviewed retry created87. No bypass.",
+  "boundaries": [
+    "A5 immutable",
+    "A6#7/PR14 held",
+    "No supplier messages/order/release/manual deploy/flash/power",
+    "Old results not new-design evidence"
+  ],
+  "pr": "https://github.com/Takazudo/zudo-led-block/pull/88",
+  "status": "draft implementation; optical leaf adopted from verified staging, controller/fixture/CAD pending",
+  "native_staging": {
+    "method": "digest-verified OCI layers flattened once and isolated bwrap execution; NOT the final Docker native gate",
+    "index_digest": "sha256:3f4a01786dfbe803a65f345c3342b765db9add913f5e9448f8356793714ddc34",
+    "amd64_manifest_digest": "sha256:05f6ac957e351bbbd9e1f9c996be997f61948ed9f94e0c3cab336bfcaf60161c",
+    "config_digest": "sha256:435c07bf74fcd24dcb5ad20540c96451ae3d6f8cd1abffea796981acc9921c02",
+    "provenance_sha256": "d176735d8a21de6ca4a2d7f745fbc61bd5805815d5cd7b8cb93db8dbdbfe8ba0",
+    "version_checks": "kicad-cli and pcbnew 10.0.8; all13 compressed layer digests verified",
+    "capacity": "Docker vfs expanded to root32GB full; task-owned unused image removed; flattened rootfs2.5GB held locally, no global Docker changes",
+    "acceptance": "Existing pinned Docker Actions gate still mandatory"
+  }
+}
