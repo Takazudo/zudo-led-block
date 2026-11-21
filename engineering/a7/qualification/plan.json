@@ -617,14 +617,14 @@
       "variant": "fr4-3hp",
       "issues": " #8",
       "setup": "完成 SH4 と電源ケーブルを全長収納し、全コネクタ・ラベル・IDC を含めて組む。",
-      "expected": "PMMA 裏面から30 mm以内が目標。電源自由長は mechanical/layout.json の power_cable_requirement（現時点57±3 mm、±3 ASSUMED）。A5 50±6 mmは流用不可。",
+      "expected": "PMMA 裏面から30 mm以内が目標。電源自由長は mechanical/layout.json の power_cable_requirement（0.8 mm設計では55±3 mm、±3 ASSUMED）。A5 50±6 mmは流用不可。",
       "basis": "engineering/a7/mechanical/layout.json",
-      "criterion_status": "REVIEWED",
-      "missing_criterion": "",
+      "criterion_status": "UNRESOLVED",
+      "missing_criterion": "2026-11-12のowner受入（57±3 mm、54–60 mm）は旧1.6 mm設計の値に限る履歴。0.8 mm設計でadapter/J5位置が変わり55±3 mm（52–58 mm）になったため、新しい値はowner未受入。",
       "raw_evidence_required": "配線極性表、全長/曲げ/奥行き測定、各方向写真",
       "observation": "NOT_MEASURED",
       "result": "NOT_RUN",
-      "next_action": "基準はオーナーが採用済み（2026-11-12、推奨をまとめて採用）。電源ケーブル公差 ±3 mm は仮定のままで、ケーブル業者がより狭い公差を保証すれば置き換える。オーナー承認の試作ルートの範囲で実物で実施する。",
+      "next_action": "0.8 mm設計の電源ケーブル自由長55±3 mm（±3 mm ASSUMED）をオーナーが改めて受け入れるまで基準は未決。旧受入記録 2026-11-12-owner-criteria-acceptance.md は旧値の履歴として保持し、新値へ付け替えない。実物確認は試作後。",
       "required_evidence_kinds": [
         "polarity_matrix",
         "full_length_routing",
@@ -668,7 +668,7 @@
         {
           "id": "power-free-span",
           "criterion": "電源ケーブルの自由長（公称）",
-          "value": 57.0,
+          "value": 55.0,
           "unit": "mm",
           "confidence": "DESIGN",
           "source": {
@@ -697,8 +697,8 @@
           "id": "power-band",
           "criterion": "自由長の許容範囲（公差が仮定なので範囲も仮定）",
           "value": [
-            54.0,
-            60.0
+            52.0,
+            58.0
           ],
           "unit": "mm",
           "confidence": "ASSUMED",
@@ -764,8 +764,8 @@
           "id": "power-band-order",
           "criterion": "電源ケーブル自由長の注文範囲",
           "value": [
-            54.0,
-            60.0
+            52.0,
+            58.0
           ],
           "unit": "mm",
           "confidence": "ASSUMED",
@@ -779,13 +779,7 @@
             "pointer": "/power_cable_requirement/tolerance_confidence"
           }
         }
-      ],
-      "criterion_accepted_by": "OWNER",
-      "criterion_review": {
-        "path": "engineering/a7/qualification/reviews/2026-11-12-owner-criteria-acceptance.md",
-        "sha256": "15e3a481a4b3e3588d47d87884f5b8ec18342c425e03fb927073ee810f04c9a6"
-      },
-      "criterion_acceptance_sha256": "886e5fd6948d5d2c939b8ab37e668749db83307b2c78f972892713ef46071943"
+      ]
     },
     {
       "id": "pmma-supports",
@@ -793,7 +787,7 @@
       "variant": "fr4-3hp",
       "issues": "Q7/Q8/Q9; #8",
       "setup": "製造ロットのPMMAと造形品を測る。段階的締結と保持を記録。",
-      "expected": "透明2 mm PMMA、裏面フロスト/表面平滑。0.5 mm後面ポケットは設計選択。M2×18上部ねじ、ボスとフォークを含む。",
+      "expected": "透明2 mm PMMA、裏面フロスト/表面平滑。0.5 mm後面ポケットは設計選択。M2×20上部ねじ、ボスとフォークを含む。",
       "basis": "engineering/a7/mechanical/README.md",
       "criterion_status": "UNRESOLVED",
       "missing_criterion": "加工公差、締付トルク、割れ/クレージング、保持荷重、PETG工程条件の採否基準が未決。",
@@ -812,7 +806,7 @@
       "inputs": [
         "A7 前面 PMMA（加工先・材料ロットを記録）",
         "PETG で造形したスパイン・キャップ・ディフューザー（造形条件を記録）",
-        "M2×18 ねじと M2 ナット、M6×0.5 ナット",
+        "M2×20 ねじと M2 ナット、M6×0.5 ナット",
         "PJ-324M 実装基板"
       ],
       "tools": [
@@ -830,7 +824,7 @@
       "steps": [
         "PMMA の板厚・穴径・後面ポケット深さと位置を測る。",
         "造形部品の寸法と造形条件（材料、ノズル温度、層厚、向き）を記録する。",
-        "M2×18 とジャックナットを段階的に締め、各段階で割れ・白化（クレージング）を確認し、トルクを記録する。",
+        "M2×20 とジャックナットを段階的に締め、各段階で割れ・白化（クレージング）を確認し、トルクを記録する。",
         "プッシュプルゲージでプラグ挿抜方向の荷重をかけ、保持とずれを記録する。"
       ],
       "record": {
@@ -896,7 +890,7 @@
         {
           "id": "top-screw",
           "criterion": "上キャップのねじ",
-          "value": "M2x18",
+          "value": "M2x20",
           "unit": "NONE",
           "confidence": "DESIGN",
           "source": {
@@ -4098,7 +4092,7 @@
     {
       "gate": "criterion:harness-depth",
       "stage": "BENCH",
-      "question": "電源ケーブルの注文範囲 54–60 mm と、最小曲げ半径 2.0 mm を合否基準にしますか。",
+      "question": "0.8 mm設計の電源ケーブル注文範囲 52–58 mm と、最小曲げ半径 2.0 mm を合否基準にしますか。（旧1.6 mm設計の54–60 mm受入は履歴）",
       "options": [
         {
           "id": "adopt",
@@ -4112,7 +4106,7 @@
         }
       ],
       "recommended": "adopt",
-      "reason": "54–60 mm は経路モデルの要求 57 ± 3 mm（±3 は仮定）、2.0 mm は 3HP の経路モデルが曲げに残した余裕。どちらも設計記録の値で、業者の回答で置き換えられる。",
+      "reason": "52–58 mm は0.8 mm設計の経路モデルの要求 55 ± 3 mm（±3 は仮定）、2.0 mm は 3HP の経路モデルが曲げに残した余裕。どちらも設計記録の値で、業者の回答で置き換えられる。",
       "sources": [
         {
           "path": "engineering/a7/mechanical/layout.json",
@@ -4123,15 +4117,7 @@
           "pointer": "/variants/3hp/routes/adapter_to_controller_power/end_bend_room"
         }
       ],
-      "rank": 6,
-      "answer": {
-        "option": "adopt",
-        "by": "OWNER",
-        "record": {
-          "path": "engineering/a7/procurement/owner-decisions.json",
-          "quote": "5 accept all"
-        }
-      }
+      "rank": 6
     },
     {
       "gate": "assembly:rack-hardware",
@@ -4679,7 +4665,7 @@
       "items": [
         {
           "what": "PMMA 板・PETG 加工先の公差と、ねじの注文型番",
-          "value_needed": "板厚・ポケット深さの公差、PETG の造形条件、M2×18 / M1.6×4 の型番",
+          "value_needed": "板厚・ポケット深さの公差、PETG の造形条件、M2×20 / M1.6×4 の型番",
           "url": null,
           "fallback_url": null,
           "access": "supplier-questions.md の「PMMA・PETG・組立」を加工先に送って回答を保存する"
