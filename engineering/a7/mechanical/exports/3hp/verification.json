@@ -8,7 +8,7 @@
   "layout_sha256": "8b24ec83fd805c4efcaba92f885e49531826f8945063b74fd5019bc1221e040e",
   "input_sha256": {
     "engineering/a7/mechanical/layout.json": "8b24ec83fd805c4efcaba92f885e49531826f8945063b74fd5019bc1221e040e",
-    "engineering/a7/mechanical/build_a7_mechanical.py": "deae1e82b50d828e495a0e10b4fce7ffbd133d34bf71373a59393ba41907510b",
+    "engineering/a7/mechanical/build_a7_mechanical.py": "6489756f6bcd3ae863dfb6bda7cc3e0da842da7c98934523f1ae47a5b7b988bb",
     "engineering/a7/front_panel/build_a7_front.py": "248a7704eca8dabbcfbf2ad7d7bf541b5099ea706e3eff1932cdf8cd0d4bf67e"
   },
   "part_count": 66,
@@ -659,6 +659,13 @@
   },
   "optical_shading_estimate": {
     "method": "cosine-weighted rays from each LED face to the diffuser inner plane; 4000 rays per LED, fixed seed; fraction of rays meeting an A7 harness; not a light simulation",
+    "solid_method": "the same rays (same origins and directions) tested against the CAD solid of every non-harness part that optical_obstruction lists in that side's corridor; a ray counts as blocked by a part when it meets the solid anywhere between the LED face and the target plane. blocked_by_supports is the a7_controller_or_support group; blocked_by_origin counts a ray once per origin group, blocked_by_solid once per part, so the figures overlap and do not add up",
+    "assumptions": {
+      "emission": "Lambertian (cosine-weighted) from points uniform over the LED body's outer face rectangle; ASSUMED, no LED angular or spatial data is used",
+      "target_plane": "the diffuser skin inner plane (corridor outer X), unbounded in Y and Z: a ray that reaches that plane anywhere counts as delivered, whether or not it lands on the skin",
+      "not_modelled": "reflection, scattering, transmission through FR-4 or PETG, the diffuser itself, neighbouring LEDs' light and anything outside the listed corridor obstructions"
+    },
+    "acceptance": "blocked_by_a7_harness keeps its regression guard in the tests; the solid figures have no pass/fail threshold and are input for an owner decision, not an optical result",
     "per_side": {
       "left": [
         {
@@ -667,7 +674,20 @@
             25.175,
             27.325
           ],
-          "blocked_by_a7_harness": 0.001
+          "blocked_by_a7_harness": 0.001,
+          "blocked_by_supports": 0.245,
+          "blocked_by_origin": {
+            "a5_hardware": 0.109,
+            "a7_controller_or_support": 0.245,
+            "a7_leaf_mounted": 0.003
+          },
+          "blocked_by_solid": {
+            "M1_6_nut_-1_23.5": 0.024,
+            "M1_6x4_-1_23.5": 0.097,
+            "left_J1_SH4_mated": 0.003,
+            "top_leaf_adapter_cap": 0.245
+          },
+          "blocked_by_any_corridor_solid_or_harness": 0.264
         },
         {
           "led": "left_D2",
@@ -675,7 +695,20 @@
             50.175,
             52.325
           ],
-          "blocked_by_a7_harness": 0.018
+          "blocked_by_a7_harness": 0.018,
+          "blocked_by_supports": 0.002,
+          "blocked_by_origin": {
+            "a5_hardware": 0.001,
+            "a7_controller_or_support": 0.002,
+            "a7_leaf_mounted": 0.006
+          },
+          "blocked_by_solid": {
+            "M1_6_nut_-1_23.5": 0.001,
+            "M1_6x4_-1_23.5": 0.001,
+            "left_J1_SH4_mated": 0.006,
+            "top_leaf_adapter_cap": 0.002
+          },
+          "blocked_by_any_corridor_solid_or_harness": 0.021
         },
         {
           "led": "left_D3",
@@ -683,7 +716,23 @@
             75.175,
             77.325
           ],
-          "blocked_by_a7_harness": 0.004
+          "blocked_by_a7_harness": 0.004,
+          "blocked_by_supports": 0.001,
+          "blocked_by_origin": {
+            "a5_hardware": 0.001,
+            "a7_controller_or_support": 0.001,
+            "a7_leaf_mounted": 0.003
+          },
+          "blocked_by_solid": {
+            "M1_6_nut_-1_105.5": 0.0,
+            "M1_6_nut_-1_23.5": 0.0,
+            "M1_6x4_-1_105.5": 0.001,
+            "bottom_leaf_cap": 0.001,
+            "left_J1_SH4_mated": 0.0,
+            "left_J2_SH4_mated": 0.002,
+            "top_leaf_adapter_cap": 0.001
+          },
+          "blocked_by_any_corridor_solid_or_harness": 0.006
         },
         {
           "led": "left_D4",
@@ -691,7 +740,20 @@
             100.175,
             102.325
           ],
-          "blocked_by_a7_harness": 0.01
+          "blocked_by_a7_harness": 0.01,
+          "blocked_by_supports": 0.198,
+          "blocked_by_origin": {
+            "a5_hardware": 0.052,
+            "a7_controller_or_support": 0.198,
+            "a7_leaf_mounted": 0.007
+          },
+          "blocked_by_solid": {
+            "M1_6_nut_-1_105.5": 0.017,
+            "M1_6x4_-1_105.5": 0.043,
+            "bottom_leaf_cap": 0.198,
+            "left_J2_SH4_mated": 0.007
+          },
+          "blocked_by_any_corridor_solid_or_harness": 0.215
         }
       ],
       "right": [
@@ -701,7 +763,20 @@
             25.175,
             27.325
           ],
-          "blocked_by_a7_harness": 0.0
+          "blocked_by_a7_harness": 0.0,
+          "blocked_by_supports": 0.242,
+          "blocked_by_origin": {
+            "a5_hardware": 0.109,
+            "a7_controller_or_support": 0.242,
+            "a7_leaf_mounted": 0.003
+          },
+          "blocked_by_solid": {
+            "M1_6_nut_1_23.5": 0.024,
+            "M1_6x4_1_23.5": 0.098,
+            "right_J2_SH4_unmated": 0.003,
+            "top_leaf_adapter_cap": 0.242
+          },
+          "blocked_by_any_corridor_solid_or_harness": 0.263
         },
         {
           "led": "right_D3",
@@ -709,7 +784,23 @@
             50.175,
             52.325
           ],
-          "blocked_by_a7_harness": 0.0
+          "blocked_by_a7_harness": 0.0,
+          "blocked_by_supports": 0.002,
+          "blocked_by_origin": {
+            "a5_hardware": 0.001,
+            "a7_controller_or_support": 0.002,
+            "a7_leaf_mounted": 0.004
+          },
+          "blocked_by_solid": {
+            "M1_6_nut_1_23.5": 0.0,
+            "M1_6x4_1_105.5": 0.0,
+            "M1_6x4_1_23.5": 0.001,
+            "bottom_leaf_cap": 0.0,
+            "right_J1_SH4_mated": 0.0,
+            "right_J2_SH4_unmated": 0.004,
+            "top_leaf_adapter_cap": 0.002
+          },
+          "blocked_by_any_corridor_solid_or_harness": 0.004
         },
         {
           "led": "right_D2",
@@ -717,7 +808,22 @@
             75.175,
             77.325
           ],
-          "blocked_by_a7_harness": 0.011
+          "blocked_by_a7_harness": 0.011,
+          "blocked_by_supports": 0.001,
+          "blocked_by_origin": {
+            "a5_hardware": 0.0,
+            "a7_controller_or_support": 0.001,
+            "a7_leaf_mounted": 0.005
+          },
+          "blocked_by_solid": {
+            "M1_6_nut_1_105.5": 0.0,
+            "M1_6x4_1_105.5": 0.0,
+            "bottom_leaf_cap": 0.001,
+            "right_J1_SH4_mated": 0.005,
+            "right_J2_SH4_unmated": 0.0,
+            "top_leaf_adapter_cap": 0.001
+          },
+          "blocked_by_any_corridor_solid_or_harness": 0.013
         },
         {
           "led": "right_D1",
@@ -725,7 +831,22 @@
             100.175,
             102.325
           ],
-          "blocked_by_a7_harness": 0.028
+          "blocked_by_a7_harness": 0.028,
+          "blocked_by_supports": 0.202,
+          "blocked_by_origin": {
+            "a5_hardware": 0.051,
+            "a7_controller_or_support": 0.202,
+            "a7_leaf_mounted": 0.002
+          },
+          "blocked_by_solid": {
+            "M1_6_nut_1_105.5": 0.013,
+            "M1_6x4_1_105.5": 0.041,
+            "bottom_leaf_cap": 0.201,
+            "right_J1_SH4_mated": 0.002,
+            "right_J2_SH4_unmated": 0.0,
+            "top_leaf_adapter_cap": 0.001
+          },
+          "blocked_by_any_corridor_solid_or_harness": 0.239
         }
       ]
     }

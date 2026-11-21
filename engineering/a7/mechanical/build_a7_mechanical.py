@@ -572,12 +572,46 @@ def _ray_sphere(o, d, c, rad):
     return t if t > 0 else None
 
 
+def _ray_box(o, d, b, tmax):
+    """Slab test: does the ray o + t d, 0 < t < tmax, pass through the axis-aligned box b?"""
+    t0, t1 = 0.0, tmax
+    for k, (lo, hi) in enumerate(((b.xmin, b.xmax), (b.ymin, b.ymax), (b.zmin, b.zmax))):
+        if abs(d[k]) < 1e-12:
+            if o[k] < lo or o[k] > hi:
+                return False
+            continue
+        a, c = (lo - o[k]) / d[k], (hi - o[k]) / d[k]
+        t0, t1 = max(t0, min(a, c)), min(t1, max(a, c))
+        if t0 > t1:
+            return False
+    return True
+
+
+class _SolidRays:
+    """Exact ray / solid test on the CAD solid itself (OCCT face intersector), behind a bounding-box pre-test."""
+
+    def __init__(self, part):
+        from OCP.IntCurvesFace import IntCurvesFace_ShapeIntersector
+        self.name = part.name
+        self.box = part.shape.BoundingBox()
+        self.inter = IntCurvesFace_ShapeIntersector()
+        self.inter.Load(part.shape.wrapped, 1e-6)
+
+    def hit(self, o, d, tmax):
+        from OCP.gp import gp_Dir, gp_Lin, gp_Pnt
+        if not _ray_box(o, d, self.box, tmax):
+            return False
+        self.inter.Perform(gp_Lin(gp_Pnt(*o), gp_Dir(*d)), 1e-7, tmax)
+        return self.inter.IsDone() and self.inter.NbPnt() > 0
+
+
 def optical_estimate(parts, name, opt, n=4000, seed=7):
     """First-order shading estimate: cosine-weighted rays from each leaf LED's emitting face to the diffuser plane.
 
-    A7 harnesses are sampled as spheres along their whole centreline (exact bundle radius). A5 carry-over
-    items are not counted here (see optical_obstruction). Not a light simulation (no reflection, no diffuser
-    scattering, no LED angular data)."""
+    A7 harnesses are sampled as spheres along their whole centreline (exact bundle radius). Every other solid that
+    optical_obstruction lists in the corridor (supports, leaf-mounted parts, hardware) is tested with the same rays
+    against its CAD solid and reported per part and per origin group, separately from the harness figure. Not a light
+    simulation (no reflection, no diffuser scattering, no LED angular data)."""
     import random
     rng = random.Random(seed)
     out = {}
@@ -586,7 +620,7 @@ def optical_estimate(parts, name, opt, n=4000, seed=7):
         cx = opt[s_]["corridor_x"]
         sgn = -1 if s_ == "left" else 1
         plane = cx[0] if s_ == "left" else cx[1]
-        harness = []
+        harness, solids = [], []
         for row in opt[s_]["obstructions"]:
             p = by_name[row["part"]]
             if row["origin"] == "a7_harness":
@@ -594,21 +628,51 @@ def optical_estimate(parts, name, opt, n=4000, seed=7):
                 L_ = w_.Length()
                 k = max(8, int(L_ / (p.cable_radius * 0.5)))
                 harness += [((lambda v: (v.x, v.y, v.z))(w_.positionAt(i / k)), p.cable_radius) for i in range(k + 1)]
+            else:
+                solids.append((row["origin"], _SolidRays(p)))
         rows = []
         for e in sorted((p for p in parts if p.name.startswith(s_ + "_D")), key=lambda p: p.shape.BoundingBox().ymin):
             bb = e.shape.BoundingBox()
             fx = bb.xmin if s_ == "left" else bb.xmax
-            hit_h = 0
+            hit_h = hit_any = 0
+            per_part = {sr.name: 0 for _, sr in solids}
+            per_origin = {org: 0 for org, _ in solids}
             for _ in range(n):
                 o = (fx, bb.ymin + rng.random() * bb.ylen, bb.zmin + rng.random() * bb.zlen)
                 u, v = rng.random(), rng.random()
                 rr, ph = math.sqrt(u), 2 * math.pi * v
                 d = (sgn * math.sqrt(1 - u), rr * math.cos(ph), rr * math.sin(ph))
                 tp = (plane - o[0]) / d[0]
-                hit_h += any((t := _ray_sphere(o, d, c, rad)) is not None and t < tp for c, rad in harness)
-            rows.append({"led": e.name, "y": [r3(bb.ymin), r3(bb.ymax)], "blocked_by_a7_harness": r3(hit_h / n)})
+                by_harness = any((t := _ray_sphere(o, d, c, rad)) is not None and t < tp for c, rad in harness)
+                hit_h += by_harness
+                origins = set()
+                for org, sr in solids:
+                    if sr.hit(o, d, tp):
+                        per_part[sr.name] += 1
+                        origins.add(org)
+                for org in origins:
+                    per_origin[org] += 1
+                hit_any += bool(by_harness or origins)
+            rows.append({"led": e.name, "y": [r3(bb.ymin), r3(bb.ymax)], "blocked_by_a7_harness": r3(hit_h / n),
+                         "blocked_by_supports": r3(per_origin.get("a7_controller_or_support", 0) / n),
+                         "blocked_by_origin": {org: r3(c / n) for org, c in sorted(per_origin.items())},
+                         "blocked_by_solid": {nm: r3(c / n) for nm, c in sorted(per_part.items()) if c},
+                         "blocked_by_any_corridor_solid_or_harness": r3(hit_any / n)})
         out[s_] = rows
     return {"method": "cosine-weighted rays from each LED face to the diffuser inner plane; " + str(n) + " rays per LED, fixed seed; fraction of rays meeting an A7 harness; not a light simulation",
+            "solid_method": "the same rays (same origins and directions) tested against the CAD solid of every non-harness part that "
+                            "optical_obstruction lists in that side's corridor; a ray counts as blocked by a part when it meets the "
+                            "solid anywhere between the LED face and the target plane. blocked_by_supports is the "
+                            "a7_controller_or_support group; blocked_by_origin counts a ray once per origin group, blocked_by_solid "
+                            "once per part, so the figures overlap and do not add up",
+            "assumptions": {"emission": "Lambertian (cosine-weighted) from points uniform over the LED body's outer face rectangle; "
+                                        "ASSUMED, no LED angular or spatial data is used",
+                            "target_plane": "the diffuser skin inner plane (corridor outer X), unbounded in Y and Z: a ray that "
+                                            "reaches that plane anywhere counts as delivered, whether or not it lands on the skin",
+                            "not_modelled": "reflection, scattering, transmission through FR-4 or PETG, the diffuser itself, "
+                                            "neighbouring LEDs' light and anything outside the listed corridor obstructions"},
+            "acceptance": "blocked_by_a7_harness keeps its regression guard in the tests; the solid figures have no pass/fail "
+                          "threshold and are input for an owner decision, not an optical result",
             "per_side": out}
 
 
