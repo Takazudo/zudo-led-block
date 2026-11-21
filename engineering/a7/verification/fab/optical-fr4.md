@@ -35,6 +35,17 @@ Actual plotted Gerbers are reviewed separately: source rectangles alone cannot
 prove that normal pad apertures or plotting settings preserve the intended mask.
 The board-bound `optical-mask.json` inventories every retained island and reason.
 
+`mask.via_web_mm` adds the rule that was missing from that chain: every via keeps
+at least 0.10 mm of mask between its copper and **any** effective opening, a
+generated rectangle and an ordinary component pad aperture alike (the same JLC
+green 1 oz mask-bridge row). The router therefore keeps via copper that far from
+every pad aperture, so no via sits in or against a pad. Two independent checks
+enforce it on the adopted bytes: `scripts/a7_optical_check.py` on the native
+residual-mask geometry of `optical-geometry.json`, and
+`scripts/a7_gerber_inspect.py` on the plotted Gerber primitives. The controller's
+measured worst case is 0.135 mm front and 0.139 mm back over all 115 vias
+(`verification/optical/controller/`).
+
 The leaf has no zones. The controller permits only the named, bounded bottom
 `buck-return-thermal` GND patch below U2/C1; its location and maximum area are in
 the specification. It provides local return and heat spreading requested by the
@@ -45,8 +56,9 @@ bridge the independent power and signal return branches outside J5.2.
 The AP63205 manufacturer's layout guidance recommends bottom ground copper and
 short capacitor connections. Removing the old broad plane invalidates its former
 shielding and thermal assumptions. The new digital review therefore checks real
-return paths, supply loss, local decoupling and the all-layer CV_FILTER/VLED
-separation. A legacy current-sizing equation is an engineering screen only;
+return paths, supply loss, local decoupling, the buck loops and the all-layer
+separation of every CV net from the switching and data nets; its result and
+margins for the adopted controller are in `../electrical_review.md`. A legacy current-sizing equation is an engineering screen only;
 enclosure temperature, switching interference, light transmission and assembly
 remain physical work under issues #8/#10/#13. No measured thermal or optical PASS
 is implied by native DRC or by the preview.

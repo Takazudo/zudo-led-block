@@ -2,6 +2,8 @@
 
 **Historical revision-2 review, superseded for optical redesign #87.** The solid In1 ground shield and related CV/VLED/return-path conclusions below belong to the old 1.6 mm controller. They do not approve the new 0.8 mm controller with no broad ground planes. Preserve the functional interface contract, but independently re-review actual return paths, coupling, local copper, final native results and routing identity before accepting #87.
 
+That re-review is now in [`electrical_review.md`](electrical_review.md), against board SHA256 `710ed8019126944272a52fe0b162826c09088d70e363fce3cc184df93e7bab5e`: return paths and the ground star, the local copper inventory, CV/data separation and the DC reference-error budget. The functional interface contract below is unchanged, because no component, pin or net changed.
+
 `engineering/a5/integration/check_schematic_interfaces.py` hardcodes A5 pin numbers. For A7 its *behavior* is kept in
 `scripts/native_gate/interface.py` and its pin identities move to role maps in `interface_roles/`.
 

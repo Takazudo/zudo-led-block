@@ -1,4 +1,4 @@
-# 配線記録（R4, #19）
+# 配線記録（R4 #19、#87 で 0.8 mm 版に更新）
 
 `route_proposal_seed0.json` は `scripts/a7_route.py --seed 0` が出力した配線案です。権威基板 `engineering/a7/electronics/controller/controller.kicad_pcb` の配線とビアは、この配線案をそのまま `a7_board.py apply` で書き込んだものです。
 
@@ -10,9 +10,11 @@
 2. その形状に `a7_route.py --seed 0` を実行し、結果が `route_proposal_seed0.json` とバイト単位で一致することを確かめます。numpy は `scripts/requirements-router.txt` でバージョンとハッシュを固定しています。
 3. 権威基板の配線とビアが、配線案と完全に一致することを確かめます。KiCad の内部単位（1 nm）で、多重集合として比較します。配線案に失敗ネットがある場合、基板または配線案に配線やビアが 1 本もない場合も失敗にします（空どうしの一致で合格させないため）。
 
+4. その形状・配線案・コミット済み基板で `scripts/a7_return_review.py` を実行し、GND スターと `+3V3` のケルビン分岐、受け入れコーナーでの DC 基準誤差の配分を満たすことを確かめます。数値は `engineering/a7/verification/controller/return-review.json`、解説は `engineering/a7/verification/electrical_review.md` です。
+
 結果の `summary.json` は CI のアーティファクト `native-infrastructure-evidence` にゲートの要約と一緒に残します。
 
-`PASS` は、記録した配線が再現でき、基板がその配線を持っていることだけを示します。基板の結果はネイティブゲート（`native_gate.json`）が出します。
+`PASS` は、記録した配線が再現でき、基板がその配線を持っていて、その銅箔が電気レビューの配分を満たすことだけを示します。基板の結果はネイティブゲート（`native_gate.json`）が出します。
 
 ## レビュー補助（リリース出力ではありません）
 
