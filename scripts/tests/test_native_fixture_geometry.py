@@ -1,7 +1,8 @@
 """Fixture geometry consumer: identity, completeness, face and transform conventions.
 
-Synthetic geometry is derived from the committed canonical placement; it never stands in
-for native evidence (only --from-zip on a VALID_PASS artifact writes the record).
+Synthetic geometry is derived from the committed canonical placement; it never stands in for
+native evidence (only --from-zip on a VALID_PASS artifact, or --from-dir on a passing run of the
+pinned image, writes the record, and the two provenance classes stay distinguishable).
 """
 import copy
 import importlib.util
@@ -126,7 +127,9 @@ class FixtureGeometryTests(unittest.TestCase):
         member = (json.dumps(fx, indent=1, sort_keys=True) + '\n').encode()
         rec = {'schema': g.RECORD_SCHEMA, 'status': 'NATIVE_GEOMETRY_VALIDATED', 'board_sha256': BOARD_SHA,
                'placement_sha256': g.sha(g.PLACEMENT.read_bytes()), 'unknowns': [], 'geometry': fx,
-               'provenance': {'members_sha256': {g.MEMBER: g.sha(member)}, 'image': IMAGE}}
+               'provenance': {'members_sha256': {g.MEMBER: g.sha(member)}, 'image': IMAGE,
+                              'provenance_class': g.CI_CLASS, 'ci_retained_artifact': True,
+                              'artifact_zip_sha256': 'b' * 64, 'identity': {'github_run_id': '1'}}}
         self.assertEqual(g.check_record(rec), [])
         edited = copy.deepcopy(rec); edited['geometry']['footprints'][0]['pads'][0]['size_mm'] = [9, 9]
         self.assertTrue(g.check_record(edited))
@@ -134,6 +137,53 @@ class FixtureGeometryTests(unittest.TestCase):
         self.assertTrue(g.check_record(stale))
         other = copy.deepcopy(rec); other['provenance']['image'] = 'kicad/kicad:9.0.9'
         self.assertTrue(g.check_record(other))
+        # a record that claims CI provenance must carry the retained artifact hash and the run id
+        for drop in ('artifact_zip_sha256', 'identity'):
+            bad = copy.deepcopy(rec); del bad['provenance'][drop]
+            self.assertTrue(any('claims CI provenance' in e for e in g.check_record(bad)), drop)
+        local = copy.deepcopy(rec)
+        local['provenance'] = {'members_sha256': {g.MEMBER: g.sha(member)}, 'image': IMAGE,
+                               'provenance_class': g.LOCAL_CLASS, 'ci_retained_artifact': False,
+                               'identity': {'checkout_head': 'c' * 40}}
+        self.assertEqual(g.check_record(local), [])
+        # a local-run record may not pose as CI-retained, and an unlabelled class is refused outright
+        posing = copy.deepcopy(local); posing['provenance']['ci_retained_artifact'] = True
+        self.assertTrue(any('ci_retained_artifact false' in e for e in g.check_record(posing)))
+        unlabelled = copy.deepcopy(local); del unlabelled['provenance']['provenance_class']
+        self.assertTrue(any('provenance class unknown' in e for e in g.check_record(unlabelled)))
+
+    def test_the_committed_record_is_whole_and_labels_its_provenance(self):
+        rec = json.loads(g.RECORD.read_text())
+        self.assertEqual(g.check_record(rec), [])
+        prov = rec['provenance']
+        self.assertIn(prov['provenance_class'], (g.CI_CLASS, g.LOCAL_CLASS))
+        # a locally run gate may not be recorded as CI-retained, and the record must name the run it came from
+        self.assertEqual(prov['ci_retained_artifact'], prov['provenance_class'] == g.CI_CLASS)
+        if prov['provenance_class'] == g.LOCAL_CLASS:
+            self.assertIsNone(prov['identity']['github_run_id'])
+            self.assertNotIn('artifact_zip_sha256', prov)
+            self.assertIn('no', prov['note'].lower())
+
+    def test_a_local_run_cannot_be_recorded_without_a_passing_gate(self):
+        members = {'summary.json': b'{}'}
+        with mock.patch.object(g.art, 'read_members', return_value=members), \
+                mock.patch.object(g.art, 'classify', return_value={'status': 'INCOMPLETE', 'reasons': [], 'rejected': [],
+                                                                   'gate_status': 'FAIL', 'identity': {}, 'members_sha256': {}}):
+            with self.assertRaisesRegex(ValueError, 'did not pass'):
+                g.from_dir(Path('/nonexistent'), 'a' * 40)
+        with mock.patch.object(g.art, 'read_members', return_value=members), \
+                mock.patch.object(g.art, 'classify', return_value={'status': 'REJECTED', 'reasons': [],
+                                                                   'rejected': ['tested board SHA-256 differs'],
+                                                                   'gate_status': 'PASS', 'identity': {}, 'members_sha256': {}}):
+            with self.assertRaisesRegex(ValueError, 'rejected'):
+                g.from_dir(Path('/nonexistent'), 'a' * 40)
+        # only the GitHub identity bindings may be missing; any other incompleteness still refuses the record
+        with mock.patch.object(g.art, 'read_members', return_value=members), \
+                mock.patch.object(g.art, 'classify', return_value={'status': 'INCOMPLETE',
+                                                                   'reasons': ['missing a7-gate/plan.json'], 'rejected': [],
+                                                                   'gate_status': 'PASS', 'identity': {}, 'members_sha256': {}}):
+            with self.assertRaisesRegex(ValueError, 'incomplete'):
+                g.from_dir(Path('/nonexistent'), 'a' * 40)
 
     def test_malformed_record_geometry_is_rejected_not_crashing(self):
         fx = synthetic(); fx['footprints'][0]['pads'][0]['number'] = ['1']

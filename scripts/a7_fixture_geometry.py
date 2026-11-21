@@ -8,6 +8,14 @@ expected revision and run, checks it, and writes the versioned record
 engineering/a7/fixture/native-geometry.json. `--check` re-validates that record offline
 against the current PCB bytes and the canonical placement export.
 
+`--from-dir` takes the same evidence from a gate run in the pinned image on a development
+machine. Such a run has no GitHub workflow or run identity, so the record it writes is
+labelled LOCAL_PINNED_IMAGE_RUN with `ci_retained_artifact` false and is never equivalent
+to CI-retained evidence; every other check (pinned image digest, tested board and leaf
+hashes, member hashes against the gate summary, gate PASS, the full geometry check) is the
+same. `--check` enforces that a record carries one of the two provenance classes with the
+fields that class requires.
+
 Conventions (from the extractor): KiCad absolute board coordinates in mm, +X right, +Y down,
 rotation in degrees counter-clockwise as displayed by KiCad, back-side items reported in
 board coordinates as seen from the front. The consumer checks the footprint set, face, origin,
@@ -45,6 +53,15 @@ BOARD = ROOT / 'engineering/a7/electronics/controller/controller.kicad_pcb'
 PLACEMENT = BOARD.with_name('board_placement.json')
 RECORD = ROOT / 'engineering/a7/fixture/native-geometry.json'
 MEMBER = 'evidence/a7_controller/fixture_geometry.json'
+CI_CLASS = 'CI_RETAINED_ARTIFACT'
+LOCAL_CLASS = 'LOCAL_PINNED_IMAGE_RUN'
+# a gate run on a development machine has no GitHub workflow or run identity; everything else about it
+# (pinned image digest, tested board hash, member hashes, gate PASS) is checked exactly as for a CI artifact
+LOCAL_UNBOUND_REASONS = frozenset({
+    'unbound: expected revision and run id are required to classify a candidate result',
+    'identity field missing: workflow_ref',
+    'identity field missing: workflow_sha',
+})
 TOL_MM = 1e-3  # board text keeps 4-decimal coordinates; rounding through rotation stays well below 1 um
 PAD_FIELDS = ('number', 'net', 'at_mm', 'fp_relative_mm', 'shape', 'size_mm', 'bbox_mm', 'rotation_deg', 'layers', 'attribute')
 CU = {'F': 'F.Cu', 'B': 'B.Cu'}
@@ -203,14 +220,55 @@ def from_zip(zip_path: Path, expect_revision: str, expect_run_id: str, expect_ru
     errors, unknowns = check_geometry(fx, board_sha, placement, board_pad_counts(BOARD.read_text()))
     if errors:
         raise ValueError('fixture geometry rejected: ' + '; '.join(errors[:10]))
+    return _record(board_sha, fx, unknowns,
+                   {'provenance_class': CI_CLASS, 'ci_retained_artifact': True,
+                    'artifact_zip_sha256': sha(zip_path.read_bytes()), 'identity': cls['identity'],
+                    'members_sha256': cls['members_sha256'], 'image': image})
+
+
+def _record(board_sha: str, fx: dict, unknowns: list, provenance: dict) -> dict:
     return {'schema': RECORD_SCHEMA, 'status': 'NATIVE_GEOMETRY_VALIDATED', 'board_sha256': board_sha,
-            'placement_sha256': sha(PLACEMENT.read_bytes()),
-            'provenance': {'artifact_zip_sha256': sha(zip_path.read_bytes()), 'identity': cls['identity'],
-                           'members_sha256': cls['members_sha256'], 'image': image},
-            'unknowns': unknowns,
+            'placement_sha256': sha(PLACEMENT.read_bytes()), 'provenance': provenance, 'unknowns': unknowns,
             'scope': 'Native CAD pad/footprint geometry for fixture design only. Not body height, solder envelope, '
                      'tolerance, measured fit, a completed fixture or a manufacturing approval.',
             'geometry': fx}
+
+
+def from_dir(dir_path: Path, expect_revision: str) -> dict:
+    """Record the fixture geometry from a gate run in the pinned image on a development machine.
+
+    Every check that `--from-zip` makes is made here except the GitHub run binding, which a local run
+    cannot have: the record is therefore labelled LOCAL_PINNED_IMAGE_RUN with `ci_retained_artifact`
+    false, and no reader may take it for CI-retained evidence. The gate must still report PASS with no
+    failures, on the authoritative board and leaf bytes, in the pinned image digest. CI re-runs the gate
+    itself on every push and `--check` proves there that the record is current for the committed bytes.
+    """
+    board_sha = sha(BOARD.read_bytes())
+    image = json.loads((ROOT / art.PROFILE).read_text())['image']
+    members = art.read_members(dir_path=dir_path)
+    cls = art.classify(members, board_sha=board_sha, image=image, leaf_sha=sha((ROOT / art.LEAF).read_bytes()),
+                       expect_revision=expect_revision, expect_checkout=expect_revision,
+                       strict_members=False, require_binding=False)
+    if cls['rejected']:
+        raise ValueError('local gate evidence rejected: ' + '; '.join(cls['rejected'][:10]))
+    unexpected = sorted(set(cls['reasons']) - LOCAL_UNBOUND_REASONS)
+    if unexpected:
+        raise ValueError('local gate evidence incomplete: ' + '; '.join(unexpected[:10]))
+    summary = json.loads(members['summary.json'])
+    if cls['gate_status'] != 'PASS' or summary.get('failures') != []:
+        raise ValueError(f"local gate did not pass: {cls['gate_status']}, failures {summary.get('failures')}")
+    if MEMBER not in members:
+        raise ValueError(f'local gate evidence lacks a7-gate/{MEMBER}')
+    fx = json.loads(members[MEMBER])
+    errors, unknowns = check_geometry(fx, board_sha, json.loads(PLACEMENT.read_text()), board_pad_counts(BOARD.read_text()))
+    if errors:
+        raise ValueError('fixture geometry rejected: ' + '; '.join(errors[:10]))
+    return _record(board_sha, fx, unknowns,
+                   {'provenance_class': LOCAL_CLASS, 'ci_retained_artifact': False,
+                    'identity': cls['identity'], 'members_sha256': cls['members_sha256'], 'image': image,
+                    'note': 'Gate run in the pinned KiCad image on a development machine during issue #87; there is no '
+                            'GitHub run id and no CI-retained artifact for it. Provenance of these bytes rests on this '
+                            'record, the gate summary hashes and review of the record diff, not on CI retention.'})
 
 
 def check_record(rec: dict) -> list[str]:
@@ -225,6 +283,15 @@ def check_record(rec: dict) -> list[str]:
         errs.append('record is stale: canonical placement changed')
     prov = rec.get('provenance') or {}
     fx = rec.get('geometry')
+    prov_class = prov.get('provenance_class')
+    if prov_class == CI_CLASS:
+        if not prov.get('artifact_zip_sha256') or not (prov.get('identity') or {}).get('github_run_id'):
+            errs.append('record claims CI provenance without a retained artifact hash and a run id')
+    elif prov_class == LOCAL_CLASS:
+        if prov.get('ci_retained_artifact') is not False or not (prov.get('identity') or {}).get('checkout_head'):
+            errs.append('local-run record must state ci_retained_artifact false and its checkout head')
+    else:
+        errs.append(f'record provenance class unknown: {prov_class!r}')
     if (prov.get('members_sha256') or {}).get(MEMBER) != sha((json.dumps(fx, indent=1, sort_keys=True) + '\n').encode()):
         errs.append('record geometry differs from the retained artifact member')
     image = json.loads((ROOT / art.PROFILE).read_text())['image']
@@ -243,6 +310,7 @@ def check_record(rec: dict) -> list[str]:
 def main(argv=None) -> int:
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     ap.add_argument('--from-zip', type=Path)
+    ap.add_argument('--from-dir', type=Path, help='staged root (contains a7-gate/) of a gate run in the pinned image')
     ap.add_argument('--expect-revision')
     ap.add_argument('--expect-run-id')
     ap.add_argument('--expect-run-attempt')
@@ -250,13 +318,21 @@ def main(argv=None) -> int:
     ap.add_argument('--check', action='store_true', help='re-validate the committed record offline')
     a = ap.parse_args(argv)
     try:
-        if a.from_zip:
-            if not (a.expect_revision and a.expect_run_id):
-                raise ValueError('--expect-revision and --expect-run-id are required')
-            rec = from_zip(a.from_zip, a.expect_revision, a.expect_run_id, a.expect_run_attempt)
+        if a.from_zip and a.from_dir:
+            raise ValueError('use --from-zip or --from-dir, not both')
+        if a.from_zip or a.from_dir:
+            if a.from_zip:
+                if not (a.expect_revision and a.expect_run_id):
+                    raise ValueError('--expect-revision and --expect-run-id are required')
+                rec = from_zip(a.from_zip, a.expect_revision, a.expect_run_id, a.expect_run_attempt)
+            else:
+                if not a.expect_revision:
+                    raise ValueError('--expect-revision is required')
+                rec = from_dir(a.from_dir, a.expect_revision)
             if a.write:
                 RECORD.write_text(json.dumps(rec, indent=1, sort_keys=True) + '\n')
-            print(f"VALIDATED: {len(rec['geometry']['footprints'])} footprints; {len(rec['unknowns'])} unknown extents")
+            print(f"VALIDATED ({rec['provenance']['provenance_class']}): {len(rec['geometry']['footprints'])} footprints; "
+                  f"{len(rec['unknowns'])} unknown extents")
             return 0
         if a.check:
             errs = check_record(json.loads(RECORD.read_text()))
