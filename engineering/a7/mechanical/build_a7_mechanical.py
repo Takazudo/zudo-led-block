@@ -780,32 +780,34 @@ def display_layers(name):
             raise ValueError(f'Missing copper layer: {source}')
         evidence.append({'source': str(source.relative_to(REPO)), 'sha256': hashlib.sha256(source.read_bytes()).hexdigest(),
                          'board': str(native.relative_to(REPO)), 'board_sha256': data['board_sha256']})
-        for layer_index, layer in enumerate(data['layers']):
-            solids = []
-            # Each contour includes native holes; no rectangle/envelope approximation.
+        # Display depth of each copper layer below the front face, from the recorded stackup (mm).
+        depth = {'F.Cu': -.004, 'B.Cu': .804, 'F.Mask': -.007, 'B.Mask': .807}
+        stack = json.loads((REPO / 'engineering/a7/verification/fab/optical-fr4.json').read_text())
+        if board == 'controller':
+            z_acc = 0.0
+            for row in stack['controller']['stackup']:
+                if row['kind'] == 'copper' and row['layer'] in ('In1.Cu', 'In2.Cu'):
+                    depth[row['layer']] = z_acc + row['thickness_mm'] / 2
+                z_acc += row['thickness_mm']
+        for layer in data['layers']:
+            faces = []
+            # Each contour includes native holes; no rectangle/envelope approximation. Planar faces, display only.
             for poly in layer['polygons']:
                 def wire(points):
                     return cq.Wire.makePolygon([cq.Vector(x, y, 0) for x, y in points], close=True)
-                outer = wire(poly['outer'])
-                holes = [wire(h) for h in poly['holes']]
-                solids.append(cq.Solid.extrudeLinear(outer, holes, cq.Vector(0, 0, .002)))
-            if not solids:
+                faces.append(cq.Face.makeFromWires(wire(poly['outer']), [wire(h) for h in poly['holes']]))
+            if not faces:
                 continue
-            shape = cq.Compound.makeCompound(solids)
-            faces = ['front', 'back'] if layer['material'] == 'copper' else ['front' if layer['layer'] == 'F.Mask' else 'back']
+            shape = cq.Compound.makeCompound(faces)
+            d = depth[layer['layer']]
             for instance in instances:
-                for face in faces:
-                    offset = .004 + layer_index * .003
-                    z = offset if face == 'front' else -.802-offset
-                    # local substrate occupies -0.8..0; controller pose normal is reversed.
-                    pose = poses[instance]
-                    if instance == 'controller':
-                        z = -offset if face == 'front' else .8+offset
-                    label = f"{instance}_{layer['layer'].replace('.', '_')}_{face}_optical"
-                    color = (.62, .37, .12, 1) if layer['material'] == 'copper' else (.08, .23, .12, 1)
-                    parts.append(Part(label, transformed(shape.translate((0, 0, z)), *pose), color,
-                                      'native_optical_projection', 'Opaque native all-layer silhouette; display only, not mechanical clearance solid',
-                                      str(source.relative_to(REPO)), 'display_only', False, None, 'controller' if instance == 'controller' else 'leaves', {'material': layer['material']}))
+                # local substrate occupies -0.8..0 with the front face at 0; controller pose normal is reversed.
+                z = d if instance == 'controller' else -d
+                label = f"{instance}_{layer['layer'].replace('.', '_')}_optical"
+                color = (.62, .37, .12, 1) if layer['material'] == 'copper' else (.08, .23, .12, 1)
+                parts.append(Part(label, transformed(shape.translate((0, 0, z)), *poses[instance]), color,
+                                  'native_optical_projection', 'Opaque native layer geometry at its stackup depth; display only, not mechanical clearance solid',
+                                  str(source.relative_to(REPO)), 'display_only', False, None, 'controller' if instance == 'controller' else 'leaves', {'material': layer['material']}))
     return parts, evidence
 
 

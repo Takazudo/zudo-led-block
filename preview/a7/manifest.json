@@ -68,8 +68,8 @@
   "variants": [
     {
       "source": "engineering/a7/mechanical/exports/3hp/zudo_led_block_A7_3hp_assembled.glb",
-      "sha256": "7c90650a3785bde3ca0a6452b4cd10dc9621f5e3bb8847e535eb7ef744a1c9c2",
-      "bytes": 54218916,
+      "sha256": "31a6855f03d35e787d464468f586f96c74364f250c4cc45e5e6546e99039c720",
+      "bytes": 2966244,
       "target": "3hp.glb",
       "variant": "3hp",
       "label": "3HP 0.8 mm rigid FR-4 — 採用案（実物未評価）",
@@ -405,112 +405,72 @@
           "role": "電源変換基板、コネクタとケーブル経路の検討モデル。実ケーブルの適合は未確認。",
           "kind": "cable_route_scenario"
         },
-        "controller_F_Cu_front_optical": {
+        "controller_F_Cu_optical": {
           "group": "controller",
           "role": "前面に垂直な制御基板、CV IN / THRU、側面設定スイッチ。簡略形状・部品包絡を含みます。",
           "kind": "native_optical_projection"
         },
-        "controller_F_Cu_back_optical": {
+        "controller_In1_Cu_optical": {
           "group": "controller",
           "role": "前面に垂直な制御基板、CV IN / THRU、側面設定スイッチ。簡略形状・部品包絡を含みます。",
           "kind": "native_optical_projection"
         },
-        "controller_In1_Cu_front_optical": {
+        "controller_In2_Cu_optical": {
           "group": "controller",
           "role": "前面に垂直な制御基板、CV IN / THRU、側面設定スイッチ。簡略形状・部品包絡を含みます。",
           "kind": "native_optical_projection"
         },
-        "controller_In1_Cu_back_optical": {
+        "controller_B_Cu_optical": {
           "group": "controller",
           "role": "前面に垂直な制御基板、CV IN / THRU、側面設定スイッチ。簡略形状・部品包絡を含みます。",
           "kind": "native_optical_projection"
         },
-        "controller_In2_Cu_front_optical": {
+        "controller_F_Mask_optical": {
           "group": "controller",
           "role": "前面に垂直な制御基板、CV IN / THRU、側面設定スイッチ。簡略形状・部品包絡を含みます。",
           "kind": "native_optical_projection"
         },
-        "controller_In2_Cu_back_optical": {
+        "controller_B_Mask_optical": {
           "group": "controller",
           "role": "前面に垂直な制御基板、CV IN / THRU、側面設定スイッチ。簡略形状・部品包絡を含みます。",
           "kind": "native_optical_projection"
         },
-        "controller_B_Cu_front_optical": {
-          "group": "controller",
-          "role": "前面に垂直な制御基板、CV IN / THRU、側面設定スイッチ。簡略形状・部品包絡を含みます。",
-          "kind": "native_optical_projection"
-        },
-        "controller_B_Cu_back_optical": {
-          "group": "controller",
-          "role": "前面に垂直な制御基板、CV IN / THRU、側面設定スイッチ。簡略形状・部品包絡を含みます。",
-          "kind": "native_optical_projection"
-        },
-        "controller_F_Mask_front_optical": {
-          "group": "controller",
-          "role": "前面に垂直な制御基板、CV IN / THRU、側面設定スイッチ。簡略形状・部品包絡を含みます。",
-          "kind": "native_optical_projection"
-        },
-        "controller_B_Mask_back_optical": {
-          "group": "controller",
-          "role": "前面に垂直な制御基板、CV IN / THRU、側面設定スイッチ。簡略形状・部品包絡を含みます。",
-          "kind": "native_optical_projection"
-        },
-        "left_leaf_F_Cu_front_optical": {
+        "left_leaf_F_Cu_optical": {
           "group": "leaves",
           "role": "左右各4画素の0.8 mm FR-4基板と実装部品。基材の半透明性は仮定、全層銅箔と残すレジストは不透明。光学性能は未測定。",
           "kind": "native_optical_projection"
         },
-        "left_leaf_F_Cu_back_optical": {
+        "right_leaf_F_Cu_optical": {
           "group": "leaves",
           "role": "左右各4画素の0.8 mm FR-4基板と実装部品。基材の半透明性は仮定、全層銅箔と残すレジストは不透明。光学性能は未測定。",
           "kind": "native_optical_projection"
         },
-        "right_leaf_F_Cu_front_optical": {
+        "left_leaf_B_Cu_optical": {
           "group": "leaves",
           "role": "左右各4画素の0.8 mm FR-4基板と実装部品。基材の半透明性は仮定、全層銅箔と残すレジストは不透明。光学性能は未測定。",
           "kind": "native_optical_projection"
         },
-        "right_leaf_F_Cu_back_optical": {
+        "right_leaf_B_Cu_optical": {
           "group": "leaves",
           "role": "左右各4画素の0.8 mm FR-4基板と実装部品。基材の半透明性は仮定、全層銅箔と残すレジストは不透明。光学性能は未測定。",
           "kind": "native_optical_projection"
         },
-        "left_leaf_B_Cu_front_optical": {
+        "left_leaf_F_Mask_optical": {
           "group": "leaves",
           "role": "左右各4画素の0.8 mm FR-4基板と実装部品。基材の半透明性は仮定、全層銅箔と残すレジストは不透明。光学性能は未測定。",
           "kind": "native_optical_projection"
         },
-        "left_leaf_B_Cu_back_optical": {
+        "right_leaf_F_Mask_optical": {
           "group": "leaves",
           "role": "左右各4画素の0.8 mm FR-4基板と実装部品。基材の半透明性は仮定、全層銅箔と残すレジストは不透明。光学性能は未測定。",
           "kind": "native_optical_projection"
         },
-        "right_leaf_B_Cu_front_optical": {
+        "left_leaf_B_Mask_optical": {
           "group": "leaves",
           "role": "左右各4画素の0.8 mm FR-4基板と実装部品。基材の半透明性は仮定、全層銅箔と残すレジストは不透明。光学性能は未測定。",
           "kind": "native_optical_projection"
         },
-        "right_leaf_B_Cu_back_optical": {
-          "group": "leaves",
-          "role": "左右各4画素の0.8 mm FR-4基板と実装部品。基材の半透明性は仮定、全層銅箔と残すレジストは不透明。光学性能は未測定。",
-          "kind": "native_optical_projection"
-        },
-        "left_leaf_F_Mask_front_optical": {
-          "group": "leaves",
-          "role": "左右各4画素の0.8 mm FR-4基板と実装部品。基材の半透明性は仮定、全層銅箔と残すレジストは不透明。光学性能は未測定。",
-          "kind": "native_optical_projection"
-        },
-        "right_leaf_F_Mask_front_optical": {
-          "group": "leaves",
-          "role": "左右各4画素の0.8 mm FR-4基板と実装部品。基材の半透明性は仮定、全層銅箔と残すレジストは不透明。光学性能は未測定。",
-          "kind": "native_optical_projection"
-        },
-        "left_leaf_B_Mask_back_optical": {
-          "group": "leaves",
-          "role": "左右各4画素の0.8 mm FR-4基板と実装部品。基材の半透明性は仮定、全層銅箔と残すレジストは不透明。光学性能は未測定。",
-          "kind": "native_optical_projection"
-        },
-        "right_leaf_B_Mask_back_optical": {
+        "right_leaf_B_Mask_optical": {
           "group": "leaves",
           "role": "左右各4画素の0.8 mm FR-4基板と実装部品。基材の半透明性は仮定、全層銅箔と残すレジストは不透明。光学性能は未測定。",
           "kind": "native_optical_projection"
