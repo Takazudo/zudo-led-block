@@ -1,14 +1,18 @@
 # 0.8 mm controller fixture: ongoing support redesign
 
 Status: **NOT ACCEPTED**. This is a digital exploration, not fixture release or
-physical contact verification. The saved native geometry and STEP retain their
-historical identities; neither has been rebound to the optical controller.
+physical contact verification. Since 2026-11-21 the saved native geometry and the
+assembly STEP are rebound to the adopted routed 0.8 mm controller
+(`710ed801…`): the geometry record comes from a gate run in the pinned KiCad
+image (`provenance_class` `LOCAL_PINNED_IMAGE_RUN`, no CI run id — CI re-runs the
+gate itself), and the STEP/interference record were rebuilt from it with
+CadQuery 2.7.0. Rebinding is an identity change, not an acceptance.
 
 **Where the resolved calculation now lives (2026-11-21):** every load corner at
 0.7/0.8/0.9 mm is solved with a converged unilateral contact model and recorded in
 [`condition-matrix.json`](condition-matrix.json), with the method, the limits and the
 remaining physical work in [`condition-matrix.md`](condition-matrix.md). That record is
-bound to one PCB identity and re-runs on the final controller with
+bound to one PCB identity and re-runs on a new controller with
 `python3 scripts/a7_fixture_matrix.py --rebind`. It does not retract anything below:
 the strip-model failure values, the rejected plunger pair and the open blockers stay
 as recorded, and the matrix states the one shortfall it could not close — the current

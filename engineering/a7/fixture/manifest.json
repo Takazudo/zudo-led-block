@@ -175,25 +175,25 @@
     "hold-down-plungers: candidate does not meet the plunger requirement"
   ],
   "scope": "Digital fixture design: support carrier, probe plate, pressure plate, base plate and hardware envelopes with the assembly STEP and interference check; not a fit result, not a selection and not a fabrication approval",
-  "board_sha256": "89310d539b3c28096775cee821e46c14fdba42a87809c82f1fd7f0751704e727",
-  "placement_sha256": "5ba26c3c25b4d31a36d324f47db21b24afa3cad67b6f0f2b4fcf9580024448e0",
-  "geometry_sha256": "1522f0aa2bf4907a39e51d8ef0e58eab9256cc961b0bc897c37ea0dae41870c2",
+  "board_sha256": "710ed8019126944272a52fe0b162826c09088d70e363fce3cc184df93e7bab5e",
+  "placement_sha256": "94ef69822e706aee1730cf7feddf9a6a86e884d780c043c18abb71611764d0f7",
+  "geometry_sha256": "8673e0dcaa3388002de38b2f06b6d8aa85236f398d5e14fd867b9a48eaf563e6",
   "inputs_sha256": {
-    "engineering/a7/electronics/controller/controller.kicad_pcb": "89310d539b3c28096775cee821e46c14fdba42a87809c82f1fd7f0751704e727",
-    "engineering/a7/electronics/controller/board_placement.json": "5ba26c3c25b4d31a36d324f47db21b24afa3cad67b6f0f2b4fcf9580024448e0",
-    "scripts/a7_fixture.py": "40b631386de42c8650df6b8fb3e3b923d202b83ebc664f9744640a62576f29d5",
-    "scripts/a7_fixture_relief.py": "6a7a7ef3cbdcaa0148345ac0c976b9882a9d56cc808822d1262ede3a65f3e297",
-    "scripts/a7_fixture_assembly.py": "2b20ad77bbaca9e36623f5a548abdc75d70f5b7060e986f1cf0cb9d3ce6e1a8e",
+    "engineering/a7/electronics/controller/controller.kicad_pcb": "710ed8019126944272a52fe0b162826c09088d70e363fce3cc184df93e7bab5e",
+    "engineering/a7/electronics/controller/board_placement.json": "94ef69822e706aee1730cf7feddf9a6a86e884d780c043c18abb71611764d0f7",
+    "scripts/a7_fixture.py": "db5e400a46d7a3ff068acba12fa230fb7911998147347b6360e3a978a0a12ac3",
+    "scripts/a7_fixture_relief.py": "ccec9957aa992d676b43680216662d7709f029056b4b9f45b05a4e9af535ac9c",
+    "scripts/a7_fixture_assembly.py": "cf4ffa4d32d162df92dc400358ee66655adb89725cc671ffb1b24fff19fe8507",
     "engineering/a7/procurement/population.csv": "6195a072b3882abf8d9212f0e778fa1cbb784d3f60929921558f95031c8276ff",
     "engineering/a7/fixture/sources.json": "532830a205f3fbe1919ba4e17fc37cfceaa6eee524464941fad036e8345b763d",
-    "engineering/a7/fixture/materials.json": "3a6b7cc0a5fe1df40383d489ebd793abbfcf0e03968812db7b3e6fd95962ba06",
+    "engineering/a7/fixture/materials.json": "e4c1c94966a46db75f8fc72eb00cf26719da38117fa4003fd05beb7c4d37d5c6",
     "engineering/a7/fixture/candidate-references.json": "6f929c9edf3d115dc18f5cf1b055f9971ec25af64ce20948a882729250151845"
   },
   "assembly": {
     "record": "engineering/a7/fixture/assembly-interference.json",
-    "record_sha256": "c3f0be4d3be0e6858d743989590d7157c284ce799f0b006bec2f167512731c43",
+    "record_sha256": "507ab714bdd72534a42206ffbb34abfa578ed81fcfc4875ab5d0123a46e32c82",
     "step": "engineering/a7/fixture/fixture-assembly.step",
-    "step_sha256": "32e4d6e45bcb757141077d59596e717481a93df9ecae8fd0178cc94151589475",
+    "step_sha256": "8af0027f740019a06c1479261f1f04256c7d4a12070b0429c1b5fc70954ce326",
     "solids": 129,
     "interferences": 0,
     "clearances": [
@@ -255,7 +255,7 @@
       },
       {
         "pair": "metal hardware to probes and receptacles",
-        "minimum_mm": 2.11,
+        "minimum_mm": 1.25,
         "between": [
           "C1 K0318.04 steel sleeve",
           "TP3 GKS-050 probe (compressed envelope)"
@@ -373,6 +373,7 @@
     "no_wall_below_minimum": true,
     "keyed_against_turned_insertion": true,
     "hold_down_plungers_on_free_f_face": true,
+    "datum_pins_stay_below_the_thinnest_board_f_face": true,
     "native_record_valid_and_probe_pads_confirmed": true
   },
   "completion_criteria": {
@@ -402,8 +403,8 @@
       "basis": "stroke and installation height, carrier-land travel stop, rigid pressure plate on hard stops with spring plungers, plate stack on spacers/standoffs/base with dowel alignment, FR-4 plates with POM board contacts, wire bend space and tie slot"
     },
     "4_assembly_step_interference_check": {
-      "met": false,
-      "basis": "interference record is for a different design, assembly code or native record"
+      "met": true,
+      "basis": "assembly STEP of every part, hardware envelope, probe and the board; no interference"
     },
     "5_physical_tests": {
       "met": false,
@@ -412,11 +413,13 @@
   },
   "native_geometry": {
     "record": "engineering/a7/fixture/native-geometry.json",
-    "record_sha256": "820689fa1bc4dcb4bdc3a801380349e6cfec18768cfb4a27a215bda79a15a619",
+    "record_sha256": "668e9366f78299bb48d23b5424d2676e1eba01e64897048b773f8328b5621fbd",
     "status": "NATIVE_GEOMETRY_VALIDATED",
-    "github_run_id": "43294571723",
-    "tested_revision": "8e71317f585da698b30af7a3e8ea115d0ff590ed",
-    "artifact_zip_sha256": "e9cc74e591cdbff56068e79da25c1439704fc7a803ace309f4af9091228ad6f0",
+    "github_run_id": null,
+    "tested_revision": "d6f6fa0a632f826138b43eac30c1dc71c815d369",
+    "provenance_class": "LOCAL_PINNED_IMAGE_RUN",
+    "ci_retained_artifact": false,
+    "artifact_zip_sha256": null,
     "probe_pads_match": true,
     "scope": "Native KiCad pad facts confirm the five probe pads (B side, round 1 mm, B.Cu/B.Mask, position, net). Native pad copper boxes set the carrier cuts and native F courtyards bound the clamp points (b_side_relief); body heights and solder envelopes are not native facts."
   },
@@ -431,7 +434,8 @@
       "tht_copper_clearance_mm": 0.3,
       "probe_window_half_width_mm": 1.0,
       "datum_pin_diameter_mm": 2.0,
-      "datum_pin_height_above_carrier_mm": 1.0,
+      "datum_pin_length_mm": 6.0,
+      "datum_pin_height_above_carrier_mm": 0.5,
       "alignment_dowel_diameter_mm": 2.0,
       "m3_clearance_hole_mm": 3.4,
       "m3_screw_head_diameter_mm": 5.5,
@@ -4646,7 +4650,8 @@
       "every_tht_lead_ends_inside_its_carrier_window": true,
       "no_wall_below_minimum": true,
       "keyed_against_turned_insertion": true,
-      "hold_down_plungers_on_free_f_face": true
+      "hold_down_plungers_on_free_f_face": true,
+      "datum_pins_stay_below_the_thinnest_board_f_face": true
     },
     "criterion_3_checks": {
       "installation_height_and_stroke_resolved": true,
@@ -4669,7 +4674,8 @@
     "base_sha": "af523f9abb74e206c27aaaa076b3b68a5c474940",
     "result": "PASS",
     "board_sha256": "89310d539b3c28096775cee821e46c14fdba42a87809c82f1fd7f0751704e727",
-    "scope": "Pinned native CI of the PR #44 preparation head on the unchanged board (CI log result); not verification of fixture geometry",
+    "applies_to_current_board": false,
+    "scope": "Pinned native CI of the PR #44 preparation head on the 1.6 mm board it names (CI log result); not verification of fixture geometry and NOT a result for the current 0.8 mm board. The current board's native result is the pinned-image gate recorded in native-geometry.json (provenance_class LOCAL_PINNED_IMAGE_RUN, no CI run id); CI re-runs the gate itself on every push",
     "raw_facts_consumed": false,
     "artifact_access": "2026-11-09: download Forbidden (historical). 2026-11-11: native-infrastructure-evidence artifact 13663737750 downloaded (ZIP SHA-256 33f3d9121164f364b0325540b161e9546ddf73c8b723c9166fdcd8a19867cf0e), but it retains only a7-gate/summary.json; candidate board_facts/board_geometry were not uploaded, so raw candidate facts remain unavailable"
   },
@@ -4883,8 +4889,7 @@
     }
   ],
   "blockers": [
-    "criterion 3_stroke_stop_guide_fixing_insulation_wiring not met: clamp_force_sized_with_margin, board_stays_on_land, board_bending_across_window_within_limit not met",
-    "criterion 4_assembly_step_interference_check not met: interference record is for a different design, assembly code or native record"
+    "criterion 3_stroke_stop_guide_fixing_insulation_wiring not met: clamp_force_sized_with_margin, board_stays_on_land, board_bending_across_window_within_limit not met"
   ],
   "owner_and_supplier_items": [
     "Fabricator for the four FR-4 plates is an owner choice and not selected; JLCCNC guidance is a candidate reference only. The probe-plate bores are drilled at the board test-point pitch, leaving 0.4 mm between bores: this meets the INGUN receptacle grid (0.27 mm) but not the 1.0 mm milled-wall guidance, so the chosen fabricator must confirm drilling it; the board pitch is fixed.",

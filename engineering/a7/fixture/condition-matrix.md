@@ -3,6 +3,7 @@
 **状態: 計算のみ。治具の受入・接触・荷重・位置決め・加工・発注のいずれの承認でもありません。**
 生成物は [`condition-matrix.json`](condition-matrix.json)（`status` = `EXPERIMENTAL_CALCULATED_NOT_VALIDATED`）。
 旧 1.6 mm 治具の PASS をこの基板へ移しません。`optical-support-study.md` に残る失敗値は撤回していません。
+束縛先は採用された配線済み 0.8 mm コントローラ（PCB SHA-256 `710ed801…`、2026-11-21）。
 
 ```sh
 # 生成（最終基板へ再束縛するときもこの 1 コマンド）
@@ -13,9 +14,20 @@ python3 scripts/a7_fixture_matrix.py --check
 python3 -m unittest scripts/tests/test_a7_fixture_contact.py scripts/tests/test_a7_fixture_matrix.py
 ```
 
-再束縛の前提: `python3 scripts/a7_fixture_geometry.py --from-zip <native-gate artifact.zip>` で
-新しい基板バイト列の native geometry 記録を取り直すこと。記録と基板バイト列が食い違う間は
-`--check` が fail-closed で落ちます（`pcb_identity.board_identity_bound`）。
+再束縛の前提: 新しい基板バイト列の native geometry 記録を取り直すこと。CI が保持した
+artifact があれば `--from-zip`、開発機で固定イメージのゲートを回した場合は `--from-dir`
+（記録は `provenance_class` = `LOCAL_PINNED_IMAGE_RUN`、`ci_retained_artifact` = false。
+GitHub run id は無く、CI 保持 artifact と同等ではありません）。
+
+```sh
+python3 scripts/a7_fixture_geometry.py --from-dir <a7-gate を含むディレクトリ> \
+  --expect-revision <ゲートを回した checkout SHA> --write
+python3 scripts/a7_fixture_geometry.py --check
+```
+
+現在の記録は 0.8 mm コントローラ `710ed801…` に束縛済み（2026-11-21、`--from-dir`）。
+記録と基板バイト列が食い違う間は `--check` が fail-closed で落ちます
+（`pcb_identity.board_identity_bound`）。
 
 ## 方法（独立に検証できる形で）
 
@@ -73,7 +85,7 @@ ASSUMED／キャリア land は剛体平面と扱い、平面度・積み上げ�
 
 ## 残っている作業
 
-最終ルーティング済み 0.8 mm コントローラのバイト列と fresh native geometry での再実行（上の 1 コマンド）／
+CI が保持した artifact での native geometry の再取得（現在の記録は開発機の固定イメージ実行、run id なし）／
 実機の接触・荷重検証（プランジャ力の両端実測、プローブ力、ストローク、基準ピンへの着座、位置決め、損傷確認を
 治具・基板の unit ID、測定器、生データ付きで：治具基準 5）／発注基板の実測板厚と基材曲げ特性／反りの受入と
 接触集合への影響／改訂押さえ板・ピンスリーブ・J5 ノッチの CAD 干渉／このモデルと入力の独立レビュー／
