@@ -92,7 +92,7 @@ def edges_from(points, radius):
     return cq.Wire.assembleEdges(edges), length, rmin
 
 
-def build(name, out, leaf="fr4"):
+def build(name, out):
     V = L["variants"][name]
     w = V["panel_width"]
     xc = w / 2
@@ -262,8 +262,7 @@ def build(name, out, leaf="fr4"):
         p_.note += f"; moved {adz} mm in Z with the adapter (A7)"
 
     # ---- A5 leaves, leaf parts, leaf connectors (retained) ---------------------------------
-    LC = L["leaf_comparison"]
-    half = LC[leaf]["outer_face_offset_from_centre"]
+    half = L["leaf_comparison"]["fr4"]["outer_face_offset_from_centre"]
 
     def notched(t):
         sheet = box(0, 9, 0, 82.5, -t, 0)
@@ -272,13 +271,12 @@ def build(name, out, leaf="fr4"):
         return sheet
 
     poses = {"left": ((xc - half, 22.5, 19.4), (0, 0, 1), (0, 1, 0), (-1, 0, 0)), "right": ((xc + half, 105, 19.4), (0, 0, 1), (0, -1, 0), (1, 0, 0))}
-    if leaf == "fr4":
-        for s_, pose in poses.items():
-            add(f"{s_}_leaf_pcb_A7", transformed(notched(.8), *pose), "pcb_a7", "native_pcb_envelope", "A7 0.8 mm FR-4; display colour/opacity assumed, not measured", group=f"{s_}_leaf")
-        bond = box(xc - .05, xc + .05, 22.5, 105, 19.4, 28.4)
-        for ny in (46.7, 80.8):
-            bond = bond.cut(box(xc - .1, xc + .1, ny - 1, ny + 1, 19.3, 20.4))
-        add("leaf_bond_line_reserve", bond, "frame", "assembly_allowance", "A5 0.1 mm bond-line reserve", group="leaves")
+    for s_, pose in poses.items():
+        add(f"{s_}_leaf_pcb_A7", transformed(notched(.8), *pose), "pcb_a7", "native_pcb_envelope", "A7 0.8 mm FR-4; display colour/opacity assumed, not measured", group=f"{s_}_leaf")
+    bond = box(xc - .05, xc + .05, 22.5, 105, 19.4, 28.4)
+    for ny in (46.7, 80.8):
+        bond = bond.cut(box(xc - .1, xc + .1, ny - 1, ny + 1, 19.3, 20.4))
+    add("leaf_bond_line_reserve", bond, "frame", "assembly_allowance", "A5 0.1 mm bond-line reserve", group="leaves")
     jst_local = union(box(-3, 3, -1.675, 2.575, 0, 2.95), box(-3.5, 3.5, 2.575, 4.575, .15, 2.95))
     jst = {"left": [], "right": []}
     for s_, pose in poses.items():
@@ -823,23 +821,23 @@ def main():
     ap.add_argument("--variant", choices=["2hp", "3hp", "all"], default="3hp")
     ap.add_argument("--no-export", action="store_true", help="skip STEP/GLB/views (checks only)")
     ap.add_argument("--out-root", type=Path, default=HERE / "exports", help="staging output root; review outputs before adoption")
-    ap.add_argument("--leaf", choices=["fr4"], default="fr4", help="current 0.8 mm rigid FR-4 candidate; PET withdrawn")
     a = ap.parse_args()
     default = L["decision"]["default_variant"]
     names = [default] + [v for v in L["decision"]["variants_generated"] if v != default] if a.variant == "all" else [a.variant]
-    jobs = [(n, "fr4") for n in names]
-    for name, leaf in jobs:
-        label = name if leaf == "fr4" else f"{name}_pet"
+    # The clear-PET leaf was withdrawn by the owner on 2026-11-17: there is no leaf option any more, and the
+    # historical exports/3hp_pet export is kept as history (see its HISTORICAL.md), never regenerated.
+    for name in names:
+        label = name
         out = a.out_root / label
         out.mkdir(parents=True, exist_ok=True)
         print(f"Building {label}", flush=True)
-        parts, contacts, cables = build(name, out, leaf)
+        parts, contacts, cables = build(name, out)
         rows, collisions, permitted, cable_findings, env = validate(parts, contacts, name)
         opt = optical(parts, name)
         opt_est = optical_estimate(parts, name, opt)
         acc = tool_access(parts, name)
         res = {
-            "revision": "A7", "variant": name, "leaf": leaf, "status": "PROVISIONAL_DIGITAL_STUDY_NOT_FIT_APPROVAL",
+            "revision": "A7", "variant": name, "leaf": "fr4", "status": "PROVISIONAL_DIGITAL_STUDY_NOT_FIT_APPROVAL",
             "selection": L["variants"][name]["selection"]["verdict"],
             "default_variant": name == default,
             "layout_sha256": hashlib.sha256((HERE / "layout.json").read_bytes()).hexdigest(),
@@ -867,7 +865,7 @@ def main():
             res["optical_sources"] = optical_sources
             res["optical_display"] = "Opaque all-layer copper silhouettes projected onto both substrate faces; residual native mask; FR4 alpha is an unmeasured visual assumption."
             res["export"] = export(parts, out, label, overlays)
-            res["views"] = views(parts, name, out) if leaf == "fr4" else {}
+            res["views"] = views(parts, name, out)
         (out / "verification.json").write_text(json.dumps(res, indent=2) + "\n")
         print(json.dumps({"variant": label, "parts": len(parts), "collisions": collisions, "cable_findings": len(cable_findings),
                           "retained_envelope": res["retained_envelope_findings"],
