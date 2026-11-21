@@ -1,0 +1,1413 @@
+{
+ "scope": "digital DC/geometry screen of the routed board; not hardware, AC or thermal qualification",
+ "acceptance": {
+  "led_incremental_LSB": 0.5,
+  "combined_LSB": 1.0,
+  "corner": "hot_85C_thin_copper",
+  "derivation": [
+   "Transfer VADC=(100/133)*(VDD/2+CV/8) and inverse CV=10.64*VADC-4*VDD: engineering/a5/electronics/reports/electrical_margins.json cv_transfer (kept unchanged).",
+   "One 12-bit code at 3.3 V is 0.806 mV at the ADC pin, 8.57 mV of CV.",
+   "Firmware CV deadband is +/-50 mV and full scale +/-5 V (engineering/a5/firmware/README.md mode table, LB_CV_DEADBAND_MV in src/light_block.c). Half a code (4.3 mV CV) is under 9 % of the deadband, so an LED-brightness-dependent reference shift of that size cannot move a 0 V input out of the deadband or feed back visibly; one code total (8.6 mV CV) is 17 %.",
+   "A static offset is removable by the firmware zero calibration (lb_calibration_t); the LED-dependent part is not, hence the tighter half-code allocation for it.",
+   "The same allocations were already the screen of this script; this revision requires them at the hot/thin-copper corner instead of nominal 20 C (the earlier Route2 candidate failed that)."
+  ],
+  "excluded": "Power-cable and connector contact resistance, op-amp offset, ADC/reference error, resistor tolerance, AC noise. Those are the same for any layout and belong to bench work (#10)."
+ },
+ "model": {
+  "copper_resistivity_ohm_mm_20C": 1.724e-05,
+  "temperature_coefficient_per_K": 0.00393,
+  "copper_mm": {
+   "F.Cu": 0.035,
+   "In1.Cu": 0.0152,
+   "In2.Cu": 0.0152,
+   "B.Cu": 0.035
+  },
+  "barrel_plating_mm": 0.018,
+  "barrel_spans_mm": [
+   0.1245,
+   0.5152,
+   0.1245
+  ],
+  "centerline_subdivision_mm": 0.05,
+  "corners": {
+   "nominal_20C": {
+    "temp_C": 20,
+    "copper_scale": 1.0,
+    "width_scale": 1.0,
+    "plating_scale": 1.0
+   },
+   "hot_85C": {
+    "temp_C": 85,
+    "copper_scale": 1.0,
+    "width_scale": 1.0,
+    "plating_scale": 1.0
+   },
+   "thin_copper_20C": {
+    "temp_C": 20,
+    "copper_scale": 0.8,
+    "width_scale": 0.8,
+    "plating_scale": 0.8
+   },
+   "hot_85C_thin_copper": {
+    "temp_C": 85,
+    "copper_scale": 0.8,
+    "width_scale": 0.8,
+    "plating_scale": 0.8
+   }
+  },
+  "limits": [
+   "Barrel plating 18 um and the corner tolerances are explicit assumptions, not guaranteed minima.",
+   "SMD pad copper is ideal; through-hole pads are one node per layer joined by barrel plating only (solder and pin ignored).",
+   "Local zone conductivity omitted conservatively; centre-line intersections only.",
+   "No harness, connector contact, enclosure, inductance or capacitance in the DC network."
+  ]
+ },
+ "ground_paths": {
+  "C1.2 -> U2.4": {
+   "ohm": 0.0010672380952380942,
+   "mm": 0.6499999999999992,
+   "layer_changes": 0
+  },
+  "C2.2 -> U2.4": {
+   "ohm": 0.025611861245598305,
+   "mm": 15.708298987322397,
+   "layer_changes": 6
+  },
+  "J3.1 -> J5.2@F.Cu": {
+   "ohm": 0.03995875725234965,
+   "mm": 24.555685271170805,
+   "layer_changes": 12
+  },
+  "U1.4 -> J5.2@B.Cu": {
+   "ohm": 0.0071530278520996905,
+   "mm": 7.658312549695417,
+   "layer_changes": 3
+  },
+  "R25.2 -> U1.4": {
+   "ohm": 0.03495257584294718,
+   "mm": 12.222526112068508,
+   "layer_changes": 3
+  },
+  "R6.2 -> U1.4": {
+   "ohm": 0.06761056822118904,
+   "mm": 24.267968670764652,
+   "layer_changes": 7
+  },
+  "U7.2 -> U1.4": {
+   "ohm": 0.02940491932061938,
+   "mm": 8.880619330881965,
+   "layer_changes": 4
+  },
+  "R2.2 -> U1.4": {
+   "ohm": 0.09901965573509108,
+   "mm": 31.972522061358013,
+   "layer_changes": 5
+  },
+  "C8.2 -> U1.4": {
+   "ohm": 0.009869795745331192,
+   "mm": 3.0703203435596405,
+   "layer_changes": 2
+  },
+  "C17.2 -> U7.2": {
+   "ohm": 0.008708944247723784,
+   "mm": 3.3450854249492363,
+   "layer_changes": 4
+  }
+ },
+ "filled_star_audit": {
+  "scope": "actual native filled polygons + conservative track half-width; J5.2 removed as the star",
+  "branch_terminals": {
+   "signal:C14.2": [
+    "C14.2",
+    "C7.2",
+    "D3.1",
+    "TP2.1"
+   ],
+   "signal:C13.2": [
+    "C13.2",
+    "C17.2",
+    "C5.2",
+    "C6.2",
+    "C8.2",
+    "R2.2",
+    "R25.2",
+    "R6.2",
+    "R8.2",
+    "U1.4",
+    "U3.2",
+    "U7.2"
+   ],
+   "power:C1.2": [
+    "C1.2",
+    "C10.2",
+    "C11.2",
+    "C12.1",
+    "C15.2",
+    "C16.2",
+    "C2.2",
+    "C3.2",
+    "C9.2",
+    "J3.1",
+    "R11.2",
+    "R16.2",
+    "R17.2",
+    "R18.2",
+    "R19.2",
+    "R20.2",
+    "U2.4",
+    "U4.2",
+    "U5.4"
+   ],
+   "signal:J1.1": [
+    "J1.1",
+    "J1.2",
+    "J2.1",
+    "J2.2",
+    "Q1.2",
+    "R12.2",
+    "SW1.3"
+   ]
+  },
+  "star_pad_faces": {
+   "F.Cu": [
+    "power"
+   ],
+   "In1.Cu": [],
+   "In2.Cu": [],
+   "B.Cu": [
+    "signal"
+   ]
+  },
+  "filled_polygons": [
+   {
+    "layer": "B.Cu",
+    "contact_nodes": 74,
+    "pad_contacts": [],
+    "via_contacts": [
+     [
+      5.0,
+      3.9
+     ],
+     [
+      5.8,
+      3.9
+     ]
+    ],
+    "branch_classes": [
+     "power"
+    ],
+    "touches_star_pad": false
+   }
+  ],
+  "failures": []
+ },
+ "reference_error": {
+  "scenarios": {
+   "led_conservative": "whole TPS2552 limit current from J3.1 to the J5.2 pin (kept from the earlier screen)",
+   "led_physical_dc": "LED current returns to the buck ground; only the 12 V input current 0.215 A (efficiency 0.85 ASSUMED) leaves through J5.2",
+   "logic_analog": "20 mA MCU (ASSUMED upper bound), 1 mA U7, 1.8 mA R25 at +5 V CV, 3.3 mA R8 bleeder"
+  },
+  "metric": {
+   "screen_V": "|U7.2-U1.4| + |R25.2-U1.4| (kept from the earlier screen)",
+   "weighted_V": "firmware-weighted |sum(w*e)|/10.64 with CV weights {\"R2.2\": 1.0, \"R6.2\": 2.0, \"R25.2\": 2.6400000000000006, \"U1.4\": -6.640000000000001}",
+   "star_pin_shared_bound_V": "LED limit current times the whole J5.2 barrel plating, as a shift of the board reference against the CV source (weight 1/10.64)",
+   "supply_3V3_reference": "+3V3 drop between the affine divider taps and the measured VDDA, |-2*(d_R4.1+d_R5.1)+4*d_U1.3|/10.64",
+   "bound": "max(screen, weighted) + star pin bound; combined adds max(screen, weighted) of logic_analog and the +3V3 reference term"
+  },
+  "corners": {
+   "nominal_20C": {
+    "led_conservative": {
+     "worst": {
+      "screen_V": 0.0,
+      "weighted_V": 0.0
+     },
+     "cases": {
+      "pin_bonded_at_B.Cu": {
+       "screen_V": 0.0,
+       "weighted_V": 0.0,
+       "node_V": {
+        "U1.4": 0.0,
+        "U7.2": 0.0,
+        "R25.2": 0.0,
+        "R6.2": 0.0,
+        "R2.2": 0.0,
+        "C13.2": 0.0,
+        "J3.1": 0.01776403385540441,
+        "U2.4": 0.012354582976884125,
+        "J1.1": 0.0
+       }
+      },
+      "pin_bonded_at_F.Cu": {
+       "screen_V": 0.0,
+       "weighted_V": 0.0,
+       "node_V": {
+        "U1.4": 0.0,
+        "U7.2": 0.0,
+        "R25.2": 0.0,
+        "R6.2": 0.0,
+        "R2.2": 0.0,
+        "C13.2": 0.0,
+        "J3.1": 0.017559273216402747,
+        "U2.4": 0.012149822337882414,
+        "J1.1": 0.0
+       }
+      }
+     }
+    },
+    "led_physical_dc": {
+     "worst": {
+      "screen_V": 0.0,
+      "weighted_V": 0.0
+     },
+     "cases": {
+      "pin_bonded_at_B.Cu": {
+       "screen_V": 0.0,
+       "weighted_V": 0.0,
+       "node_V": {
+        "U1.4": 0.0,
+        "U7.2": 0.0,
+        "R25.2": 0.0,
+        "R6.2": 0.0,
+        "R2.2": 0.0,
+        "C13.2": 0.0,
+        "J3.1": 0.0114656190044434,
+        "U2.4": 0.001882394345521411,
+        "J1.1": 0.0
+       }
+      },
+      "pin_bonded_at_F.Cu": {
+       "screen_V": 0.0,
+       "weighted_V": 0.0,
+       "node_V": {
+        "U1.4": 0.0,
+        "U7.2": 0.0,
+        "R25.2": 0.0,
+        "R6.2": 0.0,
+        "R2.2": 0.0,
+        "C13.2": 0.0,
+        "J3.1": 0.011365246142187722,
+        "U2.4": 0.0017820214832657403,
+        "J1.1": 0.0
+       }
+      }
+     }
+    },
+    "logic_analog": {
+     "worst": {
+      "screen_V": 8.029763056194151e-05,
+      "weighted_V": 2.970022581702956e-05
+     },
+     "cases": {
+      "pin_bonded_at_B.Cu": {
+       "screen_V": 8.029763056194151e-05,
+       "weighted_V": 2.970022581702956e-05,
+       "node_V": {
+        "U1.4": 0.00012824873699369914,
+        "U7.2": 0.0001641790781959964,
+        "R25.2": 0.0001726160263533434,
+        "R6.2": 0.0001674693799221874,
+        "R2.2": 0.00037693694691415546,
+        "C13.2": 0.00016746937992219131,
+        "J3.1": 0.0,
+        "U2.4": 0.0,
+        "J1.1": 0.0
+       }
+      },
+      "pin_bonded_at_F.Cu": {
+       "screen_V": 8.029763056193972e-05,
+       "weighted_V": 2.8557213811257474e-05,
+       "node_V": {
+        "U1.4": 0.0001404103847351152,
+        "U7.2": 0.00017634072593741045,
+        "R25.2": 0.00018477767409475968,
+        "R6.2": 0.0001796310276636087,
+        "R2.2": 0.00038909859465556155,
+        "C13.2": 0.00017963102766361275,
+        "J3.1": 0.0,
+        "U2.4": 0.0,
+        "J1.1": 1.2161647741421062e-05
+       }
+      }
+     }
+    },
+    "supply_3V3_reference": {
+     "ADC_V": 6.172574292563365e-06,
+     "loads_A": {
+      "U1.3": -0.02,
+      "U7.5": -0.001,
+      "R8.1": -0.0033,
+      "U5.1": -0.001
+     },
+     "drop_below_U3.5_V": {
+      "U1.3": 0.0024352016568177787,
+      "R4.1": 0.002418782609199559,
+      "R5.1": 0.0024187826091995614,
+      "C8.1": 0.0024187826091987266
+     },
+     "CV_error_V": 6.567619047287421e-05
+    },
+    "star_pin_barrel_ohm": 0.0004659635149970328,
+    "star_pin_shared_bound_V": 1.9244420958817328e-05,
+    "led_incremental": {
+     "bound_V": 1.9244420958817328e-05,
+     "LSB": 0.023880576917077866
+    },
+    "combined": {
+     "bound_V": 0.00010571462581332221,
+     "LSB": 0.13118224021380437
+    }
+   },
+   "hot_85C": {
+    "led_conservative": {
+     "worst": {
+      "screen_V": 0.0,
+      "weighted_V": 0.0
+     }
+    },
+    "led_physical_dc": {
+     "worst": {
+      "screen_V": 0.0,
+      "weighted_V": 0.0
+     }
+    },
+    "logic_analog": {
+     "worst": {
+      "screen_V": 0.00010080966028926133,
+      "weighted_V": 3.72871485020852e-05
+     }
+    },
+    "supply_3V3_reference": {
+     "ADC_V": 7.749358395478866e-06
+    },
+    "star_pin_barrel_ohm": 0.0005849938949030249,
+    "star_pin_shared_bound_V": 2.4160408292747213e-05,
+    "led_incremental": {
+     "bound_V": 2.4160408292747213e-05,
+     "LSB": 0.029980870290545403
+    },
+    "combined": {
+     "bound_V": 0.00013271942697748738,
+     "LSB": 0.16469274347660934
+    }
+   },
+   "thin_copper_20C": {
+    "led_conservative": {
+     "worst": {
+      "screen_V": 0.0,
+      "weighted_V": 0.0
+     }
+    },
+    "led_physical_dc": {
+     "worst": {
+      "screen_V": 0.0,
+      "weighted_V": 0.0
+     }
+    },
+    "logic_analog": {
+     "worst": {
+      "screen_V": 0.00013656881063381083,
+      "weighted_V": 5.0087817735591206e-05
+     }
+    },
+    "supply_3V3_reference": {
+     "ADC_V": 9.64464733179277e-06
+    },
+    "star_pin_barrel_ohm": 0.000582454393746291,
+    "star_pin_shared_bound_V": 2.405552619852166e-05,
+    "led_incremental": {
+     "bound_V": 2.405552619852166e-05,
+     "LSB": 0.029850721146347334
+    },
+    "combined": {
+     "bound_V": 0.00017026898416412528,
+     "LSB": 0.2112883303491191
+    }
+   },
+   "hot_85C_thin_copper": {
+    "led_conservative": {
+     "worst": {
+      "screen_V": 0.0,
+      "weighted_V": 0.0
+     },
+     "cases": {
+      "pin_bonded_at_B.Cu": {
+       "screen_V": 0.0,
+       "weighted_V": 0.0,
+       "node_V": {
+        "U1.4": 0.0,
+        "U7.2": 0.0,
+        "R25.2": 0.0,
+        "R6.2": 0.0,
+        "R2.2": 0.0,
+        "C13.2": 0.0,
+        "J3.1": 0.0339629835413581,
+        "U2.4": 0.02375325172697752,
+        "J1.1": 0.0
+       }
+      },
+      "pin_bonded_at_F.Cu": {
+       "screen_V": 0.0,
+       "weighted_V": 0.0,
+       "node_V": {
+        "U1.4": 0.0,
+        "U7.2": 0.0,
+        "R25.2": 0.0,
+        "R6.2": 0.0,
+        "R2.2": 0.0,
+        "C13.2": 0.0,
+        "J3.1": 0.033641650111063716,
+        "U2.4": 0.0234319182966831,
+        "J1.1": 0.0
+       }
+      }
+     }
+    },
+    "led_physical_dc": {
+     "worst": {
+      "screen_V": 0.0,
+      "weighted_V": 0.0
+     },
+     "cases": {
+      "pin_bonded_at_B.Cu": {
+       "screen_V": 0.0,
+       "weighted_V": 0.0,
+       "node_V": {
+        "U1.4": 0.0,
+        "U7.2": 0.0,
+        "R25.2": 0.0,
+        "R6.2": 0.0,
+        "R2.2": 0.0,
+        "C13.2": 0.0,
+        "J3.1": 0.021853482660939075,
+        "U2.4": 0.0034563066393606735,
+        "J1.1": 0.0
+       }
+      },
+      "pin_bonded_at_F.Cu": {
+       "screen_V": 0.0,
+       "weighted_V": 0.0,
+       "node_V": {
+        "U1.4": 0.0,
+        "U7.2": 0.0,
+        "R25.2": 0.0,
+        "R6.2": 0.0,
+        "R2.2": 0.0,
+        "C13.2": 0.0,
+        "J3.1": 0.021695966273539598,
+        "U2.4": 0.003298790251961213,
+        "J1.1": 0.0
+       }
+      }
+     }
+    },
+    "logic_analog": {
+     "worst": {
+      "screen_V": 0.00017145531331035606,
+      "weighted_V": 6.288275077622428e-05
+     },
+     "cases": {
+      "pin_bonded_at_B.Cu": {
+       "screen_V": 0.00017145531331033605,
+       "weighted_V": 6.288275077622428e-05,
+       "node_V": {
+        "U1.4": 0.00024283058672582307,
+        "U7.2": 0.00031965045272791873,
+        "R25.2": 0.00033746603403406346,
+        "R6.2": 0.0003273701633123561,
+        "R2.2": 0.0007358169076438518,
+        "C13.2": 0.0003273701633123451,
+        "J3.1": 0.0,
+        "U2.4": 0.0,
+        "J1.1": 0.0
+       }
+      },
+      "pin_bonded_at_F.Cu": {
+       "screen_V": 0.00017145531331035606,
+       "weighted_V": 6.10890077479257e-05,
+       "node_V": {
+        "U1.4": 0.00026191601254703405,
+        "U7.2": 0.0003387358785491396,
+        "R25.2": 0.0003565514598552846,
+        "R6.2": 0.000346455589133587,
+        "R2.2": 0.0007549023334651102,
+        "C13.2": 0.0003464555891335742,
+        "J3.1": 0.0,
+        "U2.4": 0.0,
+        "J1.1": 1.9085425821209983e-05
+       }
+      }
+     }
+    },
+    "supply_3V3_reference": {
+     "ADC_V": 1.2108372493037024e-05,
+     "loads_A": {
+      "U1.3": -0.02,
+      "U7.5": -0.001,
+      "R8.1": -0.0033,
+      "U5.1": -0.001
+     },
+     "drop_below_U3.5_V": {
+      "U1.3": 0.004757030248319365,
+      "R4.1": 0.004724821977487893,
+      "R5.1": 0.00472482197748788,
+      "C8.1": 0.0047248219774860215
+     },
+     "CV_error_V": 0.00012883308332591395
+    },
+    "star_pin_barrel_ohm": 0.000731242368628781,
+    "star_pin_shared_bound_V": 3.020051036593402e-05,
+    "led_incremental": {
+     "bound_V": 3.020051036593402e-05,
+     "LSB": 0.03747608786318176
+    },
+    "combined": {
+     "bound_V": 0.0002137641961693271,
+     "LSB": 0.26526193433739226
+    }
+   }
+  }
+ },
+ "kelvin_audit": {
+  "nets": {
+   "/+3V3": {
+    "source": "C8.1",
+    "taps": [
+     "R4.1",
+     "R5.1"
+    ],
+    "pads_on_the_tap_side_of_the_source": [
+     "R4.1",
+     "R5.1"
+    ]
+   }
+  },
+  "failures": []
+ },
+ "incremental_LED_DC_budget": {
+  "ADC_LSB_V": 0.0008058608058608059,
+  "allocation_LSB": 0.5,
+  "corner": "hot_85C_thin_copper",
+  "bound_V": 3.020051036593402e-05,
+  "bound_LSB": 0.03747608786318176,
+  "nominal_bound_LSB": 0.023880576917077866,
+  "resistance_scale_margin": 20.937517620959646,
+  "pass": true
+ },
+ "combined_DC_budget": {
+  "allocation_LSB": 1.0,
+  "corner": "hot_85C_thin_copper",
+  "bound_V": 0.0002137641961693271,
+  "bound_LSB": 0.26526193433739226,
+  "nominal_bound_LSB": 0.13118224021380437,
+  "resistance_scale_margin": 7.622983098704314,
+  "pass": true
+ },
+ "power_paths": {
+  "+12V_RAW J5.1 -> D1.2": {
+   "net": "/+12V_RAW",
+   "ohm": 0.016779603253880764,
+   "ohm_hot_85C_thin_copper": 0.0329155514141947,
+   "mm": 10.22,
+   "layer_changes": 0
+  },
+  "+12V_PROT D1.1 -> C1.1": {
+   "net": "/+12V_PROT",
+   "ohm": 0.07527662624051012,
+   "ohm_hot_85C_thin_copper": 0.14583758222475562,
+   "mm": 46.066,
+   "layer_changes": 12
+  },
+  "+12V_PROT C1.1 -> U2.3": {
+   "net": "/+12V_PROT",
+   "ohm": 0.0010672380952380942,
+   "ohm_hot_85C_thin_copper": 0.002093537604166664,
+   "mm": 0.65,
+   "layer_changes": 0
+  },
+  "BUCK_SW U2.5 -> L1.1": {
+   "net": "/BUCK_SW",
+   "ohm": 0.0018060952380952382,
+   "ohm_hot_85C_thin_copper": 0.0035429097916666666,
+   "mm": 1.1,
+   "layer_changes": 0
+  },
+  "+5V L1.2 -> C2.1": {
+   "net": "/+5V",
+   "ohm": 0.0009030476190476186,
+   "ohm_hot_85C_thin_copper": 0.0017714548958333316,
+   "mm": 0.55,
+   "layer_changes": 0
+  },
+  "+5V C2.1 -> U4.1": {
+   "net": "/+5V",
+   "ohm": 0.0023807619047619003,
+   "ohm_hot_85C_thin_copper": 0.004670199270833324,
+   "mm": 1.45,
+   "layer_changes": 0
+  },
+  "+5V C2.1 -> U3.1": {
+   "net": "/+5V",
+   "ohm": 0.018703777954735025,
+   "ohm_hot_85C_thin_copper": 0.03577603771620163,
+   "mm": 11.501,
+   "layer_changes": 6
+  },
+  "VLED U4.6 -> J3.2": {
+   "net": "/VLED",
+   "ohm": 0.012808859168038592,
+   "ohm_hot_85C_thin_copper": 0.025126378503928196,
+   "mm": 7.801,
+   "layer_changes": 0
+  },
+  "+3V3 U3.5 -> U1.3": {
+   "net": "/+3V3",
+   "ohm": 0.1130535259253134,
+   "ohm_hot_85C_thin_copper": 0.22085633629379942,
+   "mm": 36.042,
+   "layer_changes": 6
+  },
+  "GND J3.1 -> C2.2": {
+   "net": "/GND",
+   "ohm": 0.005328940501672564,
+   "ohm_hot_85C_thin_copper": 0.010453466176288773,
+   "mm": 3.246,
+   "layer_changes": 0
+  },
+  "GND C2.2 -> U2.4": {
+   "net": "/GND",
+   "ohm": 0.025611861245598305,
+   "ohm_hot_85C_thin_copper": 0.04932721454044268,
+   "mm": 15.708,
+   "layer_changes": 6
+  },
+  "GND C1.2 -> J5.2": {
+   "net": "/GND",
+   "ohm": 0.0452122888723883,
+   "ohm_hot_85C_thin_copper": 0.08777620964052638,
+   "mm": 27.646,
+   "layer_changes": 6
+  },
+  "GND J3.1 -> J5.2": {
+   "net": "/GND",
+   "ohm": 0.03995875725234965,
+   "ohm_hot_85C_thin_copper": 0.07655661562915048,
+   "mm": 24.556,
+   "layer_changes": 12
+  }
+ },
+ "power_DC_screen": {
+  "corner": "hot_85C_thin_copper",
+  "led_bound_A": 0.43943491799592993,
+  "buck_input_current_A": 0.21540927352741665,
+  "LED_supply_trace_drop_V": 0.013327166674553342,
+  "LED_return_trace_drop_V": 0.004593618051950684,
+  "LED_loop_sum_V": 0.017920784726504026,
+  "LED_loop_fraction_of_5V": 0.0035841569453008053,
+  "12V_input_loop_trace_drop_V": 0.05741289220957153,
+  "power_ground_offset_at_J3_conservative_V": 0.033641650111041664,
+  "buck_switch_net_vias": 0,
+  "high_current_track_widths_mm": [
+   0.3,
+   0.6
+  ],
+  "inner_layer_high_current_track_mm": 0,
+  "outer_0_3mm_35um_capacity_at_10C_rise_A": 0.9990669447801742,
+  "capacity_source": "IPC-2221 external-conductor chart equation as given at https://jlcpcb.com/blog/pcb-trace-width-guide; a sizing screen only, it does not predict the temperature of the enclosed assembly",
+  "note": "Excludes pad spreading, device Ron, D1 forward drop, contacts and harness. LED loop drop is supply plus the return to the buck output capacitor, where the LED current actually closes."
+ },
+ "buck_loops": {
+  "input_hot_loop": {
+   "pad_centres": [
+    "C1.1",
+    "U2.3",
+    "U2.4",
+    "C1.2"
+   ],
+   "pad_centre_polygon_area_mm2": 3.57,
+   "routed_legs": {
+    "VIN": {
+     "net": "/+12V_PROT",
+     "ohm": 0.0010672380952380942,
+     "ohm_hot_85C_thin_copper": 0.002093537604166664,
+     "mm": 0.65,
+     "layer_changes": 0
+    },
+    "GND": {
+     "net": "/GND",
+     "ohm": 0.0010672380952380942,
+     "ohm_hot_85C_thin_copper": 0.002093537604166664,
+     "mm": 0.65,
+     "layer_changes": 0
+    }
+   },
+   "routed_leg_length_mm": 1.3,
+   "layer_changes": 0
+  },
+  "bootstrap": {
+   "pad_centres": [
+    "U2.6",
+    "C4.1",
+    "C4.2",
+    "U2.5"
+   ],
+   "pad_centre_polygon_area_mm2": 1.849,
+   "routed_legs": {
+    "BST": {
+     "net": "/BUCK_BST",
+     "ohm": 0.0012314285714285717,
+     "ohm_hot_85C_thin_copper": 0.002415620312499999,
+     "mm": 0.5,
+     "layer_changes": 0
+    },
+    "SW": {
+     "net": "/BUCK_SW",
+     "ohm": 0.000820952380952381,
+     "ohm_hot_85C_thin_copper": 0.0016104135416666668,
+     "mm": 0.5,
+     "layer_changes": 0
+    }
+   },
+   "routed_leg_length_mm": 1.0,
+   "layer_changes": 0
+  },
+  "output_loop": {
+   "pad_centres": [
+    "U2.5",
+    "L1.1",
+    "L1.2",
+    "C2.1",
+    "C2.2",
+    "U2.4"
+   ],
+   "pad_centre_polygon_area_mm2": 6.998,
+   "routed_legs": {
+    "SW": {
+     "net": "/BUCK_SW",
+     "ohm": 0.0018060952380952382,
+     "ohm_hot_85C_thin_copper": 0.0035429097916666666,
+     "mm": 1.1,
+     "layer_changes": 0
+    },
+    "5V": {
+     "net": "/+5V",
+     "ohm": 0.0009030476190476186,
+     "ohm_hot_85C_thin_copper": 0.0017714548958333316,
+     "mm": 0.55,
+     "layer_changes": 0
+    },
+    "GND": {
+     "net": "/GND",
+     "ohm": 0.025611861245598305,
+     "ohm_hot_85C_thin_copper": 0.04932721454044268,
+     "mm": 15.708,
+     "layer_changes": 6
+    }
+   },
+   "routed_leg_length_mm": 17.358,
+   "layer_changes": 6
+  },
+  "note": "Pad-centre polygon area and routed leg lengths of the actual copper. The input loop is the only discontinuous-current loop; the output loop carries the inductor ripple only."
+ },
+ "decoupling": {
+  "rows": {
+   "U1 VDD 100n C8": {
+    "supply_leg_mm": 0.5,
+    "ground_leg_mm": 3.07,
+    "loop_trace_mm": 3.57,
+    "layer_changes": 2,
+    "loop_ohm": 0.010690748126283572,
+    "loop_partial_inductance_nH_estimate": 2.28
+   },
+   "U1 VDD 4.7u C7": {
+    "supply_leg_mm": 16.237,
+    "ground_leg_mm": 18.244,
+    "loop_trace_mm": 34.481,
+    "layer_changes": 8,
+    "loop_ohm": 0.07223366668548373,
+    "loop_partial_inductance_nH_estimate": 35.45
+   },
+   "U7 C17": {
+    "supply_leg_mm": 0.75,
+    "ground_leg_mm": 3.345,
+    "loop_trace_mm": 4.095,
+    "layer_changes": 4,
+    "loop_ohm": 0.009940372819152351,
+    "loop_partial_inductance_nH_estimate": 2.67
+   },
+   "U5 3V3 C9": {
+    "supply_leg_mm": 4.647,
+    "ground_leg_mm": 5.88,
+    "loop_trace_mm": 10.527,
+    "layer_changes": 0,
+    "loop_ohm": 0.017284257973315384,
+    "loop_partial_inductance_nH_estimate": 8.36
+   },
+   "U5 VLED C10": {
+    "supply_leg_mm": 3.923,
+    "ground_leg_mm": 8.436,
+    "loop_trace_mm": 12.359,
+    "layer_changes": 0,
+    "loop_ohm": 0.020291194492577286,
+    "loop_partial_inductance_nH_estimate": 10.35
+   },
+   "U4 in C15": {
+    "supply_leg_mm": 0.8,
+    "ground_leg_mm": 7.778,
+    "loop_trace_mm": 8.578,
+    "layer_changes": 6,
+    "loop_ohm": 0.013905246146413761,
+    "loop_partial_inductance_nH_estimate": 7.11
+   },
+   "U4 out C16": {
+    "supply_leg_mm": 0.5,
+    "ground_leg_mm": 11.072,
+    "loop_trace_mm": 11.572,
+    "layer_changes": 12,
+    "loop_ohm": 0.018641579600077524,
+    "loop_partial_inductance_nH_estimate": 10.58
+   },
+   "U3 in C5": {
+    "supply_leg_mm": 9.977,
+    "ground_leg_mm": 4.737,
+    "loop_trace_mm": 14.714,
+    "layer_changes": 8,
+    "loop_ohm": 0.031912594410828866,
+    "loop_partial_inductance_nH_estimate": 12.82
+   },
+   "U3 out C6": {
+    "supply_leg_mm": 1.549,
+    "ground_leg_mm": 4.525,
+    "loop_trace_mm": 6.074,
+    "layer_changes": 2,
+    "loop_ohm": 0.017905748014330418,
+    "loop_partial_inductance_nH_estimate": 4.31
+   },
+   "U2 in C1": {
+    "supply_leg_mm": 0.65,
+    "ground_leg_mm": 0.65,
+    "loop_trace_mm": 1.3,
+    "layer_changes": 0,
+    "loop_ohm": 0.0021344761904761884,
+    "loop_partial_inductance_nH_estimate": 0.51
+   },
+   "U2 out C2": {
+    "supply_leg_mm": 11.509,
+    "ground_leg_mm": 15.708,
+    "loop_trace_mm": 27.217,
+    "layer_changes": 12,
+    "loop_ohm": 0.044328723503787255,
+    "loop_partial_inductance_nH_estimate": 26.75
+   },
+   "U6 +12V C11": {
+    "supply_leg_mm": 0.55,
+    "layer_changes": 0,
+    "note": "U6 has no ground pin; the capacitor ground is on the power branch on purpose"
+   },
+   "U6 -12V C12": {
+    "supply_leg_mm": 0.55,
+    "layer_changes": 0,
+    "note": "U6 has no ground pin; the capacitor ground is on the power branch on purpose"
+   }
+  },
+  "note": "Routed centre-line lengths between pad copper; the inductance is a straight-conductor partial estimate at 0.3 mm width, for comparison only."
+ },
+ "coupling": {
+  "CV_THRU_open_input": {
+   "rows": {
+    "/DATA_L": {
+     "coupling_fF_estimate": 728.1,
+     "victim_track_mm_within_5mm": 37.45,
+     "fraction_of_aggressor_swing_on_open_tip": 0.1271
+    },
+    "/DATA_R": {
+     "coupling_fF_estimate": 615.3,
+     "victim_track_mm_within_5mm": 33.18,
+     "fraction_of_aggressor_swing_on_open_tip": 0.1096
+    },
+    "/DATA_L_3V3": {
+     "coupling_fF_estimate": 854.9,
+     "victim_track_mm_within_5mm": 44.47,
+     "fraction_of_aggressor_swing_on_open_tip": 0.146
+    },
+    "/DATA_R_3V3": {
+     "coupling_fF_estimate": 803.8,
+     "victim_track_mm_within_5mm": 38.47,
+     "fraction_of_aggressor_swing_on_open_tip": 0.1385
+    },
+    "/DATA_L_5V": {
+     "coupling_fF_estimate": 340.7,
+     "victim_track_mm_within_5mm": 18.85,
+     "fraction_of_aggressor_swing_on_open_tip": 0.0638
+    },
+    "/DATA_R_5V": {
+     "coupling_fF_estimate": 344.9,
+     "victim_track_mm_within_5mm": 18.65,
+     "fraction_of_aggressor_swing_on_open_tip": 0.0645
+    },
+    "/BUCK_SW": {
+     "coupling_fF_estimate": 117.9,
+     "victim_track_mm_within_5mm": 6.62,
+     "fraction_of_aggressor_swing_on_open_tip": 0.023
+    },
+    "/SWCLK": {
+     "coupling_fF_estimate": 938.3,
+     "victim_track_mm_within_5mm": 28.3,
+     "fraction_of_aggressor_swing_on_open_tip": 0.158
+    },
+    "/SWDIO": {
+     "coupling_fF_estimate": 954.4,
+     "victim_track_mm_within_5mm": 28.81,
+     "fraction_of_aggressor_swing_on_open_tip": 0.1603
+    },
+    "/VLED": {
+     "coupling_fF_estimate": 3829.1,
+     "victim_track_mm_within_5mm": 64.33,
+     "fraction_of_aggressor_swing_on_open_tip": 0.4337
+    }
+   },
+   "assumed_open_node_pF": 5.0,
+   "note": "With nothing patched the jack tip is 20 Mohm to ground, so data edges couple by the capacitive divider shown (zero mean, decays with about 0.1 ms, then the 776 Hz filter and the firmware 1/8 IIR). A patched source of 1 kohm or less reduces it by more than 1e4. The former In1 plane no longer shields this run; whether the unpatched reading stays inside the +/-50 mV deadband NEEDS BENCH (#10). Not an acceptance gate."
+  },
+  "separation_mm": {
+   "/CV_SENSE": {
+    "/BUCK_SW": {
+     "any_layer_mm": 3.07,
+     "same_layer_mm": 3.07,
+     "track_mm_of_first_within_0.5mm": 0.0
+    },
+    "/BUCK_BST": {
+     "any_layer_mm": 2.12,
+     "same_layer_mm": 2.12,
+     "track_mm_of_first_within_0.5mm": 0.0
+    },
+    "/DATA_L": {
+     "any_layer_mm": 3.3554,
+     "same_layer_mm": 4.375,
+     "track_mm_of_first_within_0.5mm": 0.0
+    },
+    "/DATA_R": {
+     "any_layer_mm": 3.35,
+     "same_layer_mm": 4.4693,
+     "track_mm_of_first_within_0.5mm": 0.0
+    },
+    "/DATA_L_5V": {
+     "any_layer_mm": 39.2556,
+     "same_layer_mm": 39.2556,
+     "track_mm_of_first_within_0.5mm": 0.0
+    },
+    "/DATA_R_5V": {
+     "any_layer_mm": 38.8803,
+     "same_layer_mm": 38.8803,
+     "track_mm_of_first_within_0.5mm": 0.0
+    },
+    "/DATA_L_3V3": {
+     "any_layer_mm": 21.0878,
+     "same_layer_mm": 21.7094,
+     "track_mm_of_first_within_0.5mm": 0.0
+    },
+    "/DATA_R_3V3": {
+     "any_layer_mm": 21.658,
+     "same_layer_mm": 21.658,
+     "track_mm_of_first_within_0.5mm": 0.0
+    },
+    "/VLED": {
+     "any_layer_mm": 3.5424,
+     "same_layer_mm": 4.4349,
+     "track_mm_of_first_within_0.5mm": 0.0
+    },
+    "/SWCLK": {
+     "any_layer_mm": 18.3781,
+     "same_layer_mm": 18.3781,
+     "track_mm_of_first_within_0.5mm": 0.0
+    },
+    "/SWDIO": {
+     "any_layer_mm": 17.4553,
+     "same_layer_mm": 17.4553,
+     "track_mm_of_first_within_0.5mm": 0.0
+    }
+   },
+   "/CV_THRU": {
+    "/BUCK_SW": {
+     "any_layer_mm": 3.2187,
+     "same_layer_mm": 3.2187,
+     "track_mm_of_first_within_0.5mm": 0.0
+    },
+    "/BUCK_BST": {
+     "any_layer_mm": 2.5335,
+     "same_layer_mm": 2.8601,
+     "track_mm_of_first_within_0.5mm": 0.0
+    },
+    "/DATA_L": {
+     "any_layer_mm": 1.7194,
+     "same_layer_mm": 1.75,
+     "track_mm_of_first_within_0.5mm": 0.0
+    },
+    "/DATA_R": {
+     "any_layer_mm": 1.2022,
+     "same_layer_mm": 1.2022,
+     "track_mm_of_first_within_0.5mm": 0.0
+    },
+    "/DATA_L_5V": {
+     "any_layer_mm": 2.8265,
+     "same_layer_mm": 2.8265,
+     "track_mm_of_first_within_0.5mm": 0.0
+    },
+    "/DATA_R_5V": {
+     "any_layer_mm": 2.2112,
+     "same_layer_mm": 2.2112,
+     "track_mm_of_first_within_0.5mm": 0.0
+    },
+    "/DATA_L_3V3": {
+     "any_layer_mm": 1.025,
+     "same_layer_mm": 1.502,
+     "track_mm_of_first_within_0.5mm": 0.0
+    },
+    "/DATA_R_3V3": {
+     "any_layer_mm": 1.025,
+     "same_layer_mm": 1.0608,
+     "track_mm_of_first_within_0.5mm": 0.0
+    },
+    "/VLED": {
+     "any_layer_mm": 0.0,
+     "same_layer_mm": 0.8485,
+     "track_mm_of_first_within_0.5mm": 9.439
+    },
+    "/SWCLK": {
+     "any_layer_mm": 0.0,
+     "same_layer_mm": 0.45,
+     "track_mm_of_first_within_0.5mm": 3.279
+    },
+    "/SWDIO": {
+     "any_layer_mm": 0.0,
+     "same_layer_mm": 0.35,
+     "track_mm_of_first_within_0.5mm": 3.827
+    }
+   },
+   "/CV_BUF": {
+    "/BUCK_SW": {
+     "any_layer_mm": 3.4171,
+     "same_layer_mm": 3.4171,
+     "track_mm_of_first_within_0.5mm": 0.0
+    },
+    "/BUCK_BST": {
+     "any_layer_mm": 2.5933,
+     "same_layer_mm": 2.5933,
+     "track_mm_of_first_within_0.5mm": 0.0
+    },
+    "/DATA_L": {
+     "any_layer_mm": 0.0,
+     "same_layer_mm": 1.45,
+     "track_mm_of_first_within_0.5mm": 4.057
+    },
+    "/DATA_R": {
+     "any_layer_mm": 0.6,
+     "same_layer_mm": 2.3117,
+     "track_mm_of_first_within_0.5mm": 0.0
+    },
+    "/DATA_L_5V": {
+     "any_layer_mm": 23.7845,
+     "same_layer_mm": 23.7845,
+     "track_mm_of_first_within_0.5mm": 0.0
+    },
+    "/DATA_R_5V": {
+     "any_layer_mm": 23.753,
+     "same_layer_mm": 23.753,
+     "track_mm_of_first_within_0.5mm": 0.0
+    },
+    "/DATA_L_3V3": {
+     "any_layer_mm": 5.2771,
+     "same_layer_mm": 6.0078,
+     "track_mm_of_first_within_0.5mm": 0.0
+    },
+    "/DATA_R_3V3": {
+     "any_layer_mm": 5.9101,
+     "same_layer_mm": 5.9101,
+     "track_mm_of_first_within_0.5mm": 0.0
+    },
+    "/VLED": {
+     "any_layer_mm": 0.2071,
+     "same_layer_mm": 0.2071,
+     "track_mm_of_first_within_0.5mm": 1.407
+    },
+    "/SWCLK": {
+     "any_layer_mm": 3.825,
+     "same_layer_mm": 5.0753,
+     "track_mm_of_first_within_0.5mm": 0.0
+    },
+    "/SWDIO": {
+     "any_layer_mm": 3.225,
+     "same_layer_mm": 3.8364,
+     "track_mm_of_first_within_0.5mm": 0.0
+    }
+   },
+   "/CV_AFFINE": {
+    "/BUCK_SW": {
+     "any_layer_mm": 8.3395,
+     "same_layer_mm": 8.9616,
+     "track_mm_of_first_within_0.5mm": 0.0
+    },
+    "/BUCK_BST": {
+     "any_layer_mm": 9.804,
+     "same_layer_mm": 10.8568,
+     "track_mm_of_first_within_0.5mm": 0.0
+    },
+    "/DATA_L": {
+     "any_layer_mm": 0.1,
+     "same_layer_mm": 0.25,
+     "track_mm_of_first_within_0.5mm": 7.473
+    },
+    "/DATA_R": {
+     "any_layer_mm": 0.65,
+     "same_layer_mm": 0.65,
+     "track_mm_of_first_within_0.5mm": 0.0
+    },
+    "/DATA_L_5V": {
+     "any_layer_mm": 14.3836,
+     "same_layer_mm": 14.3836,
+     "track_mm_of_first_within_0.5mm": 0.0
+    },
+    "/DATA_R_5V": {
+     "any_layer_mm": 13.7111,
+     "same_layer_mm": 13.7111,
+     "track_mm_of_first_within_0.5mm": 0.0
+    },
+    "/DATA_L_3V3": {
+     "any_layer_mm": 2.2514,
+     "same_layer_mm": 2.2514,
+     "track_mm_of_first_within_0.5mm": 0.0
+    },
+    "/DATA_R_3V3": {
+     "any_layer_mm": 4.651,
+     "same_layer_mm": 4.651,
+     "track_mm_of_first_within_0.5mm": 0.0
+    },
+    "/VLED": {
+     "any_layer_mm": 0.0,
+     "same_layer_mm": 0.2026,
+     "track_mm_of_first_within_0.5mm": 1.84
+    },
+    "/SWCLK": {
+     "any_layer_mm": 0.0,
+     "same_layer_mm": 0.2504,
+     "track_mm_of_first_within_0.5mm": 1.42
+    },
+    "/SWDIO": {
+     "any_layer_mm": 0.0,
+     "same_layer_mm": 0.2026,
+     "track_mm_of_first_within_0.5mm": 2.283
+    }
+   },
+   "/CV_FILTER": {
+    "/BUCK_SW": {
+     "any_layer_mm": 11.925,
+     "same_layer_mm": 11.925,
+     "track_mm_of_first_within_0.5mm": 0.0
+    },
+    "/BUCK_BST": {
+     "any_layer_mm": 13.8303,
+     "same_layer_mm": 13.8303,
+     "track_mm_of_first_within_0.5mm": 0.0
+    },
+    "/DATA_L": {
+     "any_layer_mm": 1.2311,
+     "same_layer_mm": 1.2311,
+     "track_mm_of_first_within_0.5mm": 0.0
+    },
+    "/DATA_R": {
+     "any_layer_mm": 2.15,
+     "same_layer_mm": 2.15,
+     "track_mm_of_first_within_0.5mm": 0.0
+    },
+    "/DATA_L_5V": {
+     "any_layer_mm": 21.0442,
+     "same_layer_mm": 21.0442,
+     "track_mm_of_first_within_0.5mm": 0.0
+    },
+    "/DATA_R_5V": {
+     "any_layer_mm": 20.7766,
+     "same_layer_mm": 20.7766,
+     "track_mm_of_first_within_0.5mm": 0.0
+    },
+    "/DATA_L_3V3": {
+     "any_layer_mm": 3.9648,
+     "same_layer_mm": 3.9648,
+     "track_mm_of_first_within_0.5mm": 0.0
+    },
+    "/DATA_R_3V3": {
+     "any_layer_mm": 4.7182,
+     "same_layer_mm": 4.7182,
+     "track_mm_of_first_within_0.5mm": 0.0
+    },
+    "/VLED": {
+     "any_layer_mm": 1.5991,
+     "same_layer_mm": 2.1348,
+     "track_mm_of_first_within_0.5mm": 0.0
+    },
+    "/SWCLK": {
+     "any_layer_mm": 0.85,
+     "same_layer_mm": 1.2779,
+     "track_mm_of_first_within_0.5mm": 0.0
+    },
+    "/SWDIO": {
+     "any_layer_mm": 0.2026,
+     "same_layer_mm": 0.2026,
+     "track_mm_of_first_within_0.5mm": 0.033
+    }
+   },
+   "/CV_DRIVE": {
+    "/BUCK_SW": {
+     "any_layer_mm": 11.9971,
+     "same_layer_mm": 11.9971,
+     "track_mm_of_first_within_0.5mm": 0.0
+    },
+    "/BUCK_BST": {
+     "any_layer_mm": 14.4986,
+     "same_layer_mm": 14.4986,
+     "track_mm_of_first_within_0.5mm": 0.0
+    },
+    "/DATA_L": {
+     "any_layer_mm": 4.95,
+     "same_layer_mm": 5.6199,
+     "track_mm_of_first_within_0.5mm": 0.0
+    },
+    "/DATA_R": {
+     "any_layer_mm": 5.95,
+     "same_layer_mm": 6.45,
+     "track_mm_of_first_within_0.5mm": 0.0
+    },
+    "/DATA_L_5V": {
+     "any_layer_mm": 21.4953,
+     "same_layer_mm": 21.4953,
+     "track_mm_of_first_within_0.5mm": 0.0
+    },
+    "/DATA_R_5V": {
+     "any_layer_mm": 21.704,
+     "same_layer_mm": 21.7937,
+     "track_mm_of_first_within_0.5mm": 0.0
+    },
+    "/DATA_L_3V3": {
+     "any_layer_mm": 2.9,
+     "same_layer_mm": 2.9,
+     "track_mm_of_first_within_0.5mm": 0.0
+    },
+    "/DATA_R_3V3": {
+     "any_layer_mm": 3.2613,
+     "same_layer_mm": 3.2613,
+     "track_mm_of_first_within_0.5mm": 0.0
+    },
+    "/VLED": {
+     "any_layer_mm": 0.9,
+     "same_layer_mm": 3.1341,
+     "track_mm_of_first_within_0.5mm": 0.0
+    },
+    "/SWCLK": {
+     "any_layer_mm": 1.7,
+     "same_layer_mm": 2.45,
+     "track_mm_of_first_within_0.5mm": 0.0
+    },
+    "/SWDIO": {
+     "any_layer_mm": 1.1,
+     "same_layer_mm": 1.66,
+     "track_mm_of_first_within_0.5mm": 0.0
+    }
+   },
+   "/CV_ADC": {
+    "/BUCK_SW": {
+     "any_layer_mm": 13.5343,
+     "same_layer_mm": 18.4844,
+     "track_mm_of_first_within_0.5mm": 0.0
+    },
+    "/BUCK_BST": {
+     "any_layer_mm": 15.601,
+     "same_layer_mm": 20.625,
+     "track_mm_of_first_within_0.5mm": 0.0
+    },
+    "/DATA_L": {
+     "any_layer_mm": 3.3228,
+     "same_layer_mm": 4.3102,
+     "track_mm_of_first_within_0.5mm": 0.0
+    },
+    "/DATA_R": {
+     "any_layer_mm": 4.0,
+     "same_layer_mm": 5.45,
+     "track_mm_of_first_within_0.5mm": 0.0
+    },
+    "/DATA_L_5V": {
+     "any_layer_mm": 13.8087,
+     "same_layer_mm": 13.8087,
+     "track_mm_of_first_within_0.5mm": 0.0
+    },
+    "/DATA_R_5V": {
+     "any_layer_mm": 14.6053,
+     "same_layer_mm": 14.6053,
+     "track_mm_of_first_within_0.5mm": 0.0
+    },
+    "/DATA_L_3V3": {
+     "any_layer_mm": 0.0,
+     "same_layer_mm": 0.1885,
+     "track_mm_of_first_within_0.5mm": 3.74
+    },
+    "/DATA_R_3V3": {
+     "any_layer_mm": 0.0,
+     "same_layer_mm": 0.1885,
+     "track_mm_of_first_within_0.5mm": 2.514
+    },
+    "/VLED": {
+     "any_layer_mm": 2.245,
+     "same_layer_mm": 3.2,
+     "track_mm_of_first_within_0.5mm": 0.0
+    },
+    "/SWCLK": {
+     "any_layer_mm": 0.0,
+     "same_layer_mm": 2.05,
+     "track_mm_of_first_within_0.5mm": 1.334
+    },
+    "/SWDIO": {
+     "any_layer_mm": 0.0,
+     "same_layer_mm": 1.1533,
+     "track_mm_of_first_within_0.5mm": 1.654
+    }
+   }
+  },
+  "required": {
+   "/CV_FILTER / /VLED": 1.2,
+   "/CV_THRU / /DATA_L": 1.2,
+   "/CV_THRU / /DATA_R": 1.2,
+   "/CV_THRU / /DATA_L_3V3": 0.9,
+   "/CV_THRU / /DATA_R_3V3": 0.9,
+   "/CV_SENSE / /BUCK_SW": 2.5,
+   "/CV_SENSE / /DATA_L": 1.5,
+   "/CV_SENSE / /DATA_R": 1.5
+  },
+  "failures": [],
+  "CV_SENSE_capacitive_estimate": {
+   "/BUCK_SW": {
+    "gap_mm": 3.07,
+    "coupling_fF_estimate": 40.18,
+    "ripple_at_CV_SENSE_mV_estimate": 174.44,
+    "after_776Hz_filter_uV_at_CV_AFFINE_estimate": 30.765
+   },
+   "/DATA_L": {
+    "gap_mm": 3.3554,
+    "coupling_fF_estimate": 39.26,
+    "ripple_at_CV_SENSE_mV_estimate": 64.59,
+    "after_776Hz_filter_uV_at_CV_AFFINE_estimate": 15.664
+   },
+   "/DATA_R": {
+    "gap_mm": 3.35,
+    "coupling_fF_estimate": 39.28,
+    "ripple_at_CV_SENSE_mV_estimate": 64.62,
+    "after_776Hz_filter_uV_at_CV_AFFINE_estimate": 15.67
+   }
+  },
+  "note": "Plan-view copper gaps over all layers (no plane shields one layer from another). CV_SENSE is the only megohm node; CV_AFFINE is held by C13 (10 nF) and CV_ADC by 250 ohm. The capacitance figures are order-of-magnitude estimates with ASSUMED coupled length and node capacitance; bench CV-noise work stays in #10."
+ },
+ "status": {
+  "pass": true
+ },
+ "inputs": {
+  "geometry_sha256": "c71880b9ed793b4674b3183ded3960fbeff8da3c3b9eea95bcdf39affb756559",
+  "routes_sha256": "f852dad045d5dddff996095a361be29090b4bcb011e6a20321fc50cb02bae5b6",
+  "board_sha256": "710ed8019126944272a52fe0b162826c09088d70e363fce3cc184df93e7bab5e"
+ }
+}

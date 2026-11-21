@@ -1,0 +1,33 @@
+{
+  "board": "engineering/a7/electronics/controller/controller.kicad_pcb",
+  "board_sha256": "710ed8019126944272a52fe0b162826c09088d70e363fce3cc184df93e7bab5e",
+  "kicad_version": "10.0.8",
+  "image_digest": "sha256:3f4a01786dfbe803a65f345c3342b765db9add913f5e9448f8356793714ddc34",
+  "execution": "docker run --network none on the digest-pinned image, in a staging tree outside the repository; staging export only, NOT the formal Actions native gate",
+  "export_command": "kicad-cli pcb export gerbers -o OUTPUT/ -l F.Cu,In1.Cu,In2.Cu,B.Cu,F.Mask,B.Mask,F.Paste,B.Paste,F.SilkS,B.SilkS,Edge.Cuts engineering/a7/electronics/controller/controller.kicad_pcb",
+  "gerber_sha256": {
+    "controller-B_Cu.gbl": "ac7aca3e4b5a4f5e3a359d2e7f97b6d2cf551da7d2c48e5ef4a4ee7b2e2fcd8f",
+    "controller-B_Mask.gbs": "e1c94ac15a1f1b23017d25844e3a15dc326981c1ab63b23166693c9085405373",
+    "controller-B_Paste.gbp": "4da5b2b2d978a071ba02f1b8e8ba8e0e4ae9edf557fa5b5a40f4309569be210b",
+    "controller-B_Silkscreen.gbo": "3e61a711ee36dc0be778cb4923af970f01437f837890511ac23c1ef902caa52a",
+    "controller-Edge_Cuts.gm1": "b4cc49014967526afd7f2f36dee857b0fc1ed025cdaf4b42a0f1d521b7b0979c",
+    "controller-F_Cu.gtl": "4dac9f22f1f15e70134bc77f7ad43d72238bb22b82fc5aedf29e01df7445a5d8",
+    "controller-F_Mask.gts": "3d44699a1495fd840b51986656dc5aa9eec77da0fb4c24eed9d34d8d6d4fbd33",
+    "controller-F_Paste.gtp": "1b2cdfb11d1d05a9722a5d10ef0f019fd13ced3bd6095fa16e64f375e25268c9",
+    "controller-F_Silkscreen.gto": "8ccf636eed9461694d30ea1761ee71a348b105c81fb04cfd5f4cb80f2edf9c80",
+    "controller-In1_Cu.g1": "eebb877b1f2717093f5399819e539385c693da1aa21853fd8030d51fbcacc751",
+    "controller-In2_Cu.g2": "54173265553ab5f696bb423af19b475c29a34f0596c8e5f5b551f00a6df2a652"
+  },
+  "render_command": "python scripts/a7_gerber_review.py engineering/a7/verification/optical/controller/gerbers OUTPUT --bounds 0.0 -62.9 16.2 0.0",
+  "render_script_sha256": "7a3c73cd0c2e265571679cbe93d24c5d1410c0624499cf192226c32cf8d61e5f",
+  "tool_lock_sha256": "d619731f0e559afb5207293a46676781d4b04a3d1e4835ab665a12405b647875",
+  "inspection_command": "python scripts/a7_gerber_inspect.py --board engineering/a7/electronics/controller/controller.kicad_pcb --gerbers engineering/a7/verification/optical/controller/gerbers --out OUTPUT --web 0.1",
+  "inspection": "scripts/a7_gerber_inspect.py measured every via tent and paste flash on the plotted primitives; raster-inspection.json carries the per-layer result and binds the inspecting script. Not a fabricator DFM result and not an optical measurement.",
+  "purpose": "Review-only subset, not an ordering or manufacturing package",
+  "omitted": "controller-job.gbrjob deliberately omitted; the raw local export is not retained",
+  "review_artifact_sha256": {
+    "overview.png": "a38544e4e40be14dc783adc1f84281c6ed568877eaedcf69025e258c8ecb293b",
+    "review.json": "6fc371686c443d2b4d32f4513a44abf795ab681d1d48fa2bd108736d38a4ff22",
+    "raster-inspection.json": "d30e8975c2b7957048bffbd5f0a9acbe9fa4c14b1866f6fbac3e8a6300c1bb17"
+  }
+}

@@ -1,0 +1,336 @@
+{
+ "board_only": [],
+ "board_sha256": "710ed8019126944272a52fe0b162826c09088d70e363fce3cc184df93e7bab5e",
+ "footprint_count": 64,
+ "geometry_sha256": "8673e0dcaa3388002de38b2f06b6d8aa85236f398d5e14fd867b9a48eaf563e6",
+ "pad_nets": {
+  "C1": {
+   "1": "/+12V_PROT",
+   "2": "/GND"
+  },
+  "C10": {
+   "1": "/VLED",
+   "2": "/GND"
+  },
+  "C11": {
+   "1": "/+12V_PROT",
+   "2": "/GND"
+  },
+  "C12": {
+   "1": "/GND",
+   "2": "/-12V_PROT"
+  },
+  "C13": {
+   "1": "/CV_AFFINE",
+   "2": "/GND"
+  },
+  "C14": {
+   "1": "/NRST",
+   "2": "/GND"
+  },
+  "C15": {
+   "1": "/+5V",
+   "2": "/GND"
+  },
+  "C16": {
+   "1": "/VLED",
+   "2": "/GND"
+  },
+  "C17": {
+   "1": "/+3V3",
+   "2": "/GND"
+  },
+  "C2": {
+   "1": "/+5V",
+   "2": "/GND"
+  },
+  "C3": {
+   "1": "/+5V",
+   "2": "/GND"
+  },
+  "C4": {
+   "1": "/BUCK_BST",
+   "2": "/BUCK_SW"
+  },
+  "C5": {
+   "1": "/+5V",
+   "2": "/GND"
+  },
+  "C6": {
+   "1": "/+3V3",
+   "2": "/GND"
+  },
+  "C7": {
+   "1": "/+3V3",
+   "2": "/GND"
+  },
+  "C8": {
+   "1": "/+3V3",
+   "2": "/GND"
+  },
+  "C9": {
+   "1": "/+3V3",
+   "2": "/GND"
+  },
+  "D1": {
+   "1": "/+12V_PROT",
+   "2": "/+12V_RAW"
+  },
+  "D2": {
+   "1": "/-12V_RAW",
+   "2": "/-12V_PROT"
+  },
+  "D3": {
+   "1": "/GND",
+   "2": "/+3V3",
+   "3": "/CV_FILTER"
+  },
+  "J1": {
+   "1": "/GND",
+   "2": "/GND",
+   "3": "unconnected-(J1-RING_NORMAL-Pad3)",
+   "4": "/CV_THRU",
+   "5": "unconnected-(J1-TIP_NORMAL-Pad5)"
+  },
+  "J2": {
+   "1": "/GND",
+   "2": "/GND",
+   "3": "unconnected-(J2-RING_NORMAL-Pad3)",
+   "4": "/CV_THRU",
+   "5": "unconnected-(J2-TIP_NORMAL-Pad5)"
+  },
+  "J3": {
+   "1": "/GND",
+   "2": "/VLED",
+   "3": "/DATA_L",
+   "4": "/DATA_R",
+   "MP": ""
+  },
+  "J5": {
+   "1": "/+12V_RAW",
+   "2": "/GND",
+   "3": "/-12V_RAW"
+  },
+  "L1": {
+   "1": "/BUCK_SW",
+   "2": "/+5V"
+  },
+  "Q1": {
+   "1": "/LED_BASE",
+   "2": "/GND",
+   "3": "/LED_EN_N"
+  },
+  "R1": {
+   "1": "/CV_THRU",
+   "2": "/CV_SENSE"
+  },
+  "R10": {
+   "1": "/+3V3",
+   "2": "/MODE_B"
+  },
+  "R11": {
+   "1": "/LED_ILIM",
+   "2": "/GND"
+  },
+  "R12": {
+   "1": "/LED_BASE",
+   "2": "/GND"
+  },
+  "R13": {
+   "1": "/+3V3",
+   "2": "/LED_FAULT_N"
+  },
+  "R14": {
+   "1": "/DATA_L_5V",
+   "2": "/DATA_L"
+  },
+  "R15": {
+   "1": "/DATA_R_5V",
+   "2": "/DATA_R"
+  },
+  "R16": {
+   "1": "/DATA_L_3V3",
+   "2": "/GND"
+  },
+  "R17": {
+   "1": "/DATA_R_3V3",
+   "2": "/GND"
+  },
+  "R18": {
+   "1": "/DATA_L",
+   "2": "/GND"
+  },
+  "R19": {
+   "1": "/DATA_R",
+   "2": "/GND"
+  },
+  "R2": {
+   "1": "/CV_SENSE",
+   "2": "/GND"
+  },
+  "R20": {
+   "1": "/VLED",
+   "2": "/GND"
+  },
+  "R21": {
+   "1": "/+3V3",
+   "2": "/NRST"
+  },
+  "R22": {
+   "1": "/LED_ENABLE",
+   "2": "/LED_BASE"
+  },
+  "R23": {
+   "1": "/+5V",
+   "2": "/LED_EN_N"
+  },
+  "R24": {
+   "1": "/CV_DRIVE",
+   "2": "/CV_ADC"
+  },
+  "R25": {
+   "1": "/CV_ADC",
+   "2": "/GND"
+  },
+  "R3": {
+   "1": "/CV_BUF",
+   "2": "/CV_AFFINE"
+  },
+  "R4": {
+   "1": "/+3V3",
+   "2": "/CV_AFFINE"
+  },
+  "R5": {
+   "1": "/+3V3",
+   "2": "/CV_AFFINE"
+  },
+  "R6": {
+   "1": "/CV_AFFINE",
+   "2": "/GND"
+  },
+  "R7": {
+   "1": "/CV_AFFINE",
+   "2": "/CV_FILTER"
+  },
+  "R8": {
+   "1": "/+3V3",
+   "2": "/GND"
+  },
+  "R9": {
+   "1": "/+3V3",
+   "2": "/MODE_A"
+  },
+  "SW1": {
+   "1": "/MODE_A",
+   "2": "unconnected-(SW1-THROW_2-Pad2)",
+   "3": "/GND",
+   "4": "/MODE_B"
+  },
+  "TP1": {
+   "1": "/+3V3"
+  },
+  "TP2": {
+   "1": "/GND"
+  },
+  "TP3": {
+   "1": "/SWDIO"
+  },
+  "TP4": {
+   "1": "/SWCLK"
+  },
+  "TP5": {
+   "1": "/NRST"
+  },
+  "U1": {
+   "1": "unconnected-(U1-PC14-Pad1)",
+   "10": "/LED_FAULT_N",
+   "11": "/LED_ENABLE",
+   "12": "/DATA_L_3V3",
+   "13": "/DATA_R_3V3",
+   "14": "unconnected-(U1-PB0-Pad14)",
+   "15": "unconnected-(U1-PB1-Pad15)",
+   "16": "unconnected-(U1-PA8-Pad16)",
+   "17": "unconnected-(U1-PC6-Pad17)",
+   "18": "unconnected-(U1-PA11-Pad18)",
+   "19": "unconnected-(U1-PA12-Pad19)",
+   "2": "unconnected-(U1-PC15-Pad2)",
+   "20": "/SWDIO",
+   "21": "/SWCLK",
+   "22": "unconnected-(U1-PA15-Pad22)",
+   "23": "unconnected-(U1-PB3-Pad23)",
+   "24": "unconnected-(U1-PB4-Pad24)",
+   "25": "unconnected-(U1-PB5-Pad25)",
+   "26": "unconnected-(U1-PB6-Pad26)",
+   "27": "unconnected-(U1-PB7-Pad27)",
+   "28": "unconnected-(U1-PB8-Pad28)",
+   "3": "/+3V3",
+   "4": "/GND",
+   "5": "/NRST",
+   "6": "/CV_ADC",
+   "7": "unconnected-(U1-PA1-Pad7)",
+   "8": "/MODE_A",
+   "9": "/MODE_B"
+  },
+  "U2": {
+   "1": "/+5V",
+   "2": "/+12V_PROT",
+   "3": "/+12V_PROT",
+   "4": "/GND",
+   "5": "/BUCK_SW",
+   "6": "/BUCK_BST"
+  },
+  "U3": {
+   "1": "/+5V",
+   "2": "/GND",
+   "3": "/+5V",
+   "4": "unconnected-(U3-NC-Pad4)",
+   "5": "/+3V3"
+  },
+  "U4": {
+   "1": "/+5V",
+   "2": "/GND",
+   "3": "/LED_EN_N",
+   "4": "/LED_FAULT_N",
+   "5": "/LED_ILIM",
+   "6": "/VLED"
+  },
+  "U5": {
+   "1": "/+3V3",
+   "2": "/DATA_L_3V3",
+   "3": "/DATA_R_3V3",
+   "4": "/GND",
+   "5": "/+3V3",
+   "6": "/DATA_R_5V",
+   "7": "/DATA_L_5V",
+   "8": "/VLED"
+  },
+  "U6": {
+   "1": "/CV_BUF",
+   "2": "/-12V_PROT",
+   "3": "/CV_SENSE",
+   "4": "/CV_BUF",
+   "5": "/+12V_PROT"
+  },
+  "U7": {
+   "1": "/CV_DRIVE",
+   "2": "/GND",
+   "3": "/CV_FILTER",
+   "4": "/CV_DRIVE",
+   "5": "/+3V3"
+  }
+ },
+ "track_count": 2158,
+ "unconnected_pcbnew": 0,
+ "via_count": 115,
+ "zone_count": 1,
+ "zone_fill_sha256": "ce3428eca768a32dad37e82ab7985e87824b8ede583b9d0a20e9dd2d05fdaf05",
+ "zone_fill_summary": [
+  [
+   "buck-return-thermal",
+   "/GND",
+   "B.Cu",
+   8.552926,
+   91
+  ]
+ ]
+}
