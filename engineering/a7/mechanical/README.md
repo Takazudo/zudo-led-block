@@ -14,23 +14,26 @@ The fastener offset is 3.4 mm. The current cap nut-access channel uses Z28.2–2
 
 The final generated STEP/STL/GLB/verification and preview must be regenerated for the selected current inputs. Do not transfer old CAD PASS, fixture PASS or dated order approval to the new PCB identity. A5 is immutable and A6 remains held.
 
-## Open: four R2 assertions the staged FR-4 redesign fails closed (2026-11-21, #87)
+## Open: five R2 assertions the staged FR-4 redesign fails closed (2026-11-21, #87)
 
 The CAD exports were regenerated for the adopted 0.8 mm controller and the 1.70 mm FR-4 leaf stack, so
-`exports/*/verification.json` is current again (its `layout_sha256` and builder/front hashes match). Four
+`exports/*/verification.json` is current again (its `layout_sha256` and builder/front hashes match). Five
 assertions in `scripts/tests/test_a7_r2_mechanical.py::Exports::test_cad_verification_current_and_clean`
-now fail on the content of those current records. All four are measured consequences of the redesign, not
-test or tooling faults, and **none of them is resolved here**: each needs an owner or reviewer decision,
-or a geometry change, and three of them come from one deliberate choice in `480bd0c` — every retained A5
-part that A7 re-poses or re-dimensions (leaf PCBs, leaf caps, leaf-link wires) is now classified `a7`
-provenance, while the R2 assertions were written when those parts were classified `a5` and therefore exempt.
+now fail on the content of those current records. `unittest` reports the method once and stops at the first
+of them, so the table below is the enumerated result of evaluating each assertion separately against both
+variants — not five separate test failures. All five are consequences of the redesign, not test or tooling
+faults, and **none of them is resolved here**: each needs an owner or reviewer decision, or a geometry
+change, and four of them come from one deliberate choice in `480bd0c` — every retained A5 part that A7
+re-poses or re-dimensions (leaf PCBs, leaf caps, leaf-link wires) is now classified `a7` provenance, while
+the R2 assertions were written when those parts were classified `a5` and therefore exempt.
 
 | Finding | Measured now | Why it fails | Resolution needed |
 |---|---|---|---|
 | 2HP leaf PCB against the retained M1.6 leaf-fastener nuts | 4 overlaps: 0.019 / 0.004 mm³ per side | the 0.8 mm leaf stack sits where the nuts are; 3HP is clean | 2HP is recorded UNRESOLVED with negative worst-corner margins and the width is not being reopened, so either the nut/fastener detail changes or the assertion must stop requiring both widths to be clean |
 | Optical corridor: the two leaf support caps | 2 obstructions per side per width, 31.5 and 10.8 mm² of a 742.5 mm² corridor (4.2 % / 1.5 %), each ≥ 1.475 mm from the nearest emitter | the caps stand in the corridor as they did in A5, but count as A7 supports since `480bd0c`; the invariant demands zero | decide whether a re-posed A5-topology support in the corridor is held to the harness rule (≥ 1.0 mm from an emitter plus a recorded shading bound) or must be redesigned out of the corridor |
-| Ray-sampled shading estimate | max `blocked_by_a7_harness` 0.299 against the R2 guard 0.05 (0.019 before) | same re-classification: the caps' shading is now counted as A7 | the guard's own comment calls it a regression guard on an estimate, so it needs a value that matches what A7 is now responsible for — not a silent raise |
-| A5 leaf-link wire scenario overlaps | centreline clearances −0.15 … −0.78 mm, no longer carrying the "carried-over scenario" note | the wires are re-posed by the new leaf faces, so `carried` is false and the overlaps are reported as current findings | decide whether a re-posed A5 wire scenario is still "carried over" (note restored, geometry re-recorded) or a finding A7 owns |
+| Harness-to-emitter distance in the corridor | `leaf_link_pin_4_A5` 0.165 mm from the nearest emitter on the right side of both widths, against the ≥ 1.0 mm rule (left side is clear at 2.306 mm) | the A5 leaf-link bundle is re-posed by the new leaf faces and now counts as A7 harness, and pin 4 runs closest to the right D2 emitter | either re-route the leaf-link bundle away from the right emitter row or record an owner decision that a re-posed A5 wire keeps the A5 exemption; the 0.165 mm figure must stay visible either way |
+| Ray-sampled shading estimate | max `blocked_by_a7_harness` 0.299 at `right_D2` against the R2 guard 0.05 (0.019 before) | same re-classification, and the 0.165 mm pin-4 pose drives it: the caps' and the leaf-link bundle's shading is now counted as A7 | the guard's own comment calls it a regression guard on an estimate, so it needs a value that matches what A7 is now responsible for — not a silent raise |
+| A5 leaf-link wire scenario overlaps | 8 findings in 3HP, 9 in 2HP, all below the 0.05 mm floor and no longer carrying the "carried-over scenario" note. Two kinds: wire against diffuser (−0.196 / −0.200, plus 2HP-only `controller_to_left_leaf_sh4` −0.150) and the four leaf-link wires against each other (−0.436 … −0.784) | the wires are re-posed by the new leaf faces, so `carried` is false and the overlaps are reported as current findings | the wire-to-wire set is the bundle modelled on near-coincident centrelines, so it needs a bundle model (or a stated exemption) rather than a geometry change; the diffuser overlaps are a real fit question for the owner. Do not settle both with one note |
 
 Nothing above is a fit, optical or manufacturing approval, and `manufacturing_release` stays false in every
 record. The 2HP overlaps and the corridor numbers must stay visible whichever way the assertions are settled.
@@ -50,7 +53,7 @@ unsourced. Tracked in [#17](https://github.com/Takazudo/zudo-led-block/issues/17
 | `design-inputs.json` | R2's own choices (each with a confidence label). Jack, nut, panel, PCB and tolerance inputs come only from `../study/parameters.json` (R1); switch and jack facts from the R1 owner bundles `.claude/skills/component-a7-{pcm13smtr,pj-324m}/facts.json`. |
 | `layout.json`, `layout.md` | Generated by `scripts/a7_mechanical_layout.py` (pure Python): width decision, candidate sweep and selection, break-even values, Z/Y stack, per-width X placement, controller outline and keep-outs, load path, cable routes, unresolved inputs. |
 | `placement-envelopes.json` | Generated with the layout for R4 routing (#19): controller outline, keep-outs, jack bodies and pin positions, switch body/actuator/pegs and header housings, each in the assembly frame and in a KiCad board frame seen from the component face. No hole or pad sizes. |
-| `inputs/r4-board-placement-routed.json`, `r4-placement-check.json` | R4's **routed-board revision 2** export (PR #37 head eb5d833, merged at edf98c2, `authority.py export-placement`, board SHA-256 4453f818…, copied unchanged and byte-identical to main's export. Revision 1 was PR #30, merged at eb8adeb with board ec810aec and checked in #33) and the generated comparison with the envelopes: outline, fixed parts (J1/J2 axis and all five pin pads, J3, J5, SW1) by position, every other part's origin and pad centres against foreign keep-outs, solder-face parts. Courtyards, pad extents, heights and copper are R4's DRC, not checked here. The export is a 1.6 mm board, i.e. the 3HP working candidate; 2HP would need the 0.8 mm board. |
+| `inputs/r4-board-placement-routed.json`, `r4-placement-check.json` | R4's **routed-board revision 2** export (PR #37 head eb5d833, merged at edf98c2, `authority.py export-placement`, board SHA-256 4453f818…, copied unchanged and byte-identical to main's export. Revision 1 was PR #30, merged at eb8adeb with board ec810aec and checked in #33) and the generated comparison with the envelopes: outline, fixed parts (J1/J2 axis and all five pin pads, J3, J5, SW1) by position, every other part's origin and pad centres against foreign keep-outs, solder-face parts. Courtyards, pad extents, heights and copper are R4's DRC, not checked here. Rebound in #87 to the adopted routed 0.8 mm controller (board SHA-256 710ed801…, `thickness_mm` 0.8); the retained snapshot is byte-identical to the canonical export. Geometry still needs an independent fresh native gate comparison. |
 | `build_a7_mechanical.py` | CadQuery 2.7.0 assembly from `layout.json`. |
 | `exports/<width>/zudo_led_block_A7_<width>_assembled.step` / `.glb` | Inspectable assembly (STEP for CAD, GLB for a browser viewer). |
 | `exports/<width>/view_A7_<width>_{front,transverse,side}.png` | Dimensioned views generated from the solids. |
