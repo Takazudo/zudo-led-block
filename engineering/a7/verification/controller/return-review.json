@@ -74,33 +74,33 @@
    "layer_changes": 6
   },
   "J3.1 -> J5.2@F.Cu": {
-   "ohm": 0.03995875725234965,
-   "mm": 24.555685271170805,
+   "ohm": 0.04043966002304899,
+   "mm": 24.84857848998427,
    "layer_changes": 12
   },
   "U1.4 -> J5.2@B.Cu": {
-   "ohm": 0.0071530278520996905,
-   "mm": 7.658312549695417,
+   "ohm": 0.007036927652979152,
+   "mm": 7.516891193458108,
    "layer_changes": 3
   },
   "R25.2 -> U1.4": {
-   "ohm": 0.03495257584294718,
-   "mm": 12.222526112068508,
+   "ohm": 0.0365565917518493,
+   "mm": 12.646790180780435,
    "layer_changes": 3
   },
   "R6.2 -> U1.4": {
-   "ohm": 0.06761056822118904,
-   "mm": 24.267968670764652,
+   "ohm": 0.06921458413009111,
+   "mm": 24.69223273947658,
    "layer_changes": 7
   },
   "U7.2 -> U1.4": {
-   "ohm": 0.02940491932061938,
-   "mm": 8.880619330881965,
+   "ohm": 0.0310089352295215,
+   "mm": 9.304883399593894,
    "layer_changes": 4
   },
   "R2.2 -> U1.4": {
-   "ohm": 0.09901965573509108,
-   "mm": 31.972522061358013,
+   "ohm": 0.10062367164399316,
+   "mm": 32.39678613006991,
    "layer_changes": 5
   },
   "C8.2 -> U1.4": {
@@ -117,55 +117,53 @@
  "filled_star_audit": {
   "scope": "actual native filled polygons + conservative track half-width; J5.2 removed as the star",
   "branch_terminals": {
-   "signal:C14.2": [
-    "C14.2",
-    "C7.2",
-    "D3.1",
-    "TP2.1"
-   ],
    "signal:C13.2": [
     "C13.2",
+    "C14.2",
     "C17.2",
     "C5.2",
     "C6.2",
+    "C7.2",
     "C8.2",
-    "R2.2",
-    "R25.2",
-    "R6.2",
-    "R8.2",
-    "U1.4",
-    "U3.2",
-    "U7.2"
-   ],
-   "power:C1.2": [
-    "C1.2",
-    "C10.2",
-    "C11.2",
-    "C12.1",
-    "C15.2",
-    "C16.2",
-    "C2.2",
-    "C3.2",
-    "C9.2",
-    "J3.1",
-    "R11.2",
-    "R16.2",
-    "R17.2",
-    "R18.2",
-    "R19.2",
-    "R20.2",
-    "U2.4",
-    "U4.2",
-    "U5.4"
-   ],
-   "signal:J1.1": [
+    "D3.1",
     "J1.1",
     "J1.2",
     "J2.1",
     "J2.2",
     "Q1.2",
     "R12.2",
-    "SW1.3"
+    "R2.2",
+    "R25.2",
+    "R6.2",
+    "R8.2",
+    "SW1.3",
+    "TP2.1",
+    "U1.4",
+    "U3.2",
+    "U7.2"
+   ],
+   "power:C1.2": [
+    "C1.2",
+    "C11.2",
+    "C12.1",
+    "C15.2",
+    "C16.2",
+    "C2.2",
+    "J3.1",
+    "R11.2",
+    "R20.2",
+    "U2.4",
+    "U4.2"
+   ],
+   "power:C10.2": [
+    "C10.2",
+    "C3.2",
+    "C9.2",
+    "R16.2",
+    "R17.2",
+    "R18.2",
+    "R19.2",
+    "U5.4"
    ]
   },
   "star_pad_faces": {
@@ -232,8 +230,8 @@
         "R6.2": 0.0,
         "R2.2": 0.0,
         "C13.2": 0.0,
-        "J3.1": 0.01776403385540441,
-        "U2.4": 0.012354582976884125,
+        "J3.1": 0.017975359325009797,
+        "U2.4": 0.012565908446489903,
         "J1.1": 0.0
        }
       },
@@ -247,8 +245,8 @@
         "R6.2": 0.0,
         "R2.2": 0.0,
         "C13.2": 0.0,
-        "J3.1": 0.017559273216402747,
-        "U2.4": 0.012149822337882414,
+        "J3.1": 0.01777059868600737,
+        "U2.4": 0.012361147807487413,
         "J1.1": 0.0
        }
       }
@@ -270,8 +268,8 @@
         "R6.2": 0.0,
         "R2.2": 0.0,
         "C13.2": 0.0,
-        "J3.1": 0.0114656190044434,
-        "U2.4": 0.001882394345521411,
+        "J3.1": 0.011569209920917355,
+        "U2.4": 0.00198598526199525,
         "J1.1": 0.0
        }
       },
@@ -285,8 +283,8 @@
         "R6.2": 0.0,
         "R2.2": 0.0,
         "C13.2": 0.0,
-        "J3.1": 0.011365246142187722,
-        "U2.4": 0.0017820214832657403,
+        "J3.1": 0.011468837058661696,
+        "U2.4": 0.0018856123997395035,
         "J1.1": 0.0
        }
       }
@@ -294,44 +292,44 @@
     },
     "logic_analog": {
      "worst": {
-      "screen_V": 8.029763056194151e-05,
-      "weighted_V": 2.970022581702956e-05
+      "screen_V": 0.00012286997784925004,
+      "weighted_V": 4.134756978890355e-05
      },
      "cases": {
       "pin_bonded_at_B.Cu": {
-       "screen_V": 8.029763056194151e-05,
-       "weighted_V": 2.970022581702956e-05,
+       "screen_V": 0.00012286997784925004,
+       "weighted_V": 4.134756978890355e-05,
        "node_V": {
-        "U1.4": 0.00012824873699369914,
-        "U7.2": 0.0001641790781959964,
-        "R25.2": 0.0001726160263533434,
-        "R6.2": 0.0001674693799221874,
-        "R2.2": 0.00037693694691415546,
-        "C13.2": 0.00016746937992219131,
+        "U1.4": 0.00012437501648317537,
+        "U7.2": 0.0001815915313291253,
+        "R25.2": 0.00019002847948647547,
+        "R6.2": 0.00018488183305531488,
+        "R2.2": 0.0003943494000472931,
+        "C13.2": 0.00018488183305531903,
         "J3.1": 0.0,
         "U2.4": 0.0,
-        "J1.1": 0.0
+        "J1.1": 7.059465430087315e-06
        }
       },
       "pin_bonded_at_F.Cu": {
-       "screen_V": 8.029763056193972e-05,
-       "weighted_V": 2.8557213811257474e-05,
+       "screen_V": 0.00012286997784924676,
+       "weighted_V": 4.020455778312784e-05,
        "node_V": {
-        "U1.4": 0.0001404103847351152,
-        "U7.2": 0.00017634072593741045,
-        "R25.2": 0.00018477767409475968,
-        "R6.2": 0.0001796310276636087,
-        "R2.2": 0.00038909859465556155,
-        "C13.2": 0.00017963102766361275,
+        "U1.4": 0.00013653666422459325,
+        "U7.2": 0.0001937531790705443,
+        "R25.2": 0.00020219012722788896,
+        "R6.2": 0.00019704348079672642,
+        "R2.2": 0.0004065110477886997,
+        "C13.2": 0.00019704348079672848,
         "J3.1": 0.0,
         "U2.4": 0.0,
-        "J1.1": 1.2161647741421062e-05
+        "J1.1": 1.9221113171505554e-05
        }
       }
      }
     },
     "supply_3V3_reference": {
-     "ADC_V": 6.172574292563365e-06,
+     "ADC_V": 6.1725742925364636e-06,
      "loads_A": {
       "U1.3": -0.02,
       "U7.5": -0.001,
@@ -339,12 +337,12 @@
       "U5.1": -0.001
      },
      "drop_below_U3.5_V": {
-      "U1.3": 0.0024352016568177787,
-      "R4.1": 0.002418782609199559,
-      "R5.1": 0.0024187826091995614,
-      "C8.1": 0.0024187826091987266
+      "U1.3": 0.0020223891487801374,
+      "R4.1": 0.0020059701011619913,
+      "R5.1": 0.002005970101161989,
+      "C8.1": 0.0020059701011610823
      },
-     "CV_error_V": 6.567619047287421e-05
+     "CV_error_V": 6.567619047258798e-05
     },
     "star_pin_barrel_ohm": 0.0004659635149970328,
     "star_pin_shared_bound_V": 1.9244420958817328e-05,
@@ -353,8 +351,8 @@
      "LSB": 0.023880576917077866
     },
     "combined": {
-     "bound_V": 0.00010571462581332221,
-     "LSB": 0.13118224021380437
+     "bound_V": 0.00014828697310060384,
+     "LSB": 0.18401065298393113
     }
    },
    "hot_85C": {
@@ -372,12 +370,12 @@
     },
     "logic_analog": {
      "worst": {
-      "screen_V": 0.00010080966028926133,
-      "weighted_V": 3.72871485020852e-05
+      "screen_V": 0.0001542571136911345,
+      "weighted_V": 5.1909806491589786e-05
      }
     },
     "supply_3V3_reference": {
-     "ADC_V": 7.749358395478866e-06
+     "ADC_V": 7.749358395476746e-06
     },
     "star_pin_barrel_ohm": 0.0005849938949030249,
     "star_pin_shared_bound_V": 2.4160408292747213e-05,
@@ -386,8 +384,8 @@
      "LSB": 0.029980870290545403
     },
     "combined": {
-     "bound_V": 0.00013271942697748738,
-     "LSB": 0.16469274347660934
+     "bound_V": 0.00018616688037935848,
+     "LSB": 0.2310161742889312
     }
    },
    "thin_copper_20C": {
@@ -405,12 +403,12 @@
     },
     "logic_analog": {
      "worst": {
-      "screen_V": 0.00013656881063381083,
-      "weighted_V": 5.0087817735591206e-05
+      "screen_V": 0.00020320669458420086,
+      "weighted_V": 6.834111806701272e-05
      }
     },
     "supply_3V3_reference": {
-     "ADC_V": 9.64464733179277e-06
+     "ADC_V": 9.644647331999176e-06
     },
     "star_pin_barrel_ohm": 0.000582454393746291,
     "star_pin_shared_bound_V": 2.405552619852166e-05,
@@ -419,8 +417,8 @@
      "LSB": 0.029850721146347334
     },
     "combined": {
-     "bound_V": 0.00017026898416412528,
-     "LSB": 0.2112883303491191
+     "bound_V": 0.0002369068681147217,
+     "LSB": 0.2939798863423592
     }
    },
    "hot_85C_thin_copper": {
@@ -440,8 +438,8 @@
         "R6.2": 0.0,
         "R2.2": 0.0,
         "C13.2": 0.0,
-        "J3.1": 0.0339629835413581,
-        "U2.4": 0.02375325172697752,
+        "J3.1": 0.034377528167635465,
+        "U2.4": 0.024167796353254417,
         "J1.1": 0.0
        }
       },
@@ -455,8 +453,8 @@
         "R6.2": 0.0,
         "R2.2": 0.0,
         "C13.2": 0.0,
-        "J3.1": 0.033641650111063716,
-        "U2.4": 0.0234319182966831,
+        "J3.1": 0.034056194737341165,
+        "U2.4": 0.02384646292296029,
         "J1.1": 0.0
        }
       }
@@ -478,8 +476,8 @@
         "R6.2": 0.0,
         "R2.2": 0.0,
         "C13.2": 0.0,
-        "J3.1": 0.021853482660939075,
-        "U2.4": 0.0034563066393606735,
+        "J3.1": 0.022056690811074437,
+        "U2.4": 0.0036595147894961863,
         "J1.1": 0.0
        }
       },
@@ -493,8 +491,8 @@
         "R6.2": 0.0,
         "R2.2": 0.0,
         "C13.2": 0.0,
-        "J3.1": 0.021695966273539598,
-        "U2.4": 0.003298790251961213,
+        "J3.1": 0.02189917442367527,
+        "U2.4": 0.003501998402097038,
         "J1.1": 0.0
        }
       }
@@ -502,44 +500,44 @@
     },
     "logic_analog": {
      "worst": {
-      "screen_V": 0.00017145531331035606,
-      "weighted_V": 6.288275077622428e-05
+      "screen_V": 0.00025511584471586744,
+      "weighted_V": 8.579885667732196e-05
      },
      "cases": {
       "pin_bonded_at_B.Cu": {
-       "screen_V": 0.00017145531331033605,
-       "weighted_V": 6.288275077622428e-05,
+       "screen_V": 0.00025511584471586744,
+       "weighted_V": 8.579885667732196e-05,
        "node_V": {
-        "U1.4": 0.00024283058672582307,
-        "U7.2": 0.00031965045272791873,
-        "R25.2": 0.00033746603403406346,
-        "R6.2": 0.0003273701633123561,
-        "R2.2": 0.0007358169076438518,
-        "C13.2": 0.0003273701633123451,
+        "U1.4": 0.00023492591850179215,
+        "U7.2": 0.0003535760502066481,
+        "R25.2": 0.00037139163151280363,
+        "R6.2": 0.0003612957607910951,
+        "R2.2": 0.0007697425051226138,
+        "C13.2": 0.0003612957607911065,
         "J3.1": 0.0,
         "U2.4": 0.0,
-        "J1.1": 0.0
+        "J1.1": 1.3848134178443964e-05
        }
       },
       "pin_bonded_at_F.Cu": {
-       "screen_V": 0.00017145531331035606,
-       "weighted_V": 6.10890077479257e-05,
+       "screen_V": 0.00025511584471586376,
+       "weighted_V": 8.400511364901276e-05,
        "node_V": {
-        "U1.4": 0.00026191601254703405,
-        "U7.2": 0.0003387358785491396,
-        "R25.2": 0.0003565514598552846,
-        "R6.2": 0.000346455589133587,
-        "R2.2": 0.0007549023334651102,
-        "C13.2": 0.0003464555891335742,
+        "U1.4": 0.00025401134432300544,
+        "U7.2": 0.0003726614760278649,
+        "R25.2": 0.00039047705733400974,
+        "R6.2": 0.00038038118661231447,
+        "R2.2": 0.0007888279309438372,
+        "C13.2": 0.00038038118661230406,
         "J3.1": 0.0,
         "U2.4": 0.0,
-        "J1.1": 1.9085425821209983e-05
+        "J1.1": 3.2933559999651656e-05
        }
       }
      }
     },
     "supply_3V3_reference": {
-     "ADC_V": 1.2108372493037024e-05,
+     "ADC_V": 1.2108372493182292e-05,
      "loads_A": {
       "U1.3": -0.02,
       "U7.5": -0.001,
@@ -547,12 +545,12 @@
       "U5.1": -0.001
      },
      "drop_below_U3.5_V": {
-      "U1.3": 0.004757030248319365,
-      "R4.1": 0.004724821977487893,
-      "R5.1": 0.00472482197748788,
-      "C8.1": 0.0047248219774860215
+      "U1.3": 0.003931172530527322,
+      "R4.1": 0.0038989642596954557,
+      "R5.1": 0.0038989642596954583,
+      "C8.1": 0.003898964259693991
      },
-     "CV_error_V": 0.00012883308332591395
+     "CV_error_V": 0.0001288330833274596
     },
     "star_pin_barrel_ohm": 0.000731242368628781,
     "star_pin_shared_bound_V": 3.020051036593402e-05,
@@ -561,8 +559,8 @@
      "LSB": 0.03747608786318176
     },
     "combined": {
-     "bound_V": 0.0002137641961693271,
-     "LSB": 0.26526193433739226
+     "bound_V": 0.00029742472757498373,
+     "LSB": 0.3690770483089571
     }
    }
   }
@@ -596,11 +594,206 @@
  "combined_DC_budget": {
   "allocation_LSB": 1.0,
   "corner": "hot_85C_thin_copper",
-  "bound_V": 0.0002137641961693271,
-  "bound_LSB": 0.26526193433739226,
-  "nominal_bound_LSB": 0.13118224021380437,
-  "resistance_scale_margin": 7.622983098704314,
+  "bound_V": 0.00029742472757498373,
+  "bound_LSB": 0.3690770483089571,
+  "nominal_bound_LSB": 0.18401065298393113,
+  "resistance_scale_margin": 5.434467971195808,
   "pass": true
+ },
+ "patched_ground_loop": {
+  "scenario": "led_physical_dc with a fraction of the 0.215 A J5.2 current leaving through J1.1 instead; CV source referenced to that sleeve (weight 1.0); the whole J5.2 barrel bound is kept on top",
+  "loop_model": {
+   "sleeve": "J1.1",
+   "thru_sleeve": "J2.1",
+   "power_return_ohm": {
+    "power cable ground conductor": {
+     "min": 0.011,
+     "max": 0.013,
+     "basis": "ASSUMED 28 AWG, 0.213 ohm/m, 50-60 mm (A7 length is 57 mm with an assumed tolerance; the finished cable is not selected)"
+    },
+    "two 1.25 mm header contacts": {
+     "min": 0.01,
+     "max": 0.04,
+     "basis": "ASSUMED 5-20 mohm each; no contact resistance is retained for Molex 530470310 or the cable housing"
+    },
+    "adapter copper, 2x5 header and rack bus cable": {
+     "min": 0.005,
+     "max": 0.03,
+     "basis": "ASSUMED"
+    }
+   },
+   "sleeve_return_ohm": {
+    "CV IN sleeve contact": {
+     "min": 0.005,
+     "max": 0.05,
+     "basis": "maximum is fact-a7-pj-324m-contact-resistance (50 mohm initial, grade unidentified); minimum ASSUMED"
+    },
+    "patch cable shield": {
+     "min": 0.03,
+     "max": 0.2,
+     "basis": "ASSUMED"
+    },
+    "far-end jack sleeve contact": {
+     "min": 0.005,
+     "max": 0.05,
+     "basis": "ASSUMED"
+    },
+    "source module return to the rack ground": {
+     "min": 0.02,
+     "max": 0.08,
+     "basis": "ASSUMED"
+    }
+   },
+   "fractions": [
+    0.0,
+    0.1,
+    0.2,
+    0.3,
+    0.4,
+    0.5,
+    0.75,
+    1.0
+   ]
+  },
+  "J5.2_current_A": 0.21540927352741665,
+  "allocation_LSB": 0.5,
+  "corner": "hot_85C_thin_copper",
+  "corners": {
+   "nominal_20C": {
+    "sleeve_to_star_ohm": 0.00963071243443401,
+    "thru_sleeve_to_star_ohm": 0.1044030176302973,
+    "thru_to_cv_in_sleeve_transfer_ohm": 0.00884503629490013,
+    "LSB_by_fraction": {
+     "0": 0.023880576917077866,
+     "0.1": 0.045494835822844075,
+     "0.2": 0.06710909472861468,
+     "0.3": 0.08872335363438483,
+     "0.4": 0.11033761254015804,
+     "0.5": 0.1319518714459268,
+     "0.75": 0.18598751871035035,
+     "1": 0.24002316597476986
+    },
+    "LSB_per_unit_fraction": 0.216142589057692,
+    "LSB_per_A_of_sleeve_current": 1.0034042895102286,
+    "fraction_at_allocation": 2.2028024423999018,
+    "fraction_bounds_ASSUMED": {
+     "power_return_ohm": {
+      "min": 0.026,
+      "max": 0.083
+     },
+     "sleeve_return_ohm_with_spur": {
+      "min": 0.069630712434434,
+      "max": 0.38963071243443403
+     },
+     "min": 0.06255553120151464,
+     "max": 0.5437961906628362
+    },
+    "LSB_at_fraction_bound": 0.1414180934866562,
+    "external_share_LSB_at_fraction_bound_not_in_allocation": 0.5464606402785485
+   },
+   "hot_85C": {
+    "sleeve_to_star_ohm": 0.012090877925810175,
+    "thru_sleeve_to_star_ohm": 0.13107276848395719,
+    "thru_to_cv_in_sleeve_transfer_ohm": 0.01110450081641183,
+    "LSB_by_fraction": {
+     "0": 0.029980870290545403,
+     "0.1": 0.057116491633792205,
+     "0.2": 0.08425211297704284,
+     "0.3": 0.11138773432029196,
+     "0.4": 0.1385233556635386,
+     "0.5": 0.1656589770067895,
+     "0.75": 0.23349803036490405,
+     "1": 0.3013370837230393
+    },
+    "LSB_per_unit_fraction": 0.2713562134324939,
+    "LSB_per_A_of_sleeve_current": 1.2597239152656836,
+    "fraction_at_allocation": 1.7321111750639264,
+    "fraction_bounds_ASSUMED": {
+     "power_return_ohm": {
+      "min": 0.026,
+      "max": 0.083
+     },
+     "sleeve_return_ohm_with_spur": {
+      "min": 0.07209087792581018,
+      "max": 0.39209087792581016
+     },
+     "min": 0.0621874366859869,
+     "max": 0.5351700958176546
+    },
+    "LSB_at_fraction_bound": 0.17520260103393065,
+    "external_share_LSB_at_fraction_bound_not_in_allocation": 0.5377922799752964
+   },
+   "thin_copper_20C": {
+    "sleeve_to_star_ohm": 0.014846766979530175,
+    "thru_sleeve_to_star_ohm": 0.16307410744650172,
+    "thru_to_cv_in_sleeve_transfer_ohm": 0.013773820948191897,
+    "LSB_by_fraction": {
+     "0": 0.029850721146347334,
+     "0.1": 0.0634833005301978,
+     "0.2": 0.09711587991404635,
+     "0.3": 0.13074845929789633,
+     "0.4": 0.16438103868174597,
+     "0.5": 0.19801361806558224,
+     "0.75": 0.28209506652521343,
+     "1": 0.3661765149848409
+    },
+    "LSB_per_unit_fraction": 0.33632579383849354,
+    "LSB_per_A_of_sleeve_current": 1.5613338661377871,
+    "fraction_at_allocation": 1.3978983695773934,
+    "fraction_bounds_ASSUMED": {
+     "power_return_ohm": {
+      "min": 0.026,
+      "max": 0.083
+     },
+     "sleeve_return_ohm_with_spur": {
+      "min": 0.07484676697953017,
+      "max": 0.3948467669795302
+     },
+     "min": 0.06178020609877853,
+     "max": 0.5258264175329203
+    },
+    "LSB_at_fraction_bound": 0.20669970844435426,
+    "external_share_LSB_at_fraction_bound_not_in_allocation": 0.5284028202738428
+   },
+   "hot_85C_thin_copper": {
+    "sleeve_to_star_ohm": 0.0186393736044511,
+    "thru_sleeve_to_star_ohm": 0.20473138819371117,
+    "thru_to_cv_in_sleeve_transfer_ohm": 0.01729234350940885,
+    "LSB_by_fraction": {
+     "0": 0.03747608786318176,
+     "0.1": 0.07970010965063891,
+     "0.2": 0.12192413143809581,
+     "0.3": 0.1641481532255476,
+     "0.4": 0.20637217501300187,
+     "0.5": 0.2485961968004708,
+     "0.75": 0.3541562512691028,
+     "1": 0.4597163057377481
+    },
+    "LSB_per_unit_fraction": 0.42224021787456634,
+    "LSB_per_A_of_sleeve_current": 1.9601766022428224,
+    "fraction_at_allocation": 1.095404683298593,
+    "fraction_bounds_ASSUMED": {
+     "power_return_ohm": {
+      "min": 0.026,
+      "max": 0.083
+     },
+     "sleeve_return_ohm_with_spur": {
+      "min": 0.0786393736044511,
+      "max": 0.3986393736044511
+     },
+     "min": 0.06122842490865869,
+     "max": 0.5134887506005184
+    },
+    "LSB_at_fraction_bound": 0.25429168979289035,
+    "external_share_LSB_at_fraction_bound_not_in_allocation": 0.5160047022156676
+   }
+  },
+  "bound_LSB": 0.25429168979289035,
+  "nominal_bound_LSB": 0.1414180934866562,
+  "fraction_bound_ASSUMED": 0.5134887506005184,
+  "fraction_at_allocation": 1.095404683298593,
+  "pass": true,
+  "note": "Board copper only. The fraction is set by cable and contact resistances outside the board, all ASSUMED except the PJ-324M contact maximum; the pass is conditional on that range and NEEDS BENCH (#10). The patch-cable shield and contact drop of the same current is a larger, layout-independent CV error (external_share, sleeve contact + shield + far contact at their minima) and is outside the allocation. A current entering the THRU sleeve from a downstream module shifts the CV IN sleeve by the transfer resistance."
  },
  "power_paths": {
   "+12V_RAW J5.1 -> D1.2": {
@@ -661,10 +854,10 @@
   },
   "+3V3 U3.5 -> U1.3": {
    "net": "/+3V3",
-   "ohm": 0.1130535259253134,
-   "ohm_hot_85C_thin_copper": 0.22085633629379942,
-   "mm": 36.042,
-   "layer_changes": 6
+   "ohm": 0.09339578744724471,
+   "ohm_hot_85C_thin_copper": 0.18152977830391934,
+   "mm": 29.599,
+   "layer_changes": 10
   },
   "GND J3.1 -> C2.2": {
    "net": "/GND",
@@ -682,16 +875,16 @@
   },
   "GND C1.2 -> J5.2": {
    "net": "/GND",
-   "ohm": 0.0452122888723883,
-   "ohm_hot_85C_thin_copper": 0.08777620964052638,
-   "mm": 27.646,
+   "ohm": 0.04569319164308767,
+   "ohm_hot_85C_thin_copper": 0.08871956805220552,
+   "mm": 27.939,
    "layer_changes": 6
   },
   "GND J3.1 -> J5.2": {
    "net": "/GND",
-   "ohm": 0.03995875725234965,
-   "ohm_hot_85C_thin_copper": 0.07655661562915048,
-   "mm": 24.556,
+   "ohm": 0.04043966002304899,
+   "ohm_hot_85C_thin_copper": 0.07749997404082963,
+   "mm": 24.849,
    "layer_changes": 12
   }
  },
@@ -703,8 +896,8 @@
   "LED_return_trace_drop_V": 0.004593618051950684,
   "LED_loop_sum_V": 0.017920784726504026,
   "LED_loop_fraction_of_5V": 0.0035841569453008053,
-  "12V_input_loop_trace_drop_V": 0.05741289220957153,
-  "power_ground_offset_at_J3_conservative_V": 0.033641650111041664,
+  "12V_input_loop_trace_drop_V": 0.0576161003597073,
+  "power_ground_offset_at_J3_conservative_V": 0.03405619473731867,
   "buck_switch_net_vias": 0,
   "high_current_track_widths_mm": [
    0.3,
@@ -819,12 +1012,12 @@
     "loop_partial_inductance_nH_estimate": 2.28
    },
    "U1 VDD 4.7u C7": {
-    "supply_leg_mm": 16.237,
-    "ground_leg_mm": 18.244,
-    "loop_trace_mm": 34.481,
-    "layer_changes": 8,
-    "loop_ohm": 0.07223366668548373,
-    "loop_partial_inductance_nH_estimate": 35.45
+    "supply_leg_mm": 10.628,
+    "ground_leg_mm": 18.263,
+    "loop_trace_mm": 28.891,
+    "layer_changes": 12,
+    "loop_ohm": 0.05455688156698205,
+    "loop_partial_inductance_nH_estimate": 28.88
    },
    "U7 C17": {
     "supply_leg_mm": 0.75,
@@ -835,20 +1028,20 @@
     "loop_partial_inductance_nH_estimate": 2.67
    },
    "U5 3V3 C9": {
-    "supply_leg_mm": 4.647,
-    "ground_leg_mm": 5.88,
-    "loop_trace_mm": 10.527,
+    "supply_leg_mm": 4.63,
+    "ground_leg_mm": 5.963,
+    "loop_trace_mm": 10.593,
     "layer_changes": 0,
-    "loop_ohm": 0.017284257973315384,
-    "loop_partial_inductance_nH_estimate": 8.36
+    "loop_ohm": 0.01739210718532729,
+    "loop_partial_inductance_nH_estimate": 8.42
    },
    "U5 VLED C10": {
     "supply_leg_mm": 3.923,
-    "ground_leg_mm": 8.436,
-    "loop_trace_mm": 12.359,
+    "ground_leg_mm": 8.518,
+    "loop_trace_mm": 12.441,
     "layer_changes": 0,
-    "loop_ohm": 0.020291194492577286,
-    "loop_partial_inductance_nH_estimate": 10.35
+    "loop_ohm": 0.02042721433667847,
+    "loop_partial_inductance_nH_estimate": 10.44
    },
    "U4 in C15": {
     "supply_leg_mm": 0.8,
@@ -925,24 +1118,24 @@
      "fraction_of_aggressor_swing_on_open_tip": 0.1096
     },
     "/DATA_L_3V3": {
-     "coupling_fF_estimate": 854.9,
-     "victim_track_mm_within_5mm": 44.47,
-     "fraction_of_aggressor_swing_on_open_tip": 0.146
+     "coupling_fF_estimate": 761.3,
+     "victim_track_mm_within_5mm": 40.52,
+     "fraction_of_aggressor_swing_on_open_tip": 0.1321
     },
     "/DATA_R_3V3": {
-     "coupling_fF_estimate": 803.8,
-     "victim_track_mm_within_5mm": 38.47,
-     "fraction_of_aggressor_swing_on_open_tip": 0.1385
+     "coupling_fF_estimate": 806.0,
+     "victim_track_mm_within_5mm": 38.37,
+     "fraction_of_aggressor_swing_on_open_tip": 0.1388
     },
     "/DATA_L_5V": {
-     "coupling_fF_estimate": 340.7,
-     "victim_track_mm_within_5mm": 18.85,
-     "fraction_of_aggressor_swing_on_open_tip": 0.0638
+     "coupling_fF_estimate": 338.9,
+     "victim_track_mm_within_5mm": 18.79,
+     "fraction_of_aggressor_swing_on_open_tip": 0.0635
     },
     "/DATA_R_5V": {
-     "coupling_fF_estimate": 344.9,
-     "victim_track_mm_within_5mm": 18.65,
-     "fraction_of_aggressor_swing_on_open_tip": 0.0645
+     "coupling_fF_estimate": 345.2,
+     "victim_track_mm_within_5mm": 18.64,
+     "fraction_of_aggressor_swing_on_open_tip": 0.0646
     },
     "/BUCK_SW": {
      "coupling_fF_estimate": 117.9,
@@ -950,23 +1143,159 @@
      "fraction_of_aggressor_swing_on_open_tip": 0.023
     },
     "/SWCLK": {
-     "coupling_fF_estimate": 938.3,
-     "victim_track_mm_within_5mm": 28.3,
-     "fraction_of_aggressor_swing_on_open_tip": 0.158
+     "coupling_fF_estimate": 927.2,
+     "victim_track_mm_within_5mm": 28.33,
+     "fraction_of_aggressor_swing_on_open_tip": 0.1564
     },
     "/SWDIO": {
-     "coupling_fF_estimate": 954.4,
-     "victim_track_mm_within_5mm": 28.81,
-     "fraction_of_aggressor_swing_on_open_tip": 0.1603
+     "coupling_fF_estimate": 949.3,
+     "victim_track_mm_within_5mm": 28.79,
+     "fraction_of_aggressor_swing_on_open_tip": 0.1596
     },
     "/VLED": {
-     "coupling_fF_estimate": 3829.1,
+     "coupling_fF_estimate": 2941.7,
      "victim_track_mm_within_5mm": 64.33,
-     "fraction_of_aggressor_swing_on_open_tip": 0.4337
+     "fraction_of_aggressor_swing_on_open_tip": 0.3704
     }
    },
    "assumed_open_node_pF": 5.0,
    "note": "With nothing patched the jack tip is 20 Mohm to ground, so data edges couple by the capacitive divider shown (zero mean, decays with about 0.1 ms, then the 776 Hz filter and the firmware 1/8 IIR). A patched source of 1 kohm or less reduces it by more than 1e4. The former In1 plane no longer shields this run; whether the unpatched reading stays inside the +/-50 mV deadband NEEDS BENCH (#10). Not an acceptance gate."
+  },
+  "close_pairs": {
+   "rows": {
+    "/CV_SENSE / /+12V_PROT": {
+     "any_layer_mm": 0.4,
+     "same_layer_mm": 0.4,
+     "track_mm_of_first_within_0.5mm": 0.0,
+     "coupling_fF_estimate": 52.3
+    },
+    "/CV_SENSE / /-12V_PROT": {
+     "any_layer_mm": 0.0,
+     "same_layer_mm": 0.35,
+     "track_mm_of_first_within_0.5mm": 0.0,
+     "coupling_fF_estimate": 57.7
+    },
+    "/CV_THRU / /VLED": {
+     "any_layer_mm": 0.0,
+     "same_layer_mm": 0.25,
+     "track_mm_of_first_within_0.5mm": 11.7,
+     "coupling_fF_estimate": 2941.7
+    },
+    "/CV_THRU / /SWCLK": {
+     "any_layer_mm": 0.0,
+     "same_layer_mm": 0.45,
+     "track_mm_of_first_within_0.5mm": 3.237,
+     "coupling_fF_estimate": 927.2
+    },
+    "/CV_THRU / /SWDIO": {
+     "any_layer_mm": 0.0,
+     "same_layer_mm": 0.35,
+     "track_mm_of_first_within_0.5mm": 3.837,
+     "coupling_fF_estimate": 949.3
+    },
+    "/CV_THRU / /-12V_PROT": {
+     "any_layer_mm": 0.0,
+     "same_layer_mm": 0.1817,
+     "track_mm_of_first_within_0.5mm": 2.88,
+     "coupling_fF_estimate": 920.8
+    },
+    "/CV_BUF / /DATA_L": {
+     "any_layer_mm": 0.0,
+     "same_layer_mm": 1.45,
+     "track_mm_of_first_within_0.5mm": 4.057,
+     "coupling_fF_estimate": 1369.6
+    },
+    "/CV_BUF / /VLED": {
+     "any_layer_mm": 0.2071,
+     "same_layer_mm": 0.2071,
+     "track_mm_of_first_within_0.5mm": 1.407,
+     "coupling_fF_estimate": 458.1
+    },
+    "/CV_BUF / /+12V_PROT": {
+     "any_layer_mm": 0.0,
+     "same_layer_mm": 0.1885,
+     "track_mm_of_first_within_0.5mm": 1.384,
+     "coupling_fF_estimate": 549.8
+    },
+    "/CV_BUF / /-12V_PROT": {
+     "any_layer_mm": 0.0,
+     "same_layer_mm": 0.2,
+     "track_mm_of_first_within_0.5mm": 4.773,
+     "coupling_fF_estimate": 652.9
+    },
+    "/CV_AFFINE / /DATA_L": {
+     "any_layer_mm": 0.1,
+     "same_layer_mm": 0.25,
+     "track_mm_of_first_within_0.5mm": 6.896,
+     "coupling_fF_estimate": 827.4,
+     "fraction_of_aggressor_swing_on_held_node": 8.273315465878354e-05
+    },
+    "/CV_AFFINE / /VLED": {
+     "any_layer_mm": 0.0,
+     "same_layer_mm": 0.2026,
+     "track_mm_of_first_within_0.5mm": 1.84,
+     "coupling_fF_estimate": 931.5,
+     "fraction_of_aggressor_swing_on_held_node": 9.314132388568004e-05
+    },
+    "/CV_AFFINE / /SWCLK": {
+     "any_layer_mm": 0.0,
+     "same_layer_mm": 0.25,
+     "track_mm_of_first_within_0.5mm": 1.644,
+     "coupling_fF_estimate": 599.6,
+     "fraction_of_aggressor_swing_on_held_node": 5.995640501395538e-05
+    },
+    "/CV_AFFINE / /SWDIO": {
+     "any_layer_mm": 0.0,
+     "same_layer_mm": 0.2026,
+     "track_mm_of_first_within_0.5mm": 2.27,
+     "coupling_fF_estimate": 1085.0,
+     "fraction_of_aggressor_swing_on_held_node": 0.00010848822902715057
+    },
+    "/CV_AFFINE / /-12V_PROT": {
+     "any_layer_mm": 0.0,
+     "same_layer_mm": 0.2,
+     "track_mm_of_first_within_0.5mm": 19.453,
+     "coupling_fF_estimate": 3689.3,
+     "fraction_of_aggressor_swing_on_held_node": 0.00036879394085140174
+    },
+    "/CV_FILTER / /SWDIO": {
+     "any_layer_mm": 0.2026,
+     "same_layer_mm": 0.2026,
+     "track_mm_of_first_within_0.5mm": 0.033,
+     "coupling_fF_estimate": 153.3
+    },
+    "/CV_FILTER / /-12V_PROT": {
+     "any_layer_mm": 0.15,
+     "same_layer_mm": 0.1831,
+     "track_mm_of_first_within_0.5mm": 3.007,
+     "coupling_fF_estimate": 194.7
+    },
+    "/CV_ADC / /DATA_L_3V3": {
+     "any_layer_mm": 0.0,
+     "same_layer_mm": 0.7107,
+     "track_mm_of_first_within_0.5mm": 1.444,
+     "coupling_fF_estimate": 407.9
+    },
+    "/CV_ADC / /DATA_R_3V3": {
+     "any_layer_mm": 0.0,
+     "same_layer_mm": 0.1885,
+     "track_mm_of_first_within_0.5mm": 1.526,
+     "coupling_fF_estimate": 380.6
+    },
+    "/CV_ADC / /SWCLK": {
+     "any_layer_mm": 0.0,
+     "same_layer_mm": 2.05,
+     "track_mm_of_first_within_0.5mm": 1.334,
+     "coupling_fF_estimate": 449.5
+    },
+    "/CV_ADC / /SWDIO": {
+     "any_layer_mm": 0.0,
+     "same_layer_mm": 1.1533,
+     "track_mm_of_first_within_0.5mm": 1.654,
+     "coupling_fF_estimate": 407.2
+    }
+   },
+   "note": "Every CV-chain / aggressor pair with a same-layer gap under 0.6 mm or any track within 0.5 mm in plan. Only the pairs under required carry a routing rule; the old 1.6 mm statement that no CV node runs within 0.6 mm of DATA_L/R or +/-12V_PROT on the same layer does not hold on this board. CV_AFFINE is held by C13 (10 nF), CV_ADC is driven through 250 ohm, CV_BUF and CV_DRIVE are op-amp outputs; the effect on the reading NEEDS BENCH (#10)."
   },
   "separation_mm": {
    "/CV_SENSE": {
@@ -1001,13 +1330,13 @@
      "track_mm_of_first_within_0.5mm": 0.0
     },
     "/DATA_L_3V3": {
-     "any_layer_mm": 21.0878,
-     "same_layer_mm": 21.7094,
+     "any_layer_mm": 21.1664,
+     "same_layer_mm": 21.1664,
      "track_mm_of_first_within_0.5mm": 0.0
     },
     "/DATA_R_3V3": {
-     "any_layer_mm": 21.658,
-     "same_layer_mm": 21.658,
+     "any_layer_mm": 21.7512,
+     "same_layer_mm": 21.7512,
      "track_mm_of_first_within_0.5mm": 0.0
     },
     "/VLED": {
@@ -1023,6 +1352,16 @@
     "/SWDIO": {
      "any_layer_mm": 17.4553,
      "same_layer_mm": 17.4553,
+     "track_mm_of_first_within_0.5mm": 0.0
+    },
+    "/+12V_PROT": {
+     "any_layer_mm": 0.4,
+     "same_layer_mm": 0.4,
+     "track_mm_of_first_within_0.5mm": 0.0
+    },
+    "/-12V_PROT": {
+     "any_layer_mm": 0.0,
+     "same_layer_mm": 0.35,
      "track_mm_of_first_within_0.5mm": 0.0
     }
    },
@@ -1048,13 +1387,13 @@
      "track_mm_of_first_within_0.5mm": 0.0
     },
     "/DATA_L_5V": {
-     "any_layer_mm": 2.8265,
-     "same_layer_mm": 2.8265,
+     "any_layer_mm": 2.7885,
+     "same_layer_mm": 2.7885,
      "track_mm_of_first_within_0.5mm": 0.0
     },
     "/DATA_R_5V": {
-     "any_layer_mm": 2.2112,
-     "same_layer_mm": 2.2112,
+     "any_layer_mm": 2.1339,
+     "same_layer_mm": 2.1339,
      "track_mm_of_first_within_0.5mm": 0.0
     },
     "/DATA_L_3V3": {
@@ -1069,18 +1408,28 @@
     },
     "/VLED": {
      "any_layer_mm": 0.0,
-     "same_layer_mm": 0.8485,
-     "track_mm_of_first_within_0.5mm": 9.439
+     "same_layer_mm": 0.25,
+     "track_mm_of_first_within_0.5mm": 11.7
     },
     "/SWCLK": {
      "any_layer_mm": 0.0,
      "same_layer_mm": 0.45,
-     "track_mm_of_first_within_0.5mm": 3.279
+     "track_mm_of_first_within_0.5mm": 3.237
     },
     "/SWDIO": {
      "any_layer_mm": 0.0,
      "same_layer_mm": 0.35,
-     "track_mm_of_first_within_0.5mm": 3.827
+     "track_mm_of_first_within_0.5mm": 3.837
+    },
+    "/+12V_PROT": {
+     "any_layer_mm": 1.9,
+     "same_layer_mm": 1.9,
+     "track_mm_of_first_within_0.5mm": 0.0
+    },
+    "/-12V_PROT": {
+     "any_layer_mm": 0.0,
+     "same_layer_mm": 0.1817,
+     "track_mm_of_first_within_0.5mm": 2.88
     }
    },
    "/CV_BUF": {
@@ -1115,13 +1464,13 @@
      "track_mm_of_first_within_0.5mm": 0.0
     },
     "/DATA_L_3V3": {
-     "any_layer_mm": 5.2771,
-     "same_layer_mm": 6.0078,
+     "any_layer_mm": 5.376,
+     "same_layer_mm": 5.376,
      "track_mm_of_first_within_0.5mm": 0.0
     },
     "/DATA_R_3V3": {
-     "any_layer_mm": 5.9101,
-     "same_layer_mm": 5.9101,
+     "any_layer_mm": 5.9985,
+     "same_layer_mm": 5.9985,
      "track_mm_of_first_within_0.5mm": 0.0
     },
     "/VLED": {
@@ -1138,6 +1487,16 @@
      "any_layer_mm": 3.225,
      "same_layer_mm": 3.8364,
      "track_mm_of_first_within_0.5mm": 0.0
+    },
+    "/+12V_PROT": {
+     "any_layer_mm": 0.0,
+     "same_layer_mm": 0.1885,
+     "track_mm_of_first_within_0.5mm": 1.384
+    },
+    "/-12V_PROT": {
+     "any_layer_mm": 0.0,
+     "same_layer_mm": 0.2,
+     "track_mm_of_first_within_0.5mm": 4.773
     }
    },
    "/CV_AFFINE": {
@@ -1154,7 +1513,7 @@
     "/DATA_L": {
      "any_layer_mm": 0.1,
      "same_layer_mm": 0.25,
-     "track_mm_of_first_within_0.5mm": 7.473
+     "track_mm_of_first_within_0.5mm": 6.896
     },
     "/DATA_R": {
      "any_layer_mm": 0.65,
@@ -1162,23 +1521,23 @@
      "track_mm_of_first_within_0.5mm": 0.0
     },
     "/DATA_L_5V": {
-     "any_layer_mm": 14.3836,
-     "same_layer_mm": 14.3836,
+     "any_layer_mm": 14.1408,
+     "same_layer_mm": 14.1408,
      "track_mm_of_first_within_0.5mm": 0.0
     },
     "/DATA_R_5V": {
-     "any_layer_mm": 13.7111,
-     "same_layer_mm": 13.7111,
+     "any_layer_mm": 13.6855,
+     "same_layer_mm": 13.6855,
      "track_mm_of_first_within_0.5mm": 0.0
     },
     "/DATA_L_3V3": {
-     "any_layer_mm": 2.2514,
-     "same_layer_mm": 2.2514,
+     "any_layer_mm": 3.4579,
+     "same_layer_mm": 3.4579,
      "track_mm_of_first_within_0.5mm": 0.0
     },
     "/DATA_R_3V3": {
-     "any_layer_mm": 4.651,
-     "same_layer_mm": 4.651,
+     "any_layer_mm": 3.979,
+     "same_layer_mm": 3.979,
      "track_mm_of_first_within_0.5mm": 0.0
     },
     "/VLED": {
@@ -1188,13 +1547,23 @@
     },
     "/SWCLK": {
      "any_layer_mm": 0.0,
-     "same_layer_mm": 0.2504,
-     "track_mm_of_first_within_0.5mm": 1.42
+     "same_layer_mm": 0.25,
+     "track_mm_of_first_within_0.5mm": 1.644
     },
     "/SWDIO": {
      "any_layer_mm": 0.0,
      "same_layer_mm": 0.2026,
-     "track_mm_of_first_within_0.5mm": 2.283
+     "track_mm_of_first_within_0.5mm": 2.27
+    },
+    "/+12V_PROT": {
+     "any_layer_mm": 1.4,
+     "same_layer_mm": 1.4,
+     "track_mm_of_first_within_0.5mm": 0.0
+    },
+    "/-12V_PROT": {
+     "any_layer_mm": 0.0,
+     "same_layer_mm": 0.2,
+     "track_mm_of_first_within_0.5mm": 19.453
     }
    },
    "/CV_FILTER": {
@@ -1229,13 +1598,13 @@
      "track_mm_of_first_within_0.5mm": 0.0
     },
     "/DATA_L_3V3": {
-     "any_layer_mm": 3.9648,
-     "same_layer_mm": 3.9648,
+     "any_layer_mm": 4.1513,
+     "same_layer_mm": 4.1513,
      "track_mm_of_first_within_0.5mm": 0.0
     },
     "/DATA_R_3V3": {
-     "any_layer_mm": 4.7182,
-     "same_layer_mm": 4.7182,
+     "any_layer_mm": 4.8021,
+     "same_layer_mm": 4.8021,
      "track_mm_of_first_within_0.5mm": 0.0
     },
     "/VLED": {
@@ -1252,6 +1621,16 @@
      "any_layer_mm": 0.2026,
      "same_layer_mm": 0.2026,
      "track_mm_of_first_within_0.5mm": 0.033
+    },
+    "/+12V_PROT": {
+     "any_layer_mm": 2.9,
+     "same_layer_mm": 2.9,
+     "track_mm_of_first_within_0.5mm": 0.0
+    },
+    "/-12V_PROT": {
+     "any_layer_mm": 0.15,
+     "same_layer_mm": 0.1831,
+     "track_mm_of_first_within_0.5mm": 3.007
     }
    },
    "/CV_DRIVE": {
@@ -1276,8 +1655,8 @@
      "track_mm_of_first_within_0.5mm": 0.0
     },
     "/DATA_L_5V": {
-     "any_layer_mm": 21.4953,
-     "same_layer_mm": 21.4953,
+     "any_layer_mm": 21.5834,
+     "same_layer_mm": 21.5834,
      "track_mm_of_first_within_0.5mm": 0.0
     },
     "/DATA_R_5V": {
@@ -1286,13 +1665,13 @@
      "track_mm_of_first_within_0.5mm": 0.0
     },
     "/DATA_L_3V3": {
-     "any_layer_mm": 2.9,
-     "same_layer_mm": 2.9,
+     "any_layer_mm": 2.8114,
+     "same_layer_mm": 2.8114,
      "track_mm_of_first_within_0.5mm": 0.0
     },
     "/DATA_R_3V3": {
-     "any_layer_mm": 3.2613,
-     "same_layer_mm": 3.2613,
+     "any_layer_mm": 3.3556,
+     "same_layer_mm": 3.3556,
      "track_mm_of_first_within_0.5mm": 0.0
     },
     "/VLED": {
@@ -1308,6 +1687,16 @@
     "/SWDIO": {
      "any_layer_mm": 1.1,
      "same_layer_mm": 1.66,
+     "track_mm_of_first_within_0.5mm": 0.0
+    },
+    "/+12V_PROT": {
+     "any_layer_mm": 6.7,
+     "same_layer_mm": 6.7,
+     "track_mm_of_first_within_0.5mm": 0.0
+    },
+    "/-12V_PROT": {
+     "any_layer_mm": 3.7,
+     "same_layer_mm": 5.5,
      "track_mm_of_first_within_0.5mm": 0.0
     }
    },
@@ -1333,28 +1722,28 @@
      "track_mm_of_first_within_0.5mm": 0.0
     },
     "/DATA_L_5V": {
-     "any_layer_mm": 13.8087,
-     "same_layer_mm": 13.8087,
+     "any_layer_mm": 14.0031,
+     "same_layer_mm": 14.0031,
      "track_mm_of_first_within_0.5mm": 0.0
     },
     "/DATA_R_5V": {
-     "any_layer_mm": 14.6053,
-     "same_layer_mm": 14.6053,
+     "any_layer_mm": 14.8008,
+     "same_layer_mm": 14.8008,
      "track_mm_of_first_within_0.5mm": 0.0
     },
     "/DATA_L_3V3": {
      "any_layer_mm": 0.0,
-     "same_layer_mm": 0.1885,
-     "track_mm_of_first_within_0.5mm": 3.74
+     "same_layer_mm": 0.7107,
+     "track_mm_of_first_within_0.5mm": 1.444
     },
     "/DATA_R_3V3": {
      "any_layer_mm": 0.0,
      "same_layer_mm": 0.1885,
-     "track_mm_of_first_within_0.5mm": 2.514
+     "track_mm_of_first_within_0.5mm": 1.526
     },
     "/VLED": {
      "any_layer_mm": 2.245,
-     "same_layer_mm": 3.2,
+     "same_layer_mm": 3.1,
      "track_mm_of_first_within_0.5mm": 0.0
     },
     "/SWCLK": {
@@ -1366,6 +1755,16 @@
      "any_layer_mm": 0.0,
      "same_layer_mm": 1.1533,
      "track_mm_of_first_within_0.5mm": 1.654
+    },
+    "/+12V_PROT": {
+     "any_layer_mm": 4.75,
+     "same_layer_mm": 4.75,
+     "track_mm_of_first_within_0.5mm": 0.0
+    },
+    "/-12V_PROT": {
+     "any_layer_mm": 2.05,
+     "same_layer_mm": 3.5013,
+     "track_mm_of_first_within_0.5mm": 0.0
     }
    }
   },
@@ -1407,7 +1806,7 @@
  },
  "inputs": {
   "geometry_sha256": "c71880b9ed793b4674b3183ded3960fbeff8da3c3b9eea95bcdf39affb756559",
-  "routes_sha256": "f852dad045d5dddff996095a361be29090b4bcb011e6a20321fc50cb02bae5b6",
-  "board_sha256": "710ed8019126944272a52fe0b162826c09088d70e363fce3cc184df93e7bab5e"
+  "routes_sha256": "bb4540b0cece9ccc8187b20fdd5327a81c47d0460253a962fd81d11041e70b08",
+  "board_sha256": "d83691d6590e013b2a66957b61d76ba2f68bedaaec04789326e1215b2d1bdb2b"
  }
 }

@@ -3,50 +3,50 @@
   "inspect_script": "scripts/a7_gerber_inspect.py",
   "inspect_script_sha256": "82e61fc4631a04db6e0ab7096fd90dc6866abdf2c3ae46c3375d106162b4ba9d",
   "board": "controller.kicad_pcb",
-  "board_sha256": "710ed8019126944272a52fe0b162826c09088d70e363fce3cc184df93e7bab5e",
+  "board_sha256": "d83691d6590e013b2a66957b61d76ba2f68bedaaec04789326e1215b2d1bdb2b",
   "outline_bounds_mm": [
     0.0,
     0.0,
     16.2,
     62.9
   ],
-  "via_count": 115,
+  "via_count": 116,
   "via_web_mm": 0.1,
   "layers": {
     "controller-B_Cu.gbl": {
-      "sha256": "ac7aca3e4b5a4f5e3a359d2e7f97b6d2cf551da7d2c48e5ef4a4ee7b2e2fcd8f",
+      "sha256": "d330401c9b304147817077c470c67b2cc3ee683b3706c79829591f50788fdafe",
       "function": [
         "Copper",
         "L4",
         "Bot"
       ],
-      "primitives": 1235,
-      "flashes": 183,
-      "non_flash_objects": 644,
-      "dark_coverage_fraction_of_bounds": 0.19385807376003455,
+      "primitives": 1204,
+      "flashes": 184,
+      "non_flash_objects": 612,
+      "dark_coverage_fraction_of_bounds": 0.18796737914384973,
       "drawn_region_objects": 1
     },
     "controller-B_Mask.gbs": {
-      "sha256": "e1c94ac15a1f1b23017d25844e3a15dc326981c1ab63b23166693c9085405373",
+      "sha256": "8efd6aafcbb732861e4e24419f8d6a3a3bacd0c18251ce20d09abd9d53652dba",
       "function": [
         "Soldermask",
         "Bot"
       ],
-      "primitives": 1180,
+      "primitives": 1147,
       "flashes": 70,
-      "non_flash_objects": 702,
-      "dark_coverage_fraction_of_bounds": 0.6978228228228228,
+      "non_flash_objects": 669,
+      "dark_coverage_fraction_of_bounds": 0.7091282458929518,
       "opening_coverage_note": "dark shapes are OPENINGS; residual mask is the complement",
-      "residual_mask_fraction_of_bounds": 0.3021771771771772,
+      "residual_mask_fraction_of_bounds": 0.29087175410704824,
       "via_tent": {
         "face": "B.Cu",
-        "checked": 115,
+        "checked": 116,
         "smallest_mask_web_to_via_copper_mm": 0.1394,
         "exposed_or_under_web": []
       }
     },
     "controller-B_Paste.gbp": {
-      "sha256": "4da5b2b2d978a071ba02f1b8e8ba8e0e4ae9edf557fa5b5a40f4309569be210b",
+      "sha256": "3541f92c2b36d82c614467121c993ca6e374fa536ba29299d34a5a050fa346f8",
       "function": [
         "Paste",
         "Bot"
@@ -61,7 +61,7 @@
       }
     },
     "controller-B_Silkscreen.gbo": {
-      "sha256": "3e61a711ee36dc0be778cb4923af970f01437f837890511ac23c1ef902caa52a",
+      "sha256": "fc0dae897a690e92cbe33a1b77e7aa83cd75a6f06999d7c46bad33abf025bb2f",
       "function": [
         "Legend",
         "Bot"
@@ -72,7 +72,7 @@
       "dark_coverage_fraction_of_bounds": 0.0
     },
     "controller-Edge_Cuts.gm1": {
-      "sha256": "b4cc49014967526afd7f2f36dee857b0fc1ed025cdaf4b42a0f1d521b7b0979c",
+      "sha256": "7032bbf624502a103fe1c896f819e176afac0bccda543f1d5b27590340db2a6e",
       "function": [
         "Profile",
         "NP"
@@ -82,39 +82,39 @@
       "non_flash_objects": 4
     },
     "controller-F_Cu.gtl": {
-      "sha256": "4dac9f22f1f15e70134bc77f7ad43d72238bb22b82fc5aedf29e01df7445a5d8",
+      "sha256": "8ff975753ac1cc16bcb24dfba641451c91378c8c9747b3f18b25aee14e0c6624",
       "function": [
         "Copper",
         "L1",
         "Top"
       ],
-      "primitives": 1944,
-      "flashes": 251,
-      "non_flash_objects": 765,
-      "dark_coverage_fraction_of_bounds": 0.2163192604369075,
+      "primitives": 1948,
+      "flashes": 252,
+      "non_flash_objects": 768,
+      "dark_coverage_fraction_of_bounds": 0.2224258572297788,
       "drawn_region_objects": 0
     },
     "controller-F_Mask.gts": {
-      "sha256": "3d44699a1495fd840b51986656dc5aa9eec77da0fb4c24eed9d34d8d6d4fbd33",
+      "sha256": "e3a06b348d42346a56edc32bbf2bde17b8600231fb96dd79e3b4a151a8212a9f",
       "function": [
         "Soldermask",
         "Top"
       ],
-      "primitives": 1927,
+      "primitives": 1904,
       "flashes": 138,
-      "non_flash_objects": 861,
-      "dark_coverage_fraction_of_bounds": 0.6975235038960529,
+      "non_flash_objects": 838,
+      "dark_coverage_fraction_of_bounds": 0.6875527488272586,
       "opening_coverage_note": "dark shapes are OPENINGS; residual mask is the complement",
-      "residual_mask_fraction_of_bounds": 0.3024764961039471,
+      "residual_mask_fraction_of_bounds": 0.3124472511727414,
       "via_tent": {
         "face": "F.Cu",
-        "checked": 115,
+        "checked": 116,
         "smallest_mask_web_to_via_copper_mm": 0.135,
         "exposed_or_under_web": []
       }
     },
     "controller-F_Paste.gtp": {
-      "sha256": "1b2cdfb11d1d05a9722a5d10ef0f019fd13ced3bd6095fa16e64f375e25268c9",
+      "sha256": "ab638f3841e30f76313b5e29b26364380e1933d855d0b5f7ea593efca84676ed",
       "function": [
         "Paste",
         "Top"
@@ -129,7 +129,7 @@
       }
     },
     "controller-F_Silkscreen.gto": {
-      "sha256": "8ccf636eed9461694d30ea1761ee71a348b105c81fb04cfd5f4cb80f2edf9c80",
+      "sha256": "454a6a66fef063cf76f66eac9fe35a67fd3c1f02c0c01c8567f1657a01b2561e",
       "function": [
         "Legend",
         "Top"
@@ -140,29 +140,29 @@
       "dark_coverage_fraction_of_bounds": 0.001445072523503896
     },
     "controller-In1_Cu.g1": {
-      "sha256": "eebb877b1f2717093f5399819e539385c693da1aa21853fd8030d51fbcacc751",
+      "sha256": "0fae260fc8f2e8a50902a9eca061e88b8e66727984391de315ecb9bddd64a3ad",
       "function": [
         "Copper",
         "L2",
         "Inr"
       ],
-      "primitives": 523,
-      "flashes": 128,
-      "non_flash_objects": 387,
-      "dark_coverage_fraction_of_bounds": 0.10542159806865689,
+      "primitives": 512,
+      "flashes": 129,
+      "non_flash_objects": 375,
+      "dark_coverage_fraction_of_bounds": 0.09984494298219788,
       "drawn_region_objects": 0
     },
     "controller-In2_Cu.g2": {
-      "sha256": "54173265553ab5f696bb423af19b475c29a34f0596c8e5f5b551f00a6df2a652",
+      "sha256": "5ffa211274538d38c39e1f970e95a0174477298d5f45a9951d0091eaa5550a52",
       "function": [
         "Copper",
         "L3",
         "Inr"
       ],
-      "primitives": 499,
-      "flashes": 128,
-      "non_flash_objects": 363,
-      "dark_coverage_fraction_of_bounds": 0.10778425484307837,
+      "primitives": 492,
+      "flashes": 129,
+      "non_flash_objects": 355,
+      "dark_coverage_fraction_of_bounds": 0.10674645233468763,
       "drawn_region_objects": 0
     }
   },
