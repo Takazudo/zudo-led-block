@@ -11,6 +11,8 @@
 - `fixture-assembly.step`: 治具全体（4 プレート、金物の外形、5 組のレセプタクルとプローブ、基板と部品箱）の組立 STEP。
 - `assembly-interference.json`: 組立 STEP の干渉検査記録。`manifest.json` が設計ハッシュと STEP のバイトで束縛する。
 - `fixture-drawing.svg`: プレートの平面図（寸法要約付き）。加工図面ではない。
+- `condition-matrix.json` / `condition-matrix.md`: 0.7–0.9 mm 基板の全荷重コーナーを、収束した片側接触モデルで解いた計算記録と方法。**受入ではない**。PCB バイト列・native geometry・プローブ manifest に束縛され、`python3 scripts/a7_fixture_matrix.py --rebind` の 1 コマンドで最終基板へ再実行する。閉じられなかった幾何学的不足（2 本目のピンの板端余裕 0.025 mm）も記録に残す。
+- `optical-support-study.md` / `optical-support-candidate.json` / `optical-diagonal-candidate.json`: 支持再設計の探索記録。**NOT ACCEPTED**。旧ストリップモデルの失敗値はそのまま保持する。
 
 ## 再生成と検査
 
@@ -19,6 +21,8 @@
 python3 scripts/a7_fixture.py --check
 /path/to/cadquery-2.7.0/python scripts/a7_fixture.py --check --cad-check
 python3 -m unittest scripts/tests/test_a7_fixture.py scripts/tests/test_a7_fixture_relief.py
+python3 scripts/a7_fixture_matrix.py --check   # 条件マトリクスの identity・自己整合・レベル0 再計算
+python3 -m unittest scripts/tests/test_a7_fixture_contact.py scripts/tests/test_a7_fixture_matrix.py
 ```
 
 `--cad` は CadQuery **2.7.0** で全部品を作り、組立 STEP を書き出し、全ソリッド対の共通体積（しきい値 0.001 mm³）、重要な隙間（BRep の厳密距離）、設計上の接触（基板とキャリア、ナイロン接点、プローブ先端、基準ピン）を `assembly-interference.json` に記録する。ねじは呼び径、圧入は線対線でモデル化するため、設計上の接合は接触するが重ならない。`--cad-check` は再構築したモデルと STEP のソリッド数・総体積を照合する。CI は CadQuery なしで `--check` を実行し、記録の入力ハッシュ（設計値、組立モデルのコード、native 記録、CadQuery 版）と STEP バイトが現在のものに一致するかを検査する。どれかが変わると記録が古くなり、基準 4 は未達に戻る。PCB または canonical placement が変わると明示的 identity lock により失敗する。

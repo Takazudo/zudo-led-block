@@ -115,6 +115,14 @@ jobs:
       - name: Fixture plate analytical benchmarks and optical thickness controls
         timeout-minutes: 2
         run: python3 -m unittest scripts/tests/test_a7_fixture_plate.py scripts/tests/test_a7_fixture_optical.py
+      # Solver verification is cheap; the recorded condition matrix is re-derived for its coarse mesh level only
+      # (the finer levels and the alternative-site scan are reviewed artifacts, regenerated with --rebind).
+      - name: Fixture contact solver verification and condition-matrix negative controls
+        timeout-minutes: 3
+        run: python3 -m unittest scripts/tests/test_a7_fixture_contact.py scripts/tests/test_a7_fixture_matrix.py
+      - name: A7 fixture condition matrix is current and bound to the controller PCB identity
+        timeout-minutes: 5
+        run: python3 scripts/a7_fixture_matrix.py --check
       - name: A7 layout, layout.md and placement envelopes are current
         run: python3 scripts/a7_mechanical_layout.py --check
       - name: A7 R2 geometry tests (stack, candidates, keep-outs, routes, CAD/front records)

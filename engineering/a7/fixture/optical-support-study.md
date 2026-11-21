@@ -4,6 +4,18 @@ Status: **NOT ACCEPTED**. This is a digital exploration, not fixture release or
 physical contact verification. The saved native geometry and STEP retain their
 historical identities; neither has been rebound to the optical controller.
 
+**Where the resolved calculation now lives (2026-11-21):** every load corner at
+0.7/0.8/0.9 mm is solved with a converged unilateral contact model and recorded in
+[`condition-matrix.json`](condition-matrix.json), with the method, the limits and the
+remaining physical work in [`condition-matrix.md`](condition-matrix.md). That record is
+bound to one PCB identity and re-runs on the final controller with
+`python3 scripts/a7_fixture_matrix.py --rebind`. It does not retract anything below:
+the strip-model failure values, the rejected plunger pair and the open blockers stay
+as recorded, and the matrix states the one shortfall it could not close — the current
+candidate's second pin keeps 0.025 mm of worst-case board-edge margin against a
+0.15 mm requirement, and no pair that satisfies the planar rules can straddle the
+probe field. Nothing in either record is a fixture acceptance.
+
 The adopted board range is 0.7–0.9 mm (0.8 mm ±0.1 mm published JLCPCB finished
 thickness tolerance). Using the historical carrier with the original conservative
 strip model gives 0.267190 mm probe-load deflection against 0.1 mm maximum.
@@ -36,6 +48,12 @@ requirements; missing dependencies skip this optional benchmark explicitly.
 Actual fixture acceptance requires unilateral contact: the carrier can push up,
 not pull the board down. Bilateral-support results are diagnostic only. The initial
 250-iteration actual-geometry unilateral solve did not converge, so its low bilateral
-deflections cannot justify acceptance. A bounded corrected active-set experiment
-is being evaluated separately. Independent mechanical review, convergence checks,
-force corners, native identity and CAD remain required before replacing any gate.
+deflections cannot justify acceptance. That non-convergence is resolved in
+`scripts/a7_fixture_contact.py`: the contact set is found by an active-set method whose
+every iterate is admissible, the Signorini conditions and the equilibrium residual are
+re-checked from `K u − f` after the solve (a violated state raises instead of being
+returned), and two independent solvers — flexibility form and stiffness form — are run
+on the governing corner and agree. The mesh study (20×78 → 40×156 → 60×234) and all
+force corners are in `condition-matrix.json`. Independent mechanical review, the native
+identity of the final controller and the fixture CAD remain required before any gate
+changes; the physical criterion 5 is untouched.
