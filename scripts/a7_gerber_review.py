@@ -63,7 +63,9 @@ def render(args):
         'Ordered dark/clear aperture primitives retained; SVG rasterization is visual evidence, not exact area proof.'
     ], 'layers': []}
     for source in sorted(args.input.iterdir()):
-        if source.suffix not in {'.gbr', '.gtl', '.gbl', '.g1', '.g2', '.gts', '.gbs', '.gtp', '.gbp', '.gm1'}:
+        # KiCad export suffixes: outer/inner copper, mask, paste, silkscreen (markings) and outline.
+        if source.suffix not in {'.gbr', '.gtl', '.gbl', '.g1', '.g2', '.g3', '.g4', '.gts', '.gbs',
+                                 '.gtp', '.gbp', '.gto', '.gbo', '.gm1'}:
             continue
         gerber = GerberFile.open(source)
         mask = gerber.file_attrs.get('.FileFunction', ('',))[0] == 'Soldermask'

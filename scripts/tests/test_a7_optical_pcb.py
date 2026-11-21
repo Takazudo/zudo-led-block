@@ -1,4 +1,5 @@
 import importlib.util
+import math
 from pathlib import Path
 import sys
 import unittest
@@ -7,7 +8,7 @@ sys.dont_write_bytecode = True
 SCRIPT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(SCRIPT))
 from a7_optical_pcb import complement_rectangles, outside, spec, stackup_text
-from a7_optical_check import check_board
+from a7_optical_check import check_board, effective_via_tent_errors
 
 
 class OpticalConstruction(unittest.TestCase):
@@ -102,6 +103,54 @@ class OpticalConstruction(unittest.TestCase):
                          '(zone (name "buck-return-thermal") (net "/VLED") (layer "B.Cu") '
                          '(polygon (pts (xy 4 0.4) (xy 8.8 0.4) (xy 8.8 4.9) (xy 4 4.9)))))')
             self.assertIn('local copper buck-return-thermal wrong net',check_board(p,'controller'))
+
+
+class EffectiveMask(unittest.TestCase):
+    """The residual-mask check reads the exported geometry, so a pad aperture cannot hide behind the rectangles."""
+
+    def specimen(self, directory, holes, outer=((0, 0), (10, 0), (10, 10), (0, 10)), sha=None):
+        import hashlib
+        import json
+        board = Path(directory) / 'board.kicad_pcb'
+        board.write_text('(kicad_pcb (general (thickness 0.8)) (layers (0 "F.Cu" signal) (2 "B.Cu" signal)) '
+                         '(setup ' + stackup_text('led_leaf') + ') '
+                         '(via (at 5 5) (size 0.5) (drill 0.2) (layers "F.Cu" "B.Cu") (uuid "v1")))')
+        drill = [[5 + .1 * math.cos(math.tau * i / 12), 5 + .1 * math.sin(math.tau * i / 12)] for i in range(12)]
+        layer = {'material': 'mask', 'polygons': [{'outer': [list(p) for p in outer], 'holes': [drill] + holes}]}
+        (board.parent / 'optical-geometry.json').write_text(json.dumps({
+            'board_sha256': sha or hashlib.sha256(board.read_bytes()).hexdigest(),
+            'layers': [dict(layer, layer=n) for n in ('F.Mask', 'B.Mask')]}))
+        return board
+
+    def test_via_covered_by_residual_mask_passes(self):
+        import tempfile
+        with tempfile.TemporaryDirectory(prefix='a7-effective-mask-') as d:
+            self.assertEqual(effective_via_tent_errors(self.specimen(d, [])), [])
+
+    def test_pad_aperture_eating_into_the_via_web_is_rejected(self):
+        import tempfile
+        web = spec()['mask']['via_web_mm']
+        pad = [[5.3, 4.5], [6.0, 4.5], [6.0, 5.5], [5.3, 5.5]]      # 0.05 mm of web left, under the 0.1 mm rule
+        with tempfile.TemporaryDirectory(prefix='a7-effective-mask-') as d:
+            errors = effective_via_tent_errors(self.specimen(d, [pad]))
+            for side in ('F.Mask', 'B.Mask'):
+                self.assertTrue(any(e.startswith(f'{side} effective opening leaves 0.0500 mm') for e in errors), errors)
+            self.assertTrue(all(str(web) in e for e in errors))
+
+    def test_via_outside_every_residual_polygon_is_rejected(self):
+        import tempfile
+        with tempfile.TemporaryDirectory(prefix='a7-effective-mask-') as d:
+            errors = effective_via_tent_errors(self.specimen(d, [], outer=((20, 20), (30, 20), (30, 30), (20, 30))))
+            for side in ('F.Mask', 'B.Mask'):
+                self.assertIn(f'{side} effective opening exposes via v1 at (5.0, 5.0)', errors)
+
+    def test_geometry_of_other_bytes_or_no_geometry_cannot_certify(self):
+        import tempfile
+        with tempfile.TemporaryDirectory(prefix='a7-effective-mask-') as d:
+            board = self.specimen(d, [], sha='0' * 64)
+            self.assertEqual(effective_via_tent_errors(board), ['effective mask geometry is bound to different PCB bytes'])
+            (board.parent / 'optical-geometry.json').unlink()
+            self.assertEqual(effective_via_tent_errors(board), ['effective mask geometry (optical-geometry.json) missing'])
 
 
 if __name__ == '__main__':

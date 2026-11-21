@@ -7,7 +7,10 @@ Runs fresh from the committed inputs, in an empty output directory outside the r
   2. `a7_route.py --seed 0` on that geometry; the proposal must equal
      engineering/a7/verification/routing/route_proposal_seed0.json byte for byte;
   3. the committed authoritative board's tracks and vias must be exactly the proposal's
-     (as multisets, compared at KiCad's 1 nm resolution), so the board carries the recorded route.
+     (as multisets, compared at KiCad's 1 nm resolution), so the board carries the recorded route;
+  4. `a7_return_review.py` on that geometry, the recorded route and the committed board: the ground
+     star, the Kelvin reference taps and the DC reference-error budget must still pass at the
+     acceptance corner. The numbers live in engineering/a7/verification/controller/return-review.json.
 
 With --review-aid it also exports Gerbers, drill files and a component position file of the committed
 board into <out>/review-aid/. Those files are a review aid only: they are not release outputs, were
@@ -192,6 +195,21 @@ def main() -> int:
                 fails.append(f'seed-0 route differs from {PROPOSAL} ({sha(routes)} != {s["proposal_sha256"]})')
     else:
         fails.append('no staging geometry from a7_board.py build')
+    if geo.is_file():
+        rr = subprocess.run([sys.executable, '-I', str(REPO / 'scripts/a7_return_review.py'), '--geometry', str(geo),
+                             '--routes', str(REPO / PROPOSAL), '--board', str(REPO / BOARD),
+                             '--out', str(out / 'return-review.json')], capture_output=True, text=True, timeout=900)
+        s['return_review'] = {'exit': rr.returncode, 'stderr_tail': rr.stderr[-500:]}
+        if (out / 'return-review.json').is_file():
+            review = json.loads((out / 'return-review.json').read_text())
+            # Only the verdict is compared: the solved millivolts carry last-bit BLAS noise, so the
+            # retained record is bound to the board bytes by its own test instead of byte-compared here.
+            s['return_review']['status'] = review['status']
+            s['return_review']['board_sha256'] = review['inputs']['board_sha256']
+            if review['inputs']['board_sha256'] != s['board_sha256']:
+                fails.append('the electrical review did not read the committed board')
+        if rr.returncode != 0:
+            fails.append(f'electrical return review failed (exit {rr.returncode}): {rr.stdout[-400:]}')
     if not (out / 'copper_nm.json').is_file():
         fails.append('no copper_nm.json from the in-image copper export')
     else:

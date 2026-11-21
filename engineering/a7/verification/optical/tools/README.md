@@ -14,6 +14,26 @@ python3 -m venv /tmp/a7-gerber-tools
 
 The review JSON binds each actual Gerber hash, attributes, object counts and polarity. It is not an ERC/DRC result. The native board protection inventory remains a separate requirement. `led_leaf/export-receipt.json` records the PCB identity, fixed KiCad image, actual export command and rendering script/lock hashes. Its staging export is not the formal Actions native gate.
 
+`scripts/a7_gerber_inspect.py` uses the same environment to **measure** instead of render. It takes the board
+and a Gerber directory and tests the plotted primitives themselves: every via must keep `--web` mm (0.1 by
+default, the JLC green 1 oz mask bridge) of mask beyond its copper on both mask files, every paste shape must
+be a flash centred on a pad of that face with no drawn region or line, and it reports per-layer coverage and a
+stdlib greyscale overview as inspection aids. A mask shape is an opening whether it came from a generated
+rectangle or an ordinary component pad aperture, so a pad opening that overrides a via tent fails here. CI runs
+it on both boards on every push, and `raster-inspection.json` records the result and the inspecting script's own
+SHA-256.
+
+```sh
+/tmp/a7-gerber-tools/bin/python scripts/a7_gerber_inspect.py \
+  --board engineering/a7/electronics/controller/controller.kicad_pcb \
+  --gerbers engineering/a7/verification/optical/controller/gerbers \
+  --out /tmp/a7-controller-inspection
+```
+
+It is a review of plotted geometry: not DRC, not a fabricator DFM result and not an optical measurement. The
+controller's `raster-inspection.json` comes from this script; the leaf's retained file predates it and records
+the earlier antialiased raster estimates described above.
+
 Identity validation needs only the Python standard library, not Gerbonara or a renderer:
 
 ```sh

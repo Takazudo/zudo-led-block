@@ -292,6 +292,21 @@
    "class": "derived",
    "generator": "scripts/a7_optical_geometry.py in pinned native KiCad10.0.8; staged and reviewed adoption",
    "rule": "All-layer actual copper and effective residual mask contours; must match current authoritative PCB SHA. Display geometry only, not optical measurement or manufacturing release."
+  },
+  {
+   "path": "engineering/a7/verification/controller",
+   "class": "authored",
+   "rule": "Adoption evidence of the current 0.8 mm controller candidate: fresh pinned-image native results (ERC, DRC, parity, unconnected, refill) of the adopted bytes, plus return-review.json, the DC electrical review of that board and route. Evidence of runs on specific bytes, not a physical result; the CI native gate and route check stay mandatory. scripts/tests/test_a7_return_review.py binds return-review.json to the committed board and route."
+  },
+  {
+   "path": "engineering/a7/verification/electrical_review.md",
+   "class": "authored",
+   "rule": "Independent electrical review of the plane-free 0.8 mm controller (#87): return topology, local copper inventory, acceptance margin and results, buck loops, decoupling, drop/thermal screen and CV/data coupling. Replaces the return-path and shielding conclusions of interface_review.md. Calculated screens and explicit assumptions only; no measurement is claimed."
+  },
+  {
+   "path": "engineering/a7/verification/optical",
+   "class": "authored",
+   "rule": "Review-only subsets of the actually exported Gerbers of the adopted A7 boards, with each file's SHA-256 bound in export-receipt.json together with the PCB, renderer, tool lock and review artifacts (python3 scripts/a7_gerber_review.py --verify-receipt ...). The .gbrjob is deliberately omitted: not an ordering or manufacturing package."
   }
  ],
  "regeneration_rules": [

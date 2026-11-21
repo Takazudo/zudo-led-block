@@ -123,13 +123,26 @@ jobs:
       - name: A7 fixture condition matrix is current and bound to the controller PCB identity
         timeout-minutes: 5
         run: python3 scripts/a7_fixture_matrix.py --check
+      # The exported Gerbers are the last word on mask webs and paste: source rectangles
+      # alone cannot prove that pad apertures and plotting settings preserved them.
+      - name: Install the pinned Gerber inspection tool chain
+        timeout-minutes: 2
+        run: |
+          python3 -m pip install --require-hashes --only-binary=:all: --no-deps -r engineering/a7/verification/optical/tools/requirements.lock
+      - name: Plotted Gerber geometry of both boards (via tents, paste flashes, coverage)
+        timeout-minutes: 3
+        run: |
+          python3 scripts/a7_gerber_inspect.py --board engineering/a7/electronics/controller/controller.kicad_pcb \
+            --gerbers engineering/a7/verification/optical/controller/gerbers --out "$RUNNER_TEMP/a7-gerber-controller"
+          python3 scripts/a7_gerber_inspect.py --board engineering/a7/electronics/led_leaf/led_leaf.kicad_pcb \
+            --gerbers engineering/a7/verification/optical/led_leaf/gerbers --out "$RUNNER_TEMP/a7-gerber-led-leaf"
       - name: A7 layout, layout.md and placement envelopes are current
         run: python3 scripts/a7_mechanical_layout.py --check
       - name: A7 R2 geometry tests (stack, candidates, keep-outs, routes, CAD/front records)
         run: python3 -m unittest -v scripts/tests/test_a7_r2_mechanical.py
       - name: A7 evidence and preparation negative controls (blocked reports remain valid)
         run: |
-          python3 -m unittest scripts/tests/test_private_resources.py scripts/tests/test_a7_e2_evidence.py scripts/tests/test_a7_fixture.py scripts/tests/test_a7_fixture_relief.py scripts/tests/test_a7_procurement.py scripts/tests/test_a7_readiness.py scripts/tests/test_a7_jlc_package.py scripts/tests/test_a7_panel.py scripts/tests/test_a7_optical_manufacturing.py scripts/tests/test_a7_optical_pcb.py scripts/tests/test_a7_optical_geometry.py scripts/tests/test_a7_gerber_review.py
+          python3 -m unittest scripts/tests/test_private_resources.py scripts/tests/test_a7_e2_evidence.py scripts/tests/test_a7_fixture.py scripts/tests/test_a7_fixture_relief.py scripts/tests/test_a7_procurement.py scripts/tests/test_a7_readiness.py scripts/tests/test_a7_jlc_package.py scripts/tests/test_a7_panel.py scripts/tests/test_a7_optical_manufacturing.py scripts/tests/test_a7_optical_pcb.py scripts/tests/test_a7_optical_geometry.py scripts/tests/test_a7_gerber_review.py scripts/tests/test_a7_gerber_inspect.py scripts/tests/test_a7_return_review.py
           python3 -O -m unittest scripts/tests/test_a7_readiness.py
           python3 scripts/a7_fixture.py --check
           python3 scripts/a7_fixture_geometry.py --check
@@ -384,6 +397,7 @@ jobs:
         run: |
           python3 scripts/a7_optical_check.py
           python3 scripts/a7_gerber_review.py --verify-receipt engineering/a7/verification/optical/led_leaf/export-receipt.json
+          python3 scripts/a7_gerber_review.py --verify-receipt engineering/a7/verification/optical/controller/export-receipt.json
       - name: Checkpoint and fixtures left unmodified, no owned container left
         if: always()
         timeout-minutes: 1

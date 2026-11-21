@@ -64,12 +64,12 @@
      8.8,
      4.9
     ],
-    "reason": "localized return/thermal spreading below U2/C1; DS41326 Rev3-2 page15 recommends bottom GND copper; no whole-board plane; thermal performance still needs bench",
+    "reason": "localized return/thermal spreading below U2/C1, tied to the buck ground by two stitch vias beside C1.2/U2.4; DS41326 Rev3-2 page15 recommends bottom GND copper; on the power return branch only, never touching the quiet branch or the J5.2 pad; no whole-board plane; thermal performance still needs bench",
     "max_outline_area_mm2": 21.6
    }
   ],
   "max_trace_width_mm": 0.6,
-  "wide_trace_reason": "0.6mm outer GND star trunk from J5.2 toward U1.4 reduces ADC-reference impedance; short escape .3mm, other traces <=.3mm. Real trace only, not broad fill."
+  "wide_trace_reason": "0.6mm B.Cu quiet-ground trunk from the J5.2 pin to the single MCU ground via under U1 lowers the shared CV/ADC reference impedance; every other trace is <=0.3mm. Real trace only, not broad fill."
  },
  "led_leaf": {
   "board": "engineering/a7/electronics/led_leaf/led_leaf.kicad_pcb",
@@ -104,11 +104,13 @@
   "silk_margin_mm": 0.15,
   "reason": "retain only pad solder dams/wicking barriers, narrow solder isolation over surface copper (native solder_mask_bridge prevention), via tents and polarity/assembly silk backing; exact rectangles recorded per board",
   "paste": "normal footprint apertures only; no new paste graphics",
-  "verification": "compare exported positive mask Gerbers to these protected rectangles and pad apertures; fail if opening crosses a protected via hole",
+  "verification": "compare exported positive mask Gerbers to these protected rectangles and pad apertures; fail if any opening, including a pad aperture, comes within via_web_mm of via copper",
   "ink_thickness_mm": 0.01,
   "ink_thickness_status": "JLC published minimum, used only as preview/stackup convention; local coating not measured",
   "trace_margin_mm": 0.1,
-  "diagonal_step_mm": 0.5
+  "diagonal_step_mm": 0.5,
+  "via_web_mm": 0.1,
+  "via_web_reason": "Every via keeps at least this much mask between its copper and ANY effective opening, generated rectangle or component pad aperture alike (JLC green 1 oz mask bridge 0.10 mm, same source row). The router keeps via copper this far from every pad aperture (no via in or against a pad); a7_optical_check.py proves it on the native residual mask and a7_gerber_inspect.py on the plotted Gerbers."
  },
  "sources": [
   {
