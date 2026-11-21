@@ -28,6 +28,11 @@ class Identity(unittest.TestCase):
         self.assertTrue(identity['board_identity_bound'])
         self.assertIn('--rebind', identity['rebind_command'])
         self.assertIn('a7_fixture_geometry.py --from-zip', identity['rebind_prerequisite'])
+        self.assertIn('--from-dir', identity['rebind_prerequisite'])
+        # the record names the provenance class of the native geometry it is bound to, so a local run cannot read as CI
+        native = json.loads(matrix.NATIVE.read_text())['provenance']
+        self.assertEqual(identity['native_geometry_provenance_class'], native['provenance_class'])
+        self.assertIn(native['provenance_class'], ('CI_RETAINED_ARTIFACT', 'LOCAL_PINNED_IMAGE_RUN'))
 
     def test_a_different_board_invalidates_the_record(self):
         tampered = copy.deepcopy(RECORD)
@@ -83,6 +88,13 @@ class RecordedFailuresStayVisible(unittest.TestCase):
 
 
 class CurrentCandidate(unittest.TestCase):
+    def test_the_required_clamp_force_is_the_probe_force_times_the_margin_factor(self):
+        fi = RECORD['force_inputs']
+        self.assertAlmostEqual(RECORD['limits']['required_total_clamp_force_N'],
+                               fi['clamp_force_margin_factor'] * fi['probe_force_each_N']['maximum_stroke'] * fi['probe_count'],
+                               places=6)
+        self.assertEqual(fi['probe_count'], 5)
+
     def test_every_thickness_and_force_corner_is_present(self):
         layout = RECORD['layouts']['optical_full_pin']
         self.assertEqual(RECORD['thicknesses_mm'], [0.7, 0.8, 0.9])
@@ -134,7 +146,14 @@ class ClaimLimits(unittest.TestCase):
         for phrase in ('fixture acceptance or release', 'manufacturing or order approval'):
             self.assertIn(phrase, RECORD['not_evidence_for'])
         self.assertTrue(any('Physical contact and load validation' in item for item in RECORD['remaining']))
-        self.assertTrue(any('final routed 0.8 mm controller' in item for item in RECORD['remaining']))
+        # the native geometry is now taken from the adopted routed 0.8 mm board, so the open item is its provenance:
+        # a local gate run must keep asking for a CI-retained artifact, and only a CI-bound record may drop that item
+        names_ci_retake = any('CI-retained artifact' in item for item in RECORD['remaining'])
+        if RECORD['pcb_identity']['native_geometry_provenance_class'] == 'LOCAL_PINNED_IMAGE_RUN':
+            self.assertTrue(names_ci_retake)
+        else:
+            self.assertEqual(RECORD['pcb_identity']['native_geometry_provenance_class'], 'CI_RETAINED_ARTIFACT')
+            self.assertFalse(names_ci_retake)
 
     def test_assumed_inputs_are_labelled(self):
         material = RECORD['model']['material']

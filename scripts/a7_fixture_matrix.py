@@ -18,8 +18,10 @@ as evidence for a different board. One command re-runs it on the final routed co
 
 (which is `--levels all --output engineering/a7/fixture/condition-matrix.json` with the identity read
 from the current bytes; the native geometry record itself must first be refreshed from a fresh native
-gate with `python3 scripts/a7_fixture_geometry.py --from-zip <artifact.zip>`, otherwise the command
-fails closed because the record and the board bytes disagree).
+gate with `python3 scripts/a7_fixture_geometry.py --from-zip <artifact.zip>`, or `--from-dir <staged
+a7-gate root> --expect-revision <checkout SHA>` for a run of the pinned image, otherwise the command
+fails closed because the record and the board bytes disagree. A --from-dir record is labelled
+LOCAL_PINNED_IMAGE_RUN and is not CI-retained evidence; the record repeats that label).
 """
 from __future__ import annotations
 
@@ -96,20 +98,22 @@ def land_predicate(design):
     return land, holes
 
 
+def probe_force_band(design, probes):
+    """Per-probe force band, from the figures a7_fixture_relief publishes; one derivation for the whole record."""
+    total = design['holddown']['probe_force_total_N']
+    return r9(total['minimum_at_acceptance_stroke'] / len(probes)), r9(total['maximum_stroke'] / len(probes))
+
+
 def force_inputs(design):
     """Probe and plunger force bands exactly as a7_fixture_relief derives them, with their sources."""
-    pf = relief.INGUN['probe']['facts']
-    f_work = pf['force_at_working_stroke_N']
-    probe_min = pf['spring_preload_N'] + (f_work - pf['spring_preload_N']) / pf['working_stroke_mm'] * (pf['working_stroke_mm'] - 0.3)
-    probe_max = relief.INGUN['force_graph']['facts']['force_at_maximum_stroke_N']
+    probe_min, probe_max = probe_force_band(design, json.loads(MANIFEST.read_text())['pads'])
     hd = design['holddown']
     comp = hd['plunger_compression_mm']
     pl = relief.PLUNGER_CANDIDATE
-    return {'probe_force_each_N': {'minimum_at_acceptance_stroke': r9(probe_min), 'maximum_stroke': r9(probe_max),
+    return {'probe_force_each_N': {'minimum_at_acceptance_stroke': probe_min, 'maximum_stroke': probe_max,
                                    'source': 'INGUN GKS-050 214 050 A 1000 datasheet and force graph (a7_fixture_relief.INGUN)'},
             'probe_count': len(json.loads(MANIFEST.read_text())['pads']),
-            'required_total_clamp_force_N': r9(relief.RULES['clamp_force_margin_factor'] * probe_max
-                                               * len(json.loads(MANIFEST.read_text())['pads'])),
+            'required_total_clamp_force_N': r9(design['holddown']['required_total_force_N']),
             'clamp_force_margin_factor': relief.RULES['clamp_force_margin_factor'],
             'plunger': {'mpn': pl['mpn'], 'stroke_mm': pl['stroke_mm'], 'force_initial_N': pl['force_initial_N'],
                         'force_final_N': pl['force_final_N'], 'acceptance_band': relief.RULES['plunger_force_acceptance_band'],
@@ -190,8 +194,7 @@ def evaluate_layout(name, spec, geometry, probes, levels, modulus, limits, cross
     land, _ = land_predicate(design)
     clamps = [list(q) for q in design['holddown']['contacts_board_mm']]
     plate_deflection = design['holddown']['plunger_compression_mm']['plate_deflection_mm']
-    probe_min = design['holddown']['probe_force_total_N']['minimum_at_acceptance_stroke'] / len(probes)
-    probe_max = relief.INGUN['force_graph']['facts']['force_at_maximum_stroke_N']
+    probe_min, probe_max = probe_force_band(design, probes)
     required = limits['required_total_clamp_force_N']
     rows, thickness_rows, cross = [], [], None
     for thickness in THICKNESSES:
@@ -212,7 +215,7 @@ def evaluate_layout(name, spec, geometry, probes, levels, modulus, limits, cross
                                'force_feasible': len(clamps) * f_min >= required,
                                'compression_positive': d_min > 0,
                                'within_stroke': d_max <= relief.PLUNGER_CANDIDATE['stroke_mm'] - relief.RULES['plunger_stroke_end_margin_mm'] + 1e-9})
-        for cf, pf in corners(band, (r9(probe_min), r9(probe_max)), len(clamps)):
+        for cf, pf in corners(band, (probe_min, probe_max), len(clamps)):
             res = case.solve(cf, pf)
             rows.append({'layout': name, 'thickness_mm': thickness, 'mesh': list(levels[0]), 'level': 0,
                          'clamp_forces_N': cf, 'probe_force_each_N': pf, **res,
@@ -406,9 +409,8 @@ def search_alternatives(geometry, probes, design, land, levels, modulus, limits,
     Nothing here adopts a layout: new clamp sites change the pressure-plate taps and need the fixture CAD, the
     manifest identity locks, a sourced plunger and owner review.
     """
-    probe_min = design['holddown']['probe_force_total_N']['minimum_at_acceptance_stroke'] / len(probes)
-    probe_max = relief.INGUN['force_graph']['facts']['force_at_maximum_stroke_N']
-    probe_band = (r9(probe_min), r9(probe_max))
+    probe_min, probe_max = probe_force_band(design, probes)
+    probe_band = (probe_min, probe_max)
     plate_deflection = design['holddown']['plunger_compression_mm']['plate_deflection_mm']
     base = Case(*levels[0], THICKNESSES[0], land, probes, [tuple(design['holddown']['contacts_board_mm'][0])], modulus)
     hull = relief._hull([tuple(base.plate.xy[d // 4]) for d in base.land])
@@ -542,13 +544,16 @@ def build(levels, cross_check=True, alternatives=True):
             'native_geometry_board_sha256': native['board_sha256'],
             'native_geometry_placement_sha256': native['placement_sha256'],
             'board_identity_bound': native['board_sha256'] == sha(BOARD),
-            'geometry_revision_note': 'outline, pads and courtyards come from the native record of this PCB revision. The '
-                                      'stackup field of those bytes is still the historical 1.6 mm value; the finished '
-                                      'thickness used by the plate model is the ordered 0.8 +/-0.1 mm, which is an order '
-                                      'specification, not a measured board. Re-run on the final routed 0.8 mm controller.',
+            'geometry_revision_note': 'outline, pads and courtyards come from the native record of this PCB revision, which is '
+                                      'the adopted routed 0.8 mm controller. The finished thickness used by the plate model is '
+                                      'the ordered 0.8 +/-0.1 mm, which is an order specification, not a measured board.',
+            'native_geometry_provenance_class': json.loads(NATIVE.read_text())['provenance']['provenance_class'],
             'rebind_command': 'python3 scripts/a7_fixture_matrix.py --rebind',
-            'rebind_prerequisite': 'python3 scripts/a7_fixture_geometry.py --from-zip <native-gate artifact.zip> (fresh native '
-                                   'geometry for the new board bytes) then the command above; --check fails until both agree',
+            'rebind_prerequisite': 'fresh native geometry for the new board bytes first: python3 scripts/a7_fixture_geometry.py '
+                                   '--from-zip <native-gate artifact.zip> for a CI-retained artifact, or --from-dir <staged '
+                                   'a7-gate root> --expect-revision <checkout SHA> for a run of the pinned image (that record '
+                                   'is labelled LOCAL_PINNED_IMAGE_RUN and is not CI-retained evidence); then the command '
+                                   'above. --check fails until the record and the board bytes agree',
         },
         'inputs_sha256': {f: sha(ROOT / f) for f in INPUT_FILES},
         'manifest_sha256': sha(MANIFEST),
@@ -593,7 +598,9 @@ def build(levels, cross_check=True, alternatives=True):
             'Component heights, solder envelopes and the pressure-plate CAD interference are outside this record.',
         ],
         'remaining': [
-            'Re-run bound to the final routed 0.8 mm controller bytes and a fresh native geometry record (rebind_command).',
+            'Native geometry from a CI-retained artifact: the bound record comes from a gate run in the pinned image on a '
+            'development machine (no GitHub run id), so re-take it with --from-zip once CI has retained an artifact for '
+            'these board bytes, then re-run rebind_command.',
             'Physical contact and load validation: measured plunger force at both compression ends, measured probe force, '
             'stroke, seating against the datum pins, positioning, and inspection for board damage, with fixture and board '
             'unit IDs, instruments and raw data (fixture criterion 5).',
