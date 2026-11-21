@@ -3806,7 +3806,7 @@
     {
       "id": "O7",
       "title": "残りの合否基準を採否する（提案値）",
-      "detail": "harness-depth、u7-stress、service-envelope、ldo-reverse はオーナーが採用した（2026-11-12）。thermal-optical は上限 75 °C を採ったが、材料の温度限界と見え方が残る。部分電源試験（partial-rails）は「accept all」の後に別に尋ね、オーナーが部品の絶対最大を合否の線に採った（2026-11-12）。その他の PROPOSED の提案値は、採るまでゲートを解除しない。",
+      "detail": "u7-stress、service-envelope、ldo-reverse はオーナーが採用した（2026-11-12）。harness-depth の旧受入（57 ± 3 mm）は旧1.6 mm設計の履歴で、0.8 mm設計の 55 ± 3 mm は未受入。thermal-optical は上限 75 °C を採ったが、材料の温度限界と見え方が残る。部分電源試験（partial-rails）は「accept all」の後に別に尋ね、オーナーが部品の絶対最大を合否の線に採った（2026-11-12）。その他の PROPOSED の提案値は、採るまでゲートを解除しない。",
       "unblocks": [
         "criterion:thermal-optical",
         "criterion:service-envelope",
@@ -3832,7 +3832,7 @@
     {
       "id": "O5",
       "title": "完成ケーブルを業者に注文仕様で頼み、長さ公差の回答をもらう",
-      "detail": "オーナーは完成ケーブルを業者に頼むこと（2026-11-12「5 accept all」）と、電源ケーブルの注文範囲 54–60 mm（57 ± 3 mm、±3 は仮定）と最小曲げ半径 2.0 mm を合否基準にすることを決めた。業者が保証できる公差の回答をもらう。SH4 と IDC リボンも同じ。",
+      "detail": "オーナーは完成ケーブルを業者に頼むこと（2026-11-12「5 accept all」）を決めた。旧1.6 mm設計の注文範囲 54–60 mm の受入は履歴で、0.8 mm設計の 52–58 mm（55 ± 3 mm、±3 は仮定）は未受入。業者が保証できる公差の回答をもらう。SH4 と IDC リボンも同じ。",
       "unblocks": [
         "material:finished_cables",
         "criterion:harness-depth"
@@ -3857,7 +3857,7 @@
     {
       "id": "O1",
       "title": "限定試作ルートを承認する",
-      "detail": "対象版（A7 r2 / 3HP / FR-4）、数量、入手する部品・基板・治具、許す工程、実施者、試験前の安全条件を決め、承認ファイルを残して `records.json` の owner_prototype_route に記録する。製造リリースとは別の承認。",
+      "detail": "対象版（A7 0.8 mm / 3HP / FR-4、制御基板 710ed801… / リーフ bcf2e35d…）、数量、入手する部品・基板・治具、許す工程、実施者、試験前の安全条件を決め、承認ファイルを残して `records.json` の owner_prototype_route に記録する。製造リリースとは別の承認。",
       "unblocks": [
         "owner_prototype_route",
         "assembly:prototype-and-release"
@@ -3885,7 +3885,7 @@
     {
       "gate": "owner_prototype_route",
       "stage": "PCB_ORDER",
-      "question": "A7 r2（3HP / FR-4）の限定試作を承認しますか。",
+      "question": "A7 0.8 mm FR-4（3HP、制御基板 710ed801… / リーフ bcf2e35d…）の限定試作を承認しますか。",
       "options": [
         {
           "id": "approve",
@@ -3899,7 +3899,7 @@
         }
       ],
       "recommended": "approve",
-      "reason": "オーナーは 2026-11-12 に「1 OK」でこの試作を承認し、SW1 を HX MSK13C02 にした版を 2026-11-13 に再承認し（approvals/2026-11-13-owner-prototype-route-hx-switch.md）、#80 で調達台帳 assembly-manifest.json の調達の欄が変わった版（c12c964a… → 557d5e48…、部品・数量・基板・配置・注文ファイルは同じ）を同日に再び承認した（approvals/2026-11-13-owner-prototype-route-sourcing-manifest.md）。承認は記録時の基板・回路図・機構・治具・調達台帳のハッシュに結び付いていて、どれかが変わると改めて承認が要る。19 の物理手順はどれも実物が要り、試作ルートがないと部品・基板・治具を入手できない。試作ルートの承認は製造リリースではない。",
+      "reason": "旧1.6 mm設計の承認は履歴で、0.8 mm設計の新しい identity には引き継がない。経緯: オーナーは 2026-11-12 に「1 OK」で旧版の試作を承認し、SW1 を HX MSK13C02 にした版を 2026-11-13 に再承認し（approvals/2026-11-13-owner-prototype-route-hx-switch.md）、#80 で調達台帳 assembly-manifest.json の調達の欄が変わった版（c12c964a… → 557d5e48…、部品・数量・基板・配置・注文ファイルは同じ）を同日に再び承認した（approvals/2026-11-13-owner-prototype-route-sourcing-manifest.md）。承認は記録時の基板・回路図・機構・治具・調達台帳のハッシュに結び付いていて、どれかが変わると改めて承認が要る。19 の物理手順はどれも実物が要り、試作ルートがないと部品・基板・治具を入手できない。試作ルートの承認は製造リリースではない。",
       "sources": [
         {
           "path": "engineering/a7/procurement/assembly-manifest.json",

@@ -105,7 +105,12 @@ class PackageTests(unittest.TestCase):
             self.assertGreaterEqual(min(rp['panel_mm']), rp['panel_minimum_mm'])
             self.assertTrue(rp['within_250_mm'])
         self.assertGreaterEqual(self.board('controller')['repo_panel']['edge_gap_mm']['left'], 4.45 + J.OVERHANG_MARGIN_MM)
-        self.assertIn('carrier', ' '.join(self.board('led_leaf')['repo_panel']['notes']))
+        # The 0.8 mm leaf is not a carrier board (JLC's carrier rule is for 0.4 and 0.6 mm); the rule itself stays guarded.
+        self.assertEqual(self.board('led_leaf')['thickness_mm'], 0.8)
+        self.assertNotIn('carrier', ' '.join(self.board('led_leaf')['repo_panel']['notes']))
+        thin = copy.deepcopy(self.board('led_leaf'))
+        thin['thickness_mm'] = 0.6
+        self.assertIn('carrier', ' '.join(J.repo_panel(thin, 2)['notes']))
 
     def test_part_routes_follow_stock(self):
         self.assertNotIn('C221842', [l['lcsc'] for l in self.report['parts']])
