@@ -15,15 +15,17 @@ AC or thermal qualification, and not a manufacturing approval. A7 remains unrele
 
 ## Acceptance margin, and where it comes from
 
-| Allocation | Limit | Result at the acceptance corner |
-|---|---|---|
-| LED-brightness-dependent reference shift | 0.5 ADC LSB | **0.0375 LSB** (30.2 µV), 20.9× margin |
-| Combined static DC reference error | 1.0 ADC LSB | **0.265 LSB** (213.8 µV), 7.6× margin |
+| Allocation | Limit | Acceptance corner | Nominal 20 °C | Resistance headroom from nominal |
+|---|---|---|---|---|
+| LED-brightness-dependent reference shift | 0.5 ADC LSB | **0.0375 LSB** (30.2 µV) | 0.0239 LSB | 20.9× |
+| Combined static DC reference error | 1.0 ADC LSB | **0.265 LSB** (213.8 µV) | 0.1312 LSB | 7.6× |
 
 The acceptance corner is `hot_85C_thin_copper`: 85 °C (the upper ambient rating of the fitted parts) with
 copper thickness, track width and barrel plating all at 0.8× nominal. Those tolerances are explicit
 **assumptions**; no fabricator tolerance row is retained. Resistance scales every voltage in the model, so
-this corner is the acceptance case and nominal 20 °C is reported beside it (0.0239 / 0.1312 LSB).
+this corner is the acceptance case: at it the two results sit 13.3× and 3.8× under their limits. The last
+column is the separate question of how much every resistance on the board could grow from its nominal value
+before the allocation is reached.
 
 Derivation of the two allocations:
 
@@ -61,8 +63,10 @@ the island, so the 3.3 mA bleeder and the LDO's own return current do not flow i
 result is the headline number: **both LED scenarios produce exactly 0 V of weighted reference error**, because
 the LED return shares no copper at all with the reference chain.
 
-The only LED-dependent term left is the J5.2 barrel itself, taken conservatively as fully shared: 0.731 mΩ at
-the corner × the 0.439 A TPS2552-1 current-limit bound = 30.2 µV = 0.0375 LSB.
+The only LED-dependent term left is the J5.2 barrel itself, taken conservatively as fully shared by both
+branches: 0.731 mΩ at the corner × the 0.439 A TPS2552-1 current-limit bound = 321 µV of shift of the whole
+board reference against the patched CV source, which the firmware weight (1/10.64 from CV volts to ADC volts)
+turns into 30.2 µV at the ADC pin, i.e. 0.0375 LSB.
 
 Selected measured-from-copper resistances at the acceptance corner (nominal in `return-review.json`):
 
@@ -132,7 +136,8 @@ At the acceptance corner, with the 0.439 A TPS2552-1 limit as the LED bound and 
 - 12 V input loop trace drop: **57.4 mV** (D1.1 → C1.1 is 46.1 mm because the protected rail crosses the
   board; it is outer-copper only);
 - ground offset at the LED connector J3 against the power trunk, conservatively: **33.6 mV**;
-- `+3V3` U3.5 → U1.3: 221 mΩ at 20 mA = 4.4 mV, which the Kelvin taps remove from the CV reference.
+- `+3V3` U3.5 → U1.3: 221 mΩ at 20 mA = 4.4 mV of supply drop, of which the Kelvin taps leave 32 µV in the
+  CV reference.
 
 No high-current net uses inner copper (`inner_layer_high_current_track_mm = 0`): the 15 µm inner layers carry
 signals only. High-current widths are 0.3 mm and 0.6 mm. The IPC-2221 external-conductor equation as published
@@ -153,21 +158,27 @@ switching or data net. All are met on the adopted board:
 | `/CV_THRU` – `/DATA_L_3V3` / `/DATA_R_3V3` | 0.9 mm | 1.03 / 1.03 mm |
 | `/CV_FILTER` – `/VLED` | 1.2 mm | 1.60 mm |
 
-No CV track runs within 0.5 mm of any of those aggressors anywhere. An unshielded two-wire estimate of the
-worst case, `/BUCK_SW` into `/CV_SENSE` across 3.07 mm, gives 40 fF; the resulting switching ripple is
-174 mV at the high-impedance `/CV_SENSE` node but **31 µV at `/CV_AFFINE`** after the 776 Hz filter, which is
-0.004 LSB. These are upper-side two-wire estimates with no plane and no intervening conductor credited, for
-comparing candidates — not a field solution.
+No CV track runs within 0.5 mm of any aggressor in that table anywhere on any layer. The pairs that carry no
+rule do cross on adjacent layers: `/CV_THRU` runs within 0.5 mm of `/VLED` for 9.4 mm, of `/SWDIO` for 3.8 mm
+and of `/SWCLK` for 3.3 mm. Those crossings are what the open-input estimate below covers.
+
+An unshielded two-wire estimate of the worst ruled case, `/BUCK_SW` into `/CV_SENSE` across 3.07 mm, gives
+40 fF. Treating `/CV_SENSE` as the open 10 MΩ divider node it is at switching frequencies, that puts 174 mV of
+switching ripple on it but **31 µV at `/CV_AFFINE`** after the 776 Hz filter
+(`engineering/a5/electronics/reports/electrical_margins.json`, `nominal_pole_Hz`), which is 0.004 LSB. These
+are upper-side estimates with no plane and no intervening conductor credited, for comparing candidates — not a
+field solution.
 
 `/CV_THRU` is the jack-tip node itself (J1.4, J2.4, R1.1). With nothing patched it sits 20 MΩ from ground, and
 the estimate of capacitive pickup there is the one item the plane removal genuinely worsened: 0.3–3.8 pF to the
-data, SWD and VLED runs, i.e. 6–43 % of an aggressor edge appearing on the open tip against an assumed 5 pF
-tip node (worst: `/VLED` at 3.8 pF and 43 %). That coupling has **no DC path**, so it carries no mean offset, the 776 Hz filter attenuates an
-800 kHz data edge train by about three orders of magnitude, the firmware adds a 1/8 IIR, and the excursions
-stay inside the op-amp's rails so no rectification is expected. A patched source of 1 kΩ or less reduces it by
-more than 10⁴. The reading of an **unpatched** input is therefore expected to stay inside the ±50 mV deadband,
-but that expectation is a calculation: it NEEDS BENCH (#10). It is deliberately not an acceptance gate, since
-a floating input has no defined value.
+data, SWD and VLED runs, i.e. 6–43 % of an aggressor edge appearing on the open tip against an assumed 5 pF tip
+node (worst: `/VLED` at 3.8 pF and 43 %). That coupling has **no DC path**, so it carries no mean offset; the
+776 Hz filter attenuates an 800 kHz data edge train by about three orders of magnitude; the firmware adds a 1/8
+IIR (`light_block.c`, `cv_mv + (sample - cv_mv) / 8`); and the excursions stay inside the op-amp's rails, so no
+rectification is expected. A patched source of 1 kΩ or less reduces all of it by more than 10⁴. The reading of
+an **unpatched** input is therefore expected to stay inside the ±50 mV deadband, but that expectation is a
+calculation: it NEEDS BENCH (#10). It is deliberately not an acceptance gate, since a floating input has no
+defined value.
 
 ## Open items (not waived, not approved)
 
