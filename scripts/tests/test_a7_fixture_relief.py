@@ -290,6 +290,15 @@ class ReliefTests(unittest.TestCase):
         self.assertTrue(any(c.startswith('X1') for c in d['support_carrier']['web_conflicts']))
         self.assertFalse(d['fresh_native_criteria']['no_wall_below_minimum'])
 
+    def test_a_datum_pin_as_tall_as_the_board_is_rejected(self):
+        # a pin standing above the thinnest board's F face can reach an F-side body: at 1.0 mm the CAD interference
+        # check found the Y1 pin inside SW1's courtyard envelope on the 0.8 mm board
+        self.assertLess(rl.RULES['datum_pin_height_above_carrier_mm'], rl.BOARD_THICKNESS - rl.RULES['board_thickness_tolerance_mm'])
+        self.assertTrue(self.d['fresh_native_criteria']['datum_pins_stay_below_the_thinnest_board_f_face'])
+        with unittest.mock.patch.dict(rl.RULES, {'datum_pin_height_above_carrier_mm': 1.0}):
+            d = rl.design(GEOM, probes())
+        self.assertFalse(d['fresh_native_criteria']['datum_pins_stay_below_the_thinnest_board_f_face'])
+
     def test_probe_bores_meet_the_ingun_grid_and_stay_off_the_j5_window(self):
         pp = self.d['probe_plate']
         self.assertEqual(pp['bore_webs_mm'][0], 0.4)
@@ -480,21 +489,19 @@ class CompletionTests(unittest.TestCase):
     def test_completion_flags_follow_criteria(self):
         r = f.report()
         cc = r['completion_criteria']
-        for k in ('1_native_support_and_relief', '2_keying_and_registration'):
+        for k in ('1_native_support_and_relief', '2_keying_and_registration', '4_assembly_step_interference_check'):
             self.assertTrue(cc[k]['met'], cc[k])
-        # criterion 3 fails on the recorded 0.7-0.9 mm load shortfall; criterion 4's interference record was taken on a
-        # different design, so the report must stay BLOCKED with both named rather than inherit the 1.6 mm board's flags
+        # criterion 3 fails on the recorded 0.7-0.9 mm load shortfall, so the report stays BLOCKED and names it rather
+        # than inheriting the 1.6 mm board's flags
         self.assertFalse(cc['3_stroke_stop_guide_fixing_insulation_wiring']['met'])
-        self.assertFalse(cc['4_assembly_step_interference_check']['met'])
         self.assertFalse(cc['5_physical_tests']['met'])
         self.assertEqual(r['status'], 'BLOCKED')
         self.assertTrue(r['fresh_native_verified'])
         self.assertFalse(r['digital_criteria_1_to_4_met'])
         self.assertFalse(r['digital_fixture_complete'])
-        self.assertEqual(len(r['blockers']), 2)
+        self.assertEqual(len(r['blockers']), 1)
         self.assertTrue(any('criterion 3' in b and 'clamp_force_sized_with_margin' in b and 'board_stays_on_land' in b
                             and 'board_bending_across_window_within_limit' in b for b in r['blockers']), r['blockers'])
-        self.assertTrue(any('criterion 4' in b for b in r['blockers']), r['blockers'])
 
     def test_the_hold_down_flags_are_computed_from_the_limits_not_recorded(self):
         with unittest.mock.patch.dict(rl.RULES, {'board_deflection_limit_mm': 0.02}):
@@ -555,12 +562,8 @@ class CompletionTests(unittest.TestCase):
         self.assertEqual(r2['status'], 'BLOCKED')
         self.assertIn('not order eligibility', r['digital_criteria_1_to_4_met_scope'])
 
-    def test_the_assembly_interference_record_is_stale_and_a_design_change_keeps_it_stale(self):
-        # the saved interference record was taken on the 1.6 mm design, so criterion 4 is unmet before any mock; the
-        # mocked design change must not be able to make it met either
-        r0 = f.report()
-        self.assertFalse(r0['completion_criteria']['4_assembly_step_interference_check']['met'])
-        self.assertIn('different design', r0['completion_criteria']['4_assembly_step_interference_check']['basis'])
+    def test_a_design_change_invalidates_the_assembly_check(self):
+        self.assertTrue(f.report()['completion_criteria']['4_assembly_step_interference_check']['met'])
         with unittest.mock.patch.dict(rl.SOURCES['PicoBlade 530470310'], {'class': 'SOURCE_DERIVED'}):
             r = f.report()
         self.assertFalse(r['completion_criteria']['4_assembly_step_interference_check']['met'])

@@ -101,7 +101,12 @@ RULES = {
     'tht_copper_clearance_mm': 0.3,
     'probe_window_half_width_mm': 1.0,
     'datum_pin_diameter_mm': 2.0,
-    'datum_pin_height_above_carrier_mm': 1.0,
+    'datum_pin_length_mm': 6.0,
+    # must stay below the F face of the thinnest board in the adopted range, or a pin reaches the component face and
+    # can touch an F-side body envelope: at 1.0 mm the CAD interference check found the Y1 pin inside SW1's courtyard
+    # envelope where it overhangs the y = 62.9 edge (0.0577 mm3) on the 0.8 mm board. The 6 mm pin is pressed through
+    # the 5 mm carrier and stands 0.5 mm below it, in the 6 mm gap above the probe plate.
+    'datum_pin_height_above_carrier_mm': 0.5,
     'alignment_dowel_diameter_mm': 2.0,
     'm3_clearance_hole_mm': 3.4,
     'm3_screw_head_diameter_mm': 5.5,
@@ -1109,6 +1114,7 @@ def design(geometry: dict, probes: list[dict], pop: dict | None = None, *, candi
         'keyed_against_turned_insertion': keying['keyed'],
         'hold_down_plungers_on_free_f_face': len(tri) >= 2 and all(
             all(_box_point_dist(b, tuple(q)) >= r_body + RULES['contact_f_side_clearance_mm'] - 1e-9 for b in fside) for q in tri),
+        'datum_pins_stay_below_the_thinnest_board_f_face': RULES['datum_pin_height_above_carrier_mm'] < t_min,
     }
     criterion3 = {
         'installation_height_and_stroke_resolved': stroke['accommodated_installation_height_mm'][0] <= h_inst <= stroke['accommodated_installation_height_mm'][1],
