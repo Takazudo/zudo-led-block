@@ -5,7 +5,8 @@
 ## コントローラー（`controller`）
 
 - 基板: 4 層 / 0.8 mm（±0.1 mm） / 積層 JLC04081H-3313 / 表面処理 ENIG / レジスト色 green (the recorded 0.10 mm via web uses the green 1 oz bridge row; black/white need 0.13 mm)
-- 面付け: 1 枚入り 70 × 76.9 mm、PCB・PCBA 数量 2 シート → 実装 2 枚（必要 2）、Panel by JLCPCB は No
+- 面付け: 1 枚入り 70 × 76.9 mm、PCBA 数量 2 シート → 実装 2 枚（必要 2）、Panel by JLCPCB は No
+- PCB 数量（基板の製造枚数）: 未確認。JLC の最小数は取得していない（`pcb-fabrication-quantity-not-sourced`）。PCBA 数量とは別に、注文画面で提示される最小数を入れる
 - PCBA: STANDARD、実装面 Bottom + Top
 - ビア: Tented (not ink-plugged: plugging needs 0.35 mm to openings; our web is 0.10 mm)。レジスト: use the Gerber mask openings as drawn (minimal mask: F.Mask and B.Mask graphics are openings, not retained mask)
 - J1: 基板 CPL (-0.7, -35.8) 90° Top、面付け CPL (9.75, -42.8) 90°、原点とパッド中心の差 7.358 mm → 配置プレビューで確認
@@ -18,7 +19,8 @@
 ## LED リーフ（`led_leaf`）
 
 - 基板: 2 層 / 0.8 mm（±0.1 mm） / 積層 none published for 2-layer 0.8 mm / 表面処理 ENIG / レジスト色 green (the recorded 0.10 mm via web uses the green 1 oz bridge row; black/white need 0.13 mm)
-- 面付け: 2 枚入り 70 × 96.5 mm、PCB・PCBA 数量 2 シート → 実装 4 枚（必要 4）、Panel by JLCPCB は No
+- 面付け: 2 枚入り 70 × 96.5 mm、PCBA 数量 2 シート → 実装 4 枚（必要 4）、Panel by JLCPCB は No
+- PCB 数量（基板の製造枚数）: 未確認。JLC の最小数は取得していない（`pcb-fabrication-quantity-not-sourced`）。PCBA 数量とは別に、注文画面で提示される最小数を入れる
 - PCBA: STANDARD、実装面 Top
 - ビア: Tented (not ink-plugged: plugging needs 0.35 mm to openings; our web is 0.10 mm)。レジスト: use the Gerber mask openings as drawn (minimal mask: F.Mask and B.Mask graphics are openings, not retained mask)
 - 向きを確認する極性部品: D1, D2, D3, D4, J1, J2
@@ -26,7 +28,8 @@
 ## 電源アダプタ（`power_adapter`）
 
 - 基板: 2 層 / 1.6 mm（±10%） / 表面処理 HOLD: not recorded (power-adapter-a5-settings-unspecified) / レジスト色 HOLD: not recorded
-- 面付け: 1 枚入り 22.8 × 44 mm、PCB・PCBA 数量 2 シート → 実装 2 枚（必要 2）、Panel by JLCPCB は No
+- 面付け: 1 枚入り 22.8 × 44 mm、PCBA 数量 2 シート → 実装 2 枚（必要 2）、Panel by JLCPCB は No
+- PCB 数量（基板の製造枚数）: 未確認。JLC の最小数は取得していない（`pcb-fabrication-quantity-not-sourced`）。PCBA 数量とは別に、注文画面で提示される最小数を入れる
 - PCBA: ECONOMIC、実装面 Top
 - J1: 基板 CPL (3.13, -10.32) 0° Top、面付け CPL (10.13, -17.32) 0°、原点とパッド中心の差 5.236 mm → 配置プレビューで確認
 - J2: 基板 CPL (3.15, -28.7) 0° Top、面付け CPL (10.15, -35.7) 0°、原点とパッド中心の差 1.25 mm → 配置プレビューで確認

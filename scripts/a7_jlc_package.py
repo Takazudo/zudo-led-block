@@ -310,6 +310,22 @@ def generate(root=ROOT, sources=None):
     return report, files
 
 
+def frozen_drift(root, path):
+    """Names of frozen identities or panel BOM/CPL files of a non-historical set that no longer match the repository."""
+    spec = importlib.util.spec_from_file_location('a7_readiness_ids', ROOT / 'scripts/a7_readiness.py')
+    readiness = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(readiness)
+    frozen = json.loads((root / path / 'identities.json').read_text())['identities']
+    drift = [k for k, v in readiness.identities(root).items() if frozen.get(k) != v]
+    drift += [k for k in frozen if k not in readiness.IDENTITY_PATHS]
+    for board in ('controller', 'led_leaf', 'power_adapter'):
+        for kind in ('BOM', 'CPL'):
+            name = f'{board}-panel_{kind}_DRYRUN.csv'
+            if (root / path / board / name).read_bytes() != (root / PANELS / name).read_bytes():
+                drift.append(name)
+    return drift
+
+
 def package_sets(root, current_boards, gates):
     """Bind every dated file set to its board identities; only a set matching the current boards can be current."""
     index = json.loads((root / PACKAGE_SETS).read_text())
@@ -341,6 +357,9 @@ def package_sets(root, current_boards, gates):
             raise ValueError(f'{path}: status {status} but its board identities are not the current boards (stale package)')
         if status == 'PROTOTYPE_UPLOAD_APPROVED' and 'owner_prototype_route' in gates:
             raise ValueError(f'{path}: upload approval claimed while readiness still lists owner_prototype_route')
+        stale = frozen_drift(root, path)
+        if stale:
+            raise ValueError(f'{path}: status {status} but its frozen identities or BOM/CPL differ from the repository ({", ".join(stale)}) (stale package)')
         if current is not None:
             raise ValueError(f'{PACKAGE_SETS}: more than one current set')
         current = {'path': path, 'status': status, 'boards': entry['boards']}
@@ -738,7 +757,7 @@ def order_form_checklist(report, files, sources, root=ROOT):
         minimum = rp['assembled_at_minimum_order'] // rp['copies']
         boards.append({'board': n, 'pcb': pcb,
             'panel': {'route': 'repo panel (owner decision panel-route); Panel by JLCPCB: No', 'boards_per_panel': rp['copies'], 'panel_mm': rp['panel_mm'],
-                      'pcb_and_pcba_quantity_panels': minimum, 'assembled_boards': rp['assembled_at_minimum_order'], 'boards_needed': b['pcba_quantity'],
+                      'pcba_quantity_panels': minimum, 'pcb_quantity': 'OPEN: bare-PCB order quantity not sourced (pcb-fabrication-quantity-not-sourced); enter the JLC minimum offered for the panel, separately from the PCBA quantity', 'assembled_boards': rp['assembled_at_minimum_order'], 'boards_needed': b['pcba_quantity'],
                       'panel_files_current': panel_current},
             'pcba': {'tier': b['pcba_tier']['tier'], 'assembly_sides': b['assembly_sides'], 'tht_refs': b['tht_refs']},
             'named_placements': named,
@@ -762,7 +781,8 @@ def checklist_md(c):
         p, pn = b['pcb'], b['panel']
         L += [f"## {BOARD_JA[b['board']]}（`{b['board']}`）", '',
               f"- 基板: {p['layers']} 層 / {fmt(p['thickness_mm'])} mm（{p['thickness_tolerance']}）" + (f" / 積層 {p['stackup']['select']}" if 'stackup' in p else '') + f" / 表面処理 {p['surface_finish']} / レジスト色 {p['mask_colour']}",
-              f"- 面付け: {pn['boards_per_panel']} 枚入り {fmt(pn['panel_mm'][0])} × {fmt(pn['panel_mm'][1])} mm、PCB・PCBA 数量 {pn['pcb_and_pcba_quantity_panels']} シート → 実装 {pn['assembled_boards']} 枚（必要 {pn['boards_needed']}）、Panel by JLCPCB は No" + ('' if pn['panel_files_current'] else '（**面付けデータが現在の基板と一致しない**）'),
+              f"- 面付け: {pn['boards_per_panel']} 枚入り {fmt(pn['panel_mm'][0])} × {fmt(pn['panel_mm'][1])} mm、PCBA 数量 {pn['pcba_quantity_panels']} シート → 実装 {pn['assembled_boards']} 枚（必要 {pn['boards_needed']}）、Panel by JLCPCB は No" + ('' if pn['panel_files_current'] else '（**面付けデータが現在の基板と一致しない**）'),
+              "- PCB 数量（基板の製造枚数）: 未確認。JLC の最小数は取得していない（`pcb-fabrication-quantity-not-sourced`）。PCBA 数量とは別に、注文画面で提示される最小数を入れる",
               f"- PCBA: {b['pcba']['tier']}、実装面 {' + '.join(b['pcba']['assembly_sides'])}"]
         if 'via_covering' in p:
             L.append(f"- ビア: {p['via_covering']}。レジスト: {p['mask_artwork']}")

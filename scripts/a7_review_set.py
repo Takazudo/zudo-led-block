@@ -98,6 +98,9 @@ def verify(path, root=ROOT):
     if ident['identities']['board']['sha256'] != lay['controller']['board_sha256'] or \
             ident['identities']['led_leaf_board']['sha256'] != lay['led_leaf']['board_sha256']:
         errors.append('frozen identities and panel layouts name different boards')
+    adapter = lay['power_adapter']
+    if not (root / adapter['board']).is_file() or sha(root / adapter['board']) != adapter['board_sha256']:
+        errors.append('power_adapter board differs from the frozen panel layout')
     return errors
 
 

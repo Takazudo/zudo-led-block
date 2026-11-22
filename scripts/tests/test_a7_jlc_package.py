@@ -206,6 +206,28 @@ class PackageTests(unittest.TestCase):
             with self.assertRaisesRegex(ValueError, 'differ from the dated directories'):
                 J.package_sets(self.sets_root(d, unlisted), self.current_boards(), set())
 
+    def test_current_set_is_rejected_once_its_frozen_bom_or_identities_drift(self):
+        index = json.loads((ROOT / J.PACKAGE_SETS).read_text())
+        if index['current'] is None:
+            self.skipTest('no current set')
+        self.assertEqual(J.frozen_drift(ROOT, index['current']), [])
+        spec = importlib.util.spec_from_file_location('rd', ROOT / 'scripts/a7_readiness.py')
+        rd = importlib.util.module_from_spec(spec)
+        spec.loader.exec_module(rd)
+        with tempfile.TemporaryDirectory() as d:
+            root = Path(d)
+            shutil.copytree(ROOT / index['current'], root / index['current'])
+            shutil.copytree(ROOT / J.PANELS, root / J.PANELS)
+            for rel in rd.IDENTITY_PATHS.values():
+                (root / rel).parent.mkdir(parents=True, exist_ok=True)
+                shutil.copyfile(ROOT / rel, root / rel)
+            self.assertEqual(J.frozen_drift(root, index['current']), [])
+            bom = root / J.PANELS / 'controller-panel_BOM_DRYRUN.csv'
+            bom.write_text(bom.read_text().replace('C134375', 'C999999'))
+            manifest = root / rd.IDENTITY_PATHS['assembly_manifest']
+            manifest.write_text(manifest.read_text() + ' ')
+            self.assertEqual(sorted(J.frozen_drift(root, index['current'])), ['assembly_manifest', 'controller-panel_BOM_DRYRUN.csv'])
+
     def test_changed_board_is_rejected(self):
         original = J.sha
         with patch.object(J, 'sha', side_effect=lambda p: '0' * 64 if str(p).endswith('controller.kicad_pcb') else original(p)):
@@ -233,7 +255,7 @@ class PackageTests(unittest.TestCase):
         self.assertEqual([r['ref'] for r in boards['controller']['named_placements']], ['J1', 'J2', 'J5', 'SW1'])
         self.assertEqual([r['ref'] for r in boards['power_adapter']['named_placements']], ['J1', 'J2'])
         self.assertEqual(boards['controller']['bottom_side']['count'], sum(1 for r in cpl.values() if r[4] == 'Bottom'))
-        self.assertEqual([(b['panel']['boards_per_panel'], b['panel']['pcb_and_pcba_quantity_panels'], b['panel']['assembled_boards']) for b in c['boards']],
+        self.assertEqual([(b['panel']['boards_per_panel'], b['panel']['pcba_quantity_panels'], b['panel']['assembled_boards']) for b in c['boards']],
                          [(1, 2, 2), (2, 2, 4), (1, 2, 2)])
         self.assertEqual(boards['controller']['pcb']['stackup']['select'], 'JLC04081H-3313')
         self.assertTrue(boards['power_adapter']['pcb']['surface_finish'].startswith('HOLD'))
