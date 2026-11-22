@@ -42,7 +42,7 @@
       }
     ],
     "pcb_fabrication_minimum": "NOT_SOURCED",
-    "attrition": "NOT_SOURCED as a JLC rule: pieces_required adds none. The 2026-11-12 parts-API audit calculates pieces_to_buy from loss_number / least_patch_number / min_purchase, whose meanings are our inference (engineering/a7/procurement/sourcing-projection.json, confidence INFERRED).",
+    "attrition": "NOT_SOURCED as a JLC rule: pieces_required adds none. The dated parts-API audits calculate pieces_to_buy from loss_number / least_patch_number / min_purchase, whose meanings are our inference (engineering/a7/procurement/sourcing-projection.json, confidence INFERRED).",
     "sourcing_preference": {
       "owner_words": [
         "basically I want to complete it on JLCPCB, external purchase from JLC parts lib is acceptable"
@@ -63,7 +63,7 @@
         "pieces_required": 4,
         "sourcing": {
           "route": "JLC_STOCK",
-          "status": "DATED_LISTING_OBSERVED: preferred route; listing_page and parts_api observations dated 2026-11-12 (not current stock, a quote, a reservation or assembly acceptance; refresh before ordering)",
+          "status": "DATED_LISTING_OBSERVED: preferred route; listing_page and parts_api observations dated 2026-11-22 (not current stock, a quote, a reservation or assembly acceptance; refresh before ordering)",
           "exception": null
         },
         "evidence": "engineering/a7/procurement/sourcing-projection.json#C122442"
@@ -76,7 +76,7 @@
         "pieces_required": 4,
         "sourcing": {
           "route": "JLC_STOCK",
-          "status": "DATED_LISTING_OBSERVED: preferred route; listing_page and parts_api observations dated 2026-11-12 (not current stock, a quote, a reservation or assembly acceptance; refresh before ordering)",
+          "status": "DATED_LISTING_OBSERVED: preferred route; listing_page and parts_api observations dated 2026-11-22 (not current stock, a quote, a reservation or assembly acceptance; refresh before ordering)",
           "exception": null
         },
         "evidence": "engineering/a7/procurement/sourcing-projection.json#C12891"
@@ -88,8 +88,8 @@
         "pieces_per_module": 1,
         "pieces_required": 2,
         "sourcing": {
-          "route": "JLC_STOCK",
-          "status": "DATED_LISTING_OBSERVED: preferred route; listing_page and parts_api observations dated 2026-11-12 (not current stock, a quote, a reservation or assembly acceptance; refresh before ordering)",
+          "route": "JLC_PREORDER_OR_GLOBAL_SOURCING",
+          "status": "LISTED_STOCK_SHORTFALL: JLC stock 1 for 2 needed at 2026-11-22T06:14:51Z (page pre-order available 1, pre-order minimum 149; meanings inferred); a JLC pre-order or Global Sourcing quote, waiting, or a separately reviewed alternate is needed (not a quote, a reservation or assembly acceptance)",
           "exception": null
         },
         "evidence": "engineering/a7/procurement/sourcing-projection.json#C134375"
@@ -102,7 +102,7 @@
         "pieces_required": 2,
         "sourcing": {
           "route": "JLC_STOCK",
-          "status": "DATED_LISTING_OBSERVED: preferred route; listing_page and parts_api observations dated 2026-11-12 (not current stock, a quote, a reservation or assembly acceptance; refresh before ordering)",
+          "status": "DATED_LISTING_OBSERVED: preferred route; listing_page and parts_api observations dated 2026-11-22 (not current stock, a quote, a reservation or assembly acceptance; refresh before ordering)",
           "exception": null
         },
         "evidence": "engineering/a7/procurement/sourcing-projection.json#C140331"
@@ -115,7 +115,7 @@
         "pieces_required": 32,
         "sourcing": {
           "route": "JLC_STOCK",
-          "status": "DATED_LISTING_OBSERVED: preferred route; listing_page and parts_api observations dated 2026-11-12 (not current stock, a quote, a reservation or assembly acceptance; refresh before ordering)",
+          "status": "DATED_LISTING_OBSERVED: preferred route; listing_page and parts_api observations dated 2026-11-22 (not current stock, a quote, a reservation or assembly acceptance; refresh before ordering)",
           "exception": null
         },
         "evidence": "engineering/a7/procurement/sourcing-projection.json#C14663"
@@ -128,7 +128,7 @@
         "pieces_required": 2,
         "sourcing": {
           "route": "JLC_STOCK",
-          "status": "DATED_LISTING_OBSERVED: preferred route; listing_page and parts_api observations dated 2026-11-12 (not current stock, a quote, a reservation or assembly acceptance; refresh before ordering)",
+          "status": "DATED_LISTING_OBSERVED: preferred route; listing_page and parts_api observations dated 2026-11-22 (not current stock, a quote, a reservation or assembly acceptance; refresh before ordering)",
           "exception": null
         },
         "evidence": "engineering/a7/procurement/sourcing-projection.json#C15741"
@@ -141,7 +141,7 @@
         "pieces_required": 6,
         "sourcing": {
           "route": "JLC_STOCK",
-          "status": "DATED_LISTING_OBSERVED: preferred route; listing_page and parts_api observations dated 2026-11-12 (not current stock, a quote, a reservation or assembly acceptance; refresh before ordering)",
+          "status": "DATED_LISTING_OBSERVED: preferred route; listing_page and parts_api observations dated 2026-11-22 (not current stock, a quote, a reservation or assembly acceptance; refresh before ordering)",
           "exception": null
         },
         "evidence": "engineering/a7/procurement/sourcing-projection.json#C15850"
@@ -154,7 +154,7 @@
         "pieces_required": 10,
         "sourcing": {
           "route": "JLC_STOCK",
-          "status": "DATED_LISTING_OBSERVED: preferred route; listing_page and parts_api observations dated 2026-11-12 (not current stock, a quote, a reservation or assembly acceptance; refresh before ordering)",
+          "status": "DATED_LISTING_OBSERVED: preferred route; listing_page and parts_api observations dated 2026-11-22 (not current stock, a quote, a reservation or assembly acceptance; refresh before ordering)",
           "exception": null
         },
         "evidence": "engineering/a7/procurement/sourcing-projection.json#C160404"
@@ -167,7 +167,7 @@
         "pieces_required": 6,
         "sourcing": {
           "route": "JLC_STOCK",
-          "status": "DATED_LISTING_OBSERVED: preferred route; listing_page and parts_api observations dated 2026-11-12 (not current stock, a quote, a reservation or assembly acceptance; refresh before ordering)",
+          "status": "DATED_LISTING_OBSERVED: preferred route; listing_page and parts_api observations dated 2026-11-22 (not current stock, a quote, a reservation or assembly acceptance; refresh before ordering)",
           "exception": null
         },
         "evidence": "engineering/a7/procurement/sourcing-projection.json#C19666"
@@ -180,7 +180,7 @@
         "pieces_required": 2,
         "sourcing": {
           "route": "JLC_STOCK",
-          "status": "DATED_LISTING_OBSERVED: preferred route; listing_page and parts_api observations dated 2026-11-12 (not current stock, a quote, a reservation or assembly acceptance; refresh before ordering)",
+          "status": "DATED_LISTING_OBSERVED: preferred route; listing_page and parts_api observations dated 2026-11-22 (not current stock, a quote, a reservation or assembly acceptance; refresh before ordering)",
           "exception": null
         },
         "evidence": "engineering/a7/procurement/sourcing-projection.json#C20526"
@@ -193,7 +193,7 @@
         "pieces_required": 2,
         "sourcing": {
           "route": "JLC_STOCK",
-          "status": "DATED_LISTING_OBSERVED: preferred route; listing_page and parts_api observations dated 2026-11-12 (not current stock, a quote, a reservation or assembly acceptance; refresh before ordering)",
+          "status": "DATED_LISTING_OBSERVED: preferred route; listing_page and parts_api observations dated 2026-11-22 (not current stock, a quote, a reservation or assembly acceptance; refresh before ordering)",
           "exception": null
         },
         "evidence": "engineering/a7/procurement/sourcing-projection.json#C2071056"
@@ -206,7 +206,7 @@
         "pieces_required": 6,
         "sourcing": {
           "route": "JLC_STOCK",
-          "status": "DATED_LISTING_OBSERVED: preferred route; listing_page and parts_api observations dated 2026-11-12 (not current stock, a quote, a reservation or assembly acceptance; refresh before ordering)",
+          "status": "DATED_LISTING_OBSERVED: preferred route; listing_page and parts_api observations dated 2026-11-22 (not current stock, a quote, a reservation or assembly acceptance; refresh before ordering)",
           "exception": null
         },
         "evidence": "engineering/a7/procurement/sourcing-projection.json#C21190"
@@ -219,7 +219,7 @@
         "pieces_required": 2,
         "sourcing": {
           "route": "JLC_STOCK",
-          "status": "DATED_LISTING_OBSERVED: preferred route; listing_page and parts_api observations dated 2026-11-12 (not current stock, a quote, a reservation or assembly acceptance; refresh before ordering)",
+          "status": "DATED_LISTING_OBSERVED: preferred route; listing_page and parts_api observations dated 2026-11-22 (not current stock, a quote, a reservation or assembly acceptance; refresh before ordering)",
           "exception": null
         },
         "evidence": "engineering/a7/procurement/sourcing-projection.json#C221351"
@@ -232,7 +232,7 @@
         "pieces_required": 4,
         "sourcing": {
           "route": "JLC_STOCK",
-          "status": "DATED_LISTING_OBSERVED: preferred route; listing_page and parts_api observations dated 2026-11-12 (not current stock, a quote, a reservation or assembly acceptance; refresh before ordering)",
+          "status": "DATED_LISTING_OBSERVED: preferred route; listing_page and parts_api observations dated 2026-11-22 (not current stock, a quote, a reservation or assembly acceptance; refresh before ordering)",
           "exception": null
         },
         "evidence": "engineering/a7/procurement/sourcing-projection.json#C22355739"
@@ -245,7 +245,7 @@
         "pieces_required": 6,
         "sourcing": {
           "route": "JLC_STOCK",
-          "status": "DATED_LISTING_OBSERVED: preferred route; listing_page and parts_api observations dated 2026-11-12 (not current stock, a quote, a reservation or assembly acceptance; refresh before ordering)",
+          "status": "DATED_LISTING_OBSERVED: preferred route; listing_page and parts_api observations dated 2026-11-22 (not current stock, a quote, a reservation or assembly acceptance; refresh before ordering)",
           "exception": null
         },
         "evidence": "engineering/a7/procurement/sourcing-projection.json#C23138"
@@ -258,7 +258,7 @@
         "pieces_required": 2,
         "sourcing": {
           "route": "JLC_STOCK",
-          "status": "DATED_LISTING_OBSERVED: preferred route; listing_page and parts_api observations dated 2026-11-12 (not current stock, a quote, a reservation or assembly acceptance; refresh before ordering)",
+          "status": "DATED_LISTING_OBSERVED: preferred route; listing_page and parts_api observations dated 2026-11-22 (not current stock, a quote, a reservation or assembly acceptance; refresh before ordering)",
           "exception": null
         },
         "evidence": "engineering/a7/procurement/sourcing-projection.json#C23162"
@@ -271,7 +271,7 @@
         "pieces_required": 2,
         "sourcing": {
           "route": "JLC_STOCK",
-          "status": "DATED_LISTING_OBSERVED: preferred route; listing_page and parts_api observations dated 2026-11-12 (not current stock, a quote, a reservation or assembly acceptance; refresh before ordering)",
+          "status": "DATED_LISTING_OBSERVED: preferred route; listing_page and parts_api observations dated 2026-11-22 (not current stock, a quote, a reservation or assembly acceptance; refresh before ordering)",
           "exception": null
         },
         "evidence": "engineering/a7/procurement/sourcing-projection.json#C23231"
@@ -284,7 +284,7 @@
         "pieces_required": 8,
         "sourcing": {
           "route": "JLC_STOCK",
-          "status": "DATED_LISTING_OBSERVED: preferred route; listing_page and parts_api observations dated 2026-11-12 (not current stock, a quote, a reservation or assembly acceptance; refresh before ordering)",
+          "status": "DATED_LISTING_OBSERVED: preferred route; listing_page and parts_api observations dated 2026-11-22 (not current stock, a quote, a reservation or assembly acceptance; refresh before ordering)",
           "exception": null
         },
         "evidence": "engineering/a7/procurement/sourcing-projection.json#C23254"
@@ -297,7 +297,7 @@
         "pieces_required": 12,
         "sourcing": {
           "route": "JLC_STOCK",
-          "status": "DATED_LISTING_OBSERVED: preferred route; listing_page and parts_api observations dated 2026-11-12 (not current stock, a quote, a reservation or assembly acceptance; refresh before ordering)",
+          "status": "DATED_LISTING_OBSERVED: preferred route; listing_page and parts_api observations dated 2026-11-22 (not current stock, a quote, a reservation or assembly acceptance; refresh before ordering)",
           "exception": null
         },
         "evidence": "engineering/a7/procurement/sourcing-projection.json#C25803"
@@ -310,7 +310,7 @@
         "pieces_required": 10,
         "sourcing": {
           "route": "JLC_STOCK",
-          "status": "DATED_LISTING_OBSERVED: preferred route; listing_page and parts_api observations dated 2026-11-12 (not current stock, a quote, a reservation or assembly acceptance; refresh before ordering)",
+          "status": "DATED_LISTING_OBSERVED: preferred route; listing_page and parts_api observations dated 2026-11-22 (not current stock, a quote, a reservation or assembly acceptance; refresh before ordering)",
           "exception": null
         },
         "evidence": "engineering/a7/procurement/sourcing-projection.json#C25804"
@@ -323,7 +323,7 @@
         "pieces_required": 2,
         "sourcing": {
           "route": "JLC_STOCK",
-          "status": "DATED_LISTING_OBSERVED: preferred route; listing_page and parts_api observations dated 2026-11-12 (not current stock, a quote, a reservation or assembly acceptance; refresh before ordering)",
+          "status": "DATED_LISTING_OBSERVED: preferred route; listing_page and parts_api observations dated 2026-11-22 (not current stock, a quote, a reservation or assembly acceptance; refresh before ordering)",
           "exception": null
         },
         "evidence": "engineering/a7/procurement/sourcing-projection.json#C398363"
@@ -336,7 +336,7 @@
         "pieces_required": 2,
         "sourcing": {
           "route": "JLC_STOCK",
-          "status": "DATED_LISTING_OBSERVED: preferred route; listing_page and parts_api observations dated 2026-11-12 (not current stock, a quote, a reservation or assembly acceptance; refresh before ordering)",
+          "status": "DATED_LISTING_OBSERVED: preferred route; listing_page and parts_api observations dated 2026-11-22 (not current stock, a quote, a reservation or assembly acceptance; refresh before ordering)",
           "exception": null
         },
         "evidence": "engineering/a7/procurement/sourcing-projection.json#C404027"
@@ -349,7 +349,7 @@
         "pieces_required": 4,
         "sourcing": {
           "route": "JLC_STOCK",
-          "status": "DATED_LISTING_OBSERVED: preferred route; listing_page and parts_api observations dated 2026-11-12 (not current stock, a quote, a reservation or assembly acceptance; refresh before ordering)",
+          "status": "DATED_LISTING_OBSERVED: preferred route; listing_page and parts_api observations dated 2026-11-22 (not current stock, a quote, a reservation or assembly acceptance; refresh before ordering)",
           "exception": null
         },
         "evidence": "engineering/a7/procurement/sourcing-projection.json#C50704"
@@ -362,7 +362,7 @@
         "pieces_required": 2,
         "sourcing": {
           "route": "JLC_STOCK",
-          "status": "DATED_LISTING_OBSERVED: preferred route; listing_page and parts_api observations dated 2026-11-12 (not current stock, a quote, a reservation or assembly acceptance; refresh before ordering)",
+          "status": "DATED_LISTING_OBSERVED: preferred route; listing_page and parts_api observations dated 2026-11-22 (not current stock, a quote, a reservation or assembly acceptance; refresh before ordering)",
           "exception": null
         },
         "evidence": "engineering/a7/procurement/sourcing-projection.json#C5149819"
@@ -375,7 +375,7 @@
         "pieces_required": 2,
         "sourcing": {
           "route": "JLC_STOCK",
-          "status": "DATED_LISTING_OBSERVED: preferred route; listing_page and parts_api observations dated 2026-11-12 (not current stock, a quote, a reservation or assembly acceptance; refresh before ordering)",
+          "status": "DATED_LISTING_OBSERVED: preferred route; listing_page and parts_api observations dated 2026-11-22 (not current stock, a quote, a reservation or assembly acceptance; refresh before ordering)",
           "exception": null
         },
         "evidence": "engineering/a7/procurement/sourcing-projection.json#C5270180"
@@ -388,7 +388,7 @@
         "pieces_required": 16,
         "sourcing": {
           "route": "JLC_STOCK",
-          "status": "DATED_LISTING_OBSERVED: preferred route; listing_page and parts_api observations dated 2026-11-12 (not current stock, a quote, a reservation or assembly acceptance; refresh before ordering)",
+          "status": "DATED_LISTING_OBSERVED: preferred route; listing_page and parts_api observations dated 2026-11-22 (not current stock, a quote, a reservation or assembly acceptance; refresh before ordering)",
           "exception": null
         },
         "evidence": "engineering/a7/procurement/sourcing-projection.json#C52917434"
@@ -401,7 +401,7 @@
         "pieces_required": 2,
         "sourcing": {
           "route": "JLC_STOCK",
-          "status": "DATED_LISTING_OBSERVED: preferred route; listing_page and parts_api observations dated 2026-11-12 (not current stock, a quote, a reservation or assembly acceptance; refresh before ordering)",
+          "status": "DATED_LISTING_OBSERVED: preferred route; listing_page and parts_api observations dated 2026-11-22 (not current stock, a quote, a reservation or assembly acceptance; refresh before ordering)",
           "exception": null
         },
         "evidence": "engineering/a7/procurement/sourcing-projection.json#C5665"
@@ -414,7 +414,7 @@
         "pieces_required": 2,
         "sourcing": {
           "route": "JLC_STOCK",
-          "status": "DATED_LISTING_OBSERVED: preferred route; listing_page and parts_api observations dated 2026-11-12 (not current stock, a quote, a reservation or assembly acceptance; refresh before ordering)",
+          "status": "DATED_LISTING_OBSERVED: preferred route; listing_page and parts_api observations dated 2026-11-22 (not current stock, a quote, a reservation or assembly acceptance; refresh before ordering)",
           "exception": null
         },
         "evidence": "engineering/a7/procurement/sourcing-projection.json#C57112"
@@ -427,7 +427,7 @@
         "pieces_required": 2,
         "sourcing": {
           "route": "JLC_STOCK",
-          "status": "DATED_LISTING_OBSERVED: preferred route; listing_page and parts_api observations dated 2026-11-12 (not current stock, a quote, a reservation or assembly acceptance; refresh before ordering)",
+          "status": "DATED_LISTING_OBSERVED: preferred route; listing_page and parts_api observations dated 2026-11-22 (not current stock, a quote, a reservation or assembly acceptance; refresh before ordering)",
           "exception": null
         },
         "evidence": "engineering/a7/procurement/sourcing-projection.json#C694586"
@@ -440,7 +440,7 @@
         "pieces_required": 4,
         "sourcing": {
           "route": "JLC_STOCK",
-          "status": "DATED_LISTING_OBSERVED: preferred route; listing_page and parts_api observations dated 2026-11-12 (not current stock, a quote, a reservation or assembly acceptance; refresh before ordering)",
+          "status": "DATED_LISTING_OBSERVED: preferred route; listing_page and parts_api observations dated 2026-11-22 (not current stock, a quote, a reservation or assembly acceptance; refresh before ordering)",
           "exception": null
         },
         "evidence": "engineering/a7/procurement/sourcing-projection.json#C7250"
@@ -465,12 +465,13 @@
     "engineering/a7/fixture/manifest.json": "a8a8a8cbde68c0d7cf9e2ff5e62202697bbef39e1fcdffb330560f515e650b70",
     "engineering/a7/fixture/materials.json": "e4c1c94966a46db75f8fc72eb00cf26719da38117fa4003fd05beb7c4d37d5c6",
     "engineering/a7/fixture/native-geometry.json": "90e9f9cf07007889be9947432c0451f9820d8020223bbbd7d6df73219bc6ac6b",
-    "engineering/a7/jlc-package/sources.json": "6fc3789723a99d5f6eaeca12b9f057ebb407ef84b7a8657ee224129c262f05d5",
+    "engineering/a7/jlc-package/sources.json": "3eaedfd799abb173a1c53a981b4d246a09c4a66c1451fc803e52491a2bf7533f",
     "engineering/a7/mechanical/build_a7_mechanical.py": "6489756f6bcd3ae863dfb6bda7cc3e0da842da7c98934523f1ae47a5b7b988bb",
     "engineering/a7/mechanical/exports/3hp/verification.json": "59df65512c02a3bdb3b4acf2fcfd3e557450762ee6d86e0db43372e7d01ad5f1",
     "engineering/a7/mechanical/layout.json": "8b24ec83fd805c4efcaba92f885e49531826f8945063b74fd5019bc1221e040e",
     "engineering/a7/procurement/owner-decisions.json": "7f72c6b04cf6a433e5ad0a292de9b9499dbca987ec80d69f298bd4a5bdfb48b9",
     "engineering/a7/procurement/price-audit/2026-11-12.json": "40fe7045238d80aae2f779da601c3270dfb0ca4a4c1fada72052722d231f2af3",
+    "engineering/a7/procurement/price-audit/2026-11-22.json": "e6866335d67a2ad70338bf16bd35685ed912dc14c8ef9e1b845825ef73585b8a",
     "engineering/a7/procurement/supply-observations.json": "64c642078850f2f9263b825e7bf762bb136f3fd72897ceca47d06aa32b4a6591",
     "engineering/a7/verification/fab/optical-fr4.json": "d974daffc20c4aabaa1d754f4b7393315388246b93433bb77750a4100237c6e5",
     "engineering/a7/verification/led_leaf/board_facts.json": "f2559a416645b17779ddedc78e9ff6bc792d61baab3a603b0f3094f39d4dbd5d",
@@ -3388,7 +3389,7 @@
     {
       "id": "supply-observations",
       "class": "ACCESS_EVIDENCE_HOLD",
-      "text": "Order quantity is 2 modules (owner decision), 162 fitted pieces before attrition. 30 of 30 fitted identities have dated 2026-11-12 JLC listing observations from both the rendered part pages and the parts-API audit (separate reads, raw bytes not committed, field meanings and currency inferred; engineering/a7/procurement/sourcing-projection.json). Not obtained for any line: lead time, confirmed quote, stock reservation and assembly acceptance. JLC attrition is not sourced as a rule; the audit's buy quantities are our inference. Refresh before ordering."
+      "text": "Order quantity is 2 modules (owner decision), 162 fitted pieces before attrition. 30 of 30 fitted identities have dated 2026-11-22 JLC listing observations from both the rendered part pages and the parts API (separate reads, field meanings and currency inferred; 2026-11-12 reads kept as history; engineering/a7/procurement/sourcing-projection.json). Listed JLC stock below the 2-module need at 2026-11-22: BAS70-04-7-F (C134375) stock 1 for 2 (no substitute chosen). Listed minimum purchase above the need: C160404. Not obtained for any line: lead time, confirmed quote, stock reservation and assembly acceptance. JLC attrition is not sourced as a rule; the audit's buy quantities are our inference. Refresh before ordering."
     },
     {
       "id": "jack-switch-qualification",

@@ -1,0 +1,449 @@
+{
+  "schema": 1,
+  "status": "CHECKLIST_NOT_AN_ORDER",
+  "order_eligibility": "BLOCKED",
+  "note": "What to set and check on the JLC order form for the owner-chosen repo panels. Values come from the generated CPLs and package; it is not an order, a release or factory acceptance.",
+  "sources": {
+    "package": "engineering/a7/jlc-package/package.json",
+    "optical_fabrication": "engineering/a7/verification/fab/optical-fr4.json",
+    "optical_fabrication_sha256": "d974daffc20c4aabaa1d754f4b7393315388246b93433bb77750a4100237c6e5",
+    "factory_review": "engineering/a7/jlc-package/sources.json#factory_review (2026-11-22)",
+    "panels": "engineering/a7/jlc-package/panels"
+  },
+  "boards": [
+    {
+      "board": "controller",
+      "pcb": {
+        "layers": 4,
+        "thickness_mm": 0.8,
+        "thickness_tolerance": "±0.1 mm",
+        "stackup": {
+          "select": "JLC04081H-3313",
+          "impedance_template_code": "20211110052748",
+          "note": "not the order-form default; the default for 4-layer 0.8 mm is \"No requirement\" (JLC04081H-7628)"
+        },
+        "surface_finish": "ENIG",
+        "mask_colour": "green (the recorded 0.10 mm via web uses the green 1 oz bridge row; black/white need 0.13 mm)",
+        "via_covering": "Tented (not ink-plugged: plugging needs 0.35 mm to openings; our web is 0.10 mm)",
+        "mask_artwork": "use the Gerber mask openings as drawn (minimal mask: F.Mask and B.Mask graphics are openings, not retained mask)",
+        "source": "engineering/a7/verification/fab/optical-fr4.json"
+      },
+      "panel": {
+        "route": "repo panel (owner decision panel-route); Panel by JLCPCB: No",
+        "boards_per_panel": 1,
+        "panel_mm": [
+          70,
+          76.9
+        ],
+        "pcb_and_pcba_quantity_panels": 2,
+        "assembled_boards": 2,
+        "boards_needed": 2,
+        "panel_files_current": true
+      },
+      "pcba": {
+        "tier": "STANDARD",
+        "assembly_sides": [
+          "Bottom",
+          "Top"
+        ],
+        "tht_refs": [
+          "J1",
+          "J2",
+          "J5"
+        ]
+      },
+      "named_placements": [
+        {
+          "ref": "J1",
+          "lcsc": "C22355739",
+          "board_cpl": {
+            "Mid X": "-0.7",
+            "Mid Y": "-35.8",
+            "Rotation": "90",
+            "Layer": "Top"
+          },
+          "panel_cpl": {
+            "Mid X": "9.75",
+            "Mid Y": "-42.8",
+            "Rotation": "90",
+            "Layer": "Top"
+          },
+          "anchor_to_pad_centre_mm": 7.358,
+          "check": "JLC placement preview: body centred on the pads and pin 1 / actuator / opening facing as drawn"
+        },
+        {
+          "ref": "J2",
+          "lcsc": "C22355739",
+          "board_cpl": {
+            "Mid X": "-0.7",
+            "Mid Y": "-50.8",
+            "Rotation": "90",
+            "Layer": "Top"
+          },
+          "panel_cpl": {
+            "Mid X": "9.75",
+            "Mid Y": "-57.8",
+            "Rotation": "90",
+            "Layer": "Top"
+          },
+          "anchor_to_pad_centre_mm": 7.358,
+          "check": "JLC placement preview: body centred on the pads and pin 1 / actuator / opening facing as drawn"
+        },
+        {
+          "ref": "J5",
+          "lcsc": "C122442",
+          "board_cpl": {
+            "Mid X": "7.24",
+            "Mid Y": "-27.5",
+            "Rotation": "0",
+            "Layer": "Top"
+          },
+          "panel_cpl": {
+            "Mid X": "17.69",
+            "Mid Y": "-34.5",
+            "Rotation": "0",
+            "Layer": "Top"
+          },
+          "anchor_to_pad_centre_mm": 1.25,
+          "check": "JLC placement preview: body centred on the pads and pin 1 / actuator / opening facing as drawn"
+        },
+        {
+          "ref": "SW1",
+          "lcsc": "C5149819",
+          "board_cpl": {
+            "Mid X": "6.8",
+            "Mid Y": "-60.1",
+            "Rotation": "0",
+            "Layer": "Top"
+          },
+          "panel_cpl": {
+            "Mid X": "17.25",
+            "Mid Y": "-67.1",
+            "Rotation": "0",
+            "Layer": "Top"
+          },
+          "anchor_to_pad_centre_mm": 0.568,
+          "check": "JLC placement preview: body centred on the pads and pin 1 / actuator / opening facing as drawn"
+        }
+      ],
+      "bottom_side": {
+        "count": 25,
+        "rows": [
+          {
+            "ref": "R1",
+            "rotation": "0"
+          },
+          {
+            "ref": "R2",
+            "rotation": "0"
+          },
+          {
+            "ref": "R3",
+            "rotation": "0"
+          },
+          {
+            "ref": "R4",
+            "rotation": "90"
+          },
+          {
+            "ref": "R5",
+            "rotation": "90"
+          },
+          {
+            "ref": "R6",
+            "rotation": "0"
+          },
+          {
+            "ref": "R7",
+            "rotation": "90"
+          },
+          {
+            "ref": "R8",
+            "rotation": "90"
+          },
+          {
+            "ref": "R9",
+            "rotation": "90"
+          },
+          {
+            "ref": "R10",
+            "rotation": "90"
+          },
+          {
+            "ref": "R11",
+            "rotation": "0"
+          },
+          {
+            "ref": "R12",
+            "rotation": "0"
+          },
+          {
+            "ref": "R13",
+            "rotation": "0"
+          },
+          {
+            "ref": "R14",
+            "rotation": "0"
+          },
+          {
+            "ref": "R15",
+            "rotation": "0"
+          },
+          {
+            "ref": "R16",
+            "rotation": "0"
+          },
+          {
+            "ref": "R17",
+            "rotation": "90"
+          },
+          {
+            "ref": "R18",
+            "rotation": "90"
+          },
+          {
+            "ref": "R19",
+            "rotation": "90"
+          },
+          {
+            "ref": "R20",
+            "rotation": "90"
+          },
+          {
+            "ref": "R21",
+            "rotation": "90"
+          },
+          {
+            "ref": "R22",
+            "rotation": "0"
+          },
+          {
+            "ref": "R23",
+            "rotation": "0"
+          },
+          {
+            "ref": "R24",
+            "rotation": "0"
+          },
+          {
+            "ref": "R25",
+            "rotation": "90"
+          }
+        ],
+        "check": "JLC bottom-side preview: every bottom part on its pads, rotation as viewed by JLC"
+      },
+      "orientation_checks": [
+        "D1",
+        "D2",
+        "D3",
+        "J1",
+        "J2",
+        "J3",
+        "J5",
+        "L1",
+        "Q1",
+        "SW1",
+        "U1",
+        "U2",
+        "U3",
+        "U4",
+        "U5",
+        "U6",
+        "U7"
+      ]
+    },
+    {
+      "board": "led_leaf",
+      "pcb": {
+        "layers": 2,
+        "thickness_mm": 0.8,
+        "thickness_tolerance": "±0.1 mm",
+        "stackup": {
+          "select": "none published for 2-layer 0.8 mm",
+          "note": "calculated manufacturing target .8-2*.035; ordinary 2-layer FR4, exact core/finish construction to be reconciled at final factory DFM; not a measured manufacturer core value"
+        },
+        "surface_finish": "ENIG",
+        "mask_colour": "green (the recorded 0.10 mm via web uses the green 1 oz bridge row; black/white need 0.13 mm)",
+        "via_covering": "Tented (not ink-plugged: plugging needs 0.35 mm to openings; our web is 0.10 mm)",
+        "mask_artwork": "use the Gerber mask openings as drawn (minimal mask: F.Mask and B.Mask graphics are openings, not retained mask)",
+        "source": "engineering/a7/verification/fab/optical-fr4.json"
+      },
+      "panel": {
+        "route": "repo panel (owner decision panel-route); Panel by JLCPCB: No",
+        "boards_per_panel": 2,
+        "panel_mm": [
+          70,
+          96.5
+        ],
+        "pcb_and_pcba_quantity_panels": 2,
+        "assembled_boards": 4,
+        "boards_needed": 4,
+        "panel_files_current": true
+      },
+      "pcba": {
+        "tier": "STANDARD",
+        "assembly_sides": [
+          "Top"
+        ],
+        "tht_refs": []
+      },
+      "named_placements": [],
+      "bottom_side": null,
+      "orientation_checks": [
+        "D1",
+        "D2",
+        "D3",
+        "D4",
+        "J1",
+        "J2"
+      ]
+    },
+    {
+      "board": "power_adapter",
+      "pcb": {
+        "layers": 2,
+        "thickness_mm": 1.6,
+        "thickness_tolerance": "±10%",
+        "surface_finish": "HOLD: not recorded (power-adapter-a5-settings-unspecified)",
+        "mask_colour": "HOLD: not recorded",
+        "base_material": "HOLD: not recorded",
+        "note": "unchanged A5 1.6 mm 2-layer adapter; Economic PCBA 1.6 mm green lists HASL or ENIG"
+      },
+      "panel": {
+        "route": "repo panel (owner decision panel-route); Panel by JLCPCB: No",
+        "boards_per_panel": 1,
+        "panel_mm": [
+          22.8,
+          44.0
+        ],
+        "pcb_and_pcba_quantity_panels": 2,
+        "assembled_boards": 2,
+        "boards_needed": 2,
+        "panel_files_current": true
+      },
+      "pcba": {
+        "tier": "ECONOMIC",
+        "assembly_sides": [
+          "Top"
+        ],
+        "tht_refs": [
+          "J1",
+          "J2"
+        ]
+      },
+      "named_placements": [
+        {
+          "ref": "J1",
+          "lcsc": "C5665",
+          "board_cpl": {
+            "Mid X": "3.13",
+            "Mid Y": "-10.32",
+            "Rotation": "0",
+            "Layer": "Top"
+          },
+          "panel_cpl": {
+            "Mid X": "10.13",
+            "Mid Y": "-17.32",
+            "Rotation": "0",
+            "Layer": "Top"
+          },
+          "anchor_to_pad_centre_mm": 5.236,
+          "check": "JLC placement preview: body centred on the pads and pin 1 / actuator / opening facing as drawn"
+        },
+        {
+          "ref": "J2",
+          "lcsc": "C122442",
+          "board_cpl": {
+            "Mid X": "3.15",
+            "Mid Y": "-28.7",
+            "Rotation": "0",
+            "Layer": "Top"
+          },
+          "panel_cpl": {
+            "Mid X": "10.15",
+            "Mid Y": "-35.7",
+            "Rotation": "0",
+            "Layer": "Top"
+          },
+          "anchor_to_pad_centre_mm": 1.25,
+          "check": "JLC placement preview: body centred on the pads and pin 1 / actuator / opening facing as drawn"
+        }
+      ],
+      "bottom_side": null,
+      "orientation_checks": [
+        "J1",
+        "J2"
+      ]
+    }
+  ],
+  "factory_acceptance_questions": [
+    {
+      "id": "controller-4l-jlc04081h-3313",
+      "boards": [
+        "controller"
+      ],
+      "question": "Confirm the order form lets JLC04081H-3313 be chosen for this 4-layer 0.8 mm order without impedance-controlled traces, and that the fabricated build follows it."
+    },
+    {
+      "id": "leaf-2l-construction",
+      "boards": [
+        "led_leaf"
+      ],
+      "question": "Which core and copper construction JLC uses for a 2-layer 0.8 mm FR-4 board (needed for the optical/translucency assumption, not for orderability)."
+    },
+    {
+      "id": "enig-exposed-copper",
+      "boards": [
+        "controller",
+        "led_leaf"
+      ],
+      "question": "Whether JLC CAM/DFM accepts the large mask openings that expose ENIG copper around pads, and confirmation that no trace is left uncovered (else the 0.25/0.25 mm uncovered-trace rule applies). Not checked against the Gerbers by this review."
+    },
+    {
+      "id": "mask-dam-and-openings",
+      "boards": [
+        "controller",
+        "led_leaf"
+      ],
+      "question": "Whether the custom openings and local dams are kept as drawn (for the 2-layer leaf, the \"Do not modify original solder mask size\" option; for the 4-layer controller, 1:1 LDI), and whether a 0.10 mm web between a tented via and an opening is held (the published 0.10 mm row is pad spacing, not a tented-via rule)."
+    },
+    {
+      "id": "via-tenting",
+      "boards": [
+        "controller",
+        "led_leaf"
+      ],
+      "question": "Whether tenting holds over the 0.10 mm web to the nearest opening on 0.8 mm boards; thin mask on the annular ring is a stated normal appearance."
+    },
+    {
+      "id": "pcba-0p8-thin-board",
+      "boards": [
+        "controller",
+        "led_leaf"
+      ],
+      "question": "Thin-board acceptance: whether 0.8 mm customer panels of this size need extra support, a carrier or wider rails, and whether double-sided reflow of the 0.8 mm controller is accepted as is."
+    },
+    {
+      "id": "customer-panels",
+      "boards": [
+        "controller",
+        "led_leaf",
+        "power_adapter"
+      ],
+      "question": "PCBA quantity unit for a customer panel (panels or boards) and acceptance of these panels; the owner closed this from their own knowledge (jlc-questions, owner-stated, not supplier-confirmed)."
+    }
+  ],
+  "holds": [
+    {
+      "id": "power-adapter-a5-settings-unspecified",
+      "text": "Surface finish, mask colour and base material of the unchanged A5 1.6 mm 2-layer adapter are not recorded; an order-form choice, not a design change. Holds until the owner names them."
+    }
+  ],
+  "not_obtained": [
+    "quote",
+    "lead time",
+    "stock reservation",
+    "factory DFM acceptance",
+    "assembly acceptance"
+  ]
+}

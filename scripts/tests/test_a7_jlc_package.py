@@ -55,8 +55,9 @@ class PackageTests(unittest.TestCase):
         for blocker in ('controller-repo-panel-acceptance', 'led_leaf-repo-panel-acceptance', 'power_adapter-repo-panel-acceptance',
                         'pcba-quantity-unit-with-panel-not-sourced'):
             self.assertIn(blocker, self.ids())
-        # SW1 is now the in-stock HX MSK13C02, so no part is short at the order quantity
-        self.assertFalse([i for i in self.ids() if i.startswith('part-')])
+        # At the 2026-11-22 listing only BAS70-04-7-F (D3) is below the 2-module need; SW1 HX MSK13C02 stays in stock
+        self.assertEqual([i for i in self.ids() if i.startswith('part-')], ['part-C134375-not-in-stock'])
+        self.assertEqual(next(l for l in self.report['parts'] if l['lcsc'] == 'C5149819')['route'], 'JLC_STOCK')
         # 0.8 mm thickness is supported; optical fabrication/assembly still requires DFM
         self.assertFalse(any('thickness' in i for i in self.ids()))
         self.assertIn('C52917434', ' '.join(self.board('led_leaf')['pcba_tier']['reasons']))
@@ -151,6 +152,32 @@ class PackageTests(unittest.TestCase):
             for bad in ('R1,1.1,-2,90,Bottom', 'R1,1,-2,0,Bottom', 'R1,1,-2,90,Top'):
                 c.write_text('Designator,Mid X,Mid Y,Rotation,Layer\n' + bad + '\n')
                 self.assertTrue(J.compare_pos(k, c), bad)
+
+    def test_order_form_checklist_follows_the_generated_cpl(self):
+        c = json.loads(self.files['order-form-checklist.json'])
+        self.assertEqual(c['status'], 'CHECKLIST_NOT_AN_ORDER')
+        boards = {b['board']: b for b in c['boards']}
+        cpl = {r.split(',')[0]: r.split(',') for r in self.files['controller_CPL_DRYRUN.csv'].splitlines()[1:]}
+        for r in boards['controller']['named_placements']:
+            self.assertEqual([r['board_cpl'][k] for k in ('Mid X', 'Mid Y', 'Rotation', 'Layer')], cpl[r['ref']][1:])
+        self.assertEqual([r['ref'] for r in boards['controller']['named_placements']], ['J1', 'J2', 'J5', 'SW1'])
+        self.assertEqual([r['ref'] for r in boards['power_adapter']['named_placements']], ['J1', 'J2'])
+        self.assertEqual(boards['controller']['bottom_side']['count'], sum(1 for r in cpl.values() if r[4] == 'Bottom'))
+        self.assertEqual([(b['panel']['boards_per_panel'], b['panel']['pcb_and_pcba_quantity_panels'], b['panel']['assembled_boards']) for b in c['boards']],
+                         [(1, 2, 2), (2, 2, 4), (1, 2, 2)])
+        self.assertEqual(boards['controller']['pcb']['stackup']['select'], 'JLC04081H-3313')
+        self.assertTrue(boards['power_adapter']['pcb']['surface_finish'].startswith('HOLD'))
+        self.assertIn('power-adapter-a5-settings-unspecified', [h['id'] for h in c['holds']])
+        self.assertTrue(c['factory_acceptance_questions'])
+
+    def test_factory_review_is_dated_public_page_evidence_only(self):
+        for change, pattern in ((lambda fr: fr.update(status='SUPPLIER_CONFIRMED'), 'not supplier confirmation'),
+                                (lambda fr: fr['pages'][0].update(retrieved_at='2026-11-12T10:00:00Z'), 'not a dated, hashed'),
+                                (lambda fr: fr['topics'][0]['stated'].append({'source': 'unknown-page', 'quote': 'x'}), 'unsourced statement')):
+            sources = json.loads((ROOT / J.SOURCES).read_text())
+            change(sources['factory_review'])
+            with self.assertRaisesRegex(ValueError, pattern):
+                J.generate(sources=sources)
 
     def test_committed_outputs_are_current(self):
         for name, text in self.files.items():
