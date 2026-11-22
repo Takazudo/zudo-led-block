@@ -185,6 +185,21 @@ class FixtureGeometryTests(unittest.TestCase):
             with self.assertRaisesRegex(ValueError, 'incomplete'):
                 g.from_dir(Path('/nonexistent'), 'a' * 40)
 
+    def test_ci_import_binds_the_leaf_and_the_run(self):
+        # --from-zip must hand the current LED-leaf hash to the classifier: without it a VALID_PASS artifact reads as
+        # INCOMPLETE ('unbound: expected current A7 leaf hash is required') and the CI evidence can never be imported
+        seen = {}
+
+        def classify(members, **kw):
+            seen.update(kw)
+            return {'status': 'REJECTED', 'reasons': [], 'rejected': ['run id 1 != expected 2']}
+        with mock.patch.object(g.art, 'read_members', return_value={'summary.json': b'{}'}), \
+                mock.patch.object(g.art, 'classify', side_effect=classify):
+            with self.assertRaisesRegex(ValueError, 'REJECTED'):
+                g.from_zip(Path('/nonexistent.zip'), 'a' * 40, '2', '1')
+        self.assertEqual(seen['leaf_sha'], g.sha((g.ROOT / g.art.LEAF).read_bytes()))
+        self.assertEqual((seen['expect_revision'], seen['expect_run_id'], seen['expect_run_attempt']), ('a' * 40, '2', '1'))
+
     def test_malformed_record_geometry_is_rejected_not_crashing(self):
         fx = synthetic(); fx['footprints'][0]['pads'][0]['number'] = ['1']
         self.assertTrue(self.check(fx)[0])
