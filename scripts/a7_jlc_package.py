@@ -304,6 +304,9 @@ def generate(root=ROOT, sources=None):
               'route_counts': {k: sum(1 for l in lines if l['route'] == k) for k in sorted({l['route'] for l in lines})},
               'blockers': blockers}
     files['package.json'] = json.dumps(report, indent=2, ensure_ascii=False) + '\n'
+    checklist = order_form_checklist(report, files, sources, root)
+    files['order-form-checklist.json'] = json.dumps(checklist, indent=2, ensure_ascii=False) + '\n'
+    files['order-form-checklist.md'] = checklist_md(checklist)
     return report, files
 
 
@@ -665,6 +668,115 @@ def named_blockers(boards, lines, pages, ledger, root):
             'PJ-324M terminal 4/5 function must be confirmed by continuity on a received part before any PCB order (procurement blocker jack-switch-qualification).',
             'PJ-324M の端子 4/5 の機能は、PCB を発注する前に入荷した実物の導通で確かめる（調達台帳の jack-switch-qualification）。')
     return out
+
+
+# --- external order-form checklist ------------------------------------------------------------------
+CHECKLIST_REFS = {'controller': ('J1', 'J2', 'J5', 'SW1'), 'power_adapter': ('J1', 'J2')}
+REVIEW_STATUSES = ('PAGE_STATES', 'PAGE_STATES_MINIMUMS', 'NOT_STATED', 'PAGE_SILENT_ON_QUANTITY_UNIT', 'NAMED_HOLD')
+
+
+def factory_review(sources):
+    """The dated public-page capability review in sources.json; a page statement is never recorded as factory acceptance."""
+    fr = sources.get('factory_review')
+    if not fr:
+        raise ValueError(f'{SOURCES}: factory_review missing')
+    pages = {p['id']: p for p in fr['pages']}
+    if fr['status'] != 'PUBLIC_PAGES_ONLY_NOT_SUPPLIER_CONFIRMED':
+        raise ValueError('factory_review must stay public-page evidence, not supplier confirmation')
+    for p in pages.values():
+        if not p['retrieved_at'].startswith(fr['date'] + 'T') or not re.fullmatch('[0-9a-f]{64}', p['raw_sha256']) or not p['stored']['path']:
+            raise ValueError(f"factory_review page {p['id']}: not a dated, hashed {fr['date']} read with a stored copy")
+    for t in fr['topics']:
+        if t['status'] not in REVIEW_STATUSES or not t['stated'] or any(q['source'] not in pages for q in t['stated']):
+            raise ValueError(f"factory_review topic {t['id']}: unknown status or unsourced statement")
+    return fr
+
+
+def csv_rows(text):
+    return {r['Designator']: r for r in csv.DictReader(io.StringIO(text))}
+
+
+def order_form_checklist(report, files, sources, root=ROOT):
+    """Short checklist for the owner at the JLC order form, from the generated package, its CPLs, the optical fabrication spec and the dated capability review."""
+    fr = factory_review(sources)
+    spec = json.loads((root / OPTICAL_FAB).read_text())
+    panels = load_panels(root)
+    boards = []
+    for b in report['boards']:
+        n = b['board']
+        cpl = csv_rows(files[f'{n}_CPL_DRYRUN.csv'])
+        lay = panels.get(n)
+        panel_path = root / PANELS / f'{n}-panel_CPL_DRYRUN.csv'
+        panel_current = bool(lay) and lay['pcb_sha256'] == b['pcb_sha256'] and panel_path.is_file()
+        pcpl = csv_rows(panel_path.read_text()) if panel_current else {}
+        if panel_current and len(pcpl) != len(cpl) * len(lay['copies']):
+            raise ValueError(f'{n}: panel CPL rows differ from board CPL rows x copies')
+        offsets = {c['ref']: c for c in b['centroid_offsets']}
+        place = lambda r: {k: r[k] for k in ('Mid X', 'Mid Y', 'Rotation', 'Layer')}
+        named = [{'ref': ref, 'lcsc': offsets[ref]['lcsc'] if ref in offsets else None,
+                  'board_cpl': place(cpl[ref]), 'panel_cpl': place(pcpl[ref]) if ref in pcpl else None,
+                  'anchor_to_pad_centre_mm': offsets[ref]['anchor_to_pad_centre_mm'] if ref in offsets else 0.0,
+                  'check': 'JLC placement preview: body centred on the pads and pin 1 / actuator / opening facing as drawn'}
+                 for ref in CHECKLIST_REFS.get(n, ())]
+        bottom = [{'ref': ref, 'rotation': r['Rotation']} for ref, r in cpl.items() if r['Layer'] == 'Bottom']
+        polar = sorted(ref for ref in cpl if re.sub(r'\d+', '', ref) not in ('R', 'C'))
+        if n in ('controller', 'led_leaf'):
+            target = spec[n]
+            pcb = {'layers': b['copper_layers'], 'thickness_mm': b['thickness_mm'], 'thickness_tolerance': b['thickness_tolerance'],
+                   'stackup': ({'select': target['stackup_name'], 'impedance_template_code': target['impedance_template_code'],
+                                'note': 'not the order-form default; the default for 4-layer 0.8 mm is "No requirement" (JLC04081H-7628)'}
+                               if target.get('stackup_name') else {'select': 'none published for 2-layer 0.8 mm', 'note': target.get('core_status')}),
+                   'surface_finish': spec['surface_finish'], 'mask_colour': 'green (the recorded 0.10 mm via web uses the green 1 oz bridge row; black/white need 0.13 mm)',
+                   'via_covering': 'Tented (not ink-plugged: plugging needs 0.35 mm to openings; our web is 0.10 mm)',
+                   'mask_artwork': 'use the Gerber mask openings as drawn (minimal mask: ' + spec['mask']['semantics'] + ')',
+                   'source': OPTICAL_FAB}
+        else:
+            pcb = {'layers': b['copper_layers'], 'thickness_mm': b['thickness_mm'], 'thickness_tolerance': b['thickness_tolerance'],
+                   'surface_finish': 'HOLD: not recorded (power-adapter-a5-settings-unspecified)', 'mask_colour': 'HOLD: not recorded',
+                   'base_material': 'HOLD: not recorded', 'note': 'unchanged A5 1.6 mm 2-layer adapter; Economic PCBA 1.6 mm green lists HASL or ENIG'}
+        rp = b['repo_panel']
+        minimum = rp['assembled_at_minimum_order'] // rp['copies']
+        boards.append({'board': n, 'pcb': pcb,
+            'panel': {'route': 'repo panel (owner decision panel-route); Panel by JLCPCB: No', 'boards_per_panel': rp['copies'], 'panel_mm': rp['panel_mm'],
+                      'pcb_and_pcba_quantity_panels': minimum, 'assembled_boards': rp['assembled_at_minimum_order'], 'boards_needed': b['pcba_quantity'],
+                      'panel_files_current': panel_current},
+            'pcba': {'tier': b['pcba_tier']['tier'], 'assembly_sides': b['assembly_sides'], 'tht_refs': b['tht_refs']},
+            'named_placements': named,
+            'bottom_side': {'count': len(bottom), 'rows': bottom, 'check': 'JLC bottom-side preview: every bottom part on its pads, rotation as viewed by JLC'} if bottom else None,
+            'orientation_checks': polar})
+    questions = [{'id': t['id'], 'boards': t['applies_to'], 'question': t['factory_question']} for t in fr['topics'] if t.get('factory_question')]
+    holds = [t['hold'] for t in fr['topics'] if t.get('hold')]
+    return {'schema': 1, 'status': 'CHECKLIST_NOT_AN_ORDER', 'order_eligibility': report['order_eligibility'],
+            'note': 'What to set and check on the JLC order form for the owner-chosen repo panels. Values come from the generated CPLs and package; it is not an order, a release or factory acceptance.',
+            'sources': {'package': str(OUT / 'package.json'), 'optical_fabrication': OPTICAL_FAB, 'optical_fabrication_sha256': sha(root / OPTICAL_FAB),
+                        'factory_review': f"{SOURCES}#factory_review ({fr['date']})", 'panels': str(PANELS)},
+            'boards': boards,
+            'factory_acceptance_questions': questions,
+            'holds': holds,
+            'not_obtained': ['quote', 'lead time', 'stock reservation', 'factory DFM acceptance', 'assembly acceptance']}
+
+
+def checklist_md(c):
+    L = ['# JLC 注文画面チェックリスト（A7 試作）', '', '自動生成（`scripts/a7_jlc_package.py`）。**発注・製造リリース・工場受入ではありません。** 発注ゲート: ' + c['order_eligibility'] + '。', '']
+    for b in c['boards']:
+        p, pn = b['pcb'], b['panel']
+        L += [f"## {BOARD_JA[b['board']]}（`{b['board']}`）", '',
+              f"- 基板: {p['layers']} 層 / {fmt(p['thickness_mm'])} mm（{p['thickness_tolerance']}）" + (f" / 積層 {p['stackup']['select']}" if 'stackup' in p else '') + f" / 表面処理 {p['surface_finish']} / レジスト色 {p['mask_colour']}",
+              f"- 面付け: {pn['boards_per_panel']} 枚入り {fmt(pn['panel_mm'][0])} × {fmt(pn['panel_mm'][1])} mm、PCB・PCBA 数量 {pn['pcb_and_pcba_quantity_panels']} シート → 実装 {pn['assembled_boards']} 枚（必要 {pn['boards_needed']}）、Panel by JLCPCB は No" + ('' if pn['panel_files_current'] else '（**面付けデータが現在の基板と一致しない**）'),
+              f"- PCBA: {b['pcba']['tier']}、実装面 {' + '.join(b['pcba']['assembly_sides'])}"]
+        if 'via_covering' in p:
+            L.append(f"- ビア: {p['via_covering']}。レジスト: {p['mask_artwork']}")
+        for r in b['named_placements']:
+            pc = r['panel_cpl'] or {}
+            L.append(f"- {r['ref']}: 基板 CPL ({r['board_cpl']['Mid X']}, {r['board_cpl']['Mid Y']}) {r['board_cpl']['Rotation']}° {r['board_cpl']['Layer']}"
+                     + (f"、面付け CPL ({pc['Mid X']}, {pc['Mid Y']}) {pc['Rotation']}°" if pc else '') + f"、原点とパッド中心の差 {r['anchor_to_pad_centre_mm']} mm → 配置プレビューで確認")
+        if b['bottom_side']:
+            L.append(f"- B 面 {b['bottom_side']['count']} 点（{', '.join(x['ref'] + ' ' + x['rotation'] + '°' for x in b['bottom_side']['rows'])}）→ B 面プレビューで向きを確認")
+        L += [f"- 向きを確認する極性部品: {', '.join(b['orientation_checks'])}", '']
+    L += ['## 工場に確認すること（未回答）', ''] + [f"- `{q['id']}`（{', '.join(q['boards'])}）: {q['question']}" for q in c['factory_acceptance_questions']]
+    L += ['', '## 保留', ''] + [f"- `{h['id']}`: {h['text']}" for h in c['holds']]
+    L += ['', '未取得: ' + '、'.join(c['not_obtained']) + '。', '']
+    return '\n'.join(L)
 
 
 # --- page --------------------------------------------------------------------------------------

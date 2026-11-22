@@ -395,5 +395,27 @@
       "files": 88,
       "sha256": "56c99b09d394c9c14690702ef7ad3b557a06b9511ae8a6f972334810445d0a34"
     }
+  ],
+  "observation_captures": [
+    {
+      "path": "distributor-captures/jlcpcb-lcsc/zudo-led-block-a7-20261122/SHA256SUMS",
+      "stored_at_commit": "5833278e046d81113b5d129c653dd278f1daa1b7",
+      "what": "2026-11-22 anonymous JLCPCB parts-API responses and part pages for the 30 A7 fitted identities and 3 noted alternates; expiring signed-URL query values removed, served-bytes SHA-256 kept per read in capture-log.json",
+      "files": 68,
+      "sha256": "3d843587f3d22c0849bc7a4313669816e064b383ab2f735e4e7819d5e51e7ab7",
+      "cited_by": [
+        "engineering/a7/procurement/price-audit/2026-11-22.json"
+      ]
+    },
+    {
+      "path": "distributor-captures/jlcpcb-web/zudo-led-block-a7-20261122/SHA256SUMS",
+      "stored_at_commit": "5833278e046d81113b5d129c653dd278f1daa1b7",
+      "what": "2026-11-22 JLCPCB capability, help, blog and stack-up API captures for the A7 factory-capability review",
+      "files": 13,
+      "sha256": "5f91be76d758b1120c712f3a11baa0fbfd315523995080ed7c908a0dac3880fe",
+      "cited_by": [
+        "engineering/a7/jlc-package/sources.json"
+      ]
+    }
   ]
 }

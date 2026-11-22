@@ -7,14 +7,16 @@
 - `assembly-manifest.json`: 基板・入力ファイルの SHA-256、全実装リファレンス、DNP / テストパッド除外、外部部材、治具、サービス、未解決事項。
 - `population.csv`: 人による実装点数確認用。**供給元へアップロードしないでください。**
 - `ledger.md`: 点数と基板識別、部品ごとの日付付き観測の要約。
-- `sourcing-projection.json`: 実装する 30 型番それぞれについて、日付付きの JLC 掲載観測（`../jlc-package/sources.json` の部品ページ受領記録と `price-audit/2026-11-12.json` の部品 API 点検）、取得時刻と SHA-256、こちらの解釈（項目の意味・通貨・購入数の計算）と、どの型番も未取得の項目（納期・確定見積・在庫確保・実装受入）。二つの読み取りは別時刻で、同時点のスナップショットではありません。外した PCM13SMTR（C221842）は `retired` に履歴として残します。生成した `jlc-package/package.json` は入力にしません（この台帳を読むため循環になる）。
+- `sourcing-projection.json`: 実装する 30 型番それぞれについて、最新の日付付き JLC 掲載観測（2026-11-22: `../jlc-package/sources.json` の `parts` に部品ページの受領記録、`price-audit/2026-11-22.json` に部品 API の行）と、それより古い観測（2026-11-12 の部品ページ・`price-audit/2026-11-12.json`・`supply-observations.json`）を `history` として分けて持ちます。各観測は取得時刻と受信バイトの SHA-256 を持ち、2026-11-22 分は匿名化した写しを非公開リポジトリ（`distributor-captures/jlcpcb-lcsc/zudo-led-block-a7-20261122/`、`provenance/private-resources.json`）に置きます。最新として示す観測は、履歴のどれよりも新しくなければ生成が失敗します。こちらの解釈（項目の意味・通貨・購入数の計算）と、どの型番も未取得の項目（納期・確定見積・在庫確保・実装受入）も記録します。部品ページと部品 API は別時刻の読み取りで、同時点のスナップショットではありません。掲載在庫が必要数を下回る型番は `listing_shortfall` に記録し、代替品は選びません。外した PCM13SMTR（C221842）は `retired` に履歴として残します。生成した `jlc-package/package.json` は入力にしません（この台帳を読むため循環になる）。
+- `supplier-requests.json`: JLC 部品ライブラリ外の部材（完成電源ケーブル・SH4・IDC リボン・ねじ類・PMMA/PETG 部品・接着層・カバー・ラック金具）について、台帳の値から作った**未送信**の依頼内容。電源ケーブルは `mechanical/layout.json` の要求（現在 55 ± 3 mm、±3 は仮定、注文範囲 52–58 mm）をそのまま使います。供給元の回答・保証は記録していません（`supplier_answer` は null）。
 
 手で書く入力（生成物ではありません）:
 
 - `owner-decisions.json`: オーナーの判断と原文。発注数量（2 台）と調達の優先順（JLC 在庫 → JLC 予約注文または Global Sourcing → 例外）。推奨ではなく、オーナー自身の回答だけを記録します。部品選定のオーナーの方針（2026-11-12「basicallly choose JLC basic parts or have qty items. it's better」）: 部品を選ぶ・替えるときは、JLC の Basic 部品か、JLC が十分な在庫を持つ部品を優先する（`sourcing_preference.part_selection`）。方針であり、BOM や基板をそれだけで変えるものではありません。
-- `supply-observations.json`: 日付付きの供給元掲載の観測（取得時刻・URL・raw の SHA-256・抜粋）。在庫確保・見積・実装受入ではありません。
+- `supply-observations.json`: 日付付きの供給元掲載の観測（取得時刻・URL・raw の SHA-256・抜粋）。在庫確保・見積・実装受入ではありません。2026-11-12 の記録で、現在は履歴です。
+- `price-audit/<日付>.json`: 日付ごとの部品 API 点検。最新は `scripts/a7_procurement.py` の `PRICE_AUDIT`、古いものは `PRICE_AUDIT_HISTORY` に並べ、書き換えません。
 
-上記 4 ファイルは `python3 scripts/a7_procurement.py` が生成します。手編集せず、入力を修正して再生成してください。`--check` は現在入力との完全一致を確認し、古い識別、点数、二重計上や省略を拒否します。`python3 -m unittest scripts/tests/test_a7_procurement.py` が負の対照を実行します。
+最初に挙げた 5 ファイル（`assembly-manifest.json`〜`supplier-requests.json`）は `python3 scripts/a7_procurement.py` が生成します。手編集せず、入力を修正して再生成してください。`--check` は現在入力との完全一致を確認し、古い識別、点数、二重計上や省略を拒否します。`python3 -m unittest scripts/tests/test_a7_procurement.py` が負の対照を実行します。
 
 実装方式（SMD/THT）と面は、コントローラーが `fixture/native-geometry.json`（権威基板の SHA に結合した native export）のパッド属性、新leafがA7正本に結び付いたnative配置、変更しないadapterが不変A5配置のパッド属性から決まります。電源ケーブルと SH4 のピン対応は両端のネットリストから生成し、ネットが合わなければ失敗します。未解決事項は区分付き（`blockers[].class`）で、readiness がそれぞれを別のゲートとして扱います。
 

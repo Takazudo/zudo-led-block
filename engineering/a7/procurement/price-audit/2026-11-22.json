@@ -1,0 +1,1947 @@
+{
+  "schema": 1,
+  "what": "Dated refresh of the JLC parts-API listing for the 30 A7 fitted identities at the owner-decided 2-module quantities. A point-in-time listing observation, not a quote, reservation, lead time or assembly acceptance. Supersedes 2026-11-12.json only as the latest dated observation; that file stays as history.",
+  "date": "2026-11-22",
+  "currency_note": "JLC API price rows carry no currency field. Read as USD on the same basis as 2026-11-12.json (INFERRED).",
+  "sources": {
+    "parts_api": {
+      "url": "https://jlcpcb.com/api/overseas-pcb-order/v1/shoppingCart/smtGood/selectSmtComponentList",
+      "method": "POST",
+      "request": "{\"keyword\": \"<LCSC>\", \"currentPage\": 1, \"pageSize\": 25, \"searchSource\": \"search\"}, anonymous; the row whose componentCode equals the LCSC code",
+      "retrieved_between": [
+        "2026-11-22T06:14:42Z",
+        "2026-11-22T06:16:28Z"
+      ],
+      "note": "Per-line retrieved_at and raw_sha256 (bytes served). Sanitized copies are in the private repository at the commit below; this public file keeps hashes and locators only."
+    },
+    "private_store": {
+      "repository": "Takazudo/circuit-dev-resources",
+      "commit": "5833278e046d81113b5d129c653dd278f1daa1b7",
+      "capture_dir": "distributor-captures/jlcpcb-lcsc/zudo-led-block-a7-20261122",
+      "sha256sums_sha256": "3d843587f3d22c0849bc7a4313669816e064b383ab2f735e4e7819d5e51e7ab7"
+    },
+    "fee_page": {
+      "url": "https://jlcpcb.com/help/article/pcb-assembly-price",
+      "retrieved_at": "2026-11-22T06:17:59Z",
+      "raw_sha256": "095e9cc9a2dbf41135d1174952756df423112d4e4cc86c29ae713ea0c356b358",
+      "quote": "Components Per system Per system Feeder Loading $3.07 Extend $1.53 Basic/Extend",
+      "page_updated": "Oct 22, 2026"
+    }
+  },
+  "cost_rule": "pieces_to_buy = max(pieces_required + loss_number, least_patch_number, min_purchase); line_cost = pieces_to_buy x the price tier for that quantity. Field meanings are our reading of an undocumented API.",
+  "field_meanings": {
+    "status": "INFERRED",
+    "note": "stockCount read as JLC stock; canPresaleNumber as quantity available to pre-order; minPurchaseNum as minimum purchase; preMinPurchaseNum as pre-order minimum; leastPatchNumber and lossNumber as minimum patch and attrition; estimateDate is the only lead-time-like field and is null for every line."
+  },
+  "lines": [
+    {
+      "lcsc": "C122442",
+      "mpn": "530470310",
+      "model_as_listed": "530470310",
+      "manufacturer": "MOLEX",
+      "library": "EXTENDED",
+      "preferred": false,
+      "buyable": true,
+      "jlc_stock": 17167,
+      "presale_available": 16434,
+      "min_purchase": 1,
+      "preorder_minimum": 89,
+      "least_patch_number": 2,
+      "loss_number": 2,
+      "packaging_quantity": 2500,
+      "estimate_date": null,
+      "price_tiers": [
+        {
+          "from": 1,
+          "to": 49,
+          "unit_price": 0.1314
+        },
+        {
+          "from": 50,
+          "to": 149,
+          "unit_price": 0.1025
+        },
+        {
+          "from": 150,
+          "to": 499,
+          "unit_price": 0.0881
+        },
+        {
+          "from": 500,
+          "to": 2499,
+          "unit_price": 0.0771
+        },
+        {
+          "from": 2500,
+          "to": 4999,
+          "unit_price": 0.0684
+        },
+        {
+          "from": 5000,
+          "to": null,
+          "unit_price": 0.064
+        }
+      ],
+      "pieces_required": 4,
+      "pieces_to_buy": 6,
+      "unit_price": 0.1314,
+      "line_cost": 0.7884,
+      "retrieved_at": "2026-11-22T06:14:42Z",
+      "http_status": 200,
+      "raw_sha256": "449a28b355e04f6dccbfd3f005ad1ec9ae58032f254740291ed70ff706612286",
+      "stored": {
+        "repository": "Takazudo/circuit-dev-resources",
+        "path": "distributor-captures/jlcpcb-lcsc/zudo-led-block-a7-20261122/C122442-parts-api.json",
+        "sha256": "2ec016caefa010d91dfa1038bea0e849977ef0e80d313dac2f15fa4b580e9edb",
+        "sanitized": "expiring x-oss signed-URL query values replaced by REMOVED"
+      }
+    },
+    {
+      "lcsc": "C12891",
+      "mpn": "CL31A226KAHNNNE",
+      "model_as_listed": "CL31A226KAHNNNE",
+      "manufacturer": "Samsung Electro-Mechanics",
+      "library": "BASIC",
+      "preferred": false,
+      "buyable": true,
+      "jlc_stock": 2568477,
+      "presale_available": 2155173,
+      "min_purchase": 1,
+      "preorder_minimum": 88,
+      "least_patch_number": 5,
+      "loss_number": 4,
+      "packaging_quantity": 2000,
+      "estimate_date": null,
+      "price_tiers": [
+        {
+          "from": 1,
+          "to": 199,
+          "unit_price": 0.1028
+        },
+        {
+          "from": 200,
+          "to": 599,
+          "unit_price": 0.0828
+        },
+        {
+          "from": 600,
+          "to": 1999,
+          "unit_price": 0.0724
+        },
+        {
+          "from": 2000,
+          "to": 9999,
+          "unit_price": 0.064
+        },
+        {
+          "from": 10000,
+          "to": 19999,
+          "unit_price": 0.0609
+        },
+        {
+          "from": 20000,
+          "to": null,
+          "unit_price": 0.0589
+        }
+      ],
+      "pieces_required": 4,
+      "pieces_to_buy": 8,
+      "unit_price": 0.1028,
+      "line_cost": 0.8224,
+      "retrieved_at": "2026-11-22T06:14:46Z",
+      "http_status": 200,
+      "raw_sha256": "13370189b59ef7ba6673b7f2907d3233d8f4c23337130ec1add3cb8e5e17f464",
+      "stored": {
+        "repository": "Takazudo/circuit-dev-resources",
+        "path": "distributor-captures/jlcpcb-lcsc/zudo-led-block-a7-20261122/C12891-parts-api.json",
+        "sha256": "9b42319d9c24d3b773de04a6df2f68507aee35bc6c3b2cc81987b66c888b9d88",
+        "sanitized": "expiring x-oss signed-URL query values replaced by REMOVED"
+      }
+    },
+    {
+      "lcsc": "C134375",
+      "mpn": "BAS70-04-7-F",
+      "model_as_listed": "BAS70-04-7-F",
+      "manufacturer": "Diodes Incorporated",
+      "library": "EXTENDED",
+      "preferred": false,
+      "buyable": true,
+      "jlc_stock": 1,
+      "presale_available": 1,
+      "min_purchase": 1,
+      "preorder_minimum": 149,
+      "least_patch_number": 5,
+      "loss_number": 5,
+      "packaging_quantity": 3000,
+      "estimate_date": null,
+      "price_tiers": [
+        {
+          "from": 1,
+          "to": 99,
+          "unit_price": 0.0724
+        },
+        {
+          "from": 100,
+          "to": 299,
+          "unit_price": 0.0606
+        },
+        {
+          "from": 300,
+          "to": 2999,
+          "unit_price": 0.0547
+        },
+        {
+          "from": 3000,
+          "to": 5999,
+          "unit_price": 0.0503
+        },
+        {
+          "from": 6000,
+          "to": 8999,
+          "unit_price": 0.0467
+        },
+        {
+          "from": 9000,
+          "to": null,
+          "unit_price": 0.0449
+        }
+      ],
+      "pieces_required": 2,
+      "pieces_to_buy": 7,
+      "unit_price": 0.0724,
+      "line_cost": 0.5068,
+      "retrieved_at": "2026-11-22T06:14:49Z",
+      "http_status": 200,
+      "raw_sha256": "cd68e0c9a5ec7934e9da6f66178fbb501a677dd2f45808a9499c254ad69b4a23",
+      "stored": {
+        "repository": "Takazudo/circuit-dev-resources",
+        "path": "distributor-captures/jlcpcb-lcsc/zudo-led-block-a7-20261122/C134375-parts-api.json",
+        "sha256": "76a0c44613f2b5e92b383b7771228c6a60b1fb2134996228e601a8d1251d472f",
+        "sanitized": "expiring x-oss signed-URL query values replaced by REMOVED"
+      }
+    },
+    {
+      "lcsc": "C140331",
+      "mpn": "TPS2552DBVR-1",
+      "model_as_listed": "TPS2552DBVR-1",
+      "manufacturer": "Texas Instruments",
+      "library": "EXTENDED",
+      "preferred": false,
+      "buyable": true,
+      "jlc_stock": 2003,
+      "presale_available": 1980,
+      "min_purchase": 1,
+      "preorder_minimum": 13,
+      "least_patch_number": 2,
+      "loss_number": 0,
+      "packaging_quantity": 3000,
+      "estimate_date": null,
+      "price_tiers": [
+        {
+          "from": 1,
+          "to": 9,
+          "unit_price": 0.8966
+        },
+        {
+          "from": 10,
+          "to": 29,
+          "unit_price": 0.7134
+        },
+        {
+          "from": 30,
+          "to": 99,
+          "unit_price": 0.6218
+        },
+        {
+          "from": 100,
+          "to": 499,
+          "unit_price": 0.5318
+        },
+        {
+          "from": 500,
+          "to": 999,
+          "unit_price": 0.4778
+        },
+        {
+          "from": 1000,
+          "to": null,
+          "unit_price": 0.45
+        }
+      ],
+      "pieces_required": 2,
+      "pieces_to_buy": 2,
+      "unit_price": 0.8966,
+      "line_cost": 1.7932,
+      "retrieved_at": "2026-11-22T06:14:53Z",
+      "http_status": 200,
+      "raw_sha256": "2ca5cbb03b8593b9a58aeb0073cc09b61353bcf81d83f7ffafd8495bc8c8d7cf",
+      "stored": {
+        "repository": "Takazudo/circuit-dev-resources",
+        "path": "distributor-captures/jlcpcb-lcsc/zudo-led-block-a7-20261122/C140331-parts-api.json",
+        "sha256": "54ce771ca73f9e0926de18faa47c3757df3eefca7b4b0140403381c3cad3e93a",
+        "sanitized": "expiring x-oss signed-URL query values replaced by REMOVED"
+      }
+    },
+    {
+      "lcsc": "C14663",
+      "mpn": "CC0603KRX7R9BB104",
+      "model_as_listed": "CC0603KRX7R9BB104",
+      "manufacturer": "YAGEO",
+      "library": "BASIC",
+      "preferred": false,
+      "buyable": true,
+      "jlc_stock": 53154123,
+      "presale_available": 34435351,
+      "min_purchase": 1,
+      "preorder_minimum": 2201,
+      "least_patch_number": 20,
+      "loss_number": 15,
+      "packaging_quantity": 4000,
+      "estimate_date": null,
+      "price_tiers": [
+        {
+          "from": 1,
+          "to": 999,
+          "unit_price": 0.0052
+        },
+        {
+          "from": 1000,
+          "to": 3999,
+          "unit_price": 0.0041
+        },
+        {
+          "from": 4000,
+          "to": 7999,
+          "unit_price": 0.0035
+        },
+        {
+          "from": 8000,
+          "to": 47999,
+          "unit_price": 0.0032
+        },
+        {
+          "from": 48000,
+          "to": 99999,
+          "unit_price": 0.0029
+        },
+        {
+          "from": 100000,
+          "to": null,
+          "unit_price": 0.0027
+        }
+      ],
+      "pieces_required": 32,
+      "pieces_to_buy": 47,
+      "unit_price": 0.0052,
+      "line_cost": 0.2444,
+      "retrieved_at": "2026-11-22T06:14:57Z",
+      "http_status": 200,
+      "raw_sha256": "4e43f36e68ca85420324d6ba2a046e9d02774757e5227f4f9ec5578b51e09821",
+      "stored": {
+        "repository": "Takazudo/circuit-dev-resources",
+        "path": "distributor-captures/jlcpcb-lcsc/zudo-led-block-a7-20261122/C14663-parts-api.json",
+        "sha256": "347d7588d86d08a6e5eac9d84a030d19b9b6e7d475c1483f8e298e0865dbeed0",
+        "sanitized": "expiring x-oss signed-URL query values replaced by REMOVED"
+      }
+    },
+    {
+      "lcsc": "C15741",
+      "mpn": "SN74LVC2T45DCUR",
+      "model_as_listed": "SN74LVC2T45DCUR",
+      "manufacturer": "Texas Instruments",
+      "library": "EXTENDED",
+      "preferred": false,
+      "buyable": true,
+      "jlc_stock": 53962,
+      "presale_available": 52783,
+      "min_purchase": 1,
+      "preorder_minimum": 44,
+      "least_patch_number": 5,
+      "loss_number": 1,
+      "packaging_quantity": 3000,
+      "estimate_date": null,
+      "price_tiers": [
+        {
+          "from": 1,
+          "to": 49,
+          "unit_price": 0.2055
+        },
+        {
+          "from": 50,
+          "to": 149,
+          "unit_price": 0.1614
+        },
+        {
+          "from": 150,
+          "to": 499,
+          "unit_price": 0.1398
+        },
+        {
+          "from": 500,
+          "to": 2999,
+          "unit_price": 0.107
+        },
+        {
+          "from": 3000,
+          "to": 5999,
+          "unit_price": 0.1017
+        },
+        {
+          "from": 6000,
+          "to": null,
+          "unit_price": 0.0985
+        }
+      ],
+      "pieces_required": 2,
+      "pieces_to_buy": 5,
+      "unit_price": 0.2055,
+      "line_cost": 1.0275,
+      "retrieved_at": "2026-11-22T06:15:01Z",
+      "http_status": 200,
+      "raw_sha256": "5afe2c953dfa0f1bc64b97c71dacb3f3c49195fd9f454430283b017c61cffe2c",
+      "stored": {
+        "repository": "Takazudo/circuit-dev-resources",
+        "path": "distributor-captures/jlcpcb-lcsc/zudo-led-block-a7-20261122/C15741-parts-api.json",
+        "sha256": "addf867905409db4ecbd944adb759441852011a70c3eafb48aaa6991f254f351",
+        "sanitized": "expiring x-oss signed-URL query values replaced by REMOVED"
+      }
+    },
+    {
+      "lcsc": "C15850",
+      "mpn": "CL21A106KAYNNNE",
+      "model_as_listed": "CL21A106KAYNNNE",
+      "manufacturer": "Samsung Electro-Mechanics",
+      "library": "BASIC",
+      "preferred": false,
+      "buyable": true,
+      "jlc_stock": 9314861,
+      "presale_available": 7387250,
+      "min_purchase": 1,
+      "preorder_minimum": 386,
+      "least_patch_number": 20,
+      "loss_number": 10,
+      "packaging_quantity": 2000,
+      "estimate_date": null,
+      "price_tiers": [
+        {
+          "from": 1,
+          "to": 199,
+          "unit_price": 0.0311
+        },
+        {
+          "from": 200,
+          "to": 599,
+          "unit_price": 0.0234
+        },
+        {
+          "from": 600,
+          "to": 1999,
+          "unit_price": 0.02
+        },
+        {
+          "from": 2000,
+          "to": 9999,
+          "unit_price": 0.0174
+        },
+        {
+          "from": 10000,
+          "to": 19999,
+          "unit_price": 0.0164
+        },
+        {
+          "from": 20000,
+          "to": null,
+          "unit_price": 0.0158
+        }
+      ],
+      "pieces_required": 6,
+      "pieces_to_buy": 20,
+      "unit_price": 0.0311,
+      "line_cost": 0.622,
+      "retrieved_at": "2026-11-22T06:15:05Z",
+      "http_status": 200,
+      "raw_sha256": "399534eeab73c24db0daa52bd8c8d3d94cf005611e94e87ad4d63987cb5fc22c",
+      "stored": {
+        "repository": "Takazudo/circuit-dev-resources",
+        "path": "distributor-captures/jlcpcb-lcsc/zudo-led-block-a7-20261122/C15850-parts-api.json",
+        "sha256": "ff7f5907cf386316e48764e5cb5fd258823d3327ad3fb4b28cb3afb3c2236318",
+        "sanitized": "expiring x-oss signed-URL query values replaced by REMOVED"
+      }
+    },
+    {
+      "lcsc": "C160404",
+      "mpn": "SM04B-SRSS-TB(LF)(SN)",
+      "model_as_listed": "SM04B-SRSS-TB(LF)(SN)",
+      "manufacturer": "JST",
+      "library": "EXTENDED",
+      "preferred": false,
+      "buyable": true,
+      "jlc_stock": 4643,
+      "presale_available": -1662,
+      "min_purchase": 43,
+      "preorder_minimum": 43,
+      "least_patch_number": 5,
+      "loss_number": 0,
+      "packaging_quantity": 3000,
+      "estimate_date": null,
+      "price_tiers": [
+        {
+          "from": 1,
+          "to": 49,
+          "unit_price": 0.2147
+        },
+        {
+          "from": 50,
+          "to": 149,
+          "unit_price": 0.1737
+        },
+        {
+          "from": 150,
+          "to": 499,
+          "unit_price": 0.1537
+        },
+        {
+          "from": 500,
+          "to": 2999,
+          "unit_price": 0.1358
+        },
+        {
+          "from": 3000,
+          "to": 5999,
+          "unit_price": 0.1273
+        },
+        {
+          "from": 6000,
+          "to": null,
+          "unit_price": 0.1244
+        }
+      ],
+      "pieces_required": 10,
+      "pieces_to_buy": 43,
+      "unit_price": 0.2147,
+      "line_cost": 9.2321,
+      "retrieved_at": "2026-11-22T06:15:08Z",
+      "http_status": 200,
+      "raw_sha256": "3a11f19123cb58a3d00817c331d7e6a65fb253691d177cc63c22f629ee4988b3",
+      "stored": {
+        "repository": "Takazudo/circuit-dev-resources",
+        "path": "distributor-captures/jlcpcb-lcsc/zudo-led-block-a7-20261122/C160404-parts-api.json",
+        "sha256": "311dbb1c3f250e2788b78da349423b19bf3d507f4890c03394b64efe29aeab72",
+        "sanitized": "expiring x-oss signed-URL query values replaced by REMOVED"
+      }
+    },
+    {
+      "lcsc": "C19666",
+      "mpn": "CL10A475KO8NNNC",
+      "model_as_listed": "CL10A475KO8NNNC",
+      "manufacturer": "Samsung Electro-Mechanics",
+      "library": "BASIC",
+      "preferred": false,
+      "buyable": true,
+      "jlc_stock": 3144424,
+      "presale_available": 2328225,
+      "min_purchase": 1,
+      "preorder_minimum": 1157,
+      "least_patch_number": 20,
+      "loss_number": 10,
+      "packaging_quantity": 4000,
+      "estimate_date": null,
+      "price_tiers": [
+        {
+          "from": 1,
+          "to": 99,
+          "unit_price": 0.0144
+        },
+        {
+          "from": 100,
+          "to": 299,
+          "unit_price": 0.0107
+        },
+        {
+          "from": 300,
+          "to": 999,
+          "unit_price": 0.009
+        },
+        {
+          "from": 1000,
+          "to": 3999,
+          "unit_price": 0.0078
+        },
+        {
+          "from": 4000,
+          "to": 7999,
+          "unit_price": 0.0073
+        },
+        {
+          "from": 8000,
+          "to": null,
+          "unit_price": 0.007
+        }
+      ],
+      "pieces_required": 6,
+      "pieces_to_buy": 20,
+      "unit_price": 0.0144,
+      "line_cost": 0.288,
+      "retrieved_at": "2026-11-22T06:15:12Z",
+      "http_status": 200,
+      "raw_sha256": "027c71ebb7dfd8b9d1dcc9d497c1e30222048cf0beb5d3925d7324a3166e2591",
+      "stored": {
+        "repository": "Takazudo/circuit-dev-resources",
+        "path": "distributor-captures/jlcpcb-lcsc/zudo-led-block-a7-20261122/C19666-parts-api.json",
+        "sha256": "9cd02cabf46be27019b0279e2c69ab19fe3af30267df90e5b42067b6f9818c04",
+        "sanitized": "expiring x-oss signed-URL query values replaced by REMOVED"
+      }
+    },
+    {
+      "lcsc": "C20526",
+      "mpn": "MMBT3904(RANGE:100-300)",
+      "model_as_listed": "MMBT3904(RANGE:100-300)",
+      "manufacturer": "Jiangsu Changjing Electronics Technology Co., Ltd.",
+      "library": "BASIC",
+      "preferred": false,
+      "buyable": true,
+      "jlc_stock": 4176944,
+      "presale_available": 4045969,
+      "min_purchase": 1,
+      "preorder_minimum": 1143,
+      "least_patch_number": 10,
+      "loss_number": 5,
+      "packaging_quantity": 3000,
+      "estimate_date": null,
+      "price_tiers": [
+        {
+          "from": 1,
+          "to": 499,
+          "unit_price": 0.0103
+        },
+        {
+          "from": 500,
+          "to": 2999,
+          "unit_price": 0.0079
+        },
+        {
+          "from": 3000,
+          "to": 5999,
+          "unit_price": 0.0069
+        },
+        {
+          "from": 6000,
+          "to": 23999,
+          "unit_price": 0.0061
+        },
+        {
+          "from": 24000,
+          "to": 50999,
+          "unit_price": 0.0058
+        },
+        {
+          "from": 51000,
+          "to": null,
+          "unit_price": 0.0055
+        }
+      ],
+      "pieces_required": 2,
+      "pieces_to_buy": 10,
+      "unit_price": 0.0103,
+      "line_cost": 0.103,
+      "retrieved_at": "2026-11-22T06:15:16Z",
+      "http_status": 200,
+      "raw_sha256": "84a8c260208ce35a542aafa00406656987e0f82b78c476b448a7dbbf148ad288",
+      "stored": {
+        "repository": "Takazudo/circuit-dev-resources",
+        "path": "distributor-captures/jlcpcb-lcsc/zudo-led-block-a7-20261122/C20526-parts-api.json",
+        "sha256": "e48a144e1d8a82087c6a9b8d1f104c891c5b9b3659f0e2c443b718e797f3f9e7",
+        "sanitized": "expiring x-oss signed-URL query values replaced by REMOVED"
+      }
+    },
+    {
+      "lcsc": "C2071056",
+      "mpn": "AP63205WU-7",
+      "model_as_listed": "AP63205WU-7",
+      "manufacturer": "Diodes Incorporated",
+      "library": "EXTENDED",
+      "preferred": false,
+      "buyable": true,
+      "jlc_stock": 57435,
+      "presale_available": 54489,
+      "min_purchase": 1,
+      "preorder_minimum": 25,
+      "least_patch_number": 2,
+      "loss_number": 0,
+      "packaging_quantity": 3000,
+      "estimate_date": null,
+      "price_tiers": [
+        {
+          "from": 1,
+          "to": 9,
+          "unit_price": 0.4631
+        },
+        {
+          "from": 10,
+          "to": 29,
+          "unit_price": 0.3665
+        },
+        {
+          "from": 30,
+          "to": 99,
+          "unit_price": 0.3174
+        },
+        {
+          "from": 100,
+          "to": 499,
+          "unit_price": 0.2749
+        },
+        {
+          "from": 500,
+          "to": 999,
+          "unit_price": 0.252
+        },
+        {
+          "from": 1000,
+          "to": null,
+          "unit_price": 0.2455
+        }
+      ],
+      "pieces_required": 2,
+      "pieces_to_buy": 2,
+      "unit_price": 0.4631,
+      "line_cost": 0.9262,
+      "retrieved_at": "2026-11-22T06:15:20Z",
+      "http_status": 200,
+      "raw_sha256": "48a66175a2ce878b860c2baab866da8efaa177f1b55fff6bdfe780e2d2a73b5f",
+      "stored": {
+        "repository": "Takazudo/circuit-dev-resources",
+        "path": "distributor-captures/jlcpcb-lcsc/zudo-led-block-a7-20261122/C2071056-parts-api.json",
+        "sha256": "dbe1d77d1d4ad3984e10e9cd9c74acadd5abe95ab51ddc6d8f4c7c3850239ea8",
+        "sanitized": "expiring x-oss signed-URL query values replaced by REMOVED"
+      }
+    },
+    {
+      "lcsc": "C21190",
+      "mpn": "0603WAF1001T5E",
+      "model_as_listed": "0603WAF1001T5E",
+      "manufacturer": "UNI-ROYAL(Uniroyal Elec)",
+      "library": "BASIC",
+      "preferred": false,
+      "buyable": true,
+      "jlc_stock": 40500481,
+      "presale_available": 33681666,
+      "min_purchase": 1,
+      "preorder_minimum": 5000,
+      "least_patch_number": 20,
+      "loss_number": 10,
+      "packaging_quantity": 5000,
+      "estimate_date": null,
+      "price_tiers": [
+        {
+          "from": 1,
+          "to": 999,
+          "unit_price": 0.0016
+        },
+        {
+          "from": 1000,
+          "to": 4999,
+          "unit_price": 0.0013
+        },
+        {
+          "from": 5000,
+          "to": 9999,
+          "unit_price": 0.0011
+        },
+        {
+          "from": 10000,
+          "to": 49999,
+          "unit_price": 0.0009
+        },
+        {
+          "from": 50000,
+          "to": 50199,
+          "unit_price": 0.0008
+        },
+        {
+          "from": 50200,
+          "to": null,
+          "unit_price": 0.0008
+        }
+      ],
+      "pieces_required": 6,
+      "pieces_to_buy": 20,
+      "unit_price": 0.0016,
+      "line_cost": 0.032,
+      "retrieved_at": "2026-11-22T06:15:23Z",
+      "http_status": 200,
+      "raw_sha256": "3621b3282550936d410d431f9d2bacdeb14642ca5e5f8fa208d927e38c8dc2ea",
+      "stored": {
+        "repository": "Takazudo/circuit-dev-resources",
+        "path": "distributor-captures/jlcpcb-lcsc/zudo-led-block-a7-20261122/C21190-parts-api.json",
+        "sha256": "b53045169c65b839e92a867b7f232665384a827fa52318eed4ce2488c9d3edb3",
+        "sanitized": "expiring x-oss signed-URL query values replaced by REMOVED"
+      }
+    },
+    {
+      "lcsc": "C221351",
+      "mpn": "OPA197IDBVR",
+      "model_as_listed": "OPA197IDBVR",
+      "manufacturer": "Texas Instruments",
+      "library": "EXTENDED",
+      "preferred": false,
+      "buyable": true,
+      "jlc_stock": 71013,
+      "presale_available": 70678,
+      "min_purchase": 1,
+      "preorder_minimum": 15,
+      "least_patch_number": 0,
+      "loss_number": 0,
+      "packaging_quantity": 3000,
+      "estimate_date": null,
+      "price_tiers": [
+        {
+          "from": 1,
+          "to": 9,
+          "unit_price": 0.7445
+        },
+        {
+          "from": 10,
+          "to": 29,
+          "unit_price": 0.6168
+        },
+        {
+          "from": 30,
+          "to": 99,
+          "unit_price": 0.5285
+        },
+        {
+          "from": 100,
+          "to": 499,
+          "unit_price": 0.4549
+        },
+        {
+          "from": 500,
+          "to": 999,
+          "unit_price": 0.4303
+        },
+        {
+          "from": 1000,
+          "to": null,
+          "unit_price": 0.4172
+        }
+      ],
+      "pieces_required": 2,
+      "pieces_to_buy": 2,
+      "unit_price": 0.7445,
+      "line_cost": 1.489,
+      "retrieved_at": "2026-11-22T06:15:26Z",
+      "http_status": 200,
+      "raw_sha256": "280c4761605de8825b6dccdcd4516cc8bfc3e83835b111ad7bf6ef12812e660f",
+      "stored": {
+        "repository": "Takazudo/circuit-dev-resources",
+        "path": "distributor-captures/jlcpcb-lcsc/zudo-led-block-a7-20261122/C221351-parts-api.json",
+        "sha256": "3a761ac4c6e9946d13cf9c780611b5909d4016630bf0fb5dbb5f31e6be052ba6",
+        "sanitized": "expiring x-oss signed-URL query values replaced by REMOVED"
+      }
+    },
+    {
+      "lcsc": "C22355739",
+      "mpn": "PJ-324M",
+      "model_as_listed": "PJ-324M",
+      "manufacturer": "SOFNG",
+      "library": "EXTENDED",
+      "preferred": false,
+      "buyable": true,
+      "jlc_stock": 4113,
+      "presale_available": 3999,
+      "min_purchase": 1,
+      "preorder_minimum": 53,
+      "least_patch_number": 2,
+      "loss_number": 0,
+      "packaging_quantity": 500,
+      "estimate_date": null,
+      "price_tiers": [
+        {
+          "from": 1,
+          "to": 9,
+          "unit_price": 0.2496
+        },
+        {
+          "from": 10,
+          "to": 29,
+          "unit_price": 0.1961
+        },
+        {
+          "from": 30,
+          "to": 99,
+          "unit_price": 0.173
+        },
+        {
+          "from": 100,
+          "to": 499,
+          "unit_price": 0.1444
+        },
+        {
+          "from": 500,
+          "to": 999,
+          "unit_price": 0.1316
+        },
+        {
+          "from": 1000,
+          "to": null,
+          "unit_price": 0.1239
+        }
+      ],
+      "pieces_required": 4,
+      "pieces_to_buy": 4,
+      "unit_price": 0.2496,
+      "line_cost": 0.9984,
+      "retrieved_at": "2026-11-22T06:15:30Z",
+      "http_status": 200,
+      "raw_sha256": "43ab05f9976f48488de4ccf8c58da2b69aa296f7dd551b2feda376c4e36d71a9",
+      "stored": {
+        "repository": "Takazudo/circuit-dev-resources",
+        "path": "distributor-captures/jlcpcb-lcsc/zudo-led-block-a7-20261122/C22355739-parts-api.json",
+        "sha256": "04642d3cfe867cff4ef6aafd480c9d8ca4cb9108507a74a18ae5b9bf9c9b26b2",
+        "sanitized": "expiring x-oss signed-URL query values replaced by REMOVED"
+      }
+    },
+    {
+      "lcsc": "C23138",
+      "mpn": "0603WAF3300T5E",
+      "model_as_listed": "0603WAF3300T5E",
+      "manufacturer": "UNI-ROYAL(Uniroyal Elec)",
+      "library": "BASIC",
+      "preferred": false,
+      "buyable": true,
+      "jlc_stock": 2611842,
+      "presale_available": 1970531,
+      "min_purchase": 1,
+      "preorder_minimum": 5000,
+      "least_patch_number": 20,
+      "loss_number": 10,
+      "packaging_quantity": 5000,
+      "estimate_date": null,
+      "price_tiers": [
+        {
+          "from": 1,
+          "to": 999,
+          "unit_price": 0.0015
+        },
+        {
+          "from": 1000,
+          "to": 4999,
+          "unit_price": 0.0012
+        },
+        {
+          "from": 5000,
+          "to": 9999,
+          "unit_price": 0.001
+        },
+        {
+          "from": 10000,
+          "to": 49999,
+          "unit_price": 0.0008
+        },
+        {
+          "from": 50000,
+          "to": 50199,
+          "unit_price": 0.0007
+        },
+        {
+          "from": 50200,
+          "to": null,
+          "unit_price": 0.0007
+        }
+      ],
+      "pieces_required": 6,
+      "pieces_to_buy": 20,
+      "unit_price": 0.0015,
+      "line_cost": 0.03,
+      "retrieved_at": "2026-11-22T06:15:33Z",
+      "http_status": 200,
+      "raw_sha256": "daf452ce65e86cfd3ef1c8040949f6e9d066d7e1d082d4bd13cd9e127a35617c",
+      "stored": {
+        "repository": "Takazudo/circuit-dev-resources",
+        "path": "distributor-captures/jlcpcb-lcsc/zudo-led-block-a7-20261122/C23138-parts-api.json",
+        "sha256": "0b6e81c24d821e829422dc27b6ce5433f6c667433d28ef63460f77ad4e5a39cc",
+        "sanitized": "expiring x-oss signed-URL query values replaced by REMOVED"
+      }
+    },
+    {
+      "lcsc": "C23162",
+      "mpn": "0603WAF4701T5E",
+      "model_as_listed": "0603WAF4701T5E",
+      "manufacturer": "UNI-ROYAL(Uniroyal Elec)",
+      "library": "BASIC",
+      "preferred": false,
+      "buyable": true,
+      "jlc_stock": 19300585,
+      "presale_available": 15903942,
+      "min_purchase": 1,
+      "preorder_minimum": 4102,
+      "least_patch_number": 20,
+      "loss_number": 10,
+      "packaging_quantity": 5000,
+      "estimate_date": null,
+      "price_tiers": [
+        {
+          "from": 1,
+          "to": 999,
+          "unit_price": 0.0028
+        },
+        {
+          "from": 1000,
+          "to": 4999,
+          "unit_price": 0.0022
+        },
+        {
+          "from": 5000,
+          "to": 9999,
+          "unit_price": 0.0019
+        },
+        {
+          "from": 10000,
+          "to": 49999,
+          "unit_price": 0.0016
+        },
+        {
+          "from": 50000,
+          "to": 50199,
+          "unit_price": 0.0015
+        },
+        {
+          "from": 50200,
+          "to": null,
+          "unit_price": 0.0015
+        }
+      ],
+      "pieces_required": 2,
+      "pieces_to_buy": 20,
+      "unit_price": 0.0028,
+      "line_cost": 0.056,
+      "retrieved_at": "2026-11-22T06:15:36Z",
+      "http_status": 200,
+      "raw_sha256": "099f8a07ede006a31a3e98b7d0a731b46fdd4c13113ce1cc4b4d7ec589ed332a",
+      "stored": {
+        "repository": "Takazudo/circuit-dev-resources",
+        "path": "distributor-captures/jlcpcb-lcsc/zudo-led-block-a7-20261122/C23162-parts-api.json",
+        "sha256": "e53df191942920fa411ff60ce2ebd1ed5c2271c385fc1e1acf4cd1dfe93af56b",
+        "sanitized": "expiring x-oss signed-URL query values replaced by REMOVED"
+      }
+    },
+    {
+      "lcsc": "C23231",
+      "mpn": "0603WAF6802T5E",
+      "model_as_listed": "0603WAF6802T5E",
+      "manufacturer": "UNI-ROYAL(Uniroyal Elec)",
+      "library": "BASIC",
+      "preferred": false,
+      "buyable": true,
+      "jlc_stock": 673837,
+      "presale_available": 573056,
+      "min_purchase": 1,
+      "preorder_minimum": 5000,
+      "least_patch_number": 20,
+      "loss_number": 10,
+      "packaging_quantity": 5000,
+      "estimate_date": null,
+      "price_tiers": [
+        {
+          "from": 1,
+          "to": 999,
+          "unit_price": 0.0016
+        },
+        {
+          "from": 1000,
+          "to": 4999,
+          "unit_price": 0.0012
+        },
+        {
+          "from": 5000,
+          "to": 9999,
+          "unit_price": 0.001
+        },
+        {
+          "from": 10000,
+          "to": 49999,
+          "unit_price": 0.001
+        },
+        {
+          "from": 50000,
+          "to": 50199,
+          "unit_price": 0.0008
+        },
+        {
+          "from": 50200,
+          "to": null,
+          "unit_price": 0.0008
+        }
+      ],
+      "pieces_required": 2,
+      "pieces_to_buy": 20,
+      "unit_price": 0.0016,
+      "line_cost": 0.032,
+      "retrieved_at": "2026-11-22T06:15:40Z",
+      "http_status": 200,
+      "raw_sha256": "0c9d6a8cd0828eb79f7e3bf05e4a73cc6519c30a7d4b4c1755351e92480baa7c",
+      "stored": {
+        "repository": "Takazudo/circuit-dev-resources",
+        "path": "distributor-captures/jlcpcb-lcsc/zudo-led-block-a7-20261122/C23231-parts-api.json",
+        "sha256": "1be6c320f9d403564735e8dd3b6dfe05891454e44e6a7d13f177582d64218b4c",
+        "sanitized": "expiring x-oss signed-URL query values replaced by REMOVED"
+      }
+    },
+    {
+      "lcsc": "C23254",
+      "mpn": "0603WAF8202T5E",
+      "model_as_listed": "0603WAF8202T5E",
+      "manufacturer": "UNI-ROYAL(Uniroyal Elec)",
+      "library": "BASIC",
+      "preferred": false,
+      "buyable": true,
+      "jlc_stock": 850956,
+      "presale_available": 779465,
+      "min_purchase": 1,
+      "preorder_minimum": 4297,
+      "least_patch_number": 20,
+      "loss_number": 10,
+      "packaging_quantity": 5000,
+      "estimate_date": null,
+      "price_tiers": [
+        {
+          "from": 1,
+          "to": 999,
+          "unit_price": 0.0027
+        },
+        {
+          "from": 1000,
+          "to": 4999,
+          "unit_price": 0.0021
+        },
+        {
+          "from": 5000,
+          "to": 9999,
+          "unit_price": 0.0017
+        },
+        {
+          "from": 10000,
+          "to": 49999,
+          "unit_price": 0.0015
+        },
+        {
+          "from": 50000,
+          "to": 50199,
+          "unit_price": 0.0013
+        },
+        {
+          "from": 50200,
+          "to": null,
+          "unit_price": 0.0013
+        }
+      ],
+      "pieces_required": 8,
+      "pieces_to_buy": 20,
+      "unit_price": 0.0027,
+      "line_cost": 0.054,
+      "retrieved_at": "2026-11-22T06:15:43Z",
+      "http_status": 200,
+      "raw_sha256": "455ff8ac4a8ba4245ff42ae7f05fdf99de640b422ca99e6d8664d85ae5c8f5ab",
+      "stored": {
+        "repository": "Takazudo/circuit-dev-resources",
+        "path": "distributor-captures/jlcpcb-lcsc/zudo-led-block-a7-20261122/C23254-parts-api.json",
+        "sha256": "11f8432d735f69b1d3f9e179b1100cac3f2af995487fad9c71a65fb5795dcdfd",
+        "sanitized": "expiring x-oss signed-URL query values replaced by REMOVED"
+      }
+    },
+    {
+      "lcsc": "C25803",
+      "mpn": "0603WAF1003T5E",
+      "model_as_listed": "0603WAF1003T5E",
+      "manufacturer": "UNI-ROYAL(Uniroyal Elec)",
+      "library": "BASIC",
+      "preferred": false,
+      "buyable": true,
+      "jlc_stock": 13030961,
+      "presale_available": 10609376,
+      "min_purchase": 1,
+      "preorder_minimum": 3923,
+      "least_patch_number": 20,
+      "loss_number": 10,
+      "packaging_quantity": 5000,
+      "estimate_date": null,
+      "price_tiers": [
+        {
+          "from": 1,
+          "to": 999,
+          "unit_price": 0.0029
+        },
+        {
+          "from": 1000,
+          "to": 4999,
+          "unit_price": 0.0023
+        },
+        {
+          "from": 5000,
+          "to": 9999,
+          "unit_price": 0.002
+        },
+        {
+          "from": 10000,
+          "to": 49999,
+          "unit_price": 0.0016
+        },
+        {
+          "from": 50000,
+          "to": 50199,
+          "unit_price": 0.0015
+        },
+        {
+          "from": 50200,
+          "to": null,
+          "unit_price": 0.0015
+        }
+      ],
+      "pieces_required": 12,
+      "pieces_to_buy": 22,
+      "unit_price": 0.0029,
+      "line_cost": 0.0638,
+      "retrieved_at": "2026-11-22T06:15:47Z",
+      "http_status": 200,
+      "raw_sha256": "efa938cc84dee3faa3a3f8fe00dfa3761ab3532d41da3944b0b40a7bc2ad158f",
+      "stored": {
+        "repository": "Takazudo/circuit-dev-resources",
+        "path": "distributor-captures/jlcpcb-lcsc/zudo-led-block-a7-20261122/C25803-parts-api.json",
+        "sha256": "0f1fd335193c14d44d028687cecea7a79185ddae50f4e7276ea6d2282a544843",
+        "sanitized": "expiring x-oss signed-URL query values replaced by REMOVED"
+      }
+    },
+    {
+      "lcsc": "C25804",
+      "mpn": "0603WAF1002T5E",
+      "model_as_listed": "0603WAF1002T5E",
+      "manufacturer": "UNI-ROYAL(Uniroyal Elec)",
+      "library": "BASIC",
+      "preferred": false,
+      "buyable": true,
+      "jlc_stock": 42489966,
+      "presale_available": 31530960,
+      "min_purchase": 1,
+      "preorder_minimum": 5000,
+      "least_patch_number": 20,
+      "loss_number": 10,
+      "packaging_quantity": 5000,
+      "estimate_date": null,
+      "price_tiers": [
+        {
+          "from": 1,
+          "to": 999,
+          "unit_price": 0.0017
+        },
+        {
+          "from": 1000,
+          "to": 4999,
+          "unit_price": 0.0013
+        },
+        {
+          "from": 5000,
+          "to": 9999,
+          "unit_price": 0.0012
+        },
+        {
+          "from": 10000,
+          "to": 49999,
+          "unit_price": 0.0011
+        },
+        {
+          "from": 50000,
+          "to": 50199,
+          "unit_price": 0.001
+        },
+        {
+          "from": 50200,
+          "to": null,
+          "unit_price": 0.001
+        }
+      ],
+      "pieces_required": 10,
+      "pieces_to_buy": 20,
+      "unit_price": 0.0017,
+      "line_cost": 0.034,
+      "retrieved_at": "2026-11-22T06:15:50Z",
+      "http_status": 200,
+      "raw_sha256": "19fabc96b3cc382495107fd5689e6099bc05639903700fe63dc5244870cb07a0",
+      "stored": {
+        "repository": "Takazudo/circuit-dev-resources",
+        "path": "distributor-captures/jlcpcb-lcsc/zudo-led-block-a7-20261122/C25804-parts-api.json",
+        "sha256": "91c6dc2f86ebe2dd2fc47c5c39378666b545b23e5f7ebfcb1c545bceb5dbeea6",
+        "sanitized": "expiring x-oss signed-URL query values replaced by REMOVED"
+      }
+    },
+    {
+      "lcsc": "C398363",
+      "mpn": "TLV9001IDBVR",
+      "model_as_listed": "TLV9001IDBVR",
+      "manufacturer": "Texas Instruments",
+      "library": "EXTENDED",
+      "preferred": false,
+      "buyable": true,
+      "jlc_stock": 12316,
+      "presale_available": 11099,
+      "min_purchase": 1,
+      "preorder_minimum": 144,
+      "least_patch_number": 5,
+      "loss_number": 2,
+      "packaging_quantity": 3000,
+      "estimate_date": null,
+      "price_tiers": [
+        {
+          "from": 1,
+          "to": 49,
+          "unit_price": 0.0794
+        },
+        {
+          "from": 50,
+          "to": 149,
+          "unit_price": 0.0629
+        },
+        {
+          "from": 150,
+          "to": 499,
+          "unit_price": 0.0542
+        },
+        {
+          "from": 500,
+          "to": 2999,
+          "unit_price": 0.0472
+        },
+        {
+          "from": 3000,
+          "to": 5999,
+          "unit_price": 0.0426
+        },
+        {
+          "from": 6000,
+          "to": null,
+          "unit_price": 0.041
+        }
+      ],
+      "pieces_required": 2,
+      "pieces_to_buy": 5,
+      "unit_price": 0.0794,
+      "line_cost": 0.397,
+      "retrieved_at": "2026-11-22T06:15:54Z",
+      "http_status": 200,
+      "raw_sha256": "dbfb86d39dd6af05077dd0a67ebd202c35f5a60c69a209c9f8c4177987ea741a",
+      "stored": {
+        "repository": "Takazudo/circuit-dev-resources",
+        "path": "distributor-captures/jlcpcb-lcsc/zudo-led-block-a7-20261122/C398363-parts-api.json",
+        "sha256": "b686b8ab9262d5a3c87d275841c7d38acbb25390f9de41a0c479b8363797268c",
+        "sanitized": "expiring x-oss signed-URL query values replaced by REMOVED"
+      }
+    },
+    {
+      "lcsc": "C404027",
+      "mpn": "TLV75533PDBVR",
+      "model_as_listed": "TLV75533PDBVR",
+      "manufacturer": "Texas Instruments",
+      "library": "EXTENDED",
+      "preferred": false,
+      "buyable": true,
+      "jlc_stock": 98097,
+      "presale_available": 96579,
+      "min_purchase": 1,
+      "preorder_minimum": 94,
+      "least_patch_number": 5,
+      "loss_number": 1,
+      "packaging_quantity": 3000,
+      "estimate_date": null,
+      "price_tiers": [
+        {
+          "from": 1,
+          "to": 49,
+          "unit_price": 0.1218
+        },
+        {
+          "from": 50,
+          "to": 149,
+          "unit_price": 0.0961
+        },
+        {
+          "from": 150,
+          "to": 499,
+          "unit_price": 0.0827
+        },
+        {
+          "from": 500,
+          "to": 2999,
+          "unit_price": 0.0719
+        },
+        {
+          "from": 3000,
+          "to": 5999,
+          "unit_price": 0.0679
+        },
+        {
+          "from": 6000,
+          "to": null,
+          "unit_price": 0.0653
+        }
+      ],
+      "pieces_required": 2,
+      "pieces_to_buy": 5,
+      "unit_price": 0.1218,
+      "line_cost": 0.609,
+      "retrieved_at": "2026-11-22T06:15:57Z",
+      "http_status": 200,
+      "raw_sha256": "86fa466b146bdd88f6f29437d3e476be936c411acddc95d155bb769290964484",
+      "stored": {
+        "repository": "Takazudo/circuit-dev-resources",
+        "path": "distributor-captures/jlcpcb-lcsc/zudo-led-block-a7-20261122/C404027-parts-api.json",
+        "sha256": "1115ac206b4e04c2911b789a168265cd924b6ee911124e32356e7fafd5665434",
+        "sanitized": "expiring x-oss signed-URL query values replaced by REMOVED"
+      }
+    },
+    {
+      "lcsc": "C50704",
+      "mpn": "PMEG4010CEJ,115",
+      "model_as_listed": "PMEG4010CEJ,115",
+      "manufacturer": "Nexperia",
+      "library": "EXTENDED",
+      "preferred": false,
+      "buyable": true,
+      "jlc_stock": 11091,
+      "presale_available": 10949,
+      "min_purchase": 1,
+      "preorder_minimum": 26,
+      "least_patch_number": 5,
+      "loss_number": 2,
+      "packaging_quantity": 3000,
+      "estimate_date": null,
+      "price_tiers": [
+        {
+          "from": 1,
+          "to": 49,
+          "unit_price": 0.3538
+        },
+        {
+          "from": 50,
+          "to": 149,
+          "unit_price": 0.2793
+        },
+        {
+          "from": 150,
+          "to": 499,
+          "unit_price": 0.2474
+        },
+        {
+          "from": 500,
+          "to": 2999,
+          "unit_price": 0.2077
+        },
+        {
+          "from": 3000,
+          "to": 5999,
+          "unit_price": 0.1874
+        },
+        {
+          "from": 6000,
+          "to": null,
+          "unit_price": 0.1768
+        }
+      ],
+      "pieces_required": 4,
+      "pieces_to_buy": 6,
+      "unit_price": 0.3538,
+      "line_cost": 2.1228,
+      "retrieved_at": "2026-11-22T06:16:02Z",
+      "http_status": 200,
+      "raw_sha256": "8a55a425e23c2328395beb3175f4c46119c43518c99cfb12b0037c94dce0c187",
+      "stored": {
+        "repository": "Takazudo/circuit-dev-resources",
+        "path": "distributor-captures/jlcpcb-lcsc/zudo-led-block-a7-20261122/C50704-parts-api.json",
+        "sha256": "4b2fe303c2e8115b18ef6b4b00b363119629b36ab9de6dd5cc6d44def5168d18",
+        "sanitized": "expiring x-oss signed-URL query values replaced by REMOVED"
+      }
+    },
+    {
+      "lcsc": "C5149819",
+      "mpn": "HX MSK13C02",
+      "model_as_listed": "HX MSK13C02",
+      "manufacturer": "hanxia",
+      "library": "EXTENDED",
+      "preferred": false,
+      "buyable": true,
+      "jlc_stock": 3511,
+      "presale_available": 3433,
+      "min_purchase": 1,
+      "preorder_minimum": 107,
+      "least_patch_number": 0,
+      "loss_number": 0,
+      "packaging_quantity": 3000,
+      "estimate_date": null,
+      "price_tiers": [
+        {
+          "from": 1,
+          "to": 49,
+          "unit_price": 0.1069
+        },
+        {
+          "from": 50,
+          "to": 149,
+          "unit_price": 0.0848
+        },
+        {
+          "from": 150,
+          "to": 499,
+          "unit_price": 0.0738
+        },
+        {
+          "from": 500,
+          "to": 2999,
+          "unit_price": 0.0657
+        },
+        {
+          "from": 3000,
+          "to": 5999,
+          "unit_price": 0.0571
+        },
+        {
+          "from": 6000,
+          "to": null,
+          "unit_price": 0.0539
+        }
+      ],
+      "pieces_required": 2,
+      "pieces_to_buy": 2,
+      "unit_price": 0.1069,
+      "line_cost": 0.2138,
+      "retrieved_at": "2026-11-22T06:16:05Z",
+      "http_status": 200,
+      "raw_sha256": "1a8c643bc15965112468e381e3f15110c6ccd3aef6f5c2af569ede29f94d85cd",
+      "stored": {
+        "repository": "Takazudo/circuit-dev-resources",
+        "path": "distributor-captures/jlcpcb-lcsc/zudo-led-block-a7-20261122/C5149819-parts-api.json",
+        "sha256": "399c654edcb7e1f04d8c025b56568a66e9238eafd530397cfacb5c8ec56df035",
+        "sanitized": "expiring x-oss signed-URL query values replaced by REMOVED"
+      }
+    },
+    {
+      "lcsc": "C5270180",
+      "mpn": "STM32G031G8U6TR",
+      "model_as_listed": "STM32G031G8U6TR",
+      "manufacturer": "STMicroelectronics",
+      "library": "EXTENDED",
+      "preferred": false,
+      "buyable": true,
+      "jlc_stock": 3891,
+      "presale_available": 3160,
+      "min_purchase": 1,
+      "preorder_minimum": 6,
+      "least_patch_number": 0,
+      "loss_number": 0,
+      "packaging_quantity": 3000,
+      "estimate_date": null,
+      "price_tiers": [
+        {
+          "from": 1,
+          "to": 9,
+          "unit_price": 1.7457
+        },
+        {
+          "from": 10,
+          "to": 29,
+          "unit_price": 1.4709
+        },
+        {
+          "from": 30,
+          "to": 99,
+          "unit_price": 1.3187
+        },
+        {
+          "from": 100,
+          "to": 499,
+          "unit_price": 1.1469
+        },
+        {
+          "from": 500,
+          "to": 999,
+          "unit_price": 1.07
+        },
+        {
+          "from": 1000,
+          "to": null,
+          "unit_price": 1.0373
+        }
+      ],
+      "pieces_required": 2,
+      "pieces_to_buy": 2,
+      "unit_price": 1.7457,
+      "line_cost": 3.4914,
+      "retrieved_at": "2026-11-22T06:16:10Z",
+      "http_status": 200,
+      "raw_sha256": "1c94bd1c5e91342640138dc693f96f51fc690841858eeba1ff42712a752a9437",
+      "stored": {
+        "repository": "Takazudo/circuit-dev-resources",
+        "path": "distributor-captures/jlcpcb-lcsc/zudo-led-block-a7-20261122/C5270180-parts-api.json",
+        "sha256": "ebba45cdd962b03339aa98eb7b67d02f43f93d1743448ccb4b98778509af6fa0",
+        "sanitized": "expiring x-oss signed-URL query values replaced by REMOVED"
+      }
+    },
+    {
+      "lcsc": "C52917434",
+      "mpn": "WS2812B-2020-V6",
+      "model_as_listed": "WS2812B-2020-V6",
+      "manufacturer": "Worldsemi",
+      "library": "EXTENDED",
+      "preferred": false,
+      "buyable": true,
+      "jlc_stock": 708163,
+      "presale_available": 685106,
+      "min_purchase": 1,
+      "preorder_minimum": 123,
+      "least_patch_number": 5,
+      "loss_number": 2,
+      "packaging_quantity": 4500,
+      "estimate_date": null,
+      "price_tiers": [
+        {
+          "from": 1,
+          "to": 49,
+          "unit_price": 0.0915
+        },
+        {
+          "from": 50,
+          "to": 149,
+          "unit_price": 0.0735
+        },
+        {
+          "from": 150,
+          "to": 499,
+          "unit_price": 0.0643
+        },
+        {
+          "from": 500,
+          "to": 2499,
+          "unit_price": 0.0568
+        },
+        {
+          "from": 2500,
+          "to": 4499,
+          "unit_price": 0.0542
+        },
+        {
+          "from": 4500,
+          "to": null,
+          "unit_price": 0.0524
+        }
+      ],
+      "pieces_required": 16,
+      "pieces_to_buy": 18,
+      "unit_price": 0.0915,
+      "line_cost": 1.647,
+      "retrieved_at": "2026-11-22T06:16:13Z",
+      "http_status": 200,
+      "raw_sha256": "8390263a366caac7db51390da14686d8ac2eafd9b79767453fb668b31999161b",
+      "stored": {
+        "repository": "Takazudo/circuit-dev-resources",
+        "path": "distributor-captures/jlcpcb-lcsc/zudo-led-block-a7-20261122/C52917434-parts-api.json",
+        "sha256": "82464749e7addf3788eeb716858bfefd13c851abefc2e7ff2f7e3de569577e41",
+        "sanitized": "expiring x-oss signed-URL query values replaced by REMOVED"
+      }
+    },
+    {
+      "lcsc": "C5665",
+      "mpn": "2.54-2*5P",
+      "model_as_listed": "2.54-2*5P2.54 mm pitch 2×5 pin IDC box header",
+      "manufacturer": "BOOMELE(Boom Precision Elec)",
+      "library": "EXTENDED",
+      "preferred": false,
+      "buyable": true,
+      "jlc_stock": 179329,
+      "presale_available": 173175,
+      "min_purchase": 1,
+      "preorder_minimum": 106,
+      "least_patch_number": 2,
+      "loss_number": 0,
+      "packaging_quantity": 280,
+      "estimate_date": null,
+      "price_tiers": [
+        {
+          "from": 1,
+          "to": 49,
+          "unit_price": 0.1033
+        },
+        {
+          "from": 50,
+          "to": 279,
+          "unit_price": 0.0853
+        },
+        {
+          "from": 280,
+          "to": 559,
+          "unit_price": 0.0691
+        },
+        {
+          "from": 560,
+          "to": 2519,
+          "unit_price": 0.0614
+        },
+        {
+          "from": 2520,
+          "to": 5039,
+          "unit_price": 0.0588
+        },
+        {
+          "from": 5040,
+          "to": null,
+          "unit_price": 0.057
+        }
+      ],
+      "pieces_required": 2,
+      "pieces_to_buy": 2,
+      "unit_price": 0.1033,
+      "line_cost": 0.2066,
+      "retrieved_at": "2026-11-22T06:16:18Z",
+      "http_status": 200,
+      "raw_sha256": "195dc92d9ccfad72feb7ad5ea47d352c5d103fc85e37ff042ae28a971d42b377",
+      "stored": {
+        "repository": "Takazudo/circuit-dev-resources",
+        "path": "distributor-captures/jlcpcb-lcsc/zudo-led-block-a7-20261122/C5665-parts-api.json",
+        "sha256": "e8127934411941de12b6b96b8d296adf9ed7fb70721fbb5ec32b87390858ea7d",
+        "sanitized": "expiring x-oss signed-URL query values replaced by REMOVED"
+      }
+    },
+    {
+      "lcsc": "C57112",
+      "mpn": "0603B103K500NT",
+      "model_as_listed": "0603B103K500NT",
+      "manufacturer": "FH (Guangdong Fenghua Advanced Tech)",
+      "library": "BASIC",
+      "preferred": false,
+      "buyable": true,
+      "jlc_stock": 4617494,
+      "presale_available": 3038436,
+      "min_purchase": 1,
+      "preorder_minimum": 2654,
+      "least_patch_number": 20,
+      "loss_number": 10,
+      "packaging_quantity": 4000,
+      "estimate_date": null,
+      "price_tiers": [
+        {
+          "from": 1,
+          "to": 999,
+          "unit_price": 0.0044
+        },
+        {
+          "from": 1000,
+          "to": 3999,
+          "unit_price": 0.0034
+        },
+        {
+          "from": 4000,
+          "to": 7999,
+          "unit_price": 0.0029
+        },
+        {
+          "from": 8000,
+          "to": 47999,
+          "unit_price": 0.0026
+        },
+        {
+          "from": 48000,
+          "to": 99999,
+          "unit_price": 0.0025
+        },
+        {
+          "from": 100000,
+          "to": null,
+          "unit_price": 0.0024
+        }
+      ],
+      "pieces_required": 2,
+      "pieces_to_buy": 20,
+      "unit_price": 0.0044,
+      "line_cost": 0.088,
+      "retrieved_at": "2026-11-22T06:16:21Z",
+      "http_status": 200,
+      "raw_sha256": "555bab3852341c89503c455fc232873c5a72b487546fe72d456ad84e92debdc1",
+      "stored": {
+        "repository": "Takazudo/circuit-dev-resources",
+        "path": "distributor-captures/jlcpcb-lcsc/zudo-led-block-a7-20261122/C57112-parts-api.json",
+        "sha256": "6fdc0683afe64e856db038a7d655b70fffacfb1c26d27b9f512a6cd5122da58c",
+        "sanitized": "expiring x-oss signed-URL query values replaced by REMOVED"
+      }
+    },
+    {
+      "lcsc": "C694586",
+      "mpn": "SPM4020T-4R7M-LR",
+      "model_as_listed": "SPM4020T-4R7M-LR",
+      "manufacturer": "TDK",
+      "library": "EXTENDED",
+      "preferred": false,
+      "buyable": true,
+      "jlc_stock": 686,
+      "presale_available": 678,
+      "min_purchase": 1,
+      "preorder_minimum": 24,
+      "least_patch_number": 5,
+      "loss_number": 0,
+      "packaging_quantity": 500,
+      "estimate_date": null,
+      "price_tiers": [
+        {
+          "from": 1,
+          "to": 49,
+          "unit_price": 0.3799
+        },
+        {
+          "from": 50,
+          "to": 149,
+          "unit_price": 0.3022
+        },
+        {
+          "from": 150,
+          "to": 499,
+          "unit_price": 0.2689
+        },
+        {
+          "from": 500,
+          "to": 2499,
+          "unit_price": 0.2196
+        },
+        {
+          "from": 2500,
+          "to": 4999,
+          "unit_price": 0.201
+        },
+        {
+          "from": 5000,
+          "to": null,
+          "unit_price": 0.19
+        }
+      ],
+      "pieces_required": 2,
+      "pieces_to_buy": 5,
+      "unit_price": 0.3799,
+      "line_cost": 1.8995,
+      "retrieved_at": "2026-11-22T06:16:24Z",
+      "http_status": 200,
+      "raw_sha256": "04e339b928fe4e7ab7d5a03c523ff7ea424af09f2b85eafd1ec7526b2931fbb0",
+      "stored": {
+        "repository": "Takazudo/circuit-dev-resources",
+        "path": "distributor-captures/jlcpcb-lcsc/zudo-led-block-a7-20261122/C694586-parts-api.json",
+        "sha256": "75dfeff6e4fed4a1829ac50a63d19b65f7d5c6ac105ae5ea60c9ebcd05bcf557",
+        "sanitized": "expiring x-oss signed-URL query values replaced by REMOVED"
+      }
+    },
+    {
+      "lcsc": "C7250",
+      "mpn": "0603WAF1005T5E",
+      "model_as_listed": "0603WAF1005T5E",
+      "manufacturer": "UNI-ROYAL(Uniroyal Elec)",
+      "library": "BASIC",
+      "preferred": false,
+      "buyable": true,
+      "jlc_stock": 882386,
+      "presale_available": 757635,
+      "min_purchase": 1,
+      "preorder_minimum": 5000,
+      "least_patch_number": 20,
+      "loss_number": 10,
+      "packaging_quantity": 5000,
+      "estimate_date": null,
+      "price_tiers": [
+        {
+          "from": 1,
+          "to": 999,
+          "unit_price": 0.0022
+        },
+        {
+          "from": 1000,
+          "to": 4999,
+          "unit_price": 0.0017
+        },
+        {
+          "from": 5000,
+          "to": 9999,
+          "unit_price": 0.0014
+        },
+        {
+          "from": 10000,
+          "to": 49999,
+          "unit_price": 0.0011
+        },
+        {
+          "from": 50000,
+          "to": 50199,
+          "unit_price": 0.001
+        },
+        {
+          "from": 50200,
+          "to": null,
+          "unit_price": 0.001
+        }
+      ],
+      "pieces_required": 4,
+      "pieces_to_buy": 20,
+      "unit_price": 0.0022,
+      "line_cost": 0.044,
+      "retrieved_at": "2026-11-22T06:16:28Z",
+      "http_status": 200,
+      "raw_sha256": "ac1e3cee2637d2d063b5b2669b0f45959e38012f8547b1f88c9a92ebdf307a37",
+      "stored": {
+        "repository": "Takazudo/circuit-dev-resources",
+        "path": "distributor-captures/jlcpcb-lcsc/zudo-led-block-a7-20261122/C7250-parts-api.json",
+        "sha256": "ed90512a40a6d21621b69c488cd4a80d5edce63829a8e911098f6c6dd8f79acb",
+        "sanitized": "expiring x-oss signed-URL query values replaced by REMOVED"
+      }
+    }
+  ],
+  "parts_total": 29.86,
+  "not_included": "Setup, stencil, feeder loading, joints, hand soldering, handling, PCB fabrication, shipping and taxes.",
+  "noted_alternates": {
+    "decided": "Unchanged 2026-11-12 coordinator decision: D3 and L1 are not changed for this build. Re-observed only to inform a later, separately reviewed selection; no owner bundle, no review.",
+    "parts": [
+      {
+        "lcsc": "C389351",
+        "manufacturer": "Nexperia",
+        "mpn": "BAS70-04,215",
+        "library": "EXTENDED",
+        "jlc_stock": 29221,
+        "min_purchase": 1,
+        "unit_price_1": 0.0678,
+        "retrieved_at": "2026-11-22T06:20:15Z",
+        "raw_sha256": "08b3eb4e07f097227027b0f7abb73596e147f0242aa34cf58bfcd29ab6922932",
+        "stored_path": "distributor-captures/jlcpcb-lcsc/zudo-led-block-a7-20261122/noted-alternates/C389351-parts-api.json",
+        "alternate_for": "BAS70-04-7-F (C134375, D3)",
+        "status": "NOTED_ALTERNATE_UNVERIFIED"
+      },
+      {
+        "lcsc": "C150242",
+        "manufacturer": "onsemi",
+        "mpn": "BAS70-04LT1G",
+        "library": "EXTENDED",
+        "jlc_stock": 11019,
+        "min_purchase": 1,
+        "unit_price_1": 0.0555,
+        "retrieved_at": "2026-11-22T06:20:18Z",
+        "raw_sha256": "0b1f76d3a1bb2ee7eb8360c5b7cfe37eb8226af67b765da0130e8f035aa375f8",
+        "stored_path": "distributor-captures/jlcpcb-lcsc/zudo-led-block-a7-20261122/noted-alternates/C150242-parts-api.json",
+        "alternate_for": "BAS70-04-7-F (C134375, D3)",
+        "status": "NOTED_ALTERNATE_UNVERIFIED"
+      },
+      {
+        "lcsc": "C354583",
+        "manufacturer": "CENKER",
+        "mpn": "CKCSA4020-4.7uH/M",
+        "library": "EXTENDED",
+        "jlc_stock": 14555,
+        "min_purchase": 1,
+        "unit_price_1": 0.0462,
+        "retrieved_at": "2026-11-22T06:20:21Z",
+        "raw_sha256": "6fa915926246fd36b5d59ef3520199328b3aa3ef6d73eb16fcf2e05c5c1edec0",
+        "stored_path": "distributor-captures/jlcpcb-lcsc/zudo-led-block-a7-20261122/noted-alternates/C354583-parts-api.json",
+        "alternate_for": "SPM4020T-4R7M-LR (C694586, L1)",
+        "status": "NOTED_ALTERNATE_UNVERIFIED"
+      }
+    ]
+  }
+}
