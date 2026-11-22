@@ -1,0 +1,154 @@
+{
+  "what": "Gerber-to-Gerber comparison of this set's panel Gerber zips (local pinned-image build, 2026-11-22) with the CI-built panel artifact a7-repo-panels-PREPARED-NOT-FOR-ORDER (id 14738735291, run 44981535275 attempt 1, head 6f6e8ea9bbc4edb5e995f0398b685e4560dc6a89, archive sha256 11b5d2aac9e8a3d8c9f3d323b650a342f84beea57dc423dd61de9e546300aba1)",
+  "method": "scripts/a7_panel_gerber_compare.py with gerbonara 1.6.3 (pinned lock): each Gerber/drill file parsed and its aperture-resolved primitives in mm compared as multisets; aperture numbering, object order and creation dates are ignored; .gbrjob not compared. Raw bytes differ (timestamps, aperture numbering, emission order).",
+  "scope": "Two exports of the same frozen panel layouts; not a comparison of panel Gerbers against single-board Gerbers or the source board.",
+  "all_equal": true,
+  "boards": {
+    "controller": {
+      "controller-panel-B_Cu.gbl": {
+        "primitives": 1207,
+        "equal": true
+      },
+      "controller-panel-B_Mask.gbs": {
+        "primitives": 1177,
+        "equal": true
+      },
+      "controller-panel-B_Paste.gbp": {
+        "primitives": 450,
+        "equal": true
+      },
+      "controller-panel-B_Silkscreen.gbo": {
+        "primitives": 0,
+        "equal": true
+      },
+      "controller-panel-Edge_Cuts.gm1": {
+        "primitives": 28,
+        "equal": true
+      },
+      "controller-panel-F_Cu.gtl": {
+        "primitives": 1951,
+        "equal": true
+      },
+      "controller-panel-F_Mask.gts": {
+        "primitives": 1934,
+        "equal": true
+      },
+      "controller-panel-F_Paste.gtp": {
+        "primitives": 1043,
+        "equal": true
+      },
+      "controller-panel-F_Silkscreen.gto": {
+        "primitives": 13,
+        "equal": true
+      },
+      "controller-panel-In1_Cu.g1": {
+        "primitives": 512,
+        "equal": true
+      },
+      "controller-panel-In2_Cu.g2": {
+        "primitives": 492,
+        "equal": true
+      },
+      "controller-panel-NPTH.drl": {
+        "primitives": 29,
+        "equal": true
+      },
+      "controller-panel-PTH.drl": {
+        "primitives": 129,
+        "equal": true
+      }
+    },
+    "led_leaf": {
+      "led_leaf-panel-B_Cu.gbl": {
+        "primitives": 52,
+        "equal": true
+      },
+      "led_leaf-panel-B_Mask.gbs": {
+        "primitives": 117,
+        "equal": true
+      },
+      "led_leaf-panel-B_Paste.gbp": {
+        "primitives": 0,
+        "equal": true
+      },
+      "led_leaf-panel-B_Silkscreen.gbo": {
+        "primitives": 0,
+        "equal": true
+      },
+      "led_leaf-panel-Edge_Cuts.gm1": {
+        "primitives": 58,
+        "equal": true
+      },
+      "led_leaf-panel-F_Cu.gtl": {
+        "primitives": 767,
+        "equal": true
+      },
+      "led_leaf-panel-F_Mask.gts": {
+        "primitives": 1038,
+        "equal": true
+      },
+      "led_leaf-panel-F_Paste.gtp": {
+        "primitives": 648,
+        "equal": true
+      },
+      "led_leaf-panel-F_Silkscreen.gto": {
+        "primitives": 24,
+        "equal": true
+      },
+      "led_leaf-panel-NPTH.drl": {
+        "primitives": 39,
+        "equal": true
+      },
+      "led_leaf-panel-PTH.drl": {
+        "primitives": 22,
+        "equal": true
+      }
+    },
+    "power_adapter": {
+      "power_adapter-panel-B_Cu.gbl": {
+        "primitives": 43,
+        "equal": true
+      },
+      "power_adapter-panel-B_Mask.gbs": {
+        "primitives": 63,
+        "equal": true
+      },
+      "power_adapter-panel-B_Paste.gbp": {
+        "primitives": 0,
+        "equal": true
+      },
+      "power_adapter-panel-B_Silkscreen.gbo": {
+        "primitives": 0,
+        "equal": true
+      },
+      "power_adapter-panel-Edge_Cuts.gm1": {
+        "primitives": 32,
+        "equal": true
+      },
+      "power_adapter-panel-F_Cu.gtl": {
+        "primitives": 39,
+        "equal": true
+      },
+      "power_adapter-panel-F_Mask.gts": {
+        "primitives": 66,
+        "equal": true
+      },
+      "power_adapter-panel-F_Paste.gtp": {
+        "primitives": 0,
+        "equal": true
+      },
+      "power_adapter-panel-F_Silkscreen.gto": {
+        "primitives": 0,
+        "equal": true
+      },
+      "power_adapter-panel-NPTH.drl": {
+        "primitives": 34,
+        "equal": true
+      },
+      "power_adapter-panel-PTH.drl": {
+        "primitives": 14,
+        "equal": true
+      }
+    }
+  }
+}

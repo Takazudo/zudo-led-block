@@ -541,8 +541,9 @@ def build(out, write_receipt=False):
     (out / 'summary.json').write_text(json.dumps(summary, indent=2) + '\n')
     (out / 'README-PREPARED-ROUTE-NOT-FOR-ORDER.txt').write_text(
         'PANEL EXPORT - NOT A MANUFACTURING RELEASE - THIS BUILD DIRECTORY IS NOT AN UPLOAD SET\n'
-        'The readiness order gate is BLOCKED. Only a dated copy committed under engineering/a7/jlc-package/order/<date>/ (with SHA256SUMS)\n'
-        'is uploaded by the owner for an owner-approved prototype route, after the order-form checks in that README.\n'
+        'The readiness order gate is BLOCKED. Only the dated set named current in engineering/a7/jlc-package/package-sets.json\n'
+        'is uploaded by the owner, and only once its status is PROTOTYPE_UPLOAD_APPROVED for the current identities and after the\n'
+        'order-form checks in its README. order/2026-11-13 is historical (old boards) and is not an upload choice.\n'
         'See doc/src/content/docs/project/jlc-order-package.mdx.\n')
     print(json.dumps({k: summary[k] for k in ('status', 'failures')}, indent=2))
     return 1 if fails else 0

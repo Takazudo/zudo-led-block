@@ -1,0 +1,78 @@
+{
+  "label": "REVIEW_ONLY_NOT_FOR_ORDER",
+  "frozen_from_commit": "86470126aa569cce026cd740c95a63181a921de3",
+  "tool_image": "kicad/kicad:10.0.8@sha256:3f4a01786dfbe803a65f345c3342b765db9add913f5e9448f8356793714ddc34",
+  "panel_layouts": {
+    "controller": {
+      "path": "engineering/a7/jlc-package/panels/controller-panel.json",
+      "sha256": "0b72662e8852d7f980853bee7c75d56dec7b62f85e017522ed3c4dbe890a4431",
+      "board": "engineering/a7/electronics/controller/controller.kicad_pcb",
+      "board_sha256": "d83691d6590e013b2a66957b61d76ba2f68bedaaec04789326e1215b2d1bdb2b",
+      "copies_per_sheet": 1
+    },
+    "led_leaf": {
+      "path": "engineering/a7/jlc-package/panels/led_leaf-panel.json",
+      "sha256": "82547013c97b2fc003b914ae48be4965ac7f1d02925dde60073f67192c47c5db",
+      "board": "engineering/a7/electronics/led_leaf/led_leaf.kicad_pcb",
+      "board_sha256": "bcf2e35d767221f5a9db0cd16769a2e503a672f522fd4f32f78012cdeb494cf9",
+      "copies_per_sheet": 2
+    },
+    "power_adapter": {
+      "path": "engineering/a7/jlc-package/panels/power_adapter-panel.json",
+      "sha256": "f3259d1c12160b3ebc5aadd725b71d6b2b05e5c028aa711f804cfb2091eeca5b",
+      "board": "engineering/a5/electronics/native/power_adapter/power_adapter.kicad_pcb",
+      "board_sha256": "b0f071f2730afdfd3d29de2176b1cce5f90b0c0726d14fd15501e27f90d95187",
+      "copies_per_sheet": 1
+    }
+  },
+  "identities": {
+    "led_leaf_board": {
+      "path": "engineering/a7/electronics/led_leaf/led_leaf.kicad_pcb",
+      "sha256": "bcf2e35d767221f5a9db0cd16769a2e503a672f522fd4f32f78012cdeb494cf9"
+    },
+    "led_leaf_schematic": {
+      "path": "engineering/a7/electronics/led_leaf/led_leaf.kicad_sch",
+      "sha256": "b3eaaf84ab1bc3a13c1dd1600cb6f5dca5ea61c403d0af4ea7c5b664b40c6599"
+    },
+    "optical_fabrication": {
+      "path": "engineering/a7/verification/fab/optical-fr4.json",
+      "sha256": "d974daffc20c4aabaa1d754f4b7393315388246b93433bb77750a4100237c6e5"
+    },
+    "board": {
+      "path": "engineering/a7/electronics/controller/controller.kicad_pcb",
+      "sha256": "d83691d6590e013b2a66957b61d76ba2f68bedaaec04789326e1215b2d1bdb2b"
+    },
+    "population": {
+      "path": "engineering/a7/electronics/controller/board_placement.json",
+      "sha256": "2d32b2ab76735dbf4ff7f2c959de4398b8215983be9a4fd33fde50c7015212f5"
+    },
+    "schematic": {
+      "path": "engineering/a7/electronics/controller/controller.kicad_sch",
+      "sha256": "b027715b278a17d9af9c5791f107cbaf07ee218647601622164d33b344015e1d"
+    },
+    "firmware": {
+      "path": "engineering/a5/firmware/dist/light_block_A5.bin",
+      "sha256": "0446cb0acfa7efe86a5f6c02beb7afa482daa419ecfce204fe9169487599765e"
+    },
+    "firmware_sources": {
+      "path": "engineering/a5/firmware/dist/source_files.sha256",
+      "sha256": "61155c23cc8f9c05f8d5712ecd8f009673c1929a34b8437b9869c202deb85c46"
+    },
+    "configuration": {
+      "path": "engineering/a5/firmware/include/lb_config.h",
+      "sha256": "195092c88e1b9270bae22d27f4a08f4a606f9be77008f3011f06d7a975b0f6a7"
+    },
+    "mechanical": {
+      "path": "engineering/a7/mechanical/layout.json",
+      "sha256": "8b24ec83fd805c4efcaba92f885e49531826f8945063b74fd5019bc1221e040e"
+    },
+    "fixture": {
+      "path": "engineering/a7/fixture/manifest.json",
+      "sha256": "5d73050918e3d32bdf06cfadd687e126f0e035c83a155d1bb74bf5248404fd85"
+    },
+    "assembly_manifest": {
+      "path": "engineering/a7/procurement/assembly-manifest.json",
+      "sha256": "b94ac5981de7eed846bf0c9eb0dae61c5cd1ea25d1fe4defb3b1369aada6c02d"
+    }
+  }
+}

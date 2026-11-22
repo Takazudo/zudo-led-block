@@ -3,14 +3,33 @@
   "status": "DRY_RUN_NOT_RELEASED",
   "order_eligibility": "BLOCKED",
   "prototype_route_binding": "HOLD: readiness gate owner_prototype_route (the recorded approval does not match the current identities)",
-  "dated_order_exports": [
-    "engineering/a7/jlc-package/order/2026-11-13"
+  "current_package": {
+    "path": "engineering/a7/jlc-package/review/2026-11-22",
+    "status": "REVIEW_ONLY_NOT_FOR_ORDER",
+    "boards": {
+      "controller": "d83691d6590e013b2a66957b61d76ba2f68bedaaec04789326e1215b2d1bdb2b",
+      "led_leaf": "bcf2e35d767221f5a9db0cd16769a2e503a672f522fd4f32f78012cdeb494cf9",
+      "power_adapter": "b0f071f2730afdfd3d29de2176b1cce5f90b0c0726d14fd15501e27f90d95187"
+    }
+  },
+  "historical_packages": [
+    {
+      "path": "engineering/a7/jlc-package/order/2026-11-13",
+      "boards": {
+        "controller": "89310d539b3c28096775cee821e46c14fdba42a87809c82f1fd7f0751704e727",
+        "led_leaf": "6244280cec3efe00ca31d9c5c8878f3ed6eb59a1c6bd4e933beffedd49511df3",
+        "power_adapter": "b0f071f2730afdfd3d29de2176b1cce5f90b0c0726d14fd15501e27f90d95187"
+      },
+      "settings": "controller 1.6 mm 4-layer, LED leaf 0.6 mm 2-layer (A5 leaf file), power adapter 1.6 mm 2-layer",
+      "approval_scope": "The 2026-11-12/13 owner prototype-route approvals in qualification/approvals/ bind these old identities only; they do not carry to any later board.",
+      "superseded_by_change": "PR #88 (0.8 mm rigid FR-4 redesign, merged 6f6e8ea): new controller and LED leaf boards"
+    }
   ],
   "modules": 2,
   "decided_by": "OWNER",
   "sources": "engineering/a7/jlc-package/sources.json",
-  "ledger_sha256": "9225919ce1a44ca70be6c66e081c3d53c23b25421848ac243a6c991215bb320d",
-  "sources_sha256": "6fc3789723a99d5f6eaeca12b9f057ebb407ef84b7a8657ee224129c262f05d5",
+  "ledger_sha256": "b94ac5981de7eed846bf0c9eb0dae61c5cd1ea25d1fe4defb3b1369aada6c02d",
+  "sources_sha256": "3eaedfd799abb173a1c53a981b4d246a09c4a66c1451fc803e52491a2bf7533f",
   "optical_fab_sha256": "d974daffc20c4aabaa1d754f4b7393315388246b93433bb77750a4100237c6e5",
   "boards": [
     {
@@ -1163,280 +1182,280 @@
       "mpn": "530470310",
       "pieces_required": 4,
       "library": "EXTENDED",
-      "in_stock": 21090,
-      "preorder_available": 20494,
+      "in_stock": 17167,
+      "preorder_available": 16434,
       "route": "JLC_STOCK",
-      "observed_at": "2026-11-12T10:35:07Z"
+      "observed_at": "2026-11-22T06:14:44Z"
     },
     {
       "lcsc": "C12891",
       "mpn": "CL31A226KAHNNNE",
       "pieces_required": 4,
       "library": "BASIC",
-      "in_stock": 2515861,
-      "preorder_available": 2105398,
+      "in_stock": 2568477,
+      "preorder_available": 2155173,
       "route": "JLC_STOCK",
-      "observed_at": "2026-11-12T10:35:10Z"
+      "observed_at": "2026-11-22T06:14:48Z"
     },
     {
       "lcsc": "C134375",
       "mpn": "BAS70-04-7-F",
       "pieces_required": 2,
       "library": "EXTENDED",
-      "in_stock": 247,
-      "preorder_available": 124,
-      "route": "JLC_STOCK",
-      "observed_at": "2026-11-12T10:35:13Z"
+      "in_stock": 1,
+      "preorder_available": 1,
+      "route": "JLC_PREORDER_OR_GLOBAL_SOURCING_BLOCKED",
+      "observed_at": "2026-11-22T06:14:51Z"
     },
     {
       "lcsc": "C140331",
       "mpn": "TPS2552DBVR-1",
       "pieces_required": 2,
       "library": "EXTENDED",
-      "in_stock": 2228,
-      "preorder_available": 2219,
+      "in_stock": 2003,
+      "preorder_available": 1980,
       "route": "JLC_STOCK",
-      "observed_at": "2026-11-12T10:35:15Z"
+      "observed_at": "2026-11-22T06:14:55Z"
     },
     {
       "lcsc": "C14663",
       "mpn": "CC0603KRX7R9BB104",
       "pieces_required": 32,
       "library": "BASIC",
-      "in_stock": 36130749,
-      "preorder_available": 18269416,
+      "in_stock": 53154123,
+      "preorder_available": 34435351,
       "route": "JLC_STOCK",
-      "observed_at": "2026-11-12T10:35:18Z"
+      "observed_at": "2026-11-22T06:14:59Z"
     },
     {
       "lcsc": "C15741",
       "mpn": "SN74LVC2T45DCUR",
       "pieces_required": 2,
       "library": "EXTENDED",
-      "in_stock": 85166,
-      "preorder_available": 84012,
+      "in_stock": 53962,
+      "preorder_available": 52783,
       "route": "JLC_STOCK",
-      "observed_at": "2026-11-12T10:35:20Z"
+      "observed_at": "2026-11-22T06:15:03Z"
     },
     {
       "lcsc": "C15850",
       "mpn": "CL21A106KAYNNNE",
       "pieces_required": 6,
       "library": "BASIC",
-      "in_stock": 8516270,
-      "preorder_available": 6708284,
+      "in_stock": 9314861,
+      "preorder_available": 7387250,
       "route": "JLC_STOCK",
-      "observed_at": "2026-11-12T10:35:23Z"
+      "observed_at": "2026-11-22T06:15:06Z"
     },
     {
       "lcsc": "C160404",
       "mpn": "SM04B-SRSS-TB(LF)(SN)",
       "pieces_required": 10,
       "library": "EXTENDED",
-      "in_stock": 9798,
-      "preorder_available": 4021,
+      "in_stock": 4643,
+      "preorder_available": 0,
       "route": "JLC_STOCK",
-      "observed_at": "2026-11-12T10:35:25Z"
+      "observed_at": "2026-11-22T06:15:10Z"
     },
     {
       "lcsc": "C19666",
       "mpn": "CL10A475KO8NNNC",
       "pieces_required": 6,
       "library": "BASIC",
-      "in_stock": 3568082,
-      "preorder_available": 2787013,
+      "in_stock": 3144424,
+      "preorder_available": 2328225,
       "route": "JLC_STOCK",
-      "observed_at": "2026-11-12T10:35:28Z"
+      "observed_at": "2026-11-22T06:15:14Z"
     },
     {
       "lcsc": "C20526",
       "mpn": "MMBT3904(RANGE:100-300)",
       "pieces_required": 2,
       "library": "BASIC",
-      "in_stock": 4183780,
-      "preorder_available": 4065649,
+      "in_stock": 4176944,
+      "preorder_available": 4045969,
       "route": "JLC_STOCK",
-      "observed_at": "2026-11-12T10:35:30Z"
+      "observed_at": "2026-11-22T06:15:17Z"
     },
     {
       "lcsc": "C2071056",
       "mpn": "AP63205WU-7",
       "pieces_required": 2,
       "library": "EXTENDED",
-      "in_stock": 39904,
-      "preorder_available": 37005,
+      "in_stock": 57435,
+      "preorder_available": 54489,
       "route": "JLC_STOCK",
-      "observed_at": "2026-11-12T10:35:32Z"
+      "observed_at": "2026-11-22T06:15:21Z"
     },
     {
       "lcsc": "C21190",
       "mpn": "0603WAF1001T5E",
       "pieces_required": 6,
       "library": "BASIC",
-      "in_stock": 28882373,
-      "preorder_available": 22227859,
+      "in_stock": 40500481,
+      "preorder_available": 33681666,
       "route": "JLC_STOCK",
-      "observed_at": "2026-11-12T10:35:35Z"
+      "observed_at": "2026-11-22T06:15:24Z"
     },
     {
       "lcsc": "C221351",
       "mpn": "OPA197IDBVR",
       "pieces_required": 2,
       "library": "EXTENDED",
-      "in_stock": 76873,
-      "preorder_available": 76582,
+      "in_stock": 71013,
+      "preorder_available": 70678,
       "route": "JLC_STOCK",
-      "observed_at": "2026-11-12T10:35:37Z"
+      "observed_at": "2026-11-22T06:15:28Z"
     },
     {
       "lcsc": "C22355739",
       "mpn": "PJ-324M",
       "pieces_required": 4,
       "library": "EXTENDED",
-      "in_stock": 5954,
-      "preorder_available": 5802,
+      "in_stock": 4113,
+      "preorder_available": 3999,
       "route": "JLC_STOCK",
-      "observed_at": "2026-11-12T10:35:41Z"
+      "observed_at": "2026-11-22T06:15:31Z"
     },
     {
       "lcsc": "C23138",
       "mpn": "0603WAF3300T5E",
       "pieces_required": 6,
       "library": "BASIC",
-      "in_stock": 2416605,
-      "preorder_available": 1796477,
+      "in_stock": 2611842,
+      "preorder_available": 1970531,
       "route": "JLC_STOCK",
-      "observed_at": "2026-11-12T10:35:44Z"
+      "observed_at": "2026-11-22T06:15:34Z"
     },
     {
       "lcsc": "C23162",
       "mpn": "0603WAF4701T5E",
       "pieces_required": 2,
       "library": "BASIC",
-      "in_stock": 14660825,
-      "preorder_available": 11419063,
+      "in_stock": 19300585,
+      "preorder_available": 15903942,
       "route": "JLC_STOCK",
-      "observed_at": "2026-11-12T10:35:46Z"
+      "observed_at": "2026-11-22T06:15:38Z"
     },
     {
       "lcsc": "C23231",
       "mpn": "0603WAF6802T5E",
       "pieces_required": 2,
       "library": "BASIC",
-      "in_stock": 787855,
-      "preorder_available": 687058,
+      "in_stock": 673837,
+      "preorder_available": 573056,
       "route": "JLC_STOCK",
-      "observed_at": "2026-11-12T10:35:49Z"
+      "observed_at": "2026-11-22T06:15:41Z"
     },
     {
       "lcsc": "C23254",
       "mpn": "0603WAF8202T5E",
       "pieces_required": 8,
       "library": "BASIC",
-      "in_stock": 933289,
-      "preorder_available": 868318,
+      "in_stock": 850956,
+      "preorder_available": 779465,
       "route": "JLC_STOCK",
-      "observed_at": "2026-11-12T10:35:51Z"
+      "observed_at": "2026-11-22T06:15:45Z"
     },
     {
       "lcsc": "C25803",
       "mpn": "0603WAF1003T5E",
       "pieces_required": 12,
       "library": "BASIC",
-      "in_stock": 15062647,
-      "preorder_available": 12699495,
+      "in_stock": 13030961,
+      "preorder_available": 10609376,
       "route": "JLC_STOCK",
-      "observed_at": "2026-11-12T10:35:53Z"
+      "observed_at": "2026-11-22T06:15:49Z"
     },
     {
       "lcsc": "C25804",
       "mpn": "0603WAF1002T5E",
       "pieces_required": 10,
       "library": "BASIC",
-      "in_stock": 42898836,
-      "preorder_available": 32419078,
+      "in_stock": 42489966,
+      "preorder_available": 31530960,
       "route": "JLC_STOCK",
-      "observed_at": "2026-11-12T10:35:56Z"
+      "observed_at": "2026-11-22T06:15:52Z"
     },
     {
       "lcsc": "C398363",
       "mpn": "TLV9001IDBVR",
       "pieces_required": 2,
       "library": "EXTENDED",
-      "in_stock": 47115,
-      "preorder_available": 45780,
+      "in_stock": 12316,
+      "preorder_available": 11099,
       "route": "JLC_STOCK",
-      "observed_at": "2026-11-12T10:35:58Z"
+      "observed_at": "2026-11-22T06:15:55Z"
     },
     {
       "lcsc": "C404027",
       "mpn": "TLV75533PDBVR",
       "pieces_required": 2,
       "library": "EXTENDED",
-      "in_stock": 75642,
-      "preorder_available": 74564,
+      "in_stock": 98097,
+      "preorder_available": 96579,
       "route": "JLC_STOCK",
-      "observed_at": "2026-11-12T10:36:00Z"
+      "observed_at": "2026-11-22T06:16:00Z"
     },
     {
       "lcsc": "C50704",
       "mpn": "PMEG4010CEJ,115",
       "pieces_required": 4,
       "library": "EXTENDED",
-      "in_stock": 12701,
-      "preorder_available": 12534,
+      "in_stock": 11091,
+      "preorder_available": 10949,
       "route": "JLC_STOCK",
-      "observed_at": "2026-11-12T10:36:03Z"
+      "observed_at": "2026-11-22T06:16:03Z"
     },
     {
       "lcsc": "C5149819",
       "mpn": "HX MSK13C02",
       "pieces_required": 2,
       "library": "EXTENDED",
-      "in_stock": 4561,
-      "preorder_available": 4552,
+      "in_stock": 3511,
+      "preorder_available": 3433,
       "route": "JLC_STOCK",
-      "observed_at": "2026-11-12T19:56:55Z"
+      "observed_at": "2026-11-22T06:16:07Z"
     },
     {
       "lcsc": "C5270180",
       "mpn": "STM32G031G8U6TR",
       "pieces_required": 2,
       "library": "EXTENDED",
-      "in_stock": 4507,
-      "preorder_available": 3777,
+      "in_stock": 3891,
+      "preorder_available": 3160,
       "route": "JLC_STOCK",
-      "observed_at": "2026-11-12T10:36:05Z"
+      "observed_at": "2026-11-22T06:16:12Z"
     },
     {
       "lcsc": "C52917434",
       "mpn": "WS2812B-2020-V6",
       "pieces_required": 16,
       "library": "EXTENDED",
-      "in_stock": 879804,
-      "preorder_available": 857883,
+      "in_stock": 708163,
+      "preorder_available": 685106,
       "route": "JLC_STOCK",
-      "observed_at": "2026-11-12T10:36:07Z"
+      "observed_at": "2026-11-22T06:16:16Z"
     },
     {
       "lcsc": "C5665",
       "mpn": "2.54-2*5P",
       "pieces_required": 2,
       "library": "EXTENDED",
-      "in_stock": 131245,
-      "preorder_available": 124613,
+      "in_stock": 179329,
+      "preorder_available": 173175,
       "route": "JLC_STOCK",
-      "observed_at": "2026-11-12T10:36:09Z"
+      "observed_at": "2026-11-22T06:16:19Z"
     },
     {
       "lcsc": "C57112",
       "mpn": "0603B103K500NT",
       "pieces_required": 2,
       "library": "BASIC",
-      "in_stock": 5337711,
-      "preorder_available": 3755418,
+      "in_stock": 4617494,
+      "preorder_available": 3038436,
       "route": "JLC_STOCK",
-      "observed_at": "2026-11-12T10:36:12Z"
+      "observed_at": "2026-11-22T06:16:22Z"
     },
     {
       "lcsc": "C694586",
@@ -1446,17 +1465,17 @@
       "in_stock": 686,
       "preorder_available": 678,
       "route": "JLC_STOCK",
-      "observed_at": "2026-11-12T10:36:14Z"
+      "observed_at": "2026-11-22T06:16:26Z"
     },
     {
       "lcsc": "C7250",
       "mpn": "0603WAF1005T5E",
       "pieces_required": 4,
       "library": "BASIC",
-      "in_stock": 795181,
-      "preorder_available": 674710,
+      "in_stock": 882386,
+      "preorder_available": 757635,
       "route": "JLC_STOCK",
-      "observed_at": "2026-11-12T10:36:18Z"
+      "observed_at": "2026-11-22T06:16:30Z"
     }
   ],
   "panel_comparison": {
@@ -1489,8 +1508,8 @@
         "needed": 4,
         "jlc_panel": 24,
         "repo_panel": 4,
-        "in_stock": 21090,
-        "preorder_available": 20494,
+        "in_stock": 17167,
+        "preorder_available": 16434,
         "jlc_panel_short": false,
         "repo_panel_short": false
       },
@@ -1500,8 +1519,8 @@
         "needed": 4,
         "jlc_panel": 40,
         "repo_panel": 4,
-        "in_stock": 2515861,
-        "preorder_available": 2105398,
+        "in_stock": 2568477,
+        "preorder_available": 2155173,
         "jlc_panel_short": false,
         "repo_panel_short": false
       },
@@ -1511,10 +1530,10 @@
         "needed": 2,
         "jlc_panel": 20,
         "repo_panel": 2,
-        "in_stock": 247,
-        "preorder_available": 124,
-        "jlc_panel_short": false,
-        "repo_panel_short": false
+        "in_stock": 1,
+        "preorder_available": 1,
+        "jlc_panel_short": true,
+        "repo_panel_short": true
       },
       {
         "lcsc": "C140331",
@@ -1522,8 +1541,8 @@
         "needed": 2,
         "jlc_panel": 20,
         "repo_panel": 2,
-        "in_stock": 2228,
-        "preorder_available": 2219,
+        "in_stock": 2003,
+        "preorder_available": 1980,
         "jlc_panel_short": false,
         "repo_panel_short": false
       },
@@ -1533,8 +1552,8 @@
         "needed": 32,
         "jlc_panel": 224,
         "repo_panel": 32,
-        "in_stock": 36130749,
-        "preorder_available": 18269416,
+        "in_stock": 53154123,
+        "preorder_available": 34435351,
         "jlc_panel_short": false,
         "repo_panel_short": false
       },
@@ -1544,8 +1563,8 @@
         "needed": 2,
         "jlc_panel": 20,
         "repo_panel": 2,
-        "in_stock": 85166,
-        "preorder_available": 84012,
+        "in_stock": 53962,
+        "preorder_available": 52783,
         "jlc_panel_short": false,
         "repo_panel_short": false
       },
@@ -1555,8 +1574,8 @@
         "needed": 6,
         "jlc_panel": 60,
         "repo_panel": 6,
-        "in_stock": 8516270,
-        "preorder_available": 6708284,
+        "in_stock": 9314861,
+        "preorder_available": 7387250,
         "jlc_panel_short": false,
         "repo_panel_short": false
       },
@@ -1566,8 +1585,8 @@
         "needed": 10,
         "jlc_panel": 52,
         "repo_panel": 10,
-        "in_stock": 9798,
-        "preorder_available": 4021,
+        "in_stock": 4643,
+        "preorder_available": 0,
         "jlc_panel_short": false,
         "repo_panel_short": false
       },
@@ -1577,8 +1596,8 @@
         "needed": 6,
         "jlc_panel": 60,
         "repo_panel": 6,
-        "in_stock": 3568082,
-        "preorder_available": 2787013,
+        "in_stock": 3144424,
+        "preorder_available": 2328225,
         "jlc_panel_short": false,
         "repo_panel_short": false
       },
@@ -1588,8 +1607,8 @@
         "needed": 2,
         "jlc_panel": 20,
         "repo_panel": 2,
-        "in_stock": 4183780,
-        "preorder_available": 4065649,
+        "in_stock": 4176944,
+        "preorder_available": 4045969,
         "jlc_panel_short": false,
         "repo_panel_short": false
       },
@@ -1599,8 +1618,8 @@
         "needed": 2,
         "jlc_panel": 20,
         "repo_panel": 2,
-        "in_stock": 39904,
-        "preorder_available": 37005,
+        "in_stock": 57435,
+        "preorder_available": 54489,
         "jlc_panel_short": false,
         "repo_panel_short": false
       },
@@ -1610,8 +1629,8 @@
         "needed": 6,
         "jlc_panel": 60,
         "repo_panel": 6,
-        "in_stock": 28882373,
-        "preorder_available": 22227859,
+        "in_stock": 40500481,
+        "preorder_available": 33681666,
         "jlc_panel_short": false,
         "repo_panel_short": false
       },
@@ -1621,8 +1640,8 @@
         "needed": 2,
         "jlc_panel": 20,
         "repo_panel": 2,
-        "in_stock": 76873,
-        "preorder_available": 76582,
+        "in_stock": 71013,
+        "preorder_available": 70678,
         "jlc_panel_short": false,
         "repo_panel_short": false
       },
@@ -1632,8 +1651,8 @@
         "needed": 4,
         "jlc_panel": 40,
         "repo_panel": 4,
-        "in_stock": 5954,
-        "preorder_available": 5802,
+        "in_stock": 4113,
+        "preorder_available": 3999,
         "jlc_panel_short": false,
         "repo_panel_short": false
       },
@@ -1643,8 +1662,8 @@
         "needed": 6,
         "jlc_panel": 60,
         "repo_panel": 6,
-        "in_stock": 2416605,
-        "preorder_available": 1796477,
+        "in_stock": 2611842,
+        "preorder_available": 1970531,
         "jlc_panel_short": false,
         "repo_panel_short": false
       },
@@ -1654,8 +1673,8 @@
         "needed": 2,
         "jlc_panel": 20,
         "repo_panel": 2,
-        "in_stock": 14660825,
-        "preorder_available": 11419063,
+        "in_stock": 19300585,
+        "preorder_available": 15903942,
         "jlc_panel_short": false,
         "repo_panel_short": false
       },
@@ -1665,8 +1684,8 @@
         "needed": 2,
         "jlc_panel": 20,
         "repo_panel": 2,
-        "in_stock": 787855,
-        "preorder_available": 687058,
+        "in_stock": 673837,
+        "preorder_available": 573056,
         "jlc_panel_short": false,
         "repo_panel_short": false
       },
@@ -1676,8 +1695,8 @@
         "needed": 8,
         "jlc_panel": 80,
         "repo_panel": 8,
-        "in_stock": 933289,
-        "preorder_available": 868318,
+        "in_stock": 850956,
+        "preorder_available": 779465,
         "jlc_panel_short": false,
         "repo_panel_short": false
       },
@@ -1687,8 +1706,8 @@
         "needed": 12,
         "jlc_panel": 120,
         "repo_panel": 12,
-        "in_stock": 15062647,
-        "preorder_available": 12699495,
+        "in_stock": 13030961,
+        "preorder_available": 10609376,
         "jlc_panel_short": false,
         "repo_panel_short": false
       },
@@ -1698,8 +1717,8 @@
         "needed": 10,
         "jlc_panel": 100,
         "repo_panel": 10,
-        "in_stock": 42898836,
-        "preorder_available": 32419078,
+        "in_stock": 42489966,
+        "preorder_available": 31530960,
         "jlc_panel_short": false,
         "repo_panel_short": false
       },
@@ -1709,8 +1728,8 @@
         "needed": 2,
         "jlc_panel": 20,
         "repo_panel": 2,
-        "in_stock": 47115,
-        "preorder_available": 45780,
+        "in_stock": 12316,
+        "preorder_available": 11099,
         "jlc_panel_short": false,
         "repo_panel_short": false
       },
@@ -1720,8 +1739,8 @@
         "needed": 2,
         "jlc_panel": 20,
         "repo_panel": 2,
-        "in_stock": 75642,
-        "preorder_available": 74564,
+        "in_stock": 98097,
+        "preorder_available": 96579,
         "jlc_panel_short": false,
         "repo_panel_short": false
       },
@@ -1731,8 +1750,8 @@
         "needed": 4,
         "jlc_panel": 40,
         "repo_panel": 4,
-        "in_stock": 12701,
-        "preorder_available": 12534,
+        "in_stock": 11091,
+        "preorder_available": 10949,
         "jlc_panel_short": false,
         "repo_panel_short": false
       },
@@ -1742,8 +1761,8 @@
         "needed": 2,
         "jlc_panel": 20,
         "repo_panel": 2,
-        "in_stock": 4561,
-        "preorder_available": 4552,
+        "in_stock": 3511,
+        "preorder_available": 3433,
         "jlc_panel_short": false,
         "repo_panel_short": false
       },
@@ -1753,8 +1772,8 @@
         "needed": 2,
         "jlc_panel": 20,
         "repo_panel": 2,
-        "in_stock": 4507,
-        "preorder_available": 3777,
+        "in_stock": 3891,
+        "preorder_available": 3160,
         "jlc_panel_short": false,
         "repo_panel_short": false
       },
@@ -1764,8 +1783,8 @@
         "needed": 16,
         "jlc_panel": 64,
         "repo_panel": 16,
-        "in_stock": 879804,
-        "preorder_available": 857883,
+        "in_stock": 708163,
+        "preorder_available": 685106,
         "jlc_panel_short": false,
         "repo_panel_short": false
       },
@@ -1775,8 +1794,8 @@
         "needed": 2,
         "jlc_panel": 4,
         "repo_panel": 2,
-        "in_stock": 131245,
-        "preorder_available": 124613,
+        "in_stock": 179329,
+        "preorder_available": 173175,
         "jlc_panel_short": false,
         "repo_panel_short": false
       },
@@ -1786,8 +1805,8 @@
         "needed": 2,
         "jlc_panel": 20,
         "repo_panel": 2,
-        "in_stock": 5337711,
-        "preorder_available": 3755418,
+        "in_stock": 4617494,
+        "preorder_available": 3038436,
         "jlc_panel_short": false,
         "repo_panel_short": false
       },
@@ -1808,8 +1827,8 @@
         "needed": 4,
         "jlc_panel": 40,
         "repo_panel": 4,
-        "in_stock": 795181,
-        "preorder_available": 674710,
+        "in_stock": 882386,
+        "preorder_available": 757635,
         "jlc_panel_short": false,
         "repo_panel_short": false
       }
@@ -1826,14 +1845,15 @@
     "EXTENDED": 16
   },
   "route_counts": {
-    "JLC_STOCK": 30
+    "JLC_PREORDER_OR_GLOBAL_SOURCING_BLOCKED": 1,
+    "JLC_STOCK": 29
   },
   "blockers": [
     {
       "id": "order-gate-blocked",
       "board": null,
-      "text": "Readiness order gate is BLOCKED (it counts every condition up to a manufacturing release). These generator reference files are not uploaded directly; an owner uploads only a dated copy under engineering/a7/jlc-package/order/ for an owner-approved prototype route, after the order-form checks in its README. None of this is a manufacturing release.",
-      "ja": "readiness の発注ゲートが BLOCKED（製造リリースまでの全条件を数えている）。この基準セットからは直接アップロードしない。オーナーが試作ルートでアップロードするのは `engineering/a7/jlc-package/order/` の日付付きの写しで、その README の注文画面の確認の後。どれも製造リリースではない。"
+      "text": "Readiness order gate is BLOCKED (it counts every condition up to a manufacturing release). These generator reference files are not uploaded directly; the current dated set is the one named in engineering/a7/jlc-package/package-sets.json, and an owner uploads it only once its status is PROTOTYPE_UPLOAD_APPROVED for the current identities and after the order-form checks in its README. Historical sets (order/2026-11-13) are bound to old boards and are not an upload choice. None of this is a manufacturing release.",
+      "ja": "readiness の発注ゲートが BLOCKED（製造リリースまでの全条件を数えている）。この基準セットからは直接アップロードしない。現行の日付付きセットは `engineering/a7/jlc-package/package-sets.json` が指すもので、現在の識別に対する試作ルート承認（状態 PROTOTYPE_UPLOAD_APPROVED）と、その README の注文画面の確認の後にだけアップロードする。旧セット（order/2026-11-13）は旧基板の識別に結び付いた履歴で、アップロードの選択肢ではない。どれも製造リリースではない。"
     },
     {
       "id": "controller-repo-panel-acceptance",
@@ -1900,6 +1920,12 @@
       "board": "power_adapter",
       "text": "Rotations are KiCad footprint angles; JLC library orientation offsets have not been checked in the JLC placement preview.",
       "ja": "回転角は KiCad のフットプリント角度のまま。JLC ライブラリとの向きの差は JLC の配置プレビューで未確認。"
+    },
+    {
+      "id": "part-C134375-not-in-stock",
+      "board": null,
+      "text": "BAS70-04-7-F (C134375): need 2, JLC in-stock 1, pre-order available 1 at 2026-11-22T06:14:51Z.",
+      "ja": "BAS70-04-7-F（C134375）: 必要 2 個に対し、2026-11-22T06:14:51Z の JLC 在庫 1・予約可能数 1。"
     },
     {
       "id": "pcba-quantity-unit-with-panel-not-sourced",

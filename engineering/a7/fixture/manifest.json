@@ -181,19 +181,23 @@
   "inputs_sha256": {
     "engineering/a7/electronics/controller/controller.kicad_pcb": "d83691d6590e013b2a66957b61d76ba2f68bedaaec04789326e1215b2d1bdb2b",
     "engineering/a7/electronics/controller/board_placement.json": "2d32b2ab76735dbf4ff7f2c959de4398b8215983be9a4fd33fde50c7015212f5",
-    "scripts/a7_fixture.py": "c40fc70a7990917a37263d84706d874a6a8d185158f17caaded9bd863c0fd4e4",
+    "scripts/a7_fixture.py": "c09bc7c0c72844947a2fd2e60487b13248fab257fbb5c29e4750108f20cce70e",
     "scripts/a7_fixture_relief.py": "ccec9957aa992d676b43680216662d7709f029056b4b9f45b05a4e9af535ac9c",
-    "scripts/a7_fixture_assembly.py": "cf4ffa4d32d162df92dc400358ee66655adb89725cc671ffb1b24fff19fe8507",
+    "scripts/a7_fixture_assembly.py": "774601fdcad0ec6c5b61f01c8b9db08b16f121a88de615f69095e740dd191b5c",
     "engineering/a7/procurement/population.csv": "6195a072b3882abf8d9212f0e778fa1cbb784d3f60929921558f95031c8276ff",
     "engineering/a7/fixture/sources.json": "532830a205f3fbe1919ba4e17fc37cfceaa6eee524464941fad036e8345b763d",
-    "engineering/a7/fixture/materials.json": "e4c1c94966a46db75f8fc72eb00cf26719da38117fa4003fd05beb7c4d37d5c6",
+    "engineering/a7/fixture/materials.json": "8fc8a13e464cde032810e5d3cceae3380fd589627b6fd88fd6c018475d03ec40",
     "engineering/a7/fixture/candidate-references.json": "6f929c9edf3d115dc18f5cf1b055f9971ec25af64ce20948a882729250151845"
+  },
+  "geometry_roles": {
+    "retained": "the fixture geometry this manifest judges: support carrier, probe plate, base plate and the pressure plate with the plunger pair at b_side_relief.holddown.contacts_board_mm, bound by assembly / fixture-assembly.step. On the 0.7-0.9 mm board its criterion 3 is NOT met (completion_criteria.3): clamp force margin, seating and bending fail; that result stands and is not relaxed by the candidate",
+    "proposed_replacement_candidate": "the condition matrix adopted candidate (optical_stepped_tip): the same plates with a revised J5 notch and pin sites and a turned 1.2 mm tip on the second POM pin, modelled beside the retained geometry in candidate-assembly.step. It is not selected, not approved, not physically validated and does not change any completion criterion or flag"
   },
   "assembly": {
     "record": "engineering/a7/fixture/assembly-interference.json",
-    "record_sha256": "ff99258d1f91d1fc76183cbce8ecb66f67d1dd0ac28de877156b238f47488c0c",
+    "record_sha256": "cb5700b2318419405ca2d488d464ac8314f4bb0025fc3fc559cff895553d3923",
     "step": "engineering/a7/fixture/fixture-assembly.step",
-    "step_sha256": "036dec98c1d1d7977004f1cfb04e2629849cb488f15973146618fae0b9129429",
+    "step_sha256": "37759ed139a7c736d8947ff39afe7517a5ec1be3704f64bb3aeb9d19c94c47c1",
     "solids": 129,
     "interferences": 0,
     "clearances": [
@@ -364,6 +368,168 @@
       }
     ]
   },
+  "proposed_replacement_candidate": {
+    "layout": "optical_stepped_tip",
+    "status": "PROPOSED_REPLACEMENT_CANDIDATE: calculated and digitally modelled, not selected, not approved, not physically validated",
+    "replaces_retained_geometry": false,
+    "record": "engineering/a7/fixture/candidate-assembly-interference.json",
+    "step": "engineering/a7/fixture/candidate-assembly.step",
+    "drawing": "engineering/a7/fixture/candidate-drawing.svg",
+    "holds": [
+      "Owner approval of the candidate and of the modified (turned-tip) K0318.04 thrust pin: not given; the candidate is not selected.",
+      "Machining availability of the 1.2 mm x 0.5 mm turned tip on the POM thrust pin, and fabricator/process for it and for the revised pressure plate: not established (no supplier asked).",
+      "Material selection and approval: the POM grade of the KIPP pin is not printed; the 20 MPa contact allowable and the 2800 MPa modulus are ASSUMED class values; the plate laminate and the board laminate (18000 MPa) are ASSUMED.",
+      "Fabrication suitability of the 1.0 mm worst-case thread webs to the J5 notch and the plate edge, and of the gauge requirements, is not confirmed by a fabricator.",
+      "Pressure-plate location: the plate is located only by M3 screws in 3.4 mm clearance holes on stop standoffs that are themselves fixed through 3.4 mm clearance holes, so it can sit up to 0.4 mm off nominal; the recorded 0.10 mm pin-to-edge tolerance has no term for this (see registration). A locating feature or an owner-accepted gauge procedure is required before the edge margins hold.",
+      "Wear, creep, abrasion of the turned tip and damage to the solder mask or board edge: not modelled; physical checks.",
+      "Physical criterion 5 (contact, load, stroke, registration, damage with unit IDs, instruments and raw data): NOT_MEASURED."
+    ],
+    "bound": true,
+    "problems": [],
+    "record_sha256": "dea6f8874f4ad09825fd19f867e5605cdbe05c4c6f452f49a9ee20bd5740da8c",
+    "step_sha256": "b35cef8346947313b36e6d79bb235d7eb29166b6ecf7b0842e843530174e656c",
+    "candidate": {
+      "layout": "optical_stepped_tip",
+      "relief_candidate": "optical_full_pin",
+      "contacts_board_mm": [
+        [
+          1.2,
+          20.8
+        ],
+        [
+          15.325,
+          26.375
+        ]
+      ],
+      "contact_diameters_mm": [
+        1.5,
+        1.2
+      ],
+      "stepped_tip": {
+        "clamp_index": 1,
+        "contact_diameter_max_mm": 1.2,
+        "tip_length_mm": 0.5,
+        "status": "PROPOSED modification of the K0318.04 POM thrust pin (turned tip); not sourced, not selected, awaiting owner approval and fabrication review",
+        "gauge_requirement": "swept tip envelope at board-contact height <=1.2 mm diameter including play, runout and tilt; tip face flat and square; tip length 0.5 mm so the 1.5 mm shank never touches the board"
+      },
+      "stepped_tip_length_mm": 0.5,
+      "pin_shank_diameter_mm": 1.5,
+      "plunger": "K0318.04",
+      "j5_notch_board_mm": [
+        4.695,
+        23.2,
+        12.2,
+        29.5
+      ],
+      "notch_corner_radius_mm": 1.1,
+      "pressure_plate_outline_board_mm": [
+        -10.5,
+        13.5,
+        26.7,
+        29.5
+      ],
+      "pressure_plate_z_mm": [
+        6.0,
+        12.0
+      ],
+      "pin_setting_below_plate_underside_mm": {
+        "free_pin_tip_below_plate_underside": 6.25,
+        "tolerance": 0.1
+      },
+      "local_notch_clearance_requirement_mm": 0.3,
+      "retained_notch_clearance_requirement_mm": 0.5,
+      "pressure_plate_webs": [
+        {
+          "hole": "C2",
+          "to": "J5 notch",
+          "web_mm": 1.125
+        },
+        {
+          "hole": "C2",
+          "to": "plate edge",
+          "web_mm": 1.125
+        },
+        {
+          "hole": "C1",
+          "to": "J5 notch",
+          "web_mm": 2.239696
+        },
+        {
+          "hole": "G1",
+          "to": "plate edge",
+          "web_mm": 3.3
+        },
+        {
+          "hole": "G2",
+          "to": "plate edge",
+          "web_mm": 3.3
+        },
+        {
+          "hole": "G2",
+          "to": "C2",
+          "web_mm": 3.37787
+        },
+        {
+          "hole": "G1",
+          "to": "C1",
+          "web_mm": 3.451224
+        },
+        {
+          "hole": "C1",
+          "to": "plate edge",
+          "web_mm": 5.3
+        },
+        {
+          "hole": "G2",
+          "to": "J5 notch",
+          "web_mm": 7.8
+        },
+        {
+          "hole": "G1",
+          "to": "J5 notch",
+          "web_mm": 8.495
+        },
+        {
+          "hole": "C1",
+          "to": "C2",
+          "web_mm": 11.185396
+        },
+        {
+          "hole": "G2",
+          "to": "C1",
+          "web_mm": 16.951876
+        }
+      ],
+      "pressure_plate_web_conflicts": []
+    },
+    "checks": {
+      "no_interference": true,
+      "critical_clearances_positive": true,
+      "designed_contacts_touch": true,
+      "j5_notch_clearance_meets_local_requirement": true,
+      "f_side_bodies_to_plate_meet_local_requirement": true,
+      "board_contact_is_the_specified_diameter": true,
+      "compression_positive": true,
+      "compression_within_stroke": true,
+      "sleeve_end_clear_of_f_face_at_maximum_compression": true,
+      "clamp_force_min_meets_requirement": true,
+      "contact_pressure_within_assumed_allowable": true,
+      "matrix_load_corners_within_limits": true,
+      "pressure_plate_webs_at_least_minimum": true,
+      "stop_joint_preload_holds_plate": true,
+      "registration_closes_with_recorded_budget": true,
+      "registration_closes_with_modelled_plate_location": false,
+      "j5_notch_clearance_holds_with_modelled_plate_location": false,
+      "matches_condition_matrix": true
+    },
+    "all_digital_checks_met": false,
+    "interferences_per_thickness": {
+      "0.7": 0,
+      "0.8": 0,
+      "0.9": 0
+    },
+    "registration_finding": "The recorded 0.10 mm relative pin-to-edge tolerance (tap position, pin axis, board registration) has no term for locating the pressure plate on the carrier, and the modelled plate is located only by clearance holes. With that float the stepped-tip contact can reach past the board edge. Registration of the candidate is therefore not closed until the plate is located to within plate_location_error_allowed_mm (or the owner accepts a gauge-and-shim procedure that achieves it)."
+  },
   "fresh_native_verified": true,
   "fresh_native_criteria": {
     "every_b_side_part_and_tht_lead_relieved_from_native_geometry": true,
@@ -413,13 +579,13 @@
   },
   "native_geometry": {
     "record": "engineering/a7/fixture/native-geometry.json",
-    "record_sha256": "90e9f9cf07007889be9947432c0451f9820d8020223bbbd7d6df73219bc6ac6b",
+    "record_sha256": "dd7cd452ad659bc29bea41691b92a1480885a24e705ce72c05ae3f20b98d1a8b",
     "status": "NATIVE_GEOMETRY_VALIDATED",
-    "github_run_id": null,
-    "tested_revision": "873fa2a907124622472c707dcdb2ddd128dce3e3",
-    "provenance_class": "LOCAL_PINNED_IMAGE_RUN",
-    "ci_retained_artifact": false,
-    "artifact_zip_sha256": null,
+    "github_run_id": "44981535275",
+    "tested_revision": "6f6e8ea9bbc4edb5e995f0398b685e4560dc6a89",
+    "provenance_class": "CI_RETAINED_ARTIFACT",
+    "ci_retained_artifact": true,
+    "artifact_zip_sha256": "11346c06a42e8b5ef5141b3c49107c81dd99265111e80d512aa95979666129a5",
     "probe_pads_match": true,
     "scope": "Native KiCad pad facts confirm the five probe pads (B side, round 1 mm, B.Cu/B.Mask, position, net). Native pad copper boxes set the carrier cuts and native F courtyards bound the clamp points (b_side_relief); body heights and solder envelopes are not native facts."
   },
@@ -4675,9 +4841,9 @@
     "result": "PASS",
     "board_sha256": "89310d539b3c28096775cee821e46c14fdba42a87809c82f1fd7f0751704e727",
     "applies_to_current_board": false,
-    "scope": "Pinned native CI of the PR #44 preparation head on the 1.6 mm board it names (CI log result); not verification of fixture geometry and NOT a result for the current 0.8 mm board. The current board's native result is the pinned-image gate recorded in native-geometry.json (provenance_class LOCAL_PINNED_IMAGE_RUN, no CI run id); CI re-runs the gate itself on every push",
+    "scope": "HISTORICAL: pinned native CI of the PR #44 preparation head on the 1.6 mm board it names (CI log result); not verification of fixture geometry and NOT a result for the current 0.8 mm board. The current board's native result is native_geometry (provenance_class CI_RETAINED_ARTIFACT, GitHub run 44981535275, retained artifact SHA-256 11346c06a42e8b5ef5141b3c49107c81dd99265111e80d512aa95979666129a5)",
     "raw_facts_consumed": false,
-    "artifact_access": "2026-11-09: download Forbidden (historical). 2026-11-11: native-infrastructure-evidence artifact 13663737750 downloaded (ZIP SHA-256 33f3d9121164f364b0325540b161e9546ddf73c8b723c9166fdcd8a19867cf0e), but it retains only a7-gate/summary.json; candidate board_facts/board_geometry were not uploaded, so raw candidate facts remain unavailable"
+    "artifact_access": "2026-11-09: download Forbidden (historical). 2026-11-11: native-infrastructure-evidence artifact 13663737750 downloaded (ZIP SHA-256 33f3d9121164f364b0325540b161e9546ddf73c8b723c9166fdcd8a19867cf0e), but it retains only a7-gate/summary.json; candidate board_facts/board_geometry were not uploaded, so raw candidate facts remain unavailable (historical, for that 1.6 mm board)"
   },
   "transform": {
     "description": "Board coordinates for every part: x, y as on the PCB, z up from the board B face (carrier top). The B-view carrier coordinates in b_side_relief are x_c = 16.2 - x_board.",

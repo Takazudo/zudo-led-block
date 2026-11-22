@@ -1,6 +1,6 @@
 # リポジトリ面付け（オーナーが選んだ経路・製造リリースではない）
 
-オーナーは 2026-11-12 に面付けの経路としてリポジトリ面付けを選びました（`engineering/a7/procurement/owner-decisions.json` の `panel-route`）。ここにあるのは生成器の基準セットで、**ここから直接アップロードしません。** 試験用試作ルートでアップロードする写しは日付付きの `../order/2026-11-13/`（Gerber zip・BOM・CPL・`SHA256SUMS`）で、その BOM / CPL はここのファイルとバイト単位で同じです。どちらも製造リリースではなく、readiness の発注ゲートは BLOCKED のままです。段階ごとの状態は `doc/src/content/docs/project/next-actions.mdx` を参照してください。
+オーナーは 2026-11-12 に面付けの経路としてリポジトリ面付けを選びました（`engineering/a7/procurement/owner-decisions.json` の `panel-route`）。ここにあるのは生成器の基準セットで、**ここから直接アップロードしません。** アップロードの候補になる日付付きセットは `../package-sets.json` の `current` が指すもので、現在の識別に対する試作ルート承認の後だけです。`../order/2026-11-13/` は旧基板（PR #88 より前）の履歴で、アップロードしません。その BOM / CPL はここのファイルとバイト単位で同じですが（2026-11-22 に `cmp` で確認。0.8 mm 化で部品・designator・位置・回転・面が変わっていないため）、Gerber zip は旧基板から出したもので現在の基板とは別物です。どちらも製造リリースではなく、readiness の発注ゲートは BLOCKED のままです。段階ごとの状態は `doc/src/content/docs/project/next-actions.mdx` を参照してください。
 
 - `<board>-panel.json`（生成）: シート寸法、各基板の位置（凍結ファイルからの移動量）、切り溝、マウスバイトタブと穴、フィデューシャル、治具穴、DRC の例外。
 - `<board>-panel_BOM_DRYRUN.csv` / `<board>-panel_CPL_DRYRUN.csv`（生成）: 単品の BOM / CPL を基板ごとに移動したもの。2 枚目以降の designator は `_2` などの接尾辞。CPL の原点はシートの左上の外形角（mm、Y は下向きが負）。

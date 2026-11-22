@@ -1,0 +1,397 @@
+{
+  "schema": 1,
+  "status": "PREPARED_NOT_SENT",
+  "modules": 2,
+  "note": "Requests prepared for parts outside the JLC parts library. Nothing here was sent, and no supplier answer or guarantee is recorded; each supplier_answer stays null until a dated reply is saved. Quantities are per-module counts from assembly-manifest.json times the owner-decided modules, without spares.",
+  "requests": [
+    {
+      "id": "finished-power-cable",
+      "to": "cable assembler (owner decision finished-cables: assembler); no assembler selected",
+      "quantity_for_order": 2,
+      "specification": {
+        "free_span_nominal_mm": 55.0,
+        "tolerance_mm": 3.0,
+        "tolerance_confidence": "ASSUMED",
+        "order_band_mm": [
+          52.0,
+          58.0
+        ],
+        "stowage": "one S-fold above the spine block, fold span solved per width",
+        "ends": "controller J5 and power adapter J2, both MOLEX 530470310 (C122442) 3-pin headers",
+        "pin_map": "J5.1->J2.3 (+12V_RAW), J5.2->J2.2 (GND), J5.3->J2.1 (-12V_RAW)",
+        "source": "engineering/a7/mechanical/layout.json#power_cable_requirement"
+      },
+      "ask": [
+        "the finished length and tolerance the assembler will guarantee against the order band, and the measurement datum",
+        "mating housing and crimp terminal part numbers for the 530470310 header",
+        "wire gauge, insulation and minimum bend radius",
+        "polarity marking and the inspection performed"
+      ],
+      "not_a_substitute": "historical A5 Molex 151340300 (50 ±6 mm) does not fit the A7 band",
+      "supplier_answer": null,
+      "status": "PREPARED_NOT_SENT"
+    },
+    {
+      "id": "finished-sh4",
+      "to": "cable supplier; candidate not confirmed",
+      "quantity_for_order": 4,
+      "specification": {
+        "requirement": "Finished 50 mm SH4 AWG28 1:1; controller J3 to left J1, left J2 to right J1. Incoming construction/length and real route unqualified.",
+        "candidate": "Adafruit 4399 / Kaweei CBH-100-04-050-A",
+        "pin_maps": {
+          "controller J3 -> left leaf J1": "1->1, 2->2, 3->3, 4->4",
+          "left leaf J2 -> right leaf J1": "1->1, 2->2, 3->3, 4->4"
+        },
+        "source": "engineering/a5/integration/harness_contract_A5.md"
+      },
+      "ask": [
+        "finished length and tolerance",
+        "conductor order end to end (1:1) and housing orientation",
+        "wire gauge"
+      ],
+      "supplier_answer": null,
+      "status": "PREPARED_NOT_SENT"
+    },
+    {
+      "id": "eurorack-idc-ribbon",
+      "to": "cable supplier; not selected",
+      "quantity_for_order": 2,
+      "specification": {
+        "requirement": "Finished 16→10 pin keyed IDC; socket, strain relief, length, routing and 30 mm envelope unqualified"
+      },
+      "ask": [
+        "keyed 16-to-10 construction and stripe position",
+        "finished length",
+        "strain relief"
+      ],
+      "supplier_answer": null,
+      "status": "PREPARED_NOT_SENT"
+    },
+    {
+      "id": "standard-hardware",
+      "to": "fastener supplier; not selected",
+      "quantity_for_order": {
+        "M1_6_nut_-1_105.5": 2,
+        "M1_6_nut_-1_23.5": 2,
+        "M1_6_nut_1_105.5": 2,
+        "M1_6_nut_1_23.5": 2,
+        "M1_6x4_-1_105.5": 2,
+        "M1_6x4_-1_23.5": 2,
+        "M1_6x4_1_105.5": 2,
+        "M1_6x4_1_23.5": 2,
+        "M2_front_screw_20.5": 2,
+        "M2_front_screw_60.8": 2,
+        "M2_front_washer_20.5": 2,
+        "M2_front_washer_60.8": 2,
+        "M2_nut_20.5": 2,
+        "M2_nut_60.8": 2,
+        "M2_post_nut_top": 2,
+        "nut_in_M6x0.5": 2,
+        "nut_thru_M6x0.5": 2,
+        "top_cap_screw_A7": 2
+      },
+      "specification": {
+        "designations": {
+          "top_cap_screw_A7": "M2x20"
+        },
+        "envelopes": {
+          "M1_6_nut_-1_105.5": [
+            [
+              2.45,
+              103.652,
+              28.2
+            ],
+            [
+              5.65,
+              107.348,
+              29.5
+            ]
+          ],
+          "M1_6_nut_-1_23.5": [
+            [
+              2.45,
+              21.652,
+              28.2
+            ],
+            [
+              5.65,
+              25.348,
+              29.5
+            ]
+          ],
+          "M1_6_nut_1_105.5": [
+            [
+              9.25,
+              103.652,
+              28.2
+            ],
+            [
+              12.45,
+              107.348,
+              29.5
+            ]
+          ],
+          "M1_6_nut_1_23.5": [
+            [
+              9.25,
+              21.652,
+              28.2
+            ],
+            [
+              12.45,
+              25.348,
+              29.5
+            ]
+          ],
+          "M1_6x4_-1_105.5": [
+            [
+              2.55,
+              104.0,
+              24.3
+            ],
+            [
+              5.55,
+              107.0,
+              29.6
+            ]
+          ],
+          "M1_6x4_-1_23.5": [
+            [
+              2.55,
+              22.0,
+              24.3
+            ],
+            [
+              5.55,
+              25.0,
+              29.6
+            ]
+          ],
+          "M1_6x4_1_105.5": [
+            [
+              9.35,
+              104.0,
+              24.3
+            ],
+            [
+              12.35,
+              107.0,
+              29.6
+            ]
+          ],
+          "M1_6x4_1_23.5": [
+            [
+              9.35,
+              22.0,
+              24.3
+            ],
+            [
+              12.35,
+              25.0,
+              29.6
+            ]
+          ],
+          "M2_front_screw_20.5": [
+            [
+              5.55,
+              18.6,
+              -3.5
+            ],
+            [
+              9.35,
+              22.4,
+              5.7
+            ]
+          ],
+          "M2_front_screw_60.8": [
+            [
+              7.7,
+              58.9,
+              -3.5
+            ],
+            [
+              11.5,
+              62.7,
+              3.8
+            ]
+          ],
+          "M2_front_washer_20.5": [
+            [
+              5.45,
+              18.5,
+              -2.3
+            ],
+            [
+              9.45,
+              22.5,
+              -2.0
+            ]
+          ],
+          "M2_front_washer_60.8": [
+            [
+              7.6,
+              58.8,
+              -2.3
+            ],
+            [
+              11.6,
+              62.8,
+              -2.0
+            ]
+          ],
+          "M2_nut_20.5": [
+            [
+              5.141,
+              18.5,
+              3.0
+            ],
+            [
+              9.759,
+              22.5,
+              4.6
+            ]
+          ],
+          "M2_nut_60.8": [
+            [
+              7.291,
+              58.8,
+              1.6
+            ],
+            [
+              11.909,
+              62.8,
+              3.2
+            ]
+          ],
+          "M2_post_nut_top": [
+            [
+              5.141,
+              18.5,
+              10.0
+            ],
+            [
+              9.759,
+              22.5,
+              11.6
+            ]
+          ],
+          "nut_in_M6x0.5": [
+            [
+              3.45,
+              80.3,
+              -3.5
+            ],
+            [
+              11.45,
+              88.3,
+              -2.0
+            ]
+          ],
+          "nut_thru_M6x0.5": [
+            [
+              3.45,
+              95.3,
+              -3.5
+            ],
+            [
+              11.45,
+              103.3,
+              -2.0
+            ]
+          ],
+          "top_cap_screw_A7": [
+            [
+              5.55,
+              18.6,
+              7.8
+            ],
+            [
+              9.35,
+              22.4,
+              29.1
+            ]
+          ]
+        },
+        "source": "engineering/a7/mechanical/exports/3hp/verification.json"
+      },
+      "ask": [
+        "orderable part numbers matching each envelope and designation (envelopes are not order codes)",
+        "material and finish",
+        "whether a nut ships with PJ-324M (C22355739) or an M6x0.5 nut must be bought (engineering/a7/qualification/supplier-questions.md)"
+      ],
+      "supplier_answer": null,
+      "status": "PREPARED_NOT_SENT"
+    },
+    {
+      "id": "printed-and-cut-parts",
+      "to": "PMMA cutter and PETG printing (supplier or own printer); not selected",
+      "quantity_for_order": {
+        "bottom_leaf_cap": 2,
+        "front_pmma_A7": 2,
+        "left_diffuser": 2,
+        "right_diffuser": 2,
+        "spine_PETG": 2,
+        "top_leaf_adapter_cap": 2
+      },
+      "specification": {
+        "kinds": {
+          "bottom_leaf_cap": "printable_design",
+          "front_pmma_A7": "manufacturing_artwork",
+          "left_diffuser": "printable_design",
+          "right_diffuser": "printable_design",
+          "spine_PETG": "printable_design",
+          "top_leaf_adapter_cap": "printable_design"
+        },
+        "source": "engineering/a7/mechanical/exports/3hp/verification.json"
+      },
+      "ask": [
+        "guaranteed tolerances for thickness, holes and pockets",
+        "material grade and finish",
+        "process settings for the PETG parts"
+      ],
+      "supplier_answer": null,
+      "status": "PREPARED_NOT_SENT"
+    },
+    {
+      "id": "leaf-bond-line",
+      "to": "material supplier; not selected",
+      "quantity_for_order": 2,
+      "specification": {
+        "requirement": "FR-4 leaf bond-line material; 0.1 mm design reserve is not a selected adhesive"
+      },
+      "ask": [
+        "material identity and thickness",
+        "datasheet values for the use"
+      ],
+      "supplier_answer": null,
+      "status": "PREPARED_NOT_SENT"
+    },
+    {
+      "id": "right-leaf-unused-J2-cover",
+      "to": "material supplier; not selected",
+      "quantity_for_order": 2,
+      "specification": {
+        "requirement": "Insulating cover/clearance for live unused SH4 connector; material unresolved"
+      },
+      "ask": [
+        "material identity and thickness",
+        "datasheet values for the use"
+      ],
+      "supplier_answer": null,
+      "status": "PREPARED_NOT_SENT"
+    },
+    {
+      "id": "rack-mount-hardware",
+      "to": "owner",
+      "quantity_for_order": null,
+      "specification": {
+        "requirement": "Owner rack rail/thread interface and fasteners not specified"
+      },
+      "ask": [
+        "the case model (rail and thread interface)"
+      ],
+      "supplier_answer": null,
+      "status": "PREPARED_NOT_SENT"
+    }
+  ]
+}

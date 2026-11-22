@@ -48,14 +48,14 @@
     },
     "fixture": {
       "path": "engineering/a7/fixture/manifest.json",
-      "sha256": "a8a8a8cbde68c0d7cf9e2ff5e62202697bbef39e1fcdffb330560f515e650b70"
+      "sha256": "5d73050918e3d32bdf06cfadd687e126f0e035c83a155d1bb74bf5248404fd85"
     },
     "assembly_manifest": {
       "path": "engineering/a7/procurement/assembly-manifest.json",
-      "sha256": "9225919ce1a44ca70be6c66e081c3d53c23b25421848ac243a6c991215bb320d"
+      "sha256": "b94ac5981de7eed846bf0c9eb0dae61c5cd1ea25d1fe4defb3b1369aada6c02d"
     }
   },
-  "plan_sha256": "650dbe95b752736ba44b146c911ed65e676643e318c72847f13a7dad11b637f3",
+  "plan_sha256": "e361473a36076b6acabf08ffb90e07942372379a8fce397d28c2cccf27442634",
   "procedures": [
     {
       "id": "jack-continuity",
@@ -210,7 +210,7 @@
   "blockers": [
     "fixture: unresolved preparation blockers",
     "fixture digital design incomplete or unverified",
-    "assembly_manifest: supply-observations: Order quantity is 2 modules (owner decision), 162 fitted pieces before attrition. 30 of 30 fitted identities have dated 2026-11-12 JLC listing observations from both the rendered part pages and the parts-API audit (separate reads, raw bytes not committed, field meanings and currency inferred; engineering/a7/procurement/sourcing-projection.json). Not obtained for any line: lead time, confirmed quote, stock reservation and assembly acceptance. JLC attrition is not sourced as a rule; the audit's buy quantities are our inference. Refresh before ordering.",
+    "assembly_manifest: supply-observations: Order quantity is 2 modules (owner decision), 162 fitted pieces before attrition. 30 of 30 fitted identities have dated 2026-11-22 JLC listing observations from both the rendered part pages and the parts API (separate reads, field meanings and currency inferred; 2026-11-12 reads kept as history; engineering/a7/procurement/sourcing-projection.json). Listed JLC stock below the 2-module need at 2026-11-22: BAS70-04-7-F (C134375) stock 1 for 2 (no substitute chosen). Listed minimum purchase above the need: C160404. Not obtained for any line: lead time, confirmed quote, stock reservation and assembly acceptance. JLC attrition is not sourced as a rule; the audit's buy quantities are our inference. Refresh before ordering.",
     "assembly_manifest: jack-switch-qualification: PJ-324M pin function (which of terminals 4/5 is the tip contact; the supplier symbol contradicts the inferred 4 = tip) is not confirmed: the owner waived the pre-order continuity test on 2026-11-12 and accepted the risk, so it is a first-article check on the assembled boards. Slot, axis height and nut fit, and the HX MSK13C02 truth table and land/peg fit, also need received parts (jack-continuity, jack-dimensions, switch-fit).",
     "assembly_manifest: exact-part-evidence: Exact-part gaps after the 2026-11-11 source recovery (the PMEG4010CEJ ,115 packing is since sourced: SOD323F on a 7-inch reel, fact-pmeg4010cej-115-orderable): SM04B-SRSS-TB per-circuit numbering not printed beyond the No. 1 end; PJ-324M recommended hole/slot sizes, axis height and whether a nut ships with C22355739 not sourced.",
     "assembly_manifest: mechanical-materials: PMMA sheet and pocket tolerances, PETG process and orderable fastener part numbers are not sourced; the model carries designations from the current mechanical layout and envelopes only; exact orderable hardware and assembly fit remain unqualified.",
@@ -274,7 +274,7 @@
       "gate": "assembly:supply-observations",
       "class": "ACCESS_EVIDENCE_HOLD",
       "reasons": [
-        "assembly_manifest: supply-observations: Order quantity is 2 modules (owner decision), 162 fitted pieces before attrition. 30 of 30 fitted identities have dated 2026-11-12 JLC listing observations from both the rendered part pages and the parts-API audit (separate reads, raw bytes not committed, field meanings and currency inferred; engineering/a7/procurement/sourcing-projection.json). Not obtained for any line: lead time, confirmed quote, stock reservation and assembly acceptance. JLC attrition is not sourced as a rule; the audit's buy quantities are our inference. Refresh before ordering."
+        "assembly_manifest: supply-observations: Order quantity is 2 modules (owner decision), 162 fitted pieces before attrition. 30 of 30 fitted identities have dated 2026-11-22 JLC listing observations from both the rendered part pages and the parts API (separate reads, field meanings and currency inferred; 2026-11-12 reads kept as history; engineering/a7/procurement/sourcing-projection.json). Listed JLC stock below the 2-module need at 2026-11-22: BAS70-04-7-F (C134375) stock 1 for 2 (no substitute chosen). Listed minimum purchase above the need: C160404. Not obtained for any line: lead time, confirmed quote, stock reservation and assembly acceptance. JLC attrition is not sourced as a rule; the audit's buy quantities are our inference. Refresh before ordering."
       ]
     },
     {
@@ -616,8 +616,8 @@
     }
   ],
   "optional_variants": {
-    "pet": "Q11/Q11a–f: process, copper/vias/coverlay, lamination, force and optical tests remain separate. Reuse pet-fpc.md questions 1–9; not sent.",
-    "2hp": "Parked: Q1/Q6 evidence, owner choice, 0.8 mm controller and new routing required."
+    "pet": "Withdrawn: the owner withdrew transparent PET/FPC on 2026-11-17 (#87); pet-fpc.md and the Q11 supplier questions are history and were never sent. Not a pending alternative.",
+    "2hp": "Rejected: the evaluated 2HP arrangement was not adopted in #87 / PR #88; 3HP (14.9 mm) is the current width and the 2HP findings are pinned by CAD tests. Not a pending alternative."
   },
   "limit": "Schema validation is not measurement authenticity, hardware approval, a release authorization or an order. No order is submitted by this command."
 }

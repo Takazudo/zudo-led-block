@@ -104,6 +104,150 @@ def assembly_status(relief):
     return not problems, '; '.join(problems) or 'assembly STEP of every part, hardware envelope, probe and the board; no interference', summary
 
 
+# Proposed replacement candidate: the condition matrix's adopted layout built beside, never in place of, the retained geometry.
+CANDIDATE_LAYOUT = 'optical_stepped_tip'
+CANDIDATE_RELIEF = 'optical_full_pin'  # a7_fixture_relief.design candidate: the diagonal pin sites and the revised J5 notch
+CANDIDATE_STEP = OUT / 'candidate-assembly.step'
+CANDIDATE_RECORD = OUT / 'candidate-assembly-interference.json'
+CANDIDATE_DRAWING = OUT / 'candidate-drawing.svg'
+CONDITION_MATRIX = OUT / 'condition-matrix.json'
+CANDIDATE_THICKNESSES = (0.7, 0.8, 0.9)  # finished 0.8 +/-0.1 mm, as the condition matrix
+CANDIDATE_STATUS = 'PROPOSED_REPLACEMENT_CANDIDATE: calculated and digitally modelled, not selected, not approved, not physically validated'
+CANDIDATE_HOLDS = [
+    'Owner approval of the candidate and of the modified (turned-tip) K0318.04 thrust pin: not given; the candidate is not selected.',
+    'Machining availability of the 1.2 mm x 0.5 mm turned tip on the POM thrust pin, and fabricator/process for it and for the revised '
+    'pressure plate: not established (no supplier asked).',
+    'Material selection and approval: the POM grade of the KIPP pin is not printed; the 20 MPa contact allowable and the 2800 MPa '
+    'modulus are ASSUMED class values; the plate laminate and the board laminate (18000 MPa) are ASSUMED.',
+    'Fabrication suitability of the 1.0 mm worst-case thread webs to the J5 notch and the plate edge, and of the gauge requirements, '
+    'is not confirmed by a fabricator.',
+    'Pressure-plate location: the plate is located only by M3 screws in 3.4 mm clearance holes on stop standoffs that are themselves '
+    'fixed through 3.4 mm clearance holes, so it can sit up to 0.4 mm off nominal; the recorded 0.10 mm pin-to-edge tolerance has no '
+    'term for this (see registration). A locating feature or an owner-accepted gauge procedure is required before the edge margins hold.',
+    'Wear, creep, abrasion of the turned tip and damage to the solder mask or board edge: not modelled; physical checks.',
+    'Physical criterion 5 (contact, load, stroke, registration, damage with unit IDs, instruments and raw data): NOT_MEASURED.',
+]
+
+
+def candidate_design(geometry, pads):
+    """The candidate's relief design (pin sites, notch, pressure plate) and one pin-tip entry per hold-down contact."""
+    import a7_fixture_support as support
+    rel = relief_design.design(geometry, pads, candidate=CANDIDATE_RELIEF)
+    pin = rel['holddown']['plunger_candidate']['pin_diameter_mm']
+    tips = [None if d >= pin else {'contact_diameter_max_mm': d, 'tip_length_mm': support.STEPPED_TIP['tip_length_mm']}
+            for d in support.stepped_tip_contacts(pin)]
+    return rel, tips
+
+
+def candidate_inputs(rel, tips, geometry_sha256):
+    import a7_fixture_support as support
+    return dict(relief_assembly.model_inputs(rel, geometry_sha256), pin_tips=tips, thicknesses_mm=list(CANDIDATE_THICKNESSES),
+                support_code_sha256=digest(Path(support.__file__).resolve()),
+                relief_code_sha256=digest(Path(relief_design.__file__).resolve()))
+
+
+def candidate_digest(rel, tips, geometry_sha256):
+    return hashlib.sha256(json.dumps(candidate_inputs(rel, tips, geometry_sha256), sort_keys=True).encode()).hexdigest()
+
+
+def candidate_matrix_correspondence(rec, matrix=None):
+    """Problems where the candidate CAD record disagrees with the condition matrix's adopted candidate; [] when they agree."""
+    m = json.loads(CONDITION_MATRIX.read_text()) if matrix is None else matrix
+    a, g = m['adopted_candidate'], m['geometry']['candidate_geometry']
+    c = rec['candidate']
+    out = []
+    if a['layout'] != CANDIDATE_LAYOUT or c['layout'] != CANDIDATE_LAYOUT:
+        out.append('layout differs from the condition matrix adopted candidate')
+    if [cl['centre_mm'] for cl in a['clamps']] != c['contacts_board_mm']:
+        out.append('pin sites differ from the condition matrix')
+    if [cl['contact_diameter_mm'] for cl in a['clamps']] != c['contact_diameters_mm']:
+        out.append('contact diameters differ from the condition matrix')
+    if a['stepped_tip']['tip_length_mm'] != c['stepped_tip_length_mm']:
+        out.append('stepped-tip length differs from the condition matrix')
+    if list(g['notch_mm']) != c['j5_notch_board_mm'] or g['notch_radius_mm'] != c['notch_corner_radius_mm']:
+        out.append('J5 notch differs from the condition matrix')
+    if list(g['pressure_plate_z_mm']) != c['pressure_plate_z_mm']:
+        out.append('pressure-plate z differs from the condition matrix')
+    if m['thicknesses_mm'] != [t['thickness_mm'] for t in rec['thickness_cases']]:
+        out.append('board thicknesses differ from the condition matrix')
+    bands = {b['thickness_mm']: b['compression_range_mm'] for b in m['layouts'][CANDIDATE_LAYOUT]['force_band_per_thickness']}
+    for t in rec['thickness_cases']:
+        lo, hi = t['compression_mm']['range']
+        band = bands.get(t['thickness_mm'])
+        if band is None or lo < band[0] - 1e-6 or hi > band[1] + 1e-6:
+            out.append(f"{t['thickness_mm']} mm: CAD compression {t['compression_mm']['range']} outside the matrix band {band}")
+    for row in rec['clamps']:
+        mrow = next((cl for cl in a['clamps'] if cl['centre_mm'] == row['centre_mm']), None)
+        if mrow is None or abs(mrow['contact_edge_margin_worst_mm'] - row['contact_edge_margin_recorded_budget_mm']) > 1e-6:
+            out.append(f"{row['clamp']}: recorded-budget edge margin differs from the condition matrix")
+    return out
+
+
+def candidate_registration(rel, clamps, required):
+    """Pin-to-board-edge margins: the recorded tolerance budget, and the same with the pressure-plate location the CAD carries."""
+    import a7_fixture_support as support
+    prop = support.diagonal_proposal(json.loads(native_geom.RECORD.read_text())['geometry'])
+    R = rel['rules']
+    float_joint = round((R['m3_clearance_hole_mm'] - 3.0) / 2, 6)  # M3 modelled at its 3.0 mm major diameter
+    plate_float = round(2 * float_joint, 6)
+    rel_tol, profile = prop['relative_pin_edge_tolerance_mm'], prop['opposite_edge_board_profile_allowance_mm']
+    budget = prop['tolerance_budget_mm']
+    rows = []
+    for c in clamps:
+        far = c['centre_mm'][0] < 8.1  # the x = 0 edge is not on the datum pins: board width tolerance applies
+        extra = profile if far else 0.0
+        row = {'clamp': c['clamp'], 'centre_mm': c['centre_mm'],
+               'contact_edge_margin_nominal_mm': c['contact_edge_margin_nominal_mm'],
+               'contact_edge_margin_recorded_budget_mm': round(c['contact_edge_margin_nominal_mm'] - rel_tol - extra, 6),
+               'contact_edge_margin_with_plate_float_mm': round(c['contact_edge_margin_nominal_mm'] - plate_float
+                                                                - budget['assembled_pin_axis_including_play_runout_tilt']
+                                                                - budget['board_registration'] - extra, 6),
+               'shank_edge_margin_with_plate_float_mm': round(c['shank_edge_margin_nominal_mm'] - plate_float
+                                                              - budget['assembled_pin_axis_including_play_runout_tilt']
+                                                              - budget['board_registration'] - extra, 6)}
+        row['plate_location_error_allowed_mm'] = round(row['contact_edge_margin_recorded_budget_mm'] - required, 6)
+        rows.append(row)
+    return {'required_contact_edge_margin_worst_mm': required,
+            'required_basis': 'condition-matrix.json adopted_candidate.pin_edge_margin_required_mm (unchanged)',
+            'recorded_relative_pin_edge_tolerance_mm': rel_tol, 'recorded_tolerance_budget_mm': budget,
+            'opposite_edge_board_profile_allowance_mm': profile,
+            'pressure_plate_location': {
+                'as_modelled': 'two M3 socket head screws through 3.4 mm clearance holes into the stop standoffs; each standoff is fixed '
+                               'to the carrier by an M3 screw through a 3.4 mm clearance hole; no dowel, shoulder or fitted feature '
+                               'locates the plate to the carrier or to the datum pins',
+                'radial_float_per_joint_mm': float_joint, 'joints_in_series': 2, 'worst_plate_offset_mm': plate_float},
+            'clamps': rows,
+            'recorded_budget_closes': all(r['contact_edge_margin_recorded_budget_mm'] >= required - 1e-9 for r in rows),
+            'closes_with_plate_float': all(r['contact_edge_margin_with_plate_float_mm'] >= required - 1e-9 for r in rows),
+            'finding': 'The recorded 0.10 mm relative pin-to-edge tolerance (tap position, pin axis, board registration) has no term '
+                       'for locating the pressure plate on the carrier, and the modelled plate is located only by clearance holes. '
+                       'With that float the stepped-tip contact can reach past the board edge. Registration of the candidate is '
+                       'therefore not closed until the plate is located to within plate_location_error_allowed_mm (or the owner '
+                       'accepts a gauge-and-shim procedure that achieves it).'}
+
+
+def candidate_status():
+    """Binding of the candidate record, STEP and drawing; never feeds the retained completion criteria."""
+    geometry = json.loads(native_geom.RECORD.read_text())['geometry']
+    pads = probe_map(bound_r4_placement(), BOARD.read_text())
+    rel, tips = candidate_design(geometry, pads)
+    base = {'layout': CANDIDATE_LAYOUT, 'status': CANDIDATE_STATUS, 'replaces_retained_geometry': False,
+            'record': str(CANDIDATE_RECORD.relative_to(ROOT)), 'step': str(CANDIDATE_STEP.relative_to(ROOT)),
+            'drawing': str(CANDIDATE_DRAWING.relative_to(ROOT)), 'holds': CANDIDATE_HOLDS}
+    if not CANDIDATE_RECORD.is_file() or not CANDIDATE_STEP.is_file():
+        return dict(base, bound=False, problems=['no candidate record or STEP; run a7_fixture.py --cad'])
+    rec = json.loads(CANDIDATE_RECORD.read_text())
+    problems = []
+    if rec.get('model_inputs_sha256') != candidate_digest(rel, tips, digest(native_geom.RECORD)):
+        problems.append('candidate record is for a different design, pin tip, assembly code or native record')
+    if rec.get('step_sha256') != digest(CANDIDATE_STEP):
+        problems.append('candidate STEP bytes differ from the checked model')
+    return dict(base, bound=not problems, problems=problems, record_sha256=digest(CANDIDATE_RECORD), step_sha256=rec.get('step_sha256'),
+                candidate=rec.get('candidate'), checks=rec.get('checks'), all_digital_checks_met=rec.get('all_digital_checks_met'),
+                interferences_per_thickness={str(t['thickness_mm']): len(t['interferences']) for t in rec.get('thickness_cases', [])},
+                registration_finding=(rec.get('registration') or {}).get('finding'))
+
+
 # One sourced candidate for every materials.json line: proposals awaiting owner approval, never selections.
 HARDWARE_PROPOSAL = [
     ('probe', 'INGUN', 'GKS-050 214 050 A 1000', 'sources.json#probe'),
@@ -181,6 +325,7 @@ def report():
           for k, v in completion.items() if k in digital[1:] and not v['met']],
     ]
     candidate_checks = candidate_reference_checks(relief)
+    candidate = candidate_status()
     owner_items = [
         'Fabricator for the four FR-4 plates is an owner choice and not selected; JLCCNC guidance is a candidate reference only. '
         f"The probe-plate bores are drilled at the board test-point pitch, leaving {relief['probe_plate']['bore_webs_mm'][0]} mm between bores: "
@@ -214,10 +359,20 @@ def report():
               'interference check; not a fit result, not a selection and not a fabrication approval',
         board_sha256=digest(BOARD), placement_sha256=digest(CANONICAL), geometry_sha256=p['geometry_sha256'],
         inputs_sha256={str(path.relative_to(ROOT)): digest(path) for path in files},
+        geometry_roles={
+            'retained': 'the fixture geometry this manifest judges: support carrier, probe plate, base plate and the pressure plate with the '
+                        'plunger pair at b_side_relief.holddown.contacts_board_mm, bound by assembly / fixture-assembly.step. On the 0.7-0.9 mm '
+                        'board its criterion 3 is NOT met (completion_criteria.3): clamp force margin, seating and bending fail; that '
+                        'result stands and is not relaxed by the candidate',
+            'proposed_replacement_candidate': 'the condition matrix adopted candidate (optical_stepped_tip): the same plates with a '
+                                              'revised J5 notch and pin sites and a turned 1.2 mm tip on the second POM pin, modelled '
+                                              'beside the retained geometry in candidate-assembly.step. It is not selected, not approved, '
+                                              'not physically validated and does not change any completion criterion or flag'},
         assembly=asm,
+        proposed_replacement_candidate=candidate,
         fresh_native_verified=fresh, fresh_native_criteria=criteria, completion_criteria=completion,
         native_geometry=native, b_side_relief=relief,
-        native_ci_evidence={'observed_date_utc':'2026-11-11','run_url':'https://github.com/Takazudo/zudo-led-block/actions/runs/42596523199','head_sha':'f0b1d8aa37f3967ccc8c9a6bd6ca0e7b7fc7b3a0','base_sha':'af523f9abb74e206c27aaaa076b3b68a5c474940','result':'PASS','board_sha256':'89310d539b3c28096775cee821e46c14fdba42a87809c82f1fd7f0751704e727','applies_to_current_board':False,'scope':'Pinned native CI of the PR #44 preparation head on the 1.6 mm board it names (CI log result); not verification of fixture geometry and NOT a result for the current 0.8 mm board. The current board\'s native result is the pinned-image gate recorded in native-geometry.json (provenance_class LOCAL_PINNED_IMAGE_RUN, no CI run id); CI re-runs the gate itself on every push','raw_facts_consumed':False,'artifact_access':'2026-11-09: download Forbidden (historical). 2026-11-11: native-infrastructure-evidence artifact 13663737750 downloaded (ZIP SHA-256 33f3d9121164f364b0325540b161e9546ddf73c8b723c9166fdcd8a19867cf0e), but it retains only a7-gate/summary.json; candidate board_facts/board_geometry were not uploaded, so raw candidate facts remain unavailable'},
+        native_ci_evidence={'observed_date_utc':'2026-11-11','run_url':'https://github.com/Takazudo/zudo-led-block/actions/runs/42596523199','head_sha':'f0b1d8aa37f3967ccc8c9a6bd6ca0e7b7fc7b3a0','base_sha':'af523f9abb74e206c27aaaa076b3b68a5c474940','result':'PASS','board_sha256':'89310d539b3c28096775cee821e46c14fdba42a87809c82f1fd7f0751704e727','applies_to_current_board':False,'scope':'HISTORICAL: pinned native CI of the PR #44 preparation head on the 1.6 mm board it names (CI log result); not verification of fixture geometry and NOT a result for the current 0.8 mm board. The current board\'s native result is native_geometry (provenance_class '+native['provenance_class']+(', GitHub run '+str(native['github_run_id'])+', retained artifact SHA-256 '+str(native['artifact_zip_sha256']) if native['ci_retained_artifact'] else ', no CI run id')+')','raw_facts_consumed':False,'artifact_access':'2026-11-09: download Forbidden (historical). 2026-11-11: native-infrastructure-evidence artifact 13663737750 downloaded (ZIP SHA-256 33f3d9121164f364b0325540b161e9546ddf73c8b723c9166fdcd8a19867cf0e), but it retains only a7-gate/summary.json; candidate board_facts/board_geometry were not uploaded, so raw candidate facts remain unavailable (historical, for that 1.6 mm board)'},
         transform={'description':'Board coordinates for every part: x, y as on the PCB, z up from the board B face (carrier top). The B-view carrier coordinates in b_side_relief are x_c = 16.2 - x_board.','matrix_xy_b_view':[[-1,0,16.2],[0,1,0],[0,0,1]]},
         pads=pads,
         calculations={'nominal_radial_budget_mm':(1.0-0.5)/2,'worst_case_registration_margin_mm':relief['registration']['worst_case_margin_mm'],'registration_equation':'0.25 - (board edge-to-pad + datum registration + bore position + probe lateral play/concentricity); all terms radial worst-case mm, each allocation closed by an acceptance measurement (b_side_relief.registration)','minimum_probe_pitch_mm':round(spacing,6),'manufacturer_nominal_grid_mm':1.27,'nominal_collar_edge_gap_mm':round(spacing-1.04,6),'recommended_working_stroke_mm':4.3,'maximum_stroke_mm':6.35,'nominal_total_force_at_working_stroke_N':5*1.0,'nominal_total_preload_N':5*0.44,'total_force_at_maximum_stroke_N':hd['probe_force_total_N']['maximum_stroke'],'required_total_hold_down_force_N':hd['required_total_force_N'],'hold_down_force_range_N':hd['total_force_N'],'clamp_force_margin_factor':hd['clamp_force_margin_factor'],'force_tolerance_N':None},
@@ -419,17 +574,271 @@ def cad(r, check=False):
     print(f'CadQuery 2.7.0 assembly STEP valid: {len(solids)} solids, total volume {got:.4f} mm3 matches the rebuilt model')
 
 
+def _stop_joint_two_sided(clamps, f_band, ys, half_face):
+    """Screw tension that keeps the plate on both stop-face edges for every plunger-force corner (re-derivation)."""
+    import itertools
+    near, far = ys - half_face, ys + half_face
+    worst = 0.0
+    for fs in itertools.product(f_band, repeat=len(clamps)):
+        total = sum(fs)
+        about_far = sum(f * (far - q[1]) for f, q in zip(fs, clamps)) / (far - ys)
+        about_near = sum(f * (q[1] - near) for f, q in zip(fs, clamps)) / (ys - near)
+        worst = max(worst, total, about_far, about_near)
+    return round(worst, 6)
+
+
+def cad_candidate(check=False):
+    """Build the candidate at 0.7/0.8/0.9 mm, check it and write its STEP (0.8 mm) and record; --cad-check compares the STEP."""
+    import a7_fixture_relief as rl
+    import a7_fixture_support as support
+    geometry = json.loads(native_geom.RECORD.read_text())['geometry']
+    pads = probe_map(bound_r4_placement(), BOARD.read_text())
+    rel, tips = candidate_design(geometry, pads)
+    if check:
+        parts = relief_assembly.build(rel, pads, geometry, rl, pin_tips=tips)
+        import cadquery as cq
+        shape = cq.importers.importStep(str(CANDIDATE_STEP)).val()
+        solids = shape.Solids()
+        want, got = sum(x.Volume() for _, _, x in parts), sum(x.Volume() for x in solids)
+        if not shape.isValid() or len(solids) != len(parts) or abs(got - want) > 1e-3:
+            raise ValueError(f'candidate STEP differs from the rebuilt model: {len(solids)} solids / {got:.4f} mm3 vs {len(parts)} / {want:.4f}')
+        print(f'CadQuery 2.7.0 candidate STEP valid: {len(solids)} solids, total volume {got:.4f} mm3 matches the rebuilt model')
+        return
+    matrix = json.loads(CONDITION_MATRIX.read_text())
+    adopted = matrix['adopted_candidate']
+    bands = {b['thickness_mm']: b for b in matrix['layouts'][CANDIDATE_LAYOUT]['force_band_per_thickness']}
+    prop = support.diagonal_proposal(geometry)
+    R, hd, pr = rel['rules'], rel['holddown'], rel['pressure_plate']
+    pl = hd['plunger_candidate']
+    band = R['plunger_force_acceptance_band']
+    contact_d = support.stepped_tip_contacts(pl['pin_diameter_mm'])
+    local_notch = prop['local_notch_clearance_requirement_mm']
+
+    def force(d):
+        return pl['force_initial_N'] + (pl['force_final_N'] - pl['force_initial_N']) * d / pl['stroke_mm']
+    cases, nominal_parts, nominal_plan = [], None, None
+    for t in CANDIDATE_THICKNESSES:
+        parts = relief_assembly.build(rel, pads, geometry, rl, pin_tips=tips, board_thickness=t)
+        bad = [n for n, _, x in parts if not x.isValid() or len(x.Solids()) != 1]
+        if bad:
+            raise ValueError('invalid or multi-solid candidate parts: ' + ', '.join(bad))
+        inter, touching, clear, contacts = relief_assembly.check(parts, relief_assembly.CANDIDATE_CLEARANCE_PAIRS)
+        plan = relief_assembly.pin_plan(parts, rl.BOARD, t)
+        exposed = min(p['sleeve_end_above_f_face_mm'] for p in plan)
+        d_nom = round(pl['stroke_mm'] - exposed, 6)
+        tol = R['plate_stack_acceptance_tolerance_mm'] + R['plunger_setting_tolerance_mm']
+        sag = bands[t]['clamp_sag_at_maximum_force_mm']
+        d_lo = round(d_nom - tol - hd['plunger_compression_mm']['plate_deflection_mm'] - sag, 6)
+        d_hi = round(d_nom + tol, 6)
+        f_lo, f_hi = round(force(d_lo) * (1 - band), 6), round(force(d_hi) * (1 + band), 6)
+        corner = [c for c in matrix['layouts'][CANDIDATE_LAYOUT]['cases'] if c.get('thickness_mm') == t]
+        clear_by = {c['pair']: c['minimum_mm'] for c in clear}
+        case = {'thickness_mm': t, 'solids': len(parts), 'interferences': inter, 'touching_or_zero_volume_pairs': touching,
+                'clearances': clear, 'designed_contacts': contacts, 'pins': plan,
+                'compression_mm': {'nominal': d_nom, 'range': [d_lo, d_hi],
+                                   'basis': 'stroke minus the pin length below the sleeve end in the CAD; +/- stop length and pin '
+                                            'setting tolerances; the minimum also loses the plate deflection and the contact-model '
+                                            'board sag at maximum force for this thickness (condition-matrix.json)'},
+                'plunger_force_each_N': [f_lo, f_hi], 'total_force_min_N': round(len(plan) * f_lo, 6),
+                'required_total_force_N': hd['required_total_force_N'],
+                'contact_stress': [support.contact_stress(d, f_hi) for d in contact_d],
+                'matrix_load_corners': len(corner),
+                'matrix_worst_probe_displacement_mm': max((c['probe_displacement_max_abs_mm'] for c in corner), default=None),
+                'matrix_worst_land_lift_mm': max((c['land_lift_max_mm'] for c in corner), default=None),
+                'matrix_corners_within_limits': bool(corner) and all(c['probe_displacement_within_limit'] and c['land_lift_within_limit']
+                                                                      for c in corner),
+                'checks': {
+                    'no_interference': not inter,
+                    'critical_clearances_positive': all(c['minimum_mm'] is not None and c['minimum_mm'] > 0 for c in clear),
+                    'designed_contacts_touch': all(c['touching'] for c in contacts),
+                    'j5_notch_clearance_meets_local_requirement': clear_by['J5 body (courtyard x height) to the pressure-plate notch'] >= local_notch - 1e-9,
+                    'f_side_bodies_to_plate_meet_local_requirement': clear_by['F-side bodies to pressure plate'] >= local_notch - 1e-9,
+                    'board_contact_is_the_specified_diameter': [p['contact_diameter_mm'] for p in plan] == [round(d, 4) for d in contact_d],
+                    'compression_positive': d_lo > 0,
+                    'compression_within_stroke': d_hi <= pl['stroke_mm'] - R['plunger_stroke_end_margin_mm'] + 1e-9,
+                    'sleeve_end_clear_of_f_face_at_maximum_compression': round(pl['stroke_mm'] - d_hi, 6) >= R['plunger_body_end_clearance_min_mm'] - 1e-9,
+                    'clamp_force_min_meets_requirement': len(plan) * f_lo >= hd['required_total_force_N'] - 1e-9,
+                    'contact_pressure_within_assumed_allowable': all(x['within_assumed_allowable'] for x in (support.contact_stress(d, f_hi) for d in contact_d)),
+                    'matrix_load_corners_within_limits': bool(corner) and all(c['probe_displacement_within_limit'] and c['land_lift_within_limit'] for c in corner),
+                }}
+        cases.append(case)
+        if abs(t - rl.BOARD_THICKNESS) < 1e-9:
+            nominal_parts, nominal_plan = parts, plan
+    relief_assembly.export(nominal_parts, CANDIDATE_STEP)
+    # the shank shows below the sleeve only when the compression is small (thin board): take its worst exposed case
+    clamps = [{'clamp': f'C{i + 1}', 'centre_mm': list(c), 'contact_diameter_mm': p['contact_diameter_mm'],
+               'contact_edge_margin_nominal_mm': p['contact_edge_margin_nominal_mm'],
+               'shank_edge_margin_nominal_mm': min(t['pins'][i]['shank_edge_margin_nominal_mm'] for t in cases)}
+              for i, (c, p) in enumerate(zip(hd['contacts_board_mm'], nominal_plan))]
+    notch_pair = 'J5 body (courtyard x height) to the pressure-plate notch'
+    notch_nominal = min(next(c['minimum_mm'] for c in t['clearances'] if c['pair'] == notch_pair) for t in cases)
+    registration = candidate_registration(rel, clamps, adopted['pin_edge_margin_required_mm'])
+    plate_float = registration['pressure_plate_location']['worst_plate_offset_mm']
+    registration['j5_notch_clearance'] = {
+        'nominal_cad_mm': notch_nominal, 'local_requirement_mm': local_notch,
+        'recorded_notch_edge_tolerance_mm': prop['tolerance_budget_mm']['notch_edge'],
+        'with_plate_float_mm': round(notch_nominal - plate_float - prop['tolerance_budget_mm']['notch_edge'], 6),
+        'meets_local_requirement_with_plate_float': notch_nominal - plate_float - prop['tolerance_budget_mm']['notch_edge'] >= local_notch - 1e-9}
+    by_clamp = {r['clamp']: r for r in registration['clamps']}
+    rows = [dict(c, **{k: v for k, v in by_clamp[c['clamp']].items() if k not in c}) for c in clamps]
+    f_band = (min(c['plunger_force_each_N'][0] for c in cases), max(c['plunger_force_each_N'][1] for c in cases))
+    stop = {'relief_strip_record': hd['stop_joint'],
+            'two_sided_required_screw_tension_total_N': _stop_joint_two_sided(hd['contacts_board_mm'], f_band, hd['stop_line_y_mm'],
+                                                                              R['m3_hex_across_flats_mm'] / 2),
+            'basis': 'independent re-derivation: the pins now sit on both sides of the stop line, so the plate may tip about '
+                     'either edge of the stop faces; the screws must also carry the whole plunger load'}
+    stop['holds'] = hd['stop_joint']['preload_total_N'] >= R['clamp_force_margin_factor'] * stop['two_sided_required_screw_tension_total_N']
+    gsha = digest(native_geom.RECORD)
+    rec = {'schema': 1, 'tool': 'CadQuery 2.7.0', 'status': CANDIDATE_STATUS,
+           'scope': 'digital CAD model and interference/clearance/stroke check of the proposed replacement candidate, built beside '
+                    'the retained fixture geometry; not a fit result, not a selection and not a fabrication approval',
+           'model_inputs_sha256': candidate_digest(rel, tips, gsha), 'model_inputs': candidate_inputs(rel, tips, gsha),
+           'step_sha256': digest(CANDIDATE_STEP), 'step_board_thickness_mm': rl.BOARD_THICKNESS,
+           'method': 'as assembly-interference.json for each finished board thickness; the board B face stays on the carrier and the '
+                     'plunger sleeves stay where the plate and the pin setting put them (displacement control)',
+           'interference_threshold_mm3': relief_assembly.TOL_MM3,
+           'candidate': {'layout': CANDIDATE_LAYOUT, 'relief_candidate': CANDIDATE_RELIEF,
+                         'contacts_board_mm': hd['contacts_board_mm'], 'contact_diameters_mm': contact_d,
+                         'stepped_tip': support.STEPPED_TIP, 'stepped_tip_length_mm': support.STEPPED_TIP['tip_length_mm'],
+                         'pin_shank_diameter_mm': pl['pin_diameter_mm'], 'plunger': pl['mpn'],
+                         'j5_notch_board_mm': pr['j5_notch_board_mm'], 'notch_corner_radius_mm': pr['corner_radius_mm'],
+                         'pressure_plate_outline_board_mm': pr['outline_board_mm'], 'pressure_plate_z_mm': pr['z_mm'],
+                         'pin_setting_below_plate_underside_mm': hd['plunger_setting_mm'],
+                         'local_notch_clearance_requirement_mm': local_notch,
+                         'retained_notch_clearance_requirement_mm': R['pressure_plate_part_clearance_mm'],
+                         'pressure_plate_webs': pr['smallest_webs'], 'pressure_plate_web_conflicts': pr['web_conflicts']},
+           'thickness_cases': cases, 'clamps': rows, 'registration': registration, 'stop_joint': stop,
+           'pressure_plate_deflection': {'strip_record_mm': hd['plunger_compression_mm']['plate_deflection_mm'],
+                                         'notch_reduced_plate_depth_mm': round(pr['j5_notch_board_mm'][1] - pr['outline_board_mm'][1], 6),
+                                         'strip_width_used_mm': R['board_strip_width_mm'],
+                                         'note': 'the strip value takes the whole plunger load at mid-span of the 27.2 mm stop span on a '
+                                                 '5 mm wide strip with the ASSUMED 18000 MPa modulus; the plate material left beside the '
+                                                 'notch is deeper than that strip, so the value stays an upper bound for this plate'},
+           'strip_model_diagnostic': {'criterion_3_checks': rel['criterion_3_checks'],
+                                      'board_bending_mm': rel['holddown']['board_bending_across_window']['deflection_mm'],
+                                      'note': 'the retained criterion-3 strip model applied to the candidate; it still fails board '
+                                              'bending, which is why the candidate rests on the contact-model condition matrix. '
+                                              'Changing the criterion-3 method is not done here.'}}
+    rec['rule_changes_in_candidate'] = [
+        {'rule': 'F-side part clearance at the J5 notch', 'retained_mm': R['pressure_plate_part_clearance_mm'],
+         'candidate': f"local {local_notch} mm minimum plus an explicit tolerance budget (a7_fixture_support.diagonal_proposal)",
+         'cad_nominal_mm': notch_nominal, 'meets_retained_rule': notch_nominal >= R['pressure_plate_part_clearance_mm'] - 1e-9,
+         'status': 'method change carried by the candidate definition, not by this CAD check; needs owner/independent acceptance'},
+        {'rule': 'board-edge margin of a hold-down pin', 'retained': 'taken at the catalogue 1.5 mm pin diameter',
+         'candidate': adopted['edge_margin_basis'], 'required_mm': adopted['pin_edge_margin_required_mm'],
+         'status': 'requirement value unchanged; applied to the board-contact diameter of the turned tip'},
+        {'rule': 'criterion-3 board bending model', 'retained': 'conservative strip model (fails for both layouts on the 0.7 mm board)',
+         'candidate': 'converged unilateral contact model (condition-matrix.json)',
+         'status': 'not adopted for criterion 3; the retained criterion 3 still uses the strip model and stays not met'}]
+    rec['matrix_correspondence_problems'] = candidate_matrix_correspondence(rec, matrix)
+    checks = {k: all(c['checks'][k] for c in cases) for k in cases[0]['checks']}
+    checks.update({'pressure_plate_webs_at_least_minimum': not pr['web_conflicts'],
+                   'stop_joint_preload_holds_plate': stop['holds'],
+                   'registration_closes_with_recorded_budget': registration['recorded_budget_closes'],
+                   'registration_closes_with_modelled_plate_location': registration['closes_with_plate_float'],
+                   'j5_notch_clearance_holds_with_modelled_plate_location': registration['j5_notch_clearance']['meets_local_requirement_with_plate_float'],
+                   'matches_condition_matrix': not rec['matrix_correspondence_problems']})
+    rec['checks'] = checks
+    rec['all_digital_checks_met'] = all(checks.values())
+    rec['holds'] = CANDIDATE_HOLDS
+    CANDIDATE_RECORD.write_text(json.dumps(rec, indent=2) + '\n')
+    print(f"candidate STEP written: {len(nominal_parts)} solids; interferences per thickness "
+          f"{[len(c['interferences']) for c in cases]}; all digital checks met {rec['all_digital_checks_met']}")
+
+
+def candidate_drawing(r):
+    """Plan of the candidate pressure plate with the stepped-tip detail; NOT FOR FABRICATION, generated from the record."""
+    cand = r['proposed_replacement_candidate']
+    rec = json.loads(CANDIDATE_RECORD.read_text())
+    c = rec['candidate']
+    x0, y0, x1, y1 = c['pressure_plate_outline_board_mm']
+    k, ox, top = 14.0, 40.0, 110.0
+    W, H = (x1 - x0) * k, (y1 - y0) * k
+
+    def xy(x, y):
+        return ox + (x - x0) * k, top + (y1 - y) * k
+    geometry = json.loads(native_geom.RECORD.read_text())['geometry']
+    VW = 1500
+    s = [f'<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 {VW} {H + 470:.0f}">',
+         f'<rect width="{VW}" height="{H + 470:.0f}" fill="white"/>', '<g font-family="sans-serif" fill="black" font-size="13">',
+         '<text x="20" y="30" font-size="16">A7 SWD fixture — PROPOSED replacement candidate (optical_stepped_tip): NOT SELECTED / NOT FOR FABRICATION</text>',
+         '<text x="20" y="52">Pressure plate seen from the F side, board coordinates (mm). The retained geometry is fixture-drawing.svg.</text>',
+         f'<text x="20" y="72">All digital checks met: {rec["all_digital_checks_met"]} (registration with the modelled plate location: '
+         f'{rec["checks"]["registration_closes_with_modelled_plate_location"]}).</text>']
+    a, b = xy(x0, y1)
+    s.append(f'<rect x="{a:.2f}" y="{b:.2f}" width="{W:.2f}" height="{H:.2f}" fill="#f5e6c8" stroke="black"/>')
+    n = c['j5_notch_board_mm']
+    s.append(_rrect(xy, [n[0], n[1], n[2], n[3] + 0.01], c['notch_corner_radius_mm'], [True, True, False, False], k, 'white', 'black'))
+    for f in geometry['footprints']:
+        cb = f['courtyard_bbox_mm'].get('F') if f['side'] == 'F' else None
+        if not cb or cb[3] < y0 or cb[1] > y1:
+            continue
+        p, q = xy(max(cb[0], x0), min(cb[3], y1)), xy(min(cb[2], x1), max(cb[1], y0))
+        colour = '#c00' if f['ref'] == 'J5' else '#888'
+        s.append(f'<rect x="{p[0]:.2f}" y="{p[1]:.2f}" width="{q[0] - p[0]:.2f}" height="{q[1] - p[1]:.2f}" fill="none" stroke="{colour}" stroke-width="0.8"/>')
+    p, q = xy(0, y1), xy(16.2, y0)
+    s.append(f'<rect x="{p[0]:.2f}" y="{p[1]:.2f}" width="{q[0] - p[0]:.2f}" height="{q[1] - p[1]:.2f}" fill="none" stroke="#555" stroke-dasharray="5 3"/>')
+    for g in r['b_side_relief']['holddown']['guides']:
+        X, Y = xy(*g['board_xy_mm'])
+        s.append(f'<circle cx="{X:.2f}" cy="{Y:.2f}" r="{3.4 / 2 * k:.2f}" fill="white" stroke="black"/><text x="{X - 8:.2f}" y="{Y - 30:.2f}" font-size="11">{g["id"]} Ø3.4</text>')
+    for row, d in zip(rec['clamps'], c['contact_diameters_mm']):
+        X, Y = xy(*row['centre_mm'])
+        s.append(f'<circle cx="{X:.2f}" cy="{Y:.2f}" r="{3.3 / 2 * k:.2f}" fill="white" stroke="black"/>')
+        s.append(f'<circle cx="{X:.2f}" cy="{Y:.2f}" r="{4.05 / 2 * k:.2f}" fill="none" stroke="#2a7a2a" stroke-dasharray="3 2"/>')
+        s.append(f'<circle cx="{X:.2f}" cy="{Y:.2f}" r="{c["pin_shank_diameter_mm"] / 2 * k:.2f}" fill="none" stroke="#1f5fa8"/>')
+        s.append(f'<circle cx="{X:.2f}" cy="{Y:.2f}" r="{d / 2 * k:.2f}" fill="#1f5fa8"/>')
+        s.append(f'<text x="{X + 30:.2f}" y="{Y + 4:.2f}" font-size="11">{row["clamp"]} ({row["centre_mm"][0]:g}, {row["centre_mm"][1]:g}) contact Ø{d:g}</text>')
+    # stepped-tip elevation detail (C2, 0.8 mm board, nominal compression), scale 40 px/mm
+    case = next(t for t in rec['thickness_cases'] if abs(t['thickness_mm'] - rec['step_board_thickness_mm']) < 1e-9)
+    pin = case['pins'][-1]
+    e, ex, ey = 40.0, W + 120, top + 40
+    tip, shank = c['contact_diameters_mm'][-1], c['pin_shank_diameter_mm']
+    lt, sl = c['stepped_tip_length_mm'], pin['sleeve_end_above_f_face_mm']
+    s.append(f'<text x="{ex - 60:.2f}" y="{ey - 20:.2f}" font-size="14">C2 stepped tip, 0.8 mm board (elevation)</text>')
+    s.append(f'<rect x="{ex - 100:.2f}" y="{ey + 200:.2f}" width="200" height="{0.8 * e:.2f}" fill="#d9ead3" stroke="black"/>')
+    s.append(f'<rect x="{ex - tip / 2 * e:.2f}" y="{ey + 200 - min(lt, sl) * e:.2f}" width="{tip * e:.2f}" height="{min(lt, sl) * e:.2f}" fill="#1f5fa8"/>')
+    s.append(f'<rect x="{ex - 2.0 * e:.2f}" y="{ey + 200 - sl * e - 60:.2f}" width="{4.0 * e:.2f}" height="60" fill="#bbb" stroke="black"/>')
+    s.append(f'<text x="{ex + 2.2 * e:.2f}" y="{ey + 200 - sl * e - 25:.2f}" font-size="11">steel sleeve Ø4 (end {sl:g} above F face)</text>')
+    s.append(f'<text x="{ex + 2.2 * e:.2f}" y="{ey + 200 - lt * e / 2:.2f}" font-size="11">tip Ø{tip:g} x {lt:g} (shank Ø{shank:g} above, inside the sleeve)</text>')
+    s.append(f'<text x="{ex + 2.2 * e:.2f}" y="{ey + 200 + 0.8 * e / 2 + 4:.2f}" font-size="11">board 0.8 (0.7-0.9)</text>')
+    y = top + H + 60
+    reg = rec['registration']
+    lines = [f'Plate {x1 - x0:g} x {y1 - y0:g} x {c["pressure_plate_z_mm"][1] - c["pressure_plate_z_mm"][0]:g} FR-4 (z {c["pressure_plate_z_mm"]}); '
+             f'J5 notch {n} open to the plate edge, inner radius {c["notch_corner_radius_mm"]:g};',
+             'M4 tapped C1, C2 (drill Ø3.3, thread envelope Ø4.05 dashed); stop holes G1, G2 Ø3.4.',
+             f'Pins: {c["plunger"]} POM, shank Ø{c["pin_shank_diameter_mm"]:g} (outline), board contact filled; C2 turned tip Ø{tip:g} max x {lt:g} (PROPOSED modification).',
+             'Red: J5 courtyard; grey: other F courtyards; dashed: board outline.',
+             'Per thickness 0.7 / 0.8 / 0.9 mm: interferences ' + ' / '.join(str(len(t['interferences'])) for t in rec['thickness_cases'])
+             + '; compression ' + ' / '.join(str(t['compression_mm']['range']) for t in rec['thickness_cases']) + ' mm.',
+             'Edge margins C1/C2 contact (nominal CAD): ' + ' / '.join(f"{r_['contact_edge_margin_nominal_mm']:g}" for r_ in rec['clamps'])
+             + '; with the recorded 0.10 budget: ' + ' / '.join(f"{r_['contact_edge_margin_recorded_budget_mm']:g}" for r_ in rec['clamps'])
+             + f" (required {reg['required_contact_edge_margin_worst_mm']:g}).",
+             f"Plate located only by M3 in Ø3.4 clearance holes (up to {reg['pressure_plate_location']['worst_plate_offset_mm']:g} mm): "
+             + 'margins then ' + ' / '.join(f"{r_['contact_edge_margin_with_plate_float_mm']:g}" for r_ in rec['clamps']) + ' — registration NOT closed.',
+             'Status: PROPOSED replacement candidate; calculated and digitally modelled, not selected, not approved, not physically validated.']
+    for i, line in enumerate(lines):
+        s.append(f'<text x="20" y="{y + i * 22:.0f}">{line}</text>')
+    s.append('</g></svg>')
+    return '\n'.join(s) + '\n'
+
+
 def main():
     ap=argparse.ArgumentParser();ap.add_argument('--check',action='store_true');ap.add_argument('--cad',action='store_true');ap.add_argument('--cad-check',action='store_true');args=ap.parse_args()
-    if args.cad and not args.check: cad(report())  # write the STEP and interference record first so the manifest binds them
+    if args.cad and not args.check:  # write the STEP and interference records first so the manifest binds them
+        cad(report())
+        cad_candidate()
     r=report()
+    if args.check and r['proposed_replacement_candidate'].get('bound'):
+        problems=candidate_matrix_correspondence(json.loads(CANDIDATE_RECORD.read_text()))
+        if problems: raise ValueError('candidate record disagrees with condition-matrix.json: '+'; '.join(problems))
     outputs={'manifest.json':json.dumps(r,indent=2)+'\n','fixture-drawing.svg':drawing(r)}
+    if CANDIDATE_RECORD.is_file(): outputs['candidate-drawing.svg']=candidate_drawing(r)
     for n,text in outputs.items():
         p=OUT/n
         if args.check:
             if not p.exists() or p.read_text()!=text: raise ValueError(f'stale fixture study: {p}')
         else:p.write_text(text)
-    if args.cad_check: cad(r,True)
+    if args.cad_check: cad(r,True); cad_candidate(True)
     print(f"Fixture validation PASS; status {r['status']}, digital_fixture_complete {r['digital_fixture_complete']}")
 
 if __name__=='__main__':main()

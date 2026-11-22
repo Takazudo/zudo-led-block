@@ -36,6 +36,9 @@ PROFILE = 'engineering/a7/verification/native_gate.json'
 OPTICAL_FAB = 'engineering/a7/verification/fab/optical-fr4.json'
 LAYOUT = 'engineering/a7/mechanical/layout.json'
 LABEL = 'zudo-led-block.a7-jlc-package'
+PACKAGE_SETS = OUT / 'package-sets.json'
+SET_DIRS = ('order', 'review')
+SET_STATUSES = ('HISTORICAL_SUPERSEDED', 'REVIEW_ONLY_NOT_FOR_ORDER', 'PROTOTYPE_UPLOAD_APPROVED')
 # Gerber layers JLC needs for a board; KiCad names. Inner layers are added for 4-layer boards.
 FAB_LAYERS = ['F.Cu', 'B.Cu', 'F.Paste', 'B.Paste', 'F.SilkS', 'B.SilkS', 'F.Mask', 'B.Mask', 'Edge.Cuts']
 CENTROID_TOLERANCE_MM = 0.05
@@ -289,11 +292,11 @@ def generate(root=ROOT, sources=None):
     blockers = named_blockers(boards, lines, pages, ledger, root)
     readiness = json.loads((root / READINESS).read_text())
     gates = {g['gate'] for g in readiness.get('gates', [])}
-    order_dir = root / OUT / 'order'
+    sets = package_sets(root, {b['board']: b['pcb_sha256'] for b in boards}, gates)
     report = {'schema': 1, 'status': 'DRY_RUN_NOT_RELEASED', 'order_eligibility': readiness['order_eligibility'],
               'prototype_route_binding': 'HOLD: readiness gate owner_prototype_route (the recorded approval does not match the current identities)'
                                          if 'owner_prototype_route' in gates else 'MATCHES the current readiness identities',
-              'dated_order_exports': sorted(str(OUT / 'order' / d.name) for d in order_dir.iterdir() if d.is_dir()) if order_dir.is_dir() else [],
+              'current_package': sets['current'], 'historical_packages': sets['historical'],
               'modules': modules, 'decided_by': plan['decided_by'], 'sources': str(SOURCES),
               'ledger_sha256': sha(root / LEDGER), 'sources_sha256': sha(root / SOURCES), 'optical_fab_sha256': sha(root / OPTICAL_FAB),
               'boards': boards, 'parts': lines, 'panel_comparison': comparison, 'panel_route': panel_decision(root),
@@ -301,7 +304,68 @@ def generate(root=ROOT, sources=None):
               'route_counts': {k: sum(1 for l in lines if l['route'] == k) for k in sorted({l['route'] for l in lines})},
               'blockers': blockers}
     files['package.json'] = json.dumps(report, indent=2, ensure_ascii=False) + '\n'
+    checklist = order_form_checklist(report, files, sources, root)
+    files['order-form-checklist.json'] = json.dumps(checklist, indent=2, ensure_ascii=False) + '\n'
+    files['order-form-checklist.md'] = checklist_md(checklist)
     return report, files
+
+
+def frozen_drift(root, path):
+    """Names of frozen identities or panel BOM/CPL files of a non-historical set that no longer match the repository."""
+    spec = importlib.util.spec_from_file_location('a7_readiness_ids', ROOT / 'scripts/a7_readiness.py')
+    readiness = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(readiness)
+    frozen = json.loads((root / path / 'identities.json').read_text())['identities']
+    drift = [k for k, v in readiness.identities(root).items() if frozen.get(k) != v]
+    drift += [k for k in frozen if k not in readiness.IDENTITY_PATHS]
+    for board in ('controller', 'led_leaf', 'power_adapter'):
+        for kind in ('BOM', 'CPL'):
+            name = f'{board}-panel_{kind}_DRYRUN.csv'
+            if (root / path / board / name).read_bytes() != (root / PANELS / name).read_bytes():
+                drift.append(name)
+    return drift
+
+
+def package_sets(root, current_boards, gates):
+    """Bind every dated file set to its board identities; only a set matching the current boards can be current."""
+    index = json.loads((root / PACKAGE_SETS).read_text())
+    listed = [s['path'] for s in index['sets']]
+    on_disk = sorted(str(OUT / d / x.name) for d in SET_DIRS if (root / OUT / d).is_dir()
+                     for x in (root / OUT / d).iterdir() if x.is_dir())
+    if len(set(listed)) != len(listed) or sorted(listed) != on_disk:
+        raise ValueError(f'{PACKAGE_SETS}: listed sets {sorted(listed)} differ from the dated directories {on_disk}')
+    current, historical = None, []
+    for entry in index['sets']:
+        path, status = entry['path'], entry['status']
+        if status not in SET_STATUSES:
+            raise ValueError(f'{path}: unknown status {status}')
+        sums = root / path / 'SHA256SUMS'
+        if not sums.is_file():
+            raise ValueError(f'{path}: SHA256SUMS missing')
+        for line in sums.read_text().splitlines():
+            digest, name = line.split(maxsplit=1)
+            if sha(root / path / name) != digest:
+                raise ValueError(f'{path}/{name}: bytes differ from SHA256SUMS (a recorded set is immutable)')
+        matches = entry['boards'] == current_boards
+        if status == 'HISTORICAL_SUPERSEDED':
+            if matches:
+                raise ValueError(f'{path}: marked historical but bound to the current boards')
+            historical.append({'path': path, 'boards': entry['boards'], 'settings': entry['settings'],
+                               'approval_scope': entry['approval_scope'], 'superseded_by_change': entry['superseded_by_change']})
+            continue
+        if not matches:
+            raise ValueError(f'{path}: status {status} but its board identities are not the current boards (stale package)')
+        if status == 'PROTOTYPE_UPLOAD_APPROVED' and 'owner_prototype_route' in gates:
+            raise ValueError(f'{path}: upload approval claimed while readiness still lists owner_prototype_route')
+        stale = frozen_drift(root, path)
+        if stale:
+            raise ValueError(f'{path}: status {status} but its frozen identities or BOM/CPL differ from the repository ({", ".join(stale)}) (stale package)')
+        if current is not None:
+            raise ValueError(f'{PACKAGE_SETS}: more than one current set')
+        current = {'path': path, 'status': status, 'boards': entry['boards']}
+    if (current or {}).get('path') != index['current']:
+        raise ValueError(f"{PACKAGE_SETS}: current is {index['current']!r} but the matching set is {(current or {}).get('path')!r}")
+    return {'current': current, 'historical': historical}
 
 
 def optical_manufacturing(name, facts, root=ROOT):
@@ -550,8 +614,8 @@ def named_blockers(boards, lines, pages, ledger, root):
     jlc_ja = (f"オーナーの知識による判断で、JLC の確認ではない（オーナーは JLC に聞かずに O12 を閉じた。{stated['decided_on']}、jlc-questions）") if stated else '未確認（O12）'
 
     add('order-gate-blocked', None, 'Readiness order gate is BLOCKED (it counts every condition up to a manufacturing release). These generator reference files are not uploaded directly; '
-        'an owner uploads only a dated copy under engineering/a7/jlc-package/order/ for an owner-approved prototype route, after the order-form checks in its README. None of this is a manufacturing release.',
-        'readiness の発注ゲートが BLOCKED（製造リリースまでの全条件を数えている）。この基準セットからは直接アップロードしない。オーナーが試作ルートでアップロードするのは `engineering/a7/jlc-package/order/` の日付付きの写しで、その README の注文画面の確認の後。どれも製造リリースではない。')
+        'the current dated set is the one named in engineering/a7/jlc-package/package-sets.json, and an owner uploads it only once its status is PROTOTYPE_UPLOAD_APPROVED for the current identities and after the order-form checks in its README. Historical sets (order/2026-11-13) are bound to old boards and are not an upload choice. None of this is a manufacturing release.',
+        'readiness の発注ゲートが BLOCKED（製造リリースまでの全条件を数えている）。この基準セットからは直接アップロードしない。現行の日付付きセットは `engineering/a7/jlc-package/package-sets.json` が指すもので、現在の識別に対する試作ルート承認（状態 PROTOTYPE_UPLOAD_APPROVED）と、その README の注文画面の確認の後にだけアップロードする。旧セット（order/2026-11-13）は旧基板の識別に結び付いた履歴で、アップロードの選択肢ではない。どれも製造リリースではない。')
     for b in boards:
         t, n, r = b['pcba_tier'], b['board'], b['assembly_route']
         if r['panel']:
@@ -625,6 +689,116 @@ def named_blockers(boards, lines, pages, ledger, root):
     return out
 
 
+# --- external order-form checklist ------------------------------------------------------------------
+CHECKLIST_REFS = {'controller': ('J1', 'J2', 'J5', 'SW1'), 'power_adapter': ('J1', 'J2')}
+REVIEW_STATUSES = ('PAGE_STATES', 'PAGE_STATES_MINIMUMS', 'NOT_STATED', 'PAGE_SILENT_ON_QUANTITY_UNIT', 'NAMED_HOLD')
+
+
+def factory_review(sources):
+    """The dated public-page capability review in sources.json; a page statement is never recorded as factory acceptance."""
+    fr = sources.get('factory_review')
+    if not fr:
+        raise ValueError(f'{SOURCES}: factory_review missing')
+    pages = {p['id']: p for p in fr['pages']}
+    if fr['status'] != 'PUBLIC_PAGES_ONLY_NOT_SUPPLIER_CONFIRMED':
+        raise ValueError('factory_review must stay public-page evidence, not supplier confirmation')
+    for p in pages.values():
+        if not p['retrieved_at'].startswith(fr['date'] + 'T') or not re.fullmatch('[0-9a-f]{64}', p['raw_sha256']) or not p['stored']['path']:
+            raise ValueError(f"factory_review page {p['id']}: not a dated, hashed {fr['date']} read with a stored copy")
+    for t in fr['topics']:
+        if t['status'] not in REVIEW_STATUSES or not t['stated'] or any(q['source'] not in pages for q in t['stated']):
+            raise ValueError(f"factory_review topic {t['id']}: unknown status or unsourced statement")
+    return fr
+
+
+def csv_rows(text):
+    return {r['Designator']: r for r in csv.DictReader(io.StringIO(text))}
+
+
+def order_form_checklist(report, files, sources, root=ROOT):
+    """Short checklist for the owner at the JLC order form, from the generated package, its CPLs, the optical fabrication spec and the dated capability review."""
+    fr = factory_review(sources)
+    spec = json.loads((root / OPTICAL_FAB).read_text())
+    panels = load_panels(root)
+    boards = []
+    for b in report['boards']:
+        n = b['board']
+        cpl = csv_rows(files[f'{n}_CPL_DRYRUN.csv'])
+        lay = panels.get(n)
+        panel_path = root / PANELS / f'{n}-panel_CPL_DRYRUN.csv'
+        panel_current = bool(lay) and lay['pcb_sha256'] == b['pcb_sha256'] and panel_path.is_file()
+        pcpl = csv_rows(panel_path.read_text()) if panel_current else {}
+        if panel_current and len(pcpl) != len(cpl) * len(lay['copies']):
+            raise ValueError(f'{n}: panel CPL rows differ from board CPL rows x copies')
+        offsets = {c['ref']: c for c in b['centroid_offsets']}
+        place = lambda r: {k: r[k] for k in ('Mid X', 'Mid Y', 'Rotation', 'Layer')}
+        named = [{'ref': ref, 'lcsc': offsets[ref]['lcsc'] if ref in offsets else None,
+                  'board_cpl': place(cpl[ref]), 'panel_cpl': place(pcpl[ref]) if ref in pcpl else None,
+                  'anchor_to_pad_centre_mm': offsets[ref]['anchor_to_pad_centre_mm'] if ref in offsets else 0.0,
+                  'check': 'JLC placement preview: body centred on the pads and pin 1 / actuator / opening facing as drawn'}
+                 for ref in CHECKLIST_REFS.get(n, ())]
+        bottom = [{'ref': ref, 'rotation': r['Rotation']} for ref, r in cpl.items() if r['Layer'] == 'Bottom']
+        polar = sorted(ref for ref in cpl if re.sub(r'\d+', '', ref) not in ('R', 'C'))
+        if n in ('controller', 'led_leaf'):
+            target = spec[n]
+            pcb = {'layers': b['copper_layers'], 'thickness_mm': b['thickness_mm'], 'thickness_tolerance': b['thickness_tolerance'],
+                   'stackup': ({'select': target['stackup_name'], 'impedance_template_code': target['impedance_template_code'],
+                                'note': 'not the order-form default; the default for 4-layer 0.8 mm is "No requirement" (JLC04081H-7628)'}
+                               if target.get('stackup_name') else {'select': 'none published for 2-layer 0.8 mm', 'note': target.get('core_status')}),
+                   'surface_finish': spec['surface_finish'], 'mask_colour': 'green (the recorded 0.10 mm via web uses the green 1 oz bridge row; black/white need 0.13 mm)',
+                   'via_covering': 'Tented (not ink-plugged: plugging needs 0.35 mm to openings; our web is 0.10 mm)',
+                   'mask_artwork': 'use the Gerber mask openings as drawn (minimal mask: ' + spec['mask']['semantics'] + ')',
+                   'source': OPTICAL_FAB}
+        else:
+            pcb = {'layers': b['copper_layers'], 'thickness_mm': b['thickness_mm'], 'thickness_tolerance': b['thickness_tolerance'],
+                   'surface_finish': 'HOLD: not recorded (power-adapter-a5-settings-unspecified)', 'mask_colour': 'HOLD: not recorded',
+                   'base_material': 'HOLD: not recorded', 'note': 'unchanged A5 1.6 mm 2-layer adapter; Economic PCBA 1.6 mm green lists HASL or ENIG'}
+        rp = b['repo_panel']
+        minimum = rp['assembled_at_minimum_order'] // rp['copies']
+        boards.append({'board': n, 'pcb': pcb,
+            'panel': {'route': 'repo panel (owner decision panel-route); Panel by JLCPCB: No', 'boards_per_panel': rp['copies'], 'panel_mm': rp['panel_mm'],
+                      'pcba_quantity_panels': minimum, 'pcb_quantity': 'OPEN: bare-PCB order quantity not sourced (pcb-fabrication-quantity-not-sourced); enter the JLC minimum offered for the panel, separately from the PCBA quantity', 'assembled_boards': rp['assembled_at_minimum_order'], 'boards_needed': b['pcba_quantity'],
+                      'panel_files_current': panel_current},
+            'pcba': {'tier': b['pcba_tier']['tier'], 'assembly_sides': b['assembly_sides'], 'tht_refs': b['tht_refs']},
+            'named_placements': named,
+            'bottom_side': {'count': len(bottom), 'rows': bottom, 'check': 'JLC bottom-side preview: every bottom part on its pads, rotation as viewed by JLC'} if bottom else None,
+            'orientation_checks': polar})
+    questions = [{'id': t['id'], 'boards': t['applies_to'], 'question': t['factory_question']} for t in fr['topics'] if t.get('factory_question')]
+    holds = [t['hold'] for t in fr['topics'] if t.get('hold')]
+    return {'schema': 1, 'status': 'CHECKLIST_NOT_AN_ORDER', 'order_eligibility': report['order_eligibility'],
+            'note': 'What to set and check on the JLC order form for the owner-chosen repo panels. Values come from the generated CPLs and package; it is not an order, a release or factory acceptance.',
+            'sources': {'package': str(OUT / 'package.json'), 'optical_fabrication': OPTICAL_FAB, 'optical_fabrication_sha256': sha(root / OPTICAL_FAB),
+                        'factory_review': f"{SOURCES}#factory_review ({fr['date']})", 'panels': str(PANELS)},
+            'boards': boards,
+            'factory_acceptance_questions': questions,
+            'holds': holds,
+            'not_obtained': ['quote', 'lead time', 'stock reservation', 'factory DFM acceptance', 'assembly acceptance']}
+
+
+def checklist_md(c):
+    L = ['# JLC 注文画面チェックリスト（A7 試作）', '', '自動生成（`scripts/a7_jlc_package.py`）。**発注・製造リリース・工場受入ではありません。** 発注ゲート: ' + c['order_eligibility'] + '。', '']
+    for b in c['boards']:
+        p, pn = b['pcb'], b['panel']
+        L += [f"## {BOARD_JA[b['board']]}（`{b['board']}`）", '',
+              f"- 基板: {p['layers']} 層 / {fmt(p['thickness_mm'])} mm（{p['thickness_tolerance']}）" + (f" / 積層 {p['stackup']['select']}" if 'stackup' in p else '') + f" / 表面処理 {p['surface_finish']} / レジスト色 {p['mask_colour']}",
+              f"- 面付け: {pn['boards_per_panel']} 枚入り {fmt(pn['panel_mm'][0])} × {fmt(pn['panel_mm'][1])} mm、PCBA 数量 {pn['pcba_quantity_panels']} シート → 実装 {pn['assembled_boards']} 枚（必要 {pn['boards_needed']}）、Panel by JLCPCB は No" + ('' if pn['panel_files_current'] else '（**面付けデータが現在の基板と一致しない**）'),
+              "- PCB 数量（基板の製造枚数）: 未確認。JLC の最小数は取得していない（`pcb-fabrication-quantity-not-sourced`）。PCBA 数量とは別に、注文画面で提示される最小数を入れる",
+              f"- PCBA: {b['pcba']['tier']}、実装面 {' + '.join(b['pcba']['assembly_sides'])}"]
+        if 'via_covering' in p:
+            L.append(f"- ビア: {p['via_covering']}。レジスト: {p['mask_artwork']}")
+        for r in b['named_placements']:
+            pc = r['panel_cpl'] or {}
+            L.append(f"- {r['ref']}: 基板 CPL ({r['board_cpl']['Mid X']}, {r['board_cpl']['Mid Y']}) {r['board_cpl']['Rotation']}° {r['board_cpl']['Layer']}"
+                     + (f"、面付け CPL ({pc['Mid X']}, {pc['Mid Y']}) {pc['Rotation']}°" if pc else '') + f"、原点とパッド中心の差 {r['anchor_to_pad_centre_mm']} mm → 配置プレビューで確認")
+        if b['bottom_side']:
+            L.append(f"- B 面 {b['bottom_side']['count']} 点（{', '.join(x['ref'] + ' ' + x['rotation'] + '°' for x in b['bottom_side']['rows'])}）→ B 面プレビューで向きを確認")
+        L += [f"- 向きを確認する極性部品: {', '.join(b['orientation_checks'])}", '']
+    L += ['## 工場に確認すること（未回答）', ''] + [f"- `{q['id']}`（{', '.join(q['boards'])}）: {q['question']}" for q in c['factory_acceptance_questions']]
+    L += ['', '## 保留', ''] + [f"- `{h['id']}`: {h['text']}" for h in c['holds']]
+    L += ['', '未取得: ' + '、'.join(c['not_obtained']) + '。', '']
+    return '\n'.join(L)
+
+
 # --- page --------------------------------------------------------------------------------------
 BOARD_JA = {'controller': 'コントローラー', 'led_leaf': 'LED リーフ', 'power_adapter': '電源アダプタ'}
 ROUTE_JA = {'JLC_STOCK': 'JLC 在庫', 'JLC_PREORDER': 'JLC 予約注文', 'JLC_PREORDER_OR_GLOBAL_SOURCING_BLOCKED': '在庫なし・予約不可（Global Sourcing か待つ）', 'EXCEPTION': '例外'}
@@ -655,9 +829,8 @@ def page(report, panels=None):
          'description: "最初の 2 台分を JLCPCB に発注するとき、基板ごとに何を入力し何をアップロードするか。試験用試作のためで、製造リリースではありません。"',
          'sidebar_position: 4.6', '---', '', ':::danger[製造リリースではありません]',
          f"発注ゲートは **{report['order_eligibility']}** です（製造リリースまでの全条件を数えています）。このページと `engineering/a7/jlc-package/` 直下・`panels/` のファイルは生成器の基準セットで、"
-         'ここから直接アップロードしません。オーナーが試験用試作ルートでアップロードするのは日付付きの写し'
-         + ('（' + '、'.join(f'`{d}/`' for d in report['dated_order_exports']) + '）' if report['dated_order_exports'] else '（まだ無い）')
-         + 'で、その README にある注文画面での確認（配置プレビューの中心・回転、PCBA 数量の単位、自前パネルの受入、基材・表面処理）の後です。'
+         'ここから直接アップロードしません。' + current_set_ja(report) +
+         'アップロードは、現在の識別に対する試作ルート承認と、その README にある注文画面での確認（配置プレビューの中心・回転、PCBA 数量の単位、自前パネルの受入、基材・表面処理）の後だけです。'
          + ('試作ルートの承認は現在の識別に結び付いていません（readiness の `owner_prototype_route`）。新しい識別での再承認はオーナーの判断です。' if report['prototype_route_binding'].startswith('HOLD') else
             '試作ルートのオーナー承認は現在の識別に結び付いています（`engineering/a7/qualification/records.json`）。')
          + '発注・支払いはオーナーが行い、リポジトリに発注記録はありません。', ':::', '',
@@ -713,6 +886,18 @@ def page(report, panels=None):
     L += [f"| {l['lcsc']} | {esc(l['mpn'])} | {l['library'].title()} | {l['pieces_required']} | {l['in_stock']} | {l['preorder_available']} | {ROUTE_JA[l['route']]} |" for l in report['parts']]
     L += ['', '区分と在庫は `engineering/a7/jlc-package/sources.json` の日付付き記録です（項目の意味はこちらの解釈で、JLC の定義ではありません）。', '']
     return '\n'.join(L) + '\n'
+
+
+SET_STATUS_JA = {'REVIEW_ONLY_NOT_FOR_ORDER': 'レビュー専用・発注用ではない',
+                 'PROTOTYPE_UPLOAD_APPROVED': '現在の識別で試作ルート承認済み（製造リリースではない）'}
+
+
+def current_set_ja(report):
+    cur = report['current_package']
+    text = (f"現行の日付付きセットは `{cur['path']}/`（{SET_STATUS_JA[cur['status']]}）です。" if cur
+            else '現在の基板識別に結び付いた日付付きセットはまだありません。')
+    old = '、'.join(f"`{h['path']}/`" for h in report['historical_packages'])
+    return text + (f"{old} は旧基板の識別（{'; '.join(h['settings'] for h in report['historical_packages'])}）に結び付いた履歴で、承認もその旧識別に限ります。アップロードの選択肢ではありません。" if old else '')
 
 
 def panel_cell(b, comparison, decision=None):

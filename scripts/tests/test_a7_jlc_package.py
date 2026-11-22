@@ -3,6 +3,7 @@ import copy
 import importlib.util
 import json
 from pathlib import Path
+import shutil
 import tempfile
 import unittest
 from unittest.mock import patch
@@ -55,8 +56,9 @@ class PackageTests(unittest.TestCase):
         for blocker in ('controller-repo-panel-acceptance', 'led_leaf-repo-panel-acceptance', 'power_adapter-repo-panel-acceptance',
                         'pcba-quantity-unit-with-panel-not-sourced'):
             self.assertIn(blocker, self.ids())
-        # SW1 is now the in-stock HX MSK13C02, so no part is short at the order quantity
-        self.assertFalse([i for i in self.ids() if i.startswith('part-')])
+        # At the 2026-11-22 listing only BAS70-04-7-F (D3) is below the 2-module need; SW1 HX MSK13C02 stays in stock
+        self.assertEqual([i for i in self.ids() if i.startswith('part-')], ['part-C134375-not-in-stock'])
+        self.assertEqual(next(l for l in self.report['parts'] if l['lcsc'] == 'C5149819')['route'], 'JLC_STOCK')
         # 0.8 mm thickness is supported; optical fabrication/assembly still requires DFM
         self.assertFalse(any('thickness' in i for i in self.ids()))
         self.assertIn('C52917434', ' '.join(self.board('led_leaf')['pcba_tier']['reasons']))
@@ -135,6 +137,97 @@ class PackageTests(unittest.TestCase):
         with self.assertRaisesRegex(ValueError, 'no recorded JLC PCBA type'):
             J.generate(sources=sources)
 
+    def sets_root(self, d, mutate):
+        """A temporary root holding the dated set directories and an edited package-sets index."""
+        root = Path(d)
+        for sub in J.SET_DIRS:
+            src = ROOT / J.OUT / sub
+            if src.is_dir():
+                shutil.copytree(src, root / J.OUT / sub)
+        index = json.loads((ROOT / J.PACKAGE_SETS).read_text())
+        mutate(index, root)
+        (root / J.PACKAGE_SETS).write_text(json.dumps(index))
+        return root
+
+    def current_boards(self):
+        return {b['board']: b['pcb_sha256'] for b in self.report['boards']}
+
+    def test_old_dated_set_is_historical_and_not_current(self):
+        cur = self.report['current_package']
+        self.assertTrue(all(h['path'] != (cur or {}).get('path') for h in self.report['historical_packages']))
+        self.assertIn('engineering/a7/jlc-package/order/2026-11-13', [h['path'] for h in self.report['historical_packages']])
+        if cur:
+            self.assertEqual(cur['boards'], self.current_boards())
+
+    def test_stale_set_cannot_be_named_current(self):
+        def promote_old(index, root):
+            old = next(s for s in index['sets'] if s['path'].endswith('order/2026-11-13'))
+            old['status'] = 'REVIEW_ONLY_NOT_FOR_ORDER'
+            index['current'] = old['path']
+            index['sets'] = [s for s in index['sets'] if s is old or s['status'] == 'HISTORICAL_SUPERSEDED']
+            for s in list(index['sets']):
+                if s is not old and s['boards'] == self.current_boards():
+                    index['sets'].remove(s)
+        with tempfile.TemporaryDirectory() as d:
+            root = self.sets_root(d, promote_old)
+            for s in json.loads((ROOT / J.PACKAGE_SETS).read_text())['sets']:
+                if s['status'] != 'HISTORICAL_SUPERSEDED':
+                    shutil.rmtree(root / s['path'])
+            with self.assertRaisesRegex(ValueError, 'stale package'):
+                J.package_sets(root, self.current_boards(), set())
+
+    def test_upload_approval_is_not_carried_over_while_the_route_gate_is_open(self):
+        fake = 'engineering/a7/jlc-package/review/2099-01-01'
+        def add_approved(index, root):
+            (root / fake).mkdir(parents=True)
+            (root / fake / 'SHA256SUMS').write_text('')
+            index['sets'] = [s for s in index['sets'] if s['status'] == 'HISTORICAL_SUPERSEDED']
+            index['sets'].append({'path': fake, 'status': 'PROTOTYPE_UPLOAD_APPROVED', 'boards': self.current_boards()})
+            index['current'] = fake
+        with tempfile.TemporaryDirectory() as d:
+            root = self.sets_root(d, add_approved)
+            for s in json.loads((ROOT / J.PACKAGE_SETS).read_text())['sets']:
+                if s['status'] != 'HISTORICAL_SUPERSEDED':
+                    shutil.rmtree(root / s['path'])
+            with self.assertRaisesRegex(ValueError, 'owner_prototype_route'):
+                J.package_sets(root, self.current_boards(), {'owner_prototype_route'})
+
+    def test_recorded_set_bytes_are_immutable_and_every_dated_directory_is_indexed(self):
+        def tamper(index, root):
+            f = root / 'engineering/a7/jlc-package/order/2026-11-13/controller/controller-panel_BOM_DRYRUN.csv'
+            f.write_text(f.read_text() + 'x\n')
+        with tempfile.TemporaryDirectory() as d:
+            with self.assertRaisesRegex(ValueError, 'immutable'):
+                J.package_sets(self.sets_root(d, tamper), self.current_boards(), set())
+
+        def unlisted(index, root):
+            (root / 'engineering/a7/jlc-package/order/2099-01-01').mkdir(parents=True)
+        with tempfile.TemporaryDirectory() as d:
+            with self.assertRaisesRegex(ValueError, 'differ from the dated directories'):
+                J.package_sets(self.sets_root(d, unlisted), self.current_boards(), set())
+
+    def test_current_set_is_rejected_once_its_frozen_bom_or_identities_drift(self):
+        index = json.loads((ROOT / J.PACKAGE_SETS).read_text())
+        if index['current'] is None:
+            self.skipTest('no current set')
+        self.assertEqual(J.frozen_drift(ROOT, index['current']), [])
+        spec = importlib.util.spec_from_file_location('rd', ROOT / 'scripts/a7_readiness.py')
+        rd = importlib.util.module_from_spec(spec)
+        spec.loader.exec_module(rd)
+        with tempfile.TemporaryDirectory() as d:
+            root = Path(d)
+            shutil.copytree(ROOT / index['current'], root / index['current'])
+            shutil.copytree(ROOT / J.PANELS, root / J.PANELS)
+            for rel in rd.IDENTITY_PATHS.values():
+                (root / rel).parent.mkdir(parents=True, exist_ok=True)
+                shutil.copyfile(ROOT / rel, root / rel)
+            self.assertEqual(J.frozen_drift(root, index['current']), [])
+            bom = root / J.PANELS / 'controller-panel_BOM_DRYRUN.csv'
+            bom.write_text(bom.read_text().replace('C134375', 'C999999'))
+            manifest = root / rd.IDENTITY_PATHS['assembly_manifest']
+            manifest.write_text(manifest.read_text() + ' ')
+            self.assertEqual(sorted(J.frozen_drift(root, index['current'])), ['assembly_manifest', 'controller-panel_BOM_DRYRUN.csv'])
+
     def test_changed_board_is_rejected(self):
         original = J.sha
         with patch.object(J, 'sha', side_effect=lambda p: '0' * 64 if str(p).endswith('controller.kicad_pcb') else original(p)):
@@ -151,6 +244,32 @@ class PackageTests(unittest.TestCase):
             for bad in ('R1,1.1,-2,90,Bottom', 'R1,1,-2,0,Bottom', 'R1,1,-2,90,Top'):
                 c.write_text('Designator,Mid X,Mid Y,Rotation,Layer\n' + bad + '\n')
                 self.assertTrue(J.compare_pos(k, c), bad)
+
+    def test_order_form_checklist_follows_the_generated_cpl(self):
+        c = json.loads(self.files['order-form-checklist.json'])
+        self.assertEqual(c['status'], 'CHECKLIST_NOT_AN_ORDER')
+        boards = {b['board']: b for b in c['boards']}
+        cpl = {r.split(',')[0]: r.split(',') for r in self.files['controller_CPL_DRYRUN.csv'].splitlines()[1:]}
+        for r in boards['controller']['named_placements']:
+            self.assertEqual([r['board_cpl'][k] for k in ('Mid X', 'Mid Y', 'Rotation', 'Layer')], cpl[r['ref']][1:])
+        self.assertEqual([r['ref'] for r in boards['controller']['named_placements']], ['J1', 'J2', 'J5', 'SW1'])
+        self.assertEqual([r['ref'] for r in boards['power_adapter']['named_placements']], ['J1', 'J2'])
+        self.assertEqual(boards['controller']['bottom_side']['count'], sum(1 for r in cpl.values() if r[4] == 'Bottom'))
+        self.assertEqual([(b['panel']['boards_per_panel'], b['panel']['pcba_quantity_panels'], b['panel']['assembled_boards']) for b in c['boards']],
+                         [(1, 2, 2), (2, 2, 4), (1, 2, 2)])
+        self.assertEqual(boards['controller']['pcb']['stackup']['select'], 'JLC04081H-3313')
+        self.assertTrue(boards['power_adapter']['pcb']['surface_finish'].startswith('HOLD'))
+        self.assertIn('power-adapter-a5-settings-unspecified', [h['id'] for h in c['holds']])
+        self.assertTrue(c['factory_acceptance_questions'])
+
+    def test_factory_review_is_dated_public_page_evidence_only(self):
+        for change, pattern in ((lambda fr: fr.update(status='SUPPLIER_CONFIRMED'), 'not supplier confirmation'),
+                                (lambda fr: fr['pages'][0].update(retrieved_at='2026-11-12T10:00:00Z'), 'not a dated, hashed'),
+                                (lambda fr: fr['topics'][0]['stated'].append({'source': 'unknown-page', 'quote': 'x'}), 'unsourced statement')):
+            sources = json.loads((ROOT / J.SOURCES).read_text())
+            change(sources['factory_review'])
+            with self.assertRaisesRegex(ValueError, pattern):
+                J.generate(sources=sources)
 
     def test_committed_outputs_are_current(self):
         for name, text in self.files.items():

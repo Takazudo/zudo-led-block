@@ -1,0 +1,40 @@
+{
+  "schema": 1,
+  "what": "Hand-maintained index of the dated JLC file sets under engineering/a7/jlc-package/. scripts/a7_jlc_package.py reads it, verifies each set's SHA256SUMS and board identities, and names the current set on the generated owner page. A set is never edited after it is recorded; a newer set supersedes it.",
+  "statuses": {
+    "HISTORICAL_SUPERSEDED": "Bound to board identities that are no longer current. Kept byte-for-byte with its approval evidence; not an upload choice.",
+    "REVIEW_ONLY_NOT_FOR_ORDER": "Bound to the current board identities for review. Not an upload set while the revision-specific owner prototype-route approval or the external order-form checks are open.",
+    "PROTOTYPE_UPLOAD_APPROVED": "Bound to the current identities and to an owner prototype-route approval recorded in qualification/records.json. Still not a manufacturing release."
+  },
+  "current": "engineering/a7/jlc-package/review/2026-11-22",
+  "sets": [
+    {
+      "path": "engineering/a7/jlc-package/order/2026-11-13",
+      "status": "HISTORICAL_SUPERSEDED",
+      "exported_from": "db0ca95",
+      "boards": {
+        "controller": "89310d539b3c28096775cee821e46c14fdba42a87809c82f1fd7f0751704e727",
+        "led_leaf": "6244280cec3efe00ca31d9c5c8878f3ed6eb59a1c6bd4e933beffedd49511df3",
+        "power_adapter": "b0f071f2730afdfd3d29de2176b1cce5f90b0c0726d14fd15501e27f90d95187"
+      },
+      "settings": "controller 1.6 mm 4-layer, LED leaf 0.6 mm 2-layer (A5 leaf file), power adapter 1.6 mm 2-layer",
+      "approval_scope": "The 2026-11-12/13 owner prototype-route approvals in qualification/approvals/ bind these old identities only; they do not carry to any later board.",
+      "superseded_by_change": "PR #88 (0.8 mm rigid FR-4 redesign, merged 6f6e8ea): new controller and LED leaf boards",
+      "note": "The panel BOM/CPL bytes here equal the current panels/ BOM/CPL because the 0.8 mm redesign kept every placement, part and designator; the Gerber zips are from the old boards and are not current.",
+      "superseded_by": "engineering/a7/jlc-package/review/2026-11-22"
+    },
+    {
+      "path": "engineering/a7/jlc-package/review/2026-11-22",
+      "status": "REVIEW_ONLY_NOT_FOR_ORDER",
+      "exported_from": "8647012",
+      "boards": {
+        "controller": "d83691d6590e013b2a66957b61d76ba2f68bedaaec04789326e1215b2d1bdb2b",
+        "led_leaf": "bcf2e35d767221f5a9db0cd16769a2e503a672f522fd4f32f78012cdeb494cf9",
+        "power_adapter": "b0f071f2730afdfd3d29de2176b1cce5f90b0c0726d14fd15501e27f90d95187"
+      },
+      "settings": "controller 0.8 mm 4-layer JLC04081H-3313 ENIG, LED leaf 0.8 mm 2-layer ENIG, power adapter A5 1.6 mm 2-layer (finish/colour/material on hold)",
+      "approval_scope": "None recorded. Becomes PROTOTYPE_UPLOAD_APPROVED only after an owner prototype-route approval for the identity set in its identities.json is recorded in qualification/records.json.",
+      "note": "Panel Gerbers from a local pinned-image build equal the CI run 44981535275 panel artifact primitive for primitive (gerber-comparison-vs-ci.json)."
+    }
+  ]
+}

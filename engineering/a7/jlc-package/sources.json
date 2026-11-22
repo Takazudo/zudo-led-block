@@ -1,6 +1,6 @@
 {
   "schema": 1,
-  "what": "JLCPCB pages read anonymously on 2026-11-12 for the order-package dry run. Raw pages are not committed; each receipt keeps its retrieval time and the SHA-256 of the bytes served.",
+  "what": "JLCPCB pages read anonymously for the order-package dry run. \"parts\" holds the latest dated rendered part-page receipts (2026-11-22, sanitized copies in the private repository); earlier receipts stay unchanged under \"parts_history\". \"pages\" keeps the 2026-11-12 receipts the package rules cite; \"factory_review\" is the 2026-11-22 capability review. Every receipt keeps its retrieval time and the SHA-256 of the bytes served. None is a quote, reservation, lead time or assembly acceptance.",
   "pages": [
     {
       "id": "jlc-pcba-capabilities",
@@ -131,503 +131,626 @@
     {
       "lcsc": "C122442",
       "url": "https://jlcpcb.com/partdetail/C122442",
-      "retrieved_at": "2026-11-12T10:35:07Z",
-      "raw_sha256": "1055748e8422ac35c729c83dc8766c1b248960904819a1e507e76f57763f8b21",
+      "retrieved_at": "2026-11-22T06:14:44Z",
+      "raw_sha256": "59ce82c6a28fa7f9fa3aa87166bcc214b3c648b13ecc5cd32d3ee617ab687e6b",
       "model": "530470310",
+      "model_as_listed": "530470310",
       "library": "EXTENDED",
       "pcba_type": "Economic and Standard",
       "assembly_type": "Wave Soldering",
       "buyable": true,
-      "in_stock": 21090,
-      "preorder_available": 20494,
+      "in_stock": 17167,
+      "preorder_available": 16434,
       "preorder_minimum": 89,
       "packaging_quantity": 2500,
       "loss_number": 2,
-      "least_patch_number": 2
+      "least_patch_number": 2,
+      "stored": {
+        "path": "distributor-captures/jlcpcb-lcsc/zudo-led-block-a7-20261122/C122442-partdetail.html.gz",
+        "sha256": "669bc24fb4655b895a18e992b173197a75b6d76046331828ebe83761efedde52"
+      }
     },
     {
       "lcsc": "C12891",
       "url": "https://jlcpcb.com/partdetail/C12891",
-      "retrieved_at": "2026-11-12T10:35:10Z",
-      "raw_sha256": "7a1f5107d27ad95b1bd85cf5ef0d18640005f644b8f16085bd829d8d77f88180",
+      "retrieved_at": "2026-11-22T06:14:48Z",
+      "raw_sha256": "c923d68bc1fd68e01abacb4f4c9312e414fff8fc2d5396052eb1fbef2ebebe18",
       "model": "CL31A226KAHNNNE",
+      "model_as_listed": "CL31A226KAHNNNE",
       "library": "BASIC",
       "pcba_type": "Economic and Standard",
       "assembly_type": "SMT Assembly",
       "buyable": true,
-      "in_stock": 2515861,
-      "preorder_available": 2105398,
+      "in_stock": 2568477,
+      "preorder_available": 2155173,
       "preorder_minimum": 88,
       "packaging_quantity": 2000,
       "loss_number": 4,
-      "least_patch_number": 5
+      "least_patch_number": 5,
+      "stored": {
+        "path": "distributor-captures/jlcpcb-lcsc/zudo-led-block-a7-20261122/C12891-partdetail.html.gz",
+        "sha256": "40826014464d9f640136e4536c8a5a68169861cde7451de11c8ca90ea7fb6232"
+      }
     },
     {
       "lcsc": "C134375",
       "url": "https://jlcpcb.com/partdetail/C134375",
-      "retrieved_at": "2026-11-12T10:35:13Z",
-      "raw_sha256": "8eb4e1dbfa7c6ab0009f45b32f4f6bb15ddf8222b6fb45fec8ff6f05fb636545",
+      "retrieved_at": "2026-11-22T06:14:51Z",
+      "raw_sha256": "b97205b556bc387284b79dd0dbe3e1729dcbc7ca6b76316c42b56d817d0d8cea",
       "model": "BAS70-04-7-F",
+      "model_as_listed": "BAS70-04-7-F",
       "library": "EXTENDED",
       "pcba_type": "Economic and Standard",
       "assembly_type": "SMT Assembly",
       "buyable": true,
-      "in_stock": 247,
-      "preorder_available": 124,
+      "in_stock": 1,
+      "preorder_available": 1,
       "preorder_minimum": 149,
       "packaging_quantity": 3000,
       "loss_number": 5,
-      "least_patch_number": 5
+      "least_patch_number": 5,
+      "stored": {
+        "path": "distributor-captures/jlcpcb-lcsc/zudo-led-block-a7-20261122/C134375-partdetail.html.gz",
+        "sha256": "febe42d35289c7706031b9faa9e8b0e5efc29abe33ad053f6ad2bbb88f9429ff"
+      }
     },
     {
       "lcsc": "C140331",
       "url": "https://jlcpcb.com/partdetail/C140331",
-      "retrieved_at": "2026-11-12T10:35:15Z",
-      "raw_sha256": "03ae7f6072a684a1246b3db4c566052a07d3bbbd9c96431cad0199772887f18f",
+      "retrieved_at": "2026-11-22T06:14:55Z",
+      "raw_sha256": "46ec57bf87773ee359966ae1a70855c528b05e492a86dabb83e5a26c19157679",
       "model": "TPS2552DBVR-1",
+      "model_as_listed": "TPS2552DBVR-1",
       "library": "EXTENDED",
       "pcba_type": "Economic and Standard",
       "assembly_type": "SMT Assembly",
       "buyable": true,
-      "in_stock": 2228,
-      "preorder_available": 2219,
+      "in_stock": 2003,
+      "preorder_available": 1980,
       "preorder_minimum": 13,
       "packaging_quantity": 3000,
       "loss_number": 0,
-      "least_patch_number": 2
+      "least_patch_number": 2,
+      "stored": {
+        "path": "distributor-captures/jlcpcb-lcsc/zudo-led-block-a7-20261122/C140331-partdetail.html.gz",
+        "sha256": "7f2cb8fb5863caeb166dee77999ae55260ef9bb6ff06fa9f648d30e8dfe4349b"
+      }
     },
     {
       "lcsc": "C14663",
       "url": "https://jlcpcb.com/partdetail/C14663",
-      "retrieved_at": "2026-11-12T10:35:18Z",
-      "raw_sha256": "bc4d415d39a4325644d0c9cbea16d96d42d621853dc1364c24ed822c981ee88e",
+      "retrieved_at": "2026-11-22T06:14:59Z",
+      "raw_sha256": "2b477ede7248b34e672dc7fcb34a8c323db32870ce7ae39272eab55961ba6d3c",
       "model": "CC0603KRX7R9BB104",
+      "model_as_listed": "CC0603KRX7R9BB104",
       "library": "BASIC",
       "pcba_type": "Economic and Standard",
       "assembly_type": "SMT Assembly",
       "buyable": true,
-      "in_stock": 36130749,
-      "preorder_available": 18269416,
-      "preorder_minimum": 1920,
+      "in_stock": 53154123,
+      "preorder_available": 34435351,
+      "preorder_minimum": 2201,
       "packaging_quantity": 4000,
       "loss_number": 15,
-      "least_patch_number": 20
+      "least_patch_number": 20,
+      "stored": {
+        "path": "distributor-captures/jlcpcb-lcsc/zudo-led-block-a7-20261122/C14663-partdetail.html.gz",
+        "sha256": "944550d06bb7e4c384aabdbcf07562af9c367ae130cd8fbf0b98b05218852d15"
+      }
     },
     {
       "lcsc": "C15741",
       "url": "https://jlcpcb.com/partdetail/C15741",
-      "retrieved_at": "2026-11-12T10:35:20Z",
-      "raw_sha256": "050ca154227dea15ea4f830f394163f9dd563b9ec8140415ca0ebd66f10317dd",
+      "retrieved_at": "2026-11-22T06:15:03Z",
+      "raw_sha256": "468c10ed08aad2a3281569bf915145d73c533355b5b35094f221828240148cc9",
       "model": "SN74LVC2T45DCUR",
+      "model_as_listed": "SN74LVC2T45DCUR",
       "library": "EXTENDED",
       "pcba_type": "Economic and Standard",
       "assembly_type": "SMT Assembly",
       "buyable": true,
-      "in_stock": 85166,
-      "preorder_available": 84012,
+      "in_stock": 53962,
+      "preorder_available": 52783,
       "preorder_minimum": 44,
       "packaging_quantity": 3000,
       "loss_number": 1,
-      "least_patch_number": 5
+      "least_patch_number": 5,
+      "stored": {
+        "path": "distributor-captures/jlcpcb-lcsc/zudo-led-block-a7-20261122/C15741-partdetail.html.gz",
+        "sha256": "67f624a1d1cae35f4fa8073408c918e48b4769c3e67eaf596d582c1085d97614"
+      }
     },
     {
       "lcsc": "C15850",
       "url": "https://jlcpcb.com/partdetail/C15850",
-      "retrieved_at": "2026-11-12T10:35:23Z",
-      "raw_sha256": "84853cf031bd9c1db39315ad7591f3ef03e11765a93f09c2f0fb7440fc6aee79",
+      "retrieved_at": "2026-11-22T06:15:06Z",
+      "raw_sha256": "f8e20eb19c06516a96d4506f9edf4dfa4041fb0ccaec2cf6d43571ea9359f3d9",
       "model": "CL21A106KAYNNNE",
+      "model_as_listed": "CL21A106KAYNNNE",
       "library": "BASIC",
       "pcba_type": "Economic and Standard",
       "assembly_type": "SMT Assembly",
       "buyable": true,
-      "in_stock": 8516270,
-      "preorder_available": 6708284,
-      "preorder_minimum": 383,
+      "in_stock": 9314861,
+      "preorder_available": 7387250,
+      "preorder_minimum": 386,
       "packaging_quantity": 2000,
       "loss_number": 10,
-      "least_patch_number": 20
+      "least_patch_number": 20,
+      "stored": {
+        "path": "distributor-captures/jlcpcb-lcsc/zudo-led-block-a7-20261122/C15850-partdetail.html.gz",
+        "sha256": "d3457f9f4646355ef53c16fec9f2a90dfc8bd22e23f5e44321666d63497f0c0a"
+      }
     },
     {
       "lcsc": "C160404",
       "url": "https://jlcpcb.com/partdetail/C160404",
-      "retrieved_at": "2026-11-12T10:35:25Z",
-      "raw_sha256": "deb00082c451a5ee71a8876cdc99d1a07ee48a126fed593f2199c8b1767a231b",
+      "retrieved_at": "2026-11-22T06:15:10Z",
+      "raw_sha256": "c183c5f2703e9ca455364e583791ac3f97ea9f026426cf5b744e4ef649db3289",
       "model": "SM04B-SRSS-TB(LF)(SN)",
+      "model_as_listed": "SM04B-SRSS-TB(LF)(SN)",
       "library": "EXTENDED",
       "pcba_type": "Economic and Standard",
       "assembly_type": "SMT Assembly",
       "buyable": true,
-      "in_stock": 9798,
-      "preorder_available": 4021,
+      "in_stock": 4643,
+      "preorder_available": 0,
       "preorder_minimum": 43,
       "packaging_quantity": 3000,
       "loss_number": 0,
-      "least_patch_number": 5
+      "least_patch_number": 5,
+      "stored": {
+        "path": "distributor-captures/jlcpcb-lcsc/zudo-led-block-a7-20261122/C160404-partdetail.html.gz",
+        "sha256": "af0eed470531ca2954bca2eb54b8c7d0b4cf03d050f9e97c5d79c77f1f5f4d11"
+      }
     },
     {
       "lcsc": "C19666",
       "url": "https://jlcpcb.com/partdetail/C19666",
-      "retrieved_at": "2026-11-12T10:35:28Z",
-      "raw_sha256": "30c71d97cea9da70df18c1fc829328815296bea7ab758f9fb57cd24e472f55fb",
+      "retrieved_at": "2026-11-22T06:15:14Z",
+      "raw_sha256": "9fec8eacc1ef3999dac9c4d3661203a3fa72770616a09fc6c39cc4d385240cc5",
       "model": "CL10A475KO8NNNC",
+      "model_as_listed": "CL10A475KO8NNNC",
       "library": "BASIC",
       "pcba_type": "Economic and Standard",
       "assembly_type": "SMT Assembly",
       "buyable": true,
-      "in_stock": 3568082,
-      "preorder_available": 2787013,
-      "preorder_minimum": 950,
+      "in_stock": 3144424,
+      "preorder_available": 2328225,
+      "preorder_minimum": 1157,
       "packaging_quantity": 4000,
       "loss_number": 10,
-      "least_patch_number": 20
+      "least_patch_number": 20,
+      "stored": {
+        "path": "distributor-captures/jlcpcb-lcsc/zudo-led-block-a7-20261122/C19666-partdetail.html.gz",
+        "sha256": "823e4bba633c8e09b02e6c024f0ba8a2fb0bf6dce1ad97666a67e2cf72969aa3"
+      }
     },
     {
       "lcsc": "C20526",
       "url": "https://jlcpcb.com/partdetail/C20526",
-      "retrieved_at": "2026-11-12T10:35:30Z",
-      "raw_sha256": "2c83ebd2345bf4e0ddb92ef4230bd26817782c6399c995bbec1e1140d98ae57d",
+      "retrieved_at": "2026-11-22T06:15:17Z",
+      "raw_sha256": "77539d9286255f4ea54e5d82a8f2cef810b2e2884f524c03dd3b0097688bc4e7",
       "model": "MMBT3904(RANGE:100-300)",
+      "model_as_listed": "MMBT3904(RANGE:100-300)",
       "library": "BASIC",
       "pcba_type": "Economic and Standard",
       "assembly_type": "SMT Assembly",
       "buyable": true,
-      "in_stock": 4183780,
-      "preorder_available": 4065649,
+      "in_stock": 4176944,
+      "preorder_available": 4045969,
       "preorder_minimum": 1143,
       "packaging_quantity": 3000,
       "loss_number": 5,
-      "least_patch_number": 10
+      "least_patch_number": 10,
+      "stored": {
+        "path": "distributor-captures/jlcpcb-lcsc/zudo-led-block-a7-20261122/C20526-partdetail.html.gz",
+        "sha256": "d11df2eae4eb8251cb52313b6810bd2ae95e604c8920617244e6c3e052290d17"
+      }
     },
     {
       "lcsc": "C2071056",
       "url": "https://jlcpcb.com/partdetail/C2071056",
-      "retrieved_at": "2026-11-12T10:35:32Z",
-      "raw_sha256": "0668c6ad275514b58fc1945be1ecc930827648326eac9db6cf9519f89b68ad1e",
+      "retrieved_at": "2026-11-22T06:15:21Z",
+      "raw_sha256": "7591f1dba785658425063c7aed526f4d0d80fc3d6e5ed7d11b4d6a40f3c5dd7d",
       "model": "AP63205WU-7",
+      "model_as_listed": "AP63205WU-7",
       "library": "EXTENDED",
       "pcba_type": "Economic and Standard",
       "assembly_type": "SMT Assembly",
       "buyable": true,
-      "in_stock": 39904,
-      "preorder_available": 37005,
+      "in_stock": 57435,
+      "preorder_available": 54489,
       "preorder_minimum": 25,
       "packaging_quantity": 3000,
       "loss_number": 0,
-      "least_patch_number": 2
+      "least_patch_number": 2,
+      "stored": {
+        "path": "distributor-captures/jlcpcb-lcsc/zudo-led-block-a7-20261122/C2071056-partdetail.html.gz",
+        "sha256": "8f44af2d48c5f4062be860f5f202798e5b58093d2fe8f354fe552ab637e16164"
+      }
     },
     {
       "lcsc": "C21190",
       "url": "https://jlcpcb.com/partdetail/C21190",
-      "retrieved_at": "2026-11-12T10:35:35Z",
-      "raw_sha256": "bc75d0dcb5a70a185505fd3136dbec0860ac2c93a6267b4b8b3afbe8a180f36a",
+      "retrieved_at": "2026-11-22T06:15:24Z",
+      "raw_sha256": "88af9b58fe4f31fa010ee85b3919de1f36136335f9f83bf5bbdc18e127d97475",
       "model": "0603WAF1001T5E",
+      "model_as_listed": "0603WAF1001T5E",
       "library": "BASIC",
       "pcba_type": "Economic and Standard",
       "assembly_type": "SMT Assembly",
       "buyable": true,
-      "in_stock": 28882373,
-      "preorder_available": 22227859,
+      "in_stock": 40500481,
+      "preorder_available": 33681666,
       "preorder_minimum": 5000,
       "packaging_quantity": 5000,
       "loss_number": 10,
-      "least_patch_number": 20
+      "least_patch_number": 20,
+      "stored": {
+        "path": "distributor-captures/jlcpcb-lcsc/zudo-led-block-a7-20261122/C21190-partdetail.html.gz",
+        "sha256": "1ac1374c62ff61ba084a14e5fbc122b36e3794696fc88f9cb5e1ee78e0ba778c"
+      }
     },
     {
       "lcsc": "C221351",
       "url": "https://jlcpcb.com/partdetail/C221351",
-      "retrieved_at": "2026-11-12T10:35:37Z",
-      "raw_sha256": "cf0ecb4ff19b146f9dc0cd445f125d8746c0e6b8a979710390e99119816a1269",
+      "retrieved_at": "2026-11-22T06:15:28Z",
+      "raw_sha256": "9ee3ad02ea870e8b8ccfdaedcacf3a5c3c383d3de5b33056c3ac4ebbab96395f",
       "model": "OPA197IDBVR",
+      "model_as_listed": "OPA197IDBVR",
       "library": "EXTENDED",
       "pcba_type": "Economic and Standard",
       "assembly_type": "SMT Assembly",
       "buyable": true,
-      "in_stock": 76873,
-      "preorder_available": 76582,
-      "preorder_minimum": 13,
+      "in_stock": 71013,
+      "preorder_available": 70678,
+      "preorder_minimum": 15,
       "packaging_quantity": 3000,
       "loss_number": 0,
-      "least_patch_number": 0
-    },
-    {
-      "lcsc": "C221842",
-      "url": "https://jlcpcb.com/partdetail/C221842",
-      "retrieved_at": "2026-11-12T10:35:39Z",
-      "raw_sha256": "312f99ac1f9a6da3fe742daef9ca3151a0f5f0a3b5876415ee6ccf2f281948a4",
-      "model": "PCM13SMTR",
-      "library": "EXTENDED",
-      "pcba_type": "Economic and Standard",
-      "assembly_type": "SMT Assembly",
-      "buyable": true,
-      "in_stock": 0,
-      "preorder_available": 0,
-      "preorder_minimum": 3,
-      "packaging_quantity": 3500,
-      "loss_number": 0,
-      "least_patch_number": 0
+      "least_patch_number": 0,
+      "stored": {
+        "path": "distributor-captures/jlcpcb-lcsc/zudo-led-block-a7-20261122/C221351-partdetail.html.gz",
+        "sha256": "d5376fcf738e013261d88e5e2cd17bc696a70811d1209a98d464a6e6411f87ad"
+      }
     },
     {
       "lcsc": "C22355739",
       "url": "https://jlcpcb.com/partdetail/C22355739",
-      "retrieved_at": "2026-11-12T10:35:41Z",
-      "raw_sha256": "43c0b61b277d861c137ca03bac53982bee67c885204bbd3990706b17b6a8712a",
+      "retrieved_at": "2026-11-22T06:15:31Z",
+      "raw_sha256": "42756e477209a626de3613d834dc85c4b7572e368970719f787eb95cab70d325",
       "model": "PJ-324M",
+      "model_as_listed": "PJ-324M",
       "library": "EXTENDED",
       "pcba_type": "Economic and Standard",
       "assembly_type": "Wave Soldering",
       "buyable": true,
-      "in_stock": 5954,
-      "preorder_available": 5802,
+      "in_stock": 4113,
+      "preorder_available": 3999,
       "preorder_minimum": 53,
       "packaging_quantity": 500,
       "loss_number": 0,
-      "least_patch_number": 2
+      "least_patch_number": 2,
+      "stored": {
+        "path": "distributor-captures/jlcpcb-lcsc/zudo-led-block-a7-20261122/C22355739-partdetail.html.gz",
+        "sha256": "841c194481623e49ce4c256331a772eb7322f8527e4601d8b9b10a3230a5877c"
+      }
     },
     {
       "lcsc": "C23138",
       "url": "https://jlcpcb.com/partdetail/C23138",
-      "retrieved_at": "2026-11-12T10:35:44Z",
-      "raw_sha256": "ff71c26bbe462e709ed483a9f41d8284606ad531bc899f21511b0b4ad72ea749",
+      "retrieved_at": "2026-11-22T06:15:34Z",
+      "raw_sha256": "f5df8f77119336246c7d4340deb6a484fc4f58196a1ce64c67208ed0eefc6009",
       "model": "0603WAF3300T5E",
+      "model_as_listed": "0603WAF3300T5E",
       "library": "BASIC",
       "pcba_type": "Economic and Standard",
       "assembly_type": "SMT Assembly",
       "buyable": true,
-      "in_stock": 2416605,
-      "preorder_available": 1796477,
+      "in_stock": 2611842,
+      "preorder_available": 1970531,
       "preorder_minimum": 5000,
       "packaging_quantity": 5000,
       "loss_number": 10,
-      "least_patch_number": 20
+      "least_patch_number": 20,
+      "stored": {
+        "path": "distributor-captures/jlcpcb-lcsc/zudo-led-block-a7-20261122/C23138-partdetail.html.gz",
+        "sha256": "58dc2ee72378afe3113a196a1376cb28d6dc3e195889f429e7ceaccaebd91201"
+      }
     },
     {
       "lcsc": "C23162",
       "url": "https://jlcpcb.com/partdetail/C23162",
-      "retrieved_at": "2026-11-12T10:35:46Z",
-      "raw_sha256": "26a269e3ba9b02cfb4a22c4cc34eca1a2fe8341e8594e70c8cc386dbeed8267a",
+      "retrieved_at": "2026-11-22T06:15:38Z",
+      "raw_sha256": "64411b71d226cd9442413b4d6d2b601b7d5e656893debd2f1c7b17f4406becea",
       "model": "0603WAF4701T5E",
+      "model_as_listed": "0603WAF4701T5E",
       "library": "BASIC",
       "pcba_type": "Economic and Standard",
       "assembly_type": "SMT Assembly",
       "buyable": true,
-      "in_stock": 14660825,
-      "preorder_available": 11419063,
+      "in_stock": 19300585,
+      "preorder_available": 15903942,
       "preorder_minimum": 4102,
       "packaging_quantity": 5000,
       "loss_number": 10,
-      "least_patch_number": 20
+      "least_patch_number": 20,
+      "stored": {
+        "path": "distributor-captures/jlcpcb-lcsc/zudo-led-block-a7-20261122/C23162-partdetail.html.gz",
+        "sha256": "83b94b2ec2bf07b30fd85109945e08071b168d46a0530095ad9b469ab994e839"
+      }
     },
     {
       "lcsc": "C23231",
       "url": "https://jlcpcb.com/partdetail/C23231",
-      "retrieved_at": "2026-11-12T10:35:49Z",
-      "raw_sha256": "8abb0f6e5f0c55d4d2c2909d3ea73376af801cfaed939b7ae88ce20d13b9b9fa",
+      "retrieved_at": "2026-11-22T06:15:41Z",
+      "raw_sha256": "763b3588250ed8b10ce233fd41aa3713b1f7b9918875a46dcc84a99df1163db9",
       "model": "0603WAF6802T5E",
+      "model_as_listed": "0603WAF6802T5E",
       "library": "BASIC",
       "pcba_type": "Economic and Standard",
       "assembly_type": "SMT Assembly",
       "buyable": true,
-      "in_stock": 787855,
-      "preorder_available": 687058,
+      "in_stock": 673837,
+      "preorder_available": 573056,
       "preorder_minimum": 5000,
       "packaging_quantity": 5000,
       "loss_number": 10,
-      "least_patch_number": 20
+      "least_patch_number": 20,
+      "stored": {
+        "path": "distributor-captures/jlcpcb-lcsc/zudo-led-block-a7-20261122/C23231-partdetail.html.gz",
+        "sha256": "f91dd1e5c34a4f75371e2dffd2827bfd472c5f5912a2c2994a64c1d74bb677b3"
+      }
     },
     {
       "lcsc": "C23254",
       "url": "https://jlcpcb.com/partdetail/C23254",
-      "retrieved_at": "2026-11-12T10:35:51Z",
-      "raw_sha256": "a5bb3eea40873347bcfc4938abaa8b2d77477f4db0e5c8699ed02bc1dda35270",
+      "retrieved_at": "2026-11-22T06:15:45Z",
+      "raw_sha256": "62182ef5aa36ac0a439631bb94236aba949e4ae0cfcc3eed28bbce7baede2118",
       "model": "0603WAF8202T5E",
+      "model_as_listed": "0603WAF8202T5E",
       "library": "BASIC",
       "pcba_type": "Economic and Standard",
       "assembly_type": "SMT Assembly",
       "buyable": true,
-      "in_stock": 933289,
-      "preorder_available": 868318,
+      "in_stock": 850956,
+      "preorder_available": 779465,
       "preorder_minimum": 4297,
       "packaging_quantity": 5000,
       "loss_number": 10,
-      "least_patch_number": 20
+      "least_patch_number": 20,
+      "stored": {
+        "path": "distributor-captures/jlcpcb-lcsc/zudo-led-block-a7-20261122/C23254-partdetail.html.gz",
+        "sha256": "9207bace64c8b4451520329044516642973448dea60c80821eb981d85452614a"
+      }
     },
     {
       "lcsc": "C25803",
       "url": "https://jlcpcb.com/partdetail/C25803",
-      "retrieved_at": "2026-11-12T10:35:53Z",
-      "raw_sha256": "1ff9d6a6b948c7bb49e4b46e7a56776682d18ba5a257d4863e967a7fb7094d60",
+      "retrieved_at": "2026-11-22T06:15:49Z",
+      "raw_sha256": "895c61d8f2d42757ec27d8fff2e616612e1ac98b2a6b36082b013a2a114031ec",
       "model": "0603WAF1003T5E",
+      "model_as_listed": "0603WAF1003T5E",
       "library": "BASIC",
       "pcba_type": "Economic and Standard",
       "assembly_type": "SMT Assembly",
       "buyable": true,
-      "in_stock": 15062647,
-      "preorder_available": 12699495,
+      "in_stock": 13030961,
+      "preorder_available": 10609376,
       "preorder_minimum": 3923,
       "packaging_quantity": 5000,
       "loss_number": 10,
-      "least_patch_number": 20
+      "least_patch_number": 20,
+      "stored": {
+        "path": "distributor-captures/jlcpcb-lcsc/zudo-led-block-a7-20261122/C25803-partdetail.html.gz",
+        "sha256": "f7f55e9bba2fa12d0fe9854d75af8c8f150ebcf991b179afb5e6803e103857a9"
+      }
     },
     {
       "lcsc": "C25804",
       "url": "https://jlcpcb.com/partdetail/C25804",
-      "retrieved_at": "2026-11-12T10:35:56Z",
-      "raw_sha256": "5cf94f46a9bbd5e8a7d88f04ba7aa385d1e0e479149351191d661cf55493ea32",
+      "retrieved_at": "2026-11-22T06:15:52Z",
+      "raw_sha256": "3eca250037e96ae00b81c74cd8a181c33fc1023763c46586c30fbe985a795c89",
       "model": "0603WAF1002T5E",
+      "model_as_listed": "0603WAF1002T5E",
       "library": "BASIC",
       "pcba_type": "Economic and Standard",
       "assembly_type": "SMT Assembly",
       "buyable": true,
-      "in_stock": 42898836,
-      "preorder_available": 32419078,
+      "in_stock": 42489966,
+      "preorder_available": 31530960,
       "preorder_minimum": 5000,
       "packaging_quantity": 5000,
       "loss_number": 10,
-      "least_patch_number": 20
+      "least_patch_number": 20,
+      "stored": {
+        "path": "distributor-captures/jlcpcb-lcsc/zudo-led-block-a7-20261122/C25804-partdetail.html.gz",
+        "sha256": "06d5fad6d901ddf76db036eeb4730287733cc48542a2876d69f4f7f2422e79ce"
+      }
     },
     {
       "lcsc": "C398363",
       "url": "https://jlcpcb.com/partdetail/C398363",
-      "retrieved_at": "2026-11-12T10:35:58Z",
-      "raw_sha256": "b6545a303605bf6f023574cbc7abee7b61ab4989cfc2c271be0057986618311b",
+      "retrieved_at": "2026-11-22T06:15:55Z",
+      "raw_sha256": "3394917a37f78a8f43370c39363af58ef67e7ca0eef91a7f1b15a38ac251e5b9",
       "model": "TLV9001IDBVR",
+      "model_as_listed": "TLV9001IDBVR",
       "library": "EXTENDED",
       "pcba_type": "Economic and Standard",
       "assembly_type": "SMT Assembly",
       "buyable": true,
-      "in_stock": 47115,
-      "preorder_available": 45780,
+      "in_stock": 12316,
+      "preorder_available": 11099,
       "preorder_minimum": 144,
       "packaging_quantity": 3000,
       "loss_number": 2,
-      "least_patch_number": 5
+      "least_patch_number": 5,
+      "stored": {
+        "path": "distributor-captures/jlcpcb-lcsc/zudo-led-block-a7-20261122/C398363-partdetail.html.gz",
+        "sha256": "573612eebb2c54c756ce259f8af31d64894d877fab553b330cd396f8b35dbba0"
+      }
     },
     {
       "lcsc": "C404027",
       "url": "https://jlcpcb.com/partdetail/C404027",
-      "retrieved_at": "2026-11-12T10:36:00Z",
-      "raw_sha256": "f6bed450977294fcd6e4ed3d1b192d16601005a7372ec719c58023d670335dcc",
+      "retrieved_at": "2026-11-22T06:16:00Z",
+      "raw_sha256": "977d417212f7004cfba40acfeb7f5835a8b3d9761d9d874f95d9cdae078cb9c2",
       "model": "TLV75533PDBVR",
+      "model_as_listed": "TLV75533PDBVR",
       "library": "EXTENDED",
       "pcba_type": "Economic and Standard",
       "assembly_type": "SMT Assembly",
       "buyable": true,
-      "in_stock": 75642,
-      "preorder_available": 74564,
-      "preorder_minimum": 95,
+      "in_stock": 98097,
+      "preorder_available": 96579,
+      "preorder_minimum": 94,
       "packaging_quantity": 3000,
       "loss_number": 1,
-      "least_patch_number": 5
+      "least_patch_number": 5,
+      "stored": {
+        "path": "distributor-captures/jlcpcb-lcsc/zudo-led-block-a7-20261122/C404027-partdetail.html.gz",
+        "sha256": "a707b7e99312b1c655d871f3f5439b717edd9a4bb78424f6c179757f7b9517e1"
+      }
     },
     {
       "lcsc": "C50704",
       "url": "https://jlcpcb.com/partdetail/C50704",
-      "retrieved_at": "2026-11-12T10:36:03Z",
-      "raw_sha256": "0d8e43cb5a7d30b52f987e3b3ada24ebc038a3ddeafc8f91ef5b1cffb6878341",
+      "retrieved_at": "2026-11-22T06:16:03Z",
+      "raw_sha256": "378fe2bec917087cf064d87779929a6629247b833f58eedac3a486e4b7fb5597",
       "model": "PMEG4010CEJ,115",
+      "model_as_listed": "PMEG4010CEJ,115",
       "library": "EXTENDED",
       "pcba_type": "Economic and Standard",
       "assembly_type": "SMT Assembly",
       "buyable": true,
-      "in_stock": 12701,
-      "preorder_available": 12534,
+      "in_stock": 11091,
+      "preorder_available": 10949,
       "preorder_minimum": 26,
       "packaging_quantity": 3000,
       "loss_number": 2,
-      "least_patch_number": 5
+      "least_patch_number": 5,
+      "stored": {
+        "path": "distributor-captures/jlcpcb-lcsc/zudo-led-block-a7-20261122/C50704-partdetail.html.gz",
+        "sha256": "51794350308f9c300cd33d6ef93375b13398f35417e3a0180d490641f3524e2c"
+      }
     },
     {
       "lcsc": "C5149819",
       "url": "https://jlcpcb.com/partdetail/C5149819",
-      "retrieved_at": "2026-11-12T19:56:55Z",
-      "raw_sha256": "50438e91d35f70b81b122f482a9fe9de09ca5dfbd1a0178933ad481e9bfa3f6e",
+      "retrieved_at": "2026-11-22T06:16:07Z",
+      "raw_sha256": "e409c24883261db914feeb258092cc53904ad19b99c055d4d6d7bcdf2ac8f6d9",
       "model": "HX MSK13C02",
+      "model_as_listed": "HX MSK13C02",
       "library": "EXTENDED",
       "pcba_type": "Economic and Standard",
       "assembly_type": "SMT Assembly",
       "buyable": true,
-      "in_stock": 4561,
-      "preorder_available": 4552,
+      "in_stock": 3511,
+      "preorder_available": 3433,
       "preorder_minimum": 107,
       "packaging_quantity": 3000,
       "loss_number": 0,
-      "least_patch_number": 0
+      "least_patch_number": 0,
+      "stored": {
+        "path": "distributor-captures/jlcpcb-lcsc/zudo-led-block-a7-20261122/C5149819-partdetail.html.gz",
+        "sha256": "0126e43cfea9c79ed9b46969cb66bd0890cc2ce047e77cfdc797cf701676e178"
+      }
     },
     {
       "lcsc": "C5270180",
       "url": "https://jlcpcb.com/partdetail/C5270180",
-      "retrieved_at": "2026-11-12T10:36:05Z",
-      "raw_sha256": "306bb012859bb81a878ca191635f8fef9f17a8d3c1524c91b6ad68c526915816",
+      "retrieved_at": "2026-11-22T06:16:12Z",
+      "raw_sha256": "fd1db2c8df5bd207af3ad33d8aad27c5b5b82feeb77704d508f375fa6a3835c6",
       "model": "STM32G031G8U6TR",
+      "model_as_listed": "STM32G031G8U6TR",
       "library": "EXTENDED",
       "pcba_type": "Economic and Standard",
       "assembly_type": "SMT Assembly",
       "buyable": true,
-      "in_stock": 4507,
-      "preorder_available": 3777,
+      "in_stock": 3891,
+      "preorder_available": 3160,
       "preorder_minimum": 6,
       "packaging_quantity": 3000,
       "loss_number": 0,
-      "least_patch_number": 0
+      "least_patch_number": 0,
+      "stored": {
+        "path": "distributor-captures/jlcpcb-lcsc/zudo-led-block-a7-20261122/C5270180-partdetail.html.gz",
+        "sha256": "95aaf0b783a1a2ecc5ef1d50903addf9a264f586f58350833387beed5ba55f4e"
+      }
     },
     {
       "lcsc": "C52917434",
       "url": "https://jlcpcb.com/partdetail/C52917434",
-      "retrieved_at": "2026-11-12T10:36:07Z",
-      "raw_sha256": "8b239addfbf3fe441f4460614b74bb263d8f2a36926982f5faf0441500b453e7",
+      "retrieved_at": "2026-11-22T06:16:16Z",
+      "raw_sha256": "508311b797f631bbc135b87c4dd264a7c5796f3f4a9a6ce3f7f46b5c52ffec00",
       "model": "WS2812B-2020-V6",
+      "model_as_listed": "WS2812B-2020-V6",
       "library": "EXTENDED",
       "pcba_type": "Standard Only",
       "assembly_type": "SMT Assembly",
       "buyable": true,
-      "in_stock": 879804,
-      "preorder_available": 857883,
-      "preorder_minimum": 133,
+      "in_stock": 708163,
+      "preorder_available": 685106,
+      "preorder_minimum": 123,
       "packaging_quantity": 4500,
       "loss_number": 2,
-      "least_patch_number": 5
+      "least_patch_number": 5,
+      "stored": {
+        "path": "distributor-captures/jlcpcb-lcsc/zudo-led-block-a7-20261122/C52917434-partdetail.html.gz",
+        "sha256": "8c2d168c0d390ed981511fdce61f69ddcb454b478f3b38b5bf0c44c10c87207c"
+      }
     },
     {
       "lcsc": "C5665",
       "url": "https://jlcpcb.com/partdetail/C5665",
-      "retrieved_at": "2026-11-12T10:36:09Z",
-      "raw_sha256": "0ab6bfdd4010302aef69d8bf559b4e3902c505f56b38d3473bdd2bb07fea38db",
+      "retrieved_at": "2026-11-22T06:16:19Z",
+      "raw_sha256": "aa051066eaa9892e4aedbb0f12eb75930e397e38569aaee605f63933b54f24d2",
       "model": "2.54-2*5P",
+      "model_as_listed": "2.54-2*5P2.54 mm pitch 2×5 pin IDC box header",
       "library": "EXTENDED",
       "pcba_type": "Economic and Standard",
       "assembly_type": "Wave Soldering",
       "buyable": true,
-      "in_stock": 131245,
-      "preorder_available": 124613,
+      "in_stock": 179329,
+      "preorder_available": 173175,
       "preorder_minimum": 106,
       "packaging_quantity": 280,
       "loss_number": 0,
       "least_patch_number": 2,
-      "model_note": "The page payload componentModelEn reads '2.54-2*5P2.54 mm pitch 2×5 pin IDC box header'; the model is its leading part number, as in the procurement ledger."
+      "stored": {
+        "path": "distributor-captures/jlcpcb-lcsc/zudo-led-block-a7-20261122/C5665-partdetail.html.gz",
+        "sha256": "ec258709d8c932b99d34093fc31a12644740651ca72a70cd5f8755deb58768fe"
+      }
     },
     {
       "lcsc": "C57112",
       "url": "https://jlcpcb.com/partdetail/C57112",
-      "retrieved_at": "2026-11-12T10:36:12Z",
-      "raw_sha256": "4ee02e4def9df40e5d194165fc4d84e509ceeab2212d7b9f23d440e886dd44b3",
+      "retrieved_at": "2026-11-22T06:16:22Z",
+      "raw_sha256": "90d9b51b9666035c31f80b7885741d06c89ba822d8ccf817959c86e9e617042c",
       "model": "0603B103K500NT",
+      "model_as_listed": "0603B103K500NT",
       "library": "BASIC",
       "pcba_type": "Economic and Standard",
       "assembly_type": "SMT Assembly",
       "buyable": true,
-      "in_stock": 5337711,
-      "preorder_available": 3755418,
-      "preorder_minimum": 876,
+      "in_stock": 4617494,
+      "preorder_available": 3038436,
+      "preorder_minimum": 2654,
       "packaging_quantity": 4000,
       "loss_number": 10,
-      "least_patch_number": 20
+      "least_patch_number": 20,
+      "stored": {
+        "path": "distributor-captures/jlcpcb-lcsc/zudo-led-block-a7-20261122/C57112-partdetail.html.gz",
+        "sha256": "a80926184ae4398694ce39f362540680d26ab8416d999a0c3595aede5cd45b12"
+      }
     },
     {
       "lcsc": "C694586",
       "url": "https://jlcpcb.com/partdetail/C694586",
-      "retrieved_at": "2026-11-12T10:36:14Z",
-      "raw_sha256": "e0fc42d64c73c9f4100958ea5d68db96bf0ca22df432cae8dd49a473061b7a0f",
+      "retrieved_at": "2026-11-22T06:16:26Z",
+      "raw_sha256": "cf37d1f0cc2ae8baac0b27fc95243256b22efce6ed95317637fe3f4e5e5cf3da",
       "model": "SPM4020T-4R7M-LR",
+      "model_as_listed": "SPM4020T-4R7M-LR",
       "library": "EXTENDED",
       "pcba_type": "Economic and Standard",
       "assembly_type": "SMT Assembly",
@@ -637,24 +760,988 @@
       "preorder_minimum": 24,
       "packaging_quantity": 500,
       "loss_number": 0,
-      "least_patch_number": 5
+      "least_patch_number": 5,
+      "stored": {
+        "path": "distributor-captures/jlcpcb-lcsc/zudo-led-block-a7-20261122/C694586-partdetail.html.gz",
+        "sha256": "c800ee71efad2570726f6b3cd622524f2f19c58cbfaea5b4f619c388825fea06"
+      }
     },
     {
       "lcsc": "C7250",
       "url": "https://jlcpcb.com/partdetail/C7250",
-      "retrieved_at": "2026-11-12T10:36:18Z",
-      "raw_sha256": "9ca24525e5e49b8fd72e28b4909518232504c04095062baad765f9ea981f19d6",
+      "retrieved_at": "2026-11-22T06:16:30Z",
+      "raw_sha256": "a99ebd9d17723d4379423ba278efe0ed39f87635d4d4445f10d34d675f1c0868",
       "model": "0603WAF1005T5E",
+      "model_as_listed": "0603WAF1005T5E",
       "library": "BASIC",
       "pcba_type": "Economic and Standard",
       "assembly_type": "SMT Assembly",
       "buyable": true,
-      "in_stock": 795181,
-      "preorder_available": 674710,
+      "in_stock": 882386,
+      "preorder_available": 757635,
       "preorder_minimum": 5000,
       "packaging_quantity": 5000,
       "loss_number": 10,
-      "least_patch_number": 20
+      "least_patch_number": 20,
+      "stored": {
+        "path": "distributor-captures/jlcpcb-lcsc/zudo-led-block-a7-20261122/C7250-partdetail.html.gz",
+        "sha256": "0625494ff174ad05d2e938a0d9137dfc8f884879616da4e0c7659e8bfdbe98da"
+      }
     }
-  ]
+  ],
+  "parts_date": "2026-11-22",
+  "parts_history": [
+    {
+      "date": "2026-11-12",
+      "note": "Rendered part-page receipts of 2026-11-12; raw pages were not kept. History only: superseded as the latest observation by \"parts\".",
+      "parts": [
+        {
+          "lcsc": "C122442",
+          "url": "https://jlcpcb.com/partdetail/C122442",
+          "retrieved_at": "2026-11-12T10:35:07Z",
+          "raw_sha256": "1055748e8422ac35c729c83dc8766c1b248960904819a1e507e76f57763f8b21",
+          "model": "530470310",
+          "library": "EXTENDED",
+          "pcba_type": "Economic and Standard",
+          "assembly_type": "Wave Soldering",
+          "buyable": true,
+          "in_stock": 21090,
+          "preorder_available": 20494,
+          "preorder_minimum": 89,
+          "packaging_quantity": 2500,
+          "loss_number": 2,
+          "least_patch_number": 2
+        },
+        {
+          "lcsc": "C12891",
+          "url": "https://jlcpcb.com/partdetail/C12891",
+          "retrieved_at": "2026-11-12T10:35:10Z",
+          "raw_sha256": "7a1f5107d27ad95b1bd85cf5ef0d18640005f644b8f16085bd829d8d77f88180",
+          "model": "CL31A226KAHNNNE",
+          "library": "BASIC",
+          "pcba_type": "Economic and Standard",
+          "assembly_type": "SMT Assembly",
+          "buyable": true,
+          "in_stock": 2515861,
+          "preorder_available": 2105398,
+          "preorder_minimum": 88,
+          "packaging_quantity": 2000,
+          "loss_number": 4,
+          "least_patch_number": 5
+        },
+        {
+          "lcsc": "C134375",
+          "url": "https://jlcpcb.com/partdetail/C134375",
+          "retrieved_at": "2026-11-12T10:35:13Z",
+          "raw_sha256": "8eb4e1dbfa7c6ab0009f45b32f4f6bb15ddf8222b6fb45fec8ff6f05fb636545",
+          "model": "BAS70-04-7-F",
+          "library": "EXTENDED",
+          "pcba_type": "Economic and Standard",
+          "assembly_type": "SMT Assembly",
+          "buyable": true,
+          "in_stock": 247,
+          "preorder_available": 124,
+          "preorder_minimum": 149,
+          "packaging_quantity": 3000,
+          "loss_number": 5,
+          "least_patch_number": 5
+        },
+        {
+          "lcsc": "C140331",
+          "url": "https://jlcpcb.com/partdetail/C140331",
+          "retrieved_at": "2026-11-12T10:35:15Z",
+          "raw_sha256": "03ae7f6072a684a1246b3db4c566052a07d3bbbd9c96431cad0199772887f18f",
+          "model": "TPS2552DBVR-1",
+          "library": "EXTENDED",
+          "pcba_type": "Economic and Standard",
+          "assembly_type": "SMT Assembly",
+          "buyable": true,
+          "in_stock": 2228,
+          "preorder_available": 2219,
+          "preorder_minimum": 13,
+          "packaging_quantity": 3000,
+          "loss_number": 0,
+          "least_patch_number": 2
+        },
+        {
+          "lcsc": "C14663",
+          "url": "https://jlcpcb.com/partdetail/C14663",
+          "retrieved_at": "2026-11-12T10:35:18Z",
+          "raw_sha256": "bc4d415d39a4325644d0c9cbea16d96d42d621853dc1364c24ed822c981ee88e",
+          "model": "CC0603KRX7R9BB104",
+          "library": "BASIC",
+          "pcba_type": "Economic and Standard",
+          "assembly_type": "SMT Assembly",
+          "buyable": true,
+          "in_stock": 36130749,
+          "preorder_available": 18269416,
+          "preorder_minimum": 1920,
+          "packaging_quantity": 4000,
+          "loss_number": 15,
+          "least_patch_number": 20
+        },
+        {
+          "lcsc": "C15741",
+          "url": "https://jlcpcb.com/partdetail/C15741",
+          "retrieved_at": "2026-11-12T10:35:20Z",
+          "raw_sha256": "050ca154227dea15ea4f830f394163f9dd563b9ec8140415ca0ebd66f10317dd",
+          "model": "SN74LVC2T45DCUR",
+          "library": "EXTENDED",
+          "pcba_type": "Economic and Standard",
+          "assembly_type": "SMT Assembly",
+          "buyable": true,
+          "in_stock": 85166,
+          "preorder_available": 84012,
+          "preorder_minimum": 44,
+          "packaging_quantity": 3000,
+          "loss_number": 1,
+          "least_patch_number": 5
+        },
+        {
+          "lcsc": "C15850",
+          "url": "https://jlcpcb.com/partdetail/C15850",
+          "retrieved_at": "2026-11-12T10:35:23Z",
+          "raw_sha256": "84853cf031bd9c1db39315ad7591f3ef03e11765a93f09c2f0fb7440fc6aee79",
+          "model": "CL21A106KAYNNNE",
+          "library": "BASIC",
+          "pcba_type": "Economic and Standard",
+          "assembly_type": "SMT Assembly",
+          "buyable": true,
+          "in_stock": 8516270,
+          "preorder_available": 6708284,
+          "preorder_minimum": 383,
+          "packaging_quantity": 2000,
+          "loss_number": 10,
+          "least_patch_number": 20
+        },
+        {
+          "lcsc": "C160404",
+          "url": "https://jlcpcb.com/partdetail/C160404",
+          "retrieved_at": "2026-11-12T10:35:25Z",
+          "raw_sha256": "deb00082c451a5ee71a8876cdc99d1a07ee48a126fed593f2199c8b1767a231b",
+          "model": "SM04B-SRSS-TB(LF)(SN)",
+          "library": "EXTENDED",
+          "pcba_type": "Economic and Standard",
+          "assembly_type": "SMT Assembly",
+          "buyable": true,
+          "in_stock": 9798,
+          "preorder_available": 4021,
+          "preorder_minimum": 43,
+          "packaging_quantity": 3000,
+          "loss_number": 0,
+          "least_patch_number": 5
+        },
+        {
+          "lcsc": "C19666",
+          "url": "https://jlcpcb.com/partdetail/C19666",
+          "retrieved_at": "2026-11-12T10:35:28Z",
+          "raw_sha256": "30c71d97cea9da70df18c1fc829328815296bea7ab758f9fb57cd24e472f55fb",
+          "model": "CL10A475KO8NNNC",
+          "library": "BASIC",
+          "pcba_type": "Economic and Standard",
+          "assembly_type": "SMT Assembly",
+          "buyable": true,
+          "in_stock": 3568082,
+          "preorder_available": 2787013,
+          "preorder_minimum": 950,
+          "packaging_quantity": 4000,
+          "loss_number": 10,
+          "least_patch_number": 20
+        },
+        {
+          "lcsc": "C20526",
+          "url": "https://jlcpcb.com/partdetail/C20526",
+          "retrieved_at": "2026-11-12T10:35:30Z",
+          "raw_sha256": "2c83ebd2345bf4e0ddb92ef4230bd26817782c6399c995bbec1e1140d98ae57d",
+          "model": "MMBT3904(RANGE:100-300)",
+          "library": "BASIC",
+          "pcba_type": "Economic and Standard",
+          "assembly_type": "SMT Assembly",
+          "buyable": true,
+          "in_stock": 4183780,
+          "preorder_available": 4065649,
+          "preorder_minimum": 1143,
+          "packaging_quantity": 3000,
+          "loss_number": 5,
+          "least_patch_number": 10
+        },
+        {
+          "lcsc": "C2071056",
+          "url": "https://jlcpcb.com/partdetail/C2071056",
+          "retrieved_at": "2026-11-12T10:35:32Z",
+          "raw_sha256": "0668c6ad275514b58fc1945be1ecc930827648326eac9db6cf9519f89b68ad1e",
+          "model": "AP63205WU-7",
+          "library": "EXTENDED",
+          "pcba_type": "Economic and Standard",
+          "assembly_type": "SMT Assembly",
+          "buyable": true,
+          "in_stock": 39904,
+          "preorder_available": 37005,
+          "preorder_minimum": 25,
+          "packaging_quantity": 3000,
+          "loss_number": 0,
+          "least_patch_number": 2
+        },
+        {
+          "lcsc": "C21190",
+          "url": "https://jlcpcb.com/partdetail/C21190",
+          "retrieved_at": "2026-11-12T10:35:35Z",
+          "raw_sha256": "bc75d0dcb5a70a185505fd3136dbec0860ac2c93a6267b4b8b3afbe8a180f36a",
+          "model": "0603WAF1001T5E",
+          "library": "BASIC",
+          "pcba_type": "Economic and Standard",
+          "assembly_type": "SMT Assembly",
+          "buyable": true,
+          "in_stock": 28882373,
+          "preorder_available": 22227859,
+          "preorder_minimum": 5000,
+          "packaging_quantity": 5000,
+          "loss_number": 10,
+          "least_patch_number": 20
+        },
+        {
+          "lcsc": "C221351",
+          "url": "https://jlcpcb.com/partdetail/C221351",
+          "retrieved_at": "2026-11-12T10:35:37Z",
+          "raw_sha256": "cf0ecb4ff19b146f9dc0cd445f125d8746c0e6b8a979710390e99119816a1269",
+          "model": "OPA197IDBVR",
+          "library": "EXTENDED",
+          "pcba_type": "Economic and Standard",
+          "assembly_type": "SMT Assembly",
+          "buyable": true,
+          "in_stock": 76873,
+          "preorder_available": 76582,
+          "preorder_minimum": 13,
+          "packaging_quantity": 3000,
+          "loss_number": 0,
+          "least_patch_number": 0
+        },
+        {
+          "lcsc": "C221842",
+          "url": "https://jlcpcb.com/partdetail/C221842",
+          "retrieved_at": "2026-11-12T10:35:39Z",
+          "raw_sha256": "312f99ac1f9a6da3fe742daef9ca3151a0f5f0a3b5876415ee6ccf2f281948a4",
+          "model": "PCM13SMTR",
+          "library": "EXTENDED",
+          "pcba_type": "Economic and Standard",
+          "assembly_type": "SMT Assembly",
+          "buyable": true,
+          "in_stock": 0,
+          "preorder_available": 0,
+          "preorder_minimum": 3,
+          "packaging_quantity": 3500,
+          "loss_number": 0,
+          "least_patch_number": 0
+        },
+        {
+          "lcsc": "C22355739",
+          "url": "https://jlcpcb.com/partdetail/C22355739",
+          "retrieved_at": "2026-11-12T10:35:41Z",
+          "raw_sha256": "43c0b61b277d861c137ca03bac53982bee67c885204bbd3990706b17b6a8712a",
+          "model": "PJ-324M",
+          "library": "EXTENDED",
+          "pcba_type": "Economic and Standard",
+          "assembly_type": "Wave Soldering",
+          "buyable": true,
+          "in_stock": 5954,
+          "preorder_available": 5802,
+          "preorder_minimum": 53,
+          "packaging_quantity": 500,
+          "loss_number": 0,
+          "least_patch_number": 2
+        },
+        {
+          "lcsc": "C23138",
+          "url": "https://jlcpcb.com/partdetail/C23138",
+          "retrieved_at": "2026-11-12T10:35:44Z",
+          "raw_sha256": "ff71c26bbe462e709ed483a9f41d8284606ad531bc899f21511b0b4ad72ea749",
+          "model": "0603WAF3300T5E",
+          "library": "BASIC",
+          "pcba_type": "Economic and Standard",
+          "assembly_type": "SMT Assembly",
+          "buyable": true,
+          "in_stock": 2416605,
+          "preorder_available": 1796477,
+          "preorder_minimum": 5000,
+          "packaging_quantity": 5000,
+          "loss_number": 10,
+          "least_patch_number": 20
+        },
+        {
+          "lcsc": "C23162",
+          "url": "https://jlcpcb.com/partdetail/C23162",
+          "retrieved_at": "2026-11-12T10:35:46Z",
+          "raw_sha256": "26a269e3ba9b02cfb4a22c4cc34eca1a2fe8341e8594e70c8cc386dbeed8267a",
+          "model": "0603WAF4701T5E",
+          "library": "BASIC",
+          "pcba_type": "Economic and Standard",
+          "assembly_type": "SMT Assembly",
+          "buyable": true,
+          "in_stock": 14660825,
+          "preorder_available": 11419063,
+          "preorder_minimum": 4102,
+          "packaging_quantity": 5000,
+          "loss_number": 10,
+          "least_patch_number": 20
+        },
+        {
+          "lcsc": "C23231",
+          "url": "https://jlcpcb.com/partdetail/C23231",
+          "retrieved_at": "2026-11-12T10:35:49Z",
+          "raw_sha256": "8abb0f6e5f0c55d4d2c2909d3ea73376af801cfaed939b7ae88ce20d13b9b9fa",
+          "model": "0603WAF6802T5E",
+          "library": "BASIC",
+          "pcba_type": "Economic and Standard",
+          "assembly_type": "SMT Assembly",
+          "buyable": true,
+          "in_stock": 787855,
+          "preorder_available": 687058,
+          "preorder_minimum": 5000,
+          "packaging_quantity": 5000,
+          "loss_number": 10,
+          "least_patch_number": 20
+        },
+        {
+          "lcsc": "C23254",
+          "url": "https://jlcpcb.com/partdetail/C23254",
+          "retrieved_at": "2026-11-12T10:35:51Z",
+          "raw_sha256": "a5bb3eea40873347bcfc4938abaa8b2d77477f4db0e5c8699ed02bc1dda35270",
+          "model": "0603WAF8202T5E",
+          "library": "BASIC",
+          "pcba_type": "Economic and Standard",
+          "assembly_type": "SMT Assembly",
+          "buyable": true,
+          "in_stock": 933289,
+          "preorder_available": 868318,
+          "preorder_minimum": 4297,
+          "packaging_quantity": 5000,
+          "loss_number": 10,
+          "least_patch_number": 20
+        },
+        {
+          "lcsc": "C25803",
+          "url": "https://jlcpcb.com/partdetail/C25803",
+          "retrieved_at": "2026-11-12T10:35:53Z",
+          "raw_sha256": "1ff9d6a6b948c7bb49e4b46e7a56776682d18ba5a257d4863e967a7fb7094d60",
+          "model": "0603WAF1003T5E",
+          "library": "BASIC",
+          "pcba_type": "Economic and Standard",
+          "assembly_type": "SMT Assembly",
+          "buyable": true,
+          "in_stock": 15062647,
+          "preorder_available": 12699495,
+          "preorder_minimum": 3923,
+          "packaging_quantity": 5000,
+          "loss_number": 10,
+          "least_patch_number": 20
+        },
+        {
+          "lcsc": "C25804",
+          "url": "https://jlcpcb.com/partdetail/C25804",
+          "retrieved_at": "2026-11-12T10:35:56Z",
+          "raw_sha256": "5cf94f46a9bbd5e8a7d88f04ba7aa385d1e0e479149351191d661cf55493ea32",
+          "model": "0603WAF1002T5E",
+          "library": "BASIC",
+          "pcba_type": "Economic and Standard",
+          "assembly_type": "SMT Assembly",
+          "buyable": true,
+          "in_stock": 42898836,
+          "preorder_available": 32419078,
+          "preorder_minimum": 5000,
+          "packaging_quantity": 5000,
+          "loss_number": 10,
+          "least_patch_number": 20
+        },
+        {
+          "lcsc": "C398363",
+          "url": "https://jlcpcb.com/partdetail/C398363",
+          "retrieved_at": "2026-11-12T10:35:58Z",
+          "raw_sha256": "b6545a303605bf6f023574cbc7abee7b61ab4989cfc2c271be0057986618311b",
+          "model": "TLV9001IDBVR",
+          "library": "EXTENDED",
+          "pcba_type": "Economic and Standard",
+          "assembly_type": "SMT Assembly",
+          "buyable": true,
+          "in_stock": 47115,
+          "preorder_available": 45780,
+          "preorder_minimum": 144,
+          "packaging_quantity": 3000,
+          "loss_number": 2,
+          "least_patch_number": 5
+        },
+        {
+          "lcsc": "C404027",
+          "url": "https://jlcpcb.com/partdetail/C404027",
+          "retrieved_at": "2026-11-12T10:36:00Z",
+          "raw_sha256": "f6bed450977294fcd6e4ed3d1b192d16601005a7372ec719c58023d670335dcc",
+          "model": "TLV75533PDBVR",
+          "library": "EXTENDED",
+          "pcba_type": "Economic and Standard",
+          "assembly_type": "SMT Assembly",
+          "buyable": true,
+          "in_stock": 75642,
+          "preorder_available": 74564,
+          "preorder_minimum": 95,
+          "packaging_quantity": 3000,
+          "loss_number": 1,
+          "least_patch_number": 5
+        },
+        {
+          "lcsc": "C50704",
+          "url": "https://jlcpcb.com/partdetail/C50704",
+          "retrieved_at": "2026-11-12T10:36:03Z",
+          "raw_sha256": "0d8e43cb5a7d30b52f987e3b3ada24ebc038a3ddeafc8f91ef5b1cffb6878341",
+          "model": "PMEG4010CEJ,115",
+          "library": "EXTENDED",
+          "pcba_type": "Economic and Standard",
+          "assembly_type": "SMT Assembly",
+          "buyable": true,
+          "in_stock": 12701,
+          "preorder_available": 12534,
+          "preorder_minimum": 26,
+          "packaging_quantity": 3000,
+          "loss_number": 2,
+          "least_patch_number": 5
+        },
+        {
+          "lcsc": "C5149819",
+          "url": "https://jlcpcb.com/partdetail/C5149819",
+          "retrieved_at": "2026-11-12T19:56:55Z",
+          "raw_sha256": "50438e91d35f70b81b122f482a9fe9de09ca5dfbd1a0178933ad481e9bfa3f6e",
+          "model": "HX MSK13C02",
+          "library": "EXTENDED",
+          "pcba_type": "Economic and Standard",
+          "assembly_type": "SMT Assembly",
+          "buyable": true,
+          "in_stock": 4561,
+          "preorder_available": 4552,
+          "preorder_minimum": 107,
+          "packaging_quantity": 3000,
+          "loss_number": 0,
+          "least_patch_number": 0
+        },
+        {
+          "lcsc": "C5270180",
+          "url": "https://jlcpcb.com/partdetail/C5270180",
+          "retrieved_at": "2026-11-12T10:36:05Z",
+          "raw_sha256": "306bb012859bb81a878ca191635f8fef9f17a8d3c1524c91b6ad68c526915816",
+          "model": "STM32G031G8U6TR",
+          "library": "EXTENDED",
+          "pcba_type": "Economic and Standard",
+          "assembly_type": "SMT Assembly",
+          "buyable": true,
+          "in_stock": 4507,
+          "preorder_available": 3777,
+          "preorder_minimum": 6,
+          "packaging_quantity": 3000,
+          "loss_number": 0,
+          "least_patch_number": 0
+        },
+        {
+          "lcsc": "C52917434",
+          "url": "https://jlcpcb.com/partdetail/C52917434",
+          "retrieved_at": "2026-11-12T10:36:07Z",
+          "raw_sha256": "8b239addfbf3fe441f4460614b74bb263d8f2a36926982f5faf0441500b453e7",
+          "model": "WS2812B-2020-V6",
+          "library": "EXTENDED",
+          "pcba_type": "Standard Only",
+          "assembly_type": "SMT Assembly",
+          "buyable": true,
+          "in_stock": 879804,
+          "preorder_available": 857883,
+          "preorder_minimum": 133,
+          "packaging_quantity": 4500,
+          "loss_number": 2,
+          "least_patch_number": 5
+        },
+        {
+          "lcsc": "C5665",
+          "url": "https://jlcpcb.com/partdetail/C5665",
+          "retrieved_at": "2026-11-12T10:36:09Z",
+          "raw_sha256": "0ab6bfdd4010302aef69d8bf559b4e3902c505f56b38d3473bdd2bb07fea38db",
+          "model": "2.54-2*5P",
+          "library": "EXTENDED",
+          "pcba_type": "Economic and Standard",
+          "assembly_type": "Wave Soldering",
+          "buyable": true,
+          "in_stock": 131245,
+          "preorder_available": 124613,
+          "preorder_minimum": 106,
+          "packaging_quantity": 280,
+          "loss_number": 0,
+          "least_patch_number": 2,
+          "model_note": "The page payload componentModelEn reads '2.54-2*5P2.54 mm pitch 2×5 pin IDC box header'; the model is its leading part number, as in the procurement ledger."
+        },
+        {
+          "lcsc": "C57112",
+          "url": "https://jlcpcb.com/partdetail/C57112",
+          "retrieved_at": "2026-11-12T10:36:12Z",
+          "raw_sha256": "4ee02e4def9df40e5d194165fc4d84e509ceeab2212d7b9f23d440e886dd44b3",
+          "model": "0603B103K500NT",
+          "library": "BASIC",
+          "pcba_type": "Economic and Standard",
+          "assembly_type": "SMT Assembly",
+          "buyable": true,
+          "in_stock": 5337711,
+          "preorder_available": 3755418,
+          "preorder_minimum": 876,
+          "packaging_quantity": 4000,
+          "loss_number": 10,
+          "least_patch_number": 20
+        },
+        {
+          "lcsc": "C694586",
+          "url": "https://jlcpcb.com/partdetail/C694586",
+          "retrieved_at": "2026-11-12T10:36:14Z",
+          "raw_sha256": "e0fc42d64c73c9f4100958ea5d68db96bf0ca22df432cae8dd49a473061b7a0f",
+          "model": "SPM4020T-4R7M-LR",
+          "library": "EXTENDED",
+          "pcba_type": "Economic and Standard",
+          "assembly_type": "SMT Assembly",
+          "buyable": true,
+          "in_stock": 686,
+          "preorder_available": 678,
+          "preorder_minimum": 24,
+          "packaging_quantity": 500,
+          "loss_number": 0,
+          "least_patch_number": 5
+        },
+        {
+          "lcsc": "C7250",
+          "url": "https://jlcpcb.com/partdetail/C7250",
+          "retrieved_at": "2026-11-12T10:36:18Z",
+          "raw_sha256": "9ca24525e5e49b8fd72e28b4909518232504c04095062baad765f9ea981f19d6",
+          "model": "0603WAF1005T5E",
+          "library": "BASIC",
+          "pcba_type": "Economic and Standard",
+          "assembly_type": "SMT Assembly",
+          "buyable": true,
+          "in_stock": 795181,
+          "preorder_available": 674710,
+          "preorder_minimum": 5000,
+          "packaging_quantity": 5000,
+          "loss_number": 10,
+          "least_patch_number": 20
+        }
+      ]
+    }
+  ],
+  "factory_review": {
+    "date": "2026-11-22",
+    "status": "PUBLIC_PAGES_ONLY_NOT_SUPPLIER_CONFIRMED",
+    "note": "What JLC public capability pages state for the A7 fabrication inputs, read anonymously. A page statement is not factory acceptance of these boards; every factory_question stays open until JLC answers or a DFM/order review records it. Owner-stated knowledge (jlc-questions) is not supplier confirmation.",
+    "private_store": {
+      "repository": "Takazudo/circuit-dev-resources",
+      "commit": "5833278e046d81113b5d129c653dd278f1daa1b7",
+      "capture_dir": "distributor-captures/jlcpcb-web/zudo-led-block-a7-20261122",
+      "sha256sums_sha256": "5f91be76d758b1120c712f3a11baa0fbfd315523995080ed7c908a0dac3880fe"
+    },
+    "pages": [
+      {
+        "id": "jlc-pcb-capabilities",
+        "url": "https://jlcpcb.com/capabilities/pcb-capabilities",
+        "method": "GET",
+        "request": null,
+        "retrieved_at": "2026-11-22T06:17:04Z",
+        "raw_sha256": "e45085cd3501d79d11e500463fdd7edcba98143b00c99adc8869a6fac61dbafe",
+        "stored": {
+          "path": "distributor-captures/jlcpcb-web/zudo-led-block-a7-20261122/jlc-pcb-capabilities.html.gz",
+          "sha256": "e968a533fbf4aaadd2ac86f1db320a09eda3b1f86ed8fd20b95a42e81267a2bb"
+        }
+      },
+      {
+        "id": "jlc-pcba-capabilities",
+        "url": "https://jlcpcb.com/capabilities/pcb-assembly-capabilities",
+        "method": "GET",
+        "request": null,
+        "retrieved_at": "2026-11-22T06:17:06Z",
+        "raw_sha256": "39250e018a57fbd054b73c73542c513a90091727657ddd6b0ca70e5cb73480af",
+        "stored": {
+          "path": "distributor-captures/jlcpcb-web/zudo-led-block-a7-20261122/jlc-pcba-capabilities.html.gz",
+          "sha256": "7d4abd590ecb570da4fecd32309c432e9b1806f506cc8f9ddeaf6ac7361a1b23"
+        }
+      },
+      {
+        "id": "jlc-impedance-4l-0p8",
+        "url": "https://jlcpcb.com/api/overseas-core-platform/shoppingCart/getImpedanceTemplateSettings",
+        "method": "POST",
+        "request": {
+          "stencilLayer": 4,
+          "stencilPly": 0.8,
+          "cuprumThickness": 1,
+          "insideCuprumThickness": 0.5
+        },
+        "retrieved_at": "2026-11-22T06:17:38Z",
+        "raw_sha256": "35d22daab40c3a7a66cc6cc3310933ef8bafddb804c5bb7fe41c99aa2b906d17",
+        "stored": {
+          "path": "distributor-captures/jlcpcb-web/zudo-led-block-a7-20261122/jlc-impedance-4l-0p8.json",
+          "sha256": "35d22daab40c3a7a66cc6cc3310933ef8bafddb804c5bb7fe41c99aa2b906d17"
+        }
+      },
+      {
+        "id": "jlc-impedance-2l-0p8",
+        "url": "https://jlcpcb.com/api/overseas-core-platform/shoppingCart/getImpedanceTemplateSettings",
+        "method": "POST",
+        "request": {
+          "stencilLayer": 2,
+          "stencilPly": 0.8,
+          "cuprumThickness": 1,
+          "insideCuprumThickness": 0.5
+        },
+        "retrieved_at": "2026-11-22T06:17:45Z",
+        "raw_sha256": "c93186aba23c7a140bd3395b4d09f2cf0e13d8991287a0e39faa74c3b8dc73a5",
+        "stored": {
+          "path": "distributor-captures/jlcpcb-web/zudo-led-block-a7-20261122/jlc-impedance-2l-0p8.json",
+          "sha256": "c93186aba23c7a140bd3395b4d09f2cf0e13d8991287a0e39faa74c3b8dc73a5"
+        }
+      },
+      {
+        "id": "jlc-via-covering",
+        "url": "https://jlcpcb.com/help/article/pcb-via-covering",
+        "method": "GET",
+        "request": null,
+        "retrieved_at": "2026-11-22T06:17:55Z",
+        "raw_sha256": "df411c4e64b0bb4970672ed778d732f39d1ac63c64fa0bea2789aed8ee3fb661",
+        "stored": {
+          "path": "distributor-captures/jlcpcb-web/zudo-led-block-a7-20261122/jlc-via-covering.html.gz",
+          "sha256": "ba23440a14746f2078aabee2c27326ad75db97c39125ad0331d9af45d2d74eb1"
+        },
+        "page_updated": "Nov 10, 2026"
+      },
+      {
+        "id": "jlc-solder-mask-blog",
+        "url": "https://jlcpcb.com/blog/basic-design-of-solder-mask",
+        "method": "GET",
+        "request": null,
+        "retrieved_at": "2026-11-22T06:17:58Z",
+        "raw_sha256": "4366fc3f03a225377e1e5037bafd5b758d6fd3cebc286f695609b66e4e6b21d9",
+        "stored": {
+          "path": "distributor-captures/jlcpcb-web/zudo-led-block-a7-20261122/jlc-solder-mask-blog.html.gz",
+          "sha256": "0613ebd57a6ba6c38c17ac466ec8b9a8540ed72f1e3d48f65883da0bae5f8004"
+        }
+      },
+      {
+        "id": "jlc-order-a-panel",
+        "url": "https://jlcpcb.com/help/article/how-do-i-order-a-panel",
+        "method": "GET",
+        "request": null,
+        "retrieved_at": "2026-11-22T06:18:01Z",
+        "raw_sha256": "26c232c45628655d2c46f964a7c31e7b49989e2fb6d67f4882193e2b1f2ed65a",
+        "stored": {
+          "path": "distributor-captures/jlcpcb-web/zudo-led-block-a7-20261122/jlc-order-a-panel.html.gz",
+          "sha256": "c093a811151ac849b98c884a26d082b6a52cd5c3fb730c70a6297c1532b19091"
+        },
+        "page_updated": "Nov 16, 2026"
+      },
+      {
+        "id": "jlc-panelizing-for-assembly",
+        "url": "https://jlcpcb.com/help/article/Panelizing-your-PCB-for-Assembly",
+        "method": "GET",
+        "request": null,
+        "retrieved_at": "2026-11-22T06:18:02Z",
+        "raw_sha256": "b3e228a531032dc1b139ff0bac2922479596e372d1f018d7318f584df81f7ac7",
+        "stored": {
+          "path": "distributor-captures/jlcpcb-web/zudo-led-block-a7-20261122/jlc-panelizing-for-assembly.html.gz",
+          "sha256": "9eb18eb86030d052e4cc95fdbfb08c495ccfa3bfd6ce84a863155859c2164c06"
+        },
+        "page_updated": "Sep 09, 2026"
+      },
+      {
+        "id": "jlc-pcba-faqs",
+        "url": "https://jlcpcb.com/help/article/pcb-assembly-faqs",
+        "method": "GET",
+        "request": null,
+        "retrieved_at": "2026-11-22T06:18:04Z",
+        "raw_sha256": "4cfd66dec67e8c5b5308c8407ae3fc27049aa1a511aeff9f7c33d0246c12801f",
+        "stored": {
+          "path": "distributor-captures/jlcpcb-web/zudo-led-block-a7-20261122/jlc-pcba-faqs.html.gz",
+          "sha256": "e0805de94458e14db94f32f4d27c6529129100426efd68bc62e2576d1e9e1fa0"
+        },
+        "page_updated": "Sep 09, 2026"
+      },
+      {
+        "id": "jlc-pcba-price",
+        "url": "https://jlcpcb.com/help/article/pcb-assembly-price",
+        "method": "GET",
+        "request": null,
+        "retrieved_at": "2026-11-22T06:17:59Z",
+        "raw_sha256": "095e9cc9a2dbf41135d1174952756df423112d4e4cc86c29ae713ea0c356b358",
+        "stored": {
+          "path": "distributor-captures/jlcpcb-web/zudo-led-block-a7-20261122/jlc-pcba-price.html.gz",
+          "sha256": "9cbd4f0cb98e99d25d3558c74557746ac2298f40a46c83c8a11df46be1a8f0e9"
+        },
+        "page_updated": "Oct 22, 2026"
+      }
+    ],
+    "topics": [
+      {
+        "id": "fr4-0p8-thickness",
+        "applies_to": [
+          "controller",
+          "led_leaf"
+        ],
+        "design": "0.8 mm nominal FR-4, finished 0.7-0.9 mm (optical-fr4.json nominal_finished_thickness_mm / finished_thickness_tolerance_mm)",
+        "stated": [
+          {
+            "source": "jlc-pcb-capabilities",
+            "quote": "Thickness for FR4 are: 0.4/0.6/0.8/1.0/1.2/1.6/2.0 mm (2.5 mm and above are for 12+ layer PCBs only)"
+          },
+          {
+            "source": "jlc-pcb-capabilities",
+            "quote": "For the 0.8mm board thickness, the finished board thickness ranges from 0.7mm(T-0.1) to 0.9mm(T+0.1)."
+          }
+        ],
+        "reading": "0.8 mm is a listed FR-4 thickness on the rigid capability page; the page does not split it by layer count.",
+        "status": "PAGE_STATES",
+        "factory_question": null
+      },
+      {
+        "id": "controller-4l-jlc04081h-3313",
+        "applies_to": [
+          "controller"
+        ],
+        "design": "4-layer 0.8 mm JLC04081H-3313 (impedance template 20211110052748, compressionThickness 0.7992 mm), outer 1 oz / inner 0.5 oz",
+        "stated": [
+          {
+            "source": "jlc-impedance-4l-0p8",
+            "quote": "templateName JLC04081H-3313, impedanceTemplateCode 20211110052748, enableFlag true, defaultFlag false, expeditedFlag true, fixedFee 0.0, compressionThickness 0.7992; 3313*1 prepreg 0.09940mm each side; core 0.5mm H/HOZ; inner copper 0.0152mm"
+          },
+          {
+            "source": "jlc-impedance-4l-0p8",
+            "quote": "default template for 4-layer 0.8 mm 1 oz / 0.5 oz is showName \"No requirement\" (templateName JLC04081H-7628, defaultFlag true)"
+          },
+          {
+            "source": "jlc-pcba-capabilities",
+            "quote": "Layer Stackup Standard stack-up only, special stack-up is not supported | All stack-up (Economic | Standard)"
+          }
+        ],
+        "reading": "The stack-up API served the same bytes as the 2026-11-16 read recorded in optical-fr4.json (response SHA-256 35d22daa...). JLC04081H-3313 is enabled but is not the default; leaving the order-form stack-up at \"No requirement\" selects JLC04081H-7628 (0.7712 mm). Standard PCBA accepts any stack-up.",
+        "status": "PAGE_STATES",
+        "factory_question": "Confirm the order form lets JLC04081H-3313 be chosen for this 4-layer 0.8 mm order without impedance-controlled traces, and that the fabricated build follows it."
+      },
+      {
+        "id": "leaf-2l-construction",
+        "applies_to": [
+          "led_leaf"
+        ],
+        "design": "2-layer 0.8 mm, 1 oz outer, calculated core 0.73 mm (optical-fr4.json led_leaf.core_status: calculated target, not a manufacturer value)",
+        "stated": [
+          {
+            "source": "jlc-impedance-2l-0p8",
+            "quote": "getImpedanceTemplateSettings for stencilLayer 2, stencilPly 0.8 returned data null (no 2-layer stack-up template)"
+          }
+        ],
+        "reading": "JLC publishes no 2-layer 0.8 mm construction; the 0.73 mm core stays our calculated target.",
+        "status": "NOT_STATED",
+        "factory_question": "Which core and copper construction JLC uses for a 2-layer 0.8 mm FR-4 board (needed for the optical/translucency assumption, not for orderability)."
+      },
+      {
+        "id": "enig-exposed-copper",
+        "applies_to": [
+          "controller",
+          "led_leaf"
+        ],
+        "design": "ENIG on all exposed copper; mask graphics are openings, retaining only pad dams, narrow isolation over surface copper and via tents (optical-fr4.json mask)",
+        "stated": [
+          {
+            "source": "jlc-pcb-capabilities",
+            "quote": "Surface Finish HASL (leaded / lead-free), ENlG, OSP"
+          },
+          {
+            "source": "jlc-pcb-capabilities",
+            "quote": "Minimum trace width/clearance: 0.25/0.25mm, when traces are NOT covered by solder mask (1oz). ENIG only(high risk of short circuit with HASL)"
+          },
+          {
+            "source": "jlc-pcba-capabilities",
+            "quote": "Surface Finish Limited by specific options (Refer to the options for Economic PCBA in the table below) | No limit (Economic | Standard)"
+          },
+          {
+            "source": "jlc-pcba-capabilities",
+            "quote": "PCB Specs for Economic PCB Assembly ... 0.8 Green Lead-Free:HASL Leaded:HASL 2-30"
+          }
+        ],
+        "reading": "ENIG is offered. At 0.8 mm Economic PCBA lists HASL only, so ENIG at 0.8 mm needs Standard PCBA, which both 0.8 mm boards already require. Any trace left without mask must meet 0.25/0.25 mm and ENIG.",
+        "status": "PAGE_STATES",
+        "factory_question": "Whether JLC CAM/DFM accepts the large mask openings that expose ENIG copper around pads, and confirmation that no trace is left uncovered (else the 0.25/0.25 mm uncovered-trace rule applies). Not checked against the Gerbers by this review."
+      },
+      {
+        "id": "mask-dam-and-openings",
+        "applies_to": [
+          "controller",
+          "led_leaf"
+        ],
+        "design": "pad_margin 0.15, trace_margin 0.10, via_web 0.10 mm (JLC green 1 oz row), ink 10 um convention",
+        "stated": [
+          {
+            "source": "jlc-pcb-capabilities",
+            "quote": "Soldermask bridge 0.10mm 1oz: Min. pad spacing: 0.10 mm (green, red, yellow, blue, purple) Min. pad spacing: 0.13 mm (black, white) 2oz: Min. pad spacing: 0.20 mm (any color)"
+          },
+          {
+            "source": "jlc-pcb-capabilities",
+            "quote": "Keep at least 0.09 mm clearance between soldermask openings and neighboring traces."
+          },
+          {
+            "source": "jlc-pcb-capabilities",
+            "quote": "Soldermask Expansion 1:1 LDI equipment upgraded in June 2025. Pad size:soldermask opening can be 1:1"
+          },
+          {
+            "source": "jlc-pcb-capabilities",
+            "quote": "Solder mask ink thickness ≥ 10μm"
+          },
+          {
+            "source": "jlc-solder-mask-blog",
+            "quote": "For 1-layer and 2-layer boards utilizing standard process routes, or for specialized DFM requirements, designers can specify \"Do not modify original solder mask size\" during ordering."
+          }
+        ],
+        "reading": "The 0.10 mm minimum is the pad-to-pad bridge for green (0.13 mm for black/white), so the mask colour must stay green for the recorded via web. The 0.10 mm trace margin is above the 0.09 mm opening-to-trace minimum.",
+        "status": "PAGE_STATES_MINIMUMS",
+        "factory_question": "Whether the custom openings and local dams are kept as drawn (for the 2-layer leaf, the \"Do not modify original solder mask size\" option; for the 4-layer controller, 1:1 LDI), and whether a 0.10 mm web between a tented via and an opening is held (the published 0.10 mm row is pad spacing, not a tented-via rule)."
+      },
+      {
+        "id": "via-tenting",
+        "applies_to": [
+          "controller",
+          "led_leaf"
+        ],
+        "design": "vias tented by retained mask; controller minimum drill 0.2 mm",
+        "stated": [
+          {
+            "source": "jlc-via-covering",
+            "quote": "Tented Vias Definition: This option is the most commonly used. Vias are covered with soldermask, and surface finish such as HASL is not applied to vias."
+          },
+          {
+            "source": "jlc-via-covering",
+            "quote": "Vias holes should ideally be 0.4 mm or less and no larger than 0.5 mm if permitted by routing and current-carrying requirements. Larger vias are not guaranteed to be fully covered"
+          },
+          {
+            "source": "jlc-via-covering",
+            "quote": "the solder-resist can flow down the via hole, leaving a thinner layer on the annular ring than in other parts of the board."
+          },
+          {
+            "source": "jlc-via-covering",
+            "quote": "Single-sided or double-sided vias, holes in pad, and vias with a distance less than 0.35mm from the pad cannot be plugged with ink."
+          },
+          {
+            "source": "jlc-pcb-capabilities",
+            "quote": "Filled vias should have ≥ 0.35 mm clearance from other soldermask openings (e.g. pads)"
+          }
+        ],
+        "reading": "Tented is the matching via-covering choice. Ink plugging is not: our 0.10 mm via web is below its 0.35 mm clearance.",
+        "status": "PAGE_STATES",
+        "factory_question": "Whether tenting holds over the 0.10 mm web to the nearest opening on 0.8 mm boards; thin mask on the annular ring is a stated normal appearance."
+      },
+      {
+        "id": "pcba-0p8-thin-board",
+        "applies_to": [
+          "controller",
+          "led_leaf"
+        ],
+        "design": "0.8 mm boards on customer panels 70 x 76.9 mm (controller) and 70 x 96.5 mm (leaf), Standard PCBA",
+        "stated": [
+          {
+            "source": "jlc-pcba-capabilities",
+            "quote": "Thickness 0.8mm - 1.6mm | No limit (Economic | Standard)"
+          },
+          {
+            "source": "jlc-pcba-capabilities",
+            "quote": "PCB Layer 2,4,6-layers | 1 - 32 layers"
+          },
+          {
+            "source": "jlc-pcba-capabilities",
+            "quote": "Single PCB Size: 70x70mm - 460x500mm PCB Panel Size: 70x70mm - 250x250mm (Standard)"
+          }
+        ],
+        "reading": "Standard PCBA states no thickness limit, and both panels meet the 70 x 70 mm Standard panel minimum. Nothing is stated about support or warp handling of 0.8 mm panels.",
+        "status": "PAGE_STATES",
+        "factory_question": "Thin-board acceptance: whether 0.8 mm customer panels of this size need extra support, a carrier or wider rails, and whether double-sided reflow of the 0.8 mm controller is accepted as is."
+      },
+      {
+        "id": "customer-panels",
+        "applies_to": [
+          "controller",
+          "led_leaf",
+          "power_adapter"
+        ],
+        "design": "repo-built panels: controller 1-up, leaf 2-up, adapter 1-up; PCBA quantity 2 each (owner decision panel-route)",
+        "stated": [
+          {
+            "source": "jlc-pcba-capabilities",
+            "quote": "Edge Rails Not necessary | Necessary; Fiducials Not necessary | Necessary (Economic | Standard)"
+          },
+          {
+            "source": "jlc-pcba-capabilities",
+            "quote": "Delivery Format Single PCB, Panel with mouse bites | Single PCB, Panel with mouse bites, Panel with V-cut"
+          },
+          {
+            "source": "jlc-pcba-faqs",
+            "quote": "for Economic assembly, please panelize your boards with mouse-bites. for Standard assembly, you can panelize with mouse-bites or V-cut."
+          },
+          {
+            "source": "jlc-pcba-faqs",
+            "quote": "No, you don't have to. We'll add fiducial marks for SMT assembly."
+          },
+          {
+            "source": "jlc-order-a-panel",
+            "quote": "Please ensure that the board outline is simple. For complex board outlines, you will need to panelize them yourself."
+          },
+          {
+            "source": "jlc-panelizing-for-assembly",
+            "quote": "When PCB assembly is selected, the system will suggest panel format."
+          }
+        ],
+        "reading": "Customer panels with mouse bites are a listed delivery format for both tiers. The pages do not say how the PCBA quantity counts a customer panel holding 2 boards.",
+        "status": "PAGE_SILENT_ON_QUANTITY_UNIT",
+        "factory_question": "PCBA quantity unit for a customer panel (panels or boards) and acceptance of these panels; the owner closed this from their own knowledge (jlc-questions, owner-stated, not supplier-confirmed)."
+      },
+      {
+        "id": "pcba-order-volume",
+        "applies_to": [
+          "controller",
+          "led_leaf",
+          "power_adapter"
+        ],
+        "design": "PCBA quantity 2 per Gerber",
+        "stated": [
+          {
+            "source": "jlc-pcba-capabilities",
+            "quote": "Order Volume 2 - 50 pcs | 2 - 80000 pcs (Economic | Standard)"
+          }
+        ],
+        "reading": "Unchanged from the 2026-11-12 read.",
+        "status": "PAGE_STATES",
+        "factory_question": null
+      },
+      {
+        "id": "a5-adapter-settings",
+        "applies_to": [
+          "power_adapter"
+        ],
+        "design": "Unchanged A5 1.6 mm 2-layer power adapter; the board file records no surface finish and no base material",
+        "stated": [
+          {
+            "source": "jlc-pcba-capabilities",
+            "quote": "PCB Specs for Economic PCB Assembly ... 1.6 Green Lead-Free:HASL / ENIG Leaded:HASL / ENIG 2-50"
+          }
+        ],
+        "reading": "Economic PCBA at 1.6 mm green allows HASL or ENIG; nothing in the A5 records chooses one.",
+        "status": "NAMED_HOLD",
+        "factory_question": null,
+        "hold": {
+          "id": "power-adapter-a5-settings-unspecified",
+          "text": "Surface finish, mask colour and base material of the unchanged A5 1.6 mm 2-layer adapter are not recorded; an order-form choice, not a design change. Holds until the owner names them."
+        }
+      }
+    ],
+    "quote_form": "Rigid-capability and help-page quotes are verbatim text; PCBA capability-table quotes are the cell texts of one table row joined with ' | ', with the column names in parentheses, and '...' marks omitted rows. The impedance quotes name API fields and values.",
+    "earlier_extracts_still_present": {
+      "ids": [
+        "jlc-pcba-capabilities",
+        "jlc-pcb-capabilities",
+        "jlc-order-a-panel",
+        "jlc-pcba-faqs",
+        "jlc-panelizing-for-assembly"
+      ],
+      "note": "Every 2026-11-12 extract in \"pages\" for these ids is found verbatim in the 2026-11-22 page text; the package rules that cite them are unchanged."
+    }
+  }
 }

@@ -682,18 +682,23 @@ def build(levels, cross_check=True, alternatives=True):
             'Probe forces follow the datasheet linear force-stroke line; the value at maximum stroke is read off the graph.',
             'Holes, copper, solder mask and component stiffening are omitted from the plate; omitting copper is not '
             'conservative in every direction and remains an open modelling item.',
-            'Component heights, solder envelopes and the pressure-plate CAD interference are outside this record.',
+            'Component heights, solder envelopes and the pressure-plate CAD interference are outside this record (the CAD check '
+            'of the candidate is candidate-assembly-interference.json).',
         ],
         'remaining': [
-            'Native geometry from a CI-retained artifact: the bound record comes from a gate run in the pinned image on a '
-            'development machine (no GitHub run id), so re-take it with --from-zip once CI has retained an artifact for '
-            'these board bytes, then re-run rebind_command.',
+            *([] if native['provenance']['provenance_class'] == 'CI_RETAINED_ARTIFACT' else [
+                'Native geometry from a CI-retained artifact: the bound record comes from a gate run in the pinned image on a '
+                'development machine (no GitHub run id), so re-take it with --from-zip once CI has retained an artifact for '
+                'these board bytes, then re-run rebind_command.']),
             'Physical contact and load validation: measured plunger force at both compression ends, measured probe force, '
             'stroke, seating against the datum pins, positioning, and inspection for board damage, with fixture and board '
             'unit IDs, instruments and raw data (fixture criterion 5).',
             'Measured finished board thickness and laminate flexural properties of the ordered boards.',
             'Board flatness/bow acceptance and its effect on the contact set.',
-            'CAD interference of the revised pressure plate, pin sleeves and the J5 notch against the mounted assembly.',
+            'Location of the revised pressure plate: its CAD model and interference check at 0.7/0.8/0.9 mm are recorded '
+            'beside this record (candidate-assembly-interference.json, python3 scripts/a7_fixture.py --cad), but the plate is '
+            'located only by M3 screws in clearance holes, so the pin-to-board-edge margins need a locating feature or an '
+            'owner-accepted gauge procedure (see that record\'s registration finding).',
             'Independent mechanical review of this model and its inputs.',
             'Fabricator selection and machining capability for the plates and the tapped pin holes.',
         ],

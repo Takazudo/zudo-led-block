@@ -3,10 +3,11 @@
 Status: **NOT ACCEPTED**. This is a digital exploration, not fixture release or
 physical contact verification. Since 2026-11-21 the saved native geometry and the
 assembly STEP are rebound to the adopted routed 0.8 mm controller
-(`d83691d6…`, same placement and outline as `710ed801…`, re-routed for the CV IN sleeve return): the geometry record comes from a gate run in the pinned KiCad
-image (`provenance_class` `LOCAL_PINNED_IMAGE_RUN`, no CI run id — CI re-runs the
-gate itself), and the STEP/interference record were rebuilt from it with
-CadQuery 2.7.0. Rebinding is an identity change, not an acceptance.
+(`d83691d6…`, same placement and outline as `710ed801…`, re-routed for the CV IN sleeve return). The geometry record first came from a gate run in the pinned KiCad
+image (2026-11-21, `LOCAL_PINNED_IMAGE_RUN`, no CI run id); on 2026-11-22 it was
+re-taken with `--from-zip` from the CI-retained artifact of run 44981535275
+(`CI_RETAINED_ARTIFACT`, byte-identical geometry), and the STEP/interference record
+were rebuilt from it with CadQuery 2.7.0. Rebinding is an identity change, not an acceptance.
 
 **Where the resolved calculation now lives (2026-11-21):** every load corner at
 0.7/0.8/0.9 mm is solved with a converged unilateral contact model and recorded in
@@ -64,4 +65,7 @@ returned), and two independent solvers — flexibility form and stiffness form �
 on the governing corner and agree. The mesh study (20×78 → 40×156 → 60×234) and all
 force corners are in `condition-matrix.json`. Independent mechanical review, the native
 identity of the final controller and the fixture CAD remain required before any gate
-changes; the physical criterion 5 is untouched.
+changes; the physical criterion 5 is untouched. (2026-11-22: the candidate CAD now
+exists beside the retained geometry — `candidate-assembly.step`,
+`candidate-assembly-interference.json`, `candidate-drawing.svg` — and a first
+independent re-derivation is in `README.md`; neither changes a gate.)

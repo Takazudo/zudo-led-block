@@ -93,9 +93,19 @@ def _plate(cq, bounds, z0, z1, windows=(), holes=(), extra_cuts=()):
     return s.clean()
 
 
-def build(relief, pads, geometry, rl):
-    """Return [(name, group, solid)] for the whole fixture with the board clamped in it."""
+def build(relief, pads, geometry, rl, *, pin_tips=None, board_thickness=None):
+    """Return [(name, group, solid)] for the whole fixture with the board clamped in it.
+
+    `pin_tips` gives, per hold-down contact, None (catalogue pin end) or {'contact_diameter_max_mm', 'tip_length_mm'} for a
+    turned-down stepped tip; `board_thickness` builds the board at another finished thickness (default: the nominal). The
+    board B face stays on the carrier (z = 0); the plunger sleeves stay where the plate and the pin setting put them, so a
+    thicker board compresses the pins more (displacement control).
+    """
     cq = _cq()
+    t = rl.BOARD_THICKNESS if board_thickness is None else board_thickness
+    tips = list(pin_tips) if pin_tips is not None else [None] * len(relief['holddown']['contacts_board_mm'])
+    if len(tips) != len(relief['holddown']['contacts_board_mm']):
+        raise ValueError('one pin-tip entry per hold-down contact is required')
     st = relief['stack_z_mm']
     R = relief['rules']
     sc, pp, pr = relief['support_carrier'], relief['probe_plate'], relief['pressure_plate']
@@ -160,8 +170,20 @@ def build(relief, pads, geometry, rl):
     hd = relief['holddown']
     pl = hd['plunger_candidate']
     body_end = rl.BOARD_THICKNESS + pl['stroke_mm'] - hd['plunger_compression_mm']['nominal']  # nominal board, nominal compression
-    for i, c in enumerate(contacts, 1):
-        add(f"C{i} {pl['mpn']} POM thrust pin", 'hardware', _cyl(cq, c, pl['pin_diameter_mm'], rl.BOARD_THICKNESS, body_end))
+    if t >= body_end:
+        raise ValueError(f'board F face {t} mm reaches the plunger sleeve end {body_end} mm')
+    for i, (c, tip) in enumerate(zip(contacts, tips), 1):
+        if tip is None:
+            pin, label = _cyl(cq, c, pl['pin_diameter_mm'], t, body_end), 'POM thrust pin'
+        else:
+            if not 0 < tip['contact_diameter_max_mm'] < pl['pin_diameter_mm'] or tip['tip_length_mm'] <= 0:
+                raise ValueError(f'C{i}: a stepped tip must be thinner than the pin and have a positive length')
+            step = min(t + tip['tip_length_mm'], body_end)  # above the sleeve end the step is inside the sleeve
+            pin = _cyl(cq, c, tip['contact_diameter_max_mm'], t, step)
+            if step < body_end:
+                pin = pin.fuse(_cyl(cq, c, pl['pin_diameter_mm'], step, body_end)).clean()
+            label = f"POM thrust pin, stepped tip {tip['contact_diameter_max_mm']:g}x{tip['tip_length_mm']:g}"
+        add(f"C{i} {pl['mpn']} {label}", 'hardware', pin)
         add(f"C{i} {pl['mpn']} steel sleeve", 'hardware', _cyl(cq, c, pl['body_diameter_mm'], body_end, body_end + pl['length_mm']))
 
     # receptacles and probes (probes compressed to the working stroke against the B face)
@@ -174,12 +196,12 @@ def build(relief, pads, geometry, rl):
         add(f"{pad['ref']} GKS-050 probe (compressed envelope)", 'probe', _cyl(cq, xy, probe['barrel_diameter_mm'], top, 0.0))
 
     # board with F-side part boxes and B-face bodies/leads
-    add('controller board', 'board', _box(cq, rl.BOARD, 0.0, rl.BOARD_THICKNESS))
+    add('controller board', 'board', _box(cq, rl.BOARD, 0.0, t))
     heights = relief['f_side_heights']
     for f in sorted(geometry['footprints'], key=lambda f: f['ref']):
         if f['side'] == 'F' and f['courtyard_bbox_mm'].get('F'):
             h = heights[f['ref']]['height_mm']
-            add(f"{f['ref']} F-side body (courtyard x height)", 'board', _box(cq, f['courtyard_bbox_mm']['F'], rl.BOARD_THICKNESS, rl.BOARD_THICKNESS + h))
+            add(f"{f['ref']} F-side body (courtyard x height)", 'board', _box(cq, f['courtyard_bbox_mm']['F'], t, t + h))
     for r in relief['reliefs']:
         depth = r['depth_below_b_face_mm']
         if depth is None:
@@ -210,7 +232,7 @@ DESIGNED_CONTACTS = [
 ]
 
 
-def check(parts):
+def check(parts, extra_pairs=()):
     """Pairwise common volume between every two solids of different groups (and plate/hardware pairs within a group)."""
     cq = _cq()
     boxes = [s.BoundingBox() for _, _, s in parts]
@@ -229,7 +251,7 @@ def check(parts):
             else:
                 touching += 1
     clear = []
-    for label, fa, fb in CLEARANCE_PAIRS:
+    for label, fa, fb in [*CLEARANCE_PAIRS, *extra_pairs]:
         A = [(n, s) for n, g, s in parts if fa(n, g)]
         B = [(n, s) for n, g, s in parts if fb(n, g)]
         best = min(((sa.distance(sb), na, nb) for na, sa in A for nb, sb in B), default=None)
@@ -258,3 +280,34 @@ def export(parts, path):
 
 def summary(parts):
     return [{'name': n, 'group': g, 'volume_mm3': round(s.Volume(), 4)} for n, g, s in parts]
+
+
+# Proposed replacement candidate (optical_stepped_tip): extra checks beside the retained ones; never a fit approval.
+CANDIDATE_CLEARANCE_PAIRS = [
+    ('J5 body (courtyard x height) to the pressure-plate notch', lambda n, g: n.startswith('J5 F-side'), lambda n, g: n == 'pressure_plate'),
+    ('pins and sleeves to the stop standoffs and plate screws', lambda n, g: 'thrust pin' in n or 'sleeve' in n,
+     lambda n, g: n.split()[0] in ('G1', 'G2')),
+]
+
+
+def pin_plan(parts, board, thickness, slab=0.01):
+    """Plan extents of every hold-down pin from the solids: the board-contact footprint (a thin slab at the F face) and the
+    whole pin (the shank), each with its margin to the nearest board edge; z of the step and of the sleeve end."""
+    cq = _cq()
+    out = []
+    sleeves = {n.split()[0]: s for n, _, s in parts if 'steel sleeve' in n}
+    for n, _, s in parts:
+        if 'thrust pin' not in n:
+            continue
+        cut = _box(cq, [board[0] - 5, board[1] - 5, board[2] + 5, board[3] + 5], thickness, thickness + slab)
+        foot = s.intersect(cut).BoundingBox()
+        whole = s.BoundingBox()
+
+        def margin(b):
+            return round(min(b.xmin - board[0], board[2] - b.xmax, b.ymin - board[1], board[3] - b.ymax), 4)
+        sleeve = sleeves[n.split()[0]].BoundingBox()
+        out.append({'pin': n, 'contact_diameter_mm': round(foot.xmax - foot.xmin, 4),
+                    'contact_edge_margin_nominal_mm': margin(foot),
+                    'shank_diameter_mm': round(whole.xmax - whole.xmin, 4), 'shank_edge_margin_nominal_mm': margin(whole),
+                    'contact_face_z_mm': round(whole.zmin, 4), 'sleeve_end_above_f_face_mm': round(sleeve.zmin - thickness, 4)})
+    return out

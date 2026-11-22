@@ -209,8 +209,8 @@ def from_zip(zip_path: Path, expect_revision: str, expect_run_id: str, expect_ru
     board_sha = sha(BOARD.read_bytes())
     image = json.loads((ROOT / art.PROFILE).read_text())['image']
     members = art.read_members(zip_path)
-    cls = art.classify(members, board_sha=board_sha, image=image, expect_revision=expect_revision,
-                       expect_run_id=expect_run_id, expect_run_attempt=expect_run_attempt)
+    cls = art.classify(members, board_sha=board_sha, image=image, leaf_sha=sha((ROOT / art.LEAF).read_bytes()),
+                       expect_revision=expect_revision, expect_run_id=expect_run_id, expect_run_attempt=expect_run_attempt)
     if cls['status'] != 'VALID_PASS':
         raise ValueError(f"artifact is {cls['status']}: {cls.get('rejected') or cls.get('reasons')}")
     if MEMBER not in members:
