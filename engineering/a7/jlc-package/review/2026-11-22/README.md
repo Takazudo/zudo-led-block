@@ -24,7 +24,7 @@ README). Verify with `python3 scripts/a7_review_set.py verify engineering/a7/jlc
 
 ## Frozen identities
 
-Frozen from commit `2ca89a6a5102a1ad67ebd1bb2f87281a480e26e6` (branch `claude/project-thread-y1zl4n`), tool image
+Frozen from commit `86470126aa569cce026cd740c95a63181a921de3` (branch `claude/project-thread-y1zl4n`), tool image
 `kicad/kicad:10.0.8@sha256:3f4a01786dfbe803a65f345c3342b765db9add913f5e9448f8356793714ddc34`.
 
 | Identity | Path | SHA-256 |
@@ -74,7 +74,7 @@ datum edge are outside its registration budget.
 Approve, or not, a test-only prototype of exactly the identity set above, 2 modules: 2 controllers, 4 LED leaves,
 2 power adapters, own repo panels (controller 1-up × 2 sheets, leaf 2-up × 2 sheets, adapter 1-up × 2 sheets), with the
 PJ-324M tip-continuity check as a first-article test. Approval would not be a manufacturing release. The 2026-11-12/13
-approvals do not carry over (they bind board `89310d53…e727` and manifest `557d5e48…502c`).
+approvals do not carry over (they bind board `89310d53…e727` and manifest `557d5e48…502c`). `a7_jlc_package.py` refuses this set as current if any frozen identity or panel BOM/CPL changes.
 
 ### 2. Order-form and factory checks before upload (PCB_ORDER)
 
@@ -89,7 +89,8 @@ From `order-form-checklist.json`:
 | Vias | Tented | Tented | — |
 | Mask | openings as drawn | openings as drawn ("Do not modify original solder mask size") | — |
 | Sheet / boards per sheet | 70 × 76.9 mm / 1 | 70 × 96.5 mm / 2 | 22.8 × 44 mm / 1 |
-| PCB and PCBA qty | 2 sheets → 2 boards | 2 sheets → 4 boards | 2 sheets → 2 boards |
+| PCBA qty | 2 sheets → 2 boards | 2 sheets → 4 boards | 2 sheets → 2 boards |
+| PCB (bare) qty | **open**: JLC minimum not sourced; enter the minimum offered | same | same |
 | Panel by JLCPCB | No | No | No |
 | PCBA | Standard, Top + Bottom | Standard, Top | Economic, Top |
 
