@@ -1,0 +1,2783 @@
+{
+ "policy": {
+  "semantics": "F.Mask and B.Mask graphics are openings, not retained mask",
+  "pad_margin_mm": 0.15,
+  "via_margin_mm": 0.2,
+  "silk_margin_mm": 0.15,
+  "reason": "retain only pad solder dams/wicking barriers, narrow solder isolation over surface copper (native solder_mask_bridge prevention), via tents and polarity/assembly silk backing; exact rectangles recorded per board",
+  "paste": "normal footprint apertures only; no new paste graphics",
+  "verification": "compare exported positive mask Gerbers to these protected rectangles and pad apertures; fail if opening crosses a protected via hole",
+  "ink_thickness_mm": 0.01,
+  "ink_thickness_status": "JLC published minimum, used only as preview/stackup convention; local coating not measured",
+  "trace_margin_mm": 0.1,
+  "diagonal_step_mm": 0.5
+ },
+ "sides": {
+  "F.Mask": {
+   "protected": [
+    {
+     "id": "J2.1",
+     "reason": "pad perimeter/dam and solder wicking control; normal pad aperture remains",
+     "rect_nm": [
+      2550000,
+      63075000,
+      3450000,
+      64925000
+     ]
+    },
+    {
+     "id": "J2.2",
+     "reason": "pad perimeter/dam and solder wicking control; normal pad aperture remains",
+     "rect_nm": [
+      3550000,
+      63075000,
+      4450000,
+      64925000
+     ]
+    },
+    {
+     "id": "J2.3",
+     "reason": "pad perimeter/dam and solder wicking control; normal pad aperture remains",
+     "rect_nm": [
+      4550000,
+      63075000,
+      5450000,
+      64925000
+     ]
+    },
+    {
+     "id": "J2.4",
+     "reason": "pad perimeter/dam and solder wicking control; normal pad aperture remains",
+     "rect_nm": [
+      5550000,
+      63075000,
+      6450000,
+      64925000
+     ]
+    },
+    {
+     "id": "J2.MP",
+     "reason": "pad perimeter/dam and solder wicking control; normal pad aperture remains",
+     "rect_nm": [
+      950000,
+      66825000,
+      2450000,
+      68925000
+     ]
+    },
+    {
+     "id": "J2.MP",
+     "reason": "pad perimeter/dam and solder wicking control; normal pad aperture remains",
+     "rect_nm": [
+      6550000,
+      66825000,
+      8050000,
+      68925000
+     ]
+    },
+    {
+     "id": "J2.silk",
+     "reason": "retain polarity/assembly legend backing",
+     "rect_nm": [
+      1180000,
+      64005000,
+      2650000,
+      64425000
+     ]
+    },
+    {
+     "id": "J2.silk",
+     "reason": "retain polarity/assembly legend backing",
+     "rect_nm": [
+      1180000,
+      64005000,
+      1600000,
+      66925000
+     ]
+    },
+    {
+     "id": "J2.silk",
+     "reason": "retain polarity/assembly legend backing",
+     "rect_nm": [
+      2230000,
+      63015000,
+      2650000,
+      64425000
+     ]
+    },
+    {
+     "id": "J2.silk",
+     "reason": "retain polarity/assembly legend backing",
+     "rect_nm": [
+      2350000,
+      68475000,
+      6650000,
+      68895000
+     ]
+    },
+    {
+     "id": "J2.silk",
+     "reason": "retain polarity/assembly legend backing",
+     "rect_nm": [
+      6350000,
+      64005000,
+      7820000,
+      64425000
+     ]
+    },
+    {
+     "id": "J2.silk",
+     "reason": "retain polarity/assembly legend backing",
+     "rect_nm": [
+      7400000,
+      64005000,
+      7820000,
+      66925000
+     ]
+    },
+    {
+     "id": "C4.1",
+     "reason": "pad perimeter/dam and solder wicking control; normal pad aperture remains",
+     "rect_nm": [
+      2100000,
+      80325000,
+      3300000,
+      81575000
+     ]
+    },
+    {
+     "id": "C4.2",
+     "reason": "pad perimeter/dam and solder wicking control; normal pad aperture remains",
+     "rect_nm": [
+      3700000,
+      80325000,
+      4900000,
+      81575000
+     ]
+    },
+    {
+     "id": "D1.1",
+     "reason": "pad perimeter/dam and solder wicking control; normal pad aperture remains",
+     "rect_nm": [
+      4915000,
+      3800000,
+      5915000,
+      4800000
+     ]
+    },
+    {
+     "id": "D1.2",
+     "reason": "pad perimeter/dam and solder wicking control; normal pad aperture remains",
+     "rect_nm": [
+      4915000,
+      2700000,
+      5915000,
+      3700000
+     ]
+    },
+    {
+     "id": "D1.3",
+     "reason": "pad perimeter/dam and solder wicking control; normal pad aperture remains",
+     "rect_nm": [
+      3085000,
+      2700000,
+      4085000,
+      3700000
+     ]
+    },
+    {
+     "id": "D1.4",
+     "reason": "pad perimeter/dam and solder wicking control; normal pad aperture remains",
+     "rect_nm": [
+      3085000,
+      3800000,
+      4085000,
+      4800000
+     ]
+    },
+    {
+     "id": "D3.1",
+     "reason": "pad perimeter/dam and solder wicking control; normal pad aperture remains",
+     "rect_nm": [
+      4915000,
+      53800000,
+      5915000,
+      54800000
+     ]
+    },
+    {
+     "id": "D3.2",
+     "reason": "pad perimeter/dam and solder wicking control; normal pad aperture remains",
+     "rect_nm": [
+      4915000,
+      52700000,
+      5915000,
+      53700000
+     ]
+    },
+    {
+     "id": "D3.3",
+     "reason": "pad perimeter/dam and solder wicking control; normal pad aperture remains",
+     "rect_nm": [
+      3085000,
+      52700000,
+      4085000,
+      53700000
+     ]
+    },
+    {
+     "id": "D3.4",
+     "reason": "pad perimeter/dam and solder wicking control; normal pad aperture remains",
+     "rect_nm": [
+      3085000,
+      53800000,
+      4085000,
+      54800000
+     ]
+    },
+    {
+     "id": "D2.1",
+     "reason": "pad perimeter/dam and solder wicking control; normal pad aperture remains",
+     "rect_nm": [
+      4915000,
+      28800000,
+      5915000,
+      29800000
+     ]
+    },
+    {
+     "id": "D2.2",
+     "reason": "pad perimeter/dam and solder wicking control; normal pad aperture remains",
+     "rect_nm": [
+      4915000,
+      27700000,
+      5915000,
+      28700000
+     ]
+    },
+    {
+     "id": "D2.3",
+     "reason": "pad perimeter/dam and solder wicking control; normal pad aperture remains",
+     "rect_nm": [
+      3085000,
+      27700000,
+      4085000,
+      28700000
+     ]
+    },
+    {
+     "id": "D2.4",
+     "reason": "pad perimeter/dam and solder wicking control; normal pad aperture remains",
+     "rect_nm": [
+      3085000,
+      28800000,
+      4085000,
+      29800000
+     ]
+    },
+    {
+     "id": "C1.1",
+     "reason": "pad perimeter/dam and solder wicking control; normal pad aperture remains",
+     "rect_nm": [
+      2100000,
+      5325000,
+      3300000,
+      6575000
+     ]
+    },
+    {
+     "id": "C1.2",
+     "reason": "pad perimeter/dam and solder wicking control; normal pad aperture remains",
+     "rect_nm": [
+      3700000,
+      5325000,
+      4900000,
+      6575000
+     ]
+    },
+    {
+     "id": "C2.1",
+     "reason": "pad perimeter/dam and solder wicking control; normal pad aperture remains",
+     "rect_nm": [
+      2100000,
+      30325000,
+      3300000,
+      31575000
+     ]
+    },
+    {
+     "id": "C2.2",
+     "reason": "pad perimeter/dam and solder wicking control; normal pad aperture remains",
+     "rect_nm": [
+      3700000,
+      30325000,
+      4900000,
+      31575000
+     ]
+    },
+    {
+     "id": "J1.1",
+     "reason": "pad perimeter/dam and solder wicking control; normal pad aperture remains",
+     "rect_nm": [
+      2550000,
+      13575000,
+      3450000,
+      15425000
+     ]
+    },
+    {
+     "id": "J1.2",
+     "reason": "pad perimeter/dam and solder wicking control; normal pad aperture remains",
+     "rect_nm": [
+      3550000,
+      13575000,
+      4450000,
+      15425000
+     ]
+    },
+    {
+     "id": "J1.3",
+     "reason": "pad perimeter/dam and solder wicking control; normal pad aperture remains",
+     "rect_nm": [
+      4550000,
+      13575000,
+      5450000,
+      15425000
+     ]
+    },
+    {
+     "id": "J1.4",
+     "reason": "pad perimeter/dam and solder wicking control; normal pad aperture remains",
+     "rect_nm": [
+      5550000,
+      13575000,
+      6450000,
+      15425000
+     ]
+    },
+    {
+     "id": "J1.MP",
+     "reason": "pad perimeter/dam and solder wicking control; normal pad aperture remains",
+     "rect_nm": [
+      950000,
+      17325000,
+      2450000,
+      19425000
+     ]
+    },
+    {
+     "id": "J1.MP",
+     "reason": "pad perimeter/dam and solder wicking control; normal pad aperture remains",
+     "rect_nm": [
+      6550000,
+      17325000,
+      8050000,
+      19425000
+     ]
+    },
+    {
+     "id": "J1.silk",
+     "reason": "retain polarity/assembly legend backing",
+     "rect_nm": [
+      1180000,
+      14505000,
+      2650000,
+      14925000
+     ]
+    },
+    {
+     "id": "J1.silk",
+     "reason": "retain polarity/assembly legend backing",
+     "rect_nm": [
+      1180000,
+      14505000,
+      1600000,
+      17425000
+     ]
+    },
+    {
+     "id": "J1.silk",
+     "reason": "retain polarity/assembly legend backing",
+     "rect_nm": [
+      2230000,
+      13515000,
+      2650000,
+      14925000
+     ]
+    },
+    {
+     "id": "J1.silk",
+     "reason": "retain polarity/assembly legend backing",
+     "rect_nm": [
+      2350000,
+      18975000,
+      6650000,
+      19395000
+     ]
+    },
+    {
+     "id": "J1.silk",
+     "reason": "retain polarity/assembly legend backing",
+     "rect_nm": [
+      6350000,
+      14505000,
+      7820000,
+      14925000
+     ]
+    },
+    {
+     "id": "J1.silk",
+     "reason": "retain polarity/assembly legend backing",
+     "rect_nm": [
+      7400000,
+      14505000,
+      7820000,
+      17425000
+     ]
+    },
+    {
+     "id": "D4.1",
+     "reason": "pad perimeter/dam and solder wicking control; normal pad aperture remains",
+     "rect_nm": [
+      4915000,
+      78800000,
+      5915000,
+      79800000
+     ]
+    },
+    {
+     "id": "D4.2",
+     "reason": "pad perimeter/dam and solder wicking control; normal pad aperture remains",
+     "rect_nm": [
+      4915000,
+      77700000,
+      5915000,
+      78700000
+     ]
+    },
+    {
+     "id": "D4.3",
+     "reason": "pad perimeter/dam and solder wicking control; normal pad aperture remains",
+     "rect_nm": [
+      3085000,
+      77700000,
+      4085000,
+      78700000
+     ]
+    },
+    {
+     "id": "D4.4",
+     "reason": "pad perimeter/dam and solder wicking control; normal pad aperture remains",
+     "rect_nm": [
+      3085000,
+      78800000,
+      4085000,
+      79800000
+     ]
+    },
+    {
+     "id": "C3.1",
+     "reason": "pad perimeter/dam and solder wicking control; normal pad aperture remains",
+     "rect_nm": [
+      2100000,
+      55325000,
+      3300000,
+      56575000
+     ]
+    },
+    {
+     "id": "C3.2",
+     "reason": "pad perimeter/dam and solder wicking control; normal pad aperture remains",
+     "rect_nm": [
+      3700000,
+      55325000,
+      4900000,
+      56575000
+     ]
+    },
+    {
+     "id": "451505ba-6093-413f-a266-ea05bc365237.trace.0",
+     "net": "DATA_1_2",
+     "reason": "narrow solder isolation over opaque copper; prevents different-net aperture bridges",
+     "rect_nm": [
+      3360000,
+      27075000,
+      3810000,
+      28425000
+     ]
+    },
+    {
+     "id": "b941b357-f635-4f63-9904-13a7c7d9f8a7.trace.0",
+     "net": "DATA_1_2",
+     "reason": "narrow solder isolation over opaque copper; prevents different-net aperture bridges",
+     "rect_nm": [
+      5190000,
+      4075000,
+      6525000,
+      4525000
+     ]
+    },
+    {
+     "id": "3eeaa0f6-fb6a-4191-ab81-90220eeda779",
+     "reason": "via tenting; opening must not expose hole",
+     "rect_nm": [
+      5800000,
+      3800000,
+      6800001,
+      4800001
+     ]
+    },
+    {
+     "id": "d3f70784-f371-43fd-8ae0-8edb78414863",
+     "reason": "via tenting; opening must not expose hole",
+     "rect_nm": [
+      3085000,
+      26800000,
+      4085001,
+      27800001
+     ]
+    },
+    {
+     "id": "19a3676b-c01b-4fae-8058-36323f53b51c.trace.0",
+     "net": "DATA_2_3",
+     "reason": "narrow solder isolation over opaque copper; prevents different-net aperture bridges",
+     "rect_nm": [
+      5190000,
+      29075000,
+      6525000,
+      29525000
+     ]
+    },
+    {
+     "id": "8c84f20d-3617-4d34-a11b-03acf3114618.trace.0",
+     "net": "DATA_2_3",
+     "reason": "narrow solder isolation over opaque copper; prevents different-net aperture bridges",
+     "rect_nm": [
+      3360000,
+      52075000,
+      3810000,
+      53425000
+     ]
+    },
+    {
+     "id": "591c2c72-b93e-459a-82c4-d9815c7c5eae",
+     "reason": "via tenting; opening must not expose hole",
+     "rect_nm": [
+      5800000,
+      28800000,
+      6800001,
+      29800001
+     ]
+    },
+    {
+     "id": "78858ae3-c85a-4dcc-b92f-fb89d1bd64dd",
+     "reason": "via tenting; opening must not expose hole",
+     "rect_nm": [
+      3085000,
+      51800000,
+      4085001,
+      52800001
+     ]
+    },
+    {
+     "id": "63951b1f-41e6-40e5-b94f-2bfc1bd227d3.trace.0",
+     "net": "DATA_3_4",
+     "reason": "narrow solder isolation over opaque copper; prevents different-net aperture bridges",
+     "rect_nm": [
+      5190000,
+      54075000,
+      6525000,
+      54525000
+     ]
+    },
+    {
+     "id": "7aae33f8-b353-4e86-88b0-b5ab44f8f980.trace.0",
+     "net": "DATA_3_4",
+     "reason": "narrow solder isolation over opaque copper; prevents different-net aperture bridges",
+     "rect_nm": [
+      3360000,
+      77075000,
+      3810000,
+      78425000
+     ]
+    },
+    {
+     "id": "8b3b6f6c-7668-4a98-bb90-8b4d243776dd",
+     "reason": "via tenting; opening must not expose hole",
+     "rect_nm": [
+      5800000,
+      53800000,
+      6800001,
+      54800001
+     ]
+    },
+    {
+     "id": "c7763a6c-6f9e-44b4-85e0-2069d3c15112",
+     "reason": "via tenting; opening must not expose hole",
+     "rect_nm": [
+      3085000,
+      76800000,
+      4085001,
+      77800001
+     ]
+    },
+    {
+     "id": "2647d1e1-16ff-438e-b56c-48244bbea7c2.trace.0",
+     "net": "DATA_IN",
+     "reason": "narrow solder isolation over opaque copper; prevents different-net aperture bridges",
+     "rect_nm": [
+      3360000,
+      2075000,
+      3810000,
+      3425000
+     ]
+    },
+    {
+     "id": "88520cd0-bfd8-428c-88ba-b337887118e7.trace.0",
+     "net": "DATA_IN",
+     "reason": "narrow solder isolation over opaque copper; prevents different-net aperture bridges",
+     "rect_nm": [
+      5775000,
+      63775000,
+      6225000,
+      65625000
+     ]
+    },
+    {
+     "id": "db9d2d85-277f-4a81-a4bc-3da2aa58ddaf.trace.0",
+     "net": "DATA_IN",
+     "reason": "narrow solder isolation over opaque copper; prevents different-net aperture bridges",
+     "rect_nm": [
+      4775000,
+      12975000,
+      5225000,
+      14725000
+     ]
+    },
+    {
+     "id": "6bd51869-eeb6-4813-aef4-298940647071",
+     "reason": "via tenting; opening must not expose hole",
+     "rect_nm": [
+      4500000,
+      12700000,
+      5500001,
+      13700001
+     ]
+    },
+    {
+     "id": "7a00c548-baab-4448-ad1a-65c35339e3be",
+     "reason": "via tenting; opening must not expose hole",
+     "rect_nm": [
+      5500000,
+      64900000,
+      6500001,
+      65900001
+     ]
+    },
+    {
+     "id": "e52115ff-591c-4a42-a9ec-2abcb133fb41",
+     "reason": "via tenting; opening must not expose hole",
+     "rect_nm": [
+      3085000,
+      1800000,
+      4085001,
+      2800001
+     ]
+    },
+    {
+     "id": "a7cdbc0e-bf24-46d1-8e18-f1a656256267.trace.0",
+     "net": "DATA_OTHER",
+     "reason": "narrow solder isolation over opaque copper; prevents different-net aperture bridges",
+     "rect_nm": [
+      4775000,
+      62375000,
+      7825000,
+      62825000
+     ]
+    },
+    {
+     "id": "af2d335a-d7d1-4c06-bde4-ac3d2d10dedd.trace.0",
+     "net": "DATA_OTHER",
+     "reason": "narrow solder isolation over opaque copper; prevents different-net aperture bridges",
+     "rect_nm": [
+      4775000,
+      62375000,
+      5225000,
+      64225000
+     ]
+    },
+    {
+     "id": "df50e9bc-909d-4754-a68b-4f8c8df061d5.trace.0",
+     "net": "DATA_OTHER",
+     "reason": "narrow solder isolation over opaque copper; prevents different-net aperture bridges",
+     "rect_nm": [
+      5775000,
+      14275000,
+      6225000,
+      16125000
+     ]
+    },
+    {
+     "id": "eee8171a-26d6-437b-a805-477c99e6022b.trace.0",
+     "net": "DATA_OTHER",
+     "reason": "narrow solder isolation over opaque copper; prevents different-net aperture bridges",
+     "rect_nm": [
+      5775000,
+      15675000,
+      7825000,
+      16125000
+     ]
+    },
+    {
+     "id": "b0f30c82-e44e-471b-aa3a-a1d62805f293",
+     "reason": "via tenting; opening must not expose hole",
+     "rect_nm": [
+      7100000,
+      62100000,
+      8100001,
+      63100001
+     ]
+    },
+    {
+     "id": "e6a1c383-2851-48a3-938f-63f50b707f1f",
+     "reason": "via tenting; opening must not expose hole",
+     "rect_nm": [
+      7100000,
+      15400000,
+      8100001,
+      16400001
+     ]
+    },
+    {
+     "id": "2704338c-d235-4738-8f83-7069cd928946.trace.0",
+     "net": "GND",
+     "reason": "narrow solder isolation over opaque copper; prevents different-net aperture bridges",
+     "rect_nm": [
+      4050000,
+      5700000,
+      8700000,
+      6200000
+     ]
+    },
+    {
+     "id": "2b91e333-6669-4625-bf3d-a4ab07c9a963.trace.0",
+     "net": "GND",
+     "reason": "narrow solder isolation over opaque copper; prevents different-net aperture bridges",
+     "rect_nm": [
+      5140000,
+      52925000,
+      8725000,
+      53475000
+     ]
+    },
+    {
+     "id": "315d59c2-c210-489b-867f-ffc0f8e9dbf5.trace.0",
+     "net": "GND",
+     "reason": "narrow solder isolation over opaque copper; prevents different-net aperture bridges",
+     "rect_nm": [
+      4050000,
+      55700000,
+      8700000,
+      56200000
+     ]
+    },
+    {
+     "id": "3bfef865-9ee2-4e8f-8235-f8c014ba9bd7.trace.0",
+     "net": "GND",
+     "reason": "narrow solder isolation over opaque copper; prevents different-net aperture bridges",
+     "rect_nm": [
+      5140000,
+      27925000,
+      8725000,
+      28475000
+     ]
+    },
+    {
+     "id": "3dc7f46a-c868-4b45-83b6-28bae2452bdf.trace.0",
+     "net": "GND",
+     "reason": "narrow solder isolation over opaque copper; prevents different-net aperture bridges",
+     "rect_nm": [
+      8100000,
+      2850000,
+      8800000,
+      81300000
+     ]
+    },
+    {
+     "id": "53da253a-8253-40ca-a119-606289703240.trace.0",
+     "net": "GND",
+     "reason": "narrow solder isolation over opaque copper; prevents different-net aperture bridges",
+     "rect_nm": [
+      2725000,
+      12125000,
+      3275000,
+      14775000
+     ]
+    },
+    {
+     "id": "5cb9f05f-667b-49c5-9662-4ac0f04c7c13.trace.0",
+     "net": "GND",
+     "reason": "narrow solder isolation over opaque copper; prevents different-net aperture bridges",
+     "rect_nm": [
+      2725000,
+      61625000,
+      8725000,
+      62175000
+     ]
+    },
+    {
+     "id": "761b823a-c277-45b4-8f83-b08f14659397.trace.0",
+     "net": "GND",
+     "reason": "narrow solder isolation over opaque copper; prevents different-net aperture bridges",
+     "rect_nm": [
+      4050000,
+      30700000,
+      8700000,
+      31200000
+     ]
+    },
+    {
+     "id": "9a92c69d-71a4-434c-813b-916c9e840e56.trace.0",
+     "net": "GND",
+     "reason": "narrow solder isolation over opaque copper; prevents different-net aperture bridges",
+     "rect_nm": [
+      2725000,
+      12125000,
+      8725000,
+      12675000
+     ]
+    },
+    {
+     "id": "a9692c71-b3aa-450f-af44-5c943200c620.trace.0",
+     "net": "GND",
+     "reason": "narrow solder isolation over opaque copper; prevents different-net aperture bridges",
+     "rect_nm": [
+      5140000,
+      2925000,
+      8725000,
+      3475000
+     ]
+    },
+    {
+     "id": "c9b4d7e4-e284-49c4-8d8d-878c2765406f.trace.0",
+     "net": "GND",
+     "reason": "narrow solder isolation over opaque copper; prevents different-net aperture bridges",
+     "rect_nm": [
+      2725000,
+      61625000,
+      3275000,
+      64275000
+     ]
+    },
+    {
+     "id": "f906aa67-b1dc-4bc7-97bc-34335dc16fb9.trace.0",
+     "net": "GND",
+     "reason": "narrow solder isolation over opaque copper; prevents different-net aperture bridges",
+     "rect_nm": [
+      4050000,
+      80700000,
+      8700000,
+      81200000
+     ]
+    },
+    {
+     "id": "fbe7131e-50c0-479b-8c26-ba626405034a.trace.0",
+     "net": "GND",
+     "reason": "narrow solder isolation over opaque copper; prevents different-net aperture bridges",
+     "rect_nm": [
+      5140000,
+      77925000,
+      8725000,
+      78475000
+     ]
+    },
+    {
+     "id": "11053e9b-4a3c-43fe-bf32-d31d9493e05f.trace.0",
+     "net": "VLED",
+     "reason": "narrow solder isolation over opaque copper; prevents different-net aperture bridges",
+     "rect_nm": [
+      3725000,
+      63725000,
+      4275000,
+      65775000
+     ]
+    },
+    {
+     "id": "16ad4ac5-70f4-4b5a-ac9f-691cd5b6fab7.trace.0",
+     "net": "VLED",
+     "reason": "narrow solder isolation over opaque copper; prevents different-net aperture bridges",
+     "rect_nm": [
+      275000,
+      4025000,
+      3860000,
+      4575000
+     ]
+    },
+    {
+     "id": "35bcff4d-5c6b-41b8-9e49-d31b026d242e.trace.0",
+     "net": "VLED",
+     "reason": "narrow solder isolation over opaque copper; prevents different-net aperture bridges",
+     "rect_nm": [
+      200000,
+      21350000,
+      1266667,
+      22416667
+     ]
+    },
+    {
+     "id": "35bcff4d-5c6b-41b8-9e49-d31b026d242e.trace.1",
+     "net": "VLED",
+     "reason": "narrow solder isolation over opaque copper; prevents different-net aperture bridges",
+     "rect_nm": [
+      566666,
+      21716666,
+      1633334,
+      22783334
+     ]
+    },
+    {
+     "id": "35bcff4d-5c6b-41b8-9e49-d31b026d242e.trace.2",
+     "net": "VLED",
+     "reason": "narrow solder isolation over opaque copper; prevents different-net aperture bridges",
+     "rect_nm": [
+      933333,
+      22083333,
+      2000000,
+      23150000
+     ]
+    },
+    {
+     "id": "3d203ea8-fd0b-40ac-8cf8-0087a0ab1bf4.trace.0",
+     "net": "VLED",
+     "reason": "narrow solder isolation over opaque copper; prevents different-net aperture bridges",
+     "rect_nm": [
+      300000,
+      5700000,
+      2950000,
+      6200000
+     ]
+    },
+    {
+     "id": "41c97678-976b-46ba-9e70-5588a4672b0e.trace.0",
+     "net": "VLED",
+     "reason": "narrow solder isolation over opaque copper; prevents different-net aperture bridges",
+     "rect_nm": [
+      300000,
+      80700000,
+      2950000,
+      81200000
+     ]
+    },
+    {
+     "id": "5ddab689-1cb1-4e3d-ba3e-908781bc9060.trace.0",
+     "net": "VLED",
+     "reason": "narrow solder isolation over opaque copper; prevents different-net aperture bridges",
+     "rect_nm": [
+      275000,
+      65225000,
+      4275000,
+      65775000
+     ]
+    },
+    {
+     "id": "61601169-7a10-48e0-8fca-8e2232644b2f.trace.0",
+     "net": "VLED",
+     "reason": "narrow solder isolation over opaque copper; prevents different-net aperture bridges",
+     "rect_nm": [
+      300000,
+      30700000,
+      2950000,
+      31200000
+     ]
+    },
+    {
+     "id": "899e0506-b1bf-4a72-b8e1-ea4775c62622.trace.0",
+     "net": "VLED",
+     "reason": "narrow solder isolation over opaque copper; prevents different-net aperture bridges",
+     "rect_nm": [
+      200000,
+      26350000,
+      900000,
+      56150000
+     ]
+    },
+    {
+     "id": "9081c98f-0822-46a6-9b5b-4dec9711ad83.trace.0",
+     "net": "VLED",
+     "reason": "narrow solder isolation over opaque copper; prevents different-net aperture bridges",
+     "rect_nm": [
+      200000,
+      60450000,
+      900000,
+      81300000
+     ]
+    },
+    {
+     "id": "9fb64875-90f2-4c32-8f98-84ec84ac3935.trace.0",
+     "net": "VLED",
+     "reason": "narrow solder isolation over opaque copper; prevents different-net aperture bridges",
+     "rect_nm": [
+      300000,
+      55700000,
+      2950000,
+      56200000
+     ]
+    },
+    {
+     "id": "a1c2e1ff-beff-4842-b825-58f4ab1bc6ff.trace.0",
+     "net": "VLED",
+     "reason": "narrow solder isolation over opaque copper; prevents different-net aperture bridges",
+     "rect_nm": [
+      933333,
+      25250000,
+      2000000,
+      26316667
+     ]
+    },
+    {
+     "id": "a1c2e1ff-beff-4842-b825-58f4ab1bc6ff.trace.1",
+     "net": "VLED",
+     "reason": "narrow solder isolation over opaque copper; prevents different-net aperture bridges",
+     "rect_nm": [
+      566666,
+      25616666,
+      1633334,
+      26683334
+     ]
+    },
+    {
+     "id": "a1c2e1ff-beff-4842-b825-58f4ab1bc6ff.trace.2",
+     "net": "VLED",
+     "reason": "narrow solder isolation over opaque copper; prevents different-net aperture bridges",
+     "rect_nm": [
+      200000,
+      25983333,
+      1266667,
+      27050000
+     ]
+    },
+    {
+     "id": "abc8949b-f94e-470b-bba7-ccf1bb6354da.trace.0",
+     "net": "VLED",
+     "reason": "narrow solder isolation over opaque copper; prevents different-net aperture bridges",
+     "rect_nm": [
+      200000,
+      55450000,
+      1266667,
+      56516667
+     ]
+    },
+    {
+     "id": "abc8949b-f94e-470b-bba7-ccf1bb6354da.trace.1",
+     "net": "VLED",
+     "reason": "narrow solder isolation over opaque copper; prevents different-net aperture bridges",
+     "rect_nm": [
+      566666,
+      55816666,
+      1633334,
+      56883334
+     ]
+    },
+    {
+     "id": "abc8949b-f94e-470b-bba7-ccf1bb6354da.trace.2",
+     "net": "VLED",
+     "reason": "narrow solder isolation over opaque copper; prevents different-net aperture bridges",
+     "rect_nm": [
+      933333,
+      56183333,
+      2000000,
+      57250000
+     ]
+    },
+    {
+     "id": "b0dfd3fe-cb57-4254-a6ab-9cbf883bd482.trace.0",
+     "net": "VLED",
+     "reason": "narrow solder isolation over opaque copper; prevents different-net aperture bridges",
+     "rect_nm": [
+      3725000,
+      14225000,
+      4275000,
+      16275000
+     ]
+    },
+    {
+     "id": "ba6258f4-bd36-4865-9830-a347f4b9484c.trace.0",
+     "net": "VLED",
+     "reason": "narrow solder isolation over opaque copper; prevents different-net aperture bridges",
+     "rect_nm": [
+      1300000,
+      56550000,
+      2000000,
+      60050000
+     ]
+    },
+    {
+     "id": "c7da36dc-4c1d-4255-bc67-ff219ce31569.trace.0",
+     "net": "VLED",
+     "reason": "narrow solder isolation over opaque copper; prevents different-net aperture bridges",
+     "rect_nm": [
+      1300000,
+      22450000,
+      2000000,
+      25950000
+     ]
+    },
+    {
+     "id": "cfd93a66-74c6-4cae-ab73-0af92832b0ad.trace.0",
+     "net": "VLED",
+     "reason": "narrow solder isolation over opaque copper; prevents different-net aperture bridges",
+     "rect_nm": [
+      275000,
+      29025000,
+      3860000,
+      29575000
+     ]
+    },
+    {
+     "id": "d09687ad-bece-4c22-bf07-c8a47ecc2e39.trace.0",
+     "net": "VLED",
+     "reason": "narrow solder isolation over opaque copper; prevents different-net aperture bridges",
+     "rect_nm": [
+      275000,
+      54025000,
+      3860000,
+      54575000
+     ]
+    },
+    {
+     "id": "da968145-cfe0-4122-b84e-f5bbbcecb5a7.trace.0",
+     "net": "VLED",
+     "reason": "narrow solder isolation over opaque copper; prevents different-net aperture bridges",
+     "rect_nm": [
+      933333,
+      59350000,
+      2000000,
+      60416667
+     ]
+    },
+    {
+     "id": "da968145-cfe0-4122-b84e-f5bbbcecb5a7.trace.1",
+     "net": "VLED",
+     "reason": "narrow solder isolation over opaque copper; prevents different-net aperture bridges",
+     "rect_nm": [
+      566666,
+      59716666,
+      1633334,
+      60783334
+     ]
+    },
+    {
+     "id": "da968145-cfe0-4122-b84e-f5bbbcecb5a7.trace.2",
+     "net": "VLED",
+     "reason": "narrow solder isolation over opaque copper; prevents different-net aperture bridges",
+     "rect_nm": [
+      200000,
+      60083333,
+      1266667,
+      61150000
+     ]
+    },
+    {
+     "id": "e9f6c990-f2ce-47d4-815b-58c52567e34d.trace.0",
+     "net": "VLED",
+     "reason": "narrow solder isolation over opaque copper; prevents different-net aperture bridges",
+     "rect_nm": [
+      275000,
+      79025000,
+      3860000,
+      79575000
+     ]
+    },
+    {
+     "id": "f0edcf77-b486-40b4-941c-3a8ac145f237.trace.0",
+     "net": "VLED",
+     "reason": "narrow solder isolation over opaque copper; prevents different-net aperture bridges",
+     "rect_nm": [
+      200000,
+      3950000,
+      900000,
+      22050000
+     ]
+    },
+    {
+     "id": "fbd14a9c-60dd-4059-8d40-0589e8c50c63.trace.0",
+     "net": "VLED",
+     "reason": "narrow solder isolation over opaque copper; prevents different-net aperture bridges",
+     "rect_nm": [
+      275000,
+      15725000,
+      4275000,
+      16275000
+     ]
+    }
+   ],
+   "open_rectangles_nm": [
+    [
+     -25000,
+     -25000,
+     200000,
+     82525000
+    ],
+    [
+     200000,
+     -25000,
+     900000,
+     3950000
+    ],
+    [
+     200000,
+     22416667,
+     566666,
+     25983333
+    ],
+    [
+     200000,
+     56516667,
+     566666,
+     60083333
+    ],
+    [
+     200000,
+     81300000,
+     900000,
+     82525000
+    ],
+    [
+     566666,
+     22783334,
+     933333,
+     25616666
+    ],
+    [
+     566666,
+     56883334,
+     933333,
+     59716666
+    ],
+    [
+     900000,
+     -25000,
+     3085000,
+     4025000
+    ],
+    [
+     900000,
+     4575000,
+     2100000,
+     5700000
+    ],
+    [
+     900000,
+     6200000,
+     1180000,
+     15725000
+    ],
+    [
+     900000,
+     16275000,
+     950000,
+     21350000
+    ],
+    [
+     900000,
+     27050000,
+     1266667,
+     29025000
+    ],
+    [
+     900000,
+     29575000,
+     2100000,
+     30700000
+    ],
+    [
+     900000,
+     31200000,
+     2100000,
+     54025000
+    ],
+    [
+     900000,
+     54575000,
+     1266667,
+     55450000
+    ],
+    [
+     900000,
+     61150000,
+     1180000,
+     65225000
+    ],
+    [
+     900000,
+     65775000,
+     950000,
+     79025000
+    ],
+    [
+     900000,
+     79575000,
+     2100000,
+     80700000
+    ],
+    [
+     900000,
+     81200000,
+     2100000,
+     82525000
+    ],
+    [
+     933333,
+     23150000,
+     1300000,
+     25250000
+    ],
+    [
+     933333,
+     57250000,
+     1300000,
+     59350000
+    ],
+    [
+     950000,
+     16275000,
+     1180000,
+     17325000
+    ],
+    [
+     950000,
+     19425000,
+     1266667,
+     21350000
+    ],
+    [
+     950000,
+     65775000,
+     1180000,
+     66825000
+    ],
+    [
+     950000,
+     68925000,
+     2450000,
+     79025000
+    ],
+    [
+     1180000,
+     6200000,
+     2100000,
+     14505000
+    ],
+    [
+     1180000,
+     61150000,
+     1266667,
+     64005000
+    ],
+    [
+     1266667,
+     19425000,
+     1633334,
+     21716666
+    ],
+    [
+     1266667,
+     26683334,
+     1633334,
+     29025000
+    ],
+    [
+     1266667,
+     54575000,
+     2100000,
+     55700000
+    ],
+    [
+     1266667,
+     60783334,
+     1633334,
+     64005000
+    ],
+    [
+     1600000,
+     14925000,
+     2550000,
+     15725000
+    ],
+    [
+     1600000,
+     16275000,
+     2450000,
+     17325000
+    ],
+    [
+     1600000,
+     64425000,
+     2550000,
+     65225000
+    ],
+    [
+     1600000,
+     65775000,
+     2450000,
+     66825000
+    ],
+    [
+     1633334,
+     19425000,
+     2000000,
+     22083333
+    ],
+    [
+     1633334,
+     26316667,
+     2000000,
+     29025000
+    ],
+    [
+     1633334,
+     60416667,
+     2000000,
+     64005000
+    ],
+    [
+     2000000,
+     19425000,
+     2450000,
+     29025000
+    ],
+    [
+     2000000,
+     56200000,
+     2100000,
+     64005000
+    ],
+    [
+     2100000,
+     4575000,
+     3085000,
+     5325000
+    ],
+    [
+     2100000,
+     6575000,
+     2230000,
+     14505000
+    ],
+    [
+     2100000,
+     29575000,
+     3085000,
+     30325000
+    ],
+    [
+     2100000,
+     31575000,
+     3085000,
+     54025000
+    ],
+    [
+     2100000,
+     54575000,
+     3085000,
+     55325000
+    ],
+    [
+     2100000,
+     56575000,
+     2230000,
+     64005000
+    ],
+    [
+     2100000,
+     79575000,
+     3085000,
+     80325000
+    ],
+    [
+     2100000,
+     81575000,
+     3300000,
+     82525000
+    ],
+    [
+     2230000,
+     6575000,
+     2650000,
+     13515000
+    ],
+    [
+     2230000,
+     56575000,
+     2650000,
+     63015000
+    ],
+    [
+     2450000,
+     16275000,
+     4275000,
+     18975000
+    ],
+    [
+     2450000,
+     19395000,
+     3085000,
+     29025000
+    ],
+    [
+     2450000,
+     65775000,
+     4275000,
+     68475000
+    ],
+    [
+     2450000,
+     68895000,
+     3085000,
+     79025000
+    ],
+    [
+     2550000,
+     15425000,
+     3450000,
+     15725000
+    ],
+    [
+     2550000,
+     64925000,
+     3450000,
+     65225000
+    ],
+    [
+     2650000,
+     6575000,
+     2725000,
+     13575000
+    ],
+    [
+     2650000,
+     56575000,
+     2725000,
+     63075000
+    ],
+    [
+     2725000,
+     6575000,
+     3300000,
+     12125000
+    ],
+    [
+     2725000,
+     56575000,
+     3300000,
+     61625000
+    ],
+    [
+     3085000,
+     -25000,
+     4085001,
+     1800000
+    ],
+    [
+     3085000,
+     3700000,
+     4085000,
+     3800000
+    ],
+    [
+     3085000,
+     4800000,
+     3300000,
+     5325000
+    ],
+    [
+     3085000,
+     19395000,
+     4085001,
+     26800000
+    ],
+    [
+     3085000,
+     28700000,
+     4085000,
+     28800000
+    ],
+    [
+     3085000,
+     29800000,
+     3300000,
+     30325000
+    ],
+    [
+     3085000,
+     31575000,
+     3300000,
+     51800000
+    ],
+    [
+     3085000,
+     53700000,
+     4085000,
+     53800000
+    ],
+    [
+     3085000,
+     54800000,
+     3300000,
+     55325000
+    ],
+    [
+     3085000,
+     68895000,
+     4085001,
+     76800000
+    ],
+    [
+     3085000,
+     78700000,
+     4085000,
+     78800000
+    ],
+    [
+     3085000,
+     79800000,
+     3300000,
+     80325000
+    ],
+    [
+     3275000,
+     12675000,
+     3450000,
+     13575000
+    ],
+    [
+     3275000,
+     62175000,
+     3450000,
+     63075000
+    ],
+    [
+     3300000,
+     4800000,
+     3700000,
+     12125000
+    ],
+    [
+     3300000,
+     29800000,
+     3700000,
+     51800000
+    ],
+    [
+     3300000,
+     54800000,
+     3700000,
+     61625000
+    ],
+    [
+     3300000,
+     79800000,
+     3700000,
+     82525000
+    ],
+    [
+     3450000,
+     12675000,
+     3550000,
+     15725000
+    ],
+    [
+     3450000,
+     62175000,
+     3550000,
+     65225000
+    ],
+    [
+     3550000,
+     12675000,
+     4450000,
+     13575000
+    ],
+    [
+     3550000,
+     15425000,
+     3725000,
+     15725000
+    ],
+    [
+     3550000,
+     62175000,
+     4450000,
+     63075000
+    ],
+    [
+     3550000,
+     64925000,
+     3725000,
+     65225000
+    ],
+    [
+     3700000,
+     4800000,
+     4085000,
+     5325000
+    ],
+    [
+     3700000,
+     6575000,
+     4900000,
+     12125000
+    ],
+    [
+     3700000,
+     29800000,
+     4085000,
+     30325000
+    ],
+    [
+     3700000,
+     31575000,
+     4085001,
+     51800000
+    ],
+    [
+     3700000,
+     54800000,
+     4085000,
+     55325000
+    ],
+    [
+     3700000,
+     56575000,
+     4900000,
+     61625000
+    ],
+    [
+     3700000,
+     79800000,
+     4085000,
+     80325000
+    ],
+    [
+     3700000,
+     81575000,
+     4900000,
+     82525000
+    ],
+    [
+     4085000,
+     2800001,
+     4085001,
+     5325000
+    ],
+    [
+     4085000,
+     27800001,
+     4085001,
+     30325000
+    ],
+    [
+     4085000,
+     52800001,
+     4085001,
+     55325000
+    ],
+    [
+     4085000,
+     77800001,
+     4085001,
+     80325000
+    ],
+    [
+     4085001,
+     -25000,
+     4900000,
+     5325000
+    ],
+    [
+     4085001,
+     19395000,
+     4900000,
+     30325000
+    ],
+    [
+     4085001,
+     31575000,
+     4900000,
+     55325000
+    ],
+    [
+     4085001,
+     68895000,
+     4900000,
+     80325000
+    ],
+    [
+     4275000,
+     15425000,
+     4450000,
+     18975000
+    ],
+    [
+     4275000,
+     64925000,
+     4450000,
+     68475000
+    ],
+    [
+     4450000,
+     12675000,
+     4500000,
+     18975000
+    ],
+    [
+     4450000,
+     62175000,
+     4550000,
+     68475000
+    ],
+    [
+     4500000,
+     12675000,
+     5500001,
+     12700000
+    ],
+    [
+     4500000,
+     13700001,
+     4550000,
+     18975000
+    ],
+    [
+     4550000,
+     15425000,
+     5450000,
+     18975000
+    ],
+    [
+     4550000,
+     62175000,
+     4775000,
+     63075000
+    ],
+    [
+     4550000,
+     64925000,
+     5450000,
+     68475000
+    ],
+    [
+     4775000,
+     62175000,
+     7100000,
+     62375000
+    ],
+    [
+     4900000,
+     -25000,
+     4915000,
+     5700000
+    ],
+    [
+     4900000,
+     6200000,
+     8100000,
+     12125000
+    ],
+    [
+     4900000,
+     19395000,
+     4915000,
+     30700000
+    ],
+    [
+     4900000,
+     31200000,
+     4915000,
+     55700000
+    ],
+    [
+     4900000,
+     56200000,
+     8100000,
+     61625000
+    ],
+    [
+     4900000,
+     68895000,
+     4915000,
+     80700000
+    ],
+    [
+     4900000,
+     81200000,
+     8100000,
+     82525000
+    ],
+    [
+     4915000,
+     -25000,
+     5915000,
+     2700000
+    ],
+    [
+     4915000,
+     3700000,
+     5915000,
+     3800000
+    ],
+    [
+     4915000,
+     4800000,
+     5800000,
+     5700000
+    ],
+    [
+     4915000,
+     19395000,
+     5915000,
+     27700000
+    ],
+    [
+     4915000,
+     28700000,
+     5915000,
+     28800000
+    ],
+    [
+     4915000,
+     29800000,
+     5800000,
+     30700000
+    ],
+    [
+     4915000,
+     31200000,
+     5915000,
+     52700000
+    ],
+    [
+     4915000,
+     53700000,
+     5915000,
+     53800000
+    ],
+    [
+     4915000,
+     54800000,
+     5800000,
+     55700000
+    ],
+    [
+     4915000,
+     68895000,
+     5915000,
+     77700000
+    ],
+    [
+     4915000,
+     78700000,
+     5915000,
+     78800000
+    ],
+    [
+     4915000,
+     79800000,
+     5915000,
+     80700000
+    ],
+    [
+     5225000,
+     62825000,
+     5450000,
+     63075000
+    ],
+    [
+     5450000,
+     13700001,
+     5500001,
+     18975000
+    ],
+    [
+     5450000,
+     62825000,
+     5500000,
+     68475000
+    ],
+    [
+     5500000,
+     62825000,
+     5550000,
+     64900000
+    ],
+    [
+     5500000,
+     65900001,
+     6500001,
+     68475000
+    ],
+    [
+     5500001,
+     12675000,
+     5550000,
+     18975000
+    ],
+    [
+     5550000,
+     12675000,
+     6450000,
+     13575000
+    ],
+    [
+     5550000,
+     15425000,
+     5775000,
+     18975000
+    ],
+    [
+     5550000,
+     62825000,
+     6450000,
+     63075000
+    ],
+    [
+     5775000,
+     16125000,
+     6550000,
+     18975000
+    ],
+    [
+     5800000,
+     4800001,
+     6800001,
+     5700000
+    ],
+    [
+     5800000,
+     29800001,
+     6800001,
+     30700000
+    ],
+    [
+     5800000,
+     54800001,
+     6800001,
+     55700000
+    ],
+    [
+     5915000,
+     -25000,
+     8100000,
+     2925000
+    ],
+    [
+     5915000,
+     3475000,
+     6800001,
+     3800000
+    ],
+    [
+     5915000,
+     19395000,
+     6550000,
+     27925000
+    ],
+    [
+     5915000,
+     28475000,
+     6800001,
+     28800000
+    ],
+    [
+     5915000,
+     31200000,
+     8100000,
+     52925000
+    ],
+    [
+     5915000,
+     53475000,
+     6800001,
+     53800000
+    ],
+    [
+     5915000,
+     68895000,
+     6550000,
+     77925000
+    ],
+    [
+     5915000,
+     78475000,
+     8100000,
+     80700000
+    ],
+    [
+     6225000,
+     15425000,
+     6450000,
+     15675000
+    ],
+    [
+     6450000,
+     12675000,
+     7820000,
+     14505000
+    ],
+    [
+     6450000,
+     14925000,
+     7100000,
+     15675000
+    ],
+    [
+     6450000,
+     62825000,
+     7100000,
+     64005000
+    ],
+    [
+     6450000,
+     64425000,
+     6500001,
+     64900000
+    ],
+    [
+     6500001,
+     64425000,
+     6550000,
+     68475000
+    ],
+    [
+     6550000,
+     16125000,
+     7100000,
+     17325000
+    ],
+    [
+     6550000,
+     19425000,
+     8050000,
+     27925000
+    ],
+    [
+     6550000,
+     64425000,
+     7400000,
+     66825000
+    ],
+    [
+     6550000,
+     68925000,
+     8050000,
+     77925000
+    ],
+    [
+     6800001,
+     3475000,
+     8100000,
+     5700000
+    ],
+    [
+     6800001,
+     28475000,
+     8100000,
+     30700000
+    ],
+    [
+     6800001,
+     53475000,
+     8100000,
+     55700000
+    ],
+    [
+     7100000,
+     14925000,
+     7400000,
+     15400000
+    ],
+    [
+     7100000,
+     16400001,
+     7400000,
+     17325000
+    ],
+    [
+     7100000,
+     63100001,
+     7820000,
+     64005000
+    ],
+    [
+     7820000,
+     12675000,
+     8100000,
+     15400000
+    ],
+    [
+     7820000,
+     16400001,
+     8050000,
+     17325000
+    ],
+    [
+     7820000,
+     63100001,
+     8050000,
+     66825000
+    ],
+    [
+     8050000,
+     16400001,
+     8100000,
+     27925000
+    ],
+    [
+     8050000,
+     63100001,
+     8100000,
+     77925000
+    ],
+    [
+     8100000,
+     -25000,
+     8800000,
+     2850000
+    ],
+    [
+     8100000,
+     81300000,
+     8800000,
+     82525000
+    ],
+    [
+     8800000,
+     -25000,
+     9025000,
+     82525000
+    ]
+   ],
+   "additional_open_area_mm2": 528.921447,
+   "note": "pad apertures are additional openings; this is not optical transmittance"
+  },
+  "B.Mask": {
+   "protected": [
+    {
+     "id": "3eeaa0f6-fb6a-4191-ab81-90220eeda779",
+     "reason": "via tenting; opening must not expose hole",
+     "rect_nm": [
+      5800000,
+      3800000,
+      6800001,
+      4800001
+     ]
+    },
+    {
+     "id": "d3f70784-f371-43fd-8ae0-8edb78414863",
+     "reason": "via tenting; opening must not expose hole",
+     "rect_nm": [
+      3085000,
+      26800000,
+      4085001,
+      27800001
+     ]
+    },
+    {
+     "id": "68ca128b-bbb9-47a2-98a2-a4685ec16a5c.trace.0",
+     "net": "DATA_1_2",
+     "reason": "narrow solder isolation over opaque copper; prevents different-net aperture bridges",
+     "rect_nm": [
+      6075000,
+      4075000,
+      7025000,
+      4525000
+     ]
+    },
+    {
+     "id": "79806f9d-4064-4747-8b3a-0f5d68b5da6f.trace.0",
+     "net": "DATA_1_2",
+     "reason": "narrow solder isolation over opaque copper; prevents different-net aperture bridges",
+     "rect_nm": [
+      6575000,
+      4075000,
+      7025000,
+      27525000
+     ]
+    },
+    {
+     "id": "ae33f2f6-8200-4300-9b79-86ffee35517a.trace.0",
+     "net": "DATA_1_2",
+     "reason": "narrow solder isolation over opaque copper; prevents different-net aperture bridges",
+     "rect_nm": [
+      3360000,
+      27075000,
+      7025000,
+      27525000
+     ]
+    },
+    {
+     "id": "591c2c72-b93e-459a-82c4-d9815c7c5eae",
+     "reason": "via tenting; opening must not expose hole",
+     "rect_nm": [
+      5800000,
+      28800000,
+      6800001,
+      29800001
+     ]
+    },
+    {
+     "id": "78858ae3-c85a-4dcc-b92f-fb89d1bd64dd",
+     "reason": "via tenting; opening must not expose hole",
+     "rect_nm": [
+      3085000,
+      51800000,
+      4085001,
+      52800001
+     ]
+    },
+    {
+     "id": "00f491b6-2f14-4285-a40c-a81fda71e055.trace.0",
+     "net": "DATA_2_3",
+     "reason": "narrow solder isolation over opaque copper; prevents different-net aperture bridges",
+     "rect_nm": [
+      6075000,
+      29075000,
+      7025000,
+      29525000
+     ]
+    },
+    {
+     "id": "ef95c1be-5371-47a4-b230-88e18f542785.trace.0",
+     "net": "DATA_2_3",
+     "reason": "narrow solder isolation over opaque copper; prevents different-net aperture bridges",
+     "rect_nm": [
+      6575000,
+      29075000,
+      7025000,
+      52525000
+     ]
+    },
+    {
+     "id": "fc75c33a-7bfb-4697-ac7a-9335ba4ab1cc.trace.0",
+     "net": "DATA_2_3",
+     "reason": "narrow solder isolation over opaque copper; prevents different-net aperture bridges",
+     "rect_nm": [
+      3360000,
+      52075000,
+      7025000,
+      52525000
+     ]
+    },
+    {
+     "id": "8b3b6f6c-7668-4a98-bb90-8b4d243776dd",
+     "reason": "via tenting; opening must not expose hole",
+     "rect_nm": [
+      5800000,
+      53800000,
+      6800001,
+      54800001
+     ]
+    },
+    {
+     "id": "c7763a6c-6f9e-44b4-85e0-2069d3c15112",
+     "reason": "via tenting; opening must not expose hole",
+     "rect_nm": [
+      3085000,
+      76800000,
+      4085001,
+      77800001
+     ]
+    },
+    {
+     "id": "a944bf7c-0db7-4fdd-88ef-fbf3fabdb3de.trace.0",
+     "net": "DATA_3_4",
+     "reason": "narrow solder isolation over opaque copper; prevents different-net aperture bridges",
+     "rect_nm": [
+      3360000,
+      77075000,
+      7025000,
+      77525000
+     ]
+    },
+    {
+     "id": "dfc258f2-207d-4b72-8f81-cb2f21906ba9.trace.0",
+     "net": "DATA_3_4",
+     "reason": "narrow solder isolation over opaque copper; prevents different-net aperture bridges",
+     "rect_nm": [
+      6075000,
+      54075000,
+      7025000,
+      54525000
+     ]
+    },
+    {
+     "id": "ec6fa79d-9d25-43dd-a310-157804a02de4.trace.0",
+     "net": "DATA_3_4",
+     "reason": "narrow solder isolation over opaque copper; prevents different-net aperture bridges",
+     "rect_nm": [
+      6575000,
+      54075000,
+      7025000,
+      77525000
+     ]
+    },
+    {
+     "id": "6bd51869-eeb6-4813-aef4-298940647071",
+     "reason": "via tenting; opening must not expose hole",
+     "rect_nm": [
+      4500000,
+      12700000,
+      5500001,
+      13700001
+     ]
+    },
+    {
+     "id": "7a00c548-baab-4448-ad1a-65c35339e3be",
+     "reason": "via tenting; opening must not expose hole",
+     "rect_nm": [
+      5500000,
+      64900000,
+      6500001,
+      65900001
+     ]
+    },
+    {
+     "id": "e52115ff-591c-4a42-a9ec-2abcb133fb41",
+     "reason": "via tenting; opening must not expose hole",
+     "rect_nm": [
+      3085000,
+      1800000,
+      4085001,
+      2800001
+     ]
+    },
+    {
+     "id": "40572214-0808-4a5a-b0a6-d72cfdba4974.trace.0",
+     "net": "DATA_IN",
+     "reason": "narrow solder isolation over opaque copper; prevents different-net aperture bridges",
+     "rect_nm": [
+      1975000,
+      2075000,
+      3810000,
+      2525000
+     ]
+    },
+    {
+     "id": "7815a77e-180a-45e7-aa54-fc3964422ed2.trace.0",
+     "net": "DATA_IN",
+     "reason": "narrow solder isolation over opaque copper; prevents different-net aperture bridges",
+     "rect_nm": [
+      1975000,
+      2075000,
+      2425000,
+      13425000
+     ]
+    },
+    {
+     "id": "b2c66d52-c41a-4629-bbf1-4f7a6abdfe32.trace.0",
+     "net": "DATA_IN",
+     "reason": "narrow solder isolation over opaque copper; prevents different-net aperture bridges",
+     "rect_nm": [
+      1975000,
+      65175000,
+      6225000,
+      65625000
+     ]
+    },
+    {
+     "id": "cf28a7db-c1cd-455c-8946-27d445ddda34.trace.0",
+     "net": "DATA_IN",
+     "reason": "narrow solder isolation over opaque copper; prevents different-net aperture bridges",
+     "rect_nm": [
+      1975000,
+      12975000,
+      5225000,
+      13425000
+     ]
+    },
+    {
+     "id": "e0ac444f-8f7a-4cb3-86c6-13800cd4c4cb.trace.0",
+     "net": "DATA_IN",
+     "reason": "narrow solder isolation over opaque copper; prevents different-net aperture bridges",
+     "rect_nm": [
+      1975000,
+      12975000,
+      2425000,
+      65625000
+     ]
+    },
+    {
+     "id": "b0f30c82-e44e-471b-aa3a-a1d62805f293",
+     "reason": "via tenting; opening must not expose hole",
+     "rect_nm": [
+      7100000,
+      62100000,
+      8100001,
+      63100001
+     ]
+    },
+    {
+     "id": "e6a1c383-2851-48a3-938f-63f50b707f1f",
+     "reason": "via tenting; opening must not expose hole",
+     "rect_nm": [
+      7100000,
+      15400000,
+      8100001,
+      16400001
+     ]
+    },
+    {
+     "id": "2a4cf439-1c17-4016-acea-3327ec25ec01.trace.0",
+     "net": "DATA_OTHER",
+     "reason": "narrow solder isolation over opaque copper; prevents different-net aperture bridges",
+     "rect_nm": [
+      7375000,
+      15675000,
+      7825000,
+      62825000
+     ]
+    }
+   ],
+   "open_rectangles_nm": [
+    [
+     -25000,
+     -25000,
+     1975000,
+     82525000
+    ],
+    [
+     1975000,
+     -25000,
+     3085000,
+     2075000
+    ],
+    [
+     1975000,
+     65625000,
+     3085000,
+     82525000
+    ],
+    [
+     2425000,
+     2525000,
+     3085000,
+     12975000
+    ],
+    [
+     2425000,
+     13425000,
+     3085000,
+     65175000
+    ],
+    [
+     3085000,
+     -25000,
+     4085001,
+     1800000
+    ],
+    [
+     3085000,
+     2800001,
+     4085001,
+     12975000
+    ],
+    [
+     3085000,
+     13425000,
+     4085001,
+     26800000
+    ],
+    [
+     3085000,
+     27800001,
+     4085001,
+     51800000
+    ],
+    [
+     3085000,
+     52800001,
+     4085001,
+     65175000
+    ],
+    [
+     3085000,
+     65625000,
+     4085001,
+     76800000
+    ],
+    [
+     3085000,
+     77800001,
+     4085001,
+     82525000
+    ],
+    [
+     4085001,
+     -25000,
+     4500000,
+     12975000
+    ],
+    [
+     4085001,
+     13425000,
+     4500000,
+     27075000
+    ],
+    [
+     4085001,
+     27525000,
+     5800000,
+     52075000
+    ],
+    [
+     4085001,
+     52525000,
+     5500000,
+     65175000
+    ],
+    [
+     4085001,
+     65625000,
+     5500000,
+     77075000
+    ],
+    [
+     4085001,
+     77525000,
+     7025000,
+     82525000
+    ],
+    [
+     4500000,
+     -25000,
+     5500001,
+     12700000
+    ],
+    [
+     4500000,
+     13700001,
+     5500001,
+     27075000
+    ],
+    [
+     5500000,
+     52525000,
+     5800000,
+     64900000
+    ],
+    [
+     5500000,
+     65900001,
+     6500001,
+     77075000
+    ],
+    [
+     5500001,
+     -25000,
+     5800000,
+     27075000
+    ],
+    [
+     5800000,
+     -25000,
+     6800001,
+     3800000
+    ],
+    [
+     5800000,
+     4800001,
+     6575000,
+     27075000
+    ],
+    [
+     5800000,
+     27525000,
+     6800001,
+     28800000
+    ],
+    [
+     5800000,
+     29800001,
+     6575000,
+     52075000
+    ],
+    [
+     5800000,
+     52525000,
+     6800001,
+     53800000
+    ],
+    [
+     5800000,
+     54800001,
+     6500001,
+     64900000
+    ],
+    [
+     6500001,
+     54800001,
+     6575000,
+     77075000
+    ],
+    [
+     6800001,
+     -25000,
+     7025000,
+     4075000
+    ],
+    [
+     6800001,
+     27525000,
+     7025000,
+     29075000
+    ],
+    [
+     6800001,
+     52525000,
+     7025000,
+     54075000
+    ],
+    [
+     7025000,
+     -25000,
+     7100000,
+     82525000
+    ],
+    [
+     7100000,
+     -25000,
+     8100001,
+     15400000
+    ],
+    [
+     7100000,
+     16400001,
+     7375000,
+     62100000
+    ],
+    [
+     7100000,
+     63100001,
+     8100001,
+     82525000
+    ],
+    [
+     7825000,
+     16400001,
+     8100001,
+     62100000
+    ],
+    [
+     8100001,
+     -25000,
+     9025000,
+     82525000
+    ]
+   ],
+   "additional_open_area_mm2": 649.770858,
+   "note": "pad apertures are additional openings; this is not optical transmittance"
+  }
+ },
+ "source_a5_sha256": "6244280cec3efe00ca31d9c5c8878f3ed6eb59a1c6bd4e933beffedd49511df3",
+ "board_sha256": "bcf2e35d767221f5a9db0cd16769a2e503a672f522fd4f32f78012cdeb494cf9"
+}

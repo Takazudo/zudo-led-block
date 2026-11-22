@@ -22,8 +22,8 @@ import a7_fixture_assembly as relief_assembly
 OUT = ROOT / 'engineering/a7/fixture'
 BOARD = ROOT / 'engineering/a7/electronics/controller/controller.kicad_pcb'
 CANONICAL = BOARD.with_name('board_placement.json')
-BOARD_SHA = '89310d539b3c28096775cee821e46c14fdba42a87809c82f1fd7f0751704e727'
-PLACEMENT_SHA = '5ba26c3c25b4d31a36d324f47db21b24afa3cad67b6f0f2b4fcf9580024448e0'
+BOARD_SHA = 'd83691d6590e013b2a66957b61d76ba2f68bedaaec04789326e1215b2d1bdb2b'
+PLACEMENT_SHA = '2d32b2ab76735dbf4ff7f2c959de4398b8215983be9a4fd33fde50c7015212f5'
 ROLES = {'TP1': '+3V3', 'TP2': 'GND', 'TP3': 'SWDIO', 'TP4': 'SWCLK', 'TP5': 'NRST'}
 
 
@@ -72,7 +72,8 @@ def native_probe_pads(pads):
     prov = rec['provenance']
     return {'record': str(path.relative_to(ROOT)), 'record_sha256': digest(path), 'status': rec['status'],
             'github_run_id': prov['identity']['github_run_id'], 'tested_revision': prov['identity'].get('pr_head_sha') or prov['identity'].get('checkout_head'),
-            'artifact_zip_sha256': prov['artifact_zip_sha256'], 'probe_pads_match': True,
+            'provenance_class': prov['provenance_class'], 'ci_retained_artifact': prov['ci_retained_artifact'],
+            'artifact_zip_sha256': prov.get('artifact_zip_sha256'), 'probe_pads_match': True,
             'scope': 'Native KiCad pad facts confirm the five probe pads (B side, round 1 mm, B.Cu/B.Mask, position, net). Native pad copper boxes set the carrier cuts and native F courtyards bound the clamp points (b_side_relief); body heights and solder envelopes are not native facts.'}
 
 
@@ -216,7 +217,7 @@ def report():
         assembly=asm,
         fresh_native_verified=fresh, fresh_native_criteria=criteria, completion_criteria=completion,
         native_geometry=native, b_side_relief=relief,
-        native_ci_evidence={'observed_date_utc':'2026-11-11','run_url':'https://github.com/Takazudo/zudo-led-block/actions/runs/42596523199','head_sha':'f0b1d8aa37f3967ccc8c9a6bd6ca0e7b7fc7b3a0','base_sha':'af523f9abb74e206c27aaaa076b3b68a5c474940','result':'PASS','board_sha256':BOARD_SHA,'scope':'Pinned native CI of the PR #44 preparation head on the unchanged board (CI log result); not verification of fixture geometry','raw_facts_consumed':False,'artifact_access':'2026-11-09: download Forbidden (historical). 2026-11-11: native-infrastructure-evidence artifact 13663737750 downloaded (ZIP SHA-256 33f3d9121164f364b0325540b161e9546ddf73c8b723c9166fdcd8a19867cf0e), but it retains only a7-gate/summary.json; candidate board_facts/board_geometry were not uploaded, so raw candidate facts remain unavailable'},
+        native_ci_evidence={'observed_date_utc':'2026-11-11','run_url':'https://github.com/Takazudo/zudo-led-block/actions/runs/42596523199','head_sha':'f0b1d8aa37f3967ccc8c9a6bd6ca0e7b7fc7b3a0','base_sha':'af523f9abb74e206c27aaaa076b3b68a5c474940','result':'PASS','board_sha256':'89310d539b3c28096775cee821e46c14fdba42a87809c82f1fd7f0751704e727','applies_to_current_board':False,'scope':'Pinned native CI of the PR #44 preparation head on the 1.6 mm board it names (CI log result); not verification of fixture geometry and NOT a result for the current 0.8 mm board. The current board\'s native result is the pinned-image gate recorded in native-geometry.json (provenance_class LOCAL_PINNED_IMAGE_RUN, no CI run id); CI re-runs the gate itself on every push','raw_facts_consumed':False,'artifact_access':'2026-11-09: download Forbidden (historical). 2026-11-11: native-infrastructure-evidence artifact 13663737750 downloaded (ZIP SHA-256 33f3d9121164f364b0325540b161e9546ddf73c8b723c9166fdcd8a19867cf0e), but it retains only a7-gate/summary.json; candidate board_facts/board_geometry were not uploaded, so raw candidate facts remain unavailable'},
         transform={'description':'Board coordinates for every part: x, y as on the PCB, z up from the board B face (carrier top). The B-view carrier coordinates in b_side_relief are x_c = 16.2 - x_board.','matrix_xy_b_view':[[-1,0,16.2],[0,1,0],[0,0,1]]},
         pads=pads,
         calculations={'nominal_radial_budget_mm':(1.0-0.5)/2,'worst_case_registration_margin_mm':relief['registration']['worst_case_margin_mm'],'registration_equation':'0.25 - (board edge-to-pad + datum registration + bore position + probe lateral play/concentricity); all terms radial worst-case mm, each allocation closed by an acceptance measurement (b_side_relief.registration)','minimum_probe_pitch_mm':round(spacing,6),'manufacturer_nominal_grid_mm':1.27,'nominal_collar_edge_gap_mm':round(spacing-1.04,6),'recommended_working_stroke_mm':4.3,'maximum_stroke_mm':6.35,'nominal_total_force_at_working_stroke_N':5*1.0,'nominal_total_preload_N':5*0.44,'total_force_at_maximum_stroke_N':hd['probe_force_total_N']['maximum_stroke'],'required_total_hold_down_force_N':hd['required_total_force_N'],'hold_down_force_range_N':hd['total_force_N'],'clamp_force_margin_factor':hd['clamp_force_margin_factor'],'force_tolerance_N':None},

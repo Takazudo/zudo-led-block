@@ -137,7 +137,9 @@ class LedgerTests(unittest.TestCase):
   ext={x['id']:x for x in self.report['external_materials']}
   self.assertEqual(ext['finished-power-cable']['requirement'],P.read(ROOT,P.LAYOUT)['power_cable_requirement'])
   self.assertEqual(ext['finished-power-cable']['requirement']['tolerance_confidence'],'ASSUMED')
-  self.assertEqual(ext['top_cap_screw_A7']['description'],'M2x18')
+  self.assertEqual(ext['top_cap_screw_A7']['description'],'M2x20')
+  self.assertEqual(ext['top_leaf_adapter_cap']['adapter_spacer_height_mm'],4.0)
+  self.assertEqual(ext['finished-power-cable']['requirement']['band'],[52.0,58.0])
   self.assertEqual(ext['finished-sh4']['quantity_per_module'],2)
   self.assertNotIn('top_cap_spacer_A7',ext)
   self.assertNotIn('bottom_cap_fork_A7',ext)

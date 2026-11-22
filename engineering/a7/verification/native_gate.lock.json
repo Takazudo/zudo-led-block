@@ -108,7 +108,7 @@
   {
    "path": "engineering/a7/electronics/controller/controller.kicad_pcb",
    "stage": true,
-   "sha256": "89310d539b3c28096775cee821e46c14fdba42a87809c82f1fd7f0751704e727"
+   "sha256": "d83691d6590e013b2a66957b61d76ba2f68bedaaec04789326e1215b2d1bdb2b"
   },
   {
    "path": "engineering/a7/electronics/controller/controller.kicad_pro",
@@ -129,6 +129,36 @@
    "path": "engineering/a7/electronics/controller/sym-lib-table",
    "stage": true,
    "sha256": "4501321f675796843fef8f8fed11fc99c2c74d3972bb11074dd9722d0e9a638a"
+  },
+  {
+   "path": "engineering/a7/electronics/led_leaf/LightBlock.kicad_sym",
+   "stage": true,
+   "sha256": "22ad3e9b85f8e59dfa8c83d67983879c9c45261b4408af152d413d091ddec693"
+  },
+  {
+   "path": "engineering/a7/electronics/led_leaf/fp-lib-table",
+   "stage": true,
+   "sha256": "ef852dc3f0ecfa4c3852daf280b8583335d868406aa99d55a631d57816fc8b1a"
+  },
+  {
+   "path": "engineering/a7/electronics/led_leaf/led_leaf.kicad_pcb",
+   "stage": true,
+   "sha256": "bcf2e35d767221f5a9db0cd16769a2e503a672f522fd4f32f78012cdeb494cf9"
+  },
+  {
+   "path": "engineering/a7/electronics/led_leaf/led_leaf.kicad_pro",
+   "stage": true,
+   "sha256": "be69eb7d87c98239a997f1d20b87957ab7f356bb58381c4aaaab36ddf2fd34c8"
+  },
+  {
+   "path": "engineering/a7/electronics/led_leaf/led_leaf.kicad_sch",
+   "stage": true,
+   "sha256": "b3eaaf84ab1bc3a13c1dd1600cb6f5dca5ea61c403d0af4ea7c5b664b40c6599"
+  },
+  {
+   "path": "engineering/a7/electronics/led_leaf/sym-lib-table",
+   "stage": true,
+   "sha256": "0d40724c57d56080d896c5d7ef8fadd28b7415d0fd34767804aa7e57c6c27da9"
   },
   {
    "path": "engineering/a5/electronics/footprints/LightBlock.pretty/C0603.kicad_mod",
@@ -241,9 +271,24 @@
    "sha256": "fa2d267acc4081156649ee15e014fbaeae4303bc96374fe19f4bae7b3a72553f"
   },
   {
+   "path": "engineering/a7/electronics/controller/optical-mask.json",
+   "stage": false,
+   "sha256": "62a9c824a8ae5585a843cd1a7cbc839e53035ab00332c4c57ad829e3c9cb6493"
+  },
+  {
+   "path": "engineering/a7/electronics/led_leaf/optical-mask.json",
+   "stage": false,
+   "sha256": "f874e134af856c4ddbce671875107a67e43a277fd05043199b3925c37a5fc2aa"
+  },
+  {
    "path": "engineering/a7/verification/authorized_delta.json",
    "stage": false,
    "sha256": "7235aa462c17841752c07911c4ca14bc1ddb47cb289a5c40b5a0e7cf977d4a68"
+  },
+  {
+   "path": "engineering/a7/verification/fab/optical-fr4.json",
+   "stage": false,
+   "sha256": "d974daffc20c4aabaa1d754f4b7393315388246b93433bb77750a4100237c6e5"
   },
   {
    "path": "engineering/a7/verification/interface_roles/a7_controller.json",
@@ -253,7 +298,52 @@
   {
    "path": "engineering/a7/verification/native_gate.json",
    "stage": false,
-   "sha256": "4b399fb945d1be48b8dacda14da85cfc876c9a4c8d149374df594fabdc8a0e46"
+   "sha256": "0dc30a170982b158f011408255e07997f1ec93f5aae47d250e69abf705dad57d"
+  },
+  {
+   "path": "engineering/a7/verification/source_authority.json",
+   "stage": false,
+   "sha256": "439f2bbe91229e9e3f5bd489ab6daa0faba2f93aa8c22ccca120310f43c34a81"
+  },
+  {
+   "path": "scripts/a7_board.py",
+   "stage": false,
+   "sha256": "fd0bca9a11bcfadd49347ef59f2f7dafec2e6b1c440f9f1184df1f4687830d80"
+  },
+  {
+   "path": "scripts/a7_gerber_inspect.py",
+   "stage": false,
+   "sha256": "82e61fc4631a04db6e0ab7096fd90dc6866abdf2c3ae46c3375d106162b4ba9d"
+  },
+  {
+   "path": "scripts/a7_optical_check.py",
+   "stage": false,
+   "sha256": "857f54c021f3d092e44d6698f87bedf0f0458f448f2e7109628f0178cda03062"
+  },
+  {
+   "path": "scripts/a7_optical_geometry.py",
+   "stage": false,
+   "sha256": "c08507d13d7413e854aa8d36ae23a34bf8a3a2c8c13e86f5cd8b329cb8b0794f"
+  },
+  {
+   "path": "scripts/a7_optical_pcb.py",
+   "stage": false,
+   "sha256": "b2f5c1a6ae5116bffbd9dd3eab682ef5849c3b5d770b82e0db1a4da8dd6f1b2d"
+  },
+  {
+   "path": "scripts/a7_return_review.py",
+   "stage": false,
+   "sha256": "46ded8232e4b45ecf9eb41c048823a696014dafb7816e5f7dbdf4eaf2ba6b2dc"
+  },
+  {
+   "path": "scripts/a7_route.py",
+   "stage": false,
+   "sha256": "218b0d4b78a4e3fdc098b5bf04e9150be2e8a90800fe19c0f165fd9d5f062341"
+  },
+  {
+   "path": "scripts/a7_route_check.py",
+   "stage": false,
+   "sha256": "6af5dedd4e5cfb5d65bc543b8d308005896cd56d644ba22a25af5870edf12dc1"
   },
   {
    "path": "scripts/native_gate/authority.py",

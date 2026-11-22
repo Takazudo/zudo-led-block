@@ -2,25 +2,26 @@
   "schema": 1,
   "status": "DRY_RUN_NOT_RELEASED",
   "order_eligibility": "BLOCKED",
-  "prototype_route_binding": "MATCHES the current readiness identities",
+  "prototype_route_binding": "HOLD: readiness gate owner_prototype_route (the recorded approval does not match the current identities)",
   "dated_order_exports": [
     "engineering/a7/jlc-package/order/2026-11-13"
   ],
   "modules": 2,
   "decided_by": "OWNER",
   "sources": "engineering/a7/jlc-package/sources.json",
-  "ledger_sha256": "557d5e48045b60bb4a8f91dc55f9fae2988d4494082c42532679032da2c8502c",
+  "ledger_sha256": "9225919ce1a44ca70be6c66e081c3d53c23b25421848ac243a6c991215bb320d",
   "sources_sha256": "6fc3789723a99d5f6eaeca12b9f057ebb407ef84b7a8657ee224129c262f05d5",
+  "optical_fab_sha256": "d974daffc20c4aabaa1d754f4b7393315388246b93433bb77750a4100237c6e5",
   "boards": [
     {
       "board": "controller",
       "pcb": "engineering/a7/electronics/controller/controller.kicad_pcb",
-      "pcb_sha256": "89310d539b3c28096775cee821e46c14fdba42a87809c82f1fd7f0751704e727",
+      "pcb_sha256": "d83691d6590e013b2a66957b61d76ba2f68bedaaec04789326e1215b2d1bdb2b",
       "per_module": 1,
       "pcba_quantity": 2,
       "copper_layers": 4,
-      "thickness_mm": 1.6,
-      "thickness_tolerance": "±10%",
+      "thickness_mm": 0.8,
+      "thickness_tolerance": "±0.1 mm",
       "outline_mm": {
         "x": [
           0.0,
@@ -33,7 +34,7 @@
         "width": 16.2,
         "height": 62.9
       },
-      "copper_finish_in_board_file": null,
+      "copper_finish_in_board_file": "ENIG",
       "gerber_origin": "absolute (page) coordinates",
       "min_drill_mm": 0.2,
       "fiducials": [],
@@ -92,25 +93,302 @@
         "controller_BOM_DRYRUN.csv",
         "controller_CPL_DRYRUN.csv"
       ],
+      "optical_manufacturing": {
+        "spec": "engineering/a7/verification/fab/optical-fr4.json",
+        "spec_sha256": "d974daffc20c4aabaa1d754f4b7393315388246b93433bb77750a4100237c6e5",
+        "revision": "A7 optical R3 / issue87 / 2026-11-17 JST",
+        "finished_thickness_tolerance_mm": 0.1,
+        "native_stackup": [
+          "stackup",
+          [
+            "layer",
+            "F.SilkS",
+            [
+              "type",
+              "Top Silk Screen"
+            ]
+          ],
+          [
+            "layer",
+            "F.Paste",
+            [
+              "type",
+              "Top Solder Paste"
+            ]
+          ],
+          [
+            "layer",
+            "F.Mask",
+            [
+              "type",
+              "Top Solder Mask"
+            ],
+            [
+              "thickness",
+              "0.01"
+            ]
+          ],
+          [
+            "layer",
+            "F.Cu",
+            [
+              "type",
+              "copper"
+            ],
+            [
+              "thickness",
+              "0.035"
+            ]
+          ],
+          [
+            "layer",
+            "dielectric 1",
+            [
+              "type",
+              "prepreg"
+            ],
+            [
+              "thickness",
+              "0.0994"
+            ],
+            [
+              "material",
+              "FR4 3313"
+            ],
+            [
+              "epsilon_r",
+              "4.1"
+            ],
+            [
+              "loss_tangent",
+              "0.02"
+            ]
+          ],
+          [
+            "layer",
+            "In1.Cu",
+            [
+              "type",
+              "copper"
+            ],
+            [
+              "thickness",
+              "0.0152"
+            ]
+          ],
+          [
+            "layer",
+            "dielectric 2",
+            [
+              "type",
+              "core"
+            ],
+            [
+              "thickness",
+              "0.5"
+            ],
+            [
+              "material",
+              "FR4"
+            ],
+            [
+              "epsilon_r",
+              "4.6"
+            ],
+            [
+              "loss_tangent",
+              "0.02"
+            ]
+          ],
+          [
+            "layer",
+            "In2.Cu",
+            [
+              "type",
+              "copper"
+            ],
+            [
+              "thickness",
+              "0.0152"
+            ]
+          ],
+          [
+            "layer",
+            "dielectric 3",
+            [
+              "type",
+              "prepreg"
+            ],
+            [
+              "thickness",
+              "0.0994"
+            ],
+            [
+              "material",
+              "FR4 3313"
+            ],
+            [
+              "epsilon_r",
+              "4.1"
+            ],
+            [
+              "loss_tangent",
+              "0.02"
+            ]
+          ],
+          [
+            "layer",
+            "B.Cu",
+            [
+              "type",
+              "copper"
+            ],
+            [
+              "thickness",
+              "0.035"
+            ]
+          ],
+          [
+            "layer",
+            "B.Mask",
+            [
+              "type",
+              "Bottom Solder Mask"
+            ],
+            [
+              "thickness",
+              "0.01"
+            ]
+          ],
+          [
+            "layer",
+            "B.Paste",
+            [
+              "type",
+              "Bottom Solder Paste"
+            ]
+          ],
+          [
+            "layer",
+            "B.SilkS",
+            [
+              "type",
+              "Bottom Silk Screen"
+            ]
+          ],
+          [
+            "copper_finish",
+            "ENIG"
+          ],
+          [
+            "dielectric_constraints",
+            "no"
+          ]
+        ],
+        "construction_target": {
+          "board": "engineering/a7/electronics/controller/controller.kicad_pcb",
+          "layers": 4,
+          "stackup_name": "JLC04081H-3313",
+          "impedance_template_code": "20211110052748",
+          "stackup": [
+            {
+              "kind": "copper",
+              "layer": "F.Cu",
+              "thickness_mm": 0.035
+            },
+            {
+              "kind": "prepreg",
+              "material": "FR4 3313",
+              "thickness_mm": 0.0994,
+              "epsilon_r": 4.1
+            },
+            {
+              "kind": "copper",
+              "layer": "In1.Cu",
+              "thickness_mm": 0.0152
+            },
+            {
+              "kind": "core",
+              "material": "FR4",
+              "thickness_mm": 0.5,
+              "epsilon_r": 4.6
+            },
+            {
+              "kind": "copper",
+              "layer": "In2.Cu",
+              "thickness_mm": 0.0152
+            },
+            {
+              "kind": "prepreg",
+              "material": "FR4 3313",
+              "thickness_mm": 0.0994,
+              "epsilon_r": 4.1
+            },
+            {
+              "kind": "copper",
+              "layer": "B.Cu",
+              "thickness_mm": 0.035
+            }
+          ],
+          "laminate_sum_mm": 0.7992,
+          "sum_note": "manufacturer compressionThickness .7992mm; order nominal .8 +/- .1mm, do not rescale dielectric to force sum .8",
+          "local_copper": [
+            {
+              "id": "buck-return-thermal",
+              "net": "/GND",
+              "layer": "B.Cu",
+              "rect_mm": [
+                4,
+                0.4,
+                8.8,
+                4.9
+              ],
+              "reason": "localized return/thermal spreading below U2/C1, tied to the buck ground by two stitch vias beside C1.2/U2.4; DS41326 Rev3-2 page15 recommends bottom GND copper; on the power return branch only, never touching the quiet branch or the J5.2 pad; no whole-board plane; thermal performance still needs bench",
+              "max_outline_area_mm2": 21.6
+            }
+          ],
+          "max_trace_width_mm": 0.6,
+          "wide_trace_reason": "0.6mm B.Cu quiet-ground trunk from the J5.2 pin to the single MCU ground via under U1 lowers the shared CV/ADC reference impedance; every other trace is <=0.3mm. Real trace only, not broad fill."
+        },
+        "surface_finish": "ENIG",
+        "surface_finish_status": "project choice for exposed copper and fine-pitch assembly; final factory DFM/order configuration remains unconfirmed",
+        "mask_policy": {
+          "semantics": "F.Mask and B.Mask graphics are openings, not retained mask",
+          "pad_margin_mm": 0.15,
+          "via_margin_mm": 0.2,
+          "silk_margin_mm": 0.15,
+          "reason": "retain only pad solder dams/wicking barriers, narrow solder isolation over surface copper (native solder_mask_bridge prevention), via tents and polarity/assembly silk backing; exact rectangles recorded per board",
+          "paste": "normal footprint apertures only; no new paste graphics",
+          "verification": "compare exported positive mask Gerbers to these protected rectangles and pad apertures; fail if any opening, including a pad aperture, comes within via_web_mm of via copper",
+          "ink_thickness_mm": 0.01,
+          "ink_thickness_status": "JLC published minimum, used only as preview/stackup convention; local coating not measured",
+          "trace_margin_mm": 0.1,
+          "diagonal_step_mm": 0.5,
+          "via_web_mm": 0.1,
+          "via_web_reason": "Every via keeps at least this much mask between its copper and ANY effective opening, generated rectangle or component pad aperture alike (JLC green 1 oz mask bridge 0.10 mm, same source row). The router keeps via copper this far from every pad aperture (no via in or against a pad); a7_optical_check.py proves it on the native residual mask and a7_gerber_inspect.py on the plotted Gerbers."
+        },
+        "acceptance": "NOT_FACTORY_ACCEPTED: exposed ENIG copper, local mask dams/tenting, thin board support, panel and assembly service require final DFM; thickness alone does not qualify PCBA",
+        "historical_approvals": "2026-11-13 order exports and approvals apply only to their recorded old identities; not this revision"
+      },
       "base_material": {
         "value": "FR-4",
         "source": "engineering/a7/mechanical/layout.json decision.working_candidate"
       },
       "overhangs": [
         {
-          "ref": "J2",
+          "ref": "J1",
           "left": 4.45
-        },
-        {
-          "ref": "J3",
-          "right": 0.3
         },
         {
           "ref": "SW1",
           "bottom": 0.25
         },
         {
-          "ref": "J1",
+          "ref": "J3",
+          "right": 0.3
+        },
+        {
+          "ref": "J2",
           "left": 4.45
         }
       ],
@@ -139,7 +417,7 @@
             "criterion": "thickness 0.8–1.6 mm",
             "ja": "板厚 0.8–1.6 mm",
             "ok": true,
-            "value": "1.6 mm"
+            "value": "0.8 mm"
           },
           {
             "criterion": "2, 4 or 6 copper layers",
@@ -185,7 +463,7 @@
             "criterion": "thickness 0.8–1.6 mm",
             "ja": "板厚 0.8–1.6 mm",
             "ok": true,
-            "value": "1.6 mm"
+            "value": "0.8 mm"
           },
           {
             "criterion": "2, 4 or 6 copper layers",
@@ -239,8 +517,8 @@
         "open_questions": [
           {
             "id": "overhang",
-            "text": "Courtyards reach past the outline by more than the 2 mm board spacing (J2 4.45 mm, J1 4.45 mm); a JLC panel must leave room for them, which the order form does not let us specify.",
-            "ja": "部品のコートヤードが基板外形から 2 mm の基板間隔より大きくはみ出す（J2 4.45 mm, J1 4.45 mm）。JLC の面付けでその逃げを確保できるかは注文画面では指定できない。"
+            "text": "Courtyards reach past the outline by more than the 2 mm board spacing (J1 4.45 mm, J2 4.45 mm); a JLC panel must leave room for them, which the order form does not let us specify.",
+            "ja": "部品のコートヤードが基板外形から 2 mm の基板間隔より大きくはみ出す（J1 4.45 mm, J2 4.45 mm）。JLC の面付けでその逃げを確保できるかは注文画面では指定できない。"
           }
         ],
         "repo_panel_needed_if": [
@@ -268,21 +546,21 @@
         "separation": "mouse bites; tabs at least 5 mm wide",
         "assembled_at_minimum_order": 2,
         "notes": [
-          "Frame cut back by the courtyard overhang plus 1 mm (proposed) at J2, J3, SW1, J1; tabs away from those parts where at least 2 tabs fit, otherwise kept clear of pads only (see the panel notes)."
+          "Frame cut back by the courtyard overhang plus 1 mm (proposed) at J1, SW1, J3, J2; tabs away from those parts where at least 2 tabs fit, otherwise kept clear of pads only (see the panel notes)."
         ],
         "notes_ja": [
-          "J2, J3, SW1, J1 のはみ出しに 1 mm（提案値）を足して枠を逃がす。タブは 2 か所以上置ける限りその部品から離し、置けない場合はパッドからだけ離す（面付けの注記を参照）。"
+          "J1, SW1, J3, J2 のはみ出しに 1 mm（提案値）を足して枠を逃がす。タブは 2 か所以上置ける限りその部品から離し、置けない場合はパッドからだけ離す（面付けの注記を参照）。"
         ]
       }
     },
     {
       "board": "led_leaf",
-      "pcb": "engineering/a5/electronics/native/led_leaf/led_leaf.kicad_pcb",
-      "pcb_sha256": "6244280cec3efe00ca31d9c5c8878f3ed6eb59a1c6bd4e933beffedd49511df3",
+      "pcb": "engineering/a7/electronics/led_leaf/led_leaf.kicad_pcb",
+      "pcb_sha256": "bcf2e35d767221f5a9db0cd16769a2e503a672f522fd4f32f78012cdeb494cf9",
       "per_module": 2,
       "pcba_quantity": 4,
       "copper_layers": 2,
-      "thickness_mm": 0.6,
+      "thickness_mm": 0.8,
       "thickness_tolerance": "±0.1 mm",
       "outline_mm": {
         "x": [
@@ -296,7 +574,7 @@
         "width": 9.0,
         "height": 82.5
       },
-      "copper_finish_in_board_file": null,
+      "copper_finish_in_board_file": "ENIG",
       "gerber_origin": "absolute (page) coordinates",
       "min_drill_mm": 0.3,
       "fiducials": [],
@@ -313,6 +591,172 @@
         "led_leaf_BOM_DRYRUN.csv",
         "led_leaf_CPL_DRYRUN.csv"
       ],
+      "optical_manufacturing": {
+        "spec": "engineering/a7/verification/fab/optical-fr4.json",
+        "spec_sha256": "d974daffc20c4aabaa1d754f4b7393315388246b93433bb77750a4100237c6e5",
+        "revision": "A7 optical R3 / issue87 / 2026-11-17 JST",
+        "finished_thickness_tolerance_mm": 0.1,
+        "native_stackup": [
+          "stackup",
+          [
+            "layer",
+            "F.SilkS",
+            [
+              "type",
+              "Top Silk Screen"
+            ]
+          ],
+          [
+            "layer",
+            "F.Paste",
+            [
+              "type",
+              "Top Solder Paste"
+            ]
+          ],
+          [
+            "layer",
+            "F.Mask",
+            [
+              "type",
+              "Top Solder Mask"
+            ],
+            [
+              "thickness",
+              "0.01"
+            ]
+          ],
+          [
+            "layer",
+            "F.Cu",
+            [
+              "type",
+              "copper"
+            ],
+            [
+              "thickness",
+              "0.035"
+            ]
+          ],
+          [
+            "layer",
+            "dielectric 1",
+            [
+              "type",
+              "core"
+            ],
+            [
+              "thickness",
+              "0.73"
+            ],
+            [
+              "material",
+              "FR4"
+            ],
+            [
+              "epsilon_r",
+              "4.5"
+            ],
+            [
+              "loss_tangent",
+              "0.02"
+            ]
+          ],
+          [
+            "layer",
+            "B.Cu",
+            [
+              "type",
+              "copper"
+            ],
+            [
+              "thickness",
+              "0.035"
+            ]
+          ],
+          [
+            "layer",
+            "B.Mask",
+            [
+              "type",
+              "Bottom Solder Mask"
+            ],
+            [
+              "thickness",
+              "0.01"
+            ]
+          ],
+          [
+            "layer",
+            "B.Paste",
+            [
+              "type",
+              "Bottom Solder Paste"
+            ]
+          ],
+          [
+            "layer",
+            "B.SilkS",
+            [
+              "type",
+              "Bottom Silk Screen"
+            ]
+          ],
+          [
+            "copper_finish",
+            "ENIG"
+          ],
+          [
+            "dielectric_constraints",
+            "no"
+          ]
+        ],
+        "construction_target": {
+          "board": "engineering/a7/electronics/led_leaf/led_leaf.kicad_pcb",
+          "layers": 2,
+          "stackup": [
+            {
+              "kind": "copper",
+              "layer": "F.Cu",
+              "thickness_mm": 0.035
+            },
+            {
+              "kind": "core",
+              "material": "FR4",
+              "thickness_mm": 0.73,
+              "epsilon_r": 4.5
+            },
+            {
+              "kind": "copper",
+              "layer": "B.Cu",
+              "thickness_mm": 0.035
+            }
+          ],
+          "laminate_sum_mm": 0.8,
+          "core_status": "calculated manufacturing target .8-2*.035; ordinary 2-layer FR4, exact core/finish construction to be reconciled at final factory DFM; not a measured manufacturer core value",
+          "local_copper": [],
+          "max_trace_width_mm": 0.5
+        },
+        "surface_finish": "ENIG",
+        "surface_finish_status": "project choice for exposed copper and fine-pitch assembly; final factory DFM/order configuration remains unconfirmed",
+        "mask_policy": {
+          "semantics": "F.Mask and B.Mask graphics are openings, not retained mask",
+          "pad_margin_mm": 0.15,
+          "via_margin_mm": 0.2,
+          "silk_margin_mm": 0.15,
+          "reason": "retain only pad solder dams/wicking barriers, narrow solder isolation over surface copper (native solder_mask_bridge prevention), via tents and polarity/assembly silk backing; exact rectangles recorded per board",
+          "paste": "normal footprint apertures only; no new paste graphics",
+          "verification": "compare exported positive mask Gerbers to these protected rectangles and pad apertures; fail if any opening, including a pad aperture, comes within via_web_mm of via copper",
+          "ink_thickness_mm": 0.01,
+          "ink_thickness_status": "JLC published minimum, used only as preview/stackup convention; local coating not measured",
+          "trace_margin_mm": 0.1,
+          "diagonal_step_mm": 0.5,
+          "via_web_mm": 0.1,
+          "via_web_reason": "Every via keeps at least this much mask between its copper and ANY effective opening, generated rectangle or component pad aperture alike (JLC green 1 oz mask bridge 0.10 mm, same source row). The router keeps via copper this far from every pad aperture (no via in or against a pad); a7_optical_check.py proves it on the native residual mask and a7_gerber_inspect.py on the plotted Gerbers."
+        },
+        "acceptance": "NOT_FACTORY_ACCEPTED: exposed ENIG copper, local mask dams/tenting, thin board support, panel and assembly service require final DFM; thickness alone does not qualify PCBA",
+        "historical_approvals": "2026-11-13 order exports and approvals apply only to their recorded old identities; not this revision"
+      },
       "base_material": {
         "value": "FR-4",
         "source": "engineering/a7/mechanical/layout.json leaf_comparison.default"
@@ -321,12 +765,10 @@
       "pcba_tier": {
         "tier": "STANDARD",
         "reasons": [
-          "C52917434 is \"Standard Only\" on its 2026-11-12 JLC part page",
-          "thickness 0.6 mm (Economic takes 0.8–1.6 mm)"
+          "C52917434 is \"Standard Only\" on its 2026-11-12 JLC part page"
         ],
         "reasons_ja": [
-          "C52917434 は 2026-11-12 の JLC 部品ページで Standard のみ",
-          "板厚 0.6 mm（Economic は 0.8–1.6 mm）"
+          "C52917434 は 2026-11-12 の JLC 部品ページで Standard のみ"
         ],
         "economic_checks": [
           {
@@ -344,8 +786,8 @@
           {
             "criterion": "thickness 0.8–1.6 mm",
             "ja": "板厚 0.8–1.6 mm",
-            "ok": false,
-            "value": "0.6 mm"
+            "ok": true,
+            "value": "0.8 mm"
           },
           {
             "criterion": "2, 4 or 6 copper layers",
@@ -390,8 +832,8 @@
           {
             "criterion": "thickness 0.8–1.6 mm",
             "ja": "板厚 0.8–1.6 mm",
-            "ok": false,
-            "value": "0.6 mm"
+            "ok": true,
+            "value": "0.8 mm"
           },
           {
             "criterion": "2, 4 or 6 copper layers",
@@ -473,12 +915,8 @@
         "fiducials": "1 mm fiducials centred 3.85 mm from the panel edges, 2 mm tooling holes, on the rails (JLC SMT guidance)",
         "separation": "mouse bites; tabs at least 5 mm wide",
         "assembled_at_minimum_order": 4,
-        "notes": [
-          "0.6 mm board: JLC uses a carrier for 0.4 and 0.6 mm boards in printing, placement and reflow; keep the waste area solid FR-4, not an open window."
-        ],
-        "notes_ja": [
-          "板厚 0.6 mm: JLC は 0.4・0.6 mm の基板に印刷・実装・リフローでキャリアを使う。捨て基板の部分は抜かずに FR-4 のまま残す。"
-        ]
+        "notes": [],
+        "notes_ja": []
       }
     },
     {
@@ -543,6 +981,9 @@
         "power_adapter_BOM_DRYRUN.csv",
         "power_adapter_CPL_DRYRUN.csv"
       ],
+      "optical_manufacturing": {
+        "status": "UNCHANGED_ADAPTER; optical/fit assessment recorded separately"
+      },
       "base_material": {
         "value": null,
         "source": null
@@ -1401,10 +1842,10 @@
       "ja": "オーナーはリポジトリ面付けを選んだ（`assembly:panel-route`）。1 枚入りの面付け（70 × 76.9 mm）を PCBA 数量 2 で注文し、必要な 2 枚に対し 2 枚。JLC がこの面付けを実装するかはオーナーの知識による判断で、JLC の確認ではない（オーナーは JLC に聞かずに O12 を閉じた。2026-11-12、jlc-questions）。面付けデータは `engineering/a7/jlc-package/panels/` に準備済み（未リリース）。"
     },
     {
-      "id": "controller-finish-not-specified",
+      "id": "controller-optical-fabrication-dfm",
       "board": "controller",
-      "text": "Surface finish is not recorded in the board file; it must be chosen on the order form.",
-      "ja": "表面処理が基板ファイルに記録されていない。注文画面で選ぶ。"
+      "text": "Optical R3 uses 0.8 ±0.1 mm FR-4, local solder-mask dams/via tents and exposed ENIG copper. Final stackup, mask process, thin-board support and PCBA service acceptance require factory DFM; old dated order approvals do not transfer.",
+      "ja": "Optical R3 は 0.8 ±0.1 mm FR-4、局所レジスト dam・via 保護、露出 ENIG 銅を使用。最終積層・レジスト工程・薄板保持・PCBA 受入は工場 DFM 未確認。旧発注承認は適用しない。"
     },
     {
       "id": "controller-centroid-offsets",
@@ -1425,10 +1866,10 @@
       "ja": "オーナーはリポジトリ面付けを選んだ（`assembly:panel-route`）。2 枚入りの面付け（70 × 96.5 mm）を PCBA 数量 2 で注文し、必要な 4 枚に対し 4 枚。JLC がこの面付けを実装するかはオーナーの知識による判断で、JLC の確認ではない（オーナーは JLC に聞かずに O12 を閉じた。2026-11-12、jlc-questions）。面付けデータは `engineering/a7/jlc-package/panels/` に準備済み（未リリース）。"
     },
     {
-      "id": "led_leaf-finish-not-specified",
+      "id": "led_leaf-optical-fabrication-dfm",
       "board": "led_leaf",
-      "text": "Surface finish is not recorded in the board file; it must be chosen on the order form.",
-      "ja": "表面処理が基板ファイルに記録されていない。注文画面で選ぶ。"
+      "text": "Optical R3 uses 0.8 ±0.1 mm FR-4, local solder-mask dams/via tents and exposed ENIG copper. Final stackup, mask process, thin-board support and PCBA service acceptance require factory DFM; old dated order approvals do not transfer.",
+      "ja": "Optical R3 は 0.8 ±0.1 mm FR-4、局所レジスト dam・via 保護、露出 ENIG 銅を使用。最終積層・レジスト工程・薄板保持・PCBA 受入は工場 DFM 未確認。旧発注承認は適用しない。"
     },
     {
       "id": "led_leaf-rotation-unverified",

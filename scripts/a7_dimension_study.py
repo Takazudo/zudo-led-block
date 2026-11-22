@@ -30,6 +30,13 @@ def r(value):
     return round(value + 0.0, 6)
 
 
+def board_thickness_tolerance(p, nominal):
+    """Finished rigid board tolerance; never apply +/-10% to a 0.8 mm board."""
+    spec = p["parameters"]["pcb_thickness_options"]
+    return (spec["absolute_tol_below_1mm"] if nominal < 1.0
+            else nominal * spec["relative_tol_at_least_1mm"])
+
+
 def transverse_case(p, width_key, offset, pcb_t, lead_mode, case, axis_band=None):
     """Margins (mm, positive = clear) for one arrangement at the 'worst', 'nominal' or 'best' corner.
 
@@ -47,8 +54,8 @@ def transverse_case(p, width_key, offset, pcb_t, lead_mode, case, axis_band=None
     x_axis = width / 2 + offset
     h_lead = {1: h_max, 0: h_nom, -1: h_min}[sign]
     h_body = {1: h_min, 0: h_nom, -1: h_max}[sign]
-    rel = P["pcb_thickness_options"]["rel_tol"]
-    t = pcb_t * (1 + sign * rel)
+    thickness_tol = board_thickness_tolerance(p, pcb_t)
+    t = pcb_t + sign * thickness_tol
     term = P["jack_terminal_projection"]
     term_len = term["nominal"] + sign * term["tol"]
     if lead_mode == "trimmed":
@@ -74,7 +81,7 @@ def transverse_case(p, width_key, offset, pcb_t, lead_mode, case, axis_band=None
     lead_long_enough = True
     if lead_mode == "trimmed" and case == "worst":
         shortest = term["nominal"] - term["tol"]
-        lead_long_enough = shortest >= pcb_t * (1 + rel) + P["lead_protrusion_trimmed"]["nominal"]
+        lead_long_enough = shortest >= (pcb_t + thickness_tol) + P["lead_protrusion_trimmed"]["nominal"]
     return {
         "x_axis": r(x_axis),
         "axis_height_used": {"lead_side": h_lead, "body_side": h_body},
@@ -247,7 +254,7 @@ def build():
         "what_if_axis_height_confirmed": what_if_axis_confirmed(p),
         "axial": ax,
         "depth_and_y": depth_and_y(p),
-        "input_confidence": {k: {f: v[f] for f in ("nominal", "values", "min", "max", "tol", "rel_tol", "confidence", "tol_confidence", "source") if f in v}
+        "input_confidence": {k: {f: v[f] for f in ("nominal", "values", "min", "max", "tol", "absolute_tol_below_1mm", "relative_tol_at_least_1mm", "confidence", "tol_confidence", "source") if f in v}
                              for k, v in p["parameters"].items()},
     }
 
@@ -261,7 +268,7 @@ def report(res, p):
     axis = P["jack_axis_height"]
     term, trim = P["jack_terminal_projection"], P["lead_protrusion_trimmed"]
     pos = P["panel_hole_position_tol"]["nominal"] + P["panel_hole_radial_float"]["nominal"]
-    rel = P["pcb_thickness_options"]["rel_tol"] * 100
+    tol = P["pcb_thickness_options"]["absolute_tol_below_1mm"]
     side = P["side_clearance_required"]["nominal"]
     pref = P["nut_edge_margin_required"]["preferred"]
     skin, leaf = P["a5_optical_skin_front_z"]["nominal"], P["a5_leaf_front_z"]["nominal"]
@@ -276,7 +283,7 @@ def report(res, p):
          "|---|---|---|---|---|"]
     for arr, s in res["transverse_summary"].items():
         L.append(f"| {arr} | {s['verdict']} | {', '.join(s['feasible_variants']) or '-'} | {', '.join(s['unresolved_variants']) or '-'} | {'yes' if s['nut_preferred_margin_met'] else 'no'} |")
-    corner = (f"axis height {axis['max']} on the lead side and {axis['min']} on the body side, PCB +/-{rel:.0f}%, terminal +/-{term['tol']}, "
+    corner = (f"axis height {axis['max']} on the lead side and {axis['min']} on the body side, 0.8 mm PCB +/-{tol:g} mm, terminal +/-{term['tol']}, "
               f"trim protrusion {trim['max']} / {trim['min']}, hole position + float {r(pos)}, panel width tolerance halved per edge")
     L += ["", "## Transverse (X) detail, worst corner", "",
           f"Margins in mm after the {side} mm side clearance (negative = interference). Worst corner takes the adverse end of every range, "
@@ -322,8 +329,8 @@ def report(res, p):
     for key, v in res["input_confidence"].items():
         if "tol" in v:
             span = f"+/-{v['tol']} ({v['tol_confidence']})"
-        elif "rel_tol" in v:
-            span = f"+/-{v['rel_tol'] * 100:.0f}%"
+        elif "absolute_tol_below_1mm" in v:
+            span = f"below 1 mm: +/-{v['absolute_tol_below_1mm']} mm; >=1 mm: +/-{v['relative_tol_at_least_1mm'] * 100:.0f}% ({v['tol_confidence']})"
         else:
             span = f"{v.get('min', v.get('nominal'))}..{v['max']}" if "max" in v else "-"
         nominal = v["nominal"] if "nominal" in v else " / ".join(str(x) for x in v["values"])

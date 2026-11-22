@@ -3,6 +3,7 @@
 import argparse
 import csv
 import hashlib
+import importlib.util
 import io
 import json
 from pathlib import Path
@@ -12,6 +13,7 @@ ROOT = Path(__file__).resolve().parents[1]
 OUT = Path('engineering/a7/procurement')
 INV = '.claude/skills/component-spec-audit/references/inventory.json'
 PLACEMENT = 'engineering/a7/electronics/controller/board_placement.json'
+LEAF_PLACEMENT = 'engineering/a7/electronics/led_leaf/board_placement.json'
 LAYOUT = 'engineering/a7/mechanical/layout.json'
 MECH = 'engineering/a7/mechanical/exports/3hp/verification.json'
 A5POS = 'engineering/a5/electronics/placement_and_connectivity.json'
@@ -26,7 +28,7 @@ LEAF_LINK_NET_ROLES = {'DATA_OTHER': 'DATA_IN', 'DATA_IN': 'DATA_OTHER'}
 CLASSES = ('CLOUD_DIGITAL', 'OWNER_DECISION', 'ACCESS_EVIDENCE_HOLD', 'PHYSICAL_ONLY')
 BOARDS = {
  'controller': (1, 'engineering/a7/verification/schematic/netlist.xml', 'engineering/a7/electronics/controller/controller.kicad_pcb'),
- 'led_leaf': (2, 'engineering/a5/integration/native_schematic/led_leaf/netlist.xml', 'engineering/a5/electronics/native/led_leaf/led_leaf.kicad_pcb'),
+ 'led_leaf': (2, 'engineering/a7/verification/led_leaf/netlist.xml', 'engineering/a7/electronics/led_leaf/led_leaf.kicad_pcb'),
  'power_adapter': (1, 'engineering/a5/integration/native_schematic/power_adapter/netlist.xml', 'engineering/a5/electronics/native/power_adapter/power_adapter.kicad_pcb'),
 }
 
@@ -167,6 +169,40 @@ def a5_mount(component):
  return 'THT' if '0' in kinds else 'SMD'
 
 
+def leaf_positions(root):
+ # Native placement is authoritative; pad mount types are parsed from matching PCB bytes.
+ placement = read(root, LEAF_PLACEMENT)
+ if placement['board'] != BOARDS['led_leaf'][2] or placement['board_sha256'] != sha(root, BOARDS['led_leaf'][2]):
+  raise ValueError('stale leaf placement identity')
+ facts_path = 'engineering/a7/verification/led_leaf/board_facts.json'
+ geometry_path = 'engineering/a7/verification/led_leaf/board_geometry.json'
+ facts, geometry = read(root, facts_path), read(root, geometry_path)
+ if facts['board_sha256'] != placement['board_sha256'] or facts['geometry_sha256'] != hashlib.sha256(json.dumps(geometry, sort_keys=True).encode()).hexdigest() or placement['geometry_sha256'] != facts['geometry_sha256']:
+  raise ValueError('leaf placement/native geometry provenance mismatch')
+ native = unique(placement['components'], 'ref')
+ expected = unique(geometry['footprints'], 'ref')
+ for ref, pos in native.items():
+  fp = expected[ref]
+  if (pos['at_mm'],pos['angle_deg'],pos['side'],pos['fpid']) != ([fp['x'],fp['y']],fp['rot'],fp['side'],fp['fpid']):
+   raise ValueError('leaf placement differs from native geometry')
+ spec = importlib.util.spec_from_file_location('a7_leaf_facts', ROOT/'scripts/a7_jlc_package.py')
+ module = importlib.util.module_from_spec(spec);spec.loader.exec_module(module)
+ module.ROOT = root
+ facts = module.board_facts(BOARDS['led_leaf'][2])
+ result = {}
+ for fp in facts['footprints']:
+  kinds = {pad[4] for pad in fp['pads']}
+  if not kinds <= {'smd','thru_hole','np_thru_hole'} or not kinds-{'np_thru_hole'}:
+   raise ValueError(f"led_leaf/{fp['ref']}: unsupported pad mount attributes {kinds}")
+  pos = native[fp['ref']]
+  if pos['fpid'] != fp['footprint'] or pos['side'] != ('B' if fp['layer']=='B.Cu' else 'F'):
+   raise ValueError('leaf native placement/PCB footprint mismatch')
+  result[fp['ref']] = dict(pos, mount='THT' if 'thru_hole' in kinds else 'SMD')
+ if set(result) != set(native):
+  raise ValueError('leaf native placement population mismatch')
+ return result
+
+
 def pin_nets(root, netlist, ref):
  nets = {}
  for net in ET.parse(root/netlist).getroot().findall('nets/net'):
@@ -233,7 +269,7 @@ def build(root=ROOT):
  pmap = unique(placement['components'], 'ref')
  native_mounts = controller_mounts(root, placement['board_sha256'])
  inherited = {b['name']: b for b in read(root, A5POS)['boards']}
- inputs = [SWITCH_SOURCES, INV, PLACEMENT, LAYOUT, MECH, A5POS, 'engineering/a7/electronics/controller/controller.kicad_sch',
+ inputs = [LEAF_PLACEMENT, 'engineering/a7/verification/led_leaf/board_facts.json', 'engineering/a7/verification/led_leaf/board_geometry.json', 'engineering/a7/verification/fab/optical-fr4.json', 'engineering/a7/electronics/led_leaf/led_leaf.kicad_sch', SWITCH_SOURCES, INV, PLACEMENT, LAYOUT, MECH, A5POS, 'engineering/a7/electronics/controller/controller.kicad_sch',
            HARNESS, 'engineering/a7/mechanical/build_a7_mechanical.py', NATIVE_GEOMETRY, OWNER_DECISIONS, SUPPLY_OBSERVATIONS,
            LISTING_PAGES, PRICE_AUDIT, CROSSWALK]
  switch_observation(root)
@@ -246,7 +282,7 @@ def build(root=ROOT):
   testpads = {'TP1','TP2','TP3','TP4','TP5'} if name == 'controller' else set()
   if set(byref) != set(assigned[name]) | testpads:
    raise ValueError(f'{name} omitted/unexpected population')
-  positions = pmap if name == 'controller' else unique(inherited[name]['components'], 'ref')
+  positions = pmap if name == 'controller' else leaf_positions(root) if name == 'led_leaf' else unique(inherited[name]['components'], 'ref')
   if {r for r,p in positions.items() if not p.get('board_only',False)} != set(byref):
    raise ValueError(f'{name} placement/netlist population mismatch')
   for ref,obj in sorted(byref.items()):
@@ -269,6 +305,10 @@ def build(root=ROOT):
     if ref not in native_mounts or native_mounts[ref][1] != pos['side']:
      raise ValueError(f'{name}/{ref}: native geometry side/mount missing or differs from placement')
     mount = native_mounts[ref][0]
+   elif name == 'led_leaf':
+    if pos['fpid'] != c.findtext('footprint'):
+     raise ValueError(f'{name}/{ref}: PCB footprint differs from fresh netlist')
+    mount = pos['mount']
    else:
     mount = a5_mount(pos)
    dnp = line['dnp']
@@ -281,8 +321,8 @@ def build(root=ROOT):
     'package':line['package'],'line_id':line['line_id'],'owner_skill':line['owner_skill'],'footprint':c.findtext('footprint'),
     'population':'DNP' if dnp else 'FITTED','mount':mount,'quantity_per_board':0 if dnp else 1,'board_multiplicity':mult,'quantity_per_module':0 if dnp else mult,
     'placement':{'side':pos['side'],'at_mm':pos.get('at_mm',pos.get('at')),'angle_deg':pos.get('angle_deg',pos.get('angle')),
-     'source':PLACEMENT if name=='controller' else A5POS,
-     'authority':'native export; independent fresh gate required' if name=='controller' else 'immutable historical A5 KiCad export; not fresh placement proof'},
+     'source':PLACEMENT if name=='controller' else LEAF_PLACEMENT if name=='led_leaf' else A5POS,
+     'authority':'native export; independent fresh gate required' if name=='controller' else 'fresh native placement; mount attributes from matching adopted PCB bytes' if name=='led_leaf' else 'immutable historical A5 KiCad export; not fresh placement proof'},
     'quantity_for_order':(0 if dnp else mult)*modules,
     'sourcing_evidence':None if dnp else PROJECTION+'#'+line['lcsc'],
     'supply_status':'NOT_PURCHASED: DNP' if dnp else 'DATED_OBSERVATIONS_ONLY: see the order_plan line and '+PROJECTION+'; not current stock, a quote, a reservation or assembly acceptance'})
@@ -291,7 +331,7 @@ def build(root=ROOT):
              for m in ('SMD', 'THT') for side in ('F', 'B')}
   boards.append({'board':name,'multiplicity':mult,'assembly_process_per_board':process,'pcb':pcb,'pcb_sha256':sha(root,pcb),'netlist':netlist,'netlist_sha256':sha(root,netlist),
    'fitted_per_board':sum(r['quantity_per_board'] for r in rows if r['board']==name),
-   'inheritance':'A7 revision 2 authority' if name=='controller' else 'unchanged immutable A5 FR-4 design'})
+   'inheritance':'A7 optical R3 authority; historical approvals do not transfer' if name in ('controller', 'led_leaf') else 'unchanged immutable A5 FR-4 adapter design'})
  controller_process = boards[0]['assembly_process_per_board']
  if controller_process['THT_B'] or not (controller_process['SMD_F'] and controller_process['SMD_B']):
   raise ValueError('controller assembly sides changed; review the PCBA service requirement wording')
@@ -306,7 +346,11 @@ def build(root=ROOT):
    'bbox_mm':[p['bbox_min'],p['bbox_max']],'exact_orderable':None,'commercial_observation':None,'status':'NEEDS SUPPLIER / PHYSICAL QUALIFICATION'})
  for e in external:
   if e['id']=='top_cap_screw_A7':e['description']=layout['supports']['top_cap_screw']['designation']
-  if e['id']=='top_leaf_adapter_cap':e['integral_features']=['top_cap_spacer_A7 (not a separate purchased part)']
+  if e['id']=='top_leaf_adapter_cap':
+   e['integral_features']=['top_cap_spacer_A7 (not a separate purchased part)']
+   e['adapter_spacer_z_mm']=layout['supports']['adapter']['cap_spacer_z']
+   e['adapter_spacer_height_mm']=round(e['adapter_spacer_z_mm'][1]-e['adapter_spacer_z_mm'][0],6)
+   e['adapter_position_basis']=layout['supports']['adapter']
   if e['id']=='bottom_leaf_cap':e['integral_features']=['bottom_cap_fork_A7 (not a separate purchased part)']
  external += [
   {'id':'finished-sh4','quantity_per_module':2,'pin_maps':{
@@ -332,11 +376,11 @@ def build(root=ROOT):
   open_blockers = [dict(b, text=JACK_WAIVED_TEXT) if b['id'] == 'jack-switch-qualification' else b for b in open_blockers]
  fixture = fixture_blocker(root,inputs)
  if fixture['class'] == 'OWNER_DECISION' and accepted.get('assembly:fixture-materials') == 'approve':
-  fixture = dict(fixture, text='Fixture digital criteria 1-4 met; the owner approved the proposed hardware on 2026-11-12 (accept all recommendations). The fabricator for the four FR-4 plates is not chosen. Physical contact/load tests (criterion 5) follow.')
+  fixture = dict(fixture, text='Fixture digital criteria 1-4 met for the current generated identity only. The 2026-11-12 hardware decision is historical and does not approve optical R3 revised supports, shims or preload. Fabricator and physical contact/load qualification remain outstanding.')
  blockers=open_blockers[:-1]+[fixture]+open_blockers[-1:]
  projection = sourcing_projection(root, rows, modules)
  blockers = [dict(b, text=supply_text(projection)) if b['id'] == 'supply-observations' else b for b in blockers]
- return {'schema':1,'revision':'A7-r2-3HP-FR4','status':'ENGINEERING_PREPARATION_NOT_SUPPLIER_UPLOAD',
+ return {'schema':1,'revision':'A7-optical-R3-3HP-FR4-0.8mm','status':'ENGINEERING_PREPARATION_NOT_SUPPLIER_UPLOAD',
   'manufacturing_released':False,'order_submitted':False,'agreed_order_quantity':modules,
   'order_plan':order_plan(root, decision, boards, rows, projection),
   'inputs_sha256':{p:sha(root,p) for p in sorted(set(inputs))},'boards':boards,'population':rows,'excluded':excluded,
@@ -531,7 +575,7 @@ BLOCKERS = [
  {'id':'jack-switch-qualification','class':'PHYSICAL_ONLY','text':'PJ-324M pin function (which of terminals 4/5 is the tip contact and which its normal; the supplier symbol contradicts the inferred 4 = tip, so this continuity test must precede any PCB order), slot, axis height and nut fit, and the HX MSK13C02 truth table and land/peg fit, need received parts (jack-continuity, jack-dimensions, switch-fit).'},
  {'id':'exact-part-evidence','class':'ACCESS_EVIDENCE_HOLD','text':'Exact-part gaps after the 2026-11-11 source recovery (the PMEG4010CEJ ,115 packing is since sourced: SOD323F on a 7-inch reel, fact-pmeg4010cej-115-orderable): SM04B-SRSS-TB per-circuit numbering not printed beyond the No. 1 end; PJ-324M recommended hole/slot sizes, axis height and whether a nut ships with C22355739 not sourced.'},
  {'id':'finished-cables','class':'OWNER_DECISION','text':'Finished A7 power cable (57 mm, +/-3 ASSUMED), SH4 cables and IDC ribbon not selected; supplier answers and the owner choice of assembly are needed before physical routing checks.'},
- {'id':'mechanical-materials','class':'ACCESS_EVIDENCE_HOLD','text':'PMMA sheet and pocket tolerances, PETG process and orderable fastener part numbers are not sourced; the model carries designations (M2x18, M1.6x4) and envelopes only.'},
+ {'id':'mechanical-materials','class':'ACCESS_EVIDENCE_HOLD','text':'PMMA sheet and pocket tolerances, PETG process and orderable fastener part numbers are not sourced; the model carries designations from the current mechanical layout and envelopes only; exact orderable hardware and assembly fit remain unqualified.'},
  {'id':'rack-hardware','class':'OWNER_DECISION','text':'Owner rack rail/thread interface and fasteners not specified.'},
  {'id':'prototype-and-release','class':'OWNER_DECISION','text':'No reviewed manufacturing package and no manufacturing release approval. A prototype route, when the owner approves one, is recorded in engineering/a7/qualification/records.json and is not a release.'},
 ]
@@ -561,7 +605,7 @@ def outputs(report, projection):
  for b in report['boards']:
   pr=b['assembly_process_per_board']
   md+=f"| {b['board']} | {b['multiplicity']} | {b['fitted_per_board']} | {pr['SMD_F']}/{pr['SMD_B']} | {pr['THT_F']}/{pr['THT_B']} | `{b['pcb_sha256']}` |\n"
- md+=f"\n実装する型番は {report['unique_fitted_identities']} 種類。SMD / THT の区別はコントローラーが native geometry のパッド属性、リーフとアダプタが不変 A5 の配置データのパッド属性から生成しています。コントローラーは両面 SMD と F 面 THT の組合せで、実装サービスの受入は未確認です。\n\n## 未解決事項\n\n| ID | 区分 | 内容 |\n|---|---|---|\n"
+ md+=f"\n実装する型番は {report['unique_fitted_identities']} 種類。SMD / THT の区別はコントローラーが native geometry のパッド属性、リーフが採用した A7 PCB のパッド属性、アダプタが不変 A5 の配置データのパッド属性から生成しています。コントローラーは両面 SMD と F 面 THT の組合せで、実装サービスの受入は未確認です。\n\n## 未解決事項\n\n| ID | 区分 | 内容 |\n|---|---|---|\n"
  for b in report['blockers']:md+=f"| {b['id']} | {b['class']} | {b['text']} |\n"
  md+='\n外部部材・ケーブル・治具・サービスの詳細は `assembly-manifest.json` を参照してください。TP1–TP5 は購入部品に数えません。治具数量は台数に掛けません。B面・角度・位置は元の KiCad 出力とハッシュに追跡できますが、この台帳だけでは新規 native 検証や実装方向の承認になりません。\n'
  return {'assembly-manifest.json':raw,'population.csv':stream.getvalue(),'ledger.md':md,

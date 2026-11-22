@@ -1,6 +1,8 @@
-# A7 R1 open questions and the external evidence needed next
+# A7 open questions and retained R1 history
 
-Each item names what is missing, which result it decides and where it came from. Some source acquisitions can be completed in Cloud; physical qualification still needs a part/prototype.
+2026-11-17 JST: [#87](https://github.com/Takazudo/zudo-led-block/issues/87) adopts 0.8 mm rigid FR-4 for leaf/controller, minimal both-side mask and no broad GND planes. Evaluate 2HP first and use 0.8 mm 3HP if evidence cannot support it. Q11/Q11a–f below are **withdrawn PET history**, not current missing prerequisites. Q1–Q9 retain their stated uncertainty. New work must establish actual stackup, mask/finish manufacturing conditions, thin-board support/fixture calculations and revision-bound verification.
+
+The retained table records missing evidence and its original scope. PET rows are withdrawn; their old proposed actions must not be dispatched. Some source acquisitions can be completed in Cloud; physical qualification still needs a part/prototype.
 2026-11-09: PCM manufacturer-primary documentation and the actual PJ-324M supplier CAD were acquired; see the owner bundles.
 
 | # | Missing evidence | Decides | Current handling |
@@ -27,7 +29,7 @@ Each item names what is missing, which result it decides and where it came from.
 
 Physical measurements, printed fit, insertion loads and measured installed depth stay with #8 and #10.
 
-## Width decision (R2, 2026-11-08)
+## Historical width decision (R2, 2026-11-08; superseded by #87)
 
 3HP (14.9 mm, centred jack, 1.6 mm FR-4, untrimmed leads) is the working candidate and the default variant of
 the generated artwork, supports and CAD. 2HP (0.6 mm body-side offset, 0.8 mm FR-4, trimmed leads) stays a

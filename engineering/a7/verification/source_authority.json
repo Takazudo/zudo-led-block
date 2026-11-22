@@ -222,12 +222,97 @@
    "class": "derived",
    "rule": "Engineering preparation only; no physical observation or release approval is implied.",
    "generator": "python3 scripts/a7_readiness.py"
+  },
+  {
+   "path": "engineering/a7/electronics/led_leaf/led_leaf.kicad_pcb",
+   "class": "authoritative",
+   "present": true,
+   "rule": "Issue87 optical R3: staged fork of immutable A5 leaf with 0.8mm rigid FR4 stackup and minimum both-side mask. Adopt only reviewed native-verified candidate. Normal generation never writes this PCB."
+  },
+  {
+   "path": "engineering/a7/electronics/led_leaf/led_leaf.kicad_sch",
+   "class": "authoritative",
+   "present": true,
+   "rule": "Issue87 unchanged electrical contract fork of A5 schematic. Independent current native leaf design; never regenerate over this source."
+  },
+  {
+   "path": "engineering/a7/electronics/led_leaf/led_leaf.kicad_pro",
+   "class": "authored",
+   "rule": "Issue87 reviewed A5 fork support; footprint library points read-only into immutable A5; no component or electrical changes."
+  },
+  {
+   "path": "engineering/a7/electronics/led_leaf/LightBlock.kicad_sym",
+   "class": "authored",
+   "rule": "Issue87 reviewed A5 fork support; footprint library points read-only into immutable A5; no component or electrical changes."
+  },
+  {
+   "path": "engineering/a7/electronics/led_leaf/fp-lib-table",
+   "class": "authored",
+   "rule": "Issue87 reviewed A5 fork support; footprint library points read-only into immutable A5; no component or electrical changes."
+  },
+  {
+   "path": "engineering/a7/electronics/led_leaf/sym-lib-table",
+   "class": "authored",
+   "rule": "Issue87 reviewed A5 fork support; footprint library points read-only into immutable A5; no component or electrical changes."
+  },
+  {
+   "path": "engineering/a7/electronics/controller/optical-mask.json",
+   "class": "authored",
+   "rule": "Staging construction record bound to adopted authoritative PCB hash; exact positive mask rectangles and protected island rationale. Not a physical optical result; checked by scripts/a7_optical_check.py."
+  },
+  {
+   "path": "engineering/a7/electronics/led_leaf/optical-mask.json",
+   "class": "authored",
+   "rule": "Staging construction record bound to adopted authoritative PCB hash; exact positive mask rectangles and protected island rationale. Not a physical optical result; checked by scripts/a7_optical_check.py."
+  },
+  {
+   "path": "engineering/a7/verification/fab/optical-fr4.json",
+   "class": "authored",
+   "rule": "Issue87 manufacturer sourced lamination and project optical copper/mask inputs; source distinctions and final DFM gaps explicit. Used by staging helpers; no direct canonical PCB overwrite."
+  },
+  {
+   "path": "engineering/a7/verification/led_leaf",
+   "class": "authored",
+   "rule": "Reviewed actual10.0.8 staged optical leaf adoption evidence, new design not historical A5 result; final CI native gate remains mandatory."
+  },
+  {
+   "path": "engineering/a7/electronics/led_leaf/board_placement.json",
+   "class": "derived",
+   "generator": "python3 scripts/native_gate/authority.py export-placement (from fresh native facts of the authoritative optical leaf)",
+   "rule": "Current optical R3 placement/connectivity export. Must match adopted leaf board SHA and fresh board_facts/board_geometry; never substitute historical A5 placement."
+  },
+  {
+   "path": "engineering/a7/electronics/controller/optical-geometry.json",
+   "class": "derived",
+   "generator": "scripts/a7_optical_geometry.py in pinned native KiCad10.0.8; staged and reviewed adoption",
+   "rule": "All-layer actual copper and effective residual mask contours; must match current authoritative PCB SHA. Display geometry only, not optical measurement or manufacturing release."
+  },
+  {
+   "path": "engineering/a7/electronics/led_leaf/optical-geometry.json",
+   "class": "derived",
+   "generator": "scripts/a7_optical_geometry.py in pinned native KiCad10.0.8; staged and reviewed adoption",
+   "rule": "All-layer actual copper and effective residual mask contours; must match current authoritative PCB SHA. Display geometry only, not optical measurement or manufacturing release."
+  },
+  {
+   "path": "engineering/a7/verification/controller",
+   "class": "authored",
+   "rule": "Adoption evidence of the current 0.8 mm controller candidate: fresh pinned-image native results (ERC, DRC, parity, unconnected, refill) of the adopted bytes, plus return-review.json, the DC electrical review of that board and route. Evidence of runs on specific bytes, not a physical result; the CI native gate and route check stay mandatory. scripts/tests/test_a7_return_review.py binds return-review.json to the committed board and route."
+  },
+  {
+   "path": "engineering/a7/verification/electrical_review.md",
+   "class": "authored",
+   "rule": "Independent electrical review of the plane-free 0.8 mm controller (#87): return topology, local copper inventory, acceptance margin and results, buck loops, decoupling, drop/thermal screen and CV/data coupling. Replaces the return-path and shielding conclusions of interface_review.md. Calculated screens and explicit assumptions only; no measurement is claimed."
+  },
+  {
+   "path": "engineering/a7/verification/optical",
+   "class": "authored",
+   "rule": "Review-only subsets of the actually exported Gerbers of the adopted A7 boards, with each file's SHA-256 bound in export-receipt.json together with the PCB, renderer, tool lock and review artifacts (python3 scripts/a7_gerber_review.py --verify-receipt ...). The .gbrjob is deliberately omitted: not an ordering or manufacturing package."
   }
  ],
  "regeneration_rules": [
   "Normal generation never writes an authoritative board; the gate hashes it before and after its regeneration --check.",
   "Placement/connectivity for downstream geometry is exported from fresh native facts of the authoritative board (scripts/native_gate/authority.py export-placement) and records the board SHA-256.",
   "Initial-board generation writes only into an empty directory outside the repository (authority.py init-board, make_fixture.py).",
-  "The A7 schematic is derived (scripts/a7_electronics.py), declared above; the board remains the only authoritative A7 electronics file."
+  "The A7 controller schematic is derived (scripts/a7_electronics.py); the controller PCB and optical leaf PCB/schematic are authoritative. New leaf is explicitly checked as a current design, A5 remains historical baseline."
  ]
 }

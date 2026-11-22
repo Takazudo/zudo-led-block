@@ -12,67 +12,31 @@ Verdicts: FEASIBLE ON PAPER = every hard margin is non-negative at the worst cor
 
 | Arrangement | Verdict | Variants that pass at the worst corner | Variants that need evidence | Nut 0.3 mm preferred margin |
 |---|---|---|---|---|
-| 2hp-centred | UNRESOLVED | - | 0.8 mm trimmed, 1.0 mm trimmed, 1.2 mm trimmed, 1.6 mm trimmed | yes |
-| 2hp-offset-0.3 | UNRESOLVED | - | 0.8 mm trimmed, 1.0 mm trimmed, 1.2 mm trimmed, 1.6 mm trimmed | yes |
-| 2hp-offset-0.6 | UNRESOLVED | - | 0.8 mm trimmed, 1.0 mm trimmed, 1.2 mm trimmed, 1.6 mm trimmed | no |
-| 2hp-offset-0.9 | UNRESOLVED | - | 0.8 mm untrimmed, 0.8 mm trimmed, 1.0 mm untrimmed, 1.0 mm trimmed, 1.2 mm untrimmed, 1.2 mm trimmed, 1.6 mm untrimmed, 1.6 mm trimmed | no |
-| 3hp-centred | FEASIBLE ON PAPER | 0.8 mm untrimmed, 0.8 mm trimmed, 1.0 mm untrimmed, 1.0 mm trimmed, 1.2 mm untrimmed, 1.2 mm trimmed, 1.6 mm untrimmed, 1.6 mm trimmed | - | yes |
-| 3hp-offset-1.5 | FEASIBLE ON PAPER | 0.8 mm untrimmed, 0.8 mm trimmed, 1.0 mm untrimmed, 1.0 mm trimmed, 1.2 mm untrimmed, 1.2 mm trimmed, 1.6 mm untrimmed, 1.6 mm trimmed | - | yes |
+| 2hp-centred | UNRESOLVED | - | 0.8 mm trimmed | yes |
+| 2hp-offset-0.3 | UNRESOLVED | - | 0.8 mm trimmed | yes |
+| 2hp-offset-0.6 | UNRESOLVED | - | 0.8 mm trimmed | no |
+| 2hp-offset-0.9 | UNRESOLVED | - | 0.8 mm untrimmed, 0.8 mm trimmed | no |
+| 3hp-centred | FEASIBLE ON PAPER | 0.8 mm untrimmed, 0.8 mm trimmed | - | yes |
+| 3hp-offset-1.5 | FEASIBLE ON PAPER | 0.8 mm untrimmed, 0.8 mm trimmed | - | yes |
 
 ## Transverse (X) detail, worst corner
 
-Margins in mm after the 0.3 mm side clearance (negative = interference). Worst corner takes the adverse end of every range, the best corner the favourable end: axis height 3.4 on the lead side and 2.6 on the body side, PCB +/-10%, terminal +/-0.2, trim protrusion 1.0 / 0.5, hole position + float 0.2, panel width tolerance halved per edge (worst / best). The hole web is the PMMA between the panel hole and the panel edge.
+Margins in mm after the 0.3 mm side clearance (negative = interference). Worst corner takes the adverse end of every range, the best corner the favourable end: axis height 3.4 on the lead side and 2.6 on the body side, 0.8 mm PCB +/-0.1 mm, terminal +/-0.2, trim protrusion 1.0 / 0.5, hole position + float 0.2, panel width tolerance halved per edge (worst / best). The hole web is the PMMA between the panel hole and the panel edge.
 
 | Arrangement | PCB | Leads | Lead side | Body side | Nut edge | Hole web | Best-corner lead side | Verdict |
 |---|---|---|---|---|---|---|---|---|
 | 2hp-centred | 0.8 | untrimmed | -2.45 | +0.45 | +0.60 | +1.65 | -0.75 | INFEASIBLE WITHIN STATED RANGES |
-| 2hp-centred | 0.8 | trimmed | -0.93 | +0.45 | +0.60 | +1.65 | +1.03 | UNRESOLVED |
-| 2hp-centred | 1.0 | untrimmed | -2.45 | +0.45 | +0.60 | +1.65 | -0.75 | INFEASIBLE WITHIN STATED RANGES |
-| 2hp-centred | 1.0 | trimmed | -1.15 | +0.45 | +0.60 | +1.65 | +0.85 | UNRESOLVED |
-| 2hp-centred | 1.2 | untrimmed | -2.45 | +0.45 | +0.60 | +1.65 | -0.75 | INFEASIBLE WITHIN STATED RANGES |
-| 2hp-centred | 1.2 | trimmed | -1.37 | +0.45 | +0.60 | +1.65 | +0.67 | UNRESOLVED |
-| 2hp-centred | 1.6 | untrimmed | -2.45 | +0.45 | +0.60 | +1.65 | -0.75 | INFEASIBLE WITHIN STATED RANGES |
-| 2hp-centred | 1.6 | trimmed | -1.81 | +0.45 | +0.60 | +1.65 | +0.31 | UNRESOLVED |
+| 2hp-centred | 0.8 | trimmed | -0.95 | +0.45 | +0.60 | +1.65 | +1.05 | UNRESOLVED |
 | 2hp-offset-0.3 | 0.8 | untrimmed | -2.15 | +0.15 | +0.30 | +1.35 | -0.45 | INFEASIBLE WITHIN STATED RANGES |
-| 2hp-offset-0.3 | 0.8 | trimmed | -0.63 | +0.15 | +0.30 | +1.35 | +1.33 | UNRESOLVED |
-| 2hp-offset-0.3 | 1.0 | untrimmed | -2.15 | +0.15 | +0.30 | +1.35 | -0.45 | INFEASIBLE WITHIN STATED RANGES |
-| 2hp-offset-0.3 | 1.0 | trimmed | -0.85 | +0.15 | +0.30 | +1.35 | +1.15 | UNRESOLVED |
-| 2hp-offset-0.3 | 1.2 | untrimmed | -2.15 | +0.15 | +0.30 | +1.35 | -0.45 | INFEASIBLE WITHIN STATED RANGES |
-| 2hp-offset-0.3 | 1.2 | trimmed | -1.07 | +0.15 | +0.30 | +1.35 | +0.97 | UNRESOLVED |
-| 2hp-offset-0.3 | 1.6 | untrimmed | -2.15 | +0.15 | +0.30 | +1.35 | -0.45 | INFEASIBLE WITHIN STATED RANGES |
-| 2hp-offset-0.3 | 1.6 | trimmed | -1.51 | +0.15 | +0.30 | +1.35 | +0.61 | UNRESOLVED |
+| 2hp-offset-0.3 | 0.8 | trimmed | -0.65 | +0.15 | +0.30 | +1.35 | +1.35 | UNRESOLVED |
 | 2hp-offset-0.6 | 0.8 | untrimmed | -1.85 | -0.15 | +0.00 | +1.05 | -0.15 | INFEASIBLE WITHIN STATED RANGES |
-| 2hp-offset-0.6 | 0.8 | trimmed | -0.33 | -0.15 | +0.00 | +1.05 | +1.63 | UNRESOLVED |
-| 2hp-offset-0.6 | 1.0 | untrimmed | -1.85 | -0.15 | +0.00 | +1.05 | -0.15 | INFEASIBLE WITHIN STATED RANGES |
-| 2hp-offset-0.6 | 1.0 | trimmed | -0.55 | -0.15 | +0.00 | +1.05 | +1.45 | UNRESOLVED |
-| 2hp-offset-0.6 | 1.2 | untrimmed | -1.85 | -0.15 | +0.00 | +1.05 | -0.15 | INFEASIBLE WITHIN STATED RANGES |
-| 2hp-offset-0.6 | 1.2 | trimmed | -0.77 | -0.15 | +0.00 | +1.05 | +1.27 | UNRESOLVED |
-| 2hp-offset-0.6 | 1.6 | untrimmed | -1.85 | -0.15 | +0.00 | +1.05 | -0.15 | INFEASIBLE WITHIN STATED RANGES |
-| 2hp-offset-0.6 | 1.6 | trimmed | -1.21 | -0.15 | +0.00 | +1.05 | +0.91 | UNRESOLVED |
+| 2hp-offset-0.6 | 0.8 | trimmed | -0.35 | -0.15 | +0.00 | +1.05 | +1.65 | UNRESOLVED |
 | 2hp-offset-0.9 | 0.8 | untrimmed | -1.55 | -0.45 | -0.30 | +0.75 | +0.15 | UNRESOLVED |
-| 2hp-offset-0.9 | 0.8 | trimmed | -0.03 | -0.45 | -0.30 | +0.75 | +1.93 | UNRESOLVED |
-| 2hp-offset-0.9 | 1.0 | untrimmed | -1.55 | -0.45 | -0.30 | +0.75 | +0.15 | UNRESOLVED |
-| 2hp-offset-0.9 | 1.0 | trimmed | -0.25 | -0.45 | -0.30 | +0.75 | +1.75 | UNRESOLVED |
-| 2hp-offset-0.9 | 1.2 | untrimmed | -1.55 | -0.45 | -0.30 | +0.75 | +0.15 | UNRESOLVED |
-| 2hp-offset-0.9 | 1.2 | trimmed | -0.47 | -0.45 | -0.30 | +0.75 | +1.57 | UNRESOLVED |
-| 2hp-offset-0.9 | 1.6 | untrimmed | -1.55 | -0.45 | -0.30 | +0.75 | +0.15 | UNRESOLVED |
-| 2hp-offset-0.9 | 1.6 | trimmed | -0.91 | -0.45 | -0.30 | +0.75 | +1.21 | UNRESOLVED |
+| 2hp-offset-0.9 | 0.8 | trimmed | -0.05 | -0.45 | -0.30 | +0.75 | +1.95 | UNRESOLVED |
 | 3hp-centred | 0.8 | untrimmed | +0.10 | +3.00 | +3.15 | +4.20 | +1.80 | FEASIBLE ON PAPER |
-| 3hp-centred | 0.8 | trimmed | +1.62 | +3.00 | +3.15 | +4.20 | +3.58 | FEASIBLE ON PAPER |
-| 3hp-centred | 1.0 | untrimmed | +0.10 | +3.00 | +3.15 | +4.20 | +1.80 | FEASIBLE ON PAPER |
-| 3hp-centred | 1.0 | trimmed | +1.40 | +3.00 | +3.15 | +4.20 | +3.40 | FEASIBLE ON PAPER |
-| 3hp-centred | 1.2 | untrimmed | +0.10 | +3.00 | +3.15 | +4.20 | +1.80 | FEASIBLE ON PAPER |
-| 3hp-centred | 1.2 | trimmed | +1.18 | +3.00 | +3.15 | +4.20 | +3.22 | FEASIBLE ON PAPER |
-| 3hp-centred | 1.6 | untrimmed | +0.10 | +3.00 | +3.15 | +4.20 | +1.80 | FEASIBLE ON PAPER |
-| 3hp-centred | 1.6 | trimmed | +0.74 | +3.00 | +3.15 | +4.20 | +2.86 | FEASIBLE ON PAPER |
+| 3hp-centred | 0.8 | trimmed | +1.60 | +3.00 | +3.15 | +4.20 | +3.60 | FEASIBLE ON PAPER |
 | 3hp-offset-1.5 | 0.8 | untrimmed | +1.60 | +1.50 | +1.65 | +2.70 | +3.30 | FEASIBLE ON PAPER |
-| 3hp-offset-1.5 | 0.8 | trimmed | +3.12 | +1.50 | +1.65 | +2.70 | +5.08 | FEASIBLE ON PAPER |
-| 3hp-offset-1.5 | 1.0 | untrimmed | +1.60 | +1.50 | +1.65 | +2.70 | +3.30 | FEASIBLE ON PAPER |
-| 3hp-offset-1.5 | 1.0 | trimmed | +2.90 | +1.50 | +1.65 | +2.70 | +4.90 | FEASIBLE ON PAPER |
-| 3hp-offset-1.5 | 1.2 | untrimmed | +1.60 | +1.50 | +1.65 | +2.70 | +3.30 | FEASIBLE ON PAPER |
-| 3hp-offset-1.5 | 1.2 | trimmed | +2.68 | +1.50 | +1.65 | +2.70 | +4.72 | FEASIBLE ON PAPER |
-| 3hp-offset-1.5 | 1.6 | untrimmed | +1.60 | +1.50 | +1.65 | +2.70 | +3.30 | FEASIBLE ON PAPER |
-| 3hp-offset-1.5 | 1.6 | trimmed | +2.24 | +1.50 | +1.65 | +2.70 | +4.36 | FEASIBLE ON PAPER |
+| 3hp-offset-1.5 | 0.8 | trimmed | +3.10 | +1.50 | +1.65 | +2.70 | +5.10 | FEASIBLE ON PAPER |
 
 ## Transverse (X) nominal corner, trimmed leads
 
@@ -81,29 +45,11 @@ Nominal inputs (axis height 3.0 INFERRED, no tolerances). A positive row is plau
 | Arrangement | PCB | Lead side | Body side | Nut edge |
 |---|---|---|---|---|
 | 2hp-centred | 0.8 | +0.10 | +1.30 | +0.90 |
-| 2hp-centred | 1.0 | -0.10 | +1.30 | +0.90 |
-| 2hp-centred | 1.2 | -0.30 | +1.30 | +0.90 |
-| 2hp-centred | 1.6 | -0.70 | +1.30 | +0.90 |
 | 2hp-offset-0.3 | 0.8 | +0.40 | +1.00 | +0.60 |
-| 2hp-offset-0.3 | 1.0 | +0.20 | +1.00 | +0.60 |
-| 2hp-offset-0.3 | 1.2 | +0.00 | +1.00 | +0.60 |
-| 2hp-offset-0.3 | 1.6 | -0.40 | +1.00 | +0.60 |
 | 2hp-offset-0.6 | 0.8 | +0.70 | +0.70 | +0.30 |
-| 2hp-offset-0.6 | 1.0 | +0.50 | +0.70 | +0.30 |
-| 2hp-offset-0.6 | 1.2 | +0.30 | +0.70 | +0.30 |
-| 2hp-offset-0.6 | 1.6 | -0.10 | +0.70 | +0.30 |
 | 2hp-offset-0.9 | 0.8 | +1.00 | +0.40 | +0.00 |
-| 2hp-offset-0.9 | 1.0 | +0.80 | +0.40 | +0.00 |
-| 2hp-offset-0.9 | 1.2 | +0.60 | +0.40 | +0.00 |
-| 2hp-offset-0.9 | 1.6 | +0.20 | +0.40 | +0.00 |
 | 3hp-centred | 0.8 | +2.65 | +3.85 | +3.45 |
-| 3hp-centred | 1.0 | +2.45 | +3.85 | +3.45 |
-| 3hp-centred | 1.2 | +2.25 | +3.85 | +3.45 |
-| 3hp-centred | 1.6 | +1.85 | +3.85 | +3.45 |
 | 3hp-offset-1.5 | 0.8 | +4.15 | +2.35 | +1.95 |
-| 3hp-offset-1.5 | 1.0 | +3.95 | +2.35 | +1.95 |
-| 3hp-offset-1.5 | 1.2 | +3.75 | +2.35 | +1.95 |
-| 3hp-offset-1.5 | 1.6 | +3.35 | +2.35 | +1.95 |
 
 ## What the missing axis-height dimension decides (sensitivity, not a result)
 
@@ -111,22 +57,10 @@ Nominal inputs (axis height 3.0 INFERRED, no tolerances). A positive row is plau
 
 | Arrangement | PCB | Lead side | Body side | Nut edge | Verdict under that assumption |
 |---|---|---|---|---|---|
-| 2hp-centred | 0.8 | -0.63 | +0.75 | +0.60 | UNRESOLVED |
-| 2hp-centred | 1.0 | -0.85 | +0.75 | +0.60 | UNRESOLVED |
-| 2hp-centred | 1.2 | -1.07 | +0.75 | +0.60 | UNRESOLVED |
-| 2hp-centred | 1.6 | -1.51 | +0.75 | +0.60 | UNRESOLVED |
-| 2hp-offset-0.3 | 0.8 | -0.33 | +0.45 | +0.30 | UNRESOLVED |
-| 2hp-offset-0.3 | 1.0 | -0.55 | +0.45 | +0.30 | UNRESOLVED |
-| 2hp-offset-0.3 | 1.2 | -0.77 | +0.45 | +0.30 | UNRESOLVED |
-| 2hp-offset-0.3 | 1.6 | -1.21 | +0.45 | +0.30 | UNRESOLVED |
-| 2hp-offset-0.6 | 0.8 | -0.03 | +0.15 | +0.00 | UNRESOLVED |
-| 2hp-offset-0.6 | 1.0 | -0.25 | +0.15 | +0.00 | UNRESOLVED |
-| 2hp-offset-0.6 | 1.2 | -0.47 | +0.15 | +0.00 | UNRESOLVED |
-| 2hp-offset-0.6 | 1.6 | -0.91 | +0.15 | +0.00 | UNRESOLVED |
-| 2hp-offset-0.9 | 0.8 | +0.27 | -0.15 | -0.30 | UNRESOLVED |
-| 2hp-offset-0.9 | 1.0 | +0.05 | -0.15 | -0.30 | UNRESOLVED |
-| 2hp-offset-0.9 | 1.2 | -0.17 | -0.15 | -0.30 | UNRESOLVED |
-| 2hp-offset-0.9 | 1.6 | -0.61 | -0.15 | -0.30 | UNRESOLVED |
+| 2hp-centred | 0.8 | -0.65 | +0.75 | +0.60 | UNRESOLVED |
+| 2hp-offset-0.3 | 0.8 | -0.35 | +0.45 | +0.30 | UNRESOLVED |
+| 2hp-offset-0.6 | 0.8 | -0.05 | +0.15 | +0.00 | UNRESOLVED |
+| 2hp-offset-0.9 | 0.8 | +0.25 | -0.15 | -0.30 | UNRESOLVED |
 
 ## Axial (Z) thread engagement
 
@@ -178,7 +112,7 @@ At the A5 jack positions (Y 90.0 / 104.0), worst case with body-edge tolerances 
 | thread_major_diameter | 6.0 | - | MIRROR | fact-a7-pj-324m-thread M6x0.5 (nominal major diameter of an M6 thread) |
 | thread_lead_in_loss | 0.25 | - | ASSUMED | half a pitch lost to the thread start/chamfer at the barrel tip; not sourced |
 | front_body_gap | 0.0 | - | PROJECT-CHOICE | jack body front face seated on the PMMA rear (or on a rear spacer, modelled as a separate option) |
-| pcb_thickness_options | 0.8 / 1.0 / 1.2 / 1.6 | +/-10% | ASSUMED | common rigid FR-4 thicknesses; +/-10% thickness tolerance assumed, supplier tolerance not retained |
+| pcb_thickness_options | 0.8 | below 1 mm: +/-0.1 mm; >=1 mm: +/-10% (SOURCED) | PROJECT-CHOICE | Owner 2026-11-17 JST: rigid FR-4 0.8 mm. JLCPCB https://jlcpcb.com/capabilities/Capabilities, Thickness Tolerance rows (accessed 2026-11-16 UTC): below 1.0 mm +/-0.1 mm; at least 1.0 mm +/-10%. Final stackup, PCBA and order conditions still require review. |
 | lead_protrusion_trimmed | 0.7 | 0.5..1.0 | ASSUMED | lead length beyond the solder side after factory trimming (min used at the best corner, max at the worst); the assembler's trim capability is not sourced (Q6) |
 | side_clearance_required | 0.3 | - | PROJECT-CHOICE | minimum gap from any behind-panel part to the panel-outline plane (adjacent module, insulation) |
 | nut_edge_margin_required | 0.0 | - | PROJECT-CHOICE | nut must stay inside the panel outline on the front face; 0.3 preferred so it does not reach a neighbouring module |

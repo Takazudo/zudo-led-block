@@ -1,5 +1,30 @@
 # A7 発注準備の判断記録
 
+## 0.8 mm 統合時の判断（2026-11-21〜22、PR #88）
+
+- **エンドキャップ維持（owner、2026-11-22）:** PR #88 の判断カードで「Keep caps, pin them, merge」を選択。A5 形の上下キャップを残し、端 LED の遮光推定（約 20–25 %）と2HP所見は CAD テストで固定する。見え方は実機（#10）。
+- **3HP 採用・2HP 不採用:** 2HP は最悪角で成立根拠なし。記録は保持。
+- **harness-depth を未決に戻す:** 旧 57 ± 3 mm の owner 受入は旧1.6 mm設計に限る。新しい 55 ± 3 mm（52–58 mm）は owner 未受入。
+- **cv-noise を未決に戻す:** 旧根拠の layout 記述は 0.8 mm 基板で成り立たない。2026-11-11 のコーディネーター採用は引き継がず、electrical_review.md を根拠に再提案。
+- **試作ルート:** 旧承認は新 identity（d83691d6… / bcf2e35d…）へ付け替えない。owner_prototype_route は BLOCKED。
+
+## 現行方針: 0.8 mm rigid FR-4 への設計変更（2026-11-17 JST）
+
+親 [#15](https://github.com/Takazudo/zudo-led-block/issues/15) の新しい変更を [#87](https://github.com/Takazudo/zudo-led-block/issues/87) で追跡します。透明PCBをrigid FR-4の代替と考えていましたが、実際は薄いflex PCBだったため、透明PET/FPC案は撤回しました。普通のrigid FR-4基材のくすんだ半透明性を試します。透過率、拡散、実物の見え方は未測定です。
+
+- LED leafとcontrollerは公称 **0.8 mm**。完成板厚の評価範囲は **0.7–0.9 mm**。両面maskは必要箇所以外を開口し、内層も含め広いGND面を撤去します。必要な配線、pad、via、局所銅とmaskの位置・理由を記録し、全銅層と表裏maskのGerberを確認します。
+- **2HP（9.8 mm）を優先**して公差・配線・組立条件を評価し、成立根拠を確保できなければ **3HP（14.9 mm）**へ進みます。3HPでも0.8 mm、最小mask、広いGND面なしを維持します。旧「最も厚い成立板」の規則は適用しません。
+- 8 RGB LED、左右各4個の独立2stream、共通電流制限VLED、passive CV IN→THRU、MCUのpin/伝達関数/既存mode、前面128.5 mm・cast PMMA 2 mm・奥行30 mm目標、工場実装と完成ケーブルを維持します。
+- 新leafの正本はA5外に設けます。旧leaf 0.6 mm、新leaf 0.8 mm、旧controller 1.6 mmを混同しません。leaf積層は0.8×2＋bond 0.1＝**1.70 mm nominal**で、公差・支持・治具・機構・製造入力・プレビューを再検証します。
+- この指示は設計方針の承認です。旧PCBのnative PASS、治具PASS、試作ルート承認、`order/2026-11-13/`は旧identityに限る履歴で、新設計に付け替えません。新設計の統合検証と製造releaseは未完了です。
+
+PET供給元への質問は履歴として保管し、現行FR-4案の前提条件・次作業から外します。実機の透過性・熱・電気動作・組立・治具接触・収まりは別の物理作業です。A5は不変、A6 #7 / draft PR #14は保留。発注、supplier連絡、書込み・通電、別deploy、hosting/security設定変更は行いません。
+
+D87: 上記オーナー方針がD1の1.6 mm/3HP固定と、2HP/PETを将来の再承認待ちとする方針を更新します。旧子Issue作成holdは今回には適用せず、#87を確立済みです。以下は旧設計での判断履歴です。
+
+## 旧設計の判断記録
+
+
 2026-11-09。証跡不足は別の [blocker-register.md](blocker-register.md) で扱います。作業状態は [checkpoint](order-preparation-checkpoint.md) を参照してください。
 
 | ID | 判断 / 状態 | 根拠・影響 |

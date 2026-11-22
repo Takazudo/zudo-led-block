@@ -18,8 +18,8 @@
 |---|---|---|---|---|---|
 | fixture | `digital_fixture_complete` | `false` | ゲート | fixture-contact | README の完了基準 1–5 がすべて満たされたこと。基準 5（接触・荷重・位置決め・ストローク・損傷の実機試験）は fixture-contact の観測でしか満たせないので、どの手順の前提にもできない。 |
 | fixture | `fresh_native_verified` | `true` | ゲート | —（デジタル生成物） | 治具形状の native 検証。B 面の全突起の高さに出典があることを含み、資料の入手で満たす（手順の観測では満たさない）。 |
-| fixture | `digital_criteria_1_to_4_met` | `true` | 参考のみ | —（デジタル生成物） | README の基準 1–4 がデジタルで満たされ、デジタルのブロッカーがないこと（fresh_native_verified を含む）。進捗の表示で、完了フラグでも発注適格性でもない。fixture-contact を始める前提。 |
-| fixture | `hardware_proposal_complete` | `true` | 参考のみ | —（デジタル生成物） | 治具の各金物要求（materials.json）に出典付きの候補（hardware_proposal）が 1 つずつあること。オーナー承認待ちの提案で、選定でも承認でもない。true かつ基準 1–4 が満たされると、調達の assembly:fixture-materials はオーナーの判断（加工先の選択と金物の承認）に移る。 |
+| fixture | `digital_criteria_1_to_4_met` | `false` | 参考のみ | —（デジタル生成物） | README の基準 1–4 がデジタルで満たされ、デジタルのブロッカーがないこと（fresh_native_verified を含む）。進捗の表示で、完了フラグでも発注適格性でもない。fixture-contact を始める前提。 |
+| fixture | `hardware_proposal_complete` | `false` | 参考のみ | —（デジタル生成物） | 治具の各金物要求（materials.json）に出典付きの候補（hardware_proposal）が 1 つずつあること。オーナー承認待ちの提案で、選定でも承認でもない。true かつ基準 1–4 が満たされると、調達の assembly:fixture-materials はオーナーの判断（加工先の選択と金物の承認）に移る。 |
 
 ## 未実施の手順
 
@@ -217,9 +217,9 @@
 - 関連:  #8
 - 概要: 完成 SH4 と電源ケーブルを全長収納し、全コネクタ・ラベル・IDC を含めて組む。
 - 根拠: `engineering/a7/mechanical/layout.json`
-- 基準: 採用済み（オーナー本人、記録 `engineering/a7/qualification/reviews/2026-11-12-owner-criteria-acceptance.md`）
+- 未決: 2026-11-12のowner受入（57±3 mm、54–60 mm）は旧1.6 mm設計の値に限る履歴。0.8 mm設計でadapter/J5位置が変わり55±3 mm（52–58 mm）になったため、新しい値はowner未受入。（区分: オーナーの判断）
 - 観測: NOT_MEASURED。結果: NOT_RUN。
-- 次: 基準はオーナーが採用済み（2026-11-12、推奨をまとめて採用）。電源ケーブル公差 ±3 mm は仮定のままで、ケーブル業者がより狭い公差を保証すれば置き換える。オーナー承認の試作ルートの範囲で実物で実施する。
+- 次: 0.8 mm設計の電源ケーブル自由長55±3 mm（±3 mm ASSUMED）をオーナーが改めて受け入れるまで基準は未決。旧受入記録 2026-11-12-owner-criteria-acceptance.md は旧値の履歴として保持し、新値へ付け替えない。実物確認は試作後。
 
 準備するもの:
 
@@ -262,14 +262,14 @@
 
 | ID | 基準 | 値 | 範囲 | 単位 | 確度 | 出典 / 決める主体 |
 |---|---|---|---|---|---|---|
-| power-free-span | 電源ケーブルの自由長（公称） | `57.0` | reference | mm | DESIGN | `engineering/a7/mechanical/layout.json` `/power_cable_requirement/finished_free_span_nominal` |
+| power-free-span | 電源ケーブルの自由長（公称） | `55.0` | reference | mm | DESIGN | `engineering/a7/mechanical/layout.json` `/power_cable_requirement/finished_free_span_nominal` |
 | power-tolerance | 自由長の公差（仮定） | `3.0` | reference | mm | ASSUMED | `engineering/a7/mechanical/layout.json` `/power_cable_requirement/tolerance` |
-| power-band | 自由長の許容範囲（公差が仮定なので範囲も仮定） | `[54.0, 60.0]` | range | mm | ASSUMED | `engineering/a7/mechanical/layout.json` `/power_cable_requirement/band` |
+| power-band | 自由長の許容範囲（公差が仮定なので範囲も仮定） | `[52.0, 58.0]` | range | mm | ASSUMED | `engineering/a7/mechanical/layout.json` `/power_cable_requirement/band` |
 | a5-cable | A5 の 50 ± 6 mm ケーブルは使えない | `false` | exact | NONE | DESIGN | `engineering/a7/mechanical/layout.json` `/power_cable_requirement/a5_cable/fits` |
 | sh4-length | コントローラー→左リーフ SH4 の長さ（モデル） | `50.0` | reference | mm | DESIGN | `engineering/a7/mechanical/exports/3hp/verification.json` `/cables/0/layout_length_mm` |
 | depth-target | 奥行き目標（PMMA 裏面から） | `30.0` | max | mm | DESIGN | `engineering/a7/mechanical/layout.json` `/z_stack/installed_depth_target` |
 | bend-radius | 許容最小曲げ半径 | `2.0` | min | mm | DESIGN | `engineering/a7/mechanical/layout.json` `/variants/3hp/routes/adapter_to_controller_power/end_bend_room` |
-| power-band-order | 電源ケーブル自由長の注文範囲 | `[54.0, 60.0]` | range | mm | ASSUMED | `engineering/a7/mechanical/layout.json` `/power_cable_requirement/band` |
+| power-band-order | 電源ケーブル自由長の注文範囲 | `[52.0, 58.0]` | range | mm | ASSUMED | `engineering/a7/mechanical/layout.json` `/power_cable_requirement/band` |
 
 ### pmma-supports — PMMA ポケット・締結・PETG 支持
 
@@ -284,7 +284,7 @@
 
 - A7 前面 PMMA（加工先・材料ロットを記録）
 - PETG で造形したスパイン・キャップ・ディフューザー（造形条件を記録）
-- M2×18 ねじと M2 ナット、M6×0.5 ナット
+- M2×20 ねじと M2 ナット、M6×0.5 ナット
 - PJ-324M 実装基板
 
 計器・道具:
@@ -304,7 +304,7 @@
 
 1. PMMA の板厚・穴径・後面ポケット深さと位置を測る。
 2. 造形部品の寸法と造形条件（材料、ノズル温度、層厚、向き）を記録する。
-3. M2×18 とジャックナットを段階的に締め、各段階で割れ・白化（クレージング）を確認し、トルクを記録する。
+3. M2×20 とジャックナットを段階的に締め、各段階で割れ・白化（クレージング）を確認し、トルクを記録する。
 4. プッシュプルゲージでプラグ挿抜方向の荷重をかけ、保持とずれを記録する。
 
 記録する raw 証跡（種別ごとに別ファイル）:
@@ -325,7 +325,7 @@
 | panel-thickness-tol | PMMA 板厚の公差（仮定） | `0.2` | reference | mm | ASSUMED | `engineering/a7/study/parameters.json` `/parameters/panel_thickness/tol` |
 | pocket-depth | 後面ポケット深さ | `0.5` | reference | mm | DESIGN | `engineering/a7/mechanical/layout.json` `/z_stack/rear_pocket_depth` |
 | hole | ジャック穴 | `"6.2 mm hole for a 6.0 mm thread major diameter"` | reference | NONE | DESIGN | `engineering/a7/study/parameters.json` 引用 |
-| top-screw | 上キャップのねじ | `"M2x18"` | exact | NONE | DESIGN | `engineering/a7/mechanical/layout.json` `/supports/top_cap_screw/designation` |
+| top-screw | 上キャップのねじ | `"M2x20"` | exact | NONE | DESIGN | `engineering/a7/mechanical/layout.json` `/supports/top_cap_screw/designation` |
 | plug-force | 保持が受けるプラグ挿抜力 | `"5.0-10.0 N inward and exiting"` | range | NONE | MIRROR | `.claude/skills/component-a7-pj-324m/facts.json` `fact-a7-pj-324m-plug-force` |
 | torque-retention | 締付トルクと保持荷重の合否 | — | — | N | UNRESOLVED | PMMA/PETG 加工先の公差・許容締付条件（供給元への質問）とレビュー。入手先（資料）: PMMA/PETG 加工先の加工公差と許容締付トルク（供給元への質問の回答） |
 
@@ -1108,11 +1108,11 @@
 ### cv-noise — CV ノイズと DATA_L 結合
 
 - 関連:  #10
-- 概要: 静的CVを印加しDATA_L/左右ストリームのパターンを切替、ADC/THRUを同期観測。
-- 根拠: `engineering/a7/verification/interface_review.md`
-- 基準: 採用済み（プロジェクトのコーディネーター（オーナーが委ねた作業方針による）、記録 `engineering/a7/qualification/reviews/2026-11-11-coordinator-criteria-acceptance.md`）
+- 概要: 静的CVを印加しDATA_L/左右ストリームのパターンを切替、ADC/THRUを同期観測。加えて (1) CV IN 未接続（開放チップ）と (2) 電源グラウンドを共有する外部源をパッチしLED輝度を段階的に変える状態でも観測する。
+- 根拠: `engineering/a7/verification/electrical_review.md`
+- 未決: 旧基準の layout 記述（interface_review.md「No CV node runs within 0.6 mm of DATA_L/R or ±12V_PROT on the same layer.」）は 0.8 mm 基板（d83691d6…）では成り立たず、710ed801… でも成り立っていなかった。2026-11-11 の採用はその誤った根拠に基づくため引き継がない。開放入力とパッチ時グラウンドループの条件も旧手順になかった。（区分: オーナーの判断）
 - 観測: NOT_MEASURED。結果: NOT_RUN。
-- 次: 基準はコーディネーターが採用済み（オーナー本人ではない）。実機で手順を実施して記録する。
+- 次: 根拠を electrical_review.md と return-review.json に置き換えた新しい基準（ノイズ上限 50 mV は不感帯から据え置きの提案）をオーナーが採否するまで未決。実機では未接続入力とグラウンド共有源パッチ（LED輝度段階）を含めて #10 で測る。
 
 準備するもの:
 
@@ -1133,6 +1133,8 @@
 
 1. LED データ送信中に CV_THRU と ADC 値を同期して記録する。
 2. データパターン（全消灯/全点灯/交互）を変えて統計を取る。
+3. CV IN を未接続（開放チップ）にして同じ記録を取り、±50 mV 不感帯と比べる。
+4. 電源グラウンドを共有する外部 CV 源をパッチし、LED 輝度を段階的に変えて CV 誤差を記録する（パッチ時グラウンドループ）。
 
 記録する raw 証跡（種別ごとに別ファイル）:
 
@@ -1147,7 +1149,7 @@
 
 | ID | 基準 | 値 | 範囲 | 単位 | 確度 | 出典 / 決める主体 |
 |---|---|---|---|---|---|---|
-| layout | 同層での CV と DATA の間隔（設計） | `"No CV node runs within 0.6 mm of DATA_L/R or ±12V_PROT on the same layer."` | reference | NONE | DESIGN | `engineering/a7/verification/interface_review.md` 引用 |
+| layout | 規則付きの CV–スイッチング/データ間隔（設計、全層） | `"No CV track runs within 0.5 mm of any aggressor in that table anywhere on any layer."` | reference | NONE | DESIGN | `engineering/a7/verification/electrical_review.md` 引用 |
 | noise-max | LED データ送信中の CV 換算ノイズ（ピーク・ツー・ピーク）の上限 | `50` | max | mV | CALCULATED | 計算 `DB`（内訳は下） |
 
 計算の内訳:
@@ -1218,20 +1220,21 @@
 
 | 区分 | ゲート数 |
 |---|---:|
-| CLOUD_DIGITAL（クラウドで進められるデジタル作業） | 0 |
-| OWNER_DECISION（オーナーの判断） | 7 |
+| CLOUD_DIGITAL（クラウドで進められるデジタル作業） | 2 |
+| OWNER_DECISION（オーナーの判断） | 9 |
 | ACCESS_EVIDENCE_HOLD（外部の証跡・アクセス待ち） | 13 |
-| PHYSICAL_ONLY（実機が必要） | 21 |
+| PHYSICAL_ONLY（実機が必要） | 20 |
 
 ## 現在のブロッカー
 
-- fixture completion awaits the physical criterion 5 (fixture-contact)
+- fixture: unresolved preparation blockers
+- fixture digital design incomplete or unverified
 - assembly_manifest: supply-observations: Order quantity is 2 modules (owner decision), 162 fitted pieces before attrition. 30 of 30 fitted identities have dated 2026-11-12 JLC listing observations from both the rendered part pages and the parts-API audit (separate reads, raw bytes not committed, field meanings and currency inferred; engineering/a7/procurement/sourcing-projection.json). Not obtained for any line: lead time, confirmed quote, stock reservation and assembly acceptance. JLC attrition is not sourced as a rule; the audit's buy quantities are our inference. Refresh before ordering.
 - assembly_manifest: jack-switch-qualification: PJ-324M pin function (which of terminals 4/5 is the tip contact; the supplier symbol contradicts the inferred 4 = tip) is not confirmed: the owner waived the pre-order continuity test on 2026-11-12 and accepted the risk, so it is a first-article check on the assembled boards. Slot, axis height and nut fit, and the HX MSK13C02 truth table and land/peg fit, also need received parts (jack-continuity, jack-dimensions, switch-fit).
 - assembly_manifest: exact-part-evidence: Exact-part gaps after the 2026-11-11 source recovery (the PMEG4010CEJ ,115 packing is since sourced: SOD323F on a 7-inch reel, fact-pmeg4010cej-115-orderable): SM04B-SRSS-TB per-circuit numbering not printed beyond the No. 1 end; PJ-324M recommended hole/slot sizes, axis height and whether a nut ships with C22355739 not sourced.
-- assembly_manifest: mechanical-materials: PMMA sheet and pocket tolerances, PETG process and orderable fastener part numbers are not sourced; the model carries designations (M2x18, M1.6x4) and envelopes only.
+- assembly_manifest: mechanical-materials: PMMA sheet and pocket tolerances, PETG process and orderable fastener part numbers are not sourced; the model carries designations from the current mechanical layout and envelopes only; exact orderable hardware and assembly fit remain unqualified.
 - assembly_manifest: rack-hardware: The owner accepted naming the case (2026-11-12, accept all recommendations); the case model, and so the rail/thread interface and fasteners, is not given yet.
-- assembly_manifest: fixture-materials: Fixture digital criteria 1-4 met; the owner approved the proposed hardware on 2026-11-12 (accept all recommendations). The fabricator for the four FR-4 plates is not chosen. Physical contact/load tests (criterion 5) follow.
+- assembly_manifest: fixture-materials: Fixture design and materials incomplete (fixture manifest: digital_criteria_1_to_4_met not true, hardware_proposal_complete not true); physical contact/load tests follow.
 - assembly_manifest: prototype-and-release: No reviewed manufacturing package and no manufacturing release approval. A prototype route, when the owner approves one, is recorded in engineering/a7/qualification/records.json and is not a release.
 - jack-continuity: NOT_MEASURED: no run
 - jack-dimensions: criterion unresolved or review receipt missing
@@ -1240,6 +1243,7 @@
 - switch-fit: criterion unresolved or review receipt missing
 - switch-fit: criterion has PROPOSED or UNRESOLVED acceptance values: fit-and-contact
 - switch-fit: NOT_MEASURED: no run
+- harness-depth: criterion unresolved or review receipt missing
 - harness-depth: NOT_MEASURED: no run
 - pmma-supports: criterion unresolved or review receipt missing
 - pmma-supports: criterion has PROPOSED or UNRESOLVED acceptance values: torque-retention
@@ -1264,6 +1268,7 @@
 - thermal-optical: criterion unresolved or review receipt missing
 - thermal-optical: criterion has PROPOSED or UNRESOLVED acceptance values: materials-appearance
 - thermal-optical: NOT_MEASURED: no run
+- cv-noise: criterion unresolved or review receipt missing
 - cv-noise: NOT_MEASURED: no run
 - service-envelope: NOT_MEASURED: no run
 - material assembly_service: missing or ambiguous dated observation
@@ -1272,6 +1277,7 @@
 - material jack: missing or ambiguous dated observation
 - material pmma_petg_hardware: missing or ambiguous dated observation
 - material switch: missing or ambiguous dated observation
+- owner-approved sample/prototype route absent for this revision and quantity
 - reviewed manufacturing files and explicit revision-bound owner release absent
 
 ## 別案

@@ -1,0 +1,184 @@
+{
+  "method": "Gerbonara primitives of the actual plotted files; exact via-disk and paste-flash tests; 20 sample/mm coverage grid over the rectangular outline bounds as an inspection aid",
+  "inspect_script": "scripts/a7_gerber_inspect.py",
+  "inspect_script_sha256": "82e61fc4631a04db6e0ab7096fd90dc6866abdf2c3ae46c3375d106162b4ba9d",
+  "board": "controller.kicad_pcb",
+  "board_sha256": "d83691d6590e013b2a66957b61d76ba2f68bedaaec04789326e1215b2d1bdb2b",
+  "outline_bounds_mm": [
+    0.0,
+    0.0,
+    16.2,
+    62.9
+  ],
+  "via_count": 116,
+  "via_web_mm": 0.1,
+  "layers": {
+    "controller-B_Cu.gbl": {
+      "sha256": "d330401c9b304147817077c470c67b2cc3ee683b3706c79829591f50788fdafe",
+      "function": [
+        "Copper",
+        "L4",
+        "Bot"
+      ],
+      "primitives": 1204,
+      "flashes": 184,
+      "non_flash_objects": 612,
+      "dark_coverage_fraction_of_bounds": 0.18796737914384973,
+      "drawn_region_objects": 1
+    },
+    "controller-B_Mask.gbs": {
+      "sha256": "8efd6aafcbb732861e4e24419f8d6a3a3bacd0c18251ce20d09abd9d53652dba",
+      "function": [
+        "Soldermask",
+        "Bot"
+      ],
+      "primitives": 1147,
+      "flashes": 70,
+      "non_flash_objects": 669,
+      "dark_coverage_fraction_of_bounds": 0.7091282458929518,
+      "opening_coverage_note": "dark shapes are OPENINGS; residual mask is the complement",
+      "residual_mask_fraction_of_bounds": 0.29087175410704824,
+      "via_tent": {
+        "face": "B.Cu",
+        "checked": 116,
+        "smallest_mask_web_to_via_copper_mm": 0.1394,
+        "exposed_or_under_web": []
+      }
+    },
+    "controller-B_Paste.gbp": {
+      "sha256": "3541f92c2b36d82c614467121c993ca6e374fa536ba29299d34a5a050fa346f8",
+      "function": [
+        "Paste",
+        "Bot"
+      ],
+      "primitives": 450,
+      "flashes": 50,
+      "non_flash_objects": 0,
+      "dark_coverage_fraction_of_bounds": 0.04197825276256649,
+      "paste": {
+        "pads_with_paste_on_face": 50,
+        "flashes_off_pad_centres": 0
+      }
+    },
+    "controller-B_Silkscreen.gbo": {
+      "sha256": "fc0dae897a690e92cbe33a1b77e7aa83cd75a6f06999d7c46bad33abf025bb2f",
+      "function": [
+        "Legend",
+        "Bot"
+      ],
+      "primitives": 0,
+      "flashes": 0,
+      "non_flash_objects": 0,
+      "dark_coverage_fraction_of_bounds": 0.0
+    },
+    "controller-Edge_Cuts.gm1": {
+      "sha256": "7032bbf624502a103fe1c896f819e176afac0bccda543f1d5b27590340db2a6e",
+      "function": [
+        "Profile",
+        "NP"
+      ],
+      "primitives": 4,
+      "flashes": 0,
+      "non_flash_objects": 4
+    },
+    "controller-F_Cu.gtl": {
+      "sha256": "8ff975753ac1cc16bcb24dfba641451c91378c8c9747b3f18b25aee14e0c6624",
+      "function": [
+        "Copper",
+        "L1",
+        "Top"
+      ],
+      "primitives": 1948,
+      "flashes": 252,
+      "non_flash_objects": 768,
+      "dark_coverage_fraction_of_bounds": 0.2224258572297788,
+      "drawn_region_objects": 0
+    },
+    "controller-F_Mask.gts": {
+      "sha256": "e3a06b348d42346a56edc32bbf2bde17b8600231fb96dd79e3b4a151a8212a9f",
+      "function": [
+        "Soldermask",
+        "Top"
+      ],
+      "primitives": 1904,
+      "flashes": 138,
+      "non_flash_objects": 838,
+      "dark_coverage_fraction_of_bounds": 0.6875527488272586,
+      "opening_coverage_note": "dark shapes are OPENINGS; residual mask is the complement",
+      "residual_mask_fraction_of_bounds": 0.3124472511727414,
+      "via_tent": {
+        "face": "F.Cu",
+        "checked": 116,
+        "smallest_mask_web_to_via_copper_mm": 0.135,
+        "exposed_or_under_web": []
+      }
+    },
+    "controller-F_Paste.gtp": {
+      "sha256": "ab638f3841e30f76313b5e29b26364380e1933d855d0b5f7ea593efca84676ed",
+      "function": [
+        "Paste",
+        "Top"
+      ],
+      "primitives": 1043,
+      "flashes": 123,
+      "non_flash_objects": 0,
+      "dark_coverage_fraction_of_bounds": 0.09213134703330782,
+      "paste": {
+        "pads_with_paste_on_face": 123,
+        "flashes_off_pad_centres": 0
+      }
+    },
+    "controller-F_Silkscreen.gto": {
+      "sha256": "454a6a66fef063cf76f66eac9fe35a67fd3c1f02c0c01c8567f1657a01b2561e",
+      "function": [
+        "Legend",
+        "Top"
+      ],
+      "primitives": 13,
+      "flashes": 0,
+      "non_flash_objects": 13,
+      "dark_coverage_fraction_of_bounds": 0.001445072523503896
+    },
+    "controller-In1_Cu.g1": {
+      "sha256": "0fae260fc8f2e8a50902a9eca061e88b8e66727984391de315ecb9bddd64a3ad",
+      "function": [
+        "Copper",
+        "L2",
+        "Inr"
+      ],
+      "primitives": 512,
+      "flashes": 129,
+      "non_flash_objects": 375,
+      "dark_coverage_fraction_of_bounds": 0.09984494298219788,
+      "drawn_region_objects": 0
+    },
+    "controller-In2_Cu.g2": {
+      "sha256": "5ffa211274538d38c39e1f970e95a0174477298d5f45a9951d0091eaa5550a52",
+      "function": [
+        "Copper",
+        "L3",
+        "Inr"
+      ],
+      "primitives": 492,
+      "flashes": 129,
+      "non_flash_objects": 355,
+      "dark_coverage_fraction_of_bounds": 0.10674645233468763,
+      "drawn_region_objects": 0
+    }
+  },
+  "failures": [],
+  "overview": {
+    "file": "overview.png",
+    "left_to_right": [
+      "controller-B_Cu.gbl",
+      "controller-B_Mask.gbs",
+      "controller-B_Paste.gbp",
+      "controller-F_Cu.gtl",
+      "controller-F_Mask.gts",
+      "controller-F_Paste.gtp",
+      "controller-In1_Cu.g1",
+      "controller-In2_Cu.g2"
+    ],
+    "legend": "black = copper, paste, or RETAINED mask (mask panels are inverted openings); white = no copper / paste, or mask opening; rectangular bounds, holes not subtracted"
+  }
+}

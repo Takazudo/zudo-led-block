@@ -1,0 +1,265 @@
+{
+  "bounds_mm": [
+    [
+      0.0,
+      -82.5
+    ],
+    [
+      9.0,
+      0.0
+    ]
+  ],
+  "gerbonara_version": "1.6.3",
+  "notes": [
+    "Black = copper/paste or mask OPENING on normal views.",
+    "Mask residual views invert openings within rectangular board bounds.",
+    "Ordered dark/clear aperture primitives retained; SVG rasterization is visual evidence, not exact area proof."
+  ],
+  "layers": [
+    {
+      "file": "led_leaf-B_Cu.gbl",
+      "sha256": "4c7a64a3692ce96256c8d5d490e4f132a7d53b8b938294598bea8fe0a0a63a55",
+      "attrs": {
+        ".GenerationSoftware": [
+          "KiCad",
+          "Pcbnew",
+          "10.0.8"
+        ],
+        ".CreationDate": [
+          "2026-11-16T21:22:44+00:00"
+        ],
+        ".ProjectId": [
+          "led_leaf",
+          "6c65645f-6c65-4616-962e-6b696361645f",
+          "rev?"
+        ],
+        ".SameCoordinates": [
+          "Original"
+        ],
+        ".FileFunction": [
+          "Copper",
+          "L2",
+          "Bot"
+        ],
+        ".FilePolarity": [
+          "Positive"
+        ]
+      },
+      "objects": 26,
+      "dark_objects": 26,
+      "clear_objects": 0,
+      "types": {
+        "Flash": 11,
+        "Line": 15
+      }
+    },
+    {
+      "file": "led_leaf-B_Mask.gbs",
+      "sha256": "c4a9f0a0ddf5c4641ddf2da38410b85b3647f07c0eb162fe0034f58c4f4e31a5",
+      "attrs": {
+        ".GenerationSoftware": [
+          "KiCad",
+          "Pcbnew",
+          "10.0.8"
+        ],
+        ".CreationDate": [
+          "2026-11-16T21:22:44+00:00"
+        ],
+        ".ProjectId": [
+          "led_leaf",
+          "6c65645f-6c65-4616-962e-6b696361645f",
+          "rev?"
+        ],
+        ".SameCoordinates": [
+          "Original"
+        ],
+        ".FileFunction": [
+          "Soldermask",
+          "Bot"
+        ],
+        ".FilePolarity": [
+          "Negative"
+        ]
+      },
+      "objects": 39,
+      "dark_objects": 39,
+      "clear_objects": 0,
+      "types": {
+        "Region": 39
+      }
+    },
+    {
+      "file": "led_leaf-B_Paste.gbp",
+      "sha256": "0463f27948b04397cb0745fa4332bed2638b3e4ace9e25f5d2e157739e717e52",
+      "attrs": {
+        ".GenerationSoftware": [
+          "KiCad",
+          "Pcbnew",
+          "10.0.8"
+        ],
+        ".CreationDate": [
+          "2026-11-16T21:22:44+00:00"
+        ],
+        ".ProjectId": [
+          "led_leaf",
+          "6c65645f-6c65-4616-962e-6b696361645f",
+          "rev?"
+        ],
+        ".SameCoordinates": [
+          "Original"
+        ],
+        ".FileFunction": [
+          "Paste",
+          "Bot"
+        ],
+        ".FilePolarity": [
+          "Positive"
+        ]
+      },
+      "objects": 0,
+      "dark_objects": 0,
+      "clear_objects": 0,
+      "types": {}
+    },
+    {
+      "file": "led_leaf-Edge_Cuts.gm1",
+      "sha256": "a05cc361651b78d982076cdf9ed05627e0f77fd218fb89eb6a68e13a31bab205",
+      "attrs": {
+        ".GenerationSoftware": [
+          "KiCad",
+          "Pcbnew",
+          "10.0.8"
+        ],
+        ".CreationDate": [
+          "2026-11-16T21:22:44+00:00"
+        ],
+        ".ProjectId": [
+          "led_leaf",
+          "6c65645f-6c65-4616-962e-6b696361645f",
+          "rev?"
+        ],
+        ".SameCoordinates": [
+          "Original"
+        ],
+        ".FileFunction": [
+          "Profile",
+          "NP"
+        ]
+      },
+      "objects": 12,
+      "dark_objects": 12,
+      "clear_objects": 0,
+      "types": {
+        "Line": 12
+      }
+    },
+    {
+      "file": "led_leaf-F_Cu.gtl",
+      "sha256": "0df1a9a494c6fe64837f75b6533e9cce49dba360e46c2966686bebef141ec16d",
+      "attrs": {
+        ".GenerationSoftware": [
+          "KiCad",
+          "Pcbnew",
+          "10.0.8"
+        ],
+        ".CreationDate": [
+          "2026-11-16T21:22:44+00:00"
+        ],
+        ".ProjectId": [
+          "led_leaf",
+          "6c65645f-6c65-4616-962e-6b696361645f",
+          "rev?"
+        ],
+        ".SameCoordinates": [
+          "Original"
+        ],
+        ".FileFunction": [
+          "Copper",
+          "L1",
+          "Top"
+        ],
+        ".FilePolarity": [
+          "Positive"
+        ]
+      },
+      "objects": 94,
+      "dark_objects": 94,
+      "clear_objects": 0,
+      "types": {
+        "Flash": 47,
+        "Line": 47
+      }
+    },
+    {
+      "file": "led_leaf-F_Mask.gts",
+      "sha256": "fa95a30b220bdc991be03a8baac452d6338b88ea8e9fa988ec779dd64d55f520",
+      "attrs": {
+        ".GenerationSoftware": [
+          "KiCad",
+          "Pcbnew",
+          "10.0.8"
+        ],
+        ".CreationDate": [
+          "2026-11-16T21:22:44+00:00"
+        ],
+        ".ProjectId": [
+          "led_leaf",
+          "6c65645f-6c65-4616-962e-6b696361645f",
+          "rev?"
+        ],
+        ".SameCoordinates": [
+          "Original"
+        ],
+        ".FileFunction": [
+          "Soldermask",
+          "Top"
+        ],
+        ".FilePolarity": [
+          "Negative"
+        ]
+      },
+      "objects": 210,
+      "dark_objects": 210,
+      "clear_objects": 0,
+      "types": {
+        "Region": 174,
+        "Flash": 36
+      }
+    },
+    {
+      "file": "led_leaf-F_Paste.gtp",
+      "sha256": "954c40f2172e0d48dcb34585ba54add7e267753e2729470fd478f0d61da62ae2",
+      "attrs": {
+        ".GenerationSoftware": [
+          "KiCad",
+          "Pcbnew",
+          "10.0.8"
+        ],
+        ".CreationDate": [
+          "2026-11-16T21:22:44+00:00"
+        ],
+        ".ProjectId": [
+          "led_leaf",
+          "6c65645f-6c65-4616-962e-6b696361645f",
+          "rev?"
+        ],
+        ".SameCoordinates": [
+          "Original"
+        ],
+        ".FileFunction": [
+          "Paste",
+          "Top"
+        ],
+        ".FilePolarity": [
+          "Positive"
+        ]
+      },
+      "objects": 36,
+      "dark_objects": 36,
+      "clear_objects": 0,
+      "types": {
+        "Flash": 36
+      }
+    }
+  ]
+}

@@ -278,7 +278,7 @@
       "variant": "fr4-3hp",
       "issues": "Q1/Q3/Q4; #8",
       "setup": "未実装品と実基板を基準面を明示して寸法測定。ナット・ワッシャを含める。",
-      "expected": "3HP/1.6 mm の現行寸法と比較。軸高さは INFERRED、基板スロットは ASSUMED、ナット同梱と適合は未確認。",
+      "expected": "3HP/0.8 mm の現行寸法と比較。軸高さは INFERRED、基板スロットは ASSUMED、ナット同梱と適合は未確認。",
       "basis": "engineering/a7/open-questions.md",
       "criterion_status": "UNRESOLVED",
       "missing_criterion": "メーカー公差、穴・リード寸法、適合ナット/ワッシャ仕様が必要。",
@@ -617,14 +617,14 @@
       "variant": "fr4-3hp",
       "issues": " #8",
       "setup": "完成 SH4 と電源ケーブルを全長収納し、全コネクタ・ラベル・IDC を含めて組む。",
-      "expected": "PMMA 裏面から30 mm以内が目標。電源自由長は mechanical/layout.json の power_cable_requirement（現時点57±3 mm、±3 ASSUMED）。A5 50±6 mmは流用不可。",
+      "expected": "PMMA 裏面から30 mm以内が目標。電源自由長は mechanical/layout.json の power_cable_requirement（0.8 mm設計では55±3 mm、±3 ASSUMED）。A5 50±6 mmは流用不可。",
       "basis": "engineering/a7/mechanical/layout.json",
-      "criterion_status": "REVIEWED",
-      "missing_criterion": "",
+      "criterion_status": "UNRESOLVED",
+      "missing_criterion": "2026-11-12のowner受入（57±3 mm、54–60 mm）は旧1.6 mm設計の値に限る履歴。0.8 mm設計でadapter/J5位置が変わり55±3 mm（52–58 mm）になったため、新しい値はowner未受入。",
       "raw_evidence_required": "配線極性表、全長/曲げ/奥行き測定、各方向写真",
       "observation": "NOT_MEASURED",
       "result": "NOT_RUN",
-      "next_action": "基準はオーナーが採用済み（2026-11-12、推奨をまとめて採用）。電源ケーブル公差 ±3 mm は仮定のままで、ケーブル業者がより狭い公差を保証すれば置き換える。オーナー承認の試作ルートの範囲で実物で実施する。",
+      "next_action": "0.8 mm設計の電源ケーブル自由長55±3 mm（±3 mm ASSUMED）をオーナーが改めて受け入れるまで基準は未決。旧受入記録 2026-11-12-owner-criteria-acceptance.md は旧値の履歴として保持し、新値へ付け替えない。実物確認は試作後。",
       "required_evidence_kinds": [
         "polarity_matrix",
         "full_length_routing",
@@ -668,7 +668,7 @@
         {
           "id": "power-free-span",
           "criterion": "電源ケーブルの自由長（公称）",
-          "value": 57.0,
+          "value": 55.0,
           "unit": "mm",
           "confidence": "DESIGN",
           "source": {
@@ -697,8 +697,8 @@
           "id": "power-band",
           "criterion": "自由長の許容範囲（公差が仮定なので範囲も仮定）",
           "value": [
-            54.0,
-            60.0
+            52.0,
+            58.0
           ],
           "unit": "mm",
           "confidence": "ASSUMED",
@@ -764,8 +764,8 @@
           "id": "power-band-order",
           "criterion": "電源ケーブル自由長の注文範囲",
           "value": [
-            54.0,
-            60.0
+            52.0,
+            58.0
           ],
           "unit": "mm",
           "confidence": "ASSUMED",
@@ -779,13 +779,7 @@
             "pointer": "/power_cable_requirement/tolerance_confidence"
           }
         }
-      ],
-      "criterion_accepted_by": "OWNER",
-      "criterion_review": {
-        "path": "engineering/a7/qualification/reviews/2026-11-12-owner-criteria-acceptance.md",
-        "sha256": "15e3a481a4b3e3588d47d87884f5b8ec18342c425e03fb927073ee810f04c9a6"
-      },
-      "criterion_acceptance_sha256": "886e5fd6948d5d2c939b8ab37e668749db83307b2c78f972892713ef46071943"
+      ]
     },
     {
       "id": "pmma-supports",
@@ -793,7 +787,7 @@
       "variant": "fr4-3hp",
       "issues": "Q7/Q8/Q9; #8",
       "setup": "製造ロットのPMMAと造形品を測る。段階的締結と保持を記録。",
-      "expected": "透明2 mm PMMA、裏面フロスト/表面平滑。0.5 mm後面ポケットは設計選択。M2×18上部ねじ、ボスとフォークを含む。",
+      "expected": "透明2 mm PMMA、裏面フロスト/表面平滑。0.5 mm後面ポケットは設計選択。M2×20上部ねじ、ボスとフォークを含む。",
       "basis": "engineering/a7/mechanical/README.md",
       "criterion_status": "UNRESOLVED",
       "missing_criterion": "加工公差、締付トルク、割れ/クレージング、保持荷重、PETG工程条件の採否基準が未決。",
@@ -812,7 +806,7 @@
       "inputs": [
         "A7 前面 PMMA（加工先・材料ロットを記録）",
         "PETG で造形したスパイン・キャップ・ディフューザー（造形条件を記録）",
-        "M2×18 ねじと M2 ナット、M6×0.5 ナット",
+        "M2×20 ねじと M2 ナット、M6×0.5 ナット",
         "PJ-324M 実装基板"
       ],
       "tools": [
@@ -830,7 +824,7 @@
       "steps": [
         "PMMA の板厚・穴径・後面ポケット深さと位置を測る。",
         "造形部品の寸法と造形条件（材料、ノズル温度、層厚、向き）を記録する。",
-        "M2×18 とジャックナットを段階的に締め、各段階で割れ・白化（クレージング）を確認し、トルクを記録する。",
+        "M2×20 とジャックナットを段階的に締め、各段階で割れ・白化（クレージング）を確認し、トルクを記録する。",
         "プッシュプルゲージでプラグ挿抜方向の荷重をかけ、保持とずれを記録する。"
       ],
       "record": {
@@ -896,7 +890,7 @@
         {
           "id": "top-screw",
           "criterion": "上キャップのねじ",
-          "value": "M2x18",
+          "value": "M2x20",
           "unit": "NONE",
           "confidence": "DESIGN",
           "source": {
@@ -3524,15 +3518,15 @@
       "title": "CV ノイズと DATA_L 結合",
       "variant": "fr4-3hp",
       "issues": " #10",
-      "setup": "静的CVを印加しDATA_L/左右ストリームのパターンを切替、ADC/THRUを同期観測。",
-      "expected": "記録されたCV_THRU対DATA_L_3V3/SWDIO、CV_ADC対SWCLKの結合懸念を評価。",
-      "basis": "engineering/a7/verification/interface_review.md",
-      "criterion_status": "REVIEWED",
-      "missing_criterion": "",
+      "setup": "静的CVを印加しDATA_L/左右ストリームのパターンを切替、ADC/THRUを同期観測。加えて (1) CV IN 未接続（開放チップ）と (2) 電源グラウンドを共有する外部源をパッチしLED輝度を段階的に変える状態でも観測する。",
+      "expected": "electrical_review.md「CV and data coupling」と return-review.json（coupling.close_pairs、coupling.CV_THRU_open_input、patched_ground_loop）が挙げる結合を評価する。規則のない近接（/CV_THRU–/VLED 同層 0.25 mm、/CV_AFFINE–/DATA_L 0.25 mm、/CV_ADC–/DATA_R_3V3 0.19 mm、/CV_BUF–/DATA_L 隣接層重なり）と、パッチ時のスリーブ電流による誤差（基板内 0.254 LSB 上限、基板外は未拘束）を含む。",
+      "basis": "engineering/a7/verification/electrical_review.md",
+      "criterion_status": "UNRESOLVED",
+      "missing_criterion": "旧基準の layout 記述（interface_review.md「No CV node runs within 0.6 mm of DATA_L/R or ±12V_PROT on the same layer.」）は 0.8 mm 基板（d83691d6…）では成り立たず、710ed801… でも成り立っていなかった。2026-11-11 の採用はその誤った根拠に基づくため引き継がない。開放入力とパッチ時グラウンドループの条件も旧手順になかった。",
       "raw_evidence_required": "同期波形、スペクトル/統計、配線/プローブ位置、パターン",
       "observation": "NOT_MEASURED",
       "result": "NOT_RUN",
-      "next_action": "基準はコーディネーターが採用済み（オーナー本人ではない）。実機で手順を実施して記録する。",
+      "next_action": "根拠を electrical_review.md と return-review.json に置き換えた新しい基準（ノイズ上限 50 mV は不感帯から据え置きの提案）をオーナーが採否するまで未決。実機では未接続入力とグラウンド共有源パッチ（LED輝度段階）を含めて #10 で測る。",
       "required_evidence_kinds": [
         "synchronous_waveforms",
         "noise_statistics",
@@ -3555,7 +3549,9 @@
       "precondition_states": [],
       "steps": [
         "LED データ送信中に CV_THRU と ADC 値を同期して記録する。",
-        "データパターン（全消灯/全点灯/交互）を変えて統計を取る。"
+        "データパターン（全消灯/全点灯/交互）を変えて統計を取る。",
+        "CV IN を未接続（開放チップ）にして同じ記録を取り、±50 mV 不感帯と比べる。",
+        "電源グラウンドを共有する外部 CV 源をパッチし、LED 輝度を段階的に変えて CV 誤差を記録する（パッチ時グラウンドループ）。"
       ],
       "record": {
         "synchronous_waveforms": "同期波形",
@@ -3566,13 +3562,13 @@
       "acceptance": [
         {
           "id": "layout",
-          "criterion": "同層での CV と DATA の間隔（設計）",
-          "value": "No CV node runs within 0.6 mm of DATA_L/R or ±12V_PROT on the same layer.",
+          "criterion": "規則付きの CV–スイッチング/データ間隔（設計、全層）",
+          "value": "No CV track runs within 0.5 mm of any aggressor in that table anywhere on any layer.",
           "unit": "NONE",
           "confidence": "DESIGN",
           "source": {
-            "path": "engineering/a7/verification/interface_review.md",
-            "quote": "No CV node runs within 0.6 mm of DATA_L/R or ±12V_PROT on the same layer."
+            "path": "engineering/a7/verification/electrical_review.md",
+            "quote": "No CV track runs within 0.5 mm of any aggressor in that table anywhere on any layer."
           },
           "bound": "reference"
         },
@@ -3600,13 +3596,7 @@
           },
           "bound": "max"
         }
-      ],
-      "criterion_accepted_by": "PROJECT_COORDINATOR_DELEGATED",
-      "criterion_review": {
-        "path": "engineering/a7/qualification/reviews/2026-11-11-coordinator-criteria-acceptance.md",
-        "sha256": "de65e2b2ddbfb1bca68b01ca37e5222ada0f1d6ee695d191baf3516bb1abe93f"
-      },
-      "criterion_acceptance_sha256": "ed52279e0344626b20103633bbb0da95af82cc01c16a90a757a216277cd0063b"
+      ]
     },
     {
       "id": "service-envelope",
@@ -3812,7 +3802,7 @@
     {
       "id": "O7",
       "title": "残りの合否基準を採否する（提案値）",
-      "detail": "harness-depth、u7-stress、service-envelope、ldo-reverse はオーナーが採用した（2026-11-12）。thermal-optical は上限 75 °C を採ったが、材料の温度限界と見え方が残る。部分電源試験（partial-rails）は「accept all」の後に別に尋ね、オーナーが部品の絶対最大を合否の線に採った（2026-11-12）。その他の PROPOSED の提案値は、採るまでゲートを解除しない。",
+      "detail": "u7-stress、service-envelope、ldo-reverse はオーナーが採用した（2026-11-12）。harness-depth の旧受入（57 ± 3 mm）は旧1.6 mm設計の履歴で、0.8 mm設計の 55 ± 3 mm は未受入。cv-noise の 2026-11-11 採用は、0.8 mm 基板で成り立たない layout 記述に基づいていたため引き継がず、electrical_review.md を根拠に再提案した（未決）。thermal-optical は上限 75 °C を採ったが、材料の温度限界と見え方が残る。部分電源試験（partial-rails）は「accept all」の後に別に尋ね、オーナーが部品の絶対最大を合否の線に採った（2026-11-12）。その他の PROPOSED の提案値は、採るまでゲートを解除しない。",
       "unblocks": [
         "criterion:thermal-optical",
         "criterion:service-envelope",
@@ -3838,7 +3828,7 @@
     {
       "id": "O5",
       "title": "完成ケーブルを業者に注文仕様で頼み、長さ公差の回答をもらう",
-      "detail": "オーナーは完成ケーブルを業者に頼むこと（2026-11-12「5 accept all」）と、電源ケーブルの注文範囲 54–60 mm（57 ± 3 mm、±3 は仮定）と最小曲げ半径 2.0 mm を合否基準にすることを決めた。業者が保証できる公差の回答をもらう。SH4 と IDC リボンも同じ。",
+      "detail": "オーナーは完成ケーブルを業者に頼むこと（2026-11-12「5 accept all」）を決めた。旧1.6 mm設計の注文範囲 54–60 mm の受入は履歴で、0.8 mm設計の 52–58 mm（55 ± 3 mm、±3 は仮定）は未受入。業者が保証できる公差の回答をもらう。SH4 と IDC リボンも同じ。",
       "unblocks": [
         "material:finished_cables",
         "criterion:harness-depth"
@@ -3863,7 +3853,7 @@
     {
       "id": "O1",
       "title": "限定試作ルートを承認する",
-      "detail": "対象版（A7 r2 / 3HP / FR-4）、数量、入手する部品・基板・治具、許す工程、実施者、試験前の安全条件を決め、承認ファイルを残して `records.json` の owner_prototype_route に記録する。製造リリースとは別の承認。",
+      "detail": "対象版（A7 0.8 mm / 3HP / FR-4、制御基板 d83691d6… / リーフ bcf2e35d…）、数量、入手する部品・基板・治具、許す工程、実施者、試験前の安全条件を決め、承認ファイルを残して `records.json` の owner_prototype_route に記録する。製造リリースとは別の承認。",
       "unblocks": [
         "owner_prototype_route",
         "assembly:prototype-and-release"
@@ -3891,7 +3881,7 @@
     {
       "gate": "owner_prototype_route",
       "stage": "PCB_ORDER",
-      "question": "A7 r2（3HP / FR-4）の限定試作を承認しますか。",
+      "question": "A7 0.8 mm FR-4（3HP、制御基板 d83691d6… / リーフ bcf2e35d…）の限定試作を承認しますか。",
       "options": [
         {
           "id": "approve",
@@ -3905,7 +3895,7 @@
         }
       ],
       "recommended": "approve",
-      "reason": "オーナーは 2026-11-12 に「1 OK」でこの試作を承認し、SW1 を HX MSK13C02 にした版を 2026-11-13 に再承認し（approvals/2026-11-13-owner-prototype-route-hx-switch.md）、#80 で調達台帳 assembly-manifest.json の調達の欄が変わった版（c12c964a… → 557d5e48…、部品・数量・基板・配置・注文ファイルは同じ）を同日に再び承認した（approvals/2026-11-13-owner-prototype-route-sourcing-manifest.md）。承認は記録時の基板・回路図・機構・治具・調達台帳のハッシュに結び付いていて、どれかが変わると改めて承認が要る。19 の物理手順はどれも実物が要り、試作ルートがないと部品・基板・治具を入手できない。試作ルートの承認は製造リリースではない。",
+      "reason": "旧1.6 mm設計の承認は履歴で、0.8 mm設計の新しい identity には引き継がない。経緯: オーナーは 2026-11-12 に「1 OK」で旧版の試作を承認し、SW1 を HX MSK13C02 にした版を 2026-11-13 に再承認し（approvals/2026-11-13-owner-prototype-route-hx-switch.md）、#80 で調達台帳 assembly-manifest.json の調達の欄が変わった版（c12c964a… → 557d5e48…、部品・数量・基板・配置・注文ファイルは同じ）を同日に再び承認した（approvals/2026-11-13-owner-prototype-route-sourcing-manifest.md）。承認は記録時の基板・回路図・機構・治具・調達台帳のハッシュに結び付いていて、どれかが変わると改めて承認が要る。19 の物理手順はどれも実物が要り、試作ルートがないと部品・基板・治具を入手できない。試作ルートの承認は製造リリースではない。",
       "sources": [
         {
           "path": "engineering/a7/procurement/assembly-manifest.json",
@@ -4098,7 +4088,7 @@
     {
       "gate": "criterion:harness-depth",
       "stage": "BENCH",
-      "question": "電源ケーブルの注文範囲 54–60 mm と、最小曲げ半径 2.0 mm を合否基準にしますか。",
+      "question": "0.8 mm設計の電源ケーブル注文範囲 52–58 mm と、最小曲げ半径 2.0 mm を合否基準にしますか。（旧1.6 mm設計の54–60 mm受入は履歴）",
       "options": [
         {
           "id": "adopt",
@@ -4112,7 +4102,7 @@
         }
       ],
       "recommended": "adopt",
-      "reason": "54–60 mm は経路モデルの要求 57 ± 3 mm（±3 は仮定）、2.0 mm は 3HP の経路モデルが曲げに残した余裕。どちらも設計記録の値で、業者の回答で置き換えられる。",
+      "reason": "52–58 mm は0.8 mm設計の経路モデルの要求 55 ± 3 mm（±3 は仮定）、2.0 mm は 3HP の経路モデルが曲げに残した余裕。どちらも設計記録の値で、業者の回答で置き換えられる。",
       "sources": [
         {
           "path": "engineering/a7/mechanical/layout.json",
@@ -4123,15 +4113,7 @@
           "pointer": "/variants/3hp/routes/adapter_to_controller_power/end_bend_room"
         }
       ],
-      "rank": 6,
-      "answer": {
-        "option": "adopt",
-        "by": "OWNER",
-        "record": {
-          "path": "engineering/a7/procurement/owner-decisions.json",
-          "quote": "5 accept all"
-        }
-      }
+      "rank": 6
     },
     {
       "gate": "assembly:rack-hardware",
@@ -4526,6 +4508,36 @@
       }
     },
     {
+      "gate": "criterion:cv-noise",
+      "stage": "BENCH",
+      "question": "CV ノイズの合否を、0.8 mm 基板の結合記録を根拠に、LED データ送信中・CV IN 未接続・グラウンド共有源パッチの3条件で 50 mV p-p 以下にしますか。",
+      "options": [
+        {
+          "id": "adopt",
+          "label": "提案どおり採る",
+          "consequence": "cv-noise の合否が決まり、#10 で3条件を測る。旧 2026-11-11 の採用は誤った配線記述に基づくので引き継がない。"
+        },
+        {
+          "id": "revise",
+          "label": "条件か上限を変える",
+          "consequence": "変更を記録するまでこの基準ゲートは閉じたまま。"
+        }
+      ],
+      "recommended": "adopt",
+      "reason": "50 mV は既存ファームウェアの CV 不感帯（LB_CV_DEADBAND_MV）。規則のない近接（/CV_THRU–/VLED など）と、パッチ時の基板内誤差上限 0.254 LSB は electrical_review.md と return-review.json の計算値で、実測ではない。",
+      "sources": [
+        {
+          "path": "engineering/a7/verification/controller/return-review.json",
+          "pointer": "/coupling/close_pairs"
+        },
+        {
+          "path": "engineering/a7/verification/controller/return-review.json",
+          "pointer": "/patched_ground_loop"
+        }
+      ],
+      "rank": 16
+    },
+    {
       "gate": "assembly:prototype-and-release",
       "stage": "RELEASE",
       "question": "製造パッケージのレビューとリリースの承認を、いつ行いますか。",
@@ -4549,7 +4561,7 @@
           "quote": "\"manufacturing_released\": false"
         }
       ],
-      "rank": 16,
+      "rank": 17,
       "answer": {
         "option": "after-tests",
         "by": "OWNER",
@@ -4585,7 +4597,7 @@
           "quote": "\"order_submitted\": false"
         }
       ],
-      "rank": 17,
+      "rank": 18,
       "answer": {
         "option": "after-tests",
         "by": "OWNER",
@@ -4679,7 +4691,7 @@
       "items": [
         {
           "what": "PMMA 板・PETG 加工先の公差と、ねじの注文型番",
-          "value_needed": "板厚・ポケット深さの公差、PETG の造形条件、M2×18 / M1.6×4 の型番",
+          "value_needed": "板厚・ポケット深さの公差、PETG の造形条件、M2×20 / M1.6×4 の型番",
           "url": null,
           "fallback_url": null,
           "access": "supplier-questions.md の「PMMA・PETG・組立」を加工先に送って回答を保存する"

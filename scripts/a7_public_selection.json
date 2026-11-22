@@ -1,71 +1,45 @@
 {
-  "source_revision": "0c19fea8afe356fc993570e969742e774b7a9914",
+  "source_revision": "00bad3bc91a0505f9e256ea2930cab0aa639c646",
   "inputs": [
     {
       "source": "engineering/a7/mechanical/layout.json",
-      "sha256": "89f548a52d8ce907fb351519bfdcabc411e3389d1261056e1319582b03a4437a",
-      "bytes": 114261
+      "sha256": "8b24ec83fd805c4efcaba92f885e49531826f8945063b74fd5019bc1221e040e",
+      "bytes": 59350
     },
     {
       "source": "engineering/a7/mechanical/design-inputs.json",
-      "sha256": "efdda1550e80367efe8f9fe4090509752de390e18c32feb5b8a203dfdc94950c",
-      "bytes": 18723
+      "sha256": "4361d3fc7a79f081e44bfe1412cbcc1558f9fef45cb0674cf348edfbbe3c7f37",
+      "bytes": 21538
     },
     {
       "source": "engineering/a7/front_panel/geometry.json",
-      "sha256": "f6df69b594bd232a3ca3f6a2461b008d080b790cfbfc8a5631b2011688e355d9",
-      "bytes": 4491
+      "sha256": "d1196b1b0fd0533d942e86869dd32403c18971a94d23c1ccf5b8f8a3ad0a527d",
+      "bytes": 4490
     },
     {
       "source": "engineering/a7/mechanical/build_a7_mechanical.py",
-      "sha256": "8789aeb3493cc8a95f7406938a3d382367e536d863ee45d183246c7bae89d99f",
-      "bytes": 50864
+      "sha256": "6489756f6bcd3ae863dfb6bda7cc3e0da842da7c98934523f1ae47a5b7b988bb",
+      "bytes": 61797
     },
     {
       "source": "engineering/a7/mechanical/exports/3hp/verification.json",
-      "sha256": "a1674803d8cfd0d19bbf7189bbe759f91cdbf6f167e98073bc71e2836c077434",
-      "bytes": 43528
-    },
-    {
-      "source": "engineering/a7/mechanical/exports/2hp/verification.json",
-      "sha256": "63cf1224e915fde60cdf6e4dc7c3b9b87f45cb2f5dae2ac3023c545f202e73d8",
-      "bytes": 43873
-    },
-    {
-      "source": "engineering/a7/mechanical/exports/3hp_pet/verification.json",
-      "sha256": "1df0297f7d40091febfdb71ece967ec8012bbe004c4af4990524552f8f2ff956",
-      "bytes": 44071
+      "sha256": "59df65512c02a3bdb3b4acf2fcfd3e557450762ee6d86e0db43372e7d01ad5f1",
+      "bytes": 49199
     }
   ],
   "files": [
     {
       "source": "engineering/a7/mechanical/exports/3hp/zudo_led_block_A7_3hp_assembled.glb",
-      "sha256": "b6718dbdcc0eb8c50cb0e452331a2972f2cfd6adb3626d4783a634ac24c006d4",
-      "bytes": 1662464,
+      "sha256": "27f5e0e9e04d11dd4924b31aa98294ad450b3d9d7bd78aa4d7bc7a32da58f229",
+      "bytes": 2960488,
       "target": "3hp.glb",
       "variant": "3hp",
-      "label": "3HP FR-4 — 現在の試作候補"
-    },
-    {
-      "source": "engineering/a7/mechanical/exports/2hp/zudo_led_block_A7_2hp_assembled.glb",
-      "sha256": "ae8ccac8900755368a87c2b2bcf3134d43919399a35c5cb1089b3f258024ca9a",
-      "bytes": 1656012,
-      "target": "2hp.glb",
-      "variant": "2hp",
-      "label": "2HP — unresolved study"
-    },
-    {
-      "source": "engineering/a7/mechanical/exports/3hp_pet/zudo_led_block_A7_3hp_pet_assembled.glb",
-      "sha256": "fa519aafad4a351a1680765dd393e8db95ccb3da168e8205465111487f8511e0",
-      "bytes": 1678056,
-      "target": "3hp_pet.glb",
-      "variant": "3hp_pet",
-      "label": "3HP PET — exploratory study"
+      "label": "3HP 0.8 mm rigid FR-4 — 採用案（実物未評価）"
     },
     {
       "source": "engineering/a7/mechanical/exports/3hp/view_A7_3hp_side.png",
-      "sha256": "f56e2e07d09663c45e2e764c250b1ccbffc93b5153dcdc0c895fe4ddf2c0d19e",
-      "bytes": 300656,
+      "sha256": "2a2f4ce88e5aa493a9816c52266aaec1c943680ac271c4cae5651d553db23542",
+      "bytes": 300007,
       "target": "poster.png"
     }
   ],
@@ -99,7 +73,7 @@
     },
     "leaves": {
       "label": "LED リーフ",
-      "role": "左右各4画素の LED 基板と実装部品。発光・熱のシミュレーションではありません。",
+      "role": "左右各4画素の0.8 mm FR-4基板と実装部品。基材の半透明性は仮定、全層銅箔と残すレジストは不透明。光学性能は未測定。",
       "explode": [
         14,
         0,
@@ -138,7 +112,6 @@
     "setting_switch_HX_MSK13C02": "controller",
     "controller_PicoBlade_mated": "controller",
     "controller_SH4_mated": "controller",
-    "spine_PETG": "supports",
     "M2_front_washer_20.5": "supports",
     "M2_front_screw_20.5": "supports",
     "M2_nut_20.5": "supports",
@@ -152,8 +125,6 @@
     "IDC_socket_REFERENCE_overlap6": "harness",
     "adapter_PicoBlade_mated": "harness",
     "IDC_ribbon_R3_side_exit_SCENARIO": "harness",
-    "left_leaf_pcb_A5": "leaves",
-    "right_leaf_pcb_A5": "leaves",
     "leaf_bond_line_reserve": "leaves",
     "left_J1_SH4_mated": "leaves",
     "left_J2_SH4_mated": "leaves",
@@ -191,14 +162,9 @@
     "M1_6_nut_1_105.5": "supports",
     "controller_to_left_leaf_sh4": "harness",
     "adapter_to_controller_power": "harness",
-    "leaf_link_pin_1_A5": "harness",
-    "leaf_link_pin_2_A5": "harness",
-    "leaf_link_pin_3_A5": "harness",
-    "leaf_link_pin_4_A5": "harness",
-    "left_leaf_film_PET": "leaves",
-    "left_leaf_OCA": "leaves",
-    "right_leaf_film_PET": "leaves",
-    "right_leaf_OCA": "leaves",
-    "leaf_carrier_PC": "supports"
+    "left_leaf_pcb_A7": "leaves",
+    "right_leaf_pcb_A7": "leaves",
+    "leaf_link_sh4_A7": "harness",
+    "spine_PETG": "supports"
   }
 }

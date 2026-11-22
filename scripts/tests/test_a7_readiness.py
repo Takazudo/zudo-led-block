@@ -274,12 +274,13 @@ class ReadinessTests(unittest.TestCase):
 
     def test_edited_accepted_criterion_is_no_longer_answered(self):
         report = json.loads((REPO/m.QUAL/'readiness.json').read_text())
-        question = next(d['question'] for d in self.plan['owner_decisions'] if d['gate'] == 'criterion:harness-depth')
+        # harness-depth was reopened for the 0.8 mm cable band (not answered); u7-stress is still an accepted criterion.
+        question = next(d['question'] for d in self.plan['owner_decisions'] if d['gate'] == 'criterion:u7-stress')
         page = m.checklist(self.plan, report)
         self.assertNotIn('. ' + question, page)
         # Once the edited values block the gate again, the decision returns to the live list and leaves the answered list.
         report = copy.deepcopy(report)
-        report['gates'].append({'gate': 'criterion:harness-depth', 'class': 'OWNER_DECISION', 'reasons': ['criterion acceptance record does not match']})
+        report['gates'].append({'gate': 'criterion:u7-stress', 'class': 'OWNER_DECISION', 'reasons': ['criterion acceptance record does not match']})
         page = m.checklist(self.plan, report)
         self.assertIn('. ' + question, page)
         self.assertNotIn('**' + question + '** → 提案どおり採る（オーナーの回答', page)
@@ -329,14 +330,15 @@ class ReadinessTests(unittest.TestCase):
     def test_checklist_lists_decisions_and_downloads(self):
         report = json.loads((REPO/m.QUAL/'readiness.json').read_text())
         page = m.checklist(self.plan, report)
-        self.assertIn('## まとめて答えられる判断（0 件）', page)
+        self.assertIn('## まとめて答えられる判断（3 件）', page)
         self.assertIn('## オーナーが方針を受け入れた判断（7 件、ゲートは開いたまま）', page)
-        self.assertNotIn('限定試作を承認しますか', page)
-        self.assertIn('## 回答済みの判断（9 件）', page)
+        # The 1.6 mm prototype-route approvals are history; the 0.8 mm identities need a new approval.
+        self.assertIn('A7 0.8 mm FR-4（3HP、制御基板 d83691d6… / リーフ bcf2e35d…）の限定試作を承認しますか', page)
+        self.assertIn('## 回答済みの判断（8 件）', page)
         self.assertIn('2 台分（オーナー報告の JLC PCBA 最小、未確認）（オーナーの回答、`assembly:order-quantity`）', page)
         self.assertNotIn('### 2. 最初の発注数量', page)
         self.assertIn('## 資料・回答待ちのゲート（13 件）', page)
-        self.assertIn('`owner_prototype_route`（解除済み）', page)
+        self.assertIn('`owner_prototype_route`（BLOCKED）', page)  # 1.6 mm approvals do not transfer to the 0.8 mm identities
         self.assertNotIn('<https://', page)
 
     def test_non_list_raw_evidence_blocks(self):
@@ -608,15 +610,17 @@ class ExecutableProcedureTests(unittest.TestCase):
         self.plan['owner_actions'][0]['unblocks'].append('assembly:no-such-blocker')
         self.assertUntraceable('unknown gate')
 
-    def test_recorded_owner_prototype_route_is_bound_and_not_a_release(self):
+    def test_recorded_owner_prototype_route_is_historical_for_optical_r3(self):
         records = json.loads((REPO/m.QUAL/'records.json').read_text())
         report = m.evaluate(REPO, self.plan, records)
-        # The owner re-approved the route again on 2026-11-13 for the assembly manifest #80 changed (sourcing fields only).
-        self.assertNotIn('owner_prototype_route', [g['gate'] for g in report['gates']])
+        # The old approval is retained byte-for-byte but is not approval for optical R3.
+        self.assertIn('owner_prototype_route', [g['gate'] for g in report['gates']])
         self.assertIn('manufacturing_release', [g['gate'] for g in report['gates']])
         self.assertEqual(report['order_eligibility'], 'BLOCKED')
         route = records['owner_prototype_route']
-        self.assertEqual(route['identities'], {k: v['sha256'] for k, v in report['identities'].items()})
+        self.assertNotEqual(route['identities'], {k: v['sha256'] for k, v in report['identities'].items()})
+        self.assertNotIn('led_leaf_board', route['identities'])
+        self.assertIn('led_leaf_board', report['identities'])
         self.assertEqual(route['identities']['assembly_manifest'], '557d5e48045b60bb4a8f91dc55f9fae2988d4494082c42532679032da2c8502c')
         approval = (REPO/route['approval']['path']).read_text()
         self.assertIn('> approve', approval)

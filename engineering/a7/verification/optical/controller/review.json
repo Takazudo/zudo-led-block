@@ -1,0 +1,411 @@
+{
+  "bounds_mm": [
+    [
+      0.0,
+      -62.9
+    ],
+    [
+      16.2,
+      0.0
+    ]
+  ],
+  "gerbonara_version": "1.6.3",
+  "notes": [
+    "Black = copper/paste or mask OPENING on normal views.",
+    "Mask residual views invert openings within rectangular board bounds.",
+    "Ordered dark/clear aperture primitives retained; SVG rasterization is visual evidence, not exact area proof."
+  ],
+  "layers": [
+    {
+      "file": "controller-B_Cu.gbl",
+      "sha256": "d330401c9b304147817077c470c67b2cc3ee683b3706c79829591f50788fdafe",
+      "attrs": {
+        ".GenerationSoftware": [
+          "KiCad",
+          "Pcbnew",
+          "10.0.8"
+        ],
+        ".CreationDate": [
+          "2026-11-21T18:40:04+00:00"
+        ],
+        ".ProjectId": [
+          "controller",
+          "636f6e74-726f-46c6-9c65-722e6b696361",
+          "rev?"
+        ],
+        ".SameCoordinates": [
+          "Original"
+        ],
+        ".FileFunction": [
+          "Copper",
+          "L4",
+          "Bot"
+        ],
+        ".FilePolarity": [
+          "Positive"
+        ]
+      },
+      "objects": 796,
+      "dark_objects": 796,
+      "clear_objects": 0,
+      "types": {
+        "Flash": 184,
+        "Line": 611,
+        "Region": 1
+      }
+    },
+    {
+      "file": "controller-B_Mask.gbs",
+      "sha256": "8efd6aafcbb732861e4e24419f8d6a3a3bacd0c18251ce20d09abd9d53652dba",
+      "attrs": {
+        ".GenerationSoftware": [
+          "KiCad",
+          "Pcbnew",
+          "10.0.8"
+        ],
+        ".CreationDate": [
+          "2026-11-21T18:40:04+00:00"
+        ],
+        ".ProjectId": [
+          "controller",
+          "636f6e74-726f-46c6-9c65-722e6b696361",
+          "rev?"
+        ],
+        ".SameCoordinates": [
+          "Original"
+        ],
+        ".FileFunction": [
+          "Soldermask",
+          "Bot"
+        ],
+        ".FilePolarity": [
+          "Negative"
+        ]
+      },
+      "objects": 739,
+      "dark_objects": 739,
+      "clear_objects": 0,
+      "types": {
+        "Region": 669,
+        "Flash": 70
+      }
+    },
+    {
+      "file": "controller-B_Paste.gbp",
+      "sha256": "3541f92c2b36d82c614467121c993ca6e374fa536ba29299d34a5a050fa346f8",
+      "attrs": {
+        ".GenerationSoftware": [
+          "KiCad",
+          "Pcbnew",
+          "10.0.8"
+        ],
+        ".CreationDate": [
+          "2026-11-21T18:40:04+00:00"
+        ],
+        ".ProjectId": [
+          "controller",
+          "636f6e74-726f-46c6-9c65-722e6b696361",
+          "rev?"
+        ],
+        ".SameCoordinates": [
+          "Original"
+        ],
+        ".FileFunction": [
+          "Paste",
+          "Bot"
+        ],
+        ".FilePolarity": [
+          "Positive"
+        ]
+      },
+      "objects": 50,
+      "dark_objects": 50,
+      "clear_objects": 0,
+      "types": {
+        "Flash": 50
+      }
+    },
+    {
+      "file": "controller-B_Silkscreen.gbo",
+      "sha256": "fc0dae897a690e92cbe33a1b77e7aa83cd75a6f06999d7c46bad33abf025bb2f",
+      "attrs": {
+        ".GenerationSoftware": [
+          "KiCad",
+          "Pcbnew",
+          "10.0.8"
+        ],
+        ".CreationDate": [
+          "2026-11-21T18:40:04+00:00"
+        ],
+        ".ProjectId": [
+          "controller",
+          "636f6e74-726f-46c6-9c65-722e6b696361",
+          "rev?"
+        ],
+        ".SameCoordinates": [
+          "Original"
+        ],
+        ".FileFunction": [
+          "Legend",
+          "Bot"
+        ],
+        ".FilePolarity": [
+          "Positive"
+        ]
+      },
+      "objects": 0,
+      "dark_objects": 0,
+      "clear_objects": 0,
+      "types": {}
+    },
+    {
+      "file": "controller-Edge_Cuts.gm1",
+      "sha256": "7032bbf624502a103fe1c896f819e176afac0bccda543f1d5b27590340db2a6e",
+      "attrs": {
+        ".GenerationSoftware": [
+          "KiCad",
+          "Pcbnew",
+          "10.0.8"
+        ],
+        ".CreationDate": [
+          "2026-11-21T18:40:04+00:00"
+        ],
+        ".ProjectId": [
+          "controller",
+          "636f6e74-726f-46c6-9c65-722e6b696361",
+          "rev?"
+        ],
+        ".SameCoordinates": [
+          "Original"
+        ],
+        ".FileFunction": [
+          "Profile",
+          "NP"
+        ]
+      },
+      "objects": 4,
+      "dark_objects": 4,
+      "clear_objects": 0,
+      "types": {
+        "Line": 4
+      }
+    },
+    {
+      "file": "controller-F_Cu.gtl",
+      "sha256": "8ff975753ac1cc16bcb24dfba641451c91378c8c9747b3f18b25aee14e0c6624",
+      "attrs": {
+        ".GenerationSoftware": [
+          "KiCad",
+          "Pcbnew",
+          "10.0.8"
+        ],
+        ".CreationDate": [
+          "2026-11-21T18:40:04+00:00"
+        ],
+        ".ProjectId": [
+          "controller",
+          "636f6e74-726f-46c6-9c65-722e6b696361",
+          "rev?"
+        ],
+        ".SameCoordinates": [
+          "Original"
+        ],
+        ".FileFunction": [
+          "Copper",
+          "L1",
+          "Top"
+        ],
+        ".FilePolarity": [
+          "Positive"
+        ]
+      },
+      "objects": 1020,
+      "dark_objects": 1020,
+      "clear_objects": 0,
+      "types": {
+        "Flash": 252,
+        "Line": 768
+      }
+    },
+    {
+      "file": "controller-F_Mask.gts",
+      "sha256": "e3a06b348d42346a56edc32bbf2bde17b8600231fb96dd79e3b4a151a8212a9f",
+      "attrs": {
+        ".GenerationSoftware": [
+          "KiCad",
+          "Pcbnew",
+          "10.0.8"
+        ],
+        ".CreationDate": [
+          "2026-11-21T18:40:04+00:00"
+        ],
+        ".ProjectId": [
+          "controller",
+          "636f6e74-726f-46c6-9c65-722e6b696361",
+          "rev?"
+        ],
+        ".SameCoordinates": [
+          "Original"
+        ],
+        ".FileFunction": [
+          "Soldermask",
+          "Top"
+        ],
+        ".FilePolarity": [
+          "Negative"
+        ]
+      },
+      "objects": 976,
+      "dark_objects": 976,
+      "clear_objects": 0,
+      "types": {
+        "Region": 838,
+        "Flash": 138
+      }
+    },
+    {
+      "file": "controller-F_Paste.gtp",
+      "sha256": "ab638f3841e30f76313b5e29b26364380e1933d855d0b5f7ea593efca84676ed",
+      "attrs": {
+        ".GenerationSoftware": [
+          "KiCad",
+          "Pcbnew",
+          "10.0.8"
+        ],
+        ".CreationDate": [
+          "2026-11-21T18:40:04+00:00"
+        ],
+        ".ProjectId": [
+          "controller",
+          "636f6e74-726f-46c6-9c65-722e6b696361",
+          "rev?"
+        ],
+        ".SameCoordinates": [
+          "Original"
+        ],
+        ".FileFunction": [
+          "Paste",
+          "Top"
+        ],
+        ".FilePolarity": [
+          "Positive"
+        ]
+      },
+      "objects": 123,
+      "dark_objects": 123,
+      "clear_objects": 0,
+      "types": {
+        "Flash": 123
+      }
+    },
+    {
+      "file": "controller-F_Silkscreen.gto",
+      "sha256": "454a6a66fef063cf76f66eac9fe35a67fd3c1f02c0c01c8567f1657a01b2561e",
+      "attrs": {
+        ".GenerationSoftware": [
+          "KiCad",
+          "Pcbnew",
+          "10.0.8"
+        ],
+        ".CreationDate": [
+          "2026-11-21T18:40:04+00:00"
+        ],
+        ".ProjectId": [
+          "controller",
+          "636f6e74-726f-46c6-9c65-722e6b696361",
+          "rev?"
+        ],
+        ".SameCoordinates": [
+          "Original"
+        ],
+        ".FileFunction": [
+          "Legend",
+          "Top"
+        ],
+        ".FilePolarity": [
+          "Positive"
+        ]
+      },
+      "objects": 13,
+      "dark_objects": 13,
+      "clear_objects": 0,
+      "types": {
+        "Line": 13
+      }
+    },
+    {
+      "file": "controller-In1_Cu.g1",
+      "sha256": "0fae260fc8f2e8a50902a9eca061e88b8e66727984391de315ecb9bddd64a3ad",
+      "attrs": {
+        ".GenerationSoftware": [
+          "KiCad",
+          "Pcbnew",
+          "10.0.8"
+        ],
+        ".CreationDate": [
+          "2026-11-21T18:40:04+00:00"
+        ],
+        ".ProjectId": [
+          "controller",
+          "636f6e74-726f-46c6-9c65-722e6b696361",
+          "rev?"
+        ],
+        ".SameCoordinates": [
+          "Original"
+        ],
+        ".FileFunction": [
+          "Copper",
+          "L2",
+          "Inr"
+        ],
+        ".FilePolarity": [
+          "Positive"
+        ]
+      },
+      "objects": 504,
+      "dark_objects": 504,
+      "clear_objects": 0,
+      "types": {
+        "Flash": 129,
+        "Line": 375
+      }
+    },
+    {
+      "file": "controller-In2_Cu.g2",
+      "sha256": "5ffa211274538d38c39e1f970e95a0174477298d5f45a9951d0091eaa5550a52",
+      "attrs": {
+        ".GenerationSoftware": [
+          "KiCad",
+          "Pcbnew",
+          "10.0.8"
+        ],
+        ".CreationDate": [
+          "2026-11-21T18:40:04+00:00"
+        ],
+        ".ProjectId": [
+          "controller",
+          "636f6e74-726f-46c6-9c65-722e6b696361",
+          "rev?"
+        ],
+        ".SameCoordinates": [
+          "Original"
+        ],
+        ".FileFunction": [
+          "Copper",
+          "L3",
+          "Inr"
+        ],
+        ".FilePolarity": [
+          "Positive"
+        ]
+      },
+      "objects": 484,
+      "dark_objects": 484,
+      "clear_objects": 0,
+      "types": {
+        "Flash": 129,
+        "Line": 355
+      }
+    }
+  ]
+}

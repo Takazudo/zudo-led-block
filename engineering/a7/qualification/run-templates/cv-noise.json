@@ -8,17 +8,20 @@
   "operator": null,
   "performed_at": null,
   "identities": {
-    "board": "89310d539b3c28096775cee821e46c14fdba42a87809c82f1fd7f0751704e727",
-    "population": "5ba26c3c25b4d31a36d324f47db21b24afa3cad67b6f0f2b4fcf9580024448e0",
+    "led_leaf_board": "bcf2e35d767221f5a9db0cd16769a2e503a672f522fd4f32f78012cdeb494cf9",
+    "led_leaf_schematic": "b3eaaf84ab1bc3a13c1dd1600cb6f5dca5ea61c403d0af4ea7c5b664b40c6599",
+    "optical_fabrication": "d974daffc20c4aabaa1d754f4b7393315388246b93433bb77750a4100237c6e5",
+    "board": "d83691d6590e013b2a66957b61d76ba2f68bedaaec04789326e1215b2d1bdb2b",
+    "population": "2d32b2ab76735dbf4ff7f2c959de4398b8215983be9a4fd33fde50c7015212f5",
     "schematic": "b027715b278a17d9af9c5791f107cbaf07ee218647601622164d33b344015e1d",
     "firmware": "0446cb0acfa7efe86a5f6c02beb7afa482daa419ecfce204fe9169487599765e",
     "firmware_sources": "61155c23cc8f9c05f8d5712ecd8f009673c1929a34b8437b9869c202deb85c46",
     "configuration": "195092c88e1b9270bae22d27f4a08f4a606f9be77008f3011f06d7a975b0f6a7",
-    "mechanical": "89f548a52d8ce907fb351519bfdcabc411e3389d1261056e1319582b03a4437a",
-    "fixture": "471978cfdb4a0b5d096e72f32780025880eec91d076a29e87351cdbde8ba0be1",
-    "assembly_manifest": "557d5e48045b60bb4a8f91dc55f9fae2988d4494082c42532679032da2c8502c"
+    "mechanical": "8b24ec83fd805c4efcaba92f885e49531826f8945063b74fd5019bc1221e040e",
+    "fixture": "a8a8a8cbde68c0d7cf9e2ff5e62202697bbef39e1fcdffb330560f515e650b70",
+    "assembly_manifest": "9225919ce1a44ca70be6c66e081c3d53c23b25421848ac243a6c991215bb320d"
   },
-  "plan_sha256": "75465ee1e14955b22adb764024f646fda3bdf097f15767a255b8fa0362e9c385",
+  "plan_sha256": "650dbe95b752736ba44b146c911ed65e676643e318c72847f13a7dad11b637f3",
   "instruments": null,
   "setup": null,
   "conditions": null,
@@ -52,8 +55,8 @@
   "acceptance_checklist": [
     {
       "id": "layout",
-      "criterion": "同層での CV と DATA の間隔（設計）",
-      "expected": "No CV node runs within 0.6 mm of DATA_L/R or ±12V_PROT on the same layer.",
+      "criterion": "規則付きの CV–スイッチング/データ間隔（設計、全層）",
+      "expected": "No CV track runs within 0.5 mm of any aggressor in that table anywhere on any layer.",
       "bound": "reference",
       "unit": "NONE",
       "confidence": "DESIGN",

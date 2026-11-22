@@ -1,4 +1,25 @@
-# zudo-led-block オーケストレーション対応表
+# zudo-led-block 現行オーケストレーション
+
+## #87: 0.8 mm rigid FR-4 optical redesign
+
+2026-11-17 JSTのowner指示を、親 [#15](https://github.com/Takazudo/zudo-led-block/issues/15) と子 [#87](https://github.com/Takazudo/zudo-led-block/issues/87) で追跡します。透明PET/FPCは撤回し、LED leaf/controllerを0.8 mm rigid FR-4、両面必要箇所以外mask開口、全層の広いGND面なしへ変更します。2HPを優先評価し、根拠不足なら3HPへ進みます。3HPでも0.8 mmを維持します。
+
+今回の設計変更・Issue/PR運用・条件を満たしたmain統合は依頼済みです。旧「新規欠陥がなければ再設計しない」「2HP保留」「3HPの最も厚い成立板」「PET任意検討」は今回には適用しません。A5はimmutable、A6 #7 / draft PR #14は保留を維持します。
+
+| 担当範囲 | 完了に必要な証跡 |
+| --- | --- |
+| 単一統合担当 | live Issue/PR/branch/sessionと資源監査、単一作業branch/統合PR、最終revisionの整合、current-head CIとreview後のmerge |
+| 電気設計 | A5外の新leaf正本、controllerの実stackup/GND return/mask、電源アダプタの要否判断、全銅層・表裏mask Gerber、native ERC/parity/DRC/未接続/refill/再生成保護とrouting再現 |
+| 機構・治具 | 0.8±0.1 mmとbond公差、2HP/3HP判断、支持・端子・工具・ハーネス・奥行、CAD実生成、新板厚での治具計算 |
+| 製造入力・表示 | BOM/CPL/JLC/panel/readinessの新正本参照、全層銅遮光と未測定のFR-4半透明表現を分けるpreview、生成所有ページのgenerator更新 |
+| 独立レビュー | 電気と機構の別レビュー、上記成果物の同一revision/hash、negative controls維持、未実測事項の明示 |
+
+[継続手順](../../engineering/a7/docs/continuation/continue-here.md)、[根拠索引](../../engineering/a7/docs/continuation/evidence-index.md)、[WORKFLOW.md](../WORKFLOW.md)、[ORCHESTRATION.md](../ORCHESTRATION.md) を使用します。現在のpin/profile/CIを読み直し、実測したCloud資源と有限予算でnative/CADを実行します。共有Actions枠の重複実行を避け、存在しないworkerや別環境GUIを仮定しません。旧PASSや注文承認を新PCBへ移し替えません。物理評価・発注・supplier連絡・実機書込み/通電・別deploy・hosting/security設定変更は今回行いません。
+
+## 履歴: 2026-11-12の初期対応表（#87以前）
+
+以下は以前の方針・導入時環境の記録です。「現在」「未起動」「完了」は当時を指し、今回の候補や実行結果ではありません。
+
 
 方針日: 2026-11-12。確認した main: `af523f9abb74e206c27aaaa076b3b68a5c474940`。これは初期の作業・環境・モデル対応表であり、実行記録ではありません。セッション、資源予約、計算は起動していません。[WORKFLOW.md](../WORKFLOW.md)、[ORCHESTRATION.md](../ORCHESTRATION.md)、[AGENTS.md](../../AGENTS.md) と現在の owner decision を優先してください。
 

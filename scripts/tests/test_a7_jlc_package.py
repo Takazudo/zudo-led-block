@@ -57,7 +57,7 @@ class PackageTests(unittest.TestCase):
             self.assertIn(blocker, self.ids())
         # SW1 is now the in-stock HX MSK13C02, so no part is short at the order quantity
         self.assertFalse([i for i in self.ids() if i.startswith('part-')])
-        # 0.6 mm is a JLC FR-4 option, so the leaf thickness is a note, not a blocker
+        # 0.8 mm thickness is supported; optical fabrication/assembly still requires DFM
         self.assertFalse(any('thickness' in i for i in self.ids()))
         self.assertIn('C52917434', ' '.join(self.board('led_leaf')['pcba_tier']['reasons']))
 
@@ -75,7 +75,9 @@ class PackageTests(unittest.TestCase):
             p = r['panel']
             self.assertTrue(p['within_250_mm'])
             self.assertGreaterEqual(min(p['size_without_rails_mm']), p['panel_minimum_mm'])
-        self.assertEqual(self.board('led_leaf')['thickness_mm'], 0.6)
+        self.assertEqual(self.board('led_leaf')['thickness_mm'], 0.8)
+        self.assertIn('led_leaf-optical-fabrication-dfm', self.ids())
+        self.assertIn('controller-optical-fabrication-dfm', self.ids())
         self.assertIn('owner chose repo panels', ' '.join(b['text'] for b in self.report['blockers'] if b['id'] == 'controller-repo-panel-acceptance'))
         self.assertEqual(self.report['panel_route']['answer'], 'repo-panels')
         # while the owner's route is not recorded, each board carries the open route question instead
@@ -103,7 +105,12 @@ class PackageTests(unittest.TestCase):
             self.assertGreaterEqual(min(rp['panel_mm']), rp['panel_minimum_mm'])
             self.assertTrue(rp['within_250_mm'])
         self.assertGreaterEqual(self.board('controller')['repo_panel']['edge_gap_mm']['left'], 4.45 + J.OVERHANG_MARGIN_MM)
-        self.assertIn('carrier', ' '.join(self.board('led_leaf')['repo_panel']['notes']))
+        # The 0.8 mm leaf is not a carrier board (JLC's carrier rule is for 0.4 and 0.6 mm); the rule itself stays guarded.
+        self.assertEqual(self.board('led_leaf')['thickness_mm'], 0.8)
+        self.assertNotIn('carrier', ' '.join(self.board('led_leaf')['repo_panel']['notes']))
+        thin = copy.deepcopy(self.board('led_leaf'))
+        thin['thickness_mm'] = 0.6
+        self.assertIn('carrier', ' '.join(J.repo_panel(thin, 2)['notes']))
 
     def test_part_routes_follow_stock(self):
         self.assertNotIn('C221842', [l['lcsc'] for l in self.report['parts']])

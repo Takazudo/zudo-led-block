@@ -30,7 +30,7 @@ CANDIDATES = ROOT / 'engineering/a7/fixture/candidate-references.json'
 A5_ENVELOPES = ROOT / 'engineering/a5/electronics/placement_and_connectivity.json'
 
 BOARD = (0.0, 0.0, 16.2, 62.9)
-BOARD_THICKNESS = 1.6
+BOARD_THICKNESS = 0.8
 CARRIER_BOARD_X = (-10.2, 26.4)  # plate footprint in board X (B view: carrier x = 16.2 - board x)
 CARRIER_Y = (13.0, 67.0)
 CARRIER_THICKNESS = 5.0
@@ -101,7 +101,12 @@ RULES = {
     'tht_copper_clearance_mm': 0.3,
     'probe_window_half_width_mm': 1.0,
     'datum_pin_diameter_mm': 2.0,
-    'datum_pin_height_above_carrier_mm': 1.0,
+    'datum_pin_length_mm': 6.0,
+    # must stay below the F face of the thinnest board in the adopted range, or a pin reaches the component face and
+    # can touch an F-side body envelope: at 1.0 mm the CAD interference check found the Y1 pin inside SW1's courtyard
+    # envelope where it overhangs the y = 62.9 edge (0.0577 mm3) on the 0.8 mm board. The 6 mm pin is pressed through
+    # the 5 mm carrier and stands 0.5 mm below it, in the 6 mm gap above the probe plate.
+    'datum_pin_height_above_carrier_mm': 0.5,
     'alignment_dowel_diameter_mm': 2.0,
     'm3_clearance_hole_mm': 3.4,
     'm3_screw_head_diameter_mm': 5.5,
@@ -115,7 +120,7 @@ RULES = {
     'pressure_plate_part_clearance_mm': 0.5,
     'resultant_margin_mm': 0.5,
     'clamp_force_margin_factor': 2.0,
-    'board_thickness_tolerance_mm': 0.16,
+    'board_thickness_tolerance_mm': 0.1,
     'plunger_setting_tolerance_mm': 0.1,
     'plate_stack_acceptance_tolerance_mm': 0.05,
     'plunger_force_acceptance_band': 0.2,
@@ -152,7 +157,7 @@ SOURCES = {
         'peg_length_mm': 0.5, 'class': 'SOURCE_DERIVED (MANUFACTURER_MIRROR)',
         'source': {'fact_id': 'fact-a7-hx-msk13c02-outline', 'source_id': 'src-a7-hx-msk13c02-hanxia-spec',
                    'sha256': '0acc4953f3bab055a1b9d89de0b41108b0f68a0cbd92718ed3faf42a1d17aef8', 'locator': 'page index 3 figure side, end and top views'},
-        'protrusion_below_b_face': 'none: 0.5 mm pegs are shorter than the 1.6 mm board',
+        'protrusion_below_b_face': 'none: 0.5 mm pegs are shorter than the 0.7 mm minimum board',
         'body_height_mm': 1.4, 'body_height_source': 'fact-a7-hx-msk13c02-outline height_above_pcb (component-a7-hx-msk13c02)',
     },
     'PicoBlade 530470310': {
@@ -162,9 +167,8 @@ SOURCES = {
                    'sha256': '76d2a5817a01b47f4b35c0b4078d874834f1f9c233bde42d9a819ead173929c7',
                    'locator': 'SECTION X-X horizontal dimension 2.3 +/-0.5 (sheet 1, zones E-F, columns 8-10); tail length from the housing '
                               'seating face to the tail tip (component-530470310 facts.json)'},
-        'protrusion_below_b_face_mm': {'nominal': 0.7, 'range': [0.2, 1.2],
-                                       'basis': 'CALCULATION, not sourced: 2.3 +/-0.5 mm tail minus the 1.6 mm board with the housing seated '
-                                                'flush; the board-thickness tolerance is not sourced'},
+        'protrusion_below_b_face_mm': {'nominal': 1.5, 'range': [0.9, 2.1],
+                                       'basis': 'CALCULATION: 2.3 +/-0.5 mm tail minus the 0.8 +/-0.1 mm finished board, housing seated flush'},
         'mated_height_above_f_face_mm': 5.2, 'mated_height_source': 'A5-sourced mated height used by scripts/a7_mechanical_layout.py',
     },
 }
@@ -591,19 +595,19 @@ def lead_projection_max(key):
 def lead_depth(key):
     """Lead depth below the B face used for clearance: the whole sourced lead length below the seating plane.
 
-    The protrusion below the B face is that length minus the board thickness, whose tolerance is not sourced. Taking the board as
+    The protrusion below the B face is that length minus the board thickness, with the adopted 0.8 +/-0.1 mm finished thickness. Taking the board as
     zero thick bounds the protrusion for any board thickness, with the part seated flush or proud, so no check depends on it.
     """
     return lead_projection_max(key)
 
 
 def lead_protrusion_at_nominal_board(key):
-    """Worst-case protrusion below the B face for the nominal 1.6 mm board (calculation; board tolerance not sourced)."""
+    """Worst-case protrusion below the B face for the nominal 0.8 mm board (calculation; JLCPCB finished thickness +/-0.1 mm)."""
     m = lead_projection_max(key)
     return None if m is None else round(m - BOARD_THICKNESS, 6)
 
 
-def design(geometry: dict, probes: list[dict], pop: dict | None = None) -> dict:
+def design(geometry: dict, probes: list[dict], pop: dict | None = None, *, candidate: str | None = None) -> dict:
     """Probe plate, support carrier with windows, datums, keying, support, pressure plate, stack and wiring from native geometry."""
     pop = population() if pop is None else pop
     probe_refs = {p['ref'] for p in probes}
@@ -668,6 +672,13 @@ def design(geometry: dict, probes: list[dict], pop: dict | None = None) -> dict:
     r_notch, c_notch = corner_radius(STACK['pressure_plate'][1] - STACK['pressure_plate'][0]), RULES['pressure_plate_part_clearance_mm']
     notch = [round(v, 6) for v in _expand(j5['courtyard_bbox_mm']['F'], max(c_notch, r_notch - (r_notch - c_notch) / math.sqrt(2)))]
     notch[3] = PRESSURE_PLATE[3]
+    candidate_geometry = None
+    if candidate is not None:
+        if candidate != 'optical_full_pin':
+            raise ValueError(f'unknown fixture candidate: {candidate}')
+        from a7_fixture_support import diagonal_proposal
+        candidate_geometry = diagonal_proposal(geometry)
+        notch = candidate_geometry['notch_mm']
     hole_list = ([(p['ref'], p['board_xy_mm'], hw) for p in probes] + [(q['id'], q['board_xy_mm'], r_pin) for q in pins]
                  + [(f'F{i + 1}', xy, r_m3) for i, xy in enumerate(FASTENERS)] + [(f'D{i + 1}', xy, r_dowel) for i, xy in enumerate(ALIGNMENT_DOWELS)])
     cx = sum(p['board_xy_mm'][0] for p in probes) / len(probes)
@@ -725,7 +736,7 @@ def design(geometry: dict, probes: list[dict], pop: dict | None = None) -> dict:
             turned.append({'feature': f"{f['ref']}.{pd['number']}", 'turned_centre_mm': [round(tx, 6), round(ty, 6)],
                            'lands_on_carrier': land(tx, ty) and _in_box(BOARD, tx, ty)})
     blocking = [t['feature'] for t in turned if t['lands_on_carrier']]
-    keying = {'method': 'B-face features stand proud of the B face: PJ-324M terminals (nominal 1.6 mm, MANUFACTURER_MIRROR) and the '
+    keying = {'method': 'B-face features stand proud of the B face: PJ-324M terminals (nominal 2.4 mm, MANUFACTURER_MIRROR) and the '
                         'soldered R0603 terminations (body up to 0.55 mm, SOURCE_DERIVED). In the correct pose all of them fall into '
                         'carrier windows; turned 180 degrees in plane, the listed centres land on solid carrier, hold the board off the '
                         'land and the datum pins, and the probes miss the test pads. Face-down insertion is excluded by the F-side jacks.',
@@ -838,6 +849,7 @@ def design(geometry: dict, probes: list[dict], pop: dict | None = None) -> dict:
         return {'d_min': d_min, 'd_max': d_max, 'plate_defl': plate_defl, 'board_sag': sag, 'fmin': fmin_each, 'fmax': fmax_each, 'cases': cases,
                 'net_margin': min(c['board_net_load_point_margin_mm'] for c in cases)}
     best = None
+    rejected = None
     pitch = 2 * r_thread + MIN_WALL
     for k in (2, 3):
         for sel in __import__('itertools').combinations(thinned, k):
@@ -845,13 +857,25 @@ def design(geometry: dict, probes: list[dict], pop: dict | None = None) -> dict:
                 continue
             ev = evaluate(sel)
             if k * ev['fmin'] < s_total:
+                # Keep the least deficient candidate for a FAILED diagnostic design.
+                # A failed redesign must not silently reuse the previous board's PASS.
+                if rejected is None or k * ev['fmin'] > len(rejected[0]) * rejected[1]['fmin']:
+                    rejected = (sel, ev)
                 continue
             if best is None or ev['net_margin'] > best[1]['net_margin'] + 1e-9:
                 best = (sel, ev)
         if best is not None and best[1]['net_margin'] >= RULES['resultant_margin_mm']:
             break
+    if candidate_geometry is not None:
+        # Candidate geometry is explicitly staged. The old conservative strip
+        # checks remain diagnostics; no experimental FEM result is imported here.
+        sel = tuple(tuple(c['centre_mm']) for c in candidate_geometry['clamps'])
+        best = (sel, evaluate(sel))
+    force_feasible = best is not None and len(best[0]) * best[1]['fmin'] >= s_total
     if best is None:
-        raise ValueError(f'no plunger layout on free F-face area reaches the required total force ({len(sites)} sites)')
+        best = rejected
+    if best is None:
+        raise ValueError(f'no geometrically legal plunger layout ({len(sites)} sites)')
     tri, ev = [list(q) for q in best[0]], best[1]
     hold_n = len(tri)
     f_min_total = round(hold_n * ev['fmin'], 6)
@@ -875,8 +899,9 @@ def design(geometry: dict, probes: list[dict], pop: dict | None = None) -> dict:
                'probe_span_kinds': [k[1] for k in kinds_pr], 'plunger_load_N': load_pl, 'deflection_under_plungers_mm': defl_pl,
                'probe_spans_mm': spans_pr, 'probe_load_N': p_max, 'deflection_under_probes_mm': defl_pr,
                'strip_width_mm': strip, 'board_thickness_nominal_mm': BOARD_THICKNESS, 'board_thickness_minimum_mm': t_min,
-               'board_thickness_basis': 'PROJECT-CHOICE fabrication requirement 1.6 +/-0.16 mm (+/-10 %); not sourced, the fabricator is '
-                                        'not selected. Bending uses the minimum thickness',
+               'board_thickness_basis': 'JLCPCB published finished thickness tolerance: 0.8 +/-0.1 mm; '
+                                        'https://jlcpcb.com/capabilities/Capabilities. Bending uses 0.7 mm; '
+                                        'final order specification and material modulus still require confirmation',
                'flexural_modulus_MPa': e_mod,
                'flexural_modulus_class': 'ASSUMED for the board: its laminate is not sourced (fabricator not selected). The sourced values '
                                          'below are typical values of other FR-4 class laminates, given for comparison; they do not bound '
@@ -918,6 +943,8 @@ def design(geometry: dict, probes: list[dict], pop: dict | None = None) -> dict:
                 f"{hold_n} spring plungers with POM thrust pins, threaded into the plate, press the free F-face area beside the probe field",
         'control': 'displacement: each plunger compression is fixed by the stop height, the board thickness and the plunger setting, so each '
                    'plunger force lies in its own band independently of the others; there is no spring balance',
+        'layout_status': 'FORCE_FEASIBLE' if force_feasible else 'REJECTED_INSUFFICIENT_FORCE',
+        'search_free_sites': len(sites),
         'contacts_board_mm': tri, 'contact_diameter_mm': pl['pin_diameter_mm'], 'plunger_body_diameter_mm': pl['body_diameter_mm'],
         'probe_resultant_board_mm': [round(cx, 6), round(cy, 6)],
         'guides': guides, 'stops': guides, 'stop_line_y_mm': ys,
@@ -1066,8 +1093,8 @@ def design(geometry: dict, probes: list[dict], pop: dict | None = None) -> dict:
             'refs': refs, 'source': key, 'class': SOURCES[key]['class'],
             'protrusion_worst_case_at_nominal_board_mm': lead_protrusion_at_nominal_board(key),
             'protrusion_bound_any_board_thickness_mm': bound,
-            'bound_basis': 'full sourced lead length below the seating plane (nominal + tolerance): the board-thickness tolerance is not '
-                           'sourced, and with the part seated flush or proud the protrusion cannot exceed this for any board thickness',
+            'bound_basis': 'full sourced lead length below the seating plane (nominal + tolerance), a conservative bound independent of '
+                           'the adopted board range; with the part seated flush or proud the protrusion cannot exceed this',
             'carrier_thickness_mm': CARRIER_THICKNESS,
             'margin_to_carrier_bottom_mm': None if bound is None else round(CARRIER_THICKNESS - bound, 6),
             'margin_to_probe_plate_top_mm': None if bound is None else round(-STACK['probe_plate'][1] - bound, 6),
@@ -1087,6 +1114,7 @@ def design(geometry: dict, probes: list[dict], pop: dict | None = None) -> dict:
         'keyed_against_turned_insertion': keying['keyed'],
         'hold_down_plungers_on_free_f_face': len(tri) >= 2 and all(
             all(_box_point_dist(b, tuple(q)) >= r_body + RULES['contact_f_side_clearance_mm'] - 1e-9 for b in fside) for q in tri),
+        'datum_pins_stay_below_the_thinnest_board_f_face': RULES['datum_pin_height_above_carrier_mm'] < t_min,
     }
     criterion3 = {
         'installation_height_and_stroke_resolved': stroke['accommodated_installation_height_mm'][0] <= h_inst <= stroke['accommodated_installation_height_mm'][1],
@@ -1101,7 +1129,7 @@ def design(geometry: dict, probes: list[dict], pop: dict | None = None) -> dict:
         'insulation_metal_clear_of_probes': metal_gap[0] >= 1.0,
         'wire_bend_space': bend >= need_bend,
     }
-    return {'rules': RULES, 'yardstick': YARDSTICK, 'manufacturer_data': INGUN, 'height_sources': SOURCES, 'stack_z_mm': {k: list(v) if isinstance(v, tuple) else v for k, v in STACK.items()},
+    return {'candidate_geometry': candidate_geometry, 'rules': RULES, 'yardstick': YARDSTICK, 'manufacturer_data': INGUN, 'height_sources': SOURCES, 'stack_z_mm': {k: list(v) if isinstance(v, tuple) else v for k, v in STACK.items()},
             'support_carrier': {'bounds_board_mm': list(cbounds), 'thickness_mm': CARRIER_THICKNESS, 'corner_radius_mm': rc,
                                 'corner_allowance_mm': allowance, 'windows': windows, 'datum_pins': pins, 'guides': guides,
                                 'fasteners_board_mm': [list(x) for x in FASTENERS], 'alignment_dowels_board_mm': [list(x) for x in ALIGNMENT_DOWELS],

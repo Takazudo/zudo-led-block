@@ -98,7 +98,7 @@ jobs:
   a7-mechanical:
     name: A7 mechanical layout and geometry tests
     runs-on: ubuntu-24.04
-    timeout-minutes: 5
+    timeout-minutes: 10
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
@@ -106,15 +106,43 @@ jobs:
       - uses: actions/setup-python@6d4fd22b20465ccc0f7354476588e8df7c9ca0e0 # v7.1.0
         with:
           python-version: ${{ env.PYTHON_VERSION }}
-      # Standard library only: the CadQuery build is not re-run here; the tests compare the
-      # committed CAD verification and front artwork records against the current layout.
+      # CadQuery exports are reviewed artifacts; fixture plate benchmarks use a
+      # separate hash-pinned numerical environment, not the router's NumPy version.
+      - name: Install exact fixture numerical tools
+        timeout-minutes: 2
+        run: |
+          python3 -m pip install --require-hashes --only-binary=:all: --no-deps -r scripts/requirements-fixture-plate.txt
+      - name: Fixture plate analytical benchmarks and optical thickness controls
+        timeout-minutes: 2
+        run: python3 -m unittest scripts/tests/test_a7_fixture_plate.py scripts/tests/test_a7_fixture_optical.py
+      # Solver verification is cheap; the recorded condition matrix is re-derived for its coarse mesh level only
+      # (the finer levels and the alternative-site scan are reviewed artifacts, regenerated with --rebind).
+      - name: Fixture contact solver verification and condition-matrix negative controls
+        timeout-minutes: 3
+        run: python3 -m unittest scripts/tests/test_a7_fixture_contact.py scripts/tests/test_a7_fixture_matrix.py
+      - name: A7 fixture condition matrix is current and bound to the controller PCB identity
+        timeout-minutes: 5
+        run: python3 scripts/a7_fixture_matrix.py --check
+      # The exported Gerbers are the last word on mask webs and paste: source rectangles
+      # alone cannot prove that pad apertures and plotting settings preserved them.
+      - name: Install the pinned Gerber inspection tool chain
+        timeout-minutes: 2
+        run: |
+          python3 -m pip install --require-hashes --only-binary=:all: --no-deps -r engineering/a7/verification/optical/tools/requirements.lock
+      - name: Plotted Gerber geometry of both boards (via tents, paste flashes, coverage)
+        timeout-minutes: 3
+        run: |
+          python3 scripts/a7_gerber_inspect.py --board engineering/a7/electronics/controller/controller.kicad_pcb \
+            --gerbers engineering/a7/verification/optical/controller/gerbers --out "$RUNNER_TEMP/a7-gerber-controller"
+          python3 scripts/a7_gerber_inspect.py --board engineering/a7/electronics/led_leaf/led_leaf.kicad_pcb \
+            --gerbers engineering/a7/verification/optical/led_leaf/gerbers --out "$RUNNER_TEMP/a7-gerber-led-leaf"
       - name: A7 layout, layout.md and placement envelopes are current
         run: python3 scripts/a7_mechanical_layout.py --check
       - name: A7 R2 geometry tests (stack, candidates, keep-outs, routes, CAD/front records)
         run: python3 -m unittest -v scripts/tests/test_a7_r2_mechanical.py
       - name: A7 evidence and preparation negative controls (blocked reports remain valid)
         run: |
-          python3 -m unittest scripts/tests/test_private_resources.py scripts/tests/test_a7_e2_evidence.py scripts/tests/test_a7_fixture.py scripts/tests/test_a7_fixture_relief.py scripts/tests/test_a7_procurement.py scripts/tests/test_a7_readiness.py scripts/tests/test_a7_jlc_package.py scripts/tests/test_a7_panel.py
+          python3 -m unittest scripts/tests/test_private_resources.py scripts/tests/test_a7_e2_evidence.py scripts/tests/test_a7_fixture.py scripts/tests/test_a7_fixture_relief.py scripts/tests/test_a7_procurement.py scripts/tests/test_a7_readiness.py scripts/tests/test_a7_jlc_package.py scripts/tests/test_a7_panel.py scripts/tests/test_a7_optical_manufacturing.py scripts/tests/test_a7_optical_pcb.py scripts/tests/test_a7_optical_geometry.py scripts/tests/test_a7_gerber_review.py scripts/tests/test_a7_gerber_inspect.py scripts/tests/test_a7_return_review.py
           python3 -O -m unittest scripts/tests/test_a7_readiness.py
           python3 scripts/a7_fixture.py --check
           python3 scripts/a7_fixture_geometry.py --check
@@ -278,7 +306,7 @@ jobs:
     # A5 controller as an expected-failure control. INFRASTRUCTURE_PASS is never an A7 board result;
     # the A7 board result comes only from the A7 revision profile run on the committed candidate.
     runs-on: ubuntu-24.04
-    timeout-minutes: 25
+    timeout-minutes: 45
     env:
       # Digest-pinned KiCad 10.0.8 (amd64); the gate refuses to run if the profile names another image.
       KICAD_IMAGE: kicad/kicad:10.0.8@sha256:3f4a01786dfbe803a65f345c3342b765db9add913f5e9448f8356793714ddc34
@@ -327,7 +355,7 @@ jobs:
           python3 scripts/native_gate/runner.py run --profile engineering/a7/verification/native_gate.json --out "$RUNNER_TEMP/a7-gate" --deadline-s 660
           test "$(python3 -c 'import json,sys;print(json.load(open(sys.argv[1]))["status"])' "$RUNNER_TEMP/a7-gate/summary.json")" = PASS
       - name: A7 router reproducibility (seed 0 equals the recorded route, board carries it) and review-aid export
-        timeout-minutes: 10
+        timeout-minutes: 35
         run: |
           python3 -m pip install --quiet --require-hashes --only-binary=:all: --no-deps -r scripts/requirements-router.txt
           python3 scripts/a7_route_check.py --out "$RUNNER_TEMP/a7-route-check" --review-aid
@@ -364,9 +392,12 @@ jobs:
             ${{ runner.temp }}/a7-panels/README-PREPARED-ROUTE-NOT-FOR-ORDER.txt
           retention-days: 7
           if-no-files-found: error
-      - name: A7 bonded PET leaf profile and interface check (A5 leaf circuit and copper; not a PET approval)
-        timeout-minutes: 10
-        run: python3 scripts/a7_pet_leaf_check.py --out "$RUNNER_TEMP/a7-pet-leaf"
+      - name: A7 optical FR4 source identity, stackup, mask and local copper
+        timeout-minutes: 2
+        run: |
+          python3 scripts/a7_optical_check.py
+          python3 scripts/a7_gerber_review.py --verify-receipt engineering/a7/verification/optical/led_leaf/export-receipt.json
+          python3 scripts/a7_gerber_review.py --verify-receipt engineering/a7/verification/optical/controller/export-receipt.json
       - name: Checkpoint and fixtures left unmodified, no owned container left
         if: always()
         timeout-minutes: 1
@@ -376,7 +407,6 @@ jobs:
           test ! -s "$RUNNER_TEMP/native-receipt/status.txt"
           test -z "$(docker ps -aq --filter label=zudo-led-block.native-gate)"
           test -z "$(docker ps -aq --filter label=zudo-led-block.a7-route-check)"
-          test -z "$(docker ps -aq --filter label=zudo-led-block.a7-pet-leaf-check)"
           test -z "$(docker ps -aq --filter label=zudo-led-block.a7-jlc-package)"
           test -z "$(docker ps -aq --filter label=zudo-led-block.a7-panel)"
       - name: Summary
@@ -427,19 +457,6 @@ jobs:
               print(f"  - FAIL: {f}")
           print("The review-aid artifact (Gerber, drill, positions) is not a release output and must not be ordered from.")
           PY
-          python3 - "$RUNNER_TEMP/a7-pet-leaf/summary.json" >> "$GITHUB_STEP_SUMMARY" <<'PY'
-          import json, sys
-          try:
-              s = json.load(open(sys.argv[1]))
-          except (OSError, ValueError) as e:
-              print(f"### A7 bonded PET leaf check: NO SUMMARY ({e}) - treated as failure"); sys.exit(0)
-          print(f"### A7 bonded PET leaf profile and interface check: {s.get('status')}")
-          for k, v in (s.get('verdicts') or {}).items():
-              print(f"- {k}: {v}")
-          for f in s.get('failures', [])[:20]:
-              print(f"  - FAIL: {f}")
-          print("NOT_MET is a finding about the PET variant. FR-4 stays the default leaf; this is not a PET approval or a manufacturing release.")
-          PY
       - name: Final receipt (replaces STARTED_INCOMPLETE with the gate's own final status)
         if: always()
         timeout-minutes: 1
@@ -480,9 +497,10 @@ jobs:
             ${{ runner.temp }}/a7-gate/evidence/a7_controller/board_facts.json
             ${{ runner.temp }}/a7-gate/evidence/a7_controller/board_geometry.json
             ${{ runner.temp }}/a7-gate/evidence/a7_controller/fixture_geometry.json
+            ${{ runner.temp }}/a7-gate/evidence/a7_led_leaf/board_facts.json
+            ${{ runner.temp }}/a7-gate/evidence/a7_led_leaf/board_geometry.json
             ${{ runner.temp }}/a7-schematic/summary.json
             ${{ runner.temp }}/a7-route-check/summary.json
-            ${{ runner.temp }}/a7-pet-leaf/summary.json
           retention-days: 7
           if-no-files-found: warn
 

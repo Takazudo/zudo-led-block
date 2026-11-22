@@ -161,6 +161,13 @@ export function createViewer({ onError }) {
     e.preventDefault(); camera.position.copy(controls.target).add(offset); controls.update(); render();
   });
   async function fetchFile(url, signal, binary = false) {
+    const embedded = globalThis.A7_OFFLINE_FILES?.[url];
+    if (embedded !== undefined) {
+      if (!binary) return JSON.parse(embedded);
+      const raw = atob(embedded); const out = new Uint8Array(raw.length);
+      for (let i = 0; i < raw.length; i++) out[i] = raw.charCodeAt(i);
+      return out.buffer;
+    }
     const response = await fetch(url, { signal });
     if (!response.ok) throw new Error(`モデル読込 HTTP ${response.status}`);
     return binary ? response.arrayBuffer() : response.json();

@@ -4,6 +4,8 @@ from __future__ import annotations
 import subprocess
 import sys
 import unittest
+import tempfile
+import json
 from pathlib import Path
 
 REPO = Path(__file__).resolve().parents[2]
@@ -48,6 +50,26 @@ class NonEmptyTests(unittest.TestCase):
     def test_routed_copper_passes(self):
         full = {'tracks': [T], 'vias': [V]}
         self.assertEqual(rc.nonempty_failures({'failures': []}, {'board': full, 'proposal': full}), [])
+
+
+class OpticalComparisonTests(unittest.TestCase):
+    def test_repinning_hash_without_new_contours_is_rejected(self):
+        with tempfile.TemporaryDirectory() as td:
+            repo, out = Path(td) / 'repo', Path(td) / 'out'
+            out.mkdir()
+            for name in rc.OPTICAL_BOARDS:
+                current = repo / f'engineering/a7/electronics/{name}/optical-geometry.json'
+                current.parent.mkdir(parents=True)
+                data = json.dumps({'board_sha256': 'a' * 64, 'polygons': [[0, 0], [1, 1]]})
+                current.write_text(data)
+                (out / f'optical-{name}.json').write_text(data)
+                (out / f'optical-{name}.code').write_text('0')
+            self.assertEqual(rc.optical_comparison(out, repo)[1], [])
+            # A stale display with a copied current PCB hash must still fail.
+            leaf = repo / 'engineering/a7/electronics/led_leaf/optical-geometry.json'
+            leaf.write_text(json.dumps({'board_sha256': 'a' * 64, 'polygons': []}))
+            self.assertFalse(rc.optical_comparison(out, repo)[0]['led_leaf']['equal'])
+            self.assertEqual(len(rc.optical_comparison(out, repo)[1]), 1)
 
 
 class GuardTests(unittest.TestCase):

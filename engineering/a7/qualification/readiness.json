@@ -6,13 +6,25 @@
   "manufacturing_release": "NOT_ESTABLISHED",
   "order_submitted": "NOT_ESTABLISHED",
   "identities": {
+    "led_leaf_board": {
+      "path": "engineering/a7/electronics/led_leaf/led_leaf.kicad_pcb",
+      "sha256": "bcf2e35d767221f5a9db0cd16769a2e503a672f522fd4f32f78012cdeb494cf9"
+    },
+    "led_leaf_schematic": {
+      "path": "engineering/a7/electronics/led_leaf/led_leaf.kicad_sch",
+      "sha256": "b3eaaf84ab1bc3a13c1dd1600cb6f5dca5ea61c403d0af4ea7c5b664b40c6599"
+    },
+    "optical_fabrication": {
+      "path": "engineering/a7/verification/fab/optical-fr4.json",
+      "sha256": "d974daffc20c4aabaa1d754f4b7393315388246b93433bb77750a4100237c6e5"
+    },
     "board": {
       "path": "engineering/a7/electronics/controller/controller.kicad_pcb",
-      "sha256": "89310d539b3c28096775cee821e46c14fdba42a87809c82f1fd7f0751704e727"
+      "sha256": "d83691d6590e013b2a66957b61d76ba2f68bedaaec04789326e1215b2d1bdb2b"
     },
     "population": {
       "path": "engineering/a7/electronics/controller/board_placement.json",
-      "sha256": "5ba26c3c25b4d31a36d324f47db21b24afa3cad67b6f0f2b4fcf9580024448e0"
+      "sha256": "2d32b2ab76735dbf4ff7f2c959de4398b8215983be9a4fd33fde50c7015212f5"
     },
     "schematic": {
       "path": "engineering/a7/electronics/controller/controller.kicad_sch",
@@ -32,18 +44,18 @@
     },
     "mechanical": {
       "path": "engineering/a7/mechanical/layout.json",
-      "sha256": "89f548a52d8ce907fb351519bfdcabc411e3389d1261056e1319582b03a4437a"
+      "sha256": "8b24ec83fd805c4efcaba92f885e49531826f8945063b74fd5019bc1221e040e"
     },
     "fixture": {
       "path": "engineering/a7/fixture/manifest.json",
-      "sha256": "471978cfdb4a0b5d096e72f32780025880eec91d076a29e87351cdbde8ba0be1"
+      "sha256": "a8a8a8cbde68c0d7cf9e2ff5e62202697bbef39e1fcdffb330560f515e650b70"
     },
     "assembly_manifest": {
       "path": "engineering/a7/procurement/assembly-manifest.json",
-      "sha256": "557d5e48045b60bb4a8f91dc55f9fae2988d4494082c42532679032da2c8502c"
+      "sha256": "9225919ce1a44ca70be6c66e081c3d53c23b25421848ac243a6c991215bb320d"
     }
   },
-  "plan_sha256": "75465ee1e14955b22adb764024f646fda3bdf097f15767a255b8fa0362e9c385",
+  "plan_sha256": "650dbe95b752736ba44b146c911ed65e676643e318c72847f13a7dad11b637f3",
   "procedures": [
     {
       "id": "jack-continuity",
@@ -74,6 +86,7 @@
       "id": "harness-depth",
       "status": "BLOCKED",
       "reasons": [
+        "criterion unresolved or review receipt missing",
         "NOT_MEASURED: no run"
       ]
     },
@@ -182,6 +195,7 @@
       "id": "cv-noise",
       "status": "BLOCKED",
       "reasons": [
+        "criterion unresolved or review receipt missing",
         "NOT_MEASURED: no run"
       ]
     },
@@ -194,13 +208,14 @@
     }
   ],
   "blockers": [
-    "fixture completion awaits the physical criterion 5 (fixture-contact)",
+    "fixture: unresolved preparation blockers",
+    "fixture digital design incomplete or unverified",
     "assembly_manifest: supply-observations: Order quantity is 2 modules (owner decision), 162 fitted pieces before attrition. 30 of 30 fitted identities have dated 2026-11-12 JLC listing observations from both the rendered part pages and the parts-API audit (separate reads, raw bytes not committed, field meanings and currency inferred; engineering/a7/procurement/sourcing-projection.json). Not obtained for any line: lead time, confirmed quote, stock reservation and assembly acceptance. JLC attrition is not sourced as a rule; the audit's buy quantities are our inference. Refresh before ordering.",
     "assembly_manifest: jack-switch-qualification: PJ-324M pin function (which of terminals 4/5 is the tip contact; the supplier symbol contradicts the inferred 4 = tip) is not confirmed: the owner waived the pre-order continuity test on 2026-11-12 and accepted the risk, so it is a first-article check on the assembled boards. Slot, axis height and nut fit, and the HX MSK13C02 truth table and land/peg fit, also need received parts (jack-continuity, jack-dimensions, switch-fit).",
     "assembly_manifest: exact-part-evidence: Exact-part gaps after the 2026-11-11 source recovery (the PMEG4010CEJ ,115 packing is since sourced: SOD323F on a 7-inch reel, fact-pmeg4010cej-115-orderable): SM04B-SRSS-TB per-circuit numbering not printed beyond the No. 1 end; PJ-324M recommended hole/slot sizes, axis height and whether a nut ships with C22355739 not sourced.",
-    "assembly_manifest: mechanical-materials: PMMA sheet and pocket tolerances, PETG process and orderable fastener part numbers are not sourced; the model carries designations (M2x18, M1.6x4) and envelopes only.",
+    "assembly_manifest: mechanical-materials: PMMA sheet and pocket tolerances, PETG process and orderable fastener part numbers are not sourced; the model carries designations from the current mechanical layout and envelopes only; exact orderable hardware and assembly fit remain unqualified.",
     "assembly_manifest: rack-hardware: The owner accepted naming the case (2026-11-12, accept all recommendations); the case model, and so the rail/thread interface and fasteners, is not given yet.",
-    "assembly_manifest: fixture-materials: Fixture digital criteria 1-4 met; the owner approved the proposed hardware on 2026-11-12 (accept all recommendations). The fabricator for the four FR-4 plates is not chosen. Physical contact/load tests (criterion 5) follow.",
+    "assembly_manifest: fixture-materials: Fixture design and materials incomplete (fixture manifest: digital_criteria_1_to_4_met not true, hardware_proposal_complete not true); physical contact/load tests follow.",
     "assembly_manifest: prototype-and-release: No reviewed manufacturing package and no manufacturing release approval. A prototype route, when the owner approves one, is recorded in engineering/a7/qualification/records.json and is not a release.",
     "jack-continuity: NOT_MEASURED: no run",
     "jack-dimensions: criterion unresolved or review receipt missing",
@@ -209,6 +224,7 @@
     "switch-fit: criterion unresolved or review receipt missing",
     "switch-fit: criterion has PROPOSED or UNRESOLVED acceptance values: fit-and-contact",
     "switch-fit: NOT_MEASURED: no run",
+    "harness-depth: criterion unresolved or review receipt missing",
     "harness-depth: NOT_MEASURED: no run",
     "pmma-supports: criterion unresolved or review receipt missing",
     "pmma-supports: criterion has PROPOSED or UNRESOLVED acceptance values: torque-retention",
@@ -233,6 +249,7 @@
     "thermal-optical: criterion unresolved or review receipt missing",
     "thermal-optical: criterion has PROPOSED or UNRESOLVED acceptance values: materials-appearance",
     "thermal-optical: NOT_MEASURED: no run",
+    "cv-noise: criterion unresolved or review receipt missing",
     "cv-noise: NOT_MEASURED: no run",
     "service-envelope: NOT_MEASURED: no run",
     "material assembly_service: missing or ambiguous dated observation",
@@ -241,14 +258,16 @@
     "material jack: missing or ambiguous dated observation",
     "material pmma_petg_hardware: missing or ambiguous dated observation",
     "material switch: missing or ambiguous dated observation",
+    "owner-approved sample/prototype route absent for this revision and quantity",
     "reviewed manufacturing files and explicit revision-bound owner release absent"
   ],
   "gates": [
     {
       "gate": "artifact:fixture",
-      "class": "PHYSICAL_ONLY",
+      "class": "CLOUD_DIGITAL",
       "reasons": [
-        "fixture completion awaits the physical criterion 5 (fixture-contact)"
+        "fixture: unresolved preparation blockers",
+        "fixture digital design incomplete or unverified"
       ]
     },
     {
@@ -276,7 +295,7 @@
       "gate": "assembly:mechanical-materials",
       "class": "ACCESS_EVIDENCE_HOLD",
       "reasons": [
-        "assembly_manifest: mechanical-materials: PMMA sheet and pocket tolerances, PETG process and orderable fastener part numbers are not sourced; the model carries designations (M2x18, M1.6x4) and envelopes only."
+        "assembly_manifest: mechanical-materials: PMMA sheet and pocket tolerances, PETG process and orderable fastener part numbers are not sourced; the model carries designations from the current mechanical layout and envelopes only; exact orderable hardware and assembly fit remain unqualified."
       ]
     },
     {
@@ -288,9 +307,9 @@
     },
     {
       "gate": "assembly:fixture-materials",
-      "class": "OWNER_DECISION",
+      "class": "CLOUD_DIGITAL",
       "reasons": [
-        "assembly_manifest: fixture-materials: Fixture digital criteria 1-4 met; the owner approved the proposed hardware on 2026-11-12 (accept all recommendations). The fabricator for the four FR-4 plates is not chosen. Physical contact/load tests (criterion 5) follow."
+        "assembly_manifest: fixture-materials: Fixture design and materials incomplete (fixture manifest: digital_criteria_1_to_4_met not true, hardware_proposal_complete not true); physical contact/load tests follow."
       ]
     },
     {
@@ -335,6 +354,13 @@
       "class": "PHYSICAL_ONLY",
       "reasons": [
         "switch-fit: NOT_MEASURED: no run"
+      ]
+    },
+    {
+      "gate": "criterion:harness-depth",
+      "class": "OWNER_DECISION",
+      "reasons": [
+        "harness-depth: criterion unresolved or review receipt missing"
       ]
     },
     {
@@ -476,6 +502,13 @@
       ]
     },
     {
+      "gate": "criterion:cv-noise",
+      "class": "OWNER_DECISION",
+      "reasons": [
+        "cv-noise: criterion unresolved or review receipt missing"
+      ]
+    },
+    {
       "gate": "run:cv-noise",
       "class": "PHYSICAL_ONLY",
       "reasons": [
@@ -532,6 +565,13 @@
       ]
     },
     {
+      "gate": "owner_prototype_route",
+      "class": "OWNER_DECISION",
+      "reasons": [
+        "owner-approved sample/prototype route absent for this revision and quantity"
+      ]
+    },
+    {
       "gate": "manufacturing_release",
       "class": "OWNER_DECISION",
       "reasons": [
@@ -540,10 +580,10 @@
     }
   ],
   "gate_counts": {
-    "CLOUD_DIGITAL": 0,
-    "OWNER_DECISION": 7,
+    "CLOUD_DIGITAL": 2,
+    "OWNER_DECISION": 9,
     "ACCESS_EVIDENCE_HOLD": 13,
-    "PHYSICAL_ONLY": 21
+    "PHYSICAL_ONLY": 20
   },
   "state_flags": [
     {
@@ -563,14 +603,14 @@
     {
       "artifact": "fixture",
       "flag": "digital_criteria_1_to_4_met",
-      "value": true,
+      "value": false,
       "role": "INFORMATIONAL",
       "note": "README の基準 1–4 がデジタルで満たされ、デジタルのブロッカーがないこと（fresh_native_verified を含む）。進捗の表示で、完了フラグでも発注適格性でもない。fixture-contact を始める前提。"
     },
     {
       "artifact": "fixture",
       "flag": "hardware_proposal_complete",
-      "value": true,
+      "value": false,
       "role": "INFORMATIONAL",
       "note": "治具の各金物要求（materials.json）に出典付きの候補（hardware_proposal）が 1 つずつあること。オーナー承認待ちの提案で、選定でも承認でもない。true かつ基準 1–4 が満たされると、調達の assembly:fixture-materials はオーナーの判断（加工先の選択と金物の承認）に移る。"
     }

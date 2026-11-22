@@ -2,7 +2,7 @@
  "schema": 1,
  "profile": "a7-controller",
  "kind": "revision",
- "what": "A7 revision gate on the authoritative A7 controller board (R4, #19): fresh ERC, netlist, schematic parity, DRC (0 violations, 0 unconnected), zone refill, behavioral interface and authorized-delta checks, controls on the candidate's own copper, and regeneration preservation.",
+ "what": "Issue #87 optical revision gate: fresh native ERC/parity/DRC/refill on 0.8mm A7 controller and new A7 leaf; A5 retained as historical controls. No physical qualification or manufacturing release.",
  "candidate": "a7_controller",
  "image": "kicad/kicad:10.0.8@sha256:3f4a01786dfbe803a65f345c3342b765db9add913f5e9448f8356793714ddc34",
  "kicad_version": "10.0.8",
@@ -57,7 +57,7 @@
    "custom_rules": "controller.kicad_dru"
   },
   "a5_led_leaf": {
-   "role": "immutable A5 routed LED leaf (interface partner of the controller; PET leaf is R3), freshly checked in place",
+   "role": "Immutable A5 historical baseline/control, not the current optical leaf",
    "dir": "engineering/a5/electronics/native/led_leaf",
    "schematic": "led_leaf.kicad_sch",
    "board": "led_leaf.kicad_pcb",
@@ -99,13 +99,35 @@
     "extra_footprint": 1
    },
    "drc_residuals": []
+  },
+  "a7_led_leaf": {
+   "role": "Authoritative A7 optical 0.8mm rigid FR4 LED leaf; current controller interface partner",
+   "dir": "engineering/a7/electronics/led_leaf",
+   "schematic": "led_leaf.kicad_sch",
+   "board": "led_leaf.kicad_pcb",
+   "erc_violations_max": 0,
+   "board_only": [],
+   "parity_dispositions": {
+    "net_prefix_only": true,
+    "no_connect_unnamed": true,
+    "missing_fields": [
+     "MPN"
+    ]
+   },
+   "parity_counts": {
+    "net_prefix_only": 31,
+    "no_connect_unnamed": 1,
+    "missing_field": 10
+   },
+   "drc_residuals": [],
+   "refill_check": true
   }
  },
  "interface": {
   "roles": "engineering/a7/verification/interface_roles/a7_controller.json",
   "netlists": {
    "controller": "a7_controller",
-   "led_leaf": "a5_led_leaf",
+   "led_leaf": "a7_led_leaf",
    "power_adapter": "a5_power_adapter"
   },
   "min_checks": 40
@@ -123,7 +145,9 @@
    "{raw}"
   ],
   "protected": [
-   "engineering/a7/electronics/controller/controller.kicad_pcb"
+   "engineering/a7/electronics/controller/controller.kicad_pcb",
+   "engineering/a7/electronics/led_leaf/led_leaf.kicad_pcb",
+   "engineering/a7/electronics/led_leaf/led_leaf.kicad_sch"
   ],
   "note": "Normal regeneration of the derived A7 schematic, footprints and seed placement must leave the protected board byte-identical; the placement export is compared (--check) against fresh native facts of the board."
  },
@@ -182,7 +206,7 @@
  "footprint_dirs": [
   "engineering/a7/electronics/footprints/LightBlockA7.pretty"
  ],
- "parity_disposition_note": "A5 leaf/adapter boards name nets without the schematic's '/' sheet prefix, leave the no-connect D4.1 unnamed, omit the MPN field and (adapter) carry hole H1 without a symbol. Naming/metadata classes only; the independent pad-by-pad parity still runs. Carried from PR #14 for the A5 leaf and adapter only. The A7 controller has no dispositions: its board takes net names and fields from the A7 schematic netlist, so any parity issue fails.",
+ "parity_disposition_note": "A5 leaf/adapter boards name nets without the schematic's '/' sheet prefix, leave the no-connect D4.1 unnamed, omit the MPN field and (adapter) carry hole H1 without a symbol. Naming/metadata classes only; the independent pad-by-pad parity still runs. Carried from PR #14 for the A5 leaf and adapter only. The A7 controller has no dispositions: its board takes net names and fields from the A7 schematic netlist, so any parity issue fails. The new A7 leaf preserves the same schematic/net metadata conventions as its A5 source; these exact counts are checked independently on the new board.",
  "expected_failure": {
   "a5_controller": {
    "role": "immutable A5 controller (unrouted placement draft): must fail in exactly its recorded way",
@@ -264,5 +288,19 @@
   "min_courtyard_gap_mm": 0.0,
   "applies_to": "scripts/a7_board.py violations(): courtyard to courtyard on one face, courtyard to keep-out, and courtyard to board edge",
   "note": "Courtyard rectangles are rounded to KiCad internal units (integer nanometres) before comparison, so float noise in rotation and sums cannot flip a result: an exact abutment counts as clear, as in native DRC, and any overlap of 1 nm or more is reported. The required gap stays 0 mm, so nothing is relaxed. Native DRC courtyard checks still run unchanged."
- }
+ },
+ "read_inputs": [
+  "scripts/a7_optical_pcb.py",
+  "scripts/a7_optical_check.py",
+  "scripts/a7_gerber_inspect.py",
+  "scripts/a7_board.py",
+  "scripts/a7_route.py",
+  "engineering/a7/verification/fab/optical-fr4.json",
+  "engineering/a7/verification/source_authority.json",
+  "engineering/a7/electronics/controller/optical-mask.json",
+  "engineering/a7/electronics/led_leaf/optical-mask.json",
+  "scripts/a7_optical_geometry.py",
+  "scripts/a7_return_review.py",
+  "scripts/a7_route_check.py"
+ ]
 }

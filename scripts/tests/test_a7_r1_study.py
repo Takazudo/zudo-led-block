@@ -72,6 +72,16 @@ class StudyOutputs(unittest.TestCase):
 
 
 class TransverseModel(unittest.TestCase):
+    def test_finished_0_8_mm_tolerance_is_absolute_not_ten_percent(self):
+        self.assertEqual(STUDY.board_thickness_tolerance(PARAMS, .8), .1)
+        self.assertEqual(PARAMS["parameters"]["pcb_thickness_options"]["values"], [.8])
+        worst = self.case(t=.8, offset=.6, leads="trimmed", corner="worst")
+        best = self.case(t=.8, offset=.6, leads="trimmed", corner="best")
+        self.assertEqual(worst["pcb_thickness_used"], .9)
+        self.assertEqual(best["pcb_thickness_used"], .7)
+        self.assertEqual(worst["margins"]["lead_side"], -.35)
+        self.assertEqual(worst["margins"]["body_side"], -.15)
+
     def case(self, width="panel_width_2hp", offset=0.0, t=1.6, leads="untrimmed", corner="nominal", band=None):
         return STUDY.transverse_case(PARAMS, width, offset, t, leads, corner, band)
 

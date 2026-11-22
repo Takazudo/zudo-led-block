@@ -1,0 +1,29 @@
+{
+  "board": "engineering/a7/electronics/led_leaf/led_leaf.kicad_pcb",
+  "board_sha256": "bcf2e35d767221f5a9db0cd16769a2e503a672f522fd4f32f78012cdeb494cf9",
+  "kicad_version": "10.0.8",
+  "image_digest": "sha256:3f4a01786dfbe803a65f345c3342b765db9add913f5e9448f8356793714ddc34",
+  "platform_manifest_digest": "sha256:05f6ac957e351bbbd9e1f9c996be997f61948ed9f94e0c3cab336bfcaf60161c",
+  "execution": "digest-verified flattened OCI rootfs under bwrap; staging export only, NOT formal Docker native gate",
+  "export_command": "kicad-cli pcb export gerbers -o OUTPUT/ -l F.Cu,B.Cu,F.Mask,B.Mask,F.Paste,B.Paste,Edge.Cuts engineering/a7/electronics/led_leaf/led_leaf.kicad_pcb",
+  "gerber_sha256": {
+    "led_leaf-B_Cu.gbl": "4c7a64a3692ce96256c8d5d490e4f132a7d53b8b938294598bea8fe0a0a63a55",
+    "led_leaf-B_Mask.gbs": "c4a9f0a0ddf5c4641ddf2da38410b85b3647f07c0eb162fe0034f58c4f4e31a5",
+    "led_leaf-B_Paste.gbp": "0463f27948b04397cb0745fa4332bed2638b3e4ace9e25f5d2e157739e717e52",
+    "led_leaf-Edge_Cuts.gm1": "a05cc361651b78d982076cdf9ed05627e0f77fd218fb89eb6a68e13a31bab205",
+    "led_leaf-F_Cu.gtl": "0df1a9a494c6fe64837f75b6533e9cce49dba360e46c2966686bebef141ec16d",
+    "led_leaf-F_Mask.gts": "fa95a30b220bdc991be03a8baac452d6338b88ea8e9fa988ec779dd64d55f520",
+    "led_leaf-F_Paste.gtp": "954c40f2172e0d48dcb34585ba54add7e267753e2729470fd478f0d61da62ae2"
+  },
+  "render_command": "python scripts/a7_gerber_review.py engineering/a7/verification/optical/led_leaf/gerbers OUTPUT --bounds 0 -82.5 9 0 --render",
+  "render_script_sha256": "7a3c73cd0c2e265571679cbe93d24c5d1410c0624499cf192226c32cf8d61e5f",
+  "tool_lock_sha256": "d619731f0e559afb5207293a46676781d4b04a3d1e4835ab665a12405b647875",
+  "inspection": "Root and policy_docs visually inspected overview; localized copper/retained mask, paste apertures only. Samples do not substitute full native protection inventory.",
+  "purpose": "Review-only subset, not an ordering or manufacturing package",
+  "omitted": "led_leaf-job.gbrjob deliberately omitted; raw local export retained separately",
+  "review_artifact_sha256": {
+    "overview.png": "78dd3404e45105875a3c8682bc06255e14a7fd195560c04b629e08917c311420",
+    "review.json": "b0307f9399363032acad276abf6b456063380472ffe973ab4b9de11c34302322",
+    "raster-inspection.json": "9dbece5b8c0bd363eaa4edb15f1026c176617319ef471baf27279db241c79767"
+  }
+}

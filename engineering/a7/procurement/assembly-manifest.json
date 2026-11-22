@@ -1,6 +1,6 @@
 {
   "schema": 1,
-  "revision": "A7-r2-3HP-FR4",
+  "revision": "A7-optical-R3-3HP-FR4-0.8mm",
   "status": "ENGINEERING_PREPARATION_NOT_SUPPLIER_UPLOAD",
   "manufacturing_released": false,
   "order_submitted": false,
@@ -451,26 +451,31 @@
   "inputs_sha256": {
     ".claude/skills/component-a7-hx-msk13c02/sources.json": "6e18377d098e3d9744a3fa3b6d3ea553e17f409fab86359ff6639216e5a2f940",
     ".claude/skills/component-spec-audit/references/inventory.json": "79383151bfc70c847aa1fd3699a345a15763d81e844c0bb4e603f541ea6d9995",
-    "engineering/a5/electronics/native/led_leaf/led_leaf.kicad_pcb": "6244280cec3efe00ca31d9c5c8878f3ed6eb59a1c6bd4e933beffedd49511df3",
     "engineering/a5/electronics/native/power_adapter/power_adapter.kicad_pcb": "b0f071f2730afdfd3d29de2176b1cce5f90b0c0726d14fd15501e27f90d95187",
     "engineering/a5/electronics/placement_and_connectivity.json": "086443644c29d210cdde0c712d639584c0ee52079395c7ef5f2dca1c1876c71f",
     "engineering/a5/firmware/dist/light_block_A5.bin": "0446cb0acfa7efe86a5f6c02beb7afa482daa419ecfce204fe9169487599765e",
     "engineering/a5/integration/harness_contract_A5.md": "563e89b7f831a6e0b828f4d5e4ec35737af7daa5030d98ef939cb61c57d5352e",
-    "engineering/a5/integration/native_schematic/led_leaf/netlist.xml": "1857eeb3e3faa65977f2e2cfff30083411db9af728b5529e53065da0c9028670",
     "engineering/a5/integration/native_schematic/power_adapter/netlist.xml": "d995064a9945ca0516a0a2844b197fcde3a19c8e1873230def0a3899ff514d04",
-    "engineering/a7/electronics/controller/board_placement.json": "5ba26c3c25b4d31a36d324f47db21b24afa3cad67b6f0f2b4fcf9580024448e0",
-    "engineering/a7/electronics/controller/controller.kicad_pcb": "89310d539b3c28096775cee821e46c14fdba42a87809c82f1fd7f0751704e727",
+    "engineering/a7/electronics/controller/board_placement.json": "2d32b2ab76735dbf4ff7f2c959de4398b8215983be9a4fd33fde50c7015212f5",
+    "engineering/a7/electronics/controller/controller.kicad_pcb": "d83691d6590e013b2a66957b61d76ba2f68bedaaec04789326e1215b2d1bdb2b",
     "engineering/a7/electronics/controller/controller.kicad_sch": "b027715b278a17d9af9c5791f107cbaf07ee218647601622164d33b344015e1d",
-    "engineering/a7/fixture/manifest.json": "471978cfdb4a0b5d096e72f32780025880eec91d076a29e87351cdbde8ba0be1",
-    "engineering/a7/fixture/materials.json": "3a6b7cc0a5fe1df40383d489ebd793abbfcf0e03968812db7b3e6fd95962ba06",
-    "engineering/a7/fixture/native-geometry.json": "820689fa1bc4dcb4bdc3a801380349e6cfec18768cfb4a27a215bda79a15a619",
+    "engineering/a7/electronics/led_leaf/board_placement.json": "c10563c8cc3c92234b379728c6e6e6f04b0c7e838825628b11f4ba1064fea9a9",
+    "engineering/a7/electronics/led_leaf/led_leaf.kicad_pcb": "bcf2e35d767221f5a9db0cd16769a2e503a672f522fd4f32f78012cdeb494cf9",
+    "engineering/a7/electronics/led_leaf/led_leaf.kicad_sch": "b3eaaf84ab1bc3a13c1dd1600cb6f5dca5ea61c403d0af4ea7c5b664b40c6599",
+    "engineering/a7/fixture/manifest.json": "a8a8a8cbde68c0d7cf9e2ff5e62202697bbef39e1fcdffb330560f515e650b70",
+    "engineering/a7/fixture/materials.json": "e4c1c94966a46db75f8fc72eb00cf26719da38117fa4003fd05beb7c4d37d5c6",
+    "engineering/a7/fixture/native-geometry.json": "90e9f9cf07007889be9947432c0451f9820d8020223bbbd7d6df73219bc6ac6b",
     "engineering/a7/jlc-package/sources.json": "6fc3789723a99d5f6eaeca12b9f057ebb407ef84b7a8657ee224129c262f05d5",
-    "engineering/a7/mechanical/build_a7_mechanical.py": "8789aeb3493cc8a95f7406938a3d382367e536d863ee45d183246c7bae89d99f",
-    "engineering/a7/mechanical/exports/3hp/verification.json": "a1674803d8cfd0d19bbf7189bbe759f91cdbf6f167e98073bc71e2836c077434",
-    "engineering/a7/mechanical/layout.json": "89f548a52d8ce907fb351519bfdcabc411e3389d1261056e1319582b03a4437a",
+    "engineering/a7/mechanical/build_a7_mechanical.py": "6489756f6bcd3ae863dfb6bda7cc3e0da842da7c98934523f1ae47a5b7b988bb",
+    "engineering/a7/mechanical/exports/3hp/verification.json": "59df65512c02a3bdb3b4acf2fcfd3e557450762ee6d86e0db43372e7d01ad5f1",
+    "engineering/a7/mechanical/layout.json": "8b24ec83fd805c4efcaba92f885e49531826f8945063b74fd5019bc1221e040e",
     "engineering/a7/procurement/owner-decisions.json": "7f72c6b04cf6a433e5ad0a292de9b9499dbca987ec80d69f298bd4a5bdfb48b9",
     "engineering/a7/procurement/price-audit/2026-11-12.json": "40fe7045238d80aae2f779da601c3270dfb0ca4a4c1fada72052722d231f2af3",
     "engineering/a7/procurement/supply-observations.json": "64c642078850f2f9263b825e7bf762bb136f3fd72897ceca47d06aa32b4a6591",
+    "engineering/a7/verification/fab/optical-fr4.json": "d974daffc20c4aabaa1d754f4b7393315388246b93433bb77750a4100237c6e5",
+    "engineering/a7/verification/led_leaf/board_facts.json": "f2559a416645b17779ddedc78e9ff6bc792d61baab3a603b0f3094f39d4dbd5d",
+    "engineering/a7/verification/led_leaf/board_geometry.json": "1d3f3e42fc7ca931b27c9cb3e0100d9c45be06f2ae3ef9b641b9cd307f026bfb",
+    "engineering/a7/verification/led_leaf/netlist.xml": "1c163f9fdd5ac78e2a564e15c345e5ab0d1e49a5f5dc782c39f06a01295e9ac1",
     "engineering/a7/verification/schematic/netlist.xml": "2541a0119e4ad3fb3cf811e88ace6fe344e8a4516cbd443fc36198f0809c2139",
     "provenance/a5-catalog/identity-crosswalk.json": "9915b9200d7ce3eef4af46213f3f4ff5b434f5e17756a8f91b9bd05e87e02f3e"
   },
@@ -485,11 +490,11 @@
         "THT_B": 0
       },
       "pcb": "engineering/a7/electronics/controller/controller.kicad_pcb",
-      "pcb_sha256": "89310d539b3c28096775cee821e46c14fdba42a87809c82f1fd7f0751704e727",
+      "pcb_sha256": "d83691d6590e013b2a66957b61d76ba2f68bedaaec04789326e1215b2d1bdb2b",
       "netlist": "engineering/a7/verification/schematic/netlist.xml",
       "netlist_sha256": "2541a0119e4ad3fb3cf811e88ace6fe344e8a4516cbd443fc36198f0809c2139",
       "fitted_per_board": 59,
-      "inheritance": "A7 revision 2 authority"
+      "inheritance": "A7 optical R3 authority; historical approvals do not transfer"
     },
     {
       "board": "led_leaf",
@@ -500,12 +505,12 @@
         "THT_F": 0,
         "THT_B": 0
       },
-      "pcb": "engineering/a5/electronics/native/led_leaf/led_leaf.kicad_pcb",
-      "pcb_sha256": "6244280cec3efe00ca31d9c5c8878f3ed6eb59a1c6bd4e933beffedd49511df3",
-      "netlist": "engineering/a5/integration/native_schematic/led_leaf/netlist.xml",
-      "netlist_sha256": "1857eeb3e3faa65977f2e2cfff30083411db9af728b5529e53065da0c9028670",
+      "pcb": "engineering/a7/electronics/led_leaf/led_leaf.kicad_pcb",
+      "pcb_sha256": "bcf2e35d767221f5a9db0cd16769a2e503a672f522fd4f32f78012cdeb494cf9",
+      "netlist": "engineering/a7/verification/led_leaf/netlist.xml",
+      "netlist_sha256": "1c163f9fdd5ac78e2a564e15c345e5ab0d1e49a5f5dc782c39f06a01295e9ac1",
       "fitted_per_board": 10,
-      "inheritance": "unchanged immutable A5 FR-4 design"
+      "inheritance": "A7 optical R3 authority; historical approvals do not transfer"
     },
     {
       "board": "power_adapter",
@@ -521,7 +526,7 @@
       "netlist": "engineering/a5/integration/native_schematic/power_adapter/netlist.xml",
       "netlist_sha256": "d995064a9945ca0516a0a2844b197fcde3a19c8e1873230def0a3899ff514d04",
       "fitted_per_board": 2,
-      "inheritance": "unchanged immutable A5 FR-4 design"
+      "inheritance": "unchanged immutable A5 FR-4 adapter design"
     }
   ],
   "population": [
@@ -2257,9 +2262,9 @@
           3.5,
           5.95
         ],
-        "angle_deg": 0,
-        "source": "engineering/a5/electronics/placement_and_connectivity.json",
-        "authority": "immutable historical A5 KiCad export; not fresh placement proof"
+        "angle_deg": 0.0,
+        "source": "engineering/a7/electronics/led_leaf/board_placement.json",
+        "authority": "fresh native placement; mount attributes from matching adopted PCB bytes"
       },
       "quantity_for_order": 4,
       "sourcing_evidence": "engineering/a7/procurement/sourcing-projection.json#C14663",
@@ -2286,9 +2291,9 @@
           3.5,
           30.95
         ],
-        "angle_deg": 0,
-        "source": "engineering/a5/electronics/placement_and_connectivity.json",
-        "authority": "immutable historical A5 KiCad export; not fresh placement proof"
+        "angle_deg": 0.0,
+        "source": "engineering/a7/electronics/led_leaf/board_placement.json",
+        "authority": "fresh native placement; mount attributes from matching adopted PCB bytes"
       },
       "quantity_for_order": 4,
       "sourcing_evidence": "engineering/a7/procurement/sourcing-projection.json#C14663",
@@ -2315,9 +2320,9 @@
           3.5,
           55.95
         ],
-        "angle_deg": 0,
-        "source": "engineering/a5/electronics/placement_and_connectivity.json",
-        "authority": "immutable historical A5 KiCad export; not fresh placement proof"
+        "angle_deg": 0.0,
+        "source": "engineering/a7/electronics/led_leaf/board_placement.json",
+        "authority": "fresh native placement; mount attributes from matching adopted PCB bytes"
       },
       "quantity_for_order": 4,
       "sourcing_evidence": "engineering/a7/procurement/sourcing-projection.json#C14663",
@@ -2344,9 +2349,9 @@
           3.5,
           80.95
         ],
-        "angle_deg": 0,
-        "source": "engineering/a5/electronics/placement_and_connectivity.json",
-        "authority": "immutable historical A5 KiCad export; not fresh placement proof"
+        "angle_deg": 0.0,
+        "source": "engineering/a7/electronics/led_leaf/board_placement.json",
+        "authority": "fresh native placement; mount attributes from matching adopted PCB bytes"
       },
       "quantity_for_order": 4,
       "sourcing_evidence": "engineering/a7/procurement/sourcing-projection.json#C14663",
@@ -2373,9 +2378,9 @@
           4.5,
           3.75
         ],
-        "angle_deg": 0,
-        "source": "engineering/a5/electronics/placement_and_connectivity.json",
-        "authority": "immutable historical A5 KiCad export; not fresh placement proof"
+        "angle_deg": 0.0,
+        "source": "engineering/a7/electronics/led_leaf/board_placement.json",
+        "authority": "fresh native placement; mount attributes from matching adopted PCB bytes"
       },
       "quantity_for_order": 4,
       "sourcing_evidence": "engineering/a7/procurement/sourcing-projection.json#C52917434",
@@ -2402,9 +2407,9 @@
           4.5,
           28.75
         ],
-        "angle_deg": 0,
-        "source": "engineering/a5/electronics/placement_and_connectivity.json",
-        "authority": "immutable historical A5 KiCad export; not fresh placement proof"
+        "angle_deg": 0.0,
+        "source": "engineering/a7/electronics/led_leaf/board_placement.json",
+        "authority": "fresh native placement; mount attributes from matching adopted PCB bytes"
       },
       "quantity_for_order": 4,
       "sourcing_evidence": "engineering/a7/procurement/sourcing-projection.json#C52917434",
@@ -2431,9 +2436,9 @@
           4.5,
           53.75
         ],
-        "angle_deg": 0,
-        "source": "engineering/a5/electronics/placement_and_connectivity.json",
-        "authority": "immutable historical A5 KiCad export; not fresh placement proof"
+        "angle_deg": 0.0,
+        "source": "engineering/a7/electronics/led_leaf/board_placement.json",
+        "authority": "fresh native placement; mount attributes from matching adopted PCB bytes"
       },
       "quantity_for_order": 4,
       "sourcing_evidence": "engineering/a7/procurement/sourcing-projection.json#C52917434",
@@ -2460,9 +2465,9 @@
           4.5,
           78.75
         ],
-        "angle_deg": 0,
-        "source": "engineering/a5/electronics/placement_and_connectivity.json",
-        "authority": "immutable historical A5 KiCad export; not fresh placement proof"
+        "angle_deg": 0.0,
+        "source": "engineering/a7/electronics/led_leaf/board_placement.json",
+        "authority": "fresh native placement; mount attributes from matching adopted PCB bytes"
       },
       "quantity_for_order": 4,
       "sourcing_evidence": "engineering/a7/procurement/sourcing-projection.json#C52917434",
@@ -2489,9 +2494,9 @@
           4.5,
           16.5
         ],
-        "angle_deg": 0,
-        "source": "engineering/a5/electronics/placement_and_connectivity.json",
-        "authority": "immutable historical A5 KiCad export; not fresh placement proof"
+        "angle_deg": 0.0,
+        "source": "engineering/a7/electronics/led_leaf/board_placement.json",
+        "authority": "fresh native placement; mount attributes from matching adopted PCB bytes"
       },
       "quantity_for_order": 4,
       "sourcing_evidence": "engineering/a7/procurement/sourcing-projection.json#C160404",
@@ -2518,9 +2523,9 @@
           4.5,
           66.0
         ],
-        "angle_deg": 0,
-        "source": "engineering/a5/electronics/placement_and_connectivity.json",
-        "authority": "immutable historical A5 KiCad export; not fresh placement proof"
+        "angle_deg": 0.0,
+        "source": "engineering/a7/electronics/led_leaf/board_placement.json",
+        "authority": "fresh native placement; mount attributes from matching adopted PCB bytes"
       },
       "quantity_for_order": 4,
       "sourcing_evidence": "engineering/a7/procurement/sourcing-projection.json#C160404",
@@ -2696,7 +2701,7 @@
         [
           14.6,
           72.0,
-          15.4
+          13.4
         ]
       ],
       "exact_orderable": null,
@@ -2777,12 +2782,12 @@
       "kind": "standard_hardware_envelope",
       "bbox_mm": [
         [
-          7.55,
+          7.6,
           58.8,
           -2.3
         ],
         [
-          11.55,
+          11.6,
           62.8,
           -2.0
         ]
@@ -2799,12 +2804,12 @@
       "kind": "standard_hardware_envelope",
       "bbox_mm": [
         [
-          7.65,
+          7.7,
           58.9,
           -3.5
         ],
         [
-          11.45,
+          11.5,
           62.7,
           3.8
         ]
@@ -2821,12 +2826,12 @@
       "kind": "standard_hardware_envelope",
       "bbox_mm": [
         [
-          7.241,
+          7.291,
           58.8,
           1.6
         ],
         [
-          11.859,
+          11.909,
           62.8,
           3.2
         ]
@@ -2839,13 +2844,13 @@
       "id": "top_cap_screw_A7",
       "quantity_per_module": 1,
       "source": "engineering/a7/mechanical/exports/3hp/verification.json",
-      "description": "M2x18",
+      "description": "M2x20",
       "kind": "standard_hardware_envelope",
       "bbox_mm": [
         [
           5.55,
           18.6,
-          9.8
+          7.8
         ],
         [
           9.35,
@@ -2867,12 +2872,12 @@
         [
           5.141,
           18.5,
-          12.0
+          10.0
         ],
         [
           9.759,
           22.5,
-          13.6
+          11.6
         ]
       ],
       "exact_orderable": null,
@@ -2902,7 +2907,54 @@
       "status": "NEEDS SUPPLIER / PHYSICAL QUALIFICATION",
       "integral_features": [
         "top_cap_spacer_A7 (not a separate purchased part)"
-      ]
+      ],
+      "adapter_spacer_z_mm": [
+        15.0,
+        19.0
+      ],
+      "adapter_spacer_height_mm": 4.0,
+      "adapter_position_basis": {
+        "y": [
+          18.0,
+          48.0
+        ],
+        "width": 8.8,
+        "thickness": 1.6,
+        "power_pinrow_y": 46.7,
+        "a5_front_z": 17.4,
+        "z_shift": -4.0,
+        "front_z": 13.4,
+        "rear_z": 15.0,
+        "gap_rear_to_leaf_front": 4.4,
+        "cap_spacer_z": [
+          15.0,
+          19.0
+        ],
+        "cap_spacer_radius": 2.75,
+        "reason": "Retain 1.6mm two-layer A5 adapter outside the direct lateral LED corridor; move it 4mm forward for an explicit SH harness clearance budget including board thickness and assembly allowances. No new adapter PCB is needed for this nominal optical topology.",
+        "confidence": "PROJECT-CHOICE",
+        "harness_gap_budget": {
+          "inputs": {
+            "adapter_finished_thickness_tol_mm": 0.16,
+            "adapter_finished_thickness_tol_basis": "JLCPCB Capabilities thickness >=1mm +/-10%; final factory order review required",
+            "adapter_mount_z_tol_mm": 0.1,
+            "leaf_front_z_tol_mm": 0.1,
+            "harness_centre_z_tol_mm": 0.1,
+            "sh_bundle_radius_max_mm": 1.1,
+            "minimum_gap_mm": 0.2,
+            "allowance_confidence": "ASSUMED acceptance requirements: assembly locations and bundle envelope are not measured or supplier guaranteed; validate fixture/support/cable process physically."
+          },
+          "adapter_rear_max": 15.26,
+          "leaf_front_min": 19.3,
+          "harness_z_envelope": [
+            16.7,
+            19.1
+          ],
+          "adapter_clearance_worst": 1.44,
+          "leaf_clearance_worst": 0.2,
+          "scope": "Z interval of the gap-run segment only; whole swept route and hardware require fresh CAD, physical fit remains unverified"
+        }
+      }
     },
     {
       "id": "bottom_leaf_cap",
@@ -2981,12 +3033,12 @@
       "kind": "standard_hardware_envelope",
       "bbox_mm": [
         [
-          3.55,
+          2.55,
           22.0,
           24.3
         ],
         [
-          6.55,
+          5.55,
           25.0,
           29.6
         ]
@@ -3003,12 +3055,12 @@
       "kind": "standard_hardware_envelope",
       "bbox_mm": [
         [
-          3.45,
+          2.45,
           21.652,
           28.2
         ],
         [
-          6.65,
+          5.65,
           25.348,
           29.5
         ]
@@ -3025,12 +3077,12 @@
       "kind": "standard_hardware_envelope",
       "bbox_mm": [
         [
-          3.55,
+          2.55,
           104.0,
           24.3
         ],
         [
-          6.55,
+          5.55,
           107.0,
           29.6
         ]
@@ -3047,12 +3099,12 @@
       "kind": "standard_hardware_envelope",
       "bbox_mm": [
         [
-          3.45,
+          2.45,
           103.652,
           28.2
         ],
         [
-          6.65,
+          5.65,
           107.348,
           29.5
         ]
@@ -3069,12 +3121,12 @@
       "kind": "standard_hardware_envelope",
       "bbox_mm": [
         [
-          8.35,
+          9.35,
           22.0,
           24.3
         ],
         [
-          11.35,
+          12.35,
           25.0,
           29.6
         ]
@@ -3091,12 +3143,12 @@
       "kind": "standard_hardware_envelope",
       "bbox_mm": [
         [
-          8.25,
+          9.25,
           21.652,
           28.2
         ],
         [
-          11.45,
+          12.45,
           25.348,
           29.5
         ]
@@ -3113,12 +3165,12 @@
       "kind": "standard_hardware_envelope",
       "bbox_mm": [
         [
-          8.35,
+          9.35,
           104.0,
           24.3
         ],
         [
-          11.35,
+          12.35,
           107.0,
           29.6
         ]
@@ -3135,12 +3187,12 @@
       "kind": "standard_hardware_envelope",
       "bbox_mm": [
         [
-          8.25,
+          9.25,
           103.652,
           28.2
         ],
         [
-          11.45,
+          12.45,
           107.348,
           29.5
         ]
@@ -3216,17 +3268,17 @@
       "quantity_per_module": 1,
       "exact_orderable": null,
       "requirement": {
-        "finished_free_span_nominal": 57.0,
+        "finished_free_span_nominal": 55.0,
         "tolerance": 3.0,
         "tolerance_confidence": "ASSUMED",
         "band": [
-          54.0,
-          60.0
+          52.0,
+          58.0
         ],
         "stowage": "one S-fold above the spine block, fold span solved per width",
         "stowage_length_range_both_widths": [
-          51.037,
-          78.053
+          49.037,
+          76.053
         ],
         "short_side_margin": 2.0,
         "fits_both_widths": true,
@@ -3294,8 +3346,8 @@
   ],
   "fixture_materials_per_fixture_not_per_module": {
     "id": "fixture-materials",
-    "class": "OWNER_DECISION",
-    "text": "Fixture digital criteria 1-4 met; the owner approved the proposed hardware on 2026-11-12 (accept all recommendations). The fabricator for the four FR-4 plates is not chosen. Physical contact/load tests (criterion 5) follow."
+    "class": "CLOUD_DIGITAL",
+    "text": "Fixture design and materials incomplete (fixture manifest: digital_criteria_1_to_4_met not true, hardware_proposal_complete not true); physical contact/load tests follow."
   },
   "unique_fitted_identities": 30,
   "services": [
@@ -3351,7 +3403,7 @@
     {
       "id": "mechanical-materials",
       "class": "ACCESS_EVIDENCE_HOLD",
-      "text": "PMMA sheet and pocket tolerances, PETG process and orderable fastener part numbers are not sourced; the model carries designations (M2x18, M1.6x4) and envelopes only."
+      "text": "PMMA sheet and pocket tolerances, PETG process and orderable fastener part numbers are not sourced; the model carries designations from the current mechanical layout and envelopes only; exact orderable hardware and assembly fit remain unqualified."
     },
     {
       "id": "rack-hardware",
@@ -3360,8 +3412,8 @@
     },
     {
       "id": "fixture-materials",
-      "class": "OWNER_DECISION",
-      "text": "Fixture digital criteria 1-4 met; the owner approved the proposed hardware on 2026-11-12 (accept all recommendations). The fabricator for the four FR-4 plates is not chosen. Physical contact/load tests (criterion 5) follow."
+      "class": "CLOUD_DIGITAL",
+      "text": "Fixture design and materials incomplete (fixture manifest: digital_criteria_1_to_4_met not true, hardware_proposal_complete not true); physical contact/load tests follow."
     },
     {
       "id": "prototype-and-release",
