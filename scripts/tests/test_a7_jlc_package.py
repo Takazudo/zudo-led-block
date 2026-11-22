@@ -3,6 +3,7 @@ import copy
 import importlib.util
 import json
 from pathlib import Path
+import shutil
 import tempfile
 import unittest
 from unittest.mock import patch
@@ -134,6 +135,75 @@ class PackageTests(unittest.TestCase):
         del next(p for p in sources['parts'] if p['lcsc'] == 'C5665')['pcba_type']
         with self.assertRaisesRegex(ValueError, 'no recorded JLC PCBA type'):
             J.generate(sources=sources)
+
+    def sets_root(self, d, mutate):
+        """A temporary root holding the dated set directories and an edited package-sets index."""
+        root = Path(d)
+        for sub in J.SET_DIRS:
+            src = ROOT / J.OUT / sub
+            if src.is_dir():
+                shutil.copytree(src, root / J.OUT / sub)
+        index = json.loads((ROOT / J.PACKAGE_SETS).read_text())
+        mutate(index, root)
+        (root / J.PACKAGE_SETS).write_text(json.dumps(index))
+        return root
+
+    def current_boards(self):
+        return {b['board']: b['pcb_sha256'] for b in self.report['boards']}
+
+    def test_old_dated_set_is_historical_and_not_current(self):
+        cur = self.report['current_package']
+        self.assertTrue(all(h['path'] != (cur or {}).get('path') for h in self.report['historical_packages']))
+        self.assertIn('engineering/a7/jlc-package/order/2026-11-13', [h['path'] for h in self.report['historical_packages']])
+        if cur:
+            self.assertEqual(cur['boards'], self.current_boards())
+
+    def test_stale_set_cannot_be_named_current(self):
+        def promote_old(index, root):
+            old = next(s for s in index['sets'] if s['path'].endswith('order/2026-11-13'))
+            old['status'] = 'REVIEW_ONLY_NOT_FOR_ORDER'
+            index['current'] = old['path']
+            index['sets'] = [s for s in index['sets'] if s is old or s['status'] == 'HISTORICAL_SUPERSEDED']
+            for s in list(index['sets']):
+                if s is not old and s['boards'] == self.current_boards():
+                    index['sets'].remove(s)
+        with tempfile.TemporaryDirectory() as d:
+            root = self.sets_root(d, promote_old)
+            for s in json.loads((ROOT / J.PACKAGE_SETS).read_text())['sets']:
+                if s['status'] != 'HISTORICAL_SUPERSEDED':
+                    shutil.rmtree(root / s['path'])
+            with self.assertRaisesRegex(ValueError, 'stale package'):
+                J.package_sets(root, self.current_boards(), set())
+
+    def test_upload_approval_is_not_carried_over_while_the_route_gate_is_open(self):
+        fake = 'engineering/a7/jlc-package/review/2099-01-01'
+        def add_approved(index, root):
+            (root / fake).mkdir(parents=True)
+            (root / fake / 'SHA256SUMS').write_text('')
+            index['sets'] = [s for s in index['sets'] if s['status'] == 'HISTORICAL_SUPERSEDED']
+            index['sets'].append({'path': fake, 'status': 'PROTOTYPE_UPLOAD_APPROVED', 'boards': self.current_boards()})
+            index['current'] = fake
+        with tempfile.TemporaryDirectory() as d:
+            root = self.sets_root(d, add_approved)
+            for s in json.loads((ROOT / J.PACKAGE_SETS).read_text())['sets']:
+                if s['status'] != 'HISTORICAL_SUPERSEDED':
+                    shutil.rmtree(root / s['path'])
+            with self.assertRaisesRegex(ValueError, 'owner_prototype_route'):
+                J.package_sets(root, self.current_boards(), {'owner_prototype_route'})
+
+    def test_recorded_set_bytes_are_immutable_and_every_dated_directory_is_indexed(self):
+        def tamper(index, root):
+            f = root / 'engineering/a7/jlc-package/order/2026-11-13/controller/controller-panel_BOM_DRYRUN.csv'
+            f.write_text(f.read_text() + 'x\n')
+        with tempfile.TemporaryDirectory() as d:
+            with self.assertRaisesRegex(ValueError, 'immutable'):
+                J.package_sets(self.sets_root(d, tamper), self.current_boards(), set())
+
+        def unlisted(index, root):
+            (root / 'engineering/a7/jlc-package/order/2099-01-01').mkdir(parents=True)
+        with tempfile.TemporaryDirectory() as d:
+            with self.assertRaisesRegex(ValueError, 'differ from the dated directories'):
+                J.package_sets(self.sets_root(d, unlisted), self.current_boards(), set())
 
     def test_changed_board_is_rejected(self):
         original = J.sha

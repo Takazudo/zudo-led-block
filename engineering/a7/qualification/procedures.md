@@ -1280,7 +1280,7 @@
 - owner-approved sample/prototype route absent for this revision and quantity
 - reviewed manufacturing files and explicit revision-bound owner release absent
 
-## 別案
+## 撤回・不採用の別案（保留中の候補ではない）
 
-- PET: Q11/Q11a–f: process, copper/vias/coverlay, lamination, force and optical tests remain separate. Reuse pet-fpc.md questions 1–9; not sent.
-- 2HP: Parked: Q1/Q6 evidence, owner choice, 0.8 mm controller and new routing required.
+- PET: Withdrawn: the owner withdrew transparent PET/FPC on 2026-11-17 (#87); pet-fpc.md and the Q11 supplier questions are history and were never sent. Not a pending alternative.
+- 2HP: Rejected: the evaluated 2HP arrangement was not adopted in #87 / PR #88; 3HP (14.9 mm) is the current width and the 2HP findings are pinned by CAD tests. Not a pending alternative.

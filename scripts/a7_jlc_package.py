@@ -36,6 +36,9 @@ PROFILE = 'engineering/a7/verification/native_gate.json'
 OPTICAL_FAB = 'engineering/a7/verification/fab/optical-fr4.json'
 LAYOUT = 'engineering/a7/mechanical/layout.json'
 LABEL = 'zudo-led-block.a7-jlc-package'
+PACKAGE_SETS = OUT / 'package-sets.json'
+SET_DIRS = ('order', 'review')
+SET_STATUSES = ('HISTORICAL_SUPERSEDED', 'REVIEW_ONLY_NOT_FOR_ORDER', 'PROTOTYPE_UPLOAD_APPROVED')
 # Gerber layers JLC needs for a board; KiCad names. Inner layers are added for 4-layer boards.
 FAB_LAYERS = ['F.Cu', 'B.Cu', 'F.Paste', 'B.Paste', 'F.SilkS', 'B.SilkS', 'F.Mask', 'B.Mask', 'Edge.Cuts']
 CENTROID_TOLERANCE_MM = 0.05
@@ -289,11 +292,11 @@ def generate(root=ROOT, sources=None):
     blockers = named_blockers(boards, lines, pages, ledger, root)
     readiness = json.loads((root / READINESS).read_text())
     gates = {g['gate'] for g in readiness.get('gates', [])}
-    order_dir = root / OUT / 'order'
+    sets = package_sets(root, {b['board']: b['pcb_sha256'] for b in boards}, gates)
     report = {'schema': 1, 'status': 'DRY_RUN_NOT_RELEASED', 'order_eligibility': readiness['order_eligibility'],
               'prototype_route_binding': 'HOLD: readiness gate owner_prototype_route (the recorded approval does not match the current identities)'
                                          if 'owner_prototype_route' in gates else 'MATCHES the current readiness identities',
-              'dated_order_exports': sorted(str(OUT / 'order' / d.name) for d in order_dir.iterdir() if d.is_dir()) if order_dir.is_dir() else [],
+              'current_package': sets['current'], 'historical_packages': sets['historical'],
               'modules': modules, 'decided_by': plan['decided_by'], 'sources': str(SOURCES),
               'ledger_sha256': sha(root / LEDGER), 'sources_sha256': sha(root / SOURCES), 'optical_fab_sha256': sha(root / OPTICAL_FAB),
               'boards': boards, 'parts': lines, 'panel_comparison': comparison, 'panel_route': panel_decision(root),
@@ -302,6 +305,45 @@ def generate(root=ROOT, sources=None):
               'blockers': blockers}
     files['package.json'] = json.dumps(report, indent=2, ensure_ascii=False) + '\n'
     return report, files
+
+
+def package_sets(root, current_boards, gates):
+    """Bind every dated file set to its board identities; only a set matching the current boards can be current."""
+    index = json.loads((root / PACKAGE_SETS).read_text())
+    listed = [s['path'] for s in index['sets']]
+    on_disk = sorted(str(OUT / d / x.name) for d in SET_DIRS if (root / OUT / d).is_dir()
+                     for x in (root / OUT / d).iterdir() if x.is_dir())
+    if len(set(listed)) != len(listed) or sorted(listed) != on_disk:
+        raise ValueError(f'{PACKAGE_SETS}: listed sets {sorted(listed)} differ from the dated directories {on_disk}')
+    current, historical = None, []
+    for entry in index['sets']:
+        path, status = entry['path'], entry['status']
+        if status not in SET_STATUSES:
+            raise ValueError(f'{path}: unknown status {status}')
+        sums = root / path / 'SHA256SUMS'
+        if not sums.is_file():
+            raise ValueError(f'{path}: SHA256SUMS missing')
+        for line in sums.read_text().splitlines():
+            digest, name = line.split(maxsplit=1)
+            if sha(root / path / name) != digest:
+                raise ValueError(f'{path}/{name}: bytes differ from SHA256SUMS (a recorded set is immutable)')
+        matches = entry['boards'] == current_boards
+        if status == 'HISTORICAL_SUPERSEDED':
+            if matches:
+                raise ValueError(f'{path}: marked historical but bound to the current boards')
+            historical.append({'path': path, 'boards': entry['boards'], 'settings': entry['settings'],
+                               'approval_scope': entry['approval_scope'], 'superseded_by_change': entry['superseded_by_change']})
+            continue
+        if not matches:
+            raise ValueError(f'{path}: status {status} but its board identities are not the current boards (stale package)')
+        if status == 'PROTOTYPE_UPLOAD_APPROVED' and 'owner_prototype_route' in gates:
+            raise ValueError(f'{path}: upload approval claimed while readiness still lists owner_prototype_route')
+        if current is not None:
+            raise ValueError(f'{PACKAGE_SETS}: more than one current set')
+        current = {'path': path, 'status': status, 'boards': entry['boards']}
+    if (current or {}).get('path') != index['current']:
+        raise ValueError(f"{PACKAGE_SETS}: current is {index['current']!r} but the matching set is {(current or {}).get('path')!r}")
+    return {'current': current, 'historical': historical}
 
 
 def optical_manufacturing(name, facts, root=ROOT):
@@ -550,8 +592,8 @@ def named_blockers(boards, lines, pages, ledger, root):
     jlc_ja = (f"オーナーの知識による判断で、JLC の確認ではない（オーナーは JLC に聞かずに O12 を閉じた。{stated['decided_on']}、jlc-questions）") if stated else '未確認（O12）'
 
     add('order-gate-blocked', None, 'Readiness order gate is BLOCKED (it counts every condition up to a manufacturing release). These generator reference files are not uploaded directly; '
-        'an owner uploads only a dated copy under engineering/a7/jlc-package/order/ for an owner-approved prototype route, after the order-form checks in its README. None of this is a manufacturing release.',
-        'readiness の発注ゲートが BLOCKED（製造リリースまでの全条件を数えている）。この基準セットからは直接アップロードしない。オーナーが試作ルートでアップロードするのは `engineering/a7/jlc-package/order/` の日付付きの写しで、その README の注文画面の確認の後。どれも製造リリースではない。')
+        'the current dated set is the one named in engineering/a7/jlc-package/package-sets.json, and an owner uploads it only once its status is PROTOTYPE_UPLOAD_APPROVED for the current identities and after the order-form checks in its README. Historical sets (order/2026-11-13) are bound to old boards and are not an upload choice. None of this is a manufacturing release.',
+        'readiness の発注ゲートが BLOCKED（製造リリースまでの全条件を数えている）。この基準セットからは直接アップロードしない。現行の日付付きセットは `engineering/a7/jlc-package/package-sets.json` が指すもので、現在の識別に対する試作ルート承認（状態 PROTOTYPE_UPLOAD_APPROVED）と、その README の注文画面の確認の後にだけアップロードする。旧セット（order/2026-11-13）は旧基板の識別に結び付いた履歴で、アップロードの選択肢ではない。どれも製造リリースではない。')
     for b in boards:
         t, n, r = b['pcba_tier'], b['board'], b['assembly_route']
         if r['panel']:
@@ -655,9 +697,8 @@ def page(report, panels=None):
          'description: "最初の 2 台分を JLCPCB に発注するとき、基板ごとに何を入力し何をアップロードするか。試験用試作のためで、製造リリースではありません。"',
          'sidebar_position: 4.6', '---', '', ':::danger[製造リリースではありません]',
          f"発注ゲートは **{report['order_eligibility']}** です（製造リリースまでの全条件を数えています）。このページと `engineering/a7/jlc-package/` 直下・`panels/` のファイルは生成器の基準セットで、"
-         'ここから直接アップロードしません。オーナーが試験用試作ルートでアップロードするのは日付付きの写し'
-         + ('（' + '、'.join(f'`{d}/`' for d in report['dated_order_exports']) + '）' if report['dated_order_exports'] else '（まだ無い）')
-         + 'で、その README にある注文画面での確認（配置プレビューの中心・回転、PCBA 数量の単位、自前パネルの受入、基材・表面処理）の後です。'
+         'ここから直接アップロードしません。' + current_set_ja(report) +
+         'アップロードは、現在の識別に対する試作ルート承認と、その README にある注文画面での確認（配置プレビューの中心・回転、PCBA 数量の単位、自前パネルの受入、基材・表面処理）の後だけです。'
          + ('試作ルートの承認は現在の識別に結び付いていません（readiness の `owner_prototype_route`）。新しい識別での再承認はオーナーの判断です。' if report['prototype_route_binding'].startswith('HOLD') else
             '試作ルートのオーナー承認は現在の識別に結び付いています（`engineering/a7/qualification/records.json`）。')
          + '発注・支払いはオーナーが行い、リポジトリに発注記録はありません。', ':::', '',
@@ -713,6 +754,18 @@ def page(report, panels=None):
     L += [f"| {l['lcsc']} | {esc(l['mpn'])} | {l['library'].title()} | {l['pieces_required']} | {l['in_stock']} | {l['preorder_available']} | {ROUTE_JA[l['route']]} |" for l in report['parts']]
     L += ['', '区分と在庫は `engineering/a7/jlc-package/sources.json` の日付付き記録です（項目の意味はこちらの解釈で、JLC の定義ではありません）。', '']
     return '\n'.join(L) + '\n'
+
+
+SET_STATUS_JA = {'REVIEW_ONLY_NOT_FOR_ORDER': 'レビュー専用・発注用ではない',
+                 'PROTOTYPE_UPLOAD_APPROVED': '現在の識別で試作ルート承認済み（製造リリースではない）'}
+
+
+def current_set_ja(report):
+    cur = report['current_package']
+    text = (f"現行の日付付きセットは `{cur['path']}/`（{SET_STATUS_JA[cur['status']]}）です。" if cur
+            else '現在の基板識別に結び付いた日付付きセットはまだありません。')
+    old = '、'.join(f"`{h['path']}/`" for h in report['historical_packages'])
+    return text + (f"{old} は旧基板の識別（{'; '.join(h['settings'] for h in report['historical_packages'])}）に結び付いた履歴で、承認もその旧識別に限ります。アップロードの選択肢ではありません。" if old else '')
 
 
 def panel_cell(b, comparison, decision=None):

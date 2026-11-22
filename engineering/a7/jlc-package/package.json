@@ -3,8 +3,19 @@
   "status": "DRY_RUN_NOT_RELEASED",
   "order_eligibility": "BLOCKED",
   "prototype_route_binding": "HOLD: readiness gate owner_prototype_route (the recorded approval does not match the current identities)",
-  "dated_order_exports": [
-    "engineering/a7/jlc-package/order/2026-11-13"
+  "current_package": null,
+  "historical_packages": [
+    {
+      "path": "engineering/a7/jlc-package/order/2026-11-13",
+      "boards": {
+        "controller": "89310d539b3c28096775cee821e46c14fdba42a87809c82f1fd7f0751704e727",
+        "led_leaf": "6244280cec3efe00ca31d9c5c8878f3ed6eb59a1c6bd4e933beffedd49511df3",
+        "power_adapter": "b0f071f2730afdfd3d29de2176b1cce5f90b0c0726d14fd15501e27f90d95187"
+      },
+      "settings": "controller 1.6 mm 4-layer, LED leaf 0.6 mm 2-layer (A5 leaf file), power adapter 1.6 mm 2-layer",
+      "approval_scope": "The 2026-11-12/13 owner prototype-route approvals in qualification/approvals/ bind these old identities only; they do not carry to any later board.",
+      "superseded_by_change": "PR #88 (0.8 mm rigid FR-4 redesign, merged 6f6e8ea): new controller and LED leaf boards"
+    }
   ],
   "modules": 2,
   "decided_by": "OWNER",
@@ -1832,8 +1843,8 @@
     {
       "id": "order-gate-blocked",
       "board": null,
-      "text": "Readiness order gate is BLOCKED (it counts every condition up to a manufacturing release). These generator reference files are not uploaded directly; an owner uploads only a dated copy under engineering/a7/jlc-package/order/ for an owner-approved prototype route, after the order-form checks in its README. None of this is a manufacturing release.",
-      "ja": "readiness の発注ゲートが BLOCKED（製造リリースまでの全条件を数えている）。この基準セットからは直接アップロードしない。オーナーが試作ルートでアップロードするのは `engineering/a7/jlc-package/order/` の日付付きの写しで、その README の注文画面の確認の後。どれも製造リリースではない。"
+      "text": "Readiness order gate is BLOCKED (it counts every condition up to a manufacturing release). These generator reference files are not uploaded directly; the current dated set is the one named in engineering/a7/jlc-package/package-sets.json, and an owner uploads it only once its status is PROTOTYPE_UPLOAD_APPROVED for the current identities and after the order-form checks in its README. Historical sets (order/2026-11-13) are bound to old boards and are not an upload choice. None of this is a manufacturing release.",
+      "ja": "readiness の発注ゲートが BLOCKED（製造リリースまでの全条件を数えている）。この基準セットからは直接アップロードしない。現行の日付付きセットは `engineering/a7/jlc-package/package-sets.json` が指すもので、現在の識別に対する試作ルート承認（状態 PROTOTYPE_UPLOAD_APPROVED）と、その README の注文画面の確認の後にだけアップロードする。旧セット（order/2026-11-13）は旧基板の識別に結び付いた履歴で、アップロードの選択肢ではない。どれも製造リリースではない。"
     },
     {
       "id": "controller-repo-panel-acceptance",

@@ -68,7 +68,7 @@ readiness（`engineering/a7/qualification/readiness.json`）は不足を 44 個�
 
 - **使うケースのレールとねじは何ですか。** → 手持ちのケースの型番を伝える（`assembly:rack-hardware`）。残り: 使うケースの型番をオーナーが知らせる。型番が分かるまで、レール・ねじ規格と締結部品は決まらない。
 
-- **安定後の部品表面温度の上限を何度にしますか。** → 提案値を 75 °C に改めて採る（PJ-324M の保存温度の上限）（`criterion:thermal-optical`）。残り: 上限 75 °C は受入値に反映済み。PETG/PMMA の温度限界（製造元の資料が未取得）と見え方の合否（試験時にオーナーが判断）が残るので、基準ゲートは開いたまま。
+- **安定後の部品表面温度の上限を何度にしますか。** → 提案値を 75 °C に改めて採る（PJ-324M の保存温度の上限）（`criterion:thermal-optical`）。残り: 上限 75 °C は受入値に反映済み。SW1（HX MSK13C02）だけは動作上限 +70 °C で判定する（switch-temp、procedure に記載）。PETG/PMMA の温度限界（製造元の資料が未取得）と見え方の合否（試験時にオーナーが判断）が残るので、基準ゲートは開いたまま。
 
 - **LED の T1L（1 ビットの Low 時間）の合否を何にしますか。データシートは 580–1000 ns、現行 FW は計算上 約 340–361 ns（FW の設計範囲 220–420 ns）です。** → メーカーの判定基準（T0H と周期）を書面で確認して採る（`criterion:firmware-waveforms`）。残り: Worldsemi の公式窓口から、T0H と周期で判定し T1L を合否に使わないことと、周期の許容幅を書面でもらう（オーナー）。届くまで基準ゲートは開いたまま。購入ロットの波形測定も必要。
 
@@ -90,7 +90,7 @@ readiness（`engineering/a7/qualification/readiness.json`）は不足を 44 個�
 
 - **JLC で 2 台分を実装するとき、基板の面付けをどうしますか。** → リポジトリで必要枚数だけの面付けを作る（オーナーの回答、`assembly:panel-route`）。原文「you can combine 2 or 3 board in one gerber, but anyhow we need to order at least 2 qty. this is prototype phase still, so maybe just simply make multiple gerbers will be better for AI, I guess. separated PCBs looks better for AI recognization. Chose "Yes, our own panels" on the decision card asking "Use our own panels, one Gerber per board type, quantity 2 each?"」、記録 `engineering/a7/procurement/owner-decisions.json`
 
-- **完成ケーブル（電源 57 mm、SH4、IDC リボン）をどう用意しますか。** → ケーブル製作業者に仕様どおり注文する（オーナーの回答、`assembly:finished-cables`）。原文「5 accept all」、記録 `engineering/a7/procurement/owner-decisions.json`
+- **完成ケーブル（電源ケーブル、SH4、IDC リボン）をどう用意しますか。（2026-11-12 の質問時は旧 1.6 mm 設計の電源 57 mm。現行 0.8 mm 設計の要求は 55 ± 3 mm、52–58 mm）** → ケーブル製作業者に仕様どおり注文する（オーナーの回答、`assembly:finished-cables`）。原文「5 accept all」、記録 `engineering/a7/procurement/owner-decisions.json`
 
 - **R7 を流れる電流の上限 0.313 mA（推定を含む計算）を合否基準にしますか。** → 採る（オーナーの回答、`criterion:u7-stress`）。原文「5 accept all」、記録 `engineering/a7/procurement/owner-decisions.json`
 

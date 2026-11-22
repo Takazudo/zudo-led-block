@@ -1095,7 +1095,7 @@ def markdown(plan, report):
     lines += ['## ゲートの区分', '', '| 区分 | ゲート数 |', '|---|---:|']
     lines += ['| '+c+'（'+CLASS_JA[c]+'） | '+str(report['gate_counts'][c])+' |' for c in CLASSES]
     lines += ['', '## 現在のブロッカー', '']+['- '+r for r in report['blockers']]
-    lines += ['', '## 別案', '', '- PET: '+plan['optional_variants']['pet'], '- 2HP: '+plan['optional_variants']['2hp'], '']
+    lines += ['', '## 撤回・不採用の別案（保留中の候補ではない）', '', '- PET: '+plan['optional_variants']['pet'], '- 2HP: '+plan['optional_variants']['2hp'], '']
     return '\n'.join(lines)
 
 

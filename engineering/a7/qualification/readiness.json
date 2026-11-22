@@ -55,7 +55,7 @@
       "sha256": "9225919ce1a44ca70be6c66e081c3d53c23b25421848ac243a6c991215bb320d"
     }
   },
-  "plan_sha256": "650dbe95b752736ba44b146c911ed65e676643e318c72847f13a7dad11b637f3",
+  "plan_sha256": "e361473a36076b6acabf08ffb90e07942372379a8fce397d28c2cccf27442634",
   "procedures": [
     {
       "id": "jack-continuity",
@@ -616,8 +616,8 @@
     }
   ],
   "optional_variants": {
-    "pet": "Q11/Q11a–f: process, copper/vias/coverlay, lamination, force and optical tests remain separate. Reuse pet-fpc.md questions 1–9; not sent.",
-    "2hp": "Parked: Q1/Q6 evidence, owner choice, 0.8 mm controller and new routing required."
+    "pet": "Withdrawn: the owner withdrew transparent PET/FPC on 2026-11-17 (#87); pet-fpc.md and the Q11 supplier questions are history and were never sent. Not a pending alternative.",
+    "2hp": "Rejected: the evaluated 2HP arrangement was not adopted in #87 / PR #88; 3HP (14.9 mm) is the current width and the 2HP findings are pinned by CAD tests. Not a pending alternative."
   },
   "limit": "Schema validation is not measurement authenticity, hardware approval, a release authorization or an order. No order is submitted by this command."
 }

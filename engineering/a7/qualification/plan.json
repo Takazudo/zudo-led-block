@@ -3765,8 +3765,8 @@
     }
   ],
   "optional_variants": {
-    "pet": "Q11/Q11a–f: process, copper/vias/coverlay, lamination, force and optical tests remain separate. Reuse pet-fpc.md questions 1–9; not sent.",
-    "2hp": "Parked: Q1/Q6 evidence, owner choice, 0.8 mm controller and new routing required."
+    "pet": "Withdrawn: the owner withdrew transparent PET/FPC on 2026-11-17 (#87); pet-fpc.md and the Q11 supplier questions are history and were never sent. Not a pending alternative.",
+    "2hp": "Rejected: the evaluated 2HP arrangement was not adopted in #87 / PR #88; 3HP (14.9 mm) is the current width and the 2HP findings are pinned by CAD tests. Not a pending alternative."
   },
   "owner_actions": [
     {
@@ -4045,12 +4045,12 @@
     {
       "gate": "assembly:finished-cables",
       "stage": "BENCH",
-      "question": "完成ケーブル（電源 57 mm、SH4、IDC リボン）をどう用意しますか。",
+      "question": "完成ケーブル（電源ケーブル、SH4、IDC リボン）をどう用意しますか。（2026-11-12 の質問時は旧 1.6 mm 設計の電源 57 mm。現行 0.8 mm 設計の要求は 55 ± 3 mm、52–58 mm）",
       "options": [
         {
           "id": "assembler",
           "label": "ケーブル製作業者に仕様どおり注文する",
-          "consequence": "電源ケーブル 57 mm の公差の保証を業者に求められる（回答は未取得）。保証が得られれば harness-depth の注文範囲が確定する。見積もりと業者への連絡が必要。"
+          "consequence": "電源ケーブル 55 ± 3 mm（52–58 mm、現行 0.8 mm 設計）の公差の保証を業者に求められる（回答は未取得）。保証が得られれば harness-depth の注文範囲が確定する。見積もりと業者への連絡が必要。"
         },
         {
           "id": "diy",
@@ -4064,7 +4064,7 @@
         }
       ],
       "recommended": "assembler",
-      "reason": "A7 の電源ケーブルは 57 mm（±3 は仮定）で、A5 の Molex 151340300（50 ± 6 mm）は A7 用ではない。長さの公差を確かめられるのは製作業者なので、業者に頼むのが確実。",
+      "reason": "A7 の電源ケーブルの現行要求は 55 ± 3 mm（52–58 mm、0.8 mm 設計。±3 は仮定。旧 1.6 mm 設計では 57 mm）で、A5 の Molex 151340300（50 ± 6 mm）は A7 用ではない。長さの公差を確かめられるのは製作業者なので、業者に頼むのが確実。オーナーの回答（業者に注文）は用意の方法についてで、55 ± 3 mm の受入ではない（harness-depth は未決）。",
       "sources": [
         {
           "path": "engineering/a7/procurement/assembly-manifest.json",
@@ -4230,7 +4230,7 @@
           "quote": "5 accept all"
         },
         "status": "PLAN_ACCEPTED",
-        "remains": "上限 75 °C は受入値に反映済み。PETG/PMMA の温度限界（製造元の資料が未取得）と見え方の合否（試験時にオーナーが判断）が残るので、基準ゲートは開いたまま。"
+        "remains": "上限 75 °C は受入値に反映済み。SW1（HX MSK13C02）だけは動作上限 +70 °C で判定する（switch-temp、procedure に記載）。PETG/PMMA の温度限界（製造元の資料が未取得）と見え方の合否（試験時にオーナーが判断）が残るので、基準ゲートは開いたまま。"
       }
     },
     {

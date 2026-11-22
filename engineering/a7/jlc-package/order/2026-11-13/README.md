@@ -1,3 +1,11 @@
+> **HISTORICAL — SUPERSEDED — DO NOT UPLOAD (banner added 2026-11-22, #89).** This set was exported from the
+> pre-#88 boards: controller `89310d53…e727` at **1.6 mm**, LED leaf `6244280c…1df3` (A5 file) at **0.6 mm**, power
+> adapter `b0f071f2…5187`. PR #88 replaced the controller and LED leaf with 0.8 mm rigid FR-4 boards (controller
+> `d83691d6…db2b`, leaf `bcf2e35d…94cf9`). The settings table below (1.6 mm / 0.6 mm) and the owner prototype-route
+> approvals of 2026-11-12/13 apply only to these old identities. The files listed in `SHA256SUMS` and the approval
+> records are kept unchanged as history. The current set is the one named `current` in
+> `engineering/a7/jlc-package/package-sets.json`; everything below this banner is the original 2026-11-13 text.
+
 # JLCPCB order files: A7 test prototype, 2 units (2026-11-13)
 
 Exported from `main` at `db0ca95` (after PR #79, HX MSK13C02 switch version) with the pinned
