@@ -448,11 +448,11 @@ NON_SELECTED_OPEN_FINDINGS = {
 
 class Exports(unittest.TestCase):
     def assertPinned(self, got, pinned, msg):
-        """Same (a, b) pairs as pinned, each value within 1e-3 of its pinned value."""
+        """Same (a, b) pairs as pinned, and each value equal to its pinned value at the builder's 3-decimal rounding."""
         want = sorted(pinned)
         self.assertEqual([g[:2] for g in got], [w[:2] for w in want], msg)
         for g, w in zip(got, want):
-            self.assertAlmostEqual(g[2], w[2], delta=1e-3, msg=(msg, g))
+            self.assertAlmostEqual(g[2], w[2], delta=5e-4, msg=(msg, g))
 
     def test_pinned_exceptions_never_cover_the_default_width(self):
         self.assertNotIn(L["decision"]["default_variant"], NON_SELECTED_OPEN_FINDINGS)
@@ -497,9 +497,9 @@ class Exports(unittest.TestCase):
                         got = supports[part][k]
                         if isinstance(val, list):
                             for g, w in zip(got, val, strict=True):
-                                self.assertAlmostEqual(g, w, delta=1e-3, msg=(name, s_, part, k))
+                                self.assertAlmostEqual(g, w, delta=5e-4, msg=(name, s_, part, k))
                         else:
-                            self.assertAlmostEqual(got, val, delta=1e-3, msg=(name, s_, part, k))
+                            self.assertAlmostEqual(got, val, delta=5e-4, msg=(name, s_, part, k))
                 for h in o["a7_harness_obstructions"]:
                     self.assertGreaterEqual(h["min_distance_to_emitter_mm"], 1.0, (name, s_, h))
                 origins = {x["part"]: x["origin"] for x in o["obstructions"]}

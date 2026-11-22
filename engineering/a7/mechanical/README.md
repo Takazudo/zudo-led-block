@@ -27,10 +27,10 @@ No threshold or corridor definition was changed.
 end caps stay. The test is now `Exports::test_cad_verification_current_and_pinned`: the zero-count support
 assertion is replaced by exact pins. In each corridor of each width, exactly `top_leaf_adapter_cap` and
 `bottom_leaf_cap` are allowed, with their recorded volume, projected area, Y/Z extent and emitter distance
-(±0.001), and every LED's `blocked_by_supports` must reproduce its recorded value (±0.002), with the middle LEDs
+(unchanged at 3 decimals), and every LED's `blocked_by_supports` must reproduce its recorded value (±0.002), with the middle LEDs
 at ≤ 0.005. Any other support or controller part in a corridor, a duplicated or moved cap, a missing side or
 changed shading fails. The rejected 2HP width's rigid and cable findings are pinned the same way (same pairs,
-values ±0.001), and a width with pinned open findings cannot be the default. 3HP must still have no rigid
+values unchanged at the builder's 3-decimal rounding), and a width with pinned open findings cannot be the default. 3HP must still have no rigid
 intersection and no cable finding under 0.05 mm. The shading figures stay an estimate: whether the end-LED
 shading is visible is checked on the real build (#10).
 
