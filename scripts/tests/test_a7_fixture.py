@@ -119,4 +119,97 @@ class NativeGeometryBindingTests(unittest.TestCase):
         self.assertFalse(r['fresh_native_verified'])
         self.assertFalse(r['digital_criteria_1_to_4_met'])
 
+class CandidateTests(unittest.TestCase):
+    """The proposed replacement candidate sits beside the retained geometry and claims no more than its record shows."""
+    def rec(self):
+        return json.loads(f.CANDIDATE_RECORD.read_text())
+
+    def test_candidate_is_bound_beside_the_retained_geometry_and_sets_no_flag(self):
+        r=f.report();c=r['proposed_replacement_candidate']
+        self.assertTrue(c['bound'],c.get('problems'))
+        self.assertFalse(c['replaces_retained_geometry'])
+        self.assertIn('not selected',c['status']);self.assertIn('not physically validated',c['status'])
+        self.assertEqual(c['step_sha256'],f.digest(f.CANDIDATE_STEP));self.assertEqual(c['record_sha256'],f.digest(f.CANDIDATE_RECORD))
+        # the retained result stands: criterion 3 rejected, nothing completed
+        self.assertFalse(r['completion_criteria']['3_stroke_stop_guide_fixing_insulation_wiring']['met'])
+        self.assertFalse(r['digital_criteria_1_to_4_met']);self.assertFalse(r['digital_fixture_complete']);self.assertEqual(r['status'],'BLOCKED')
+        self.assertEqual(r['b_side_relief']['holddown']['layout_status'],'REJECTED_INSUFFICIENT_FORCE')
+        self.assertNotEqual(r['b_side_relief']['holddown']['contacts_board_mm'],c['candidate']['contacts_board_mm'])
+        for hold in ('Machining availability','Material selection','Fabrication suitability','Wear, creep','Physical criterion 5'):
+            self.assertTrue(any(h.startswith(hold) for h in c['holds']),hold)
+
+    def test_candidate_geometry_corresponds_to_the_condition_matrix(self):
+        rec=self.rec();m=json.loads(f.CONDITION_MATRIX.read_text())
+        self.assertEqual(f.candidate_matrix_correspondence(rec,m),[])
+        self.assertEqual(rec['candidate']['contact_diameters_mm'],[1.5,1.2]);self.assertEqual(rec['candidate']['stepped_tip_length_mm'],0.5)
+        self.assertEqual([t['thickness_mm'] for t in rec['thickness_cases']],[0.7,0.8,0.9])
+        for mutate,why in ((lambda r,m:r['candidate']['contact_diameters_mm'].__setitem__(1,1.5),'contact diameters'),
+                           (lambda r,m:r['candidate']['contacts_board_mm'].__setitem__(1,[15.3,26.5]),'pin sites'),
+                           (lambda r,m:r['candidate'].__setitem__('stepped_tip_length_mm',0.4),'stepped-tip length'),
+                           (lambda r,m:r['candidate']['j5_notch_board_mm'].__setitem__(1,24.2),'J5 notch'),
+                           (lambda r,m:r['thickness_cases'][0]['compression_mm'].__setitem__('range',[0.5,1.1]),'outside the matrix band'),
+                           (lambda r,m:m.__setitem__('thicknesses_mm',[0.8]),'thicknesses')):
+            r2,m2=copy.deepcopy(rec),copy.deepcopy(m);mutate(r2,m2)
+            with self.subTest(why=why):self.assertTrue(any(why in p for p in f.candidate_matrix_correspondence(r2,m2)))
+
+    def test_wrong_tip_diameter_or_stale_native_record_unbinds_the_candidate(self):
+        import a7_fixture_support as support
+        with patch.object(support,'stepped_tip_contacts',return_value=[1.5,1.5]):
+            self.assertFalse(f.candidate_status()['bound'])
+        with patch.dict(support.STEPPED_TIP,{'tip_length_mm':0.6}):
+            self.assertFalse(f.candidate_status()['bound'])
+        real=f.digest
+        with patch.object(f,'digest',side_effect=lambda q:'e'*64 if Path(q).name=='native-geometry.json' else real(q)):
+            st=f.candidate_status()
+        self.assertFalse(st['bound']);self.assertTrue(any('native record' in p for p in st['problems']))
+        rec=self.rec()
+        self.assertEqual(rec['model_inputs']['native_geometry_sha256'],f.digest(f.native_geom.RECORD))
+        self.assertEqual(json.loads(f.native_geom.RECORD.read_text())['board_sha256'],f.BOARD_SHA)
+
+    def test_tampered_candidate_record_or_step_is_rejected_by_the_producer(self):
+        real=f.digest
+        with patch.object(f,'digest',side_effect=lambda q:'c'*64 if Path(q).name=='candidate-assembly.step' else real(q)):
+            self.assertFalse(f.candidate_status()['bound'])
+            with self.assertRaisesRegex(ValueError,'canonical producer'):
+                f.validate_report(json.loads((f.OUT/'manifest.json').read_text()))
+
+    def test_candidate_cad_is_clean_at_every_thickness(self):
+        rec=self.rec();prev=None
+        for t in rec['thickness_cases']:
+            with self.subTest(t=t['thickness_mm']):
+                self.assertEqual(t['interferences'],[])
+                self.assertTrue(all(c['touching'] for c in t['designed_contacts']))
+                self.assertEqual(len({c['contact'] for c in t['designed_contacts']}),4)
+                self.assertTrue(all(c['minimum_mm']>0 for c in t['clearances']))
+                self.assertTrue(all(t['checks'].values()),t['checks'])
+                lo,hi=t['compression_mm']['range'];self.assertGreater(lo,0);self.assertLessEqual(hi,1.3+1e-9)
+                self.assertEqual([p['contact_diameter_mm'] for p in t['pins']],[1.5,1.2])
+                if prev is not None:self.assertGreater(t['compression_mm']['nominal'],prev)  # thicker board, more compression
+                prev=t['compression_mm']['nominal']
+
+    def test_registration_finding_is_recorded_not_hidden(self):
+        rec=self.rec();reg=rec['registration']
+        self.assertTrue(rec['checks']['registration_closes_with_recorded_budget'])
+        self.assertFalse(rec['checks']['registration_closes_with_modelled_plate_location'])
+        self.assertFalse(rec['all_digital_checks_met'])
+        self.assertEqual(reg['pressure_plate_location']['worst_plate_offset_mm'],0.4)
+        m=json.loads(f.CONDITION_MATRIX.read_text())['adopted_candidate']
+        self.assertEqual([r['contact_edge_margin_recorded_budget_mm'] for r in rec['clamps']],
+                         [c['contact_edge_margin_worst_mm'] for c in m['clamps']])
+        self.assertTrue(any(r['contact_edge_margin_with_plate_float_mm']<0 for r in rec['clamps']))
+        self.assertIn('ASSUMED',json.dumps(rec['thickness_cases'][0]['contact_stress']))
+
+    @unittest.skipUnless(importlib.util.find_spec('cadquery'),'CadQuery 2.7.0 not installed')
+    def test_built_tip_follows_the_spec_and_a_full_size_tip_is_refused(self):
+        import a7_fixture_relief as rl
+        geometry=json.loads(f.native_geom.RECORD.read_text())['geometry']
+        pads=f.probe_map(f.bound_r4_placement(),f.BOARD.read_text())
+        rel,tips=f.candidate_design(geometry,pads)
+        with self.assertRaisesRegex(ValueError,'thinner than the pin'):
+            f.relief_assembly.build(rel,pads,geometry,rl,pin_tips=[None,{'contact_diameter_max_mm':1.5,'tip_length_mm':0.5}])
+        wrong=f.relief_assembly.build(rel,pads,geometry,rl,pin_tips=[None,{'contact_diameter_max_mm':1.3,'tip_length_mm':0.5}])
+        plan=f.relief_assembly.pin_plan(wrong,rl.BOARD,rl.BOARD_THICKNESS)
+        self.assertEqual([p['contact_diameter_mm'] for p in plan],[1.5,1.3])
+        self.assertLess(plan[1]['contact_edge_margin_nominal_mm'],0.275)
+
 if __name__=='__main__':unittest.main()

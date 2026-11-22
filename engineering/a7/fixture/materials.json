@@ -43,12 +43,18 @@
     },
     {
       "id": "pressure-plate",
-      "description": "Machined FR-4 pressure plate 37.2 x 16 x 6 mm (rigid): J5 notch (internal radius 1.1 mm), 2 stop holes 3.4 mm (G1, G2), 2 M4 tapped holes (3.3 mm drill, at least 1.0 mm web at the 4.0 mm thread) for the hold-down plungers",
+      "description": "RETAINED geometry: machined FR-4 pressure plate 37.2 x 16 x 6 mm (rigid): J5 notch (internal radius 1.1 mm), 2 stop holes 3.4 mm (G1, G2), 2 M4 tapped holes (3.3 mm drill, at least 1.0 mm web at the 4.0 mm thread) for the hold-down plungers at the retained pin sites; the retained layout does not meet criterion 3 on the 0.7-0.9 mm board",
       "quantity": 1,
       "manufacturer": null,
       "mpn": null,
       "status": "DIGITAL_DESIGN_NOT_SELECTED",
-      "source": "manifest.json#b_side_relief.pressure_plate"
+      "source": "manifest.json#b_side_relief.pressure_plate",
+      "proposed_replacement_candidate": {
+        "layout": "optical_stepped_tip",
+        "status": "PROPOSED, not selected, not approved, not physically validated",
+        "description": "same 37.2 x 16 x 6 mm plate with the J5 notch [4.695, 23.2, 12.2, 29.5] board mm (internal radius 1.1 mm) and the M4 tapped holes at (1.2, 20.8) and (15.325, 26.375) board mm; worst-case thread web 1.0 mm to the notch and to the plate edge; the plate needs a locating feature (or an owner-accepted gauge procedure) to hold the pin-to-board-edge margins",
+        "source": "manifest.json#proposed_replacement_candidate; candidate-assembly-interference.json"
+      }
     },
     {
       "id": "base-plate",
@@ -142,12 +148,25 @@
     },
     {
       "id": "hold-down-plungers",
-      "description": "M4 spring plungers with an insulating (POM) thrust pin, 1.5 mm pin, 1.5 mm stroke, 15 mm long, threaded into the pressure plate at (14.1, 21.7) and (14.2, 16.5) board mm; free pin tip set 5.39 +/-0.1 mm below the plate underside; force at 0.62 and 1.30 mm compression each within +/-20 % of the catalogue line (5 N initial, 16 N final), total at least 12.7 N at every worst case",
+      "description": "RETAINED geometry: M4 spring plungers with an insulating (POM) thrust pin, 1.5 mm pin, 1.5 mm stroke, 15 mm long, threaded into the pressure plate at (14.1, 21.7) and (14.2, 16.5) board mm; free pin tip set 6.25 +/-0.1 mm below the plate underside; force at both compression ends each within +/-20 % of the catalogue line (5 N initial, 16 N final); on the 0.7-0.9 mm board this layout does not reach the 12.7 N minimum total (criterion 3 not met)",
       "quantity": 2,
       "manufacturer": null,
       "mpn": null,
       "status": "REQUIRED_NOT_SELECTED",
-      "source": "manifest.json#b_side_relief.holddown.plunger_candidate"
+      "source": "manifest.json#b_side_relief.holddown.plunger_candidate",
+      "proposed_replacement_candidate": {
+        "layout": "optical_stepped_tip",
+        "status": "PROPOSED, not selected, not approved, not physically validated",
+        "description": "the same plunger (K0318.04 class) at (1.2, 20.8) and (15.325, 26.375) board mm, free pin tip 6.25 +/-0.1 mm below the plate underside; the second pin modified by turning its board-contact end to at most 1.2 mm diameter over 0.5 mm length (gauge: swept tip envelope <=1.2 mm including play, runout and tilt; tip face flat and square); force each within +/-20 % of the catalogue line at 0.79 and 1.30 mm compression",
+        "holds": [
+          "machining availability and supplier for the turned tip",
+          "POM grade not printed; the 20 MPa contact allowable is ASSUMED",
+          "fabrication suitability not confirmed",
+          "wear, creep and board/solder-mask damage are physical checks",
+          "physical criterion 5 NOT_MEASURED"
+        ],
+        "source": "condition-matrix.json#adopted_candidate; candidate-assembly-interference.json"
+      }
     },
     {
       "id": "wire-retention",
@@ -162,6 +181,7 @@
   "blockers": [
     "No fixture part is selected: plates are digital designs and hardware lines are requirements. manifest.json#hardware_proposal lists one sourced candidate per line as a proposal awaiting owner approval; fabricator and supplier are owner choices.",
     "Probe-plate bores leave 0.40 mm between bores at the fixed 1.4 mm test-point pitch: within the INGUN grid, below the 1.0 mm milled-wall guidance; the chosen fabricator must confirm drilling it.",
-    "No current price, MOQ, lead time or availability retrieved; no supplier-upload package."
+    "No current price, MOQ, lead time or availability retrieved; no supplier-upload package.",
+    "The proposed replacement candidate (manifest.json#proposed_replacement_candidate) needs a revised pressure plate and a turned-tip modification of one thrust pin: neither is sourced, selected or approved, and its plate location is not closed."
   ]
 }

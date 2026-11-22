@@ -1,0 +1,1123 @@
+{
+  "schema": 1,
+  "tool": "CadQuery 2.7.0",
+  "status": "PROPOSED_REPLACEMENT_CANDIDATE: calculated and digitally modelled, not selected, not approved, not physically validated",
+  "scope": "digital CAD model and interference/clearance/stroke check of the proposed replacement candidate, built beside the retained fixture geometry; not a fit result, not a selection and not a fabrication approval",
+  "model_inputs_sha256": "0123e0bedc1769d15dc9040c3161d0673ec49e22c496d496c93af6811e0a42a1",
+  "model_inputs": {
+    "design_sha256": "6d85ceb00eb62252881e59dd053f4502b25665e02997c60d6c6ddf9e47656970",
+    "assembly_code_sha256": "774601fdcad0ec6c5b61f01c8b9db08b16f121a88de615f69095e740dd191b5c",
+    "native_geometry_sha256": "dd7cd452ad659bc29bea41691b92a1480885a24e705ce72c05ae3f20b98d1a8b",
+    "cadquery": "2.7.0",
+    "pin_tips": [
+      null,
+      {
+        "contact_diameter_max_mm": 1.2,
+        "tip_length_mm": 0.5
+      }
+    ],
+    "thicknesses_mm": [
+      0.7,
+      0.8,
+      0.9
+    ],
+    "support_code_sha256": "b4fc7df3f6c5317b75d59e5c7f85bdaa0d856f5ea090d05b9c5bc6378487ca8b",
+    "relief_code_sha256": "ccec9957aa992d676b43680216662d7709f029056b4b9f45b05a4e9af535ac9c"
+  },
+  "step_sha256": "b35cef8346947313b36e6d79bb235d7eb29166b6ecf7b0842e843530174e656c",
+  "step_board_thickness_mm": 0.8,
+  "method": "as assembly-interference.json for each finished board thickness; the board B face stays on the carrier and the plunger sleeves stay where the plate and the pin setting put them (displacement control)",
+  "interference_threshold_mm3": 0.001,
+  "candidate": {
+    "layout": "optical_stepped_tip",
+    "relief_candidate": "optical_full_pin",
+    "contacts_board_mm": [
+      [
+        1.2,
+        20.8
+      ],
+      [
+        15.325,
+        26.375
+      ]
+    ],
+    "contact_diameters_mm": [
+      1.5,
+      1.2
+    ],
+    "stepped_tip": {
+      "clamp_index": 1,
+      "contact_diameter_max_mm": 1.2,
+      "tip_length_mm": 0.5,
+      "status": "PROPOSED modification of the K0318.04 POM thrust pin (turned tip); not sourced, not selected, awaiting owner approval and fabrication review",
+      "gauge_requirement": "swept tip envelope at board-contact height <=1.2 mm diameter including play, runout and tilt; tip face flat and square; tip length 0.5 mm so the 1.5 mm shank never touches the board"
+    },
+    "stepped_tip_length_mm": 0.5,
+    "pin_shank_diameter_mm": 1.5,
+    "plunger": "K0318.04",
+    "j5_notch_board_mm": [
+      4.695,
+      23.2,
+      12.2,
+      29.5
+    ],
+    "notch_corner_radius_mm": 1.1,
+    "pressure_plate_outline_board_mm": [
+      -10.5,
+      13.5,
+      26.7,
+      29.5
+    ],
+    "pressure_plate_z_mm": [
+      6.0,
+      12.0
+    ],
+    "pin_setting_below_plate_underside_mm": {
+      "free_pin_tip_below_plate_underside": 6.25,
+      "tolerance": 0.1
+    },
+    "local_notch_clearance_requirement_mm": 0.3,
+    "retained_notch_clearance_requirement_mm": 0.5,
+    "pressure_plate_webs": [
+      {
+        "hole": "C2",
+        "to": "J5 notch",
+        "web_mm": 1.125
+      },
+      {
+        "hole": "C2",
+        "to": "plate edge",
+        "web_mm": 1.125
+      },
+      {
+        "hole": "C1",
+        "to": "J5 notch",
+        "web_mm": 2.239696
+      },
+      {
+        "hole": "G1",
+        "to": "plate edge",
+        "web_mm": 3.3
+      },
+      {
+        "hole": "G2",
+        "to": "plate edge",
+        "web_mm": 3.3
+      },
+      {
+        "hole": "G2",
+        "to": "C2",
+        "web_mm": 3.37787
+      },
+      {
+        "hole": "G1",
+        "to": "C1",
+        "web_mm": 3.451224
+      },
+      {
+        "hole": "C1",
+        "to": "plate edge",
+        "web_mm": 5.3
+      },
+      {
+        "hole": "G2",
+        "to": "J5 notch",
+        "web_mm": 7.8
+      },
+      {
+        "hole": "G1",
+        "to": "J5 notch",
+        "web_mm": 8.495
+      },
+      {
+        "hole": "C1",
+        "to": "C2",
+        "web_mm": 11.185396
+      },
+      {
+        "hole": "G2",
+        "to": "C1",
+        "web_mm": 16.951876
+      }
+    ],
+    "pressure_plate_web_conflicts": []
+  },
+  "thickness_cases": [
+    {
+      "thickness_mm": 0.7,
+      "solids": 129,
+      "interferences": [],
+      "touching_or_zero_volume_pairs": 155,
+      "clearances": [
+        {
+          "pair": "B-face bodies and leads to support carrier",
+          "minimum_mm": 0.3053,
+          "between": [
+            "R4 B-face body/lead",
+            "support_carrier"
+          ]
+        },
+        {
+          "pair": "J5 leads at their full sourced tail length to carrier and probe plate",
+          "minimum_mm": 0.4293,
+          "between": [
+            "J5.1 B-face body/lead",
+            "support_carrier"
+          ]
+        },
+        {
+          "pair": "probes and receptacles to support carrier",
+          "minimum_mm": 0.773,
+          "between": [
+            "TP2 KS-050 receptacle",
+            "support_carrier"
+          ]
+        },
+        {
+          "pair": "receptacle tails to base plate",
+          "minimum_mm": 7.6,
+          "between": [
+            "TP1 KS-050 receptacle",
+            "base_plate"
+          ]
+        },
+        {
+          "pair": "F-side bodies to pressure plate",
+          "minimum_mm": 0.4269,
+          "between": [
+            "J5 F-side body (courtyard x height)",
+            "pressure_plate"
+          ]
+        },
+        {
+          "pair": "F-side bodies to plunger pins and sleeves",
+          "minimum_mm": 0.605,
+          "between": [
+            "U7 F-side body (courtyard x height)",
+            "C1 K0318.04 steel sleeve"
+          ]
+        },
+        {
+          "pair": "board to the stop standoffs",
+          "minimum_mm": 2.2855,
+          "between": [
+            "U1 F-side body (courtyard x height)",
+            "G1 M3 F-F hex standoff 6 (stop)"
+          ]
+        },
+        {
+          "pair": "metal hardware to probes and receptacles",
+          "minimum_mm": 1.25,
+          "between": [
+            "C2 K0318.04 steel sleeve",
+            "TP5 GKS-050 probe (compressed envelope)"
+          ]
+        },
+        {
+          "pair": "J5 body (courtyard x height) to the pressure-plate notch",
+          "minimum_mm": 0.4269,
+          "between": [
+            "J5 F-side body (courtyard x height)",
+            "pressure_plate"
+          ]
+        },
+        {
+          "pair": "pins and sleeves to the stop standoffs and plate screws",
+          "minimum_mm": 2.2379,
+          "between": [
+            "C2 K0318.04 steel sleeve",
+            "G2 M3x8 socket head screw (plate)"
+          ]
+        }
+      ],
+      "designed_contacts": [
+        {
+          "contact": "board B face seats on the support carrier",
+          "between": [
+            "controller board",
+            "support_carrier"
+          ],
+          "distance_mm": 0.0,
+          "touching": true
+        },
+        {
+          "contact": "plunger POM pin on the F face",
+          "between": [
+            "controller board",
+            "C1 K0318.04 POM thrust pin"
+          ],
+          "distance_mm": 0.0,
+          "touching": true
+        },
+        {
+          "contact": "plunger POM pin on the F face",
+          "between": [
+            "controller board",
+            "C2 K0318.04 POM thrust pin, stepped tip 1.2x0.5"
+          ],
+          "distance_mm": 0.0,
+          "touching": true
+        },
+        {
+          "contact": "probe tip on its test pad (working stroke)",
+          "between": [
+            "controller board",
+            "TP1 GKS-050 probe (compressed envelope)"
+          ],
+          "distance_mm": 0.0,
+          "touching": true
+        },
+        {
+          "contact": "probe tip on its test pad (working stroke)",
+          "between": [
+            "controller board",
+            "TP2 GKS-050 probe (compressed envelope)"
+          ],
+          "distance_mm": 0.0,
+          "touching": true
+        },
+        {
+          "contact": "probe tip on its test pad (working stroke)",
+          "between": [
+            "controller board",
+            "TP3 GKS-050 probe (compressed envelope)"
+          ],
+          "distance_mm": 0.0,
+          "touching": true
+        },
+        {
+          "contact": "probe tip on its test pad (working stroke)",
+          "between": [
+            "controller board",
+            "TP4 GKS-050 probe (compressed envelope)"
+          ],
+          "distance_mm": 0.0,
+          "touching": true
+        },
+        {
+          "contact": "probe tip on its test pad (working stroke)",
+          "between": [
+            "controller board",
+            "TP5 GKS-050 probe (compressed envelope)"
+          ],
+          "distance_mm": 0.0,
+          "touching": true
+        },
+        {
+          "contact": "board edge on a datum pin",
+          "between": [
+            "controller board",
+            "X1 datum pin 2x6"
+          ],
+          "distance_mm": 0.0,
+          "touching": true
+        },
+        {
+          "contact": "board edge on a datum pin",
+          "between": [
+            "controller board",
+            "X2 datum pin 2x6"
+          ],
+          "distance_mm": 0.0,
+          "touching": true
+        },
+        {
+          "contact": "board edge on a datum pin",
+          "between": [
+            "controller board",
+            "Y1 datum pin 2x6"
+          ],
+          "distance_mm": 0.0,
+          "touching": true
+        }
+      ],
+      "pins": [
+        {
+          "pin": "C1 K0318.04 POM thrust pin",
+          "contact_diameter_mm": 1.5,
+          "contact_edge_margin_nominal_mm": 0.45,
+          "shank_diameter_mm": 1.5,
+          "shank_edge_margin_nominal_mm": 0.45,
+          "contact_face_z_mm": 0.7,
+          "sleeve_end_above_f_face_mm": 0.55
+        },
+        {
+          "pin": "C2 K0318.04 POM thrust pin, stepped tip 1.2x0.5",
+          "contact_diameter_mm": 1.2,
+          "contact_edge_margin_nominal_mm": 0.275,
+          "shank_diameter_mm": 1.5,
+          "shank_edge_margin_nominal_mm": 0.125,
+          "contact_face_z_mm": 0.7,
+          "sleeve_end_above_f_face_mm": 0.55
+        }
+      ],
+      "compression_mm": {
+        "nominal": 0.95,
+        "range": [
+          0.789145,
+          1.1
+        ],
+        "basis": "stroke minus the pin length below the sleeve end in the CAD; +/- stop length and pin setting tolerances; the minimum also loses the plate deflection and the contact-model board sag at maximum force for this thickness (condition-matrix.json)"
+      },
+      "plunger_force_each_N": [
+        8.629651,
+        15.68
+      ],
+      "total_force_min_N": 17.259302,
+      "required_total_force_N": 12.7,
+      "contact_stress": [
+        {
+          "contact_diameter_mm": 1.5,
+          "contact_area_mm2": 1.767146,
+          "force_max_N": 15.68,
+          "mean_contact_pressure_MPa": 8.873065,
+          "allowable_MPa": 20.0,
+          "allowable_class": "ASSUMED",
+          "utilisation": 0.443653,
+          "within_assumed_allowable": true,
+          "tip_elastic_shortening_mm": 0.001584,
+          "model": "uniform pressure on a flat end; edge stress concentration, creep, abrasion and the solder-mask surface are not modelled and remain physical checks"
+        },
+        {
+          "contact_diameter_mm": 1.2,
+          "contact_area_mm2": 1.130973,
+          "force_max_N": 15.68,
+          "mean_contact_pressure_MPa": 13.864164,
+          "allowable_MPa": 20.0,
+          "allowable_class": "ASSUMED",
+          "utilisation": 0.693208,
+          "within_assumed_allowable": true,
+          "tip_elastic_shortening_mm": 0.002476,
+          "model": "uniform pressure on a flat end; edge stress concentration, creep, abrasion and the solder-mask surface are not modelled and remain physical checks"
+        }
+      ],
+      "matrix_load_corners": 8,
+      "matrix_worst_probe_displacement_mm": 0.02429192,
+      "matrix_worst_land_lift_mm": 0.048031796,
+      "matrix_corners_within_limits": true,
+      "checks": {
+        "no_interference": true,
+        "critical_clearances_positive": true,
+        "designed_contacts_touch": true,
+        "j5_notch_clearance_meets_local_requirement": true,
+        "f_side_bodies_to_plate_meet_local_requirement": true,
+        "board_contact_is_the_specified_diameter": true,
+        "compression_positive": true,
+        "compression_within_stroke": true,
+        "sleeve_end_clear_of_f_face_at_maximum_compression": true,
+        "clamp_force_min_meets_requirement": true,
+        "contact_pressure_within_assumed_allowable": true,
+        "matrix_load_corners_within_limits": true
+      }
+    },
+    {
+      "thickness_mm": 0.8,
+      "solids": 129,
+      "interferences": [],
+      "touching_or_zero_volume_pairs": 156,
+      "clearances": [
+        {
+          "pair": "B-face bodies and leads to support carrier",
+          "minimum_mm": 0.3053,
+          "between": [
+            "R4 B-face body/lead",
+            "support_carrier"
+          ]
+        },
+        {
+          "pair": "J5 leads at their full sourced tail length to carrier and probe plate",
+          "minimum_mm": 0.4293,
+          "between": [
+            "J5.1 B-face body/lead",
+            "support_carrier"
+          ]
+        },
+        {
+          "pair": "probes and receptacles to support carrier",
+          "minimum_mm": 0.773,
+          "between": [
+            "TP2 KS-050 receptacle",
+            "support_carrier"
+          ]
+        },
+        {
+          "pair": "receptacle tails to base plate",
+          "minimum_mm": 7.6,
+          "between": [
+            "TP1 KS-050 receptacle",
+            "base_plate"
+          ]
+        },
+        {
+          "pair": "F-side bodies to pressure plate",
+          "minimum_mm": 0.415,
+          "between": [
+            "J5 F-side body (courtyard x height)",
+            "pressure_plate"
+          ]
+        },
+        {
+          "pair": "F-side bodies to plunger pins and sleeves",
+          "minimum_mm": 0.605,
+          "between": [
+            "U7 F-side body (courtyard x height)",
+            "C1 K0318.04 steel sleeve"
+          ]
+        },
+        {
+          "pair": "board to the stop standoffs",
+          "minimum_mm": 2.2855,
+          "between": [
+            "U1 F-side body (courtyard x height)",
+            "G1 M3 F-F hex standoff 6 (stop)"
+          ]
+        },
+        {
+          "pair": "metal hardware to probes and receptacles",
+          "minimum_mm": 1.25,
+          "between": [
+            "C2 K0318.04 steel sleeve",
+            "TP5 GKS-050 probe (compressed envelope)"
+          ]
+        },
+        {
+          "pair": "J5 body (courtyard x height) to the pressure-plate notch",
+          "minimum_mm": 0.415,
+          "between": [
+            "J5 F-side body (courtyard x height)",
+            "pressure_plate"
+          ]
+        },
+        {
+          "pair": "pins and sleeves to the stop standoffs and plate screws",
+          "minimum_mm": 2.2379,
+          "between": [
+            "C2 K0318.04 steel sleeve",
+            "G2 M3x8 socket head screw (plate)"
+          ]
+        }
+      ],
+      "designed_contacts": [
+        {
+          "contact": "board B face seats on the support carrier",
+          "between": [
+            "controller board",
+            "support_carrier"
+          ],
+          "distance_mm": 0.0,
+          "touching": true
+        },
+        {
+          "contact": "plunger POM pin on the F face",
+          "between": [
+            "controller board",
+            "C1 K0318.04 POM thrust pin"
+          ],
+          "distance_mm": 0.0,
+          "touching": true
+        },
+        {
+          "contact": "plunger POM pin on the F face",
+          "between": [
+            "controller board",
+            "C2 K0318.04 POM thrust pin, stepped tip 1.2x0.5"
+          ],
+          "distance_mm": 0.0,
+          "touching": true
+        },
+        {
+          "contact": "probe tip on its test pad (working stroke)",
+          "between": [
+            "controller board",
+            "TP1 GKS-050 probe (compressed envelope)"
+          ],
+          "distance_mm": 0.0,
+          "touching": true
+        },
+        {
+          "contact": "probe tip on its test pad (working stroke)",
+          "between": [
+            "controller board",
+            "TP2 GKS-050 probe (compressed envelope)"
+          ],
+          "distance_mm": 0.0,
+          "touching": true
+        },
+        {
+          "contact": "probe tip on its test pad (working stroke)",
+          "between": [
+            "controller board",
+            "TP3 GKS-050 probe (compressed envelope)"
+          ],
+          "distance_mm": 0.0,
+          "touching": true
+        },
+        {
+          "contact": "probe tip on its test pad (working stroke)",
+          "between": [
+            "controller board",
+            "TP4 GKS-050 probe (compressed envelope)"
+          ],
+          "distance_mm": 0.0,
+          "touching": true
+        },
+        {
+          "contact": "probe tip on its test pad (working stroke)",
+          "between": [
+            "controller board",
+            "TP5 GKS-050 probe (compressed envelope)"
+          ],
+          "distance_mm": 0.0,
+          "touching": true
+        },
+        {
+          "contact": "board edge on a datum pin",
+          "between": [
+            "controller board",
+            "X1 datum pin 2x6"
+          ],
+          "distance_mm": 0.0,
+          "touching": true
+        },
+        {
+          "contact": "board edge on a datum pin",
+          "between": [
+            "controller board",
+            "X2 datum pin 2x6"
+          ],
+          "distance_mm": 0.0,
+          "touching": true
+        },
+        {
+          "contact": "board edge on a datum pin",
+          "between": [
+            "controller board",
+            "Y1 datum pin 2x6"
+          ],
+          "distance_mm": 0.0,
+          "touching": true
+        }
+      ],
+      "pins": [
+        {
+          "pin": "C1 K0318.04 POM thrust pin",
+          "contact_diameter_mm": 1.5,
+          "contact_edge_margin_nominal_mm": 0.45,
+          "shank_diameter_mm": 1.5,
+          "shank_edge_margin_nominal_mm": 0.45,
+          "contact_face_z_mm": 0.8,
+          "sleeve_end_above_f_face_mm": 0.45
+        },
+        {
+          "pin": "C2 K0318.04 POM thrust pin, stepped tip 1.2x0.5",
+          "contact_diameter_mm": 1.2,
+          "contact_edge_margin_nominal_mm": 0.275,
+          "shank_diameter_mm": 1.2,
+          "shank_edge_margin_nominal_mm": 0.275,
+          "contact_face_z_mm": 0.8,
+          "sleeve_end_above_f_face_mm": 0.45
+        }
+      ],
+      "compression_mm": {
+        "nominal": 1.05,
+        "range": [
+          0.889748,
+          1.2
+        ],
+        "basis": "stroke minus the pin length below the sleeve end in the CAD; +/- stop length and pin setting tolerances; the minimum also loses the plate deflection and the contact-model board sag at maximum force for this thickness (condition-matrix.json)"
+      },
+      "plunger_force_each_N": [
+        9.219855,
+        16.56
+      ],
+      "total_force_min_N": 18.43971,
+      "required_total_force_N": 12.7,
+      "contact_stress": [
+        {
+          "contact_diameter_mm": 1.5,
+          "contact_area_mm2": 1.767146,
+          "force_max_N": 16.56,
+          "mean_contact_pressure_MPa": 9.371043,
+          "allowable_MPa": 20.0,
+          "allowable_class": "ASSUMED",
+          "utilisation": 0.468552,
+          "within_assumed_allowable": true,
+          "tip_elastic_shortening_mm": 0.001673,
+          "model": "uniform pressure on a flat end; edge stress concentration, creep, abrasion and the solder-mask surface are not modelled and remain physical checks"
+        },
+        {
+          "contact_diameter_mm": 1.2,
+          "contact_area_mm2": 1.130973,
+          "force_max_N": 16.56,
+          "mean_contact_pressure_MPa": 14.642255,
+          "allowable_MPa": 20.0,
+          "allowable_class": "ASSUMED",
+          "utilisation": 0.732113,
+          "within_assumed_allowable": true,
+          "tip_elastic_shortening_mm": 0.002615,
+          "model": "uniform pressure on a flat end; edge stress concentration, creep, abrasion and the solder-mask surface are not modelled and remain physical checks"
+        }
+      ],
+      "matrix_load_corners": 8,
+      "matrix_worst_probe_displacement_mm": 0.016268932,
+      "matrix_worst_land_lift_mm": 0.03217024,
+      "matrix_corners_within_limits": true,
+      "checks": {
+        "no_interference": true,
+        "critical_clearances_positive": true,
+        "designed_contacts_touch": true,
+        "j5_notch_clearance_meets_local_requirement": true,
+        "f_side_bodies_to_plate_meet_local_requirement": true,
+        "board_contact_is_the_specified_diameter": true,
+        "compression_positive": true,
+        "compression_within_stroke": true,
+        "sleeve_end_clear_of_f_face_at_maximum_compression": true,
+        "clamp_force_min_meets_requirement": true,
+        "contact_pressure_within_assumed_allowable": true,
+        "matrix_load_corners_within_limits": true
+      }
+    },
+    {
+      "thickness_mm": 0.9,
+      "solids": 129,
+      "interferences": [],
+      "touching_or_zero_volume_pairs": 156,
+      "clearances": [
+        {
+          "pair": "B-face bodies and leads to support carrier",
+          "minimum_mm": 0.3053,
+          "between": [
+            "R4 B-face body/lead",
+            "support_carrier"
+          ]
+        },
+        {
+          "pair": "J5 leads at their full sourced tail length to carrier and probe plate",
+          "minimum_mm": 0.4293,
+          "between": [
+            "J5.1 B-face body/lead",
+            "support_carrier"
+          ]
+        },
+        {
+          "pair": "probes and receptacles to support carrier",
+          "minimum_mm": 0.773,
+          "between": [
+            "TP2 KS-050 receptacle",
+            "support_carrier"
+          ]
+        },
+        {
+          "pair": "receptacle tails to base plate",
+          "minimum_mm": 7.6,
+          "between": [
+            "TP1 KS-050 receptacle",
+            "base_plate"
+          ]
+        },
+        {
+          "pair": "F-side bodies to pressure plate",
+          "minimum_mm": 0.415,
+          "between": [
+            "J5 F-side body (courtyard x height)",
+            "pressure_plate"
+          ]
+        },
+        {
+          "pair": "F-side bodies to plunger pins and sleeves",
+          "minimum_mm": 0.605,
+          "between": [
+            "U7 F-side body (courtyard x height)",
+            "C1 K0318.04 steel sleeve"
+          ]
+        },
+        {
+          "pair": "board to the stop standoffs",
+          "minimum_mm": 2.2855,
+          "between": [
+            "U1 F-side body (courtyard x height)",
+            "G1 M3 F-F hex standoff 6 (stop)"
+          ]
+        },
+        {
+          "pair": "metal hardware to probes and receptacles",
+          "minimum_mm": 1.25,
+          "between": [
+            "C2 K0318.04 steel sleeve",
+            "TP5 GKS-050 probe (compressed envelope)"
+          ]
+        },
+        {
+          "pair": "J5 body (courtyard x height) to the pressure-plate notch",
+          "minimum_mm": 0.415,
+          "between": [
+            "J5 F-side body (courtyard x height)",
+            "pressure_plate"
+          ]
+        },
+        {
+          "pair": "pins and sleeves to the stop standoffs and plate screws",
+          "minimum_mm": 2.2379,
+          "between": [
+            "C2 K0318.04 steel sleeve",
+            "G2 M3x8 socket head screw (plate)"
+          ]
+        }
+      ],
+      "designed_contacts": [
+        {
+          "contact": "board B face seats on the support carrier",
+          "between": [
+            "controller board",
+            "support_carrier"
+          ],
+          "distance_mm": 0.0,
+          "touching": true
+        },
+        {
+          "contact": "plunger POM pin on the F face",
+          "between": [
+            "controller board",
+            "C1 K0318.04 POM thrust pin"
+          ],
+          "distance_mm": 0.0,
+          "touching": true
+        },
+        {
+          "contact": "plunger POM pin on the F face",
+          "between": [
+            "controller board",
+            "C2 K0318.04 POM thrust pin, stepped tip 1.2x0.5"
+          ],
+          "distance_mm": 0.0,
+          "touching": true
+        },
+        {
+          "contact": "probe tip on its test pad (working stroke)",
+          "between": [
+            "controller board",
+            "TP1 GKS-050 probe (compressed envelope)"
+          ],
+          "distance_mm": 0.0,
+          "touching": true
+        },
+        {
+          "contact": "probe tip on its test pad (working stroke)",
+          "between": [
+            "controller board",
+            "TP2 GKS-050 probe (compressed envelope)"
+          ],
+          "distance_mm": 0.0,
+          "touching": true
+        },
+        {
+          "contact": "probe tip on its test pad (working stroke)",
+          "between": [
+            "controller board",
+            "TP3 GKS-050 probe (compressed envelope)"
+          ],
+          "distance_mm": 0.0,
+          "touching": true
+        },
+        {
+          "contact": "probe tip on its test pad (working stroke)",
+          "between": [
+            "controller board",
+            "TP4 GKS-050 probe (compressed envelope)"
+          ],
+          "distance_mm": 0.0,
+          "touching": true
+        },
+        {
+          "contact": "probe tip on its test pad (working stroke)",
+          "between": [
+            "controller board",
+            "TP5 GKS-050 probe (compressed envelope)"
+          ],
+          "distance_mm": 0.0,
+          "touching": true
+        },
+        {
+          "contact": "board edge on a datum pin",
+          "between": [
+            "controller board",
+            "X1 datum pin 2x6"
+          ],
+          "distance_mm": 0.0,
+          "touching": true
+        },
+        {
+          "contact": "board edge on a datum pin",
+          "between": [
+            "controller board",
+            "X2 datum pin 2x6"
+          ],
+          "distance_mm": 0.0,
+          "touching": true
+        },
+        {
+          "contact": "board edge on a datum pin",
+          "between": [
+            "controller board",
+            "Y1 datum pin 2x6"
+          ],
+          "distance_mm": 0.0,
+          "touching": true
+        }
+      ],
+      "pins": [
+        {
+          "pin": "C1 K0318.04 POM thrust pin",
+          "contact_diameter_mm": 1.5,
+          "contact_edge_margin_nominal_mm": 0.45,
+          "shank_diameter_mm": 1.5,
+          "shank_edge_margin_nominal_mm": 0.45,
+          "contact_face_z_mm": 0.9,
+          "sleeve_end_above_f_face_mm": 0.35
+        },
+        {
+          "pin": "C2 K0318.04 POM thrust pin, stepped tip 1.2x0.5",
+          "contact_diameter_mm": 1.2,
+          "contact_edge_margin_nominal_mm": 0.275,
+          "shank_diameter_mm": 1.2,
+          "shank_edge_margin_nominal_mm": 0.275,
+          "contact_face_z_mm": 0.9,
+          "sleeve_end_above_f_face_mm": 0.35
+        }
+      ],
+      "compression_mm": {
+        "nominal": 1.15,
+        "range": [
+          0.990113,
+          1.3
+        ],
+        "basis": "stroke minus the pin length below the sleeve end in the CAD; +/- stop length and pin setting tolerances; the minimum also loses the plate deflection and the contact-model board sag at maximum force for this thickness (condition-matrix.json)"
+      },
+      "plunger_force_each_N": [
+        9.808663,
+        17.44
+      ],
+      "total_force_min_N": 19.617326,
+      "required_total_force_N": 12.7,
+      "contact_stress": [
+        {
+          "contact_diameter_mm": 1.5,
+          "contact_area_mm2": 1.767146,
+          "force_max_N": 17.44,
+          "mean_contact_pressure_MPa": 9.869021,
+          "allowable_MPa": 20.0,
+          "allowable_class": "ASSUMED",
+          "utilisation": 0.493451,
+          "within_assumed_allowable": true,
+          "tip_elastic_shortening_mm": 0.001762,
+          "model": "uniform pressure on a flat end; edge stress concentration, creep, abrasion and the solder-mask surface are not modelled and remain physical checks"
+        },
+        {
+          "contact_diameter_mm": 1.2,
+          "contact_area_mm2": 1.130973,
+          "force_max_N": 17.44,
+          "mean_contact_pressure_MPa": 15.420346,
+          "allowable_MPa": 20.0,
+          "allowable_class": "ASSUMED",
+          "utilisation": 0.771017,
+          "within_assumed_allowable": true,
+          "tip_elastic_shortening_mm": 0.002754,
+          "model": "uniform pressure on a flat end; edge stress concentration, creep, abrasion and the solder-mask surface are not modelled and remain physical checks"
+        }
+      ],
+      "matrix_load_corners": 8,
+      "matrix_worst_probe_displacement_mm": 0.011424173,
+      "matrix_worst_land_lift_mm": 0.022591086,
+      "matrix_corners_within_limits": true,
+      "checks": {
+        "no_interference": true,
+        "critical_clearances_positive": true,
+        "designed_contacts_touch": true,
+        "j5_notch_clearance_meets_local_requirement": true,
+        "f_side_bodies_to_plate_meet_local_requirement": true,
+        "board_contact_is_the_specified_diameter": true,
+        "compression_positive": true,
+        "compression_within_stroke": true,
+        "sleeve_end_clear_of_f_face_at_maximum_compression": true,
+        "clamp_force_min_meets_requirement": true,
+        "contact_pressure_within_assumed_allowable": true,
+        "matrix_load_corners_within_limits": true
+      }
+    }
+  ],
+  "clamps": [
+    {
+      "clamp": "C1",
+      "centre_mm": [
+        1.2,
+        20.8
+      ],
+      "contact_diameter_mm": 1.5,
+      "contact_edge_margin_nominal_mm": 0.45,
+      "shank_edge_margin_nominal_mm": 0.45,
+      "contact_edge_margin_recorded_budget_mm": 0.15,
+      "contact_edge_margin_with_plate_float_mm": -0.25,
+      "shank_edge_margin_with_plate_float_mm": -0.25,
+      "plate_location_error_allowed_mm": 0.0
+    },
+    {
+      "clamp": "C2",
+      "centre_mm": [
+        15.325,
+        26.375
+      ],
+      "contact_diameter_mm": 1.2,
+      "contact_edge_margin_nominal_mm": 0.275,
+      "shank_edge_margin_nominal_mm": 0.125,
+      "contact_edge_margin_recorded_budget_mm": 0.175,
+      "contact_edge_margin_with_plate_float_mm": -0.225,
+      "shank_edge_margin_with_plate_float_mm": -0.375,
+      "plate_location_error_allowed_mm": 0.025
+    }
+  ],
+  "registration": {
+    "required_contact_edge_margin_worst_mm": 0.15,
+    "required_basis": "condition-matrix.json adopted_candidate.pin_edge_margin_required_mm (unchanged)",
+    "recorded_relative_pin_edge_tolerance_mm": 0.1,
+    "recorded_tolerance_budget_mm": {
+      "notch_edge": 0.05,
+      "tap_position": 0.05,
+      "assembled_pin_axis_including_play_runout_tilt": 0.05,
+      "board_registration": 0.05
+    },
+    "opposite_edge_board_profile_allowance_mm": 0.2,
+    "pressure_plate_location": {
+      "as_modelled": "two M3 socket head screws through 3.4 mm clearance holes into the stop standoffs; each standoff is fixed to the carrier by an M3 screw through a 3.4 mm clearance hole; no dowel, shoulder or fitted feature locates the plate to the carrier or to the datum pins",
+      "radial_float_per_joint_mm": 0.2,
+      "joints_in_series": 2,
+      "worst_plate_offset_mm": 0.4
+    },
+    "clamps": [
+      {
+        "clamp": "C1",
+        "centre_mm": [
+          1.2,
+          20.8
+        ],
+        "contact_edge_margin_nominal_mm": 0.45,
+        "contact_edge_margin_recorded_budget_mm": 0.15,
+        "contact_edge_margin_with_plate_float_mm": -0.25,
+        "shank_edge_margin_with_plate_float_mm": -0.25,
+        "plate_location_error_allowed_mm": 0.0
+      },
+      {
+        "clamp": "C2",
+        "centre_mm": [
+          15.325,
+          26.375
+        ],
+        "contact_edge_margin_nominal_mm": 0.275,
+        "contact_edge_margin_recorded_budget_mm": 0.175,
+        "contact_edge_margin_with_plate_float_mm": -0.225,
+        "shank_edge_margin_with_plate_float_mm": -0.375,
+        "plate_location_error_allowed_mm": 0.025
+      }
+    ],
+    "recorded_budget_closes": true,
+    "closes_with_plate_float": false,
+    "finding": "The recorded 0.10 mm relative pin-to-edge tolerance (tap position, pin axis, board registration) has no term for locating the pressure plate on the carrier, and the modelled plate is located only by clearance holes. With that float the stepped-tip contact can reach past the board edge. Registration of the candidate is therefore not closed until the plate is located to within plate_location_error_allowed_mm (or the owner accepts a gauge-and-shim procedure that achieves it).",
+    "j5_notch_clearance": {
+      "nominal_cad_mm": 0.415,
+      "local_requirement_mm": 0.3,
+      "recorded_notch_edge_tolerance_mm": 0.05,
+      "with_plate_float_mm": -0.035,
+      "meets_local_requirement_with_plate_float": false
+    }
+  },
+  "stop_joint": {
+    "relief_strip_record": {
+      "required_screw_tension_total_N": 35.355636,
+      "pivot": "far edge of the stop faces, y 26.05",
+      "tightening_torque_N_m": 0.3,
+      "preload_total_N": 1000.0,
+      "preload_margin_factor_required": 2.0,
+      "basis": "preload = T / (K d), K = 0.2 ASSUMED (dry steel), torque PROJECT-CHOICE; each plate screw engages 2 mm (M3 x 8 through the 6 mm plate) in the steel stop thread, less if the plate sheet is thicker than nominal (its thickness does not change the plunger compression, which is set from the plate underside)",
+      "holds": true
+    },
+    "two_sided_required_screw_tension_total_N": 38.526545,
+    "basis": "independent re-derivation: the pins now sit on both sides of the stop line, so the plate may tip about either edge of the stop faces; the screws must also carry the whole plunger load",
+    "holds": true
+  },
+  "pressure_plate_deflection": {
+    "strip_record_mm": 0.009027,
+    "notch_reduced_plate_depth_mm": 9.7,
+    "strip_width_used_mm": 5.0,
+    "note": "the strip value takes the whole plunger load at mid-span of the 27.2 mm stop span on a 5 mm wide strip with the ASSUMED 18000 MPa modulus; the plate material left beside the notch is deeper than that strip, so the value stays an upper bound for this plate"
+  },
+  "strip_model_diagnostic": {
+    "criterion_3_checks": {
+      "installation_height_and_stroke_resolved": true,
+      "travel_stop_independent_of_adjustment": true,
+      "clamp_force_sized_with_margin": true,
+      "plungers_within_stroke": true,
+      "board_stays_on_land": true,
+      "board_bending_across_window_within_limit": false,
+      "guide_and_fixing_designed": true,
+      "stop_joint_preload_holds_plate": true,
+      "pressure_plate_clears_f_parts": true,
+      "insulation_metal_clear_of_probes": true,
+      "wire_bend_space": true
+    },
+    "board_bending_mm": 0.26719,
+    "note": "the retained criterion-3 strip model applied to the candidate; it still fails board bending, which is why the candidate rests on the contact-model condition matrix. Changing the criterion-3 method is not done here."
+  },
+  "rule_changes_in_candidate": [
+    {
+      "rule": "F-side part clearance at the J5 notch",
+      "retained_mm": 0.5,
+      "candidate": "local 0.3 mm minimum plus an explicit tolerance budget (a7_fixture_support.diagonal_proposal)",
+      "cad_nominal_mm": 0.415,
+      "meets_retained_rule": false,
+      "status": "method change carried by the candidate definition, not by this CAD check; needs owner/independent acceptance"
+    },
+    {
+      "rule": "board-edge margin of a hold-down pin",
+      "retained": "taken at the catalogue 1.5 mm pin diameter",
+      "candidate": "the recorded 0.15 mm worst-case requirement is applied to the board-contact diameter; the limit itself is unchanged",
+      "required_mm": 0.15,
+      "status": "requirement value unchanged; applied to the board-contact diameter of the turned tip"
+    },
+    {
+      "rule": "criterion-3 board bending model",
+      "retained": "conservative strip model (fails for both layouts on the 0.7 mm board)",
+      "candidate": "converged unilateral contact model (condition-matrix.json)",
+      "status": "not adopted for criterion 3; the retained criterion 3 still uses the strip model and stays not met"
+    }
+  ],
+  "matrix_correspondence_problems": [],
+  "checks": {
+    "no_interference": true,
+    "critical_clearances_positive": true,
+    "designed_contacts_touch": true,
+    "j5_notch_clearance_meets_local_requirement": true,
+    "f_side_bodies_to_plate_meet_local_requirement": true,
+    "board_contact_is_the_specified_diameter": true,
+    "compression_positive": true,
+    "compression_within_stroke": true,
+    "sleeve_end_clear_of_f_face_at_maximum_compression": true,
+    "clamp_force_min_meets_requirement": true,
+    "contact_pressure_within_assumed_allowable": true,
+    "matrix_load_corners_within_limits": true,
+    "pressure_plate_webs_at_least_minimum": true,
+    "stop_joint_preload_holds_plate": true,
+    "registration_closes_with_recorded_budget": true,
+    "registration_closes_with_modelled_plate_location": false,
+    "j5_notch_clearance_holds_with_modelled_plate_location": false,
+    "matches_condition_matrix": true
+  },
+  "all_digital_checks_met": false,
+  "holds": [
+    "Owner approval of the candidate and of the modified (turned-tip) K0318.04 thrust pin: not given; the candidate is not selected.",
+    "Machining availability of the 1.2 mm x 0.5 mm turned tip on the POM thrust pin, and fabricator/process for it and for the revised pressure plate: not established (no supplier asked).",
+    "Material selection and approval: the POM grade of the KIPP pin is not printed; the 20 MPa contact allowable and the 2800 MPa modulus are ASSUMED class values; the plate laminate and the board laminate (18000 MPa) are ASSUMED.",
+    "Fabrication suitability of the 1.0 mm worst-case thread webs to the J5 notch and the plate edge, and of the gauge requirements, is not confirmed by a fabricator.",
+    "Pressure-plate location: the plate is located only by M3 screws in 3.4 mm clearance holes on stop standoffs that are themselves fixed through 3.4 mm clearance holes, so it can sit up to 0.4 mm off nominal; the recorded 0.10 mm pin-to-edge tolerance has no term for this (see registration). A locating feature or an owner-accepted gauge procedure is required before the edge margins hold.",
+    "Wear, creep, abrasion of the turned tip and damage to the solder mask or board edge: not modelled; physical checks.",
+    "Physical criterion 5 (contact, load, stroke, registration, damage with unit IDs, instruments and raw data): NOT_MEASURED."
+  ]
+}
