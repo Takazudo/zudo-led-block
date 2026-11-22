@@ -1,5 +1,13 @@
 # A7 発注準備の判断記録
 
+## 0.8 mm 統合時の判断（2026-11-21〜22、PR #88）
+
+- **エンドキャップ維持（owner、2026-11-22）:** PR #88 の判断カードで「Keep caps, pin them, merge」を選択。A5 形の上下キャップを残し、端 LED の遮光推定（約 20–25 %）と2HP所見は CAD テストで固定する。見え方は実機（#10）。
+- **3HP 採用・2HP 不採用:** 2HP は最悪角で成立根拠なし。記録は保持。
+- **harness-depth を未決に戻す:** 旧 57 ± 3 mm の owner 受入は旧1.6 mm設計に限る。新しい 55 ± 3 mm（52–58 mm）は owner 未受入。
+- **cv-noise を未決に戻す:** 旧根拠の layout 記述は 0.8 mm 基板で成り立たない。2026-11-11 のコーディネーター採用は引き継がず、electrical_review.md を根拠に再提案。
+- **試作ルート:** 旧承認は新 identity（d83691d6… / bcf2e35d…）へ付け替えない。owner_prototype_route は BLOCKED。
+
 ## 現行方針: 0.8 mm rigid FR-4 への設計変更（2026-11-17 JST）
 
 親 [#15](https://github.com/Takazudo/zudo-led-block/issues/15) の新しい変更を [#87](https://github.com/Takazudo/zudo-led-block/issues/87) で追跡します。透明PCBをrigid FR-4の代替と考えていましたが、実際は薄いflex PCBだったため、透明PET/FPC案は撤回しました。普通のrigid FR-4基材のくすんだ半透明性を試します。透過率、拡散、実物の見え方は未測定です。

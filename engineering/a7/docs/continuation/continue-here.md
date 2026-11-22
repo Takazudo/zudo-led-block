@@ -1,5 +1,16 @@
 # A7: continue here
 
+## デジタル実装の統合状態（2026-11-22 JST、PR #88）
+
+0.8 mm FR-4 のデジタル設計を PR #88 で統合しました。製造release・発注承認・物理評価ではありません。
+
+- 制御基板 `d83691d6590e013b2a66957b61d76ba2f68bedaaec04789326e1215b2d1bdb2b`（0.8 mm、JLC04081H-3313 の4層、広いGND面なし、局所銅は buck 下の B.Cu /GND 1箇所）。KiCad 10.0.8 で ERC / DRC / 未接続 / parity 0、seed 0 の配線再現一致。リーフ `bcf2e35d767221f5a9db0cd16769a2e503a672f522fd4f32f78012cdeb494cf9`（0.8 mm 2層）。
+- CV 基準誤差（85 °C・銅/幅 ×0.8 の角、計算）: LED依存 0.0375 LSB（配分 0.5）、合計 0.369 LSB（配分 1.0）。グラウンド共有源をパッチした場合の基板内上限 0.254 LSB（配分 0.5、ケーブル等は ASSUMED）。基板外の降下は別に実測（#10）。
+- 幅は 3HP を採用、2HP は不採用（所見は CAD テストで固定）。A5 と同じ上下エンドキャップは owner 判断（2026-11-22）で維持し、端 LED の遮光推定 20–25 % を CAD テストで固定。
+- 治具の段付き先端ピン案は 0.7–0.9 mm で計算上の全制限を満たす（EXPERIMENTAL_CALCULATED_NOT_VALIDATED、ピン改造は未調達）。
+- 基準: harness-depth（55 ± 3 mm）と cv-noise は旧受入を引き継がず未決。試作ルート（owner_prototype_route）は新しい identity で BLOCKED。
+- 証跡: `engineering/a7/verification/electrical_review.md`、`mechanical/README.md`、`fixture/condition-matrix.json`、`qualification/readiness.json`。
+
 ## 現行方針: 0.8 mm rigid FR-4 への設計変更（2026-11-17 JST）
 
 親 [#15](https://github.com/Takazudo/zudo-led-block/issues/15) の新しい変更を [#87](https://github.com/Takazudo/zudo-led-block/issues/87) で追跡します。透明PCBをrigid FR-4の代替と考えていましたが、実際は薄いflex PCBだったため、透明PET/FPC案は撤回しました。普通のrigid FR-4基材のくすんだ半透明性を試します。透過率、拡散、実物の見え方は未測定です。

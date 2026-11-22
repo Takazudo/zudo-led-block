@@ -35,7 +35,7 @@
     "Old results not new-design evidence"
   ],
   "pr": "https://github.com/Takazudo/zudo-led-block/pull/88",
-  "status": "draft implementation; optical leaf adopted from verified staging, controller/fixture/CAD pending",
+  "status": "digital implementation integrated in PR #88 (controller d83691d6, leaf bcf2e35d, 3HP); owner kept end caps 2026-11-22; not a manufacturing release; physical work open (#10)",
   "native_staging": {
     "method": "digest-verified OCI layers flattened once and isolated bwrap execution; NOT the final Docker native gate",
     "index_digest": "sha256:3f4a01786dfbe803a65f345c3342b765db9add913f5e9448f8356793714ddc34",
@@ -45,5 +45,11 @@
     "version_checks": "kicad-cli and pcbnew 10.0.8; all13 compressed layer digests verified",
     "capacity": "Docker vfs expanded to root32GB full; task-owned unused image removed; flattened rootfs2.5GB held locally, no global Docker changes",
     "acceptance": "Existing pinned Docker Actions gate still mandatory"
+  },
+  "final_identities": {
+    "controller_pcb_sha256": "d83691d6590e013b2a66957b61d76ba2f68bedaaec04789326e1215b2d1bdb2b",
+    "led_leaf_pcb_sha256": "bcf2e35d767221f5a9db0cd16769a2e503a672f522fd4f32f78012cdeb494cf9",
+    "route_proposal_sha256": "bb4540b0cece9ccc8187b20fdd5327a81c47d0460253a962fd81d11041e70b08",
+    "default_width": "3hp"
   }
 }
