@@ -3,7 +3,15 @@
   "status": "DRY_RUN_NOT_RELEASED",
   "order_eligibility": "BLOCKED",
   "prototype_route_binding": "HOLD: readiness gate owner_prototype_route (the recorded approval does not match the current identities)",
-  "current_package": null,
+  "current_package": {
+    "path": "engineering/a7/jlc-package/review/2026-11-22",
+    "status": "REVIEW_ONLY_NOT_FOR_ORDER",
+    "boards": {
+      "controller": "d83691d6590e013b2a66957b61d76ba2f68bedaaec04789326e1215b2d1bdb2b",
+      "led_leaf": "bcf2e35d767221f5a9db0cd16769a2e503a672f522fd4f32f78012cdeb494cf9",
+      "power_adapter": "b0f071f2730afdfd3d29de2176b1cce5f90b0c0726d14fd15501e27f90d95187"
+    }
+  },
   "historical_packages": [
     {
       "path": "engineering/a7/jlc-package/order/2026-11-13",
