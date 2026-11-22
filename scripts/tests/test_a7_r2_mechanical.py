@@ -414,9 +414,56 @@ class Routes(unittest.TestCase):
         self.assertTrue(L["variants"]["3hp"]["checks"]["power_route_bend_at_least_preferred"])
 
 
+# Owner decision 2026-11-22 (PR #88 decision card "Keep caps, pin them, merge"): the A5 leaf end caps stay in
+# the optical corridor. They are pinned here exactly; any other support/controller part in a corridor, or any
+# change to these caps' size, position or shading, still fails. Shading is a ray-sampled estimate, not a limit.
+RETAINED_END_SUPPORTS = {
+    name: {side: {
+        "top_leaf_adapter_cap": {"volume_mm3": vols[side][0], "projected_yz_bbox_mm2": 31.5, "y": [22.5, 26.0], "z": [19.4, 28.4], "min_distance_to_emitter_mm": 1.475},
+        "bottom_leaf_cap": {"volume_mm3": vols[side][1], "projected_yz_bbox_mm2": 10.8, "y": [103.8, 105.0], "z": [19.4, 28.4], "min_distance_to_emitter_mm": 1.475},
+    } for side in ("left", "right")}
+    for name, vols in {
+        "2hp": {"left": (14.446, 11.925), "right": (14.196, 12.175)},
+        "3hp": {"left": (42.074, 33.072), "right": (41.824, 33.322)},
+    }.items()
+}
+# blocked_by_supports per LED as recorded with the caps above; end LEDs carry the cap shading, middle LEDs ~0
+RETAINED_SUPPORT_SHADING = {
+    "2hp": {"left_D1": 0.066, "left_D2": 0.0, "left_D3": 0.0, "left_D4": 0.051, "right_D4": 0.065, "right_D3": 0.001, "right_D2": 0.0, "right_D1": 0.059},
+    "3hp": {"left_D1": 0.245, "left_D2": 0.002, "left_D3": 0.001, "left_D4": 0.198, "right_D4": 0.242, "right_D3": 0.002, "right_D2": 0.001, "right_D1": 0.202},
+}
+END_LEDS = {"left_D1", "left_D4", "right_D1", "right_D4"}
+# 2HP is the rejected width (layout decision): its open findings are kept on record, pinned so they cannot grow
+# or change silently. A width with open findings can never be the default.
+NON_SELECTED_OPEN_FINDINGS = {
+    "2hp": {
+        "rigid": [("left_leaf_pcb_A7", "M1_6_nut_-1_23.5", 0.019), ("left_leaf_pcb_A7", "M1_6_nut_-1_105.5", 0.004),
+                  ("right_leaf_pcb_A7", "M1_6_nut_1_23.5", 0.019), ("right_leaf_pcb_A7", "M1_6_nut_1_105.5", 0.004)],
+        "cable": [("controller_pcb_A7", "leaf_link_sh4_A7", -0.763), ("solder_face_low_profile_zone", "leaf_link_sh4_A7", -0.052),
+                  ("bottom_cap_fork_A7", "leaf_link_sh4_A7", -0.833), ("left_diffuser", "controller_to_left_leaf_sh4", -0.15),
+                  ("left_diffuser", "leaf_link_sh4_A7", 0.0), ("right_diffuser", "leaf_link_sh4_A7", 0.0)],
+    },
+}
+
+
 class Exports(unittest.TestCase):
-    def test_cad_verification_current_and_clean(self):
+    def assertPinned(self, got, pinned, msg):
+        """Same (a, b) pairs as pinned, each value within 1e-3 of its pinned value."""
+        want = sorted(pinned)
+        self.assertEqual([g[:2] for g in got], [w[:2] for w in want], msg)
+        for g, w in zip(got, want):
+            self.assertAlmostEqual(g[2], w[2], delta=1e-3, msg=(msg, g))
+
+    def test_pinned_exceptions_never_cover_the_default_width(self):
+        self.assertNotIn(L["decision"]["default_variant"], NON_SELECTED_OPEN_FINDINGS)
+        self.assertEqual(set(RETAINED_END_SUPPORTS), set(L["variants"]))
+        self.assertEqual(set(RETAINED_SUPPORT_SHADING), set(L["variants"]))
+        self.assertLessEqual(set(NON_SELECTED_OPEN_FINDINGS), set(L["variants"]))
+
+    def test_cad_verification_current_and_pinned(self):
+        """Current, and clean except for the owner-retained end caps and the rejected 2HP width's pinned findings."""
         sha = hashlib.sha256((MECH / "layout.json").read_bytes()).hexdigest()
+        self.assertEqual(set(L["variants"]), {"2hp", "3hp"})
         for name in ("2hp", "3hp"):
             v = json.loads((MECH / "exports" / name / "verification.json").read_text())
             self.assertEqual(v["layout_sha256"], sha, f"{name}: CAD export is stale; run build_a7_mechanical.py")
@@ -427,10 +474,32 @@ class Exports(unittest.TestCase):
                 self.assertLessEqual(row["volume_mm3"], row["limit_mm3"] + 1e-9, row)
             self.assertIn("bottom_cap_fork_A7", {p["part"] for p in v["parts"]})
             self.assertTrue(v["all_shapes_valid"])
-            self.assertEqual(v["unexpected_rigid_intersections"], [])
+            rigid = sorted((r["a"], r["b"], r["volume_mm3"]) for r in v["unexpected_rigid_intersections"])
+            if name in NON_SELECTED_OPEN_FINDINGS:
+                self.assertFalse(v["default_variant"], f"{name} has open findings and cannot be the default")
+                self.assertNotEqual(name, L["decision"]["default_variant"])
+                self.assertPinned(rigid, NON_SELECTED_OPEN_FINDINGS[name]["rigid"], (name, "rigid"))
+            else:
+                self.assertEqual(rigid, [], name)
             self.assertEqual(v["retained_envelope_findings"], [])
+            self.assertEqual(set(v["optical_obstruction"]), set(RETAINED_END_SUPPORTS[name]), name)
+            self.assertEqual({r["led"] for rows in v["optical_shading_estimate"]["per_side"].values() for r in rows},
+                             set(RETAINED_SUPPORT_SHADING[name]), name)
             for s_, o in v["optical_obstruction"].items():
-                self.assertEqual(o["a7_controller_or_support_obstructions"], 0, (name, s_))
+                support_rows = [x for x in o["obstructions"] if x["origin"] == "a7_controller_or_support"]
+                supports = {x["part"]: x for x in support_rows}
+                pinned = RETAINED_END_SUPPORTS[name][s_]
+                self.assertEqual(len(support_rows), len(pinned), (name, s_))
+                self.assertEqual(set(supports), set(pinned), (name, s_))
+                self.assertEqual(o["a7_controller_or_support_obstructions"], len(pinned), (name, s_))
+                for part, want in pinned.items():
+                    for k, val in want.items():
+                        got = supports[part][k]
+                        if isinstance(val, list):
+                            for g, w in zip(got, val, strict=True):
+                                self.assertAlmostEqual(g, w, delta=1e-3, msg=(name, s_, part, k))
+                        else:
+                            self.assertAlmostEqual(got, val, delta=1e-3, msg=(name, s_, part, k))
                 for h in o["a7_harness_obstructions"]:
                     self.assertGreaterEqual(h["min_distance_to_emitter_mm"], 1.0, (name, s_, h))
                 origins = {x["part"]: x["origin"] for x in o["obstructions"]}
@@ -442,6 +511,10 @@ class Exports(unittest.TestCase):
                 for row in rows:
                     # regression guard on a ray-sampled estimate (about 0.02 today), not an optical acceptance limit
                     self.assertLessEqual(row["blocked_by_a7_harness"], 0.05, (name, row))
+                    # pinned cap shading: the fixed-seed estimate must reproduce, and middle LEDs stay unshaded
+                    self.assertAlmostEqual(row["blocked_by_supports"], RETAINED_SUPPORT_SHADING[name][row["led"]], delta=0.002, msg=(name, row["led"]))
+                    if row["led"] not in END_LEDS:
+                        self.assertLessEqual(row["blocked_by_supports"], 0.005, (name, row["led"]))
             self.assertIn("top_cap_spacer_A7", {p["part"] for p in v["parts"]})
             self.assertTrue(v["switch_tool_access"]["clear"])
             self.assertTrue(v["export"]["valid"])
@@ -449,7 +522,11 @@ class Exports(unittest.TestCase):
             for f in v["views"].values():
                 self.assertTrue((MECH / "exports" / name / f).exists(), f)
             new_findings = [f for f in v["cable_findings"] if "note" not in f]
-            self.assertTrue(all(f["clearance_mm"] >= 0.05 - 1e-9 for f in new_findings), new_findings)
+            open_cable = sorted((f["a"], f["b"], f["clearance_mm"]) for f in new_findings if f["clearance_mm"] < 0.05 - 1e-9)
+            if name in NON_SELECTED_OPEN_FINDINGS:
+                self.assertPinned(open_cable, NON_SELECTED_OPEN_FINDINGS[name]["cable"], (name, "cable"))
+            else:
+                self.assertEqual(open_cable, [], name)
             self.assertFalse(any("PicoBlade" in f["a"] + f["b"] and "sh4" in f["a"] + f["b"] for f in v["cable_findings"]), "SH4 fold must clear the controller PicoBlade by >= 0.1")
             self.assertIn("top_cap_screw_A7", {p["part"] for p in v["parts"]})
             for c in v["cables"]:
@@ -481,7 +558,7 @@ class Exports(unittest.TestCase):
         """The leaf-to-leaf link is one SH4 assembly: one bundle, the finished SH4 length, never four posed wires.
 
         Checked on the selected width. The emitter distance and shading thresholds are the ones asserted for every
-        harness in test_cad_verification_current_and_clean; this test only pins what the bundle is.
+        harness in test_cad_verification_current_and_pinned; this test only pins what the bundle is.
         """
         name = L["decision"]["default_variant"]
         v = json.loads((MECH / "exports" / name / "verification.json").read_text())
