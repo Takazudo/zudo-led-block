@@ -1,30 +1,43 @@
-# A7 SWD 治具 — デジタル設計（基準 1–4 をデジタルで充足・加工業者は未選定・未試作）
+# A7 SWD 治具 — デジタル設計（0.8 mm 基板で基準 3 未達・物理基準 5 未実施・置換候補を提案中）
 
-**BLOCKED / 加工・購入・使用の承認ではありません。** 4 枚の FR-4 プレート、金物の要求仕様、基板・プローブを含む組立 STEP と干渉検査までをデジタルで設計した段階です。STEP と干渉検査が通っても、実物の嵌合・接触・荷重・位置決めを検証したことにはなりません。
+**BLOCKED / 加工・購入・使用の承認ではありません。** STEP・干渉検査・計算が通っても、実物の嵌合・接触・荷重・位置決めを検証したことにはなりません。
 
-**現在の状態（2026-11-13）:** デジタル基準 1–4 と native の新規検証は充足（`digital_criteria_1_to_4_met`・`fresh_native_verified` が true）。提案した金物は 2026-11-12 にオーナーが推奨一式として承認しました（`engineering/a7/procurement/owner-decisions.json` の `accept-all-recommendations`、`assembly:fixture-materials` = approve）。残るオーナーの作業は 4 枚の FR-4 プレートの加工業者の選定で、物理の基準 5（接触・荷重）は治具と基板ができてからです。`manifest.json` の各行に残る `PROPOSED_AWAITING_OWNER_APPROVAL` はオーナー承認より前に生成した値です。このマニフェストは試作ルート承認の識別に含まれるので、文言のためだけには再生成していません。
+**現在の状態（2026-11-22、0.8 mm コントローラ `d83691d6…`）:**
+
+- 完成基準（`manifest.json` の `completion_criteria`）: 基準 1・2・4 はデジタルで充足、**基準 3 は未達**、物理の基準 5 は未実施（観測はすべて NOT_MEASURED）。`digital_criteria_1_to_4_met` = **false**、`digital_fixture_complete` = **false**、`status` = BLOCKED。
+- **保持中の形状（retained）**: `fixture-assembly.step` の 4 プレートと、押さえ板のプランジャ 2 本 (14.1, 21.7)・(14.2, 16.5)。0.7–0.9 mm 基板では保守的なストリップモデルで基準 3 の `clamp_force_sized_with_margin`・`board_stays_on_land`・`board_bending_across_window_within_limit` が不成立（`layout_status` = REJECTED_INSUFFICIENT_FORCE）。この不合格はそのまま記録に残し、緩めていません。
+- **提案中の置換候補（`optical_stepped_tip`）**: 同じプレート構成で J5 ノッチとピン位置 (1.2, 20.8)・(15.325, 26.375) を変え、2 本目の KIPP K0318.04 の POM ピンの基板接触端を最大 Ø1.2 mm × 長さ 0.5 mm に旋削する案。`condition-matrix.json`（収束した片側接触モデル）で全荷重コーナーの記録上の計算を満たし、CAD（`candidate-assembly.step`）で 0.7/0.8/0.9 mm とも干渉 0。ただし押さえ板が通し穴だけで位置決めされるため、端余裕と J5 ノッチ隙間は位置決めを加えるまで閉じません（下の「置換候補」）。**未選定・未承認・実機未検証**で、どの完成基準・フラグも変えません。
+- native geometry は CI 保持 artifact から取り込み済み（run 44981535275 attempt 1、`provenance_class` = `CI_RETAINED_ARTIFACT`、`fresh_native_verified` = true）。
+- 保留（オーナー・加工・物理）: 旋削ピンの加工可否と調達先、材料（POM グレード不明、接触許容 20 MPa は **ASSUMED**）の選定・承認、加工適性（1.0 mm の最悪ねじ壁、ゲージ要求）、摩耗・クリープ・損傷、押さえ板の位置決め、物理の基準 5。
+
+**履歴（1.6 mm 基板時点、2026-11-13）:** 当時はデジタル基準 1–4 を充足し、提案金物は 2026-11-12 にオーナーが推奨一式として承認した（`engineering/a7/procurement/owner-decisions.json` の `accept-all-recommendations`、`assembly:fixture-materials` = approve）。この承認は 1.6 mm 基板の構成に対する**履歴**で、0.8 mm 基板の再設計・置換候補・旋削ピンを承認するものではありません。`manifest.json` の `hardware_proposal` に残る `PROPOSED_AWAITING_OWNER_APPROVAL` はその承認より前の生成値です。
 
 - `sources.json`: INGUN 一次資料の実取得バイトの SHA-256、11/26_GB、ページ位置。原本は記載のローカルキャッシュ。再取得時はハッシュを比較する。
 - `materials.json`: 治具1台分のプレートと金物の要求仕様。モジュール1台分の BOM と別。未選定材料・価格を埋めない。
 - `candidate-references.json`: 加工業者の公開指針（JLCCNC、**未選定の参考**）。製造性の物差しとしてのみ使う。
-- `manifest.json`: 現行 revision 2 の PCB/placement/geometry identity、全プレートの設計値、計算、完成基準と未解決事項。
-- `fixture-assembly.step`: 治具全体（4 プレート、金物の外形、5 組のレセプタクルとプローブ、基板と部品箱）の組立 STEP。
+- `manifest.json`: 現行の PCB/placement/geometry identity、保持中の形状（retained）の全プレートの設計値・計算・完成基準と未解決事項、および提案中の置換候補（`proposed_replacement_candidate`）の束縛と保留事項。`geometry_roles` が両者を区別する。
+- `fixture-assembly.step`: **保持中の形状**の治具全体（4 プレート、金物の外形、5 組のレセプタクルとプローブ、基板と部品箱）の組立 STEP。
 - `assembly-interference.json`: 組立 STEP の干渉検査記録。`manifest.json` が設計ハッシュと STEP のバイトで束縛する。
-- `fixture-drawing.svg`: プレートの平面図（寸法要約付き）。加工図面ではない。
+- `fixture-drawing.svg`: 保持中の形状のプレート平面図（寸法要約付き）。加工図面ではない。
+- `candidate-assembly.step` / `candidate-assembly-interference.json` / `candidate-drawing.svg`: **提案中の置換候補**（`optical_stepped_tip`）の組立 STEP（0.8 mm 基板）、0.7/0.8/0.9 mm の干渉・隙間・押し込み・位置決め検査記録、押さえ板の平面図と段付き先端の詳細。保持中の形状を置き換えない。**未選定・未承認・実機未検証**。
 - `condition-matrix.json` / `condition-matrix.md`: 0.7–0.9 mm 基板の全荷重コーナーを、収束した片側接触モデルで解いた計算記録と方法。**受入ではない**。PCB バイト列・native geometry・プローブ manifest に束縛され、`python3 scripts/a7_fixture_matrix.py --rebind` の 1 コマンドで最終基板へ再実行する。現候補は 2 本目のピンを Ø1.2 mm の段付き先端にする案（`adopted_candidate`、**PROPOSED・NOT ACCEPTED**、接触圧の許容値は ASSUMED）で、全径ピンの幾何学的不足（板端余裕 0.025 mm）も記録に残す。
-- `optical-support-study.md` / `optical-support-candidate.json` / `optical-diagonal-candidate.json`: 支持再設計の探索記録。**NOT ACCEPTED**。旧ストリップモデルの失敗値はそのまま保持する。
+- `optical-support-study.md` / `optical-support-candidate.json` / `optical-diagonal-candidate.json`: 支持再設計の探索記録（**履歴**、NOT ACCEPTED）。2 つの JSON は生成も検査もされない当時のスナップショットで、`optical-diagonal-candidate.json` の 2 本目のピン位置 (15.3, 26.5) は現候補の (15.325, 26.375) より古い。現候補の値は `condition-matrix.json` と `candidate-assembly-interference.json` を正とする。旧ストリップモデルの失敗値はそのまま保持する。
 
 ## 再生成と検査
 
 ```sh
-# 新しいコントローラへ再束縛するとき（CI 保持 artifact なら --from-zip、固定イメージの開発機実行なら --from-dir）
+# 新しいコントローラへ再束縛するとき: CI 保持 artifact（native-infrastructure-evidence の ZIP）なら --from-zip
+python3 scripts/a7_fixture_geometry.py --from-zip <native.zip> --expect-revision <CI の checkout SHA> \
+  --expect-run-id <run id> --expect-run-attempt <attempt> --write
+#   固定イメージの開発機実行なら --from-dir（LOCAL_PINNED_IMAGE_RUN、CI 保持と同等ではない）
 python3 scripts/a7_fixture_geometry.py --from-dir <a7-gate を含むディレクトリ> --expect-revision <checkout SHA> --write
 python3 scripts/a7_fixture_geometry.py --check
-/path/to/cadquery-2.7.0/python scripts/a7_fixture.py --cad
-python3 scripts/a7_fixture.py --check
+/path/to/cadquery-2.7.0/python scripts/a7_fixture.py --cad        # 保持中の形状と置換候補の STEP・記録・manifest・図面
+python3 scripts/a7_fixture.py --check                               # 束縛・図面・候補と条件マトリクスの一致
 /path/to/cadquery-2.7.0/python scripts/a7_fixture.py --check --cad-check
-python3 -m unittest scripts/tests/test_a7_fixture.py scripts/tests/test_a7_fixture_relief.py
-python3 scripts/a7_fixture_matrix.py --check   # 条件マトリクスの identity・自己整合・レベル0 再計算
+python3 scripts/a7_fixture_matrix.py --rebind   # manifest か native 記録が変わったら最後に（manifest の SHA-256 を束縛する）
+python3 scripts/a7_fixture_matrix.py --check    # 条件マトリクスの identity・自己整合・レベル0 再計算
+python3 -m unittest scripts/tests/test_a7_fixture.py scripts/tests/test_a7_fixture_relief.py scripts/tests/test_native_fixture_geometry.py
 python3 -m unittest scripts/tests/test_a7_fixture_contact.py scripts/tests/test_a7_fixture_matrix.py
 ```
 
@@ -34,12 +47,19 @@ python3 -m unittest scripts/tests/test_a7_fixture_contact.py scripts/tests/test_
 
 採用された配線済み 0.8 mm コントローラ（PCB SHA-256 `d83691d6590e013b2a66957b61d76ba2f68bedaaec04789326e1215b2d1bdb2b`。旧 710ed801… と部品配置・外形は同じで、CV IN スリーブ帰路の規則変更により再配線した版）に
 `native-geometry.json`・`manifest.json`・`assembly-interference.json`・`fixture-assembly.step`・`condition-matrix.json` を束縛し直した。
-native geometry は**開発機で固定 KiCad イメージを回したゲート**の出力で、`provenance_class` = `LOCAL_PINNED_IMAGE_RUN`、
-`ci_retained_artifact` = false、GitHub run id なし。CI は毎回ゲート自体を回すので、記録の現行性は `--check` で担保される。
+native geometry は当初（2026-11-21）**開発機で固定 KiCad イメージを回したゲート**の出力（`provenance_class` = `LOCAL_PINNED_IMAGE_RUN`、
+`ci_retained_artifact` = false、GitHub run id なし）だった。2026-11-22 に main `6f6e8ea9…` の CI
+[run 44981535275](https://github.com/Takazudo/zudo-led-block/actions/runs/44981535275) attempt 1 が保持した `native-infrastructure-evidence`
+（artifact 14738177112、ZIP SHA-256 `11346c06a42e8b5ef5141b3c49107c81dd99265111e80d512aa95979666129a5`、VALID_PASS、試験基板 `d83691d6…`）から
+`--from-zip` で取り込み直し、`provenance_class` = `CI_RETAINED_ARTIFACT` になった。`fixture_geometry.json` のバイトは開発機実行と同一
+（SHA-256 `af6dda7b…`）で、変わったのは出所の記録だけ。取り込み時に `--from-zip` が LED leaf のハッシュを分類器に渡しておらず
+VALID_PASS の artifact を INCOMPLETE と判定していた不具合を直した（`--from-dir` と同じ束縛）。
 基準ピンは 0.5 mm 突出に変更した（1.0 mm では 0.8 mm 基板で Y1 が SW1 の courtyard 包絡に 0.0577 mm³ 侵入したため。
 最小板厚 0.7 mm の F 面より低く保つ規則を criterion 1 のチェックとして追加）。基準 3 は 0.7–0.9 mm の荷重不足で未達のまま。
 
-## Native CI の証拠範囲
+## Native CI の証拠範囲（履歴: 1.6 mm 基板と E1 の記録）
+
+> 現行 0.8 mm 基板の native 証拠は上の「0.8 mm コントローラへの再束縛」の CI run 44981535275。以下は当時の基板に対する記録で、`fresh_native_verified` などの当時の値も履歴です。
 
 2026-11-09 に E1 の pinned native CI [run 42594178172](https://github.com/Takazudo/zudo-led-block/actions/runs/42594178172) が head `4894a6f6f21b30419d039bd6427e89553f8dee55`、同一PCB SHA-256 `4453f818ede1e6d6c56e45ef43aa6faecb90990f3755f82c6d752258cd4d628e` で PASS と確認された。この結果はその E1 head の証拠であり、未コミットの統合変更や治具形状を検証したものではない。artifact download は escalation 後も Forbidden で、raw native facts は未取得。治具が新しい外形データを消費・検査していないため、`fresh_native_verified` は **false** のままとする。
 
@@ -47,7 +67,44 @@ native geometry は**開発機で固定 KiCad イメージを回したゲート*
 
 2026-11-11 追記（PR #46）: native gate が同一PCBから治具用の `fixture_geometry.json`（pad の形状・寸法・銅箔 bbox・回転・有効層・net、footprint の原点・面・courtyard/外形 bbox）を出力し、CI artifact に保存するようになった。[run 43077448786](https://github.com/Takazudo/zudo-led-block/actions/runs/43077448786)（head `01bc3812202c6e72f772d2568148ae5df4915be7`、artifact ZIP SHA-256 `db6d6fe101641a4176d0fad83a7fd453ee4ae09173e7fb36d26dd444284b74c4`）の artifact は VALID_PASS と分類され、`scripts/a7_fixture_geometry.py --from-zip` が `native-geometry.json` に記録した（64 footprints、変換・面・net・位置を canonical placement と照合、未知 extents 0）。`manifest.json` の `native_geometry` はこの記録で TP1–TP5 の5パッド（B面、丸 1 mm、B.Cu/B.Mask、位置、net）を照合した結果である。部品本体高さ・はんだ包絡は native facts に含まれず、キャリア検討は courtyard/外形 bbox をまだ支持・逃げ設計に使っていないため、`fresh_native_verified` と `digital_fixture_complete` は **false** のまま。記録は `python3 scripts/a7_fixture_geometry.py --check`（CI でも実行）で PCB/placement の陳腐化、pad 数、内部不整合を検査する。member hash まで再計算した改変の出所は `--check` では判定できず、`--from-zip` による作成時の検証と差分レビューで担保する。
 
-## 治具のデジタル設計（2026-11-11、W8 で構成変更）
+## 置換候補 `optical_stepped_tip` の CAD（2026-11-22、#90）
+
+保持中の形状を残したまま、条件マトリクスの採用候補を既存の生成器（`scripts/a7_fixture.py` の `cad_candidate`、`scripts/a7_fixture_assembly.py` の `build(pin_tips=…, board_thickness=…)`）で組んだ。定義は `a7_fixture_relief.design(candidate='optical_full_pin')`（ピン位置・ノッチ）と `a7_fixture_support.STEPPED_TIP`（Ø1.2 × 0.5 mm）で、条件マトリクスと同じ入力を使う。`a7_fixture.py --check` は記録のピン位置・接触径・先端長・ノッチ・押さえ板 z・板厚・押し込み範囲を `condition-matrix.json` と照合し、食い違えば失敗する。
+
+| 項目 | 0.7 mm | 0.8 mm | 0.9 mm |
+|---|---|---|---|
+| 干渉（共通体積 > 0.001 mm³） | 0 | 0 | 0 |
+| ソリッド数 | 129 | 129 | 129 |
+| 押し込み範囲 mm | 0.789–1.100 | 0.890–1.200 | 0.990–1.300 |
+| スリーブ端の F 面からの高さ（公称）mm | 0.55 | 0.45 | 0.35 |
+| プランジャ力 1 本 N | 8.63–15.68 | 9.22–16.56 | 9.81–17.44 |
+| 合計最小 N（要求 12.7） | 17.26 | 18.44 | 19.62 |
+| C2 平均接触圧 MPa（ASSUMED 許容 20） | 13.9 | 14.6 | 15.4 |
+| マトリクスの最悪プローブ変位 / 浮き mm（上限 0.1） | 0.024 / 0.048 | 0.016 / 0.032 | 0.011 / 0.023 |
+
+- 隙間（3 板厚の最小、BRep 厳密距離）: J5 本体（courtyard × 高さ）とノッチ 0.415 mm（候補の局所要求 0.3 mm、保持中の一律要求 0.5 mm は満たさない）、F 面部品とピン・スリーブ 0.605 mm、金属とプローブ 1.25 mm、ピン・スリーブとストップ金物 2.2379 mm、B 面部品とキャリア 0.3053 mm。設計上の接触（基板の着座、ピン 2 本、プローブ 5 本、基準ピン 3 本）はすべて接触。
+- 先端: 図形から取った接触径は C1 Ø1.5、C2 Ø1.2。公称の板端余裕は C1 0.45 / C2 0.275 mm、記録した相対許容差 0.10 mm（と遠い側の板外形 0.20 mm）を引くと 0.15 / 0.175 mm で要求 0.15 mm を満たし、条件マトリクスと一致する。Ø1.5 の軸部は 0.7 mm 基板の最小押し込みでスリーブから 0.21 mm 出るが、基板には触れない（先端長 0.5 mm）。
+- ストップ: ピンがストップ線の両側に来たので、ストップ面の両端まわりと鉛直の釣り合いから必要張力を再導出した（38.5 N、予張力 1000 N で 2 倍余裕を満たす。ナット係数 0.2 は ASSUMED）。
+- **位置決めは閉じない**: 押さえ板は Ø3.4 の通し穴を通る M3 ねじでストップに留まり、ストップ自体も Ø3.4 の通し穴でキャリアに留まる。位置を決める部品が無いので板は最大 0.4 mm ずれ得る。記録した 0.10 mm の相対許容差（タップ位置・ピン軸・基板位置決め）にはこの項が無い。ずれを入れると接触端の余裕は C1 -0.25 / C2 -0.225 mm（負 = 基板端からはみ出し得る）、J5 ノッチ隙間は -0.035 mm。記録した要求 0.15 mm を保つには、記録の 0.10 mm に加えて許せる板の位置ずれが C1 で 0 mm、C2 で 0.025 mm しかない。ダウエル・段付きねじ等の位置決め、または owner が受け入れるゲージ・シム手順が要る（設計判断なので本変更では加えていない）。`candidate-assembly-interference.json` の `checks.registration_closes_with_modelled_plate_location` と `j5_notch_clearance_holds_with_modelled_plate_location` は **false**、`all_digital_checks_met` も **false**。
+- ストリップモデル（保持中の基準 3 の方法）を候補に当てると基板曲げは 0.26719 mm で上限 0.1 mm を超える。候補が満たすのは片側接触モデルの条件マトリクスで、基準 3 の方法を変えることは本変更では行っていない（`rule_changes_in_candidate`）。
+
+## 独立レビュー（2026-11-22、初回の再導出。受入ではない）
+
+計算と CAD の前提を、記録の数値を使わずに入力から追い直した。
+
+- **荷重**: プローブ GKS-050 は 0.44 N（0）→ 1.0 N（4.3 mm）の直線で 6.35 mm 時 1.267 N、5 本で 6.35 N、要求クランプ力は 2 倍の 12.7 N。プランジャ K0318.04 は F1 約 5 N → F2 約 16 N（ストローク 1.5 mm、カタログ値に公差なし）に ±20 %（PROJECT-CHOICE）で、0.789 mm → 8.63 N、1.3 mm → 17.44 N。記録と一致。
+- **押し込み（変位制御）**: スリーブ端は板の下面と設定で決まり z = 1.25 mm（基板 B 面基準）に固定、押し込み = t + 0.25 mm。板厚ごとに ±0.15 mm（ストップ長 0.05、設定 0.1）と押さえ板たわみ・基板沈みを引いた範囲は 0.7 mm で 0.789–1.1、0.9 mm で 0.990–1.3 mm。条件マトリクスは全板厚に 0.789–1.3 mm の広い帯を使っており、保守側で一致する。
+- **境界条件**: 接触モデルの剛体モード拘束は 3 自由度を固定するが、その拘束が荷重を持たないよう剛体成分を選ぶ方式（`a7_fixture_contact.ContactModel`）で、見かけの押さえにはならない。land は剛体・平面、初期隙間 0（反り無し）、銅箔・穴・部品の補強無し。**疑問**: 反り・初期隙間は接触集合を変えるので、受入時の平面度要求が要る。
+- **材料（ASSUMED のまま）**: 基板の曲げ弾性率 18000 MPa・ポアソン比 0.3、POM の接触許容 20 MPa と弾性率 2800 MPa、ナット係数 0.2 は出典なし。押さえ板のたわみは基板と同じ 18000 MPa（出典のある Vetronite EGS 619 は 23000 MPa）を使っており保守側。最大平均接触圧は 0.9 mm 基板で C2 15.4 MPa（許容の 77 %）。**疑問**: 旋削端の縁の応力集中・クリープ・ソルダーレジストへの圧痕は平均圧に含まれない。
+- **押さえ板のたわみ**: 27.2 mm スパンに全荷重を中央集中、幅 5 mm の帯で 0.009 mm。ノッチ脇に残る板の奥行き 9.7 mm は 5 mm より大きく、候補でも上限値のまま。
+- **位置決め（疑問・保留）**: 上の「位置決めは閉じない」。保持中の形状も同じ止め方だが、ピンが板端から遠いので影響は小さい（ノッチ隙間 0.5 mm に対し 0.4 mm）。
+- **板端の状態（疑問）**: 面付けをマウスバイトで分離すると、残った突起が x = 16.2 の基準辺（X1・X2）や C2 の近くにあれば位置決めと端余裕を崩す。タブ位置の指定か突起の除去を受入要求にする必要がある（面付けはこの変更の範囲外）。
+- **J5 ノッチの要求値**: 候補は保持中の一律 0.5 mm を局所 0.3 mm ＋公差予算に置き換えている（`a7_fixture_support.diagonal_proposal`）。CAD の公称は 0.415 mm。部品箱は courtyard 外形なので実体はさらに内側だが、要求値の変更自体は owner／独立レビューの承認事項。
+- **FEA は測定ではない**: 条件マトリクスの変位・浮き・力はすべて計算値で、実測の代わりにならない。
+
+## 治具のデジタル設計（履歴: 1.6 mm 基板時点、2026-11-11〜13、W8 で構成変更）
+
+> この節の数値（押し込み量 0.99 mm、設定 5.39 mm、ストップねじ張力 88 N、基板厚 1.44–1.76 mm など）は **1.6 mm 基板のときの記録**です。プレート構成・金物・製造性の考え方は保持中の形状にそのまま引き継いでいますが、0.8 mm 基板での現行値は `manifest.json`（保持中の形状）と `candidate-assembly-interference.json`（置換候補）を正とします。
 
 W5 のキャリアは 0.27 mm の壁と幅 0.025–0.25 mm のブリッジを持ち、一般の加工業者では作れなかった。W8 では基板・プローブを変えずに治具の構成を変えた。`scripts/a7_fixture_relief.py` が設計値を、`scripts/a7_fixture_assembly.py` が組立モデルと干渉検査を作る。
 
@@ -64,7 +121,7 @@ W5 のキャリアは 0.27 mm の壁と幅 0.025–0.25 mm のブリッジを持
 - **J5 テール長（2026-11-12）**: `fact-530470310-tail-length`（Molex 530470000-SD rev B、SECTION X-X、ハウジング座面からテール先端まで 2.3 ± 0.5 mm、PRIMARY-SPEC）を使う。B 面からの突出は 1.6 mm 基板・ハウジング密着の計算で 0.7 mm（0.2–1.2 mm）。基板厚の公差は出典がないため、隙間検査は基板厚 0（どの基板厚でも、密着または浮きなら超えない）の上限 2.8 mm で行う。J5 リードは 5 mm キャリアの窓の中で終わり、キャリア下面まで 2.2 mm、プローブ板上面まで 8.2 mm（最悪値 1.2 mm ならそれぞれ 3.8・9.8 mm）。J1/J2（PJ-324M）も同じ扱いで 3.4 mm 上限、キャリア下面まで 1.6 mm（`lead_tails`）。
 - **金物の提案（2026-11-12）**: `manifest.json` の `hardware_proposal` に materials.json の全行について出典付き候補を 1 つずつ記録した（プレート材 Vetronite EGS 619 の 3/5/6 mm 板、ETTINGER スタンドオフ 05.03.061/351、TR Fastenings の皿ねじ・キャップボルト・止めねじ、GANTER DIN 6325 ダウエル 2×6/2×16、KIPP K0318.04 スプリングプランジャ、HellermannTyton T18R と FlagTag）。資料は `sources.json` に SHA-256 付きで記録（KIPP は販売店 Marek 掲載のメーカー資料）。押さえの再設計でばね・ガイド・座金・ナイロンねじ/ナットの候補（Lee Spring、Essentra、TR ナイロンナット）は不要になり、資料一覧から外した。記録した時点ではすべて **owner 承認待ちの提案（PROPOSED_AWAITING_OWNER_APPROVAL）** で、その後 2026-11-12 にオーナーが推奨一式として承認した（上の「現在の状態」）。発注ではない。価格・在庫・納期は未取得。`hardware_proposal_complete` は全行が覆われ、資料があり、プランジャ候補が押し込み量・合計力・スリーブ端の検査を満たすときだけ true。
 
-押さえの再設計で、すべての最悪値（プランジャ力の両端、基板厚 1.44/1.76 mm、ストップ・設定の公差、押さえ板と基板のたわみ、ストップねじの予張力）で基準 1 と 3 を満たし、`fresh_native_verified` は **true**、デジタル基準 1–4 の進捗表示 `digital_criteria_1_to_4_met` も **true**（完成フラグでも発注可否でもない）。`digital_fixture_complete` は従来どおり物理の基準 5 を含めて判定し、**false**（試作・実測なし）。プランジャ力の受入測定と使用ごとの設定確認は物理項目（`physical_items`）。業者の選定、プローブ穴間 0.40 mm の加工確認、0.05 mm の位置公差を示す注記付き 2D 図面は owner/調達側の事項（`owner_and_supplier_items`。そこに残る金物の承認はオーナーが済ませた）。
+（1.6 mm 基板時点）押さえの再設計で、すべての最悪値（プランジャ力の両端、基板厚 1.44/1.76 mm、ストップ・設定の公差、押さえ板と基板のたわみ、ストップねじの予張力）で基準 1 と 3 を満たし、`fresh_native_verified` は **true**、デジタル基準 1–4 の進捗表示 `digital_criteria_1_to_4_met` も **true**（完成フラグでも発注可否でもない）。`digital_fixture_complete` は従来どおり物理の基準 5 を含めて判定し、**false**（試作・実測なし）。プランジャ力の受入測定と使用ごとの設定確認は物理項目（`physical_items`）。業者の選定、プローブ穴間 0.40 mm の加工確認、0.05 mm の位置公差を示す注記付き 2D 図面は owner/調達側の事項（`owner_and_supplier_items`。そこに残る金物の承認はオーナーが済ませた）。
 
 ## 現時点の数値と限界
 
@@ -93,8 +150,8 @@ KS-050 E08 V-30 の一次資料は FR-4/CEM1穴 Ø0.98–1.00 mm。検討穴 Ø0
 
 1. 同一PCBのfresh-native F/B pad・component外形、高さ、はんだ包絡から、局所支持と全逃げを決定。PMMAやジャックはんだ部へ荷重を逃がさない。
 2. 非対称な実形状で逆挿しを阻止する位置決めと支持経路を設計し、上記0.25 mm予算内の最悪公差を出典または明示した受入測定要求で閉じる。基板の矩形外形だけでは逆向きを防げない。
-3. 実装高さ・ストローク・最大荷重を解決し、調整法と独立した機械ストッパ、ガイド、固定具、絶縁と配線保持を設計。（W8 でデジタルに充足）
-4. 完成組立STEP/寸法図を再生成・干渉検査。現ファイルを完成品として流用しない。（W8 でデジタルに充足、物理の嵌合は未検証）
+3. 実装高さ・ストローク・最大荷重を解決し、調整法と独立した機械ストッパ、ガイド、固定具、絶縁と配線保持を設計。（1.6 mm 基板では W8 でデジタルに充足。**0.8 mm 基板の保持中の形状では未達**。置換候補は計算・CAD 上の提案で、位置決めの保留が残る）
+4. 完成組立STEP/寸法図を再生成・干渉検査。現ファイルを完成品として流用しない。（保持中の形状でデジタルに充足、物理の嵌合は未検証。置換候補の STEP は別ファイルで、基準 4 の判定には使わない）
 5. owner承認の試作ルートにより、治具/基板unit ID、測定器、raw画像・測定値付きで接触、実荷重、位置決め、ストローク、損傷を試験。観測はすべて NOT_MEASURED。
 
 関連の #8 / #10 の物理受入は未完了（#19 はデジタルの範囲を終えて閉じた）。部品への発注・質問送信は行っていない。
