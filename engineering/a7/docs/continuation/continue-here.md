@@ -11,6 +11,15 @@
 - 基準: harness-depth（55 ± 3 mm）と cv-noise は旧受入を引き継がず未決。試作ルート（owner_prototype_route）は新しい identity で BLOCKED。
 - 証跡: `engineering/a7/verification/electrical_review.md`、`mechanical/README.md`、`fixture/condition-matrix.json`、`qualification/readiness.json`。
 
+## 現在の次作業（2026-11-22、試作発注レビューパッケージ: #89–#92）
+
+親 #15 の子 T1 #89（注文手順と段階の訂正）、T2 #90（治具候補のデジタル CAD）、T3 #91（調達・工場レビュー入力）、T4 #92（レビューパッケージの固定）で進めます。
+
+- **現行の日付付きセット**は `engineering/a7/jlc-package/package-sets.json` の `current` が指す `jlc-package/review/2026-11-22/`（REVIEW_ONLY_NOT_FOR_ORDER）です。`order/2026-11-13/` は旧基板（controller 1.6 mm、leaf 0.6 mm）の履歴で、アップロードしません。生成器は旧セットを現行にすること、ルート承認なしの PROTOTYPE_UPLOAD_APPROVED、記録済みセットのバイト変更を拒否します。
+- **PCB_ORDER の段階で残るもの**: 現在の識別セットと 2 台分に対するオーナーの試作ルート承認（`owner_prototype_route`）、注文画面の確認（`jlc-package/order-form-checklist.md`: 中心・回転、数量、JLC04081H-3313 の明示選択、ENIG・露出銅・mask・tented via、自前パネルの受入）、D3 BAS70-04-7-F（C134375）の在庫不足（2026-11-22 の掲載在庫 1 / 必要 2）への対応、power adapter の表面処理・色・材料（`power-adapter-a5-settings-unspecified`）。
+- **BENCH の段階**: 治具の準備と接触（criterion 5）、ハーネス基準（電源ケーブル 55 ± 3 mm、52–58 mm）、CV ノイズ基準、ラック金具、LED タイミング（#13）、実効容量、物理手順。
+- **RELEASE の段階**: 物理評価の後の別の製造リリース判断。readiness の 44 ゲートは発注前の作業数ではありません。
+
 ## 現行方針: 0.8 mm rigid FR-4 への設計変更（2026-11-17 JST）
 
 親 [#15](https://github.com/Takazudo/zudo-led-block/issues/15) の新しい変更を [#87](https://github.com/Takazudo/zudo-led-block/issues/87) で追跡します。透明PCBをrigid FR-4の代替と考えていましたが、実際は薄いflex PCBだったため、透明PET/FPC案は撤回しました。普通のrigid FR-4基材のくすんだ半透明性を試します。透過率、拡散、実物の見え方は未測定です。
@@ -23,7 +32,9 @@
 
 PET供給元への質問は履歴として保管し、現行FR-4案の前提条件・次作業から外します。実機の透過性・熱・電気動作・組立・治具接触・収まりは別の物理作業です。A5は不変、A6 #7 / draft PR #14は保留。発注、supplier連絡、書込み・通電、別deploy、hosting/security設定変更は行いません。
 
-## 次に進める順序
+## #87 で実施した順序（完了・履歴。繰り返さない）
+
+PR #88 で 1–5 のデジタル範囲は完了しました。以下は当時の手順の記録です。
 
 1. #87 のbranchでPCB、実stackup、全層GND接続、mask保護領域を確定し、2HP/3HPの選定根拠を記録する。
 2. 新leafをnative gate/interfaceに追加し、ERC/parity/DRC/未接続/refill/再生成保護とrouting再現を検証する。旧In1 GND面を前提にした電気レビューは引き継がない。

@@ -10,6 +10,10 @@ electrical result. `engineering/a5/` stays the immutable A5 checkpoint; A7 never
 Start with [`docs/continuation/continue-here.md`](docs/continuation/continue-here.md) for the current state,
 next actions and blockers, and [`docs/continuation/evidence-index.md`](docs/continuation/evidence-index.md) for every evidence set.
 
+## 現在の状態（2026-11-22）
+
+PR #88 で 0.8 mm rigid FR-4・3HP のデジタル設計を統合しました（2HP は不採用、PET/FPC は撤回）。現在の基板は制御基板 `d83691d6…db2b`（0.8 mm 4 層、JLC04081H-3313）と LED leaf `bcf2e35d…94cf9`（0.8 mm 2 層）、power adapter は A5 のままです。現在のレビュー用ファイルセットは `jlc-package/review/2026-11-22/`（REVIEW_ONLY / NOT FOR ORDER、`jlc-package/package-sets.json` が現行を指す）です。下の 2026-11-17 の方針の「2HP を優先」は当時の評価順序で、結果は 3HP 採用です。段階ごとの残作業は [`continue-here.md`](docs/continuation/continue-here.md) の冒頭にあります。
+
 ## 現行方針: 0.8 mm rigid FR-4 への設計変更（2026-11-17 JST）
 
 親 [#15](https://github.com/Takazudo/zudo-led-block/issues/15) の新しい変更を [#87](https://github.com/Takazudo/zudo-led-block/issues/87) で追跡します。透明PCBをrigid FR-4の代替と考えていましたが、実際は薄いflex PCBだったため、透明PET/FPC案は撤回しました。普通のrigid FR-4基材のくすんだ半透明性を試します。透過率、拡散、実物の見え方は未測定です。
